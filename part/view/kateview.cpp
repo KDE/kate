@@ -129,7 +129,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
   QWidget *barParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
-  
+
   m_externalViewBar=barParent;
 
   m_viewBar=new KateViewBar (m_externalViewBar?barParent:this,this);
@@ -605,7 +605,7 @@ void KateView::setupActions()
 
   slotSelectionChanged ();
 
-  //Now setup the editing actions before adding the associated 
+  //Now setup the editing actions before adding the associated
   //widget and setting the shortcut context
   setupEditActions();
 
@@ -873,6 +873,15 @@ void KateView::setupEditActions()
           << QKeySequence(Qt::SHIFT + Qt::Key_Backspace);
     a->setShortcuts(scuts);
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
+    m_editActions << a;
+
+    a = ac->addAction("smart_newline");
+    a->setText(i18n("Insert Smart Newline"));
+    scuts.clear();
+    scuts << QKeySequence(Qt::SHIFT + Qt::Key_Return)
+          << QKeySequence(Qt::SHIFT + Qt::Key_Enter);
+    a->setShortcuts(scuts);
+    connect(a, SIGNAL(triggered(bool)), SLOT(smartNewline()));
     m_editActions << a;
 
 #if 0
@@ -2371,6 +2380,12 @@ void KateView::keyReturn( )
 {
   QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doReturn();
+}
+
+void KateView::smartNewline( )
+{
+  QMutexLocker l(m_doc->smartMutex());
+  m_viewInternal->doSmartNewline();
 }
 
 void KateView::backspace( )

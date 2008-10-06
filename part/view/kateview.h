@@ -424,6 +424,7 @@ class KateView : public KTextEditor::View,
 
     // Note - the following functions simply forward to KateViewInternal
     void keyReturn();
+    void smartNewline();
     void backspace();
     void deleteWordLeft();
     void keyDelete();

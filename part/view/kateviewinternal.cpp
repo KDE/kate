@@ -769,6 +769,26 @@ void KateViewInternal::doReturn()
   updateView();
 }
 
+void KateViewInternal::doSmartNewline()
+{
+  int ln = m_cursor.line();
+  KateTextLine::Ptr line = m_doc->kateTextLine(ln);
+  int col = qMin(m_cursor.column(), line->firstChar());
+  if (col != -1) {
+    while (line->length() > col &&
+            !line->at(col).isLetterOrNumber() &&
+            col < m_cursor.column()) ++col;
+  } else {
+    col = line->length(); // stay indented
+  }
+  m_doc->editStart();
+  m_doc->editWrapLine(ln, m_cursor.column());
+  m_doc->insertText(KTextEditor::Cursor(ln + 1, 0), line->string(0, col));
+  m_doc->editEnd();
+
+  updateView();
+}
+
 void KateViewInternal::doDelete()
 {
   m_doc->del( m_view, m_cursor );
@@ -2267,34 +2287,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     doReturn();
     e->accept();
-    return;
-  }
-
-  if ((key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter))
-  {
-    int ln = m_cursor.line();
-    int col = m_cursor.column();
-    KateTextLine::Ptr line = m_doc->kateTextLine( ln );
-    int pos = line->firstChar();
-    if (pos > m_cursor.column()) pos = m_cursor.column();
-    if (pos != -1) {
-      while (line->length() > pos &&
-             !line->at(pos).isLetterOrNumber() &&
-             pos < m_cursor.column()) ++pos;
-    } else {
-      pos = line->length(); // stay indented
-    }
-    m_doc->editStart();
-    m_doc->insertText( KTextEditor::Cursor(m_cursor.line(), line->length()), '\n' +  line->string(0, pos)
-      + line->string().right( line->length() - m_cursor.column() ) );
-    m_cursor.setPosition(KTextEditor::Cursor(ln + 1, pos));
-    if (col < int(line->length()))
-      m_doc->editRemoveText(ln, col, line->length() - col);
-    m_doc->editEnd();
-    updateCursor(m_cursor, true);
-    updateView();
-    e->accept();
-
     return;
   }
 

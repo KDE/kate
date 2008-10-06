@@ -79,52 +79,8 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     return true;
   }
 
-  int mods = e->modifiers();
-  QChar key;
-
-  // special keys
-  if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
-      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
-    QString keyPress;
-
-    keyPress.append( '<' );
-    keyPress.append( ( mods & Qt::ShiftModifier ) ? "s-" : "" );
-    keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
-    keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
-    keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
-    keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : m_keyParser->qt2vi( keyCode ) );
-    //keyPress.append( m_keyParser->qt2vi( keyCode ) );
-    keyPress.append( '>' );
-
-    key = m_keyParser->encodeKeySequence( keyPress ).at( 0 );
-  }
-  else {
-      //maybe we have a non-latin letter, try to convert to latin charachter
-      //note that non-latin letter in Latin layout can be a punctuation character (also some punctuation differs too)
-      QChar tempChar(text.at(0));
-      //don't touch latin keys
-      if (keyCode < Qt::Key_A || keyCode > Qt::Key_Z)
-      {
-          char ch = m_keyParser->scanCodeToChar(e->nativeScanCode(), e->modifiers(), tempChar.isLetter());
-          if (ch != 0)
-          {
-              key = QChar(ch);
-              if (key.isLetter())
-              {
-                if (tempChar.isUpper())
-                    key = QChar(ch).toUpper();
-                else
-                    key = QChar(ch).toLower(); //scanCodeToChar returns lower, but we don't want to depend on it
-              }
-          }
-          else
-              key = tempChar;
-      }
-      else
-          key = tempChar;
-    kDebug( 13070 ) << key << "(" << keyCode << ")";
-  }
-
+  QChar key = m_keyParser->KeyEventToQChar(*e);
+  kDebug( 13070 ) << key << "(" << keyCode << ")";
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;

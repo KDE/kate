@@ -20,6 +20,7 @@
 
 #include "katevikeysequenceparser.h"
 #include <QStringList>
+#include <QKeyEvent>
 
 KateViKeySequenceParser::KateViKeySequenceParser()
 {
@@ -467,7 +468,7 @@ QString KateViKeySequenceParser::qt2vi( int key ) const
   return ( m_qt2katevi->contains( key ) ? m_qt2katevi->value( key ) : "invalid" );
 }
 
-const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys )
+const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys ) const
 {
   QString encodedSequence;
   unsigned int keyCodeTemp = 0;
@@ -603,7 +604,7 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
   return ret;
 }
 
-char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter)
+char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const
 {
     //Do not forget to ignore letters with shift. Should work with punctuation and special characters ($, ^) only.
     //any punctuation (without shift) that has different signs in different layouts should be added to the second switch.
@@ -709,4 +710,53 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers
             return 0;
     }
     return 0;
+}
+
+const QChar KateViKeySequenceParser::KeyEventToQChar(const QKeyEvent k) const
+{
+  int keyCode = k.key();
+  QString text = k.text();
+  Qt::KeyboardModifiers mods = k.modifiers();
+  QChar key = text.at(0);
+
+  if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
+      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
+    QString keyPress;
+
+    keyPress.append( '<' );
+    keyPress.append( ( mods & Qt::ShiftModifier ) ? "s-" : "" );
+    keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
+    keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
+    keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
+    keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : qt2vi( keyCode ) );
+    keyPress.append( '>' );
+
+    key = encodeKeySequence( keyPress ).at( 0 );
+  } else {
+      //maybe we have a non-latin letter, try to convert to latin charachter
+      //note that non-latin letter in Latin layout can be a punctuation character (also some punctuation differs too)
+      QChar tempChar(text.at(0));
+      //don't touch latin keys
+      if (keyCode < Qt::Key_A || keyCode > Qt::Key_Z) {
+          char ch = scanCodeToChar(k.nativeScanCode(), mods, tempChar.isLetter());
+          if (ch != 0) {
+              key = QChar(ch);
+              if (key.isLetter()) {
+                if (tempChar.isUpper()) {
+                    key = QChar(ch).toUpper();
+                } else {
+                    key = QChar(ch).toLower(); //scanCodeToChar returns lower, but we don't want to depend on it
+                }
+              }
+          }
+          else {
+              key = tempChar;
+          }
+      }
+      else {
+          key = tempChar;
+      }
+  }
+
+  return key;
 }

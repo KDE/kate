@@ -24,6 +24,29 @@
 #include "katesmartrange.h"
 #include "katedynamicanimation.h"
 
+///Returns the first index of a range that contains @param pos, or the index of the first range that is behind pos(or ranges.count() if pos is behind all ranges)
+///The list must be sorted by the ranges end-positions.
+static int lowerBound(const QList<KTextEditor::SmartRange*>& ranges, const KTextEditor::Cursor& pos)
+{
+    int begin = 0;
+    int n = ranges.count();
+
+    int half;
+    int middle;
+
+    while (n > 0) {
+        half = n >> 1;
+        middle = begin + half;
+        if(ranges[middle]->end() > pos) {
+          n = half;
+        }else{
+          begin = middle + 1;
+          n -= half + 1;
+        }
+    }
+    return begin;
+}
+
 SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view)
   : m_currentRange(0L)
   , m_view(view)
@@ -35,6 +58,8 @@ SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateV
     m_currentPos = range->start();
   }
 }
+
+#define USE_BINARY_BOUNDARY_SEARCH
 
 KTextEditor::Cursor SmartRenderRange::nextBoundary() const
 {
@@ -50,10 +75,20 @@ KTextEditor::Cursor SmartRenderRange::nextBoundary() const
     return KTextEditor::Cursor(INT_MAX, INT_MAX);
   }
   
-  foreach (KTextEditor::SmartRange* child, r->childRanges()) {
-    if (child->start() > m_currentPos)
-      return child->start();
+#ifdef USE_BINARY_BOUNDARY_SEARCH
+  int nextChild = lowerBound(r->childRanges(), m_currentPos);
+  while(nextChild != r->childRanges().size() && r->childRanges()[nextChild]->start() <= m_currentPos)
+      ++nextChild;
+  
+  if(nextChild != r->childRanges().size() && r->childRanges()[nextChild]->start() > m_currentPos)
+    return r->childRanges()[nextChild]->start();
+#else
+  foreach(KTextEditor::SmartRange* child, r->childRanges()) {
+      if(child->start() > m_currentPos)
+          return child->start();
   }
+#endif
+  
   return m_currentRange->end();
 }
 

@@ -42,7 +42,6 @@ class KateView;
 class KateScriptManager;
 class KDirWatch;
 class KateHlManager;
-class KateCmd;
 class KatePartPluginManager;
 class KateViGlobal;
 

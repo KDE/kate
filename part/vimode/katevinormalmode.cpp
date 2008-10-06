@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 Evgeniy Ivanov <powerfox@kde.ru>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -98,15 +99,29 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     key = m_keyParser->encodeKeySequence( keyPress ).at( 0 );
   }
   else {
-      //maybe we have a non-latin character, try to convert (will be converted only if it is a letter)
+      //maybe we have a non-latin letter, try to convert to latin charachter
+      //note that non-latin letter in Latin layout can be a punctuation character (also some punctuation differs too)
+      QChar tempChar(text.at(0));
+      //don't touch latin keys
       if (keyCode < Qt::Key_A || keyCode > Qt::Key_Z)
       {
-          char ch = m_keyParser->scanCodeToChar(e->nativeScanCode ());
+          char ch = m_keyParser->scanCodeToChar(e->nativeScanCode(), e->modifiers(), tempChar.isLetter());
           if (ch != 0)
+          {
               key = QChar(ch);
+              if (key.isLetter())
+              {
+                if (tempChar.isUpper())
+                    key = QChar(ch).toUpper();
+                else
+                    key = QChar(ch).toLower(); //scanCodeToChar returns lower, but we don't want to depend on it
+              }
+          }
+          else
+              key = tempChar;
       }
       else
-          key = text.at( 0 );
+          key = tempChar;
     kDebug( 13070 ) << key << "(" << keyCode << ")";
   }
 

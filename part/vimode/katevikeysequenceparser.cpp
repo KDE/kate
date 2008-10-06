@@ -603,8 +603,38 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
   return ret;
 }
 
-char KateViKeySequenceParser::scanCodeToChar(quint32 code)
+char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter)
 {
+    //Do not forget to ignore letters with shift. Should work with punctuation and special characters ($, ^) only.
+    //any punctuation (without shift) that has different signs in different layouts should be added to the second switch.
+    if ((modifiers & Qt::ShiftModifier) && !isLetter)
+    {
+        switch(code)
+        {
+        case 10:
+            return '!';
+        case 11:
+            return '@';
+        case 12:
+            return '#';
+        case 13:
+            return '$';
+        case 14:
+            return '%';
+        case 15:
+            return '^';
+        case 16:
+            return '&';
+        case 17:
+            return '*';
+        case 18:
+            return '(';
+        case 19:
+            return ')';
+        default:
+            return '0';
+        }
+    }
     switch(code)
     {
         case 24:
@@ -678,4 +708,5 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code)
         default:
             return 0;
     }
+    return 0;
 }

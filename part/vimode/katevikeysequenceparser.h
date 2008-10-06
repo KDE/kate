@@ -37,7 +37,7 @@ class KateViKeySequenceParser {
   const QString encodeKeySequence( const QString &keys );
   const QString decodeKeySequence( const QString &keys ) const;
   QString qt2vi( int key ) const;
-  char scanCodeToChar(quint32 code);
+  char scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter);
 
   private:
   void initKeyTables();

@@ -712,11 +712,9 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers
     return 0;
 }
 
-const QChar KateViKeySequenceParser::KeyEventToQChar(const QKeyEvent k) const
+const QChar KateViKeySequenceParser::KeyEventToQChar(int keyCode, QString text,
+    Qt::KeyboardModifiers mods, quint32 nativeScanCode) const
 {
-  int keyCode = k.key();
-  QString text = k.text();
-  Qt::KeyboardModifiers mods = k.modifiers();
   QChar key = text.at(0);
 
   if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
@@ -738,7 +736,7 @@ const QChar KateViKeySequenceParser::KeyEventToQChar(const QKeyEvent k) const
       QChar tempChar(text.at(0));
       //don't touch latin keys
       if (keyCode < Qt::Key_A || keyCode > Qt::Key_Z) {
-          char ch = scanCodeToChar(k.nativeScanCode(), mods, tempChar.isLetter());
+          char ch = scanCodeToChar(nativeScanCode, mods, tempChar.isLetter());
           if (ch != 0) {
               key = QChar(ch);
               if (key.isLetter()) {

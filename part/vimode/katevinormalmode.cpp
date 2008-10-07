@@ -79,7 +79,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     return true;
   }
 
-  QChar key = m_keyParser->KeyEventToQChar(*e);
+  QChar key = m_keyParser->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
   kDebug( 13070 ) << key << "(" << keyCode << ")";
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
 

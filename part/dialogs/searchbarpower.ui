@@ -194,22 +194,22 @@
          </property>
          <item>
           <property name="text" >
-           <string>Plain Text		(Alt+1)</string>
+           <string>Plain text		(Alt+1)</string>
           </property>
          </item>
          <item>
           <property name="text" >
-           <string>Whole Words	(Alt+2)</string>
+           <string>Whole words	(Alt+2)</string>
           </property>
          </item>
          <item>
           <property name="text" >
-           <string>Escape Sequences	(Alt+3)</string>
+           <string>Escape sequences	(Alt+3)</string>
           </property>
          </item>
          <item>
           <property name="text" >
-           <string>Regular Expression	(Alt+4)</string>
+           <string>Regular expression	(Alt+4)</string>
           </property>
          </item>
         </widget>

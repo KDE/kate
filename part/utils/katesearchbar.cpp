@@ -1340,7 +1340,7 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern) {
             addMenuManager.addEntry("\\L", "", i18n("Begin lowercase conversion"));
             addMenuManager.addEntry("\\U", "", i18n("Begin uppercase conversion"));
             addMenuManager.addEntry("\\E", "", i18n("End case conversion"));
-            addMenuManager.addEntry("\\#[#..]", "", i18n("Replacement counter (for Replace all)"), "\\#");
+            addMenuManager.addEntry("\\#[#..]", "", i18n("Replacement counter (for Replace All)"), "\\#");
         }
     }
 

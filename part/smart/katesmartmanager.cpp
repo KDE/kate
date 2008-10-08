@@ -87,7 +87,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
     newRange = new KateSmartRange(translateFromRevision(range), doc(), parent, insertBehavior);
   else
     newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
-
+  
   if (internal)
     newRange->setInternal();
   if (!parent)
@@ -99,12 +99,13 @@ KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateS
 {
   QMutexLocker l(internal ? doc()->smartMutex() : 0);
 
-  if (usingRevision() != -1 && !internal) {
-    KTextEditor::Cursor tempStart = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
-    KTextEditor::Cursor tempEnd = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
-    *start = tempStart;
-    *end = tempEnd;
-  }
+//Why translate "smart" cursors? They should translate automatically!
+//   if (usingRevision() != -1 && !internal) {
+//     KTextEditor::Cursor tempStart = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+//     KTextEditor::Cursor tempEnd = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+//     *start = tempStart;
+//     *end = tempEnd;
+//   }
 
   KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehavior);
   if (internal)
@@ -320,7 +321,7 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit)
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translate(edit);
-
+    
   foreach (KateSmartCursor* cursor, m_normalCursors)
     cursor->translate(edit);
 }

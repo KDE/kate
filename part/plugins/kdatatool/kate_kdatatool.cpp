@@ -29,12 +29,13 @@
 #include <ktexteditor/document.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
+#include <kaboutdata.h>
 #include <kactionmenu.h>
 #include <klocale.h>
 //END includes
 
 K_PLUGIN_FACTORY( KDataToolPluginFactory, registerPlugin<KTextEditor::KDataToolPlugin>(); )
-K_EXPORT_PLUGIN( KDataToolPluginFactory( "ktexteditor_kdatatool", "ktexteditor_plugins" ) )
+K_EXPORT_PLUGIN( KDataToolPluginFactory( KAboutData("ktexteditor_kdatatool", "ktexteditor_plugins", ki18n("DataTool"), "0.1", ki18n("Data tool"), KAboutData::License_LGPL_V2) ) )
 
 namespace KTextEditor {
 

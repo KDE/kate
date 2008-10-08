@@ -49,6 +49,7 @@
 #include <ktoggleaction.h>
 #include <kconfiggroup.h>
 #include <kcolorscheme.h>
+#include <kaboutdata.h>
 
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
@@ -671,7 +672,7 @@ K_PLUGIN_FACTORY_DEFINITION(DocWordCompletionFactory,
         registerPlugin<DocWordCompletionConfig>("ktexteditor_docwordcompletion_config");
         registerPlugin<DocWordCompletionPlugin>("ktexteditor_docwordcompletion");
         )
-K_EXPORT_PLUGIN(DocWordCompletionFactory("ktexteditor_docwordcompletion", "ktexteditor_plugins"))
+K_EXPORT_PLUGIN(DocWordCompletionFactory(KAboutData("ktexteditor_docwordcompletion", "ktexteditor_plugins", ki18n("WordCompletion"), "0.1", ki18n("Complete words"), KAboutData::License_LGPL_V2)))
 
 #include "docwordcompletion.moc"
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

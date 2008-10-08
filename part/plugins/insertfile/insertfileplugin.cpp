@@ -31,6 +31,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
+#include <kaboutdata.h>
 #include <ktemporaryfile.h>
 #include <kurl.h>
 
@@ -38,7 +39,7 @@
 #include <QtCore/QTextStream>
 
 K_PLUGIN_FACTORY( InsertFilePluginFactory, registerPlugin<InsertFilePlugin>(); )
-K_EXPORT_PLUGIN( InsertFilePluginFactory( "ktexteditor_insertfile", "ktexteditor_plugins" ) )
+K_EXPORT_PLUGIN( InsertFilePluginFactory( KAboutData( "ktexteditor_insertfile", "ktexteditor_plugins", ki18n("Insert File"), "0.1", ki18n("Insert File"), KAboutData::License_LGPL_V2 ) ) )
 
 //BEGIN InsertFilePlugin
 InsertFilePlugin::InsertFilePlugin( QObject *parent, const QVariantList& )

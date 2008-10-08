@@ -28,9 +28,10 @@
 #include "python_encoding.moc"
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
+#include <kaboutdata.h>
 //END includes
 
 K_PLUGIN_FACTORY( KTextEditorPythonEncodingFactory, registerPlugin<KTextEditorPythonEncodingCheck>(); )
-K_EXPORT_PLUGIN( KTextEditorPythonEncodingFactory( "ktexteditor_python-encoding", "ktexteditor_plugins" ) )
+K_EXPORT_PLUGIN( KTextEditorPythonEncodingFactory( KAboutData( "ktexteditor_python-encoding", "ktexteditor_plugins", ki18n("PythonEncoding"), "0.1", ki18n("Python Encoding check"), KAboutData::License_LGPL_V2 ) ) )
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

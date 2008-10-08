@@ -73,14 +73,16 @@
 #include <ktexteditor/templateinterface.h>
 #include <krecentfilesaction.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kmenu.h>
 //END Includes
 
 //BEGIN plugin + factory stuff
 
-K_EXPORT_COMPONENT_FACTORY( katefiletemplates,
-                            KGenericFactory<KateFileTemplates>( "katefiletemplates" ) )
+K_PLUGIN_FACTORY(KateFileTemplatesFactory, registerPlugin<KateFileTemplates>();)
+K_EXPORT_PLUGIN(KateFileTemplatesFactory(KAboutData("katefiletemplates","katefiletemplates",ki18n("File Templates"), "0.1", ki18n("Create files from templates"), KAboutData::License_LGPL_V2)) )
 
 //END
 
@@ -88,6 +90,8 @@ K_EXPORT_COMPONENT_FACTORY( katefiletemplates,
 PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plugin, Kate::MainWindow *mainwindow):
   Kate::PluginView(mainwindow),KXMLGUIClient(),m_plugin(plugin)
 {
+  setComponentData (KateFileTemplatesFactory::componentData());
+  setXMLFile("plugins/katefiletemplates/ui.rc");
   QAction *a = actionCollection()->addAction("settings_manage_templates");
   a->setText(i18n("&Manage Templates..."));
   connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotEditTemplate() ) );
@@ -96,8 +100,6 @@ PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plug
   actionCollection()->addAction("file_new_fromtemplate",a);
   refreshMenu();
 
-  setComponentData (KComponentData("kate"));
-  setXMLFile("plugins/katefiletemplates/ui.rc");
   mainwindow->guiFactory()->addClient (this);
 
 }
@@ -132,7 +134,7 @@ Q_DECLARE_METATYPE(TemplateInfo*)
 //END TemplateInfo
 
 //BEGIN KateFileTemplates
-KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
+KateFileTemplates::KateFileTemplates( QObject* parent, const QList<QVariant> &dummy)
     : Kate::Plugin ( (Kate::Application*)parent)
 {
     Q_UNUSED(dummy)

@@ -88,7 +88,7 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
   Q_OBJECT
   Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KatePluginTabBarExtension( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginTabBarExtension( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginTabBarExtension();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

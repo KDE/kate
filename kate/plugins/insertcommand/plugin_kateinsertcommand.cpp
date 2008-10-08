@@ -43,7 +43,9 @@
 #include <kmessagebox.h>
 #include <k3process.h>
 #include <kstandarddirs.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kauthorized.h>
 //END includes
 

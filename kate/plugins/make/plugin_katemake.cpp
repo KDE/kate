@@ -58,14 +58,18 @@
 
 #include <kate/toolviewmanager.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 
-K_EXPORT_COMPONENT_FACTORY( katemakeplugin, KGenericFactory<PluginKateMake>( "katemake" ) )
+K_PLUGIN_FACTORY(KateMakeFactory, registerPlugin<PluginKateMake>();)
+K_EXPORT_PLUGIN(KateMakeFactory(KAboutData("katemake","katemake",ki18n("Make support"), "0.1", ki18n("Run make"), KAboutData::License_LGPL_V2)) )
+
 
 // #define FUNCTIONSETUP kDebug() ;
 #define FUNCTIONSETUP
 
-PluginKateMake::PluginKateMake( QObject* parent, const char* name, const QStringList& )
+PluginKateMake::PluginKateMake( QObject* parent, const char* name, const QList<QVariant>& )
 	: Kate::Plugin ( (Kate::Application *)parent, name )
 {
 	FUNCTIONSETUP;
@@ -336,6 +340,9 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 	running_indicator(0L)
 {
 	FUNCTIONSETUP;
+        setComponentData(KateMakeFactory::componentData());
+	setXMLFile(QString::fromLatin1("plugins/katemake/ui.rc"));
+
 
 	m_proc=0;
 	(void) new KAction ( i18n("Next Error"), KShortcut(Qt::ALT+Qt::CTRL+Qt::Key_Right),
@@ -354,10 +361,7 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 		this, SLOT( slotConfigure() ),
 		actionCollection(), "make_settings" );
 
-	setComponentData(KComponentData("kate"));
-	setXMLFile(QString::fromLatin1("plugins/katemake/ui.rc"));
-
-
+	
 	setFocusPolicy(Qt::NoFocus);
 	setSorting(COL_LINE);
 

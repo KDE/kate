@@ -141,7 +141,7 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
   Q_OBJECT
   Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KatePluginSymbolViewer( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginSymbolViewer( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginSymbolViewer();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

@@ -26,9 +26,13 @@
 #include <klocale.h>
 #include <cassert>
 #include <kdebug.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 
-K_EXPORT_COMPONENT_FACTORY( katehtmltoolsplugin, KGenericFactory<PluginKateHtmlTools>( "katehtmltools" ) )
+K_PLUGIN_FACTORY(KateHtmlToolsFactory, registerPlugin<KateHtmlTools>();)
+K_EXPORT_PLUGIN(KateHtmlToolsFactory(KAboutData("katehtmltools","katehtmltools",ki18n("HTML Tools"), "0.1", ki18n("Tools to edit HTML files"), KAboutData::License_LGPL_V2)) )
+
 
 
 class PluginView : public KXMLGUIClient
@@ -39,7 +43,7 @@ class PluginView : public KXMLGUIClient
     Kate::MainWindow *win;
 };
 
-PluginKateHtmlTools::PluginKateHtmlTools( QObject* parent, const QStringList& )
+PluginKateHtmlTools::PluginKateHtmlTools( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application *)parent, "kate-html-tools-plugin" )
 {
 }
@@ -53,13 +57,14 @@ void PluginKateHtmlTools::addView(Kate::MainWindow *win)
     // TODO: doesn't this have to be deleted?
     PluginView *view = new PluginView ();
 
+    view->setComponentData (KateHtmlToolsFactory::componentData());
+    view->setXMLFile( "plugins/katehtmltools/ui.rc" );
+
     QAction *a = view->actionCollection()->addAction("edit_HTML_tag");
     a->setText(i18n("HT&ML Tag..."));
     a->setShortcut( Qt::ALT + Qt::Key_Minus );
     connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotEditHTMLtag() ) );
 
-    view->setComponentData (KComponentData("kate"));
-    view->setXMLFile( "plugins/katehtmltools/ui.rc" );
     win->guiFactory()->addClient (view);
     view->win = win;
 

@@ -39,12 +39,15 @@
 #include <kmessagebox.h>
 #include <KToolInvocation>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kauthorized.h>
 
-K_EXPORT_COMPONENT_FACTORY( katemailfilesplugin, KGenericFactory<KateMailFilesPlugin>( "katemailfilesplugin" ) )
+K_PLUGIN_FACTORY(KateMailFilesFactory, registerPlugin<KateMailFilesPlugin>();)
+K_EXPORT_PLUGIN(KateMailFilesFactory(KAboutData("katemailfilesplugin","katemailfilesplugin",ki18n("Mail Files"), "0.1", ki18n("Support mailing files"), KAboutData::License_LGPL_V2)) )
 
-KateMailFilesPlugin::KateMailFilesPlugin( QObject* parent, const QStringList& ):
+KateMailFilesPlugin::KateMailFilesPlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {}
 
@@ -56,10 +59,10 @@ Kate::PluginView *KateMailFilesPlugin::createView (Kate::MainWindow *mainWindow)
 KateMailFilesPluginView::KateMailFilesPluginView (Kate::MainWindow *mainWindow)
     : Kate::PluginView (mainWindow)
 {
+  setComponentData (KateMailFilesFactory::componentData());
+  setXMLFile("plugins/katemailfiles/ui.rc");
   actionCollection()->addAction( KStandardAction::Mail, this, SLOT(slotMail()) )
   ->setWhatsThis(i18n("Send one or more of the open documents as email attachments."));
-  setComponentData (KComponentData("kate"));
-  setXMLFile("plugins/katemailfiles/ui.rc");
   mainWindow->guiFactory()->addClient (this);
 }
 

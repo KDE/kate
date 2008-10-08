@@ -39,7 +39,7 @@ class KateFindInFilesPlugin: public Kate::Plugin
 
     static KateFindInFilesPlugin* s_self;
   public:
-    explicit KateFindInFilesPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateFindInFilesPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateFindInFilesPlugin();
 
     static KateFindInFilesPlugin* self();

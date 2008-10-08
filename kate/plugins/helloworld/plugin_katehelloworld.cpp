@@ -8,11 +8,14 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <klocale.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 
-K_EXPORT_COMPONENT_FACTORY( katehelloworldplugin, KGenericFactory<KatePluginHelloWorld>("katehelloworld") )
+K_PLUGIN_FACTORY(KatePluginHelloWorldFactory, registerPlugin<KatePluginHelloWorld>();)
+K_EXPORT_PLUGIN(KatePluginHelloWorldFactory(KAboutData("katehelloworld","katehelloworld",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
 
-KatePluginHelloWorld::KatePluginHelloWorld( QObject* parent, const QStringList& )
+KatePluginHelloWorld::KatePluginHelloWorld( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin( (Kate::Application*)parent, "kate-hello-world-plugin" )
 {
 }
@@ -30,7 +33,7 @@ Kate::PluginView *KatePluginHelloWorld::createView( Kate::MainWindow *mainWindow
 KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *mainWin )
     : Kate::PluginView( mainWin )
 {
-  setComponentData( KComponentData("kate") );
+  setComponentData( KatePluginHelloWorldFactory::componentData() );
   setXMLFile( "plugins/katehelloworld/ui.rc" );
 
   KAction *a = actionCollection()->addAction( "edit_insert_helloworld" );

@@ -44,7 +44,9 @@
 #include <kaction.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kfiledialog.h>
 #include <ktoggleaction.h>
 #include <kactioncollection.h>
@@ -56,7 +58,8 @@
 #include <QResizeEvent>
 #include <QMenu>
 
-K_EXPORT_COMPONENT_FACTORY( katesymbolviewerplugin, KGenericFactory<KatePluginSymbolViewer>( "katesymbolviewer" ) )
+K_PLUGIN_FACTORY(KateSymbolViewerFactory, registerPlugin<KatePluginSymbolViewer>();)
+K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View symbols"), KAboutData::License_LGPL_V2)) )
 
 
 KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (Kate::MainWindow *w)
@@ -77,14 +80,14 @@ KatePluginSymbolViewerView* KatePluginSymbolViewerView2::view()
 
 KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
 {
+    setComponentData (KateSymbolViewerFactory::componentData());
+    setXMLFile("plugins/katesymbolviewer/ui.rc");
     KGlobal::locale()->insertCatalog("katesymbolviewer");
     KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
     act->setText(i18n("Hide Symbols"));
     connect(act,SIGNAL(toggled( bool )),this,SLOT(slotInsertSymbol()));
     act->setCheckedState(KGuiItem(i18n("Show Symbols")));
 
-    setComponentData (KComponentData("kate"));
-    setXMLFile("plugins/katesymbolviewer/ui.rc");
     w->guiFactory()->addClient (this);
   win = w;
   symbols = 0;
@@ -282,7 +285,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
 
-KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QStringList& )
+KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" ),
     pConfig("katesymbolviewerpluginrc")
 {

@@ -24,7 +24,9 @@
 #include "btfileindexer.h"
 
 #include <klocale.h>          // i18n
-#include <kgenericfactory.h>  // K_EXPORT_COMPONENT_FACTORY
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <KStandardDirs>
 #include <ktexteditor/view.h>
 #include <kdebug.h>
@@ -40,7 +42,9 @@
 
 //END Includes
 
-K_EXPORT_COMPONENT_FACTORY( katebacktracebrowserplugin, KGenericFactory<KateBtBrowserPlugin>( "katebacktracebrowserplugin" ) )
+K_PLUGIN_FACTORY(KateBtBrowserFactory, registerPlugin<KateBtBrowserPlugin>();)
+K_EXPORT_PLUGIN(KateBtBrowserFactory(KAboutData("katebacktracebrowserplugin","katebacktracebrowserplugin",ki18n("Backtrace Browser"), "0.1", ki18n("Browsing backtraces"), KAboutData::License_LGPL_V2)) )
+
 
 KateBtBrowserPlugin* KateBtBrowserPlugin::s_self = 0L;
 static QStringList fileExtensions =
@@ -49,7 +53,7 @@ static QStringList fileExtensions =
                   << "*.moc";
 
 
-KateBtBrowserPlugin::KateBtBrowserPlugin( QObject* parent, const QStringList&)
+KateBtBrowserPlugin::KateBtBrowserPlugin( QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ( (Kate::Application*)parent )
   , Kate::PluginConfigPageInterface()
   , indexer(&db)

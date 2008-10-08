@@ -51,7 +51,9 @@
 #include <kdialog.h>
 #include <kdiroperator.h>
 #include <kfileitem.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
@@ -68,9 +70,10 @@
 #include <kdeversion.h>
 //END Includes
 
-K_EXPORT_COMPONENT_FACTORY( katefilebrowserplugin, KGenericFactory<KateFileSelectorPlugin>( "katefilebrowserplugin" ) )
+K_PLUGIN_FACTORY(KateFileSelectorFactory, registerPlugin<KateFileSelectorPlugin>();)
+K_EXPORT_PLUGIN(KateFileSelectorFactory(KAboutData("katefilebrowserplugin","katefilebrowserplugin",ki18n("Filesystem Browser"), "0.1", ki18n("Browse through the filesystem"), KAboutData::License_LGPL_V2)) )
 
-KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QStringList&):
+KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QList<QVariant>&):
     Kate::Plugin ( (Kate::Application*)parent )
 {}
 

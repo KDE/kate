@@ -34,11 +34,13 @@
 
 #include <kconfig.h>
 #include <kdebug.h>
-#include <kgenericfactory.h>
-#include <klibloader.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <klocale.h>
 
-K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFilesPlugin>( "katefindinfilesplugin" ) )
+K_PLUGIN_FACTORY(KateFindInFilesFactory, registerPlugin<KateFindInFilesPlugin>();)
+K_EXPORT_PLUGIN(KateFindInFilesFactory(KAboutData("katefindinfilesplugin","katefindinfilesplugin",ki18n("Find In Files"), "0.1", ki18n("search through files in the filesystem"), KAboutData::License_LGPL_V2)) )
 
 KateFindInFilesPlugin* KateFindInFilesPlugin::s_self = 0;
 
@@ -47,7 +49,7 @@ KateFindInFilesPlugin* KateFindInFilesPlugin::self()
   return s_self;
 }
 
-KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QStringList& )
+KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QList<QVariant>& )
   : Kate::Plugin ( (Kate::Application*)parent )
   , m_grepCommand(0)
 {
@@ -111,7 +113,7 @@ KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
   , m_findDialog(0)
 {
   // this must be called before putting anything into actionCollection()
-  setComponentData(KComponentData("kate"));
+  setComponentData(KateFindInFilesFactory::componentData());
 
   QAction* a = actionCollection()->addAction("findinfiles_edit_find_in_files");
   a->setIcon(KIcon("edit-find"));

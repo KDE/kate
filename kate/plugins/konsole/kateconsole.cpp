@@ -45,13 +45,15 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 
-#include <kgenericfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 
-K_EXPORT_COMPONENT_FACTORY( katekonsoleplugin, KGenericFactory<KateKonsolePlugin>( "katekonsoleplugin" ) )
+K_PLUGIN_FACTORY(KateKonsoleFactory, registerPlugin<KateKonsolePlugin>();)
+K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsoleplugins","katekonsoleplugins",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
 
-KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QStringList& ):
+KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {
   if (!KAuthorized::authorizeKAction("shell_access"))

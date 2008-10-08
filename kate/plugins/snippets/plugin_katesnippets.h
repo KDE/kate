@@ -33,7 +33,7 @@ class KatePluginSnippets : public Kate::Plugin
   Q_OBJECT
 
   public:
-    explicit KatePluginSnippets( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginSnippets( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginSnippets();
 
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );

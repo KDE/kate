@@ -33,17 +33,20 @@
 #include <kactioncollection.h>
 
 #include <kurl.h>
-#include <klibloader.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 
-#include <kgenericfactory.h>
+#include <kpluginloader.h>
+#include <kpluginfactory.h>
+#include <kaboutdata.h>
 #include <kauthorized.h>
 
-K_EXPORT_COMPONENT_FACTORY( kateexternaltoolsplugin, KGenericFactory<KateExternalToolsPlugin>( "kateexternaltoolsplugin" ) )
+K_PLUGIN_FACTORY(KateExternalToolsFactory, registerPlugin<KateExternalToolsPlugin>();)
+K_EXPORT_PLUGIN(KateExternalToolsFactory(KAboutData("kateexternaltoolsplugin","kateexternaltoolsplugin",ki18n("External Tools"), "0.1", ki18n("Run external tools"), KAboutData::License_LGPL)) )
 
-KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QStringList& ):
+
+KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {}
 
@@ -96,7 +99,9 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
   externalTools = 0;
 
   if (KAuthorized::authorizeKAction("shell_access"))
-  {
+ 
+    setComponentData(KateExternalToolsFactory::componentData());
+    setXMLFile("plugins/kateexternaltools/ui.rc"); {
     KTextEditor::CommandInterface* cmdIface =
       qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
     if( cmdIface )
@@ -106,8 +111,6 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
     actionCollection()->addAction("tools_external", externalTools);
     externalTools->setWhatsThis( i18n("Launch external helper applications") );
 
-    setComponentData(KComponentData("kate"));
-    setXMLFile("plugins/kateexternaltools/ui.rc");
   }
 
   mainWindow->guiFactory()->addClient (this);

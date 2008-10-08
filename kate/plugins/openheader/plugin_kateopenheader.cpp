@@ -23,7 +23,9 @@
 #include <ktexteditor/document.h>
 
 #include <QFileInfo>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kaction.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -32,18 +34,19 @@
 #include <kactioncollection.h>
 
 
-K_EXPORT_COMPONENT_FACTORY( kateopenheaderplugin, KGenericFactory<PluginKateOpenHeader>( "kateopenheader" ) )
+K_PLUGIN_FACTORY(KateOpenHeaderFactory, registerPlugin<PluginKateOpenHeader>();)
+K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
 
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,Kate::MainWindow *mainwindow): Kate::PluginView(mainwindow),KXMLGUIClient()
 {
+    setComponentData (KateOpenHeaderFactory::componentData());
+    setXMLFile( "plugins/kateopenheader/ui.rc" );
     QAction *a = actionCollection()->addAction("file_openheader");
     a->setText(i18n("Open .h/.cpp/.c"));
     a->setShortcut( Qt::Key_F12 );
     connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotOpenHeader() ) );
 
-    setComponentData (KComponentData("kate"));
-    setXMLFile( "plugins/kateopenheader/ui.rc" );
     mainwindow->guiFactory()->addClient (this);
 }
 
@@ -54,7 +57,7 @@ PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 }
 
 
-PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QStringList& )
+PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application *)parent, "open-header-plugin" )
 {
 }

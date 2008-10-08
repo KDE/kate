@@ -62,7 +62,7 @@ class KateFileTemplates : public Kate::Plugin
   Q_OBJECT
 
   public:
-    KateFileTemplates( QObject* parent = 0, const QStringList& dummy=QStringList());
+    KateFileTemplates( QObject* parent = 0, const QList<QVariant>& dummy=QList<QVariant>());
     virtual ~KateFileTemplates();
     
     virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);

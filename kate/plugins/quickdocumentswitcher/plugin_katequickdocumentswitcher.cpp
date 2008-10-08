@@ -22,7 +22,9 @@
 
 #include <ktexteditor/document.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 
 #include <klineedit.h>
 #include <kactioncollection.h>
@@ -38,11 +40,12 @@
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
-K_EXPORT_COMPONENT_FACTORY( katequickdocumentswitcherplugin, KGenericFactory<PluginKateQuickDocumentSwitcher>( "katequickdocumentswitcher" ) )
+K_PLUGIN_FACTORY(KateQuickDocumentSwitcherFactory, registerPlugin<PluginKateQuickDocumentSwitcher>();)
+K_EXPORT_PLUGIN(KateQuickDocumentSwitcherFactory(KAboutData("katequickdocumentswitcher","katequickdocumentswitcher",ki18n("Quick Document Switcher"), "0.1", ki18n("Quickly switch between documents"), KAboutData::License_LGPL_V2)) )
 
 //BEGIN: Plugin
 
-PluginKateQuickDocumentSwitcher::PluginKateQuickDocumentSwitcher( QObject* parent , const QStringList&):
+PluginKateQuickDocumentSwitcher::PluginKateQuickDocumentSwitcher( QObject* parent , const QList<QVariant>&):
     Kate::Plugin ( (Kate::Application *)parent, "kate-quick-document-switcher-plugin" ) {
 }
 
@@ -59,13 +62,13 @@ Kate::PluginView *PluginKateQuickDocumentSwitcher::createView (Kate::MainWindow 
 PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::MainWindow *mainwindow):
     Kate::PluginView(mainwindow),KXMLGUIClient() {
 
+    setComponentData (KateQuickDocumentSwitcherFactory::componentData());
+    setXMLFile( "plugins/katequickdocumentswitcher/ui.rc" );
     QAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1) );
     connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotQuickSwitch() ) );
 
-    setComponentData (KComponentData("kate"));
-    setXMLFile( "plugins/katequickdocumentswitcher/ui.rc" );
     mainwindow->guiFactory()->addClient (this);
 
 }

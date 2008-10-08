@@ -11,7 +11,7 @@ class KatePluginHelloWorld : public Kate::Plugin
   Q_OBJECT
 
   public:
-    explicit KatePluginHelloWorld( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginHelloWorld( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginHelloWorld();
 
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );

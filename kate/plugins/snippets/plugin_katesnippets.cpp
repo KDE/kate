@@ -24,14 +24,17 @@
 
 #include <kaction.h>
 #include <klocale.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 #include <kiconloader.h>
 
 // let the world know ...
-K_EXPORT_COMPONENT_FACTORY( katesnippetsplugin, KGenericFactory<KatePluginSnippets>( "katesnippets" ) )
+K_PLUGIN_FACTORY(KateSnippetsFactory, registerPlugin<KatePluginSnippets>();)
+K_EXPORT_PLUGIN(KateSnippetsFactory(KAboutData("katesnippets","katesnippets",ki18n("Snippets"), "0.1", ki18n("Insert code snippets int the document"), KAboutData::License_LGPL_V2)) )
 
 
-KatePluginSnippets::KatePluginSnippets( QObject* parent, const QStringList& )
+KatePluginSnippets::KatePluginSnippets( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application*)parent, "KatePluginSnippets" ) {}
 
 KatePluginSnippets::~KatePluginSnippets() {}
@@ -45,6 +48,8 @@ Kate::PluginView *KatePluginSnippets::createView( Kate::MainWindow *mainWindow )
 KatePluginSnippetsView::KatePluginSnippetsView( Kate::MainWindow *mainWin )
     : Kate::PluginView( mainWin )
 {
+  setComponentData( KateSnippetsFactory::componentData() );
+  setXMLFile( "plugins/katesnippets/plugin_katesnippets.rc" );
   m_dock = mainWindow()->createToolView(
     "kate_plugin_snippets",
     Kate::MainWindow::Left,
@@ -56,8 +61,6 @@ KatePluginSnippetsView::KatePluginSnippetsView( Kate::MainWindow *mainWin )
   // write the settings when the user clicks Save in the widget
   connect( m_snippetsWidget, SIGNAL( saveRequested() ), this, SLOT( writeConfig() ) );
 
-  setComponentData( KComponentData("kate") );
-  setXMLFile( "plugins/katesnippets/plugin_katesnippets.rc" );
   mainWindow()->guiFactory()->addClient( this );
 
   m_config = new KConfig( "katesnippetspluginrc" );

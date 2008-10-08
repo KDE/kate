@@ -52,7 +52,7 @@ class KateFileSelectorPlugin: public Kate::Plugin, public Kate::PluginConfigPage
     Q_OBJECT
     Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KateFileSelectorPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateFileSelectorPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateFileSelectorPlugin()
     {}
 

@@ -35,7 +35,9 @@
 #include <kstandarddirs.h>
 #include <kglobalsettings.h>
 #include <kglobal.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
 
 #include <kdebug.h>
 #include <ktoolbar.h>
@@ -54,8 +56,8 @@
 //END
 
 
-K_EXPORT_COMPONENT_FACTORY( katetabbarextensionplugin,
-                            KGenericFactory<KatePluginTabBarExtension>( "katetabbarextension" ) )
+K_PLUGIN_FACTORY(KateTabBarExtensionFactory, registerPlugin<KatePluginTabBarExtension>();)
+K_EXPORT_PLUGIN(KateTabBarExtensionFactory(KAboutData("katetabbarextension","katetabbarextension",ki18n("TabBarExtension"), "0.1", ki18n("TabBar extension"), KAboutData::License_LGPL_V2)) )
 
 
 
@@ -230,7 +232,7 @@ void PluginView::slotModifiedOnDisc( KTextEditor::Document* document, bool modif
 
 //BEGIN KatePluginTabBarExtension
 KatePluginTabBarExtension::KatePluginTabBarExtension(
-    QObject* parent, const QStringList& )
+    QObject* parent, const QList<QVariant>& )
   : Kate::Plugin ( (Kate::Application*)parent),
     pConfig(new KConfig("katetabbarextensionpluginrc"))
 {

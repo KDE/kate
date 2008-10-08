@@ -38,7 +38,7 @@ class KateBtBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInt
     Q_OBJECT
     Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KateBtBrowserPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateBtBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateBtBrowserPlugin();
 
     static KateBtBrowserPlugin& self();

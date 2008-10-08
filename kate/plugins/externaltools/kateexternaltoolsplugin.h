@@ -38,7 +38,7 @@ class KateExternalToolsPlugin
     Q_INTERFACES(Kate::PluginConfigPageInterface)
 
   public:
-    explicit KateExternalToolsPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateExternalToolsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateExternalToolsPlugin()
     {}
 

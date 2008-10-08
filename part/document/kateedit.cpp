@@ -175,7 +175,12 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
     Q_ASSERT(m_revisions.contains(from));
     KateEditInfo* fromEdit = m_revisions[from];
     Q_ASSERT(fromEdit);
+    
     fromIndex = buffer()->edits().indexOf(fromEdit);
+    if(fromIndex != -1) {
+        //Since the "from" edit already known, we need to start one behind it
+        ++fromIndex;
+    }
   }
 
   KateEditInfo* toEdit = to == -1 ? buffer()->edits().last() : m_revisions[to];
@@ -184,9 +189,8 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
   int toIndex = buffer()->edits().indexOf(toEdit);
   Q_ASSERT(fromIndex != -1);
   Q_ASSERT(toIndex != -1);
-  Q_ASSERT(fromIndex <= toIndex);
 
-  for (int i = fromIndex; i < toIndex; ++i)
+  for (int i = fromIndex; i <= toIndex; ++i)
     ret.append(buffer()->edits().at(i));
 
   return ret;

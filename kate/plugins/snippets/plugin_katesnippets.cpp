@@ -31,7 +31,7 @@
 
 // let the world know ...
 K_PLUGIN_FACTORY(KateSnippetsFactory, registerPlugin<KatePluginSnippets>();)
-K_EXPORT_PLUGIN(KateSnippetsFactory(KAboutData("katesnippets","katesnippets",ki18n("Snippets"), "0.1", ki18n("Insert code snippets int the document"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateSnippetsFactory(KAboutData("katesnippets","katesnippets",ki18n("Snippets"), "0.1", ki18n("Insert code snippets into the document"), KAboutData::License_LGPL_V2)) )
 
 
 KatePluginSnippets::KatePluginSnippets( QObject* parent, const QList<QVariant>& )

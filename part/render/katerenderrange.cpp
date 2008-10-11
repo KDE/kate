@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003-2006 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -47,77 +48,139 @@ static int lowerBound(const QList<KTextEditor::SmartRange*>& ranges, const KText
     return begin;
 }
 
-SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view)
+bool KateRenderRange::isReady() const {
+    return false;
+}
+
+bool SmartRenderRange::isReady() const {
+    return !m_currentRange;
+}
+
+SmartRenderRange::SmartRenderRange(KTextEditor::SmartRange* range, const SmartRenderRange& cloneFrom) : m_currentRange(cloneFrom.m_currentRange), m_endAtRange(range), m_view(cloneFrom.m_view), m_useDynamic(cloneFrom.m_useDynamic), m_list(cloneFrom.m_list) {
+  Q_ASSERT(range);
+  addTo(range);
+  Q_ASSERT(m_currentRange == range);
+  m_currentPos = range->start();
+}
+
+SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view, RenderRangeList* list)
   : m_currentRange(0L)
   , m_view(view)
   , m_useDynamic(useDynamic)
+  , m_list(list)
 {
   Q_ASSERT(range);
-  if (range) {
-    addTo(range);
-    m_currentPos = range->start();
-  }
+  addTo(range);
+  m_currentPos = range->start();
 }
-
-#define USE_BINARY_BOUNDARY_SEARCH
 
 KTextEditor::Cursor SmartRenderRange::nextBoundary() const
 {
-  if (!m_currentRange)
+  if (!m_currentRange || m_currentRange->end() <= m_currentPos)
     return KTextEditor::Cursor(INT_MAX,INT_MAX);
+  if(m_currentPos < m_currentRange->start())
+    return m_currentRange->start();
 
-  KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(m_currentPos);
+  KTextEditor::Cursor ret = m_currentRange->end();
   
-  if(!r) {
-    if(m_currentPos < m_currentRange->start()) {
-      return m_currentRange->start();
+  for(int child = lowerBound(m_currentRange->childRanges(), m_currentPos); child != m_currentRange->childRanges().size(); ++child) {
+    KTextEditor::SmartRange* c = m_currentRange->childRanges()[child];
+    
+    if(!c->isEmpty() && !m_ignoreChildRanges.contains(c)) {
+      if(c->start() > m_currentPos) {
+        if(c->start() < ret)
+            ret = c->start();
+      
+        if(c->overlapCount() == 0)
+	       //We don't need to search on, since there is no range overlapping the given one, thus we have already found 
+	       //the nearest range-start.
+          break;
+      }
     }
-    return KTextEditor::Cursor(INT_MAX, INT_MAX);
   }
-  
-#ifdef USE_BINARY_BOUNDARY_SEARCH
-  int nextChild = lowerBound(r->childRanges(), m_currentPos);
-  while(nextChild != r->childRanges().size() && r->childRanges()[nextChild]->start() <= m_currentPos)
-      ++nextChild;
-  
-  if(nextChild != r->childRanges().size() && r->childRanges()[nextChild]->start() > m_currentPos)
-    return r->childRanges()[nextChild]->start();
-#else
-  foreach(KTextEditor::SmartRange* child, r->childRanges()) {
-      if(child->start() > m_currentPos)
-          return child->start();
-  }
-#endif
-  
-  return m_currentRange->end();
+  return ret;
 }
 
-bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
+bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos)
 {
   m_currentPos = pos;
 
   if (!m_currentRange)
     return false;
 
-  bool ret = false;
-
-  while (m_currentRange && !m_currentRange->contains(pos) && m_currentRange->parentRange()) {
-    m_attribs.pop();
+  //Go up until the position is contained in m_currentRange
+  while (m_currentRange && !m_currentRange->contains(pos) && m_currentRange->parentRange() && m_currentRange != m_endAtRange) {
     m_currentRange = m_currentRange->parentRange();
-    ret = true;
+    m_attribs.pop();
   }
 
-  if (!m_currentRange)
-    return ret;
+  if(m_currentPos >= m_currentRange->end()) {
+    m_currentRange = 0; //We're ready with this range
+    return false;
+  }
+  
+  int currentChildCount = m_currentRange->childRanges().size();
+  const QList<KTextEditor::SmartRange*>& currentChildRanges(m_currentRange->childRanges());
+  
+  int nextChild = lowerBound(currentChildRanges, pos);
+  
+  Q_ASSERT(nextChild <= currentChildCount);
+  
+  for(; nextChild < currentChildCount; ++nextChild)
+  {
+      if(m_ignoreChildRanges.contains(currentChildRanges[nextChild])) {
+        if(!currentChildRanges[nextChild]->overlapCount())
+            nextChild = currentChildCount; //No chance to find a child that contains this cursor
+        continue;
+      }
+      
+      if(!currentChildRanges[nextChild]->contains(pos)) {
+          if(currentChildRanges[nextChild]->overlapCount()) {
+              //We have a chance to find a later overlapping range that contains this cursor
+              continue;
+          }else{
+              //No chance to find a range that contains this cursor, since no range overlaps the given one
+              nextChild = currentChildCount;
+              break;
+          }
+      }else{
+        break; //We have found a child that contains pos
+      }
+  }
+  
+  if(nextChild < currentChildCount) {
+    Q_ASSERT(currentChildRanges[nextChild]->contains(pos));
+    
+    int findOverlaps = currentChildRanges[nextChild]->overlapCount();
+    
+    int overlapCandidate = nextChild+1;
+    while(findOverlaps && overlapCandidate < currentChildCount) {
+        ///@todo remove the hash, just measure where the overlaps start!
+        if(currentChildRanges[overlapCandidate]->start() < currentChildRanges[nextChild]->end()) {
+            //found an overlap
+            if(!m_ignoreChildRanges.contains(currentChildRanges[overlapCandidate])) {
+                //Create additional SmartRenderRange's for all overlaps that are not ignored, and recurse into the first one
+                SmartRenderRange* additional = new SmartRenderRange(currentChildRanges[overlapCandidate], *this);
+                Q_ASSERT(additional->m_endAtRange == currentChildRanges[overlapCandidate]);
+                Q_ASSERT(additional->m_currentRange == currentChildRanges[overlapCandidate]);
+                additional->advanceTo(pos);
+                m_list->append(additional);
+                m_ignoreChildRanges.insert(currentChildRanges[overlapCandidate]);
+            }
+            --findOverlaps;
+        }
+        ++overlapCandidate;
+    }
+    
+    
+    if(nextChild != m_currentRange->childRanges().size()) {
+        addTo(m_currentRange->childRanges()[nextChild]);
+        //Recurse, to enter all needed ranges
+        advanceTo(pos);
+    }
+  }
 
-  KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(pos);
-  if (r != m_currentRange)
-    ret = true;
-
-  if (r)
-    addTo(r);
-
-  return ret;
+  return true;
 }
 
 KTextEditor::Attribute::Ptr SmartRenderRange::currentAttribute() const
@@ -189,7 +252,7 @@ KTextEditor::Cursor NormalRenderRange::nextBoundary() const
   return KTextEditor::Cursor(INT_MAX, INT_MAX);
 }
 
-bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
+bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos)
 {
   m_currentPos = pos;
 
@@ -219,7 +282,7 @@ KTextEditor::Attribute::Ptr NormalRenderRange::currentAttribute() const
 void RenderRangeList::appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view)
 {
   foreach (KTextEditor::SmartRange* range, startingRanges)
-    append(new SmartRenderRange(static_cast<KateSmartRange*>(range), useDynamic, view));
+    append(new SmartRenderRange(static_cast<KateSmartRange*>(range), useDynamic, view, this));
 }
 
 KTextEditor::Cursor RenderRangeList::nextBoundary() const
@@ -240,14 +303,23 @@ KTextEditor::Cursor RenderRangeList::nextBoundary() const
   return ret;
 }
 
-bool RenderRangeList::advanceTo(const KTextEditor::Cursor& pos) const
+RenderRangeList::~RenderRangeList()
 {
-  bool ret = false;
+}
 
+void RenderRangeList::advanceTo(const KTextEditor::Cursor& pos)
+{
   foreach (KateRenderRange* r, *this)
-    ret |= r->advanceTo(pos);
-
-  return ret;
+    r->advanceTo(pos);
+  
+  //Delete lists that are ready, else the list may get too large due to temporaries
+  for(int a = size()-1; a >= 0; --a) {
+      KateRenderRange* r = at(a);
+      if(r->isReady()) {
+          delete r;
+          removeAt(a);
+      }
+  }
 }
 
 bool RenderRangeList::hasAttribute() const

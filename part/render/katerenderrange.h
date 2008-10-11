@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -28,33 +29,39 @@
 
 class KateSmartRange;
 class KateView;
+class RenderRangeList;
 
 class KateRenderRange
 {
   public:
     virtual ~KateRenderRange() {}
     virtual KTextEditor::Cursor nextBoundary() const = 0;
-    virtual bool advanceTo(const KTextEditor::Cursor& pos) const = 0;
+    virtual bool advanceTo(const KTextEditor::Cursor& pos) = 0;
     virtual KTextEditor::Attribute::Ptr currentAttribute() const = 0;
+    virtual bool isReady() const;
 };
 
 class SmartRenderRange : public KateRenderRange
 {
   public:
-    SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view);
+    SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view, RenderRangeList* list);
 
     virtual KTextEditor::Cursor nextBoundary() const;
-    virtual bool advanceTo(const KTextEditor::Cursor& pos) const;
+    virtual bool advanceTo(const KTextEditor::Cursor& pos);
     virtual KTextEditor::Attribute::Ptr currentAttribute() const;
+    virtual bool isReady() const;
 
   private:
+    SmartRenderRange(KTextEditor::SmartRange* range, const SmartRenderRange& cloneFrom);
     void addTo(KTextEditor::SmartRange* range) const;
 
-    mutable KTextEditor::SmartRange* m_currentRange;
+    mutable KTextEditor::SmartRange* m_currentRange, *m_endAtRange;
     mutable KTextEditor::Cursor m_currentPos;
     mutable QStack<KTextEditor::Attribute::Ptr> m_attribs;
     const KateView* m_view;
     const bool m_useDynamic;
+    RenderRangeList* m_list;
+    QSet<KTextEditor::SmartRange*> m_ignoreChildRanges;
 };
 
 typedef QPair<KTextEditor::Range*,KTextEditor::Attribute::Ptr> pairRA;
@@ -68,7 +75,7 @@ class NormalRenderRange : public KateRenderRange
     void addRange(KTextEditor::Range* range, KTextEditor::Attribute::Ptr attribute);
 
     virtual KTextEditor::Cursor nextBoundary() const;
-    virtual bool advanceTo(const KTextEditor::Cursor& pos) const;
+    virtual bool advanceTo(const KTextEditor::Cursor& pos);
     virtual KTextEditor::Attribute::Ptr currentAttribute() const;
 
   private:
@@ -80,9 +87,10 @@ class NormalRenderRange : public KateRenderRange
 class RenderRangeList : public QList<KateRenderRange*>
 {
   public:
+    ~RenderRangeList();
     void appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view);
     KTextEditor::Cursor nextBoundary() const;
-    bool advanceTo(const KTextEditor::Cursor& pos) const;
+    void advanceTo(const KTextEditor::Cursor& pos);
     bool hasAttribute() const;
     KTextEditor::Attribute generateAttribute() const;
 

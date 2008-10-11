@@ -140,6 +140,26 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   // Shortcut if there's no change :)
   if (*this == pos)
     return;
+  
+  if(m_range) {
+    KTextEditor::SmartRange* smartRange = m_range->toSmartRange();
+    
+    if(!internal && smartRange) {
+      KTextEditor::SmartCursor& start = smartRange->smartStart();
+      KTextEditor::SmartCursor& end = smartRange->smartEnd();
+      //Eventually move the other cursor first, so the smart-range cannot temporarily become an invalid range with start > end.
+      //If we let it become invalid, that will create serious consistency problems in places that depend on it, like for example
+      //the SmartRange::rangeChanged function.
+      if(this == &start) {
+        if(pos > end)
+          end.setPosition(pos);
+      }else{
+        Q_ASSERT(this == &end);
+        if(pos < start)
+          start.setPosition(pos);
+      }
+    }
+  }
 
   KTextEditor::Cursor old = *this;
 
@@ -250,6 +270,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
     // Catch corner case where the range is non-expanding, is zero length, and then the
     // start cursor would otherwise be placed before the end cursor.
     if (KTextEditor::SmartRange* range = smartRange()) {
+      
       if (&(range->smartStart()) == this) {
         if (*this == edit.start()) {
           if (range->insertBehavior() == KTextEditor::SmartRange::DoNotExpand) {
@@ -261,6 +282,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
             }
           }
         }
+      }else{
       }
     }
 

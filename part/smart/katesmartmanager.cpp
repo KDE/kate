@@ -27,17 +27,136 @@
 
 #include <kdebug.h>
 
+//Uncomment this to debug the translation of ranges. If that is enabled,
+//all ranges are first translated completely separately out of the translation process,
+//and at the end the result is compared. If the result mismatches, an assertion is triggered.
+//#define DEBUG_TRANSLATION
+
 static const int s_defaultGroupSize = 40;
 static const int s_minimumGroupSize = 20;
 static const int s_maximumGroupSize = 60;
 
 using namespace KTextEditor;
 
+static void translate(KateEditInfo* edit, Cursor& ret, SmartCursor::InsertBehavior insertBehavior)
+{
+  // NOTE: copied from KateSmartCursor::translate()
+  // If this cursor is before the edit, no action is required
+  if (ret < edit->start())
+    return;
+
+  // If this cursor is on a line affected by the edit
+  if (edit->oldRange().overlapsLine(ret.line())) {
+    // If this cursor is at the start of the edit
+    if (ret == edit->start()) {
+      // And it doesn't need to move, no action is required
+      if (insertBehavior == SmartCursor::StayOnInsert)
+        return;
+    }
+
+    // Calculate the new position
+    Cursor newPos;
+    if (edit->oldRange().contains(ret)) {
+      if (insertBehavior == SmartCursor::MoveOnInsert)
+        ret = edit->newRange().end();
+      else
+        ret = edit->start();
+
+    } else {
+      ret += edit->translate();
+    }
+
+    return;
+  }
+
+  // just need to adjust line number
+  ret.setLine(ret.line() + edit->translate().line());
+}
+
+#ifdef DEBUG_TRANSLATION
+struct KateSmartManager::KateTranslationDebugger {
+  KateTranslationDebugger(KateSmartManager* manager, KateEditInfo* edit) : m_manager(manager), m_edit(edit) {
+    manager->m_currentKateTranslationDebugger = this;
+    foreach(KateSmartRange* range, manager->m_topRanges)
+      addRange(range);
+  }
+  
+  ~KateTranslationDebugger() {
+    m_manager->m_currentKateTranslationDebugger = 0;
+  }
+  
+  void addRange(SmartRange* _range) {
+    
+    KateSmartRange* range = dynamic_cast<KateSmartRange*>(_range);
+    Q_ASSERT(range);
+    
+    RangeTranslation translation;
+    translation.from = *range;
+    KTextEditor::Cursor toStart = range->start();
+    KTextEditor::Cursor toEnd = range->end();
+    
+    translate(m_edit, toStart, (range->insertBehavior() & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+    translate(m_edit, toEnd, (range->insertBehavior() & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+    translation.to = KTextEditor::Range(toStart, toEnd);
+    
+    m_rangeTranslations[range] = translation;
+    m_cursorTranslations[&range->smartStart()] = CursorTranslation(range->start(), toStart);
+    m_cursorTranslations[&range->smartEnd()] = CursorTranslation(range->end(), toEnd);
+    
+    foreach(SmartRange* child, range->childRanges())
+      addRange(child);
+  }
+  
+  void verifyAll() {
+    for(QMap<const SmartRange*, RangeTranslation>::iterator it = m_rangeTranslations.begin(); it != m_rangeTranslations.end(); ++it) {
+      if(*it.key() != it.value().to) {
+    kDebug() << "mismatch. Translation should be:" << it.value().to << "translation is:" << *it.key() << "from:" << it.value().from;
+      kDebug() << "edit:" << m_edit->oldRange() << m_edit->newRange();
+    Q_ASSERT(0);
+      }
+    }
+  }
+  
+  void verifyChange(SmartCursor* _cursor) {
+    if(!m_cursorTranslations.contains(_cursor))
+      return;
+    return;
+    KateSmartCursor* cursor = dynamic_cast<KateSmartCursor*>(_cursor);
+    Q_ASSERT(cursor);
+    KTextEditor::Cursor realPos( cursor->m_line + cursor->m_smartGroup->m_newStartLine, cursor->m_column);
+    kDebug() << "changing cursor from" << m_cursorTranslations[cursor].from << "to" << realPos;
+
+    if(m_cursorTranslations[cursor].to != realPos) {
+      kDebug() << "mismatch. Translation of cursor should be:" << m_cursorTranslations[cursor].to << "is:" << realPos << "from:" << m_cursorTranslations[cursor].from;
+      kDebug() << "edit:" << m_edit->oldRange() << m_edit->newRange();
+      Q_ASSERT(0);
+    }
+  }
+  
+  struct RangeTranslation {
+    KTextEditor::Range from, to;
+  };
+
+  struct CursorTranslation {
+    CursorTranslation() {
+    }
+    CursorTranslation(const KTextEditor::Cursor& _from, const KTextEditor::Cursor& _to) : from(_from), to(_to) {
+    }
+    KTextEditor::Cursor from, to;
+  };
+  
+  QMap<const SmartRange*, RangeTranslation> m_rangeTranslations;
+  QMap<const SmartCursor*, CursorTranslation> m_cursorTranslations;
+  KateSmartManager* m_manager;
+  KateEditInfo* m_edit;
+};
+#endif
 KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
   , m_clearing(false)
+  , m_currentKateTranslationDebugger(0)
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
   //connect(doc(), SIGNAL(textChanged(Document*)), SLOT(verifyCorrect()));
@@ -189,7 +308,10 @@ KateSmartGroup * KateSmartManager::groupForLine( int line ) const
 void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 {
   QMutexLocker lock(doc()->smartMutex());
-
+#ifdef DEBUG_TRANSLATION
+  KateTranslationDebugger KateTranslationDebugger(this, edit);
+#endif
+///@todo: This code does not seem to respect the insert-behavior of smart-ranges!
   KateSmartGroup* firstSmartGroup = groupForLine(edit->oldRange().start().line());
   KateSmartGroup* currentGroup = firstSmartGroup;
 
@@ -247,6 +369,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     smartGroup->translateChanged(*edit);
   }
 
+
   // Cursor feedback
   bool groupChanged = true;
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
@@ -263,6 +386,10 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translatedShifted(*edit);
   }
 
+#ifdef DEBUG_TRANSLATION
+  KateTranslationDebugger.verifyAll();
+#endif
+
   // Range feedback
   foreach (KateSmartRange* range, m_topRanges) {
     KateSmartRange* mostSpecific = feedbackRange(*edit, range);
@@ -272,8 +399,11 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     range->feedbackMostSpecific(mostSpecific);
   }
 
+#ifdef DEBUG_TRANSLATION
+  KateTranslationDebugger.verifyAll();
+#endif
   //debugOutput();
-  //verifyCorrect();
+//   verifyCorrect();
 }
 
 KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )
@@ -559,41 +689,6 @@ void KateSmartManager::releaseRevision(int revision) const
 int KateSmartManager::currentRevision() const
 {
   return doc()->history()->revision();
-}
-
-static void translate(KateEditInfo* edit, Cursor& ret, SmartCursor::InsertBehavior insertBehavior)
-{
-  // NOTE: copied from KateSmartCursor::translate()
-  // If this cursor is before the edit, no action is required
-  if (ret < edit->start())
-    return;
-
-  // If this cursor is on a line affected by the edit
-  if (edit->oldRange().overlapsLine(ret.line())) {
-    // If this cursor is at the start of the edit
-    if (ret == edit->start()) {
-      // And it doesn't need to move, no action is required
-      if (insertBehavior == SmartCursor::StayOnInsert)
-        return;
-    }
-
-    // Calculate the new position
-    Cursor newPos;
-    if (edit->oldRange().contains(ret)) {
-      if (insertBehavior == SmartCursor::MoveOnInsert)
-        ret = edit->newRange().end();
-      else
-        ret = edit->start();
-
-    } else {
-      ret += edit->translate();
-    }
-
-    return;
-  }
-
-  // just need to adjust line number
-  ret.setLine(ret.line() + edit->translate().line());
 }
 
 Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior) const

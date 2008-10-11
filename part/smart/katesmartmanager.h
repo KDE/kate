@@ -102,6 +102,8 @@ class KateSmartManager : public QObject
     KateSmartGroup* m_invalidGroup;
     bool m_clearing;
     QThreadStorage<int*> m_usingRevision;
+    struct KateTranslationDebugger;
+    KateTranslationDebugger* m_currentKateTranslationDebugger;
 };
 
 /**

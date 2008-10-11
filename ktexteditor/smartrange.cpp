@@ -31,9 +31,76 @@
 
 using namespace KTextEditor;
 
-// #define DEBUG_BINARY_SEARCH
+//Uncomment this to enable debugging of the child-order. If it is enabled, an assertion will
+//be triggered when the order is violated.
+//This is slow.
+// #define SHOULD_DEBUG_CHILD_ORDER
 
-///Returns the first index of a range that contains @param pos, or the index of the first range that is behind pos(or ranges.count() if pos is behind all ranges)
+//Uncomment this to debug the m_overlapCount values. When it is enabled,
+//extensive tests will be done to verify that the values are true,
+//and an assertion is triggered when not.
+//This is very slow, especially with many child-ranges.
+// #define SHOULD_DEBUG_OVERLAP
+
+#ifdef SHOULD_DEBUG_CHILD_ORDER
+#define DEBUG_CHILD_ORDER \
+  {\
+  KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);\
+  for(int a = 0; a < m_childRanges.size(); ++a) {\
+    Q_ASSERT(m_childRanges[a]->end() >= lastEnd);\
+    lastEnd = m_childRanges[a]->end();\
+  }\
+  }\
+  
+#else
+#define DEBUG_CHILD_ORDER
+#endif
+
+#ifdef SHOULD_DEBUG_OVERLAP
+#define DEBUG_CHILD_OVERLAP  \
+{\
+  QVector<int> counter(m_childRanges.size(), 0);\
+\
+  for(int a = 0; a < m_childRanges.size(); ++a) {\
+    const SmartRange& overlapper(*m_childRanges[a]);\
+    for(int b = 0; b < a; ++b) {\
+      const SmartRange& overlapped(*m_childRanges[b]);\
+      Q_ASSERT(overlapped.end() <= overlapper.end());\
+      if(overlapped.end() > overlapper.start()) {\
+        ++counter[b];\
+      }\
+    }\
+  }\
+  for(int a = 0; a < m_childRanges.size(); ++a) {\
+    Q_ASSERT(m_childRanges[a]->m_overlapCount == counter[a]);\
+  }\
+}\
+
+#define DEBUG_PARENT_OVERLAP  \
+{\
+  QVector<int> counter(m_parentRange->m_childRanges.size(), 0);\
+\
+  for(int a = 0; a < m_parentRange->m_childRanges.size(); ++a) {\
+    const SmartRange& overlapper(*m_parentRange->m_childRanges[a]);\
+    for(int b = 0; b < a; ++b) {\
+      const SmartRange& overlapped(*m_parentRange->m_childRanges[b]);\
+      Q_ASSERT(overlapped.end() <= overlapper.end());\
+      if(overlapped.end() > overlapper.start()) {\
+        ++counter[b];\
+      }\
+    }\
+  }\
+  for(int a = 0; a < m_parentRange->m_childRanges.size(); ++a) {\
+    Q_ASSERT(m_parentRange->m_childRanges[a]->m_overlapCount == counter[a]);\
+  }\
+}\
+
+#else
+#define DEBUG_CHILD_OVERLAP
+#define DEBUG_PARENT_OVERLAP
+#endif
+
+///Returns the index of the first range that ends behind @param pos
 ///The list must be sorted by the ranges end-positions.
 static int lowerBound(const QList<SmartRange*>& ranges, const Cursor& pos)
 {
@@ -56,7 +123,8 @@ static int lowerBound(const QList<SmartRange*>& ranges, const Cursor& pos)
     return begin;
 }
 
-///Searches for the given range, or a lower bound for the given position.
+///Searches for the given range, or a lower bound for the given position. Does not work correctly in case of overlaps,
+///but for that case we have a fallback. Only for use in findIndex.
 static int lowerBoundRange(const QList<SmartRange*>& ranges, const Cursor& pos, const SmartRange* range)
 {
     int begin = 0;
@@ -110,6 +178,7 @@ SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent
   , m_attribute(0L)
   , m_parentRange(parent)
   , m_ownsAttribute(false)
+  , m_overlapCount(0)
 {
   setInsertBehavior(insertBehavior);
 
@@ -195,48 +264,52 @@ SmartRange * SmartRange::childAfter( const SmartRange * range ) const
 
 void SmartRange::insertChildRange( SmartRange * newChild )
 {
-  // This function is backwards because it's most likely the new child will go onto the end
-  // of the child list
+  DEBUG_CHILD_OVERLAP
+
   Q_ASSERT(newChild->parentRange() == this);
 
   // A new child has been added, so expand this range if required.
   expandToRange(*newChild);
-  #ifdef DEBUG_BINARY_SEARCH
-  {
-  KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);
-  for(int a = 0; a < m_childRanges.size(); ++a) {
-    Q_ASSERT(m_childRanges[a]->end() >= lastEnd);
-    lastEnd = m_childRanges[a]->end();
-  }
-  }
-  #endif
+  
+  DEBUG_CHILD_ORDER
 
-  int insertAt = lowerBound(m_childRanges, newChild->start());
-  if(insertAt != m_childRanges.size()) {
-    if(m_childRanges[insertAt]->start() < newChild->end()) {
-      //Give a warning here, because this most probably results in unwanted behavior, and is extremely hard to debug. This at least gives a clue what'is going wrong. The alternative would be an assertion.
-      kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << m_childRanges[insertAt] << "(" << *m_childRanges[insertAt] << "), the old one is trimmed." << endl;
-      m_childRanges[insertAt]->start() = newChild->end(); //Smartrange logic will trim all the other ranges out of the way
-      if(m_childRanges[insertAt]->start() != newChild->end()) {
-        m_childRanges[insertAt]->start() = newChild->end();
-        Q_ASSERT(m_childRanges[insertAt]->start() == newChild->end());
-      }
-      for(int a = insertAt; a < m_childRanges.size(); ++a) {
-        Q_ASSERT(m_childRanges[a]->start() >= newChild->end());
-      }
-    }
-  }
+  int insertAt = lowerBound(m_childRanges, newChild->end());
   m_childRanges.insert(insertAt, newChild);
   
-  #ifdef DEBUG_BINARY_SEARCH
-  {
-  KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);
-  for(int a = 0; a < m_childRanges.size(); ++a) {
-    Q_ASSERT(m_childRanges[a]->end() >= lastEnd);
-    lastEnd = m_childRanges[a]->end();
+  //Increase the overlap of previous ranges
+  for(int current = insertAt-1; current >= 0; --current) {
+    SmartRange& range(*m_childRanges[current]);
+    Q_ASSERT(range.end() <= newChild->end());
+    
+    if(range.end() > newChild->start()) {
+      if(range.m_overlapCount) {
+        --range.m_overlapCount;
+      }else{
+#ifdef SHOULD_DEBUG_OVERLAP
+        Q_ASSERT(0);
+#endif
+      }
+    }else{
+      //range.end() <= start(), The range does not overlap, and the same applies for all earlier ranges
+      break;
+    }
   }
+
+  //Increase this ranges overlap from already existing ranges
+  for(int current = insertAt+1; current < m_childRanges.size(); ++current) {
+    SmartRange& range(*m_childRanges[current]);
+    Q_ASSERT(range.end() >= newChild->end());
+    
+    if(range.start() < newChild->end())
+      ++newChild->m_overlapCount; //The range overlaps newChild
+    
+    if(!range.m_overlapCount)
+      break; //If this follower-range isn't overlapped by any other ranges, we can break here.
   }
-  #endif
+
+  DEBUG_CHILD_OVERLAP
+
+  DEBUG_CHILD_ORDER
   
   QMutableListIterator<SmartRange*> it = m_childRanges;
   it.toBack();
@@ -246,20 +319,48 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 
   foreach (SmartRangeWatcher* w, m_watchers)
     w->childRangeInserted(this, newChild);
+  
+  DEBUG_CHILD_OVERLAP
 }
 
 void SmartRange::removeChildRange(SmartRange* child)
 {
+  DEBUG_CHILD_OVERLAP
+  
   int index = findIndex(m_childRanges, child, child);
   if (index != -1) {
     m_childRanges.removeAt(index);
 
+    //Reduce the overlap with all previously overlapping ranges(parentChildren is still sorted by the old end-position)
+    for(int current = index-1; current >= 0; --current) {
+      SmartRange& range(*m_childRanges[current]);
+      Q_ASSERT(range.end() <= child->end());
+      if(range.end() <= child->start()) {
+        break; //This range did not overlap before, the same applies for all earlier ranges because of the order
+      }else{
+        if(range.m_overlapCount) {
+          --range.m_overlapCount;
+        } else {
+          //May happen with more than 64 overlaps
+#ifdef SHOULD_DEBUG_OVERLAP
+          Q_ASSERT(0);
+#endif
+        }
+      }
+    }
+    
+    DEBUG_CHILD_OVERLAP
+    
+    child->m_overlapCount = 0; //It has no neighbors any more, so no overlap
+    
     foreach (SmartRangeNotifier* n, m_notifiers)
       emit n->childRangeInserted(this, child);
 
     foreach (SmartRangeWatcher* w, m_watchers)
       w->childRangeInserted(this, child);
   }
+
+  DEBUG_CHILD_OVERLAP
 }
 
 SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
@@ -270,13 +371,28 @@ SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
   if (contains(input)) {
     int child = lowerBound(m_childRanges, input.start());
 
-    if(child != m_childRanges.size()) {
+    SmartRange* mostSpecific = 0;
+    
+    while(child != m_childRanges.size()) {
       SmartRange* r = m_childRanges[child];
-      if(r->contains(input))
-        return r->mostSpecificRange(input);
+      if(r->contains(input)) {
+        SmartRange* candidate = r->mostSpecificRange(input);
+        if(mostSpecific == 0 ||
+          ((candidate->end() - candidate->start()) < (mostSpecific->end() - mostSpecific->start())) ||
+          (candidate->end() < mostSpecific->end()))
+          mostSpecific = candidate;
+      }
+      
+      if(r->m_overlapCount == 0)
+        break;
+      
+      ++child; //We have to iterate as long as there is overlapping ranges
     }
 
-    return const_cast<SmartRange*>(this);
+    if(mostSpecific)
+      return mostSpecific;
+    else
+      return const_cast<SmartRange*>(this);
 
   } else if (parentRange()) {
     return parentRange()->mostSpecificRange(input);
@@ -305,6 +421,37 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
   }
 }
 
+int SmartRange::overlapCount() const
+{
+  return m_overlapCount;
+}
+
+QList<SmartRange*> SmartRange::deepestRangesContaining(const Cursor& pos) const
+{
+  QList<SmartRange*> ret;
+  
+  if(!contains(pos))
+    return ret;
+  
+  int child = lowerBound(m_childRanges, pos);
+  
+  while(child != m_childRanges.size()) {
+    SmartRange* r = m_childRanges[child];
+    //The list will be unchanged if the range doesn't contain the position
+    ret += r->deepestRangesContaining(pos);
+    
+    if(r->m_overlapCount == 0)
+      break;
+    
+    ++child; //We have to iterate as long as there is overlapping ranges
+  }
+  
+  if(!ret.isEmpty())
+    return ret;
+  else
+    return ret << const_cast<SmartRange*>(this);
+}
+
 SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited ) const
 {
   if (!pos.isValid()) {
@@ -329,12 +476,39 @@ SmartRange * SmartRange::deepestRangeContainingInternal( const Cursor & pos, QSt
       rangesEntered->push(const_cast<SmartRange*>(this));
 
     int child = lowerBound(m_childRanges, pos);
-    if(child != m_childRanges.size()) {
+
+    QStack<SmartRange*> mostSpecificStack;
+    SmartRange* mostSpecific = 0;
+    
+    while(child != m_childRanges.size()) {
       SmartRange* r = m_childRanges[child];
-      if(r->contains(pos))
-        return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-    }
+      if(r->contains(pos)) {
+        QStack<SmartRange*> candidateStack;
+        SmartRange* candidateRange = r->deepestRangeContainingInternal(pos, rangesEntered ? &candidateStack : 0, 0);
+        
+        Q_ASSERT(!rangesEntered || !candidateStack.isEmpty());
+        Q_ASSERT(candidateRange);
+        
+        if(!mostSpecific ||
+          ((candidateRange->end() - candidateRange->start()) < (mostSpecific->end() - mostSpecific->start())) ||
+          (candidateRange->end() < mostSpecific->end())) {
+          mostSpecific = candidateRange;
+          mostSpecificStack = candidateStack;
+        }
+      }
       
+      if(r->m_overlapCount == 0)
+        break;
+      
+      ++child; //We have to iterate as long as there is overlapping ranges
+    }
+    
+    if(mostSpecific) {
+      if(rangesEntered)
+        *rangesEntered += mostSpecificStack;
+      return mostSpecific;
+    }
+    
     return const_cast<SmartRange*>(this);
 
   } else {
@@ -483,33 +657,116 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
   Range::rangeChanged(c, from);
 
   // Decide whether the parent range has expanded or contracted, if there is one
-  if (parentRange() && (start() < from.start() || end() > from.end()))
-    parentRange()->expandToRange(*this);
-
-  // Adjust sibling ranges if required
-  if (parentRange()) {
-    if (SmartRange* beforeRange = parentRange()->childBefore(this)) {
-      if (beforeRange->end() > start())
-        beforeRange->end() = start();
+  if (parentRange() ) {
+    QList<SmartRange*>& parentChildren(parentRange()->m_childRanges);
+    
+    int index = findIndex(parentChildren, this, &from);
+    Q_ASSERT(index != -1);
+    
+    //Reduce the overlap with all previously overlapping ranges(parentChildren is still sorted by the old end-position)
+    for(int current = index-1; current >= 0; --current) {
+      SmartRange& range(*parentChildren[current]);
+      Q_ASSERT(range.end() <= from.end());
+      if(range.end() <= from.start()) {
+//         break; //This range did not overlap before, the same applies for all earlier ranges because of the order
+      }else{
+        Q_ASSERT(range.m_overlapCount); ///@todo remove this assertion, it may trigger when there are more then 64 overlaps
+        --range.m_overlapCount;
+      }
     }
-
-    if (SmartRange* afterRange = parentRange()->childAfter(this)) {
-      if (afterRange->start() < end())
-        afterRange->start() = end();
-    }
+    
+  //Decrease this ranges overlap from existing ranges behind, since it may be moved so it isn't overlapped any more
+  for(int current = index+1; current < parentChildren.size(); ++current) {
+    SmartRange& range(*parentChildren[current]);
+    Q_ASSERT(range.end() >= from.end());
+    
+    if(range.start() < from.end())
+      --m_overlapCount; //The range overlaps newChild
+    
+    if(!range.m_overlapCount)
+      break; //If this follower-range isn't overlapped by any other ranges, we can break here.
   }
+    
+    if(from.end() != end()) {
+      //Update the order in the parent, the ranges must be strictly sorted
+      if(from.end() > end()) {
+        //Bubble backwards, the position has been reduced
+        while(index > 0 && parentChildren[index-1]->end() > end()) {
+          parentChildren[index] = parentChildren[index-1];
+          parentChildren[index-1] = this;
+          --index;
+        }
+      }else{
+        //Bubble forwards, the position has moved forwards
+        while( index+1 < parentChildren.size() && (parentChildren[index+1]->end() < end()) ) {
+          parentChildren[index] = parentChildren[index+1];
+          parentChildren[index+1] = this;
+          ++index;
+        }
+      }
+    }
+    Q_ASSERT(parentChildren[index] == this);
+    
+    //Increase the overlap
+    for(int current = index-1; current >= 0; --current) {
+      SmartRange& range(*parentChildren[current]);
+      Q_ASSERT(range.end() <= end());
+      
+      if(range.end() > start()) {
+        uchar oldOverlap = range.m_overlapCount;
+        uchar targetOverlap = oldOverlap+1;
+        range.m_overlapCount = targetOverlap;
+        Q_ASSERT(range.m_overlapCount == targetOverlap); ///@todo Remove this assertion, it will trigger on overflow of 64 overlaps
+      }else{
+        //range.end() <= start(), The range does not overlap, and the same applies for all earlier ranges
+        break;
+      }
+    }
+    
+  //Increase this ranges overlap from existing ranges behind, since it may have been moved
+  for(int current = index+1; current < parentChildren.size(); ++current) {
+    SmartRange& range(*parentChildren[current]);
+    Q_ASSERT(range.end() >= end());
+    
+    if(range.start() < end())
+      ++m_overlapCount; //The range overlaps newChild
+    
+    if(!range.m_overlapCount)
+      break; //If this follower-range isn't overlapped by any other ranges, we can break here.
+  }
+    
+  DEBUG_CHILD_ORDER
+  DEBUG_PARENT_OVERLAP
+  
+  //Expand the parent in the end, so the overlap is consistent when the parent gets control
+  if ((start() < from.start() || end() > from.end()))
+    parentRange()->expandToRange(*this);
+  }
+  
+  DEBUG_CHILD_OVERLAP
 
   // Contract child ranges if required
   if(!m_childRanges.isEmpty()) {
-    if (start() > from.start())
-      if(m_childRanges.front()->start() < start())
-        m_childRanges.front()->start() = start(); //Adjust the first child-range, all the other ones will be changed automatically using this mechanism
+    if (start() > from.start()) {
+      foreach(SmartRange* child, m_childRanges) {
+        if(child->start() < start())
+          child->start() = start();
+        else if(!child->m_overlapCount)
+          break; //We can safely break here, because the child is not overlapped
+      }
+    }
 
-    if (end() < from.end())
-      if(m_childRanges.back()->end() > end())
-        m_childRanges.back()->end() = end(); //Adjust the last child-range only, all the other ones will be changed automatically using this mechanism
+    if (end() < from.end()) {
+      for(int a = m_childRanges.size()-1; a >= 0; --a) {
+        if(m_childRanges[a]->end() <= end())
+          break; //Child-ranges are sorted by the end-cursor, so we can just break here
+        m_childRanges[a]->end() = end();
+      }
+    }
   }
 
+  DEBUG_CHILD_OVERLAP
+  
   // SmartCursor and its subclasses take care of adjusting ranges if the tree
   // structure is being used.
   foreach (SmartRangeNotifier* n, m_notifiers)

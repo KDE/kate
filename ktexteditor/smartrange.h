@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -60,6 +61,18 @@ class SmartRangeWatcher;
  * be before or equal to their end position.  Attempting to set either the
  * start or end of the range beyond the respective end or start will result in
  * both values being set to the specified position.
+ *
+ * Hierarchical range-trees maintain specific relationships:
+ * - When a child-range is changed, all parent-ranges are resized so the child-range fits in
+ * - When a parent-range is changed, all child-ranges are resized so they fit in
+ *
+ * This means that parent-ranges always completely contain all their child-ranges. However
+ * it may lead to unexpected range-changes from the perspective of your application, so keep
+ * this in mind.
+ *
+ * The child-ranges of one smart-range are allowed to overlap each other. However overlaps
+ * should be omitted where possible, for performance-reasons, and because each range can
+ * be overlapped by max. 63 sibling-ranges while still rendering correctly.
  *
  * Create a new SmartRange like this:
  * \code
@@ -336,6 +349,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Find the child before \p range, if any.
+     * The order is determined by the range end-cursors.
      *
      * \param range to seach backwards from
      *
@@ -345,6 +359,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Find the child after \p range, if any.
+     * The order is determined by the range end-cursors.
      *
      * \param range to seach backwards from
      *
@@ -355,6 +370,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * Finds the most specific range in a heirachy for the given input range
      * (ie. the smallest range which wholly contains the input range)
+     *
+     * In case of overlaps, the smallest containing range is chosen,
+     * if there are multiple of the same size, then the first one.
      *
      * \param input the range to use in searching
      *
@@ -377,6 +395,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Allows the caller to determine which ranges were entered and exited
      * by providing pointers to QStack<SmartRange*>.
      *
+     * If child-ranges overlap in the given position,
+     * the first smallest one is returned.
+     * 
      * \param pos the cursor position to use in searching
      * \param rangesEntered provide a QStack<SmartRange*> here to find out
      *                      which ranges were entered during the traversal.
@@ -391,6 +412,14 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     SmartRange* deepestRangeContaining(const Cursor& pos,
                                        QStack<SmartRange*>* rangesEntered = 0L,
                                        QStack<SmartRange*>* rangesExited = 0L) const;
+
+    QList<SmartRange*> deepestRangesContaining(const Cursor& pos) const;
+    
+    /**
+     * Returns the count of ranges within the parent-range
+     * that end behind this range, and that overlap this range.
+     */
+    int overlapCount() const;
     //END
 
     //BEGIN Arbitrary highlighting
@@ -648,17 +677,12 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     Attribute::Ptr m_attribute;
 
-    /**
-     * \internal
-     *
-     * This range's current parent range.
-     */
     SmartRange* m_parentRange;
 
     /**
      * \internal
      *
-     * The list of this range's child ranges.
+     * The list of this range's child ranges, sorted by end-cursor.
      */
     QList<SmartRange*> m_childRanges;
 
@@ -689,6 +713,13 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Whether this range owns the currently assigned attribute or not.
      */
     bool m_ownsAttribute :1;
+    /**
+     * \internal
+     *
+     * How many ranges that end behind this one at least partially overlap it.
+     * Currently max. 64 overlaps are allowed.
+     */
+    uchar m_overlapCount:6;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviors)

@@ -282,13 +282,7 @@ void SmartRange::insertChildRange( SmartRange * newChild )
     Q_ASSERT(range.end() <= newChild->end());
     
     if(range.end() > newChild->start()) {
-      if(range.m_overlapCount) {
-        --range.m_overlapCount;
-      }else{
-#ifdef SHOULD_DEBUG_OVERLAP
-        Q_ASSERT(0);
-#endif
-      }
+      ++range.m_overlapCount;
     }else{
       //range.end() <= start(), The range does not overlap, and the same applies for all earlier ranges
       break;
@@ -670,8 +664,13 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
       if(range.end() <= from.start()) {
 //         break; //This range did not overlap before, the same applies for all earlier ranges because of the order
       }else{
-        Q_ASSERT(range.m_overlapCount); ///@todo remove this assertion, it may trigger when there are more then 64 overlaps
-        --range.m_overlapCount;
+        if(range.m_overlapCount) {
+          --range.m_overlapCount;
+        }else{
+#ifdef SHOULD_DEBUG_OVERLAP
+          Q_ASSERT(0);
+#endif
+        }
       }
     }
     

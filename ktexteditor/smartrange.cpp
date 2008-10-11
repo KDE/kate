@@ -34,13 +34,13 @@ using namespace KTextEditor;
 //Uncomment this to enable debugging of the child-order. If it is enabled, an assertion will
 //be triggered when the order is violated.
 //This is slow.
-// #define SHOULD_DEBUG_CHILD_ORDER
+//  #define SHOULD_DEBUG_CHILD_ORDER
 
 //Uncomment this to debug the m_overlapCount values. When it is enabled,
 //extensive tests will be done to verify that the values are true,
 //and an assertion is triggered when not.
 //This is very slow, especially with many child-ranges.
-// #define SHOULD_DEBUG_OVERLAP
+//  #define SHOULD_DEBUG_OVERLAP
 
 #ifdef SHOULD_DEBUG_CHILD_ORDER
 #define DEBUG_CHILD_ORDER \
@@ -235,8 +235,6 @@ void SmartRange::setRange(const Range& range)
   Range old = *this;
 
   Range::setRange(range);
-
-  rangeChanged(0L, old);
 }
 
 const QList<SmartRange*>& SmartRange::childRanges() const
@@ -315,6 +313,7 @@ void SmartRange::insertChildRange( SmartRange * newChild )
     w->childRangeInserted(this, newChild);
   
   DEBUG_CHILD_OVERLAP
+  DEBUG_CHILD_ORDER
 }
 
 void SmartRange::removeChildRange(SmartRange* child)
@@ -648,6 +647,39 @@ bool SmartRange::removeText( bool block )
 
 void SmartRange::rangeChanged( Cursor* c, const Range& from )
 {
+#ifdef SHOULD_DEBUG_CHILD_ORDER
+  if (parentRange() ) {
+    //Make sure the child-order is correct, in respect to "from"
+    QList<SmartRange*>& parentChildren(parentRange()->m_childRanges);
+    
+    int index = findIndex(parentChildren, this, &from);
+    Q_ASSERT(index != -1);
+    Q_ASSERT(parentChildren[index] == this);
+    const Range* lastRange = 0;
+    for(int a = 0; a < index; ++a) {
+      if(lastRange) {
+        Q_ASSERT(lastRange->end() <= parentChildren[a]->end());
+      }
+      lastRange = parentChildren[a];
+    }
+    
+    if(lastRange) {
+      Q_ASSERT(lastRange->end() <= from.end());
+    }
+    
+    if(index+1 < parentChildren.size()) {
+      Q_ASSERT(from.end() <= parentChildren[index+1]->end());
+    }
+    lastRange = &from;
+    
+    for(int a = index+1; a < parentChildren.size(); ++a) {
+      if(lastRange) {
+        Q_ASSERT(lastRange->end() <= parentChildren[a]->end());
+      }
+      lastRange = parentChildren[a];
+    }
+  }
+#endif
   Range::rangeChanged(c, from);
 
   // Decide whether the parent range has expanded or contracted, if there is one
@@ -656,6 +688,7 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
     
     int index = findIndex(parentChildren, this, &from);
     Q_ASSERT(index != -1);
+    Q_ASSERT(parentChildren[index] == this);
     
     //Reduce the overlap with all previously overlapping ranges(parentChildren is still sorted by the old end-position)
     for(int current = index-1; current >= 0; --current) {

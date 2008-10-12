@@ -1021,6 +1021,15 @@ void KateViewConfig::setViInputMode (bool on)
   m_viInputModeSet = true;
   m_viInputMode = on;
 
+  // update all views and show/hide the status bar
+  foreach (KateView* view, KateGlobal::self()->views() ) {
+    if (on && !m_viInputModeHideStatusBar) {
+      view->showViModeBar();
+    } else {
+      view->hideViModeBar();
+    }
+  }
+
   configEnd ();
 }
 
@@ -1059,7 +1068,7 @@ void KateViewConfig::setViInputModeHideStatusBar (bool on)
 
   // update all views and show/hide the status bar
   foreach (KateView* view, KateGlobal::self()->views() ) {
-    if (on) {
+    if (on && m_viInputMode) {
       view->hideViModeBar();
     } else if (viInputMode()) {
       view->showViModeBar();

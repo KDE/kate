@@ -34,13 +34,13 @@ using namespace KTextEditor;
 //Uncomment this to enable debugging of the child-order. If it is enabled, an assertion will
 //be triggered when the order is violated.
 //This is slow.
-//   #define SHOULD_DEBUG_CHILD_ORDER
+//    #define SHOULD_DEBUG_CHILD_ORDER
 
 //Uncomment this to debug the m_overlapCount values. When it is enabled,
 //extensive tests will be done to verify that the values are true,
 //and an assertion is triggered when not.
 //This is very slow, especially with many child-ranges.
-//   #define SHOULD_DEBUG_OVERLAP
+//    #define SHOULD_DEBUG_OVERLAP
 
 #ifdef SHOULD_DEBUG_CHILD_ORDER
 #define DEBUG_CHILD_ORDER \
@@ -48,6 +48,8 @@ using namespace KTextEditor;
   KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);\
   for(int a = 0; a < m_childRanges.size(); ++a) {\
     Q_ASSERT(m_childRanges[a]->end() >= lastEnd);\
+    Q_ASSERT(m_childRanges[a]->start() >= start());\
+    Q_ASSERT(m_childRanges[a]->end() <= end());\
     lastEnd = m_childRanges[a]->end();\
   }\
   }\
@@ -811,6 +813,7 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
   
   DEBUG_CHILD_OVERLAP
 
+  
   // Contract child ranges if required
   if(!m_childRanges.isEmpty()) {
     if (start() > from.start()) {
@@ -823,14 +826,19 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
     }
 
     if (end() < from.end()) {
-      for(int a = m_childRanges.size()-1; a >= 0; --a) {
-        if(m_childRanges[a]->end() <= end())
-          break; //Child-ranges are sorted by the end-cursor, so we can just break here
-        m_childRanges[a]->end() = end();
+      
+      //We have to create a copy of the child-ranges, because their order may change
+      QList<SmartRange*> oldChildRanges = m_childRanges;
+      
+      for(int a = oldChildRanges.size()-1; a >= 0; --a) {
+        if(oldChildRanges[a]->end() <= end())
+          break; //Child-ranges are sorted by the end-cursor, so we can just break here.
+        oldChildRanges[a]->end() = end();
       }
     }
   }
 
+  DEBUG_CHILD_ORDER
   DEBUG_CHILD_OVERLAP
   
   // SmartCursor and its subclasses take care of adjusting ranges if the tree

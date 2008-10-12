@@ -141,22 +141,29 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (*this == pos)
     return;
   
+  //Previous position of the "other" side in the range that this cursor is part of
+  KTextEditor::Cursor oldOther;
+  
   if(m_range) {
     KTextEditor::SmartRange* smartRange = m_range->toSmartRange();
     
     if(!internal && smartRange) {
-      KTextEditor::SmartCursor& start = smartRange->smartStart();
-      KTextEditor::SmartCursor& end = smartRange->smartEnd();
+      KateSmartCursor& start = dynamic_cast<KateSmartCursor&>(smartRange->smartStart());
+      KateSmartCursor& end = dynamic_cast<KateSmartCursor&>(smartRange->smartEnd());
       //Eventually move the other cursor first, so the smart-range cannot temporarily become an invalid range with start > end.
       //If we let it become invalid, that will create serious consistency problems in places that depend on it, like for example
       //the SmartRange::rangeChanged function.
       if(this == &start) {
+        oldOther = end;
         if(pos > end)
-          end.setPosition(pos);
+          //We do the change with "internal" set, so the parent-range is not confined to the not yet transformed changed range
+          end.setPositionInternal(pos, true);
       }else{
         Q_ASSERT(this == &end);
+        oldOther = start;
         if(pos < start)
-          start.setPosition(pos);
+          //We do the change with "internal" set, so the parent-range is not confined to the not yet transformed changed range
+          start.setPositionInternal(pos, true);
       }
     }
   }
@@ -188,9 +195,17 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
     m_lastPosition = *this;
 
   // Adjustments only needed for non-internal position changes...
-  if (!internal)
+  if (!internal) {
+    //We notify about the range as a whole, instead of using cursorChangedDirectory. This allows us
+    //notifying the change to the other side too, if we did one.
     // Tell the range about this
-    cursorChangedDirectly(old);
+    if (m_range) {
+      if (this == &m_range->start())
+        static_cast<KateSmartRange*>(m_range)->rangeChanged(0, KTextEditor::Range(old, oldOther));
+      else
+        static_cast<KateSmartRange*>(m_range)->rangeChanged(0, KTextEditor::Range(oldOther, old));
+    }
+  }
 
 #ifdef DEBUG_KATESMARTCURSOR
   kDebug() << this << "Cursor moved from" << old << "to" << *this;

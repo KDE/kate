@@ -146,6 +146,7 @@ class KateSmartRange : public KTextEditor::SmartRange
     inline KateSmartRange& operator=(const KTextEditor::Range& r) { setRange(r); return *this; }
 
   protected:
+    friend class KateSmartCursor; //Has to call rangeChanged directly
     virtual KTextEditor::SmartRangeNotifier* createNotifier();
     virtual void checkFeedback();
 

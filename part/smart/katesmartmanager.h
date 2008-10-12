@@ -164,10 +164,13 @@ class KateSmartGroup
     void translateChanged(const KateEditInfo& edit);
     void translateShifted(const KateEditInfo& edit);
 
-    // Second pass for feedback
+    // Second pass for finalizing the translation
     void translatedChanged(const KateEditInfo& edit);
     void translatedShifted(const KateEditInfo& edit);
 
+    // Third pass, when all translations are complete
+    void translatedChanged2(const KateEditInfo& edit);
+    
     void deleteCursors(bool includingInternal);
     void deleteCursorsInternal(QSet<KateSmartCursor*>& set);
 

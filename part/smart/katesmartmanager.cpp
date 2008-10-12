@@ -15,7 +15,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-
 #include "katesmartmanager.h"
 
 #include "katedocument.h"
@@ -30,7 +29,7 @@
 //Uncomment this to debug the translation of ranges. If that is enabled,
 //all ranges are first translated completely separately out of the translation process,
 //and at the end the result is compared. If the result mismatches, an assertion is triggered.
-//#define DEBUG_TRANSLATION
+// #define DEBUG_TRANSLATION
 
 static const int s_defaultGroupSize = 40;
 static const int s_minimumGroupSize = 20;
@@ -311,7 +310,6 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 #ifdef DEBUG_TRANSLATION
   KateTranslationDebugger KateTranslationDebugger(this, edit);
 #endif
-///@todo: This code does not seem to respect the insert-behavior of smart-ranges!
   KateSmartGroup* firstSmartGroup = groupForLine(edit->oldRange().start().line());
   KateSmartGroup* currentGroup = firstSmartGroup;
 
@@ -360,7 +358,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   if (edit->translate().line())
     for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next())
       smartGroup->translateShifted(*edit);
-
+  
   // Translate affected groups
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (smartGroup->startLine() > edit->oldRange().end().line())
@@ -368,7 +366,6 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
     smartGroup->translateChanged(*edit);
   }
-
 
   // Cursor feedback
   bool groupChanged = true;
@@ -384,6 +381,14 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translatedChanged(*edit);
     else
       smartGroup->translatedShifted(*edit);
+  }
+
+  // Allow rebuilding the child-structure of affected ranges
+  for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
+    if (smartGroup->startLine() > edit->oldRange().end().line())
+      break;
+
+    smartGroup->translatedChanged2(*edit);
   }
 
 #ifdef DEBUG_TRANSLATION
@@ -460,6 +465,7 @@ void KateSmartGroup::translateShifted(const KateEditInfo& edit)
 {
   m_newStartLine = m_startLine + edit.translate().line();
   m_newEndLine = m_endLine + edit.translate().line();
+  //Since shifting only does not change the overlap or order, we don't need to rebuild any child structures here
 }
 
 void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
@@ -469,6 +475,25 @@ void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translated(edit);
+}
+
+void KateSmartGroup::translatedChanged2(const KateEditInfo& edit)
+{
+  //Tell the affected parent smart-ranges to rebuild their child-structure, so they stay consistent
+  QSet<KTextEditor::SmartRange*> rebuilt;
+  
+  foreach (KateSmartCursor* cursor, m_normalCursors + m_feedbackCursors) {
+    KTextEditor::SmartRange* range = cursor->smartRange();
+    if(range) {
+        KTextEditor::SmartRange* parent = range->parentRange();
+        if(parent && !rebuilt.contains(parent)) {
+            rebuilt.insert(parent);
+            KateSmartRange* kateSmart = dynamic_cast<KateSmartRange*>(parent);
+            Q_ASSERT(kateSmart);
+            kateSmart->rebuildChildStructure();
+        }
+    }
+  }
 }
 
 void KateSmartGroup::translatedShifted(const KateEditInfo& edit)

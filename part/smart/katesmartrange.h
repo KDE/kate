@@ -105,6 +105,8 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     virtual void setParentRange(SmartRange* r);
 
+    using SmartRange::rebuildChildStructure;
+    
     inline bool hasDynamic() { return m_dynamic.count(); }
     const QList<KateDynamicAnimation*>& dynamicAnimations() const;
     void addDynamic(KateDynamicAnimation* anim);

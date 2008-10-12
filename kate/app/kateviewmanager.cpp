@@ -105,7 +105,7 @@ void KateViewManager::activateDocument(const QModelIndex &index)
 
 void KateViewManager::setupActions ()
 {
-  QAction *a;
+  KAction *a;
 
   /**
    * view splitting

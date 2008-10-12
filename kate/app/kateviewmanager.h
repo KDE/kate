@@ -36,7 +36,7 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
-class QAction;
+class KAction;
 
 class QToolButton;
 
@@ -196,9 +196,9 @@ class KateViewManager : public QSplitter
     KateMainWindow *m_mainWindow;
     bool m_init;
 
-    QAction *m_closeView;
-    QAction *goNext;
-    QAction *goPrev;
+    KAction *m_closeView;
+    KAction *goNext;
+    KAction *goPrev;
 
     QList<KateViewSpace*> m_viewSpaceList;
     QList<KTextEditor::View*> m_viewList;

@@ -40,7 +40,7 @@ K_EXPORT_COMPONENT_FACTORY( katetextfilterplugin, KGenericFactory<PluginKateText
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,Kate::MainWindow *mainwindow)
   : Kate::PluginView(mainwindow),KXMLGUIClient()
 {
-    QAction *a = actionCollection()->addAction("edit_filter");
+    KAction *a = actionCollection()->addAction("edit_filter");
     a->setText(i18n("Filter Te&xt..."));
     a->setShortcut( Qt::CTRL + Qt::Key_Backslash );
     connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()) );

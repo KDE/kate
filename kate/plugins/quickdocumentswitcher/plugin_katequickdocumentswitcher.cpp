@@ -64,7 +64,7 @@ PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::M
 
     setComponentData (KateQuickDocumentSwitcherFactory::componentData());
     setXMLFile( "plugins/katequickdocumentswitcher/ui.rc" );
-    QAction *a = actionCollection()->addAction("documents_quickswitch");
+    KAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1) );
     connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotQuickSwitch() ) );

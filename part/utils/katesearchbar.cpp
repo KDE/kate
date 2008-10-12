@@ -1857,9 +1857,8 @@ void KateSearchBar::showEvent(QShowEvent * event) {
         m_incInitCursor = view()->cursorPosition();
     }
 
-/* TODO sping: Why doesn't this work?:
-    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *view)), this, SLOT(onSelectionChanged()));
-*/
+    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(onSelectionChanged()));
+
     enableHighlights(true);
     KateViewBarWidget::showEvent(event);
 }
@@ -1867,9 +1866,8 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::hideEvent(QHideEvent * event) {
-/* TODO sping: Why doesn't this work?:
-    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *view)), this, SLOT(onSelectionChanged()));
-*/
+    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(onSelectionChanged()));
+
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
 }
@@ -1877,7 +1875,18 @@ void KateSearchBar::hideEvent(QHideEvent * event) {
 
 
 void KateSearchBar::onSelectionChanged() {
-    // TODO Re-init SelectionOnly checkbox if power search bar open
+    if (m_powerUi == NULL) {
+        return;
+    }
+
+    // Re-init "Selection only" checkbox if power search bar open
+    const bool selected = view()->selection();
+    bool selectionOnly = selected;
+    if (selected) {
+        Range const & selection = view()->selectionRange();
+        selectionOnly = !selection.onSingleLine();
+    }
+    setChecked(m_powerMenuSelectionOnly, selectionOnly);
 }
 
 

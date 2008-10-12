@@ -184,17 +184,19 @@ bool KateViInsertMode::commandMoveOneWordRight()
  */
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
+  kDebug( 13070 ) << e;
+  // record key press so that it can be repeated
+  if ( !m_viInputModeManager->isRunningMacro() ) {
+    kDebug( 13070 ) << "RECORDED: " << e;
+    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+    m_viInputModeManager->appendKeyEventToLog( copy );
+  }
+
   // backspace should work even if the shift key is down
   if (e->modifiers() != Qt::ControlModifier && e->key() == Qt::Key_Backspace ) {
     m_view->backspace();
     return true;
   }
-
-  if ( !m_viInputModeManager->isRunningMacro() ) {
-    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
-    m_viInputModeManager->appendKeyEventToLog( copy );
-  }
-
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:

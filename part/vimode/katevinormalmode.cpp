@@ -237,10 +237,12 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
-      executeCommand( m_commands.at( m_matchingCommands.at( 0 ) ) );
+
+      KateViCommand *cmd = m_commands.at( m_matchingCommands.at( 0 ) );
+      executeCommand( cmd );
 
       // check if reset() should be called. some commands in visual mode should not end visual mode
-      if ( m_commands.at( m_matchingCommands.at( 0 ) )->shouldReset() ) {
+      if ( cmd->shouldReset() ) {
         reset();
       }
       resetParser();
@@ -1134,6 +1136,7 @@ bool KateViNormalMode::commandPrintCharacterCode()
 
 bool KateViNormalMode::commandRepeatLastChange()
 {
+  resetParser();
   m_viInputModeManager->repeatLastChange();
 
   return true;

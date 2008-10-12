@@ -25,6 +25,7 @@
 KateViKeySequenceParser::KateViKeySequenceParser()
 {
   m_qt2katevi = new QHash<int, QString>;
+  m_katevi2qt = new QHash<QString, int>;
   m_nameToKeyCode = new QHash<QString, int>;
   m_keyCodeToName = new QHash<int, QString>;
 
@@ -33,7 +34,7 @@ KateViKeySequenceParser::KateViKeySequenceParser()
 
 void KateViKeySequenceParser::initKeyTables()
 {
-  m_qt2katevi->insert( Qt::Key_Escape, QString( "escape" ) );
+  m_qt2katevi->insert( Qt::Key_Escape, QString( "esc" ) );
   m_qt2katevi->insert( Qt::Key_Tab, QString( "tab" ) );
   m_qt2katevi->insert( Qt::Key_Backtab, QString( "backtab" ) );
   m_qt2katevi->insert( Qt::Key_Backspace, QString( "backspace" ) );
@@ -215,8 +216,12 @@ void KateViKeySequenceParser::initKeyTables()
   m_qt2katevi->insert( Qt::Key_Zoom, QString( "zoom" ) );
   m_qt2katevi->insert( Qt::Key_Cancel, QString( "cancel" ) );
 
+  foreach( int code, m_qt2katevi->keys() ) {
+      m_katevi2qt->insert( m_qt2katevi->value( code ), code );
+  }
+
   m_nameToKeyCode->insert( QString( "invalid" ), -1 );
-  m_nameToKeyCode->insert( QString( "escape" ), 1 );
+  m_nameToKeyCode->insert( QString( "esc" ), 1 );
   m_nameToKeyCode->insert( QString( "tab" ), 2 );
   m_nameToKeyCode->insert( QString( "backtab" ), 3 );
   m_nameToKeyCode->insert( QString( "backspace" ), 4 );
@@ -467,6 +472,12 @@ QString KateViKeySequenceParser::qt2vi( int key ) const
 {
   return ( m_qt2katevi->contains( key ) ? m_qt2katevi->value( key ) : "invalid" );
 }
+
+int KateViKeySequenceParser::vi2qt( const QString &keypress ) const
+{
+  return ( m_katevi2qt->contains( keypress ) ? m_katevi2qt->value( keypress ) : -1 );
+}
+
 
 const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys ) const
 {

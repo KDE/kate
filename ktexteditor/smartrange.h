@@ -640,6 +640,12 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     virtual SmartRangeNotifier* createNotifier() = 0;
 
+    /**
+     * Is called after child-ranges have changed internally without the rangeChanged() notification, for example
+     * after translations. It rebuilds the child-structure, so it is consistent again.
+     */
+    void rebuildChildStructure();
+    
   private:
     /**
      * \internal

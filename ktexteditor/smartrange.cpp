@@ -34,13 +34,13 @@ using namespace KTextEditor;
 //Uncomment this to enable debugging of the child-order. If it is enabled, an assertion will
 //be triggered when the order is violated.
 //This is slow.
-//  #define SHOULD_DEBUG_CHILD_ORDER
+//   #define SHOULD_DEBUG_CHILD_ORDER
 
 //Uncomment this to debug the m_overlapCount values. When it is enabled,
 //extensive tests will be done to verify that the values are true,
 //and an assertion is triggered when not.
 //This is very slow, especially with many child-ranges.
-//  #define SHOULD_DEBUG_OVERLAP
+//   #define SHOULD_DEBUG_OVERLAP
 
 #ifdef SHOULD_DEBUG_CHILD_ORDER
 #define DEBUG_CHILD_ORDER \
@@ -77,7 +77,7 @@ using namespace KTextEditor;
 }\
 
 #define DEBUG_PARENT_OVERLAP  \
-{\
+if(m_parentRange) {\
   QVector<int> counter(m_parentRange->m_childRanges.size(), 0);\
 \
   for(int a = 0; a < m_parentRange->m_childRanges.size(); ++a) {\
@@ -223,7 +223,7 @@ bool SmartRange::expandToRange(const Range& range)
 
   if (parentRange())
     parentRange()->expandToRange(*this);
-
+  
   return true;
 }
 
@@ -235,6 +235,8 @@ void SmartRange::setRange(const Range& range)
   Range old = *this;
 
   Range::setRange(range);
+  
+  DEBUG_CHILD_OVERLAP
 }
 
 const QList<SmartRange*>& SmartRange::childRanges() const
@@ -591,6 +593,8 @@ void SmartRange::setParentRange( SmartRange * r )
 {
   if (m_parentRange == r)
     return;
+  
+  DEBUG_PARENT_OVERLAP
 
   if (m_parentRange)
     m_parentRange->removeChildRange(this);
@@ -607,6 +611,8 @@ void SmartRange::setParentRange( SmartRange * r )
 
   foreach (SmartRangeWatcher* w, m_watchers)
     w->parentRangeChanged(this, m_parentRange, oldParent);
+  
+  DEBUG_PARENT_OVERLAP
 }
 
 void SmartRange::setAttribute( Attribute::Ptr attribute )
@@ -643,6 +649,37 @@ bool SmartRange::replaceText( const QStringList & text, bool block )
 bool SmartRange::removeText( bool block )
 {
   return document()->removeText(*this, block);
+}
+
+static bool rangeEndLessThan(const SmartRange* s1, const SmartRange* s2) {
+  return s1->end() < s2->end();
+}
+
+void SmartRange::rebuildChildStructure() {
+  
+  ///Re-order
+  qStableSort(m_childRanges.begin(), m_childRanges.end(), rangeEndLessThan);
+  DEBUG_CHILD_ORDER
+  ///Update overlap
+  for(int a = 0; a < m_childRanges.size(); ++a) {
+    SmartRange& overlapper(*m_childRanges[a]);
+    overlapper.m_overlapCount = 0;
+    
+    //Increase the overlap of overlapped ranegs
+    for(int current = a-1; current >= 0; --current) {
+      SmartRange& range(*m_childRanges[current]);
+      Q_ASSERT(range.end() <= overlapper.end());
+      
+      if(range.end() > overlapper.start()) {
+        ++range.m_overlapCount;
+      }else{
+        //range.end() <= start(), The range does not overlap, and the same applies for all earlier ranges
+        break;
+      }
+    }
+  }
+  
+  DEBUG_CHILD_OVERLAP
 }
 
 void SmartRange::rangeChanged( Cursor* c, const Range& from )
@@ -745,10 +782,7 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
       Q_ASSERT(range.end() <= end());
       
       if(range.end() > start()) {
-        uchar oldOverlap = range.m_overlapCount;
-        uchar targetOverlap = oldOverlap+1;
-        range.m_overlapCount = targetOverlap;
-        Q_ASSERT(range.m_overlapCount == targetOverlap); ///@todo Remove this assertion, it will trigger on overflow of 64 overlaps
+        ++range.m_overlapCount;
       }else{
         //range.end() <= start(), The range does not overlap, and the same applies for all earlier ranges
         break;

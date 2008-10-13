@@ -54,6 +54,12 @@ bool KateViInputModeManager::handleKeypress(QKeyEvent *e)
 {
   bool res;
 
+  // record key press so that it can be repeated
+  if (!isRunningMacro()) {
+    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+    appendKeyEventToLog( copy );
+  }
+
   switch(m_currentViMode) {
   case NormalMode:
     res = m_viNormalMode->handleKeypress(e);

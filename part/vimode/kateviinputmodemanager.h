@@ -138,7 +138,7 @@ private:
   KateViKeySequenceParser *m_keyParser;
 
   /**
-   * set to true when running a macro (or using the '.' command)
+   * set to true when running a macro (including using the '.' command)
    */
   bool m_runningMacro;
 

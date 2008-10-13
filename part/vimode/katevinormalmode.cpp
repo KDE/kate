@@ -63,11 +63,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   int keyCode = e->key();
   QString text = e->text();
 
-  if ( !m_viInputModeManager->isRunningMacro() ) {
-    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
-    m_viInputModeManager->appendKeyEventToLog( copy );
-  }
-
   // ignore modifier keys alone
   if ( keyCode == Qt::Key_Shift || keyCode == Qt::Key_Control
       || keyCode == Qt::Key_Alt || keyCode == Qt::Key_Meta ) {

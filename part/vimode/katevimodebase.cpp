@@ -495,8 +495,10 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
 bool KateViModeBase::startNormalMode()
 {
   // store the key presses for this "insert mode session" so that it can be repeated with the '.'
-  m_viInputModeManager->storeChangeCommand();
-  m_viInputModeManager->clearLog();
+  if (!m_viInputModeManager->isRunningMacro()) {
+    m_viInputModeManager->storeChangeCommand();
+    m_viInputModeManager->clearLog();
+  }
 
   m_viInputModeManager->viEnterNormalMode();
   m_view->updateViModeBarMode();

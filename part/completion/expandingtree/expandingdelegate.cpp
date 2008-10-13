@@ -35,6 +35,39 @@ ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* paren
 {
 }
 
+//Gets the background-color in the way QItemDelegate does it
+static QColor getUsedBackgroundColor(const QStyleOptionViewItem & option, const QModelIndex& index) {
+if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
+        QPalette::ColorGroup cg = option.state & QStyle::State_Enabled
+                                  ? QPalette::Normal : QPalette::Disabled;
+        if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
+            cg = QPalette::Inactive;
+
+        return option.palette.brush(cg, QPalette::Highlight).color();
+    } else {
+        QVariant value = index.data(Qt::BackgroundRole);
+        if (qVariantCanConvert<QBrush>(value))
+	    return qvariant_cast<QBrush>(value).color();
+    }
+    
+    return QColor();
+}
+
+static void dampColors(QColor& col) {
+  //Reduce the colors that are less visible to the eye, because they are closer to black when it comes to contrast
+  //The most significant color to the eye is green. Then comes red, and then blue, with blue _much_ less significant.
+  
+  col.setBlue(0);
+  col.setRed(col.red() / 2);
+}
+
+//A hack to compute more eye-focused contrast values
+static double readabilityContrast(QColor foreground, QColor background) {
+  dampColors(foreground);
+  dampColors(background);
+  return abs(foreground.green()-background.green()) + abs(foreground.red()-background.red()) + abs(foreground.blue() - background.blue());
+}
+
 void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & optionOld, const QModelIndex & index ) const
 {
   QStyleOptionViewItem option(optionOld);
@@ -56,6 +89,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   //kDebug( 13035 ) << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
   m_cachedHighlights.clear();
+  m_backgroundColor = getUsedBackgroundColor(option, index);
 
   if (!model()->indexIsItem(index) )
       return QItemDelegate::paint(painter, option, index);
@@ -110,6 +144,8 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
 
   QList<QTextLayout::FormatRange> additionalFormats;
 
+  int missingFormats = text.length();
+  
   for (int i = 0; i < m_cachedHighlights.count(); ++i) {
     if (m_cachedHighlights[i].start + m_cachedHighlights[i].length <= m_currentColumnStart)
       continue;
@@ -128,28 +164,62 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     format.start = m_cachedHighlights[i].start - m_currentColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
-    
-    if(option.state & QStyle::State_Selected && !format.format.hasProperty(QTextFormat::BackgroundBrush))  //If the item is selected, we must override the color, because else we will have contrast problems
-        format.format.setForeground(option.palette.brush(QPalette::Normal, QPalette::HighlightedText));
-
-/*    kDebug( 13035 ) << "using highlight for " << format.start << " len " << format.length;*/
+    missingFormats -= format.length;
     
     additionalFormats.append(format);
   }
 
-  if (additionalFormats.isEmpty()) {
+  if (missingFormats) {
     QTextLayout::FormatRange format;
-    format.start = 0;
-    format.length = text.length();
+    format.start = text.length() - missingFormats;
+    format.length = missingFormats;
     QTextCharFormat fm;
     fm.setForeground(option.palette.text());
     format.format = fm;
     additionalFormats.append(format);
   }
+  
+  if(m_backgroundColor.isValid()) {
+    QColor background = m_backgroundColor;
+//     kDebug() << text << "background:" << background;
+    //Now go through the formats, and make sure the contrast background/foreground is readable
+    for(int a = 0; a < additionalFormats.size(); ++a) {
+      QColor currentBackground = background;
+      if(additionalFormats[a].format.hasProperty(QTextFormat::BackgroundBrush))
+	       currentBackground = additionalFormats[a].format.background().color();
+      
+      QColor currentColor = additionalFormats[a].format.foreground().color();
+      
+      double currentContrast = readabilityContrast(currentColor, currentBackground);
+      QColor invertedColor(0xffffffff-additionalFormats[a].format.foreground().color().rgb());
+      double invertedContrast = readabilityContrast(invertedColor, currentBackground);
+      
+//       kDebug() << "values:" << invertedContrast << currentContrast << invertedColor << currentColor;
+      
+      if(invertedContrast > currentContrast) {
+//         kDebug() << text << additionalFormats[a].length << "switching from" << currentColor << "to" << invertedColor;
+        QBrush b(additionalFormats[a].format.foreground());
+        b.setColor(invertedColor);
+        additionalFormats[a].format.setForeground(b);
+      }
+    }
+  }
+  
+  for(int a = additionalFormats.size()-1; a >= 0; --a) {
+      if(additionalFormats[a].length == 0){
+          additionalFormats.removeAt(a);
+      }else{
+          ///For some reason the text-formats seem to be invalid in some way, sometimes
+          QTextCharFormat fm;
+          fm.setForeground(QBrush(additionalFormats[a].format.foreground().color()));
+          fm.setBackground(additionalFormats[a].format.background());
+          additionalFormats[a].format = fm;
+      }
+  }
 
-  /*kDebug( 13035 ) << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
-  foreach (const QTextLayout::FormatRange& fr, additionalFormats)
-    kDebug( 13035 ) << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();*/
+//   kDebug( 13035 ) << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
+//   foreach (const QTextLayout::FormatRange& fr, additionalFormats)
+//     kDebug( 13035 ) << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();
 
   layout.setAdditionalFormats(additionalFormats);
 
@@ -181,7 +251,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
 void ExpandingDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const {
     QStyleOptionViewItemV4 opt = option;
     //initStyleOption(&opt, index);
-
+    //Problem: This isn't called at all, because drawBrackground is not virtual :-/
     QStyle *style = model()->treeView()->style() ? model()->treeView()->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter);
 }

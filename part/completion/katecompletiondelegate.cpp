@@ -32,6 +32,9 @@
 #include "katecompletionmodel.h"
 #include "katecompletiontree.h"
 
+//Currently disable because it doesn't work
+#define DISABLE_INTERNAL_HIGHLIGHTING
+
 KateCompletionDelegate::KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent) :
     ExpandingDelegate(model, parent), m_cachedRow(-1)
 {
@@ -81,6 +84,15 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
     if (highlight.canConvert(QVariant::Int))
       highlightMethod = highlight.toInt();
     
+    if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
+        m_currentColumnStart = 0;
+        return highlightingFromVariantList(model()->data(index, KTextEditor::CodeCompletionModel::CustomHighlight).toList());
+    }
+
+#ifdef DISABLE_INTERNAL_HIGHLIGHTING
+    return QList<QTextLayout::FormatRange>();
+#endif
+    
     if( index.row() == m_cachedRow && highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting ) {
         
         if( index.column() < m_cachedColumnStarts.size() ) {
@@ -104,11 +116,6 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
 
     int len = completionStart.column();
     m_cachedColumnStarts.clear();
-    
-    if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
-        m_currentColumnStart = 0;
-        return highlightingFromVariantList(model()->data(index, KTextEditor::CodeCompletionModel::CustomHighlight).toList());
-    }
     
     for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
       m_cachedColumnStarts.append(len);

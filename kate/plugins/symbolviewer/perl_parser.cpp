@@ -67,7 +67,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
 
     kDebug(13000)<<"Line " << i << " : "<< cl;
 
-    if(cl == "" || cl.at(0) == '#') continue;
+    if(cl.isEmpty() || cl.at(0) == '#') continue;
     if(cl.indexOf(QRegExp("^=")) >= 0) comment = 1;
     if(cl.indexOf(QRegExp("^=cut$")) >= 0)
        {
@@ -126,7 +126,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
           node = new QTreeWidgetItem(symbols);
         node->setText(0, stripped);
 
-        if (stripped.at(0)=='_')
+        if (!stripped.isEmpty() && stripped.at(0)=='_')
              node->setIcon(0, QIcon(cls_int));
         else
              node->setIcon(0, QIcon(cls));

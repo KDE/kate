@@ -123,7 +123,9 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos)
   const QList<KTextEditor::SmartRange*>& currentChildRanges(m_currentRange->childRanges());
   
   int nextChild = lowerBound(currentChildRanges, pos);
-  
+  //If we skip a child, we must not recurse this range into another child,
+  //else we will never see the skipped child again.
+//   int initialNextChild = nextChild;
   Q_ASSERT(nextChild <= currentChildCount);
   
   for(; nextChild < currentChildCount; ++nextChild)
@@ -133,24 +135,13 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos)
             nextChild = currentChildCount; //No chance to find a child that contains this cursor
         continue;
       }
-      
-      if(!currentChildRanges[nextChild]->contains(pos)) {
-          if(currentChildRanges[nextChild]->overlapCount()) {
-              //We have a chance to find a later overlapping range that contains this cursor
-              continue;
-          }else{
-              //No chance to find a range that contains this cursor, since no range overlaps the given one
-              nextChild = currentChildCount;
-              break;
-          }
-      }else{
-        break; //We have found a child that contains pos
-      }
+      break;
   }
   
+  //Now nextChild may contain the position, or not. But it is definitely the range
+  //we should next recurse into. Create copies for all ranges behind nextChild that overlap it.
+  
   if(nextChild < currentChildCount) {
-    Q_ASSERT(currentChildRanges[nextChild]->contains(pos));
-    
     int findOverlaps = currentChildRanges[nextChild]->overlapCount();
     
     int overlapCandidate = nextChild+1;
@@ -158,7 +149,7 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos)
         ///@todo remove the hash, just measure where the overlaps start!
         if(currentChildRanges[overlapCandidate]->start() < currentChildRanges[nextChild]->end()) {
             //found an overlap
-            if(!m_ignoreChildRanges.contains(currentChildRanges[overlapCandidate])) {
+            if(!m_ignoreChildRanges.contains(currentChildRanges[overlapCandidate]) && currentChildRanges[overlapCandidate]->contains(pos)) {
                 //Create additional SmartRenderRange's for all overlaps that are not ignored, and recurse into the first one
                 SmartRenderRange* additional = new SmartRenderRange(currentChildRanges[overlapCandidate], *this);
                 Q_ASSERT(additional->m_endAtRange == currentChildRanges[overlapCandidate]);
@@ -173,8 +164,8 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos)
     }
     
     
-    if(nextChild != m_currentRange->childRanges().size()) {
-        addTo(m_currentRange->childRanges()[nextChild]);
+    if(nextChild < currentChildCount && currentChildRanges[nextChild]->contains(pos)) {
+        addTo(currentChildRanges[nextChild]);
         //Recurse, to enter all needed ranges
         advanceTo(pos);
     }

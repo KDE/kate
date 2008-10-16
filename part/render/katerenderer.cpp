@@ -843,7 +843,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 // 1) QString::isRightToLeft() sux
 // 2) QString::isRightToLeft() is marked as internal (WTF?)
 // 3) QString::isRightToLeft() does not seem to work on my setup
-// 4) isStringRightToLeft() should behave much better then QString::isRightToLeft() therefore:
+// 4) isStringRightToLeft() should behave much better than QString::isRightToLeft() therefore:
 // 5) isStringRightToLeft() kicks ass
 bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
 {

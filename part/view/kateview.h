@@ -89,6 +89,8 @@ class KateView : public KTextEditor::View,
     Q_INTERFACES(KTextEditor::ConfigInterface)
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::AnnotationViewInterface)
+    Q_INTERFACES(KTextEditor::CoordinatesToCursorInterface)
+    
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;

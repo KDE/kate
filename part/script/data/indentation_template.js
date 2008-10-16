@@ -32,7 +32,7 @@ indenter.triggerCharacters = "{}/:;";
  * of the special values.
  * 
  * The second element is an absolute value representing a column for
- * "alignment". If this value is higher then the indent value, the
+ * "alignment". If this value is higher than the indent value, the
  * difference represents a number of spaces to be added after the indent.
  * Otherwise, it's ignored.
  * 

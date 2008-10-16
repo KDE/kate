@@ -771,6 +771,13 @@ void KateViewInternal::doReturn()
 
 void KateViewInternal::doSmartNewline()
 {
+  if (m_view->isCompletionActive())
+  {
+    m_view->completionWidget()->execute(true);
+    return;
+  }
+  
+  
   int ln = m_cursor.line();
   KateTextLine::Ptr line = m_doc->kateTextLine(ln);
   int col = qMin(m_cursor.column(), line->firstChar());

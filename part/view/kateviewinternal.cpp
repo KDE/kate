@@ -2691,6 +2691,21 @@ void KateViewInternal::leaveEvent( QEvent* )
   m_textHintTimer.stop();
 }
 
+KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) const
+{
+  QPoint coord(_coord);
+  
+  KTextEditor::Cursor ret = KTextEditor::Cursor::invalid();
+  
+  coord.setX( coord.x() - m_leftBorder->width() );
+  
+  const KateTextLayout& thisLine = yToKateTextLayout(coord.y());
+  if (thisLine.isValid())
+    ret = renderer()->xToCursor(thisLine, coord.x(), !view()->wrapCursor());
+  
+  return ret;
+}
+
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
   // FIXME only do this if needing to track mouse movement

@@ -79,7 +79,8 @@ class KateView : public KTextEditor::View,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
                  private KTextEditor::SmartRangeWatcher,
-                 public KTextEditor::AnnotationViewInterface
+                 public KTextEditor::AnnotationViewInterface,
+                 public KTextEditor::CoordinatesToCursorInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
@@ -170,6 +171,8 @@ class KateView : public KTextEditor::View,
 
     QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const;
 
+    KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const;
+    
     QPoint cursorPositionCoordinates() const;
 
     bool setCursorPositionVisual( const KTextEditor::Cursor& position );

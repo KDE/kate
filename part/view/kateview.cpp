@@ -2307,6 +2307,11 @@ QPoint KateView::cursorToCoordinate( const KTextEditor::Cursor & cursor ) const
   return m_viewInternal->cursorToCoordinate(cursor);
 }
 
+KTextEditor::Cursor KateView::coordinatesToCursor(const QPoint& coords) const
+{
+  return m_viewInternal->coordinatesToCursor(coords);
+}
+
 QPoint KateView::cursorPositionCoordinates( ) const
 {
   return m_viewInternal->cursorCoordinates();

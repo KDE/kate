@@ -185,7 +185,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
     }
 
     if( minimumResize > -40 && maximumResize == 0 ) {
-      //No column needs to be exanded, and no column needs to be reduced by more then 40 pixels.
+      //No column needs to be exanded, and no column needs to be reduced by more than 40 pixels.
       //To prevent flashing, do not resize at all.
       totalColumnsWidth = 0;
       for( int n = 0; n < numColumns; n++ ) {

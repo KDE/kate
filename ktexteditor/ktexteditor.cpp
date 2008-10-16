@@ -440,6 +440,8 @@ LoadSaveFilterCheckPlugin::LoadSaveFilterCheckPlugin(QObject *parent):
 
 LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }
 
+CoordinatesToCursorInterface::~CoordinatesToCursorInterface() {
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

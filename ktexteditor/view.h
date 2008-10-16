@@ -558,6 +558,23 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     class ViewPrivate* const d;
 };
 
+///This class can be implemented by classes that implement KTextEditor::View. Use dynamic_cast to cast to it.
+///BCI: Move into KTextEditor::View
+class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface {
+  public:
+    virtual ~CoordinatesToCursorInterface();
+    /**
+     * Get the text-cursor in the document from the screen coordinates, relative
+     * to the view widget.
+     *
+     * This is the reverse transformation to \ref KTextEditor::View::cursorToCoordinate
+     *
+     * \param coordinates coordinates relative to the view widget.
+     * \return cursor in the document, that points onto the character under the given coordinate. May be invalid.
+     */
+    virtual KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const = 0;
+};
+
 }
 
 #endif

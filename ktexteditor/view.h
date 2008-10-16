@@ -558,7 +558,6 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     class ViewPrivate* const d;
 };
 
-///This class can be implemented by classes that implement KTextEditor::View. Use dynamic_cast to cast to it.
 ///BCI: Move into KTextEditor::View
 class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface {
   public:
@@ -576,6 +575,8 @@ class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface {
 };
 
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::CoordinatesToCursorInterface, "org.kde.KTextEditor.CoordinatesToCursorInterface")
 
 #endif
 

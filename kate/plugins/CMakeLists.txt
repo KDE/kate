@@ -18,6 +18,9 @@ add_subdirectory( quickdocumentswitcher )
 
 add_subdirectory( filetemplates )
 
+add_subdirectory( kate-ctags )
+add_subdirectory( katebuild-plugin )
+
 
 #add_subdirectory( htmltools )
 #add_subdirectory( kpybrowser )

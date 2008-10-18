@@ -1,0 +1,14 @@
+<!DOCTYPE kpartgui>
+<gui name="katebuild-plugin" library="katebuildplugin" version="2">
+    <MenuBar>
+        <Menu name="Build"><text>&amp;Build</text>
+            <Action name="run_make"/>
+            <Action name="make_clean" />
+            <Action name="quick_compile" />
+            <Action name="break" />
+            <Separator/>
+            <Action name="goto_prev" />
+            <Action name="goto_next" />
+       </Menu>
+    </MenuBar>
+</gui>

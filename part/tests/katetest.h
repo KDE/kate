@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KWRITE_MAIN_H__
-#define __KWRITE_MAIN_H__
+#ifndef KWRITE_MAIN_H
+#define KWRITE_MAIN_H
 
 #include <QtGui/QKeyEvent>
 #include <QtCore/QList>
@@ -136,7 +136,7 @@ class KWrite : public KParts::MainWindow
       QLabel* m_insertModeLabel;
       QLabel* m_selectModeLabel;
       KSqueezedTextLabel* m_fileNameLabel;
-      QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
+      QPixmap m_modPm; //, m_modDiscPm, m_modmodPm;
 };
 
 class KWriteEditorChooser: public KDialog

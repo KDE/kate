@@ -318,7 +318,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool customStartEnableDetermined = false;
 
     int index = 0;
-    for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
+    
+    for (item = context->items.value(0, 0); item; item = context->items.value(++index, 0))
     {
       // does we only match if we are firstNonSpace?
       if (item->firstNonSpace && (offset > startNonSpace))

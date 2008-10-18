@@ -75,8 +75,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"));
   aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
-  aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"));
-
   // command line args init and co
   KCmdLineArgs::init (argc, argv, &aboutData);
 

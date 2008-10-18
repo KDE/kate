@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="53">
+<kpartgui name="kate" version="54">
 
-<MenuBar noMerge="1">
+<MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new" />
     <DefineGroup name="new_merge" />
@@ -102,18 +102,7 @@
   </Menu>
 
   <Menu name="help"><text>&amp;Help</text>
-    <Action name="help_contents"/>
-    <Action name="help_plugins_contents"/>
-    <Action name="help_whats_this"/>
-    <Action name="help_show_tip" />
-    <Separator/>
-    <Action name="help_report_bug"/>
-    <Separator/>
-    <Action name="switch_application_language"/>
-    <Separator/>
-    <Action name="help_about_app"/>
-    <Action name="help_about_editor"/>
-    <Action name="help_about_kde"/>
+    <Action name="help_about_editor" append="about_merge"/>
   </Menu>
 </MenuBar>
 

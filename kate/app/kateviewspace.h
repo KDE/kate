@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATE_VIEWSPACE_H__
-#define __KATE_VIEWSPACE_H__
+#ifndef KATE_VIEWSPACE_H
+#define KATE_VIEWSPACE_H
 
 #include "katemain.h"
 
@@ -77,7 +77,7 @@ class KateVSStatusBar : public KStatusBar
     QLabel* m_insertModeLabel;
     QLabel* m_selectModeLabel;
     KSqueezedTextLabel* m_fileNameLabel;
-    QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
+    QPixmap m_modPm, m_modDiscPm, m_modmodPm;
     class KateViewSpace *m_viewSpace;
 };
 

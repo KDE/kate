@@ -274,7 +274,8 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_lineColLabel->setAlignment( Qt::AlignCenter );
   m_lineColLabel->installEventFilter( this );
 
-  m_modifiedLabel = new QLabel( QString("   "), this );
+  m_modifiedLabel = new QLabel( this );
+  m_modifiedLabel->setFixedSize( 16, 16 );
   addWidget( m_modifiedLabel, 0 );
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
   m_modifiedLabel->installEventFilter( this );
@@ -297,10 +298,9 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_fileNameLabel->installEventFilter( this );
 
   installEventFilter( this );
-  m_modPm = SmallIcon("modified");
-  m_modDiscPm = SmallIcon("modonhd");
-  m_modmodPm = SmallIcon("modmod");
-  m_noPm = SmallIcon("null");
+  m_modPm = KIcon("modified").pixmap(16);
+  m_modDiscPm = KIcon("modonhd").pixmap(16);
+  m_modmodPm = KIcon("modmod").pixmap(16);
 }
 
 KateVSStatusBar::~KateVSStatusBar ()
@@ -403,7 +403,7 @@ void KateVSStatusBar::modifiedChanged()
   m_modPm :
       info && modOnHD ?
       m_modDiscPm :
-      m_noPm
+      QPixmap()
     );
   }
 }

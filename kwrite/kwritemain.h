@@ -142,7 +142,7 @@ class KWrite : public KParts::MainWindow
       QLabel* m_selectModeLabel;
       QLabel* m_modeLabel;
       KSqueezedTextLabel* m_fileNameLabel;
-      QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
+      QPixmap m_modPm; //, m_modDiscPm, m_modmodPm;
 };
 
 class KWriteEditorChooser: public KDialog

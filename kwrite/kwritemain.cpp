@@ -200,7 +200,8 @@ void KWrite::setupStatusBar()
   statusBar()->addWidget( m_lineColLabel, 0 );
   m_lineColLabel->setAlignment( Qt::AlignCenter );
 
-  m_modifiedLabel = new QLabel( QString("   "), statusBar() );
+  m_modifiedLabel = new QLabel( statusBar() );
+  m_modifiedLabel->setFixedSize( 16, 16 );
   statusBar()->addWidget( m_modifiedLabel, 0 );
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
 
@@ -222,10 +223,8 @@ void KWrite::setupStatusBar()
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
   m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
 
-  m_modPm = SmallIcon("modified");
-  m_modDiscPm = SmallIcon("modonhd");
-  m_modmodPm = SmallIcon("modmod");
-  m_noPm = SmallIcon("null");
+//   m_modDiscPm = KIcon("drive-harddisk").pixmap(16);
+//   m_modmodPm = KIcon("modmod").pixmap(16); // is it still required? icon is broken.
 }
 
 // load on url
@@ -569,19 +568,23 @@ void KWrite::modifiedChanged()
 {
     bool mod = m_view->document()->isModified();
 
+    if (mod && m_modPm.isNull()) {
+        m_modPm = KIcon("document-properties").pixmap(16);
+    }
+
    /* const KateDocumentInfo *info
       = KateDocManager::self()->documentInfo ( m_view->document() );
 */
 //    bool modOnHD = false; //info && info->modifiedOnDisc;
 
     m_modifiedLabel->setPixmap(
-        mod ? m_modPm : m_noPm
+        mod ? m_modPm : QPixmap()
           /*info && modOnHD ?
             m_modmodPm :
             m_modPm :
           info && modOnHD ?
             m_modDiscPm :
-        m_noPm*/
+        QPixmap()*/
         );
 
     documentNameChanged(); // update the modified flag in window title

@@ -194,77 +194,45 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
 /******************************************************************/
 void KateBuildView::slotNext()
 {
-    int i=0;
-
-    QTreeWidgetItem *item = buildUi.errTreeWidget->currentItem();
-
-    if (item == 0) {
-        // either first time or empty list
-        item = buildUi.errTreeWidget->topLevelItem(0);
-        if (item == 0) {
-            // empty list
-            return;
-        }
-        while(i<buildUi.errTreeWidget->topLevelItemCount()) {
-            item = buildUi.errTreeWidget->topLevelItem(i);
-            if (!item->text(1).isEmpty()) {
-                buildUi.errTreeWidget->setCurrentItem(item);
-                slotItemSelected(item);
-            }
-            i++;
-        }
+    const int itemCount = buildUi.errTreeWidget->topLevelItemCount();
+    if (itemCount == 0) {
         return;
     }
 
-    i = buildUi.errTreeWidget->indexOfTopLevelItem(item);
-    i++;
-    while(i < buildUi.errTreeWidget->topLevelItemCount()) {
+    QTreeWidgetItem *item = buildUi.errTreeWidget->currentItem();
+
+    int i = (item == 0) ? 0 : buildUi.errTreeWidget->indexOfTopLevelItem(item);
+
+    while (++i < itemCount) {
         item = buildUi.errTreeWidget->topLevelItem(i);
         if (!item->text(1).isEmpty()) {
             buildUi.errTreeWidget->setCurrentItem(item);
             slotItemSelected(item);
+            return;
         }
-        i++;
     }
-    return;
 }
 
 /******************************************************************/
 void KateBuildView::slotPrev()
 {
-    int i=buildUi.errTreeWidget->topLevelItemCount();
-
-    QTreeWidgetItem *item = buildUi.errTreeWidget->currentItem();
-
-    if (item == 0) {
-        // either first time or empty list
-        item = buildUi.errTreeWidget->topLevelItem(0);
-        if (item == 0) {
-            // empty list
-            return;
-        }
-        while(i>0) {
-            item = buildUi.errTreeWidget->topLevelItem(i);
-            if (!item->text(1).isEmpty()) {
-                buildUi.errTreeWidget->setCurrentItem(item);
-                slotItemSelected(item);
-            }
-            i--;
-        }
+    const int itemCount = buildUi.errTreeWidget->topLevelItemCount();
+    if (itemCount == 0) {
         return;
     }
 
-    i = buildUi.errTreeWidget->indexOfTopLevelItem(item);
-    i--;
-    while(i>0) {
+    QTreeWidgetItem *item = buildUi.errTreeWidget->currentItem();
+
+    int i = (item == 0) ? itemCount : buildUi.errTreeWidget->indexOfTopLevelItem(item);
+
+    while (--i >= 0) {
         item = buildUi.errTreeWidget->topLevelItem(i);
         if (!item->text(1).isEmpty()) {
             buildUi.errTreeWidget->setCurrentItem(item);
             slotItemSelected(item);
+            return;
         }
-        i--;
     }
-    return;
 }
 
 /******************************************************************/

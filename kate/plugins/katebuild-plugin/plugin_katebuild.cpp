@@ -88,32 +88,32 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 {
     m_win=mw;
 
-    QAction *make = actionCollection()->addAction("run_make");
+    KAction *make = actionCollection()->addAction("run_make");
     make->setText(i18n("Run make"));
     make->setShortcut(QKeySequence(Qt::ALT+Qt::Key_R) );
     connect( make, SIGNAL( triggered(bool) ), this, SLOT( slotMake() ) );
 
-    QAction *clean = actionCollection()->addAction("make_clean");
+    KAction *clean = actionCollection()->addAction("make_clean");
     clean->setText(i18n("Make Clean"));
     clean->setShortcut(QKeySequence(Qt::ALT+Qt::Key_Z) );
     connect( clean, SIGNAL( triggered(bool) ), this, SLOT( slotMakeClean() ) );
 
-    QAction *quick = actionCollection()->addAction("quick_compile");
+    KAction *quick = actionCollection()->addAction("quick_compile");
     quick->setText(i18n("Quick Compile"));
     quick->setShortcut(QKeySequence(Qt::ALT+Qt::Key_C) );
     connect( quick, SIGNAL( triggered(bool) ), this, SLOT( slotQuickCompile() ) );
 
-    QAction *stop = actionCollection()->addAction("break");
+    KAction *stop = actionCollection()->addAction("break");
     stop->setText(i18n("Break"));
     stop->setShortcut(QKeySequence(Qt::ALT+Qt::Key_X) );
     connect( stop, SIGNAL( triggered(bool) ), this, SLOT( slotStop() ) );
 
-    QAction *next = actionCollection()->addAction("goto_next");
+    KAction *next = actionCollection()->addAction("goto_next");
     next->setText(i18n("Next Error"));
     next->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Right) );
     connect( next, SIGNAL( triggered(bool) ), this, SLOT( slotNext() ) );
 
-    QAction *prev = actionCollection()->addAction("goto_prev");
+    KAction *prev = actionCollection()->addAction("goto_prev");
     prev->setText(i18n("Previous Error"));
     prev->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Left) );
     connect( prev, SIGNAL( triggered(bool) ), this, SLOT( slotPrev() ) );

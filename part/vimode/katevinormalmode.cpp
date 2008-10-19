@@ -607,7 +607,7 @@ bool KateViNormalMode::commandMakeLowercase()
 
   if ( line1 == line2 ) { // characterwise
     int endColumn = ( m_commandRange.endColumn > c.column() ) ? m_commandRange.endColumn : c.column();
-    int startColumn = ( m_commandRange.endColumn > c.column() ) ? c.column() : m_commandRange.endColumn;
+    int startColumn = ( m_commandRange.startColumn < c.column() ) ? m_commandRange.startColumn : c.column();
     if ( m_commandRange.isInclusive() )
       endColumn++;
 
@@ -655,7 +655,7 @@ bool KateViNormalMode::commandMakeUppercase()
 
   if ( line1 == line2 ) { // characterwise
     int endColumn = ( m_commandRange.endColumn > c.column() ) ? m_commandRange.endColumn : c.column();
-    int startColumn = ( m_commandRange.endColumn > c.column() ) ? c.column() : m_commandRange.endColumn;
+    int startColumn = ( m_commandRange.startColumn < c.column() ) ? m_commandRange.startColumn : c.column();
     if ( m_commandRange.isInclusive() )
       endColumn++;
 

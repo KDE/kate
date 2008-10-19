@@ -5,5 +5,13 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katectagsplugin
 X-Kate-Version=2.9
 Name=CTags Plugin
+Name[pt]='Plugin' do CTags
+Name[pt_BR]='Plugin' do CTags
+Name[sv]=Ctags-insticksprogram
+Name[uk]=Додаток CTags
 Comment=Look up definitions/declarations with CTags
+Comment[pt]=Procurar definições/declarações com o CTags
+Comment[pt_BR]=Procurar definições/declarações com o CTags
+Comment[sv]=Slå upp definitioner och deklarationer med Ctags
+Comment[uk]=Знайдіть визначення/декларації за допомогою CTags
 

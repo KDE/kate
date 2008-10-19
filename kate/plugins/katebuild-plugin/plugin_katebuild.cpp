@@ -201,7 +201,7 @@ void KateBuildView::slotNext()
 
     QTreeWidgetItem *item = buildUi.errTreeWidget->currentItem();
 
-    int i = (item == 0) ? 0 : buildUi.errTreeWidget->indexOfTopLevelItem(item);
+    int i = (item == 0) ? -1 : buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
     while (++i < itemCount) {
         item = buildUi.errTreeWidget->topLevelItem(i);

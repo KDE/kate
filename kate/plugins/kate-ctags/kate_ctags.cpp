@@ -47,22 +47,22 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
 {
     m_mWin = mw;
 
-    QAction *back = actionCollection()->addAction("ctags_return_step");
+    KAction *back = actionCollection()->addAction("ctags_return_step");
     back->setText(i18n("Jump back one step"));
     back->setShortcut(QKeySequence(Qt::ALT+Qt::Key_1) );
     connect(back, SIGNAL(triggered(bool)), this, SLOT(stepBack()));
 
-    QAction *decl = actionCollection()->addAction("ctags_lookup_current_as_declaration");
+    KAction *decl = actionCollection()->addAction("ctags_lookup_current_as_declaration");
     decl->setText(i18n("Go to Declaration"));
     decl->setShortcut(QKeySequence(Qt::ALT+Qt::Key_2) );
     connect(decl, SIGNAL(triggered(bool)), this, SLOT(gotoDeclaration()));
 
-    QAction *defin = actionCollection()->addAction("ctags_lookup_current_as_definition");
+    KAction *defin = actionCollection()->addAction("ctags_lookup_current_as_definition");
     defin->setText(i18n("Go to Definition"));
     defin->setShortcut(QKeySequence(Qt::ALT+Qt::Key_3) );
     connect(defin, SIGNAL(triggered(bool)), this, SLOT(gotoDefinition()));
 
-    QAction *lookup = actionCollection()->addAction("ctags_lookup_current");
+    KAction *lookup = actionCollection()->addAction("ctags_lookup_current");
     lookup->setText(i18n("Lookup Current Text"));
     lookup->setShortcut(QKeySequence(Qt::ALT+Qt::Key_4) );
     connect(lookup, SIGNAL(triggered(bool)), this, SLOT(lookupTag()));
@@ -71,11 +71,11 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
     m_menu = new KActionMenu(i18n("CTags"), this);
     actionCollection()->addAction("popup_ctags", m_menu);
 
-    m_gotoDec=m_menu->popupMenu()->addAction(i18n("Go to Declaration: %1",QString()), this, SLOT(gotoDeclaration()));
-    m_gotoDef=m_menu->popupMenu()->addAction(i18n("Go to Definition: %1",QString()), this, SLOT(gotoDefinition()));
-    m_lookup=m_menu->popupMenu()->addAction(i18n("Lookup: %1",QString()), this, SLOT(lookupTag()));
+    m_gotoDec=m_menu->menu()->addAction(i18n("Go to Declaration: %1",QString()), this, SLOT(gotoDeclaration()));
+    m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, SLOT(gotoDefinition()));
+    m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, SLOT(lookupTag()));
 
-    connect(m_menu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
+    connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
 
     QWidget *ctagsWidget = new QWidget(m_toolView);
     m_ctagsUi.setupUi(ctagsWidget);

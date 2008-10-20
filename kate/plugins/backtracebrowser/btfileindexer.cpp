@@ -46,13 +46,13 @@ void BtFileIndexer::setSearchPaths(const QStringList& urls)
 void BtFileIndexer::setFilter(const QStringList& fileFilter)
 {
   filter = fileFilter;
-  kDebug(13040) << filter;
+  kDebug() << filter;
 }
 
 void BtFileIndexer::run()
 {
   if (filter.size() == 0) {
-    kDebug(13040) << "Filter is empty. Aborting.";
+    kDebug() << "Filter is empty. Aborting.";
     return;
   }
 
@@ -61,7 +61,7 @@ void BtFileIndexer::run()
     if (cancelAsap) { break; }
     indexFiles(searchPaths[i]);
   }
-  kDebug(13040) << QString("Backtrace file database contains %1 files").arg(db->size());
+  kDebug() << QString("Backtrace file database contains %1 files").arg(db->size());
 }
 
 void BtFileIndexer::cancel()

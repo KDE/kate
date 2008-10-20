@@ -452,7 +452,7 @@ QStringList PseudoDTD::entities( QString start )
       uint ch = re.cap( 1).toUInt();
       str += " -- " + QChar( ch).decomposition();
     }
-    //kDebug(13040) << "#" << it.data();
+    //kDebug() << "#" << it.data();
     }
    */
       entities.append( str );

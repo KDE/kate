@@ -921,7 +921,7 @@ void KTinyTabBar::tabButtonCloseAllRequest( )
  */
 void KTinyTabBar::resizeEvent( QResizeEvent* event )
 {
-//     kDebug(13040) << "resizeEvent";
+//     kDebug() << "resizeEvent";
     // if there are no tabs there is nothing to do. Do not delete otherwise
     // division by zero is possible.
     if( m_tabButtons.count() == 0 )

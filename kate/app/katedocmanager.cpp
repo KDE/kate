@@ -66,7 +66,7 @@ KateDocManager::KateDocManager (QObject *parent)
   if (iface != NULL) {
     iface->setContainer( new KateContainer(KateApp::self()) );
   } else {
-    kDebug(13001)<<"Editor does not support the container interface";
+    kDebug()<<"Editor does not support the container interface";
   }
   // read in editor config
   m_editor->readConfig(KGlobal::config().data());
@@ -137,7 +137,7 @@ QVariant KateDocManager::data( const QModelIndex & index, int role ) const
 KTextEditor::Document *KateDocManager::createDoc ()
 {
 
-  kDebug(13001)<<"createDoc"<<endl;
+  kDebug()<<"createDoc"<<endl;
 
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
 
@@ -180,7 +180,7 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
     QStandardItem *it = item(i);
     if (it->data(KateDocManager::DocumentRole).value<KTextEditor::Document*>() == doc)
     {
-      kDebug(13001)<<"docname changed: "<<it->text()<<"----->"<<doc->documentName();
+      kDebug()<<"docname changed: "<<it->text()<<"----->"<<doc->documentName();
       it->setText(doc->documentName());
       break;
     }
@@ -189,7 +189,7 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
 
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
-  kDebug(13001)<<"deleting document with name:"<<doc->documentName();
+  kDebug()<<"deleting document with name:"<<doc->documentName();
   int remove_row=-1;
   int rows = rowCount();
   m_documentItemMapping.remove(doc);
@@ -216,7 +216,7 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   emit m_documentManager->documentDeleted (doc);
 
   for (int i=0;i<rowCount();i++) {
-	kDebug(13001)<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
+	kDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
   }
   if (remove_row>-1)
       removeRow(remove_row);
@@ -680,9 +680,9 @@ void KateDocManager::slotDocumentUrlChanged(KTextEditor::Document *doc)
 
 void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
 {
-  kDebug(13001) << "KateDocManager::slotModChanged (1)";
+  kDebug() << "KateDocManager::slotModChanged (1)";
   if (!m_documentItemMapping.contains(doc)) return;
-  kDebug(13001) << "KateDocManager::slotModChanged (2)";
+  kDebug() << "KateDocManager::slotModChanged (2)";
   QStandardItem *item = m_documentItemMapping[doc];
   const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
   item->setIcon(QIcon());

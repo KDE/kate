@@ -43,9 +43,9 @@ PluginKateKJSWrapperView::~PluginKateKJSWrapperView() {
 }
 
 void PluginKateKJSWrapperView::removeFromWindow() {
-      kDebug(13040)<<"PluginKateKJSWrapperView::removeFromWindow";
+      kDebug()<<"PluginKateKJSWrapperView::removeFromWindow";
       for (QValueList<QGuardedPtr<KMDI::ToolViewAccessor> >::iterator it=toolviews.begin();it!=toolviews.end();it=toolviews.begin()) {
-		kDebug(13040)<<"removeFromWindow: removing a toolview";
+		kDebug()<<"removeFromWindow: removing a toolview";
 		KMDI::ToolViewAccessor* tva=(*it);
 		toolviews.remove(it);
 		win->toolViewManager()->removeToolView (tva);
@@ -85,7 +85,7 @@ PluginKateKJSWrapper::PluginKateKJSWrapper( QObject* parent, const char* name, c
 /*    KJSEmbed::JSConsoleWidget *w=m_part->view();
     w->show();
     //w->show();*/
-    kDebug(13040)<<"m_scriptname="<<m_scriptname;
+    kDebug()<<"m_scriptname="<<m_scriptname;
     m_part->runFile(locate("appdata",QString("plugins/%1/%2.js").arg(m_scriptname).arg(m_scriptname)));
 //"/home/jowenn/development/kde/cvs/kdeaddons/kate/kjswrapper/samples/test1.js");
 }
@@ -105,11 +105,11 @@ uint PluginKateKJSWrapper::configPages () const {
     	KJS::Object constrs=m_configPageFactories.toObject(exec);
 	if (!exec->hadException()) {
 		if (QString(constrs.classInfo()->className)=="Array") {
-			kDebug(13040)<<"config page  constructor array detected";
+			kDebug()<<"config page  constructor array detected";
 			uint size=constrs.get(exec,KJS::Identifier("length")).toInteger(exec);
 			if (exec->hadException()) {
 				exec->clearException(); 
-				kDebug(13040)<<"Error while retrieving array length";
+				kDebug()<<"Error while retrieving array length";
 			}
 			else  return size;
 		} else return 1;
@@ -126,7 +126,7 @@ static KJS::Object getObj(KJS::Interpreter *js, KJS::Value mightBeArray, int id)
 	KJS::Value constr;
 	if (!exec->hadException()) {
 		if (QString(constrs.classInfo()->className)=="Array") {
-			kDebug(13040)<<"config page  constructor array detected";
+			kDebug()<<"config page  constructor array detected";
 			constr=constrs.get(exec,id);
 		} else constr=mightBeArray;
 	
@@ -143,9 +143,9 @@ QString PluginKateKJSWrapper::configPageName(uint id) const {
 	KJS::Value o=constr.get(js->globalExec(),KJS::Identifier("name"));
 	QString retVal( o.toString(js->globalExec()).qstring() );
 
-	kDebug(13040)<<"==============================================================================================";
-	kDebug(13040)<<"PluginKateKJSWrapper::configPageName: "<<retVal;
-	kDebug(13040)<<"==============================================================================================";
+	kDebug()<<"==============================================================================================";
+	kDebug()<<"PluginKateKJSWrapper::configPageName: "<<retVal;
+	kDebug()<<"==============================================================================================";
 	js->globalExec()->clearException();
 	return retVal;
 }
@@ -159,9 +159,9 @@ QString PluginKateKJSWrapper::configPageFullName(uint id) const {
 	KJS::Value o=constr.get(js->globalExec(),KJS::Identifier("fullName"));
 	QString retVal( o.toString(js->globalExec()).qstring() );
 
-	kDebug(13040)<<"==============================================================================================";
-	kDebug(13040)<<"PluginKateKJSWrapper::configPageFullName: "<<retVal;
-	kDebug(13040)<<"==============================================================================================";
+	kDebug()<<"==============================================================================================";
+	kDebug()<<"PluginKateKJSWrapper::configPageFullName: "<<retVal;
+	kDebug()<<"==============================================================================================";
 	js->globalExec()->clearException();
 	return retVal;
 }
@@ -174,7 +174,7 @@ QPixmap PluginKateKJSWrapper::configPagePixmap (uint /*number = 0*/,
 
 Kate::PluginConfigPage* PluginKateKJSWrapper::configPage (uint id, 
                                   QWidget *w, const char */*name*/) {
-	kDebug(13040)<<"PluginKateKJSWrapper::configPage";
+	kDebug()<<"PluginKateKJSWrapper::configPage";
 
 	if (id>=configPages()) return 0;
         KJS::Interpreter *js = m_part->interpreter();
@@ -182,7 +182,7 @@ Kate::PluginConfigPage* PluginKateKJSWrapper::configPage (uint id,
 	KJS::Object constr=getObj(js,m_configPageFactories,id);
 
 	if (js->globalExec()->hadException()) {
-		kDebug(13040)<<"PluginKateKJSWrapper::configPage: exit 1";
+		kDebug()<<"PluginKateKJSWrapper::configPage: exit 1";
 		js->globalExec()->clearException();
 		return 0;
   	}
@@ -240,17 +240,17 @@ static KMDI::ToolViewAccessor *createToolView(KJSEmbed::JSFactory *factory,KJS::
 	//params.append(factory->createProxy(exec,tv));
 	//KJS::Object otv=viewConstructor.construct(exec,params);
 	if (exec->hadException()) {
-		kDebug(13040)<<"Error while calling constructor";
+		kDebug()<<"Error while calling constructor";
 		delete tv;
-		kDebug(13040)<<exec->exception().toString(exec).qstring();
+		kDebug()<<exec->exception().toString(exec).qstring();
 		exec->clearException();
 		return 0;
 	}
 	KMDI::ToolViewAccessor *tva=winN->toolViewManager()->addToolView((KDockWidget::DockPosition)dockPos,tv,
 		tv->icon()?(*(tv->icon())):QPixmap(),tv->caption());
-    	kDebug(13040)<<"****************************************************************************************";
-	kDebug(13040)<<"PluginKateKJSWrapper: Toolview has been added";
-	kDebug(13040)<<"****************************************************************************************";
+    	kDebug()<<"****************************************************************************************";
+	kDebug()<<"PluginKateKJSWrapper: Toolview has been added";
+	kDebug()<<"****************************************************************************************";
 	return tva;
 
 }
@@ -266,7 +266,7 @@ PluginKateKJSWrapperView *PluginKateKJSWrapper::getViewObject(Kate::MainWindow *
         KJS::ExecState *exec = js->globalExec();
 	view->actionCollectionObj=m_part->factory()->createProxy(exec,view->actionCollection());
         view->winObj=m_part->factory()->createProxy(exec,win);
-    } else kDebug(13040)<<"returning cached View/Window Object";
+    } else kDebug()<<"returning cached View/Window Object";
     return view;
 }
 
@@ -276,10 +276,10 @@ void PluginKateKJSWrapper::addView(Kate::MainWindow *win)
     KJS::Interpreter *js = m_part->interpreter();
     KJS::ExecState *exec = js->globalExec();
     exec->clearException();
-    kDebug(13040)<<"****************************************************************************************";
-    kDebug(13040)<<"PluginKateKJSWrapper::addView";
-    kDebug(13040)<<"****************************************************************************************";
-    kDebug(13040)<<"checking for newWindowHandler";
+    kDebug()<<"****************************************************************************************";
+    kDebug()<<"PluginKateKJSWrapper::addView";
+    kDebug()<<"****************************************************************************************";
+    kDebug()<<"checking for newWindowHandler";
     if (!m_newWindowHandler.isNull()) {
     	KJS::List param;
 	param.append(view->winObj);
@@ -290,24 +290,24 @@ void PluginKateKJSWrapper::addView(Kate::MainWindow *win)
 		if (newWinFunc.implementsCall()) {
 			newWinFunc.call(exec,js->globalObject(),param);
 			if (exec->hadException()) {
-				kDebug(13040)<<"Error while calling newWindowHandler";
+				kDebug()<<"Error while calling newWindowHandler";
 				exec->clearException();
 			}
 		}
 	}
     }
-    if (exec->hadException()) kDebug(13040)<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): exec had an exception - 1";
+    if (exec->hadException()) kDebug()<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): exec had an exception - 1";
 
-    kDebug(13040)<<"checking for toolview constructors";
+    kDebug()<<"checking for toolview constructors";
     if (! (m_toolViewConstructors.isNull() || (m_toolViewConstructors.type()==KJS::NullType))) {
     	KJS::Object constrs=m_toolViewConstructors.toObject(exec);
 	if (!exec->hadException()) {
 		if (QString(constrs.classInfo()->className)=="Array") {
-			kDebug(13040)<<"Toolview constructor array detected";
+			kDebug()<<"Toolview constructor array detected";
 			int size=constrs.get(exec,KJS::Identifier("length")).toInteger(exec);
 			if (exec->hadException()) {
 				exec->clearException(); 
-				kDebug(13040)<<"Error while retrieving array length";
+				kDebug()<<"Error while retrieving array length";
 			}
 			else {
 				for (int i=0;i<size;i++) {
@@ -324,7 +324,7 @@ void PluginKateKJSWrapper::addView(Kate::MainWindow *win)
 				}
 			}
 		} else {
-			kDebug(13040)<<"Single toolview constructor detected";
+			kDebug()<<"Single toolview constructor detected";
 			if (!constrs.implementsConstruct()) {
 				kWarning()<<"wrong object type";
 			} else {
@@ -337,10 +337,10 @@ void PluginKateKJSWrapper::addView(Kate::MainWindow *win)
 		}
 	
 	}
-    } else kDebug(13040)<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): no toolview constructors";
+    } else kDebug()<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): no toolview constructors";
 
 
-    if (exec->hadException()) kDebug(13040)<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): exec had an exception - 2";
+    if (exec->hadException()) kDebug()<<"void PluginKateKJSWrapper::addView(Kate::MainWindow *win): exec had an exception - 2";
 
     view->setComponentData (KComponentData("kate"));
     view->setXMLFile(QString("plugins/%1/%2.rc").arg(m_scriptname).arg(m_scriptname));

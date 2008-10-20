@@ -262,14 +262,14 @@ void KateSaveModifiedDialog::slotDoNotSave()
 
 bool KateSaveModifiedDialog::doSave(QTreeWidgetItem *root)
 {
-kDebug(13001) << root;
+kDebug() << root;
   if (root)
   {
-kDebug(13001) << root->childCount();
+kDebug() << root->childCount();
     for (int i = 0; i < root->childCount(); ++i)
     {
       AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)root->child(i);
-      kDebug(13001) << cit->checkState(0)<<  Qt::Checked<<  cit->state()<<  AbstractKateSaveModifiedDialogCheckListItem::SaveOKState;
+      kDebug() << cit->checkState(0)<<  Qt::Checked<<  cit->state()<<  AbstractKateSaveModifiedDialogCheckListItem::SaveOKState;
       if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
       {
         if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/))

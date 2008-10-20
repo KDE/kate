@@ -328,7 +328,7 @@ bool KateBuildView::startProcess(const QString &command)
 
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
-        kDebug(13040) << "no KTextEditor::View" << endl;
+        kDebug() << "no KTextEditor::View" << endl;
         return false;
     }
 
@@ -359,7 +359,7 @@ bool KateBuildView::startProcess(const QString &command)
         m_make_dir = KUrl(buildUi.buildDir->text());
     }
 
-    kDebug(13040) << "m_make_dir = " << m_make_dir;
+    kDebug() << "m_make_dir = " << m_make_dir;
     m_make_dir_stack.clear();
     m_make_dir_stack.push(m_make_dir);
 
@@ -427,7 +427,7 @@ void KateBuildView::slotReadReadyStdOut()
     int end=0;
 
     if (l.indexOf(*m_newDirDetector) >=0) {
-        kDebug(13040) << "Enter/Exit dir found";
+        kDebug() << "Enter/Exit dir found";
         //QString top = m_doc_dir_stack.top();
         int open = l.indexOf("`");
         int close = l.indexOf("'");
@@ -453,7 +453,7 @@ void KateBuildView::slotReadReadyStdOut()
         tmp = m_output_lines.mid(0, end);
         tmp.remove('\n');
         buildUi.plainTextEdit->appendPlainText(tmp);
-        //kDebug(13040) << tmp;
+        //kDebug() << tmp;
 
 
         m_output_lines.remove(0,end);
@@ -493,13 +493,13 @@ void KateBuildView::slotReadReadyStdErr()
 void KateBuildView::processLine(const QString &line)
 {
     QString l = line;
-    kDebug(13040) << l ;
+    kDebug() << l ;
 
     //look for a filename
     if (m_filenameDetector && l.indexOf(*m_filenameDetector)<0)
     {
         addError(QString(), 0, QString(), l);
-        //kDebug(13040) << "A filename was not found in the line ";
+        //kDebug() << "A filename was not found in the line ";
         return;
     }
 
@@ -515,7 +515,7 @@ void KateBuildView::processLine(const QString &line)
         f_name = l.indexOf(*m_filenameDetector);
         colon1 = l.indexOf(':');
         if ((f_name < 0)) {
-            kDebug(13040) << "This should have been a filename, in \"" << line << "\", but I can not find it :(";
+            kDebug() << "This should have been a filename, in \"" << line << "\", but I can not find it :(";
             return;
         }
     }
@@ -534,7 +534,7 @@ void KateBuildView::processLine(const QString &line)
     QString msg = l.mid(colon2+1);
     msg = msg.simplified();
 
-    //kDebug(13040) << "File Name:"<<filename<< " msg:"<< msg;
+    //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
 
     // handle "In file included from foo.c:6"
     // handle "                 from foo.c:6:"
@@ -544,7 +544,7 @@ void KateBuildView::processLine(const QString &line)
         msg += toRemove;
         filename = filename.remove(toRemove);
     }
-    //kDebug(13040) << "File Name:"<<filename<< " msg:"<< msg;
+    //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file
     if (QFile::exists(m_make_dir.path(KUrl::AddTrailingSlash)+filename)) {
         filename = m_make_dir.path(KUrl::AddTrailingSlash)+filename;

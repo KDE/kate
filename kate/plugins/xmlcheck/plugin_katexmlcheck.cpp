@@ -147,7 +147,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow 
 /* TODO?: invalidate the listview when document has changed
 	Kate::View *kv = application()->activeMainWindow()->activeView();
 	if( ! kv ) {
-		kDebug(13040) << "Warning: no Kate::View";
+		kDebug() << "Warning: no Kate::View";
 		return;
 	}
 	connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
@@ -180,7 +180,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 		return;
 	}
 
-	kDebug(13040) << "slotProcExited()";
+	kDebug() << "slotProcExited()";
 	QApplication::restoreOverrideCursor();
 	delete m_tmp_file;
 	QString proc_stderr = QString::fromLocal8Bit(m_proc->readAllStandardError());
@@ -248,7 +248,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 
 void PluginKateXMLCheckView::slotClicked(Q3ListViewItem *item)
 {
-	kDebug(13040) << "slotClicked";
+	kDebug() << "slotClicked";
 	if( item ) {
 		bool ok = true;
 		uint line = item->text(1).toUInt(&ok);
@@ -267,13 +267,13 @@ void PluginKateXMLCheckView::slotClicked(Q3ListViewItem *item)
 
 void PluginKateXMLCheckView::slotUpdate()
 {
-	kDebug(13040) << "slotUpdate() (not implemented yet)";
+	kDebug() << "slotUpdate() (not implemented yet)";
 }
 
 
 bool PluginKateXMLCheckView::slotValidate()
 {
-	kDebug(13040) << "slotValidate()";
+	kDebug() << "slotValidate()";
 
 	win->showToolView (this);
 
@@ -287,7 +287,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	m_tmp_file = new KTemporaryFile();
 	if( !m_tmp_file->open() ) {
-		kDebug(13040) << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
+		kDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
 		KMessageBox::error(0, i18n("<b>Error:</b> Could not create "
 			"temporary file '%1'.", m_tmp_file->fileName()));
 		delete m_tmp_file;
@@ -310,10 +310,10 @@ bool PluginKateXMLCheckView::slotValidate()
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog");
 		catalogs += ':';
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/docbook/xml-dtd-4.1.2/docbook.cat");
-		kDebug(13040) << "catalogs: " << catalogs;
+		kDebug() << "catalogs: " << catalogs;
 		setenv("SGML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);
 	}
-	//kDebug(13040) << "**catalogs: " << getenv("SGML_CATALOG_FILES");
+	//kDebug() << "**catalogs: " << getenv("SGML_CATALOG_FILES");
 
 	*m_proc << exe << "--catalogs" << "--noout";
 

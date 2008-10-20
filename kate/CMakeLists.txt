@@ -1,5 +1,7 @@
 project(kate)
 
+add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13001 )
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/interfaces)
 macro_optional_find_package(Plasma)
 macro_bool_to_01(PLASMA_FOUND HAVE_PLASMA)

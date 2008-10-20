@@ -438,7 +438,7 @@ namespace KateMDI
       KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab*>(obj);
       if (bt)
       {
-        kDebug(13001) << "Request for popup";
+        kDebug() << "Request for popup";
 
         m_popupButton = bt->id();
 

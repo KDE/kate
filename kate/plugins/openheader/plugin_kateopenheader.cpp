@@ -104,7 +104,7 @@ void PluginKateOpenHeader::tryOpen( const KUrl& url, const QStringList& extensio
   if (!application()->activeMainWindow())
     return;
 
-  kDebug(13040) << "Trying to open " << url.prettyUrl() << " with extensions " << extensions.join(" ");
+  kDebug() << "Trying to open " << url.prettyUrl() << " with extensions " << extensions.join(" ");
   QString basename = QFileInfo( url.path() ).baseName();
   KUrl newURL( url );
   for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {

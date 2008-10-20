@@ -123,7 +123,7 @@ Kate::PluginConfigPage *KateFileSelectorPlugin::configPage (uint number, QWidget
 QString KateFileSelectorPlugin::configPageName (uint number) const
 {
   if (number != 0) return QString();
-  kDebug(13040) << "Returning a config page name";
+  kDebug() << "Returning a config page name";
   return i18n("File Selector");
 }
 

@@ -726,9 +726,13 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers
 const QChar KateViKeySequenceParser::KeyEventToQChar(int keyCode, QString text,
     Qt::KeyboardModifiers mods, quint32 nativeScanCode) const
 {
-  QChar key = text.at(0);
+  QChar key;
 
-  if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
+  if ( !text.isEmpty() ) {
+    key = text.at(0);
+  }
+
+  if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 )
       || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
     QString keyPress;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Dr Orlovsky MA <maxim@orlovsky.info> //-->
-<language name="YAML" version="1.0" kateversion="2.3" section="Markup"
+<language name="YAML" version="1.0.1" kateversion="2.3" section="Markup"
           extensions="*.yaml;*.yml" mimetype="text/yaml"
           author="Dr Orlovsky MA (dr.orlovsky@gmail.com)" license="LGPL">
   <highlighting>
@@ -79,7 +79,7 @@
         <DetectSpaces/>
         <DetectChar attribute="Comment" context="comment" char="#" />
 
-        <RegExpr attribute="Data Types" context="#stay" String="null" />
+        <StringDetect attribute="Data Types" context="#stay" String="null" />
         <RegExpr attribute="Data Types" context="#stay" String="!!\S+" />
         <DetectChar attribute="Operator" context="list" char="[" beginRegion="List" />
         <DetectChar attribute="Operator" context="hash" char="{" beginRegion="Hash" />
@@ -103,7 +103,7 @@
         <RegExpr attribute="Key" context="attribute-pre" String="\??\s*&quot;[^&quot;#]+&quot;\s*:"/>
         <RegExpr attribute="Key" context="attribute-pre" String="\??\s*'[^'#]+'\s*:"/>
 
-        <RegExpr attribute="Data Types" context="#stay" String="null" />
+        <StringDetect attribute="Data Types" context="#stay" String="null" />
         <RegExpr attribute="Data Types" context="#stay" String="!!\S+" />
         <DetectChar attribute="Operator" context="list" char="[" beginRegion="List" />
         <DetectChar attribute="Operator" context="hash" char="{" beginRegion="Hash" />

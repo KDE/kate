@@ -86,6 +86,8 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     , m_proc(0)
     , m_filenameDetector(0)
 {
+    setComponentData(KComponentData("kate"));
+
     m_win=mw;
 
     KAction *make = actionCollection()->addAction("run_make");
@@ -145,7 +147,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_filenameDetector = new QRegExp(QString::fromLatin1("[a-zA-Z0-9_\\.\\-]*\\.[chpxCHPX]*:[0-9]+"));
     m_newDirDetector = new QRegExp(QString::fromLatin1("make\\[.+\\]: .+ `.*'"));
 
-    setComponentData(KComponentData("kate"));
     setXMLFile(QString::fromLatin1("plugins/katebuild/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
 

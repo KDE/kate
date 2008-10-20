@@ -45,6 +45,8 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
                      )
         , m_proc(0)
 {
+    setComponentData(KComponentData("kate"));
+
     m_mWin = mw;
 
     KAction *back = actionCollection()->addAction("ctags_return_step");
@@ -109,7 +111,6 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
     connect(m_ctagsUi.treeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
             SLOT(tagHitClicked(QTreeWidgetItem *)));
 
-    setComponentData(KComponentData("kate"));
     setXMLFile(QString::fromLatin1("plugins/katectags/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
 

@@ -895,17 +895,9 @@ int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Curs
 KTextEditor::Cursor KateRenderer::xToCursor(const KateTextLayout & range, int x, bool returnPastLine ) const
 {
   Q_ASSERT(range.isValid());
+  KTextEditor::Cursor ret(range.line(), range.lineLayout().xToCursor(x));
 
-  int adjustedX = x;
-
-  if (adjustedX <  range.xOffset())
-    adjustedX = range.xOffset();
-  else if (adjustedX > range.width() + range.xOffset())
-    adjustedX = range.width() + range.xOffset();
-
-  Q_ASSERT(range.isValid());
-  KTextEditor::Cursor ret(range.line(), range.lineLayout().xToCursor(adjustedX));
-
+  // TODO wrong for RTL lines?
   if (returnPastLine && x > range.width() + range.xOffset())
     ret.setColumn(ret.column() + ((x - (range.width() + range.xOffset())) / spaceWidth()));
 

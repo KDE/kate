@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-        <language name="XUL" version="0.10" kateversion="2.5" section="Markup" extensions="*.xul;*.xbl" mimetype="text/xul" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl), Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net), Marc Dassonneville (marc.dassonneville@gmail.com)" license="LGPL">
+        <language name="XUL" version="0.11" kateversion="2.5" section="Markup" extensions="*.xul;*.xbl" mimetype="text/xul" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl), Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net), Marc Dassonneville (marc.dassonneville@gmail.com)" license="LGPL">
 
 <highlighting>
    <list name="keywords">
@@ -506,7 +506,7 @@
      <StringDetect attribute="EntityRef" context="#stay" String="]]&amp;gt;" />
      <DetectSpaces/>
      <StringDetect attribute="Region Marker" context="region_marker" String="//BEGIN" beginRegion="Region1"/>
-     <RegExpr attribute="Region Marker" context="region_marker" String="//END" endRegion="Region1"/>
+     <StringDetect attribute="Region Marker" context="region_marker" String="//END" endRegion="Region1"/>
      <keyword attribute="Keyword" context="#stay" String="keywords" />
      <keyword attribute="Function" context="#stay" String="functions" />
      <keyword attribute="Objects" context="#stay" String="objects" />

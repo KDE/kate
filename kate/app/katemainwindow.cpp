@@ -171,7 +171,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   setXMLFile( "kateui.rc" );
   createShellGUI ( true );
 
-  kDebug() << "****************************************************************************" << sconfig;
+  kDebug(13001) << "****************************************************************************" << sconfig;
 
   // register mainwindow in app
   KateApp::self()->addMainWindow (this);
@@ -266,7 +266,7 @@ void KateMainWindow::setupMainWindow ()
 #endif
   if (!style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, m_fileList))
   {
-    kDebug() << "HACK:***********************CONNECTING CLICKED***************************";
+    kDebug(13001) << "HACK:***********************CONNECTING CLICKED***************************";
     connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
     connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_viewManager, SLOT(activateDocument(const QModelIndex &)));
   }
@@ -999,7 +999,7 @@ void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
 
 void KateMainWindow::slotUpdateHorizontalViewBar()
 {
-  kDebug()<<"slotUpdateHorizontalViewBar()"<<endl;
+  kDebug(13001)<<"slotUpdateHorizontalViewBar()"<<endl;
   KTextEditor::View *view=m_viewManager->activeView();
   BarState bs=m_viewBarMapping[view];
   if (bs.bar() && bs.state()) {
@@ -1009,7 +1009,7 @@ void KateMainWindow::slotUpdateHorizontalViewBar()
   } else {
     QWidget *wid=m_containerstack->currentWidget();
     if (wid) wid->hide();
-    kDebug()<<wid<<"hiding container"<<endl;
+    kDebug(13001)<<wid<<"hiding container"<<endl;
     m_horizontalViewBarContainer->hide();
   }
 }

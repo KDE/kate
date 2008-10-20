@@ -87,7 +87,7 @@ void KateFileList::mousePressEvent ( QMouseEvent * event ) {
 }
 
 void KateFileList::mouseReleaseEvent ( QMouseEvent * event ) {
-  kDebug()<<"KateFileList::mouseReleaseEvent";
+  kDebug(13001)<<"KateFileList::mouseReleaseEvent";
   m_previouslySelected = QModelIndex();
   QListView::mouseReleaseEvent(event);
 }

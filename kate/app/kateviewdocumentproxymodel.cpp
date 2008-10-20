@@ -78,7 +78,7 @@ QMimeData *KateViewDocumentProxyModel::mimeData(const QModelIndexList &indexes) 
   {
     if (index.isValid())
     {
-      kDebug()<<"mimeData:"<<index;
+      kDebug(13001)<<"mimeData:"<<index;
       stream << index.row() << index.column();
     }
   }
@@ -116,7 +116,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   int sourcecolumn;
   stream >> sourcerow;
   stream >> sourcecolumn;
-  kDebug() << sourcerow << "/" << sourcecolumn;
+  kDebug(13001) << sourcerow << "/" << sourcecolumn;
 
   int insertRowAt = row - ((sourcerow < row) ? 1 : 0);
 
@@ -138,7 +138,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   m_rowCountOffset--;
   endRemoveRows();
 
-   kDebug()<<sourcerow<<"/////"<<insertRowAt;
+   kDebug(13001)<<sourcerow<<"/////"<<insertRowAt;
 // 
     beginInsertRows(parent, insertRowAt, insertRowAt);
     m_mapToSource.insert(insertRowAt, sourceModelRow);
@@ -149,8 +149,8 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
       m_mapFromSource[tmp] = i;
     }
 // 
-   kDebug()<<"m_mapFromSource"<<m_mapFromSource;
-   kDebug()<<"m_mapToSource"<<m_mapToSource;
+   kDebug(13001)<<"m_mapFromSource"<<m_mapFromSource;
+   kDebug(13001)<<"m_mapToSource"<<m_mapToSource;
 // 
     m_rowCountOffset++;
     endInsertRows();
@@ -240,7 +240,7 @@ void KateViewDocumentProxyModel::modified(const QModelIndex &proxyIndex)
 void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
 {
   if (!m_shadingEnabled) return;
-kDebug()<<emitSignals;
+kDebug(13001)<<emitSignals;
   QMap <QModelIndex, EditViewCount> helper;
   int i = 1;
   foreach (const QModelIndex &idx, m_viewHistory)
@@ -295,7 +295,7 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
 {
   if (role == Qt::BackgroundColorRole)
   {
-    //kDebug()<<"BACKGROUNDROLE";
+    //kDebug(13001)<<"BACKGROUNDROLE";
     QBrush br = m_brushes[index];
     if ((br.style() != Qt::NoBrush) && m_shadingEnabled)
       return br;
@@ -305,8 +305,8 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
     return index.row();
 
 
-/*  kDebug()<<index;
-  kDebug()<<mapToSource(index);*/
+/*  kDebug(13001)<<index;
+  kDebug(13001)<<mapToSource(index);*/
 
   return sourceModel()->data(mapToSource(index), role);
 }
@@ -323,7 +323,7 @@ QItemSelection KateViewDocumentProxyModel::mapSelectionFromSource ( const QItemS
 }
 QItemSelection KateViewDocumentProxyModel::mapSelectionToSource ( const QItemSelection & proxySelection ) const
 {
-  kDebug() << "KateViewDocumentProxyModel::mapSelectionToSource";
+  kDebug(13001) << "KateViewDocumentProxyModel::mapSelectionToSource";
   return QAbstractProxyModel::mapSelectionToSource(proxySelection);
 }
 
@@ -522,18 +522,18 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
     m_mapToSource.removeLast();
     m_mapFromSource.removeLast();
 
-    foreach (int sr, m_mapToSource) kDebug()<<sr;
-    kDebug()<<"**************";
+    foreach (int sr, m_mapToSource) kDebug(13001)<<sr;
+    kDebug(13001)<<"**************";
 
     for (int i = 0;i < m_mapToSource.count();i++)
     {
       int tmp = m_mapToSource[i];
       m_mapFromSource[tmp] = i;
     }
-    //foreach (int sd, m_mapFromSource) kDebug()<<sd;
+    //foreach (int sd, m_mapFromSource) kDebug(13001)<<sd;
 
     for (int i=0;i<m_mapToSource.size();i++)
-	kDebug()<<data(createIndex(i,0),Qt::DisplayRole);
+	kDebug(13001)<<data(createIndex(i,0),Qt::DisplayRole);
   }
   m_rowCountOffset = 0;
 }

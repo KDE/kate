@@ -106,7 +106,7 @@ QString KateApp::kateVersion (bool fullVersion)
 void KateApp::initKate ()
 {
 
-  kDebug() << "Setting KATE_PID: '" << getpid() << "'";
+  kDebug(13001) << "Setting KATE_PID: '" << getpid() << "'";
   ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1(), 1 );
 
   // handle restore different
@@ -120,7 +120,7 @@ void KateApp::initKate ()
     // we can exit here if session chooser decides
     if (!startupKate ())
     {
-      kDebug() << "startupKate returned false";
+      kDebug(13001) << "startupKate returned false";
       m_shouldExit = true;
       return ;
     }
@@ -164,7 +164,7 @@ bool KateApp::startupKate ()
     // let the user choose session if possible
     if (!sessionManager()->chooseSession ())
     {
-      kDebug() << "chooseSession returned false, exiting";
+      kDebug(13001) << "chooseSession returned false, exiting";
       // we will exit kate now, notify the rest of the world we are done
 #ifdef Q_WS_X11
       KStartupInfo::appStarted (startupId());
@@ -259,7 +259,7 @@ bool KateApp::startupKate ()
 
   activeMainWindow()->setAutoSaveSettings();
 
-  kDebug() << "KateApplication::init finished successful";
+  kDebug(13001) << "KateApplication::init finished successful";
   return true;
 }
 

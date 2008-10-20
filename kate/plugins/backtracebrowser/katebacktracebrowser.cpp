@@ -262,7 +262,7 @@ void KateBtBrowserPluginView::itemActivated(QTreeWidgetItem* item, int column)
         if (idx != -1) {
           // file is of correct form
         } else {
-          kDebug() << "file patter did not match:" << file;
+          kDebug(13040) << "file patter did not match:" << file;
           setStatus(i18n("File not found: %1", file));
           return;
         }

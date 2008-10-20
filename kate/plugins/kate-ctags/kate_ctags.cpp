@@ -287,10 +287,10 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     }
 
     Tags::TagList list = Tags::getMatches(word, false, types);
-    //kDebug() << "found" << list.count() << word << types;
+    //kDebug(13040) << "found" << list.count() << word << types;
 
     if ( list.count() < 1) {
-        //kDebug() << "No hits found";
+        //kDebug(13040) << "No hits found";
         return;
     }
 
@@ -372,12 +372,12 @@ QString KateCTagsView::currentWord( )
 {
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
-        kDebug() << "no KTextEditor::View" << endl;
+        kDebug(13040) << "no KTextEditor::View" << endl;
         return QString();
     }
 
     if (!kv->cursorPosition().isValid()) {
-        kDebug() << "cursor not valid!" << endl;
+        kDebug(13040) << "cursor not valid!" << endl;
         return QString();
     }
 
@@ -395,11 +395,11 @@ QString KateCTagsView::currentWord( )
         endPos++;
     }
     if  (startPos == endPos) {
-        kDebug() << "no word found!" << endl;
+        kDebug(13040) << "no word found!" << endl;
         return QString();
     }
 
-    //kDebug() << linestr.mid(startPos+1, endPos-startPos-1);
+    //kDebug(13040) << linestr.mid(startPos+1, endPos-startPos-1);
     return linestr.mid(startPos+1, endPos-startPos-1);
 }
 
@@ -448,7 +448,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
         url.setPath(abs.absoluteFilePath());
     }
 
-    //kDebug() << url << pattern;
+    //kDebug(13040) << url << pattern;
 
     // save current location
     TagJump from;
@@ -485,10 +485,10 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 /******************************************************************/
 void KateCTagsView::setTagsFile(const QString &fname)
 {
-    //kDebug() << "setting tagsFile" << fname;
+    //kDebug(13040) << "setting tagsFile" << fname;
     QFileInfo file(fname);
     if (file.exists() && file.isFile()) {
-        //kDebug() << "File Found -> setting it";
+        //kDebug(13040) << "File Found -> setting it";
         m_ctagsUi.updateDB->setDisabled(false);
     }
     else {
@@ -501,7 +501,7 @@ void KateCTagsView::setTagsFile(const QString &fname)
 /******************************************************************/
 void KateCTagsView::selectTagFile()
 {
-    //kDebug() << "";
+    //kDebug(13040) << "";
     KUrl defDir(m_ctagsUi.tagsFile->text());
     QString new_file = KFileDialog::getOpenFileName(defDir);
 
@@ -514,7 +514,7 @@ void KateCTagsView::selectTagFile()
 /******************************************************************/
 void KateCTagsView::startTagFileTmr()
 {
-    //kDebug() << "";
+    //kDebug(13040) << "";
     if (m_ctagsUi.tagsFile->text().isEmpty()) {
         m_ctagsUi.updateDB->setDisabled(true);
     }
@@ -532,7 +532,7 @@ void KateCTagsView::startEditTmr()
 /******************************************************************/
 void KateCTagsView::setTagsFile()
 {
-    //kDebug() << "";
+    //kDebug(13040) << "";
     setTagsFile(m_ctagsUi.tagsFile->text());
 }
 

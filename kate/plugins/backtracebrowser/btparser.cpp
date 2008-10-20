@@ -145,7 +145,7 @@ static BtInfo parseBtLine(const QString& line)
     return info;
   }
 
-  kDebug() << "Unknown backtrace line:" << line;
+  kDebug(13040) << "Unknown backtrace line:" << line;
 
   BtInfo info;
   info.type = BtInfo::Invalid;

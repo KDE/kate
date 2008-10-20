@@ -144,7 +144,7 @@ void PluginView::slotDocumentCreated( KTextEditor::Document* document )
 
 void PluginView::slotDocumentDeleted( KTextEditor::Document* document )
 {
-  //  kDebug() << "slotDocumentDeleted ";
+  //  kDebug(13040) << "slotDocumentDeleted ";
   int tabID = doc2id[document];
 
   tabbar->removeTab( tabID );
@@ -191,7 +191,7 @@ void PluginView::slotNameChanged( KTextEditor::Document* document )
 void PluginView::slotModifiedOnDisc( KTextEditor::Document* document, bool modified,
                                      KTextEditor::ModificationInterface::ModifiedOnDiskReason reason )
 {
-  kDebug() << "modified: " << modified << ", id: " << reason;
+  kDebug(13040) << "modified: " << modified << ", id: " << reason;
   int tabID = doc2id[document];
   if( !modified )
   {

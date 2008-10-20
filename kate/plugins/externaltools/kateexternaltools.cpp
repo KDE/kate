@@ -347,7 +347,7 @@ KateExternalToolsMenuAction::KateExternalToolsMenuAction( const QString &text,
 
 KateExternalToolsMenuAction::~KateExternalToolsMenuAction()
 {
-  //kDebug() << "deleted KateExternalToolsMenuAction";
+  //kDebug(13040) << "deleted KateExternalToolsMenuAction";
 }
 
 void KateExternalToolsMenuAction::reload()

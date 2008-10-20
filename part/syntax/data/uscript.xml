@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="UnrealScript" version="0.91" kateversion="2.3" section="Scripts" extensions="*.uc" mimetype="text/x-uscript">
+<language name="UnrealScript" version="0.92" kateversion="2.3" section="Scripts" extensions="*.uc" mimetype="text/x-uscript">
 	<highlighting>
 		<list name="keywords">
 			<item> break </item>
@@ -141,7 +141,7 @@
 				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1"/>
 				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1"/>
 				<AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-				<RegExpr attribute="Preprocessor" context="Preprocessor" insensitive="TRUE" String="#exec"/>
+				<StringDetect attribute="Preprocessor" context="Preprocessor" insensitive="TRUE" String="#exec"/>
 			</context>
 			<context attribute="String" lineEndContext="#pop" name="String">
 				<LineContinue attribute="String" context="#stay"/>

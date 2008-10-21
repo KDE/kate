@@ -635,7 +635,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
   if (m_groupHash.contains(groupingAttribute)) {
     if (groupingMethod() & Scope) {
-      for (QHash<int, Group*>::ConstIterator it = m_groupHash.find(groupingAttribute); it != m_groupHash.constEnd() && it.key() == groupingAttribute; ++it)
+      for (QHash<int, Group*>::ConstIterator it = m_groupHash.constFind(groupingAttribute); it != m_groupHash.constEnd() && it.key() == groupingAttribute; ++it)
         if (it.value()->scope == scope)
           return it.value();
     } else {
@@ -1960,8 +1960,8 @@ void KateCompletionModel::updateBestMatches() {
   //The count of shown best-matches should equal the average count of their BestMatchesCounts
   int cnt = 0;
   int matchesSum = 0;
-  BestMatchMap::const_iterator it = matches.end();
-  while( it != matches.begin() )
+  BestMatchMap::const_iterator it = matches.constEnd();
+  while( it != matches.constBegin() )
   {
     --it;
     ++cnt;

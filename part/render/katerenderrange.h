@@ -53,7 +53,7 @@ class SmartRenderRange : public KateRenderRange
 
   private:
     SmartRenderRange(KTextEditor::SmartRange* range, const SmartRenderRange& cloneFrom);
-    void addTo(KTextEditor::SmartRange* range) const;
+    void addTo(KTextEditor::SmartRange* range, bool intermediate = false) const;
 
     mutable KTextEditor::SmartRange* m_currentRange, *m_endAtRange;
     mutable KTextEditor::Cursor m_currentPos;
@@ -92,7 +92,7 @@ class RenderRangeList : public QList<KateRenderRange*>
     KTextEditor::Cursor nextBoundary() const;
     void advanceTo(const KTextEditor::Cursor& pos);
     bool hasAttribute() const;
-    KTextEditor::Attribute generateAttribute() const;
+    KTextEditor::Attribute::Ptr generateAttribute() const;
 
   private:
     KTextEditor::Cursor m_currentPos;

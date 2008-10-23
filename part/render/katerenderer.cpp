@@ -383,19 +383,21 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         fr.length = textLine->length() - currentPosition.column() + 1;
       }
 
-      KTextEditor::Attribute a = renderRanges.generateAttribute();
-      fr.format = a;
+      KTextEditor::Attribute::Ptr a = renderRanges.generateAttribute();
+      if(a) {
+        fr.format = *a;
 
-      if(selectionsOnly) {
-        if(m_view->blockSelection()) {
-          int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
-          int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+        if(selectionsOnly) {
+          if(m_view->blockSelection()) {
+            int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+            int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
 
-          if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
-            assignSelectionBrushesFromAttribute(fr, a);
+            if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
+              assignSelectionBrushesFromAttribute(fr, *a);
 
-        } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
-          assignSelectionBrushesFromAttribute(fr, a);
+          } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
+            assignSelectionBrushesFromAttribute(fr, *a);
+          }
         }
       }
 
@@ -751,13 +753,14 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 {
   // if maxwidth == -1 we have no wrap
 
-  Q_ASSERT(lineLayout->textLine());
+  KateTextLine::Ptr textLine = lineLayout->textLine();
+  Q_ASSERT(textLine);
 
   QTextLayout* l = lineLayout->layout();
   if (!l) {
-    l = new QTextLayout(lineLayout->textLine()->string(), config()->font());
+    l = new QTextLayout(textLine->string(), config()->font());
   } else {
-    l->setText(lineLayout->textLine()->string());
+    l->setText(textLine->string());
     l->setFont(config()->font());
   }
 
@@ -790,7 +793,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   l->setTextOption(opt);
 
   // Syntax highlighting, inbuilt and arbitrary
-  l->setAdditionalFormats(decorationsForLine(lineLayout->textLine(), lineLayout->line()));
+  l->setAdditionalFormats(decorationsForLine(textLine, lineLayout->line()));
 
   // Begin layouting
   l->beginLayout();
@@ -814,7 +817,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
     if (needShiftX) {
       needShiftX = false;
       // Determine x offset for subsequent-lines-of-paragraph indenting
-      int pos = lineLayout->textLine()->nextNonSpaceChar(0);
+      int pos = textLine->nextNonSpaceChar(0);
 
       if (pos > 0) {
         shiftX = (int)line.cursorToX(pos);

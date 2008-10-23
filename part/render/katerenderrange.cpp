@@ -181,32 +181,40 @@ KTextEditor::Attribute::Ptr SmartRenderRange::currentAttribute() const
   return KTextEditor::Attribute::Ptr();
 }
 
-void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
+void SmartRenderRange::addTo(KTextEditor::SmartRange* _range, bool intermediate) const
 {
+  KateSmartRange* range = static_cast<KateSmartRange*>(_range);
+  
+  if(range->parentRange() != m_currentRange)
+    addTo(range->parentRange(), true);
+  
   KTextEditor::SmartRange* r = range;
   QStack<KTextEditor::SmartRange*> reverseStack;
   while (r != m_currentRange) {
     reverseStack.push(r);
     r = r->parentRange();
   }
-
-  while (reverseStack.count()) {
+  
+  if(m_attribs.isEmpty() || (range->attribute() && (range->attribute()->isValid() || range->attribute()->hasAnyProperty() || (m_useDynamic && range->hasDynamic())))) {
+    //Only merge attributes if it's required
     KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
     if (!m_attribs.isEmpty())
       *a = *m_attribs.top();
 
-    KateSmartRange* r2 = static_cast<KateSmartRange*>(reverseStack.pop());
-    if (KTextEditor::Attribute::Ptr a2 = r2->attribute())
+    if (KTextEditor::Attribute::Ptr a2 = range->attribute())
       *a += *a2;
 
-    if (m_useDynamic && r2->hasDynamic())
-      foreach (KateDynamicAnimation* anim, r2->dynamicAnimations())
-        anim->mergeToAttribute(a);
+    if (m_useDynamic && range->hasDynamic())
+      foreach (KateDynamicAnimation* anim, range->dynamicAnimations())
+	anim->mergeToAttribute(a);
 
-    m_attribs.push(a);
+      m_attribs.push(a);
+  }else{
+    m_attribs.push(m_attribs.top());
   }
 
-  m_currentRange = range;
+  if(!intermediate)
+    m_currentRange = range;
 }
 
 NormalRenderRange::NormalRenderRange()
@@ -322,13 +330,25 @@ bool RenderRangeList::hasAttribute() const
   return false;
 }
 
-KTextEditor::Attribute RenderRangeList::generateAttribute() const
+KTextEditor::Attribute::Ptr RenderRangeList::generateAttribute() const
 {
-  KTextEditor::Attribute a;
+  KTextEditor::Attribute::Ptr a;
+  bool ownsAttribute = false;
 
-  foreach (KateRenderRange* r, *this)
-    if (KTextEditor::Attribute::Ptr a2 = r->currentAttribute())
-      a += *a2;
+  foreach (KateRenderRange* r, *this) {
+    if (KTextEditor::Attribute::Ptr a2 = r->currentAttribute()) {
+      if(!a) {
+	a = a2;
+      }else {
+	if(!ownsAttribute) {
+	  //Make an own copy of the attribute..
+	  ownsAttribute = true;
+	  a = new KTextEditor::Attribute(*a);
+	}
+       *a += *a2;
+      }
+    }
+  }
 
   return a;
 }

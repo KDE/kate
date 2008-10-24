@@ -1857,7 +1857,10 @@ void KateSearchBar::showEvent(QShowEvent * event) {
         m_incInitCursor = view()->cursorPosition();
     }
 
-    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(onSelectionChanged()));
+    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *)),
+            this, SLOT(onSelectionChanged()));
+    connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+            this, SLOT(onCursorPositionChanged()));
 
     enableHighlights(true);
     KateViewBarWidget::showEvent(event);
@@ -1866,7 +1869,10 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::hideEvent(QHideEvent * event) {
-    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(onSelectionChanged()));
+    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *)),
+            this, SLOT(onSelectionChanged()));
+    disconnect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+            this, SLOT(onCursorPositionChanged()));
 
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
@@ -1889,6 +1895,15 @@ void KateSearchBar::onSelectionChanged() {
     setChecked(m_powerMenuSelectionOnly, selectionOnly);
 }
 
+
+void KateSearchBar::onCursorPositionChanged() {
+    if (m_incUi == NULL) {
+        return;
+    }
+
+    // Update init cursor
+    m_incInitCursor = view()->cursorPosition();
+}
 
 
 void KateSearchBar::onPowerPatternContextMenuRequest() {

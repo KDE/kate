@@ -78,6 +78,7 @@ public Q_SLOTS:
     bool onStep(bool replace, bool forwards = true);
     void onReturnPressed();
     void onSelectionChanged();
+    void onCursorPositionChanged();
 
     void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();

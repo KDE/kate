@@ -636,10 +636,10 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   m_styles->viewport()->setPalette( p );
 
   QHash<QString, QTreeWidgetItem*> prefixes;
-  QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].begin();
-  while (it != m_hlDict[m_schema][m_hl].end())
+  QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].constBegin();
+  while (it != m_hlDict[m_schema][m_hl].constEnd())
   {
-    KateExtendedAttribute::Ptr itemData = *it;
+    const KateExtendedAttribute::Ptr itemData = *it;
     Q_ASSERT(itemData);
 
     kDebug(13030) << "insert items " << itemData->name();

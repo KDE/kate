@@ -516,7 +516,7 @@ int main(int argc, char *argv[])
   for (; testcase_index < args->count(); testcase_index++)
     tests << args->arg(testcase_index);
   if (tests.count() > 0) {
-    for (QStringList::ConstIterator it = tests.begin(); it != tests.end(); ++it) {
+    for (QStringList::ConstIterator it = tests.constBegin(); it != tests.constEnd(); ++it) {
       result = regressionTest->runTests(*it,true);
       if (!result) break;
     }

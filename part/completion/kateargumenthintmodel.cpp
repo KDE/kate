@@ -70,7 +70,7 @@ void KateArgumentHintModel::buildRows() {
     }
   }
 
-  for( QMap<int, QList<int> >::const_iterator it = m_depths.begin(); it != m_depths.end(); ++it ) {
+  for( QMap<int, QList<int> >::const_iterator it = m_depths.constBegin(); it != m_depths.constEnd(); ++it ) {
     foreach( int row, *it )
       m_rows.push_front(row);//Insert rows in reversed order
     m_rows.push_front( -it.key() );

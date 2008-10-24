@@ -1971,9 +1971,9 @@ void KateCompletionModel::updateBestMatches() {
   }
 
   m_bestMatches->rows.clear();
-  it = matches.end();
+  it = matches.constEnd();
 
-  while( it != matches.begin() && cnt > 0 )
+  while( it != matches.constBegin() && cnt > 0 )
   {
     --it;
     --cnt;

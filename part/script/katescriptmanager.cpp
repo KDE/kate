@@ -86,7 +86,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     force = true;
   }
   // get a list of all .js files
-  QStringList list = KGlobal::dirs()->findAllResources("data", directory, KStandardDirs::NoDuplicates);
+  const QStringList list = KGlobal::dirs()->findAllResources("data", directory, KStandardDirs::NoDuplicates);
   // clear out the old scripts and reserve enough space
   qDeleteAll(m_scripts);
   m_scripts.clear();
@@ -97,8 +97,8 @@ void KateScriptManager::collect(const QString& resourceFile,
   for(QStringList::ConstIterator fileit = list.begin(); fileit != list.end(); ++fileit) {
     // get abs filename....
     QFileInfo fi(*fileit);
-    QString absPath = fi.absoluteFilePath();
-    QString baseName = fi.baseName ();
+    const QString absPath = fi.absoluteFilePath();
+    const QString baseName = fi.baseName ();
 
     // each file has a group
     QString group = "Cache "+ *fileit;
@@ -119,7 +119,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     // otherwise, parse it and then save the needed infos to the cache.
     QHash<QString, QString> pairs;
     if(useCache) {
-      QMap<QString, QString> entries = config.entryMap();
+      const QMap<QString, QString> entries = config.entryMap();
       for(QMap<QString, QString>::ConstIterator entry = entries.begin();
           entry != entries.end();
           ++entry)
@@ -129,8 +129,8 @@ void KateScriptManager::collect(const QString& resourceFile,
       config.changeGroup(group);
       config.writeEntry("last-modified", int(sbuf.st_mtime));
       // iterate keys and save cache
-      for(QHash<QString, QString>::ConstIterator item = pairs.begin();
-          item != pairs.end();
+      for(QHash<QString, QString>::ConstIterator item = pairs.constBegin();
+          item != pairs.constEnd();
           ++item)
         config.writeEntry(item.key(), item.value());
     }
@@ -168,7 +168,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         // which languages does this support?
         QString indentLanguages = pairs.take("indent-languages");
         if(!indentLanguages.isNull()) {
-          information.indentLanguages = indentLanguages.split(",");
+          information.indentLanguages = indentLanguages.split(',');
         }
         else {
           information.indentLanguages = QStringList() << information.name;

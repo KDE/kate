@@ -1327,7 +1327,7 @@ void KateHighlighting::makeContextList()
     kDebug(13010)<<"**************** Outer loop in make ContextList";
     kDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count();
     something_changed=false; //assume all "embedded" hls have already been loaded
-    for (KateEmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
+    for (KateEmbeddedHlInfos::iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
     {
       if (!it.value().loaded)  // we found one, we still have to load
       {
@@ -1384,8 +1384,8 @@ void KateHighlighting::makeContextList()
       kDebug(13010)<<"Looking up context0 for ruleset "<<incCtx;
       incCtx = incCtx.left(incCtx.length()-1);
       //try to find the context0 id for a given unresolvedReference
-      KateEmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(incCtx);
-      if (hlIt!=embeddedHls.end())
+      KateEmbeddedHlInfos::const_iterator hlIt=embeddedHls.constFind(incCtx);
+      if (hlIt!=embeddedHls.constEnd())
         *(unresIt.key())=hlIt.value().context0;
     }
   }

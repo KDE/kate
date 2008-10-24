@@ -2064,7 +2064,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     int curRelCol = 0;
     int curRelIndex = 0;
     QMap<int, TwoViewCursor *>::const_iterator iter = indicesToCursors.constBegin();
-    while (iter != indicesToCursors.end())
+    while (iter != indicesToCursors.constEnd())
     {
       // forward to index, save line/col
       const int index = (*iter)->index;
@@ -2127,7 +2127,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         }
       }
 
-      iter++;
+      ++iter;
     }
 
     // build result array
@@ -2154,11 +2154,11 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
 
     // free structs allocated for indicesToCursors
     iter = indicesToCursors.constBegin();
-    while (iter != indicesToCursors.end())
+    while (iter != indicesToCursors.constEnd())
     {
       TwoViewCursor * const twoViewCursor = *iter;
       delete twoViewCursor;
-      iter++;
+      ++iter;
     }
     return result;
   }

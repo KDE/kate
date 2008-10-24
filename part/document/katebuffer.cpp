@@ -1233,10 +1233,10 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     if (foldingList.size()!=textLine->foldingListArray().size()) {
       foldingChanged=true;
     } else {
-      QVector<int>::ConstIterator it=foldingList.begin();
-      QVector<int>::ConstIterator it1=textLine->foldingListArray().begin();
+      QVector<int>::ConstIterator it=foldingList.constBegin();
+      QVector<int>::ConstIterator it1=textLine->foldingListArray().constBegin();
       bool markerType=true;
-      for(;it!=foldingList.end();++it,++it1) {
+      for(;it!=foldingList.constEnd();++it,++it1) {
         if  (markerType) {
           if ( ((*it)!=(*it1))) {
             foldingChanged=true;

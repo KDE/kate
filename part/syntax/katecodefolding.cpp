@@ -1457,7 +1457,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
     return lineMapping[virtualLine];
 
   unsigned int tmp = virtualLine;
-  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.constBegin();it!=hiddenLines.constEnd();++it)
   {
     if ((*it).start<=virtualLine)
       virtualLine += (*it).length;
@@ -1510,7 +1510,7 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
   hiddenLinesCountCacheValid = true;
   hiddenLinesCountCache = 0;
 
-  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.constBegin(); it!=hiddenLines.constEnd(); ++it)
   {
     if ((*it).start+(*it).length<=doclen)
       hiddenLinesCountCache += (*it).length;
@@ -1647,7 +1647,7 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 {
   // first have a look, if the line is really hidden
   bool found=false;
-  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.constBegin();it!=hiddenLines.constEnd();++it)
   {
     if ( ((*it).start<=line)  && ((*it).start+(*it).length>line) )
     {

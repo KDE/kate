@@ -432,8 +432,11 @@ void KateCompletionWidget::execute(bool shift)
   QModelIndex index = selectedIndex();
   
   if( shift ) {
-    if( index.isValid() )
+    if( index.isValid() ) {
+      view()->doc()->smartMutex()->unlock();
       index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
+      view()->doc()->smartMutex()->lock();
+    }
 
     return;
   }

@@ -295,7 +295,7 @@ class KTEXTEDITOR_EXPORT ViewBarContainer
 
     /**
      * The view should not delete the bar by itself, but tell the container to delete the bar.
-     * This is for instance usefull, in the destructor of the view. The bar must not life longer
+     * This is for instance useful, in the destructor of the view. The bar must not life longer
      * than the view.
      */
     virtual void deleteViewBarForView(View *view,enum Position position)=0;

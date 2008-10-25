@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.42" kateversion="2.4" section="Sources" extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.43" kateversion="2.4" section="Sources" extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
 <!--
 ##########################################################################
 ## Fixes by Sebastian Pipping (webmaster@hartwork.org)
@@ -78,47 +78,48 @@
     </list>
     <list name="extensions">
       <item> K_DCOP </item>
-      <item> SLOT </item>
-      <item> SIGNAL </item>
+      <item> Q_ARG </item>
+      <item> Q_ASSERT </item>
+      <item> Q_ASSERT_X </item>
+      <item> Q_CHECK_PTR </item>
       <item> Q_CLASSINFO </item>
+      <item> Q_CLEANUP_RESOURCE </item>
+      <item> Q_D </item>
+      <item> Q_DECLARE_FLAGS </item>
+      <item> Q_DECLARE_FLAGS </item>
+      <item> Q_DECLARE_INTERFACE </item>
+      <item> Q_DECLARE_METATYPE </item>
+      <item> Q_DECLARE_OPERATORS_FOR_FLAGS </item>
+      <item> Q_DECLARE_PRIVATE </item>
+      <item> Q_DECLARE_PUBLIC </item>
+      <item> Q_DECLARE_SHARED </item>
+      <item> Q_DECLARE_TYPEINFO </item>
+      <item> Q_DISABLE_COPY </item>
       <item> Q_ENUMS </item>
       <item> Q_EXPORT </item>
+      <item> Q_FLAGS </item>
+      <item> Q_FOREACH </item>
+      <item> Q_FOREVER </item>
+      <item> Q_GADGET </item>
+      <item> Q_GLOBAL_STATIC </item>
+      <item> Q_GLOBAL_STATIC_WITH_ARGS </item>
+      <item> Q_INIT_RESOURCE </item>
+      <item> Q_INTERFACES </item>
+      <item> Q_INVOKABLE </item>
+      <item> Q_NOREPLY </item>
       <item> Q_OBJECT </item>
       <item> Q_OVERRIDE </item>
+      <item> Q_PRIVATE_SLOT </item>
       <item> Q_PROPERTY </item>
+      <item> Q_Q </item>
+      <item> Q_RETURN_ARG </item>
+      <item> Q_SCRIPTABLE </item>
       <item> Q_SETS </item>
       <item> Q_SIGNALS </item>
       <item> Q_SLOTS </item>
-      <item> Q_FOREACH </item>
-      <item> Q_DECLARE_FLAGS </item>
-      <item> Q_INIT_RESOURCE </item>
-      <item> Q_CLEANUP_RESOURCE </item>
-      <item> Q_GLOBAL_STATIC </item>
-      <item> Q_GLOBAL_STATIC_WITH_ARGS </item>
-      <item> Q_DECLARE_INTERFACE </item>
-      <item> Q_DECLARE_TYPEINFO </item>
-      <item> Q_DECLARE_SHARED </item>
-      <item> Q_DECLARE_FLAGS </item>
-      <item> Q_DECLARE_OPERATORS_FOR_FLAGS </item>
-      <item> Q_FOREVER </item>
-      <item> Q_DECLARE_PRIVATE </item>
-      <item> Q_DECLARE_PUBLIC </item>
-      <item> Q_D </item>
-      <item> Q_Q </item>
-      <item> Q_DISABLE_COPY </item>
-      <item> Q_INTERFACES </item>
-      <item> Q_FLAGS </item>
-      <item> Q_SCRIPTABLE </item>
-      <item> Q_INVOKABLE </item>
-      <item> Q_GADGET </item>
-      <item> Q_ARG </item>
-      <item> Q_RETURN_ARG </item>
-      <item> Q_ASSERT </item>
-      <item> Q_ASSERT_X </item>
-      <item> Q_PRIVATE_SLOT </item>
-      <item> Q_DECLARE_METATYPE </item>
-      <item> Q_NOREPLY </item>
       <item> Q_UNUSED </item>
+      <item> SIGNAL </item>
+      <item> SLOT </item>
       <item> TRUE </item>
       <item> FALSE </item>
       <item> connect </item>
@@ -128,6 +129,20 @@
       <item> slots </item>
       <item> foreach </item>
       <item> forever </item>
+
+      <item> qint8 </item>
+      <item> qint16 </item>
+      <item> qint32 </item>
+      <item> qint64 </item>
+      <item> qlonglong </item>
+      <item> qptrdiff </item>
+      <item> qreal </item>
+      <item> quint8 </item>
+      <item> quint16 </item>
+      <item> quint32 </item>
+      <item> quint64 </item>
+      <item> quintptr </item>
+      <item> qulonglong </item>
     </list>
     <list name="types">
       <item> auto </item>
@@ -161,7 +176,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
-	<RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="PP" firstNonSpace="true" />
         <DetectChar context="AfterHash" char="#" firstNonSpace="true" lookAhead="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region1" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />

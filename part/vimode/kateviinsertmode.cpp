@@ -191,6 +191,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     m_view->backspace();
     return true;
   }
+
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:
@@ -211,45 +212,52 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     }
-  }
-  else if ( e->modifiers() == Qt::ControlModifier ) {
+  } else if ( e->modifiers() == Qt::ControlModifier ) {
     switch( e->key() ) {
     case Qt::Key_BracketLeft:
     case Qt::Key_C:
       startNormalMode();
+      return true;
       break;
     case Qt::Key_D:
       commandUnindent();
+      return true;
       break;
     case Qt::Key_E:
       commandInsertFromBelow();
+      return true;
       break;
     case Qt::Key_T:
       commandIndent();
+      return true;
       break;
     case Qt::Key_W:
       commandDeleteWord();
+      return true;
       break;
     case Qt::Key_Y:
       commandInsertFromAbove();
+      return true;
       break;
     case Qt::Key_Home:
       commandToFirstCharacterInFile();
+      return true;
       break;
     case Qt::Key_End:
       commandToLastCharacterInFile();
+      return true;
       break;
     case Qt::Key_Left:
       commandMoveOneWordLeft();
+      return true;
       break;
     case Qt::Key_Right:
       commandMoveOneWordRight();
+      return true;
       break;
     default:
       return false;
     }
-
-    return true;
   }
 
   return false;

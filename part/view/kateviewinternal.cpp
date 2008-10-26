@@ -2270,8 +2270,14 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     }
 
     if ( getViInputModeManager()->getCurrentViMode() == InsertMode ) {
-      if ( getViInputModeManager()->handleKeypress( e ) )
+      if ( getViInputModeManager()->handleKeypress( e ) ) {
         return;
+      } else if ( e->modifiers() != Qt::NoModifier && e->modifiers() != Qt::ShiftModifier ) {
+        // re-post key events not handled if they have a modifier other than shift
+        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(),
+            e->isAutoRepeat(), e->count() );
+        QCoreApplication::postEvent( parent(), copy );
+      }
     } else { // !InsertMode
       if ( !getViInputModeManager()->handleKeypress( e ) ) {
         // we didn't need that keypress, un-steal it :-)

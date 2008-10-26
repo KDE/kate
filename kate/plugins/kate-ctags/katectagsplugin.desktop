@@ -11,6 +11,7 @@ Name[gl]=Extensión de CTags
 Name[pt]='Plugin' do CTags
 Name[pt_BR]='Plugin' do CTags
 Name[sv]=Ctags-insticksprogram
+Name[tr]=CTags Eklentisi
 Name[uk]=Додаток CTags
 Name[zh_TW]=CTags 外掛程式
 Comment=Look up definitions/declarations with CTags
@@ -20,6 +21,7 @@ Comment[gl]=Procura de definicións/declaracións con CTags
 Comment[pt]=Procurar definições/declarações com o CTags
 Comment[pt_BR]=Procurar definições/declarações com o CTags
 Comment[sv]=Slå upp definitioner och deklarationer med Ctags
+Comment[tr]=CTags ile bildirimlerde ve tanımlamalarda ara
 Comment[uk]=Знайдіть визначення/декларації за допомогою CTags
 Comment[zh_TW]=使用 CTags 尋找定義與宣告
 

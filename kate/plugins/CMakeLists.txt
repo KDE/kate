@@ -30,7 +30,9 @@ add_subdirectory( katebuild-plugin )
 add_subdirectory( openheader )
 #add_subdirectory( xmltools )
 #add_subdirectory( xmlcheck )
-add_subdirectory( snippets )
+if(NOT WIN32)
+    add_subdirectory( snippets )
+endif(NOT WIN32)
 MESSAGE( STATUS "remember to find maintainers for these plugins and port them to the kate 3.0 interfaces...")
 
 # Example plugin, not meant to be built for production use.

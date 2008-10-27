@@ -172,7 +172,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="lblMinWidth" >
         <property name="text" >
-         <string>Mimimum width:</string>
+         <string>Minimum width:</string>
         </property>
         <property name="alignment" >
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

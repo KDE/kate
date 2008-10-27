@@ -137,7 +137,7 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
   a = actionCollection()->addAction("katekonsole_tools_sync");
-  a->setText(i18n("S&yncronize Terminal with Current Document"));
+  a->setText(i18n("S&ynchronize Terminal with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
@@ -301,7 +301,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
   QVBoxLayout *lo = new QVBoxLayout( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  cbAutoSyncronize = new QCheckBox( i18n("&Automatically syncronize the terminal with the current document when possible"), this );
+  cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
   lo->addWidget( cbAutoSyncronize );
   reset();
   lo->addStretch();

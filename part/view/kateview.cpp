@@ -1273,13 +1273,17 @@ void KateView::toggleViInputMode()
 
 void KateView::showViModeBar()
 {
-  m_viewBar->addPermanentBarWidget(viModeBar());
-  updateViModeBarMode();
+  if (!config()->viInputModeHideStatusBar()) {
+    m_viewBar->addPermanentBarWidget(viModeBar());
+    updateViModeBarMode();
+  }
 }
 
 void KateView::hideViModeBar()
 {
+  if (m_viewBar) {
     m_viewBar->removePermanentBarWidget(viModeBar());
+  }
 }
 
 void KateView::updateViModeBarMode()
@@ -1367,6 +1371,7 @@ void KateView::switchToCmdLine ()
 {
   m_viewBar->showBarWidget(cmdLine());
   cmdLine()->setFocus ();
+  hideViModeBar();
 }
 
 KateRenderer *KateView::renderer ()

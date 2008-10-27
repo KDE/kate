@@ -375,6 +375,8 @@ class KateCmdLineEdit : public KLineEdit
     KateCmdLineEdit (KateCmdLine *bar, KateView *view);
     virtual bool event(QEvent *e);
 
+    void hideEvent (QHideEvent *e);
+
   signals:
     void hideRequested();
 

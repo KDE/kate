@@ -320,6 +320,11 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
   setAutoDeleteCompletionObject( false );
 }
 
+void KateCmdLineEdit::hideEvent(QHideEvent *e)
+{
+  m_view->showViModeBar();
+}
+
 
 QString KateCmdLineEdit::helptext( const QPoint & ) const
     {

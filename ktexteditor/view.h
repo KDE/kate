@@ -558,18 +558,55 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     class ViewPrivate* const d;
 };
 
-///BCI: Move into KTextEditor::View
-class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface {
+/**
+ * \brief Pixel coordinate to Cursor extension interface for the View.
+ *
+ * \ingroup kte_group_view_extensions
+ *
+ * \section ctc_intro Introduction
+ *
+ * The CoordinatesToCursorInterface makes it possible to map a
+ * pixel coordinate to a cursor position. To map a cursor position
+ * to pixel coordinates use one of
+ * - KTextEditor::View::cursorToCoordinate()
+ * - KTextEditor::View::cursorPositionCoordinates()
+ *
+ * \section ctc_access Accessing the CoordinatesToCursorInterface
+ *
+ * The CoordinatesToCursorInterface is an extension interface for a
+ * View, i.e. the View inherits the interface \e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
+ * \code
+ * // view is of type KTextEditor::View*
+ * KTextEditor::CoordinatesToCursorInterface *iface =
+ *     qobject_cast<KTextEditor::CoordinatesToCursorInterface*>( view );
+ *
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
+ * \endcode
+ *
+ * \see KTextEditor::View
+ * \note KDE5: merge into KTextEditor::View
+ */
+class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface
+{
   public:
+    /** Virtual destructor. */
     virtual ~CoordinatesToCursorInterface();
+
     /**
-     * Get the text-cursor in the document from the screen coordinates, relative
-     * to the view widget.
+     * Get the text-cursor in the document from the screen coordinates,
+     * relative to the view widget.
      *
-     * This is the reverse transformation to \ref KTextEditor::View::cursorToCoordinate
+     * To map a cursor to pixel coordinates (the reverse transformation)
+     * use KTextEditor::View::cursorToCoordinate().
      *
-     * \param coordinates coordinates relative to the view widget.
-     * \return cursor in the document, that points onto the character under the given coordinate. May be invalid.
+     * \param coord coordinates relative to the view widget
+     * \return cursor in the View, that points onto the character under
+     *         the given coordinate. May be KTextEditor::Cursor::invalid().
      */
     virtual KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const = 0;
 };

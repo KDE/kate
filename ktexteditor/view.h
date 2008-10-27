@@ -589,6 +589,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
  * \endcode
  *
  * \see KTextEditor::View
+ * \since 4.2
  * \note KDE5: merge into KTextEditor::View
  */
 class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface

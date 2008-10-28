@@ -318,6 +318,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
 
   completionObject()->insertItems (KateCmd::self()->commandList());
   setAutoDeleteCompletionObject( false );
+  m_gotoLine.setPattern("[+-]?\\d+");
 }
 
 void KateCmdLineEdit::hideEvent(QHideEvent *e)
@@ -380,15 +381,20 @@ bool KateCmdLineEdit::event(QEvent *e) {
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
   if (text.isEmpty()) return;
-  // silently ignore leading space
+  // silently ignore leading space characters and colon characers (for vi-heads)
   uint n = 0;
   const uint textlen=text.length();
-  while( (n<textlen) &&text[n].isSpace() )
+  while( (n<textlen) && ( text[n].isSpace() || text[n] == ':' ) )
     n++;
 
   if (n>=textlen) return;
 
   QString cmd = text.mid( n );
+
+  // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
+  if (m_gotoLine.exactMatch(cmd)) {
+    cmd.prepend("goto ");
+  }
 
   // Built in help: if the command starts with "help", [try to] show some help
   if ( cmd.startsWith( "help" ) )

@@ -179,7 +179,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( ! args.count() )
       KCC_ERR( i18n("Missing argument. Usage: %1 <value>",  cmd ) );
     bool ok;
-    int val ( args.first().toInt( &ok ) );
+    int val ( args.first().toInt( &ok, 10 ) ); // use base 10 even if the string starts with '0'
     if ( !ok )
       KCC_ERR( i18n("Failed to convert argument '%1' to integer.",
                   args.first() ) );
@@ -204,11 +204,22 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     else if ( cmd == "goto" )
     {
-      if ( val < 1 )
-        KCC_ERR( i18n("Line must be at least 1") );
-      if ( val > v->doc()->lines() )
-        KCC_ERR( i18n("There is not that many lines in this document") );
-      v->setCursorPosition( KTextEditor::Cursor(val - 1, 0) );
+      if ( args.first().at(0) == '-' || args.first().at(0) == '+' ) {
+        // if the number starts with a minus or plus sign, add/subract the number
+        val = v->cursorPosition().line() + val;
+      } else {
+        val--; // convert given line number to the internal representation of line numbers
+      }
+
+      // constrain cursor to the range [0, number of lines]
+      if ( val < 0 ) {
+        val = 0;
+      } else if ( val > v->doc()->lines()-1 ) {
+        val = v->doc()->lines()-1;
+      }
+
+      v->setCursorPosition( KTextEditor::Cursor( val, 0 ) );
+      return true;
     }
     return true;
   }

@@ -85,7 +85,7 @@ class KateTextLine : public KShared
     /**
      * Returns \e true, if the folding colums are outdated, otherwise returns \e false.
      */
-     inline bool foldingColumnsOutdated() { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
+     inline bool foldingColumnsOutdated() const { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
 
 
     /**
@@ -218,7 +218,7 @@ class KateTextLine : public KShared
     bool searchText (uint startCol, uint endCol,const QString &text,
                      uint *foundAtCol, uint *matchLen,
                      bool casesensitive = true,
-                     bool backwards = false);
+                     bool backwards = false) const;
 
     /**
      * search given regexp
@@ -231,7 +231,7 @@ class KateTextLine : public KShared
      */
     bool searchText (uint startCol, const QRegExp &regexp,
                      uint *foundAtCol, uint *matchLen,
-                     bool backwards = false);
+                     bool backwards = false) const;
 
     /**
      * Gets the attribute at the given position

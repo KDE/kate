@@ -229,7 +229,7 @@ int KateTextLine::virtualLength (int tabWidth) const
 }
 
 bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, uint *foundAtCol,
-                               uint *matchLen, bool casesensitive, bool backwards)
+                               uint *matchLen, bool casesensitive, bool backwards) const
 {
   int index;
 
@@ -271,7 +271,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
   return false;
 }
 
-bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards)
+bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards) const
 {
   int index;
 

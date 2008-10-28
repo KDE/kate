@@ -318,7 +318,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
 
   completionObject()->insertItems (KateCmd::self()->commandList());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^([0-9.$]+)?,?([0-9.$]+)?");
+  m_cmdRange.setPattern("^([0-9.$]+)?,([0-9.$]+)?");
   m_gotoLine.setPattern("[+-]?\\d+");
 }
 

@@ -759,15 +759,15 @@ void KateBuffer::fixBlocksFrom (int lastValidBlock)
   }
 }
 
-KateTextLine::Ptr KateBuffer::line (int line)
+void KateBuffer::ensureHighlighted (int line)
 {
   // valid line at all?
   if (line < 0 || line >= m_lines)
-    return KateTextLine::Ptr();
+    return;
 
   // already hl up-to-date for this line?
   if (line < m_lineHighlighted)
-    return plainLine (line);
+    return;
 
   // update hl until this line + max KATE_HL_LOOKAHEAD
   int end = qMin(line + KATE_HL_LOOKAHEAD, m_lines-1);
@@ -779,8 +779,6 @@ KateTextLine::Ptr KateBuffer::line (int line)
   // update hl max
   if (m_lineHighlighted > m_lineHighlightedMax)
     m_lineHighlightedMax = m_lineHighlighted;
-
-  return plainLine (line);
 }
 
 void KateBuffer::changeLine(int i)

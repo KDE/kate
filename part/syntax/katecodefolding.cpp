@@ -1337,7 +1337,7 @@ void KateCodeFoldingTree::dontDeleteOpening(KateCodeFoldingNode* node)
 void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 {
   // hl whole file
-  m_buffer->line (m_buffer->count()-1);
+  m_buffer->ensureHighlighted (m_buffer->count()-1);
 
   lineMapping.clear();
   hiddenLinesCountCacheValid = false;
@@ -1527,7 +1527,7 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
 void KateCodeFoldingTree::collapseToplevelNodes()
 {
   // hl whole file
-  m_buffer->line (m_buffer->count()-1);
+  m_buffer->ensureHighlighted (m_buffer->count()-1);
 
   if (m_root.noChildren ())
     return;
@@ -1550,7 +1550,7 @@ void KateCodeFoldingTree::collapseToplevelNodes()
 void KateCodeFoldingTree::expandToplevelNodes(int numLines)
 {
   // hl whole file
-  m_buffer->line (m_buffer->count()-1);
+  m_buffer->ensureHighlighted (m_buffer->count()-1);
 
   KateLineInfo line;
   for (int i = 0; i < numLines; i++) {
@@ -1564,7 +1564,7 @@ void KateCodeFoldingTree::expandToplevelNodes(int numLines)
 int KateCodeFoldingTree::collapseOne(int realLine)
 {
   // hl whole file
-  m_buffer->line (m_buffer->count()-1);
+  m_buffer->ensureHighlighted (m_buffer->count()-1);
 
   KateLineInfo line;
   int unrelatedBlocks = 0;
@@ -1593,7 +1593,7 @@ int KateCodeFoldingTree::collapseOne(int realLine)
 void KateCodeFoldingTree::expandOne(int realLine, int numLines)
 {
   // hl whole file
-  m_buffer->line (m_buffer->count()-1);
+  m_buffer->ensureHighlighted (m_buffer->count()-1);
 
   KateLineInfo line;
   int blockTrack = 0;

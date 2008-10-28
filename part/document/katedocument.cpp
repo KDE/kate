@@ -625,7 +625,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   static const QChar spaceChar(' ');
 
   int insertColumnExpanded = insertColumn;
-  KateTextLine::Ptr l = m_buffer->line( currentLine );
+  KateTextLine::Ptr l = kateTextLine( currentLine );
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
@@ -654,7 +654,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
 
       currentLine++;
       currentLineStart = pos + 1;
-      l = m_buffer->line( currentLine );
+      l = kateTextLine( currentLine );
       if (l)
         insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
     }
@@ -667,7 +667,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
 
         insertColumn += pos - currentLineStart + spacesRequired;
         currentLineStart = pos + 1;
-        l = m_buffer->line( currentLine );
+        l = kateTextLine( currentLine );
         if (l)
           insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
       }
@@ -711,7 +711,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   static const QChar spaceChar(' ');
 
   int insertColumnExpanded = insertColumn;
-  KateTextLine::Ptr l = m_buffer->line( currentLine );
+  KateTextLine::Ptr l = kateTextLine( currentLine );
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
@@ -742,7 +742,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
 
         currentLine++;
         currentLineStart = pos + 1;
-        l = m_buffer->line( currentLine );
+        l = kateTextLine( currentLine );
         if (l)
           insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
       }
@@ -754,7 +754,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
           editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
 
           insertColumn += pos - currentLineStart + spacesRequired;
-          l = m_buffer->line( currentLine );
+          l = kateTextLine( currentLine );
           if (l)
             insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
           currentLineStart = pos + 1;
@@ -1111,7 +1111,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
   for (int line = startLine; (line <= endLine) && (line < lines()); line++)
   {
-    KateTextLine::Ptr l = m_buffer->line(line);
+    KateTextLine::Ptr l = kateTextLine(line);
 
     if (!l)
       return false;
@@ -1120,7 +1120,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
     if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
-      KateTextLine::Ptr nextl = m_buffer->line(line+1);
+      KateTextLine::Ptr nextl = kateTextLine(line+1);
 
       kDebug (13020) << "do wrap line: " << line;
 
@@ -1237,7 +1237,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = m_buffer->line(line);
+  KateTextLine::Ptr l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1266,7 +1266,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = m_buffer->line(line);
+  KateTextLine::Ptr l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1296,7 +1296,7 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = m_buffer->line(line);
+  KateTextLine::Ptr l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1322,14 +1322,14 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = m_buffer->line(line);
+  KateTextLine::Ptr l = kateTextLine(line);
 
   if (!l)
     return false;
 
   editStart ();
 
-  KateTextLine::Ptr nextLine = m_buffer->line(line+1);
+  KateTextLine::Ptr nextLine = kateTextLine(line+1);
 
   int pos = l->length() - col;
 
@@ -1406,8 +1406,8 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = m_buffer->line(line);
-  KateTextLine::Ptr nextLine = m_buffer->line(line+1);
+  KateTextLine::Ptr l = kateTextLine(line);
+  KateTextLine::Ptr nextLine = kateTextLine(line+1);
 
   if (!l || !nextLine)
     return false;
@@ -1543,7 +1543,7 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
     return false;
 
   if ( lines() == 1 )
-    return editRemoveText (0, 0, m_buffer->line(0)->length());
+    return editRemoveText (0, 0, kateTextLine(0)->length());
 
   editStart (true, editSource);
 
@@ -4381,7 +4381,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
     pos = 0;
     commentLineMark += ' ';
   } else {
-    const KateTextLine::Ptr l = m_buffer->line(line);
+    const KateTextLine::Ptr l = kateTextLine(line);
     pos = l->firstChar();
   }
 
@@ -4891,8 +4891,8 @@ void KateDocument::joinLines( uint first, uint last )
     // This cannot be done in editUnwrapLine, because we do NOT want this
     // behavior when deleting from the start of a line, just when explicitly
     // calling the join command
-    KateTextLine::Ptr l = m_buffer->line( line );
-    KateTextLine::Ptr tl = m_buffer->line( line + 1 );
+    KateTextLine::Ptr l = kateTextLine( line );
+    KateTextLine::Ptr tl = kateTextLine( line + 1 );
 
     if ( !l || !tl )
     {
@@ -6217,7 +6217,8 @@ uint KateDocument::visibleLines( )
 
 KateTextLine::Ptr KateDocument::kateTextLine( uint i )
 {
-  return m_buffer->line (i);
+  m_buffer->ensureHighlighted (i);
+  return m_buffer->plainLine (i);
 }
 
 KateTextLine::Ptr KateDocument::plainKateTextLine( uint i )

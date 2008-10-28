@@ -186,10 +186,11 @@ class KateBuffer : public QObject
 
   public:
     /**
-     * Return line @p line
-     * Highlighting won't be triggered, use this, if you need only 
-     * the text of the line for example, in search/replace or other
-     * pure text manipulation functions
+     * Return line @p line.
+     * Highlighting of returned line might be out-dated, which may be sufficient
+     * for pure text manipulation functions, like search/replace.
+     * If you require highlighting to be up to date, call @ref ensureHighlighted
+     * prior to this method.
      */
     inline KateTextLine::Ptr plainLine (int line)
     {
@@ -203,12 +204,9 @@ class KateBuffer : public QObject
     }
 
     /**
-     * Return line @p line
-     * Highlighting will be updated, if needed
-     * Only use this function if you really need the highlighting information,
-     * otherwise use for better speed @ref plainLine
+     * Update highlighting of given line @p line, if needed.
      */
-    KateTextLine::Ptr line(int line);
+    void ensureHighlighted(int line);
     
     /**
      * Return the total number of lines in the buffer.

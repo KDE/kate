@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2005 Christoph Cullmann (cullmann@kde.org)
    Copyright (C) 2005-2006 Dominik Haumann (dhdev@gmx.de)
+   Copyright (C) 2008 Erlend Hamberg (ehamberg@gmail.com)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -22,6 +23,7 @@
 #define KDELIBS_KTEXTEDITOR_COMMANDINTERFACE_H
 
 #include <ktexteditor/ktexteditor_export.h>
+#include <ktexteditor/range.h>
 #include <QtCore/QObject>
 
 class QStringList;
@@ -275,6 +277,54 @@ class KTEXTEDITOR_EXPORT CommandInterface
      * \see commands()
      */
     virtual QStringList commandList() const = 0;
+};
+
+/**
+ * \brief Extension interface for a Command making the exec method take a line
+ * range
+ *
+ * \ingroup kte_group_command_extensions
+ *
+ * \section cmdext_intro Introduction
+ *
+ * The RangeCommand extension extends the Command interface by making it
+ * possible to send a range to a command indicating that it should only do its
+ * work on those lines.
+ *
+ * The method supportsRange() takes a QString reference and should return true
+ * if the given command name supports a range and false if not.
+ *
+ * \see KTextEditor::CommandInterface, KTextEditor::Command, KTextEditor::Range
+ * \author Erlend Hamberg \<ehamberg@gmail.com\>
+ * \since 4.2
+ * \note KDE5: merge with KTextEditor::Command?
+ */
+class KTEXTEDITOR_EXPORT RangeCommand
+{
+  public:
+    /**
+     * Virtual destructor.
+     */
+    virtual ~RangeCommand() {}
+
+    /**
+     * Execute the command for the given \p range on the given \p view and \p
+     * cmd string.  Return the success value and a \p msg for status.
+     *
+     * \return \e true on success, otherwise \e false
+     */
+    virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
+        const KTextEditor::Range &range) = 0;
+
+    /**
+     * Find out if a given command can act on a range. This is used for checking
+     * if a command should be called when the user also gave a range or if an
+     * error should be raised.
+     *
+     * \return \e true if command supports acting on a range of lines, false if
+     * not
+     */
+    virtual bool supportsRange (const QString &cmd) = 0;
 };
 
 }

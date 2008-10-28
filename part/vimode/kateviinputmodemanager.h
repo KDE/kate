@@ -51,7 +51,7 @@ public:
    * feed key the given key press to the command parser
    * @return true if keypress was is [part of a] command, false otherwise
    */
-  bool handleKeypress(QKeyEvent *e);
+  bool handleKeypress(const QKeyEvent *e);
 
   /**
    * feed key the given list of key presses to the key handling code, one by one
@@ -84,7 +84,7 @@ public:
    * set visual mode to be the active vi mode and make the needed setup work
    * if visualLine is true, visual linewise mode is started
    */
-  void viEnterVisualMode( bool visualLine = false);
+  void viEnterVisualMode(bool visualLine = false);
 
   /**
    * @return the KateViNormalMode instance
@@ -104,12 +104,12 @@ public:
   /**
    * @return true if running a macro
    */
-  bool isRunningMacro() { return m_runningMacro; }
+  bool isRunningMacro() const { return m_runningMacro; }
 
   /**
    * append a QKeyEvent to the key event log
    */
-  void appendKeyEventToLog(QKeyEvent e);
+  void appendKeyEventToLog(const QKeyEvent &e);
 
   /**
    * clear the key event log

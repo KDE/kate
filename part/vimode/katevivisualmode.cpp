@@ -66,7 +66,7 @@ void KateViVisualMode::highlight() const
   highlightRange->setRange( KTextEditor::Range( c1, c2 ) );
 }
 
-void KateViVisualMode::goToPos( KateViRange r )
+void KateViVisualMode::goToPos( const KateViRange &r )
 {
   KTextEditor::Cursor c = m_view->cursorPosition();
 

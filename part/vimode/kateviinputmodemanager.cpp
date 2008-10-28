@@ -50,7 +50,7 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viVisualMode;
 }
 
-bool KateViInputModeManager::handleKeypress(QKeyEvent *e)
+bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 {
   bool res;
 
@@ -151,7 +151,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
   }
 }
 
-void KateViInputModeManager::appendKeyEventToLog(QKeyEvent e)
+void KateViInputModeManager::appendKeyEventToLog(const QKeyEvent &e)
 {
   if ( e.key() != Qt::Key_Shift && e.key() != Qt::Key_Control
       && e.key() != Qt::Key_Meta && e.key() != Qt::Key_Alt ) {

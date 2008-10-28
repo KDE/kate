@@ -19,7 +19,7 @@
 
 #include "katevimotion.h"
 
-KateViMotion::KateViMotion( KateViNormalMode *parent, QString pattern,
+KateViMotion::KateViMotion( KateViNormalMode *parent, const QString &pattern,
         KateViRange (KateViNormalMode::*commandMethod)(), unsigned int flags )
   : KateViCommand( parent, pattern, 0, flags )
 {

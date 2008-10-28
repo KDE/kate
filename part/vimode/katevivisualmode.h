@@ -40,7 +40,7 @@ class KateViVisualMode : public KateViNormalMode {
   private:
     void initializeCommands();
     void highlight() const;
-    void goToPos( KateViRange r );
+    void goToPos( const KateViRange &r );
     void reset();
     bool m_visualLine;
     KTextEditor::Cursor m_start;

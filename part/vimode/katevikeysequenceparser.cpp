@@ -723,7 +723,7 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers
     return 0;
 }
 
-const QChar KateViKeySequenceParser::KeyEventToQChar(int keyCode, QString text,
+const QChar KateViKeySequenceParser::KeyEventToQChar(int keyCode, const QString &text,
     Qt::KeyboardModifiers mods, quint32 nativeScanCode) const
 {
   QChar key;

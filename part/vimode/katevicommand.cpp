@@ -40,7 +40,7 @@ bool KateViCommand::execute() const
   return ( m_parent->*m_ptr2commandMethod)();
 }
 
-bool KateViCommand::matches( QString pattern ) const
+bool KateViCommand::matches( const QString &pattern ) const
 {
   if ( !( m_flags & REGEX_PATTERN ) )
     return m_pattern.startsWith( pattern );
@@ -51,7 +51,7 @@ bool KateViCommand::matches( QString pattern ) const
   }
 }
 
-bool KateViCommand::matchesExact( QString pattern ) const
+bool KateViCommand::matchesExact( const QString &pattern ) const
 {
   if ( !( m_flags & REGEX_PATTERN ) )
     return ( m_pattern == pattern );

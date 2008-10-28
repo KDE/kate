@@ -38,8 +38,8 @@ class KateViCommand {
         bool ( KateViNormalMode::*pt2Func)(), unsigned int flags = 0 );
     ~KateViCommand();
 
-    bool matches( QString pattern ) const;
-    bool matchesExact( QString pattern ) const;
+    bool matches( const QString &pattern ) const;
+    bool matchesExact( const QString &pattern ) const;
     bool execute() const;
     const QString pattern() const { return m_pattern; }
     bool isRegexPattern() const { return m_flags & REGEX_PATTERN; }

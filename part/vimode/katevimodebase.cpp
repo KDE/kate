@@ -406,7 +406,7 @@ KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, b
 }
 
 // FIXME: i" won't work if the cursor is on one of the chars
-KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, bool inner )
+KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, bool inner ) const
 {
   KTextEditor::Cursor cursor( m_view->cursorPosition() );
   QString line = getLine();

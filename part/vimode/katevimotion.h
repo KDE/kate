@@ -36,7 +36,7 @@ class KateViNormalMode;
 class KateViMotion : public KateViCommand
 {
   public:
-    KateViMotion( KateViNormalMode *parent, QString pattern,
+    KateViMotion( KateViNormalMode *parent, const QString &pattern,
         KateViRange (KateViNormalMode::*commandMethod)(), unsigned int flags = 0 );
     KateViRange execute() const;
 

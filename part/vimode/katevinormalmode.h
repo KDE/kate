@@ -48,7 +48,7 @@ class KateViNormalMode : public KateViModeBase
     KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
 
-    bool handleKeypress( QKeyEvent *e );
+    bool handleKeypress( const QKeyEvent *e );
 
     bool commandEnterInsertMode();
     bool commandEnterInsertModeAppend();
@@ -181,7 +181,7 @@ class KateViNormalMode : public KateViModeBase
     virtual void reset();
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
-    virtual void goToPos( KateViRange r );
+    virtual void goToPos( const KateViRange &r );
     void executeCommand( const KateViCommand* cmd );
 
     QString m_keys;

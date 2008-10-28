@@ -58,7 +58,7 @@ KateViNormalMode::~KateViNormalMode()
  * parses a key stroke to check if it's a valid (part of) a command
  * @return true if a command was completed and executed, false otherwise
  */
-bool KateViNormalMode::handleKeypress( QKeyEvent *e )
+bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 {
   int keyCode = e->key();
   QString text = e->text();
@@ -285,7 +285,7 @@ void KateViNormalMode::reset()
     m_commandRange.startColumn = -1;
 }
 
-void KateViNormalMode::goToPos( KateViRange r )
+void KateViNormalMode::goToPos( const KateViRange &r )
 {
   KTextEditor::Cursor c;
   c.setLine( r.endLine );

@@ -41,7 +41,7 @@ class KateViKeySequenceParser
   QString qt2vi( int key ) const;
   int vi2qt( const QString &keypress ) const;
   char scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const;
-  const QChar KeyEventToQChar(int keyCode, QString text, Qt::KeyboardModifiers mods, quint32 nativeScanCode) const;
+  const QChar KeyEventToQChar(int keyCode, const QString &text, Qt::KeyboardModifiers mods, quint32 nativeScanCode) const;
 
   private:
   void initKeyTables();

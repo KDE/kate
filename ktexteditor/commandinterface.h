@@ -68,6 +68,7 @@ class View;
  *
  * \see KTextEditor::CommandInterface, KTextEditor::CommandExtension
  * \author Christoph Cullmann \<cullmann@kde.org\>
+ * \note KDE5: derive from QObject, so qobject_cast works for extension interfaces.
  */
 class KTEXTEDITOR_EXPORT Command
 {

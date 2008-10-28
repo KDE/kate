@@ -41,7 +41,8 @@ namespace KateCommands
  * it needs to get a kateview pointer, it will cast the kate::view pointer
  * hard to kateview
  */
-class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExtension
+class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExtension,
+  public KTextEditor::RangeCommand
 {
   public:
     /**
@@ -52,6 +53,20 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
      * @return success
      */
     bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg );
+
+    /**
+     * execute command on given range
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @param rangeStart first line in range
+     * @param rangeEnd last line in range
+     * @return success
+     */
+    bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg,
+        const KTextEditor::Range &range = KTextEditor::Range(-1, -0, -1, 0));
+
+    bool supportsRange(const QString &range);
 
     /** This command does not have help. @see KTextEditor::Command::help */
     bool help( class KTextEditor::View *, const QString &, QString & ) {return false;}

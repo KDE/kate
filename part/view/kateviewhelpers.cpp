@@ -318,11 +318,13 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
 
   completionObject()->insertItems (KateCmd::self()->commandList());
   setAutoDeleteCompletionObject( false );
+  m_cmdRange.setPattern("^([0-9.$]+)?,?([0-9.$]+)?");
   m_gotoLine.setPattern("[+-]?\\d+");
 }
 
 void KateCmdLineEdit::hideEvent(QHideEvent *e)
 {
+  Q_UNUSED(e);
   m_view->showViModeBar();
 }
 
@@ -391,6 +393,42 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   QString cmd = text.mid( n );
 
+  // expand '%' to '1,$' ("all lines") if at the start of the line
+  if ( cmd.at( 0 ) == '%' ) {
+    cmd.replace( 0, 1, "1,$" );
+  }
+
+  KTextEditor::Range range(-1, 0, -1, 0);
+
+  // check if a range was given
+  if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
+
+    cmd.remove( m_cmdRange );
+
+    QString s = m_cmdRange.capturedTexts().at(1);
+    QString e = m_cmdRange.capturedTexts().at(2);
+
+    if ( s.isEmpty() )
+      s = ".";
+    if ( e.isEmpty() )
+      e = s;
+
+    // replace '$' with the number of the last line and '.' with the current line
+    if ( s == "$" ) {
+      s = QString::number( m_view->doc()->lines() );
+    } else if ( s == "." ) {
+      s = QString::number( m_view->cursorPosition().line()+1 );
+    }
+
+    if ( e == "$" ) {
+      e = QString::number( m_view->doc()->lines() );
+    } else if ( e == "." ) {
+      e = QString::number( m_view->cursorPosition().line()+1 );
+    }
+
+    range.setRange(KTextEditor::Range(s.toInt()-1, 0, e.toInt()-1, 0));
+  }
+
   // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
   if (m_gotoLine.exactMatch(cmd)) {
     cmd.prepend("goto ");
@@ -410,38 +448,48 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   if (cmd.length () > 0)
   {
     KTextEditor::Command *p = KateCmd::self()->queryCommand (cmd);
+    KTextEditor::RangeCommand *ce = dynamic_cast<KTextEditor::RangeCommand*>(p);
 
-    m_oldText = cmd;
+    m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
     m_msgMode = true;
 
-    if (p)
-    {
-      QString msg;
+    // we got a range and a valid command, but the command does not inherit the RangeCommand
+    // extension. bail out.
+    if ( ( !ce && range.isValid() && p ) || ( range.isValid() && ce && !ce->supportsRange(cmd) ) ) {
+      setText (i18n ("Error: No range allowed for command \"%1\".",  cmd));
+    } else {
 
-      if (p->exec (m_view, cmd, msg))
+      if (p)
       {
-        KateCmd::self()->appendHistory( cmd );
-        m_histpos = KateCmd::self()->historyLength();
-        m_oldText.clear();
+        QString msg;
 
-        if (msg.length() > 0)
-          setText (i18n ("Success: ") + msg);
+        if ((ce && ce->exec(m_view, cmd, msg, range)) || p->exec (m_view, cmd, msg))
+        {
+
+          // append command along with range (will be empty if none given) to history
+          KateCmd::self()->appendHistory( m_cmdRange.capturedTexts().at(0) + cmd );
+          m_histpos = KateCmd::self()->historyLength();
+          m_oldText.clear();
+
+          if (msg.length() > 0)
+            setText (i18n ("Success: ") + msg);
+          else
+            setText (i18n ("Success"));
+        }
         else
-          setText (i18n ("Success"));
+        {
+          if (msg.length() > 0)
+            setText (i18n ("Error: ") + msg);
+          else
+            setText (i18n ("Command \"%1\" failed.",  cmd));
+          KNotification::beep();
+        }
       }
       else
       {
-        if (msg.length() > 0)
-          setText (i18n ("Error: ") + msg);
-        else
-          setText (i18n ("Command \"%1\" failed.",  cmd));
+        setText (i18n ("No such command: \"%1\"",  cmd));
         KNotification::beep();
       }
-    }
-    else
-    {
-      setText (i18n ("No such command: \"%1\"",  cmd));
-      KNotification::beep();
     }
   }
 
@@ -559,7 +607,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
       }
     }
 
-    // if we got a command, check if it wants to do semething.
+    // if we got a command, check if it wants to do something.
     if ( m_command )
     {
       //kDebug(13025)<<"Checking for CommandExtension..";

@@ -401,6 +401,7 @@ class KateCmdLineEdit : public KLineEdit
     KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KCompletion *m_oldCompletionObject; ///< save while completing command args.
     class KateCmdLnWhatsThis *m_help;
+    QRegExp m_cmdRange;
     QRegExp m_gotoLine;
 };
 

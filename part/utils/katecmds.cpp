@@ -92,6 +92,14 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
 {
+  return exec( view, _cmd, errorMsg, KTextEditor::Range(-1, -0, -1, 0) );
+}
+
+bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
+                            const QString &_cmd,
+                            QString &errorMsg,
+                            const KTextEditor::Range& range)
+{
 #define KCC_ERR(s) { errorMsg=s; return false; }
   // cast it hardcore, we know that it is really a kateview :)
   KateView *v = (KateView*) view;
@@ -106,7 +114,13 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   // ALL commands that takes no arguments.
   if ( cmd == "indent" )
   {
-    v->indent();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->indent( v, i, 1 );
+      }
+    } else {
+      v->indent();
+    }
     return true;
   }
 #if 0
@@ -121,27 +135,57 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 #endif
   else if ( cmd == "unindent" )
   {
-    v->unIndent();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->indent( v, i, -1 );
+      }
+    } else {
+      v->unIndent();
+    }
     return true;
   }
   else if ( cmd == "cleanindent" )
   {
-    v->cleanIndent();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->indent( v, i, 0 );
+      }
+    } else {
+      v->cleanIndent();
+    }
     return true;
   }
   else if ( cmd == "comment" )
   {
-    v->comment();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->comment( v, i, 0, 1 );
+      }
+    } else {
+      v->comment();
+    }
     return true;
   }
   else if ( cmd == "uncomment" )
   {
-    v->uncomment();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->comment( v, i, 0, -1 );
+      }
+    } else {
+      v->uncomment();
+    }
     return true;
   }
   else if ( cmd == "kill-line" )
   {
-    v->killLine();
+    if ( range.isValid() ) {
+      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+        v->doc()->removeLine( range.start().line() );
+      }
+    } else {
+      v->killLine();
+    }
     return true;
   }
   else if ( cmd == "w" )
@@ -274,6 +318,17 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 
   // unlikely..
   KCC_ERR( i18n("Unknown command '%1'", cmd) );
+}
+
+bool KateCommands::CoreCommands::supportsRange(const QString &range)
+{
+  static QStringList l;
+
+  if (l.isEmpty())
+  l << "indent" << "unindent" << "cleanindent"
+    << "comment" << "uncomment" << "kill-line";
+
+  return l.contains(range);
 }
 
 KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *view, const QString &cmd )

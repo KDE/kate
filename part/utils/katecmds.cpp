@@ -115,8 +115,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   if ( cmd == "indent" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
-        v->doc()->indent( v, i, 1 );
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
+        v->doc()->indent( v, line, 1 );
       }
     } else {
       v->indent();
@@ -136,8 +136,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "unindent" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
-        v->doc()->indent( v, i, -1 );
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
+        v->doc()->indent( v, line, -1 );
       }
     } else {
       v->unIndent();
@@ -147,8 +147,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "cleanindent" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
-        v->doc()->indent( v, i, 0 );
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
+        v->doc()->indent( v, line, 0 );
       }
     } else {
       v->cleanIndent();
@@ -158,8 +158,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "comment" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
-        v->doc()->comment( v, i, 0, 1 );
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
+        v->doc()->comment( v, line, 0, 1 );
       }
     } else {
       v->comment();
@@ -169,8 +169,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "uncomment" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
-        v->doc()->comment( v, i, 0, -1 );
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
+        v->doc()->comment( v, line, 0, -1 );
       }
     } else {
       v->uncomment();
@@ -180,7 +180,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "kill-line" )
   {
     if ( range.isValid() ) {
-      for ( int i = range.start().line(); i <= range.end().line(); i++ ) {
+      for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->removeLine( range.start().line() );
       }
     } else {

@@ -522,28 +522,35 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
 bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-   kDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )";
+  return exec(view, cmd, msg, KTextEditor::Range(-1, 0, -1, 0));
+}
 
-  QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
+bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QString &cmd,
+    QString &msg, const KTextEditor::Range &r)
+{
+  kDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )";
+  if (r.isValid())
+    kDebug(13025)<<"Range: " << r;
+
+  QRegExp delim("^s\\s*([^\\w\\s])");
   if ( delim.indexIn( cmd ) < 0 ) return false;
 
-  bool fullFile=cmd[0]=='%';
   bool noCase=cmd[cmd.length()-1]=='i' || cmd[cmd.length()-2]=='i';
   bool repeat=cmd[cmd.length()-1]=='g' || cmd[cmd.length()-2]=='g';
-  bool onlySelect=cmd[0]=='$';
 
   QString d = delim.cap(1);
-   kDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'";
+  kDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'";
 
-  QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
+  QRegExp splitter( QString("^s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
+      + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[ig]{0,2})?$" );
   if (splitter.indexIn(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-   kDebug(13025)<< "SedReplace: find=" << find;
+  kDebug(13025)<< "SedReplace: find=" << find;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-   kDebug(13025)<< "SedReplace: replace=" << replace;
+  kDebug(13025)<< "SedReplace: replace=" << replace;
 
   if ( find.contains("\\n") )
   {
@@ -555,44 +562,29 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
 
-  KateView *kview = ((KateView*)view);
-
   doc->editStart();
 
-  int res = 0;
+  int replacementsDone = 0;
+  int linesTouched = 0;
 
-  if (fullFile)
-  {
-    int numLines = doc->lines();
-    for (int line=0; line < numLines; ++line)
-    {
-      res += sedMagic( doc, line, find, replace, d, !noCase, repeat );
-      if ( ! repeat && res ) break;
+  if (r.isValid()) { // given range
+    for (int line = r.start().line(); line <= r.end().line(); line++) {
+      int temp = replacementsDone;
+      replacementsDone += sedMagic( doc, line, find, replace, d, !noCase, repeat );
+      if (replacementsDone > temp) {
+        linesTouched++;
+      }
+    }
+  } else { // current line
+    int line= view->cursorPosition().line();
+    replacementsDone += sedMagic(doc, line, find, replace, d, !noCase, repeat);
+    if (replacementsDone > 0) {
+      linesTouched = 1;
     }
   }
-  else if (onlySelect)
-  {
-    int startline = kview->selectionRange().start().line();
-    int startcol = kview->selectionRange().start().column();
-    int endcol = -1;
-    do {
-      if ( startline == kview->selectionRange().end().line() )
-        endcol = kview->selectionRange().end().column();
 
-      res += sedMagic( doc, startline, find, replace, d, !noCase, repeat, startcol, endcol );
-
-      /*if ( startcol )*/ startcol = 0;
-
-      startline++;
-    } while ( startline <= kview->selectionRange().end().line() );
-  }
-  else // just this line
-  {
-    int line= view->cursorPosition().line();
-    res += sedMagic(doc, line, find, replace, d, !noCase, repeat);
-  }
-
-  msg = i18np("1 replacement done", "%1 replacements done",res );
+  msg = i18np("1 replacement done on 1 line", "%1 replacements done on %2", replacementsDone,
+      i18np("1 line", "%1 lines", linesTouched));
 
   doc->editEnd();
 

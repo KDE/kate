@@ -91,7 +91,7 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
  * Support vim/sed style search and replace
  * @author Charles Samuels <charles@kde.org>
  **/
-class SedReplace : public KTextEditor::Command
+class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
 {
   public:
     /**
@@ -110,6 +110,11 @@ class SedReplace : public KTextEditor::Command
      * @return success
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
+
+    bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg,
+        const KTextEditor::Range &r);
+
+    bool supportsRange(const QString &) { return true; }
 
     /** This command does not have help. @see KTextEditor::Command::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; }

@@ -92,7 +92,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
 {
-  return exec( view, _cmd, errorMsg, KTextEditor::Range(-1, -0, -1, 0) );
+  return exec( view, _cmd, errorMsg, KTextEditor::Range::invalid() );
 }
 
 bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
@@ -522,7 +522,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
 bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-  return exec(view, cmd, msg, KTextEditor::Range(-1, 0, -1, 0));
+  return exec(view, cmd, msg, KTextEditor::Range::invalid());
 }
 
 bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QString &cmd,

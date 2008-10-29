@@ -303,6 +303,14 @@ KateCmdLine::~KateCmdLine()
 {
 }
 
+// inserts the given string in the command line edit and selects it so the user can type over it if
+// she wants to
+void KateCmdLine::setText(const QString &text)
+{
+  m_lineEdit->setText(text);
+  m_lineEdit->selectAll();
+}
+
 KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
   : KLineEdit ()
   , m_view (view)

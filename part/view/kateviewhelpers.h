@@ -363,6 +363,8 @@ class KateCmdLine : public KateViewBarWidget
     explicit KateCmdLine(KateView *view, QWidget *parent = 0);
     ~KateCmdLine();
 
+  void setText(const QString &text);
+
   private:
     class KateCmdLineEdit *m_lineEdit;
 };

@@ -11,7 +11,7 @@ kde4_add_ui_files(katebuild_SRCS build.ui)
 
 kde4_add_plugin(katebuildplugin ${katebuild_SRCS})
 
-target_link_libraries(katebuildplugin ${KDE4_KDECORE_LIBS} kateinterfaces ktexteditor )
+target_link_libraries(katebuildplugin ${KDE4_KDECORE_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
 
 install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 

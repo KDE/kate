@@ -211,11 +211,11 @@ ViMode KateViInputModeManager::getCurrentViMode() const
 
 void KateViInputModeManager::viEnterNormalMode()
 {
-  bool moveCursorRight = m_currentViMode == InsertMode && m_viewInternal->getCursor().column() > 0;
+  bool moveCursorLeft = m_currentViMode == InsertMode && m_viewInternal->getCursor().column() > 0;
 
   changeViMode(NormalMode);
 
-  if ( moveCursorRight ) {
+  if ( moveCursorLeft ) {
       m_viewInternal->cursorLeft();
   }
   m_viewInternal->repaint ();

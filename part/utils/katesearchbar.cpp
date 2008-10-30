@@ -765,7 +765,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
     SmartRange * afterReplace = NULL;
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && !selectionOnly && (match == selection)) {
+        if (selected && (match == selection) && (!selectionOnly || replace)) {
             // Same match again
             if (replace) {
                 // Selection is match -> replace

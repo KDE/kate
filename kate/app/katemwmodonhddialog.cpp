@@ -103,6 +103,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   header << i18n("Filename") << i18n("Status on Disk");
   twDocuments->setHeaderLabels(header);
   twDocuments->setSelectionMode( QAbstractItemView::SingleSelection );
+  twDocuments->setRootIsDecorated( false );
 
   QStringList l;
   l << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");

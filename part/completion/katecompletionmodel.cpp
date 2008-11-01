@@ -559,7 +559,6 @@ void KateCompletionModel::createGroups()
   foreach (Group* g, m_emptyGroups)
     hideOrShowGroup(g);
   
-  resort();
   reset();
   updateBestMatches();
   

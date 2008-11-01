@@ -66,6 +66,8 @@ class KateCompletionWidget : public QFrame
     bool cursorRight( bool shift );
     void cursorDown(bool shift);
     void cursorUp(bool shift);
+    
+    void toggleExpanded();
 
     const KateCompletionModel* model() const;
     KateCompletionModel* model();

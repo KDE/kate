@@ -69,6 +69,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cursor(doc)
   , m_mouse()
   , m_possibleTripleClick (false)
+  , m_hadKeyWithShift (false)
   , m_bm(doc->smartManager()->newSmartRange())
   , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
@@ -806,6 +807,12 @@ void KateViewInternal::doBackspace()
   m_doc->backspace( m_view, m_cursor );
 }
 
+void KateViewInternal::doOnlyShift()
+{
+  if( m_view->isCompletionActive() )
+    view()->completionWidget()->toggleExpanded();
+}
+
 void KateViewInternal::doTranspose()
 {
   m_doc->transpose( m_cursor );
@@ -1054,6 +1061,9 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
+  if(sel)
+    m_hadKeyWithShift = true;
+  
   if( m_view->isCompletionActive() && view()->completionWidget()->cursorLeft(sel) )
     return;
 
@@ -1067,6 +1077,9 @@ void KateViewInternal::cursorLeft(  bool sel )
 
 void KateViewInternal::cursorRight( bool sel )
 {
+  if(sel)
+    m_hadKeyWithShift = true;
+  
   if( m_view->isCompletionActive() && view()->completionWidget()->cursorRight(sel) )
     return;
 
@@ -1418,6 +1431,9 @@ int KateViewInternal::lineMaxCol(const KateTextLayout& range)
 
 void KateViewInternal::cursorUp(bool sel)
 {
+  if(sel)
+    m_hadKeyWithShift = true;
+  
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->cursorUp(sel);
     return;
@@ -1453,6 +1469,9 @@ void KateViewInternal::cursorUp(bool sel)
 
 void KateViewInternal::cursorDown(bool sel)
 {
+  if(sel)
+    m_hadKeyWithShift = true;
+  
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->cursorDown(sel);
     return;
@@ -2200,7 +2219,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     case QEvent::KeyPress:
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
-
+        
       // Override all other single key shortcuts which do not use a modifier other than Shift
       if (obj == this && (!k->modifiers() || k->modifiers() == Qt::ShiftModifier)) {
         keyPressEvent( k );
@@ -2251,6 +2270,9 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
+  if(e->modifiers() & Qt::ShiftModifier)
+    m_hadKeyWithShift = true;
+  
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
@@ -2295,6 +2317,9 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     e->ignore();
     return;
   }
+  
+  if (e->key() == Qt::Key_Shift)
+    m_hadKeyWithShift = false;
 
   if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
@@ -2382,8 +2407,13 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
+  if(e->key() == Qt::Key_Shift && !m_hadKeyWithShift)
+    doOnlyShift();
+  
   if (e->key() == Qt::SHIFT)
+  {
     m_shiftKeyPressed = true;
+  }
   else
   {
     if (m_shiftKeyPressed)

@@ -546,10 +546,6 @@ bool KateCompletionWidget::cursorLeft( bool shift ) {
     return true;
   }
 
-  if (canCollapseCurrentItem() ) {
-    setCurrentItemExpanded(false);
-    return true;
-  }
   return false;
 }
 
@@ -563,11 +559,14 @@ bool KateCompletionWidget::cursorRight( bool shift ) {
     return true;
   }
 
-  if ( canExpandCurrentItem() ) {
-    setCurrentItemExpanded(true);
-    return true;
-  }
   return false;
+}
+
+void KateCompletionWidget::toggleExpanded() {
+  if ( canExpandCurrentItem() )
+    setCurrentItemExpanded(true);
+  else if (canCollapseCurrentItem() )
+    setCurrentItemExpanded(false);
 }
 
 bool KateCompletionWidget::canExpandCurrentItem() const {

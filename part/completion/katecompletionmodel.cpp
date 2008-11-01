@@ -1467,8 +1467,13 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
   if( model->isSortingByInheritanceDepth() )
     ret = inheritanceDepth - rhs.inheritanceDepth;
 
-  if (ret == 0 && model->isSortingAlphabetical())
-    ret = QString::compare(completionSortingName(), rhs.completionSortingName()); //Do not use localeAwareCompare, because it is simply too slow for a list of about 1000 items
+  if (ret == 0 && model->isSortingAlphabetical()) {
+    if(!m_completionSortingName.isEmpty() && !rhs.m_completionSortingName.isEmpty())
+      //Shortcut, plays a role in this tight loop
+      ret = QString::compare(m_completionSortingName, rhs.m_completionSortingName);
+    else
+      ret = QString::compare(completionSortingName(), rhs.completionSortingName()); //Do not use localeAwareCompare, because it is simply too slow for a list of about 1000 items
+  }
 
   if( ret == 0 ) {
     // FIXME need to define a better default ordering for multiple model display

@@ -521,6 +521,7 @@ KateSmartRange * KateCompletionWidget::completionRange( ) const
 
 void KateCompletionWidget::modelReset( )
 {
+  setUpdatesEnabled(false);
   ///We need to do this by hand, because QTreeView::expandAll is very inefficient.
   ///It creates a QPersistentModelIndex for every single item in the whole tree..
   for(int row = 0; row < m_argumentHintModel->rowCount(QModelIndex()); ++row)
@@ -528,6 +529,7 @@ void KateCompletionWidget::modelReset( )
 
   for(int row = 0; row < m_entryList->model()->rowCount(QModelIndex()); ++row)
     m_entryList->expand(m_entryList->model()->index(row, 0, QModelIndex()));
+  setUpdatesEnabled(true);
 }
 
 KateCompletionTree* KateCompletionWidget::treeView() const {

@@ -1478,9 +1478,10 @@ QString KateCompletionModel::Item::completionSortingName( ) const
 {
   if( !m_haveCompletionName ) {
     m_completionSortingName = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
-    if (model->sortingCaseSensitivity() == Qt::CaseSensitive)
-        m_completionSortingName = m_completionSortingName.toLower();
+    if (model->sortingCaseSensitivity() == Qt::CaseInsensitive)
+      m_completionSortingName = m_completionSortingName.toLower();
   }
+  m_haveCompletionName = true;
   return m_completionSortingName;
 }
 

@@ -217,7 +217,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         ModelRow m_sourceRow;
 
         mutable QString m_completionSortingName;
-        bool m_haveCompletionName;
+        mutable bool m_haveCompletionName;
         
         int inheritanceDepth;
 

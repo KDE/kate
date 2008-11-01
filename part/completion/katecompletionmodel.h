@@ -91,7 +91,10 @@ class KateCompletionModel : public ExpandingWidgetModel
     //virtual QModelIndex sibling ( int row, int column, const QModelIndex & index ) const;
     virtual void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder );
 
+    ///Maps from this display-model into the appropriate source code-completion model
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
+    
+    ///Maps from an index in a source-model to the index of the item in this display-model
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
 
     // Sorting
@@ -207,7 +210,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         bool filter();
         bool match(const QString& newCompletion = QString());
 
-        ModelRow sourceRow() const;
+        const ModelRow& sourceRow() const;
 
         // Sorting operator
         bool operator<(const Item& rhs) const;
@@ -216,8 +219,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         KateCompletionModel* model;
         ModelRow m_sourceRow;
 
-        mutable QString m_completionSortingName;
-        mutable bool m_haveCompletionName;
+        mutable QString m_nameColumn, m_completionSortingName;
         
         int inheritanceDepth;
 
@@ -246,10 +248,20 @@ class KateCompletionModel : public ExpandingWidgetModel
         //Returns a number that can be used for ordering
         int orderNumber() const;
 
+	///Returns the row in the this group's filtered list of the given model-row in a source-model
+	///-1 if the item is not in the filtered list
+	///@todo Implement an efficient way of doing this map, that does _not_ iterate over all items!
+	int rowOf(ModelRow item) {
+	  for(int a = 0; a < filtered.size(); ++a)
+	    if(filtered[a].sourceRow() == item)
+	      return a;
+	  return -1;
+	}
+	
         KateCompletionModel* model;
         int attribute;
         QString title, scope;
-        QList<ModelRow> rows;
+        QList<Item> filtered;
         QList<Item> prefilter;
         bool isEmpty;
     };
@@ -282,8 +294,8 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     void changeCompletions(Group* g, const QString& newCompletion, changeTypes changeType);
 
-    void deleteRows(Group* g, QMutableListIterator<ModelRow>& filtered, int countBackwards, int startRow);
-    void addRows(Group* g, QMutableListIterator<ModelRow>& filtered, int startRow, const QList<ModelRow>& newItems);
+    void deleteRows(Group* g, QMutableListIterator<Item>& filtered, int countBackwards, int startRow);
+    void addRows(Group* g, QMutableListIterator<Item>& filtered, int startRow, const QList<Item>& newItems);
 
     bool hasGroups() const;
     bool hasCompletionModel() const;
@@ -325,7 +337,6 @@ class KateCompletionModel : public ExpandingWidgetModel
     bool m_sortingAlphabetical;
     bool m_isSortingByInheritance;
     Qt::CaseSensitivity m_sortingCaseSensitivity;
-    bool m_sortingReverse;
     QHash< int, QList<int> > m_sortingGroupingOrder;
 
     // Filtering

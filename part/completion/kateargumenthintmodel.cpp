@@ -38,10 +38,10 @@ QModelIndex KateArgumentHintModel::mapToSource( const QModelIndex & index ) cons
   if( index.row() <  0 || index.row() >= m_rows.count() )
     return QModelIndex();
     
-  if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->rows.count() )
+  if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->filtered.count() )
     return QModelIndex();
   
-  KateCompletionModel::ModelRow source = group()->rows[m_rows[index.row()]];
+  KateCompletionModel::ModelRow source = group()->filtered[m_rows[index.row()]].sourceRow();
   if( !source.first ) {
     kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
     return QModelIndex();
@@ -60,8 +60,8 @@ void KateArgumentHintModel::parentModelReset() {
 void KateArgumentHintModel::buildRows() {
   m_rows.clear();
   QMap<int, QList<int> > m_depths; //Map each hint-depth to a list of functions of that depth
-  for( int a = 0; a < group()->rows.count(); a++ ) {
-    KateCompletionModel::ModelRow source = group()->rows[a];
+  for( int a = 0; a < group()->filtered.count(); a++ ) {
+    KateCompletionModel::ModelRow source = group()->filtered[a].sourceRow();
     QModelIndex  sourceIndex = source.second.sibling(source.second.row(), 0);
     QVariant v = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth);
     if( v.type() == QVariant::Int ) {
@@ -72,7 +72,7 @@ void KateArgumentHintModel::buildRows() {
 
   for( QMap<int, QList<int> >::const_iterator it = m_depths.constBegin(); it != m_depths.constEnd(); ++it ) {
     foreach( int row, *it )
-      m_rows.push_front(row);//Insert rows in reversed order
+      m_rows.push_front(row);//Insert filtered in reversed order
     m_rows.push_front( -it.key() );
   }
   
@@ -87,7 +87,7 @@ KateArgumentHintModel::KateArgumentHintModel( KateCompletionWidget* parent ) : E
 
 QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) const {
   if( index.row() <  0 || index.row() >= m_rows.count() ) {
-    //kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total rows: " << m_rows.count();
+    //kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total filtered: " << m_rows.count();
     return QVariant();
   }
 
@@ -104,12 +104,12 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     }
   }
 
-  if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->rows.count() ) {
-    kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total rows: " << group()->rows.count();
+  if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->filtered.count() ) {
+    kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total filtered: " << group()->filtered.count();
     return QVariant();
   }
   
-  KateCompletionModel::ModelRow source = group()->rows[m_rows[index.row()]];
+  KateCompletionModel::ModelRow source = group()->filtered[m_rows[index.row()]].sourceRow();
   if( !source.first ) {
     kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
     return QVariant();
@@ -257,10 +257,10 @@ int KateArgumentHintModel::contextMatchQuality(const QModelIndex& index) const {
   if( row <  0 || row >= m_rows.count() )
     return -1;
 
-  if( m_rows[row] <  0 || m_rows[row] >= group()->rows.count() )
+  if( m_rows[row] <  0 || m_rows[row] >= group()->filtered.count() )
     return -1; //Probably a label
   
-  KateCompletionModel::ModelRow source = group()->rows[m_rows[row]];
+  KateCompletionModel::ModelRow source = group()->filtered[m_rows[row]].sourceRow();
   if( !source.first )
     return -1;
   

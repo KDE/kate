@@ -47,7 +47,6 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   // Sorting
   ui->sorting->setChecked(m_model->isSortingEnabled());
   ui->sortingAlphabetical->setChecked(m_model->isSortingAlphabetical());
-  ui->sortingReverse->setChecked(m_model->isSortingReverse());
   ui->sortingCaseSensitive->setChecked(m_model->sortingCaseSensitivity() == Qt::CaseSensitive);
   ui->groupingOrderUp->setIcon(KIcon("go-up"));
   ui->groupingOrderDown->setIcon(KIcon("go-down"));
@@ -161,7 +160,6 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   // Sorting
   ui->sorting->setChecked(config.readEntry("Sorting Enabled", true));
   ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", true));
-  ui->sortingReverse->setChecked(config.readEntry("Reverse Sort", false));
   ui->sortingCaseSensitive->setChecked(config.readEntry("Case Sensitive Sort", false));
   ui->sortingInheritanceDepth->setChecked(config.readEntry("Sort by Inheritance Depth", true));
 
@@ -210,7 +208,6 @@ void KateCompletionConfig::writeConfig(KConfigGroup &config)
   // Sorting
   config.writeEntry("Sorting Enabled", ui->sorting->isChecked());
   config.writeEntry("Sort Alphabetically", ui->sortingAlphabetical->isChecked());
-  config.writeEntry("Reverse Sort", ui->sortingReverse->isChecked());
   config.writeEntry("Case Sensitive Sort", ui->sortingCaseSensitive->isChecked());
   config.writeEntry("Sort by Inheritance Depth", ui->sortingInheritanceDepth->isChecked());
 
@@ -297,7 +294,6 @@ void KateCompletionConfig::applyInternal()
   // Sorting
   m_model->setSortingEnabled(ui->sorting->isChecked());
   m_model->setSortingAlphabetical(ui->sortingAlphabetical->isChecked());
-  m_model->setSortingReverse(ui->sortingReverse->isChecked());
   m_model->setSortingCaseSensitivity(ui->sortingCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
   m_model->setSortingByInheritanceDepth(ui->sortingInheritanceDepth->isChecked());
 

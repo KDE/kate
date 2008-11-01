@@ -114,7 +114,6 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_sortingAlphabetical(false)
   , m_isSortingByInheritance(false)
   , m_sortingCaseSensitivity(Qt::CaseInsensitive)
-  , m_sortingReverse(false)
   , m_filteringEnabled(false)
   , m_filterContextMatchesOnly(false)
   , m_filterByAttribute(false)
@@ -284,14 +283,15 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
   if( !g )
     return -1;
 
-  ModelRow source = g->rows[idx.row()];
+  ModelRow source = g->filtered[idx.row()].sourceRow();
   QModelIndex realIndex = source.second;
 
 
   int bestMatch = -1;
   //Iterate through all argument-hints and find the best match-quality
-  foreach( const ModelRow& row, m_argumentHints->rows )
+  foreach( const Item& item, m_argumentHints->filtered )
   {
+    const ModelRow& row(item.sourceRow());
     if( realIndex.model() != row.first )
       continue; //We can only match within the same source-model
 
@@ -358,7 +358,7 @@ bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
     if (hasGroups())
       return true;
 
-    return !m_ungrouped->rows.isEmpty();
+    return !m_ungrouped->filtered.isEmpty();
   }
 
   if (parent.column() != 0)
@@ -368,7 +368,7 @@ bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
     return false;
 
   if (Group* g = groupForIndex(parent))
-    return !g->rows.isEmpty();
+    return !g->filtered.isEmpty();
 
   return false;
 }
@@ -387,7 +387,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
     if (!g)
       return QModelIndex();
 
-    if (row >= g->rows.count()) {
+    if (row >= g->filtered.count()) {
       //kWarning() << "Invalid index requested: row " << row << " beyond indivdual range in group " << g;
       return QModelIndex();
     }
@@ -414,7 +414,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
   }
 
   if (Group* g = groupOfParent(index)) {
-    if (row >= g->rows.count())
+    if (row >= g->filtered.count())
       return QModelIndex();
 
     return createIndex(row, column, g);
@@ -423,7 +423,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
   if (hasGroups())
     return QModelIndex();
 
-  if (row >= m_ungrouped->rows.count())
+  if (row >= m_ungrouped->filtered.count())
     return QModelIndex();
 
   return createIndex(row, column, m_ungrouped);
@@ -440,7 +440,7 @@ bool KateCompletionModel::hasIndex( int row, int column, const QModelIndex & par
 
     Group* g = groupForIndex(parent);
 
-    if (row >= g->rows.count())
+    if (row >= g->filtered.count())
       return false;
 
     return true;
@@ -454,7 +454,7 @@ bool KateCompletionModel::hasIndex( int row, int column, const QModelIndex & par
 
 QModelIndex KateCompletionModel::indexForRow( Group * g, int row ) const
 {
-  if (row < 0 || row >= g->rows.count())
+  if (row < 0 || row >= g->filtered.count())
     return QModelIndex();
 
   return createIndex(row, 0, g);
@@ -553,9 +553,16 @@ void KateCompletionModel::createGroups()
   m_hasGroups=has_groups;
   //debugStats();
 
+  foreach (Group* g, m_rowTable)
+    hideOrShowGroup(g);
+
+  foreach (Group* g, m_emptyGroups)
+    hideOrShowGroup(g);
+  
   resort();
   reset();
   updateBestMatches();
+  
   emit contentGeometryChanged();
 }
 
@@ -619,7 +626,7 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start
   foreach (Group* g, affectedGroups)
     hideOrShowGroup(g);
 
-  contentGeometryChanged();
+  emit contentGeometryChanged();
 }
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope, bool forceGrouping )
@@ -790,8 +797,8 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
       //kDebug( 13035 ) << "Returning row count for toplevel " << m_rowTable.count();
       return m_rowTable.count();
     } else {
-      //kDebug( 13035 ) << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count();
-      return m_ungrouped->rows.count();
+      //kDebug( 13035 ) << "Returning ungrouped row count for toplevel " << m_ungrouped->filtered.count();
+      return m_ungrouped->filtered.count();
     }
   }
 
@@ -801,8 +808,8 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
   if (!g)
     return 0;
 
-  //kDebug( 13035 ) << "Returning row count for group " << g << " as " << g->rows.count();
-  return g->rows.count();
+  //kDebug( 13035 ) << "Returning row count for group " << g << " as " << g->filtered.count();
+  return g->filtered.count();
 }
 
 void KateCompletionModel::sort( int column, Qt::SortOrder order )
@@ -817,8 +824,8 @@ QModelIndex KateCompletionModel::mapToSource( const QModelIndex & proxyIndex ) c
     return QModelIndex();
 
   if (Group* g = groupOfParent(proxyIndex)) {
-    if( proxyIndex.row() >= 0 && proxyIndex.row() < g->rows.count() ) {
-      ModelRow source = g->rows[proxyIndex.row()];
+    if( proxyIndex.row() >= 0 && proxyIndex.row() < g->filtered.count() ) {
+      ModelRow source = g->filtered[proxyIndex.row()].sourceRow();
       return source.second.sibling(source.second.row(), proxyIndex.column());
     }else{
       kDebug("Invalid proxy-index");
@@ -834,17 +841,17 @@ QModelIndex KateCompletionModel::mapFromSource( const QModelIndex & sourceIndex 
     return QModelIndex();
 
   if (!hasGroups())
-    return index(m_ungrouped->rows.indexOf(modelRowPair(sourceIndex)), sourceIndex.column(), QModelIndex());
+    return index(m_ungrouped->rowOf(modelRowPair(sourceIndex)), sourceIndex.column(), QModelIndex());
 
   foreach (Group* g, m_rowTable) {
-    int row = g->rows.indexOf(modelRowPair(sourceIndex));
+    int row = g->rowOf(modelRowPair(sourceIndex));
     if (row != -1)
       return index(row, sourceIndex.column(), QModelIndex());
   }
 
   // Copied from above
   foreach (Group* g, m_emptyGroups) {
-    int row = g->rows.indexOf(modelRowPair(sourceIndex));
+    int row = g->rowOf(modelRowPair(sourceIndex));
     if (row != -1)
       return index(row, sourceIndex.column(), QModelIndex());
   }
@@ -890,6 +897,8 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
   m_currentMatch = completion;
+
+  emit contentGeometryChanged();
 }
 
 void KateCompletionModel::rematch()
@@ -910,6 +919,7 @@ void KateCompletionModel::rematch()
   }
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
+  emit contentGeometryChanged();
 }
 
 #define COMPLETE_DELETE \
@@ -932,18 +942,18 @@ void KateCompletionModel::rematch()
 
 void KateCompletionModel::changeCompletions( Group * g, const QString & newCompletion, changeTypes changeType )
 {
-  QMutableListIterator<ModelRow> filtered = g->rows;
+  QMutableListIterator<Item> filtered = g->filtered;
   QMutableListIterator<Item> prefilter = g->prefilter;
 
   int rowDeleteStart = -1;
   int rowAddStart = -1;
-  QList<ModelRow> rowAdd;
+  QList<Item> rowAdd;
 
   int index = 0;
   int filterIndex = 0;
   while (prefilter.hasNext()) {
     if (filtered.hasNext()) {
-      if (filtered.peekNext() == prefilter.peekNext().sourceRow()) {
+      if (filtered.peekNext().sourceRow() == prefilter.peekNext().sourceRow()) {
         // Currently being displayed
         if (changeType != Broaden) {
           if (prefilter.peekNext().match(newCompletion)) {
@@ -978,7 +988,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
             if (rowAddStart == -1)
               rowAddStart = filterIndex;
 
-            rowAdd.append(prefilter.peekNext().sourceRow());
+            rowAdd.append(prefilter.peekNext());
 
           } else {
             // no change required to this item
@@ -1002,7 +1012,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
           if (rowAddStart == -1)
             rowAddStart = filterIndex;
 
-          rowAdd.append(prefilter.peekNext().sourceRow());
+          rowAdd.append(prefilter.peekNext());
 
         } else {
           // no change required to this item
@@ -1024,7 +1034,6 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
   COMPLETE_ADD
 
   hideOrShowGroup(g);
-  emit contentGeometryChanged();
 }
 
 int KateCompletionModel::Group::orderNumber() const {
@@ -1065,7 +1074,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
   }
 
   if (!g->isEmpty) {
-    if (g->rows.isEmpty()) {
+    if (g->filtered.isEmpty()) {
       // Move to empty group list
       g->isEmpty = true;
       int row = m_rowTable.indexOf(g);
@@ -1082,7 +1091,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
     }
 
   } else {
-    if (!g->rows.isEmpty()) {
+    if (!g->filtered.isEmpty()) {
       // Move off empty group list
       g->isEmpty = false;
 
@@ -1097,7 +1106,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       if (hasGroups())
         beginInsertRows(QModelIndex(), row, row);
       else
-        beginInsertRows(QModelIndex(), 0, g->rows.count());
+        beginInsertRows(QModelIndex(), 0, g->filtered.count());
       m_rowTable.insert(row, g);
       endInsertRows();
       m_emptyGroups.removeAll(g);
@@ -1105,7 +1114,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
   }
 }
 
-void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> & filtered, int countBackwards, int startRow )
+void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<Item> & filtered, int countBackwards, int startRow )
 {
   QModelIndex groupIndex = indexForGroup(g);
   Q_ASSERT(!hasGroups() || groupIndex.isValid());
@@ -1130,7 +1139,7 @@ void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> &
 }
 
 
-void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & filtered, int startRow, const QList<ModelRow> & newItems )
+void KateCompletionModel::addRows( Group * g, QMutableListIterator<Item> & filtered, int startRow, const QList<Item> & newItems )
 {
   //bool notify = true;
 
@@ -1172,11 +1181,11 @@ void KateCompletionModel::slotModelReset()
 void KateCompletionModel::debugStats()
 {
   if (!hasGroups())
-    kDebug( 13035 ) << "Model groupless, " << m_ungrouped->rows.count() << " items.";
+    kDebug( 13035 ) << "Model groupless, " << m_ungrouped->filtered.count() << " items.";
   else {
     kDebug( 13035 ) << "Model grouped (" << m_rowTable.count() << " groups):";
     foreach (Group* g, m_rowTable)
-      kDebug( 13035 ) << "Group" << g << "count" << g->rows.count();
+      kDebug( 13035 ) << "Group" << g << "count" << g->filtered.count();
   }
 }
 
@@ -1431,11 +1440,6 @@ bool KateCompletionModel::isSortingAlphabetical( ) const
   return m_sortingAlphabetical;
 }
 
-bool KateCompletionModel::isSortingReverse( ) const
-{
-  return m_sortingReverse;
-}
-
 Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
 {
   return m_sortingCaseSensitivity;
@@ -1444,12 +1448,13 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
 KateCompletionModel::Item::Item( KateCompletionModel* m, const HierarchicalModelHandler& handler, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
-  , m_haveCompletionName(false)
   , matchCompletion(true)
   , matchFilters(true)
 {
   inheritanceDepth = handler.getData(CodeCompletionModel::InheritanceDepth, m_sourceRow.second).toInt();
 
+  m_nameColumn = sr.second.sibling(sr.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
+  
   filter();
   match();
 }
@@ -1471,17 +1476,17 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
     ret = m_sourceRow.second.row() - rhs.m_sourceRow.second.row();
   }
 
-  return model->isSortingReverse() ? ret > 0 : ret < 0;
+  return ret < 0;
 }
 
 QString KateCompletionModel::Item::completionSortingName( ) const
 {
-  if( !m_haveCompletionName ) {
-    m_completionSortingName = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
+  if(m_completionSortingName.isEmpty()) {
+    m_completionSortingName = m_nameColumn;
     if (model->sortingCaseSensitivity() == Qt::CaseInsensitive)
       m_completionSortingName = m_completionSortingName.toLower();
   }
-  m_haveCompletionName = true;
+
   return m_completionSortingName;
 }
 
@@ -1495,64 +1500,37 @@ void KateCompletionModel::Group::addItem( Item i, bool notifyModel )
     groupIndex = model->indexForGroup(this);
 
   if (model->isSortingEnabled()) {
-    QList<Item>::Iterator it = model->isSortingReverse() ? qLowerBound(prefilter.begin(), prefilter.end(), i) : qUpperBound(prefilter.begin(), prefilter.end(), i);
-    if (it != prefilter.end()) {
-      const Item& item = *it;
-      prefilter.insert(it, i);
-      if (i.isVisible()) {
-        int index = rows.indexOf(item.sourceRow());
-        if (index == -1) {
-          if (notifyModel)
-            model->beginInsertRows(groupIndex, rows.count(), rows.count());
-
-          rows.append(i.sourceRow());
-
-        } else {
-          if (notifyModel)
-            model->beginInsertRows(groupIndex, index, index);
-
-          rows.insert(index, i.sourceRow());
-        }
-
-        if (notifyModel)
-          model->endInsertRows();
-      }
-    } else {
-      prefilter.append(i);
-      if (i.isVisible()) {
-        if (model->isSortingReverse()) {
-          if (notifyModel)
-            model->beginInsertRows(groupIndex, 0, 0);
-
-          rows.prepend(i.sourceRow());
-
-        } else {
-          if (notifyModel)
-            model->beginInsertRows(groupIndex, rows.count(), rows.count());
-
-          rows.append(i.sourceRow());
-        }
-
-        if (notifyModel)
-          model->endInsertRows();
-      }
+    
+    prefilter.insert(qUpperBound(prefilter.begin(), prefilter.end(), i), i);
+    if(i.isVisible()) {
+      QList<Item>::iterator it = qUpperBound(filtered.begin(), filtered.end(), i);
+      uint rowNumber = it - filtered.begin();
+      
+      if(notifyModel)
+        model->beginInsertRows(groupIndex, rowNumber, rowNumber);
+      
+      filtered.insert(it, i);
     }
-
   } else {
+    if(notifyModel)
+      model->beginInsertRows(groupIndex, prefilter.size(), prefilter.size());
     if (i.isVisible())
       prefilter.append(i);
   }
+  
+  if(notifyModel)
+    model->endInsertRows();
 }
 
 bool KateCompletionModel::Group::removeItem(const ModelRow& row)
 {
   for (int pi = 0; pi < prefilter.count(); ++pi)
     if (prefilter[pi].sourceRow() == row) {
-      int index = rows.indexOf(row);
+      int index = rowOf(row);
       if (index != -1)
         model->beginRemoveRows(model->indexForGroup(this), index, index);
 
-      rows.removeAt(index);
+      filtered.removeAt(index);
       prefilter.removeAt(pi);
 
       if (index != -1)
@@ -1583,28 +1561,20 @@ void KateCompletionModel::setSortingAlphabetical( bool alphabetical )
 void KateCompletionModel::Group::resort( )
 {
   qStableSort(prefilter.begin(), prefilter.end());
-  //int oldRowCount = rows.count();
-  rows.clear();
+  //int oldRowCount = filtered.count();
+  filtered.clear();
   foreach (const Item& i, prefilter)
     if (i.isVisible())
-      rows.append(i.sourceRow());
+      filtered.append(i);
 
   model->hideOrShowGroup(this);
-  //Q_ASSERT(rows.count() == oldRowCount);
+  //Q_ASSERT(filtered.count() == oldRowCount);
 }
 
 void KateCompletionModel::setSortingCaseSensitivity( Qt::CaseSensitivity cs )
 {
   if (m_sortingCaseSensitivity != cs) {
     m_sortingCaseSensitivity = cs;
-    resort();
-  }
-}
-
-void KateCompletionModel::setSortingReverse( bool reverse )
-{
-  if (m_sortingReverse != reverse) {
-    m_sortingReverse = reverse;
     resort();
   }
 }
@@ -1628,7 +1598,7 @@ bool KateCompletionModel::Item::isValid( ) const
 void KateCompletionModel::Group::clear( )
 {
   prefilter.clear();
-  rows.clear();
+  filtered.clear();
   isEmpty = true;
 }
 
@@ -1703,10 +1673,10 @@ void KateCompletionModel::refilter( )
 
 void KateCompletionModel::Group::refilter( )
 {
-  rows.clear();
+  filtered.clear();
   foreach (const Item& i, prefilter)
     if (!i.isFiltered())
-      rows.append(i.sourceRow());
+      filtered.append(i);
 }
 
 bool KateCompletionModel::Item::filter( )
@@ -1754,7 +1724,7 @@ bool KateCompletionModel::Item::match(const QString& newCompletion)
   if (match.isEmpty())
     match = model->currentCompletion();
 
-  matchCompletion = sourceIndex.data(Qt::DisplayRole).toString().startsWith(match, model->matchCaseSensitivity());
+  matchCompletion = m_nameColumn.startsWith(match, model->matchCaseSensitivity());
   return matchCompletion;
 }
 
@@ -1847,7 +1817,7 @@ bool KateCompletionModel::Item::isMatching( ) const
   return matchFilters;
 }
 
-KateCompletionModel::ModelRow KateCompletionModel::Item::sourceRow( ) const
+const KateCompletionModel::ModelRow& KateCompletionModel::Item::sourceRow( ) const
 {
   return m_sourceRow;
 }
@@ -1936,7 +1906,7 @@ void KateCompletionModel::updateBestMatches() {
   foreach (Group* g, m_rowTable) {
     if( g == m_bestMatches )
       continue;
-    for( int a = 0; a < g->rows.size(); a++ )
+    for( int a = 0; a < g->filtered.size(); a++ )
     {
       QModelIndex index = indexForGroup(g).child(a,0);
 
@@ -1945,10 +1915,9 @@ void KateCompletionModel::updateBestMatches() {
       if( v.type() == QVariant::Int && v.toInt() > 0 ) {
         int quality = contextMatchQuality(index);
         if( quality > 0 )
-          matches.insert(quality, qMakePair(v.toInt(), g->rows[a]));
+          matches.insert(quality, qMakePair(v.toInt(), g->filtered[a].sourceRow()));
         --maxMatches;
       }
-
 
       if( maxMatches < 0 )
         break;
@@ -1971,7 +1940,7 @@ void KateCompletionModel::updateBestMatches() {
       break;
   }
 
-  m_bestMatches->rows.clear();
+  m_bestMatches->filtered.clear();
   it = matches.constEnd();
 
   while( it != matches.constBegin() && cnt > 0 )
@@ -1979,7 +1948,7 @@ void KateCompletionModel::updateBestMatches() {
     --it;
     --cnt;
 
-    m_bestMatches->rows.append( (*it).second );
+    m_bestMatches->filtered.append( Item( this, HierarchicalModelHandler((*it).second.first), (*it).second) );
   }
 
   hideOrShowGroup(m_bestMatches);

@@ -6486,7 +6486,7 @@ Changes:
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Special method" context="#stay" String="special_methods" />
         <DetectIdentifier />
-        <DetectChar attribute="String" context="doblequotestring" char="&quot;" />
+        <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
         <DetectChar attribute="String" context="backquotestring" char="`" />
         <DetectChar attribute="String" context="singlequotestring" char="&#39;" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
@@ -6523,7 +6523,7 @@ Changes:
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="`" />
         <DetectChar attribute="String" context="#pop" char="`" />
       </context>
-      <context name="doblequotestring" attribute="String" lineEndContext="#stay">
+      <context name="doublequotestring" attribute="String" lineEndContext="#stay">
         <IncludeRules context="doublebackquotestringcommon"/>
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
         <DetectChar attribute="String" context="#pop" char="&quot;" />

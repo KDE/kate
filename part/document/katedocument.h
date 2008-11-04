@@ -808,6 +808,7 @@ class KateDocument : public KTextEditor::Document,
     void indent ( KateView *view, uint line, int change );
     void comment ( KateView *view, uint line, uint column, int change );
     void align ( KateView *view, uint line );
+    void align ( KateView *view, const KTextEditor::Range &range );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
 

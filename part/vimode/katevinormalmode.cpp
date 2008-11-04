@@ -1137,6 +1137,32 @@ bool KateViNormalMode::commandRepeatLastChange()
   return true;
 }
 
+bool KateViNormalMode::commandAlignLine()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  m_view->doc()->align( m_view, c.line() );
+
+  return true;
+}
+
+bool KateViNormalMode::commandAlignLines()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  m_commandRange.normalize();
+
+  if ( m_commandRange.startLine == -1 ) {
+    m_commandRange.startLine = c.line();
+  }
+
+  KTextEditor::Cursor start(m_commandRange.startLine, 0);
+  KTextEditor::Cursor end(m_commandRange.endLine, 0);
+
+  m_view->doc()->align( m_view, KTextEditor::Range( start, end ) );
+
+  return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -1851,6 +1877,8 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp ) );
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, ".", &KateViNormalMode::commandRepeatLastChange ) );
+  m_commands.push_back( new KateViCommand( this, "==", &KateViNormalMode::commandAlignLine, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "=", &KateViNormalMode::commandAlignLines, IS_CHANGE | NEEDS_MOTION) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

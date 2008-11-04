@@ -207,6 +207,12 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // the motion
             m_commandRange = m_motions.at( i )->execute();
 
+            // Special case: "dw" and "dW" should never delete across line boundaries
+            if ( ( m_keys == "dw" || m_keys == "dW" )
+                && m_commandRange.endLine > m_commandRange.startLine ) {
+              m_commandRange = motionToEOL();
+            }
+
             if ( m_commandRange.valid ) {
               kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern() << "to position (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
               executeCommand( m_commands.at( m_motionOperatorIndex ) );

@@ -321,6 +321,17 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
     m_viInputModeManager->clearLog();
   }
+
+  // make sure the cursor does not end up after the end of the line
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+    int lineLength = m_view->doc()->lineLength( c.line() );
+
+    if ( c.column() >= lineLength ) {
+      c.setColumn( lineLength-1 );
+    }
+    updateCursor( c );
+  }
 }
 
 void KateViNormalMode::addCurrentPositionToJumpList()

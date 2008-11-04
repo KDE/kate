@@ -1156,9 +1156,10 @@ bool KateViNormalMode::commandRepeatLastChange()
 
 bool KateViNormalMode::commandAlignLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  const int line = m_view->cursorPosition().line();
+  KTextEditor::Range alignRange( KTextEditor::Cursor(line, 0), KTextEditor::Cursor(line, 0) );
 
-  m_view->doc()->align( m_view, c.line() );
+  m_view->doc()->align( m_view, alignRange );
 
   return true;
 }

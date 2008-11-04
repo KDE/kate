@@ -4296,6 +4296,8 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
 void KateDocument::align(KateView *view, const KTextEditor::Range &range)
 {
+  editStart();
+
   blockRemoveTrailingSpaces(true);
   m_indenter.indent(view, range);
   blockRemoveTrailingSpaces(false);
@@ -4303,24 +4305,6 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
   for (int start = range.start().line(); start <= range.end().line(); ++start) {
     removeTrailingSpace(start);
   }
-
-  editEnd();
-}
-
-void KateDocument::align(KateView *view, uint line)
-{
-  const bool hasSelection = view->selection();
-  KTextEditor::Range range = hasSelection ? view->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0));
-
-  int start = view->selectionRange().start().line();
-  const int end = view->selectionRange().end().line();
-
-  blockRemoveTrailingSpaces(true);
-  m_indenter.indent(view,range);
-  blockRemoveTrailingSpaces(false);
-
-  for (; start <= end; ++start)
-    removeTrailingSpace(start);
 
   editEnd();
 }
@@ -6371,7 +6355,7 @@ bool KateDocument::save() {
   m_saveAs = false;
   return KTextEditor::Document::save();
 }
- 
+
 bool KateDocument::saveAs( const KUrl &url ) {
   m_saveAs = true;
   return KTextEditor::Document::saveAs(url);

@@ -2360,7 +2360,14 @@ void KateView::cleanIndent( )
 
 void KateView::align( )
 {
-  m_doc->align( this, cursorPosition().line() );
+  // no selection: align current line; selection: use selection range
+  const int line = cursorPosition().line();
+  KTextEditor::Range alignRange(KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0));
+  if (selection()) {
+    alignRange = selectionRange();
+  }
+
+  m_doc->align( this, alignRange );
 }
 
 void KateView::comment( )

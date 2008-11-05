@@ -205,10 +205,12 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
           } else {
             // execute the specified command and supply the position returned from
             // the motion
+
             m_commandRange = m_motions.at( i )->execute();
 
-            // Special case: "dw" and "dW" should never delete across line boundaries
-            if ( ( m_keys == "dw" || m_keys == "dW" )
+            // Special case: "word motions" should never cross a line boundary when they are the
+            // input to a command
+            if ( ( m_keys.right(1) == "w" || m_keys.right(1) == "W" )
                 && m_commandRange.endLine > m_commandRange.startLine ) {
               m_commandRange = motionToEOL();
             }

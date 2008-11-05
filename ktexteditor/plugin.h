@@ -51,8 +51,8 @@ class View;
  *
  * \section plugin_config Configuration Management
  *
- * @todo write docu about config pages
- * @todo write docu about save/load settings
+ * @todo write docu about config pages (new with kpluginmanager)
+ * @todo write docu about save/load settings (related to config page)
  *
  * \section plugin_sessions Session Management
  *
@@ -68,15 +68,14 @@ class View;
  *   Q_INTERFACES(KTextEditor::SessionConfigInterface)
  *
  *   // ...
- *   virtual void readSessionConfig (KConfig *config);
- *   virtual void writeSessionConfig (KConfig *config);
+ *   virtual void readSessionConfig (const KConfigGroup& config);
+ *   virtual void writeSessionConfig (KConfigGroup& config);
  * };
  * \endcode
  *
  * \section plugin_arch Plugin Architecture
  *
- * After the plugin is loaded the editor implementation should first call
- * readConfig() with a given KConfig object. After this it will call
+ * After the plugin is loaded the editor implementation should call
  * addDocument() and addView() for all documents and views the plugin should
  * handle. If your plugin has a GUI it is common to add an extra class, like:
  * \code

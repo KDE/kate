@@ -1084,9 +1084,11 @@ bool KateViNormalMode::commandIndentLines()
   int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
+  m_view->doc()->editStart();
   for ( int i = line1; i <= line2; i++ ) {
       m_view->doc()->indent( m_view, i, 1 );
   }
+  m_view->doc()->editEnd();
 
   return true;
 }
@@ -1100,9 +1102,11 @@ bool KateViNormalMode::commandUnindentLines()
   int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
+  m_view->doc()->editStart();
   for ( int i = line1; i <= line2; i++ ) {
       m_view->doc()->indent( m_view, i, -1 );
   }
+  m_view->doc()->editEnd();
 
   return true;
 }

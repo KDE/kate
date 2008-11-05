@@ -43,9 +43,11 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
   QString removedText = getRange( r, linewise );
 
   if ( linewise ) {
+    m_view->doc()->editStart();
     for ( int i = 0; i < r.endLine-r.startLine+1; i++ ) {
       res = m_view->doc()->removeLine( r.startLine );
     }
+    m_view->doc()->editEnd();
   } else {
       res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }

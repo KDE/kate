@@ -330,7 +330,11 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
     int lineLength = m_view->doc()->lineLength( c.line() );
 
     if ( c.column() >= lineLength ) {
-      c.setColumn( lineLength-1 );
+      if ( lineLength == 0 ) {
+        c.setColumn( 0 );
+      } else {
+        c.setColumn( lineLength-1 );
+      }
     }
     updateCursor( c );
   }

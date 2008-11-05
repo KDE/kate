@@ -215,8 +215,17 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               m_commandRange = motionToEOL();
             }
 
+            // if we didn't get an explicit start position, use the current cursor position
+            if ( m_commandRange.startLine == -1 ) {
+              KTextEditor::Cursor c( m_view->cursorPosition() );
+              m_commandRange.startLine = c.line();
+              m_commandRange.startColumn = c.column();
+            }
+
             if ( m_commandRange.valid ) {
-              kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern() << "to position (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
+              kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern()
+                << "from (" << m_commandRange.startLine << "," << m_commandRange.endLine << ")"
+                << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
               executeCommand( m_commands.at( m_motionOperatorIndex ) );
             } else {
               kDebug( 13070 ) << "invalid position";
@@ -568,13 +577,6 @@ bool KateViNormalMode::commandDeleteLine()
 
 bool KateViNormalMode::commandDelete()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-
-  if ( m_commandRange.startLine == -1 ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-  }
-
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
@@ -625,7 +627,7 @@ bool KateViNormalMode::commandMakeLowercase()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
   if ( line1 == line2 ) { // characterwise
@@ -673,7 +675,7 @@ bool KateViNormalMode::commandMakeUppercase()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
   if ( line1 == line2 ) { // characterwise
@@ -793,11 +795,6 @@ bool KateViNormalMode::commandChange()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  if ( m_commandRange.startLine == -1 ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-  }
-
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
@@ -856,11 +853,6 @@ bool KateViNormalMode::commandYank()
 
   bool r = false;
   QString yankedText;
-
-  if ( m_commandRange.startLine == -1 ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-  }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
@@ -1089,7 +1081,7 @@ bool KateViNormalMode::commandIndentLines()
 
   m_commandRange.normalize();
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
   for ( int i = line1; i <= line2; i++ ) {
@@ -1105,7 +1097,7 @@ bool KateViNormalMode::commandUnindentLines()
 
   m_commandRange.normalize();
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
   for ( int i = line1; i <= line2; i++ ) {
@@ -1174,10 +1166,6 @@ bool KateViNormalMode::commandAlignLines()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
   m_commandRange.normalize();
-
-  if ( m_commandRange.startLine == -1 ) {
-    m_commandRange.startLine = c.line();
-  }
 
   KTextEditor::Cursor start(m_commandRange.startLine, 0);
   KTextEditor::Cursor end(m_commandRange.endLine, 0);
@@ -1302,9 +1290,9 @@ KateViRange KateViNormalMode::motionToEOL()
   if ( m_stickyColumn != -1 )
     m_stickyColumn = -1;
 
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  KateViRange r( cursor.line(), getLine().length()-1, ViMotion::InclusiveMotion );
+  KateViRange r( c.line(), getLine().length()-1, ViMotion::InclusiveMotion );
 
   return r;
 }

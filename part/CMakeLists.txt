@@ -28,8 +28,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
-  ${CMAKE_SOURCE_DIR}/kde3support
-  ${CMAKE_SOURCE_DIR}/kde3support/kdeui
   ${CMAKE_SOURCE_DIR}/kjsembed
   ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES})
@@ -162,7 +160,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kparts kutils ktexteditor kde3support ${QT_QTSCRIPT_LIBRARY})
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kparts kutils ktexteditor ${QT_QTSCRIPT_LIBRARY})
 
 if(KDE4_ENABLE_FINAL)
    macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )
@@ -189,7 +187,7 @@ set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp test
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} kutils ktexteditor kde3support )
+target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} kutils ktexteditor )
 
 #add_dependencies(check testkateregression)
 

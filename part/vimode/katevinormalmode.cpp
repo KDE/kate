@@ -969,7 +969,10 @@ bool KateViNormalMode::commandDeleteChar()
       }
     }
 
-    return deleteRange( r, false );
+    // should only delete entire lines if in visual line mode
+    bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode;
+
+    return deleteRange( r, linewise );
 }
 
 bool KateViNormalMode::commandDeleteCharBackward()
@@ -986,7 +989,10 @@ bool KateViNormalMode::commandDeleteCharBackward()
       }
     }
 
-    return deleteRange( r, false );
+    // should only delete entire lines if in visual line mode
+    bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode;
+
+    return deleteRange( r, linewise );
 }
 
 bool KateViNormalMode::commandReplaceCharacter()

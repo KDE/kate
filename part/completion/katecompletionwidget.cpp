@@ -252,20 +252,25 @@ void KateCompletionWidget::updateAndShow()
   setUpdatesEnabled(false);
 
   modelReset();
-  
-  if (!m_presentationModel->completionModels().isEmpty()) {
-    m_entryList->resizeColumns(false, true);
 
     m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
       argumentHintsChanged(true);
-  }
-  if(updatePosition(true)) {
-    //If the widget is too large, force a resize to the smallest possible size.
-    kDebug() << "border was hit, forcing resize";
-    m_entryList->resizeColumns(false, true, true);
-    updatePosition(true);
-  }
+//   }
+
+  //We do both actions twice here so they are stable, because they influence each other:
+  //updatePosition updates the height, resizeColumns needs the correct height to decide over
+  //how many rows it computs the column-width
+  updatePosition(true);
+  m_entryList->resizeColumns(false, true, true);
+  updatePosition(true);
+  m_entryList->resizeColumns(false, true, true);
+  
+//   if(updatePosition(true)) {
+//     //If the widget is too large, force a resize to the smallest possible size.
+//     m_entryList->resizeColumns(false, true, true);
+//     updatePosition(true);
+//   }
   
   setUpdatesEnabled(true);
   if (!m_presentationModel->completionModels().isEmpty())
@@ -407,6 +412,7 @@ void KateCompletionWidget::cursorPositionChanged( )
     return abortCompletion();
 
   m_presentationModel->setCurrentCompletion(currentCompletion);
+  m_entryList->scheduleUpdate();
 }
 
 bool KateCompletionWidget::isCompletionActive( ) const
@@ -509,8 +515,6 @@ void KateCompletionWidget::execute(bool shift)
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )
 {
   QWidget::resizeEvent(event);
-
-  m_entryList->resizeColumns(true);
 }
 
 void KateCompletionWidget::showEvent ( QShowEvent * event )

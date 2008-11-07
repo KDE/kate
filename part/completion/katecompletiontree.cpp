@@ -59,6 +59,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
 
   // Prevent user from expanding / collapsing with the mouse
   setItemsExpandable(false);
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void KateCompletionTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
@@ -90,6 +91,9 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   static bool preventRecursion = false;
   if (preventRecursion)
     return;
+  
+  if(firstShow)
+    forceResize = true;
 
   preventRecursion = true;
 
@@ -99,23 +103,23 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   int oldIndentWidth = columnViewportPosition(modelIndexOfName);
 
   ///Step 1: Compute the needed column-sizes for the visible content
-  QRect visibleViewportRect(0, 0, width(), height());
 
   int numColumns = model()->columnCount();
   
   QVector<int> columnSize(numColumns, 5);
 
-  QModelIndex current = indexAt(QPoint(1,1));
+  uint currentYPos = 0;
 
-  if( current.child(0,0).isValid() ) //If the index has children, it is a group-label. Then we should start with it's first child.
+  QModelIndex current = indexAt(QPoint(1,1));
+  if( current.child(0,0).isValid() ) { //If the index has children, it is a group-label. Then we should start with it's first child.
+    currentYPos += sizeHintForIndex(current).height();
     current = current.child(0,0);
+  }
 
   int num = 0;
   bool changed = false;
   
-  uint currentYPos = 0;
-  
-  while( current.isValid() && currentYPos < visibleViewportRect.height() )
+  while( current.isValid() && currentYPos < height() )
   {
     currentYPos += sizeHintForIndex(current).height();
 //     itemDelegate()->sizeHint(QStyleOptionViewItem(), current).isValid() && itemDelegate()->sizeHint(QStyleOptionViewItem(), current).intersects(visibleViewportRect)
@@ -136,8 +140,10 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
     //Are we at the end of a group? If yes, move on into the next group
     if( !current.isValid() && oldCurrent.parent().isValid() ) {
       current = oldCurrent.parent().sibling( oldCurrent.parent().row()+1, 0 );
-      if( current.isValid() && current.child(0,0).isValid() )
+      if( current.isValid() && current.child(0,0).isValid() ) {
+	currentYPos += sizeHintForIndex(current).height();
         current = current.child(0,0);
+      }
     }
   }
 
@@ -192,37 +198,36 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
       }
     } else {
       //It may happen that while initial showing, no visual rectangles can be retrieved.
-      for( int n = 0; n < numColumns; n++ )
+      for( int n = 0; n < numColumns; n++ ) {
         setColumnWidth(n, columnSize[n]);
+      }
     }
   }
 
   ///Step 3: Update widget-size and -position
   
+  int scrollBarWidth = verticalScrollBar()->width();
+  
   int newIndentWidth = columnViewportPosition(modelIndexOfName);
 
-  int scrollBarWidth = verticalScrollBar()->width();
-  int newMinWidth = totalColumnsWidth;
-
-  int targetWidth = qMax(100, newMinWidth);
-
-  //kDebug( 13035 ) << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
-  setMinimumWidth(targetWidth);
-
-  if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
+  int newWidth = qMin(maxWidth, qMax(75, totalColumnsWidth));
+  
+  if(newWidth != width())
   {
-    //Never allow a completion-widget to be wider than 2/3 of the screen
-    int newWidth = qMin(maxWidth, targetWidth);
-    kDebug() << "COMPLETION BOX new width:" << newWidth;
-    //kDebug( 13035 ) << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth + scrollBarWidth + 1, widget()->height());
+    resize(newWidth + scrollBarWidth + 1, widget()->height());
+    widget()->resize(newWidth + scrollBarWidth + 1, widget()->height());
+    resize(newWidth + scrollBarWidth + 1, widget()->height());
   }
 
   //if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
   setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
-  
+
   if (oldIndentWidth != newIndentWidth)
-    widget()->updatePosition();
+    if(widget()->updatePosition() && !forceResize) {
+      preventRecursion = false;
+      resizeColumns(false, true, true);
+    }
 
   widget()->setUpdatesEnabled(true);
 
@@ -330,6 +335,11 @@ void KateCompletionTree::top( )
     if (!kateModel()->indexIsItem(current))
       nextCompletion();
   }
+}
+
+void KateCompletionTree::scheduleUpdate()
+{
+    m_resizeTimer->start(300);
 }
 
 void KateCompletionTree::bottom( )

@@ -46,6 +46,8 @@ class KateCompletionTree : public ExpandingTree
     bool pageUp();
     void top();
     void bottom();
+    
+    void scheduleUpdate();
 
   private slots:
     void resizeColumnsSlot();

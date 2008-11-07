@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007-2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -259,7 +260,12 @@ void KateCompletionWidget::updateAndShow()
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
       argumentHintsChanged(true);
   }
-  updatePosition(true);
+  if(updatePosition(true)) {
+    //If the widget is too large, force a resize to the smallest possible size.
+    kDebug() << "border was hit, forcing resize";
+    m_entryList->resizeColumns(false, true, true);
+    updatePosition(true);
+  }
   
   setUpdatesEnabled(true);
   if (!m_presentationModel->completionModels().isEmpty())
@@ -271,15 +277,17 @@ void KateCompletionWidget::updatePositionSlot()
   updatePosition();
 }
 
-void KateCompletionWidget::updatePosition(bool force)
+bool KateCompletionWidget::updatePosition(bool force)
 {
   if (!force && !isCompletionActive())
-    return;
+    return false;
 
   QPoint cursorPosition = view()->cursorToCoordinate(m_completionRange->start());
-  if (cursorPosition == QPoint(-1,-1))
+  if (cursorPosition == QPoint(-1,-1)) {
     // Start of completion range is now off-screen -> abort
-    return abortCompletion();
+    abortCompletion();
+    return false;
+  }
 
   QPoint p = view()->mapToGlobal( cursorPosition );
   int x = p.x() - m_entryList->columnViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 2;
@@ -290,17 +298,25 @@ void KateCompletionWidget::updatePosition(bool force)
   else*/
   y += view()->renderer()->config()->fontMetrics().height();
 
-  if (x + width() > QApplication::desktop()->screenGeometry(view()).right())
+  bool borderHit = false;
+  
+  if (x + width() > QApplication::desktop()->screenGeometry(view()).right()) {
     x = QApplication::desktop()->screenGeometry(view()).right() - width();
+    borderHit = true;
+  }
 
-  if( x < QApplication::desktop()->screenGeometry(view()).left() )
+  if( x < QApplication::desktop()->screenGeometry(view()).left() ) {
     x = QApplication::desktop()->screenGeometry(view()).left();
+    borderHit = true;
+  }
 
   move( QPoint(x,y) );
 
   updateHeight();
 
   updateArgumentHintGeometry();
+  
+  return borderHit;
 }
 
 void KateCompletionWidget::updateArgumentHintGeometry()

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007-2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -36,7 +37,7 @@ class KateCompletionTree : public ExpandingTree
     KateCompletionWidget* widget() const;
     KateCompletionModel* kateModel() const;
 
-    void resizeColumns(bool fromResizeEvent = false, bool firstShow = false);
+    void resizeColumns(bool fromResizeEvent = false, bool firstShow = false, bool forceResize = false);
 
     // Navigation
     bool nextCompletion();
@@ -55,7 +56,6 @@ class KateCompletionTree : public ExpandingTree
     virtual QStyleOptionViewItem viewOptions() const;
   private:
     QTimer* m_resizeTimer;
-    bool m_needResize;
 };
 
 #endif

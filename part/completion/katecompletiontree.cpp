@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007-2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -34,7 +35,7 @@
 #include "katecompletionmodel.h"
 
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
-  : ExpandingTree(parent), m_needResize(false)
+  : ExpandingTree(parent)
 {
   header()->hide();
   setRootIsDecorated(false);
@@ -84,21 +85,13 @@ void KateCompletionTree::resizeColumnsSlot()
     resizeColumns();
 }
 
-void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
+void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, bool forceResize)
 {
-  static bool firstCall = false;
-  if (firstCall)
+  static bool preventRecursion = false;
+  if (preventRecursion)
     return;
 
-  if( firstShow ) { ///@todo This might make some flickering, but is needed because visualRect(..) for group child-indices returns invalid rects before the widget is shown
-//     m_resizeTimer->start(100);
-//     m_needResize = true;
-  } else if( m_needResize ) {
-    m_needResize = false;
-    firstShow = true;
-  }
-
-  firstCall = true;
+  preventRecursion = true;
 
   widget()->setUpdatesEnabled(false);
 
@@ -177,7 +170,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
     //Check whether we can afford to reduce none of the columns
     //Only reduce size if we widget would else be too wide.
-  bool noReduce = noReduceTotalWidth < maxWidth;
+  bool noReduce = noReduceTotalWidth < maxWidth && !forceResize;
 
     if(noReduce) {
       totalColumnsWidth = 0;
@@ -189,7 +182,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
       }
     }
 
-    if( minimumResize > -40 && maximumResize == 0 ) {
+    if( minimumResize > -40 && maximumResize == 0 && !forceResize ) {
       //No column needs to be exanded, and no column needs to be reduced by more than 40 pixels.
       //To prevent flashing, do not resize at all.
       totalColumnsWidth = 0;
@@ -233,7 +226,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
   widget()->setUpdatesEnabled(true);
 
-  firstCall = false;
+  preventRecursion = false;
 }
 
 QStyleOptionViewItem KateCompletionTree::viewOptions( ) const

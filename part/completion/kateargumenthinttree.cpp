@@ -95,13 +95,22 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   }
 
   setUpdatesEnabled(false);
-  show();
+
   int bottom = geom.bottom();
   int totalWidth = resizeColumns();
+  int totalHeight = 0;
+  for(int a = 0; a < model()->rowCount( QModelIndex() ); ++a) {
+    QModelIndex index(model()->index(a, 0));
+    totalHeight += sizeHintForIndex(index).height() + 3;
+    for(int b = 0; b < model()->rowCount(index); ++b) {
+      QModelIndex childIndex = index.child(b, 0);
+      totalHeight += sizeHintForIndex(childIndex).height() + 3;
+    }
+  }
   QRect topRect = visualRect(model()->index(0, 0));
   QRect contentRect = visualRect(model()->index(model()->rowCount(QModelIndex())-1, 0));
   
-  geom.setHeight(contentRect.bottom() + 5 - topRect.top());
+  geom.setHeight(totalHeight);
 
   geom.moveBottom(bottom);
   if( totalWidth > geom.width() )
@@ -139,7 +148,6 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   if( resized && currentIndex().isValid() )
     scrollTo(currentIndex());
   
-  show();
   updatingGeometry = false;
   setUpdatesEnabled(true);
 }

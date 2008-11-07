@@ -95,7 +95,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   vl->setMargin(0);
 
   // Keep branches expanded
-  connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()), Qt::QueuedConnection);
+  connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()));
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
   connect(m_argumentHintModel, SIGNAL(contentStateChanged(bool)), this, SLOT(argumentHintsChanged(bool)));
 
@@ -250,18 +250,20 @@ void KateCompletionWidget::updateAndShow()
 {
   setUpdatesEnabled(false);
 
-  updatePosition(true);
-
+  modelReset();
+  
   if (!m_presentationModel->completionModels().isEmpty()) {
-    show();
     m_entryList->resizeColumns(false, true);
 
     m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
       argumentHintsChanged(true);
   }
-
+  updatePosition(true);
+  
   setUpdatesEnabled(true);
+  if (!m_presentationModel->completionModels().isEmpty())
+    show();
 }
 
 void KateCompletionWidget::updatePositionSlot()
@@ -524,11 +526,19 @@ void KateCompletionWidget::modelReset( )
   setUpdatesEnabled(false);
   ///We need to do this by hand, because QTreeView::expandAll is very inefficient.
   ///It creates a QPersistentModelIndex for every single item in the whole tree..
-  for(int row = 0; row < m_argumentHintModel->rowCount(QModelIndex()); ++row)
-    m_argumentHintTree->expand(m_argumentHintModel->index(row, 0, QModelIndex()));
+  for(int row = 0; row < m_argumentHintModel->rowCount(QModelIndex()); ++row) {
+    QModelIndex index(m_argumentHintModel->index(row, 0, QModelIndex()));
+    if(!m_argumentHintTree->isExpanded(index)) {
+      m_argumentHintTree->expand(index);
+    }
+  }
 
-  for(int row = 0; row < m_entryList->model()->rowCount(QModelIndex()); ++row)
-    m_entryList->expand(m_entryList->model()->index(row, 0, QModelIndex()));
+  for(int row = 0; row < m_entryList->model()->rowCount(QModelIndex()); ++row) {
+    QModelIndex index(m_entryList->model()->index(row, 0, QModelIndex()));
+    if(!m_entryList->isExpanded(index)) {
+      m_entryList->expand(index);
+    }
+  }
   setUpdatesEnabled(true);
 }
 

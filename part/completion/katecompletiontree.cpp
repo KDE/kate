@@ -91,8 +91,8 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
     return;
 
   if( firstShow ) { ///@todo This might make some flickering, but is needed because visualRect(..) for group child-indices returns invalid rects before the widget is shown
-    m_resizeTimer->start(100);
-    m_needResize = true;
+//     m_resizeTimer->start(100);
+//     m_needResize = true;
   } else if( m_needResize ) {
     m_needResize = false;
     firstShow = true;
@@ -119,8 +119,13 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
   int num = 0;
   bool changed = false;
-  while( current.isValid() && visualRect(current).isValid() && visualRect(current).intersects(visibleViewportRect) )
+  
+  uint currentYPos = 0;
+  
+  while( current.isValid() && currentYPos < visibleViewportRect.height() )
   {
+    currentYPos += sizeHintForIndex(current).height();
+//     itemDelegate()->sizeHint(QStyleOptionViewItem(), current).isValid() && itemDelegate()->sizeHint(QStyleOptionViewItem(), current).intersects(visibleViewportRect)
     changed = true;
     num++;
     for( int a = 0; a < numColumns; a++ )
@@ -214,9 +219,10 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
   {
     //Never allow a completion-widget to be wider than 2/3 of the screen
-    int newWidth = qMin(maxWidth, targetWidth); 
+    int newWidth = qMin(maxWidth, targetWidth);
+    kDebug() << "COMPLETION BOX new width:" << newWidth;
     //kDebug( 13035 ) << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
-    widget()->resize(newWidth + (verticalScrollBar()->isVisible() ? scrollBarWidth : 0), widget()->height());
+    widget()->resize(newWidth + scrollBarWidth + 1, widget()->height());
   }
 
   //if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
@@ -294,6 +300,7 @@ bool KateCompletionTree::previousCompletion()
 bool KateCompletionTree::pageDown( )
 {
   QModelIndex old = currentIndex();
+  
   QModelIndex current = moveCursor(MovePageDown, Qt::NoModifier);
 
   if (current.isValid()) {

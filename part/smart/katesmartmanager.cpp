@@ -79,33 +79,33 @@ struct KateSmartManager::KateTranslationDebugger {
     foreach(KateSmartRange* range, manager->m_topRanges)
       addRange(range);
   }
-  
+
   ~KateTranslationDebugger() {
     m_manager->m_currentKateTranslationDebugger = 0;
   }
-  
+
   void addRange(SmartRange* _range) {
-    
+
     KateSmartRange* range = dynamic_cast<KateSmartRange*>(_range);
     Q_ASSERT(range);
-    
+
     RangeTranslation translation;
     translation.from = *range;
     KTextEditor::Cursor toStart = range->start();
     KTextEditor::Cursor toEnd = range->end();
-    
+
     translate(m_edit, toStart, (range->insertBehavior() & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
     translate(m_edit, toEnd, (range->insertBehavior() & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
     translation.to = KTextEditor::Range(toStart, toEnd);
-    
+
     m_rangeTranslations[range] = translation;
     m_cursorTranslations[&range->smartStart()] = CursorTranslation(range->start(), toStart);
     m_cursorTranslations[&range->smartEnd()] = CursorTranslation(range->end(), toEnd);
-    
+
     foreach(SmartRange* child, range->childRanges())
       addRange(child);
   }
-  
+
   void verifyAll() {
     for(QMap<const SmartRange*, RangeTranslation>::iterator it = m_rangeTranslations.begin(); it != m_rangeTranslations.end(); ++it) {
       if(*it.key() != it.value().to) {
@@ -115,7 +115,7 @@ struct KateSmartManager::KateTranslationDebugger {
       }
     }
   }
-  
+
   void verifyChange(SmartCursor* _cursor) {
     if(!m_cursorTranslations.contains(_cursor))
       return;
@@ -131,7 +131,7 @@ struct KateSmartManager::KateTranslationDebugger {
       Q_ASSERT(0);
     }
   }
-  
+
   struct RangeTranslation {
     KTextEditor::Range from, to;
   };
@@ -143,7 +143,7 @@ struct KateSmartManager::KateTranslationDebugger {
     }
     KTextEditor::Cursor from, to;
   };
-  
+
   QMap<const SmartRange*, RangeTranslation> m_rangeTranslations;
   QMap<const SmartCursor*, CursorTranslation> m_cursorTranslations;
   KateSmartManager* m_manager;
@@ -205,7 +205,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
     newRange = new KateSmartRange(translateFromRevision(range), doc(), parent, insertBehavior);
   else
     newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
-  
+
   if (internal)
     newRange->setInternal();
   if (!parent)
@@ -358,7 +358,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   if (edit->translate().line())
     for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next())
       smartGroup->translateShifted(*edit);
-  
+
   // Translate affected groups
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (smartGroup->startLine() > edit->oldRange().end().line())
@@ -416,7 +416,7 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
   KateSmartRange* mostSpecific = 0L;
 
   // This range preceeds the edit... no more to do
-  if (range->end() < edit.start() || range->end() == edit.start() && !range->isEmpty()) {
+  if (range->kEnd().lastPosition() < edit.start() || range->kEnd().lastPosition() == edit.start() && !range->isEmpty()) {
     //kDebug() << "Not feeding back to " << *range << "as edit start" << edit.start();
     return mostSpecific;
   }
@@ -456,7 +456,7 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit)
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translate(edit);
-    
+
   foreach (KateSmartCursor* cursor, m_normalCursors)
     cursor->translate(edit);
 }
@@ -481,7 +481,7 @@ void KateSmartGroup::translatedChanged2(const KateEditInfo& edit)
 {
   //Tell the affected parent smart-ranges to rebuild their child-structure, so they stay consistent
   QSet<KTextEditor::SmartRange*> rebuilt;
-  
+
   foreach (KateSmartCursor* cursor, m_normalCursors + m_feedbackCursors) {
     KTextEditor::SmartRange* range = cursor->smartRange();
     if(range) {

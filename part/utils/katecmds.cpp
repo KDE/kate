@@ -583,8 +583,10 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     }
   }
 
-  msg = i18np("1 replacement done on 1 line", "%1 replacements done on %2", replacementsDone,
-      i18np("1 line", "%1 lines", linesTouched));
+  msg = i18ncp("%2 is the translation of the next message",
+               "1 replacement done on %2", "%1 replacements done on %2", replacementsDone,
+               i18ncp("substituted into the previous message",
+                      "1 line", "%1 lines", linesTouched));
 
   doc->editEnd();
 

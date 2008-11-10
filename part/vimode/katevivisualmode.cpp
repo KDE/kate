@@ -25,7 +25,7 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   : KateViNormalMode( viInputModeManager, view, viewInternal )
 {
   m_start.setPosition( -1, -1 );
-  m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
+  m_topRange = m_doc->newSmartRange(m_doc->documentRange());
   static_cast<KateSmartRange*>(m_topRange)->setInternal();
   m_topRange->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
 
@@ -34,7 +34,7 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   m_visualLine = false;
 
   KTextEditor::Range r;
-  highlightRange = m_view->doc()->newSmartRange( r, m_topRange );
+  highlightRange = m_doc->newSmartRange( r, m_topRange );
   attribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
   attribute->setBackground( m_viewInternal->palette().highlight() );
   attribute->setForeground( m_viewInternal->palette().highlightedText() );
@@ -83,8 +83,8 @@ void KateViVisualMode::goToPos( const KateViRange &r )
     c.setColumn( r.endColumn );
   }
 
-  if ( c.line() >= m_view->doc()->lines() ) {
-    c.setLine( m_view->doc()->lines()-1 );
+  if ( c.line() >= m_doc->lines() ) {
+    c.setLine( m_doc->lines()-1 );
   }
 
   updateCursor( c );

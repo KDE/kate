@@ -28,6 +28,7 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
     KateView * view, KateViewInternal * viewInternal )
 {
   m_view = view;
+  m_doc = view->doc();
   m_viewInternal = viewInternal;
   m_viInputModeManager = viInputModeManager;
 }
@@ -72,34 +73,34 @@ bool KateViInsertMode::commandInsertFromAbove()
     return false;
   }
 
-  QString line = m_view->doc()->line( c.line()-1 );
-  int tabWidth = m_view->doc()->config()->tabWidth();
+  QString line = m_doc->line( c.line()-1 );
+  int tabWidth = m_doc->config()->tabWidth();
   QChar ch = getCharAtVirtualColumn( line, m_view->virtualCursorColumn(), tabWidth );
 
   if ( ch == QChar::Null ) {
     return false;
   }
 
-  return m_view->doc()->insertText( c, ch  );
+  return m_doc->insertText( c, ch  );
 }
 
 bool KateViInsertMode::commandInsertFromBelow()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  if ( c.line() >= m_view->doc()->lines()-1 ) {
+  if ( c.line() >= m_doc->lines()-1 ) {
     return false;
   }
 
-  QString line = m_view->doc()->line( c.line()+1 );
-  int tabWidth = m_view->doc()->config()->tabWidth();
+  QString line = m_doc->line( c.line()+1 );
+  int tabWidth = m_doc->config()->tabWidth();
   QChar ch = getCharAtVirtualColumn( line, m_view->virtualCursorColumn(), tabWidth );
 
   if ( ch == QChar::Null ) {
     return false;
   }
 
-  return m_view->doc()->insertText( c, ch );
+  return m_doc->insertText( c, ch );
 }
 
 bool KateViInsertMode::commandDeleteWord()
@@ -111,7 +112,7 @@ bool KateViInsertMode::commandDeleteWord()
 
     if ( c2.line() != c1.line() ) {
         if ( c1.column() == 0 ) {
-            c2.setColumn( m_view->doc()->line( c2.line() ).length() );
+            c2.setColumn( m_doc->line( c2.line() ).length() );
         } else {
             c2.setColumn( 0 );
             c2.setLine( c2.line()+1 );
@@ -151,9 +152,9 @@ bool KateViInsertMode::commandToLastCharacterInFile()
 {
   KTextEditor::Cursor c;
 
-  int lines = m_view->doc()->lines()-1;
+  int lines = m_doc->lines()-1;
   c.setLine( lines );
-  c.setColumn( m_view->doc()->line( lines ).length() );
+  c.setColumn( m_doc->line( lines ).length() );
 
   updateCursor( c );
 

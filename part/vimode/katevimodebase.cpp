@@ -28,6 +28,7 @@
 #include <QString>
 #include <QRegExp>
 #include "kateview.h"
+#include "katedocument.h"
 #include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katevimodebar.h"
@@ -43,13 +44,13 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
   QString removedText = getRange( r, linewise );
 
   if ( linewise ) {
-    m_view->doc()->editStart();
+    m_doc->editStart();
     for ( int i = 0; i < r.endLine-r.startLine+1; i++ ) {
-      res = m_view->doc()->removeLine( r.startLine );
+      res = m_doc->removeLine( r.startLine );
     }
-    m_view->doc()->editEnd();
+    m_doc->editEnd();
   } else {
-      res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+      res = m_doc->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
   if ( addToRegister ) {
@@ -80,10 +81,10 @@ const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
   KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( linewise ) {
-    s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );
+    s = m_doc->textLines( range ).join( QChar( '\n' ) );
     s.append( QChar( '\n' ) );
   } else {
-      s = m_view->doc()->text( range );
+      s = m_doc->text( range );
   }
 
   return s;
@@ -97,7 +98,7 @@ const QString KateViModeBase::getLine( int lineNumber ) const
     KTextEditor::Cursor cursor ( m_view->cursorPosition() );
     line = m_view->currentTextLine();
   } else {
-    line = m_view->doc()->line( lineNumber );
+    line = m_doc->line( lineNumber );
   }
 
   return line;
@@ -144,7 +145,7 @@ KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromCol
     if ( c1 == -1 && c2 == -1 && c3 == -1 ) {
         if ( onlyCurrentLine ) {
             return KTextEditor::Cursor( l, c );
-        } else if ( l >= m_view->doc()->lines()-1 ) {
+        } else if ( l >= m_doc->lines()-1 ) {
             c = line.length()-1;
             return KTextEditor::Cursor( l, c );
         } else {
@@ -196,7 +197,7 @@ KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromCol
     if ( c == -1 ) {
       if ( onlyCurrentLine ) {
           return KTextEditor::Cursor( l, c );
-      } else if ( l >= m_view->doc()->lines()-1 ) {
+      } else if ( l >= m_doc->lines()-1 ) {
         c = line.length()-1;
         break;
       } else {
@@ -357,7 +358,7 @@ KTextEditor::Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, b
       } else {
           if ( onlyCurrentLine ) {
               return KTextEditor::Cursor( l, c );
-          } else if ( l >= m_view->doc()->lines()-1 ) {
+          } else if ( l >= m_doc->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -392,7 +393,7 @@ KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, b
       } else {
           if ( onlyCurrentLine ) {
               return KTextEditor::Cursor( l, c );
-          } else if ( l >= m_view->doc()->lines()-1 ) {
+          } else if ( l >= m_doc->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -433,7 +434,7 @@ KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, b
 int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward ) const
 {
   int line = m_view->cursorPosition().line();
-  int lines = m_view->doc()->lines();
+  int lines = m_doc->lines();
   unsigned int hits = 0;
 
   if ( forward ) {

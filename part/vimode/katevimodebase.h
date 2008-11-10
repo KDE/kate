@@ -29,6 +29,7 @@ class QKeyEvent;
 class QString;
 class QRegExp;
 class KateView;
+class KateDocument;
 class KateViewInternal;
 class KateViVisualMode;
 class KateViNormalMode;
@@ -83,6 +84,7 @@ class KateViModeBase
     QString m_extraWordCharacters;
     QString m_keysVerbatim;
 
+    KateDocument* m_doc;
     KateView *m_view;
     KateViewInternal *m_viewInternal;
     KateViInputModeManager* m_viInputModeManager;

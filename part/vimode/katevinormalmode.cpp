@@ -593,7 +593,8 @@ bool KateViNormalMode::commandDeleteLine()
 
 bool KateViNormalMode::commandDelete()
 {
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+  bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode
+    || ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
   return deleteRange( m_commandRange, linewise );
@@ -611,8 +612,8 @@ bool KateViNormalMode::commandDeleteToEOL()
     m_commandRange.startColumn = c.column();
   }
 
-  // can only be true for visual mode
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine );
+  bool linewise = ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode );
 
   bool r = deleteRange( m_commandRange, linewise );
 

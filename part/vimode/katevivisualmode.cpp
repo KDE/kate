@@ -122,6 +122,9 @@ void KateViVisualMode::init()
     highlight();
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
+
+    m_commandRange.startLine = m_commandRange.endLine = m_start.line();
+    m_commandRange.startColumn = m_commandRange.endColumn = m_start.column();
 }
 
 

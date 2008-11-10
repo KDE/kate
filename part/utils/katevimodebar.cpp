@@ -48,6 +48,10 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
   // otherwise the command will look 'jumpy' as new symbols are added to it
   // 50 pix should be enough i think
   m_labelCommand->setFixedWidth(50);
+
+  m_labelStatus->setTextFormat(Qt::PlainText);
+  m_labelCommand->setTextFormat(Qt::PlainText);
+  m_labelMessage->setTextFormat(Qt::PlainText);
 }
 
 KateViModeBar::~KateViModeBar()

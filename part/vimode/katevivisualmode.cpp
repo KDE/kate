@@ -150,6 +150,7 @@ void KateViVisualMode::initializeCommands()
   m_motions.clear();
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "c", &KateViNormalMode::commandChange, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "s", &KateViNormalMode::commandChange, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "C", &KateViNormalMode::commandChangeToEOL, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "d", &KateViNormalMode::commandDelete, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "D", &KateViNormalMode::commandDeleteToEOL, IS_CHANGE ) );

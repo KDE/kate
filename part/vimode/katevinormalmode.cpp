@@ -220,6 +220,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             if ( ( m_keys.right(1) == "w" || m_keys.right(1) == "W" )
                 && m_commandRange.endLine > m_commandRange.startLine ) {
               m_commandRange = motionToEOL();
+
+              KTextEditor::Cursor c( m_view->cursorPosition() );
+              m_commandRange.startLine = c.line();
+              m_commandRange.startColumn = c.column();
             }
 
             if ( m_commandRange.valid ) {

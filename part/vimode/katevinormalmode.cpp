@@ -443,12 +443,23 @@ KateViRange KateViNormalMode::motionWordForward()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    c = findNextWordStart( c.line(), c.column() );
+  // Special case: If we're already on the very last character in the document, the motion should be
+  // inclusive so the last character gets included
+  if ( c.line() == m_doc->lines()-1 && c.column() == m_doc->lineLength( c.line() )-1 ) {
+    r.motionType = ViMotion::InclusiveMotion;
+  } else {
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findNextWordStart( c.line(), c.column() );
 
-    // stop when at the last char in the document
-    if ( c.line() == m_view->doc()->lines()-1 && c.column() == m_view->doc()->lineLength( c.line() )-1 ) {
-      break;
+      // stop when at the last char in the document
+      if ( c.line() == m_doc->lines()-1 && c.column() == m_doc->lineLength( c.line() )-1 ) {
+        // if we still haven't "used up the count", make the motion inclusive, so that the last char
+        // is included
+        if ( i < getCount() ) {
+          r.motionType = ViMotion::InclusiveMotion;
+        }
+        break;
+      }
     }
   }
 

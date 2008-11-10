@@ -115,9 +115,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   if ( cmd == "indent" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->indent( v, line, 1 );
       }
+      v->doc()->editEnd();
     } else {
       v->indent();
     }
@@ -136,9 +138,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "unindent" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->indent( v, line, -1 );
       }
+      v->doc()->editEnd();
     } else {
       v->unIndent();
     }
@@ -147,9 +151,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "cleanindent" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->indent( v, line, 0 );
       }
+      v->doc()->editEnd();
     } else {
       v->cleanIndent();
     }
@@ -158,9 +164,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "comment" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->comment( v, line, 0, 1 );
       }
+      v->doc()->editEnd();
     } else {
       v->comment();
     }
@@ -169,9 +177,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "uncomment" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->comment( v, line, 0, -1 );
       }
+      v->doc()->editEnd();
     } else {
       v->uncomment();
     }
@@ -180,9 +190,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "kill-line" )
   {
     if ( range.isValid() ) {
+      v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
         v->doc()->removeLine( range.start().line() );
       }
+      v->doc()->editEnd();
     } else {
       v->killLine();
     }
@@ -202,14 +214,14 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   {
     if ( v->doc()->setHighlightingMode( args.first()) )
       return true;
-      
+
     KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
   }
   else if ( cmd == "set-mode" )
   {
     if ( v->doc()->setMode( args.first()) )
       return true;
-      
+
     KCC_ERR( i18n("No such mode '%1'",  args.first() ) );
   }
 

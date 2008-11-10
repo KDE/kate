@@ -208,18 +208,18 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
             m_commandRange = m_motions.at( i )->execute();
 
-            // Special case: "word motions" should never cross a line boundary when they are the
-            // input to a command
-            if ( ( m_keys.right(1) == "w" || m_keys.right(1) == "W" )
-                && m_commandRange.endLine > m_commandRange.startLine ) {
-              m_commandRange = motionToEOL();
-            }
-
             // if we didn't get an explicit start position, use the current cursor position
             if ( m_commandRange.startLine == -1 ) {
               KTextEditor::Cursor c( m_view->cursorPosition() );
               m_commandRange.startLine = c.line();
               m_commandRange.startColumn = c.column();
+            }
+
+            // Special case: "word motions" should never cross a line boundary when they are the
+            // input to a command
+            if ( ( m_keys.right(1) == "w" || m_keys.right(1) == "W" )
+                && m_commandRange.endLine > m_commandRange.startLine ) {
+              m_commandRange = motionToEOL();
             }
 
             if ( m_commandRange.valid ) {

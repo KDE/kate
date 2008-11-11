@@ -391,7 +391,7 @@ void KateExternalToolsMenuAction::reload()
     config.writeEntry( "version", gver );
   }
 
-  for( QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it )
+  for( QStringList::const_iterator it = tools.constBegin(); it != tools.constEnd(); ++it )
   {
     if ( *it == "---" )
     {

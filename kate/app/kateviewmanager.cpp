@@ -331,8 +331,8 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
 
 KateViewSpace* KateViewManager::activeViewSpace ()
 {
-  for ( QList<KateViewSpace*>::const_iterator it = m_viewSpaceList.begin();
-        it != m_viewSpaceList.end(); ++it )
+  for ( QList<KateViewSpace*>::const_iterator it = m_viewSpaceList.constBegin();
+        it != m_viewSpaceList.constEnd(); ++it )
   {
     if ( (*it)->isActiveSpace() )
       return *it;
@@ -355,8 +355,8 @@ KTextEditor::View* KateViewManager::activeView ()
 
   m_activeViewRunning = true;
 
-  for ( QList<KTextEditor::View*>::const_iterator it = m_viewList.begin();
-        it != m_viewList.end(); ++it )
+  for ( QList<KTextEditor::View*>::const_iterator it = m_viewList.constBegin();
+        it != m_viewList.constEnd(); ++it )
   {
     if ( m_activeStates[*it] )
     {
@@ -526,8 +526,8 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
 {
   QList<KTextEditor::View*> closeList;
 
-  for ( QList<KTextEditor::View*>::const_iterator it = m_viewList.begin();
-        it != m_viewList.end(); ++it)
+  for ( QList<KTextEditor::View*>::const_iterator it = m_viewList.constBegin();
+        it != m_viewList.constEnd(); ++it)
   {
     if ( (*it)->document() == doc )
       closeList.append( *it );

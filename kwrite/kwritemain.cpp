@@ -263,7 +263,7 @@ void KWrite::slotOpen()
 {
   const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
 
-  for (KUrl::List::ConstIterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
+  for (KUrl::List::ConstIterator i=r.URLs.constBegin(); i != r.URLs.constEnd(); ++i)
   {
     encoding = r.encoding;
     slotOpen ( *i );
@@ -354,22 +354,22 @@ void KWrite::slotDropEvent( QDropEvent *event )
   if (textlist.isEmpty())
     return;
 
-  for (KUrl::List::ConstIterator i=textlist.begin(); i != textlist.end(); ++i)
+  for (KUrl::List::ConstIterator i=textlist.constBegin(); i != textlist.constEnd(); ++i)
     slotOpen (*i);
 }
 
 void KWrite::slotEnableActions( bool enable )
 {
   QList<QAction *> actions = actionCollection()->actions();
-  QList<QAction *>::ConstIterator it = actions.begin();
-  QList<QAction *>::ConstIterator end = actions.end();
+  QList<QAction *>::ConstIterator it = actions.constBegin();
+  QList<QAction *>::ConstIterator end = actions.constEnd();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );
 
   actions = m_view->actionCollection()->actions();
-  it = actions.begin();
-  end = actions.end();
+  it = actions.constBegin();
+  end = actions.constEnd();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );

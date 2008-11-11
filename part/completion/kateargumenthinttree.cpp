@@ -80,6 +80,11 @@ void KateArgumentHintTree::rowsInserted ( const QModelIndex & parent, int start,
   updateGeometry();
 }
 
+int KateArgumentHintTree::sizeHintForColumn(int column) const {
+  return QTreeView::sizeHintForColumn(column);
+}
+
+
 void KateArgumentHintTree::updateGeometry(QRect geom) {
   //Avoid recursive calls of updateGeometry
   static bool updatingGeometry = false;
@@ -113,7 +118,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   geom.setHeight(totalHeight);
 
   geom.moveBottom(bottom);
-  if( totalWidth > geom.width() )
+//   if( totalWidth > geom.width() )
     geom.setWidth(totalWidth);
 
   //Resize and move so it fits the screen horizontally
@@ -155,8 +160,9 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
 int KateArgumentHintTree::resizeColumns() {
   int totalSize = 0;
   for( int a  = 0; a < header()->count(); a++ ) {
-    resizeColumnToContents(a);
-    totalSize += columnWidth(a);
+    int columnSize = sizeHintForColumn(a);
+    setColumnWidth(a, columnSize);
+    totalSize += columnSize;
   }
   return totalSize;
 }

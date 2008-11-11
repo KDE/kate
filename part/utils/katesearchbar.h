@@ -144,7 +144,9 @@ private:
 private:
     // Overridden
     void showEvent(QShowEvent * event);
-    void hideEvent(QHideEvent * event);
+    //void hideEvent(QHideEvent * event);
+public:
+    void closed();
 
 private:
     // Shared by both dialogs

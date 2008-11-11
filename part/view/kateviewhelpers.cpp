@@ -2010,6 +2010,10 @@ bool KateViewBar::hasWidget(KateViewBarWidget* wid) const
 
 void KateViewBar::hideCurrentBarWidget ()
 {
+  KateViewBarWidget *current=qobject_cast<KateViewBarWidget*>(m_stack->currentWidget());
+  if (current) {
+    current->closed();
+  }
   m_stack->hide();
 
   // if we have any permanent widget, bar is always visible,

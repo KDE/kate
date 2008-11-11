@@ -1868,14 +1868,13 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 
-void KateSearchBar::hideEvent(QHideEvent * event) {
+void KateSearchBar::closed() {
     disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *)),
             this, SLOT(onSelectionChanged()));
     disconnect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(onCursorPositionChanged()));
 
     enableHighlights(false);
-    KateViewBarWidget::hideEvent(event);
 }
 
 

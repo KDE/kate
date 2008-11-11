@@ -39,6 +39,10 @@ class KateEditInfo;
 class KateArgumentHintTree;
 class KateArgumentHintModel;
 
+namespace KTextEditor {
+  class EmbeddedWidgetInterface;
+}
+
 /**
  * This is the code completion's main widget, and also contains the
  * core interface logic.
@@ -86,6 +90,15 @@ class KateCompletionWidget : public QFrame
     void pageUp();
     void top();
     void bottom();
+    
+    bool embeddedWidgetUp();
+    bool embeddedWidgetDown();
+    bool embeddedWidgetLeft();
+    bool embeddedWidgetRight();
+    bool embeddedWidgetAccept();
+    bool embeddedWidgetBack();
+
+    QWidget* currentEmbeddedWidget();
     
     bool canExpandCurrentItem() const;
 

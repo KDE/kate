@@ -448,6 +448,20 @@ void KateCompletionWidget::clear() {
   m_argumentHintModel->clear();
 }
 
+bool KateCompletionWidget::embeddedWidgetAccept() {
+  if(currentEmbeddedWidget())
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetAccept");
+  
+  QModelIndex index = selectedIndex();
+  if( index.isValid() ) {
+    view()->doc()->smartMutex()->unlock();
+    index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
+    view()->doc()->smartMutex()->lock();
+    return true;
+  }
+  return false;
+}
+
 void KateCompletionWidget::execute(bool shift)
 {
   kDebug(13035) ;
@@ -458,12 +472,7 @@ void KateCompletionWidget::execute(bool shift)
   QModelIndex index = selectedIndex();
   
   if( shift ) {
-    if( index.isValid() ) {
-      view()->doc()->smartMutex()->unlock();
-      index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
-      view()->doc()->smartMutex()->lock();
-    }
-
+    embeddedWidgetAccept();
     return;
   }
 
@@ -575,12 +584,43 @@ QModelIndex KateCompletionWidget::selectedIndex() const {
     return m_argumentHintTree->currentIndex();
 }
 
+bool KateCompletionWidget::embeddedWidgetLeft() {
+  if(currentEmbeddedWidget())
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetLeft");
+  
+  QModelIndex index = selectedIndex();
+
+  if( index.isValid() ) {
+    index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious);
+    
+    return true;
+  }
+  return false;
+}
+
+bool KateCompletionWidget::embeddedWidgetRight() {
+  if(currentEmbeddedWidget()) ///@todo post 4.2: Make these slots public interface, or create an interface using virtual functions
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetRight");
+  
+  QModelIndex index = selectedIndex();
+
+  if( index.isValid() ) {
+    index.data(KTextEditor::CodeCompletionModel::AccessibilityNext);
+    return true;
+  }
+
+  return false;
+}
+
+bool KateCompletionWidget::embeddedWidgetBack() {
+  if(currentEmbeddedWidget())
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetBack");
+  return false;
+}
+
 bool KateCompletionWidget::cursorLeft( bool shift ) {
   if( shift ) {
-    QModelIndex index = selectedIndex();
-
-    if( index.isValid() )
-      index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious);
+    embeddedWidgetLeft();
 
     return true;
   }
@@ -590,11 +630,7 @@ bool KateCompletionWidget::cursorLeft( bool shift ) {
 
 bool KateCompletionWidget::cursorRight( bool shift ) {
   if( shift ) {
-    QModelIndex index = selectedIndex();
-
-    if( index.isValid() )
-      index.data(KTextEditor::CodeCompletionModel::AccessibilityNext);
-
+    embeddedWidgetRight();
     return true;
   }
 
@@ -657,19 +693,34 @@ bool KateCompletionWidget::eventFilter( QObject * watched, QEvent * event )
   return ret;
 }
 
+bool KateCompletionWidget::embeddedWidgetDown() {
+  if(currentEmbeddedWidget()) {
+    kDebug() << "invoking down";
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetDown");
+  }
+  return false;
+}
+
+bool KateCompletionWidget::embeddedWidgetUp() {
+  if(currentEmbeddedWidget())
+    QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetUp");
+  return false;
+}
+
+QWidget* KateCompletionWidget::currentEmbeddedWidget() {
+  QModelIndex index = selectedIndex();
+  if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
+    const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
+    if( model->isExpanded(index) )
+      return model->expandingWidget(index);
+  }
+  return 0;
+}
+
 void KateCompletionWidget::cursorDown( bool shift )
 {
   if( shift ) {
-    QModelIndex index = selectedIndex();
-    if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
-      const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
-      if( model->isExpanded(index) ) {
-        QWidget* widget = model->expandingWidget(index);
-        QAbstractScrollArea* area = qobject_cast<QAbstractScrollArea*>(widget);
-        if( area && area->verticalScrollBar() )
-          area->verticalScrollBar()->setSliderPosition( area->verticalScrollBar()->sliderPosition() + area->verticalScrollBar()->singleStep() );
-      }
-    }
+    embeddedWidgetDown();
     return;
   }
 
@@ -684,16 +735,7 @@ void KateCompletionWidget::cursorDown( bool shift )
 void KateCompletionWidget::cursorUp( bool shift )
 {
   if( shift ) {
-    QModelIndex index = selectedIndex();
-    if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
-      const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
-      if( model->isExpanded(index) ) {
-        QWidget* widget = model->expandingWidget(index);
-        QAbstractScrollArea* area = qobject_cast<QAbstractScrollArea*>(widget);
-        if( area && area->verticalScrollBar() )
-          area->verticalScrollBar()->setSliderPosition( area->verticalScrollBar()->sliderPosition() - area->verticalScrollBar()->singleStep() );
-      }
-    }
+    embeddedWidgetUp();
     return;
   }
 

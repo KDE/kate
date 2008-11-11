@@ -147,7 +147,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
     }
   }
 
-  int totalColumnsWidth = 0;
+  int totalColumnsWidth = 0, originalViewportWidth = viewport()->width();
   
   int maxWidth = (QApplication::desktop()->screenGeometry(widget()->view()).width()*3) / 4;
 
@@ -165,7 +165,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
       if( diff > maximumResize )
         maximumResize = diff;
     }
-
+    
     int noReduceTotalWidth = 0; //The total width of the widget of no columns are reduced
     for( int n = 0; n < numColumns; n++ ) {
       if(columnSize[n] < columnWidth(n))
@@ -197,10 +197,12 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
         totalColumnsWidth += columnSize[n];
       }
     } else {
-      //It may happen that while initial showing, no visual rectangles can be retrieved.
+//       viewport()->resize( 5000, viewport()->height() );
       for( int n = 0; n < numColumns; n++ ) {
         setColumnWidth(n, columnSize[n]);
       }
+//       kDebug() << "resizing viewport to" << totalColumnsWidth;
+      viewport()->resize( totalColumnsWidth, viewport()->height() );
     }
   }
 
@@ -212,25 +214,36 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
 
   int newWidth = qMin(maxWidth, qMax(75, totalColumnsWidth));
   
-  if(newWidth != width())
+  if(newWidth == maxWidth)
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  else
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    
+  
+//   kDebug() << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
+  
+  if((newWidth + scrollBarWidth) != width() && originalViewportWidth != totalColumnsWidth)
   {
-    widget()->resize(newWidth + scrollBarWidth + 1, widget()->height());
-    resize(newWidth + scrollBarWidth + 1, widget()->height());
-    widget()->resize(newWidth + scrollBarWidth + 1, widget()->height());
-    resize(newWidth + scrollBarWidth + 1, widget()->height());
+    widget()->resize(newWidth + scrollBarWidth + 2, widget()->height());
+    resize(newWidth + scrollBarWidth, widget()->height()- (2*widget()->frameWidth()));
   }
 
-  //if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
-  setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
+//   kDebug() << "created geometry:" << widget()->geometry() << geometry() << "newWidth" << newWidth << "viewport" << viewport()->width();
 
+  if( viewport()->width() > totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
+   setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
+
+/*  for(int a = 0; a < numColumns; ++a)
+    kDebug() << "column" << a << columnWidth(a) << "target:" << columnSize[a];*/
+  
   if (oldIndentWidth != newIndentWidth)
     if(widget()->updatePosition() && !forceResize) {
       preventRecursion = false;
       resizeColumns(false, true, true);
     }
-
+    
   widget()->setUpdatesEnabled(true);
-
+  
   preventRecursion = false;
 }
 

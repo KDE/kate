@@ -91,9 +91,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
 
-  QVBoxLayout* vl = new QVBoxLayout(this);
-  vl->addWidget(m_entryList);
-  vl->setMargin(0);
+//   QVBoxLayout* vl = new QVBoxLayout(this);
+//   vl->addWidget(m_entryList);
+//   vl->setMargin(0);
 
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()));
@@ -113,6 +113,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
+  
+  //Position the entry-list so a frame can be drawn around it
+  m_entryList->move(frameWidth(), frameWidth());
 }
 
 KateCompletionWidget::~KateCompletionWidget() {
@@ -266,12 +269,6 @@ void KateCompletionWidget::updateAndShow()
   updatePosition(true);
   m_entryList->resizeColumns(false, true, true);
   
-//   if(updatePosition(true)) {
-//     //If the widget is too large, force a resize to the smallest possible size.
-//     m_entryList->resizeColumns(false, true, true);
-//     updatePosition(true);
-//   }
-  
   setUpdatesEnabled(true);
   if (!m_presentationModel->completionModels().isEmpty())
     show();
@@ -286,6 +283,7 @@ bool KateCompletionWidget::updatePosition(bool force)
 {
   if (!force && !isCompletionActive())
     return false;
+//   kDebug() << "updating from" << geometry() << m_entryList->geometry();
 
   QPoint cursorPosition = view()->cursorToCoordinate(m_completionRange->start());
   if (cursorPosition == QPoint(-1,-1)) {
@@ -320,6 +318,8 @@ bool KateCompletionWidget::updatePosition(bool force)
   updateHeight();
 
   updateArgumentHintGeometry();
+  
+//   kDebug() << "updated to" << geometry() << m_entryList->geometry() << borderHit;
   
   return borderHit;
 }
@@ -380,6 +380,7 @@ void KateCompletionWidget::updateHeight()
   int finalHeight = baseHeight+newExpandingAddedHeight;
 //   kDebug( 13035 ) << "finalHeight: " << finalHeight;
   if( finalHeight < 50 ) {
+    m_entryList->resize(m_entryList->width(), height() - 2*frameWidth());
     return;
   }
 
@@ -389,6 +390,7 @@ void KateCompletionWidget::updateHeight()
   geom.setHeight(finalHeight);
 
   setGeometry(geom);
+    m_entryList->resize(m_entryList->width(), height() - 2*frameWidth());
 }
 
 

@@ -76,7 +76,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   QChar key = m_keyParser->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
-  kDebug( 13070 ) << key << "(" << keyCode << ")";
+  //kDebug( 13070 ) << key << "(" << keyCode << ")";
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
@@ -140,10 +140,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     // remove commands not matching anymore
     for ( int i = n; i >= 0; i-- ) {
       if ( !m_commands.at( m_matchingCommands.at( i ) )->matches( m_keys ) ) {
-        kDebug( 13070 ) << "removing " << m_commands.at( m_matchingCommands.at( i ) )->pattern() << ", size before remove is " << m_matchingCommands.size();
+        //kDebug( 13070 ) << "removing " << m_commands.at( m_matchingCommands.at( i ) )->pattern() << ", size before remove is " << m_matchingCommands.size();
         if ( m_commands.at( m_matchingCommands.at( i ) )->needsMotion() ) {
           // "cache" command needing a motion for later
-          kDebug( 13070 ) << "m_motionOperatorIndex set to " << m_motionOperatorIndex;
+          //kDebug( 13070 ) << "m_motionOperatorIndex set to " << m_motionOperatorIndex;
           m_motionOperatorIndex = m_matchingCommands.at( i );
         }
         m_matchingCommands.remove( i );
@@ -174,7 +174,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // this indicates where in the command string one should start looking for a motion command
   int checkFrom = ( m_awaitingMotionOrTextObject.isEmpty() ? 0 : m_awaitingMotionOrTextObject.top() );
 
-  kDebug( 13070 ) << "checkFrom: " << checkFrom;
+  //kDebug( 13070 ) << "checkFrom: " << checkFrom;
 
   // look for matching motion commands from position 'checkFrom'
   // FIXME: if checkFrom hasn't changed, only motions whose index is in
@@ -183,7 +183,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
       if ( m_motions.at( i )->matches( m_keys.mid( checkFrom ) ) ) {
-        kDebug( 13070 )  << m_keys.mid( checkFrom ) << " matches!";
+        //kDebug( 13070 )  << m_keys.mid( checkFrom ) << " matches!";
         m_matchingMotions.push_back( i );
 
         // if it matches exact, we have found the motion command to execute
@@ -244,16 +244,16 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     }
   }
 
-  kDebug( 13070 ) << "'" << m_keys << "' MATCHING COMMANDS: " << m_matchingCommands.size();
-  kDebug( 13070 ) << "'" << m_keys << "' MATCHING MOTIONS: " << m_matchingMotions.size();
-  kDebug( 13070 ) << "'" << m_keys << "' AWAITING MOTION OR TO (INDEX): " << ( m_awaitingMotionOrTextObject.isEmpty() ? 0 : m_awaitingMotionOrTextObject.top() );
+  //kDebug( 13070 ) << "'" << m_keys << "' MATCHING COMMANDS: " << m_matchingCommands.size();
+  //kDebug( 13070 ) << "'" << m_keys << "' MATCHING MOTIONS: " << m_matchingMotions.size();
+  //kDebug( 13070 ) << "'" << m_keys << "' AWAITING MOTION OR TO (INDEX): " << ( m_awaitingMotionOrTextObject.isEmpty() ? 0 : m_awaitingMotionOrTextObject.top() );
 
   // if we have only one match, check if it is a perfect match and if so, execute it
   // if it's not waiting for a motion or a text object
   if ( m_matchingCommands.size() == 1 ) {
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
-      kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
+      //kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
 
       KateViCommand *cmd = m_commands.at( m_matchingCommands.at( 0 ) );
       executeCommand( cmd );

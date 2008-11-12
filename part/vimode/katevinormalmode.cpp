@@ -105,11 +105,17 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // on a non-blank.  This is because Vim interprets "cw" as change-word, and a
   // word does not include the following white space. (:help cw in vim)
   if ( ( m_keys == "cw" || m_keys == "cW" ) && !getCharUnderCursor().isSpace() ) {
+    // Special case of the special case: :-)
+    // If the cursor is at the end of the current word, don't change the command, because then it
+    // would delete until the end of the following word
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    if ( findWordEnd(c.line(), c.column(), true) == c ) {
       if ( m_keys.at(1) == 'w' ) {
-          m_keys = "ce";
+        m_keys = "ce";
       } else {
-          m_keys = "cE";
+        m_keys = "cE";
       }
+    }
   }
 
   if ( m_keys[ 0 ] == Qt::Key_QuoteDbl ) {

@@ -159,7 +159,7 @@ class KateFileLoader
       return false;
     }
 
-    inline const char* actualEncoding () const { return m_codec->name().constData(); }
+    inline QByteArray actualEncoding () const { return m_codec->name(); }
 
     // no new lines around ?
     inline bool eof () const { return m_eof && !m_lastWasEndOfLine && (m_lastLineStart == m_text.length()); }

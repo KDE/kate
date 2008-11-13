@@ -202,12 +202,18 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // the motion says it should go to
             KateViRange r = m_motions.at( i )->execute();
 
-            if ( r.valid && r.endLine >= 0 && r.endColumn >= 0 ) {
-              kDebug( 13070 ) << "no command given, going to position (" << r.endLine << "," << r.endColumn << ")";
+            // make sure the position is valid before moving the cursor there
+            if ( r.valid
+                && r.endLine >= 0
+                && ( r.endLine == 0 || r.endLine <= m_doc->lines()-1 )
+                && r.endColumn >= 0
+                && ( r.endColumn == 0 || r.endColumn < m_doc->lineLength( r.endLine ) ) ) {
+              kDebug( 13070 ) << "No command given, going to position ("
+                << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
               m_viInputModeManager->clearLog();
             } else {
-              kDebug( 13070 ) << "invalid position: (" << r.endLine << "," << r.endColumn << ")";
+              kDebug( 13070 ) << "Invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
 
             resetParser();
@@ -242,7 +248,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
               executeCommand( m_commands.at( m_motionOperatorIndex ) );
             } else {
-              kDebug( 13070 ) << "invalid position";
+              kDebug( 13070 ) << "Invalid range: "
+                << "from (" << m_commandRange.startLine << "," << m_commandRange.endLine << ")"
+                << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
             }
 
             reset();
@@ -1225,11 +1233,6 @@ KateViRange KateViNormalMode::motionDown()
   KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
   r.endLine += getCount();
 
-  // don't go below the last line
-  if ( m_doc->lines()-1 < r.endLine ) {
-    r.endLine = m_doc->lines()-1;
-  }
-
   // if sticky is set, check if we can co back to the sticky column in the new
   // line. if line is longer than previous line, but shorter than sticky, go
   // to the last column
@@ -1260,11 +1263,6 @@ KateViRange KateViNormalMode::motionUp()
   KateViRange r( cursor.line(), cursor.column(), ViMotion::InclusiveMotion );
   r.endLine -= getCount();
 
-  // don't go above the first line
-  if ( r.endLine < 0 ) {
-    r.endLine = 0;
-  }
-
   // if sticky is set, check if we can co back to the sticky column in the new
   // line. if line is longer than previous line, but shorter than sticky, go
   // to the last column
@@ -1290,17 +1288,9 @@ KateViRange KateViNormalMode::motionUp()
 KateViRange KateViNormalMode::motionLeft()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
-
+  m_stickyColumn = -1;
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
-
   r.endColumn -= getCount();
-
-  if ( r.endColumn < 0 ) {
-    r.endColumn = 0;
-  }
 
   return r;
 }
@@ -1308,29 +1298,18 @@ KateViRange KateViNormalMode::motionLeft()
 KateViRange KateViNormalMode::motionRight()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
-
+  m_stickyColumn = -1;
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
-
   r.endColumn += getCount();
-
-  if ( r.endColumn > getLine().length()-1 ) {
-    r.endColumn = getLine().length()-1;
-    r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
-  }
 
   return r;
 }
 
 KateViRange KateViNormalMode::motionToEOL()
 {
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
-
+  // FIXME: should set sticky column to line length - 1, but only if it's a regular motion
+  m_stickyColumn = -1;
   KTextEditor::Cursor c( m_view->cursorPosition() );
-
   KateViRange r( c.line(), getLine().length()-1, ViMotion::InclusiveMotion );
 
   return r;
@@ -1338,11 +1317,8 @@ KateViRange KateViNormalMode::motionToEOL()
 
 KateViRange KateViNormalMode::motionToColumn0()
 {
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
-
+  m_stickyColumn = -1;
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-
   KateViRange r( cursor.line(), 0, ViMotion::ExclusiveMotion );
 
   return r;
@@ -1350,20 +1326,15 @@ KateViRange KateViNormalMode::motionToColumn0()
 
 KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
 {
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
+  m_stickyColumn = -1;
 
-    KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-    QRegExp nonSpace( "\\S" );
-    int c = getLine().indexOf( nonSpace );
+  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  QRegExp nonSpace( "\\S" );
+  int c = getLine().indexOf( nonSpace );
 
-    KateViRange r( cursor.line(), c, ViMotion::ExclusiveMotion );
+  KateViRange r( cursor.line(), c, ViMotion::ExclusiveMotion );
 
-    if ( c == -1 ) {
-        r.valid = false;
-    }
-
-    return r;
+  return r;
 }
 
 KateViRange KateViNormalMode::motionFindChar()
@@ -1381,14 +1352,10 @@ KateViRange KateViNormalMode::motionFindChar()
 
   KateViRange r;
 
-  if ( matchColumn >= 0 ) {
-    r.startColumn = cursor.column();
-    r.startLine = cursor.line();
-    r.endColumn = matchColumn;
-    r.endLine = cursor.line();
-  } else {
-    r.valid = false;
-  }
+  r.startColumn = cursor.column();
+  r.startLine = cursor.line();
+  r.endColumn = matchColumn;
+  r.endLine = cursor.line();
 
   return r;
 }
@@ -1415,12 +1382,8 @@ KateViRange KateViNormalMode::motionFindCharBackward()
 
   KateViRange r;
 
-  if ( matchColumn >= 0 ) {
-    r.endColumn = matchColumn;
-    r.endLine = cursor.line();
-  } else {
-    r.valid = false;
-  }
+  r.endColumn = matchColumn;
+  r.endLine = cursor.line();
 
   return r;
 }
@@ -1440,12 +1403,8 @@ KateViRange KateViNormalMode::motionToChar()
 
   KateViRange r;
 
-  if ( matchColumn >= 0 ) {
-    r.endColumn = matchColumn-1;
-    r.endLine = cursor.line();
-  } else {
-    r.valid = false;
-  }
+  r.endColumn = matchColumn-1;
+  r.endLine = cursor.line();
 
   return r;
 }
@@ -1472,12 +1431,8 @@ KateViRange KateViNormalMode::motionToCharBackward()
 
   KateViRange r;
 
-  if ( matchColumn >= 0 ) {
-    r.endColumn = matchColumn+1;
-    r.endLine = cursor.line();
-  } else {
-    r.valid = false;
-  }
+  r.endColumn = matchColumn+1;
+  r.endLine = cursor.line();
 
   return r;
 }

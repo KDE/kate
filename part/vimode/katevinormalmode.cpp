@@ -1454,6 +1454,10 @@ KateViRange KateViNormalMode::motionToCharBackward()
 KateViRange KateViNormalMode::motionToLineFirst()
 {
     KateViRange r( getCount()-1, 0, ViMotion::InclusiveMotion );
+
+    if ( r.endLine > m_doc->lines() - 1 ) {
+      r.endLine = m_doc->lines() - 1;
+    }
     r.jump = true;
 
     return r;
@@ -1467,6 +1471,9 @@ KateViRange KateViNormalMode::motionToLineLast()
     r.endLine = getCount()-1;
   }
 
+  if ( r.endLine > m_doc->lines() - 1 ) {
+    r.endLine = m_doc->lines() - 1;
+  }
   r.jump = true;
 
   return r;

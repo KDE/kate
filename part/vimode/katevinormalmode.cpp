@@ -832,6 +832,7 @@ bool KateViNormalMode::commandChange()
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
+  m_doc->editStart();
   commandDelete();
 
   // if we deleted several lines, insert an empty line and put the cursor there
@@ -840,6 +841,7 @@ bool KateViNormalMode::commandChange()
     c.setLine( m_commandRange.startLine );
     updateCursor( c );
   }
+  m_doc->editEnd();
 
   commandEnterInsertMode();
 
@@ -856,12 +858,25 @@ bool KateViNormalMode::commandChangeToEOL()
 
 bool KateViNormalMode::commandChangeLine()
 {
-  // FIXME: take count and range into account
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( 0 );
   updateCursor( c );
 
-  commandDeleteToEOL();
+  m_doc->editStart();
+
+  // if count >= 2 start by deleting the whole lines
+  if ( getCount() >= 2 ) {
+    KateViRange r( c.line(), 0, c.line()+getCount()-2, 0, ViMotion::InclusiveMotion );
+    deleteRange( r );
+  }
+
+  // ... then delete the _contents_ of the last line, but keep the line
+  KateViRange r( c.line(), c.column(), c.line(), m_doc->lineLength( c.line() )-1,
+      ViMotion::InclusiveMotion );
+  deleteRange( r, false, true );
+  m_doc->editEnd();
+
+  // ... then enter insert mode
   commandEnterInsertModeAppend();
 
   return true;
@@ -1307,7 +1322,6 @@ KateViRange KateViNormalMode::motionRight()
 
 KateViRange KateViNormalMode::motionToEOL()
 {
-  // FIXME: should set sticky column to line length - 1, but only if it's a regular motion
   m_stickyColumn = -1;
   KTextEditor::Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), getLine().length()-1, ViMotion::InclusiveMotion );

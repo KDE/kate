@@ -65,6 +65,7 @@ SmartRenderRange::SmartRenderRange(KTextEditor::SmartRange* range, const SmartRe
 
 SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view, RenderRangeList* list)
   : m_currentRange(0L)
+  , m_endAtRange(0)
   , m_view(view)
   , m_useDynamic(useDynamic)
   , m_list(list)

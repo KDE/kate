@@ -21,6 +21,9 @@ TODO:
 * memory usage
   * we currently use x16 the size of a file when in memory, if the file does not contain newline characters.
 
+* RTL issues
+  * dynamic wrapping of indented lines - x offset is incorrect (calculated as for LTR lines)
+
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 

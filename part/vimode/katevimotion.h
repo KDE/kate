@@ -29,7 +29,7 @@ class KateViNormalMode;
 /**
  * combined class for motions and text objects. execute() returns a KateViRange.
  * For motions the returned range is only a position (start pos is (-1, -1) to
- * indicate this), for motions a range (startx, starty), (endx, endy) is
+ * indicate this) for text objects a range (startx, starty), (endx, endy) is
  * returned
  */
 

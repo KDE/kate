@@ -240,4 +240,12 @@ void KateLineLayout::setUsePlainTextLine (bool plain)
   m_usePlainTextLine = plain;
 }
 
+bool KateLineLayout::isRightToLeft() const
+{
+  if (!m_layout)
+    return false;
+
+  return m_layout->textOption().textDirection() == Qt::RightToLeft;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

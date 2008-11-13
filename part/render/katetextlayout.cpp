@@ -211,3 +211,11 @@ KateTextLayout KateTextLayout::invalid( )
 {
   return KateTextLayout();
 }
+
+bool KateTextLayout::isRightToLeft() const
+{
+  if (m_lineLayout)
+    return m_lineLayout->isRightToLeft();
+
+  return false;
+}

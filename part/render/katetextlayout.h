@@ -86,6 +86,8 @@ class KateTextLayout
 
     int xOffset() const;
 
+    bool isRightToLeft() const;
+
     bool includesCursor(const KTextEditor::Cursor& realCursor) const;
 
     friend bool operator> (const KateLineLayout& r, const KTextEditor::Cursor& c);

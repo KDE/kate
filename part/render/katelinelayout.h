@@ -40,6 +40,8 @@ class KateLineLayout : public KShared
     bool isValid() const;
     bool isOutsideDocument() const;
 
+    bool isRightToLeft() const;
+
     bool includesCursor(const KTextEditor::Cursor& realCursor) const;
 
     friend bool operator> (const KateLineLayout& r, const KTextEditor::Cursor& c);
@@ -88,7 +90,7 @@ class KateLineLayout : public KShared
 
     bool isLayoutDirty() const;
     void setLayoutDirty(bool dirty = true);
-    
+
     bool usePlainTextLine () const;
     void setUsePlainTextLine (bool plain = true);
 

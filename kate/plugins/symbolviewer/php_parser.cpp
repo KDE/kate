@@ -15,6 +15,27 @@
  ***************************************************************************/
 #include "plugin_katesymbolviewer.h"
 
+static inline bool matchesAt(const QString& str, int column, const QString& match)
+{
+ if (column < 0)
+  return false;
+
+  const int len = str.length();
+  const int matchlen = match.length();
+
+  if ((column + matchlen) > len)
+    return false;
+
+  const QChar *unicode = str.unicode();
+  const QChar *matchUnicode = match.unicode();
+
+  for (int i=0; i < matchlen; ++i)
+    if (unicode[i+column] != matchUnicode[i])
+      return false;
+
+  return true;
+}
+
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
   if (!win->activeView())
@@ -65,9 +86,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
    {
     cl = kv->line(i);
     cl = cl.trimmed();
+    const int len = cl.length();
     func_close = 0;
 
-    if ( (cl.length()>=2) && (cl.at(0) == '/' && cl.at(1) == '/')) continue;
+    if (matchesAt(cl, 0, "//")) continue;
     if(cl.indexOf('#') == 0) continue;
     if(cl.indexOf("/*") == 0 && (cl.indexOf("*/") == ((signed)cl.length() - 2)) && graph == 0) continue; // workaround :(
     if(cl.indexOf("/*") >= 0 && graph == 0) comment = 1;
@@ -78,7 +100,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
           mclass = 1;
           for (j = 0; j < cl.length(); j++)
              {
-              if(cl.at(j)=='/' && cl.at(j+1)=='/') { mclass = 2; break; }
+              if(matchesAt(cl, j, "//")) { mclass = 2; break; }
               if(cl.at(j)=='{') { mclass = 4; break;}
               stripped += cl.at(j);
              }
@@ -119,16 +141,16 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
          {
           for (j = 0; j < cl.length(); j++)
             {
-             if (cl.at(j) == '/' && (cl.at(j + 1) == '*') && comment != 3) comment = 2;
-             if (cl.at(j) == '*' && (cl.at(j + 1) == '/') && comment != 3) {  comment = 0; j+=2; }
+             if (comment != 3 && matchesAt(cl, j, "/*")) comment = 2;
+             if (comment != 3 && matchesAt(cl, j, "*/")) {  comment = 0; j+=2; }
              // Handles a string. Those are freaking evilish !
-             if (cl.at(j) == '"' && comment == 3) { comment = 0; }
-             else if (cl.at(j) == '"' && comment == 0) comment = 3;
-             if(cl.at(j)=='/' && cl.at(j+1)=='/' && comment == 0)
+             if (comment == 3 && matchesAt(cl, j, "\"")) { comment = 0; }
+             else if (comment == 0 && matchesAt(cl, j, "\"")) comment = 3;
+             if (comment == 0 && matchesAt(cl, j, "//"))
                { if(block == 1 && stripped.isEmpty()) block = 0; break; }
              if (comment != 2 && comment != 3)
                {
-                if (block == 1 && graph == 0 )
+                if (j < len && block == 1 && graph == 0 )
                   {
                    if(cl.at(j) >= 0x20) stripped += cl.at(j);
                    if(cl.at(j) == '(') par++;
@@ -148,7 +170,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                   } // BLOCK 1
                 if(block == 2 && graph == 0)
                   {
-                   if(cl.at(j)=='/' && cl.at(j+1)=='/' && comment == 0) break;
+                   if(comment == 0 && matchesAt(cl, j, "//")) break;
                    //if(cl.at(j)==':' || cl.at(j)==',') { block = 1; continue; }
                    if(cl.at(j)==':') { block = 1; continue; }
                    if(cl.at(j)==';')
@@ -199,10 +221,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                      }
                   } // BLOCK 2
 
-                if (block == 3)
+                if (j < len && block == 3)
                   {
                    // A comment...there can be anything
-                   if(cl.at(j)=='/' && cl.at(j+1)=='/' && comment == 0) break;
+                   if(comment == 0 && matchesAt(cl, j, "//")) break;
                    if(cl.at(j)=='{') graph++;
                    if(cl.at(j)=='}')
                      {

@@ -1721,7 +1721,8 @@ KateViRange KateViNormalMode::textObjectAWord()
         c2 = findNextWordStart( c2.line(), c2.column(), true );
     }
 
-    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+    c2.setColumn( c2.column()-1 ); // don't include the first char of the following word
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     // sanity check
     if ( c1.line() != c2.line() || c1.column() > c2.column() ) {

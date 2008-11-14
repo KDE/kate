@@ -143,7 +143,11 @@ bool KateSession::rename (const QString &name)
     m_sessionFileRel = oldRel;
     return false;
   }
-  KIO::CopyJob *job = KIO::move(KUrl(QString("file://") + oldSessionFile), KUrl(QString("file://") + sessionFile()), KIO::HideProgressInfo);
+  KUrl srcUrl(QString("file://"));
+  srcUrl.addPath(oldSessionFile);
+  KUrl destUrl(QString("file://"));
+  destUrl.addPath(sessionFile());
+  KIO::CopyJob *job = KIO::move(srcUrl, destUrl, KIO::HideProgressInfo);
   if ( ! KIO::NetAccess::synchronousRun(job, 0) )
   {
     m_sessionFileRel = oldRel;
@@ -444,6 +448,7 @@ bool KateSessionManager::chooseSession ()
     QFile::copy(defaultSessionFile(), sessionsDir() + "/default.katesession");
     KateSession *ds = new KateSession(this, "default.katesession");
     ds->rename(i18n("Default Session"));
+    lastSession=ds->sessionFileRelative();
     delete ds;
   }
 
@@ -684,10 +689,12 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
   KateSessionList &slist (KateSessionManager::self()->sessionList());
+  kdDebug()<<"Last session is:"<<lastSession;
   for (int i = 0; i < slist.count(); ++i)
   {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, slist[i]);
 
+    kdDebug()<<"Session added to chooser:"<<slist[i]->sessionName()<<"........"<<slist[i]->sessionFileRelative();
     if (slist[i]->sessionFileRelative() == lastSession)
       m_sessions->setCurrentItem (item);
   }

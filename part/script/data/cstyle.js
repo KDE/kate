@@ -225,7 +225,7 @@ function tryCComment(line)
 
     // we found a */, search the opening /* and return its indentation level
     if (document.endsWith(currentLine, "*/", true)) {
-        var cursor = {line: currentLine, column: document.line(currentLine).search(/\/\*.*\*\//)};
+        var cursor = document.rfind(currentLine, document.lastColumn(currentLine), "/*");
         if (cursor && cursor.column == document.firstColumn(cursor.line))
             indentation = document.firstVirtualColumn(cursor.line);
 

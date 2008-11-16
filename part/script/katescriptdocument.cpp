@@ -24,6 +24,8 @@
 #include "katehighlight.h"
 #include "katescript.h"
 
+#include <QtScript/QScriptEngine>
+
 KateScriptDocument::KateScriptDocument(QObject *parent)
   : QObject(parent), m_document(0)
 {
@@ -58,7 +60,7 @@ bool KateScriptDocument::isComment(int line, int column)
   const int defaultStyle = defStyleNum(line, column);
   return defaultStyle == KateExtendedAttribute::dsComment;
 }
-  
+
 bool KateScriptDocument::isString(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
@@ -120,6 +122,51 @@ int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
   return textLine->fromVirtualColumn(virtualColumn, tabWidth);
 }
 
+QScriptValue KateScriptDocument::rfind(int line, int column, const QString& text, int attribute)
+{
+  KateDocCursor cursor(line, column, m_document);
+  const int start = cursor.line();
+  QList<KTextEditor::Attribute::Ptr> attributes =
+      m_document->highlight()->attributes(((KateView*)m_document->activeView())->renderer()->config()->schema());
+
+  do {
+    KateTextLine::Ptr textLine = m_document->plainKateTextLine(cursor.line());
+    if (!textLine)
+      break;
+
+    if (cursor.line() != start) {
+      cursor.setColumn(textLine->length());
+    } else if (column >= textLine->length()) {
+      cursor.setColumn(qMax(textLine->length(), 0));
+    }
+
+    bool found = true;
+    while (found) {
+      uint foundAt;
+      found = textLine->searchText(0, cursor.column(), text, &foundAt, 0, true, true);
+      if (found) {
+        bool hasStyle = true;
+        if (attribute != -1) {
+          KTextEditor::Attribute::Ptr a = attributes[textLine->attribute(foundAt)];
+          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+          hasStyle = (ds == attribute);
+        }
+
+        if (hasStyle) {
+          QScriptValue position = engine()->newObject();
+          position.setProperty("line", QScriptValue(engine(), cursor.line()));
+          position.setProperty("column", QScriptValue(engine(), foundAt));
+          return position;
+        } else {
+          cursor.setColumn(foundAt);
+        }
+      }
+    }
+  } while (cursor.gotoPreviousLine());
+
+  return QScriptValue();
+}
+
 KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar character)
 {
   KateDocCursor cursor(line, column, m_document);
@@ -157,7 +204,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
   }
   return KTextEditor::Cursor::invalid ();
 }
-    
+
 bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skipWhiteSpaces)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
@@ -165,7 +212,7 @@ bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skip
   if (!textLine)
     return false;
 
-  if (skipWhiteSpaces)   
+  if (skipWhiteSpaces)
     return textLine->matchesAt(textLine->firstChar(), pattern);
 
   return textLine->startsWith (pattern);
@@ -178,7 +225,7 @@ bool KateScriptDocument::endsWith (int line, const QString &pattern, bool skipWh
   if (!textLine)
     return false;
 
-  if (skipWhiteSpaces)   
+  if (skipWhiteSpaces)
     return textLine->matchesAt(textLine->lastChar() - pattern.length() + 1, pattern);
 
   return textLine->endsWith (pattern);

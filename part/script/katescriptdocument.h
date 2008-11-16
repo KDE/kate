@@ -21,6 +21,7 @@
 
 #include <QObject>
 #include <QtScript/QScriptable>
+#include <QtScript/QScriptValue>
 
 #include <ktexteditor/cursor.h>
 
@@ -32,7 +33,7 @@ class KateDocument;
  *
  * We inherit from QScriptable to have more thight access to the scripting
  * engine.
- * 
+ *
  * setDocument _must_ be called before using any other method. This is not checked
  * for the sake of speed.
  */
@@ -46,12 +47,12 @@ class KateScriptDocument : public QObject, protected QScriptable
   Q_PROPERTY(QString encoding READ encoding)
   Q_PROPERTY(bool modified READ isModified)
   Q_PROPERTY(QString text READ text WRITE setText)
-  
+
   public:
     KateScriptDocument(QObject *parent=0);
     void setDocument(KateDocument *document);
     KateDocument *document();
-    // XX Automatically generated from the KJS document wrapper. Feel free to 
+    // XX Automatically generated from the KJS document wrapper. Feel free to
     // add descriptive variable names ;)
     //BEGIN
     Q_INVOKABLE QString fileName();
@@ -96,14 +97,15 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE int attribute(int i, int j);
     Q_INVOKABLE QString variable(const QString &s);
     //END
-    
+
     Q_INVOKABLE int firstVirtualColumn(int line);
     Q_INVOKABLE int lastVirtualColumn(int line);
     Q_INVOKABLE int toVirtualColumn(int line, int column);
     Q_INVOKABLE int fromVirtualColumn(int line, int virtualColumn);
-    
+
     Q_INVOKABLE KTextEditor::Cursor anchor(int line, int column, QChar character);
-    
+    Q_INVOKABLE QScriptValue rfind(int line, int column, const QString& text, int attribute = -1);
+
     Q_INVOKABLE int defStyleNum(int line, int column);
     Q_INVOKABLE bool isCode(int line, int column);
     Q_INVOKABLE bool isComment(int line, int column);
@@ -112,13 +114,13 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE bool isChar(int line, int column);
     Q_INVOKABLE bool isOthers(int line, int column);
 
-    
+
     Q_INVOKABLE bool startsWith (int line, const QString &pattern, bool skipWhiteSpaces);
     Q_INVOKABLE bool endsWith (int line, const QString &pattern, bool skipWhiteSpaces);
-  
+
   private:
     bool _isCode(int defaultStyle);
-    
+
     KateDocument *m_document;
 };
 

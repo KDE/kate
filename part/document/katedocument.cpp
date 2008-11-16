@@ -1954,7 +1954,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     FAST_DEBUG("multi line search (lines " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << ")");
 
     // nothing to do...
-    if (firstLineIndex >= m_buffer->lines())
+    if (firstLineIndex >= m_buffer->count())
     {
       QVector<KTextEditor::Range> result;
       result.append(KTextEditor::Range::invalid());

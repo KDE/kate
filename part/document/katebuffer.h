@@ -212,11 +212,6 @@ class KateBuffer : public QObject
      * Return the total number of lines in the buffer.
      */
     inline int count() const { return m_lines; }
-    
-    /**
-     * Return the total number of lines in the buffer.
-     */
-    inline int lines() const { return m_lines; }
 
     /**
      * Mark line @p i as changed !

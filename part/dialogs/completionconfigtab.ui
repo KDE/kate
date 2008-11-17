@@ -34,7 +34,7 @@
          <string>If this is enabled, the editor will calculate the number of spaces up to the next tab position as defined by the tab width, and insert that number of spaces instead of a TAB character.</string>
         </property>
         <property name="text" >
-         <string>&amp;Auto Completion enabled</string>
+         <string>&amp;Auto completion enabled</string>
         </property>
        </widget>
       </item>

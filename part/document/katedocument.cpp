@@ -179,6 +179,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_activeView(0L),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
+  m_mergeAllEdits(false),
+  m_firstMergeGroupSkipped(false),
   lastUndoGroupWhenSaved( 0 ),
   lastRedoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
@@ -987,12 +989,14 @@ void KateDocument::undoEnd()
         m_editCurrentUndo->setRedoSelection(m_activeView->selectionRange());
     }
 
-    if (m_editCurrentUndo->isEmpty())
+    if (m_editCurrentUndo->isEmpty()) {
       delete m_editCurrentUndo;
-    else if (!m_undoDontMerge && !undoItems.isEmpty() && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
+    } else if (((m_mergeAllEdits && !m_firstMergeGroupSkipped) || !m_undoDontMerge)
+        && !undoItems.isEmpty() && undoItems.last()
+        && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge || m_mergeAllEdits)) {
       delete m_editCurrentUndo;
-    else
-    {
+      m_firstMergeGroupSkipped = true;
+    } else {
       undoItems.append(m_editCurrentUndo);
       changedUndo = true;
     }

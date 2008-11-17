@@ -320,6 +320,8 @@ class KateDocument : public KTextEditor::Document,
 
     bool isEditRunning() const;
     bool isWithUndo() const {return editWithUndo;}
+
+    void setMergeAllEdits(bool merge) { m_mergeAllEdits = merge; m_firstMergeGroupSkipped = false; }
   private Q_SLOTS:
     void undoCancel();
 
@@ -358,6 +360,9 @@ class KateDocument : public KTextEditor::Document,
     QList<KateUndoGroup*> redoItems;
     bool m_undoDontMerge; //create a setter later on and remove the friend declaration
     bool m_undoIgnoreCancel;
+    bool m_mergeAllEdits; // if true, all undo groups are merged continually
+    bool m_firstMergeGroupSkipped;  // used to make sure the first undo group isn't merged after
+                                    // setting m_mergeAllEdits
     QTimer* m_undoMergeTimer;
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...

@@ -83,7 +83,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
     << "set-highlight" << "set-mode" << "set-show-indent"
-    << "w";
+    << "w" << "print" << "hardcopy";
 
   return l;
 }
@@ -203,6 +203,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "w" )
   {
     v->doc()->documentSave();
+    return true;
+  }
+  else if ( cmd == "print" || cmd == "hardcopy" )
+  {
+    v->doc()->printDialog();
     return true;
   }
   else if ( cmd == "set-indent-mode" )

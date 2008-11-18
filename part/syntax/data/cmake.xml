@@ -24,12 +24,11 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.4-patch 6" -->
-<language name="CMake" version="1.05" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<!-- generated for "cmake version 2.6-patch 2" -->
+<language name="CMake" version="1.06" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
-      <item> ABSTRACT_FILES </item>
       <item> ADD_CUSTOM_COMMAND </item>
       <item> ADD_CUSTOM_TARGET </item>
       <item> ADD_DEFINITIONS </item>
@@ -39,18 +38,26 @@
       <item> ADD_SUBDIRECTORY </item>
       <item> ADD_TEST </item>
       <item> AUX_SOURCE_DIRECTORY </item>
+      <item> BREAK </item>
       <item> BUILD_COMMAND </item>
       <item> BUILD_NAME </item>
       <item> CMAKE_MINIMUM_REQUIRED </item>
+      <item> CMAKE_POLICY </item>
       <item> CONFIGURE_FILE </item>
       <item> CREATE_TEST_SOURCELIST </item>
+      <item> DEFINE_PROPERTY </item>
       <item> ELSE </item>
       <item> ELSEIF </item>
+      <item> ENABLE_LANGUAGE </item>
       <item> ENABLE_TESTING </item>
       <item> ENDFOREACH </item>
+      <item> ENDFUNCTION </item>
       <item> ENDIF </item>
       <item> ENDMACRO </item>
+      <item> ENDWHILE </item>
+      <item> EXECUTE_PROCESS </item>
       <item> EXEC_PROGRAM </item>
+      <item> EXPORT </item>
       <item> EXPORT_LIBRARY_DEPENDENCIES </item>
       <item> FILE </item>
       <item> FIND_FILE </item>
@@ -60,11 +67,14 @@
       <item> FIND_PROGRAM </item>
       <item> FLTK_WRAP_UI  </item>
       <item> FOREACH </item>
+      <item> FUNCTION </item>
       <item> GET_CMAKE_PROPERTY </item>
       <item> GET_DIRECTORY_PROPERTY </item>
       <item> GET_FILENAME_COMPONENT </item>
+      <item> GET_PROPERTY </item>
       <item> GET_SOURCE_FILE_PROPERTY </item>
       <item> GET_TARGET_PROPERTY </item>
+      <item> GET_TEST_PROPERTY </item>
       <item> IF </item>
       <item> INCLUDE </item>
       <item> INCLUDE_DIRECTORIES </item>
@@ -83,6 +93,7 @@
       <item> MACRO </item>
       <item> MAKE_DIRECTORY </item>
       <item> MARK_AS_ADVANCED </item>
+      <item> MATH </item>
       <item> MESSAGE </item>
       <item> OPTION </item>
       <item> OUTPUT_REQUIRED_FILES </item>
@@ -91,14 +102,14 @@
       <item> QT_WRAP_UI </item>
       <item> REMOVE </item>
       <item> REMOVE_DEFINITIONS </item>
+      <item> RETURN </item>
       <item> SEPARATE_ARGUMENTS </item>
       <item> SET </item>
       <item> SET_DIRECTORY_PROPERTIES </item>
+      <item> SET_PROPERTY </item>
       <item> SET_SOURCE_FILES_PROPERTIES </item>
       <item> SET_TARGET_PROPERTIES </item>
       <item> SITE_NAME </item>
-      <item> SOURCE_FILES </item>
-      <item> SOURCE_FILES_REMOVE </item>
       <item> SOURCE_GROUP </item>
       <item> STRING </item>
       <item> SUBDIRS </item>
@@ -106,14 +117,14 @@
       <item> TARGET_LINK_LIBRARIES </item>
       <item> TRY_COMPILE </item>
       <item> TRY_RUN </item>
-      <item> USE_MANGLED_MESA </item>
+      <item> UNSET </item>
       <item> UTILITY_SOURCE </item>
       <item> VARIABLE_REQUIRES </item>
+      <item> VARIABLE_WATCH </item>
       <item> VTK_MAKE_INSTANTIATOR </item>
       <item> VTK_WRAP_JAVA </item>
       <item> VTK_WRAP_PYTHON </item>
       <item> VTK_WRAP_TCL </item>
-      <item> WRAP_EXCLUDE_FILES </item>
       <item> WRITE_FILE </item>
     </list>
 
@@ -128,10 +139,13 @@
       <item> ARGS </item>
       <item> ASCII </item>
       <item> BEFORE </item>
+      <item> BRIEF_DOCS </item>
+      <item> BUNDLE </item>
       <item> CACHE </item>
       <item> CACHE_VARIABLES </item>
       <item> CLEAR </item>
       <item> CMAKE_FLAGS </item>
+      <item> CMAKE_FIND_ROOT_PATH_BOTH </item>
       <item> CODE </item>
       <item> COMMAND </item>
       <item> COMMANDS </item>
@@ -140,20 +154,26 @@
       <item> COMPARE </item>
       <item> COMPILE_FLAGS </item>
       <item> COMPONENT </item>
+      <item> COMPONENTS </item>
       <item> CONFIGURATIONS </item>
+      <item> CONFIGURE </item>
       <item> COPYONLY </item>
       <item> DEFINED </item>
       <item> DEFINE_SYMBOL </item>
+      <item> DEFINITION </item>
       <item> DEPENDS </item>
       <item> DESTINATION </item>
+      <item> DIRECTORY </item>
       <item> DIRECTORY_PERMISSIONS </item>
       <item> DOC </item>
+      <item> DOWNLOAD </item>
       <item> EQUAL </item>
       <item> ESCAPE_QUOTES </item>
+      <item> EXACT </item>
       <item> EXCLUDE </item>
       <item> EXCLUDE_FROM_ALL </item>
       <item> EXISTS </item>
-      <item> EXPORT_MACRO </item>
+      <item> EXPORT </item>
       <item> EXPR </item>
       <item> EXT </item>
       <item> EXTRA_INCLUDE </item>
@@ -161,25 +181,35 @@
       <item> FILE </item>
       <item> FILES </item>
       <item> FILE_PERMISSIONS </item>
+      <item> FILES_MATCHING </item>
       <item> FORCE </item>
-      <item> FUNCTION </item>
+      <item> FRAMEWORK </item>
+      <item> FULL_DOCS </item>
       <item> GENERATED </item>
+      <item> GET </item>
       <item> GLOB </item>
       <item> GLOB_RECURSE </item>
+      <item> GLOBAL </item>
       <item> GREATER </item>
       <item> GROUP_SIZE </item>
       <item> HEADER_FILE_ONLY </item>
       <item> HEADER_LOCATION </item>
+      <item> HINTS </item>
       <item> IMMEDIATE </item>
       <item> INCLUDES </item>
       <item> INCLUDE_DIRECTORIES </item>
       <item> INCLUDE_INTERNALS </item>
       <item> INCLUDE_REGULAR_EXPRESSION </item>
+      <item> INHERITED </item>
       <item> INTERNAL </item>
+      <item> IS_ABSOLUTE </item>
+      <item> IS_NEWER_THAN </item>
+      <item> LENGTH </item>
       <item> LESS </item>
       <item> LIBRARY </item>
       <item> LINK_DIRECTORIES </item>
       <item> LINK_FLAGS </item>
+      <item> LINK_INTERFACE_LIBRARIES </item>
       <item> LOCATION </item>
       <item> MACOSX_BUNDLE </item>
       <item> MACROS </item>
@@ -190,20 +220,33 @@
       <item> MATCHES </item>
       <item> MODULE </item>
       <item> NAME </item>
+      <item> NAMELINK_ONLY </item>
+      <item> NAMELINK_SKIP </item>
       <item> NAMES </item>
       <item> NAME_WE </item>
       <item> NOT </item>
       <item> NOTEQUAL </item>
+      <item> NO_CMAKE_PATH </item>
+      <item> NO_CMAKE_ENVIRONMENT_PATH </item>
+      <item> NO_CMAKE_FIND_ROOT_PATH </item>
+      <item> NO_DEFAULT_PATH </item>
+      <item> NO_MODULE </item>
       <item> NO_SYSTEM_PATH </item>
+      <item> NO_SYSTEM_ENVIRONMENT_PATH </item>
       <item> OBJECT_DEPENDS </item>
+      <item> ONLY_CMAKE_FIND_ROOT_PATH </item>
       <item> OPTIONAL </item>
       <item> OR </item>
       <item> OUTPUT </item>
       <item> OUTPUT_VARIABLE </item>
+      <item> PARENT_SCOPE </item>
       <item> PATH </item>
       <item> PATHS </item>
+      <item> PATH_SUFFIXES </item>
       <item> PATTERN </item>
       <item> PERMISSIONS </item>
+      <item> POLICY </item>
+      <item> POP </item>
       <item> POST_BUILD </item>
       <item> POST_INSTALL_SCRIPT </item>
       <item> PREFIX </item>
@@ -211,40 +254,60 @@
       <item> PRE_BUILD </item>
       <item> PRE_INSTALL_SCRIPT </item>
       <item> PRE_LINK </item>
+      <item> PRIVATE_HEADER </item>
       <item> PROGRAM </item>
       <item> PROGRAMS </item>
       <item> PROGRAM_ARGS </item>
       <item> PROPERTIES </item>
+      <item> PUBLIC_HEADER </item>
+      <item> PUSH </item>
       <item> QUIET </item>
+      <item> RANDOM </item>
       <item> RANGE </item>
       <item> READ </item>
       <item> REGEX </item>
       <item> REGULAR_EXPRESSION </item>
+      <item> RELATIVE_PATH </item>
+      <item> REMOVE </item>
+      <item> REMOVE_RECURSE </item>
       <item> RENAME </item>
       <item> REPLACE </item>
       <item> REQUIRED </item>
+      <item> RESOURCE </item>
       <item> RETURN_VALUE </item>
       <item> RUNTIME </item>
       <item> RUNTIME_DIRECTORY </item>
       <item> SCRIPT </item>
       <item> SEND_ERROR </item>
       <item> SHARED </item>
+      <item> SOURCE </item>
       <item> SOURCES </item>
       <item> STATIC </item>
       <item> STATUS </item>
+      <item> STRIP </item>
+      <item> STRINGS </item>
       <item> STREQUAL </item>
       <item> STRGREATER </item>
       <item> STRLESS </item>
       <item> SUFFIX </item>
+      <item> SUBSTRING </item>
       <item> TARGET </item>
       <item> TARGETS </item>
+      <item> TIMEOUT </item>
       <item> TOLOWER </item>
       <item> TOUPPER </item>
+      <item> TO_CMAKE_PATH </item>
+      <item> TO_NATIVE_PATH </item>
       <item> USE_SOURCE_PERMISSIONS </item>
       <item> VAR </item>
+      <item> VARIABLE </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
+      <item> VERSION_LESS </item>
+      <item> VERSION_EQUAL </item>
+      <item> VERSION_GREATER </item>
       <item> WIN32 </item>
+      <item> WORKING_DIRECTORY </item>
       <item> WRAP_EXCLUDE </item>
       <item> WRITE </item>
     </list>

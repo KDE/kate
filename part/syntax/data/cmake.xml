@@ -55,8 +55,8 @@
       <item> endif </item>
       <item> endmacro </item>
       <item> endwhile </item>
-      <item> execute_process </item>
       <item> exec_program </item>
+      <item> execute_process </item>
       <item> export </item>
       <item> export_library_dependencies </item>
       <item> file </item>
@@ -112,8 +112,8 @@
       <item> site_name </item>
       <item> source_group </item>
       <item> string </item>
-      <item> subdirs </item>
       <item> subdir_depends </item>
+      <item> subdirs </item>
       <item> target_link_libraries </item>
       <item> try_compile </item>
       <item> try_run </item>
@@ -144,8 +144,8 @@
       <item> CACHE </item>
       <item> CACHE_VARIABLES </item>
       <item> CLEAR </item>
-      <item> CMAKE_FLAGS </item>
       <item> CMAKE_FIND_ROOT_PATH_BOTH </item>
+      <item> CMAKE_FLAGS </item>
       <item> CODE </item>
       <item> COMMAND </item>
       <item> COMMANDS </item>
@@ -180,8 +180,8 @@
       <item> FATAL_ERROR </item>
       <item> FILE </item>
       <item> FILES </item>
-      <item> FILE_PERMISSIONS </item>
       <item> FILES_MATCHING </item>
+      <item> FILE_PERMISSIONS </item>
       <item> FORCE </item>
       <item> FRAMEWORK </item>
       <item> FULL_DOCS </item>
@@ -226,9 +226,9 @@
       <item> NAME_WE </item>
       <item> NOT </item>
       <item> NOTEQUAL </item>
-      <item> NO_CMAKE_PATH </item>
       <item> NO_CMAKE_ENVIRONMENT_PATH </item>
       <item> NO_CMAKE_FIND_ROOT_PATH </item>
+      <item> NO_CMAKE_PATH </item>
       <item> NO_DEFAULT_PATH </item>
       <item> NO_MODULE </item>
       <item> NO_SYSTEM_PATH </item>
@@ -284,10 +284,10 @@
       <item> SOURCES </item>
       <item> STATIC </item>
       <item> STATUS </item>
-      <item> STRIP </item>
-      <item> STRINGS </item>
       <item> STREQUAL </item>
       <item> STRGREATER </item>
+      <item> STRINGS </item>
+      <item> STRIP </item>
       <item> STRLESS </item>
       <item> SUFFIX </item>
       <item> SUBSTRING </item>
@@ -303,14 +303,15 @@
       <item> VARIABLE </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
-      <item> VERSION_LESS </item>
       <item> VERSION_EQUAL </item>
       <item> VERSION_GREATER </item>
+      <item> VERSION_LESS </item>
       <item> WIN32 </item>
       <item> WORKING_DIRECTORY </item>
       <item> WRAP_EXCLUDE </item>
       <item> WRITE </item>
     </list>
+
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
         <DetectSpaces/>

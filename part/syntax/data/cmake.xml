@@ -25,7 +25,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.6-patch 2" -->
-<language name="CMake" version="1.06" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.07" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -84,7 +84,6 @@
       <item> install_files </item>
       <item> install_programs </item>
       <item> install_targets </item>
-      <item> itk_wrap_tcl </item>
       <item> link_directories </item>
       <item> link_libraries </item>
       <item> list </item>
@@ -121,11 +120,15 @@
       <item> utility_source </item>
       <item> variable_requires </item>
       <item> variable_watch </item>
+      <item> write_file </item>
+    </list>
+
+    <list name="extra_commands">
+      <item> itk_wrap_tcl </item>
       <item> vtk_make_instantiator </item>
       <item> vtk_wrap_java </item>
       <item> vtk_wrap_python </item>
       <item> vtk_wrap_tcl </item>
-      <item> write_file </item>
     </list>
 
     <list name="special_args">
@@ -316,6 +319,7 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
         <DetectSpaces/>
         <keyword attribute="Commands" context="Function Args" String="commands" insensitive="true"/>
+        <keyword attribute="Extra Commands" context="#stay" String="extra_commands" insensitive="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <DetectChar attribute="Comment" context="Comment" char="#"/>
@@ -346,7 +350,8 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Special Args" defStyleNum="dsOthers"/>
       <itemData name="Commands" defStyleNum="dsKeyword"/>
-      <itemData name="Macros"  defStyleNum="dsKeyword"/>
+      <itemData name="Extra Commands" defStyleNum="dsFunction"/>
+      <itemData name="Macros"  defStyleNum="dsFunction"/>
       <itemData name="Strings" defStyleNum="dsString"/>
       <itemData name="Escapes" defStyleNum="dsChar"/>
       <itemData name="CMake Variable" defStyleNum="dsDecVal"/>

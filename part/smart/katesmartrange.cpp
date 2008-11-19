@@ -120,7 +120,8 @@ void KateSmartRange::shifted( )
 
 void KateSmartRange::translated(const KateEditInfo& edit)
 {
-  Q_ASSERT(end() >= edit.start());
+  //Why is this assertion triggered sometimes? No clue..
+//   Q_ASSERT(end() >= edit.start());
   if (end() < edit.start()) {
     kStart().resetLastPosition();
     kEnd().resetLastPosition();

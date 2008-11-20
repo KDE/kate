@@ -179,6 +179,7 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandToOtherEnd, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, "=", &KateViNormalMode::commandAlignLines, SHOULD_NOT_RESET ) );
+  m_commands.push_back( new KateViCommand( this, "~", &KateViNormalMode::commandChangeCase, IS_CHANGE ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

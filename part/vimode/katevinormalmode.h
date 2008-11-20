@@ -66,6 +66,7 @@ class KateViNormalMode : public KateViModeBase
     bool commandMakeLowercaseLine();
     bool commandMakeUppercase();
     bool commandMakeUppercaseLine();
+    bool commandChangeCase();
 
     bool commandOpenNewLineUnder();
     bool commandOpenNewLineOver();

@@ -753,6 +753,76 @@ bool KateViNormalMode::commandMakeUppercaseLine()
   return commandMakeUppercase();
 }
 
+bool KateViNormalMode::commandChangeCase()
+{
+  QString text;
+  KTextEditor::Range range;
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  // in visual mode, the range is from start position to end position...
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+    KTextEditor::Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
+
+    if ( c2 > c ) {
+      c2.setColumn( c2.column()+1 );
+    } else {
+      c.setColumn( c.column()+1 );
+    }
+
+    range.setRange( c, c2 );
+  // ... in visual line mode, the range is from column 0 on the first line to
+  // the line length of the last line...
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+    KTextEditor::Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
+
+    if ( c2 > c ) {
+      c2.setColumn( m_doc->lineLength( c2.line() ) );
+      c.setColumn( 0 );
+    } else {
+      c.setColumn( m_doc->lineLength( c.line() ) );
+      c2.setColumn( 0 );
+    }
+
+    range.setRange( c, c2 );
+  // ... and in normal mode the range is from the current positon to the
+  // current position + count
+  } else {
+    KTextEditor::Cursor c2 = c;
+    c2.setColumn( c.column()+getCount() );
+
+    if ( c2.column() > m_doc->lineLength( c.line() ) ) {
+      c2.setColumn( m_doc->lineLength( c.line() ) );
+    }
+
+    range.setRange( c, c2 );
+  }
+
+  // get the text the command should operate on
+  text = m_doc->text ( range );
+
+  // for every character, switch its case
+  for ( int i = 0; i < text.length(); i++ ) {
+    if ( text.at(i).isUpper() ) {
+      text[i] = text.at(i).toLower();
+    } else if ( text.at(i).isLower() ) {
+      text[i] = text.at(i).toUpper();
+    }
+  }
+
+  // replace the old text with the modified text
+  m_doc->replaceText( range, text );
+
+  // in normal mode, move the cursor to the right, in visual mode move the
+  // cursor to the start of the selection
+  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+    updateCursor( range.end() );
+  } else {
+    updateCursor( range.start() );
+  }
+
+  return true;
+}
+
 bool KateViNormalMode::commandOpenNewLineUnder()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -1907,6 +1977,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, ".", &KateViNormalMode::commandRepeatLastChange ) );
   m_commands.push_back( new KateViCommand( this, "==", &KateViNormalMode::commandAlignLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "=", &KateViNormalMode::commandAlignLines, IS_CHANGE | NEEDS_MOTION) );
+  m_commands.push_back( new KateViCommand( this, "~", &KateViNormalMode::commandChangeCase, IS_CHANGE ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

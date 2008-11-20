@@ -36,6 +36,7 @@ class KateViVisualMode : public KateViNormalMode {
     void setVisualLine( bool l );
     bool isVisualLine() const { return m_visualLine; }
     void switchStartEnd();
+    KTextEditor::Cursor getStart() const { return m_start; }
 
   private:
     void initializeCommands();

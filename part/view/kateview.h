@@ -266,6 +266,8 @@ class KateView : public KTextEditor::View,
 
     bool selectAll();
 
+  private Q_SLOTS:
+    bool selectAllByAction();
   public:
     virtual bool selection() const;
     virtual QString selectionText() const;

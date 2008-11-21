@@ -465,7 +465,7 @@ void KateView::setupActions()
                       " with all highlighting information into a HTML document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(exportAsHTML()));
 
-  m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAll()) );
+  m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAllByAction()) );
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
   m_deSelect = a= ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) );
@@ -1686,8 +1686,20 @@ bool KateView::removeSelectedText()
   return true;
 }
 
+bool KateView::selectAllByAction() {
+    if (m_selectAll->shortcut()==QKeySequence(QKeySequence::SelectAll)) {
+      QLineEdit *le=qobject_cast<QLineEdit*>(QApplication::focusWidget());
+      if (le) {
+        le->selectAll();
+        return true;
+      }
+    }
+    return selectAll();
+}
+
 bool KateView::selectAll()
 {
+
   setBlockSelectionMode (false);
 
   return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->documentEnd()));

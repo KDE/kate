@@ -3408,16 +3408,18 @@ bool KateDocument::openFile()
     view->updateView(true);
   }
 
-  //
-  // emit the signal we need for example for kate app
-  //
-  emit documentUrlChanged (this);
+  if (!m_reloading)
+  {
+    //
+    // emit the signal we need for example for kate app
+    //
+    emit documentUrlChanged (this);
 
-  //
-  // set doc name, dummy value as arg, don't need it
-  //
-  setDocName  (QString());
-
+    //
+    // set doc name, dummy value as arg, don't need it
+    //
+    setDocName  (QString());
+  }
   //
   // to houston, we are not modified
   //
@@ -3826,12 +3828,15 @@ bool KateDocument::closeUrl()
     view->clear();
   }
 
-  // uh, fileName changed
-  emit documentUrlChanged (this);
+  if (!m_reloading) 
+  {
 
-  // update doc name
-  setDocName (QString());
+    // uh, fileName changed
+    emit documentUrlChanged (this);
 
+    // update doc name
+    setDocName (QString());
+  }
   // success
   return true;
 }

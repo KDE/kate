@@ -33,6 +33,12 @@
 #include "katedocument.h"
 #include "katevimodebar.h"
 
+// TODO: the "previous word/WORD [end]" methods should be optimized. now they're being called in a
+// loop and all calculations done up to finding a match are wasted when called with a count > 1
+// because they will simply be called again from the last found position.
+// They should take the count as a parameter and collect the positions in a QList, then return
+// element (count - 1)
+
 ////////////////////////////////////////////////////////////////////////////////
 // HELPER METHODS
 ////////////////////////////////////////////////////////////////////////////////
@@ -216,6 +222,84 @@ KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromCol
       c++;
       found = true;
     }
+  }
+
+  return KTextEditor::Cursor( l, c );
+}
+
+KTextEditor::Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+{
+  QString line = getLine( fromLine );
+
+  QString endOfWordPattern = "\\S\\s|\\S$|\\w\\W|\\S\\b|^$";
+
+  if ( m_extraWordCharacters.length() > 0 ) {
+   endOfWordPattern.append( "|["+m_extraWordCharacters+"][^" +m_extraWordCharacters+']' );
+  }
+
+  QRegExp endOfWord( endOfWordPattern );
+
+  int l = fromLine;
+  int c = fromColumn;
+
+  bool found = false;
+
+  while ( !found ) {
+      int c1 = endOfWord.lastIndexIn( line, c-1 );
+
+      if ( c1 != -1 && c-1 != -1 ) {
+          found = true;
+          c = c1;
+      } else {
+          if ( onlyCurrentLine ) {
+              return KTextEditor::Cursor( l, c );
+          } else if ( l > 0 ) {
+              line = getLine( --l );
+              c = line.length();
+
+              continue;
+          } else {
+              c = 0;
+              return KTextEditor::Cursor( l, c );
+          }
+      }
+  }
+
+  return KTextEditor::Cursor( l, c );
+}
+
+KTextEditor::Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+{
+  QString line = getLine( fromLine );
+
+  QRegExp endOfWORDPattern( "\\S\\s|\\S$|^$" );
+
+  QRegExp endOfWORD( endOfWORDPattern );
+
+  int l = fromLine;
+  int c = fromColumn;
+
+  bool found = false;
+
+  while ( !found ) {
+      int c1 = endOfWORD.lastIndexIn( line, c-1 );
+
+      if ( c1 != -1 && c-1 != -1 ) {
+          found = true;
+          c = c1;
+      } else {
+          if ( onlyCurrentLine ) {
+              return KTextEditor::Cursor( l, c );
+          } else if ( l > 0 ) {
+              line = getLine( --l );
+              c = line.length();
+
+              continue;
+          } else {
+              c = 0;
+              return KTextEditor::Cursor( l, c );
+          }
+      }
   }
 
   return KTextEditor::Cursor( l, c );

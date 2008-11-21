@@ -209,6 +209,8 @@ void KateViVisualMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "B", &KateViNormalMode::motionWORDBackward ) );
   m_motions.push_back( new KateViMotion( this, "e", &KateViNormalMode::motionToEndOfWord ) );
   m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
+  m_motions.push_back( new KateViMotion( this, "ge", &KateViNormalMode::motionToEndOfPrevWord ) );
+  m_motions.push_back( new KateViMotion( this, "gE", &KateViNormalMode::motionToEndOfPrevWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
   m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, REGEX_PATTERN ) );

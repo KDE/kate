@@ -577,6 +577,46 @@ KateViRange KateViNormalMode::motionToEndOfWORD()
     return r;
 }
 
+KateViRange KateViNormalMode::motionToEndOfPrevWord()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findPrevWordEnd( c.line(), c.column() );
+
+      // stop when at the first char in the document
+      if ( c.line() == 0 && c.column() == 0 ) {
+        break;
+      }
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfPrevWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findPrevWORDEnd( c.line(), c.column() );
+
+      // stop when at the first char in the document
+      if ( c.line() == 0 && c.column() == 0 ) {
+        break;
+      }
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
 bool KateViNormalMode::commandDeleteLine()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -2007,6 +2047,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "B", &KateViNormalMode::motionWORDBackward ) );
   m_motions.push_back( new KateViMotion( this, "e", &KateViNormalMode::motionToEndOfWord ) );
   m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
+  m_motions.push_back( new KateViMotion( this, "ge", &KateViNormalMode::motionToEndOfPrevWord ) );
+  m_motions.push_back( new KateViMotion( this, "gE", &KateViNormalMode::motionToEndOfPrevWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
   m_motions.push_back( new KateViMotion( this, "`[a-zA-Z]", &KateViNormalMode::motionToMark, REGEX_PATTERN ) );

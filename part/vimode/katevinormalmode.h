@@ -134,6 +134,8 @@ class KateViNormalMode : public KateViModeBase
 
     KateViRange motionToEndOfWord();
     KateViRange motionToEndOfWORD();
+    KateViRange motionToEndOfPrevWord();
+    KateViRange motionToEndOfPrevWORD();
 
     KateViRange motionFindChar();
     KateViRange motionFindCharBackward();

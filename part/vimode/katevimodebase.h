@@ -56,6 +56,8 @@ class KateViModeBase
     KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false ) const;

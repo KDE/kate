@@ -606,7 +606,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(ui->chkDynamicWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->gbWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->cmbDynamicWordWrapIndicator, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(ui->sbDynamicWordWrapDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(ui->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -635,7 +635,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->configStart ();
   KateRendererConfig::global()->configStart ();
 
-  KateViewConfig::global()->setDynWordWrap (ui->chkDynamicWordWrap->isChecked());
+  KateViewConfig::global()->setDynWordWrap (ui->gbWordWrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (ui->cmbDynamicWordWrapIndicator->currentIndex ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(ui->sbDynamicWordWrapDepth->value());
   KateViewConfig::global()->setLineNumbers (ui->chkLineNumbers->isChecked());
@@ -655,7 +655,7 @@ void KateViewDefaultsConfig::apply ()
 
 void KateViewDefaultsConfig::reload ()
 {
-  ui->chkDynamicWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
+  ui->gbWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
   ui->cmbDynamicWordWrapIndicator->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
   ui->sbDynamicWordWrapDepth->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
   ui->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());

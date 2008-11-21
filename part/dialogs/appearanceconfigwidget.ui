@@ -19,7 +19,10 @@
    <item>
     <widget class="QGroupBox" name="gbWordWrap" >
      <property name="title" >
-      <string>Word Wrap</string>
+      <string>&amp;Dynamic word wrap</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" >
       <property name="spacing" >
@@ -29,24 +32,15 @@
        <number>9</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="chkDynamicWordWrap" >
-        <property name="whatsThis" >
-         <string>If this option is checked, the text lines will be wrapped at the view border on the screen.</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Dynamic word wrap</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <item>
+       <layout class="QFormLayout" name="formLayout" >
+        <item row="0" column="1" >
+         <widget class="KComboBox" name="cmbDynamicWordWrapIndicator" >
+          <property name="whatsThis" >
+           <string>Choose when the Dynamic Word Wrap Indicators should be displayed.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" >
          <widget class="QLabel" name="lblDynamicWordWrapIndicators" >
           <property name="text" >
            <string>Dynamic &amp;word wrap indicators (if applicable):</string>
@@ -56,37 +50,7 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="KComboBox" name="cmbDynamicWordWrapIndicator" >
-          <property name="whatsThis" >
-           <string>Choose when the Dynamic Word Wrap Indicators should be displayed.</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0" >
-           <size>
-            <width>16</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <item>
+        <item row="1" column="0" >
          <widget class="QLabel" name="lblDynamicWordWrapIndicators_2" >
           <property name="text" >
            <string>Align dynamically wrapped lines to indentation depth:</string>
@@ -96,8 +60,14 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="1" >
          <widget class="QSpinBox" name="sbDynamicWordWrapDepth" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="whatsThis" >
            <string>&lt;p>Enables the start of dynamically wrapped lines to be aligned vertically to the indentation level of the first line. This can help to make code and markup more readable.&lt;/p>&lt;p>Additionally, this allows you to set a maximum width of the screen, as a percentage, after which dynamically wrapped lines will no longer be vertically aligned. For example, at 50%, lines whose indentation levels are deeper than 50% of the width of the screen will not have vertical alignment applied to subsequent wrapped lines.&lt;/p></string>
           </property>
@@ -114,19 +84,6 @@
            <number>10</number>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0" >
-           <size>
-            <width>141</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>
@@ -198,24 +155,28 @@
        <number>9</number>
       </property>
       <item>
-       <widget class="QRadioButton" name="rbSortBookmarksByPosition" >
-        <property name="whatsThis" >
-         <string>The bookmarks will be ordered by the line numbers they are placed at.</string>
-        </property>
-        <property name="text" >
-         <string>By &amp;position</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="rbSortBookmarksByCreation" >
-        <property name="whatsThis" >
-         <string>Each new bookmark will be added to the bottom, independently from where it is placed in the document.</string>
-        </property>
-        <property name="text" >
-         <string>By c&amp;reation</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout" >
+        <item>
+         <widget class="QRadioButton" name="rbSortBookmarksByPosition" >
+          <property name="whatsThis" >
+           <string>The bookmarks will be ordered by the line numbers they are placed at.</string>
+          </property>
+          <property name="text" >
+           <string>By &amp;position</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rbSortBookmarksByCreation" >
+          <property name="whatsThis" >
+           <string>Each new bookmark will be added to the bottom, independently from where it is placed in the document.</string>
+          </property>
+          <property name="text" >
+           <string>By c&amp;reation</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -260,7 +221,7 @@
     </widget>
    </item>
    <item>
-    <spacer>
+    <spacer name="verticalSpacer" >
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
@@ -274,6 +235,46 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>gbWordWrap</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cmbDynamicWordWrapIndicator</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>115</x>
+     <y>7</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>366</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbWordWrap</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>sbDynamicWordWrapDepth</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>59</x>
+     <y>6</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>420</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

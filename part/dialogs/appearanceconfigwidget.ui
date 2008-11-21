@@ -18,8 +18,11 @@
    </property>
    <item>
     <widget class="QGroupBox" name="gbWordWrap" >
+     <property name="whatsThis" >
+      <string>If this option is checked, the text lines will be wrapped at the view border on the screen.</string>
+     </property>
      <property name="title" >
-      <string>&amp;Dynamic word wrap</string>
+      <string>&amp;Dynamic Word Wrap</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>

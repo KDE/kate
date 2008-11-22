@@ -82,6 +82,7 @@
 #include <QtGui/QFont>
 #include <QtCore/QFileInfo>
 #include <QtGui/QStyle>
+#include <QtGui/QComboBox>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QLayout>
 #include <QtGui/QClipboard>
@@ -1692,6 +1693,17 @@ bool KateView::selectAllByAction() {
       if (le) {
         le->selectAll();
         return true;
+      } else {
+        QComboBox *cb=qobject_cast<QComboBox*>(QApplication::focusWidget());
+        if (cb) {
+          if (cb->isEditable()) {
+            le=cb->lineEdit();
+            if (le) {
+              le->selectAll();
+              return true;
+            }
+          }
+        }
       }
     }
     return selectAll();

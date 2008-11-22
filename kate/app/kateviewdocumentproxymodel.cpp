@@ -207,19 +207,20 @@ void KateViewDocumentProxyModel::opened(const QModelIndex &index)
 
   m_current = index;
   m_markOpenedTimer->start(100);
-  sort();
+  //sort();
 }
 
 void KateViewDocumentProxyModel::slotMarkOpenedTimer()
 {
+//   kDebug(13001) << "KateViewDocumentProxyModel::slotMarkOpenedTimer: before valid check";
   if (!m_current.isValid()) return;
-
+//   kDebug(13001) << "KateViewDocumentProxyModel::slotMarkOpenedTimer: after valid check";
   QModelIndex index = mapToSource(m_current);
   m_viewHistory.removeAll(index);
   m_viewHistory.prepend(index);
 
   while (m_viewHistory.count() > 10) m_viewHistory.removeLast();
-
+//   kDebug(13001) << "KateViewDocumentProxyModel::slotMarkOpenedTimer: updateBackgrounds";
   updateBackgrounds();
 
 }
@@ -240,7 +241,8 @@ void KateViewDocumentProxyModel::modified(const QModelIndex &proxyIndex)
 void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
 {
   if (!m_shadingEnabled) return;
-kDebug()<<emitSignals;
+//   kDebug()<<"Shading is enabled"<<endl;
+//   kDebug()<<emitSignals;
   QMap <QModelIndex, EditViewCount> helper;
   int i = 1;
   foreach (const QModelIndex &idx, m_viewHistory)
@@ -279,6 +281,7 @@ kDebug()<<emitSignals;
     double t = double(hc - it.value().view + 1) / double(hc);
 
     m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
+//     kdDebug()<<"m_brushes[it.key()]"<<it.key()<<m_brushes[it.key()];
   }
   foreach(const QModelIndex & key, m_brushes.keys())
   {
@@ -296,9 +299,14 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
   if (role == Qt::BackgroundColorRole)
   {
     //kDebug()<<"BACKGROUNDROLE";
-    QBrush br = m_brushes[index];
-    if ((br.style() != Qt::NoBrush) && m_shadingEnabled)
+    QBrush br = m_brushes[mapToSource(index)];
+//     kDebug()<<"br.style()!=Qt::NoBrush:"<<(br.style() != Qt::NoBrush);
+//     kDebug()<<"br"<<br;
+//     kDebug()<<index;
+    if ((br.style() != Qt::NoBrush) && m_shadingEnabled) {
+//       kDebug()<<"returning background brush";
       return br;
+    }
   }
 
   if ( role == CustomOrderRole )

@@ -1662,12 +1662,17 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   // use kate's built-in matching bracket finder for brackets
   if ( QString("{}()[]").indexOf( item ) != -1 ) {
+
+    // move the cursor to the first bracket
     c.setColumn( n1+1 );
     updateCursor( c );
 
-    c - m_viewInternal->findMatchingBracket();
+    // find the matching one
+    c = m_viewInternal->findMatchingBracket();
 
-    c.setColumn( c.column()-1 );
+    if ( c > m_view->cursorPosition() ) {
+      c.setColumn( c.column()-1 );
+    }
   } else {
     int toFind = 1;
     //int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );

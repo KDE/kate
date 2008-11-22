@@ -37,7 +37,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
 
  KTextEditor::Document *kv = win->activeView()->document();
 
- //kDebug(13000)<<"Lines counted :"<<kv->numLines();
+ //kDebug(13000)<<"Lines counted :"<<kv->lines();
  if(treeMode)
    {
     mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Macros") ) );
@@ -63,6 +63,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
 
  for (i=0; i<kv->lines(); i++)
    {
+    //kDebug(13000)<<"Current line :"<<i;
     cl = kv->line(i);
     cl = cl.trimmed();
     func_close = 0;
@@ -122,11 +123,11 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              }
           }
        if (macro == 5)
-          { 
-           if (cl.at(cl.length() - 1) != '\\')
-	      macro = 0; 
+          {
+           if (cl.length() == 0 || cl.at(cl.length() - 1) != '\\')
+               macro = 0;
            continue; 
-          } 
+          }
 
        /* ******************************************************************** */
 

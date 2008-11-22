@@ -50,6 +50,7 @@
 #include <kfiledialog.h>
 #include <ktoggleaction.h>
 #include <kactioncollection.h>
+#include <kiconloader.h>
 
 #include <QPixmap>
 #include <QVBoxLayout>
@@ -336,6 +337,13 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
   return (Kate::PluginConfigPage*)p;
 }
 
+KIcon KatePluginSymbolViewer::configPageIcon (uint number) const
+{
+  QPixmap cls( ( const char** ) class_xpm );
+  if (number != 0) return KIcon();
+  return KIcon(cls);
+}
+
 void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p )
 {
   p->viewReturns->setChecked(pConfig.group("global").readEntry("view_types", true));
@@ -361,6 +369,10 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
     QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
   : Kate::PluginConfigPage( parentWidget )
 {
+  QVBoxLayout *lo = new QVBoxLayout( this );
+  int spacing = KDialog::spacingHint();
+  lo->setSpacing( spacing );
+
   QGroupBox* groupBox = new QGroupBox( i18n("Parser Options"), this);
 
   viewReturns = new QCheckBox(i18n("Display functions parameters"));
@@ -369,9 +381,10 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
   QVBoxLayout* top = new QVBoxLayout();
   top->addWidget(viewReturns);
   top->addWidget(expandTree);
-  top->addStretch(1);
-
   groupBox->setLayout(top);
+  lo->addWidget( groupBox );
+  lo->addStretch( 1 );
+
 
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));

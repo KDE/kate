@@ -65,8 +65,8 @@
 //END
 
 //BEGIN DocWordCompletionModel
-DocWordCompletionModel::DocWordCompletionModel( QObject *parent )
-  : CodeCompletionModel( parent )
+DocWordCompletionModel::DocWordCompletionModel( QObject *parent, DocWordCompletionPlugin *plugin )
+  : CodeCompletionModel( parent ),m_plugin(plugin)
 {
   setHasGroups(false);
 }
@@ -122,10 +122,18 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
     return m_matches.count();
 }
 
-void DocWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType)
+void DocWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
   kDebug( 13040 ) << "invoked the complete trash impl...";
-  saveMatches( view, range );
+  if (it==AutomaticInvocation) {
+    DocWordCompletionPluginView *v=m_plugin->m_views[view];
+    if (v->autoPopupEnabled()) {
+      if ((range.columnWidth())>=v->threshold())
+        saveMatches( view, range );
+      else
+        m_matches.clear();
+    } else m_matches.clear();
+  } else saveMatches( view, range );
 }
 
 
@@ -182,25 +190,28 @@ DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
   : KTextEditor::Plugin ( parent )
 {
   plugin = this;
-  m_dWCompletionModel = new DocWordCompletionModel( this );
+  m_dWCompletionModel = new DocWordCompletionModel( this,this );
   readConfig();
 }
 
 void DocWordCompletionPlugin::addView(KTextEditor::View *view)
 {
   DocWordCompletionPluginView *nview = new DocWordCompletionPluginView (m_treshold, m_autopopup, view, m_dWCompletionModel );
-  m_views.append (nview);
+  m_views.insert(view,nview);
 }
 
 void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
 {
-  for (int z=0; z < m_views.size(); ++z)
-    if (m_views.at(z)->parentClient() == view)
-    {
-       DocWordCompletionPluginView *nview = m_views.at(z);
-       m_views.removeAll (nview);
-       delete nview;
-    }
+    DocWordCompletionPluginView *nview=m_views[view];
+    m_views.remove(view);
+    delete nview;
+//   for (int z=0; z < m_views.size(); ++z)
+//     if (m_views.at(z)->parentClient() == view)
+//     {
+//        DocWordCompletionPluginView *nview = m_views.at(z);
+//        m_views.removeAll (nview);
+//        delete nview;
+//     }
 }
 
 void DocWordCompletionPlugin::readConfig()
@@ -359,6 +370,14 @@ DocWordCompletionPluginView::~DocWordCompletionPluginView()
 void DocWordCompletionPluginView::setTreshold( uint t )
 {
   d->treshold = t;
+}
+
+uint DocWordCompletionPluginView::threshold() {
+    return d->treshold;
+}
+
+bool DocWordCompletionPluginView::autoPopupEnabled() {
+  return d->autopopup->isChecked();
 }
 
 void DocWordCompletionPluginView::setAutoPopupEnabled( bool enable )

@@ -47,7 +47,7 @@ class DocWordCompletionModel
 {
   Q_OBJECT
   public:
-    DocWordCompletionModel( QObject *parent );
+    DocWordCompletionModel( QObject *parent, class DocWordCompletionPlugin *plugin );
     ~DocWordCompletionModel();
 
     /**
@@ -74,6 +74,7 @@ class DocWordCompletionModel
 
   private:
     QStringList m_matches;
+    class DocWordCompletionPlugin *m_plugin;
 };
 
 class DocWordCompletionPlugin
@@ -100,7 +101,8 @@ class DocWordCompletionPlugin
     void setAutoPopupEnabled( bool enable );
   private:
     static DocWordCompletionPlugin *plugin;
-    QList<class DocWordCompletionPluginView*> m_views;
+    friend class DocWordCompletionModel;
+    QHash<class KTextEditor::View*,class DocWordCompletionPluginView*> m_views;
     uint m_treshold;
     bool m_autopopup;
     DocWordCompletionModel *m_dWCompletionModel;
@@ -121,7 +123,8 @@ class DocWordCompletionPluginView
 
     void setTreshold( uint treshold );
     void setAutoPopupEnabled( bool enable );
-
+    uint threshold();
+    bool autoPopupEnabled();
   public Q_SLOTS:
     void toggleAutoPopup();
 

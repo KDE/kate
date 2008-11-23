@@ -154,7 +154,10 @@ bool KateSession::rename (const QString &name)
     return false;
   }
   m_sessionName = name;
-
+  delete m_writeConfig;
+  m_writeConfig=0;
+  delete m_readConfig;
+  m_readConfig=0;
   return true;
 }
 
@@ -240,6 +243,12 @@ void KateSessionManager::updateSessionList ()
   for (unsigned int i = 0; i < dir.count(); ++i)
   {
     KateSession *session = new KateSession (this, dir[i]);
+    if (m_activeSession)
+      if (session->sessionName()==m_activeSession->sessionName())
+      {
+        delete session;
+        session=m_activeSession.data();
+      }
     m_sessionList.append (KateSession::Ptr(session));
 
     //kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
@@ -907,7 +916,7 @@ void KateSessionManageDialog::selectionChanged (QTreeWidgetItem *current, QTreeW
   const bool validItem = (current != NULL);
 
   m_rename->setEnabled (validItem);
-  m_del->setEnabled (validItem);
+  m_del->setEnabled (validItem && ((KateSessionChooserItem*)current)->session!=KateSessionManager::self()->activeSession());
   button(User2)->setEnabled (validItem);
 }
 
@@ -930,8 +939,12 @@ void KateSessionManageDialog::rename ()
     return;
   }
 
-  if (item->session->rename (name))
+  if (item->session->rename (name)) {
+    if (item->session==KateSessionManager::self()->activeSession()) {
+      emit KateSessionManager::self()->sessionChanged();
+    }
     updateSessionList ();
+  }
   else
     KMessageBox::sorry(this, i18n("The session could not be renamed to \"%1\", there already exists another session with the same name", name), i18n("Session Renaming"));
 }

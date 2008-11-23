@@ -289,6 +289,7 @@ class KateSessionManager : public QObject
     /**
      * Emitted, whenever the session changes, e.g. when it was renamed.
      */
+    friend class KateSessionManageDialog;
     void sessionChanged();
 
   private Q_SLOTS:

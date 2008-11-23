@@ -35,6 +35,14 @@
 #include <KDirWatch>
 #include <QGraphicsLinearLayout>
 #include <KGlobalSettings>
+#include <KUrl>
+#include <KStringHandler>
+#include <QFile>
+
+
+bool katesessions_compare_sessions(const QString &s1, const QString &s2) {
+    return KStringHandler::naturalCompare(s1,s2)==-1;
+}
 
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
@@ -85,14 +93,14 @@ QWidget *KateSessionApplet::widget()
 
 void KateSessionApplet::slotUpdateSessionMenu()
 {
-    m_kateModel->clear();
-    initSessionFiles();
+   m_kateModel->clear();
+   m_sessions.clear(); 
+   initSessionFiles();
 }
 
 void KateSessionApplet::initSessionFiles()
 {
-    int index = 0;
-
+    int index=0;
     QStandardItem *item = new QStandardItem();
     item->setData(i18n("Start Kate (no arguments)"), Qt::DisplayRole);
     item->setData( KIcon( "kate" ), Qt::DecorationRole );
@@ -112,14 +120,23 @@ void KateSessionApplet::initSessionFiles()
     m_kateModel->appendRow(item);
 
     const QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
+    KUrl url;
     for (QStringList::ConstIterator it = list.constBegin(); it != list.constEnd(); ++it)
     {
-        KConfig _config( *it, KConfig::SimpleConfig );
+        url.setPath(*it);
+        QString name=url.fileName();
+        name = QUrl::fromPercentEncoding(QFile::encodeName(url.fileName()));
+        name.chop(12);///.katesession==12
+/*        KConfig _config( *it, KConfig::SimpleConfig );
         KConfigGroup config(&_config, "General" );
-        QString name =  config.readEntry( "Name" );
+        QString name =  config.readEntry( "Name" );*/
         m_sessions.append( name );
+    }
+    qSort(m_sessions.begin(),m_sessions.end(),katesessions_compare_sessions);
+    for(QStringList::ConstIterator it=m_sessions.constBegin();it!=m_sessions.constEnd();++it)
+    {
         item = new QStandardItem();
-        item->setData(name, Qt::DisplayRole);
+        item->setData(*it, Qt::DisplayRole);
         item->setData( index++, Index );
         m_kateModel->appendRow( item);
     }

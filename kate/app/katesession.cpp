@@ -38,6 +38,7 @@
 #include <KActionCollection>
 #include <KIO/NetAccess>
 #include <KIO/CopyJob>
+#include <KStringHandler>
 
 #include <QDir>
 #include <QLabel>
@@ -50,10 +51,9 @@
 #include <unistd.h>
 #include <time.h>
 
-// used to sort the session list (qSort)
-bool caseInsensitiveLessThan(const KateSession::Ptr& a, const KateSession::Ptr& b)
-{
-  return a->sessionName().toLower() < b->sessionName().toLower();
+
+bool katesessions_compare_sessions_ptr(const KateSession::Ptr &s1, const KateSession::Ptr &s2) {
+    return KStringHandler::naturalCompare(s1->sessionName(),s2->sessionName())==-1;
 }
 
 //BEGIN KateSession
@@ -120,7 +120,7 @@ bool KateSession::create (const QString &name, bool force)
 
   // create the file, write name to it!
   KConfig config (sessionFile (), KConfig::SimpleConfig);
-  config.group("General").writeEntry ("Name", m_sessionName);
+//  config.group("General").writeEntry ("Name", m_sessionName);
   config.sync ();
 
   // reinit ourselfs ;)
@@ -178,7 +178,7 @@ KConfig *KateSession::configWrite ()
     return m_writeConfig;
 
   m_writeConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
-  m_writeConfig->group("General").writeEntry ("Name", m_sessionName);
+//  m_writeConfig->group("General").writeEntry ("Name", m_sessionName);
 
   return m_writeConfig;
 }
@@ -242,10 +242,10 @@ void KateSessionManager::updateSessionList ()
     KateSession *session = new KateSession (this, dir[i]);
     m_sessionList.append (KateSession::Ptr(session));
 
-    kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
+    //kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
   }
 
-  qSort(m_sessionList.begin(), m_sessionList.end(), caseInsensitiveLessThan);
+  qSort(m_sessionList.begin(), m_sessionList.end(), katesessions_compare_sessions_ptr);
 }
 
 void KateSessionManager::activateSession (KateSession::Ptr session,
@@ -426,7 +426,6 @@ bool KateSessionManager::saveActiveSession (bool tryAsk, bool rememberAsLast)
     c->group("General").writeEntry ("Last Session", activeSession()->sessionFileRelative());
     c->sync ();
   }
-
   return true;
 }
 
@@ -584,6 +583,7 @@ void KateSessionManager::sessionSaveAs ()
 {
   newSessionName();
   saveActiveSession ();
+  emit sessionChanged();
 }
 
 bool KateSessionManager::newSessionName()
@@ -616,7 +616,7 @@ void KateSessionManager::sessionSaveAsDefault ()
 
   // use this local file to store the defaults to
   KConfig defaultConfig(localSessionFile, KConfig::SimpleConfig);
-  defaultConfig.group("General").writeEntry ("Name", QString());
+//  defaultConfig.group("General").writeEntry ("Name", QString());
 
   saveSessionTo(&defaultConfig);
 

@@ -18,6 +18,7 @@ Name[sv]=Ctags-insticksprogram
 Name[tr]=CTags Eklentisi
 Name[uk]=Додаток CTags
 Name[x-test]=xxCTags Pluginxx
+Name[zh_CN]=CTags 插件
 Name[zh_TW]=CTags 外掛程式
 Comment=Look up definitions/declarations with CTags
 Comment[de]=Definition/Deklaration mit CTags nachschauen
@@ -33,5 +34,6 @@ Comment[sv]=Slå upp definitioner och deklarationer med Ctags
 Comment[tr]=CTags ile bildirimlerde ve tanımlamalarda ara
 Comment[uk]=Знайдіть визначення/декларації за допомогою CTags
 Comment[x-test]=xxLook up definitions/declarations with CTagsxx
+Comment[zh_CN]=使用 CTags 查阅代码中的定义/声明
 Comment[zh_TW]=使用 CTags 尋找定義與宣告
 

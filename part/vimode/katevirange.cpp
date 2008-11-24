@@ -50,7 +50,7 @@ KateViRange::KateViRange()
 
 void KateViRange::normalize()
 {
-    if ( startLine > endLine || startColumn > endColumn ) {
+    if ( startLine > endLine || ( startLine == endLine && startColumn > endColumn ) ) {
         int tempC, tempL;
         tempL = startLine;
         tempC = startColumn;

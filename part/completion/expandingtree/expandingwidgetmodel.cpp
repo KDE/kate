@@ -25,8 +25,10 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
 #include <ktextedit.h>
+#include "kcolorutils.h"
 
 #include "expandingdelegate.h"
+#include <qapplication.h>
 
 QIcon ExpandingWidgetModel::m_expandedIcon;
 QIcon ExpandingWidgetModel::m_collapsedIcon;
@@ -46,6 +48,11 @@ ExpandingWidgetModel::~ExpandingWidgetModel() {
     clearExpanding();
 }
 
+static QColor doAlternate(QColor color) {
+  QColor background = QApplication::palette().background().color();
+  return KColorUtils::mix(color, background, 0.15);
+}
+
 uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
   
   int matchQuality = contextMatchQuality( index.sibling(index.row(), 0) );
@@ -54,20 +61,26 @@ uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
   {
     bool alternate = index.row() & 1;
     
-    quint64 badMatchColor = 0xff7777ff; //Full blue
-    quint64 goodMatchColor = 0xff77ff77; //Full green
+    QColor badMatchColor(0xff0000ff); //Full blue
+    QColor goodMatchColor(0xff00ff00); //Green
 
-    if( alternate ) {
-      badMatchColor += 0x00080000;
-      goodMatchColor += 0x00080000;
-    }
-    uint totalColor = (badMatchColor*(10-matchQuality) + goodMatchColor*matchQuality)/10;
-    return totalColor;
+
+    QColor background = treeView()->palette().light().color();
+    const float tintBackground = 0.45;
+    
+    badMatchColor = KColorUtils::tint(background, badMatchColor, tintBackground);
+    goodMatchColor = KColorUtils::tint(background, goodMatchColor, tintBackground);
+
+    QColor totalColor = KColorUtils::mix(badMatchColor, goodMatchColor, ((float)matchQuality)/10.0);
+    
+    if(alternate)
+      totalColor = doAlternate(totalColor);
+    
+    return totalColor.rgb();
   }else{
     return 0;
   }
 }
-    
 
 QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
 {
@@ -80,13 +93,13 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
         if( color )
           return QBrush( color );
       }
-      ///@todo Choose a color from the color scheme
       //Use a special background-color for expanded items
       if( isExpanded(index) ) {
-        if( index.row() & 1 )
-          return QBrush(0xffd8ca6c);
-        else
-          return QBrush(0xffeddc6a);
+        if( index.row() & 1 ) {
+	  return doAlternate(treeView()->palette().toolTipBase().color());
+	} else {
+          return treeView()->palette().toolTipBase();
+	}
       }
     }
   }

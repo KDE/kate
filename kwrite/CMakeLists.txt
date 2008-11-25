@@ -1,5 +1,7 @@
 set(kwrite_KDEINIT_SRCS kwritemain.cpp)
 
+kde4_add_app_icon(kwrite_KDEINIT_SRCS "pics/hi*-app-kwrite.png")
+
 kde4_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
 target_link_libraries(kdeinit_kwrite ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KPARTS_LIBS})
 

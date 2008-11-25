@@ -211,6 +211,11 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_Down:
       m_view->down(); // FIXME: should go down an actual line, not a virtual line
       return true;
+    case Qt::Key_Delete:
+      m_view->keyDelete();
+      return true;
+    default:
+      return false;
       break;
     }
   } else if ( e->modifiers() == Qt::ControlModifier ) {

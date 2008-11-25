@@ -213,6 +213,8 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
           QTextCharFormat fm;
           fm.setForeground(QBrush(additionalFormats[a].format.foreground().color()));
           fm.setBackground(additionalFormats[a].format.background());
+	  fm.setUnderlineStyle( additionalFormats[a].format.underlineStyle() );
+	  fm.setUnderlineColor( additionalFormats[a].format.underlineColor() );
           additionalFormats[a].format = fm;
       }
   }

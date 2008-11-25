@@ -20,53 +20,65 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
   if (!win->activeView())
    return;
 
- popup->changeItem( popup->idAt(2),i18n("Show Globals"));
- popup->changeItem( popup->idAt(3),i18n("Show Methods"));
- popup->changeItem( popup->idAt(4),i18n("Show Classes"));
- QString cl; // Current Line
- QPixmap cls( ( const char** ) class_xpm );
- QPixmap mtd( ( const char** ) method_xpm );
- QPixmap mcr( ( const char** ) macro_xpm );
-
- int in_class = 0, state = 0, j;
- QString name;
-
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
- QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
-
- KTextEditor::Document *kv = win->activeView()->document();
+  popup->changeItem( popup->idAt(2),i18n("Show Globals"));
+  popup->changeItem( popup->idAt(3),i18n("Show Methods"));
+  popup->changeItem( popup->idAt(4),i18n("Show Classes"));
+  QString cl; // Current Line
+  QPixmap cls( ( const char** ) class_xpm );
+  QPixmap mtd( ( const char** ) method_xpm );
+  QPixmap mcr( ( const char** ) macro_xpm );
+  
+  int in_class = 0, state = 0, j;
+  QString name;
+  
+  QTreeWidgetItem *node = NULL;
+  QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
+  QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
+  
+  KTextEditor::Document *kv = win->activeView()->document();
 
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
- if(treeMode)
-   {
-    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Classes") ) );
-    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
-    mcrNode->setIcon(0, QIcon(mcr));
-    clsNode->setIcon(0, QIcon(cls));
-
-    if (expanded_on)
-      {
-       symbols->expandItem(mcrNode);
-       symbols->expandItem(clsNode);
-      }
-    lastClsNode = clsNode;
-    lastMcrNode = mcrNode;
-    mtdNode = clsNode;
-    lastMtdNode = clsNode;
-    symbols->setRootIsDecorated(1);
-   }
- else
-     symbols->setRootIsDecorated(0);
-
- for (int i=0; i<kv->lines(); i++)
+  if(treeMode)
     {
-     cl = kv->line(i);
+      clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Classes") ) );
+      mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
+      mcrNode->setIcon(0, QIcon(mcr));
+      clsNode->setIcon(0, QIcon(cls));
+  
+      if (expanded_on)
+        {
+        symbols->expandItem(mcrNode);
+        symbols->expandItem(clsNode);
+        }
+      lastClsNode = clsNode;
+      lastMcrNode = mcrNode;
+      mtdNode = clsNode;
+      lastMtdNode = clsNode;
+      symbols->setRootIsDecorated(1);
+    }
+  else
+      symbols->setRootIsDecorated(0);
+
+for (int i=0; i<kv->lines(); i++)
+ {
+    int line=i;
+    cl = kv->line(i);
+    // concatenate continued lines and remove continuation marker
+    if (cl.length()==0) continue;
+    while (cl[cl.length()-1]=='\\')
+    {
+      cl=cl.left(cl.length()-1);
+      i++;
+      if (i<kv->lines())
+        cl+=kv->line(i);
+      else
+        break;
+    }
 
     if(cl.indexOf( QRegExp("^class [a-zA-Z0-9_,\\s\\(\\).]+:") ) >= 0) in_class = 1;
 
      //if(cl.find( QRegExp("[\\s]+def [a-zA-Z_]+[^#]*:") ) >= 0) in_class = 2;
-     if(cl.indexOf( QRegExp("^def [a-zA-Z_]+[^#]*:") ) >= 0 ) in_class = 0;
+     if(cl.indexOf( QRegExp("^def\\s+[a-zA-Z_]+[^#]*:") ) >= 0 ) in_class = 0;
 
      if (cl.indexOf("def ") >= 0 || (cl.indexOf("class ") >= 0 && in_class == 1))
        {
@@ -110,7 +122,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
              node->setText(0, name);
              node->setIcon(0, QIcon(cls));
-             node->setText(1, QString::number( i, 10));
+             node->setText(1, QString::number( line, 10));
             }
 
          if (struct_on == true && in_class == 2)
@@ -124,7 +136,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
             node->setText(0, name);
             node->setIcon(0, QIcon(mtd));
-            node->setText(1, QString::number( i, 10));
+            node->setText(1, QString::number( line, 10));
            }
 
           if (macro_on == true && in_class == 0)
@@ -138,7 +150,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
              node->setText(0, name);
              node->setIcon(0, QIcon(mcr));
-             node->setText(1, QString::number( i, 10));
+             node->setText(1, QString::number( line, 10));
             }
 
          state = 0;
@@ -149,4 +161,4 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 }
 
 
-
+// kate: space-indent on; indent-width 2; replace-tabs on;

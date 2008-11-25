@@ -68,6 +68,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
     if ( !editor )
     {
+      // TODO KDE 4.3 Replace ; with a .
       KMessageBox::error(this, i18n("A KDE text-editor component could not be found;\n"
                                     "please check your KDE installation."));
       kapp->exit(1);
@@ -146,6 +147,8 @@ KWrite::~KWrite()
 
 void KWrite::setupActions()
 {
+  // TODO KDE 4.3 change to "Use this command to close the current document" to be in flow with the 
+  // two actions below
   actionCollection()->addAction( KStandardAction::Close, "file_close", this, SLOT(slotFlush()) )
     ->setWhatsThis(i18n("Use this to close the current document"));
 
@@ -480,6 +483,7 @@ void KWrite::restore()
 
   if ( !editor )
   {
+    // TODO KDE 4.3 Replace ; with a .
     KMessageBox::error(0, i18n("A KDE text-editor component could not be found;\n"
                                   "please check your KDE installation."));
     kapp->exit(1);
@@ -640,7 +644,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
   aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
   aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
-  aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
+  aboutData.addAuthor (ki18n("Matt Newell"), ki18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), "newellm@proaxis.com");
   aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
   aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
   aboutData.addAuthor (ki18n("Jochen Wilhemly"), ki18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
@@ -662,7 +666,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit (ki18n("Daniel Naber"));
   aboutData.addCredit (ki18n("Roland Pabel"),ki18n("Highlighting for Scheme"));
   aboutData.addCredit (ki18n("Cristi Dumitrescu"),ki18n("PHP Keyword/Datatype list"));
-  aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"));
+  aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18nc("Credit text for someone that helped a lot", "Very nice help"));
   aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
   aboutData.setProgramIconName ("accessories-text-editor");

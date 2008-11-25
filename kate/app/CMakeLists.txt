@@ -51,7 +51,7 @@ if (WIN32)
 
     kde4_add_executable(kate ${kate_KDEINIT_SRCS} )
 
-    target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
+    target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${QT_QTGUI_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
 else (WIN32)
     kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})
 

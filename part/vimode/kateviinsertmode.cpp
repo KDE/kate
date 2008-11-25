@@ -185,8 +185,6 @@ bool KateViInsertMode::commandMoveOneWordRight()
  */
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
-  kDebug( 13070 ) << e;
-
   // backspace should work even if the shift key is down
   if (e->modifiers() != Qt::ControlModifier && e->key() == Qt::Key_Backspace ) {
     m_view->backspace();
@@ -206,13 +204,25 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       m_view->cursorRight();
       return true;
     case Qt::Key_Up:
-      m_view->up(); // FIXME: should go up an actual line, not a virtual line
+      m_view->up();
       return true;
     case Qt::Key_Down:
-      m_view->down(); // FIXME: should go down an actual line, not a virtual line
+      m_view->down();
       return true;
     case Qt::Key_Delete:
       m_view->keyDelete();
+      return true;
+    case Qt::Key_Home:
+      m_view->home();
+      return true;
+    case Qt::Key_End:
+      m_view->end();
+      return true;
+    case Qt::Key_PageUp:
+      m_view->pageUp();
+      return true;
+    case Qt::Key_PageDown:
+      m_view->pageDown();
       return true;
     default:
       return false;

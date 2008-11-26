@@ -200,7 +200,7 @@ class KateViewEncodingAction: public KSelectAction
   public:
     KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent);
 
-    ~KateViewEncodingAction(){}
+    ~KateViewEncodingAction();
     
     KEncodingProber::ProberType currentProberType() const;
 

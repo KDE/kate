@@ -1701,6 +1701,11 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
+KateViewEncodingAction::~KateViewEncodingAction()
+{
+    delete d;
+}
+
 void KateViewEncodingAction::actionTriggered(QAction *action)
 {
   if (action == d->defaultAction)

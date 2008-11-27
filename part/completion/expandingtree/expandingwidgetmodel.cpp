@@ -57,7 +57,7 @@ uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
   
   int matchQuality = contextMatchQuality( index.sibling(index.row(), 0) );
   
-  if( matchQuality != -1 )
+  if( matchQuality > 0 )
   {
     bool alternate = index.row() & 1;
     

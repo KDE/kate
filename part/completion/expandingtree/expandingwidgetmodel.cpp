@@ -61,22 +61,23 @@ uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
   {
     bool alternate = index.row() & 1;
     
-    QColor badMatchColor(0xff0000ff); //Full blue
+    QColor badMatchColor(0xff00aa44); //Blueish green
     QColor goodMatchColor(0xff00ff00); //Green
 
-
     QColor background = treeView()->palette().light().color();
-    const float tintBackground = 0.45;
     
-    badMatchColor = KColorUtils::tint(background, badMatchColor, tintBackground);
-    goodMatchColor = KColorUtils::tint(background, goodMatchColor, tintBackground);
-
     QColor totalColor = KColorUtils::mix(badMatchColor, goodMatchColor, ((float)matchQuality)/10.0);
-    
+
     if(alternate)
       totalColor = doAlternate(totalColor);
     
-    return totalColor.rgb();
+    const float dynamicTint = 0.2;
+    const float minimumTint = 0.2;
+    double tintStrength = (dynamicTint*matchQuality)/10;
+    if(tintStrength)
+      tintStrength += minimumTint; //Some minimum tinting strength, else it's not visible any more
+    
+    return KColorUtils::tint(background, totalColor, tintStrength ).rgb();
   }else{
     return 0;
   }

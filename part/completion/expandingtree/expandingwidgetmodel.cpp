@@ -436,10 +436,10 @@ QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const
 
 void ExpandingWidgetModel::cacheIcons() const {
     if( m_expandedIcon.isNull() )
-      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", KIconLoader::Small);
+      m_expandedIcon = KIconLoader::global()->loadIcon("arrow-down", KIconLoader::Small, 10);
     
     if( m_collapsedIcon.isNull() )
-      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", KIconLoader::Small);
+      m_collapsedIcon = KIconLoader::global()->loadIcon("arrow-right", KIconLoader::Small, 10);
 }
 
 QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& left, int rightSize, const QList<QVariant>& right )

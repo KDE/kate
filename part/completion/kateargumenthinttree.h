@@ -51,6 +51,7 @@ class KateArgumentHintTree : public ExpandingTree {
     virtual void dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight );
     virtual void currentChanged ( const QModelIndex & current, const QModelIndex & previous );
   private:
+    uint rowHeight(const QModelIndex& index) const;
     KateArgumentHintModel* model() const;
     virtual int sizeHintForColumn ( int column ) const;
     

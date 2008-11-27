@@ -84,6 +84,17 @@ int KateArgumentHintTree::sizeHintForColumn(int column) const {
   return QTreeView::sizeHintForColumn(column);
 }
 
+unsigned int KateArgumentHintTree::rowHeight(const QModelIndex& index) const {
+  uint max = sizeHintForIndex(index).height();
+
+  for(int a = 0; a < index.model()->columnCount(index.parent()); ++a) {
+    QModelIndex i = index.sibling(index.row(), a);
+    uint cSize = sizeHintForIndex(i).height();
+    if(cSize > max)
+      max = cSize;
+  }
+  return max;
+}
 
 void KateArgumentHintTree::updateGeometry(QRect geom) {
   //Avoid recursive calls of updateGeometry
@@ -106,12 +117,15 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   int totalHeight = 0;
   for(int a = 0; a < model()->rowCount( QModelIndex() ); ++a) {
     QModelIndex index(model()->index(a, 0));
-    totalHeight += sizeHintForIndex(index).height() + 3;
+    totalHeight += rowHeight(index);
     for(int b = 0; b < model()->rowCount(index); ++b) {
       QModelIndex childIndex = index.child(b, 0);
-      totalHeight += sizeHintForIndex(childIndex).height() + 3;
+      totalHeight += rowHeight(childIndex);
     }
   }
+  
+  totalHeight += frameWidth()*2;
+  
   QRect topRect = visualRect(model()->index(0, 0));
   QRect contentRect = visualRect(model()->index(model()->rowCount(QModelIndex())-1, 0));
   

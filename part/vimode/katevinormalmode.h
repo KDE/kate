@@ -83,8 +83,6 @@ class KateViNormalMode : public KateViModeBase
     bool commandYankLine();
     bool commandYankToEOL();
 
-    bool commandFormatLines();
-
     bool commandPaste();
     bool commandPasteBefore();
 

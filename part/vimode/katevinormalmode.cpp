@@ -1042,11 +1042,6 @@ bool KateViNormalMode::commandYankToEOL()
   return false;
 }
 
-bool KateViNormalMode::commandFormatLines()
-{
-  return false;
-}
-
 // insert the text in the given register at the cursor position
 // the cursor should end up at the end of what was pasted
 bool KateViNormalMode::commandPaste()
@@ -1993,7 +1988,6 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "D", &KateViNormalMode::commandDeleteToEOL, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "x", &KateViNormalMode::commandDeleteChar, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "X", &KateViNormalMode::commandDeleteCharBackward, IS_CHANGE ) );
-  m_commands.push_back( new KateViCommand( this, "gq", &KateViNormalMode::commandFormatLines, IS_CHANGE | NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "gu", &KateViNormalMode::commandMakeLowercase, IS_CHANGE | NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "guu", &KateViNormalMode::commandMakeLowercaseLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "gU", &KateViNormalMode::commandMakeUppercase, IS_CHANGE | NEEDS_MOTION ) );

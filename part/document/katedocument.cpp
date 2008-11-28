@@ -5282,10 +5282,15 @@ bool KateDocument::documentReload()
     KateDocument::openUrl( url() );
     m_reloading = false;
 
+
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();
-    for(int i = 0; i < m_views.size(); ++i, ++it)
+    for(int i = 0; i < m_views.size(); ++i, ++it) {
       (*it)->setCursorPositionInternal( cursorPositions[i], m_config->tabWidth(), false );
+      if ((*it)->isVisible()) {
+        (*it)->repaintText(false);
+      }
+    }
 
     for (int z=0; z < tmp.size(); z++)
     {

@@ -1896,6 +1896,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   updateBracketMarks();
 
   // It's efficient enough to just tag them both without checking to see if they're on the same view line
+/*  kdDebug()<<"oldDisplayCursor:"<<oldDisplayCursor<<endl;
+  kdDebug()<<"m_displayCursor:"<<m_displayCursor<<endl;*/
   tagLine(oldDisplayCursor);
   tagLine(m_displayCursor);
 

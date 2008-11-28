@@ -23,6 +23,7 @@
     <Action name="edit_deselect" group="edit_select_merge" />
     <Action name="set_verticalSelect" group="edit_select_merge" />
     <Separator group="edit_select_merge" />
+    <Action name="view_vi_input_mode" group="edit_select_merge" />
     <Action name="set_insert" group="edit_select_merge" />
     <Separator group="edit_select_merge" />
     <Action name="edit_find" group="edit_find_merge" />
@@ -36,7 +37,6 @@
   </Menu>
 
   <Menu name="view" noMerge="1"><text>&amp;View</text>
-    <Action name="view_vi_input_mode" group="view_operations" />
     <Action name="switch_to_cmd_line" group="view_operations" />
     <Separator group="view_operations" />
     <Action name="view_schemas" group="view_operations" />

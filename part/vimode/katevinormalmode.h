@@ -53,6 +53,7 @@ class KateViNormalMode : public KateViModeBase
     bool commandEnterInsertMode();
     bool commandEnterInsertModeAppend();
     bool commandEnterInsertModeAppendEOL();
+    bool commandEnterInsertModeBeforeFirstCharacterOfLine();
 
     bool commandEnterVisualMode();
     bool commandEnterVisualLineMode();

@@ -425,6 +425,20 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   return startInsertMode();
 }
 
+bool KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine()
+{
+  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  QRegExp nonSpace( "\\S" );
+  int c = getLine().indexOf( nonSpace );
+  if ( c == -1 ) {
+    c = 0;
+  }
+  cursor.setColumn( c );
+  updateCursor( cursor );
+
+  return startInsertMode();
+}
+
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
   if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
@@ -1973,6 +1987,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "I", &KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode ) );
   m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, IS_CHANGE ) );

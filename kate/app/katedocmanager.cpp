@@ -245,9 +245,12 @@ uint KateDocManager::documents ()
 
 KTextEditor::Document *KateDocManager::findDocument (const KUrl &url) const
 {
+  KUrl u(url);
+  u.cleanPath();
+
   foreach (KTextEditor::Document* it, m_docList)
   {
-    if ( it->url() == url)
+    if ( it->url() == u)
       return it;
   }
 
@@ -262,6 +265,8 @@ bool KateDocManager::isOpen(KUrl url)
 
 KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile)
 {
+  KUrl u(url);
+  u.cleanPath();
   // special handling if still only the first initial doc is there
   if (!documentList().isEmpty() && (documentList().count() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty()))
   {
@@ -269,24 +274,24 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
     doc->setEncoding(encoding);
 
-    if (!url.isEmpty())
+    if (!u.isEmpty())
     {
       doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
 
-      if (!loadMetaInfos(doc, url))
-        doc->openUrl (url);
+      if (!loadMetaInfos(doc, u))
+        doc->openUrl (u);
       else if (! encoding.isEmpty()) // set encoding again if provided, as metainfos sets it.
         doc->setEncoding(encoding);
 
       doc->setSuppressOpeningErrorDialogs (false);
 
-      if ( isTempFile && url.isLocalFile() )
+      if ( isTempFile && u.isLocalFile() )
       {
-        QFileInfo fi( url.path() );
+        QFileInfo fi( u.path() );
         if ( fi.exists() )
         {
-          m_tempFiles[ doc] = qMakePair(url, fi.lastModified());
-          kDebug(13001) << "temporary file will be deleted after use unless modified: " << url.prettyUrl();
+          m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
+          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.prettyUrl();
         }
       }
     }
@@ -301,8 +306,8 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
   KTextEditor::Document *doc = 0;
 
   // always new document if url is empty...
-  if (!url.isEmpty())
-    doc = findDocument (url);
+  if (!u.isEmpty())
+    doc = findDocument (u);
 
   if ( !doc )
   {
@@ -310,12 +315,12 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
     doc->setEncoding(encoding);
 
-    if (!url.isEmpty())
+    if (!u.isEmpty())
     {
       doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
 
-      if (!loadMetaInfos(doc, url))
-        doc->openUrl (url);
+      if (!loadMetaInfos(doc, u))
+        doc->openUrl (u);
 
       doc->setSuppressOpeningErrorDialogs (false);
     }

@@ -69,7 +69,14 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_needShow(false)
   , m_expandedAddedHeightBase(0)
   , m_expandingAddedHeight(0)
+  , m_hadCompletionNavigation(false)
 {
+  connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
+  connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));
+  connect(parent, SIGNAL(navigateDown()), SLOT(navigateDown()));
+  connect(parent, SIGNAL(navigateLeft()), SLOT(navigateLeft()));
+  connect(parent, SIGNAL(navigateRight()), SLOT(navigateRight()));
+  connect(parent, SIGNAL(navigateUp()), SLOT(navigateUp()));
 
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );
@@ -448,7 +455,9 @@ void KateCompletionWidget::clear() {
   m_argumentHintModel->clear();
 }
 
-bool KateCompletionWidget::embeddedWidgetAccept() {
+bool KateCompletionWidget::navigateAccept() {
+  m_hadCompletionNavigation = true;
+  
   if(currentEmbeddedWidget())
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetAccept");
   
@@ -462,7 +471,7 @@ bool KateCompletionWidget::embeddedWidgetAccept() {
   return false;
 }
 
-void KateCompletionWidget::execute(bool shift)
+void KateCompletionWidget::execute()
 {
   kDebug(13035) ;
 
@@ -471,11 +480,6 @@ void KateCompletionWidget::execute(bool shift)
 
   QModelIndex index = selectedIndex();
   
-  if( shift ) {
-    embeddedWidgetAccept();
-    return;
-  }
-
   if (!index.isValid())
     return abortCompletion();
 
@@ -578,13 +582,17 @@ KateCompletionTree* KateCompletionWidget::treeView() const {
 }
 
 QModelIndex KateCompletionWidget::selectedIndex() const {
+  if(!isCompletionActive())
+    return QModelIndex();
+  
   if( m_inCompletionList )
     return m_entryList->currentIndex();
   else
     return m_argumentHintTree->currentIndex();
 }
 
-bool KateCompletionWidget::embeddedWidgetLeft() {
+bool KateCompletionWidget::navigateLeft() {
+  m_hadCompletionNavigation = true;
   if(currentEmbeddedWidget())
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetLeft");
   
@@ -598,7 +606,8 @@ bool KateCompletionWidget::embeddedWidgetLeft() {
   return false;
 }
 
-bool KateCompletionWidget::embeddedWidgetRight() {
+bool KateCompletionWidget::navigateRight() {
+  m_hadCompletionNavigation = true;
   if(currentEmbeddedWidget()) ///@todo post 4.2: Make these slots public interface, or create an interface using virtual functions
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetRight");
   
@@ -612,36 +621,33 @@ bool KateCompletionWidget::embeddedWidgetRight() {
   return false;
 }
 
-bool KateCompletionWidget::embeddedWidgetBack() {
+bool KateCompletionWidget::hadNavigation() const {
+  return m_hadCompletionNavigation;
+}
+
+void KateCompletionWidget::resetHadNavigation() {
+  m_hadCompletionNavigation = false;
+}
+
+
+bool KateCompletionWidget::navigateBack() {
+  m_hadCompletionNavigation = true;
   if(currentEmbeddedWidget())
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetBack");
   return false;
 }
 
-bool KateCompletionWidget::cursorLeft( bool shift ) {
-  if( shift ) {
-    embeddedWidgetLeft();
-
-    return true;
-  }
-
-  return false;
-}
-
-bool KateCompletionWidget::cursorRight( bool shift ) {
-  if( shift ) {
-    embeddedWidgetRight();
-    return true;
-  }
-
-  return false;
-}
-
-void KateCompletionWidget::toggleExpanded() {
-  if ( canExpandCurrentItem() )
+bool KateCompletionWidget::toggleExpanded(bool forceExpand, bool forceUnExpand) {
+  if ( (canExpandCurrentItem() || forceExpand ) && !forceUnExpand) {
+    bool ret = canExpandCurrentItem();
     setCurrentItemExpanded(true);
-  else if (canCollapseCurrentItem() )
+    return ret;
+  } else if (canCollapseCurrentItem() || forceUnExpand) {
+    bool ret = canCollapseCurrentItem();
     setCurrentItemExpanded(false);
+    return ret;
+  }
+  return false;
 }
 
 bool KateCompletionWidget::canExpandCurrentItem() const {
@@ -693,7 +699,8 @@ bool KateCompletionWidget::eventFilter( QObject * watched, QEvent * event )
   return ret;
 }
 
-bool KateCompletionWidget::embeddedWidgetDown() {
+bool KateCompletionWidget::navigateDown() {
+  m_hadCompletionNavigation = true;
   if(currentEmbeddedWidget()) {
     kDebug() << "invoking down";
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetDown");
@@ -701,7 +708,8 @@ bool KateCompletionWidget::embeddedWidgetDown() {
   return false;
 }
 
-bool KateCompletionWidget::embeddedWidgetUp() {
+bool KateCompletionWidget::navigateUp() {
+  m_hadCompletionNavigation = true;
   if(currentEmbeddedWidget())
     QMetaObject::invokeMethod(currentEmbeddedWidget(), "embeddedWidgetUp");
   return false;
@@ -709,6 +717,8 @@ bool KateCompletionWidget::embeddedWidgetUp() {
 
 QWidget* KateCompletionWidget::currentEmbeddedWidget() {
   QModelIndex index = selectedIndex();
+  if(!index.isValid())
+    return 0;
   if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
     const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
     if( model->isExpanded(index) )
@@ -717,13 +727,8 @@ QWidget* KateCompletionWidget::currentEmbeddedWidget() {
   return 0;
 }
 
-void KateCompletionWidget::cursorDown( bool shift )
+void KateCompletionWidget::cursorDown()
 {
-  if( shift ) {
-    embeddedWidgetDown();
-    return;
-  }
-
   if( m_inCompletionList )
     m_entryList->nextCompletion();
   else {
@@ -732,13 +737,8 @@ void KateCompletionWidget::cursorDown( bool shift )
   }
 }
 
-void KateCompletionWidget::cursorUp( bool shift )
+void KateCompletionWidget::cursorUp()
 {
-  if( shift ) {
-    embeddedWidgetUp();
-    return;
-  }
-
   if( m_inCompletionList ) {
     if( !m_entryList->previousCompletion() )
       switchList();

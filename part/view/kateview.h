@@ -387,6 +387,13 @@ class KateView : public KTextEditor::View,
     void annotationActivated( KTextEditor::View* view, int line );
     void annotationBorderVisibilityChanged( View* view, bool visible );
 
+    void navigateLeft();
+    void navigateRight();
+    void navigateUp();
+    void navigateDown();
+    void navigateAccept();
+    void navigateBack();
+
   private:
     KTextEditor::AnnotationModel* m_annotationModel;
 
@@ -394,6 +401,24 @@ class KateView : public KTextEditor::View,
   // KTextEditor::View
   //
   public:
+    void emitNavigateLeft() {
+      emit navigateLeft();
+    }
+    void emitNavigateRight() {
+      emit navigateRight();
+    }
+    void emitNavigateUp() {
+      emit navigateUp();
+    }
+    void emitNavigateDown() {
+      emit navigateDown();
+    }
+    void emitNavigateAccept() {
+      emit navigateAccept();
+    }
+    void emitNavigateBack() {
+      emit navigateBack();
+    }
     /**
      Return values for "save" related commands.
     */

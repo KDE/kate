@@ -64,15 +64,14 @@ class KateCompletionWidget : public QFrame
     void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
     void userInvokedCompletion();
 
-    //Executed when return is pressed while completion is active. With shift, only the item selected within the expanding-widget will be executed
-    void execute(bool shift);
+    //Executed when return is pressed while completion is active.
+    void execute();
         //Callbacks for keyboard-input, they return true when the event was handled, and should not be reached on.
-    bool cursorLeft( bool shift );
-    bool cursorRight( bool shift );
-    void cursorDown(bool shift);
-    void cursorUp(bool shift);
+    void cursorDown();
+    void cursorUp();
     
-    void toggleExpanded();
+    ///Returns whether the current item was expanded/unexpanded
+    bool toggleExpanded(bool forceExpand = false, bool forceUnExpand = false);
 
     const KateCompletionModel* model() const;
     KateCompletionModel* model();
@@ -91,13 +90,6 @@ class KateCompletionWidget : public QFrame
     void top();
     void bottom();
     
-    bool embeddedWidgetUp();
-    bool embeddedWidgetDown();
-    bool embeddedWidgetLeft();
-    bool embeddedWidgetRight();
-    bool embeddedWidgetAccept();
-    bool embeddedWidgetBack();
-
     QWidget* currentEmbeddedWidget();
     
     bool canExpandCurrentItem() const;
@@ -129,6 +121,16 @@ class KateCompletionWidget : public QFrame
 
 /*    void updateFocus();*/
     void argumentHintsChanged(bool hasContent);
+    
+    bool navigateUp();
+    bool navigateDown();
+    bool navigateLeft();
+    bool navigateRight();
+    bool navigateAccept();
+    bool navigateBack();
+    
+    bool hadNavigation() const;
+    void resetHadNavigation();
     
   protected:
     virtual void showEvent ( QShowEvent * event );
@@ -183,6 +185,8 @@ class KateCompletionWidget : public QFrame
     bool m_dontShowArgumentHints; //Used temporarily to prevent flashing
     bool m_needShow;
 
+    bool m_hadCompletionNavigation;
+    
     int m_expandedAddedHeightBase;
     int m_expandingAddedHeight;
 };

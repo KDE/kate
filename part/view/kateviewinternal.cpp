@@ -69,7 +69,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cursor(doc)
   , m_mouse()
   , m_possibleTripleClick (false)
-  , m_hadKeyWithShift (false)
+  , m_completionItemExpanded (false)
   , m_bm(doc->smartManager()->newSmartRange())
   , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
@@ -772,13 +772,6 @@ void KateViewInternal::doReturn()
 
 void KateViewInternal::doSmartNewline()
 {
-  if (m_view->isCompletionActive())
-  {
-    m_view->completionWidget()->execute(true);
-    return;
-  }
-  
-  
   int ln = m_cursor.line();
   KateTextLine::Ptr line = m_doc->kateTextLine(ln);
   int col = qMin(m_cursor.column(), line->firstChar());
@@ -805,12 +798,6 @@ void KateViewInternal::doDelete()
 void KateViewInternal::doBackspace()
 {
   m_doc->backspace( m_view, m_cursor );
-}
-
-void KateViewInternal::doOnlyShift()
-{
-  if( m_view->isCompletionActive() )
-    view()->completionWidget()->toggleExpanded();
 }
 
 void KateViewInternal::doTranspose()
@@ -1061,12 +1048,6 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
-  if(sel)
-    m_hadKeyWithShift = true;
-  
-  if( m_view->isCompletionActive() && view()->completionWidget()->cursorLeft(sel) )
-    return;
-
   QMutexLocker l(m_doc->smartMutex());
 
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
@@ -1077,12 +1058,6 @@ void KateViewInternal::cursorLeft(  bool sel )
 
 void KateViewInternal::cursorRight( bool sel )
 {
-  if(sel)
-    m_hadKeyWithShift = true;
-  
-  if( m_view->isCompletionActive() && view()->completionWidget()->cursorRight(sel) )
-    return;
-
   QMutexLocker l(m_doc->smartMutex());
 
   moveChar( KateViewInternal::right, sel );
@@ -1431,14 +1406,11 @@ int KateViewInternal::lineMaxCol(const KateTextLayout& range)
 
 void KateViewInternal::cursorUp(bool sel)
 {
-  if(sel)
-    m_hadKeyWithShift = true;
-  
-  if (m_view->isCompletionActive()) {
-    view()->completionWidget()->cursorUp(sel);
+  if(!sel && m_view->completionWidget()->isCompletionActive()) {
+    m_view->completionWidget()->cursorUp();
     return;
   }
-
+  
   QMutexLocker l(m_doc->smartMutex());
 
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
@@ -1469,14 +1441,11 @@ void KateViewInternal::cursorUp(bool sel)
 
 void KateViewInternal::cursorDown(bool sel)
 {
-  if(sel)
-    m_hadKeyWithShift = true;
-  
-  if (m_view->isCompletionActive()) {
-    view()->completionWidget()->cursorDown(sel);
+  if(!sel && m_view->completionWidget()->isCompletionActive()) {
+    m_view->completionWidget()->cursorDown();
     return;
   }
-
+  
   QMutexLocker l(m_doc->smartMutex());
 
   if ((m_displayCursor.line() >= m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
@@ -2272,17 +2241,50 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  if(e->modifiers() & Qt::ShiftModifier)
-    m_hadKeyWithShift = true;
+  if( e->key() == Qt::Key_Left && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateLeft();
+    e->setAccepted(true);
+    return;
+  }
+  if( e->key() == Qt::Key_Right && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateRight();
+    e->setAccepted(true);
+    return;
+  }
+  if( e->key() == Qt::Key_Up && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateUp();
+    e->setAccepted(true);
+    return;
+  }
+  if( e->key() == Qt::Key_Down && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateDown();
+    e->setAccepted(true);
+    return;
+  }
+  if( e->key() == Qt::Key_Return && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateAccept();
+    e->setAccepted(true);
+    return;
+  }
+  if( e->key() == Qt::Key_Backspace && e->modifiers() == Qt::AltModifier ) {
+    m_view->emitNavigateBack();
+    e->setAccepted(true);
+    return;
+  }
+  
+  if( e->key() == Qt::Key_Alt && view()->completionWidget()->isCompletionActive() ) {
+    m_completionItemExpanded = view()->completionWidget()->toggleExpanded(true);
+    view()->completionWidget()->resetHadNavigation();
+    m_altDownTime = QTime::currentTime();
+  }
   
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
   if (m_view->isCompletionActive())
   {
-    if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
-    (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
-      m_view->completionWidget()->execute(key & Qt::SHIFT);
+    if( key == Qt::Key_Enter || key == Qt::Key_Return ) {
+      m_view->completionWidget()->execute();
       e->accept();
       return;
     }
@@ -2320,9 +2322,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
   
-  if (e->key() == Qt::Key_Shift)
-    m_hadKeyWithShift = false;
-
   if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
     doReturn();
@@ -2409,8 +2408,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
-  if(e->key() == Qt::Key_Shift && !m_hadKeyWithShift)
-    doOnlyShift();
+  if( e->key() == Qt::Key_Alt && view()->completionWidget()->isCompletionActive() && ((m_completionItemExpanded && (view()->completionWidget()->hadNavigation() || m_altDownTime.msecsTo(QTime::currentTime()) > 300)) || (!m_completionItemExpanded && !view()->completionWidget()->hadNavigation())) ) {
+    
+    view()->completionWidget()->toggleExpanded(false, true);
+  }
   
   if (e->key() == Qt::SHIFT)
   {

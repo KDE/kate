@@ -886,6 +886,7 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(smartNewline()));
     m_editActions << a;
 
+
 #if 0
 #ifdef __GNUC__
 #warning REMOVE THIS IN THE RELEASE
@@ -2282,7 +2283,7 @@ void KateView::abortCompletion( )
 
 void KateView::forceCompletion( )
 {
-  completionWidget()->execute(false);
+  completionWidget()->execute();
 }
 
 void KateView::registerCompletionModel(KTextEditor::CodeCompletionModel* model)

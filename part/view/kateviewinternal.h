@@ -156,8 +156,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void doSmartNewline();
     void doDelete();
     void doBackspace();
-    //Executed when only shift was pressed, without anything in between
-    void doOnlyShift();
     void doTranspose();
     void doDeleteWordLeft();
     void doDeleteWordRight();
@@ -269,10 +267,11 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     int m_cursorX;
 
     bool m_possibleTripleClick;
-    //This records whether a key with the shift-modifier was recorded since the last shift-key down event
-    ////@warning This doesn't catch all occasions where shift can be pressed, and thus should only be used in the completion widget
-    bool m_hadKeyWithShift;
 
+    //Whether the current completion-item was expanded while the last press of ALT
+    bool m_completionItemExpanded;
+    QTime m_altDownTime;
+    
     // Bracket mark and corresponding decorative ranges
     KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
     bool m_bmHighlighted;

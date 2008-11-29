@@ -415,8 +415,10 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
 {
   KateSmartRange* mostSpecific = 0L;
 
-  // This range preceeds the edit... no more to do
-  if (range->kEnd().lastPosition() < edit.start() || range->kEnd().lastPosition() == edit.start() && !range->isEmpty()) {
+  // This range precedes the edit... no more to do
+  if ((range->end() < edit.start()  && range->kEnd().lastPosition() < edit.start()) ||
+    (range->end() == edit.start() && range->kEnd().lastPosition() == edit.start() && !range->isEmpty())
+  ) {
     //kDebug() << "Not feeding back to " << *range << "as edit start" << edit.start();
     return mostSpecific;
   }

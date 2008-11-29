@@ -59,8 +59,19 @@ class KateRegression : public QObject
 
     KTextEditor::SmartInterface* smart() const;
 
+    
+
   private Q_SLOTS:
-    void testAll();
+    void init();
+    void testInsertText();
+    void testIntraLineInsert();
+    void testIntraLineRemove();
+    void testInsertAtEol();
+    void testWrapLine();
+    void testRemoveLineWrapping();
+    void testDelete();
+    void testEndOfRangeRemove();
+
     void testRange();
     void testSmartCursor();
     void testSmartRange();
@@ -76,6 +87,18 @@ class KateRegression : public QObject
     KTextEditor::Document* m_doc;
     QList<CursorExpectation*> m_cursorExpectations;
     QList<RangeExpectation*> m_rangeExpectations;
+
+    KTextEditor::Cursor* cursorStartOfLine;
+    KTextEditor::Cursor* cursorStartOfEdit;
+    KTextEditor::Cursor* cursorEndOfEdit;
+    KTextEditor::Range* rangeEdit;
+    KTextEditor::Range* rangePreEdit;
+    KTextEditor::Range* rangePostEdit;
+    KTextEditor::Range* rangeNextLine;
+    KTextEditor::Cursor* cursorPastEdit;
+    KTextEditor::Cursor* cursorEOL;
+    KTextEditor::Cursor* cursorEOLMoves;
+    KTextEditor::Cursor* cursorNextLine;
 };
 
 #endif

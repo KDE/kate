@@ -25,6 +25,8 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/smartinterface.h>
+#include <ktexteditor/view.h>
+#include <ktexteditor/codecompletioninterface.h>
 
 #include <kaboutdata.h>
 #include <kapplication.h>
@@ -75,8 +77,7 @@ namespace QTest {
   }
 }
 
-// TODO split it various functions
-void KateRegression::testAll()
+void KateRegression::init()
 {
   if ( !KSycoca::isAvailable() )
     QSKIP( "ksycoca not available", SkipAll );
@@ -85,9 +86,39 @@ void KateRegression::testAll()
   QVERIFY(editor);
 
   m_doc = editor->createDocument(this);
+
   QVERIFY(m_doc);
 
   QVERIFY(smart());
+
+/*  01234567890123456789
+  0 Test Text
+  1 More Test Text
+  2 Even More Test Text */
+  m_doc->insertText(Cursor(), "Test Text\nMore Test Text\nEven More Test Text");
+
+  cursorStartOfLine = smart()->newSmartCursor(Cursor(1,0));
+
+  cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::StayOnInsert);
+  cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::MoveOnInsert);
+
+  rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandLeft | SmartRange::ExpandRight);
+
+  rangePreEdit = smart()->newSmartRange(Cursor(1,4), *cursorStartOfEdit, 0L, SmartRange::ExpandLeft);
+  rangePostEdit = smart()->newSmartRange(*cursorEndOfEdit, Cursor(2,0), 0L, SmartRange::ExpandRight);
+  rangeNextLine = smart()->newSmartRange(Cursor(2,0), Cursor(2,1), 0L, SmartRange::ExpandRight);
+
+  cursorPastEdit = smart()->newSmartCursor(Cursor(1,6));
+  cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::StayOnInsert);
+  cursorEOLMoves = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::MoveOnInsert);
+
+  cursorNextLine = smart()->newSmartCursor(Cursor(2,0));
+}
+
+
+void KateRegression::testInsertText()
+{
+  m_doc->clear();
 
   // Multi-line insert
   Cursor* cursor1 = smart()->newSmartCursor(Cursor(), SmartCursor::StayOnInsert);
@@ -109,23 +140,10 @@ void KateRegression::testAll()
   m_doc->insertText(*cursor2, "\nEven More Test Text");
   QCOMPARE(m_doc->documentEnd(), Cursor(2,19));
   QCOMPARE(cursor3, m_doc->endOfLine(1));
+}
 
-  // Intra-line insert
-  Cursor* cursorStartOfLine = smart()->newSmartCursor(Cursor(1,0));
-
-  Cursor* cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::StayOnInsert);
-  Cursor* cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::MoveOnInsert);
-
-  Range* rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandLeft | SmartRange::ExpandRight);
-  Range* rangePreEdit = smart()->newSmartRange(Cursor(1,4), *cursorStartOfEdit, 0L, SmartRange::ExpandLeft);
-  Range* rangePostEdit = smart()->newSmartRange(*cursorEndOfEdit, Cursor(2,0), 0L, SmartRange::ExpandRight);
-  Range* rangeNextLine = smart()->newSmartRange(Cursor(2,0), Cursor(2,1), 0L, SmartRange::ExpandRight);
-
-  Cursor* cursorPastEdit = smart()->newSmartCursor(Cursor(1,6));
-  Cursor* cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::StayOnInsert);
-  Cursor* cursorEOLMoves = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::MoveOnInsert);
-
-  Cursor* cursorNextLine = smart()->newSmartCursor(Cursor(2,0));
+void KateRegression::testIntraLineInsert()
+{
 
   new CursorExpectation(cursorStartOfLine);
   new CursorExpectation(cursorStartOfEdit, CursorExpectation::CharacterInsertedAfter);
@@ -144,6 +162,11 @@ void KateRegression::testAll()
   QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   checkSignalExpectations();
+}
+
+void KateRegression::testIntraLineRemove()
+{
+  m_doc->insertText(*cursorStartOfEdit, "Additional ");
 
   Cursor* cursorInsideDelete = smart()->newSmartCursor(Cursor(1,7));
 
@@ -158,13 +181,16 @@ void KateRegression::testAll()
   new RangeExpectation(rangePostEdit, RangeExpectation::PositionChanged, Range(1,5,2,0));
   new RangeExpectation(rangeNextLine, RangeExpectation::NoSignal);
 
-  // Intra-line remove
   m_doc->removeText(Range(*cursorStartOfEdit, 11));
 
   QCOMPARE(*cursorEOL, m_doc->endOfLine(1));
   QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
-  checkSignalExpectations();
 
+  checkSignalExpectations();
+}
+
+void KateRegression::testInsertAtEol()
+{
   Cursor oldEOL = *cursorEOL;
 
   new CursorExpectation(cursorPastEdit);
@@ -177,10 +203,14 @@ void KateRegression::testAll()
   new RangeExpectation(rangePostEdit, RangeExpectation::ContentsChanged, Range(1,5,2,0));
   new RangeExpectation(rangeNextLine, RangeExpectation::NoSignal);
 
-  // Insert at EOL
   m_doc->insertText(m_doc->endOfLine(1), " Even More");
 
   checkSignalExpectations();
+}
+
+void KateRegression::testWrapLine()
+{
+  m_doc->insertText(m_doc->endOfLine(1), " Even More");
 
   *cursorEOL = *cursorEOLMoves;
 
@@ -194,10 +224,16 @@ void KateRegression::testAll()
   new RangeExpectation(rangePostEdit, RangeExpectation::PositionChanged | RangeExpectation::ContentsChanged, Range(1,5,3,0));
   new RangeExpectation(rangeNextLine, RangeExpectation::PositionChanged);
 
-  // wrap line
   m_doc->insertText(m_doc->endOfLine(1), "\n");
 
   checkSignalExpectations();
+}
+
+void KateRegression::testRemoveLineWrapping()
+{
+  m_doc->insertText(m_doc->endOfLine(1), " Even More\n");
+
+  *cursorEOL = m_doc->endOfLine(1);
 
   new CursorExpectation(cursorPastEdit);
   new CursorExpectation(cursorEOL, CursorExpectation::CharacterDeletedAfter, m_doc->endOfLine(1));
@@ -209,11 +245,38 @@ void KateRegression::testAll()
   new RangeExpectation(rangePostEdit, RangeExpectation::PositionChanged | RangeExpectation::ContentsChanged, Range(1,5,2,0));
   new RangeExpectation(rangeNextLine, RangeExpectation::PositionChanged);
 
-  // Remove line wrapping
   m_doc->removeText(Range(m_doc->endOfLine(1), Cursor(2, 0)));
 
   checkSignalExpectations();
+}
 
+void KateRegression::testEndOfRangeRemove()
+{
+  m_doc->insertText(*cursorStartOfEdit, "Additional ");
+  QCOMPARE(*rangeEdit, Range(*cursorStartOfEdit, 11));
+
+  Cursor *cursorBeforeDelete = smart()->newSmartCursor(Cursor(1,15));
+
+  new CursorExpectation(cursorBeforeDelete, CursorExpectation::CharacterDeletedAfter);
+  new CursorExpectation(cursorEndOfEdit, CursorExpectation::CharacterDeletedBefore | CursorExpectation::PositionChanged, *cursorBeforeDelete);
+  new CursorExpectation(cursorPastEdit, CursorExpectation::PositionChanged, *cursorEndOfEdit);
+  new CursorExpectation(cursorNextLine, CursorExpectation::NoSignal, Cursor(2,0));
+
+  new RangeExpectation(rangeEdit, RangeExpectation::PositionChanged | RangeExpectation::ContentsChanged, Range(*cursorStartOfEdit, *cursorBeforeDelete));
+  new RangeExpectation(rangePreEdit, RangeExpectation::NoSignal, Range(Cursor(1,4), *cursorStartOfEdit));
+  new RangeExpectation(rangePostEdit, RangeExpectation::PositionChanged, Range(*cursorBeforeDelete, Cursor(2,0)));
+  new RangeExpectation(rangeNextLine, RangeExpectation::NoSignal);
+
+  m_doc->removeText(Range(*cursorBeforeDelete, 1));
+
+  QCOMPARE(*cursorEOL, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+
+  checkSignalExpectations();
+}
+
+void KateRegression::testDelete()
+{
   new RangeExpectation(rangeEdit, RangeExpectation::Deleted);
   new RangeExpectation(rangePreEdit);
   new CursorExpectation(cursorPastEdit, CursorExpectation::Deleted);
@@ -499,5 +562,7 @@ SmartInterface * KateRegression::smart( ) const
 {
   return dynamic_cast<SmartInterface*>(const_cast<Document*>(m_doc));
 }
+
+
 
 #include "kateregression.moc"

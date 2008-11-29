@@ -132,6 +132,7 @@ class KateCodeFoldingTree : public QObject
     ~KateCodeFoldingTree ();
 
     KateCodeFoldingNode *findNodeForLine (unsigned int line);
+    KateCodeFoldingNode *findNodeStartingAt(unsigned int line);
     KateCodeFoldingNode *rootNode () { return &m_root; }
 
     unsigned int getRealLine         (unsigned int virtualLine);

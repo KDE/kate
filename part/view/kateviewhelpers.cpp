@@ -1316,6 +1316,17 @@ void KateIconBorder::showBlock(int line)
     if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
       newRange = KTextEditor::Range(beg, end);
     }
+    KateLineInfo info;
+    tree->getLineInfo(&info,line);
+    if ((info.startsVisibleBlock)){
+      node=tree->findNodeStartingAt(line);
+      if (node) {
+        if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
+          newRange = KTextEditor::Range(beg, end);
+        }
+      }
+    }
+
   }
 
   if (newRange.isValid() && m_foldingRange && *m_foldingRange == newRange) {

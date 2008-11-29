@@ -1334,6 +1334,25 @@ void KateCodeFoldingTree::dontDeleteOpening(KateCodeFoldingNode* node)
 }
 
 
+KateCodeFoldingNode *KateCodeFoldingTree::findNodeStartingAt(unsigned int line){
+  findAllNodesOpenedOrClosedAt(line);
+  for (int i=0; i<(int)nodesForLine.count(); i++)
+  {
+    KateCodeFoldingNode *node=nodesForLine.at(i);
+    if ( (!node->startLineValid) || (getStartLine(node) != line) )
+    {
+      nodesForLine.removeAt(i);
+      if (!node->startLineValid) addNodeToRemoveList(node, line);
+      i--;
+    }
+  }
+
+  if (nodesForLine.isEmpty())
+    return 0;
+  return nodesForLine.at(0);
+}
+
+
 void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 {
   // hl whole file

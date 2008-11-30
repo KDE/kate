@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.21" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.22" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -552,8 +552,9 @@
         <IncludeRules context="regex_pattern_internal_ip" />
       </context>
       <context name="subst_slash_replace" attribute="String (interpolated)" lineEndContext="#stay" dynamic="true">
-        <IncludeRules context="ipstring_internal" />
         <RegExpr attribute="Operator" context="#pop#pop#pop" String="%1[cegimosx]*" dynamic="true" endRegion="Replacement" />
+        <IncludeRules context="ipstring_internal" />
+
       </context>
 
       <context name="subst_sq_pattern" attribute="Pattern" lineEndContext="#stay">

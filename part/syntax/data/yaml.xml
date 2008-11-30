@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Dr Orlovsky MA <maxim@orlovsky.info> //-->
-<language name="YAML" version="1.0.1" kateversion="2.3" section="Markup"
+<language name="YAML" version="1.0.2" kateversion="2.3" section="Markup"
           extensions="*.yaml;*.yml" mimetype="text/yaml"
           author="Dr Orlovsky MA (dr.orlovsky@gmail.com)" license="LGPL">
   <highlighting>
@@ -83,8 +83,8 @@
         <RegExpr attribute="Data Types" context="#stay" String="!!\S+" />
         <DetectChar attribute="Operator" context="list" char="[" beginRegion="List" />
         <DetectChar attribute="Operator" context="hash" char="{" beginRegion="Hash" />
-        <DetectChar attribute="String" context="attribute-string" char="'" beginRegion="String" />
-        <DetectChar attribute="String" context="attribute-stringx" char="&quot;" beginRegion="String" />
+        <DetectChar attribute="String" context="attribute-string-inline" char="'" beginRegion="String" />
+        <DetectChar attribute="String" context="attribute-stringx-inline" char="&quot;" beginRegion="String" />
         <RegExpr attribute="Alias" context="attribute-inline" String="&amp;\S+" />
         <RegExpr attribute="Reference" context="attribute-inline" String="\*\S+" />
 
@@ -136,9 +136,28 @@
         <DetectChar attribute="String" context="attribute-end" char="&quot;" endRegion="String" />
       </context>
 
+      <context attribute="String" lineEndContext="#stay" name="attribute-string-inline">
+          <DetectIdentifier />
+          <DetectChar attribute="String" context="attribute-end-inline" char="'" endRegion="String" />
+      </context>
+      
+      <context attribute="String" lineEndContext="#stay" name="attribute-stringx-inline">
+          <DetectIdentifier />
+          <DetectChar attribute="String" context="attribute-end-inline" char="&quot;" endRegion="String" />
+      </context>
+
+      
       <context attribute="Error" lineEndContext="#pop#pop#pop" name="attribute-end">
       </context>
 
+      <context attribute="Error" lineEndContext="#pop#pop#pop" name="attribute-end-inline">
+          <RegExpr attribute="Normal Text" context="#stay" String="\s*"/>
+          <DetectChar attribute="String" context="#pop#pop#pop"  lookAhead="true" char="}"/>
+          <RegExpr attribute="Operator" context="#pop#pop#pop"  String=",\s"/>
+      </context>
+
+      
+      
       <context attribute="String" lineEndContext="#stay" name="string">
         <DetectIdentifier />
         <DetectChar attribute="String" context="#pop" char="'" endRegion="String" />

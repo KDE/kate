@@ -838,7 +838,7 @@ bool KateViNormalMode::commandChangeCase()
     }
 
     range.setRange( c, c2 );
-  // ... and in normal mode the range is from the current positon to the
+  // ... and in normal mode the range is from the current position to the
   // current position + count
   } else {
     KTextEditor::Cursor c2 = c;

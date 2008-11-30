@@ -30,7 +30,6 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateviewinternal.h"
-#include "katedocument.h"
 #include "katevimodebar.h"
 
 // TODO: the "previous word/WORD [end]" methods should be optimized. now they're being called in a

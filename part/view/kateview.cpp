@@ -1275,7 +1275,7 @@ void KateView::toggleViInputMode()
 
 void KateView::showViModeBar()
 {
-  if (!config()->viInputModeHideStatusBar()) {
+  if (viInputMode() && !config()->viInputModeHideStatusBar()) {
     m_viewBar->addPermanentBarWidget(viModeBar());
     updateViModeBarMode();
   }

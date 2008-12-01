@@ -24,8 +24,8 @@ The KTextEditor interfaces - also called KTE interfaces - are a set of
 well-defined interfaces which an application or library can implement to provide
 advanced plain text editing services.  Applications which utilise this interface
 can thus allow the user to choose which implementation of the editor component
-to use. The two popular implementations right now are the Kate Editor Component
-(Kate Part) and the yzis (vim-like) editor.
+to use. The only implementation right now is the Kate Editor Component
+(Kate Part).
 
 \section kte_general General
  - \ref kte_design
@@ -588,7 +588,6 @@ document and a view and plug it into the mainwindow.
 
 \section kte_howto_notes Notes
 In order to compile link against the following libraries:
- - kdocument
  - ktexteditor
  - kdeui
 

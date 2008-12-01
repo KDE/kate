@@ -249,6 +249,19 @@ void KateSearchBar::highlightAllMatches(const QString & pattern,
 }
 
 
+void KateSearchBar::neutralMatch() {
+    if (m_incUi != NULL) {
+        QPalette background(m_incUi->pattern->palette());
+        KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
+        m_incUi->pattern->setPalette(background);
+    } else {
+        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(lineEdit != NULL);
+        QPalette background(lineEdit->palette());
+        KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
+        lineEdit->setPalette(background);
+    }
+}
 
 void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
@@ -520,8 +533,15 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         }
 
         // Highlight all
-        if (found && isChecked(m_incMenuHighlightAll)) {
-            highlightAllMatches(pattern, enabledOptions);
+        if (isChecked(m_incMenuHighlightAll)) {
+            if (found ) {
+                highlightAllMatches(pattern, enabledOptions);
+            } else {
+                resetHighlights();
+            }
+        }
+        if (!found) {
+          view()->setSelection(Range::invalid());
         }
     }
 }
@@ -1920,3 +1940,5 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
 
 
 #include "katesearchbar.moc"
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

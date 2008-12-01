@@ -123,6 +123,7 @@ private:
     void highlightAllMatches(const QString & pattern,
             KTextEditor::Search::SearchOptions searchOptions);
     void adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole);
+    void neutralMatch();
     void indicateMatch(bool wrapped);
     void indicateMismatch();
     void indicateNothing();

@@ -27,6 +27,7 @@
 #include "ui_searchbarpower.h"
 
 #include <kactioncollection.h>
+#include <ktexteditor/rangefeedback.h>
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>
@@ -126,6 +127,7 @@ public:
 KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* parent)
         : KateViewBarWidget(true, kateView, parent),
         m_topRange(NULL),
+        m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
         m_incUi(NULL),
@@ -146,6 +148,10 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
         m_powerMode(0) {
+
+    connect(m_rangeNotifier,SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),
+      this,SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
+
     // Modify parent
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
@@ -226,6 +232,7 @@ void KateSearchBar::highlight(const Range & range, const QColor & color) {
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
     highlight->setAttribute(attribute);
+    highlight->addNotifier(m_rangeNotifier);
 }
 
 
@@ -248,6 +255,13 @@ void KateSearchBar::highlightAllMatches(const QString & pattern,
             searchOptions, NULL);
 }
 
+void KateSearchBar::rangeContentsChanged(KTextEditor::SmartRange* range) {
+  neutralMatch();
+  Attribute::Ptr attribute(new Attribute());
+  //attribute->setBackground(color);
+  range->setAttribute(attribute);
+
+}
 
 void KateSearchBar::neutralMatch() {
     if (m_incUi != NULL) {

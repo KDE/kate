@@ -29,6 +29,9 @@
 #include <QtCore/QRegExp>
 
 
+namespace KTextEditor {
+    class SmartRangeNotifier;
+}
 
 class KateView;
 class QVBoxLayout;
@@ -108,6 +111,9 @@ public Q_SLOTS:
     void onMutatePower();
     void onMutateIncremental();
 
+private Q_SLOTS:
+    void rangeContentsChanged(KTextEditor::SmartRange* range);
+
 private:
     // Helpers
     bool isChecked(QCheckBox * checkbox);
@@ -152,6 +158,7 @@ public:
 private:
     // Shared by both dialogs
     KTextEditor::SmartRange * m_topRange;
+    KTextEditor::SmartRangeNotifier *m_rangeNotifier;
     QVBoxLayout * m_layout;
     QWidget * m_widget;
     QRegExp m_patternTester;

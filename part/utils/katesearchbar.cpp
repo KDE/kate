@@ -1778,6 +1778,11 @@ void KateSearchBar::onMutateIncremental() {
         m_incUi->setupUi(m_widget);
         m_layout->addWidget(m_widget);
 
+        new QShortcut(KStandardShortcut::paste().primary(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
+        if (!KStandardShortcut::paste().alternate().isEmpty())
+            new QShortcut(KStandardShortcut::paste().alternate(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
+
+
         // Fill options menu
         m_incMenu = new QMenu();
         m_incUi->options->setMenu(m_incMenu);
@@ -1950,7 +1955,6 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
     const bool FOR_REPLACEMENT = false;
     showExtendedContextMenu(FOR_REPLACEMENT);
 }
-
 
 
 #include "katesearchbar.moc"

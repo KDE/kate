@@ -64,9 +64,12 @@ class View;
  * typing text - look at the \e ifind command in Kate for example - you have
  * to additionally derive your command from the class CommandExtension. The
  * command extension provides methods to give help on \e flags or add a
- * KCompletion object and process the typed text interactively.
+ * KCompletion object and process the typed text interactively. Besides that
+ * the class RangeCommand enables you to support ranges so that you can apply
+ * commands on regions of text.
  *
- * \see KTextEditor::CommandInterface, KTextEditor::CommandExtension
+ * \see KTextEditor::CommandInterface, KTextEditor::CommandExtension,
+ *      KTextEditor::RangeCommand
  * \author Christoph Cullmann \<cullmann@kde.org\>
  * \note KDE5: derive from QObject, so qobject_cast works for extension interfaces.
  */

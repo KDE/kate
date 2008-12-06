@@ -13,7 +13,7 @@ add_subdirectory( script/data )
 add_subdirectory( plugins )
 
 # tests
-# add_subdirectory( tests )
+add_subdirectory( tests )
 
 # includes
 include_directories(
@@ -183,11 +183,16 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
 #include_directories( ${KDE4_KDECORE_INCLUDES} )
 
-set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp tests/test_regression.h )
+set(testkateregression_SRCS
+    ${katepart_PART_SRCS}
+    tests/test_regression.cpp
+    tests/codecompletiontestmodel.cpp
+    tests/completiontest.cpp
+)
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} kutils ktexteditor )
+target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor )
 
 #add_dependencies(check testkateregression)
 

@@ -480,6 +480,7 @@ void KateCompletionModel::clearGroups( )
   m_ungrouped->clear();
   m_argumentHints->clear();
   m_bestMatches->clear();
+
   // Don't bother trying to work out where it is
   m_rowTable.removeAll(m_ungrouped);
   m_emptyGroups.removeAll(m_ungrouped);
@@ -504,6 +505,8 @@ void KateCompletionModel::clearGroups( )
 
   m_emptyGroups.append(m_bestMatches);
   m_groupHash.insert(BestMatchesProperty, m_bestMatches);
+
+  reset();
 }
 
 QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const HierarchicalModelHandler& _handler, const QModelIndex& i, bool notifyModel) {
@@ -545,13 +548,13 @@ void KateCompletionModel::createGroups()
   clearGroups();
 
   bool has_groups=false;
-
   foreach (CodeCompletionModel* sourceModel, m_completionModels) {
     has_groups|=sourceModel->hasGroups();
     for (int i = 0; i < sourceModel->rowCount(); ++i)
       createItems(HierarchicalModelHandler(sourceModel), sourceModel->index(i, 0));
   }
   m_hasGroups=has_groups;
+
   //debugStats();
 
   foreach (Group* g, m_rowTable)
@@ -559,10 +562,10 @@ void KateCompletionModel::createGroups()
 
   foreach (Group* g, m_emptyGroups)
     hideOrShowGroup(g);
-  
+
   reset();
+
   updateBestMatches();
-  
   emit contentGeometryChanged();
 }
 
@@ -586,7 +589,7 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
   Item item = Item(this, handler, ModelRow(handler.model(), QPersistentModelIndex(sourceIndex)));
 
   if(g != m_argumentHints)
-    item.match(m_currentMatch);
+    item.match();
 
   g->addItem(item, notifyModel);
 
@@ -780,7 +783,9 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
     int row = m_rowTable.indexOf(g);
 
     if (row == -1) {
-      kWarning() << k_funcinfo << "Couldn't find parent for index" << index;
+      kDebug() << g;
+      qFatal("ohje");
+      kWarning() << "Couldn't find parent for index" << index;
       return QModelIndex();
     }
 
@@ -859,44 +864,47 @@ QModelIndex KateCompletionModel::mapFromSource( const QModelIndex & sourceIndex 
   return QModelIndex();
 }
 
-void KateCompletionModel::setCurrentCompletion( const QString & completion )
+void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel* model, const QString & completion )
 {
-  if (m_currentMatch == completion)
+  if (m_currentMatch[model] == completion)
     return;
 
   if (!hasCompletionModel()) {
-    m_currentMatch = completion;
+    m_currentMatch[model] = completion;
     return;
   }
 
   changeTypes changeType = Change;
 
-  if (m_currentMatch.length() > completion.length() && m_currentMatch.startsWith(completion, m_matchCaseSensitivity)) {
+  if (m_currentMatch[model].length() > completion.length() && m_currentMatch[model].startsWith(completion, m_matchCaseSensitivity)) {
     // Filter has been broadened
     changeType = Broaden;
 
-  } else if (m_currentMatch.length() < completion.length() && completion.startsWith(m_currentMatch, m_matchCaseSensitivity)) {
+  } else if (m_currentMatch[model].length() < completion.length() && completion.startsWith(m_currentMatch[model], m_matchCaseSensitivity)) {
     // Filter has been narrowed
     changeType = Narrow;
   }
 
-  kDebug( 13035 ) << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType;
+  kDebug( 13035 ) << model << "Old match: " << m_currentMatch[model] << ", new: " << completion << ", type: " << changeType;
 
-  if (!hasGroups())
-    changeCompletions(m_ungrouped, completion, changeType);
-  else {
-    foreach (Group* g, m_rowTable)
+  m_currentMatch[model] = completion;
+
+  if (!hasGroups()) {
+    changeCompletions(m_ungrouped, changeType);
+  } else {
+    foreach (Group* g, m_rowTable) {
       if(g != m_argumentHints)
-        changeCompletions(g, completion, changeType);
-    foreach (Group* g, m_emptyGroups)
+        changeCompletions(g, changeType);
+    }
+    foreach (Group* g, m_emptyGroups) {
       if(g != m_argumentHints)
-        changeCompletions(g, completion, changeType);
+        changeCompletions(g, changeType);
+    }
 
     updateBestMatches();
   }
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
-  m_currentMatch = completion;
 
   emit contentGeometryChanged();
 }
@@ -904,16 +912,16 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 void KateCompletionModel::rematch()
 {
   if (!hasGroups()) {
-    changeCompletions(m_ungrouped, m_currentMatch, Change);
+    changeCompletions(m_ungrouped, Change);
 
   } else {
     foreach (Group* g, m_rowTable)
       if(g != m_argumentHints)
-        changeCompletions(g, m_currentMatch, Change);
+        changeCompletions(g, Change);
 
     foreach (Group* g, m_emptyGroups)
       if(g != m_argumentHints)
-        changeCompletions(g, m_currentMatch, Change);
+        changeCompletions(g, Change);
 
     updateBestMatches();
   }
@@ -940,7 +948,7 @@ void KateCompletionModel::rematch()
     rowAdd.clear(); \
   }
 
-void KateCompletionModel::changeCompletions( Group * g, const QString & newCompletion, changeTypes changeType )
+void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 {
   QMutableListIterator<Item> filtered = g->filtered;
   QMutableListIterator<Item> prefilter = g->prefilter;
@@ -956,7 +964,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
       if (filtered.peekNext().sourceRow() == prefilter.peekNext().sourceRow()) {
         // Currently being displayed
         if (changeType != Broaden) {
-          if (prefilter.peekNext().match(newCompletion)) {
+          if (prefilter.peekNext().match()) {
             // no change required to this item
             COMPLETE_DELETE
             COMPLETE_ADD
@@ -981,7 +989,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
       } else {
         // Currently hidden
         if (changeType != Narrow) {
-          if (prefilter.peekNext().match(newCompletion)) {
+          if (prefilter.peekNext().match()) {
             // needs to be made visible
             COMPLETE_DELETE
 
@@ -1005,7 +1013,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
     } else {
       // Currently hidden
       if (changeType != Narrow) {
-        if (prefilter.peekNext().match(newCompletion)) {
+        if (prefilter.peekNext().match()) {
           // needs to be made visible
           COMPLETE_DELETE
 
@@ -1091,6 +1099,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
     }
 
   } else {
+
     if (!g->filtered.isEmpty()) {
       // Move off empty group list
       g->isEmpty = false;
@@ -1103,6 +1112,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
         }
         row = a+1;
       }
+
       if (hasGroups())
         beginInsertRows(QModelIndex(), row, row);
       else
@@ -1716,20 +1726,19 @@ bool KateCompletionModel::Item::filter( )
   return matchFilters;
 }
 
-bool KateCompletionModel::Item::match(const QString& newCompletion)
+bool KateCompletionModel::Item::match()
 {
-  // Hehe, everything matches nothing! (ie. everything matches a blank string)
-  if (newCompletion.isEmpty())
-    return true;
-
   // Check to see if the item is matched by the current completion string
   QModelIndex sourceIndex = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name);
 
-  QString match = newCompletion;
-  if (match.isEmpty())
-    match = model->currentCompletion();
+  QString match = model->currentCompletion(m_sourceRow.first);
+
+   // Hehe, everything matches nothing! (ie. everything matches a blank string)
+   if (match.isEmpty())
+     return true;
 
   matchCompletion = m_nameColumn.startsWith(match, model->matchCaseSensitivity());
+
   return matchCompletion;
 }
 
@@ -1827,9 +1836,9 @@ const KateCompletionModel::ModelRow& KateCompletionModel::Item::sourceRow( ) con
   return m_sourceRow;
 }
 
-const QString & KateCompletionModel::currentCompletion( ) const
+QString KateCompletionModel::currentCompletion( KTextEditor::CodeCompletionModel* model ) const
 {
-  return m_currentMatch;
+  return m_currentMatch.value(model);
 }
 
 Qt::CaseSensitivity KateCompletionModel::matchCaseSensitivity( ) const
@@ -1884,8 +1893,10 @@ QList< KTextEditor::CodeCompletionModel * > KateCompletionModel::completionModel
 
 void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
 {
-  if (!model || m_completionModels.contains(model))
+  if (!model || !m_completionModels.contains(model))
     return;
+
+  m_currentMatch.remove(model);
 
   clearGroups();
 
@@ -1893,10 +1904,10 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
 
   m_completionModels.removeAll(model);
 
-  if (!m_completionModels.isEmpty())
+  if (!m_completionModels.isEmpty()) {
+    // This performs the reset
     createGroups();
-
-  reset();
+  }
 }
 
 //Updates the best-matches group
@@ -1978,6 +1989,8 @@ void KateCompletionModel::clearCompletionModels()
     model->disconnect(this);
 
   m_completionModels.clear();
+
+  m_currentMatch.clear();
 
   clearGroups();
 

@@ -61,8 +61,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     KateView* view() const;
     KateCompletionWidget* widget() const;
 
-    const QString& currentCompletion() const;
-    void setCurrentCompletion(const QString& completion);
+    QString currentCompletion(KTextEditor::CodeCompletionModel* model) const;
+    void setCurrentCompletion(KTextEditor::CodeCompletionModel* model, const QString& completion);
 
     Qt::CaseSensitivity matchCaseSensitivity() const;
     void setMatchCaseSensitivity( Qt::CaseSensitivity cs );
@@ -209,7 +209,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         bool isMatching() const;
 
         bool filter();
-        bool match(const QString& newCompletion = QString());
+        bool match();
 
         const ModelRow& sourceRow() const;
 
@@ -293,7 +293,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     };
 
 
-    void changeCompletions(Group* g, const QString& newCompletion, changeTypes changeType);
+    void changeCompletions(Group* g, changeTypes changeType);
 
     void deleteRows(Group* g, QMutableListIterator<Item>& filtered, int countBackwards, int startRow);
     void addRows(Group* g, QMutableListIterator<Item>& filtered, int startRow, const QList<Item>& newItems);
@@ -314,7 +314,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;
-    QString m_currentMatch;
+    QMap<KTextEditor::CodeCompletionModel*, QString> m_currentMatch;
     Qt::CaseSensitivity m_matchCaseSensitivity;
 
     // Column merging

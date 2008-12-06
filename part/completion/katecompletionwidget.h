@@ -61,6 +61,7 @@ class KateCompletionWidget : public QFrame
     KateCompletionTree* treeView() const;
 
     bool isCompletionActive() const;
+    void startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType);
     void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
     void userInvokedCompletion();
 
@@ -82,7 +83,8 @@ class KateCompletionWidget : public QFrame
     int automaticInvocationDelay() const;
     void setAutomaticInvocationDelay(int delay);
     
-    KateSmartRange* completionRange() const;
+    KateSmartRange* completionRange(KTextEditor::CodeCompletionModel* model = 0) const;
+    QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> completionRanges( ) const;
 
     // Navigation
     void pageDown();
@@ -155,11 +157,12 @@ class KateCompletionWidget : public QFrame
     //Switch cursor between argument-hint list / completion-list
     void switchList();
     KTextEditor::Range determineRange() const;
+    void completionRangeChanged(KTextEditor::CodeCompletionModel*, const KTextEditor::Range& word);
 
     QList<KTextEditor::CodeCompletionModel*> m_sourceModels;
     KateCompletionModel* m_presentationModel;
 
-    KateSmartRange* m_completionRange;
+    QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> m_completionRanges;
     KTextEditor::Cursor m_lastCursorPosition;
 
     KateCompletionTree* m_entryList;

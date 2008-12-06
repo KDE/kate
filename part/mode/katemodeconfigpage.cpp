@@ -200,8 +200,8 @@ void ModeConfigPage::save ()
     m_types[m_lastType]->name = ui->edtName->text ();
     m_types[m_lastType]->section = ui->edtSection->text ();
     m_types[m_lastType]->varLine = ui->edtVariables->text ();
-    m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (";", QString::SkipEmptyParts);
-    m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (';', QString::SkipEmptyParts);
+    m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (';', QString::SkipEmptyParts);
     m_types[m_lastType]->priority = ui->sbPriority->value();
     m_types[m_lastType]->hl = ui->cmbHl->itemData(ui->cmbHl->currentIndex()).toString();
   }

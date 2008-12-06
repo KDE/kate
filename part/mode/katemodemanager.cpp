@@ -226,7 +226,7 @@ QString KateModeManager::fileType (KateDocument *doc)
   // Try wildcards
   if ( ! fileName.isEmpty() )
   {
-    static const QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (";");
+    static const QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (';');
 
     if (!(result = wildcardsFind(fileName)).isEmpty())
       return result;

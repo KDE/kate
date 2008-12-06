@@ -1378,7 +1378,7 @@ void KateView::switchToCmdLine ()
   // if the user has selected text, insert the selection's range (start line to end line) in the
   // command line when opened
   if (selectionRange().start().line() != -1 && selectionRange().end().line() != -1) {
-    cmdLine()->setText(QString::number(selectionRange().start().line()+1)+","
+    cmdLine()->setText(QString::number(selectionRange().start().line()+1)+','
         +QString::number(selectionRange().end().line()+1));
   }
   m_viewBar->showBarWidget(cmdLine());

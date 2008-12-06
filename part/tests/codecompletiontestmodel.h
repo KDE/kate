@@ -26,12 +26,12 @@ namespace KTextEditor {
   class CodeCompletionInterface;
 }
 
-class CodeCompletionTest : public KTextEditor::CodeCompletionModel
+class CodeCompletionTestModel : public KTextEditor::CodeCompletionModel
 {
   Q_OBJECT
 
   public:
-    CodeCompletionTest(KTextEditor::View* parent = 0L);
+    CodeCompletionTestModel(KTextEditor::View* parent = 0L, const QString &startText = QString());
 
     KTextEditor::View* view() const;
     KTextEditor::CodeCompletionInterface* cc() const;
@@ -41,6 +41,7 @@ class CodeCompletionTest : public KTextEditor::CodeCompletionModel
 
   private:
     QString m_startText;
+    bool m_autoStartText;
 };
 
 #endif

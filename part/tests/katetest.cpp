@@ -78,7 +78,7 @@
 #include <kxmlguifactory.h>
 
 #include "arbitraryhighlighttest.h"
-#include "codecompletiontest.h"
+#include "codecompletiontestmodel.h"
 #include "annotationmodeltest.h"
 
 // StatusBar field IDs
@@ -119,7 +119,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 
-  new CodeCompletionTest(m_view);
+  new CodeCompletionTestModel(m_view);
 
   // Test for the annotation interface
   AnnotationModelTest* annomodel = new AnnotationModelTest();

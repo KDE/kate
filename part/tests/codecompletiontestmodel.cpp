@@ -16,24 +16,26 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "codecompletiontest.h"
+#include "codecompletiontestmodel.h"
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/smartrange.h>
 
-CodeCompletionTest::CodeCompletionTest(KTextEditor::View* parent)
-  : KTextEditor::CodeCompletionModel(parent)
+CodeCompletionTestModel::CodeCompletionTestModel(KTextEditor::View* parent, const QString &startText)
+  : KTextEditor::CodeCompletionModel(parent), m_startText(startText), m_autoStartText(m_startText.isEmpty())
 {
   setRowCount(40);
 
   Q_ASSERT(cc());
+
   cc()->setAutomaticInvocationEnabled(true);
   cc()->registerCompletionModel(this);
 }
 
 // Fake a series of completions
-QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
+QVariant CodeCompletionTestModel::data( const QModelIndex & index, int role ) const
 {
   switch (role) {
     case Qt::DisplayRole:
@@ -144,28 +146,31 @@ QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
     }
 
     case ScopeIndex:
-      return (index.row() % 4 ) - 1;
+      return (index.row() % 4 ) - 1;  
   }
 
   return QVariant();
 }
 
-KTextEditor::View* CodeCompletionTest::view( ) const
+KTextEditor::View* CodeCompletionTestModel::view( ) const
 {
   return static_cast<KTextEditor::View*>(const_cast<QObject*>(QObject::parent()));
 }
 
-KTextEditor::CodeCompletionInterface * CodeCompletionTest::cc( ) const
+KTextEditor::CodeCompletionInterface * CodeCompletionTestModel::cc( ) const
 {
   return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
 }
 
-void CodeCompletionTest::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType)
+void CodeCompletionTestModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType)
 {
   Q_UNUSED(invocationType)
 
-  m_startText = view->document()->text(KTextEditor::Range(range.start(), view->cursorPosition()));
+  if (m_autoStartText) {
+    m_startText = view->document()->text(KTextEditor::Range(range.start(), view->cursorPosition()));
+  }
   kDebug() << m_startText;
 }
 
-#include "codecompletiontest.moc"
+
+#include "codecompletiontestmodel.moc"

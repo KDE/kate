@@ -11,7 +11,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces
 set(katetest_SRCS
 katetest.cpp
 arbitraryhighlighttest.cpp
-codecompletiontest.cpp
+codecompletiontestmodel.cpp
 annotationmodeltest.cpp
 )
 

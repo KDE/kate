@@ -150,7 +150,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 /**
  * Helper-function to merge custom-highlighting variant-lists.
  *
- * @param stings A list of strings that should be merged
+ * @param strings A list of strings that should be merged
  * @param highlights One variant-list for highlighting, as described in the kde header ktextedtor/codecompletionmodel.h
  * @param gapBetweenStrings How many signs are inserted between 2 strings?
  * */

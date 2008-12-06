@@ -15,6 +15,7 @@ set(ktexteditor_LIB_SRCS
    smartrange.cpp
    codecompletioninterface.cpp
    codecompletionmodel.cpp
+   codecompletionmodelcontrollerinterface.cpp
    configinterface.cpp
    smartinterface.cpp
    )
@@ -61,6 +62,7 @@ install( FILES
     smartrange.h
     codecompletioninterface.h
     codecompletionmodel.h
+    codecompletionmodelcontrollerinterface.h
     configinterface.h
     containerinterface.h
     annotationinterface.h

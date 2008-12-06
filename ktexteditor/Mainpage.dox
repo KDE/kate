@@ -43,6 +43,7 @@ to use. The only implementation right now is the Kate Editor Component
  - \ref kte_group_editor_extensions
  - \ref kte_group_plugin_extensions
  - \ref kte_group_command_extensions
+ - \ref kte_group_ccmodel_extensions
 
 \section kte_apiref API Reference
  - <a href="classes.html">All Classes</a>
@@ -364,6 +365,16 @@ The following classes are a list of all available Command extension interfaces.
 */
 
 
+
+/** \defgroup kte_group_ccmodel_extensions CodeCompletion Extension Interfaces
+A CodeCompletionModel implementation may implement a CodeCompletion extension interface, but
+it does not \e need to.
+
+\see KTextEditor::CodeCompletionModel
+
+The following classes are a list of all available View extension interfaces.
+<!-- The classes are defined by the \ingroup doxygen command -->
+*/
 
 
 

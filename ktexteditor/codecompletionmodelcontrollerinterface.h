@@ -61,6 +61,7 @@ class View;
  * };
  * \endcode
  *
+ * \see CodeCompletionModel
  * \author Niko Sams \<niko.sams@gmail.com\>
  * \since 4.2
  */

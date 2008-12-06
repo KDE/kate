@@ -69,8 +69,9 @@ class View;
  * \section compmodel_controller ControllerInterface to get more control
  *
  * To have more control over code completion implement
- * CodeCompletionModelControllerInterface in your CodeCompletionModel
+ * CodeCompletionModelControllerInterface in your CodeCompletionModel.
  *
+ * \see CodeCompletionInterface, CodeCompletionModelControllerInterface
  * @author Hamish Rodda <rodda@kde.org>
  */
 class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel

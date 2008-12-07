@@ -97,6 +97,7 @@ unsigned int KateArgumentHintTree::rowHeight(const QModelIndex& index) const {
 }
 
 void KateArgumentHintTree::updateGeometry(QRect geom) {
+  setAnimated(false);
   //Avoid recursive calls of updateGeometry
   static bool updatingGeometry = false;
   if( updatingGeometry ) return;

@@ -222,8 +222,10 @@ class KateCodeFoldingTree : public QObject
     */
     void ensureVisible( uint line );
 
+  private:
+    bool m_clearCache;
   Q_SIGNALS:
-    void regionVisibilityChangedAt  (unsigned int);
+    void regionVisibilityChangedAt  (unsigned int,bool clearCache);
     void regionBeginEndAddedRemoved (unsigned int);
 };
 

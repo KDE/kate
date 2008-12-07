@@ -171,8 +171,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect( m_leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
            m_doc->foldingTree(), SLOT(toggleRegionVisibility(unsigned int)));
 
-  connect( doc->foldingTree(), SIGNAL(regionVisibilityChangedAt(unsigned int)),
-           this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
+  connect( doc->foldingTree(), SIGNAL(regionVisibilityChangedAt(unsigned int,bool)),
+           this, SLOT(slotRegionVisibilityChangedAt(unsigned int,bool)));
   connect( doc, SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );
 
@@ -669,7 +669,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
   m_madeVisible = !force;
 }
 
-void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
+void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)
 {
   kDebug(13030) << "slotRegionVisibilityChangedAt()";
   m_cachedMaxStartPos.setLine(-1);
@@ -677,6 +677,8 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
   if (startPos() > max)
     scrollPos(max);
 
+  if (clear_cache)
+    cache()->clear ();
   updateView();
   update();
   m_leftBorder->update();

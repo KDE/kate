@@ -221,7 +221,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void dropEventPass(QDropEvent*);
 
   private Q_SLOTS:
-    void slotRegionVisibilityChangedAt(unsigned int);
+    void slotRegionVisibilityChangedAt(unsigned int,bool clear_cache);
     void slotRegionBeginEndAddedRemoved(unsigned int);
     void slotCodeFoldingChanged();
 

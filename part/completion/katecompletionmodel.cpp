@@ -581,12 +581,13 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
   int argumentHintDepth = handler.getData(CodeCompletionModel::ArgumentHintDepth, sourceIndex).toInt();
 
   Group* g;
-  if( argumentHintDepth )
+  if( argumentHintDepth ) {
+    kDebug() << "got argument-hint" << sourceIndex.sibling(sourceIndex.row(), KTextEditor::CodeCompletionModel::Name).data(Qt::DisplayRole);
     g = m_argumentHints;
-  else
+  } else
     g = fetchGroup(completionFlags, scopeIfNeeded, handler.hasHierarchicalRoles());
 
-  Item item = Item(this, handler, ModelRow(handler.model(), QPersistentModelIndex(sourceIndex)));
+  Item item = Item(g != m_argumentHints, this, handler, ModelRow(handler.model(), QPersistentModelIndex(sourceIndex)));
 
   if(g != m_argumentHints)
     item.match();
@@ -1455,7 +1456,7 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
   return m_sortingCaseSensitivity;
 }
 
-KateCompletionModel::Item::Item( KateCompletionModel* m, const HierarchicalModelHandler& handler, ModelRow sr )
+KateCompletionModel::Item::Item( bool doInitialMatch, KateCompletionModel* m, const HierarchicalModelHandler& handler, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
   , matchCompletion(true)
@@ -1465,8 +1466,10 @@ KateCompletionModel::Item::Item( KateCompletionModel* m, const HierarchicalModel
 
   m_nameColumn = sr.second.sibling(sr.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
   
-  filter();
-  match();
+  if(doInitialMatch) {
+    filter();
+    match();
+  }
 }
 
 bool KateCompletionModel::Item::operator <( const Item & rhs ) const
@@ -1736,6 +1739,8 @@ bool KateCompletionModel::Item::match()
    // Hehe, everything matches nothing! (ie. everything matches a blank string)
    if (match.isEmpty())
      return true;
+   
+   kDebug() << "matching" << m_nameColumn << matchCompletion;
 
   matchCompletion = m_nameColumn.startsWith(match, model->matchCaseSensitivity());
 
@@ -1964,7 +1969,7 @@ void KateCompletionModel::updateBestMatches() {
     --it;
     --cnt;
 
-    m_bestMatches->filtered.append( Item( this, HierarchicalModelHandler((*it).second.first), (*it).second) );
+    m_bestMatches->filtered.append( Item( true, this, HierarchicalModelHandler((*it).second.first), (*it).second) );
   }
 
   hideOrShowGroup(m_bestMatches);

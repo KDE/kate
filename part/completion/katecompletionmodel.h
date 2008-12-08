@@ -198,7 +198,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     // Represents a source row; provides sorting method
     class Item {
       public:
-        Item(KateCompletionModel* model, const HierarchicalModelHandler& handler, ModelRow sourceRow);
+        Item(bool doInitialMatch, KateCompletionModel* model, const HierarchicalModelHandler& handler, ModelRow sourceRow);
 
         bool isValid() const;
         // Returns true if the item is not filtered and matches the current completion string

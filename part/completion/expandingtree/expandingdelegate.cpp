@@ -210,11 +210,13 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
           additionalFormats.removeAt(a);
       }else{
           ///For some reason the text-formats seem to be invalid in some way, sometimes
+          ///@todo Fix this properly, it sucks not copying everything over
           QTextCharFormat fm;
           fm.setForeground(QBrush(additionalFormats[a].format.foreground().color()));
           fm.setBackground(additionalFormats[a].format.background());
 	  fm.setUnderlineStyle( additionalFormats[a].format.underlineStyle() );
 	  fm.setUnderlineColor( additionalFormats[a].format.underlineColor() );
+	  fm.setFontWeight( additionalFormats[a].format.fontWeight() );
           additionalFormats[a].format = fm;
       }
   }

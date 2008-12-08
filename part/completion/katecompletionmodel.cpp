@@ -582,7 +582,6 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
 
   Group* g;
   if( argumentHintDepth ) {
-    kDebug() << "got argument-hint" << sourceIndex.sibling(sourceIndex.row(), KTextEditor::CodeCompletionModel::Name).data(Qt::DisplayRole);
     g = m_argumentHints;
   } else
     g = fetchGroup(completionFlags, scopeIfNeeded, handler.hasHierarchicalRoles());
@@ -784,7 +783,6 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
     int row = m_rowTable.indexOf(g);
 
     if (row == -1) {
-      kDebug() << g;
       qFatal("ohje");
       kWarning() << "Couldn't find parent for index" << index;
       return QModelIndex();
@@ -1740,8 +1738,6 @@ bool KateCompletionModel::Item::match()
    if (match.isEmpty())
      return true;
    
-   kDebug() << "matching" << m_nameColumn << matchCompletion;
-
   matchCompletion = m_nameColumn.startsWith(match, model->matchCaseSensitivity());
 
   return matchCompletion;

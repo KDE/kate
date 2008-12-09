@@ -72,7 +72,6 @@
 //Added by qt3to4:
 #include <QtGui/QKeyEvent>
 #include <QtGui/QBoxLayout>
-#include <Qt3Support/Q3ValueList>
 #include <QtCore/QTextStream>
 
 #include <kxmlguifactory.h>
@@ -421,16 +420,16 @@ void KWrite::slotDropEvent( QDropEvent *event )
 
 void KWrite::slotEnableActions( bool enable )
 {
-  Q3ValueList<QAction *> actions = actionCollection()->actions();
-  Q3ValueList<QAction *>::ConstIterator it = actions.begin();
-  Q3ValueList<QAction *>::ConstIterator end = actions.end();
+  QList<QAction *> actions = actionCollection()->actions();
+  QList<QAction *>::ConstIterator it = actions.constBegin();
+  QList<QAction *>::ConstIterator end = actions.constEnd();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );
 
   actions = m_view->actionCollection()->actions();
-  it = actions.begin();
-  end = actions.end();
+  it = actions.constBegin();
+  end = actions.constEnd();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );

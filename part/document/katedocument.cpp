@@ -321,9 +321,11 @@ KateDocument::~KateDocument()
 
   delete m_editCurrentUndo;
 
-  // cleanup the undo items, very important, truee :/
+  // cleanup the undo/redo items, very important, truee :/
   qDeleteAll(undoItems);
   undoItems.clear();
+  qDeleteAll(redoItems);
+  redoItems.clear();
 
   // de-register from plugin
   KatePartPluginManager::self()->removeDocument(this);

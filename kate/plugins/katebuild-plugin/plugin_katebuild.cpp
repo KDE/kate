@@ -84,7 +84,9 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
                 i18n("Build Output"))
                )
     , m_proc(0)
-    , m_filenameDetector(0)
+    // NOTE this will not allow spaces in file names.
+    , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[chpxCHPX]+:[0-9]+"),
+    m_newDirDetector("make\\[.+\\]: .+ `.*'")
 {
     setComponentData(KComponentData("kate"));
 
@@ -137,19 +139,14 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     buildUi.buildCmd->setText("make");
     buildUi.cleanCmd->setText("make clean");
     buildUi.quickComp->setText("gcc -Wall -g");
-
     m_proc = new KProcess();
 
     connect(m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcExited(int, QProcess::ExitStatus)));
     connect(m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
-    // NOTE this will not allow spaces in file names.
-    m_filenameDetector = new QRegExp(QString::fromLatin1("[a-zA-Z0-9_\\.\\-]*\\.[chpxCHPX]*:[0-9]+"));
-    m_newDirDetector = new QRegExp(QString::fromLatin1("make\\[.+\\]: .+ `.*'"));
-
+    
     setXMLFile(QString::fromLatin1("plugins/katebuild/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
-
 }
 
 
@@ -161,7 +158,6 @@ KateBuildView::~KateBuildView()
     mainWindow()->guiFactory()->removeClient( this );
 
     delete m_proc;
-    delete m_filenameDetector;
     delete m_toolView;
 }
 
@@ -294,7 +290,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     item->setData(2, Qt::UserRole, column);
 
     // add tooltips in all columns
-    item->setData(0, Qt::ToolTipRole, message);
+    item->setData(0, Qt::ToolTipRole, filename);
     item->setData(1, Qt::ToolTipRole, message);
     item->setData(2, Qt::ToolTipRole, message);
 }
@@ -325,6 +321,7 @@ bool KateBuildView::startProcess(const QString &command)
     }
     buildUi.plainTextEdit->clear();
     buildUi.errTreeWidget->clear();
+    //buildUi.errTreeWidget->setSortingEnabled(false);
 
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
@@ -402,6 +399,7 @@ void KateBuildView::slotProcExited(int /*exitCode*/, QProcess::ExitStatus)
         buildUi.ktabwidget->setCurrentIndex(0);
         buildUi.errTreeWidget->resizeColumnToContents(0);
         buildUi.errTreeWidget->resizeColumnToContents(1);
+        //buildUi.errTreeWidget->setSortingEnabled(true);
         m_win->showToolView(m_toolView);
 
         KPassivePopup::message(i18n("Make Results"), i18n("Found Warnings/Errors."), m_toolView);
@@ -420,30 +418,13 @@ void KateBuildView::slotReadReadyStdOut()
     // the text to the end of the output
     // FIXME This works for utf8 but not for all charsets
     QString l= QString::fromUtf8(m_proc->readAllStandardOutput());
+    l.remove('\r');
     m_output_lines += l;
 
     QString tmp;
 
     int end=0;
 
-    if (l.indexOf(*m_newDirDetector) >=0) {
-        kDebug() << "Enter/Exit dir found";
-        //QString top = m_doc_dir_stack.top();
-        int open = l.indexOf("`");
-        int close = l.indexOf("'");
-        KUrl newDir = KUrl(l.mid(open+1, close-open-1));
-        kDebug () << "New dir = " << newDir;
-
-        if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
-            m_make_dir_stack.pop();
-            newDir = m_make_dir_stack.top();
-        }
-        else {
-            m_make_dir_stack.push(newDir);
-        }
-
-        m_make_dir = newDir;
-    }
 
     // handle one line at a time
     do {
@@ -454,6 +435,23 @@ void KateBuildView::slotReadReadyStdOut()
         tmp.remove('\n');
         buildUi.plainTextEdit->appendPlainText(tmp);
         //kDebug() << tmp;
+        if (tmp.indexOf(m_newDirDetector) >=0) {
+            //kDebug() << "Enter/Exit dir found";
+            int open = tmp.indexOf("`");
+            int close = tmp.indexOf("'");
+            KUrl newDir = KUrl(tmp.mid(open+1, close-open-1));
+            kDebug () << "New dir = " << newDir;
+
+            if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
+                m_make_dir_stack.pop();
+                newDir = m_make_dir_stack.top();
+            }
+            else {
+                m_make_dir_stack.push(newDir);
+            }
+
+            m_make_dir = newDir;
+        }
 
 
         m_output_lines.remove(0,end);
@@ -467,6 +465,7 @@ void KateBuildView::slotReadReadyStdErr()
 {
     // FIXME This works for utf8 but not for all charsets
     QString l= QString::fromUtf8(m_proc->readAllStandardError());
+    l.remove('\r');
     m_output_lines += l;
 
     QString tmp;
@@ -496,54 +495,23 @@ void KateBuildView::processLine(const QString &line)
     kDebug() << l ;
 
     //look for a filename
-    if (m_filenameDetector && l.indexOf(*m_filenameDetector)<0)
+    if (l.indexOf(m_filenameDetector)<0)
     {
         addError(QString(), 0, QString(), l);
         //kDebug() << "A filename was not found in the line ";
         return;
     }
 
-    // check out for this kind of lines
-    // foo2.o: In function `my_foo':foo2.c:18: multiple definition of `foo'
-    // foo1.o:foo1.c:15: first defined here
-    // skip the first parts of the lines and jump to the names
-    int f_name = l.indexOf(*m_filenameDetector);
-    int colon1 = l.indexOf(':');
+    int match_start = m_filenameDetector.indexIn(l, 0);
+    int match_len = m_filenameDetector.matchedLength();
 
-    while ((colon1 >=0) && (colon1 < f_name)) {
-        l.remove(0, colon1+1);
-        f_name = l.indexOf(*m_filenameDetector);
-        colon1 = l.indexOf(':');
-        if ((f_name < 0)) {
-            kDebug() << "This should have been a filename, in \"" << line << "\", but I can not find it :(";
-            return;
-        }
-    }
-    QString filename = l.left(colon1);
+    QString file_n_line = l.mid(match_start, match_len);
 
-    int colon2 = l.indexOf(':',colon1+1);
-    if (colon2 < 0) {
-        // in case of "In file included from incl_from.h:4,"
-        colon2 = l.indexOf(',',colon1+1);
-    }
+    int name_end = file_n_line.lastIndexOf(':');
+    QString filename = file_n_line.left(name_end);
+    QString line_n = file_n_line.mid(name_end+1);
+    QString msg = l.remove(m_filenameDetector);
 
-    // line number
-    QString line_n = l.mid(colon1+1,colon2-colon1-1);
-
-    // error/warning string after the second colon
-    QString msg = l.mid(colon2+1);
-    msg = msg.simplified();
-
-    //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
-
-    // handle "In file included from foo.c:6"
-    // handle "                 from foo.c:6:"
-    int lastSpace = filename.lastIndexOf(' ');
-    if (lastSpace > 0) {
-        QString toRemove = filename.left(lastSpace+1);
-        msg += toRemove;
-        filename = filename.remove(toRemove);
-    }
     //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file
     if (QFile::exists(m_make_dir.path(KUrl::AddTrailingSlash)+filename)) {

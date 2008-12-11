@@ -86,17 +86,13 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         buildUi;
-
-        KProcess *m_proc;
-
-        QString      m_output_lines;
-        KUrl         m_make_dir;
-        QStack<KUrl> m_make_dir_stack;
-
-        QRegExp *m_filenameDetector;
-        QRegExp *m_newDirDetector;
-        
-        bool m_found_error;
+        KProcess         *m_proc;
+        QString           m_output_lines;
+        KUrl              m_make_dir;
+        QStack<KUrl>      m_make_dir_stack;
+        QRegExp           m_filenameDetector;
+        QRegExp           m_newDirDetector;
+        bool              m_found_error;
 };
 
 

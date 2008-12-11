@@ -326,13 +326,14 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
     Tags::TagList::ConstIterator it = list.begin();
     while(it != list.end()) {
         // search for the file
-        if('/'==(*it).file[0]) {
+        QFileInfo file((*it).file);
+        if(file.isAbsolute()) {
         // we have absolute path
             url.setPath((*it).file);
         }
         else {
-        // not absolute
-            QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+'/'+(*it).file);
+            // not absolute
+            QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + file.fileName());
             url.setPath(abs.absoluteFilePath());
         }
 
@@ -439,13 +440,14 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     QRegExp re(re_string);
 
     // search for the file
-    if('/'==file[0]) {
+    QFileInfo find(file);
+    if(find.isAbsolute()) {
         // we have absolute path
         url.setPath(file);
     }
     else {
         // not absolute
-        QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+'/'+file);
+        QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + find.fileName());
         url.setPath(abs.absoluteFilePath());
     }
 

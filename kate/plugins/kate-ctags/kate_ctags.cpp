@@ -322,6 +322,7 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
     KUrl url;
 
     m_ctagsUi.treeWidget->clear();
+    m_ctagsUi.treeWidget->setSortingEnabled(false);
 
     Tags::TagList::ConstIterator it = list.begin();
     while(it != list.end()) {
@@ -355,7 +356,7 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
 
         ++it;
     }
-
+    m_ctagsUi.treeWidget->setSortingEnabled(true);
 }
 
 /******************************************************************/

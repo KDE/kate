@@ -334,7 +334,10 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
         }
         else {
             // not absolute
-            QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + file.fileName());
+            QString name = (*it).file;
+            name = name.remove(".\\");
+            name = name.replace("\\", "/");
+            QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + name);
             url.setPath(abs.absoluteFilePath());
         }
 
@@ -448,7 +451,10 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     }
     else {
         // not absolute
-        QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + find.fileName());
+        QString name = file;
+        name = name.remove(".\\");
+        name = name.replace("\\", "/");
+        QFileInfo abs(QFileInfo(Tags::getTagsFile()).path()+ '/' + name);
         url.setPath(abs.absoluteFilePath());
     }
 

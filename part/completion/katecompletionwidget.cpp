@@ -79,9 +79,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_isSuspended(false)
   , m_dontShowArgumentHints(false)
   , m_needShow(false)
+  , m_hadCompletionNavigation(false)
   , m_expandedAddedHeightBase(0)
   , m_expandingAddedHeight(0)
-  , m_hadCompletionNavigation(false)
 {
   connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
   connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));

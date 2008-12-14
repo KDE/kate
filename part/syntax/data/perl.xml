@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.22" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.23" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -368,7 +368,7 @@
         <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
 
         <RegExpr attribute="Operator" context="find_quoted" String="\bq(?=[qwx]?\s*[^\w\s])" />
-        <RegExpr attribute="Operator" context="find_subst" String="\bs(?=\s*[^\w\s])" />
+        <RegExpr attribute="Operator" context="find_subst" String="\bs(?=\s*[^\w\s\]})])" />
         <RegExpr attribute="Operator" context="tr" String="\b(?:tr|y)\s*(?=[^\w\s\]})])" />
 
         <RegExpr attribute="Operator" context="find_pattern" String="\b(?:m|qr)(?=\s*[^\w\s\]})])" />

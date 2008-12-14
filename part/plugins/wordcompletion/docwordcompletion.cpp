@@ -419,7 +419,6 @@ void DocWordCompletionPluginView::popupCompletionList()
 
 void DocWordCompletionPluginView::toggleAutoPopup()
 {
-  return;
   if ( d->autopopup->isChecked() ) {
     if ( ! connect( m_view, SIGNAL(textInserted ( KTextEditor::View *, const KTextEditor::Cursor &, const QString & )),
          this, SLOT(autoPopupCompletionList()) ))
@@ -437,9 +436,8 @@ void DocWordCompletionPluginView::toggleAutoPopup()
 // for autopopup FIXME - don't pop up if reuse word is inserting
 void DocWordCompletionPluginView::autoPopupCompletionList()
 {
-  return;
-
   if ( ! m_view->hasFocus() ) return;
+
   KTextEditor::Range r = range();
   if ( r.columnWidth() >= (int)d->treshold )
   {
@@ -644,7 +642,6 @@ QString DocWordCompletionPluginView::findLongestUnique( const QStringList &match
 
   return partial;
 }
-
 
 // Return the string to complete (the letters behind the cursor)
 const QString DocWordCompletionPluginView::word() const

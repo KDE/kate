@@ -44,9 +44,9 @@ DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariant
     cbAutoPopup = new QCheckBox( i18n("Automatically &show completion list"), this );
     lo->addWidget( cbAutoPopup );
 
-    KHBox *hb = new KHBox( this );
-    hb->setSpacing( KDialog::spacingHint() );
-    lo->addWidget( hb );
+    hbTreshold = new KHBox( this );
+    hbTreshold->setSpacing( KDialog::spacingHint() );
+    lo->addWidget( hbTreshold );
     QLabel *l = new QLabel( i18nc(
         "Translators: This is the first part of two strings which will comprise the "
         "sentence 'Show completions when a word is at least N characters'. The first "
@@ -54,15 +54,15 @@ DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariant
         "widget, followed by the second part: 'characters long'. Characters is a "
         "integer number between and including 1 and 30. Feel free to leave the "
         "second part of the sentence blank if it suits your language better. ",
-        "Show completions &when a word is at least"), hb );
-    sbAutoPopup = new QSpinBox( hb );
+        "Show completions &when a word is at least"), hbTreshold );
+    sbAutoPopup = new QSpinBox( hbTreshold );
     sbAutoPopup->setRange( 1, 30 );
     sbAutoPopup->setSingleStep( 1 );
     l->setBuddy( sbAutoPopup );
     lSbRight = new QLabel( i18nc(
         "This is the second part of two strings that will comprise the sentence "
         "'Show completions when a word is at least N characters'",
-        "characters long."), hb );
+        "characters long."), hbTreshold );
 
     cbAutoPopup->setWhatsThis(i18n(
         "Enable the automatic completion list popup as default. The popup can "
@@ -149,6 +149,7 @@ void DocWordCompletionConfig::defaults()
 
 void DocWordCompletionConfig::slotChanged()
 {
+    hbTreshold->setEnabled(cbAutoPopup->isChecked());
     emit changed(true);
 }
 

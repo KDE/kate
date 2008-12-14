@@ -40,6 +40,7 @@ private Q_SLOTS:
     void slotChanged();
 
 private:
+    class KHBox *hbTreshold;
     class QCheckBox *cbAutoPopup;
     class QSpinBox *sbAutoPopup;
     class QLabel *lSbRight;

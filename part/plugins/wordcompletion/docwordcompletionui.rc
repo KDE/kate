@@ -1,12 +1,11 @@
 <!DOCTYPE kpartgui>
-<gui name="ktexteditor_docwordcompletion" library="ktexteditor_docwordcompletion" version="4">
+<gui name="ktexteditor_docwordcompletion" library="ktexteditor_docwordcompletion" version="5">
 <MenuBar>
  <Menu name="tools"><text>&amp;Tools</text>
     <Separator group="tools_operations" />
     <Menu name="wordcompletion" group="tools_operations"><text>Word Completion</text>
       <Action name="doccomplete_fw" />
       <Action name="doccomplete_bw" />
-      <Action name="doccomplete_pu" />
       <Action name="doccomplete_sh" />
       <Separator />
       <Action name="enable_autopopup" />

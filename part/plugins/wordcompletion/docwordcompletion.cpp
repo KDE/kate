@@ -316,10 +316,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
   {
     cci->registerCompletionModel( m_dWCompletionModel );
 
-    action = new KAction( i18n("Pop Up Completion List"), this );
-    actionCollection()->addAction( "doccomplete_pu", action );
-    connect( action, SIGNAL( triggered() ), this, SLOT(popupCompletionList()) );
-
     d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), this );
     actionCollection()->addAction( "enable_autopopup", d->autopopup );
     connect( d->autopopup, SIGNAL( triggered() ), this, SLOT(toggleAutoPopup()) );

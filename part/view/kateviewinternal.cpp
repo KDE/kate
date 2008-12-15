@@ -1904,6 +1904,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
+  ///@todo The smart-lock should _NOT_ be held while this is emitted!
   emit m_view->cursorPositionChanged(m_view, m_cursor);
 }
 

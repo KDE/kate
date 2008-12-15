@@ -193,7 +193,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
 
 
 KateSearchBar::~KateSearchBar() {
-//     delete m_topRange;
+//  delete m_topRange; this gets deleted somewhere else (bug #176027)
     delete m_layout;
     delete m_widget;
 

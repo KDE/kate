@@ -190,6 +190,7 @@ bool KateApp::startupKate ()
   bool tempfileSet = KCmdLineArgs::isTempFileSet();
 
   KTextEditor::Document *doc = 0;
+  KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
   for (int z = 0; z < m_args->count(); z++)
   {
     // this file is no local dir, open it, else warn
@@ -207,6 +208,7 @@ bool KateApp::startupKate ()
       KMessageBox::sorry( activeMainWindow(),
                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", m_args->url(z).url()) );
   }
+  KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input
   if( m_args->isSet( "stdin" ) )

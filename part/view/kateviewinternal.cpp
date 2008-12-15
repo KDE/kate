@@ -729,10 +729,17 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
     return QPoint(-1, -1);
 
-  int y = viewLine * renderer()->fontHeight();
+  int y = (int)viewLine * renderer()->fontHeight();
 
   KateTextLayout layout = cache()->viewLine(viewLine);
-  int x = (int)layout.lineLayout().cursorToX(cursor.column());
+  int x = 0;
+
+  // only set x value if we have a valid layout (bug #171027)
+  if (layout.isValid())
+    x = (int)layout.lineLayout().cursorToX(cursor.column());
+//  else 
+//    kDebug() << "Invalid Layout";
+  
   if (includeBorder) x += m_leftBorder->width();
 
   return QPoint(x, y);

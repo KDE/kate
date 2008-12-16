@@ -1513,7 +1513,7 @@ void KateView::ensureCursorColumnValid()
   // - in block selection mode or if wrap cursor is off, the colum is arbitrary
   // - otherwise: it's bounded by the line length
   if (!blockSelectionMode() && wrapCursor()
-      && (c.isValid() || c.column() > m_doc->lineLength(c.line())))
+      && (!c.isValid() || c.column() > m_doc->lineLength(c.line())))
   {
     c.setColumn(m_doc->kateTextLine(cursorPosition().line())->length());
     setCursorPosition(c);

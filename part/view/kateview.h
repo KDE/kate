@@ -90,7 +90,7 @@ class KateView : public KTextEditor::View,
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::AnnotationViewInterface)
     Q_INTERFACES(KTextEditor::CoordinatesToCursorInterface)
-    
+
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;
@@ -174,7 +174,7 @@ class KateView : public KTextEditor::View,
     QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const;
 
     KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const;
-    
+
     QPoint cursorPositionCoordinates() const;
 
     bool setCursorPositionVisual( const KTextEditor::Cursor& position );
@@ -328,6 +328,8 @@ class KateView : public KTextEditor::View,
     bool lineEndSelected (const KTextEditor::Cursor& lineEndPos);
     bool lineHasSelected (int line);
     bool lineIsSelection (int line);
+
+    void ensureCursorColumnValid();
 
     void tagSelection (const KTextEditor::Range &oldSelection);
 

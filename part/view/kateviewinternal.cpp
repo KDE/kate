@@ -737,9 +737,9 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
   // only set x value if we have a valid layout (bug #171027)
   if (layout.isValid())
     x = (int)layout.lineLayout().cursorToX(cursor.column());
-//  else 
+//  else
 //    kDebug() << "Invalid Layout";
-  
+
   if (includeBorder) x += m_leftBorder->width();
 
   return QPoint(x, y);
@@ -919,12 +919,12 @@ public:
       return *this;
     }
 
-    const bool blockSelectionMode = m_vi->view()->blockSelection();
+    const bool noWrapCursor = m_vi->view()->blockSelection() || !m_vi->m_view->wrapCursor();
     int maxColumn = -1;
     if (n >= 0) {
       for (int i = 0; i < n; i++) {
         if (m_column >= thisLine->length()) {
-          if (!blockSelectionMode) {
+          if (!noWrapCursor) {
             break;
 
           } else if (m_vi->view()->dynWordWrap()) {
@@ -1419,7 +1419,7 @@ void KateViewInternal::cursorUp(bool sel)
     m_view->completionWidget()->cursorUp();
     return;
   }
-  
+
   QMutexLocker l(m_doc->smartMutex());
 
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
@@ -1454,7 +1454,7 @@ void KateViewInternal::cursorDown(bool sel)
     m_view->completionWidget()->cursorDown();
     return;
   }
-  
+
   QMutexLocker l(m_doc->smartMutex());
 
   if ((m_displayCursor.line() >= m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
@@ -2200,7 +2200,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     case QEvent::KeyPress:
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
-        
+
       // Override all other single key shortcuts which do not use a modifier other than Shift
       if (obj == this && (!k->modifiers() || k->modifiers() == Qt::ShiftModifier)) {
         keyPressEvent( k );
@@ -2281,13 +2281,13 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     e->setAccepted(true);
     return;
   }
-  
+
   if( e->key() == Qt::Key_Alt && view()->completionWidget()->isCompletionActive() ) {
     m_completionItemExpanded = view()->completionWidget()->toggleExpanded(true);
     view()->completionWidget()->resetHadNavigation();
     m_altDownTime = QTime::currentTime();
   }
-  
+
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
@@ -2331,7 +2331,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     e->ignore();
     return;
   }
-  
+
   if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
     doReturn();
@@ -2419,10 +2419,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
   if( e->key() == Qt::Key_Alt && view()->completionWidget()->isCompletionActive() && ((m_completionItemExpanded && (view()->completionWidget()->hadNavigation() || m_altDownTime.msecsTo(QTime::currentTime()) > 300)) || (!m_completionItemExpanded && !view()->completionWidget()->hadNavigation())) ) {
-    
+
     view()->completionWidget()->toggleExpanded(false, true);
   }
-  
+
   if (e->key() == Qt::SHIFT)
   {
     m_shiftKeyPressed = true;
@@ -2750,15 +2750,15 @@ void KateViewInternal::leaveEvent( QEvent* )
 KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) const
 {
   QPoint coord(_coord);
-  
+
   KTextEditor::Cursor ret = KTextEditor::Cursor::invalid();
-  
+
   coord.setX( coord.x() - m_leftBorder->width() );
-  
+
   const KateTextLayout& thisLine = yToKateTextLayout(coord.y());
   if (thisLine.isValid())
     ret = renderer()->xToCursor(thisLine, coord.x(), !view()->wrapCursor());
-  
+
   return ret;
 }
 

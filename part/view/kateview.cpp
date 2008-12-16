@@ -2096,11 +2096,15 @@ bool KateView::setBlockSelectionMode (bool on)
 
     m_toggleBlockSelection->setChecked( blockSelectionMode() );
 
-    if(!blockSelectionMode() && !m_viewInternal->getCursor().isValid())
+    KTextEditor::Cursor c = m_viewInternal->getCursor();
+
+    // when leaving block selection mode, if cursor is at an invalid position or past the end of the
+    // line, move the cursor to the last column of the current line
+    if(!blockSelectionMode() && (c.isValid() || c.column() > m_doc->lineLength(c.line())))
     {
-    	KTextEditor::Cursor cursorAtEndOfLine(cursorPosition());
-    	cursorAtEndOfLine.setColumn(m_doc->kateTextLine(cursorPosition().line())->length());
-    	setCursorPosition(cursorAtEndOfLine);
+      KTextEditor::Cursor cursorAtEndOfLine(cursorPosition());
+      cursorAtEndOfLine.setColumn(m_doc->kateTextLine(cursorPosition().line())->length());
+      setCursorPosition(cursorAtEndOfLine);
     }
   }
 

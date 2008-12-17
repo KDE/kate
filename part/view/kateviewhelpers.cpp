@@ -1058,10 +1058,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   QPainter p ( this );
   p.setRenderHints (QPainter::TextAntialiasing);
   p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
-  // the line number color is for the line numbers, vertical separator lines
-  // and for for the code folding lines.
-  p.setPen ( m_view->renderer()->config()->lineNumberColor() );
-  p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
 
   KateLineInfo oldInfo;
   if (startz < lineRangesSize)
@@ -1200,14 +1196,14 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
       // adjust current X position and reset the pen and brush
       lnX += borderWidth + 2;
-
-      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
-      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
     }
 
     // line number
     if( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) )
     {
+      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
+      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
+
       if (realLine > -1) {
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
           if (m_lineNumbersOn)

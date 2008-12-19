@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.28" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
+<language name="LaTeX" version="1.29" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
       <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
         <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
         <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
-        <RegExpr String="\\(label|pageref|ref|vpageref|vref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
+        <RegExpr String="\\(label|pageref|autoref|ref|vpageref|vref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
         <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
         <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Footnote" context="Footnoting"/>
         <RegExpr String="\\(re)?newcommand(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
@@ -105,7 +105,7 @@
 
       <!-- LaTeX commands \newcommand and \renewcommand -->
       <context name="NewCommand" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr String="\s*\{\s*\\[a-zA-Z]+\s*\}(\[\d\](\[[^\]]+\])?)?\{" attribute="Normal Text" context="CommandParameterStart"/>
+        <RegExpr String="\s*\{\s*\\[a-zA-Z]+\s*\}(\[\d\](\[[^\]]*\])?)?\{" attribute="Normal Text" context="CommandParameterStart"/>
         <DetectChar char="}" attribute="Error" context="#pop"/>
       </context>
 
@@ -181,8 +181,8 @@
       <context name="Environment" attribute="Environment" lineEndContext="#stay">
         <RegExpr String="(lstlisting|(B|L)?Verbatim)" attribute="Environment" context="VerbatimEnvParam"/>
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
-        <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign)" attribute="Environment" context="MathEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>
+        <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign)" attribute="Environment" context="MathEnv"/>
         <RegExpr String="(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)" attribute="Environment" context="TabEnv"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]" attribute="Environment" context="LatexEnv"/>

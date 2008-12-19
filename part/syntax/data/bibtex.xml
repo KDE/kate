@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="BibTeX" version="1.13" kateversion="2.4" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
+<language name="BibTeX" version="1.14" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL">
   <highlighting>
     <list name="kw_entry">
-      <item>@article</item>
-      <item>@book</item>
-      <item>@booklet</item>
-      <item>@conference</item>
-      <item>@inbook</item>
-      <item>@incollection</item>
-      <item>@inproceedings</item>
-      <item>@manual</item>
-      <item>@mastersthesis</item>
-      <item>@misc</item>
-      <item>@phdthesis</item>
-      <item>@proceedings</item>
-      <item>@techreport</item>
-      <item>@unpublished</item>
+      <item>@article</item> 
+      <item>@book</item> 
+      <item>@booklet</item> 
+      <item>@conference</item> 
       <item>@collection</item>
+      <item>@electronic</item>
+      <item>@inbook</item> 
+      <item>@incollection</item> 
+      <item>@inproceedings</item> 
+      <item>@manual</item> 
+      <item>@mastersthesis</item> 
+      <item>@misc</item>
+      <item>@online</item>
       <item>@patent</item>
+      <item>@periodical</item>
+      <item>@proceedings</item>
+      <item>@report</item>
+      <item>@phdthesis</item>
+      <item>@set</item>
+      <item>@thesis</item> 
+      <item>@techreport</item> 
+      <item>@unpublished</item>
+      <item>@www</item>
     </list>
     <list name="kw_command">
       <item>@string</item>
@@ -27,7 +34,7 @@
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr String="([a-zA-Z]+)\s*=" attribute="Field" context="#stay" firstNonSpace="true" />
+        <RegExpr String="([a-zA-Z0-9]+)" attribute="Field" context="Field" firstNonSpace="true"/>
         <keyword String="kw_entry" attribute="Entry" context="Entry"/>
         <keyword String="kw_command" attribute="Command" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />
@@ -42,6 +49,10 @@
         <DetectChar char="}" attribute="Normal Text" context="#stay" endRegion="block" />
         <RegExpr String="\\([a-zA-Z]+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
+      </context>
+
+      <context name="Field" attribute="Field" lineEndContext="#pop">
+	      <DetectChar char="=" attribute="Normal Text" context="#pop"/>
       </context>
 
       <context name="String" attribute="String" lineEndContext="#stay">

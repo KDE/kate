@@ -53,6 +53,43 @@ class KatePluginSymbolViewerView2 : public Kate::PluginView
     KatePluginSymbolViewerView *m_view;
 };
 
+/**
+ * Plugin's config page
+ */
+class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
+{
+  Q_OBJECT
+
+  friend class KatePluginSymbolViewer;
+
+  public:
+    explicit KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
+    ~KatePluginSymbolViewerConfigPage ();
+
+    /**
+     * Reimplemented from Kate::PluginConfigPage
+     * just emits configPageApplyRequest( this ).
+     */
+    virtual void apply();
+    virtual void reset () { ; }
+    virtual void defaults () { ; }
+
+  signals:
+    /**
+     * Ask the plugin to set initial values
+     */
+    void configPageApplyRequest( KatePluginSymbolViewerConfigPage* );
+
+    /**
+     * Ask the plugin to apply changes
+     */
+    void configPageInitRequest( KatePluginSymbolViewerConfigPage* );
+
+  private:
+    QCheckBox* viewReturns;
+    QCheckBox* expandTree;
+};
+
 class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
@@ -92,48 +129,11 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     void parseRubySymbols(void);
     void parseXsltSymbols(void);
     void parsePhpSymbols(void);
+    void parseBashSymbols(void);
   public:
     Kate::MainWindow *win;
     bool types_on;
     bool expanded_on;
-};
-
-/**
- * Plugin's config page
- */
-class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
-{
-  Q_OBJECT
-
-  friend class KatePluginSymbolViewer;
-
-  public:
-    explicit KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
-    ~KatePluginSymbolViewerConfigPage ();
-
-    /**
-     * Reimplemented from Kate::PluginConfigPage
-     * just emits configPageApplyRequest( this ).
-     */
-    virtual void apply();
-
-    virtual void reset () { ; }
-    virtual void defaults () { ; }
-
-  signals:
-    /**
-     * Ask the plugin to set initial values
-     */
-    void configPageApplyRequest( KatePluginSymbolViewerConfigPage* );
-
-    /**
-     * Ask the plugin to apply changes
-     */
-    void configPageInitRequest( KatePluginSymbolViewerConfigPage* );
-
-  private:
-    QCheckBox* viewReturns;
-    QCheckBox* expandTree;
 };
 
 class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
@@ -146,26 +146,18 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-    void storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-    void loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-    void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
-    void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
-
     uint configPages () const { return 1; }
     Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
     QString configPageName(uint) const { return i18n("Symbol Viewer"); }
     QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); }
     QPixmap configPagePixmap (uint, int) const { return 0L; }
     KIcon configPageIcon (uint number = 0) const;
-  public slots:
-    void applyConfig( KatePluginSymbolViewerConfigPage* );
+
+   public slots:
+    void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
   private:
-    void initConfigPage( KatePluginSymbolViewerConfigPage* );
-
-  private:
-    QList<KatePluginSymbolViewerView *> m_views;
-    KConfig pConfig;
+    QList<KatePluginSymbolViewerView *> mViews;
 };
 
 /* XPM */

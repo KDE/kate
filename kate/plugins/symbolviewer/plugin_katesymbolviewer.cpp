@@ -81,36 +81,38 @@ KatePluginSymbolViewerView* KatePluginSymbolViewerView2::view()
 
 KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
 {
-    setComponentData (KateSymbolViewerFactory::componentData());
-    setXMLFile("plugins/katesymbolviewer/ui.rc");
-    KGlobal::locale()->insertCatalog("katesymbolviewer");
-    KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
-    act->setText(i18n("Hide Symbols"));
-    connect(act,SIGNAL(toggled( bool )),this,SLOT(slotInsertSymbol()));
-    act->setCheckedState(KGuiItem(i18n("Show Symbols")));
+  setComponentData (KateSymbolViewerFactory::componentData());
+  setXMLFile("plugins/katesymbolviewer/ui.rc");
+  KGlobal::locale()->insertCatalog("katesymbolviewer");
+  KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
+  act->setText(i18n("Hide Symbols"));
+  connect(act,SIGNAL(toggled( bool )),this,SLOT(slotInsertSymbol()));
+  act->setCheckedState(KGuiItem(i18n("Show Symbols")));
 
-    w->guiFactory()->addClient (this);
+  w->guiFactory()->addClient (this);
   win = w;
   symbols = 0;
 
- m_Active = false;
- popup = new QMenu(symbols);
- popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
- popup->addSeparator();
- m_macro = popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
- m_struct = popup->insertItem(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
- m_func = popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
- popup->addSeparator();
- popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
- m_sort = popup->insertItem(i18n("Enable sorting"), this, SLOT(slotEnableSorting()));
+  m_Active = false;
+  popup = new QMenu(symbols);
+  popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
+  popup->addSeparator();
+  m_macro = popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
+  m_struct = popup->insertItem(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
+  m_func = popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
+  popup->addSeparator();
+  popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
+  m_sort = popup->insertItem(i18n("Enable sorting"), this, SLOT(slotEnableSorting()));
 
- popup->setItemChecked(m_macro, true);
- popup->setItemChecked(m_struct, true);
- popup->setItemChecked(m_func, true);
- macro_on = true;
- struct_on = true;
- func_on = true;
- slotInsertSymbol();
+  popup->setItemChecked(m_macro, true);
+  popup->setItemChecked(m_struct, true);
+  popup->setItemChecked(m_func, true);
+  macro_on = true;
+  struct_on = true;
+  func_on = true;
+  types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
+  expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
+  slotInsertSymbol();
 }
 
 KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
@@ -251,7 +253,7 @@ void KatePluginSymbolViewerView::parseSymbols(void)
   /** Get the current highlighting mode */
   QString hlModeName = doc->mode();
 
-  if (hlModeName == "C++" || hlModeName == "C")
+  if (hlModeName == "C++" || hlModeName == "C" || hlModeName == "ANSI C89")
      parseCppSymbols();
  else if (hlModeName == "PHP (HTML)")
     parsePhpSymbols();
@@ -269,6 +271,8 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parseCppSymbols();
   else if (hlModeName == "xslt")
      parseXsltSymbols();
+  else if (hlModeName == "Bash")
+     parseBashSymbols();
   else
      node = new QTreeWidgetItem(symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 }
@@ -287,8 +291,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 }
 
 KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVariant>& )
-    : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" ),
-    pConfig("katesymbolviewerpluginrc")
+    : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" )
 {
  kDebug(13000)<<"KatePluginSymbolViewer";
 }
@@ -296,42 +299,24 @@ KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVa
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
 {
   kDebug(13000)<<"~KatePluginSymbolViewer";
-  pConfig.sync();
 }
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)
 {
   KatePluginSymbolViewerView2 *view = new KatePluginSymbolViewerView2 (mainWindow);
-  m_views.append (view->view());
+  mViews.append (view->view());
   return view;
   //return new KatePluginSymbolViewerView2 (mainWindow);
-}
-
-void KatePluginSymbolViewer::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new interfaces
-}
-
-void KatePluginSymbolViewer::loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new interfaces
-}
-
-void KatePluginSymbolViewer::storeGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new interfaces
-}
-
-void KatePluginSymbolViewer::loadGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new interfaces
 }
 
 Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
     uint, QWidget *w, const char* /*name*/)
 {
   KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, w);
-  initConfigPage( p );
+
+  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer"); 
+  p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
+  p->expandTree->setChecked(config.readEntry("ExpandTree", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
       SLOT(applyConfig(KatePluginSymbolViewerConfigPage *)) );
   return (Kate::PluginConfigPage*)p;
@@ -344,24 +329,19 @@ KIcon KatePluginSymbolViewer::configPageIcon (uint number) const
   return KIcon(cls);
 }
 
-void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p )
-{
-  p->viewReturns->setChecked(pConfig.group("global").readEntry("view_types", true));
-  p->expandTree->setChecked(pConfig.group("global").readEntry("expand_tree", false));
-}
-
 void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 {
- for (int z=0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->types_on = p->viewReturns->isChecked();
-    m_views.at(z)->expanded_on = p->expandTree->isChecked();
-  //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<m_SymbolView->types_on<<")";
-    m_views.at(z)->slotRefreshSymbol();
-  }
+  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
+  config.writeEntry("ViewTypes", p->viewReturns->isChecked());
+  config.writeEntry("ExpandTree", p->expandTree->isChecked());
 
-  pConfig.group("global").writeEntry("view_types", p->viewReturns->isChecked());
-  pConfig.group("global").writeEntry("expand_tree", p->expandTree->isChecked());
+ for (int z=0; z < mViews.count(); z++)
+  {
+    mViews.at(z)->types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
+    mViews.at(z)->expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
+    mViews.at(z)->slotRefreshSymbol();
+    //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<mViews.at(z)->types_on<<")";
+  }
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage
@@ -395,7 +375,8 @@ KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}
 
 void KatePluginSymbolViewerConfigPage::apply()
 {
-    emit configPageApplyRequest( this );
+  emit configPageApplyRequest( this );
+
 }
 // END KatePluginSymbolViewerConfigPage
 

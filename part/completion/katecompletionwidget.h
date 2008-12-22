@@ -178,6 +178,7 @@ class KateCompletionWidget : public QFrame
     QLabel* m_filterText;
     QPushButton* m_configButton;
 
+    KTextEditor::Cursor m_automaticInvocationAt;
     QString m_automaticInvocationLine;
     int m_automaticInvocationDelay;
     bool m_filterInstalled;

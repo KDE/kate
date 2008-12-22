@@ -68,8 +68,9 @@ Range CodeCompletionModelControllerInterface::completionRange(View* view, const 
 
 void CodeCompletionModelControllerInterface::updateCompletionRange(View* view, SmartRange& range)
 {
-    Q_UNUSED(view);
-    Q_UNUSED(range);
+    if(!range.text().isEmpty() && range.text().count() == 1 && range.text().first().trimmed().isEmpty())
+      //When inserting a newline behind an empty completion-range,, move the range forward to its end
+      range.start() = range.end();
 }
 
 QString CodeCompletionModelControllerInterface::filterString(View* view, const SmartRange &range, const Cursor &position)
@@ -81,6 +82,7 @@ bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, c
 {
     if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
       return true; //Always abort when the completion-range has been left
+    //Do not abort completions when the text has been empty already before and a newline has been instead
     
     Q_UNUSED(view);
     Q_UNUSED(range);

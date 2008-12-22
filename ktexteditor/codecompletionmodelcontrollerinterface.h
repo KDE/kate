@@ -24,9 +24,10 @@
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/cursor.h>
 
+class QModelIndex;
+
 namespace KTextEditor {
 class View;
-
 /**
  * \short Controller interface for a CodeCompletionModel
  *
@@ -138,6 +139,18 @@ public:
      * \return \e true, if the completion should be aborted, otherwise \e false
      */
     virtual bool shouldAbortCompletion(View* view, const SmartRange& range, const QString &currentCompletion);
+    
+    /**
+     * When an item within this model is currently selected in the completion-list, and the user inserted the given character,
+     * should the completion-item be executed? This can be used to execute items from other inputs than the return-key.
+     * For example a function item could be executed by typing '(', or variable items by typing '.'.
+     */
+    virtual bool shouldExecute(const QModelIndex& selected, QChar inserted);
+    
+    /**
+     * Notification that completion for this model has been aborted.
+     */
+    virtual void aborted(View* view);
 };
 
 }

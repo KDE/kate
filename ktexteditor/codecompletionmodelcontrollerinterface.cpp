@@ -79,10 +79,21 @@ QString CodeCompletionModelControllerInterface::filterString(View* view, const S
 
 bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion)
 {
+    if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
+      return true; //Always abort when the completion-range has been left
+    
     Q_UNUSED(view);
     Q_UNUSED(range);
     static const QRegExp allowedText("^(\\w*)");
     return !allowedText.exactMatch(currentCompletion);
+}
+
+void CodeCompletionModelControllerInterface::aborted(KTextEditor::View* view) {
+
+}
+
+bool CodeCompletionModelControllerInterface::shouldExecute(const QModelIndex& index, QChar inserted) {
+  return false;
 }
 
 }

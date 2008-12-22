@@ -935,7 +935,7 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   }
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
-
+// reset();
   emit contentGeometryChanged();
 }
 
@@ -980,6 +980,39 @@ void KateCompletionModel::rematch()
 
 void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 {
+  int currentFilteredCount = g->filtered.count();
+  if(changeType == Narrow) {
+    //This code determines what of the filtered items still fit, and computes the ranges that were removed, giving
+    //them to beginRemoveRows(..) in batches
+    ///@todo Also rewrite the Broaden and Change change-types in this way
+    QList <KateCompletionModel::Item > newFiltered;
+    int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted
+    for(int currentRow = g->filtered.count()-1; currentRow >= 0; --currentRow) {
+      if(g->filtered[currentRow].match()) {
+        //This row does not need to be deleted, which means that currentRow+1 to deleteUntil need to be deleted now
+        if(deleteUntil != -1) {
+          beginRemoveRows(indexForGroup(g), currentRow+1, deleteUntil);
+          endRemoveRows();
+        }
+        deleteUntil = -1;
+        
+        newFiltered.prepend(g->filtered[currentRow]);
+      }else{
+        if(deleteUntil == -1)
+          deleteUntil = currentRow; //Mark that this row needs to be deleted
+      }
+    }
+    
+    if(deleteUntil != -1) {
+      beginRemoveRows(indexForGroup(g), 0, deleteUntil);
+      endRemoveRows();
+    }
+    
+    g->filtered = newFiltered;
+    hideOrShowGroup(g);
+    return;
+  }
+  
   QMutableListIterator<Item> filtered = g->filtered;
   QMutableListIterator<Item> prefilter = g->prefilter;
 
@@ -1092,9 +1125,9 @@ int KateCompletionModel::Group::orderNumber() const {
       return 300;
     else if (attribute & KTextEditor::CodeCompletionModel::Private)
       return 400;
-    else if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
-      return 500;
     else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
+      return 500;
+    else if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
       return 600;
 
 

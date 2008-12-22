@@ -431,9 +431,8 @@ void KateCompletionWidget::updateHeight()
 
 void KateCompletionWidget::cursorPositionChanged( )
 {
-  if (m_completionRanges.isEmpty())  {
+  if (m_completionRanges.isEmpty())
     return;
-  }
 
   KTextEditor::Cursor cursor = view()->cursorPosition();
 
@@ -624,6 +623,8 @@ QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> KateCompletionWidget::c
 void KateCompletionWidget::modelReset( )
 {
   setUpdatesEnabled(false);
+  m_entryList->setAnimated(false);
+  m_argumentHintTree->setAnimated(false);
   ///We need to do this by hand, because QTreeView::expandAll is very inefficient.
   ///It creates a QPersistentModelIndex for every single item in the whole tree..
   for(int row = 0; row < m_argumentHintModel->rowCount(QModelIndex()); ++row) {

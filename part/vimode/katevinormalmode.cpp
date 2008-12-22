@@ -1586,8 +1586,9 @@ KateViRange KateViNormalMode::motionToLineLast()
 {
   KateViRange r( m_doc->lines()-1, 0, ViMotion::InclusiveMotion );
 
-  if ( getCount()-1 != 0 ) {
-    r.endLine = getCount()-1;
+  // don't use getCount() here, no count and a count of 1 is different here...
+  if ( m_count != 0 ) {
+    r.endLine = m_count-1;
   }
 
   if ( r.endLine > m_doc->lines() - 1 ) {

@@ -984,6 +984,7 @@ void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
   if(changeType == Narrow) {
     //This code determines what of the filtered items still fit, and computes the ranges that were removed, giving
     //them to beginRemoveRows(..) in batches
+    
     ///@todo Also rewrite the Broaden and Change change-types in this way
     QList <KateCompletionModel::Item > newFiltered;
     int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted

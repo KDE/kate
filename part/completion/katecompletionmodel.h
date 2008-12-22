@@ -192,7 +192,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     QTreeView* treeView() const;
 
     friend class KateArgumentHintModel;
-    typedef QPair<KTextEditor::CodeCompletionModel*, QPersistentModelIndex> ModelRow;
+    typedef QPair<KTextEditor::CodeCompletionModel*, QModelIndex> ModelRow;
     ModelRow modelRowPair(const QModelIndex& index) const;
 
     // Represents a source row; provides sorting method
@@ -265,6 +265,8 @@ class KateCompletionModel : public ExpandingWidgetModel
         QList<Item> filtered;
         QList<Item> prefilter;
         bool isEmpty;
+	//-1 if none was set
+	int customSortingKey;
     };
 
   private:
@@ -331,6 +333,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     QList<Group*> m_emptyGroups;
     // Quick access to each specific group (if it exists)
     QMultiHash<int, Group*> m_groupHash;
+    // Maps custom group-names to their specific groups
+    QHash<QString, Group*> m_customGroupHash;
 
     // ### Configurable state
     // Sorting

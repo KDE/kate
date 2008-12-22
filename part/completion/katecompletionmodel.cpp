@@ -50,13 +50,23 @@ public:
 
   //Assumes that index is a sub-index of the indices where role-values were taken
   QVariant getData(CodeCompletionModel::ExtraItemDataRoles role, const QModelIndex& index) const;
-
+  
   bool hasHierarchicalRoles() const;
 
   int inheritanceDepth(const QModelIndex& i) const;
+  
+  QString customGroup() const {
+    return m_customGroup;
+  }
+  
+  int customGroupingKey() const {
+    return m_groupSortingKey;
+  }
 private:
   typedef QMap<CodeCompletionModel::ExtraItemDataRoles, QVariant> RoleMap;
   RoleMap m_roleValues;
+  QString m_customGroup;
+  int m_groupSortingKey;
   CodeCompletionModel* m_model;
 };
 
@@ -83,7 +93,14 @@ void HierarchicalModelHandler::takeRole(const QModelIndex& index) {
   QVariant v = index.data(CodeCompletionModel::GroupRole);
   if( v.isValid() && v.canConvert(QVariant::Int) ) {
     QVariant value = index.data(v.toInt());
-    m_roleValues[(CodeCompletionModel::ExtraItemDataRoles)v.toInt()] = value;
+    if(v.toInt() == Qt::DisplayRole) {
+      m_customGroup = value.toString();
+      QVariant sortingKey = index.data(CodeCompletionModel::InheritanceDepth);
+      if(sortingKey.canConvert(QVariant::Int))
+        m_groupSortingKey = sortingKey.toInt();
+    }else{
+      m_roleValues[(CodeCompletionModel::ExtraItemDataRoles)v.toInt()] = value;
+    }
   }else{
     kDebug( 13035 ) << "Did not return valid GroupRole in hierarchical completion-model";
   }
@@ -97,7 +114,7 @@ QVariant HierarchicalModelHandler::getData(CodeCompletionModel::ExtraItemDataRol
     return index.data(role);
 }
 
-HierarchicalModelHandler::HierarchicalModelHandler(CodeCompletionModel* model) : m_model(model) {
+HierarchicalModelHandler::HierarchicalModelHandler(CodeCompletionModel* model) : m_model(model), m_groupSortingKey(-1) {
 }
 
 void HierarchicalModelHandler::addValue(CodeCompletionModel::ExtraItemDataRoles role, const QVariant& value) {
@@ -347,7 +364,7 @@ int KateCompletionModel::columnCount( const QModelIndex& ) const
 
 KateCompletionModel::ModelRow KateCompletionModel::modelRowPair(const QModelIndex& index) const
 {
-  return qMakePair(static_cast<CodeCompletionModel*>(const_cast<QAbstractItemModel*>(index.model())), QPersistentModelIndex(index));
+  return qMakePair(static_cast<CodeCompletionModel*>(const_cast<QAbstractItemModel*>(index.model())), index);
 }
 
 bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
@@ -496,6 +513,7 @@ void KateCompletionModel::clearGroups( )
   m_rowTable.clear();
   m_emptyGroups.clear();
   m_groupHash.clear();
+  m_customGroupHash.clear();
 
   m_emptyGroups.append(m_ungrouped);
   m_groupHash.insert(0, m_ungrouped);
@@ -533,7 +551,7 @@ QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelI
     //Leaf node, delete the item
     Group* g = groupForIndex(mapFromSource(i));
     ret.insert(g);
-    g->removeItem(ModelRow(const_cast<CodeCompletionModel*>(static_cast<const CodeCompletionModel*>(i.model())), QPersistentModelIndex(i)));
+    g->removeItem(ModelRow(const_cast<CodeCompletionModel*>(static_cast<const CodeCompletionModel*>(i.model())), i));
   } else {
     //Non-leaf node
     for(int a = 0; a < i.model()->rowCount(i); a++)
@@ -583,10 +601,24 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
   Group* g;
   if( argumentHintDepth ) {
     g = m_argumentHints;
-  } else
-    g = fetchGroup(completionFlags, scopeIfNeeded, handler.hasHierarchicalRoles());
+  } else{
+    QString customGroup = handler.customGroup();
+    if(!customGroup.isNull()) {
+      if(m_customGroupHash.contains(customGroup)) {
+        g = m_customGroupHash[customGroup];
+      }else{
+        g = new Group(this);
+        g->title = customGroup;
+        g->customSortingKey = handler.customGroupingKey();
+        m_emptyGroups.append(g);
+        m_customGroupHash.insert(customGroup, g);
+      }
+    }else{
+      g = fetchGroup(completionFlags, scopeIfNeeded, handler.hasHierarchicalRoles());
+    }
+  }
 
-  Item item = Item(g != m_argumentHints, this, handler, ModelRow(handler.model(), QPersistentModelIndex(sourceIndex)));
+  Item item = Item(g != m_argumentHints, this, handler, ModelRow(handler.model(), sourceIndex));
 
   if(g != m_argumentHints)
     item.match();
@@ -1043,28 +1075,30 @@ void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 }
 
 int KateCompletionModel::Group::orderNumber() const {
-  ///@todo extend this. Currently it mainly does this: "BestMatches < Local < Public < Protected < Private < Global"
     if( this == model->m_ungrouped )
-      return 50;
+      return 700;
 
-    if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
-      return 30;
-    else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
-      return 29;
-    else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
-      return 3;
-
-    if (attribute & KTextEditor::CodeCompletionModel::Public)
-      return 4;
-    else if (attribute & KTextEditor::CodeCompletionModel::Protected)
-      return 5;
-    else if (attribute & KTextEditor::CodeCompletionModel::Private)
-      return 6;
-
+    if(customSortingKey != -1)
+      return customSortingKey;
+    
     if( attribute & BestMatchesProperty )
       return 1;
+    
+    if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
+      return 100;
+    else if (attribute & KTextEditor::CodeCompletionModel::Public)
+      return 200;
+    else if (attribute & KTextEditor::CodeCompletionModel::Protected)
+      return 300;
+    else if (attribute & KTextEditor::CodeCompletionModel::Private)
+      return 400;
+    else if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
+      return 500;
+    else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
+      return 600;
 
-    return 50;
+
+    return 700;
 }
 
 bool KateCompletionModel::Group::orderBefore(Group* other) const {
@@ -1561,6 +1595,7 @@ bool KateCompletionModel::Group::removeItem(const ModelRow& row)
 KateCompletionModel::Group::Group( KateCompletionModel * m )
   : model(m)
   , isEmpty(true)
+  , customSortingKey(-1)
 {
   Q_ASSERT(model);
 }
@@ -1907,6 +1942,8 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   if (!m_completionModels.isEmpty()) {
     // This performs the reset
     createGroups();
+  }else{
+    emit contentGeometryChanged();
   }
 }
 

@@ -303,8 +303,6 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * short-cut to go to navigate to the next position within the expanding-widget(if applicable).
        *
        * Return QVariant(true) if the input was used.
-       *
-       * NOTE: In kate, this is triggered with SHIFT+RIGHT_ARROW
        * */
       AccessibilityNext,
       /**
@@ -312,8 +310,6 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * short-cut to go to navigate to the previous position within the expanding-widget(if applicable).
        *
        * Return QVariant(true) if the input was used.
-       *
-       * NOTE: In kate, this is triggered with SHIFT+LEFT_ARROW
        * */
       AccessibilityPrevious,
       /**
@@ -321,8 +317,6 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * shortcut to trigger the action associated with the position within the expanding-widget the user has navigated to using AccessibilityNext and AccessibilityPrevious.
        *
        * This should return QVariant(true) if an action was triggered, else QVariant(false) or QVariant().
-       *
-       * NOTE: In kate, this is triggered with SHIFT+RETURN
        * */
       AccessibilityAccept,
 
@@ -346,8 +340,15 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        *   - No other queries will be done to inner nodes.
        * - Every leaf node stands for an actual item in the completion list.
        *
-       * The whole tree should have the same GroupRole on the same level. The recommended order is: Argument-hint depth, inheritance depth, attributes
-       * In future, this structure information might be used to do ordering/grouping.
+       * The recommended grouping order is: Argument-hint depth, inheritance depth, attributes.
+       *
+       * This role can also be used to define completely custom groups, bypassing the editors builtin grouping:
+       *  - Return Qt::DisplayRole when GroupRole is requested
+       *  - Return the lable text of the group when Qt::DisplayRole
+       *   - Optional: Return an integer sorting-value when InheritanceDepth is  requested. This number will
+       *               be used to determine the order of the groups. The order of the builtin groups is:
+       *               1 = Best Matches, 100 = Local Scope, 200 = Public, 300 = Protected, 400 = Private, 500 = Namespace, 600 = Global
+       *               You can pick any arbitrary number to position your group relative to these builtin groups.
        * */
       GroupRole
     };

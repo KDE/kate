@@ -2027,7 +2027,9 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, ">", &KateViNormalMode::commandIndentLines, IS_CHANGE | NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines, IS_CHANGE | NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown ) );
+  m_commands.push_back( new KateViCommand( this, "<pagedown>", &KateViNormalMode::commandScrollPageDown ) );
   m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp ) );
+  m_commands.push_back( new KateViCommand( this, "<pageup>", &KateViNormalMode::commandScrollPageUp ) );
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, ".", &KateViNormalMode::commandRepeatLastChange ) );
   m_commands.push_back( new KateViCommand( this, "==", &KateViNormalMode::commandAlignLine, IS_CHANGE ) );

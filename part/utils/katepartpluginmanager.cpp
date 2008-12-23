@@ -30,6 +30,7 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kxmlguifactory.h>
+#include <kplugininfo.h>
 
 #include <kservicetypetrader.h>
 #include <kdebug.h>
@@ -184,6 +185,22 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
 {
   if (item.plugin) return;
 
+  // make sure all dependencies are loaded beforehand
+  QStringList openDependencies = KPluginInfo( item.service ).dependencies();
+  if ( !openDependencies.empty() )
+  {
+    for (KatePartPluginList::iterator it = m_pluginList.begin();
+      it != m_pluginList.end(); ++it)
+    {
+      if ( openDependencies.contains( it->saveName() ) )
+      {
+        loadPlugin( *it );
+        openDependencies.removeAll( it->saveName() );
+      }
+    }
+    Q_ASSERT( openDependencies.empty() );
+  }
+
   item.plugin = KTextEditor::createPlugin (item.service, this);
   Q_ASSERT(item.plugin);
   item.load = (item.plugin != 0);
@@ -191,6 +208,20 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
 
 void KatePartPluginManager::unloadPlugin (KatePartPluginInfo &item)
 {
+  if ( !item.plugin ) return;
+
+  // make sure dependent plugins are unloaded beforehand
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
+    it != m_pluginList.end(); ++it)
+  {
+    if ( !it->plugin ) continue;
+
+    if ( KPluginInfo( it->service ).dependencies().contains( item.saveName() ) )
+    {
+      unloadPlugin( *it );
+    }
+  }
+
   delete item.plugin;
   item.plugin = 0L;
   item.load = false;

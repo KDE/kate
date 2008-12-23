@@ -75,6 +75,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_automaticInvocationDelay(300)
   , m_filterInstalled(false)
   , m_configWidget(new KateCompletionConfig(m_presentationModel, view()))
+  , m_lastInsertionByUser(false)
   , m_inCompletionList(false)
   , m_isSuspended(false)
   , m_dontShowArgumentHints(false)
@@ -577,7 +578,7 @@ void KateCompletionWidget::execute()
     m_automaticInvocationAt = newPos;
     m_automaticInvocationLine = view()->doc()->text(KTextEditor::Range(oldPos, newPos));
     kDebug() << "executed, starting automatic invocation with line" << m_automaticInvocationLine;
-    
+    m_lastInsertionByUser = false;
     m_automaticInvocationTimer->start();
   }
 }
@@ -893,6 +894,9 @@ void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
 
 void KateCompletionWidget::editDone(KateEditInfo * edit)
 {
+  if(!edit->newText().join("\n").trimmed().isEmpty())
+  m_lastInsertionByUser = edit->editSource() == Kate::UserInputEdit;
+  
   if (!view()->config()->automaticCompletionInvocation()
        || (edit->editSource() != Kate::UserInputEdit)
        || edit->isRemoval()
@@ -903,8 +907,10 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
     return;
   }
 
-  if(m_automaticInvocationAt != edit->newRange().start())
+  if(m_automaticInvocationAt != edit->newRange().start()) {
     m_automaticInvocationLine.clear();
+    m_lastInsertionByUser = edit->editSource() == Kate::UserInputEdit;
+  }
 
   m_automaticInvocationLine += edit->newText().last();
   m_automaticInvocationAt = edit->newRange().end();
@@ -925,7 +931,7 @@ void KateCompletionWidget::automaticInvocation()
   foreach (KTextEditor::CodeCompletionModel *model, m_sourceModels) {
       if(m_completionRanges.contains(model))
         continue;
-      start = modelController(model)->shouldStartCompletion(view(), m_automaticInvocationLine, view()->cursorPosition());
+      start = modelController(model)->shouldStartCompletion(view(), m_automaticInvocationLine, m_lastInsertionByUser, view()->cursorPosition());
       if (start) break;
   }
   if (start) {

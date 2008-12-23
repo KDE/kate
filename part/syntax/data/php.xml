@@ -26,7 +26,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.33" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.34" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6483,6 +6483,7 @@ Changes:
         <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment"/>
         <keyword attribute="Control Structures" context="#stay" String="control structures" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <DetectChar attribute="Function" context="#stay" char="@" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Special method" context="#stay" String="special_methods" />
         <DetectIdentifier />
@@ -6568,6 +6569,6 @@ Changes:
       <comment name="singleLine" start="//" />
       <comment name="multiLine" start="/*" end="*/" />
     </comments>
-    <keywords casesensitive="0" weakDeliminator=""/>
+    <keywords casesensitive="0" weakDeliminator="" additionalDeliminator="@"/>
   </general>
 </language>

@@ -81,10 +81,12 @@ public:
      *
      * \param view The view to generate completions for
      * \param insertedText The text that was inserted by the user
+     * \param userInsertion Whether the the text was inserted by the user using typing.
+     *                      If false, it may have been inserted for example by code-completion.
      * \param position Current cursor position
      * \return \e true, if the completion should be started, otherwise \e false
      */
-    virtual bool shouldStartCompletion(View* view, const QString &insertedText, const Cursor &position);
+    virtual bool shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position);
 
     /**
      * This function returns the completion range that will be used for the
@@ -144,11 +146,14 @@ public:
      * When an item within this model is currently selected in the completion-list, and the user inserted the given character,
      * should the completion-item be executed? This can be used to execute items from other inputs than the return-key.
      * For example a function item could be executed by typing '(', or variable items by typing '.'.
+     * \param selected The currently selected index
+     * \param inserted The character that was inserted by tue user
      */
     virtual bool shouldExecute(const QModelIndex& selected, QChar inserted);
     
     /**
      * Notification that completion for this model has been aborted.
+     * \param view The view in which the completion for this model was aborted
      */
     virtual void aborted(View* view);
 };

@@ -32,7 +32,7 @@ CodeCompletionModelControllerInterface::~CodeCompletionModelControllerInterface(
 {
 }
 
-bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, const QString &insertedText, const Cursor &position)
+bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position)
 {
     Q_UNUSED(view);
     Q_UNUSED(position);
@@ -40,7 +40,7 @@ bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, c
         return false;
 
     QChar lastChar = insertedText.at(insertedText.count() - 1);
-    if (lastChar.isLetter() || lastChar.isNumber() || lastChar == '.' || lastChar == '_' || lastChar == '>') {
+    if ((userInsertion && (lastChar.isLetter() || lastChar.isNumber() || lastChar == '_')) || lastChar == '.' || insertedText.endsWith("->")) {
         return true;
     }
     return false;

@@ -6,7 +6,7 @@
   <!ENTITY duration "(\\(longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|2048)(?!\d))(\s*\.+)?(\s*\*\s*\d+(/\d+)?)*">
   <!ENTITY dynamics "p{1,5}|mp|mf|f{1,4}|s?fp|sff?|spp?|[sr]?fz">
   <!ENTITY scripts "\d+|accent|marcato|staccat(issim)?o|espressivo|tenuto|portato|(up|down)(bow|mordent|prall)|flageolet|thumb|[lr](heel|toe)|open|stopped|turn|reverseturn|trill|mordent|prall(prall|mordent|down|up)?|lineprall|signumcongruentiae|(short|long|verylong)?fermata|segno|(var)?coda">
-  <!ENTITY keywords "accepts|alias|consists|defaultchild|denies|description|grobdescriptions|include|invalid|name|objectid|once|remove|sequential|simultaneous|type|version|score|book">
+  <!ENTITY keywords "accepts|alias|consists|defaultchild|denies|description|grobdescriptions|include|invalid|name|objectid|once|remove|sequential|simultaneous|type|version|score|book|bookpart">
   <!ENTITY deprecatedkeywords "consistsend">
   <!ENTITY commands "acciaccatura|addQuote|afterGrace|aikenHeads|allowPageTurn|alternative|apply(Context|Music|Output)|appoggiatura|arpeggio(Arrow(Down|Up)|Bracket|Normal|Parenthesis)?|(a|de)scendens|auctum|augmentum|autoBeamO(ff|n)|autochange|balloon(Grob)?Text|bar|barNumberCheck|bendAfter|breathe|break|cadenzaO(ff|n)|cavum|clef(\s+(treble|violin|G|alto|C|(sub)?bass|F|french|(mezzo)?soprano|(var)?baritone|percussion|tab))?|(end)?(de)?cr|cresc(TextCresc|Hairpin)|(cue|transposedCue)During|default|deminutum|dim(Text(Decresc|Decr|Dim)|Hairpin)|display(Lily)?Music|divisio(Maior|Maxima|Minima)|(dynamic|dots|phrasingSlur|slur|stem|tie|tuplet)(Down|Neutral|Up)|(balloon|text)LengthO(ff|n)|featherDurations|figure(mode|s)|finalis|flexa|(french|german|italian|semiGerman)Chords|glissando|grace|harmonic|(unH|h)ideNotes|(hide|show)StaffSwitch|inclinatum|(keep|remove)WithTag|key(\s+&pitch;)?|killCues|label|laissezVibrer|linea|mark|maxima|melisma(End)?|newSpacingSection|no(Beam|Break|PageBreak|PageTurn)|normalsize|octaveCheck|oneVoice|oriscus|ottava|page(-ref|Break|Turn)|parallelMusic|parenthesize|partcombine|partial(\s*&duration;)?|pes|pitchedTrill|pointAndClickO(ff|n)|quilisma|quoteDuring|relative(\s+&pitch;)?|RemoveEmptyStaffContext|repeat(\s+(unfold|volta|tremolo|percent)(\s+\d+)?)?|repeatTie|resetRelativeOctave|rest|sacredHarpHeads|scaleDurations|scoreTweak|easyHeadsO(ff|n)|shift(Durations|Off|On{1,3})|(slur|tie)(Both|Dashed|Dotted|Solid)|small|spacingTweaks|(start|stop)(Group|(Text|Trill)Span|Staff)|stemBoth|stropha|super|(sustain|sostenuto)O(ff|n)|table-of-contents|tag|times?(\s*\d+/\d+)?|tiny|tocItem|transpose(\s+&pitch;\s*&pitch;)?|transposition(\s+&pitch;)|tweak|unfoldRepeats|virg(ul)?a|voice(One|Two|Three|Four)|withMusicProperty|cm|mm|in|pt|major|minor|ionian|locrian|aeolian|mixolydian|lydian|phrygian|dorian">
   <!ENTITY deprecatedcommands "arpeggio(Up|Down|Neutral)|newpage|script(Up|Down|Both)|(empty|fat)Text|setEasyHeads|(default|voice|modernVoice|piano|forget)Accidentals|(modern(Voice)?|piano)Cautionaries|noResetKey|compressMusic|octave|(sustain|sostenuto)(Down|Up)|set(Hairpin|Text)(Cresc|Decresc|Dim)|setTextDecr">
@@ -24,7 +24,7 @@
   <!ENTITY schemename "[a-zA-Z#][^\s(){}[\];$&quot;]*">
   <!ENTITY schemefunc "\b(define|defined\?|define\*(-public)?|define-(\*|builtin-markup-(list-)?command|class|(extra-)?display-method|fonts?|grob-property|ly-syntax(-loc|-simple)?|macro(-public)?|markup-(list-)command|method|module|music-function|post-event-display-method|public(-macro|-toplevel)?|safe-public|span-event-display-method)|defmacro(\*(-public)?)?|lambda\*?|and|or|if|cond|case|let\*?|letrec|begin|do|delay|set!|else|(quasi)?quote|unquote(-splicing)?|(define|let|letrec)-syntax|syntax-rules|not|boolean\?|eq\?|eqv\?|equal\?|pair\?|cons|set-c[ad]r!|c[ad]{1,4}r|null\?|list\?|list|length|append|reverse|list-ref|mem[qv]|member|ass[qv]|assoc|symbol\?|symbol-&gt;string|string-&gt;symbol|number\?|complex\?|real\?|rational\?|integer\?|exact\?|inexact\?|zero\?|positive\?|negative\?|odd\?|even\?|max|min|abs|quotient|remainder|modulo|gcd|lcm|numerator|denominator|floor|ceiling|truncate|round|rationalize|exp|log|sin|cos|tan|asin|acos|atan|sqrt|expt|make-rectangular|make-polar|real-part|imag-part|magnitude|angle|exact-&gt;inexact|inexact-&gt;exact|number-&gt;string|string-&gt;number|char((-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-alphabetic\?|\?|-numeric\?|-whitespace\?|-upper-case\?|-lower-case\?|-&gt;integer|-upcase|-downcase|-ready\?)|integer-&gt;char|make-string|string(\?|-copy|-fill!|-length|-ref|-set!|(-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-append)|substring|make-vector|vector(\?|-length|-ref|-set!|-fill!)?|procedure\?|apply|map|for-each|force|call-with-(current-continuation|(in|out)put-file)|(in|out)put-port\?|current-(in|out)put-port|open-(in|out)put-file|close-(in|out)put-port|eof-object\?|read|(read|peek)-char|write(-char)?|display|newline|call/cc|list-tail|string-&gt;list|list-&gt;string|vector-&gt;list|list-&gt;vector|with-input-from-file|with-output-to-file|load|transcript-(on|off)|eval|dynamic-wind|port\?|values|call-with-values|(scheme-report-|null-|interaction-)environment)(?=($|\s|\)))">
 ]>
-<language name="LilyPond" section="Other" style="lilypond" version="3.00" kateversion="3.0" extensions="*.ly;*.LY;*.ily;*.ILY;*.lyi;*.LYI" mimetype="text/x-lilypond" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">
+<language name="LilyPond" section="Other" style="lilypond" version="3.01" kateversion="3.0" extensions="*.ly;*.LY;*.ily;*.ILY;*.lyi;*.LYI" mimetype="text/x-lilypond" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">
 
   <!--
     
@@ -84,8 +84,6 @@
       <item> GrandStaff </item>
       <item> GregorianTranscriptionStaff </item>
       <item> GregorianTranscriptionVoice </item>
-      <item> InnerChoirStaff </item>
-      <item> InnerStaffGroup </item>
       <item> Lyrics </item>
       <item> MensuralStaff </item>
       <item> MensuralVoice </item>
@@ -100,6 +98,10 @@
       <item> VaticanaStaff </item>
       <item> VaticanaVoice </item>
       <item> Voice </item>
+    </list>
+    <list name="deprecatedcontexts">
+      <item> InnerChoirStaff </item>
+      <item> InnerStaffGroup </item>
     </list>
     <list name="layoutobjects">
       <item> Accidental </item>
@@ -1009,6 +1011,7 @@
         <DetectChar char="}" attribute="Keyword" context="#pop" endRegion="section"/>
         <DetectChar char="{" attribute="Keyword" context="sectionrules" beginRegion="section"/>
         <keyword String="contexts" attribute="Context"/>
+        <keyword String="deprecatedcontexts" attribute="Deprecated Context"/>
         <keyword String="layoutobjects" attribute="Layout Object"/>
         <keyword String="properties" attribute="Property"/>
         <RegExpr String="\b(&headervars;|&papervars;|&layoutvars;)\b" attribute="Variable"/>
@@ -1022,6 +1025,7 @@
                fallthrough="true" fallthroughContext="#pop">
         <DetectSpaces/>
         <keyword String="contexts" attribute="Context" context="context2"/>
+        <keyword String="deprecatedcontexts" attribute="Deprecated Context" context="context2"/>
         <RegExpr String="[A-Za-z]+" attribute="User Command" context="context2"/>
         <DetectChar char="{" attribute="Keyword" context="section2" beginRegion="section"/>
       </context>
@@ -1037,6 +1041,7 @@
                fallthrough="true" fallthroughContext="#pop">
         <DetectSpaces/>
         <keyword String="contexts" attribute="Context"/>
+        <keyword String="deprecatedcontexts" attribute="Deprecated Context"/>
         <DetectChar char="."/>
         <keyword String="properties" attribute="Property" context="#pop"/>
         <keyword String="deprecatedproperties" attribute="Deprecated Property" context="#pop"/>
@@ -1048,6 +1053,7 @@
                fallthrough="true" fallthroughContext="#pop">
         <DetectSpaces/>
         <keyword String="contexts" attribute="Context"/>
+        <keyword String="deprecatedcontexts" attribute="Deprecated Context"/>
         <DetectChar char="."/>
         <keyword String="layoutobjects" attribute="Layout Object" context="#pop"/>
         <RegExpr String="[A-Za-z]+(?=\s*\.)" attribute="User Command"/>
@@ -1100,6 +1106,7 @@
       <itemData name="Deprecated Keyword" defStyleNum="dsKeyword" backgroundColor="#fcc"/>
       <itemData name="Deprecated Command" defStyleNum="dsFunction" backgroundColor="#fcc"/>
       <itemData name="Deprecated Property" defStyleNum="dsDataType" backgroundColor="#fcc"/>
+      <itemData name="Deprecated Context" defStyleNum="dsDataType" bold="true" backgroundColor="#fcc"/>
       <itemData name="Deprecated Markup" defStyleNum="dsBaseN" color="#009817" backgroundColor="#fcc"/>
       <itemData name="Invalid" defStyleNum="dsError"/>
     </itemDatas>

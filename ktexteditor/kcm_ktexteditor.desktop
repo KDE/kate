@@ -1,6 +1,7 @@
 Name=Embedded Text Editor
 Name[af]=Ingebedde Teksredigeerder
 Name[ar]=محرر نصوص مدمج
+Name[as]=প্ৰোথিত লিপি সম্পাদক
 Name[be]=Унутраны тэкставы рэдактар
 Name[be@latin]=Unutrany tekstavy redaktar
 Name[bg]=Текстов редактор
@@ -82,6 +83,7 @@ Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[af]=Die teksredigeerderdiens verskaf programme met 'n teks aansig en redigeerder. KDE programme wat teksredigering fasiliteite verskaf, moet hierdie diens gebruik.
 Comment[ar]=تقوم خدمة محرر النصوص بتزويد التطبيقات بمعاين نصوص ومحرر. يجب أن تستخدم تطبيقات كيدي التي تزود بتسهيلات تحرير النصوص هذه الخدمة.
+Comment[as]=লিপি সম্পাদক সেৱাই এটা লিপি প্ৰদৰ্শক আৰু সম্পাদকৰ অনুপ্ৰয়োগ দিয়ে । যি KDE অনুপ্ৰয়োগে লিপি সম্পাদনৰ সুবিধা দিয়ে এই সেৱা ব্যৱহাৰ কৰিব লাগে ।
 Comment[be]=Сервіс тэкставага рэдактара дазваляе праглядаць і рэдагаваць тэкст у праграмах. Праграмы KDE, якія выконваюць гэтыя функцыі, павінны працаваць з гэтым сервісам.
 Comment[be@latin]=Słužba redahavańnia tekstaŭ zabiaśpiečvaje aplikacyi prahladnikam i redaktaram tekstaŭ. Aplikacyi KDE, jakija pracujuć z tekstami, pavinnyja karystacca hetaj słužbaj.
 Comment[bg]=Текстовия редактор, представлява компонент за вграждане в другите програми, който предоставя функционалност за разглеждане и редактиране на текстови файлове.

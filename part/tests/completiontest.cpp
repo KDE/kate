@@ -376,9 +376,10 @@ public:
         : CodeCompletionTestModel(parent, startText)
     {}
 
-    bool shouldStartCompletion(View* view, const QString &insertedText, const Cursor &position)
+    bool shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position)
     {
         Q_UNUSED(view);
+        Q_UNUSED(userInsertion);
         Q_UNUSED(position);
         if(insertedText.isEmpty())
             return false;
@@ -394,6 +395,7 @@ public:
 void CompletionTest::testCustomStartCompl()
 {
     KateCompletionModel *model = m_view->completionWidget()->model();
+
     m_view->completionWidget()->setAutomaticInvocationDelay(1);
 
     new StartCompletionModel(m_view, "aa");

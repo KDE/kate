@@ -84,6 +84,7 @@ Name[zh_CN]=自动书签
 Comment=Set bookmarks on lines matching a pattern when documents are loaded
 Comment[af]=Plaas boekmerke by lyne wat met 'n patroon ooreenstem wanneer dokumente gelaai word.
 Comment[ar]=ضع علامات في الأسطر التي توافق نموذجا معينا عند تحميل الملف
+Comment[as]=আলেখ্যন তোলাৰ সময়ত এটা ধৰণৰ সৈতে একে শাৰীত পত্ৰচিহ্ন দিব ।
 Comment[be]=Стварае закладкі для радкоў, якія адпавядаюць шаблону
 Comment[be@latin]=Źmiaščaje ŭ radkoch, jakija adpaviadajuć šablonu, zakładki, paśla adčytańnia dakumenta.
 Comment[bg]=Установяване на отметки на редовете, които отговарят на зададен шаблон по време на зареждане на файла

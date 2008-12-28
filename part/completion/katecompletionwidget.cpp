@@ -250,7 +250,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   if (!m_completionRanges.isEmpty())
     abortCompletion();
 
-  m_presentationModel->setCompletionModels(m_sourceModels);
+  m_presentationModel->setCompletionModels(models);
 
   foreach (KTextEditor::CodeCompletionModel* model, models) {
     ///@todo Only start completion for models that actually voted for starting here

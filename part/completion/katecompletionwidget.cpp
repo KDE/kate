@@ -279,7 +279,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
     }
   }
 
-  if (isCompletionActive()) {
+  if (!m_completionRanges.isEmpty()) {
     connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
     //Now that all models have been notified, check whether the widget should be displayed instantly
     modelContentChanged();

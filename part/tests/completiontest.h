@@ -50,7 +50,8 @@ class CompletionTest : public QObject
     void testEmptyFilterString();
     void testUpdateCompletionRange();
     void testCustomStartCompl();
-    void testKateCompletionModel(); 
+    void testKateCompletionModel();
+    void testAbortImmideatelyAfterStart(); 
 
   private:
     KTextEditor::Document* m_doc;

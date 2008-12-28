@@ -424,5 +424,34 @@ void CompletionTest::testKateCompletionModel()
     QCOMPARE(countItems(model), 40);
 }
 
+class ImmideatelyAbortCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+public:
+    ImmideatelyAbortCompletionModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
+        : CodeCompletionTestModel(parent, startText)
+    {}
+
+    virtual bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::SmartRange& range, const QString& currentCompletion)
+    {
+        Q_UNUSED(view);
+        Q_UNUSED(range);
+        Q_UNUSED(currentCompletion);
+        return true;
+    }
+};
+
+void CompletionTest::testAbortImmideatelyAfterStart()
+{
+    KateCompletionModel *model = m_view->completionWidget()->model();
+
+    CodeCompletionTestModel* testModel = new ImmideatelyAbortCompletionModel(m_view);
+    m_view->setCursorPosition(Cursor(0, 3));
+    QVERIFY(!m_view->completionWidget()->isCompletionActive());
+    emit m_view->userInvokedCompletion();
+    QVERIFY(!m_view->completionWidget()->isCompletionActive());
+}
+
 #include "completiontest.moc"
 #include "moc_completiontest.cpp"

@@ -273,13 +273,17 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
 
     cursorPositionChanged();
 
-    QString currentCompletion = modelController(model)->filterString(view(), *m_completionRanges[model], view()->cursorPosition());
-    m_presentationModel->setCurrentCompletion(model, currentCompletion);
+    if (m_completionRanges.contains(model)) { //completion could got aborted
+      QString currentCompletion = modelController(model)->filterString(view(), *m_completionRanges[model], view()->cursorPosition());
+      m_presentationModel->setCurrentCompletion(model, currentCompletion);
+    }
   }
 
-  connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
-  //Now that all models have been notified, check whether the widget should be displayed instantly
-  modelContentChanged();
+  if (isCompletionActive()) {
+    connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
+    //Now that all models have been notified, check whether the widget should be displayed instantly
+    modelContentChanged();
+  }
 }
 
 void KateCompletionWidget::updateAndShow()

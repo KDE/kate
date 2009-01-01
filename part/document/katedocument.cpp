@@ -1551,6 +1551,11 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
   if ( lines() == 1 )
     return editRemoveText (0, 0, kateTextLine(0)->length());
 
+  KateLineInfo info;;
+  lineInfo (&info, line);
+  if (info.startsInVisibleBlock)
+    foldingTree()->toggleRegionVisibility(line);
+
   editStart (true, editSource);
 
   QString oldText = this->line(line);

@@ -1931,8 +1931,9 @@ QSize KateStackedWidget::minimumSize() const
 
 
 
-KateViewBar::KateViewBar (QWidget *parent, KateView *view)
- : QWidget (parent), m_view (view), m_permanentBarWidget(0)
+KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position pos,QWidget *parent, KateView *view)
+ : QWidget (parent), m_external(external), m_pos(pos),m_view (view), m_permanentBarWidget(0)
+
 {
   m_layout = new QVBoxLayout(this);
   m_stack = new KateStackedWidget(this);
@@ -2040,13 +2041,13 @@ void KateViewBar::hideCurrentBarWidget ()
 
 void KateViewBar::setViewBarVisible (bool visible)
 {
-  if (m_view->externalViewBar()) {
+  if (m_external) {
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
     if (viewBarContainer) {
       if (visible) {
-        viewBarContainer->showViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+        viewBarContainer->showViewBarForView(m_view,m_pos);
       } else {
-        viewBarContainer->hideViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+        viewBarContainer->hideViewBarForView(m_view,m_pos);
       }
     }
   } else {

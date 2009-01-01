@@ -371,9 +371,9 @@ void KateCodeFoldingTree::debugDump()
 void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &prefix)
 {
   //output node properties
-  kDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
+  kDebug(13000)<<node<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
       arg(node->type).arg(node->startLineValid).arg(node->startLineRel).arg(node->endLineValid).
-      arg(node->endLineRel).arg(node->visible)<<endl;
+      arg(node->endLineRel).arg(node->visible)<<"Parent:"<<node->parentNode<<endl;
 
   //output child node properties recursive
   if (node->noChildren())
@@ -574,6 +574,7 @@ bool KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
   // removes + deletes
   KateCodeFoldingNode *child = parent->takeChild(mypos);
   markedForDeleting.removeAll(child);
+//   removeParentReferencesFromChilds(child);
   delete child;
 
   if ((type>0) && (endLineValid))
@@ -601,6 +602,7 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
     {
       KateCodeFoldingNode *child = parent->takeChild(i);
       markedForDeleting.removeAll(child);
+//       removeParentReferencesFromChilds(child);
       delete child;
     }
 
@@ -619,6 +621,7 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 
       KateCodeFoldingNode *child = parent->takeChild(i);
       markedForDeleting.removeAll(child);
+//       removeParentReferencesFromChilds(child);
       delete child;
 
       count = i-mypos-1;
@@ -853,6 +856,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
                 node->endCol = parent->child(i)->endCol;
                 KateCodeFoldingNode *child = parent->takeChild(i);
                 markedForDeleting.removeAll( child );
+//                 removeParentReferencesFromChilds(child);
                 delete child;
                 break;
               }
@@ -931,6 +935,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
               newNode->endLineRel = line - getStartLine(node->child(i));
               KateCodeFoldingNode *child = node->takeChild(i);
               markedForDeleting.removeAll( child );
+//               removeParentReferencesFromChilds(child);
               delete child;
               break;
             }
@@ -1044,6 +1049,7 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
+  
   lineMapping.clear();
   dontIgnoreUnchangedLines.insert(line);
   dontIgnoreUnchangedLines.insert(line-1);
@@ -1051,6 +1057,7 @@ void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
   hiddenLinesCountCacheValid = false;
 #ifdef JW_DEBUG
   kDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenRemoved: %1").arg(line);
+  debugDump();
 #endif
 
 //line ++;
@@ -1209,7 +1216,7 @@ void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned
 
   if(add)
   markedForDeleting.append(node);
-
+  kDebug(13000)<<"marking for deletion:"<<node;
 }
 
 
@@ -1231,9 +1238,9 @@ void KateCodeFoldingTree::findAllNodesOpenedOrClosedAt(unsigned int line)
     addNodeToFoundList(node->parentNode, line, node->parentNode->findChild(node));
     node = node->parentNode;
   }
-#ifdef JW_DEBUG
+/*#ifdef JW_DEBUG
   kDebug(13000)<<" added line to nodesForLine list";
-#endif
+#endif*/
 }
 
 
@@ -1264,7 +1271,7 @@ void KateCodeFoldingTree::addNodeToFoundList(KateCodeFoldingNode *node,unsigned 
 void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 {
 #ifdef JW_DEBUG
-  kDebug(13000)<<"void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)";
+  kDebug(13000)<<"void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line):"<<line;
 #endif
 
 //  return;
@@ -1274,6 +1281,9 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
   for (int i=0; i<(int)markedForDeleting.count(); i++)
   {
     KateCodeFoldingNode *node = markedForDeleting.at(i);
+#ifdef JW_DEBUG
+    kDebug(13000)<<"index:"<<i<<" node:"<<node<<endl;
+#endif
     if (node->deleteOpening)
       kDebug(13000)<<"DELETE OPENING SET";
     if (node->deleteEnding)
@@ -1288,8 +1298,11 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
       {
         int f = node->parentNode->findChild (node);
 
-        if (f >= 0)
-          delete node->parentNode->takeChild(f);
+        if (f >= 0) {
+         KateCodeFoldingNode *delN=node->parentNode->takeChild(f);
+//          removeParentReferencesFromChilds(delN);
+         delete delN;
+        }
       }
       else
       {
@@ -1692,5 +1705,15 @@ void KateCodeFoldingTree::ensureVisible( uint line )
   } while( n );
 
 }
+
+// void KateCodeFoldingTree::removeParentReferencesFromChilds(KateCodeFoldingNode* node) {
+//   for (int i=0;i<node->childCount();i++) {
+//     KateCodeFoldingNode *n=node->child(i);
+//     kDebug(13000)<<"removing node from markedForDeleting list"<<n<<endl;
+//     markedForDeleting.removeAll(n);
+//     n->parentNode=0;
+//     removeParentReferencesFromChilds(n);
+//   }
+// }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

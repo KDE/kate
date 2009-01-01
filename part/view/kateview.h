@@ -315,6 +315,9 @@ class KateView : public KTextEditor::View,
     QList<KTextEditor::SmartRange*> m_internalHighlights;
     QList<KTextEditor::SmartRange*> m_actions;
 
+    bool m_bottomBarExternal;
+    bool m_topBarExternal;
+
   //
   // internal helper stuff, for katerenderer and so on
   //
@@ -678,16 +681,14 @@ class KateView : public KTextEditor::View,
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
-    inline bool externalViewBar(){return m_externalViewBar;}
   /**
    * viewbar + its widgets
    * they are created on demand...
    */
   private:
-    bool m_externalViewBar;
     // created in constructor of the view
-    KateViewBar *m_viewBar;
-
+    KateViewBar *m_bottomViewBar;
+    KateViewBar *m_topViewBar;
     // created on demand..., only access them through the above accessors....
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;

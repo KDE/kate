@@ -117,7 +117,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
     , blockSelect (false)
     , m_imComposeEvent( false )
-    , m_viewBar (0)
+    , m_bottomViewBar (0)
+    , m_topViewBar (0)
     , m_cmdLine (0)
     , m_searchBar (0)
     , m_viModeBar (0)
@@ -129,11 +130,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   KateGlobal::self()->registerView( this );
 
   KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-  QWidget *barParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
+  QWidget *bottomBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
+  QWidget *topBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::TopBar):0;
 
-  m_externalViewBar=barParent;
+  m_bottomBarExternal=bottomBarParent;
+  m_topBarExternal=topBarParent;
 
-  m_viewBar=new KateViewBar (m_externalViewBar?barParent:this,this);
+  m_bottomViewBar=new KateViewBar (m_bottomBarExternal,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
+  m_topViewBar=new KateViewBar (m_topBarExternal,KTextEditor::ViewBarContainer::TopBar,topBarParent?topBarParent:this,this);
+
+
 
   m_config = new KateViewConfig (this);
 
@@ -156,6 +162,13 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_vBox->addLayout (hbox, 100);
   hbox->setMargin (0);
   hbox->setSpacing (0);
+
+  // add top viewbar...
+  if (topBarParent)
+    viewBarContainer->addViewBarToLayout(this,m_topViewBar,KTextEditor::ViewBarContainer::TopBar);
+  else
+    m_vBox->addWidget(m_topViewBar);
+
 
   if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents)) {
       QHBoxLayout *extrahbox = new QHBoxLayout ();
@@ -188,10 +201,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->addWidget (m_viewInternal->m_dummy);
 
   // add viewbar...
-  if (barParent)
-    viewBarContainer->addViewBarToLayout(this,m_viewBar,KTextEditor::ViewBarContainer::BottomBar);
+  if (bottomBarParent)
+    viewBarContainer->addViewBarToLayout(this,m_bottomViewBar,KTextEditor::ViewBarContainer::BottomBar);
   else
-    m_vBox->addWidget(m_viewBar);
+    m_vBox->addWidget(m_bottomViewBar);
 
   // this really is needed :)
   m_viewInternal->updateView ();
@@ -241,11 +254,13 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
 KateView::~KateView()
 {
-  if (m_externalViewBar) {
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-    if (viewBarContainer) viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
-    m_viewBar=0;
-  }
+    if (viewBarContainer) {
+     viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
+      m_bottomViewBar=0;
+      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::TopBar);
+      m_topViewBar=0;
+    }
 
   if (!m_doc->singleViewMode())
     KatePartPluginManager::self()->removeView(this);
@@ -988,9 +1003,9 @@ void KateView::slotLostFocus()
   }
 
 //jowenn: what was that for ?
-//   if (m_viewBar->isVisibleTo(m_viewBar->parentWidget()) && (m_viewBar->parentWidget() !=this) )
-//     m_viewBar->hide();
-//   m_viewBar->hide();
+//   if (m_bottomViewBar->isVisibleTo(m_bottomViewBar->parentWidget()) && (m_bottomViewBar->parentWidget() !=this) )
+//     m_bottomViewBar->hide();
+//   m_bottomViewBar->hide();
   emit focusOut ( this );
 }
 
@@ -1114,7 +1129,7 @@ void KateView::slotSaveCanceled( const QString& error )
 void KateView::gotoLine()
 {
   gotoBar()->updateData();
-  m_viewBar->showBarWidget(gotoBar());
+  m_bottomViewBar->showBarWidget(gotoBar());
 }
 
 void KateView::joinLines()
@@ -1276,15 +1291,15 @@ void KateView::toggleViInputMode()
 void KateView::showViModeBar()
 {
   if (viInputMode() && !config()->viInputModeHideStatusBar()) {
-    m_viewBar->addPermanentBarWidget(viModeBar());
+    m_bottomViewBar->addPermanentBarWidget(viModeBar());
     updateViModeBarMode();
   }
 }
 
 void KateView::hideViModeBar()
 {
-  if (m_viewBar) {
-    m_viewBar->removePermanentBarWidget(viModeBar());
+  if (m_bottomViewBar) {
+    m_bottomViewBar->removePermanentBarWidget(viModeBar());
   }
 }
 
@@ -1322,7 +1337,7 @@ void KateView::find()
   if (bar->hasFocus())//make returning to main edit widget w/o loosing search info possible
     return m_viewInternal->setFocus();
   bar->onMutateIncremental();
-  m_viewBar->showBarWidget(bar);
+  m_bottomViewBar->showBarWidget(bar);
   bar->setFocus();
 }
 
@@ -1345,7 +1360,7 @@ void KateView::replace()
   if (bar->hasFocus())//make returning to main edit widget w/o loosing search info possible
     return m_viewInternal->setFocus();
   bar->onMutatePower();
-  m_viewBar->showBarWidget(bar);
+  m_bottomViewBar->showBarWidget(bar);
   bar->setFocus();
 }
 
@@ -1381,7 +1396,7 @@ void KateView::switchToCmdLine ()
     cmdLine()->setText(QString::number(selectionRange().start().line()+1)+','
         +QString::number(selectionRange().end().line()+1));
   }
-  m_viewBar->showBarWidget(cmdLine());
+  m_bottomViewBar->showBarWidget(cmdLine());
   cmdLine()->setFocus ();
   hideViModeBar();
 }
@@ -1584,6 +1599,7 @@ void KateView::repaintText (bool paintOnlyDirty)
 void KateView::updateView (bool changed)
 {
   m_viewInternal->updateView (changed);
+  kDebug(13020) << "KateView::updateView";
   m_viewInternal->m_leftBorder->update();
 }
 
@@ -2774,14 +2790,14 @@ void KateView::userInvokedCompletion()
 
 KateViewBar *KateView::viewBar() const
 {
-  return m_viewBar;
+  return m_bottomViewBar;
 }
 
 KateCmdLine *KateView::cmdLine ()
 {
   if (!m_cmdLine) {
-    m_cmdLine = new KateCmdLine (this, m_viewBar);
-    m_viewBar->addBarWidget(m_cmdLine);
+    m_cmdLine = new KateCmdLine (this, m_bottomViewBar);
+    m_bottomViewBar->addBarWidget(m_cmdLine);
   }
 
   return m_cmdLine;
@@ -2791,7 +2807,7 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this);
-    m_viewBar->addBarWidget(m_searchBar);
+    m_bottomViewBar->addBarWidget(m_searchBar);
   }
   return m_searchBar;
 }
@@ -2809,7 +2825,7 @@ KateGotoBar *KateView::gotoBar ()
 {
   if (!m_gotoBar) {
     m_gotoBar = new KateGotoBar (this);
-    m_viewBar->addBarWidget(m_gotoBar);
+    m_bottomViewBar->addBarWidget(m_gotoBar);
   }
 
   return m_gotoBar;

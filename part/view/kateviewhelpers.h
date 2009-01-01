@@ -32,6 +32,8 @@
 #include <QtGui/QStackedWidget>
 #include <QtCore/QMap>
 
+#include <ktexteditor/containerinterface.h>
+
 class KateDocument;
 class KateView;
 class KateViewInternal;
@@ -296,7 +298,8 @@ class KateViewBar : public QWidget
   Q_OBJECT
 
   public:
-    KateViewBar (QWidget *parent,KateView *view);
+    KateViewBar (bool external, KTextEditor::ViewBarContainer::Position pos,QWidget *parent,KateView *view);
+
 
     /**
      * Adds a widget to this viewbar.
@@ -350,6 +353,9 @@ class KateViewBar : public QWidget
      * Shows or hides whole viewbar
      */
     void setViewBarVisible(bool visible);
+
+    bool m_external;
+    KTextEditor::ViewBarContainer::Position m_pos;
 
   private:
     KateView *m_view;

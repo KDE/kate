@@ -1,8 +1,5 @@
-To enable the vi input mode, put "Vi Input Mode=true" under "[Kate View
-Defaults]" in your katerc.  If you would like to allow the vi input mode to
-steal key bindings from Kate, add "Vi Input Mode Steal Keys=true" as well.
-There will be a better solution for this eventually. Key bindings not used by
-the vi input mode will be sent to Kate even if key stealing is on.
+To enable the vi input mode, go to Settings → Configure Kate... → Editing →
+Vi Input Mode.
 
 Vim incompatibilities:
 

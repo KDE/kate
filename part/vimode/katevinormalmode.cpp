@@ -1526,6 +1526,7 @@ KateViRange KateViNormalMode::motionToCharBackward()
 KateViRange KateViNormalMode::motionToLineFirst()
 {
     KateViRange r( getCount()-1, 0, ViMotion::InclusiveMotion );
+    m_stickyColumn = -1;
 
     if ( r.endLine > m_doc->lines() - 1 ) {
       r.endLine = m_doc->lines() - 1;
@@ -1538,6 +1539,7 @@ KateViRange KateViNormalMode::motionToLineFirst()
 KateViRange KateViNormalMode::motionToLineLast()
 {
   KateViRange r( m_doc->lines()-1, 0, ViMotion::InclusiveMotion );
+  m_stickyColumn = -1;
 
   // don't use getCount() here, no count and a count of 1 is different here...
   if ( m_count != 0 ) {
@@ -1554,8 +1556,7 @@ KateViRange KateViNormalMode::motionToLineLast()
 
 KateViRange KateViNormalMode::motionToScreenColumn()
 {
-  if ( m_stickyColumn != -1 )
-    m_stickyColumn = -1;
+  m_stickyColumn = -1;
 
   KTextEditor::Cursor c( m_view->cursorPosition() );
 

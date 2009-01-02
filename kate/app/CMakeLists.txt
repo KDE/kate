@@ -48,11 +48,13 @@ if (WIN32)
 
     list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
 
-    kde4_add_app_icon(kate_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/kate.png")
+    #kde4_add_app_icon(kate_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/kate.png")
+    kde4_add_app_icon(kate_KDEINIT_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-app-kate.png")
 
     kde4_add_executable(kate ${kate_KDEINIT_SRCS} )
 
     target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${QT_QTGUI_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
+
 else (WIN32)
     kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})
 

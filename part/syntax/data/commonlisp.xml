@@ -6,8 +6,6 @@
   copyright   : (C) 2004 by Dominik Haumann
   email       : dhdev at gmx dot de
 
-  last change : 2004-03-16
-
  **********************************************************************
  * This library is free software; you can redistribute it and/or      *
  * modify it under the terms of the GNU Library General Public        *
@@ -25,7 +23,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language version="1.03" kateversion="2.3" name="Common Lisp" section="Scripts" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language version="1.04" kateversion="2.3" name="Common Lisp" section="Scripts" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="symbols">
       <item> &lt; </item>
@@ -163,6 +161,20 @@
       <item> byte </item> 
       <item> byte-position </item> 
       <item> byte-size </item> 
+      <item> caaaar </item>
+      <item> caaadr </item>
+      <item> caaar </item> 
+      <item> caadar </item>
+      <item> caaddr </item>
+      <item> caadr </item> 
+      <item> caar </item> 
+      <item> cadaar </item>
+      <item> cadadr </item>
+      <item> cadar </item> 
+      <item> caddar </item>
+      <item> cadddr </item>
+      <item> caddr </item> 
+      <item> cadr </item> 
       <item> call-arguments-limit </item> 
       <item> call-method </item> 
       <item> call-next-method </item> 
@@ -171,6 +183,20 @@
       <item> case </item> 
       <item> catch </item> 
       <item> ccase </item> 
+      <item> cdaaar </item> 
+      <item> cdaadr </item> 
+      <item> cdaar </item> 
+      <item> cdadar </item> 
+      <item> cdaddr </item> 
+      <item> cdadr </item> 
+      <item> cdar </item> 
+      <item> cddaar </item> 
+      <item> cddadr </item> 
+      <item> cddar </item> 
+      <item> cdddar </item> 
+      <item> cddddr </item> 
+      <item> cdddr </item> 
+      <item> cddr </item> 
       <item> cdr </item> 
       <item> ceiling </item> 
       <item> cell-error </item> 

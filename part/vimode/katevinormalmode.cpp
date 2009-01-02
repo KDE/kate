@@ -23,6 +23,7 @@
 #include "kateviinputmodemanager.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
+#include "katebuffer.h"
 #include <QApplication>
 #include <QList>
 
@@ -403,7 +404,7 @@ bool KateViNormalMode::commandEnterInsertModeAppend()
   c.setColumn( c.column()+1 );
 
   // if empty line, the cursor should start at column 0
-  if ( getLine( c.line() ).length() == 0 ) {
+  if ( m_doc->lineLength( c.line() ) == 0 ) {
     c.setColumn( 0 );
   }
 
@@ -1362,61 +1363,13 @@ bool KateViNormalMode::commandAlignLines()
 
 KateViRange KateViNormalMode::motionDown()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-
-  KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
-  r.endLine += getCount();
-
-  // if sticky is set, check if we can co back to the sticky column in the new
-  // line. if line is longer than previous line, but shorter than sticky, go
-  // to the last column
-  if ( m_stickyColumn != -1 ) {
-    if ( getLine( r.endLine ).length()-1 > m_stickyColumn )
-      r.endColumn = m_stickyColumn;
-    else if ( getLine( r.endLine ).length()-1 > r.endLine )
-      r.endColumn = getLine( r.endLine ).length()-1;
-  }
-
-  // if the line below is shorter than the current cursor column, set sticky
-  // to the old value and go to the last character of the previous line
-  if ( getLine( r.endLine ).length()-1 < r.endColumn ) {
-    if ( m_stickyColumn == -1 )
-      m_stickyColumn = r.endColumn;
-    r.endColumn = getLine( r.endLine ).length()-1;
-    r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
-  }
-
-  return r;
+  return goLineDown();
 }
 
 
 KateViRange KateViNormalMode::motionUp()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-
-  KateViRange r( cursor.line(), cursor.column(), ViMotion::InclusiveMotion );
-  r.endLine -= getCount();
-
-  // if sticky is set, check if we can co back to the sticky column in the new
-  // line. if line is longer than previous line, but shorter than sticky, go
-  // to the last column
-  if ( m_stickyColumn != -1 ) {
-    if ( getLine( r.endLine ).length()-1 > m_stickyColumn )
-      r.endColumn = m_stickyColumn;
-    else if ( getLine( r.endLine ).length()-1 > r.endLine )
-      r.endColumn = getLine( r.endLine ).length()-1;
-  }
-
-  // if the line above is shorter than the current cursor column, set sticky
-  // to the old value and go to the last character of the previous line
-  if ( getLine( r.endLine ).length()-1 < r.endColumn ) {
-    if ( m_stickyColumn == -1 )
-      m_stickyColumn = r.endColumn;
-    r.endColumn = getLine( r.endLine ).length()-1;
-    r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
-  }
-
-  return r;
+  return goLineUp();
 }
 
 KateViRange KateViNormalMode::motionLeft()

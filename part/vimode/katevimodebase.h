@@ -64,6 +64,10 @@ class KateViModeBase
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     void updateCursor( const KTextEditor::Cursor &c ) const;
 
+    KateViRange goLineUp();
+    KateViRange goLineDown();
+    KateViRange goLineUpDown( int lines);
+
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
 
     bool startNormalMode();
@@ -85,6 +89,8 @@ class KateViModeBase
 
     QString m_extraWordCharacters;
     QString m_keysVerbatim;
+
+    int m_stickyColumn;
 
     KateDocument* m_doc;
     KateView *m_view;

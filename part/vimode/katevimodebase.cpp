@@ -575,12 +575,84 @@ QString KateViModeBase::getRegisterContent( const QChar &reg ) const
 
 void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
 {
-    KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+  KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+}
+
+KateViRange KateViModeBase::goLineDown()
+{
+  return goLineUpDown( getCount() );
+}
+
+KateViRange KateViModeBase::goLineUp()
+{
+  return goLineUpDown( -getCount() );
+}
+
+KateViRange KateViModeBase::goLineUpDown( int lines )
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+  if ( lines == 0 ) {
+    return r;
+  } else {
+    r.endLine += lines;
+  }
+
+  if ( r.endLine < 0 ) {
+    r.endLine = 0;
+  } else if ( r.endLine > m_doc->lines()-1 ) {
+    r.endLine = m_doc->lines()-1;
+  }
+
+  if ( m_stickyColumn == -1 ) {
+    r.endColumn = m_stickyColumn = c.column();
+  } else {
+    r.endColumn = m_stickyColumn;
+  }
+
+  int lineLen = m_doc->lineLength( r.endLine );
+  KateTextLine::Ptr textLine = m_doc->plainKateTextLine( r.endLine );
+  int realColumn = textLine->fromVirtualColumn(r.endColumn, m_doc->config()->tabWidth());
+  int lastVirtColumn = textLine->toVirtualColumn(lineLen-1,
+      m_doc->config()->tabWidth());
+
+  if ( realColumn != r.endColumn && lastVirtColumn >= r.endColumn ) {
+    r.endColumn = realColumn;
+  } else {
+    // if m_stickyColumn is set, check if we can co back to the sticky column in the new
+    // line. if the line is shorter than sticky, go to the last column
+    if ( m_stickyColumn != -1 ) {
+      if ( lineLen-1 >= m_stickyColumn ) {
+        r.endColumn = m_stickyColumn;
+      } else if ( lineLen-1 < m_stickyColumn ) { // line is shorter than the sticky column value set
+        if ( lineLen > 0 ) {
+          r.endColumn = lineLen-1;
+        } else {
+          r.endColumn = 0;
+        }
+      }
+    }
+  }
+
+  /*
+  // if the line we're going to is shorter than the current cursor column, set sticky
+  // to the old value and go to the last character of the line
+  if ( m_doc->lineLength( r.endLine ) <= r.endColumn ) {
+    if ( sticky == -1 ) {
+      sticky = r.endColumn;
+    }
+    r.endColumn = m_doc->lineLength( r.endLine )-1;
+    r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
+  }
+  */
+
+  return r;
 }
 
 bool KateViModeBase::startNormalMode()
 {
-  // store the key presses for this "insert mode session" so that it can be repeated with the '.'
+  // store the key presses for this "insert mode session" so that it can be repeated with the
+  // '.' command
   if (!m_viInputModeManager->isRunningMacro()) {
     m_viInputModeManager->storeChangeCommand();
     m_viInputModeManager->clearLog();
@@ -639,7 +711,6 @@ void KateViModeBase::message( const QString &msg ) const
 {
   m_view->viModeBar()->showMessage(msg);
 }
-
 
 QString KateViModeBase::getVerbatimKeys() const
 {

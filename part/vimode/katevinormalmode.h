@@ -200,7 +200,6 @@ class KateViNormalMode : public KateViModeBase
     QVector<int> m_matchingMotions;
     QStack<int> m_awaitingMotionOrTextObject;
 
-    int m_stickyColumn;
     int m_motionOperatorIndex;
 
     // registers

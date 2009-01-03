@@ -850,36 +850,39 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
 {
   QString s = lineLayout->textLine()->string();
-  int i = s.length();
-  int RTLchars = 0;
-  int LTRchars = 0;
+  int i = 0;
 
   // borrowed from QString::updateProperties()
-  while( i != 0 )
+  while( i != s.length() )
   {
-    QChar c = s.at(i-1);
+    QChar c = s.at(i);
 
     switch(c.direction()) {
       case QChar::DirL:
       case QChar::DirLRO:
       case QChar::DirLRE:
-          LTRchars ++;
-          break;
+          return false;
 
       case QChar::DirR:
       case QChar::DirAL:
       case QChar::DirRLO:
       case QChar::DirRLE:
-          RTLchars ++;
-          break;
+          return true;
 
       default:
           break;
     }
-    i --;
+    i ++;
   }
-
-  return (RTLchars > LTRchars);
+ 
+   return false;
+#if 0
+  // or should we use the direction of the widget?
+  QWidget* display = qobject_cast<QWidget*>(view()->parent());
+  if (!display)
+    return false;
+  return display->layoutDirection() == Qt::RightToLeft;
+#endif
 }
 
 int KateRenderer::cursorToX(const KateTextLayout& range, int col) const

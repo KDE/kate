@@ -203,10 +203,14 @@ public:
     void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
 
     /**
-     * A QString::isRightToLeft() on steroids. This function will guess the best direction
-     * of this line/paragraph by measuring which type of characters is mostly available
-     * on that line. If the number of LTR characters is the same as RTL characters, this
-     * method will return false.
+     * This is a smaller QString::isRightToLeft(). It's also marked as internal to kate
+     * instead of internal to Qt, so we can modify. This method searches for the first
+     * strong character in the paragraph and then returns it's direction. In case of a 
+     * line without any strong characters, the direction is forced to be LTR.
+     * 
+     * Back in KDE 4.1 this method counted chars, which lead to unwanted side effects.
+     * (see https://bugs.kde.org/show_bug.cgi?id=178594). As this function is internal
+     * the way it work will probably change between releases. Be warned!
      */
     bool isLineRightToLeft( KateLineLayoutPtr lineLayout ) const;
 

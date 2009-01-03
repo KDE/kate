@@ -119,22 +119,13 @@ class KateFileSelector : public KVBox
     void writeConfig();
     void setupToolbar( QStringList actions );
     void setView( KFile::FileView );
-    KDirOperator *dirOperator()
-    {
-      return dir;
-    }
-    KActionCollection *actionCollection()
-    {
-      return mActionCollection;
-    }
+    KDirOperator *dirOperator() { return m_dirOperator; }
+    KActionCollection *actionCollection() { return mActionCollection; }
 
   public Q_SLOTS:
     void slotFilterChange(const QString&);
     void setDir(KUrl);
-    void setDir( const QString& url )
-    {
-      setDir( KUrl( url ) );
-    }
+    void setDir( const QString& url ) { setDir( KUrl( url ) ); }
     void kateViewChanged();
     void selectorViewChanged( QAbstractItemView * );
 
@@ -165,7 +156,7 @@ class KateFileSelector : public KVBox
     KActionCollection *mActionCollection;
     class KBookmarkHandler *bookmarkHandler;
     KUrlComboBox *cmbPath;
-    KDirOperator * dir;
+    KDirOperator * m_dirOperator;
     class QAction *acSyncDir;
     KHistoryComboBox * filter;
     QToolButton *btnFilter;

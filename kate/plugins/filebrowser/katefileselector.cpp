@@ -149,14 +149,14 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
 // FIXME
 //  cmbPath->listBox()->installEventFilter( this );
 
-  dir = new KDirOperator(KUrl(), this);
-  dir->installEventFilter( this );
-  dir->setView(KFile::/* Simple */Detail);
-  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  connect ( dir, SIGNAL( viewChanged(QAbstractItemView *) ),
+  m_dirOperator = new KDirOperator(KUrl(), this);
+  m_dirOperator->installEventFilter( this );
+  m_dirOperator->setView(KFile::/* Simple */Detail);
+  m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  connect ( m_dirOperator, SIGNAL( viewChanged(QAbstractItemView *) ),
            this, SLOT( selectorViewChanged(QAbstractItemView *) ) );
-  setStretchFactor(dir, 2);
-  dir->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+  setStretchFactor(m_dirOperator, 2);
+  m_dirOperator->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
   // bookmarks action!
   KActionMenu *acmBookmarks = new KActionMenu( KIcon("bookmarks"), i18n("Bookmarks"), this );
@@ -178,7 +178,7 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   connect( filter, SIGNAL( returnPressed(const QString&) ),
            filter, SLOT( addToHistory(const QString&) ) );
 
-  // kaction for the dir sync method
+  // kaction for the m_dirOperator sync method
   acSyncDir = mActionCollection->addAction( "sync_dir" );
   acSyncDir->setIcon( KIcon("curfiledir") );
   acSyncDir->setText( i18n("Current Document Folder") );
@@ -191,13 +191,13 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
            this, SLOT( cmbPathActivated( const KUrl& ) ));
   connect( cmbPath, SIGNAL( returnPressed( const QString&  )),
            this, SLOT( cmbPathReturnPressed( const QString& ) ));
-  connect(dir, SIGNAL(urlEntered(const KUrl&)),
+  connect(m_dirOperator, SIGNAL(urlEntered(const KUrl&)),
           this, SLOT(dirUrlEntered(const KUrl&)) );
 
-  connect(dir, SIGNAL(finishedLoading()),
+  connect(m_dirOperator, SIGNAL(finishedLoading()),
           this, SLOT(dirFinishedLoading()) );
 
-  // enable dir sync button if current doc has a valid URL
+  // enable m_dirOperator sync button if current doc has a valid URL
   connect ( mainwin, SIGNAL( viewChanged() ),
             this, SLOT( kateViewChanged() ) );
 
@@ -218,7 +218,7 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   btnFilter->setWhatsThis(        i18n("<p>This button clears the name filter when toggled off, or "
                                        "reapplies the last filter used when toggled on.</p>") );
 
-  connect(dir, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
+  connect(m_dirOperator, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 
   readConfig();
 
@@ -240,8 +240,8 @@ KateFileSelector::~KateFileSelector()
 void KateFileSelector::readConfig()
 {
 
-//   dir->setView( KFile::Default );
-//   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//   m_dirOperator->setView( KFile::Default );
+//   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   // set up the toolbar
   KConfigGroup fileselectorConfigGroup(KGlobal::config(), "fileselector");
@@ -259,11 +259,11 @@ void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & 
 {
 
   KConfigGroup cgView(config, name + ":view");
-  dir->setViewConfig(cgView );
+  m_dirOperator->setViewConfig(cgView );
 
   KConfigGroup cgDir(config, name + ":dir");
-  dir->readConfig(cgDir);
-  dir->setView(KFile::Default);
+  m_dirOperator->readConfig(cgDir);
+  m_dirOperator->setView(KFile::Default);
 
   KConfigGroup cg (config, name );
   cmbPath->setUrls( cg.readPathEntry( "dir history", QStringList() ) );
@@ -302,12 +302,12 @@ void ::KateFileSelector::setupToolbar( QStringList actions )
     "bookmarks" << "sync_dir";
   }
   QAction *ac;
-  for ( QStringList::Iterator it = actions.begin(); it != actions.end(); ++it )
+  for ( QStringList::ConstIterator it = actions.constBegin(); it != actions.constEnd(); ++it )
   {
     if ( *it == "bookmarks" || *it == "sync_dir" )
       ac = mActionCollection->action( (*it).toLatin1().constData() );
     else
-      ac = dir->actionCollection()->action( (*it).toLatin1().constData() );
+      ac = m_dirOperator->actionCollection()->action( (*it).toLatin1().constData() );
     if ( ac )
       toolbar->addAction( ac );
   }
@@ -326,7 +326,7 @@ void KateFileSelector::writeConfig()
 void KateFileSelector::writeSessionConfig(KConfigBase *config, const QString & name)
 {
   KConfigGroup cgDir(config, name + ":dir");
-  dir->writeConfig(cgDir);
+  m_dirOperator->writeConfig(cgDir);
 
   KConfigGroup cg = KConfigGroup( config, name );
   QStringList l;
@@ -342,8 +342,8 @@ void KateFileSelector::writeSessionConfig(KConfigBase *config, const QString & n
 
 void ::KateFileSelector::setView(KFile::FileView view)
 {
-  dir->setView(view);
-  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  m_dirOperator->setView(view);
+  m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 //END Public Methods
@@ -353,25 +353,26 @@ void ::KateFileSelector::setView(KFile::FileView view)
 void ::KateFileSelector::slotFilterChange( const QString & nf )
 {
   QString f = nf.trimmed();
-  bool empty = f.isEmpty() || f == "*";
+  const bool empty = f.isEmpty() || f == "*";
+
   if ( empty )
   {
-    dir->clearFilter();
+    m_dirOperator->clearFilter();
     filter->lineEdit()->setText( QString() );
-    btnFilter->setToolTip(
-      i18n("Apply last filter (\"%1\")", lastFilter )) ;
+    btnFilter->setToolTip( i18n("Apply last filter (\"%1\")", lastFilter) ) ;
   }
   else
   {
-    dir->setNameFilter( f );
+    m_dirOperator->setNameFilter( f );
     lastFilter = f;
     btnFilter->setToolTip( i18n("Clear filter") );
   }
+
   btnFilter->setChecked( !empty );
-  dir->updateDir();
+  m_dirOperator->updateDir();
+
   // this will be never true after the filter has been used;)
   btnFilter->setEnabled( !( empty && lastFilter.isEmpty() ) );
-
 }
 
 bool kateFileSelectorIsReadable ( const KUrl& url )
@@ -379,7 +380,7 @@ bool kateFileSelectorIsReadable ( const KUrl& url )
   if ( !url.isLocalFile() )
     return true; // what else can we say?
 
-  QDir dir (url.path());
+  QDir dir(url.path());
   return dir.exists ();
 }
 
@@ -401,7 +402,7 @@ void ::KateFileSelector::setDir( KUrl u )
   if ( !kateFileSelectorIsReadable (newurl) )
     newurl.setPath( QDir::homePath() );
 
-  dir->setUrl(newurl, true);
+  m_dirOperator->setUrl(newurl, true);
 }
 
 //END Public Slots
@@ -415,14 +416,14 @@ void ::KateFileSelector::fileSelected(const KFileItem & /*file*/)
 
 void ::KateFileSelector::openSelectedFiles()
 {
-  const KFileItemList list = dir->selectedItems();
+  const KFileItemList list = m_dirOperator->selectedItems();
 
   foreach (const KFileItem& item, list)
   {
     mainwin->openUrl(item.url());
   }
 
-  dir->view()->selectionModel()->clear();
+  m_dirOperator->view()->selectionModel()->clear();
 }
 
 
@@ -436,10 +437,10 @@ void ::KateFileSelector::cmbPathActivated( const KUrl& u )
 void ::KateFileSelector::cmbPathReturnPressed( const QString& u )
 {
   // construct so that relative urls are ok
-  KUrl typedURL( dir->url(), u );
+  KUrl typedURL( m_dirOperator->url(), u );
 
-  //dir->setFocus(); // is it really useful to set focus here?
-  dir->setUrl( typedURL, true );
+  //m_dirOperator->setFocus(); // is it really useful to set focus here?
+  m_dirOperator->setUrl( typedURL, true );
   qobject_cast<KUrlCompletion *>( cmbPath->completionObject() )->setDir( typedURL.pathOrUrl() );
 
   // strip password (noop if there's none)
@@ -535,7 +536,7 @@ KUrl KateFileSelector::activeDocumentUrl()
 
 void KateFileSelector::focusInEvent( QFocusEvent * )
 {
-  dir->setFocus();
+  m_dirOperator->setFocus();
 }
 
 void KateFileSelector::showEvent( QShowEvent * )

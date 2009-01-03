@@ -651,16 +651,20 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Returns the name of the section for a highlight given its index in the highlight
      * list (as returned by highlightModes()).
+     *
      * You can use this function to build a tree of the highlight names, organized in sections.
-     * \param name the name of the highlight for which to find the section name.
+     *
+     * \param index the index of the highlight in the list returned by modes()
      */
     virtual QString highlightingModeSection( int index ) const = 0;
 
     /**
      * Returns the name of the section for a mode given its index in the highlight
      * list (as returned by modes()).
+     *
      * You can use this function to build a tree of the mode names, organized in sections.
-     * \param name the name of the highlight for which to find the section name.
+     *
+     * \param index the index of the highlight in the list returned by modes()
      */
     virtual QString modeSection( int index ) const = 0;
 

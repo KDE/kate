@@ -102,7 +102,7 @@ if(m_parentRange) {\
 #define DEBUG_PARENT_OVERLAP
 #endif
 
-///Returns the index of the first range that ends behind @param pos
+///Returns the index of the first range that ends behind @p pos
 ///The list must be sorted by the ranges end-positions.
 static int lowerBound(const QList<SmartRange*>& ranges, const Cursor& pos)
 {

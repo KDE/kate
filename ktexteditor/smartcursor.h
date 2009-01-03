@@ -120,7 +120,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     virtual bool atEndOfDocument() const;
 
     /**
-     * \overload bool Cursor::isValid()
+     * \reimp
      * \sa Document::cursorInText()
      */
     virtual bool isValid() const;

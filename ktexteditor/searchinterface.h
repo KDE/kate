@@ -60,7 +60,7 @@ namespace Search
 
     // options for plaintext
     EscapeSequences     = 1 << 10, ///< Plaintext mode: Processes escape sequences
-    WholeWords          = 1 << 11, ///< Plaintext mode: Whole words only, e.g. <u>not</u> &quot;amp&quot; in &quot;example&quot;
+    WholeWords          = 1 << 11, ///< Plaintext mode: Whole words only, e.g. @em not &quot;amp&quot; in &quot;example&quot;
 
     // options for regex
     DotMatchesNewline   = 1 << 15  ///< Regex mode: Makes "." match newlines

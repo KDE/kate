@@ -137,7 +137,7 @@ public:
      *
      * \param view The view to generate completions for
      * \param range The completion range
-     * \param position Current cursor position
+     * \param currentCompletion The text typed so far
      * \return \e true, if the completion should be aborted, otherwise \e false
      */
     virtual bool shouldAbortCompletion(View* view, const SmartRange& range, const QString &currentCompletion);

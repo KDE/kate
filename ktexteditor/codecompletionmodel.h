@@ -371,6 +371,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
      * by calling QAbstractItemModel::reset()).
      * @param view The view to generate completions for
      * @param range The range of text to generate completions for
+     * @param invocationType How the code completion was triggered
      * */
     virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
     /**
@@ -450,10 +451,10 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel2 : public CodeCompletionModel {
       * document. The default implementation replaces the text that the completions
       * were based on with the Qt::DisplayRole of the Name column of the given match.
       *
-      * @param document The document to insert the completion into
-      * @param word The Range that the completions are based on (what the user entered
+      * @param document the document to insert the completion into
+      * @param word the Range that the completions are based on (what the user entered
       * so far)
-      * @param row The row of the completion match to insert
+      * @param index identifies the completion match to insert
       * */
     virtual void executeCompletionItem2(Document* document, const Range& word, const QModelIndex& index) const;
 };

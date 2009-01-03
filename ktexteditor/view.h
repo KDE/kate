@@ -380,6 +380,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     /**
      * This signal should be emitted whenever the \p view is scrolled vertically.
      * \param view view which emitted the signal
+     * \param newPos the new scroll position
      */
     void verticalScrollPositionChanged (KTextEditor::View *view, const KTextEditor::Cursor& newPos);
   

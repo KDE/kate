@@ -508,9 +508,10 @@ class KTEXTEDITOR_EXPORT Range
       { return r1.intersect(r2); }
 
     /**
-     * Intersects this range with \a r1 and assigns the result.
+     * Intersects \a r1 with \a r2 and assigns the result to \a r1.
      *
-     * \param r1 the range to intersect
+     * \param r1 the range to assign the intersection to
+     * \param r2 the range to intersect \a r1 with
      *
      * \return a reference to this range, after the intersection has taken place
      */

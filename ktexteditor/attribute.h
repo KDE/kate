@@ -116,20 +116,20 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public KShared
      * \{
      */
     /**
-     * \overload fontWeight()
-     *
      * Find out if the font weight is set to QFont::Bold.
      *
-     * \return \e true if the font weight is exactly QFont::Bold, otherwise \e false
+     * \return \c true if the font weight is exactly QFont::Bold, otherwise \c false
+     *
+     * \see QTextCharFormat::fontWeight()
      */
     bool fontBold() const;
 
     /**
-     * \overload setFontWeight()
-     *
      * Set the font weight to QFont::Bold.  If \a bold is \p false, the weight will be set to 0 (normal).
      *
      * \param bold whether the font weight should be bold or not.
+     *
+     * \see QTextCharFormat::setFontWeight()
      */
     void setFontBold(bool bold = true);
 

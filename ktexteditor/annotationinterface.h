@@ -61,16 +61,16 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
      * annotation information from the annotation model. The provider
      * should return useful information for the line and the data role.
      *
+     * The following roles are supported:
+     * - Qt::DisplayRole - a short display text to be placed in the border
+     * - Qt::TooltipRole - a tooltip information, longer text possible
+     * - Qt::BackgroundRole - a brush to be used to paint the background on the border
+     * - Qt::ForegroundRole - a brush to be used to paint the text on the border
+     *
      * \param line the line for which the data is to be retrieved
      * \param role the role to identify which kind of annotation is to be retrieved
      *
-     * \returns a \ref QVariant that contains the data for the given role. The
-     * following roles are supported:
-     *
-     * \ref Qt::DisplayRole - a short display text to be placed in the border
-     * \ref Qt::TooltipRole - a tooltip information, longer text possible
-     * \ref Qt::BackgroundRole - a brush to be used to paint the background on the border
-     * \ref Qt::ForegroundRole - a brush to be used to paint the text on the border
+     * \returns a QVariant that contains the data for the given role.
      */
     virtual QVariant data( int line, Qt::ItemDataRole role ) const = 0;
 

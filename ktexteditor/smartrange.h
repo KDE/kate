@@ -601,16 +601,17 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
   protected:
     /**
-     * \internal
-     *
      * Constructor for subclasses to utilise.  Protected to prevent direct
      * instantiation.
      *
      * \note 3rd party developers: you do not (and should not) need to subclass
      *       the Smart* classes; instead, use the SmartInterface to create instances.
      *
+     * \internal
+     *
      * \param start the start cursor to use - ownership is taken
      * \param end the end cursor to use - ownership is taken
+     * \param parent the parent range if this is a subrange of another range
      * \param insertBehavior the behavior of this range when an insert happens
      *                        immediately outside the range.
      */

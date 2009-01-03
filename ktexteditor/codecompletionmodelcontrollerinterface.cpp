@@ -68,6 +68,7 @@ Range CodeCompletionModelControllerInterface::completionRange(View* view, const 
 
 void CodeCompletionModelControllerInterface::updateCompletionRange(View* view, SmartRange& range)
 {
+    Q_UNUSED(view);
     if(!range.text().isEmpty() && range.text().count() == 1 && range.text().first().trimmed().isEmpty())
       //When inserting a newline behind an empty completion-range,, move the range forward to its end
       range.start() = range.end();
@@ -91,10 +92,12 @@ bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, c
 }
 
 void CodeCompletionModelControllerInterface::aborted(KTextEditor::View* view) {
-
+    Q_UNUSED(view);
 }
 
 bool CodeCompletionModelControllerInterface::shouldExecute(const QModelIndex& index, QChar inserted) {
+  Q_UNUSED(index);
+  Q_UNUSED(inserted);
   return false;
 }
 

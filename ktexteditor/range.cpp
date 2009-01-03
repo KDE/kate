@@ -138,7 +138,7 @@ void Range::setRange( const Cursor & start, const Cursor & end )
 
 bool Range::containsLine(int line) const
 {
-  return (line > start().line() || line == start().line() && !start().column()) && line < end().line();
+  return (line > start().line() || (line == start().line() && !start().column())) && line < end().line();
 }
 
 bool Range::overlapsLine(int line) const

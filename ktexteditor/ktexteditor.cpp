@@ -209,7 +209,7 @@ bool View::insertText (const QString &text )
 
 Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
 {
-  return KService::createInstance<KTextEditor::Plugin>(service, parent);
+  return service->createInstance<KTextEditor::Plugin>(parent);
 }
 
 struct KTextEditorFactorySet : public QSet<KPluginFactory*>

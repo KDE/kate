@@ -23,51 +23,39 @@
 #include "katefileselector.h"
 #include "katefileselector.moc"
 
-#include <QToolButton>
-#include <khbox.h>
-#include <kvbox.h>
+#include <QApplication>
+#include <QCheckBox>
+#include <QDir>
+#include <QGroupBox>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
-#include <QApplication>
 #include <QListWidget>
-#include <QSpinBox>
-#include <QGroupBox>
-#include <QCheckBox>
 #include <QRegExp>
-#include <QDir>
-//Added by qt3to4:
-#include <QFocusEvent>
-#include <QEvent>
-#include <QShowEvent>
+#include <QSpinBox>
+#include <QToolButton>
 #include <QVBoxLayout>
 
+#include <kate/mainwindow.h>
+#include <ktexteditor/view.h>
+
+#include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kactionmenu.h>
 #include <kactionselector.h>
 #include <kbookmarkhandler.h>
-#include <kconfig.h>
-#include <kcombobox.h>
+#include <kconfiggroup.h>
 #include <kdebug.h>
 #include <kdialog.h>
 #include <kdiroperator.h>
 #include <kfileitem.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <kglobal.h>
-#include <kglobalsettings.h>
-#include <kiconloader.h>
-#include <klocale.h>
-#include <kmenu.h>
-#include <kmessagebox.h>
-#include <kprotocolinfo.h>
-#include <kurlcombobox.h>
-#include <kurlcompletion.h>
-#include <kate/mainwindow.h>
-#include <ktexteditor/view.h>
-#include <kconfiggroup.h>
+#include <khbox.h>
 #include <khistorycombobox.h>
 #include <kdeversion.h>
+#include <kpluginfactory.h>
+#include <ktoolbar.h>
+#include <kurlcombobox.h>
+#include <kurlcompletion.h>
 //END Includes
 
 K_PLUGIN_FACTORY(KateFileSelectorFactory, registerPlugin<KateFileSelectorPlugin>();)
@@ -114,8 +102,8 @@ uint KateFileSelectorPlugin::configPages() const
 }
 
 Kate::PluginConfigPage *KateFileSelectorPlugin::configPage (uint number, QWidget *parent, const char *name)
-{	
-  if (number != 0) 
+{
+  if (number != 0)
     return 0;
   return new KFSConfigPage(parent, name, m_fileSelector);
 }
@@ -139,24 +127,7 @@ KIcon KateFileSelectorPlugin::configPageIcon (uint number) const
   return KIcon("document-open");
 }
 
-//BEGIN Toolbar
-// from kfiledialog.cpp - avoid qt warning in STDERR (~/.xsessionerrors)
-static void silenceQToolBar(QtMsgType, const char *)
-{}
-
-// helper classes to be able to have a toolbar without move handle
-KateFileSelectorToolBar::KateFileSelectorToolBar(QWidget *parent)
-    : KToolBar( parent, "Kate FileSelector Toolbar", true )
-{
-  setMinimumWidth(10);
-}
-
-KateFileSelectorToolBar::~KateFileSelectorToolBar()
-{}
-//END
-
 //BEGIN Constructor/destructor
-
 KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
                                       QWidget * parent, const char * name )
     : KVBox (parent),
@@ -166,11 +137,8 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   setObjectName(name);
   mActionCollection = new KActionCollection( this );
 
-  QtMsgHandler oldHandler = qInstallMsgHandler( silenceQToolBar );
-
-  toolbar = new KateFileSelectorToolBar(this);
+  toolbar = new KToolBar(this);
   toolbar->setMovable(false);
-  qInstallMsgHandler( oldHandler );
 
   cmbPath = new KUrlComboBox( KUrlComboBox::Directories, true, this);
   cmbPath->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ));
@@ -469,7 +437,7 @@ void ::KateFileSelector::cmbPathReturnPressed( const QString& u )
 {
   // construct so that relative urls are ok
   KUrl typedURL( dir->url(), u );
-  
+
   //dir->setFocus(); // is it really useful to set focus here?
   dir->setUrl( typedURL, true );
   qobject_cast<KUrlCompletion *>( cmbPath->completionObject() )->setDir( typedURL.pathOrUrl() );
@@ -659,11 +627,11 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   acSel = new KActionSelector( gbToolbar );
   acSel->setAvailableLabel( i18n("A&vailable actions:") );
   acSel->setSelectedLabel( i18n("S&elected actions:") );
-  
+
   QVBoxLayout *vbox = new QVBoxLayout;
   vbox->addWidget(acSel);
   gbToolbar->setLayout(vbox);
-  
+
   lo->addWidget( gbToolbar );
   connect( acSel, SIGNAL( added( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
   connect( acSel, SIGNAL( removed( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
@@ -674,12 +642,12 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   QGroupBox *gbSync = new QGroupBox(i18n("Auto Synchronization"), this );
   cbSyncActive = new QCheckBox( i18n("When a docu&ment becomes active"));
   cbSyncShow = new QCheckBox( i18n("When the file selector becomes visible"));
-  
+
   vbox = new QVBoxLayout;
   vbox->addWidget(cbSyncActive);
   vbox->addWidget(cbSyncShow);
   gbSync->setLayout(vbox);
-  
+
   lo->addWidget( gbSync );
   connect( cbSyncActive, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
   connect( cbSyncShow, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
@@ -703,12 +671,12 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   QGroupBox *gbSession = new QGroupBox(i18n("Session"), this );
   cbSesLocation = new QCheckBox( i18n("Restore loca&tion"));
   cbSesFilter = new QCheckBox( i18n("Restore last f&ilter"));
-  
+
   vbox = new QVBoxLayout;
   vbox->addWidget(cbSesLocation);
   vbox->addWidget(cbSesFilter);
   gbSession->setLayout(vbox);
-  
+
   lo->addWidget( gbSession );
   connect( cbSesLocation, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
   connect( cbSesFilter, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );

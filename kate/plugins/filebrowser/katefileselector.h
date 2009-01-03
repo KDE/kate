@@ -30,10 +30,9 @@
 #include <kate/pluginconfigpageinterface.h>
 #include <kurlcombobox.h>
 
-#include <kvbox.h>
-#include <kfile.h>
-#include <kurl.h>
-#include <ktoolbar.h>
+#include <KVBox>
+#include <KFile>
+#include <KUrl>
 
 
 class KActionCollection;
@@ -41,6 +40,7 @@ class KActionSelector;
 class KDirOperator;
 class KFileItem;
 class KHistoryComboBox;
+class KToolBar;
 class QToolButton;
 class QCheckBox;
 class QSpinBox;
@@ -98,14 +98,6 @@ class KateFileSelectorPluginView : public Kate::PluginView
     the directory of the current file is available, as well as a filter widget
     allowing to filter the displayed files using a name filter.
 */
-
-class KateFileSelectorToolBar: public KToolBar
-{
-    Q_OBJECT
-  public:
-    KateFileSelectorToolBar(QWidget *parent);
-    virtual ~KateFileSelectorToolBar();
-};
 
 class KateFileSelector : public KVBox
 {
@@ -169,7 +161,7 @@ class KateFileSelector : public KVBox
       return mainwin;
     }
   private:
-    class KateFileSelectorToolBar *toolbar;
+    KToolBar *toolbar;
     KActionCollection *mActionCollection;
     class KBookmarkHandler *bookmarkHandler;
     KUrlComboBox *cmbPath;

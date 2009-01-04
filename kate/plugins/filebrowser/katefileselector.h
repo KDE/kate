@@ -134,9 +134,8 @@ class KateFileSelector : public KVBox
     void cmbPathActivated( const KUrl& u );
     void cmbPathReturnPressed( const QString& u );
     void dirUrlEntered( const KUrl& u );
-    void dirFinishedLoading();
     void setActiveDocumentDir();
-    void btnFilterClick();
+    void filterButtonClicked();
 
   protected:
     KUrl activeDocumentUrl();

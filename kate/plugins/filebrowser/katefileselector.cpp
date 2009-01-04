@@ -171,7 +171,7 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   filter = new KHistoryComboBox( true, filterBox);
   filter->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ));
   filterBox->setStretchFactor(filter, 2);
-  connect( btnFilter, SIGNAL( clicked() ), this, SLOT( btnFilterClick() ) );
+  connect( btnFilter, SIGNAL( clicked() ), this, SLOT( filterButtonClicked() ) );
 
   connect( filter, SIGNAL( activated(const QString&) ),
            SLOT( slotFilterChange(const QString&) ) );
@@ -193,9 +193,6 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
            this, SLOT( cmbPathReturnPressed( const QString& ) ));
   connect(m_dirOperator, SIGNAL(urlEntered(const KUrl&)),
           this, SLOT(dirUrlEntered(const KUrl&)) );
-
-  connect(m_dirOperator, SIGNAL(finishedLoading()),
-          this, SLOT(dirFinishedLoading()) );
 
   // enable m_dirOperator sync button if current doc has a valid URL
   connect ( mainwin, SIGNAL( viewChanged() ),
@@ -457,9 +454,6 @@ void ::KateFileSelector::dirUrlEntered( const KUrl& u )
   qobject_cast<KUrlCompletion *>( cmbPath->completionObject() )->setDir( u.pathOrUrl() );
 }
 
-void ::KateFileSelector::dirFinishedLoading()
-{}
-
 
 /*
    When the button in the filter box toggles:
@@ -468,7 +462,7 @@ void ::KateFileSelector::dirFinishedLoading()
    If on:
    Set last filter.
 */
-void ::KateFileSelector::btnFilterClick()
+void ::KateFileSelector::filterButtonClicked()
 {
   if ( !btnFilter->isChecked() )
   {

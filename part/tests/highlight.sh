@@ -196,3 +196,12 @@ elif [ -d $file ]; then
 		Indented text without a $dollar
 	EOF
 fi
+
+
+case 1 in 
+2) echo xxx;
+;;
+1) echo yyy;
+esac
+
+ls #should be outside of case 1 folding block

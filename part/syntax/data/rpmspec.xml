@@ -1,82 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="RPM Spec" version="1.1" kateversion="2.4" section="Other" extensions="*.spec" mimetype="">
+<language name="RPM Spec" version="1.2" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
   <highlighting>
-    <list name="keywords">
-        <item> Name </item>
-                <item> Summary </item>
-                <item> Version </item>
-                <item> Epoch </item>
-                <item> Serial </item>
-                <item> Release </item>
-                <item> Source </item>
-                <item> Group </item>
-                <item> Copyright </item>
-                <item> License </item>
-                <item> Vendor </item>
-                <item> Distribution </item>
-                <item> Packager </item>
-                <item> Url </item>
-                <item> URL </item>
-                <item> Prefix </item>
-                <item> Conflicts </item>
-                <item> Obsoletes </item>
-                <item> Provides </item>
-                <item> PreReq </item>
-                <item> Requires </item>
-                <item> Enhances </item>
-                <item> Suggests </item>
-                <item> BuildArch </item>
-                <item> BuildArchitectures </item>
-                <item> BuildConflicts </item>
-                <item> BuildRequires </item>
-                <item> BuildRoot </item>
-                <item> ExclusiveArch </item>
-                <item> ExclusiveOs </item>
-                <item> ExcludeArch </item>
-                <item> ExcludeOs </item>
+  
+    <list name="keywordlist_if">
+      <item> %if </item>
+      <item> %ifarch </item>
+      <item> %ifnarch </item>
+      <item> %ifos </item>
+      <item> %ifnos </item>
     </list>
-    <list name="types">
-      <item> GPL </item>
-      <item> LGPL </item>
-      <item> Artistic </item>
+    <list name="keywordlist_other">
+      <item> %else </item>
+      <item> || </item>
+      <item> &amp;&amp; </item>
     </list>
+    <list name="keywordlist_endif">
+      <item> %endif </item>
+    </list>
+    <list name="package macro">
+      <item> %package </item>
+    </list>
+    <list name="sectionlist">
+      <item> %prep </item>
+      <item> %build </item>
+      <item> %pre </item>
+      <item> %preun </item>
+      <item> %install </item>
+      <item> %post </item>
+      <item> %postun </item>
+      <item> %clean </item>
+      <item> %files </item>
+      <item> %changelog </item>
+    </list>
+    <list name="define">
+      <item> %define </item>
+    </list>
+    
     <contexts>
-
+      <!-- A spec file can be divided in 2 big parts:
+           - the part with the tags (Name, Version, Requires...)
+	   - the part with the commands (%prep, %build, %install...)
+	   We have an own context for each of these parts:
+	   - "Normal" for the part with the tags
+	   - "command section" for the part with the commands.
+	   A part is initiated with the context
+	   - "package macro start line" (for "Normal")
+	   - "section start line" (for "command section")
+	   -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-         <keyword attribute="Keyword" context="#stay" String="keywords"/>
-         <keyword attribute="Data" context="#stay" String="types"/>
-         <RegExpr attribute="Red" context="#stay" String="%\w*" />
-         <DetectChar attribute="Comment" context="Comment" char="#" />
-         <RegExpr attribute="Keyword" context="Some Context" String="\{\w*" />
-         <RegExpr attribute="Blue" context="Some Context2" String="&lt;\s*[\w@\.]*" />
-         <RegExpr attribute="Data" context="#stay" String="\$\w*" />
-         <RegExpr attribute="Keyword" context="#stay" String="(Source|Patch)\d*" />
-         <RegExpr attribute="Keyword" context="#stay" String="\*.*" firstNonSpace="true"/>    <!-- ChangeLog -->
-         <Int attribute="Blue" context="#stay" />
+         <!-- Handle tags: -->
+	 <RegExpr attribute="Tag" context="tag_line" String="^(Name|Summary|Summary\([\w\.\-]*\)|Version|Epoch|Serial|Release|Group|Copyright|License|Vendor|Distribution|Packager|Url|URL|Prefix|Conflicts|Obsoletes|Provides|PreReq|Requires|Requires\([\w\.\-]*\)|Enhances|Suggests|Recommends|BuildArch|BuildArchitectures|BuildConflicts|BuildRequires|BuildRoot|ExclusiveArch|ExclusiveOs|ExcludeArch|ExcludeOs|Source\d*|Patch\d*)[ \t]*:" />
+	 <RegExpr attribute="Tag" context="#stay" String="^%description.*" />
+	 <StringDetect attribute="Tag" context="every_non_whitespace_is_error" String="# norootforbuild" column="0" />
+	 <!-- Keywords: -->
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_if" beginRegion="if_block" />
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_endif" endRegion="if_block" />
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_other" />
+	 <!-- If a command section starts (=section macro at begin of the lilne), we switch
+	      to the context "section start line", which will switch in the next line to
+	      "command section". There will never be a return to THIS context...: -->
+	 <keyword attribute="Section" context="package macro start line" String="package macro" column="0" />
+	 <keyword attribute="Section" context="section start line" String="sectionlist" column="0" />
+	 <!-- If there stay section macros who aren't at the begin of a line, they are a bug. -->
+	 <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+	 <!-- In this part of the file, accept comments only if they are the only thing on this line: -->
+	 <DetectChar attribute="Comment" context="Comment" char="#" firstNonSpace="true" />
+	 <!-- Handle macros -->
+	 <RegExpr attribute="Macro defination" context="Macro defination" String="^\s*%define($|\s)" />
+	 <RegExpr attribute="Error" context="#stay" String="%define\b" /> <!-- warn if there is a %define which isn't first non-whitespace -->
+	 <RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
+      </context>
+      
+      <context attribute="Normal Text" lineEndContext="#stay" name="command section">
+	 <!-- Handle tags: -->
+	 <StringDetect attribute="Tag" context="every_non_whitespace_is_error" String="# norootforbuild" column="0" />
+	 <!-- Keywords: -->
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_if" beginRegion="if_block" />
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_endif" endRegion="if_block" />
+	 <keyword attribute="Keyword" context="#stay" String="keywordlist_other" />
+	 <!-- If a command section starts (=section macro at begin of the lilne), we switch
+	      to the context "section start line", which will switch in the next line to
+	      "command section". There will never be a return to THIS context...: -->
+	 <keyword attribute="Section" context="package macro start line" String="package macro" column="0" />
+	 <keyword attribute="Section" context="section start line" String="sectionlist" column="0" />
+	 <!-- If there stay section macros who aren't at the begin of a line, they are a bug. -->
+	 <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+	 <!-- Handle macros -->
+	 <RegExpr attribute="Macro defination" context="Macro defination" String="^\s*%define($|\s)" />
+	 <RegExpr attribute="Error" context="#stay" String="%define\b" /> <!-- warn if there is a %define which isn't first non-whitespace -->
+	 <RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
+	 <!-- In this part of the file, accept comments only everywhere -->
+	 <DetectChar attribute="Comment" context="Comment" char="#" />
+	 <!-- Handle changelog: -->
+	 <RegExpr attribute="Tag" context="#stay" String="^\* .*" />
+	 <RegExpr attribute="Value" context="#stay" String="^\- .*" />
       </context>
 
-      <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
-
-      <context attribute="Keyword" lineEndContext="#pop" name="Some Context">
-         <DetectChar attribute="Keyword" char="}" context="#pop"/>
+      <context attribute="Comment" lineEndContext="#pop" name="Comment">
+         <!-- Alert on single percent ("%"), but not on double percent ("%%"): -->
+      	 <Detect2Chars attribute="Comment" char="%" char1="%"/>
+	 <DetectChar attribute="Error" char="%"/>
+	 <!-- Alert on "TODO" -->
+	 <StringDetect attribute="Alert" String="TODO" insensitive="true" />
       </context>
-
-      <context attribute="Blue" lineEndContext="#pop" name="Some Context2">
-         <DetectChar attribute="Blue" char="&gt;" context="#pop"/>
+      
+      <context attribute="Macro defination" lineEndContext="#pop" name="Macro defination">
+         <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+         <RegExpr attribute="Error" context="#stay" String="%define\b" /> <!-- warn if there is a %define which isn't first non-whitespace -->
+	 <RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
+      </context>
+      
+      <context attribute="Normal Text" lineEndContext="#pop" name="every_non_whitespace_is_error">
+        <RegExpr attribute="Error" context="#stay" String="[^\s]" />
+      </context>
+      
+      <context attribute="Normal Text" lineEndContext="command section" name="section start line">
+        <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+	<RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
+      </context>
+      
+      <context attribute="Normal Text" lineEndContext="Normal" name="package macro start line">
+        <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+	<RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
+      </context>
+      
+      <context attribute="Value" lineEndContext="#pop" name="tag_line">
+         <RegExpr attribute="Error" context="#stay" String="%(prep|build|pre|preun|install|post|postun|clean|files|changelog|package)\b" />
+      	 <RegExpr attribute="Error" context="#stay" String="%define\b" /> <!-- warn if there is a %define which isn't first non-whitespace -->
+	 <RegExpr attribute="Macro call" context="#stay" String="(%|\$)(\{[^\}]*\}|\([^\)]*\)|[\w_]*)" />
       </context>
 
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>
-      <itemData name="Red"  defStyleNum="dsString"/>
       <itemData name="Comment"  defStyleNum="dsComment"/>
-      <itemData name="Blue"  defStyleNum="dsDecVal"/>
-      <itemData name="Data" defStyleNum="dsDataType"/>
+      <itemData name="Tag" defStyleNum="dsDataType"/>
+      <itemData name="Value"  defStyleNum="dsDecVal"/>
+      <itemData name="Error" defStyleNum="dsError"/>
+      <itemData name="Macro call" defStyleNum="dsFunction"/>
+      <itemData name="Macro defination" defStyleNum="dsOthers"/>
+      <itemData name="Section" defStyleNum="dsRegionMarker"/>
+      <itemData name="Alert" defStyleNum="dsAlert"/>
     </itemDatas>
   </highlighting>
    <general>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="1" weakDeliminator="%" />
   </general>
 </language>

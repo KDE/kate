@@ -50,7 +50,7 @@ KateViVisualMode::~KateViVisualMode()
 void KateViVisualMode::highlight() const
 {
   // FIXME: HACK to avoid highlight bug: remove highlighing and re-set it
-  highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
+  highlightRange->setAttribute(KTextEditor::Attribute::Ptr());
   highlightRange->setAttribute(attribute);
 
   KTextEditor::Cursor c1 = m_start;
@@ -100,7 +100,7 @@ void KateViVisualMode::goToPos( const KateViRange &r )
 void KateViVisualMode::reset()
 {
     // remove highlighting
-    highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
+    highlightRange->setAttribute(KTextEditor::Attribute::Ptr());
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 

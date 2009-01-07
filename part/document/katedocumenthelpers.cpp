@@ -39,11 +39,11 @@ KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
   emit enableAction( "print", true );
 }
 
-void KateBrowserExtension::copy()
-{
-  if (m_doc->activeView())
-    m_doc->activeKateView()->copy();
-}
+// void KateBrowserExtension::copy()
+// {
+//     if (m_doc->activeView())
+//         m_doc->activeKateView()->copy();
+// }
 
 void KateBrowserExtension::print()
 {
@@ -52,8 +52,8 @@ void KateBrowserExtension::print()
 
 void KateBrowserExtension::slotSelectionChanged()
 {
-  if (m_doc->activeView())
-    emit enableAction( "copy", m_doc->activeKateView()->selection() );
+//   if (m_doc->activeView())
+//     emit enableAction( "copy", m_doc->activeKateView()->selection() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

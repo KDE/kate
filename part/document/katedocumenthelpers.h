@@ -46,7 +46,7 @@ class KateBrowserExtension : public KParts::BrowserExtension
     /**
      * copy text to clipboard
      */
-    void copy();
+//     void copy();
 
     /**
      * selection has changed

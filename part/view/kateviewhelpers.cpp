@@ -40,6 +40,7 @@
 #include <kapplication.h>
 #include <kcharsets.h>
 #include <kcolorscheme.h>
+#include <kcolorutils.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
@@ -721,72 +722,25 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
 
 void KateIconBorder::initializeFoldingColors()
 {
-  // the idea is that we make a gradient from the background color,
-  // to the neutral text color, to the positive text color.
-  // perhaps this is semantic abuse, but it looks good and it's
-  // better than hardcoded values in that it adjusts to the colorscheme.
-  
-  const int half_colors = MAXFOLDINGCOLORS / 2;
-  
+  // Get the schema
+  KateRendererConfig *config = m_view->renderer()->config();
+  // FIXME next 3 lines temporary until this moves to config
   const KColorScheme scheme( QPalette::Normal );
-  
-  // we generate gradients with HSV so that it looks nicer to humans,
-  // so first convert the colors
-  
-  const QColor background( scheme.background().color() );
-  qreal bh, bs, bv;
-  background.getHsvF( &bh, &bs, &bv );
-  
-  const QColor middle( scheme.foreground( KColorScheme::NeutralText ).color() );
-  qreal mh, ms, mv;
-  middle.getHsvF( &mh, &ms, &mv );
-  
-  const QColor final( scheme.foreground( KColorScheme::PositiveText ).color() );
-  qreal fh, fs, fv;
-  final.getHsvF( &fh, &fs, &fv );
-  
-  // some colors may be achromatic, propagate chromas from others
-  // bh-->mh-->fh-->mh-->bh so that if any is chromatic, other become, too
-  if( -1 == mh )
-    mh = bh;
-  if( -1 == fh )
-    fh = mh;
-  if( -1 == mh )
-    mh = fh;
-  if( -1 == bh )
-    bh = mh;
-  
-  { // first half of the gradient
-    const qreal dh = (mh - bh) / half_colors;
-    const qreal ds = (ms - bs) / half_colors;
-    const qreal dv = (mv - bv) / half_colors;
-    
-    for( int i = 0; i < half_colors; i++ ) {
-      const qreal h = bh + dh * i;
-      const qreal s = bs + ds * i;
-      const qreal v = bv + dv * i;
-      m_foldingColors[i] = QBrush( QColor::fromHsvF( h, s, v, 0.5 ),
-                                  Qt::SolidPattern );
-      m_foldingColorsSolid[i] = QBrush( QColor::fromHsvF( h, s, v ),
-                                  Qt::SolidPattern );
-    }
-  }
+  const QColor middle( KColorUtils::tint( config->iconBarColor(), scheme.foreground( KColorScheme::NeutralText ).color(), 0.7 ) );
+  const QColor final( KColorUtils::tint( config->iconBarColor(), scheme.foreground( KColorScheme::PositiveText ).color(), 0.7 ) );
 
-  { // second half of the gradient
-    const int num_colors = MAXFOLDINGCOLORS - half_colors;
-    const qreal dh = (fh - mh) / num_colors;
-    const qreal ds = (fs - ms) / num_colors;
-    const qreal dv = (fv - mv) / num_colors;
-    
-    for( int i = 0; i < num_colors; i++ ) {
-      const qreal h = mh + dh * i;
-      const qreal s = ms + ds * i;
-      const qreal v = mv + dv * i;
-      m_foldingColors[i + half_colors] = QBrush( QColor::fromHsvF( h, s, v, 0.5 ),
-                                  Qt::SolidPattern );
-      m_foldingColorsSolid[i + half_colors] = QBrush( QColor::fromHsvF( h, s, v ),
-                                  Qt::SolidPattern );
-    }
+  const QColor start( config->iconBarColor() );
+  static const int MIDFOLDINGCOLORS = MAXFOLDINGCOLORS / 2;
+  static const qreal n = 2.0 / MAXFOLDINGCOLORS;
+
+  int i, j;
+  for( i = 0; i < MIDFOLDINGCOLORS; i++ ) {
+    const qreal a = 0.9 * pow(qreal(i) * n, 1.0);
+    m_foldingColors[i] = KColorUtils::tint( start, middle, a );
+  }
+  for( j = 0; i < MAXFOLDINGCOLORS; i++, j++ ) {
+    const qreal a = 0.9 * pow(qreal(j) * n, 1.0);
+    m_foldingColors[i] = KColorUtils::tint( middle, final, a );
   }
 }
 
@@ -953,27 +907,25 @@ int KateIconBorder::lineNumberWidth() const
   return width;
 }
 
-const QBrush& KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool solid) {
+QBrush KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool solid) {
   int depth;
-  if (info!=0) {
-    depth=info->depth;
+  if (info != 0) {
+    depth = info->depth;
   } else {
     KateLineInfo tmp;
-    m_doc->lineInfo(&tmp,realLine);
-    depth=tmp.depth;
+    m_doc->lineInfo(&tmp, realLine);
+    depth = tmp.depth;
   }
 
-  if (solid) {
-    if (depth<MAXFOLDINGCOLORS)
-      return m_foldingColorsSolid[depth];
-    else
-      return m_foldingColorsSolid[MAXFOLDINGCOLORS-1];
-  } else {
-    if (depth<MAXFOLDINGCOLORS)
-      return m_foldingColors[depth];
-    else
-      return m_foldingColors[MAXFOLDINGCOLORS-1];
-  }
+  QColor result;
+  if (depth < MAXFOLDINGCOLORS)
+    result = m_foldingColors[depth];
+  else
+    result = m_foldingColors[MAXFOLDINGCOLORS-1];
+  if (!solid)
+    result.setAlphaF(0.4);
+
+  return QBrush( result );
 
 }
 
@@ -988,11 +940,11 @@ static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffs
 
   qreal size = qMin (width, height);
 
-  QColor c = baseColor.dark ();
-
-  // just test if that worked, else use light..., black on black is evil...
-  if (c == baseColor)
-    c = baseColor.light ();
+  QColor c;
+  if ( KColorUtils::luma( baseColor ) > 0.25 )
+    c = KColorUtils::darken( baseColor );
+  else
+    c = KColorUtils::shade( baseColor, 0.2 );
 
   QPen pen;
   pen.setJoinStyle (Qt::RoundJoin);

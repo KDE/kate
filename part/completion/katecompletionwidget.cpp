@@ -162,7 +162,11 @@ void KateCompletionWidget::modelContentChanged() {
 
   if(m_presentationModel->rowCount(QModelIndex()) == 0 && m_argumentHintModel->rowCount(QModelIndex()) == 0) {
     kDebug( 13035 ) << "hiding because no content";
+    if(!updatesEnabled())
+      setUpdatesEnabled(true);
     hide();
+    //For some strange reason, sometimes it's not possible to hide the widget. For that reason, hide it later.
+    QMetaObject::invokeMethod(this, "hideLater", Qt::QueuedConnection);
     return;
   }
 
@@ -172,6 +176,16 @@ void KateCompletionWidget::modelContentChanged() {
     QModelIndex firstIndex = model()->index(0,0, m_entryList->currentIndex());
     m_entryList->setCurrentIndex(firstIndex);
     //m_entryList->scrollTo(firstIndex, QAbstractItemView::PositionAtTop);
+  }
+}
+
+void KateCompletionWidget::hideLater() {
+  hide();
+//   Q_ASSERT(!isVisible());//What is this? Sometimes  this does trigger
+  //So workaround:
+  if(isVisible()) {
+    kWarning( 13035 ) << "Strange problem, aborting completion";
+    abortCompletion();
   }
 }
 
@@ -221,7 +235,6 @@ void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::Inv
 
 void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
-  
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
   m_needShow = true;
@@ -236,6 +249,10 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   } else {
     models = m_sourceModels;
   }
+  
+  foreach(KTextEditor::CodeCompletionModel* model, m_completionRanges.keys())
+    if(!models.contains(model))
+      models << model;
 
   if (!m_filterInstalled) {
     if (!QApplication::activeWindow()) {
@@ -247,9 +264,6 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
     m_filterInstalled = true;
   }
 
-  if (!m_completionRanges.isEmpty())
-    abortCompletion();
-
   m_presentationModel->setCompletionModels(models);
 
   foreach (KTextEditor::CodeCompletionModel* model, models) {
@@ -259,6 +273,10 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
       range = word;
     } else {
       range = modelController(model)->completionRange(view(), view()->cursorPosition());
+    }
+    if(m_completionRanges.contains(model) && *m_completionRanges[model] == range) {
+//       kDebug(13035) << "leaving model running";
+      continue; //Leave it running as it is
     }
     model->completionInvoked(view(), range, invocationType);
     m_completionRanges[model] = view()->doc()->smartManager()->newSmartRange(range);
@@ -306,9 +324,8 @@ void KateCompletionWidget::updateAndShow()
   m_entryList->resizeColumns(false, true, true);
   
   setUpdatesEnabled(true);
-  if (!m_presentationModel->completionModels().isEmpty()) {
+  if (m_presentationModel->rowCount())
     show();
-  }
 }
 
 void KateCompletionWidget::updatePositionSlot()
@@ -320,7 +337,6 @@ bool KateCompletionWidget::updatePosition(bool force)
 {
   if (!force && !isCompletionActive())
     return false;
-//   kDebug() << "updating from" << geometry() << m_entryList->geometry();
 
   if (!completionRange()) {
     return false;
@@ -452,7 +468,7 @@ void KateCompletionWidget::cursorPositionChanged( )
       bool abort = modelController(model)->shouldAbortCompletion(view(), *range, currentCompletion);
 
       if (abort) {
-        if (m_sourceModels.count() == 1) {
+        if (m_completionRanges.count() == 1) {
           //last model - abort whole completion
           abortCompletion();
           return;
@@ -604,10 +620,10 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
 
 void KateCompletionWidget::hideEvent( QHideEvent * event )
 {
-  QWidget::hideEvent(event);
+  QFrame::hideEvent(event);
   m_argumentHintTree->hide();
-
-  if (isCompletionActive())
+  
+  if(isCompletionActive())
     abortCompletion();
 }
 
@@ -904,6 +920,7 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
   if (!view()->config()->automaticCompletionInvocation()
        || (edit->editSource() != Kate::UserInputEdit)
        || edit->isRemoval()
+       || (edit->editSource() != Kate::UserInputEdit && edit->editSource() != Kate::CodeCompletionEdit)
        || edit->newText().isEmpty() )
   {
     m_automaticInvocationLine.clear();
@@ -932,6 +949,7 @@ void KateCompletionWidget::automaticInvocation()
   if(m_automaticInvocationAt != view()->cursorPosition())
     return;
   bool start = false;
+  
   foreach (KTextEditor::CodeCompletionModel *model, m_sourceModels) {
       if(m_completionRanges.contains(model))
         continue;

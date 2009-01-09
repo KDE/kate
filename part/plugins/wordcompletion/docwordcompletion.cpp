@@ -89,7 +89,7 @@ QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
   switch ( role )
   {
     case Qt::DisplayRole:
-      //kDebug( 13040 ) << ">>" << m_matches.at( index.row() ) << "<<";
+//       kDebug( 13040 ) << ">>" << m_matches.at( index.row() ) << "<<";
       return m_matches.at( index.row() );
     case CompletionRole:
       return (int)FirstProperty|LastProperty|Public;
@@ -124,7 +124,6 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 
 void DocWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
-  kDebug( 13040 ) << "invoked the complete trash impl...";
   if (it==AutomaticInvocation) {
     DocWordCompletionPluginView *v=m_plugin->m_views[view];
     if (v->autoPopupEnabled()) {
@@ -400,17 +399,17 @@ void DocWordCompletionPluginView::popupCompletionList()
   if ( r.isEmpty() )
     return;
 
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
+  if(!cci || cci->isCompletionActive())
+    return;
+  
   m_dWCompletionModel->saveMatches( m_view, r );
 
   kDebug( 13040 ) << "after save matches ...";
 
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
-  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
-  if ( cci && ! cci->isCompletionActive() ) {
-    kDebug( 13040 ) << "calling start_completion ...";
-    cci->startCompletion( r, m_dWCompletionModel );
-  }
+  cci->startCompletion( r, m_dWCompletionModel );
 }
 
 void DocWordCompletionPluginView::toggleAutoPopup()

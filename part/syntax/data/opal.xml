@@ -242,6 +242,48 @@
 		<list name="opal_other">
 			<item>true</item>
 			<item>false</item>
+
+			<item>0</item>
+			<item>1</item>
+			<item>2</item>
+			<item>3</item>
+			<item>4</item>
+			<item>5</item>
+			<item>6</item>
+			<item>7</item>
+			<item>8</item>
+			<item>9</item>
+			<item>10</item>
+			<item>11</item>
+			<item>12</item>
+			<item>13</item>
+			<item>14</item>
+			<item>15</item>
+			<item>16</item>
+			<item>17</item>
+			<item>18</item>
+			<item>19</item>
+			<item>20</item>
+			<item>21</item>
+			<item>22</item>
+			<item>23</item>
+			<item>24</item>
+			<item>25</item>
+			<item>26</item>
+			<item>27</item>
+			<item>28</item>
+			<item>29</item>
+			<item>30</item>
+			<item>31</item>
+			<item>32</item>
+			<item>64</item>
+			<item>128</item>
+			<item>256</item>
+			<item>512</item>
+			<item>1024</item>
+			<item>10000</item>
+			<item>100000</item>
+			<item>1000000</item>
 		</list>
 
 		<contexts>
@@ -249,9 +291,8 @@
 				<keyword attribute="Keyword" context="#stay" String="opal_keywords"/>
 				<keyword attribute="Sort" context="#stay" String="opal_sorts"/>
 				<keyword attribute="Decimal" context="#stay" String="opal_other"/>
-				<Int attribute="Decimal" context="#stay"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
-				<StringDetect attribute="Comment" context="SingLineCom" String="-- "/>
+				<RegExpr attribute="Comment" context="SingLineCom" String="^--$|^--[^-]|[^-]--[^-]|[^-]--$"/>
 				<Detect2Chars attribute="Comment" context="MultLineCom" char="/" char1="*"/>
 			</context>
 			
@@ -264,6 +305,7 @@
 			
 			<context attribute="Comment" lineEndContext="#stay" name="MultLineCom">
 				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
+				<Detect2Chars attribute="Comment" context="MultLineCom" char="/" char1="*"/>
 			</context>
 		</contexts>
 
@@ -280,7 +322,7 @@
 
 	<general>
 		<comments>
-			<comment name="singleLine" start="-- "/>
+			<comment name="singleLine" start="--"/>
 			<comment name="multiLine" start="/*" end="*/"/>
 		</comments>
 		<keywords casesensitive="1"/>

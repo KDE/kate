@@ -27,7 +27,6 @@
 
 #include <QString>
 #include <QRegExp>
-#include "kateview.h"
 #include "katedocument.h"
 #include "kateviewinternal.h"
 #include "katevimodebar.h"
@@ -49,13 +48,13 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
   QString removedText = getRange( r, linewise );
 
   if ( linewise ) {
-    m_doc->editStart();
+    doc()->editStart();
     for ( int i = 0; i < r.endLine-r.startLine+1; i++ ) {
-      res = m_doc->removeLine( r.startLine );
+      res = doc()->removeLine( r.startLine );
     }
-    m_doc->editEnd();
+    doc()->editEnd();
   } else {
-      res = m_doc->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+      res = doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
   if ( addToRegister ) {
@@ -86,10 +85,10 @@ const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
   KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( linewise ) {
-    s = m_doc->textLines( range ).join( QChar( '\n' ) );
+    s = doc()->textLines( range ).join( QChar( '\n' ) );
     s.append( QChar( '\n' ) );
   } else {
-      s = m_doc->text( range );
+      s = doc()->text( range );
   }
 
   return s;
@@ -103,7 +102,7 @@ const QString KateViModeBase::getLine( int lineNumber ) const
     KTextEditor::Cursor cursor ( m_view->cursorPosition() );
     line = m_view->currentTextLine();
   } else {
-    line = m_doc->line( lineNumber );
+    line = doc()->line( lineNumber );
   }
 
   return line;
@@ -150,7 +149,7 @@ KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromCol
     if ( c1 == -1 && c2 == -1 && c3 == -1 ) {
         if ( onlyCurrentLine ) {
             return KTextEditor::Cursor( l, c );
-        } else if ( l >= m_doc->lines()-1 ) {
+        } else if ( l >= doc()->lines()-1 ) {
             c = line.length()-1;
             return KTextEditor::Cursor( l, c );
         } else {
@@ -202,7 +201,7 @@ KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromCol
     if ( c == -1 ) {
       if ( onlyCurrentLine ) {
           return KTextEditor::Cursor( l, c );
-      } else if ( l >= m_doc->lines()-1 ) {
+      } else if ( l >= doc()->lines()-1 ) {
         c = line.length()-1;
         break;
       } else {
@@ -441,7 +440,7 @@ KTextEditor::Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, b
       } else {
           if ( onlyCurrentLine ) {
               return KTextEditor::Cursor( l, c );
-          } else if ( l >= m_doc->lines()-1 ) {
+          } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -476,7 +475,7 @@ KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, b
       } else {
           if ( onlyCurrentLine ) {
               return KTextEditor::Cursor( l, c );
-          } else if ( l >= m_doc->lines()-1 ) {
+          } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -517,7 +516,7 @@ KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, b
 int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward ) const
 {
   int line = m_view->cursorPosition().line();
-  int lines = m_doc->lines();
+  int lines = doc()->lines();
   unsigned int hits = 0;
 
   if ( forward ) {
@@ -600,8 +599,8 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
 
   if ( r.endLine < 0 ) {
     r.endLine = 0;
-  } else if ( r.endLine > m_doc->lines()-1 ) {
-    r.endLine = m_doc->lines()-1;
+  } else if ( r.endLine > doc()->lines()-1 ) {
+    r.endLine = doc()->lines()-1;
   }
 
   if ( m_stickyColumn == -1 ) {
@@ -610,11 +609,11 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
     r.endColumn = m_stickyColumn;
   }
 
-  int lineLen = m_doc->lineLength( r.endLine );
-  KateTextLine::Ptr textLine = m_doc->plainKateTextLine( r.endLine );
-  int realColumn = textLine->fromVirtualColumn(r.endColumn, m_doc->config()->tabWidth());
+  int lineLen = doc()->lineLength( r.endLine );
+  KateTextLine::Ptr textLine = doc()->plainKateTextLine( r.endLine );
+  int realColumn = textLine->fromVirtualColumn(r.endColumn, doc()->config()->tabWidth());
   int lastVirtColumn = textLine->toVirtualColumn(lineLen-1,
-      m_doc->config()->tabWidth());
+      doc()->config()->tabWidth());
 
   if ( realColumn != r.endColumn && lastVirtColumn >= r.endColumn ) {
     r.endColumn = realColumn;
@@ -637,11 +636,11 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
   /*
   // if the line we're going to is shorter than the current cursor column, set sticky
   // to the old value and go to the last character of the line
-  if ( m_doc->lineLength( r.endLine ) <= r.endColumn ) {
+  if ( doc()->lineLength( r.endLine ) <= r.endColumn ) {
     if ( sticky == -1 ) {
       sticky = r.endColumn;
     }
-    r.endColumn = m_doc->lineLength( r.endLine )-1;
+    r.endColumn = doc()->lineLength( r.endLine )-1;
     r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
   }
   */

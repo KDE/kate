@@ -21,6 +21,7 @@
 #define KATE_VI_MODE_BASE_INCLUDED
 
 #include <ktexteditor/cursor.h>
+#include "kateview.h"
 #include "katevirange.h"
 
 #include <QList>
@@ -28,7 +29,6 @@
 class QKeyEvent;
 class QString;
 class QRegExp;
-class KateView;
 class KateDocument;
 class KateViewInternal;
 class KateViVisualMode;
@@ -92,7 +92,7 @@ class KateViModeBase
 
     int m_stickyColumn;
 
-    KateDocument* m_doc;
+    inline KateDocument* doc() const { return m_view->doc(); };
     KateView *m_view;
     KateViewInternal *m_viewInternal;
     KateViInputModeManager* m_viInputModeManager;

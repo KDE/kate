@@ -267,16 +267,30 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   m_presentationModel->setCompletionModels(models);
 
   foreach (KTextEditor::CodeCompletionModel* model, models) {
-    ///@todo Only start completion for models that actually voted for starting here
     KTextEditor::Range range;
     if (word.isValid()) {
       range = word;
     } else {
       range = modelController(model)->completionRange(view(), view()->cursorPosition());
     }
-    if(m_completionRanges.contains(model) && *m_completionRanges[model] == range) {
-//       kDebug(13035) << "leaving model running";
-      continue; //Leave it running as it is
+    if(!range.isValid()) {
+      if(m_completionRanges.contains(model)) {
+        KTextEditor::SmartRange *oldRange = m_completionRanges[model];
+        m_completionRanges.remove(model);
+        delete oldRange;
+      }
+      m_presentationModel->removeCompletionModel(model);
+      continue;
+    }
+    if(m_completionRanges.contains(model)) {
+      if(*m_completionRanges[model] == range) {
+        continue; //Leave it running as it is
+      }
+      else { // delete the range that was used previously
+        KTextEditor::SmartRange *oldRange = m_completionRanges[model];
+        m_completionRanges.remove(model);
+        delete oldRange;
+      }
     }
     model->completionInvoked(view(), range, invocationType);
     m_completionRanges[model] = view()->doc()->smartManager()->newSmartRange(range);
@@ -288,19 +302,17 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
     }
     connect(m_completionRanges[model]->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)),
               SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
-
-    cursorPositionChanged();
-
-    if (m_completionRanges.contains(model)) { //completion could got aborted
-      QString currentCompletion = modelController(model)->filterString(view(), *m_completionRanges[model], view()->cursorPosition());
-      m_presentationModel->setCurrentCompletion(model, currentCompletion);
-    }
   }
+
+  cursorPositionChanged();
 
   if (!m_completionRanges.isEmpty()) {
     connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
     //Now that all models have been notified, check whether the widget should be displayed instantly
     modelContentChanged();
+  }
+  else {
+    abortCompletion();
   }
 }
 
@@ -570,6 +582,7 @@ void KateCompletionWidget::execute()
 
   KTextEditor::CodeCompletionModel2* model2 = qobject_cast<KTextEditor::CodeCompletionModel2*>(model);
 
+  Q_ASSERT(m_completionRanges.contains(model));
   KTextEditor::Cursor start = m_completionRanges[model]->start();
 
   //editStart locks the smart-mutex, but it must not be locked when calling external functions,

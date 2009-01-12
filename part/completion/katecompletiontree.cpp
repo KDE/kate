@@ -121,6 +121,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   
   while( current.isValid() && currentYPos < height() )
   {
+//     kDebug() << current.row() << "out of" << model()->rowCount(current.parent()) << "in" << current.parent().data(Qt::DisplayRole);
     currentYPos += sizeHintForIndex(current).height();
 //     itemDelegate()->sizeHint(QStyleOptionViewItem(), current).isValid() && itemDelegate()->sizeHint(QStyleOptionViewItem(), current).intersects(visibleViewportRect)
     changed = true;
@@ -128,6 +129,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
     for( int a = 0; a < numColumns; a++ )
     {
       QSize s = sizeHintForIndex (current.sibling(current.row(), a));
+//       kDebug() << "size-hint for" << current.row() << a << ":" << s << current.sibling(current.row(), a).data(Qt::DisplayRole);
       if( s.width() > columnSize[a] && s.width() < 2000 )
         columnSize[a] = s.width();
       else if( s.width() > 2000 )
@@ -152,10 +154,14 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   int maxWidth = (QApplication::desktop()->screenGeometry(widget()->view()).width()*3) / 4;
 
   ///Step 2: Update column-sizes
+  //This contains several hacks to reduce the amount of resizing that happens. Generally,
+  //resizes only happen if a) More than a specific amount of space is saved by the resize, or
+  //b) the resizing is required so the list can show all of its contents.
+  int minimumResize = 0;
+  int maximumResize = 0;
+  
   if( changed ) {
 
-    int minimumResize = 0;
-    int maximumResize = 0;
     for( int n = 0; n < numColumns; n++ ) {
       totalColumnsWidth += columnSize[n];
       
@@ -219,28 +225,30 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   else
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     
+  if(maximumResize > 0 || forceResize) {
   
-//   kDebug() << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
-  
-  if((newWidth + scrollBarWidth) != width() && originalViewportWidth != totalColumnsWidth)
-  {
-    widget()->resize(newWidth + scrollBarWidth + 2, widget()->height());
-    resize(newWidth + scrollBarWidth, widget()->height()- (2*widget()->frameWidth()));
-  }
-
-//   kDebug() << "created geometry:" << widget()->geometry() << geometry() << "newWidth" << newWidth << "viewport" << viewport()->width();
-
-  if( viewport()->width() > totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
-   setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
-
-/*  for(int a = 0; a < numColumns; ++a)
-    kDebug() << "column" << a << columnWidth(a) << "target:" << columnSize[a];*/
-  
-  if (oldIndentWidth != newIndentWidth)
-    if(widget()->updatePosition() && !forceResize) {
-      preventRecursion = false;
-      resizeColumns(false, true, true);
+    //   kDebug() << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
+    
+    if((newWidth + scrollBarWidth) != width() && originalViewportWidth != totalColumnsWidth)
+    {
+        widget()->resize(newWidth + scrollBarWidth + 2, widget()->height());
+        resize(newWidth + scrollBarWidth, widget()->height()- (2*widget()->frameWidth()));
     }
+    
+    //   kDebug() << "created geometry:" << widget()->geometry() << geometry() << "newWidth" << newWidth << "viewport" << viewport()->width();
+    
+    if( viewport()->width() > totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
+    setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
+    
+    /*  for(int a = 0; a < numColumns; ++a)
+        kDebug() << "column" << a << columnWidth(a) << "target:" << columnSize[a];*/
+    
+    if (oldIndentWidth != newIndentWidth)
+        if(widget()->updatePosition() && !forceResize) {
+        preventRecursion = false;
+        resizeColumns(false, true, true);
+        }
+  }
     
   widget()->setUpdatesEnabled(true);
   

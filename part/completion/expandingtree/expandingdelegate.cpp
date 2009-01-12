@@ -164,12 +164,13 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     format.start = m_cachedHighlights[i].start - m_currentColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
-    missingFormats -= format.length;
-    
+
     additionalFormats.append(format);
   }
+  if(!additionalFormats.isEmpty())
+    missingFormats = text.length() - (additionalFormats.back().length + additionalFormats.back().start);
 
-  if (missingFormats) {
+  if (missingFormats > 0) {
     QTextLayout::FormatRange format;
     format.start = text.length() - missingFormats;
     format.length = missingFormats;

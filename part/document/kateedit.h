@@ -37,7 +37,7 @@ class KateDocument;
 class KateEditInfo
 {
   public:
-    KateEditInfo(KateDocument* doc, Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText);
+    KateEditInfo(Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText);
     virtual ~KateEditInfo();
 
     /// Returns true if this edit is a pure removal of text
@@ -98,7 +98,6 @@ class KateEditInfo
     bool isReferenced() const;
 
   private:
-    KateDocument* m_doc;
     Kate::EditSource m_editSource;
     KTextEditor::Range m_oldRange;
     QStringList m_oldText;
@@ -130,7 +129,6 @@ class KateEditHistory : public QObject
     void editDone(KateEditInfo* edit);
 
   private:
-    KateDocument* m_doc;
     QList<KateEditInfo*> m_edits;
 
     QMap<int, KateEditInfo*> m_revisions;

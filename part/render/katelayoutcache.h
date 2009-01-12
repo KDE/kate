@@ -53,8 +53,6 @@ class KateLineLayoutMap
 
     KateLineLayoutPtr& operator[](int i);
 
-    //static bool lessThan(const LineLayoutPair& lhs, const LineLayoutPair& rhs);
-
     typedef QPair<int, KateLineLayoutPtr> LineLayoutPair;
   private:
     typedef QVector<LineLayoutPair> LineLayoutMap;
@@ -147,11 +145,6 @@ private Q_SLOTS:
     void slotEditDone(KateEditInfo* edit);
 
 private:
-    void updateCache(int fromLine, int toLine, int shiftAmount);
-
-    void expireUnused();
-    void expireCount(int numberToExpire);
-
     KateRenderer* m_renderer;
 
     /**

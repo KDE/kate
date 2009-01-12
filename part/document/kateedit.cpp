@@ -45,14 +45,6 @@ const KTextEditor::Range & KateEditInfo::oldRange( ) const
   return m_oldRange;
 }
 
-QString KateEditInfo::oldTextString( const KTextEditor::Range & range ) const
-{
-  Q_ASSERT(m_oldRange.contains(range) && range.start().line() == range.end().line());
-  QString original = m_oldText[range.start().line() - m_oldRange.start().line()];
-  int startCol = (range.start().line() == m_oldRange.start().line()) ? m_oldRange.start().column() : 0;
-  return original.mid(range.start().column() - startCol, range.end().column());
-}
-
 QStringList KateEditInfo::oldText( const KTextEditor::Range & range ) const
 {
   QStringList ret;
@@ -78,14 +70,6 @@ const QStringList & KateEditInfo::oldText( ) const
 const KTextEditor::Range & KateEditInfo::newRange( ) const
 {
   return m_newRange;
-}
-
-QString KateEditInfo::newTextString( const KTextEditor::Range & range ) const
-{
-  Q_ASSERT(m_newRange.contains(range) && range.start().line() == range.end().line());
-  QString original = m_newText[range.start().line() - m_newRange.start().line()];
-  int startCol = (range.start().line() == m_newRange.start().line()) ? m_newRange.start().column() : 0;
-  return original.mid(range.start().column() - startCol, range.end().column());
 }
 
 QStringList KateEditInfo::newText( const KTextEditor::Range & range ) const

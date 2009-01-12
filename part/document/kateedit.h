@@ -63,13 +63,6 @@ class KateEditInfo
 
     /**
      * Returns the text which occupied \p range before this edit took place.
-     * \note \p range must start and end on the same line for all relevant text to be returned.
-     * \sa oldText()
-     */
-    virtual QString oldTextString(const KTextEditor::Range& range) const;
-
-    /**
-     * Returns the text which occupied \p range before this edit took place.
      * \sa oldText()
      */
     virtual QStringList oldText(const KTextEditor::Range& range) const;
@@ -77,7 +70,6 @@ class KateEditInfo
     /**
      * Returns all of the text that was in place before the edit occurred.
      * \sa oldText(const KTextEditor::Range&) const
-     * \sa oldTextString(const KTextEditor::Range&) const
      */
     const QStringList& oldText() const;
 
@@ -88,17 +80,7 @@ class KateEditInfo
 
     /**
      * Returns the text which occupies \p range after this edit took place.
-     *
-     * \p range must start and end on the same line for all relevant text to be returned.
      * \sa newText()
-     * \sa newText(const KTextEditor::Range&) const
-     */
-    virtual QString newTextString(const KTextEditor::Range& range) const;
-
-    /**
-     * Returns the text which occupies \p range after this edit took place.
-     * \sa newText()
-     * \sa newTextString(const KTextEditor::Range&) const
      */
     virtual QStringList newText(const KTextEditor::Range& range) const;
 
@@ -106,7 +88,6 @@ class KateEditInfo
      * Returns the text which occupies the edit region now that the edit
      * has taken place.
      * \sa newText(const KTextEditor::Range&) const
-     * \sa newTextString(const KTextEditor::Range&) const
      */
     const QStringList& newText() const;
 

@@ -155,18 +155,14 @@ void KateCompletionWidget::modelContentChanged() {
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  if( !m_isSuspended && (!isVisible() || m_needShow) && realItemCount != 0 ) {
+  if( !m_isSuspended && (!!isHidden() || m_needShow) && realItemCount != 0 ) {
     m_needShow = false;
     updateAndShow();
   }
 
   if(m_presentationModel->rowCount(QModelIndex()) == 0 && m_argumentHintModel->rowCount(QModelIndex()) == 0) {
     kDebug( 13035 ) << "hiding because no content";
-    if(!updatesEnabled())
-      setUpdatesEnabled(true);
     hide();
-    //For some strange reason, sometimes it's not possible to hide the widget. For that reason, hide it later.
-    QMetaObject::invokeMethod(this, "hideLater", Qt::QueuedConnection);
     return;
   }
 
@@ -176,16 +172,6 @@ void KateCompletionWidget::modelContentChanged() {
     QModelIndex firstIndex = model()->index(0,0, m_entryList->currentIndex());
     m_entryList->setCurrentIndex(firstIndex);
     //m_entryList->scrollTo(firstIndex, QAbstractItemView::PositionAtTop);
-  }
-}
-
-void KateCompletionWidget::hideLater() {
-  hide();
-//   Q_ASSERT(!isVisible());//What is this? Sometimes  this does trigger
-  //So workaround:
-  if(isVisible()) {
-    kWarning( 13035 ) << "Strange problem, aborting completion";
-    abortCompletion();
   }
 }
 
@@ -336,7 +322,7 @@ void KateCompletionWidget::updateAndShow()
   m_entryList->resizeColumns(false, true, true);
   
   setUpdatesEnabled(true);
-  if (m_presentationModel->rowCount())
+  if (m_presentationModel->rowCount() || m_argumentHintModel->rowCount(QModelIndex()))
     show();
 }
 
@@ -500,7 +486,7 @@ void KateCompletionWidget::cursorPositionChanged( )
 
 bool KateCompletionWidget::isCompletionActive( ) const
 {
-  return !m_completionRanges.isEmpty() && isVisible();
+  return !m_completionRanges.isEmpty() && !isHidden() && isVisible();
 }
 
 void KateCompletionWidget::abortCompletion( )
@@ -513,7 +499,7 @@ void KateCompletionWidget::abortCompletion( )
 
   clear();
 
-  if(isVisible())
+  if(!isHidden())
     hide();
 
   if (wasActive)
@@ -618,14 +604,14 @@ void KateCompletionWidget::execute()
 
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )
 {
-  QWidget::resizeEvent(event);
+  QFrame::resizeEvent(event);
 }
 
 void KateCompletionWidget::showEvent ( QShowEvent * event )
 {
   m_isSuspended = false;
 
-  QWidget::showEvent(event);
+  QFrame::showEvent(event);
 
   if( !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
     m_argumentHintTree->show();
@@ -636,8 +622,10 @@ void KateCompletionWidget::hideEvent( QHideEvent * event )
   QFrame::hideEvent(event);
   m_argumentHintTree->hide();
   
-  if(isCompletionActive())
+  if(isCompletionActive()) {
+    kDebug() << "completion active, aborting";
     abortCompletion();
+  }
 }
 
 KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompletionModel* model) const

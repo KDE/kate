@@ -54,6 +54,8 @@
 
 //#include "modeltest.h"
 
+Q_DECLARE_METATYPE(KTextEditor::Cursor)
+
 KTextEditor::CodeCompletionModelControllerInterface* modelController(KTextEditor::CodeCompletionModel *model)
 {
   static KTextEditor::CodeCompletionModelControllerInterface defaultIf;
@@ -91,6 +93,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   connect(parent, SIGNAL(navigateRight()), SLOT(navigateRight()));
   connect(parent, SIGNAL(navigateUp()), SLOT(navigateUp()));
 
+  qRegisterMetaType<KTextEditor::Cursor>("KTextEditor::Cursor");
+  
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );
   //setWindowOpacity(0.8);

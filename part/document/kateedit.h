@@ -109,22 +109,6 @@ class KateEditInfo
 };
 
 /**
- * Represents multiple edits to a KateDocument
- */
-class KateEditInfoGroup
-{
-  public:
-    KateEditInfoGroup();
-
-    void addEdit(KateEditInfo* edit);
-
-    inline const QList<KateEditInfo*>& edits() const { return m_edits; }
-
-  private:
-    QList<KateEditInfo*> m_edits;
-};
-
-/**
  * Manages edit history in a document.
  */
 class KateEditHistory : public QObject
@@ -135,21 +119,19 @@ class KateEditHistory : public QObject
     explicit KateEditHistory(KateDocument* doc);
     virtual ~KateEditHistory();
 
-    inline KateEditInfoGroup* buffer() const { return m_buffer; }
-
     int revision();
     void releaseRevision(int revision);
 
     QList<KateEditInfo*> editsBetweenRevisions(int from, int to = -1) const;
 
-    void doEdit(KateEditInfo* edit) { buffer()->addEdit(edit); emit editDone(edit); }
+    void doEdit(KateEditInfo* edit) { m_edits.append(edit); emit editDone(edit); }
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
 
   private:
     KateDocument* m_doc;
-    KateEditInfoGroup* m_buffer;
+    QList<KateEditInfo*> m_edits;
 
     QMap<int, KateEditInfo*> m_revisions;
     int m_revision;

@@ -92,29 +92,18 @@ QStringList KateEditInfo::newText( const KTextEditor::Range & range ) const
 KateEditHistory::KateEditHistory( KateDocument * doc )
   : QObject(doc)
   , m_doc(doc)
-  , m_buffer(new KateEditInfoGroup())
   , m_revision(0)
 {
 }
 
 KateEditHistory::~KateEditHistory()
 {
-  delete m_buffer;
-}
-
-void KateEditInfoGroup::addEdit( KateEditInfo * edit )
-{
-  m_edits.append(edit);
-}
-
-KateEditInfoGroup::KateEditInfoGroup( )
-{
 }
 
 int KateEditHistory::revision()
 {
-  if (!m_buffer->edits().isEmpty()) {
-    KateEditInfo* edit = buffer()->edits().last();
+  if (!m_edits.isEmpty()) {
+    KateEditInfo* edit = m_edits.last();
     if (!edit->isReferenced())
       m_revisions.insert(++m_revision, edit);
 
@@ -145,7 +134,7 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
   if (from == -1)
     return ret;
 
-  if (buffer()->edits().isEmpty())
+  if (m_edits.isEmpty())
     return ret;
 
   if (to != -1) {
@@ -158,23 +147,23 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
     Q_ASSERT(m_revisions.contains(from));
     KateEditInfo* fromEdit = m_revisions[from];
     Q_ASSERT(fromEdit);
-    
-    fromIndex = buffer()->edits().indexOf(fromEdit);
+
+    fromIndex = m_edits.indexOf(fromEdit);
     if(fromIndex != -1) {
         //Since the "from" edit already known, we need to start one behind it
         ++fromIndex;
     }
   }
 
-  KateEditInfo* toEdit = to == -1 ? buffer()->edits().last() : m_revisions[to];
+  KateEditInfo* toEdit = to == -1 ? m_edits.last() : m_revisions[to];
   Q_ASSERT(toEdit);
 
-  int toIndex = buffer()->edits().indexOf(toEdit);
+  int toIndex = m_edits.indexOf(toEdit);
   Q_ASSERT(fromIndex != -1);
   Q_ASSERT(toIndex != -1);
 
   for (int i = fromIndex; i <= toIndex; ++i)
-    ret.append(buffer()->edits().at(i));
+    ret.append(m_edits.at(i));
 
   return ret;
 }

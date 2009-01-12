@@ -88,6 +88,31 @@ QStringList KateEditInfo::newText( const KTextEditor::Range & range ) const
   return ret;
 }
 
+bool KateEditInfo::isReferenced() const
+{
+  return m_revisionTokenCounter;
+}
+
+void KateEditInfo::dereferenceRevision()
+{
+  --m_revisionTokenCounter;
+}
+
+void KateEditInfo::referenceRevision()
+{
+  ++m_revisionTokenCounter;
+}
+
+const QStringList & KateEditInfo::newText() const
+{
+  return m_newText;
+}
+
+bool KateEditInfo::isRemoval() const
+{
+  return !m_oldRange.isEmpty() && m_newRange.isEmpty();
+}
+
 KateEditHistory::KateEditHistory( KateDocument * doc )
   : QObject(doc)
   , m_revision(0)
@@ -164,31 +189,6 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
     ret.append(m_edits.at(i));
 
   return ret;
-}
-
-bool KateEditInfo::isReferenced() const
-{
-  return m_revisionTokenCounter;
-}
-
-void KateEditInfo::dereferenceRevision()
-{
-  --m_revisionTokenCounter;
-}
-
-void KateEditInfo::referenceRevision()
-{
-  ++m_revisionTokenCounter;
-}
-
-const QStringList & KateEditInfo::newText() const
-{
-  return m_newText;
-}
-
-bool KateEditInfo::isRemoval() const
-{
-  return !m_oldRange.isEmpty() && m_newRange.isEmpty();
 }
 
 #include "kateedit.moc"

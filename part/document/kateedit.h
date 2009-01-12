@@ -36,45 +36,18 @@ class KateDocument;
  */
 class KateEditInfo
 {
-  friend class KateEditHistory;
-
   public:
     KateEditInfo(KateDocument* doc, Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText);
     virtual ~KateEditInfo();
 
-    KateDocument* document() const;
-
-    /// Returns true if this edit is a pure insertion of text
-    bool isInsert() const;
     /// Returns true if this edit is a pure removal of text
     bool isRemoval() const;
-    /// Returns true if text is being inserted and removed
-    bool isModification() const;
-
-    /**
-     * Indicate that this edit is completed and should not be merged with
-     * another edit should the opportunity arise.
-     *
-     * \return true if this edit is completed
-     */
-    bool isEditBoundary() const;
-
-    /**
-     * Set the status of this edit.
-     * \param boundary If the edit is complete, the value should be true,
-     * otherwise it should be false
-     */
-    void setEditBoundary(bool boundary);
 
     /**
      * Returns how this edit was generated.
      * \sa Kate::EditSource
      */
     Kate::EditSource editSource() const;
-
-    /// \internal
-    /// No real implementation
-    //bool merge(KateEditInfo* edit) { return false; }
 
     /**
      * Returns the starting location of the text occupied by the edit region
@@ -146,7 +119,6 @@ class KateEditInfo
   private:
     KateDocument* m_doc;
     Kate::EditSource m_editSource;
-    bool m_editBoundary;
     KTextEditor::Range m_oldRange;
     QStringList m_oldText;
     KTextEditor::Range m_newRange;
@@ -163,15 +135,9 @@ class KateEditInfoGroup
   public:
     KateEditInfoGroup();
 
-    KateDocument* doc() const;
-
     void addEdit(KateEditInfo* edit);
-    void removeEdit(int indexTo = -1);
-    KateEditInfo* takeEdit(int indexTo = -1);
 
     inline const QList<KateEditInfo*>& edits() const { return m_edits; }
-
-    QList<KateEditInfo> summariseEdits(int from = -1, int to = -1, bool destructiveCollapse = false) const;
 
   private:
     QList<KateEditInfo*> m_edits;
@@ -189,7 +155,6 @@ class KateEditHistory : public QObject
     virtual ~KateEditHistory();
 
     inline KateEditInfoGroup* buffer() const { return m_buffer; }
-    //KateEditInfoGroup* redoBuffer() const { return m_redo; }
 
     int revision();
     void releaseRevision(int revision);
@@ -200,12 +165,10 @@ class KateEditHistory : public QObject
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
-    //void editUndone(KateEditInfo* edit);
 
   private:
     KateDocument* m_doc;
     KateEditInfoGroup* m_buffer;
-    //KateEditInfoGroup* m_redo;
 
     QMap<int, KateEditInfo*> m_revisions;
     int m_revision;

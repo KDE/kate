@@ -109,7 +109,6 @@ KateEditHistory::KateEditHistory( KateDocument * doc )
   : QObject(doc)
   , m_doc(doc)
   , m_buffer(new KateEditInfoGroup())
-//  , m_redo(new KateEditInfoGroup())
   , m_revision(0)
 {
 }

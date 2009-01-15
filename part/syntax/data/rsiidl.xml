@@ -39,6 +39,8 @@
         <item> Common </item>
         <item> Of </item>
         <item> On_ioerror </item>
+        <item> Switch </item>
+        <item> Endswitch </item>
         </list>
         <list name="system variables">
         <item>dpi</item>

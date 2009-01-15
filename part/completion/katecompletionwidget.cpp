@@ -158,7 +158,7 @@ void KateCompletionWidget::modelContentChanged() {
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  if( !m_isSuspended && (!!isHidden() || m_needShow) && realItemCount != 0 ) {
+  if( !m_isSuspended && (isHidden() || m_needShow) && realItemCount != 0 ) {
     m_needShow = false;
     updateAndShow();
   }
@@ -178,6 +178,10 @@ void KateCompletionWidget::modelContentChanged() {
   }
   
   updateHeight();
+  
+  //New items for the argument-hint tree may have arrived, so check whether it needs to be shown
+  if( m_argumentHintTree->isHidden() && !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
+    m_argumentHintTree->show();
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {
@@ -254,9 +258,14 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
     QApplication::activeWindow()->installEventFilter(this);
     m_filterInstalled = true;
   }
-
-  m_presentationModel->setCompletionModels(models);
-
+  
+  m_presentationModel->clearCompletionModels();
+  
+  if(invocationType == KTextEditor::CodeCompletionModel::UserInvocation) {
+    qDeleteAll(m_completionRanges);
+    m_completionRanges.clear();
+  }
+  
   foreach (KTextEditor::CodeCompletionModel* model, models) {
     KTextEditor::Range range;
     if (word.isValid()) {
@@ -270,7 +279,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
         m_completionRanges.remove(model);
         delete oldRange;
       }
-      m_presentationModel->removeCompletionModel(model);
+      models.removeAll(model);
       continue;
     }
     if(m_completionRanges.contains(model)) {
@@ -294,6 +303,8 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
     connect(m_completionRanges[model]->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)),
               SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
   }
+
+  m_presentationModel->setCompletionModels(models);
 
   cursorPositionChanged();
 
@@ -639,7 +650,7 @@ void KateCompletionWidget::execute()
 
   view()->doc()->editEnd();
 
-  hide();
+  abortCompletion();
 
   view()->sendCompletionExecuted(start, model, toExecute);
   
@@ -672,20 +683,19 @@ void KateCompletionWidget::hideEvent( QHideEvent * event )
 {
   QFrame::hideEvent(event);
   m_argumentHintTree->hide();
-  
-  if(isCompletionActive()) {
-    kDebug() << "completion active, aborting";
-    abortCompletion();
-  }
 }
 
 KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompletionModel* model) const
 {
   if (!model) {
-    if (m_sourceModels.isEmpty()) return 0;
-    model = m_sourceModels.first();
+    if (m_completionRanges.isEmpty()) return 0;
+    
+    return *m_completionRanges.begin();
   }
-  return m_completionRanges[model];
+  if(m_completionRanges.contains(model))
+    return m_completionRanges[model];
+  else
+    return 0;
 }
 
 QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> KateCompletionWidget::completionRanges( ) const

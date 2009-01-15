@@ -81,7 +81,7 @@ class ExpandingDelegate : public QItemDelegate
     mutable Qt::Alignment m_cachedAlignment;
     mutable QColor m_backgroundColor;
   private:
-
+    mutable QString m_overrideText;
     ExpandingWidgetModel* m_model;
 };
 

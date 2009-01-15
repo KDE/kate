@@ -91,8 +91,23 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   m_cachedHighlights.clear();
   m_backgroundColor = getUsedBackgroundColor(option, index);
 
-  if (!model()->indexIsItem(index) )
+  if (!model()->indexIsItem(index) ) {
+//     kDebug() << "non-item" << index << basicSizeHint(index.sibling(index.row(), 0)).width() << basicSizeHint(index.sibling(index.row(), 1)).width();
+//     //If the prefix-cell is very small, move the label-text within the prefix column into the name column(It is the title of the group)
+//       if(basicSizeHint(index.sibling(index.row(), 0)).width() < 50 && basicSizeHint(index.sibling(index.row(), 1)).width() > 50) {
+// 	if(index.column() == 0) {
+// 	  //Put nothing into the prefix column
+// 	  kDebug() << "setting clear override";
+// 	  m_overrideText = QString(" ");
+// 	}else if(index.column() == 1) {
+// 	  //Put the label into the name column
+// 	  m_overrideText = index.sibling(index.row(), 0).data(Qt::DisplayRole).toString();
+// 	  kDebug() << "setting override" << m_overrideText;
+// 	}
+//       }
+      
       return QItemDelegate::paint(painter, option, index);
+  }
 
   m_currentColumnStart = 0;
   m_cachedHighlights = createHighlighting(index, option);
@@ -133,8 +148,14 @@ void ExpandingDelegate::adjustStyle( const QModelIndex& index, QStyleOptionViewI
 {
 }
 
-void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
+void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & _text ) const
 {
+  QString text = _text;
+  if(!m_overrideText.isEmpty()) {
+    text = m_overrideText;
+    kDebug() << "using override" << text;
+    m_overrideText.clear();
+  }
 /*  if (m_cachedRow == -1)
     return QItemDelegate::drawDisplay(painter, option, rect, text);
 */

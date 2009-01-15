@@ -225,7 +225,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   else
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     
-  if(maximumResize > 0 || forceResize) {
+  if(maximumResize > 0 || forceResize || oldIndentWidth != newIndentWidth) {
   
     //   kDebug() << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
     

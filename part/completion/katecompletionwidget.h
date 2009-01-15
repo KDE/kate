@@ -193,7 +193,6 @@ class KateCompletionWidget : public QFrame
     bool m_hadCompletionNavigation;
     
     int m_expandedAddedHeightBase;
-    int m_expandingAddedHeight;
 };
 
 #endif

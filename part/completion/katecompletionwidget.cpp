@@ -84,7 +84,6 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_needShow(false)
   , m_hadCompletionNavigation(false)
   , m_expandedAddedHeightBase(0)
-  , m_expandingAddedHeight(0)
 {
   connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
   connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));
@@ -177,6 +176,8 @@ void KateCompletionWidget::modelContentChanged() {
     m_entryList->setCurrentIndex(firstIndex);
     //m_entryList->scrollTo(firstIndex, QAbstractItemView::PositionAtTop);
   }
+  
+  updateHeight();
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {
@@ -394,12 +395,77 @@ void KateCompletionWidget::updateArgumentHintGeometry()
   }
 }
 
+//Checks whether the given model has at least "rows" rows, also searching the second level of the tree.
+bool hasAtLeastNRows(int rows, QAbstractItemModel* model) {
+  int count = 0;
+  for(int row = 0; row < model->rowCount(); ++row) {
+    ++count;
+    
+    QModelIndex index(model->index(row, 0));
+    if(index.isValid())
+      count += model->rowCount(index);
+    
+    if(count > rows)
+      return true;
+  }
+  return false;
+}
+
 void KateCompletionWidget::updateHeight()
 {
   QRect geom = geometry();
 
-  int baseHeight = geom.height() - m_expandingAddedHeight;
-
+  int minBaseHeight = 10;
+  int maxBaseHeight = 300;
+  
+  int baseHeight = 0;
+  int calculatedCustomHeight = 0;
+  
+  if(hasAtLeastNRows(15, m_presentationModel)) {
+    //If we know there is enough rows, always use max-height, we don't need to calculate size-hints
+    baseHeight = maxBaseHeight;
+  }else{
+    //Calculate size-hints to determine the best height
+    for(int row = 0; row < m_presentationModel->rowCount(); ++row) {
+      baseHeight += treeView()->sizeHintForRow(row);
+      
+      QModelIndex index(m_presentationModel->index(row, 0));
+      if(index.isValid()) {
+        for(int row2 = 0; row2 < m_presentationModel->rowCount(index); ++row2) {
+          int h = 0;
+          for(int a = 0; a < m_presentationModel->columnCount(index); ++a) {
+            int localHeight = treeView()->sizeHintForIndex(index.child(row2, a)).height();
+            if(localHeight > 0)
+              h = localHeight;
+          }
+          baseHeight += h;
+        }
+      }
+    }
+    
+    calculatedCustomHeight = baseHeight;
+  }
+  
+  baseHeight += 2*frameWidth();
+  
+  if(m_entryList->horizontalScrollBar()->isVisible())
+    baseHeight += m_entryList->horizontalScrollBar()->height();
+  
+  if(baseHeight < minBaseHeight)
+    baseHeight = minBaseHeight;
+  if(baseHeight > maxBaseHeight)
+    baseHeight = maxBaseHeight;
+  
+  int newExpandingAddedHeight = 0;
+  
+  if(baseHeight == maxBaseHeight && model()->expandingWidgetsHeight()) {
+    //Eventually add some more height
+    if(calculatedCustomHeight && calculatedCustomHeight > baseHeight && calculatedCustomHeight < (maxBaseHeight + model()->expandingWidgetsHeight()))
+      newExpandingAddedHeight = calculatedCustomHeight - baseHeight;
+    else
+      newExpandingAddedHeight = model()->expandingWidgetsHeight();
+  }
+  
   if( m_expandedAddedHeightBase != baseHeight && m_expandedAddedHeightBase - baseHeight > -2 && m_expandedAddedHeightBase - baseHeight < 2  )
   {
     //Re-use the stored base-height if it only slightly differs from the current one.
@@ -408,41 +474,22 @@ void KateCompletionWidget::updateHeight()
     baseHeight = m_expandedAddedHeightBase;
   }
 
-  if( baseHeight < 300 ) {
-    baseHeight = 300; //Here we enforce a minimum desirable height
-    m_expandingAddedHeight = 0;
-//     kDebug( 13035 ) << "Resetting baseHeight and m_expandingAddedHeight";
-  }
-
-  int newExpandingAddedHeight = 0;
-
-//   kDebug( 13035 ) << "baseHeight: " << baseHeight;
-
-  newExpandingAddedHeight = model()->expandingWidgetsHeight();
-
-//   kDebug( 13035 ) << "new newExpandingAddedHeight: " << newExpandingAddedHeight;
-
   int screenBottom = QApplication::desktop()->screenGeometry(view()).bottom();
 
+  //Limit the height to the bottom of the screen
   int bottomPosition = baseHeight + newExpandingAddedHeight + geometry().top();
-//  int targetHeight = baseHeight + newExpandingAddedHeight;
-//   kDebug( 13035 ) << "targetHeight: " << targetHeight;
-
-//   kDebug( 13035 ) << "screen-bottom: " << screenBottom << " bottomPosition: " << bottomPosition;
 
   if( bottomPosition > screenBottom-50 ) {
     newExpandingAddedHeight -= bottomPosition - (screenBottom-50);
-//     kDebug( 13035 ) << "Too high, moved bottomPosition to: " << baseHeight + newExpandingAddedHeight + geometry().top() << " changed newExpandingAddedHeight to " << newExpandingAddedHeight;
   }
 
   int finalHeight = baseHeight+newExpandingAddedHeight;
-//   kDebug( 13035 ) << "finalHeight: " << finalHeight;
-  if( finalHeight < 50 ) {
+  
+  if( finalHeight < 10 ) {
     m_entryList->resize(m_entryList->width(), height() - 2*frameWidth());
     return;
   }
 
-  m_expandingAddedHeight = baseHeight;
   m_expandedAddedHeightBase = geometry().height();
 
   geom.setHeight(finalHeight);

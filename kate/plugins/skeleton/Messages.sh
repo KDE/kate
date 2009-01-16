@@ -1,2 +1,3 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/kateexternaltoolsplugin.pot
+#uncomment and place the correct plugin name to extract its messages
+#$XGETTEXT *.cpp -o $podir/kateskeletonplugin.pot

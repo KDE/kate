@@ -292,7 +292,7 @@
 				<keyword attribute="Sort" context="#stay" String="opal_sorts"/>
 				<keyword attribute="Decimal" context="#stay" String="opal_other"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
-				<RegExpr attribute="Comment" context="SingLineCom" String="^--$|^--[^-]|[^-]--[^-]|[^-]--$"/>
+				<RegExpr attribute="Comment" context="SingLineCom" String="(?:^--$|^--[^-]|[^-]--[^-]|[^-]--$)"/>
 				<Detect2Chars attribute="Comment" context="MultLineCom" char="/" char1="*"/>
 			</context>
 			

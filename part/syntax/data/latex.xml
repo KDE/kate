@@ -1,20 +1,25 @@
-<?xml version="1.01" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.30" section="Markup" kateversion="2.3" priority="10" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
+	  <language name="LaTeX" version="1.31" section="Markup" kateversion="2.3" priority="10" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
       <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
         <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
         <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
-        <RegExpr String="\\(label|pageref|autoref|ref|vpageref|vref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
+	<RegExpr String="\\(cite|parencite|autocite|Autocite|citetitle)\*(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
+	<RegExpr String="\\(cites|Cites|parencites|Parencites|autocites|Autocites|supercites|footcites|Footcites)(?=[^a-zA-Z])" attribute="Structure" context="FancyLabel"/>
+	<RegExpr String="\\(cite|nocite|Cite|parencite|Parencite|footcite|Footcite|textcite|Textcite|supercite|autocite|Autocite|citeauthor|Citeauthor|citetitle|citeyear|citeurl|nocite|fullcite|footfullcite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
+	<RegExpr String="\\(subref\*?|cref\*?|label|pageref|autoref|ref|vpageref|vref|pagecite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
         <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
         <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Footnote" context="Footnoting"/>
-        <RegExpr String="\\(re)?newcommand(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
+	<RegExpr String="\\(renewcommand|providenewcommand|newcommand)\*?(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
         <RegExpr String="\\(e|g|x)?def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
 	<RegExpr String="&lt;&lt;.*&gt;&gt;=" attribute="Normal Text" context="NoWeb" />
         <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <StringDetect String="\[" attribute="Math" context="MathModeEquation" beginRegion="mathMode" />
+	<StringDetect String="\iffalse" attribute="Comment" context="Multiline Comment"/>
+	<StringDetect String="\ensuremath{" attribute="Math" context="MathModeEnsure"/>
         <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
         <StringDetect String="$$" attribute="Math" context="MathModeDisplay" beginRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
@@ -134,7 +139,7 @@
         <StringDetect String="verb*" attribute="Keyword" context="Verb"/>
         <RegExpr String="verb(?=[^a-zA-Z])" attribute="Keyword" context="Verb"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="[a-zA-Z]+(\+?|\*{0,3})" attribute="Keyword" context="#pop"/>
+        <RegExpr String="[a-zA-Z@]+(\+?|\*{0,3})" attribute="Keyword" context="#pop"/>
         <RegExpr String="[^a-zA-Z]" attribute="Keyword" context="#pop" />
       </context>
       <context name="ToEndOfLine" attribute="Normal Text" lineEndContext="#pop">
@@ -171,6 +176,27 @@
         <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop#pop"/>
       </context>
 
+      <!-- labels from biblatex commands -->
+      <context name="FancyLabel" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+	      <RegExpr String="\s*\{\s*" attribute="Normal Text" context="FancyLabelParameter"/>
+	      <RegExpr String="\s*\[\s*" attribute="Normal Text" context="LabelOption"/>
+	      <RegExpr String="\s*\(\s*" attribute="Normal Text" context="FancyLabelRoundBrackets"/>
+      </context>
+
+      <context name="FancyLabelParameter" attribute="Environment" lineEndContext="#stay">
+	      <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+	      <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+
+      <context name="FancyLabelRoundBrackets" attribute="Normal Text" lineEndContext="#stay">
+	      <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
+	      <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+	      <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+	      <DetectChar char="%" attribute="Comment" context="Comment"/>
+	      <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+	      <RegExpr String="\s*\)\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+
       <!-- start of an environment -->
       <context name="FindEnvironment" attribute="Normal Text" lineEndContext="#stay">
         <DetectChar char="{" attribute="Normal Text" context="Environment"/>
@@ -183,7 +209,7 @@
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>
         <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign)" attribute="Environment" context="MathEnv"/>
-        <RegExpr String="(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)" attribute="Environment" context="TabEnv"/>
+        <RegExpr String="(tabularx|tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)" attribute="Environment" context="TabEnv"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]" attribute="Environment" context="LatexEnv"/>
         <RegExpr String="\s+" attribute="Error" context="#pop"/>
@@ -262,6 +288,7 @@
         <StringDetect String="$$" attribute="Error" context="#stay" />
         <DetectChar char="$" attribute="Error" context="#stay" />
         <DetectChar char="%" attribute="Comment" context="Comment"/>
+	<DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true"/>
         <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true"/>
       </context>
@@ -283,15 +310,22 @@
       <!-- parse tabular text -->
       <context name="Tab" attribute="Tab" lineEndContext="#stay">
 	<DetectChar char="&amp;" attribute="Ampersand" context="#stay"/>
-	<RegExpr String="@\{.*\}" minimal="true" attribute="Column Separator" context="#stay"/>
-        <RegExpr String="\\end(?=\s*\{(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?\})" attribute="Structure"  context="TabFindEnd"/>
+	<StringDetect String="@{" attribute="Column Separator" context="Column Separator"/>
+        <RegExpr String="\\end(?=\s*\{(tabularx|tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?\})" attribute="Structure"  context="TabFindEnd"/>
 	<IncludeRules context="Normal Text" />
+      </context>
+      
+      <context name="Column Separator" attribute="Column Separator" lineEndContext="#stay">
+	      <DetectChar char="{" attribute="Column Separator" context="Column Separator"/>
+	      <DetectChar char="}" attribute="Column Separator" context="#pop"/>
+	      <RegExpr String="." attribute="Column Separator"  context="#stay"/> 
+<!-- 	 the last regexp is very stupid. Suggestions are welcome! Fallthrough did not help-->
       </context>
 
       <!-- end of tabular environment -->
       <context name="TabFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <RegExpr String="\s*\{" attribute="Normal Text" context="#stay"/>
-        <RegExpr String="(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?" attribute="Environment" context="#stay"/>
+        <RegExpr String="(tabularx|tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?" attribute="Environment" context="#stay"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
       </context>
 
@@ -322,6 +356,13 @@
         <IncludeRules context="MathModeCommon" />
       </context>
 
+      <!-- math mode: \ensuremath{...} !-->
+      <context name="MathModeEnsure" attribute="Math" lineEndContext="#stay">
+	      <DetectChar char="{" attribute="Math" context="MathModeEnsure" />
+	      <DetectChar char="}" attribute="Math" context="#pop" />
+	      <IncludeRules context="MathModeCommon" />
+      </context>
+
       <!-- math mode common -->
       <context name="MathModeCommon" attribute="Math" lineEndContext="#stay">
         <RegExpr String="\\(begin|end)\s*\{(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign|alignat|xalignat|xxalignat)\*?\}" attribute="Error" context="#stay"/>
@@ -350,6 +391,7 @@
       <context name="MathModeTextParameterStart" attribute="Normal Text" lineEndContext="#stay" >
         <RegExpr String="\\." attribute="Normal Text" context="#stay"/> 
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+	<RegExpr String="\$.*\$" minimal="true" attribute="Math" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="MathModeTextParameter"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
         <DetectChar char="%" attribute="Comment" context="Comment"/>
@@ -363,10 +405,17 @@
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
 
+     <!--    iffalse aka multiline comment    -->
+	<context name="Multiline Comment" attribute="Comment" lineEndContext="#stay">
+		<StringDetect String="\fi" attribute="Comment" context="#pop"/>
+		<StringDetect String="\else" attribute="Comment" context="#pop"/>
+	</context>
+
      <!-- comment -->
       <context name="Comment" attribute="Comment" lineEndContext="#pop">
       	<RegExpr String="(FIXME|TODO):?" attribute="Alert" context="#stay"/>
-        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+	<StringDetect String="\KileResetHL" attribute="Comment" context="Normal Text"/>
+	<StringDetect String="\KateResetHL" attribute="Comment" context="Normal Text"/>
       </context>
     </contexts>
 

@@ -1617,7 +1617,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     r.valid = false;
     return r;
   } else {
-    n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+    n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
   }
 
   // text item we want to find a matching item for

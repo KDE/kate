@@ -1681,8 +1681,7 @@ void KateViewEncodingAction::slotAboutToShow()
 void KateViewEncodingAction::setEncoding (const QString &e)
 {
   doc->setEncoding(e);
-  //this is done in setEncoding()
-  //doc->setScriptForEncodingAutoDetection(KEncodingDetector::None);
+
   view->reloadFile();
 
 }

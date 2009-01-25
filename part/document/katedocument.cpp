@@ -5396,6 +5396,7 @@ KateCodeFoldingTree *KateDocument::foldingTree ()
 
 bool KateDocument::setEncoding (const QString &e)
 {
+  setProberTypeForEncodingAutoDetection(KEncodingProber::None);
   return m_config->setEncoding(e);
 }
 

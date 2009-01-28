@@ -51,7 +51,6 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
 
   m_labelStatus->setTextFormat(Qt::PlainText);
   m_labelCommand->setTextFormat(Qt::PlainText);
-  m_labelMessage->setTextFormat(Qt::PlainText);
 }
 
 KateViModeBar::~KateViModeBar()

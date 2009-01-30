@@ -165,6 +165,9 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     void debugStats();
 
+    ///Returns whether one of the filtered items exactly matches its completion string
+    bool haveExactMatch() const;
+    
   protected:
     virtual int contextMatchQuality(const QModelIndex& row) const;
 
@@ -209,13 +212,26 @@ class KateCompletionModel : public ExpandingWidgetModel
         bool isMatching() const;
 
         bool filter();
-        bool match();
+	enum MatchType {
+	  NoMatch = 0,
+	  StartsWithMatch,
+	  PerfectMatch
+	};
+        MatchType match();
 
         const ModelRow& sourceRow() const;
 
         // Sorting operator
         bool operator<(const Item& rhs) const;
 
+ 	bool haveExactMatch() const {
+ 	  return m_haveExactMatch;
+ 	}
+	
+	void clearExactMatch() {
+	  m_haveExactMatch = false;
+	}
+	
       private:
         KateCompletionModel* model;
         ModelRow m_sourceRow;
@@ -225,9 +241,9 @@ class KateCompletionModel : public ExpandingWidgetModel
         int inheritanceDepth;
 
         // True when currently matching completion string
-        bool matchCompletion;
+        MatchType matchCompletion;
         // True when passes all active filters
-        bool matchFilters;
+        bool matchFilters, m_haveExactMatch;
 
         QString completionSortingName() const;
     };
@@ -357,7 +373,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     bool m_accessConst, m_accessStatic, m_accesSignalSlot;
 
     // Column merging
-    bool m_columnMergingEnabled;
+    bool m_columnMergingEnabled/*, m_haveExactMatch*/;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(KateCompletionModel::GroupingMethods)

@@ -142,6 +142,7 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_accessStatic(false)
   , m_accesSignalSlot(false)
   , m_columnMergingEnabled(false)
+//   , m_haveExactMatch(false)
 {
 
   m_ungrouped->attribute = 0;
@@ -1042,6 +1043,7 @@ void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
           }
 
         } else {
+          prefilter.peekNext().clearExactMatch();
           COMPLETE_DELETE
           COMPLETE_ADD
         }
@@ -1106,6 +1108,7 @@ void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
   COMPLETE_ADD
 
   hideOrShowGroup(g);
+  return;
 }
 
 int KateCompletionModel::Group::orderNumber() const {
@@ -1524,8 +1527,9 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
 KateCompletionModel::Item::Item( bool doInitialMatch, KateCompletionModel* m, const HierarchicalModelHandler& handler, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
-  , matchCompletion(true)
+  , matchCompletion(StartsWithMatch)
   , matchFilters(true)
+  , m_haveExactMatch(false)
 {
   inheritanceDepth = handler.getData(CodeCompletionModel::InheritanceDepth, m_sourceRow.second).toInt();
 
@@ -1795,19 +1799,36 @@ bool KateCompletionModel::Item::filter( )
   return matchFilters;
 }
 
-bool KateCompletionModel::Item::match()
+bool KateCompletionModel::haveExactMatch() const {
+//   return m_haveExactMatch;
+  ///@todo Make this faster
+  foreach(Group* group, m_rowTable)
+    foreach(const Item& item, group->filtered)
+      if(item.haveExactMatch())
+        return true;
+  return false;
+}
+
+KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
 {
   // Check to see if the item is matched by the current completion string
   QModelIndex sourceIndex = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name);
 
   QString match = model->currentCompletion(m_sourceRow.first);
 
+  m_haveExactMatch = false;
+  
    // Hehe, everything matches nothing! (ie. everything matches a blank string)
    if (match.isEmpty())
-     return true;
-   
-  matchCompletion = m_nameColumn.startsWith(match, model->matchCaseSensitivity());
+     return PerfectMatch;
+  
+  matchCompletion = (m_nameColumn.startsWith(match, model->matchCaseSensitivity()) ? StartsWithMatch : NoMatch);
 
+  if(matchCompletion && match.length() == m_nameColumn.length())
+    matchCompletion = PerfectMatch;
+  
+  m_haveExactMatch = (matchCompletion == PerfectMatch);
+  
   return matchCompletion;
 }
 

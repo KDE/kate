@@ -137,7 +137,6 @@ class KateCompletionWidget : public QFrame
   protected:
     virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
-    virtual void hideEvent ( QHideEvent * event );
 //    virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
@@ -192,7 +191,10 @@ class KateCompletionWidget : public QFrame
 
     bool m_hadCompletionNavigation;
     
+    bool m_haveExactMatch;
+    
     int m_expandedAddedHeightBase;
+    KTextEditor::CodeCompletionModel::InvocationType m_lastInvocationType;
 };
 
 #endif

@@ -56,6 +56,8 @@
 
 Q_DECLARE_METATYPE(KTextEditor::Cursor)
 
+const bool hideAutomaticCompletionOnExactMatch = true;
+
 KTextEditor::CodeCompletionModelControllerInterface* modelController(KTextEditor::CodeCompletionModel *model)
 {
   static KTextEditor::CodeCompletionModelControllerInterface defaultIf;
@@ -84,6 +86,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_needShow(false)
   , m_hadCompletionNavigation(false)
   , m_expandedAddedHeightBase(0)
+  , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation)
 {
   connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
   connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));
@@ -151,23 +154,24 @@ void KateCompletionWidget::viewFocusOut() {
 void KateCompletionWidget::modelContentChanged() {
   if(m_completionRanges.isEmpty()) {
     kDebug( 13035 ) << "content changed, but no completion active";
-    hide();
+    abortCompletion();
     return;
   }
   
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  if( !m_isSuspended && (isHidden() || m_needShow) && realItemCount != 0 ) {
+  if( !m_isSuspended && ((isHidden() && m_argumentHintTree->isHidden()) || m_needShow) && realItemCount != 0 ) {
     m_needShow = false;
     updateAndShow();
   }
 
-  if(m_presentationModel->rowCount(QModelIndex()) == 0 && m_argumentHintModel->rowCount(QModelIndex()) == 0) {
-    kDebug( 13035 ) << "hiding because no content";
+  if(m_argumentHintModel->rowCount(QModelIndex()) == 0)
+    m_argumentHintTree->hide();
+
+  if(m_presentationModel->rowCount(QModelIndex()) == 0)
     hide();
-    return;
-  }
+  
 
   //With each filtering items can be added or removed, so we have to reset the current index here so we always have a selected item
   m_entryList->setCurrentIndex(model()->index(0,0));
@@ -182,6 +186,14 @@ void KateCompletionWidget::modelContentChanged() {
   //New items for the argument-hint tree may have arrived, so check whether it needs to be shown
   if( m_argumentHintTree->isHidden() && !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
     m_argumentHintTree->show();
+  
+  if(hideAutomaticCompletionOnExactMatch && !isHidden() && 
+     m_lastInvocationType == KTextEditor::CodeCompletionModel::AutomaticInvocation && 
+     m_presentationModel->haveExactMatch())
+    hide();
+  else if(isHidden() && !m_presentationModel->haveExactMatch() && 
+                         m_presentationModel->rowCount(QModelIndex()))
+    show();
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {
@@ -234,6 +246,9 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   m_inCompletionList = true; //Always start at the top of the completion-list
   m_needShow = true;
 
+  m_lastInvocationType = invocationType;
+  kBacktrace();
+  
   disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
 
   m_dontShowArgumentHints = true;
@@ -338,8 +353,19 @@ void KateCompletionWidget::updateAndShow()
   m_entryList->resizeColumns(false, true, true);
   
   setUpdatesEnabled(true);
-  if (m_presentationModel->rowCount() || m_argumentHintModel->rowCount(QModelIndex()))
+  
+  if(m_argumentHintModel->rowCount(QModelIndex())) {
+    updateArgumentHintGeometry();
+    m_argumentHintTree->show();
+  } else
+    m_argumentHintTree->hide();
+  
+  if (m_presentationModel->rowCount() && (!m_presentationModel->haveExactMatch() || 
+                                           !hideAutomaticCompletionOnExactMatch  || 
+                                           m_lastInvocationType != KTextEditor::CodeCompletionModel::AutomaticInvocation) )
     show();
+  else
+    hide();
 }
 
 void KateCompletionWidget::updatePositionSlot()
@@ -548,7 +574,7 @@ void KateCompletionWidget::cursorPositionChanged( )
 
 bool KateCompletionWidget::isCompletionActive( ) const
 {
-  return !m_completionRanges.isEmpty() && !isHidden() && isVisible();
+  return !m_completionRanges.isEmpty() && ((!isHidden() && isVisible()) || (!m_argumentHintTree->isHidden() && m_argumentHintTree->isVisible()));
 }
 
 void KateCompletionWidget::abortCompletion( )
@@ -563,6 +589,8 @@ void KateCompletionWidget::abortCompletion( )
 
   if(!isHidden())
     hide();
+  if(!m_argumentHintTree->isHidden())
+    m_argumentHintTree->hide();
 
   if (wasActive)
     view()->sendCompletionAborted();
@@ -677,12 +705,6 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
 
   if( !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
     m_argumentHintTree->show();
-}
-
-void KateCompletionWidget::hideEvent( QHideEvent * event )
-{
-  QFrame::hideEvent(event);
-  m_argumentHintTree->hide();
 }
 
 KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompletionModel* model) const

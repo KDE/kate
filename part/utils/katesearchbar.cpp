@@ -1075,6 +1075,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
     resetHighlights();
 
     SmartRange * const workingRange = view()->doc()->newSmartRange(inputRange);
+    QList<Range> highlightRanges;
     int matchCounter = 0;
     for (;;) {
         const QVector<Range> resultRanges = view()->doc()->searchText(*workingRange, pattern, enabledOptions);
@@ -1098,12 +1099,14 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
             replaceMatch(resultRanges, *replacement, ++matchCounter);
 
             // Highlight and continue after adjusted match
-            highlightReplacement(*afterReplace);
+            //highlightReplacement(*afterReplace);
             match = *afterReplace;
+            highlightRanges << match;
             delete afterReplace;
         } else {
             // Highlight and continue after original match
-            highlightMatch(match);
+            //highlightMatch(match);
+            highlightRanges << match;
             matchCounter++;
         }
 
@@ -1132,6 +1135,15 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
             view()->doc()->editEnd();
         }
     }
+
+    if (replacement != NULL)
+        foreach (Range r, highlightRanges) {
+            highlightMatch(r);
+        }
+    else
+        foreach (Range r, highlightRanges) {
+            highlightReplacement(r);
+        }
 
     delete workingRange;
 }

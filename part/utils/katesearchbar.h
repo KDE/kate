@@ -120,7 +120,6 @@ private:
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);
     void setChecked(QAction * menuAction, bool checked);
-    void enableHighlights(bool enable);
     void resetHighlights();
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
@@ -154,6 +153,7 @@ private:
     //void hideEvent(QHideEvent * event);
 public:
     void closed();
+    void enableHighlights(bool enable);
 
 private:
     // Shared by both dialogs

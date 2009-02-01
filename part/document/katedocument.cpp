@@ -46,6 +46,7 @@
 #include "katebuffer.h"
 #include "kateundo.h"
 #include "katepartpluginmanager.h"
+#include "utils/katesearchbar.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -1622,13 +1623,24 @@ void KateDocument::undo()
   if ((undoItems.count() > 0) && undoItems.last())
   {
     //clearSelection ();
+    /*Disable searchbar highlights due to performance issue
+     * if undoGroup contains n items, and there're m search highlight regions, 
+     * the total cost is n*m*log(m),
+     * to undo a simple Replace operation, n=2*m 
+     * (replace contains both delete and insert undoItem, assume the replaced regions are highlighted),
+     * cost = 2*m^2*log(m), too high
+     * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()
+     */ 
+    foreach (KateView *v, m_views) {
+      if (v->searchBar(false))
+        v->searchBar(false)->enableHighlights(false);  
+    }
 
     undoItems.last()->undo();
     redoItems.append (undoItems.last());
     undoItems.removeLast ();
     updateModified();
-
-    emit undoChanged ();
+emit undoChanged ();
   }
 }
 
@@ -1637,6 +1649,11 @@ void KateDocument::redo()
   if ((redoItems.count() > 0) && redoItems.last())
   {
     //clearSelection ();
+    //Disable searchbar highlights due to performance issue, see ::undo()'s comment
+    foreach (KateView *v, m_views) {
+      if (v->searchBar(false))
+        v->searchBar(false)->enableHighlights(false);  
+    }
 
     redoItems.last()->redo();
     undoItems.append (redoItems.last());

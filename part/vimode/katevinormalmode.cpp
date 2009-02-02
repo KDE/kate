@@ -470,167 +470,6 @@ bool KateViNormalMode::commandToOtherEnd()
   return false;
 }
 
-KateViRange KateViNormalMode::motionWordForward()
-{
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
-
-  // Special case: If we're already on the very last character in the document, the motion should be
-  // inclusive so the last character gets included
-  if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
-    r.motionType = ViMotion::InclusiveMotion;
-  } else {
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-      c = findNextWordStart( c.line(), c.column() );
-
-      // stop when at the last char in the document
-      if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
-        // if we still haven't "used up the count", make the motion inclusive, so that the last char
-        // is included
-        if ( i < getCount() ) {
-          r.motionType = ViMotion::InclusiveMotion;
-        }
-        break;
-      }
-    }
-  }
-
-  r.endColumn = c.column();
-  r.endLine = c.line();
-
-  return r;
-}
-
-KateViRange KateViNormalMode::motionWordBackward()
-{
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
-
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    c = findPrevWordStart( c.line(), c.column() );
-
-    // stop when at the first char in the document
-    if ( c.line() == 0 && c.column() == 0 ) {
-      break;
-    }
-  }
-
-  r.endColumn = c.column();
-  r.endLine = c.line();
-
-  return r;
-}
-
-KateViRange KateViNormalMode::motionWORDForward()
-{
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
-
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    c = findNextWORDStart( c.line(), c.column() );
-
-    // stop when at the last char in the document
-    if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
-      break;
-    }
-  }
-
-  r.endColumn = c.column();
-  r.endLine = c.line();
-
-  return r;
-}
-
-KateViRange KateViNormalMode::motionWORDBackward()
-{
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
-
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    c = findPrevWORDStart( c.line(), c.column() );
-
-    // stop when at the first char in the document
-    if ( c.line() == 0 && c.column() == 0 ) {
-      break;
-    }
-  }
-
-  r.endColumn = c.column();
-  r.endLine = c.line();
-
-  return r;
-}
-
-KateViRange KateViNormalMode::motionToEndOfWord()
-{
-    KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
-
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        c = findWordEnd( c.line(), c.column() );
-    }
-
-    r.endColumn = c.column();
-    r.endLine = c.line();
-
-    return r;
-}
-
-KateViRange KateViNormalMode::motionToEndOfWORD()
-{
-    KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
-
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        c = findWORDEnd( c.line(), c.column() );
-    }
-
-    r.endColumn = c.column();
-    r.endLine = c.line();
-
-    return r;
-}
-
-KateViRange KateViNormalMode::motionToEndOfPrevWord()
-{
-    KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
-
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-      c = findPrevWordEnd( c.line(), c.column() );
-
-      // stop when at the first char in the document
-      if ( c.line() == 0 && c.column() == 0 ) {
-        break;
-      }
-    }
-
-    r.endColumn = c.column();
-    r.endLine = c.line();
-
-    return r;
-}
-
-KateViRange KateViNormalMode::motionToEndOfPrevWORD()
-{
-    KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
-
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-      c = findPrevWORDEnd( c.line(), c.column() );
-
-      // stop when at the first char in the document
-      if ( c.line() == 0 && c.column() == 0 ) {
-        break;
-      }
-    }
-
-    r.endColumn = c.column();
-    r.endLine = c.line();
-
-    return r;
-}
-
 bool KateViNormalMode::commandDeleteLine()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -1391,6 +1230,183 @@ KateViRange KateViNormalMode::motionRight()
   return r;
 }
 
+KateViRange KateViNormalMode::motionWordForward()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+  m_stickyColumn = -1;
+
+  // Special case: If we're already on the very last character in the document, the motion should be
+  // inclusive so the last character gets included
+  if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
+    r.motionType = ViMotion::InclusiveMotion;
+  } else {
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findNextWordStart( c.line(), c.column() );
+
+      // stop when at the last char in the document
+      if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
+        // if we still haven't "used up the count", make the motion inclusive, so that the last char
+        // is included
+        if ( i < getCount() ) {
+          r.motionType = ViMotion::InclusiveMotion;
+        }
+        break;
+      }
+    }
+  }
+
+  r.endColumn = c.column();
+  r.endLine = c.line();
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionWordBackward()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+  m_stickyColumn = -1;
+
+  for ( unsigned int i = 0; i < getCount(); i++ ) {
+    c = findPrevWordStart( c.line(), c.column() );
+
+    // stop when at the first char in the document
+    if ( c.line() == 0 && c.column() == 0 ) {
+      break;
+    }
+  }
+
+  r.endColumn = c.column();
+  r.endLine = c.line();
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionWORDForward()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+  m_stickyColumn = -1;
+
+  for ( unsigned int i = 0; i < getCount(); i++ ) {
+    c = findNextWORDStart( c.line(), c.column() );
+
+    // stop when at the last char in the document
+    if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
+      break;
+    }
+  }
+
+  r.endColumn = c.column();
+  r.endLine = c.line();
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionWORDBackward()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+  m_stickyColumn = -1;
+
+  for ( unsigned int i = 0; i < getCount(); i++ ) {
+    c = findPrevWORDStart( c.line(), c.column() );
+
+    // stop when at the first char in the document
+    if ( c.line() == 0 && c.column() == 0 ) {
+      break;
+    }
+  }
+
+  r.endColumn = c.column();
+  r.endLine = c.line();
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfWord()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c = findWordEnd( c.line(), c.column() );
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c = findWORDEnd( c.line(), c.column() );
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfPrevWord()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findPrevWordEnd( c.line(), c.column() );
+
+      // stop when at the first char in the document
+      if ( c.line() == 0 && c.column() == 0 ) {
+        break;
+      }
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfPrevWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+      c = findPrevWORDEnd( c.line(), c.column() );
+
+      // stop when at the first char in the document
+      if ( c.line() == 0 && c.column() == 0 ) {
+        break;
+      }
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
 KateViRange KateViNormalMode::motionToEOL()
 {
   m_stickyColumn = -1;
@@ -1427,6 +1443,8 @@ KateViRange KateViNormalMode::motionFindChar()
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
+  m_stickyColumn = -1;
+
   int matchColumn = cursor.column();
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
@@ -1449,6 +1467,8 @@ KateViRange KateViNormalMode::motionFindCharBackward()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
+
+  m_stickyColumn = -1;
 
   int matchColumn = -1;
 
@@ -1478,6 +1498,8 @@ KateViRange KateViNormalMode::motionToChar()
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
+  m_stickyColumn = -1;
+
   int matchColumn = cursor.column()+1;
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
@@ -1498,6 +1520,8 @@ KateViRange KateViNormalMode::motionToCharBackward()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
+
+  m_stickyColumn = -1;
 
   int matchColumn = -1;
 
@@ -1572,6 +1596,8 @@ KateViRange KateViNormalMode::motionToMark()
 {
   KateViRange r;
 
+  m_stickyColumn = -1;
+
   QChar reg = m_keys.at( m_keys.size()-1 );
 
   // ` and ' is the same register (position before jump)
@@ -1599,6 +1625,8 @@ KateViRange KateViNormalMode::motionToMarkLine()
   KateViRange r = motionToMark();
   r.endColumn = 0; // FIXME: should be first non-blank on line
 
+  m_stickyColumn = -1;
+
   r.jump = true;
 
   return r;
@@ -1612,6 +1640,8 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
   int n2;
+
+  m_stickyColumn = -1;
 
   if ( n1 == -1 ) {
     r.valid = false;
@@ -1716,6 +1746,8 @@ KateViRange KateViNormalMode::motionToNextBraceBlockStart()
 {
   KateViRange r;
 
+  m_stickyColumn = -1;
+
   int line = findLineStartingWitchChar( '{', getCount() );
 
   if ( line == -1 ) {
@@ -1733,6 +1765,8 @@ KateViRange KateViNormalMode::motionToNextBraceBlockStart()
 KateViRange KateViNormalMode::motionToPreviousBraceBlockStart()
 {
   KateViRange r;
+
+  m_stickyColumn = -1;
 
   int line = findLineStartingWitchChar( '{', getCount(), false );
 
@@ -1752,6 +1786,8 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
 {
   KateViRange r;
 
+  m_stickyColumn = -1;
+
   int line = findLineStartingWitchChar( '}', getCount() );
 
   if ( line == -1 ) {
@@ -1769,6 +1805,8 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
 KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 {
   KateViRange r;
+
+  m_stickyColumn = -1;
 
   int line = findLineStartingWitchChar( '{', getCount(), false );
 

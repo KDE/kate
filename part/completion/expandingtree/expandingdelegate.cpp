@@ -72,6 +72,8 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
 {
   QStyleOptionViewItem option(optionOld);
 
+  m_currentIndex = index;
+  
   adjustStyle(index, option);
     
   if( index.column() == 0 )
@@ -91,11 +93,10 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   m_cachedHighlights.clear();
   m_backgroundColor = getUsedBackgroundColor(option, index);
 
-  if (!model()->indexIsItem(index) )
-      return QItemDelegate::paint(painter, option, index);
-
-  m_currentColumnStart = 0;
-  m_cachedHighlights = createHighlighting(index, option);
+  if (model()->indexIsItem(index) ) {
+    m_currentColumnStart = 0;
+    m_cachedHighlights = createHighlighting(index, option);
+  }
 
   /*kDebug( 13035 ) << "Highlights for line:";
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
@@ -133,11 +134,24 @@ void ExpandingDelegate::adjustStyle( const QModelIndex& index, QStyleOptionViewI
 {
 }
 
-void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
+void ExpandingDelegate::adjustRect(QRect& rect) const {
+  if (!model()->indexIsItem(m_currentIndex) /*&& m_currentIndex.column() == 0*/) {
+    
+    rect.setLeft(model()->treeView()->columnViewportPosition(0));
+    int columnCount = model()->columnCount(m_currentIndex.parent());
+    
+    if(!columnCount)
+      return;
+    rect.setRight(model()->treeView()->columnViewportPosition(columnCount-1) + model()->treeView()->columnWidth(columnCount-1));
+  }
+}
+
+void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & _rect, const QString & text ) const
 {
-/*  if (m_cachedRow == -1)
-    return QItemDelegate::drawDisplay(painter, option, rect, text);
-*/
+  QRect rect(_rect);
+
+  adjustRect(rect);
+
   QTextLayout layout(text, option.font, painter->device());
 
   QRect textRect = rect.adjusted(1, 0, -1, 0); // remove width padding
@@ -251,6 +265,11 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   //if (painter->fontMetrics().width(text) > textRect.width() && !text.contains(QLatin1Char('\n')))
       //str = elidedText(option.fontMetrics, textRect.width(), option.textElideMode, text);
   //qt_format_text(option.font, textRect, option.displayAlignment, str, 0, 0, 0, 0, painter);
+}
+
+void ExpandingDelegate::drawDecoration(QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QPixmap& pixmap) const {
+  if (model()->indexIsItem(m_currentIndex) )
+    QItemDelegate::drawDecoration(painter, option, rect, pixmap);
 }
 
 void ExpandingDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const {

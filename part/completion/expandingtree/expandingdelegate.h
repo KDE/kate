@@ -60,9 +60,12 @@ class ExpandingDelegate : public QItemDelegate
     virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
     virtual void drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    virtual void drawDecoration(QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QPixmap& pixmap) const;
     //option can be changed
     virtual QList<QTextLayout::FormatRange> createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const;
 
+    void adjustRect(QRect& rect) const;
+    
     /**
      * Creates a list of FormatRanges as should be returned by createHighlighting from a list of QVariants as described in the kde header ktexteditor/codecompletionmodel.h
      * */
@@ -80,6 +83,7 @@ class ExpandingDelegate : public QItemDelegate
   
     mutable Qt::Alignment m_cachedAlignment;
     mutable QColor m_backgroundColor;
+    mutable QModelIndex m_currentIndex;
   private:
 
     ExpandingWidgetModel* m_model;

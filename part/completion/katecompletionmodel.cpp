@@ -94,7 +94,7 @@ void HierarchicalModelHandler::takeRole(const QModelIndex& index) {
   if( v.isValid() && v.canConvert(QVariant::Int) ) {
     QVariant value = index.data(v.toInt());
     if(v.toInt() == Qt::DisplayRole) {
-      m_customGroup = value.toString();
+      m_customGroup = index.data(Qt::DisplayRole).toString();
       QVariant sortingKey = index.data(CodeCompletionModel::InheritanceDepth);
       if(sortingKey.canConvert(QVariant::Int))
         m_groupSortingKey = sortingKey.toInt();
@@ -266,11 +266,11 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
 
   //Returns a nonzero group if this index is the head of a group(A Label in the list)
   Group* g = groupForIndex(index);
-
+  
   if (g && (!g->isEmpty)) {
     switch (role) {
       case Qt::DisplayRole:
-        if (!index.column())
+          //We return the group-header for all columns, ExpandingDelegate will paint them properly over the whole space
           return ' ' + g->title;
         break;
 
@@ -1531,10 +1531,12 @@ KateCompletionModel::Item::Item( bool doInitialMatch, KateCompletionModel* m, co
   , matchFilters(true)
   , m_haveExactMatch(false)
 {
+  
   inheritanceDepth = handler.getData(CodeCompletionModel::InheritanceDepth, m_sourceRow.second).toInt();
 
-  m_nameColumn = sr.second.sibling(sr.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
-  
+  QModelIndex nameSibling = sr.second.sibling(sr.second.row(), CodeCompletionModel::Name);
+  m_nameColumn = nameSibling.data(Qt::DisplayRole).toString();
+
   if(doInitialMatch) {
     filter();
     match();

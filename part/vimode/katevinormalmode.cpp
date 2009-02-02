@@ -484,8 +484,8 @@ bool KateViNormalMode::commandDeleteLine()
   bool ret = deleteRange( r, true );
 
   c = m_view->cursorPosition();
-  if ( column > getLine().length()-1 ) {
-    column = getLine().length()-1;
+  if ( column > doc()->lineLength( c.line() )-1 ) {
+    column = doc()->lineLength( c.line() )-1;
   }
   if ( column < 0 ) {
     column = 0;
@@ -720,7 +720,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  c.setColumn( getLine().length() );
+  c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
@@ -914,7 +914,7 @@ bool KateViNormalMode::commandPaste()
 
   if ( textToInsert.indexOf('\n') != -1 ) { // lines
     textToInsert.chop( 1 ); // remove the last \n
-    c.setColumn( getLine().length() ); // paste after the current line and ...
+    c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
     textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
 
     cAfter.setLine( cAfter.line()+1 );
@@ -1411,7 +1411,7 @@ KateViRange KateViNormalMode::motionToEOL()
 {
   m_stickyColumn = -1;
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), getLine().length()-1, ViMotion::InclusiveMotion );
+  KateViRange r( c.line(), doc()->lineLength( c.line() )-1, ViMotion::InclusiveMotion );
 
   return r;
 }

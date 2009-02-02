@@ -2805,7 +2805,7 @@ KateCmdLine *KateView::cmdLine ()
 
 KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
-  if (initHintAsPower && !m_searchBar) {
+  if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this);
     m_bottomViewBar->addBarWidget(m_searchBar);
   }

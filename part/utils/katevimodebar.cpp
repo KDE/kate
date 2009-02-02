@@ -27,6 +27,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QHBoxLayout>
 #include <QTimer>
+#include <QTextDocument>
 
 #include "klocale.h"
 
@@ -81,7 +82,7 @@ void KateViModeBar::showErrorMessage(const QString &msg)
   if ( m_timer ) {
     m_timer->stop();
   }
-  m_labelMessage->setText(QString("<font color=\"red\">")+msg+"</font>");
+  m_labelMessage->setText(QString("<font color=\"red\">")+Qt::escape(msg)+"</font>");
 }
 
 void KateViModeBar::clearMessage()

@@ -23,6 +23,7 @@
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/cursor.h>
+#include "codecompletionmodel.h"
 
 class QModelIndex;
 
@@ -158,8 +159,24 @@ public:
     virtual void aborted(View* view);
 };
 
+///Extension of CodeCompletionModelControllerInterface
+class KTEXTEDITOR_EXPORT CodeCompletionModelControllerInterface2 : public CodeCompletionModelControllerInterface {
+  public:
+    enum MatchReaction {
+      None,
+      HideListIfAutomaticInvocation
+    };
+    /**
+     * Called whenever an item in the completion-list perfectly matches the current filter text.
+     * \param The index that is matched
+     * \return Whether the completion-list should be hidden on this event. The default-implementation always returns HideListIfAutomaticInvocation
+     */
+    virtual MatchReaction matchingItem(const QModelIndex& matched);
+};
+
 }
 
 Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface, "org.kde.KTextEditor.CodeCompletionModelControllerInterface")
+Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface2, "org.kde.KTextEditor.CodeCompletionModelControllerInterface2")
 
 #endif // KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODELCONTROLLERINTERFACE_H

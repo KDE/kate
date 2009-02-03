@@ -103,4 +103,8 @@ bool CodeCompletionModelControllerInterface::shouldExecute(const QModelIndex& in
   return false;
 }
 
+KTextEditor::CodeCompletionModelControllerInterface2::MatchReaction CodeCompletionModelControllerInterface2::matchingItem(const QModelIndex& selected) {
+  return HideListIfAutomaticInvocation;
+}
+
 }

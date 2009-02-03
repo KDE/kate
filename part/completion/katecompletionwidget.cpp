@@ -189,9 +189,9 @@ void KateCompletionWidget::modelContentChanged() {
   
   if(hideAutomaticCompletionOnExactMatch && !isHidden() && 
      m_lastInvocationType == KTextEditor::CodeCompletionModel::AutomaticInvocation && 
-     m_presentationModel->haveExactMatch())
+     m_presentationModel->shouldMatchHideCompletionList())
     hide();
-  else if(isHidden() && !m_presentationModel->haveExactMatch() && 
+  else if(isHidden() && !m_presentationModel->shouldMatchHideCompletionList() && 
                          m_presentationModel->rowCount(QModelIndex()))
     show();
 }
@@ -360,7 +360,7 @@ void KateCompletionWidget::updateAndShow()
   } else
     m_argumentHintTree->hide();
   
-  if (m_presentationModel->rowCount() && (!m_presentationModel->haveExactMatch() || 
+  if (m_presentationModel->rowCount() && (!m_presentationModel->shouldMatchHideCompletionList() || 
                                            !hideAutomaticCompletionOnExactMatch  || 
                                            m_lastInvocationType != KTextEditor::CodeCompletionModel::AutomaticInvocation) )
     show();

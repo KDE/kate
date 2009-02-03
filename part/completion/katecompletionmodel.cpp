@@ -34,6 +34,7 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 using namespace KTextEditor;
 
@@ -604,7 +605,7 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
     g = m_argumentHints;
   } else{
     QString customGroup = handler.customGroup();
-    if(!customGroup.isNull()) {
+    if(!customGroup.isNull() && m_hasGroups) {
       if(m_customGroupHash.contains(customGroup)) {
         g = m_customGroupHash[customGroup];
       }else{
@@ -1801,13 +1802,16 @@ bool KateCompletionModel::Item::filter( )
   return matchFilters;
 }
 
-bool KateCompletionModel::haveExactMatch() const {
+bool KateCompletionModel::shouldMatchHideCompletionList() const {
 //   return m_haveExactMatch;
   ///@todo Make this faster
   foreach(Group* group, m_rowTable)
     foreach(const Item& item, group->filtered)
-      if(item.haveExactMatch())
-        return true;
+      if(item.haveExactMatch()) {
+        KTextEditor::CodeCompletionModelControllerInterface2* iface2 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface2*>(item.sourceRow().first);
+        if(!iface2 || iface2->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface2::HideListIfAutomaticInvocation)
+          return true;
+      }
   return false;
 }
 
@@ -1826,10 +1830,10 @@ KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
   
   matchCompletion = (m_nameColumn.startsWith(match, model->matchCaseSensitivity()) ? StartsWithMatch : NoMatch);
 
-  if(matchCompletion && match.length() == m_nameColumn.length())
+  if(matchCompletion && match.length() == m_nameColumn.length()) {
     matchCompletion = PerfectMatch;
-  
-  m_haveExactMatch = (matchCompletion == PerfectMatch);
+    m_haveExactMatch = true;
+  }
   
   return matchCompletion;
 }

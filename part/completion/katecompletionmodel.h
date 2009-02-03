@@ -166,7 +166,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     void debugStats();
 
     ///Returns whether one of the filtered items exactly matches its completion string
-    bool haveExactMatch() const;
+    bool shouldMatchHideCompletionList() const;
     
   protected:
     virtual int contextMatchQuality(const QModelIndex& row) const;

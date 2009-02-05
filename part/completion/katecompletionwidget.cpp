@@ -638,8 +638,6 @@ void KateCompletionWidget::execute()
 
   QModelIndex toExecute;
   
-  KTextEditor::Cursor oldPos = view()->cursorPosition();
-  
   if(index.model() == m_presentationModel)
     toExecute = m_presentationModel->mapToSource(index);
   else
@@ -653,6 +651,8 @@ void KateCompletionWidget::execute()
   // encapsulate all editing as being from the code completion, and undo-able in one step.
   view()->doc()->editStart(true, Kate::CodeCompletionEdit);
 
+  KTextEditor::SmartCursor* oldPos = view()->doc()->smartManager()->newSmartCursor(view()->cursorPosition(), KTextEditor::SmartCursor::StayOnInsert);
+  
   KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
   Q_ASSERT(model);
 
@@ -683,13 +683,18 @@ void KateCompletionWidget::execute()
   view()->sendCompletionExecuted(start, model, toExecute);
   
   KTextEditor::Cursor newPos = view()->cursorPosition();
-  if(newPos > oldPos) {
+
+  if(newPos > *oldPos) {
     m_automaticInvocationAt = newPos;
-    m_automaticInvocationLine = view()->doc()->text(KTextEditor::Range(oldPos, newPos));
+    m_automaticInvocationLine = view()->doc()->text(KTextEditor::Range(*oldPos, newPos));
     kDebug() << "executed, starting automatic invocation with line" << m_automaticInvocationLine;
     m_lastInsertionByUser = false;
     m_automaticInvocationTimer->start();
   }
+  
+  view()->doc()->smartMutex()->lock();
+  delete oldPos;
+  view()->doc()->smartMutex()->unlock();
 }
 
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )

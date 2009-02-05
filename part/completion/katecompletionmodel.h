@@ -294,7 +294,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     ///i must be an index in the source model
     QSet<Group*> deleteItems(const QModelIndex& i);
     Group* createItem(const HierarchicalModelHandler&, const QModelIndex& i, bool notifyModel = false);
-    void clearGroups();
+    void clearGroups(bool reset = true);
     void hideOrShowGroup(Group* g);
     /// When forceGrouping is enabled, all given attributes will be used for grouping, regardless of the completion settings.
     Group* fetchGroup(int attribute, const QString& scope = QString(), bool forceGrouping = false);

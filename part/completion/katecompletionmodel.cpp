@@ -493,7 +493,7 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
   return createIndex(row, 0, 0);
 }
 
-void KateCompletionModel::clearGroups( )
+void KateCompletionModel::clearGroups( bool shouldReset )
 {
   clearExpanding();
   m_ungrouped->clear();
@@ -526,7 +526,8 @@ void KateCompletionModel::clearGroups( )
   m_emptyGroups.append(m_bestMatches);
   m_groupHash.insert(BestMatchesProperty, m_bestMatches);
 
-  reset();
+  if(shouldReset)
+    reset();
 }
 
 QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const HierarchicalModelHandler& _handler, const QModelIndex& i, bool notifyModel) {
@@ -565,7 +566,7 @@ QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelI
 
 void KateCompletionModel::createGroups()
 {
-  clearGroups();
+  clearGroups(false); //Reset is done below
 
   bool has_groups=false;
   foreach (CodeCompletionModel* sourceModel, m_completionModels) {
@@ -1994,7 +1995,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
 
   m_currentMatch.remove(model);
 
-  clearGroups();
+  clearGroups(false);
 
   model->disconnect(this);
 
@@ -2005,6 +2006,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
     createGroups();
   }else{
     emit contentGeometryChanged();
+    reset();
   }
 }
 
@@ -2091,8 +2093,6 @@ void KateCompletionModel::clearCompletionModels()
   m_currentMatch.clear();
 
   clearGroups();
-
-  reset();
 }
 
 #include "katecompletionmodel.moc"

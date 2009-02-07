@@ -649,7 +649,7 @@
       <item> PATH </item>
       <item> POINT </item>
       <item> POLYGON </item>
-      <!-- network address type, TEXT is omitted as its more commonly a data type -->
+      <!-- network address type, TEXT is omitted as it is more commonly a data type -->
       <item> BROADCAST </item>
       <item> HOST </item>
       <item> MASKLEN </item>

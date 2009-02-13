@@ -24,8 +24,9 @@
 
 #include <kxmlguiclient.h>
 #include <QtCore/QObject>
-#include <jobclasses.h>
+#include <kjob.h>
 #include <kurl.h>
+#include <kio/job.h>
 
 class InsertFilePlugin : public KTextEditor::Plugin
 {

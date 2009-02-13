@@ -5,7 +5,8 @@ set(ktexteditor_docwordcompletion_PART_SRCS docwordcompletion.cpp docwordcomplet
 
 kde4_add_plugin(ktexteditor_docwordcompletion ${ktexteditor_docwordcompletion_PART_SRCS} )
 
-target_link_libraries(ktexteditor_docwordcompletion ${KDE4_KDECORE_LIBS} ktexteditor kio kdeui)
+target_link_libraries(ktexteditor_docwordcompletion ${KDE4_KDECORE_LIBS}
+${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KDEUI_LIBS} )
 
 install(TARGETS ktexteditor_docwordcompletion DESTINATION ${PLUGIN_INSTALL_DIR} )
 

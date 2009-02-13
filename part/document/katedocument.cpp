@@ -51,7 +51,7 @@
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <kio/netaccess.h>
-#include <kio/kfileitem.h>
+#include <kfileitem.h>
 
 #include <kparts/event.h>
 
@@ -74,7 +74,7 @@
 #include <kstandarddirs.h>
 #include <kstringhandler.h>
 
-#include <services/kservicetypetrader.h>
+#include <kservicetypetrader.h>
 
 #include <QtDBus/QtDBus>
 #include <QtCore/QTimer>

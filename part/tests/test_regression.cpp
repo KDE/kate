@@ -32,7 +32,7 @@
 #include "kateconfig.h"
 #include "katecmd.h"
 #include "kateglobal.h"
-#include "interfaces/ktexteditor/commandinterface.h"
+#include <ktexteditor/commandinterface.h>
 #include "completiontest.h"
 
 #include <kapplication.h>

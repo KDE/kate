@@ -52,8 +52,8 @@ class View;
  * The Document class represents a pure text document providing methods to
  * modify the content and create views. A document can have any number
  * of views, each view representing the same content, i.e. all views are
- * synchronized. Support for text selection is handeled by a View and text
- * format attribues by the Attribute class.
+ * synchronized. Support for text selection is handled by a View and text
+ * format attributes by the Attribute class.
  *
  * To load a document call KParts::ReadOnlyPart::openUrl().
  * To reload a document from a file call documentReload(), to save the
@@ -73,9 +73,9 @@ class View;
  * textInserted() and textRemoved(). Note, that the first line in the
  * document is line 0.
  *
- * If the editor part supports it a document provides full undo/redo history.
+ * If the editor part supports it, a document provides full undo/redo history.
  * Text manipulation actions can be grouped together using startEditing()
- * and endEditing(). All actions inbetween are grouped together to only one
+ * and endEditing(). All actions in between are grouped together to only one
  * undo/redo action. Due to internal reference counting you can call
  * startEditing() and endEditing() as often as you wish, but make sure you
  * call endEditing() exactly as often as you call startEditing(), otherwise
@@ -83,7 +83,7 @@ class View;
  *
  * \section doc_views Document Views
  *
- * A View displays the document's content. As already mentioned a document
+ * A View displays the document's content. As already mentioned, a document
  * can have any number of views, all synchronized. Get a list of all views
  * with views(). Only one of the views can be active (i.e. has focus), get
  * it by using activeView(). Create a new view with createView(). Every time

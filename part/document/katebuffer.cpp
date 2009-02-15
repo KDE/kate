@@ -524,7 +524,7 @@ bool KateBuffer::openFile (const QString &m_file)
 
   bool ok = false;
   KDE_struct_stat sbuf;
-  if (KDE::stat(m_file, &sbuf) == 0)
+  if (KDE_stat(QFile::encodeName(m_file), &sbuf) == 0)
   {
     if (S_ISREG(sbuf.st_mode) && file.open())
       ok = true;

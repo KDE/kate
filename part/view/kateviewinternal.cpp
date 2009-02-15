@@ -543,7 +543,7 @@ void KateViewInternal::scrollColumns ( int x )
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
   QMutexLocker lock(m_doc->smartMutex());
-
+  
   doUpdateView(changed, viewLinesScrolled);
 
   if (changed)
@@ -552,6 +552,9 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
+  if(!isVisible() && !viewLinesScrolled)
+    return; //When this view is not visible, don't do anything
+    
   m_updatingView = true;
 
   bool blocked = m_lineScroll->blockSignals(true);
@@ -3588,25 +3591,29 @@ void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
     relayoutRange(oldRange);
   }*/
 
-  relayoutRange(*range);
+  if(range->attribute())
+    relayoutRange(*range);
 }
 
 void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 {
-  relayoutRange(*range);
+  if(range->attribute())
+    relayoutRange(*range);
 }
 
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   QMutexLocker lock(m_doc->smartMutex());
 
-  relayoutRange(*child);
+  if(child->attribute() || child->childRanges().count())
+    relayoutRange(*child);
+  
   addWatcher(child, this);
 }
 
 void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute )
 {
-  if (currentAttribute != previousAttribute)
+  if (currentAttribute != previousAttribute && !(currentAttribute && previousAttribute && *currentAttribute == *previousAttribute))
     relayoutRange(*range);
 }
 
@@ -3614,7 +3621,8 @@ void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor
 {
   QMutexLocker lock(m_doc->smartMutex());
 
-  relayoutRange(*child);
+  if(child->attribute() || child->childRanges().count())
+    relayoutRange(*child);
   removeWatcher(child, this);
 }
 

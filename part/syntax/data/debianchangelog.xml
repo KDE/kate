@@ -53,12 +53,18 @@
             <item>hardy-updates</item>
             <item>hardy-backports</item>
             <item>hardy-partner</item>
-            <item>ibex</item>
-            <item>ibex-security</item>
-            <item>ibex-proposed</item>
-            <item>ibex-updates</item>
-            <item>ibex-backports</item>
-            <item>ibex-partner</item>
+            <item>intrepid</item>
+            <item>intrepid-security</item>
+            <item>intrepid-proposed</item>
+            <item>intrepid-updates</item>
+            <item>intrepid-backports</item>
+            <item>intrepid-partner</item>
+            <item>jaunty</item>
+            <item>jaunty-security</item>
+            <item>jaunty-proposed</item>
+            <item>jaunty-updates</item>
+            <item>jaunty-backports</item>
+            <item>jaunty-partner</item>
         </list>
 
         <list name="urgencies">

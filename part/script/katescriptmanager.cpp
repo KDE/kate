@@ -107,7 +107,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     // stat the file to get the last-modified-time
     KDE_struct_stat sbuf;
     memset(&sbuf, 0, sizeof(sbuf));
-    KDE_stat(QFile::encodeName(*fileit), &sbuf);
+    KDE::stat(*fileit, &sbuf);
 
     // check whether file is already cached
     bool useCache = false;
@@ -120,8 +120,8 @@ void KateScriptManager::collect(const QString& resourceFile,
     QHash<QString, QString> pairs;
     if(useCache) {
       const QMap<QString, QString> entries = config.entryMap();
-      for(QMap<QString, QString>::ConstIterator entry = entries.begin();
-          entry != entries.end();
+      for(QMap<QString, QString>::ConstIterator entry = entries.constBegin();
+          entry != entries.constEnd();
           ++entry)
         pairs[entry.key()] = entry.value();
     }

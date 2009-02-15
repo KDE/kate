@@ -330,6 +330,15 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
         bestMatch = m;
     }
   }
+  
+  if(m_argumentHints->filtered.isEmpty()) {
+    QVariant matchQuality = realIndex.data(CodeCompletionModel::MatchQuality);
+    if( matchQuality.isValid() && matchQuality.type() == QVariant::Int ) {
+      int m = matchQuality.toInt();
+      if( m > bestMatch )
+        bestMatch = m;
+    }
+  }
 
   return bestMatch;
 }

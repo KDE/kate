@@ -121,13 +121,14 @@ QModelIndex ExpandingWidgetModel::partiallyExpandedRow() const {
 void ExpandingWidgetModel::clearExpanding() {
     
     clearMatchQualities();
-    QMap<QPersistentModelIndex,ExpandingWidgetModel::ExpandingType> oldExpandState = m_expandState;
+    QMap<QModelIndex,ExpandingWidgetModel::ExpandingType> oldExpandState = m_expandState;
     foreach( QPointer<QWidget> widget, m_expandingWidgets )
       delete widget;
     m_expandingWidgets.clear();
     m_expandState.clear();
+    m_partiallyExpanded.clear();
 
-    for( QMap<QPersistentModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.constBegin(); it != oldExpandState.constEnd(); ++it )
+    for( QMap<QModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.constBegin(); it != oldExpandState.constEnd(); ++it )
       if(it.value() == Expanded)
       	emit dataChanged(it.key(), it.key());
 }
@@ -408,7 +409,7 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
 }
 
 void ExpandingWidgetModel::placeExpandingWidgets() {
-  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
+  for( QMap<QModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
     placeExpandingWidget(it.key());
   }
 }
@@ -416,7 +417,7 @@ void ExpandingWidgetModel::placeExpandingWidgets() {
 int ExpandingWidgetModel::expandingWidgetsHeight() const
 {
   int sum = 0;
-  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
+  for( QMap<QModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
     if( isExpanded(it.key() ) && (*it) )
       sum += (*it)->height();
   }

@@ -139,11 +139,11 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     int basicRowHeight( const QModelIndex& index ) const;
     
     private:
-    QMap<QPersistentModelIndex, ExpansionType> m_partiallyExpanded;
+    QMap<QModelIndex, ExpansionType> m_partiallyExpanded;
     // Store expanding-widgets and cache whether items can be expanded
-    mutable QMap<QPersistentModelIndex, ExpandingType> m_expandState;
-    QMap< QPersistentModelIndex, QPointer<QWidget> > m_expandingWidgets; //Map rows to their expanding-widgets
-    QMap< QPersistentModelIndex, int > m_contextMatchQualities; //Map rows to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
+    mutable QMap<QModelIndex, ExpandingType> m_expandState;
+    QMap< QModelIndex, QPointer<QWidget> > m_expandingWidgets; //Map rows to their expanding-widgets
+    QMap< QModelIndex, int > m_contextMatchQualities; //Map rows to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
 };
 
 

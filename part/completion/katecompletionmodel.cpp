@@ -293,19 +293,18 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   return QVariant();
 }
 
-int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
-  //Return the best match with any of the argument-hints
+int KateCompletionModel::contextMatchQuality(const QModelIndex& index) const {
+  if(!index.isValid())
+    return 0;
+  Group* g = groupOfParent(index);
+  if(!g || g->filtered.size() < index.row())
+    return 0;
+  
+  return contextMatchQuality(g->filtered[index.row()].sourceRow());
+}
 
-  if( !idx.isValid() )
-    return -1;
-
-  Group* g = groupOfParent(idx);
-  if( !g )
-    return -1;
-
-  ModelRow source = g->filtered[idx.row()].sourceRow();
+int KateCompletionModel::contextMatchQuality(const ModelRow& source) const {
   QModelIndex realIndex = source.second;
-
 
   int bestMatch = -1;
   //Iterate through all argument-hints and find the best match-quality
@@ -593,9 +592,10 @@ void KateCompletionModel::createGroups()
   foreach (Group* g, m_emptyGroups)
     hideOrShowGroup(g);
 
+  updateBestMatches();
+  
   reset();
 
-  updateBestMatches();
   emit contentGeometryChanged();
 }
 
@@ -2026,6 +2026,46 @@ void KateCompletionModel::updateBestMatches() {
   //Maps match-qualities to ModelRows paired together with the BestMatchesCount returned by the items.
   typedef QMultiMap<int, QPair<int, ModelRow> > BestMatchMap;
   BestMatchMap matches;
+  
+  if(!hasGroups()) {
+    //If there is no grouping, just change the order of the items, moving the best matching ones to the front
+    QMultiMap<int, int> rowsForQuality;
+    
+    int row = 0;
+    foreach(const Item& item, m_ungrouped->filtered) {
+      ModelRow source = item.sourceRow();
+      
+      QVariant v = source.second.data(CodeCompletionModel::BestMatchesCount);
+
+      if( v.type() == QVariant::Int && v.toInt() > 0 ) {
+        int quality = contextMatchQuality(source);
+        if(quality > 0)
+          rowsForQuality.insert(quality, row);
+      }
+      
+      ++row;
+    }
+    
+    if(!rowsForQuality.isEmpty()) {
+      //Rewrite m_ungrouped->filtered in a new order
+      QSet<int> movedToFront;
+      QList<Item> newFiltered;
+      for(QMultiMap<int, int>::const_iterator it = rowsForQuality.begin(); it != rowsForQuality.end(); ++it) {
+        newFiltered.prepend(m_ungrouped->filtered[it.value()]);
+        movedToFront.insert(it.value());
+      }
+      
+      {
+        uint size = m_ungrouped->filtered.size();
+        for(int a = 0; a < size; ++a)
+          if(!movedToFront.contains(a))
+            newFiltered.append(m_ungrouped->filtered[a]);
+      }
+      m_ungrouped->filtered = newFiltered;
+    }
+    return;
+  }
+  
   ///@todo Cache the CodeCompletionModel::BestMatchesCount
   int maxMatches = 50; //We cannot do too many operations here, because they are all executed whenever a character is added. Would be nice if we could split the operations up somewhat using a timer.
   foreach (Group* g, m_rowTable) {
@@ -2033,12 +2073,14 @@ void KateCompletionModel::updateBestMatches() {
       continue;
     for( int a = 0; a < g->filtered.size(); a++ )
     {
-      QModelIndex index = indexForGroup(g).child(a,0);
+      ModelRow source = g->filtered[a].sourceRow();
 
-      QVariant v = index.data(CodeCompletionModel::BestMatchesCount);
+      QVariant v = source.second.data(CodeCompletionModel::BestMatchesCount);
 
       if( v.type() == QVariant::Int && v.toInt() > 0 ) {
-        int quality = contextMatchQuality(index);
+        //Return the best match with any of the argument-hints
+
+        int quality = contextMatchQuality(source);
         if( quality > 0 )
           matches.insert(quality, qMakePair(v.toInt(), g->filtered[a].sourceRow()));
         --maxMatches;
@@ -2066,6 +2108,7 @@ void KateCompletionModel::updateBestMatches() {
   }
 
   m_bestMatches->filtered.clear();
+  
   it = matches.constEnd();
 
   while( it != matches.constBegin() && cnt > 0 )

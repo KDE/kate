@@ -12,6 +12,7 @@ Name[sv]=Flikrad
 Name[uk]=Панель вкладок
 Name[x-test]=xxTab Barxx
 Name[zh_CN]=标签栏
+Name[zh_TW]=分頁列
 Comment=Adds a tab bar to Kate's main window
 Comment[ca]=Afegeix una barra de pestanyes a la finestra principal del Kate
 Comment[da]=Tilføjer en fanebladslinje til Kates hovedvindue

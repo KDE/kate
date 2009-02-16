@@ -13,6 +13,7 @@ Name[sv]=Bläddring i bakåtspårning
 Name[uk]=Переглядач зворотного трасування
 Name[x-test]=xxBacktrace Browserxx
 Name[zh_CN]=回溯浏览器
+Name[zh_TW]=回溯追蹤瀏覽器
 Comment=Backtrace navigation tool view
 Comment[da]=Værktøjsvisning til gennemse backtrace
 Comment[de]=Ansicht zur Navigation in Backtraces

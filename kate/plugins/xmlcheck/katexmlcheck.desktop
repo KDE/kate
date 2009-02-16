@@ -13,6 +13,7 @@ Name[sv]=XML-validering
 Name[uk]=Перевірка XML
 Name[x-test]=xxXML Validationxx
 Name[zh_CN]=XML 校验
+Name[zh_TW]=XML 檢查器
 Comment=Validates XML files using xmllint
 Comment[ca]=Valida els fitxers XML usant el xmllint
 Comment[da]=Validerer XML-filer ved brug af xmllint

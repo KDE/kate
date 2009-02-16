@@ -48,5 +48,6 @@ Comment[sv]=Skicka filer via e-post
 Comment[uk]=Надіслати файли електронною поштою
 Comment[x-test]=xxSend files via emailxx
 Comment[zh_CN]=通过电子邮件发送文件
+Comment[zh_TW]=透過電子郵件傳送檔案
 X-Kate-MajorProfiles=Kate
 X-Kate-MinorProfiles=*

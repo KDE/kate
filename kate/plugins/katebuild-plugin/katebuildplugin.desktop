@@ -14,6 +14,7 @@ Name[sv]=Bygginsticksprogram
 Name[uk]=Додаток для збирання
 Name[x-test]=xxBuild Pluginxx
 Name[zh_CN]=构建插件
+Name[zh_TW]=編譯外掛程式
 Comment=Compile or Make and parse error messages
 Comment[da]=Oversættelse eller Make og fortolkning af fejlmeddelelser
 Comment[de]=Kompilieren oder Make aufrufen und Fehlermeldungen ausgeben

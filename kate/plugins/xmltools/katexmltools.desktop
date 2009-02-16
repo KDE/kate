@@ -13,6 +13,7 @@ Name[sv]=XML-komplettering
 Name[uk]=Завершення XML
 Name[x-test]=xxXML Completionxx
 Name[zh_CN]=XML 补全
+Name[zh_TW]=XML 補完
 Comment=Lists XML elements, attributes, attribute values and entities allowed by DTD
 Comment[ca]=Llista els elements XML, atributs, valors dels atributs i entitats permeses pel DTD
 Comment[da]=Lister XML-elementer, attributter, attributværdier og elementer tilladt af DTD

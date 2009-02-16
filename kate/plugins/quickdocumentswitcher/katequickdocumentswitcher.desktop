@@ -13,6 +13,7 @@ Name[sv]=Snabbdokumentbyte
 Name[uk]=Швидкий перемикач між документами
 Name[x-test]=xxQuick Document switcherxx
 Name[zh_CN]=快速文档切换
+Name[zh_TW]=快速文件切換器
 Comment=Quickly switch to another already opened document
 Comment[ca]=Commuta ràpidament a un document obert prèviament
 Comment[da]=Skift hurtigt til et andet allerede åbnet dokument

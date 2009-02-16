@@ -13,6 +13,7 @@ Name[sv]=Öppna deklarationsfil
 Name[uk]=Відкрити заголовок
 Name[x-test]=xxOpen Headerxx
 Name[zh_CN]=打开头文件
+Name[zh_TW]=開啟標頭
 Comment=Opens the corresponding .h/[.cpp|.c] file
 Comment[ca]=Obre el fitxer .h/[.cpp|.c] corresponent
 Comment[da]=Åbner den tilhørende .h/[.cpp|.c]-fil

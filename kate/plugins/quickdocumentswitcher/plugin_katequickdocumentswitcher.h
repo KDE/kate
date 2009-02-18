@@ -30,6 +30,7 @@
 #include <qsortfilterproxymodel.h>
 
 class QListView;
+class QTreeView;
 class KLineEdit;
 
 class PluginKateQuickDocumentSwitcher : public Kate::Plugin {
@@ -62,7 +63,7 @@ class PluginViewKateQuickDocumentSwitcherDialog: public KDialog {
         void reselectFirst();
     private:
         QSortFilterProxyModel *m_model;
-        QListView *m_listView;
+        QTreeView *m_listView;
         KLineEdit *m_inputLine;
 };
 

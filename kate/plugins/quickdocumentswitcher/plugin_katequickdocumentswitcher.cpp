@@ -29,7 +29,7 @@
 #include <klineedit.h>
 #include <kactioncollection.h>
 #include <kaction.h>
-#include <qlistview.h>
+#include <qtreeview.h>
 #include <qwidget.h>
 #include <qboxlayout.h>
 #include <qstandarditemmodel.h>
@@ -37,8 +37,12 @@
 #include <qevent.h>
 #include <qlabel.h>
 #include <qcoreapplication.h>
+#include <QDesktopWidget>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
+
+const int DocumentRole=Qt::UserRole+1;
+const int SortFilterRole=Qt::UserRole+2;
 
 K_PLUGIN_FACTORY(KateQuickDocumentSwitcherFactory, registerPlugin<PluginKateQuickDocumentSwitcher>();)
 K_EXPORT_PLUGIN(KateQuickDocumentSwitcherFactory(KAboutData("katequickdocumentswitcher","katequickdocumentswitcher",ki18n("Quick Document Switcher"), "0.1", ki18n("Quickly switch between documents"), KAboutData::License_LGPL_V2)) )
@@ -91,7 +95,7 @@ KTextEditor::Document *PluginViewKateQuickDocumentSwitcherDialog::document(QWidg
     if (QDialog::Accepted==dlg.exec()) {
         QModelIndex idx(dlg.m_listView->currentIndex());
         if (idx.isValid()) {
-            QVariant _doc=idx.data(Qt::UserRole+1);
+            QVariant _doc=idx.data(DocumentRole);
             QPointer<KTextEditor::Document> doc=_doc.value<QPointer<KTextEditor::Document> >();
             return (KTextEditor::Document*)doc;
         }
@@ -102,6 +106,7 @@ KTextEditor::Document *PluginViewKateQuickDocumentSwitcherDialog::document(QWidg
 PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDialog(QWidget *parent):
     KDialog(parent) {
     setModal(true);
+
     setButtons( KDialog::Ok | KDialog::Cancel);
     setButtonGuiItem( KDialog::User1 , KGuiItem("Switch to") );
     showButtonSeparator(true);
@@ -127,21 +132,32 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
 
     layout->addLayout(subLayout,0);
 
-    m_listView=new QListView(mainwidget);
+    m_listView=new QTreeView(mainwidget);
     layout->addWidget(m_listView,1);
 
     setMainWidget(mainwidget);
     m_inputLine->setFocus(Qt::OtherFocusReason);
 
-    QStandardItemModel *base_model=new QStandardItemModel(0,1,this);
+    QStandardItemModel *base_model=new QStandardItemModel(0,2,this);
     QList<KTextEditor::Document*> docs=Kate::application()->documentManager()->documents();
+    int linecount=0;
     foreach(KTextEditor::Document *doc,docs) {
-        QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().prettyUrl()));
-        item->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)));
-        base_model->appendRow(item);
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().prettyUrl()));
+        QStandardItem *item=new QStandardItem(doc->documentName());
+        
+        item->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
+        item->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().prettyUrl()),SortFilterRole);
+        QFont font=item->font();
+        font.setBold(true);
+        item->setFont(font);
+        base_model->setItem(linecount,0,item);
+        base_model->setItem(linecount,1,new QStandardItem(doc->url().prettyUrl()));
+        linecount++;
     }
 
     m_model=new QSortFilterProxyModel(this);
+    m_model->setFilterRole(SortFilterRole);
+    m_model->setSortRole(SortFilterRole);
     
     connect(m_inputLine,SIGNAL(textChanged(const QString&)),m_model,SLOT(setFilterFixedString(const QString&)));
     connect(m_model,SIGNAL(rowsInserted(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));
@@ -151,6 +167,12 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     reselectFirst();
     m_inputLine->installEventFilter(this);
     m_listView->installEventFilter(this);
+    m_listView->setHeaderHidden(true);
+    m_listView->setRootIsDecorated(false);
+    QDesktopWidget *desktop=new QDesktopWidget();
+    setMinimumWidth(desktop->screenGeometry(parent).width()/2);
+    delete desktop;
+    m_listView->resizeColumnToContents(0);
 }
 
 bool PluginViewKateQuickDocumentSwitcherDialog::eventFilter(QObject *obj, QEvent *event) {

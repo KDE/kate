@@ -526,7 +526,7 @@ Tobics:
 The following class only contains two pointers to a Document and its View.
 
 \code
-  #include <kmainwindow.h>
+  #include <kxmlguiwindow.h>
 
   namespace KTextEditor
   {
@@ -534,7 +534,7 @@ The following class only contains two pointers to a Document and its View.
     class View;
   }
 
-  class MainWindow : public XMLGUIFactory
+  class MainWindow : public KXmlGuiWindow
   {
   Q_OBJECT
 
@@ -555,6 +555,7 @@ If the returned Editor is invalid, we simply quit, otherwise we create a new
 document and a view and plug it into the mainwindow.
 
 \code
+  #include "mainwindow.h"
   #include <ktexteditor/document.h>
   #include <ktexteditor/view.h>
   #include <ktexteditor/editor.h>
@@ -564,7 +565,7 @@ document and a view and plug it into the mainwindow.
   #include <kmessagebox.h>
 
   MainWindow::MainWindow ()
-    : KMainWindow(),
+    : KXmlGuiWindow(),
       m_view(0),
       m_document(0)
   {
@@ -577,7 +578,7 @@ document and a view and plug it into the mainwindow.
     }
 
     m_document = editor->createDocument(0);
-    m_view = qobject_cast<KTextEditor::View*>(m_document->createView(this));
+    m_view = m_document->createView(this);
 
     setCentralWidget(m_view);
 

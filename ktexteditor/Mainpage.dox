@@ -534,7 +534,7 @@ The following class only contains two pointers to a Document and its View.
     class View;
   }
 
-  class MainWindow : public KMainWindow
+  class MainWindow : public XMLGUIFactory
   {
   Q_OBJECT
 
@@ -577,7 +577,7 @@ document and a view and plug it into the mainwindow.
     }
 
     m_document = editor->createDocument(0);
-    m_view = qobject_cast<KTextEditor::View*>(doc->createView(this));
+    m_view = qobject_cast<KTextEditor::View*>(m_document->createView(this));
 
     setCentralWidget(m_view);
 

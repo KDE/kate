@@ -41,22 +41,22 @@ class KTextEditorPythonEncodingCheck: public KTextEditor::LoadSaveFilterCheckPlu
     virtual bool postSaveFilterCheck(KTextEditor::Document *document,bool saveas) {return true;}
     virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document)
     {
-      kDebug(13020)<<"KTextEditorPythonEncodingCheck::preSavePostDialogCheck";
+      kDebug(13020);
       //QString codec=document->config()->codec()->name().toLower();
       QString codec=document->encoding().toLower();
       codec.replace(' ','-');
 //	"#\s*-\*\-\s*coding[:=]\s*([-\w.]+)\s*-\*-\s*$"
       bool firstIsInterpreter=false;
-      QRegExp encoding_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*%1\\s*-\\*-\\s*$").arg(codec));
+      QRegExp encoding_regex(QString("#\\s*-\\*-\\s*coding[:=]\\s*%1").arg(codec));
       bool correctencoding=false;
       if (document->lines()>0)
       {
-        if (encoding_regex.exactMatch(document->line(0))) correctencoding=true;
+        if (encoding_regex.indexIn(document->line(0)) != -1) correctencoding=true;
         else if (document->lines()>1) {
           if (interpreterLine.exactMatch(document->line(0)))
           {
             firstIsInterpreter=true;
-            if (encoding_regex.exactMatch(document->line(1))) correctencoding=true;
+            if (encoding_regex.indexIn(document->line(1)) != -1) correctencoding=true;
           }
         }
       }
@@ -72,7 +72,7 @@ class KTextEditorPythonEncodingCheck: public KTextEditor::LoadSaveFilterCheckPlu
           case KMessageBox::Yes:
           {
             int line=firstIsInterpreter?1:0;
-            QRegExp checkReplace_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*[-\\w]+\\s*-\\*-\\s*$"));
+            QRegExp checkReplace_regex(QString("#\\s*-\\*-\\s*coding[:=]\\s*[-\\w]+\\s*-\\*-\\s*$"));
             if (checkReplace_regex.exactMatch(document->line(line)))
               document->removeLine(line);
             document->insertLine(line,addLine);

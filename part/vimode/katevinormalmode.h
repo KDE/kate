@@ -140,6 +140,8 @@ class KateViNormalMode : public KateViModeBase
     KateViRange motionFindCharBackward();
     KateViRange motionToChar();
     KateViRange motionToCharBackward();
+    KateViRange motionRepeatlastTF();
+    KateViRange motionRepeatlastTFBackward();
 
     KateViRange motionToEOL();
     KateViRange motionToColumn0();
@@ -201,6 +203,8 @@ class KateViNormalMode : public KateViModeBase
     QStack<int> m_awaitingMotionOrTextObject;
 
     int m_motionOperatorIndex;
+
+    QString m_lastTFcommand; // holds the last t/T/f/F command so that it can be repeated with ;/,
 
     // registers
     QChar m_defaultRegister;

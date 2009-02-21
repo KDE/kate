@@ -1440,6 +1440,7 @@ KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
 
 KateViRange KateViNormalMode::motionFindChar()
 {
+  m_lastTFcommand = m_keys;
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
@@ -1465,6 +1466,7 @@ KateViRange KateViNormalMode::motionFindChar()
 
 KateViRange KateViNormalMode::motionFindCharBackward()
 {
+  m_lastTFcommand = m_keys;
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
@@ -1495,6 +1497,7 @@ KateViRange KateViNormalMode::motionFindCharBackward()
 
 KateViRange KateViNormalMode::motionToChar()
 {
+  m_lastTFcommand = m_keys;
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
@@ -1518,6 +1521,7 @@ KateViRange KateViNormalMode::motionToChar()
 
 KateViRange KateViNormalMode::motionToCharBackward()
 {
+  m_lastTFcommand = m_keys;
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
@@ -1545,6 +1549,53 @@ KateViRange KateViNormalMode::motionToCharBackward()
 
   return r;
 }
+
+KateViRange KateViNormalMode::motionRepeatlastTF()
+{
+  m_keys = m_lastTFcommand;
+  if ( m_keys.at( 0 ) == 'f' ) {
+    return motionFindChar();
+  }
+  else if ( m_keys.at( 0 ) == 'F' ) {
+    return motionFindCharBackward();
+  }
+  else if ( m_keys.at( 0 ) == 't' ) {
+    return motionToChar();
+  }
+  else if ( m_keys.at( 0 ) == 'T' ) {
+    return motionToCharBackward();
+  }
+
+  // should never happen
+  KateViRange r;
+  r.valid = false;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionRepeatlastTFBackward()
+{
+  m_keys = m_lastTFcommand;
+  if ( m_keys.at( 0 ) == 'f' ) {
+    return motionFindCharBackward();
+  }
+  else if ( m_keys.at( 0 ) == 'F' ) {
+    return motionFindChar();
+  }
+  else if ( m_keys.at( 0 ) == 't' ) {
+    return motionToCharBackward();
+  }
+  else if ( m_keys.at( 0 ) == 'T' ) {
+    return motionToChar();
+  }
+
+  // should never happen
+  KateViRange r;
+  r.valid = false;
+
+  return r;
+}
+
 
 KateViRange KateViNormalMode::motionToLineFirst()
 {
@@ -2047,6 +2098,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "t.", &KateViNormalMode::motionToChar, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "T.", &KateViNormalMode::motionToCharBackward, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, ";", &KateViNormalMode::motionRepeatlastTF ) );
+  m_motions.push_back( new KateViMotion( this, ",", &KateViNormalMode::motionRepeatlastTFBackward ) );
   m_motions.push_back( new KateViMotion( this, "gg", &KateViNormalMode::motionToLineFirst ) );
   m_motions.push_back( new KateViMotion( this, "G", &KateViNormalMode::motionToLineLast ) );
   m_motions.push_back( new KateViMotion( this, "w", &KateViNormalMode::motionWordForward ) );

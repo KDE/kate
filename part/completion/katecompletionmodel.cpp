@@ -2049,7 +2049,7 @@ void KateCompletionModel::updateBestMatches() {
       //Rewrite m_ungrouped->filtered in a new order
       QSet<int> movedToFront;
       QList<Item> newFiltered;
-      for(QMultiMap<int, int>::const_iterator it = rowsForQuality.begin(); it != rowsForQuality.end(); ++it) {
+      for(QMultiMap<int, int>::const_iterator it = rowsForQuality.constBegin(); it != rowsForQuality.constEnd(); ++it) {
         newFiltered.prepend(m_ungrouped->filtered[it.value()]);
         movedToFront.insert(it.value());
       }

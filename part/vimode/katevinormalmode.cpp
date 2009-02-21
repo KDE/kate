@@ -1503,7 +1503,7 @@ KateViRange KateViNormalMode::motionToChar()
   int matchColumn = cursor.column()+1;
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
-    matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn+1 );
+    matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn );
     if ( matchColumn == -1 )
       break;
   }
@@ -1526,7 +1526,7 @@ KateViRange KateViNormalMode::motionToCharBackward()
   int matchColumn = -1;
 
   unsigned int hits = 0;
-  int i = cursor.column()-2;
+  int i = cursor.column()-1;
 
   while ( hits != getCount() && i >= 0 ) {
     if ( line.at( i ) == m_keys.at( m_keys.size()-1 ) )

@@ -115,7 +115,7 @@ QVariant HierarchicalModelHandler::getData(CodeCompletionModel::ExtraItemDataRol
     return index.data(role);
 }
 
-HierarchicalModelHandler::HierarchicalModelHandler(CodeCompletionModel* model) : m_model(model), m_groupSortingKey(-1) {
+HierarchicalModelHandler::HierarchicalModelHandler(CodeCompletionModel* model) : m_groupSortingKey(-1),  m_model(model)  {
 }
 
 void HierarchicalModelHandler::addValue(CodeCompletionModel::ExtraItemDataRoles role, const QVariant& value) {
@@ -992,7 +992,6 @@ void KateCompletionModel::rematch()
 
 void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 {
-  int currentFilteredCount = g->filtered.count();
   if(changeType == Narrow) {
     //This code determines what of the filtered items still fit, and computes the ranges that were removed, giving
     //them to beginRemoveRows(..) in batches

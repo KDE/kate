@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=kateinsertcommandplugin
 X-Kate-Version=2.9
 Name=Insert Command
+Name[es]=Insertar orden
 Name[et]=Käsulisaja
 Name[ga]=Ionsáigh Ordú
 Name[nds]=Befehl infögen

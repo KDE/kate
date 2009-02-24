@@ -5,6 +5,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katebacktracebrowserplugin
 X-Kate-Version=3.0
 Name=Backtrace Browser
+Name[es]=Navegador de trazado inverso
 Name[et]=Tagasijälituse brauser
 Name[nds]=Fehlerspoorkieker
 Name[pt]=Navegação de Estoiros

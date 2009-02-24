@@ -5,6 +5,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katebuildplugin
 X-Kate-Version=2.9
 Name=Build Plugin
+Name[es]=Complemento de construcción
 Name[et]=Ehitamisplugin
 Name[ga]=Breiseán Tógála
 Name[nds]=Buumoduul

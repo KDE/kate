@@ -978,8 +978,14 @@ void KateCompletionWidget::showConfig( )
   m_configWidget->exec();
 }
 
+void KateCompletionWidget::modelDestroyed(QObject* model) {
+  unregisterCompletionModel(static_cast<KTextEditor::CodeCompletionModel*>(model));
+}
+
 void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
+  connect(model, SIGNAL(destroyed(QObject*)), SLOT(modelDestroyed(QObject*)));
+  
   m_sourceModels.append(model);
 
   if (isCompletionActive()) {
@@ -989,7 +995,10 @@ void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionMo
 
 void KateCompletionWidget::unregisterCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
+  disconnect(model, SIGNAL(destroyed(QObject*)), this, SLOT(modelDestroyed(QObject*)));
+  
   m_sourceModels.removeAll(model);
+  abortCompletion();
 }
 
 int KateCompletionWidget::automaticInvocationDelay() const {

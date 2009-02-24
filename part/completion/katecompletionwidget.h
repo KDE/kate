@@ -140,6 +140,7 @@ class KateCompletionWidget : public QFrame
 //    virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
+    void modelDestroyed(QObject* model);
     void modelContentChanged();
     void cursorPositionChanged();
     void editDone(KateEditInfo* edit);

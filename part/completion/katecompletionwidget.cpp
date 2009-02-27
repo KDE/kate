@@ -543,15 +543,23 @@ void KateCompletionWidget::cursorPositionChanged( )
 
   KTextEditor::Cursor cursor = view()->cursorPosition();
 
+  QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
+
   //Check the models and eventuall abort some
-  QMutableMapIterator<KTextEditor::CodeCompletionModel*, KateSmartRange*> i(m_completionRanges);
-  while (i.hasNext()) {
-      i.next();
-      KTextEditor::CodeCompletionModel *model = i.key();
-      KateSmartRange* range = i.value();
+  for(QList<KTextEditor::CodeCompletionModel*>::iterator it = checkCompletionRanges.begin();
+      it != checkCompletionRanges.end(); ++it) {
+      if(!m_completionRanges.contains(*it))
+        continue;
+
+      KTextEditor::CodeCompletionModel *model = *it;
+      KateSmartRange* range = m_completionRanges[*it];
+
       modelController(model)->updateCompletionRange(view(), *range);
       QString currentCompletion = modelController(model)->filterString(view(), *range, view()->cursorPosition());
       bool abort = modelController(model)->shouldAbortCompletion(view(), *range, currentCompletion);
+
+      if(!m_completionRanges.contains(*it))
+        continue;
 
       if (abort) {
         if (m_completionRanges.count() == 1) {
@@ -559,9 +567,10 @@ void KateCompletionWidget::cursorPositionChanged( )
           abortCompletion();
           return;
         } else {
+          delete m_completionRanges[*it];
+          m_completionRanges.remove(*it);
+
           modelController(model)->aborted(view());
-          i.remove();
-          delete range;
           m_presentationModel->removeCompletionModel(model);
         }
       } else {

@@ -433,11 +433,11 @@ int main(int argc, char *argv[])
   if (baseDir.isEmpty()) baseDir = args->arg(testcase_index++);
 
   QFileInfo bdInfo(baseDir);
-  baseDir = QFile::encodeName(bdInfo.absoluteFilePath());
+  baseDir = bdInfo.absoluteFilePath();
 
   const char *subdirs[] = {"tests", "baseline", "output", "resources"};
   for ( int i = 0; i < 2; i++ ) {
-    QFileInfo sourceDir(QFile::encodeName( baseDir ) + '/' + subdirs[i]);
+    QFileInfo sourceDir(baseDir + '/' + subdirs[i]);
     if ( !sourceDir.exists() || !sourceDir.isDir() ) {
       fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", baseDir.toLatin1().constData(), subdirs[i]);
       exit(1);
@@ -592,7 +592,7 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
   m_failures_work = m_failures_fail = m_failures_new = 0;
   m_errors = 0;
 
-  ::unlink( QFile::encodeName( m_outputDir + "/links.html" ) );
+  QFile::remove( m_outputDir + "/links.html" );
   QFile f( m_outputDir + "/empty.html" );
   QString s;
   f.open( QFile::WriteOnly | QFile::Truncate );
@@ -867,7 +867,7 @@ static QString readVariable(const QString &varName)
 void RegressionTest::doFailureReport( const QString& test, int failures )
 {
   if ( failures == NoFailure ) {
-    ::unlink( QFile::encodeName( m_outputDir + '/' + test + "-compare.html" ) );
+    QFile::remove( m_outputDir + '/' + test + "-compare.html" );
     return;
   }
 
@@ -910,7 +910,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     delete is;
     domDiff += "</pre>";
     if (!err.isEmpty()) {
-      qWarning() << "cwd: " << QFile::encodeName(resolvedBaseDir) << ", basedir " << QFile::encodeName( m_baseDir);
+      qWarning() << "cwd: " << resolvedBaseDir << ", basedir " << m_baseDir;
       qWarning() << "diff " << args.join(" ");
       qWarning() << "Errors: " << err;
     }
@@ -1155,7 +1155,7 @@ RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFi
 
     result = ( fileData == data ) ? Success : Failure;
     if ( !m_genOutput && result == Success && !m_keepOutput ) {
-        ::unlink( QFile::encodeName( outputFilename ) );
+        QFile::remove( outputFilename );
         return Success;
     }
   } else if (!m_genOutput) {

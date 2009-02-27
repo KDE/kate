@@ -130,10 +130,9 @@ bool KateScript::load()
 
   m_loaded = true;
   // read the file into memory
-  QString filename = QFile::encodeName(m_url);
-  QFile file(filename);
+  QFile file(m_url);
   if (!file.open(QIODevice::ReadOnly)) {
-    m_errorMessage = i18n("Unable to read file: '%1'", filename);
+    m_errorMessage = i18n("Unable to read file: '%1'", m_url);
     kDebug( 13050 ) << m_errorMessage;
     m_loadSuccessful = false;
     return false;
@@ -152,7 +151,7 @@ bool KateScript::load()
   QScriptValue result = m_engine->evaluate(source, m_url);
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, QString("Error loading %1\n").arg(m_url));
-    m_errorMessage = i18n("Error loading script %1", filename);
+    m_errorMessage = i18n("Error loading script %1", m_url);
     m_loadSuccessful = false;
     return false;
   }

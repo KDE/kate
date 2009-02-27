@@ -229,7 +229,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
   // include C and C++ comments for example.
   // Parsing the header stops at the first line with no ':'.
 
-  QFile file(QFile::encodeName(url));
+  QFile file(url);
   if(!file.open(QIODevice::ReadOnly)) {
     kDebug( 13050 ) << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
     return false;

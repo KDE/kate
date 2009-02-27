@@ -3116,7 +3116,7 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 {
   if ( this->url().isLocalFile() ) {
-    const QString path = this->url().path();
+    const QString path = this->url().toLocalFile();
     if ( KGlobal::dirs()->relativeLocation( "tmp", path ) != path ) {
       return; // inside tmp resource, do not save
     }

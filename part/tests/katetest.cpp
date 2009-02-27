@@ -800,7 +800,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
         KWrite *t = new KWrite();
 
         // this file is no local dir, open it, else warn
-        bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).path()).exists();
+        bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).toLocalFile()).exists();
 
         if (noDir)
         {

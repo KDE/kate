@@ -1265,7 +1265,7 @@ void KateModOnHdPrompt::slotDiff()
   m_proc = new KProcess( this );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
   *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
-     << "-" <<  m_doc->url().path();
+     << "-" <<  m_doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
   connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 

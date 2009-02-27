@@ -30,6 +30,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
+#include <kde_file.h>
 
 #include <QtGui/QApplication>
 #include <QtCore/QFile>
@@ -384,9 +385,9 @@ void KateSyntaxDocument::setupModeList (bool force)
     KConfigGroup config(m_config, Group);
 
     // stat the file
-    struct stat sbuf;
+    KDE_struct_stat sbuf;
     memset (&sbuf, 0, sizeof(sbuf));
-    stat(QFile::encodeName(*it), &sbuf);
+    KDE::stat(*it, &sbuf);
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
     if (!force && config.exists() && (sbuf.st_mtime == config.readEntry("lastModified",0)))

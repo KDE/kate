@@ -571,7 +571,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
   btnMTW->setIcon(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   btnMTW->setWhatsThis(i18n(
-                         "Click for a dialog that can help you creating a list of mimetypes.") );
+                         "Click for a dialog that can help you create a list of mimetypes.") );
 
   cmbSave = new KComboBox(w);
   lo->addWidget( cmbSave, 5, 2, 1, 2 );

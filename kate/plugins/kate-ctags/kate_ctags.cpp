@@ -262,7 +262,7 @@ bool KateCTagsView::ctagsDBExists()
                 KGuiItem(i18nc("Button text for loading a CTags database file","Load"),
                          "document-open",
                          i18n("Select an existing CTags database."));
-        int res = KMessageBox::messageBox(0, KMessageBox::QuestionYesNoCancel, i18n("No CTags database is loaded!"), i18n("CTags"),
+        int res = KMessageBox::messageBox(0, KMessageBox::QuestionYesNoCancel, i18n("No CTags database is loaded."), i18n("CTags"),
                                           createNew, load, KStandardGuiItem::cancel());
 
         if (res == KMessageBox::Yes) {
@@ -304,7 +304,7 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     else {
         m_ctagsUi.tabWidget->setCurrentIndex(0);
         m_mWin->showToolView(m_toolView);
-        KMessageBox::error(0, i18n("Multiple hits found!"));
+        KMessageBox::error(0, i18n("Multiple hits found."));
     }
 }
 

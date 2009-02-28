@@ -797,7 +797,7 @@ void KateMainWindow::slotOpenWithMenuAction(QAction* a)
   }
   else
   {
-    KMessageBox::error(this, i18n("Application '%1' not found!", openWith), i18n("Application not found!"));
+    KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
   }
 }
 

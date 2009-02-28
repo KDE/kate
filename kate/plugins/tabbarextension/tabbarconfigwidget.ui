@@ -13,7 +13,7 @@
    <item row="0" column="0" >
     <widget class="QGroupBox" name="gbBehaviour" >
      <property name="title" >
-      <string>Behaviour</string>
+      <string>Behavior</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2" >
       <item row="0" column="0" >
@@ -94,7 +94,7 @@
         <item>
          <widget class="QCheckBox" name="chkFollowActive" >
           <property name="text" >
-           <string>keep activated tab visible</string>
+           <string>Keep activated tab visible</string>
           </property>
          </widget>
         </item>

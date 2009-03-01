@@ -124,7 +124,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_daysMetaInfos = new QSpinBox( metaInfos );
   m_daysMetaInfos->setMaximum( 180 );
   m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
-  m_daysMetaInfos->setSuffix(i18n(" day(s)"));
   m_daysMetaInfos->setValue( KateDocManager::self()->getDaysMetaInfos() );
   label->setBuddy( m_daysMetaInfos );
   connect( m_saveMetaInfos, SIGNAL( toggled( bool ) ), metaInfos, SLOT( setEnabled( bool ) ) );
@@ -290,6 +289,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_dataChanged = false;
 
   resize(minimumSizeHint());
+  slotChanged();
 }
 
 KateConfigDialog::~KateConfigDialog()
@@ -421,6 +421,7 @@ void KateConfigDialog::slotChanged()
 {
   m_dataChanged = true;
   enableButton( Apply, true );
+  m_daysMetaInfos->setSuffix(QString(" ") + i18np("day", "days", m_daysMetaInfos->value()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

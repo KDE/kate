@@ -137,12 +137,31 @@ bool KateAutoIndent::doIndent(KateView *view, int line, int indentDepth, int ali
   if (indentDepth < 0)
     indentDepth = 0;
 
-  QString indentString = tabString (indentDepth, align);
-
   int first_char = textline->firstChar();
-
   if (first_char < 0)
     first_char = textline->length();
+
+  // Preserve existing "tabs then spaces" alignment if and only if:
+  //  - no alignment was passed to doIndent and
+  //  - we aren't using spaces for indentation and
+  //  - we aren't rounding indentation up to the next multiple of the indentation width and
+  //  - we aren't using a combination to tabs and spaces for alignment, or in other words
+  //    the indent width is a multiple of the tab width.
+  bool preserveAlignment = !useSpaces && keepExtra && indentWidth % tabWidth == 0;
+  if (align == 0 && preserveAlignment)
+  {
+    // Count the number of consecutive spaces at the end of the existing indentation
+    QString oldIndentation = textline->string(0, first_char);
+    int i = oldIndentation.size() - 1;
+    while (i >= 0 && oldIndentation.at(i) == ' ')
+      --i;
+    // Use the passed indentDepth as the alignment, and set the indentDepth to
+    // that value minus the number of spaces found (but don't let it get negative).
+    align = indentDepth;
+    indentDepth = qMax(0, align - (oldIndentation.size() - 1 - i));
+  }
+
+  QString indentString = tabString(indentDepth, align);
 
   // remove leading whitespace, then insert the leading indentation
   doc->editStart (view);

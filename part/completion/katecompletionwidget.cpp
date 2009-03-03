@@ -479,7 +479,12 @@ void KateCompletionWidget::updateHeight()
               h = localHeight;
           }
           baseHeight += h;
+          if(baseHeight > maxBaseHeight)
+            break;
         }
+
+        if(baseHeight > maxBaseHeight)
+          break;
       }
     }
     
@@ -490,11 +495,18 @@ void KateCompletionWidget::updateHeight()
   
   if(m_entryList->horizontalScrollBar()->isVisible())
     baseHeight += m_entryList->horizontalScrollBar()->height();
-  
+
+
   if(baseHeight < minBaseHeight)
     baseHeight = minBaseHeight;
-  if(baseHeight > maxBaseHeight)
+  if(baseHeight > maxBaseHeight) {
     baseHeight = maxBaseHeight;
+    m_entryList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  }else{
+    //Somewhere there seems to be a bug that makes QTreeView add a scroll-bar
+    //even if the content exactly fits in. So forcefully disable the scroll-bar in that case
+    m_entryList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+}
   
   int newExpandingAddedHeight = 0;
   
@@ -535,7 +547,8 @@ void KateCompletionWidget::updateHeight()
   geom.setHeight(finalHeight);
 
   setGeometry(geom);
-    m_entryList->resize(m_entryList->width(), height() - 2*frameWidth());
+
+  m_entryList->resize(m_entryList->width(), finalHeight - 2*frameWidth());
 }
 
 

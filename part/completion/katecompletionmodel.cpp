@@ -574,7 +574,9 @@ QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelI
 
 void KateCompletionModel::createGroups()
 {
-  clearGroups(false); //Reset is done below
+  //After clearing the model, it has to be reset, else we will be in an invalid state while inserting
+  //new groups.
+  clearGroups(true);
 
   bool has_groups=false;
   foreach (CodeCompletionModel* sourceModel, m_completionModels) {
@@ -2020,6 +2022,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
 
 //Updates the best-matches group
 void KateCompletionModel::updateBestMatches() {
+  int maxMatches = 300; //We cannot do too many operations here, because they are all executed whenever a character is added. Would be nice if we could split the operations up somewhat using a timer.
 
   m_updateBestMatchesTimer->stop();
   //Maps match-qualities to ModelRows paired together with the BestMatchesCount returned by the items.
@@ -2043,6 +2046,9 @@ void KateCompletionModel::updateBestMatches() {
       }
       
       ++row;
+      --maxMatches;
+      if(maxMatches < 0)
+        break;
     }
     
     if(!rowsForQuality.isEmpty()) {
@@ -2066,7 +2072,6 @@ void KateCompletionModel::updateBestMatches() {
   }
   
   ///@todo Cache the CodeCompletionModel::BestMatchesCount
-  int maxMatches = 50; //We cannot do too many operations here, because they are all executed whenever a character is added. Would be nice if we could split the operations up somewhat using a timer.
   foreach (Group* g, m_rowTable) {
     if( g == m_bestMatches )
       continue;

@@ -948,6 +948,9 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
     updateBestMatches();
   }
 
+  if(changeType == Broaden)
+    reset(); //There seems to be a bug in the notification code of the "Broaden" operation, so just reset
+
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
 // reset();
   emit contentGeometryChanged();

@@ -2062,7 +2062,7 @@ void KateCompletionModel::updateBestMatches() {
       
       {
         uint size = m_ungrouped->filtered.size();
-        for(int a = 0; a < size; ++a)
+        for(uint a = 0; a < size; ++a)
           if(!movedToFront.contains(a))
             newFiltered.append(m_ungrouped->filtered[a]);
       }

@@ -108,7 +108,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
   
   QVector<int> columnSize(numColumns, 5);
 
-  uint currentYPos = 0;
+  int currentYPos = 0;
 
   QModelIndex current = indexAt(QPoint(1,1));
   if( current.child(0,0).isValid() ) { //If the index has children, it is a group-label. Then we should start with it's first child.

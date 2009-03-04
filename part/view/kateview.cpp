@@ -82,7 +82,6 @@
 #include <QtGui/QFont>
 #include <QtCore/QFileInfo>
 #include <QtGui/QStyle>
-#include <QtGui/QComboBox>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QLayout>
 #include <QtGui/QClipboard>
@@ -481,7 +480,7 @@ void KateView::setupActions()
                       " with all highlighting information into a HTML document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(exportAsHTML()));
 
-  m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAllByAction()) );
+  m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAll()) );
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
   m_deSelect = a= ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) );
@@ -1726,31 +1725,8 @@ bool KateView::removeSelectedText()
   return true;
 }
 
-bool KateView::selectAllByAction() {
-    if (m_selectAll->shortcut()==QKeySequence(QKeySequence::SelectAll)) {
-      QLineEdit *le=qobject_cast<QLineEdit*>(QApplication::focusWidget());
-      if (le) {
-        le->selectAll();
-        return true;
-      } else {
-        QComboBox *cb=qobject_cast<QComboBox*>(QApplication::focusWidget());
-        if (cb) {
-          if (cb->isEditable()) {
-            le=cb->lineEdit();
-            if (le) {
-              le->selectAll();
-              return true;
-            }
-          }
-        }
-      }
-    }
-    return selectAll();
-}
-
 bool KateView::selectAll()
 {
-
   setBlockSelectionMode (false);
 
   return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->documentEnd()));

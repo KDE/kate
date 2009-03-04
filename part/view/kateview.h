@@ -723,6 +723,11 @@ class KateView : public KTextEditor::View,
     void updateViModeBarCmd();
 };
 
+/**
+ * metatype register
+ */
+Q_DECLARE_METATYPE(KTextEditor::Cursor)
+
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

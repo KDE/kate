@@ -34,11 +34,6 @@
 #include <klocale.h>
 
 /**
- * metatype register
- */
-Q_DECLARE_METATYPE(KTextEditor::Cursor)
-
-/**
  * conversion functions
  */
 static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)

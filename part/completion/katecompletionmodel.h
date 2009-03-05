@@ -298,7 +298,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     QSet<Group*> deleteItems(const QModelIndex& i);
     Group* createItem(const HierarchicalModelHandler&, const QModelIndex& i, bool notifyModel = false);
     void clearGroups(bool reset = true);
-    void hideOrShowGroup(Group* g);
+    void hideOrShowGroup(Group* g, bool notifyModel = true);
     /// When forceGrouping is enabled, all given attributes will be used for grouping, regardless of the completion settings.
     Group* fetchGroup(int attribute, const QString& scope = QString(), bool forceGrouping = false);
     //If this returns nonzero on an index, the index is the header of the returned group
@@ -316,8 +316,8 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     void changeCompletions(Group* g, changeTypes changeType);
 
-    void deleteRows(Group* g, QMutableListIterator<Item>& filtered, int countBackwards, int startRow);
-    void addRows(Group* g, QMutableListIterator<Item>& filtered, int startRow, const QList<Item>& newItems);
+    void deleteRows(Group* g, QMutableListIterator<Item>& filtered, int countBackwards, int startRow, bool notify);
+    void addRows(Group* g, QMutableListIterator<Item>& filtered, int startRow, const QList<Item>& newItems, bool notify);
 
     bool hasGroups() const;
     bool hasCompletionModel() const;

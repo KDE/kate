@@ -949,10 +949,9 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   }
 
   if(changeType == Broaden)
-    reset(); //There seems to be a bug in the notification code of the "Broaden" operation, so just reset
+    reset(); //There is a bug in changeCompletions() notification code of the "Broaden" operation, so just reset
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
-// reset();
   emit contentGeometryChanged();
 }
 
@@ -980,7 +979,7 @@ void KateCompletionModel::rematch()
 #define COMPLETE_DELETE \
   if (rowDeleteStart != -1) { \
     if (!g->isEmpty) \
-      deleteRows(g, filtered, index - rowDeleteStart, rowDeleteStart); \
+      deleteRows(g, filtered, index - rowDeleteStart, rowDeleteStart, changeType != Broaden); \
     filterIndex -= index - rowDeleteStart + 1; \
     index -= index - rowDeleteStart; \
     rowDeleteStart = -1; \
@@ -988,7 +987,7 @@ void KateCompletionModel::rematch()
 
 #define COMPLETE_ADD \
   if (rowAddStart != -1) { \
-    addRows(g, filtered, rowAddStart, rowAdd); \
+    addRows(g, filtered, rowAddStart, rowAdd, changeType != Broaden); \
     filterIndex += rowAdd.count(); \
     index += rowAdd.count(); \
     rowAddStart = -1; \
@@ -1122,7 +1121,9 @@ void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
   COMPLETE_DELETE
   COMPLETE_ADD
 
-  hideOrShowGroup(g);
+  //Only notify the model if the changetype is not broaden, else it will barf on it
+  //because the code above has a bug in that case. We do a reset() anyway afterwards in that case.
+  hideOrShowGroup(g, changeType != Broaden);
   return;
 }
 
@@ -1157,7 +1158,7 @@ bool KateCompletionModel::Group::orderBefore(Group* other) const {
     return orderNumber() < other->orderNumber();
 }
 
-void KateCompletionModel::hideOrShowGroup(Group* g)
+void KateCompletionModel::hideOrShowGroup(Group* g, bool notifyModel)
 {
   if( g == m_argumentHints ) {
     emit argumentHintsChanged();
@@ -1171,10 +1172,10 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       g->isEmpty = true;
       int row = m_rowTable.indexOf(g);
       if (row != -1) {
-        if (hasGroups())
+        if (hasGroups() && notifyModel)
           beginRemoveRows(QModelIndex(), row, row);
         m_rowTable.removeAt(row);
-        if (hasGroups())
+        if (hasGroups() && notifyModel)
           endRemoveRows();
         m_emptyGroups.append(g);
       } else {
@@ -1197,23 +1198,27 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
         row = a+1;
       }
 
-      if (hasGroups())
-        beginInsertRows(QModelIndex(), row, row);
-      else
-        beginInsertRows(QModelIndex(), 0, g->filtered.count());
+      if(notifyModel) {
+        if (hasGroups())
+          beginInsertRows(QModelIndex(), row, row);
+        else
+          beginInsertRows(QModelIndex(), 0, g->filtered.count());
+      }
       m_rowTable.insert(row, g);
-      endInsertRows();
+      if(notifyModel)
+        endInsertRows();
       m_emptyGroups.removeAll(g);
     }
   }
 }
 
-void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<Item> & filtered, int countBackwards, int startRow )
+void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<Item> & filtered, int countBackwards, int startRow, bool notify )
 {
   QModelIndex groupIndex = indexForGroup(g);
   Q_ASSERT(!hasGroups() || groupIndex.isValid());
 
-  beginRemoveRows(groupIndex, startRow, startRow + countBackwards - 1);
+  if(notify)
+    beginRemoveRows(groupIndex, startRow, startRow + countBackwards - 1);
 
   for (int i = 0; i < countBackwards; ++i) {
     filtered.remove();
@@ -1228,12 +1233,13 @@ void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<Item> & fil
 
     filtered.previous();
   }
-
-  endRemoveRows();
+  
+  if(notify)
+    endRemoveRows();
 }
 
 
-void KateCompletionModel::addRows( Group * g, QMutableListIterator<Item> & filtered, int startRow, const QList<Item> & newItems )
+void KateCompletionModel::addRows( Group * g, QMutableListIterator<Item> & filtered, int startRow, const QList<Item> & newItems, bool notify )
 {
   //bool notify = true;
 
@@ -1244,13 +1250,13 @@ void KateCompletionModel::addRows( Group * g, QMutableListIterator<Item> & filte
 
   kDebug( 13035 ) << "Group" << g->title << "addRows" << startRow << "to " << (startRow + newItems.count() - 1);
 
-  //if (notify)
+  if (notify)
     beginInsertRows(groupIndex, startRow, startRow + newItems.count() - 1);
 
   for (int i = 0; i < newItems.count(); ++i)
     filtered.insert(newItems[i]);
 
-  //if (notify)
+  if (notify)
     endInsertRows();
 }
 

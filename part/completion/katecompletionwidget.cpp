@@ -248,7 +248,6 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   m_needShow = true;
 
   m_lastInvocationType = invocationType;
-  kBacktrace();
 
   disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
 

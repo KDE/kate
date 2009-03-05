@@ -422,9 +422,16 @@ Math::foo /rx/  # regexp
 10 % 4          # modulo
 
 foo%4           # modulo
-foo %4          # modulo
+# foo %4          # illegal %string
 foo% 4          # modulo
 foo % 4         # modulo
+
+foo % (4)       # modulo
+
+foo %(4)        # %string
+foo %q(4)       # %string
+foo %Q(4)       # %string
+foo %%4%        # %string
 
 foo = %|blah|   # GDL input
 foo % %|blah|   # modulo and GDL
@@ -469,6 +476,10 @@ result = 10//regexp//20/foo//regexp//20
 # sometimes it's useful to have the command on multiple lines
 %x{ls -l |
 grep test }
+
+# alternative syntax
+`ls -l`
+`echo ' '`
 
 # token array
 %w{one two three}

@@ -327,8 +327,8 @@
 			
 			<!-- Internal context used by check_div_2 -->
 			<context name="check_div_2_internal" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
-				<DetectChar attribute="Operator" char="%" context="#pop#pop"/>
-				<RegExpr attribute="Operator" String="/(?=\s)" context="#pop#pop"/>
+<!-- 				<DetectChar attribute="Operator" char="%" context="#pop#pop"/> -->
+				<RegExpr attribute="Operator" String="[/%](?=\s)" context="#pop#pop"/>
 			</context>
 			
 			<!-- Same as check_div_2, but with double pop to exit the surrounding context -->
@@ -359,12 +359,10 @@
 				<RegExpr attribute="String" String="\\\&quot;" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
-				<!--HlCChar attribute="Char" context="#pop"/-->
 				<DetectChar char="&quot;" attribute="String" context="check_div_1_pop"/>
 			</context>
 			
 			<context name="Apostrophed String" attribute="Raw String" lineEndContext="#stay">
-				<!-- <HlCChar attribute="Char" context="#pop"/> -->
 				<StringDetect attribute="String" String="\\" context="#stay"/>
 				<RegExpr attribute="String" String="\\\'" context="#stay"/>
 				<DetectChar char="'" attribute="Raw String" context="check_div_1_pop"/>
@@ -375,7 +373,6 @@
 				<RegExpr attribute="String" String="\\\`" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
-				<HlCChar attribute="Char" context="check_div_1_pop"/>
 				<DetectChar char="`" attribute="Command" context="check_div_1_pop"/>
 			</context>
 			

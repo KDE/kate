@@ -1204,11 +1204,6 @@ void KateViewInternal::home( bool sel )
 
 void KateViewInternal::end( bool sel )
 {
-  if (m_view->isCompletionActive()) {
-    view()->completionWidget()->bottom();
-    return;
-  }
-
   QMutexLocker lock(m_doc->smartMutex());
 
   KateTextLayout layout = currentLayout();

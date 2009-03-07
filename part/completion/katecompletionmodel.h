@@ -287,6 +287,8 @@ class KateCompletionModel : public ExpandingWidgetModel
 	//-1 if none was set
 	int customSortingKey;
     };
+    
+    bool hasGroups() const;
 
   private:
     void createGroups();
@@ -319,7 +321,6 @@ class KateCompletionModel : public ExpandingWidgetModel
     void deleteRows(Group* g, QMutableListIterator<Item>& filtered, int countBackwards, int startRow, bool notify);
     void addRows(Group* g, QMutableListIterator<Item>& filtered, int startRow, const QList<Item>& newItems, bool notify);
 
-    bool hasGroups() const;
     bool hasCompletionModel() const;
 
     /// Removes attributes not used in grouping from the input \a attribute

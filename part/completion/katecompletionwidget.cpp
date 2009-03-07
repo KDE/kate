@@ -103,6 +103,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_entryList->setColumnWidth(0, 0); //These will be determined automatically in KateCompletionTree::resizeColumns
   m_entryList->setColumnWidth(1, 0);
   m_entryList->setColumnWidth(2, 0);
+  
+  m_entryList->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 
   m_argumentHintTree->setParent(0, Qt::ToolTip);
   m_argumentHintTree->setModel(m_argumentHintModel);
@@ -472,7 +474,7 @@ void KateCompletionWidget::updateHeight()
           int h = 0;
           for(int a = 0; a < m_presentationModel->columnCount(index); ++a) {
             int localHeight = treeView()->sizeHintForIndex(index.child(row2, a)).height();
-            if(localHeight > 0)
+            if(localHeight > h)
               h = localHeight;
           }
           baseHeight += h;
@@ -982,13 +984,17 @@ void KateCompletionWidget::bottom( )
 
 void KateCompletionWidget::switchList() {
   if( m_inCompletionList ) {
-      m_entryList->setCurrentIndex(QModelIndex());
-      if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
+      if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
+        m_entryList->setCurrentIndex(QModelIndex());
         m_argumentHintTree->setCurrentIndex(m_argumentHintModel->index(m_argumentHintModel->rowCount(QModelIndex())-1, 0));
+      }
   } else {
-      m_argumentHintTree->setCurrentIndex(QModelIndex());
-      if( m_presentationModel->rowCount(QModelIndex()) != 0 )
+      if( m_presentationModel->rowCount(QModelIndex()) != 0 ) {
+        m_argumentHintTree->setCurrentIndex(QModelIndex());
         m_entryList->setCurrentIndex(m_presentationModel->index(0, 0));
+        if(model()->hasGroups()) //If we have groups we have to move on, because the first item is a label
+          m_entryList->nextCompletion();
+      }
   }
   m_inCompletionList = !m_inCompletionList;
 }

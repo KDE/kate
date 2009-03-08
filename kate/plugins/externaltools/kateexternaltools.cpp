@@ -44,6 +44,7 @@
 #include <KMenu>
 #include <KSharedConfig>
 #include <kdebug.h>
+#include <kde_file.h>
 
 #include <QBitmap>
 #include <QFile>
@@ -86,14 +87,14 @@ bool KateExternalTool::checkExec()
 {
   // if tryexec is empty, it is the first word of command
   if ( tryexec.isEmpty() )
-    tryexec = command.section( " ", 0, 0, QString::SectionSkipEmpty );
+    tryexec = command.section( ' ', 0, 0, QString::SectionSkipEmpty );
 
   // NOTE this code is modified taken from kdesktopfile.cpp, from KDesktopFile::tryExec()
   if (!tryexec.isEmpty())
   {
     if (tryexec[0] == '/')
     {
-      if (::access(QFile::encodeName(tryexec), R_OK | X_OK))
+      if (KDE::access(tryexec, R_OK | X_OK))
         return false;
 
       m_exec = tryexec;
@@ -104,17 +105,13 @@ bool KateExternalTool::checkExec()
       // Environment PATH may contain filenames in 8bit locale cpecified
       // encoding (Like a filenames).
       const QString path = QFile::decodeName(qgetenv("PATH"));
-#ifdef Q_WS_WIN
-      const QStringList dirs = path.split(';', QString::SkipEmptyParts);
-#else
-      const QStringList dirs = path.split(':', QString::SkipEmptyParts);
-#endif
+      const QStringList dirs = path.split(KPATH_SEPARATOR, QString::SkipEmptyParts);
       QStringList::ConstIterator it(dirs.begin());
       bool match = false;
       for (; it != dirs.end(); ++it)
       {
         QString fName = *it + '/' + tryexec;
-        if (::access(QFile::encodeName(fName), R_OK | X_OK) == 0)
+        if (KDE::access(fName, R_OK | X_OK) == 0)
         {
           match = true;
           m_exec = fName;

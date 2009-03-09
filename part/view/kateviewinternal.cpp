@@ -2845,7 +2845,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     //We need to check whether the mouse position is actually within the widget,
     //because other widgets like the icon border forward their events to this,
     //and we will create invalid text hint requests if we don't check
-    if (m_textHintEnabled && geometry().contains(mapFromGlobal(e->globalPos())))
+    if (m_textHintEnabled && geometry().contains(parentWidget()->mapFromGlobal(e->globalPos())))
     {
        m_textHintTimer.start(m_textHintTimeout);
        m_textHintMouseX=e->x();

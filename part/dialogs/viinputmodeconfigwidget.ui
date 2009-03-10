@@ -31,7 +31,7 @@
       <item>
        <widget class="QCheckBox" name="chkViInputModeDefault" >
         <property name="whatsThis" >
-         <string>When selected, the vi input mode will be enabled when opening a new view. You can still toggle the vi input mode on/off for a particular view in the View menu.</string>
+         <string>When selected, the vi input mode will be enabled when opening a new view. You can still toggle the vi input mode on/off for a particular view in the Edit menu.</string>
         </property>
         <property name="text" >
          <string>Use the Vi input mode</string>

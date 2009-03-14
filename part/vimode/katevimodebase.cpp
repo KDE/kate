@@ -587,63 +587,60 @@ KateViRange KateViModeBase::goLineUp()
   return goLineUpDown( -getCount() );
 }
 
+/**
+ * method for moving up or down one or more lines
+ * note: the sticky column is always a virtual column
+ */
 KateViRange KateViModeBase::goLineUpDown( int lines )
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+  int tabstop = doc()->config()->tabWidth();
+
+  // if in an empty document, just return
   if ( lines == 0 ) {
     return r;
-  } else {
-    r.endLine += lines;
   }
 
+  r.endLine += lines;
+
+  // limit end line to be from line 0 through the last line
   if ( r.endLine < 0 ) {
     r.endLine = 0;
   } else if ( r.endLine > doc()->lines()-1 ) {
     r.endLine = doc()->lines()-1;
   }
 
+  KateTextLine::Ptr startLine = doc()->plainKateTextLine( c.line() );
+  KateTextLine::Ptr endLine = doc()->plainKateTextLine( r.endLine );
+
+  int endLineLen = doc()->lineLength( r.endLine )-1;
+
+  if ( endLineLen < 0 ) {
+    endLineLen = 0;
+  }
+
+  int endLineLenVirt = endLine->toVirtualColumn(endLineLen, tabstop);
+  int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
+
+  // if sticky column isn't set, set end column and set sticky column to its virtual column
   if ( m_stickyColumn == -1 ) {
-    r.endColumn = m_stickyColumn = c.column();
+    r.endColumn = endLine->fromVirtualColumn( virtColumnStart, tabstop );
+    m_stickyColumn = virtColumnStart;
   } else {
-    r.endColumn = m_stickyColumn;
+    // sticky is set - set end column to its value
+    r.endColumn = endLine->fromVirtualColumn( m_stickyColumn, tabstop );
   }
 
-  int lineLen = doc()->lineLength( r.endLine );
-  KateTextLine::Ptr textLine = doc()->plainKateTextLine( r.endLine );
-  int realColumn = textLine->fromVirtualColumn(r.endColumn, doc()->config()->tabWidth());
-  int lastVirtColumn = textLine->toVirtualColumn(lineLen-1,
-      doc()->config()->tabWidth());
-
-  if ( realColumn != r.endColumn && lastVirtColumn >= r.endColumn ) {
-    r.endColumn = realColumn;
-  } else {
-    // if m_stickyColumn is set, check if we can co back to the sticky column in the new
-    // line. if the line is shorter than sticky, go to the last column
-    if ( m_stickyColumn != -1 ) {
-      if ( lineLen-1 >= m_stickyColumn ) {
-        r.endColumn = m_stickyColumn;
-      } else if ( lineLen-1 < m_stickyColumn ) { // line is shorter than the sticky column value set
-        if ( lineLen > 0 ) {
-          r.endColumn = lineLen-1;
-        } else {
-          r.endColumn = 0;
-        }
-      }
-    }
+  // make sure end column won't be after the last column of a line
+  if ( r.endColumn > endLineLen ) {
+    r.endColumn = endLineLen;
   }
 
-  /*
-  // if the line we're going to is shorter than the current cursor column, set sticky
-  // to the old value and go to the last character of the line
-  if ( doc()->lineLength( r.endLine ) <= r.endColumn ) {
-    if ( sticky == -1 ) {
-      sticky = r.endColumn;
-    }
-    r.endColumn = doc()->lineLength( r.endLine )-1;
-    r.endColumn = ( r.endColumn < 0 ) ? 0 : r.endColumn;
+  // if we move to a line shorter than the current column, go to its end
+  if ( virtColumnStart > endLineLenVirt ) {
+    r.endColumn = endLineLen;
   }
-  */
 
   return r;
 }

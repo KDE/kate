@@ -837,6 +837,10 @@ void KateViewInternal::doDeleteWordRight()
   m_doc->editEnd();
   tagRange(selection, true);
   updateDirty();
+#ifdef __GNUC__
+#warning "Probably this updateCursor call is not the real solution for #178379, find it"
+#endif
+  updateCursor(m_cursor, true);
 }
 
 class CalculatingCursor : public KTextEditor::Cursor {

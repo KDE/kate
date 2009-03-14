@@ -2038,7 +2038,7 @@ void KateView::exportAsHTML ()
   QString filename;
 
   if ( url.isLocalFile() )
-    filename = url.path();
+    filename = url.toLocalFile();
   else {
     KTemporaryFile tmp; // ### only used for network export
     tmp.setAutoRemove(false);

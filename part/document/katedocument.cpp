@@ -5841,7 +5841,7 @@ bool KateDocument::createDigest( QByteArray &result )
   result = "";
   if ( url().isLocalFile() )
   {
-    QFile f ( url().path() );
+    QFile f ( url().toLocalFile() );
     if ( f.open( QIODevice::ReadOnly) )
     {
       KMD5 md5;

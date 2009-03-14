@@ -106,7 +106,7 @@ void InsertFilePluginView::slotInsertFile()
   if ( _file.isEmpty() ) return;
 
   if ( _file.isLocalFile() ) {
-    _tmpfile = _file.path();
+    _tmpfile = _file.toLocalFile();
     insertFile();
   }
   else {

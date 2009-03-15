@@ -744,7 +744,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
       for ( int z = 0; z < args->count(); z++ )
       {
         // this file is no local dir, open it, else warn
-        bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).path()).exists();
+        bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).toLocalFile()).exists();
 
         if (noDir)
         {

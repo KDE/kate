@@ -1409,9 +1409,16 @@ KateViRange KateViNormalMode::motionToEndOfPrevWORD()
 
 KateViRange KateViNormalMode::motionToEOL()
 {
-  m_stickyColumn = -1;
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  KateViRange r( c.line(), doc()->lineLength( c.line() )-1, ViMotion::InclusiveMotion );
+
+  // set sticky column to a rediculously high value so that the cursor will stick to EOL,
+  // but only if it's a regular motion
+  if ( m_keys.size() == 1 ) {
+    m_stickyColumn = 100000;
+  }
+
+  unsigned int line = c.line() + ( getCount() - 1 );
+  KateViRange r( line, doc()->lineLength(line )-1, ViMotion::InclusiveMotion );
 
   return r;
 }

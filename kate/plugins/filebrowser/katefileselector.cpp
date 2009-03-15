@@ -274,7 +274,7 @@ void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & 
       setDir( loc );
   }
   
-  m_dirOperator->setShowHiddenFiles( globalConfig.readEntry( "show hidden files", false ) );
+  m_dirOperator->setShowHiddenFiles( cg.readEntry( "show hidden files", false ) );
 
   filter->setHistoryItems( cg.readEntry("filter history", QStringList()), true );
   lastFilter = cg.readEntry( "last filter" );
@@ -337,6 +337,7 @@ void KateFileSelector::writeSessionConfig(KConfigBase *config, const QString & n
   cg.writePathEntry( "location", cmbPath->currentText() );
   cg.writeEntry( "current filter", filter->currentText() );
   cg.writeEntry( "last filter", lastFilter );
+  cg.writeEntry( "show hidden files", m_dirOperator->showHiddenFiles() );
 }
 
 void ::KateFileSelector::setView(KFile::FileView view)

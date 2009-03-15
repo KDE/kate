@@ -204,7 +204,7 @@ class KFSConfigPage : public Kate::PluginConfigPage
     KActionSelector *acSel;
     QSpinBox *sbPathHistLength, *sbFilterHistLength;
     QCheckBox *cbSyncActive, *cbSyncShow;
-    QCheckBox *cbSesLocation, *cbSesFilter;
+    QCheckBox *cbSesLocation, *cbSesFilter, *cbSesHiddenFiles;
 
     bool m_changed;
 };

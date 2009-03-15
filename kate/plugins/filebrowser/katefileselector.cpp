@@ -273,6 +273,8 @@ void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & 
     if ( ! loc.isEmpty() )
       setDir( loc );
   }
+  
+  m_dirOperator->setShowHiddenFiles( globalConfig.readEntry( "show hidden files", false ) );
 
   filter->setHistoryItems( cg.readEntry("filter history", QStringList()), true );
   lastFilter = cg.readEntry( "last filter" );
@@ -666,15 +668,18 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   QGroupBox *gbSession = new QGroupBox(i18n("Session"), this );
   cbSesLocation = new QCheckBox( i18n("Restore loca&tion"));
   cbSesFilter = new QCheckBox( i18n("Restore last f&ilter"));
+  cbSesHiddenFiles = new QCheckBox( i18n("Show hidden files") );
 
   vbox = new QVBoxLayout;
   vbox->addWidget(cbSesLocation);
   vbox->addWidget(cbSesFilter);
+  vbox->addWidget(cbSesHiddenFiles);
   gbSession->setLayout(vbox);
 
   lo->addWidget( gbSession );
   connect( cbSesLocation, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
   connect( cbSesFilter, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
+  connect( cbSesHiddenFiles, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
 
   // make it look nice
   lo->addStretch( 1 );
@@ -720,6 +725,9 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
                               "restored.</p>"
                               "<p><strong>Note</strong> that some of the autosync settings may "
                               "override the restored location if on.</p>") );
+  cbSesHiddenFiles->setWhatsThis(i18n(
+                              "<p>If this option is enabled, the file selector will show hidden "
+                              "files in this session.</p>") );
 
   init();
 
@@ -759,7 +767,10 @@ void KFSConfigPage::apply()
   //           as they are not needed during operation.
   config.writeEntry( "restore location", cbSesLocation->isChecked() );
   config.writeEntry( "restore last filter", cbSesFilter->isChecked() );
-
+  
+  // show hidden files
+  fileSelector->dirOperator()->setShowHiddenFiles( cbSesHiddenFiles->isChecked() );
+  
   fileSelector->writeConfig();
 }
 
@@ -783,8 +794,8 @@ void KFSConfigPage::init()
   QStringList allActions;
   allActions << "up" << "back" << "forward" << "home" <<
   "reload" << "mkdir" << "delete" <<
-  "short view" << "detailed view" /*<< "view menu" <<
-                  "show hidden" << "properties"*/ <<
+  "short view" << "detailed view" << /* "view menu" << */
+  "show hidden" /*<< "properties"*/ <<
   "tree view" << "detailed tree view" <<
   "bookmarks" << "sync_dir";
   QRegExp re("&(?=[^&])");
@@ -820,6 +831,7 @@ void KFSConfigPage::init()
   // session
   cbSesLocation->setChecked( config.readEntry( "restore location", true) );
   cbSesFilter->setChecked( config.readEntry( "restore last filter", true) );
+  cbSesHiddenFiles->setChecked( fileSelector->dirOperator()->showHiddenFiles() );
 }
 
 void KFSConfigPage::slotMyChanged()

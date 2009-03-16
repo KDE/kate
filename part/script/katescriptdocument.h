@@ -94,7 +94,27 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE QString commentMarker(int i);
     Q_INVOKABLE QString commentStart(int i);
     Q_INVOKABLE QString commentEnd(int i);
-    Q_INVOKABLE int attribute(int i, int j);
+
+    /**
+     * Get the syntax highlighting attribute at a given position in the document.
+     */
+    Q_INVOKABLE int attribute(int line, int column);
+
+    /**
+     * Return true if the highlight attribute equals @p attr.
+     */
+    Q_INVOKABLE bool isAttribute(int line, int column, int attr);
+
+    /**
+     * Get the name of the syntax highlighting attribute at the given position.
+     */
+    Q_INVOKABLE QString attributeName(int line, int column);
+
+    /**
+     * Return true is the name of the syntax attribute equals @p name.
+     */
+    Q_INVOKABLE bool isAttributeName(int line, int column, const QString &name);
+
     Q_INVOKABLE QString variable(const QString &s);
     //END
 

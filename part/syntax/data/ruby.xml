@@ -376,7 +376,7 @@
 				<DetectChar char="`" attribute="Command" context="check_div_1_pop"/>
 			</context>
 			
-			<context name="Embedded documentation" attribute="Comment" lineEndContext="#stay">
+			<context name="Embedded documentation" attribute="Blockcomment" lineEndContext="#stay">
 				<RegExpr attribute="Comment" String="^=end(?:\s.*|$)" context="#pop" endRegion="comment block" column="0"/>
 			</context>
 			

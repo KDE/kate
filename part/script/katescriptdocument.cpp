@@ -465,11 +465,29 @@ QString KateScriptDocument::commentEnd(int i)
   return m_document->highlight()->getCommentEnd(i);
 }
 
-int KateScriptDocument::attribute(int i, int j)
+int KateScriptDocument::attribute(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->kateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->kateTextLine(line);
   if(!textLine) return 0;
-  return textLine->attribute(j);
+  return textLine->attribute(column);
+}
+
+bool KateScriptDocument::isAttribute(int line, int column, int attr)
+{
+  return attr == attribute(line, column);
+}
+
+QString KateScriptDocument::attributeName(int line, int column)
+{
+  KateDocCursor cursor(line, column, m_document);
+  QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
+  KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+  return a->property(KateExtendedAttribute::AttributeName).toString();
+}
+
+bool KateScriptDocument::isAttributeName(int line, int column, const QString &name)
+{
+  return name == attributeName(line, column);
 }
 
 QString KateScriptDocument::variable(const QString &s)

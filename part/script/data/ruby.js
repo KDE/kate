@@ -293,9 +293,15 @@ function indent(line, indentWidth, ch)
   if (prevStmt.end < 0)
     return -2; // Can't indent the first line
 
-  // HACK Must have a way to detect if we are inside a non-code context
-  if (document.attribute(line-1, document.lineLength(line-1)-1) == 34) {
+  var prev = document.prevNonEmptyLine(line);
+
+  // HACK Detect here documents
+  if (document.isAttributeName(prev, document.lineLength(prev)-1, "Ruby:Here Document")) {
     return -1; // HERE-DOCUMENT
+  }
+  // HACK Detect embedded comments
+  if (document.isAttributeName(prev, document.lineLength(prev)-1, "Ruby:Blockcomment")) {
+    return -1;
   }
 
   var prevStmtCnt = prevStmt.content();

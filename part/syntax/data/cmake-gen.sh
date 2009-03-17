@@ -48,7 +48,7 @@ echo "$(count props) properties"
 
 # Generate new .xml
 {
-	cat $t.1
+	sed '/<!-- generated for/s/^.*$/<!-- generated for "'"$(cmake --version)"'" -->/' $t.1
 	echo "      <!-- generated list -->"
 	sed 's!.*!      <item> & </item>!' $t.commands
 	cat $t.2
@@ -61,3 +61,4 @@ echo "$(count props) properties"
 } > cmake.xml
 
 rm -f $t.*
+echo "Remember to update the version!"

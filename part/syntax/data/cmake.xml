@@ -24,8 +24,8 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.6-patch 2" -->
-<language name="CMake" version="1.08" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<!-- generated for "cmake version 2.6-patch 3" -->
+<language name="CMake" version="1.09" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -118,6 +118,7 @@
       <item> target_link_libraries </item>
       <item> try_compile </item>
       <item> try_run </item>
+      <item> unset </item>
       <item> use_mangled_mesa </item>
       <item> utility_source </item>
       <item> variable_requires </item>
@@ -255,6 +256,7 @@
       <item> NO_DEFAULT_PATH </item>
       <item> NO_HEX_CONVERSION </item>
       <item> NO_MODULE </item>
+      <item> NO_POLICY_SCOPE </item>
       <item> NO_SYSTEM_ENVIRONMENT_PATH </item>
       <item> OFFSET </item>
       <item> OLD </item>
@@ -325,6 +327,7 @@
       <item> SHARED </item>
       <item> SORT </item>
       <item> SOURCE </item>
+      <item> SOURCES </item>
       <item> STATIC </item>
       <item> STATUS </item>
       <item> STREQUAL </item>
@@ -376,6 +379,7 @@
       <item> CLEAN_NO_CUSTOM </item>
       <item> COMPILE_DEFINITIONS </item>
       <item> COMPILE_FLAGS </item>
+      <item> DEBUG_CONFIGURATIONS </item>
       <item> DEBUG_POSTFIX </item>
       <item> DEFINE_SYMBOL </item>
       <item> DEFINITIONS </item>
@@ -438,6 +442,7 @@
       <item> PREFIX </item>
       <item> PRE_INSTALL_SCRIPT </item>
       <item> PRIVATE_HEADER </item>
+      <item> PROJECT_LABEL </item>
       <item> PUBLIC_HEADER </item>
       <item> REPORT_UNDEFINED_PROPERTIES </item>
       <item> RESOURCE </item>
@@ -452,8 +457,13 @@
       <item> TARGET_SUPPORTS_SHARED_LIBS </item>
       <item> TEST_INCLUDE_FILE </item>
       <item> TIMEOUT </item>
+      <item> TYPE </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
+      <item> VS_KEYWORD </item>
+      <item> VS_SCC_LOCALPATH </item>
+      <item> VS_SCC_PROJECTNAME </item>
+      <item> VS_SCC_PROVIDER </item>
       <item> WILL_FAIL </item>
       <item> WIN32_EXECUTABLE </item>
       <item> WRAP_EXCLUDE </item>

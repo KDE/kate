@@ -194,7 +194,7 @@ bool KateApp::startupKate ()
   for (int z = 0; z < m_args->count(); z++)
   {
     // this file is no local dir, open it, else warn
-    bool noDir = !m_args->url(z).isLocalFile() || !QDir (m_args->url(z).path()).exists();
+    bool noDir = !m_args->url(z).isLocalFile() || !QDir (m_args->url(z).toLocalFile()).exists();
 
     if (noDir)
     {

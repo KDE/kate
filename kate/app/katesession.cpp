@@ -698,12 +698,12 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
   KateSessionList &slist (KateSessionManager::self()->sessionList());
-  kdDebug()<<"Last session is:"<<lastSession;
+  kDebug()<<"Last session is:"<<lastSession;
   for (int i = 0; i < slist.count(); ++i)
   {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, slist[i]);
 
-    kdDebug()<<"Session added to chooser:"<<slist[i]->sessionName()<<"........"<<slist[i]->sessionFileRelative();
+    kDebug()<<"Session added to chooser:"<<slist[i]->sessionName()<<"........"<<slist[i]->sessionFileRelative();
     if (slist[i]->sessionFileRelative() == lastSession)
       m_sessions->setCurrentItem (item);
   }

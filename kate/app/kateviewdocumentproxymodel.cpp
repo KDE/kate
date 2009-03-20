@@ -259,7 +259,7 @@ void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
   QMap<QModelIndex, QBrush> oldBrushes = m_brushes;
   m_brushes.clear();
   int hc = m_viewHistory.count();
-  int ec = m_viewHistory.count();
+  int ec = m_editHistory.count();
   for (QMap<QModelIndex, EditViewCount>::iterator it = helper.begin();it != helper.end();++it)
   {
     QColor shade( m_viewShade );

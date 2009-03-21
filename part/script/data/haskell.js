@@ -80,22 +80,25 @@ function indent(line, indentWidth, character) {
 		 return document.firstVirtualColumn(line - 1) + 6;
 	 }
 
-	 // indent line after 'case' 6 characters for alignment:
+	 // indent line after 'case' 5 characters for alignment:
 	 // case xs of
 	 // >>>>>[] -> ...
 	 // >>>>>(y:ys) -> ...
-	 if(lastLine.stripWhiteSpace().startsWith('case')) {
+	 var caseCol = lastLine.search(/\bcase\b/);
+	 if(caseCol != -1) {
 		 //dbg('indenting line for case');
-		 return document.firstVirtualColumn(line - 1) + 5;
+		 return document.firstVirtualColumn(line - 1) + 5 + caseCol;
 	 }
 
 	 // indent line after 'if/else' 3 characters for alignment:
 	 // if foo == bar
 	 // >>>then baz
 	 // >>>else vaff
-	 if(lastLine.stripWhiteSpace().startsWith('if')) {
+	 var ifCol = lastLine.search(/\bif\b/);
+	 dbg(ifCol);
+	 if(ifCol != -1) {
 		 //dbg('indenting line for if');
-		 return document.firstVirtualColumn(line - 1) + 3;
+		 return document.firstVirtualColumn(line - 1) + 3 + ifCol;
 	 }
 
 	 // indent lines following a line ending with '='

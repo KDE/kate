@@ -115,6 +115,11 @@ function indent(line, indentWidth, character) {
 		 //dbg('indenting for operator');
 		 return document.firstVirtualColumn(line - 1) + indentWidth;
 	 }
+
+	 if (lastLine.search(/^\s*$/) != -1) {
+		 dbg('indenting for empty line');
+		 return 0;
+	 }
 			 
 
 	 //dbg('continuing with regular indent');

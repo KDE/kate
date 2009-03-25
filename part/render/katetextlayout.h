@@ -48,6 +48,8 @@ class KateTextLayout
 
     int line() const;
     int virtualLine() const;
+    /** Return the index of this visual line inside the document line
+        (KateLineLayout).  */
     int viewLine() const;
 
     const QTextLine& lineLayout() const;

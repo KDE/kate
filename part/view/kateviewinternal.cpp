@@ -2942,6 +2942,14 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
       //kDebug( 13030 )<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
       KateTextLayout& thisLine = cache()->viewLine(z);
 
+      /* If viewLine() returns non-zero, then a document line was split
+         in several visual lines, and we're trying to paint visual line
+         that is not the first.  In that case, this line was already
+         painted previously, since KateRenderer::paintTextLine paints
+         all visual lines.
+         Except if we're at the start of the region that needs to
+         be painted -- when no previous calls to paintTextLine were made.  
+      */         
       if (!thisLine.viewLine() || z == startz) {
         // Don't bother if we're not in the requested update region
         if (!e->region().contains(QRect(unionRect.x(), startz * h, unionRect.width(), h)))

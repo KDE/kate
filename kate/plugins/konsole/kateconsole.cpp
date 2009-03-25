@@ -133,16 +133,16 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
 
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(KIcon("pipe"));
-  a->setText(i18n("&Pipe to Terminal"));
+  a->setText(i18nc("@action", "&Pipe to Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
   a = actionCollection()->addAction("katekonsole_tools_sync");
-  a->setText(i18n("S&ynchronize Terminal with Current Document"));
+  a->setText(i18nc("@action", "S&ynchronize Terminal with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
   a->setIcon(KIcon("utilities-terminal"));
-  a->setText(i18n("&Focus Terminal"));
+  a->setText(i18nc("@action", "&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
   setXMLFile("plugins/katekonsole/ui.rc");

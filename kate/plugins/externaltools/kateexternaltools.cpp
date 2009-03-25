@@ -582,7 +582,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
   cmbSave->addItems( sl );
   if ( tool ) cmbSave->setCurrentIndex( tool->save );
   cmbSave->setWhatsThis(i18n(
-                          "You can elect to save the current or all [modified] documents prior to "
+                          "You can choose to save the current or all [modified] documents prior to "
                           "running the command. This is helpful if you want to pass URLs to "
                           "an application like, for example, an FTP client.") );
 
@@ -596,7 +596,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
   if ( tool ) leCmdLine->setText( tool->cmdname );
   leCmdLine->setWhatsThis(i18n(
                             "If you specify a name here, you can invoke the command from the view "
-                            "command lines with exttool-the_name_you_specified_here. "
+                            "command line with exttool-the_name_you_specified_here. "
                             "Please do not use spaces or tabs in the name."));
   connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
 }

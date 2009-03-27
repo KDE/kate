@@ -103,6 +103,11 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
     kDebug( 13035 ) << fr.start << " len " << fr.length << " format ";*/
 
   QItemDelegate::paint(painter, option, index);
+
+  ///This is a bug workaround for the Qt raster paint engine: It paints over widgets embedded into the viewport when updating due to mouse events
+  ///@todo report to Qt Software
+  if( model()->isExpanded(index) && model()->expandingWidget( index ) )
+    model()->expandingWidget( index )->update();
 }
 
 QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {

@@ -545,9 +545,18 @@ void KateCompletionWidget::updateHeight()
 
   geom.setHeight(finalHeight);
 
-  setGeometry(geom);
+  //Work around a crash deep within the Qt 4.5 raster engine
+  m_entryList->setScrollingEnabled(false);
+  
+  if(geometry() != geom)
+    setGeometry(geom);
 
-  m_entryList->resize(m_entryList->width(), finalHeight - 2*frameWidth());
+  QSize entryListSize = QSize(m_entryList->width(), finalHeight - 2*frameWidth());
+  if(m_entryList->size() != entryListSize)
+    m_entryList->resize(entryListSize);
+
+
+  m_entryList->setScrollingEnabled(true);
 }
 
 

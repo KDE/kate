@@ -49,6 +49,8 @@ class KateCompletionTree : public ExpandingTree
     
     void scheduleUpdate();
 
+    void setScrollingEnabled(bool);
+    
   private slots:
     void resizeColumnsSlot();
 
@@ -57,6 +59,7 @@ class KateCompletionTree : public ExpandingTree
     virtual void scrollContentsBy(int dx, int dy);
     virtual QStyleOptionViewItem viewOptions() const;
   private:
+    bool m_scrollingEnabled;
     QTimer* m_resizeTimer;
 };
 

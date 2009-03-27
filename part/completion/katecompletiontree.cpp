@@ -37,6 +37,7 @@
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   : ExpandingTree(parent)
 {
+  m_scrollingEnabled = true;
   header()->hide();
   setRootIsDecorated(false);
   setIndentation(0);
@@ -67,9 +68,14 @@ void KateCompletionTree::currentChanged ( const QModelIndex & current, const QMo
   ExpandingTree::currentChanged(current, previous);
 }
 
+void KateCompletionTree::setScrollingEnabled(bool enabled) {
+  m_scrollingEnabled = enabled;
+}
+
 void KateCompletionTree::scrollContentsBy( int dx, int dy )
 {
-  QTreeView::scrollContentsBy(dx, dy);
+  if(m_scrollingEnabled)
+    QTreeView::scrollContentsBy(dx, dy);
 
   if (isVisible())
     m_resizeTimer->start(300);

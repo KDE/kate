@@ -29,13 +29,12 @@
 #include <kactioncollection.h>
 //Added by qt3to4:
 #include <QPixmap>
-#include <k3dockwidget.h>
 
 K_EXPORT_COMPONENT_FACTORY( katepybrowseplugin, KGenericFactory<KatePluginPyBrowse>( "katepybrowse" ) )
 
 
 PluginViewPyBrowse::PluginViewPyBrowse (Kate::MainWindow *w)
- : Kate::PluginView (w),KXMLGUIClient(),win()
+ : Kate::PluginView (w),KXMLGUIClient(),win(w)
 {
    QAction *a = actionCollection()->addAction("python_update_pybrowse");
    a->setText(i18n("Update Python Browser"));
@@ -57,6 +56,7 @@ PluginViewPyBrowse::PluginViewPyBrowse (Kate::MainWindow *w)
    kpybrowser = new KPyBrowser(my_dock, "kpybrowser");
 
    connect(kpybrowser, SIGNAL(selected(QString, int)), this, SLOT(slotSelected(QString, int)));
+   delete py_pixmap;
 }
 
 PluginViewPyBrowse::~PluginViewPyBrowse ()

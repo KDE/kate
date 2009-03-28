@@ -1,11 +1,9 @@
-# KDE Config File
 [Desktop Entry]
 Encoding=UTF-8
 Type=Service
 ServiceTypes=Kate/Plugin
-X-KDE-Library=katepybrowseplugin
+X-KDE-Library=katepybrowse
 X-Kate-Version=3.0
-
 Name=KPyBrowser
 Name[nb]=KPy-visning
 Name[ne]=केडीई पाइथोन ब्राउजर
@@ -13,3 +11,4 @@ Name[sr]=К‑пи‑прегледач
 Name[sr@latin]=K‑Py‑pregledač
 Name[sv]=Python-bläddrare
 Name[x-test]=xxKPyBrowserxx
+Comment=KPyBrowser

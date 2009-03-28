@@ -79,13 +79,9 @@ Kate::PluginView *PluginKateXMLCheck::createView(Kate::MainWindow *mainWindow)
 //---------------------------------
 PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     : Kate::PluginView (mainwin),KXMLGUIClient(),win(mainwin)
-                                              //:Q3ListView(parent,name),win(mainwin)
 {
     dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
-    //QHBoxLayout *lay =  new QHBoxLayout;
-    //dock->setLayout( lay );
     listview = new Q3ListView( dock );
-    //lay->addWidget( listview );
     m_tmp_file=0;
     m_proc=0;
     QAction *a = actionCollection()->addAction("xml_check");
@@ -130,8 +126,8 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
 PluginKateXMLCheckView::~PluginKateXMLCheckView()
 {
     mainWindow()->guiFactory()->removeClient( this );
-	delete m_proc;
-	delete m_tmp_file;
+    delete m_proc;
+    delete m_tmp_file;
 }
 
 void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus exitStatus)
@@ -253,7 +249,7 @@ bool PluginKateXMLCheckView::slotValidate()
 	KTextEditor::View *kv = win->activeView();
 	if( ! kv )
 	  return false;
-
+        delete m_tmp_file;
 	m_tmp_file = new KTemporaryFile();
 	if( !m_tmp_file->open() ) {
 		kDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();

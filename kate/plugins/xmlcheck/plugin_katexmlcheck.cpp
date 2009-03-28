@@ -120,7 +120,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
 */
 
     m_proc = new KProcess();
-    connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(finished (int, QProcess::ExitStatus)));
+    connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(slotProcExited (int, QProcess::ExitStatus)));
     // we currently only want errors:
     m_proc->setOutputChannelMode(KProcess::OnlyStderrChannel);
 

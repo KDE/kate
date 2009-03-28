@@ -33,8 +33,9 @@
 
 K_EXPORT_COMPONENT_FACTORY( katepybrowseplugin, KGenericFactory<KatePluginPyBrowse>( "katepybrowse" ) )
 
+
 PluginViewPyBrowse::PluginViewPyBrowse (Kate::MainWindow *w)
- : win (w)
+ : Kate::PluginView (w),KXMLGUIClient(),win()
 {
    QAction *a = actionCollection()->addAction("python_update_pybrowse");
    a->setText(i18n("Update Python Browser"));
@@ -129,8 +130,11 @@ void PluginViewPyBrowse::slotShowPyBrowser()
    //TO DO implement this later so that you can turn the browser off and on
 }
 
+
+
+
 KatePluginPyBrowse::KatePluginPyBrowse( QObject* parent, const QStringList& )
-    : Kate::Plugin ( (Kate::Application *)parent, "KatePluginPyBrowse" )
+    : Kate::Plugin ( (Kate::Application *)parent )
 {
 }
 
@@ -138,40 +142,8 @@ KatePluginPyBrowse::~KatePluginPyBrowse()
 {
 }
 
-void KatePluginPyBrowse::addView (Kate::MainWindow *win)
+Kate::PluginView *KatePluginPyBrowse::createView(Kate::MainWindow *mainWindow)
 {
-   PluginViewPyBrowse *view = new PluginViewPyBrowse(win);
-   m_views.append (view);
+    return new PluginViewPyBrowse(mainWindow);
 }
 
-void KatePluginPyBrowse::removeView(Kate::MainWindow *win)
-{
-  for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->win == win)
-    {
-      PluginViewPyBrowse *view = m_views.at(z);
-      m_views.remove (view);
-      delete view;
-    }
-}
-
-void KatePluginPyBrowse::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
- 
-void KatePluginPyBrowse::loadViewConfig(KConfig* config, Kate::MainWindow*win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void KatePluginPyBrowse::storeGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void KatePluginPyBrowse::loadGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
- 

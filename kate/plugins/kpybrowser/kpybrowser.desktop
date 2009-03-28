@@ -1,10 +1,11 @@
 # KDE Config File
 [Desktop Entry]
-Type=Application
-Exec=kpybrowser -caption "%c"
-Icon=kpybrowser
-Comment=
-Terminal=false
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katepybrowseplugin
+X-Kate-Version=3.0
+
 Name=KPyBrowser
 Name[nb]=KPy-visning
 Name[ne]=केडीई पाइथोन ब्राउजर

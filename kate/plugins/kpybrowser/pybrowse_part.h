@@ -34,7 +34,7 @@
 #include <Q3PtrList>
 #include "kpybrowser.h"
 
-class PluginViewPyBrowse : public QObject, KXMLGUIClient
+class PluginViewPyBrowse : public Kate::PluginView, public KXMLGUIClient
 {
   Q_OBJECT
 
@@ -55,22 +55,14 @@ class PluginViewPyBrowse : public QObject, KXMLGUIClient
     KPyBrowser *kpybrowser;
 };
 
-class KatePluginPyBrowse : public Kate::Plugin, public Kate::PluginViewInterface
+class KatePluginPyBrowse : public Kate::Plugin
 {
   Q_OBJECT
 
   public:
     explicit KatePluginPyBrowse( QObject* parent = 0, const QStringList& = QStringList() );
     ~KatePluginPyBrowse();
-
-    void addView(Kate::MainWindow *win);
-    void removeView(Kate::MainWindow *win);
-	void storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
-	void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
-  private:
-    Q3PtrList<PluginViewPyBrowse> m_views;
+    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
 #endif

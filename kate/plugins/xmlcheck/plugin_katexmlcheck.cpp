@@ -29,6 +29,7 @@
 */
 
 #include "plugin_katexmlcheck.h"
+#include <QHBoxLayout>
 #include "plugin_katexmlcheck.moc"
 
 #include <cassert>
@@ -59,7 +60,7 @@
 K_EXPORT_COMPONENT_FACTORY( katexmlcheckplugin, KGenericFactory<PluginKateXMLCheck>( "katexmlcheck" ) )
 
 PluginKateXMLCheck::PluginKateXMLCheck( QObject* parent, const QStringList& )
-	: Kate::Plugin ( (Kate::Application *)parent, "PluginKateXMLCheck" )
+	: Kate::Plugin ( (Kate::Application *)parent )
 {
 }
 
@@ -68,181 +69,149 @@ PluginKateXMLCheck::~PluginKateXMLCheck()
 {
 }
 
-void PluginKateXMLCheck::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
+
+Kate::PluginView *PluginKateXMLCheck::createView(Kate::MainWindow *mainWindow)
 {
-  // TODO: FIXME: port to new Kate interfaces
-}
- 
-void PluginKateXMLCheck::loadViewConfig(KConfig* config, Kate::MainWindow*win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void PluginKateXMLCheck::storeGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void PluginKateXMLCheck::loadGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void PluginKateXMLCheck::addView(Kate::MainWindow *win)
-{
-  //Kate::ToolViewManager *viewmanager = win;
-	QWidget *dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
-
-	PluginKateXMLCheckView *view = new PluginKateXMLCheckView (dock,win,"katexmlcheck_outputview");
-	view->dock = dock;
-
-	win->guiFactory()->addClient(view);
-	view->win = win;
-
-	m_views.append(view);
-}
-
-
-void PluginKateXMLCheck::removeView(Kate::MainWindow *win)
-{
-	for (uint z=0; z < m_views.count(); z++) {
-		if (m_views.at(z)->win == win) {
-			PluginKateXMLCheckView *view = m_views.at(z);
-			m_views.remove (view);
-			win->guiFactory()->removeClient (view);
-			delete view->dock; // this will delete view, too
-		}
-	}
+    return new PluginKateXMLCheckView(mainWindow);
 }
 
 
 //---------------------------------
-PluginKateXMLCheckView::PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow *mainwin,const char* name)
-	:Q3ListView(parent,name),KXMLGUIClient(),win(mainwin)
+PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
+    : Kate::PluginView (mainwin),KXMLGUIClient(),win(mainwin)
+                                              //:Q3ListView(parent,name),win(mainwin)
 {
-	m_tmp_file=0;
-	m_proc=0;
-	QAction *a = actionCollection()->addAction("xml_check");
-	a->setText(i18n("Validate XML"));
-	connect(a, SIGNAL(triggered()), this, SLOT(slotValidate()));
-	// TODO?:
-	//(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
-	//	SLOT( slotIndent() ), actionCollection(), "xml_indent" );
+    dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
+    //QHBoxLayout *lay =  new QHBoxLayout;
+    //dock->setLayout( lay );
+    listview = new Q3ListView( dock );
+    //lay->addWidget( listview );
+    m_tmp_file=0;
+    m_proc=0;
+    QAction *a = actionCollection()->addAction("xml_check");
+    a->setText(i18n("Validate XML"));
+    connect(a, SIGNAL(triggered()), this, SLOT(slotValidate()));
+    // TODO?:
+    //(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
+    //	SLOT( slotIndent() ), actionCollection(), "xml_indent" );
 
-	setComponentData(KComponentData("kate"));
-	setXMLFile("plugins/katexmlcheck/ui.rc");
+    setComponentData(KComponentData("kate"));
+    setXMLFile("plugins/katexmlcheck/ui.rc");
 
 
-	setFocusPolicy(Qt::NoFocus);
-	addColumn(i18n("#"), -1);
-	addColumn(i18n("Line"), -1);
-	setColumnAlignment(1, Qt::AlignRight);
-	addColumn(i18n("Column"), -1);
-	setColumnAlignment(2, Qt::AlignRight);
-	addColumn(i18n("Message"), -1);
-	setAllColumnsShowFocus(true);
-	setResizeMode(Q3ListView::LastColumn);
-	connect(this, SIGNAL(clicked(Q3ListViewItem *)), SLOT(slotClicked(Q3ListViewItem *)));
+    listview->setFocusPolicy(Qt::NoFocus);
+    listview->addColumn(i18n("#"), -1);
+    listview->addColumn(i18n("Line"), -1);
+    listview->setColumnAlignment(1, Qt::AlignRight);
+    listview->addColumn(i18n("Column"), -1);
+    listview->setColumnAlignment(2, Qt::AlignRight);
+    listview->addColumn(i18n("Message"), -1);
+    listview->setAllColumnsShowFocus(true);
+    listview->setResizeMode(Q3ListView::LastColumn);
+    connect(listview, SIGNAL(clicked(Q3ListViewItem *)), SLOT(slotClicked(Q3ListViewItem *)));
 
 /* TODO?: invalidate the listview when document has changed
-	Kate::View *kv = application()->activeMainWindow()->activeView();
-	if( ! kv ) {
-		kDebug() << "Warning: no Kate::View";
-		return;
-	}
-	connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
+   Kate::View *kv = application()->activeMainWindow()->activeView();
+   if( ! kv ) {
+   kDebug() << "Warning: no Kate::View";
+   return;
+   }
+   connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
 */
 
-	m_proc = new KProcess();
-	connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(finished (int, QProcess::ExitStatus)));
-	// we currently only want errors:
-	m_proc->setOutputChannelMode(KProcess::OnlyStderrChannel);
+    m_proc = new KProcess();
+    connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(finished (int, QProcess::ExitStatus)));
+    // we currently only want errors:
+    m_proc->setOutputChannelMode(KProcess::OnlyStderrChannel);
+
+    mainWindow()->guiFactory()->addClient(this);
 }
 
 PluginKateXMLCheckView::~PluginKateXMLCheckView()
 {
+    mainWindow()->guiFactory()->removeClient( this );
 	delete m_proc;
 	delete m_tmp_file;
 }
 
 void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	Q_UNUSED(exitCode);
+    Q_UNUSED(exitCode);
 
-	// FIXME: doesn't work correct the first time:
-	//if( m_dockwidget->isDockBackPossible() ) {
-	//	m_dockwidget->dockBack();
+    // FIXME: doesn't work correct the first time:
+    //if( m_dockwidget->isDockBackPossible() ) {
+    //	m_dockwidget->dockBack();
 //	}
 
-	if (exitStatus != QProcess::NormalExit) {
-		(void)new Q3ListViewItem(this, QString("1").rightJustified(4,' '), "", "",
-			"Validate process crashed.");
-		return;
-	}
+    if (exitStatus != QProcess::NormalExit) {
+        (void)new Q3ListViewItem(listview, QString("1").rightJustified(4,' '), "", "",
+                                 "Validate process crashed.");
+        return;
+    }
 
-	kDebug() << "slotProcExited()";
-	QApplication::restoreOverrideCursor();
-	delete m_tmp_file;
-	QString proc_stderr = QString::fromLocal8Bit(m_proc->readAllStandardError());
-	m_tmp_file=0;
-	clear();
-	uint list_count = 0;
-	uint err_count = 0;
-	if( ! m_validating ) {
-		// no i18n here, so we don't get an ugly English<->Non-english mixup:
-		QString msg;
-		if( m_dtdname.isEmpty() ) {
-			msg = "No DOCTYPE found, will only check well-formedness.";
-		} else {
-			msg = '\'' + m_dtdname + "' not found, will only check well-formedness.";
-		}
-		(void)new Q3ListViewItem(this, QString("1").rightJustified(4,' '), "", "", msg);
-		list_count++;
-	}
-	if( ! proc_stderr.isEmpty() ) {
-		QStringList lines = QStringList::split("\n", proc_stderr);
-		Q3ListViewItem *item = 0;
-		QString linenumber, msg;
-		int line_count = 0;
-		for(QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
-			QString line = *it;
-			line_count++;
-			int semicolon_1 = line.find(':');
-			int semicolon_2 = line.find(':', semicolon_1+1);
-			int semicolon_3 = line.find(':', semicolon_2+2);
-			int caret_pos = line.find('^');
-			if( semicolon_1 != -1 && semicolon_2 != -1 && semicolon_3 != -1 ) {
-				linenumber = line.mid(semicolon_1+1, semicolon_2-semicolon_1-1).trimmed();
-				linenumber = linenumber.rightJustified(6, ' ');	// for sorting numbers
-				msg = line.mid(semicolon_3+1, line.length()-semicolon_3-1).trimmed();
-			} else if( caret_pos != -1 || line_count == lines.size() ) {
-				// TODO: this fails if "^" occurs in the real text?!
-				if( line_count == lines.size() && caret_pos == -1 ) {
-					msg = msg+'\n'+line;
-				}
-				QString col = QString::number(caret_pos);
-				if( col == "-1" ) {
-					col = "";
-				}
-				err_count++;
-				list_count++;
-				item = new Q3ListViewItem(this, QString::number(list_count).rightJustified(4,' '), linenumber, col, msg);
-				item->setMultiLinesEnabled(true);
-			} else {
-				msg = msg+'\n'+line;
-			}
-		}
-		sort();	// TODO?: insert in right order
-	}
-	if( err_count == 0 ) {
-		QString msg;
-		if( m_validating ) {
-			msg = "No errors found, document is valid.";	// no i18n here
-		} else {
-			msg = "No errors found, document is well-formed.";	// no i18n here
-		}
-		(void)new Q3ListViewItem(this, QString::number(list_count+1).rightJustified(4,' '), "", "", msg);
-	}
+    kDebug() << "slotProcExited()";
+    QApplication::restoreOverrideCursor();
+    delete m_tmp_file;
+    QString proc_stderr = QString::fromLocal8Bit(m_proc->readAllStandardError());
+    m_tmp_file=0;
+    listview->clear();
+    uint list_count = 0;
+    uint err_count = 0;
+    if( ! m_validating ) {
+        // no i18n here, so we don't get an ugly English<->Non-english mixup:
+        QString msg;
+        if( m_dtdname.isEmpty() ) {
+            msg = "No DOCTYPE found, will only check well-formedness.";
+        } else {
+            msg = '\'' + m_dtdname + "' not found, will only check well-formedness.";
+        }
+        (void)new Q3ListViewItem(listview, QString("1").rightJustified(4,' '), "", "", msg);
+        list_count++;
+    }
+    if( ! proc_stderr.isEmpty() ) {
+        QStringList lines = QStringList::split("\n", proc_stderr);
+        Q3ListViewItem *item = 0;
+        QString linenumber, msg;
+        int line_count = 0;
+        for(QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
+            QString line = *it;
+            line_count++;
+            int semicolon_1 = line.find(':');
+            int semicolon_2 = line.find(':', semicolon_1+1);
+            int semicolon_3 = line.find(':', semicolon_2+2);
+            int caret_pos = line.find('^');
+            if( semicolon_1 != -1 && semicolon_2 != -1 && semicolon_3 != -1 ) {
+                linenumber = line.mid(semicolon_1+1, semicolon_2-semicolon_1-1).trimmed();
+                linenumber = linenumber.rightJustified(6, ' ');	// for sorting numbers
+                msg = line.mid(semicolon_3+1, line.length()-semicolon_3-1).trimmed();
+            } else if( caret_pos != -1 || line_count == lines.size() ) {
+                // TODO: this fails if "^" occurs in the real text?!
+                if( line_count == lines.size() && caret_pos == -1 ) {
+                    msg = msg+'\n'+line;
+                }
+                QString col = QString::number(caret_pos);
+                if( col == "-1" ) {
+                    col = "";
+                }
+                err_count++;
+                list_count++;
+                item = new Q3ListViewItem(listview, QString::number(list_count).rightJustified(4,' '), linenumber, col, msg);
+                item->setMultiLinesEnabled(true);
+            } else {
+                msg = msg+'\n'+line;
+            }
+        }
+        listview->sort();	// TODO?: insert in right order
+    }
+    if( err_count == 0 ) {
+        QString msg;
+        if( m_validating ) {
+            msg = "No errors found, document is valid.";	// no i18n here
+        } else {
+            msg = "No errors found, document is well-formed.";	// no i18n here
+        }
+        (void)new Q3ListViewItem(listview, QString::number(list_count+1).rightJustified(4,' '), "", "", msg);
+    }
 }
 
 
@@ -275,7 +244,7 @@ bool PluginKateXMLCheckView::slotValidate()
 {
 	kDebug() << "slotValidate()";
 
-	win->showToolView (this);
+	win->showToolView (dock);
 
 	m_proc->clearProgram();
 	m_validating = false;
@@ -355,6 +324,6 @@ bool PluginKateXMLCheckView::slotValidate()
 			"sure that xmllint is installed. It is part of libxml2."));
 		return false;
 	}
-	QApplication::setOverrideCursor(KCursor::waitCursor());
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	return true;
 }

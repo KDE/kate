@@ -45,49 +45,43 @@
 class KTemporaryFile;
 class KProcess;
 
-class PluginKateXMLCheckView : public Q3ListView, public KXMLGUIClient
+class PluginKateXMLCheckView : public Kate::PluginView, public KXMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-	PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow *mainwin,const char* name);
-	virtual ~PluginKateXMLCheckView();
+public:
+    PluginKateXMLCheckView(Kate::MainWindow *mainwin);
+    virtual ~PluginKateXMLCheckView();
 
-	Kate::MainWindow *win;
-	QWidget *dock;
+    Kate::MainWindow *win;
+    QWidget *dock;
 
-  public slots:
-	bool slotValidate();
-	void slotClicked(Q3ListViewItem *item);
-	void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
-	void slotUpdate();
+public slots:
+    bool slotValidate();
+    void slotClicked(Q3ListViewItem *item);
+    void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
+    void slotUpdate();
 
-  private:
-	KTemporaryFile *m_tmp_file;
-	KParts::ReadOnlyPart *part;
-	bool m_validating;
-	KProcess *m_proc;
-	QString m_proc_stderr;
-	QString m_dtdname;
+private:
+    KTemporaryFile *m_tmp_file;
+    KParts::ReadOnlyPart *part;
+    bool m_validating;
+    KProcess *m_proc;
+    QString m_proc_stderr;
+    QString m_dtdname;
+    Q3ListView *listview;
 };
 
 
-class PluginKateXMLCheck : public Kate::Plugin, Kate::PluginViewInterface
+class PluginKateXMLCheck : public Kate::Plugin
 {
   Q_OBJECT
 
-  public:
-	explicit PluginKateXMLCheck( QObject* parent = 0, const QStringList& = QStringList() );
-	virtual ~PluginKateXMLCheck();
+public:
+  explicit PluginKateXMLCheck( QObject* parent = 0, const QStringList& = QStringList() );
 
-	void addView (Kate::MainWindow *win);
-	void removeView (Kate::MainWindow *win);
-	void storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
-	void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
-  private:
-	Q3PtrList<PluginKateXMLCheckView> m_views;
+    virtual ~PluginKateXMLCheck();
+    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
 #endif // PLUGIN_KATEXMLCHECK_H

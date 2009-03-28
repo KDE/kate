@@ -46,20 +46,25 @@
 #include <kcombobox.h>
 #include <kdialog.h>
 
-class PluginKateXMLTools : public Kate::Plugin, Kate::PluginViewInterface
+
+class PluginKateXMLTools : public Kate::Plugin
+{
+  Q_OBJECT
+
+  public:
+    explicit PluginKateXMLTools( QObject* parent = 0, const QStringList& = QStringList() );
+    ~PluginKateXMLTools();
+    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+};
+
+class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
 
-    explicit PluginKateXMLTools( QObject* parent = 0, const QStringList& = QStringList() );
-    virtual ~PluginKateXMLTools();
-    void addView ( Kate::MainWindow *win );
-    void removeView( Kate::MainWindow *win );
-	void storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-	void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
-	void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
+    explicit PluginKateXMLToolsView( Kate::MainWindow *w);
+    virtual ~PluginKateXMLToolsView();
 
   public slots:
 
@@ -127,7 +132,6 @@ class PluginKateXMLTools : public Kate::Plugin, Kate::PluginViewInterface
     /// maps DTD filename -> DTD
     Q3Dict<PseudoDTD> m_dtds;
 
-    Q3PtrList<class PluginView> m_views;
 
     void connectSlots( KTextEditor::View *kv );
     void disconnectSlots( KTextEditor::View *kv );

@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katehelloworldplugin
 X-Kate-Version=2.9
 Name=Hello World Plugin
+Name[de]=Hello-World-Modul
 Name[es]=Complemento Hola mundo
 Name[et]='Tere, maailm' plugin
 Name[nds]=Moin-Welt-Moduul

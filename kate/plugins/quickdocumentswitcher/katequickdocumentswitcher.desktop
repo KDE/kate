@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katequickdocumentswitcherplugin
 X-Kate-Version=2.8
 Name=Quick Document switcher
+Name[de]=Schnellwechsler für Dokumente
 Name[es]=Cambiador rápido de documento
 Name[et]=Dokumentide kiirlülitaja
 Name[ga]=Mearmhalairt cháipéise

@@ -890,7 +890,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   int i = 0;
   foreach (const KatePartPluginInfo &info, KatePartPluginManager::self()->pluginList())
   {
-    KPluginInfo it(info.service);
+    KPluginInfo it(info.service());
     it.setPluginEnabled(info.load);
     plugins.append(it);
     i++;

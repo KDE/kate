@@ -24,6 +24,7 @@
 #ifndef KATEPARTPLUGINMANAGER_H
 #define KATEPARTPLUGINMANAGER_H
 
+#include <kplugininfo.h>
 #include <kservice.h>
 
 #include <QObject>
@@ -38,10 +39,15 @@ namespace KTextEditor {
 class KatePartPluginInfo
 {
   public:
+    KatePartPluginInfo(KService::Ptr service);
     mutable bool load;
-    KService::Ptr service;
     KTextEditor::Plugin *plugin;
     QString saveName() const;
+    KService::Ptr service() const { return m_pluginInfo.service(); }
+    QStringList dependencies() const { return m_pluginInfo.dependencies(); }
+  private:
+    KPluginInfo m_pluginInfo;
+    QString m_saveName;
 };
 
 typedef QList<KatePartPluginInfo> KatePartPluginList;

@@ -35,12 +35,16 @@
 #include <kservicetypetrader.h>
 #include <kdebug.h>
 
+KatePartPluginInfo::KatePartPluginInfo(KService::Ptr service)
+    : m_pluginInfo(service)
+{
+}
+
 QString KatePartPluginInfo::saveName() const
 {
-  QString saveName = service->property("X-KDE-PluginInfo-Name").toString();
-
+  QString saveName = m_pluginInfo.pluginName();
   if (saveName.isEmpty())
-    saveName = service->library();
+    saveName = service()->library();
   return saveName;
 }
 
@@ -74,10 +78,9 @@ void KatePartPluginManager::setupPluginList ()
 
   foreach(const KService::Ptr &ptr, traderList)
   {
-    KatePartPluginInfo info;
+    KatePartPluginInfo info(ptr);
 
     info.load = false;
-    info.service = ptr;
     info.plugin = 0L;
 
     m_pluginList.push_back (info);
@@ -141,8 +144,8 @@ void KatePartPluginManager::loadConfig ()
 
   // disable all plugin if no config...
   foreach (const KatePartPluginInfo &plugin, m_pluginList)
-    plugin.load = cg.readEntry (plugin.service->library(), false)
-               || cg.readEntry (plugin.service->property("X-KDE-PluginInfo-Name").toString(), false);
+    plugin.load = cg.readEntry (plugin.service()->library(), false)
+               || cg.readEntry (plugin.service()->property("X-KDE-PluginInfo-Name").toString(), false);
 
   loadAllPlugins();
 }
@@ -186,7 +189,7 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
   if (item.plugin) return;
 
   // make sure all dependencies are loaded beforehand
-  QStringList openDependencies = KPluginInfo( item.service ).dependencies();
+  QStringList openDependencies = item.dependencies();
   if ( !openDependencies.empty() )
   {
     for (KatePartPluginList::iterator it = m_pluginList.begin();
@@ -201,7 +204,7 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
     Q_ASSERT( openDependencies.empty() );
   }
 
-  item.plugin = KTextEditor::createPlugin (item.service, this);
+  item.plugin = KTextEditor::createPlugin (item.service(), this);
   Q_ASSERT(item.plugin);
   item.load = (item.plugin != 0);
 }
@@ -216,7 +219,7 @@ void KatePartPluginManager::unloadPlugin (KatePartPluginInfo &item)
   {
     if ( !it->plugin ) continue;
 
-    if ( KPluginInfo( it->service ).dependencies().contains( item.saveName() ) )
+    if ( it->dependencies().contains( item.saveName() ) )
     {
       unloadPlugin( *it );
     }

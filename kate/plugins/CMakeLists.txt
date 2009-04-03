@@ -24,6 +24,7 @@ add_subdirectory( filetemplates )
 add_subdirectory( kate-ctags )
 add_subdirectory( katebuild-plugin )
 
+add_subdirectory( kttsd )
 
 #add_subdirectory( htmltools )
 add_subdirectory( kpybrowser )

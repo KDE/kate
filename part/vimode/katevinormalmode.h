@@ -181,6 +181,9 @@ class KateViNormalMode : public KateViModeBase
     KateViRange textObjectABracket();
     KateViRange textObjectInnerBracket();
 
+    KateViRange textObjectAComma();
+    KateViRange textObjectInnerComma();
+
     void addCurrentPositionToJumpList();
 
   protected:

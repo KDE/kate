@@ -230,4 +230,6 @@ void KateViVisualMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "i,", &KateViNormalMode::textObjectInnerComma ) );
+  m_motions.push_back( new KateViMotion( this, "a,", &KateViNormalMode::textObjectAComma ) );
 }

@@ -2030,6 +2030,36 @@ KateViRange KateViNormalMode::textObjectInnerBracket()
     return findSurrounding( '[', ']', true );
 }
 
+KateViRange KateViNormalMode::textObjectAComma()
+{
+    KateViRange r = findSurrounding( ',', ',', false );
+
+    if ( !r.valid ) {
+      r = findSurrounding( QRegExp(","), QRegExp("[\\])}]"), false );
+    }
+
+    if ( !r.valid ) {
+      r = findSurrounding( QRegExp("[\\[({]"), QRegExp(","), false );
+    }
+
+    return r;
+}
+
+KateViRange KateViNormalMode::textObjectInnerComma()
+{
+    KateViRange r = findSurrounding( ',', ',', true );
+
+    if ( !r.valid ) {
+      r = findSurrounding( QRegExp(","), QRegExp("[\\])}]"), true );
+    }
+
+    if ( !r.valid ) {
+      r = findSurrounding( QRegExp("[\\[({]"), QRegExp(","), true );
+    }
+
+    return r;
+}
+
 // add commands
 // when adding commands here, remember to add them to visual mode too (if applicable)
 void KateViNormalMode::initializeCommands()
@@ -2137,6 +2167,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "i,", &KateViNormalMode::textObjectInnerComma ) );
+  m_motions.push_back( new KateViMotion( this, "a,", &KateViNormalMode::textObjectAComma ) );
 }
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()

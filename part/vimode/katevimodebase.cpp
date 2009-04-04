@@ -513,6 +513,28 @@ KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, b
   return r;
 }
 
+KateViRange KateViModeBase::findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner ) const
+{
+  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  QString line = getLine();
+
+  int col1 = line.lastIndexOf( c1, cursor.column() );
+  int col2 = line.indexOf( c2, cursor.column() );
+
+  KateViRange r( cursor.line(), col1, cursor.line(), col2, ViMotion::InclusiveMotion );
+
+  if ( col1 == -1 || col2 == -1 || col1 > col2 ) {
+      r.valid = false;
+  }
+
+  if ( inner ) {
+      r.startColumn++;
+      r.endColumn--;
+  }
+
+  return r;
+}
+
 int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward ) const
 {
   int line = m_view->cursorPosition().line();

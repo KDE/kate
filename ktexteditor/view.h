@@ -226,8 +226,8 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     void focusIn ( KTextEditor::View *view );
 
     /**
-     * This signal is emitted whenever the \p view looses the focus.
-     * \param view view which looses focus
+     * This signal is emitted whenever the \p view loses the focus.
+     * \param view view which lost focus
      * \see focusIn()
      */
     void focusOut ( KTextEditor::View *view );

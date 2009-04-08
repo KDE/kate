@@ -6,6 +6,7 @@ Changes:
 [ Version 1.33 (2009-04-08) ]
 
 - fix uppercase <?PHP
+- add missing magic constants
 
 [ Version 1.32 (2007-12-02) ]
 
@@ -84,8 +85,15 @@ Changes:
       <item> or </item>
       <item> xor </item>
       <item> var </item>
-      <item> __FILE__ </item>
+      <!-- magic constants, see http://php.net/manual/en/language.constants.predefined.php -->
       <item> __LINE__ </item>
+      <item> __FILE__ </item>
+      <item> __DIR__ </item>
+      <item> __FUNCTION__ </item>
+      <item> __CLASS__ </item>
+      <item> __METHOD__ </item>
+      <item> __NAMESPACE__ </item>
+
       <item> E_ERROR </item>
       <item> E_WARNING </item>
       <item> E_PARSE </item>

@@ -908,7 +908,7 @@ void KateTemplateWizard::accept()
 
     templateUrl = dir + suggestion;
 
-    if ( QFile::exists( templateUrl.path() ) )
+    if ( QFile::exists( templateUrl.toLocalFile() ) )
     {
       if ( KMessageBox::warningContinueCancel( this, i18n(
           "<p>The file <br /><strong>'%1'</strong><br /> already exists; if you "
@@ -1019,7 +1019,7 @@ void KateTemplateWizard::accept()
   {
     if ( templateUrl.isLocalFile() )
     {
-      QFile file( templateUrl.path() );
+      QFile file( templateUrl.toLocalFile() );
          if ( file.open(QIODevice::WriteOnly) )
       {
         kDebug()<<"file opened with succes";

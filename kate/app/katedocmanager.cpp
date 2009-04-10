@@ -287,7 +287,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
       if ( isTempFile && u.isLocalFile() )
       {
-        QFileInfo fi( u.path() );
+        QFileInfo fi( u.toLocalFile() );
         if ( fi.exists() )
         {
           m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
@@ -341,7 +341,7 @@ bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeU
 
   if ( closeUrl && m_tempFiles.contains( doc ) )
   {
-    QFileInfo fi( m_tempFiles[ doc ].first.path() );
+    QFileInfo fi( m_tempFiles[ doc ].first.toLocalFile() );
     if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
          KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
                                      i18n("The supposedly temporary file %1 has been modified. "
@@ -653,7 +653,7 @@ void KateDocManager::saveMetaInfos(KTextEditor::Document *doc)
 
 bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
 {
-  QFile f(url.path());
+  QFile f(url.toLocalFile());
 
   if (f.open(QIODevice::ReadOnly))
   {

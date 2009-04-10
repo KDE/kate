@@ -86,7 +86,7 @@ void PluginKateOpenHeader::slotOpenHeader ()
   KUrl url=kv->document()->url();
   if ((!url.isValid()) || (url.isEmpty())) return;
 
-  QFileInfo info( url.path() );
+  QFileInfo info( url.toLocalFile() );
   QString extension = info.suffix().toLower();
 
   QStringList headers( QStringList() << "h" << "H" << "hh" << "hpp" );

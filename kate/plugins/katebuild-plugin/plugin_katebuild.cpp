@@ -364,7 +364,7 @@ bool KateBuildView::startProcess(const QString &command)
     buildUi.ktabwidget->setCurrentIndex(1);
 
     // set working directory
-    m_proc->setWorkingDirectory(m_make_dir.path(KUrl::AddTrailingSlash));
+    m_proc->setWorkingDirectory(m_make_dir.toLocalFile(KUrl::AddTrailingSlash));
     m_proc->setShellCommand(command);
     m_proc->setOutputChannelMode(KProcess::SeparateChannels);
     m_proc->start();
@@ -514,8 +514,8 @@ void KateBuildView::processLine(const QString &line)
 
     //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file
-    if (QFile::exists(m_make_dir.path(KUrl::AddTrailingSlash)+filename)) {
-        filename = m_make_dir.path(KUrl::AddTrailingSlash)+filename;
+    if (QFile::exists(m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename)) {
+        filename = m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename;
     }
 
     // Now we have the data we need show the error/warning

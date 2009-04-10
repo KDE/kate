@@ -310,7 +310,7 @@ bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile
   QTextCodec *codec = encoding.isEmpty() ? 0 : QTextCodec::codecForName(encoding.toLatin1());
 
   // this file is no local dir, open it, else warn
-  bool noDir = !url.isLocalFile() || !QDir (url.path()).exists();
+  bool noDir = !url.isLocalFile() || !QDir (url.toLocalFile()).exists();
 
   if (noDir)
   {

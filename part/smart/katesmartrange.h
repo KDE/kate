@@ -79,8 +79,10 @@ class KateSmartRange : public KTextEditor::SmartRange
     KateDocument* kateDocument() const;
     /// Accessor for the start of the range (set in constructor)
     inline KateSmartCursor& kStart() { return *static_cast<KateSmartCursor*>(m_start); }
+    inline const KateSmartCursor& kStart() const { return *static_cast<const KateSmartCursor*>(m_start); }
     /// Accessor for the end of the range (set in constructor)
     inline KateSmartCursor& kEnd() { return *static_cast<KateSmartCursor*>(m_end); }
+    inline const KateSmartCursor& kEnd() const { return *static_cast<const KateSmartCursor*>(m_end); }
 
     bool isInternal() const { return m_isInternal; }
     void setInternal();

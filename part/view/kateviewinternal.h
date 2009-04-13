@@ -108,12 +108,15 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
   Q_SIGNALS:
     // Trigger this signal whenever you want to call updateView() and may not be in the same thread.
-    void requestViewUpdate(bool changed);
+    // Make sure to set m_smartDirty = false before, else nothing will happen
+    void requestViewUpdateIfSmartDirty();
   //END
 
   private Q_SLOTS:
     // Updates the view and requests a redraw.
     void updateView (bool changed = false, int viewLinesScrolled = 0);
+    // This is used to prevent multiple unneeded view updates
+    void updateViewIfSmartDirty();
 
   private:
     // Actually performs the updating, but doesn't call update().
@@ -244,6 +247,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void placeCursor( const QPoint& p, bool keepSelection = false, bool updateSelection = true );
     bool isTargetSelected( const QPoint& p );
+    //Returns whether the given range affects the area currently visible in the view
+    bool rangeAffectsView(const KTextEditor::Range& range) const;
 
     void doDrag();
 
@@ -296,6 +301,9 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     // These are now cursors to account for word-wrap.
     // Start Position is a virtual cursor
     KateSmartCursor m_startPos;
+    //Count of lines that are visible behind m_startPos.
+    //This does not respect dynamic word wrap, so take it as an approximation.
+    uint m_visibleLineCount;
 
     // This is set to false on resize or scroll (other than that called by makeVisible),
     // so that makeVisible is again called when a key is pressed and the cursor is in the same spot

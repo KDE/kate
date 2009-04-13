@@ -78,6 +78,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
   , m_startPos(doc, KTextEditor::SmartCursor::StayOnInsert)
+  , m_visibleLineCount(0)
 
   , m_madeVisible(false)
   , m_shiftKeyPressed (false)
@@ -225,7 +226,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // but before any other kateviewinternal call
 
   // Thread-safe updateView() mechanism
-  connect(this, SIGNAL(requestViewUpdate(bool)), this, SLOT(updateView(bool)), Qt::QueuedConnection);
+  connect(this, SIGNAL(requestViewUpdateIfSmartDirty()), this, SLOT(updateViewIfSmartDirty()), Qt::QueuedConnection);
 }
 
 void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
@@ -539,6 +540,11 @@ void KateViewInternal::scrollColumns ( int x )
   m_columnScroll->blockSignals(blocked);
 }
 
+void KateViewInternal::updateViewIfSmartDirty() {
+  if(m_smartDirty)
+    updateView(true);
+}
+
 // If changed is true, the lines that have been set dirty have been updated.
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
@@ -569,6 +575,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
      start allocating huge chunks of data, later. */
   int newSize = (qMax (0, height()) / renderer()->fontHeight()) + 1;
   cache()->updateViewCache(startPos(), newSize, viewLinesScrolled);
+  m_visibleLineCount = newSize;
 
   KTextEditor::Cursor maxStart = maxStartPos(changed);
   int maxLineScrollRange = maxStart.line();
@@ -3575,6 +3582,16 @@ void KateViewInternal::cursorMoved( )
   dynamicMoved(false);
 }
 
+bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range) const
+{
+  if(range.end().line() < m_startPos.line())
+    return false;
+  if(range.start().line() > m_startPos.line() + m_visibleLineCount)
+    return false;
+  
+  return true;
+}
+
 void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
 {
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
@@ -3583,9 +3600,12 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 //   kDebug( 13030 )<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 
-  if (!m_smartDirty) {
+  const KateSmartRange* krange = dynamic_cast<const KateSmartRange*>(&range);
+  
+  if (!m_smartDirty && (rangeAffectsView(range) ||
+       (krange && rangeAffectsView(KTextEditor::Range(krange->kStart().lastPosition(), krange->kEnd().lastPosition()))))) {
     m_smartDirty = true;
-    emit requestViewUpdate(true);
+    emit requestViewUpdateIfSmartDirty();
   }
 }
 

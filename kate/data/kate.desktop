@@ -44,7 +44,6 @@ Exec=kate %U
 X-KDE-StartupNotify=true
 X-KDE-HasTempFileOption=true
 Icon=kate
-Path=
 X-DocPath=kate/index.html
 Type=Application
 Terminal=false

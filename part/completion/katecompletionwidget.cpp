@@ -937,58 +937,88 @@ QWidget* KateCompletionWidget::currentEmbeddedWidget() {
 
 void KateCompletionWidget::cursorDown()
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList )
     m_entryList->nextCompletion();
   else {
     if( !m_argumentHintTree->nextCompletion() )
       switchList();
   }
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::cursorUp()
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList ) {
     if( !m_entryList->previousCompletion() )
       switchList();
   }else{
     m_argumentHintTree->previousCompletion();
   }
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::pageDown( )
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList )
     m_entryList->pageDown();
   else {
     if( !m_argumentHintTree->pageDown() )
       switchList();
   }
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::pageUp( )
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList ) {
     if( !m_entryList->pageUp() )
       switchList();
   }else{
     m_argumentHintTree->pageUp();
   }
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::top( )
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList )
     m_entryList->top();
   else
     m_argumentHintTree->top();
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::bottom( )
 {
+  bool wasPartiallyExpanded = model()->partiallyExpandedRow().isValid();
+
   if( m_inCompletionList )
     m_entryList->bottom();
   else
     m_argumentHintTree->bottom();
+
+  if(wasPartiallyExpanded != model()->partiallyExpandedRow().isValid())
+    updateHeight();
 }
 
 void KateCompletionWidget::switchList() {

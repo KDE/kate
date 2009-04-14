@@ -1011,7 +1011,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
 
   KVBox* vbox = new KVBox(this);
   setMainWidget(vbox);
-  vbox->setSpacing(spacingHint());
+  vbox->setSpacing(-1);
   new QLabel(i18n("Select the syntax highlighting files you want to update:"), vbox);
   list = new QTreeWidget(vbox);
   list->setColumnCount(4);
@@ -1128,7 +1128,6 @@ KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
 {
   QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
   topLayout->setMargin(0);
-  //topLayout->setSpacing(spacingHint());
   gotoRange = new QSpinBox(centralWidget());
 
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );

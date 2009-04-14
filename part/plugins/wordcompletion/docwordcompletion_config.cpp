@@ -39,13 +39,12 @@ DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariant
     : KCModule(DocWordCompletionFactory::componentData(), parent, args)
 {
     QVBoxLayout *lo = new QVBoxLayout( this );
-    lo->setSpacing( KDialog::spacingHint() );
 
     cbAutoPopup = new QCheckBox( i18n("Automatically &show completion list"), this );
     lo->addWidget( cbAutoPopup );
 
     hbTreshold = new KHBox( this );
-    hbTreshold->setSpacing( KDialog::spacingHint() );
+    hbTreshold->setSpacing( -1 );
     lo->addWidget( hbTreshold );
     QLabel *l = new QLabel( i18nc(
         "Translators: This is the first part of two strings which will comprise the "

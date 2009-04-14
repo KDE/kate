@@ -540,13 +540,12 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint());
 
   // hl chooser
   KHBox *hbHl = new KHBox( this );
   layout->addWidget (hbHl);
 
-  hbHl->setSpacing( KDialog::spacingHint() );
+  hbHl->setSpacing( -1 );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
   hlCombo = new KComboBox( hbHl );
   hlCombo->setEditable( false );
@@ -699,11 +698,10 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
 {
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint());
 
   KHBox *hbHl = new KHBox( this );
   layout->addWidget(hbHl);
-  hbHl->setSpacing( KDialog::spacingHint() );
+  hbHl->setSpacing( -1 );
   QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
   schemaCombo = new KComboBox( hbHl );
   schemaCombo->setEditable( false );
@@ -740,7 +738,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
 
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
-  hbHl->setSpacing( KDialog::spacingHint() );
+  hbHl->setSpacing( -1 );
   lHl = new QLabel( i18n("&Default schema for %1:", KGlobal::mainComponent().aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new KComboBox( hbHl );
   defaultSchemaCombo->setEditable( false );

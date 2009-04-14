@@ -284,7 +284,6 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   setMainWidget( w );
 
   QGridLayout * lo = new QGridLayout( w, 5, 3 );
-  lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Pattern:"), w );
   lePattern = new KLineEdit( e->pattern, w );
@@ -381,7 +380,6 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   : KTextEditor::ConfigPage( parent, name )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
-  lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Patterns"), this );
   lo->addWidget( l );
@@ -402,7 +400,6 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
       "<p>Use the buttons below to manage your collection of entities.</p>") );
 
   QHBoxLayout *lo1 = new QHBoxLayout ( lo );
-  lo1->setSpacing( KDialog::spacingHint() );
 
   btnNew = new QPushButton( i18n("&New..."), this );
   lo1->addWidget( btnNew );

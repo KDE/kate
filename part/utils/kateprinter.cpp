@@ -34,7 +34,6 @@
 #include <kapplication.h>
 #include <kcolorbutton.h>
 #include <kdebug.h>
-#include <kdialog.h> // for spacingHint()
 #include <kfontdialog.h>
 #include <klocale.h>
 #include <kdeprintdialog.h>
@@ -644,7 +643,6 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   setWindowTitle( i18n("Te&xt Settings") );
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
-  lo->setSpacing( KDialog::spacingHint() );
 
 //   cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
 //   lo->addWidget( cbSelection );
@@ -699,8 +697,6 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   setWindowTitle( i18n("Hea&der && Footer") );
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
-  uint sp = KDialog::spacingHint();
-  lo->setSpacing( sp );
 
   // enable
   QHBoxLayout *lo1 = new QHBoxLayout ();
@@ -734,7 +730,6 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   KHBox *hbHeaderFormat = new KHBox( gbHeader );
   grid->addWidget(hbHeaderFormat, 0, 1);
 
-  hbHeaderFormat->setSpacing( sp );
   leHeaderLeft = new KLineEdit( hbHeaderFormat );
   leHeaderCenter = new KLineEdit( hbHeaderFormat );
   leHeaderRight = new KLineEdit( hbHeaderFormat );
@@ -745,7 +740,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   KHBox *hbHeaderColors = new KHBox( gbHeader );
   grid->addWidget(hbHeaderColors, 1, 1);
 
-  hbHeaderColors->setSpacing( sp );
+  hbHeaderColors->setSpacing( -1 );
   QLabel *lHeaderFgCol = new QLabel( i18n("Foreground:"), hbHeaderColors );
   kcbtnHeaderFg = new KColorButton( hbHeaderColors );
   lHeaderFgCol->setBuddy( kcbtnHeaderFg );
@@ -764,7 +759,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   KHBox *hbFooterFormat = new KHBox( gbFooter );
   grid->addWidget(hbFooterFormat, 0, 1);
 
-  hbFooterFormat->setSpacing( sp );
+  hbFooterFormat->setSpacing( -1 );
   leFooterLeft = new KLineEdit( hbFooterFormat );
   leFooterCenter = new KLineEdit( hbFooterFormat );
   leFooterRight = new KLineEdit( hbFooterFormat );
@@ -774,8 +769,8 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
 
   KHBox *hbFooterColors = new KHBox( gbFooter );
   grid->addWidget(hbFooterColors, 1, 1);
-  hbFooterColors->setSpacing( sp );
 
+  hbFooterColors->setSpacing( -1 );
   QLabel *lFooterBgCol = new QLabel( i18n("Foreground:"), hbFooterColors );
   kcbtnFooterFg = new KColorButton( hbFooterColors );
   lFooterBgCol->setBuddy( kcbtnFooterFg );
@@ -908,7 +903,6 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   setWindowTitle( i18n("L&ayout") );
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
-  lo->setSpacing( KDialog::spacingHint() );
 
   KHBox *hb = new KHBox( this );
   lo->addWidget( hb );

@@ -265,7 +265,6 @@ void KateGlobal::configDialog(QWidget *parent)
 
     QVBoxLayout *topLayout = new QVBoxLayout( page );
     topLayout->setMargin( 0 );
-    topLayout->setSpacing( KDialog::spacingHint() );
 
     KTextEditor::ConfigPage *cp = configPage(i, page);
     topLayout->addWidget( cp);

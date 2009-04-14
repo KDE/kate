@@ -157,6 +157,17 @@
       <item> lsattr </item>
       <item> lsmod </item>
       <item> lsmod.old </item>
+      <item> lzcat </item>
+      <item> lzcmp </item>
+      <item> lzdiff </item>
+      <item> lzegrep </item>
+      <item> lzfgrep </item>
+      <item> lzgrep </item>
+      <item> lzless </item>
+      <item> lzcat </item>
+      <item> lzma </item>
+      <item> lzmainfo </item>
+      <item> lzmore </item>
       <item> mapscrn </item>
       <item> mesg </item>
       <item> mkdir </item>
@@ -210,11 +221,15 @@
       <item> unicode_start </item>
       <item> unicode_stop </item>
       <item> unlink </item>
+      <item> unlzma </item>
+      <item> unxz </item>
       <item> utmpdump </item>
       <item> uuidgen </item>
       <item> vdir </item>
       <item> wall </item>
       <item> wc </item>
+      <item> xz </item>
+      <item> xzcat </item>
       <item> ypdomainname </item>
       <item> zcat </item>
       <item> zcmp </item>

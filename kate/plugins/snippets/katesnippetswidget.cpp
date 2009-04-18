@@ -35,8 +35,8 @@
 #include <QTime>
 
 
-KateSnippetsWidget::KateSnippetsWidget( Kate::MainWindow *mainWindow, QWidget* parent, const char* name, Qt::WFlags fl)
-    : KateSnippetsWidgetBase( parent, name, fl ), m_mainWin( mainWindow )
+KateSnippetsWidget::KateSnippetsWidget( Kate::MainWindow *mainWindow, QWidget* parent)
+    : KateSnippetsWidgetBase( parent ), m_mainWin( mainWindow )
 {
   connect(
     lvSnippets, SIGNAL( selectionChanged(Q3ListViewItem *) ),
@@ -63,6 +63,19 @@ KateSnippetsWidget::~KateSnippetsWidget()
     delete snippet;
   }
 }
+
+Q3ListViewItem* KateSnippetsWidget::insertItem( const QString& name, bool rename )
+{
+  Q3ListViewItem *item = new Q3ListViewItem( lvSnippets, name );
+  item->setRenameEnabled( 0, true );
+  lvSnippets->setSelected( item, true );
+  if ( rename ) {
+    teSnippetText->clear();
+    item->startRename (0);
+  }
+  return item;
+}
+
 
 /**
  * Read existing snippets from the given config, or create default ones

@@ -9,10 +9,9 @@ set(katesnippetsplugin_PART_SRCS
    katesnippetswidget.h
    katesnippetswidget.cpp
    katesnippet.cpp
-   KateSnippetsWidgetBase.ui.h )
+)
 
-
-kde4_add_ui3_files(katesnippetsplugin_PART_SRCS KateSnippetsWidgetBase.ui )
+kde4_add_ui_files(katesnippetsplugin_PART_SRCS KateSnippetsWidgetBase.ui )
 
 kde4_add_plugin(katesnippetsplugin ${katesnippetsplugin_PART_SRCS})
 

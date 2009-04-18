@@ -56,7 +56,7 @@ KatePluginSnippetsView::KatePluginSnippetsView( Kate::MainWindow *mainWin )
     SmallIcon("insert-text"),
     i18n("Snippets")
   );
-  m_snippetsWidget = new KateSnippetsWidget( mainWindow(), m_dock, "snippetswidget" );
+  m_snippetsWidget = new KateSnippetsWidget( mainWindow(), m_dock );
 
   // write the settings when the user clicks Save in the widget
   connect( m_snippetsWidget, SIGNAL( saveRequested() ), this, SLOT( writeConfig() ) );

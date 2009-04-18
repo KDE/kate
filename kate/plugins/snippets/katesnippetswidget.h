@@ -20,12 +20,21 @@
 #ifndef KATESNIPPETSWIDGET_H
 #define KATESNIPPETSWIDGET_H
 
-#include <KateSnippetsWidgetBase.h>
+#include <ui_KateSnippetsWidgetBase.h>
 
 #include "katesnippet.h"
 
 #include <kate/mainwindow.h>
 #include <q3ptrlist.h>
+
+
+class KateSnippetsWidgetBase : public QWidget, public Ui::KateSnippetsWidgetBase
+{
+public:
+  KateSnippetsWidgetBase( QWidget *parent ) : QWidget( parent ) {
+    setupUi( this );
+  }
+};
 
 
 class KateSnippetsWidget : public KateSnippetsWidgetBase
@@ -34,8 +43,7 @@ class KateSnippetsWidget : public KateSnippetsWidgetBase
 
   public:
     explicit KateSnippetsWidget( Kate::MainWindow *mainWindow = 0,
-                                 QWidget* parent = 0, const char* name = 0,
-                                 Qt::WFlags fl = 0 );
+                                 QWidget* parent = 0);
     virtual ~KateSnippetsWidget();
 
     KateSnippet* findSnippetByListViewItem( Q3ListViewItem *item );
@@ -44,7 +52,8 @@ class KateSnippetsWidget : public KateSnippetsWidgetBase
     void writeConfig( KConfigBase* config, const QString& groupPrefix );
 
     Kate::MainWindow* mainWindow() { return m_mainWin; }
-
+    Q3ListViewItem* insertItem( const QString& name, bool rename );
+	    
   public Q_SLOTS:
     void slotSnippetSelectionChanged( Q3ListViewItem  *item );
     void slotSnippetItemClicked ( Q3ListViewItem *item );

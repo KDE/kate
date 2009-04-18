@@ -647,8 +647,18 @@ void KateViewDefaultsConfig::apply ()
   KateRendererConfig::global()->setShowIndentationLines(ui->chkShowIndentationLines->isChecked());
   KateRendererConfig::global()->setShowWholeBracketExpression(ui->chkShowWholeBracketExpression->isChecked());
 
-  KateDocumentConfig::global()->setAllowSimpleMode (!ui->chkDeveloperMode->isChecked());
-
+  // warn user that he needs restart the application
+  if (!ui->chkDeveloperMode->isChecked() != KateDocumentConfig::global()->allowSimpleMode())
+  {
+    // inform...
+    KMessageBox::information(
+                this,
+                i18n("Changing the power user mode affects only newly opened / created documents. In KWrite a restart is recommended."),
+                i18n("Power user mode changed"));
+  
+    KateDocumentConfig::global()->setAllowSimpleMode (!ui->chkDeveloperMode->isChecked());
+  }
+  
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }

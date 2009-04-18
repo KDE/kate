@@ -44,7 +44,7 @@
 -->
 	
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
-<language name="Ruby/Rails/RHTML" version="1.00" kateversion="2.4" section="Markup" extensions="*.rhtml;*.html.erb" mimetype="" author="Richard Dale rdale@foton.es" license="LGPL">
+<language name="Ruby/Rails/RHTML" version="1.01" kateversion="2.4" section="Markup" extensions="*.rhtml;*.html.erb" mimetype="" author="Richard Dale rdale@foton.es" license="LGPL">
 	
 	<highlighting>
 	
@@ -1227,7 +1227,6 @@
 	</highlighting>
 	<general>
 		<comments>
-			<comment name="singleLine" start="#"/>
 			<comment name="multiLine" start="&lt;!--" end="--&gt;" />
 		</comments>
 		<keywords casesensitive="1" weakDeliminator="!?"/> 

@@ -27,7 +27,7 @@
 class KateSnippet
 {
   public:
-    KateSnippet( QString key, QString value, Q3ListViewItem *lvi );
+    KateSnippet(const QString& key, const QString& value, Q3ListViewItem *lvi );
     ~KateSnippet();
 
     QString key() const                   { return m_key; }

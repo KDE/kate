@@ -19,7 +19,7 @@
 
 #include "katesnippet.h"
 
-KateSnippet::KateSnippet(QString key, QString value, Q3ListViewItem *lvi)
+KateSnippet::KateSnippet(const QString& key, const QString& value, Q3ListViewItem *lvi)
     : m_key(key), m_value(value), m_listViewItem(lvi)
 {
 }

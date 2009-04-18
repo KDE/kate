@@ -25,7 +25,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.6-patch 3" -->
-<language name="CMake" version="1.09" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.10" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -502,7 +502,7 @@
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
         <IncludeRules context="##Alerts" />
       </context>
-      <context attribute="Strings" lineEndContext="#pop" name="String">
+      <context attribute="Strings" lineEndContext="#stay" name="String">
         <DetectChar attribute="Strings" context="#pop" char="&quot;" />
         <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
         <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>

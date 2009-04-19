@@ -25,7 +25,7 @@
       <item>
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Please add the source folders where to search for the files in the backtrace</string>
+         <string>Please add the source folders in which to search for the files in the backtrace:</string>
         </property>
         <property name="textFormat" >
          <enum>Qt::PlainText</enum>

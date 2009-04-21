@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
   <class>KateSnippetsWidgetBase</class>
   <widget class="QWidget" name="KateSnippetsWidgetBase">
     <property name="enabled">
@@ -160,7 +157,6 @@
       </item>
     </layout>
   </widget>
-  <layoutdefault spacing="6" margin="11"/>
   <images>
     <image name="image0">
       <data format="XPM.GZ" length="1917">789c7dd4476fdb401005e0bb7e05e1bd19c158ec5c0439b897b8c9dd0e725816c94d6e926b90ff9ed9d9478a0e83686d409fe6f189c2aeb430ef9dedef78f30bbdc9d44caf0aafb8344fde7cf93c1ebffff8f9ed576fcecf3cfe4b032f98fbd29b1b4cbdc2dbbdbfab2c4831545f1ee2657196e8c488f7acfd7e52c21bb5d3d05a0dad031debc8cd2bebd00fb2c0f5ddc2057ce49cf9995c4f191cc363b10efb8116dfc111bcef9ce92c177fb78efcc6723f9189faa12f367004af386b5f47e2dc3a0e78eefa3f9cb5d685f8596c1a3f582781f18dbbfe526ce2129fffcab99917700cbf58a761e2c7b219740f6bb86cecfaa67089f9b538e7fd707eb7cec2348697600df71b4b9faae0fafa35715ecf6913aef73b74ce7ce4d71bbbf9161ca39fac75d4cc0f60cce9acb63b3fb4036b78575c6465eaf6f3d059fb706c9d470656aa36cecf051c637f13d8c0917511e709f6f35c5ce606fba3adcb38aff3a9739118c92b533b77f347715504e85b84eb7e1fae70bd9c878ab7af28c5396c9ce9585c9549ee1cc006ef770a57452c7eb21e268d4f9cab007d03980f9078049b52beffaaac5d25327f150f9bebb79d8701e66f8dddefc7044ee055d80c5dfe06e687fbf121e5d6603a5b64289fbde67e97a8a092aad9ab9c18d2882e3bb92bbaa61bba95d631dd71e686d77d27f7c07d765271ea919e68229a7672cfd267d70be75ee94d9ebfd7f74d0ab90ff4d98ec5a66f89df7ff9536e057dabb4d6ea5be7dcc65fb99233139e6fb6fab63a7ddfb96f9bd788765a7dbbecbd4fb97dee1bd180d741abefb0d377c47dc77442a77486be73fe14179dfbb3c93ef91450c87d1167624a28edf4d995f167d5fc44d19a322a57852a3fdf5f730eb85355dc75c4d7d4ffcbed5c93ccd49067aabbeadcec6cfd7bcd72ff4fb673ed64fbc4ca79f9fdb5f707a32dabb2</data>

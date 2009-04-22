@@ -3345,14 +3345,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   updateView(true);
 
-  if (editOldCursor != m_cursor)
+  if (editOldCursor != m_cursor || m_view == m_doc->activeView())
   {
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
-  }
-  else if ( m_view == m_doc->activeView() )
-  {
-    makeVisible(m_displayCursor, m_displayCursor.column());
   }
 
   editIsRunning = false;

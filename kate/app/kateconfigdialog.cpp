@@ -421,7 +421,7 @@ void KateConfigDialog::slotChanged()
 {
   m_dataChanged = true;
   enableButton( Apply, true );
-  m_daysMetaInfos->setSuffix(QString(" ") + i18ncp("The suffix of 'Delete unused meta-information after'", "day", "days", m_daysMetaInfos->value()));
+  m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

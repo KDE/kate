@@ -227,6 +227,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setupActions();
   setupEditActions();
   setupCodeFolding();
+  
+  // auto word completion
+  new KateWordCompletionView (this, actionCollection ());
 
   // enable the plugins of this view
   KatePartPluginManager::self()->addView(this);
@@ -309,7 +312,7 @@ void KateView::setupConnections()
 
 void KateView::setupActions()
 {
-  KActionCollection *ac = this->actionCollection ();
+  KActionCollection *ac = actionCollection ();
   KAction *a;
 
   m_toggleWriteLock = 0;

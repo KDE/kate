@@ -42,8 +42,7 @@
 
 #include <kdebug.h>
 
-class KateWordCompletionModel
-  : public KTextEditor::CodeCompletionModel
+class KateWordCompletionModel : public KTextEditor::CodeCompletionModel
 {
   Q_OBJECT
   public:
@@ -74,6 +73,46 @@ class KateWordCompletionModel
 
   private:
     QStringList m_matches;
+};
+
+class KateWordCompletionView : public QObject
+{
+  Q_OBJECT
+
+  public:
+    KateWordCompletionView(KTextEditor::View *view, KActionCollection* ac );
+    ~KateWordCompletionView();
+
+    void setTreshold( uint treshold );
+    void setAutoPopupEnabled( bool enable );
+    uint threshold();
+    bool autoPopupEnabled();
+  public Q_SLOTS:
+    void toggleAutoPopup();
+
+  private Q_SLOTS:
+    void completeBackwards();
+    void completeForwards();
+    void slotCursorMoved();
+
+    void shellComplete();
+
+    void popupCompletionList();
+    void autoPopupCompletionList();
+
+    void slotVariableChanged(KTextEditor::Document*, const QString &, const QString & );
+
+  private:
+    void complete( bool fw=true );
+
+    const QString word() const;
+    const KTextEditor::Range range() const;
+
+    QString findLongestUnique( const QStringList &matches, int lead ) const;
+
+    KTextEditor::View *m_view;
+    KateWordCompletionModel *m_dWCompletionModel;
+    struct KateWordCompletionViewPrivate *d;
 };
 
 #endif // _DocWordCompletionPlugin_h_

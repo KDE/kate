@@ -178,6 +178,18 @@ bool KateViInsertMode::commandMoveOneWordRight()
   return true;
 }
 
+bool KateViInsertMode::commandCompleteNext()
+{
+  m_view->userInvokedCompletion();
+  return true;
+}
+
+bool KateViInsertMode::commandCompletePrevious()
+{
+  m_view->userInvokedCompletion();
+  return true;
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -240,6 +252,14 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       break;
     case Qt::Key_E:
       commandInsertFromBelow();
+      return true;
+      break;
+    case Qt::Key_N:
+      commandCompleteNext();
+      return true;
+      break;
+    case Qt::Key_P:
+      commandCompleteNext();
       return true;
       break;
     case Qt::Key_T:

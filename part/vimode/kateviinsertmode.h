@@ -53,6 +53,9 @@ class KateViInsertMode : public KateViModeBase
     bool commandMoveOneWordLeft();
     bool commandMoveOneWordRight();
 
+    bool commandCompleteNext();
+    bool commandCompletePrevious();
+
   private:
     const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
 };

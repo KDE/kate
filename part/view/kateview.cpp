@@ -1472,10 +1472,13 @@ void KateView::updateDocumentConfig()
   // maybe block selection or wrap-cursor mode changed
   ensureCursorColumnValid();
 
-  m_viewInternal->updateView (true);
-
+  // first change this
   m_renderer->setTabWidth (m_doc->config()->tabWidth());
   m_renderer->setIndentWidth (m_doc->config()->indentationWidth());
+
+  // now redraw...
+  tagAll ();
+  updateView (true);
 }
 
 void KateView::updateRendererConfig()

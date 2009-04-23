@@ -5435,18 +5435,17 @@ KEncodingProber::ProberType KateDocument::proberTypeForEncodingAutoDetection() c
 void KateDocument::updateConfig ()
 {
   emit undoChanged ();
-  tagAll();
-
-  foreach (KateView * view,m_views)
-  {
-    view->updateDocumentConfig ();
-  }
 
   // switch indenter if needed and update config....
   m_indenter.setMode (m_config->indentationMode());
   m_indenter.updateConfig();
 
+  // set tab width there, too
   m_buffer->setTabWidth (config()->tabWidth());
+
+  // update all views, does tagAll and updateView...
+  foreach (KateView * view, m_views)
+    view->updateDocumentConfig ();
 }
 
 //BEGIN Variable reader

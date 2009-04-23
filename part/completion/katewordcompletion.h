@@ -87,8 +87,6 @@ class KateWordCompletionView : public QObject
     void setAutoPopupEnabled( bool enable );
     uint threshold();
     bool autoPopupEnabled();
-  public Q_SLOTS:
-    void toggleAutoPopup();
 
   private Q_SLOTS:
     void completeBackwards();

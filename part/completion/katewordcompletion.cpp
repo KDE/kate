@@ -312,22 +312,6 @@ void KateWordCompletionView::popupCompletionList()
   cci->startCompletion( r, m_dWCompletionModel );
 }
 
-void KateWordCompletionView::toggleAutoPopup()
-{
-  if ( d->autopopup->isChecked() ) {
-    if ( ! connect( m_view, SIGNAL(textInserted ( KTextEditor::View *, const KTextEditor::Cursor &, const QString & )),
-         this, SLOT(autoPopupCompletionList()) ))
-    {
-      connect( m_view->document(), SIGNAL(textChanged(KTextEditor::View *)), this, SLOT(autoPopupCompletionList()) );
-    }
-  } else {
-    disconnect( m_view->document(), SIGNAL(textChanged(KTextEditor::View *)), this, SLOT(autoPopupCompletionList()) );
-    disconnect( m_view, SIGNAL(textInserted( KTextEditor::View *, const KTextEditor::Cursor &, const QString &)),
-                this, SLOT(autoPopupCompletionList()) );
-
-  }
-}
-
 // for autopopup FIXME - don't pop up if reuse word is inserting
 void KateWordCompletionView::autoPopupCompletionList()
 {

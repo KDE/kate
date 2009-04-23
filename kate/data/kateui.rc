@@ -74,16 +74,7 @@
   </Menu>
 
   <Menu name="settings"><text>&amp;Settings</text>
-    <Merge name="StandardToolBarMenuHandler"/>
-    <DefineGroup name="show_merge" />
-    <DefineGroup name="configure_merge" />
-    <Separator />
-    <Action name="settings_show_statusbar"/>
-    <Action name="settings_show_full_path"/>
-    <Separator />
-    <Action name="options_configure_keybinding"/>
-    <Action name="set_configure_toolbars"/>
-    <Action name="settings_configure" />
+    <Action name="settings_show_full_path" append="show_merge"/>
   </Menu>
 
   <Menu name="window"><text>&amp;Window</text>

@@ -231,8 +231,7 @@ KateMainWindow::~KateMainWindow()
 void KateMainWindow::setupImportantActions ()
 {
   // settings
-  m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), this);
-  actionCollection()->addAction( "settings_show_statusbar", m_paShowStatusBar);
+  m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
@@ -345,15 +344,13 @@ void KateMainWindow::setupActions()
   connect(documentOpenWith->menu(), SIGNAL(aboutToShow()), this, SLOT(mSlotFixOpenWithMenu()));
   connect(documentOpenWith->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
 
-  a = actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys()));
+  a = KStandardAction::keyBindings(this, SLOT(editKeys()), actionCollection());
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, "set_configure_toolbars",
-                                    this, SLOT(slotEditToolbars()));
+  a = KStandardAction::configureToolbars(this, SLOT(slotEditToolbars()), actionCollection());
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  QAction* settingsConfigure = actionCollection()->addAction(KStandardAction::Preferences, "settings_configure",
-                               this, SLOT(slotConfigure()));
+  QAction* settingsConfigure = KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
   settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
   // tip of the day :-)

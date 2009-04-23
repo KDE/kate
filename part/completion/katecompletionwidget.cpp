@@ -157,6 +157,11 @@ void KateCompletionWidget::modelContentChanged() {
     abortCompletion();
     return;
   }
+  
+  if(!view()->hasFocus()) {
+    kDebug( 13035 ) << "view does not have focus";
+    return;
+  }
 
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
@@ -337,6 +342,11 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
 
 void KateCompletionWidget::updateAndShow()
 {
+  if(!view()->hasFocus()) {
+    kDebug( 13035 ) << "view does not have focus";
+    return;
+  }
+  
   setUpdatesEnabled(false);
 
   modelReset();

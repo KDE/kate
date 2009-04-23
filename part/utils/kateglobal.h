@@ -44,6 +44,7 @@ class KDirWatch;
 class KateHlManager;
 class KatePartPluginManager;
 class KateViGlobal;
+class KateWordCompletionModel;
 
 namespace Kate {
   class Command;
@@ -284,6 +285,12 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateViGlobal *viInputModeGlobal () { return m_viInputModeGlobal; }
 
     /**
+     * global instance of the simple word completion mode
+     * @return global instance of the simple word completion mode
+     */
+    KateWordCompletionModel *wordCompletionModel () { return m_wordCompletionModel; }
+
+    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -427,6 +434,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * container interface
      */
     QPointer<QObject> m_container;
+    
+    /**
+     * global instance of the simple word completion mode
+     */
+    KateWordCompletionModel *m_wordCompletionModel;
 };
 
 #endif

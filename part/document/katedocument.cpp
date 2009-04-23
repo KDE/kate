@@ -3927,7 +3927,11 @@ void KateDocument::makeAttribs(bool needInvalidate)
   if (needInvalidate)
     m_buffer->invalidateHighlighting();
 
-  tagAll ();
+  foreach(KateView *view,m_views)
+  {
+    view->tagAll();
+    view->updateView (true);
+  }
 }
 
 // the attributes of a hl have changed, update
@@ -4997,15 +5001,6 @@ void KateDocument::repaintViews(bool paintOnlyDirty)
 {
   foreach(KateView *view,m_views)
     view->repaintText(paintOnlyDirty);
-}
-
-void KateDocument::tagAll()
-{
-  foreach(KateView *view,m_views)
-  {
-    view->tagAll();
-    view->updateView (true);
-  }
 }
 
 inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }

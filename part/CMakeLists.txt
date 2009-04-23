@@ -46,6 +46,10 @@ completion/katecompletiondelegate.cpp
 completion/expandingtree/expandingwidgetmodel.cpp
 completion/expandingtree/expandingdelegate.cpp
 completion/expandingtree/expandingtree.cpp
+
+# simple internal word completion
+completion/katewordcompletion.cpp
+
 # dialogs
 dialogs/katedialogs.cpp
 

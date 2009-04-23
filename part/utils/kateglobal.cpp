@@ -31,6 +31,7 @@
 #include "katebuffer.h"
 #include "katepartpluginmanager.h"
 #include "kateviglobal.h"
+#include "katewordcompletion.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -166,6 +167,9 @@ KateGlobal::KateGlobal ()
 
   for ( QList<KTextEditor::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
     m_cmdManager->registerCommand (*it);
+    
+  // global word completion model
+  m_wordCompletionModel = new KateWordCompletionModel (this);
 }
 
 KateGlobal::~KateGlobal()
@@ -190,6 +194,9 @@ KateGlobal::~KateGlobal()
   delete m_cmdManager;
 
   delete m_viInputModeGlobal;
+  
+  // cu model
+  delete m_wordCompletionModel;
 
   s_self = 0;
 }

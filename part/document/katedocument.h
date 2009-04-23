@@ -903,8 +903,6 @@ class KateDocument : public KTextEditor::Document,
     QString getWord( const KTextEditor::Cursor& cursor );
 
   public:
-    void tagAll();
-
     void newBracketMark( const KTextEditor::Cursor& start, KTextEditor::Range& bm, int maxLines = -1 );
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 

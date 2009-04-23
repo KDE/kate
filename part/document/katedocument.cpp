@@ -1223,10 +1223,10 @@ bool KateDocument::wrapText(int startLine, int endLine)
   return true;
 }
 
-void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const QString &text)
+void KateDocument::editAddUndo (KateUndo *undo)
 {
   if (editIsRunning && editWithUndo && m_editCurrentUndo) {
-    m_editCurrentUndo->addItem(static_cast<KateUndoGroup::UndoType>(type), line, col, len, text);
+    m_editCurrentUndo->addItem(undo);
 
     // Clear redo buffer
     if (redoItems.count()) {
@@ -1251,7 +1251,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   editStart (true, editSource);
 
-  editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
+  editAddUndo (new KateEditInsertTextUndo(this, line, col, s));
 
   l->insertText (col, s);
 
@@ -1280,7 +1280,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
 
   editStart (true, editSource);
 
-  editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
+  editAddUndo (new KateEditRemoveTextUndo(this, line, col, l->string().mid(col, len)));
 
   l->removeText (col, len);
   removeTrailingSpace( line );
@@ -1310,7 +1310,7 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 
   editStart ();
 
-  editAddUndo (KateUndoGroup::editMarkLineAutoWrapped, line, autowrapped ? 1 : 0, 0, QString());
+  editAddUndo (new KateEditMarkLineAutoWrappedUndo(this, line, autowrapped));
 
   l->setAutoWrapped (autowrapped);
 
@@ -1343,7 +1343,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   if (pos < 0)
     pos = 0;
 
-  editAddUndo (KateUndoGroup::editWrapLine, line, col, pos, (!nextLine || newLine) ? "1" : "0");
+  editAddUndo (new KateEditWrapLineUndo(this, line, col, pos, (!nextLine || newLine)));
 
   if (!nextLine || newLine)
   {
@@ -1423,7 +1423,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
   int col = l->length ();
 
-  editAddUndo (KateUndoGroup::editUnWrapLine, line, col, length, removeLine ? "1" : "0");
+  editAddUndo (new KateEditUnWrapLineUndo(this, line, col, length, removeLine));
 
   if (removeLine)
   {
@@ -1491,7 +1491,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
 
   editStart (true, editSource);
 
-  editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
+  editAddUndo (new KateEditInsertLineUndo(this, line, s));
 
   removeTrailingSpace( line ); // old line
 
@@ -1561,7 +1561,7 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
   QString oldText = this->line(line);
 
-  editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), this->line(line));
+  editAddUndo (new KateEditRemoveLineUndo(this, line, this->line(line)));
 
   KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
 

@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2009 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -27,35 +28,23 @@
 
 
 class KateDocument;
-class KateUndo;
 
 /**
- * Class to manage a group of undo items
+ * Base class for Kate undo commands.
  */
-class KateUndoGroup
+class KateUndo
 {
   public:
     /**
      * Constructor
-     * @param doc document to belong to
+     * @param document the document the undo item belongs to
      */
-    explicit KateUndoGroup (KateDocument *doc);
+    KateUndo (KateDocument *document);
 
     /**
      * Destructor
      */
-    ~KateUndoGroup ();
-
-  public:
-    /**
-     * Undo the contained undo items
-     */
-    void undo ();
-
-    /**
-     * Redo the contained undo items
-     */
-    void redo ();
+    virtual ~KateUndo();
 
   public:
     /**
@@ -70,18 +59,329 @@ class KateUndoGroup
       editInsertLine,
       editRemoveLine,
       editMarkLineAutoWrapped,
+      editGroup,
       editInvalid
     };
 
+  public:
     /**
-     * add an item to the group
-     * @param type undo item type
-     * @param line line affected
-     * @param col start column
-     * @param len length of change
-     * @param text text removed/inserted
+     * Check whether the item is empty.
+     *
+     * @return whether the item is empty
      */
-    void addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
+    virtual bool isEmpty() const;
+
+    /**
+     * merge an undo item
+     * Saves a bit of memory and potentially many calls when undo/redoing.
+     * @param undo undo item to merge
+     * @return success
+     */
+    virtual bool mergeWith(const KateUndo* undo);
+
+    /**
+     * undo this item
+     */
+    virtual void undo() = 0;
+
+    /**
+     * redo this item
+     */
+    virtual void redo() = 0;
+
+    /**
+     * type of item
+     * @return type
+     */
+    virtual KateUndo::UndoType type() const = 0;
+
+  protected:
+    /**
+     * Return the document the undo item belongs to.
+     * @return the document the undo item belongs to
+     */
+    inline KateDocument *document() { return m_document; }
+
+  private:
+    /**
+     * the document the undo item belongs to
+     */
+    KateDocument *m_document;
+};
+
+class KateEditInsertTextUndo : public KateUndo
+{
+  public:
+    KateEditInsertTextUndo (KateDocument *doc, int line, int col, const QString &text)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_col (col)
+      , m_text (text)
+    {}
+
+    /**
+     * @copydoc KateUndo::isEmpty()
+     */
+    bool isEmpty() const;
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::mergeWith(const KateUndo)
+     */
+    bool mergeWith (const KateUndo *undo);
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editInsertText; }
+
+  private:
+    int len() const { return m_text.length(); }
+
+  private:
+    const int m_line;
+    const int m_col;
+    QString m_text;
+};
+
+class KateEditRemoveTextUndo : public KateUndo
+{
+  public:
+    KateEditRemoveTextUndo (KateDocument *doc, int line, int col, const QString &text)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_col (col)
+      , m_text (text)
+    {}
+
+    /**
+     * @copydoc KateUndo::isEmpty()
+     */
+    bool isEmpty() const;
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::mergeWith(const KateUndo)
+     */
+    bool mergeWith (const KateUndo *undo);
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editRemoveText; }
+
+  private:
+    int len() const { return m_text.length(); }
+
+  private:
+    const int m_line;
+    int m_col;
+    QString m_text;
+};
+
+class KateEditMarkLineAutoWrappedUndo : public KateUndo
+{
+  public:
+    KateEditMarkLineAutoWrappedUndo (KateDocument *doc, int line, bool autowrapped)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_autowrapped (autowrapped)
+    {}
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editMarkLineAutoWrapped; }
+
+  private:
+    const int m_line;
+    const bool m_autowrapped;
+};
+
+class KateEditWrapLineUndo : public KateUndo
+{
+  public:
+    KateEditWrapLineUndo (KateDocument *doc, int line, int col, int len, bool newLine)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_col (col)
+      , m_len (len)
+      , m_newLine (newLine)
+    {}
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editWrapLine; }
+
+  private:
+    const int m_line;
+    const int m_col;
+    const int m_len;
+    const bool m_newLine;
+};
+
+class KateEditUnWrapLineUndo : public KateUndo
+{
+  public:
+    KateEditUnWrapLineUndo (KateDocument *doc, int line, int col, int len, bool removeLine)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_col (col)
+      , m_len (len)
+      , m_removeLine (removeLine)
+    {}
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editUnWrapLine; }
+
+  private:
+    const int m_line;
+    const int m_col;
+    const int m_len;
+    const bool m_removeLine;
+};
+
+class KateEditInsertLineUndo : public KateUndo
+{
+  public:
+    KateEditInsertLineUndo (KateDocument *doc, int line, const QString &text)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_text (text)
+    {}
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editInsertLine; }
+
+  private:
+    const int m_line;
+    const QString m_text;
+};
+
+class KateEditRemoveLineUndo : public KateUndo
+{
+  public:
+    KateEditRemoveLineUndo (KateDocument *doc, int line, const QString &text)
+      : KateUndo (doc)
+      , m_line (line)
+      , m_text (text)
+    {}
+
+    /**
+     * @copydoc KateUndo::undo()
+     */
+    void undo();
+
+    /**
+     * @copydoc KateUndo::redo()
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editRemoveLine; }
+
+  private:
+    const int m_line;
+    const QString m_text;
+};
+
+/**
+ * Class to manage a group of undo items
+ */
+class KateUndoGroup : public KateUndo
+{
+  public:
+    /**
+     * Constructor
+     * @param doc document to belong to
+     */
+    explicit KateUndoGroup (KateDocument *doc);
+
+    /**
+     * Destructor
+     */
+    ~KateUndoGroup();
+
+  public:
+    /**
+     * Undo the contained undo items
+     */
+    void undo();
+
+    /**
+     * Redo the contained undo items
+     */
+    void redo();
+
+    /**
+     * @copydoc KateUndo::type()
+     */
+    KateUndo::UndoType type() const { return KateUndo::editGroup; }
 
     /**
      * sets the undo text selection range for the edit group.
@@ -116,29 +416,30 @@ class KateUndoGroup
     bool merge(KateUndoGroup* newGroup,bool complex);
 
     /**
-    * set group as as savepoint. the next group will not merge with this one
-    */
+     * set group as as savepoint. the next group will not merge with this one
+     */
     void safePoint (bool safePoint=true);
 
     /**
      * is this undogroup empty?
      */
-    bool isEmpty () const { return m_items.isEmpty(); }
+    bool isEmpty() const { return m_items.isEmpty(); }
 
   private:
     /**
      * singleType
      * @return the type if it's only one type, or editInvalid if it contains multiple types.
      */
-    KateUndoGroup::UndoType singleType() const;
+    KateUndo::UndoType singleType() const;
 
     /**
      * are we only of this type ?
      * @param type type to query
      * @return we contain only the given type
      */
-    bool isOnlyType(KateUndoGroup::UndoType type) const;
+    bool isOnlyType(KateUndo::UndoType type) const;
 
+  public:
     /**
      * add an undo item
      * @param u item to add
@@ -146,11 +447,6 @@ class KateUndoGroup
     void addItem (KateUndo *u);
 
   private:
-    /**
-     * Document we belong to
-     */
-    KateDocument *m_doc;
-
     /**
      * list of items contained
      */

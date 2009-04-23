@@ -61,6 +61,7 @@ class KateBrowserExtension;
 class KateDocumentConfig;
 class KateHighlighting;
 class KateSmartManager;
+class KateUndo;
 
 
 class QTimer;
@@ -326,7 +327,7 @@ class KateDocument : public KTextEditor::Document,
     void undoCancel();
 
   private:
-    void editAddUndo (int type, uint line, uint col, uint len, const QString &text);
+    void editAddUndo (KateUndo *undo);
 
     int editSessionNumber;
     QStack<int> editStateStack;

@@ -199,8 +199,6 @@ struct KateWordCompletionViewPrivate
   KTextEditor::Range dcRange;  // current range to be completed by directional completion
   KTextEditor::Cursor dcCursor;     // directional completion search cursor
   QRegExp re;           // hrm
-  KToggleAction *autopopup; // for accessing state
-  uint treshold;        // the required length of a word before popping up the completion list automatically
   int directionalPos;   // be able to insert "" at the correct time
   bool isCompleting; // true when the directional completion is doing a completion
 };
@@ -212,7 +210,6 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
     d( new KateWordCompletionViewPrivate )
 {
   d->isCompleting = false;
-  d->treshold = 3;
   d->dcRange = KTextEditor::Range::invalid();
   KTextEditor::SmartInterface *si =
      qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
@@ -262,24 +259,6 @@ KateWordCompletionView::~KateWordCompletionView()
   delete d;
 }
 
-void KateWordCompletionView::setTreshold( uint t )
-{
-  d->treshold = t;
-}
-
-uint KateWordCompletionView::threshold() {
-    return d->treshold;
-}
-
-bool KateWordCompletionView::autoPopupEnabled() {
-  return d->autopopup->isChecked();
-}
-
-void KateWordCompletionView::setAutoPopupEnabled( bool enable )
-{
-  d->autopopup->setChecked(enable);
-}
-
 void KateWordCompletionView::completeBackwards()
 {
   complete( false );
@@ -310,18 +289,6 @@ void KateWordCompletionView::popupCompletionList()
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
   cci->startCompletion( r, m_dWCompletionModel );
-}
-
-// for autopopup FIXME - don't pop up if reuse word is inserting
-void KateWordCompletionView::autoPopupCompletionList()
-{
-  if ( ! m_view->hasFocus() ) return;
-
-  KTextEditor::Range r = range();
-  if ( r.columnWidth() >= (int)d->treshold )
-  {
-      popupCompletionList();
-  }
 }
 
 // Contributed by <brain@hdsnet.hu>
@@ -551,14 +518,6 @@ const KTextEditor::Range KateWordCompletionView::range() const
   }
 
   return KTextEditor::Range( KTextEditor::Cursor( line, col ), end );
-}
-
-void KateWordCompletionView::slotVariableChanged( KTextEditor::Document*,const QString &var, const QString &val )
-{
-  if ( var == "wordcompletion-autopopup" )
-    d->autopopup->setEnabled( val == "true" );
-  else if ( var == "wordcompletion-treshold" )
-    d->treshold = val.toInt();
 }
 //END
 

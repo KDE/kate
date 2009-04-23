@@ -83,11 +83,6 @@ class KateWordCompletionView : public QObject
     KateWordCompletionView(KTextEditor::View *view, KActionCollection* ac );
     ~KateWordCompletionView();
 
-    void setTreshold( uint treshold );
-    void setAutoPopupEnabled( bool enable );
-    uint threshold();
-    bool autoPopupEnabled();
-
   private Q_SLOTS:
     void completeBackwards();
     void completeForwards();
@@ -96,9 +91,6 @@ class KateWordCompletionView : public QObject
     void shellComplete();
 
     void popupCompletionList();
-    void autoPopupCompletionList();
-
-    void slotVariableChanged(KTextEditor::Document*, const QString &, const QString & );
 
   private:
     void complete( bool fw=true );

@@ -637,6 +637,8 @@ KateViewConfig::KateViewConfig ()
    m_viInputModeSet (true),
    m_viInputModeStealKeysSet (true),
    m_automaticCompletionInvocationSet (true),
+   m_wordCompletionSet (true),
+   m_wordCompletionMinimalWordLengthSet (true),
    m_view (0)
 {
   s_global = this;
@@ -663,6 +665,8 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
    m_automaticCompletionInvocationSet (false),
+   m_wordCompletionSet (false),
+   m_wordCompletionMinimalWordLengthSet (false),
    m_view (view)
 {
 }
@@ -711,6 +715,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setViInputModeHideStatusBar (config.readEntry( "Vi Input Mode Hide Status Bar", false));
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
+  setWordCompletion (config.readEntry( "Word Completion", true ));
+  setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
 
   if (isGlobal()) {
     QStringList empty;
@@ -754,6 +760,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Persistent Selection", persistentSelection());
 
   config.writeEntry( "Auto Completion", automaticCompletionInvocation());
+  config.writeEntry( "Word Completion", wordCompletion());
+  config.writeEntry( "Word Completion Minimal Word Length", wordCompletionMinimalWordLength());
 
   config.writeEntry( "Vi Input Mode", viInputMode());
 
@@ -1098,6 +1106,42 @@ void KateViewConfig::setAutomaticCompletionInvocation (bool on)
 
   m_automaticCompletionInvocationSet = true;
   m_automaticCompletionInvocation = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::wordCompletion () const
+{
+  if (m_wordCompletionSet || isGlobal())
+    return m_wordCompletion;
+
+  return s_global->wordCompletion();
+}
+
+void KateViewConfig::setWordCompletion (bool on)
+{
+  configStart ();
+
+  m_wordCompletionSet = true;
+  m_wordCompletion = on;
+
+  configEnd ();
+}
+
+int KateViewConfig::wordCompletionMinimalWordLength () const
+{
+  if (m_wordCompletionMinimalWordLengthSet || isGlobal())
+    return m_wordCompletionMinimalWordLength;
+
+  return s_global->wordCompletionMinimalWordLength();
+}
+
+void KateViewConfig::setWordCompletionMinimalWordLength (int length)
+{
+  configStart ();
+
+  m_wordCompletionMinimalWordLengthSet = true;
+  m_wordCompletionMinimalWordLength = length;
 
   configEnd ();
 }

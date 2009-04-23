@@ -48,6 +48,7 @@
 #include "katesearchbar.h"
 #include "katevimodebar.h"
 #include "katepartpluginmanager.h"
+#include "katewordcompletion.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -1456,6 +1457,11 @@ void KateView::updateConfig ()
 
   // whether vi input mode should override actions or not
   m_viewInternal->m_viInputModeStealKeys = config()->viInputModeStealKeys();
+  
+  // register/unregister word completion...
+  unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
+  if (config()->wordCompletion ())
+    registerCompletionModel (KateGlobal::self()->wordCompletionModel());
 }
 
 void KateView::updateDocumentConfig()

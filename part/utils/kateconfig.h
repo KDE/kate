@@ -381,6 +381,12 @@ class KateViewConfig : public KateConfig
     bool automaticCompletionInvocation () const;
     void setAutomaticCompletionInvocation (bool on);
 
+    bool wordCompletion () const;
+    void setWordCompletion (bool on);
+    
+    int wordCompletionMinimalWordLength () const;
+    void setWordCompletionMinimalWordLength (int lenght);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -398,6 +404,8 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeys;
     bool m_viInputModeHideStatusBar;
     bool m_automaticCompletionInvocation;
+    bool m_wordCompletion;
+    int m_wordCompletionMinimalWordLength;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -415,6 +423,8 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeysSet : 1;
     bool m_viInputModeHideStatusBarSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
+    bool m_wordCompletionSet : 1;
+    bool m_wordCompletionMinimalWordLengthSet : 1;
 
   private:
     static KateViewConfig *s_global;

@@ -28,8 +28,9 @@
 
 //BEGIN includes
 #include "katewordcompletion.h"
+#include "kateview.h"
+#include "katedocument.h"
 
-#include <ktexteditor/document.h>
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/smartrange.h>
@@ -124,14 +125,23 @@ int KateWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 
 void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
- /* if (it==AutomaticInvocation) {
-    DocWordCompletionPluginView *v=m_plugin->m_views[view];
+  /**
+   * auto invoke...
+   */
+  if (it==AutomaticInvocation) {
+      KateView *v = qobject_cast<KateView*> (view);
     
-      if ((range.columnWidth())>=3)
+      if (range.columnWidth() >= v->config()->wordCompletionMinimalWordLength())
         saveMatches( view, range );
       else
         m_matches.clear();
-  } else saveMatches( view, range );*/
+        
+      // done here...
+      return;
+  }
+  
+  // normal case ;)
+  saveMatches( view, range );
 }
 
 

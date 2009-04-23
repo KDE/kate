@@ -102,7 +102,7 @@ function indent(line, indentWidth, character) {
 	 }
 
 	 // indent lines following a line ending with '='
-	 if(lastCharacter == '=') {
+	 if(lastLine.stripWhiteSpace().endsWith('=')) {
 		 //dbg('indenting for =');
 		 return document.firstVirtualColumn(line - 1) + indentWidth;
 	 }

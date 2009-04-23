@@ -540,8 +540,8 @@ void KateCompletionWidget::updateHeight()
   //Limit the height to the bottom of the screen
   int bottomPosition = baseHeight + newExpandingAddedHeight + geometry().top();
 
-  if( bottomPosition > screenBottom-50 ) {
-    newExpandingAddedHeight -= bottomPosition - (screenBottom-50);
+  if( bottomPosition > screenBottom ) {
+    newExpandingAddedHeight -= bottomPosition - (screenBottom);
   }
 
   int finalHeight = baseHeight+newExpandingAddedHeight;

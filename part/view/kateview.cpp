@@ -2445,8 +2445,10 @@ void KateView::lowercase( )
 
 void KateView::capitalize( )
 {
+  m_doc->editStart();
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Lowercase );
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Capitalize );
+  m_doc->editEnd();
 }
 
 void KateView::keyReturn( )

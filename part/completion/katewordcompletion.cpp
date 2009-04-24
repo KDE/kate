@@ -31,6 +31,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateglobal.h"
+#include "katesmartrange.h"
 
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/smartinterface.h>
@@ -131,16 +132,16 @@ void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const K
    */
   if (it==AutomaticInvocation) {
       KateView *v = qobject_cast<KateView*> (view);
-    
+
       if (range.columnWidth() >= v->config()->wordCompletionMinimalWordLength())
         saveMatches( view, range );
       else
         m_matches.clear();
-        
+
       // done here...
       return;
   }
-  
+
   // normal case ;)
   saveMatches( view, range );
 }
@@ -218,6 +219,8 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
     return;
 
   d->liRange = si->newSmartRange();
+  // (dh) guard the smart range to not become a dangling pointer on document reload
+  static_cast<KateSmartRange*>(d->liRange)->setInternal();
 
   KColorScheme colors(QPalette::Active);
   KTextEditor::Attribute::Ptr a = KTextEditor::Attribute::Ptr( new KTextEditor::Attribute() );
@@ -281,7 +284,7 @@ void KateWordCompletionView::popupCompletionList()
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
   if(!cci || cci->isCompletionActive())
     return;
-  
+
   m_dWCompletionModel->saveMatches( m_view, r );
 
   kDebug( 13040 ) << "after save matches ...";

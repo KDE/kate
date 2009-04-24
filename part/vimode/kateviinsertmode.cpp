@@ -259,7 +259,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     case Qt::Key_P:
-      commandCompleteNext();
+      commandCompletePrevious();
       return true;
       break;
     case Qt::Key_T:

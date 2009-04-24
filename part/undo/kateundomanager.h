@@ -68,7 +68,6 @@ class KateUndoManager : public QObject
     void setUndoDontMergeComplex(bool dontMerge);
 
     void setMergeAllEdits(bool merge) { m_mergeAllEdits = merge; m_firstMergeGroupSkipped = false; }
-    bool allEditsMerged() const { return m_mergeAllEdits; }
   public Q_SLOTS:  // FIXME make this slot private again?
     void undoCancel();
 

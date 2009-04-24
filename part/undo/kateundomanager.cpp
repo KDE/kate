@@ -149,8 +149,10 @@ void KateUndoManager::undoCancel()
 }
 
 void KateUndoManager::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo);
-  if (!m_editCurrentUndo) return;
+//  Q_ASSERT(m_editCurrentUndo);
+  if (!m_editCurrentUndo)
+    return;
+
   m_editCurrentUndo->safePoint();
 }
 

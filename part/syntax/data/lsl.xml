@@ -11,7 +11,7 @@
   <!ENTITY FS "(f|F)">
 ]>
 <!-- versioning is based on the slviewer source code version from which strings were extracted, then a point version for this file -->
-<language name="LSL" section="Scripts" version="1.19.0.5.1" kateversion="3.2" extensions="*.lsl" mimetype="text/x-lsl" author="Rafał Rzepecki" license="LGPL-3">
+<language name="LSL" section="Scripts" version="1.20" kateversion="3.2" extensions="*.lsl" mimetype="text/x-lsl" author="Rafał Rzepecki" license="LGPL-3">
   <highlighting>
     <!-- types, keyword, events, constants and symbols are from indra.l -->
     <list name="types">

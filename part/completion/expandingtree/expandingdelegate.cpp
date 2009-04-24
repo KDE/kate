@@ -50,7 +50,7 @@ if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
 	    return qvariant_cast<QBrush>(value).color();
     }
     
-    return QColor();
+    return QApplication::palette().background().color();
 }
 
 static void dampColors(QColor& col) {
@@ -201,7 +201,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   
   if(m_backgroundColor.isValid()) {
     QColor background = m_backgroundColor;
-//     kDebug() << text << "background:" << background;
+//     kDebug() << text << "background:" << background.name();
     //Now go through the formats, and make sure the contrast background/foreground is readable
     for(int a = 0; a < additionalFormats.size(); ++a) {
       QColor currentBackground = background;
@@ -214,10 +214,10 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
       QColor invertedColor(0xffffffff-additionalFormats[a].format.foreground().color().rgb());
       double invertedContrast = readabilityContrast(invertedColor, currentBackground);
       
-//       kDebug() << "values:" << invertedContrast << currentContrast << invertedColor << currentColor;
+//       kDebug() << "values:" << invertedContrast << currentContrast << invertedColor.name() << currentColor.name();
       
       if(invertedContrast > currentContrast) {
-//         kDebug() << text << additionalFormats[a].length << "switching from" << currentColor << "to" << invertedColor;
+//         kDebug() << text << additionalFormats[a].length << "switching from" << currentColor.name() << "to" << invertedColor.name();
         QBrush b(additionalFormats[a].format.foreground());
         b.setColor(invertedColor);
         additionalFormats[a].format.setForeground(b);

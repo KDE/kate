@@ -42,6 +42,8 @@ void ExpandingTree::drawRow ( QPainter * painter, const QStyleOptionViewItem & o
       painter->fillRect(rect,QBrush(0xffffffff));
 
       QAbstractTextDocumentLayout::PaintContext ctx;
+      // since arbitrary HTML can be shown use a black on white color scheme here
+      ctx.palette = QPalette( Qt::black, Qt::white );
       ctx.clip = QRectF(0,0,rect.width(),rect.height());;
       painter->setViewTransformEnabled(true);
       painter->translate(rect.left(), rect.top());

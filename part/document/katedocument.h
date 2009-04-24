@@ -51,7 +51,6 @@ namespace KTextEditor { class Plugin; class Attribute; }
 
 namespace KIO { class TransferJob; }
 
-class KateUndoGroup;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
@@ -61,10 +60,8 @@ class KateBrowserExtension;
 class KateDocumentConfig;
 class KateHighlighting;
 class KateSmartManager;
-class KateUndo;
+class KateUndoManager;
 
-
-class QTimer;
 
 class KateKeyInterceptorFunctor;
 
@@ -306,10 +303,6 @@ class KateDocument : public KTextEditor::Document,
      */
     void editLineUnWrapped ( int line, int col );
 
-  private:
-    void undoStart();
-    void undoEnd();
-
   public:
     void undoSafePoint();
 
@@ -322,20 +315,14 @@ class KateDocument : public KTextEditor::Document,
     bool isEditRunning() const;
     bool isWithUndo() const {return editWithUndo;}
 
-    void setMergeAllEdits(bool merge) { m_mergeAllEdits = merge; m_firstMergeGroupSkipped = false; }
-  private Q_SLOTS:
-    void undoCancel();
+    void setMergeAllEdits(bool merge);
 
   private:
-    void editAddUndo (KateUndo *undo);
-
     int editSessionNumber;
     QStack<int> editStateStack;
     QStack<Kate::EditSource> m_editSources;
     bool editIsRunning;
     bool editWithUndo;
-    bool m_undoComplexMerge;
-    KateUndoGroup* m_editCurrentUndo;
 
   //
   // KTextEditor::UndoInterface stuff
@@ -343,8 +330,6 @@ class KateDocument : public KTextEditor::Document,
   public Q_SLOTS:
     void undo ();
     void redo ();
-    void clearUndo ();
-    void clearRedo ();
 
   public:
     uint undoCount () const;
@@ -352,28 +337,8 @@ class KateDocument : public KTextEditor::Document,
     class KateEditHistory* history() const { return m_editHistory; }
 
   private:
+    KateUndoManager* m_undoManager;
     KateEditHistory* m_editHistory;
-
-    //
-    // some internals for undo/redo
-    //
-    QList<KateUndoGroup*> undoItems;
-    QList<KateUndoGroup*> redoItems;
-    bool m_undoDontMerge; //create a setter later on and remove the friend declaration
-    bool m_undoIgnoreCancel;
-    bool m_mergeAllEdits; // if true, all undo groups are merged continually
-    bool m_firstMergeGroupSkipped;  // used to make sure the first undo group isn't merged after
-                                    // setting m_mergeAllEdits
-    QTimer* m_undoMergeTimer;
-    // these two variables are for resetting the document to
-    // non-modified if all changes have been undone...
-    KateUndoGroup* lastUndoGroupWhenSaved;
-    KateUndoGroup* lastRedoGroupWhenSaved;
-    bool docWasSavedWhenUndoWasEmpty;
-    bool docWasSavedWhenRedoWasEmpty;
-
-    // this sets
-    void updateModified();
 
   Q_SIGNALS:
     void undoChanged ();

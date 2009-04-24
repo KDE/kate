@@ -44,9 +44,9 @@
 #include <ktexteditor/loadsavefiltercheckplugin.h>
 #include "kateedit.h"
 #include "katebuffer.h"
+#include "kateundomanager.h"
 #include "kateundo.h"
 #include "katepartpluginmanager.h"
-#include "utils/katesearchbar.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -178,14 +178,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              QObject *parent)
 : KTextEditor::Document (parent),
   m_activeView(0L),
-  m_undoDontMerge(false),
-  m_undoIgnoreCancel(false),
-  m_mergeAllEdits(false),
-  m_firstMergeGroupSkipped(false),
-  lastUndoGroupWhenSaved( 0 ),
-  lastRedoGroupWhenSaved( 0 ),
-  docWasSavedWhenUndoWasEmpty( true ),
-  docWasSavedWhenRedoWasEmpty( true ),
+  m_undoManager(new KateUndoManager(this)),
   m_annotationModel( 0 ),
   m_saveAs(false),
   m_indenter(this),
@@ -196,8 +189,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_savingToUrl(false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
-
-  m_undoComplexMerge=false;
 
   QString pathName ("/Kate/Document/%1");
   pathName = pathName.arg (++dummy);
@@ -226,7 +217,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   editSessionNumber = 0;
   editIsRunning = false;
-  m_editCurrentUndo = 0L;
   editWithUndo = false;
 
   m_docNameNumber = 0;
@@ -238,15 +228,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   setEditableMarks( markType01 );
 
-  m_undoMergeTimer = new QTimer(this);
-  m_undoMergeTimer->setSingleShot(true);
-  connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
-
   clearMarks ();
-  clearUndo ();
-  clearRedo ();
   setModified (false);
-  docWasSavedWhenUndoWasEmpty = true;
 
   // normal hl
   m_buffer->setHighlight (0);
@@ -320,14 +303,6 @@ KateDocument::~KateDocument()
     delete m_views.takeFirst();
   }
 
-  delete m_editCurrentUndo;
-
-  // cleanup the undo/redo items, very important, truee :/
-  qDeleteAll(undoItems);
-  undoItems.clear();
-  qDeleteAll(redoItems);
-  redoItems.clear();
-
   // de-register from plugin
   KatePartPluginManager::self()->removeDocument(this);
 
@@ -364,7 +339,6 @@ QWidget *KateDocument::widget()
 KTextEditor::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
-  connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
   if ( s_fileChangedDialogsActivated )
     connect( newView, SIGNAL(focusIn( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
 
@@ -954,9 +928,9 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
   editWithUndo = withUndo;
 
   if (editWithUndo)
-    undoStart();
+    m_undoManager->undoStart();
   else
-    undoCancel();
+    m_undoManager->undoCancel();
 
   foreach(KateView *view,m_views)
   {
@@ -966,82 +940,8 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
   m_buffer->editStart ();
 }
 
-void KateDocument::undoStart()
-{
-  if (m_editCurrentUndo || (m_activeView && activeKateView()->imComposeEvent())) return;
-
-  // new current undo item
-  m_editCurrentUndo = new KateUndoGroup(this);
-  if (m_activeView) {
-    m_editCurrentUndo->setUndoCursor(m_activeView->cursorPosition());
-    m_editCurrentUndo->setUndoSelection(m_activeView->selectionRange());
-  }
-}
-
-void KateDocument::undoEnd()
-{
-  if (m_activeView && activeKateView()->imComposeEvent())
-    return;
-
-  if (m_editCurrentUndo)
-  {
-    bool changedUndo = false;
-
-    if (m_activeView) {
-        m_editCurrentUndo->setRedoCursor(m_activeView->cursorPosition());
-        m_editCurrentUndo->setRedoSelection(m_activeView->selectionRange());
-    }
-
-    if (m_editCurrentUndo->isEmpty()) {
-      delete m_editCurrentUndo;
-    } else if (((m_mergeAllEdits && !m_firstMergeGroupSkipped) || !m_undoDontMerge)
-        && !undoItems.isEmpty() && undoItems.last()
-        && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge || m_mergeAllEdits)) {
-      delete m_editCurrentUndo;
-      m_firstMergeGroupSkipped = true;
-    } else {
-      undoItems.append(m_editCurrentUndo);
-      changedUndo = true;
-    }
-
-    m_undoDontMerge = false;
-    m_undoIgnoreCancel = true;
-
-    m_editCurrentUndo = 0L;
-
-    // (Re)Start the single-shot timer to cancel the undo merge
-    // the user has 5 seconds to input more data, or undo merging gets canceled for the current undo item.
-    m_undoMergeTimer->start(5000);
-
-    if (changedUndo)
-      emit undoChanged();
-  }
-}
-
-void KateDocument::undoCancel()
-{
-  // Don't worry about this when an edit is in progress
-  if (editIsRunning)
-    return;
-
-  if (m_undoIgnoreCancel) {
-    m_undoIgnoreCancel = false;
-    return;
-  }
-
-  m_undoDontMerge = true;
-
-  Q_ASSERT(!m_editCurrentUndo);
-
-  // As you can see by the above assert, neither of these should really be required
-  delete m_editCurrentUndo;
-  m_editCurrentUndo = 0L;
-}
-
 void KateDocument::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo);
-  if (!m_editCurrentUndo) return;
-  m_editCurrentUndo->safePoint();
+  m_undoManager->undoSafePoint();
 }
 
 //
@@ -1069,7 +969,7 @@ void KateDocument::editEnd ()
   m_buffer->editEnd ();
 
   if (editWithUndo)
-    undoEnd();
+    m_undoManager->undoEnd();
 
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)
@@ -1223,19 +1123,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
   return true;
 }
 
-void KateDocument::editAddUndo (KateUndo *undo)
-{
-  if (editIsRunning && editWithUndo && m_editCurrentUndo) {
-    m_editCurrentUndo->addItem(undo);
-
-    // Clear redo buffer
-    if (redoItems.count()) {
-      qDeleteAll(redoItems);
-      redoItems.clear();
-    }
-  }
-}
-
 bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::EditSource editSource )
 {
   if (line < 0 || col < 0)
@@ -1251,7 +1138,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   editStart (true, editSource);
 
-  editAddUndo (new KateEditInsertTextUndo(this, line, col, s));
+  m_undoManager->addUndo (new KateEditInsertTextUndo(this, line, col, s));
 
   l->insertText (col, s);
 
@@ -1280,7 +1167,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
 
   editStart (true, editSource);
 
-  editAddUndo (new KateEditRemoveTextUndo(this, line, col, l->string().mid(col, len)));
+  m_undoManager->addUndo (new KateEditRemoveTextUndo(this, line, col, l->string().mid(col, len)));
 
   l->removeText (col, len);
   removeTrailingSpace( line );
@@ -1310,7 +1197,7 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 
   editStart ();
 
-  editAddUndo (new KateEditMarkLineAutoWrappedUndo(this, line, autowrapped));
+  m_undoManager->addUndo (new KateEditMarkLineAutoWrappedUndo(this, line, autowrapped));
 
   l->setAutoWrapped (autowrapped);
 
@@ -1343,7 +1230,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   if (pos < 0)
     pos = 0;
 
-  editAddUndo (new KateEditWrapLineUndo(this, line, col, pos, (!nextLine || newLine)));
+  m_undoManager->addUndo (new KateEditWrapLineUndo(this, line, col, pos, (!nextLine || newLine)));
 
   if (!nextLine || newLine)
   {
@@ -1423,7 +1310,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
   int col = l->length ();
 
-  editAddUndo (new KateEditUnWrapLineUndo(this, line, col, length, removeLine));
+  m_undoManager->addUndo (new KateEditUnWrapLineUndo(this, line, col, length, removeLine));
 
   if (removeLine)
   {
@@ -1491,7 +1378,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
 
   editStart (true, editSource);
 
-  editAddUndo (new KateEditInsertLineUndo(this, line, s));
+  m_undoManager->addUndo (new KateEditInsertLineUndo(this, line, s));
 
   removeTrailingSpace( line ); // old line
 
@@ -1561,7 +1448,7 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
   QString oldText = this->line(line);
 
-  editAddUndo (new KateEditRemoveLineUndo(this, line, this->line(line)));
+  m_undoManager->addUndo (new KateEditRemoveLineUndo(this, line, this->line(line)));
 
   KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
 
@@ -1610,154 +1497,22 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
 uint KateDocument::undoCount () const
 {
-  return undoItems.count ();
+  return m_undoManager->undoCount ();
 }
 
 uint KateDocument::redoCount () const
 {
-  return redoItems.count ();
+  return m_undoManager->redoCount ();
 }
 
 void KateDocument::undo()
 {
-  if ((undoItems.count() > 0) && undoItems.last())
-  {
-    //clearSelection ();
-    /*Disable searchbar highlights due to performance issue
-     * if undoGroup contains n items, and there're m search highlight regions, 
-     * the total cost is n*m*log(m),
-     * to undo a simple Replace operation, n=2*m 
-     * (replace contains both delete and insert undoItem, assume the replaced regions are highlighted),
-     * cost = 2*m^2*log(m), too high
-     * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()
-     */ 
-    foreach (KateView *v, m_views) {
-      if (v->searchBar(false))
-        v->searchBar(false)->enableHighlights(false);  
-    }
-
-    undoItems.last()->undo();
-    redoItems.append (undoItems.last());
-    undoItems.removeLast ();
-    updateModified();
-emit undoChanged ();
-  }
+  m_undoManager->undo();
 }
 
 void KateDocument::redo()
 {
-  if ((redoItems.count() > 0) && redoItems.last())
-  {
-    //clearSelection ();
-    //Disable searchbar highlights due to performance issue, see ::undo()'s comment
-    foreach (KateView *v, m_views) {
-      if (v->searchBar(false))
-        v->searchBar(false)->enableHighlights(false);  
-    }
-
-    redoItems.last()->redo();
-    undoItems.append (redoItems.last());
-    redoItems.removeLast ();
-    updateModified();
-
-    emit undoChanged ();
-  }
-}
-
-void KateDocument::updateModified()
-{
-  /*
-  How this works:
-
-    After noticing that there where to many scenarios to take into
-    consideration when using 'if's to toggle the "Modified" flag
-    I came up with this baby, flexible and repetitive calls are
-    minimal.
-
-    A numeric unique pattern is generated by toggling a set of bits,
-    each bit symbolizes a different state in the Undo Redo structure.
-
-      undoItems.isEmpty() != null          BIT 1
-      redoItems.isEmpty() != null          BIT 2
-      docWasSavedWhenUndoWasEmpty == true  BIT 3
-      docWasSavedWhenRedoWasEmpty == true  BIT 4
-      lastUndoGroupWhenSavedIsLastUndo     BIT 5
-      lastUndoGroupWhenSavedIsLastRedo     BIT 6
-      lastRedoGroupWhenSavedIsLastUndo     BIT 7
-      lastRedoGroupWhenSavedIsLastRedo     BIT 8
-
-    If you find a new pattern, please add it to the patterns array
-  */
-
-  unsigned char currentPattern = 0;
-  const unsigned char patterns[] = {5,16,21,24,26,88,90,93,133,144,149,165};
-  const unsigned char patternCount = sizeof(patterns);
-  KateUndoGroup* undoLast = 0;
-  KateUndoGroup* redoLast = 0;
-
-  if (undoItems.isEmpty())
-  {
-    currentPattern |= 1;
-  }
-  else
-  {
-    undoLast = undoItems.last();
-  }
-
-  if (redoItems.isEmpty())
-  {
-    currentPattern |= 2;
-  }
-  else
-  {
-    redoLast = redoItems.last();
-  }
-
-  if (docWasSavedWhenUndoWasEmpty) currentPattern |= 4;
-  if (docWasSavedWhenRedoWasEmpty) currentPattern |= 8;
-  if (lastUndoGroupWhenSaved == undoLast) currentPattern |= 16;
-  if (lastUndoGroupWhenSaved == redoLast) currentPattern |= 32;
-  if (lastRedoGroupWhenSaved == undoLast) currentPattern |= 64;
-  if (lastRedoGroupWhenSaved == redoLast) currentPattern |= 128;
-
-  // This will print out the pattern information
-
-  kDebug(13020) << "Pattern:" << static_cast<unsigned int>(currentPattern);
-
-  for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
-  {
-    if ( currentPattern == patterns[patternIndex] )
-    {
-      setModified( false );
-      // (dominik) whenever the doc is not modified, succeeding edits
-      // should not be merged
-      setUndoDontMerge(true);
-      kDebug(13020) << "setting modified to false!";
-      break;
-    }
-  }
-}
-
-void KateDocument::clearUndo()
-{
-  qDeleteAll(undoItems);
-  undoItems.clear ();
-
-  lastUndoGroupWhenSaved = 0;
-  docWasSavedWhenUndoWasEmpty = false;
-
-  emit undoChanged ();
-}
-
-void KateDocument::clearRedo()
-{
-  qDeleteAll(redoItems);
-  redoItems.clear ();
-
-  lastRedoGroupWhenSaved = 0;
-  docWasSavedWhenRedoWasEmpty = false;
-
-  emit undoChanged ();
+  m_undoManager->redo();
 }
 //END
 
@@ -3844,8 +3599,8 @@ bool KateDocument::closeUrl()
   clearMarks ();
 
   // clear undo/redo history
-  clearUndo();
-  clearRedo();
+  m_undoManager->clearUndo();
+  m_undoManager->clearRedo();
 
   // no, we are no longer modified
   setModified(false);
@@ -3899,21 +3654,8 @@ void KateDocument::setModified(bool m) {
 
     emit modifiedChanged (this);
   }
-  if ( m == false )
-  {
-    if ( ! undoItems.isEmpty() )
-    {
-      lastUndoGroupWhenSaved = undoItems.last();
-    }
 
-    if ( ! redoItems.isEmpty() )
-    {
-      lastRedoGroupWhenSaved = redoItems.last();
-    }
-
-    docWasSavedWhenUndoWasEmpty = undoItems.isEmpty();
-    docWasSavedWhenRedoWasEmpty = redoItems.isEmpty();
-  }
+  m_undoManager->setModified (m);
 }
 //END
 
@@ -4269,7 +4011,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   int lines = s.count (QChar::fromAscii ('\n'));
 
-  m_undoDontMerge = true;
+  m_undoManager->setUndoDontMerge (true);
 
   editStart (true, Kate::CutCopyPasteEdit);
 
@@ -4313,8 +4055,9 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     editEnd();
   }
 
-  if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (pos, s);
-  m_undoDontMerge = true;
+  if (!view->blockSelectionMode())
+    emit charactersSemiInteractivelyInserted (pos, s);
+  m_undoManager->setUndoDontMerge (true);
 }
 
 void KateDocument::indent ( KateView *v, uint line, int change)
@@ -5429,7 +5172,7 @@ KEncodingProber::ProberType KateDocument::proberTypeForEncodingAutoDetection() c
 
 void KateDocument::updateConfig ()
 {
-  emit undoChanged ();
+  m_undoManager->updateConfig ();
 
   // switch indenter if needed and update config....
   m_indenter.setMode (m_config->indentationMode());
@@ -6266,27 +6009,32 @@ KateTextLine::Ptr KateDocument::plainKateTextLine( uint i )
 
 bool KateDocument::undoDontMerge( ) const
 {
-  return m_undoDontMerge;
+  return m_undoManager->undoDontMerge ();
 }
 
 void KateDocument::setUndoDontMergeComplex(bool dontMerge)
 {
-  m_undoComplexMerge = dontMerge;
+  m_undoManager->setUndoDontMergeComplex (dontMerge);
 }
 
 bool KateDocument::undoDontMergeComplex( ) const
 {
-  return m_undoComplexMerge;
+  return m_undoManager->undoDontMergeComplex ();
 }
 
 void KateDocument::setUndoDontMerge(bool dontMerge)
 {
-  m_undoDontMerge = dontMerge;
+  m_undoManager->setUndoDontMerge (dontMerge);
 }
 
 bool KateDocument::isEditRunning() const
 {
   return editIsRunning;
+}
+
+void KateDocument::setMergeAllEdits(bool merge)
+{
+  m_undoManager->setMergeAllEdits(merge);
 }
 
 void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )

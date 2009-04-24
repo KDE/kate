@@ -25,6 +25,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
+  ${CMAKE_CURRENT_SOURCE_DIR}/undo
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
@@ -60,7 +61,10 @@ document/katebuffer.cpp
 document/katetextline.cpp
 document/katecursor.cpp
 document/kateedit.cpp
-document/kateundo.cpp
+
+# undo
+undo/kateundo.cpp
+undo/kateundomanager.cpp
 
 # scripting
 script/katescript.cpp

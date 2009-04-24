@@ -112,8 +112,8 @@ class KateUndo
 class KateEditInsertTextUndo : public KateUndo
 {
   public:
-    KateEditInsertTextUndo (KateDocument *doc, int line, int col, const QString &text)
-      : KateUndo (doc)
+    KateEditInsertTextUndo (KateDocument *document, int line, int col, const QString &text)
+      : KateUndo (document)
       , m_line (line)
       , m_col (col)
       , m_text (text)
@@ -156,8 +156,8 @@ class KateEditInsertTextUndo : public KateUndo
 class KateEditRemoveTextUndo : public KateUndo
 {
   public:
-    KateEditRemoveTextUndo (KateDocument *doc, int line, int col, const QString &text)
-      : KateUndo (doc)
+    KateEditRemoveTextUndo (KateDocument *document, int line, int col, const QString &text)
+      : KateUndo (document)
       , m_line (line)
       , m_col (col)
       , m_text (text)
@@ -200,8 +200,8 @@ class KateEditRemoveTextUndo : public KateUndo
 class KateEditMarkLineAutoWrappedUndo : public KateUndo
 {
   public:
-    KateEditMarkLineAutoWrappedUndo (KateDocument *doc, int line, bool autowrapped)
-      : KateUndo (doc)
+    KateEditMarkLineAutoWrappedUndo (KateDocument *document, int line, bool autowrapped)
+      : KateUndo (document)
       , m_line (line)
       , m_autowrapped (autowrapped)
     {}
@@ -229,8 +229,8 @@ class KateEditMarkLineAutoWrappedUndo : public KateUndo
 class KateEditWrapLineUndo : public KateUndo
 {
   public:
-    KateEditWrapLineUndo (KateDocument *doc, int line, int col, int len, bool newLine)
-      : KateUndo (doc)
+    KateEditWrapLineUndo (KateDocument *document, int line, int col, int len, bool newLine)
+      : KateUndo (document)
       , m_line (line)
       , m_col (col)
       , m_len (len)
@@ -262,8 +262,8 @@ class KateEditWrapLineUndo : public KateUndo
 class KateEditUnWrapLineUndo : public KateUndo
 {
   public:
-    KateEditUnWrapLineUndo (KateDocument *doc, int line, int col, int len, bool removeLine)
-      : KateUndo (doc)
+    KateEditUnWrapLineUndo (KateDocument *document, int line, int col, int len, bool removeLine)
+      : KateUndo (document)
       , m_line (line)
       , m_col (col)
       , m_len (len)
@@ -295,8 +295,8 @@ class KateEditUnWrapLineUndo : public KateUndo
 class KateEditInsertLineUndo : public KateUndo
 {
   public:
-    KateEditInsertLineUndo (KateDocument *doc, int line, const QString &text)
-      : KateUndo (doc)
+    KateEditInsertLineUndo (KateDocument *document, int line, const QString &text)
+      : KateUndo (document)
       , m_line (line)
       , m_text (text)
     {}
@@ -324,8 +324,8 @@ class KateEditInsertLineUndo : public KateUndo
 class KateEditRemoveLineUndo : public KateUndo
 {
   public:
-    KateEditRemoveLineUndo (KateDocument *doc, int line, const QString &text)
-      : KateUndo (doc)
+    KateEditRemoveLineUndo (KateDocument *document, int line, const QString &text)
+      : KateUndo (document)
       , m_line (line)
       , m_text (text)
     {}
@@ -358,9 +358,9 @@ class KateUndoGroup : public KateUndo
   public:
     /**
      * Constructor
-     * @param doc document to belong to
+     * @param document document this group will belong to
      */
-    explicit KateUndoGroup (KateDocument *doc);
+    explicit KateUndoGroup (KateDocument *document);
 
     /**
      * Destructor
@@ -413,7 +413,7 @@ class KateUndoGroup : public KateUndo
      * @param complex set if a complex undo
      * @return success
      */
-    bool merge(KateUndoGroup* newGroup,bool complex);
+    bool merge (KateUndoGroup* newGroup,bool complex);
 
     /**
      * set group as as savepoint. the next group will not merge with this one

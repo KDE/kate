@@ -21,12 +21,14 @@
 
 #include "kateundo.h"
 
+#include "kateundomanager.h"
+
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecursor.h"
 
-KateUndo::KateUndo (KateDocument *doc)
-: m_document (doc)
+KateUndo::KateUndo (KateDocument *document)
+: m_document (document)
 {
 }
 
@@ -182,8 +184,8 @@ void KateEditMarkLineAutoWrappedUndo::redo ()
       doc->editMarkLineAutoWrapped (m_line, m_autowrapped);
 }
 
-KateUndoGroup::KateUndoGroup (KateDocument *doc)
-  : KateUndo (doc)
+KateUndoGroup::KateUndoGroup (KateDocument *document)
+  : KateUndo (document)
   , m_safePoint(false)
   , m_undoSelection(-1, -1, -1, -1)
   , m_redoSelection(-1, -1, -1, -1)
@@ -273,7 +275,7 @@ void KateUndoGroup::addItem(KateUndo* u)
     m_items.append(u);
 }
 
-bool KateUndoGroup::merge(KateUndoGroup* newGroup,bool complex)
+bool KateUndoGroup::merge (KateUndoGroup* newGroup,bool complex)
 {
   if (m_safePoint)
     return false;

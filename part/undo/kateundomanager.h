@@ -50,15 +50,13 @@ class KateUndoManager : public QObject
     ~KateUndoManager();
 
   public:
-    /**
-     * Returns the document the KateUndoManager belongs to.
-     * @return document the KateUndoManager belongs to
-     */
-    KateDocument *document() { return m_document; }
-
     void undoStart();
     void undoEnd();
 
+    /**
+     * Marks the current KateUndoGroup as not mergable with following
+     * undo groups.
+     */
     void undoSafePoint();
 
     bool undoDontMerge() const;

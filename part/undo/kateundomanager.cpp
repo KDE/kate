@@ -81,7 +81,7 @@ void KateUndoManager::undoStart()
     return;
 
   // new current undo item
-  m_editCurrentUndo = new KateUndoGroup(document());
+  m_editCurrentUndo = new KateUndoGroup(m_document);
   if (m_document->activeKateView()) {
     m_editCurrentUndo->setUndoCursor(m_document->activeKateView()->cursorPosition());
     m_editCurrentUndo->setUndoSelection(m_document->activeKateView()->selectionRange());

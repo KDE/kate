@@ -1,107 +1,100 @@
-# norootforbuild  To this "special" comment, _nothing_ should follow!
-  # comments in tag content are now allowd:
-Name:                kradioripper-unstable  # will be "kradioripper" for stable and "kradioripper-unstable" for unstable release...  
+# Test file for rpmspec.xml
+
+# Comments start with a # in column="0":
+
+# Some comment
+
+# When they don't start in column="0", that they are not recognized as comments:
+ # This isn't a comment.
+# RPM spec says clear that comments must start at the begin of the line. However, in practice
+# the RPM software is more permissive, depending on the context. But for our syntax highlighting,
+# we stay with the official, strict rule for comments. Comments should not contain the character
+# % (which is marked as error), but 2 of them are okay: %%. TODO is higlighted.
+
+# A spec file starts with "Normal" context. Here, you can specify values for some tags:
+Name:                kradioripper-unstable # Note that here in no comment possible!
+# Some tag can have parameters: Any char in paranthesis:
+Summary:             Recorder for internet radios (based on Streamripper)  
+Summary(de.UTF-8):   Aufnahmeprogramm für Internetradios (basiert auf Streamripper)
+Requires( / (  = ):  Some value
+# If tags are used that are not known, they are not highlighted:
+Invalidtag:          Some value
   
-Version:             0.3.9 # This line will be corrected with the actual version number...  
-  
+# You can use conditions in specs (highlighted with region markers):
 %if 0%{?mandriva_version}  
 Release:             %mkrel 1.2
 %else  
 Release:             0  
 %endif  
-  
-License:             GPLv2  
-  
-%if 0%{?mandriva_version}  
-Group:               Sound  
-%else  
-Group:               Productivity/Multimedia/Sound/Utilities  
-%endif  
-  
-Summary:             Recorder for internet radios (based on Streamripper)  
-  
-Summary(de.UTF-8):   Aufnahmeprogramm für Internetradios (basiert auf Streamripper)  
-  
-URL:                 http://kradioripper.sourceforge.net/  
-  
-Source0:             %{name}-%{version}.tar.bz2  
-  
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build  
-  
-%if 0%{?suse_version}  
-BuildRequires:       update-desktop-files  
-BuildRequires:       libkde4-devel  
-%endif  
-%if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}  
-BuildRequires:       desktop-file-utils kdelibs-devel gcc-c++  
-%endif  
-%if 0%{?mandriva_version}  
-# maybeBuildRequires:  kdesdk4-core  
-# maybeBuildRequires:  kdesdk4-scripts  
-BuildRequires:  kdelibs4-devel  
-# The following lines are because the build service needs to know how to satisfy  
-# esound needed by lib64esound0: esound-daemon or pulseaudio-esound-compat...  
-%if 0%{?opensuse_bs}  
-BuildRequires:  pulseaudio-esound-compat  
-BuildRequires:  kde4-l10n-en_GB  
-BuildRequires:  free-kde4-config  
-BuildRequires:  phonon-gstreamer  
-BuildRequires:  mandriva-theme-Free  
-BuildRequires:  mandriva-theme-Free-screensaver  
-BuildRequires:  wget  
-BuildRequires:  kernel-desktop-2.6.27-0.rc8.2mnb  
-%endif  
-%endif  
-BuildRequires:       cmake >= 2.4  
-  
-%if 0%{?suse_version}  
-# Maybe you want to use "Requieres" instead of "Recommends" ?  
-Recommends:          streamripper >= 1.63  
-%endif  
+# You must use these special macros (%%if etc.) always at the start of the line - if not,
+# that's an error. You must also always use the specified form. Everything else is an
+# error:
+ %if
+%{if}
+%if(some options)
+# However, this are different macros and therefore correct:
+%ifx
+%{ifx}
+%ifx(some options)
+
+# This special comment is treated and highlighted like a tag:
+# norootforbuild  
+# It can't have parameters, so every following non-whitespace character is an error:
+# norootforbuild  DONT WRITE ANYTHING HERE!
   
 # This following "Conflicts" tag will be removed by set-version.sh,  
-# if it is a "kradioripper" release (and not a kradioripper-unstable release)...  
+# if it is a "kradioripper" release (and not a "kradioripper-unstable" release)...  
 Conflicts:           kradioripper  
   
   
 %description  
+# Here, a new section starts. It contains a value for the RPM field "description" and is therefor
+# colored like values:
 A KDE program for ripping internet radios. Based on StreamRipper.  
   
 Authors:  
 --------  
     Tim Fechtner  
   
-
-# The %%description macro can have arguments on the same line which determinate the place where to save the information - and not the information itself. So these arguments are blue like %%description.
+  
+# A section start can have parameters:
 %description -l de.UTF-8  
 Ein KDE-Aufnahmeprogramm für Internetradios. Basiert auf StreamRipper.  
   
-Authors:  
+Autoren:  
 --------  
     Tim Fechtner  
   
-  
-# The following section _must_ be immediatly befor the percent+"prep" section.  
-# (see http://lists.opensuse.org/opensuse-packaging/2007-11/msg00000.html)  
-#  
-# To disable debug packages, we do:  
-
-# Don't use second %%define on the same line!
-%define debug_package %{nil}  %define
+# These sections starts are errors:
+ %description not at the first line
+%{description} wrong form
+%description(no options allowed, only parameters!)
   
   
 %prep  
-# in prep section, comments don't need the be the first non-space character!:
-%setup -q -n kradioripper  # This is a comment!
-# q means quit. n sets the directory.  
+# This starts a section that defines the commands to prepare the build.
+# q means quit. n sets the directory:  
+%setup -q -n kradioripper  
+echo Test
+# Macros can have different forms: Valid:
+%abc
+%abcÄndOfMacro
+%abc(def)EndOfMacro
+%{abc}EndOfMacro
+%{something but no single %}EndOfMacro
+%{abc:def}EndOfMacro
+%(abc)
+# Invalid:
+%ÄInvalidChar
+%
+%)
+%}
+# You can use macros inside of macro calls: Fine:
+%{something %but no %{sin%(fine)gle} }EndOfMacro
+# Bad:
+%{No closing paranthesis (No syntax highlightig for this error available)
   
-# sections should always start at the first column. If not-> Error!
- %pre #invalid
-do_something  %pre # invalid
-do_something %preABC # valid!
-
-# Don't use single % in comments. Using it double is okay: %%
-
+  
 %build  
 cmake ./ -DCMAKE_INSTALL_PREFIX=%{_prefix}  
 %__make %{?jobs:-j %jobs}  
@@ -111,14 +104,13 @@ cmake ./ -DCMAKE_INSTALL_PREFIX=%{_prefix}
 %if 0%{?suse_version}  
 %makeinstall  
 %suse_update_desktop_file kradioripper  
-%else  
+%endif  
 %if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}  
 make install DESTDIR=%{buildroot}  
 desktop-file-install --delete-original --vendor fedora --dir=%{buildroot}/%{_datadir}/applications/kde4 %{buildroot}/%{_datadir}/applications/kde4/kradioripper.desktop  
-$(test)
-%else  
-%makeinstall_std  
 %endif  
+%if 0%{?mandriva_version}  
+%makeinstall_std  
 %endif  
   
   
@@ -135,18 +127,21 @@ rm -rf "%{buildroot}"
 %endif  
 %{_bindir}/kradioripper  
 %{_datadir}/locale/*/LC_MESSAGES/kradioripper.mo  
-%if 0%{?suse_version} || 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}  
+%if 0%{?mandriva_version}  
+# TODO The %%doc macro is actually broken for mandriva 2009 in build service...
+%dir %{_datadir}/apps/kradioripper  
+%{_datadir}/apps/kradioripper/*  
+%else  
 %doc COPYING LICENSE LICENSE.GPL2 LICENSE.GPL3 NEWS WARRANTY  
 %dir %{_datadir}/kde4/apps/kradioripper  
 %{_datadir}/kde4/apps/kradioripper/*  
-%else  
-%{_datadir}/apps/kradioripper/*  
 %endif  
   
   
 %changelog  
-* Thu Dec 23 2008 Tim Fechtner 0.4.28  # no comments allowed here!
-- disabling debug packages # no comments allowed here!
+# Changelog lines should start with "* " or "- ":
+* Thu Dec 23 2008 Tim Fechtner 0.4.28  
+- disabling debug packages
 * Wed Nov 26 2008 Tim Fechtner 0.4.8  
 - support for localization  
 - installing the hole _datadir/kde4/apps/kradioripper/* instead of single files  

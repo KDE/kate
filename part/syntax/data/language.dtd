@@ -88,6 +88,7 @@ TODO
   priority:    Priority of this language, if more than one are usable for the file [optional]
   author:      Name of author of this hl file [optional]
   license:     License for this hl file [optional]
+  indenter:    Name of the Indenter to use for this highlighting mode per default, like "cstyle" [optional]
   hidden:      Should it be hidden in menu [boolean, optional, default=false]
 
 TODO
@@ -110,6 +111,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
   priority      CDATA       #IMPLIED
   author        CDATA       #IMPLIED
   license       CDATA       #IMPLIED
+  indenter      CDATA       #IMPLIED
   hidden        (%boolean;) #IMPLIED
 >
 

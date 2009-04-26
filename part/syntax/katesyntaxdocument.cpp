@@ -404,6 +404,7 @@ void KateSyntaxDocument::setupModeList (bool force)
       mli->style      = config.readEntry("style");
       mli->author    = config.readEntry("author");
       mli->license   = config.readEntry("license");
+      mli->indenter = config.readEntry("indenter");
       mli->hidden   =  config.readEntry("hidden", false);
       mli->identifier = *it;
 
@@ -451,6 +452,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->style     = root.attribute("style");
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
+              mli->indenter   = root.attribute("indenter");
 
               QString hidden = root.attribute("hidden");
               mli->hidden    = (hidden == "true" || hidden == "TRUE");
@@ -468,6 +470,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("style",mli->style);
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
+              config.writeEntry("indenter",mli->indenter);
               config.writeEntry("hidden",mli->hidden);
 
               // modified time to keep cache in sync

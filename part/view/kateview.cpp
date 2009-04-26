@@ -569,7 +569,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToCmdLine()));
 
-  a = m_viInputModeAction = new KToggleAction(i18n("&VI input mode"), this);
+  a = m_viInputModeAction = new KToggleAction(i18n("&VI Input Mode"), this);
   ac->addAction("view_vi_input_mode", a);
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::META + Qt::Key_V));
   a->setWhatsThis( i18n("Activate/deactivate VI input mode" ));

@@ -60,7 +60,7 @@
         <bool>false</bool>
        </property>
        <property name="text" >
-        <string>Edit entry...</string>
+        <string>Edit Entry...</string>
        </property>
       </widget>
      </item>
@@ -70,7 +70,7 @@
         <bool>false</bool>
        </property>
        <property name="text" >
-        <string>Remove entry</string>
+        <string>Remove Entry</string>
        </property>
       </widget>
      </item>
@@ -90,7 +90,7 @@
      <item>
       <widget class="QPushButton" name="btnAddEntry" >
        <property name="text" >
-        <string>Add entry...</string>
+        <string>Add Entry...</string>
        </property>
       </widget>
      </item>

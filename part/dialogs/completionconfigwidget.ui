@@ -89,14 +89,14 @@
         <item>
          <widget class="QCheckBox" name="sortingCaseSensitive" >
           <property name="text" >
-           <string>Case Sensitive</string>
+           <string>Case sensitive</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="sortingInheritanceDepth" >
           <property name="text" >
-           <string>Inheritance Depth</string>
+           <string>Inheritance depth</string>
           </property>
          </widget>
         </item>
@@ -135,7 +135,7 @@
         <item>
          <widget class="QLabel" name="label_2" >
           <property name="text" >
-           <string>Order of groupings (select a grouping method to configure):</string>
+           <string>Order of Groupings (select a grouping method to configure):</string>
           </property>
          </widget>
         </item>
@@ -249,7 +249,7 @@
       <item>
        <widget class="KIntNumInput" name="filteringMaximumInheritanceDepth" >
         <property name="label" >
-         <string>Maximum inheritance depth</string>
+         <string>Maximum inheritance depth:</string>
         </property>
         <property name="minimum" >
          <number>0</number>
@@ -305,7 +305,7 @@
         </property>
         <column>
          <property name="text" >
-          <string>Grouping method</string>
+          <string>Grouping Method</string>
          </property>
         </column>
         <item>
@@ -411,7 +411,7 @@
                </font>
               </property>
               <property name="text" >
-               <string>Access Grouping properties</string>
+               <string>Access Grouping Properties</string>
               </property>
              </widget>
             </item>

@@ -40,6 +40,7 @@ class KateFileType
     QString hl;
     bool hlGenerated;
     QString version;
+    QString indenter;
 
     KateFileType()
       : number(-1), priority(0), hlGenerated(false)

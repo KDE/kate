@@ -86,6 +86,7 @@ void KateModeManager::update ()
     type->mimetypes = cg.readXdgListEntry ("Mimetypes");
     type->priority = cg.readEntry ("Priority", 0);
     type->varLine = cg.readEntry ("Variables");
+    type->indenter = cg.readEntry ("Indenter");
     
     type->hl = cg.readEntry ("Highlighting");
    
@@ -124,6 +125,7 @@ void KateModeManager::update ()
       type->mimetypes = modes[i]->mimetype.split (';', QString::SkipEmptyParts);
       type->priority = modes[i]->priority.toInt();
       type->version = modes[i]->version;
+      type->indenter = modes[i]->indenter;
       type->hl = modes[i]->name;
       type->hlGenerated = true;
     }
@@ -178,6 +180,7 @@ void KateModeManager::save (const QList<KateFileType *>& v)
     config.writeXdgListEntry ("Wildcards", type->wildcards);
     config.writeXdgListEntry ("Mimetypes", type->mimetypes);
     config.writeEntry ("Priority", type->priority);
+    config.writeEntry ("Indenter", type->indenter);
 
     QString varLine = type->varLine;
     if (QRegExp("kate:(.*)").indexIn(varLine) < 0)

@@ -21,7 +21,7 @@
 
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Maxima" version="0.15" section="Scientific" extensions="*.mac;*.MAC;*.dem;*.DEM" casesensitive="1" author="Alexey Beshenov &lt;al@beshenov.ru>" license="LGPL">
+<language name="Maxima" version="0.16" kateversion="2.0" section="Scientific" extensions="*.mac;*.MAC;*.dem;*.DEM" casesensitive="1" author="Alexey Beshenov &lt;al@beshenov.ru>" license="LGPL">
     <highlighting>
 
         <list name="MaximaKeyword">

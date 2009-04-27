@@ -103,10 +103,10 @@ WARNING: due to helper scripts, the language opening tag must be on a
   name          CDATA       #REQUIRED
   section       NMTOKEN     #REQUIRED
   extensions    CDATA       #REQUIRED
+  version       CDATA       #REQUIRED
+  kateversion   CDATA       #REQUIRED
   style         CDATA       #IMPLIED
   mimetype      CDATA       #IMPLIED
-  version       CDATA       #IMPLIED
-  kateversion   CDATA       #IMPLIED
   casesensitive (%boolean;) #IMPLIED
   priority      CDATA       #IMPLIED
   author        CDATA       #IMPLIED

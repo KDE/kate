@@ -5655,7 +5655,12 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             if (hl >= 0)
               m_buffer->setHighlight(hl);
           }
-
+          
+          /**
+           * set the indentation mode, if any in the mode...
+           */
+          if (!KateGlobal::self()->modeManager()->fileType(newType).indenter.isEmpty())
+             config()->setIndentationMode (KateGlobal::self()->modeManager()->fileType(newType).indenter);
 
           // views!
           KateView *v;

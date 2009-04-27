@@ -75,7 +75,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   }
 
   QStringList indentationModes;
-  indentationModes << i18n ("Use Global Default");
+  indentationModes << i18n ("Use Default");
   indentationModes << KateAutoIndent::listModes();
   ui->cmbIndenter->addItems (indentationModes);
 

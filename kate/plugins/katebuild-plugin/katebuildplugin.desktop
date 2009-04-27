@@ -6,6 +6,7 @@ X-KDE-Library=katebuildplugin
 X-Kate-Version=2.9
 Name=Build Plugin
 Name[de]=Erstellen-Modul
+Name[el]=Πρόσθετο κατασκευής
 Name[es]=Complemento de construcción
 Name[et]=Ehitamisplugin
 Name[ga]=Breiseán Tógála

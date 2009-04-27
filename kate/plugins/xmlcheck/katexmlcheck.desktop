@@ -5,6 +5,7 @@ X-KDE-Library=katexmlcheckplugin
 X-Kate-Version=2.9
 Name=XML Validation
 Name[de]=XML-Überprüfung
+Name[el]=Εγκυρότητα XML
 Name[es]=Validación XML
 Name[et]=XML-i kontrollija
 Name[ga]=Bailíochtú XML

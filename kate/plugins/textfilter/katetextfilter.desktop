@@ -5,6 +5,7 @@ X-KDE-Library=katetextfilterplugin
 X-Kate-Version=2.8
 Name=Text Filter
 Name[de]=Textfilter
+Name[el]=Φίλτρο κειμένου
 Name[es]=Filtro de texto
 Name[et]=Tekstifilter
 Name[ga]=Scagaire Téacs

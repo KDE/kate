@@ -41,6 +41,7 @@ Name[zh_CN]=邮寄文件
 Name[zh_TW]=郵件檔案
 Comment=Send files via email
 Comment[de]=Dateien per E-Mail versenden
+Comment[el]=Αποστολή αρχείων μέσω email
 Comment[es]=Enviar archivos por e-mail
 Comment[et]=Failide saatmine e-postiga
 Comment[nds]=Dateien mit Nettpost loosstüern

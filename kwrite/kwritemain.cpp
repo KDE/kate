@@ -627,7 +627,7 @@ void KWrite::documentNameChanged ()
 
 void KWrite::modeChanged ( KTextEditor::Document *document )
 {
-  m_modeLabel->setText (document->mode());
+  m_modeLabel->setText (i18nc("Language", document->mode().toUtf8()));
 }
 
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)

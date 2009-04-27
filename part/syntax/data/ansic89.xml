@@ -24,7 +24,13 @@
  Boston, MA  02110-1301, USA.
 
  -->
-<language name="ANSI C89" version="1.09" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="ANSI C89" section="Sources"
+          version="1.10" kateversion="2.4"
+          indenter="cstyle"
+          extensions="*.c;*.C;*.h"
+          mimetype="text/x-csrc;text/x-c++src;text/x-chdr"
+          priority="2"
+          author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> break </item>

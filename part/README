@@ -2,7 +2,7 @@
 The Kate Part implements the KTextEditor interfaces and it is
 highly recommended to use them. Detailed information can be found
 in the API documentation of the KTextEditor interfaces:
-http://api.kde.org/4.0-api/kdelibs-apidocs/interfaces/ktexteditor/html/index.html
+http://api.kde.org/4.x-api/kdelibs-apidocs/interfaces/ktexteditor/html/index.html
  
 Homepage: http://kate-editor.org
 

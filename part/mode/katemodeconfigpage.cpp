@@ -74,6 +74,11 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
       ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i), QVariant(KateHlManager::self()->hlName(i)));
   }
 
+  QStringList indentationModes;
+  indentationModes << i18n ("Use Global Default");
+  indentationModes << KateAutoIndent::listModes();
+  ui->cmbIndenter->addItems (indentationModes);
+
   connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
   connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
@@ -90,6 +95,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
+  connect( ui->cmbIndenter, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
 
   layout->addWidget(newWidget);
   setLayout(layout);
@@ -204,6 +210,11 @@ void ModeConfigPage::save ()
     m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (';', QString::SkipEmptyParts);
     m_types[m_lastType]->priority = ui->sbPriority->value();
     m_types[m_lastType]->hl = ui->cmbHl->itemData(ui->cmbHl->currentIndex()).toString();
+    
+    if (ui->cmbIndenter->currentIndex() > 0)
+      m_types[m_lastType]->indenter = KateAutoIndent::modeName (ui->cmbIndenter->currentIndex() - 1);
+    else
+      m_types[m_lastType]->indenter = "";
   }
 }
 
@@ -241,6 +252,12 @@ void ModeConfigPage::typeChanged (int type)
     for (int i = 0; i < ui->cmbHl->count(); ++i)
       if (ui->cmbHl->itemData (i).toString() == t->hl)
         ui->cmbHl->setCurrentIndex (i);
+        
+    // activate the right indenter
+    int indenterIndex = 0;
+    if (!t->indenter.isEmpty())
+      indenterIndex = KateAutoIndent::modeNumber (t->indenter) + 1;
+    ui->cmbIndenter->setCurrentIndex (indenterIndex);
   }
   else
   {
@@ -256,6 +273,7 @@ void ModeConfigPage::typeChanged (int type)
     ui->edtMimeTypes->clear();
     ui->sbPriority->setValue(0);
     ui->cmbHl->setCurrentIndex (0);
+    ui->cmbIndenter->setCurrentIndex (0);
   }
 
   m_lastType = type;

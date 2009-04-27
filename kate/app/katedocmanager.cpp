@@ -655,7 +655,7 @@ bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
 {
   QFile f(url.toLocalFile());
 
-  if (f.open(QIODevice::ReadOnly))
+  if (f.exists() && f.open(QIODevice::ReadOnly))
   {
     KMD5 md5;
 

@@ -49,6 +49,7 @@
 #include "katevimodebar.h"
 #include "katepartpluginmanager.h"
 #include "katewordcompletion.h"
+#include "katelayoutcache.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -1465,6 +1466,11 @@ void KateView::updateConfig ()
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
+
+  // now redraw...
+  m_viewInternal->cache()->clear();
+  tagAll ();
+  updateView (true);
 }
 
 void KateView::updateDocumentConfig()
@@ -1486,6 +1492,7 @@ void KateView::updateDocumentConfig()
   m_renderer->setIndentWidth (m_doc->config()->indentationWidth());
 
   // now redraw...
+  m_viewInternal->cache()->clear();
   tagAll ();
   updateView (true);
 }
@@ -1500,9 +1507,10 @@ void KateView::updateRendererConfig()
   m_viewInternal->updateBracketMarkAttributes();
   m_viewInternal->updateBracketMarks();
 
-  // update the text area
+  // now redraw...
+  m_viewInternal->cache()->clear();
+  tagAll ();
   m_viewInternal->updateView (true);
-  m_viewInternal->repaint ();
 
   // update the left border right, for example linenumbers
   m_viewInternal->m_leftBorder->updateFont();

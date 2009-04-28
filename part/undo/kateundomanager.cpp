@@ -295,7 +295,7 @@ void KateUndoManager::updateModified()
   {
     if ( currentPattern == patterns[patternIndex] )
     {
-      setModified( false );
+      m_document->setModified( false );
       // (dominik) whenever the doc is not modified, succeeding edits
       // should not be merged
       setUndoDontMerge(true);

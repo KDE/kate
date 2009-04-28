@@ -141,7 +141,7 @@ void KateViewManager::setupActions ()
 
   goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
-  goPrev = m_mainWindow->actionCollection()->addAction( "go_prev" );
+  goPrev = m_mainWindow->actionCollection()->addAction( "go_prev_view" );
   goPrev->setText( i18n("Previous View") );
   goPrev->setShortcut( Qt::SHIFT + Qt::Key_F8 );
   connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));

@@ -23,6 +23,7 @@
 #include <KLocale>
 #include <KCmdLineArgs>
 #include <KAboutData>
+#include <KStartupInfo>
 #include <kdebug.h>
 
 #include <QTextCodec>
@@ -237,6 +238,12 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
         QDBusConnection::sessionBus().call (m);
       }
+
+      // make the world happy, we are started, kind of...
+#ifdef Q_WS_X11
+      KApplication app;
+      KStartupInfo::appStarted (app.startupId());
+#endif
     
       return 0;
     }

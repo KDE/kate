@@ -180,7 +180,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   KatePluginManager::self()->enableAllPluginsGUI (this, sconfig);
 
   // connect documents menu aboutToshow
-  documentMenu = (QMenu*)factory()->container("documents", this);
+  documentMenu = (QMenu*)factory()->container("go", this);
   connect(documentMenu, SIGNAL(aboutToShow()), this, SLOT(documentMenuAboutToShow()));
 
   documentsGroup = new QActionGroup(documentMenu);

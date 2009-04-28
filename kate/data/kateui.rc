@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="54">
+<kpartgui name="kate" version="55">
 
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
@@ -42,9 +42,11 @@
     <Separator />
   </Menu>
 
-  <Menu name="documents"><text>&amp;Document</text>
+  <Menu name="go"><text>&amp;Go</text>
     <Action name="go_back"/>
     <Action name="go_forward"/>
+    <Separator />
+    <Action name="go_next_view"/>
     <Separator />
   </Menu>
 

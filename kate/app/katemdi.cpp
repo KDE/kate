@@ -91,12 +91,12 @@ namespace KateMDI
 
 //BEGIN GUICLIENT
 
-  static const char *actionListName = "kate_mdi_window_actions";
+  static const char *actionListName = "kate_mdi_view_actions";
 
   static const char *guiDescription = ""
-                                      "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_window_actions\">"
+                                      "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
                                       "<MenuBar>"
-                                      "    <Menu name=\"window\">"
+                                      "    <Menu name=\"view\">"
                                       "        <ActionList name=\"%1\" />"
                                       "    </Menu>"
                                       "</MenuBar>"

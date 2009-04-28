@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="56">
+<kpartgui name="kate" version="60">
 
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
@@ -52,6 +52,16 @@
   </Menu>
 
   <Menu name="view"><text>&amp;View</text>
+    <Action name="view_new_view" />
+    <Separator />
+    <Menu name="view-split"><text>Split View</text>
+      <Action name="view_split_vert"/>
+      <Action name="view_split_horiz"/>
+      <Action name="view_close_current_space" />
+    </Menu>
+    <Separator/>
+    <Merge name="kate_mdi_view_actions"/>
+    <Separator />
     <DefineGroup name="view_operations" />
   </Menu>
 
@@ -78,18 +88,6 @@
 
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="settings_show_full_path" append="show_merge"/>
-  </Menu>
-
-  <Menu name="window"><text>&amp;Window</text>
-    <Action name="view_new_view" />
-    <Separator />
-    <Action name="view_split_vert"/>
-    <Action name="view_split_horiz"/>
-    <Action name="view_close_current_space" />
-    <Separator/>
-    <Merge name="kate_mdi_window_actions"/>
-    <Separator />
-    <Action name="fullscreen" />
   </Menu>
 
   <Menu name="help"><text>&amp;Help</text>

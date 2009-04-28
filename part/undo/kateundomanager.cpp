@@ -105,7 +105,7 @@ void KateUndoManager::undoEnd()
     if (m_editCurrentUndo->isEmpty()) {
       delete m_editCurrentUndo;
     } else if (((m_mergeAllEdits && !m_firstMergeGroupSkipped) || !m_undoDontMerge)
-        && !undoItems.isEmpty() && undoItems.last()
+        && !undoItems.isEmpty()
         && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge || m_mergeAllEdits)) {
       delete m_editCurrentUndo;
       m_firstMergeGroupSkipped = true;
@@ -183,7 +183,7 @@ uint KateUndoManager::redoCount () const
 
 void KateUndoManager::undo()
 {
-  if ((undoItems.count() > 0) && undoItems.last())
+  if (undoItems.count() > 0)
   {
     //clearSelection ();
     /*Disable searchbar highlights due to performance issue
@@ -211,7 +211,7 @@ void KateUndoManager::undo()
 
 void KateUndoManager::redo()
 {
-  if ((redoItems.count() > 0) && redoItems.last())
+  if (redoItems.count() > 0)
   {
     //clearSelection ();
     //Disable searchbar highlights due to performance issue, see ::undo()'s comment

@@ -134,15 +134,15 @@ void KateViewManager::setupActions ()
 
   m_closeView->setWhatsThis(i18n("Close the currently active splitted view"));
 
-  goNext = m_mainWindow->actionCollection()->addAction( "go_next_view" );
-  goNext->setText( i18n("Next View") );
+  goNext = m_mainWindow->actionCollection()->addAction( "go_next_split_view" );
+  goNext->setText( i18n("Next Split View") );
   goNext->setShortcut( Qt::Key_F8 );
   connect(goNext, SIGNAL(triggered()), this, SLOT(activateNextView()));
 
   goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
-  goPrev = m_mainWindow->actionCollection()->addAction( "go_prev_view" );
-  goPrev->setText( i18n("Previous View") );
+  goPrev = m_mainWindow->actionCollection()->addAction( "go_prev_split_view" );
+  goPrev->setText( i18n("Previous Split View") );
   goPrev->setShortcut( Qt::SHIFT + Qt::Key_F8 );
   connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));
 

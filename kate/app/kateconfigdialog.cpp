@@ -220,25 +220,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   layout->addStretch(1); // :-] works correct without autoadd
   //END Session page
 
-  // file selector page
-#if 0
-  path << i18n("Application") << i18n("File Selector");
-
-  KVBox *page = addVBoxPage( path, i18n("File Selector Settings"),
-                             BarIcon("document-open", KIconLoader::SizeSmall) );
-  fileSelConfigPage = new KFSConfigPage( page, "file selector config page",
-                                         m_mainWindow->fileselector );
-  connect( fileSelConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
-  path.clear();
-#endif
-#ifdef __GNUC__
-#warning portme
-#endif
-#if 0
-  filelistConfigPage = new KFLConfigPage( page, m_mainWindow->filelist );
-  connect( filelistConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
-#endif
-
   //BEGIN Document List page
   filelistConfigPage = new KateFileListConfigPage(this, m_mainWindow->m_fileList);
   item = addSubPage( applicationItem, filelistConfigPage, i18n("Document List") );
@@ -379,18 +360,6 @@ void KateConfigDialog::slotApply()
     m_mainWindow->modNotification = m_modNotifications->isChecked();
 
     filelistConfigPage->apply();
-
-#ifdef __GNUC__
-#warning portme
-#endif
-    /*
-        KateExternalToolsCommand::self()->reload();
-        for (int i=0; i < KateApp::self()->mainWindows(); i++)
-        {
-          KateMainWindow *win = KateApp::self()->mainWindow (i);
-          win->externalTools->reload();
-        }*/
-    //m_mainWindow->externalTools->reload();
 
     m_mainWindow->saveOptions ();
 

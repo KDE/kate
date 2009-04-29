@@ -104,7 +104,7 @@ KateFindDialog::KateFindDialog(Kate::MainWindow *mw, KateFindInFilesView *view)
   lblFolder->setWhatsThis(    i18n("Enter the folder which contains the files in which you want to search."));
   chkRecursive->setWhatsThis(    i18n("Check this box to search in all subfolders."));
   chkCaseSensitive->setWhatsThis(    i18n("If this option is enabled (the default), the search will be case sensitive."));
-  chkFollowSymlinks->setWhatsThis(    i18n("If this option is enabled, the search will follow symlinks to directories. This can lead to infinite recursion if cyclic symlinks exist!"));
+  chkFollowSymlinks->setWhatsThis(    i18n("If this option is enabled, the search will follow symlinks to directories. This can lead to infinite recursion if cyclical symlinks exist."));
 
   connect( this, SIGNAL(user1Clicked()),
            SLOT(slotSearch()) );

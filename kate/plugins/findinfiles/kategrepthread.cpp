@@ -82,7 +82,7 @@ void KateGrepThread::run ()
     }
 
     // work with all files in this dir..., use wildcards for them...
-    QFileInfoList currentFiles = currentDir.entryInfoList (m_fileWildcards, QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
+    QFileInfoList currentFiles = currentDir.entryInfoList (m_fileWildcards, QDir::Files | QDir::NoDotAndDotDot | QDir::Readable);
 
     // iterate over all files
     for (int i = 0; !m_cancel && i < currentFiles.size(); ++i)

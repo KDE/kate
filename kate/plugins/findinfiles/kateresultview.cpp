@@ -133,9 +133,8 @@ void KateResultView::startSearch(KateFindInFilesOptions options,
   m_grepThread->startSearch(pattern,
                             url,
                             filter.split(QRegExp("[,;]"), QString::SkipEmptyParts),
-                            m_options.caseSensitive(),
-                            m_options.regExp(),
-                            m_options.recursive());
+                            m_options.recursive(),
+                            m_options.followDirectorySymlinks());
 }
 
 

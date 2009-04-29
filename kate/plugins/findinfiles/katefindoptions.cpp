@@ -55,6 +55,7 @@ void KateFindInFilesOptions::load(const KConfigGroup& config)
   m_casesensitive = config.readEntry("CaseSensitive", true);
   m_recursive = config.readEntry("Recursive", true);
   m_regexp = config.readEntry("RegExp", false);
+  m_followDirectorySymlinks = config.readEntry("FollowDirectorySymlinks", false);
 }
 
 void KateFindInFilesOptions::save(KConfigGroup& config)
@@ -66,6 +67,7 @@ void KateFindInFilesOptions::save(KConfigGroup& config)
   config.writeEntry("Recursive", m_recursive);
   config.writeEntry("CaseSensitive", m_casesensitive);
   config.writeEntry("RegExp", m_regexp);
+  config.writeEntry("FollowDirectorySymlinks", m_followDirectorySymlinks);
 }
 
 QStringList KateFindInFilesOptions::searchItems()
@@ -153,6 +155,19 @@ void KateFindInFilesOptions::setRegExp(bool regexp)
 
   if (this != &self())
     self().setRegExp(regexp);
+}
+
+bool KateFindInFilesOptions::followDirectorySymlinks() const
+{
+  return m_followDirectorySymlinks;
+}
+
+void KateFindInFilesOptions::setFollowDirectorySymlinks(bool follow)
+{
+  m_followDirectorySymlinks = follow;
+
+  if (this != &self())
+    self().setFollowDirectorySymlinks(follow);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -33,6 +33,7 @@ KateGrepThread::KateGrepThread(KateResultView* parent)
     : QThread (parent)
     , m_cancel (false)
     , m_recursive (false)
+    , m_followDirSymlinks (false)
 {
 }
 
@@ -42,13 +43,13 @@ KateGrepThread::~KateGrepThread ()
 void KateGrepThread::startSearch(const QList<QRegExp> &pattern,
                                  const QString &dir,
                                  const QStringList &fileWildcards,
-                                 bool caseSensitive,
-                                 bool regExp,
-                                 bool recursive)
+                                 bool recursive,
+                                 bool followDirSymlinks)
 {
   m_cancel = false;
 
   m_recursive = recursive;
+  m_followDirSymlinks = followDirSymlinks;
   m_fileWildcards = fileWildcards;
   m_searchPattern = pattern;
 
@@ -74,7 +75,11 @@ void KateGrepThread::run ()
     if (m_recursive)
     {
       // append all dirs to the workqueue
-      QFileInfoList currentSubDirs = currentDir.entryInfoList (QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
+      QDir::Filters dirFilter = QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable;
+      if (!m_followDirSymlinks)
+        dirFilter |= QDir::NoSymLinks;
+      
+      QFileInfoList currentSubDirs = currentDir.entryInfoList (dirFilter);
 
       // append them to the workqueue, if readable
       for (int i = 0; i < currentSubDirs.size(); ++i)

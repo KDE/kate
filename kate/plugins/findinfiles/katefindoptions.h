@@ -52,10 +52,14 @@ class KateFindInFilesOptions
     bool regExp() const;
     void setRegExp(bool regexp);
 
+    bool followDirectorySymlinks() const;
+    void setFollowDirectorySymlinks(bool follow);
+
   private:
     bool m_recursive;
     bool m_casesensitive;
     bool m_regexp;
+    bool m_followDirectorySymlinks;
 
     QStringList m_searchItems;
     QStringList m_searchPaths;

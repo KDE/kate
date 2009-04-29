@@ -40,9 +40,8 @@ class KateGrepThread : public QThread
     void startSearch(const QList<QRegExp> &pattern,
                      const QString &dir,
                      const QStringList &fileWildcards,
-                     bool caseSensitive,
-                     bool regExp,
-                     bool recursive);
+                     bool recursive,
+                     bool followDirSymlinks);
 
   public Q_SLOTS:
     void cancel ()
@@ -63,6 +62,7 @@ class KateGrepThread : public QThread
     volatile bool m_cancel;
     QStringList m_workQueue;
     bool m_recursive;
+    bool m_followDirSymlinks;
     QStringList m_fileWildcards;
     QList<QRegExp> m_searchPattern;
     QString m_dir;

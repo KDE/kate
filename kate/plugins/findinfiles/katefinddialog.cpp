@@ -104,6 +104,7 @@ KateFindDialog::KateFindDialog(Kate::MainWindow *mw, KateFindInFilesView *view)
   lblFolder->setWhatsThis(    i18n("Enter the folder which contains the files in which you want to search."));
   chkRecursive->setWhatsThis(    i18n("Check this box to search in all subfolders."));
   chkCaseSensitive->setWhatsThis(    i18n("If this option is enabled (the default), the search will be case sensitive."));
+  chkFollowSymlinks->setWhatsThis(    i18n("If this option is enabled, the search will follow symlinks to directories. This can lead to infinite recursion if cyclic symlinks exist!"));
 
   connect( this, SIGNAL(user1Clicked()),
            SLOT(slotSearch()) );
@@ -173,6 +174,7 @@ void KateFindDialog::updateConfig()
   KateFindInFilesOptions::self().setRecursive(chkRecursive->isChecked());
   KateFindInFilesOptions::self().setCaseSensitive(chkCaseSensitive->isChecked());
   KateFindInFilesOptions::self().setRegExp(chkRegExp->isChecked());
+  KateFindInFilesOptions::self().setFollowDirectorySymlinks(chkFollowSymlinks->isChecked());
 }
 
 void KateFindDialog::updateItems()
@@ -192,6 +194,7 @@ void KateFindDialog::updateItems()
   chkRecursive->setChecked(KateFindInFilesOptions::self().recursive());
   chkCaseSensitive->setChecked(KateFindInFilesOptions::self().caseSensitive());
   chkRegExp->setChecked(KateFindInFilesOptions::self().regExp());
+  chkFollowSymlinks->setChecked(KateFindInFilesOptions::self().followDirectorySymlinks());
 }
 
 void KateFindDialog::setPattern(const QList<QRegExp>& pattern)
@@ -215,6 +218,7 @@ void KateFindDialog::setOptions(const KateFindInFilesOptions& options)
   chkRecursive->setChecked(options.recursive());
   chkCaseSensitive->setChecked(options.caseSensitive());
   chkRegExp->setChecked(options.regExp());
+  chkFollowSymlinks->setChecked(options.followDirectorySymlinks());
 }
 
 void KateFindDialog::syncDir()

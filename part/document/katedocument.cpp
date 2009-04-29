@@ -2785,14 +2785,7 @@ QStringList KateDocument::modes () const
 bool KateDocument::setHighlightingMode (const QString &name)
 {
   m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
-
-  if (true)
-  {
-    setDontChangeHlOnSave();
-    return true;
-  }
-
-  return false;
+  return true;
 }
 
 QString KateDocument::highlightingMode () const

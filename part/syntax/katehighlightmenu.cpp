@@ -118,6 +118,9 @@ void KateHighlightingMenu::setHl ()
   if (!action) return;
   QString mode=action->data().toString();
   m_doc->setHighlightingMode(mode);
+  
+  // use change, honor this
+  m_doc->setDontChangeHlOnSave();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

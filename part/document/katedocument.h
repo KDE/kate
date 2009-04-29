@@ -533,7 +533,10 @@ class KateDocument : public KTextEditor::Document,
   public:
     void bufferHlChanged();
 
-  private:
+    /**
+     * allow to mark, that we changed hl on user wish and should not reset it
+     * atm used for the user visible menu to select highlightings
+     */
     void setDontChangeHlOnSave();
 
   //

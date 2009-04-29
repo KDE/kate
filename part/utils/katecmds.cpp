@@ -218,8 +218,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "set-highlight" )
   {
     if ( v->doc()->setHighlightingMode( args.first()) )
+    {
+      ((KateDocument*)v->doc())->setDontChangeHlOnSave ();
       return true;
-
+    }
+    
     KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
   }
   else if ( cmd == "set-mode" )

@@ -30,7 +30,12 @@
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
-<language name="Ruby" version="1.17" kateversion="2.4" section="Scripts" extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb" mimetype="application/x-ruby" style="ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi), Robin Pedersen (robinpeder@gmail.com)" license="LGPL">
+<language name="Ruby" section="Scripts"
+          version="1.18" kateversion="2.4" 
+	  extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb"
+	  mimetype="application/x-ruby"
+	  style="ruby" indenter="ruby"
+	  author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi), Robin Pedersen (robinpeder@gmail.com)" license="LGPL">
 	
 	<highlighting>
 	

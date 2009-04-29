@@ -113,14 +113,14 @@ function indent(line, indentWidth, character) {
 		 return document.firstVirtualColumn(line - 1) + indentWidth;
 	 }
 
-	 // !#$%&*+./<=>?@\\^|~-
+	 // line ending with !#$%&*+./<=>?@\^|~-
 	 if (lastLine.search(/[!$#%&*+.\/<=>?@\\^|~-]$/) != -1) {
 		 //dbg('indenting for operator');
 		 return document.firstVirtualColumn(line - 1) + indentWidth;
 	 }
 
 	 if (lastLine.search(/^\s*$/) != -1) {
-		 dbg('indenting for empty line');
+		 //dbg('indenting for empty line');
 		 return 0;
 	 }
 			 

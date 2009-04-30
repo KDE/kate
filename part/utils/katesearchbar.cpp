@@ -1644,6 +1644,7 @@ void KateSearchBar::onMutatePower() {
         m_powerMenuSelectionOnly = m_powerMenu->addAction(i18n("Selection &only"));
         m_powerMenuSelectionOnly->setCheckable(true);
 
+#if 0 // perhaps make actions for this, perhaps let be, don't seems to me that important to grab such prominent shortcuts
         // Grab Alt+1 .. Alt+4 for search mode switching
         connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1), m_widget,
                 0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
@@ -1657,6 +1658,7 @@ void KateSearchBar::onMutatePower() {
         connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_4), m_widget,
                 0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
                 this, SLOT(onPowerModeChangedRegularExpression()));
+#endif
 
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));

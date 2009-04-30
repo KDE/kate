@@ -22,19 +22,12 @@
 #include "katesearchbar.h"
 #include "kateundo.h"
 
-#include <QtCore/QTimer>
-
-//BEGIN d'tor, c'tor
-//
-// KateUndoManager Constructor
-//
 KateUndoManager::KateUndoManager (KateDocument *doc)
   : QObject (doc)
   , m_document (doc)
   , m_undoComplexMerge (false)
   , m_editCurrentUndo (0)
   , m_undoDontMerge (false)
-  , m_undoIgnoreCancel(false)
   , m_mergeAllEdits(false)
   , m_firstMergeGroupSkipped(false)
   , lastUndoGroupWhenSaved(0)
@@ -42,20 +35,10 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   , docWasSavedWhenUndoWasEmpty(true)
   , docWasSavedWhenRedoWasEmpty(true)
 {
-  m_undoMergeTimer = new QTimer(this);
-  m_undoMergeTimer->setSingleShot(true);
-  connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
-
-  clearUndo ();
-  clearRedo ();
-
   connect(this, SIGNAL(undoChanged()), m_document, SIGNAL(undoChanged()));
   connect(doc, SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)), SLOT(viewCreated(KTextEditor::Document*, KTextEditor::View*)));
 }
 
-//
-// KateUndoManager Destructor
-//
 KateUndoManager::~KateUndoManager()
 {
   delete m_editCurrentUndo;
@@ -66,15 +49,12 @@ KateUndoManager::~KateUndoManager()
   qDeleteAll(redoItems);
   redoItems.clear();
 }
-//END
 
 void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *newView)
 {
   connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
 }
 
-//BEGIN KTextEditor::EditInterface internal stuff
-//
 void KateUndoManager::undoStart()
 {
   if (m_editCurrentUndo || (m_document->activeKateView() && m_document->activeKateView()->imComposeEvent()))
@@ -115,13 +95,8 @@ void KateUndoManager::undoEnd()
     }
 
     m_undoDontMerge = false;
-    m_undoIgnoreCancel = true;
 
     m_editCurrentUndo = 0L;
-
-    // (Re)Start the single-shot timer to cancel the undo merge
-    // the user has 5 seconds to input more data, or undo merging gets canceled for the current undo item.
-    m_undoMergeTimer->start(5000);
 
     if (changedUndo)
       emit undoChanged();
@@ -134,18 +109,9 @@ void KateUndoManager::undoCancel()
   if (m_document->isEditRunning())
     return;
 
-  if (m_undoIgnoreCancel) {
-    m_undoIgnoreCancel = false;
-    return;
-  }
-
   m_undoDontMerge = true;
 
   Q_ASSERT(!m_editCurrentUndo);
-
-  // As you can see by the above assert, neither of these should really be required
-  delete m_editCurrentUndo;
-  m_editCurrentUndo = 0L;
 }
 
 void KateUndoManager::undoSafePoint() {
@@ -168,8 +134,6 @@ void KateUndoManager::addUndo (KateUndo *undo)
     }
   }
 }
-
-//BEGIN KTextEditor::UndoInterface stuff
 
 uint KateUndoManager::undoCount () const
 {
@@ -289,7 +253,7 @@ void KateUndoManager::updateModified()
 
   // This will print out the pattern information
 
-  kDebug(13020) << "Pattern:" << static_cast<unsigned int>(currentPattern);
+  kDebug() << "Pattern:" << static_cast<unsigned int>(currentPattern);
 
   for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
   {
@@ -299,12 +263,11 @@ void KateUndoManager::updateModified()
       // (dominik) whenever the doc is not modified, succeeding edits
       // should not be merged
       setUndoDontMerge(true);
-      kDebug(13020) << "setting modified to false!";
+      kDebug() << "setting modified to false!";
       break;
     }
   }
 }
-//END
 
 void KateUndoManager::clearUndo()
 {

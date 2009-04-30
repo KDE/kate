@@ -31,8 +31,6 @@ namespace KTextEditor {
   class View;
 }
 
-class QTimer;
-
 /**
  * Central class to handle undo stuff.
  */
@@ -77,9 +75,6 @@ class KateUndoManager : public QObject
     bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
-  //
-  // KTextEditor::UndoInterface stuff
-  //
   public Q_SLOTS:
     void undo ();
     void redo ();
@@ -94,17 +89,13 @@ class KateUndoManager : public QObject
     void viewCreated (KTextEditor::Document *, KTextEditor::View *newView);
 
   private:
-    //
-    // some internals for undo/redo
-    //
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;
-    bool m_undoDontMerge; //create a setter later on and remove the friend declaration
+    bool m_undoDontMerge;
     bool m_undoIgnoreCancel;
     bool m_mergeAllEdits; // if true, all undo groups are merged continually
     bool m_firstMergeGroupSkipped;  // used to make sure the first undo group isn't merged after
                                     // setting m_mergeAllEdits
-    QTimer* m_undoMergeTimer;
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...
     KateUndoGroup* lastUndoGroupWhenSaved;
@@ -112,7 +103,6 @@ class KateUndoManager : public QObject
     bool docWasSavedWhenUndoWasEmpty;
     bool docWasSavedWhenRedoWasEmpty;
 
-    // this sets
     void updateModified();
 
   Q_SIGNALS:

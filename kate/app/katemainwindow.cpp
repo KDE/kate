@@ -509,6 +509,12 @@ void KateMainWindow::slotNewToolbarConfig()
 
 void KateMainWindow::slotFileQuit()
 {
+  // delay real shutdown outside of this, as we are inside menu action handling
+  QTimer::singleShot(0, this, SLOT(slotFileQuitDelayed()));
+}
+
+void KateMainWindow::slotFileQuitDelayed()
+{
   KateApp::self()->shutdownKate (this);
 }
 

@@ -181,6 +181,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotOpenWithMenuAction(QAction* a);
 
     void slotFileQuit();
+    void slotFileQuitDelayed();
     void slotEditToolbars();
     void slotNewToolbarConfig();
     void slotWindowActivated ();

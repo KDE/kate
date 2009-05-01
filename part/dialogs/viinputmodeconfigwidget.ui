@@ -79,5 +79,38 @@ Checking this options will hide this extra status line.</string>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>chkViInputModeDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chkViCommandsOverride</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkViInputModeDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chkViStatusBarHide</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

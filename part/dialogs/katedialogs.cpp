@@ -323,6 +323,9 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViStatusBarHide, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
+  ui->chkViStatusBarHide->setEnabled(ui->chkViInputModeDefault->isChecked());
+
   layout->addWidget(newWidget);
   setLayout(layout);
 }

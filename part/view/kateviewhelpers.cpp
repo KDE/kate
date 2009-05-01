@@ -2028,6 +2028,7 @@ void KateViewBar::keyPressEvent(QKeyEvent* event)
 
 void KateViewBar::hideEvent(QHideEvent* event)
 {
+  Q_UNUSED(event);
 //   if (!event->spontaneous())
 //     m_view->setFocus();
 }

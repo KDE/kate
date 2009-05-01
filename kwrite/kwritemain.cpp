@@ -68,9 +68,8 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
     if ( !editor )
     {
-      // TODO KDE 4.3 Replace ; with a .
-      KMessageBox::error(this, i18n("A KDE text-editor component could not be found;\n"
-                                    "please check your KDE installation."));
+      KMessageBox::error(this, i18n("A KDE text-editor component could not be found.\n"
+                                    "Please check your KDE installation."));
       kapp->exit(1);
     }
 
@@ -147,10 +146,8 @@ KWrite::~KWrite()
 
 void KWrite::setupActions()
 {
-  // TODO KDE 4.3 change to "Use this command to close the current document" to be in flow with the 
-  // two actions below
   actionCollection()->addAction( KStandardAction::Close, "file_close", this, SLOT(slotFlush()) )
-    ->setWhatsThis(i18n("Use this to close the current document"));
+    ->setWhatsThis(i18n("Use this command to close the current document"));
 
   // setup File menu
   actionCollection()->addAction( KStandardAction::New, "file_new", this, SLOT(slotNew()) )
@@ -483,9 +480,8 @@ void KWrite::restore()
 
   if ( !editor )
   {
-    // TODO KDE 4.3 Replace ; with a .
-    KMessageBox::error(0, i18n("A KDE text-editor component could not be found;\n"
-                                  "please check your KDE installation."));
+    KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
+                                  "Please check your KDE installation."));
     kapp->exit(1);
   }
 

@@ -329,6 +329,16 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
   setAutoDeleteCompletionObject( false );
   m_cmdRange.setPattern("^([0-9.$]+)?,([0-9.$]+)?");
   m_gotoLine.setPattern("[+-]?\\d+");
+
+  m_hideTimer = new QTimer(this);
+  m_hideTimer->setSingleShot(true);
+  connect(m_hideTimer, SIGNAL(timeout()), this, SLOT(hideLineEdit()));
+
+  // make sure the timer is stopped when the user switches views. if not, focus will be given to the
+  // wrong view when KateViewBar::hideCurrentBarWidget() is called after 4 seconds. (the timer is
+  // used for showing things like "Success" for four seconds after the user has used the kate
+  // command line)
+  connect(m_view, SIGNAL(focusOut (KTextEditor::View*)), m_hideTimer, SLOT(stop()));
 }
 
 void KateCmdLineEdit::hideEvent(QHideEvent *e)
@@ -515,7 +525,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   m_view->setFocus ();
-  QTimer::singleShot( 4000, this, SLOT(hideLineEdit()) );
+  m_hideTimer->start(4000);
 }
 
 void KateCmdLineEdit::hideLineEdit () // unless i have focus ;)

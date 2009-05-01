@@ -48,6 +48,8 @@ namespace KTextEditor {
   class AnnotationModel;
 }
 
+class QTimer;
+
 /**
  * This class is required because QScrollBar's sliderMoved() signal is
  * really supposed to be a sliderDragged() signal... so this way we can capture
@@ -411,6 +413,7 @@ class KateCmdLineEdit : public KLineEdit
     class KateCmdLnWhatsThis *m_help;
     QRegExp m_cmdRange;
     QRegExp m_gotoLine;
+    QTimer *m_hideTimer;
 };
 
 #endif

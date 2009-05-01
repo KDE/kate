@@ -45,6 +45,11 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
   m_keyParser = new KateViKeySequenceParser();
 
+  m_timeoutlen = 1000; // FIXME: make configurable
+  m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
+  m_mappingTimer = new QTimer( this );
+  connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
+
   initializeCommands();
   resetParser(); // initialise with start configuration
 }
@@ -53,6 +58,15 @@ KateViNormalMode::~KateViNormalMode()
 {
   delete m_marks;
   delete m_keyParser;
+}
+
+void KateViNormalMode::mappingTimerTimeOut()
+{
+  kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
+  m_mappingKeyPress = true;
+  m_viInputModeManager->feedKeyPresses( m_mappingKeys );
+  m_mappingKeyPress = false;
+  m_mappingKeys.clear();
 }
 
 /**
@@ -75,8 +89,32 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  QChar key = m_keyParser->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
-  //kDebug( 13070 ) << key << "(" << keyCode << ")";
+  QChar key = m_keyParser->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
+
+  // check for matching mappings
+  if ( !m_mappingKeyPress ) {
+    m_mappingKeys.append( key );
+
+    foreach ( const QString &str, m_normalModeMappings.keys() ) {
+      if ( str.startsWith( m_mappingKeys ) ) {
+        if ( str == m_mappingKeys ) {
+          m_viInputModeManager->feedKeyPresses( m_normalModeMappings.value( str ) );
+          m_mappingTimer->stop();
+          return true;
+        } else {
+          m_mappingTimer->start( m_timeoutlen );
+          m_mappingTimer->setSingleShot( true );
+          return true;
+        }
+      } else {
+        m_mappingKeys.clear();
+      }
+    }
+  } else {
+    // FIXME:
+    //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
+  }
+
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
@@ -84,9 +122,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     c = m_keys.at( m_keys.size()-1 ); // last char
   }
 
-  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && c != '"' )     // key 0-9
-      && ( m_countTemp != 0 || keyCode != Qt::Key_0 )                   // the first digit can't be 0
-      && ( c != 'f' && c != 't' && c != 'F' && c != 'T' && c != 'r' ) ){// "find character" motions
+  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && c != '"' )       // key 0-9
+      && ( m_countTemp != 0 || keyCode != Qt::Key_0 )                     // first digit can't be 0
+      && ( c != 'f' && c != 't' && c != 'F' && c != 'T' && c != 'r' ) ) { // "find char" motions
 
     m_countTemp *= 10;
     m_countTemp += keyCode-Qt::Key_0;

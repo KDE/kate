@@ -29,13 +29,14 @@
 class QKeyEvent;
 class QString;
 class QRegExp;
+class QTimer;
 class KateDocument;
 class KateViewInternal;
 class KateViVisualMode;
 class KateViNormalMode;
 class KateViInputModeManager;
 
-class KateViModeBase
+class KateViModeBase : public QObject
 {
   public:
     KateViModeBase() {};
@@ -94,6 +95,12 @@ class KateViModeBase
     int m_stickyColumn;
 
     inline KateDocument* doc() const { return m_view->doc(); };
+
+    // key mappings
+    int m_timeoutlen; // time to wait for the next keypress of a multi-key mapping (default: 1000 ms)
+    QTimer *m_mappingTimer;
+    QHash <QString, QString> m_normalModeMappings;
+
     KateView *m_view;
     KateViewInternal *m_viewInternal;
     KateViInputModeManager* m_viInputModeManager;

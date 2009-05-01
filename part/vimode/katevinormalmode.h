@@ -44,6 +44,11 @@ class KateViInputModeManager;
 
 class KateViNormalMode : public KateViModeBase
 {
+  Q_OBJECT
+
+  public slots:
+    void mappingTimerTimeOut();
+
   public:
     KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
@@ -219,6 +224,10 @@ class KateViNormalMode : public KateViModeBase
     // item matching ('%' motion)
     QHash<QString, QString> m_matchingItems;
     QRegExp m_matchItemRegex;
+
+    // mappings
+    bool m_mappingKeyPress;
+    QString m_mappingKeys;
 
     KateViKeySequenceParser *m_keyParser;
 };

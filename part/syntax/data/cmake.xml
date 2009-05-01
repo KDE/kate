@@ -479,22 +479,29 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
         <DetectSpaces/>
-        <keyword attribute="Commands" context="Function Args" String="commands" insensitive="true"/>
+        <keyword attribute="Commands" context="Command Args" String="commands" insensitive="true"/>
         <keyword attribute="Third-Party Commands" context="#stay" String="itkvtk_commands" insensitive="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
         <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
-        <RegExpr attribute="Macros" context="#stay" String="\w+\s*(?=\()"/>
+        <RegExpr attribute="Macros" context="Macro Args" String="\w+\s*(?=\()"/>
       </context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Function Args">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Command Args">
         <DetectChar attribute="Normal Text" context="#pop" char=")"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <keyword attribute="Special Args" context="#stay" String="special_args"/>
         <keyword attribute="Special Args" context="#stay" String="extra_special_args"/>
         <keyword attribute="Properties" context="#stay" String="properties"/>
         <keyword attribute="Properties" context="#stay" String="extra_properties"/>
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
+        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+      </context>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Macro Args">
+        <DetectChar attribute="Normal Text" context="#pop" char=")"/>
+        <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
         <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
         <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>

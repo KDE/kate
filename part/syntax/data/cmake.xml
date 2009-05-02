@@ -25,7 +25,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.6-patch 3" -->
-<language name="CMake" version="1.10" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.11" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">

@@ -63,7 +63,6 @@ class KateUndoManager : public QObject
     bool undoDontMergeComplex() const;
     void setUndoDontMergeComplex(bool dontMerge);
 
-    void setMergeAllEdits(bool merge) { m_mergeAllEdits = merge; m_firstMergeGroupSkipped = false; }
   public Q_SLOTS:  // FIXME make this slot private again?
     void undoCancel();
 
@@ -92,10 +91,6 @@ class KateUndoManager : public QObject
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;
     bool m_undoDontMerge;
-    bool m_undoIgnoreCancel;
-    bool m_mergeAllEdits; // if true, all undo groups are merged continually
-    bool m_firstMergeGroupSkipped;  // used to make sure the first undo group isn't merged after
-                                    // setting m_mergeAllEdits
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...
     KateUndoGroup* lastUndoGroupWhenSaved;

@@ -6032,7 +6032,8 @@ bool KateDocument::isEditRunning() const
 
 void KateDocument::setMergeAllEdits(bool merge)
 {
-  m_undoManager->setMergeAllEdits(merge);
+  setUndoDontMerge(true);
+  setUndoDontMergeComplex(merge);
 }
 
 void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )

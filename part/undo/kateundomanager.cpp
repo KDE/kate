@@ -28,8 +28,6 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   , m_undoComplexMerge (false)
   , m_editCurrentUndo (0)
   , m_undoDontMerge (false)
-  , m_mergeAllEdits(false)
-  , m_firstMergeGroupSkipped(false)
   , lastUndoGroupWhenSaved(0)
   , lastRedoGroupWhenSaved(0)
   , docWasSavedWhenUndoWasEmpty(true)
@@ -84,11 +82,10 @@ void KateUndoManager::undoEnd()
 
     if (m_editCurrentUndo->isEmpty()) {
       delete m_editCurrentUndo;
-    } else if (((m_mergeAllEdits && !m_firstMergeGroupSkipped) || !m_undoDontMerge)
+    } else if (!m_undoDontMerge
         && !undoItems.isEmpty()
-        && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge || m_mergeAllEdits)) {
+        && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge)) {
       delete m_editCurrentUndo;
-      m_firstMergeGroupSkipped = true;
     } else {
       undoItems.append(m_editCurrentUndo);
       changedUndo = true;

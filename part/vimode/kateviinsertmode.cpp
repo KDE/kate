@@ -25,7 +25,7 @@
 #include "katecursor.h"
 
 KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
-    KateView * view, KateViewInternal * viewInternal )
+    KateView * view, KateViewInternal * viewInternal ) : KateViModeBase()
 {
   m_view = view;
   m_viewInternal = viewInternal;

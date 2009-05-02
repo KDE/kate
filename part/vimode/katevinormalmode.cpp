@@ -27,7 +27,8 @@
 #include <QApplication>
 #include <QList>
 
-KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal )
+KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view,
+    KateViewInternal * viewInternal ) : KateViModeBase()
 {
   m_view = view;
   m_viewInternal = viewInternal;

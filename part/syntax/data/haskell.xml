@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Haskell syntax highlighting by Marcel Martin <mmar@freenet.de> -->
-<language name="Haskell" version="1.05" kateversion="2.3" section="Sources" extensions="*.hs" author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Haskell" version="1.2" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
 		<item> case </item>

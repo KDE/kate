@@ -9,6 +9,8 @@
 
 // based on Paul Giannaro's Python indenter
 
+var debugMode = false;
+
 String.prototype.startsWith = function(prefix) {
     return this.substring(0, prefix.length) == prefix;
 }
@@ -39,10 +41,11 @@ String.prototype.stripWhiteSpace = function() {
 function dbg(s) {
     // debug to the term in blue so that it's easier to make out amongst all
     // of Kate's other debug output.
-    debug("\u001B[34m" + s + "\u001B[0m");
+    if (debugMode)
+        debug("\u001B[34m" + s + "\u001B[0m");
 }
 
-var triggerCharacters = "";
+var triggerCharacters = " \t";
 
 // General notes:
 // indent() returns the amount of characters (in spaces) to be indented.
@@ -51,82 +54,118 @@ var triggerCharacters = "";
 //   -1 = keep last indent
 
 function indent(line, indentWidth, character) {
-     //dbg(document.attribute.toString());
-     //dbg("indent character: " + character);
-     //dbg("line text: " + document.line(line));
-	 var currentLine = document.line(line);
-     //dbg("current line: " + currentLine);
-	 var lastLine = document.line(line - 1);
-	 var lastCharacter = lastLine.lastCharacter();
-	 //
-	 // we can't really indent line 0
-	 if(line == 0)
-		 return -2;
-	 //
-	 // make sure the last line is code
-	 if(!document.isCode(line - 1, document.lineLength(line - 1) - 1) && lastCharacter != "\"" && lastCharacter != "'") {
-		 //dbg("attributes that we don't want! Returning");
-		 return -1;
-	 }
-	 // otherwise, check the line contents
+    dbg(document.attribute.toString());
+    dbg("indent character: '" + character + "'");
+    dbg("line text: " + document.line(line));
+    var currentLine = document.line(line);
+    dbg("current line: " + currentLine);
+    var lastLine = document.line(line - 1);
+    var lastCharacter = lastLine.lastCharacter();
+    //
+    // we can't really indent line 0
+    if(line == 0)
+        return -2;
+    //
+    // make sure the last line is code
+    if(!document.isCode(line - 1, document.lineLength(line - 1) - 1)
+            && lastCharacter != "\"" && lastCharacter != "'") {
+        dbg("attributes that we don't want! Returning");
+        return -1;
+    }
+    // otherwise, check the line contents
 
-	 //dbg('line without white space: ' + currentLine.sansWhiteSpace().length);
+    dbg('line without white space: ' + currentLine.sansWhiteSpace().length);
 
-	 // indent line after 'where' 6 characters for alignment:
-	 // ... where foo = 3
-	 //     >>>>>>bar = 4
-	 if(lastLine.stripWhiteSpace().startsWith('where')) {
-		 //dbg('indenting line for where');
-		 return document.firstVirtualColumn(line - 1) + 6;
-	 }
+    // indent line after 'where' 6 characters for alignment:
+    // ... where foo = 3
+    //     >>>>>>bar = 4
+    if(lastLine.stripWhiteSpace().startsWith('where')) {
+        dbg('indenting line for where');
+        return document.firstVirtualColumn(line - 1) + 6;
+    }
 
-	 // indent line after 'case' 5 characters for alignment:
-	 // case xs of
-	 // >>>>>[] -> ...
-	 // >>>>>(y:ys) -> ...
-	 var caseCol = lastLine.search(/\bcase\b/);
-	 if(caseCol != -1) {
-		 //dbg('indenting line for case');
-		 return document.firstVirtualColumn(line - 1) + 5 + caseCol;
-	 }
+    // indent line after 'let' 4 characters for alignment:
+    // ... let foo = 3
+    //     >>>>bar = 4
+    if(lastLine.stripWhiteSpace().startsWith('let')) {
+        dbg('indenting line for let');
+        return document.firstVirtualColumn(line - 1) + 4;
+    }
 
-	 // indent line after 'if/else' 3 characters for alignment:
-	 // if foo == bar
-	 // >>>then baz
-	 // >>>else vaff
-	 var ifCol = lastLine.search(/\bif\b/);
-	 dbg(ifCol);
-	 if(ifCol != -1) {
-		 //dbg('indenting line for if');
-		 return document.firstVirtualColumn(line - 1) + 3 + ifCol;
-	 }
+    // deindent line starting with 'in' to the level of its corresponding 'let':
+    // ... let foo = 3
+    //         bar = 4
+    //     in foo+bar
+    if(currentLine.search(/^\s*in/) != -1) {
+        dbg('indenting line for in');
+        var temp = line-1;
+        var indent = -1;
+        while (temp >= 0) {
+            if (document.line(temp).sansWhiteSpace().startsWith('let') ) {
+                indent = document.line(temp).search(/\S/);
+                break;
+            }
+            temp = temp-1;
+        }
+        return indent;
+    }
 
-	 // indent lines following a line ending with '='
-	 if(lastLine.stripWhiteSpace().endsWith('=')) {
-		 //dbg('indenting for =');
-		 return document.firstVirtualColumn(line - 1) + indentWidth;
-	 }
+    // indent line after a line with just 'in' one indent width:
+    // ... let foo = 3
+    //         bar = 4
+    //     in
+    //     >>>>foo+bar
+    if(lastLine.stripWhiteSpace() == 'in') {
+        dbg('indenting line after in');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
 
-	 // indent lines following a line ending with 'do'
-	 if(lastLine.stripWhiteSpace().endsWith('do')) {
-		 //dbg('indenting for do');
-		 return document.firstVirtualColumn(line - 1) + indentWidth;
-	 }
+    // indent line after 'case' 5 characters for alignment:
+    // case xs of
+    // >>>>>[] -> ...
+    // >>>>>(y:ys) -> ...
+    var caseCol = lastLine.search(/\bcase\b/);
+    if(caseCol != -1) {
+        dbg('indenting line for case');
+        return document.firstVirtualColumn(line - 1) + 5 + caseCol;
+    }
 
-	 // line ending with !#$%&*+./<=>?@\^|~-
-	 if (lastLine.search(/[!$#%&*+.\/<=>?@\\^|~-]$/) != -1) {
-		 //dbg('indenting for operator');
-		 return document.firstVirtualColumn(line - 1) + indentWidth;
-	 }
+    // indent line after 'if/else' 3 characters for alignment:
+    // if foo == bar
+    // >>>then baz
+    // >>>else vaff
+    var ifCol = lastLine.search(/\bif\b/);
+    if(ifCol != -1) {
+        dbg('indenting line for if');
+        return document.firstVirtualColumn(line - 1) + 3 + ifCol;
+    }
 
-	 if (lastLine.search(/^\s*$/) != -1) {
-		 //dbg('indenting for empty line');
-		 return 0;
-	 }
-			 
+    // indent lines following a line ending with '='
+    if(lastLine.stripWhiteSpace().endsWith('=')) {
+        dbg('indenting for =');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
 
-	 //dbg('continuing with regular indent');
-	 return -1;
+    // indent lines following a line ending with 'do'
+    if(lastLine.stripWhiteSpace().endsWith('do')) {
+        dbg('indenting for do');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+
+    // line ending with !#$%&*+./<=>?@\^|~-
+    if (lastLine.search(/[!$#%&*+.\/<=>?@\\^|~-]$/) != -1) {
+        dbg('indenting for operator');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+
+    if (lastLine.search(/^\s*$/) != -1) {
+        dbg('indenting for empty line');
+        return 0;
+    }
+
+
+    dbg('continuing with regular indent');
+    return -1;
 }
 
 

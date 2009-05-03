@@ -302,6 +302,8 @@ const QString KateViInputModeManager::getMapping( ViMode mode, const QString &fr
   case VisualLineMode:
   */
   }
+
+  return QString();
 }
 
 const QStringList KateViInputModeManager::getMappings( ViMode mode )
@@ -316,4 +318,6 @@ const QStringList KateViInputModeManager::getMappings( ViMode mode )
   case VisualLineMode:
   */
   }
+
+  return QStringList();
 }

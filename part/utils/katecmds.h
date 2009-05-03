@@ -140,7 +140,6 @@ class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExten
 /**
  * Support vim/sed style search and replace
  * @author Charles Samuels <charles@kde.org>
-:w
  **/
 class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
 {

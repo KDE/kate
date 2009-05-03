@@ -133,6 +133,8 @@ public:
 
   const QString getMapping( ViMode mode, const QString &from );
 
+  const QStringList getMappings( ViMode mode );
+
 private:
   KateViNormalMode* m_viNormalMode;
   KateViInsertMode* m_viInsertMode;

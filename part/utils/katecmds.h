@@ -88,8 +88,59 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
 };
 
 /**
+ * This KTextEditor::Command provides vi 'ex' commands
+ */
+class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExtension,
+  public KTextEditor::RangeCommand
+{
+  public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param msg message returned from running the command
+     * @return success
+     */
+    bool exec( class KTextEditor::View *view, const QString &cmd, QString &msg );
+
+    /**
+     * execute command on given range
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param msg message returned from running the command
+     * @param rangeStart first line in range
+     * @param rangeEnd last line in range
+     * @return success
+     */
+    bool exec( class KTextEditor::View *view, const QString &cmd, QString &msg,
+        const KTextEditor::Range &range = KTextEditor::Range(-1, -0, -1, 0));
+
+    bool supportsRange(const QString &range);
+
+    /** This command does not have help. @see KTextEditor::Command::help */
+    bool help( class KTextEditor::View *, const QString &, QString & ) {return false;}
+
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
+    const QStringList &cmds();
+
+    /**
+    * override completionObject from interfaces/document.h .
+    */
+    KCompletion *completionObject( KTextEditor::View *, const QString & );
+
+    virtual void flagCompletions( QStringList& ) {}
+    virtual bool wantsToProcessText( const QString & ) { return false; }
+    virtual void processText( KTextEditor::View *, const QString & ) {}
+};
+
+
+/**
  * Support vim/sed style search and replace
  * @author Charles Samuels <charles@kde.org>
+:w
  **/
 class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
 {

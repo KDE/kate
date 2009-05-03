@@ -83,7 +83,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
     << "set-highlight" << "set-mode" << "set-show-indent"
-    << "w" << "print" << "hardcopy" << "nnoremap" << "nn";
+    << "print";
 
   return l;
 }
@@ -200,12 +200,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "w" )
-  {
-    v->doc()->documentSave();
-    return true;
-  }
-  else if ( cmd == "print" || cmd == "hardcopy" )
+  else if ( cmd == "print" )
   {
     v->doc()->printDialog();
     return true;
@@ -335,24 +330,6 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false",
                  args.first() ,  cmd ) );
   }
-  else if ( cmd == "nnoremap" || cmd == "nn" )
-  {
-    if ( args.count() == 1 ) {
-      errorMsg = v->getViInputModeManager()->getMapping( NormalMode, args.at( 0 ) );
-      if ( errorMsg.isEmpty() ) {
-        errorMsg = i18n( "No mapping found for \"%1\"", args.at(0) );
-        return false;
-      } else {
-        errorMsg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), errorMsg );
-      }
-    } else if ( args.count() == 2 ) {
-      v->getViInputModeManager()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
-    } else {
-      KCC_ERR( i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd ) );
-    }
-
-    return true;
-  }
 
   // unlikely..
   KCC_ERR( i18n("Unknown command '%1'", cmd) );
@@ -371,7 +348,7 @@ bool KateCommands::CoreCommands::supportsRange(const QString &range)
 
 KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *view, const QString &cmd )
 {
-  Q_UNUSED(view);
+  Q_UNUSED(view)
 
   if ( cmd == "set-highlight" )
   {
@@ -387,6 +364,103 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
   return 0L;
 }
 //END CoreCommands
+
+// BEGIN ViCommands
+const QStringList &KateCommands::ViCommands::cmds()
+{
+  static QStringList l;
+
+  if (l.isEmpty())
+  l << "w" << "hardcopy" << "nnoremap" << "nn";
+
+  return l;
+}
+
+bool KateCommands::ViCommands::exec(KTextEditor::View *view,
+                            const QString &_cmd,
+                            QString &msg)
+{
+  return exec( view, _cmd, msg, KTextEditor::Range::invalid() );
+}
+
+bool KateCommands::ViCommands::exec(KTextEditor::View *view,
+                            const QString &_cmd,
+                            QString &msg,
+                            const KTextEditor::Range& range)
+{
+  Q_UNUSED(range)
+  // cast it hardcore, we know that it is really a kateview :)
+  KateView *v = (KateView*) view;
+
+  if ( !v ) {
+    msg = i18n("Could not access view");
+    return false;
+  }
+
+  //create a list of args
+  QStringList args(_cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+  QString cmd ( args.takeFirst() );
+
+  // ALL commands that takes no arguments.
+  if ( cmd == "w" )
+  {
+    v->doc()->documentSave();
+    return true;
+  }
+  else if ( cmd == "hardcopy" )
+  {
+    v->doc()->printDialog();
+    return true;
+  }
+  else if ( cmd == "nnoremap" || cmd == "nn" )
+  {
+    if ( args.count() == 1 ) {
+      msg = v->getViInputModeManager()->getMapping( NormalMode, args.at( 0 ) );
+      if ( msg.isEmpty() ) {
+        msg = i18n( "No mapping found for \"%1\"", args.at(0) );
+        return false;
+      } else {
+        msg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), msg );
+      }
+    } else if ( args.count() == 2 ) {
+      v->getViInputModeManager()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
+    } else {
+      msg = i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd );
+      return false;
+    }
+
+    return true;
+  }
+
+  // should not happen :)
+  msg = i18n("Unknown command '%1'", cmd);
+  return false;
+}
+
+bool KateCommands::ViCommands::supportsRange(const QString &range)
+{
+  Q_UNUSED(range)
+  return false; // no commands support a range yet
+}
+
+KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view, const QString &cmd )
+{
+  Q_UNUSED(view)
+
+  KateView *v = (KateView*) view;
+
+  if ( v && ( cmd == "nn" || cmd == "nnoremap" ) )
+  {
+    QStringList l = v->getViInputModeManager()->getMappings( NormalMode );
+
+    KateCmdShellCompletion *co = new KateCmdShellCompletion();
+    co->setItems( l );
+    co->setIgnoreCase( false );
+    return co;
+  }
+  return 0L;
+}
+//END ViCommands
 
 //BEGIN SedReplace
 static void replace(QString &s, const QString &needle, const QString &with)

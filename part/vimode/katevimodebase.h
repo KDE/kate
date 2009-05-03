@@ -48,6 +48,7 @@ class KateViModeBase : public QObject
     QString getVerbatimKeys() const;
     void addMapping( const QString &from, const QString &to );
     const QString getMapping( const QString &from ) const;
+    const QStringList getMappings() const;
 
   protected:
     // helper methods

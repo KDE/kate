@@ -744,3 +744,13 @@ const QString KateViModeBase::getMapping( const QString &from ) const
 {
     return m_mappings[from];
 }
+
+const QStringList KateViModeBase::getMappings() const
+{
+    QStringList l;
+    foreach ( const QString &str, m_mappings.keys() ) {
+      l << str;
+    }
+
+    return l;
+}

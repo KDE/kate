@@ -303,3 +303,17 @@ const QString KateViInputModeManager::getMapping( ViMode mode, const QString &fr
   */
   }
 }
+
+const QStringList KateViInputModeManager::getMappings( ViMode mode )
+{
+  switch ( mode ) {
+  case NormalMode:
+    return m_viNormalMode->getMappings();
+    break;
+  /*
+  case InsertMode:
+  case VisualMode:
+  case VisualLineMode:
+  */
+  }
+}

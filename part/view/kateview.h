@@ -655,16 +655,6 @@ class KateView : public KTextEditor::View,
     // do we select normal or blockwise ?
     bool blockSelect;
 
-  /**
-   * IM input stuff
-   */
-  public:
-    void setImComposeEvent( bool imComposeEvent ) { m_imComposeEvent = imComposeEvent; }
-    bool imComposeEvent () const { return m_imComposeEvent; }
-
-  private:
-    bool m_imComposeEvent;
-
   ///Template stuff
   public:
     virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues);

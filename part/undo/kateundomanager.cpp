@@ -55,7 +55,7 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::undoStart()
 {
-  if (m_editCurrentUndo || (m_document->activeKateView() && m_document->activeKateView()->imComposeEvent()))
+  if (m_editCurrentUndo)
     return;
 
   // new current undo item
@@ -68,9 +68,6 @@ void KateUndoManager::undoStart()
 
 void KateUndoManager::undoEnd()
 {
-  if (m_document->activeKateView() && m_document->activeKateView()->imComposeEvent())
-    return;
-
   if (m_editCurrentUndo)
   {
     bool changedUndo = false;

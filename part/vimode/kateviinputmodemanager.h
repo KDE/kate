@@ -126,6 +126,13 @@ public:
    */
   void repeatLastChange();
 
+  /**
+   * add a mapping to the given vi mode
+   */
+  void addMapping( ViMode mode, const QString &from, const QString &to );
+
+  const QString getMapping( ViMode mode, const QString &from );
+
 private:
   KateViNormalMode* m_viNormalMode;
   KateViInsertMode* m_viInsertMode;

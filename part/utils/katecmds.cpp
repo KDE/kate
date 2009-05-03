@@ -83,7 +83,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
     << "set-highlight" << "set-mode" << "set-show-indent"
-    << "w" << "print" << "hardcopy";
+    << "w" << "print" << "hardcopy" << "nnoremap" << "nn";
 
   return l;
 }
@@ -222,7 +222,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       ((KateDocument*)v->doc())->setDontChangeHlOnSave ();
       return true;
     }
-    
+
     KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
   }
   else if ( cmd == "set-mode" )
@@ -334,6 +334,24 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     else
       KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false",
                  args.first() ,  cmd ) );
+  }
+  else if ( cmd == "nnoremap" || cmd == "nn" )
+  {
+    if ( args.count() == 1 ) {
+      errorMsg = v->getViInputModeManager()->getMapping( NormalMode, args.at( 0 ) );
+      if ( errorMsg.isEmpty() ) {
+        errorMsg = i18n( "No mapping found for \"%1\"", args.at(0) );
+        return false;
+      } else {
+        errorMsg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), errorMsg );
+      }
+    } else if ( args.count() == 2 ) {
+      v->getViInputModeManager()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
+    } else {
+      KCC_ERR( i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd ) );
+    }
+
+    return true;
   }
 
   // unlikely..

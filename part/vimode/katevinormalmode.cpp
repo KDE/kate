@@ -96,10 +96,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   if ( !m_mappingKeyPress ) {
     m_mappingKeys.append( key );
 
-    foreach ( const QString &str, m_normalModeMappings.keys() ) {
+    foreach ( const QString &str, m_mappings.keys() ) {
       if ( str.startsWith( m_mappingKeys ) ) {
         if ( str == m_mappingKeys ) {
-          m_viInputModeManager->feedKeyPresses( m_normalModeMappings.value( str ) );
+          m_viInputModeManager->feedKeyPresses( m_mappings.value( str ) );
           m_mappingTimer->stop();
           return true;
         } else {

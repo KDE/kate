@@ -275,3 +275,31 @@ const QString KateViInputModeManager::getVerbatimKeys() const
 
   return cmd;
 }
+
+void KateViInputModeManager::addMapping( ViMode mode, const QString &from, const QString &to )
+{
+  switch ( mode ) {
+  case NormalMode:
+    m_viNormalMode->addMapping( from, to );
+    break;
+  /*
+  case InsertMode:
+  case VisualMode:
+  case VisualLineMode:
+  */
+  }
+}
+
+const QString KateViInputModeManager::getMapping( ViMode mode, const QString &from )
+{
+  switch ( mode ) {
+  case NormalMode:
+    return m_viNormalMode->getMapping( from );
+    break;
+  /*
+  case InsertMode:
+  case VisualMode:
+  case VisualLineMode:
+  */
+  }
+}

@@ -701,9 +701,14 @@ class KateView : public KTextEditor::View,
     bool viInputMode() const;
 
     /**
-     * @return boolean indicating whether vi mode is active or not
+     * @return the current vi mode
      */
     ViMode getCurrentViMode() const;
+
+    /**
+     * @return a pointer to the KateViInputModeManager belonging to the view
+     */
+    KateViInputModeManager* getViInputModeManager();
 
     /**
      * @return boolean indicating whether vi mode will override actions or not

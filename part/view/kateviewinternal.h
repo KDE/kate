@@ -470,8 +470,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     //KateViInsertMode* getViInsertMode();
 
     /**
-     * an instance of KateViInputModeManager. used for interacting with the vi input mode when
-     * enabled
+     * returns the current vi mode
      */
     ViMode getCurrentViMode();
 

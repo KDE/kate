@@ -734,3 +734,13 @@ QString KateViModeBase::getVerbatimKeys() const
 {
   return m_keysVerbatim;
 }
+
+void KateViModeBase::addMapping( const QString &from, const QString &to )
+{
+    m_mappings[from] = to;
+}
+
+const QString KateViModeBase::getMapping( const QString &from ) const
+{
+    return m_mappings[from];
+}

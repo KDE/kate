@@ -63,7 +63,7 @@ class KateSmartManager;
 class KateUndoManager;
 
 
-class KateKeyInterceptorFunctor;
+class KateTemplateHandler;
 
 // needed for parsing replacement text like "\1:\2"
 struct ReplacementPart {
@@ -1117,13 +1117,13 @@ class KateDocument : public KTextEditor::Document,
 
   // TemplateInterface
   public:
-      bool setTabInterceptor(KateKeyInterceptorFunctor *interceptor); /* perhaps make it moregeneral like an eventfilter*/
-      bool removeTabInterceptor(KateKeyInterceptorFunctor *interceptor);
-      bool invokeTabInterceptor(int key);
+      bool setTemplateHandler(KateTemplateHandler *templateHandler);
+      bool removeTemplateHandler(KateTemplateHandler *templateHandler);
+      bool invokeTemplateHandler(int key);
       bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *); //PORT ME
 
   protected:
-      KateKeyInterceptorFunctor *m_tabInterceptor;
+      KateTemplateHandler *m_templateHandler;
 
   protected Q_SLOTS:
       void testTemplateCode();

@@ -23,7 +23,6 @@
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
-#include "katekeyinterceptorfunctor.h"
 #include "kateglobal.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
@@ -185,7 +184,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
   s_fileChangedDialogsActivated (false),
-  m_tabInterceptor(0),
+  m_templateHandler(0),
   m_savingToUrl(false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
@@ -5738,20 +5737,20 @@ void KateDocument::testTemplateCode() {
 }
 
 
-bool KateDocument::invokeTabInterceptor(int key) {
-  if (m_tabInterceptor) return (*m_tabInterceptor)(key);
+bool KateDocument::invokeTemplateHandler(int key) {
+  if (m_templateHandler) return (*m_templateHandler)(key);
   return false;
 }
 
-bool KateDocument::setTabInterceptor(KateKeyInterceptorFunctor *interceptor) {
-  if (m_tabInterceptor) return false;
-  m_tabInterceptor=interceptor;
+bool KateDocument::setTemplateHandler(KateTemplateHandler *templateHandler) {
+  if (m_templateHandler) return false;
+  m_templateHandler=templateHandler;
   return true;
 }
 
-bool KateDocument::removeTabInterceptor(KateKeyInterceptorFunctor *interceptor) {
-  if (m_tabInterceptor!=interceptor) return false;
-  m_tabInterceptor=0;
+bool KateDocument::removeTemplateHandler(KateTemplateHandler *templateHandler) {
+  if (m_templateHandler!=templateHandler) return false;
+  m_templateHandler=0;
   return true;
 }
 

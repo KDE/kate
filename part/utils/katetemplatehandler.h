@@ -19,7 +19,6 @@
 #define _KATE_TEMPLATE_HANDLER_H_
 
 #include "katesmartrange.h"
-#include "katekeyinterceptorfunctor.h"
 #include <QtCore/QPointer>
 #include <QtCore/QObject>
 #include <QtCore/QMap>
@@ -33,7 +32,7 @@ namespace KTextEditor {
   class SmartRange;
 }
 
-class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
+class KateTemplateHandler: public QObject {
 		Q_OBJECT
 	public:
 		KateTemplateHandler(KateDocument *doc,const KTextEditor::Cursor& position, const QString &templateString, const QMap<QString,QString> &initialValues);

@@ -2354,7 +2354,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
   if  (key == Qt::Key_Tab || key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
   {
-    if (m_doc->invokeTabInterceptor(key)) {
+    if (m_doc->invokeTemplateHandler(key)) {
       e->accept();
       return;
     }

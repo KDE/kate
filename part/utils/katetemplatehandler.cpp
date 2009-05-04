@@ -39,7 +39,6 @@ KateTemplateHandler::KateTemplateHandler(
   const QString &templateString,
   const QMap<QString, QString> &initialValues )
     : QObject( doc )
-    , KateKeyInterceptorFunctor()
     , m_doc( doc )
     , m_currentTabStop( -1 )
     , m_currentRange( 0 )
@@ -49,7 +48,7 @@ KateTemplateHandler::KateTemplateHandler(
 {
   connect( m_doc, SIGNAL( destroyed() ), this, SLOT( slotDocumentDestroyed() ) );
 
-  if ( !m_doc->setTabInterceptor( this ) )
+  if ( !m_doc->setTemplateHandler( this ) )
   {
     deleteLater();
     return ;
@@ -136,7 +135,7 @@ KateTemplateHandler::~KateTemplateHandler()
 {
   if ( m_doc )
   {
-    m_doc->removeTabInterceptor( this );
+    m_doc->removeTemplateHandler( this );
   }
   delete m_templateRange;
 #ifdef __GNUC__

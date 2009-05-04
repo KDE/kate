@@ -313,7 +313,13 @@ class KateDocument : public KTextEditor::Document,
     void setUndoDontMergeComplex(bool dontMerge);
 
     bool isEditRunning() const;
-    bool isWithUndo() const {return editWithUndo;}
+
+    /**
+     * States whether the current edit has undo enabled.
+     *
+     * Call this method only when an edit is running, i.e. isEditRunning() is true.
+     */
+    bool isWithUndo() const;
 
     void setMergeAllEdits(bool merge);
 

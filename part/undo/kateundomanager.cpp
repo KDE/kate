@@ -55,8 +55,7 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::undoStart()
 {
-  if (m_editCurrentUndo)
-    return;
+  Q_ASSERT(m_editCurrentUndo == 0);
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(m_document);
@@ -68,8 +67,8 @@ void KateUndoManager::undoStart()
 
 void KateUndoManager::undoEnd()
 {
-  if (m_editCurrentUndo)
-  {
+  Q_ASSERT(m_editCurrentUndo != 0);
+
     bool changedUndo = false;
 
     if (m_document->activeKateView()) {
@@ -94,7 +93,6 @@ void KateUndoManager::undoEnd()
 
     if (changedUndo)
       emit undoChanged();
-  }
 }
 
 void KateUndoManager::undoCancel()
@@ -105,28 +103,27 @@ void KateUndoManager::undoCancel()
 
   m_undoDontMerge = true;
 
-  Q_ASSERT(!m_editCurrentUndo);
+  Q_ASSERT(m_editCurrentUndo == 0);
 }
 
 void KateUndoManager::undoSafePoint() {
-//  Q_ASSERT(m_editCurrentUndo);
-  if (!m_editCurrentUndo)
-    return;
+  Q_ASSERT(m_editCurrentUndo != 0);
 
   m_editCurrentUndo->safePoint();
 }
 
 void KateUndoManager::addUndo (KateUndo *undo)
 {
-  if (m_document->isEditRunning() && m_document->isWithUndo() && m_editCurrentUndo) {
-    m_editCurrentUndo->addItem(undo);
+  Q_ASSERT(undo != 0);
+  Q_ASSERT(m_document->isEditRunning());
+  Q_ASSERT(m_document->isWithUndo());
+  Q_ASSERT(m_editCurrentUndo != 0);
 
-    // Clear redo buffer
-    if (redoItems.count()) {
-      qDeleteAll(redoItems);
-      redoItems.clear();
-    }
-  }
+  m_editCurrentUndo->addItem(undo);
+
+  // Clear redo buffer
+  qDeleteAll(redoItems);
+  redoItems.clear();
 }
 
 uint KateUndoManager::undoCount () const
@@ -141,6 +138,8 @@ uint KateUndoManager::redoCount () const
 
 void KateUndoManager::undo()
 {
+  Q_ASSERT(m_editCurrentUndo == 0);
+
   if (undoItems.count() > 0)
   {
     //clearSelection ();
@@ -169,6 +168,8 @@ void KateUndoManager::undo()
 
 void KateUndoManager::redo()
 {
+  Q_ASSERT(m_editCurrentUndo == 0);
+
   if (redoItems.count() > 0)
   {
     //clearSelection ();

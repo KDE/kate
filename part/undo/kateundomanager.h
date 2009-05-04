@@ -33,6 +33,8 @@ namespace KTextEditor {
 
 /**
  * Central class to handle undo stuff.
+ *
+ * KateUndoManager supports grouping of undo items.
  */
 class KateUndoManager : public QObject
 {
@@ -40,7 +42,8 @@ class KateUndoManager : public QObject
 
   public:
     /**
-     * Constructor.
+     * Creates a clean undo history.
+     *
      * @param doc the document the KateUndoManager will belong to
      */
     KateUndoManager (KateDocument *doc);
@@ -48,7 +51,15 @@ class KateUndoManager : public QObject
     ~KateUndoManager();
 
   public:
+    /**
+     * @short Marks the start of a new undo group. New undo items may be added using addUndo().
+     */
     void undoStart();
+
+    /**
+     * @short Marks the end of the undo group started by undoStart(). No more undo items may be added until
+     * the next call to undoStart().
+     */
     void undoEnd();
 
     /**
@@ -66,7 +77,15 @@ class KateUndoManager : public QObject
   public Q_SLOTS:  // FIXME make this slot private again?
     void undoCancel();
 
-  public:
+    /**
+     * @short Add an undo item to the current undo group. The undo item must be non-null.
+     *
+     * Call this method only when the following conditions are satisfied:
+     * @li an edit is in progress, i.e. KateDocument::isEditRunning()
+     * @li the document has undo enabled, i.e. KateDocument::isWithUndo()
+     *
+     * @param undo undo item to be added, must be non-null
+     */
     void addUndo (KateUndo *undo);
 
   private:

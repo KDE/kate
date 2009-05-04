@@ -1138,7 +1138,8 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   editStart (true, editSource);
 
-  m_undoManager->addUndo (new KateEditInsertTextUndo(this, line, col, s));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditInsertTextUndo(this, line, col, s));
 
   l->insertText (col, s);
 
@@ -1167,7 +1168,8 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
 
   editStart (true, editSource);
 
-  m_undoManager->addUndo (new KateEditRemoveTextUndo(this, line, col, l->string().mid(col, len)));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditRemoveTextUndo(this, line, col, l->string().mid(col, len)));
 
   l->removeText (col, len);
   removeTrailingSpace( line );
@@ -1197,7 +1199,8 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 
   editStart ();
 
-  m_undoManager->addUndo (new KateEditMarkLineAutoWrappedUndo(this, line, autowrapped));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditMarkLineAutoWrappedUndo(this, line, autowrapped));
 
   l->setAutoWrapped (autowrapped);
 
@@ -1230,7 +1233,8 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   if (pos < 0)
     pos = 0;
 
-  m_undoManager->addUndo (new KateEditWrapLineUndo(this, line, col, pos, (!nextLine || newLine)));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditWrapLineUndo(this, line, col, pos, (!nextLine || newLine)));
 
   if (!nextLine || newLine)
   {
@@ -1310,7 +1314,8 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
   int col = l->length ();
 
-  m_undoManager->addUndo (new KateEditUnWrapLineUndo(this, line, col, length, removeLine));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditUnWrapLineUndo(this, line, col, length, removeLine));
 
   if (removeLine)
   {
@@ -1378,7 +1383,8 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
 
   editStart (true, editSource);
 
-  m_undoManager->addUndo (new KateEditInsertLineUndo(this, line, s));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditInsertLineUndo(this, line, s));
 
   removeTrailingSpace( line ); // old line
 
@@ -6028,6 +6034,13 @@ void KateDocument::setUndoDontMerge(bool dontMerge)
 bool KateDocument::isEditRunning() const
 {
   return editIsRunning;
+}
+
+bool KateDocument::isWithUndo() const
+{
+  Q_ASSERT(isEditRunning());
+
+  return editWithUndo;
 }
 
 void KateDocument::setMergeAllEdits(bool merge)

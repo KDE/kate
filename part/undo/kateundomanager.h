@@ -74,9 +74,6 @@ class KateUndoManager : public QObject
     bool undoDontMergeComplex() const;
     void setUndoDontMergeComplex(bool dontMerge);
 
-  public Q_SLOTS:  // FIXME make this slot private again?
-    void undoCancel();
-
     /**
      * @short Add an undo item to the current undo group. The undo item must be non-null.
      *
@@ -104,6 +101,7 @@ class KateUndoManager : public QObject
     uint redoCount () const;
 
   private Q_SLOTS:
+    void undoCancel();
     void viewCreated (KTextEditor::Document *, KTextEditor::View *newView);
 
   private:

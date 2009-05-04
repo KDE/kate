@@ -55,7 +55,7 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::undoStart()
 {
-  Q_ASSERT(m_editCurrentUndo == 0);
+  Q_ASSERT(m_editCurrentUndo == 0); // previous state must be undo-redo accepting state
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(m_document);
@@ -67,7 +67,7 @@ void KateUndoManager::undoStart()
 
 void KateUndoManager::undoEnd()
 {
-  Q_ASSERT(m_editCurrentUndo != 0);
+  Q_ASSERT(m_editCurrentUndo != 0); // previous state must be item-accepting group state
 
     bool changedUndo = false;
 
@@ -107,17 +107,17 @@ void KateUndoManager::undoCancel()
 }
 
 void KateUndoManager::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo != 0);
+  Q_ASSERT(m_editCurrentUndo != 0); // current state must be item-accepting group state
 
   m_editCurrentUndo->safePoint();
 }
 
 void KateUndoManager::addUndo (KateUndo *undo)
 {
-  Q_ASSERT(undo != 0);
-  Q_ASSERT(m_document->isEditRunning());
-  Q_ASSERT(m_document->isWithUndo());
-  Q_ASSERT(m_editCurrentUndo != 0);
+  Q_ASSERT(undo != 0); // don't add null pointers to our history
+  Q_ASSERT(m_document->isEditRunning()); // don't mess with our undo history outside edits
+  Q_ASSERT(m_document->isWithUndo()); // don't mess with our undo history when undo disabled
+  Q_ASSERT(m_editCurrentUndo != 0); // current state must be item-accepting group state
 
   m_editCurrentUndo->addItem(undo);
 

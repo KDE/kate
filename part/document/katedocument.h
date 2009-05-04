@@ -315,9 +315,9 @@ class KateDocument : public KTextEditor::Document,
     bool isEditRunning() const;
 
     /**
-     * States whether the current edit has undo enabled.
+     * States whether the edit currently in progress has undo enabled.
      *
-     * Call this method only when an edit is running, i.e. isEditRunning() is true.
+     * The method may only be called when an edit is actually in progress, i.e. isEditRunning() is true.
      */
     bool isWithUndo() const;
 

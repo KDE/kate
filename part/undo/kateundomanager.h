@@ -32,9 +32,19 @@ namespace KTextEditor {
 }
 
 /**
- * Central class to handle undo stuff.
+ * KateUndoManager is a state machine which either accepts new undo items to be added or undo- and redo operations to be performed.
+ * The state where new undo items are accepted is entered by calling undoStart(). Calling undoEnd() enters the state where undo-
+ * and redo operations are accepted, which is also the state of a newly created KateUndoManager.
  *
- * KateUndoManager supports grouping of undo items.
+ * KateUndoManager organizes single undo items into undo groups which are embraced by undoStart() and undoEnd(). As long as the
+ * undo group is not finished by calling undoEnd(), any number of undo items may be added using addUndo(). Only in this state,
+ * undoSafePoint() may be called.
+ *
+ * KateUndoManager supports merging of the last two undo groups. The merging happens when undoEnd() is called unless merging is
+ * suppressed. Merging the current undo group with succeeding edit groups may be suppressed by calling undoSafePoint(), whereas
+ * merging with previous undo groups may be suppressed using setUndoDontMerge(false). By default, undo groups only get merged
+ * if all items are of the same type. Whether undo groups consisting of different types of undo items may be merged can be
+ * controlled using setUndoDontMergeComplex().
  */
 class KateUndoManager : public QObject
 {

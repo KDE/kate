@@ -6037,7 +6037,7 @@ bool KateDocument::isEditRunning() const
 
 bool KateDocument::isWithUndo() const
 {
-  Q_ASSERT(isEditRunning());
+  Q_ASSERT(isEditRunning()); // result is only valid for currently running edits
 
   return editWithUndo;
 }

@@ -23,7 +23,7 @@
      </property>
      <widget class="QWidget" name="errs" >
       <attribute name="title" >
-       <string>Errors and Warnings</string>
+       <string>Errors &amp;&amp; Warnings</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3" >
        <item>
@@ -90,7 +90,7 @@
        <item row="0" column="0" >
         <widget class="QLabel" name="label" >
          <property name="text" >
-          <string>Working Directory:</string>
+          <string>Working directory:</string>
          </property>
          <property name="alignment" >
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -103,7 +103,7 @@
        <item row="1" column="0" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Build Command:</string>
+          <string>Build command:</string>
          </property>
          <property name="alignment" >
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -123,7 +123,7 @@
        <item row="2" column="0" >
         <widget class="QLabel" name="label_4" >
          <property name="text" >
-          <string>Clean Command:</string>
+          <string>Clean command:</string>
          </property>
          <property name="alignment" >
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -143,7 +143,7 @@
        <item row="3" column="0" >
         <widget class="QLabel" name="label_3" >
          <property name="text" >
-          <string>Quick Compile:</string>
+          <string>Quick compile:</string>
          </property>
          <property name="alignment" >
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

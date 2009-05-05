@@ -102,7 +102,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
   m_func = popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
   popup->addSeparator();
   popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
-  m_sort = popup->insertItem(i18n("Enable sorting"), this, SLOT(slotEnableSorting()));
+  m_sort = popup->insertItem(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
 
   popup->setItemChecked(m_macro, true);
   popup->setItemChecked(m_struct, true);

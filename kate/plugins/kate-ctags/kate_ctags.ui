@@ -78,7 +78,7 @@
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text" >
-          <string>CTags Command</string>
+          <string>CTags command:</string>
          </property>
         </widget>
        </item>
@@ -91,7 +91,7 @@
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text" >
-          <string>CTags Database File</string>
+          <string>CTags database file:</string>
          </property>
         </widget>
        </item>

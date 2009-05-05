@@ -19,7 +19,7 @@
    <item>
     <widget class="QGroupBox" name="gFolderList" >
      <property name="title" >
-      <string>Search folders</string>
+      <string>Search Folders</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout" >
       <item>

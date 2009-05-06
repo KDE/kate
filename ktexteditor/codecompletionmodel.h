@@ -428,6 +428,30 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     bool hasGroups() const;
 
   Q_SIGNALS:
+    
+    /**
+     * Emit this if the code-completion for this model was invoked, some time is needed in order to get the data,
+     * and the model is reset once the data is available.
+     *
+     * This only has an effect if emitted from within completionInvoked(..).
+     *
+     * This prevents the code-completion list from showing until this model is reset,
+     * so there is no annoying flashing in the user-interface resulting from other models
+     * supplying their data earlier.
+     *
+     * @note The implementation may choose to show the completion-list anyway after some timeout
+     *
+     * @warning If you emit this, you _must_ also reset the model at some point,
+     *                  else the code-completion will be completely broken to the user.
+     *                  Consider that there may always be additional completion-models apart from yours.
+     *
+     * @since KDE 4.3
+     */
+    void waitForReset();
+    
+    /**
+     * Internal
+     */
     void hasGroupsChanged(KTextEditor::CodeCompletionModel *model,bool hasGroups);
 
   protected:

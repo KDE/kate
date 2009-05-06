@@ -114,6 +114,8 @@ class KateCompletionWidget : public QFrame
     void updateHeight();
     
   public Q_SLOTS:
+    void waitForModelReset();
+    
     void abortCompletion();
     void showConfig();
 /*    void viewFocusIn();
@@ -140,6 +142,7 @@ class KateCompletionWidget : public QFrame
 //    virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
+    void completionModelReset();
     void modelDestroyed(QObject* model);
     void modelContentChanged();
     void cursorPositionChanged();
@@ -163,6 +166,8 @@ class KateCompletionWidget : public QFrame
     KateCompletionModel* m_presentationModel;
 
     QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> m_completionRanges;
+    QSet<KTextEditor::CodeCompletionModel*> m_waitingForReset;
+    
     KTextEditor::Cursor m_lastCursorPosition;
 
     KateCompletionTree* m_entryList;

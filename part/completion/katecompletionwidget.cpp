@@ -162,6 +162,11 @@ void KateCompletionWidget::modelContentChanged() {
     kDebug( 13035 ) << "view does not have focus";
     return;
   }
+  
+  if(!m_waitingForReset.isEmpty()) {
+    kDebug( 13035 ) << "waiting for" << m_waitingForReset.size() << "completion-models to reset";
+    return;
+  }
 
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
@@ -245,6 +250,8 @@ void KateCompletionWidget::argumentHintsChanged(bool hasContent)
 
 void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
+  if(invocationType == KTextEditor::CodeCompletionModel::UserInvocation)
+    abortCompletion();
   startCompletion(KTextEditor::Range(KTextEditor::Cursor(-1, -1), KTextEditor::Cursor(-1, -1)), 0, invocationType);
 }
 
@@ -314,7 +321,13 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
         delete oldRange;
       }
     }
+    
+    connect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
+    
     model->completionInvoked(view(), range, invocationType);
+    
+    disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
+    
     m_completionRanges[model] = view()->doc()->smartManager()->newSmartRange(range);
     m_completionRanges[model]->setInsertBehavior(KTextEditor::SmartRange::ExpandRight | KTextEditor::SmartRange::ExpandLeft);
     if(!m_completionRanges[model]->isValid()) {
@@ -338,6 +351,16 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   else {
     abortCompletion();
   }
+}
+
+void KateCompletionWidget::waitForModelReset()
+{
+  KTextEditor::CodeCompletionModel* senderModel = qobject_cast<KTextEditor::CodeCompletionModel*>(sender());
+  if(!senderModel) {
+    kWarning() << "waitForReset signal from bad model";
+    return;
+  }
+  m_waitingForReset.insert(senderModel);
 }
 
 void KateCompletionWidget::updateAndShow()
@@ -1055,6 +1078,29 @@ void KateCompletionWidget::showConfig( )
   m_configWidget->exec();
 }
 
+void KateCompletionWidget::completionModelReset()
+{
+  KTextEditor::CodeCompletionModel* model = qobject_cast<KTextEditor::CodeCompletionModel*>(sender());
+  if(!model) {
+    kWarning() << "bad sender";
+    return;
+  }
+  
+  if(!m_waitingForReset.contains(model))
+    return;
+  
+  m_waitingForReset.remove(model);
+  
+  if(m_waitingForReset.isEmpty()) {
+    if(!isCompletionActive()) {
+      kDebug() << "all completion-models we waited for are ready. Last one: " << model->objectName();
+      //Eventually show the completion-list if this was the last model we were waiting for      
+      //Use a queued connection once again to make sure that KateCompletionModel is notified before we are
+      QMetaObject::invokeMethod(this, "modelContentChanged", Qt::QueuedConnection);
+    }
+  }
+}
+
 void KateCompletionWidget::modelDestroyed(QObject* model) {
   unregisterCompletionModel(static_cast<KTextEditor::CodeCompletionModel*>(model));
 }
@@ -1062,6 +1108,8 @@ void KateCompletionWidget::modelDestroyed(QObject* model) {
 void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
   connect(model, SIGNAL(destroyed(QObject*)), SLOT(modelDestroyed(QObject*)));
+  //This connection must not be queued
+  connect(model, SIGNAL(modelReset()), SLOT(completionModelReset()));
 
   m_sourceModels.append(model);
 
@@ -1073,6 +1121,7 @@ void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionMo
 void KateCompletionWidget::unregisterCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
   disconnect(model, SIGNAL(destroyed(QObject*)), this, SLOT(modelDestroyed(QObject*)));
+  disconnect(model, SIGNAL(modelReset()), this, SLOT(completionModelReset()));
 
   m_sourceModels.removeAll(model);
   abortCompletion();
@@ -1085,7 +1134,6 @@ int KateCompletionWidget::automaticInvocationDelay() const {
 void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
   m_automaticInvocationDelay = delay;
 }
-
 
 void KateCompletionWidget::editDone(KateEditInfo * edit)
 {

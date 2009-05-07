@@ -49,13 +49,15 @@
   Change log:
   19-Nov-03  Created from scratch.
   08-Mar-04  Small corrections. Added default colors of MATLAB editor.
+  25-Jan-09  Addedd basic support for OOP (Matlab 2008) (by Leonardo Finetti)
 
   Author: Stefan Stoll, Swiss Federal Institute of Technology, Zurich
+  Co-author: Leonardo Finetti, www.finex.org
 -->
 
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Matlab" version="1.20" kateversion="2.2" section="Scientific" extensions="*.m;*.M" mimetype="text/mfile" casesensitive="1">
+<language name="Matlab" version="1.30" kateversion="2.2" section="Scientific" extensions="*.m;*.M" mimetype="text/mfile" casesensitive="1">
   <highlighting>
 
     <!-- Reserved keywords in MATLAB -->
@@ -63,6 +65,7 @@
       <item> break </item>
       <item> case </item>
       <item> catch </item>
+      <item> classdef </item>
       <item> continue </item>
       <item> else </item>
       <item> elseif </item>
@@ -72,11 +75,16 @@
       <item> global </item>
       <item> if </item>
       <item> otherwise </item>
+      <item> parfor </item>
       <item> persistent </item>
       <item> return </item>
+      <item> spmd </item>
       <item> switch </item>
       <item> try </item>
       <item> while </item>
+      <item> methods </item>
+      <item> properties </item>
+      <item> events </item>
     </list>
 
     <contexts>

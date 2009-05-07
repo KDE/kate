@@ -122,9 +122,12 @@ QModelIndex KateWordCompletionModel::parent(const QModelIndex& index) const
 
 QModelIndex KateWordCompletionModel::index(int row, int column, const QModelIndex& parent) const
 {
-  if( !parent.isValid() && row == 0)
-    return createIndex(row, column, 0);
-  else if(parent.parent().isValid())
+  if( !parent.isValid()) {
+    if(row == 0)
+      return createIndex(row, column, 0);
+    else
+      return QModelIndex();
+  }else if(parent.parent().isValid())
     return QModelIndex();
 
   
@@ -136,7 +139,7 @@ QModelIndex KateWordCompletionModel::index(int row, int column, const QModelInde
 
 int KateWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 {
-  if( !parent.isValid() )
+  if( !parent.isValid() && !m_matches.isEmpty() )
     return 1; //One root node to define the custom group
   else if(parent.parent().isValid())
     return 0; //Completion-items have no children

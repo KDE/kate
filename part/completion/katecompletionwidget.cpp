@@ -424,7 +424,7 @@ bool KateCompletionWidget::updatePosition(bool force)
   }
 
   QPoint p = view()->mapToGlobal( cursorPosition );
-  int x = p.x() - m_entryList->columnViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 2;
+  int x = p.x() - m_entryList->columnTextViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 4 - (m_entryList->viewport()->pos().x());
   int y = p.y();
   //We do not need to move the widget up, because updateHeight will resize the widget to fit the screen
 /*  if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->screenGeometry(this).bottom() )

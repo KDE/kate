@@ -87,40 +87,59 @@ void KateWordCompletionModel::saveMatches( KTextEditor::View* view,
 
 QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
 {
+  if(role == InheritanceDepth)
+    return 10000; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
+  
+  if(!index.parent().isValid()) {
+    //It is the group header
+    switch ( role )
+    {
+      case Qt::DisplayRole:
+        return i18n("Auto Word Completion");
+      case GroupRole:
+        return Qt::DisplayRole;
+    }
+  }
+  
   if ( index.column() !=  KTextEditor::CodeCompletionModel::Name ) return QVariant();
-
+  
   switch ( role )
   {
     case Qt::DisplayRole:
-//       kDebug( 13040 ) << ">>" << m_matches.at( index.row() ) << "<<";
       return m_matches.at( index.row() );
-    case CompletionRole:
-      return (int)FirstProperty|LastProperty|Public;
-    case ScopeIndex:
-      return 0;
-    case MatchQuality:
-      return 10;
-    case HighlightingMethod:
-      return QVariant::Invalid;
-    case InheritanceDepth:
-      return 0;
   }
 
   return QVariant();
 }
 
+QModelIndex KateWordCompletionModel::parent(const QModelIndex& index) const
+{
+  if(index.internalId())
+    return createIndex(0, 0, 0);
+  else
+    return QModelIndex();
+}
+
 QModelIndex KateWordCompletionModel::index(int row, int column, const QModelIndex& parent) const
 {
-  if (row < 0 || row >= m_matches.count() || column < 0 || column >= ColumnCount || parent.isValid())
+  if( !parent.isValid() && row == 0)
+    return createIndex(row, column, 0);
+  else if(parent.parent().isValid())
     return QModelIndex();
 
-  return createIndex(row, column, 0);
+  
+  if (row < 0 || row >= m_matches.count() || column < 0 || column >= ColumnCount )
+    return QModelIndex();
+
+  return createIndex(row, column, 1);
 }
 
 int KateWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 {
-  if( parent.isValid() )
-    return 0; //Do not make the model look hierarchical
+  if( !parent.isValid() )
+    return 1; //One root node to define the custom group
+  else if(parent.parent().isValid())
+    return 0; //Completion-items have no children
   else
     return m_matches.count();
 }

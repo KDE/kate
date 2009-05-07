@@ -68,6 +68,7 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel
 
     QVariant data(const QModelIndex& index, int role) const;
     virtual QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
+    virtual QModelIndex parent(const QModelIndex& index) const;
 
     const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range, int minAdditionalLength = 1 ) const;
 

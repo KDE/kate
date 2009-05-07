@@ -242,9 +242,7 @@ void KateBuildView::slotItemSelected(QTreeWidgetItem *item)
     const int column = item->data(2, Qt::UserRole).toInt();
 
     // open file (if needed, otherwise, this will activate only the right view...)
-    KUrl fileURL;
-    fileURL.setPath( filename );
-    m_win->openUrl( fileURL );
+    m_win->openUrl(KUrl(filename));
 
     // any view active?
     if (!m_win->activeView()) {

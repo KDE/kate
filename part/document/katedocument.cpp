@@ -1453,7 +1453,8 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
   QString oldText = this->line(line);
 
-  m_undoManager->addUndo (new KateEditRemoveLineUndo(this, line, this->line(line)));
+  if (editWithUndo)
+    m_undoManager->addUndo (new KateEditRemoveLineUndo(this, line, this->line(line)));
 
   KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
 

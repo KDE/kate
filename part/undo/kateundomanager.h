@@ -60,7 +60,6 @@ class KateUndoManager : public QObject
 
     ~KateUndoManager();
 
-  public:
     /**
      * @short Marks the start of a new undo group. New undo items may be added using addUndo().
      */
@@ -71,6 +70,20 @@ class KateUndoManager : public QObject
      * the next call to undoStart().
      */
     void undoEnd();
+
+    /**
+     * Returns how many undo() actions can be performed.
+     *
+     * @return the number of undo groups which can be undone
+     */
+    uint undoCount () const;
+
+    /**
+     * Returns how many redo() actions can be performed.
+     *
+     * @return the number of undo groups which can be redone
+     */
+    uint redoCount () const;
 
     /**
      * Marks the current KateUndoGroup as not mergable with following
@@ -84,6 +97,9 @@ class KateUndoManager : public QObject
     bool undoDontMergeComplex() const;
     void setUndoDontMergeComplex(bool dontMerge);
 
+    void setModified( bool m );
+    void updateConfig ();
+
     /**
      * @short Add an undo item to the current undo group. The undo item must be non-null.
      *
@@ -95,26 +111,38 @@ class KateUndoManager : public QObject
      */
     void addUndo (KateUndo *undo);
 
-  private:
-    KateDocument *m_document;
-    bool m_undoComplexMerge;
-    KateUndoGroup* m_editCurrentUndo;
-
   public Q_SLOTS:
+    /**
+     * Performs an undo action.
+     *
+     * Undo the last undo group.
+     */
     void undo ();
+
+    /**
+     * Performs a redo action.
+     *
+     * Redo the earliest undo group.
+     */
     void redo ();
+
     void clearUndo ();
     void clearRedo ();
 
-  public:
-    uint undoCount () const;
-    uint redoCount () const;
+  Q_SIGNALS:
+    void undoChanged ();
+
+  private:
+    void updateModified();
 
   private Q_SLOTS:
     void undoCancel();
     void viewCreated (KTextEditor::Document *, KTextEditor::View *newView);
 
   private:
+    KateDocument *m_document;
+    bool m_undoComplexMerge;
+    KateUndoGroup* m_editCurrentUndo;
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;
     bool m_undoDontMerge;
@@ -124,15 +152,6 @@ class KateUndoManager : public QObject
     KateUndoGroup* lastRedoGroupWhenSaved;
     bool docWasSavedWhenUndoWasEmpty;
     bool docWasSavedWhenRedoWasEmpty;
-
-    void updateModified();
-
-  Q_SIGNALS:
-    void undoChanged ();
-
-  public:
-    void setModified( bool m );
-    void updateConfig ();
 };
 
 #endif

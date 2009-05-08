@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katehtmltoolsplugin
 X-Kate-Version=2.9
 Name=HTML Tools
+Name[ca]=Eines HTML
 Name[de]=HTML-Werkzeuge
 Name[el]=Εργαλεία HTML
 Name[es]=Herramientas HTML

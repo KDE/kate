@@ -1138,7 +1138,7 @@ bool KateViNormalMode::commandIndentLines()
 
   doc()->editStart();
   for ( int i = line1; i <= line2; i++ ) {
-      doc()->indent( m_view, i, 1 );
+      doc()->indent( m_view, i, getCount() );
   }
   doc()->editEnd();
 
@@ -1156,7 +1156,7 @@ bool KateViNormalMode::commandUnindentLines()
 
   doc()->editStart();
   for ( int i = line1; i <= line2; i++ ) {
-      doc()->indent( m_view, i, -1 );
+      doc()->indent( m_view, i, -getCount() );
   }
   doc()->editEnd();
 

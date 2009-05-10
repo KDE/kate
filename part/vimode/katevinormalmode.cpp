@@ -945,10 +945,7 @@ bool KateViNormalMode::commandPaste()
   QString textToInsert = getRegisterContent( reg );
 
   if ( getCount() > 1 ) {
-    QString temp = textToInsert;
-    for ( unsigned int i = 1; i < getCount(); i++ ) {
-      textToInsert.append( temp );
-    }
+    textToInsert = textToInsert.repeated( getCount() );
   }
 
   if ( textToInsert.endsWith('\n') ) { // line(s)
@@ -984,10 +981,7 @@ bool KateViNormalMode::commandPasteBefore()
   QString textToInsert = getRegisterContent( reg );
 
   if ( getCount() > 1 ) {
-    QString temp = textToInsert;
-    for ( unsigned int i = 1; i < getCount(); i++ ) {
-      textToInsert.append( temp );
-    }
+    textToInsert = textToInsert.repeated( getCount() );
   }
 
   if ( textToInsert.endsWith('\n') ) { // lines

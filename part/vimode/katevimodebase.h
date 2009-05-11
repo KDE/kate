@@ -38,6 +38,8 @@ class KateViInputModeManager;
 
 class KateViModeBase : public QObject
 {
+  Q_OBJECT
+
   public:
     KateViModeBase() : QObject() {};
     virtual ~KateViModeBase() {};

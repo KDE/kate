@@ -2224,7 +2224,7 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
     pattern.append( s );
 
     if ( i != keys.size()-1 ) {
-      pattern.append( "|" );
+      pattern.append( '|' );
     }
   }
 

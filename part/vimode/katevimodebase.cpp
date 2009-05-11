@@ -128,9 +128,9 @@ KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromCol
   // the start of word pattern need to take m_extraWordCharacters into account if defined
   QString startOfWordPattern("\\b(\\w");
   if ( m_extraWordCharacters.length() > 0 ) {
-    startOfWordPattern.append( "|["+m_extraWordCharacters+']' );
+    startOfWordPattern.append( QLatin1String( "|[" )+m_extraWordCharacters+']' );
   }
-  startOfWordPattern.append( ")" );
+  startOfWordPattern.append( ')' );
 
   QRegExp startOfWord( startOfWordPattern );    // start of a word
   QRegExp nonSpaceAfterSpace( "\\s\\S" );       // non-space right after space
@@ -310,9 +310,9 @@ KTextEditor::Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromCol
   // the start of word pattern need to take m_extraWordCharacters into account if defined
   QString startOfWordPattern("\\b(\\w");
   if ( m_extraWordCharacters.length() > 0 ) {
-    startOfWordPattern.append( "|["+m_extraWordCharacters+']' );
+    startOfWordPattern.append( QLatin1String( "|[" )+m_extraWordCharacters+']' );
   }
-  startOfWordPattern.append( ")" );
+  startOfWordPattern.append( ')' );
 
   QRegExp startOfWord( startOfWordPattern );    // start of a word
   QRegExp nonSpaceAfterSpace( "\\s\\S" );       // non-space right after space

@@ -587,19 +587,19 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
       ret.append( '<' );
 
       if ( ( keycode & 0x1 ) == 0x1 ) {
-        ret.append("s-");
+        ret.append( QQLatin1String( "s-") );
         //keycode -= 0x1;
       }
       if ( ( keycode & 0x2 ) == 0x2 ) {
-        ret.append("c-");
+        ret.append( QQLatin1String( "c-") );
         //keycode -= 0x2;
       }
       if ( ( keycode & 0x4 ) == 0x4 ) {
-        ret.append("a-");
+        ret.append( QQLatin1String( "a-") );
         //keycode -= 0x4;
       }
       if ( ( keycode & 0x8 ) == 0x8 ) {
-        ret.append("m-");
+        ret.append( QQLatin1String( "m-") );
         //keycode -= 0x8;
       }
 

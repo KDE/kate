@@ -22,10 +22,10 @@
 #include "katesmartcursor.h"
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/rangefeedback.h>
-#include "kateedit.h"
 
 class KateSmartRange;
 class KateDynamicAnimation;
+class KateEditInfo;
 
 /**
  * Internal Implementation of KTextEditor::SmartRangeNotifier.

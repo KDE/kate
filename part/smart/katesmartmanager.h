@@ -26,8 +26,7 @@
 
 #include <ktexteditor/smartrange.h>
 
-#include "kateedit.h"
-
+class KateEditInfo;
 class KateDocument;
 class KateSmartCursor;
 class KateSmartRange;

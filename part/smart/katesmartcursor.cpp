@@ -19,6 +19,7 @@
 #include "katesmartcursor.h"
 
 #include "katedocument.h"
+#include "kateedit.h"
 #include "katesmartmanager.h"
 #include "katesmartcursornotifier.h"
 #include "katesmartrange.h"

@@ -19,6 +19,7 @@
 #include "katesmartrange.h"
 
 #include "katedocument.h"
+#include "kateedit.h"
 #include "kateview.h"
 #include <ktexteditor/attribute.h>
 #include "katesmartmanager.h"

@@ -23,9 +23,8 @@
 
 #include <QtCore/QObject>
 
-#include "kateedit.h"
-
 class KateDocument;
+class KateEditInfo;
 class KateSmartGroup;
 class KateSmartCursorNotifier;
 namespace KTextEditor { class Document; }

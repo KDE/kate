@@ -81,17 +81,16 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 
 void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 {
-  QChar c;
   int key;
   Qt::KeyboardModifiers mods;
   QString text;
 
   kDebug( 13070 ) << "Repeating change";
-  foreach(c, keyPresses) {
+  foreach(const QChar &c, keyPresses) {
     QString decoded = m_keyParser->decodeKeySequence(QString(c));
     key = -1;
     mods = Qt::NoModifier;
-    text = QString();
+    text.clear();
 
     kDebug( 13070 ) << "\t" << decoded;
 

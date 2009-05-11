@@ -32,19 +32,11 @@ namespace KTextEditor {
 }
 
 /**
- * KateUndoManager is a state machine which either accepts new undo items to be added or undo- and redo operations to be performed.
- * The state where new undo items are accepted is entered by calling undoStart(). Calling undoEnd() enters the state where undo-
- * and redo operations are accepted, which is also the state of a newly created KateUndoManager.
+ * KateUndoManager implements a document's history. It is in either of the two states:
+ * @li the default state, which allows rolling back and forth the history of a document, and
+ * @li a state in which a new element is being added to the history.
  *
- * KateUndoManager organizes single undo items into undo groups which are embraced by undoStart() and undoEnd(). As long as the
- * undo group is not finished by calling undoEnd(), any number of undo items may be added using addUndo(). Only in this state,
- * undoSafePoint() may be called.
- *
- * KateUndoManager supports merging of the last two undo groups. The merging happens when undoEnd() is called unless merging is
- * suppressed. Merging the current undo group with succeeding edit groups may be suppressed by calling undoSafePoint(), whereas
- * merging with previous undo groups may be suppressed using setUndoDontMerge(false). By default, undo groups only get merged
- * if all items are of the same type. Whether undo groups consisting of different types of undo items may be merged can be
- * controlled using setUndoDontMergeComplex().
+ * The state of the KateUndomanager can be switched using undoStart() and undoEnd().
  */
 class KateUndoManager : public QObject
 {
@@ -61,13 +53,12 @@ class KateUndoManager : public QObject
     ~KateUndoManager();
 
     /**
-     * @short Marks the start of a new undo group. New undo items may be added using addUndo().
+     * @short Starts a new undo group.
      */
     void undoStart();
 
     /**
-     * @short Marks the end of the undo group started by undoStart(). No more undo items may be added until
-     * the next call to undoStart().
+     * @short Adds the undo group started by undoStart() to the history.
      */
     void undoEnd();
 
@@ -86,53 +77,98 @@ class KateUndoManager : public QObject
     uint redoCount () const;
 
     /**
-     * Marks the current KateUndoGroup as not mergable with following
-     * undo groups.
+     * Prevent the current KateUndoGroup from being merged with the next one.
      */
     void undoSafePoint();
 
     bool undoDontMerge() const;
+
+    /**
+     * Allows or disallows merging with previous undo group.
+     *
+     * @param dontMerge whether merging is not allowed
+     */
     void setUndoDontMerge(bool dontMerge);
 
     bool undoDontMergeComplex() const;
+
+    /**
+     * Allows or disallows merging of "complex" undo groups.
+     *
+     * When an undo group contains different types of undo items, it is considered
+     * a "complex" group.
+     *
+     * @param dontMerge whether complex merging is allowed
+     */
     void setUndoDontMergeComplex(bool dontMerge);
 
     void setModified( bool m );
     void updateConfig ();
 
-    /**
-     * @short Add an undo item to the current undo group. The undo item must be non-null.
-     *
-     * Call this method only when the following conditions are satisfied:
-     * @li an edit is in progress, i.e. KateDocument::isEditRunning()
-     * @li the document has undo enabled, i.e. KateDocument::isWithUndo()
-     *
-     * @param undo undo item to be added, must be non-null
-     */
-    void addUndo (KateUndo *undo);
-
   public Q_SLOTS:
     /**
-     * Performs an undo action.
+     * Undo the latest undo group.
      *
-     * Undo the last undo group.
+     * Make sure isDefaultState() is true when calling this method.
      */
     void undo ();
 
     /**
-     * Performs a redo action.
+     * Redo the latest undo group.
      *
-     * Redo the earliest undo group.
+     * Make sure isDefaultState() is true when calling this method.
      */
     void redo ();
 
     void clearUndo ();
     void clearRedo ();
 
+    /**
+     * Notify KateUndoManager that text was inserted.
+     */
+    void slotTextInserted(int line, int col, const QString &s);
+
+    /**
+     * Notify KateUndoManager that text was removed.
+     */
+    void slotTextRemoved(int line, int col, const QString &s);
+
+    /**
+     * Notify KateUndoManager that a line was marked as autowrapped.
+     */
+    void slotMarkLineAutoWrapped(int line, bool autowrapped);
+
+    /**
+     * Notify KateUndoManager that a line was wrapped.
+     */
+    void slotLineWrapped(int line, int col, int pos, bool newLine);
+
+    /**
+     * Notify KateUndoManager that a line was un-wrapped.
+     */
+    void slotLineUnWrapped(int line, int col, int length, bool lineRemoved);
+
+    /**
+     * Notify KateUndoManager that a line was inserted.
+     */
+    void slotLineInserted(int line, const QString &s);
+
+    /**
+     * Notify KateUndoManager that a line was removed.
+     */
+    void slotLineRemoved(int line, const QString &s);
+
   Q_SIGNALS:
     void undoChanged ();
 
   private:
+    /**
+     * @short Add an undo item to the current undo group. The undo item must be non-null.
+     *
+     * @param undo undo item to be added, must be non-null
+     */
+    void addUndoItem(KateUndo *undo);
+
     void updateModified();
 
   private Q_SLOTS:

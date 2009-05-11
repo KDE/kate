@@ -55,7 +55,8 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::undoStart()
 {
-  Q_ASSERT(m_editCurrentUndo == 0); // previous state must be undo-redo accepting state
+  // undoStart() and undoEnd() must be called in alternating fashion
+  Q_ASSERT(m_editCurrentUndo == 0); // make sure to enter a clean state
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(m_document);
@@ -63,11 +64,14 @@ void KateUndoManager::undoStart()
     m_editCurrentUndo->setUndoCursor(m_document->activeKateView()->cursorPosition());
     m_editCurrentUndo->setUndoSelection(m_document->activeKateView()->selectionRange());
   }
+
+  Q_ASSERT(m_editCurrentUndo != 0); // a new undo group must be created by this method
 }
 
 void KateUndoManager::undoEnd()
 {
-  Q_ASSERT(m_editCurrentUndo != 0); // previous state must be item-accepting group state
+  // undoStart() and undoEnd() must be called in alternating fashion
+  Q_ASSERT(m_editCurrentUndo != 0); // an undo group must have been created by undoStart()
 
     bool changedUndo = false;
 
@@ -93,6 +97,50 @@ void KateUndoManager::undoEnd()
 
     if (changedUndo)
       emit undoChanged();
+
+  Q_ASSERT(m_editCurrentUndo == 0); // must be 0 after calling this method
+}
+
+void KateUndoManager::slotTextInserted(int line, int col, const QString &s)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditInsertTextUndo(m_document, line, col, s));
+}
+
+void KateUndoManager::slotTextRemoved(int line, int col, const QString &s)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditRemoveTextUndo(m_document, line, col, s));
+}
+
+void KateUndoManager::slotMarkLineAutoWrapped(int line, bool autowrapped)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditMarkLineAutoWrappedUndo(m_document, line, autowrapped));
+}
+
+void KateUndoManager::slotLineWrapped(int line, int col, int pos, bool newLine)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditWrapLineUndo(m_document, line, col, pos, newLine));
+}
+
+void KateUndoManager::slotLineUnWrapped(int line, int col, int length, bool lineRemoved)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditUnWrapLineUndo(m_document, line, col, length, lineRemoved));
+}
+
+void KateUndoManager::slotLineInserted(int line, const QString &s)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditInsertLineUndo(m_document, line, s));
+}
+
+void KateUndoManager::slotLineRemoved(int line, const QString &s)
+{
+  if (m_editCurrentUndo != 0) // do we care about notifications?
+    addUndoItem(new KateEditRemoveLineUndo(m_document, line, s));
 }
 
 void KateUndoManager::undoCancel()
@@ -107,17 +155,15 @@ void KateUndoManager::undoCancel()
 }
 
 void KateUndoManager::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo != 0); // current state must be item-accepting group state
+  Q_ASSERT(m_editCurrentUndo != 0); // call this method only in between undoStart() and undoEnd()
 
   m_editCurrentUndo->safePoint();
 }
 
-void KateUndoManager::addUndo (KateUndo *undo)
+void KateUndoManager::addUndoItem(KateUndo *undo)
 {
   Q_ASSERT(undo != 0); // don't add null pointers to our history
-  Q_ASSERT(m_document->isEditRunning()); // don't mess with our undo history outside edits
-  Q_ASSERT(m_document->isWithUndo()); // don't mess with our undo history when undo disabled
-  Q_ASSERT(m_editCurrentUndo != 0); // current state must be item-accepting group state
+  Q_ASSERT(m_editCurrentUndo != 0); // make sure there is an undo group for our item
 
   m_editCurrentUndo->addItem(undo);
 
@@ -138,7 +184,7 @@ uint KateUndoManager::redoCount () const
 
 void KateUndoManager::undo()
 {
-  Q_ASSERT(m_editCurrentUndo == 0);
+  Q_ASSERT(m_editCurrentUndo == 0); // undo is not supported while we care about notifications (call undoEnd() first)
 
   if (undoItems.count() > 0)
   {
@@ -168,7 +214,7 @@ void KateUndoManager::undo()
 
 void KateUndoManager::redo()
 {
-  Q_ASSERT(m_editCurrentUndo == 0);
+  Q_ASSERT(m_editCurrentUndo == 0); // redo is not supported while we care about notifications (call undoEnd() first)
 
   if (redoItems.count() > 0)
   {

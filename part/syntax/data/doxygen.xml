@@ -213,8 +213,10 @@
     </list>
     <list name="TagParam">
       <item> \param </item>
+      <item> \tparam </item>
 
       <item> @param </item>
+      <item> @tparam </item>
     </list>
     <list name="TagWordWord">
       <item> \image </item>

@@ -554,8 +554,7 @@ class KateView : public KTextEditor::View,
     inline KateDocument*  doc() { return m_doc; }
 
   public Q_SLOTS:
-    void slotNewUndo();
-    void slotUpdate();
+    void slotUpdateUndo();
     void toggleInsert();
     void reloadFile();
     void toggleWWMarker();

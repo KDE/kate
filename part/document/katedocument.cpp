@@ -3625,7 +3625,7 @@ void KateDocument::setReadWrite( bool rw )
 
     foreach( KateView* view, m_views)
     {
-      view->slotUpdate();
+      view->slotUpdateUndo();
       view->slotReadWriteChanged ();
     }
   }
@@ -3638,7 +3638,7 @@ void KateDocument::setModified(bool m) {
 
     foreach( KateView* view,m_views)
     {
-      view->slotUpdate();
+      view->slotUpdateUndo();
     }
 
     emit modifiedChanged (this);

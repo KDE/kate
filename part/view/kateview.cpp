@@ -235,7 +235,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   KatePartPluginManager::self()->addView(this);
 
   // update the enabled state of the undo/redo actions...
-  slotNewUndo();
+  slotUpdateUndo();
 
   m_startingUp = false;
   updateConfig ();
@@ -292,7 +292,7 @@ KateView::~KateView()
 void KateView::setupConnections()
 {
   connect( m_doc, SIGNAL(undoChanged()),
-           this, SLOT(slotNewUndo()) );
+           this, SLOT(slotUpdateUndo()) );
   connect( m_doc, SIGNAL(highlightingModeChanged(KTextEditor::Document *)),
            this, SLOT(slotHlChanged()) );
   connect( m_doc, SIGNAL(canceled(const QString&)),
@@ -1028,11 +1028,6 @@ void KateView::reloadFile()
   m_doc->documentReload();
 }
 
-void KateView::slotUpdate()
-{
-  slotNewUndo();
-}
-
 void KateView::slotReadWriteChanged ()
 {
   if ( m_toggleWriteLock )
@@ -1056,16 +1051,13 @@ void KateView::slotReadWriteChanged ()
       a->setEnabled (m_doc->isReadWrite());
 }
 
-void KateView::slotNewUndo()
+void KateView::slotUpdateUndo()
 {
   if (m_doc->readOnly())
     return;
 
-  if ((m_doc->undoCount() > 0) != m_editUndo->isEnabled())
-    m_editUndo->setEnabled(m_doc->undoCount() > 0);
-
-  if ((m_doc->redoCount() > 0) != m_editRedo->isEnabled())
-    m_editRedo->setEnabled(m_doc->redoCount() > 0);
+  m_editUndo->setEnabled(m_doc->undoCount() > 0);
+  m_editRedo->setEnabled(m_doc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )

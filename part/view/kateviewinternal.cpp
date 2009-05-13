@@ -3723,9 +3723,9 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   }
 
   if (!m_imPreedit->isEmpty()) {
-    m_view->doc()->editStart(false);
+    m_view->doc()->inputMethodStart();
     m_view->doc()->removeText(*m_imPreedit);
-    m_view->doc()->editEnd();
+    m_view->doc()->inputMethodEnd();
   }
 
   if (!e->commitString().isEmpty() || e->replacementLength()) {
@@ -3746,9 +3746,9 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   }
 
   if (!e->preeditString().isEmpty()) {
-    m_view->doc()->editStart(false);
+    m_view->doc()->inputMethodStart();
     m_view->doc()->insertText(m_imPreedit->start(), e->preeditString());
-    m_view->doc()->editEnd();
+    m_view->doc()->inputMethodEnd();
     // The preedit range gets automatically repositioned
   }
 

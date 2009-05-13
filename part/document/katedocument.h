@@ -221,6 +221,9 @@ class KateDocument : public KTextEditor::Document,
 
 //END editStart/editEnd
 
+    void inputMethodStart();
+    void inputMethodEnd();
+
 //BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
     /**
      * Add a string in the given line/column

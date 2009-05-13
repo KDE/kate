@@ -997,6 +997,16 @@ void KateDocument::popEditState ()
   while (count > 0) { --count; editStart(); }
 }
 
+void KateDocument::inputMethodStart()
+{
+  editStart(false);
+}
+
+void KateDocument::inputMethodEnd()
+{
+  editEnd();
+}
+
 bool KateDocument::wrapText(int startLine, int endLine)
 {
   if (startLine < 0 || endLine < 0)

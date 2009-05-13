@@ -927,8 +927,6 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
 
   if (editWithUndo)
     m_undoManager->undoStart();
-  else
-    m_undoManager->setUndoDontMerge(true);
 
   foreach(KateView *view,m_views)
   {

@@ -1,9 +1,14 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
+Name[es]=Editor de texto integrado
 Name[et]=Põimitud tekstiredaktor
+Name[gl]=Editor de textos integrado
+Name[gu]=જડિત લખાણ સંપાદક
+Name[nds]=Inbett Texteditor
 Name[pt]=Editor de Texto Incorporado
 Name[pt_BR]=Editor de texto integrado
 Name[sv]=Inbäddad texteditor
+Name[tr]=Gömülü Metin Düzenleyici
 Name[uk]=Вмонтований текстовий редактор
 Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.

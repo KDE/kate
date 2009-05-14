@@ -123,7 +123,7 @@ QString KateAutoIndent::tabString (int length, int align) const
   return s;
 }
 
-bool KateAutoIndent::doIndent(KateView *view, int line, int indentDepth, int align)
+bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 {
   kDebug (13060) << "doIndent: line: " << line << " indentDepth: " << indentDepth << " align: " << align;
 
@@ -164,7 +164,7 @@ bool KateAutoIndent::doIndent(KateView *view, int line, int indentDepth, int ali
   QString indentString = tabString(indentDepth, align);
 
   // remove leading whitespace, then insert the leading indentation
-  doc->editStart (view);
+  doc->editStart ();
   doc->editRemoveText (line, 0, first_char);
   doc->editInsertText (line, 0, indentString);
   doc->editEnd ();
@@ -172,7 +172,7 @@ bool KateAutoIndent::doIndent(KateView *view, int line, int indentDepth, int ali
   return true;
 }
 
-bool KateAutoIndent::doIndentRelative(KateView *view, int line, int change)
+bool KateAutoIndent::doIndentRelative(int line, int change)
 {
   kDebug (13060) << "doIndentRelative: line: " << line << " change: " << change;
 
@@ -195,10 +195,10 @@ bool KateAutoIndent::doIndentRelative(KateView *view, int line, int change)
   }
 
   // do indent
-  return doIndent(view, line, indentDepth);
+  return doIndent(line, indentDepth);
 }
 
-void KateAutoIndent::keepIndent ( KateView *view, int line )
+void KateAutoIndent::keepIndent ( int line )
 {
   // no line in front, no work...
   if (line <= 0)
@@ -210,7 +210,7 @@ void KateAutoIndent::keepIndent ( KateView *view, int line )
   if (!textline)
     return;
 
-  doIndent (view, line, textline->indentDepth (tabWidth));
+  doIndent (line, textline->indentDepth (tabWidth));
 }
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
@@ -226,7 +226,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
   if (newIndentInChars == -1)
   {
     // keep indent of previous line
-    keepIndent (view, position.line());
+    keepIndent (position.line());
 
     return;
   }
@@ -236,7 +236,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
     kDebug (13060) << "Align: " << align;
 
   // we got a positive or zero indent to use...
-  doIndent (view, position.line(), newIndentInChars, align);
+  doIndent (position.line(), newIndentInChars, align);
 }
 
 bool KateAutoIndent::isStyleProvided(KateIndentScript *script)
@@ -319,7 +319,7 @@ void KateAutoIndent::updateConfig ()
 }
 
 
-bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
+bool KateAutoIndent::changeIndent (const KTextEditor::Range &range, int change)
 {
   QList<int> skippedLines;
 
@@ -340,14 +340,14 @@ bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &ran
       continue;
     }
 
-    doIndentRelative(view, line, change * indentWidth);
+    doIndentRelative(line, change * indentWidth);
   }
 
   if (skippedLines.count() > range.numberOfLines())
   {
     // all lines were empty, so indent them nevertheless
     foreach (int line, skippedLines)
-      doIndentRelative(view, line, change * indentWidth);
+      doIndentRelative(line, change * indentWidth);
   }
 
   return true;
@@ -382,7 +382,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
       return;
 
     // keep indent of previous line
-    keepIndent (view, position.line());
+    keepIndent (position.line());
 
     return;
   }

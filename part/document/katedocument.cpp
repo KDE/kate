@@ -4071,7 +4071,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter.changeIndent(v, range, change);
+  m_indenter.changeIndent(range, change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {

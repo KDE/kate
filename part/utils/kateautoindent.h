@@ -110,30 +110,27 @@ class KateAutoIndent
 
     /**
      * Set the indent level of the line.
-     * \param view the current active view
      * \param line line to change indent for
      * \param change set indentation to given number of spaces
      * \param align if align is higher than indentDepth, the difference 
      * represents a number of spaces to be added after the indent
      */
-    bool doIndent(KateView *view, int line, int indentDepth, int align = 0);
+    bool doIndent(int line, int indentDepth, int align = 0);
     
     /**
      * Change the indent of the specified line by the number of levels
      * specified by change. Positive values will indent more, negative values 
      * will indent less.
-     * \param view the current active view
      * \param line line to change indent for
      * \param change change the indentation by given number of spaces
      */
-    bool doIndentRelative(KateView *view, int line, int change);
+    bool doIndentRelative(int line, int change);
 
     /**
      * Reuse the indent of the previous line
-     * \param view the current active view
      * \param line line to change indent for
      */
-    void keepIndent ( KateView *view, int line );
+    void keepIndent ( int line );
 
     /**
      * Call the indentation script, this is a helper to be used in userTypedChar and indent
@@ -180,13 +177,12 @@ class KateAutoIndent
      * Function to provide the common indent/unindent/clean indent functionality to the document
      * This should be generic for all indenters, internally it uses the doIndent function.
      * This works equal for all indenters, even for "none" or the scripts
-     * \param view view to work on
      * \param range range of text to change indent for
      * \param change level of indents to add or remove, zero will still trigger cleaning of indentation
      * and removal of extra spaces, if option set
      * \return \e true on success, otherwise \e false
      */
-    bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
+    bool changeIndent (const KTextEditor::Range &range, int change);
 
     /**
      * The document requests the indenter to indent the given range of existing text.

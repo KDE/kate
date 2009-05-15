@@ -10,6 +10,7 @@ Name[pt_BR]=Editor de texto integrado
 Name[sv]=Inbäddad texteditor
 Name[tr]=Gömülü Metin Düzenleyici
 Name[uk]=Вмонтований текстовий редактор
+Name[zh_CN]=嵌入式文本编辑器
 Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[af]=Die teksredigeerderdiens verskaf programme met 'n teks aansig en redigeerder. KDE programme wat teksredigering fasiliteite verskaf, moet hierdie diens gebruik.

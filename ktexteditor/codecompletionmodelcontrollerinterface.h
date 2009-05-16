@@ -111,6 +111,8 @@ public:
      *
      * The default implementation does nothing.
      *
+     * The smart-mutex is locked when this is called.
+     *
      * \param view The view to generate completions for
      * \param range Reference to the current range
      */
@@ -122,6 +124,8 @@ public:
      *
      * The default implementation will return the text from \p range start to
      * the cursor \p position.
+     *
+     * The smart-mutex is locked when this is called.
      *
      * \param view The view to generate completions for
      * \param range The completion range
@@ -135,6 +139,8 @@ public:
      * Called after every change to the range (eg. when user entered text)
      *
      * The default implementation will return true when any special character was entered.
+     *
+     * The smart-mutex is locked when this is called.
      *
      * \param view The view to generate completions for
      * \param range The completion range

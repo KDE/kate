@@ -84,8 +84,6 @@ class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWid
     virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-    void setStatus(const QString& status);
-
     void loadBacktrace(const QString& bt);
 
   public slots:
@@ -93,6 +91,7 @@ class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWid
     void loadClipboard();
     void configure();
     void clearStatus();
+    void setStatus(const QString& status);
 
   private slots:
     void itemActivated(QTreeWidgetItem* item, int column);

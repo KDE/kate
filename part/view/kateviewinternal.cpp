@@ -3616,6 +3616,8 @@ void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
 
 void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+  
   if(range->attribute())
     relayoutRange(*range);
 }
@@ -3632,6 +3634,8 @@ void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEdito
 
 void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+  
   if (currentAttribute != previousAttribute && !(currentAttribute && previousAttribute && *currentAttribute == *previousAttribute))
     relayoutRange(*range);
 }

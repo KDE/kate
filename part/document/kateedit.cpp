@@ -125,6 +125,7 @@ KateEditHistory::~KateEditHistory()
 
 int KateEditHistory::revision()
 {
+  QMutexLocker lock(&m_mutex);
   if (!m_edits.isEmpty()) {
     KateEditInfo* edit = m_edits.last();
     if (!edit->isReferenced())
@@ -150,8 +151,19 @@ void KateEditHistory::releaseRevision(int revision)
   kWarning() << "Unknown revision token " << revision;
 }
 
+void KateEditHistory::doEdit(KateEditInfo* edit) {
+  
+  m_mutex.lock();
+  m_edits.append(edit);
+  m_mutex.unlock();
+  
+  emit editDone(edit);
+}
+
 QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) const
 {
+  QMutexLocker lock(&m_mutex);
+
   QList<KateEditInfo*> ret;
 
   if (from == -1)

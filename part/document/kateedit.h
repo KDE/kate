@@ -22,6 +22,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
 #include <QtCore/QMap>
+#include <QtCore/QMutex>
 
 #include <ktexteditor/range.h>
 
@@ -109,6 +110,8 @@ class KateEditInfo
 
 /**
  * Manages edit history in a document.
+ *
+ * @warning Smart-lock must be held when using
  */
 class KateEditHistory : public QObject
 {
@@ -123,13 +126,14 @@ class KateEditHistory : public QObject
 
     QList<KateEditInfo*> editsBetweenRevisions(int from, int to = -1) const;
 
-    void doEdit(KateEditInfo* edit) { m_edits.append(edit); emit editDone(edit); }
+    void doEdit(KateEditInfo* edit);
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
 
   private:
     QList<KateEditInfo*> m_edits;
+    mutable QMutex m_mutex; ///Mutex that protects m_edits. @warning: Do not call any external functions if this is locked
 
     QMap<int, KateEditInfo*> m_revisions;
     int m_revision;

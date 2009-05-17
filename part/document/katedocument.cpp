@@ -916,11 +916,11 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
   else
     m_editSources.push(editSource);
 
-  if (editSessionNumber > 1)
-    return;
-
   // Unlocked in editEnd
   smartMutex()->lock();
+
+  if (editSessionNumber > 1)
+    return;
 
   editIsRunning = true;
   editWithUndo = withUndo;
@@ -961,6 +961,9 @@ void KateDocument::editEnd ()
 
   m_editSources.pop();
 
+  // Was locked in editStart
+  smartMutex()->unlock();
+
   if (editSessionNumber > 0)
     return;
 
@@ -974,9 +977,6 @@ void KateDocument::editEnd ()
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)
     view->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
-
-  // Was locked in editStart
-  smartMutex()->unlock();
 
   if (m_buffer->editChanged())
   {

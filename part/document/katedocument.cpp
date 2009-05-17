@@ -945,8 +945,12 @@ void KateDocument::undoSafePoint() {
 //
 void KateDocument::editEnd ()
 {
-  if (editSessionNumber == 0)
+  if (editSessionNumber == 0) {
+    //Dangerous, because bad editStart() editEnd() mismatches defeat the smart-lock protection,
+    //which can lead to random crashes
+    Q_ASSERT(0);
     return;
+  }
 
   // wrap the new/changed text, if something really changed!
   if (m_buffer->editChanged() && (editSessionNumber == 1))

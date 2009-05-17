@@ -121,7 +121,7 @@ class KateFileLoader
           //may change codec if autodetection was set or BOM was found
           kDebug (13020) << "PROBER TYPE: " << KEncodingProber::nameForProberType(m_prober->proberType());
           m_prober->feed(m_buffer.data(), c);
-          if (m_prober->confidence() > 0.5)
+          if (m_prober->confidence() > 0.5 && QTextCodec::codecForName(m_prober->encoding()))
             m_codec = QTextCodec::codecForName(m_prober->encoding());
           m_utf8Borked=errorsIfUtf8(m_buffer.data(), c);
           m_binary=processNull(m_buffer.data(), c);

@@ -60,10 +60,6 @@ void KateUndoManager::undoStart()
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(m_document);
-  if (m_document->activeKateView()) {
-    m_editCurrentUndo->setUndoCursor(m_document->activeKateView()->cursorPosition());
-    m_editCurrentUndo->setUndoSelection(m_document->activeKateView()->selectionRange());
-  }
 
   Q_ASSERT(m_editCurrentUndo != 0); // a new undo group must be created by this method
 }
@@ -75,10 +71,7 @@ void KateUndoManager::undoEnd()
 
     bool changedUndo = false;
 
-    if (m_document->activeKateView()) {
-        m_editCurrentUndo->setRedoCursor(m_document->activeKateView()->cursorPosition());
-        m_editCurrentUndo->setRedoSelection(m_document->activeKateView()->selectionRange());
-    }
+    m_editCurrentUndo->editEnd();
 
     if (m_editCurrentUndo->isEmpty()) {
       delete m_editCurrentUndo;

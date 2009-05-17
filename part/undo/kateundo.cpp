@@ -190,6 +190,11 @@ KateUndoGroup::KateUndoGroup (KateDocument *document)
   , m_undoCursor(-1, -1)
   , m_redoCursor(-1, -1)
 {
+  if (document->activeKateView())
+  {
+    m_undoCursor = document->activeKateView()->cursorPosition();
+    m_undoSelection = document->activeKateView()->selectionRange();
+  }
 }
 
 KateUndoGroup::~KateUndoGroup ()
@@ -243,24 +248,13 @@ void KateUndoGroup::redo ()
   document()->editEnd ();
 }
 
-void KateUndoGroup::setUndoSelection(const KTextEditor::Range &selection)
+void KateUndoGroup::editEnd()
 {
-  m_undoSelection = selection;
-}
-
-void KateUndoGroup::setRedoSelection(const KTextEditor::Range &selection)
-{
-  m_redoSelection = selection;
-}
-
-void KateUndoGroup::setUndoCursor(const KTextEditor::Cursor &cursor)
-{
-  m_undoCursor = cursor;
-}
-
-void KateUndoGroup::setRedoCursor(const KTextEditor::Cursor &cursor)
-{
-  m_redoCursor = cursor;
+  if (document()->activeKateView())
+  {
+    m_redoCursor = document()->activeKateView()->cursorPosition();
+    m_redoSelection = document()->activeKateView()->selectionRange();
+  }
 }
 
 void KateUndoGroup::addItem(KateUndo* u)

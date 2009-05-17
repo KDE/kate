@@ -383,29 +383,7 @@ class KateUndoGroup : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editGroup; }
 
-    /**
-     * sets the undo text selection range for the edit group.
-     * @param selection selection to remember
-     */
-    void setUndoSelection (const KTextEditor::Range &selection);
-
-    /**
-     * sets the redo text selection range for the edit group.
-     * @param selection selection to remember
-     */
-    void setRedoSelection (const KTextEditor::Range &selection);
-
-    /**
-     * sets the undo cursor position for the edit group.
-     * @param selection selection to remember
-     */
-    void setUndoCursor(const KTextEditor::Cursor &cursor);
-
-    /**
-     * sets the redo cursor position for the edit group.
-     * @param selection selection to remember
-     */
-    void setRedoCursor(const KTextEditor::Cursor &cursor);
+    void editEnd();
 
     /**
      * merge this group with an other

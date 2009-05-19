@@ -173,6 +173,7 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, ">", &KateViNormalMode::commandIndentLines ) );
   m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines ) );
   m_commands.push_back( new KateViCommand( this, "<c-c>", &KateViNormalMode::commandAbort ) );
+  m_commands.push_back( new KateViCommand( this, "<c-[>", &KateViNormalMode::commandAbort ) );
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, SHOULD_NOT_RESET ) );

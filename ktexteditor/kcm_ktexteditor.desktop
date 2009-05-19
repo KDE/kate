@@ -1,9 +1,11 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
+Name[da]=Indlejret tekstredigering
 Name[es]=Editor de texto integrado
 Name[et]=Põimitud tekstiredaktor
 Name[gl]=Editor de textos integrado
 Name[gu]=જડિત લખાણ સંપાદક
+Name[lv]=Iegultais teksta redaktors
 Name[nds]=Inbett Texteditor
 Name[pt]=Editor de Texto Incorporado
 Name[pt_BR]=Editor de texto integrado

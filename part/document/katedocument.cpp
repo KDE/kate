@@ -926,7 +926,7 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
   editWithUndo = withUndo;
 
   if (editWithUndo)
-    m_undoManager->undoStart();
+    m_undoManager->editStart();
 
   foreach(KateView *view,m_views)
   {
@@ -972,7 +972,7 @@ void KateDocument::editEnd ()
   m_buffer->editEnd ();
 
   if (editWithUndo)
-    m_undoManager->undoEnd();
+    m_undoManager->editEnd();
 
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)
@@ -6020,14 +6020,14 @@ bool KateDocument::undoDontMerge( ) const
   return m_undoManager->undoDontMerge ();
 }
 
-void KateDocument::setUndoDontMergeComplex(bool dontMerge)
+void KateDocument::setUndoAllowComplexMerge(bool allow)
 {
-  m_undoManager->setUndoDontMergeComplex (dontMerge);
+  m_undoManager->setAllowComplexMerge (allow);
 }
 
-bool KateDocument::undoDontMergeComplex( ) const
+bool KateDocument::undoAllowComplexMerge( ) const
 {
-  return m_undoManager->undoDontMergeComplex ();
+  return m_undoManager->allowComplexMerge ();
 }
 
 void KateDocument::setUndoDontMerge(bool dontMerge)
@@ -6050,7 +6050,7 @@ bool KateDocument::isWithUndo() const
 void KateDocument::setMergeAllEdits(bool merge)
 {
   setUndoDontMerge(true);
-  setUndoDontMergeComplex(merge);
+  setUndoAllowComplexMerge(merge);
 }
 
 void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )

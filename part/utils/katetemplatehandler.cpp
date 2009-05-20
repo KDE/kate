@@ -332,7 +332,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
   }
 
   m_doc->setUndoDontMerge(false);
-  m_doc->setUndoDontMergeComplex(true);
+  m_doc->setUndoAllowComplexMerge(true);
   m_doc->undoSafePoint();
   m_doc->editEnd();
   m_doc->setUndoDontMerge(undoDontMerge);

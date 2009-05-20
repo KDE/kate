@@ -49,7 +49,7 @@ bool KateEditRemoveTextUndo::isEmpty() const
   return len() == 0;
 }
 
-bool KateUndo::mergeWith (const KateUndo* undo)
+bool KateUndo::mergeWith (const KateUndo* /*undo*/)
 {
   return false;
 }
@@ -183,7 +183,7 @@ void KateEditMarkLineAutoWrappedUndo::redo ()
 }
 
 KateUndoGroup::KateUndoGroup (KateDocument *document)
-  : KateUndo (document)
+  : m_document (document)
   , m_safePoint(false)
   , m_undoSelection(-1, -1, -1, -1)
   , m_redoSelection(-1, -1, -1, -1)
@@ -207,12 +207,12 @@ void KateUndoGroup::undo ()
   if (m_items.isEmpty())
     return;
 
-  document()->editStart (false);
+  m_document->editStart (false);
 
   for (int i=m_items.size()-1; i >= 0; --i)
     m_items[i]->undo();
 
-  if (KateView *view = document()->activeKateView()) {
+  if (KateView *view = activeKateView()) {
     if (m_undoSelection.isValid())
       view->setSelection(m_undoSelection);
     else
@@ -222,7 +222,7 @@ void KateUndoGroup::undo ()
       view->editSetCursor(m_undoCursor);
   }
 
-  document()->editEnd ();
+  m_document->editEnd ();
 }
 
 void KateUndoGroup::redo ()
@@ -230,12 +230,12 @@ void KateUndoGroup::redo ()
   if (m_items.isEmpty())
     return;
 
-  document()->editStart (false);
+  m_document->editStart (false);
 
   for (int i=0; i < m_items.size(); ++i)
     m_items[i]->redo();
 
-  if (KateView *view = document()->activeKateView()) {
+  if (KateView *view = activeKateView()) {
     if (m_redoSelection.isValid())
       view->setSelection(m_redoSelection);
     else
@@ -245,15 +245,15 @@ void KateUndoGroup::redo ()
       view->editSetCursor(m_redoCursor);
   }
 
-  document()->editEnd ();
+  m_document->editEnd ();
 }
 
 void KateUndoGroup::editEnd()
 {
-  if (document()->activeKateView())
+  if (activeKateView())
   {
-    m_redoCursor = document()->activeKateView()->cursorPosition();
-    m_redoSelection = document()->activeKateView()->selectionRange();
+    m_redoCursor = activeKateView()->cursorPosition();
+    m_redoSelection = activeKateView()->selectionRange();
   }
 }
 
@@ -297,15 +297,20 @@ void KateUndoGroup::safePoint (bool safePoint)
   m_safePoint=safePoint;
 }
 
+KateView *KateUndoGroup::activeKateView()
+{
+  return m_document->activeKateView();
+}
+
 KateUndo::UndoType KateUndoGroup::singleType() const
 {
-  KateUndo::UndoType ret = editInvalid;
+  KateUndo::UndoType ret = KateUndo::editInvalid;
 
   Q_FOREACH(const KateUndo *item, m_items) {
-    if (ret == editInvalid)
+    if (ret == KateUndo::editInvalid)
       ret = item->type();
     else if (ret != item->type())
-      return editInvalid;
+      return KateUndo::editInvalid;
   }
 
   return ret;
@@ -313,7 +318,7 @@ KateUndo::UndoType KateUndoGroup::singleType() const
 
 bool KateUndoGroup::isOnlyType(KateUndo::UndoType type) const
 {
-  if (type == editInvalid) return false;
+  if (type == KateUndo::editInvalid) return false;
 
   Q_FOREACH(const KateUndo *item, m_items)
     if (item->type() != type)

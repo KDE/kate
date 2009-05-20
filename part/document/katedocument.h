@@ -312,8 +312,8 @@ class KateDocument : public KTextEditor::Document,
     bool undoDontMerge() const;
     void setUndoDontMerge(bool dontMerge);
 
-    bool undoDontMergeComplex() const;
-    void setUndoDontMergeComplex(bool dontMerge);
+    bool undoAllowComplexMerge() const;
+    void setUndoAllowComplexMerge(bool allow);
 
     bool isEditRunning() const;
 

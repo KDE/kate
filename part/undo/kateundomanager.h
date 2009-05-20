@@ -36,7 +36,7 @@ namespace KTextEditor {
  * @li the default state, which allows rolling back and forth the history of a document, and
  * @li a state in which a new element is being added to the history.
  *
- * The state of the KateUndomanager can be switched using undoStart() and undoEnd().
+ * The state of the KateUndomanager can be switched using editStart() and editEnd().
  */
 class KateUndoManager : public QObject
 {
@@ -51,16 +51,6 @@ class KateUndoManager : public QObject
     KateUndoManager (KateDocument *doc);
 
     ~KateUndoManager();
-
-    /**
-     * @short Starts a new undo group.
-     */
-    void undoStart();
-
-    /**
-     * @short Adds the undo group started by undoStart() to the history.
-     */
-    void undoEnd();
 
     /**
      * Returns how many undo() actions can be performed.
@@ -90,7 +80,7 @@ class KateUndoManager : public QObject
      */
     void setUndoDontMerge(bool dontMerge);
 
-    bool undoDontMergeComplex() const;
+    bool allowComplexMerge() const;
 
     /**
      * Allows or disallows merging of "complex" undo groups.
@@ -98,9 +88,9 @@ class KateUndoManager : public QObject
      * When an undo group contains different types of undo items, it is considered
      * a "complex" group.
      *
-     * @param dontMerge whether complex merging is allowed
+     * @param allow whether complex merging is allowed
      */
-    void setUndoDontMergeComplex(bool dontMerge);
+    void setAllowComplexMerge(bool allow);
 
     void setModified( bool m );
     void updateConfig ();
@@ -122,6 +112,16 @@ class KateUndoManager : public QObject
 
     void clearUndo ();
     void clearRedo ();
+
+    /**
+     * Notify KateUndoManager about the beginning of an edit.
+     */
+    void editStart();
+
+    /**
+     * Notify KateUndoManager about the end of an edit.
+     */
+    void editEnd();
 
     /**
      * Notify KateUndoManager that text was inserted.

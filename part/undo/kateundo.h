@@ -24,10 +24,10 @@
 
 #include <QtCore/QList>
 
-#include "ktexteditor/range.h"
-
+#include <ktexteditor/range.h>
 
 class KateDocument;
+class KateView;
 
 /**
  * Base class for Kate undo commands.
@@ -59,7 +59,6 @@ class KateUndo
       editInsertLine,
       editRemoveLine,
       editMarkLineAutoWrapped,
-      editGroup,
       editInvalid
     };
 
@@ -353,7 +352,7 @@ class KateEditRemoveLineUndo : public KateUndo
 /**
  * Class to manage a group of undo items
  */
-class KateUndoGroup : public KateUndo
+class KateUndoGroup
 {
   public:
     /**
@@ -378,11 +377,6 @@ class KateUndoGroup : public KateUndo
      */
     void redo();
 
-    /**
-     * @copydoc KateUndo::type()
-     */
-    KateUndo::UndoType type() const { return KateUndo::editGroup; }
-
     void editEnd();
 
     /**
@@ -404,6 +398,8 @@ class KateUndoGroup : public KateUndo
     bool isEmpty() const { return m_items.isEmpty(); }
 
   private:
+    KateView *activeKateView();
+
     /**
      * singleType
      * @return the type if it's only one type, or editInvalid if it contains multiple types.
@@ -425,6 +421,8 @@ class KateUndoGroup : public KateUndo
     void addItem (KateUndo *u);
 
   private:
+    KateDocument *const m_document;
+
     /**
      * list of items contained
      */

@@ -53,9 +53,9 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
   connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
 }
 
-void KateUndoManager::undoStart()
+void KateUndoManager::editStart()
 {
-  // undoStart() and undoEnd() must be called in alternating fashion
+  // editStart() and editEnd() must be called in alternating fashion
   Q_ASSERT(m_editCurrentUndo == 0); // make sure to enter a clean state
 
   // new current undo item
@@ -64,10 +64,10 @@ void KateUndoManager::undoStart()
   Q_ASSERT(m_editCurrentUndo != 0); // a new undo group must be created by this method
 }
 
-void KateUndoManager::undoEnd()
+void KateUndoManager::editEnd()
 {
-  // undoStart() and undoEnd() must be called in alternating fashion
-  Q_ASSERT(m_editCurrentUndo != 0); // an undo group must have been created by undoStart()
+  // editStart() and editEnd() must be called in alternating fashion
+  Q_ASSERT(m_editCurrentUndo != 0); // an undo group must have been created by editStart()
 
     bool changedUndo = false;
 
@@ -148,7 +148,7 @@ void KateUndoManager::undoCancel()
 }
 
 void KateUndoManager::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo != 0); // call this method only in between undoStart() and undoEnd()
+  Q_ASSERT(m_editCurrentUndo != 0); // call this method only in between editStart() and editEnd()
 
   m_editCurrentUndo->safePoint();
 }
@@ -177,7 +177,7 @@ uint KateUndoManager::redoCount () const
 
 void KateUndoManager::undo()
 {
-  Q_ASSERT(m_editCurrentUndo == 0); // undo is not supported while we care about notifications (call undoEnd() first)
+  Q_ASSERT(m_editCurrentUndo == 0); // undo is not supported while we care about notifications (call editEnd() first)
 
   if (undoItems.count() > 0)
   {
@@ -207,7 +207,7 @@ void KateUndoManager::undo()
 
 void KateUndoManager::redo()
 {
-  Q_ASSERT(m_editCurrentUndo == 0); // redo is not supported while we care about notifications (call undoEnd() first)
+  Q_ASSERT(m_editCurrentUndo == 0); // redo is not supported while we care about notifications (call editEnd() first)
 
   if (redoItems.count() > 0)
   {
@@ -353,12 +353,12 @@ bool KateUndoManager::undoDontMerge( ) const
   return m_undoDontMerge;
 }
 
-void KateUndoManager::setUndoDontMergeComplex(bool dontMerge)
+void KateUndoManager::setAllowComplexMerge(bool allow)
 {
-  m_undoComplexMerge = dontMerge;
+  m_undoComplexMerge = allow;
 }
 
-bool KateUndoManager::undoDontMergeComplex() const
+bool KateUndoManager::allowComplexMerge() const
 {
   return m_undoComplexMerge;
 }

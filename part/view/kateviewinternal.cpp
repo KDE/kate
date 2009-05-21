@@ -3082,7 +3082,7 @@ void KateViewInternal::textHintTimeout ()
   if (m_textHintMouseX> (lineMaxCursorX(thisLine) - thisLine.startX())) return;
 
   KTextEditor::Cursor c = thisLine.start();
-  c = renderer()->xToCursor(cache()->textLayout(c), m_textHintMouseX, !view()->wrapCursor());
+  c = renderer()->xToCursor(cache()->textLayout(c), startX() + m_textHintMouseX, !view()->wrapCursor());
 
   QString tmp;
 

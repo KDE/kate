@@ -94,7 +94,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   if( m_rows[index.row()] < 0 ) {
     //Show labels
     if( role == Qt::DisplayRole && index.column() == 0 ) {
-      return QString("Depth %1").arg(-m_rows[index.row()]);
+      return QString(); //QString("Depth %1").arg(-m_rows[index.row()]);
     } else if( role == Qt::BackgroundRole ) {
       return KApplication::kApplication()->palette().toolTipBase().color();
     }else if( role == Qt::ForegroundRole ) {

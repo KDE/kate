@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SiSU" version="1.00" section="Markup" kateversion="2.4" extensions="*.sst; *.ssm; *.ssi; *._sst; *.-sst;" author="Ralph Amissah (ralph.amissah@gmail.com)" license="LGPL" >
+<language name="SiSU" version="1.01" section="Markup" kateversion="2.4" extensions="*.sst;*.ssm;*.ssi;*._sst;*.-sst;" author="Ralph Amissah (ralph.amissah@gmail.com)" license="LGPL" >
   <highlighting>
     <list name="somename">
       <item> class </item>

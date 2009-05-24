@@ -1464,7 +1464,10 @@ void KateView::updateConfig ()
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
 
   // now redraw...
-  m_viewInternal->cache()->clear();
+  {
+    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    m_viewInternal->cache()->clear();
+  }
   tagAll ();
   updateView (true);
 }
@@ -1488,7 +1491,10 @@ void KateView::updateDocumentConfig()
   m_renderer->setIndentWidth (m_doc->config()->indentationWidth());
 
   // now redraw...
-  m_viewInternal->cache()->clear();
+  {
+    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    m_viewInternal->cache()->clear();
+  }
   tagAll ();
   updateView (true);
 }
@@ -1504,7 +1510,10 @@ void KateView::updateRendererConfig()
   m_viewInternal->updateBracketMarks();
 
   // now redraw...
-  m_viewInternal->cache()->clear();
+  {
+    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    m_viewInternal->cache()->clear();
+  }
   tagAll ();
   m_viewInternal->updateView (true);
 

@@ -987,6 +987,7 @@ static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffs
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
+  QMutexLocker lock(m_view->m_doc->smartMutex());
   uint h = m_view->renderer()->config()->fontMetrics().height();
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);

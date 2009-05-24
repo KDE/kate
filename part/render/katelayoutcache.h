@@ -22,6 +22,7 @@
 
 #include <QThreadStorage>
 #include <QPair>
+#include <QMutex>
 
 #include <ktexteditor/range.h>
 
@@ -59,6 +60,30 @@ class KateLineLayoutMap
     LineLayoutMap m_lineLayouts;
 };
 
+///Asserts when the mutex is already locked. Used for debugging threading problems.
+class QAssertMutexLocker {
+  public:
+  QAssertMutexLocker(QMutex& mutex) : m_mutex(mutex) {
+    wait.lock();
+    if(!m_mutex.tryLock()) {
+      //In debug mode, assert here. This is a serious problem! The object should never be accessed
+      //from within multiple threads at he same time, but rather be protected by the smart-lock.
+      Q_ASSERT(0);
+      m_mutex.lock(); //In release mode, try to work anyway
+    }
+    wait.unlock();
+  }
+  
+  ~QAssertMutexLocker() {
+    wait.lock();
+    m_mutex.unlock();
+    wait.unlock();
+  }
+  
+  private:
+    QMutex& m_mutex;
+    static QMutex wait; //Mutex that makes sure the conflicting backtraces are shown during debugging
+};
 
 /**
  * This class handles Kate's caching of layouting information (in KateLineLayout
@@ -72,8 +97,11 @@ class KateLineLayoutMap
  * caches for separate views of the same document, even for view and printer
  * (if the renderer is made to support rendering onto different targets).
  *
+ * @warning The smart-mutex must be locked whenever this is used
+ *
  * @author Hamish Rodda \<rodda@kde.org\>
  */
+
 class KateLayoutCache : public QObject
 {
   Q_OBJECT
@@ -145,6 +173,7 @@ private Q_SLOTS:
     void slotEditDone(KateEditInfo* edit);
 
 private:
+    
     KateRenderer* m_renderer;
 
     /**
@@ -163,6 +192,8 @@ private:
     bool m_wrap;
 
     QThreadStorage<bool*> m_acceptDirtyLayouts;
+
+    mutable QMutex m_debugMutex;
 };
 
 #endif

@@ -2,6 +2,7 @@
 Name=Embedded Text Editor
 Name[cs]=Zabudovaný textový editor
 Name[da]=Indlejret tekstredigering
+Name[de]=Eingebetteter Texteditor
 Name[es]=Editor de texto integrado
 Name[et]=Põimitud tekstiredaktor
 Name[fy]=Ynsletten tekstbewurker
@@ -12,6 +13,7 @@ Name[is]=Ívafinn textaritill
 Name[km]=កម្មវិធី​និពន្ធ​អត្ថបទ​ដែល​បាន​បង្កប់
 Name[lv]=Iegultais teksta redaktors
 Name[ml]=തുന്നിച്ചേര്‍ത്ത ചെയ്ത എഴുത്തിടം
+Name[nb]=Innebygd skriveprogram
 Name[nds]=Inbett Texteditor
 Name[pt]=Editor de Texto Incorporado
 Name[pt_BR]=Editor de texto integrado
@@ -70,7 +72,7 @@ Comment[mk]=Сервисот за текст уредувач ги снабду�
 Comment[ml]=ടെക്സ്റ്റ് എഴുത്തിടത്തിന്റെ സേവനം പ്രയോഗങ്ങള്‍ക്കു് പദാവലി കാണാനും മാറ്റാനുമുള്ള സംവിധാനം ഒരുക്കുന്നു. പദാവലി ലേഖനം ചെയ്യാനുള്ള സൌകര്യങ്ങളൊരുക്കുന്ന കെഡിഇയിലെ പ്രയോഗങ്ങള്‍ ഈ സേവനം ഉപയോഗിയ്ക്കണം.
 Comment[mr]=पाठ्य संपादक सेवा पाठ्य प्रदर्शक व संपादक समाविष्ठीत अनुप्रयोग पुरवितो. KDE अनुप्रयोग जे पाठ्य संपादन सुविधा पुरवितात ही सेवा वापरायला हवी.
 Comment[ms]= Servis penyunting teks yang menyediakan aplikasi dengan pelihat teks dan editor. Aplikasi KDE yang menyediakan kemudahan penyuntingan teks patut menggunakan servis ini.
-Comment[nb]=Det innebygde skriveprogrammet gir mulighet til å vise og redigere tekst. KDE-programmer som kan redigere tekst bør bruke denne tjenesten.
+Comment[nb]=Tjenesten innebygd skriveprogram gir programmer mulighet til å vise og redigere tekst. KDE-programmer som kan redigere tekst bør bruke denne tjenesten.
 Comment[nds]=De Texteditor-Deenst föögt Programmen en Textwieser un -editor to. KDE-Programmen, mit de Texten bewerkt warrt, schöölt em bruken.
 Comment[ne]=पाठ सम्पादक सेवाले पाठ दर्शक र सम्पादक भएको अनुप्रयोग उपलब्ध गराउँछ । पाठ सम्पादक सुविधा उपलब्ध गर्ने केडीई अनुप्रयोगले यो सेवा प्रयोग गर्नु आवश्यक हुन्छ ।
 Comment[nl]=Dit component stelt programma's een tekstinvoercomponent tot hun beschikking. KDE-toepassingen die te maken hebben met het bewerken van tekst kunnen gebruik maken van deze aangeboden dienst.

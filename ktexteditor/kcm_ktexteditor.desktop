@@ -1,5 +1,7 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
+Name[ca]=Editor de text encastable
+Name[ca@valencia]=Editor de text encastable
 Name[cs]=Zabudovaný textový editor
 Name[da]=Indlejret tekstredigering
 Name[de]=Eingebetteter Texteditor

@@ -933,198 +933,68 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
 
   m_currentMatch[model] = completion;
 
+  bool needsReset = false;
+  
   if (!hasGroups()) {
-    changeCompletions(m_ungrouped, changeType);
+    needsReset |= changeCompletions(m_ungrouped, changeType);
   } else {
     foreach (Group* g, m_rowTable) {
       if(g != m_argumentHints)
-        changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType);
     }
     foreach (Group* g, m_emptyGroups) {
       if(g != m_argumentHints)
-        changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType);
     }
 
     updateBestMatches();
   }
 
-  if(changeType == Broaden)
-    reset(); //There is a bug in changeCompletions() notification code of the "Broaden" operation, so just reset
+  if(needsReset)
+    reset();
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
   emit contentGeometryChanged();
 }
 
-void KateCompletionModel::rematch()
+bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 {
-  if (!hasGroups()) {
-    changeCompletions(m_ungrouped, Change);
-
-  } else {
-    foreach (Group* g, m_rowTable)
-      if(g != m_argumentHints)
-        changeCompletions(g, Change);
-
-    foreach (Group* g, m_emptyGroups)
-      if(g != m_argumentHints)
-        changeCompletions(g, Change);
-
-    updateBestMatches();
+  bool notifyModel = true;
+  if(changeType != Narrow) {
+    notifyModel = false;
+    g->filtered = g->prefilter;
+    //In the "Broaden" or "Change" case, just re-filter everything,
+    //and don't notify the model. The model is notified afterwards through a reset().
   }
-
-  clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
-  emit contentGeometryChanged();
-}
-
-#define COMPLETE_DELETE \
-  if (rowDeleteStart != -1) { \
-    if (!g->isEmpty) \
-      deleteRows(g, filtered, index - rowDeleteStart, rowDeleteStart, changeType != Broaden); \
-    filterIndex -= index - rowDeleteStart + 1; \
-    index -= index - rowDeleteStart; \
-    rowDeleteStart = -1; \
-  }
-
-#define COMPLETE_ADD \
-  if (rowAddStart != -1) { \
-    addRows(g, filtered, rowAddStart, rowAdd, changeType != Broaden); \
-    filterIndex += rowAdd.count(); \
-    index += rowAdd.count(); \
-    rowAddStart = -1; \
-    rowAdd.clear(); \
-  }
-
-void KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
-{
-  if(changeType == Narrow) {
-    //This code determines what of the filtered items still fit, and computes the ranges that were removed, giving
-    //them to beginRemoveRows(..) in batches
-    
-    ///@todo Also rewrite the Broaden and Change change-types in this way
-    QList <KateCompletionModel::Item > newFiltered;
-    int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted
-    for(int currentRow = g->filtered.count()-1; currentRow >= 0; --currentRow) {
-      if(g->filtered[currentRow].match()) {
-        //This row does not need to be deleted, which means that currentRow+1 to deleteUntil need to be deleted now
-        if(deleteUntil != -1) {
-          beginRemoveRows(indexForGroup(g), currentRow+1, deleteUntil);
-          endRemoveRows();
-        }
-        deleteUntil = -1;
-        
-        newFiltered.prepend(g->filtered[currentRow]);
-      }else{
-        if(deleteUntil == -1)
-          deleteUntil = currentRow; //Mark that this row needs to be deleted
+  //This code determines what of the filtered items still fit, and computes the ranges that were removed, giving
+  //them to beginRemoveRows(..) in batches
+  
+  QList <KateCompletionModel::Item > newFiltered;
+  int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted
+  for(int currentRow = g->filtered.count()-1; currentRow >= 0; --currentRow) {
+    if(g->filtered[currentRow].match()) {
+      //This row does not need to be deleted, which means that currentRow+1 to deleteUntil need to be deleted now
+      if(deleteUntil != -1 && notifyModel) {
+        beginRemoveRows(indexForGroup(g), currentRow+1, deleteUntil);
+        endRemoveRows();
       }
+      deleteUntil = -1;
+      
+      newFiltered.prepend(g->filtered[currentRow]);
+    }else{
+      if(deleteUntil == -1)
+        deleteUntil = currentRow; //Mark that this row needs to be deleted
     }
-    
-    if(deleteUntil != -1) {
-      beginRemoveRows(indexForGroup(g), 0, deleteUntil);
-      endRemoveRows();
-    }
-    
-    g->filtered = newFiltered;
-    hideOrShowGroup(g);
-    return;
   }
   
-  QMutableListIterator<Item> filtered = g->filtered;
-  QMutableListIterator<Item> prefilter = g->prefilter;
-
-  int rowDeleteStart = -1;
-  int rowAddStart = -1;
-  QList<Item> rowAdd;
-
-  int index = 0;
-  int filterIndex = 0;
-  while (prefilter.hasNext()) {
-    if (filtered.hasNext()) {
-      if (filtered.peekNext().sourceRow() == prefilter.peekNext().sourceRow()) {
-        // Currently being displayed
-        if (changeType != Broaden) {
-          if (prefilter.peekNext().match()) {
-            // no change required to this item
-            COMPLETE_DELETE
-            COMPLETE_ADD
-
-          } else {
-            // Needs to be hidden
-            COMPLETE_ADD
-
-            if (rowDeleteStart == -1)
-              rowDeleteStart = index;
-          }
-
-        } else {
-          prefilter.peekNext().clearExactMatch();
-          COMPLETE_DELETE
-          COMPLETE_ADD
-        }
-
-        // Advance iterator - item matched
-        ++filterIndex;
-        filtered.next();
-
-      } else {
-        // Currently hidden
-        if (changeType != Narrow) {
-          if (prefilter.peekNext().match()) {
-            // needs to be made visible
-            COMPLETE_DELETE
-
-            if (rowAddStart == -1)
-              rowAddStart = filterIndex;
-
-            rowAdd.append(prefilter.peekNext());
-
-          } else {
-            // no change required to this item
-            COMPLETE_DELETE
-            COMPLETE_ADD
-          }
-
-        } else {
-          COMPLETE_DELETE
-          COMPLETE_ADD
-        }
-      }
-
-    } else {
-      // Currently hidden
-      if (changeType != Narrow) {
-        if (prefilter.peekNext().match()) {
-          // needs to be made visible
-          COMPLETE_DELETE
-
-          if (rowAddStart == -1)
-            rowAddStart = filterIndex;
-
-          rowAdd.append(prefilter.peekNext());
-
-        } else {
-          // no change required to this item
-          COMPLETE_DELETE
-          COMPLETE_ADD
-        }
-
-      } else {
-        COMPLETE_DELETE
-        COMPLETE_ADD
-      }
-    }
-
-    ++index;
-    prefilter.next();
+  if(deleteUntil != -1) {
+    beginRemoveRows(indexForGroup(g), 0, deleteUntil);
+    endRemoveRows();
   }
-
-  COMPLETE_DELETE
-  COMPLETE_ADD
-
-  //Only notify the model if the changetype is not broaden, else it will barf on it
-  //because the code above has a bug in that case. We do a reset() anyway afterwards in that case.
-  hideOrShowGroup(g, changeType != Broaden);
-  return;
+  
+  g->filtered = newFiltered;
+  hideOrShowGroup(g, notifyModel);
+  return !notifyModel;
 }
 
 int KateCompletionModel::Group::orderNumber() const {
@@ -1210,54 +1080,6 @@ void KateCompletionModel::hideOrShowGroup(Group* g, bool notifyModel)
       m_emptyGroups.removeAll(g);
     }
   }
-}
-
-void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<Item> & filtered, int countBackwards, int startRow, bool notify )
-{
-  QModelIndex groupIndex = indexForGroup(g);
-  Q_ASSERT(!hasGroups() || groupIndex.isValid());
-
-  if(notify)
-    beginRemoveRows(groupIndex, startRow, startRow + countBackwards - 1);
-
-  for (int i = 0; i < countBackwards; ++i) {
-    filtered.remove();
-
-    if (i == countBackwards - 1)
-      break;
-
-    if (!filtered.hasPrevious()) {
-      kWarning() << "Tried to move back too far!";
-      break;
-    }
-
-    filtered.previous();
-  }
-  
-  if(notify)
-    endRemoveRows();
-}
-
-
-void KateCompletionModel::addRows( Group * g, QMutableListIterator<Item> & filtered, int startRow, const QList<Item> & newItems, bool notify )
-{
-  //bool notify = true;
-
-  QModelIndex groupIndex = indexForGroup(g);
-  //if (hasGroups() && !groupIndex.isValid())
-    // Group is currently hidden... don't emit begin/endInsertRows.
-    //notify = false;
-
-  kDebug( 13035 ) << "Group" << g->title << "addRows" << startRow << "to " << (startRow + newItems.count() - 1);
-
-  if (notify)
-    beginInsertRows(groupIndex, startRow, startRow + newItems.count() - 1);
-
-  for (int i = 0; i < newItems.count(); ++i)
-    filtered.insert(newItems[i]);
-
-  if (notify)
-    endInsertRows();
 }
 
 bool KateCompletionModel::indexIsItem( const QModelIndex & index ) const

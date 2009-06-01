@@ -169,8 +169,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   else
     m_vBox->addWidget(m_topViewBar);
 
+  QStyleOption option;
+  option.initFrom(this);
 
-  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents)) {
+  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents, &option, this)) {
       QHBoxLayout *extrahbox = new QHBoxLayout ();
       QFrame * frame = new QFrame(this);
       extrahbox->setMargin (0);
@@ -179,7 +181,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
       extrahbox->addWidget (m_viewInternal);
       frame->setLayout (extrahbox);
       hbox->addWidget (frame);
-      hbox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth) * 2);
+      hbox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth, &option, this) * 2);
       frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   }
   else {
@@ -188,8 +190,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   }
   hbox->addWidget (m_viewInternal->m_lineScroll);
 
-  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents)) {
-    m_vBox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth) * 2);
+  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents, &option, this)) {
+    m_vBox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth, &option, this) * 2);
   }
 
   hbox = new QHBoxLayout ();

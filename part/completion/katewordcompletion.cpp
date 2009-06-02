@@ -85,12 +85,6 @@ void KateWordCompletionModel::saveMatches( KTextEditor::View* view,
   m_matches.sort();
 }
 
-/**We have to construct the item from the pixmap, else the icon will be marked as "load on demand",
- * and for some reason will be loaded every time it's used(this function returns a QIcon marked "load on demand"
- * each time this is called). This is a lot faster than using KICon(..), no matter whether the icon is cached by KDE or not.
- */
-#define RETURN_CACHED_ICON(name) {static QIcon icon(KIcon(name).pixmap(QSize(16, 16))); return icon;}
-
 QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
 {
   if( role == InheritanceDepth )
@@ -110,8 +104,10 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
   if( index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole )
     return m_matches.at( index.row() );
 
-  if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole )
-    RETURN_CACHED_ICON( "insert-text" );
+  if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
+    static QIcon icon(KIcon("insert-text").pixmap(QSize(16, 16)));
+    return icon;
+  }
   
   return QVariant();
 }

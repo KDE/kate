@@ -60,7 +60,7 @@ class KateTemplateHandler: public QObject {
 				uint len;
 				QString placeholder;
 		};
-		class KateDocument *m_doc;
+		class KateDocument *const m_doc;
 
                 // looks like this is leaking objects (was before too)
 		QList<KateTemplatePlaceHolder*> m_tabOrder;
@@ -77,7 +77,6 @@ class KateTemplateHandler: public QObject {
                 KTextEditor::SmartRange* m_templateRange;
 	private Q_SLOTS:
 		void slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&);
-		void slotDocumentDestroyed();
 		void slotAboutToRemoveText(const KTextEditor::Range& range);
 		void slotTextRemoved();
                 void slotRangeDeleted(KTextEditor::SmartRange*);

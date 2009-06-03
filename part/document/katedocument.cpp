@@ -5733,7 +5733,14 @@ bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
 
 //BEGIN KTextEditor::TemplateInterface
 bool KateDocument::insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *) {
-      return (new KateTemplateHandler(this,c,templateString,initialValues))->initOk();
+  if (m_templateHandler != 0)
+    return false;
+
+  m_templateHandler = new KateTemplateHandler(this,c,templateString,initialValues);
+
+  connect(m_templateHandler, SIGNAL(destroyed(QObject *)), this, SLOT(templateHandlerDestroyed()));
+
+  return m_templateHandler->initOk();
 }
 
 void KateDocument::testTemplateCode() {
@@ -5747,16 +5754,8 @@ bool KateDocument::invokeTemplateHandler(int key) {
   return false;
 }
 
-bool KateDocument::setTemplateHandler(KateTemplateHandler *templateHandler) {
-  if (m_templateHandler) return false;
-  m_templateHandler=templateHandler;
-  return true;
-}
-
-bool KateDocument::removeTemplateHandler(KateTemplateHandler *templateHandler) {
-  if (m_templateHandler!=templateHandler) return false;
+void KateDocument::templateHandlerDestroyed() {
   m_templateHandler=0;
-  return true;
 }
 
 KateView * KateDocument::activeKateView( ) const

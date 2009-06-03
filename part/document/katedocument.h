@@ -1120,10 +1120,11 @@ class KateDocument : public KTextEditor::Document,
 
   // TemplateInterface
   public:
-      bool setTemplateHandler(KateTemplateHandler *templateHandler);
-      bool removeTemplateHandler(KateTemplateHandler *templateHandler);
       bool invokeTemplateHandler(int key);
-      bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *); //PORT ME
+      virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *); //PORT ME
+
+  private Q_SLOTS:
+    void templateHandlerDestroyed();
 
   protected:
       KateTemplateHandler *m_templateHandler;

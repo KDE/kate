@@ -205,29 +205,39 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     v->doc()->printDialog();
     return true;
   }
-  else if ( cmd == "set-indent-mode" )
+
+  // ALL commands that take a string argument
+  else if ( cmd == "set-indent-mode" ||
+            cmd == "set-highlight" ||
+            cmd == "set-mode" )
   {
-    v->doc()->config()->setIndentationMode( args.first() );
-    return true;
-  }
-  else if ( cmd == "set-highlight" )
-  {
-    if ( v->doc()->setHighlightingMode( args.first()) )
+    // need at least one item, otherwise args.first() crashes
+    if ( ! args.count() )
+      KCC_ERR( i18n("Missing argument. Usage: %1 <value>",  cmd ) );
+
+    if ( cmd == "set-indent-mode" )
     {
-      ((KateDocument*)v->doc())->setDontChangeHlOnSave ();
+      v->doc()->config()->setIndentationMode( args.first() );
       return true;
     }
+    else if ( cmd == "set-highlight" )
+    {
+      if ( v->doc()->setHighlightingMode( args.first()) )
+      {
+        ((KateDocument*)v->doc())->setDontChangeHlOnSave ();
+        return true;
+      }
 
-    KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
+      KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
+    }
+    else if ( cmd == "set-mode" )
+    {
+      if ( v->doc()->setMode( args.first()) )
+        return true;
+
+      KCC_ERR( i18n("No such mode '%1'",  args.first() ) );
+    }
   }
-  else if ( cmd == "set-mode" )
-  {
-    if ( v->doc()->setMode( args.first()) )
-      return true;
-
-    KCC_ERR( i18n("No such mode '%1'",  args.first() ) );
-  }
-
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
             cmd == "set-indent-width" ||

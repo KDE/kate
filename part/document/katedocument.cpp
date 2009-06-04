@@ -3618,7 +3618,7 @@ bool KateDocument::closeUrl()
     view->clear();
   }
 
-  if (!m_reloading) 
+  if (!m_reloading)
   {
 
     // uh, fileName changed
@@ -3827,13 +3827,13 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
+  if (bracketInserted)
+    view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
+
   KTextEditor::Cursor b(view->cursorPosition());
   m_indenter.userTypedChar (view, b, c);
 
   editEnd ();
-
-  if (bracketInserted)
-    view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
 
   view->slotTextInserted (view, oldCur, chars);
   return true;
@@ -5658,7 +5658,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             if (hl >= 0)
               m_buffer->setHighlight(hl);
           }
-          
+
           /**
            * set the indentation mode, if any in the mode...
            */

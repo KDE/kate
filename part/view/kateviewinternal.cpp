@@ -1587,10 +1587,7 @@ void KateViewInternal::pageUp( bool sel )
   bool atTop = startPos().atStartOfDocument();
 
   // Adjust for an auto-centering cursor
-  int lineadj = 2 * m_minLinesVisible;
-  int cursorStart = (linesDisplayed() - 1) - viewLine;
-  if (cursorStart < m_minLinesVisible)
-    lineadj -= m_minLinesVisible - cursorStart;
+  int lineadj = m_minLinesVisible;
 
   int linesToScroll = -qMax( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
@@ -1635,10 +1632,7 @@ void KateViewInternal::pageDown( bool sel )
   bool atEnd = startPos() >= m_cachedMaxStartPos;
 
   // Adjust for an auto-centering cursor
-  int lineadj = 2 * m_minLinesVisible;
-  int cursorStart = m_minLinesVisible - viewLine;
-  if (cursorStart > 0)
-    lineadj -= cursorStart;
+  int lineadj = m_minLinesVisible;
 
   int linesToScroll = qMax( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;

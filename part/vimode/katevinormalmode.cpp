@@ -905,7 +905,8 @@ bool KateViNormalMode::commandYank()
   bool r = false;
   QString yankedText;
 
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+  bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode
+    || ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
   yankedText = getRange( m_commandRange, linewise );

@@ -439,8 +439,6 @@ function tryCondition(line)
             }
         }
     }
-        debug("9: " + indentation);
-
 
     if (indentation != -1) debug("tryCondition: success in line " + currentLine);
     return indentation;

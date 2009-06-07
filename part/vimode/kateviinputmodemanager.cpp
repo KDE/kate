@@ -281,6 +281,8 @@ void KateViInputModeManager::addMapping( ViMode mode, const QString &from, const
   case NormalMode:
     m_viNormalMode->addMapping( from, to );
     break;
+  default:
+    break;
   /*
   case InsertMode:
   case VisualMode:
@@ -294,6 +296,8 @@ const QString KateViInputModeManager::getMapping( ViMode mode, const QString &fr
   switch ( mode ) {
   case NormalMode:
     return m_viNormalMode->getMapping( from );
+    break;
+  default:
     break;
   /*
   case InsertMode:
@@ -310,6 +314,8 @@ const QStringList KateViInputModeManager::getMappings( ViMode mode )
   switch ( mode ) {
   case NormalMode:
     return m_viNormalMode->getMappings();
+    break;
+  default:
     break;
   /*
   case InsertMode:

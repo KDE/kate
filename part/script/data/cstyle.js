@@ -467,7 +467,8 @@ function tryStatement(line)
                 currentLine = cursor.line;
                 var column = cursor.column + 1;
                 var lastColumn = document.lastColumn(currentLine);
-                while (column < lastColumn && document.isSpace(currentLine, ++column));
+                while (column < lastColumn && document.isSpace(currentLine, column))
+                    ++column;
                 indentation = document.toVirtualColumn(currentLine, column);
             } else {
                 currentLine = cursor.line;

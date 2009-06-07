@@ -5726,8 +5726,8 @@ bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( parent,
     i18n( "A file named \"%1\" already exists. "
           "Are you sure you want to overwrite it?" ,  info.fileName() ),
-    i18n( "Overwrite File?" ),
-    KGuiItem(i18n( "&Overwrite" )) );
+    i18n( "Overwrite File?" ), KStandardGuiItem::overwrite(),
+    KStandardGuiItem::cancel(), QString(), KMessageBox::Notify | KMessageBox::Dangerous );
 }
 
 

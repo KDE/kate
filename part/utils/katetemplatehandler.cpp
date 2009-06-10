@@ -215,7 +215,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 
 void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEditor::Range& range)
 {
-  if (!m_doc->isWithUndo())
+  if (m_doc->isEditRunning() && !m_doc->isWithUndo())
     return;
 
 #ifdef __GNUC__

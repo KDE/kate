@@ -224,7 +224,7 @@ void KateSnippetsWidget::slotDeleteClicked()
 
   if ( (snippet = findSnippetByListViewItem(lvi)) != 0 ) {
     lvSnippets->takeItem( lvi );
-    m_snippets.remove( snippet );
+    m_snippets.removeAll( snippet );
     delete snippet;
   }
 }

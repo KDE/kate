@@ -147,7 +147,10 @@ void KateFindDialog::slotSearch()
   }
 
   // regexps
-  QRegExp reg (cmbPattern->currentText(), chkCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+  QRegExp reg (cmbPattern->currentText()
+    , chkCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive
+    , chkRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+    
   QList<QRegExp> liste;
   liste << reg;
 

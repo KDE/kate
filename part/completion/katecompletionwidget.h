@@ -83,8 +83,23 @@ class KateCompletionWidget : public QFrame
     int automaticInvocationDelay() const;
     void setAutomaticInvocationDelay(int delay);
     
+    struct CompletionRange{
+      CompletionRange() : range(0) {
+      }
+      CompletionRange(KateSmartRange* r) : range(r) {
+      }
+      
+      bool operator==(const CompletionRange& rhs) const {
+        return range == rhs.range;
+      }
+      
+      KateSmartRange* range;
+      //Whenever the cursor goes before this position, the completion is stopped, unless it is invalid.
+      KTextEditor::Cursor leftBoundary;
+    };
+    
     KateSmartRange* completionRange(KTextEditor::CodeCompletionModel* model = 0) const;
-    QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> completionRanges( ) const;
+    QMap<KTextEditor::CodeCompletionModel*, CompletionRange> completionRanges( ) const;
 
     // Navigation
     void pageDown();
@@ -135,7 +150,7 @@ class KateCompletionWidget : public QFrame
     
     bool hadNavigation() const;
     void resetHadNavigation();
-    
+
   protected:
     virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
@@ -162,10 +177,12 @@ class KateCompletionWidget : public QFrame
     KTextEditor::Range determineRange() const;
     void completionRangeChanged(KTextEditor::CodeCompletionModel*, const KTextEditor::Range& word);
 
+    void deleteCompletionRanges();
+
     QList<KTextEditor::CodeCompletionModel*> m_sourceModels;
     KateCompletionModel* m_presentationModel;
 
-    QMap<KTextEditor::CodeCompletionModel*, KateSmartRange*> m_completionRanges;
+    QMap<KTextEditor::CodeCompletionModel*, CompletionRange> m_completionRanges;
     QSet<KTextEditor::CodeCompletionModel*> m_waitingForReset;
     
     KTextEditor::Cursor m_lastCursorPosition;

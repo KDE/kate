@@ -139,7 +139,7 @@ public:
      * This function decides if the completion should be aborted.
      * Called after every change to the range (eg. when user entered text)
      *
-     * The default implementation will return true when any special character was entered.
+     * The default implementation will return true when any special character was entered, or when the range is empty.
      *
      * The smart-mutex is not locked when this is called.
      *
@@ -171,7 +171,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModelControllerInterface2 : public CodeCo
   public:
     enum MatchReaction {
       None,
-      HideListIfAutomaticInvocation
+      HideListIfAutomaticInvocation /** If this is returned, the completion-list is hidden if it was invoked automatically */
     };
     /**
      * Called whenever an item in the completion-list perfectly matches the current filter text.

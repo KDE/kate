@@ -82,8 +82,9 @@ function indent(line, indentWidth, ch)
 	    ++delta;
 	  else if (one == "}")
 	    --delta;
-	  else if (document.isCode(prev, pos)) {
-	    // match parens only if they are code (not LilyPond slurs)
+	  // match parens only if they are Scheme code (not LilyPond slurs)
+	  else if (document.attribute(prev, pos) == 25 ||
+                   document.attribute(prev, pos) == 26) {
 	    if (one == "(") {
 	      // save position of first
 	      if (level >= 0 && paren[level] == null)

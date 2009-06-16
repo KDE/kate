@@ -718,8 +718,6 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   m_tabWidget = new KTabWidget ( this );
   layout->addWidget (m_tabWidget);
 
-  connect (m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (newCurrentPage(int)));
-
   m_colorTab = new KateSchemaConfigColorTab();
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
   connect(m_colorTab, SIGNAL(changed()), SLOT(slotChanged()));
@@ -735,6 +733,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, 0 );
   m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
+
+  connect (m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (newCurrentPage(int)));
 
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);

@@ -2505,7 +2505,8 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
   if ( e->reason() == QContextMenuEvent::Keyboard )
   {
     makeVisible( m_cursor, 0 );
-    p = cursorCoordinates();
+    p = cursorCoordinates(false);
+    p.rx() -= startX();
   }
   else if ( ! m_view->selection() || m_view->config()->persistentSelection() )
     placeCursor( e->pos() );

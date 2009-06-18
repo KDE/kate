@@ -5,6 +5,7 @@ X-KDE-Library=katexmltoolsplugin
 X-Kate-Version=2.9
 Name=XML Completion
 Name[ca]=Compleció XML
+Name[da]=XML-fuldførelse
 Name[de]=XML-Vervollständigung
 Name[el]=Συμπλήρωση XML
 Name[es]=Terminación XML

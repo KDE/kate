@@ -743,7 +743,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   // add all tabs
   tabWidget->insertTab(0, tmpWidget, i18n("General"));
   tabWidget->insertTab(1, tmpWidget2, i18n("Advanced"));
-  tabWidget->insertTab(2, modeConfigPage, i18n("Modes & Filetypes"));
+  tabWidget->insertTab(2, modeConfigPage, i18n("Modes && Filetypes"));
 
   connect(modeConfigPage, SIGNAL(changed()), this, SLOT(slotChanged()));
 

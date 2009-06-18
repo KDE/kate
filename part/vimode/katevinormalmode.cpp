@@ -932,7 +932,27 @@ bool KateViNormalMode::commandYankLine()
 
 bool KateViNormalMode::commandYankToEOL()
 {
-  return false;
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  bool r = false;
+  QString yankedText;
+
+  m_commandRange.endLine = c.line()+getCount()-1;
+  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine );
+
+  bool linewise = ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode );
+
+  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+    m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
+  }
+
+  yankedText = getRange( m_commandRange, linewise );
+
+  fillRegister( getChosenRegister( '0' ), yankedText );
+
+  return r;
 }
 
 // insert the text in the given register at the cursor position
@@ -2123,7 +2143,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "gUU", &KateViNormalMode::commandMakeUppercaseLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "y", &KateViNormalMode::commandYank, NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "yy", &KateViNormalMode::commandYankLine ) );
-  m_commands.push_back( new KateViCommand( this, "Y", &KateViNormalMode::commandYankToEOL, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "Y", &KateViNormalMode::commandYankToEOL ) );
   m_commands.push_back( new KateViCommand( this, "p", &KateViNormalMode::commandPaste, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "P", &KateViNormalMode::commandPasteBefore, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN ) );

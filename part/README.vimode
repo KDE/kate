@@ -15,3 +15,8 @@ Vim incompatibilities:
 3)
     Kate:   :print is an alias to :hardcopy
     Vim:    :print prints the lines of the given range like its grandfather ed
+
+3)
+    Kate:   'Y' yanks to end of line.
+	Vim:    'Y' yanks whole line, just like 'yy'. This is described as 'more
+            logical' in the Vim documentation (:help Y).

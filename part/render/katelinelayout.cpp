@@ -95,10 +95,10 @@ void KateLineLayout::setVirtualLine( int virtualLine )
 
 bool KateLineLayout::startsInvisibleBlock() const
 {
-  if (!isValid() || virtualLine() == 0)
+  if (!isValid())
     return false;
 
-  return (virtualLine() - 1) != (int)m_doc->getVirtualLine(line() - 1);
+  return (virtualLine() + 1) != (int)m_doc->getVirtualLine(line() + 1);
 }
 
 int KateLineLayout::shiftX() const

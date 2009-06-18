@@ -719,9 +719,7 @@ bool KateCompletionWidget::navigateAccept() {
 
   QModelIndex index = selectedIndex();
   if( index.isValid() ) {
-    view()->doc()->smartMutex()->unlock();
     index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
-    view()->doc()->smartMutex()->lock();
     return true;
   }
   return false;

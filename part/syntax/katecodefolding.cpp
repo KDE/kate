@@ -1610,7 +1610,7 @@ int KateCodeFoldingTree::collapseOne(int realLine)
       // optimization
       break;
 
-    if (line.endsBlock  && ( line.invalidBlockEnd ) && (i != realLine)) {
+    if (line.endsBlock && !line.invalidBlockEnd && (i != realLine)) {
       unrelatedBlocks++;
     }
 

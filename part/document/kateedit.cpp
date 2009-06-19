@@ -140,6 +140,7 @@ int KateEditHistory::revision()
 
 void KateEditHistory::releaseRevision(int revision)
 {
+  QMutexLocker lock(&m_mutex);
   if (m_revisions.contains(revision)) {
     KateEditInfo* edit = m_revisions[revision];
     edit->dereferenceRevision();

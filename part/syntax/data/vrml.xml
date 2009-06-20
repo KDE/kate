@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="VRML" version="1.02" kateversion="2.0" section="Markup" extensions="*.wrl" mimetype="model/vrml" author="Volker Krause (volker.krause@rwth-aachen.de)" license="LGPL">
+<language name="VRML" version="1.02" kateversion="2.0" section="Markup" extensions="*.wrl" mimetype="model/vrml" author="Volker Krause (vkrause@kde.org)" license="LGPL">
 	<highlighting>
 		<list name="keywords">
 			<item>DEF</item>

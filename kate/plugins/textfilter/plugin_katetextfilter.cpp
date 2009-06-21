@@ -129,7 +129,8 @@ slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QString command)
   shell << command;
 
   shell.start (K3Process::NotifyOnExit, K3Process::All);
-  shell.writeStdin (marked.toLocal8Bit (), marked.length ());
+  QByteArray encoded = marked.toLocal8Bit ();
+  shell.writeStdin (encoded, encoded.length ());
   //  TODO: Put up a modal dialog to defend the text from further
   //  keystrokes while the command is out. With a cancel button...
 

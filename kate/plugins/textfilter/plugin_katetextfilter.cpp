@@ -162,7 +162,7 @@ PluginKateTextFilter::slotEditFilter ()  //  PCP
   if (!kv) return;
 
   bool ok(false);
-  QString text ( KInputDialog::getText(i18n("Filter"),"",i18n("Enter command to pipe selected text through:"),&ok));
+  QString text ( KInputDialog::getText(i18n("Filter"),i18n("Enter command to pipe selected text through:"),"",&ok));
   if ( ok && (!text.isEmpty () ))
     runFilter( kv, text );
 }

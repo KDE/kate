@@ -3593,17 +3593,21 @@ bool KateDocument::closeUrl()
   }
 
   emit KTextEditor::Document::textRemoved(this, documentRange());
-  history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
+  
+  {
+    QMutexLocker l(smartMutex());
+    history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
-  // clear the buffer
-  m_buffer->clear();
+    // clear the buffer
+    m_buffer->clear();
 
-  // remove all marks
-  clearMarks ();
+    // remove all marks
+    clearMarks ();
 
-  // clear undo/redo history
-  m_undoManager->clearUndo();
-  m_undoManager->clearRedo();
+    // clear undo/redo history
+    m_undoManager->clearUndo();
+    m_undoManager->clearRedo();
+  }
 
   // no, we are no longer modified
   setModified(false);

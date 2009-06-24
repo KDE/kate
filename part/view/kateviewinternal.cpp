@@ -680,8 +680,9 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
   if (!m_view->dynWordWrap() && endCol != -1)
   {
     QMutexLocker lock(m_doc->smartMutex());
-
-    int sX = renderer()->cursorToX(cache()->textLayout(c), c);
+ 
+    KTextEditor::Cursor rc = toRealCursor(c);
+    int sX = renderer()->cursorToX(cache()->textLayout(rc), rc);
 
     int sXborder = sX-8;
     if (sXborder < 0)

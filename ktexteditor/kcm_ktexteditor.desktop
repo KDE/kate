@@ -1,5 +1,6 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
+Name[ar]=محرر نصوص مدمج
 Name[be@latin]=Unutrany tekstavy redaktar
 Name[bg]=Вграден текстов редактор
 Name[ca]=Editor de text encastable

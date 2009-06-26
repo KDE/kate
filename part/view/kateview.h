@@ -22,7 +22,6 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "katetextline.h"
 #include "kateviinputmodemanager.h"
 
 #include <ktexteditor/view.h>
@@ -115,37 +114,9 @@ class KateView : public KTextEditor::View,
 
   private Q_SLOTS:
     /**
-     * internal use, copy text as HTML to clipboard
-     */
-    void copyHTML();
-
-    /**
      * internal use, apply word wrap
      */
     void applyWordWrap ();
-
-  // helper to export text as html stuff
-  private:
-    QString selectionAsHtml ();
-    QString textAsHtml ( KTextEditor::Range range, bool blockwise);
-    void textAsHtmlStream ( const KTextEditor::Range& range, bool blockwise, QTextStream *ts);
-
-    /**
-     * Gets a substring in valid-xml html.
-     * Example:  "<b>const</b> b = <i>34</i>"
-     * It won't contain <p> or <body> or <html> or anything like that.
-     *
-     * @param startCol start column of substring
-     * @param length length of substring
-     * @param renderer The katerenderer.  This will have the schema
-     *                 information that describes how to render the
-     *                 attributes.
-     * @param outputStream A stream to write the html to
-     */
-    void lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTextStream *outputStream);
-
-  public Q_SLOTS:
-    void exportAsHTML ();
 
   //
   // KTextEditor::PopupMenuInterface
@@ -271,6 +242,8 @@ class KateView : public KTextEditor::View,
     virtual QString selectionText() const;
     virtual bool blockSelection() const { return blockSelectionMode(); }
     virtual const KTextEditor::Range &selectionRange() const;
+
+    static void blockFix(KTextEditor::Range& range);
 
   private:
     // TODO KDE5: remove
@@ -605,7 +578,6 @@ class KateView : public KTextEditor::View,
 
     QAction *m_cut;
     QAction *m_copy;
-    QAction *m_copyHTML;
     QAction *m_paste;
     QAction *m_selectAll;
     QAction *m_deSelect;

@@ -139,6 +139,7 @@ utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
 utils/katepartpluginmanager.cpp
 utils/katehistorymodel.cpp
+utils/katehtmlexporter.cpp
 
 )
 

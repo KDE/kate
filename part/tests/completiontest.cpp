@@ -66,6 +66,9 @@ void CompletionTest::init()
     QApplication::setActiveWindow(v);
     m_view = static_cast<KateView*>(v);
     Q_ASSERT(m_view);
+    
+    //view needs to be shown as completion won't work if the cursor is off screen
+    m_view->show();
 }
 
 void CompletionTest::cleanup()

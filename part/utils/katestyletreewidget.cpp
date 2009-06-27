@@ -440,6 +440,10 @@ void KateStyleTreeWidgetItem::initStyle()
   setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 }
 
+static Qt::CheckState toCheckState(bool b) {
+    return b ? Qt::Checked : Qt::Unchecked;
+}
+
 QVariant KateStyleTreeWidgetItem::data( int column, int role ) const
 {
   if (column == Context) {
@@ -463,24 +467,25 @@ QVariant KateStyleTreeWidgetItem::data( int column, int role ) const
   if (role == Qt::CheckStateRole) {
     switch (column) {
       case Bold:
-        return style()->fontBold();
+        return toCheckState(style()->fontBold());
       case Italic:
-        return style()->fontItalic();
+        return toCheckState(style()->fontItalic());
       case Underline:
-        return style()->fontUnderline();
+        return toCheckState(style()->fontUnderline());
       case StrikeOut:
-        return style()->fontStrikeOut();
+        return toCheckState(style()->fontStrikeOut());
       case UseDefaultStyle:
         /* can't compare all attributes, currentStyle has always more than defaultStyle (e.g. the item's name),
          * so we just compare the important ones:*/
-        return currentStyle->foreground() == defaultStyle->foreground()
+        return toCheckState(
+               currentStyle->foreground() == defaultStyle->foreground()
             && currentStyle->background() == defaultStyle->background()
             && currentStyle->selectedForeground() == defaultStyle->selectedForeground()
             && currentStyle->selectedBackground() == defaultStyle->selectedBackground()
             && currentStyle->fontBold() == defaultStyle->fontBold()
             && currentStyle->fontItalic() == defaultStyle->fontItalic()
             && currentStyle->fontUnderline() == defaultStyle->fontUnderline()
-            && currentStyle->fontStrikeOut() == defaultStyle->fontStrikeOut();
+            && currentStyle->fontStrikeOut() == defaultStyle->fontStrikeOut());
     }
   }
 

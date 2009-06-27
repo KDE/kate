@@ -1027,13 +1027,14 @@ void KateView::slotReadWriteChanged ()
       << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
       << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
-      << "edit_undo" << "edit_redo" << "tools_spelling_from_cursor"
+      << "tools_spelling_from_cursor"
       << "tools_spelling_selection";
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->isReadWrite());
+  slotUpdateUndo();
 }
 
 void KateView::slotUpdateUndo()
@@ -1041,8 +1042,8 @@ void KateView::slotUpdateUndo()
   if (m_doc->readOnly())
     return;
 
-  m_editUndo->setEnabled(m_doc->undoCount() > 0);
-  m_editRedo->setEnabled(m_doc->redoCount() > 0);
+  m_editUndo->setEnabled(m_doc->isReadWrite() && m_doc->undoCount() > 0);
+  m_editRedo->setEnabled(m_doc->isReadWrite() && m_doc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )

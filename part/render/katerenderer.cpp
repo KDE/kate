@@ -448,7 +448,14 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock()) {
-    paint.setPen(QPen(config()->wordWrapMarkerColor(), 1, Qt::DashLine));
+    paint.setRenderHint(QPainter::Antialiasing, false);
+    QPen pen(config()->wordWrapMarkerColor());
+    pen.setCosmetic(true);
+    pen.setStyle(Qt::DashLine);
+    QVector<qreal> dash = pen.dashPattern(); // workaround for N226156
+    pen.setDashOffset(xStart);
+    pen.setDashPattern(dash);
+    paint.setPen(pen);
     paint.drawLine(0, (fm.height() * range->viewLineCount()) - 1, xEnd - xStart, (fm.height() * range->viewLineCount()) - 1);
   }
 

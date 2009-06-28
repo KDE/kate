@@ -220,8 +220,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   setupConnections();
   setupActions();
-  setupEditActions();
-  setupCodeFolding();
   
   // auto word completion
   new KateWordCompletionView (this, actionCollection ());
@@ -612,6 +610,7 @@ void KateView::setupActions()
   //Now setup the editing actions before adding the associated
   //widget and setting the shortcut context
   setupEditActions();
+  setupCodeFolding();
 
   ac->addAssociatedWidget(m_viewInternal);
 

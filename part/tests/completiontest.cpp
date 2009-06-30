@@ -22,7 +22,6 @@
 #include <qtest_kde.h>
 #include <ksycoca.h>
 
-#include <ktexteditor/editorchooser.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
@@ -54,9 +53,7 @@ void CompletionTest::init()
     if ( !KSycoca::isAvailable() )
         QSKIP( "ksycoca not available", SkipAll );
 
-    KateGlobal::self();
-
-    Editor* editor = EditorChooser::editor();
+    Editor* editor = KateGlobal::self();
     QVERIFY(editor);
     m_doc = editor->createDocument(this);
     QVERIFY(m_doc);
@@ -66,7 +63,7 @@ void CompletionTest::init()
     QApplication::setActiveWindow(v);
     m_view = static_cast<KateView*>(v);
     Q_ASSERT(m_view);
-    
+
     //view needs to be shown as completion won't work if the cursor is off screen
     m_view->show();
 }
@@ -219,7 +216,7 @@ void CompletionTest::testCustomRangeMultipleModels()
     QCOMPARE(model->currentCompletion(testModel1), QString("$"));
     QCOMPARE(model->currentCompletion(testModel2), QString(""));
     QCOMPARE(countItems(model), 80);
-    
+
 
     m_view->insertText("aa");
     QApplication::processEvents();

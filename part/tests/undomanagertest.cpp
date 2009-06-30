@@ -24,7 +24,6 @@
 #include <qtest_kde.h>
 #include <ksycoca.h>
 
-#include <ktexteditor/editorchooser.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
 

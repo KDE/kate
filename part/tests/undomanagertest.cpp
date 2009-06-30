@@ -54,34 +54,68 @@ void UndoManagerTest::init()
     if ( !KSycoca::isAvailable() )
         QSKIP( "ksycoca not available", SkipAll );
 
-    KateGlobal::self();
-
-    KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
+    KTextEditor::Editor* editor = KateGlobal::self();
     QVERIFY(editor);
-    editor->createDocument(this);
-    m_doc = KateGlobal::self()->kateDocuments().last();
+    m_doc = qobject_cast<KateDocument*>(editor->createDocument(this));
     QVERIFY(m_doc);
 
-    KTextEditor::View *v = m_doc->createView(0);
-    QApplication::setActiveWindow(v);
-    m_view = m_doc->activeKateView();
+    m_view = qobject_cast<KateView*>(m_doc->createView(0));
+    QApplication::setActiveWindow(m_view);
     QVERIFY(m_view);
 
-    m_view->show();
+//     m_view->show();
 }
 
 void UndoManagerTest::cleanup()
 {
-//    delete m_view;
-//    delete m_doc;
+    delete m_view;
+    delete m_doc;
 }
 
 void UndoManagerTest::testSimpleUndo()
 {
-    m_doc->clear();
-    m_doc->typeChars(m_view, "the first line");
-    m_view->keyReturn();
-    m_doc->typeChars(m_view, "the second");
-    
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 10));
+    m_doc->setText("aaaa bbbb cccc\n"
+                   "dddd  ffff");
+    m_view->setCursorPosition(KTextEditor::Cursor(1, 5));
+
+    m_doc->typeChars(m_view, "eeee");
+
+    // cursor position: "dddd eeee| ffff"
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
+
+    // undo once to remove "eeee", cursor position: "dddd | ffff"
+    m_doc->undo();
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 5));
+
+    // redo once to insert "eeee" again. cursor position: "dddd eeee| ffff"
+    m_doc->redo();
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
+}
+
+void UndoManagerTest::testSelectionUndo()
+{
+    m_doc->setText("aaaa bbbb cccc\n"
+    "dddd eeee ffff");
+    m_view->setCursorPosition(KTextEditor::Cursor(1, 9));
+    KTextEditor::Range selectionRange(KTextEditor::Cursor(0, 5),
+                                      KTextEditor::Cursor(1, 9));
+    m_view->setSelection(selectionRange);
+
+    m_doc->typeChars(m_view, "eeee");
+
+    // cursor position: "aaaa eeee| ffff", no selection anymore
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(0, 9));
+    QCOMPARE(m_view->selection(), false);
+
+    // undo to remove "eeee" and add selection and text again
+    m_doc->undo();
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
+    QCOMPARE(m_view->selection(), true);
+    QCOMPARE(m_view->selectionRange(), selectionRange);
+
+    // redo to insert "eeee" again and remove selection
+    // cursor position: "aaaa eeee| ffff", no selection anymore
+    m_doc->redo();
+    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(0, 9));
+    QCOMPARE(m_view->selection(), false);
 }

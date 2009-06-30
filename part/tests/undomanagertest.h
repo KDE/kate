@@ -37,6 +37,7 @@ class UndoManagerTest : public QObject
     void init();
     void cleanup();
     void testSimpleUndo();
+    void testSelectionUndo();
 
   private:
     KateDocument* m_doc;

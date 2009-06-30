@@ -198,6 +198,7 @@ set(testkateregression_SRCS
     tests/test_regression.cpp
     tests/codecompletiontestmodel.cpp
     tests/completiontest.cpp
+    tests/undomanagertest.cpp
 )
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})

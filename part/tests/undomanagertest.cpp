@@ -59,16 +59,14 @@ void UndoManagerTest::init()
     KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
     QVERIFY(editor);
     editor->createDocument(this);
-    m_doc = KateGlobal::self()->kateDocuments()[0];
+    m_doc = KateGlobal::self()->kateDocuments().last();
     QVERIFY(m_doc);
-    m_doc->setText("aa bb cc\ndd");
 
     KTextEditor::View *v = m_doc->createView(0);
     QApplication::setActiveWindow(v);
     m_view = m_doc->activeKateView();
     QVERIFY(m_view);
 
-    //view needs to be shown as completion won't work if the cursor is off screen
     m_view->show();
 }
 

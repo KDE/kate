@@ -27,8 +27,7 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   m_start.setPosition( -1, -1 );
   m_previous.setPosition( -1, -1 );
 
-  m_visualLine = false;
-  m_visualBlock = false;
+  m_mode = VisualMode;
 
   initializeCommands();
 }
@@ -98,8 +97,7 @@ void KateViVisualMode::reset()
 {
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 
-    m_visualLine = false;
-    m_visualBlock = false;
+    m_mode = VisualMode;
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
     // can have switched to insert mode
@@ -129,17 +127,34 @@ void KateViVisualMode::init()
     m_commandRange.startColumn = m_commandRange.endColumn = m_start.column();
 }
 
+void KateViVisualMode::setVisualLine( bool l )
+{
+  if ( l ) {
+    m_mode = VisualLineMode;
+  } else {
+    m_mode = VisualMode;
+  }
+  updateDirty( true );
+}
 
 void KateViVisualMode::setVisualBlock( bool l )
 {
-  m_visualBlock = l;
-  updateDirty();
+  if ( l ) {
+    m_mode = VisualBlockMode;
+  } else {
+    m_mode = VisualMode;
+  }
+  updateDirty( true );
 }
 
-void KateViVisualMode::setVisualLine( bool l )
+void KateViVisualMode::setVisualModeType( ViMode mode )
 {
-  m_visualLine = l;
-  updateDirty();
+  if ( mode != VisualMode && mode != VisualLineMode && mode != VisualBlockMode ) {
+    kDebug( 13070 ) << "ERROR: invalid mode requested.";
+    m_mode = VisualMode;
+  } else {
+    m_mode = mode;
+  }
 }
 
 void KateViVisualMode::switchStartEnd()

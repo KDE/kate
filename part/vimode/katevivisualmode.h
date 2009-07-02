@@ -36,9 +36,10 @@ class KateViVisualMode : public KateViNormalMode {
 
     void setVisualLine( bool l );
     void setVisualBlock( bool l );
-    bool isVisualLine() const { return m_visualLine; }
-    bool isVisualBlock() const { return m_visualBlock; }
+    bool isVisualLine() const { return m_mode == VisualLineMode; }
+    bool isVisualBlock() const { return m_mode == VisualBlockMode; }
     void switchStartEnd();
+    void setVisualModeType( ViMode mode );
     KTextEditor::Cursor getStart() const { return m_start; }
     KTextEditor::Range getVisualRange() const;
 
@@ -47,8 +48,7 @@ class KateViVisualMode : public KateViNormalMode {
     void updateDirty( bool entireView = false ) const;
     void goToPos( const KateViRange &r );
     void reset();
-    bool m_visualLine; // FIXME:
-    bool m_visualBlock;// use a ViMode variable instead
+    ViMode m_mode;
     KTextEditor::Cursor m_start;
     KTextEditor::Cursor m_previous; // previous position, used when deciding which lines to redraw
 };

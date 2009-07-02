@@ -237,11 +237,7 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
   changeViMode( mode );
 
   m_viewInternal->repaint ();
-  if ( mode == VisualBlockMode ) {
-    getViVisualMode()->setVisualBlock( true );
-  } else if ( mode == VisualLineMode ) {
-    getViVisualMode()->setVisualLine( true );
-  }
+  getViVisualMode()->setVisualModeType( mode );
   getViVisualMode()->init();
 }
 

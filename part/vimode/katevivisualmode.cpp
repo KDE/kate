@@ -178,6 +178,11 @@ KTextEditor::Range KateViVisualMode::getVisualRange() const
   int endCol = qMax( c.column(), m_start.column() );
   int endLine = qMax( c.line(), m_start.line() );
 
+  if ( m_mode == VisualLineMode ) {
+    startCol = 0;
+    endCol = m_view->doc()->lineLength( endLine );
+  }
+
   return KTextEditor::Range( startLine, startCol, endLine, endCol );
 }
 

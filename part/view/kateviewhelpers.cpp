@@ -1853,7 +1853,7 @@ KateViewBarWidget::KateViewBarWidget (bool addCloseButton, KateView* view, QWidg
   QHBoxLayout *layout = new QHBoxLayout;
 
   // NOTE: Here be cosmetics.
-  layout->setMargin(2);
+  layout->setMargin(0);
 
   // hide button
   if (addCloseButton) {

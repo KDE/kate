@@ -155,7 +155,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
     // Modify parent
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
-    m_layout->setMargin(2);
+    m_layout->setMargin(0);
 
     // Init highlight
     m_topRange = view()->doc()->newSmartRange(view()->doc()->documentRange());
@@ -1673,7 +1673,7 @@ void KateSearchBar::onMutatePower() {
         Q_ASSERT(patternLineEdit != NULL);
         patternLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
 
-        QLineEdit * const replacementLineEdit = m_powerUi->pattern->lineEdit();
+        QLineEdit * const replacementLineEdit = m_powerUi->replacement->lineEdit();
         Q_ASSERT(replacementLineEdit != NULL);
         replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
     }

@@ -20,13 +20,10 @@
    <property name="margin" >
     <number>0</number>
    </property>
-   <property name="spacing" >
-    <number>0</number>
-   </property>
    <item row="0" column="0" >
     <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>6</number>
+     <property name="margin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QLabel" name="label" >

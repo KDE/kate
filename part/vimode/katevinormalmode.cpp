@@ -2136,7 +2136,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "I", &KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode ) );
-  m_commands.push_back( new KateViCommand( this, "<c-v>", &KateViNormalMode::commandEnterVisualBlockMode ) );
+//m_commands.push_back( new KateViCommand( this, "<c-v>", &KateViNormalMode::commandEnterVisualBlockMode ) );
   m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, IS_CHANGE ) );

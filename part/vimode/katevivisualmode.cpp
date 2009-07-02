@@ -46,13 +46,13 @@ void KateViVisualMode::updateDirty( bool entireView ) const
     // tag lines that might have changed their highlighting as dirty
     if ( c.line() >= m_start.line() ) { // selection in the "normal" direction
       if ( c.line() > m_previous.line() ) {
-        m_view->tagLines(m_previous.line(), m_view->cursorPosition().line());
+        m_view->tagLines(m_start.line(), c.line());
       } else {
         m_view->tagLines(m_start.line(), m_previous.line());
       }
     } else { // selection in the "opposite" direction, i.e., upward or to the left
       if ( c.line() < m_previous.line() ) {
-        m_view->tagLines(m_view->cursorPosition().line(), m_previous.line());
+        m_view->tagLines(c.line(), m_start.line());
       } else {
         m_view->tagLines(m_previous.line(), m_start.line());
       }

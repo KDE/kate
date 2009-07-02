@@ -431,12 +431,15 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
             assignSelectionBrushesFromAttribute(fr, *a);
           }
         } else if ( m_view->getCurrentViMode() == VisualBlockMode ) {
-          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)) {
+          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)
+              || m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().start().line() == currentPosition.line()
+              || m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().end().line() == currentPosition.line()) {
             int c1 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().start().column();
             int c2 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().end().column();
 
-            if(currentPosition.column() >= c1 && currentPosition.column() < c2)
+            if(currentPosition.column() >= c1 && currentPosition.column() <= c2) {
               assignSelectionBrushesFromAttribute(fr, *a);
+            }
           }
         }
       }

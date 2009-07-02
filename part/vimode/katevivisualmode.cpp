@@ -104,7 +104,7 @@ void KateViVisualMode::reset()
     if ( m_viInputModeManager->getCurrentViMode() == VisualMode
         || m_viInputModeManager->getCurrentViMode() == VisualLineMode
         || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-      m_viInputModeManager->viEnterNormalMode();
+      startNormalMode();
     }
 
     // TODO: set register < and > (see :help '< in vim)

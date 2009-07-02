@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -61,6 +62,8 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     appendKeyEventToLog( copy );
   }
 
+  // FIXME: I this we're making things difficult for ourselves here.  Maybe some
+  //        more thought needs to go into the inheritance hierarchy.
   switch(m_currentViMode) {
   case NormalMode:
     res = m_viNormalMode->handleKeypress(e);
@@ -70,9 +73,11 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     break;
   case VisualMode:
   case VisualLineMode:
+  case VisualBlockMode:
     res = m_viVisualMode->handleKeypress(e);
     break;
   default:
+    kDebug( 13070 ) << "WARNING: Unhandled keypress";
     res = false;
   }
 
@@ -227,16 +232,16 @@ void KateViInputModeManager::viEnterInsertMode()
   m_viewInternal->repaint ();
 }
 
-void KateViInputModeManager::viEnterVisualMode( bool visualLine )
+void KateViInputModeManager::viEnterVisualMode( ViMode mode )
 {
-  if ( !visualLine ) {
-    changeViMode(VisualMode);
-  } else {
-    changeViMode(VisualLineMode);
-  }
+  changeViMode( mode );
 
   m_viewInternal->repaint ();
-  getViVisualMode()->setVisualLine( visualLine );
+  if ( mode == VisualBlockMode ) {
+    getViVisualMode()->setVisualBlock( true );
+  } else if ( mode == VisualLineMode ) {
+    getViVisualMode()->setVisualLine( true );
+  }
   getViVisualMode()->init();
 }
 
@@ -268,6 +273,7 @@ const QString KateViInputModeManager::getVerbatimKeys() const
     break;
   case VisualMode:
   case VisualLineMode:
+  case VisualBlockMode:
     cmd = m_viVisualMode->getVerbatimKeys();
     break;
   }

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -62,6 +63,7 @@ class KateViNormalMode : public KateViModeBase
 
     bool commandEnterVisualMode();
     bool commandEnterVisualLineMode();
+    bool commandEnterVisualBlockMode();
     bool commandToOtherEnd();
 
     bool commandDelete();

@@ -29,6 +29,8 @@
 #include "katerenderrange.h"
 #include "katetextlayout.h"
 
+#include "katevivisualmode.h"
+
 #include <limits.h>
 
 #include <kdebug.h>
@@ -331,10 +333,36 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       else
         if(m_view->blockSelection() && m_view->selectionRange().overlapsLine(line))
           selectionHighlight->addRange(new KTextEditor::Range(line, m_view->selectionRange().start().column(), line, m_view->selectionRange().end().column()), backgroundAttribute);
-        else
+        else {
           selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
+          kDebug( 13070 ) << m_view->selectionRange() << " SEL RANGE";
+        }
 
       renderRanges.append(selectionHighlight);
+    // hihglighting for the vi visual modes
+    } else if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualMode
+             || m_view->getViInputModeManager()->getCurrentViMode() == VisualLineMode
+             || m_view->getViInputModeManager()->getCurrentViMode() == VisualBlockMode ) {
+
+      KTextEditor::Range r = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange();
+
+      if ( r.isValid() && (r.end().line() == line || r.start().line() == line || r.containsLine( line ) )) {
+        NormalRenderRange* selectionHighlight = new NormalRenderRange();
+        static KTextEditor::Attribute::Ptr backgroundAttribute;
+        if (!backgroundAttribute)
+          backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+
+        backgroundAttribute->setBackground(config()->selectionColor());
+
+        if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualBlockMode ) {
+          selectionHighlight->addRange(new KTextEditor::Range(line, r.start().column(), line, r.end().column()+1), backgroundAttribute);
+        } else if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualLineMode ) {
+          selectionHighlight->addRange(new KTextEditor::Range(line, 0, line, m_view->doc()->lineLength( line )), backgroundAttribute);
+        } else {
+          selectionHighlight->addRange(new KTextEditor::Range(r), backgroundAttribute);
+        }
+        renderRanges.append(selectionHighlight);
+      }
     }
 
     KTextEditor::Cursor currentPosition, endPosition;
@@ -397,6 +425,18 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
           } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
             assignSelectionBrushesFromAttribute(fr, *a);
+          }
+        } else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
+          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)) {
+            assignSelectionBrushesFromAttribute(fr, *a);
+          }
+        } else if ( m_view->getCurrentViMode() == VisualBlockMode ) {
+          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)) {
+            int c1 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().start().column();
+            int c2 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().end().column();
+
+            if(currentPosition.column() >= c1 && currentPosition.column() < c2)
+              assignSelectionBrushesFromAttribute(fr, *a);
           }
         }
       }

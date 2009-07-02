@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -697,8 +698,25 @@ bool KateViModeBase::startVisualMode()
   if ( m_view->getCurrentViMode() == VisualLineMode ) {
     m_viInputModeManager->getViVisualMode()->setVisualLine( false );
     m_viInputModeManager->changeViMode(VisualMode);
+  } else if (m_view->getCurrentViMode() == VisualBlockMode ) {
+    m_viInputModeManager->getViVisualMode()->setVisualBlock( false );
+    m_viInputModeManager->changeViMode(VisualMode);
   } else {
     m_viInputModeManager->viEnterVisualMode();
+  }
+
+  m_view->updateViModeBarMode();
+
+  return true;
+}
+
+bool KateViModeBase::startVisualBlockMode()
+{
+  if ( m_view->getCurrentViMode() == VisualMode ) {
+    m_viInputModeManager->getViVisualMode()->setVisualBlock( true );
+    m_viInputModeManager->changeViMode(VisualBlockMode);
+  } else {
+    m_viInputModeManager->viEnterVisualMode( VisualBlockMode );
   }
 
   m_view->updateViModeBarMode();
@@ -712,7 +730,7 @@ bool KateViModeBase::startVisualLineMode()
     m_viInputModeManager->getViVisualMode()->setVisualLine( true );
     m_viInputModeManager->changeViMode(VisualLineMode);
   } else {
-    m_viInputModeManager->viEnterVisualMode( true );
+    m_viInputModeManager->viEnterVisualMode( VisualLineMode );
   }
 
   m_view->updateViModeBarMode();

@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
  * Copyright (C) 2008 Evgeniy Ivanov <powerfox@kde.ru>
+ * Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -488,6 +489,16 @@ bool KateViNormalMode::commandEnterVisualLineMode()
   return startVisualLineMode();
 }
 
+bool KateViNormalMode::commandEnterVisualBlockMode()
+{
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    reset();
+    return true;
+  }
+
+  return startVisualBlockMode();
+}
+
 bool KateViNormalMode::commandEnterVisualMode()
 {
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
@@ -500,8 +511,9 @@ bool KateViNormalMode::commandEnterVisualMode()
 
 bool KateViNormalMode::commandToOtherEnd()
 {
-  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     m_viInputModeManager->getViVisualMode()->switchStartEnd();
     return true;
   }
@@ -2124,6 +2136,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "I", &KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode ) );
+  m_commands.push_back( new KateViCommand( this, "<c-v>", &KateViNormalMode::commandEnterVisualBlockMode ) );
   m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, IS_CHANGE ) );

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -34,20 +35,22 @@ class KateViVisualMode : public KateViNormalMode {
     void init();
 
     void setVisualLine( bool l );
+    void setVisualBlock( bool l );
     bool isVisualLine() const { return m_visualLine; }
+    bool isVisualBlock() const { return m_visualBlock; }
     void switchStartEnd();
     KTextEditor::Cursor getStart() const { return m_start; }
+    KTextEditor::Range getVisualRange() const;
 
   private:
     void initializeCommands();
-    void highlight() const;
+    void updateDirty( bool entireView = false ) const;
     void goToPos( const KateViRange &r );
     void reset();
-    bool m_visualLine;
+    bool m_visualLine; // FIXME:
+    bool m_visualBlock;// use a ViMode variable instead
     KTextEditor::Cursor m_start;
-    KTextEditor::SmartRange * m_topRange;
-    KTextEditor::SmartRange * highlightRange;
-    KTextEditor::Attribute::Ptr attribute;
+    KTextEditor::Cursor m_previous; // previous position, used when deciding which lines to redraw
 };
 
 #endif

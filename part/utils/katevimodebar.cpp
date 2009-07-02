@@ -119,6 +119,9 @@ QString KateViModeBar::modeToString(ViMode mode) const
     case VisualMode:
       modeStr = i18n("VI: VISUAL");
       break;
+    case VisualBlockMode:
+      modeStr = i18n("VI: VISUAL BLOCK");
+      break;
     case VisualLineMode:
       modeStr = i18n("VI: VISUAL LINE");
       break;

@@ -38,7 +38,8 @@ enum ViMode {
   NormalMode,
   InsertMode,
   VisualMode,
-  VisualLineMode
+  VisualLineMode,
+  VisualBlockMode
 };
 
 class KateViInputModeManager
@@ -82,9 +83,8 @@ public:
 
   /**
    * set visual mode to be the active vi mode and make the needed setup work
-   * if visualLine is true, visual linewise mode is started
    */
-  void viEnterVisualMode(bool visualLine = false);
+  void viEnterVisualMode( ViMode visualMode = VisualMode );
 
   /**
    * @return the KateViNormalMode instance

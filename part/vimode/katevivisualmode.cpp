@@ -25,20 +25,10 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   : KateViNormalMode( viInputModeManager, view, viewInternal )
 {
   m_start.setPosition( -1, -1 );
-  m_topRange = doc()->newSmartRange(doc()->documentRange());
-  static_cast<KateSmartRange*>(m_topRange)->setInternal();
-  m_topRange->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
-
-  m_view->addInternalHighlight(m_topRange);
+  m_previous.setPosition( -1, -1 );
 
   m_visualLine = false;
-
-  KTextEditor::Range r;
-  highlightRange = doc()->newSmartRange( r, m_topRange );
-  attribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-  attribute->setBackground( m_viewInternal->palette().highlight() );
-  attribute->setForeground( m_viewInternal->palette().highlightedText() );
-  highlightRange->setInsertBehavior(KTextEditor::SmartRange::DoNotExpand);
+  m_visualBlock = false;
 
   initializeCommands();
 }
@@ -47,28 +37,35 @@ KateViVisualMode::~KateViVisualMode()
 {
 }
 
-void KateViVisualMode::highlight() const
+void KateViVisualMode::updateDirty( bool entireView ) const
 {
-  // FIXME: HACK to avoid highlight bug: remove highlighing and re-set it
-  highlightRange->setAttribute(KTextEditor::Attribute::Ptr());
-  highlightRange->setAttribute(attribute);
+  KTextEditor::Cursor c = m_view->cursorPosition();
 
-  KTextEditor::Cursor c1 = m_start;
-  KTextEditor::Cursor c2 = m_view->cursorPosition();
-
-  if ( m_visualLine ) {
-      c1.setColumn( ( c1 < c2 ) ? 0 : getLine( m_start.line() ).length() );
-      c2.setColumn( ( c1 < c2  ? getLine().length() : 0 ) );
-  } else if ( c1 > c2 && c1.column() != 0 ) {
-    c1.setColumn( c1.column()+1 );
+  if ( entireView ) {
+    m_view->tagLines(0, m_view->doc()->lastLine() );
+  } else {
+    // tag lines that might have changed their highlighting as dirty
+    if ( c.line() >= m_start.line() ) { // selection in the "normal" direction
+      if ( c.line() > m_previous.line() ) {
+        m_view->tagLines(m_previous.line(), m_view->cursorPosition().line());
+      } else {
+        m_view->tagLines(m_start.line(), m_previous.line());
+      }
+    } else { // selection in the "opposite" direction, i.e., upward or to the left
+      if ( c.line() < m_previous.line() ) {
+        m_view->tagLines(m_view->cursorPosition().line(), m_previous.line());
+      } else {
+        m_view->tagLines(m_previous.line(), m_start.line());
+      }
+    }
   }
-
-  highlightRange->setRange( KTextEditor::Range( c1, c2 ) );
+  m_view->updateView( true );
 }
 
 void KateViVisualMode::goToPos( const KateViRange &r )
 {
   KTextEditor::Cursor c = m_view->cursorPosition();
+  m_previous = c;
 
   if ( r.startLine != -1 && r.startColumn != -1 && c == m_start ) {
     m_start.setLine( r.startLine );
@@ -94,32 +91,37 @@ void KateViVisualMode::goToPos( const KateViRange &r )
   m_commandRange.endLine = r.endLine;
   m_commandRange.endColumn = r.endColumn;
 
-  highlight();
+  updateDirty();
 }
 
 void KateViVisualMode::reset()
 {
-    // remove highlighting
-    highlightRange->setAttribute(KTextEditor::Attribute::Ptr());
-
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 
     m_visualLine = false;
+    m_visualBlock = false;
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
     // can have switched to insert mode
     if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-        || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+        || m_viInputModeManager->getCurrentViMode() == VisualLineMode
+        || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
       m_viInputModeManager->viEnterNormalMode();
     }
+
+    // TODO: set register < and > (see :help '< in vim)
+
+    m_start.setPosition( -1, -1 );
+    m_previous.setPosition( -1, -1 );
+
+    // remove highlighting
+    updateDirty( true );
 }
 
 void KateViVisualMode::init()
 {
     m_start = m_view->cursorPosition();
-    highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
-    highlightRange->setAttribute(attribute);
-    highlight();
+    updateDirty();
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 
@@ -128,10 +130,16 @@ void KateViVisualMode::init()
 }
 
 
+void KateViVisualMode::setVisualBlock( bool l )
+{
+  m_visualBlock = l;
+  updateDirty();
+}
+
 void KateViVisualMode::setVisualLine( bool l )
 {
   m_visualLine = l;
-  highlight();
+  updateDirty();
 }
 
 void KateViVisualMode::switchStartEnd()
@@ -141,7 +149,21 @@ void KateViVisualMode::switchStartEnd()
 
   updateCursor( c );
 
-  highlight();
+  m_stickyColumn = -1;
+
+  updateDirty();
+}
+
+KTextEditor::Range KateViVisualMode::getVisualRange() const
+{
+  KTextEditor::Cursor c = m_view->cursorPosition();
+
+  int startCol = qMin( c.column(), m_start.column() );
+  int startLine = qMin( c.line(), m_start.line() );
+  int endCol = qMax( c.column(), m_start.column() );
+  int endLine = qMax( c.line(), m_start.line() );
+
+  return KTextEditor::Range( startLine, startCol, endLine, endCol );
 }
 
 void KateViVisualMode::initializeCommands()

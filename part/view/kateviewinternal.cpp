@@ -3769,6 +3769,13 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
+  // if the input method event is text that should be inserted, call KateDocument::typeChars() with
+  // the text. that method will handle the input and take care of overwrite mode, etc.
+  if ( e->commitString().length() > 0 && m_doc->typeChars( m_view, e->commitString() ) ) {
+    e->accept();
+    return;
+  }
+
   //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
   if ( m_view->selection() )

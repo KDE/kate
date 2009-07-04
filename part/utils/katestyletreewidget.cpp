@@ -387,7 +387,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
   bool set = brush != QBrush();
 
   if (!set) {
-    opt.text = i18nc("No text or background colour set", "None set");
+    opt.text = i18nc("No text or background color set", "None set");
     brush = Qt::white;
   }
   

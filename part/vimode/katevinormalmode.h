@@ -116,6 +116,7 @@ class KateViNormalMode : public KateViModeBase
 
     bool commandScrollPageDown();
     bool commandScrollPageUp();
+    bool commandCentreViewOnCursor();
 
     bool commandAbort();
 

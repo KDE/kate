@@ -24,6 +24,7 @@
 #include <ktexteditor/cursor.h>
 #include "kateview.h"
 #include "katevirange.h"
+#include "kateviewinternal.h"
 
 #include <QList>
 
@@ -32,7 +33,6 @@ class QString;
 class QRegExp;
 class QTimer;
 class KateDocument;
-class KateViewInternal;
 class KateViVisualMode;
 class KateViNormalMode;
 class KateViInputModeManager;
@@ -75,6 +75,9 @@ class KateViModeBase : public QObject
     KateViRange goLineUp();
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);
+
+    unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }
+    void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }
 
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
 

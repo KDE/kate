@@ -1204,6 +1204,16 @@ bool KateViNormalMode::commandScrollPageUp()
   return true;
 }
 
+bool KateViNormalMode::commandCentreViewOnCursor()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  int linesToScroll = (m_viewInternal->endLine()-linesDisplayed()/2)-c.line();
+
+  scrollViewLines( -linesToScroll );
+
+  return true;
+}
+
 bool KateViNormalMode::commandAbort()
 {
   reset();
@@ -2176,6 +2186,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "<pagedown>", &KateViNormalMode::commandScrollPageDown ) );
   m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp ) );
   m_commands.push_back( new KateViCommand( this, "<pageup>", &KateViNormalMode::commandScrollPageUp ) );
+  m_commands.push_back( new KateViCommand( this, "zz", &KateViNormalMode::commandCentreViewOnCursor ) );
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
   m_commands.push_back( new KateViCommand( this, ".", &KateViNormalMode::commandRepeatLastChange ) );
   m_commands.push_back( new KateViCommand( this, "==", &KateViNormalMode::commandAlignLine, IS_CHANGE ) );

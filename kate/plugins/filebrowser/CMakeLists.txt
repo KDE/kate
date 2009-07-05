@@ -4,7 +4,7 @@ add_subdirectory( icons )
 
 ########### next target ###############
 
-set(katefilebrowserplugin_PART_SRCS katefileselector.cpp kbookmarkhandler.cpp )
+set(katefilebrowserplugin_PART_SRCS katefilebrowserplugin.cpp katefilebrowser.cpp katebookmarkhandler.cpp )
 
 
 kde4_add_plugin(katefilebrowserplugin ${katefilebrowserplugin_PART_SRCS})

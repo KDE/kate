@@ -1,5 +1,4 @@
 * Make it possible to save registers, marks, command history etc. between sessions.
-* Add a replace mode (shift+r)
 * integrate the vi input mode marks with kate's bookmarks system
 * make mouse dragging start visual mode
 * <c-w> in insert mode should first delete back to the point where insert mode was started even if that was in the middle of a word

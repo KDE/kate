@@ -294,7 +294,7 @@ class KateView : public KTextEditor::View,
   //
   public:
     // should cursor be wrapped ? take config + blockselection state in account
-    bool wrapCursor ();
+    bool wrapCursor () const;
 
     // some internal functions to get selection state of a line/col
     bool cursorSelected(const KTextEditor::Cursor& cursor);
@@ -524,7 +524,8 @@ class KateView : public KTextEditor::View,
      * accessor to katedocument pointer
      * @return pointer to document
      */
-    inline KateDocument*  doc() { return m_doc; }
+    KateDocument*  doc() { return m_doc; }
+    const KateDocument*  doc() const { return m_doc; }
 
   public Q_SLOTS:
     void slotUpdateUndo();
@@ -586,7 +587,7 @@ class KateView : public KTextEditor::View,
     KToggleAction *m_toggleInsert;
     KToggleAction *m_toggleWriteLock;
 
-    KateDocument*          m_doc;
+    KateDocument     *const m_doc;
     KateViewInternal*      m_viewInternal;
     KateRenderer*          m_renderer;
     KateSpell             *m_spell;

@@ -138,7 +138,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_renderer = new KateRenderer(doc, this);
 
-  m_viewInternal = new KateViewInternal( this, doc );
+  m_viewInternal = new KateViewInternal( this );
 
   // ugly workaround:
   // Force the layout to be left-to-right even on RTL deskstop, as discussed
@@ -1453,7 +1453,7 @@ void KateView::updateConfig ()
 
   // now redraw...
   {
-    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    QMutexLocker lock(m_doc->smartMutex());
     m_viewInternal->cache()->clear();
   }
   tagAll ();
@@ -1480,7 +1480,7 @@ void KateView::updateDocumentConfig()
 
   // now redraw...
   {
-    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    QMutexLocker lock(m_doc->smartMutex());
     m_viewInternal->cache()->clear();
   }
   tagAll ();
@@ -1499,7 +1499,7 @@ void KateView::updateRendererConfig()
 
   // now redraw...
   {
-    QMutexLocker lock(m_viewInternal->m_doc->smartMutex());
+    QMutexLocker lock(m_doc->smartMutex());
     m_viewInternal->cache()->clear();
   }
   tagAll ();
@@ -1909,7 +1909,7 @@ bool KateView::toggleBlockSelectionMode ()
   return setBlockSelectionMode (!blockSelect);
 }
 
-bool KateView::wrapCursor ()
+bool KateView::wrapCursor () const
 {
   return !blockSelectionMode() && (m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor);
 }

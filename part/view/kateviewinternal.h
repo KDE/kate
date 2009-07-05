@@ -72,7 +72,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     };
 
   public:
-    KateViewInternal ( KateView *view, KateDocument *doc );
+    KateViewInternal ( KateView *view );
     ~KateViewInternal ();
 
   //BEGIN EDIT STUFF
@@ -136,8 +136,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void prepareForDynWrapChange();
     void dynWrapChanged();
-
-    KateView *view () { return m_view; }
 
   public Q_SLOTS:
     void slotIncFontSizes();
@@ -253,11 +251,9 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void doDrag();
 
-    inline KateView* view() const { return m_view; }
     KateRenderer* renderer() const;
 
     KateView *m_view;
-    KateDocument* m_doc;
     class KateIconBorder *m_leftBorder;
 
     int m_mouseX;
@@ -405,7 +401,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
 
   private:
-    KTextEditor::SmartRange* m_imPreedit;
+    KTextEditor::SmartRange* m_imPreeditRange;
 
   // Arbitrary highlighting
   public:
@@ -454,6 +450,11 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     int m_watcherCount1, m_watcherCount3;
+
+  private:
+    inline KateDocument *doc() { return m_view->doc(); }
+    inline KateDocument *doc() const { return m_view->doc(); }
+    inline KateSmartManager *smartManager() { return doc()->smartManager(); }
 
   // vi Mode
   private:

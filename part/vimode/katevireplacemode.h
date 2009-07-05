@@ -17,31 +17,38 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_VI_GLOBAL_H_INCLUDED
-#define KATE_VI_GLOBAL_H_INCLUDED
+#ifndef KATE_VI_REPLACE_MODE_INCLUDED
+#define KATE_VI_REPLACE_MODE_INCLUDED
 
-#include <QMap>
-#include <QList>
-#include <QString>
-#include <QChar>
+#include <QKeyEvent>
+#include "katevimodebase.h"
 
-class KateViGlobal
+class KateViMotion;
+class KateView;
+class KateViewInternal;
+
+/**
+ * Commands for the vi insert mode
+ */
+
+class KateViReplaceMode : public KateViModeBase
 {
-public:
-    KateViGlobal();
-    ~KateViGlobal();
-    // registers
-public:
-    QString getRegisterContent( const QChar &reg ) const;
-    void addToNumberedRegister( const QString &text );
-    void fillRegister( const QChar &reg, const QString &text);
-    const QMap<QChar, QString>* getRegisters() { return m_registers; }
+  public:
+    KateViReplaceMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
+    ~KateViReplaceMode();
 
-private:
-    QList<QString> *m_numberedRegisters;
-    QMap<QChar, QString> *m_registers;
-    QChar m_defaultRegister;
-    QString m_registerTemp;
+    bool handleKeypress( const QKeyEvent *e );
+
+    bool commandInsertFromLine( int offset );
+
+    bool commandMoveOneWordLeft();
+    bool commandMoveOneWordRight();
+
+    void overwrittenChar( const QChar &s ) { m_overwritten += s; }
+    void backspace();
+
+  private:
+    QString m_overwritten;
 };
 
 #endif

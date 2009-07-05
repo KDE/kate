@@ -23,6 +23,7 @@
 #include <QKeyEvent>
 #include <QList>
 
+class KConfigGroup;
 class KateView;
 class KateViewInternal;
 class KateViNormalMode;
@@ -146,6 +147,10 @@ public:
   const QString getMapping( ViMode mode, const QString &from );
 
   const QStringList getMappings( ViMode mode );
+
+  // session stuff
+  void readSessionConfig( const KConfigGroup& config );
+  void writeSessionConfig( KConfigGroup& config );
 
 private:
   KateViNormalMode* m_viNormalMode;

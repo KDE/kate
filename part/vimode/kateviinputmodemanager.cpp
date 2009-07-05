@@ -24,6 +24,12 @@
 #include <QString>
 #include <QCoreApplication>
 
+#include <kconfig.h>
+#include <kconfiggroup.h>
+
+#include "kateconfig.h"
+#include "kateglobal.h"
+#include "kateviglobal.h"
 #include "katevinormalmode.h"
 #include "kateviinsertmode.h"
 #include "katevivisualmode.h"
@@ -283,6 +289,7 @@ const QString KateViInputModeManager::getVerbatimKeys() const
     cmd = m_viNormalMode->getVerbatimKeys();
     break;
   case InsertMode:
+  case ReplaceMode:
     // ...
     break;
   case VisualMode:
@@ -345,4 +352,22 @@ const QStringList KateViInputModeManager::getMappings( ViMode mode )
   }
 
   return QStringList();
+}
+
+void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
+{
+  kDebug( 13070 ) << "@@@@@@@@@@@@";
+}
+
+void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
+{
+  const QMap<QChar, QString>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
+  QStringList name, contents;
+  foreach ( const QString &s, regs->keys() ) {
+    name << s;
+    contents << regs->value( s.at(0) );
+  }
+
+  config.writeEntry( "ViRegisterNames", name );
+  config.writeEntry( "ViRegisterContents", contents );
 }

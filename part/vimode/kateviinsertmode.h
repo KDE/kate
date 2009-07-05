@@ -55,9 +55,6 @@ class KateViInsertMode : public KateViModeBase
 
     bool commandCompleteNext();
     bool commandCompletePrevious();
-
-  private:
-    const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
 };
 
 #endif

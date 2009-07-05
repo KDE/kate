@@ -71,6 +71,7 @@ class KateViModeBase : public QObject
     KateViRange findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner = false ) const;
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     void updateCursor( const KTextEditor::Cursor &c ) const;
+    const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
 
     KateViRange goLineUp();
     KateViRange goLineDown();

@@ -36,33 +36,6 @@ KateViInsertMode::~KateViInsertMode()
 {
 }
 
-const QChar KateViInsertMode::getCharAtVirtualColumn( QString &line, int virtualColumn,
-    int tabWidth ) const
-{
-  int column = 0;
-  int tempCol = 0;
-
-  while ( tempCol < virtualColumn ) {
-    if ( line.at( column ) == '\t' ) {
-      tempCol += tabWidth - ( tempCol % tabWidth );
-    } else {
-      tempCol++;
-    }
-
-    if ( tempCol <= virtualColumn ) {
-      column++;
-
-      if ( column >= line.length() ) {
-        return QChar::Null;
-      }
-    }
-  }
-
-  if ( line.length() > column )
-    return line.at( column );
-
-  return QChar::Null;
-}
 
 bool KateViInsertMode::commandInsertFromAbove()
 {

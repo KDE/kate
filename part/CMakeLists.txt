@@ -120,6 +120,7 @@ vimode/katevirange.cpp
 vimode/katevikeysequenceparser.cpp
 vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
+vimode/katevireplacemode.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp

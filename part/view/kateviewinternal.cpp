@@ -2349,7 +2349,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       m_view->viModeBar()->clearMessage(); // clear [error] message
     }
 
-    if ( getViInputModeManager()->getCurrentViMode() == InsertMode ) {
+    if ( getViInputModeManager()->getCurrentViMode() == InsertMode
+        || getViInputModeManager()->getCurrentViMode() == ReplaceMode ) {
       if ( getViInputModeManager()->handleKeypress( e ) ) {
         return;
       } else if ( e->modifiers() != Qt::NoModifier && e->modifiers() != Qt::ShiftModifier ) {

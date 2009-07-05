@@ -125,6 +125,10 @@ QString KateViModeBar::modeToString(ViMode mode) const
     case VisualLineMode:
       modeStr = i18n("VI: VISUAL LINE");
       break;
+    case ReplaceMode:
+      modeStr = i18n("VI: REPLACE");
+      break;
   }
+
   return modeStr;
 }

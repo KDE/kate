@@ -24,6 +24,7 @@
 #include "kateviglobal.h"
 #include "katevivisualmode.h"
 #include "katevinormalmode.h"
+#include "katevireplacemode.h"
 #include "kateviinputmodemanager.h"
 
 #include <QString>
@@ -688,6 +689,15 @@ bool KateViModeBase::startInsertMode()
 {
   m_viInputModeManager->viEnterInsertMode();
   m_view->doc()->setMergeAllEdits(true);
+  m_view->updateViModeBarMode();
+
+  return true;
+}
+
+bool KateViModeBase::startReplaceMode()
+{
+  m_view->doc()->setMergeAllEdits(true);
+  m_viInputModeManager->viEnterReplaceMode();
   m_view->updateViModeBarMode();
 
   return true;

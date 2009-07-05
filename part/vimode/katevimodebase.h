@@ -87,6 +87,7 @@ class KateViModeBase : public QObject
     bool startVisualMode();
     bool startVisualLineMode();
     bool startVisualBlockMode();
+    bool startReplaceMode();
 
     void error( const QString &errorMsg ) const;
     void message( const QString &msg ) const;

@@ -521,6 +521,11 @@ bool KateViNormalMode::commandToOtherEnd()
   return false;
 }
 
+bool KateViNormalMode::commandEnterReplaceMode()
+{
+  return startReplaceMode();
+}
+
 bool KateViNormalMode::commandDeleteLine()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -2170,6 +2175,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "p", &KateViNormalMode::commandPaste, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "P", &KateViNormalMode::commandPasteBefore, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN ) );
+  m_commands.push_back( new KateViCommand( this, "R", &KateViNormalMode::commandEnterReplaceMode, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, ":", &KateViNormalMode::commandSwitchToCmdLine ) );
   m_commands.push_back( new KateViCommand( this, "/", &KateViNormalMode::commandSearch ) );
   m_commands.push_back( new KateViCommand( this, "u", &KateViNormalMode::commandUndo) );

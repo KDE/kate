@@ -27,6 +27,7 @@
 #include "katevinormalmode.h"
 #include "kateviinsertmode.h"
 #include "katevivisualmode.h"
+#include "katevireplacemode.h"
 #include "katevikeysequenceparser.h"
 
 KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal* viewInternal)
@@ -34,6 +35,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_viNormalMode = new KateViNormalMode(this, view, viewInternal);
   m_viInsertMode = new KateViInsertMode(this, view, viewInternal);
   m_viVisualMode = new KateViVisualMode(this, view, viewInternal);
+  m_viReplaceMode = new KateViReplaceMode(this, view, viewInternal);
 
   m_currentViMode = NormalMode;
 
@@ -75,6 +77,9 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   case VisualLineMode:
   case VisualBlockMode:
     res = m_viVisualMode->handleKeypress(e);
+    break;
+  case ReplaceMode:
+    res = m_viReplaceMode->handleKeypress(e);
     break;
   default:
     kDebug( 13070 ) << "WARNING: Unhandled keypress";
@@ -216,7 +221,8 @@ ViMode KateViInputModeManager::getCurrentViMode() const
 
 void KateViInputModeManager::viEnterNormalMode()
 {
-  bool moveCursorLeft = m_currentViMode == InsertMode && m_viewInternal->getCursor().column() > 0;
+  bool moveCursorLeft = (m_currentViMode == InsertMode || m_currentViMode == ReplaceMode)
+    && m_viewInternal->getCursor().column() > 0;
 
   changeViMode(NormalMode);
 
@@ -241,6 +247,13 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
   getViVisualMode()->init();
 }
 
+void KateViInputModeManager::viEnterReplaceMode()
+{
+  changeViMode(ReplaceMode);
+  m_viewInternal->repaint ();
+}
+
+
 KateViNormalMode* KateViInputModeManager::getViNormalMode()
 {
   return m_viNormalMode;
@@ -254,6 +267,11 @@ KateViInsertMode* KateViInputModeManager::getViInsertMode()
 KateViVisualMode* KateViInputModeManager::getViVisualMode()
 {
   return m_viVisualMode;
+}
+
+KateViReplaceMode* KateViInputModeManager::getViReplaceMode()
+{
+  return m_viReplaceMode;
 }
 
 const QString KateViInputModeManager::getVerbatimKeys() const

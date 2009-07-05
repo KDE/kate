@@ -66,6 +66,8 @@ class KateViNormalMode : public KateViModeBase
     bool commandEnterVisualBlockMode();
     bool commandToOtherEnd();
 
+    bool commandEnterReplaceMode();
+
     bool commandDelete();
     bool commandDeleteToEOL();
     bool commandDeleteLine();

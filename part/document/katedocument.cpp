@@ -45,6 +45,7 @@
 #include "katebuffer.h"
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
+#include "katevireplacemode.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -3827,8 +3828,20 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   KTextEditor::Cursor oldCur (view->cursorPosition());
 
-  if (config()->configFlags()  & KateDocumentConfig::cfOvr)
-    removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
+  if (config()->configFlags() & KateDocumentConfig::cfOvr
+      || (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode)) {
+
+    KTextEditor::Range r = KTextEditor::Range(view->cursorPosition(), qMin(buf.length(),
+          textLine->length() - view->cursorPosition().column()));
+
+    // replace mode needs to know what was removed so it can be restored with backspace
+    if (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode) {
+      QChar removed = line( view->cursorPosition().line() ).at( r.start().column() );
+      view->getViInputModeManager()->getViReplaceMode()->overwrittenChar( removed );
+    }
+
+    removeText(r);
+  }
 
   insertText(view->cursorPosition(), buf);
   if (bracketInserted)

@@ -356,18 +356,32 @@ const QStringList KateViInputModeManager::getMappings( ViMode mode )
 
 void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
 {
-  kDebug( 13070 ) << "@@@@@@@@@@@@";
+  QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
+  QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
+
+  // sanity check
+  if ( names.size() == contents.size() ) {
+    for ( int i = 0; i < names.size(); i++ ) {
+      KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ) );
+    }
+  }
 }
 
 void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
 {
   const QMap<QChar, QString>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
-  QStringList name, contents;
+  QStringList names, contents;
   foreach ( const QString &s, regs->keys() ) {
-    name << s;
-    contents << regs->value( s.at(0) );
+    QString c = regs->value( s.at(0) );
+    if ( c.length() <= 1000 ) {
+      names << s;
+      contents << c;
+    } else {
+      kDebug( 13070 ) << "Did not save contents of register " << s << ": contents too long ("
+        << c.length() << " characters)";
+    }
   }
 
-  config.writeEntry( "ViRegisterNames", name );
+  config.writeEntry( "ViRegisterNames", names );
   config.writeEntry( "ViRegisterContents", contents );
 }

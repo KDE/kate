@@ -31,6 +31,7 @@
 #include "katedocument.h"
 #include "katedocumenthelpers.h"
 #include "kateglobal.h"
+#include "kateviglobal.h"
 #include "katehighlight.h"
 #include "katehighlightmenu.h"
 #include "katehtmlexporter.h"
@@ -1128,16 +1129,22 @@ void KateView::joinLines()
 void KateView::readSessionConfig(const KConfigGroup& config)
 {
   setCursorPositionInternal(KTextEditor::Cursor(config.readEntry("CursorLine",0), config.readEntry("CursorColumn",0)));
-  // should check some stuff here...
-  getViInputModeManager()->readSessionConfig( config );
+
+  // save vi registers if there are registers with contents
+  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+    getViInputModeManager()->readSessionConfig( config );
+  }
 }
 
 void KateView::writeSessionConfig(KConfigGroup& config)
 {
   config.writeEntry("CursorLine",m_viewInternal->m_cursor.line());
   config.writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
-  // should check some stuff here...
-  getViInputModeManager()->writeSessionConfig( config );
+
+  // save vi registers if there are registers with contents
+  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+    getViInputModeManager()->writeSessionConfig( config );
+  }
 }
 
 int KateView::getEol() const

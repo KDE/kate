@@ -20,10 +20,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-// 16:45
-// HOME up left right bookmark sync
-// icon modes raus
-
 //BEGIN Includes
 #include "katefilebrowser.h"
 #include "katefilebrowser.moc"
@@ -50,17 +46,17 @@
 //END Includes
 
 
-KateFileBrowser::KateFileBrowser( Kate::MainWindow *mainWindow,
-                                      QWidget * parent, const char * name )
-    : KVBox (parent),
-    m_mainWindow(mainWindow)
+KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
+                                 QWidget * parent, const char * name)
+  : KVBox (parent)
+  , m_mainWindow(mainWindow)
 {
   setObjectName(name);
 
   m_toolbar = new KToolBar(this);
   m_toolbar->setMovable(false);
   m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-  m_toolbar->setIconDimensions(16);
+//   m_toolbar->setIconDimensions(16);
   m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
 
   // includes some actions, but not hooked into the shortcut dialog atm
@@ -72,13 +68,12 @@ KateFileBrowser::KateFileBrowser( Kate::MainWindow *mainWindow,
   connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl& )), SLOT(updateDirOperator(const KUrl&)));
 
   m_dirOperator = new KDirOperator(KUrl(), this);
-  m_dirOperator->installEventFilter( this );
   m_dirOperator->setView(KFile::/* Simple */Detail);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  connect ( m_dirOperator, SIGNAL( viewChanged(QAbstractItemView *) ),
-           this, SLOT( selectorViewChanged(QAbstractItemView *) ) );
+  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
+          this, SLOT(selectorViewChanged(QAbstractItemView *)));
   setStretchFactor(m_dirOperator, 2);
-  m_dirOperator->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+  m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
   // now all actions exist in dir operator and we can use them in the toolbar
   setupToolbar();
@@ -121,7 +116,7 @@ KateFileBrowser::~KateFileBrowser()
 //END Constroctor/Destrctor
 
 //BEGIN Public Methods
-void ::KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & name)
+void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & name)
 {
 
   KConfigGroup cgView(config, name + ":view");
@@ -149,19 +144,15 @@ void ::KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & n
   slotFilterChange( flt );
 }
 
-void ::KateFileBrowser::setupToolbar()
+void KateFileBrowser::setupToolbar()
 {
   // remove all actions from the toolbar (there should be none)
   m_toolbar->clear();
 
   // create action list
   QList<QAction*> actions;
-  actions << m_dirOperator->actionCollection()->action("home");
-  actions << m_dirOperator->actionCollection()->action("up");
   actions << m_dirOperator->actionCollection()->action("back");
   actions << m_dirOperator->actionCollection()->action("forward");
-  // other actions: "short view", "detailed view", "tree view", "reload",
-  //                "sorting menu", "show hidden"
 
   // bookmarks action!
   KActionMenu *acmBookmarks = new KActionMenu( KIcon("bookmarks"), i18n("Bookmarks"), this );
@@ -188,6 +179,19 @@ void ::KateFileBrowser::setupToolbar()
 
   m_actionCollection->addAction("sync_dir", syncFolder);
   m_actionCollection->addAction("bookmarks", acmBookmarks);
+
+  // section for settings menu
+  KActionMenu *optionsMenu = new KActionMenu(KIcon("configure"), i18n("Options"), this);
+  optionsMenu->setDelayed(false);
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("short view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("tree view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed tree view"));
+  optionsMenu->addSeparator();
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("show hidden"));
+
+  m_toolbar->addSeparator();
+  m_toolbar->addAction(optionsMenu);
 }
 
 void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & name)
@@ -204,7 +208,7 @@ void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & na
 
 //BEGIN Public Slots
 
-void ::KateFileBrowser::slotFilterChange( const QString & nf )
+void KateFileBrowser::slotFilterChange( const QString & nf )
 {
   QString f = nf.trimmed();
   const bool empty = f.isEmpty() || f == "*";
@@ -238,7 +242,7 @@ bool kateFileSelectorIsReadable ( const KUrl& url )
   return dir.exists ();
 }
 
-void ::KateFileBrowser::setDir( KUrl u )
+void KateFileBrowser::setDir( KUrl u )
 {
   KUrl newurl;
 
@@ -263,12 +267,12 @@ void ::KateFileBrowser::setDir( KUrl u )
 
 //BEGIN Private Slots
 
-void ::KateFileBrowser::fileSelected(const KFileItem & /*file*/)
+void KateFileBrowser::fileSelected(const KFileItem & /*file*/)
 {
   openSelectedFiles();
 }
 
-void ::KateFileBrowser::openSelectedFiles()
+void KateFileBrowser::openSelectedFiles()
 {
   const KFileItemList list = m_dirOperator->selectedItems();
 
@@ -283,12 +287,12 @@ void ::KateFileBrowser::openSelectedFiles()
 
 
 
-void ::KateFileBrowser::updateDirOperator( const KUrl& u )
+void KateFileBrowser::updateDirOperator( const KUrl& u )
 {
   m_dirOperator->setUrl(u, true);
 }
 
-void ::KateFileBrowser::updateUrlNavigator( const KUrl& u )
+void KateFileBrowser::updateUrlNavigator( const KUrl& u )
 {
   m_urlNavigator->setUrl( u );
 }
@@ -301,7 +305,7 @@ void ::KateFileBrowser::updateUrlNavigator( const KUrl& u )
    If on:
    Set last filter.
 */
-void ::KateFileBrowser::filterButtonClicked()
+void KateFileBrowser::filterButtonClicked()
 {
   if ( !btnFilter->isChecked() )
   {
@@ -314,8 +318,7 @@ void ::KateFileBrowser::filterButtonClicked()
   }
 }
 
-//FIXME crash on shutdown
-void ::KateFileBrowser::setActiveDocumentDir()
+void KateFileBrowser::setActiveDocumentDir()
 {
 //   kDebug(13001)<<"KateFileBrowser::setActiveDocumentDir()";
   KUrl u = activeDocumentUrl();
@@ -325,7 +328,7 @@ void ::KateFileBrowser::setActiveDocumentDir()
 //   kDebug(13001)<<"... setActiveDocumentDir() DONE!";
 }
 
-void ::KateFileBrowser::selectorViewChanged( QAbstractItemView * newView )
+void KateFileBrowser::selectorViewChanged( QAbstractItemView * newView )
 {
   newView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }

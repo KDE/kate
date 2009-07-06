@@ -25,38 +25,11 @@
 #include "katefilebrowserplugin.moc"
 #include "katefilebrowser.h"
 
-#include <QApplication>
-#include <QCheckBox>
-#include <QDir>
-#include <QGroupBox>
-#include <QKeyEvent>
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QRegExp>
-#include <QSpinBox>
-#include <QToolButton>
-#include <QVBoxLayout>
-
 #include <kate/mainwindow.h>
 #include <ktexteditor/view.h>
 
 #include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kactionmenu.h>
-#include <kactionselector.h>
-#include <kconfiggroup.h>
-#include <kdebug.h>
-#include <kdialog.h>
-#include <kdiroperator.h>
-#include <kfileitem.h>
-#include <khbox.h>
-#include <khistorycombobox.h>
-#include <kdeversion.h>
 #include <kpluginfactory.h>
-#include <ktoolbar.h>
-#include <kurlcombobox.h>
-#include <kurlcompletion.h>
 //END Includes
 
 K_PLUGIN_FACTORY(KateFileBrowserFactory, registerPlugin<KateFileBrowserPlugin>();)

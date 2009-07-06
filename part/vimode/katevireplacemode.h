@@ -28,7 +28,7 @@ class KateView;
 class KateViewInternal;
 
 /**
- * Commands for the vi insert mode
+ * Commands for the vi replace mode
  */
 
 class KateViReplaceMode : public KateViModeBase

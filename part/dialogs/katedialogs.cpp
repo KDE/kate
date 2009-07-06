@@ -99,7 +99,6 @@
 #include <QtGui/QPainter>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <QtGui/QTabWidget>
 #include <QtCore/QTextCodec>
@@ -226,6 +225,7 @@ void KateIndentConfigTab::reload ()
 {
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
+  ui->sbIndentWidth->setSuffix(ki18np(" character", " characters"));
   ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
   ui->chkKeepExtraSpaces->setChecked(configFlags & KateDocumentConfig::cfKeepExtraSpaces);
   ui->chkIndentPaste->setChecked(configFlags & KateDocumentConfig::cfIndentPastedText);
@@ -477,6 +477,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->chkShowSpaces->setChecked( configFlags & KateDocumentConfig::cfShowSpaces );
   connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
   ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
   connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -487,6 +488,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
   connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -1147,7 +1149,7 @@ KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
 {
   QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
   topLayout->setMargin(0);
-  gotoRange = new QSpinBox(centralWidget());
+  gotoRange = new KIntSpinBox(centralWidget());
 
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
   label->setBuddy(gotoRange);

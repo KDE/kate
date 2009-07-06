@@ -224,7 +224,7 @@
        </widget>
       </item>
       <item row="7" column="1" >
-       <widget class="QSpinBox" name="sbPriority" >
+       <widget class="KIntSpinBox" name="sbPriority" >
         <property name="whatsThis" >
          <string>Sets priority for this file type. If more than one file type selects the same file, the one with the highest priority will be used.</string>
         </property>
@@ -278,6 +278,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

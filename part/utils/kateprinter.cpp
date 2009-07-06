@@ -40,6 +40,7 @@
 #include <kurl.h>
 #include <kuser.h> // for loginName
 #include <klineedit.h>
+#include <knuminput.h>
 
 #include <QtGui/QPainter>
 #include <QtGui/QCheckBox>
@@ -51,7 +52,6 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <kvbox.h>
 
@@ -924,7 +924,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
 
   QLabel *lBoxWidth = new QLabel( i18n("W&idth:"), gbBoxProps );
   grid->addWidget(lBoxWidth, 0, 0);
-  sbBoxWidth = new QSpinBox( gbBoxProps );
+  sbBoxWidth = new KIntSpinBox( gbBoxProps );
   sbBoxWidth->setRange( 1, 100 );
   sbBoxWidth->setSingleStep( 1 );
   grid->addWidget(sbBoxWidth, 0, 1);
@@ -932,7 +932,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
 
   QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
   grid->addWidget(lBoxMargin, 1, 0);
-  sbBoxMargin = new QSpinBox( gbBoxProps );
+  sbBoxMargin = new KIntSpinBox( gbBoxProps );
   sbBoxMargin->setRange( 0, 100 );
   sbBoxMargin->setSingleStep( 1 );
   grid->addWidget(sbBoxMargin, 1, 1);

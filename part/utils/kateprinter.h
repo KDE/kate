@@ -31,7 +31,7 @@ class QComboBox;
 class QGroupBox;
 class QLabel;
 class KLineEdit;
-class QSpinBox;
+class KIntSpinBox;
 
 class KatePrinter
 {
@@ -140,7 +140,7 @@ class KatePrintLayout : public QWidget
     QComboBox *cmbSchema;
     QCheckBox *cbEnableBox, *cbDrawBackground;
     QGroupBox *gbBoxProps;
-    QSpinBox *sbBoxWidth, *sbBoxMargin;
+    KIntSpinBox *sbBoxWidth, *sbBoxMargin;
     KColorButton* kcbtnBoxColor;
 };
 //END Layout

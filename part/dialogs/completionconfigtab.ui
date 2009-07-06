@@ -65,7 +65,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="minimalWordLength"/>
+         <widget class="KIntSpinBox" name="minimalWordLength"/>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -100,6 +100,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

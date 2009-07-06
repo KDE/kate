@@ -67,10 +67,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="sbTabWidth" >
-          <property name="suffix" >
-           <string> characters</string>
-          </property>
+         <widget class="KIntSpinBox" name="sbTabWidth" >
           <property name="minimum" >
            <number>1</number>
           </property>
@@ -151,12 +148,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="sbWordWrap" >
+         <widget class="KIntSpinBox" name="sbWordWrap" >
           <property name="whatsThis" >
            <string>If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line.</string>
-          </property>
-          <property name="suffix" >
-           <string> characters</string>
           </property>
           <property name="minimum" >
            <number>20</number>
@@ -244,6 +238,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

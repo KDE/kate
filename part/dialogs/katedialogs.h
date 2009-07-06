@@ -60,13 +60,13 @@ class KComboBox;
 class KShortcutsEditor;
 class KTemporaryFile;
 class KIntNumInput;
+class KIntSpinBox;
 class KPluginSelector;
 class KPluginInfo;
 class KProcess;
 
 class QCheckBox;
 class QLabel;
-class QSpinBox;
 class QToolButton;
 class QCheckBox;
 class QKeyEvent;
@@ -122,7 +122,7 @@ class KateGotoBar : public KateViewBarWidget
 
   private:
     KateView* m_view;
-    QSpinBox *gotoRange;
+    KIntSpinBox *gotoRange;
     QToolButton *btnOK;
 };
 
@@ -269,7 +269,7 @@ class KateSaveConfigTab : public KateConfigPage
     QCheckBox *cbLocalFiles, *cbRemoteFiles;
     QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
     KIntNumInput *dirSearchDepth;
-    class QSpinBox *blockCount;
+    class KIntSpinBox *blockCount;
     class QLabel *blockCountLabel;
 
   private:

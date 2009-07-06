@@ -56,7 +56,6 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_toolbar = new KToolBar(this);
   m_toolbar->setMovable(false);
   m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-//   m_toolbar->setIconDimensions(16);
   m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
 
   // includes some actions, but not hooked into the shortcut dialog atm
@@ -165,7 +164,7 @@ void KateFileBrowser::setupToolbar()
   KAction* syncFolder = new KAction(this);
   syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   syncFolder->setText(i18n("Current Document Folder"));
-  syncFolder->setIcon(KIcon("curfiledir"));
+  syncFolder->setIcon(KIcon("system-switch-user"));
   connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
 
   actions << syncFolder;

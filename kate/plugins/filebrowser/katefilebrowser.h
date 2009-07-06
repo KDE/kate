@@ -81,7 +81,6 @@ class KateFileBrowser : public KVBox
     void updateDirOperator( const KUrl& u );
     void updateUrlNavigator( const KUrl& u );
     void setActiveDocumentDir();
-    void filterButtonClicked();
 
   protected:
     KUrl activeDocumentUrl();
@@ -99,12 +98,9 @@ class KateFileBrowser : public KVBox
     KateBookmarkHandler *m_bookmarkHandler;
     KUrlNavigator *m_urlNavigator;
     KDirOperator * m_dirOperator;
-    KHistoryComboBox * filter;
-    QToolButton *btnFilter;
+    KHistoryComboBox * m_filter;
 
     Kate::MainWindow *m_mainWindow;
-
-    QString lastFilter;
 };
 
 #endif //KATE_FILEBROWSER_H

@@ -41,6 +41,7 @@
 #include <KUrlNavigator>
 #include <QAbstractItemView>
 #include <QDir>
+#include <QLabel>
 #include <QLineEdit>
 #include <QToolButton>
 //END Includes
@@ -62,16 +63,15 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_actionCollection = new KActionCollection(this);
   m_actionCollection->addAssociatedWidget(this);
 
-  KFilePlacesModel* model = new KFilePlacesModel( this );
-  m_urlNavigator = new KUrlNavigator(model, KUrl( QDir::homePath() ), this );
-  connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl& )), SLOT(updateDirOperator(const KUrl&)));
+  KFilePlacesModel* model = new KFilePlacesModel(this);
+  m_urlNavigator = new KUrlNavigator(model, KUrl(QDir::homePath()), this);
+  connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl&)), SLOT(updateDirOperator(const KUrl&)));
 
   m_dirOperator = new KDirOperator(KUrl(), this);
   m_dirOperator->setView(KFile::/* Simple */Detail);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
           this, SLOT(selectorViewChanged(QAbstractItemView *)));
-  setStretchFactor(m_dirOperator, 2);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
   // now all actions exist in dir operator and we can use them in the toolbar
@@ -79,32 +79,27 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
 
   KHBox* filterBox = new KHBox(this);
 
-  btnFilter = new QToolButton( filterBox );
-  btnFilter->setIcon( KIcon("view-filter" ) );
-  btnFilter->setCheckable( true );
-  filter = new KHistoryComboBox( true, filterBox);
-  filter->setMaxCount(10);
-  filter->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ));
-  filterBox->setStretchFactor(filter, 2);
-  connect( btnFilter, SIGNAL( clicked() ), this, SLOT( filterButtonClicked() ) );
+  QLabel* filterLabel = new QLabel(i18n("Filter:"), filterBox);
+  m_filter = new KHistoryComboBox(true, filterBox);
+  filterLabel->setBuddy(m_filter);
+  m_filter->setMaxCount(10);
+  m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-  connect( filter, SIGNAL( activated(const QString&) ),
-           SLOT( slotFilterChange(const QString&) ) );
-  connect( filter, SIGNAL( returnPressed(const QString&) ),
-           filter, SLOT( addToHistory(const QString&) ) );
+  connect(m_filter, SIGNAL(editTextChanged(const QString&)),
+          SLOT(slotFilterChange(const QString&)));
+  connect(m_filter, SIGNAL(returnPressed(const QString&)),
+          m_filter, SLOT(addToHistory(const QString&)));
+  connect(m_filter, SIGNAL(returnPressed(const QString&)),
+          m_dirOperator, SLOT(setFocus()));
 
   connect(m_dirOperator, SIGNAL(urlEntered(const KUrl&)),
-           this, SLOT(updateUrlNavigator(const KUrl&)) );
+          this, SLOT(updateUrlNavigator(const KUrl&)));
 
   // Connect the bookmark handler
-  connect( m_bookmarkHandler, SIGNAL( openUrl( const QString& )),
-           this, SLOT( setDir( const QString& ) ) );
+  connect(m_bookmarkHandler, SIGNAL(openUrl(const QString&)),
+          this, SLOT(setDir(const QString&)));
 
-  filter->setWhatsThis(        i18n("<p>Here you can enter a name filter to limit which files are displayed.</p>"
-                                    "<p>To clear the filter, toggle off the filter button to the left.</p>"
-                                    "<p>To reapply the last filter used, toggle on the filter button.</p>" ) );
-  btnFilter->setWhatsThis(        i18n("<p>This button clears the name filter when toggled off, or "
-                                       "reapplies the last filter used when toggled on.</p>") );
+  m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 
   connect(m_dirOperator, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 }
@@ -119,28 +114,18 @@ void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & nam
 {
 
   KConfigGroup cgView(config, name + ":view");
-  m_dirOperator->setViewConfig(cgView );
+  m_dirOperator->setViewConfig(cgView);
 
   KConfigGroup cgDir(config, name + ":dir");
   m_dirOperator->readConfig(cgDir);
   m_dirOperator->setView(KFile::Default);
 
-  KConfigGroup cg (config, name );
-  m_urlNavigator->setUrl( cg.readPathEntry( "location", QDir::homePath() ) );
+  KConfigGroup cg(config, name);
+  m_urlNavigator->setUrl(cg.readPathEntry("location", QDir::homePath()));
+  setDir(cg.readPathEntry("location", QDir::homePath()));
+  m_dirOperator->setShowHiddenFiles(cg.readEntry("show hidden files", false));
 
-  KConfigGroup globalConfig( KGlobal::config(), "fileselector" );
-
-  setDir(cg.readPathEntry( "location", QDir::homePath()));
-
-  m_dirOperator->setShowHiddenFiles( cg.readEntry( "show hidden files", false ) );
-
-  filter->setHistoryItems( cg.readEntry("filter history", QStringList()), true );
-  lastFilter = cg.readEntry( "last filter" );
-  QString flt("");
-  if (globalConfig.readEntry( "restore last filter", true ))
-    flt = cg.readEntry("current filter");
-  filter->lineEdit()->setText( flt );
-  slotFilterChange( flt );
+  m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
 }
 
 void KateFileBrowser::setupToolbar()
@@ -154,9 +139,9 @@ void KateFileBrowser::setupToolbar()
   actions << m_dirOperator->actionCollection()->action("forward");
 
   // bookmarks action!
-  KActionMenu *acmBookmarks = new KActionMenu( KIcon("bookmarks"), i18n("Bookmarks"), this );
-  acmBookmarks->setDelayed( false );
-  m_bookmarkHandler = new KateBookmarkHandler( this, acmBookmarks->menu() );
+  KActionMenu *acmBookmarks = new KActionMenu(KIcon("bookmarks"), i18n("Bookmarks"), this);
+  acmBookmarks->setDelayed(false);
+  m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
   acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   actions << acmBookmarks;
 
@@ -198,66 +183,57 @@ void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & na
   KConfigGroup cgDir(config, name + ":dir");
   m_dirOperator->writeConfig(cgDir);
 
-  KConfigGroup cg = KConfigGroup( config, name );
-  cg.writePathEntry( "location", m_urlNavigator->url().url() );
-  cg.writeEntry( "show hidden files", m_dirOperator->showHiddenFiles() );
+  KConfigGroup cg = KConfigGroup(config, name);
+  cg.writePathEntry("location", m_urlNavigator->url().url());
+  cg.writeEntry("show hidden files", m_dirOperator->showHiddenFiles());
+  cg.writeEntry("filter history", m_filter->historyItems());
 }
 
 //END Public Methods
 
 //BEGIN Public Slots
 
-void KateFileBrowser::slotFilterChange( const QString & nf )
+void KateFileBrowser::slotFilterChange(const QString & nf)
 {
-  QString f = nf.trimmed();
-  const bool empty = f.isEmpty() || f == "*";
+  QString f = '*' + nf.trimmed() + '*';
+  const bool empty = f.isEmpty() || f == "*" || f == "**" || f == "***";
 
-  if ( empty )
-  {
+  if (empty) {
     m_dirOperator->clearFilter();
-    filter->lineEdit()->setText( QString() );
-    btnFilter->setToolTip( i18n("Apply last filter (\"%1\")", lastFilter) ) ;
-  }
-  else
-  {
-    m_dirOperator->setNameFilter( f );
-    lastFilter = f;
-    btnFilter->setToolTip( i18n("Clear filter") );
+    m_filter->lineEdit()->clear();
+  } else {
+    m_dirOperator->setNameFilter(f);
   }
 
-  btnFilter->setChecked( !empty );
   m_dirOperator->updateDir();
-
-  // this will be never true after the filter has been used;)
-  btnFilter->setEnabled( !( empty && lastFilter.isEmpty() ) );
 }
 
-bool kateFileSelectorIsReadable ( const KUrl& url )
+bool kateFileSelectorIsReadable (const KUrl& url)
 {
-  if ( !url.isLocalFile() )
+  if (!url.isLocalFile())
     return true; // what else can we say?
 
   QDir dir(url.toLocalFile());
   return dir.exists ();
 }
 
-void KateFileBrowser::setDir( KUrl u )
+void KateFileBrowser::setDir(KUrl u)
 {
   KUrl newurl;
 
-  if ( !u.isValid() )
-    newurl.setPath( QDir::homePath() );
+  if (!u.isValid())
+    newurl.setPath(QDir::homePath());
   else
     newurl = u;
 
-  QString pathstr = newurl.path( KUrl::AddTrailingSlash );
+  QString pathstr = newurl.path(KUrl::AddTrailingSlash);
   newurl.setPath(pathstr);
 
-  if ( !kateFileSelectorIsReadable ( newurl ) )
+  if (!kateFileSelectorIsReadable (newurl))
     newurl.cd(QString::fromLatin1(".."));
 
-  if ( !kateFileSelectorIsReadable (newurl) )
-    newurl.setPath( QDir::homePath() );
+  if (!kateFileSelectorIsReadable (newurl))
+    newurl.setPath(QDir::homePath());
 
   m_dirOperator->setUrl(newurl, true);
 }
@@ -286,35 +262,14 @@ void KateFileBrowser::openSelectedFiles()
 
 
 
-void KateFileBrowser::updateDirOperator( const KUrl& u )
+void KateFileBrowser::updateDirOperator(const KUrl& u)
 {
   m_dirOperator->setUrl(u, true);
 }
 
-void KateFileBrowser::updateUrlNavigator( const KUrl& u )
+void KateFileBrowser::updateUrlNavigator(const KUrl& u)
 {
-  m_urlNavigator->setUrl( u );
-}
-
-
-/*
-   When the button in the filter box toggles:
-   If off:
-   If the name filer is anything but "" or "*", reset it.
-   If on:
-   Set last filter.
-*/
-void KateFileBrowser::filterButtonClicked()
-{
-  if ( !btnFilter->isChecked() )
-  {
-    slotFilterChange( QString() );
-  }
-  else
-  {
-    filter->lineEdit()->setText( lastFilter );
-    slotFilterChange( lastFilter );
-  }
+  m_urlNavigator->setUrl(u);
 }
 
 void KateFileBrowser::setActiveDocumentDir()
@@ -323,11 +278,11 @@ void KateFileBrowser::setActiveDocumentDir()
   KUrl u = activeDocumentUrl();
 //   kDebug(13001)<<"URL: "<<u.prettyUrl();
   if (!u.isEmpty())
-    setDir( u.upUrl() );
+    setDir(u.upUrl());
 //   kDebug(13001)<<"... setActiveDocumentDir() DONE!";
 }
 
-void KateFileBrowser::selectorViewChanged( QAbstractItemView * newView )
+void KateFileBrowser::selectorViewChanged(QAbstractItemView * newView)
 {
   newView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
@@ -339,12 +294,12 @@ void KateFileBrowser::selectorViewChanged( QAbstractItemView * newView )
 KUrl KateFileBrowser::activeDocumentUrl()
 {
   KTextEditor::View *v = m_mainWindow->activeView();
-  if ( v )
+  if (v)
     return v->document()->url();
   return KUrl();
 }
 
-void KateFileBrowser::focusInEvent( QFocusEvent * )
+void KateFileBrowser::focusInEvent(QFocusEvent *)
 {
   m_dirOperator->setFocus();
 }

@@ -2,8 +2,8 @@
                           plugin_katetextfilter.cpp  -  description
                              -------------------
     begin                : FRE Feb 23 2001
-    copyright            : (C) 2001 by Joseph Wenninger
-    email                : jowenn@bigfoot.com
+    copyright            : (C) 2001 by Joseph Wenninger <jowenn@bigfoot.com>
+    copyright            : (C) 2009 Dominik Haumann <dhaumann kde org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -30,130 +30,127 @@
 #include <klineedit.h>
 #include <kinputdialog.h>
 #include <k3process.h>
-#define POP_(x) kDebug(13000) << #x " = " << flush << x << endl
 
 #include <kgenericfactory.h>
 #include <kauthorized.h>
 #include <kactioncollection.h>
-K_EXPORT_COMPONENT_FACTORY( katetextfilterplugin, KGenericFactory<PluginKateTextFilter>( "katetextfilter" ) )
+K_EXPORT_COMPONENT_FACTORY(katetextfilterplugin, KGenericFactory<PluginKateTextFilter>("katetextfilter"))
 
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,Kate::MainWindow *mainwindow)
   : Kate::PluginView(mainwindow),KXMLGUIClient()
 {
-    setComponentData (KComponentData("kate"));
+  setComponentData (KComponentData("kate"));
 
-    KAction *a = actionCollection()->addAction("edit_filter");
-    a->setText(i18n("Filter Te&xt..."));
-    a->setShortcut( Qt::CTRL + Qt::Key_Backslash );
-    connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()) );
+  KAction *a = actionCollection()->addAction("edit_filter");
+  a->setText(i18n("Filter Te&xt..."));
+  a->setShortcut(Qt::CTRL + Qt::Key_Backslash);
+  connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
 
-    setXMLFile( "plugins/katetextfilter/ui.rc" );
-    mainwindow->guiFactory()->addClient (this);
+  setXMLFile("plugins/katetextfilter/ui.rc");
+  mainwindow->guiFactory()->addClient (this);
 }
 
 PluginViewKateTextFilter::~PluginViewKateTextFilter()
 {
-      mainWindow()->guiFactory()->removeClient (this);
+  mainWindow()->guiFactory()->removeClient (this);
 }
 
-PluginKateTextFilter::PluginKateTextFilter( QObject* parent, const QStringList& )
-  : Kate::Plugin ( (Kate::Application *)parent, "kate-text-filter-plugin" ),
-    KTextEditor::Command(),
-    m_pFilterShellProcess (NULL)
+PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QStringList&)
+  : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
+  , KTextEditor::Command()
+  , m_pFilterShellProcess(NULL)
 {
-  KTextEditor::CommandInterface* cmdIface = qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
-  if( cmdIface ) cmdIface->registerCommand( this );
+  KTextEditor::CommandInterface* cmdIface =
+    qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
+
+  if (cmdIface) {
+    cmdIface->registerCommand(this);
+  }
 }
 
 PluginKateTextFilter::~PluginKateTextFilter()
 {
   delete m_pFilterShellProcess;
-  KTextEditor::CommandInterface* cmdIface = qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
-  if( cmdIface ) cmdIface->unregisterCommand( this );
+  KTextEditor::CommandInterface* cmdIface =
+    qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
+
+  if (cmdIface) {
+    cmdIface->unregisterCommand(this);
+  }
 }
 
 
 Kate::PluginView *PluginKateTextFilter::createView (Kate::MainWindow *mainWindow)
 {
-    return new PluginViewKateTextFilter(this,mainWindow);
+  return new PluginViewKateTextFilter(this,mainWindow);
 }
 
-	void
-PluginKateTextFilter::slotFilterReceivedStdout (K3Process * pProcess, char * got, int len)
+void PluginKateTextFilter::slotFilterReceivedStdout(K3Process * pProcess, char * got, int len)
 {
+  Q_ASSERT(pProcess == m_pFilterShellProcess);
 
-	assert (pProcess == m_pFilterShellProcess);
-
-	if (got && len)
-		{
-		m_strFilterOutput += QString::fromLocal8Bit( got, len );
-//		POP_(m_strFilterOutput);
-		}
-
+  if (got && len) {
+    m_strFilterOutput += QString::fromLocal8Bit(got, len);
+  }
 }
 
 
-	void
-PluginKateTextFilter::slotFilterReceivedStderr (K3Process * pProcess, char * got, int len)
-	{
-	slotFilterReceivedStdout (pProcess, got, len);
-	}
-
-
-	void
-PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
+void PluginKateTextFilter::slotFilterReceivedStderr (K3Process * pProcess, char * got, int len)
 {
-
-	assert (pProcess == m_pFilterShellProcess);
-	KTextEditor::View * kv (application()->activeMainWindow()->activeView());
-	if (!kv) return;
-	kv->document()->startEditing();
-	if( kv->selection () )
-	  kv->removeSelectionText();
-	kv -> insertText (m_strFilterOutput);
-	kv->document()->endEditing();
-	m_strFilterOutput = "";
-
+  slotFilterReceivedStdout (pProcess, got, len);
 }
 
 
-        static void  //  PCP
-slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QString command)
+void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 {
-  if( !view.selection() ) return;
+  Q_ASSERT(pProcess == m_pFilterShellProcess);
+
+  KTextEditor::View * kv (application()->activeMainWindow()->activeView());
+  if (!kv) return;
+  kv->document()->startEditing();
+
+  if (kv->selection()) {
+    kv->removeSelectionText();
+  }
+
+  kv -> insertText (m_strFilterOutput);
+  kv->document()->endEditing();
+  m_strFilterOutput = "";
+}
+
+
+static void slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QString command)
+{
+  if(!view.selection()) return;
   QString marked = view.selectionText ();
-  if( marked.isEmpty())
-      return;
-//  POP_(command.latin1 ());
+  if(marked.isEmpty()) return;
+
   shell.clearArguments ();
   shell << command;
 
-  shell.start (K3Process::NotifyOnExit, K3Process::All);
+  shell.start(K3Process::NotifyOnExit, K3Process::All);
   QByteArray encoded = marked.toLocal8Bit ();
   shell.writeStdin (encoded, encoded.length ());
   //  TODO: Put up a modal dialog to defend the text from further
   //  keystrokes while the command is out. With a cancel button...
-
 }
 
 
-	void
-PluginKateTextFilter::slotFilterCloseStdin (K3Process * pProcess)
-	{
-	assert (pProcess == m_pFilterShellProcess);
-	pProcess -> closeStdin ();
-	}
+void PluginKateTextFilter::slotFilterCloseStdin (K3Process * pProcess)
+{
+  Q_ASSERT(pProcess == m_pFilterShellProcess);
+  pProcess -> closeStdin ();
+}
 
 
-                 void
-PluginKateTextFilter::slotEditFilter ()  //  PCP
+void PluginKateTextFilter::slotEditFilter()
 {
   if (!KAuthorized::authorizeKAction("shell_access")) {
-      KMessageBox::sorry(0,i18n(
-          "You are not allowed to execute arbitrary external applications. If "
-          "you want to be able to do this, contact your system administrator."),
-          i18n("Access Restrictions"));
-      return;
+    KMessageBox::sorry(0,i18n(
+        "You are not allowed to execute arbitrary external applications. If "
+        "you want to be able to do this, contact your system administrator."),
+        i18n("Access Restrictions"));
+    return;
   }
   if (!application()->activeMainWindow())
     return;
@@ -162,12 +159,12 @@ PluginKateTextFilter::slotEditFilter ()  //  PCP
   if (!kv) return;
 
   bool ok(false);
-  QString text ( KInputDialog::getText(i18n("Filter"),i18n("Enter command to pipe selected text through:"),"",&ok));
-  if ( ok && (!text.isEmpty () ))
-    runFilter( kv, text );
+  QString text (KInputDialog::getText(i18n("Filter"),i18n("Enter command to pipe selected text through:"),"",&ok));
+  if (ok && (!text.isEmpty ()))
+    runFilter(kv, text);
 }
 
-void PluginKateTextFilter::runFilter( KTextEditor::View *kv, const QString &filter )
+void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filter)
 {
   m_strFilterOutput = "";
 
@@ -175,17 +172,17 @@ void PluginKateTextFilter::runFilter( KTextEditor::View *kv, const QString &filt
   {
     m_pFilterShellProcess = new K3ShellProcess;
 
-    connect ( m_pFilterShellProcess, SIGNAL(wroteStdin(K3Process *)),
-              this, SLOT(slotFilterCloseStdin (K3Process *)));
+    connect (m_pFilterShellProcess, SIGNAL(wroteStdin(K3Process *)),
+             this, SLOT(slotFilterCloseStdin (K3Process *)));
 
-    connect ( m_pFilterShellProcess, SIGNAL(receivedStdout(K3Process*,char*,int)),
-              this, SLOT(slotFilterReceivedStdout(K3Process*,char*,int)) );
+    connect (m_pFilterShellProcess, SIGNAL(receivedStdout(K3Process*,char*,int)),
+             this, SLOT(slotFilterReceivedStdout(K3Process*,char*,int)));
 
-    connect ( m_pFilterShellProcess, SIGNAL(receivedStderr(K3Process*,char*,int)),
-              this, SLOT(slotFilterReceivedStderr(K3Process*,char*,int)) );
+    connect (m_pFilterShellProcess, SIGNAL(receivedStderr(K3Process*,char*,int)),
+             this, SLOT(slotFilterReceivedStderr(K3Process*,char*,int)));
 
-    connect ( m_pFilterShellProcess, SIGNAL(processExited(K3Process*)),
-              this, SLOT(slotFilterProcessExited(K3Process*) ) ) ;
+    connect (m_pFilterShellProcess, SIGNAL(processExited(K3Process*)),
+             this, SLOT(slotFilterProcessExited(K3Process*))) ;
   }
 
   slipInFilter (*m_pFilterShellProcess, *kv, filter);
@@ -198,32 +195,30 @@ const QStringList &PluginKateTextFilter::cmds()
   return dummy;
 }
 
-bool PluginKateTextFilter::help( KTextEditor::View *, const QString&, QString &msg )
+bool PluginKateTextFilter::help(KTextEditor::View *, const QString&, QString &msg)
 {
-  msg = i18n(
-      "<qt><p>Usage: <code>textfilter COMMAND</code></p>"
-      "<p>Replace the selection with the output of the specified shell command.</p></qt>");
+  msg = i18n("<qt><p>Usage: <code>textfilter COMMAND</code></p>"
+             "<p>Replace the selection with the output of the specified shell command.</p></qt>");
   return true;
 }
 
-bool PluginKateTextFilter::exec( KTextEditor::View *v, const QString &cmd, QString &msg )
+bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QString &msg)
 {
-  if (! v->selection() )
-  {
+  if (!v->selection()) {
     msg = i18n("You need to have a selection to use textfilter");
     return false;
   }
 
-  QString filter = cmd.section( " ", 1 ).trimmed();
+  QString filter = cmd.section(" ", 1).trimmed();
 
-  if ( filter.isEmpty() )
-  {
+  if (filter.isEmpty()) {
     msg = i18n("Usage: textfilter COMMAND");
     return false;
   }
 
-  runFilter( v, filter );
+  runFilter(v, filter);
   return true;
 }
 //END
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

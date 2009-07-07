@@ -122,6 +122,12 @@ vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp
 
+# spell checking
+spellcheck/ontheflycheck.h
+spellcheck/ontheflycheck.cpp
+spellcheck/spellcheck.h
+spellcheck/spellcheck.cpp
+
 # generic stuff, unsorted...
 utils/katesearchbar.cpp
 utils/katevimodebar.cpp
@@ -161,6 +167,7 @@ dialogs/completionconfigwidget.ui
 dialogs/searchbarincremental.ui
 dialogs/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
+dialogs/spellcheckconfigwidget.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )

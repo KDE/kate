@@ -519,6 +519,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
       lock.unlock();
       emit m_view->verticalScrollPositionChanged( m_view, c );
+      emit m_view->displayRangeChanged(m_view);
       return;
     }
   }
@@ -529,6 +530,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   update();
   m_leftBorder->update();
   emit m_view->verticalScrollPositionChanged( m_view, c );
+  emit m_view->displayRangeChanged(m_view);
 }
 
 void KateViewInternal::scrollColumns ( int x )
@@ -548,6 +550,7 @@ void KateViewInternal::scrollColumns ( int x )
     update();
 
   emit m_view->horizontalScrollPositionChanged( m_view );
+  emit m_view->displayRangeChanged(m_view);
 
   bool blocked = m_columnScroll->blockSignals(true);
   m_columnScroll->setValue(m_startX);
@@ -3105,6 +3108,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     if (startPos() > max)
       scrollPos(max);
   }
+  emit m_view->displayRangeChanged(m_view);
 }
 
 void KateViewInternal::scrollTimeout ()

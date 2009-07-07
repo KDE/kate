@@ -4,6 +4,7 @@
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2009 Michel Ludwig <michel.ludwig@kdemail.net>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -49,6 +50,7 @@
 #include "ui_opensaveconfigwidget.h"
 #include "ui_opensaveconfigadvwidget.h"
 #include "ui_viinputmodeconfigwidget.h"
+#include "ui_spellcheckconfigwidget.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -362,6 +364,57 @@ void KateViInputModeConfigTab::reload ()
 }
 //END KateViInputModeConfigTab
 
+//BEGIN KateSpellCheckConfigTab
+KateSpellCheckConfigTab::KateSpellCheckConfigTab(QWidget *parent)
+  : KateConfigPage(parent)
+{
+  // This will let us have more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
+  ui = new Ui::SpellCheckConfigWidget();
+  ui->setupUi(newWidget);
+
+  // What's This? help can be found in the ui file
+  reload();
+
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  connect(ui->chkOnTheFlySpellCheckEnabled, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
+}
+
+KateSpellCheckConfigTab::~KateSpellCheckConfigTab()
+{
+  delete ui;
+}
+
+void KateSpellCheckConfigTab::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
+}
+
+void KateSpellCheckConfigTab::apply()
+{
+  // nothing changed, no need to apply stuff
+  if (!hasChanged()) {
+    return;
+  }
+  m_changed = false;
+
+  KateViewConfig::global()->configStart();
+  KateViewConfig::global()->setOnTheFlySpellCheck(ui->chkOnTheFlySpellCheckEnabled->isChecked());
+  KateViewConfig::global()->configEnd();
+}
+
+void KateSpellCheckConfigTab::reload()
+{
+  ui->chkOnTheFlySpellCheckEnabled->setChecked(KateViewConfig::global()->onTheFlySpellCheck());
+}
+//END KateSpellCheckConfigTab
 
 //BEGIN KateSelectConfigTab
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
@@ -452,6 +505,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   , indentConfigTab(new KateIndentConfigTab(this))
   , completionConfigTab (new KateCompletionConfigTab(this))
   , viInputModeConfigTab(new KateViInputModeConfigTab(this))
+  , spellCheckConfigTab(new KateSpellCheckConfigTab(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should
@@ -510,11 +564,13 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
   tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
   tabWidget->insertTab(4, viInputModeConfigTab, i18n("Vi Input Mode"));
+  tabWidget->insertTab(5, spellCheckConfigTab, i18n("Spellcheck"));
 
   connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(viInputModeConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(spellCheckConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   layout->addWidget(tabWidget);
   setLayout(layout);
@@ -532,6 +588,7 @@ void KateEditConfigTab::apply ()
   indentConfigTab->apply();
   completionConfigTab->apply();
   viInputModeConfigTab->apply();
+  spellCheckConfigTab->apply();
 
   // nothing changed, no need to apply stuff
   if (!hasChanged())
@@ -573,6 +630,7 @@ void KateEditConfigTab::reload ()
   indentConfigTab->reload();
   completionConfigTab->reload();
   viInputModeConfigTab->reload();
+  spellCheckConfigTab->reload();
 }
 
 void KateEditConfigTab::reset ()
@@ -581,6 +639,7 @@ void KateEditConfigTab::reset ()
   indentConfigTab->reset();
   completionConfigTab->reset();
   viInputModeConfigTab->reset();
+  spellCheckConfigTab->reset();
 }
 
 void KateEditConfigTab::defaults ()
@@ -589,6 +648,7 @@ void KateEditConfigTab::defaults ()
   indentConfigTab->defaults();
   completionConfigTab->defaults();
   viInputModeConfigTab->defaults();
+  spellCheckConfigTab->defaults();
 }
 //END KateEditConfigTab
 
@@ -1200,6 +1260,44 @@ void KateGotoBar::gotoLine()
   emit hideMe();
 }
 //END KateGotoBar
+
+//BEGIN KateDictionaryBar
+KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
+  : KateViewBarWidget( true, view, parent )
+{
+
+  QHBoxLayout *topLayout = new QHBoxLayout(centralWidget());
+  topLayout->setMargin(0);
+  //topLayout->setSpacing(spacingHint());
+  m_dictionaryComboBox = new Sonnet::DictionaryComboBox(centralWidget());
+  connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(const QString&)),
+          view->document(), SLOT(setDictionary(const QString&)));
+
+  QLabel *label = new QLabel(i18n("Dictionary:"), centralWidget());
+  label->setBuddy(m_dictionaryComboBox);
+
+  topLayout->addWidget(label);
+  topLayout->addWidget(m_dictionaryComboBox, 1);
+  topLayout->setStretchFactor(m_dictionaryComboBox, 0);
+  topLayout->addStretch();
+}
+
+KateDictionaryBar::~KateDictionaryBar()
+{
+}
+
+void KateDictionaryBar::updateData()
+{
+  if (!view()) {
+    return;
+  }
+
+  KateDocument *document = static_cast<KateDocument*>(view()->document());
+  m_dictionaryComboBox->setCurrentByDictionary(document->dictionary());
+}
+
+//END KateGotoBar
+
 
 //BEGIN KateModOnHdPrompt
 KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,

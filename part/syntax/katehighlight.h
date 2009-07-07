@@ -213,6 +213,8 @@ class KateHighlighting
     */
     int attribute( int context ) const;
 
+    bool attributeRequiresSpellchecking( int attr );
+
     /**
      * map attribute to its highlighting file.
      * the returned string is used as key for m_additionalData.

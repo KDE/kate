@@ -1147,6 +1147,15 @@ class KateDocument : public KTextEditor::Document,
       void setPostLoadFilterChecks(QStringList plugins) {m_postLoadFilterChecks=plugins;}
       QStringList m_postLoadFilterChecks;
       static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
+
+  public:
+      QString dictionary();
+
+  public Q_SLOTS:
+      void setDictionary(const QString& dict);
+
+  protected:
+      QString m_dictionary;
 };
 
 #endif

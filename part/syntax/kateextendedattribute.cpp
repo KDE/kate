@@ -26,6 +26,7 @@ KateExtendedAttribute::KateExtendedAttribute(const QString& name, int defaultSty
 {
   setName(name);
   setDefaultStyleIndex(defaultStyleIndex);
+  setPerformSpellchecking(true);
 }
 
 int KateExtendedAttribute::indexForStyleName( const QString & name )
@@ -71,4 +72,14 @@ int KateExtendedAttribute::defaultStyleIndex( ) const
 void KateExtendedAttribute::setDefaultStyleIndex( int index )
 {
   setProperty(AttributeDefaultStyleIndex, QVariant(index));
+}
+
+bool KateExtendedAttribute::performSpellchecking( ) const
+{
+  return boolProperty(Spellchecking);
+}
+
+void KateExtendedAttribute::setPerformSpellchecking(bool spellchecking)
+{
+  setProperty(Spellchecking, QVariant(spellchecking));
 }

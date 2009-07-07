@@ -58,7 +58,8 @@ class KateExtendedAttribute : public KTextEditor::Attribute
 
     enum InternalProperties {
       AttributeName = AttributeInternalProperty,
-      AttributeDefaultStyleIndex
+      AttributeDefaultStyleIndex,
+      Spellchecking
     };
 
     static int indexForStyleName(const QString& name);
@@ -69,6 +70,9 @@ class KateExtendedAttribute : public KTextEditor::Attribute
     bool isDefaultStyle() const;
     int defaultStyleIndex() const;
     void setDefaultStyleIndex(int index);
+    
+    bool performSpellchecking() const;
+    void setPerformSpellchecking(bool spellchecking);
 };
 
 #endif

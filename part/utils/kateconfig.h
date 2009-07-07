@@ -381,6 +381,9 @@ class KateViewConfig : public KateConfig
     bool automaticCompletionInvocation () const;
     void setAutomaticCompletionInvocation (bool on);
 
+    bool onTheFlySpellCheck() const;
+    void setOnTheFlySpellCheck(bool on);
+
     bool wordCompletion () const;
     void setWordCompletion (bool on);
     
@@ -404,6 +407,7 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeys;
     bool m_viInputModeHideStatusBar;
     bool m_automaticCompletionInvocation;
+    bool m_onTheFlySpellCheck;
     bool m_wordCompletion;
     int m_wordCompletionMinimalWordLength;
 
@@ -423,6 +427,7 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeysSet : 1;
     bool m_viInputModeHideStatusBarSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
+    bool m_onTheFlySpellCheckSet : 1;
     bool m_wordCompletionSet : 1;
     bool m_wordCompletionMinimalWordLengthSet : 1;
 

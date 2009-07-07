@@ -43,6 +43,7 @@ class KateScriptManager;
 class KDirWatch;
 class KateHlManager;
 class KatePartPluginManager;
+class KateSpellCheckManager;
 class KateViGlobal;
 class KateWordCompletionModel;
 
@@ -285,6 +286,12 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateViGlobal *viInputModeGlobal () { return m_viInputModeGlobal; }
 
     /**
+     * spell check manager
+     * @return spell check manager
+     */
+    KateSpellCheckManager *spellCheckManager () { return m_spellCheckManager; }
+
+    /**
      * global instance of the simple word completion mode
      * @return global instance of the simple word completion mode
      */
@@ -427,6 +434,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * vi input mode global
      */
     KateViGlobal *m_viInputModeGlobal;
+
+    /**
+     * spell check manager
+     */
+    KateSpellCheckManager *m_spellCheckManager;
 
     QList<KTextEditor::Document*> m_docs;
 

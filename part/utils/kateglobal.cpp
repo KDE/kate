@@ -32,6 +32,7 @@
 #include "katepartpluginmanager.h"
 #include "kateviglobal.h"
 #include "katewordcompletion.h"
+#include "spellcheck/spellcheck.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -143,6 +144,11 @@ KateGlobal::KateGlobal ()
   //
   m_viInputModeGlobal = new KateViGlobal ();
 
+  //
+  // spell check manager
+  //
+  m_spellCheckManager = new KateSpellCheckManager ();
+
   // config objects
   m_documentConfig = new KateDocumentConfig ();
   m_viewConfig = new KateViewConfig ();
@@ -195,6 +201,7 @@ KateGlobal::~KateGlobal()
   delete m_cmdManager;
 
   delete m_viInputModeGlobal;
+  delete m_spellCheckManager;
   
   // cu model
   delete m_wordCompletionModel;
@@ -423,10 +430,12 @@ void KateGlobal::registerDocument ( KateDocument *doc )
   KateGlobal::incRef ();
   m_documents.append( doc );
   m_docs.append (doc);
+  m_spellCheckManager->addOnTheFlySpellChecking(doc);
 }
 
 void KateGlobal::deregisterDocument ( KateDocument *doc )
 {
+  m_spellCheckManager->removeOnTheFlySpellChecking(doc);
   m_docs.removeAll (doc);
   m_documents.removeAll( doc );
   KateGlobal::decRef ();

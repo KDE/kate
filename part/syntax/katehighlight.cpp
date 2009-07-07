@@ -688,6 +688,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
     QString strikeOut = KateHlManager::self()->syntax->groupData(data,QString("strikeOut"));
     QString bgColor = KateHlManager::self()->syntax->groupData(data,QString("backgroundColor"));
     QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
+    QString spellChecking = KateHlManager::self()->syntax->groupData(data,QString("spellChecking"));
 
     KateExtendedAttribute::Ptr newData(new KateExtendedAttribute(
             buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplified(),
@@ -703,7 +704,9 @@ void KateHighlighting::addToKateExtendedAttributeList()
     if (!strikeOut.isEmpty()) newData->setFontStrikeOut( IS_TRUE(strikeOut) );
     if (!bgColor.isEmpty()) newData->setBackground(QColor(bgColor));
     if (!selBgColor.isEmpty()) newData->setSelectedBackground(QColor(selBgColor));
-
+    // is spellchecking desired?
+    if (!spellChecking.isEmpty()) newData->setPerformSpellchecking( IS_TRUE(spellChecking) );
+ 
     internalIDList.append(newData);
   }
 
@@ -903,6 +906,15 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   }
 
   return tmpItem;
+}
+
+bool KateHighlighting::attributeRequiresSpellchecking( int attr )
+{
+  QList<KTextEditor::Attribute::Ptr> attributeList = attributes("");
+  if(attr < attributeList.length() && attributeList[attr]->hasProperty(KateExtendedAttribute::Spellchecking)) {
+    return attributeList[attr]->boolProperty(KateExtendedAttribute::Spellchecking);
+  }
+  return true;
 }
 
 QString KateHighlighting::hlKeyForAttrib( int i ) const

@@ -60,6 +60,7 @@ class KateSearchBar;
 class KateViModeBar;
 class KateViewBar;
 class KateGotoBar;
+class KateDictionaryBar;
 
 class KToggleAction;
 class KAction;
@@ -641,6 +642,8 @@ class KateView : public KTextEditor::View,
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
+    KateDictionaryBar *dictionaryBar();
+
   /**
    * viewbar + its widgets
    * they are created on demand...
@@ -654,6 +657,7 @@ class KateView : public KTextEditor::View,
     KateSearchBar *m_searchBar;
     KateViModeBar *m_viModeBar;
     KateGotoBar *m_gotoBar;
+    KateDictionaryBar *m_dictionaryBar;
 
   // vi Mode
   public:
@@ -686,6 +690,24 @@ class KateView : public KTextEditor::View,
      * Update vi mode statusbar with the (partial) vi command being typed
      */
     void updateViModeBarCmd();
+    
+  public:
+    KTextEditor::Range visibleRange();
+    
+  Q_SIGNALS:
+    void displayRangeChanged(KateView *view);
+    
+  public:
+    bool onTheFlySpellCheck();
+    
+  protected:
+    KToggleAction*         m_toggleOnTheFlySpellCheck;
+
+  protected Q_SLOTS:
+    void toggleOnTheFlySpellCheck(bool b);
+
+  public Q_SLOTS:
+    void changeDictionary();
 };
 
 /**

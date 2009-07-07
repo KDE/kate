@@ -46,6 +46,7 @@
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
 #include "katevireplacemode.h"
+#include "spellcheck/spellcheck.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -1155,9 +1156,9 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   m_buffer->changeLine(line);
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(s)) );
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
-
+  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(s)) );
+  
   editEnd();
 
   return true;
@@ -3151,9 +3152,9 @@ bool KateDocument::openFile()
 
   bool success = m_buffer->openFile (localFilePath());
 
-  emit KTextEditor::Document::textInserted(this, documentRange());
   history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
-
+  emit KTextEditor::Document::textInserted(this, documentRange());
+  
   //
   // yeah, success
   //
@@ -6180,6 +6181,20 @@ bool KateDocument::save() {
 bool KateDocument::saveAs( const KUrl &url ) {
   m_saveAs = true;
   return KTextEditor::Document::saveAs(url);
+}
+
+QString KateDocument::dictionary()
+{
+  return m_dictionary;
+}
+
+void KateDocument::setDictionary(const QString& dict)
+{
+  if(m_dictionary == dict) {
+    return;
+  }
+  m_dictionary = dict;
+  KateGlobal::self()->spellCheckManager()->onTheFlyCheckDocument(this);
 }
 
 // Kill our helpers again

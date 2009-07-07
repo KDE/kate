@@ -4,6 +4,7 @@
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2009 Michel Ludwig <michel.ludwig@kdemail.net>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -36,6 +37,8 @@
 
 #include <kdialog.h>
 #include <kmimetype.h>
+
+#include <sonnet/dictionarycombobox.h>
 
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
@@ -82,6 +85,7 @@ namespace Ui
   class OpenSaveConfigAdvWidget;
   class CompletionConfigTab;
   class ViInputModeConfigWidget;
+  class SpellCheckConfigWidget;
 }
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -124,6 +128,21 @@ class KateGotoBar : public KateViewBarWidget
     KateView* m_view;
     KIntSpinBox *gotoRange;
     QToolButton *btnOK;
+};
+
+class KateDictionaryBar : public KateViewBarWidget
+{
+  Q_OBJECT
+
+  public:
+    explicit KateDictionaryBar(KateView *view, QWidget *parent = NULL);
+    virtual ~KateDictionaryBar();
+
+    void updateData();
+
+  private:
+    KateView* m_view;
+    Sonnet::DictionaryComboBox *m_dictionaryComboBox;
 };
 
 class KateIndentConfigTab : public KateConfigPage
@@ -207,6 +226,27 @@ class KateViInputModeConfigTab : public KateConfigPage
     void showWhatsThis(const QString& text);
 };
 
+class KateSpellCheckConfigTab : public KateConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateSpellCheckConfigTab(QWidget *parent);
+    ~KateSpellCheckConfigTab();
+
+  protected:
+    Ui::SpellCheckConfigWidget *ui;
+
+  public Q_SLOTS:
+    void apply ();
+    void reload ();
+    void reset () {}
+    void defaults () {}
+
+  private Q_SLOTS:
+    void showWhatsThis(const QString& text);
+};
+
 class KateEditConfigTab : public KateConfigPage
 {
   Q_OBJECT
@@ -229,6 +269,7 @@ private:
   KateIndentConfigTab *indentConfigTab;
   KateCompletionConfigTab *completionConfigTab;
   KateViInputModeConfigTab *viInputModeConfigTab;
+  KateSpellCheckConfigTab *spellCheckConfigTab;
 };
 
 class KateViewDefaultsConfig : public KateConfigPage

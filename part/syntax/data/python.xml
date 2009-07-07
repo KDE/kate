@@ -4,7 +4,7 @@
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
 <!-- Python syntax highlighting v1.99 by Primoz Anzur -->
-<language name="Python" version="1.99" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="2.00" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>

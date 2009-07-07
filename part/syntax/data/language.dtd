@@ -485,6 +485,7 @@ TODO:
   strikeOut     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean, default=false]
   backgroundColor    CDATA #IMPLIED     The background color for this style [optional]
   selBackgroundColor CDATA #IMPLIED     The background color for this style when text is selected [optional]
+  spellChecking      CDATA #IMPLIED     Whether this attribute should be spell checked [optional, boolean, default=true]
 -->
 <!ELEMENT itemData EMPTY>
 <!ATTLIST itemData

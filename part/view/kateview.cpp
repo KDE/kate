@@ -749,14 +749,14 @@ void KateView::setupEditActions()
 
 
   a = ac->addAction("move_cursor_right");
-  a->setText(i18n("Move Character Right"));
+  a->setText(i18n("Move Cursor Right"));
   a->setShortcut(QKeySequence(Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorRight()));
   m_editActions << a;
 
 
   a = ac->addAction("move_cusor_left");
-  a->setText(i18n("Move Character Left"));
+  a->setText(i18n("Move Cursor Left"));
   a->setShortcut(QKeySequence(Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorLeft()));
   m_editActions << a;

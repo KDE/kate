@@ -102,6 +102,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 
   connect(m_dirOperator, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
+  connect(m_mainWindow, SIGNAL(viewChanged()), this, SLOT(autoSyncFolder()));
 }
 
 KateFileBrowser::~KateFileBrowser()
@@ -110,24 +111,6 @@ KateFileBrowser::~KateFileBrowser()
 //END Constroctor/Destrctor
 
 //BEGIN Public Methods
-void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & name)
-{
-
-  KConfigGroup cgView(config, name + ":view");
-  m_dirOperator->setViewConfig(cgView);
-
-  KConfigGroup cgDir(config, name + ":dir");
-  m_dirOperator->readConfig(cgDir);
-  m_dirOperator->setView(KFile::Default);
-
-  KConfigGroup cg(config, name);
-  m_urlNavigator->setUrl(cg.readPathEntry("location", QDir::homePath()));
-  setDir(cg.readPathEntry("location", QDir::homePath()));
-  m_dirOperator->setShowHiddenFiles(cg.readEntry("show hidden files", false));
-
-  m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
-}
-
 void KateFileBrowser::setupToolbar()
 {
   // remove all actions from the toolbar (there should be none)
@@ -174,8 +157,29 @@ void KateFileBrowser::setupToolbar()
   optionsMenu->addSeparator();
   optionsMenu->addAction(m_dirOperator->actionCollection()->action("show hidden"));
 
+  // action for synchronising the dir operator with the current document path
+  m_autoSyncFolder = new KAction(this);
+  m_autoSyncFolder->setCheckable(true);
+  m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
+  m_autoSyncFolder->setIcon(KIcon("system-switch-user"));
+  connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
+  optionsMenu->addAction(m_autoSyncFolder);
+
   m_toolbar->addSeparator();
   m_toolbar->addAction(optionsMenu);
+}
+
+void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & name)
+{
+  KConfigGroup cgDir(config, name + ":dir");
+  m_dirOperator->readConfig(cgDir);
+  m_dirOperator->setView(KFile::Default);
+
+  KConfigGroup cg(config, name);
+  m_urlNavigator->setUrl(cg.readPathEntry("location", QDir::homePath()));
+  setDir(cg.readPathEntry("location", QDir::homePath()));
+  m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", false));
+  m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
 }
 
 void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & name)
@@ -185,7 +189,7 @@ void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & na
 
   KConfigGroup cg = KConfigGroup(config, name);
   cg.writePathEntry("location", m_urlNavigator->url().url());
-  cg.writeEntry("show hidden files", m_dirOperator->showHiddenFiles());
+  cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
   cg.writeEntry("filter history", m_filter->historyItems());
 }
 
@@ -281,6 +285,14 @@ void KateFileBrowser::setActiveDocumentDir()
     setDir(u.upUrl());
 //   kDebug(13001)<<"... setActiveDocumentDir() DONE!";
 }
+
+void KateFileBrowser::autoSyncFolder()
+{
+  if (m_autoSyncFolder->isChecked()) {
+    setActiveDocumentDir();
+  }
+}
+
 
 void KateFileBrowser::selectorViewChanged(QAbstractItemView * newView)
 {

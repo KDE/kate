@@ -31,16 +31,12 @@
 
 class QAbstractItemView;
 class KateBookmarkHandler;
-
+class KAction;
 class KActionCollection;
-class KActionSelector;
 class KDirOperator;
 class KFileItem;
 class KHistoryComboBox;
 class KToolBar;
-class QToolButton;
-class QCheckBox;
-class QSpinBox;
 
 class KUrlNavigator;
 /*
@@ -81,6 +77,7 @@ class KateFileBrowser : public KVBox
     void updateDirOperator( const KUrl& u );
     void updateUrlNavigator( const KUrl& u );
     void setActiveDocumentDir();
+    void autoSyncFolder();
 
   protected:
     KUrl activeDocumentUrl();
@@ -99,6 +96,7 @@ class KateFileBrowser : public KVBox
     KUrlNavigator *m_urlNavigator;
     KDirOperator * m_dirOperator;
     KHistoryComboBox * m_filter;
+    KAction *m_autoSyncFolder;
 
     Kate::MainWindow *m_mainWindow;
 };

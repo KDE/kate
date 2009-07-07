@@ -155,6 +155,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
   KTextEditor::SmartCursor *endC= m_doc->newSmartCursor(insertPosition);
   endC->advance(insertString.length());
   m_templateRange=m_doc->newSmartRange(KTextEditor::Range(insertPosition,*endC));
+  m_templateRange->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft|KTextEditor::SmartRange::ExpandRight);
   connect(m_templateRange->primaryNotifier(),SIGNAL(rangeDeleted(KTextEditor::SmartRange*)),this,SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
   kDebug(13020) << insertPosition << "--" << *endC << "++++" << *m_templateRange;
   delete endC;
@@ -196,6 +197,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
     KTextEditor::SmartCursor *tmpC=m_doc->newSmartCursor(KTextEditor::Cursor(line,col));;
     tmpC->advance(info.len);
     KTextEditor::SmartRange *hlr=m_doc->newSmartRange(KTextEditor::Range(KTextEditor::Cursor(line,col),*tmpC),m_templateRange,KTextEditor::SmartRange::ExpandRight);
+    hlr->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft|KTextEditor::SmartRange::ExpandRight);
     hlr->setAttribute(firstOccurrence?attributeEditableElement:attributeNotEditableElement);
     hlr->setParentRange(m_templateRange);
     delete tmpC;
@@ -216,8 +218,10 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEditor::Range& range)
 {
   if (m_doc->isEditRunning() && !m_doc->isWithUndo())
+  {
+    kdDebug(13020)<<"slotTextInserted returning prematurely";
     return;
-
+  }
 #ifdef __GNUC__
 #warning FIXME undo/redo detection
 #endif

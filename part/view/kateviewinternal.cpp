@@ -69,9 +69,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_mouse()
   , m_possibleTripleClick (false)
   , m_completionItemExpanded (false)
-  , m_bm(doc()->smartManager()->newSmartRange())
-  , m_bmStart(doc()->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
-  , m_bmEnd(doc()->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bm(smartManager()->newSmartRange())
+  , m_bmStart(smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bmEnd(smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_bmHighlighted(false)
   , m_dummy (0)
 
@@ -219,7 +219,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect(doc(), SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
-  connect(doc()->smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), SLOT(rangeDeleted(KateSmartRange*)));
+  connect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), SLOT(rangeDeleted(KateSmartRange*)));
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
@@ -260,7 +260,7 @@ void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::S
 KateViewInternal::~KateViewInternal ()
 {
   // crashes on close without
-  disconnect(doc()->smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
+  disconnect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
 
   qDeleteAll(m_dynamicHighlights);
 
@@ -3788,13 +3788,13 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   bool createdPreedit = false;
   if (!m_imPreeditRange) {
     createdPreedit = true;
-    m_imPreeditRange = m_view->doc()->smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
+    m_imPreeditRange = smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
   }
 
   if (!m_imPreeditRange->isEmpty()) {
-    m_view->doc()->inputMethodStart();
-    m_view->doc()->removeText(*m_imPreeditRange);
-    m_view->doc()->inputMethodEnd();
+    doc()->inputMethodStart();
+    doc()->removeText(*m_imPreeditRange);
+    doc()->inputMethodEnd();
   }
 
   if (!e->commitString().isEmpty() || e->replacementLength()) {
@@ -3803,21 +3803,21 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     KTextEditor::Cursor start(m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + e->replacementStart());
     KTextEditor::Cursor removeEnd = start + KTextEditor::Cursor(0, e->replacementLength());
 
-    m_view->doc()->editStart(true);
+    doc()->editStart(true);
     if (start != removeEnd)
-      m_view->doc()->removeText(KTextEditor::Range(start, removeEnd));
+      doc()->removeText(KTextEditor::Range(start, removeEnd));
     if (!e->commitString().isEmpty())
-      m_view->doc()->insertText(start, e->commitString());
-    m_view->doc()->editEnd();
+      doc()->insertText(start, e->commitString());
+    doc()->editEnd();
 
     // Revert to the same range as above
     m_imPreeditRange->setRange(preeditRange);
   }
 
   if (!e->preeditString().isEmpty()) {
-    m_view->doc()->inputMethodStart();
-    m_view->doc()->insertText(m_imPreeditRange->start(), e->preeditString());
-    m_view->doc()->inputMethodEnd();
+    doc()->inputMethodStart();
+    doc()->insertText(m_imPreeditRange->start(), e->preeditString());
+    doc()->inputMethodEnd();
     // The preedit range gets automatically repositioned
   }
 
@@ -3855,7 +3855,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
         QTextCharFormat f = qvariant_cast<QTextFormat>(a.value).toCharFormat();
         if (f.isValid() && decorationColumn <= a.start) {
           KTextEditor::Range fr(m_imPreeditRange->start().line(),  m_imPreeditRange->start().column() + a.start, m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + a.start + a.length);
-          KTextEditor::SmartRange* formatRange = m_view->doc()->smartManager()->newSmartRange(fr, m_imPreeditRange);
+          KTextEditor::SmartRange* formatRange = smartManager()->newSmartRange(fr, m_imPreeditRange);
           KTextEditor::Attribute::Ptr attribute(new KTextEditor::Attribute());
           attribute->merge(f);
           formatRange->setAttribute(attribute);

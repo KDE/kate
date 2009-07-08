@@ -65,6 +65,12 @@ KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QList<QVari
 
 KateFindInFilesPlugin::~KateFindInFilesPlugin()
 {
+  KTextEditor::CommandInterface* iface =
+    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface && m_grepCommand) {
+    iface->unregisterCommand(m_grepCommand);
+  }
+
   delete m_grepCommand;
   m_grepCommand = 0;
 

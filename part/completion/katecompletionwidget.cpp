@@ -408,9 +408,9 @@ void KateCompletionWidget::updateAndShow()
   //updatePosition updates the height, resizeColumns needs the correct height to decide over
   //how many rows it computs the column-width
   updatePosition(true);
-  m_entryList->resizeColumns(false, true, true);
+  m_entryList->resizeColumns(true, true);
   updatePosition(true);
-  m_entryList->resizeColumns(false, true, true);
+  m_entryList->resizeColumns(true, true);
 
   setUpdatesEnabled(true);
 

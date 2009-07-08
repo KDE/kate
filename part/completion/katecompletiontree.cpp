@@ -109,12 +109,12 @@ void KateCompletionTree::resizeColumnsSlot()
     resizeColumns();
 }
 
-void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, bool forceResize)
+void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
 {
   static bool preventRecursion = false;
   if (preventRecursion)
     return;
-  
+
   if(firstShow)
     forceResize = true;
 
@@ -269,7 +269,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow, boo
     if (oldIndentWidth != newIndentWidth)
         if(widget()->updatePosition() && !forceResize) {
         preventRecursion = false;
-        resizeColumns(false, true, true);
+        resizeColumns(true, true);
         }
   }
     

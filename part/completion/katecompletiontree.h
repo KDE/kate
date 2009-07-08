@@ -37,7 +37,7 @@ class KateCompletionTree : public ExpandingTree
     KateCompletionWidget* widget() const;
     KateCompletionModel* kateModel() const;
 
-    void resizeColumns(bool fromResizeEvent = false, bool firstShow = false, bool forceResize = false);
+    void resizeColumns(bool firstShow = false, bool forceResize = false);
 
     // Navigation
     bool nextCompletion();

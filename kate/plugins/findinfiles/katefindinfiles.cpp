@@ -122,6 +122,9 @@ KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
 
   setXMLFile("plugins/findinfiles/ui.rc");
   mw->guiFactory()->addClient(this);
+
+  // always create one toolview
+  addResultView(new KateResultView(m_mw, this));
 }
 
 KateFindInFilesView::~KateFindInFilesView ()

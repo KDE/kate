@@ -235,9 +235,10 @@ bool KateGrepCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QSt
   return false;
 }
 
-bool KateGrepCommand::help (KTextEditor::View */*view*/, const QString &/*cmd*/, QString &/*msg*/)
+bool KateGrepCommand::help (KTextEditor::View */*view*/, const QString &/*cmd*/, QString & msg)
 {
-  return false;
+  msg = i18n("Usage: grep [pattern]");
+  return true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

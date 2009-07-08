@@ -3639,7 +3639,7 @@ bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range) const
 {
   if(range.end().line() < m_startPos.line())
     return false;
-  if(range.start().line() > m_startPos.line() + m_visibleLineCount)
+  if(range.start().line() > m_startPos.line() + (int)m_visibleLineCount)
     return false;
   
   return true;

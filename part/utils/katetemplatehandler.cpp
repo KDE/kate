@@ -219,7 +219,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
 {
   if (m_doc->isEditRunning() && !m_doc->isWithUndo())
   {
-    kdDebug(13020)<<"slotTextInserted returning prematurely";
+    kDebug(13020)<<"slotTextInserted returning prematurely";
     return;
   }
 #ifdef __GNUC__

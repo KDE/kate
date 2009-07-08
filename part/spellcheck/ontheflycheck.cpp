@@ -58,7 +58,7 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(QObject *parent)
 
 KateOnTheFlyChecker::~KateOnTheFlyChecker()
 {
-  kDebug(13000) << "destroyed";
+  kDebug(13000) << "KateOnTheFlyChecker::~KateOnTheFlyChecker()";
 }
 
 const KateOnTheFlyChecker::SpellCheckQueueItem KateOnTheFlyChecker::invalidSpellCheckQueueItem =
@@ -253,12 +253,18 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
 {
   kDebug(13000) << smartRange;
 
+  if (m_eliminatedRanges.contains(smartRange)) {
+      m_eliminatedRanges.removeAll(smartRange);
+  }
+  
   KTextEditor::Document *document = smartRange->document();
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
   if(!smartInterface) {
     return;
   }
+  
+  
   
   const QList<KTextEditor::View*>& viewList = document->views();
   for(QList<KTextEditor::View*>::const_iterator j = viewList.begin();
@@ -775,11 +781,12 @@ void KateOnTheFlyChecker::restartViewRefreshTimer(KateView *view)
 
 void KateOnTheFlyChecker::deleteEliminatedRanges()
 {
-  kDebug(13000)<< "\n";
-  for(SmartRangeList::iterator i = m_eliminatedRanges.begin(); i != m_eliminatedRanges.end(); ++i) {
-    delete(*i);
+  kDebug(13000)<< "deleting eliminated ranges\n";
+  while(!m_eliminatedRanges.isEmpty()) {
+    KTextEditor::SmartRange *r=m_eliminatedRanges.takeFirst();
+    kDebug(13000)<<r;
+    delete r;
   }
-  m_eliminatedRanges.clear();
 }
 
 void KateOnTheFlyChecker::handleModifiedRanges()

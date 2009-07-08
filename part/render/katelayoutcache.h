@@ -117,7 +117,7 @@ class KateLayoutCache : public QObject
     bool wrap() const;
     void setWrap(bool wrap);
 
-    bool acceptDirtyLayouts() const;
+    bool acceptDirtyLayouts();
     void setAcceptDirtyLayouts(bool accept);
 
     // BEGIN generic methods to get/set layouts
@@ -133,25 +133,25 @@ class KateLayoutCache : public QObject
      * \param virtualLine virtual line number. only needed if you think it may have changed
      *                    (ie. basically internal to KateLayoutCache)
      */
-    KateLineLayoutPtr line(int realLine, int virtualLine = -1) const;
+    KateLineLayoutPtr line(int realLine, int virtualLine = -1);
     /// \overload
-    KateLineLayoutPtr line(const KTextEditor::Cursor& realCursor) const;
+    KateLineLayoutPtr line(const KTextEditor::Cursor& realCursor);
 
     /// Returns the layout describing the text line which is occupied by \p realCursor.
-    KateTextLayout textLayout(const KTextEditor::Cursor& realCursor) const;
+    KateTextLayout textLayout(const KTextEditor::Cursor& realCursor);
 
     /// Returns the layout of the specified realLine + viewLine.
     /// if viewLine is -1, return the last.
-    KateTextLayout textLayout(uint realLine, int viewLine) const;
+    KateTextLayout textLayout(uint realLine, int viewLine);
     // END
 
     // BEGIN methods to do with the caching of lines visible within a view
     /// Returns the layout of the corresponding line in the view
-    KateTextLayout& viewLine(int viewLine) const;
+    KateTextLayout& viewLine(int viewLine);
 
     // find the view line of the cursor, relative to the display (0 = top line of view, 1 = second line, etc.)
     // if limitToVisible is true, only lines which are currently visible will be searched for, and -1 returned if the line is not visible.
-    int displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible = false) const;
+    int displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible = false);
 
     int viewCacheLineCount() const;
     KTextEditor::Cursor viewCacheStart() const;
@@ -161,10 +161,10 @@ class KateLayoutCache : public QObject
     void relayoutLines(int startRealLine, int endRealLine);
 
     // find the index of the last view line for a specific line
-    int lastViewLine(int realLine) const;
+    int lastViewLine(int realLine);
     // find the view line of cursor c (0 = same line, 1 = down one, etc.)
-    int viewLine(const KTextEditor::Cursor& realCursor) const;
-    int viewLineCount(int realLine) const;
+    int viewLine(const KTextEditor::Cursor& realCursor);
+    int viewLineCount(int realLine);
 
     void viewCacheDebugOutput() const;
     // END
@@ -191,7 +191,7 @@ private:
     int m_viewWidth;
     bool m_wrap;
 
-    QThreadStorage<bool*> m_acceptDirtyLayouts;
+
 
     mutable QMutex m_debugMutex;
 };

@@ -29,6 +29,9 @@
 
 #include <kdebug.h>
 
+
+static QThreadStorage<QMap<KateLayoutCache*,bool>*> m_acceptDirtyLayouts;
+
 static bool enableLayoutCache = false;
 
 QMutex QAssertMutexLocker::wait;
@@ -266,7 +269,7 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
   enableLayoutCache = false;
 }
 
-KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
+KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
 {
   QAssertMutexLocker lock(m_debugMutex);
   
@@ -316,14 +319,14 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
   return l;
 }
 
-KateLineLayoutPtr KateLayoutCache::line( const KTextEditor::Cursor & realCursor ) const
+KateLineLayoutPtr KateLayoutCache::line( const KTextEditor::Cursor & realCursor )
 {
   QAssertMutexLocker lock(m_debugMutex);
   
   return line(realCursor.line());
 }
 
-KateTextLayout KateLayoutCache::textLayout( const KTextEditor::Cursor & realCursor ) const
+KateTextLayout KateLayoutCache::textLayout( const KTextEditor::Cursor & realCursor )
 {
   QAssertMutexLocker lock(m_debugMutex);
   /*if (realCursor >= viewCacheStart() && (realCursor < viewCacheEnd() || realCursor == viewCacheEnd() && !m_textLayouts.last().wrap()))
@@ -334,7 +337,7 @@ KateTextLayout KateLayoutCache::textLayout( const KTextEditor::Cursor & realCurs
   return line(realCursor.line())->viewLine(viewLine(realCursor));
 }
 
-KateTextLayout KateLayoutCache::textLayout( uint realLine, int _viewLine ) const
+KateTextLayout KateLayoutCache::textLayout( uint realLine, int _viewLine )
 {
   QAssertMutexLocker lock(m_debugMutex);
   /*if (m_textLayouts.count() && (realLine >= m_textLayouts.first().line() && _viewLine >= m_textLayouts.first().viewLine()) &&
@@ -346,7 +349,7 @@ KateTextLayout KateLayoutCache::textLayout( uint realLine, int _viewLine ) const
   return line(realLine)->viewLine(_viewLine);
 }
 
-KateTextLayout & KateLayoutCache::viewLine( int _viewLine ) const
+KateTextLayout & KateLayoutCache::viewLine( int _viewLine )
 {
   QAssertMutexLocker lock(m_debugMutex);
   Q_ASSERT(_viewLine >= 0 && _viewLine < m_textLayouts.count());
@@ -381,7 +384,7 @@ int KateLayoutCache::viewWidth( ) const
  * The view line is the number of lines in the view from the first line
  * The supplied cursor should be in real lines.
  */
-int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor) const
+int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor)
 {
   QAssertMutexLocker lock(m_debugMutex);
 
@@ -398,7 +401,7 @@ int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor) const
   return thisLine->viewLineCount() - 1;
 }
 
-int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible) const
+int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible)
 {
   QAssertMutexLocker lock(m_debugMutex);
 
@@ -455,7 +458,7 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
   return ret;
 }
 
-int KateLayoutCache::lastViewLine(int realLine) const
+int KateLayoutCache::lastViewLine(int realLine)
 {
   QAssertMutexLocker lock(m_debugMutex);
 
@@ -466,7 +469,7 @@ int KateLayoutCache::lastViewLine(int realLine) const
   return l->viewLineCount() - 1;
 }
 
-int KateLayoutCache::viewLineCount(int realLine) const
+int KateLayoutCache::viewLineCount(int realLine)
 {
   return lastViewLine(realLine) + 1;
 }
@@ -544,12 +547,15 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
   m_lineLayouts.relayoutLines(startRealLine, endRealLine);
 }
 
-bool KateLayoutCache::acceptDirtyLayouts() const
+bool KateLayoutCache::acceptDirtyLayouts()
 {
   QAssertMutexLocker lock(m_debugMutex);
 
-  if (m_acceptDirtyLayouts.hasLocalData())
-    return *m_acceptDirtyLayouts.localData();
+    if (m_acceptDirtyLayouts.hasLocalData()) {
+      QMap<KateLayoutCache*,bool>* m=m_acceptDirtyLayouts.localData();
+      if (m->contains(this))
+        return m->value(this);
+    }
 
   return false;
 }
@@ -559,9 +565,9 @@ void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
   QAssertMutexLocker lock(m_debugMutex);
   
   if (!m_acceptDirtyLayouts.hasLocalData())
-    m_acceptDirtyLayouts.setLocalData(new bool);
+    m_acceptDirtyLayouts.setLocalData(new QMap<KateLayoutCache*,bool>());
 
-  *m_acceptDirtyLayouts.localData() = accept;
+  m_acceptDirtyLayouts.localData()->insert(this,accept);
 }
 
 #include "katelayoutcache.moc"

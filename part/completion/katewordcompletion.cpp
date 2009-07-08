@@ -81,7 +81,7 @@ KateWordCompletionModel::~KateWordCompletionModel()
 void KateWordCompletionModel::saveMatches( KTextEditor::View* view,
                         const KTextEditor::Range& range)
 {
-  m_matches = allMatches( view, range, 2 );
+  m_matches = allMatches( view, range );
   m_matches.sort();
 }
 
@@ -172,7 +172,7 @@ void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const K
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range, int minAdditionalLength ) const
+const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
   QStringList l;
 
@@ -183,7 +183,7 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
   int i( 0 );
   int pos( 0 );
   KTextEditor::Document *doc = view->document();
-  QRegExp re( "\\b(" + doc->text( range ) + "\\w{" + QString::number(minAdditionalLength) + ",})" );
+  QRegExp re( "\\b(" + doc->text( range ) + "\\w{1,})" );
   QString s, m;
   QSet<QString> seen;
 

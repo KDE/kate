@@ -257,6 +257,10 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
       m_eliminatedRanges.removeAll(smartRange);
   }
   
+  if (m_myranges.contains(smartRange)) {
+      m_myranges.removeAll(smartRange);    
+  }
+  
   KTextEditor::Document *document = smartRange->document();
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
@@ -352,6 +356,7 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
                                                                               line,
                                                                               rangeStart + start + word.length()));
     smartRange->addWatcher(this);
+    m_myranges.push_back(smartRange);
     KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
     attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
     attribute->setUnderlineColor(QColor(Qt::red));
@@ -427,8 +432,10 @@ QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRangesInViews
       const SmartRangeList& smartRangeList = smartInterface->viewHighlights(*i);
       for(SmartRangeList::const_iterator j = smartRangeList.begin(); j != smartRangeList.end(); ++j) {
         KTextEditor::SmartRange *smartRange = *j;
-        if(smartRange->overlaps(range)) {
-          toReturn.push_back(smartRange);
+        if (m_myranges.contains(smartRange)) { //JOWENN
+          if(smartRange->overlaps(range)) {
+            toReturn.push_back(smartRange);
+          }
         }
       }
       smartInterface->smartMutex()->unlock();
@@ -712,6 +719,7 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTex
   bool inSpellCheckArea = false;
   // clear all the highlights that are currently present in the range that
   // is supposed to be checked, necessary due to highlighting
+  
   const SmartRangeList highlightsList = installedSmartRangesInViews(document, range);
   for(SmartRangeList::const_iterator i = highlightsList.begin();
       i != highlightsList.end(); ++i) {

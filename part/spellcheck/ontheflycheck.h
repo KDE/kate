@@ -100,14 +100,14 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void addToSpellCheckQueue(KateDocument *document, KTextEditor::SmartRange *range, const QString& dictionary);
 
     QTimer *m_viewRefreshTimer;
-    KateView *m_refreshView;
+    QPointer<KateView> m_refreshView;
 
     virtual void rangeDeleted(KTextEditor::SmartRange *range);
     virtual void rangeEliminated(KTextEditor::SmartRange *range);
     SmartRangeList m_eliminatedRanges;
 
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
- 
+    QList<KTextEditor::SmartRange*> m_myranges;
     KTextEditor::Cursor findBeginningOfWord(KTextEditor::Document* document,
                                             const KTextEditor::Cursor &cursor,
                                             bool reverse);

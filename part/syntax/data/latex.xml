@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-	  <language name="LaTeX" version="1.34" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
+	  <language name="LaTeX" version="1.35" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -423,26 +423,26 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Error" defStyleNum="dsAlert"/>
+      <itemData name="Error" defStyleNum="dsAlert" spellChecking="false"/>
       <itemData name="Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
-      <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
-      <itemData name="Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0"/>
-      <itemData name="Environment" defStyleNum="dsNormal" color="#0000D0" selColor="#FFFF90" bold="0" italic="0"/>
-      <itemData name="Verbatim" defStyleNum="dsNormal" color="#a08000" selColor="#80D0FF" bold="0" italic="0"/>
-      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
-      <itemData name="Bullet" defStyleNum="dsNormal" color="#FF00C4" bold="1" underline="1"/>
-      <itemData name="Ampersand" defStyleNum="dsNormal" color="#002793" bold="1" />
-      <itemData name="Column Separator" defStyleNum="dsNormal" color="#002793" />
-      <itemData name="Alert" defStyleNum="dsAlert" />
+      <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Environment" defStyleNum="dsNormal" color="#0000D0" selColor="#FFFF90" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Verbatim" defStyleNum="dsNormal" color="#a08000" selColor="#80D0FF" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="Bullet" defStyleNum="dsNormal" color="#FF00C4" bold="1" underline="1" spellChecking="false"/>
+      <itemData name="Ampersand" defStyleNum="dsNormal" color="#002793" bold="1" spellChecking="false"/>
+      <itemData name="Column Separator" defStyleNum="dsNormal" color="#002793" spellChecking="false"/>
+      <itemData name="Alert" defStyleNum="dsAlert" spellChecking="false"/>
       <itemData name="Structure Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="1" italic="0"/>
-      <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0"/>
+      <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0" spellChecking="false"/>
       <itemData name="Structure Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="1" italic="0"/>
-      <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0"/>
-      <itemData name="Footnote" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0" spellChecking="false"/>
+      <itemData name="Footnote" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Footnote Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="0" italic="0"/>
-      <itemData name="Footnote Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Footnote Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Footnote Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
-      <itemData name="Footnote Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0"/>
+      <itemData name="Footnote Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0" spellChecking="false"/>
      </itemDatas>
   </highlighting>
 

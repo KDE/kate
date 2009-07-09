@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C" section="Sources"
-          version="1.42" kateversion="2.4"
+          version="1.43" kateversion="2.4"
           indenter="cstyle"
           extensions="*.c;*.C;*.h"
           mimetype="text/x-csrc;text/x-c++src;text/x-chdr"
@@ -169,23 +169,23 @@
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
-      <itemData name="Keyword"      defStyleNum="dsKeyword"/>
-      <itemData name="Data Type"    defStyleNum="dsDataType"/>
-      <itemData name="Decimal"      defStyleNum="dsDecVal"/>
-      <itemData name="Octal"        defStyleNum="dsBaseN"/>
-      <itemData name="Hex"          defStyleNum="dsBaseN"/>
-      <itemData name="Float"        defStyleNum="dsFloat"/>
-      <itemData name="Char"         defStyleNum="dsChar"/>
+      <itemData name="Normal Text"  defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Data Type"    defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Decimal"      defStyleNum="dsDecVal" spellChecking="false"/>
+      <itemData name="Octal"        defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Hex"          defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Float"        defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Char"         defStyleNum="dsChar" spellChecking="false"/>
       <itemData name="String"       defStyleNum="dsString"/>
       <itemData name="String Char"  defStyleNum="dsChar"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
-      <itemData name="Symbol"       defStyleNum="dsNormal"/>
-      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
-      <itemData name="Prep. Lib"    defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
-      <itemData name="Alert"        defStyleNum="dsAlert" />
-      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
-      <itemData name="Error"        defStyleNum="dsError" />
+      <itemData name="Symbol"       defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers" spellChecking="false"/>
+      <itemData name="Prep. Lib"    defStyleNum="dsOthers" spellChecking="false"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+      <itemData name="Alert"        defStyleNum="dsAlert" spellChecking="false"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="Error"        defStyleNum="dsError" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

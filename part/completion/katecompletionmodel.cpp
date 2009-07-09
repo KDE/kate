@@ -272,7 +272,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     switch (role) {
       case Qt::DisplayRole:
           //We return the group-header for all columns, ExpandingDelegate will paint them properly over the whole space
-          return ' ' + g->title;
+          return QString(' ' + g->title);
         break;
 
       case Qt::FontRole:

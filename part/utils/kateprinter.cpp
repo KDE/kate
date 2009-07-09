@@ -889,7 +889,7 @@ void KatePrintHeaderFooter::setHFFont()
   {
     // set preview
     lFontPreview->setFont( fnt );
-    lFontPreview->setText( (fnt.family() + ", %1pt").arg( fnt.pointSize() ) );
+    lFontPreview->setText( QString(fnt.family() + ", %1pt").arg( fnt.pointSize() ) );
   }
 }
 

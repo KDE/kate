@@ -1030,7 +1030,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
   if (pid == 0) {
     // Execute script
     TestScriptEnv jsenv(m_part, m_outputCustomised);
-    jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
+    jsenv.output()->setOutputFile( ( m_genOutput ? QString(m_baseDir + "/baseline/") : QString(m_outputDir + '/') ) + filename + "-result" );
     script_error = evalJS(jsenv.engine(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
         && evalJS(jsenv.engine(), m_baseDir + "/tests/"+filename+"-script");
 

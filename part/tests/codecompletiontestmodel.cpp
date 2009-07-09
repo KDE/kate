@@ -66,7 +66,7 @@ QVariant CodeCompletionTestModel::data( const QModelIndex & index, int role ) co
           }
 
         case Name:
-          return m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row());
+          return QString(m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row()));
 
         case Arguments:
           switch (index.row() % 5) {
@@ -115,7 +115,7 @@ QVariant CodeCompletionTestModel::data( const QModelIndex & index, int role ) co
           }
 
         case Name:
-          return m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row());
+          return QString(m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row()));
 
         default:
           return "";

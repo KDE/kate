@@ -405,7 +405,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
     if (!mostSpecific)
       mostSpecific = range;
-    range->feedbackMostSpecific(mostSpecific);
+    range->feedbackRangeContentsChanged(mostSpecific);
   }
 
 #ifdef DEBUG_TRANSLATION

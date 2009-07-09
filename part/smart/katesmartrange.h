@@ -136,11 +136,14 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     /// One or both of the cursors has been changed.
     void translated(const KateEditInfo& edit);
-    void feedbackMostSpecific(KateSmartRange* mostSpecific);
+    void feedbackRangeContentsChanged(KateSmartRange* mostSpecific);
     /// The range has been shifted only
     void shifted();
     /// Mouse / caret in or out
-    void feedbackMouseCaretChange(KTextEditor::View* view, bool mouse, bool entered);
+    void feedbackMouseEnteredRange(KTextEditor::View* view);
+    void feedbackMouseExitedRange(KTextEditor::View* view);
+    void feedbackCaretEnteredRange(KTextEditor::View* view);
+    void feedbackCaretExitedRange(KTextEditor::View* view);
 
     void registerPointer(KateSmartRangePtr* ptr);
     void deregisterPointer(KateSmartRangePtr* ptr);

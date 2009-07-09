@@ -155,7 +155,7 @@ void KateSmartRange::translated(const KateEditInfo& edit)
   kEnd().resetLastPosition();
 }
 
-void KateSmartRange::feedbackMostSpecific( KateSmartRange * mostSpecific )
+void KateSmartRange::feedbackRangeContentsChanged( KateSmartRange * mostSpecific )
 {
   // most specific range feedback
   foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
@@ -164,36 +164,36 @@ void KateSmartRange::feedbackMostSpecific( KateSmartRange * mostSpecific )
     w->rangeContentsChanged(this, mostSpecific);
 }
 
-void KateSmartRange::feedbackMouseCaretChange(KTextEditor::View* view, bool mouse, bool entered)
+void KateSmartRange::feedbackMouseEnteredRange(KTextEditor::View* view)
 {
-  if (mouse) {
-    if (entered) {
       foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
         emit static_cast<KateSmartRangeNotifier*>(n)->mouseEnteredRange(this, view);
       foreach (KTextEditor::SmartRangeWatcher* w, watchers())
         w->mouseEnteredRange(this, view);
+}
 
-    } else {
+void KateSmartRange::feedbackMouseExitedRange(KTextEditor::View* view)
+{
       foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
         emit static_cast<KateSmartRangeNotifier*>(n)->mouseExitedRange(this, view);
       foreach (KTextEditor::SmartRangeWatcher* w, watchers())
         w->mouseExitedRange(this, view);
-    }
+}
 
-  } else {
-    if (entered) {
+void KateSmartRange::feedbackCaretEnteredRange(KTextEditor::View* view)
+{
       foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
         emit static_cast<KateSmartRangeNotifier*>(n)->caretEnteredRange(this, view);
       foreach (KTextEditor::SmartRangeWatcher* w, watchers())
         w->caretEnteredRange(this, view);
+}
 
-    } else {
+void KateSmartRange::feedbackCaretExitedRange(KTextEditor::View* view)
+{
       foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
         emit static_cast<KateSmartRangeNotifier*>(n)->caretExitedRange(this, view);
       foreach (KTextEditor::SmartRangeWatcher* w, watchers())
         w->caretExitedRange(this, view);
-    }
-  }
 }
 
 void KateSmartRange::setParentRange( SmartRange * r )

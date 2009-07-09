@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="BibTeX" version="1.15" kateversion="2.0" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL">
+<language name="BibTeX" version="1.16" kateversion="2.0" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL">
   <highlighting>
     <list name="kw_entry">
       <item>@article</item> 
@@ -62,12 +62,12 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Entry" defStyleNum="dsKeyword" color="#0000ff"/>
-      <itemData name="Command" defStyleNum="dsFunction"/>
-      <itemData name="Field" defStyleNum="dsDataType"/>
-      <itemData name="Ref Key" defStyleNum="dsOthers"/>
+      <itemData name="Entry" defStyleNum="dsKeyword" color="#0000ff" spellChecking="false"/>
+      <itemData name="Command" defStyleNum="dsFunction" spellChecking="false"/>
+      <itemData name="Field" defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Ref Key" defStyleNum="dsOthers" spellChecking="false"/>
       <itemData name="String" defStyleNum="dsString"/>
-      <itemData name="Char" defStyleNum="dsChar"/>
+      <itemData name="Char" defStyleNum="dsChar" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

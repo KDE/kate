@@ -76,6 +76,19 @@ void KateOnTheFlyChecker::setEnabled(bool b)
   }
 }
 
+void KateOnTheFlyChecker::handleRespellCheckBlock(KateDocument *document, int start, int end)
+{
+  kDebug(13000)<<m_enabled<<endl;
+  if (!(static_cast<KateDocument*>(document)->isOnTheFlySpellCheckingEnabled())) return;
+  KTextEditor::Range range(start,0,end+1,0);
+  bool listEmpty = m_modificationList.isEmpty();
+  // we don't handle this directly as the highlighting information might not be up-to-date yet
+  m_modificationList.push_back(ModificationItem(TEXT_INSERTED, DocumentRangePair(document, range)));
+  if(listEmpty) {
+    QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
+  }
+}
+
 void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   kDebug(13000)<<m_enabled<<endl;
@@ -505,6 +518,7 @@ void KateOnTheFlyChecker::addDocument(KateDocument *document)
           this, SLOT(addView(KTextEditor::Document*, KTextEditor::View*)));
   connect(document, SIGNAL(highlightingModeChanged (KTextEditor::Document*)),
           this, SLOT(updateDocument(KTextEditor::Document*)));
+  connect(document, SIGNAL(respellCheckBlock(KateDocument *, int, int)), this , SLOT(handleRespellCheckBlock(KateDocument *, int, int)));
   const QList<KTextEditor::View*>& views = document->views();
   for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
     addView(document, *i);

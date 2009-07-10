@@ -294,7 +294,7 @@ class KateBuffer : public QObject
      * changed.
      */
     void tagLines(int start, int end);
-
+    void respellCheckBlock(int start, int end);
   private:
     /**
      * document we belong too

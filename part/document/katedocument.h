@@ -676,8 +676,9 @@ class KateDocument : public KTextEditor::Document,
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
-
+    void respellCheckBlock(KateDocument *document,int start, int end);
   public Q_SLOTS:
+    void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
     virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
 

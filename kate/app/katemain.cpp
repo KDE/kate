@@ -40,13 +40,24 @@ class KateWaiter : public QObject {
   
   private:
     QCoreApplication *m_app;
-  
+    QString m_service;
+    
   public:
-    KateWaiter (QCoreApplication *app) : QObject (app), m_app (app) {
+    KateWaiter (QCoreApplication *app, const QString &service)
+      : QObject (app), m_app (app), m_service (service) {
+      connect ( QDBusConnection::sessionBus().interface(), SIGNAL( serviceOwnerChanged( QString, QString, QString ) )
+          , this, SLOT(serviceOwnerChanged( QString, QString, QString )) ); 
     }
 
   public Q_SLOTS:
     void exiting () {
+      m_app->quit ();
+    }
+    
+    void serviceOwnerChanged( const QString & name, const QString &, const QString &) {
+      if (name != m_service)
+          return;
+      
       m_app->quit ();
     }
 };
@@ -263,7 +274,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       
       // connect dbus signal
       if (args->isSet( "block" )) {
-        KateWaiter *waiter = new KateWaiter (&app);
+        KateWaiter *waiter = new KateWaiter (&app, serviceName);
         QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
       }
       

@@ -5,6 +5,7 @@
    Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
    Copyright (C) 2009 Michel Ludwig <michel.ludwig@kdemail.net>
+   Copyright (C) 2009 Erlend Hamberg <ehamberg@gmail.com>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -33,6 +34,7 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
+#include "kateviglobal.h"
 #include "kateschema.h"
 #include "katesyntaxdocument.h"
 #include "katemodeconfigpage.h"
@@ -324,9 +326,29 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViStatusBarHide, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int, int)), this, SLOT(slotChanged()));
+  connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
+  connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
 
   ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
   ui->chkViStatusBarHide->setEnabled(ui->chkViInputModeDefault->isChecked());
+
+  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings();
+  ui->tblNormalModeMappings->setRowCount( l.size() );
+
+  // make the two columns fill the entire table width
+  ui->tblNormalModeMappings->setColumnWidth( 0, ui->tblNormalModeMappings->width()/3 );
+  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection( true );
+
+  int i = 0;
+  foreach( const QString &f, l ) {
+    QTableWidgetItem *from = new QTableWidgetItem( f );
+    QTableWidgetItem *to =
+      new QTableWidgetItem( KateGlobal::self()->viInputModeGlobal()->getMapping( f ) );
+
+    ui->tblNormalModeMappings->setItem(i, 0, from);
+    ui->tblNormalModeMappings->setItem(i++, 1, to);
+  }
 
   layout->addWidget(newWidget);
   setLayout(layout);
@@ -353,6 +375,15 @@ void KateViInputModeConfigTab::apply ()
   KateViewConfig::global()->setViInputMode (ui->chkViInputModeDefault->isChecked());
   KateViewConfig::global()->setViInputModeStealKeys (ui->chkViCommandsOverride->isChecked());
   KateViewConfig::global()->setViInputModeHideStatusBar (ui->chkViStatusBarHide->isChecked());
+  KateGlobal::self()->viInputModeGlobal()->clearMappings();
+  for ( int i = 0; i < ui->tblNormalModeMappings->rowCount(); i++ ) {
+    QTableWidgetItem* from = ui->tblNormalModeMappings->item( i, 0 );
+    QTableWidgetItem* to = ui->tblNormalModeMappings->item( i, 1 );
+
+    if ( from && to ) {
+      KateGlobal::self()->viInputModeGlobal()->addMapping( from->text(), to->text() );
+    }
+  }
   KateViewConfig::global()->configEnd ();
 }
 
@@ -361,6 +392,25 @@ void KateViInputModeConfigTab::reload ()
   ui->chkViInputModeDefault->setChecked( KateViewConfig::global()->viInputMode () );
   ui->chkViCommandsOverride->setChecked( KateViewConfig::global()->viInputModeStealKeys () );
   ui->chkViStatusBarHide->setChecked( KateViewConfig::global()->viInputModeHideStatusBar () );
+}
+
+void KateViInputModeConfigTab::addNewNormalModeMappingRow()
+{
+  int rows = ui->tblNormalModeMappings->rowCount();
+  ui->tblNormalModeMappings->insertRow( rows );
+  ui->tblNormalModeMappings->setCurrentCell( rows, 0 );
+  ui->tblNormalModeMappings->editItem( ui->tblNormalModeMappings->currentItem() );
+}
+
+void KateViInputModeConfigTab::removeSelectedNormalMappingRow()
+{
+  QList<QTableWidgetSelectionRange> l = ui->tblNormalModeMappings->selectedRanges();
+
+  foreach( const QTableWidgetSelectionRange &range, l ) {
+    for ( int i = 0; i < range.bottomRow()-range.topRow()+1; i++ ) {
+      ui->tblNormalModeMappings->removeRow( range.topRow() );
+    }
+  }
 }
 //END KateViInputModeConfigTab
 

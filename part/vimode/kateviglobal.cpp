@@ -51,9 +51,10 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
     if ( keys.length() == mappings.length() ) {
       for ( int i = 0; i < keys.length(); i++ ) {
         m_mappings[ keys.at( i ) ] = mappings.at( i );
+        kDebug( 13070 ) << "Mapping " << keys.at( i ) << " -> " << mappings.at( i );
       }
     } else {
-      kDebug( 13070 ) << "Error when reading mappings from config: number of lhs != number of rhs";
+      kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
     }
 }
 
@@ -119,7 +120,9 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text )
 
 void KateViGlobal::addMapping( const QString &from, const QString &to )
 {
+  if ( !from.isEmpty() ) {
     m_mappings[from] = to;
+  }
 }
 
 const QString KateViGlobal::getMapping( const QString &from ) const

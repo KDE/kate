@@ -224,6 +224,8 @@ class KateViInputModeConfigTab : public KateConfigPage
 
   private Q_SLOTS:
     void showWhatsThis(const QString& text);
+    void addNewNormalModeMappingRow();
+    void removeSelectedNormalMappingRow();
 };
 
 class KateSpellCheckConfigTab : public KateConfigPage

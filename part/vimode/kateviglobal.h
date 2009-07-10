@@ -41,6 +41,7 @@ public:
     void fillRegister( const QChar &reg, const QString &text);
     const QMap<QChar, QString>* getRegisters() { return m_registers; }
 
+    void clearMappings() { m_mappings.clear(); }
     void addMapping( const QString &from, const QString &to );
     const QString getMapping( const QString &from ) const;
     const QStringList getMappings() const;

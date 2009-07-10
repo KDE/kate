@@ -858,9 +858,13 @@ bool KateViNormalMode::commandChange()
   if ( linewise ) {
     doc()->insertLine( m_commandRange.startLine, QString() );
     c.setLine( m_commandRange.startLine );
-    updateCursor( c );
+    c.setColumn(0);
   }
   doc()->editEnd();
+
+  if ( linewise ) {
+    updateCursor( c );
+  }
 
   commandEnterInsertMode();
 

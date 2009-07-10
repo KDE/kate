@@ -140,6 +140,15 @@ function indent(line, indentWidth, character) {
         return document.firstVirtualColumn(line - 1) + 3 + ifCol;
     }
 
+    // indent lines starting with '|' (assumed to be guards):
+    // f x
+    // >>| x == 0 = 1
+    // >>| x == 0 = x
+    if(currentLine.stripWhiteSpace().startsWith('|')) {
+        dbg('indenting line for |');
+        return indentWidth;
+    }
+
     // indent lines following a line ending with '='
     if(lastLine.stripWhiteSpace().endsWith('=')) {
         dbg('indenting for =');

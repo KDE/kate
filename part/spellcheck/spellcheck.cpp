@@ -28,7 +28,6 @@
 #include <QThread>
 
 #include <kactioncollection.h>
-#include <ktoggleaction.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/view.h>
@@ -77,9 +76,9 @@ void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(bool b)
   }
 }
 
-void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(KateView *view, bool b)
+void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(KateDocument *document, bool b)
 {
-  m_onTheFlyChecker->updateInstalledSmartRanges(view);
+  m_onTheFlyChecker->updateInstalledSmartRanges(document);
 }
 
 void KateSpellCheckManager::createActions(KActionCollection* ac)

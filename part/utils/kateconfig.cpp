@@ -132,6 +132,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
+   m_onTheFlySpellCheck (false),
    m_doc (doc)
 {
   m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
@@ -178,6 +179,8 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
+  setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
+  
   configEnd ();
 }
 
@@ -212,6 +215,8 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Backup Prefix", backupPrefix());
 
   config.writeEntry("Backup Suffix", backupSuffix());
+  
+  config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -617,6 +622,28 @@ void KateDocumentConfig::setSearchDirConfigDepth (int depth)
   configEnd ();
 }
 
+bool KateDocumentConfig::onTheFlySpellCheck() const
+{
+  if (m_onTheFlySpellCheckSet || isGlobal()) {
+    return m_onTheFlySpellCheck;
+  }
+
+  return s_global->onTheFlySpellCheck();
+}
+
+void KateDocumentConfig::setOnTheFlySpellCheck(bool on)
+{
+  configStart ();
+
+  m_onTheFlySpellCheckSet = true;
+  m_onTheFlySpellCheck = on;
+
+  configEnd ();
+}
+
+
+
+
 //END
 
 //BEGIN KateViewConfig
@@ -637,7 +664,6 @@ KateViewConfig::KateViewConfig ()
    m_viInputModeSet (true),
    m_viInputModeStealKeysSet (true),
    m_automaticCompletionInvocationSet (true),
-   m_onTheFlySpellCheckSet (true),
    m_wordCompletionSet (true),
    m_wordCompletionMinimalWordLengthSet (true),
    m_view (0)
@@ -666,7 +692,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
    m_automaticCompletionInvocationSet (false),
-   m_onTheFlySpellCheckSet (false),
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
    m_view (view)
@@ -720,8 +745,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setWordCompletion (config.readEntry( "Word Completion", true ));
   setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
 
-  setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
-
   if (isGlobal()) {
     QStringList empty;
 
@@ -773,7 +796,6 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( "Vi Input Mode Hide Status Bar", viInputModeHideStatusBar());
 
-  config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
 
   if (isGlobal()) {
     // Write search pattern history
@@ -1112,25 +1134,6 @@ void KateViewConfig::setAutomaticCompletionInvocation (bool on)
 
   m_automaticCompletionInvocationSet = true;
   m_automaticCompletionInvocation = on;
-
-  configEnd ();
-}
-
-bool KateViewConfig::onTheFlySpellCheck() const
-{
-  if (m_onTheFlySpellCheckSet || isGlobal()) {
-    return m_onTheFlySpellCheck;
-  }
-
-  return s_global->onTheFlySpellCheck();
-}
-
-void KateViewConfig::setOnTheFlySpellCheck(bool on)
-{
-  configStart ();
-
-  m_onTheFlySpellCheckSet = true;
-  m_onTheFlySpellCheck = on;
 
   configEnd ();
 }

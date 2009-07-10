@@ -1028,6 +1028,10 @@ void KateView::reloadFile()
   m_doc->documentReload();
 }
 
+void KateView::slotOnTheFlySpellCheckingChanged(){
+    m_toggleOnTheFlySpellCheck->setChecked(m_doc->isOnTheFlySpellCheckingEnabled());
+}
+
 void KateView::slotReadWriteChanged ()
 {
   if ( m_toggleWriteLock )
@@ -1474,7 +1478,7 @@ void KateView::updateConfig ()
   // whether vi input mode should override actions or not
   m_viewInternal->m_viInputModeStealKeys = config()->viInputModeStealKeys();
   
-  m_toggleOnTheFlySpellCheck->setChecked(config()->onTheFlySpellCheck());
+  m_toggleOnTheFlySpellCheck->setChecked(m_doc->isOnTheFlySpellCheckingEnabled());
   
   // register/unregister word completion...
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
@@ -2669,15 +2673,11 @@ KTextEditor::Range KateView::visibleRange()
   return KTextEditor::Range(m_viewInternal->startPos(), m_viewInternal->endPos());
 }
 
-bool KateView::onTheFlySpellCheck()
-{
-  return config()->onTheFlySpellCheck();
-}
 
 void KateView::toggleOnTheFlySpellCheck(bool b)
 {
-  config()->setOnTheFlySpellCheck(b);
-  KateGlobal::self()->spellCheckManager()->setOnTheFlySpellCheckEnabled(this, b);
+  m_doc->onTheFlySpellCheckingEnabled(b);
+  
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

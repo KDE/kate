@@ -405,14 +405,14 @@ void KateSpellCheckConfigTab::apply()
   }
   m_changed = false;
 
-  KateViewConfig::global()->configStart();
-  KateViewConfig::global()->setOnTheFlySpellCheck(ui->chkOnTheFlySpellCheckEnabled->isChecked());
-  KateViewConfig::global()->configEnd();
+  KateDocumentConfig::global()->configStart();
+  KateDocumentConfig::global()->setOnTheFlySpellCheck(ui->chkOnTheFlySpellCheckEnabled->isChecked());
+  KateDocumentConfig::global()->configEnd();
 }
 
 void KateSpellCheckConfigTab::reload()
 {
-  ui->chkOnTheFlySpellCheckEnabled->setChecked(KateViewConfig::global()->onTheFlySpellCheck());
+  ui->chkOnTheFlySpellCheckEnabled->setChecked(KateDocumentConfig::global()->onTheFlySpellCheck());
 }
 //END KateSpellCheckConfigTab
 

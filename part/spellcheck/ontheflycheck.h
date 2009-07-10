@@ -65,7 +65,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void updateDocument(KTextEditor::Document *document);
 
     void updateInstalledSmartRanges(KateView *view);
-
+    void updateInstalledSmartRanges(KateDocument *document);
+    
   protected:
     Sonnet::Speller m_speller;
     QList<SpellCheckQueueItem> m_spellCheckQueue;
@@ -120,7 +121,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void viewDestroyed(QObject* obj);
     void addView(KTextEditor::Document *document, KTextEditor::View *view);
     void removeView(KTextEditor::View *view);
-    void updateInstalledSmartRanges(KateDocument *document);
+    
 
     void restartViewRefreshTimer(KateView *view);
     void viewRefreshTimeout();

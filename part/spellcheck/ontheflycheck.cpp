@@ -78,6 +78,8 @@ void KateOnTheFlyChecker::setEnabled(bool b)
 
 void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
+  kDebug(13000)<<m_enabled<<endl;
+  if (!(static_cast<KateDocument*>(document)->isOnTheFlySpellCheckingEnabled())) return;
   bool listEmpty = m_modificationList.isEmpty();
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_INSERTED, DocumentRangePair(document, range)));
@@ -89,7 +91,7 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
 void KateOnTheFlyChecker::handleInsertedText(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   kDebug(13000) << document << range;
-  if(!m_enabled) {
+  if(!(static_cast<KateDocument*>(document)->isOnTheFlySpellCheckingEnabled())) {
     kDebug(13000) << "leaving as on-the-fly checking is disabled "
                   << QThread::currentThreadId();
     return;
@@ -111,6 +113,7 @@ void KateOnTheFlyChecker::handleInsertedText(KTextEditor::Document *document, co
 
 void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
+  if (!(static_cast<KateDocument*>(document)->isOnTheFlySpellCheckingEnabled())) return;
   bool listEmpty = m_modificationList.isEmpty();
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_REMOVED, DocumentRangePair(document, range)));
@@ -122,7 +125,7 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
 void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   kDebug(13000) << document << range;
-  if(!m_enabled) {
+  if (!(static_cast<KateDocument*>(document)->isOnTheFlySpellCheckingEnabled())) {
     kDebug(13000) << "leaving as on-the-fly checking is disabled "
                   << QThread::currentThreadId();
     return;
@@ -214,11 +217,11 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
 void KateOnTheFlyChecker::performSpellCheck()
 {
   kDebug(13000);
-  if(!m_enabled) {
+  /*if(!m_enabled) {
     kDebug(13000) << "leaving as on-the-fly checking is disabled "
                   << QThread::currentThreadId();
     return;
-  }
+  }*/
   if(m_currentlyCheckedItem != invalidSpellCheckQueueItem) {
     kDebug(13000) << "exited as a check is currenly in progress";
     return;
@@ -235,10 +238,21 @@ void KateOnTheFlyChecker::performSpellCheck()
   kDebug(13000) << "for the range " << *spellCheckRange;
   // clear all the highlights that are currently present in the range that
   // is supposed to be checked
-  const SmartRangeList highlightsList = installedSmartRangesInViews(document, *spellCheckRange); // make a copy!
-  for(SmartRangeList::const_iterator i = highlightsList.begin();
-      i != highlightsList.end(); ++i) {
-      delete(*i);
+  SmartRangeList highlightsList = installedSmartRangesInViews(document, *spellCheckRange); // make a copy!
+  
+  
+//   for(SmartRangeList::const_iterator i = highlightsList.begin();
+//       i != highlightsList.end(); ++i) {
+//       kDebug(13000)<<"about to delete "<<*i;
+//       delete(*i);
+//   }
+
+//elements can appear more than once
+  highlightsList.detach();
+  while (!highlightsList.isEmpty()) {
+    KTextEditor::SmartRange *r=highlightsList.takeFirst();
+    highlightsList.removeAll(r);
+    delete r;
   }
 
   QString text = document->text(*spellCheckRange);
@@ -327,11 +341,11 @@ KTextEditor::Cursor KateOnTheFlyChecker::findBeginningOfWord(KTextEditor::Docume
 void KateOnTheFlyChecker::misspelling(const QString &word, int start)
 {
   kDebug(13000);
-  if(!m_enabled) {
-    kDebug(13000) << "leaving as on-the-fly checking is disabled "
-                  << QThread::currentThreadId();
-    return;
-  }
+//   if(!m_enabled) {
+//     kDebug(13000) << "leaving as on-the-fly checking is disabled "
+//                   << QThread::currentThreadId();
+//     return;
+//   }
   if(m_currentlyCheckedItem == invalidSpellCheckQueueItem) {
     kDebug(13000) << "exited as no spell check is taking place";
     return;
@@ -428,6 +442,7 @@ QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRangesInViews
   }
   const QList<KTextEditor::View*>& views = document->views();
   for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
+      kDebug(13000)<<"inspecting view:"<<*i;
       smartInterface->smartMutex()->lock();
       const SmartRangeList& smartRangeList = smartInterface->viewHighlights(*i);
       for(SmartRangeList::const_iterator j = smartRangeList.begin(); j != smartRangeList.end(); ++j) {
@@ -456,7 +471,7 @@ void KateOnTheFlyChecker::installSmartRangeIfVisible(KTextEditor::SmartRange *sm
 void KateOnTheFlyChecker::installSmartRangeIfVisible(KTextEditor::SmartRange *smartRange, KateView* view)
 {
   kDebug(13000);
-  if(!view->onTheFlySpellCheck()) {
+  if(!(static_cast<KateDocument*>(view->document())->isOnTheFlySpellCheckingEnabled())) {
     return;
   }
   KTextEditor::Range visibleRange = view->visibleRange();
@@ -480,7 +495,7 @@ kDebug(13000) << "does not overlap!";
 void KateOnTheFlyChecker::installSmartRanges(KateView* view)
 {
   kDebug(13000);
-  if(!view->onTheFlySpellCheck()) {
+  if(!(static_cast<KateDocument*>(view->document())->isOnTheFlySpellCheckingEnabled())) {
     return;
   }
   KTextEditor::Range visibleRange = view->visibleRange();
@@ -720,10 +735,13 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTex
   // clear all the highlights that are currently present in the range that
   // is supposed to be checked, necessary due to highlighting
   
-  const SmartRangeList highlightsList = installedSmartRangesInViews(document, range);
-  for(SmartRangeList::const_iterator i = highlightsList.begin();
-      i != highlightsList.end(); ++i) {
-      delete(*i);
+  //items can be non unique !!!!!
+  SmartRangeList highlightsList = installedSmartRangesInViews(document, range);
+  highlightsList.detach();
+  while (!highlightsList.isEmpty()) {
+    KTextEditor::SmartRange *r=highlightsList.takeFirst();
+    highlightsList.removeAll(r);
+    delete r;
   }
 
   for(int i = range.start().column(); i < end; ++i) {
@@ -780,6 +798,8 @@ void KateOnTheFlyChecker::viewRefreshTimeout()
 
 void KateOnTheFlyChecker::restartViewRefreshTimer(KateView *view)
 {
+  kDebug(13000)<<m_enabled<<endl;
+  if (!(static_cast<KateDocument*>(view->document())->isOnTheFlySpellCheckingEnabled())) return;
   if(m_refreshView && view != m_refreshView) { // a new view should be refreshed
     updateInstalledSmartRanges(m_refreshView); // so refresh the old one first
   }

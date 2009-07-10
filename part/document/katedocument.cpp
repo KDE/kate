@@ -6197,6 +6197,21 @@ void KateDocument::setDictionary(const QString& dict)
   KateGlobal::self()->spellCheckManager()->onTheFlyCheckDocument(this);
 }
 
+
+void KateDocument::onTheFlySpellCheckingEnabled(bool enable) {
+  config()->setOnTheFlySpellCheck(enable);
+  KateGlobal::self()->spellCheckManager()->setOnTheFlySpellCheckEnabled(this,enable);
+  foreach( KateView* view, m_views)
+  {
+    view->slotOnTheFlySpellCheckingChanged ();
+  }
+}
+
+bool KateDocument::isOnTheFlySpellCheckingEnabled() {
+  return config()->onTheFlySpellCheck();
+}
+
+
 // Kill our helpers again
 #ifdef FAST_DEBUG_ENABLE
 # undef FAST_DEBUG_ENABLE

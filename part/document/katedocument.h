@@ -1153,7 +1153,10 @@ class KateDocument : public KTextEditor::Document,
 
   public Q_SLOTS:
       void setDictionary(const QString& dict);
-
+      void onTheFlySpellCheckingEnabled(bool enable);
+  public:
+      bool isOnTheFlySpellCheckingEnabled();
+      
   protected:
       QString m_dictionary;
 };

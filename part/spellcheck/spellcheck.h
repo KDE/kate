@@ -42,7 +42,7 @@ class KateSpellCheckManager : public QObject {
       void addOnTheFlySpellChecking(KateDocument *doc);
       void removeOnTheFlySpellChecking(KateDocument *doc);
 
-      void setOnTheFlySpellCheckEnabled(KateView *view, bool b);
+      void setOnTheFlySpellCheckEnabled(KateDocument *document, bool b);
 
       void createActions(KActionCollection* ac);
 

@@ -228,6 +228,10 @@ class KateDocumentConfig : public KateConfig
 
     void setSearchDirConfigDepth (int depth);
 
+    bool onTheFlySpellCheck() const;
+    void setOnTheFlySpellCheck(bool on);
+
+    
   private:
     QString m_indentationMode;
     int m_indentationWidth;
@@ -246,7 +250,8 @@ class KateDocumentConfig : public KateConfig
     QString m_encoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
-
+    bool m_onTheFlySpellCheck;
+    
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
     bool m_indentationModeSet : 1;
@@ -262,6 +267,7 @@ class KateDocumentConfig : public KateConfig
     bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;
     bool m_backupSuffixSet : 1;
+    bool m_onTheFlySpellCheckSet : 1;
 
   private:
     static KateDocumentConfig *s_global;
@@ -381,9 +387,6 @@ class KateViewConfig : public KateConfig
     bool automaticCompletionInvocation () const;
     void setAutomaticCompletionInvocation (bool on);
 
-    bool onTheFlySpellCheck() const;
-    void setOnTheFlySpellCheck(bool on);
-
     bool wordCompletion () const;
     void setWordCompletion (bool on);
     
@@ -407,7 +410,6 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeys;
     bool m_viInputModeHideStatusBar;
     bool m_automaticCompletionInvocation;
-    bool m_onTheFlySpellCheck;
     bool m_wordCompletion;
     int m_wordCompletionMinimalWordLength;
 
@@ -427,7 +429,6 @@ class KateViewConfig : public KateConfig
     bool m_viInputModeStealKeysSet : 1;
     bool m_viInputModeHideStatusBarSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
-    bool m_onTheFlySpellCheckSet : 1;
     bool m_wordCompletionSet : 1;
     bool m_wordCompletionMinimalWordLengthSet : 1;
 

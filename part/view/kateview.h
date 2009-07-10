@@ -616,7 +616,8 @@ class KateView : public KTextEditor::View,
 
   private Q_SLOTS:
     void updateFoldingConfig ();
-
+  public Q_SLOTS:
+    void slotOnTheFlySpellCheckingChanged();
   private:
     KateViewConfig *m_config;
     bool m_startingUp;
@@ -697,8 +698,6 @@ class KateView : public KTextEditor::View,
   Q_SIGNALS:
     void displayRangeChanged(KateView *view);
     
-  public:
-    bool onTheFlySpellCheck();
     
   protected:
     KToggleAction*         m_toggleOnTheFlySpellCheck;

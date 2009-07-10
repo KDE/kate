@@ -214,11 +214,10 @@ class KateSessionManager : public QObject
     /**
      * save current session
      * for sessions without filename: save nothing
-     * @param tryAsk should we ask user if needed?
      * @param rememberAsLast remember this session as last used?
      * @return success
      */
-    bool saveActiveSession (bool tryAsk = false, bool rememberAsLast = false);
+    bool saveActiveSession (bool rememberAsLast = false);
 
     /**
      * return the current active session

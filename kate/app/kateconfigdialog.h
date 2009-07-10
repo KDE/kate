@@ -75,11 +75,6 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_startNewSessionRadioButton;
     QRadioButton *m_loadLastUserSessionRadioButton;
     QRadioButton *m_manuallyChooseSessionRadioButton;
-
-    // sessions exit group:
-    QRadioButton *m_doNotSaveSessionRadioButton;
-    QRadioButton *m_saveSessionRadioButton;
-    QRadioButton *m_askUserRadioButton;
     
     QList<PluginPageListItem*> m_pluginPages;
     QList<KTextEditor::ConfigPage*> m_editorPages;

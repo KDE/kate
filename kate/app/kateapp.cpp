@@ -277,7 +277,7 @@ void KateApp::shutdownKate (KateMainWindow *win)
   if (!win->queryClose_internal())
     return;
 
-  sessionManager()->saveActiveSession(true, true);
+  sessionManager()->saveActiveSession(true);
 
   // cu main windows
   while (!m_mainWindows.isEmpty())

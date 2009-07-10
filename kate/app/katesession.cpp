@@ -274,7 +274,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
 
   // save last session or not?
   if (saveLast)
-    saveActiveSession (true);
+    saveActiveSession ();
 
   // really close last
   if (closeLast)
@@ -379,46 +379,8 @@ static void saveSessionTo(KConfig *sc)
   sc->sync();
 }
 
-bool KateSessionManager::saveActiveSession (bool tryAsk, bool rememberAsLast)
+bool KateSessionManager::saveActiveSession (bool rememberAsLast)
 {
-  if (tryAsk)
-  {
-    // app config
-    KConfigGroup c(KGlobal::config(), "General");
-
-    QString sesExit (c.readEntry ("Session Exit", "save"));
-
-    if (sesExit == "discard")
-      return true;
-
-    if (sesExit == "ask")
-    {
-      KDialog *dlg = new KDialog( 0 );
-      dlg->setCaption( i18n ("Save Session?") );
-      dlg->setButtons( KDialog::Yes | KDialog::No );
-      dlg->setDefaultButton( KDialog::Yes );
-      dlg->setEscapeButton( KDialog::No );
-
-      bool dontAgain = false;
-      int res = KMessageBox::createKMessageBox(dlg, QMessageBox::Question,
-                i18n("Save current session?"), QStringList(),
-                i18n("Do not ask again"), &dontAgain, KMessageBox::Notify);
-
-      // remember to not ask again with right setting
-      if (dontAgain)
-      {
-        KConfigGroup generalConfig(KGlobal::config(), "General");
-        if (res == KDialog::No)
-          generalConfig.writeEntry ("Session Exit", "discard");
-        else
-          generalConfig.writeEntry ("Session Exit", "save");
-      }
-
-      if (res == KDialog::No)
-        return true;
-    }
-  }
-
 //  if (activeSession()->isAnonymous())
 //    newSessionName();
 

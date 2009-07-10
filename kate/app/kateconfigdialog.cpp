@@ -192,31 +192,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   vbox->addWidget(m_manuallyChooseSessionRadioButton);
   sessionsStart->setLayout(vbox);
 
-  QGroupBox *sessionsExit = new QGroupBox( i18n("Behavior on Application Exit or Session Switch"), sessionsFrame );
-  vbox = new QVBoxLayout;
-  layout->addWidget(sessionsExit);
-
-  m_doNotSaveSessionRadioButton = new QRadioButton( i18n("&Do not save session"), sessionsExit );
-  m_saveSessionRadioButton = new QRadioButton( i18n("&Save session"), sessionsExit );
-  m_askUserRadioButton = new QRadioButton( i18n("&Ask user"), sessionsExit );
-
-  QString sesExit (cgGeneral.readEntry ("Session Exit", "save"));
-  if (sesExit == "discard")
-    m_doNotSaveSessionRadioButton->setChecked (true);
-  else if (sesExit == "save")
-    m_saveSessionRadioButton->setChecked (true);
-  else
-    m_askUserRadioButton->setChecked (true);
-
-  connect(m_doNotSaveSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_saveSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_askUserRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  
-  vbox->addWidget(m_doNotSaveSessionRadioButton);
-  vbox->addWidget(m_saveSessionRadioButton);
-  vbox->addWidget(m_askUserRadioButton);
-  sessionsExit->setLayout(vbox);
-
   layout->addStretch(1); // :-] works correct without autoadd
   //END Session page
 
@@ -340,13 +315,6 @@ void KateConfigDialog::slotApply()
       cg.writeEntry ("Startup Session", "last");
     else
       cg.writeEntry ("Startup Session", "manual");
-
-    if (m_doNotSaveSessionRadioButton->isChecked())
-      cg.writeEntry ("Session Exit", "discard");
-    else if (m_saveSessionRadioButton->isChecked())
-      cg.writeEntry ("Session Exit", "save");
-    else
-      cg.writeEntry ("Session Exit", "ask");
 
     m_editorChooser->writeAppSetting();
 

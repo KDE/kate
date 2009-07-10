@@ -105,6 +105,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
    m_backupSuffixSet (true),
+   m_onTheFlySpellCheckSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -132,7 +133,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
-   m_onTheFlySpellCheck (false),
+   m_onTheFlySpellCheckSet (false),
    m_doc (doc)
 {
   m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();

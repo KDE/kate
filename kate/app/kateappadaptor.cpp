@@ -101,4 +101,9 @@ bool KateAppAdaptor::activateSession (QString session)
   return true;
 }
 
+void KateAppAdaptor::emitExiting ()
+{
+  emit exiting (); 
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -64,6 +64,9 @@ KateApp::KateApp (KCmdLineArgs *args)
   // session manager up
   m_sessionManager = new KateSessionManager (this);
   
+  // dbus
+  m_adaptor = new KateAppAdaptor( this );
+  
   // real init
   initKate ();
 }
@@ -126,8 +129,7 @@ void KateApp::initKate ()
     }
   }
 
-  // application dcop interface
-  ( void ) new KateAppAdaptor( this );
+  // application dbus interface
   QDBusConnection::sessionBus().registerObject( QLatin1String("/MainApplication"), this );
 }
 
@@ -273,6 +275,7 @@ void KateApp::shutdownKate (KateMainWindow *win)
   sessionManager()->saveActiveSession(true, true);
 
   // unregister...
+  m_adaptor->emitExiting ();
   QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
 
   // cu main windows

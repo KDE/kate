@@ -30,6 +30,11 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
   public:
     KateAppAdaptor (KateApp *app);
 
+    /**
+     * emit the exiting signal
+     */
+    void emitExiting ();
+    
   public Q_SLOTS:
     QDBusObjectPath documentManager ();
 
@@ -80,6 +85,13 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      */
     bool activateSession (QString session);
 
+  Q_SIGNALS:
+    /**
+     * Notify the world that this kate instance is exiting.
+     * All apps should stop using the dbus interface of this instance after this signal got emited.
+     */
+    void exiting ();
+    
   private:
     KateApp *m_app;
 };

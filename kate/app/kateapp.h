@@ -33,6 +33,8 @@ class KateSessionManager;
 class KateMainWindow;
 class KatePluginManager;
 class KateDocManager;
+class KateAppAdaptor;
+
 namespace Kate
 {
   class Application;
@@ -253,6 +255,11 @@ class KATEINTERFACES_EXPORT KateApp : public KApplication
      */
     KateSessionManager *m_sessionManager;
 
+    /**
+     * dbus interface
+     */
+    KateAppAdaptor *m_adaptor;
+    
     /**
      * known main windows
      */

@@ -111,7 +111,6 @@ class KateViModeBase : public QObject
     // key mappings
     int m_timeoutlen; // time to wait for the next keypress of a multi-key mapping (default: 1000 ms)
     QTimer *m_mappingTimer;
-    QHash <QString, QString> m_mappings;
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;

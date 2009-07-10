@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001-2005 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2009 Erlend Hamberg <ehamberg@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -234,6 +235,8 @@ void KateGlobal::readConfig(KConfig *config)
   KateViewConfig::global()->readConfig (KConfigGroup(config, "Kate View Defaults"));
 
   KateRendererConfig::global()->readConfig (KConfigGroup(config, "Kate Renderer Defaults"));
+
+  m_viInputModeGlobal->readConfig( KConfigGroup( config, "Kate Vi Input Mode Settings" ) );
 }
 
 void KateGlobal::writeConfig(KConfig *config)
@@ -249,6 +252,9 @@ void KateGlobal::writeConfig(KConfig *config)
 
   KConfigGroup cgRenderer(config, "Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (cgRenderer);
+
+  KConfigGroup cgViInputMode(config, "Kate Vi Input Mode Settings");
+  m_viInputModeGlobal->writeConfig (cgViInputMode);
 
   config->sync();
 }

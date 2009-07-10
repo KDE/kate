@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
- * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008-2009 Erlend Hamberg <ehamberg@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -19,6 +19,7 @@
 
 #include "kateviglobal.h"
 
+#include "kconfiggroup.h"
 #include "kdebug.h"
 #include <QApplication>
 #include <QClipboard>
@@ -33,6 +34,27 @@ KateViGlobal::~KateViGlobal()
 {
   delete m_numberedRegisters;
   delete m_registers;
+}
+
+void KateViGlobal::writeConfig( KConfigGroup &config ) const
+{
+  config.writeEntry( "Mapping Keys", m_mappings.keys() );
+  config.writeEntry( "Mappings", m_mappings.values() );
+}
+
+void KateViGlobal::readConfig( const KConfigGroup &config )
+{
+    QStringList keys = config.readEntry( "Mapping Keys", QStringList() );
+    QStringList mappings = config.readEntry( "Mappings", QStringList() );
+
+    // sanity check
+    if ( keys.length() == mappings.length() ) {
+      for ( int i = 0; i < keys.length(); i++ ) {
+        m_mappings[ keys.at( i ) ] = mappings.at( i );
+      }
+    } else {
+      kDebug( 13070 ) << "Error when reading mappings from config: number of lhs != number of rhs";
+    }
 }
 
 QString KateViGlobal::getRegisterContent( const QChar &reg ) const
@@ -93,5 +115,25 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text )
     m_defaultRegister = reg;
     kDebug( 13070 ) << "Register " << '"' << " set to point to \"" << reg;
   }
+}
+
+void KateViGlobal::addMapping( const QString &from, const QString &to )
+{
+    m_mappings[from] = to;
+}
+
+const QString KateViGlobal::getMapping( const QString &from ) const
+{
+    return m_mappings.value( from );
+}
+
+const QStringList KateViGlobal::getMappings() const
+{
+    QStringList l;
+    foreach ( const QString &str, m_mappings.keys() ) {
+      l << str;
+    }
+
+    return l;
 }
 

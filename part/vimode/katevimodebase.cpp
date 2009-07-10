@@ -765,22 +765,17 @@ QString KateViModeBase::getVerbatimKeys() const
 
 void KateViModeBase::addMapping( const QString &from, const QString &to )
 {
-    m_mappings[from] = to;
+    KateGlobal::self()->viInputModeGlobal()->addMapping( from, to );
 }
 
 const QString KateViModeBase::getMapping( const QString &from ) const
 {
-    return m_mappings[from];
+    return KateGlobal::self()->viInputModeGlobal()->getMapping( from );
 }
 
 const QStringList KateViModeBase::getMappings() const
 {
-    QStringList l;
-    foreach ( const QString &str, m_mappings.keys() ) {
-      l << str;
-    }
-
-    return l;
+    return KateGlobal::self()->viInputModeGlobal()->getMappings();
 }
 
 const QChar KateViModeBase::getCharAtVirtualColumn( QString &line, int virtualColumn,

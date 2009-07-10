@@ -18,7 +18,11 @@
 #include "plugin_katetextfilter.h"
 #include "plugin_katetextfilter.moc"
 
+#include "ui_textfilterwidget.h"
+
 #include <ktexteditor/editor.h>
+
+#include <kdialog.h>
 
 #include <kaction.h>
 #include <kcomponentdata.h>
@@ -36,8 +40,11 @@
 #include <kactioncollection.h>
 K_EXPORT_COMPONENT_FACTORY(katetextfilterplugin, KGenericFactory<PluginKateTextFilter>("katetextfilter"))
 
-PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,Kate::MainWindow *mainwindow)
-  : Kate::PluginView(mainwindow),KXMLGUIClient()
+PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
+                                                   Kate::MainWindow *mainwindow)
+  : Kate::PluginView(mainwindow)
+  , KXMLGUIClient()
+  , m_plugin(plugin)
 {
   setComponentData (KComponentData("kate"));
 
@@ -82,7 +89,7 @@ PluginKateTextFilter::~PluginKateTextFilter()
 
 Kate::PluginView *PluginKateTextFilter::createView (Kate::MainWindow *mainWindow)
 {
-  return new PluginViewKateTextFilter(this,mainWindow);
+  return new PluginViewKateTextFilter(this, mainWindow);
 }
 
 void PluginKateTextFilter::slotFilterReceivedStdout(K3Process * pProcess, char * got, int len)
@@ -158,10 +165,35 @@ void PluginKateTextFilter::slotEditFilter()
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;
 
-  bool ok(false);
-  QString text (KInputDialog::getText(i18n("Filter"),i18n("Enter command to pipe selected text through:"),"",&ok));
-  if (ok && (!text.isEmpty ()))
-    runFilter(kv, text);
+  bool ok = false;
+
+  KDialog *dialog = new KDialog(application()->activeMainWindow()->window());
+  dialog->setCaption("Text Filter");
+  dialog->setButtons(KDialog::Cancel | KDialog::Ok);
+  dialog->setDefaultButton(KDialog::Ok);
+
+  QWidget* widget = new QWidget(dialog);
+  Ui::TextFilterWidget ui;
+  ui.setupUi(widget);
+  ui.filterBox->setFocus();
+  dialog->setMainWidget(widget);
+
+  KConfigGroup config(KGlobal::config(), "PluginTextFilter");
+  QStringList items = config.readEntry("Completion list", QStringList());
+  ui.filterBox->setMaxCount(10);
+  ui.filterBox->setHistoryItems(items, true);
+
+  connect(ui.filterBox, SIGNAL(activated(const QString&)), dialog, SIGNAL(okClicked()));
+
+  if (dialog->exec() == QDialog::Accepted) {
+    qDebug() << "2" << ui.filterBox->currentText();
+    const QString filter = ui.filterBox->currentText();
+    if (!filter.isEmpty()) {
+      ui.filterBox->addToHistory(filter);
+      config.writeEntry("Completion list", ui.filterBox->historyItems());
+      runFilter(kv, filter);
+    }
+  }
 }
 
 void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filter)

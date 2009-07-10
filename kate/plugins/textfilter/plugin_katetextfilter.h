@@ -61,12 +61,16 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     void slotFilterCloseStdin (K3Process *);
 };
 
-class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient {
+class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient
+{
   Q_OBJECT
 
   public:
     PluginViewKateTextFilter(PluginKateTextFilter *plugin, Kate::MainWindow *mainwindow);
     virtual ~PluginViewKateTextFilter();
+
+  private:
+    PluginKateTextFilter *m_plugin;
 };
 
 #endif // PLUGIN_KATETEXTFILTER_H

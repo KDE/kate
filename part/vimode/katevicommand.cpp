@@ -22,17 +22,14 @@
 KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
     bool( KateViNormalMode::*commandMethod)(), unsigned int flags )
 {
-  m_keyParser = new KateViKeySequenceParser();
-
   m_parent = parent;
-  m_pattern = m_keyParser->encodeKeySequence( pattern );
+  m_pattern = KateViKeyParser::getInstance()->encodeKeySequence( pattern );
   m_flags = flags;
   m_ptr2commandMethod = commandMethod;
 }
 
 KateViCommand::~KateViCommand()
 {
-  delete m_keyParser;
 }
 
 bool KateViCommand::execute() const

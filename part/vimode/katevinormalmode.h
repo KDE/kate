@@ -34,7 +34,7 @@
 #include <QHash>
 #include <QRegExp>
 #include <ktexteditor/cursor.h>
-#include "katevikeysequenceparser.h"
+#include "katevikeyparser.h"
 
 class KateViMotion;
 class KateViInputModeManager;
@@ -238,7 +238,7 @@ class KateViNormalMode : public KateViModeBase
     bool m_mappingKeyPress;
     QString m_mappingKeys;
 
-    KateViKeySequenceParser *m_keyParser;
+    KateViKeyParser *m_keyParser;
 };
 
 #endif

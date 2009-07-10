@@ -30,7 +30,7 @@ class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
 class KateViReplaceMode;
-class KateViKeySequenceParser;
+class KateViKeyParser;
 class QString;
 
 /**
@@ -153,7 +153,7 @@ private:
 
   KateView *m_view;
   KateViewInternal *m_viewInternal;
-  KateViKeySequenceParser *m_keyParser;
+  KateViKeyParser *m_keyParser;
 
   /**
    * set to true when running a macro (including using the '.' command)

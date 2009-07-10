@@ -18,7 +18,7 @@
  */
 
 #include "katevinormalmode.h"
-#include "katevikeysequenceparser.h"
+#include "katevikeyparser.h"
 
 #ifndef KATE_VI_COMMAND_H
 #define KATE_VI_COMMAND_H
@@ -52,7 +52,7 @@ class KateViCommand {
     QString m_pattern;
     unsigned int m_flags;
     bool ( KateViNormalMode::*m_ptr2commandMethod)();
-    KateViKeySequenceParser *m_keyParser;
+    KateViKeyParser *m_keyParser;
 };
 
 #endif

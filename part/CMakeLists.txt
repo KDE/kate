@@ -117,7 +117,7 @@ vimode/kateviinsertmode.cpp
 vimode/katevicommand.cpp
 vimode/katevimotion.cpp
 vimode/katevirange.cpp
-vimode/katevikeysequenceparser.cpp
+vimode/katevikeyparser.cpp
 vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp

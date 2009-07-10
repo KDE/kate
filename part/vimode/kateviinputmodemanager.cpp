@@ -34,7 +34,7 @@
 #include "kateviinsertmode.h"
 #include "katevivisualmode.h"
 #include "katevireplacemode.h"
-#include "katevikeysequenceparser.h"
+#include "katevikeyparser.h"
 
 KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal* viewInternal)
 {
@@ -47,7 +47,6 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_view = view;
   m_viewInternal = viewInternal;
-  m_keyParser = new KateViKeySequenceParser();
 
   m_runningMacro = false;
 }
@@ -57,7 +56,6 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viNormalMode;
   delete m_viInsertMode;
   delete m_viVisualMode;
-  delete m_keyParser;
 }
 
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
@@ -103,7 +101,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
   kDebug( 13070 ) << "Repeating change";
   foreach(const QChar &c, keyPresses) {
-    QString decoded = m_keyParser->decodeKeySequence(QString(c));
+    QString decoded = KateViKeyParser::getInstance()->decodeKeySequence(QString(c));
     key = -1;
     mods = Qt::NoModifier;
     text.clear();
@@ -146,7 +144,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
         }
 
         if (decoded.length() > 1 ) {
-          key = m_keyParser->vi2qt(decoded);
+          key = KateViKeyParser::getInstance()->vi2qt(decoded);
         } else {
           key = int(decoded.at(0).toUpper().toAscii());
           text = decoded.at(0);
@@ -154,7 +152,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
           kDebug( 13070 ) << "###########" << Qt::Key_W;
         }
       } else { // no modifiers
-        key = m_keyParser->vi2qt(decoded);
+        key = KateViKeyParser::getInstance()->vi2qt(decoded);
       }
     } else {
       key = decoded.at(0).unicode();
@@ -198,10 +196,10 @@ void KateViInputModeManager::storeChangeCommand()
       keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
       keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
       keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
-      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : m_keyParser->qt2vi( keyCode ) );
+      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::getInstance()->qt2vi( keyCode ) );
       keyPress.append( '>' );
 
-      key = m_keyParser->encodeKeySequence( keyPress ).at( 0 );
+      key = KateViKeyParser::getInstance()->encodeKeySequence( keyPress ).at( 0 );
     }
 
     m_lastChange.append(key);

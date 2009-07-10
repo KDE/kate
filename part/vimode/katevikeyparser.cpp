@@ -18,11 +18,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "katevikeysequenceparser.h"
+#include "katevikeyparser.h"
 #include <QStringList>
-#include <QKeyEvent>
 
-KateViKeySequenceParser::KateViKeySequenceParser()
+KateViKeyParser* KateViKeyParser::m_instance = NULL;
+
+KateViKeyParser::KateViKeyParser()
 {
   m_qt2katevi = new QHash<int, QString>;
   m_katevi2qt = new QHash<QString, int>;
@@ -32,7 +33,16 @@ KateViKeySequenceParser::KateViKeySequenceParser()
   initKeyTables();
 }
 
-void KateViKeySequenceParser::initKeyTables()
+KateViKeyParser* KateViKeyParser::getInstance()
+{
+  if ( m_instance == NULL ) {
+    m_instance = new KateViKeyParser();
+  }
+
+  return m_instance;
+}
+
+void KateViKeyParser::initKeyTables()
 {
   m_qt2katevi->insert( Qt::Key_Escape, QString( "esc" ) );
   m_qt2katevi->insert( Qt::Key_Tab, QString( "tab" ) );
@@ -468,18 +478,18 @@ void KateViKeySequenceParser::initKeyTables()
   }
 }
 
-QString KateViKeySequenceParser::qt2vi( int key ) const
+QString KateViKeyParser::qt2vi( int key ) const
 {
   return ( m_qt2katevi->contains( key ) ? m_qt2katevi->value( key ) : "invalid" );
 }
 
-int KateViKeySequenceParser::vi2qt( const QString &keypress ) const
+int KateViKeyParser::vi2qt( const QString &keypress ) const
 {
   return ( m_katevi2qt->contains( keypress ) ? m_katevi2qt->value( keypress ) : -1 );
 }
 
 
-const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys ) const
+const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
 {
   QString encodedSequence;
   unsigned int keyCodeTemp = 0;
@@ -573,7 +583,7 @@ const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys ) 
   return encodedSequence;
 }
 
-const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) const
+const QString KateViKeyParser::decodeKeySequence( const QString &keys ) const
 {
   QString ret;
 
@@ -615,7 +625,7 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
   return ret;
 }
 
-char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const
+char KateViKeyParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const
 {
     //Do not forget to ignore letters with shift. Should work with punctuation and special characters ($, ^) only.
     //any punctuation (without shift) that has different signs in different layouts should be added to the second switch.
@@ -723,7 +733,7 @@ char KateViKeySequenceParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers
     return 0;
 }
 
-const QChar KateViKeySequenceParser::KeyEventToQChar(int keyCode, const QString &text,
+const QChar KateViKeyParser::KeyEventToQChar(int keyCode, const QString &text,
     Qt::KeyboardModifiers mods, quint32 nativeScanCode) const
 {
   QChar key;

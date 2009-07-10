@@ -47,7 +47,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
   m_defaultRegister = '"';
   m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
-  m_keyParser = new KateViKeySequenceParser();
 
   m_timeoutlen = 1000; // FIXME: make configurable
   m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
@@ -61,7 +60,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 KateViNormalMode::~KateViNormalMode()
 {
   delete m_marks;
-  delete m_keyParser;
 }
 
 void KateViNormalMode::mappingTimerTimeOut()
@@ -93,7 +91,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  QChar key = m_keyParser->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
+  QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
   if ( !m_mappingKeyPress ) {
@@ -119,7 +117,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
 
-  m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
+  m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
   if ( m_keys.size() > 0 ) {

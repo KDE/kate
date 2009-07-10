@@ -21,7 +21,6 @@
 #include <QChar>
 #include <QString>
 #include <QHash>
-class QKeyEvent;
 
 #ifndef KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
 #define KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
@@ -31,10 +30,13 @@ class QKeyEvent;
  * descriptive text string
  */
 
-class KateViKeySequenceParser
+class KateViKeyParser
 {
-  public:
-  KateViKeySequenceParser();
+private:
+  KateViKeyParser();
+
+public:
+  static KateViKeyParser* getInstance();
 
   const QString encodeKeySequence( const QString &keys ) const;
   const QString decodeKeySequence( const QString &keys ) const;
@@ -43,13 +45,15 @@ class KateViKeySequenceParser
   char scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const;
   const QChar KeyEventToQChar(int keyCode, const QString &text, Qt::KeyboardModifiers mods, quint32 nativeScanCode) const;
 
-  private:
+private:
   void initKeyTables();
 
   QHash<int, QString> *m_qt2katevi;
   QHash<QString, int> *m_katevi2qt;
   QHash<QString, int> *m_nameToKeyCode;
   QHash<int, QString> *m_keyCodeToName;
+
+  static KateViKeyParser *m_instance;
 };
 
 #endif

@@ -64,10 +64,9 @@ Kate::PluginView *PluginKateQuickDocumentSwitcher::createView (Kate::MainWindow 
 
 //BEGIN: View
 PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::MainWindow *mainwindow):
-    Kate::PluginView(mainwindow),KXMLGUIClient() {
+    Kate::PluginView(mainwindow),Kate::XMLGUIClient(KateQuickDocumentSwitcherFactory::componentData()) {
 
-    setComponentData (KateQuickDocumentSwitcherFactory::componentData());
-    setXMLFile( "plugins/katequickdocumentswitcher/ui.rc" );
+
     KAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1) );

@@ -94,7 +94,7 @@ class KateKonsolePluginView : public Kate::PluginView
  * This class is used for the internal terminal emulator
  * It uses internally the konsole part, thx to konsole devs :)
  */
-class KateConsole : public KVBox, public KXMLGUIClient
+class KateConsole : public KVBox, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

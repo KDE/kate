@@ -27,6 +27,7 @@
 
 #include <kicontheme.h>
 #include <kurl.h>
+#include <kxmlguiclient.h>
 
 class KConfigBase;
 
@@ -289,7 +290,20 @@ namespace Kate
       class PrivatePluginView *d;
   };
 
+  class KATEINTERFACES_EXPORT XMLGUIClient: public KXMLGUIClient
+  {
+    public:
+      explicit XMLGUIClient(const KComponentData& componentData);
+    private:
+      QString xmlDataFile(const KComponentData &componentData,QString filename);
+      QString localXmlDataFile(const KComponentData &componentData,QString filename);
+
+  };
+  
 }
+
+
+
 
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

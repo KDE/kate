@@ -40,7 +40,7 @@
 #include <klocale.h>
 
 K_PLUGIN_FACTORY(KateFindInFilesFactory, registerPlugin<KateFindInFilesPlugin>();)
-K_EXPORT_PLUGIN(KateFindInFilesFactory(KAboutData("katefindinfilesplugin","katefindinfilesplugin",ki18n("Find In Files"), "0.1", ki18n("search through files in the filesystem"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateFindInFilesFactory(KAboutData("findinfiles","findinfiles",ki18n("Find In Files"), "0.1", ki18n("search through files in the filesystem"), KAboutData::License_LGPL_V2)) )
 
 KateFindInFilesPlugin* KateFindInFilesPlugin::s_self = 0;
 
@@ -114,19 +114,16 @@ void KateFindInFilesPlugin::writeSessionConfig (KConfigBase* config, const QStri
 
 KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
   : Kate::PluginView (mw)
-  , KXMLGUIClient()
+  , Kate::XMLGUIClient(KateFindInFilesFactory::componentData())
   , m_mw(mw)
   , m_findDialog(0)
 {
-  // this must be called before putting anything into actionCollection()
-  setComponentData(KateFindInFilesFactory::componentData());
 
   QAction* a = actionCollection()->addAction("findinfiles_edit_find_in_files");
   a->setIcon(KIcon("edit-find"));
   a->setText(i18n("&Find in Files..."));
   connect(a, SIGNAL(triggered()), this, SLOT(find()));
 
-  setXMLFile("plugins/findinfiles/ui.rc");
   mw->guiFactory()->addClient(this);
 
   // always create one toolview

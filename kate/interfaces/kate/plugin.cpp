@@ -24,7 +24,8 @@
 
 #include <kparts/componentfactory.h>
 #include <klibloader.h>
-
+#include <kstandarddirs.h>
+#include <kdebug.h>
 namespace Kate
 {
 
@@ -102,6 +103,33 @@ namespace Kate
 
   void PluginView::writeSessionConfig (KConfigBase*, const QString&)
   {}
+
+
+
+  XMLGUIClient::XMLGUIClient(const KComponentData &componentData):KXMLGUIClient()
+  {
+    setComponentData (componentData);
+    setXMLFile( xmlDataFile(componentData,"ui.rc" ));
+    setLocalXMLFile( localXmlDataFile(componentData,"ui.rc" ));
+  }
+
+  QString XMLGUIClient::xmlDataFile(const KComponentData &componentData,QString filename)
+  {
+    const QString filter = "kate/plugins/"+componentData.componentName() + '/' + filename;
+    const QStringList allFiles = KGlobal::dirs()->findAllResources("data", filter);
+    QString file;
+    QString doc;
+    if (!allFiles.isEmpty())
+        file = KXMLGUIClient::findMostRecentXMLFile(allFiles, doc);
+    return file;
+  }
+  
+  QString XMLGUIClient::localXmlDataFile(const KComponentData &componentData,QString filename)
+  {
+    QString result=KStandardDirs::locateLocal( "data","kate/plugins/"+componentData.componentName() + '/' + filename);
+    kDebug(13000)<<"File for shortcut storage"<<result;
+    return result;
+  }
 
 }
 

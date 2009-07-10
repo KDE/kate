@@ -62,7 +62,7 @@ class KateFindInFilesPlugin: public Kate::Plugin
 /**
  * KateFindInFilesView
  */
-class KateFindInFilesView : public Kate::PluginView, public KXMLGUIClient
+class KateFindInFilesView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

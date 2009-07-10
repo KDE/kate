@@ -41,7 +41,7 @@ class PluginKateQuickDocumentSwitcher : public Kate::Plugin {
     virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 };
 
-class PluginViewKateQuickDocumentSwitcher: public Kate::PluginView, public KXMLGUIClient {
+class PluginViewKateQuickDocumentSwitcher: public Kate::PluginView, public Kate::XMLGUIClient {
   Q_OBJECT
   public:
     PluginViewKateQuickDocumentSwitcher(Kate::MainWindow *mainwindow);

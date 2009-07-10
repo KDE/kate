@@ -51,7 +51,7 @@
 #include <kauthorized.h>
 
 K_PLUGIN_FACTORY(KateKonsoleFactory, registerPlugin<KateKonsolePlugin>();)
-K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsoleplugins","katekonsoleplugin",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsole","katekonsole",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
 
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
@@ -123,13 +123,11 @@ void KateKonsolePluginView::readConfig()
 }
 
 KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
-    : KVBox (parent), KXMLGUIClient()
+    : KVBox (parent), Kate::XMLGUIClient(KateKonsoleFactory::componentData())
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
 {
-  // this must be called before putting anything into actionCollection()
-  setComponentData (KComponentData("kate"));
 
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(KIcon("pipe"));
@@ -145,7 +143,6 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   a->setText(i18nc("@action", "&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
-  setXMLFile("plugins/katekonsole/ui.rc");
   m_mw->guiFactory()->addClient (this);
 
   readConfig();

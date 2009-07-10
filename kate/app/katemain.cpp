@@ -35,6 +35,22 @@
 #include <QDBusReply>
 #include <QVariant>
 
+class KateWaiter : public QObject {
+  Q_OBJECT
+  
+  private:
+    QCoreApplication *m_app;
+  
+  public:
+    KateWaiter (QCoreApplication *app) : QObject (app), m_app (app) {
+    }
+
+  public Q_SLOTS:
+    void exiting () {
+      m_app->quit ();
+    }
+};
+
 extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 {
   // here we go, construct the Kate version
@@ -82,8 +98,10 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   KCmdLineOptions options;
   options.add("s");
   options.add("start <name>", ki18n("Start Kate with a given session"));
-  options.add("u");
-  options.add("use", ki18n("Use a already running kate instance (if possible)"));
+  options.add("n");
+  options.add("new", ki18n("Force start of a new kate instance"));
+  options.add("b");
+  options.add("block", ki18n("If using an already running kate instance, block until it exits"));
   options.add("p");
   options.add("pid <pid>", ki18n("Only try to reuse kate instance with this pid"));
   options.add("e");
@@ -94,16 +112,17 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   options.add("column <column>", ki18n("Navigate to this column"));
   options.add("i");
   options.add("stdin", ki18n("Read the contents of stdin"));
+  options.add("u");
+  options.add("use", ki18n("Reuse existing Kate instance, default, only for compatiblity"));
   options.add("+[URL]", ki18n("Document to open"));
   KCmdLineArgs::addCmdLineOptions (options);
   KCmdLineArgs::addTempFileOption();
-  //KateApp::addCmdLineOptions ();
 
   // get our command line args ;)
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
   // now, first try to contact running kate instance if needed
-  if ( (args->isSet("use")) || (!qgetenv("KATE_PID").isEmpty()))
+  if (!args->isSet("new"))
   {
     // inialize the dbus stuff...
     // bus interface
@@ -239,13 +258,22 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         QDBusConnection::sessionBus().call (m);
       }
 
-      // make the world happy, we are started, kind of...
+      // application object to have event loop
+      QCoreApplication app (argc, argv);
+      
+      // connect dbus signal
+      if (args->isSet( "block" )) {
+        KateWaiter *waiter = new KateWaiter (&app);
+        QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
+      }
+      
 #ifdef Q_WS_X11
-      KApplication app;
-      KStartupInfo::appStarted (app.startupId());
+      // make the world happy, we are started, kind of...
+      KStartupInfo::appStarted ();
 #endif
-    
-      return 0;
+
+      // this will wait until exiting is emited by the used instance, if wanted...
+      return args->isSet( "block" ) ? app.exec () : 0;
     }
   }
 
@@ -258,3 +286,5 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+
+#include "katemain.moc"

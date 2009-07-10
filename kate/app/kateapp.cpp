@@ -72,7 +72,12 @@ KateApp::KateApp (KCmdLineArgs *args)
 }
 
 KateApp::~KateApp ()
-{
+{  
+  // unregister...
+  m_adaptor->emitExiting ();
+  QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
+  delete m_adaptor;
+  
   // cu session manager
   delete m_sessionManager;
 
@@ -273,10 +278,6 @@ void KateApp::shutdownKate (KateMainWindow *win)
     return;
 
   sessionManager()->saveActiveSession(true, true);
-
-  // unregister...
-  m_adaptor->emitExiting ();
-  QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
 
   // cu main windows
   while (!m_mainWindows.isEmpty())

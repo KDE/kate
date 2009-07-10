@@ -3,6 +3,10 @@
 
 Changes:
 
+[ Version 1.36 (2009-07-10) ]
+
+- spelling-awareness
+
 [ Version 1.35 (2009-04-08) ]
 
 - fix uppercase <?PHP
@@ -31,7 +35,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.35" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.36" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6551,26 +6555,26 @@ Changes:
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal" />
-      <itemData name="PHP Text" defStyleNum="dsNormal" />
-      <itemData name="Keyword" defStyleNum="dsKeyword" />
-      <itemData name="Function" defStyleNum="dsFunction" />
-      <itemData name="Special method" defStyleNum="dsFunction" />
-      <itemData name="Decimal" defStyleNum="dsDecVal" />
-      <itemData name="Octal" defStyleNum="dsBaseN" />
-      <itemData name="Hex" defStyleNum="dsBaseN" />
-      <itemData name="Float" defStyleNum="dsFloat" />
+      <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
+      <itemData name="PHP Text" defStyleNum="dsNormal" spellChecking="false" />
+      <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+      <itemData name="Function" defStyleNum="dsFunction" spellChecking="false" />
+      <itemData name="Special method" defStyleNum="dsFunction" spellChecking="false" />
+      <itemData name="Decimal" defStyleNum="dsDecVal" spellChecking="false" />
+      <itemData name="Octal" defStyleNum="dsBaseN" spellChecking="false" />
+      <itemData name="Hex" defStyleNum="dsBaseN" spellChecking="false" />
+      <itemData name="Float" defStyleNum="dsFloat" spellChecking="false" />
       <itemData name="String" defStyleNum="dsString" />
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" />
-      <itemData name="Control Structures" defStyleNum="dsKeyword" color="#A1A100" selColor="#ffffff" bold="0" italic="0" />
-      <itemData name="Backslash Code" defStyleNum="dsKeyword" color="#0F0F8F" selColor="#ffffff" bold="1" italic="0" />
-      <itemData name="Other" defStyleNum="dsOthers" />
+      <itemData name="Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" spellChecking="false" />
+      <itemData name="Control Structures" defStyleNum="dsKeyword" color="#A1A100" selColor="#ffffff" bold="0" italic="0" spellChecking="false" />
+      <itemData name="Backslash Code" defStyleNum="dsKeyword" color="#0F0F8F" selColor="#ffffff" bold="1" italic="0" spellChecking="false" />
+      <itemData name="Other" defStyleNum="dsOthers" spellChecking="false" />
 
-      <itemData name="HTML Tag" defStyleNum="dsKeyword" color="#0F0000" selColor="#ffffff" bold="1" italic="0" />
+      <itemData name="HTML Tag" defStyleNum="dsKeyword" color="#0F0000" selColor="#ffffff" bold="1" italic="0" spellChecking="false" />
       <itemData name="HTML Comment" defStyleNum="dsComment" />
-      <itemData name="Identifier" defStyleNum="dsOthers" />
-      <itemData name="Types" defStyleNum="dsDataType" />
+      <itemData name="Identifier" defStyleNum="dsOthers" spellChecking="false" />
+      <itemData name="Types" defStyleNum="dsDataType" spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>

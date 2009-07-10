@@ -8,6 +8,9 @@
 
     Changelog:
 
+    - Version 2.03, by Milian Wolff:
+        - Make it spelling aware
+
     - Version 2.02, by Rafał Miłecki:
         - Added CSS 3 properties "border-*-image" and "border-*-radius".
         - Added CSS values "clip", "ellipsis" and "ellipsis-word".
@@ -25,7 +28,7 @@
 
 -->
 
-<language name="CSS" version="2.02" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="2.03" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
     <list name="properties">
@@ -413,10 +416,10 @@
       <item> monospace </item>
       <item> border-box </item>
       <item> content-box </item>
-      
+
       <!-- Gecko rendering engine CSS value extensions -->
-      <item> -moz-box </item>      
-      
+      <item> -moz-box </item>
+
     </list>
 
 
@@ -481,10 +484,10 @@
       <!-- in @font-face -->
       <item> local </item>
       <item> format </item>
-      
+
       <!-- Trident (a.k.a., MSHTML) rendering engine functional notation extensions -->
       <item> expression </item>
-      
+
     </list>
 
     <list name="mediatypes">
@@ -672,22 +675,22 @@
 
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Property"  defStyleNum="dsKeyword"/>
-      <itemData name="Unknown Property"  defStyleNum="dsKeyword" italic="1"/>
-      <itemData name="Media"  defStyleNum="dsDecVal" bold="1"/>
-      <itemData name="At Rule"  defStyleNum="dsDecVal" />
-      <itemData name="String"  defStyleNum="dsString" />
-      <itemData name="Value"  defStyleNum="dsDataType" />
-      <itemData name="Important" defStyleNum="dsKeyword" />
-      <itemData name="Selector Attr" defStyleNum="dsChar" />
-      <itemData name="Selector Id"  defStyleNum="dsFloat" bold="1"/>
-      <itemData name="Selector Class"  defStyleNum="dsFloat" />
-      <itemData name="Selector Pseudo"  defStyleNum="dsDecVal" />
+      <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Property"  defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Unknown Property"  defStyleNum="dsKeyword" italic="1" spellChecking="false"/>
+      <itemData name="Media"  defStyleNum="dsDecVal" bold="1" spellChecking="false"/>
+      <itemData name="At Rule"  defStyleNum="dsDecVal" spellChecking="false"/>
+      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="Value"  defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Important" defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Selector Attr" defStyleNum="dsChar" spellChecking="false"/>
+      <itemData name="Selector Id"  defStyleNum="dsFloat" bold="1" spellChecking="false"/>
+      <itemData name="Selector Class"  defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Selector Pseudo"  defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
-      <itemData name="Alert" defStyleNum="dsAlert"/>
-      <itemData name="Error" defStyleNum="dsError"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="Alert" defStyleNum="dsAlert" spellChecking="false"/>
+      <itemData name="Error" defStyleNum="dsError" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

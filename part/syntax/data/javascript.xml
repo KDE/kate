@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.13" kateversion="2.3" section="Scripts" extensions="*.js" mimetype="text/x-javascript;application/x-javascript" author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
+<language name="JavaScript" version="1.14" kateversion="2.4" section="Scripts" extensions="*.js" mimetype="text/x-javascript;application/x-javascript" author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
   <highlighting>
     <list name="keywords">
         <item> if </item>
@@ -473,24 +473,24 @@
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
-      <itemData name="Keyword"      defStyleNum="dsKeyword"/>
-      <itemData name="Function" defStyleNum="dsFunction"/>
-      <itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0"/>
-      <itemData name="Math" defStyleNum="dsKeyword" color="#DBA716" selColor="#00ffff" bold="0" italic="0"/>
-      <itemData name="Events" defStyleNum="dsKeyword" color="#F766D5" selColor="#00ffff" bold="0" italic="0"/>
-      <itemData name="Data Type"    defStyleNum="dsDataType"/>
-      <itemData name="Decimal"      defStyleNum="dsDecVal"/>
-      <itemData name="Float"        defStyleNum="dsFloat"/>
-      <itemData name="Char"         defStyleNum="dsChar"/>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"  spellChecking="false"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Function" defStyleNum="dsFunction" spellChecking="false"/>
+      <itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Math" defStyleNum="dsKeyword" color="#DBA716" selColor="#00ffff" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Events" defStyleNum="dsKeyword" color="#F766D5" selColor="#00ffff" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Data Type"    defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Decimal"      defStyleNum="dsDecVal" spellChecking="false"/>
+      <itemData name="Float"        defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Char"         defStyleNum="dsChar" spellChecking="false"/>
       <itemData name="String"       defStyleNum="dsString"/>
-      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="String Char"  defStyleNum="dsChar" spellChecking="false"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
-      <itemData name="Symbol"       defStyleNum="dsNormal"/>
-      <itemData name="Regular Expression" defStyleNum="dsOthers"   />
-      <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
-      <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
-      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
+      <itemData name="Symbol"       defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Regular Expression" defStyleNum="dsOthers" spellChecking="false"/>
+      <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Pattern Character Class" defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

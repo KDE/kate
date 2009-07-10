@@ -302,58 +302,6 @@ const QString KateViInputModeManager::getVerbatimKeys() const
   return cmd;
 }
 
-void KateViInputModeManager::addMapping( ViMode mode, const QString &from, const QString &to )
-{
-  switch ( mode ) {
-  case NormalMode:
-    m_viNormalMode->addMapping( from, to );
-    break;
-  default:
-    break;
-  /*
-  case InsertMode:
-  case VisualMode:
-  case VisualLineMode:
-  */
-  }
-}
-
-const QString KateViInputModeManager::getMapping( ViMode mode, const QString &from )
-{
-  switch ( mode ) {
-  case NormalMode:
-    return m_viNormalMode->getMapping( from );
-    break;
-  default:
-    break;
-  /*
-  case InsertMode:
-  case VisualMode:
-  case VisualLineMode:
-  */
-  }
-
-  return QString();
-}
-
-const QStringList KateViInputModeManager::getMappings( ViMode mode )
-{
-  switch ( mode ) {
-  case NormalMode:
-    return m_viNormalMode->getMappings();
-    break;
-  default:
-    break;
-  /*
-  case InsertMode:
-  case VisualMode:
-  case VisualLineMode:
-  */
-  }
-
-  return QStringList();
-}
-
 void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
 {
   QStringList names = config.readEntry( "ViRegisterNames", QStringList() );

@@ -196,6 +196,10 @@ class KateViNormalMode : public KateViModeBase
 
     void addCurrentPositionToJumpList();
 
+    void addMapping( const QString &from, const QString &to );
+    const QString getMapping( const QString &from ) const;
+    const QStringList getMappings() const;
+
   protected:
     void resetParser();
     virtual void reset();

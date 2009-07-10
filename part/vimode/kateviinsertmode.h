@@ -55,6 +55,11 @@ class KateViInsertMode : public KateViModeBase
 
     bool commandCompleteNext();
     bool commandCompletePrevious();
+
+    // mappings not supported in insert mode yet
+    void addMapping( const QString &from, const QString &to ) { Q_UNUSED(from) Q_UNUSED(to) }
+    const QString getMapping( const QString &from ) const { Q_UNUSED(from) return QString(); }
+    const QStringList getMappings() const { return QStringList(); }
 };
 
 #endif

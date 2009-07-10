@@ -22,6 +22,8 @@
 #include "katevinormalmode.h"
 #include "katevivisualmode.h"
 #include "kateviinputmodemanager.h"
+#include "kateviglobal.h"
+#include "kateglobal.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
 #include "katebuffer.h"
@@ -100,6 +102,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     foreach ( const QString &str, getMappings() ) {
       if ( str.startsWith( m_mappingKeys ) ) {
         if ( str == m_mappingKeys ) {
+          kDebug( 13070 ) << getMapping( str ) << " @@@@@@@@@@@@@@@@";
           m_viInputModeManager->feedKeyPresses( getMapping( str ) );
           m_mappingTimer->stop();
           return true;
@@ -2280,3 +2283,19 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
 
   return QRegExp( pattern );
 }
+
+void KateViNormalMode::addMapping( const QString &from, const QString &to )
+{
+    KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from, to );
+}
+
+const QString KateViNormalMode::getMapping( const QString &from ) const
+{
+    return KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, from );
+}
+
+const QStringList KateViNormalMode::getMappings() const
+{
+    return KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
+}
+

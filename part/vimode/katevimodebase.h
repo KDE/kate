@@ -49,9 +49,10 @@ class KateViModeBase : public QObject
      * @return normal mode command accumulated so far
      */
     QString getVerbatimKeys() const;
-    void addMapping( const QString &from, const QString &to );
-    const QString getMapping( const QString &from ) const;
-    const QStringList getMappings() const;
+
+    virtual void addMapping( const QString &from, const QString &to ) = 0;
+    virtual const QString getMapping( const QString &from ) const = 0;
+    virtual const QStringList getMappings() const = 0;
 
   protected:
     // helper methods

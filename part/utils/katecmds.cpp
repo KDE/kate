@@ -27,6 +27,7 @@
 #include "katetextline.h"
 #include "katesyntaxmanager.h"
 #include "kateglobal.h"
+#include "kateviglobal.h"
 #include "katerenderer.h"
 #include "katecmd.h"
 
@@ -425,7 +426,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   else if ( cmd == "nnoremap" || cmd == "nn" )
   {
     if ( args.count() == 1 ) {
-      msg = v->getViInputModeManager()->getMapping( NormalMode, args.at( 0 ) );
+      msg = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, args.at( 0 ) );
       if ( msg.isEmpty() ) {
         msg = i18n( "No mapping found for \"%1\"", args.at(0) );
         return false;
@@ -433,7 +434,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
         msg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), msg );
       }
     } else if ( args.count() == 2 ) {
-      v->getViInputModeManager()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
+      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
     } else {
       msg = i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd );
       return false;
@@ -461,7 +462,7 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 
   if ( v && ( cmd == "nn" || cmd == "nnoremap" ) )
   {
-    QStringList l = v->getViInputModeManager()->getMappings( NormalMode );
+    QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
 
     KateCmdShellCompletion *co = new KateCmdShellCompletion();
     co->setItems( l );

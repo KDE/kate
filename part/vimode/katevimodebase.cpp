@@ -763,21 +763,6 @@ QString KateViModeBase::getVerbatimKeys() const
   return m_keysVerbatim;
 }
 
-void KateViModeBase::addMapping( const QString &from, const QString &to )
-{
-    KateGlobal::self()->viInputModeGlobal()->addMapping( from, to );
-}
-
-const QString KateViModeBase::getMapping( const QString &from ) const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMapping( from );
-}
-
-const QStringList KateViModeBase::getMappings() const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMappings();
-}
-
 const QChar KateViModeBase::getCharAtVirtualColumn( QString &line, int virtualColumn,
     int tabWidth ) const
 {

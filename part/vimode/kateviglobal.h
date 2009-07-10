@@ -25,6 +25,7 @@
 #include <QList>
 #include <QString>
 #include <QChar>
+#include "kateviinputmodemanager.h"
 
 class KConfigGroup;
 
@@ -41,10 +42,10 @@ public:
     void fillRegister( const QChar &reg, const QString &text);
     const QMap<QChar, QString>* getRegisters() { return m_registers; }
 
-    void clearMappings() { m_mappings.clear(); }
-    void addMapping( const QString &from, const QString &to );
-    const QString getMapping( const QString &from ) const;
-    const QStringList getMappings() const;
+    void clearMappings( ViMode mode );
+    void addMapping( ViMode mode, const QString &from, const QString &to );
+    const QString getMapping( ViMode mode, const QString &from ) const;
+    const QStringList getMappings( ViMode mode ) const;
 
 private:
     // registers
@@ -54,7 +55,7 @@ private:
     QString m_registerTemp;
 
     // mappings
-    QHash <QString, QString> m_mappings;
+    QHash <QString, QString> m_normalModeMappings;
 };
 
 #endif

@@ -38,19 +38,19 @@ KateViGlobal::~KateViGlobal()
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
 {
-  config.writeEntry( "Mapping Keys", m_mappings.keys() );
-  config.writeEntry( "Mappings", m_mappings.values() );
+  config.writeEntry( "Normal Mode Mapping Keys", m_normalModeMappings.keys() );
+  config.writeEntry( "Normal Mode Mappings", m_normalModeMappings.values() );
 }
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
 {
-    QStringList keys = config.readEntry( "Mapping Keys", QStringList() );
-    QStringList mappings = config.readEntry( "Mappings", QStringList() );
+    QStringList keys = config.readEntry( "Normal Mode Mapping Keys", QStringList() );
+    QStringList mappings = config.readEntry( "Normal Mode Mappings", QStringList() );
 
     // sanity check
     if ( keys.length() == mappings.length() ) {
       for ( int i = 0; i < keys.length(); i++ ) {
-        m_mappings[ keys.at( i ) ] = mappings.at( i );
+        m_normalModeMappings[ keys.at( i ) ] = mappings.at( i );
         kDebug( 13070 ) << "Mapping " << keys.at( i ) << " -> " << mappings.at( i );
       }
     } else {
@@ -118,25 +118,56 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text )
   }
 }
 
-void KateViGlobal::addMapping( const QString &from, const QString &to )
+void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to )
 {
   if ( !from.isEmpty() ) {
-    m_mappings[from] = to;
+    switch ( mode ) {
+    case NormalMode:
+      m_normalModeMappings[from] = to;
+      break;
+    default:
+      kDebug( 13070 ) << "Mapping not supported for given mode";
+    }
   }
 }
 
-const QString KateViGlobal::getMapping( const QString &from ) const
+const QString KateViGlobal::getMapping( ViMode mode, const QString &from ) const
 {
-    return m_mappings.value( from );
-}
-
-const QStringList KateViGlobal::getMappings() const
-{
-    QStringList l;
-    foreach ( const QString &str, m_mappings.keys() ) {
-      l << str;
+    QString ret;
+    switch ( mode ) {
+    case NormalMode:
+      ret = m_normalModeMappings.value( from );
+      break;
+    default:
+      kDebug( 13070 ) << "Mapping not supported for given mode";
     }
 
-    return l;
+    return ret;
 }
 
+const QStringList KateViGlobal::getMappings( ViMode mode ) const
+{
+  QStringList l;
+  switch (mode ) {
+  case NormalMode:
+    foreach ( const QString &str, m_normalModeMappings.keys() ) {
+      l << str;
+    }
+    break;
+  default:
+    kDebug( 13070 ) << "Mapping not supported for given mode";
+  }
+
+  return l;
+}
+
+void KateViGlobal::clearMappings( ViMode mode )
+{
+  switch (mode ) {
+  case NormalMode:
+    m_normalModeMappings.clear();
+    break;
+  default:
+    kDebug( 13070 ) << "Mapping not supported for given mode";
+  }
+}

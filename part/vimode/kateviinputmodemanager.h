@@ -139,15 +139,6 @@ public:
    */
   void repeatLastChange();
 
-  /**
-   * add a mapping to the given vi mode
-   */
-  void addMapping( ViMode mode, const QString &from, const QString &to );
-
-  const QString getMapping( ViMode mode, const QString &from );
-
-  const QStringList getMappings( ViMode mode );
-
   // session stuff
   void readSessionConfig( const KConfigGroup& config );
   void writeSessionConfig( KConfigGroup& config );

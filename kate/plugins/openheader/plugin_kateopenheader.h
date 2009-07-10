@@ -38,7 +38,7 @@ class PluginKateOpenHeader : public Kate::Plugin
     void tryOpen( const KUrl& url, const QStringList& extensions );   
 };
 
-class PluginViewKateOpenHeader: public Kate::PluginView, KXMLGUIClient {
+class PluginViewKateOpenHeader: public Kate::PluginView, Kate::XMLGUIClient {
     Q_OBJECT
     public:
         PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, Kate::MainWindow *mainwindow);

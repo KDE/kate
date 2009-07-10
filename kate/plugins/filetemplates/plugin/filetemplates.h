@@ -242,7 +242,7 @@ class KateTemplateManager : public QWidget
 
 };
 
-class PluginViewKateFileTemplates : public Kate::PluginView, public KXMLGUIClient
+class PluginViewKateFileTemplates : public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
   public:

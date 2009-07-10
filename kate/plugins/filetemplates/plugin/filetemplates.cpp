@@ -88,10 +88,8 @@ K_EXPORT_PLUGIN(KateFileTemplatesFactory(KAboutData("katefiletemplates","katefil
 
 //BEGIN PluginViewKateFileTemplates
 PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plugin, Kate::MainWindow *mainwindow):
-  Kate::PluginView(mainwindow),KXMLGUIClient(),m_plugin(plugin)
+  Kate::PluginView(mainwindow),Kate::XMLGUIClient(KateFileTemplatesFactory::componentData()),m_plugin(plugin)
 {
-  setComponentData (KateFileTemplatesFactory::componentData());
-  setXMLFile("plugins/katefiletemplates/ui.rc");
   QAction *a = actionCollection()->addAction("settings_manage_templates");
   a->setText(i18n("&Manage Templates..."));
   connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotEditTemplate() ) );

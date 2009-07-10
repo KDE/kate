@@ -55,7 +55,7 @@ class KateExternalToolsPlugin
       virtual KIcon configPageIcon (uint number = 0) const;
 };
 
-class KateExternalToolsPluginView : public Kate::PluginView, public KXMLGUIClient
+class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

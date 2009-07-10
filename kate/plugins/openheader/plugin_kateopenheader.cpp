@@ -38,10 +38,8 @@ K_PLUGIN_FACTORY(KateOpenHeaderFactory, registerPlugin<PluginKateOpenHeader>();)
 K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
 
 
-PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,Kate::MainWindow *mainwindow): Kate::PluginView(mainwindow),KXMLGUIClient()
+PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,Kate::MainWindow *mainwindow): Kate::PluginView(mainwindow),Kate::XMLGUIClient(KateOpenHeaderFactory::componentData())
 {
-    setComponentData (KateOpenHeaderFactory::componentData());
-    setXMLFile( "plugins/kateopenheader/ui.rc" );
     KAction *a = actionCollection()->addAction("file_openheader");
     a->setText(i18n("Open .h/.cpp/.c"));
     a->setShortcut( Qt::Key_F12 );

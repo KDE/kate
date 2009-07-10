@@ -465,7 +465,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   return startInsertMode();
 }
 
-bool KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine()
+bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
 {
   KTextEditor::Cursor cursor( m_view->cursorPosition() );
   QRegExp nonSpace( "\\S" );
@@ -2148,7 +2148,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, IS_CHANGE ) );
-  m_commands.push_back( new KateViCommand( this, "I", &KateViNormalMode::commandEnterInsertModeBeforeFirstCharacterOfLine, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "I", &KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode ) );
 //m_commands.push_back( new KateViCommand( this, "<c-v>", &KateViNormalMode::commandEnterVisualBlockMode ) );

@@ -18,6 +18,7 @@
 
 #ifndef _kateapp_adaptor_h_
 #define _kateapp_adaptor_h_
+
 #include <QtDBus/QtDBus>
 
 class KateApp;
@@ -85,6 +86,11 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      */
     bool activateSession (QString session);
 
+    /**
+     * activate this kate instance
+     */
+    void activate ();
+    
   Q_SIGNALS:
     /**
      * Notify the world that this kate instance is exiting.

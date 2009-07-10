@@ -269,6 +269,11 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         QDBusConnection::sessionBus().call (m);
       }
 
+      // activate the used instance
+      QDBusMessage activateMsg = QDBusMessage::createMethodCall (serviceName,
+        QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activate");
+      QDBusConnection::sessionBus().call (activateMsg);
+
       // application object to have event loop
       QCoreApplication app (argc, argv);
       

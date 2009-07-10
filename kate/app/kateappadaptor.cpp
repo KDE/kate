@@ -25,11 +25,27 @@
 #include "kateappadaptor.moc"
 
 #include <kdebug.h>
+#include <kwindowsystem.h>
 
 KateAppAdaptor::KateAppAdaptor (KateApp *app)
     : QDBusAbstractAdaptor( app )
     , m_app (app)
 {}
+
+void KateAppAdaptor::activate ()
+{
+  KateMainWindow *win = m_app->activeMainWindow();
+  if (!win)
+    return;
+
+  win->show();
+  win->activateWindow();
+  win->raise();
+  
+#ifdef Q_WS_X11
+  KWindowSystem::activateWindow (win->winId ());
+#endif
+}
 
 QDBusObjectPath KateAppAdaptor::documentManager ()
 {

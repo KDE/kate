@@ -426,7 +426,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   else if ( cmd == "nnoremap" || cmd == "nn" )
   {
     if ( args.count() == 1 ) {
-      msg = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, args.at( 0 ) );
+      msg = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, args.at( 0 ), true );
       if ( msg.isEmpty() ) {
         msg = i18n( "No mapping found for \"%1\"", args.at(0) );
         return false;

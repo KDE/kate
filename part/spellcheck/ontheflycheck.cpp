@@ -238,22 +238,12 @@ void KateOnTheFlyChecker::performSpellCheck()
   kDebug(13000) << "for the range " << *spellCheckRange;
   // clear all the highlights that are currently present in the range that
   // is supposed to be checked
-  SmartRangeList highlightsList = installedSmartRangesInViews(document, *spellCheckRange); // make a copy!
+  const SmartRangeList highlightsList = installedSmartRangesInDocument(document, *spellCheckRange); // make a copy!
   
   
-//   for(SmartRangeList::const_iterator i = highlightsList.begin();
-//       i != highlightsList.end(); ++i) {
-//       kDebug(13000)<<"about to delete "<<*i;
-//       delete(*i);
-//   }
+  qDeleteAll(highlightsList);
 
-//elements can appear more than once
-  highlightsList.detach();
-  while (!highlightsList.isEmpty()) {
-    KTextEditor::SmartRange *r=highlightsList.takeFirst();
-    highlightsList.removeAll(r);
-    delete r;
-  }
+
 
   QString text = document->text(*spellCheckRange);
   kDebug(13000) << "next spell checking line " << text;
@@ -284,14 +274,11 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
   
   
   
-  const QList<KTextEditor::View*>& viewList = document->views();
-  for(QList<KTextEditor::View*>::const_iterator j = viewList.begin();
-    j != viewList.end(); ++j) {
     smartInterface->smartMutex()->lock();
-    smartInterface->removeHighlightFromView(*j, smartRange);
+    smartInterface->removeHighlightFromDocument(smartRange);
     smartInterface->smartMutex()->unlock();
-    m_installedSmartRangeMap[*j].removeAll(smartRange);
-  }
+    m_installedSmartRangeMap[document].removeAll(smartRange);
+
   MisspelledList& misspelledList = m_misspelledMap[document];
   for(MisspelledList::iterator i = misspelledList.begin(); i != misspelledList.end();) {
     if((*i).first == smartRange) {
@@ -376,7 +363,7 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
     attribute->setUnderlineColor(QColor(Qt::red));
     smartRange->setAttribute(KTextEditor::Attribute::Ptr(attribute));
     m_misspelledMap[document].push_back(MisspelledItem(smartRange, m_currentlyCheckedItem.second.second));
-    installSmartRangeIfVisible(smartRange, static_cast<KateDocument*>(document));
+    installSmartRange(smartRange, static_cast<KateDocument*>(document));
     smartInterface->smartMutex()->unlock();
   }
 
@@ -408,12 +395,18 @@ void KateOnTheFlyChecker::spellCheckDone()
 void KateOnTheFlyChecker::removeInstalledSmartRanges(KTextEditor::Document* document)
 {
   kDebug(13000);
-  const QList<KTextEditor::View*>& views = document->views();
-  for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
-    removeInstalledSmartRanges(*i);
+  KTextEditor::SmartInterface *smartInterface =
+                              qobject_cast<KTextEditor::SmartInterface*>(document);
+  if (!smartInterface) return;
+  SmartRangeList& smartRangeList = m_installedSmartRangeMap[document];
+  for(SmartRangeList::iterator i = smartRangeList.begin(); i != smartRangeList.end(); ++i) {
+    smartInterface->smartMutex()->lock();
+    smartInterface->removeHighlightFromDocument(*i);
+    smartInterface->smartMutex()->unlock();
   }
 }
 
+#if 0
 void KateOnTheFlyChecker::removeInstalledSmartRanges(KTextEditor::View* view)
 {
   kDebug(13000);
@@ -422,15 +415,16 @@ void KateOnTheFlyChecker::removeInstalledSmartRanges(KTextEditor::View* view)
   if(!smartInterface) {
     return;
   }
-  SmartRangeList& smartRangeList = m_installedSmartRangeMap[view];
+  SmartRangeList& smartRangeList = m_installedSmartRangeMap[document];
   for(SmartRangeList::iterator i = smartRangeList.begin(); i != smartRangeList.end(); ++i) {
     smartInterface->smartMutex()->lock();
     smartInterface->removeHighlightFromView(view, *i);
     smartInterface->smartMutex()->unlock();
   }
 }
+#endif
 
-QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRangesInViews(KTextEditor::Document *document,
+QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRangesInDocument(KTextEditor::Document *document,
                                                                                  const KTextEditor::Range& range)
 {
   kDebug(13000) << range;
@@ -440,82 +434,65 @@ QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRangesInViews
   if(!smartInterface) {
     return toReturn;
   }
-  const QList<KTextEditor::View*>& views = document->views();
-  for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
-      kDebug(13000)<<"inspecting view:"<<*i;
-      smartInterface->smartMutex()->lock();
-      const SmartRangeList& smartRangeList = smartInterface->viewHighlights(*i);
-      for(SmartRangeList::const_iterator j = smartRangeList.begin(); j != smartRangeList.end(); ++j) {
-        KTextEditor::SmartRange *smartRange = *j;
-        if (m_myranges.contains(smartRange)) { //JOWENN
-          if(smartRange->overlaps(range)) {
-            toReturn.push_back(smartRange);
-          }
-        }
+ 
+  kDebug(13000)<<"inspecting document:"<<document;
+  smartInterface->smartMutex()->lock();
+  const SmartRangeList& smartRangeList = smartInterface->documentHighlights();
+  for(SmartRangeList::const_iterator j = smartRangeList.begin(); j != smartRangeList.end(); ++j) {
+    KTextEditor::SmartRange *smartRange = *j;
+    if (m_myranges.contains(smartRange)) { //JOWENN
+      if(smartRange->overlaps(range)) {
+        toReturn.push_back(smartRange);
       }
-      smartInterface->smartMutex()->unlock();
+    }
   }
+  smartInterface->smartMutex()->unlock();  
   kDebug(13000) << "found" << toReturn.size() << "ranges";
   return toReturn;
 }
 
-void KateOnTheFlyChecker::installSmartRangeIfVisible(KTextEditor::SmartRange *smartRange, KateDocument* document)
+void KateOnTheFlyChecker::installSmartRange(KTextEditor::SmartRange *smartRange, KateDocument* document)
 {
   kDebug(13000);
-  const QList<KTextEditor::View*>& views = document->views();
-  for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
-    installSmartRangeIfVisible(smartRange, static_cast<KateView*>(*i));
-  }
-}
-
-void KateOnTheFlyChecker::installSmartRangeIfVisible(KTextEditor::SmartRange *smartRange, KateView* view)
-{
-  kDebug(13000);
-  if(!(static_cast<KateDocument*>(view->document())->isOnTheFlySpellCheckingEnabled())) {
+  if(!(document->isOnTheFlySpellCheckingEnabled())) {
     return;
   }
-  KTextEditor::Range visibleRange = view->visibleRange();
-  KTextEditor::SmartInterface *smartInterface =
-                              qobject_cast<KTextEditor::SmartInterface*>(view->document());
+  KTextEditor::SmartInterface *smartInterface = document;
   if(!smartInterface) {
     return;
   }
-  if(smartRange->overlaps(visibleRange)) {
+
     smartInterface->smartMutex()->lock();
-    smartInterface->addHighlightToView(view, smartRange);
+    smartInterface->addHighlightToDocument(smartRange);
     smartInterface->smartMutex()->unlock();
-    m_installedSmartRangeMap[view].push_back(smartRange);
-    view->update();
-  }
-  else {
-kDebug(13000) << "does not overlap!";
-  }
+    m_installedSmartRangeMap[document].push_back(smartRange);
+    //perhaps only update views, where the range is visible
+    Q_FOREACH(KTextEditor::View* view, document->views()) { view->update();}
+
 }
 
-void KateOnTheFlyChecker::installSmartRanges(KateView* view)
+#if 0
+void KateOnTheFlyChecker::installSmartRanges(KateDocument* document)
 {
   kDebug(13000);
-  if(!(static_cast<KateDocument*>(view->document())->isOnTheFlySpellCheckingEnabled())) {
+  if(!(document->isOnTheFlySpellCheckingEnabled())) {
     return;
   }
-  KTextEditor::Range visibleRange = view->visibleRange();
-  KateDocument *document = static_cast<KateDocument*>(view->document());
-  KTextEditor::SmartInterface *smartInterface =
-                              qobject_cast<KTextEditor::SmartInterface*>(view->document());
+ 
+  KTextEditor::SmartInterface *smartInterface =document;
   if(!smartInterface) {
     return;
   }
-  const SmartRangeList& smartRangeList = getSmartRanges(document, visibleRange); 
+  const SmartRangeList& smartRangeList = getSmartRanges(document); 
   for(SmartRangeList::const_iterator i = smartRangeList.begin(); i != smartRangeList.end(); ++i) {
     KTextEditor::SmartRange* smartRange = *i;
-    if(smartRange->overlaps(visibleRange)) {
       smartInterface->smartMutex()->lock();
-      smartInterface->addHighlightToView(view, smartRange);
+      smartInterface->addHighlightToDocument(smartRange);
       smartInterface->smartMutex()->unlock();
-      m_installedSmartRangeMap[view].push_back(smartRange);
-    }
+      m_installedSmartRangeMap[document].push_back(smartRange);
   }
 }
+#endif
 
 void KateOnTheFlyChecker::addDocument(KateDocument *document)
 {
@@ -576,16 +553,12 @@ void KateOnTheFlyChecker::viewDestroyed(QObject* obj)
 {
   kDebug(13000);
   KTextEditor::View *view = static_cast<KTextEditor::View*>(obj);
-  // the installed highlights are removed by the view
-  m_installedSmartRangeMap.remove(view);
   m_displayRangeMap.remove(view);
 }
 
 void KateOnTheFlyChecker::removeView(KTextEditor::View *view)
 {
   kDebug(13000);
-  removeInstalledSmartRanges(view);
-  m_installedSmartRangeMap.remove(view);
   m_displayRangeMap.remove(view);
 }
 
@@ -653,21 +626,18 @@ void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
       QTimer::singleShot(0, this, SLOT(performSpellCheck()));
     }
   }
-  removeInstalledSmartRanges(view);
-  installSmartRanges(view);
+//  removeInstalledSmartRanges(document);
+//  installSmartRanges(document);
 }
 
-QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::getSmartRanges(KateDocument *document,
-                                                                    const KTextEditor::Range& range)
+QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::getSmartRanges(KateDocument *document)
 {
   kDebug(13000);
   SmartRangeList toReturn;
   const MisspelledList& misspelledList = m_misspelledMap[document];
   for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
     KTextEditor::SmartRange* smartRange = (*i).first;
-    if(smartRange->overlaps(range)) {
       toReturn.push_back(smartRange);
-    }
   }
   return toReturn;
 }
@@ -736,13 +706,8 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTex
   // is supposed to be checked, necessary due to highlighting
   
   //items can be non unique !!!!!
-  SmartRangeList highlightsList = installedSmartRangesInViews(document, range);
-  highlightsList.detach();
-  while (!highlightsList.isEmpty()) {
-    KTextEditor::SmartRange *r=highlightsList.takeFirst();
-    highlightsList.removeAll(r);
-    delete r;
-  }
+  const SmartRangeList highlightsList = installedSmartRangesInDocument(document, range);
+  qDeleteAll(highlightsList);
 
   for(int i = range.start().column(); i < end; ++i) {
     unsigned int attribute = kateTextLine->attribute(i);
@@ -781,8 +746,27 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, const KTe
 void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEditor::SmartRange *range, const QString& dictionary)
 {
   kDebug(13000) << document << *range << dictionary;
-  m_spellCheckQueue.push_front(SpellCheckQueueItem(document,
-                                                     SpellCheckItem(range, dictionary)));
+/*    for(QList<SpellCheckQueueItem>::const_iterator i = m_spellCheckQueue.constBegin();
+                                          i != m_spellCheckQueue.constEnd();) {
+      KTextEditor::SmartRange *spellCheckRange = (*i).second.first;
+      KTextEditor::Document *lineDocument = (*i).first;
+      if(document == lineDocument && spellCheckRange->overlaps(*range)) {
+        kDebug(13000)<<"Item already in queue, not adding again";
+        delete range;
+        return;
+      }
+    }*/
+  if (!m_spellCheckQueue.isEmpty()) {
+    SpellCheckQueueItem item=m_spellCheckQueue.last();
+    if (item.first==document) {
+      if (range->contains(*(item.second.first))) {
+        item=m_spellCheckQueue.takeLast();
+        delete item.second.first;
+      }
+    }
+  }
+  m_spellCheckQueue.push_back(SpellCheckQueueItem(document,
+                                                     SpellCheckItem(range, dictionary)));                                                     
   kDebug(13000) << "added"
                 << m_spellCheckQueue.first()
                 << "to the queue, which has a length of" << m_spellCheckQueue.size();

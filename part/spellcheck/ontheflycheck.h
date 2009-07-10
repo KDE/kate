@@ -75,20 +75,18 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     static const SpellCheckQueueItem invalidSpellCheckQueueItem;
     bool m_enabled;
     QMap<KTextEditor::Document*, MisspelledList> m_misspelledMap;
-    QMap<KTextEditor::View*, SmartRangeList> m_installedSmartRangeMap;
+    QMap<KTextEditor::Document*, SmartRangeList> m_installedSmartRangeMap;
     ModificationList m_modificationList;
 
-    SmartRangeList installedSmartRangesInViews(KTextEditor::Document *document,
+    SmartRangeList installedSmartRangesInDocument(KTextEditor::Document *document,
                                                                 const KTextEditor::Range& range);
 
-    void installSmartRangeIfVisible(KTextEditor::SmartRange *smartRange, KateDocument* document);
-    void installSmartRangeIfVisible(KTextEditor::SmartRange *smartRange, KateView* view);
-    void installSmartRanges(KateView* view);
-    void installSmartRanges();
+    void installSmartRange(KTextEditor::SmartRange *smartRange, KateDocument* document);
+    //void installSmartRanges(KateDocument *document);
     void removeInstalledSmartRanges(KTextEditor::Document* document);
     void removeInstalledSmartRanges(KTextEditor::View* view);
 
-    SmartRangeList getSmartRanges(KateDocument *document, const KTextEditor::Range& range);
+    SmartRangeList getSmartRanges(KateDocument *document);
 
     void queueLineSpellCheck(KateDocument *document, int line);
     /**

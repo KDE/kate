@@ -44,8 +44,8 @@ public:
 
     void clearMappings( ViMode mode );
     void addMapping( ViMode mode, const QString &from, const QString &to );
-    const QString getMapping( ViMode mode, const QString &from ) const;
-    const QStringList getMappings( ViMode mode ) const;
+    const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
+    const QStringList getMappings( ViMode mode, bool decode = false ) const;
 
 private:
     // registers

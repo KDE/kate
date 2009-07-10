@@ -35,6 +35,7 @@
 #include "katedocument.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katevikeyparser.h"
 #include "kateschema.h"
 #include "katesyntaxdocument.h"
 #include "katemodeconfigpage.h"
@@ -342,9 +343,11 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
 
   int i = 0;
   foreach( const QString &f, l ) {
-    QTableWidgetItem *from = new QTableWidgetItem( f );
+    QTableWidgetItem *from
+      = new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( f ) );
+    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
     QTableWidgetItem *to =
-      new QTableWidgetItem( KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f ) );
+      new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( s ) );
 
     ui->tblNormalModeMappings->setItem(i, 0, from);
     ui->tblNormalModeMappings->setItem(i++, 1, to);

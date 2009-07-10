@@ -108,10 +108,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
           m_mappingTimer->setSingleShot( true );
           return true;
         }
-      } else {
-        m_mappingKeys.clear();
       }
     }
+    m_mappingKeys.clear();
   } else {
     // FIXME:
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress

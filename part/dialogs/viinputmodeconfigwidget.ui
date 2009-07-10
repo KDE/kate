@@ -59,8 +59,16 @@ Checking this options will hide this extra status line.</string>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox" >
+     <property name="whatsThis" >
+      <string>Key mapping is used to change the meaning of typed keys. This allows you to move commands to other keys or make special keypresses for doing a series of commands.
+
+Example:
+"&lt;F2>" → "I-- &lt;esc>"
+
+This will prepend "-- " to a line when pressing F2.</string>
+     </property>
      <property name="title" >
-      <string>Mappings</string>
+      <string>Key Mapping</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" >
       <item>

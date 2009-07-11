@@ -216,17 +216,18 @@ namespace Kate
    * A PluginView is bound to a single MainWindow. To add GUI elements KDE's
    * GUI XML frameworks is used, i.e. the MainWindow provides a KXMLGUIFactory
    * into which the KXMLGUIClient is to be hooked. So the plugin view must
-   * inherit from KXMLGUIClient, the following example shows the basic skeleton
-   * of the PluginView.
+   * inherit from Kate::XMLGUIClient, the following example shows the basic
+   * skeleton of the PluginView.
    * \code
-   *   class PluginView : public QObject, public KXMLGUIClient
+   *   class PluginView : public QObject, public Kate::XMLGUIClient
    *   {
    *       Q_OBJECT
    *   public:
    *       // Constructor and other methods
    *       PluginView( Kate::MainWindow* mainwindow )
-   *         : QObject( mainwindow ), KXMLGUIClient( mainwindow ),
-   *           m_mainwindow(mainwindow)
+   *         : QObject( mainwindow )
+   *         , Kate::XMLGUIClient( YourPluginFactory::componentData() )
+   *         , m_mainwindow( mainwindow )
    *       { ... }
    *       // ...
    *   private:
@@ -236,7 +237,7 @@ namespace Kate
    * To embedd a plugin view as a tool view you have to call
    * MainWindow::createToolView() and hook your gui into the returned widget.
    *
-   * \see Plugin, KXMLGUIClient, MainWindow
+   * \see Plugin, XMLGUIClient, KXMLGUIClient, MainWindow
    * \author Christoph Cullmann \<cullmann@kde.org\>
    */
   class KATEINTERFACES_EXPORT PluginView : public QObject
@@ -290,20 +291,34 @@ namespace Kate
       class PrivatePluginView *d;
   };
 
-  class KATEINTERFACES_EXPORT XMLGUIClient: public KXMLGUIClient
+  /**
+   * \brief The KXMLGUIClient client for Kate application plugins.
+   *
+   * The class Kate::XMLGUIClient derives from KXMLGUIClient to work around
+   * some bugs:
+   * - we need the component data in order to make the shortcuts work in the
+   *   shortcut dialog
+   * - usually the component data makes the plugin save in the folder
+   *   share/apps/your-plugin/<data>, but we want it to be
+   *   share/apps/kate/plugins/your-plugin/<data>.
+   *
+   * The constructor of this class makes sure the component data and the
+   * paths are set correctly in order to get the desired behaviour.
+   *
+   * \see PluginView, KXMLGUIClient
+   */
+  class KATEINTERFACES_EXPORT XMLGUIClient : public KXMLGUIClient
   {
     public:
       explicit XMLGUIClient(const KComponentData& componentData);
+
     private:
-      QString xmlDataFile(const KComponentData &componentData,QString filename);
-      QString localXmlDataFile(const KComponentData &componentData,QString filename);
+      QString xmlDataFile(const KComponentData &componentData, const QString &filename);
+      QString localXmlDataFile(const KComponentData &componentData, const QString &filename);
 
   };
   
 }
-
-
-
 
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

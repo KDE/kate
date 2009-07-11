@@ -26,6 +26,9 @@
 #include <klibloader.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
+
+#include <qdir.h>
+
 namespace Kate
 {
 
@@ -106,16 +109,17 @@ namespace Kate
 
 
 
-  XMLGUIClient::XMLGUIClient(const KComponentData &componentData):KXMLGUIClient()
+  XMLGUIClient::XMLGUIClient(const KComponentData &componentData)
+    : KXMLGUIClient()
   {
     setComponentData (componentData);
-    setXMLFile( xmlDataFile(componentData,"ui.rc" ));
-    setLocalXMLFile( localXmlDataFile(componentData,"ui.rc" ));
+    setXMLFile( xmlDataFile( componentData, "ui.rc" ));
+    setLocalXMLFile( localXmlDataFile( componentData, "ui.rc" ));
   }
 
-  QString XMLGUIClient::xmlDataFile(const KComponentData &componentData,QString filename)
+  QString XMLGUIClient::xmlDataFile(const KComponentData &componentData, const QString &filename)
   {
-    const QString filter = "kate/plugins/"+componentData.componentName() + '/' + filename;
+    const QString filter = "kate/plugins/" + componentData.componentName() + '/' + filename;
     const QStringList allFiles = KGlobal::dirs()->findAllResources("data", filter);
     QString file;
     QString doc;
@@ -124,10 +128,10 @@ namespace Kate
     return file;
   }
   
-  QString XMLGUIClient::localXmlDataFile(const KComponentData &componentData,QString filename)
+  QString XMLGUIClient::localXmlDataFile(const KComponentData &componentData, const QString &filename)
   {
-    QString result=KStandardDirs::locateLocal( "data","kate/plugins/"+componentData.componentName() + '/' + filename);
-    kDebug(13000)<<"File for shortcut storage"<<result;
+    QString result = KStandardDirs::locateLocal( "data", "kate/plugins/" + componentData.componentName() + QDir::separator() + filename);
+    kDebug(13000) << "File for shortcut storage" << result;
     return result;
   }
 

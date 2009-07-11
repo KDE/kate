@@ -1644,21 +1644,24 @@ KateViRange KateViNormalMode::motionToCharBackward()
 
 KateViRange KateViNormalMode::motionRepeatlastTF()
 {
-  m_keys = m_lastTFcommand;
-  if ( m_keys.at( 0 ) == 'f' ) {
-    return motionFindChar();
-  }
-  else if ( m_keys.at( 0 ) == 'F' ) {
-    return motionFindCharBackward();
-  }
-  else if ( m_keys.at( 0 ) == 't' ) {
-    return motionToChar();
-  }
-  else if ( m_keys.at( 0 ) == 'T' ) {
-    return motionToCharBackward();
+  if ( !m_lastTFcommand.isEmpty() ) {
+    m_keys = m_lastTFcommand;
+    if ( m_keys.at( 0 ) == 'f' ) {
+      return motionFindChar();
+    }
+    else if ( m_keys.at( 0 ) == 'F' ) {
+      return motionFindCharBackward();
+    }
+    else if ( m_keys.at( 0 ) == 't' ) {
+      return motionToChar();
+    }
+    else if ( m_keys.at( 0 ) == 'T' ) {
+      return motionToCharBackward();
+    }
   }
 
-  // should never happen
+  // there was no previous t/f command
+
   KateViRange r;
   r.valid = false;
 
@@ -1667,21 +1670,24 @@ KateViRange KateViNormalMode::motionRepeatlastTF()
 
 KateViRange KateViNormalMode::motionRepeatlastTFBackward()
 {
-  m_keys = m_lastTFcommand;
-  if ( m_keys.at( 0 ) == 'f' ) {
-    return motionFindCharBackward();
-  }
-  else if ( m_keys.at( 0 ) == 'F' ) {
-    return motionFindChar();
-  }
-  else if ( m_keys.at( 0 ) == 't' ) {
-    return motionToCharBackward();
-  }
-  else if ( m_keys.at( 0 ) == 'T' ) {
-    return motionToChar();
+  if ( !m_lastTFcommand.isEmpty() ) {
+    m_keys = m_lastTFcommand;
+    if ( m_keys.at( 0 ) == 'f' ) {
+      return motionFindCharBackward();
+    }
+    else if ( m_keys.at( 0 ) == 'F' ) {
+      return motionFindChar();
+    }
+    else if ( m_keys.at( 0 ) == 't' ) {
+      return motionToCharBackward();
+    }
+    else if ( m_keys.at( 0 ) == 'T' ) {
+      return motionToChar();
+    }
   }
 
-  // should never happen
+  // there was no previous t/f command
+
   KateViRange r;
   r.valid = false;
 

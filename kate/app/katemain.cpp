@@ -277,8 +277,17 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activate");
       QDBusConnection::sessionBus().call (activateMsg);
 
+      // fake about data for different dbus name
+      KAboutData fakedAbout ("kateclient", 0, ki18n("Kate"), kateVersion,
+                        ki18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
+                        ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org");
+      fakedAbout.setOrganizationDomain("kde.org");
+
+      // command line args init and co
+      KCmdLineArgs::init (argc, argv, &fakedAbout);
+      
       // application object to have event loop
-      QCoreApplication app (argc, argv);
+      KApplication app;
       
       // connect dbus signal
       if (needToBlock) {

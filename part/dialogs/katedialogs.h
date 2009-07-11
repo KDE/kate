@@ -187,6 +187,24 @@ class KateCompletionConfigTab : public KateConfigPage
     void showWhatsThis(const QString& text);
 };
 
+class KateEditGeneralConfigTab : public KateConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateEditGeneralConfigTab(QWidget *parent);
+    ~KateEditGeneralConfigTab();
+
+  private:
+    Ui::EditConfigWidget *ui;
+
+  public Q_SLOTS:
+    void apply ();
+    void reload ();
+    void reset () {}
+    void defaults () {}
+};
+
 class KateSelectConfigTab : public KateConfigPage
 {
   Q_OBJECT
@@ -257,9 +275,6 @@ public:
   KateEditConfigTab(QWidget *parent);
   ~KateEditConfigTab();
 
-protected:
-  Ui::EditConfigWidget *ui;
-
 public Q_SLOTS:
   void apply ();
   void reload ();
@@ -267,6 +282,7 @@ public Q_SLOTS:
   void defaults ();
 
 private:
+  KateEditGeneralConfigTab *editConfigTab;
   KateSelectConfigTab *selectConfigTab;
   KateIndentConfigTab *indentConfigTab;
   KateCompletionConfigTab *completionConfigTab;

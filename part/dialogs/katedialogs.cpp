@@ -551,98 +551,40 @@ void KateSelectConfigTab::reload ()
 }
 //END KateSelectConfigTab
 
-//BEGIN KateEditConfigTab
-KateEditConfigTab::KateEditConfigTab(QWidget *parent)
+//BEGIN KateEditGeneralConfigTab
+KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
   : KateConfigPage(parent)
-  , selectConfigTab(new KateSelectConfigTab(this))
-  , indentConfigTab(new KateIndentConfigTab(this))
-  , completionConfigTab (new KateCompletionConfigTab(this))
-  , viInputModeConfigTab(new KateViInputModeConfigTab(this))
-  , spellCheckConfigTab(new KateSpellCheckConfigTab(this))
 {
-  // FIXME: Is really needed to move all this code below to another class,
-  // since it is another tab itself on the config dialog. This means we should
-  // initialize, add and work with as we do with selectConfigTab and
-  // indentConfigTab (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
-  layout->setMargin(0);
-  KTabWidget *tabWidget = new KTabWidget(this);
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  QWidget *tmpWidget = new QWidget(tabWidget);
-  QVBoxLayout *internalLayout = new QVBoxLayout;
-  QWidget *newWidget = new QWidget(tabWidget);
+  QWidget *newWidget = new QWidget(this);
   ui = new Ui::EditConfigWidget();
   ui->setupUi( newWidget );
 
-  ui->chkReplaceTabs->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
+  reload();
+
   connect( ui->chkReplaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-
-  ui->chkShowTabs->setChecked( configFlags & KateDocumentConfig::cfShowTabs );
   connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->chkShowSpaces->setChecked( configFlags & KateDocumentConfig::cfShowSpaces );
   connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
-  ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
   connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-
-
-  ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(ui->chkStaticWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
-  ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
   connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-
-
-  ui->chkRemoveTrailingSpaces->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-
-  ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
   connect(ui->chkAutoBrackets, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  // What is this? help is in the ui-file
+  // "What's this?" help is in the ui-file
 
-  internalLayout->addWidget(newWidget);
-  tmpWidget->setLayout(internalLayout);
-
-  // add all tabs
-  tabWidget->insertTab(0, tmpWidget, i18n("General"));
-  tabWidget->insertTab(1, selectConfigTab, i18n("Cursor && Selection"));
-  tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
-  tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
-  tabWidget->insertTab(4, viInputModeConfigTab, i18n("Vi Input Mode"));
-  tabWidget->insertTab(5, spellCheckConfigTab, i18n("Spellcheck"));
-
-  connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-  connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-  connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-  connect(viInputModeConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-  connect(spellCheckConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-
-  layout->addWidget(tabWidget);
+  layout->addWidget(newWidget);
   setLayout(layout);
 }
 
-KateEditConfigTab::~KateEditConfigTab()
+KateEditGeneralConfigTab::~KateEditGeneralConfigTab()
 {
   delete ui;
 }
 
-void KateEditConfigTab::apply ()
+void KateEditGeneralConfigTab::apply ()
 {
-  // try to update the rest of tabs
-  selectConfigTab->apply();
-  indentConfigTab->apply();
-  completionConfigTab->apply();
-  viInputModeConfigTab->apply();
-  spellCheckConfigTab->apply();
-
   // nothing changed, no need to apply stuff
   if (!hasChanged())
     return;
@@ -677,8 +619,76 @@ void KateEditConfigTab::apply ()
   KateViewConfig::global()->configEnd ();
 }
 
+void KateEditGeneralConfigTab::reload ()
+{
+  uint configFlags = KateDocumentConfig::global()->configFlags();
+
+  ui->chkReplaceTabs->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
+  ui->chkShowTabs->setChecked( configFlags & KateDocumentConfig::cfShowTabs );
+  ui->chkShowSpaces->setChecked( configFlags & KateDocumentConfig::cfShowSpaces );
+  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
+  ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
+  ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
+  ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
+  ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
+  ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
+  ui->chkRemoveTrailingSpaces->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
+  ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
+}
+//END KateEditGeneralConfigTab
+
+
+//BEGIN KateEditConfigTab
+KateEditConfigTab::KateEditConfigTab(QWidget *parent)
+  : KateConfigPage(parent)
+  , editConfigTab(new KateEditGeneralConfigTab(this))
+  , selectConfigTab(new KateSelectConfigTab(this))
+  , indentConfigTab(new KateIndentConfigTab(this))
+  , completionConfigTab (new KateCompletionConfigTab(this))
+  , viInputModeConfigTab(new KateViInputModeConfigTab(this))
+  , spellCheckConfigTab(new KateSpellCheckConfigTab(this))
+{
+  QVBoxLayout *layout = new QVBoxLayout;
+  layout->setMargin(0);
+  KTabWidget *tabWidget = new KTabWidget(this);
+
+  // add all tabs
+  tabWidget->insertTab(0, editConfigTab, i18n("General"));
+  tabWidget->insertTab(1, selectConfigTab, i18n("Cursor && Selection"));
+  tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
+  tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
+  tabWidget->insertTab(4, viInputModeConfigTab, i18n("Vi Input Mode"));
+  tabWidget->insertTab(5, spellCheckConfigTab, i18n("Spellcheck"));
+
+  connect(editConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(viInputModeConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(spellCheckConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+
+  layout->addWidget(tabWidget);
+  setLayout(layout);
+}
+
+KateEditConfigTab::~KateEditConfigTab()
+{
+}
+
+void KateEditConfigTab::apply ()
+{
+  // try to update the rest of tabs
+  editConfigTab->apply();
+  selectConfigTab->apply();
+  indentConfigTab->apply();
+  completionConfigTab->apply();
+  viInputModeConfigTab->apply();
+  spellCheckConfigTab->apply();
+}
+
 void KateEditConfigTab::reload ()
 {
+  editConfigTab->reload();
   selectConfigTab->reload();
   indentConfigTab->reload();
   completionConfigTab->reload();
@@ -688,6 +698,7 @@ void KateEditConfigTab::reload ()
 
 void KateEditConfigTab::reset ()
 {
+  editConfigTab->reset();
   selectConfigTab->reset();
   indentConfigTab->reset();
   completionConfigTab->reset();
@@ -697,6 +708,7 @@ void KateEditConfigTab::reset ()
 
 void KateEditConfigTab::defaults ()
 {
+  editConfigTab->defaults();
   selectConfigTab->defaults();
   indentConfigTab->defaults();
   completionConfigTab->defaults();
@@ -779,10 +791,10 @@ void KateViewDefaultsConfig::apply ()
                 this,
                 i18n("Changing the power user mode affects only newly opened / created documents. In KWrite a restart is recommended."),
                 i18n("Power user mode changed"));
-  
+
     KateDocumentConfig::global()->setAllowSimpleMode (!ui->chkDeveloperMode->isChecked());
   }
-  
+
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }

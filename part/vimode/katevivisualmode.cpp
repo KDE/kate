@@ -173,14 +173,25 @@ KTextEditor::Range KateViVisualMode::getVisualRange() const
 {
   KTextEditor::Cursor c = m_view->cursorPosition();
 
-  int startCol = qMin( c.column(), m_start.column() );
   int startLine = qMin( c.line(), m_start.line() );
-  int endCol = qMax( c.column(), m_start.column() );
   int endLine = qMax( c.line(), m_start.line() );
+  int startCol;
+  int endCol;
 
-  if ( m_mode == VisualLineMode ) {
+  if ( m_mode == VisualBlockMode ) {
+    startCol = qMin( c.column(), m_start.column() );
+    endCol = qMax( c.column(), m_start.column() );
+  } else if ( m_mode == VisualLineMode ) {
     startCol = 0;
     endCol = m_view->doc()->lineLength( endLine );
+  } else {
+    if ( c.line() == endLine ) {
+      startCol = m_start.column();
+      endCol = c.column();
+    } else {
+      startCol = c.column();
+      endCol = m_start.column();
+    }
   }
 
   return KTextEditor::Range( startLine, startCol, endLine, endCol );

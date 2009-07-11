@@ -787,7 +787,8 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEdit
       }
     }
   }
-  m_spellCheckQueue.push_back(SpellCheckQueueItem(document,
+  // leave 'push_front' here as it is a LIFO queue, i.e. a stack
+  m_spellCheckQueue.push_front(SpellCheckQueueItem(document,
                                                      SpellCheckItem(range, dictionary)));                                                     
   ON_THE_FLY_DEBUG << "added"
                    << m_spellCheckQueue.first()

@@ -765,7 +765,8 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, const KTe
   addToSpellCheckQueue(document, smartInterface->newSmartRange(range), dictionary);
 }
 
-void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEditor::SmartRange *range, const QString& dictionary)
+void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEditor::SmartRange *range,
+                                                                       const QString& dictionary)
 {
   ON_THE_FLY_DEBUG << document << *range << dictionary;
 /*    for(QList<SpellCheckQueueItem>::const_iterator i = m_spellCheckQueue.constBegin();
@@ -778,14 +779,18 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEdit
         return;
       }
     }*/
-  if (!m_spellCheckQueue.isEmpty()) {
-    SpellCheckQueueItem item=m_spellCheckQueue.last();
-    if (item.first==document) {
-      if (range->contains(*(item.second.first))) {
-        item=m_spellCheckQueue.takeLast();
-        delete item.second.first;
+  // if the queue contains a subrange of 'range', we remove that one
+  for(QList<SpellCheckQueueItem>::iterator i = m_spellCheckQueue.begin();
+                                           i != m_spellCheckQueue.end();) {
+      KTextEditor::SmartRange *spellCheckRange = (*i).second.first;
+      KTextEditor::Document *queuedDocument = (*i).first;
+      if(document == queuedDocument && range->contains(*spellCheckRange)) {
+        delete spellCheckRange;
+        i = m_spellCheckQueue.erase(i);
       }
-    }
+      else {
+        ++i;
+      }
   }
   // leave 'push_front' here as it is a LIFO queue, i.e. a stack
   m_spellCheckQueue.push_front(SpellCheckQueueItem(document,

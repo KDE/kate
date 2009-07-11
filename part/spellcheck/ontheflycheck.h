@@ -53,6 +53,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     KateOnTheFlyChecker(QObject *parent = NULL);
     ~KateOnTheFlyChecker();
 
+    static int debugArea();
+
   public Q_SLOTS:
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range &range);
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);

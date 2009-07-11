@@ -112,7 +112,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   options.add("n");
   options.add("new", ki18n("Force start of a new kate instance"));
   options.add("b");
-  options.add("block", ki18n("If using an already running kate instance, block until it exits"));
+  options.add("block", ki18n("If using an already running kate instance, block until it exits, if urls given to open"));
   options.add("p");
   options.add("pid <pid>", ki18n("Only try to reuse kate instance with this pid"));
   options.add("e");
@@ -195,6 +195,9 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
       bool tempfileSet = KCmdLineArgs::isTempFileSet();
 
+      // only block, if files to open there....
+      bool needToBlock = args->isSet( "block" ) && (args->count() > 0);
+      
       // open given files...
       for (int z = 0; z < args->count(); z++)
       {
@@ -278,7 +281,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       QCoreApplication app (argc, argv);
       
       // connect dbus signal
-      if (args->isSet( "block" )) {
+      if (needToBlock) {
         KateWaiter *waiter = new KateWaiter (&app, serviceName);
         QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
       }
@@ -289,7 +292,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 #endif
 
       // this will wait until exiting is emited by the used instance, if wanted...
-      return args->isSet( "block" ) ? app.exec () : 0;
+      return needToBlock ? app.exec () : 0;
     }
   }
 

@@ -493,7 +493,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
           if (msg.length() > 0)
             setText (i18n ("Success: ") + msg);
           else
-            setText (i18n ("Success"));
+            m_bar->hide(); // always hide on success without message
         }
         else
         {

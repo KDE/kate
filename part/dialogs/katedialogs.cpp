@@ -42,6 +42,7 @@
 #include "kateview.h"
 #include "katepartpluginmanager.h"
 #include "kpluginselector.h"
+#include "spellcheck/spellcheck.h"
 
 // auto generated ui files
 #include "ui_modonhdwidget.h"
@@ -89,8 +90,8 @@
 #include <kvbox.h>
 #include <kactioncollection.h>
 #include <kplugininfo.h>
-
 #include <ktabwidget.h>
+
 //#include <knewstuff/knewstuff.h>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
@@ -437,6 +438,9 @@ KateSpellCheckConfigTab::KateSpellCheckConfigTab(QWidget *parent)
   connect(ui->chkOnTheFlySpellCheckEnabled, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addWidget(newWidget);
+  m_sonnetConfigWidget = new Sonnet::ConfigWidget(KGlobal::config().data(), this);
+  connect(m_sonnetConfigWidget, SIGNAL(configChanged()), this, SLOT(slotChanged()));
+  layout->addWidget(m_sonnetConfigWidget);
   setLayout(layout);
 }
 
@@ -452,7 +456,7 @@ void KateSpellCheckConfigTab::showWhatsThis(const QString& text)
 
 void KateSpellCheckConfigTab::apply()
 {
-  // nothing changed, no need to apply stuff
+// nothing changed, no need to apply stuff
   if (!hasChanged()) {
     return;
   }
@@ -460,6 +464,7 @@ void KateSpellCheckConfigTab::apply()
 
   KateDocumentConfig::global()->configStart();
   KateDocumentConfig::global()->setOnTheFlySpellCheck(ui->chkOnTheFlySpellCheckEnabled->isChecked());
+  m_sonnetConfigWidget->save();
   KateDocumentConfig::global()->configEnd();
 }
 
@@ -1358,7 +1363,11 @@ void KateDictionaryBar::updateData()
   }
 
   KateDocument *document = static_cast<KateDocument*>(view()->document());
-  m_dictionaryComboBox->setCurrentByDictionary(document->dictionary());
+  QString dictionary = document->dictionary();
+  if(dictionary.isEmpty()) {
+    dictionary = KateGlobal::self()->spellCheckManager()->defaultDictionary();
+  }
+  m_dictionaryComboBox->setCurrentByDictionary(dictionary);
 }
 
 //END KateGotoBar

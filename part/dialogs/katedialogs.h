@@ -38,6 +38,7 @@
 #include <kdialog.h>
 #include <kmimetype.h>
 
+#include <sonnet/configwidget.h>
 #include <sonnet/dictionarycombobox.h>
 
 #include <QtCore/QStringList>
@@ -256,6 +257,7 @@ class KateSpellCheckConfigTab : public KateConfigPage
 
   protected:
     Ui::SpellCheckConfigWidget *ui;
+    Sonnet::ConfigWidget *m_sonnetConfigWidget;
 
   public Q_SLOTS:
     void apply ();

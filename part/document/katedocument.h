@@ -1151,6 +1151,7 @@ class KateDocument : public KTextEditor::Document,
 
   public:
       QString dictionary();
+      QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges();
 
   public Q_SLOTS:
       void setDictionary(const QString& dict);
@@ -1160,6 +1161,7 @@ class KateDocument : public KTextEditor::Document,
       
   protected:
       QString m_dictionary;
+      QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
 };
 
 #endif

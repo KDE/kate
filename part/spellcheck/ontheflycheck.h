@@ -50,7 +50,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
   typedef QList<ModificationItem> ModificationList; 
 
   public:
-    KateOnTheFlyChecker(QObject *parent = NULL);
+    KateOnTheFlyChecker(Sonnet::Speller *speller, QObject *parent = NULL);
     ~KateOnTheFlyChecker();
 
     static int debugArea();
@@ -70,7 +70,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void updateInstalledSmartRanges(KateDocument *document);
     
   protected:
-    Sonnet::Speller m_speller;
+    Sonnet::Speller *m_speller;
     QList<SpellCheckQueueItem> m_spellCheckQueue;
     Sonnet::BackgroundChecker *m_backgroundChecker;
     SpellCheckQueueItem m_currentlyCheckedItem;
@@ -94,7 +94,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     /**
      * 'range' must be on a single line
      **/
-    void queueLineSpellCheck(KateDocument *document, const KTextEditor::Range& range);
+    void queueLineSpellCheck(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary);
     void queueSpellCheckVisibleRange(KateDocument *document, const KTextEditor::Range& range);
 
     void addToSpellCheckQueue(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary);

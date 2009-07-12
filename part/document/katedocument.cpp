@@ -5206,6 +5206,9 @@ void KateDocument::updateConfig ()
   // update all views, does tagAll and updateView...
   foreach (KateView * view, m_views)
     view->updateDocumentConfig ();
+  
+  // update on-the-fly spell checking as spell checking defaults might have changes
+  KateGlobal::self()->spellCheckManager()->updateOnTheFlySpellChecking(this);
 }
 
 //BEGIN Variable reader
@@ -6187,6 +6190,11 @@ bool KateDocument::saveAs( const KUrl &url ) {
 QString KateDocument::dictionary()
 {
   return m_dictionary;
+}
+
+QList<QPair<KTextEditor::SmartRange*, QString> > KateDocument::dictionaryRanges()
+{
+  return m_dictionaryRanges;
 }
 
 void KateDocument::setDictionary(const QString& dict)

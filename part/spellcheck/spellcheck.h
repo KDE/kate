@@ -26,6 +26,7 @@
 
 #include <ktexteditor/document.h>
 #include <sonnet/backgroundchecker.h>
+#include <sonnet/speller.h>
 
 class KateDocument;
 class KateView;
@@ -33,7 +34,9 @@ class KateOnTheFlyChecker;
 
 class KateSpellCheckManager : public QObject {
   Q_OBJECT
-  
+
+  typedef QPair<KTextEditor::Range, QString> RangeDictionaryPair;
+
   public:
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
@@ -41,15 +44,28 @@ class KateSpellCheckManager : public QObject {
       void onTheFlyCheckDocument(KateDocument *document);
       void addOnTheFlySpellChecking(KateDocument *doc);
       void removeOnTheFlySpellChecking(KateDocument *doc);
+      void updateOnTheFlySpellChecking(KateDocument *doc);
 
       void setOnTheFlySpellCheckEnabled(KateDocument *document, bool b);
 
       void createActions(KActionCollection* ac);
 
+      Sonnet::Speller* speller();
+
+      QString defaultDictionary() const;
+
+      QList<QPair<KTextEditor::Range, QString> > spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range);
+      QList<QPair<KTextEditor::Range, QString> > spellCheckWrtHighlightingRanges(KateDocument *doc, const KTextEditor::Range& range,
+                                                                                                    const QString& dictionary = QString(),
+                                                                                                    bool singleLine = false);
+      QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
+                                                                                     bool singleLine = false);
+
     public Q_SLOTS:
       void setOnTheFlySpellCheckEnabled(bool b);
 
     protected:
+      Sonnet::Speller m_speller;
       KateOnTheFlyChecker *m_onTheFlyChecker;
 
       void startOnTheFlySpellCheckThread();

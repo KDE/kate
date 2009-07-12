@@ -32,13 +32,16 @@
 #include <ktexteditor/view.h>
 #include <sonnet/speller.h>
 
+#include "kateglobal.h"
 #include "katehighlight.h"
 #include "katetextline.h"
+#include "spellcheck.h"
 
 #define ON_THE_FLY_DEBUG kDebug(debugArea())
 
-KateOnTheFlyChecker::KateOnTheFlyChecker(QObject *parent)
+KateOnTheFlyChecker::KateOnTheFlyChecker(Sonnet::Speller *speller, QObject *parent)
 : QObject(parent),
+  m_speller(speller),
   m_currentlyCheckedItem(invalidSpellCheckQueueItem),
   m_enabled(false),
   m_refreshView(NULL)
@@ -267,9 +270,9 @@ void KateOnTheFlyChecker::performSpellCheck()
 
 
   QString text = document->text(*spellCheckRange);
-  ON_THE_FLY_DEBUG << "next spell checking line " << text;
-  m_speller.setLanguage(language);
-  m_backgroundChecker->setSpeller(m_speller);
+  ON_THE_FLY_DEBUG << "next spell checking " << text;
+  m_speller->setLanguage(language);
+  m_backgroundChecker->setSpeller(*m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
   ON_THE_FLY_DEBUG << "exited";
 }
@@ -518,6 +521,9 @@ void KateOnTheFlyChecker::installSmartRanges(KateDocument* document)
 void KateOnTheFlyChecker::addDocument(KateDocument *document)
 {
   ON_THE_FLY_DEBUG;
+  if(!m_enabled) {
+    return;
+  }
   connect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
           this, SLOT(textInserted(KTextEditor::Document*, const KTextEditor::Range&)));
   connect(document, SIGNAL(textRemoved(KTextEditor::Document*, const KTextEditor::Range&)),
@@ -557,7 +563,7 @@ void KateOnTheFlyChecker::updateDocument(KTextEditor::Document *document)
   if(!kateDocument) {
     return;
   }
-ON_THE_FLY_DEBUG;
+  ON_THE_FLY_DEBUG;
   removeDocument(kateDocument);
   addDocument(kateDocument);
 }
@@ -565,6 +571,9 @@ ON_THE_FLY_DEBUG;
 void KateOnTheFlyChecker::addView(KTextEditor::Document *document, KTextEditor::View *view)
 {
   Q_UNUSED(document);
+  if(!m_enabled) {
+    return;
+  }
   ON_THE_FLY_DEBUG;
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
   connect(view, SIGNAL(displayRangeChanged(KateView*)), this, SLOT(restartViewRefreshTimer(KateView*)));
@@ -674,37 +683,45 @@ void KateOnTheFlyChecker::queueSpellCheckVisibleRange(KateDocument *kateDocument
     if(intersection.isEmpty()) {
       continue;
     }
-    if(intersection.onSingleLine()) {
-      queueLineSpellCheck(kateDocument, intersection);
-    }
-    else {
-      int intersectionBegin = intersection.start().line();
-      int intersectionEnd = intersection.end().line();
-      for(int line = intersectionEnd; line >= intersectionBegin; --line) {
-        const int lineLength = kateDocument->lineLength(line);
-        if(line == intersectionBegin) {
-          queueLineSpellCheck(kateDocument, KTextEditor::Range(intersection.start(),
-                                                           KTextEditor::Cursor(line, lineLength)));
-        }
-        else if(line == intersectionEnd) {
-          queueLineSpellCheck(kateDocument, KTextEditor::Range(KTextEditor::Cursor(line, 0),
-                                                           intersection.end()));
-        }
-        else {
-          queueLineSpellCheck(kateDocument, KTextEditor::Range(KTextEditor::Cursor(line, 0),
-                                                           KTextEditor::Cursor(line, lineLength)));
-        }
-      }
+
+    // clear all the highlights that are currently present in the range that
+    // is supposed to be checked, necessary due to highlighting
+    
+    //items can be non unique !!!!!
+    const SmartRangeList highlightsList = installedSmartRangesInDocument(kateDocument, intersection);
+    qDeleteAll(highlightsList);
+  
+    QList<QPair<KTextEditor::Range, QString> > spellCheckRanges
+                         = KateGlobal::self()->spellCheckManager()->spellCheckRanges(kateDocument,
+                                                                                     intersection,
+                                                                                     true);
+    ON_THE_FLY_DEBUG << "ranges:" << spellCheckRanges.size();
+    for(QList<QPair<KTextEditor::Range, QString> >::iterator i = spellCheckRanges.begin(); i != spellCheckRanges.end(); ++i) {
+      queueLineSpellCheck(kateDocument, (*i).first, (*i).second);
     }
   }  
 }
 
-void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, int line)
+void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *kateDocument, int line)
 {
-  queueLineSpellCheck(document, KTextEditor::Range(line, 0, line, document->lineLength(line)));
+    const KTextEditor::Range range = KTextEditor::Range(line, 0, line, kateDocument->lineLength(line));
+    // clear all the highlights that are currently present in the range that
+    // is supposed to be checked, necessary due to highlighting
+    
+    //items can be non unique !!!!!
+    const SmartRangeList highlightsList = installedSmartRangesInDocument(kateDocument, range);
+    qDeleteAll(highlightsList);
+
+    QList<QPair<KTextEditor::Range, QString> > spellCheckRanges 
+                             = KateGlobal::self()->spellCheckManager()->spellCheckRanges(kateDocument,
+                                                                                         range,
+                                                                                         true);
+    for(QList<QPair<KTextEditor::Range, QString> >::iterator i = spellCheckRanges.begin(); i != spellCheckRanges.end(); ++i) {
+      queueLineSpellCheck(kateDocument, (*i).first, (*i).second);
+    }
 }
 
-void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTextEditor::Range& range)
+void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary)
 {
   ON_THE_FLY_DEBUG << document << range;
   KTextEditor::SmartInterface *smartInterface =
@@ -718,40 +735,8 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *document, const KTex
   if(range.isEmpty()) {
     return;
   }
-  const int line = range.start().line();
-  const int end = range.end().column();
-  
-  KateTextLine::Ptr kateTextLine = document->kateTextLine(line);
-  int begin = -1;
-  bool inSpellCheckArea = false;
-  // clear all the highlights that are currently present in the range that
-  // is supposed to be checked, necessary due to highlighting
-  
-  //items can be non unique !!!!!
-  const SmartRangeList highlightsList = installedSmartRangesInDocument(document, range);
-  qDeleteAll(highlightsList);
 
-  for(int i = range.start().column(); i < end; ++i) {
-    unsigned int attribute = kateTextLine->attribute(i);
-    ON_THE_FLY_DEBUG << attribute << kateTextLine->at(i);
-    if(!document->highlight()->attributeRequiresSpellchecking(attribute)) {
-      if(i == 0) {
-        continue;
-      }
-      else if(inSpellCheckArea) {
-        addToSpellCheckQueue(document, KTextEditor::Range(line, begin, line, i), document->dictionary());
-        begin = -1;
-        inSpellCheckArea = false;
-      }
-    }
-    else if(!inSpellCheckArea) {
-      begin = i;
-      inSpellCheckArea = true;
-    }
-  }
-  if(inSpellCheckArea) {
-    addToSpellCheckQueue(document, KTextEditor::Range(line, begin, line, end), document->dictionary());
-  }
+  addToSpellCheckQueue(document, range, dictionary);
 }
 
 void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary)

@@ -34,12 +34,16 @@
 #include <sonnet/speller.h>
 
 #include "katedocument.h"
+#include "katehighlight.h"
+#include "katetextline.h"
 #include "ontheflycheck.h"
+#include "spellcheck.h"
 
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 : QObject(parent)
 {
-  m_onTheFlyChecker = new KateOnTheFlyChecker();
+  m_speller.restore(KGlobal::config().data());
+  m_onTheFlyChecker = new KateOnTheFlyChecker(&m_speller);
   m_onTheFlyChecker->setEnabled(true);
 }
 
@@ -53,7 +57,6 @@ void KateSpellCheckManager::onTheFlyCheckDocument(KateDocument *document)
 {
   m_onTheFlyChecker->removeDocument(document);
   m_onTheFlyChecker->addDocument(document);
-//   m_onTheFlyChecker->textInserted(document, document->documentRange());
 }
 
 void KateSpellCheckManager::addOnTheFlySpellChecking(KateDocument *doc)
@@ -64,6 +67,11 @@ void KateSpellCheckManager::addOnTheFlySpellChecking(KateDocument *doc)
 void KateSpellCheckManager::removeOnTheFlySpellChecking(KateDocument *doc)
 {
   m_onTheFlyChecker->removeDocument(doc);
+}
+
+void KateSpellCheckManager::updateOnTheFlySpellChecking(KateDocument *doc)
+{
+  m_onTheFlyChecker->updateDocument(doc);
 }
 
 void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(bool b)
@@ -84,6 +92,16 @@ void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(KateDocument *document,
 void KateSpellCheckManager::createActions(KActionCollection* ac)
 {
 
+}
+
+Sonnet::Speller* KateSpellCheckManager::speller()
+{
+  return &m_speller;
+}
+
+QString KateSpellCheckManager::defaultDictionary() const
+{
+  return m_speller.defaultLanguage();
 }
 
 void KateSpellCheckManager::startOnTheFlySpellCheckThread()
@@ -141,6 +159,91 @@ void KateSpellCheckManager::removeOnTheFlyHighlighting()
 */
 }
 
+QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range)
+{
+  QString dictionary = doc->dictionary();
+  if(dictionary.isEmpty()) {
+    dictionary = defaultDictionary();
+  }
+  QList<RangeDictionaryPair> toReturn;
+  toReturn.push_back(RangeDictionaryPair(range, dictionary));
+  return toReturn;
+}
+
+QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtHighlightingRanges(KateDocument *document,
+                                                                                         const KTextEditor::Range& range,
+                                                                                         const QString& dictionary,
+                                                                                         bool singleLine)
+{
+  QList<QPair<KTextEditor::Range, QString> > toReturn;
+  QList<KTextEditor::Range> rangesToSplit;
+  if(!singleLine || range.onSingleLine()) {
+    rangesToSplit.push_back(range);
+  }
+  else {
+    const int startLine = range.start().line();
+    const int startColumn = range.start().column();
+    const int endLine = range.end().line();
+    const int endColumn = range.end().column();
+    for(int line = startLine; line <= endLine; ++line) {
+      const int start = (line == startLine) ? startColumn : 0;
+      const int end = (line == endLine) ? endColumn : document->lineLength(line);
+      KTextEditor::Range toAdd(line, start, line, end);
+      if(!toAdd.isEmpty()) {
+        rangesToSplit.push_back(toAdd);
+      }
+    }
+  }
+  for(QList<KTextEditor::Range>::iterator i = rangesToSplit.begin(); i != rangesToSplit.end(); ++i) {
+    KTextEditor::Range rangeToSplit = *i;
+    KTextEditor::Cursor begin = KTextEditor::Cursor::invalid();
+    const int startLine = rangeToSplit.start().line();
+    const int startColumn = rangeToSplit.start().column();
+    const int endLine = rangeToSplit.end().line();
+    const int endColumn = rangeToSplit.end().column();
+    bool inSpellCheckArea = false;
+    for(int line = startLine; line <= endLine; ++line) {
+      KateTextLine::Ptr kateTextLine = document->kateTextLine(line);
+      const int start = (line == startLine) ? startColumn : 0;
+      const int end = (line == endLine) ? endColumn : kateTextLine->length();
+      const KTextEditor::Cursor startCursor();
+      for(int i = start; i < end; ++i) {
+        unsigned int attribute = kateTextLine->attribute(i);
+        if(!document->highlight()->attributeRequiresSpellchecking(attribute)) {
+          if(i == start) {
+            continue;
+          }
+          else if(inSpellCheckArea) {
+            toReturn.push_back(RangeDictionaryPair(KTextEditor::Range(begin, KTextEditor::Cursor(line, i)), dictionary));
+            begin = KTextEditor::Cursor::invalid();
+            inSpellCheckArea = false;
+          }
+        }
+        else if(!inSpellCheckArea) {
+          begin = KTextEditor::Cursor(line, i);
+          inSpellCheckArea = true;
+        }
+      }
+    }
+    if(inSpellCheckArea) {
+      toReturn.push_back(RangeDictionaryPair(KTextEditor::Range(begin, rangeToSplit.end()), dictionary));
+    }
+  }
+  return toReturn;
+}
+
+QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckRanges(KateDocument *doc,
+                                                                                   const KTextEditor::Range& range,
+                                                                                   bool singleLine)
+{
+  QList<RangeDictionaryPair> toReturn;
+  QList<RangeDictionaryPair> languageRangeList = spellCheckLanguageRanges(doc, range);
+  for(QList<RangeDictionaryPair>::iterator i = languageRangeList.begin(); i != languageRangeList.end(); ++i) {
+    const RangeDictionaryPair& p = *i;
+    toReturn += spellCheckWrtHighlightingRanges(doc, p.first, p.second, singleLine);
+  }
+  return toReturn;
+}
 
 #include "spellcheck.moc"
 

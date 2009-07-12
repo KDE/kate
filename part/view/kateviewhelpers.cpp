@@ -1592,11 +1592,11 @@ class KateViewEncodingAction::Private
     currentSubAction(0)
     {
     }
-    
+
     void init(bool);
-    
+
     void _k_subActionTriggered(QAction*);
-    
+
     KateViewEncodingAction *q;
     QAction *defaultAction;
     QAction *currentSubAction;
@@ -1610,14 +1610,14 @@ bool lessThanAction(KSelectAction *a, KSelectAction *b)
 void KateViewEncodingAction::Private::init(bool showAutoOptions)
 {
   QList<KSelectAction *> actions;
-  
+
   q->setToolBarMode(MenuMode);
   defaultAction = q->addAction(i18nc("Encodings menu", "Disabled"));
   defaultAction->setData(QVariant((uint)KEncodingProber::None));
-  
+
   QAction *tmp = q->addAction(i18nc("Encodings menu", "Autodetect"));
   tmp->setData(QVariant((uint)KEncodingProber::Universal));
-  
+
   q->menu()->addSeparator();
 
   int i;
@@ -1712,21 +1712,21 @@ KEncodingProber::ProberType KateViewEncodingAction::currentProberType() const
 bool KateViewEncodingAction::setCurrentProberType(KEncodingProber::ProberType scri)
 {
     int i;
-    
-    if (scri == KEncodingProber::None) 
+
+    if (scri == KEncodingProber::None)
     {
       d->currentSubAction=actions().at(0);
       d->currentSubAction->trigger();
       return true;
     }
-    
-    if (scri == KEncodingProber::Universal) 
+
+    if (scri == KEncodingProber::Universal)
     {
       d->currentSubAction=actions().at(1);
       d->currentSubAction->trigger();
       return true;
     }
-    
+
     for (i=2;i<actions().size();++i)
     {
       if (actions().at(i)->menu())
@@ -1748,11 +1748,11 @@ bool KateViewEncodingAction::setCurrentProberType(KEncodingProber::ProberType sc
 int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
 {
   // FIXME logic is good but code is ugly
-  
+
   bool success = false;
   int mib = MIB_DEFAULT;
   KCharsets *charsets = KGlobal::charsets();
-  
+
   if (codecName == d->defaultAction->text())
     success = true;
   else
@@ -1763,17 +1763,17 @@ int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
       // Maybe we got a description name instead
       codec = charsets->codecForName(charsets->encodingForName(codecName), success);
     }
-    
+
     if (codec)
       mib = codec->mibEnum();
   }
-  
+
   if (ok)
     *ok = success;
-  
+
   if (success)
     return mib;
-  
+
   kWarning() << "Invalid codec name: "  << codecName;
   return MIB_DEFAULT;
 }
@@ -1798,7 +1798,7 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
 {
   if (!codec)
     return false;
-  
+
   int i,j;
   for (i=2;i<actions().size();++i)
   {
@@ -1818,7 +1818,7 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
     }
   }
   return false;
-  
+
 }
 
 QString KateViewEncodingAction::currentCodecName() const

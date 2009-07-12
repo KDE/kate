@@ -717,7 +717,9 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , iconPaneWidth (16)
   , m_annotationBorderWidth (6)
   , m_foldingRange(0)
-  , m_lastBlockLine(-1)
+  , m_nextHighlightBlock(-2)
+  , m_currentBlockLine(-1)
+  , m_delayFoldingHlTimer(new QTimer())
 {
   initializeFoldingColors();
 
@@ -728,6 +730,10 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   m_doc->setMarkPixmap( MarkInterface::markType01, KIcon("bookmarks").pixmap(16, 16) );
 
   updateFont();
+
+  m_delayFoldingHlTimer->setSingleShot(true);
+  m_delayFoldingHlTimer->setInterval(250);
+  connect(m_delayFoldingHlTimer, SIGNAL(timeout()), this, SLOT(showBlock()));
 }
 
 void KateIconBorder::initializeFoldingColors()
@@ -755,7 +761,11 @@ void KateIconBorder::initializeFoldingColors()
 }
 
 
-KateIconBorder::~KateIconBorder() {delete m_foldingRange;}
+KateIconBorder::~KateIconBorder()
+{
+  delete m_foldingRange;
+  m_foldingRange = 0;
+}
 
 void KateIconBorder::setIconBorderOn( bool enable )
 {
@@ -1260,25 +1270,40 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   QWidget::mousePressEvent(e);
 }
 
-void KateIconBorder::showBlock(int line)
+void KateIconBorder::showDelayedBlock(int line)
 {
-  if (line == m_lastBlockLine) return;
-  m_lastBlockLine = line;
+  // save the line over which the mouse hovers
+  // either we start the timer for delay, or we show the block immediately
+  // if the smart range already exists
+  m_nextHighlightBlock = line;
+  if (!m_foldingRange) {
+    if (!m_delayFoldingHlTimer->isActive()) {
+      m_delayFoldingHlTimer->start();
+    }
+  } else {
+    showBlock();
+  }
+}
+
+void KateIconBorder::showBlock()
+{
+  if (m_nextHighlightBlock == m_currentBlockLine) return;
+  m_currentBlockLine = m_nextHighlightBlock;
 
   // get the new range, that should be highlighted
   KTextEditor::Range newRange = KTextEditor::Range::invalid();
   KateCodeFoldingTree *tree = m_doc->foldingTree();
   if (tree) {
-    KateCodeFoldingNode *node = tree->findNodeForLine(line);
+    KateCodeFoldingNode *node = tree->findNodeForLine(m_currentBlockLine);
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
     if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
       newRange = KTextEditor::Range(beg, end);
     }
     KateLineInfo info;
-    tree->getLineInfo(&info,line);
+    tree->getLineInfo(&info, m_currentBlockLine);
     if ((info.startsVisibleBlock)){
-      node=tree->findNodeStartingAt(line);
+      node=tree->findNodeStartingAt(m_currentBlockLine);
       if (node) {
         if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
           newRange = KTextEditor::Range(beg, end);
@@ -1301,14 +1326,20 @@ void KateIconBorder::showBlock(int line)
     m_foldingRange = m_doc->newSmartRange(newRange);
     static_cast<KateSmartRange*>(m_foldingRange)->setInternal();
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    attr->setBackground(foldingColor(0, line, false));
+    attr->setBackground(foldingColor(0, m_currentBlockLine, false));
     m_foldingRange->setAttribute(attr);
     m_doc->addHighlightToView(m_view, m_foldingRange, false);
   }
 }
 
-void KateIconBorder::hideBlock() {
-  m_lastBlockLine=-1;
+void KateIconBorder::hideBlock()
+{
+  if (m_delayFoldingHlTimer->isActive()) {
+    m_delayFoldingHlTimer->stop();
+  }
+
+  m_nextHighlightBlock = -2;
+  m_currentBlockLine = -1;
   delete m_foldingRange;
   m_foldingRange = 0;
 }
@@ -1325,7 +1356,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
   const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
   if (t.isValid()) {
-    if ( positionToArea( e->pos() ) == FoldingMarkers) showBlock(t.line());
+    if ( positionToArea( e->pos() ) == FoldingMarkers) showDelayedBlock(t.line());
     else hideBlock();
     if ( positionToArea( e->pos() ) == AnnotationBorder )
     {

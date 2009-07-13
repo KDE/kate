@@ -4046,8 +4046,9 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     QStringList pasteLines = s.split(QLatin1Char('\n'));
 
     if (!view->blockSelectionMode()) {
+      int endColumn = (pasteLines.count() == 1 ? pos.column() : 0) + pasteLines.last().length();
       removeText(KTextEditor::Range(pos,
-                                    pos.line()+pasteLines.count()-1, pasteLines.last().length()));
+                                    pos.line()+pasteLines.count()-1, endColumn));
     } else {
       int maxi = qMin(pos.line() + pasteLines.count(), this->lines());
 

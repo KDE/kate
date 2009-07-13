@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2009 Michel ludwig <michel.ludwig@kdemail.net>
    Copyright (C) 2008 Mirko Stocker <me@misto.ch>
    Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
@@ -67,7 +68,8 @@ class KateSpell : public QObject
 
     void misspelling( const QString&, int );
     void corrected  ( const QString&, int, const QString&);
-    void spellResult( );
+
+    void installNextSpellCheckRange();
 
   private:
     KTextEditor::Cursor locatePosition( int pos );
@@ -83,6 +85,7 @@ class KateSpell : public QObject
     // keep track of where we are.
     KTextEditor::Cursor m_spellPosCursor;
     uint m_spellLastPos;
+    QList<QPair<KTextEditor::Range, QString> > m_spellCheckRanges;
 };
 
 #endif

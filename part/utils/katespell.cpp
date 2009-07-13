@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2009 Michel ludwig <michel.ludwig@kdemail.net>
    Copyright (C) 2008 Mirko Stocker <me@misto.ch>
    Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
    Copyright (C) 2003 Clarence Dang <dang@kde.org>
@@ -25,8 +26,10 @@
 #include "katespell.h"
 #include "katespell.moc"
 
-#include "kateview.h"
 #include "katedocument.h"
+#include "kateglobal.h"
+#include "kateview.h"
+#include "spellcheck/spellcheck.h"
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -92,22 +95,19 @@ void KateSpell::spellcheck()
 
 void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::Cursor &to )
 {
-  m_spellStart = from;
-  m_spellEnd = to;
+  KTextEditor::Cursor start = from;
+  KTextEditor::Cursor end = to;
 
-  if ( to.line() == 0 && to.column() == 0 )
+  if ( end.line() == 0 && end.column() == 0 )
   {
-    m_spellEnd = m_view->doc()->documentEnd();
+    end = m_view->doc()->documentEnd();
   }
-
-  m_spellPosCursor = from;
-  m_spellLastPos = 0;
 
   if ( !m_sonnetDialog )
   {
-    m_sonnetDialog = new Sonnet::Dialog(new Sonnet::BackgroundChecker(this), m_view);
+    m_sonnetDialog = new Sonnet::Dialog(new Sonnet::BackgroundChecker(*KateGlobal::self()->spellCheckManager()->speller()), m_view);
 
-    connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(spellResult()));
+    connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(installNextSpellCheckRange()));
 
     connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
         this,SLOT(corrected(const QString&,int,const QString&)));
@@ -116,7 +116,8 @@ void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::
         this,SLOT(misspelling(const QString&,int)));
   }
 
-  m_sonnetDialog->setBuffer(m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ));
+  m_spellCheckRanges = KateGlobal::self()->spellCheckManager()->spellCheckRanges(m_view->doc(), KTextEditor::Range(start, end));
+  installNextSpellCheckRange();
   m_sonnetDialog->show();
 }
 
@@ -159,10 +160,29 @@ void KateSpell::corrected( const QString& originalword, int pos, const QString& 
   m_view->doc()->replaceText( KTextEditor::Range(cursor, originalword.length()), newword );
 }
 
-void KateSpell::spellResult()
+void KateSpell::installNextSpellCheckRange()
 {
-  m_view->clearSelection();
+  if(m_spellCheckRanges.isEmpty()) {
+    m_view->clearSelection();
+    return;
+  }
+  QPair<KTextEditor::Range, QString> pair = m_spellCheckRanges.takeFirst();
+  const KTextEditor::Range& range = pair.first;
+  const QString& dictionary = pair.second;
+  m_spellStart = range.start();
+  m_spellEnd = range.end();
+
+  m_spellPosCursor = m_spellStart;
+  m_spellLastPos = 0;
+
+  Sonnet::Speller *speller = KateGlobal::self()->spellCheckManager()->speller();
+  if(speller->language() != dictionary) {
+    speller->setLanguage(dictionary);
+  }
+
+  m_sonnetDialog->setBuffer(m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ));
 }
+
 //END
 
 

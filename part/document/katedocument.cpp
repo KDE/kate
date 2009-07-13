@@ -4041,9 +4041,22 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     view->removeSelectedText();
 
   KTextEditor::Cursor pos = view->cursorPosition();
+  bool overwrite = config()->configFlags() & KateDocumentConfig::cfOvr;
+
+  if (overwrite) {
+    QStringList pasteLines = s.split(QLatin1Char('\n'));
+    int maxi = qMin(pos.line() + pasteLines.count(), this->lines());
+
+    for (int i = pos.line(); i < maxi; ++i) {
+      int pasteLength = pasteLines[i-pos.line()].length();
+      removeText(KTextEditor::Range(i, pos.column(), 
+                                    i, qMin(pasteLength + pos.column(), lineLength(i))));
+    }
+  }
+
 
   blockRemoveTrailingSpaces(true);
-  insertText(pos, s, view->blockSelectionMode());
+  insertText(pos, s, view->blockSelectionMode() || overwrite);
   blockRemoveTrailingSpaces(false);
 
   for (int i = pos.line(); i < pos.line() + lines; ++i)

@@ -270,10 +270,9 @@ void KateOnTheFlyChecker::performSpellCheck()
 
 
   QString text = document->text(*spellCheckRange);
-  ON_THE_FLY_DEBUG << "next spell checking line " << text;
-  if (m_language!=language) {
+  ON_THE_FLY_DEBUG << "next spell checking" << text;
+  if(m_speller->language() != language) {
     m_speller->setLanguage(language);
-    m_language=language;
   }
   m_backgroundChecker->setSpeller(*m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!

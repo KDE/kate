@@ -44,7 +44,6 @@
 #include "kateconfig.h"
 #include "katemodemenu.h"
 #include "kateautoindent.h"
-#include "katespell.h"
 #include "katecompletionwidget.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
@@ -54,6 +53,7 @@
 #include "katewordcompletion.h"
 #include "katelayoutcache.h"
 #include "spellcheck/spellcheck.h"
+#include "spellcheck/spellcheckdialog.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -106,7 +106,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_completionWidget(0)
     , m_annotationModel(0)
     , m_doc( doc )
-    , m_spell( new KateSpell( this ) )
+    , m_spell( new KateSpellCheckDialog( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_hasWrap( false )
     , m_startingUp (true)

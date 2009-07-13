@@ -22,8 +22,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATE_SPELL_H__
-#define __KATE_SPELL_H__
+#ifndef __KATE_SPELLCHECKDIALOG_H__
+#define __KATE_SPELLCHECKDIALOG_H__
 
 #include "katecursor.h"
 
@@ -37,13 +37,13 @@ namespace Sonnet {
     class Dialog;
 }
 
-class KateSpell : public QObject
+class KateSpellCheckDialog : public QObject
 {
   Q_OBJECT
 
   public:
-    explicit KateSpell( KateView* );
-    ~KateSpell();
+    explicit KateSpellCheckDialog( KateView* );
+    ~KateSpellCheckDialog();
 
     void createActions( KActionCollection* );
 

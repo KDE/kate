@@ -127,6 +127,8 @@ spellcheck/ontheflycheck.h
 spellcheck/ontheflycheck.cpp
 spellcheck/spellcheck.h
 spellcheck/spellcheck.cpp
+spellcheck/spellcheckdialog.h
+spellcheck/spellcheckdialog.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp
@@ -138,7 +140,6 @@ utils/katebookmarks.cpp
 utils/kateautoindent.cpp
 utils/kateschema.cpp
 utils/katetemplatehandler.cpp
-utils/katespell.cpp
 utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp

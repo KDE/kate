@@ -52,7 +52,7 @@ class KateBookmarks;
 class KateCmdLine;
 class KateViewConfig;
 class KateRenderer;
-class KateSpell;
+class KateSpellCheckDialog;
 class KateCompletionWidget;
 class KateSmartRange;
 class KateViewInternal;
@@ -591,7 +591,7 @@ class KateView : public KTextEditor::View,
     KateDocument     *const m_doc;
     KateViewInternal*      m_viewInternal;
     KateRenderer*          m_renderer;
-    KateSpell             *m_spell;
+    KateSpellCheckDialog  *m_spell;
     KateBookmarks*         m_bookmarks;
 
     QVBoxLayout *m_vBox;

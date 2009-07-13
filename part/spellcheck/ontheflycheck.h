@@ -70,6 +70,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void updateInstalledSmartRanges(KateDocument *document);
     
   protected:
+    QString m_language;
     Sonnet::Speller *m_speller;
     QList<SpellCheckQueueItem> m_spellCheckQueue;
     Sonnet::BackgroundChecker *m_backgroundChecker;

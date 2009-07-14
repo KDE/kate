@@ -986,6 +986,7 @@ QString KateCompletionModel::commonPrefixInternal(QString forcePrefix) const
             break;
           }
         }
+        commonPrefix = commonPrefix.left(checkLen);
       }
     }
   }

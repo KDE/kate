@@ -81,7 +81,6 @@ class KateFileBrowser : public KVBox
 
   protected:
     KUrl activeDocumentUrl();
-    void focusInEvent( QFocusEvent * );
     void openSelectedFiles();
 
   public:

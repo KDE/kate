@@ -73,6 +73,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
           this, SLOT(selectorViewChanged(QAbstractItemView *)));
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+  setFocusProxy(m_dirOperator);
 
   // now all actions exist in dir operator and we can use them in the toolbar
   setupToolbar();
@@ -309,11 +310,6 @@ KUrl KateFileBrowser::activeDocumentUrl()
   if (v)
     return v->document()->url();
   return KUrl();
-}
-
-void KateFileBrowser::focusInEvent(QFocusEvent *)
-{
-  m_dirOperator->setFocus();
 }
 //END Protected
 

@@ -72,6 +72,10 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     static QString propertyName(KTextEditor::CodeCompletionModel::CompletionProperty property);
 
+    ///Returns a common prefix for all current visible completion entries
+    ///If there is no common prefix, extracts the next useful prefix for the selected index
+    QString commonPrefix(QModelIndex selectedIndex) const;
+    
     virtual void rowSelected(const QModelIndex& row);
 
     virtual bool indexIsItem(const QModelIndex& index) const;
@@ -234,6 +238,10 @@ class KateCompletionModel : public ExpandingWidgetModel
 	void clearExactMatch() {
 	  m_haveExactMatch = false;
 	}
+        
+        QString name() const {
+          return m_nameColumn;
+        }
 	
       private:
         KateCompletionModel* model;
@@ -291,6 +299,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     bool hasGroups() const;
 
   private:
+    QString commonPrefixInternal(QString forcePrefix) const;
     void createGroups();
     ///Creates all sub-items of index i, or the item corresponding to index i. Returns the affected groups.
     ///i must be an index in the source model

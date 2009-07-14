@@ -895,14 +895,14 @@ QModelIndex KateCompletionModel::mapFromSource( const QModelIndex & sourceIndex 
   foreach (Group* g, m_rowTable) {
     int row = g->rowOf(modelRowPair(sourceIndex));
     if (row != -1)
-      return index(row, sourceIndex.column(), QModelIndex());
+      return index(row, sourceIndex.column(), indexForGroup(g));
   }
 
   // Copied from above
   foreach (Group* g, m_emptyGroups) {
     int row = g->rowOf(modelRowPair(sourceIndex));
     if (row != -1)
-      return index(row, sourceIndex.column(), QModelIndex());
+      return index(row, sourceIndex.column(), indexForGroup(g));
   }
 
   return QModelIndex();
@@ -917,7 +917,7 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
     m_currentMatch[model] = completion;
     return;
   }
-
+  
   changeTypes changeType = Change;
 
   if (m_currentMatch[model].length() > completion.length() && m_currentMatch[model].startsWith(completion, m_matchCaseSensitivity)) {
@@ -955,6 +955,60 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
   emit contentGeometryChanged();
+}
+
+QString KateCompletionModel::commonPrefixInternal(QString forcePrefix) const
+{
+  QString commonPrefix = QString::null;
+  
+  QList< Group* > groups = m_rowTable; 
+  groups += m_ungrouped;
+  
+  foreach (Group* g, groups) {
+    foreach(const Item& item, g->filtered)
+    {
+      uint startPos = m_currentMatch[item.sourceRow().first].length();
+      QString candidate = item.name();
+      
+      candidate = candidate.mid(startPos);
+      
+      if(!candidate.startsWith(forcePrefix))
+        continue;
+      
+      if(commonPrefix == QString::null) {
+        commonPrefix = candidate;
+      }else{
+        
+        int checkLen = qMin(commonPrefix.length(), candidate.length());
+        for(int a = 0; a < checkLen; ++a) {
+          if(commonPrefix[a] != candidate[a]) {
+            commonPrefix = commonPrefix.left(a);
+            break;
+          }
+        }
+      }
+    }
+  }
+  
+  return commonPrefix;
+}
+
+QString KateCompletionModel::commonPrefix(QModelIndex selectedIndex) const
+{
+  QString commonPrefix = commonPrefixInternal(QString());
+  
+  if(commonPrefix.isEmpty() && selectedIndex.isValid()) {
+    Group* g = m_ungrouped;
+    if(hasGroups())
+      g = groupOfParent(selectedIndex);
+    
+    if(g && selectedIndex.row() < g->filtered.size()) {
+      Item item = g->filtered[selectedIndex.row()];
+      commonPrefix = commonPrefixInternal(item.name().mid(m_currentMatch[item.sourceRow().first].length()).left(1));
+    }
+  }
+  
+  return commonPrefix;
 }
 
 bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )

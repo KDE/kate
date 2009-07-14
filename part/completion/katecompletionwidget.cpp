@@ -84,7 +84,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_needShow(false)
   , m_hadCompletionNavigation(false)
   , m_expandedAddedHeightBase(0)
-  , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation)
+  , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation),
+    m_noAutoHide(false)
 {
   connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
   connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));
@@ -197,7 +198,7 @@ void KateCompletionWidget::modelContentChanged() {
   if( m_argumentHintTree->isHidden() && !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
     m_argumentHintTree->show();
 
-  if(hideAutomaticCompletionOnExactMatch && !isHidden() &&
+  if(!m_noAutoHide && hideAutomaticCompletionOnExactMatch && !isHidden() &&
      m_lastInvocationType == KTextEditor::CodeCompletionModel::AutomaticInvocation &&
      m_presentationModel->shouldMatchHideCompletionList())
     hide();
@@ -269,6 +270,9 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
   m_inCompletionList = true; //Always start at the top of the completion-list
   m_needShow = true;
 
+  if(m_completionRanges.isEmpty())
+    m_noAutoHide = false; //Re-enable auto-hide on every clean restart of the completion
+  
   m_lastInvocationType = invocationType;
 
   disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
@@ -622,6 +626,10 @@ void KateCompletionWidget::cursorPositionChanged( )
   if (m_completionRanges.isEmpty())
     return;
 
+  QModelIndex oldCurrentSourceIndex;
+  if(m_inCompletionList && m_entryList->currentIndex().isValid())
+    oldCurrentSourceIndex = m_presentationModel->mapToSource(m_entryList->currentIndex());
+  
   KTextEditor::Cursor cursor = view()->cursorPosition();
 
   QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
@@ -669,6 +677,18 @@ void KateCompletionWidget::cursorPositionChanged( )
       } else {
         m_presentationModel->setCurrentCompletion(model, currentCompletion);
       }
+  }
+  
+  if(oldCurrentSourceIndex.isValid()) {
+    QModelIndex idx = m_presentationModel->mapFromSource(oldCurrentSourceIndex);
+    if(idx.isValid()) {
+      kDebug() << "setting" << idx;
+      m_entryList->setCurrentIndex(idx.sibling(idx.row(), 0));
+//       m_entryList->nextCompletion();
+//       m_entryList->previousCompletion();
+    }else{
+      kDebug() << "failed to map from source";
+    }
   }
   
   m_entryList->scheduleUpdate();
@@ -1223,6 +1243,15 @@ void KateCompletionWidget::automaticInvocation()
 void KateCompletionWidget::userInvokedCompletion()
 {
   startCompletion(KTextEditor::CodeCompletionModel::UserInvocation);
+}
+
+void KateCompletionWidget::tab()
+{
+  m_noAutoHide = true;
+  QString prefix = m_presentationModel->commonPrefix(m_inCompletionList ? m_entryList->currentIndex() : QModelIndex());
+  if(!prefix.isEmpty()) {
+    view()->insertText(prefix);
+  }
 }
 
 #include "katecompletionwidget.moc"

@@ -71,6 +71,8 @@ class KateCompletionWidget : public QFrame
     void cursorDown();
     void cursorUp();
     
+    void tab();
+    
     ///Returns whether the current item was expanded/unexpanded
     bool toggleExpanded(bool forceExpand = false, bool forceUnExpand = false);
 
@@ -215,6 +217,8 @@ class KateCompletionWidget : public QFrame
     bool m_hadCompletionNavigation;
     
     bool m_haveExactMatch;
+    
+    bool m_noAutoHide;
     
     int m_expandedAddedHeightBase;
     KTextEditor::CodeCompletionModel::InvocationType m_lastInvocationType;

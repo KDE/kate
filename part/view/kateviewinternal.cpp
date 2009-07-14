@@ -2400,6 +2400,11 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
   if  (key == Qt::Key_Tab || key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
   {
+    if(key == Qt::Key_Tab && view()->completionWidget()->isCompletionActive()) {
+      e->accept();
+      view()->completionWidget()->tab();
+      return;
+    }
     if (doc()->invokeTemplateHandler(key)) {
       e->accept();
       return;

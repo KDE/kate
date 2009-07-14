@@ -269,6 +269,7 @@ void KateFileBrowser::openSelectedFiles()
 
 void KateFileBrowser::updateDirOperator(const KUrl& u)
 {
+  m_dirOperator->setFocus();
   m_dirOperator->setUrl(u, true);
 }
 

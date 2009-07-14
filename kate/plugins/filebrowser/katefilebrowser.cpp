@@ -70,11 +70,12 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_dirOperator = new KDirOperator(KUrl(), this);
   m_dirOperator->setView(KFile::/* Simple */Detail);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
-          this, SLOT(selectorViewChanged(QAbstractItemView *)));
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
   setFocusProxy(m_dirOperator);
-
+  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
+          this, SLOT(selectorViewChanged(QAbstractItemView *)));
+  connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl&)),
+          m_dirOperator, SLOT(setFocus()));
   // now all actions exist in dir operator and we can use them in the toolbar
   setupToolbar();
 
@@ -269,7 +270,6 @@ void KateFileBrowser::openSelectedFiles()
 
 void KateFileBrowser::updateDirOperator(const KUrl& u)
 {
-  m_dirOperator->setFocus();
   m_dirOperator->setUrl(u, true);
 }
 

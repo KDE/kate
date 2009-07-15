@@ -977,16 +977,19 @@ QString KateCompletionModel::commonPrefixInternal(QString forcePrefix) const
       
       if(commonPrefix == QString::null) {
         commonPrefix = candidate;
-      }else{
         
-        int checkLen = qMin(commonPrefix.length(), candidate.length());
-        for(int a = 0; a < checkLen; ++a) {
+        //Replace QString::null prefix with QString(""), so we won't initialize it again
+        if(commonPrefix == QString::null)
+          commonPrefix = QString("");
+      }else{
+        commonPrefix = commonPrefix.left(candidate.length());
+        
+        for(int a = 0; a < commonPrefix.length(); ++a) {
           if(commonPrefix[a] != candidate[a]) {
             commonPrefix = commonPrefix.left(a);
             break;
           }
         }
-        commonPrefix = commonPrefix.left(checkLen);
       }
     }
   }
@@ -1003,9 +1006,12 @@ QString KateCompletionModel::commonPrefix(QModelIndex selectedIndex) const
     if(hasGroups())
       g = groupOfParent(selectedIndex);
     
-    if(g && selectedIndex.row() < g->filtered.size()) {
+    if(g && selectedIndex.row() < g->filtered.size())
+    {
+      //Follow the path of the selected item, finding the next non-empty common prefix
       Item item = g->filtered[selectedIndex.row()];
-      commonPrefix = commonPrefixInternal(item.name().mid(m_currentMatch[item.sourceRow().first].length()).left(1));
+      int matchLength = m_currentMatch[item.sourceRow().first].length();
+      commonPrefix = commonPrefixInternal(item.name().mid(matchLength).left(1));
     }
   }
   

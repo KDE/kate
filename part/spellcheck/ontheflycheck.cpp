@@ -95,6 +95,7 @@ void KateOnTheFlyChecker::handleRespellCheckBlock(KateDocument *document, int st
   bool listEmpty = m_modificationList.isEmpty();
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_INSERTED, DocumentRangePair(document, range)));
+  ON_THE_FLY_DEBUG << "added" << m_modificationList.back();
   if(listEmpty) {
     QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
   }
@@ -107,6 +108,7 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
   bool listEmpty = m_modificationList.isEmpty();
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_INSERTED, DocumentRangePair(document, range)));
+  ON_THE_FLY_DEBUG << "added" << m_modificationList.back();
   if(listEmpty) {
     QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
   }
@@ -141,6 +143,7 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
   bool listEmpty = m_modificationList.isEmpty();
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_REMOVED, DocumentRangePair(document, range)));
+  ON_THE_FLY_DEBUG << "added" << m_modificationList.back();
   if(listEmpty) {
     QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
   }
@@ -283,6 +286,11 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
 {
   ON_THE_FLY_DEBUG << smartRange;
 
+  if(removeRangeFromSpellCheckQueue(smartRange)) {
+    return; // range was part of the spell check queue, so it cannot have been
+            // a misspelled range
+  }
+
   if (m_eliminatedRanges.contains(smartRange)) {
       m_eliminatedRanges.removeAll(smartRange);
   }
@@ -314,6 +322,27 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
       ++i;
     }
   }
+}
+
+bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range)
+{
+  if(m_currentlyCheckedItem != invalidSpellCheckQueueItem
+     && m_currentlyCheckedItem.second.first == range) {
+     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
+     return true;
+  }
+  bool found = false;
+  for(QList<SpellCheckQueueItem>::iterator i = m_spellCheckQueue.begin();
+                                           i != m_spellCheckQueue.end();) {
+    if((*i).second.first == range) {
+      i = m_spellCheckQueue.erase(i);
+      found = true;
+    }
+    else {
+      ++i;
+    }
+  }
+  return found;
 }
 
 void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
@@ -756,6 +785,7 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEdit
                                                                        const QString& dictionary)
 {
   ON_THE_FLY_DEBUG << document << *range << dictionary;
+  range->addWatcher(this);
 /*    for(QList<SpellCheckQueueItem>::const_iterator i = m_spellCheckQueue.constBegin();
                                           i != m_spellCheckQueue.constEnd();) {
       KTextEditor::SmartRange *spellCheckRange = (*i).second.first;

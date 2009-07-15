@@ -104,6 +104,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     QPointer<KateView> m_refreshView;
 
     virtual void rangeDeleted(KTextEditor::SmartRange *range);
+    bool removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range);
     virtual void rangeEliminated(KTextEditor::SmartRange *range);
     SmartRangeList m_eliminatedRanges;
 

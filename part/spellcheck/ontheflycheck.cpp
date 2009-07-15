@@ -286,13 +286,13 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
 {
   ON_THE_FLY_DEBUG << smartRange;
 
+  if (m_eliminatedRanges.contains(smartRange)) {
+      m_eliminatedRanges.removeAll(smartRange);
+  }
+
   if(removeRangeFromSpellCheckQueue(smartRange)) {
     return; // range was part of the spell check queue, so it cannot have been
             // a misspelled range
-  }
-
-  if (m_eliminatedRanges.contains(smartRange)) {
-      m_eliminatedRanges.removeAll(smartRange);
   }
   
   if (m_myranges.contains(smartRange)) {
@@ -306,12 +306,10 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
     return;
   }
   
-  
-  
-    smartInterface->smartMutex()->lock();
-    smartInterface->removeHighlightFromDocument(smartRange);
-    smartInterface->smartMutex()->unlock();
-    m_installedSmartRangeMap[document].removeAll(smartRange);
+  smartInterface->smartMutex()->lock();
+  smartInterface->removeHighlightFromDocument(smartRange);
+  smartInterface->smartMutex()->unlock();
+  m_installedSmartRangeMap[document].removeAll(smartRange);
 
   MisspelledList& misspelledList = m_misspelledMap[document];
   for(MisspelledList::iterator i = misspelledList.begin(); i != misspelledList.end();) {
@@ -348,6 +346,7 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange
 void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
 {
   ON_THE_FLY_DEBUG << range->start() << range->end();
+  removeRangeFromSpellCheckQueue(range);
   m_eliminatedRanges.push_back(range);
   if(m_eliminatedRanges.size() == 1) { // otherwise there is already a call to '
                                        // 'deleteEliminatedRanges()' scheduled

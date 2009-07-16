@@ -436,12 +436,10 @@ void KateGlobal::registerDocument ( KateDocument *doc )
   KateGlobal::incRef ();
   m_documents.append( doc );
   m_docs.append (doc);
-  m_spellCheckManager->addOnTheFlySpellChecking(doc);
 }
 
 void KateGlobal::deregisterDocument ( KateDocument *doc )
 {
-  m_spellCheckManager->removeOnTheFlySpellChecking(doc);
   m_docs.removeAll (doc);
   m_documents.removeAll( doc );
   KateGlobal::decRef ();

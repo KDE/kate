@@ -60,8 +60,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);
     void freeDocument(KTextEditor::Document *document);
 
-    void setEnabled(bool b);
-
     void addDocument(KateDocument *document);
     void removeDocument(KateDocument *document);
     void updateDocument(KTextEditor::Document *document);
@@ -75,10 +73,10 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     Sonnet::BackgroundChecker *m_backgroundChecker;
     SpellCheckQueueItem m_currentlyCheckedItem;
     static const SpellCheckQueueItem invalidSpellCheckQueueItem;
-    bool m_enabled;
     QMap<KTextEditor::Document*, MisspelledList> m_misspelledMap;
     QMap<KTextEditor::Document*, SmartRangeList> m_installedSmartRangeMap;
     ModificationList m_modificationList;
+    QList<KateDocument*> m_documentList;
 
     SmartRangeList installedSmartRangesInDocument(KTextEditor::Document *document,
                                                                 const KTextEditor::Range& range);

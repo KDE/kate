@@ -292,6 +292,9 @@ KateDocument::~KateDocument()
   // any further use of interfaces once they return.
   emit aboutToClose(this);
 
+  // disable on-the-fly spell checking
+  KateGlobal::self()->spellCheckManager()->reflectOnTheFlySpellCheckStatus(this, false);
+
   // remove file from dirwatch
   deactivateDirWatch ();
 
@@ -6222,13 +6225,14 @@ void KateDocument::setDictionary(const QString& dict)
     return;
   }
   m_dictionary = dict;
-  KateGlobal::self()->spellCheckManager()->onTheFlyCheckDocument(this);
+  if(isOnTheFlySpellCheckingEnabled()) {
+    KateGlobal::self()->spellCheckManager()->updateOnTheFlySpellChecking(this);
+  }
 }
-
 
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable) {
   config()->setOnTheFlySpellCheck(enable);
-  KateGlobal::self()->spellCheckManager()->setOnTheFlySpellCheckEnabled(this,enable);
+  KateGlobal::self()->spellCheckManager()->reflectOnTheFlySpellCheckStatus(this, enable);
   foreach( KateView* view, m_views)
   {
     view->slotOnTheFlySpellCheckingChanged ();

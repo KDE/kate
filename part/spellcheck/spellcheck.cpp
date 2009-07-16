@@ -44,29 +44,11 @@ KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 {
   m_speller.restore(KGlobal::config().data());
   m_onTheFlyChecker = new KateOnTheFlyChecker(&m_speller);
-  m_onTheFlyChecker->setEnabled(true);
 }
 
 KateSpellCheckManager::~KateSpellCheckManager()
 {
-  stopOnTheFlySpellCheckThread();
   delete m_onTheFlyChecker;
-}
-
-void KateSpellCheckManager::onTheFlyCheckDocument(KateDocument *document)
-{
-  m_onTheFlyChecker->removeDocument(document);
-  m_onTheFlyChecker->addDocument(document);
-}
-
-void KateSpellCheckManager::addOnTheFlySpellChecking(KateDocument *doc)
-{
-  m_onTheFlyChecker->addDocument(doc);
-}
-
-void KateSpellCheckManager::removeOnTheFlySpellChecking(KateDocument *doc)
-{
-  m_onTheFlyChecker->removeDocument(doc);
 }
 
 void KateSpellCheckManager::updateOnTheFlySpellChecking(KateDocument *doc)
@@ -74,24 +56,19 @@ void KateSpellCheckManager::updateOnTheFlySpellChecking(KateDocument *doc)
   m_onTheFlyChecker->updateDocument(doc);
 }
 
-void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(bool b)
+void KateSpellCheckManager::reflectOnTheFlySpellCheckStatus(KateDocument *document, bool enabled)
 {
-  if(b) {
-          startOnTheFlySpellCheckThread();
+  if(enabled) {
+    m_onTheFlyChecker->addDocument(document);
   }
   else {
-          stopOnTheFlySpellCheckThread();
+    m_onTheFlyChecker->removeDocument(document);
   }
-}
-
-void KateSpellCheckManager::setOnTheFlySpellCheckEnabled(KateDocument *document, bool b)
-{
-  m_onTheFlyChecker->updateInstalledSmartRanges(document);
 }
 
 void KateSpellCheckManager::createActions(KActionCollection* ac)
 {
-
+  Q_UNUSED(ac);
 }
 
 Sonnet::Speller* KateSpellCheckManager::speller()
@@ -102,61 +79,6 @@ Sonnet::Speller* KateSpellCheckManager::speller()
 QString KateSpellCheckManager::defaultDictionary() const
 {
   return m_speller.defaultLanguage();
-}
-
-void KateSpellCheckManager::startOnTheFlySpellCheckThread()
-{
-  kDebug(13000) << "starting spell check thread from thread " << QThread::currentThreadId();
-  m_onTheFlyChecker->setEnabled(true);
-  onTheFlyCheckOpenDocuments();
-}
-
-void KateSpellCheckManager::onTheFlyCheckOpenDocuments()
-{
-/*
-	QHash<KTextEditor::Document*, bool> documentHash;
-	const QList<KTextEditor::View*> textViews = m_viewManager->textViews();
-	for(QList<KTextEditor::View*>::const_iterator i = textViews.begin();
-	    i != textViews.end(); ++i) {
-		KTextEditor::Document *document = (*i)->document();
-		if(!documentHash.contains(document)) {
-			onTheFlyCheckDocument(document);
-			documentHash.insert(document, true);
-		}
-	}
-*/
-}
-
-void KateSpellCheckManager::stopOnTheFlySpellCheckThread()
-{
-	m_onTheFlyChecker->setEnabled(false);
-	removeOnTheFlyHighlighting();
-}
-
-void KateSpellCheckManager::removeOnTheFlyHighlighting()
-{
-/*
-	const QList<KTextEditor::View*> textViews = m_viewManager->textViews();
-	foreach ( const KTextEditor::View *view, textViews ) {
-		if (!view) {
-			continue;
-		}
-		KTextEditor::Document *document = view->document();
-		KTextEditor::SmartInterface *smartInterface =
-		             qobject_cast<KTextEditor::SmartInterface*>(document);
-		if(smartInterface) {
-			smartInterface->smartMutex()->lock();
-// 			smartInterface->clearDocumentHighlights();
-			const QList<KTextEditor::SmartRange*> highlightsList =
-			                                      smartInterface->documentHighlights();
-			for(QList<KTextEditor::SmartRange*>::const_iterator j = highlightsList.begin();
-			j != highlightsList.end(); ++j) {
-				delete(*j);
-			}
-			smartInterface->smartMutex()->unlock();
-		}
-	}
-*/
 }
 
 QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range)

@@ -41,12 +41,9 @@ class KateSpellCheckManager : public QObject {
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
 
-      void onTheFlyCheckDocument(KateDocument *document);
-      void addOnTheFlySpellChecking(KateDocument *doc);
-      void removeOnTheFlySpellChecking(KateDocument *doc);
       void updateOnTheFlySpellChecking(KateDocument *doc);
 
-      void setOnTheFlySpellCheckEnabled(KateDocument *document, bool b);
+      void reflectOnTheFlySpellCheckStatus(KateDocument *document, bool enabled);
 
       void createActions(KActionCollection* ac);
 
@@ -61,17 +58,9 @@ class KateSpellCheckManager : public QObject {
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);
 
-    public Q_SLOTS:
-      void setOnTheFlySpellCheckEnabled(bool b);
-
     protected:
       Sonnet::Speller m_speller;
       KateOnTheFlyChecker *m_onTheFlyChecker;
-
-      void startOnTheFlySpellCheckThread();
-      void stopOnTheFlySpellCheckThread();
-      void removeOnTheFlyHighlighting();
-      void onTheFlyCheckOpenDocuments();
 };
 
 #endif

@@ -165,6 +165,7 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
     KTextEditor::Document *lineDocument = (*i).first;
     if(document == lineDocument && spellCheckRange->overlaps(range)) {
       ON_THE_FLY_DEBUG << "erasing range " << *i;
+      spellCheckRange->removeWatcher(this);
       delete spellCheckRange;
       i = m_spellCheckQueue.erase(i);
     }
@@ -186,6 +187,7 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
       ON_THE_FLY_DEBUG << "added the range " << *spellCheckRange;
     }
     else {
+      spellCheckRange->removeWatcher(this);
       delete(spellCheckRange);
     }
     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
@@ -215,7 +217,9 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
     KTextEditor::Document *lineDocument = (*i).first;
     if(document == lineDocument) {
       ON_THE_FLY_DEBUG << "erasing range " << *i;
-      delete((*i).second.first);
+      KTextEditor::SmartRange *smartRange = (*i).second.first;
+      smartRange->removeWatcher(this);
+      delete(smartRange);
       i = m_spellCheckQueue.erase(i);
     }
     else {
@@ -228,17 +232,19 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
       m_spellCheckQueue.push_front(m_currentlyCheckedItem);
     }
     else {
-      delete(m_currentlyCheckedItem.second.first);
+      KTextEditor::SmartRange *smartRange = m_currentlyCheckedItem.second.first;
+      smartRange->removeWatcher(this);
+      delete(smartRange);
     }
   }
   m_currentlyCheckedItem = invalidSpellCheckQueueItem;
   m_backgroundChecker->stop();
 
-  m_misspelledMap.remove(document);
-  const MisspelledList& misspelledList = m_misspelledMap[document];
-  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
+  MisspelledList misspelledList = m_misspelledMap[document]; // make a copy!
+  for(MisspelledList::iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
     delete((*i).first);
   }
+  m_misspelledMap.remove(document);
   ON_THE_FLY_DEBUG << "exited";
   removeDocumentFromModificationList(document);
   QTimer::singleShot(0, this, SLOT(performSpellCheck()));
@@ -299,7 +305,7 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
   }
   
   if (m_myranges.contains(smartRange)) {
-      m_myranges.removeAll(smartRange);    
+      m_myranges.removeAll(smartRange);
   }
   
   KTextEditor::Document *document = smartRange->document();
@@ -442,7 +448,9 @@ void KateOnTheFlyChecker::spellCheckDone()
     ON_THE_FLY_DEBUG << "exited as no spell check is taking place";
     return;
   }
-  delete(m_currentlyCheckedItem.second.first);
+  KTextEditor::SmartRange *smartRange = m_currentlyCheckedItem.second.first;
+  smartRange->removeWatcher(this);
+  delete(smartRange);
   m_currentlyCheckedItem = invalidSpellCheckQueueItem;
   if(!m_spellCheckQueue.empty()) {
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
@@ -805,6 +813,7 @@ void KateOnTheFlyChecker::addToSpellCheckQueue(KateDocument *document, KTextEdit
       KTextEditor::SmartRange *spellCheckRange = (*i).second.first;
       KTextEditor::Document *queuedDocument = (*i).first;
       if(document == queuedDocument && range->contains(*spellCheckRange)) {
+        spellCheckRange->removeWatcher(this);
         delete spellCheckRange;
         i = m_spellCheckQueue.erase(i);
       }
@@ -844,6 +853,7 @@ void KateOnTheFlyChecker::deleteEliminatedRanges()
   ON_THE_FLY_DEBUG << "deleting eliminated ranges\n";
   while(!m_eliminatedRanges.isEmpty()) {
     KTextEditor::SmartRange *r = m_eliminatedRanges.takeFirst();
+    r->removeWatcher(this);
     ON_THE_FLY_DEBUG << r;
     delete r;
   }

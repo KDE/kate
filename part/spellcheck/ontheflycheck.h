@@ -46,6 +46,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
   typedef QList<MisspelledItem> MisspelledList;
 
   typedef QPair<KTextEditor::Document*, KTextEditor::Range> DocumentRangePair;
+  typedef QPair<KTextEditor::Document*, KTextEditor::SmartRange*> DocumentSmartRangePair;
   typedef QPair<ModificationType, DocumentRangePair> ModificationItem;
   typedef QList<ModificationItem> ModificationList; 
 
@@ -104,7 +105,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     virtual void rangeDeleted(KTextEditor::SmartRange *range);
     bool removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range);
     virtual void rangeEliminated(KTextEditor::SmartRange *range);
-    SmartRangeList m_eliminatedRanges;
+    QList<DocumentSmartRangePair> m_eliminatedRanges;
 
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
     QList<KTextEditor::SmartRange*> m_myranges;
@@ -120,7 +121,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void viewDestroyed(QObject* obj);
     void addView(KTextEditor::Document *document, KTextEditor::View *view);
     void removeView(KTextEditor::View *view);
-    
 
     void restartViewRefreshTimer(KateView *view);
     void viewRefreshTimeout();

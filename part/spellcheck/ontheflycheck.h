@@ -113,7 +113,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     KTextEditor::Cursor findBeginningOfWord(KTextEditor::Document* document,
                                             const KTextEditor::Cursor &cursor,
                                             bool reverse);
- 
+
   protected Q_SLOTS:
     void performSpellCheck();
     void misspelling(const QString &word, int start);

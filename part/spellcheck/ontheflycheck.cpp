@@ -82,6 +82,7 @@ void KateOnTheFlyChecker::setEnabled(bool b)
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
   }
   else {
+    //FIXME: maybe it's better to clear everything here?
     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
     m_spellCheckQueue.clear();
   }
@@ -188,6 +189,7 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
       delete(spellCheckRange);
     }
     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
+    m_backgroundChecker->stop();
   }
   KTextEditor::Range spellCheckRange = KTextEditor::Range(findBeginningOfWord(document, range.start(), true),
                                                           findBeginningOfWord(document, range.start(), false));
@@ -230,6 +232,7 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
     }
   }
   m_currentlyCheckedItem = invalidSpellCheckQueueItem;
+  m_backgroundChecker->stop();
 
   m_misspelledMap.remove(document);
   const MisspelledList& misspelledList = m_misspelledMap[document];
@@ -327,6 +330,7 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange
   if(m_currentlyCheckedItem != invalidSpellCheckQueueItem
      && m_currentlyCheckedItem.second.first == range) {
      m_currentlyCheckedItem = invalidSpellCheckQueueItem;
+     m_backgroundChecker->stop();
      return true;
   }
   bool found = false;

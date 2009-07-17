@@ -49,7 +49,7 @@ class KateSpellCheckManager : public QObject {
 
       Sonnet::Speller* speller();
 
-      QString defaultDictionary() const;
+      QString defaultDictionary();
 
       QList<QPair<KTextEditor::Range, QString> > spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range);
       QList<QPair<KTextEditor::Range, QString> > spellCheckWrtHighlightingRanges(KateDocument *doc, const KTextEditor::Range& range,
@@ -59,7 +59,7 @@ class KateSpellCheckManager : public QObject {
                                                                                      bool singleLine = false);
 
     protected:
-      Sonnet::Speller m_speller;
+      Sonnet::Speller *m_speller;
       KateOnTheFlyChecker *m_onTheFlyChecker;
 };
 

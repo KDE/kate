@@ -39,9 +39,9 @@
 
 #define ON_THE_FLY_DEBUG kDebug(debugArea())
 
-KateOnTheFlyChecker::KateOnTheFlyChecker(Sonnet::Speller *speller, QObject *parent)
+KateOnTheFlyChecker::KateOnTheFlyChecker(QObject *parent)
 : QObject(parent),
-  m_speller(speller),
+  m_backgroundChecker(NULL),
   m_currentlyCheckedItem(invalidSpellCheckQueueItem),
   m_refreshView(NULL)
 {
@@ -49,12 +49,6 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(Sonnet::Speller *speller, QObject *pare
 
   setWantsDirectChanges(true);
 
-  m_backgroundChecker = new Sonnet::BackgroundChecker(Sonnet::Speller(), this);
-  connect(m_backgroundChecker,
-          SIGNAL(misspelling(const QString&,int)),
-          this,
-          SLOT(misspelling(const QString&,int)));
-  connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
   m_viewRefreshTimer = new QTimer(this);
   m_viewRefreshTimer->setSingleShot(true);
   connect(m_viewRefreshTimer, SIGNAL(timeout()), this, SLOT(viewRefreshTimeout()));
@@ -195,7 +189,9 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
       delete(spellCheckRange);
     }
     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
-    m_backgroundChecker->stop();
+    if(m_backgroundChecker) {
+      m_backgroundChecker->stop();
+    }
   }
   KTextEditor::Range spellCheckRange = KTextEditor::Range(findBeginningOfWord(document, range.start(), true),
                                                           findBeginningOfWord(document, range.start(), false));
@@ -214,6 +210,7 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
 
 void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
 {
+  ON_THE_FLY_DEBUG;
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
   if(!smartInterface) {
@@ -251,7 +248,9 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
     }
   }
   m_currentlyCheckedItem = invalidSpellCheckQueueItem;
-  m_backgroundChecker->stop();
+  if(m_backgroundChecker) {
+    m_backgroundChecker->stop();
+  }
 
   MisspelledList misspelledList = m_misspelledMap[document]; // make a copy!
   for(MisspelledList::iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
@@ -260,7 +259,9 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
   m_misspelledMap.remove(document);
   ON_THE_FLY_DEBUG << "exited";
   removeDocumentFromModificationList(document);
-  QTimer::singleShot(0, this, SLOT(performSpellCheck()));
+  if(!m_spellCheckQueue.isEmpty()) {
+    QTimer::singleShot(0, this, SLOT(performSpellCheck()));
+  }
   m_documentList.removeAll(kateDocument);
 }
 
@@ -292,10 +293,19 @@ void KateOnTheFlyChecker::performSpellCheck()
 
   QString text = document->text(*spellCheckRange);
   ON_THE_FLY_DEBUG << "next spell checking" << text;
-  if(m_speller->language() != language) {
-    m_speller->setLanguage(language);
+  Sonnet::Speller *speller = KateGlobal::self()->spellCheckManager()->speller();
+  if(speller->language() != language) {
+    speller->setLanguage(language);
   }
-  m_backgroundChecker->setSpeller(*m_speller);
+  if(!m_backgroundChecker) {
+    m_backgroundChecker = new Sonnet::BackgroundChecker(*speller, this);
+    connect(m_backgroundChecker,
+            SIGNAL(misspelling(const QString&,int)),
+            this,
+            SLOT(misspelling(const QString&,int)));
+    connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
+  }
+  m_backgroundChecker->setSpeller(*speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
   ON_THE_FLY_DEBUG << "exited";
 }
@@ -356,7 +366,9 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange
   if(m_currentlyCheckedItem != invalidSpellCheckQueueItem
      && m_currentlyCheckedItem.second.first == range) {
      m_currentlyCheckedItem = invalidSpellCheckQueueItem;
-     m_backgroundChecker->stop();
+     if(m_backgroundChecker) {
+      m_backgroundChecker->stop();
+     }
      return true;
   }
   bool found = false;
@@ -451,7 +463,9 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
     installSmartRange(smartRange, static_cast<KateDocument*>(document));
   }
 
-  m_backgroundChecker->continueChecking();
+  if(m_backgroundChecker) {
+    m_backgroundChecker->continueChecking();
+  }
   ON_THE_FLY_DEBUG << "exited";
 }
 
@@ -612,7 +626,7 @@ void KateOnTheFlyChecker::removeDocument(KateDocument *document)
 {
   ON_THE_FLY_DEBUG;
   if(!m_documentList.contains(document)) {
-    return;
+      return;
   }
   disconnect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
           this, SLOT(textInserted(KTextEditor::Document*, const KTextEditor::Range&)));

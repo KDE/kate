@@ -40,15 +40,15 @@
 #include "spellcheck.h"
 
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
-: QObject(parent)
+: QObject(parent), m_speller(NULL)
 {
-  m_speller.restore(KGlobal::config().data());
-  m_onTheFlyChecker = new KateOnTheFlyChecker(&m_speller);
+  m_onTheFlyChecker = new KateOnTheFlyChecker();
 }
 
 KateSpellCheckManager::~KateSpellCheckManager()
 {
   delete m_onTheFlyChecker;
+  delete m_speller;
 }
 
 void KateSpellCheckManager::updateOnTheFlySpellChecking(KateDocument *doc)
@@ -73,12 +73,16 @@ void KateSpellCheckManager::createActions(KActionCollection* ac)
 
 Sonnet::Speller* KateSpellCheckManager::speller()
 {
-  return &m_speller;
+  if(!m_speller) {
+    m_speller = new Sonnet::Speller();
+    m_speller->restore(KGlobal::config().data());
+  }
+  return m_speller;
 }
 
-QString KateSpellCheckManager::defaultDictionary() const
+QString KateSpellCheckManager::defaultDictionary()
 {
-  return m_speller.defaultLanguage();
+  return speller()->defaultLanguage();
 }
 
 QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range)

@@ -472,7 +472,7 @@ void KateOnTheFlyChecker::spellCheckDone()
   QMutexLocker smartLock(smartInterface->smartMutex());
   KTextEditor::SmartRange *smartRange = m_currentlyCheckedItem.second.first;
 
-  KTextEditor::SmartInterface *smartInterface = qobject_cast<KTextEditor::SmartInterface*>(smartRange->document());
+  smartInterface = qobject_cast<KTextEditor::SmartInterface*>(smartRange->document());
   Q_ASSERT(smartInterface); //Must be there, since we're in kate
   
   QMutexLocker lock(smartInterface->smartMutex());

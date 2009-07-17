@@ -666,21 +666,21 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         c = m_caretOverrideColor;
 
       } else {
-        foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats())
-        {
+        // search for the FormatRange that includes the cursor
+        foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats()) {
           if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
-            c = r.format.foreground().color();
+            // check for Qt::NoBrush, as the returned color is black() and no invalid QColor
+            QBrush foregroundBrush = r.format.foreground();
+            if (foregroundBrush != Qt::NoBrush) {
+              c = r.format.foreground().color();
+            }
             break;
           }
         }
 
+        // still no color found, fall back to default style
         if (!c.isValid())
-        {
-          if (range->layout()->additionalFormats().count())
-            c = range->layout()->additionalFormats().last().format.foreground().color();
-          else
             c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
-        }
       }
 
       // make it possible to see the selected character in the vi input mode's normal/visual mode
@@ -924,7 +924,7 @@ bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
     }
     i ++;
   }
- 
+
    return false;
 #if 0
   // or should we use the direction of the widget?

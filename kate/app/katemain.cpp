@@ -279,7 +279,12 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
       
       // application object to have event loop
-      KApplication app(false);
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // It's too bad, that we have to use KApplication here, since this forces us to
+      // register a service to dbus. If we don't use KApplication we cannot use KStartupInfo
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //
+      KApplication app(true);
       
       // connect dbus signal
       if (needToBlock) {

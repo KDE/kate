@@ -199,14 +199,32 @@ void KateOnTheFlyChecker::handleRemovedText(KTextEditor::Document *document, con
                                                           findBeginningOfWord(document, range.start(), false));
   queueSpellCheckVisibleRange(kateDocument, spellCheckRange);
 
+#if 0
+  const int numberOfLines = range.numberOfLines();
+  ON_THE_FLY_DEBUG << "number of lines removed:" << numberOfLines;
+  if(numberOfLines > 0) {
+  // update as otherwise the highlighting below the removed lines is not shown
+   const int endLine = range.end().line(); 
+   const QList<KTextEditor::View*>& viewList = kateDocument->views();
+    for(QList<KTextEditor::View*>::const_iterator j = viewList.begin(); j != viewList.end(); ++j) {
+      KateView *view = static_cast<KateView*>(*j);
+      KTextEditor::Range visibleRange = view->visibleRange();
+      const int visibleEndLine = visibleRange.end().line();
+  ON_THE_FLY_DEBUG << "visibleEndLine:" << visibleEndLine;
+      for(int line = numberOfLines; line >= 0; --line) {
+        if(visibleEndLine - line > endLine && visibleEndLine - line >= 0) {
+          queueSpellCheckVisibleRange(kateDocument, KTextEditor::Range(visibleEndLine - line, 0, visibleEndLine - line, kateDocument->lineLength(visibleEndLine - line)));
+        }
+        else {
+          break;
+        }
+      }
+    }
+  }
+#endif
   ON_THE_FLY_DEBUG << "exited";
   if(spellCheckInProgress || (emptyAtStart && !m_spellCheckQueue.isEmpty())) {
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
-  }
-
-  // update as otherwise the highlighting below the removed lines is not shown
-  if(range.numberOfLines() > 1) {
-    updateInstalledSmartRanges(static_cast<KateDocument*>(document));
   }
 }
 
@@ -223,6 +241,9 @@ void KateOnTheFlyChecker::freeDocument(KTextEditor::Document *document)
   KateDocument *kateDocument = static_cast<KateDocument*>(document);
 
   QMutexLocker lock(kateDocument->smartMutex());
+  
+  // ensure that 'document' does not occur in the eliminated ranges list
+  deleteEliminatedRanges();
   
   for(QList<SpellCheckQueueItem>::iterator i = m_spellCheckQueue.begin();
                                            i != m_spellCheckQueue.end();) {
@@ -393,7 +414,10 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange
 void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
 {
   ON_THE_FLY_DEBUG << range->start() << range->end();
-  removeRangeFromSpellCheckQueue(range);
+  // remove it from all our structures
+  range->removeWatcher(this);
+  rangeDeleted(range);
+  // but only delete it later
   m_eliminatedRanges.push_back(DocumentSmartRangePair(range->document(), range));
   if(m_eliminatedRanges.size() == 1) { // otherwise there is already a call to '
                                        // 'deleteEliminatedRanges()' scheduled
@@ -939,8 +963,7 @@ void KateOnTheFlyChecker::deleteEliminatedRanges()
     QMutexLocker smartLock(smartInterface->smartMutex());
     KTextEditor::SmartRange *r = p.second;
     QMutexLocker lock(dynamic_cast<KTextEditor::SmartInterface*>(r->document())->smartMutex());
-    
-    r->removeWatcher(this);
+    // the watcher has already been removed
     ON_THE_FLY_DEBUG << r;
     delete r;
   }

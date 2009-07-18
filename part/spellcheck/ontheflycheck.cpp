@@ -388,11 +388,14 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::SmartRange
 {
   if(m_currentlyCheckedItem != invalidSpellCheckQueueItem
      && m_currentlyCheckedItem.second.first == range) {
-     m_currentlyCheckedItem = invalidSpellCheckQueueItem;
-     if(m_backgroundChecker) {
-      m_backgroundChecker->stop();
-     }
-     return true;
+    m_currentlyCheckedItem = invalidSpellCheckQueueItem;
+    if(m_backgroundChecker) {
+    m_backgroundChecker->stop();
+    }
+    if(!m_spellCheckQueue.isEmpty()) {
+      QTimer::singleShot(0, this, SLOT(performSpellCheck()));      
+    }
+    return true;
   }
   bool found = false;
   for(QList<SpellCheckQueueItem>::iterator i = m_spellCheckQueue.begin();

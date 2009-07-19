@@ -330,7 +330,7 @@ void KateOnTheFlyChecker::performSpellCheck()
   // clear all the highlights that are currently present in the range that
   // is supposed to be checked
   const SmartRangeList highlightsList = installedSmartRangesInDocument(document, *spellCheckRange); // make a copy!
-  
+
   qDeleteAll(highlightsList);
 
   QString text = document->text(*spellCheckRange);
@@ -864,8 +864,12 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *kateDocument, int li
                              = KateGlobal::self()->spellCheckManager()->spellCheckRanges(kateDocument,
                                                                                          range,
                                                                                          true);
-    for(QList<QPair<KTextEditor::Range, QString> >::iterator i = spellCheckRanges.begin(); i != spellCheckRanges.end(); ++i) {
-      queueLineSpellCheck(kateDocument, (*i).first, (*i).second);
+    //we queue them up in reverse
+    QListIterator<QPair<KTextEditor::Range, QString> > i(spellCheckRanges);
+    i.toBack();
+    while(i.hasPrevious()) {
+      QPair<KTextEditor::Range, QString> p = i.previous();
+      queueLineSpellCheck(kateDocument, p.first, p.second);
     }
 }
 

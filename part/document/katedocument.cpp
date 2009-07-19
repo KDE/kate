@@ -290,6 +290,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  // delete it here because it has to be deleted before the SmartMutex is destroyed
+  delete m_onTheFlyChecker;
+
   // Tell the world that we're about to close (== destruct)
   // Apps must receive this in a direct signal-slot connection, and prevent
   // any further use of interfaces once they return.
@@ -6225,7 +6228,7 @@ void KateDocument::setDictionary(const QString& dict)
     return;
   }
   m_dictionary = dict;
-  if(m_onTheFlyChecker != 0) {
+  if(m_onTheFlyChecker) {
     m_onTheFlyChecker->updateConfig();
   }
 }
@@ -6233,7 +6236,7 @@ void KateDocument::setDictionary(const QString& dict)
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable) {
   config()->setOnTheFlySpellCheck(enable);
   if (enable) {
-    if (m_onTheFlyChecker == 0)
+    if (!m_onTheFlyChecker)
       m_onTheFlyChecker = new KateOnTheFlyChecker(this);
   } else {
     delete m_onTheFlyChecker;

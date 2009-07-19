@@ -241,8 +241,6 @@ void KateOnTheFlyChecker::freeDocument()
 {
   ON_THE_FLY_DEBUG;
   QMutexLocker smartLock(m_document->smartMutex());
-  ON_THE_FLY_DEBUG;
-  QMutexLocker lock(m_document->smartMutex());
 
   // ensure that 'document' does not occur in the eliminated ranges list
   deleteEliminatedRanges();

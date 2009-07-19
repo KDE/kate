@@ -49,7 +49,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
 
   typedef QPair<KTextEditor::Document*, KTextEditor::Range> DocumentRangePair;
   typedef QPair<KTextEditor::Document*, KTextEditor::SmartRange*> DocumentSmartRangePair;
-  typedef QPair<ModificationType, DocumentRangePair> ModificationItem;
+  typedef QPair<ModificationType, DocumentSmartRangePair> ModificationItem;
   typedef QList<ModificationItem> ModificationList; 
 
   public:
@@ -134,6 +134,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void handleRemovedText(KTextEditor::Document *document, const KTextEditor::Range &range);
     void handleRespellCheckBlock(KateDocument *document, int start, int end);
     void removeDocumentFromModificationList(KTextEditor::Document *document);
+    bool removeSmartRangeFromModificationList(KTextEditor::SmartRange *range);
+    void clearModificationList();
 };
 
 #endif

@@ -218,7 +218,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   editSessionNumber = 0;
   editIsRunning = false;
-  editWithUndo = false;
 
   m_docNameNumber = 0;
   m_docName = "need init";
@@ -916,7 +915,7 @@ int KateDocument::lineLength ( int line ) const
 //
 // Starts an edit session with (or without) undo, update of view disabled during session
 //
-void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
+void KateDocument::editStart (Kate::EditSource editSource)
 {
   editSessionNumber++;
 
@@ -932,10 +931,8 @@ void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
     return;
 
   editIsRunning = true;
-  editWithUndo = withUndo;
 
-  if (editWithUndo)
-    m_undoManager->editStart();
+  m_undoManager->editStart();
 
   foreach(KateView *view,m_views)
   {
@@ -963,7 +960,7 @@ void KateDocument::editEnd ()
 
   // wrap the new/changed text, if something really changed!
   if (m_buffer->editChanged() && (editSessionNumber == 1))
-    if (editWithUndo && config()->wordWrap())
+    if (m_undoManager->isUndoTrackingEnabled() && config()->wordWrap())
       wrapText (m_buffer->editTagStart(), m_buffer->editTagEnd());
 
   editSessionNumber--;
@@ -980,8 +977,7 @@ void KateDocument::editEnd ()
   // this will cause some possible adjustment of tagline start/end
   m_buffer->editEnd ();
 
-  if (editWithUndo)
-    m_undoManager->editEnd();
+  m_undoManager->editEnd();
 
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)
@@ -1012,12 +1008,12 @@ void KateDocument::popEditState ()
 
 void KateDocument::inputMethodStart()
 {
-  editStart(false);
+  m_undoManager->inputMethodStart();
 }
 
 void KateDocument::inputMethodEnd()
 {
-  editEnd();
+  m_undoManager->inputMethodEnd();
 }
 
 bool KateDocument::wrapText(int startLine, int endLine)
@@ -1155,7 +1151,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   if (!l)
     return false;
 
-  editStart (true, editSource);
+  editStart (editSource);
 
   m_undoManager->slotTextInserted(line, col, s);
 
@@ -1184,7 +1180,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (!l)
     return false;
 
-  editStart (true, editSource);
+  editStart (editSource);
 
   m_undoManager->slotTextRemoved(line, col, l->string().mid(col, len));
 
@@ -1395,7 +1391,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   if ( line > lines() )
     return false;
 
-  editStart (true, editSource);
+  editStart (editSource);
 
   m_undoManager->slotLineInserted(line, s);
 
@@ -1463,7 +1459,7 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
   if (info.startsInVisibleBlock)
     foldingTree()->toggleRegionVisibility(line);
 
-  editStart (true, editSource);
+  editStart (editSource);
 
   QString oldText = this->line(line);
 
@@ -4041,7 +4037,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   m_undoManager->setUndoDontMerge (true);
 
-  editStart (true, Kate::CutCopyPasteEdit);
+  editStart (Kate::CutCopyPasteEdit);
 
   if (!view->config()->persistentSelection() && view->selection() )
     view->removeSelectedText();
@@ -5786,7 +5782,9 @@ bool KateDocument::insertTemplateTextImplementation ( const KTextEditor::Cursor 
     return false;
 
   m_templateHandler = new KateTemplateHandler(this,c,templateString,initialValues);
+  m_templateHandler->setEditWithUndo(m_undoManager->isUndoTrackingEnabled());
 
+  connect(m_undoManager, SIGNAL(undoTrackingEnabledChanged(bool)), m_templateHandler, SLOT(setEditWithUndo(bool)));
   connect(m_templateHandler, SIGNAL(destroyed(QObject *)), this, SLOT(templateHandlerDestroyed()));
 
   return m_templateHandler->initOk();
@@ -6086,13 +6084,6 @@ void KateDocument::setUndoDontMerge(bool dontMerge)
 bool KateDocument::isEditRunning() const
 {
   return editIsRunning;
-}
-
-bool KateDocument::isWithUndo() const
-{
-  Q_ASSERT(isEditRunning()); // result is only valid for currently running edits
-
-  return editWithUndo;
 }
 
 void KateDocument::setMergeAllEdits(bool merge)

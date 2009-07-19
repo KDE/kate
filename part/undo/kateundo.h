@@ -26,6 +26,7 @@
 
 #include <ktexteditor/range.h>
 
+class KateUndoManager;
 class KateDocument;
 class KateView;
 
@@ -357,9 +358,9 @@ class KateUndoGroup
   public:
     /**
      * Constructor
-     * @param document document this group will belong to
+     * @param manager KateUndoManager this undo group will belong to
      */
-    explicit KateUndoGroup (KateDocument *document);
+    explicit KateUndoGroup (KateUndoManager *manager);
 
     /**
      * Destructor
@@ -398,6 +399,8 @@ class KateUndoGroup
     bool isEmpty() const { return m_items.isEmpty(); }
 
   private:
+    KateDocument *document();
+
     KateView *activeKateView();
 
     /**
@@ -421,7 +424,7 @@ class KateUndoGroup
     void addItem (KateUndo *u);
 
   private:
-    KateDocument *const m_document;
+    KateUndoManager *const m_manager;
 
     /**
      * list of items contained

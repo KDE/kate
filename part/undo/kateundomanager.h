@@ -52,6 +52,8 @@ class KateUndoManager : public QObject
 
     ~KateUndoManager();
 
+    KateDocument *document();
+
     /**
      * Returns how many undo() actions can be performed.
      *
@@ -80,8 +82,6 @@ class KateUndoManager : public QObject
      */
     void setUndoDontMerge(bool dontMerge);
 
-    bool allowComplexMerge() const;
-
     /**
      * Allows or disallows merging of "complex" undo groups.
      *
@@ -91,6 +91,10 @@ class KateUndoManager : public QObject
      * @param allow whether complex merging is allowed
      */
     void setAllowComplexMerge(bool allow);
+
+    bool allowComplexMerge() const;
+
+    bool isUndoTrackingEnabled() const { return m_isUndoTrackingEnabled; }
 
     void setModified( bool m );
     void updateConfig ();
@@ -122,6 +126,12 @@ class KateUndoManager : public QObject
      * Notify KateUndoManager about the end of an edit.
      */
     void editEnd();
+
+    void undoStart();
+    void undoEnd();
+
+    void inputMethodStart();
+    void inputMethodEnd();
 
     /**
      * Notify KateUndoManager that text was inserted.
@@ -160,14 +170,17 @@ class KateUndoManager : public QObject
 
   Q_SIGNALS:
     void undoChanged ();
+    void undoTrackingEnabledChanged(bool enabled);
 
   private:
     /**
-     * @short Add an undo item to the current undo group. The undo item must be non-null.
+     * @short Add an undo item to the current undo group.
      *
      * @param undo undo item to be added, must be non-null
      */
     void addUndoItem(KateUndo *undo);
+
+    void setUndoTrackingEnabled(bool enabled);
 
     void updateModified();
 
@@ -178,6 +191,7 @@ class KateUndoManager : public QObject
   private:
     KateDocument *m_document;
     bool m_undoComplexMerge;
+    bool m_isUndoTrackingEnabled;
     KateUndoGroup* m_editCurrentUndo;
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;

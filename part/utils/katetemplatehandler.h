@@ -39,6 +39,10 @@ class KateTemplateHandler: public QObject {
 		virtual ~KateTemplateHandler();
 		inline bool initOk() {return m_initOk;}
 		virtual bool operator()(int key);
+
+        public Q_SLOTS:
+                void setEditWithUndo(bool enabled);
+
 	private:
 		class KateTemplatePlaceHolder {
                 public:
@@ -75,6 +79,7 @@ class KateTemplateHandler: public QObject {
 		bool m_initOk;
 		bool m_recursion;
                 KTextEditor::SmartRange* m_templateRange;
+                bool m_editWithUndo;
 	private Q_SLOTS:
 		void slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&);
 		void slotAboutToRemoveText(const KTextEditor::Range& range);

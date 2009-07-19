@@ -3818,7 +3818,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     KTextEditor::Cursor start(m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + e->replacementStart());
     KTextEditor::Cursor removeEnd = start + KTextEditor::Cursor(0, e->replacementLength());
 
-    doc()->editStart(true);
+    doc()->editStart();
     if (start != removeEnd)
       doc()->removeText(KTextEditor::Range(start, removeEnd));
     if (!e->commitString().isEmpty())

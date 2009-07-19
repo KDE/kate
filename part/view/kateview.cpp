@@ -1758,7 +1758,7 @@ bool KateView::removeSelectedText()
   if (!selection())
     return false;
 
-  m_doc->editStart (true, Kate::CutCopyPasteEdit);
+  m_doc->editStart (Kate::CutCopyPasteEdit);
 
   KTextEditor::Range range = *m_selection;
 

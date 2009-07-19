@@ -205,9 +205,9 @@ class KateDocument : public KTextEditor::Document,
      * them.
      * @param withUndo if true, add undo history
      */
-    void editStart (bool withUndo = true, Kate::EditSource editSource = Kate::NoEditSource);
+    void editStart (Kate::EditSource editSource = Kate::NoEditSource);
     /** Same as editStart() with undo */
-    void editBegin (Kate::EditSource editSource = Kate::NoEditSource) { editStart(true, editSource); }
+    void editBegin (Kate::EditSource editSource = Kate::NoEditSource) { editStart(editSource); }
     /**
      * End a editor operation.
      * @see editStart()
@@ -217,7 +217,7 @@ class KateDocument : public KTextEditor::Document,
     void pushEditState();
     void popEditState();
 
-    bool startEditing () { editStart (true, Kate::ThirdPartyEdit); return true; }
+    bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
     bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd
@@ -318,13 +318,6 @@ class KateDocument : public KTextEditor::Document,
 
     bool isEditRunning() const;
 
-    /**
-     * States whether the edit currently in progress has undo enabled.
-     *
-     * The method may only be called when an edit is actually in progress, i.e. isEditRunning() is true.
-     */
-    bool isWithUndo() const;
-
     void setMergeAllEdits(bool merge);
 
   private:
@@ -332,7 +325,6 @@ class KateDocument : public KTextEditor::Document,
     QStack<int> editStateStack;
     QStack<Kate::EditSource> m_editSources;
     bool editIsRunning;
-    bool editWithUndo;
 
   //
   // KTextEditor::UndoInterface stuff

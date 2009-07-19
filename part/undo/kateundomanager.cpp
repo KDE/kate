@@ -26,6 +26,7 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   : QObject (doc)
   , m_document (doc)
   , m_undoComplexMerge (false)
+  , m_isUndoTrackingEnabled (true)
   , m_editCurrentUndo (0)
   , m_undoDontMerge (false)
   , lastUndoGroupWhenSaved(0)
@@ -48,6 +49,11 @@ KateUndoManager::~KateUndoManager()
   redoItems.clear();
 }
 
+KateDocument *KateUndoManager::document()
+{
+  return m_document;
+}
+
 void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *newView)
 {
   connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
@@ -55,17 +61,23 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::editStart()
 {
+  if (!m_isUndoTrackingEnabled)
+    return;
+
   // editStart() and editEnd() must be called in alternating fashion
   Q_ASSERT(m_editCurrentUndo == 0); // make sure to enter a clean state
 
   // new current undo item
-  m_editCurrentUndo = new KateUndoGroup(m_document);
+  m_editCurrentUndo = new KateUndoGroup(this);
 
   Q_ASSERT(m_editCurrentUndo != 0); // a new undo group must be created by this method
 }
 
 void KateUndoManager::editEnd()
 {
+  if (!m_isUndoTrackingEnabled)
+    return;
+
   // editStart() and editEnd() must be called in alternating fashion
   Q_ASSERT(m_editCurrentUndo != 0); // an undo group must have been created by editStart()
 
@@ -92,6 +104,30 @@ void KateUndoManager::editEnd()
       emit undoChanged();
 
   Q_ASSERT(m_editCurrentUndo == 0); // must be 0 after calling this method
+}
+
+void KateUndoManager::inputMethodStart()
+{
+  setUndoTrackingEnabled(false);
+  m_document->editStart();
+}
+
+void KateUndoManager::inputMethodEnd()
+{
+  m_document->editEnd();
+  setUndoTrackingEnabled(true);
+}
+
+void KateUndoManager::undoStart()
+{
+  setUndoTrackingEnabled(false);
+  m_document->editStart();
+}
+
+void KateUndoManager::undoEnd()
+{
+  m_document->editEnd();
+  setUndoTrackingEnabled(true);
 }
 
 void KateUndoManager::slotTextInserted(int line, int col, const QString &s)
@@ -163,6 +199,16 @@ void KateUndoManager::addUndoItem(KateUndo *undo)
   // Clear redo buffer
   qDeleteAll(redoItems);
   redoItems.clear();
+}
+
+void KateUndoManager::setUndoTrackingEnabled(bool enabled)
+{
+  Q_ASSERT(m_editCurrentUndo == 0); // must not already be in edit mode
+  Q_ASSERT(m_isUndoTrackingEnabled != enabled);
+
+  m_isUndoTrackingEnabled = enabled;
+
+  emit undoTrackingEnabledChanged(enabled);
 }
 
 uint KateUndoManager::undoCount () const

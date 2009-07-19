@@ -45,6 +45,7 @@ KateTemplateHandler::KateTemplateHandler(
     , m_initOk( false )
     , m_recursion( false )
     , m_templateRange(0)
+    , m_editWithUndo( true )
 {
   QList<KateTemplateHandlerPlaceHolderInfo> buildList;
   QRegExp rx( "([$%])\\{([^}\\s]+)\\}" );
@@ -115,6 +116,11 @@ KateTemplateHandler::~KateTemplateHandler()
 
 void KateTemplateHandler::slotRangeDeleted(KTextEditor::SmartRange* range) {
   if (range==m_templateRange) m_templateRange=0;
+}
+
+void KateTemplateHandler::setEditWithUndo(bool enabled)
+{
+  m_editWithUndo = enabled;
 }
 
 void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList )
@@ -217,7 +223,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 
 void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEditor::Range& range)
 {
-  if (m_doc->isEditRunning() && !m_doc->isWithUndo())
+  if (m_doc->isEditRunning() && !m_editWithUndo)
   {
     kDebug(13020)<<"slotTextInserted returning prematurely";
     return;

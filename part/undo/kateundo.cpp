@@ -21,6 +21,8 @@
 
 #include "kateundo.h"
 
+#include "kateundomanager.h"
+
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecursor.h"
@@ -182,18 +184,18 @@ void KateEditMarkLineAutoWrappedUndo::redo ()
       doc->editMarkLineAutoWrapped (m_line, m_autowrapped);
 }
 
-KateUndoGroup::KateUndoGroup (KateDocument *document)
-  : m_document (document)
+KateUndoGroup::KateUndoGroup (KateUndoManager *manager)
+  : m_manager (manager)
   , m_safePoint(false)
   , m_undoSelection(-1, -1, -1, -1)
   , m_redoSelection(-1, -1, -1, -1)
   , m_undoCursor(-1, -1)
   , m_redoCursor(-1, -1)
 {
-  if (document->activeKateView())
+  if (activeKateView())
   {
-    m_undoCursor = document->activeKateView()->cursorPosition();
-    m_undoSelection = document->activeKateView()->selectionRange();
+    m_undoCursor = activeKateView()->cursorPosition();
+    m_undoSelection = activeKateView()->selectionRange();
   }
 }
 
@@ -207,7 +209,7 @@ void KateUndoGroup::undo ()
   if (m_items.isEmpty())
     return;
 
-  m_document->editStart (false);
+  m_manager->undoStart ();
 
   for (int i=m_items.size()-1; i >= 0; --i)
     m_items[i]->undo();
@@ -222,7 +224,7 @@ void KateUndoGroup::undo ()
       view->editSetCursor(m_undoCursor);
   }
 
-  m_document->editEnd ();
+  m_manager->undoEnd ();
 }
 
 void KateUndoGroup::redo ()
@@ -230,7 +232,7 @@ void KateUndoGroup::redo ()
   if (m_items.isEmpty())
     return;
 
-  m_document->editStart (false);
+  m_manager->undoStart ();
 
   for (int i=0; i < m_items.size(); ++i)
     m_items[i]->redo();
@@ -245,7 +247,7 @@ void KateUndoGroup::redo ()
       view->editSetCursor(m_redoCursor);
   }
 
-  m_document->editEnd ();
+  m_manager->undoEnd ();
 }
 
 void KateUndoGroup::editEnd()
@@ -297,9 +299,14 @@ void KateUndoGroup::safePoint (bool safePoint)
   m_safePoint=safePoint;
 }
 
+KateDocument *KateUndoGroup::document()
+{
+  return m_manager->document();
+}
+
 KateView *KateUndoGroup::activeKateView()
 {
-  return m_document->activeKateView();
+  return document()->activeKateView();
 }
 
 KateUndo::UndoType KateUndoGroup::singleType() const

@@ -770,7 +770,7 @@ void KateCompletionWidget::execute()
   }
 
   // encapsulate all editing as being from the code completion, and undo-able in one step.
-  view()->doc()->editStart(true, Kate::CodeCompletionEdit);
+  view()->doc()->editStart(Kate::CodeCompletionEdit);
 
   KTextEditor::SmartCursor* oldPos = view()->doc()->smartManager()->newSmartCursor(view()->cursorPosition(), KTextEditor::SmartCursor::StayOnInsert);
 

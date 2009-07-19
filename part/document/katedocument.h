@@ -61,6 +61,7 @@ class KateDocumentConfig;
 class KateHighlighting;
 class KateSmartManager;
 class KateUndoManager;
+class KateOnTheFlyChecker;
 
 
 class KateTemplateHandler;
@@ -676,9 +677,7 @@ class KateDocument : public KTextEditor::Document,
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
-    void respellCheckBlock(KateDocument *document,int start, int end);
   public Q_SLOTS:
-    void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
     virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
 
@@ -1150,16 +1149,20 @@ class KateDocument : public KTextEditor::Document,
       static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
 
   public:
-      QString dictionary();
+      QString dictionary() const;
       QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges();
+      bool isOnTheFlySpellCheckingEnabled() const;
 
   public Q_SLOTS:
       void setDictionary(const QString& dict);
       void onTheFlySpellCheckingEnabled(bool enable);
-  public:
-      bool isOnTheFlySpellCheckingEnabled();
-      
+      void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
+
+  Q_SIGNALS:
+      void respellCheckBlock(KateDocument *document,int start, int end);
+
   protected:
+      KateOnTheFlyChecker *m_onTheFlyChecker;
       QString m_dictionary;
       QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
 };

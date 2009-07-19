@@ -42,10 +42,6 @@ class KateSpellCheckManager : public QObject {
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
 
-      void updateOnTheFlySpellChecking(KateDocument *doc);
-
-      void reflectOnTheFlySpellCheckStatus(KateDocument *document, bool enabled);
-
       void createActions(KActionCollection* ac);
 
       Sonnet::Speller* speller();
@@ -61,7 +57,6 @@ class KateSpellCheckManager : public QObject {
 
     protected:
       Sonnet::Speller *m_speller;
-      KateOnTheFlyChecker *m_onTheFlyChecker;
 };
 
 #endif

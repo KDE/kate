@@ -46,7 +46,7 @@
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
 #include "katevireplacemode.h"
-#include "spellcheck/spellcheck.h"
+#include "spellcheck/ontheflycheck.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -186,7 +186,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHdReason (OnDiskUnmodified),
   s_fileChangedDialogsActivated (false),
   m_templateHandler(0),
-  m_savingToUrl(false)
+  m_savingToUrl(false),
+  m_onTheFlyChecker(0)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -278,6 +279,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_isasking = 0;
 
+  onTheFlySpellCheckingEnabled(config()->onTheFlySpellCheck());
+
   // register document in plugins
   KatePartPluginManager::self()->addDocument(this);
 }
@@ -291,9 +294,6 @@ KateDocument::~KateDocument()
   // Apps must receive this in a direct signal-slot connection, and prevent
   // any further use of interfaces once they return.
   emit aboutToClose(this);
-
-  // disable on-the-fly spell checking
-  KateGlobal::self()->spellCheckManager()->reflectOnTheFlySpellCheckStatus(this, false);
 
   // remove file from dirwatch
   deactivateDirWatch ();
@@ -5230,7 +5230,7 @@ void KateDocument::updateConfig ()
     view->updateDocumentConfig ();
   
   // update on-the-fly spell checking as spell checking defaults might have changes
-  KateGlobal::self()->spellCheckManager()->updateOnTheFlySpellChecking(this);
+  m_onTheFlyChecker->updateConfig();
 }
 
 //BEGIN Variable reader
@@ -6209,7 +6209,7 @@ bool KateDocument::saveAs( const KUrl &url ) {
   return KTextEditor::Document::saveAs(url);
 }
 
-QString KateDocument::dictionary()
+QString KateDocument::dictionary() const
 {
   return m_dictionary;
 }
@@ -6225,22 +6225,24 @@ void KateDocument::setDictionary(const QString& dict)
     return;
   }
   m_dictionary = dict;
-  if(isOnTheFlySpellCheckingEnabled()) {
-    KateGlobal::self()->spellCheckManager()->updateOnTheFlySpellChecking(this);
+  if(m_onTheFlyChecker != 0) {
+    m_onTheFlyChecker->updateConfig();
   }
 }
 
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable) {
   config()->setOnTheFlySpellCheck(enable);
-  KateGlobal::self()->spellCheckManager()->reflectOnTheFlySpellCheckStatus(this, enable);
-  foreach( KateView* view, m_views)
-  {
-    view->slotOnTheFlySpellCheckingChanged ();
+  if (enable) {
+    if (m_onTheFlyChecker == 0)
+      m_onTheFlyChecker = new KateOnTheFlyChecker(this);
+  } else {
+    delete m_onTheFlyChecker;
+    m_onTheFlyChecker = 0;
   }
 }
 
-bool KateDocument::isOnTheFlySpellCheckingEnabled() {
-  return config()->onTheFlySpellCheck();
+bool KateDocument::isOnTheFlySpellCheckingEnabled() const {
+  return m_onTheFlyChecker != 0;
 }
 
 

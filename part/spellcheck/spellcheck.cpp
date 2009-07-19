@@ -43,28 +43,11 @@
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 : QObject(parent), m_speller(NULL)
 {
-  m_onTheFlyChecker = new KateOnTheFlyChecker();
 }
 
 KateSpellCheckManager::~KateSpellCheckManager()
 {
-  delete m_onTheFlyChecker;
   delete m_speller;
-}
-
-void KateSpellCheckManager::updateOnTheFlySpellChecking(KateDocument *doc)
-{
-  m_onTheFlyChecker->updateDocument(doc);
-}
-
-void KateSpellCheckManager::reflectOnTheFlySpellCheckStatus(KateDocument *document, bool enabled)
-{
-  if(enabled) {
-    m_onTheFlyChecker->addDocument(document);
-  }
-  else {
-    m_onTheFlyChecker->removeDocument(document);
-  }
 }
 
 void KateSpellCheckManager::createActions(KActionCollection* ac)

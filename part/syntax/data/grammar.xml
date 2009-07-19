@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  Syntax definition for kdev-pg grammars.
+-->
+<language name="KDev-PG Grammar" version="0.1" kateversion="2.5" section="Markup" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de)" license="">
+  <highlighting>
+    <list name="macros">
+      <item> ast_extra_members </item>
+      <item> export_macro </item>
+      <item> export_macro_header </item>
+      <item> namespace </item>
+      <item> parserclass </item>
+      <item> token </item>
+      <item> token_stream </item>
+    </list>
+    <list name="keywords">
+      <item> try/rollback </item>
+      <item> catch </item>
+    </list>
+    <contexts>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <!-- keywords -->
+        <DetectChar attribute="Keyword" context="Macros" char="%" firstNonSpace="true" />
+        <keywords attribute="Keyword" context="#stay" String="keywords" />
+        <!-- numbers -->
+        <Float attribute="Float" context="#stay" />
+        <Int attribute="Decimal" context="#stay" />
+        <!-- strings -->
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <!-- comments -->
+        <Detect2Chars attribute="Comment" context="SingleLineComment" char="-" char1="-" />
+        <!-- code segments -->
+        <Detect2Chars attribute="Code Segment" context="CodeSegment" char="[" char1=":" beginRegion="code" />
+        <!-- symbols -->
+        <AnyChar attribute="Symbol" context="#stay" String=";[()]->|=*#@:?" />
+      </context>
+      <!-- keywords -->
+      <context name="Macros" attribute="Keyword" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+        <keyword attribute="Keyword" context="#stay" String="macros" />
+        <Detect2Chars lookAhead="true" context="#pop" attribute="Normal Text" char="[" char1=":" />
+        <Detect2Chars context="#pop" attribute="Keyword" char=";" char1=";" />
+      </context>
+      <!-- "string" -->
+      <context name="String" attribute="String" lineEndContext="#stay">
+        <HlCStringChar attribute="String Char" context="#stay" />
+        <DetectChar attribute="String" context="#pop" char="&quot;" />
+      </context>
+      <!-- comments -->
+      <context name="SingleLineComment" attribute="Comment" lineEndContext="#pop"/>
+      <!-- code segments -->
+      <context name="CodeSegment" attribute="Code Segmentt" lineEndContext="#stay">
+        <Detect2Chars attribute="Code Segment" context="#pop" char=":" char1="]" endRegion="code" />
+        <IncludeRules context="##C++" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
+      <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+      <itemData name="Decimal"  defStyleNum="dsDecVal" spellChecking="false" />
+      <itemData name="Float"  defStyleNum="dsFloat" spellChecking="false" />
+      <itemData name="String" defStyleNum="dsString" />
+      <itemData name="String Char" defStyleNum="dsChar" spellChecking="false" />
+      <itemData name="Comment" defStyleNum="dsComment" />
+      <itemData name="Symbol" defStyleNum="dsOthers" />
+      <itemData name="Code Segment" defStyleNum="dsFunction" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="--" />
+    </comments>
+    <keywords casesensitive="true" weakDeliminator="/" />
+  </general>
+</language>
+

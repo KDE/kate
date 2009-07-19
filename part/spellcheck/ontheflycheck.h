@@ -96,6 +96,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
      **/
     void queueLineSpellCheck(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary);
     void queueSpellCheckVisibleRange(KateDocument *document, const KTextEditor::Range& range);
+    void queueSpellCheckVisibleRange(KateView *view, const KTextEditor::Range& range);
 
     void addToSpellCheckQueue(KateDocument *document, const KTextEditor::Range& range, const QString& dictionary);
     void addToSpellCheckQueue(KateDocument *document, KTextEditor::SmartRange *range, const QString& dictionary);

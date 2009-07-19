@@ -5233,7 +5233,9 @@ void KateDocument::updateConfig ()
     view->updateDocumentConfig ();
   
   // update on-the-fly spell checking as spell checking defaults might have changes
-  m_onTheFlyChecker->updateConfig();
+  if(m_onTheFlyChecker) {
+    m_onTheFlyChecker->updateConfig();
+  }
 }
 
 //BEGIN Variable reader

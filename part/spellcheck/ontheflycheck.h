@@ -57,7 +57,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
   public Q_SLOTS:
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range &range);
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);
-    void freeDocument();
 
     void updateConfig();
 
@@ -73,6 +72,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     MisspelledList m_misspelledList;
     SmartRangeList m_installedSmartRangeList;
     ModificationList m_modificationList;
+
+    void freeDocument();
 
     SmartRangeList installedSmartRanges(const KTextEditor::Range& range);
 
@@ -115,12 +116,11 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void viewRefreshTimeout();
 
     void deleteEliminatedRanges();
-    
+
     void handleModifiedRanges();
     void handleInsertedText(const KTextEditor::Range &range);
     void handleRemovedText(const KTextEditor::Range &range);
     void handleRespellCheckBlock(KateDocument *document, int start, int end);
-    void removeDocumentFromModificationList();
     bool removeSmartRangeFromModificationList(KTextEditor::SmartRange *range);
     void clearModificationList();
 };

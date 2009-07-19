@@ -75,7 +75,6 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
 KateOnTheFlyChecker::~KateOnTheFlyChecker()
 {
   freeDocument();
-  clearModificationList();
 }
 
 int KateOnTheFlyChecker::debugArea()
@@ -137,7 +136,7 @@ void KateOnTheFlyChecker::handleInsertedText(const KTextEditor::Range &range)
   const bool emptyAtStart = m_spellCheckQueue.isEmpty();
 
   queueSpellCheckVisibleRange(spellCheckRange);
-  
+
   if(emptyAtStart && !m_spellCheckQueue.isEmpty()) {
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
   }
@@ -152,7 +151,7 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
   Q_UNUSED(document);
 
   bool listEmpty = m_modificationList.isEmpty();
-  
+
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
   if(!smartInterface) {
@@ -172,9 +171,9 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
 void KateOnTheFlyChecker::handleRemovedText(const KTextEditor::Range &range)
 {
   QMutexLocker lock(m_document->smartMutex());
-  
+
   ON_THE_FLY_DEBUG << m_document << range;
-  
+
   for(QList<SpellCheckItem>::iterator i = m_spellCheckQueue.begin();
                                           i != m_spellCheckQueue.end();) {
     KTextEditor::SmartRange *spellCheckRange = (*i).first;
@@ -267,7 +266,7 @@ void KateOnTheFlyChecker::freeDocument()
     delete((*i).first);
   }
   m_misspelledList.clear();
-  removeDocumentFromModificationList();
+  clearModificationList();
   if(!m_spellCheckQueue.isEmpty()) {
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
   }
@@ -288,7 +287,7 @@ void KateOnTheFlyChecker::performSpellCheck()
   m_currentlyCheckedItem = m_spellCheckQueue.takeFirst();
 
   QMutexLocker lock(m_document->smartMutex());
-  
+
   KTextEditor::SmartRange *spellCheckRange = m_currentlyCheckedItem.first;
   const QString& language = m_currentlyCheckedItem.second;
   ON_THE_FLY_DEBUG << "for the range " << *spellCheckRange;
@@ -344,18 +343,18 @@ void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
     return; // range was part of the spell check queue, so it cannot have been
             // a misspelled range
   }
-  
+
   if (m_myranges.contains(smartRange)) {
       m_myranges.removeAll(smartRange);
   }
-  
+
   KTextEditor::Document *document = smartRange->document();
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
   if(!smartInterface) {
     return;
   }
-  
+
   smartInterface->removeHighlightFromDocument(smartRange);
   m_installedSmartRangeList.removeAll(smartRange);
 
@@ -574,8 +573,9 @@ void KateOnTheFlyChecker::installSmartRanges(KateDocument* document)
 void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
-  /// FIXME removeDocument();
-  /// FIXME addDocument();
+  // we spell check everything again
+  freeDocument();
+  textInserted(m_document, m_document->documentRange());
 }
 
 void KateOnTheFlyChecker::addView(KTextEditor::Document *document, KTextEditor::View *view)
@@ -587,7 +587,7 @@ void KateOnTheFlyChecker::addView(KTextEditor::Document *document, KTextEditor::
   connect(view, SIGNAL(displayRangeChanged(KateView*)), this, SLOT(restartViewRefreshTimer(KateView*)));
   updateInstalledSmartRanges(static_cast<KateView*>(view));
 }
-   
+
 void KateOnTheFlyChecker::viewDestroyed(QObject* obj)
 {
   ON_THE_FLY_DEBUG;
@@ -615,7 +615,7 @@ void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
   KTextEditor::Range oldDisplayRange = m_displayRangeMap[view];
   KateDocument *document = static_cast<KateDocument*>(view->document());
   QMutexLocker lock(document->smartMutex());
-  
+
   KTextEditor::Range newDisplayRange = view->visibleRange();
   ON_THE_FLY_DEBUG << "new range: " << newDisplayRange;
   ON_THE_FLY_DEBUG << "old range: " << oldDisplayRange;
@@ -644,7 +644,7 @@ void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
   }
   deleteList.clear();
   m_displayRangeMap[view] = newDisplayRange;
-  if(oldDisplayRange.isValid()) {  
+  if(oldDisplayRange.isValid()) {
     bool emptyAtStart = m_spellCheckQueue.empty();
     for(int line = newDisplayRange.end().line(); line >= newDisplayRange.start().line(); --line) {
       if(!oldDisplayRange.containsLine(line)) {
@@ -701,16 +701,16 @@ void KateOnTheFlyChecker::queueSpellCheckVisibleRange(KateView *view, const KTex
     if(intersection.isEmpty()) {
       return;
     }
-    
+
     QMutexLocker lock(m_document->smartMutex());
 
     // clear all the highlights that are currently present in the range that
     // is supposed to be checked, necessary due to highlighting
-    
+
     //items can be non unique !!!!!
     const SmartRangeList highlightsList = installedSmartRanges(intersection);
     qDeleteAll(highlightsList);
-  
+
     QList<QPair<KTextEditor::Range, QString> > spellCheckRanges
                          = KateGlobal::self()->spellCheckManager()->spellCheckRanges(m_document,
                                                                                      intersection,
@@ -730,7 +730,7 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *kateDocument, int li
     const KTextEditor::Range range = KTextEditor::Range(line, 0, line, kateDocument->lineLength(line));
     // clear all the highlights that are currently present in the range that
     // is supposed to be checked, necessary due to highlighting
-    
+
     //items can be non unique !!!!!
     const SmartRangeList highlightsList = installedSmartRanges(range);
     qDeleteAll(highlightsList);
@@ -856,18 +856,6 @@ void KateOnTheFlyChecker::handleModifiedRanges()
     }
   }
   m_modificationList.clear();
-}
-
-void KateOnTheFlyChecker::removeDocumentFromModificationList()
-{
-  for(ModificationList::iterator i = m_modificationList.begin(); i != m_modificationList.end();) {
-    ModificationItem item = *i;
-      QMutexLocker smartLock(m_document->smartMutex());
-      KTextEditor::SmartRange *smartRange = item.second;
-      smartRange->removeWatcher(this);
-      delete(smartRange);
-      i = m_modificationList.erase(i);
-  }
 }
 
 bool KateOnTheFlyChecker::removeSmartRangeFromModificationList(KTextEditor::SmartRange *range)

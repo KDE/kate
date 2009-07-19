@@ -6210,11 +6210,6 @@ QString KateDocument::dictionary() const
   return m_dictionary;
 }
 
-QList<QPair<KTextEditor::SmartRange*, QString> > KateDocument::dictionaryRanges()
-{
-  return m_dictionaryRanges;
-}
-
 void KateDocument::setDictionary(const QString& dict)
 {
   if(m_dictionary == dict) {

@@ -1142,7 +1142,6 @@ class KateDocument : public KTextEditor::Document,
 
   public:
       QString dictionary() const;
-      QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges();
       bool isOnTheFlySpellCheckingEnabled() const;
 
   public Q_SLOTS:
@@ -1156,7 +1155,6 @@ class KateDocument : public KTextEditor::Document,
   protected:
       KateOnTheFlyChecker *m_onTheFlyChecker;
       QString m_dictionary;
-      QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
 };
 
 #endif

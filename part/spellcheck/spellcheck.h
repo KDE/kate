@@ -31,7 +31,6 @@
 
 class KateDocument;
 class KateView;
-class KateOnTheFlyChecker;
 
 class KateSpellCheckManager : public QObject {
   Q_OBJECT
@@ -42,16 +41,16 @@ class KateSpellCheckManager : public QObject {
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
 
-      void createActions(KActionCollection* ac);
-
       Sonnet::Speller* speller();
 
       QString defaultDictionary();
 
+  protected:
       QList<QPair<KTextEditor::Range, QString> > spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range);
       QList<QPair<KTextEditor::Range, QString> > spellCheckWrtHighlightingRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                                     const QString& dictionary = QString(),
                                                                                                     bool singleLine = false);
+  public:
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);
 

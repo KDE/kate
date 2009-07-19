@@ -36,8 +36,6 @@
 
 #include "katedocument.h"
 #include "katehighlight.h"
-#include "katetextline.h"
-#include "ontheflycheck.h"
 #include "spellcheck.h"
 
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
@@ -48,11 +46,6 @@ KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 KateSpellCheckManager::~KateSpellCheckManager()
 {
   delete m_speller;
-}
-
-void KateSpellCheckManager::createActions(KActionCollection* ac)
-{
-  Q_UNUSED(ac);
 }
 
 Sonnet::Speller* KateSpellCheckManager::speller()

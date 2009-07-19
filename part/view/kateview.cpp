@@ -615,8 +615,6 @@ void KateView::setupActions()
   a->setText(i18n("Change dictionary..."));
   a->setWhatsThis(i18n("Change the dictionary that is used for spell checking."));
   connect(a, SIGNAL(triggered()), SLOT(changeDictionary()));
-  
-  KateGlobal::self()->spellCheckManager()->createActions(ac);
 
   if (!m_doc->simpleMode ())
     m_bookmarks->createActions( ac );

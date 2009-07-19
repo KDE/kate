@@ -332,28 +332,6 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
   connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
 
-  ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
-  ui->chkViStatusBarHide->setEnabled(ui->chkViInputModeDefault->isChecked());
-
-  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
-  ui->tblNormalModeMappings->setRowCount( l.size() );
-
-  // make the two columns fill the entire table width
-  ui->tblNormalModeMappings->setColumnWidth( 0, ui->tblNormalModeMappings->width()/3 );
-  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection( true );
-
-  int i = 0;
-  foreach( const QString &f, l ) {
-    QTableWidgetItem *from
-      = new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( f ) );
-    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
-    QTableWidgetItem *to =
-      new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( s ) );
-
-    ui->tblNormalModeMappings->setItem(i, 0, from);
-    ui->tblNormalModeMappings->setItem(i++, 1, to);
-  }
-
   layout->addWidget(newWidget);
   setLayout(layout);
 }
@@ -396,6 +374,28 @@ void KateViInputModeConfigTab::reload ()
   ui->chkViInputModeDefault->setChecked( KateViewConfig::global()->viInputMode () );
   ui->chkViCommandsOverride->setChecked( KateViewConfig::global()->viInputModeStealKeys () );
   ui->chkViStatusBarHide->setChecked( KateViewConfig::global()->viInputModeHideStatusBar () );
+
+  ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
+  ui->chkViStatusBarHide->setEnabled(ui->chkViInputModeDefault->isChecked());
+
+  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
+  ui->tblNormalModeMappings->setRowCount( l.size() );
+
+  // make the two columns fill the entire table width
+  ui->tblNormalModeMappings->setColumnWidth( 0, ui->tblNormalModeMappings->width()/3 );
+  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection( true );
+
+  int i = 0;
+  foreach( const QString &f, l ) {
+    QTableWidgetItem *from
+      = new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( f ) );
+    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
+    QTableWidgetItem *to =
+      new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( s ) );
+
+    ui->tblNormalModeMappings->setItem(i, 0, from);
+    ui->tblNormalModeMappings->setItem(i++, 1, to);
+  }
 }
 
 void KateViInputModeConfigTab::addNewNormalModeMappingRow()
@@ -483,22 +483,8 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
   ui = new Ui::CursorConfigWidget();
   ui->setupUi( newWidget );
-
-  ui->chkSmartHome->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
-  connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->chkWrapCursor->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
-  connect(ui->chkWrapCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
-  connect(ui->chkPagingMovesCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
-  connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   // What's This? Help is in the ui-files
 
@@ -510,6 +496,10 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   connect(ui->rbNormal, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbPersistent, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkWrapCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkPagingMovesCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   layout->addWidget(newWidget);
   setLayout(layout);
@@ -553,6 +543,13 @@ void KateSelectConfigTab::reload ()
 {
   ui->rbNormal->setChecked( ! KateViewConfig::global()->persistentSelection() );
   ui->rbPersistent->setChecked( KateViewConfig::global()->persistentSelection() );
+
+  const uint configFlags = KateDocumentConfig::global()->configFlags();
+
+  ui->chkSmartHome->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
+  ui->chkWrapCursor->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
+  ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
+  ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
 }
 //END KateSelectConfigTab
 
@@ -735,9 +732,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
-
-  ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
-  ui->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
 
   // What's This? help is in the ui-file
 

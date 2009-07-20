@@ -25,6 +25,7 @@
 
 #include <QMutex>
 #include <QHash>
+#include <QtAlgorithms>
 #include <QTimer>
 #include <QThread>
 
@@ -62,14 +63,68 @@ QString KateSpellCheckManager::defaultDictionary()
   return speller()->defaultLanguage();
 }
 
-QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range)
+QList<KTextEditor::Range> KateSpellCheckManager::extractRemainingRanges(const KTextEditor::Range& r1,
+                                                                        const KTextEditor::Range& r2)
 {
-  QString dictionary = doc->dictionary();
-  if(dictionary.isEmpty()) {
-    dictionary = defaultDictionary();
+  Q_ASSERT(r1.contains(r2));
+  QList<KTextEditor::Range> toReturn;
+  KTextEditor::Range before(r1.start(), r2.start());
+  KTextEditor::Range after(r2.end(), r1.end());
+  if(!before.isEmpty()) {
+    toReturn.push_back(before);
+  }
+  if(!before.isEmpty()) {
+    toReturn.push_back(before);
+  }
+  return toReturn;
+}
+
+namespace {
+  bool lessThanRangeDictionaryPair(const QPair<KTextEditor::Range, QString> &s1,
+                                          const QPair<KTextEditor::Range, QString> &s2)
+  {
+      return s1.first < s2.first;
+  }
+}
+
+QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLanguageRanges(KateDocument *doc,
+                                                                                           const KTextEditor::Range& range)
+{
+  QString defaultDict = doc->defaultDictionary();
+  if(defaultDict.isEmpty()) {
+    defaultDict = defaultDictionary();
   }
   QList<RangeDictionaryPair> toReturn;
-  toReturn.push_back(RangeDictionaryPair(range, dictionary));
+  QMutexLocker smartLock(doc->smartMutex());
+  QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges = doc->dictionaryRanges();
+  if(dictionaryRanges.isEmpty()) {
+    toReturn.push_back(RangeDictionaryPair(range, defaultDict));
+    return toReturn;
+  }
+  QList<KTextEditor::Range> splitQueue;
+  splitQueue.push_back(range);
+  while(!splitQueue.isEmpty()) {
+    bool handled = false;
+    KTextEditor::Range consideredRange = splitQueue.takeFirst();
+    for(QList<QPair<KTextEditor::SmartRange*, QString> >::iterator i = dictionaryRanges.begin();
+        i != dictionaryRanges.end(); ++i) {
+      KTextEditor::Range languageRange = *((*i).first);
+      KTextEditor::Range intersection = languageRange.intersect(consideredRange);
+      if(intersection.isEmpty()) {
+        continue;
+      }
+      toReturn.push_back(RangeDictionaryPair(intersection, (*i).second));
+      splitQueue += extractRemainingRanges(consideredRange, intersection);
+      handled = true;
+      break;
+    }
+    if(!handled) {
+      // 'consideredRange' did not intersect with any dictionary range, so we add it with the default dictionary
+      toReturn.push_back(RangeDictionaryPair(range, defaultDict));
+    }
+  }
+  // finally, we still have to sort the list
+  qStableSort(toReturn.begin(), toReturn.end(), lessThanRangeDictionaryPair);
   return toReturn;
 }
 

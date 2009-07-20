@@ -1141,12 +1141,12 @@ class KateDocument : public KTextEditor::Document,
       static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
 
   public:
-      QString dictionary() const;
-      QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges();
+      QString defaultDictionary() const;
+      QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges() const;
       bool isOnTheFlySpellCheckingEnabled() const;
 
   public Q_SLOTS:
-      void setDictionary(const QString& dict);
+      void setDefaultDictionary(const QString& dict);
       void onTheFlySpellCheckingEnabled(bool enable);
       void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
 
@@ -1155,7 +1155,7 @@ class KateDocument : public KTextEditor::Document,
 
   protected:
       KateOnTheFlyChecker *m_onTheFlyChecker;
-      QString m_dictionary;
+      QString m_defaultDictionary;
       QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
 };
 

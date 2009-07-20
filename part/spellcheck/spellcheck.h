@@ -50,6 +50,12 @@ class KateSpellCheckManager : public QObject {
       QList<QPair<KTextEditor::Range, QString> > spellCheckWrtHighlightingRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                                     const QString& dictionary = QString(),
                                                                                                     bool singleLine = false);
+  private:
+    /**
+     * 'r2' is a subrange of 'r1', which is extracted from 'r1' and the remaining ranges are returned
+     **/
+    QList<KTextEditor::Range> extractRemainingRanges(const KTextEditor::Range& r1, const KTextEditor::Range& r2);
+
   public:
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);

@@ -6205,22 +6205,22 @@ bool KateDocument::saveAs( const KUrl &url ) {
   return KTextEditor::Document::saveAs(url);
 }
 
-QString KateDocument::dictionary() const
+QString KateDocument::defaultDictionary() const
 {
-  return m_dictionary;
+  return m_defaultDictionary;
 }
 
-QList<QPair<KTextEditor::SmartRange*, QString> > KateDocument::dictionaryRanges()
+QList<QPair<KTextEditor::SmartRange*, QString> > KateDocument::dictionaryRanges() const
 {
   return m_dictionaryRanges;
 }
 
-void KateDocument::setDictionary(const QString& dict)
+void KateDocument::setDefaultDictionary(const QString& dict)
 {
-  if(m_dictionary == dict) {
+  if(m_defaultDictionary == dict) {
     return;
   }
-  m_dictionary = dict;
+  m_defaultDictionary = dict;
   if(m_onTheFlyChecker) {
     m_onTheFlyChecker->updateConfig();
   }

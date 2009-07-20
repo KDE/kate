@@ -1335,7 +1335,7 @@ KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
   //topLayout->setSpacing(spacingHint());
   m_dictionaryComboBox = new Sonnet::DictionaryComboBox(centralWidget());
   connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(const QString&)),
-          view->document(), SLOT(setDictionary(const QString&)));
+          view->document(), SLOT(setDefaultDictionary(const QString&)));
 
   QLabel *label = new QLabel(i18n("Dictionary:"), centralWidget());
   label->setBuddy(m_dictionaryComboBox);
@@ -1357,7 +1357,7 @@ void KateDictionaryBar::updateData()
   }
 
   KateDocument *document = static_cast<KateDocument*>(view()->document());
-  QString dictionary = document->dictionary();
+  QString dictionary = document->defaultDictionary();
   if(dictionary.isEmpty()) {
     dictionary = KateGlobal::self()->spellCheckManager()->defaultDictionary();
   }

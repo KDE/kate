@@ -3,7 +3,7 @@
 <!--
   Syntax definition for kdev-pg grammars.
 -->
-<language name="KDev-PG Grammar" version="0.1" kateversion="2.5" section="Markup" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de)" license="">
+<language name="KDev-PG Grammar" version="0.20" kateversion="2.5" section="Markup" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
     <list name="macros">
       <item> ast_extra_members </item>
@@ -22,7 +22,7 @@
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
         <!-- keywords -->
         <DetectChar attribute="Keyword" context="Macros" char="%" firstNonSpace="true" />
-        <keywords attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
         <!-- numbers -->
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />

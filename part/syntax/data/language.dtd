@@ -499,4 +499,5 @@ TODO:
   strikeOut     (%boolean;) #IMPLIED
   backgroundColor    CDATA  #IMPLIED
   selBackgroundColor CDATA  #IMPLIED
+  spellChecking (%boolean;) #IMPLIED
 >

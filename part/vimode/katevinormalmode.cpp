@@ -60,6 +60,13 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 KateViNormalMode::~KateViNormalMode()
 {
   delete m_marks;
+  foreach ( KateViCommand* c, m_commands ) {
+    delete c;
+  }
+
+  foreach ( KateViMotion* m, m_motions ) {
+    delete m;
+  }
 }
 
 void KateViNormalMode::mappingTimerTimeOut()

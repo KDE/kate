@@ -6567,18 +6567,18 @@ Changes:
         <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[^&quot;]*&quot;|\$[a-zA-Z]*)|'[^']*'|\])*(-&gt;[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
       </context>
       <context name="backquotestring" attribute="String" lineEndContext="#stay">
-        <IncludeRules context="doublebackquotestringcommon"/>
+        <IncludeRules context="doublebackquotestringcommon" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="`" />
         <DetectChar attribute="String" context="#pop" char="`" />
       </context>
       <context name="doublequotestring" attribute="String" lineEndContext="#stay">
-        <IncludeRules context="doublebackquotestringcommon"/>
+        <IncludeRules context="doublebackquotestringcommon" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
         <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
       <context name="singlequotestring" attribute="String" lineEndContext="#stay">
-        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="'"/>
-        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\"/>
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="'" />
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\" />
         <DetectChar attribute="String" context="#pop" char="'" />
       </context>
       <context name="heredoc" attribute="String" lineEndContext="#stay" dynamic="true">
@@ -6616,6 +6616,6 @@ Changes:
       <comment name="singleLine" start="//" />
       <comment name="multiLine" start="/*" end="*/" />
     </comments>
-    <keywords casesensitive="0" weakDeliminator="" additionalDeliminator="@"/>
+    <keywords casesensitive="0" weakDeliminator="" additionalDeliminator="@" />
   </general>
 </language>

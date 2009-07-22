@@ -6507,7 +6507,7 @@ Changes:
           -->
         
         <DetectChar attribute="Other" context="ternary" char="?" />
-        <RegExpr attribute="Keyword" context="case"  String="(case|default)(\s|:|$)" context="case" />
+        <RegExpr attribute="Keyword" context="case"  String="(case|default)(\s|:|$)" />
         <DetectChar attribute="Normal Text" context="#stay" char=":" beginRegion="Alternate Block" />
         <RegExpr attribute="Keyword" context="#stay" String="endif|endwhile|endfor|endforeach|endswitch" endRegion="Alternate Block" />
         <!--/ Alternate PHP Block Syntax -->

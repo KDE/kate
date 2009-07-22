@@ -3,6 +3,10 @@
 
 Changes:
 
+[ Version 1.37 (2009-07-18) ]
+
+- Remove folding on open and close php to improve embedded html handling, see bug #103257, #143022. (James Sleeman)
+
 [ Version 1.36 (2009-07-10) ]
 
 - spelling-awareness
@@ -35,7 +39,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.36" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.37" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6478,21 +6482,16 @@ Changes:
     </list>
     <contexts>
       <context name="start" lineEndContext="#stay" attribute="Normal Text">
-          <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" insensitive="true" beginRegion="php" />
-        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" endRegion="php" />
-      </context>
-      <context name="braceregion" lineEndContext="#stay" attribute="Normal Text">
-        <IncludeRules context="phpsource"/>
-        <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="Brace1" />
+        <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" insensitive="true" />
+        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" />
       </context>
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
         <DetectSpaces />
-        <!-- WORKAROUND for bug #143022 / missing feature #103257 -->
-        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" endRegion="Brace1" lookAhead="true" />
+        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" lookAhead="true" />
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
-        <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment"/>
+        <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="*" beginRegion="Comment" />
         <keyword attribute="Control Structures" context="#stay" String="control structures" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <DetectChar attribute="Function" context="#stay" char="@" />
@@ -6501,7 +6500,7 @@ Changes:
         <DetectIdentifier />
         <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
         <DetectChar attribute="String" context="backquotestring" char="`" />
-        <DetectChar attribute="String" context="singlequotestring" char="&#39;" />
+        <DetectChar attribute="String" context="singlequotestring" char="'" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
         <RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
         <RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
@@ -6509,7 +6508,8 @@ Changes:
         <HlCHex attribute="Hex" context="#stay" />
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
-        <DetectChar attribute="Normal Text" context="braceregion" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
         <AnyChar attribute="Other" context="#stay" String=";():,[]" />
       </context>
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
@@ -6530,7 +6530,7 @@ Changes:
         <RegExpr attribute="Backslash Code" context="#stay" String="\\x[0-9A-Fa-f]{1,2}" />
         <RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
         <RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
-        <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[^&quot;]*&quot;|\$[a-zA-Z]*)|'[^']*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
+        <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[^&quot;]*&quot;|\$[a-zA-Z]*)|'[^']*'|\])*(-&gt;[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
       </context>
       <context name="backquotestring" attribute="String" lineEndContext="#stay">
         <IncludeRules context="doublebackquotestringcommon"/>
@@ -6551,7 +6551,7 @@ Changes:
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
         <RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
         <RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
-        <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
+        <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(-&gt;[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
       </context>
     </contexts>
     <itemDatas>

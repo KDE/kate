@@ -213,16 +213,13 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
     m_changed( false )
 {
   QVBoxLayout *layout = new QVBoxLayout( this );
-  int spacing = KDialog::spacingHint();
-  layout->setSpacing( spacing );
+  layout->setMargin( 0 );
 
   gbEnableShading = new QGroupBox( i18n("Background Shading"), this );
   gbEnableShading->setCheckable(true);
   layout->addWidget( gbEnableShading );
 
-  QGridLayout *lo = new QGridLayout( gbEnableShading, 2, 2 );
-  lo->setMargin(KDialog::marginHint());
-  lo->setSpacing(KDialog::spacingHint());
+  QGridLayout *lo = new QGridLayout( gbEnableShading);
 
   kcbViewShade = new KColorButton( gbEnableShading );
   lViewShade = new QLabel( kcbViewShade, i18n("&Viewed documents' shade:"), gbEnableShading );
@@ -236,7 +233,7 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
 
   // sorting
   QHBoxLayout *lo2 = new QHBoxLayout;
-  layout->addItem( lo2 );
+  layout->addLayout( lo2 );
   lSort = new QLabel( i18n("&Sort by:"), this );
   lo2->addWidget( lSort );
   cmbSort = new KComboBox( this );

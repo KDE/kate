@@ -78,7 +78,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   QVBoxLayout *layout = new QVBoxLayout( generalFrame );
   layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Behavior"
   QGroupBox *buttonGroup = new QGroupBox( i18n("&Behavior"), generalFrame );
@@ -150,7 +149,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   layout = new QVBoxLayout( sessionsFrame );
   layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Startup"
   buttonGroup = new QGroupBox( i18n("Elements of Sessions"), sessionsFrame );
@@ -205,6 +203,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   //BEGIN Plugins page
   KVBox *page = new KVBox();
+  page->setSpacing( -1 );
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
   connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
 
@@ -230,6 +229,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)
   {
     page = new KVBox();
+    page->setSpacing( -1 );
     KTextEditor::ConfigPage *cPage = KateDocManager::self()->editor()->configPage(i, page);
     connect( cPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
     m_editorPages.append (cPage);
@@ -259,6 +259,7 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
   for (uint i = 0; i < Kate::pluginConfigPageInterface(plugin)->configPages(); i++)
   {
     KVBox *page = new KVBox();
+    page->setSpacing( -1 );
 
     KPageWidgetItem *item = addSubPage( m_pluginPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
     item->setHeader( Kate::pluginConfigPageInterface(plugin)->configPageFullName(i) );

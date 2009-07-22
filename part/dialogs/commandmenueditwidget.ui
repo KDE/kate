@@ -1,76 +1,57 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CmdBindingEditWidget</class>
- <widget class="QWidget" name="CmdBindingEditWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>405</width>
-    <height>242</height>
-   </rect>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
+ <widget class="QWidget" name="CmdBindingEditWidget">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
     <number>0</number>
    </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <item>
-    <widget class="QGroupBox" name="gbEdit" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbEdit">
+     <property name="title">
       <string>Edit Command</string>
      </property>
-     <property name="flat" >
+     <property name="flat">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
+       <layout class="QHBoxLayout">
+        <property name="margin">
          <number>0</number>
         </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
         <item>
-         <widget class="QLabel" name="lblCommand" >
-          <property name="text" >
+         <widget class="QLabel" name="lblCommand">
+          <property name="text">
            <string>&amp;Associated command:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>cmbCommand</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KComboBox" name="cmbCommand" >
-          <property name="editable" >
+         <widget class="KComboBox" name="cmbCommand">
+          <property name="editable">
            <bool>true</bool>
           </property>
-          <property name="autoCompletionCaseSensitivity" >
+          <property name="autoCompletionCaseSensitivity">
            <enum>Qt::CaseSensitive</enum>
           </property>
-          <property name="autoCompletion" >
+          <property name="autoCompletion">
            <bool>false</bool>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>1</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -78,84 +59,78 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" >
-        <property name="margin" >
+       <layout class="QFormLayout" name="formLayout">
+        <property name="margin">
          <number>0</number>
         </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="1" >
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblName">
+          <property name="text">
+           <string>&amp;Name:</string>
+          </property>
+          <property name="buddy">
+           <cstring>edtName</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <layout class="QHBoxLayout">
+          <property name="margin">
            <number>0</number>
           </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
           <item>
-           <widget class="KLineEdit" name="edtName" />
+           <widget class="KLineEdit" name="edtName"/>
           </item>
           <item>
-           <widget class="KIconButton" name="btnIcon" >
-            <property name="toolTip" >
+           <widget class="KIconButton" name="btnIcon">
+            <property name="toolTip">
              <string>Choose an icon.</string>
             </property>
-            <property name="whatsThis" >
-             <string>&lt;p>This icon will be displayed in the menu and toolbar.&lt;/p></string>
+            <property name="whatsThis">
+             <string>&lt;p&gt;This icon will be displayed in the menu and toolbar.&lt;/p&gt;</string>
             </property>
-            <property name="text" >
+            <property name="text">
              <string/>
             </property>
            </widget>
           </item>
          </layout>
         </item>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lblName" >
-          <property name="text" >
-           <string>&amp;Name:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>edtName</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lblDescription" >
-          <property name="text" >
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblDescription">
+          <property name="text">
            <string>&amp;Description:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>edtDescription</cstring>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="lblCategory" >
-          <property name="text" >
+        <item row="1" column="1">
+         <widget class="KLineEdit" name="edtDescription"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblCategory">
+          <property name="text">
            <string>&amp;Category:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>cmbCategory</cstring>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" >
-         <widget class="KComboBox" name="cmbCategory" >
-          <property name="editable" >
+        <item row="2" column="1">
+         <widget class="KComboBox" name="cmbCategory">
+          <property name="editable">
            <bool>true</bool>
           </property>
-          <property name="autoCompletionCaseSensitivity" >
+          <property name="autoCompletionCaseSensitivity">
            <enum>Qt::CaseSensitive</enum>
           </property>
-          <property name="autoCompletion" >
+          <property name="autoCompletion">
            <bool>false</bool>
           </property>
          </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="KLineEdit" name="edtDescription" />
         </item>
        </layout>
       </item>
@@ -164,13 +139,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>0</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>
@@ -179,18 +154,19 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends></extends>
-   <header>kcombobox.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
+   <class>KIconButton</class>
+   <extends>QPushButton</extends>
+   <header>kicondialog.h</header>
   </customwidget>
   <customwidget>
-   <class>KIconButton</class>
-   <extends></extends>
-   <header>kicondialog.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

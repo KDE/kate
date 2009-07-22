@@ -539,7 +539,6 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
   m_hl = 0;
 
   QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin(0);
 
   // hl chooser
   KHBox *hbHl = new KHBox( this );
@@ -714,6 +713,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
 
   btndel = new QPushButton( i18n("&Delete"), hbHl );
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
+
+  qobject_cast<QBoxLayout *>(hbHl->layout())->addStretch();
 
   m_tabWidget = new KTabWidget ( this );
   layout->addWidget (m_tabWidget);

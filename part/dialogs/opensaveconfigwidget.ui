@@ -1,117 +1,85 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>OpenSaveConfigWidget</class>
- <widget class="QWidget" name="OpenSaveConfigWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>365</width>
-    <height>496</height>
-   </rect>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <property name="margin" >
+ <widget class="QWidget" name="OpenSaveConfigWidget">
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gbFileFormat" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbFileFormat">
+     <property name="title">
       <string>File Format</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <property name="margin" >
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>0</number>
+       <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::ExpandingFieldsGrow</enum>
         </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item rowspan="2" row="0" column="2" >
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0" >
-           <size>
-            <width>161</width>
-            <height>51</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lblEncoding" >
-          <property name="text" >
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblEncoding">
+          <property name="text">
            <string>&amp;Encoding:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>cmbEncoding</cstring>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lblEncodingDetection" >
-          <property name="text" >
+        <item row="0" column="1">
+         <widget class="KComboBox" name="cmbEncoding"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblEncodingDetection">
+          <property name="text">
            <string>Encoding auto&amp;detection:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>cmbEncodingDetection</cstring>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="lblEOL" >
-          <property name="text" >
+        <item row="1" column="1">
+         <widget class="KComboBox" name="cmbEncodingDetection"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblEOL">
+          <property name="text">
            <string>E&amp;nd of line:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>cmbEOL</cstring>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" >
-         <widget class="KComboBox" name="cmbEOL" >
+        <item row="2" column="1">
+         <widget class="KComboBox" name="cmbEOL">
           <item>
-           <property name="text" >
+           <property name="text">
             <string>UNIX</string>
            </property>
           </item>
           <item>
-           <property name="text" >
+           <property name="text">
             <string>DOS/Windows</string>
            </property>
           </item>
           <item>
-           <property name="text" >
+           <property name="text">
             <string>Macintosh</string>
            </property>
           </item>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="KComboBox" name="cmbEncoding" />
-        </item>
-        <item row="1" column="1" >
-         <widget class="KComboBox" name="cmbEncodingDetection" />
-        </item>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="chkDetectEOL" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkDetectEOL">
+        <property name="whatsThis">
          <string>If this option is enabled the editor will autodetect the end of line type. The first found end of line type will be used for the whole file.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>A&amp;utomatic end of line detection</string>
         </property>
        </widget>
@@ -120,23 +88,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbCleanups" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbCleanups">
+     <property name="title">
       <string>Automatic Cleanups on Load/Save</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <property name="margin" >
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkRemoveTrailingSpaces" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkRemoveTrailingSpaces">
+        <property name="whatsThis">
          <string>The editor will automatically eliminate extra spaces at the ends of lines of text while loading/saving the file. This change is only visible after a save if you reload the file.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Re&amp;move trailing spaces</string>
         </property>
        </widget>
@@ -146,13 +108,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>241</width>
-       <height>20</height>
+       <width>0</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>

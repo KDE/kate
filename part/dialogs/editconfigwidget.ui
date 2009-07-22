@@ -1,93 +1,74 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>EditConfigWidget</class>
- <widget class="QWidget" name="EditConfigWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>511</width>
-    <height>419</height>
-   </rect>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <property name="margin" >
+ <widget class="QWidget" name="EditConfigWidget">
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gbTabulators" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbTabulators">
+     <property name="title">
       <string>Tabulators</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <property name="margin" >
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkReplaceTabs" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkReplaceTabs">
+        <property name="whatsThis">
          <string>If this is enabled, the editor will calculate the number of spaces up to the next tab position as defined by the tab width, and insert that number of spaces instead of a TAB character.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>&amp;Insert spaces instead of tabulators</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="chkShowTabs" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkShowTabs">
+        <property name="whatsThis">
          <string>The editor will display a symbol to indicate the presence of a tab in the text.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>&amp;Highlight tabulators</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="margin" >
+       <layout class="QHBoxLayout">
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblTabWidth" >
-          <property name="text" >
+         <widget class="QLabel" name="lblTabWidth">
+          <property name="text">
            <string>Tab wi&amp;dth:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>sbTabWidth</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KIntSpinBox" name="sbTabWidth" >
-          <property name="minimum" >
+         <widget class="KIntSpinBox" name="sbTabWidth">
+          <property name="minimum">
            <number>1</number>
           </property>
-          <property name="maximum" >
+          <property name="maximum">
            <number>16</number>
           </property>
-          <property name="value" >
+          <property name="value">
            <number>8</number>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>314</width>
-            <height>23</height>
+            <width>1</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -98,80 +79,71 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbStaticWordWrap" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbStaticWordWrap">
+     <property name="title">
       <string>Static Word Wrap</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <property name="margin" >
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkStaticWordWrap" >
-        <property name="whatsThis" >
-         <string>&lt;p>Automatically start a new line of text when the current line exceeds the length specified by the &lt;b>Wrap words at:&lt;/b> option.&lt;/p>&lt;p>This option does not wrap existing lines of text - use the &lt;b>Apply Static Word Wrap&lt;/b> option in the &lt;b>Tools&lt;/b> menu for that purpose.&lt;/p>&lt;p>If you want lines to be &lt;i>visually wrapped&lt;/i> instead, according to the width of the view, enable &lt;b>Dynamic Word Wrap&lt;/b> in the &lt;b>View Defaults&lt;/b> config page.&lt;/p></string>
+       <widget class="QCheckBox" name="chkStaticWordWrap">
+        <property name="whatsThis">
+         <string>&lt;p&gt;Automatically start a new line of text when the current line exceeds the length specified by the &lt;b&gt;Wrap words at:&lt;/b&gt; option.&lt;/p&gt;&lt;p&gt;This option does not wrap existing lines of text - use the &lt;b&gt;Apply Static Word Wrap&lt;/b&gt; option in the &lt;b&gt;Tools&lt;/b&gt; menu for that purpose.&lt;/p&gt;&lt;p&gt;If you want lines to be &lt;i&gt;visually wrapped&lt;/i&gt; instead, according to the width of the view, enable &lt;b&gt;Dynamic Word Wrap&lt;/b&gt; in the &lt;b&gt;View Defaults&lt;/b&gt; config page.&lt;/p&gt;</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Enable static &amp;word wrap</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="chkShowStaticWordWrapMarker" >
-        <property name="whatsThis" >
-         <string>&lt;p>If this option is checked, a vertical line will be drawn at the word wrap column as defined in the &lt;strong>Editing&lt;/strong> properties.&lt;/p>&lt;p>Note that the word wrap marker is only drawn if you use a fixed pitch font.&lt;/p></string>
+       <widget class="QCheckBox" name="chkShowStaticWordWrapMarker">
+        <property name="whatsThis">
+         <string>&lt;p&gt;If this option is checked, a vertical line will be drawn at the word wrap column as defined in the &lt;strong&gt;Editing&lt;/strong&gt; properties.&lt;/p&gt;&lt;p&gt;Note that the word wrap marker is only drawn if you use a fixed pitch font.&lt;/p&gt;</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Show static word wra&amp;p marker (if applicable)</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="margin" >
+       <layout class="QHBoxLayout">
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblWordWrap" >
-          <property name="text" >
+         <widget class="QLabel" name="lblWordWrap">
+          <property name="text">
            <string>W&amp;rap words at:</string>
           </property>
-          <property name="buddy" >
+          <property name="buddy">
            <cstring>sbWordWrap</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KIntSpinBox" name="sbWordWrap" >
-          <property name="whatsThis" >
+         <widget class="KIntSpinBox" name="sbWordWrap">
+          <property name="whatsThis">
            <string>If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line.</string>
           </property>
-          <property name="minimum" >
+          <property name="minimum">
            <number>20</number>
           </property>
-          <property name="maximum" >
+          <property name="maximum">
            <number>200</number>
           </property>
-          <property name="value" >
+          <property name="value">
            <number>76</number>
           </property>
          </widget>
         </item>
         <item>
          <spacer>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>271</width>
-            <height>23</height>
+            <width>1</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -182,40 +154,34 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbMisc" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbMisc">
+     <property name="title">
       <string>Misc</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <property name="margin" >
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkRemoveTrailingSpaces" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkRemoveTrailingSpaces">
+        <property name="whatsThis">
          <string>If this is enabled, the editor will remove any trailing whitespace on lines when they are left by the insertion cursor.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Remove &amp;trailing spaces while editing</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="chkShowSpaces" >
-        <property name="text" >
+       <widget class="QCheckBox" name="chkShowSpaces">
+        <property name="text">
          <string>Highlight trailing &amp;spaces</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="chkAutoBrackets" >
-        <property name="whatsThis" >
+       <widget class="QCheckBox" name="chkAutoBrackets">
+        <property name="whatsThis">
          <string>When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Auto &amp;brackets</string>
         </property>
        </widget>
@@ -225,13 +191,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>441</width>
-       <height>20</height>
+       <width>0</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>

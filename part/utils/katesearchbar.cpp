@@ -1136,7 +1136,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         }
     }
 
-    if (replacement != NULL)
+    if (replacement == NULL)
         foreach (Range r, highlightRanges) {
             highlightMatch(r);
         }

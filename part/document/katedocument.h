@@ -1146,9 +1146,16 @@ class KateDocument : public KTextEditor::Document,
       bool isOnTheFlySpellCheckingEnabled() const;
 
   public Q_SLOTS:
+      void clearDictionaryRanges();
+      void setDictionary(const QString& dict, const KTextEditor::Range &range);
+      void revertToDefaultDictionary(const KTextEditor::Range &range);
       void setDefaultDictionary(const QString& dict);
       void onTheFlySpellCheckingEnabled(bool enable);
       void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
+
+  protected Q_SLOTS:
+      void dictionaryRangeEliminated(KTextEditor::SmartRange *smartRange);
+      void deleteDiscardedSmartRanges();
 
   Q_SIGNALS:
       void respellCheckBlock(KateDocument *document,int start, int end);
@@ -1157,6 +1164,10 @@ class KateDocument : public KTextEditor::Document,
       KateOnTheFlyChecker *m_onTheFlyChecker;
       QString m_defaultDictionary;
       QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
+      QList<KTextEditor::SmartRange*> m_discardedSmartRanges;
+      KTextEditor::SmartRangeNotifier *m_dictionaryRangeNotifier;
+
+      KTextEditor::SmartRangeNotifier* dictionaryRangeNotifier();
 };
 
 #endif

@@ -141,6 +141,9 @@ class KateDictionaryBar : public KateViewBarWidget
 
     void updateData();
 
+  protected Q_SLOTS:
+    void dictionaryChanged(const QString& dictionary);
+
   private:
     KateView* m_view;
     Sonnet::DictionaryComboBox *m_dictionaryComboBox;

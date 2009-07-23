@@ -1335,7 +1335,7 @@ KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
   //topLayout->setSpacing(spacingHint());
   m_dictionaryComboBox = new Sonnet::DictionaryComboBox(centralWidget());
   connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(const QString&)),
-          view->document(), SLOT(setDefaultDictionary(const QString&)));
+          this, SLOT(dictionaryChanged(const QString&)));
 
   QLabel *label = new QLabel(i18n("Dictionary:"), centralWidget());
   label->setBuddy(m_dictionaryComboBox);
@@ -1356,12 +1356,28 @@ void KateDictionaryBar::updateData()
     return;
   }
 
-  KateDocument *document = static_cast<KateDocument*>(view()->document());
+  KateDocument *document = view()->doc();
   QString dictionary = document->defaultDictionary();
   if(dictionary.isEmpty()) {
     dictionary = KateGlobal::self()->spellCheckManager()->defaultDictionary();
   }
   m_dictionaryComboBox->setCurrentByDictionary(dictionary);
+}
+
+void KateDictionaryBar::dictionaryChanged(const QString& dictionary)
+{
+  KateView *kateView = view();
+  if (!kateView) {
+    return;
+  }
+
+  KTextEditor::Range selection = kateView->selectionRange();
+  if(selection.isValid()) {
+    kateView->doc()->setDictionary(dictionary, selection);
+  }
+  else {
+    kateView->doc()->setDefaultDictionary(dictionary);
+  }
 }
 
 //END KateGotoBar

@@ -59,6 +59,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);
 
     void updateConfig();
+    void refreshSpellCheck(const KTextEditor::Range &range = KTextEditor::Range::invalid());
 
     void updateInstalledSmartRanges(KateView *view);
     void updateInstalledSmartRanges();

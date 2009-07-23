@@ -574,8 +574,18 @@ void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
   // we spell check everything again
-  freeDocument();
-  textInserted(m_document, m_document->documentRange());
+  refreshSpellCheck();
+}
+
+void KateOnTheFlyChecker::refreshSpellCheck(const KTextEditor::Range &range)
+{
+  if(range.isValid()) {
+    textInserted(m_document, range);
+  }
+  else {
+    freeDocument();
+    textInserted(m_document, m_document->documentRange());
+  }
 }
 
 void KateOnTheFlyChecker::addView(KTextEditor::Document *document, KTextEditor::View *view)

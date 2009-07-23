@@ -63,8 +63,8 @@ QString KateSpellCheckManager::defaultDictionary()
   return speller()->defaultLanguage();
 }
 
-QList<KTextEditor::Range> KateSpellCheckManager::extractRemainingRanges(const KTextEditor::Range& r1,
-                                                                        const KTextEditor::Range& r2)
+QList<KTextEditor::Range> KateSpellCheckManager::rangeDifference(const KTextEditor::Range& r1,
+                                                                 const KTextEditor::Range& r2)
 {
   Q_ASSERT(r1.contains(r2));
   QList<KTextEditor::Range> toReturn;
@@ -73,8 +73,8 @@ QList<KTextEditor::Range> KateSpellCheckManager::extractRemainingRanges(const KT
   if(!before.isEmpty()) {
     toReturn.push_back(before);
   }
-  if(!before.isEmpty()) {
-    toReturn.push_back(before);
+  if(!after.isEmpty()) {
+    toReturn.push_back(after);
   }
   return toReturn;
 }
@@ -114,7 +114,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
         continue;
       }
       toReturn.push_back(RangeDictionaryPair(intersection, (*i).second));
-      splitQueue += extractRemainingRanges(consideredRange, intersection);
+      splitQueue += rangeDifference(consideredRange, intersection);
       handled = true;
       break;
     }

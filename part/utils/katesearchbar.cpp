@@ -1660,8 +1660,8 @@ void KateSearchBar::onMutatePower() {
 
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
-        m_powerUi->findNext->setIcon(KIcon("go-down"));
-        m_powerUi->findPrev->setIcon(KIcon("go-up"));
+        m_powerUi->findNext->setIcon(KIcon("go-down-search"));
+        m_powerUi->findPrev->setIcon(KIcon("go-up-search"));
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
@@ -1809,8 +1809,8 @@ void KateSearchBar::onMutateIncremental() {
 
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
-        m_incUi->next->setIcon(KIcon("go-down"));
-        m_incUi->prev->setIcon(KIcon("go-up"));
+        m_incUi->next->setIcon(KIcon("go-down-search"));
+        m_incUi->prev->setIcon(KIcon("go-up-search"));
 
 	// Customize status area
 	m_incUi->status->setTextElideMode(Qt::ElideLeft);

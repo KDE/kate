@@ -100,7 +100,9 @@ private:
 public Q_SLOTS:
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
     void onPowerPatternContextMenuRequest();
+    void onPowerPatternContextMenuRequest(const QPoint&);
     void onPowerReplacmentContextMenuRequest();
+    void onPowerReplacmentContextMenuRequest(const QPoint&);
 
 public:
     // Only used by KateView
@@ -139,7 +141,7 @@ private:
             int replacementCounter = 1);
 
     QVector<QString> getCapturePatterns(const QString & pattern);
-    void showExtendedContextMenu(bool forPattern);
+    void showExtendedContextMenu(bool forPattern, const QPoint& pos);
 
     void givePatternFeedback(const QString & pattern);
     void addCurrentTextToHistory(QComboBox * combo);

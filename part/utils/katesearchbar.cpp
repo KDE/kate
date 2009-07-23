@@ -1290,9 +1290,11 @@ QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
 
 
 
-void KateSearchBar::showExtendedContextMenu(bool forPattern) {
+void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) {
     // Make original menu
-    QMenu * const contextMenu = m_powerUi->pattern->lineEdit()->createStandardContextMenu();
+    QComboBox* comboBox = forPattern ? m_powerUi->pattern : m_powerUi->replacement;
+    QMenu* const contextMenu = comboBox->lineEdit()->createStandardContextMenu();
+
     if (contextMenu == NULL) {
         return;
     }
@@ -1391,13 +1393,9 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern) {
     }
 
     // Show menu
-    QAction * const result = contextMenu->exec(QCursor::pos());
+    QAction * const result = contextMenu->exec(comboBox->mapToGlobal(pos));
     if (result != NULL) {
-        QLineEdit * const lineEdit = forPattern
-                ? m_powerUi->pattern->lineEdit()
-                : m_powerUi->replacement->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
-        addMenuManager.handle(result, lineEdit);
+        addMenuManager.handle(result, comboBox->lineEdit());
     }
 }
 
@@ -1726,10 +1724,12 @@ void KateSearchBar::onMutatePower() {
         connect(replacementLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerReplaceNext()));
 
         // Hook into line edit context menus
-        patternLineEdit->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(patternLineEdit, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onPowerPatternContextMenuRequest()));
-        replacementLineEdit->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(replacementLineEdit, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onPowerReplacmentContextMenuRequest()));
+        m_powerUi->pattern->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(m_powerUi->pattern, SIGNAL(customContextMenuRequested(const QPoint&)), this,
+                SLOT(onPowerPatternContextMenuRequest(const QPoint&)));
+        m_powerUi->replacement->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(m_powerUi->replacement, SIGNAL(customContextMenuRequested(const QPoint&)), this,
+                SLOT(onPowerReplacmentContextMenuRequest(const QPoint&)));
     }
 
     // Focus
@@ -1958,16 +1958,23 @@ void KateSearchBar::onCursorPositionChanged() {
 }
 
 
-void KateSearchBar::onPowerPatternContextMenuRequest() {
+void KateSearchBar::onPowerPatternContextMenuRequest(const QPoint& pos) {
     const bool FOR_PATTERN = true;
-    showExtendedContextMenu(FOR_PATTERN);
+    showExtendedContextMenu(FOR_PATTERN, pos);
+}
+
+void KateSearchBar::onPowerPatternContextMenuRequest() {
+    onPowerPatternContextMenuRequest(m_powerUi->pattern->mapFromGlobal(QCursor::pos()));
 }
 
 
+void KateSearchBar::onPowerReplacmentContextMenuRequest(const QPoint& pos) {
+    const bool FOR_REPLACEMENT = false;
+    showExtendedContextMenu(FOR_REPLACEMENT, pos);
+}
 
 void KateSearchBar::onPowerReplacmentContextMenuRequest() {
-    const bool FOR_REPLACEMENT = false;
-    showExtendedContextMenu(FOR_REPLACEMENT);
+    onPowerReplacmentContextMenuRequest(m_powerUi->replacement->mapFromGlobal(QCursor::pos()));
 }
 
 

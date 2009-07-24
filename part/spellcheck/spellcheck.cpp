@@ -83,7 +83,7 @@ namespace {
   bool lessThanRangeDictionaryPair(const QPair<KTextEditor::Range, QString> &s1,
                                           const QPair<KTextEditor::Range, QString> &s2)
   {
-      return s1.first < s2.first;
+      return s1.first.end() <= s2.first.start();
   }
 }
 
@@ -120,7 +120,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
     }
     if(!handled) {
       // 'consideredRange' did not intersect with any dictionary range, so we add it with the default dictionary
-      toReturn.push_back(RangeDictionaryPair(range, defaultDict));
+      toReturn.push_back(RangeDictionaryPair(consideredRange, defaultDict));
     }
   }
   // finally, we still have to sort the list

@@ -35,6 +35,7 @@ class KAction;
 class KActionCollection;
 namespace Sonnet {
     class Dialog;
+    class BackgroundChecker;
 }
 
 class KateSpellCheckDialog : public QObject
@@ -77,6 +78,7 @@ class KateSpellCheckDialog : public QObject
     KateView *m_view;
     KAction *m_spellcheckSelection;
 
+    Sonnet::BackgroundChecker *m_backgroundChecker;
     Sonnet::Dialog *m_sonnetDialog;
 
     // define the part of the text to check

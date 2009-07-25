@@ -1372,7 +1372,7 @@ void KateDictionaryBar::dictionaryChanged(const QString& dictionary)
   }
 
   KTextEditor::Range selection = kateView->selectionRange();
-  if(selection.isValid()) {
+  if(selection.isValid() && !selection.isEmpty()) {
     kateView->doc()->setDictionary(dictionary, selection);
   }
   else {

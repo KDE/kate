@@ -3244,17 +3244,20 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     // dropped on a text selection area?
     bool selected = m_view->cursorSelected(m_cursor);
 
-    if( priv && selected ) {
+    fixDropEvent(event);
+
+    if( priv && selected && event->dropAction() != Qt::CopyAction ) {
       // this is a drag that we started and dropped on our selection
       // ignore this case
       return;
     }
 
-    fixDropEvent(event);
-
     // fix the cursor position before editStart(), so that it is correctly
     // stored for the undo action
     KTextEditor::Cursor targetCursor(m_cursor); // backup current cursor
+    int selectionWidth = m_view->selectionRange().columnWidth(); // for block selection
+    int selectionHeight = m_view->selectionRange().numberOfLines(); // for block selection
+
     if ( event->dropAction() != Qt::CopyAction ) {
       editSetCursor(m_view->selectionRange().end());
     } else {
@@ -3265,7 +3268,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     doc()->editStart ();
 
     // on move: remove selected text; on copy: duplicate text
-    doc()->insertText(targetCursor, text );
+    doc()->insertText(targetCursor, text, m_view->blockSelection());
 
     KateSmartCursor startCursor(targetCursor,doc());
 
@@ -3273,7 +3276,13 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       m_view->removeSelectedText();
 
     KateSmartCursor endCursor1(startCursor,doc());
-    endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
+    if ( !m_view->blockSelection() ) {
+      endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
+    } else {
+      endCursor1.setColumn(startCursor.column()+selectionWidth);
+      endCursor1.setLine(startCursor.line()+selectionHeight);
+    }
+
     KTextEditor::Cursor endCursor(endCursor1);
     kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     m_view->setSelection(KTextEditor::Range(startCursor,endCursor));

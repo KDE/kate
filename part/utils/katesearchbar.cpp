@@ -1770,6 +1770,11 @@ void KateSearchBar::onMutateIncremental() {
         }
     }
 
+    // Still no search pattern? Use the word under the cursor
+    if (initialPattern.isNull()) {
+        initialPattern = view()->currentWord();
+    }
+
     // Create dialog
     const bool create = (m_incUi == NULL);
     if (create) {

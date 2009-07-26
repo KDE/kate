@@ -6236,6 +6236,7 @@ void KateDocument::clearDictionaryRanges()
   {
     m_onTheFlyChecker->refreshSpellCheck();
   }
+  emit dictionaryRangesPresent(false);
 }
 
 void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor::Range &range)
@@ -6311,6 +6312,7 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
   {
     m_onTheFlyChecker->refreshSpellCheck(newDictionaryRange);
   }
+  emit dictionaryRangesPresent(!m_dictionaryRanges.isEmpty());
 }
 
 void KateDocument::revertToDefaultDictionary(const KTextEditor::Range &range)

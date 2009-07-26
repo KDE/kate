@@ -1159,6 +1159,7 @@ class KateDocument : public KTextEditor::Document,
 
   Q_SIGNALS:
       void respellCheckBlock(KateDocument *document,int start, int end);
+      void dictionaryRangesPresent(bool yesNo);
 
   protected:
       KateOnTheFlyChecker *m_onTheFlyChecker;

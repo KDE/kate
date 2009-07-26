@@ -37,6 +37,7 @@
 #include <kstandardaction.h>
 #include <sonnet/dialog.h>
 #include <sonnet/backgroundchecker.h>
+#include <sonnet/speller.h>
 
 #include <kdebug.h>
 #include <kmessagebox.h>
@@ -44,6 +45,7 @@
 KateSpellCheckDialog::KateSpellCheckDialog( KateView* view )
   : QObject( view )
   , m_view (view)
+  , m_speller (NULL)
   , m_backgroundChecker(NULL)
   , m_sonnetDialog(0)
 {
@@ -51,15 +53,9 @@ KateSpellCheckDialog::KateSpellCheckDialog( KateView* view )
 
 KateSpellCheckDialog::~KateSpellCheckDialog()
 {
-  if( m_sonnetDialog )
-  {
     delete m_sonnetDialog;
-  }
-
-  if( m_backgroundChecker )
-  {
     delete m_backgroundChecker;
-  }
+    delete m_speller;
 }
 
 void KateSpellCheckDialog::createActions( KActionCollection* ac )
@@ -109,9 +105,18 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     end = m_view->doc()->documentEnd();
   }
 
+  if ( !m_speller )
+  {
+    m_speller = new Sonnet::Speller();
+  }
+  else
+  {
+    m_speller->restore(KGlobal::config().data());
+  }
+
   if ( !m_backgroundChecker )
   {
-    m_backgroundChecker = new Sonnet::BackgroundChecker(*KateGlobal::self()->spellCheckManager()->speller());
+    m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
 
   if ( !m_sonnetDialog )
@@ -186,10 +191,9 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
   m_spellPosCursor = m_spellStart;
   m_spellLastPos = 0;
 
-  Sonnet::Speller *speller = KateGlobal::self()->spellCheckManager()->speller();
-  if(speller->language() != dictionary) {
-    speller->setLanguage(dictionary);
-    m_backgroundChecker->setSpeller(*speller);
+  if(m_speller->language() != dictionary) {
+    m_speller->setLanguage(dictionary);
+    m_backgroundChecker->setSpeller(*m_speller);
   }
 
   m_sonnetDialog->setBuffer(m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ));

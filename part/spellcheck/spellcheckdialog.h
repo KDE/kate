@@ -36,6 +36,7 @@ class KActionCollection;
 namespace Sonnet {
     class Dialog;
     class BackgroundChecker;
+    class Speller;
 }
 
 class KateSpellCheckDialog : public QObject
@@ -78,6 +79,7 @@ class KateSpellCheckDialog : public QObject
     KateView *m_view;
     KAction *m_spellcheckSelection;
 
+    Sonnet::Speller *m_speller;
     Sonnet::BackgroundChecker *m_backgroundChecker;
     Sonnet::Dialog *m_sonnetDialog;
 

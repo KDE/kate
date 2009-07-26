@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="49">
+<kpartgui name="KatePartView" version="50">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -82,6 +82,7 @@
     <Action name="tools_spelling_from_cursor" group="tools_operations" />
     <Action name="tools_spelling_selection" group="tools_operations" />
     <Action name="tools_change_dictionary" group="tools_operations" />
+    <Action name="tools_clear_dictionary_ranges" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_indent" group="tools_operations" />
     <Action name="tools_unindent" group="tools_operations" />

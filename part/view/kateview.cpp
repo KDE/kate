@@ -616,6 +616,13 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Change the dictionary that is used for spell checking."));
   connect(a, SIGNAL(triggered()), SLOT(changeDictionary()));
 
+  a = ac->addAction("tools_clear_dictionary_ranges");
+  a->setText(i18n("Clear Dictionary Ranges"));
+  a->setVisible(false);
+  a->setWhatsThis(i18n("Remove all the separate dictionary ranges that were set for spell checking."));
+  connect(a, SIGNAL(triggered()), m_doc, SLOT(clearDictionaryRanges()));
+  connect(m_doc, SIGNAL(dictionaryRangesPresent(bool)), a, SLOT(setVisible(bool)));
+
   if (!m_doc->simpleMode ())
     m_bookmarks->createActions( ac );
 

@@ -41,10 +41,6 @@ class KateSpellCheckManager : public QObject {
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
 
-      Sonnet::Speller* speller();
-
-      QString defaultDictionary();
-
     /**
      * 'r2' is a subrange of 'r1', which is extracted from 'r1' and the remaining ranges are returned
      **/
@@ -58,9 +54,6 @@ class KateSpellCheckManager : public QObject {
   public:
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);
-
-    protected:
-      Sonnet::Speller *m_speller;
 };
 
 #endif

@@ -40,27 +40,12 @@
 #include "spellcheck.h"
 
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
-: QObject(parent), m_speller(NULL)
+: QObject(parent)
 {
 }
 
 KateSpellCheckManager::~KateSpellCheckManager()
 {
-  delete m_speller;
-}
-
-Sonnet::Speller* KateSpellCheckManager::speller()
-{
-  if(!m_speller) {
-    m_speller = new Sonnet::Speller();
-    m_speller->restore(KGlobal::config().data());
-  }
-  return m_speller;
-}
-
-QString KateSpellCheckManager::defaultDictionary()
-{
-  return speller()->defaultLanguage();
 }
 
 QList<KTextEditor::Range> KateSpellCheckManager::rangeDifference(const KTextEditor::Range& r1,
@@ -91,9 +76,6 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
                                                                                            const KTextEditor::Range& range)
 {
   QString defaultDict = doc->defaultDictionary();
-  if(defaultDict.isEmpty()) {
-    defaultDict = defaultDictionary();
-  }
   QList<RangeDictionaryPair> toReturn;
   QMutexLocker smartLock(doc->smartMutex());
   QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges = doc->dictionaryRanges();

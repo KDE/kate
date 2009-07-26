@@ -1359,7 +1359,7 @@ void KateDictionaryBar::updateData()
   KateDocument *document = view()->doc();
   QString dictionary = document->defaultDictionary();
   if(dictionary.isEmpty()) {
-    dictionary = KateGlobal::self()->spellCheckManager()->defaultDictionary();
+    dictionary = Sonnet::Speller().defaultLanguage();
   }
   m_dictionaryComboBox->setCurrentByDictionary(dictionary);
 }

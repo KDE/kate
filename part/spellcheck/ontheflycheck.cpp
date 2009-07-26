@@ -299,19 +299,18 @@ void KateOnTheFlyChecker::performSpellCheck()
 
   QString text = m_document->text(*spellCheckRange);
   ON_THE_FLY_DEBUG << "next spell checking" << text;
-  Sonnet::Speller *speller = KateGlobal::self()->spellCheckManager()->speller();
-  if(speller->language() != language) {
-    speller->setLanguage(language);
+  if(m_speller.language() != language) {
+    m_speller.setLanguage(language);
   }
   if(!m_backgroundChecker) {
-    m_backgroundChecker = new Sonnet::BackgroundChecker(*speller, this);
+    m_backgroundChecker = new Sonnet::BackgroundChecker(m_speller, this);
     connect(m_backgroundChecker,
             SIGNAL(misspelling(const QString&,int)),
             this,
             SLOT(misspelling(const QString&,int)));
     connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
   }
-  m_backgroundChecker->setSpeller(*speller);
+  m_backgroundChecker->setSpeller(m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
   ON_THE_FLY_DEBUG << "exited";
 }
@@ -573,6 +572,7 @@ void KateOnTheFlyChecker::installSmartRanges(KateDocument* document)
 void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
+  m_speller.restore(KGlobal::config().data());
   // we spell check everything again
   refreshSpellCheck();
 }

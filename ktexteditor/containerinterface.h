@@ -282,7 +282,7 @@ class KTEXTEDITOR_EXPORT ViewBarContainer
     */
     virtual QWidget* getViewBarParent(View *view,enum Position position)=0;
 
-    /** It is advisable to store only QPointers to the bar and it's children in the caller after this point.
+    /** It is advisable to store only QPointers to the bar and its children in the caller after this point.
      *  The container may at any point delete the bar, eg if the container is destroyed
      *  The caller has to ensure that bar->parentWidget() is the widget returned by the previous function
      */

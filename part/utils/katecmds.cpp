@@ -652,8 +652,9 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     QString &msg, const KTextEditor::Range &r)
 {
   kDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )";
-  if (r.isValid())
+  if (r.isValid()) {
     kDebug(13025)<<"Range: " << r;
+  }
 
   QRegExp delim("^s\\s*([^\\w\\s])");
   if ( delim.indexIn( cmd ) < 0 ) return false;

@@ -405,7 +405,7 @@ KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const Q
        : KActionMenu (text, parent), doc(_doc)
 {
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
-
+  actionGroup = new QActionGroup(menu());
 }
 
 void KateViewIndentationAction::slotAboutToShow()
@@ -413,8 +413,12 @@ void KateViewIndentationAction::slotAboutToShow()
   QStringList modes = KateAutoIndent::listModes ();
 
   menu()->clear ();
+  foreach (QAction *action, actionGroup->actions()) {
+    actionGroup->removeAction(action);
+  }
   for (int z=0; z<modes.size(); ++z) {
     QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
+    actionGroup->addAction(action);
     action->setCheckable( true );
     action->setData( z );
 

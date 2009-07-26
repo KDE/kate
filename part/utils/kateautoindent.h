@@ -230,6 +230,7 @@ class KateViewIndentationAction : public KActionMenu
 
   private:
     KateDocument* doc;
+    QActionGroup *actionGroup;
 
   public  Q_SLOTS:
     void slotAboutToShow();

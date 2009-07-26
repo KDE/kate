@@ -61,9 +61,7 @@ KateViNormalMode::~KateViNormalMode()
 {
   delete m_marks;
   qDeleteAll( m_commands );
-  m_commands.clear();
   qDeleteAll( m_motions) ;
-  m_motions.clear();
 }
 
 void KateViNormalMode::mappingTimerTimeOut()

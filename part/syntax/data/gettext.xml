@@ -66,7 +66,7 @@
 
       <!--
         Tag-context should be carried over if split by string continuation,
-        to not loose markup highlighting when that happens.
+        to not lose markup highlighting when that happens.
       -->
       <context name = "String" attribute = "String" lineEndContext="#stay">
         <RegExpr attribute = "Char" String="\\." context="#stay"/>

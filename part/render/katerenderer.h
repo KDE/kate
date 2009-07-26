@@ -205,7 +205,7 @@ public:
     /**
      * This is a smaller QString::isRightToLeft(). It's also marked as internal to kate
      * instead of internal to Qt, so we can modify. This method searches for the first
-     * strong character in the paragraph and then returns it's direction. In case of a 
+     * strong character in the paragraph and then returns its direction. In case of a 
      * line without any strong characters, the direction is forced to be LTR.
      * 
      * Back in KDE 4.1 this method counted chars, which lead to unwanted side effects.

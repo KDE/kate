@@ -196,9 +196,12 @@ void KWrite::setupActions()
 void KWrite::setupStatusBar()
 {
   // statusbar stuff
+  QString lineColText = i18nc("@info:status Statusbar label for cursor line and column position",
+    " Line: %1 Col: %2 ", 4444, 44);
+
   m_lineColLabel = new QLabel( statusBar() );
+  m_lineColLabel->setMinimumWidth( m_lineColLabel->fontMetrics().width( lineColText ) );
   statusBar()->addWidget( m_lineColLabel, 0 );
-  m_lineColLabel->setAlignment( Qt::AlignCenter );
 
   m_modifiedLabel = new QLabel( statusBar() );
   m_modifiedLabel->setFixedSize( 16, 16 );

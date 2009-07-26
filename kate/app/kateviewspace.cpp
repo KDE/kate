@@ -269,9 +269,12 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
     : KStatusBar( parent),
     m_viewSpace( parent )
 {
+  QString lineColText = i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(4444, 0),
+         KGlobal::locale()->formatNumber(44, 0));
+
   m_lineColLabel = new QLabel( this );
+  m_lineColLabel->setMinimumWidth( m_lineColLabel->fontMetrics().width( lineColText ) );
   addWidget( m_lineColLabel, 0 );
-  m_lineColLabel->setAlignment( Qt::AlignCenter );
   m_lineColLabel->installEventFilter( this );
 
   m_modifiedLabel = new QLabel( this );

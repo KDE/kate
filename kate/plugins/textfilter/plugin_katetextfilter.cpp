@@ -116,9 +116,12 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
   if (!kv) return;
   kv->document()->startEditing();
 
+  KTextEditor::Cursor start = kv->selectionRange().start();
   if (kv->selection()) {
     kv->removeSelectionText();
   }
+
+  kv->setCursorPosition(start); // for block selection
 
   kv -> insertText (m_strFilterOutput);
   kv->document()->endEditing();

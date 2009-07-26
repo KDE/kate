@@ -204,7 +204,7 @@ bool View::insertText (const QString &text )
 {
   KTextEditor::Document *doc=document();
   if (!doc) return false;
-  return doc->insertText(cursorPosition(),text);
+  return doc->insertText(cursorPosition(),text,blockSelection());
 }
 
 Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )

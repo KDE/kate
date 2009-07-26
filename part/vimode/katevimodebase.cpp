@@ -590,7 +590,7 @@ QString KateViModeBase::getRegisterContent( const QChar &reg ) const
   QString r = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 
   if ( r.isNull() ) {
-    error( QString( "Nothing in register " ) + reg );
+    error( i18n( "Nothing in register %1" ,reg ));
   }
 
   return r;

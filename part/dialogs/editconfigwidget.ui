@@ -186,6 +186,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="chkSmartCopyCut">
+        <property name="text">
+         <string>Copy/Cut the current line if no selection</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

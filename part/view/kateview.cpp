@@ -1042,7 +1042,7 @@ void KateView::slotReadWriteChanged ()
   if ( m_toggleWriteLock )
     m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
 
-  m_cut->setEnabled (m_doc->isReadWrite());
+  m_cut->setEnabled (m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_paste->setEnabled (m_doc->isReadWrite());
 
   QStringList l;
@@ -1402,13 +1402,13 @@ void KateView::findPrevious()
 
 void KateView::slotSelectionChanged ()
 {
-  m_copy->setEnabled (selection());
+  m_copy->setEnabled (selection() || m_config->smartCopyCut());
   m_deSelect->setEnabled (selection());
 
   if (m_doc->readOnly())
     return;
 
-  m_cut->setEnabled (selection());
+  m_cut->setEnabled (selection() || m_config->smartCopyCut() );
 
   m_spell->updateActions ();
 }
@@ -1489,6 +1489,9 @@ void KateView::updateConfig ()
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
+
+  m_cut->setEnabled(m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
+  m_copy->setEnabled(selection() || m_config->smartCopyCut());
 
   // now redraw...
   {
@@ -1887,19 +1890,30 @@ void KateView::selectLine( const KTextEditor::Cursor& cursor )
 
 void KateView::cut()
 {
-  if (!selection())
+  if (!selection() && !m_config->smartCopyCut())
     return;
 
   copy();
+  if (!selection())
+    selectLine(m_viewInternal->m_displayCursor);
   removeSelectedText();
 }
 
 void KateView::copy() const
 {
-  if (!selection())
-    return;
+  QString text = selectionText();
 
-  QApplication::clipboard()->setText(selectionText ());
+  if (!selection()) {
+    if (!m_config->smartCopyCut())
+      return;
+    int line = m_viewInternal->m_displayCursor.line();
+    if ( line+1 >= m_doc->lines() )
+      text = m_doc->text(KTextEditor::Range(line, 0, line, m_doc->lineLength(line)));
+    else
+      text = m_doc->text(KTextEditor::Range(line, 0, line+1, 0));
+  }
+
+  QApplication::clipboard()->setText(text);
 }
 
 void KateView::applyWordWrap ()

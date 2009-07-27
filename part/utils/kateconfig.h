@@ -393,6 +393,9 @@ class KateViewConfig : public KateConfig
     int wordCompletionMinimalWordLength () const;
     void setWordCompletionMinimalWordLength (int lenght);
 
+    bool smartCopyCut() const;
+    void setSmartCopyCut(bool on);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -412,6 +415,7 @@ class KateViewConfig : public KateConfig
     bool m_automaticCompletionInvocation;
     bool m_wordCompletion;
     int m_wordCompletionMinimalWordLength;
+    bool m_smartCopyCut;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -431,6 +435,7 @@ class KateViewConfig : public KateConfig
     bool m_automaticCompletionInvocationSet : 1;
     bool m_wordCompletionSet : 1;
     bool m_wordCompletionMinimalWordLengthSet : 1;
+    bool m_smartCopyCutSet : 1;
 
   private:
     static KateViewConfig *s_global;

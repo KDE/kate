@@ -204,7 +204,7 @@ void KateViVisualMode::initializeCommands()
   m_commands.clear();
 
   // Remove the motions put in here by KateViNormalMode
-  qDeleteAll(m_commands);
+  qDeleteAll(m_motions);
   m_motions.clear();
 
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, IS_CHANGE ) );

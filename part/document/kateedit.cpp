@@ -121,6 +121,7 @@ KateEditHistory::KateEditHistory( KateDocument * doc )
 
 KateEditHistory::~KateEditHistory()
 {
+  qDeleteAll(m_edits);
 }
 
 int KateEditHistory::revision()

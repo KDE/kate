@@ -1167,9 +1167,9 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   m_buffer->changeLine(line);
 
-  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
   history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(s)) );
-  
+  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
+
   editEnd();
 
   return true;
@@ -3158,8 +3158,8 @@ bool KateDocument::openFile()
     setEncoding (mimeType.mid(pos+1));
 
   // do we have success ?
-  emit KTextEditor::Document::textRemoved(this, documentRange());
   history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
+  emit KTextEditor::Document::textRemoved(this, documentRange());
 
   bool success = m_buffer->openFile (localFilePath());
 

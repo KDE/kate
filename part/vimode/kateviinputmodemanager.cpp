@@ -56,6 +56,7 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viNormalMode;
   delete m_viInsertMode;
   delete m_viVisualMode;
+  delete m_viReplaceMode;
 }
 
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)

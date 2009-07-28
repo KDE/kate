@@ -103,7 +103,7 @@ class KateFileLoader
 
     ~KateFileLoader ()
     {
-      //delete m_decoder;
+      delete m_prober;
     }
 
     /**

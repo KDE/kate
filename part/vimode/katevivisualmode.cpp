@@ -199,8 +199,14 @@ KTextEditor::Range KateViVisualMode::getVisualRange() const
 
 void KateViVisualMode::initializeCommands()
 {
+  // Remove the commands put in here by KateViNormalMode
+  qDeleteAll(m_commands);
   m_commands.clear();
+
+  // Remove the motions put in here by KateViNormalMode
+  qDeleteAll(m_commands);
   m_motions.clear();
+
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "c", &KateViNormalMode::commandChange, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "s", &KateViNormalMode::commandChange, IS_CHANGE ) );

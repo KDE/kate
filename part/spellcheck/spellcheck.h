@@ -41,6 +41,8 @@ class KateSpellCheckManager : public QObject {
     KateSpellCheckManager(QObject* parent = NULL);
     virtual ~KateSpellCheckManager();
 
+    QStringList suggestions(const QString& word, const QString& dictionary);
+
     /**
      * 'r2' is a subrange of 'r1', which is extracted from 'r1' and the remaining ranges are returned
      **/

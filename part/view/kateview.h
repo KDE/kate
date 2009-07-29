@@ -61,6 +61,7 @@ class KateViModeBar;
 class KateViewBar;
 class KateGotoBar;
 class KateDictionaryBar;
+class KateSpellingSuggestionsMenu;
 
 class KToggleAction;
 class KAction;
@@ -691,16 +692,16 @@ class KateView : public KTextEditor::View,
      * Update vi mode statusbar with the (partial) vi command being typed
      */
     void updateViModeBarCmd();
-    
+
   public:
     KTextEditor::Range visibleRange();
-    
+
   Q_SIGNALS:
     void displayRangeChanged(KateView *view);
-    
-    
+
   protected:
-    KToggleAction*         m_toggleOnTheFlySpellCheck;
+    KToggleAction*               m_toggleOnTheFlySpellCheck;
+    KateSpellingSuggestionsMenu *m_spellingSuggestionsMenu;
 
   protected Q_SLOTS:
     void toggleOnTheFlySpellCheck(bool b);

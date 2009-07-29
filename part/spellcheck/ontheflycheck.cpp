@@ -83,6 +83,20 @@ int KateOnTheFlyChecker::debugArea()
   return s_area;
 }
 
+QPair<KTextEditor::Range, QString> KateOnTheFlyChecker::getMisspelledItem(const KTextEditor::Cursor &cursor) const
+{
+  QMutexLocker smartLock(m_document->smartMutex());
+  const MisspelledList& misspelledList = m_misspelledList;
+  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
+    MisspelledItem item = *i;
+    KTextEditor::SmartRange *smartRange = item.first;
+    if(smartRange->contains(cursor)) {
+      return QPair<KTextEditor::Range, QString>(*smartRange, item.second);
+    }
+  }
+  return QPair<KTextEditor::Range, QString>(KTextEditor::Range::invalid(), QString());
+}
+
 const KateOnTheFlyChecker::SpellCheckItem KateOnTheFlyChecker::invalidSpellCheckQueueItem =
                            SpellCheckItem(NULL, "");
 

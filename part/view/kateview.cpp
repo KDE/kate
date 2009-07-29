@@ -54,6 +54,7 @@
 #include "katelayoutcache.h"
 #include "spellcheck/spellcheck.h"
 #include "spellcheck/spellcheckdialog.h"
+#include "spellcheck/spellingsuggestionsmenu.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -120,6 +121,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_viModeBar (0)
     , m_gotoBar (0)
     , m_dictionaryBar(NULL)
+    , m_spellingSuggestionsMenu( new KateSpellingSuggestionsMenu( this ) )
 {
 
   setComponentData ( KateGlobal::self()->componentData () );
@@ -253,6 +255,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   if (!doc->simpleMode ())
     new KateHTMLExporter(this);
+
+  connect(this, SIGNAL(contextMenuAboutToShow(KTextEditor::View*, QMenu*)),
+          m_spellingSuggestionsMenu, SLOT(updateContextMenuActionStatus(KTextEditor::View*, QMenu*)));
 }
 
 KateView::~KateView()
@@ -622,6 +627,8 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Remove all the separate dictionary ranges that were set for spell checking."));
   connect(a, SIGNAL(triggered()), m_doc, SLOT(clearDictionaryRanges()));
   connect(m_doc, SIGNAL(dictionaryRangesPresent(bool)), a, SLOT(setVisible(bool)));
+
+  m_spellingSuggestionsMenu->createActions( ac );
 
   if (!m_doc->simpleMode ())
     m_bookmarks->createActions( ac );
@@ -2554,6 +2561,10 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
     menu->addSeparator();
     menu->addAction(m_selectAll);
     menu->addAction(m_deSelect);
+    if (QAction *spellingSuggestions = actionCollection()->action("spelling_suggestions")) {
+      menu->addSeparator();
+      menu->addAction(spellingSuggestions);
+    }
     if (QAction* bookmark = actionCollection()->action("bookmarks")) {
       menu->addSeparator();
       menu->addAction(bookmark);

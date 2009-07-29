@@ -54,6 +54,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
 
     static int debugArea();
 
+    QPair<KTextEditor::Range, QString> getMisspelledItem(const KTextEditor::Cursor &cursor) const;
+
   public Q_SLOTS:
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range &range);
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);

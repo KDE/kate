@@ -129,6 +129,8 @@ spellcheck/spellcheck.h
 spellcheck/spellcheck.cpp
 spellcheck/spellcheckdialog.h
 spellcheck/spellcheckdialog.cpp
+spellcheck/spellingsuggestionsmenu.h
+spellcheck/spellingsuggestionsmenu.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp

@@ -37,7 +37,6 @@
 
 #include "katedocument.h"
 #include "katehighlight.h"
-#include "spellcheck.h"
 
 KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 : QObject(parent)
@@ -46,6 +45,13 @@ KateSpellCheckManager::KateSpellCheckManager(QObject *parent)
 
 KateSpellCheckManager::~KateSpellCheckManager()
 {
+}
+
+QStringList KateSpellCheckManager::suggestions(const QString& word, const QString& dictionary)
+{
+  Sonnet::Speller speller;
+  speller.setLanguage(dictionary);
+  return speller.suggest(word);
 }
 
 QList<KTextEditor::Range> KateSpellCheckManager::rangeDifference(const KTextEditor::Range& r1,

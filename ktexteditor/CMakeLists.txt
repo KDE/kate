@@ -59,7 +59,11 @@ install( FILES
     cursorfeedback.h
     rangefeedback.h
     smartcursor.h
+    smartcursornotifier.h
+    smartcursorwatcher.h
     smartrange.h
+    smartrangenotifier.h
+    smartrangewatcher.h
     codecompletioninterface.h
     codecompletionmodel.h
     codecompletionmodelcontrollerinterface.h

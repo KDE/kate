@@ -74,6 +74,6 @@ void SmartCursorWatcher::deleted( SmartCursor * )
 {
 }
 
-#include "cursorfeedback.moc"
+#include "smartcursornotifier.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

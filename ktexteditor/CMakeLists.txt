@@ -25,8 +25,8 @@ kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
 
 kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 
-target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} ${QT_QTDBUS_LIBRARY} kparts )
-target_link_libraries(ktexteditor  LINK_INTERFACE_LIBRARIES kparts )
+target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} ${QT_QTDBUS_LIBRARY} ${KDE4_KPARTS_LIBS} )
+target_link_libraries(ktexteditor  LINK_INTERFACE_LIBRARIES ${KDE4_KPARTS_LIBS} )
 
 set_target_properties(ktexteditor
    PROPERTIES VERSION ${GENERIC_LIB_VERSION}

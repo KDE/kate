@@ -27,12 +27,13 @@
 #include <kactionmenu.h>
 #include <kmenu.h>
 #include <ktexteditor/range.h>
+#include <ktexteditor/smartrangewatcher.h>
 #include <ktexteditor/view.h>
 
 class KateDocument;
 class KateView;
 
-class KateSpellingMenu : public QObject {
+class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher {
   Q_OBJECT
 
   public:
@@ -52,9 +53,11 @@ class KateSpellingMenu : public QObject {
     KateView *m_view;
     KActionMenu *m_spellingMenuAction;
     KMenu *m_spellingMenu;
-    KTextEditor::Range m_currentMisspelledRange;
+    KTextEditor::SmartRange *m_currentMisspelledRange;
     QStringList m_currentSuggestions;
     QSignalMapper *m_suggestionsSignalMapper;
+
+    void rangeDeleted(KTextEditor::SmartRange *range);
 
   protected Q_SLOTS:
     void populateSuggestionsMenu();

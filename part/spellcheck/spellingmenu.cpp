@@ -74,8 +74,9 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
  **/
 void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
 {
-  m_spellingMenu->setEnabled(true);
-  m_currentMisspelledRange = *range;
+  m_spellingMenuAction->setEnabled(true);
+  m_currentMisspelledRange = range;
+  m_currentMisspelledRange->addWatcher(this);
 }
 
 /**
@@ -84,22 +85,27 @@ void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
 void KateSpellingMenu::exitedMisspelledRange(KTextEditor::SmartRange *range)
 {
   Q_UNUSED(range);
-  m_spellingMenu->setEnabled(false);
-  m_currentMisspelledRange = KTextEditor::Range::invalid();
+  m_spellingMenuAction->setEnabled(false);
+  if(m_currentMisspelledRange) {
+    m_currentMisspelledRange->removeWatcher(this);
+    m_currentMisspelledRange = NULL;
+  }
 }
 
-/*
- * WARNING: we assume that 'updateContextMenuActionStatus' is called before this method!
- */
+void KateSpellingMenu::rangeDeleted(KTextEditor::SmartRange *range)
+{
+  exitedMisspelledRange(range);
+}
+
 void KateSpellingMenu::populateSuggestionsMenu()
 {
   QMutexLocker(m_view->doc()->smartMutex());
   m_spellingMenu->clear();
-  if(!m_currentMisspelledRange.isValid()) {
+  if(!m_currentMisspelledRange) {
     return;
   }
-  const QString& misspelledWord = m_view->doc()->text(m_currentMisspelledRange);
-  const QString dictionary = m_view->doc()->dictionaryForMisspelledRange(m_currentMisspelledRange);
+  const QString& misspelledWord = m_view->doc()->text(*m_currentMisspelledRange);
+  const QString dictionary = m_view->doc()->dictionaryForMisspelledRange(*m_currentMisspelledRange);
   m_currentSuggestions = KateGlobal::self()->spellCheckManager()->suggestions(misspelledWord, dictionary);
 
   int counter = 0;
@@ -115,7 +121,8 @@ void KateSpellingMenu::populateSuggestionsMenu()
 
 void KateSpellingMenu::replaceWordBySuggestion(const QString& suggestion)
 {
-  m_view->doc()->replaceText(m_currentMisspelledRange, suggestion);
+  QMutexLocker(m_view->doc()->smartMutex());
+  m_view->doc()->replaceText(*m_currentMisspelledRange, suggestion);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

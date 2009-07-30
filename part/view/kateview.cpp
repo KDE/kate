@@ -54,7 +54,7 @@
 #include "katelayoutcache.h"
 #include "spellcheck/spellcheck.h"
 #include "spellcheck/spellcheckdialog.h"
-#include "spellcheck/spellingsuggestionsmenu.h"
+#include "spellcheck/spellingmenu.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -121,7 +121,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_viModeBar (0)
     , m_gotoBar (0)
     , m_dictionaryBar(NULL)
-    , m_spellingSuggestionsMenu( new KateSpellingSuggestionsMenu( this ) )
+    , m_spellingMenu( new KateSpellingMenu( this ) )
 {
 
   setComponentData ( KateGlobal::self()->componentData () );
@@ -255,9 +255,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   if (!doc->simpleMode ())
     new KateHTMLExporter(this);
-
-  connect(this, SIGNAL(contextMenuAboutToShow(KTextEditor::View*, QMenu*)),
-          m_spellingSuggestionsMenu, SLOT(updateContextMenuActionStatus(KTextEditor::View*, QMenu*)));
 }
 
 KateView::~KateView()
@@ -628,7 +625,7 @@ void KateView::setupActions()
   connect(a, SIGNAL(triggered()), m_doc, SLOT(clearDictionaryRanges()));
   connect(m_doc, SIGNAL(dictionaryRangesPresent(bool)), a, SLOT(setVisible(bool)));
 
-  m_spellingSuggestionsMenu->createActions( ac );
+  m_spellingMenu->createActions( ac );
 
   if (!m_doc->simpleMode ())
     m_bookmarks->createActions( ac );
@@ -1038,10 +1035,6 @@ void KateView::reloadFile()
 {
   // bookmarks and cursor positions are temporarily saved by the document
   m_doc->documentReload();
-}
-
-void KateView::slotOnTheFlySpellCheckingChanged(){
-    m_toggleOnTheFlySpellCheck->setChecked(m_doc->isOnTheFlySpellCheckingEnabled());
 }
 
 void KateView::slotReadWriteChanged ()
@@ -1489,9 +1482,9 @@ void KateView::updateConfig ()
 
   // whether vi input mode should override actions or not
   m_viewInternal->m_viInputModeStealKeys = config()->viInputModeStealKeys();
-  
-  m_toggleOnTheFlySpellCheck->setChecked(m_doc->isOnTheFlySpellCheckingEnabled());
-  
+
+  reflectOnTheFlySpellCheckStatus(m_doc->isOnTheFlySpellCheckingEnabled());
+
   // register/unregister word completion...
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
@@ -2704,13 +2697,19 @@ KTextEditor::Range KateView::visibleRange()
   return KTextEditor::Range(m_viewInternal->startPos(), m_viewInternal->endPos());
 }
 
-
 void KateView::toggleOnTheFlySpellCheck(bool b)
 {
   m_doc->onTheFlySpellCheckingEnabled(b);
-  
 }
 
+void KateView::reflectOnTheFlySpellCheckStatus(bool enabled)
+{
+  m_spellingMenu->setVisible(enabled);
+  m_toggleOnTheFlySpellCheck->setChecked(enabled);
+}
+
+KateSpellingMenu* KateView::spellingMenu()
+{
+  return m_spellingMenu;
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;
-
-

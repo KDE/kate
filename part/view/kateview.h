@@ -61,7 +61,7 @@ class KateViModeBar;
 class KateViewBar;
 class KateGotoBar;
 class KateDictionaryBar;
-class KateSpellingSuggestionsMenu;
+class KateSpellingMenu;
 
 class KToggleAction;
 class KAction;
@@ -617,8 +617,7 @@ class KateView : public KTextEditor::View,
 
   private Q_SLOTS:
     void updateFoldingConfig ();
-  public Q_SLOTS:
-    void slotOnTheFlySpellCheckingChanged();
+
   private:
     KateViewConfig *m_config;
     bool m_startingUp;
@@ -701,13 +700,17 @@ class KateView : public KTextEditor::View,
 
   protected:
     KToggleAction*               m_toggleOnTheFlySpellCheck;
-    KateSpellingSuggestionsMenu *m_spellingSuggestionsMenu;
+    KateSpellingMenu *m_spellingMenu;
 
   protected Q_SLOTS:
     void toggleOnTheFlySpellCheck(bool b);
 
   public Q_SLOTS:
     void changeDictionary();
+    void reflectOnTheFlySpellCheckStatus(bool enabled);
+
+  public:
+    KateSpellingMenu* spellingMenu();
 };
 
 /**

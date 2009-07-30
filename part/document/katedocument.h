@@ -1146,6 +1146,7 @@ class KateDocument : public KTextEditor::Document,
       bool isOnTheFlySpellCheckingEnabled() const;
 
       QPair<KTextEditor::Range, QString> onTheFlyMisspelledItem(const KTextEditor::Cursor &cursor) const;
+      QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
 
   public Q_SLOTS:
       void clearDictionaryRanges();

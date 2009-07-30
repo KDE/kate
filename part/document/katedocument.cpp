@@ -6345,6 +6345,9 @@ void KateDocument::onTheFlySpellCheckingEnabled(bool enable)
     delete m_onTheFlyChecker;
     m_onTheFlyChecker = 0;
   }
+  foreach(KateView *view, m_views) {
+    view->reflectOnTheFlySpellCheckStatus(enable);
+  }
 }
 
 bool KateDocument::isOnTheFlySpellCheckingEnabled() const
@@ -6354,11 +6357,21 @@ bool KateDocument::isOnTheFlySpellCheckingEnabled() const
 
 QPair<KTextEditor::Range, QString> KateDocument::onTheFlyMisspelledItem(const KTextEditor::Cursor &cursor) const
 {
-  if (!m_onTheFlyChecker) {
+  if (!m_onTheFlyChecker)
+  {
     return QPair<KTextEditor::Range, QString>(KTextEditor::Range::invalid(), QString());
-  }
-  else {
+  } else {
     return m_onTheFlyChecker->getMisspelledItem(cursor);
+  }
+}
+
+QString KateDocument::dictionaryForMisspelledRange(const KTextEditor::Range& range) const
+{
+  if (!m_onTheFlyChecker)
+  {
+    return QString();
+  } else {
+    return m_onTheFlyChecker->dictionaryForMisspelledRange(range);
   }
 }
 

@@ -38,6 +38,7 @@
 #include "katehighlight.h"
 #include "katetextline.h"
 #include "spellcheck.h"
+#include "spellingmenu.h"
 
 #define ON_THE_FLY_DEBUG kDebug(debugArea())
 
@@ -70,6 +71,7 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
   for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
     addView(document, *i);
   }
+  refreshSpellCheck();
 }
 
 KateOnTheFlyChecker::~KateOnTheFlyChecker()
@@ -95,6 +97,20 @@ QPair<KTextEditor::Range, QString> KateOnTheFlyChecker::getMisspelledItem(const 
     }
   }
   return QPair<KTextEditor::Range, QString>(KTextEditor::Range::invalid(), QString());
+}
+
+QString KateOnTheFlyChecker::dictionaryForMisspelledRange(const KTextEditor::Range& range) const
+{
+  QMutexLocker smartLock(m_document->smartMutex());
+  const MisspelledList& misspelledList = m_misspelledList;
+  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
+    MisspelledItem item = *i;
+    KTextEditor::SmartRange *smartRange = item.first;
+    if(*smartRange == range) {
+      return item.second;
+    }
+  }
+  return QString();
 }
 
 const KateOnTheFlyChecker::SpellCheckItem KateOnTheFlyChecker::invalidSpellCheckQueueItem =
@@ -429,6 +445,27 @@ void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
   }
 }
 
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this function!
+ **/
+void KateOnTheFlyChecker::caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+{
+  KateView *kateView = static_cast<KateView*>(view);
+  QMutexLocker(kateView->doc()->smartMutex());
+  kateView->spellingMenu()->enteredMisspelledRange(range);
+}
+
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this function!
+ **/
+
+void KateOnTheFlyChecker::caretExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+{
+  KateView *kateView = static_cast<KateView*>(view);
+  QMutexLocker(kateView->doc()->smartMutex());
+  kateView->spellingMenu()->exitedMisspelledRange(range);
+}
+
 KTextEditor::Cursor KateOnTheFlyChecker::findBeginningOfWord(const KTextEditor::Cursor &cursor,
                                                              bool reverse)
 {
@@ -556,7 +593,7 @@ void KateOnTheFlyChecker::installSmartRange(KTextEditor::SmartRange *smartRange)
 {
   ON_THE_FLY_DEBUG;
   QMutexLocker smartLock(m_document->smartMutex());
-  m_document->addHighlightToDocument(smartRange, false);
+  m_document->addHighlightToDocument(smartRange, true);
   m_installedSmartRangeList.push_back(smartRange);
 }
 

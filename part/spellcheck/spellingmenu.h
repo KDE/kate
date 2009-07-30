@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#ifndef SPELLINGSUGGESTIONSMENU_H
-#define SPELLINGSUGGESTIONSMENU_H
+#ifndef SPELLINGMENU_H
+#define SPELLINGMENU_H
 
 #include <QObject>
 #include <QSignalMapper>
@@ -32,22 +32,26 @@
 class KateDocument;
 class KateView;
 
-class KateSpellingSuggestionsMenu : public QObject {
+class KateSpellingMenu : public QObject {
   Q_OBJECT
 
   public:
-    KateSpellingSuggestionsMenu(KateView *view);
-    virtual ~KateSpellingSuggestionsMenu();
+    KateSpellingMenu(KateView *view);
+    virtual ~KateSpellingMenu();
 
     void createActions(KActionCollection *ac);
 
+    void enteredMisspelledRange(KTextEditor::SmartRange *range);
+    void exitedMisspelledRange(KTextEditor::SmartRange *range);
+
   public Q_SLOTS:
-    void updateContextMenuActionStatus(KTextEditor::View *view, QMenu *menu);
+    void setEnabled(bool b);
+    void setVisible(bool b);
 
   protected:
     KateView *m_view;
-    KActionMenu *m_suggestionsMenuAction;
-    KMenu *m_suggestionsMenu;
+    KActionMenu *m_spellingMenuAction;
+    KMenu *m_spellingMenu;
     KTextEditor::Range m_currentMisspelledRange;
     QStringList m_currentSuggestions;
     QSignalMapper *m_suggestionsSignalMapper;

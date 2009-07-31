@@ -1535,16 +1535,15 @@ void KateViewInternal::cursorToMatchingBracket( bool sel )
 void KateViewInternal::topOfView( bool sel )
 {
   KTextEditor::Cursor c = viewLineOffset(startPos(), m_minLinesVisible);
-  updateSelection( c, sel );
-  updateCursor( c );
+  updateSelection( toRealCursor(c), sel );
+  updateCursor( toRealCursor(c) );
 }
 
 void KateViewInternal::bottomOfView( bool sel )
 {
-  // FIXME account for wordwrap
   KTextEditor::Cursor c = viewLineOffset(endPos(), -m_minLinesVisible);
-  updateSelection( c, sel );
-  updateCursor( c );
+  updateSelection( toRealCursor(c), sel );
+  updateCursor( toRealCursor(c) );
 }
 
 // lines is the offset to scroll by
@@ -3655,14 +3654,17 @@ void KateViewInternal::cursorMoved( )
   dynamicMoved(false);
 }
 
-bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range) const
+bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const
 {
-  if(range.end().line() < m_startPos.line())
-    return false;
-  if(range.start().line() > m_startPos.line() + (int)m_visibleLineCount)
-    return false;
-  
-  return true;
+  int startLine = m_startPos.line();
+  int endLine = startLine + (int)m_visibleLineCount;
+
+  if ( realCursors ) {
+    startLine = (int)doc()->getRealLine(startLine);
+    endLine = (int)doc()->getRealLine(endLine);
+  }
+
+  return (range.end().line() >= startLine) || (range.start().line() <= endLine);
 }
 
 void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
@@ -3675,8 +3677,9 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 
   const KateSmartRange* krange = dynamic_cast<const KateSmartRange*>(&range);
   
-  if (!m_smartDirty && (rangeAffectsView(range) ||
-       (krange && rangeAffectsView(KTextEditor::Range(krange->kStart().lastPosition(), krange->kEnd().lastPosition()))))) {
+  if (!m_smartDirty && (rangeAffectsView(range, realCursors) ||
+       (krange && rangeAffectsView(KTextEditor::Range(krange->kStart().lastPosition(),
+                                                      krange->kEnd().lastPosition()), realCursors)))) {
     m_smartDirty = true;
     emit requestViewUpdateIfSmartDirty();
   }

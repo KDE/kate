@@ -247,7 +247,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void placeCursor( const QPoint& p, bool keepSelection = false, bool updateSelection = true );
     bool isTargetSelected( const QPoint& p );
     //Returns whether the given range affects the area currently visible in the view
-    bool rangeAffectsView(const KTextEditor::Range& range) const;
+    bool rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const;
 
     void doDrag();
 

@@ -462,7 +462,7 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
         QList<ReplacementPart> parts;
         QString writableHack(replacement);
         const bool REPLACEMENT_GOODIES = true;
-        KateDocument::escapePlaintext(writableHack, &parts, REPLACEMENT_GOODIES);
+        KateSearch::escapePlaintext(writableHack, &parts, REPLACEMENT_GOODIES);
         buildReplacement(finalReplacement, parts, match, replacementCounter);
     } else {
         // Plain text replacement
@@ -726,7 +726,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             {
                 // Check if pattern multi-line
                 QString patternCopy(pattern);
-                KateDocument::repairPattern(patternCopy, multiLinePattern);
+                KateSearch::repairPattern(patternCopy, multiLinePattern);
                 regexMode = true;
             }
             enabledOptions |= Search::Regex;
@@ -1063,7 +1063,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
     if (regexMode) {
         // Check if pattern multi-line
         QString patternCopy(pattern);
-        KateDocument::repairPattern(patternCopy, multiLinePattern);
+        KateSearch::repairPattern(patternCopy, multiLinePattern);
     }
 
     // Clear backwards flag, this algorithm is for forward mode

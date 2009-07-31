@@ -23,6 +23,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/script
   ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
+  ${CMAKE_CURRENT_SOURCE_DIR}/search
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/undo
@@ -87,6 +88,10 @@ render/katelayoutcache.cpp
 render/katetextlayout.cpp
 render/katelinelayout.cpp
 
+# search stuff
+search/katesearch.cpp
+search/katesearchbar.cpp
+
 # smart stuff (cursors, ranges, ...)
 smart/katesmartcursor.cpp
 smart/katesmartrange.cpp
@@ -133,7 +138,6 @@ spellcheck/spellingmenu.h
 spellcheck/spellingmenu.cpp
 
 # generic stuff, unsorted...
-utils/katesearchbar.cpp
 utils/katevimodebar.cpp
 utils/katecmds.cpp
 utils/katefactory.cpp
@@ -167,8 +171,8 @@ dialogs/opensaveconfigadvwidget.ui
 dialogs/modonhdwidget.ui
 dialogs/schemaconfigcolortab.ui
 dialogs/completionconfigwidget.ui
-dialogs/searchbarincremental.ui
-dialogs/searchbarpower.ui
+search/searchbarincremental.ui
+search/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
 )

@@ -213,7 +213,7 @@ void PluginKateInsertCommand::slotShowWaitDlg()
 {
     if ( sh->isRunning() ) {
       wdlg = new WaitDlg( (QWidget*)kv, i18n(
-        "Executing command:\n%1\n\nPress 'Cancel' to abort.", cmd)  );
+        "Executing command:\n%1\n\nPress 'Cancel' to cancel.", cmd)  );
       connect(wdlg, SIGNAL(cancelClicked()), this, SLOT(slotAbort()) );
     }
     if ( sh->isRunning() )    // we may have finished while creating the dialog.

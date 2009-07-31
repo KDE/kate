@@ -175,7 +175,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   connect(this, SIGNAL(noClicked()), this, SLOT(slotDoNotSave()));
 
   KGuiItem cancelItem = KStandardGuiItem::cancel();
-  cancelItem.setText(i18n("&Abort Closing"));
+  cancelItem.setText(i18n("Do &Not Close"));
   setButtonGuiItem(KDialog::Cancel, cancelItem);
 
   KVBox *box = new KVBox(this);

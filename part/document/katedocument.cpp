@@ -5153,6 +5153,20 @@ QString KateDocument::dictionaryForMisspelledRange(const KTextEditor::Range& ran
   }
 }
 
+void KateDocument::clearMisspellingForWord(const QString& word)
+{
+  if(m_onTheFlyChecker) {
+    m_onTheFlyChecker->clearMisspellingForWord(word);
+  }
+}
+
+void KateDocument::refreshOnTheFlyCheck(const KTextEditor::Range &range)
+{
+  if(m_onTheFlyChecker) {
+    m_onTheFlyChecker->refreshSpellCheck(range);
+  }
+}
+
 void KateDocument::dictionaryRangeEliminated(KTextEditor::SmartRange *smartRange)
 {
   QMutexLocker smartLock(smartMutex());

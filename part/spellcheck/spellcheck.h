@@ -43,6 +43,9 @@ class KateSpellCheckManager : public QObject {
 
     QStringList suggestions(const QString& word, const QString& dictionary);
 
+    void ignoreWord(const QString& word, const QString& dictionary);
+    void addToDictionary(const QString& word, const QString& dictionary);
+
     /**
      * 'r2' is a subrange of 'r1', which is extracted from 'r1' and the remaining ranges are returned
      **/

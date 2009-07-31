@@ -54,6 +54,20 @@ QStringList KateSpellCheckManager::suggestions(const QString& word, const QStrin
   return speller.suggest(word);
 }
 
+void KateSpellCheckManager::ignoreWord(const QString& word, const QString& dictionary)
+{
+  Sonnet::Speller speller;
+  speller.setLanguage(dictionary);
+  speller.addToSession(word);
+}
+
+void KateSpellCheckManager::addToDictionary(const QString& word, const QString& dictionary)
+{
+  Sonnet::Speller speller;
+  speller.setLanguage(dictionary);
+  speller.addToPersonal(word);
+}
+
 QList<KTextEditor::Range> KateSpellCheckManager::rangeDifference(const KTextEditor::Range& r1,
                                                                  const KTextEditor::Range& r2)
 {

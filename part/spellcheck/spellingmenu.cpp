@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2009 by Michel Ludwig (michel.ludwig@kdemail.net)
+ * Copyright (C) 2009 by Michel Ludwig (michel.ludwig@kdemail.net)
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -34,6 +34,8 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
   : QObject(view),
     m_view (view),
     m_spellingMenuAction(NULL),
+    m_ignoreWordAction(NULL),
+    m_addToDictionaryAction(NULL),
     m_suggestionsSignalMapper(new QSignalMapper(this))
 {
   connect(m_suggestionsSignalMapper, SIGNAL(mapped(const QString&)),
@@ -49,12 +51,24 @@ void KateSpellingMenu::setEnabled(bool b)
   if(m_spellingMenuAction) {
     m_spellingMenuAction->setEnabled(b);
   }
+  if(m_ignoreWordAction) {
+    m_ignoreWordAction->setEnabled(b);
+  }
+  if(m_addToDictionaryAction) {
+    m_addToDictionaryAction->setEnabled(b);
+  }
 }
 
 void KateSpellingMenu::setVisible(bool b)
 {
   if(m_spellingMenuAction) {
     m_spellingMenuAction->setVisible(b);
+  }
+  if(m_ignoreWordAction) {
+    m_ignoreWordAction->setVisible(b);
+  }
+  if(m_addToDictionaryAction) {
+    m_addToDictionaryAction->setVisible(b);
   }
 }
 
@@ -63,10 +77,18 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
   m_spellingMenuAction = new KActionMenu(i18n("Spelling"), this);
   ac->addAction("spelling_suggestions", m_spellingMenuAction);
   m_spellingMenu = m_spellingMenuAction->menu();
+  connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
+
+  m_ignoreWordAction = new KAction(i18n("Ignore Word"), this);
+  ac->addAction("spelling_ignore_word", m_ignoreWordAction);
+  connect(m_ignoreWordAction, SIGNAL(triggered()), this, SLOT(ignoreCurrentWord()));
+
+  m_addToDictionaryAction = new KAction(i18n("Add to Dictionary"), this);
+  ac->addAction("spelling_add_to_dictionary", m_addToDictionaryAction);
+  connect(m_addToDictionaryAction, SIGNAL(triggered()), this, SLOT(addCurrentWordToDictionary()));
+
   setEnabled(false);
   setVisible(false);
-
-  connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
 }
 
 /**
@@ -74,7 +96,7 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
  **/
 void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
 {
-  m_spellingMenuAction->setEnabled(true);
+  setEnabled(true);
   m_currentMisspelledRange = range;
   m_currentMisspelledRange->addWatcher(this);
 }
@@ -85,7 +107,7 @@ void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
 void KateSpellingMenu::exitedMisspelledRange(KTextEditor::SmartRange *range)
 {
   Q_UNUSED(range);
-  m_spellingMenuAction->setEnabled(false);
+  setEnabled(false);
   if(m_currentMisspelledRange) {
     m_currentMisspelledRange->removeWatcher(this);
     m_currentMisspelledRange = NULL;
@@ -104,6 +126,9 @@ void KateSpellingMenu::populateSuggestionsMenu()
   if(!m_currentMisspelledRange) {
     return;
   }
+  m_spellingMenu->addAction(m_ignoreWordAction);
+  m_spellingMenu->addAction(m_addToDictionaryAction);
+  m_spellingMenu->addSeparator();
   const QString& misspelledWord = m_view->doc()->text(*m_currentMisspelledRange);
   const QString dictionary = m_view->doc()->dictionaryForMisspelledRange(*m_currentMisspelledRange);
   m_currentSuggestions = KateGlobal::self()->spellCheckManager()->suggestions(misspelledWord, dictionary);
@@ -123,6 +148,30 @@ void KateSpellingMenu::replaceWordBySuggestion(const QString& suggestion)
 {
   QMutexLocker(m_view->doc()->smartMutex());
   m_view->doc()->replaceText(*m_currentMisspelledRange, suggestion);
+}
+
+void KateSpellingMenu::addCurrentWordToDictionary()
+{
+  QMutexLocker(m_view->doc()->smartMutex());
+  if(!m_currentMisspelledRange) {
+    return;
+  }
+  const QString& misspelledWord = m_view->doc()->text(*m_currentMisspelledRange);
+  const QString dictionary = m_view->doc()->dictionaryForMisspelledRange(*m_currentMisspelledRange);
+  KateGlobal::self()->spellCheckManager()->addToDictionary(misspelledWord, dictionary);
+  m_view->doc()->clearMisspellingForWord(misspelledWord); // WARNING: 'm_currentMisspelledRange' is deleted here!
+}
+
+void KateSpellingMenu::ignoreCurrentWord()
+{
+  QMutexLocker(m_view->doc()->smartMutex());
+  if(!m_currentMisspelledRange) {
+    return;
+  }
+  const QString& misspelledWord = m_view->doc()->text(*m_currentMisspelledRange);
+  const QString dictionary = m_view->doc()->dictionaryForMisspelledRange(*m_currentMisspelledRange);
+  KateGlobal::self()->spellCheckManager()->ignoreWord(misspelledWord, dictionary);
+  m_view->doc()->clearMisspellingForWord(misspelledWord); // WARNING: 'm_currentMisspelledRange' is deleted here!
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

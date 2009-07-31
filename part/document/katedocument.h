@@ -1041,6 +1041,7 @@ class KateDocument : public KTextEditor::Document,
 
       QPair<KTextEditor::Range, QString> onTheFlyMisspelledItem(const KTextEditor::Cursor &cursor) const;
       QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
+      void clearMisspellingForWord(const QString& word);
 
   public Q_SLOTS:
       void clearDictionaryRanges();
@@ -1049,6 +1050,7 @@ class KateDocument : public KTextEditor::Document,
       void setDefaultDictionary(const QString& dict);
       void onTheFlySpellCheckingEnabled(bool enable);
       void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
+      void refreshOnTheFlyCheck(const KTextEditor::Range &range = KTextEditor::Range::invalid());
 
   protected Q_SLOTS:
       void dictionaryRangeEliminated(KTextEditor::SmartRange *smartRange);

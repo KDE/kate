@@ -52,6 +52,7 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
   protected:
     KateView *m_view;
     KActionMenu *m_spellingMenuAction;
+    KAction *m_ignoreWordAction, *m_addToDictionaryAction;
     KMenu *m_spellingMenu;
     KTextEditor::SmartRange *m_currentMisspelledRange;
     QStringList m_currentSuggestions;
@@ -62,6 +63,9 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
   protected Q_SLOTS:
     void populateSuggestionsMenu();
     void replaceWordBySuggestion(const QString& suggestion);
+
+    void addCurrentWordToDictionary();
+    void ignoreCurrentWord();
 };
 
 #endif

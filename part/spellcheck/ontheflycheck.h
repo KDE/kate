@@ -57,6 +57,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     QPair<KTextEditor::Range, QString> getMisspelledItem(const KTextEditor::Cursor &cursor) const;
     QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
 
+    void clearMisspellingForWord(const QString& word);
+
   public Q_SLOTS:
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range &range);
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range);

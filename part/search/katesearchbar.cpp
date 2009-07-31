@@ -19,6 +19,7 @@
 */
 
 #include "katesearchbar.h"
+#include "kateregexp.h"
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateglobal.h"
@@ -725,8 +726,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
         case MODE_REGEX:
             {
                 // Check if pattern multi-line
-                QString patternCopy(pattern);
-                KateSearch::repairPattern(patternCopy, multiLinePattern);
+                KateRegExp(pattern).repairPattern(multiLinePattern);
                 regexMode = true;
             }
             enabledOptions |= Search::Regex;
@@ -1062,8 +1062,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
     if (regexMode) {
         // Check if pattern multi-line
-        QString patternCopy(pattern);
-        KateSearch::repairPattern(patternCopy, multiLinePattern);
+        KateRegExp(pattern).repairPattern(multiLinePattern);
     }
 
     // Clear backwards flag, this algorithm is for forward mode

@@ -20,6 +20,7 @@
 //BEGIN includes
 #include "katesearch.h"
 
+#include "kateregexp.h"
 #include "katedocument.h"
 //END  includes
 
@@ -33,7 +34,6 @@
 #else
 # define FAST_DEBUG(x)
 #endif
-
 
 
 //BEGIN d'tor, c'tor
@@ -242,7 +242,7 @@ struct IndexPair {
 
 QVector<KTextEditor::Range> KateSearch::searchRegex(
     const KTextEditor::Range & inputRange,
-    QRegExp &regexp,
+    KateRegExp &regexp,
     bool backwards)
 {
   FAST_DEBUG("KateSearch::searchRegex( " << inputRange.start().line() << ", "
@@ -257,11 +257,10 @@ QVector<KTextEditor::Range> KateSearch::searchRegex(
 
   // detect pattern type (single- or mutli-line)
   bool isMultiLine;
-  QString multiLinePattern = regexp.pattern();
 
   // detect '.' and '\s' and fix them
   const bool dotMatchesNewline = false; // TODO
-  const int replacements = KateSearch::repairPattern(multiLinePattern, isMultiLine);
+  const int replacements = regexp.repairPattern(isMultiLine);
   if (dotMatchesNewline && (replacements > 0))
   {
     isMultiLine = true;
@@ -321,10 +320,8 @@ QVector<KTextEditor::Range> KateSearch::searchRegex(
       FAST_DEBUG("  line" << i << "has length" << lineLens[i]);
     }
 
-    // apply modified pattern
-    regexp.setPattern(multiLinePattern);
     const int pos = backwards
-        ? KateSearch::fixedLastIndexIn(regexp, wholeDocument, -1, QRegExp::CaretAtZero)
+        ? regexp.lastIndexIn(wholeDocument, -1, QRegExp::CaretAtZero)
         : regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
     if (pos == -1)
     {
@@ -519,7 +516,7 @@ QVector<KTextEditor::Range> KateSearch::searchRegex(
             const int lineLen = textLine->length();
             const int offset = afterLast - lineLen - 1;
             FAST_DEBUG("lastIndexIn(" << hay << "," << offset << ")");
-            foundAt = KateSearch::fixedLastIndexIn(regexp, hay, offset);
+            foundAt = regexp.lastIndexIn(hay, offset);
             found = (foundAt != -1) && (foundAt >= first);
         } else {
             FAST_DEBUG("indexIn(" << hay << "," << first << ")");
@@ -625,7 +622,7 @@ QVector<KTextEditor::Range> KateSearch::searchText(
         ? Qt::CaseSensitive
         : Qt::CaseInsensitive;
 
-    QRegExp matcher(workPattern, caseSensitivity);
+    KateRegExp matcher(workPattern, caseSensitivity);
     if (matcher.isValid())
     {
       // valid pattern
@@ -1050,235 +1047,6 @@ KTextEditor::Search::SearchOptions KateSearch::supportedSearchOptions()
       parts->append(curPart);
     }
   }
-}
-
-
-
-// these things can besides '.' and '\s' make apptern multi-line:
-// \n, \x000A, \x????-\x????, \0012, \0???-\0???
-// a multi-line pattern must not pass as single-line, the other
-// way around will just result in slower searches and is therefore
-// not as critical
-/*static*/ int KateSearch::repairPattern(QString & pattern, bool & stillMultiLine)
-{
-  const QString & text = pattern; // read-only input for parsing
-
-  // get input
-  const int inputLen = text.length();
-  int input = 0; // walker index
-
-  // prepare output
-  QString output;
-  output.reserve(2 * inputLen + 1); // twice should be enough for the average case
-
-  // parser state
-  stillMultiLine = false;
-  int replaceCount = 0;
-  bool insideClass = false;
-
-  while (input < inputLen)
-  {
-    if (insideClass)
-    {
-      // wait for closing, unescaped ']'
-      switch (text[input].unicode())
-      {
-      case L'\\':
-        switch (text[input + 1].unicode())
-        {
-        case L'x':
-          if (input + 5 < inputLen)
-          {
-            // copy "\x????" unmodified
-            output.append(text.mid(input, 6));
-            input += 6;
-          } else {
-            // copy "\x" unmodified
-            output.append(text.mid(input, 2));
-            input += 2;
-          }
-          stillMultiLine = true;
-          break;
-
-        case L'0':
-          if (input + 4 < inputLen)
-          {
-            // copy "\0???" unmodified
-            output.append(text.mid(input, 5));
-            input += 5;
-          } else {
-            // copy "\0" unmodified
-            output.append(text.mid(input, 2));
-            input += 2;
-          }
-          stillMultiLine = true;
-          break;
-
-        case L's':
-          // replace "\s" with "[ \t]"
-          output.append("[ \\t]");
-          input += 2;
-          replaceCount++;
-          break;
-
-        case L'n':
-          stillMultiLine = true;
-          // FALLTROUGH
-
-        default:
-          // copy "\?" unmodified
-          output.append(text.mid(input, 2));
-          input += 2;
-        }
-        break;
-
-      case L']':
-        // copy "]" unmodified
-        insideClass = false;
-        output.append(text[input]);
-        input++;
-        break;
-
-      default:
-        // copy "?" unmodified
-        output.append(text[input]);
-        input++;
-
-      }
-    }
-    else
-    {
-      // search for real dots and \S
-      switch (text[input].unicode())
-      {
-      case L'\\':
-        switch (text[input + 1].unicode())
-        {
-        case L'x':
-          if (input + 5 < inputLen)
-          {
-            // copy "\x????" unmodified
-            output.append(text.mid(input, 6));
-            input += 6;
-          } else {
-            // copy "\x" unmodified
-            output.append(text.mid(input, 2));
-            input += 2;
-          }
-          stillMultiLine = true;
-          break;
-
-        case L'0':
-          if (input + 4 < inputLen)
-          {
-            // copy "\0???" unmodified
-            output.append(text.mid(input, 5));
-            input += 5;
-          } else {
-            // copy "\0" unmodified
-            output.append(text.mid(input, 2));
-            input += 2;
-          }
-          stillMultiLine = true;
-          break;
-
-        case L's':
-          // replace "\s" with "[ \t]"
-          output.append("[ \\t]");
-          input += 2;
-          replaceCount++;
-          break;
-
-        case L'n':
-          stillMultiLine = true;
-          // FALLTROUGH
-
-        default:
-          // copy "\?" unmodified
-          output.append(text.mid(input, 2));
-          input += 2;
-        }
-        break;
-
-      case L'.':
-        // replace " with "[^\n]"
-        output.append("[^\\n]");
-        input++;
-        replaceCount++;
-        break;
-
-      case L'[':
-        // copy "]" unmodified
-        insideClass = true;
-        output.append(text[input]);
-        input++;
-        break;
-
-      default:
-        // copy "?" unmodified
-        output.append(text[input]);
-        input++;
-
-      }
-    }
-  }
-
-  // Overwrite with repaired pattern
-  pattern = output;
-  return replaceCount;
-}
-
-
-
-/*static*/ int KateSearch::fixedLastIndexIn(const QRegExp & matcher, const QString & str,
-        int offset, QRegExp::CaretMode caretMode) {
-    int prevPos = -1;
-    int prevLen = 1;
-    const int strLen = str.length();
-    for (;;) {
-        const int pos = matcher.indexIn(str, prevPos + prevLen, caretMode);
-        if (pos == -1) {
-            // No more matches
-            break;
-        } else {
-            const int len = matcher.matchedLength();
-            if (pos > strLen + offset + 1) {
-                // Gone too far, match in no way of use
-                break;
-            }
-
-            if (pos + len > strLen + offset + 1) {
-                // Gone too far, check if usable
-                if (offset == -1) {
-                    // No shrinking possible
-                    break;
-                }
-
-                const QString str2 = str.mid(0, strLen + offset + 1);
-                const int pos2 = matcher.indexIn(str2, pos, caretMode);
-                if (pos2 != -1) {
-                    // Match usable
-                    return pos2;
-                } else {
-                    // Match NOT usable
-                    break;
-                }
-            }
-
-            // Valid match, but maybe not the last one
-            prevPos = pos;
-            prevLen = (len == 0) ? 1 : len;
-        }
-    }
-
-    // Previous match is what we want
-    if (prevPos != -1) {
-        // Do that very search again
-        matcher.indexIn(str, prevPos, caretMode);
-        return prevPos;
-    } else {
-        return -1;
-    }
 }
 //END
 // Kill our helpers again

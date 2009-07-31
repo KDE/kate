@@ -89,6 +89,7 @@ render/katetextlayout.cpp
 render/katelinelayout.cpp
 
 # search stuff
+search/kateregexp.cpp
 search/katesearch.cpp
 search/katesearchbar.cpp
 

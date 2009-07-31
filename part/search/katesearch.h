@@ -25,9 +25,8 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/searchinterface.h>
 
-#include <QRegExp>
-
 class KateDocument;
+class KateRegExp;
 
 // needed for parsing replacement text like "\1:\2"
 struct ReplacementPart {
@@ -103,7 +102,7 @@ class KateSearch : public QObject
      * \see KTextEditor::Range, QRegExp
      */
     QVector<KTextEditor::Range> searchRegex (const KTextEditor::Range & inputRange,
-        QRegExp & regexp, bool backwards = false);
+        KateRegExp & regexp, bool backwards = false);
 
   /*
    * Public string processing helpers
@@ -121,38 +120,6 @@ class KateSearch : public QObject
      */
     static void escapePlaintext(QString & text, QList<ReplacementPart> * parts = NULL,
         bool replacementGoodies = false);
-
-    /**
-     * Repairs a regular Expression pattern.
-     * This is a workaround to make "." and "\s" not match
-     * newlines, which currently is the unconfigurable
-     * default in QRegExp.
-     *
-     * \param pattern         Regular expression
-     * \param stillMultiLine  Multi-line after reparation flag
-     * \return                Number of replacements done
-     */
-    static int repairPattern(QString & pattern, bool & stillMultiLine);
-
-  /*
-   * Private string processing helpers
-   */
-  private:
-    /**
-     * This function is a replacement for QRegExp.lastIndexIn that
-     * returns the last match that would have been found when
-     * searching forwards, which QRegExp.lastIndexIn does not.
-     * We need this behavior to allow the user to jump back to
-     * the last match.
-     *
-     * \param matcher    QRegExp matcher to use
-     * \param str        Text to search in
-     * \param offset     Offset (-1 starts from end, -2 from one before the end)
-     * \param caretMode  Meaning of caret (^) in the regular expression
-     * \return           Index of match or -1 if no match is found
-     */
-    static int fixedLastIndexIn(const QRegExp & matcher, const QString & str,
-        int offset = -1, QRegExp::CaretMode caretMode = QRegExp::CaretAtZero);
 
   private:
     KateDocument *const m_document;

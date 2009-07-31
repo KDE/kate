@@ -36,6 +36,8 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
     m_spellingMenuAction(NULL),
     m_ignoreWordAction(NULL),
     m_addToDictionaryAction(NULL),
+    m_spellingMenu(NULL),
+    m_currentMisspelledRange(NULL),
     m_suggestionsSignalMapper(new QSignalMapper(this))
 {
   connect(m_suggestionsSignalMapper, SIGNAL(mapped(const QString&)),
@@ -44,6 +46,10 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
 
 KateSpellingMenu::~KateSpellingMenu()
 {
+  if(m_currentMisspelledRange) {
+    m_currentMisspelledRange->removeWatcher(this);
+    m_currentMisspelledRange = NULL;
+  }
 }
 
 void KateSpellingMenu::setEnabled(bool b)
@@ -96,6 +102,10 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
  **/
 void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
 {
+  if(m_currentMisspelledRange) {
+    m_currentMisspelledRange->removeWatcher(this);
+    m_currentMisspelledRange = NULL;
+  }
   setEnabled(true);
   m_currentMisspelledRange = range;
   m_currentMisspelledRange->addWatcher(this);
@@ -106,7 +116,9 @@ void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
  **/
 void KateSpellingMenu::exitedMisspelledRange(KTextEditor::SmartRange *range)
 {
-  Q_UNUSED(range);
+  if(range != m_currentMisspelledRange) { // order of 'exit' and 'entered' signals
+    return;                               // was wrong
+  }
   setEnabled(false);
   if(m_currentMisspelledRange) {
     m_currentMisspelledRange->removeWatcher(this);

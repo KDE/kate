@@ -103,7 +103,7 @@ QString KateOnTheFlyChecker::dictionaryForMisspelledRange(const KTextEditor::Ran
 {
   QMutexLocker smartLock(m_document->smartMutex());
   const MisspelledList& misspelledList = m_misspelledList;
-  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
+  for(MisspelledList::const_iterator i = misspelledList.constBegin(); i != misspelledList.constEnd(); ++i) {
     MisspelledItem item = *i;
     KTextEditor::SmartRange *smartRange = item.first;
     if(*smartRange == range) {
@@ -117,7 +117,7 @@ void KateOnTheFlyChecker::clearMisspellingForWord(const QString& word)
 {
   QMutexLocker smartLock(m_document->smartMutex());
   MisspelledList misspelledList = m_misspelledList; // make a copy
-  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
+  for(MisspelledList::const_iterator i = misspelledList.constBegin(); i != misspelledList.constEnd(); ++i) {
     MisspelledItem item = *i;
     KTextEditor::SmartRange *smartRange = item.first;
     if(m_document->text(*smartRange) == word) {

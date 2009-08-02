@@ -576,8 +576,10 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
           if (range->layout()->textOption().alignment() == Qt::AlignRight)
             fillStartX = 0;
 
-          QRect area(fillStartX, fillStartY, width, height);
-          paint.fillRect(area, drawBrush);
+          if (width > 0) {
+            QRect area(fillStartX, fillStartY, width, height);
+            paint.fillRect(area, drawBrush);
+          }
         }
       }
       // Draw indent lines

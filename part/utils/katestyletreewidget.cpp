@@ -633,7 +633,7 @@ void KateStyleTreeWidgetItem::setColor( int column )
   else if ( column == SelectedForeground )
   {
     c = currentStyle->selectedForeground().color();
-    d = currentStyle->selectedForeground().color();
+    d = defaultStyle->selectedForeground().color();
   }
   else if ( column == Background )
   {

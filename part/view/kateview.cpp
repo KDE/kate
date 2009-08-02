@@ -1696,7 +1696,7 @@ bool KateView::setSelection( const KTextEditor::Range &selection )
   QMutexLocker l(m_doc->smartMutex());
 
   KTextEditor::Range oldSelection = *m_selection;
-  *m_selection = selection;
+  *m_selection = selection.isEmpty() ? KTextEditor::Range::invalid() : selection;
 
   tagSelection(oldSelection);
 
@@ -1738,9 +1738,6 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  if (m_selection->isEmpty())
-      return false;
-
   if(blockSelection())
     return *m_selection != KateSmartRange::invalid();
   else

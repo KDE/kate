@@ -59,7 +59,7 @@ namespace Kate {
         message << context->argument(i).toString();
       }
       // debug in blue to distance from other debug output if necessary
-      std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+      kDebug(13060) << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
       return engine->nullValue();
     }
 

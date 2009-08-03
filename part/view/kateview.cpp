@@ -1892,7 +1892,7 @@ void KateView::cut()
 
   copy();
   if (!selection())
-    selectLine(m_viewInternal->m_displayCursor);
+    selectLine(m_viewInternal->m_cursor);
   removeSelectedText();
 }
 
@@ -1903,7 +1903,7 @@ void KateView::copy() const
   if (!selection()) {
     if (!m_config->smartCopyCut())
       return;
-    int line = m_viewInternal->m_displayCursor.line();
+    int line = m_viewInternal->m_cursor.line();
     if ( line+1 >= m_doc->lines() )
       text = m_doc->text(KTextEditor::Range(line, 0, line, m_doc->lineLength(line)));
     else

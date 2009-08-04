@@ -157,6 +157,8 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     m_model=new QSortFilterProxyModel(this);
     m_model->setFilterRole(SortFilterRole);
     m_model->setSortRole(SortFilterRole);
+    m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
     
     connect(m_inputLine,SIGNAL(textChanged(const QString&)),m_model,SLOT(setFilterFixedString(const QString&)));
     connect(m_model,SIGNAL(rowsInserted(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));

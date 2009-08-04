@@ -58,7 +58,7 @@ function findLeftBrace(line, column)
         if (parenthesisCursor)
             cursor = parenthesisCursor;
 
-        debug("findLeftBrace: success in line " + cursor.line);
+        //debug("findLeftBrace: success in line " + cursor.line);
         return document.firstVirtualColumn(cursor.line);
     }
 
@@ -114,7 +114,7 @@ function trySwitchStatement(line)
         }
     }
 
-    if (indentation != -1) debug("trySwitchStatement: success in line " + currentLine);
+    //if (indentation != -1) debug("trySwitchStatement: success in line " + currentLine);
     return indentation;
 }
 
@@ -137,7 +137,7 @@ function tryAccessModifiers(line)
     if (cfgIndentCase)
         indentation += gIndentWidth;
 
-    if (indentation != -1) debug("tryAccessModifiers: success in line " + cursor.line);
+    //if (indentation != -1) debug("tryAccessModifiers: success in line " + cursor.line);
     return indentation;
 }
 
@@ -229,7 +229,7 @@ function tryCComment(line)
         if (cursor && cursor.column == document.firstColumn(cursor.line))
             indentation = document.firstVirtualColumn(cursor.line);
 
-        if (indentation != -1) debug("tryCComment: success (1) in line " + cursor.line);
+        //if (indentation != -1) debug("tryCComment: success (1) in line " + cursor.line);
         return indentation;
     }
 
@@ -267,7 +267,7 @@ function tryCComment(line)
         }
     }
 
-    if (indentation != -1) debug("tryCComment: success (2) in line " + currentLine);
+    //if (indentation != -1) debug("tryCComment: success (2) in line " + currentLine);
     return indentation;
 }
 
@@ -310,7 +310,7 @@ function tryCppComment(line)
         }
     }
 
-    if (indentation != -1) debug("tryCppComment: success in line " + currentLine);
+    //if (indentation != -1) debug("tryCppComment: success in line " + currentLine);
     return indentation;
 }
 
@@ -349,7 +349,7 @@ function tryBrace(line)
         }
     }
 
-    if (indentation != -1) debug("tryBrace: success in line " + currentLine);
+    //if (indentation != -1) debug("tryBrace: success in line " + currentLine);
     return indentation;
 }
 
@@ -390,7 +390,7 @@ function tryCKeywords(line, isBrace)
             indentation += gIndentWidth;
     }
 
-    if (indentation != -1) debug("tryCKeywords: success in line " + currentLine);
+    //if (indentation != -1) debug("tryCKeywords: success in line " + currentLine);
     return indentation;
 }
 
@@ -440,7 +440,7 @@ function tryCondition(line)
         }
     }
 
-    if (indentation != -1) debug("tryCondition: success in line " + currentLine);
+    //if (indentation != -1) debug("tryCondition: success in line " + currentLine);
     return indentation;
 }
 
@@ -475,7 +475,7 @@ function tryStatement(line)
         }
     }
 
-    if (indentation != -1) debug("tryStatement: success in line " + currentLine);
+    //if (indentation != -1) debug("tryStatement: success in line " + currentLine);
     return indentation;
 }
 

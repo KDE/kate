@@ -2705,9 +2705,8 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
         }
         else
         {
-          // if we didn't actually select anything, restore the selection mode
-          // -- see bug #131369 (kling)
-          m_selectionMode = Default;
+          m_selectAnchor = m_cursor;
+          m_selectionCached = KTextEditor::Range(m_cursor, m_cursor);
         }
       }
 

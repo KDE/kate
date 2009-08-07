@@ -356,6 +356,17 @@ void KateSearchBar::indicateNothing() {
 
 
 
+void KateSearchBar::nonstatic_selectRange(KateView * view, const KTextEditor::Range & range) {
+    // don't update m_incInitCursor when we move the cursor 
+    disconnect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+               this, SLOT(onCursorPositionChanged()));
+    selectRange(view, range);
+    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+            this, SLOT(onCursorPositionChanged()));
+}
+
+
+
 void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & parts,
         const QVector<Range> & details, int replacementCounter) {
     const int MIN_REF_INDEX = 0;
@@ -523,7 +534,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
 
         bool found = false;
         if (match.isValid()) {
-            selectRange(view(), match);
+            nonstatic_selectRange(view(), match);
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
             found = true;
@@ -535,7 +546,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
                 const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
-                    selectRange(view(), match2);
+                    nonstatic_selectRange(view(), match2);
                     const bool WRAPPED = true;
                     indicateMatch(WRAPPED);
                     found = true;
@@ -829,7 +840,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                selectRange(view(), match2);
+                nonstatic_selectRange(view(), match2);
                 found = true;
                 const bool NOT_WRAPPED = false;
                 indicateMatch(NOT_WRAPPED);
@@ -838,7 +849,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
                 wrap = true;
             }
         } else {
-            selectRange(view(), match);
+            nonstatic_selectRange(view(), match);
             found = true;
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
@@ -858,7 +869,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                selectRange(view(), match3);
+                nonstatic_selectRange(view(), match3);
                 found = true;
             }
             const bool WRAPPED = true;

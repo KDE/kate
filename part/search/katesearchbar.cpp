@@ -491,7 +491,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
     if (pattern.isEmpty()) {
         if (invokedByUserAction) {
             // Kill selection
-            view()->setSelection(Range::invalid());
+            nonstatic_selectRange(view(), Range(m_incInitCursor, m_incInitCursor));
 
             // Kill highlight
             resetHighlights();
@@ -840,7 +840,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                nonstatic_selectRange(view(), match2);
+                selectRange(view(), match2);
                 found = true;
                 const bool NOT_WRAPPED = false;
                 indicateMatch(NOT_WRAPPED);
@@ -849,7 +849,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
                 wrap = true;
             }
         } else {
-            nonstatic_selectRange(view(), match);
+            selectRange(view(), match);
             found = true;
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
@@ -869,7 +869,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                nonstatic_selectRange(view(), match3);
+                selectRange(view(), match3);
                 found = true;
             }
             const bool WRAPPED = true;

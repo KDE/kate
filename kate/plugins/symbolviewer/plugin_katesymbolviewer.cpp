@@ -168,7 +168,7 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
 
       m_Active = true;
       //symbols->addColumn(i18n("Symbols"), symbols->parentWidget()->width());
-      titles << tr("Symbols") << tr("Position");
+      titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
       symbols->setColumnCount(2);
       symbols->setHeaderLabels(titles);
 

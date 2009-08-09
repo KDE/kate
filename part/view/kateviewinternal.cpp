@@ -2552,9 +2552,10 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
             m_view->selectLine( m_cursor );
           }
 
-          if (m_view->selection())
+          if (m_view->selection()) {
             QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
-
+            m_selectAnchor = m_view->selectionRange().start();
+          }
           // Keep the line at the select anchor selected during further
           // mouse selection
           if ( m_selectAnchor.line() > m_view->selectionRange().start().line() )

@@ -714,6 +714,7 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cac
   updateView();
   update();
   m_leftBorder->update();
+  emit m_view->displayRangeChanged(m_view);
 }
 
 void KateViewInternal::slotCodeFoldingChanged()

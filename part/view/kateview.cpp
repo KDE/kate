@@ -2691,7 +2691,8 @@ KTextEditor::Range KateView::visibleRange()
 {
   //ensure that the view is up-to-date, otherwise 'endPos()' might fail!
   m_viewInternal->updateView();
-  return KTextEditor::Range(m_viewInternal->startPos(), m_viewInternal->endPos());
+  return KTextEditor::Range(m_viewInternal->toRealCursor(m_viewInternal->startPos()),
+                            m_viewInternal->toRealCursor(m_viewInternal->endPos()));
 }
 
 void KateView::toggleOnTheFlySpellCheck(bool b)

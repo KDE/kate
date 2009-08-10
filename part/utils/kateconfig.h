@@ -391,7 +391,7 @@ class KateViewConfig : public KateConfig
     void setWordCompletion (bool on);
     
     int wordCompletionMinimalWordLength () const;
-    void setWordCompletionMinimalWordLength (int lenght);
+    void setWordCompletionMinimalWordLength (int length);
 
     bool smartCopyCut() const;
     void setSmartCopyCut(bool on);

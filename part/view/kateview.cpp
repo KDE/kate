@@ -1579,7 +1579,7 @@ void KateView::ensureCursorColumnValid()
   KTextEditor::Cursor c = m_viewInternal->getCursor();
 
   // make sure the cursor is valid:
-  // - in block selection mode or if wrap cursor is off, the colum is arbitrary
+  // - in block selection mode or if wrap cursor is off, the column is arbitrary
   // - otherwise: it's bounded by the line length
   if (!blockSelectionMode() && wrapCursor()
       && (!c.isValid() || c.column() > m_doc->lineLength(c.line())))

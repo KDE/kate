@@ -83,7 +83,7 @@ class KateTextLine : public KShared
                                                       (~KateTextLine::flagFoldingColumnsOutdated);}
 
     /**
-     * Returns \e true, if the folding colums are outdated, otherwise returns \e false.
+     * Returns \e true, if the folding columns are outdated, otherwise returns \e false.
      */
      inline bool foldingColumnsOutdated() const { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
 

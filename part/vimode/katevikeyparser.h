@@ -18,12 +18,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#ifndef KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
+#define KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
+
 #include <QChar>
 #include <QString>
 #include <QHash>
-
-#ifndef KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
-#define KATE_VI_KEYSEQUENCE_PARSER_H_INCLUDED
 
 /**
  * for encoding keypresses w/ modifiers into an internal QChar representation and back again to a

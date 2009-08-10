@@ -1463,7 +1463,7 @@ void KateHighlighting::handleKateHlIncludeRules()
         // It would be good to look here somehow, if the result is valid
       }
     }
-    else ++it; //nothing to do, already resolved (by the cross defintion reference resolver)
+    else ++it; //nothing to do, already resolved (by the cross definition reference resolver)
   }
 
   // now that all KateHlIncludeRule items should be valid and completely resolved,

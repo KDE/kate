@@ -192,7 +192,7 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
      * @param nocase parameter for matching the reqular expression.
      * @param repeat If false, the search is stopped after the first match.
      * @param startcol The position in the line to start the search.
-     * @param endcol The last collumn in the line allowed in a match.
+     * @param endcol The last column in the line allowed in a match.
      * If it is -1, the whole line is used.
      */
     static int sedMagic(KateDocument *doc, int &line,

@@ -52,7 +52,6 @@
 
 #include <QtAlgorithms>
 #include <QVariant>
-#include <QtCore/QTextCodec>
 #include <QtGui/QCursor>
 #include <QtGui/QMenu>
 #include <QtGui/QPainter>
@@ -69,12 +68,9 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QToolTip>
 #include <QtGui/QAction>
+#include <QtGui/QWhatsThis>
 
 #include <math.h>
-
-#include <kdebug.h>
-
-#include <QtGui/QWhatsThis>
 
 //BEGIN KateScrollBar
 KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)
@@ -402,7 +398,7 @@ bool KateCmdLineEdit::event(QEvent *e) {
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
   if (text.isEmpty()) return;
-  // silently ignore leading space characters and colon characers (for vi-heads)
+  // silently ignore leading space characters and colon characters (for vi-heads)
   uint n = 0;
   const uint textlen=text.length();
   while( (n<textlen) && ( text[n].isSpace() || text[n] == ':' ) )

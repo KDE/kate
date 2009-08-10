@@ -786,16 +786,6 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
     {
       editRemoveText(range.start().line(), range.start().column(), range.columnWidth());
     }
-    else if (range.start().line() + 1 == range.end().line())
-    {
-      if ( (m_buffer->plainLine(range.start().line())->length() - range.start().column()) > 0 )
-        editRemoveText(range.start().line(), range.start().column(), m_buffer->plainLine(range.start().line())->length() - range.start().column());
-
-      if (range.end().column())
-        editRemoveText (range.start().line() + 1, 0, range.end().column());
-
-      editUnWrapLine (range.start().line());
-    }
     else
     {
       for (int line = range.end().line(); line >= range.start().line(); --line)
@@ -804,14 +794,18 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
           editRemoveLine(line);
 
         } else if (line == range.end().line()) {
-          if ( range.end().line() <= lastLine() )
+         if ( range.end().line() <= lastLine() )
             editRemoveText(line, 0, range.end().column());
 
         } else {
-          if ( (m_buffer->plainLine(line)->length() - range.start().column()) > 0 )
-            editRemoveText(line, range.start().column(), m_buffer->plainLine(line)->length() - range.start().column());
+          if ( range.start().column() == 0 )
+            editRemoveLine(line);
+          else {
+            if ( (m_buffer->plainLine(line)->length() - range.start().column()) > 0 )
+              editRemoveText(line, range.start().column(), m_buffer->plainLine(line)->length() - range.start().column());
 
-          editUnWrapLine(range.start().line());
+            editUnWrapLine(range.start().line());
+          }
         }
 
         if ( line == 0 )

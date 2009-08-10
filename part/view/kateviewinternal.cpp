@@ -2719,6 +2719,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
         m_view->clearSelection( false, false );
         placeCursor( e->pos() );
         m_view->selectWord( m_cursor );
+        cursorToMatchingBracket(true);
 
         if (m_view->selection())
         {

@@ -2601,6 +2601,11 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           }
 
           moveCursorToSelectionEdge();
+
+          m_scrollX = 0;
+          m_scrollY = 0;
+          m_scrollTimer.start (50);
+
           e->accept();
           return;
         }

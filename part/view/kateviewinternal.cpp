@@ -1883,6 +1883,22 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
   }
 }
 
+void KateViewInternal::moveCursorToSelectionEdge()
+{
+  if (!m_view->selection())
+    return;
+
+  int tmp = m_minLinesVisible;
+  m_minLinesVisible = 0;
+
+  if ( m_view->selectionRange().start() < m_selectAnchor )
+    updateCursor( m_view->selectionRange().start() );
+  else
+    updateCursor( m_view->selectionRange().end() );
+
+  m_minLinesVisible = tmp;
+}
+
 void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool force, bool center, bool calledExternally )
 {
   if ( !force && (m_cursor == newCursor) )
@@ -2166,7 +2182,13 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   if (updateSelection)
     KateViewInternal::updateSelection( c, keepSelection );
 
+  int tmp = m_minLinesVisible;
+  m_minLinesVisible = 0;
   updateCursor( c );
+  m_minLinesVisible = tmp;
+
+  if (updateSelection)
+    moveCursorToSelectionEdge();
 }
 
 // Point in content coordinates
@@ -2550,12 +2572,13 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           else
           {
             m_view->selectLine( m_cursor );
+            if (m_view->selection())
+              m_selectAnchor = m_view->selectionRange().start();
           }
 
-          if (m_view->selection()) {
+          if (m_view->selection())
             QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
-            m_selectAnchor = m_view->selectionRange().start();
-          }
+
           // Keep the line at the select anchor selected during further
           // mouse selection
           if ( m_selectAnchor.line() > m_view->selectionRange().start().line() )
@@ -2577,14 +2600,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
               m_selectionCached.end() = m_view->selectionRange().end();
           }
 
-          // Set cursor to edge of selection... which edge depends on what
-          // "direction" the selection was made in
-          if ( m_view->selectionRange().start() < m_selectAnchor
-               && m_selectAnchor.line() != m_view->selectionRange().start().line() )
-            updateCursor( m_view->selectionRange().start() );
-          else
-            updateCursor( m_view->selectionRange().end() );
-
+          moveCursorToSelectionEdge();
           e->accept();
           return;
         }
@@ -2713,17 +2729,9 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
       // Move cursor to end (or beginning) of selected word
       if (m_view->selection())
-      {
         QApplication::clipboard()->setText( m_view->selectionText(), QClipboard::Selection );
 
-        // Shift+DC before the "cached" word should move the cursor to the
-        // beginning of the selection, not the end
-        if (m_view->selectionRange().start() < m_selectionCached.start())
-          updateCursor( m_view->selectionRange().start() );
-        else
-          updateCursor( m_view->selectionRange().end() );
-      }
-
+      moveCursorToSelectionEdge();
       m_possibleTripleClick = true;
       QTimer::singleShot ( QApplication::doubleClickInterval(), this, SLOT(tripleClickTimeout()) );
 
@@ -2758,14 +2766,8 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       {
         if (m_view->selection()) {
           QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
-
-          // Set cursor to edge of selection... which edge depends on what
-          // "direction" the selection was made in
-          if ( m_view->selectionRange().start() < m_selectAnchor )
-            updateCursor( m_view->selectionRange().start() );
-          else
-            updateCursor( m_view->selectionRange().end() );
         }
+        moveCursorToSelectionEdge();
 
         m_selChangedByUser = false;
       }

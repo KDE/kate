@@ -1339,7 +1339,8 @@ KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
   m_dictionaryComboBox = new Sonnet::DictionaryComboBox(centralWidget());
   connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(const QString&)),
           this, SLOT(dictionaryChanged(const QString&)));
-
+  connect(view->doc(), SIGNAL(defaultDictionaryChanged(KateDocument*)),
+          this, SLOT(updateData()));
   QLabel *label = new QLabel(i18n("Dictionary:"), centralWidget());
   label->setBuddy(m_dictionaryComboBox);
 

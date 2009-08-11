@@ -4221,6 +4221,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       {
         setMode( val );
       }
+      else if ( var == "default-dictionary" )
+      {
+        setDefaultDictionary( val );
+      }
 
       // VIEW SETTINGS
       else if ( vvl.contains( var ) )
@@ -5103,6 +5107,7 @@ void KateDocument::setDefaultDictionary(const QString& dict)
   {
     m_onTheFlyChecker->updateConfig();
   }
+  emit defaultDictionaryChanged(this);
 }
 
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable)

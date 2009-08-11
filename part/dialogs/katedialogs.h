@@ -139,6 +139,7 @@ class KateDictionaryBar : public KateViewBarWidget
     explicit KateDictionaryBar(KateView *view, QWidget *parent = NULL);
     virtual ~KateDictionaryBar();
 
+  public Q_SLOTS:
     void updateData();
 
   protected Q_SLOTS:

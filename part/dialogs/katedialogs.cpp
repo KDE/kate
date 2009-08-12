@@ -435,12 +435,12 @@ KateSpellCheckConfigTab::KateSpellCheckConfigTab(QWidget *parent)
 
   //
   // after initial reload, connect the stuff for the changed () signal
-  connect(ui->chkOnTheFlySpellCheckEnabled, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  layout->addWidget(newWidget);
   m_sonnetConfigWidget = new Sonnet::ConfigWidget(KGlobal::config().data(), this);
   connect(m_sonnetConfigWidget, SIGNAL(configChanged()), this, SLOT(slotChanged()));
   layout->addWidget(m_sonnetConfigWidget);
+
+  layout->addWidget(newWidget);
   setLayout(layout);
 }
 
@@ -463,14 +463,13 @@ void KateSpellCheckConfigTab::apply()
   m_changed = false;
 
   KateDocumentConfig::global()->configStart();
-  KateDocumentConfig::global()->setOnTheFlySpellCheck(ui->chkOnTheFlySpellCheckEnabled->isChecked());
   m_sonnetConfigWidget->save();
   KateDocumentConfig::global()->configEnd();
 }
 
 void KateSpellCheckConfigTab::reload()
 {
-  ui->chkOnTheFlySpellCheckEnabled->setChecked(KateDocumentConfig::global()->onTheFlySpellCheck());
+  // does nothing
 }
 //END KateSpellCheckConfigTab
 

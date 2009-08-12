@@ -625,7 +625,13 @@ void KateDocumentConfig::setSearchDirConfigDepth (int depth)
 
 bool KateDocumentConfig::onTheFlySpellCheck() const
 {
-  if (m_onTheFlySpellCheckSet || isGlobal()) {
+  if(isGlobal()) {
+    // WARNING: this is slightly hackish, but it's currently the only way to
+    //          do it, see also the KTextEdit class
+    KConfigGroup configGroup(KGlobal::config(), "Spelling");
+    return configGroup.readEntry("checkerEnabledByDefault", false);
+  }
+  if (m_onTheFlySpellCheckSet) {
     return m_onTheFlySpellCheck;
   }
 

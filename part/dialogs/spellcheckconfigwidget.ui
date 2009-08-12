@@ -2,30 +2,25 @@
 <ui version="4.0">
  <class>SpellCheckConfigWidget</class>
  <widget class="QWidget" name="SpellCheckConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>462</width>
+    <height>189</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gbGeneral">
-     <property name="title">
-      <string>General</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <item>
-       <widget class="QCheckBox" name="chkOnTheFlySpellCheckEnabled">
-        <property name="text">
-         <string>On-the-Fly Spellcheck enabled</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Minimum</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

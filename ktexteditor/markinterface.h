@@ -27,6 +27,8 @@
 #include <QtCore/QObject>
 
 class QPixmap;
+class QPoint;
+class QMenu;
 
 namespace KTextEditor
 {
@@ -356,6 +358,40 @@ class KTEXTEDITOR_EXPORT MarkInterface
      */
     virtual void markChanged ( KTextEditor::Document* document, KTextEditor::Mark mark,
                                KTextEditor::MarkInterface::MarkChangeAction action) = 0;
+
+    Q_SIGNALS:
+      
+    /**
+     * The \p document emits this signal whenever the \p mark is hovered using the mouse,
+     * and the receiver may show a tooltip.
+     * \param document the document which emitted the signal
+     * \param mark mark that was hovered
+     * \param position mouse position during the hovering
+     * \param handled set this to 'true' if this event was handled externally
+     */
+    void markToolTipRequested ( KTextEditor::Document* document, KTextEditor::Mark mark,
+                               QPoint position, bool& handled );
+    
+    /**
+     * The \p document emits this signal whenever the \p mark is right-clicked to show a context menu.
+     * The receiver may show an own context menu instead of the kate internal one.
+     * \param document the document which emitted the signal
+     * \param mark mark that was right-clicked
+     * \param pos position where the menu should be started
+     * \param handled set this to 'true' if this event was handled externally, and kate should not create an own context menu.
+     */
+    void markContextMenuRequested( KTextEditor::Document* document, KTextEditor::Mark mark,
+                               QPoint pos, bool& handled );
+
+    
+    /**
+     * The \p document emits this signal whenever the \p mark is left-clicked.
+     * \param document the document which emitted the signal
+     * \param mark mark that was right-clicked
+     * \param pos position where the menu should be started
+     * \param handled set this to 'true' if this event was handled externally, and kate should not do own handling of the left click.
+     */
+    void markClicked( KTextEditor::Document* document, KTextEditor::Mark mark, bool& handled );
 
   private:
     class MarkInterfacePrivate* const d;

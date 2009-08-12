@@ -1367,6 +1367,9 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
     }
     else
     {
+      if( positionToArea( e->pos() ) == IconBorder )
+        m_doc->requestMarkTooltip( t.line(), e->globalPos() );
+
       m_hoveredAnnotationText.clear();
       hideAnnotationTooltip();
       QTimer::singleShot( 0, this, SLOT(update()) );
@@ -1397,14 +1400,16 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     BorderArea area = positionToArea( e->pos() );
     if( area == IconBorder) {
       if (e->button() == Qt::LeftButton) {
-        if( m_doc->editableMarks() & KateViewConfig::global()->defaultMarkType() ) {
-          if( m_doc->mark( cursorOnLine ) & KateViewConfig::global()->defaultMarkType() )
-            m_doc->removeMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
-          else
-            m_doc->addMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
-          } else {
-            showMarkMenu( cursorOnLine, QCursor::pos() );
-          }
+        if( !m_doc->handleMarkClick(cursorOnLine) ) {
+          if( m_doc->editableMarks() & KateViewConfig::global()->defaultMarkType() ) {
+            if( m_doc->mark( cursorOnLine ) & KateViewConfig::global()->defaultMarkType() )
+              m_doc->removeMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
+            else
+              m_doc->addMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
+            } else {
+              showMarkMenu( cursorOnLine, QCursor::pos() );
+            }
+        }
         }
         else
         if (e->button() == Qt::RightButton) {
@@ -1453,6 +1458,9 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
+  if( m_doc->handleMarkContextMenu( line, pos ) )
+    return;
+  
   KMenu markMenu;
   KMenu selectDefaultMark;
 

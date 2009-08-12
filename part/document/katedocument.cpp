@@ -1793,6 +1793,39 @@ const QHash<int, KTextEditor::Mark*> &KateDocument::marks()
   return m_marks;
 }
 
+void KateDocument::requestMarkTooltip( int line, QPoint position )
+{
+  if(!mark(line))
+    return;
+  
+  bool handled = false;
+  emit markToolTipRequested( this, *marks()[line], position, handled );
+}
+
+bool KateDocument::handleMarkClick( int line )
+{
+  bool handled = false;
+
+  if(!mark(line))
+    return false;
+  
+  emit markClicked( this, *marks()[line], handled );
+  
+  return handled;
+}
+
+bool KateDocument::handleMarkContextMenu( int line, QPoint position )
+{
+  bool handled = false;
+
+  if(!mark(line))
+    return false;
+  
+  emit markContextMenuRequested( this, *marks()[line], position, handled );
+  
+  return handled;
+}
+
 void KateDocument::clearMarks()
 {
   while (!m_marks.isEmpty())

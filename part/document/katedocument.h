@@ -453,6 +453,14 @@ class KateDocument : public KTextEditor::Document,
     void removeMark( int line, uint markType );
 
     void clearMarks();
+    
+    void requestMarkTooltip( int line, QPoint position );
+    
+    ///Returns true if the click on the mark should not be further processed
+    bool handleMarkClick( int line );
+    
+    ///Returns true if the context-menu event should not further be processed
+    bool handleMarkContextMenu( int line, QPoint position );
 
     void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
 
@@ -469,6 +477,12 @@ class KateDocument : public KTextEditor::Document,
     uint editableMarks() const;
 
   Q_SIGNALS:
+    void markToolTipRequested( KTextEditor::Document* document, KTextEditor::Mark mark, QPoint position, bool& handled );
+    
+    void markContextMenuRequested( KTextEditor::Document* document, KTextEditor::Mark mark, QPoint pos, bool& handled );
+
+    void markClicked( KTextEditor::Document* document, KTextEditor::Mark mark, bool& handled );
+    
     void marksChanged( KTextEditor::Document* );
     void markChanged( KTextEditor::Document*, KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
 

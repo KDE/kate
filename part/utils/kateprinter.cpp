@@ -79,6 +79,7 @@ bool KatePrinter::print (KateDocument *doc)
     parentWidget=QApplication::activeWindow();
 
   QPrintDialog *printDialog = KdePrint::createPrintDialog(&printer, tabs, parentWidget);
+  printDialog->setOption( QAbstractPrintDialog::PrintPageRange, false);
 
   if ( doc->activeView()->selection() )
     printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);

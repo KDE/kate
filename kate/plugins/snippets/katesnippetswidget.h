@@ -25,7 +25,6 @@
 #include "katesnippet.h"
 
 #include <kate/mainwindow.h>
-#include <q3ptrlist.h>
 
 
 class KateSnippetsWidgetBase : public QWidget, public Ui::KateSnippetsWidgetBase

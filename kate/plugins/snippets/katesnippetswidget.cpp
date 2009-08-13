@@ -29,7 +29,7 @@
 #include <q3listview.h>
 #include <qregexp.h>
 #include <qtoolbutton.h>
-#include <q3textedit.h>
+#include <qtextedit.h>
 
 #include <QDate>
 #include <QTime>

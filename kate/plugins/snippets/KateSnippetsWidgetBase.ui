@@ -139,7 +139,7 @@
                 </layout>
               </item>
               <item>
-                <widget class="Q3TextEdit" name="teSnippetText">
+                <widget class="QTextEdit" name="teSnippetText">
                   <property name="enabled">
                     <bool>true</bool>
                   </property>

@@ -134,8 +134,8 @@ void KateOnTheFlyChecker::handleRespellCheckBlock(KateDocument *kateDocument, in
   Q_ASSERT(kateDocument == m_document);
   Q_UNUSED(kateDocument);
 
-  ON_THE_FLY_DEBUG;
-  KTextEditor::Range range(start, 0, end + 1, 0);
+  ON_THE_FLY_DEBUG << start << end;
+  KTextEditor::Range range(start, 0, end, m_document->lineLength(end));
   bool listEmpty = m_modificationList.isEmpty();
   QMutexLocker smartLock(m_document->smartMutex());
   KTextEditor::SmartRange *smartRange = m_document->newSmartRange(range);
@@ -364,7 +364,7 @@ void KateOnTheFlyChecker::performSpellCheck()
  **/
 void KateOnTheFlyChecker::rangeDeleted(KTextEditor::SmartRange *smartRange)
 {
-  ON_THE_FLY_DEBUG << smartRange;
+  ON_THE_FLY_DEBUG << *smartRange << "(" << smartRange << ")";
 
   for(SmartRangeList::iterator i = m_eliminatedRanges.begin();
       i != m_eliminatedRanges.end();) {
@@ -512,7 +512,7 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
   }
   ON_THE_FLY_DEBUG << "misspelled " << word
                                     << " at line "
-                                    << m_currentlyCheckedItem.first
+                                    << *m_currentlyCheckedItem.first
                                     << " column " << start;
 
   QMutexLocker smartLock(m_document->smartMutex());

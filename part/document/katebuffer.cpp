@@ -1068,6 +1068,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
   // here we are atm, start at start line in the block
   int current_line = startLine;
+  int start_spellchecking = -1;
   int last_line_spellchecking = -1;
   // do we need to continue
   bool stillcontinue=false;
@@ -1264,7 +1265,12 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
     // need we to continue ?
     stillcontinue = ctxChanged || indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
-    if ( (!stillcontinue) && (last_line_spellchecking==-1)) last_line_spellchecking=current_line;
+    if (stillcontinue && start_spellchecking < 0) {
+      start_spellchecking=current_line;
+    }
+    if (!stillcontinue && start_spellchecking >= 0) {
+      last_line_spellchecking=current_line;
+    }
     // move around the lines
     prevLine = textLine;
 
@@ -1275,8 +1281,10 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   // tag the changed lines !
   if (invalidate) {
     emit tagLines (startLine, current_line);
-    emit respellCheckBlock(startLine,(last_line_spellchecking==-1)?current_line:last_line_spellchecking);
-  } 
+    if(start_spellchecking >= 0) {
+      emit respellCheckBlock(start_spellchecking,(last_line_spellchecking==-1)?current_line:last_line_spellchecking);
+    }
+  }
   // emit that we have changed the folding
   if (codeFoldingUpdate)
     emit codeFoldingUpdated();

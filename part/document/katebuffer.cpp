@@ -1281,8 +1281,9 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   // tag the changed lines !
   if (invalidate) {
     emit tagLines (startLine, current_line);
-    if(start_spellchecking >= 0) {
-      emit respellCheckBlock(start_spellchecking,(last_line_spellchecking==-1)?current_line:last_line_spellchecking);
+    if(start_spellchecking >= 0 && m_lines > 0) {
+      emit respellCheckBlock(start_spellchecking,
+                             qMin(m_lines-1, (last_line_spellchecking==-1)?current_line:last_line_spellchecking));
     }
   }
   // emit that we have changed the folding

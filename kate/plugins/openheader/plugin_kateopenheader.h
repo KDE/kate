@@ -24,7 +24,7 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 #include <kxmlguiclient.h>
-
+#include <ktexteditor/commandinterface.h>
 
 class PluginKateOpenHeader : public Kate::Plugin
 {
@@ -38,14 +38,21 @@ class PluginKateOpenHeader : public Kate::Plugin
 
   public slots:
     void slotOpenHeader ();
-    void tryOpen( const KUrl& url, const QStringList& extensions );   
+    void tryOpen( const KUrl& url, const QStringList& extensions );
 };
 
-class PluginViewKateOpenHeader: public Kate::PluginView, Kate::XMLGUIClient {
+class PluginViewKateOpenHeader: public Kate::PluginView, KXMLGUIClient, KTextEditor::Command {
     Q_OBJECT
     public:
         PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, Kate::MainWindow *mainwindow);
         virtual ~PluginViewKateOpenHeader();
+
+        virtual const QStringList &cmds ();
+        virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+        virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+
+    private:
+        PluginKateOpenHeader* m_plugin;
 };
 
 #endif // PLUGIN_KATEOPENHEADER_H

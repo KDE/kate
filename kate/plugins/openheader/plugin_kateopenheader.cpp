@@ -23,6 +23,7 @@
 #include <kate/application.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 
 #include <QFileInfo>
 #include <kpluginfactory.h>
@@ -40,7 +41,8 @@ K_PLUGIN_FACTORY(KateOpenHeaderFactory, registerPlugin<PluginKateOpenHeader>();)
 K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
 
 
-PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,Kate::MainWindow *mainwindow): Kate::PluginView(mainwindow),Kate::XMLGUIClient(KateOpenHeaderFactory::componentData())
+PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, Kate::MainWindow *mainwindow)
+: Kate::PluginView(mainwindow), KXMLGUIClient(), KTextEditor::Command(), m_plugin(plugin)
 {
     KAction *a = actionCollection()->addAction("file_openheader");
     a->setText(i18n("Open .h/.cpp/.c"));
@@ -116,4 +118,43 @@ void PluginKateOpenHeader::tryOpen( const KUrl& url, const QStringList& extensio
     if( KIO::NetAccess::exists( newURL , KIO::NetAccess::SourceSide, application()->activeMainWindow()->window()) )
       application()->activeMainWindow()->openUrl( newURL );
   }
+}
+
+const QStringList& PluginViewKateOpenHeader::cmds()
+{
+    static QStringList l;
+
+    if (l.empty()) {
+        l << "toggle-header";
+    }
+
+    return l;
+}
+
+bool PluginViewKateOpenHeader::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    Q_UNUSED(view)
+    Q_UNUSED(cmd)
+    Q_UNUSED(msg)
+
+    m_plugin->slotOpenHeader();
+    return true;
+}
+
+bool PluginViewKateOpenHeader::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    Q_UNUSED(view)
+    Q_UNUSED(cmd)
+
+    msg = "<p><b>toggle-header &mdash; switch between header and corresponding c/cpp file</b></p>"
+            "<p>usage: <tt><b>toggle-header</b></tt></p>"
+            "<p>When editing C or C++ code, this command will switch between a header file and "
+            "its corresponding C/C++ file or vice verca.</p>"
+            "<p>For example, if you are editing myclass.cpp, <tt>toggle-header</tt> will change "
+            "to myclass.h if this file is available.</p>"
+            "<p>Pairs of the following filename suffixes will work:<br />"
+            " Header files: h, H, hh, hpp<br />"
+            " Source files: c, cpp, cc, cp, cxx</p>";
+
+    return true;
 }

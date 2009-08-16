@@ -1,19 +1,21 @@
-/***************************************************************************
-                          plugin_katetextfilter.cpp  -  description
-                             -------------------
-    begin                : FRE Feb 23 2001
-    copyright            : (C) 2001 by Joseph Wenninger
-    email                : jowenn@bigfoot.com
- ***************************************************************************/
+/* This file is part of the KDE project
+   Copyright (C) 2001 Joseph Wenninger
+   Copyright (C) 2009 Erlend Hamberg <ehamberg@gmail.com>
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
+*/
 
 #include "plugin_kateopenheader.h"
 #include "plugin_kateopenheader.moc"
@@ -46,14 +48,19 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
     connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotOpenHeader() ) );
 
     mainwindow->guiFactory()->addClient (this);
+
+    KTextEditor::CommandInterface* cmdIface =
+      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+
+    if( cmdIface ) {
+        cmdIface->registerCommand( this );
+    }
 }
 
 PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 {
       mainWindow()->guiFactory()->removeClient (this);
-
 }
-
 
 PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application *)parent, "open-header-plugin" )
@@ -68,10 +75,6 @@ Kate::PluginView *PluginKateOpenHeader::createView (Kate::MainWindow *mainWindow
 {
     return new PluginViewKateOpenHeader(this,mainWindow);
 }
-
-
-
-
 
 void PluginKateOpenHeader::slotOpenHeader ()
 {

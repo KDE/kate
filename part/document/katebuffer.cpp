@@ -1268,7 +1268,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     if (stillcontinue && start_spellchecking < 0) {
       start_spellchecking=current_line;
     }
-    if (!stillcontinue && start_spellchecking >= 0) {
+    else if (!stillcontinue && start_spellchecking >= 0) {
       last_line_spellchecking=current_line;
     }
     // move around the lines

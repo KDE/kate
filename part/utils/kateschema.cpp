@@ -223,6 +223,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   connect( ui->tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( ui->linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( ui->markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( ui->spellingmistakeline, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
 }
 
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
@@ -243,6 +244,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     m_schemas[ m_schema ].iconborder = ui->iconborder->color();
     m_schemas[ m_schema ].tmarker = ui->tmarker->color();
     m_schemas[ m_schema ].linenumber = ui->linenumber->color();
+    m_schemas[ m_schema ].spellingmistakeline = ui->spellingmistakeline->color();
   }
 
   if ( newSchema == m_schema ) return;
@@ -271,6 +273,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp5( KColorUtils::shade( tmp0, bgLuma > 0.7 ? -0.35 : 0.3 ) );
     QColor tmp6( schemeWindow.background().color() );
     QColor tmp7( schemeWindow.foreground().color() );
+    QColor tmp8( Qt::red );
 
     // same std colors like in KateDocument::markColor
     QVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
@@ -294,6 +297,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     c.tmarker = config.readEntry("Color Tab Marker", tmp5);
     c.iconborder = config.readEntry("Color Icon Bar", tmp6);
     c.linenumber = config.readEntry("Color Line Number", tmp7);
+    c.spellingmistakeline = config.readEntry("Color Spelling Mistake Line", tmp8);
 
     for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
       c.markerColors[i] =  config.readEntry( QString("Color MarkType%1").arg(i+1), mark[i] );
@@ -314,6 +318,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   ui->tmarker->setColor(  m_schemas [ newSchema ].tmarker );
   ui->iconborder->setColor(  m_schemas [ newSchema ].iconborder );
   ui->linenumber->setColor(  m_schemas [ newSchema ].linenumber );
+  ui->spellingmistakeline->setColor(  m_schemas [ newSchema ].spellingmistakeline );
 
   // map from 0..reservedMarkersCount()-1 - the same index as in markInterface
   for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
@@ -356,6 +361,7 @@ void KateSchemaConfigColorTab::apply ()
     config.writeEntry("Color Tab Marker", c.tmarker);
     config.writeEntry("Color Icon Bar", c.iconborder);
     config.writeEntry("Color Line Number", c.linenumber);
+    config.writeEntry("Color Spelling Mistake Line", c.spellingmistakeline);
 
     for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
     {

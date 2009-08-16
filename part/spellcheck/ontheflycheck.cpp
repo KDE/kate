@@ -36,6 +36,7 @@
 
 #include "kateglobal.h"
 #include "katehighlight.h"
+#include "katerenderer.h"
 #include "katetextline.h"
 #include "spellcheck.h"
 #include "spellingmenu.h"
@@ -516,14 +517,19 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
                                                                          rangeStart + start,
                                                                          line,
                                                                          rangeStart + start + word.length()));
-    smartRange->addWatcher(this);
-    m_myranges.push_back(smartRange);
-    KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
-    attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-    attribute->setUnderlineColor(QColor(Qt::red));
-    smartRange->setAttribute(KTextEditor::Attribute::Ptr(attribute));
-    m_misspelledList.push_back(MisspelledItem(smartRange, m_currentlyCheckedItem.second));
-    installSmartRange(smartRange);
+  smartRange->addWatcher(this);
+  m_myranges.push_back(smartRange);
+  KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
+  attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+  QColor lineColor(Qt::red);
+  KateView *activeView = dynamic_cast<KateView*>(m_document->activeView());
+  if(activeView) {
+    lineColor = activeView->renderer()->config()->spellingMistakeLineColor();
+  }
+  attribute->setUnderlineColor(lineColor);
+  smartRange->setAttribute(KTextEditor::Attribute::Ptr(attribute));
+  m_misspelledList.push_back(MisspelledItem(smartRange, m_currentlyCheckedItem.second));
+  installSmartRange(smartRange);
 
   if(m_backgroundChecker) {
     m_backgroundChecker->continueChecking();

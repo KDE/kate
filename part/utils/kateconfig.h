@@ -528,6 +528,9 @@ class KateRendererConfig : public KateConfig
     const QColor& lineNumberColor() const;
     void setLineNumberColor (const QColor &col);
 
+    const QColor& spellingMistakeLineColor() const;
+    void setSpellingMistakeKineColor (const QColor &col);
+
     bool showIndentationLines () const;
     void setShowIndentationLines (bool on);
 
@@ -560,6 +563,7 @@ class KateRendererConfig : public KateConfig
     QColor m_tabMarkerColor;
     QColor m_iconBarColor;
     QColor m_lineNumberColor;
+    QColor m_spellingMistakeLineColor;
     QVector<QColor> m_lineMarkerColor;
 
     QColor m_templateBackgroundColor;
@@ -581,6 +585,7 @@ class KateRendererConfig : public KateConfig
     bool m_tabMarkerColorSet : 1;
     bool m_iconBarColorSet : 1;
     bool m_lineNumberColorSet : 1;
+    bool m_spellingMistakeLineColorSet : 1;
     bool m_templateColorsSet : 1;
     QBitArray m_lineMarkerColorSet;
 

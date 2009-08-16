@@ -1223,6 +1223,7 @@ KateRendererConfig::KateRendererConfig ()
    m_tabMarkerColorSet(true),
    m_iconBarColorSet (true),
    m_lineNumberColorSet (true),
+   m_spellingMistakeLineColorSet (true),
    m_templateColorsSet(true),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (0)
@@ -1253,6 +1254,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_tabMarkerColorSet(false),
    m_iconBarColorSet (false),
    m_lineNumberColorSet (false),
+   m_spellingMistakeLineColorSet (false),
    m_templateColorsSet(false),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (renderer)
@@ -1354,6 +1356,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp5( KColorUtils::shade( tmp0, bgLuma > 0.7 ? -0.35 : 0.3 ) );
   QColor tmp6( schemeWindow.background().color() );
   QColor tmp7( schemeWindow.foreground().color() );
+  QColor tmp8( Qt::red );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
@@ -1371,6 +1374,8 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_iconBarColorSet = true;
   m_lineNumberColor = config.readEntry("Color Line Number", tmp7);
   m_lineNumberColorSet = true;
+  m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", tmp8);
+  m_spellingMistakeLineColorSet = true;
 
     // same std colors like in KateDocument::markColor
   QColor mark[7];
@@ -1645,6 +1650,24 @@ void KateRendererConfig::setLineNumberColor (const QColor &col)
 
   m_lineNumberColorSet = true;
   m_lineNumberColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::spellingMistakeLineColor() const
+{
+  if (m_spellingMistakeLineColorSet || isGlobal())
+    return m_spellingMistakeLineColor;
+
+  return s_global->spellingMistakeLineColor();
+}
+
+void KateRendererConfig::setSpellingMistakeKineColor (const QColor &col)
+{
+  configStart ();
+
+  m_spellingMistakeLineColorSet = true;
+  m_spellingMistakeLineColor = col;
 
   configEnd ();
 }

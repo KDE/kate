@@ -132,7 +132,7 @@ class KateSchemaConfigColorTab : public QWidget
     // Class for storing the properties on 1 schema.
     class SchemaColors {
       public:
-        QColor back, selected, current, bracket, wwmarker, iconborder, tmarker, linenumber;
+        QColor back, selected, current, bracket, wwmarker, iconborder, tmarker, linenumber, spellingmistakeline;
         QMap<int, QColor> markerColors;  // stores all markerColors
         QMap<int, QColor> templateColors;
     };

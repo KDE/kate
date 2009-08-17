@@ -1356,7 +1356,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp5( KColorUtils::shade( tmp0, bgLuma > 0.7 ? -0.35 : 0.3 ) );
   QColor tmp6( schemeWindow.background().color() );
   QColor tmp7( schemeWindow.foreground().color() );
-  QColor tmp8( Qt::red );
+  QColor tmp8( schemeView.foreground(KColorScheme::NegativeText).color() );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;

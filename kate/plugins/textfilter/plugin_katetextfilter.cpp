@@ -189,7 +189,6 @@ void PluginKateTextFilter::slotEditFilter()
   connect(ui.filterBox, SIGNAL(activated(const QString&)), dialog, SIGNAL(okClicked()));
 
   if (dialog->exec() == QDialog::Accepted) {
-    qDebug() << "2" << ui.filterBox->currentText();
     const QString filter = ui.filterBox->currentText();
     if (!filter.isEmpty()) {
       ui.filterBox->addToHistory(filter);

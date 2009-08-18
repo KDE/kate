@@ -308,7 +308,15 @@ bool KateBuildView::slotMakeClean(void)
 /******************************************************************/
 bool KateBuildView::slotQuickCompile()
 {
-    return startProcess(buildUi.quickComp->text());
+    KTextEditor::View *kv = mainWindow()->activeView();
+    if (!kv) {
+        KMessageBox::sorry(0, i18n("There is no file to compile."));
+        return false;
+    }
+    if (kv->document()->isModified()) kv->document()->save();
+    KUrl url(kv->document()->url());
+    
+    return startProcess(buildUi.quickComp->text() + " "  + url.toLocalFile());
 }
 
 /******************************************************************/
@@ -388,12 +396,12 @@ bool KateBuildView::slotStop()
 }
 
 /******************************************************************/
-void KateBuildView::slotProcExited(int /*exitCode*/, QProcess::ExitStatus)
+void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
     QApplication::restoreOverrideCursor();
 
     // did we get any errors?
-    if (m_found_error) {
+    if (m_found_error || (exitCode != 0)) {
         buildUi.ktabwidget->setCurrentIndex(0);
         buildUi.errTreeWidget->resizeColumnToContents(0);
         buildUi.errTreeWidget->resizeColumnToContents(1);

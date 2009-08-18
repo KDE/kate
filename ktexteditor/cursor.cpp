@@ -151,7 +151,7 @@ bool KTextEditor::Cursor::atStartOfLine( ) const
 
 bool KTextEditor::Cursor::atStartOfDocument( ) const
 {
-  return m_line == 0 && m_column == 0;
+  return line() == 0 && m_column == 0;
 }
 
 SmartCursor * KTextEditor::Cursor::toSmartCursor( ) const

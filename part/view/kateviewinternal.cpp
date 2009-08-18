@@ -1826,6 +1826,9 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
         }
         break;
         case Line:
+          if ( !m_selectionCached.isValid() ) {
+            m_selectionCached = KTextEditor::Range(endLine(), 0, endLine(), 0);
+          }
           if ( newCursor.line() > m_selectionCached.start().line() )
           {
             if (newCursor.line() + 1 >= doc()->lines() )

@@ -1783,8 +1783,9 @@ bool KateView::removeSelectedText()
 bool KateView::selectAll()
 {
   setBlockSelectionMode (false);
-
-  return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->documentEnd()));
+  top();
+  shiftBottom();
+  return true;
 }
 
 bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)

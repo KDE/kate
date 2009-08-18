@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>407</width>
-    <height>48</height>
+    <width>464</width>
+    <height>73</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,13 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string>Copy the result instead of pasting it</string>
      </property>
     </widget>
    </item>

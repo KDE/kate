@@ -53,6 +53,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     QString  m_strFilterOutput;
     K3ShellProcess * m_pFilterShellProcess;
     QStringList completionList;
+    bool pasteResult;
   public slots:
     void slotEditFilter ();
     void slotFilterReceivedStdout (K3Process * pProcess, char * got, int len);

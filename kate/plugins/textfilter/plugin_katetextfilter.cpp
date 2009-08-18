@@ -38,6 +38,10 @@
 #include <kgenericfactory.h>
 #include <kauthorized.h>
 #include <kactioncollection.h>
+
+#include <qapplication.h>
+#include <qclipboard.h>
+
 K_EXPORT_COMPONENT_FACTORY(katetextfilterplugin, KGenericFactory<PluginKateTextFilter>("katetextfilter"))
 
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
@@ -114,6 +118,12 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;
+
+  if (!pasteResult) {
+    QApplication::clipboard()->setText(m_strFilterOutput);
+    return;
+  }
+
   kv->document()->startEditing();
 
   KTextEditor::Cursor start = kv->selectionRange().start();
@@ -123,7 +133,7 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 
   kv->setCursorPosition(start); // for block selection
 
-  kv -> insertText (m_strFilterOutput);
+  kv->insertText(m_strFilterOutput);
   kv->document()->endEditing();
   m_strFilterOutput = "";
 }
@@ -189,6 +199,7 @@ void PluginKateTextFilter::slotEditFilter()
   connect(ui.filterBox, SIGNAL(activated(const QString&)), dialog, SIGNAL(okClicked()));
 
   if (dialog->exec() == QDialog::Accepted) {
+    pasteResult = !ui.checkBox->isChecked();
     const QString filter = ui.filterBox->currentText();
     if (!filter.isEmpty()) {
       ui.filterBox->addToHistory(filter);

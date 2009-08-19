@@ -77,6 +77,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl&)),
           m_dirOperator, SLOT(setFocus()));
   // now all actions exist in dir operator and we can use them in the toolbar
+  setupActions();
   setupToolbar();
 
   KHBox* filterBox = new KHBox(this);
@@ -115,60 +116,27 @@ KateFileBrowser::~KateFileBrowser()
 //BEGIN Public Methods
 void KateFileBrowser::setupToolbar()
 {
+  KConfigGroup config(KGlobal::config(), "filebrowser");
+  QStringList actions = config.readEntry( "toolbar actions", QStringList() );
+  if ( actions.isEmpty() ) // default toolbar
+    actions << "back" << "forward" << "bookmarks" << "sync_dir" << "configure";
+
   // remove all actions from the toolbar (there should be none)
   m_toolbar->clear();
 
-  // create action list
-  QList<QAction*> actions;
-  actions << m_dirOperator->actionCollection()->action("back");
-  actions << m_dirOperator->actionCollection()->action("forward");
-
-  // bookmarks action!
-  KActionMenu *acmBookmarks = new KActionMenu(KIcon("bookmarks"), i18n("Bookmarks"), this);
-  acmBookmarks->setDelayed(false);
-  m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
-  acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-  actions << acmBookmarks;
-
-  // action for synchronising the dir operator with the current document path
-  KAction* syncFolder = new KAction(this);
-  syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-  syncFolder->setText(i18n("Current Document Folder"));
-  syncFolder->setIcon(KIcon("system-switch-user"));
-  connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
-
-  actions << syncFolder;
-
   // now add all actions to the toolbar
-  foreach (QAction* ac, actions) {
-    if (ac) {
+  foreach (QString it, actions)
+  {
+    QAction *ac = 0;
+    if (it.isEmpty()) continue;
+    if (it == "bookmarks" || it == "sync_dir" || it == "configure")
+      ac = actionCollection()->action(it);
+    else
+      ac = m_dirOperator->actionCollection()->action(it);
+
+    if (ac)
       m_toolbar->addAction(ac);
-    }
   }
-
-  m_actionCollection->addAction("sync_dir", syncFolder);
-  m_actionCollection->addAction("bookmarks", acmBookmarks);
-
-  // section for settings menu
-  KActionMenu *optionsMenu = new KActionMenu(KIcon("configure"), i18n("Options"), this);
-  optionsMenu->setDelayed(false);
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action("short view"));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed view"));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action("tree view"));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed tree view"));
-  optionsMenu->addSeparator();
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action("show hidden"));
-
-  // action for synchronising the dir operator with the current document path
-  m_autoSyncFolder = new KAction(this);
-  m_autoSyncFolder->setCheckable(true);
-  m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
-  m_autoSyncFolder->setIcon(KIcon("system-switch-user"));
-  connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
-  optionsMenu->addAction(m_autoSyncFolder);
-
-  m_toolbar->addSeparator();
-  m_toolbar->addAction(optionsMenu);
 }
 
 void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & name)
@@ -311,6 +279,45 @@ KUrl KateFileBrowser::activeDocumentUrl()
   if (v)
     return v->document()->url();
   return KUrl();
+}
+
+void KateFileBrowser::setupActions()
+{
+  // bookmarks action!
+  KActionMenu *acmBookmarks = new KActionMenu(KIcon("bookmarks"), i18n("Bookmarks"), this);
+  acmBookmarks->setDelayed(false);
+  m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
+  acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+
+  // action for synchronizing the dir operator with the current document path
+  KAction* syncFolder = new KAction(this);
+  syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+  syncFolder->setText(i18n("Current Document Folder"));
+  syncFolder->setIcon(KIcon("system-switch-user"));
+  connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
+
+  m_actionCollection->addAction("sync_dir", syncFolder);
+  m_actionCollection->addAction("bookmarks", acmBookmarks);
+
+  // section for settings menu
+  KActionMenu *optionsMenu = new KActionMenu(KIcon("configure"), i18n("Options"), this);
+  optionsMenu->setDelayed(false);
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("short view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("tree view"));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed tree view"));
+  optionsMenu->addSeparator();
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action("show hidden"));
+
+  // action for synchronising the dir operator with the current document path
+  m_autoSyncFolder = new KAction(this);
+  m_autoSyncFolder->setCheckable(true);
+  m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
+  m_autoSyncFolder->setIcon(KIcon("system-switch-user"));
+  connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
+  optionsMenu->addAction(m_autoSyncFolder);
+
+  m_actionCollection->addAction("configure", optionsMenu);
 }
 //END Protected
 

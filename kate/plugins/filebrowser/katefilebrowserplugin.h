@@ -27,6 +27,8 @@
 #include <ktexteditor/document.h>
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
+#include <ktexteditor/configpage.h>
+#include <kate/pluginconfigpageinterface.h>
 #include <kurlcombobox.h>
 
 #include <KVBox>
@@ -45,9 +47,10 @@ class QSpinBox;
 
 class KateFileBrowser;
 
-class KateFileBrowserPlugin: public Kate::Plugin
+class KateFileBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
     Q_OBJECT
+    Q_INTERFACES(Kate::PluginConfigPageInterface)
 
   public:
     explicit KateFileBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
@@ -55,6 +58,15 @@ class KateFileBrowserPlugin: public Kate::Plugin
     {}
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+
+    virtual uint configPages() const;
+    virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
+    virtual QString configPageName (uint number = 0) const;
+    virtual QString configPageFullName (uint number = 0) const;
+    virtual KIcon configPageIcon (uint number = 0) const;
+
+  private:
+    KateFileBrowser *m_fileBrowser;
 };
 
 class KateFileBrowserPluginView : public Kate::PluginView
@@ -76,7 +88,8 @@ class KateFileBrowserPluginView : public Kate::PluginView
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
   private:
-    KateFileBrowser *m_fileSelector;
+    KateFileBrowser *m_fileBrowser;
+    friend class KateFileBrowserPlugin;
 };
 
 #endif //KATE_FILEBROWSER_PLUGIN_H

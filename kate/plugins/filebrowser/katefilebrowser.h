@@ -82,6 +82,7 @@ class KateFileBrowser : public KVBox
   protected:
     KUrl activeDocumentUrl();
     void openSelectedFiles();
+    void setupActions();
 
   public:
     Kate::MainWindow* mainWindow()

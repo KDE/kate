@@ -1,5 +1,5 @@
 
-set(katefilebrowserplugin_PART_SRCS katefilebrowserplugin.cpp katefilebrowser.cpp katebookmarkhandler.cpp )
+set(katefilebrowserplugin_PART_SRCS katefilebrowserplugin.cpp katefilebrowserconfig.cpp katefilebrowser.cpp katebookmarkhandler.cpp )
 
 kde4_add_plugin(katefilebrowserplugin ${katefilebrowserplugin_PART_SRCS})
 

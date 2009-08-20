@@ -79,13 +79,8 @@ QWidget *KateSessionApplet::widget()
 
         initSessionFiles();
 
-        if (KGlobalSettings::singleClick()) {
-            connect(m_listView, SIGNAL(clicked(const QModelIndex &)),
-                    this, SLOT(slotOnItemClicked(const QModelIndex &)));
-        } else {
-            connect(m_listView, SIGNAL(doubleClicked(const QModelIndex &)),
-                    this, SLOT(slotOnItemClicked(const QModelIndex &)));
-        }
+        connect(m_listView, SIGNAL(activated(const QModelIndex &)),
+            this, SLOT(slotOnItemClicked(const QModelIndex &)));
     }
     return m_listView;
 }

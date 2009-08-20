@@ -69,11 +69,19 @@ void KateViModeBar::updatePartialCommand(const QString &cmd)
   m_labelCommand->setText(cmd);
 }
 
+void KateViModeBar::setForegroundColor(KColorScheme::ForegroundRole role)
+{
+  QPalette p = m_labelMessage->palette();
+  KColorScheme::adjustForeground(p, role, QPalette::WindowText, KColorScheme::Window);
+  m_labelMessage->setPalette(p);
+}
+
 void KateViModeBar::showMessage(const QString &msg)
 {
   if ( m_timer ) {
     m_timer->stop();
   }
+  setForegroundColor(KColorScheme::NormalText);
   m_labelMessage->setText(msg);
 }
 
@@ -82,7 +90,8 @@ void KateViModeBar::showErrorMessage(const QString &msg)
   if ( m_timer ) {
     m_timer->stop();
   }
-  m_labelMessage->setText(QString("<font color=\"red\">")+Qt::escape(msg)+"</font>");
+  setForegroundColor(KColorScheme::NegativeText);
+  m_labelMessage->setText(Qt::escape(msg));
 }
 
 void KateViModeBar::clearMessage()
@@ -103,6 +112,7 @@ void KateViModeBar::clearMessage()
 
 void KateViModeBar::_clearMessage()
 {
+  setForegroundColor(KColorScheme::NormalText);
   m_labelMessage->clear();
 }
 

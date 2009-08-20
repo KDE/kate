@@ -23,6 +23,7 @@
 
 #include "kateviewhelpers.h"
 #include "kateview.h"
+#include "kcolorscheme.h"
 
 class QLabel;
 class QTimer;
@@ -42,6 +43,7 @@ public:
   void showMessage(const QString &msg);
   void showErrorMessage(const QString &msg);
   void clearMessage();
+  void setForegroundColor(KColorScheme::ForegroundRole role);
 
 private Q_SLOTS:
   void _clearMessage();

@@ -578,6 +578,7 @@ void KateView::setupActions()
   // encoding menu
   KateViewEncodingAction *encodingAction = new KateViewEncodingAction(m_doc, this, i18n("E&ncoding"), this);
   ac->addAction("set_encoding", encodingAction);
+  encodingAction->setCurrentCodec(m_doc->config()->encoding());
 
   a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));

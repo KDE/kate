@@ -1647,11 +1647,15 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
   // restore the hl stuff
   m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
 
+  // read only mode
+  // todo: what does m_bReadOnly mean?
+  setReadWrite(kconfig.readEntry("ReadWrite", true));
+
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
 
   // Restore Bookmarks
-  QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
+  const QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
   for( int i = 0; i < marks.count(); i++ )
     addMark( marks[i], KateDocument::markType01 );
 }
@@ -1676,6 +1680,9 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
   // save hl
   kconfig.writeEntry("Highlighting", highlight()->name());
 
+  // read only mode
+  kconfig.writeEntry("ReadWrite", isReadWrite());
+
   // indent mode
   kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
@@ -1683,7 +1690,7 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
   QList<int> marks;
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
     if (i.value()->type & KTextEditor::MarkInterface::markType01)
-     marks << i.value()->line;
+      marks << i.value()->line;
 
   kconfig.writeEntry( "Bookmarks", marks );
 }

@@ -45,5 +45,11 @@ KTextEditor::Cursor KateScriptView::cursorPosition ()
   return m_view->cursorPosition();
 }
 
+void KateScriptView::setCursorPosition(int line, int column)
+{
+  KTextEditor::Cursor c(line, column);
+  m_view->setCursorPosition(c);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

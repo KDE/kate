@@ -48,6 +48,11 @@ class KateScriptView : public QObject, protected QScriptable
     KateView *view();
     
     Q_INVOKABLE KTextEditor::Cursor cursorPosition ();
+    /**
+     * Set the cursor position in the view.
+     * @since 4.4
+     */
+    Q_INVOKABLE void setCursorPosition (int line, int column);
   
   private:
     KateView *m_view;

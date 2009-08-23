@@ -200,6 +200,9 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
     int id = KateApp::self()->mainWindowID (this);
     m_documentModel->readSessionConfig( sconfig,
         QString("DocumentModel:MainWindow:%1").arg(id) );
+    // sync session config - or do we need an extra
+    // KateFileList::readSessionConfig() here too?
+    m_fileList->setSortRole(m_documentModel->sortRole());
 
     m_viewManager->restoreViewConfiguration (KConfigGroup(sconfig, sgroup) );
   }

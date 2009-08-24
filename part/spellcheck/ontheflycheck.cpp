@@ -455,7 +455,7 @@ void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
 /**
  * WARNING: SmartInterface lock must have been obtained before entering this function!
  **/
-void KateOnTheFlyChecker::caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+void KateOnTheFlyChecker::mouseEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
 {
   KateView *kateView = static_cast<KateView*>(view);
   QMutexLocker(kateView->doc()->smartMutex());
@@ -466,7 +466,7 @@ void KateOnTheFlyChecker::caretEnteredRange(KTextEditor::SmartRange *range, KTex
  * WARNING: SmartInterface lock must have been obtained before entering this function!
  **/
 
-void KateOnTheFlyChecker::caretExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+void KateOnTheFlyChecker::mouseExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
 {
   KateView *kateView = static_cast<KateView*>(view);
   QMutexLocker(kateView->doc()->smartMutex());

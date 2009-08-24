@@ -103,8 +103,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     virtual void rangeDeleted(KTextEditor::SmartRange *range);
     bool removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range);
     virtual void rangeEliminated(KTextEditor::SmartRange *range);
-    virtual void caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
-    virtual void caretExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
+    virtual void mouseEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
+    virtual void mouseExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
 
     QList<KTextEditor::SmartRange*> m_eliminatedRanges;
 

@@ -817,7 +817,8 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   setCaption( i18n ("Manage Sessions") );
   setButtons( User1 | User2 );
   setButtonGuiItem( User1, KStandardGuiItem::close() );
-  setButtonGuiItem( User2, KGuiItem( i18n("&Open") ) );
+  // don't use KStandardGuiItem::open() here which has trailing ellipsis!
+  setButtonGuiItem( User2, KGuiItem( i18n("&Open"), "document-open") );
 
   setDefaultButton(KDialog::User1);
   QFrame *page = new QFrame (this);

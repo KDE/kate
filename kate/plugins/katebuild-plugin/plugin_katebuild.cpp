@@ -345,7 +345,7 @@ bool KateBuildView::startProcess(const QString &command)
     // where should we run make?
 
     if (buildUi.buildDir->text().isEmpty()) {
-        if (url.path().isEmpty()) {
+        if (url.toLocalFile().isEmpty()) {
             KMessageBox::sorry(0, i18n("There is no file or directory specified for building."));
             return false;
         }
@@ -356,7 +356,8 @@ bool KateBuildView::startProcess(const QString &command)
                                        url.path()));
             return false;
         }
-        m_make_dir = url;
+        // url is a file -> remove the file with upUrl().
+        m_make_dir = url.upUrl();
     }
     else {
         m_make_dir = KUrl(buildUi.buildDir->text());

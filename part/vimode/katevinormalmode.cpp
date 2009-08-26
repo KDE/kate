@@ -463,6 +463,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
+  m_stickyColumn = -1;
 
   return startInsertMode();
 }

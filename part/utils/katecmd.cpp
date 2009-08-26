@@ -37,8 +37,10 @@ bool KateCmd::registerCommand (KTextEditor::Command *cmd)
   QStringList l = cmd->cmds ();
 
   for (int z=0; z<l.count(); z++)
-    if (m_dict.contains(l[z]))
+    if (m_dict.contains(l[z])) {
+      kDebug(13050)<<"Command already registered: "<<l[z]<<". Aborting.";
       return false;
+    }
 
   for (int z=0; z<l.count(); z++) {
     m_dict.insert (l[z], cmd);

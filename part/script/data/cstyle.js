@@ -37,6 +37,14 @@ var cfgAutoInsertSlashes = false; // auto insert '//' after C++-comments
 // specifies the characters which should trigger indent, beside the default '\n'
 triggerCharacters = "{}/:;";
 
+var debugMode = false;
+
+function dbg(s) {
+    if (debugMode)
+        debug(s);
+}
+
+
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
 // level (the bigger the number, the longer might be the delay)
@@ -58,7 +66,7 @@ function findLeftBrace(line, column)
         if (parenthesisCursor)
             cursor = parenthesisCursor;
 
-        //debug("findLeftBrace: success in line " + cursor.line);
+        dbg("findLeftBrace: success in line " + cursor.line);
         return document.firstVirtualColumn(cursor.line);
     }
 
@@ -114,7 +122,7 @@ function trySwitchStatement(line)
         }
     }
 
-    //if (indentation != -1) debug("trySwitchStatement: success in line " + currentLine);
+    if (indentation != -1) dbg("trySwitchStatement: success in line " + currentLine);
     return indentation;
 }
 
@@ -137,7 +145,7 @@ function tryAccessModifiers(line)
     if (cfgIndentCase)
         indentation += gIndentWidth;
 
-    //if (indentation != -1) debug("tryAccessModifiers: success in line " + cursor.line);
+    if (indentation != -1) dbg("tryAccessModifiers: success in line " + cursor.line);
     return indentation;
 }
 
@@ -229,7 +237,7 @@ function tryCComment(line)
         if (cursor && cursor.column == document.firstColumn(cursor.line))
             indentation = document.firstVirtualColumn(cursor.line);
 
-        //if (indentation != -1) debug("tryCComment: success (1) in line " + cursor.line);
+        if (indentation != -1) dbg("tryCComment: success (1) in line " + cursor.line);
         return indentation;
     }
 
@@ -267,7 +275,7 @@ function tryCComment(line)
         }
     }
 
-    //if (indentation != -1) debug("tryCComment: success (2) in line " + currentLine);
+    if (indentation != -1) dbg("tryCComment: success (2) in line " + currentLine);
     return indentation;
 }
 
@@ -310,7 +318,7 @@ function tryCppComment(line)
         }
     }
 
-    //if (indentation != -1) debug("tryCppComment: success in line " + currentLine);
+    if (indentation != -1) dbg("tryCppComment: success in line " + currentLine);
     return indentation;
 }
 
@@ -349,7 +357,7 @@ function tryBrace(line)
         }
     }
 
-    //if (indentation != -1) debug("tryBrace: success in line " + currentLine);
+    if (indentation != -1) dbg("tryBrace: success in line " + currentLine);
     return indentation;
 }
 
@@ -377,7 +385,7 @@ function tryCKeywords(line, isBrace)
     var currentString = document.line(currentLine);
     if (currentString.search(/^\s*(if\b|for|do\b|while|switch|[}]?\s*else|((private|public|protected|case|default|signals|Q_SIGNALS).*:))/) == -1)
         return -1;
-//    debug("Found first word: " + RegExp.$1);
+    dbg("Found first word: " + RegExp.$1);
     lastPos = document.lastColumn(currentLine);
     var lastChar = currentString.charAt(lastPos);
     var indentation = -1;
@@ -390,7 +398,7 @@ function tryCKeywords(line, isBrace)
             indentation += gIndentWidth;
     }
 
-    //if (indentation != -1) debug("tryCKeywords: success in line " + currentLine);
+    if (indentation != -1) dbg("tryCKeywords: success in line " + currentLine);
     return indentation;
 }
 
@@ -440,7 +448,7 @@ function tryCondition(line)
         }
     }
 
-    //if (indentation != -1) debug("tryCondition: success in line " + currentLine);
+    if (indentation != -1) dbg("tryCondition: success in line " + currentLine);
     return indentation;
 }
 
@@ -475,7 +483,7 @@ function tryStatement(line)
         }
     }
 
-    //if (indentation != -1) debug("tryStatement: success in line " + currentLine);
+    if (indentation != -1) dbg("tryStatement: success in line " + currentLine);
     return indentation;
 }
 
@@ -525,8 +533,8 @@ function processChar(line, c)
     var firstPos = document.firstColumn(line);
     var lastPos = document.lastColumn(line);
 
-//     debug("firstPos: " + firstPos);
-//     debug("column..: " + column);
+     dbg("firstPos: " + firstPos);
+     dbg("column..: " + column);
 
     if (firstPos == column - 1 && c == '{') {
         // todo: maybe look for if etc.

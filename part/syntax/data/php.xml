@@ -2,6 +2,9 @@
 <!--
 
 Changes:
+[ Version 1.41 (2009-08-26) ]
+- Add codefolding to heredocs
+
 [ Version 1.40 (2009-08-26) ]
 - Use Javascript, HTML, CSS or MySQL highlighting in heredoc statements with
   with names like e.g. <<<HTML or <<<EOHTML
@@ -51,7 +54,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.40" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.41" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6537,11 +6540,11 @@ Changes:
         <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
         <DetectChar attribute="String" context="backquotestring" char="`" />
         <DetectChar attribute="String" context="singlequotestring" char="'" />
-        <RegExpr attribute="Backslash Code" context="htmlheredoc" String="&lt;&lt;&lt;((EO)?HTML)\b" />
-        <RegExpr attribute="Backslash Code" context="cssheredoc" String="&lt;&lt;&lt;((EO)?CSS)\b" />
-        <RegExpr attribute="Backslash Code" context="javascriptheredoc" String="&lt;&lt;&lt;((EO)?JAVASCRIPT)\b" />
-        <RegExpr attribute="Backslash Code" context="mysqlheredoc" String="&lt;&lt;&lt;((EO)?MYSQL)\b" />
-        <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
+        <RegExpr attribute="Backslash Code" context="htmlheredoc" String="&lt;&lt;&lt;((EO)?HTML)\b" beginRegion="Heredoc" />
+        <RegExpr attribute="Backslash Code" context="cssheredoc" String="&lt;&lt;&lt;((EO)?CSS)\b" beginRegion="Heredoc" />
+        <RegExpr attribute="Backslash Code" context="javascriptheredoc" String="&lt;&lt;&lt;((EO)?JAVASCRIPT)\b" beginRegion="Heredoc" />
+        <RegExpr attribute="Backslash Code" context="mysqlheredoc" String="&lt;&lt;&lt;((EO)?MYSQL)\b" beginRegion="Heredoc" />
+        <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" beginRegion="Heredoc" />
         <RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
         <RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
         <HlCOct attribute="Octal" context="#stay" />
@@ -6598,27 +6601,27 @@ Changes:
         <DetectChar attribute="String" context="#pop" char="'" />
       </context>
       <context name="htmlheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
         <IncludeRules context="##HTML" />
       </context>
       <context name="cssheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
         <IncludeRules context="##CSS" />
       </context>
       <context name="mysqlheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
         <IncludeRules context="##SQL (MySQL)" />
       </context>
       <context name="javascriptheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
         <IncludeRules context="##JavaScript" />
       </context>
       <context name="heredoc" attribute="String" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
       </context>
       <context name="commonheredoc" attribute="String" lineEndContext="#stay">

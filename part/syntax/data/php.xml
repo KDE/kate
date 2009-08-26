@@ -2,6 +2,12 @@
 <!--
 
 Changes:
+[ Version 1.40 (2009-08-26) ]
+- Use Javascript, HTML, CSS or MySQL highlighting in heredoc statements with
+  with names like e.g. <<<HTML or <<<EOHTML
+
+  Bug: 118668
+
 [ Version 1.39 (2009-08-18) ]
 - Don't add subcontexts when using the paamayim nekudotayim token.
 
@@ -45,7 +51,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.37" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.40" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6531,6 +6537,10 @@ Changes:
         <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
         <DetectChar attribute="String" context="backquotestring" char="`" />
         <DetectChar attribute="String" context="singlequotestring" char="'" />
+        <RegExpr attribute="Backslash Code" context="htmlheredoc" String="&lt;&lt;&lt;((EO)?HTML)\b" />
+        <RegExpr attribute="Backslash Code" context="cssheredoc" String="&lt;&lt;&lt;((EO)?CSS)\b" />
+        <RegExpr attribute="Backslash Code" context="javascriptheredoc" String="&lt;&lt;&lt;((EO)?JAVASCRIPT)\b" />
+        <RegExpr attribute="Backslash Code" context="mysqlheredoc" String="&lt;&lt;&lt;((EO)?MYSQL)\b" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
         <RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
         <RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
@@ -6587,8 +6597,31 @@ Changes:
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\" />
         <DetectChar attribute="String" context="#pop" char="'" />
       </context>
+      <context name="htmlheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <IncludeRules context="commonheredoc" />
+        <IncludeRules context="##HTML" />
+      </context>
+      <context name="cssheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <IncludeRules context="commonheredoc" />
+        <IncludeRules context="##CSS" />
+      </context>
+      <context name="mysqlheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <IncludeRules context="commonheredoc" />
+        <IncludeRules context="##SQL (MySQL)" />
+      </context>
+      <context name="javascriptheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <IncludeRules context="commonheredoc" />
+        <IncludeRules context="##JavaScript" />
+      </context>
       <context name="heredoc" attribute="String" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+        <IncludeRules context="commonheredoc" />
+      </context>
+      <context name="commonheredoc" attribute="String" lineEndContext="#stay">
         <RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
         <RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
         <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(-&gt;[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />

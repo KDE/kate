@@ -3900,8 +3900,9 @@ bool KateDocument::documentReload()
       tmp.append (m);
     }
 
-    QString oldMode = mode ();
-    bool byUser = m_fileTypeSetByUser;
+    const QString oldMode = mode ();
+    const bool byUser = m_fileTypeSetByUser;
+    const QString hl_mode = highlightingMode ();
 
     m_storedVariables.clear();
 
@@ -3936,6 +3937,7 @@ bool KateDocument::documentReload()
 
     if (byUser)
       setMode (oldMode);
+    setHighlightingMode (hl_mode);
 
     return true;
   }

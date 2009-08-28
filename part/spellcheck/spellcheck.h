@@ -51,12 +51,13 @@ class KateSpellCheckManager : public QObject {
      **/
     static QList<KTextEditor::Range> rangeDifference(const KTextEditor::Range& r1, const KTextEditor::Range& r2);
 
-  protected:
+  public:
       QList<QPair<KTextEditor::Range, QString> > spellCheckLanguageRanges(KateDocument *doc, const KTextEditor::Range& range);
+
       QList<QPair<KTextEditor::Range, QString> > spellCheckWrtHighlightingRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                                     const QString& dictionary = QString(),
-                                                                                                    bool singleLine = false);
-  public:
+                                                                                                    bool singleLine = false,
+                                                                                                    bool returnSingleRange = false);
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);
 };

@@ -29,10 +29,12 @@
 
 #include <QtCore/QObject>
 
+
 class KateView;
 
 class KAction;
 class KActionCollection;
+class KProgressDialog;
 namespace Sonnet {
     class Dialog;
     class BackgroundChecker;
@@ -73,6 +75,10 @@ class KateSpellCheckDialog : public QObject
 
     void installNextSpellCheckRange();
 
+    void cancelClicked();
+
+    void objectDestroyed(QObject *object);
+
   private:
     KTextEditor::Cursor locatePosition( int pos );
 
@@ -85,11 +91,18 @@ class KateSpellCheckDialog : public QObject
 
     // define the part of the text to check
     KTextEditor::Cursor m_spellStart, m_spellEnd;
+    KTextEditor::Cursor m_globalSpellStart, m_globalSpellEnd;
+
+    QList<QPair<KTextEditor::Range, QString> > m_languagesInSpellCheckRange;
+    QList<QPair<KTextEditor::Range, QString> >::iterator m_currentLanguageRangeIterator;
 
     // keep track of where we are.
     KTextEditor::Cursor m_spellPosCursor;
     uint m_spellLastPos;
-    QList<QPair<KTextEditor::Range, QString> > m_spellCheckRanges;
+
+    bool m_spellCheckCancelledByUser;
+
+    void spellCheckDone();
 };
 
 #endif

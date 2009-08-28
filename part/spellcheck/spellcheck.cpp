@@ -133,9 +133,14 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
 QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtHighlightingRanges(KateDocument *document,
                                                                                          const KTextEditor::Range& range,
                                                                                          const QString& dictionary,
-                                                                                         bool singleLine)
+                                                                                         bool singleLine,
+                                                                                         bool returnSingleRange)
 {
   QList<QPair<KTextEditor::Range, QString> > toReturn;
+  if(range.isEmpty()) {
+    return toReturn;
+  }
+
   QList<KTextEditor::Range> rangesToSplit;
   if(!singleLine || range.onSingleLine()) {
     rangesToSplit.push_back(range);
@@ -175,6 +180,9 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
           }
           else if(inSpellCheckArea) {
             toReturn.push_back(RangeDictionaryPair(KTextEditor::Range(begin, KTextEditor::Cursor(line, i)), dictionary));
+            if(returnSingleRange) {
+              return toReturn;
+            }
             begin = KTextEditor::Cursor::invalid();
             inSpellCheckArea = false;
           }

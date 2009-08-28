@@ -398,6 +398,11 @@ class KateSessionOpenDialog : public KDialog
      */
     void slotUser2 ();
 
+    /**
+     * selection has changed
+     */
+    void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
+
   private:
     QTreeWidget *m_sessions;
 };

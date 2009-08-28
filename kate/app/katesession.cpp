@@ -659,7 +659,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   QAction *a = popup->addAction(i18n("Use selected session as template"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
-  KateSessionList &slist (KateSessionManager::self()->sessionList());
+  const KateSessionList &slist (KateSessionManager::self()->sessionList());
   kDebug()<<"Last session is:"<<lastSession;
   for (int i = 0; i < slist.count(); ++i)
   {
@@ -683,7 +683,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
   connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotUser2()));
   connect(this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()));
-  enableButton (KDialog::User2, true);
+  enableButton (KDialog::User2, m_sessions->currentIndex().isValid());
 
   setDefaultButton(KDialog::User2);
   setEscapeButton(KDialog::User1);
@@ -738,7 +738,7 @@ void KateSessionChooser::selectionChanged(QTreeWidgetItem *current, QTreeWidgetI
 //BEGIN OPEN DIALOG
 
 KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
-    : KDialog (  parent )
+    : KDialog ( parent )
 
 {
   setCaption( i18n ("Open Session") );
@@ -746,7 +746,8 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   setButtonGuiItem( User1, KStandardGuiItem::cancel() );
   // don't use KStandardGuiItem::open() here which has trailing ellipsis!
   setButtonGuiItem( User2, KGuiItem( i18n("&Open"), "document-open") );
-  setDefaultButton(KDialog::User2);
+  setDefaultButton( KDialog::User2 );
+  enableButton( KDialog::User2, false );
   //showButtonSeparator(true);
   /*QFrame *page = new QFrame (this);
   page->setMinimumSize (400, 200);
@@ -770,7 +771,7 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
-  KateSessionList &slist (KateSessionManager::self()->sessionList());
+  const KateSessionList &slist (KateSessionManager::self()->sessionList());
   for (int i = 0; i < slist.count(); ++i)
   {
     new KateSessionChooserItem (m_sessions, slist[i]);
@@ -780,6 +781,7 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   setResult (resultCancel);
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
+  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged()));
   connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotUser2()));
 
 }
@@ -805,6 +807,11 @@ void KateSessionOpenDialog::slotUser1 ()
 void KateSessionOpenDialog::slotUser2 ()
 {
   done (resultOk);
+}
+
+void KateSessionOpenDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
+{
+  enableButton (KDialog::User2, current);
 }
 
 //END OPEN DIALOG
@@ -940,7 +947,7 @@ void KateSessionManageDialog::updateSessionList ()
 {
   m_sessions->clear ();
 
-  KateSessionList &slist (KateSessionManager::self()->sessionList());
+  const KateSessionList &slist (KateSessionManager::self()->sessionList());
   for (int i = 0; i < slist.count(); ++i)
   {
     new KateSessionChooserItem (m_sessions, slist[i]);
@@ -963,7 +970,7 @@ void KateSessionsAction::slotAboutToShow()
 {
   qDeleteAll( sessionsGroup->actions() );
 
-  KateSessionList &slist (KateSessionManager::self()->sessionList());
+  const KateSessionList &slist (KateSessionManager::self()->sessionList());
   for (int i = 0; i < slist.count(); ++i)
   {
     QAction *action = new QAction( slist[i]->sessionName(), sessionsGroup );
@@ -974,7 +981,7 @@ void KateSessionsAction::slotAboutToShow()
 
 void KateSessionsAction::openSession (QAction *action)
 {
-  KateSessionList &slist (KateSessionManager::self()->sessionList());
+  const KateSessionList &slist (KateSessionManager::self()->sessionList());
 
   int i = action->data().toInt();
   if (i >= slist.count())

@@ -2244,7 +2244,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
-      if (k->key() == Qt::Key_Escape) {
+      if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           k->accept();

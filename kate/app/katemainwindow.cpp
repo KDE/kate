@@ -681,7 +681,7 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
 
 void KateMainWindow::editKeys()
 {
-  KShortcutsDialog dlg ( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this );
+  KShortcutsDialog dlg ( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this );
 
   QList<KXMLGUIClient*> clients = guiFactory()->clients();
 

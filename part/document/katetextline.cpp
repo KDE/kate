@@ -134,7 +134,7 @@ int KateTextLine::indentDepth (int tabWidth) const
   {
     if(unicode[i].isSpace())
     {
-      if (unicode[i] == QChar('\t'))
+      if (unicode[i] == QLatin1Char('\t'))
         d += tabWidth - (d % tabWidth);
       else
         d++;
@@ -178,7 +178,7 @@ int KateTextLine::toVirtualColumn (int column, int tabWidth) const
 
   for ( int z = 0; z < zmax; ++z)
   {
-    if (unicode[z] == QChar('\t'))
+    if (unicode[z] == QLatin1Char('\t'))
       x += tabWidth - (x % tabWidth);
     else
       x++;
@@ -200,7 +200,7 @@ int KateTextLine::fromVirtualColumn (int column, int tabWidth) const
   for (; z < zmax; ++z)
   {
     int diff = 1;
-    if (unicode[z] == QChar('\t'))
+    if (unicode[z] == QLatin1Char('\t'))
       diff = tabWidth - (x % tabWidth);
 
     if (x + diff > column)
@@ -219,7 +219,7 @@ int KateTextLine::virtualLength (int tabWidth) const
 
   for ( int z = 0; z < len; ++z)
   {
-    if (unicode[z] == QChar('\t'))
+    if (unicode[z] == QLatin1Char('\t'))
       x += tabWidth - (x % tabWidth);
     else
       x++;

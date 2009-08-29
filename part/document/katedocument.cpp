@@ -254,7 +254,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect (this,SIGNAL(completed()),this,SLOT(slotCompleted()));
   connect (this,SIGNAL(canceled(const QString&)),this,SLOT(slotCanceled()));
   // update doc name
-  setDocName ("");
+  setDocName (QString());
 
   // if single view mode, like in the konqui embedding, create a default view ;)
   // be lazy, only create it now, if any parentWidget is given, otherwise widget()
@@ -594,7 +594,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
     int line = lines();
     while (line != position.line() + totalLength + 1)
     {
-      editInsertLine(line,"");
+      editInsertLine(line,QString());
       line++;
     }
   }
@@ -679,7 +679,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   editStart();
 
   if (position.line() > lines())
-    editInsertLine(position.line(),"");
+    editInsertLine(position.line(),QString());
 
   int currentLine = position.line();
   int currentLineStart = 0;
@@ -3576,7 +3576,7 @@ QString KateDocument::getWord( const KTextEditor::Cursor& cursor )
   len = textLine->length();
   start = end = cursor.column();
   if (start > len)        // Probably because of non-wrapping cursor mode.
-    return QString("");
+    return QString();
 
   while (start > 0 && highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
   while (end < len && highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
@@ -4122,8 +4122,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   }
   else if (kvLineWildcard.indexIn( t ) > -1) // regex given
   {
-    QStringList wildcards (kvLineWildcard.cap(1).split (';', QString::SkipEmptyParts));
-    QString nameOfFile = url().fileName();
+    const QStringList wildcards (kvLineWildcard.cap(1).split (';', QString::SkipEmptyParts));
+    const QString nameOfFile = url().fileName();
 
     bool found = false;
     for (int i = 0; !found && i < wildcards.size(); ++i)
@@ -4143,7 +4143,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   }
   else if (kvLineMime.indexIn( t ) > -1) // mime-type given
   {
-    QStringList types (kvLineMime.cap(1).split (';', QString::SkipEmptyParts));
+    const QStringList types (kvLineMime.cap(1).split (';', QString::SkipEmptyParts));
 
     // no matching type found
     if (!types.contains (mimeType ()))
@@ -4388,7 +4388,7 @@ QString KateDocument::variable( const QString &name ) const
   if ( m_storedVariables.contains( name ) )
     return m_storedVariables[ name ];
 
-  return "";
+  return QString();
 }
 
 //END
@@ -4449,7 +4449,7 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
 bool KateDocument::createDigest( QByteArray &result )
 {
   bool ret = false;
-  result = "";
+  result.clear();
   if ( url().isLocalFile() )
   {
     QFile f ( url().toLocalFile() );
@@ -5135,7 +5135,7 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
 
 void KateDocument::revertToDefaultDictionary(const KTextEditor::Range &range)
 {
-  setDictionary("", range);
+  setDictionary(QString(), range);
 }
 
 void KateDocument::setDefaultDictionary(const QString& dict)

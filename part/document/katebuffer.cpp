@@ -120,27 +120,28 @@ class KateFileLoader
           // fixes utf16 LE
           //may change codec if autodetection was set or BOM was found
           kDebug (13020) << "PROBER TYPE: " << KEncodingProber::nameForProberType(m_prober->proberType());
-          m_prober->feed(m_buffer.data(), c);
+          m_prober->feed(m_buffer.constData(), c);
           if (m_prober->confidence() > 0.5 && QTextCodec::codecForName(m_prober->encoding()))
             m_codec = QTextCodec::codecForName(m_prober->encoding());
-          m_utf8Borked=errorsIfUtf8(m_buffer.data(), c);
+          m_utf8Borked=errorsIfUtf8(m_buffer.constData(), c);
           m_binary=processNull(m_buffer.data(), c);
           m_text = decoder()->toUnicode(m_buffer, c);
           kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name();
         }
 
-        m_eof = (c == -1) || (c == 0);
-
+        static const QLatin1Char cr(QLatin1Char('\r'));
+        static const QLatin1Char lf(QLatin1Char('\n'));
         for (int i=0; i < m_text.length(); i++)
         {
-          if (m_text[i] == '\n')
+          const QChar c = m_text.at(i);
+          if (c == lf)
           {
             m_eol = KateDocumentConfig::eolUnix;
             break;
           }
-          else if ((m_text[i] == '\r'))
+          else if (c == cr)
           {
-            if (((i+1) < m_text.length()) && (m_text[i+1] == '\n'))
+            if (((i+1) < m_text.length()) && (m_text.at(i+1) == lf))
             {
               m_eol = KateDocumentConfig::eolDos;
               break;
@@ -289,8 +290,8 @@ class KateFileLoader
             if (c > 0)
             {
               m_binary=processNull(m_buffer.data(), c)||m_binary;
-              m_utf8Borked=m_utf8Borked||errorsIfUtf8(m_buffer.data(), c);
-              m_text.append (decoder()->toUnicode (m_buffer.data(), c));
+              m_utf8Borked=m_utf8Borked||errorsIfUtf8(m_buffer.constData(), c);
+              m_text.append (decoder()->toUnicode (m_buffer.constData(), c));
             }
 
             // is file completely read ?
@@ -316,7 +317,7 @@ class KateFileLoader
           }
         }
 
-        if (m_text[m_position] == '\n')
+        if (m_text.at(m_position) == QLatin1Char('\n'))
         {
           m_lastWasEndOfLine = true;
 
@@ -337,7 +338,7 @@ class KateFileLoader
             return;
           }
         }
-        else if (m_text[m_position] == '\r')
+        else if (m_text.at(m_position) == QLatin1Char('\r'))
         {
           m_lastWasEndOfLine = true;
           m_lastWasR = true;

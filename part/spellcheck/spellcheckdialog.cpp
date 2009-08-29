@@ -122,6 +122,7 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
   if ( !m_sonnetDialog )
   {
     m_sonnetDialog = new Sonnet::Dialog(m_backgroundChecker, m_view);
+    m_sonnetDialog->showProgressDialog(200);
 
     connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(installNextSpellCheckRange()));
 

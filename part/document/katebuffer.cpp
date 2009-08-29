@@ -129,6 +129,8 @@ class KateFileLoader
           kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name();
         }
 
+        m_eof = (c == -1) || (c == 0);
+
         static const QLatin1Char cr(QLatin1Char('\r'));
         static const QLatin1Char lf(QLatin1Char('\n'));
         for (int i=0; i < m_text.length(); i++)

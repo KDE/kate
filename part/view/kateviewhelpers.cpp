@@ -450,7 +450,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   }
 
   // Built in help: if the command starts with "help", [try to] show some help
-  if ( cmd.startsWith( "help" ) )
+  if ( cmd.startsWith( QLatin1String("help") ) )
   {
     QWhatsThis::showText(mapToGlobal(QPoint(0,0)), helptext( QPoint() ) );
     clear();

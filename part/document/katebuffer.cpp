@@ -125,7 +125,7 @@ class KateFileLoader
             m_codec = QTextCodec::codecForName(m_prober->encoding());
           m_utf8Borked=errorsIfUtf8(m_buffer.constData(), c);
           m_binary=processNull(m_buffer.data(), c);
-          m_text = decoder()->toUnicode(m_buffer, c);
+          m_text = decoder()->toUnicode(m_buffer.constData(), c);
           kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name();
         }
 
@@ -276,6 +276,9 @@ class KateFileLoader
       length = 0;
       offset = 0;
 
+      static const QLatin1Char cr(QLatin1Char('\r'));
+      static const QLatin1Char lf(QLatin1Char('\n'));
+
       while (m_position <= m_text.length())
       {
         if (m_position == m_text.length())
@@ -319,7 +322,7 @@ class KateFileLoader
           }
         }
 
-        if (m_text.at(m_position) == QLatin1Char('\n'))
+        if (m_text.at(m_position) == lf)
         {
           m_lastWasEndOfLine = true;
 
@@ -340,7 +343,7 @@ class KateFileLoader
             return;
           }
         }
-        else if (m_text.at(m_position) == QLatin1Char('\r'))
+        else if (m_text.at(m_position) == cr)
         {
           m_lastWasEndOfLine = true;
           m_lastWasR = true;

@@ -299,7 +299,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     bool hasGroups() const;
 
   private:
-    QString commonPrefixInternal(QString forcePrefix) const;
+    QString commonPrefixInternal(const QString &forcePrefix) const;
     void createGroups();
     ///Creates all sub-items of index i, or the item corresponding to index i. Returns the affected groups.
     ///i must be an index in the source model

@@ -957,9 +957,9 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   emit contentGeometryChanged();
 }
 
-QString KateCompletionModel::commonPrefixInternal(QString forcePrefix) const
+QString KateCompletionModel::commonPrefixInternal(const QString &forcePrefix) const
 {
-  QString commonPrefix = QString::null;
+  QString commonPrefix;   // isNull() = true
   
   QList< Group* > groups = m_rowTable; 
   groups += m_ungrouped;
@@ -968,19 +968,17 @@ QString KateCompletionModel::commonPrefixInternal(QString forcePrefix) const
     foreach(const Item& item, g->filtered)
     {
       uint startPos = m_currentMatch[item.sourceRow().first].length();
-      QString candidate = item.name();
-      
-      candidate = candidate.mid(startPos);
+      const QString candidate = item.name().mid(startPos);
       
       if(!candidate.startsWith(forcePrefix))
         continue;
       
-      if(commonPrefix == QString::null) {
+      if(commonPrefix.isNull()) {
         commonPrefix = candidate;
         
         //Replace QString::null prefix with QString(""), so we won't initialize it again
-        if(commonPrefix == QString::null)
-          commonPrefix = QString("");
+        if(commonPrefix.isNull())
+          commonPrefix = QString("");  // isEmpty() = true, isNull() = false
       }else{
         commonPrefix = commonPrefix.left(candidate.length());
         

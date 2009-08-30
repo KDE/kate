@@ -1245,10 +1245,11 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
 
   // we allow arbitrary #stay and #pop at the start
   bool anyFound = false;
-  while (tmpLineEndContext.startsWith("#stay") || tmpLineEndContext.startsWith("#pop"))
+  while (tmpLineEndContext.startsWith(QLatin1String("#stay")) ||
+         tmpLineEndContext.startsWith(QLatin1String("#pop")))
   {
     // ignore stay
-    if (tmpLineEndContext.startsWith("#stay"))
+    if (tmpLineEndContext.startsWith(QLatin1String("#stay")))
     {
       tmpLineEndContext.remove (0, 5);
     }

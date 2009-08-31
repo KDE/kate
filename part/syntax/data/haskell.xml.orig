@@ -4,7 +4,6 @@
 <language name="Haskell" version="1.3" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
-		<item> as </item>
 		<item> case </item>
 		<item> class </item>
 		<item> data </item>
@@ -21,7 +20,6 @@
 		<item> module </item>
 		<item> of </item>
 		<item> primitive </item>
-		<item> qualified </item>
 		<item> then </item>
 		<item> type </item>
 		<item> where </item>
@@ -334,13 +332,7 @@
 	<contexts>
 		<context attribute="Normal Text" lineEndContext="#stay" name="normal">
 			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
-			<!--
 			<Detect2Chars attribute="Comment" context="comment_single_line" char="-" char1="-" />
-			-->
-			<RegExpr attribute="Comment" context="comment_single_line" String="--$" />
-			<RegExpr attribute="Comment" context="comment_single_line"
-				String="--[ A-Za-z0-9\-,;`].*$" />
-			<RegExpr attribute="Module Name" context="#stay" String="([A-Z][A-Za-z0-9]*\.)+[A-Z][A-Za-z0-9]*"/>
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
 			<keyword attribute="Type Constructor" context="#stay" String="type constructors" />
@@ -375,7 +367,6 @@
 	</contexts>
 	<itemDatas>
 		<itemData name="Normal Text"		defStyleNum="dsNormal"/>
-		<itemData name="Module Name" 		defStyleNum="dsNormal"/>
 		<itemData name="Keyword" 		defStyleNum="dsKeyword"/>
 		<itemData name="Function"		defStyleNum="dsFunction"/>
 		<itemData name="Function Definition"	defStyleNum="dsFunction"/>

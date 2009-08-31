@@ -1,0 +1,16 @@
+***************
+*** 11,16 ****
+  		<item> do </item>
+  		<item> else </item>
+  		<item> if </item>
+  		<item> in </item>
+  		<item> infixl </item>
+  		<item> infixr </item>
+--- 12,18 ----
+  		<item> do </item>
+  		<item> else </item>
+  		<item> if </item>
++         <item> import </item>
+  		<item> in </item>
+  		<item> infixl </item>
+  		<item> infixr </item>

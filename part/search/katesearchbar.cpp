@@ -677,6 +677,12 @@ void KateSearchBar::onReturnPressed() {
     const bool shiftDown = (modifiers & Qt::ShiftModifier) != 0;
     const bool controlDown = (modifiers & Qt::ControlModifier) != 0;
 
+    // if vi input mode is active, the search box should be closed when hitting enter
+    if (view()->viInputMode()) {
+        emit hideMe();
+        return;
+    }
+
     if (shiftDown) {
         // Shift down, search backwards
         if (m_powerUi != NULL) {
@@ -693,8 +699,7 @@ void KateSearchBar::onReturnPressed() {
         }
     }
 
-    // if vi input mode is active, the search box should be closed when hitting enter
-    if (controlDown || view()->viInputMode()) {
+    if (controlDown) {
         emit hideMe();
     }
 }

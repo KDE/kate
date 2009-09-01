@@ -693,7 +693,8 @@ void KateSearchBar::onReturnPressed() {
         }
     }
 
-    if (controlDown) {
+    // if vi input mode is active, the search box should be closed when hitting enter
+    if (controlDown || view()->viInputMode()) {
         emit hideMe();
     }
 }

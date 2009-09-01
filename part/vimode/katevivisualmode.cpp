@@ -260,6 +260,8 @@ void KateViVisualMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "t.", &KateViNormalMode::motionToChar, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "T.", &KateViNormalMode::motionToCharBackward, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, ";", &KateViNormalMode::motionRepeatlastTF ) );
+  m_motions.push_back( new KateViMotion( this, ",", &KateViNormalMode::motionRepeatlastTFBackward ) );
   m_motions.push_back( new KateViMotion( this, "gg", &KateViNormalMode::motionToLineFirst ) );
   m_motions.push_back( new KateViMotion( this, "G", &KateViNormalMode::motionToLineLast ) );
   m_motions.push_back( new KateViMotion( this, "w", &KateViNormalMode::motionWordForward ) );

@@ -101,6 +101,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     QPointer<KateView> m_refreshView;
 
     virtual void rangeDeleted(KTextEditor::SmartRange *range);
+    bool removeRangeFromCurrentSpellCheck(KTextEditor::SmartRange *range);
     bool removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range);
     virtual void rangeEliminated(KTextEditor::SmartRange *range);
     virtual void mouseEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
@@ -112,6 +113,10 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     QList<KTextEditor::SmartRange*> m_myranges;
     KTextEditor::Cursor findBeginningOfWord(const KTextEditor::Cursor &cursor,
                                             bool reverse);
+
+    void deleteSmartRangeLater(KTextEditor::SmartRange *range);
+    void deleteSmartRangesLater(const QList<KTextEditor::SmartRange*>& list);
+    void stopCurrentSpellCheck();
 
   protected Q_SLOTS:
     void performSpellCheck();
@@ -131,10 +136,10 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void handleInsertedText(const KTextEditor::Range &range);
     void handleRemovedText(const KTextEditor::Range &range);
     void handleRespellCheckBlock(KateDocument *document, int start, int end);
-    bool removeSmartRangeFromModificationList(KTextEditor::SmartRange *range);
+    bool removeRangeFromModificationList(KTextEditor::SmartRange *range);
     void clearModificationList();
 };
 
 #endif
- 
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

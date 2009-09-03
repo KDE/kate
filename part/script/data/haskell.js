@@ -104,7 +104,15 @@ function indent(line, indentWidth, character) {
     // >>>>where y = x+1
     if (currentLine.stripWhiteSpace().startsWith('where')) {
         dbg('indenting line for where');
-        return indentWidth;
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+
+    // indent line after 'where'
+    // instance Functor Tree where
+    // >>>>fmap = treeMap
+    if (lastLine.endsWith('where')) {
+        dbg('indenting line for where');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
     // indent line after 'let' 4 characters for alignment:
@@ -179,7 +187,7 @@ function indent(line, indentWidth, character) {
 
         var pipeCol = lastLine.search(/\|/);
         if (lastLine.stripWhiteSpace().startsWith('data')) {
-            return indentWidth;
+            return document.firstVirtualColumn(line - 1) + indentWidth;
         }
         else if (pipeCol != -1) {
             var t = 1;
@@ -217,11 +225,12 @@ function indent(line, indentWidth, character) {
         }
     }
 
-    // line ending with !#$%&*+./<=>?@\^|~-
-    //if (lastLine.search(/[!$#%&*+.\/<=>?@\\^|~-]$/) != -1) {
-    //    dbg('indenting for operator');
-    //    return document.firstVirtualColumn(line - 1) + indentWidth;
-    //}
+    // line starting with !#$%&*+./<=>?@\^|~-
+    if (document.isCode(line, document.lineLength(line) - 1)
+            && currentLine.search(/^\s*[!$#%&*+.\/<=>?@\\^|~-]/) != -1) {
+        dbg('indenting for operator');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
 
     if (lastLine.search(/^\s*$/) != -1) {
         dbg('indenting for empty line');

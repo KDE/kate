@@ -500,7 +500,19 @@ void KateViewDocumentProxyModel::removeItemFromColoring(int row)
 //   kDebug(13001)<<row;
   QModelIndex removeit = mapToSource(createIndex(row, 0));
   m_editHistory.removeAll(removeit);
+  // adjust all indices below 'row'
+  for(int i = 0; i < m_editHistory.count(); ++i) {
+    QModelIndex idx = mapFromSource(m_editHistory[i]);
+    if(idx.row() > row)
+      m_editHistory[i] = mapToSource(createIndex(idx.row() - 1, row));
+  }
   m_viewHistory.removeAll(removeit);
+  // adjust all indices below 'row'
+  for(int i = 0; i < m_viewHistory.count(); ++i) {
+    QModelIndex idx = mapFromSource(m_viewHistory[i]);
+    if(idx.row() > row)
+      m_viewHistory[i] = mapToSource(createIndex(idx.row() - 1, row));
+  }
   updateBackgrounds(false);
 }
 

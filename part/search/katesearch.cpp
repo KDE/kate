@@ -30,7 +30,7 @@
 // #define FAST_DEBUG_ENABLE
 
 #ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) (kDebug( 13020 ) << x)
+# define FAST_DEBUG(x) kDebug( 13020 ) << x
 #else
 # define FAST_DEBUG(x)
 #endif
@@ -508,7 +508,7 @@ QVector<KTextEditor::Range> KateSearch::searchRegex(
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
         const int afterLast = (j == forMax) ? maxRight : textLine->length();
-        const QString hay = textLine->string();
+        const QString hay = textLine->string().left(afterLast);
         bool found = true;
         int foundAt;
         uint myMatchLen;

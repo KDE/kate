@@ -47,7 +47,7 @@ using namespace KTextEditor;
 // #define FAST_DEBUG_ENABLE
 
 #ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) (kDebug() << x)
+# define FAST_DEBUG(x) kDebug() << x
 #else
 # define FAST_DEBUG(x)
 #endif

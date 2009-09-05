@@ -326,6 +326,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
 
       backgroundAttribute->setBackground(config()->selectionColor());
+      backgroundAttribute->setForeground(attribute(KateExtendedAttribute::dsNormal)->selectedForeground().color());
 
       // Create a range for the current selection
       if (completionHighlight && completionSelected)
@@ -412,7 +413,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       }
 
       KTextEditor::Attribute::Ptr a = renderRanges.generateAttribute();
-      if(a) {
+      if (a) {
         fr.format = *a;
 
         if(selectionsOnly) {

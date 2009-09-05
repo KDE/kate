@@ -107,9 +107,12 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
   popup->setItemChecked(m_macro, true);
   popup->setItemChecked(m_struct, true);
   popup->setItemChecked(m_func, true);
+  popup->setItemChecked(m_sort, false);
   macro_on = true;
   struct_on = true;
   func_on = true;
+  treeMode = false;
+  lsorting = false;
   types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
   expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
   slotInsertSymbol();

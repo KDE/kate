@@ -3072,23 +3072,11 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     for (int i = 0; i < cache()->viewCacheLineCount(); i++) {
       // find the first dirty line
       // the word wrap updateView algorithm is forced to check all lines after a dirty one
-      bool lineNeedsRedraw = false;
-      // If text is dynamically wrapped
-      if (cache()->viewLine(i).wrap()) {
-        lineNeedsRedraw = true;
-      // If text is drawn right-to-left
-      } else if (const KateLineLayoutPtr& line = cache()->viewLine(i).kateLineLayout()) {
-        if (QTextLayout* layout = line->layout())
-          if (layout->textOption().textDirection() == Qt::RightToLeft)
-            lineNeedsRedraw = true;
-      // If text would now be off the edge of the view
-      } else if (!expandedHorizontally && (cache()->viewLine(i).endX() - cache()->viewLine(i).startX()) > width()) {
-        lineNeedsRedraw = true;
-      }
-
-      if (lineNeedsRedraw) {
+      KateTextLayout viewLine = cache()->viewLine(i);
+ 
+      if (viewLine.wrap() || viewLine.isRightToLeft() || viewLine.width() > width()) {
         dirtied = true;
-        cache()->viewLine(i).setDirty();
+        viewLine.setDirty();
         break;
       }
     }

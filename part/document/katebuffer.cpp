@@ -98,12 +98,14 @@ class KateFileLoader
       , m_eol (-1) // no eol type detected atm
       , m_file (filename)
       , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
+      , m_decoder(m_codec->makeDecoder())
     {
     }
 
     ~KateFileLoader ()
     {
       delete m_prober;
+      delete m_decoder;
     }
 
     /**
@@ -176,7 +178,7 @@ class KateFileLoader
     // broken utf8?
     inline bool brokenUTF8 () const { return m_utf8Borked; }
     
-    inline QTextDecoder* decoder() const { return m_codec->makeDecoder(); }
+    inline QTextDecoder* decoder() const { return m_decoder; }
 
     bool errorsIfUtf8 (const char* data, int length)
     {
@@ -281,7 +283,7 @@ class KateFileLoader
 
       while (m_position <= m_text.length())
       {
-        if (m_position == m_text.length())
+          if (m_position == m_text.length())
         {
           // try to load more text if something is around
           if (!m_eof)
@@ -397,6 +399,7 @@ class KateFileLoader
     QFile m_file;
     QByteArray m_buffer;
     QString m_text;
+    QTextDecoder *m_decoder;
 };
 
 /**

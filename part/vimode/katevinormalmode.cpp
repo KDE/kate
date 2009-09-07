@@ -611,36 +611,17 @@ bool KateViNormalMode::commandDeleteToEOL()
 
 bool KateViNormalMode::commandMakeLowercase()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
-  int line1 = m_commandRange.startLine;
-  int line2 = m_commandRange.endLine;
+  QString text = getRange( m_commandRange, linewise );
+  QString lowerCase = text.toLower();
 
-  if ( line1 == line2 ) { // characterwise
-    int endColumn = ( m_commandRange.endColumn > c.column() ) ? m_commandRange.endColumn : c.column();
-    int startColumn = ( m_commandRange.startColumn < c.column() ) ? m_commandRange.startColumn : c.column();
-    if ( m_commandRange.isInclusive() )
-      endColumn++;
+  KTextEditor::Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  KTextEditor::Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
+  KTextEditor::Range range( start, end );
 
-    KTextEditor::Range range( KTextEditor::Cursor( c.line(), startColumn ), KTextEditor::Cursor( c.line(), endColumn ) );
-    doc()->replaceText( range, getLine().mid( startColumn, endColumn-startColumn ).toLower() );
-  }
-  else { // linewise
-    QString s;
-    for ( int i = ( line1 < line2 ? line1 : line2 ); i <= ( line1 < line2 ? line2 : line1 ); i++ ) {
-       s.append( doc()->line( i ).toLower() + '\n' );
-    }
-
-    // remove the laste \n
-    s.chop( 1 );
-
-    KTextEditor::Range range( KTextEditor::Cursor( c.line(), 0 ),
-        KTextEditor::Cursor( line2, doc()->lineLength( line2 ) ) );
-
-    doc()->replaceText( range, s );
-  }
-
-  updateCursor( c );
+  doc()->replaceText( range, lowerCase );
 
   return true;
 }
@@ -659,36 +640,17 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 
 bool KateViNormalMode::commandMakeUppercase()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
-  int line1 = m_commandRange.startLine;
-  int line2 = m_commandRange.endLine;
+  QString text = getRange( m_commandRange, linewise );
+  QString upperCase = text.toUpper();
 
-  if ( line1 == line2 ) { // characterwise
-    int endColumn = ( m_commandRange.endColumn > c.column() ) ? m_commandRange.endColumn : c.column();
-    int startColumn = ( m_commandRange.startColumn < c.column() ) ? m_commandRange.startColumn : c.column();
-    if ( m_commandRange.isInclusive() )
-      endColumn++;
+  KTextEditor::Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  KTextEditor::Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
+  KTextEditor::Range range( start, end );
 
-    KTextEditor::Range range( KTextEditor::Cursor( c.line(), startColumn ), KTextEditor::Cursor( c.line(), endColumn ) );
-    doc()->replaceText( range, getLine().mid( startColumn, endColumn-startColumn ).toUpper() );
-  }
-  else { // linewise
-    QString s;
-    for ( int i = ( line1 < line2 ? line1 : line2 ); i <= ( line1 < line2 ? line2 : line1 ); i++ ) {
-       s.append( doc()->line( i ).toUpper() + '\n' );
-    }
-
-    // remove the laste \n
-    s.chop( 1 );
-
-    KTextEditor::Range range( KTextEditor::Cursor( c.line(), 0 ),
-        KTextEditor::Cursor( line2, doc()->lineLength( line2 ) ) );
-
-    doc()->replaceText( range, s );
-  }
-
-  updateCursor( c );
+  doc()->replaceText( range, upperCase );
 
   return true;
 }

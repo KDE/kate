@@ -5,8 +5,9 @@
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
 <!-- Python syntax highlighting v1.99 by Primoz Anzur -->
 <!-- Python syntax highlighting v2.1  by Paul Giannaros:
-       * full format character support
-       * unicode string modifier supported -->
+	* full format character support
+	* unicode string modifier supported -->
+<!-- v2.2 by Paul Giannaros (remove RegExpr for nums and make indent consistent) -->
 <language name="Python" version="2.01" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
@@ -219,11 +220,12 @@
 				<RegExpr attribute="Normal" String="[a-zA-Z_][a-zA-Z_0-9]+" context="#stay"/>
 
 				<RegExpr attribute="Complex" String=" ((([0-9]*\.[0-9]+|[0-9]+\.)|([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.))[eE](\+|-)?[0-9]+)|[0-9]+)[jJ]" context="#stay"/>
-				<RegExpr attribute="Float" String="([0-9]+\.[0-9]*|\.[0-9]+)([eE][0-9]+)?" context="#stay"/>
-				<RegExpr attribute="Int" String="([1-9][0-9]*([eE][0-9]+)?|0)" context="#stay"/>
-				<RegExpr attribute="Long" String="[1-9][0-9]*([eE][0-9.]+)?[Ll]" context="#stay"/>
-				<RegExpr attribute="Hex" String="0[Xx][0-9a-fA-F]+" context="#stay"/>
-				<RegExpr attribute="Octal" String="0[1-9][0-9]*" context="#stay"/>
+				<Float attribute="Float" context="#stay" />
+				<HlCHex attribute="Hex" context="#stay"/>
+				<HlCOct attribute="Octal" context="#stay"/>
+				<Int attribute="Int" context="#stay">
+					<StringDetect attribute="Int" String="L" insensitive="true" context="#stay"/>
+				</Int>
   
 				<RegExpr attribute="Raw String" String="[rR]'''" context="Raw Tripple A-string"/>
 				<RegExpr attribute="Raw String" String="[rR]&quot;&quot;&quot;" context="Raw Tripple Q-string"/>
@@ -302,7 +304,6 @@
 				-->
 				<RegExpr attribute="String Substitution" String="%(\([a-zA-Z0-9_]+\))?[#0\- +]?([1-9][0-9]*|\*)?(\.([1-9][0-9]*|\*))?[hlL]?[crsdiouxXeEfFgG%]" context="#stay"/>
 			</context>
-            
 
 			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCStringChar attribute="String Char" context="#stay"/>
@@ -369,26 +370,25 @@
 			<itemData name="Overloaders" defStyleNum="dsOthers" color="#000e52" selColor="#ffffff" bold="1" italic="0"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar"/>
 			<itemData name="String Char" defStyleNum="dsChar"/>
-			<itemData name="Long" defStyleNum="dsOthers"/>
 			<itemData name="Float" defStyleNum="dsFloat"/>
 			<itemData name="Int" defStyleNum="dsDecVal"/>
-			<itemData name="Hex" defStyleNum="dsOthers"/>
-			<itemData name="Octal" defStyleNum="dsOthers"/>
+			<itemData name="Hex" defStyleNum="dsBaseN"/>
+			<itemData name="Octal" defStyleNum="dsBaseN"/>
 			<itemData name="Complex" defStyleNum="dsOthers"/>
 			<itemData name="Comment" defStyleNum="dsComment"/>
 			<itemData name="String" defStyleNum="dsString"/>
 			<itemData name="Raw String" defStyleNum="dsString"/>
 		</itemDatas>
 	</highlighting>
-   <general>
-     <folding indentationsensitive="1" />
-     <emptyLines>
-       <emptyLine regexpr="\s+" casesensitive="false"/>
-       <emptyLine regexpr="\s*#.*$" casesensitive="false"/>
-     </emptyLines>
-     <comments>
-        <comment name="singleLine" start="#" position="afterwhitespace"/>
-     </comments>
-     <keywords casesensitive="1" />
-   </general>
+	<general>
+		<folding indentationsensitive="1" />
+		<emptyLines>
+			<emptyLine regexpr="\s+" casesensitive="false"/>
+			<emptyLine regexpr="\s*#.*$" casesensitive="false"/>
+		</emptyLines>
+		<comments>
+			<comment name="singleLine" start="#" position="afterwhitespace"/>
+		</comments>
+		<keywords casesensitive="1" />
+	</general>
 </language>

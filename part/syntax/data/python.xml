@@ -4,7 +4,10 @@
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
 <!-- Python syntax highlighting v1.99 by Primoz Anzur -->
-<language name="Python" version="2.00" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- Python syntax highlighting v2.1  by Paul Giannaros:
+       * full format character support
+       * unicode string modifier supported -->
+<language name="Python" version="2.01" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -232,23 +235,31 @@
 				<RegExpr attribute="Comment" String="^\s*u?'''" context="Tripple A-comment" beginRegion="Tripple A-region"/>
 				<RegExpr attribute="Comment" String="^\s*u?&quot;&quot;&quot;" context="Tripple Q-comment" beginRegion="Tripple Q-region"/>
 
+				<!-- ''' -->
 				<StringDetect attribute="String" String="'''" context="Tripple A-string" beginRegion="Tripple A-region"/>
+				<StringDetect attribute="String" String="u'''" context="Tripple A-string" beginRegion="Tripple A-region"/>
+				<!-- """ -->
 				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="Tripple Q-string" beginRegion="Tripple Q-region"/>
+				<StringDetect attribute="String" String="u&quot;&quot;&quot;" context="Tripple Q-string" beginRegion="Tripple Q-region"/>
+				<!-- ' -->
 				<DetectChar attribute="String" char="'" context="Single A-string"/>
+				<Detect2Chars attribute="String" char="u" char1="'" context="Single A-string"/>
+				<!-- " -->
 				<DetectChar attribute="String" char="&quot;" context="Single Q-string"/>
-				
+				<Detect2Chars attribute="String" char="u" char1="&quot;" context="Single Q-string"/>
+
 				<DetectChar attribute="Operator" char="(" context="parenthesised" beginRegion="parenthesis"/>
 				<DetectChar attribute="Operator" char=")" context="#pop" endRegion="parenthesis"/>
 				
 				<RegExpr attribute="Operator" String="[+*/%\|=;\!&lt;&gt;!^&amp;~-]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
-
 			</context>
 			
 			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<IncludeRules context="Normal" />
 			</context>
-			
+
+			<!-- Comments -->
+
 			<context name="Hash comment" attribute="Comment" lineEndContext="#pop">
 				<IncludeRules context="##Alerts" />
 			</context>
@@ -264,34 +275,6 @@
 				<IncludeRules context="##Alerts" />
 			</context>
 
-			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
-				<HlCStringChar attribute="String Char" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
-				<StringDetect attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
-			</context>
-
-			<context name="Raw Tripple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
-				<HlCStringChar attribute="Raw String" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
-				<StringDetect attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
-			</context>
-
-			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
-				<HlCStringChar attribute="String Char" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
-				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
-			</context>
-
-			<context name="Raw Tripple Q-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
-				<HlCStringChar attribute="Raw String" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
-				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
-			</context>
-
 			<context name="Single A-comment" attribute="Comment" lineEndContext="#stay">
 				<HlCStringChar attribute="Comment" context="#stay"/>
 				<DetectChar attribute="Comment" char="'" context="#pop"/>
@@ -304,31 +287,69 @@
 				<IncludeRules context="##Alerts" />
 			</context>
 
+			<!-- Strings -->
+
+			<!-- format characters --> 
+			<context name="stringformat" attribute="String Substitution" lineEndContext="#stay">
+				<!-- Python 2 style. Syntax:
+				     1. start character '%'
+				     2. [optional] Mapping key, e.g. '(foo)'
+				     3. [optional] Conversion flags, one of '#0- +'
+				     4. [optional] Minimum width, integer or '*'
+				     5. [optional] Precision, '.' followed by integer or '*'
+				     6. [optional] Length modifier, one of 'hlL'
+				     7. conversion type, one of 'crsdiouxXeEfFgG%'
+				-->
+				<RegExpr attribute="String Substitution" String="%(\([a-zA-Z0-9_]+\))?[#0\- +]?([1-9][0-9]*|\*)?(\.([1-9][0-9]*|\*))?[hlL]?[crsdiouxXeEfFgG%]" context="#stay"/>
+			</context>
+            
+
+			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
+				<HlCStringChar attribute="String Char" context="#stay"/>
+				<IncludeRules context="stringformat"/>
+				<StringDetect attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
+			</context>
+
+			<context name="Raw Tripple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<IncludeRules context="stringformat"/>
+				<StringDetect attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
+			</context>
+
+			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
+				<HlCStringChar attribute="String Char" context="#stay"/>
+				<IncludeRules context="stringformat"/>
+				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
+			</context>
+
+			<context name="Raw Tripple Q-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<IncludeRules context="stringformat"/>
+				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
+			</context>
+
+
 			<context name="Single A-string" attribute="String" lineEndContext="#stay">
 				<HlCStringChar attribute="String Char" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<IncludeRules context="stringformat"/>
 				<DetectChar attribute="String" char="'" context="#pop"/>
 			</context>
 
 			<context name="Single Q-string" attribute="String" lineEndContext="#stay">
 				<HlCStringChar attribute="String Char" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<IncludeRules context="stringformat"/>
 				<DetectChar attribute="String" char="&quot;" context="#pop"/>
 			</context>
 
 			<context name="Raw A-string" attribute="Raw String" lineEndContext="#stay">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<IncludeRules context="stringformat"/>
 				<DetectChar attribute="Raw String" char="'" context="#pop"/>
 			</context>
 
 			<context name="Raw Q-string" attribute="Raw String" lineEndContext="#stay">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
-				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<IncludeRules context="stringformat"/>
 				<DetectChar attribute="Raw String" char="&quot;" context="#pop"/>
 			</context>
 
@@ -337,8 +358,8 @@
 		<itemDatas>
 			<itemData name="Normal Text" defStyleNum="dsNormal"/>
 			<itemData name="Definition Keyword" defStyleNum="dsKeyword"/>
-			<itemData name="Operator" defStyleNum="dsNormal"/>
-			<itemData name="String Substitution" defStyleNum="dsNormal"/>
+			<itemData name="Operator" defStyleNum="dsNormal" bold="1"/>
+			<itemData name="String Substitution" defStyleNum="dsOthers" color="#0057ae" selColor="#ffffff" />
 			<itemData name="Command Keyword" defStyleNum="dsKeyword"/>
 			<itemData name="Flow Control Keyword" defStyleNum="dsKeyword"/>
 			<itemData name="Builtin Function" defStyleNum="dsDataType"/>

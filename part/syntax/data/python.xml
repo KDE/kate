@@ -4,11 +4,12 @@
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
 <!-- Python syntax highlighting v1.99 by Primoz Anzur -->
-<!-- Python syntax highlighting v2.1  by Paul Giannaros:
+<!-- Python syntax highlighting v2.01 by Paul Giannaros:
 	* full format character support
 	* unicode string modifier supported -->
-<!-- v2.2 by Paul Giannaros (remove RegExpr for nums and make indent consistent) -->
-<language name="Python" version="2.01" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- v2.02 remove RegExpr for nums and make indent consistent -->
+<!-- v2.03 highlight decorators, remove operator regex, don't highlight parens as operators -->
+<language name="Python" version="2.03" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -250,12 +251,13 @@
 				<DetectChar attribute="String" char="&quot;" context="Single Q-string"/>
 				<Detect2Chars attribute="String" char="u" char1="&quot;" context="Single Q-string"/>
 
-				<DetectChar attribute="Operator" char="(" context="parenthesised" beginRegion="parenthesis"/>
-				<DetectChar attribute="Operator" char=")" context="#pop" endRegion="parenthesis"/>
-				
-				<RegExpr attribute="Operator" String="[+*/%\|=;\!&lt;&gt;!^&amp;~-]" context="#stay"/>
+				<DetectChar attribute="Normal" char="(" context="parenthesised" beginRegion="parenthesis"/>
+				<DetectChar attribute="Normal" char=")" context="#pop" endRegion="parenthesis"/>
+
+				<AnyChar attribute="Operator" String="+*/%\|=;\!&lt;&gt;!^&amp;~-" context="#stay"/>
+				<RegExpr attribute="Decorator" String="@[_a-zA-Z][_a-zA-Z0-9]*" firstNonSpace="true"/>
 			</context>
-			
+
 			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<IncludeRules context="Normal" />
 			</context>
@@ -378,6 +380,8 @@
 			<itemData name="Comment" defStyleNum="dsComment"/>
 			<itemData name="String" defStyleNum="dsString"/>
 			<itemData name="Raw String" defStyleNum="dsString"/>
+			<itemData name="Decorator" defStyleNum="dsOthers" color="#8f6b32" selColor="#f
+			fffff" italic="0"/>
 		</itemDatas>
 	</highlighting>
 	<general>

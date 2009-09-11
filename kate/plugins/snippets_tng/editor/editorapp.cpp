@@ -44,7 +44,7 @@ int EditorApp::newInstance() {
     {
       //openWindow(args->url(i));
       KUrl u=args->url(i);
-      if (!u.isLocalFile()) {
+      if ( (!u.isLocalFile()) && (u.protocol()!="new-file")) {
         KMessageBox::error(0,
                           i18n("The specified URL (%1) is not a local file",args->url(i).prettyUrl()),
                           "URL not supported");
@@ -64,12 +64,14 @@ int EditorApp::newInstance() {
 
 bool EditorApp::openWindow(const KUrl& url)
 {
-  if (m_urlWindowMap.contains(url)) {
+  bool regist=url.protocol()!="new-file";
+  if (regist && (m_urlWindowMap.contains(url))) {
     KWindowSystem::raiseWindow(m_urlWindowMap[url]->effectiveWinId());
     return true;
   } else {
     SnippetEditorWindow *w=new SnippetEditorWindow(modes(),url);
-    m_urlWindowMap.insert(url,w);
+    if (!w->ok()) {delete w; return false;}
+    if (regist) m_urlWindowMap.insert(url,w);
     w->show();
     return true;
   }

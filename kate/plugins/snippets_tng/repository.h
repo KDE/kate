@@ -29,7 +29,7 @@ class KConfigBase;
 namespace JoWenn {
   class KateSnippetRepositoryEntry;
   class KateSnippetCompletionEntry;  
-
+  
   class KateSnippetRepositoryItemDelegate: public KWidgetItemDelegate
   {
       Q_OBJECT
@@ -48,7 +48,7 @@ namespace JoWenn {
     public Q_SLOTS:
       void enabledChanged(int state);
       void editEntry();
-      void deleteEntry();
+      void deleteEntry();      
   };
   
   
@@ -80,9 +80,26 @@ namespace JoWenn {
 
     Q_SIGNALS:
       void typeChanged(const QString& fileType);
+    public Q_SLOTS:
+      void newEntry();
     private:
       QList<KateSnippetRepositoryEntry> m_entries;
   };
+
+#if 0  
+    class KateSnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
+    {
+        Q_OBJECT
+        Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
+      public:
+        KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository);
+        virtual ~KateSnippetRepositoryModelAdaptor();
+      public Q_SLOTS:
+        void updateFileLocation(const QString& oldPath, const QString& newPath);
+      private:
+        KateSnippetRepositoryModel* m_repository;
+    };
+#endif      
   
 }
 #endif

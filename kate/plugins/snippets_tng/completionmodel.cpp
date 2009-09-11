@@ -297,7 +297,8 @@ namespace JoWenn {
     QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fi.fileName());
     if (filename!=outname) {
       QFileInfo fiout(outname);
-      if (fiout.exists()) {
+//      if (fiout.exists()) {
+// there could be cases that new new name clashes with a global file, but I guess it is not that often.
             bool ok=false;
             for (int i=0;i<1000;i++) {
               outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fi.fileName());
@@ -308,8 +309,8 @@ namespace JoWenn {
                 KMessageBox::error(0,i18n("You have edited a data file not located in your personal data directory, but no suiteable filename could be generated for the data file in your personal data directory"));
                 return false;
             } else KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, a renamed clone of the original datafile is created within your personal data directory"));
-      } else
-        KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, creating a clone of the data file in your personal data directory"));
+//       } else
+//         KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, creating a clone of the data file in your personal data directory"));
     }
     QFile outfile(outname);
     if (!outfile.open(QIODevice::WriteOnly)) {
@@ -320,6 +321,43 @@ namespace JoWenn {
     outfile.close();
     return true;
   }
+  
+QString KateSnippetCompletionModel::createNew(const QString& name, const QString& license,const QString& authors) {
+    QDomDocument doc;
+    QDomElement root=doc.createElement("snippets");
+    root.setAttribute("name",name);
+    root.setAttribute("filetype","*");
+    root.setAttribute("authors",authors);
+    root.setAttribute("license",license);
+    doc.appendChild(root);
+    QString fileName=QUrl::toPercentEncoding(name)+QString(".xml");
+    QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+#warning add handling of conflicts with global names
+    QFileInfo fiout(outname);
+    if (fiout.exists()) {
+      bool ok=false;
+      for (int i=0;i<1000;i++) {
+        outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
+        QFileInfo fiout1(outname);
+        if (!fiout1.exists()) {ok=true;break;}
+      }
+      if (!ok) {
+        KMessageBox::error(0,i18n("It was not possible to create a unique file name for the given snippet collection name"));
+        return QString();
+      }
+    }
+    QFile outfile(outname);
+    if (!outfile.open(QIODevice::WriteOnly)) {
+      KMessageBox::error(0,i18n("Output file '%1' could not be opened for writing",outname));
+      return QString();
+    }
+    outfile.write(doc.toByteArray());
+    outfile.close();
+    
+    return outname;
+
+}
+  
 #endif  
   
 //END: CompletionModel
@@ -422,6 +460,7 @@ namespace JoWenn {
     beginRemoveRows(parent,row,row);
     m_cmodel->m_entries.removeAt(row);
     endRemoveRows();
+    return true;
   }
   
   QModelIndex KateSnippetSelectorModel::newItem() {

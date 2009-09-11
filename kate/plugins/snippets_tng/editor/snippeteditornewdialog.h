@@ -16,39 +16,18 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#ifndef _SNIPPET_EDITOR_WINDOW_
-#define _SNIPPET_EDITOR_WINDOW_
+#ifndef _SNIPPET_EDITOR_NEW_DIALOG_
+#define _SNIPPET_EDITOR_NEW_DIALOG_
 
-#include "ui_snippeteditorview.h"
-#include <kmainwindow.h>
-#include <qwidget.h>
-#include <qstringlist.h>
+#include "ui_newsnippetfileview.h"
+#include <kdialog.h>
 
-class QAbstractButton;
-namespace JoWenn {
-  class KateSnippetCompletionModel;
-  class KateSnippetSelectorModel;
-}
-
-class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
+class SnippetEditorNewDialog: public KDialog, public Ui::NewSnippetFileView
 {
   Q_OBJECT
   public:
-    SnippetEditorWindow(const QStringList &modes, const KUrl& url);
-    virtual ~SnippetEditorWindow();
-    bool ok() {return m_ok;}
-  private Q_SLOTS:
-    void slotClose(QAbstractButton*);
-    void currentChanged(const QModelIndex& current, const QModelIndex&);
-    void modified();
-    void deleteSnippet();
-    void newSnippet();
-  private:      
-    bool m_modified;
-    KUrl m_url;    
-    JoWenn::KateSnippetCompletionModel *m_snippetData;
-    JoWenn::KateSnippetSelectorModel *m_selectorModel;
-    bool m_ok;
+    SnippetEditorNewDialog(QWidget *parent);
+    virtual ~SnippetEditorNewDialog();    
 };
 
 #endif

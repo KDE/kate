@@ -194,7 +194,7 @@ namespace JoWenn {
          group.writeEntry("license",license);  
       }      
       name=i18nc("snippet name",name.toUtf8());
-      
+#warning !!!!!!!!!!!!! MOVE TO FUNCTION AND ADD UPDATING OF AN ENTRY      
       addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
     }
     config.sync();      
@@ -267,7 +267,15 @@ namespace JoWenn {
       }
       return QAbstractListModel::setData(index,value,role);
   }
-  
+
+  void KateSnippetRepositoryModel::newEntry() {
+    QWidget *widget=qobject_cast<QWidget*>(sender());
+    if (!KRun::runUrl(KUrl("new-file://"),"application/x-katesnippets_tng",widget)) {
+      KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+    }
+
+  }
+
   void KateSnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled) {
     beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
     m_entries.append(KateSnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,enabled));
@@ -315,5 +323,23 @@ namespace JoWenn {
   }
 //END: Model
 
+#if 0
+//BEGIN: DBus Adaptor
+
+  KateSnippetRepositoryModelAdaptor::KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository):
+    QDBusAbstractAdaptor(repository),m_repository(repository);
+  {
+  }
+  
+  KateSnippetRepositoryModelAdaptor::~KateSnippetRepositoryModelAdaptor() {}
+  
+  void KateSnippetRepositoryModelAdaptor::updateFileLocation(const QString& oldPath, const QString& newPath);
+  {
+    m_repository->updateFileLocation(oldPath,newPath);
+  }
+ 
+
+//END: DBus Adaptor
+#endif
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

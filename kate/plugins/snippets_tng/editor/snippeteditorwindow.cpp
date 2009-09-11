@@ -19,6 +19,7 @@
 #include "snippeteditorwindow.h"
 #include "snippeteditorwindow.moc"
 #include "editorapp.h"
+#include "snippeteditornewdialog.h"
 #include "../completionmodel.h"
 #include <kmessagebox.h>
 
@@ -26,11 +27,19 @@ using namespace JoWenn;
 
 SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& url): KMainWindow(0), Ui::SnippetEditorView(),m_modified(false),m_url(url),m_snippetData(0),m_selectorModel(0)
 {  
+  if (!m_url.isLocalFile()) {
+    m_ok=false;
+    SnippetEditorNewDialog nd(this);
+    if (nd.exec()==QDialog::Rejected) return;
+    QString newPath=KateSnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
+    if (newPath.isEmpty()) return;
+    m_url=KUrl::fromPath(newPath);
+  }
+  m_ok=true;
   QWidget *widget=new QWidget(this);
   setCentralWidget(widget);
   setupUi(widget);
   connect(buttonBox,SIGNAL(clicked(QAbstractButton*)),this,SLOT(slotClose(QAbstractButton*)));
-  setCaption(m_url.fileName());  
   buttonBox->button(QDialogButtonBox::Save)->setEnabled(false);
   addSnippet->setIcon(KIcon("document-new"));
   delSnippet->setIcon(KIcon("edit-delete-page"));  
@@ -47,7 +56,10 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   QString filetype;
   QString authors;
   QString license;
-  KateSnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license);
+
+  KateSnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license);    
+  setCaption(m_url.fileName());  
+
   snippetCollectionName->setText(name);
   snippetCollectionAuthors->setText(authors);
   snippetCollectionLicense->setText(license);
@@ -63,7 +75,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
       snippetCollectionFiletype->setCurrentIndex(idx+1);
   }
   QStringList files;
-  files<<url.toLocalFile();
+  files<<m_url.toLocalFile();
   m_snippetData=new KateSnippetCompletionModel(files);
   m_selectorModel=m_snippetData->selectorModel();
   snippetListView->setModel(m_selectorModel);
@@ -85,6 +97,7 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
       m_selectorModel->setData(previous,snippetArguments->text(),KateSnippetSelectorModel::ArgumentsRole);
       m_selectorModel->setData(previous,snippetContent->toPlainText(),KateSnippetSelectorModel::FillInRole);
     }  
+    
     if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),snippetCollectionFiletype->currentText(),snippetCollectionAuthors->text()))
       close();
   } else if (button==buttonBox->button(QDialogButtonBox::Close)) {
@@ -116,7 +129,7 @@ void SnippetEditorWindow::currentChanged(const QModelIndex& current, const QMode
 
 }
 
-void SnippetEditorWindow::modified() {
+void SnippetEditorWindow::modified() {  
   setCaption(m_url.fileName(),true);
   buttonBox->button(QDialogButtonBox::Save)->setEnabled(true);
 }

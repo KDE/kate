@@ -51,6 +51,7 @@ namespace JoWenn {
       
 #ifdef SNIPPET_EDITOR
       bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors);
+      static QString createNew(const QString& name, const QString& license,const QString& authors);
 #endif
       
     private:

@@ -223,7 +223,7 @@ namespace JoWenn {
     lstSnippetFiles->setItemDelegate(delegate);
     
     lstSnippetFiles->setModel(plugin->repositoryData());
-
+    connect(btnNew,SIGNAL(clicked()),plugin->repositoryData(),SLOT(newEntry()));
   }
 
   void KateSnippetsConfigPage::apply()

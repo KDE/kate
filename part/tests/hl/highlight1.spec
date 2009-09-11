@@ -4,12 +4,12 @@
 
 # Some comment
 
-# When they don't start in column="0", that they are not recognized as comments:
- # This isn't a comment.
+# When they don't start in column="0", that they are recognized as comments, but with an alert:
+ # This is a bad comment.
 # RPM spec says clear that comments must start at the begin of the line. However, in practice
 # the RPM software is more permissive, depending on the context. But for our syntax highlighting,
-# we stay with the official, strict rule for comments. Comments should not contain the character
-# % (which is marked as error), but 2 of them are okay: %%. TODO is higlighted.
+# we give, while recognizing the as comment, at least a little alert. Comments should not contain
+# the character % (which is marked as error), but 2 of them are okay: %%. TODO is higlighted.
 
 # A spec file starts with "Normal" context. Here, you can specify values for some tags:
 Name:                kradioripper-unstable # Note that here in no comment possible!
@@ -139,23 +139,31 @@ rm -rf "%{buildroot}"
   
   
 %changelog  
-# Changelog lines should start with "* " or "- ":
-* Thu Dec 23 2008 Tim Fechtner 0.4.28  
-- disabling debug packages
-* Wed Nov 26 2008 Tim Fechtner 0.4.8  
-- support for localization  
-- installing the hole _datadir/kde4/apps/kradioripper/* instead of single files  
-* Fri Nov 14 2008 Tim Fechtner 0.4.7  
-- recommanding streamripper at least in versio 1.63  
-* Thu Nov 11 2008 Tim Fechtner 0.4.4  
-- revolving ambigiously dependency for Mandriva explicitly when using openSUSE build service  
-* Wed Oct 08 2008 Tim Fechtner 0.4.2  
-- Integrated Mandriva support. Thanks to Bock & Busse System GbR: http://www.randosweb.de  
-* Sun Sep 14 2008 Tim Fechtner 0.3.0-1  
-- streamripper no longer requiered but only recommended  
-* Sat Sep 13 2008 Tim Fechtner 0.2.1-1  
-- ported to openSUSE build service  
-- support for Fedora 9  
-* Sat May 24 2008 Detlef Reichelt <detlef@links2linux.de> 0.2.1-0.pm.1  
-- initial build for packman  
-  
+* Sun May 04 2008 email@email.com
+- some text
+- some text
+  in two lines
+- some text
+  in two lines
+  + with subtext
+  - and more subtext
+  in two lines
+* Tue Apr 24 2007 Name
+- text
+  * When the star isn't at column 0, than it doesn't indicate
+  a new date
+* Wen Sep 08 2003 Wrong weekday
+* Mon Mai 08 2003 Wrong month
+* Mon Sep 0 2003 bad day
+* Mon Sep 8 2003 good day
+* Mon Sep 08 2003 good day
+* Mon Sep 32 2003 bad day
+* Mon Sep 08 03 bad year
+* Mon Sep 08 2003 Name
+- Text
+    - can
+        - be
+        - indeeded
+        - without
+    - problems
+

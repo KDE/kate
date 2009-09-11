@@ -1190,6 +1190,8 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   if (!transferJob || transferJob->isErrorPage())
   {
     enableButton( User1, false );
+    if (data.size()==0)
+      KMessageBox::error(this,i18n("The list of highlighings could not be found on / retrieved from the server"));
     return;
   }
 

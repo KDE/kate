@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katesnippets_tngplugin
+X-Kate-Version=2.8
+Name=JOWENN's Kate snippets
+Comment=Snippets plugin with code completion support
+
+X-Kate-MajorProfiles=Kate
+X-Kate-MinorProfiles=*

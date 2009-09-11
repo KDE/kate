@@ -34,6 +34,9 @@ add_subdirectory( xmlcheck )
 if(NOT WIN32)
     add_subdirectory( snippets )
 endif(NOT WIN32)
+
+add_subdirectory( snippets_tng )
+
 MESSAGE( STATUS "remember to find maintainers for these plugins and port them to the kate 3.0 interfaces...")
 
 # Example plugin, not meant to be built for production use.

@@ -1,0 +1,13 @@
+<snippets name="Testsnippets" filetype="*" authors="Joseph Wenninger" license="BSD">
+  <item>
+    <displayprefix>prefix</displayprefix>
+    <match>test1</match>
+    <displaypostfix>postfix</displaypostfix>
+    <displayarguments>(param1, param2)</displayarguments>
+    <fillin>This is a test</fillin>
+  </item>
+  <item>
+    <match>testtemplate</match>
+    <fillin>This is a test ${WHAT} template</fillin>
+  </item>
+</snippets>

@@ -9,7 +9,8 @@
 	* unicode string modifier supported -->
 <!-- v2.02 remove RegExpr for nums and make indent consistent -->
 <!-- v2.03 highlight decorators, remove operator regex, don't highlight parens as operators -->
-<language name="Python" version="2.03" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- v2.04 make alerts visible even if they are directly after ''' or # without a space -->
+<language name="Python" version="2.04" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -393,6 +394,6 @@
 		<comments>
 			<comment name="singleLine" start="#" position="afterwhitespace"/>
 		</comments>
-		<keywords casesensitive="1" />
+		<keywords casesensitive="1" additionalDeliminator="#'"/>
 	</general>
 </language>

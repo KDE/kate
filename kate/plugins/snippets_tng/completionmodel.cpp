@@ -23,6 +23,11 @@
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/view.h>
 #include <kmessagebox.h>
+#ifdef SNIPPET_EDITOR
+  #include <kstandarddirs.h>
+  #include <kglobal.h>
+  #include <qfileinfo.h>
+#endif
 #include <qapplication.h>
 #include <QDomDocument>
 #include <QFile>
@@ -53,7 +58,7 @@ namespace JoWenn {
   KateSnippetCompletionModel::~KateSnippetCompletionModel() {
   }
   
-  void KateSnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license) {
+  bool KateSnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license) {
     name->clear();
     filetype->clear();
     authors->clear();
@@ -70,21 +75,22 @@ namespace JoWenn {
       if (!success) {
         KMessageBox::error(QApplication::activeWindow(),i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>", filename,
              line, col, i18nc("QXml",errorMsg.toUtf8())));
-        return;
+        return false;
       }
     } else {
       KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", filename) );     
-      return;
+      return false;
     }
     QDomElement el=doc.documentElement();
     if (el.tagName()!="snippets") {
       KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );     
-      return;
+      return false;
     }
     *name=el.attribute("name");
     *filetype=el.attribute("filetype");
     *authors=el.attribute("authors");
     *license=el.attribute("license");
+    return true;
   }
   
   
@@ -242,6 +248,79 @@ namespace JoWenn {
     if (ti)
       ti->insertTemplateText (word.end(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
   }  
+
+#ifdef SNIPPET_EDITOR
+  static void addAndCreateElement(QDomDocument& doc, QDomElement& item, const QString& name, const QString &content)
+  {
+    QDomElement element=doc.createElement(name);
+    element.appendChild(doc.createTextNode(content));
+    item.appendChild(element);
+  }
+
+  bool KateSnippetCompletionModel::save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors)
+  {
+/*
+    <snippets name="Testsnippets" filetype="*" authors="Joseph Wenninger" license="BSD">
+      <item>
+        <displayprefix>prefix</displayprefix>
+        <match>test1</match>
+        <displaypostfix>postfix</displaypostfix>
+        <displayarguments>(param1, param2)</displayarguments>
+        <fillin>This is a test</fillin>
+      </item>
+      <item>
+        <match>testtemplate</match>
+        <fillin>This is a test ${WHAT} template</fillin>
+      </item>
+    </snippets>
+*/
+    QDomDocument doc;
+    QDomElement root=doc.createElement("snippets");
+    root.setAttribute("name",name);
+    root.setAttribute("filetype",filetype);
+    root.setAttribute("authors",authors);
+    root.setAttribute("license",license);
+    doc.appendChild(root);
+    foreach(const KateSnippetCompletionEntry& entry, m_entries) {
+      QDomElement item=doc.createElement("item");
+      addAndCreateElement(doc,item,"displayprefix",entry.prefix);
+      addAndCreateElement(doc,item,"match",entry.match);
+      addAndCreateElement(doc,item,"displaypostfix",entry.postfix);
+      addAndCreateElement(doc,item,"displayarguments",entry.arguments);
+      addAndCreateElement(doc,item,"fillin",entry.fillin);
+      root.appendChild(item);
+    }
+    //KMessageBox::information(0,doc.toString());
+    QFileInfo fi(filename);
+    const QStringList list = KGlobal::dirs()->findAllResources("data",
+      "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
+    QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fi.fileName());
+    if (filename!=outname) {
+      QFileInfo fiout(outname);
+      if (fiout.exists()) {
+            bool ok=false;
+            for (int i=0;i<1000;i++) {
+              outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fi.fileName());
+              QFileInfo fiout1(outname);
+              if (!fiout1.exists()) {ok=true;break;}
+            }
+            if (!ok) {
+                KMessageBox::error(0,i18n("You have edited a data file not located in your personal data directory, but no suiteable filename could be generated for the data file in your personal data directory"));
+                return false;
+            } else KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, a renamed clone of the original datafile is created within your personal data directory"));
+      } else
+        KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, creating a clone of the data file in your personal data directory"));
+    }
+    QFile outfile(outname);
+    if (!outfile.open(QIODevice::WriteOnly)) {
+      KMessageBox::error(0,i18n("Output file '%1' could not be opened for writing",outname));
+      return false;
+    }
+    outfile.write(doc.toByteArray());
+    outfile.close();
+    return true;
+  }
+#endif  
   
 //END: CompletionModel
 
@@ -275,11 +354,29 @@ namespace JoWenn {
   QVariant KateSnippetSelectorModel::data(const QModelIndex &index, int role) const
   {
       if (!index.isValid()) return QVariant();
-      if (role==Qt::DisplayRole) {
-        return m_cmodel->m_entries[index.row()].match;
-      }
-      if (role==FillInRole) {
-        return m_cmodel->m_entries[index.row()].fillin;
+      switch (role) {
+        case Qt::DisplayRole:
+          return m_cmodel->m_entries[index.row()].match;
+          break;
+        case FillInRole:
+          return m_cmodel->m_entries[index.row()].fillin;
+          break;
+#ifdef SNIPPET_EDITOR
+        case PrefixRole:
+          return m_cmodel->m_entries[index.row()].prefix;
+          break;
+        case MatchRole:
+          return m_cmodel->m_entries[index.row()].match;
+          break;
+        case PostfixRole:
+          return m_cmodel->m_entries[index.row()].postfix;
+          break;
+        case ArgumentsRole:
+          return m_cmodel->m_entries[index.row()].arguments;
+          break;
+#endif          
+        default:
+          break;
       }
       return QVariant();
   }
@@ -291,6 +388,50 @@ namespace JoWenn {
     if (role!=Qt::DisplayRole) return QVariant();
     return QString("Snippet");
   }
+  
+ #ifdef SNIPPET_EDITOR 
+  bool KateSnippetSelectorModel::setData ( const QModelIndex & index, const QVariant & value, int role) {
+    if (!index.isValid()) return false;
+    switch (role) {
+        case FillInRole:
+          m_cmodel->m_entries[index.row()].fillin=value.toString();
+          break;
+        case PrefixRole:
+          m_cmodel->m_entries[index.row()].prefix=value.toString();
+          break;
+        case MatchRole:
+          m_cmodel->m_entries[index.row()].match=value.toString();
+          dataChanged(index,index);
+          break;
+        case PostfixRole:
+          m_cmodel->m_entries[index.row()].postfix=value.toString();
+          break;
+        case ArgumentsRole:
+          m_cmodel->m_entries[index.row()].arguments=value.toString();
+          break;
+      default:
+        return QAbstractItemModel::setData(index,value,role);
+    }
+    return true;
+  }
+  
+  bool KateSnippetSelectorModel::removeRows ( int row, int count, const QModelIndex & parent) {
+    if (parent.isValid()) return false;
+    if (count!=1) return false;
+    if (row>=rowCount(QModelIndex())) return false;
+    beginRemoveRows(parent,row,row);
+    m_cmodel->m_entries.removeAt(row);
+    endRemoveRows();
+  }
+  
+  QModelIndex KateSnippetSelectorModel::newItem() {
+    int new_row=m_cmodel->m_entries.count();
+    beginInsertRows(QModelIndex(),new_row,new_row);
+    m_cmodel->m_entries.append(KateSnippetCompletionEntry(i18n("New Snippet"),QString(),QString(),QString(),QString()));
+    endInsertRows();
+    return createIndex(new_row,0);
+  }
+#endif
 //END: SelectorModel
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

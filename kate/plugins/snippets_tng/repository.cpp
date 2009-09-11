@@ -32,6 +32,7 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
+#include <krun.h>
 
 namespace JoWenn {
 
@@ -256,6 +257,9 @@ namespace JoWenn {
           return false;
           break;
         case EditNowRole:
+          if (!KRun::runUrl(KUrl::fromPath(entry.filename),"application/x-katesnippets_tng",value.value<QWidget*>())) {
+            KMessageBox::error(value.value<QWidget*>(),i18n("Editor application for file '%1' with mimetype 'application/x-katesnippets_tng' could not be started",entry.filename));
+          }
           return false;
           break;
         default:

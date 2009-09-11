@@ -45,9 +45,13 @@ namespace JoWenn {
       virtual void executeCompletionItem2(KTextEditor::Document* document,
         const KTextEditor::Range& word, const QModelIndex& index) const;
 
-      static void loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license);
+      static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license);
 
       KateSnippetSelectorModel *selectorModel();
+      
+#ifdef SNIPPET_EDITOR
+      bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors);
+#endif
       
     private:
       QList<KateSnippetCompletionEntry> m_entries;
@@ -65,9 +69,19 @@ namespace JoWenn {
       virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
       virtual QVariant data(const QModelIndex &index, int role) const;
       virtual QModelIndex parent ( const QModelIndex & index) const {return QModelIndex();}
-      QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
+      virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
       
+#ifdef SNIPPET_EDITOR
+      // for editor only
+      virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+      virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
+      QModelIndex newItem();
+      enum {FillInRole=Qt::UserRole+1,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
+      //#warning SNIPPET_EDITOR IS SET
+#else
       enum {FillInRole=Qt::UserRole+1};
+      //#warning SNIPPET_EDITOR IS NOT SET
+#endif
     private:
         KateSnippetCompletionModel *m_cmodel;
   };

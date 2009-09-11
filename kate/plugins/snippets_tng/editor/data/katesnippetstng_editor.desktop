@@ -1,0 +1,15 @@
+[Desktop Entry]
+GenericName=Kate Snippets TNG datafile editor
+Name=Kate Snippets TNG datafile editor
+
+MimeType=application/x-katesnippets_tng;
+Exec=katesnippetstng_editor %U
+X-KDE-StartupNotify=true
+X-KDE-HasTempFileOption=false
+Icon=kate
+Type=Application
+NoDisplay=true
+Terminal=false
+X-DBUS-StartupType=Unique
+X-DBUS-ServiceName=org.kde.katesnippetstng_editor
+Categories=Qt;KDE;Utility;TextEditor;

@@ -38,6 +38,7 @@
 #include <QtGui/QCursor>
 #include <QStringListModel>
 #include <QCompleter>
+#include <QMutexLocker>
 
 using namespace KTextEditor;
 
@@ -159,10 +160,14 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
     m_layout->setMargin(0);
 
     // Init highlight
-    m_topRange = view()->doc()->newSmartRange(view()->doc()->documentRange());
-    static_cast<KateSmartRange*>(m_topRange)->setInternal();
-    m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
-    enableHighlights(true);
+    {
+      QMutexLocker lock(view()->doc()->smartMutex());
+      
+      m_topRange = view()->doc()->newSmartRange(view()->doc()->documentRange());
+      static_cast<KateSmartRange*>(m_topRange)->setInternal();
+      m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
+      enableHighlights(true);
+    }
 
 
     // Copy global to local config backup

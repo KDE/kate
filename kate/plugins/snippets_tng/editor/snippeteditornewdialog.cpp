@@ -25,7 +25,7 @@ SnippetEditorNewDialog::SnippetEditorNewDialog(QWidget *parent):
 {
   setWindowModality(Qt::WindowModal);
   setupUi(mainWidget());
-  setCaption("Create new snippet file");
+  setCaption(i18n("Create new snippet file"));
   setButtons(KDialog::Ok | KDialog::Cancel);
   setButtonGuiItem(KDialog::Ok,KGuiItem(i18n("Create"),"document-save"));
   

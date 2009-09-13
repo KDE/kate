@@ -2542,7 +2542,7 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
 
   if ( e->reason() == QContextMenuEvent::Keyboard )
   {
-    makeVisible( m_cursor, 0 );
+    makeVisible( m_displayCursor, 0 );
     p = cursorCoordinates(false);
     p.rx() -= startX();
   }

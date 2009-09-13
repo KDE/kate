@@ -482,6 +482,7 @@ class KateView : public KTextEditor::View,
 
   public Q_SLOTS:
     void setEol( int eol );
+    void setAddBom( bool enabled);
     void find();
     void findSelectedForwards();
     void findSelectedBackwards();
@@ -578,6 +579,7 @@ class KateView : public KTextEditor::View,
     KToggleAction*         m_viInputModeAction;
 
     KSelectAction*         m_setEndOfLine;
+    KToggleAction*         m_addBom;
 
     QAction *m_cut;
     QAction *m_copy;

@@ -434,7 +434,12 @@ class KateDocument : public KTextEditor::Document,
      * atm used for the user visible menu to select highlightings
      */
     void setDontChangeHlOnSave();
-
+    
+    /**
+     * Set that the BOM marker is forced via the tool menu
+     */
+    void bomSetByUser();
+    
   //
   // KTextEditor::ConfigInterface stuff
   //
@@ -926,6 +931,7 @@ class KateDocument : public KTextEditor::Document,
     KateAutoIndent m_indenter;
 
     bool hlSetByUser;
+    bool m_bomSetByUser;
 
     bool m_modOnHd;
     ModifiedOnDiskReason m_modOnHdReason;

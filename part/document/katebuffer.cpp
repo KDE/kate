@@ -72,17 +72,23 @@ static const int KATE_AVERAGE_LINES_PER_BLOCK = 4 * 1024;
 
 class KateFileLoader
 {
-  enum MIB
-  {
-    MibLatin1  = 4,
-    Mib8859_8  = 85,
-    MibUtf8    = 106,
-    MibUcs2    = 1000,
-    MibUtf16   = 1015,
-    MibUtf16BE = 1013,
-    MibUtf16LE = 1014
-  };  
+
   public:
+    enum MIB
+    {
+      MibLatin1  = 4,
+      Mib8859_8  = 85,
+      MibUtf8    = 106,
+      MibUcs2    = 1000,
+      MibUtf16   = 1015,
+      MibUtf16BE = 1013,
+      MibUtf16LE = 1014
+    };
+    enum BOM {
+    BomUnknown=0,
+    BomNotSet=1,
+    BomSet=2
+    };
     KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces, KEncodingProber::ProberType proberType)
       : m_codec(codec)
       , m_prober(new KEncodingProber(proberType))
@@ -99,6 +105,7 @@ class KateFileLoader
       , m_file (filename)
       , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
       , m_decoder(m_codec->makeDecoder())
+      , m_bom (BomUnknown)
     {
     }
 
@@ -133,6 +140,48 @@ class KateFileLoader
 
         m_eof = (c == -1) || (c == 0);
 
+
+        switch (m_codec->mibEnum())
+        {
+          case MibUtf8:
+            if (c>=3) {
+              if ( (((uchar)m_buffer[0])==0xef) && (((uchar)m_buffer[1])==0xbb) && (((uchar)m_buffer[2])==0xbf))
+                m_bom=BomSet;
+              else
+                m_bom=BomNotSet;
+            }
+            break;
+          case MibUtf16:
+            if (c>=2) {
+              if ((((uchar)m_buffer[0])==0xfe) && (((uchar)m_buffer[1])==0xff))
+                m_bom=BomSet;
+              else if ((((uchar)m_buffer[0])==0xff) && (((uchar)m_buffer[1])==0xfe))
+                m_bom=BomSet;
+              else
+                m_bom=BomNotSet;
+            }
+            break;
+          case MibUtf16BE:
+            
+            if (c>=2) {
+              if ((((uchar)m_buffer[0])==0xfe) && (((uchar)m_buffer[1])==0xff))
+                m_bom=BomSet;
+              else
+                m_bom=BomNotSet;
+            }
+            break;
+          case MibUtf16LE:
+            if (c>=2) {
+              if ((((uchar)m_buffer[0])==0xff) && (((uchar)m_buffer[1])==0xfe))
+                m_bom=BomSet;
+              else
+                m_bom=BomNotSet;
+            }
+            break;
+          default:
+            break;
+        }
+        
         static const QLatin1Char cr(QLatin1Char('\r'));
         static const QLatin1Char lf(QLatin1Char('\n'));
         for (int i=0; i < m_text.length(); i++)
@@ -168,6 +217,9 @@ class KateFileLoader
 
     // no new lines around ?
     inline bool eof () const { return m_eof && !m_lastWasEndOfLine && (m_lastLineStart == m_text.length()); }
+
+    // return if the state of the bom has been determined
+    inline BOM bom () const {return m_bom;}
 
     // eol mode ? autodetected on open(), -1 for no eol found in the first block!
     inline int eol () const { return m_eol; }
@@ -400,6 +452,7 @@ class KateFileLoader
     QByteArray m_buffer;
     QString m_text;
     QTextDecoder *m_decoder;
+    BOM m_bom;
 };
 
 /**
@@ -551,6 +604,11 @@ bool KateBuffer::openFile (const QString &m_file)
   if (m_doc->config()->allowEolDetection() && (file.eol() != -1))
     m_doc->config()->setEol (file.eol());
 
+  if (file.bom()!=KateFileLoader::BomUnknown)
+  {
+    m_doc->config()->setBom(file.bom()==KateFileLoader::BomSet);
+  }
+  
   // flush current content, one line stays, therefor, remove that
   clear ();
 
@@ -651,7 +709,12 @@ bool KateBuffer::saveFile (const QString &m_file)
 
   // this line sets the mapper to the correct codec
   stream.setCodec(codec);
-
+  
+  int mib=codec->mibEnum();
+  if  ((mib==KateFileLoader::MibUtf8) || (mib==KateFileLoader::MibUtf16) ||
+        (mib==KateFileLoader::MibUtf16BE) || (mib==KateFileLoader::MibUtf16LE) )
+    stream.setGenerateByteOrderMark(m_doc->config()->bom());
+  
   // our loved eol string ;)
   QString eol = m_doc->config()->eolString ();
 

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY a_valid_char_in_macro_names "A-Za-z0-9_">
 ]>
-<language name="RPM Spec" version="1.4" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
+<language name="RPM Spec" version="1.5" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
 
   <highlighting>
     
@@ -14,6 +14,7 @@
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
         <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
         <DetectChar context="Comment" char="#" column="0" lookAhead="true" />
+        <DetectChar attribute="Escaped character" context="Comment" char="#" firstNonSpace="true" />
       </context>
       
       <context attribute="Normal Text" lineEndContext="#stay" name="command section">
@@ -21,15 +22,16 @@
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
         <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
         <DetectChar context="Comment" char="#" column="0" lookAhead="true" />
+        <DetectChar attribute="Escaped character" context="Comment" char="#" firstNonSpace="true" />
       </context>
       
-      <context attribute="Normal Text" lineEndContext="#stay" name="changelog section">
-        <Detect2Chars attribute="Value" context="tag_line" char="-" char1=" " column="0" />
-        <Detect2Chars attribute="Tag" context="changelog_header" char="*" char1=" " column="0" />
-        <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
-        <DetectChar context="Comment" char="#" column="0" lookAhead="true" />
+      <context attribute="Value" lineEndContext="#stay" name="changelog section">
+        <DetectChar attribute="Tag" context="changelog_weekday" char="*" column="0" />
         <!-- Handle % -->
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
+        <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
+        <DetectChar context="Comment" char="#" column="0" lookAhead="true" />
+        <DetectChar attribute="Escaped character" context="Comment" char="#" firstNonSpace="true" />
       </context>
       
       <context attribute="Normal" lineEndContext="description section" name="description section start line">
@@ -42,6 +44,7 @@
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
         <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
         <DetectChar context="Comment" char="#" column="0" lookAhead="true" />
+        <DetectChar attribute="Escaped character" context="Comment" char="#" firstNonSpace="true" />
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
@@ -62,7 +65,43 @@
         <!-- Handle % -->
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
       </context>
+
+      <context attribute="Tag" lineEndContext="#pop" name="changelog_weekday">
+        <DetectSpaces/>
+        <RegExpr context="changelog_month" attribute="Tag" String="(Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?=($| |\t))" />
+        <RegExpr context="changelog_month" attribute="Error" String="\S*" />
+        <RegExpr context="changelog_month" attribute="Error" String="." />
+        <!-- Handle % -->
+        <!--AnyChar context="handle_percent" String="%$" lookAhead="true" /-->
+      </context>
       
+      <context attribute="Tag" lineEndContext="#pop" name="changelog_month">
+        <DetectSpaces/>
+        <RegExpr context="changelog_day" attribute="Tag" String="(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?=($| |\t))" />
+        <RegExpr context="changelog_day" attribute="Error" String="\S*" />
+        <RegExpr context="changelog_day" attribute="Error" String="." />
+        <!-- Handle % -->
+        <!--AnyChar context="handle_percent" String="%$" lookAhead="true" /-->
+      </context>
+      
+      <context attribute="Tag" lineEndContext="#pop" name="changelog_day">
+        <DetectSpaces/>
+        <RegExpr context="changelog_year" attribute="Tag" String="(((0|1|2)?[1-9])|10|20|30|31)(?=($| |\t))" />
+        <RegExpr context="changelog_year" attribute="Error" String="\S*" />
+        <RegExpr context="changelog_year" attribute="Error" String="." />
+        <!-- Handle % -->
+        <!--AnyChar context="handle_percent" String="%$" lookAhead="true" /-->
+      </context>
+      
+      <context attribute="Tag" lineEndContext="#pop" name="changelog_year">
+        <DetectSpaces/>
+        <RegExpr context="changelog_header" attribute="Tag" String="(\d{4})(?=($| |\t))" />
+        <RegExpr context="changelog_header" attribute="Error" String="\S*" />
+        <RegExpr context="changelog_header" attribute="Error" String="." />
+        <!-- Handle % -->
+        <!--AnyChar context="handle_percent" String="%$" lookAhead="true" /-->
+      </context>
+
       <context attribute="Tag" lineEndContext="#pop" name="changelog_header">
         <!-- Handle % -->
         <AnyChar context="handle_percent" String="%$" lookAhead="true" />
@@ -74,7 +113,7 @@
       </context>
       
       <!-- Expects a string starting with % or $ (otherwise, this context will fail!). -->
-      <context lineEndContext="#pop" name="handle_percent">
+      <context attribute="Normal Text" lineEndContext="#pop" name="handle_percent">
         <Detect2Chars attribute="Escaped character" context="#pop" char="%" char1="%"/>
         <!-- Keywords: -->
         <RegExpr attribute="Keyword" context="parameters after keyword" String="%(if|ifarch|ifnarch|ifos|ifnos)(?=($| |\t))" column="0" beginRegion="if_block" />

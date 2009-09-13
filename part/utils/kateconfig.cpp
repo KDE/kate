@@ -99,6 +99,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
    m_eolSet (true),
+   m_bomSet (true),
    m_allowEolDetectionSet (false),
    m_allowSimpleModeSet (false),
    m_backupFlagsSet (true),
@@ -127,6 +128,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_configFlagsSet (0),
    m_encodingSet (false),
    m_eolSet (false),
+   m_bomSet (false),
    m_allowEolDetectionSet (false),
    m_allowSimpleModeSet (false),
    m_backupFlagsSet (false),
@@ -170,6 +172,8 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
 
+  setBom (config.readEntry("BOM",false));
+  
   setAllowSimpleMode (config.readEntry("Allow Simple Mode", true));
 
   setBackupFlags (config.readEntry("Backup Config Flags", 1));
@@ -206,7 +210,9 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
-
+  
+  config.writeEntry("BOM",bom());
+  
   config.writeEntry("Allow Simple Mode", allowSimpleMode());
 
   config.writeEntry("Backup Config Flags", backupFlags());
@@ -513,6 +519,24 @@ void KateDocumentConfig::setEol (int mode)
 
   configEnd ();
 }
+
+void KateDocumentConfig::setBom (bool bom)
+{
+  configStart ();
+
+  m_bomSet = true;
+  m_bom = bom;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::bom() const
+{
+    if (m_bomSet || isGlobal())
+      return m_bom;
+    return s_global->bom();
+}
+
 
 bool KateDocumentConfig::allowEolDetection () const
 {

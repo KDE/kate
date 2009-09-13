@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="51">
+<kpartgui name="KatePartView" version="52">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -69,6 +69,7 @@
     <Action name="tools_indentation" group="tools_operations" />
     <Action name="set_encoding" group="tools_operations" />
     <Action name="set_eol" group="tools_operations" />
+    <Action name="add_bom" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_invoke_code_completion" group="tools_operations" />
     <Menu name="wordcompletion" group="tools_operations"><text>Word Completion</text>

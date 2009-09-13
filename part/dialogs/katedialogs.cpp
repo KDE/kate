@@ -856,6 +856,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEncodingDetection, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->chkEnableBOM, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( uiadv->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( uiadv->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -929,6 +930,7 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
+  KateDocumentConfig::global()->setBom(ui->chkEnableBOM->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
 }
@@ -983,7 +985,8 @@ void KateSaveConfigTab::reload()
   // eol
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
-
+  ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
+  
   const uint configFlags = KateDocumentConfig::global()->configFlags();
   ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());

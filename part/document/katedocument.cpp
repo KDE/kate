@@ -207,6 +207,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setActiveView(0L);
 
   hlSetByUser = false;
+  m_bomSetByUser=false;
   m_fileTypeSetByUser = false;
 
   editSessionNumber = 0;
@@ -1619,9 +1620,15 @@ void KateDocument::bufferHlChanged ()
   emit highlightingModeChanged(this);
 }
 
+
 void KateDocument::setDontChangeHlOnSave()
 {
   hlSetByUser = true;
+}
+
+void KateDocument::bomSetByUser()
+{
+  m_bomSetByUser=true;
 }
 //END
 
@@ -4247,6 +4254,12 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         if ( (n = l.indexOf( val.toLower() )) != -1 )
           m_config->setEol( n );
       }
+      else if (var == "bom" || var =="byte-order-marker")
+      {          
+          if (checkBoolValue(val,&state)) {
+            m_config->setBom(state);
+          }
+      }
       else if ( var == "encoding" )
         m_config->setEncoding( val );
       else if (var == "presave-postdialog")
@@ -4544,8 +4557,12 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             v->renderer()->config()->configStart();
           }
 
+          bool bom_settings;
+          if (m_bomSetByUser)
+            bom_settings=m_config->bom();
           readVariableLine( KateGlobal::self()->modeManager()->fileType(newType).varLine );
-
+          if (m_bomSetByUser)
+             m_config->setBom(bom_settings);
           m_config->configEnd();
           foreach (v,m_views)
           {

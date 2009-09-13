@@ -198,6 +198,9 @@ class KateDocumentConfig : public KateConfig
 
     void setEol (int mode);
 
+    bool bom () const;
+    void setBom(bool bom);
+    
     bool allowEolDetection () const;
     void setAllowEolDetection (bool on);
 
@@ -244,6 +247,7 @@ class KateDocumentConfig : public KateConfig
     bool m_allowEolDetection;
     bool m_allowSimpleMode;
     int m_eol;
+    bool m_bom;
     uint m_backupFlags;
     int m_searchDirConfigDepth;
     KEncodingProber::ProberType m_proberTypeForEncodingAutoDetection;
@@ -261,6 +265,7 @@ class KateDocumentConfig : public KateConfig
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
+    bool m_bomSet :1;
     bool m_allowEolDetectionSet : 1;
     bool m_allowSimpleModeSet : 1;
     bool m_backupFlagsSet : 1;

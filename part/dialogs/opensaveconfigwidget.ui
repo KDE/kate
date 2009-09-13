@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>OpenSaveConfigWidget</class>
  <widget class="QWidget" name="OpenSaveConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>489</width>
+    <height>334</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>
@@ -81,6 +89,13 @@
         </property>
         <property name="text">
          <string>A&amp;utomatic end of line detection</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkEnableBOM">
+        <property name="text">
+         <string>Enable byte order marker (if not overridden by other settings)</string>
         </property>
        </widget>
       </item>

@@ -575,6 +575,10 @@ void KateView::setupActions()
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
   connect(m_setEndOfLine, SIGNAL(triggered(int)), this, SLOT(setEol(int)));
 
+  a=m_addBom=new KToggleAction(i18n("Add &BOM"),this);
+  ac->addAction("add_bom",a);
+  a->setWhatsThis(i18n("Enable/disable adding of byte order markers for UTF-8/UTF-16 encoded files while saving"));
+  connect(m_addBom,SIGNAL(triggered(bool)),this,SLOT(setAddBom(bool)));
   // encoding menu
   KateViewEncodingAction *encodingAction = new KateViewEncodingAction(m_doc, this, i18n("E&ncoding"), this);
   ac->addAction("set_encoding", encodingAction);
@@ -1194,6 +1198,18 @@ void KateView::setEol(int eol)
   m_doc->config()->setEol (eol);
 }
 
+void KateView::setAddBom(bool enabled)
+{
+  if (!doc()->isReadWrite())
+    return;
+
+  if (m_updatingDocumentConfig)
+   return;
+  
+  m_doc->config()->setBom (enabled);
+  m_doc->bomSetByUser();
+}
+
 void KateView::setIconBorder( bool enable )
 {
   config()->setIconBar (enable);
@@ -1511,7 +1527,9 @@ void KateView::updateDocumentConfig()
   m_updatingDocumentConfig = true;
 
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
-
+  
+  m_addBom->setChecked(m_doc->config()->bom());
+  
   m_updatingDocumentConfig = false;
 
   // maybe block selection or wrap-cursor mode changed

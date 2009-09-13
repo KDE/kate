@@ -232,10 +232,10 @@ function indent(line, indentWidth, character) {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
-    if (lastLine.search(/^\s*$/) != -1) {
-        dbg('indenting for empty line');
-        return 0;
-    }
+    //if (lastLine.search(/^\s*$/) != -1) {
+    //    dbg('indenting for empty line');
+    //    return 0;
+    //}
 
     dbg('continuing with regular indent');
     return -1;

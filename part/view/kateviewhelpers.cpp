@@ -545,7 +545,8 @@ void KateCmdLineEdit::focusInEvent ( QFocusEvent *ev )
 
 void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
 {
-  if (ev->key() == Qt::Key_Escape)
+  if (ev->key() == Qt::Key_Escape ||
+      (ev->key() == Qt::Key_BracketLeft && ev->modifiers() == Qt::ControlModifier))
   {
     m_view->setFocus ();
     hideLineEdit();

@@ -2,8 +2,8 @@
  * name: Python
  * license: LGPL
  * author: Paul Giannaros <paul@giannaros.org>
- * version: 1
- * kate-version: 3.0
+ * revision: 1
+ * kate-version: 3.4
  * type: indentation
  */
 

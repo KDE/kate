@@ -2,8 +2,8 @@
  * name: LilyPond
  * license: LGPL
  * author: Wilbert Berendsen <info@wilbertberendsen.nl>
- * version: 1
- * kate-version: 3.0
+ * revision: 1
+ * kate-version: 3.4
  * type: indentation
  * required-syntax-style: lilypond
  * indent-languages: lilypond

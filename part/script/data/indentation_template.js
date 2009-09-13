@@ -2,8 +2,8 @@
  * name: Indenter name (appears in the menu)
  * license: license (GPL, LGPL, Artistic, etc)
  * author: first name last name <email-address>
- * version: 1 (simple integer number)
- * kate-version: 3.0
+ * revision: 1 (simple integer number)
+ * kate-version: 3.4
  */
 
 // indent gets three arguments: line, indentwidth in spaces, typed character 

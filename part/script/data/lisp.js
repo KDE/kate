@@ -2,8 +2,8 @@
  * name: LISP
  * license: LGPL
  * author: Dominik Haumann <dhdev@gmx.de>
- * version: 1
- * kate-version: 3.0
+ * revision: 1
+ * kate-version: 3.4
  * type: indentation
  *
  * This file is part of the Kate Project.

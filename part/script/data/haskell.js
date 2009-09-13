@@ -2,8 +2,8 @@
  * name: Haskell
  * license: LGPL
  * author: Erlend Hamberg <ehamberg@gmail.com>
- * version: 1
- * kate-version: 3.0
+ * revision: 1
+ * kate-version: 3.4
  * type: indentation
  */
 

@@ -2,8 +2,8 @@
  * name: Ruby
  * license: LGPL
  * author: Robin Pedersen <robinpeder@gmail.com>
- * version: 1
- * kate-version: 3.0
+ * revision: 1
+ * kate-version: 3.4
  * type: indentation
  * required-syntax-style: ruby
  * indent-languages: ruby

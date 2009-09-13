@@ -1,23 +1,22 @@
-
-/// This file is part of the KDE libraries
-/// Copyright (C) 2005 Christoph Cullmann <cullmann@kde.org>
-/// Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
-/// Copyright (C) 2006 Dominik Haumann <dhaumann kde org>
-/// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
-///
-/// This library is free software; you can redistribute it and/or
-/// modify it under the terms of the GNU Library General Public
-/// License version 2 as published by the Free Software Foundation.
-///
-/// This library is distributed in the hope that it will be useful,
-/// but WITHOUT ANY WARRANTY; without even the implied warranty of
-/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-/// Library General Public License for more details.
-///
-/// You should have received a copy of the GNU Library General Public License
-/// along with this library; see the file COPYING.LIB.  If not, write to
-/// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-/// Boston, MA 02110-1301, USA.
+// This file is part of the KDE libraries
+// Copyright (C) 2005 Christoph Cullmann <cullmann@kde.org>
+// Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
+// Copyright (C) 2006, 2009 Dominik Haumann <dhaumann kde org>
+// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Library General Public
+// License version 2 as published by the Free Software Foundation.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Library General Public License for more details.
+//
+// You should have received a copy of the GNU Library General Public License
+// along with this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #include "katescriptmanager.h"
 
@@ -315,10 +314,10 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
 
 bool KateScriptManager::help(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-  if (cmd == "run-buffer") {
-    msg = i18n("This executes the current document or selection as JavaScript within Kate.");
-    return true;
-  }
+//   if (cmd == "run-buffer") {
+//     msg = i18n("This executes the current document or selection as JavaScript within Kate.");
+//     return true;
+//   }
 
   if (!m_commandLineScriptMap.contains(cmd)) {
     msg = i18n("Command not found: %1", cmd);
@@ -334,7 +333,7 @@ const QStringList &KateScriptManager::cmds()
   static QStringList l;
 
   l.clear();
-  l << "run-buffer";
+//   l << "run-buffer"; // not implemented right now
 
   QVector<KateCommandLineScript*>::ConstIterator it = m_commandLineScripts.constBegin();
   for ( ; it != m_commandLineScripts.constEnd(); ++it) {

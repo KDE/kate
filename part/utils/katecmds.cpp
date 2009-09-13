@@ -382,7 +382,7 @@ const QStringList &KateCommands::ViCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << "w" << "hardcopy" << "nnoremap" << "nn";
+  l << "nnoremap" << "nn";
 
   return l;
 }
@@ -413,17 +413,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   QString cmd ( args.takeFirst() );
 
   // ALL commands that takes no arguments.
-  if ( cmd == "w" )
-  {
-    v->doc()->documentSave();
-    return true;
-  }
-  else if ( cmd == "hardcopy" )
-  {
-    v->doc()->printDialog();
-    return true;
-  }
-  else if ( cmd == "nnoremap" || cmd == "nn" )
+  if ( cmd == "nnoremap" || cmd == "nn" )
   {
     if ( args.count() == 1 ) {
       msg = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, args.at( 0 ), true );

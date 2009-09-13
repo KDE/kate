@@ -22,6 +22,7 @@
 #include "snippeteditornewdialog.h"
 #include "../completionmodel.h"
 #include <kmessagebox.h>
+#include <QDBusConnectionInterface>
 
 using namespace JoWenn;
 
@@ -34,6 +35,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     QString newPath=KateSnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
     if (newPath.isEmpty()) return;
     m_url=KUrl::fromPath(newPath);
+    notifyChange();
   }
   m_ok=true;
   QWidget *widget=new QWidget(this);
@@ -98,8 +100,10 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
       m_selectorModel->setData(previous,snippetContent->toPlainText(),KateSnippetSelectorModel::FillInRole);
     }  
     
-    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),snippetCollectionFiletype->currentText(),snippetCollectionAuthors->text()))
+    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),snippetCollectionFiletype->currentText(),snippetCollectionAuthors->text())) {
+      notifyChange();
       close();
+    }
   } else if (button==buttonBox->button(QDialogButtonBox::Close)) {
     close();
   }
@@ -147,4 +151,17 @@ void SnippetEditorWindow::newSnippet() {
   snippetListView->selectionModel()->setCurrentIndex(snippetListView->selectionModel()->currentIndex(),QItemSelectionModel::Clear);
   snippetListView->selectionModel()->setCurrentIndex(row,QItemSelectionModel::SelectCurrent);
   modified();
+}
+
+void SnippetEditorWindow::notifyChange() {
+  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+  if (!interface) return;
+  QStringList serviceNames = interface->registeredServiceNames();
+  foreach(const QString serviceName,serviceNames) {
+    if (serviceName.startsWith("org.kde.kate-")) {
+      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+      QLatin1String("/Plugin/SnippetsTNG/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+      QDBusConnection::sessionBus().call (m);
+    }
+  }
 }

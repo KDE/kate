@@ -27,6 +27,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <qtimer.h>
+#include <qdbusconnection.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/view.h>
 #include <kglobal.h>
@@ -162,7 +163,19 @@ namespace JoWenn {
 //BEGIN: Model
   KateSnippetRepositoryModel::KateSnippetRepositoryModel(QObject *parent):
     QAbstractListModel(parent) {
-    KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
+    createOrUpdateList(false);
+    new KateSnippetRepositoryModelAdaptor(this);
+    QString dbusObjectPath ("/Plugin/SnippetsTNG/Repository");
+    QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
+  }
+  
+  KateSnippetRepositoryModel::~KateSnippetRepositoryModel() {}
+  int KateSnippetRepositoryModel::rowCount(const QModelIndex &/*not used*/) const {
+    return m_entries.count();
+  }
+  
+  void KateSnippetRepositoryModel::createOrUpdateList(bool update) {
+        KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
     const QStringList list = KGlobal::dirs()->findAllResources("data",
       "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
     foreach(const QString& filename,list) {
@@ -194,16 +207,17 @@ namespace JoWenn {
          group.writeEntry("license",license);  
       }      
       name=i18nc("snippet name",name.toUtf8());
-#warning !!!!!!!!!!!!! MOVE TO FUNCTION AND ADD UPDATING OF AN ENTRY      
-      addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
+      if (update)
+        updateEntry(name, filename, filetype, authors, license, systemFile);
+      else
+        addEntry(name, filename, filetype, authors, license, systemFile,/*enabled*/ false);
     }
-    config.sync();      
+    config.sync();
+    reset();
+    emit typeChanged("*");
   }
   
-  KateSnippetRepositoryModel::~KateSnippetRepositoryModel() {}
-  int KateSnippetRepositoryModel::rowCount(const QModelIndex &/*not used*/) const {
-    return m_entries.count();
-  }
+  
   
   QVariant KateSnippetRepositoryModel::data(const QModelIndex & index, int role) const {
     const KateSnippetRepositoryEntry& entry=m_entries[index.row()];
@@ -276,6 +290,22 @@ namespace JoWenn {
 
   }
 
+  void KateSnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile)
+  {
+      for (int i=0;i<m_entries.count();i++) {
+          KateSnippetRepositoryEntry& entry=m_entries[i];
+          if (entry.filename==filename)
+          {
+            entry.name=name;
+            entry.fileType=filetype;
+            entry.authors=authors;
+            entry.license=license;
+            entry.systemFile=systemFile;
+            return;
+          }
+      }
+      addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
+  }
   void KateSnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled) {
     beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
     m_entries.append(KateSnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,enabled));
@@ -323,23 +353,21 @@ namespace JoWenn {
   }
 //END: Model
 
-#if 0
+
 //BEGIN: DBus Adaptor
 
   KateSnippetRepositoryModelAdaptor::KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository):
-    QDBusAbstractAdaptor(repository),m_repository(repository);
-  {
-  }
+    QDBusAbstractAdaptor(repository),m_repository(repository) {}
   
   KateSnippetRepositoryModelAdaptor::~KateSnippetRepositoryModelAdaptor() {}
   
-  void KateSnippetRepositoryModelAdaptor::updateFileLocation(const QString& oldPath, const QString& newPath);
+  void KateSnippetRepositoryModelAdaptor::updateSnippetRepository()
   {
-    m_repository->updateFileLocation(oldPath,newPath);
+    m_repository->createOrUpdateList(true);
   }
  
 
 //END: DBus Adaptor
-#endif
+
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

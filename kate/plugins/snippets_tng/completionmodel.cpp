@@ -179,6 +179,12 @@ namespace JoWenn {
           m_matches.clear();
           reset();
         }
+      } else {
+         m_matches.clear();
+          foreach(const KateSnippetCompletionEntry& entry,m_entries) {
+            m_matches.append(&entry);
+          }
+          reset();
       }
   }
   

@@ -49,6 +49,7 @@ class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
     JoWenn::KateSnippetCompletionModel *m_snippetData;
     JoWenn::KateSnippetSelectorModel *m_selectorModel;
     bool m_ok;
+    void notifyChange();
 };
 
 #endif

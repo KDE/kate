@@ -23,6 +23,7 @@
 #include <QAbstractListModel>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/document.h>
+#include <qdbusabstractadaptor.h>
 
 class KConfigBase;
 
@@ -69,10 +70,14 @@ namespace JoWenn {
         DeleteNowRole,
         EditNowRole
       };
-      
+    private:
+      void createOrUpdateList(bool update);
+      friend class KateSnippetRepositoryModelAdaptor;
+    public:
       virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
       virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
       virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+      void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile);
       void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled);
       KTextEditor::CodeCompletionModel2* completionModel(const QString &filetype);
       void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
@@ -86,20 +91,20 @@ namespace JoWenn {
       QList<KateSnippetRepositoryEntry> m_entries;
   };
 
-#if 0  
-    class KateSnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
-    {
-        Q_OBJECT
-        Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
-      public:
-        KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository);
-        virtual ~KateSnippetRepositoryModelAdaptor();
-      public Q_SLOTS:
-        void updateFileLocation(const QString& oldPath, const QString& newPath);
-      private:
-        KateSnippetRepositoryModel* m_repository;
-    };
-#endif      
+
+  class KateSnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
+  {
+      Q_OBJECT
+      Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
+    public:
+      KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository);
+      virtual ~KateSnippetRepositoryModelAdaptor();
+    public Q_SLOTS:
+      void updateSnippetRepository();
+    private:
+      KateSnippetRepositoryModel* m_repository;
+  };
+
   
 }
 #endif

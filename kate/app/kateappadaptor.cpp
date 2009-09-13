@@ -44,6 +44,7 @@ void KateAppAdaptor::activate ()
   
 #ifdef Q_WS_X11
   KWindowSystem::activateWindow (win->winId ());
+  KWindowSystem::raiseWindow (win->winId ());
 #endif
 }
 
@@ -115,6 +116,11 @@ bool KateAppAdaptor::activateSession (QString session)
   m_app->sessionManager()->activateSession (m_app->sessionManager()->giveSession (session));
 
   return true;
+}
+
+QString KateAppAdaptor::activeSession()
+{
+  return m_app->sessionManager()->activeSession()->sessionName();
 }
 
 void KateAppAdaptor::emitExiting ()

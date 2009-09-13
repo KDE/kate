@@ -27,7 +27,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Application")
-
+    Q_PROPERTY(QString activeSession READ activeSession)
   public:
     KateAppAdaptor (KateApp *app);
 
@@ -98,6 +98,8 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      */
     void exiting ();
     
+  public:
+    QString activeSession();
   private:
     KateApp *m_app;
 };

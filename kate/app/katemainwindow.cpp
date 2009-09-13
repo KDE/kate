@@ -690,8 +690,15 @@ void KateMainWindow::editKeys()
 
   QList<KXMLGUIClient*> clients = guiFactory()->clients();
 
-  foreach(KXMLGUIClient *client, clients)
-  dlg.addCollection ( client->actionCollection(), client->componentData().aboutData()->programName() );
+  foreach(KXMLGUIClient *client, clients) {
+#warning there appear to be invalid clients after session switching    
+//     kDebug(13001)<<"adding client to shortcut editor";
+//     kDebug(13001)<<client;
+//     kDebug(13001)<<client->actionCollection();
+//     kDebug(13001)<<client->componentData().aboutData();
+//     kDebug(13001)<<client->componentData().aboutData()->programName();
+    dlg.addCollection ( client->actionCollection(), client->componentData().aboutData()->programName() );
+  }
   /*
     dlg.insert( externalTools->actionCollection(), i18n("External Tools") );
   */

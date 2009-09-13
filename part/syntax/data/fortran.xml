@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.11" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
+<language name="Fortran" version="1.12" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
 <!-- by Franchin Matteo, fnch@libero.it -->
   <highlighting>
 
@@ -13,17 +13,17 @@
       <item> call </item>
       <item> case </item>
       <item> common </item>
-      <item> contains </item>
+      <!--item> contains </item-->
       <item> continue </item>
       <item> cycle </item>
       <item> deallocate </item>
       <item> default </item>
-      <item> do </item>
+      <!--item> do </item-->
       <item> forall </item>
       <item> where </item>
       <item> elsewhere </item>
-      <item> elseif </item>
-      <item> else </item>
+      <!--item> elseif </item-->
+      <!--item> else </item-->
       <item> equivalence </item>
       <item> exit </item>
       <item> external </item>
@@ -51,7 +51,7 @@
       <item> select </item>
       <item> selectcase </item>
       <item> stop </item>
-      <item> then </item>
+      <!--item> then </item-->
       <item> to </item>
       <item> use </item>
       <item> only </item>
@@ -380,8 +380,9 @@
         <IncludeRules context="find_preprocessor" />
         <IncludeRules context="find_comments" />
         <IncludeRules context="find_symbols" />
-        <IncludeRules context="find_end_stmnts" />
         <IncludeRules context="find_begin_stmnts" />
+        <IncludeRules context="find_end_stmnts" />
+        <IncludeRules context="find_mid_stmnts" />
       </context>
 <!--************************END OF THE MAIN CONTEXT*************************-->
 
@@ -458,13 +459,23 @@
 <!-- The following context matches the begin of program units -->
       <context attribute="Normal Text" lineEndContext="#stay" name="find_begin_stmnts">
         <RegExpr attribute="Keyword" context="#stay" String="\bmodule\s+procedure\b" insensitive="TRUE"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\b(program|subroutine|function|module|block\s*data)\b" insensitive="TRUE" beginRegion="Unit"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\b(subroutine|function|block\s*data)\b" insensitive="TRUE" beginRegion="Routine"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\b(program|module|block\s*data)\b" insensitive="TRUE" beginRegion="Routine"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\b(then|do)\b" insensitive="TRUE" beginRegion="Block"/>
       </context>
 <!-- The following context matches the end of program units -->
       <context attribute="Normal Text" lineEndContext="#stay" name="find_end_stmnts">
-        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(program|subroutine|function|module|block\s*data)\b" insensitive="TRUE" endRegion="Unit"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(do|if|select|where|forall|interface)\b" insensitive="TRUE"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\bend\b" insensitive="TRUE" endRegion="Unit"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(subroutine|function|block\s*data)\b" insensitive="TRUE" endRegion="Routine"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(program|module)\b" insensitive="TRUE" endRegion="Routine"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(do|if)\b" insensitive="TRUE" endRegion="Block"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*(select|where|forall|interface)\b" insensitive="TRUE"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\belse\s*if\b" insensitive="TRUE" endRegion="Block"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\b" insensitive="TRUE" endRegion="Routine"/>
+      </context>
+<!-- The following context matches the mid of program units -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="find_mid_stmnts">
+        <RegExpr attribute="Keyword" context="#stay" String="\belse\b" insensitive="TRUE" endRegion="Block" beginRegion="Block"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bcontains\b" insensitive="TRUE" endRegion="Routine" beginRegion="Routine"/>
       </context>
 
 <!-- The following two contexts match declarations -->

@@ -148,6 +148,7 @@ TODO:
   * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
 
 * Good interface for JavaScript indentation scripts
+  * add unindent() function. Call if available, otherwise use current fallback
   It is a good idea to look how other editors deal with indentation, I think vim & emacs are good
   references...
   The INDENTATION file in this directory describes the general concepts.

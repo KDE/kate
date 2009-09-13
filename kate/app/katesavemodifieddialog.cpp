@@ -162,22 +162,24 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
 {
 
   setCaption( i18n("Save Documents") );
-  setButtons( Yes | No | Cancel );
+  setButtons( User1 | User2 | Cancel );
   setObjectName( "KateSaveModifiedDialog" );
   setModal( true );
 
   KGuiItem saveItem = KStandardGuiItem::save();
   saveItem.setText(i18n("&Save Selected"));
-  setButtonGuiItem(KDialog::Yes, saveItem);
-  connect(this, SIGNAL(yesClicked()), this, SLOT(slotSaveSelected()));
+  setButtonGuiItem(KDialog::User1, saveItem);
+  connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSaveSelected()));
 
-  setButtonGuiItem(KDialog::No, KStandardGuiItem::dontSave());
-  connect(this, SIGNAL(noClicked()), this, SLOT(slotDoNotSave()));
+  setButtonGuiItem(KDialog::User2, KStandardGuiItem::dontSave());
+  connect(this, SIGNAL(user2Clicked()), this, SLOT(slotDoNotSave()));
 
   KGuiItem cancelItem = KStandardGuiItem::cancel();
   cancelItem.setText(i18n("Do &Not Close"));
   setButtonGuiItem(KDialog::Cancel, cancelItem);
-
+  setDefaultButton(KDialog::Cancel);
+  setButtonFocus(KDialog::Cancel);
+  
   KVBox *box = new KVBox(this);
   setMainWidget(box);
   new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), box);

@@ -96,6 +96,7 @@ void KateScriptManager::collect(const QString& resourceFile,
 
   m_languageToIndenters.clear();
   m_indentationScriptMap.clear();
+  m_commandLineScriptMap.clear();
 
   // iterate through the files and read info out of cache or file
   for(QStringList::ConstIterator fileit = list.begin(); fileit != list.end(); ++fileit) {
@@ -147,9 +148,8 @@ void KateScriptManager::collect(const QString& resourceFile,
     QString type = pairs.take("type");
     if(type == "indentation") {
       commonHeader.setScriptType(Kate::IndentationScript);
-    }
-    else if (type == "tool") {
-      commonHeader.setScriptType(Kate::IndentationScript);
+    } else if (type == "commands") {
+      commonHeader.setScriptType(Kate::CommandLineScript);
     } else {
       kDebug(13050) << "Script value error: No type specified in script meta data: "
                       << qPrintable(*fileit) << '\n';
@@ -205,8 +205,18 @@ void KateScriptManager::collect(const QString& resourceFile,
       }
       case Kate::CommandLineScript: {
         KateCommandLineScriptHeader header(commonHeader);
-        header.setFunctions(pairs.take("functions").split(",", QString::SkipEmptyParts));
-        m_commandLineScripts.push_back(new KateCommandLineScript(*fileit, header));
+        header.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
+        if (header.functions().isEmpty()) {
+          kDebug(13050) << "Script value error: No functions specified in script meta data: "
+                        << qPrintable(*fileit) << '\n' << "-> skipping script" << '\n';
+          continue;
+        }
+        KateCommandLineScript* script = new KateCommandLineScript(*fileit, header);
+        foreach (const QString function, header.functions()) {
+          kDebug() << "___________:__________" << function;
+          m_commandLineScriptMap.insert(function, script);
+        }
+        m_commandLineScripts.push_back(script);
         break;
       }
       case Kate::UnknownScript:
@@ -289,51 +299,20 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
   QStringList args(_cmd.split(QRegExp("\\s+"), QString::SkipEmptyParts));
   QString cmd(args.first());
   args.removeFirst();
-#if 0
+
   if(!view) {
     errorMsg = i18n("Could not access view");
     return false;
   }
 
-
-  KateView* kateView = qobject_cast<KateView*>(view);
-
-  if(cmd == QLatin1String("js-run-myself"))
-  {
-    KateJSInterpreterContext script("");
-    return script.evalSource(kateView, kateView->doc()->text(), errorMsg);
-  }
-
-  KateJScriptManager::Script *script = m_function2Script.value(cmd);
-
-  if(!script) {
+  if (!m_commandLineScriptMap.contains(cmd)) {
     errorMsg = i18n("Command not found: %1", cmd);
     return false;
   }
+  KateCommandLineScript *script = m_commandLineScriptMap[cmd];
+  script->setView(qobject_cast<KateView*>(view));
 
-  KateJSInterpreterContext *inter = interpreter(script->basename);
-
-  if(!inter)
-  {
-    errorMsg = i18n("Failed to start interpreter for script %1, command %2", script->basename, cmd);
-    return false;
-  }
-
-  KJS::List params;
-
-  foreach(const QString &a, args)
-    params.append(KJS::jsString(a));
-
-  KJS::JSValue *val = inter->callFunction(kateView, inter->interpreter()->globalObject(), KJS::Identifier(cmd),
-                                   params, errorMsg);
-#else
-  if(!view) {
-    errorMsg = i18n("Could not access view");
-    return false;
-  }
-  errorMsg = i18n("Command not found: %1", cmd);
-  return false;
-#endif
+  return script->callFunction(cmd, args, errorMsg);
 }
 
 bool KateScriptManager::help(KTextEditor::View *, const QString &cmd, QString &msg)
@@ -359,17 +338,15 @@ bool KateScriptManager::help(KTextEditor::View *, const QString &cmd, QString &m
 const QStringList &KateScriptManager::cmds()
 {
   static QStringList l;
-#if 0
-  l.clear();
-  l << "js-run-myself";
 
-  QHashIterator<QString, KateJScriptManager::Script*> i(m_function2Script);
-  while (i.hasNext()) {
-      i.next();
-      l << i.key();
+  l.clear();
+  l << "run-buffer";
+
+  QVector<KateCommandLineScript*>::ConstIterator it = m_commandLineScripts.constBegin();
+  for ( ; it != m_commandLineScripts.constEnd(); ++it) {
+    l << (*it)->header().functions();
   }
 
-#endif
   return l;
 }
 

@@ -35,4 +35,31 @@ const KateCommandLineScriptHeader& KateCommandLineScript::header()
   return m_header;
 }
 
+
+bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList args, QString &errorMessage)
+{
+  clearExceptions();
+  QScriptValue command = function(cmd);
+  if(!command.isValid()) {
+    errorMessage = i18n("Function '%1' not found in script: %2", cmd, url());
+    return false;
+  }
+
+  // add the arguments that we are going to pass to the function
+  QScriptValueList arguments;
+  foreach (const QString& arg, args) {
+    arguments << QScriptValue(m_engine, arg);
+  }
+
+  QScriptValue result = command.call(QScriptValue(), arguments);
+  // error during the calling?
+  if(m_engine->hasUncaughtException()) {
+    displayBacktrace(result, i18n("Error calling %1", cmd));
+    errorMessage = i18n("Error calling '%1'. Please check for syntax errors.", cmd);
+    return false;
+  }
+
+  return true;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

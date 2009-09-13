@@ -31,6 +31,7 @@ class KateCommandLineScriptHeader : public KateScriptHeader
   public:
     KateCommandLineScriptHeader() : KateScriptHeader()
     {}
+
     KateCommandLineScriptHeader(const KateScriptHeader& scriptHeader)
     : KateScriptHeader()
     {
@@ -55,9 +56,9 @@ class KateCommandLineScript : public KateScript
   public:
     KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header);
 
-    const QString &triggerCharacters();
-
     const KateCommandLineScriptHeader& header();
+
+    bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
 
   private:
     KateCommandLineScriptHeader m_header;

@@ -1,13 +1,13 @@
 /* kate-script
- * name: C++ Indenter
  * author: Dominik Haumann <dhdev@gmx.de>
  * license: LGPL
- * version: 1
- * kate-version: 3.0
- * functions: sorter
+ * revision: 1
+ * kate-version: 3.4
+ * type: commands
+ * functions: sort
  */
 
-function sorter ()
+function sort()
 {
     if (view.hasSelection()) {
         var start = view.startOfSelection().line;

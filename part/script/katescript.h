@@ -52,7 +52,7 @@ namespace Kate {
   }
 }
 
-//BEGIN KateScriptInformation
+//BEGIN KateScriptHeader
 
 class KateScriptHeader
 {
@@ -92,57 +92,6 @@ class KateScriptHeader
     QString m_kateVersion;    ///< required katepart version
     Kate::ScriptType m_scriptType;  ///< the script type
 };
-
-/**
- * Access to the meta data stored at the top of a script.
- */
-class KateScriptInformation
-{
-  public:
-    /** The name of the script. */
-    QString name;
-    /** A license (e.g LGPL) under which this is distributed */
-    QString license;
-    /** Author of this script in the form "John Smith <john@example.com>" */
-    QString author;
-    /** Script revision, a simple number */
-    int revision;
-    /** Kate version this script is targeted to */
-    QString kateVersion;
-    /**
-     * The script type. One of:
-     *   - KateScriptInformation::IndentationScript
-     *   - ...
-     */
-    Kate::ScriptType type;
-    /**
-     * If this is an indenter, then this specifies the required syntax
-     * highlighting style that must be used for this indenter to work properly.
-     * If this property is empty, the indenter doesn't require a specific style.
-     */
-    QString requiredStyle;
-    /**
-     * If this script is an indenter, then the indentLanguages member specifies
-     * which languages this is an indenter for. The values must correspond with
-     * the name of a programming language given in a highlighting file (e.g "TI Basic")
-     */
-    QStringList indentLanguages;
-    /**
-     * If this script is an indenter, this value controls the priority it will take
-     * when an indenter for one of the supported languages is requested and multiple
-     * indenters are found
-     */
-    int priority;
-    /**
-     * other meta information specified in the file that we don't single out
-     */
-    QHash<QString, QString> other;
-
-    /**
-     * basename of script
-     */
-    QString baseName;
-};
 //END
 
 //BEGIN KateScript
@@ -153,9 +102,8 @@ class KateScriptInformation
 class KateScript {
   public:
     /**
-     * Create a new script representation, passing a file @p url to it and a
-     * KateScriptInformation instance. Loading of the script will happen
-     * lazily
+     * Create a new script representation, passing a file @p url to it.
+     * Loading of the script will happen lazily
      */
     KateScript(const QString &url);
     ~KateScript();
@@ -209,8 +157,6 @@ class KateScript {
     bool m_loadSuccessful;
     /** The script's URL */
     QString m_url;
-    /** Information about the script */
-    KateScriptInformation m_information;
     /** An error message set when an error occurs */
     QString m_errorMessage;
 

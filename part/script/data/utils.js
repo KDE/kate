@@ -27,3 +27,10 @@ function sort()
         document.editEnd();
     }
 }
+
+function help(cmd)
+{
+    if (cmd == "sort") {
+        return "Sort the selected text.";
+    }
+}

@@ -213,7 +213,6 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         KateCommandLineScript* script = new KateCommandLineScript(*fileit, header);
         foreach (const QString function, header.functions()) {
-          kDebug() << "___________:__________" << function;
           m_commandLineScriptMap.insert(function, script);
         }
         m_commandLineScripts.push_back(script);
@@ -223,7 +222,6 @@ void KateScriptManager::collect(const QString& resourceFile,
       default:
         kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
                   << qPrintable(*fileit) << '\n';
-
     }
   }
 
@@ -315,24 +313,20 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
   return script->callFunction(cmd, args, errorMsg);
 }
 
-bool KateScriptManager::help(KTextEditor::View *, const QString &cmd, QString &msg)
+bool KateScriptManager::help(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-  Q_UNUSED(cmd)
-  Q_UNUSED(msg)
-#if 0
-  if (cmd == "js-run-myself") {
-    msg = i18n("This executes the current document as JavaScript within Kate.");
+  if (cmd == "run-buffer") {
+    msg = i18n("This executes the current document or selection as JavaScript within Kate.");
     return true;
   }
 
-  if (!m_scripts.contains(cmd))
+  if (!m_commandLineScriptMap.contains(cmd)) {
+    msg = i18n("Command not found: %1", cmd);
     return false;
+  }
 
-  msg = m_scripts[cmd]->help;
-
-  return !msg.isEmpty();
-#endif
-  return true;
+  KateCommandLineScript *script = m_commandLineScriptMap[cmd];
+  return script->help(view, cmd, msg);
 }
 
 const QStringList &KateScriptManager::cmds()

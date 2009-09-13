@@ -345,47 +345,47 @@ void KateCmdLineEdit::hideEvent(QHideEvent *e)
 
 
 QString KateCmdLineEdit::helptext( const QPoint & ) const
+{
+  QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
+  QString mid = "</big></b></font></td></tr><tr><td>";
+  QString end = "</td></tr></table></div><qt>";
+
+  QString t = text();
+  QRegExp re( "\\s*help\\s+(.*)" );
+  if ( re.indexIn( t ) > -1 )
+  {
+    QString s;
+    // get help for command
+    QString name = re.cap( 1 );
+    if ( name == "list" )
     {
-      QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
-      QString mid = "</big></b></font></td></tr><tr><td>";
-      QString end = "</td></tr></table></div><qt>";
-
-      QString t = text();
-      QRegExp re( "\\s*help\\s+(.*)" );
-      if ( re.indexIn( t ) > -1 )
-      {
-        QString s;
-        // get help for command
-        QString name = re.cap( 1 );
-        if ( name == "list" )
-        {
-          return beg + i18n("Available Commands") + mid
-              + KateCmd::self()->commandList().join(" ")
-              + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
-              + end;
-        }
-        else if ( ! name.isEmpty() )
-        {
-          KTextEditor::Command *cmd = KateCmd::self()->queryCommand( name );
-          if ( cmd )
-          {
-            if ( cmd->help( (KTextEditor::View*)parentWidget(), name, s ) )
-              return beg + name + mid + s + end;
-            else
-              return beg + name + mid + i18n("No help for '%1'",  name ) + end;
-          }
-          else
-            return beg + mid + i18n("No such command <b>%1</b>", name) + end;
-        }
-      }
-
-      return beg + mid + i18n(
-          "<p>This is the Katepart <b>command line</b>.<br />"
-          "Syntax: <code><b>command [ arguments ]</b></code><br />"
-          "For a list of available commands, enter <code><b>help list</b></code><br />"
-          "For help for individual commands, enter <code><b>help &lt;command&gt;</b></code></p>")
+      return beg + i18n("Available Commands") + mid
+          + KateCmd::self()->commandList().join(" ")
+          + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
           + end;
     }
+    else if ( ! name.isEmpty() )
+    {
+      KTextEditor::Command *cmd = KateCmd::self()->queryCommand( name );
+      if ( cmd )
+      {
+        if ( cmd->help( m_view, name, s ) )
+          return beg + name + mid + s + end;
+        else
+          return beg + name + mid + i18n("No help for '%1'",  name ) + end;
+      }
+      else
+        return beg + mid + i18n("No such command <b>%1</b>", name) + end;
+    }
+  }
+
+  return beg + mid + i18n(
+      "<p>This is the Katepart <b>command line</b>.<br />"
+      "Syntax: <code><b>command [ arguments ]</b></code><br />"
+      "For a list of available commands, enter <code><b>help list</b></code><br />"
+      "For help for individual commands, enter <code><b>help &lt;command&gt;</b></code></p>")
+      + end;
+}
 
 
 
@@ -1462,7 +1462,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
   if( m_doc->handleMarkContextMenu( line, pos ) )
     return;
-  
+
   KMenu markMenu;
   KMenu selectDefaultMark;
 

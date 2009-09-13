@@ -62,4 +62,36 @@ bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList a
   return true;
 }
 
+bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QString &msg)
+{
+  setView(qobject_cast<KateView*>(view));
+
+  clearExceptions();
+  QScriptValue helpFunction = function("help");
+  if(!helpFunction.isValid()) {
+    return false;
+  }
+
+  // add the arguments that we are going to pass to the function
+  QScriptValueList arguments;
+  arguments << QScriptValue(m_engine, cmd);
+
+  QScriptValue result = helpFunction.call(QScriptValue(), arguments);
+
+  // error during the calling?
+  if(m_engine->hasUncaughtException()) {
+    displayBacktrace(result, i18n("Error calling 'help %1'", cmd));
+    msg = i18n("Error calling '%1'. Please check for syntax errors.", cmd);
+    return false;
+  }
+
+  if (result.isUndefined() || !result.isString()) {
+    kDebug(13050) << i18n("No help specified for command '%1' in script %2", cmd, url());
+    return false;
+  }
+  msg = result.toString();
+
+  return !msg.isEmpty();
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

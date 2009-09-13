@@ -59,6 +59,7 @@ class KateCommandLineScript : public KateScript
     const KateCommandLineScriptHeader& header();
 
     bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
+    bool help(KTextEditor::View* view, const QString& cmd, QString &msg);
 
   private:
     KateCommandLineScriptHeader m_header;

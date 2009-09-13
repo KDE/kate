@@ -549,6 +549,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
   {
     m_view->setFocus ();
     hideLineEdit();
+    clear();
   }
   else if ( ev->key() == Qt::Key_Up )
     fromHistory( true );

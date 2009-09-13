@@ -1,21 +1,21 @@
-
-/// This file is part of the KDE libraries
-/// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
-///
-/// This library is free software; you can redistribute it and/or
-/// modify it under the terms of the GNU Library General Public
-/// License as published by the Free Software Foundation; either
-/// version 2 of the License, or (at your option) version 3.
-///
-/// This library is distributed in the hope that it will be useful,
-/// but WITHOUT ANY WARRANTY; without even the implied warranty of
-/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-/// Library General Public License for more details.
-///
-/// You should have received a copy of the GNU Library General Public License
-/// along with this library; see the file COPYING.LIB.  If not, write to
-/// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-/// Boston, MA 02110-1301, USA.
+// This file is part of the KDE libraries
+// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Library General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) version 3.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Library General Public License for more details.
+//
+// You should have received a copy of the GNU Library General Public License
+// along with this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #ifndef KATE_SCRIPT_H
 #define KATE_SCRIPT_H
@@ -40,6 +40,8 @@ namespace Kate {
   enum ScriptType {
     /** The script is an indenter */
     IndentationScript,
+    /** The script contains command line commands */
+    CommandLineScript,
     /** Don't know what kind of script this is */
     UnknownScript
   };
@@ -52,10 +54,50 @@ namespace Kate {
 
 //BEGIN KateScriptInformation
 
+class KateScriptHeader
+{
+  public:
+    KateScriptHeader() : m_revision(0), m_scriptType(Kate::UnknownScript)
+    {}
+
+    inline void setLicense(const QString& license)
+    { m_license = license; }
+    inline const QString& license() const
+    { return m_license; }
+
+    inline void setAuthor(const QString& author)
+    { m_author = author; }
+    inline const QString& author() const
+    { return m_author; }
+
+    inline void setRevision(int revision)
+    { m_revision = revision; }
+    inline int revision() const
+    { return m_revision; }
+
+    inline void setKateVersion(const QString& kateVersion)
+    { m_kateVersion = kateVersion; }
+    inline const QString& kateVersion() const
+    { return m_kateVersion; }
+
+    inline void setScriptType(Kate::ScriptType scriptType)
+    { m_scriptType = scriptType; }
+    inline Kate::ScriptType scriptType() const
+    { return m_scriptType; }
+
+  private:
+    QString m_license;        ///< the script's license, e.g. LGPL
+    QString m_author;         ///< the script author, e.g. "John Smith <john@example.com>"
+    int m_revision;           ///< script revision, a simple number, e.g. 1, 2, 3, ...
+    QString m_kateVersion;    ///< required katepart version
+    Kate::ScriptType m_scriptType;  ///< the script type
+};
+
 /**
  * Access to the meta data stored at the top of a script.
  */
-class KateScriptInformation {
+class KateScriptInformation
+{
   public:
     /** The name of the script. */
     QString name;
@@ -63,8 +105,8 @@ class KateScriptInformation {
     QString license;
     /** Author of this script in the form "John Smith <john@example.com>" */
     QString author;
-    /** Script version */
-    QString version;
+    /** Script revision, a simple number */
+    int revision;
     /** Kate version this script is targeted to */
     QString kateVersion;
     /**
@@ -74,7 +116,7 @@ class KateScriptInformation {
      */
     Kate::ScriptType type;
     /**
-     * If this is an indenter, then this specifies the required syntax 
+     * If this is an indenter, then this specifies the required syntax
      * highlighting style that must be used for this indenter to work properly.
      * If this property is empty, the indenter doesn't require a specific style.
      */
@@ -101,7 +143,6 @@ class KateScriptInformation {
      */
     QString baseName;
 };
-
 //END
 
 //BEGIN KateScript
@@ -116,14 +157,11 @@ class KateScript {
      * KateScriptInformation instance. Loading of the script will happen
      * lazily
      */
-    KateScript(const QString &url, const KateScriptInformation &information);
+    KateScript(const QString &url);
     ~KateScript();
 
     /** The script's URL */
     const QString &url() { return m_url; }
-
-    /** Metadata for the script */
-    const KateScriptInformation &information() { return m_information; }
 
     /**
      * Load the script. If loading is successful, returns true. Otherwise, returns

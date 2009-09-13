@@ -29,6 +29,7 @@
 
 #include "katescript.h"
 #include "kateindentscript.h"
+#include "katecommandlinescript.h"
 
 class QString;
 
@@ -43,10 +44,10 @@ class KateScriptManager : public KTextEditor::Command
   public:
     KateScriptManager();
     ~KateScriptManager();
-    
-    /** Get a vector containing all of the scripts that the manager knows about */
-    const QVector<KateScript*> &scripts() { return m_scripts; }
-    
+
+    /** Get all scripts available in the command line */
+    const QVector<KateCommandLineScript*> &commandLineScripts() { return m_commandLineScripts; }
+
     /**
      * Get an indentation script for the given language -- if there is more than
      * one result, this will return the script with the highest priority. If
@@ -54,7 +55,11 @@ class KateScriptManager : public KTextEditor::Command
      * If no scripts are found, 0 is returned.
      */
     KateIndentScript *indenter(const QString &language);
-    
+
+    //
+    // KTextEditor::Command
+    //
+  public:
     /**
      * execute command
      * @param view view to use for execution
@@ -78,9 +83,11 @@ class KateScriptManager : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds();
-    
-    // Helper methods
 
+  //
+  // Helper methods
+  //
+  public:
     /**
      * Find all of the scripts matching the wildcard \p directory. The resource file
      * with the name \p resourceFile is used for caching. If \p force is true, then the
@@ -91,7 +98,7 @@ class KateScriptManager : public KTextEditor::Command
     void collect(const QString& resourceFile,
                  const QString& directory,
                  bool force = false);
-    
+
     /**
      * Extract the meta data from the script at \p url and put in \p pairs.
      * Returns true if metadata was found and extracted successfuly, false otherwise.
@@ -99,27 +106,23 @@ class KateScriptManager : public KTextEditor::Command
     static bool parseMetaInformation(const QString& url, QHash<QString, QString> &pairs);
 
   public:
-    KateIndentScript *indentationScript (const QString &scriptname) { return m_indentationScripts.value(scriptname); }
+    KateIndentScript *indentationScript (const QString &scriptname) { return m_indentationScriptMap.value(scriptname); }
 
-    int indentationScripts () { return m_indentationScriptsList.size(); }
-    KateIndentScript *indentationScriptByIndex (int index) { return m_indentationScriptsList[index]; }
+    int indentationScriptCount () { return m_indentationScripts.size(); }
+    KateIndentScript *indentationScriptByIndex (int index) { return m_indentationScripts[index]; }
 
   private:
-    /** Vector containing all of the scripts that we know about */
-    QVector<KateScript*> m_scripts;
+    /** List of all command line scripts */
+    QVector<KateCommandLineScript*> m_commandLineScripts;
+
+    /** * list of all indentation scripts */
+    QList<KateIndentScript*> m_indentationScripts;
+
+    /** hash of all existing indenter scripts, hashes basename -> script */
+    QHash<QString, KateIndentScript*> m_indentationScriptMap;
+
     /** Map of language to indent scripts */
     QHash<QString, QVector<KateIndentScript*> > m_languageToIndenters;
-
-    /**
-     * hash of all existing indenter scripts
-     * hashes basename -> script
-     */
-    QHash<QString, KateIndentScript*> m_indentationScripts;
-
-    /**
-     * list of all indentation scripts
-     */
-    QList<KateIndentScript*> m_indentationScriptsList;
 };
 
 

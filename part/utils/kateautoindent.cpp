@@ -54,7 +54,7 @@ QStringList KateAutoIndent::listModes ()
 int KateAutoIndent::modeCount ()
 {
   // inbuild modes + scripts
-  return 2 +  KateGlobal::self()->scriptManager()->indentationScripts();
+  return 2 + KateGlobal::self()->scriptManager()->indentationScriptCount();
 }
 
 
@@ -66,7 +66,7 @@ QString KateAutoIndent::modeName (int mode)
   if (mode == 1)
     return MODE_NORMAL;
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().baseName;
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().baseName();
 }
 
 QString KateAutoIndent::modeDescription (int mode)
@@ -77,7 +77,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18nc ("Autoindent mode", "Normal");
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().name;
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().name();
 }
 
 QString KateAutoIndent::modeRequiredStyle(int mode)
@@ -85,7 +85,7 @@ QString KateAutoIndent::modeRequiredStyle(int mode)
   if (mode == 0 || mode == 1 || mode >= modeCount())
     return QString();
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().requiredStyle;
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().requiredStyle();
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
@@ -241,7 +241,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
 
 bool KateAutoIndent::isStyleProvided(KateIndentScript *script)
 {
-  QString requiredStyle = script->information().requiredStyle;
+  QString requiredStyle = script->header().requiredStyle();
   return (requiredStyle.isEmpty() || requiredStyle == doc->highlight()->style());
 }
 
@@ -250,7 +250,7 @@ void KateAutoIndent::setMode (const QString &name)
   // bail out, already set correct mode...
   if (m_mode == name)
     return;
-  
+
   // cleanup
   m_script = 0;
   m_normal = false;
@@ -261,14 +261,14 @@ void KateAutoIndent::setMode (const QString &name)
     m_mode = MODE_NONE;
     return;
   }
-  
+
   if ( name == MODE_NORMAL )
   {
     m_normal = true;
     m_mode = MODE_NORMAL;
     return;
   }
-  
+
   // handle script indenters, if any for this name...
   KateIndentScript *script = KateGlobal::self()->scriptManager()->indentationScript(name);
   if ( script )
@@ -277,7 +277,7 @@ void KateAutoIndent::setMode (const QString &name)
     {
       m_script = script;
       m_mode = name;
-      
+
       kDebug( 13060 ) << "mode: " << name << "accepted";
       return;
     }
@@ -286,11 +286,11 @@ void KateAutoIndent::setMode (const QString &name)
       kWarning( 13060 ) << "mode" << name << "requires a different highlight style";
     }
   }
-  else 
+  else
   {
     kWarning( 13060 ) << "mode" << name << "does not exist";
   }
-  
+
   // Fall back to normal
   m_normal = true;
   m_mode = MODE_NORMAL;

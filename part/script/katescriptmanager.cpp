@@ -45,7 +45,8 @@ KateScriptManager::KateScriptManager() : KTextEditor::Command()
 
 KateScriptManager::~KateScriptManager()
 {
-  qDeleteAll(m_scripts);
+  qDeleteAll(m_indentationScripts);
+  qDeleteAll(m_commandLineScripts);
 }
 
 KateIndentScript *KateScriptManager::indenter(const QString &language)
@@ -53,11 +54,11 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
   KateIndentScript *highestPriorityIndenter = 0;
   foreach(KateIndentScript *indenter, m_languageToIndenters.value(language.toLower())) {
     // don't overwrite if there is already a result with a higher priority
-    if(highestPriorityIndenter && indenter->information().priority < highestPriorityIndenter->information().priority) {
+    if(highestPriorityIndenter && indenter->header().priority() < highestPriorityIndenter->header().priority()) {
       kDebug(13050) << "Not overwriting indenter for"
                     << language << "as the priority isn't big enough (" <<
-                    indenter->information().priority << '<'
-                    << highestPriorityIndenter->information().priority << ')';
+                    indenter->header().priority() << '<'
+                    << highestPriorityIndenter->header().priority() << ')';
     }
     else {
       highestPriorityIndenter = indenter;
@@ -88,10 +89,13 @@ void KateScriptManager::collect(const QString& resourceFile,
   // get a list of all .js files
   const QStringList list = KGlobal::dirs()->findAllResources("data", directory, KStandardDirs::NoDuplicates);
   // clear out the old scripts and reserve enough space
-  qDeleteAll(m_scripts);
-  m_scripts.clear();
+  qDeleteAll(m_indentationScripts);
+  qDeleteAll(m_commandLineScripts);
+  m_indentationScripts.clear();
+  m_commandLineScripts.clear();
+
   m_languageToIndenters.clear();
-  m_scripts.reserve(list.size());
+  m_indentationScriptMap.clear();
 
   // iterate through the files and read info out of cache or file
   for(QStringList::ConstIterator fileit = list.begin(); fileit != list.end(); ++fileit) {
@@ -139,42 +143,48 @@ void KateScriptManager::collect(const QString& resourceFile,
       continue;
     }
     // make sure we have the necessary meta data items we need for proper execution
-    KateScriptInformation information;
-    information.baseName = baseName;
-    information.name = pairs.take("name");
-    if(information.name.isNull()) {
-      kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
-                << qPrintable(*fileit) << '\n';
-      continue;
-    }
-    information.license = pairs.take("license");
-    information.author = pairs.take("author");
-    information.version = pairs.take("version");
-    information.kateVersion = pairs.take("kate-version");
+    KateScriptHeader commonHeader;
     QString type = pairs.take("type");
     if(type == "indentation") {
-      information.type = Kate::IndentationScript;
+      commonHeader.setScriptType(Kate::IndentationScript);
     }
-    else {
-      information.type = Kate::UnknownScript;
+    else if (type == "tool") {
+      commonHeader.setScriptType(Kate::IndentationScript);
+    } else {
+      kDebug(13050) << "Script value error: No type specified in script meta data: "
+                      << qPrintable(*fileit) << '\n';
+      continue;
     }
-    // everything else we don't know about explicitly. It goes into other
-    information.other = pairs;
+
+    commonHeader.setLicense(pairs.take("license"));
+    commonHeader.setAuthor(pairs.take("author"));
+    commonHeader.setRevision(pairs.take("revision").toInt());
+    commonHeader.setKateVersion(pairs.take("kate-version"));
+
     // now, cast accordingly based on type
-    switch(information.type) {
+    switch(commonHeader.scriptType()) {
       case Kate::IndentationScript: {
+        KateIndentScriptHeader header(commonHeader);
+        header.setName(pairs.take("name"));
+        header.setBaseName(baseName);
+        if (header.name().isNull()) {
+          kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
+                 << qPrintable(*fileit) << '\n' << "-> skipping indenter" << '\n';
+          continue;
+        }
+
         // required style?
-        information.requiredStyle = pairs.take("required-syntax-style");
+        header.setRequiredStyle(pairs.take("required-syntax-style"));
         // which languages does this support?
         QString indentLanguages = pairs.take("indent-languages");
         if(!indentLanguages.isNull()) {
-          information.indentLanguages = indentLanguages.split(',');
+          header.setIndentLanguages(indentLanguages.split(','));
         }
         else {
-          information.indentLanguages = QStringList() << information.name;
+          header.setIndentLanguages(QStringList() << header.name());
           kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
                     << "script " << qPrintable(*fileit) << ". Using the name ("
-                    << qPrintable(information.name) << ")\n";
+                    << qPrintable(header.name()) << ")\n";
         }
         // priority?
         bool convertedToInt;
@@ -183,22 +193,27 @@ void KateScriptManager::collect(const QString& resourceFile,
           kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
                     << "in: " << qPrintable(*fileit) << ". Setting priority to 0\n";
         }
-        information.priority = convertedToInt ? priority : 0;
-        KateIndentScript *script = new KateIndentScript(*fileit, information);
-        foreach(const QString &language, information.indentLanguages) {
+        header.setPriority(convertedToInt ? priority : 0);
+        KateIndentScript *script = new KateIndentScript(*fileit, header);
+        foreach(const QString &language, header.indentLanguages()) {
           m_languageToIndenters[language.toLower()].push_back(script);
         }
-        m_scripts.push_back(script);
 
-        m_indentationScripts.insert(information.baseName, script);
-        m_indentationScriptsList.append(script);
+        m_indentationScriptMap.insert(header.baseName(), script);
+        m_indentationScripts.append(script);
+        break;
+      }
+      case Kate::CommandLineScript: {
+        KateCommandLineScriptHeader header(commonHeader);
+        header.setFunctions(pairs.take("functions").split(",", QString::SkipEmptyParts));
+        m_commandLineScripts.push_back(new KateCommandLineScript(*fileit, header));
         break;
       }
       case Kate::UnknownScript:
       default:
         kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
                   << qPrintable(*fileit) << '\n';
-        m_scripts.push_back(new KateScript(*fileit, information));
+
     }
   }
 

@@ -315,6 +315,11 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( reloadAll() ) );
   a->setWhatsThis(i18n("Reload all open documents."));
 
+  a = actionCollection()->addAction( "file_close_orphaned" );
+  a->setText( i18n("Close orphaned") );
+  connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( closeOrphaned() ) );
+  a->setWhatsThis(i18n("Close all documents in the file list, which could not be reopened, because they are not accesssible anymore"));
+  
   actionCollection()->addAction( KStandardAction::Close, "file_close", m_viewManager, SLOT( slotDocumentClose() ) )
   ->setWhatsThis(i18n("Close the current document."));
 

@@ -43,6 +43,7 @@
 #include <KIO/DeleteJob>
 #include <KIconLoader>
 #include <KProgressDialog>
+#include <KColorScheme>
 
 #include <QDateTime>
 #include <QTextCodec>
@@ -154,6 +155,7 @@ KTextEditor::Document *KateDocManager::createDoc ()
   modelitem->setEditable(false);
   modelitem->setIcon(KIcon("null"));
   modelitem->setToolTip(doc->url().prettyUrl());
+  modelitem->setData(false,RestoreOpeningFailedRole);
   appendRow(modelitem);
   m_documentItemMapping.insert(doc, modelitem);
 
@@ -512,6 +514,18 @@ void KateDocManager::reloadAll()
     doc->documentReload();
 }
 
+void KateDocManager::closeOrphaned()
+{
+  foreach ( KTextEditor::Document *doc, m_docList )
+  {
+    QStandardItem *item = m_documentItemMapping[doc];
+    if (item->data(RestoreOpeningFailedRole).toBool()) {
+      closeDocument(doc);
+    }
+  }
+}
+
+
 void KateDocManager::saveDocumentList (KConfig* config)
 {
   KConfigGroup openDocGroup(config, "Open Documents");
@@ -724,13 +738,20 @@ QModelIndex KateDocManager::indexForDocument(KTextEditor::Document *document)
 
 void KateDocManager::documentOpened()
 {
+  KColorScheme colors(QPalette::Active);
+  
   KTextEditor::Document *doc = qobject_cast<KTextEditor::Document*>(sender());
   if (!doc) return; // should never happen, but who knows
   doc->setSuppressOpeningErrorDialogs(false);
   disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
   disconnect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
   if (doc->openingError())
-    m_openingErrors += '\n' + doc->openingErrorMessage();
+  {
+    m_openingErrors += '\n' + doc->openingErrorMessage()+"\n\n";
+    QStandardItem *item = m_documentItemMapping[doc];
+    item->setData(true,RestoreOpeningFailedRole);
+    item->setData(colors.foreground(KColorScheme::InactiveText).color(),Qt::ForegroundRole);
+  }
   --m_documentStillToRestore;
 
   if (m_documentStillToRestore == 0)

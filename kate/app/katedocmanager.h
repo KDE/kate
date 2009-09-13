@@ -64,7 +64,7 @@ class KateDocManager : public QStandardItemModel
     KateDocManager (QObject *parent);
     ~KateDocManager ();
 
-    enum CustomRoles {DocumentRole = Qt::UserRole + 1, OpeningOrderRole, UrlRole };
+    enum CustomRoles {DocumentRole = Qt::UserRole + 1, OpeningOrderRole, UrlRole, RestoreOpeningFailedRole };
 
     /**
      * should the document manager suppress all opening error dialogs on openUrl?
@@ -156,6 +156,10 @@ class KateDocManager : public QStandardItemModel
 	 */
 	void reloadAll();
 
+        /**
+         * close all documents, which could not be reopened
+         */
+        void closeOrphaned();
   Q_SIGNALS:
 
     /**

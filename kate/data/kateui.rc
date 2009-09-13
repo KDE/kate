@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="61">
+<kpartgui name="kate" version="62">
 
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
@@ -19,6 +19,7 @@
 
     <DefineGroup name="revert_merge" />
     <Action name="file_reload_all" />
+    <Action name="file_close_orphaned" />
     <DefineGroup name="print_merge" />
     <DefineGroup name="export_merge" />
     <Separator />

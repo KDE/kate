@@ -32,6 +32,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kstandarddirs.h>
 
 /**
  * conversion functions
@@ -66,6 +67,12 @@ namespace Kate {
   }
 }
 
+
+
+bool KateScript::s_katePartApiLoaded = false;
+QString KateScript::s_katePartApi = QString();
+
+
 KateScript::KateScript(const QString &url)
   : m_loaded(false)
   , m_loadSuccessful(false)
@@ -74,6 +81,20 @@ KateScript::KateScript(const QString &url)
   , m_document(0)
   , m_view(0)
 {
+  // read katepart javascript api
+  if (!s_katePartApiLoaded) {
+    s_katePartApiLoaded = true;
+    QString url = KStandardDirs::locate("data", "katepart/script/katepartapi.js");
+    QFile file(url);
+    if (!file.open(QIODevice::ReadOnly)) {
+      kDebug(13050) << i18n("Unable to find 'katepartapi.js'");
+    } else {
+      QTextStream stream(&file);
+      stream.setCodec("UTF-8");
+      s_katePartApi = stream.readAll();
+      file.close();
+    }
+  }
 }
 
 KateScript::~KateScript()
@@ -141,8 +162,9 @@ bool KateScript::load()
   QString source = stream.readAll();
   file.close();
 
-  // evaluate it
+  // create script engine and add Kate Part Scripting API
   m_engine = new QScriptEngine();
+  QScriptValue cursorPrototype = m_engine->evaluate(s_katePartApi);
 
   // register our types
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
@@ -151,6 +173,8 @@ bool KateScript::load()
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, QString("Error loading %1\n").arg(m_url));
     m_errorMessage = i18n("Error loading script %1", m_url);
+    delete m_engine;
+    m_engine = 0;
     m_loadSuccessful = false;
     return false;
   }

@@ -168,6 +168,10 @@ class KateScript {
     /** document/view wrapper objects */
     KateScriptDocument *m_document;
     KateScriptView *m_view;
+
+  private:
+    static bool s_katePartApiLoaded;
+    static QString s_katePartApi;
 };
 
 //END

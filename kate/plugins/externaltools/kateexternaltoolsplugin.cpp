@@ -52,7 +52,21 @@ KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QList<Q
 
 Kate::PluginView *KateExternalToolsPlugin::createView (Kate::MainWindow *mainWindow)
 {
-  return new KateExternalToolsPluginView (mainWindow);
+  KateExternalToolsPluginView *view= new KateExternalToolsPluginView (mainWindow);
+  connect(view,SIGNAL(destroyed(QObject*)),this,SLOT(viewDestroyed(QObject*)));
+  m_views.append(view);
+  return view;
+}
+
+void KateExternalToolsPlugin::viewDestroyed(QObject *view)
+{
+  m_views.removeAll(dynamic_cast<KateExternalToolsPluginView*>(view));
+}
+
+void KateExternalToolsPlugin::rebuildMenus() {
+  foreach(KateExternalToolsPluginView* view,m_views) {
+    view->rebuildMenu();
+  }
 }
 
 uint KateExternalToolsPlugin::configPages() const
@@ -63,7 +77,7 @@ uint KateExternalToolsPlugin::configPages() const
 Kate::PluginConfigPage *KateExternalToolsPlugin::configPage (uint number, QWidget *parent, const char *name )
 {
   if (number == 0) {
-    return new KateExternalToolsConfigWidget(parent, name);
+    return new KateExternalToolsConfigWidget(parent, this, name);
   }
   return 0;
 }
@@ -112,6 +126,18 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
   }
 
   mainWindow->guiFactory()->addClient (this);
+}
+
+void KateExternalToolsPluginView::rebuildMenu() {
+  kDebug(13001);
+  if (externalTools) {
+    KXMLGUIFactory *f=factory();
+    f->removeClient(this);
+    reloadXML();
+    externalTools->reload();
+    kDebug(13001)<<"has just returned from externalTools->reload()";
+    f->addClient(this);
+  }
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView ()

@@ -42,6 +42,8 @@
 #include <QPixmap>
 #include <QHash>
 
+class KateExternalToolsPlugin;
+
 /**
  * The external tools action
  * This action creates a menu, in which each item will launch a process
@@ -162,7 +164,7 @@ class KateExternalToolsConfigWidget
 {
     Q_OBJECT
   public:
-    KateExternalToolsConfigWidget( QWidget *parent, const char* name);
+    KateExternalToolsConfigWidget( QWidget *parent, KateExternalToolsPlugin *plugin, const char* name);
     virtual ~KateExternalToolsConfigWidget();
 
     virtual void apply();
@@ -191,6 +193,7 @@ class KateExternalToolsConfigWidget
     class KConfig *config;
 
     bool m_changed;
+    KateExternalToolsPlugin *m_plugin;
 };
 
 /**
@@ -235,9 +238,9 @@ class KateExternalToolServiceEditor : public KDialog
 
   private Q_SLOTS:
     /**
-     * Run when the OK button is clicked, to ensure critical values are provided
+     * Run when the OK/Cancel button is clicked, to ensure critical values are provided
      */
-    void slotOk();
+    void slotButtonClicked(int button);
     /**
      * show a mimetype chooser dialog
      */

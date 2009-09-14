@@ -22,6 +22,7 @@
 // Icons
 // Direct shortcut setting
 //BEGIN Includes
+#include "kateexternaltoolsplugin.h"
 #include "kateexternaltools.h"
 #include "kateexternaltools.moc"
 #include <KTextEditor/View>
@@ -349,7 +350,9 @@ KateExternalToolsMenuAction::~KateExternalToolsMenuAction()
 
 void KateExternalToolsMenuAction::reload()
 {
+  bool needs_readd=(m_actionCollection->takeAction(this)!=0);
   m_actionCollection->clear ();
+  if (needs_readd) m_actionCollection->addAction("tools_external",this);
   menu()->clear();
 
   // load all the tools, and create a action for each of them
@@ -598,19 +601,24 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                             "If you specify a name here, you can invoke the command from the view "
                             "command line with exttool-the_name_you_specified_here. "
                             "Please do not use spaces or tabs in the name."));
-  connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
 }
 
-void KateExternalToolServiceEditor::slotOk()
+void KateExternalToolServiceEditor::slotButtonClicked(int button)
 {
-  if ( leName->text().isEmpty() ||
-       teCommand->text().isEmpty() )
-  {
-    KMessageBox::information( this, i18n("You must specify at least a name and a command") );
-    return;
+  switch( button ) {
+    case Ok:
+      if ( leName->text().isEmpty() || teCommand->text().isEmpty() )
+      {
+        KMessageBox::information( this, i18n("You must specify at least a name and a command") );
+        return;
+      }
+      accept();
+      break;
+    case Cancel:
+      reject();
+      break;
   }
 
-  KDialog::accept();
 }
 
 void KateExternalToolServiceEditor::showMTDlg()
@@ -626,9 +634,10 @@ void KateExternalToolServiceEditor::showMTDlg()
 //END KateExternalToolServiceEditor
 
 //BEGIN KateExternalToolsConfigWidget
-KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, const char* name)
+KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, KateExternalToolsPlugin *plugin, const char* name)
     : Kate::PluginConfigPage( parent, name )
     , m_changed( false )
+    , m_plugin(plugin)
 {
   setupUi(this);
 
@@ -739,7 +748,7 @@ void KateExternalToolsConfigWidget::apply()
   {
     for ( QStringList::iterator it = m_removed.begin(); it != m_removed.end(); ++it )
     {
-      if ( config->hasGroup( *it ) )
+      if ( config->hasGroup( *it ) )    
         config->deleteGroup( *it  );
     }
     QStringList removed = config->group("Global").readEntry( "removed", QStringList() );
@@ -758,9 +767,10 @@ void KateExternalToolsConfigWidget::apply()
     }
     config->group("Global").writeEntry( "removed", removed );
   }
-
+                    
   config->sync();
-}
+  m_plugin->rebuildMenus();
+} 
 
 void KateExternalToolsConfigWidget::slotSelectionChanged()
 {

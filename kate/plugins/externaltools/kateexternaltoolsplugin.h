@@ -29,6 +29,7 @@
 
 #include "kateexternaltools.h"
 
+class KateExternalToolsPluginView;
 
 class KateExternalToolsPlugin
   : public Kate::Plugin
@@ -42,8 +43,14 @@ class KateExternalToolsPlugin
     virtual ~KateExternalToolsPlugin()
     {}
 
+    void rebuildMenus();
+
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
+  private: 
+    QList<KateExternalToolsPluginView*> m_views;
+  private Q_SLOT:
+    void viewDestroyed(QObject *view);
   //
   // ConfigInterface
   //
@@ -53,6 +60,7 @@ class KateExternalToolsPlugin
       virtual QString configPageName (uint number = 0) const;
       virtual QString configPageFullName (uint number = 0) const;
       virtual KIcon configPageIcon (uint number = 0) const;
+           
 };
 
 class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
@@ -69,6 +77,8 @@ class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUI
      * Virtual destructor.
      */
     ~KateExternalToolsPluginView ();
+ 
+    void rebuildMenu();
 
     KateExternalToolsMenuAction *externalTools;
 };

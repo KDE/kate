@@ -13,7 +13,7 @@ function sort()
         var start = view.startOfSelection().line;
         var end = view.endOfSelection().line;
 
-        var text = document.textRange(start, 0, end, document.lineLength(end));
+        var text = document.text(start, 0, end, document.lineLength(end));
 
         var lines = text.split("\n");
         lines.sort();
@@ -42,6 +42,8 @@ function test()
     debug("range:" + range.start.column);
     debug("range:" + range.end.line);
     debug("range:" + range.end.column);
+
+    view.setCursorPosition(start);
 }
 
 function help(cmd)

@@ -33,7 +33,7 @@ class KateView;
  *
  * We inherit from QScriptable to have more thight access to the scripting
  * engine.
- * 
+ *
  * setView _must_ be called before using any other method. This is not checked
  * for the sake of speed.
  */
@@ -41,19 +41,20 @@ class KateScriptView : public QObject, protected QScriptable
 {
   /// Properties are accessible with a nicer syntax from JavaScript
   Q_OBJECT
-  
+
   public:
     KateScriptView (QObject *parent=0);
     void setView (KateView *view);
     KateView *view();
-    
+
     Q_INVOKABLE KTextEditor::Cursor cursorPosition ();
     /**
      * Set the cursor position in the view.
      * @since 4.4
      */
     Q_INVOKABLE void setCursorPosition (int line, int column);
-  
+    Q_INVOKABLE void setCursorPosition (const KTextEditor::Cursor& cursor);
+
   private:
     KateView *m_view;
 };

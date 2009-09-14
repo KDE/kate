@@ -39,17 +39,35 @@
  */
 static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)
 {
-  QScriptValue obj = engine->newObject();
-  obj.setProperty("line", QScriptValue(engine, cursor.line()));
-  obj.setProperty("column", QScriptValue(engine, cursor.column()));
-  return obj;
+  QString code = QString("new Cursor(%1, %2);").arg(cursor.line())
+                                               .arg(cursor.column());
+  return engine->evaluate(code);
 }
 
 static void cursorFromScriptValue(const QScriptValue &obj, KTextEditor::Cursor &cursor)
 {
-  cursor.setLine (obj.property("line").toInt32());
-  cursor.setColumn (obj.property("column").toInt32());
+  cursor.setPosition(obj.property("line").toInt32(),
+                     obj.property("column").toInt32());
 }
+
+static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor::Range &range)
+{
+  QString code = QString("new Range(%1, %2, %3, %4);").arg(range.start().line())
+                                                      .arg(range.start().column())
+                                                      .arg(range.end().line())
+                                                      .arg(range.end().column());
+  return engine->evaluate(code);
+}
+
+static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
+{
+  range.start().setPosition(obj.property("start.line").toInt32(),
+                            obj.property("start.column").toInt32());
+  range.end().setPosition(obj.property("end.line").toInt32(),
+                          obj.property("end.column").toInt32());
+}
+
+
 
 namespace Kate {
   namespace Script {
@@ -162,12 +180,12 @@ bool KateScript::load()
   QString source = stream.readAll();
   file.close();
 
-  // create script engine and add Kate Part Scripting API
+  // create script engine, register meta types and add Kate Part Scripting API
   m_engine = new QScriptEngine();
+  qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
+  qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
   QScriptValue cursorPrototype = m_engine->evaluate(s_katePartApi);
 
-  // register our types
-  qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
 
   QScriptValue result = m_engine->evaluate(source, m_url);
   if(m_engine->hasUncaughtException()) {

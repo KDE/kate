@@ -263,54 +263,84 @@ QString KateScriptDocument::text()
   return m_document->text();
 }
 
-QString KateScriptDocument::textRange(int i, int j, int k, int l)
+QString KateScriptDocument::text(int fromLine, int fromColumn, int toLine, int toColumn)
 {
-  return m_document->text(KTextEditor::Range(i, j, k, l));
+  return text(KTextEditor::Range(fromLine, fromColumn, toLine, toColumn));
 }
 
-QString KateScriptDocument::line(int i)
+QString KateScriptDocument::text(const KTextEditor::Cursor& from, const KTextEditor::Cursor& to)
 {
-  return m_document->line (i);
+  return text(KTextEditor::Range(from, to));
 }
 
-QString KateScriptDocument::wordAt(int i, int j)
+QString KateScriptDocument::text(const KTextEditor::Range& range)
 {
-  return m_document->getWord(KTextEditor::Cursor(i, j));
+  return m_document->text(range);
 }
 
-QString KateScriptDocument::charAt(int i, int j)
+QString KateScriptDocument::line(int line)
 {
-  const QChar c = m_document->character (KTextEditor::Cursor(i, j));
+  return m_document->line(line);
+}
+
+QString KateScriptDocument::wordAt(int line, int column)
+{
+  return m_document->getWord(KTextEditor::Cursor(line, column));
+}
+
+QString KateScriptDocument::wordAt(const KTextEditor::Cursor& cursor)
+{
+  return m_document->getWord(cursor);
+}
+
+QString KateScriptDocument::charAt(int line, int column)
+{
+  return charAt(KTextEditor::Cursor(line, column));
+}
+
+QString KateScriptDocument::charAt(const KTextEditor::Cursor& cursor)
+{
+  const QChar c = m_document->character(cursor);
   return c.isNull() ? "" : QString(c);
 }
 
-QString KateScriptDocument::firstChar(int i)
+QString KateScriptDocument::firstChar(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
   if(!textLine) return "";
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->firstChar());
   return c.isNull() ? "" : QString(c);
 }
 
-QString KateScriptDocument::lastChar(int i)
+QString KateScriptDocument::lastChar(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
   if(!textLine) return "";
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->lastChar());
   return c.isNull() ? "" : QString(c);
 }
 
-bool KateScriptDocument::isSpace(int i, int j)
+bool KateScriptDocument::isSpace(int line, int column)
 {
-  return m_document->character (KTextEditor::Cursor(i, j)).isSpace();
+  return isSpace(KTextEditor::Cursor(line, column));
 }
 
-bool KateScriptDocument::matchesAt(int i, int j, const QString &s)
+bool KateScriptDocument::isSpace(const KTextEditor::Cursor& cursor)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
-  return textLine ? textLine->matchesAt(j, s) : false;
+  return m_document->character(cursor).isSpace();
+}
+
+bool KateScriptDocument::matchesAt(int line, int column, const QString &s)
+{
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  return textLine ? textLine->matchesAt(column, s) : false;
+}
+
+bool KateScriptDocument::matchesAt(const KTextEditor::Cursor& cursor, const QString &s)
+{
+  return matchesAt(cursor.line(), cursor.column(), s);
 }
 
 bool KateScriptDocument::setText(const QString &s)
@@ -323,37 +353,56 @@ bool KateScriptDocument::clear()
   return m_document->clear();
 }
 
-bool KateScriptDocument::truncate(int i, int j)
+bool KateScriptDocument::truncate(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
-  if(textLine) textLine->truncate(j);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  if(textLine) textLine->truncate(column);
   return static_cast<bool>(textLine);
 }
 
-bool KateScriptDocument::insertText(int i, int j, const QString &s)
+bool KateScriptDocument::truncate(const KTextEditor::Cursor& cursor)
 {
-  return m_document->insertText (KTextEditor::Cursor(i, j), s);
+  return truncate(cursor.line(), cursor.column());
 }
 
-bool KateScriptDocument::removeText(int i, int j, int k, int l)
+bool KateScriptDocument::insertText(int line, int column, const QString &s)
 {
-  return m_document->removeText(KTextEditor::Range(i, j, k, l));
+  return insertText(KTextEditor::Cursor(line, column), s);
 }
 
-bool KateScriptDocument::insertLine(int i, const QString &s)
+bool KateScriptDocument::insertText(const KTextEditor::Cursor& cursor, const QString &s)
 {
-  return m_document->insertLine (i, s);
+  return m_document->insertText(cursor, s);
 }
 
-bool KateScriptDocument::removeLine(int i)
+bool KateScriptDocument::removeText(int fromLine, int fromColumn, int toLine, int toColumn)
 {
-  return m_document->removeLine (i);
+  return removeText(KTextEditor::Range(fromLine, fromColumn, toLine, toColumn));
 }
 
-void KateScriptDocument::joinLines(int i, int j)
+bool KateScriptDocument::removeText(const KTextEditor::Cursor& from, const KTextEditor::Cursor& to)
 {
-  m_document->joinLines (i, j);
-  return;
+  return removeText(KTextEditor::Range(from, to));
+}
+
+bool KateScriptDocument::removeText(const KTextEditor::Range& range)
+{
+  return m_document->removeText(range);
+}
+
+bool KateScriptDocument::insertLine(int line, const QString &s)
+{
+  return m_document->insertLine (line, s);
+}
+
+bool KateScriptDocument::removeLine(int line)
+{
+  return m_document->removeLine (line);
+}
+
+void KateScriptDocument::joinLines(int startLine, int endLine)
+{
+  m_document->joinLines (startLine, endLine);
 }
 
 int KateScriptDocument::lines()
@@ -366,52 +415,60 @@ int KateScriptDocument::length()
   return m_document->totalCharacters();
 }
 
-int KateScriptDocument::lineLength(int i)
+int KateScriptDocument::lineLength(int line)
 {
-  return m_document->lineLength(i);
+  return m_document->lineLength(line);
 }
 
 void KateScriptDocument::editBegin()
 {
   m_document->editBegin();
-  return;
 }
 
 void KateScriptDocument::editEnd()
 {
   m_document->editEnd ();
-  return;
 }
 
-int KateScriptDocument::firstColumn(int i)
+int KateScriptDocument::firstColumn(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
   return textLine ? textLine->firstChar() : -1;
 }
 
-int KateScriptDocument::lastColumn(int i)
+int KateScriptDocument::lastColumn(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
   return textLine ? textLine->lastChar() : -1;
 }
 
-int KateScriptDocument::prevNonSpaceColumn(int i, int j)
+int KateScriptDocument::prevNonSpaceColumn(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
   if(!textLine) return -1;
-  return textLine->previousNonSpaceChar(j);
+  return textLine->previousNonSpaceChar(column);
 }
 
-int KateScriptDocument::nextNonSpaceColumn(int i, int j)
+int KateScriptDocument::prevNonSpaceColumn(const KTextEditor::Cursor& cursor)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
-  if(!textLine) return -1;
-  return textLine->nextNonSpaceChar(j);
+  return prevNonSpaceColumn(cursor.line(), cursor.column());
 }
 
-int KateScriptDocument::prevNonEmptyLine(int i)
+int KateScriptDocument::nextNonSpaceColumn(int line, int column)
 {
-  const int startLine = i;
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  if(!textLine) return -1;
+  return textLine->nextNonSpaceChar(column);
+}
+
+int KateScriptDocument::nextNonSpaceColumn(const KTextEditor::Cursor& cursor)
+{
+  return nextNonSpaceColumn(cursor.line(), cursor.column());
+}
+
+int KateScriptDocument::prevNonEmptyLine(int line)
+{
+  const int startLine = line;
   for (int currentLine = startLine; currentLine >= 0; --currentLine) {
     KateTextLine::Ptr textLine = m_document->plainKateTextLine(currentLine);
     if(!textLine)
@@ -422,9 +479,9 @@ int KateScriptDocument::prevNonEmptyLine(int i)
   return -1;
 }
 
-int KateScriptDocument::nextNonEmptyLine(int i)
+int KateScriptDocument::nextNonEmptyLine(int line)
 {
-  const int startLine = i;
+  const int startLine = line;
   for (int currentLine = startLine; currentLine < m_document->lines(); ++currentLine) {
     KateTextLine::Ptr textLine = m_document->plainKateTextLine(currentLine);
     if(!textLine)
@@ -435,34 +492,34 @@ int KateScriptDocument::nextNonEmptyLine(int i)
   return -1;
 }
 
-bool KateScriptDocument::isInWord(const QString &s, int i)
+bool KateScriptDocument::isInWord(const QString &character, int attribute)
 {
-  return m_document->highlight()->isInWord(s.at(0), i);
+  return m_document->highlight()->isInWord(character.at(0), attribute);
 }
 
-bool KateScriptDocument::canBreakAt(const QString &s, int i)
+bool KateScriptDocument::canBreakAt(const QString &character, int attribute)
 {
-  return m_document->highlight()->canBreakAt(s.at(0), i);
+  return m_document->highlight()->canBreakAt(character.at(0), attribute);
 }
 
-bool KateScriptDocument::canComment(int i, int j)
+bool KateScriptDocument::canComment(int startAttribute, int endAttribute)
 {
-  return m_document->highlight()->canComment(i, j);
+  return m_document->highlight()->canComment(startAttribute, endAttribute);
 }
 
-QString KateScriptDocument::commentMarker(int i)
+QString KateScriptDocument::commentMarker(int attribute)
 {
-  return m_document->highlight()->getCommentSingleLineStart(i);
+  return m_document->highlight()->getCommentSingleLineStart(attribute);
 }
 
-QString KateScriptDocument::commentStart(int i)
+QString KateScriptDocument::commentStart(int attribute)
 {
-  return m_document->highlight()->getCommentStart(i);
+  return m_document->highlight()->getCommentStart(attribute);
 }
 
-QString KateScriptDocument::commentEnd(int i)
+QString KateScriptDocument::commentEnd(int attribute)
 {
-  return m_document->highlight()->getCommentEnd(i);
+  return m_document->highlight()->getCommentEnd(attribute);
 }
 
 int KateScriptDocument::attribute(int line, int column)
@@ -472,9 +529,19 @@ int KateScriptDocument::attribute(int line, int column)
   return textLine->attribute(column);
 }
 
+int KateScriptDocument::attribute(const KTextEditor::Cursor& cursor)
+{
+  return attribute(cursor.line(), cursor.column());
+}
+
 bool KateScriptDocument::isAttribute(int line, int column, int attr)
 {
   return attr == attribute(line, column);
+}
+
+bool KateScriptDocument::isAttribute(const KTextEditor::Cursor& cursor, int attr)
+{
+  return isAttribute(cursor.line(), cursor.column(), attr);
 }
 
 QString KateScriptDocument::attributeName(int line, int column)
@@ -485,9 +552,19 @@ QString KateScriptDocument::attributeName(int line, int column)
   return a->property(KateExtendedAttribute::AttributeName).toString();
 }
 
+QString KateScriptDocument::attributeName(const KTextEditor::Cursor& cursor)
+{
+  return attributeName(cursor.line(), cursor.column());
+}
+
 bool KateScriptDocument::isAttributeName(int line, int column, const QString &name)
 {
   return name == attributeName(line, column);
+}
+
+bool KateScriptDocument::isAttributeName(const KTextEditor::Cursor& cursor, const QString &name)
+{
+  return isAttributeName(cursor.line(), cursor.column(), name);
 }
 
 QString KateScriptDocument::variable(const QString &s)

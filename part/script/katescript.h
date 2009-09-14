@@ -170,7 +170,9 @@ class KateScript {
     KateScriptView *m_view;
 
   private:
+    /** True, if the katepart.js file is alrady loaded, otherwise false */
     static bool s_katePartApiLoaded;
+    /** contains the katepart.js file content, acts as cache */
     static QString s_katePartApi;
 };
 

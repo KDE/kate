@@ -252,7 +252,7 @@ namespace JoWenn {
     document->removeText(word);
     KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(document->activeView());
     if (ti)
-      ti->insertTemplateText (word.end(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
+      ti->insertTemplateText (word.start(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
   }  
 
 #ifdef SNIPPET_EDITOR

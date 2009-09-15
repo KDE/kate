@@ -1,3 +1,6 @@
+/**
+ * Prototype Cursor.
+ */
 function Cursor()
 {
   if (arguments.length == 0) {
@@ -26,11 +29,28 @@ function Cursor()
     return new Cursor(-1, -1);
   };
 
+  this.compareTo = function(other) {
+    if (this.line > other.line || (this.line == other.line && this.column > other.column)) {
+      return 1;
+    } else if (this.line < other.line || (this.line == other.line && this.column < other.column)) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  this.equals = function(other) {
+    return  (this.line == other.line && this.column == other.column)) {
+  };
+
   this.toString = function() {
     return "Cursor(" + this.line+ ", " + this.column+ ")";
   };
 }
 
+/**
+ * Prototype Range.
+ */
 function Range()
 {
   if (arguments.length == 0) {
@@ -65,8 +85,16 @@ function Range()
     return new Range(-1, -1, -1, -1);
   };
 
-  this.contains = function() {
-    // TODO: implement me
+  this.contains = function(cursorOrRange) {
+    if (cursorOrRange.start && cursorOrRange.end) {
+      // assume a range
+      return (cursorOrRange.start.compareTo(this.start) >= 0 &&
+              cursorOrRange.end.compareTo(this.end) <= 0);
+    } else {
+      // assume a cursor
+      return (cursorOrRange.compareTo(this.start) >= 0 &&
+              cursorOrRange.compareTo(this.end) < 0);
+    }
   };
 
   this.containsColumn = function(column) {
@@ -74,11 +102,29 @@ function Range()
   };
 
   this.containsLine = function(line) {
-    return (line >= this.start.line) && (column < this.end.line);
+    return (line > this.start.line || (line == this.start.line && this.start.column == 0)) && line < this.end.line;
   };
 
   this.overlaps = function(range) {
-    // TODO: implement me
+    if (range.start.compareTo(this.start) <= 0) {
+      return range.end.compareTo(this.start) > 0;
+    } else if (range.end.compareTo(this.end) >= 0) {
+      return (range.start.compareTo(this.end < 0);
+    } else {
+      return this.contains(range);
+    }
+  };
+
+  this.overlapsLine = function(line) {
+    return (line >= this.start.line && line <= this.end.line);
+  }
+
+  this.overlapsColumn = function(column) {
+    return column >= this.start.column && column <= this.end.column;
+  }
+
+  this.equals = function(other) {
+    return (this.start.equals(other.start) && this.end.equals(other.end));
   };
 
   this.toString = function() {

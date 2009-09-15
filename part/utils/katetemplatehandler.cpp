@@ -211,7 +211,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 
     colInText += info.len;
     col += info.len;
-      //hlr->allowZeroLength();
+    //hlr->allowZeroLength();
     //hlr->setBehavior(KateSmartRange::ExpandRight);
   }
 
@@ -279,16 +279,17 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
     kDebug() << "inserted a replaceable space:" << *m_currentRange;
   }
   else {
-   if (ph->isReplacableSpace && sourceText.startsWith(' ')) {
-    sourceText = sourceText.right(sourceText.length()-1);
-    m_doc->removeText(KTextEditor::Range(m_currentRange->start(), 1));
-   } else if (ph->isReplacableSpace && expandedLeft) {
-    sourceText = sourceText.left(sourceText.length()-1);
-    m_doc->removeText(KTextEditor::Range(KTextEditor::Cursor(m_currentRange->end().line(), m_currentRange->end().column()-1), 1) );
-   }
+    if (ph->isReplacableSpace && sourceText.startsWith(' ')) {
+      sourceText = sourceText.right(sourceText.length()-1);
+      m_doc->removeText(KTextEditor::Range(m_currentRange->start(), 1));
+    } else if (ph->isReplacableSpace && expandedLeft) {
+      sourceText = sourceText.left(sourceText.length()-1);
+      m_doc->removeText(KTextEditor::Range(KTextEditor::Cursor(m_currentRange->end().line(), m_currentRange->end().column()-1), 1) );
+    }
 
-   ph->isReplacableSpace = false;
+    ph->isReplacableSpace = false;
   }
+
   ph->isInitialValue = false;
 
   bool undoDontMerge = m_doc->undoDontMerge();

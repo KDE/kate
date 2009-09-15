@@ -115,10 +115,8 @@ KateTemplateHandler::KateTemplateHandler(
 
 KateTemplateHandler::~KateTemplateHandler()
 {
+  qDeleteAll(m_dict);
   delete m_templateRange;
-#ifdef __GNUC__
-  #warning delete placeholder infos here
-#endif
 }
 
 void KateTemplateHandler::slotRangeDeleted(KTextEditor::SmartRange* range) {

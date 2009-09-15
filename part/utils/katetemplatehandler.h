@@ -68,10 +68,8 @@ class KateTemplateHandler: public QObject {
 
     class KateDocument *const m_doc;
 
-    // looks like this is leaking objects (was before too)
     QList<KateTemplatePlaceHolder*> m_tabOrder;
-
-    // looks like this is leaking objects (was before too)
+    /// m_dict owns all KateTemplatePlaceHolder we create on the heap
     QHash<QString, KateTemplatePlaceHolder*> m_dict;
 
     void generateRangeTable(const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList);

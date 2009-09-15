@@ -1,20 +1,21 @@
-/// This file is part of the KDE libraries
-/// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
-///
-/// This library is free software; you can redistribute it and/or
-/// modify it under the terms of the GNU Library General Public
-/// License as published by the Free Software Foundation; either
-/// version 2 of the License, or (at your option) version 3.
-///
-/// This library is distributed in the hope that it will be useful,
-/// but WITHOUT ANY WARRANTY; without even the implied warranty of
-/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-/// Library General Public License for more details.
-///
-/// You should have received a copy of the GNU Library General Public License
-/// along with this library; see the file COPYING.LIB.  If not, write to
-/// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-/// Boston, MA 02110-1301, USA.
+// This file is part of the KDE libraries
+// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Library General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) version 3.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Library General Public License for more details.
+//
+// You should have received a copy of the GNU Library General Public License
+// along with this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #include "katescriptdocument.h"
 
@@ -49,10 +50,21 @@ int KateScriptDocument::defStyleNum(int line, int column)
   return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
 }
 
+int KateScriptDocument::defStyleNum(const KTextEditor::Cursor& cursor)
+{
+  return defStyleNum(cursor.line(), cursor.column());
+}
+
+
 bool KateScriptDocument::isCode(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
   return _isCode(defaultStyle);
+}
+
+bool KateScriptDocument::isCode(const KTextEditor::Cursor& cursor)
+{
+  return isCode(cursor.line(), cursor.column());
 }
 
 bool KateScriptDocument::isComment(int line, int column)
@@ -61,10 +73,20 @@ bool KateScriptDocument::isComment(int line, int column)
   return defaultStyle == KateExtendedAttribute::dsComment;
 }
 
+bool KateScriptDocument::isComment(const KTextEditor::Cursor& cursor)
+{
+  return isComment(cursor.line(), cursor.column());
+}
+
 bool KateScriptDocument::isString(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
   return defaultStyle == KateExtendedAttribute::dsString;
+}
+
+bool KateScriptDocument::isString(const KTextEditor::Cursor& cursor)
+{
+  return isString(cursor.line(), cursor.column());
 }
 
 bool KateScriptDocument::isRegionMarker(int line, int column)
@@ -73,16 +95,31 @@ bool KateScriptDocument::isRegionMarker(int line, int column)
   return defaultStyle == KateExtendedAttribute::dsRegionMarker;
 }
 
+bool KateScriptDocument::isRegionMarker(const KTextEditor::Cursor& cursor)
+{
+  return isRegionMarker(cursor.line(), cursor.column());
+}
+
 bool KateScriptDocument::isChar(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
   return defaultStyle == KateExtendedAttribute::dsChar;
 }
 
+bool KateScriptDocument::isChar(const KTextEditor::Cursor& cursor)
+{
+  return isChar(cursor.line(), cursor.column());
+}
+
 bool KateScriptDocument::isOthers(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
   return defaultStyle == KateExtendedAttribute::dsOthers;
+}
+
+bool KateScriptDocument::isOthers(const KTextEditor::Cursor& cursor)
+{
+  return isOthers(cursor.line(), cursor.column());
 }
 
 int KateScriptDocument::firstVirtualColumn(int line)
@@ -113,6 +150,11 @@ int KateScriptDocument::toVirtualColumn(int line, int column)
   return textLine->toVirtualColumn(column, tabWidth);
 }
 
+int KateScriptDocument::toVirtualColumn(const KTextEditor::Cursor& cursor)
+{
+  return toVirtualColumn(cursor.line(), cursor.column());
+}
+
 int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
 {
   const int tabWidth = m_document->config()->tabWidth();
@@ -122,7 +164,12 @@ int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
   return textLine->fromVirtualColumn(virtualColumn, tabWidth);
 }
 
-QScriptValue KateScriptDocument::rfind(int line, int column, const QString& text, int attribute)
+int KateScriptDocument::fromVirtualColumn(const KTextEditor::Cursor& virtualCursor)
+{
+  return fromVirtualColumn(virtualCursor.line(), virtualCursor.column());
+}
+
+KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QString& text, int attribute)
 {
   KateDocCursor cursor(line, column, m_document);
   const int start = cursor.line();
@@ -153,10 +200,7 @@ QScriptValue KateScriptDocument::rfind(int line, int column, const QString& text
         }
 
         if (hasStyle) {
-          QScriptValue position = engine()->newObject();
-          position.setProperty("line", QScriptValue(engine(), cursor.line()));
-          position.setProperty("column", QScriptValue(engine(), foundAt));
-          return position;
+          return KTextEditor::Cursor(cursor.line(), foundAt);
         } else {
           cursor.setColumn(foundAt);
         }
@@ -164,7 +208,12 @@ QScriptValue KateScriptDocument::rfind(int line, int column, const QString& text
     }
   } while (cursor.gotoPreviousLine());
 
-  return QScriptValue();
+  return KTextEditor::Cursor::invalid();
+}
+
+KTextEditor::Cursor KateScriptDocument::rfind(const KTextEditor::Cursor& cursor, const QString& text, int attribute)
+{
+  return rfind(cursor.line(), cursor.column(), text, attribute);
 }
 
 KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar character)
@@ -203,6 +252,11 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
     }
   }
   return KTextEditor::Cursor::invalid ();
+}
+
+KTextEditor::Cursor KateScriptDocument::anchor(const KTextEditor::Cursor& cursor, QChar character)
+{
+  return anchor(cursor.line(), cursor.column(), character);
 }
 
 bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skipWhiteSpaces)

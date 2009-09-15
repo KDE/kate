@@ -52,8 +52,21 @@ class KateScriptView : public QObject, protected QScriptable
      * Set the cursor position in the view.
      * @since 4.4
      */
-    Q_INVOKABLE void setCursorPosition (int line, int column);
-    Q_INVOKABLE void setCursorPosition (const KTextEditor::Cursor& cursor);
+    Q_INVOKABLE void setCursorPosition(int line, int column);
+    Q_INVOKABLE void setCursorPosition(const KTextEditor::Cursor& cursor);
+
+
+    Q_INVOKABLE KTextEditor::Cursor virtualCursorPosition();
+    Q_INVOKABLE void setVirtualCursorPosition(int line, int column);
+    Q_INVOKABLE void setVirtualCursorPosition(const KTextEditor::Cursor& cursor);
+
+    Q_INVOKABLE QString selectedText();
+    Q_INVOKABLE bool hasSelection();
+    Q_INVOKABLE KTextEditor::Range selection();
+    Q_INVOKABLE void setSelection(const KTextEditor::Range& range);
+    Q_INVOKABLE void removeSelectedText();
+    Q_INVOKABLE void selectAll();
+    Q_INVOKABLE void clearSelection();
 
   private:
     KateView *m_view;

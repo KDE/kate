@@ -56,6 +56,57 @@ void KateScriptView::setCursorPosition (const KTextEditor::Cursor& cursor)
   m_view->setCursorPosition(cursor);
 }
 
+KTextEditor::Cursor KateScriptView::virtualCursorPosition()
+{
+  return m_view->cursorPositionVirtual();
+}
+
+void KateScriptView::setVirtualCursorPosition(int line, int column)
+{
+  setVirtualCursorPosition(KTextEditor::Cursor(line, column));
+}
+
+void KateScriptView::setVirtualCursorPosition(const KTextEditor::Cursor& cursor)
+{
+  m_view->setCursorPositionVisual(cursor);
+}
+
+QString KateScriptView::selectedText()
+{
+  return m_view->selectionText();
+}
+
+bool KateScriptView::hasSelection()
+{
+  return m_view->selection();
+}
+
+KTextEditor::Range KateScriptView::selection()
+{
+  return m_view->selectionRange();
+}
+
+void KateScriptView::setSelection(const KTextEditor::Range& range)
+{
+  m_view->setSelection(range);
+}
+
+void KateScriptView::removeSelectedText()
+{
+  m_view->removeSelectedText();
+}
+
+void KateScriptView::selectAll()
+{
+  m_view->selectAll();
+}
+
+void KateScriptView::clearSelection()
+{
+  m_view->clearSelection();
+}
+
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

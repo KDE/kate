@@ -9,11 +9,12 @@
 
 function sort()
 {
-    if (view.hasSelection()) {
-        var start = view.startOfSelection().line;
-        var end = view.endOfSelection().line;
+    var selection = view.selection();
+    if (selection.isValid()) {
+        selection.start.column = 0;
+        selection.end.column = document.lineLength(selection.end.line);
 
-        var text = document.text(start, 0, end, document.lineLength(end));
+        var text = document.text(selection);
 
         var lines = text.split("\n");
         lines.sort();
@@ -22,8 +23,8 @@ function sort()
         view.clearSelection();
 
         document.editBegin();
-        document.removeText(start, 0, end, document.lineLength(end));
-        document.insertText(start, 0, text);
+        document.removeText(selection);
+        document.insertText(selection.start, text);
         document.editEnd();
     }
 }

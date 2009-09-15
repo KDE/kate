@@ -1,20 +1,21 @@
-/// This file is part of the KDE libraries
-/// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
-///
-/// This library is free software; you can redistribute it and/or
-/// modify it under the terms of the GNU Library General Public
-/// License as published by the Free Software Foundation; either
-/// version 2 of the License, or (at your option) version 3.
-///
-/// This library is distributed in the hope that it will be useful,
-/// but WITHOUT ANY WARRANTY; without even the implied warranty of
-/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-/// Library General Public License for more details.
-///
-/// You should have received a copy of the GNU Library General Public License
-/// along with this library; see the file COPYING.LIB.  If not, write to
-/// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-/// Boston, MA 02110-1301, USA.
+// This file is part of the KDE libraries
+// Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Library General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) version 3.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Library General Public License for more details.
+//
+// You should have received a copy of the GNU Library General Public License
+// along with this library; see the file COPYING.LIB.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+// Boston, MA 02110-1301, USA.
 
 #include "katescript.h"
 #include "katescriptdocument.h"
@@ -34,9 +35,8 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-/**
- * conversion functions
- */
+//BEGIN conversion functions for Cursors and Ranges
+/** Converstion function from KTextEditor::Cursor to QtScript cursor */
 static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)
 {
   QString code = QString("new Cursor(%1, %2);").arg(cursor.line())
@@ -44,12 +44,14 @@ static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor
   return engine->evaluate(code);
 }
 
+/** Converstion function from QtScript cursor to KTextEditor::Cursor */
 static void cursorFromScriptValue(const QScriptValue &obj, KTextEditor::Cursor &cursor)
 {
   cursor.setPosition(obj.property("line").toInt32(),
                      obj.property("column").toInt32());
 }
 
+/** Converstion function from QtScript range to KTextEditor::Range */
 static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor::Range &range)
 {
   QString code = QString("new Range(%1, %2, %3, %4);").arg(range.start().line())
@@ -59,13 +61,15 @@ static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor:
   return engine->evaluate(code);
 }
 
+/** Converstion function from QtScript range to KTextEditor::Range */
 static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
 {
-  range.start().setPosition(obj.property("start.line").toInt32(),
-                            obj.property("start.column").toInt32());
-  range.end().setPosition(obj.property("end.line").toInt32(),
-                          obj.property("end.column").toInt32());
+  range.start().setPosition(obj.property("start").property("line").toInt32(),
+                            obj.property("start").property("column").toInt32());
+  range.end().setPosition(obj.property("end").property("line").toInt32(),
+                          obj.property("end").property("column").toInt32());
 }
+//END
 
 
 

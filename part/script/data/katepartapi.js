@@ -66,7 +66,7 @@ function Cursor()
   };
 
   this.equals = function(other) {
-    return  (this.line == other.line && this.column == other.column));
+    return (this.line == other.line && this.column == other.column);
   };
 
   this.toString = function() {

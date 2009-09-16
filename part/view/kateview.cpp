@@ -1757,7 +1757,7 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  if(blockSelection())
+  if(!wrapCursor())
     return *m_selection != KateSmartRange::invalid();
   else
     return m_selection->isValid();

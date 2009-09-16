@@ -236,6 +236,8 @@ public:
     int cursorToX(const KateTextLayout& range, int col) const;
     /// \overload
     int cursorToX(const KateTextLayout& range, const KTextEditor::Cursor& pos) const;
+    /// \overload
+    int cursorToX(const KateTextLayout& range, const KTextEditor::Cursor& pos, bool returnPastLine) const;
 
     /**
      * Returns the real cursor which is occupied by the specified x value, or that closest to it.

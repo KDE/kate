@@ -694,7 +694,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
         int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
         if ( (x >= xStart) && (x <= xEnd))
-          paint.fillRect(x, (int)lastLine.lineLayout().y(), caretWidth, fm.height(), c);
+          paint.fillRect(x-xStart, (int)lastLine.lineLayout().y(), caretWidth, fm.height(), c);
       }
     }
   }
@@ -949,6 +949,17 @@ int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Curs
   Q_ASSERT(range.isValid());
 
   return (int)range.lineLayout().cursorToX(pos.column());
+}
+
+int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos, bool returnPastLine) const
+{
+  int x = cursorToX(range, pos);
+  int over = pos.column() * spaceWidth() - range.width();
+ 
+  if (returnPastLine && over > 0)
+    x += over;
+
+  return x;
 }
 
 KTextEditor::Cursor KateRenderer::xToCursor(const KateTextLayout & range, int x, bool returnPastLine ) const

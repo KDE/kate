@@ -289,10 +289,7 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   delete view->actionCollection()->action( "set_confdlg" );
   delete view->actionCollection()->action( "editor_options" );
 
-  // popup menu
-  QMenu *menu = qobject_cast<QMenu*> (mainWindow()->factory()->container("ktexteditor_popup", mainWindow()));
-  if (menu)
-    view->setContextMenu (menu);
+  view->setContextMenu(view->defaultContextMenu());
 
   connect(view, SIGNAL(dropEventPass(QDropEvent *)), mainWindow(), SLOT(slotDropEvent(QDropEvent *)));
   connect(view, SIGNAL(focusIn(KTextEditor::View *)), this, SLOT(activateSpace(KTextEditor::View *)));

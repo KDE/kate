@@ -111,7 +111,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   guiFactory()->addClient( m_view );
 
   // install a working kate part popup dialog thingy
-  m_view->setContextMenu ((QMenu*)(factory()->container("ktexteditor_popup", this)) );
+  m_view->setContextMenu(m_view->defaultContextMenu());
 
   // init with more useful size, stolen from konq :)
   if (!initialGeometrySet())

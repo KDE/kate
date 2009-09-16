@@ -271,6 +271,7 @@ void KateGlobal::configDialog(QWidget *parent)
   kd->setCaption( i18n("Configure") );
   kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
   kd->setFaceType( KPageDialog::List );
+  kd->setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   QList<KTextEditor::ConfigPage*> editorPages;
 

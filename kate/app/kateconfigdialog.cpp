@@ -60,6 +60,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   setButtons( Ok | Apply | Cancel | Help );
   setDefaultButton( Ok );
   setObjectName( "configdialog" );
+  setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   KSharedConfig::Ptr config = KGlobal::config();
   KConfigGroup cgGeneral = KConfigGroup( config, "General" );

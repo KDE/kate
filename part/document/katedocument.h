@@ -46,6 +46,7 @@
 #include "katetextline.h"
 #include "kateautoindent.h"
 #include "katenamespace.h"
+#include "spellcheck/prefixstore.h"
 
 namespace KTextEditor { class Plugin; class Attribute; }
 
@@ -62,7 +63,6 @@ class KateHighlighting;
 class KateSmartManager;
 class KateUndoManager;
 class KateOnTheFlyChecker;
-
 
 class KateTemplateHandler;
 
@@ -1080,6 +1080,24 @@ class KateDocument : public KTextEditor::Document,
       void respellCheckBlock(KateDocument *document,int start, int end);
       void dictionaryRangesPresent(bool yesNo);
       void defaultDictionaryChanged(KateDocument *document);
+
+  public:
+      bool containsCharacterEncoding(const KTextEditor::Range& range);
+
+      typedef QList<QPair<int, int> > OffsetList;
+
+      int computePositionWrtOffsets(const OffsetList& offsetList, int pos);
+
+      /**
+       * The first OffsetList is from decoded to encoded, and the second OffsetList from
+       * encoded to decoded.
+       **/
+      QString decodeCharacters(const KTextEditor::Range& range,
+                               KateDocument::OffsetList& decToEncOffsetList,
+                               KateDocument::OffsetList& encToDecOffsetList);
+      void replaceCharactersByEncoding(const KTextEditor::Range& range);
+
+      enum EncodedCharaterInsertionPolicy {EncodeAlways, EncodeWhenPresent, EncodeNever};
 
   protected:
       KateOnTheFlyChecker *m_onTheFlyChecker;

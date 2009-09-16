@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-	  <language name="LaTeX" version="1.36" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+	  <language name="LaTeX" version="1.37" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -452,4 +452,122 @@
       <comment name="singleLine" start="%" />
     </comments>
   </general>
+
+  <spellchecking>
+    <configuration encodingReplacementPolicy="EncodeWhenPresent"/>
+    <encodings>
+      <encoding character="&#192;" sequence="\`{A}" />
+      <encoding character="&#192;" sequence="\`A" />
+      <encoding character="&#193;" sequence="\'{A}" />
+      <encoding character="&#193;" sequence="\'A" />
+      <encoding character="&#194;" sequence="\^{A}" />
+      <encoding character="&#194;" sequence="\^A" />
+      <encoding character="&#195;" sequence="\~{A}" />
+      <encoding character="&#195;" sequence="\~A" />
+      <encoding character="&#196;" sequence="\&#34;{A}" />
+      <encoding character="&#196;" sequence="\&#34;A" />
+      <encoding character="&#197;" sequence="\AA{}" />
+      <encoding character="&#198;" sequence="\AE{}" />
+      <encoding character="&#199;" sequence="\c{C}" />
+      <encoding character="&#200;" sequence="\`{E}" />
+      <encoding character="&#200;" sequence="\`E" />
+      <encoding character="&#201;" sequence="\'{E}" />
+      <encoding character="&#201;" sequence="\'E" />
+      <encoding character="&#202;" sequence="\^{E}" />
+      <encoding character="&#202;" sequence="\^E" />
+      <encoding character="&#203;" sequence="\&#34;{E}" />
+      <encoding character="&#203;" sequence="\&#34;E" />
+      <encoding character="&#204;" sequence="\`{I}" />
+      <encoding character="&#204;" sequence="\`I" />
+      <encoding character="&#205;" sequence="\'{I}" />
+      <encoding character="&#205;" sequence="\'I" />
+      <encoding character="&#206;" sequence="\^{I}" />
+      <encoding character="&#206;" sequence="\^I" />
+      <encoding character="&#207;" sequence="\&#34;{I}" />
+      <encoding character="&#207;" sequence="\&#34;I" />
+      <encoding character="&#208;" sequence="\DH{}" />
+      <encoding character="&#209;" sequence="\~{N}" />
+      <encoding character="&#209;" sequence="\~N" />
+      <encoding character="&#210;" sequence="\`{O}" />
+      <encoding character="&#210;" sequence="\`O" />
+      <encoding character="&#211;" sequence="\'{O}" />
+      <encoding character="&#211;" sequence="\'O" />
+      <encoding character="&#212;" sequence="\^{O}" />
+      <encoding character="&#212;" sequence="\^O" />
+      <encoding character="&#213;" sequence="\~{O}" />
+      <encoding character="&#213;" sequence="\~O" />
+      <encoding character="&#214;" sequence="\&#34;{O}" />
+      <encoding character="&#214;" sequence="\&#34;O" />
+      <encoding character="&#216;" sequence="\O{}" />
+      <encoding character="&#217;" sequence="\`{U}" />
+      <encoding character="&#217;" sequence="\`U" />
+      <encoding character="&#218;" sequence="\'{U}" />
+      <encoding character="&#218;" sequence="\'U" />
+      <encoding character="&#219;" sequence="\^{U}" />
+      <encoding character="&#219;" sequence="\^U" />
+      <encoding character="&#220;" sequence="\&#34;{U}" />
+      <encoding character="&#220;" sequence="\&#34;U" />
+      <encoding character="&#221;" sequence="\'{Y}" />
+      <encoding character="&#221;" sequence="\'Y" />
+      <encoding character="&#222;" sequence="\TH{}" />
+      <encoding character="&#223;" sequence="\ss{}" />
+      <encoding character="&#224;" sequence="\`{a}" />
+      <encoding character="&#224;" sequence="\`a" />
+      <encoding character="&#225;" sequence="\'{a}" />
+      <encoding character="&#225;" sequence="\'a" />
+      <encoding character="&#226;" sequence="\^{a}" />
+      <encoding character="&#226;" sequence="\^a" />
+      <encoding character="&#227;" sequence="\~{a}" />
+      <encoding character="&#227;" sequence="\~a" />
+      <encoding character="&#228;" sequence="\&#34;{a}" />
+      <encoding character="&#228;" sequence="\&#34;a" />
+      <encoding character="&#229;" sequence="\aa{}" />
+      <encoding character="&#230;" sequence="\ae{}" />
+      <encoding character="&#231;" sequence="\c{c}" />
+      <encoding character="&#232;" sequence="\`{e}" />
+      <encoding character="&#232;" sequence="\`e" />
+      <encoding character="&#233;" sequence="\'{e}" />
+      <encoding character="&#233;" sequence="\'e" />
+      <encoding character="&#234;" sequence="\^{e}" />
+      <encoding character="&#234;" sequence="\^e" />
+      <encoding character="&#235;" sequence="\&#34;{e}" />
+      <encoding character="&#235;" sequence="\&#34;e" />
+      <encoding character="&#236;" sequence="\`{i}" />
+      <encoding character="&#236;" sequence="\`i" />
+      <encoding character="&#237;" sequence="\'{i}" />
+      <encoding character="&#237;" sequence="\'i" />
+      <encoding character="&#238;" sequence="\^{i}" />
+      <encoding character="&#238;" sequence="\^i" />
+      <encoding character="&#239;" sequence="\&#34;{i}" />
+      <encoding character="&#239;" sequence="\&#34;i" />
+      <encoding character="&#240;" sequence="\dh{}" />
+      <encoding character="&#241;" sequence="\~{n}" />
+      <encoding character="&#241;" sequence="\~n" />
+      <encoding character="&#242;" sequence="\`{o}" />
+      <encoding character="&#242;" sequence="\`o" />
+      <encoding character="&#243;" sequence="\'{o}" />
+      <encoding character="&#243;" sequence="\'o" />
+      <encoding character="&#244;" sequence="\^{o}" />
+      <encoding character="&#244;" sequence="\^o" />
+      <encoding character="&#245;" sequence="\~{o}" />
+      <encoding character="&#245;" sequence="\~o" />
+      <encoding character="&#246;" sequence="\&#34;{o}" />
+      <encoding character="&#246;" sequence="\&#34;o" />
+      <encoding character="&#248;" sequence="\o{}" />
+      <encoding character="&#249;" sequence="\`{u}" />
+      <encoding character="&#249;" sequence="\`u" />
+      <encoding character="&#250;" sequence="\'{u}" />
+      <encoding character="&#250;" sequence="\'u" />
+      <encoding character="&#251;" sequence="\^{u}" />
+      <encoding character="&#251;" sequence="\^u" />
+      <encoding character="&#252;" sequence="\&#34;{u}" />
+      <encoding character="&#252;" sequence="\&#34;u" />
+      <encoding character="&#253;" sequence="\'{y}" />
+      <encoding character="&#253;" sequence="\'y" />
+      <encoding character="&#254;" sequence="\th{}" />
+      <encoding character="&#255;" sequence="\&#34;{y}" />
+      <encoding character="&#255;" sequence="\&#34;y" />
+      <encoding sequence="''" ignored="true" />
+    </encodings>
+  </spellchecking>
 </language>

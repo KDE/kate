@@ -24,6 +24,7 @@
 #include "katetextline.h"
 #include "kateextendedattribute.h"
 #include "katesyntaxmanager.h"
+#include "spellcheck/prefixstore.h"
 
 #include <kconfig.h>
 #include <kactionmenu.h>
@@ -197,6 +198,8 @@ class KateHighlighting
     QString getCommentSingleLineStart( int attrib=0 ) const;
 
 
+    const QHash<QString, QChar>& characterEncodings( int attrib = 0 ) const;
+
     /**
      * This enum is used for storing the information where a single line comment marker should be inserted
      */
@@ -237,6 +240,17 @@ class KateHighlighting
     void getKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
     void getKateExtendedAttributeListCopy(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
 
+    const QHash<QString, QChar>& getCharacterEncodings( int attrib ) const;
+    const KatePrefixStore& getCharacterEncodingsPrefixStore( int attrib ) const;
+    const QHash<QChar, QString>& getReverseCharacterEncodings( int attrib ) const;
+    int getEncodedCharactersInsertionPolicy( int attrib ) const;
+
+  private:
+    /**
+      * 'encoding' must not contain new line characters, i.e. '\n' or '\r'!
+      **/
+    void addCharacterEncoding( const QString& key, const QString& encoding, const QChar& c );
+
   private:
     void init();
     void done();
@@ -253,6 +267,7 @@ class KateHighlighting
     void readEmptyLineConfig();
     void readIndentationConfig ();
     void readFoldingConfig ();
+    void readSpellCheckingConfig();
 
     /**
      * update given context stack
@@ -335,7 +350,11 @@ class KateHighlighting
         CSLPos  singleLineCommentPosition;
         QString deliminator;
         QString wordWrapDeliminator;
-	QLinkedList<QRegExp> emptyLines;
+        QLinkedList<QRegExp> emptyLines;
+        QHash<QString, QChar> characterEncodings;
+        KatePrefixStore characterEncodingsPrefixStore;
+        QHash<QChar, QString> reverseCharacterEncodings;
+        int encodedCharactersInsertionPolicy;
     };
 
     /**

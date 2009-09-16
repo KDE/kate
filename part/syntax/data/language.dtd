@@ -98,7 +98,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
 *single line* and *cannot* be split in multiple lines.
 
 -->
-<!ELEMENT language (highlighting, general?)>
+<!ELEMENT language (highlighting, general?, spellchecking?)>
 <!ATTLIST language
   name          CDATA       #REQUIRED
   section       NMTOKEN     #REQUIRED
@@ -500,4 +500,40 @@ TODO:
   backgroundColor    CDATA  #IMPLIED
   selBackgroundColor CDATA  #IMPLIED
   spellChecking (%boolean;) #IMPLIED
+>
+
+<!-- encodingPolicy type
+  Attributes that are of type 'encodingPolicy' allow the following values:
+  'EncodeAlways', 'EncodeWhenPresent' and 'EncodeNever'
+-->
+<!ENTITY % encodingPolicy "EncodeAlways|EncodeWhenPresent|EncodeNever">
+
+<!-- Spellchecking specification -->
+<!ELEMENT spellchecking (configuration?, encodings?)>
+<!ATTLIST spellchecking
+>
+
+<!-- List of character encodings -->
+<!ELEMENT encodings (encoding)+>
+<!ATTLIST encodings
+>
+
+<!-- Encoding specification
+  sequence       CDATA        #REQUIRED  Character sequence of the encoding; must not contain new-line characters, i.e. \n or \r
+  character      CDATA        #IMPLIED   Encoded character; must be of length 1
+  ignored        (%boolean;)  #IMPLIED   If true, then the encoding sequence is ignored for spellchecking
+-->
+<!ELEMENT encoding EMPTY>
+<!ATTLIST encoding
+  sequence       CDATA        #REQUIRED
+  character      CDATA        #IMPLIED
+  ignored        (%boolean;)  #IMPLIED
+>
+
+<!-- Spellchecking configuration
+  encodingReplacementPolicy       (%encodingPolicy;)     #IMPLIED  Policy for replacing encoded characters in replacements for misspelled words
+-->
+<!ELEMENT configuration EMPTY>
+<!ATTLIST configuration
+  encodingReplacementPolicy   (%encodingPolicy;)   #IMPLIED
 >

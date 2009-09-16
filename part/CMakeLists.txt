@@ -130,6 +130,8 @@ vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp
 
 # spell checking
+spellcheck/prefixstore.h
+spellcheck/prefixstore.cpp
 spellcheck/ontheflycheck.h
 spellcheck/ontheflycheck.cpp
 spellcheck/spellcheck.h

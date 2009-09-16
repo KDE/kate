@@ -49,6 +49,7 @@
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
 #include "katevireplacemode.h"
+#include "spellcheck/prefixstore.h"
 #include "spellcheck/ontheflycheck.h"
 #include "spellcheck/spellcheck.h"
 
@@ -179,7 +180,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   s_fileChangedDialogsActivated (false),
   m_templateHandler(0),
   m_savingToUrl(false),
-  m_onTheFlyChecker(0),
+  m_onTheFlyChecker(NULL),
   m_dictionaryRangeNotifier(NULL)
 {
   setComponentData ( KateGlobal::self()->componentData () );
@@ -5273,6 +5274,128 @@ KTextEditor::SmartRangeNotifier* KateDocument::dictionaryRangeNotifier()
           this, SLOT(dictionaryRangeEliminated(KTextEditor::SmartRange*)));
   m_dictionaryRangeNotifier->setWantsDirectChanges(true);
   return m_dictionaryRangeNotifier;
+}
+
+bool KateDocument::containsCharacterEncoding(const KTextEditor::Range& range)
+{
+  KateHighlighting *highlighting = highlight();
+  KateTextLine::Ptr textLine;
+
+  const int rangeStartLine = range.start().line();
+  const int rangeStartColumn = range.start().column();
+  const int rangeEndLine = range.end().line();
+  const int rangeEndColumn = range.end().column();
+
+  for(int line = range.start().line(); line <= rangeEndLine; ++line) {
+    textLine = kateTextLine(line);
+    int startColumn = (line == rangeStartLine) ? rangeStartColumn : 0;
+    int endColumn = (line == rangeEndLine) ? rangeEndColumn : textLine->length();
+    for(int col = startColumn; col < endColumn; ++col) {
+      int attr = textLine->attribute(col);
+      const KatePrefixStore& prefixStore = highlighting->getCharacterEncodingsPrefixStore(attr);
+      if(!prefixStore.findPrefix(textLine, col).isEmpty()) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+int KateDocument::computePositionWrtOffsets(const OffsetList& offsetList, int pos)
+{
+  int previousOffset = 0;
+  for(OffsetList::const_iterator i = offsetList.begin(); i != offsetList.end(); ++i) {
+    if((*i).first > pos) {
+      break;
+    }
+    previousOffset = (*i).second;
+  }
+  return pos + previousOffset;
+}
+
+QString KateDocument::decodeCharacters(const KTextEditor::Range& range, KateDocument::OffsetList& decToEncOffsetList,
+                                                                        KateDocument::OffsetList& encToDecOffsetList)
+{
+  QString toReturn;
+  KTextEditor::Cursor previous = range.start();
+  int decToEncCurrentOffset = 0, encToDecCurrentOffset = 0;
+  int i = 0;
+  int newI = 0;
+
+  KateHighlighting *highlighting = highlight();
+  KateTextLine::Ptr textLine;
+
+  const int rangeStartLine = range.start().line();
+  const int rangeStartColumn = range.start().column();
+  const int rangeEndLine = range.end().line();
+  const int rangeEndColumn = range.end().column();
+
+  for(int line = range.start().line(); line <= rangeEndLine; ++line) {
+    textLine = kateTextLine(line);
+    int startColumn = (line == rangeStartLine) ? rangeStartColumn : 0;
+    int endColumn = (line == rangeEndLine) ? rangeEndColumn : textLine->length();
+    for(int col = startColumn; col < endColumn;) {
+      int attr = textLine->attribute(col);
+      const KatePrefixStore& prefixStore = highlighting->getCharacterEncodingsPrefixStore(attr);
+      const QHash<QString, QChar>& characterEncodingsHash = highlighting->getCharacterEncodings(attr);
+      QString matchingPrefix = prefixStore.findPrefix(textLine, col);
+      if(!matchingPrefix.isEmpty()) {
+        toReturn += text(KTextEditor::Range(previous, KTextEditor::Cursor(line, col)));
+        const QChar& c = characterEncodingsHash[matchingPrefix];
+        const bool isNullChar = c.isNull();
+        if(!c.isNull()) {
+          toReturn += c;
+        }
+        i += matchingPrefix.length();
+        col += matchingPrefix.length();
+        previous = KTextEditor::Cursor(line, col);
+        decToEncCurrentOffset = decToEncCurrentOffset - (isNullChar ? 0 : 1) + matchingPrefix.length();
+        encToDecCurrentOffset = encToDecCurrentOffset - matchingPrefix.length() + (isNullChar ? 0 : 1);
+        newI += (isNullChar ? 0 : 1);
+        decToEncOffsetList.push_back(QPair<int, int>(newI, decToEncCurrentOffset));
+        encToDecOffsetList.push_back(QPair<int, int>(i, encToDecCurrentOffset));
+        continue;
+      }
+      ++col;
+      ++i;
+      ++newI;
+    }
+    ++i;
+    ++newI;
+  }
+  if(previous < range.end()) {
+    toReturn += text(KTextEditor::Range(previous, range.end()));
+  }
+  return toReturn;
+}
+
+void KateDocument::replaceCharactersByEncoding(const KTextEditor::Range& range)
+{
+  KateHighlighting *highlighting = highlight();
+  KateTextLine::Ptr textLine;
+
+  const int rangeStartLine = range.start().line();
+  const int rangeStartColumn = range.start().column();
+  const int rangeEndLine = range.end().line();
+  const int rangeEndColumn = range.end().column();
+
+  for(int line = range.start().line(); line <= rangeEndLine; ++line) {
+    textLine = kateTextLine(line);
+    int startColumn = (line == rangeStartLine) ? rangeStartColumn : 0;
+    int endColumn = (line == rangeEndLine) ? rangeEndColumn : textLine->length();
+    for(int col = startColumn; col < endColumn;) {
+      int attr = textLine->attribute(col);
+      const QHash<QChar, QString>& reverseCharacterEncodingsHash = highlighting->getReverseCharacterEncodings(attr);
+      QHash<QChar, QString>::const_iterator it = reverseCharacterEncodingsHash.find(textLine->at(col));
+      if(it != reverseCharacterEncodingsHash.end()) {
+        replaceText(KTextEditor::Range(line, col, line, col + 1), *it);
+        col += (*it).length();
+        continue;
+      }
+      ++col;
+    }
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

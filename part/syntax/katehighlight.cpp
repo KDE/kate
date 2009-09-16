@@ -592,6 +592,33 @@ void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExten
   }
 }
 
+const QHash<QString, QChar>& KateHighlighting::getCharacterEncodings( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->characterEncodings;
+}
+
+const KatePrefixStore& KateHighlighting::getCharacterEncodingsPrefixStore( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->characterEncodingsPrefixStore;
+}
+
+const QHash<QChar, QString>& KateHighlighting::getReverseCharacterEncodings( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->reverseCharacterEncodings;
+}
+
+int KateHighlighting::getEncodedCharactersInsertionPolicy( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->encodedCharactersInsertionPolicy;
+}
+
+void KateHighlighting::addCharacterEncoding( const QString& key, const QString& encoding, const QChar& c )
+{
+  m_additionalData[ key ]->characterEncodingsPrefixStore.addPrefix(encoding);
+  m_additionalData[ key ]->characterEncodings[ encoding ] = c;
+  m_additionalData[ key ]->reverseCharacterEncodings[ c ] = encoding;
+}
+
 /**
  * Increase the usage count, and trigger initialization if needed.
  */
@@ -985,6 +1012,10 @@ KateHighlighting::CSLPos KateHighlighting::getCommentSingleLinePosition( int att
   return m_additionalData[ hlKeyForAttrib( attrib) ]->singleLineCommentPosition;
 }
 
+const QHash<QString, QChar>& KateHighlighting::characterEncodings( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib) ]->characterEncodings;
+}
 
 /**
  * Helper for makeContextList. It parses the xml file for
@@ -1197,6 +1228,58 @@ void KateHighlighting::readFoldingConfig()
   kDebug(13010)<<"readfoldingConfig:END";
 
   kDebug(13010)<<"############################ use indent for fold are: "<<m_foldingIndentationSensitive;
+}
+
+void KateHighlighting::readSpellCheckingConfig()
+{
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("spellchecking","encoding");
+
+  if (data)
+  {
+    while  (KateHlManager::self()->syntax->nextGroup(data))
+    {
+        QString encoding = KateHlManager::self()->syntax->groupData(data,"sequence");
+        QString character = KateHlManager::self()->syntax->groupData(data,"character");
+        QString ignored = KateHlManager::self()->syntax->groupData(data,"ignored");
+
+        const bool ignoredIsTrue = IS_TRUE(ignored);
+        if(encoding.isEmpty() || (character.isEmpty() && !ignoredIsTrue))
+        {
+          continue;
+        }
+        QRegExp newLineRegExp();
+        if(encoding.indexOf(QRegExp("\\r|\\n")) >= 0)
+        {
+          kDebug() << "Encoding" << encoding.replace(QRegExp("\\r|\\n"), "<\\n|\\r>")
+                                 << "contains new-line characters. Ignored.";
+        }
+        QChar c = (character.isEmpty() || ignoredIsTrue) ? QChar() : character[0];
+        addCharacterEncoding(buildIdentifier, encoding, c);
+    }
+
+    KateHlManager::self()->syntax->freeGroupInfo(data);
+  }
+
+  data=KateHlManager::self()->syntax->getConfig("spellchecking","configuration");
+  if (data)
+  {
+    QString policy = KateHlManager::self()->syntax->groupItemData(data,"encodingReplacementPolicy");
+    QString policyLowerCase = policy.toLower();
+    int p;
+
+    if(policyLowerCase == "encodewhenpresent") {
+      p = KateDocument::EncodeWhenPresent;
+    }
+    else if(policyLowerCase == "encodealways") {
+      p = KateDocument::EncodeAlways;
+    }
+    else {
+      p = KateDocument::EncodeNever;
+    }
+
+    m_additionalData[buildIdentifier]->encodedCharactersInsertionPolicy = p;
+  }
 }
 
 void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int ctx0)
@@ -1593,6 +1676,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   readWordWrapConfig();
 
   readFoldingConfig ();
+
+  readSpellCheckingConfig();
 
   QString ctxName;
 

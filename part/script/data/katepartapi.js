@@ -1,5 +1,31 @@
+// This file is part of the Kate project within KDE.
+// (C) 2009 Dominik Haumann <dhaumann kde org>
+// License: LGPL v2 or v3
+
 /**
  * Prototype Cursor.
+ *
+ * \section cursor_intro Introduction
+ * The Cursor class provides the two properties \p line and \p column. Since a
+ * lot of text operations are based on lines and columns such as inserting text
+ * at a cursor position, the Cursor class plays a central role in KatePart
+ * scripting. The entire scripting API is usually based on cursors whenever
+ * possible.
+ *
+ * \section cursor_usage Using Cursors
+ * There are several ways to construct a Cursor:
+ * \code
+ * var cursor1 = new Cursor(); // constructs a (valid) cursor at position (0, 0)
+ * var cursor2 = new Cursor(2, 4); // constructs a cursor at position (2, 4)
+ * var cursor3 = new Cursor(cursor2); // copies the cursor2
+ * var cursor4 = new Cursor().invalid(); // constructs invalid cursor at (-1, -1)
+ * \endcode
+ *
+ * There are several convenience member functions that easy working with
+ * Cursors. Use isValid() to check whether a Cursor is a valid text cursor.
+ * To compare two cursors either use equals() or compareTo().
+ *
+ * \see Range
  */
 function Cursor()
 {
@@ -40,7 +66,7 @@ function Cursor()
   };
 
   this.equals = function(other) {
-    return  (this.line == other.line && this.column == other.column)) {
+    return  (this.line == other.line && this.column == other.column));
   };
 
   this.toString = function() {

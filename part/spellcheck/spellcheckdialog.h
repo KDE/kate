@@ -29,7 +29,6 @@
 
 #include <QtCore/QObject>
 
-
 class KateView;
 
 class KAction;
@@ -39,6 +38,12 @@ namespace Sonnet {
     class Dialog;
     class BackgroundChecker;
     class Speller;
+}
+
+#include "ktexteditor/range.h"
+
+namespace KTextEditor {
+    class SmartRange;
 }
 
 class KateSpellCheckDialog : public QObject
@@ -73,6 +78,7 @@ class KateSpellCheckDialog : public QObject
     void misspelling( const QString&, int );
     void corrected  ( const QString&, int, const QString&);
 
+    void performSpellCheck(const KTextEditor::Range& range);
     void installNextSpellCheckRange();
 
     void cancelClicked();
@@ -90,8 +96,10 @@ class KateSpellCheckDialog : public QObject
     Sonnet::Dialog *m_sonnetDialog;
 
     // define the part of the text to check
-    KTextEditor::Cursor m_spellStart, m_spellEnd;
-    KTextEditor::Cursor m_globalSpellStart, m_globalSpellEnd;
+    KTextEditor::Range m_currentSpellCheckRange;
+    KTextEditor::SmartRange *m_globalSpellCheckRange;
+
+    QList<QPair<int, int> > m_currentDecToEncOffsetList;
 
     QList<QPair<KTextEditor::Range, QString> > m_languagesInSpellCheckRange;
     QList<QPair<KTextEditor::Range, QString> >::iterator m_currentLanguageRangeIterator;

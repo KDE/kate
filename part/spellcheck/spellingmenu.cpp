@@ -159,7 +159,8 @@ void KateSpellingMenu::populateSuggestionsMenu()
 void KateSpellingMenu::replaceWordBySuggestion(const QString& suggestion)
 {
   QMutexLocker(m_view->doc()->smartMutex());
-  m_view->doc()->replaceText(*m_currentMisspelledRange, suggestion);
+  KateDocument *doc = m_view->doc();
+  KateGlobal::self()->spellCheckManager()->replaceCharactersEncodedIfNecessary(suggestion, doc, *m_currentMisspelledRange);
 }
 
 void KateSpellingMenu::addCurrentWordToDictionary()

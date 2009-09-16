@@ -79,6 +79,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     MisspelledList m_misspelledList;
     SmartRangeList m_installedSmartRangeList;
     ModificationList m_modificationList;
+    KateDocument::OffsetList m_currentDecToEncOffsetList;
 
     void freeDocument();
 
@@ -111,8 +112,8 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
 
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
     QList<KTextEditor::SmartRange*> m_myranges;
-    KTextEditor::Cursor findBeginningOfWord(const KTextEditor::Cursor &cursor,
-                                            bool reverse);
+    KTextEditor::Range findWordBoundaries(const KTextEditor::Cursor& begin,
+                                          const KTextEditor::Cursor& end);
 
     void deleteSmartRangeLater(KTextEditor::SmartRange *range);
     void deleteSmartRangesLater(const QList<KTextEditor::SmartRange*>& list);

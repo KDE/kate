@@ -60,6 +60,8 @@ class KateSpellCheckManager : public QObject {
                                                                                                     bool returnSingleRange = false);
       QList<QPair<KTextEditor::Range, QString> > spellCheckRanges(KateDocument *doc, const KTextEditor::Range& range,
                                                                                      bool singleLine = false);
+
+      void replaceCharactersEncodedIfNecessary(const QString& newWord, KateDocument *doc, const KTextEditor::Range& replacementRange);
 };
 
 #endif

@@ -39,6 +39,8 @@
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/speller.h>
 
+#include <QMutexLocker>
+
 #include <kdebug.h>
 
 KateSpellCheckDialog::KateSpellCheckDialog( KateView* view )
@@ -47,12 +49,14 @@ KateSpellCheckDialog::KateSpellCheckDialog( KateView* view )
   , m_speller (NULL)
   , m_backgroundChecker(NULL)
   , m_sonnetDialog(NULL)
+  , m_globalSpellCheckRange(NULL)
   , m_spellCheckCancelledByUser(false)
 {
 }
 
 KateSpellCheckDialog::~KateSpellCheckDialog()
 {
+    delete m_globalSpellCheckRange;
     delete m_sonnetDialog;
     delete m_backgroundChecker;
     delete m_speller;
@@ -124,6 +128,7 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     m_sonnetDialog = new Sonnet::Dialog(m_backgroundChecker, m_view);
     m_sonnetDialog->showProgressDialog(200);
     m_sonnetDialog->showSpellCheckCompletionMessage();
+    m_sonnetDialog->setSpellCheckContinuedAfterReplacement(false);
 
     connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(installNextSpellCheckRange()));
 
@@ -140,16 +145,14 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
             this,SLOT(objectDestroyed()));
   }
 
-  m_globalSpellStart = start;
-  m_globalSpellEnd = end;
-  m_spellStart = KTextEditor::Cursor::invalid();
-  m_spellEnd = start;
-  m_languagesInSpellCheckRange = KateGlobal::self()->spellCheckManager()->spellCheckLanguageRanges(m_view->doc(), KTextEditor::Range(start, end));
-  m_currentLanguageRangeIterator = m_languagesInSpellCheckRange.begin();
-
+  QMutexLocker(m_view->doc()->smartMutex());
+  delete m_globalSpellCheckRange;
+  // we expand to handle the situation when the last word in the range is replace by a new one
+  m_globalSpellCheckRange = m_view->doc()->newSmartRange( KTextEditor::Range( start, end ),
+                                                          NULL,
+                                                          KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
   m_spellCheckCancelledByUser = false;
-  installNextSpellCheckRange();
-  m_sonnetDialog->show();
+  performSpellCheck( *m_globalSpellCheckRange );
 }
 
 KTextEditor::Cursor KateSpellCheckDialog::locatePosition( int pos )
@@ -176,19 +179,51 @@ KTextEditor::Cursor KateSpellCheckDialog::locatePosition( int pos )
   return m_spellPosCursor;
 }
 
-void KateSpellCheckDialog::misspelling( const QString& origword, int pos )
+void KateSpellCheckDialog::misspelling( const QString& word, int pos )
 {
-  KTextEditor::Cursor cursor = locatePosition( pos );
+  KTextEditor::Cursor cursor;
+  int length;
+  int origPos = m_view->doc()->computePositionWrtOffsets( m_currentDecToEncOffsetList, pos );
+  cursor = locatePosition( origPos );
+  length = m_view->doc()->computePositionWrtOffsets( m_currentDecToEncOffsetList, pos + word.length() )
+            - origPos;
 
   m_view->setCursorPositionInternal (cursor, 1);
-  m_view->setSelection( KTextEditor::Range(cursor, origword.length()) );
+  m_view->setSelection( KTextEditor::Range(cursor, length) );
 }
 
-void KateSpellCheckDialog::corrected( const QString& originalword, int pos, const QString& newword)
+void KateSpellCheckDialog::corrected( const QString& word, int pos, const QString& newWord )
 {
-  KTextEditor::Cursor cursor = locatePosition( pos );
+  int origPos = m_view->doc()->computePositionWrtOffsets( m_currentDecToEncOffsetList, pos );
 
-  m_view->doc()->replaceText( KTextEditor::Range(cursor, originalword.length()), newword );
+  int length = m_view->doc()->computePositionWrtOffsets( m_currentDecToEncOffsetList, pos + word.length() )
+                - origPos;
+
+  KTextEditor::Cursor replacementStartCursor = locatePosition( origPos );
+  KTextEditor::Range replacementRange = KTextEditor::Range( replacementStartCursor, length );
+  KateDocument *doc = m_view->doc();
+  KateGlobal::self()->spellCheckManager()->replaceCharactersEncodedIfNecessary( newWord, doc, replacementRange );
+
+  m_currentSpellCheckRange.setRange( KTextEditor::Range( replacementStartCursor, m_currentSpellCheckRange.end() ) );
+  // we have to be careful here: due to static word wrapping the text might change in addition to simply
+  // the misspelled word being replaced, i.e. new line breaks might be inserted as well. As such, the text
+  // in the 'Sonnet::Dialog' might be eventually out of sync with the visible text. Therefore, we 'restart'
+  // spell checking from the current position.
+  QMutexLocker( doc->smartMutex() );
+  performSpellCheck( KTextEditor::Range( replacementStartCursor, m_globalSpellCheckRange->end() ) );
+}
+
+void KateSpellCheckDialog::performSpellCheck(const KTextEditor::Range& range)
+{
+  if(range.isEmpty()) {
+    spellCheckDone();
+  }
+  m_languagesInSpellCheckRange = KateGlobal::self()->spellCheckManager()->spellCheckLanguageRanges(m_view->doc(), range);
+  m_currentLanguageRangeIterator = m_languagesInSpellCheckRange.begin();
+
+  m_currentSpellCheckRange = KTextEditor::Range::invalid();
+  installNextSpellCheckRange();
+  m_sonnetDialog->show();
 }
 
 void KateSpellCheckDialog::installNextSpellCheckRange()
@@ -201,13 +236,16 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
   }
 
   KateSpellCheckManager *spellCheckManager = KateGlobal::self()->spellCheckManager();
-  KTextEditor::Cursor nextRangeBegin = m_spellEnd;
+  KTextEditor::Cursor nextRangeBegin = (m_currentSpellCheckRange.isValid() ? m_currentSpellCheckRange.end()
+                                                                           : KTextEditor::Cursor::invalid());
   QList<QPair<KTextEditor::Range, QString> > rangeDictionaryPairList;
   while ( m_currentLanguageRangeIterator != m_languagesInSpellCheckRange.end() )
   {
     const KTextEditor::Range& currentLanguageRange = (*m_currentLanguageRangeIterator).first;
     const QString& dictionary = (*m_currentLanguageRangeIterator).second;
-    KTextEditor::Range languageSubRange(nextRangeBegin, currentLanguageRange.end());
+    KTextEditor::Range languageSubRange = (nextRangeBegin.isValid() ? KTextEditor::Range(nextRangeBegin, currentLanguageRange.end())
+                                                                    : currentLanguageRange);
+
     rangeDictionaryPairList = spellCheckManager->spellCheckWrtHighlightingRanges(m_view->doc(),
                                                                                  languageSubRange,
                                                                                  dictionary,
@@ -232,10 +270,8 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
 
   const KTextEditor::Range& range = rangeDictionaryPairList.first().first;
   const QString& dictionary = rangeDictionaryPairList.first().second;
-  m_spellStart = range.start();
-  m_spellEnd = range.end();
 
-  m_spellPosCursor = m_spellStart;
+  m_spellPosCursor = range.start();
   m_spellLastPos = 0;
 
   if(m_speller->language() != dictionary) {
@@ -243,7 +279,13 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
     m_backgroundChecker->setSpeller(*m_speller);
   }
 
-  m_sonnetDialog->setBuffer(m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ));
+  KateDocument *kateDocument = m_view->doc();
+  m_currentSpellCheckRange = range;
+  m_currentDecToEncOffsetList.clear();
+  KateDocument::OffsetList encToDecOffsetList;
+  QString text = kateDocument->decodeCharacters(m_currentSpellCheckRange, m_currentDecToEncOffsetList,
+                                                encToDecOffsetList);
+  m_sonnetDialog->setBuffer(text);
 }
 
 void KateSpellCheckDialog::cancelClicked()
@@ -258,6 +300,7 @@ void KateSpellCheckDialog::spellCheckDone()
 
 void KateSpellCheckDialog::objectDestroyed(QObject *object)
 {
+  Q_UNUSED(object);
   m_sonnetDialog = NULL;
 }
 

@@ -242,7 +242,6 @@ void KateOnTheFlyChecker::handleInsertedText(const KTextEditor::Range &range)
 void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   Q_ASSERT(document == m_document);
-  Q_UNUSED(document);
 
   bool listEmpty = m_modificationList.isEmpty();
 
@@ -251,8 +250,13 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
   if(!smartInterface) {
     return;
   }
+  // don't consider a range that is behind the end of the document
+  const KTextEditor::Range intersection = document->documentRange().intersect(range);
+  if(intersection.isEmpty()) {
+    return;
+  }
   QMutexLocker smartLock(smartInterface->smartMutex());
-  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(range);
+  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(intersection);
   smartRange->addWatcher(this);
   // we don't handle this directly as the highlighting information might not be up-to-date yet
   m_modificationList.push_back(ModificationItem(TEXT_REMOVED, smartRange));

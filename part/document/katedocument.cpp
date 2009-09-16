@@ -3910,6 +3910,7 @@ bool KateDocument::documentReload()
     const QString oldMode = mode ();
     const bool byUser = m_fileTypeSetByUser;
     const QString hl_mode = highlightingMode ();
+    KTextEditor::View* oldActiveView = activeView();
 
     m_storedVariables.clear();
 
@@ -3927,11 +3928,13 @@ bool KateDocument::documentReload()
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();
     for(int i = 0; i < m_views.size(); ++i, ++it) {
+      setActiveView(*it);
       (*it)->setCursorPositionInternal( cursorPositions[i], m_config->tabWidth(), false );
       if ((*it)->isVisible()) {
         (*it)->repaintText(false);
       }
     }
+    setActiveView(oldActiveView);
 
     for (int z=0; z < tmp.size(); z++)
     {

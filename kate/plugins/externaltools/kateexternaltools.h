@@ -202,21 +202,20 @@ class KateExternalToolsConfigWidget
 class KateExternalToolsCommand : public KTextEditor::Command
 {
   public:
-    KateExternalToolsCommand ();
+    KateExternalToolsCommand (KateExternalToolsPlugin *plugin);
     virtual ~KateExternalToolsCommand ()
     {}
-    static KateExternalToolsCommand *self();
     void reload();
   public:
     virtual const QStringList &cmds ();
     virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
   private:
-    static KateExternalToolsCommand *s_self;
     QStringList m_list;
     QHash<QString, QString> m_map;
     QHash<QString, QString> m_name;
     bool m_inited;
+    KateExternalToolsPlugin *m_plugin;
 };
 
 /**

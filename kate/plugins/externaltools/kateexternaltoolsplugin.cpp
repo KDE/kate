@@ -47,8 +47,32 @@ K_EXPORT_PLUGIN(KateExternalToolsFactory(KAboutData("kateexternaltools","kateext
 
 
 KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QList<QVariant>& ):
-    Kate::Plugin ( (Kate::Application*)parent )
-{}
+    Kate::Plugin ( (Kate::Application*)parent ),m_command(0)
+{
+  if (KAuthorized::authorizeKAction("shell_access"))
+  {
+    KTextEditor::CommandInterface* cmdIface =
+      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+    if( cmdIface ) {
+      m_command=new KateExternalToolsCommand(this);
+      cmdIface->registerCommand( m_command );
+    }
+  }
+}
+
+KateExternalToolsPlugin::~KateExternalToolsPlugin()
+{
+  if (KAuthorized::authorizeKAction("shell_access"))
+  {
+    if (m_command) {
+      KTextEditor::CommandInterface* cmdIface =
+        qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+      if( cmdIface )
+        cmdIface->unregisterCommand( m_command );
+      delete m_command;
+    }
+  }
+}
 
 Kate::PluginView *KateExternalToolsPlugin::createView (Kate::MainWindow *mainWindow)
 {
@@ -58,12 +82,28 @@ Kate::PluginView *KateExternalToolsPlugin::createView (Kate::MainWindow *mainWin
   return view;
 }
 
+KateExternalToolsPluginView *KateExternalToolsPlugin::extView(QWidget *widget)
+{
+  foreach (KateExternalToolsPluginView* view, m_views)
+  {
+    if (view->mainWindow()->window()==widget) return view;
+  }
+  return 0;
+}
+
 void KateExternalToolsPlugin::viewDestroyed(QObject *view)
 {
   m_views.removeAll(dynamic_cast<KateExternalToolsPluginView*>(view));
 }
 
-void KateExternalToolsPlugin::rebuildMenus() {
+void KateExternalToolsPlugin::reload() {
+  if (KAuthorized::authorizeKAction("shell_access"))
+  {
+    KTextEditor::CommandInterface* cmdIface =
+      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+    if (cmdIface)
+      if(m_command) m_command->reload();
+  }
   foreach(KateExternalToolsPluginView* view,m_views) {
     view->rebuildMenu();
   }
@@ -114,11 +154,6 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
 
   if (KAuthorized::authorizeKAction("shell_access"))
   {
-    KTextEditor::CommandInterface* cmdIface =
-      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
-    if( cmdIface )
-      cmdIface->registerCommand( KateExternalToolsCommand::self() );
-
     externalTools = new KateExternalToolsMenuAction( i18n("External Tools"), actionCollection(), mainWindow, mainWindow );
     actionCollection()->addAction("tools_external", externalTools);
     externalTools->setWhatsThis( i18n("Launch external helper applications") );

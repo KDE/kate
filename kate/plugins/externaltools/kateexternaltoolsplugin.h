@@ -40,15 +40,16 @@ class KateExternalToolsPlugin
 
   public:
     explicit KateExternalToolsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
-    virtual ~KateExternalToolsPlugin()
-    {}
+    virtual ~KateExternalToolsPlugin();
+    
 
-    void rebuildMenus();
+    void reload();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
-
+    KateExternalToolsPluginView *extView(QWidget *widget);
   private: 
     QList<KateExternalToolsPluginView*> m_views;
+    KateExternalToolsCommand *m_command;
   private Q_SLOT:
     void viewDestroyed(QObject *view);
   //

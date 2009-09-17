@@ -60,7 +60,6 @@
 #include <unistd.h>
 //END Includes
 
-KateExternalToolsCommand *KateExternalToolsCommand::s_self = 0;
 
 //BEGIN KateExternalTool
 KateExternalTool::KateExternalTool( const QString &name,
@@ -135,7 +134,7 @@ bool KateExternalTool::valid( const QString &mt ) const
 //END KateExternalTool
 
 //BEGIN KateExternalToolsCommand
-KateExternalToolsCommand::KateExternalToolsCommand() : KTextEditor::Command()
+KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin *plugin) : KTextEditor::Command(),m_plugin(plugin)
 {
   m_inited = false;
   reload();
@@ -146,12 +145,6 @@ const QStringList &KateExternalToolsCommand::cmds ()
   return m_list;
 }
 
-KateExternalToolsCommand *KateExternalToolsCommand::self ()
-{
-  if (s_self) return s_self;
-  s_self = new KateExternalToolsCommand;
-  return s_self;
-}
 
 void KateExternalToolsCommand::reload ()
 {
@@ -210,21 +203,20 @@ bool KateExternalToolsCommand::exec (KTextEditor::View *view, const QString &cmd
 //   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget";
     return false;
   }
-  KXmlGuiWindow *dmw = dynamic_cast<KXmlGuiWindow*>(wv->window());
-  if (!dmw)
-  {
-//   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get main window";
-    return false;
-  }
+  
+
 //  kDebug(13001)<<"cmd="<<cmd.trimmed();
   QString actionName = m_map[cmd.trimmed()];
   if (actionName.isEmpty()) return false;
 //  kDebug(13001)<<"actionName is not empty:"<<actionName;
-  KateExternalToolsMenuAction *a =
+/*  KateExternalToolsMenuAction *a =
     dynamic_cast<KateExternalToolsMenuAction*>(dmw->action("tools_external"));
-  if (!a) return false;
+  if (!a) return false;*/
+  KateExternalToolsPluginView *extview=m_plugin->extView(wv->window());
+  if (!extview) return false;
+  if (!extview->externalTools) return false;
 //  kDebug(13001)<<"trying to find action";
-  QAction *a1 = a->actionCollection()->action(actionName.toUtf8().constData ());
+  QAction *a1 = extview->externalTools->actionCollection()->action(actionName.toUtf8().constData ());
   if (!a1) return false;
 //  kDebug(13001)<<"activating action";
   a1->trigger();
@@ -769,7 +761,7 @@ void KateExternalToolsConfigWidget::apply()
   }
                     
   config->sync();
-  m_plugin->rebuildMenus();
+  m_plugin->reload();
 } 
 
 void KateExternalToolsConfigWidget::slotSelectionChanged()

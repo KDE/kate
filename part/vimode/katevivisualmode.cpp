@@ -226,8 +226,6 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN ) );
   m_commands.push_back( new KateViCommand( this, ":", &KateViNormalMode::commandSwitchToCmdLine ) );
   m_commands.push_back( new KateViCommand( this, "/", &KateViNormalMode::commandSearch ) );
-  m_commands.push_back( new KateViCommand( this, "u", &KateViNormalMode::commandUndo ) );
-  m_commands.push_back( new KateViCommand( this, "U", &KateViNormalMode::commandRedo ) );
   m_commands.push_back( new KateViCommand( this, "m.", &KateViNormalMode::commandSetMark, REGEX_PATTERN ) );
   m_commands.push_back( new KateViCommand( this, "n", &KateViNormalMode::commandFindNext ) );
   m_commands.push_back( new KateViCommand( this, "N", &KateViNormalMode::commandFindPrev ) );

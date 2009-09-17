@@ -10,7 +10,7 @@
 <!-- v2.02 remove RegExpr for nums and make indent consistent -->
 <!-- v2.03 highlight decorators, remove operator regex, don't highlight parens as operators -->
 <!-- v2.04 make alerts visible even if they are directly after ''' or # without a space -->
-<language name="Python" version="2.04" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="2.05" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -266,30 +266,30 @@
 			<!-- Comments -->
 
 			<context name="Hash comment" attribute="Comment" lineEndContext="#pop">
-				<IncludeRules context="##Alerts" />
+				<IncludeRules context="##Alerts_indent" />
 			</context>
 
 			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<StringDetect attribute="Comment" String="'''" context="#pop" endRegion="Tripple A-region"/>
-				<IncludeRules context="##Alerts" />
+				<IncludeRules context="##Alerts_indent" />
 			</context>
 
 			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCChar attribute="Comment" context="#stay"/>
 				<StringDetect attribute="Comment" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
-				<IncludeRules context="##Alerts" />
+				<IncludeRules context="##Alerts_indent" />
 			</context>
 
 			<context name="Single A-comment" attribute="Comment" lineEndContext="#stay">
 				<HlCStringChar attribute="Comment" context="#stay"/>
 				<DetectChar attribute="Comment" char="'" context="#pop"/>
-				<IncludeRules context="##Alerts" />
+				<IncludeRules context="##Alerts_indent" />
 			</context>
 
 			<context name="Single Q-comment" attribute="Comment" lineEndContext="#stay">
 				<HlCStringChar attribute="Comment" context="#stay"/>
 				<DetectChar attribute="Comment" char="&quot;" context="#pop"/>
-				<IncludeRules context="##Alerts" />
+				<IncludeRules context="##Alerts_indent" />
 			</context>
 
 			<!-- Strings -->

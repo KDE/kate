@@ -24,6 +24,7 @@
 #include <QtScript/QScriptable>
 
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 
 class KateView;
 

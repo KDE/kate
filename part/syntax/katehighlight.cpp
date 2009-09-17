@@ -1239,8 +1239,8 @@ void KateHighlighting::readSpellCheckingConfig()
   {
     while  (KateHlManager::self()->syntax->nextGroup(data))
     {
-        QString encoding = KateHlManager::self()->syntax->groupData(data,"sequence");
-        QString character = KateHlManager::self()->syntax->groupData(data,"character");
+        QString encoding = KateHlManager::self()->syntax->groupData(data,"string");
+        QString character = KateHlManager::self()->syntax->groupData(data,"char");
         QString ignored = KateHlManager::self()->syntax->groupData(data,"ignored");
 
         const bool ignoredIsTrue = IS_TRUE(ignored);

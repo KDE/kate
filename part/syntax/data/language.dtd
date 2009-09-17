@@ -525,8 +525,8 @@ TODO:
 -->
 <!ELEMENT encoding EMPTY>
 <!ATTLIST encoding
-  sequence       CDATA        #REQUIRED
-  character      CDATA        #IMPLIED
+  string         CDATA        #REQUIRED
+  char           CDATA        #IMPLIED
   ignored        (%boolean;)  #IMPLIED
 >
 

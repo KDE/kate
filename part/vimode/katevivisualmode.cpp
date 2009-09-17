@@ -216,7 +216,9 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "x", &KateViNormalMode::commandDeleteChar, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "X", &KateViNormalMode::commandDeleteCharBackward, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "gu", &KateViNormalMode::commandMakeLowercase, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "u", &KateViNormalMode::commandMakeLowercase, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "gU", &KateViNormalMode::commandMakeUppercase, IS_CHANGE ) );
+  m_commands.push_back( new KateViCommand( this, "U", &KateViNormalMode::commandMakeUppercase, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "y", &KateViNormalMode::commandYank ) );
   m_commands.push_back( new KateViCommand( this, "Y", &KateViNormalMode::commandYankToEOL ) );
   m_commands.push_back( new KateViCommand( this, "p", &KateViNormalMode::commandPaste, IS_CHANGE ) );

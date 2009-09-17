@@ -25,6 +25,7 @@
 #include <QtScript/QScriptValue>
 
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 
 class KateDocument;
 

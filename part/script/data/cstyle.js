@@ -61,9 +61,9 @@ var gIndentWidth = 4;
 function findLeftBrace(line, column)
 {
     var cursor = document.anchor(line, column, '{');
-    if (cursor) {
+    if (cursor.isValid()) {
         var parenthesisCursor = tryParenthesisBeforeBrace(cursor.line, cursor.column);
-        if (parenthesisCursor)
+        if (parenthesisCursor.isValid())
             cursor = parenthesisCursor;
 
         dbg("findLeftBrace: success in line " + cursor.line);
@@ -86,7 +86,7 @@ function tryParenthesisBeforeBrace(line, column)
     while (column > firstColumn && document.isSpace(line, --column));
     if (document.charAt(line, column) == ')')
         return document.anchor(line, column, '(');
-    return null;
+    return new Cursor().invalid();
 }
 
 /**
@@ -138,7 +138,7 @@ function tryAccessModifiers(line)
         return -1;
 
     var cursor = document.anchor(line, 0, '{');
-    if (!cursor)
+    if (!cursor.isValid())
         return -1;
 
     var indentation = document.firstVirtualColumn(cursor.line);
@@ -234,7 +234,7 @@ function tryCComment(line)
     // we found a */, search the opening /* and return its indentation level
     if (document.endsWith(currentLine, "*/", true)) {
         var cursor = document.rfind(currentLine, document.lastColumn(currentLine), "/*");
-        if (cursor && cursor.column == document.firstColumn(cursor.line))
+        if (cursor.isValid() && cursor.column == document.firstColumn(cursor.line))
             indentation = document.firstVirtualColumn(cursor.line);
 
         if (indentation != -1) dbg("tryCComment: success (1) in line " + cursor.line);
@@ -347,7 +347,7 @@ function tryBrace(line)
 
     if (document.charAt(currentLine, lastPos) == '{') {
         var cursor = tryParenthesisBeforeBrace(currentLine, lastPos);
-        if (cursor) {
+        if (cursor.isValid()) {
             indentation = document.firstVirtualColumn(cursor.line) + gIndentWidth;
         } else {
             indentation = document.firstVirtualColumn(currentLine);
@@ -375,10 +375,10 @@ function tryCKeywords(line, isBrace)
 
     // if line ends with ')', find the '(' and check this line then.
     var lastPos = document.lastColumn(currentLine);
-    var cursor = null;
+    var cursor = new Cursor().invalid();
     if (document.charAt(currentLine, lastPos) == ')')
         cursor = document.anchor(currentLine, lastPos, '(');
-    if (cursor)
+    if (cursor.isValid())
         currentLine = cursor.line;
 
     // found non-empty line

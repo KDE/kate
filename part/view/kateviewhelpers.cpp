@@ -1845,6 +1845,9 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
       {
         if (!j && !actions().at(i)->menu()->actions().at(j)->data().isNull())
           continue;
+        if (actions().at(i)->menu()->actions().at(j)->isSeparator())
+          continue;
+
         if (codec==KGlobal::charsets()->codecForName(actions().at(i)->menu()->actions().at(j)->text()))
         {
           d->currentSubAction=actions().at(i)->menu()->actions().at(j);

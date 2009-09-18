@@ -1146,14 +1146,22 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   editStart (editSource);
 
-  m_undoManager->slotTextInserted(line, col, s);
+  QString s2 = s;
+  int col2 = col;
+  if (col2 > l->length()) {
+    s2 = QString(col2 - l->length(), QLatin1Char(' ')) + s;
+    col2 = l->length();
+  }
 
-  l->insertText (col, s);
+  m_undoManager->slotTextInserted(line, col2, s2);
+
+  l->insertText (col2, s2);
 
   m_buffer->changeLine(line);
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(s)) );
-  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
+  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col2, line, col),
+              QStringList(), KTextEditor::Range(line, col2, line, col2 + s2.length()), QStringList(s2)) );
+  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col2, line, col2 + s2.length()));
 
   editEnd();
 

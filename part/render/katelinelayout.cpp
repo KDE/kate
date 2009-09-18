@@ -195,7 +195,7 @@ int KateLineLayout::width( ) const
 int KateLineLayout::widthOfLastLine( ) const
 {
   const KateTextLayout& lastLine = viewLine(viewLineCount() - 1);
-  return lastLine.endX();
+  return lastLine.width() + lastLine.xOffset();
 }
 
 bool KateLineLayout::isOutsideDocument( ) const

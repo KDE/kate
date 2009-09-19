@@ -220,7 +220,7 @@ set(testkateregression_SRCS
     tests/undomanagertest.cpp
 )
 
-kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
+kde4_add_executable(testkateregression NOGUI ${testkateregression_SRCS})
 
 target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor )
 

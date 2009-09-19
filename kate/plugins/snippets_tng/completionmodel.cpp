@@ -338,7 +338,9 @@ QString KateSnippetCompletionModel::createNew(const QString& name, const QString
     doc.appendChild(root);
     QString fileName=QUrl::toPercentEncoding(name)+QString(".xml");
     QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+#ifdef __GNUC__
 #warning add handling of conflicts with global names
+#endif
     QFileInfo fiout(outname);
     if (fiout.exists()) {
       bool ok=false;

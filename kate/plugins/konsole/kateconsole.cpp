@@ -130,7 +130,7 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
 {
 
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
-  a->setIcon(KIcon("pipe"));
+  a->setIcon(KIcon("utilities-terminal"));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 

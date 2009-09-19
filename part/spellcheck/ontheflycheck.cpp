@@ -152,6 +152,9 @@ void KateOnTheFlyChecker::handleRespellCheckBlock(KateDocument *kateDocument, in
 void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   Q_ASSERT(document == m_document);
+  if(!range.isValid()) {
+    return;
+  }
 
   bool listEmpty = m_modificationList.isEmpty();
   KTextEditor::SmartInterface *smartInterface =
@@ -160,8 +163,13 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
     return;
   }
   QMutexLocker smartLock(smartInterface->smartMutex());
+  // don't consider a range that is not within the document range
+  const KTextEditor::Range intersection = document->documentRange().intersect(range);
+  if(intersection.isEmpty()) {
+    return;
+  }
   // we don't handle this directly as the highlighting information might not be up-to-date yet
-  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(range);
+  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(intersection);
   smartRange->addWatcher(this);
   m_modificationList.push_back(ModificationItem(TEXT_INSERTED, smartRange));
   ON_THE_FLY_DEBUG << "added" << *smartRange;
@@ -242,6 +250,9 @@ void KateOnTheFlyChecker::handleInsertedText(const KTextEditor::Range &range)
 void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTextEditor::Range &range)
 {
   Q_ASSERT(document == m_document);
+  if(!range.isValid()) {
+    return;
+  }
 
   bool listEmpty = m_modificationList.isEmpty();
 

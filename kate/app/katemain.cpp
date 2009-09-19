@@ -211,6 +211,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     
   bool start_session_set=false;
   QString start_session;
+  bool session_already_opened=false;
   
   //check if we try to start an already opened session
   if (args->isSet("startanon"))
@@ -224,6 +225,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     if (mapSessionRii.contains(start_session)) {
       serviceName=mapSessionRii[start_session]->serviceName;
       force_new=false;
+      session_already_opened=true;
     }
   }
   
@@ -262,7 +264,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   if (foundRunningService)
   {
     // open given session
-    if (args->isSet ("start"))
+    if (args->isSet ("start") && (!session_already_opened) )
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
               QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activateSession");

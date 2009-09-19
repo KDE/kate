@@ -390,9 +390,12 @@ QString KateCmdLineEdit::helptext( const QPoint & ) const
 
 
 bool KateCmdLineEdit::event(QEvent *e) {
-	if (e->type()==QEvent::WhatsThis)
-		setWhatsThis(helptext(QPoint()));
-	return KLineEdit::event(e);
+  if (e->type() == QEvent::QueryWhatsThis) {
+    setWhatsThis(helptext(QPoint()));
+    e->accept();
+    return true;
+  }
+  return KLineEdit::event(e);
 }
 
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )

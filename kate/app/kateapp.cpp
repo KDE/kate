@@ -162,7 +162,11 @@ void KateApp::restoreKate ()
 bool KateApp::startupKate ()
 {
   // user specified session to open
-  if (m_args->isSet ("start"))
+  if (m_args->isSet ("startanon"))
+  {
+    sessionManager()->activateSession (sessionManager()->giveSession (""), false, false);
+  }
+  else  if (m_args->isSet ("start"))
   {
     sessionManager()->activateSession (sessionManager()->giveSession (m_args->getOption("start")), false, false);
   }

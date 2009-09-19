@@ -142,8 +142,6 @@ void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
     hidePopup();
     int id = index.data(Index).toInt();
     QStringList args;
-    if ( id > 0 )
-        args << "--start";
 
     // If a new session is requested we try to ask for a name.
     if ( id == 1 )
@@ -169,14 +167,17 @@ void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
                                         i18n("You already have a session named %1. Do you want to open that session?", name ),
                                         i18n("Session exists") ) == KMessageBox::No )
             return;
-        args << name;
+        if (name.isEmpty())
+          args <<"-startanon";
+        else
+          args <<"-n"<<"--start"<< name;
     }
 
     else if ( id == 2 )
-        args << "";
+        args << "--startanon";
 
     else if ( id > 2 )
-        args << m_sessions[ id-3 ];
+        args <<"-n"<< "--start"<<m_sessions[ id-3 ];
 
     KToolInvocation::kdeinitExec("kate", args);
 }

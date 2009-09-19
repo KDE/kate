@@ -149,6 +149,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   KCmdLineOptions options;
   options.add("s");
   options.add("start <name>", ki18n("Start Kate with a given session"));
+  options.add("startanon", ki18n("Start Kate with a new anonymous session, implies '-n'"));
   options.add("n");
   options.add("new", ki18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no urls are given at all"));
   options.add("b");
@@ -212,7 +213,11 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   QString start_session;
   
   //check if we try to start an already opened session
-  if (args->isSet("start"))
+  if (args->isSet("startanon"))
+  {
+    force_new=true;
+  }
+  else if (args->isSet("start"))
   {
     start_session_set=true;
     start_session=args->getOption("start");

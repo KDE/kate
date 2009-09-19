@@ -691,7 +691,9 @@ void KateMainWindow::editKeys()
   QList<KXMLGUIClient*> clients = guiFactory()->clients();
 
   foreach(KXMLGUIClient *client, clients) {
+#ifdef __GNUC__
 #warning there appear to be invalid clients after session switching    
+#endif
 //     kDebug(13001)<<"adding client to shortcut editor";
 //     kDebug(13001)<<client;
 //     kDebug(13001)<<client->actionCollection();

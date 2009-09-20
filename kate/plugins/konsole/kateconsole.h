@@ -50,8 +50,7 @@ class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInter
     Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
     explicit KateKonsolePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
-    virtual ~KateKonsolePlugin()
-    {}
+    virtual ~KateKonsolePlugin();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
@@ -64,8 +63,11 @@ class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInter
 
     void readConfig();
 
+    QByteArray previousEditorEnv() {return m_previousEditorEnv;}
+    
   private:
     QList<KateKonsolePluginView*> mViews;
+    QByteArray m_previousEditorEnv;
 };
 
 class KateKonsolePluginView : public Kate::PluginView
@@ -76,7 +78,7 @@ class KateKonsolePluginView : public Kate::PluginView
     /**
       * Constructor.
       */
-    KateKonsolePluginView (Kate::MainWindow *mainWindow);
+    KateKonsolePluginView (KateKonsolePlugin* plugin, Kate::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
@@ -86,6 +88,7 @@ class KateKonsolePluginView : public Kate::PluginView
     void readConfig();
 
   private:
+    KateKonsolePlugin *m_plugin;
     KateConsole *m_console;
 };
 
@@ -104,7 +107,7 @@ class KateConsole : public KVBox, public Kate::XMLGUIClient
      * @param mw main window
      * @param parent toolview
      */
-    KateConsole (Kate::MainWindow *mw, QWidget* parent);
+    KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget* parent);
 
     /**
      * destruct us
@@ -184,6 +187,8 @@ class KateConsole : public KVBox, public Kate::XMLGUIClient
      * toolview for this console
      */
     QWidget *m_toolView;
+    
+    KateKonsolePlugin *m_plugin;
 };
 
 class KateKonsoleConfigPage : public Kate::PluginConfigPage {
@@ -199,6 +204,7 @@ class KateKonsoleConfigPage : public Kate::PluginConfigPage {
     {}
   private:
     class QCheckBox *cbAutoSyncronize;
+    class QCheckBox *cbSetEditor;
     KateKonsolePlugin *mPlugin;
 };
 #endif

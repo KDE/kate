@@ -56,15 +56,21 @@ K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsole","katekonsole",ki18n(
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {
+  m_previousEditorEnv=qgetenv("EDITOR");
   if (!KAuthorized::authorizeKAction("shell_access"))
   {
     KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
   }
 }
 
+KateKonsolePlugin::~KateKonsolePlugin()
+{
+  ::setenv( "EDITOR", m_previousEditorEnv.data(), 1 );
+}
+
 Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  KateKonsolePluginView *view = new KateKonsolePluginView (mainWindow);
+  KateKonsolePluginView *view = new KateKonsolePluginView (this,mainWindow);
   mViews.append( view );
   return view;
 }
@@ -101,12 +107,12 @@ void KateKonsolePlugin::readConfig()
     view->readConfig();
 }
 
-KateKonsolePluginView::KateKonsolePluginView (Kate::MainWindow *mainWindow)
-    : Kate::PluginView (mainWindow)
+KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, Kate::MainWindow *mainWindow)
+    : Kate::PluginView (mainWindow),m_plugin(plugin)
 {
   // init console
   QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katekonsoleplugin", Kate::MainWindow::Bottom, SmallIcon("utilities-terminal"), i18n("Terminal"));
-  m_console = new KateConsole(mainWindow, toolview);
+  m_console = new KateConsole(m_plugin, mainWindow, toolview);
 }
 
 KateKonsolePluginView::~KateKonsolePluginView ()
@@ -122,8 +128,9 @@ void KateKonsolePluginView::readConfig()
   m_console->readConfig();
 }
 
-KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
+KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget *parent)
     : KVBox (parent), Kate::XMLGUIClient(KateKonsoleFactory::componentData())
+    , m_plugin(plugin)
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
@@ -289,6 +296,11 @@ void KateConsole::readConfig()
     connect( m_mw, SIGNAL(viewChanged()), SLOT(slotSync()) );
   else
     disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
+  
+  if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("SetEditor", false) )
+    ::setenv( "EDITOR", "kate -b",1);
+  else
+    ::setenv( "EDITOR", m_plugin->previousEditorEnv().data(), 1 );
 }
 
 KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin *plugin )
@@ -300,15 +312,19 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
 
   cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
   lo->addWidget( cbAutoSyncronize );
+  cbSetEditor = new QCheckBox( i18n("Set &EDITOR environment variable to 'kate -b'"), this );
+  lo->addWidget( cbSetEditor );
   reset();
   lo->addStretch();
   connect( cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
+  connect( cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
 }
 
 void KateKonsoleConfigPage::apply()
 {
   KConfigGroup config(KGlobal::config(), "Konsole");
   config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
+  config.writeEntry("SetEditor", cbSetEditor->isChecked());
   config.sync();
   mPlugin->readConfig();
 }
@@ -317,6 +333,7 @@ void KateKonsoleConfigPage::reset()
 {
   KConfigGroup config(KGlobal::config(), "Konsole");
   cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+  cbSetEditor->setChecked(config.readEntry("SetEditor", false));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

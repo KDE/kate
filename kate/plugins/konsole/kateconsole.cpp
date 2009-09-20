@@ -41,6 +41,7 @@
 #include <kmessagebox.h>
 //Added by qt3to4:
 #include <QShowEvent>
+#include <QLabel>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -292,10 +293,10 @@ void KateConsole::slotToggleFocus()
 
 void KateConsole::readConfig()
 {
+  disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
   if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("AutoSyncronize", false) )
     connect( m_mw, SIGNAL(viewChanged()), SLOT(slotSync()) );
-  else
-    disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
+    
   
   if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("SetEditor", false) )
     ::setenv( "EDITOR", "kate -b",1);
@@ -314,6 +315,9 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
   lo->addWidget( cbAutoSyncronize );
   cbSetEditor = new QCheckBox( i18n("Set &EDITOR environment variable to 'kate -b'"), this );
   lo->addWidget( cbSetEditor );
+  QLabel *tmp = new QLabel(this);
+  tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
+  lo->addWidget(tmp);
   reset();
   lo->addStretch();
   connect( cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );

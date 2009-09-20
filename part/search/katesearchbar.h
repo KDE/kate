@@ -158,7 +158,7 @@ private:
 public:
     void closed();
     void enableHighlights(bool enable);
-
+    bool isPower();
 private:
     // Shared by both dialogs
     KTextEditor::SmartRange * m_topRange;
@@ -190,7 +190,7 @@ private:
     bool m_powerFromCursor : 1;
     bool m_powerHighlightAll : 1;
     unsigned int m_powerMode : 2;
-
+    bool m_isPower:1;
 };
 
 

@@ -149,7 +149,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerMode(0) {
+        m_powerMode(0),
+        m_isPower(false) {
 
     connect(m_rangeNotifier,SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),
       this,SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
@@ -1585,6 +1586,8 @@ void KateSearchBar::onMutatePower() {
     QString initialPattern;
     bool selectionOnly = false;
 
+    m_isPower=true;
+    
     // Guess settings from context: init pattern with current selection
     const bool selected = view()->selection();
     if (selected) {
@@ -1764,6 +1767,8 @@ void KateSearchBar::onMutatePower() {
 void KateSearchBar::onMutateIncremental() {
     QString initialPattern;
 
+    m_isPower=false;
+    
     // Guess settings from context: init pattern with current selection
     const bool selected = view()->selection();
     if (selected) {
@@ -2003,6 +2008,10 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
     onPowerReplacmentContextMenuRequest(m_powerUi->replacement->mapFromGlobal(QCursor::pos()));
 }
 
+
+bool KateSearchBar::isPower() {
+    return m_isPower;
+}
 
 #include "katesearchbar.moc"
 

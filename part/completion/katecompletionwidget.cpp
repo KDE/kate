@@ -249,13 +249,14 @@ void KateCompletionWidget::argumentHintsChanged(bool hasContent)
     updateArgumentHintGeometry();
 }
 
-void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType)
+void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType, const QList<KTextEditor::CodeCompletionModel*>& models)
 {
   if(invocationType == KTextEditor::CodeCompletionModel::UserInvocation)
+  {
     abortCompletion();
-  startCompletion(KTextEditor::Range(KTextEditor::Cursor(-1, -1), KTextEditor::Cursor(-1, -1)), 0, invocationType);
+  }
+  startCompletion(KTextEditor::Range(KTextEditor::Cursor(-1, -1), KTextEditor::Cursor(-1, -1)), models, invocationType);
 }
-
 
 void KateCompletionWidget::deleteCompletionRanges()
 {
@@ -265,6 +266,17 @@ foreach(CompletionRange r, m_completionRanges)
 }
 
 void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
+{
+  QList<KTextEditor::CodeCompletionModel*> models;
+  if (model) {
+    models << model;
+  } else {
+    models = m_sourceModels;
+  }
+  startCompletion(word, models, invocationType);
+}
+
+void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const QList<KTextEditor::CodeCompletionModel*>& modelsToStart, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
@@ -279,12 +291,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
 
   m_dontShowArgumentHints = true;
 
-  QList<KTextEditor::CodeCompletionModel*> models;
-  if (model) {
-    models << model;
-  } else {
-    models = m_sourceModels;
-  }
+  QList<KTextEditor::CodeCompletionModel*> models = (modelsToStart.isEmpty() ? m_sourceModels : modelsToStart);
 
   foreach(KTextEditor::CodeCompletionModel* model, m_completionRanges.keys())
     if(!models.contains(model))
@@ -1226,17 +1233,23 @@ void KateCompletionWidget::automaticInvocation()
 {
   if(m_automaticInvocationAt != view()->cursorPosition())
     return;
+
   bool start = false;
+  QList<KTextEditor::CodeCompletionModel*> models;
 
   foreach (KTextEditor::CodeCompletionModel *model, m_sourceModels) {
       if(m_completionRanges.contains(model))
         continue;
+
       start = modelController(model)->shouldStartCompletion(view(), m_automaticInvocationLine, m_lastInsertionByUser, view()->cursorPosition());
-      if (start) break;
+      if (start)
+      {
+        models << model;
+      }
   }
-  if (start) {
+  if (!models.isEmpty()) {
     // Start automatic code completion
-    startCompletion(KTextEditor::CodeCompletionModel::AutomaticInvocation);
+    startCompletion(KTextEditor::CodeCompletionModel::AutomaticInvocation, models);
   }
 }
 

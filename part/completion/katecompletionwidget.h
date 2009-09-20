@@ -61,8 +61,9 @@ class KateCompletionWidget : public QFrame
     KateCompletionTree* treeView() const;
 
     bool isCompletionActive() const;
-    void startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType);
+    void startCompletion(KTextEditor::CodeCompletionModel::InvocationType invocationType, const QList<KTextEditor::CodeCompletionModel*>& models = QList<KTextEditor::CodeCompletionModel*>());
     void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
+    void startCompletion(const KTextEditor::Range& word, const QList<KTextEditor::CodeCompletionModel*>& models = QList<KTextEditor::CodeCompletionModel*>(), KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
     void userInvokedCompletion();
 
     //Executed when return is pressed while completion is active.

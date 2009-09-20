@@ -2,7 +2,7 @@
  * name: LISP
  * license: LGPL
  * author: Dominik Haumann <dhdev@gmx.de>
- * revision: 1
+ * revision: 2
  * kate-version: 3.4
  * type: indentation
  *
@@ -47,8 +47,8 @@ function indent(line, indentWidth, ch)
     }
 
     cursor = document.anchor(line, 0, '(');
-    if (cursor) {
-        return document.toVirtualColumn(cursor.line, cursor.column) + indentWidth;
+    if (cursor.isValid()) {
+        return document.toVirtualColumn(cursor) + indentWidth;
     } else {
         return 0;
     }

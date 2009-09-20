@@ -2,7 +2,7 @@
  * name: LilyPond
  * license: LGPL
  * author: Wilbert Berendsen <info@wilbertberendsen.nl>
- * revision: 1
+ * revision: 2
  * kate-version: 3.4
  * type: indentation
  * required-syntax-style: lilypond
@@ -102,7 +102,7 @@ function indent(line, indentWidth, ch)
 	      }
 	      else {
 		var cur = document.anchor(prev, pos, "(");
-		if (cur) {
+		if (cur.isValid()) {
 		  delta = 0;
 		  if (isLast)
 		    prevIndent = document.firstVirtualColumn(cur.line);

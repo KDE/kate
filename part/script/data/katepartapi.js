@@ -135,7 +135,7 @@ function Range()
     if (range.start.compareTo(this.start) <= 0) {
       return range.end.compareTo(this.start) > 0;
     } else if (range.end.compareTo(this.end) >= 0) {
-      return (range.start.compareTo(this.end < 0);
+      return range.start.compareTo(this.end < 0);
     } else {
       return this.contains(range);
     }

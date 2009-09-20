@@ -147,6 +147,10 @@ class KateScript {
     /** Clears any uncaught exceptions in the script engine. */
     void clearExceptions();
 
+  protected:
+    /** Checks for exception and gives feedback on the console. */
+    bool hasException(const QScriptValue& object, const QString& file);
+
   private:
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();

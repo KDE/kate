@@ -188,23 +188,35 @@ bool KateScript::load()
   m_engine = new QScriptEngine();
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
-  QScriptValue cursorPrototype = m_engine->evaluate(s_katePartApi);
-
-
-  QScriptValue result = m_engine->evaluate(source, m_url);
-  if(m_engine->hasUncaughtException()) {
-    displayBacktrace(result, QString("Error loading %1\n").arg(m_url));
-    m_errorMessage = i18n("Error loading script %1", m_url);
-    delete m_engine;
-    m_engine = 0;
-    m_loadSuccessful = false;
+  QScriptValue apiObject = m_engine->evaluate(s_katePartApi, "katepartapi.js");
+  if (hasException(apiObject, "katepartapi.js")) {
     return false;
   }
+
+  QScriptValue result = m_engine->evaluate(source, m_url);
+  if (hasException(result, m_url)) {
+    return false;
+  }
+
   // yip yip!
   initEngine();
   m_loadSuccessful = true;
-  return true;
+//   return true;
 }
+
+bool KateScript::hasException(const QScriptValue& object, const QString& file)
+{
+  if(m_engine->hasUncaughtException()) {
+    displayBacktrace(object, i18n("Error loading script %1\n", file));
+    m_errorMessage = i18n("Error loading script %1", file);
+    delete m_engine;
+    m_engine = 0;
+    m_loadSuccessful = false;
+    return true;
+  }
+  return false;
+}
+
 
 void KateScript::initEngine() {
   // set the view/document objects as necessary

@@ -35,6 +35,11 @@ class KatePluginManager;
 class KateDocManager;
 class KateAppAdaptor;
 
+namespace KTextEditor
+{
+  class Document;
+}
+
 namespace Kate
 {
   class Application;
@@ -197,6 +202,10 @@ class KATEINTERFACES_EXPORT KateApp : public KApplication
      */
     bool openUrl (const KUrl &url, const QString &encoding, bool isTempFile);
 
+    KTextEditor::Document* openDocUrl (const KUrl &url, const QString &encoding, bool isTempFile);
+    
+    void emitDocumentClosed(const QString& token);
+    
     /**
      * position cursor in current active view
      * @param line line to set

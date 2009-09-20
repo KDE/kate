@@ -1,3 +1,5 @@
+
+
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
@@ -44,10 +46,10 @@ class KateWaiter : public QObject {
   private:
     QCoreApplication *m_app;
     QString m_service;
-    
+    QStringList m_tokens;
   public:
-    KateWaiter (QCoreApplication *app, const QString &service)
-      : QObject (app), m_app (app), m_service (service) {
+    KateWaiter (QCoreApplication *app, const QString &service,const QStringList &tokens)
+      : QObject (app), m_app (app), m_service (service),m_tokens(tokens) {
       connect ( QDBusConnection::sessionBus().interface(), SIGNAL( serviceOwnerChanged( QString, QString, QString ) )
           , this, SLOT(serviceOwnerChanged( QString, QString, QString )) ); 
     }
@@ -55,6 +57,11 @@ class KateWaiter : public QObject {
   public Q_SLOTS:
     void exiting () {
       m_app->quit ();
+    }
+    
+    void documentClosed(const QString& token) {
+      m_tokens.removeAll(token);
+      if (m_tokens.count()==0) m_app->quit();
     }
     
     void serviceOwnerChanged( const QString & name, const QString &, const QString &) {
@@ -70,7 +77,7 @@ class RunningInstanceInfo: public QObject {
   
   public:
     RunningInstanceInfo(const QString& serviceName_):
-      QObject(),
+      QObject(),valid(false),
       serviceName(serviceName_),
       dbus_if(new QDBusInterface(serviceName_,QLatin1String("/MainApplication"),
           QString(), //I don't know why it does not work if I specify org.kde.Kate.Application here
@@ -82,15 +89,20 @@ class RunningInstanceInfo: public QObject {
 /*      std::cerr<<a_s.isValid()<<std::endl;
       std::cerr<<"property:"<<qPrintable(a_s.toString())<<std::endl;
       std::cerr<<qPrintable(QDBusConnection::sessionBus().lastError().message())<<std::endl;*/
-      if (!a_s.isValid())
+      if (!a_s.isValid()) {
         sessionName=QString("___NO_SESSION_OPENED__%1").arg(dummy_session++);
-      else
+        valid=false;
+      }
+      else {
         if (a_s.toString().isEmpty())
           sessionName=QString("___DEFAULT_CONSTRUCTED_SESSION__%1").arg(dummy_session++);
         else
           sessionName=a_s.toString();
+        valid=true;
+      }
     };
     virtual ~RunningInstanceInfo(){}
+    bool valid;
     QString serviceName;
     QDBusInterface* dbus_if;
     QString sessionName;
@@ -189,12 +201,16 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     if (s.startsWith ("org.kde.kate-"))
     {
       RunningInstanceInfo* rii=new RunningInstanceInfo(s);
-      if (mapSessionRii.contains(rii->sessionName)) return 1; //ERROR no two instances may have the same session name
-      mapSessionRii.insert(rii->sessionName,rii);
-      kateServices<<s;
-      std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
+      if (rii->valid)
+      {
+        if (mapSessionRii.contains(rii->sessionName)) return 1; //ERROR no two instances may have the same session name
+        mapSessionRii.insert(rii->sessionName,rii);
+        kateServices<<s;
+        std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
+      } else delete rii;
     }
   }
+  
   bool force_new=args->isSet("new");
   if (!force_new) {
     if ( (!
@@ -283,11 +299,13 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     // only block, if files to open there....
     bool needToBlock = args->isSet( "block" ) && (args->count() > 0);
     
+    QStringList tokens;
+    
     // open given files...
     for (int z = 0; z < args->count(); z++)
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "openUrl");
+              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "tokenOpenUrl");
 
       QList<QVariant> dbusargs;
       dbusargs.append(args->url(z).url());
@@ -295,7 +313,22 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       dbusargs.append(tempfileSet);
       m.setArguments(dbusargs);
 
-      QDBusConnection::sessionBus().call (m);
+      QDBusMessage res=QDBusConnection::sessionBus().call (m);
+      if (res.type()==QDBusMessage::ReplyMessage)
+      {
+        if (res.arguments().count()==1)
+        {
+            QVariant v=res.arguments()[0];
+            if (v.isValid())
+            {
+              QString s=v.toString();
+              if ((!s.isEmpty()) && (s!=QString("ERROR")))
+              {
+                tokens<<s;
+              }
+            }
+        }
+      }
     }
     
     if( args->isSet( "stdin" ) )
@@ -373,8 +406,9 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     
     // connect dbus signal
     if (needToBlock) {
-      KateWaiter *waiter = new KateWaiter (&app, serviceName);
+      KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);
       QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
+      QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "documentClosed", waiter, SLOT(documentClosed(const QString&)));
     }
     
 #ifdef Q_WS_X11

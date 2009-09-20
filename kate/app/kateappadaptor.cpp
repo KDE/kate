@@ -101,6 +101,23 @@ bool KateAppAdaptor::openUrl (QString url, QString encoding, bool isTempFile)
   return m_app->openUrl (url, encoding, isTempFile);
 }
 
+//-----------
+QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding)
+{
+  KTextEditor::Document *doc=m_app->openDocUrl (url, encoding, false);
+  if (!doc) return QString("ERROR");
+  return QString("%1").arg((long)doc);
+}
+
+QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding, bool isTempFile)
+{
+  kDebug () << "openURL";
+  KTextEditor::Document *doc=m_app->openDocUrl (url, encoding, isTempFile);
+  if (!doc) return QString("ERROR");
+  return QString("%1").arg((long)doc);
+}
+//--------
+
 bool KateAppAdaptor::setCursor (int line, int column)
 {
   return m_app->setCursor (line, column);
@@ -126,6 +143,11 @@ QString KateAppAdaptor::activeSession()
 void KateAppAdaptor::emitExiting ()
 {
   emit exiting (); 
+}
+
+void KateAppAdaptor::emitDocumentClosed(const QString& token)
+{
+  documentClosed(token);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

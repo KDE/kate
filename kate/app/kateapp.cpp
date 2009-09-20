@@ -310,16 +310,23 @@ KateSessionManager *KateApp::sessionManager ()
 
 bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile)
 {
+  return openDocUrl(url,encoding,isTempFile);
+}
+
+KTextEditor::Document* KateApp::openDocUrl (const KUrl &url, const QString &encoding, bool isTempFile)
+{
   KateMainWindow *mainWindow = activeMainWindow ();
 
   if (!mainWindow)
-    return false;
+    return 0;
 
   QTextCodec *codec = encoding.isEmpty() ? 0 : QTextCodec::codecForName(encoding.toLatin1());
 
   // this file is no local dir, open it, else warn
   bool noDir = !url.isLocalFile() || !QDir (url.toLocalFile()).exists();
 
+  KTextEditor::Document *doc=0;
+  
   if (noDir)
   {
     // show no errors...
@@ -327,9 +334,9 @@ bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile
 
     // open a normal file
     if (codec)
-      mainWindow->viewManager()->openUrl( url, codec->name(), true, isTempFile);
+      doc=mainWindow->viewManager()->openUrl( url, codec->name(), true, isTempFile);
     else
-      mainWindow->viewManager()->openUrl( url, QString(), true, isTempFile );
+      doc=mainWindow->viewManager()->openUrl( url, QString(), true, isTempFile );
     
     // back to normal....
     documentManager()->setSuppressOpeningErrorDialogs (false);
@@ -338,7 +345,7 @@ bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile
     KMessageBox::sorry( mainWindow,
                         i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()) );
 
-  return true;
+  return doc;
 }
 
 bool KateApp::setCursor (int line, int column)
@@ -430,6 +437,11 @@ KateMainWindow *KateApp::mainWindow (int n)
     return m_mainWindows[n];
 
   return 0;
+}
+
+void KateApp::emitDocumentClosed(const QString& token)
+{
+  m_adaptor->emitDocumentClosed(token);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

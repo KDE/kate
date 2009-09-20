@@ -35,6 +35,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      * emit the exiting signal
      */
     void emitExiting ();
+    void emitDocumentClosed(const QString& token);
     
   public Q_SLOTS:
     QDBusObjectPath documentManager ();
@@ -54,6 +55,15 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      * @return success
      */
     bool openUrl (QString url, QString encoding);
+    
+    /**
+     * open a file with given url and encoding
+     * will get view created
+     * @param url url of the file
+     * @param encoding encoding name
+     * @return token or ERROR
+     */
+    QString tokenOpenUrl (QString url, QString encoding);
 
     /**
      * Like the above, but adds an option to let the documentManager know
@@ -63,6 +73,8 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      */
     bool openUrl(QString url, QString encoding, bool isTempFile);
 
+    QString tokenOpenUrl(QString url, QString encoding, bool isTempFile);
+    
     /**
      * set cursor of active view in active main window
      * @param line line for cursor
@@ -97,7 +109,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
      * All apps should stop using the dbus interface of this instance after this signal got emited.
      */
     void exiting ();
-    
+    void documentClosed(const QString& token);
   public:
     QString activeSession();
   private:

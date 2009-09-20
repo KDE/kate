@@ -191,6 +191,7 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
 
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
+  KateApp::self()->emitDocumentClosed(QString("%1").arg((long)doc));
   kDebug()<<"deleting document with name:"<<doc->documentName();
   int remove_row=-1;
   int rows = rowCount();

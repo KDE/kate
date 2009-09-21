@@ -201,7 +201,7 @@ bool KateScript::load()
   // yip yip!
   initEngine();
   m_loadSuccessful = true;
-//   return true;
+  return true;
 }
 
 bool KateScript::hasException(const QScriptValue& object, const QString& file)

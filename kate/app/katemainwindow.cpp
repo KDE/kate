@@ -63,6 +63,7 @@
 #include <KRecentFilesAction>
 #include <KToggleFullScreenAction>
 #include <KAboutData>
+#include <kwindowsystem.h>
 
 #include <QDragEnterEvent>
 #include <QEvent>
@@ -75,6 +76,7 @@
 //END
 
 uint KateMainWindow::uniqueID = 1;
+KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog=0;
 
 KateContainerStackedLayout::KateContainerStackedLayout(QWidget* parent)
   : QStackedLayout(parent)
@@ -837,11 +839,11 @@ void KateMainWindow::slotFullScreen(bool t)
 
 bool KateMainWindow::event( QEvent *e )
 {
-  uint type = e->type();
+/*  uint type = e->type();
   if ( type == QEvent::WindowActivate && modNotification )
   {
     showModOnDiskPrompt();
-  }
+  }*/
   return KateMDI::MainWindow::event( e );
 }
 
@@ -1026,5 +1028,34 @@ void KateMainWindow::slotUpdateHorizontalViewBar()
     m_horizontalViewBarContainer->hide();
   }
 }
+
+void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
+{
+  if (!modNotification) return;
+
+  if (s_modOnHdDialog==0) {
+    DocVector list;
+    list.reserve( KateDocManager::self()->documents() );
+    list.append(doc);
+    
+    s_modOnHdDialog= new KateMwModOnHdDialog( list, this );
+    m_modignore = true;
+    bool res = s_modOnHdDialog->exec();
+    delete s_modOnHdDialog;
+    m_modignore = false;
+    return;
+  } else {
+    s_modOnHdDialog->addDocument(doc);
+    //if (qApp->activeWindow()) {
+//     s_modOnHdDialog->raise();
+//   #ifdef Q_WS_X11
+//   KWindowSystem::activateWindow (s_modOnHdDialog->winId ());
+//   KWindowSystem::raiseWindow (s_modOnHdDialog->winId ());
+//   KWindowSystem::setCurrentDesktop(
+//   #endif
+    return;
+  }
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

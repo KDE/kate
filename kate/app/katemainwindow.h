@@ -54,6 +54,7 @@ class KRecentFilesAction;
 class KateExternalToolsMenuAction;
 class KateViewDocumentProxyModel;
 class KateViewManager;
+class KateMwModOnHdDialog;
 
 #include <QtGui/QStackedLayout>
 // Helper layout class to always provide minimum size
@@ -297,6 +298,16 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
         bool m_state;
     };
     QHash<KTextEditor::View*,BarState> m_viewBarMapping;
+
+
+  public:
+    void queueModifiedOnDisc(KTextEditor::Document *doc);
+    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog* diag) {
+      if (s_modOnHdDialog==diag) s_modOnHdDialog=0;
+    }
+  private:
+    static KateMwModOnHdDialog *s_modOnHdDialog;
+
 };
 
 #endif

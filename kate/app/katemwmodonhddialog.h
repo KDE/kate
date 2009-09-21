@@ -43,6 +43,7 @@ class KateMwModOnHdDialog : public KDialog
   public:
     explicit KateMwModOnHdDialog( DocVector docs, QWidget *parent = 0, const char *name = 0 );
     ~KateMwModOnHdDialog();
+    void addDocument(KTextEditor::Document *doc);
 
   protected Q_SLOTS:
     void slotUser1();
@@ -62,6 +63,12 @@ class KateMwModOnHdDialog : public KDialog
     class QPushButton *btnDiff;
     KProcess *m_proc;
     KTemporaryFile *m_diffFile;
+    QStringList m_stateTexts;
+
+  protected:
+    virtual void closeEvent( QCloseEvent *e );
+    virtual void keyPressEvent( QKeyEvent* );
+
 };
 
 #endif // _KATE_MW_MODONHD_DIALOG_H_

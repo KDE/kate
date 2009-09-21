@@ -21,7 +21,7 @@
 #include "katemwmodonhddialog.moc"
 
 #include "katedocmanager.h"
-
+#include "katemainwindow.h"
 
 #include <KLocale>
 #include <KMessageBox>
@@ -105,11 +105,11 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   twDocuments->setSelectionMode( QAbstractItemView::SingleSelection );
   twDocuments->setRootIsDecorated( false );
 
-  QStringList l;
-  l << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");
+  
+  m_stateTexts << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");
   for ( int i = 0; i < docs.size(); i++ )
   {
-    new KateDocItem( docs[i], l[ (uint)KateDocManager::self()->documentInfo( docs[i] )->modifiedOnDiscReason ], twDocuments );
+    new KateDocItem( docs[i], m_stateTexts[ (uint)KateDocManager::self()->documentInfo( docs[i] )->modifiedOnDiscReason ], twDocuments );
   }
   twDocuments->header()->setStretchLastSection(false);
   twDocuments->header()->setResizeMode(0, QHeaderView::Stretch);
@@ -137,6 +137,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
 {
+  KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
   delete m_proc;
   m_proc = 0;
   if (m_diffFile) {
@@ -308,4 +309,28 @@ void KateMwModOnHdDialog::slotPDone()
   KRun::runUrl( url, "text/x-patch", this, true );
 }
 
+void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
+{
+    new KateDocItem( doc, m_stateTexts[ (uint)KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason ], twDocuments );
+}
+
+void KateMwModOnHdDialog::keyPressEvent( QKeyEvent *event )
+{
+  if ( event->modifiers() == 0 )
+  {
+    if ( event->key() == Qt::Key_Escape )
+    {
+      event->accept();
+      return;
+    }
+  }
+  KDialog::keyPressEvent(event);
+}
+
+void KateMwModOnHdDialog::closeEvent( QCloseEvent *e )
+{
+  if ( ! twDocuments->topLevelItemCount() )
+    KDialog::closeEvent(e);
+  else e->ignore();
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

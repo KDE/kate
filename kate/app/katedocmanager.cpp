@@ -707,9 +707,12 @@ void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
   const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
   item->setIcon(QIcon());
   if (info && info->modifiedOnDisc)
+  {
     if (doc->isModified()) item->setIcon(KIcon("modmod"));
     else item->setIcon(KIcon("modonhd"));
-  else
+
+    KateApp::self()->activeMainWindow()->queueModifiedOnDisc(doc);      
+  } else
     if (doc->isModified()) item->setIcon(KIcon("modified"));
     else item->setIcon(KIcon("null"));
   /*  if ( column == 0) {

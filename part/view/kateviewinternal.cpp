@@ -86,8 +86,8 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_selectAnchor (-1, -1)
   , m_selectionMode( Default )
   , m_layoutCache(new KateLayoutCache(renderer(), this))
-  , m_preserveMaxX(false)
-  , m_currentMaxX(0)
+  , m_preserveX(false)
+  , m_preservedX(0)
   , m_updatingView(true)
   , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
@@ -178,7 +178,6 @@ KateViewInternal::KateViewInternal(KateView *view)
 
   m_displayCursor.setPosition(0, 0);
   m_cursor.setInsertBehavior(KTextEditor::SmartCursor::MoveOnInsert);
-  m_cursorX = 0;
 
   setAcceptDrops( true );
 
@@ -1325,10 +1324,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
       KateTextLayout t = cache()->textLayout(realLine, 0);
       Q_ASSERT(t.isValid());
 
-      if (m_currentMaxX > m_cursorX)
-        m_cursorX = m_currentMaxX;
-
-      ret.setColumn(renderer()->xToCursor(t, m_cursorX, !m_view->wrapCursor()).column());
+      ret.setColumn(renderer()->xToCursor(t, m_preservedX, !m_view->wrapCursor()).column());
     }
 
     return ret;
@@ -1395,13 +1391,9 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
         if (keepX) {
           KTextEditor::Cursor realCursor = toRealCursor(virtualCursor);
           KateTextLayout t = cache()->textLayout(realCursor);
-          m_cursorX = renderer()->cursorToX(t, realCursor, !m_view->wrapCursor());
+          // renderer()->cursorToX(t, realCursor, !m_view->wrapCursor());
 
-          if (m_currentMaxX > m_cursorX) {
-            m_cursorX = m_currentMaxX;
-          }
-
-          realCursor = renderer()->xToCursor(thisViewLine, m_cursorX, !m_view->wrapCursor());
+          realCursor = renderer()->xToCursor(thisViewLine, m_preservedX, !m_view->wrapCursor());
           ret.setColumn(realCursor.column());
         }
 
@@ -1462,7 +1454,7 @@ void KateViewInternal::cursorUp(bool sel)
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
     return;
 
-  m_preserveMaxX = true;
+  m_preserveX = true;
 
   KateTextLayout thisLine = currentLayout();
   // This is not the first line because that is already simplified out above
@@ -1473,13 +1465,7 @@ void KateViewInternal::cursorUp(bool sel)
   Q_ASSERT(m_cursor.column() >= thisLine.startCol());
   Q_ASSERT(!thisLine.wrap() || m_cursor.column() < thisLine.endCol());
 
-  // Retrieve current cursor x position
-  m_cursorX = renderer()->cursorToX(thisLine, m_cursor, !m_view->wrapCursor());
-
-  if (m_currentMaxX > m_cursorX)
-    m_cursorX = m_currentMaxX;
-
-  KTextEditor::Cursor c = renderer()->xToCursor(pRange, m_cursorX, !m_view->wrapCursor());
+  KTextEditor::Cursor c = renderer()->xToCursor(pRange, m_preservedX, !m_view->wrapCursor());
 
   updateSelection( c, sel );
   l.unlock();
@@ -1498,7 +1484,7 @@ void KateViewInternal::cursorDown(bool sel)
   if ((m_displayCursor.line() >= doc()->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
     return;
 
-  m_preserveMaxX = true;
+  m_preserveX = true;
 
   KateTextLayout thisLine = currentLayout();
   // This is not the last line because that is already simplified out above
@@ -1509,13 +1495,7 @@ void KateViewInternal::cursorDown(bool sel)
       (m_cursor.column() >= thisLine.startCol()) &&
       (!thisLine.wrap() || m_cursor.column() < thisLine.endCol()));
 
-  // Retrieve current cursor x position
-  m_cursorX = renderer()->cursorToX(thisLine, m_cursor, !m_view->wrapCursor());
-
-  if (m_currentMaxX > m_cursorX)
-    m_cursorX = m_currentMaxX;
-
-  KTextEditor::Cursor c = renderer()->xToCursor(nRange, m_cursorX, !m_view->wrapCursor());
+  KTextEditor::Cursor c = renderer()->xToCursor(nRange, m_preservedX, !m_view->wrapCursor());
 
   l.unlock();
   updateSelection(c, sel);
@@ -1597,11 +1577,9 @@ void KateViewInternal::pageUp( bool sel )
   int lineadj = m_minLinesVisible;
 
   int linesToScroll = -qMax( (linesDisplayed() - 1) - lineadj, 0 );
-  m_preserveMaxX = true;
+  m_preserveX = true;
 
   if (!doc()->pageUpDownMovesCursor () && !atTop) {
-    m_cursorX = renderer()->cursorToX(currentLayout(), m_cursor, !m_view->wrapCursor());
-
     KTextEditor::Cursor newStartPos = viewLineOffset(startPos(), linesToScroll - 1);
     scrollPos(newStartPos);
 
@@ -1610,12 +1588,9 @@ void KateViewInternal::pageUp( bool sel )
 
     KateTextLayout newLine = cache()->textLayout(newPos);
 
-    if (m_currentMaxX> m_cursorX)
-      m_cursorX = m_currentMaxX;
+    newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
 
-    newPos = renderer()->xToCursor(newLine, m_cursorX, !m_view->wrapCursor());
-
-    m_preserveMaxX = true;
+    m_preserveX = true;
     updateSelection( newPos, sel );
     l.unlock();
     updateCursor(newPos);
@@ -1642,11 +1617,9 @@ void KateViewInternal::pageDown( bool sel )
   int lineadj = m_minLinesVisible;
 
   int linesToScroll = qMax( (linesDisplayed() - 1) - lineadj, 0 );
-  m_preserveMaxX = true;
+  m_preserveX = true;
 
   if (!doc()->pageUpDownMovesCursor () && !atEnd) {
-    m_cursorX = renderer()->cursorToX(currentLayout(), m_cursor, !m_view->wrapCursor());
-
     KTextEditor::Cursor newStartPos = viewLineOffset(startPos(), linesToScroll + 1);
     scrollPos(newStartPos);
 
@@ -1655,12 +1628,9 @@ void KateViewInternal::pageDown( bool sel )
 
     KateTextLayout newLine = cache()->textLayout(newPos);
 
-    if (m_currentMaxX> m_cursorX)
-      m_cursorX = m_currentMaxX;
+    newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
 
-    newPos = renderer()->xToCursor(newLine, m_cursorX, !m_view->wrapCursor());
-
-    m_preserveMaxX = true;
+    m_preserveX = true;
     updateSelection( newPos, sel );
     l.unlock();
     updateCursor(newPos);
@@ -1702,14 +1672,9 @@ void KateViewInternal::top( bool sel )
 {
   QMutexLocker lock(doc()->smartMutex());
 
-  m_cursorX = renderer()->cursorToX(currentLayout(), m_cursor, !m_view->wrapCursor());
-
   KTextEditor::Cursor newCursor(0, 0);
 
-  if (m_currentMaxX > m_cursorX)
-    m_cursorX = m_currentMaxX;
-
-  newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_cursorX, !m_view->wrapCursor());
+  newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_preservedX, !m_view->wrapCursor());
 
   updateSelection( newCursor, sel );
   lock.unlock();
@@ -1722,10 +1687,7 @@ void KateViewInternal::bottom( bool sel )
   
   KTextEditor::Cursor newCursor(doc()->lastLine(), 0);
 
-  if (m_currentMaxX > m_cursorX)
-    m_cursorX = m_currentMaxX;
-
-  newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_cursorX, !m_view->wrapCursor());
+  newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_preservedX, !m_view->wrapCursor());
 
   updateSelection( newCursor, sel );
   lock.unlock();
@@ -1926,12 +1888,6 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   m_cursor = newCursor;
   m_displayCursor = toVirtualCursor(m_cursor);
   
-  {
-    QMutexLocker lock(doc()->smartMutex());
-
-    m_cursorX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor, !m_view->wrapCursor());
-  }
-  
   if ( m_view == doc()->activeView() )
     makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
 
@@ -1953,12 +1909,14 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   }
 
   // Remember the maximum X position if requested
-  if (m_preserveMaxX)
-    m_preserveMaxX = false;
-  else
-    m_currentMaxX = m_cursorX;
+  if (m_preserveX)
+    m_preserveX = false;
+  else {
+    QMutexLocker lock(doc()->smartMutex());
+    m_preservedX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor, !m_view->wrapCursor());
+  }
 
-  //kDebug(13030) << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
+  //kDebug(13030) << "m_preservedX: " << m_preservedX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
   //kDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col;
 
   cursorMoved();

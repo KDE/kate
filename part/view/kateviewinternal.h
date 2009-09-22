@@ -267,7 +267,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KateSmartCursor m_cursor;
     KTextEditor::Cursor m_mouse;
     KTextEditor::Cursor m_displayCursor;
-    int m_cursorX;
 
     bool m_possibleTripleClick;
 
@@ -357,8 +356,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KTextEditor::Cursor toVirtualCursor(const KTextEditor::Cursor& realCursor) const;
 
     // These variable holds the most recent maximum real & visible column number
-    bool m_preserveMaxX;
-    int m_currentMaxX;
+    bool m_preserveX;
+    int m_preservedX;
 
     bool m_updatingView;
     int m_wrapChangeViewLine;

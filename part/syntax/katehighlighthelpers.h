@@ -173,7 +173,7 @@ class KateHlKeyword : public KateHlItem
   private:
     QVector< QSet<QString>* > dict;
     bool _insensitive;
-    const QString& deliminators;
+    QSet<QChar> deliminators;
     int minLen;
     int maxLen;
 };

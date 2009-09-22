@@ -226,12 +226,13 @@ int KateHlRangeDetect::checkHgl(const QString& text, int offset, int len)
 KateHlKeyword::KateHlKeyword (int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, bool insensitive, const QString& delims)
   : KateHlItem(attribute,context,regionId,regionId2)
   , _insensitive(insensitive)
-  , deliminators(delims)
   , minLen (0xFFFFFF)
   , maxLen (0)
 {
   alwaysStartEnable = false;
   customStartEnable = true;
+  foreach (QChar c, delims)
+    deliminators << c;
 }
 
 KateHlKeyword::~KateHlKeyword ()

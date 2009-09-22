@@ -9,6 +9,7 @@ Name[nds]=JOWENN sien Kate-Snippels
 Name[pt]=Excertos do JOWENN para o KAte
 Name[pt_BR]=Trechos de texto do JOWENN para o Kate
 Name[sv]=Jowenns textsnuttar för Kate
+Name[tr]=JOWENN'in Kate parçaları
 Name[uk]=Фрагменти тексту JOWENN Kate
 Name[x-test]=xxJOWENN's Kate snippetsxx
 Comment=Snippets plugin with code completion support
@@ -17,6 +18,7 @@ Comment[nds]=Snippelsmoduul mit Ünnerstütten för Kodekompletteren
 Comment[pt]='Plugin' de excertos com suporte para a completação de código
 Comment[pt_BR]=Plugin de trechos de texto com suporte para o completamento de código
 Comment[sv]=Insticksprogram för textsnuttar med stöd för kodkomplettering
+Comment[tr]=Kod tamamlama desteğine sahip parçacık eklentisi
 Comment[uk]=Додаток для роботи з фрагментами з підтримкою завершення коду
 Comment[x-test]=xxSnippets plugin with code completion supportxx
 

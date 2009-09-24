@@ -700,13 +700,13 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)
 {
-  kDebug(13030) << "slotRegionVisibilityChangedAt()";
+  kDebug(13030);
   m_cachedMaxStartPos.setLine(-1);
   KTextEditor::Cursor max = maxStartPos();
   if (startPos() > max)
     scrollPos(max);
 
-  if (clear_cache) {
+  if (clear_cache || m_view != doc()->activeView()) {
     QMutexLocker lock(doc()->smartMutex());
     cache()->clear ();
   }
@@ -723,7 +723,7 @@ void KateViewInternal::slotCodeFoldingChanged()
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 {
-  kDebug(13030) << "slotRegionBeginEndAddedRemoved()";
+  kDebug(13030);
   // FIXME: performance problem
   m_leftBorder->update();
 }

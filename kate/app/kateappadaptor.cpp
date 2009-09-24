@@ -43,7 +43,7 @@ void KateAppAdaptor::activate ()
   win->raise();
   
 #ifdef Q_WS_X11
-  KWindowSystem::activateWindow (win->winId ());
+  KWindowSystem::forceActiveWindow (win->winId ());
   KWindowSystem::raiseWindow (win->winId ());
 #endif
 }

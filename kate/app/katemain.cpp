@@ -20,7 +20,7 @@
 */
 
 #include "kateapp.h"
-
+#include "katerunninginstanceinfo.h"
 #include <kate_export.h>
 #include <KLocale>
 #include <KCmdLineArgs>
@@ -72,47 +72,6 @@ class KateWaiter : public QObject {
     }
 };
 
-class RunningInstanceInfo: public QObject {
-  Q_OBJECT
-  
-  public:
-    RunningInstanceInfo(const QString& serviceName_):
-      QObject(),valid(false),
-      serviceName(serviceName_),
-      dbus_if(new QDBusInterface(serviceName_,QLatin1String("/MainApplication"),
-          QString(), //I don't know why it does not work if I specify org.kde.Kate.Application here
-          QDBusConnection::sessionBus(),this)) {
-      if (!dbus_if->isValid()) {
-        std::cerr<<qPrintable(QDBusConnection::sessionBus().lastError().message())<<std::endl;
-      }
-      QVariant a_s=dbus_if->property("activeSession");            
-/*      std::cerr<<a_s.isValid()<<std::endl;
-      std::cerr<<"property:"<<qPrintable(a_s.toString())<<std::endl;
-      std::cerr<<qPrintable(QDBusConnection::sessionBus().lastError().message())<<std::endl;*/
-      if (!a_s.isValid()) {
-        sessionName=QString("___NO_SESSION_OPENED__%1").arg(dummy_session++);
-        valid=false;
-      }
-      else {
-        if (a_s.toString().isEmpty())
-          sessionName=QString("___DEFAULT_CONSTRUCTED_SESSION__%1").arg(dummy_session++);
-        else
-          sessionName=a_s.toString();
-        valid=true;
-      }
-    };
-    virtual ~RunningInstanceInfo(){}
-    bool valid;
-    QString serviceName;
-    QDBusInterface* dbus_if;
-    QString sessionName;
-    
-    
-  private:
-    static int dummy_session;
-};
-
-int RunningInstanceInfo::dummy_session=0;
 
 extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 {
@@ -186,31 +145,18 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
   QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
-  
-  // look up all running kate instances and there sessions
-  QDBusReply<QStringList> servicesReply = i->registeredServiceNames ();
-  QStringList services;
-  if (servicesReply.isValid())
-    services = servicesReply.value ();
 
-  QString serviceName;
-  QMap<QString, RunningInstanceInfo*> mapSessionRii;
-  QStringList kateServices;
-  foreach (const QString &s, services)
-  {
-    if (s.startsWith ("org.kde.kate-"))
-    {
-      RunningInstanceInfo* rii=new RunningInstanceInfo(s);
-      if (rii->valid)
-      {
-        if (mapSessionRii.contains(rii->sessionName)) return 1; //ERROR no two instances may have the same session name
-        mapSessionRii.insert(rii->sessionName,rii);
-        kateServices<<s;
-        std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
-      } else delete rii;
-    }
-  }
+  KateRunningInstanceMap mapSessionRii;
+  if (!fillinRunningKateAppInstances(&mapSessionRii)) return 1;
   
+  QStringList kateServices;
+  for(KateRunningInstanceMap::const_iterator it=mapSessionRii.constBegin();it!=mapSessionRii.constEnd();++it)
+  {
+    kateServices<<(*it)->serviceName;
+  }
+  QString serviceName;
+
+
   bool force_new=args->isSet("new");
   if (!force_new) {
     if ( (!
@@ -245,6 +191,9 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     }
   }
   
+  //cleanup map
+  cleanupRunningKateAppInstanceMap(&mapSessionRii);
+
   //if no new instance is forced and no already opened session is requested,
   //check if a pid is given, which should be reused.
   // two possibilities: pid given or not...

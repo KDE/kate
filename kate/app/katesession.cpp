@@ -23,6 +23,7 @@
 #include "katemainwindow.h"
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
+#include "katerunninginstanceinfo.h"
 
 #include <KStandardDirs>
 #include <KLocale>
@@ -262,6 +263,28 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
                                           bool saveLast,
                                           bool loadNew)
 {
+  if (m_activeSession!=session) {
+    //check if the requested session is already open in another instance
+    KateRunningInstanceMap instances;
+    if (!fillinRunningKateAppInstances(&instances))
+    {
+      KMessageBox::error(0,i18n("Internal error there is more than one instance open for a given session"));
+      return;
+    }
+
+    if (instances.contains(session->sessionName()))
+    {
+      if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, changing there instead of reopening",session->sessionName()),
+            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),"katesessionmanager_switch_instance")==KMessageBox::Yes)
+      {
+        instances[session->sessionName()]->dbus_if->call("activate");
+      }
+      cleanupRunningKateAppInstanceMap(&instances);
+      return;
+    }
+
+    cleanupRunningKateAppInstanceMap(&instances);
+  }
   // try to close last session
   if (closeLast)
   {

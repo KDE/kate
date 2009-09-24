@@ -263,7 +263,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
                                           bool saveLast,
                                           bool loadNew)
 {
-  if (m_activeSession!=session) {
+  if ( (!session->sessionName().isEmpty()) && (m_activeSession!=session)) {
     //check if the requested session is already open in another instance
     KateRunningInstanceMap instances;
     if (!fillinRunningKateAppInstances(&instances))

@@ -83,9 +83,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_dontShowArgumentHints(false)
   , m_needShow(false)
   , m_hadCompletionNavigation(false)
+  , m_noAutoHide(false)
   , m_expandedAddedHeightBase(0)
-  , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation),
-    m_noAutoHide(false)
+  , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation)
 {
   connect(parent, SIGNAL(navigateAccept()), SLOT(navigateAccept()));
   connect(parent, SIGNAL(navigateBack()), SLOT(navigateBack()));

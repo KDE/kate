@@ -27,9 +27,6 @@
 
 #include <kdebug.h>
 
-
-static QThreadStorage<QMap<KateSmartManager*,int> *> m_usingRevision;
-
 //Uncomment this to debug the translation of ranges. If that is enabled,
 //all ranges are first translated completely separately out of the translation process,
 //and at the end the result is compared. If the result mismatches, an assertion is triggered.
@@ -699,18 +696,16 @@ void KateSmartManager::clear( bool includingInternal )
 void KateSmartManager::useRevision(int revision)
 {
   if (!m_usingRevision.hasLocalData())
-    m_usingRevision.setLocalData(new QMap<KateSmartManager*,int>());
+    m_usingRevision.setLocalData(new int);
 
-  m_usingRevision.localData()->insert(this,revision);
+  *m_usingRevision.localData() = revision;
 }
 
-int KateSmartManager::usingRevision()
+int KateSmartManager::usingRevision() const
 {
-  if (m_usingRevision.hasLocalData()) {
-    QMap<KateSmartManager*,int> *m=m_usingRevision.localData();
-    if (m->contains(this))
-      return m->value(this);
-  }
+  if (m_usingRevision.hasLocalData())
+    return *m_usingRevision.localData();
+
   return -1;
 }
 
@@ -724,7 +719,7 @@ int KateSmartManager::currentRevision() const
   return doc()->history()->revision();
 }
 
-Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior)
+Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior) const
 {
   Cursor ret = cursor;
 
@@ -734,7 +729,7 @@ Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor
   return ret;
 }
 
-Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
+Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior) const
 {
   Cursor start = range.start(), end = range.end();
 

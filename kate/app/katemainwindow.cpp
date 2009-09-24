@@ -1040,6 +1040,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     
     s_modOnHdDialog= new KateMwModOnHdDialog( list, this );
     m_modignore = true;
+    KWindowSystem::setOnAllDesktops( s_modOnHdDialog->winId(), true);
     bool res = s_modOnHdDialog->exec();
     delete s_modOnHdDialog;
     m_modignore = false;

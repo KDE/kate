@@ -619,7 +619,7 @@ void KateView::setupActions()
   ac->addAction("tools_toggle_onthefly_spelling", m_toggleOnTheFlySpellCheck);
 
   a = ac->addAction("tools_change_dictionary");
-  a->setText(i18n("Change dictionary..."));
+  a->setText(i18n("Change Dictionary..."));
   a->setWhatsThis(i18n("Change the dictionary that is used for spell checking."));
   connect(a, SIGNAL(triggered()), SLOT(changeDictionary()));
 

@@ -2068,7 +2068,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     int y = lineToY( start.line() );
     // FIXME is this enough for when multiple lines are deleted
     int h = (end.line() - start.line() + 2) * renderer()->fontHeight();
-    if (end.line() == doc()->numVisLines() - 1)
+    if (end.line() >= doc()->numVisLines() - 1)
       h = height();
 
     m_leftBorder->update (0, y, m_leftBorder->width(), h);

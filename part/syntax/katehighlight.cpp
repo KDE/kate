@@ -516,7 +516,7 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
     if (s.count()>0)
     {
 
-      while(s.count()<9) s<<"";
+      while(s.count()<10) s<<"";
       p->clear();
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
@@ -542,6 +542,8 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       tmp=s[8]; if (!tmp.isEmpty()) {
          col=tmp.toUInt(0,16); p->setSelectedBackground(QColor(col)); }
+
+      tmp=s[9]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) p->setFontFamily(tmp); 
 
     }
   }
@@ -587,6 +589,7 @@ void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExten
     settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
     settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
+    settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):QString());
     settings<<"---";
     config.writeEntry(p->name(),settings);
   }
@@ -716,6 +719,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
     QString bgColor = KateHlManager::self()->syntax->groupData(data,QString("backgroundColor"));
     QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
     QString spellChecking = KateHlManager::self()->syntax->groupData(data,QString("spellChecking"));
+    QString fontFamily = KateHlManager::self()->syntax->groupData(data,QString("fontFamily"));
 
     KateExtendedAttribute::Ptr newData(new KateExtendedAttribute(
             buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplified(),
@@ -733,6 +737,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
     if (!selBgColor.isEmpty()) newData->setSelectedBackground(QColor(selBgColor));
     // is spellchecking desired?
     if (!spellChecking.isEmpty()) newData->setPerformSpellchecking( IS_TRUE(spellChecking) );
+    if (!fontFamily.isEmpty()) newData->setFontFamily(fontFamily);
  
     internalIDList.append(newData);
   }

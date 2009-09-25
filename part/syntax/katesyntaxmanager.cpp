@@ -260,7 +260,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
     QStringList s = config.readEntry(defaultStyleName(z), QStringList());
     if (!s.isEmpty())
     {
-      while( s.count()<8)
+      while( s.count()<9)
         s << "";
 
       QString tmp;
@@ -298,6 +298,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
         else
           i->clearProperty(KTextEditor::Attribute::SelectedBackground);
       }
+      tmp=s[8]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) i->setFontFamily(tmp);
     }
   }
 }
@@ -320,6 +321,7 @@ void KateHlManager::setDefaults(const QString &schema, KateAttributeList &list)
     settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
     settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
+    settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):QString());
     settings<<"---";
 
     config.writeEntry(defaultStyleName(z),settings);

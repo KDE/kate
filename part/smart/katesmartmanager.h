@@ -65,8 +65,8 @@ class KateSmartManager : public QObject
     int currentRevision() const;
     void releaseRevision(int revision) const;
     void useRevision(int revision = -1);
-    KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert) const;
-    KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight) const;
+    KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert);
+    KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
 
     KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position = KTextEditor::Cursor(), KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert, bool internal = true);
     void deleteCursors(bool includingInternal);
@@ -92,7 +92,7 @@ class KateSmartManager : public QObject
 
   private:
     KateSmartRange* feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
-    int usingRevision() const;
+    int usingRevision();
 
     void debugOutput() const;
 
@@ -100,7 +100,7 @@ class KateSmartManager : public QObject
     QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
     bool m_clearing;
-    QThreadStorage<int*> m_usingRevision;
+    
     struct KateTranslationDebugger;
     KateTranslationDebugger* m_currentKateTranslationDebugger;
 };

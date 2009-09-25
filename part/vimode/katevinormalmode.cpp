@@ -555,6 +555,7 @@ bool KateViNormalMode::commandDeleteLine()
   }
 
   c.setColumn( column );
+  m_stickyColumn = -1;
   updateCursor( c );
 
   return ret;

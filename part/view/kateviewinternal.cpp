@@ -348,7 +348,7 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
   
   QMutexLocker lock(doc()->smartMutex());
 
-  int range = y / renderer()->fontHeight();
+  int range = y / renderer()->lineHeight();
 
   // lineRanges is always bigger than 0, after the initial updateView call
   if (range >= 0 && range <= cache()->viewCacheLineCount())
@@ -359,7 +359,7 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
 
 int KateViewInternal::lineToY(int viewLine) const
 {
-  return (viewLine-startLine()) * renderer()->fontHeight();
+  return (viewLine-startLine()) * renderer()->lineHeight();
 }
 
 void KateViewInternal::slotIncFontSizes()
@@ -511,7 +511,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
     {
       updateView(false, viewLinesScrolled);
 
-      int scrollHeight = -(viewLinesScrolled * (int)renderer()->fontHeight());
+      int scrollHeight = -(viewLinesScrolled * (int)renderer()->lineHeight());
 
       scroll(0, scrollHeight);
       m_leftBorder->scroll(0, scrollHeight);
@@ -589,7 +589,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
      and there frame arount KateViewInternal.  In which
      case we'd set the view cache to 0 (or less!) lines, and
      start allocating huge chunks of data, later. */
-  int newSize = (qMax (0, height()) / renderer()->fontHeight()) + 1;
+  int newSize = (qMax (0, height()) / renderer()->lineHeight()) + 1;
   cache()->updateViewCache(startPos(), newSize, viewLinesScrolled);
   m_visibleLineCount = newSize;
 
@@ -601,7 +601,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 
   m_lineScroll->setValue(startPos().line());
   m_lineScroll->setSingleStep(1);
-  m_lineScroll->setPageStep(qMax (0, height()) / renderer()->fontHeight());
+  m_lineScroll->setPageStep(qMax (0, height()) / renderer()->lineHeight());
   m_lineScroll->blockSignals(blocked);
 
   if (!m_view->dynWordWrap())
@@ -738,7 +738,7 @@ void KateViewInternal::showEvent ( QShowEvent *e )
 int KateViewInternal::linesDisplayed() const
 {
   int h = height();
-  int fh = renderer()->fontHeight();
+  int fh = renderer()->lineHeight();
 
   // default to 1, there is always one line around....
   // too many places calc with linesDisplayed() - 1
@@ -761,7 +761,7 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
     return QPoint(-1, -1);
 
-  int y = (int)viewLine * renderer()->fontHeight();
+  int y = (int)viewLine * renderer()->lineHeight();
 
   KateTextLayout layout = cache()->viewLine(viewLine);
   int x = 0;
@@ -1647,7 +1647,7 @@ int KateViewInternal::maxLen(int startLine)
   
   Q_ASSERT(!m_view->dynWordWrap());
 
-  int displayLines = (m_view->height() / renderer()->fontHeight()) + 1;
+  int displayLines = (m_view->height() / renderer()->lineHeight()) + 1;
 
   int maxLen = 0;
 
@@ -2007,7 +2007,7 @@ bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
   int viewLine = cache()->displayViewLine(virtualCursor, true);
   if (viewLine >= 0 && viewLine < cache()->viewCacheLineCount()) {
     cache()->viewLine(viewLine).setDirty();
-    m_leftBorder->update (0, lineToY(viewLine), m_leftBorder->width(), renderer()->fontHeight());
+    m_leftBorder->update (0, lineToY(viewLine), m_leftBorder->width(), renderer()->lineHeight());
     return true;
   }
   return false;
@@ -2067,7 +2067,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
   {
     int y = lineToY( start.line() );
     // FIXME is this enough for when multiple lines are deleted
-    int h = (end.line() - start.line() + 2) * renderer()->fontHeight();
+    int h = (end.line() - start.line() + 2) * renderer()->lineHeight();
     if (end.line() >= doc()->numVisLines() - 1)
       h = height();
 
@@ -2085,7 +2085,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
            (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))))
       {
         //justTagged = true;
-        m_leftBorder->update (0, z * renderer()->fontHeight(), m_leftBorder->width(), m_leftBorder->height());
+        m_leftBorder->update (0, z * renderer()->lineHeight(), m_leftBorder->width(), m_leftBorder->height());
         break;
       }
       /*else if (justTagged)
@@ -2831,7 +2831,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 
     m_scrollX = 0;
     m_scrollY = 0;
-    int d = renderer()->fontHeight();
+    int d = renderer()->lineHeight();
 
     if (m_mouseX < 0)
       m_scrollX = -d;
@@ -2884,7 +2884,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 
 void KateViewInternal::updateDirty( )
 {
-  uint h = renderer()->fontHeight();
+  uint h = renderer()->lineHeight();
 
   int currentRectStart = -1;
   int currentRectEnd = -1;
@@ -2941,7 +2941,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
   int xStart = startX() + unionRect.x();
   int xEnd = xStart + unionRect.width();
-  uint h = renderer()->fontHeight();
+  uint h = renderer()->lineHeight();
   uint startz = (unionRect.y() / h);
   uint endz = startz + 1 + (unionRect.height() / h);
   uint lineRangesSize = cache()->viewCacheLineCount();
@@ -3077,7 +3077,7 @@ void KateViewInternal::scrollTimeout ()
 {
   if (m_scrollX || m_scrollY)
   {
-    scrollLines (startPos().line() + (m_scrollY / (int) renderer()->fontHeight()));
+    scrollLines (startPos().line() + (m_scrollY / (int) renderer()->lineHeight()));
     placeCursor( QPoint( m_mouseX, m_mouseY ), true );
   }
 }
@@ -3723,7 +3723,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       KTextEditor::Cursor c = m_cursor;
       if (m_imPreeditRange)
         c = m_imPreeditRange->start();
-      return QRect(cursorToCoordinate(c, true, false), QSize(0, renderer()->fontHeight()));
+      return QRect(cursorToCoordinate(c, true, false), QSize(0, renderer()->lineHeight()));
     }
 
     case Qt::ImFont:

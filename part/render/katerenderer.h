@@ -249,6 +249,9 @@ public:
     // Font height
     uint fontHeight();
 
+    // Line height
+    int lineHeight();
+
     // Document height
     uint documentHeight();
 

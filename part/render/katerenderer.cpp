@@ -569,9 +569,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
         if (draw) {
           int fillStartX = line.endX() - line.startX() + line.xOffset() - xStart;
-          int fillStartY = fm.height() * i;
+          int fillStartY = lineHeight() * i;
           int width= xEnd - xStart - fillStartX;
-          int height= fm.height();
+          int height= lineHeight();
 
           // reverse X for right-aligned lines
           if (range->layout()->textOption().alignment() == Qt::AlignRight)
@@ -598,7 +598,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Draw tab stops and trailing spaces
       if (showTabs() || showTrailingSpaces()) {
         const QString& text = range->textLine()->string();
-        int y = fm.height() * i + fm.ascent() - fm.strikeOutPos();
+        int y = lineHeight() * i + fm.ascent() - fm.strikeOutPos();
 
         if (showTabs()) {
           int tabIndex = text.indexOf(tabChar, line.startCol());
@@ -628,9 +628,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     if ( (range->viewLineCount() > 1)  && range->shiftX() && (range->shiftX() > xStart) )
     {
       if (backgroundBrushSet)
-        paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
+        paint.fillRect(0, lineHeight(), range->shiftX() - xStart, lineHeight() * (range->viewLineCount() - 1),
           backgroundBrush);
-      paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
+      paint.fillRect(0, lineHeight(), range->shiftX() - xStart, lineHeight() * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::Dense4Pattern));
     }
 
@@ -683,7 +683,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         paint.setPen(QPen(c, caretWidth));
 
         // Clip the caret - Qt's caret has a habit of intruding onto other lines
-        paint.setClipRect(0, line.lineNumber() * fm.height(), xEnd - xStart, fm.height());
+        paint.setClipRect(0, line.lineNumber() * lineHeight(), xEnd - xStart, lineHeight());
 
         range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
 
@@ -694,7 +694,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
         int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
         if ( (x >= xStart) && (x <= xEnd))
-          paint.fillRect(x-xStart, (int)lastLine.lineLayout().y(), caretWidth, fm.height(), c);
+          paint.fillRect(x-xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), c);
       }
     }
   }
@@ -709,7 +709,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     pen.setDashOffset(xStart);
     pen.setDashPattern(dash);
     paint.setPen(pen);
-    paint.drawLine(0, (fm.height() * range->viewLineCount()) - 1, xEnd - xStart, (fm.height() * range->viewLineCount()) - 1);
+    paint.drawLine(0, (lineHeight() * range->viewLineCount()) - 1, xEnd - xStart, (lineHeight() * range->viewLineCount()) - 1);
   }
 
   // show word wrap marker if desirable
@@ -718,7 +718,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     paint.setRenderHint(QPainter::Antialiasing, false);
     paint.setPen( config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;
-    paint.drawLine( _x,0,_x,fm.height() );
+    paint.drawLine( _x,0,_x,lineHeight() );
   }
 }
 
@@ -739,7 +739,12 @@ uint KateRenderer::fontHeight()
 
 uint KateRenderer::documentHeight()
 {
-  return m_doc->lines() * fontHeight();
+  return m_doc->lines() * lineHeight();
+}
+
+int KateRenderer::lineHeight()
+{
+  return fontHeight(); // for now
 }
 
 bool KateRenderer::getSelectionBounds(int line, int lineLength, int &start, int &end) const

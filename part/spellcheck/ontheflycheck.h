@@ -46,7 +46,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
   typedef QList<MisspelledItem> MisspelledList;
 
   typedef QPair<ModificationType, KTextEditor::SmartRange*> ModificationItem;
-  typedef QList<ModificationItem> ModificationList; 
+  typedef QList<ModificationItem> ModificationList;
 
   public:
     KateOnTheFlyChecker(KateDocument *document);

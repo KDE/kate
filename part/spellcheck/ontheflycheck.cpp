@@ -156,7 +156,7 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
     return;
   }
 
-  bool listEmpty = m_modificationList.isEmpty();
+  bool listEmptyAtStart = m_modificationList.isEmpty();
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
   if(!smartInterface) {
@@ -164,16 +164,25 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
   }
   QMutexLocker smartLock(smartInterface->smartMutex());
   // don't consider a range that is not within the document range
-  const KTextEditor::Range intersection = document->documentRange().intersect(range);
-  if(intersection.isEmpty()) {
+  const KTextEditor::Range documentIntersection = document->documentRange().intersect(range);
+  if(documentIntersection.isEmpty()) {
     return;
   }
-  // we don't handle this directly as the highlighting information might not be up-to-date yet
-  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(intersection);
-  smartRange->addWatcher(this);
-  m_modificationList.push_back(ModificationItem(TEXT_INSERTED, smartRange));
-  ON_THE_FLY_DEBUG << "added" << *smartRange;
-  if(listEmpty) {
+  const QList<KTextEditor::View*>& viewList = m_document->views();
+  // for performance reasons we only want to schedule spellchecks for ranges that are visible
+  for(QList<KTextEditor::View*>::const_iterator i = viewList.begin(); i != viewList.end(); ++i) {
+    KateView *view = static_cast<KateView*>(*i);
+    KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
+    if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
+      // we don't handle this directly as the highlighting information might not be up-to-date yet
+      KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(visibleIntersection);
+      smartRange->addWatcher(this);
+      m_modificationList.push_back(ModificationItem(TEXT_INSERTED, smartRange));
+      ON_THE_FLY_DEBUG << "added" << *smartRange;
+    }
+  }
+
+  if(listEmptyAtStart && !m_modificationList.isEmpty()) {
     QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
   }
 }
@@ -254,7 +263,7 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
     return;
   }
 
-  bool listEmpty = m_modificationList.isEmpty();
+  bool listEmptyAtStart = m_modificationList.isEmpty();
 
   KTextEditor::SmartInterface *smartInterface =
                                 qobject_cast<KTextEditor::SmartInterface*>(document);
@@ -262,17 +271,26 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
     return;
   }
   // don't consider a range that is behind the end of the document
-  const KTextEditor::Range intersection = document->documentRange().intersect(range);
-  if(intersection.isEmpty()) {
+  const KTextEditor::Range documentIntersection = document->documentRange().intersect(range);
+  if(documentIntersection.isEmpty()) {
     return;
   }
   QMutexLocker smartLock(smartInterface->smartMutex());
-  KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(intersection);
-  smartRange->addWatcher(this);
-  // we don't handle this directly as the highlighting information might not be up-to-date yet
-  m_modificationList.push_back(ModificationItem(TEXT_REMOVED, smartRange));
-  ON_THE_FLY_DEBUG << "added" << *smartRange;
-  if(listEmpty) {
+
+  const QList<KTextEditor::View*>& viewList = m_document->views();
+  // for performance reasons we only want to schedule spellchecks for ranges that are visible
+  for(QList<KTextEditor::View*>::const_iterator i = viewList.begin(); i != viewList.end(); ++i) {
+    KateView *view = static_cast<KateView*>(*i);
+    KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
+    if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
+      // we don't handle this directly as the highlighting information might not be up-to-date yet
+      KTextEditor::SmartRange *smartRange = smartInterface->newSmartRange(visibleIntersection);
+      smartRange->addWatcher(this);
+      m_modificationList.push_back(ModificationItem(TEXT_REMOVED, smartRange));
+      ON_THE_FLY_DEBUG << "added" << *smartRange << view->visibleRange();
+    }
+  }
+  if(listEmptyAtStart && !m_modificationList.isEmpty()) {
     QTimer::singleShot(0, this, SLOT(handleModifiedRanges()));
   }
 }

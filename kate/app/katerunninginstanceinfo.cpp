@@ -22,6 +22,10 @@
 #include <QStringList>
 #include <QDBusConnectionInterface>
 
+#ifdef Q_WS_WIN
+#include <process.h>
+#endif
+
 int KateRunningInstanceInfo::dummy_session=0;
 
 bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)

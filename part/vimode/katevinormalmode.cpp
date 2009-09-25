@@ -1205,11 +1205,11 @@ bool KateViNormalMode::commandPrintCharacterCode()
 
     int code = ch.unicode();
 
-    message( QString("&lt;%1&gt; %2,  Hex %3,  Octal %4")
-        .arg( ch )                          // char
-        .arg( code )                        // decimal
-        .arg( code, 0, 16 )                 // hexadecimal
-        .arg( code, 3, 8, QChar('0') ) );   // octal
+    QString dec = QString::number( code );
+    QString hex = QString::number( code, 16 );
+    QString oct = QString::number( code, 8 );
+    if ( oct.length() < 3 ) { oct.prepend( '0' ); }
+    message( i18n("'%1' %2,  Hex %3,  Octal %4", ch, dec, hex, oct ) );
   }
 
   return true;

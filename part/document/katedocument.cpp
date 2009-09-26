@@ -4292,6 +4292,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       {
         setDefaultDictionary( val );
       }
+      else if ( var == "automatic-spell-checking" && checkBoolValue( val, &state ) )
+      {
+        onTheFlySpellCheckingEnabled( state );
+      }
 
       // VIEW SETTINGS
       else if ( vvl.contains( var ) )
@@ -5183,7 +5187,10 @@ void KateDocument::setDefaultDictionary(const QString& dict)
 
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable)
 {
-  config()->setOnTheFlySpellCheck(enable);
+  if (isOnTheFlySpellCheckingEnabled() == enable)
+  {
+    return;
+  }
   if (enable)
   {
     if (!m_onTheFlyChecker) {

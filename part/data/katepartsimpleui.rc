@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="52">
+<kpartgui name="KatePartView" version="53">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -45,7 +45,7 @@
     <Action name="set_encoding" group="tools_operations" />
     <Action name="add_bom" group="tools_operations" />
     <Separator group="tools_operations" />
-    <Action name="tools_toggle_onthefly_spelling" group="tools_operations" />
+    <Action name="tools_toggle_automatic_spell_checking" group="tools_operations" />
     <Action name="tools_spelling" group="tools_operations" />
     <Action name="tools_spelling_from_cursor" group="tools_operations" />
     <Action name="tools_spelling_selection" group="tools_operations" />

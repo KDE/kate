@@ -612,11 +612,11 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 
   m_spell->createActions( ac );
-  m_toggleOnTheFlySpellCheck = new KToggleAction(i18n("On-The-Fly Spellcheck"), this);
-  m_toggleOnTheFlySpellCheck->setWhatsThis(i18n("Enable/disable on-the-fly spell checking"));
+  m_toggleOnTheFlySpellCheck = new KToggleAction(i18n("Automatic Spell Checking"), this);
+  m_toggleOnTheFlySpellCheck->setWhatsThis(i18n("Enable/disable automatic spell checking"));
   m_toggleOnTheFlySpellCheck->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_O));
   connect(m_toggleOnTheFlySpellCheck, SIGNAL(triggered(bool)), SLOT(toggleOnTheFlySpellCheck(bool)));
-  ac->addAction("tools_toggle_onthefly_spelling", m_toggleOnTheFlySpellCheck);
+  ac->addAction("tools_toggle_automatic_spell_checking", m_toggleOnTheFlySpellCheck);
 
   a = ac->addAction("tools_change_dictionary");
   a->setText(i18n("Change Dictionary..."));

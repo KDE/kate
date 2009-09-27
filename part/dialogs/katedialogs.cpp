@@ -465,6 +465,11 @@ void KateSpellCheckConfigTab::apply()
   KateDocumentConfig::global()->configStart();
   m_sonnetConfigWidget->save();
   KateDocumentConfig::global()->configEnd();
+  const QList<KateDocument*>& kateDocumentList = KateGlobal::self()->kateDocuments();
+  for (QList<KateDocument*>::const_iterator it = kateDocumentList.begin();
+       it != kateDocumentList.end(); ++it) {
+    (*it)->refreshOnTheFlyCheck();
+  }
 }
 
 void KateSpellCheckConfigTab::reload()

@@ -5182,6 +5182,7 @@ void KateDocument::setDefaultDictionary(const QString& dict)
   {
     m_onTheFlyChecker->updateConfig();
   }
+  refreshOnTheFlyCheck();
   emit defaultDictionaryChanged(this);
 }
 

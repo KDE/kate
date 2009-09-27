@@ -780,8 +780,6 @@ void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
   m_speller.restore(KGlobal::config().data());
-  // we spell check everything again
-  refreshSpellCheck();
 }
 
 void KateOnTheFlyChecker::refreshSpellCheck(const KTextEditor::Range &range)

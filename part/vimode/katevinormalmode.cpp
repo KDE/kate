@@ -1281,6 +1281,34 @@ KateViRange KateViNormalMode::motionRight()
   return r;
 }
 
+KateViRange KateViNormalMode::motionPageDown()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  int linesToScroll = linesDisplayed();
+
+  KateViRange r( c.line()+linesToScroll, c.column(), ViMotion::InclusiveMotion );
+
+  if ( r.endLine >= doc()->lines() ) {
+    r.endLine = doc()->lines()-1;
+  }
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionPageUp()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  int linesToScroll = linesDisplayed();
+
+  KateViRange r( c.line()-linesToScroll, c.column(), ViMotion::InclusiveMotion );
+
+  if ( r.endLine < 0 ) {
+    r.endLine = 0;
+  }
+
+  return r;
+}
+
 KateViRange KateViNormalMode::motionWordForward()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );

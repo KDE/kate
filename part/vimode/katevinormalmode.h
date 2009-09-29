@@ -136,6 +136,9 @@ class KateViNormalMode : public KateViModeBase
     KateViRange motionDown();
     KateViRange motionUp();
 
+    KateViRange motionPageDown();
+    KateViRange motionPageUp();
+
     KateViRange motionWordForward();
     KateViRange motionWordBackward();
     KateViRange motionWORDForward();

@@ -280,6 +280,10 @@ void KateViVisualMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "]]", &KateViNormalMode::motionToNextBraceBlockStart ) );
   m_motions.push_back( new KateViMotion( this, "[]", &KateViNormalMode::motionToPreviousBraceBlockEnd ) );
   m_motions.push_back( new KateViMotion( this, "][", &KateViNormalMode::motionToNextBraceBlockEnd ) );
+  m_motions.push_back( new KateViMotion( this, "<c-f>", &KateViNormalMode::motionPageDown ) );
+  m_motions.push_back( new KateViMotion( this, "<pagedown>", &KateViNormalMode::motionPageDown ) );
+  m_motions.push_back( new KateViMotion( this, "<c-b>", &KateViNormalMode::motionPageUp ) );
+  m_motions.push_back( new KateViMotion( this, "<pageup>", &KateViNormalMode::motionPageUp ) );
 
   // text objects
   m_motions.push_back( new KateViMotion( this, "iw", &KateViNormalMode::textObjectInnerWord ) );

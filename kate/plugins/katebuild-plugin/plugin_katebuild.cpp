@@ -61,6 +61,8 @@ K_EXPORT_COMPONENT_FACTORY( katebuildplugin, KGenericFactory<KateBuildPlugin>( "
 #define COL_MSG     (2)
 #define COL_URL     (3)
 
+#define DEF_QUICK_COMP_CMD "gcc -Wall -g %f"
+
 
 /******************************************************************/
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const QStringList&):
@@ -138,7 +140,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     // a read of the session config data, but it does not)
     buildUi.buildCmd->setText("make");
     buildUi.cleanCmd->setText("make clean");
-    buildUi.quickComp->setText("gcc -Wall -g");
+    buildUi.quickComp->setText(DEF_QUICK_COMP_CMD);
     m_proc = new KProcess();
 
     connect(m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcExited(int, QProcess::ExitStatus)));
@@ -174,7 +176,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     buildUi.buildDir->setText(cg.readEntry("Make Path", QString()));
     buildUi.buildCmd->setText(cg.readEntry("Make Command", "make"));
     buildUi.cleanCmd->setText(cg.readEntry("Clean Command", "make clean"));
-    buildUi.quickComp->setText(cg.readEntry("Quick Compile Command", "gcc -Wall -g"));
+    buildUi.quickComp->setText(cg.readEntry("Quick Compile Command", DEF_QUICK_COMP_CMD));
 }
 
 /******************************************************************/
@@ -294,83 +296,109 @@ void KateBuildView::addError(const QString &filename, const QString &line,
 }
 
 /******************************************************************/
+KUrl KateBuildView::docUrl()
+{
+    KTextEditor::View *kv = mainWindow()->activeView();
+    if (!kv) {
+        kDebug() << "no KTextEditor::View" << endl;
+        return KUrl();
+    }
+    
+    if (kv->document()->isModified()) kv->document()->save();
+    return kv->document()->url();
+}
+
+/******************************************************************/
+bool KateBuildView::checkLocal(const KUrl &dir)
+{
+    if (dir.path().isEmpty()) {
+        KMessageBox::sorry(0, i18n("There is no file or directory specified for building."));
+        return false;
+    }
+    else if (!dir.isLocalFile()) {
+        KMessageBox::sorry(0,  i18n("The file \"%1\" is not a local file. "
+        "Non-local files cannot be compiled.", dir.path()));
+        return false;
+    }
+    return true;
+}
+
+/******************************************************************/
 bool KateBuildView::slotMake(void)
 {
-    return startProcess(buildUi.buildCmd->text());
+    KUrl dir(docUrl()); // docUrl() saves the current document
+    
+    if (buildUi.buildDir->text().isEmpty()) {
+        if (!checkLocal(dir)) return false;
+        // dir is a file -> remove the file with upUrl().
+        dir = dir.upUrl();
+    }
+    else {
+        dir = KUrl(buildUi.buildDir->text());
+    }
+    return startProcess(dir, buildUi.buildCmd->text());
 }
 
 /******************************************************************/
 bool KateBuildView::slotMakeClean(void)
 {
-    return startProcess(buildUi.cleanCmd->text());
+    KUrl dir(docUrl()); // docUrl() saves the current document
+    
+    if (buildUi.buildDir->text().isEmpty()) {
+        if (!checkLocal(dir)) return false;
+        // dir is a file -> remove the file with upUrl().
+        dir = dir.upUrl();
+    }
+    else {
+        dir = KUrl(buildUi.buildDir->text());
+    }
+
+    return startProcess(dir, buildUi.cleanCmd->text());
 }
 
 /******************************************************************/
 bool KateBuildView::slotQuickCompile()
 {
-    KTextEditor::View *kv = mainWindow()->activeView();
-    if (!kv) {
-        KMessageBox::sorry(0, i18n("There is no file to compile."));
+    QString cmd = buildUi.quickComp->text();
+    if (cmd.isEmpty()) {
+        KMessageBox::sorry(0, i18n("The custom command is empty."));
         return false;
     }
-    if (kv->document()->isModified()) kv->document()->save();
-    KUrl url(kv->document()->url());
+    // Check if the command contains the file name or directory
+    if (cmd.contains("%f") || cmd.contains("%d")) {
+        KUrl url(docUrl());
+        if (!checkLocal(url)) return false;
+             
+        cmd.replace("%f", url.toLocalFile());
+        url = url.upUrl(); // url is a file -> remove the file with upUrl().
+        cmd.replace("%d", url.toLocalFile());
+    }
     
-    return startProcess(buildUi.quickComp->text() + " "  + url.toLocalFile());
+    KUrl dir(QDir::currentPath());
+    
+    return startProcess(dir, cmd);
 }
 
 /******************************************************************/
-bool KateBuildView::startProcess(const QString &command)
+bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
 {
     if (m_proc->state() != QProcess::NotRunning) {
         return false;
     }
+
+    // clear previous runs
     buildUi.plainTextEdit->clear();
     buildUi.errTreeWidget->clear();
-    //buildUi.errTreeWidget->setSortingEnabled(false);
-
-    KTextEditor::View *kv = mainWindow()->activeView();
-    if (!kv) {
-        kDebug() << "no KTextEditor::View" << endl;
-        return false;
-    }
-
-    if (kv->document()->isModified()) kv->document()->save();
-    KUrl url(kv->document()->url());
-
     m_output_lines.clear();
     m_found_error=false;
-
-
-    // where should we run make?
-
-    if (buildUi.buildDir->text().isEmpty()) {
-        if (url.toLocalFile().isEmpty()) {
-            KMessageBox::sorry(0, i18n("There is no file or directory specified for building."));
-            return false;
-        }
-        else if (!url.isLocalFile()) {
-            KMessageBox::sorry(0,
-                               i18n("The file \"%1\" is not a local file. "
-                                       "Non-local files cannot be compiled.",
-                                       url.path()));
-            return false;
-        }
-        // url is a file -> remove the file with upUrl().
-        m_make_dir = url.upUrl();
-    }
-    else {
-        m_make_dir = KUrl(buildUi.buildDir->text());
-    }
-
-    kDebug() << "m_make_dir = " << m_make_dir;
     m_make_dir_stack.clear();
-    m_make_dir_stack.push(m_make_dir);
-
+    
     // activate the output tab
     buildUi.ktabwidget->setCurrentIndex(1);
 
     // set working directory
+    m_make_dir = dir;
+    m_make_dir_stack.push(m_make_dir);
     m_proc->setWorkingDirectory(m_make_dir.toLocalFile(KUrl::AddTrailingSlash));
     m_proc->setShellCommand(command);
     m_proc->setOutputChannelMode(KProcess::SeparateChannels);

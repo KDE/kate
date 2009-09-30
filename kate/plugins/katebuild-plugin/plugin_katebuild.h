@@ -80,9 +80,12 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         void processLine(const QString &);
         void addError(const QString &filename, const QString &line,
                       const QString &column, const QString &message);
-        bool startProcess(const QString &);
+        bool startProcess(const KUrl &dir, const QString &command);
 
     private:
+        KUrl docUrl();
+        bool checkLocal(const KUrl &dir);
+        
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         buildUi;

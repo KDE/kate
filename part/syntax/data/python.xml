@@ -10,7 +10,8 @@
 <!-- v2.02 remove RegExpr for nums and make indent consistent -->
 <!-- v2.03 highlight decorators, remove operator regex, don't highlight parens as operators -->
 <!-- v2.04 make alerts visible even if they are directly after ''' or # without a space -->
-<language name="Python" version="2.05" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- v2.06 decorator names can (and often do) contain periods -->
+<language name="Python" version="2.06" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -256,7 +257,7 @@
 				<DetectChar attribute="Normal" char=")" context="#pop" endRegion="parenthesis"/>
 
 				<AnyChar attribute="Operator" String="+*/%\|=;\!&lt;&gt;!^&amp;~-" context="#stay"/>
-				<RegExpr attribute="Decorator" String="@[_a-zA-Z][_a-zA-Z0-9]*" firstNonSpace="true"/>
+				<RegExpr attribute="Decorator" String="@[_a-zA-Z][\._a-zA-Z0-9]*" firstNonSpace="true"/>
 			</context>
 
 			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">

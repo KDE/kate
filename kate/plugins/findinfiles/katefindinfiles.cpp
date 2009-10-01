@@ -40,7 +40,7 @@
 #include <klocale.h>
 
 K_PLUGIN_FACTORY(KateFindInFilesFactory, registerPlugin<KateFindInFilesPlugin>();)
-K_EXPORT_PLUGIN(KateFindInFilesFactory(KAboutData("findinfiles","findinfiles",ki18n("Find In Files"), "0.1", ki18n("search through files in the filesystem"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateFindInFilesFactory(KAboutData("findinfiles","katefindinfilesplugin",ki18n("Find In Files"), "0.1", ki18n("search through files in the filesystem"), KAboutData::License_LGPL_V2)) )
 
 KateFindInFilesPlugin* KateFindInFilesPlugin::s_self = 0;
 

@@ -45,7 +45,7 @@ const int DocumentRole=Qt::UserRole+1;
 const int SortFilterRole=Qt::UserRole+2;
 
 K_PLUGIN_FACTORY(KateQuickDocumentSwitcherFactory, registerPlugin<PluginKateQuickDocumentSwitcher>();)
-K_EXPORT_PLUGIN(KateQuickDocumentSwitcherFactory(KAboutData("katequickdocumentswitcher","katequickdocumentswitcher",ki18n("Quick Document Switcher"), "0.1", ki18n("Quickly switch between documents"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateQuickDocumentSwitcherFactory(KAboutData("katequickdocumentswitcher","katequickdocumentswitcherplugin",ki18n("Quick Document Switcher"), "0.1", ki18n("Quickly switch between documents"), KAboutData::License_LGPL_V2)) )
 
 //BEGIN: Plugin
 

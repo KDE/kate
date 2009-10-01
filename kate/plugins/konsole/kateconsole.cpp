@@ -52,7 +52,7 @@
 #include <kauthorized.h>
 
 K_PLUGIN_FACTORY(KateKonsoleFactory, registerPlugin<KateKonsolePlugin>();)
-K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsole","katekonsole",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsole","katekonsoleplugin",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
 
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )

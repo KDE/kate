@@ -43,7 +43,7 @@
 #include <kauthorized.h>
 
 K_PLUGIN_FACTORY(KateExternalToolsFactory, registerPlugin<KateExternalToolsPlugin>();)
-K_EXPORT_PLUGIN(KateExternalToolsFactory(KAboutData("kateexternaltools","kateexternaltools",ki18n("External Tools"), "0.1", ki18n("Run external tools"), KAboutData::License_LGPL)) )
+K_EXPORT_PLUGIN(KateExternalToolsFactory(KAboutData("kateexternaltools","kateexternaltoolsplugin",ki18n("External Tools"), "0.1", ki18n("Run external tools"), KAboutData::License_LGPL)) )
 
 
 KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QList<QVariant>& ):

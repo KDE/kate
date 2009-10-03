@@ -193,6 +193,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="chkScrollPastEnd">
+        <property name="text">
+         <string>Allow scrolling past the end of the document</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

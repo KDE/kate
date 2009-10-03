@@ -451,7 +451,10 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
   {
     KTextEditor::Cursor end(doc()->numVisLines() - 1, doc()->lineLength(doc()->getRealLine(doc()->numVisLines() - 1)));
 
-    m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
+    if (m_view->config()->scrollPastEnd())
+      m_cachedMaxStartPos = viewLineOffset(end, -m_minLinesVisible);
+    else
+      m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
   }
 
   cache()->setAcceptDirtyLayouts(false);
@@ -659,7 +662,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
     KTextEditor::Cursor scroll = viewLineOffset(c, -int(linesDisplayed()) / 2);
     scrollPos(scroll, false, calledExternally);
   }
-  else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
+  else if ( c > viewLineOffset(startPos(), linesDisplayed() - m_minLinesVisible) )
   {
     KTextEditor::Cursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
     scrollPos(scroll, false, calledExternally);

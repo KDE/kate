@@ -578,6 +578,7 @@ KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(ui->chkAutoBrackets, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkSmartCopyCut, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkScrollPastEnd, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   // "What's this?" help is in the ui-file
 
@@ -624,6 +625,7 @@ void KateEditGeneralConfigTab::apply ()
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->setSmartCopyCut(ui->chkSmartCopyCut->isChecked());
+  KateViewConfig::global()->setScrollPastEnd(ui->chkScrollPastEnd->isChecked());
   KateViewConfig::global()->configEnd ();
 }
 
@@ -643,6 +645,7 @@ void KateEditGeneralConfigTab::reload ()
   ui->chkRemoveTrailingSpaces->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
   ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
   ui->chkSmartCopyCut->setChecked( KateViewConfig::global()->smartCopyCut() );
+  ui->chkScrollPastEnd->setChecked( KateViewConfig::global()->scrollPastEnd() );
 }
 //END KateEditGeneralConfigTab
 

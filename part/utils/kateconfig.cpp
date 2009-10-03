@@ -698,6 +698,7 @@ KateViewConfig::KateViewConfig ()
    m_wordCompletionSet (true),
    m_wordCompletionMinimalWordLengthSet (true),
    m_smartCopyCutSet (true),
+   m_scrollPastEndSet (true),
    m_view (0)
 {
   s_global = this;
@@ -726,7 +727,8 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
-   m_smartCopyCutSet (false), 
+   m_smartCopyCutSet (false),
+   m_scrollPastEndSet (false), 
    m_view (view)
 {
 }
@@ -778,6 +780,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setWordCompletion (config.readEntry( "Word Completion", true ));
   setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
   setSmartCopyCut (config.readEntry( "Smart Copy Cut", false ));
+  setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
 
   if (isGlobal()) {
     QStringList empty;
@@ -825,6 +828,7 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Word Completion Minimal Word Length", wordCompletionMinimalWordLength());
 
   config.writeEntry( "Smart Copy Cut", smartCopyCut() );
+  config.writeEntry( "Scroll Past End" , scrollPastEnd() );
 
   config.writeEntry( "Vi Input Mode", viInputMode());
 
@@ -1224,6 +1228,24 @@ void KateViewConfig::setSmartCopyCut (bool on)
 
   m_smartCopyCutSet = true;
   m_smartCopyCut = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::scrollPastEnd () const
+{
+  if (m_scrollPastEndSet || isGlobal())
+    return m_scrollPastEnd;
+
+  return s_global->scrollPastEnd();
+}
+
+void KateViewConfig::setScrollPastEnd (bool on)
+{
+  configStart ();
+
+  m_scrollPastEndSet = true;
+  m_scrollPastEnd = on;
 
   configEnd ();
 }

@@ -3537,8 +3537,11 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
   // it deletes itself
   //delete anim;
 
-  // The animation object does this on deletion
-  // renderer()->dynamicRegion().removeRange(range);
+  // The animation object does this on deletion as well,
+  // but since the range could be deleted right after this
+  // and the animation takes some time, make sure
+  // we don't keep a dangling pointer.
+  renderer()->dynamicRegion().removeRange(range);
 }
 
 void KateViewInternal::updateRange(KateSmartRange* range)

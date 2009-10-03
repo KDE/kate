@@ -366,9 +366,19 @@ void KateSearchBar::nonstatic_selectRange(KateView * view, const KTextEditor::Ra
     // don't update m_incInitCursor when we move the cursor 
     disconnect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
                this, SLOT(onCursorPositionChanged()));
-    selectRange(view, range);
+    nonstatic_selectRange2(view, range);
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
             this, SLOT(onCursorPositionChanged()));
+}
+
+
+
+void KateSearchBar::nonstatic_selectRange2(KateView * view, const KTextEditor::Range & range) {
+    disconnect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+               this, SLOT(onSelectionChanged()));
+    selectRange(view, range);
+    connect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+            this, SLOT(onSelectionChanged()));
 }
 
 
@@ -852,7 +862,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                selectRange(view(), match2);
+                nonstatic_selectRange2(view(), match2);
                 found = true;
                 const bool NOT_WRAPPED = false;
                 indicateMatch(NOT_WRAPPED);
@@ -861,7 +871,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
                 wrap = true;
             }
         } else {
-            selectRange(view(), match);
+            nonstatic_selectRange2(view(), match);
             found = true;
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
@@ -881,7 +891,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                selectRange(view(), match3);
+                nonstatic_selectRange2(view(), match3);
                 found = true;
             }
             const bool WRAPPED = true;

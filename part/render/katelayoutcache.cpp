@@ -426,8 +426,8 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
     return 0;
   }
 
-  int ret = -(int)viewLine(work);
-  bool forwards = (work < virtualCursor) ? true : false;
+  int ret = -(int)viewLine(viewCacheStart());
+  bool forwards = (work < virtualCursor);
 
   // FIXME switch to using ranges? faster?
   if (forwards) {

@@ -2152,7 +2152,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   updateCursor( c );
   m_minLinesVisible = tmp;
 
-  if (updateSelection)
+  if (updateSelection && keepSelection)
     moveCursorToSelectionEdge();
 }
 

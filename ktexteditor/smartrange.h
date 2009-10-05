@@ -361,9 +361,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Find the child after \p range, if any.
      * The order is determined by the range end-cursors.
      *
-     * \param range to seach backwards from
+     * \param range to seach forwards from
      *
-     * \return the range before \p range if one exists, otherwise null.
+     * \return the range after \p range if one exists, otherwise null.
      */
     SmartRange* childAfter( const SmartRange * range ) const;
 

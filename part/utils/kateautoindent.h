@@ -24,6 +24,8 @@
 #include "katecursor.h"
 #include "kateconfig.h"
 
+#include <QtCore/QObject>
+
 #include <kactionmenu.h>
 
 class KateDocument;
@@ -34,8 +36,9 @@ class KateIndentScript;
  * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
  * only to have the object around
  */
-class KateAutoIndent
+class KateAutoIndent : public QObject
 {
+  Q_OBJECT
   /*
    * Static methods to list indention modes
    */
@@ -59,7 +62,7 @@ class KateAutoIndent
      * @return mode index
      */
     static QString modeDescription (int mode);
-    
+
     /**
      * Return the syntax highlighting style required to use this mode
      * @param mode mode index
@@ -112,14 +115,14 @@ class KateAutoIndent
      * Set the indent level of the line.
      * \param line line to change indent for
      * \param change set indentation to given number of spaces
-     * \param align if align is higher than indentDepth, the difference 
+     * \param align if align is higher than indentDepth, the difference
      * represents a number of spaces to be added after the indent
      */
     bool doIndent(int line, int indentDepth, int align = 0);
-    
+
     /**
      * Change the indent of the specified line by the number of levels
-     * specified by change. Positive values will indent more, negative values 
+     * specified by change. Positive values will indent more, negative values
      * will indent less.
      * \param line line to change indent for
      * \param change change the indentation by given number of spaces
@@ -141,7 +144,7 @@ class KateAutoIndent
     void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
     /**
-     * Return true if the required style for the script is provided by the 
+     * Return true if the required style for the script is provided by the
      * current highlighter.
      */
     bool isStyleProvided(KateIndentScript *script);
@@ -156,8 +159,8 @@ class KateAutoIndent
     void setMode (const QString &name);
 
     /**
-     * Check if the current highlighting mode provides the style required by the 
-     * current indenter. If not, deactivate the indenter by changing to "normal" 
+     * Check if the current highlighting mode provides the style required by the
+     * current indenter. If not, deactivate the indenter by changing to "normal"
      * mode.
      */
     void checkRequiredStyle();
@@ -202,6 +205,9 @@ class KateAutoIndent
      * \param typedChar the inserted char
      */
     void userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
+
+  public Q_SLOTS:
+    void reloadScript();
 
   /*
    * needed data

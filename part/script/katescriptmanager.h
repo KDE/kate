@@ -38,12 +38,13 @@ class QString;
  * Manage the scripts on disks -- find them and query them.
  * Provides access to loaded scripts too.
  */
-class KateScriptManager : public KTextEditor::Command
+class KateScriptManager : public QObject, public KTextEditor::Command
 {
+  Q_OBJECT
 
   public:
     KateScriptManager();
-    ~KateScriptManager();
+    virtual ~KateScriptManager();
 
     /** Get all scripts available in the command line */
     const QVector<KateCommandLineScript*> &commandLineScripts() { return m_commandLineScripts; }
@@ -110,6 +111,14 @@ class KateScriptManager : public KTextEditor::Command
 
     int indentationScriptCount () { return m_indentationScripts.size(); }
     KateIndentScript *indentationScriptByIndex (int index) { return m_indentationScripts[index]; }
+
+  public:
+    /** explicitely reload all scripts */
+    void reload();
+
+  Q_SIGNALS:
+    /** this signal is emitted when all scripts are _deleted_ and reloaded again. */
+    void reloaded();
 
   private:
     /** List of all command line scripts */

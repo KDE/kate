@@ -36,7 +36,7 @@
 
 #include "kateglobal.h"
 
-KateScriptManager::KateScriptManager() : KTextEditor::Command()
+KateScriptManager::KateScriptManager() : QObject(), KTextEditor::Command()
 {
   // false = force (ignore cache)
   collect("katepartscriptrc", "katepart/script/*.js", false);
@@ -288,6 +288,12 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
   return true;
 }
 
+void KateScriptManager::reload()
+{
+  KateScript::reloadScriptingApi();
+  collect("katepartscriptrc", "katepart/script/*.js", true);
+  emit reloaded();
+}
 
 /// Kate::Command stuff
 
@@ -302,7 +308,10 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
     return false;
   }
 
-  if (!m_commandLineScriptMap.contains(cmd)) {
+  if (cmd == "reload-scripts") {
+    reload();
+    return true;
+  } else if (!m_commandLineScriptMap.contains(cmd)) {
     errorMsg = i18n("Command not found: %1", cmd);
     return false;
   }
@@ -319,7 +328,10 @@ bool KateScriptManager::help(KTextEditor::View *view, const QString &cmd, QStrin
 //     return true;
 //   }
 
-  if (!m_commandLineScriptMap.contains(cmd)) {
+  if (cmd == "reload-scripts") {
+    msg = i18n("Reload all JavaScript files (indenters, command line scripts, etc).");
+    return true;
+  } else if (!m_commandLineScriptMap.contains(cmd)) {
     msg = i18n("Command not found: %1", cmd);
     return false;
   }
@@ -334,6 +346,7 @@ const QStringList &KateScriptManager::cmds()
 
   l.clear();
 //   l << "run-buffer"; // not implemented right now
+  l << "reload-scripts";
 
   QVector<KateCommandLineScript*>::ConstIterator it = m_commandLineScripts.constBegin();
   for ( ; it != m_commandLineScripts.constEnd(); ++it) {

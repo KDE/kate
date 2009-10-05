@@ -151,6 +151,9 @@ class KateScript {
     /** Checks for exception and gives feedback on the console. */
     bool hasException(const QScriptValue& object, const QString& file);
 
+    /** read complete file contents */
+    static bool readFile(const QString& sourceUrl, QString& sourceCode);
+
   private:
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();
@@ -173,11 +176,15 @@ class KateScript {
     KateScriptDocument *m_document;
     KateScriptView *m_view;
 
+  public:
+    static void reloadScriptingApi();
+
   private:
-    /** True, if the katepart.js file is alrady loaded, otherwise false */
-    static bool s_katePartApiLoaded;
+    /** True, if the katepartapi.js file is alrady loaded, otherwise false */
+    static bool s_scriptingApiLoaded;
     /** contains the katepart.js file content, acts as cache */
     static QString s_katePartApi;
+    static QString s_userApi;
 };
 
 //END

@@ -91,8 +91,33 @@ namespace Kate {
 
 
 
-bool KateScript::s_katePartApiLoaded = false;
+bool KateScript::s_scriptingApiLoaded = false;
 QString KateScript::s_katePartApi = QString();
+QString KateScript::s_userApi = QString();
+
+void KateScript::reloadScriptingApi()
+{
+  s_scriptingApiLoaded = false;
+  s_katePartApi = QString();
+  s_userApi = QString();
+}
+
+bool KateScript::readFile(const QString& sourceUrl, QString& sourceCode)
+{
+  sourceCode = QString();
+
+  QFile file(sourceUrl);
+  if (!file.open(QIODevice::ReadOnly)) {
+    kDebug(13050) << i18n("Unable to find '%1'", sourceUrl);
+    return false;
+  } else {
+    QTextStream stream(&file);
+    stream.setCodec("UTF-8");
+    sourceCode = stream.readAll();
+    file.close();
+  }
+  return true;
+}
 
 
 KateScript::KateScript(const QString &url)
@@ -104,18 +129,10 @@ KateScript::KateScript(const QString &url)
   , m_view(0)
 {
   // read katepart javascript api
-  if (!s_katePartApiLoaded) {
-    s_katePartApiLoaded = true;
-    QString url = KStandardDirs::locate("data", "katepart/script/katepartapi.js");
-    QFile file(url);
-    if (!file.open(QIODevice::ReadOnly)) {
-      kDebug(13050) << i18n("Unable to find 'katepartapi.js'");
-    } else {
-      QTextStream stream(&file);
-      stream.setCodec("UTF-8");
-      s_katePartApi = stream.readAll();
-      file.close();
-    }
+  if (!s_scriptingApiLoaded) {
+    s_scriptingApiLoaded = true;
+    readFile(KStandardDirs::locate("data", "katepart/script/katepartapi.js"), s_katePartApi);
+    readFile(KStandardDirs::locateLocal("data", "katepart/script/userapi.js"), s_userApi);
   }
 }
 
@@ -171,28 +188,34 @@ bool KateScript::load()
     return m_loadSuccessful;
 
   m_loaded = true;
-  // read the file into memory
-  QFile file(m_url);
-  if (!file.open(QIODevice::ReadOnly)) {
-    m_errorMessage = i18n("Unable to read file: '%1'", m_url);
-    kDebug( 13050 ) << m_errorMessage;
-    m_loadSuccessful = false;
+  m_loadSuccessful = false; // here set to false, and at end of function to true
+
+  // read the script file into memory
+  QString source;
+  if (!readFile(m_url, source)) {
     return false;
   }
-  QTextStream stream(&file);
-  stream.setCodec("UTF-8");
-  QString source = stream.readAll();
-  file.close();
 
-  // create script engine, register meta types and add Kate Part Scripting API
+  // create script engine, register meta types
   m_engine = new QScriptEngine();
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
+
+  // register kate part scripting api
   QScriptValue apiObject = m_engine->evaluate(s_katePartApi, "katepartapi.js");
   if (hasException(apiObject, "katepartapi.js")) {
     return false;
   }
 
+  // register user javascript api, optional
+  if (!s_userApi.isEmpty()) {
+    QScriptValue userApiObject = m_engine->evaluate(s_userApi, "userapi.js");
+    if (hasException(userApiObject, "userapi.js")) {
+      return false;
+    }
+  }
+
+  // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);
   if (hasException(result, m_url)) {
     return false;

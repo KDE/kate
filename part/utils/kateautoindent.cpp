@@ -98,9 +98,13 @@ uint KateAutoIndent::modeNumber (const QString &name)
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
-  : doc(_doc), m_normal (false), m_script (0)
+  : QObject(), doc(_doc), m_normal (false), m_script (0)
 {
   // don't call updateConfig() here, document might is not ready for that....
+
+  // on script reload, the script pointer is invalid -> force reload
+  connect(KateGlobal::self()->scriptManager(), SIGNAL(reloaded()),
+          this, SLOT(reloadScript()));
 }
 
 KateAutoIndent::~KateAutoIndent ()
@@ -211,6 +215,15 @@ void KateAutoIndent::keepIndent ( int line )
     return;
 
   doIndent (line, textline->indentDepth (tabWidth));
+}
+
+void KateAutoIndent::reloadScript()
+{
+  // small trick to force reload
+  m_script = 0; // prevent dangling pointer
+  QString currentMode = m_mode;
+  m_mode = QString();
+  setMode(currentMode);
 }
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)

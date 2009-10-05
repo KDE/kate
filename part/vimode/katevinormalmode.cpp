@@ -796,6 +796,7 @@ bool KateViNormalMode::commandJoinLines()
 
   // if we were given a range of lines, this information overrides the previous
   if ( m_commandRange.startLine != -1 && m_commandRange.endLine != -1 ) {
+    m_commandRange.normalize();
     c.setLine ( m_commandRange.startLine );
     n = m_commandRange.endLine-m_commandRange.startLine;
   }

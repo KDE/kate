@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Haskell syntax highlighting by Marcel Martin <mmar@freenet.de> -->
-<language name="Haskell" version="1.4" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
+<language name="Haskell" version="1.5" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -374,21 +374,21 @@
 		</context>
 	</contexts>
 	<itemDatas>
-		<itemData name="Normal Text"		defStyleNum="dsNormal"/>
-		<itemData name="Module Name" 		defStyleNum="dsNormal"/>
-		<itemData name="Keyword" 		defStyleNum="dsKeyword"/>
-		<itemData name="Function"		defStyleNum="dsFunction"/>
-		<itemData name="Function Definition"	defStyleNum="dsFunction"/>
-		<itemData name="Class"			defStyleNum="dsKeyword"/>
-		<itemData name="Decimal"		defStyleNum="dsDecVal"/>
-		<itemData name="Float"			defStyleNum="dsFloat"/>
-		<itemData name="Char"			defStyleNum="dsChar"/>
-		<itemData name="String"			defStyleNum="dsString"/>
-		<itemData name="Constructor"		defStyleNum="dsOthers"/>
-		<itemData name="Comment"		defStyleNum="dsComment"/>
-		<itemData name="Data Constructor"	defStyleNum="dsKeyword"/>
-		<itemData name="Type Constructor"	defStyleNum="dsDataType"/>
-		<itemData name="Infix Operator"		defStyleNum="dsOthers"/>
+		<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
+		<itemData name="Module Name" defStyleNum="dsNormal" spellChecking="false" />
+		<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Function" defStyleNum="dsFunction" spellChecking="false" />
+		<itemData name="Function Definition" defStyleNum="dsFunction" spellChecking="false" />
+		<itemData name="Class" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Decimal" defStyleNum="dsDecVal" spellChecking="false" />
+		<itemData name="Float" defStyleNum="dsFloat" spellChecking="false" />
+		<itemData name="Char" defStyleNum="dsChar" spellChecking="false" />
+		<itemData name="String" defStyleNum="dsString" />
+		<itemData name="Constructor" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="Comment" defStyleNum="dsComment" />
+		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
+		<itemData name="Infix Operator" defStyleNum="dsOthers" spellChecking="false" />
 	</itemDatas>
 	</highlighting>
 	<general>

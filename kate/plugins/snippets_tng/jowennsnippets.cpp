@@ -224,6 +224,7 @@ namespace JoWenn {
     
     lstSnippetFiles->setModel(plugin->repositoryData());
     connect(btnNew,SIGNAL(clicked()),plugin->repositoryData(),SLOT(newEntry()));
+    connect(btnCopy,SIGNAL(clicked()),this,SLOT(slotCopy()));
   }
 
   void KateSnippetsConfigPage::apply()
@@ -238,6 +239,14 @@ namespace JoWenn {
     KConfigGroup config(KGlobal::config(), "JoWennSnippets");
     //cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   }
+
+  void KateSnippetsConfigPage::slotCopy()
+  {
+    KUrl url(urlSource->url());
+    if (!url.isValid()) return;
+    m_plugin->repositoryData()->copyToRepository(url);
+  }
+  
 
 //END: CONFIG PAGE
 

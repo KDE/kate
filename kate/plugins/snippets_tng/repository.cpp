@@ -34,6 +34,10 @@
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 #include <krun.h>
+#include <kio/netaccess.h>
+#include <QDBusConnectionInterface>
+#include <QDBusConnection>
+#include <QDBusMessage>
 
 namespace JoWenn {
 
@@ -288,6 +292,55 @@ namespace JoWenn {
       KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
     }
 
+  }
+
+  void KateSnippetRepositoryModel::copyToRepository(const KUrl& src) {
+    if (!src.isValid()) return;
+    QString filename=src.fileName();
+    if (filename.isEmpty()) {
+      KMessageBox::error((QWidget*)0,i18n("No file specified"));
+      return;
+    }
+/*    const QStringList list = KGlobal::dirs()->findAllResources("data",
+      "kate/plugins/katesnippets_tng/data/"+,KStandardDirs::NoDuplicates);
+    if (!list.isEmpty()) {
+      
+    }*/
+    QString fileName=QUrl::toPercentEncoding(filename);
+    QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+    QFileInfo fiout(outname);
+    if (fiout.exists()) {
+      bool ok=false;
+      for (int i=0;i<1000;i++) {
+        outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
+        QFileInfo fiout1(outname);
+        if (!fiout1.exists()) {ok=true;break;}
+      }
+      if (!ok) {
+        KMessageBox::error(0,i18n("It was not possible to create a unique file name for the imported file"));
+        return;
+      } else {
+        KMessageBox::information(0,i18n("Imported file has been renamed because of a name conflict"));
+      }
+    }
+    KUrl target;
+    target.setPath(outname);
+    
+    if (!KIO::NetAccess::file_copy( src, target, (QWidget*)0)) {
+      KMessageBox::error((QWidget*)0,i18n("File could not be copied to repository"));
+    } else {
+      // notify everybody
+      QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+      if (!interface) return;
+      QStringList serviceNames = interface->registeredServiceNames();
+      foreach(const QString serviceName,serviceNames) {
+        if (serviceName.startsWith("org.kde.kate-")) {
+          QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+          QLatin1String("/Plugin/SnippetsTNG/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+          QDBusConnection::sessionBus().call (m);
+        }
+      }
+    }
   }
 
   void KateSnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile)

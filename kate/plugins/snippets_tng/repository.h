@@ -87,6 +87,7 @@ namespace JoWenn {
       void typeChanged(const QString& fileType);
     public Q_SLOTS:
       void newEntry();
+      void copyToRepository(const KUrl& src);
     private:
       QList<KateSnippetRepositoryEntry> m_entries;
   };

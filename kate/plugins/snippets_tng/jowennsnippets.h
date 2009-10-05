@@ -114,8 +114,9 @@ namespace JoWenn {
 
       virtual void apply();
       virtual void reset();
-      virtual void defaults()
-      {}
+      virtual void defaults(){}
+    public Q_SLOTS:
+      void slotCopy();
     private:
 //      class QCheckBox *cbAutoSyncronize;
       KateSnippetsPlugin *m_plugin;

@@ -29,6 +29,7 @@
 
 #include <QString>
 #include <QRegExp>
+#include "kateconfig.h"
 #include "katedocument.h"
 #include "kateviewinternal.h"
 #include "katevimodebar.h"

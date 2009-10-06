@@ -29,6 +29,7 @@
 //BEGIN includes
 #include "katewordcompletion.h"
 #include "kateview.h"
+#include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
 #include "katesmartrange.h"

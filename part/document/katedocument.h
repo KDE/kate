@@ -44,7 +44,6 @@
 #include <ktexteditor/annotationinterface.h>
 
 #include "katetextline.h"
-#include "kateautoindent.h"
 #include "katenamespace.h"
 #include "spellcheck/prefixstore.h"
 
@@ -64,6 +63,7 @@ class KateSmartManager;
 class KateUndoManager;
 class KateOnTheFlyChecker;
 
+class KateAutoIndent;
 class KateTemplateHandler;
 
 //
@@ -928,7 +928,7 @@ class KateDocument : public KTextEditor::Document,
     KateBuffer *m_buffer;
 
     // indenter
-    KateAutoIndent m_indenter;
+    KateAutoIndent *const m_indenter;
 
     bool hlSetByUser;
     bool m_bomSetByUser;

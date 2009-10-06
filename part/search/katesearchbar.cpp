@@ -23,6 +23,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateglobal.h"
+#include "kateconfig.h"
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"

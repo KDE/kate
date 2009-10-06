@@ -34,6 +34,7 @@
 #include <ktexteditor/view.h>
 #include <sonnet/speller.h>
 
+#include "kateconfig.h"
 #include "kateglobal.h"
 #include "katehighlight.h"
 #include "katerenderer.h"

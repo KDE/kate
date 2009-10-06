@@ -24,6 +24,7 @@
 #include "kateconfig.h"
 #include "kateview.h"
 #include "kateglobal.h"
+#include "kateautoindent.h"
 #include "katesyntaxmanager.h"
 #include "katesyntaxdocument.h"
 

@@ -22,6 +22,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
+#include "kateconfig.h"
 #include "katehighlight.h"
 #include "katescript.h"
 

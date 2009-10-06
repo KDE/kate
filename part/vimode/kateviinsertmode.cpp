@@ -23,6 +23,7 @@
 #include "kateviewinternal.h"
 #include "katesmartrange.h"
 #include "katecursor.h"
+#include "kateconfig.h"
 
 KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
     KateView * view, KateViewInternal * viewInternal ) : KateViModeBase()

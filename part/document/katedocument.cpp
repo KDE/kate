@@ -174,7 +174,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoManager(new KateUndoManager(this)),
   m_annotationModel( 0 ),
   m_saveAs(false),
-  m_indenter(this),
+  m_indenter (new KateAutoIndent(this)),
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
   s_fileChangedDialogsActivated (false),
@@ -233,7 +233,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_extension = new KateBrowserExtension( this );
 
   // important, fill in the config into the indenter we use...
-  m_indenter.updateConfig ();
+  m_indenter->updateConfig ();
 
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
@@ -1624,7 +1624,7 @@ void KateDocument::bufferHlChanged ()
   makeAttribs(false);
 
   // deactivate indenter if necessary
-  m_indenter.checkRequiredStyle();
+  m_indenter->checkRequiredStyle();
 
   emit highlightingModeChanged(this);
 }
@@ -2688,7 +2688,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
 
   KTextEditor::Cursor b(view->cursorPosition());
-  m_indenter.userTypedChar (view, b, c);
+  m_indenter->userTypedChar (view, b, c);
 
   editEnd ();
 
@@ -2723,7 +2723,7 @@ void KateDocument::newLine( KateView *v )
   editWrapLine (c.line(), c.column());
 
   // second: indent the new line, if needed...
-  m_indenter.userTypedChar(v, v->cursorPosition(), '\n');
+  m_indenter->userTypedChar(v, v->cursorPosition(), '\n');
 
   removeTrailingSpace( ln );
 
@@ -2925,7 +2925,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     editStart();
 
     blockRemoveTrailingSpaces(true);
-    m_indenter.indent(view, range);
+    m_indenter->indent(view, range);
     blockRemoveTrailingSpaces(false);
 
     for (; start <= end; ++start)
@@ -2951,7 +2951,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter.changeIndent(range, change);
+  m_indenter->changeIndent(range, change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {
@@ -2966,7 +2966,7 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
   editStart();
 
   blockRemoveTrailingSpaces(true);
-  m_indenter.indent(view, range);
+  m_indenter->indent(view, range);
   blockRemoveTrailingSpaces(false);
 
   for (int start = range.start().line(); start <= range.end().line(); ++start) {
@@ -4059,8 +4059,8 @@ void KateDocument::updateConfig ()
   m_undoManager->updateConfig ();
 
   // switch indenter if needed and update config....
-  m_indenter.setMode (m_config->indentationMode());
-  m_indenter.updateConfig();
+  m_indenter->setMode (m_config->indentationMode());
+  m_indenter->updateConfig();
 
   // set tab width there, too
   m_buffer->setTabWidth (config()->tabWidth());

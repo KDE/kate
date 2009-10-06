@@ -98,7 +98,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
-  : QObject(), doc(_doc), m_normal (false), m_script (0)
+  : QObject(_doc), doc(_doc), m_normal (false), m_script (0)
 {
   // don't call updateConfig() here, document might is not ready for that....
 

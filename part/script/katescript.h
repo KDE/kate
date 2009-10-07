@@ -155,6 +155,9 @@ class KateScript {
     static bool readFile(const QString& sourceUrl, QString& sourceCode);
 
   private:
+    /** init API, can fail on error in api files */
+    bool initApi ();
+    
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();
 
@@ -182,9 +185,6 @@ class KateScript {
   private:
     /** True, if the katepartapi.js file is alrady loaded, otherwise false */
     static bool s_scriptingApiLoaded;
-    /** contains the katepart.js file content, acts as cache */
-    static QString s_katePartApi;
-    static QString s_userApi;
 };
 
 //END

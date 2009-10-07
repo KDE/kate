@@ -92,14 +92,10 @@ namespace Kate {
 
 
 bool KateScript::s_scriptingApiLoaded = false;
-QString KateScript::s_katePartApi = QString();
-QString KateScript::s_userApi = QString();
 
 void KateScript::reloadScriptingApi()
 {
   s_scriptingApiLoaded = false;
-  s_katePartApi = QString();
-  s_userApi = QString();
 }
 
 bool KateScript::readFile(const QString& sourceUrl, QString& sourceCode)
@@ -128,12 +124,6 @@ KateScript::KateScript(const QString &url)
   , m_document(0)
   , m_view(0)
 {
-  // read katepart javascript api
-  if (!s_scriptingApiLoaded) {
-    s_scriptingApiLoaded = true;
-    readFile(KStandardDirs::locate("data", "katepart/script/katepartapi.js"), s_katePartApi);
-    readFile(KStandardDirs::locateLocal("data", "katepart/script/userapi.js"), s_userApi);
-  }
 }
 
 KateScript::~KateScript()
@@ -182,6 +172,36 @@ QScriptValue KateScript::function(const QString &name)
   return value;
 }
 
+bool KateScript::initApi ()
+{
+  // cache locations
+  static QString s_katePartApi;
+  static QString s_userApi;
+  
+  // read katepart javascript api
+  if (!s_scriptingApiLoaded) {
+    s_scriptingApiLoaded = true;
+    readFile(KStandardDirs::locate("data", "katepart/script/katepartapi.js"), s_katePartApi);
+    readFile(KStandardDirs::locateLocal("data", "katepart/script/userapi.js"), s_userApi);
+  }
+  
+  // register kate part scripting api
+  QScriptValue apiObject = m_engine->evaluate(s_katePartApi, "katepartapi.js");
+  if (hasException(apiObject, "katepartapi.js")) {
+    return false;
+  }
+
+  // register user javascript api, optional
+  if (!s_userApi.isEmpty()) {
+    QScriptValue userApiObject = m_engine->evaluate(s_userApi, "userapi.js");
+    if (hasException(userApiObject, "userapi.js")) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
 bool KateScript::load()
 {
   if(m_loaded)
@@ -201,20 +221,10 @@ bool KateScript::load()
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
 
-  // register kate part scripting api
-  QScriptValue apiObject = m_engine->evaluate(s_katePartApi, "katepartapi.js");
-  if (hasException(apiObject, "katepartapi.js")) {
+  // init API
+  if (!initApi ())
     return false;
-  }
-
-  // register user javascript api, optional
-  if (!s_userApi.isEmpty()) {
-    QScriptValue userApiObject = m_engine->evaluate(s_userApi, "userapi.js");
-    if (hasException(userApiObject, "userapi.js")) {
-      return false;
-    }
-  }
-
+  
   // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);
   if (hasException(result, m_url)) {

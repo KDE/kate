@@ -212,7 +212,7 @@ bool KateScript::initApi ()
   }
   
   // register all script apis found
-  for ( QStringList::ConstIterator it = apiFileBaseNames.begin(); it != apiFileBaseNames.end(); ++it )
+  for ( QStringList::ConstIterator it = apiFileBaseNames.constBegin(); it != apiFileBaseNames.constEnd(); ++it )
   {
     // try to load into engine, bail out one error, use fullpath for error messages
     QScriptValue apiObject = m_engine->evaluate(apiBaseName2Content[*it], apiBaseName2FileName[*it]);

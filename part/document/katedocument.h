@@ -29,8 +29,6 @@
 #include <QtCore/QStack>
 
 #include <kmimetype.h>
-#include <klocale.h>
-#include <kshortcut.h>
 #include <kencodingprober.h>
 
 #include <ktexteditor/document.h>
@@ -45,7 +43,6 @@
 
 #include "katetextline.h"
 #include "katenamespace.h"
-#include "spellcheck/prefixstore.h"
 
 namespace KTextEditor { class Plugin; class Attribute; }
 
@@ -61,6 +58,7 @@ class KateDocumentConfig;
 class KateHighlighting;
 class KateSmartManager;
 class KateUndoManager;
+class KateEditHistory;
 class KateOnTheFlyChecker;
 
 class KateAutoIndent;
@@ -316,7 +314,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     uint undoCount () const;
     uint redoCount () const;
-    class KateEditHistory* history() const { return m_editHistory; }
+    KateEditHistory* history() const { return m_editHistory; }
 
   private:
     KateUndoManager* m_undoManager;
@@ -1038,12 +1036,14 @@ class KateDocument : public KTextEditor::Document,
   protected Q_SLOTS:
       void testTemplateCode();
       void dumpRegionTree();
-  public:
-      class LoadSaveFilterCheckPlugins;
 
   private slots:
       void slotCompleted();
       void slotCanceled();
+
+  private:
+      class LoadSaveFilterCheckPlugins;
+
   private:
       bool m_savingToUrl;
       void setPreSavePostDialogFilterChecks(QStringList plugins) {m_preSavePostDialogFilterChecks=plugins;}

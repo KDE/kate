@@ -21,6 +21,8 @@
 #include <QScriptValue>
 #include <QScriptEngine>
 
+#include <klocale.h>
+
 #include "katedocument.h"
 #include "kateview.h"
 

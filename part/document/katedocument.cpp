@@ -92,14 +92,6 @@
 //END  includes
 
 
-//BEGIN PRIVATE CLASSES
-class KatePartPluginItem
-{
-  public:
-    KTextEditor::Plugin *plugin;
-};
-//END PRIVATE CLASSES
-
 static int dummy = 0;
 
 

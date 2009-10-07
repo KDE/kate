@@ -30,6 +30,7 @@
 #include <QScriptEngine>
 #include <QScriptValue>
 #include <QScriptContext>
+#include <QFileInfo>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -174,31 +175,53 @@ QScriptValue KateScript::function(const QString &name)
 
 bool KateScript::initApi ()
 {
-  // cache locations
-  static QString s_katePartApi;
-  static QString s_userApi;
+  // cache file names
+  static QStringList apiFileBaseNames;
+  static QHash<QString, QString> apiBaseName2FileName;
+  static QHash<QString, QString> apiBaseName2Content;
   
   // read katepart javascript api
   if (!s_scriptingApiLoaded) {
     s_scriptingApiLoaded = true;
-    readFile(KStandardDirs::locate("data", "katepart/script/katepartapi.js"), s_katePartApi);
-    readFile(KStandardDirs::locateLocal("data", "katepart/script/userapi.js"), s_userApi);
+    apiFileBaseNames.clear ();
+    apiBaseName2FileName.clear ();
+    apiBaseName2Content.clear ();
+    
+    // get all api files
+    const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/api/*.js", KStandardDirs::NoDuplicates);
+    
+    for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
+    {
+      // get abs filename....
+      QFileInfo fi(*it);
+      const QString absPath = fi.absoluteFilePath();
+      const QString baseName = fi.baseName ();
+      
+      // remember filenames
+      apiFileBaseNames.append (baseName);
+      apiBaseName2FileName[baseName] = absPath;
+      
+      // read the file
+      QString content;
+      readFile(absPath, content);
+      apiBaseName2Content[baseName] = content;
+    }
+    
+    // sort...
+    apiFileBaseNames.sort ();
   }
   
-  // register kate part scripting api
-  QScriptValue apiObject = m_engine->evaluate(s_katePartApi, "katepartapi.js");
-  if (hasException(apiObject, "katepartapi.js")) {
-    return false;
-  }
-
-  // register user javascript api, optional
-  if (!s_userApi.isEmpty()) {
-    QScriptValue userApiObject = m_engine->evaluate(s_userApi, "userapi.js");
-    if (hasException(userApiObject, "userapi.js")) {
+  // register all script apis found
+  for ( QStringList::ConstIterator it = apiFileBaseNames.begin(); it != apiFileBaseNames.end(); ++it )
+  {
+    // try to load into engine, bail out one error, use fullpath for error messages
+    QScriptValue apiObject = m_engine->evaluate(apiBaseName2Content[*it], apiBaseName2FileName[*it]);
+    if (hasException(apiObject, apiBaseName2FileName[*it])) {
       return false;
     }
   }
   
+  // success ;)
   return true;
 }
 

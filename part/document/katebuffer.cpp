@@ -986,10 +986,6 @@ void KateBuffer::setHighlight(int hlMode)
     m_regionTree.clear();
     m_regionTree.fixRoot(m_lines);
 
-    // try to set indentation
-    if (!h->indentation().isEmpty())
-      m_doc->config()->setIndentationMode (h->indentation());
-
     m_highlight = h;
 
     if (invalidate)
@@ -998,6 +994,10 @@ void KateBuffer::setHighlight(int hlMode)
     // inform the document that the hl was really changed
     // needed to update attributes and more ;)
     m_doc->bufferHlChanged ();
+ 
+    // try to set indentation
+    if (!h->indentation().isEmpty())
+      m_doc->config()->setIndentationMode (h->indentation());
   }
 }
 

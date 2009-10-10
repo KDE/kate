@@ -258,7 +258,7 @@ void KateSessionManager::updateSessionList ()
   qSort(m_sessionList.begin(), m_sessionList.end(), katesessions_compare_sessions_ptr);
 }
 
-void KateSessionManager::activateSession (KateSession::Ptr session,
+bool KateSessionManager::activateSession (KateSession::Ptr session,
                                           bool closeLast,
                                           bool saveLast,
                                           bool loadNew)
@@ -269,7 +269,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
     if (!fillinRunningKateAppInstances(&instances))
     {
       KMessageBox::error(0,i18n("Internal error there is more than one instance open for a given session"));
-      return;
+      return false;
     }
 
     if (instances.contains(session->sessionName()))
@@ -280,7 +280,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
         instances[session->sessionName()]->dbus_if->call("activate");
       }
       cleanupRunningKateAppInstanceMap(&instances);
-      return;
+      return false;
     }
 
     cleanupRunningKateAppInstanceMap(&instances);
@@ -291,7 +291,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
     if (KateApp::self()->activeMainWindow())
     {
       if (!KateApp::self()->activeMainWindow()->queryClose_internal())
-        return;
+        return true;
     }
   }
 
@@ -358,6 +358,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
   }
 
   emit sessionChanged();
+  return true;
 }
 
 KateSession::Ptr KateSessionManager::giveSession (const QString &name)
@@ -480,7 +481,7 @@ bool KateSessionManager::chooseSession ()
             break;
           }
 
-          activateSession (s, false, false);
+          if (!activateSession (s, false, false)) return false;
           retry = false;
           break;
         }

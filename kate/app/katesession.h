@@ -201,8 +201,9 @@ class KateSessionManager : public QObject
      * @param closeLast try to close last session or not?
      * @param saveLast try to save last session or not?
      * @param loadNew load new session stuff?
+     * @return false==session has been delegated, true==session has been activated in this distance
      */
-    void activateSession (KateSession::Ptr session, bool closeLast = true, bool saveLast = true, bool loadNew = true);
+    bool activateSession (KateSession::Ptr session, bool closeLast = true, bool saveLast = true, bool loadNew = true);
 
     /**
      * return session with given name

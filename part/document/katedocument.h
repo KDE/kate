@@ -1033,10 +1033,6 @@ class KateDocument : public KTextEditor::Document,
   protected:
       KateTemplateHandler *m_templateHandler;
 
-  protected Q_SLOTS:
-      void testTemplateCode();
-      void dumpRegionTree();
-
   private slots:
       void slotCompleted();
       void slotCanceled();

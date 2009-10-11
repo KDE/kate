@@ -4008,6 +4008,11 @@ bool KateDocument::pageUpDownMovesCursor () const
 {
   return config()->pageUpDownMovesCursor ();
 }
+
+void KateDocument::dumpRegionTree()
+{
+  m_buffer->foldingTree()->debugDump();
+}
 //END
 
 void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
@@ -4634,6 +4639,11 @@ bool KateDocument::insertTemplateTextImplementation ( const KTextEditor::Cursor 
   connect(m_templateHandler, SIGNAL(destroyed(QObject *)), this, SLOT(templateHandlerDestroyed()));
 
   return m_templateHandler->initOk();
+}
+
+void KateDocument::testTemplateCode() {
+  //qobject_cast<KTextEditor::TemplateInterface*>(activeView())->insertTemplateText(activeView()->cursorPosition(),"for ${index} \\${NOPLACEHOLDER} ${index} ${blah} ${fullname} \\$${Placeholder} \\${${PLACEHOLDER2}}\n next line:${ANOTHERPLACEHOLDER} $${DOLLARBEFOREPLACEHOLDER} {NOTHING} {\n${cursor}\n}",QMap<QString,QString>());
+  qobject_cast<KTextEditor::TemplateInterface*>(activeView())->insertTemplateText(activeView()->cursorPosition(),"for ${index} \\${NOPLACEHOLDER} ${index} ${blah} \\$${Placeholder} \\${${PLACEHOLDER2}}\n next line:${ANOTHERPLACEHOLDER} $${DOLLARBEFOREPLACEHOLDER} {NOTHING} {\n${cursor}\n}",QMap<QString,QString>());
 }
 
 

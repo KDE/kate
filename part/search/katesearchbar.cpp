@@ -760,7 +760,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
         case MODE_REGEX:
             {
                 // Check if pattern multi-line
-                KateRegExp(pattern).repairPattern(multiLinePattern);
+                multiLinePattern = KateRegExp(pattern).isMultiLine();
                 regexMode = true;
             }
             enabledOptions |= Search::Regex;
@@ -1092,12 +1092,8 @@ void KateSearchBar::onPowerReplaceNext() {
 void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         Search::SearchOptions enabledOptions,
         const QString * replacement) {
-    bool multiLinePattern = false;
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
-    if (regexMode) {
-        // Check if pattern multi-line
-        KateRegExp(pattern).repairPattern(multiLinePattern);
-    }
+    const bool multiLinePattern = regexMode ? KateRegExp(pattern).isMultiLine() : false;
 
     // Clear backwards flag, this algorithm is for forward mode
     if (enabledOptions.testFlag(Search::Backwards)) {

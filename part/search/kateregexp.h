@@ -68,8 +68,18 @@ class KateRegExp
      */
     int repairPattern(bool & stillMultiLine);
 
+    /**
+     * States, whether the pattern matches multiple lines,
+     * even if it was repaired using @p repairPattern().
+     *
+     * \return Whether the pattern matches multiple lines
+     */
+    bool isMultiLine() const;
+
   private:
     QRegExp m_regExp;
 };
 
 #endif // KATEREGEXP_H
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

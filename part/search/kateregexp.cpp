@@ -202,6 +202,108 @@ int KateRegExp::repairPattern(bool & stillMultiLine)
 
 
 
+bool KateRegExp::isMultiLine() const
+{
+  const QString &text = pattern();
+
+  // parser state
+  bool insideClass = false;
+
+  for (int input = 0; input < text.length(); /*empty*/ )
+  {
+    if (insideClass)
+    {
+      // wait for closing, unescaped ']'
+      switch (text[input].unicode())
+      {
+      case L'\\':
+        switch (text[input + 1].unicode())
+        {
+        case L'x':
+          return true;
+
+        case L'0':
+          return true;
+
+        case L's':
+          // replace "\s" with "[ \t]"
+          input += 2;
+          break;
+
+        case L'n':
+          return true;
+          // FALLTROUGH
+
+        default:
+          // copy "\?" unmodified
+          input += 2;
+        }
+        break;
+
+      case L']':
+        // copy "]" unmodified
+        insideClass = false;
+        input++;
+        break;
+
+      default:
+        // copy "?" unmodified
+        input++;
+
+      }
+    }
+    else
+    {
+      // search for real dots and \S
+      switch (text[input].unicode())
+      {
+      case L'\\':
+        switch (text[input + 1].unicode())
+        {
+        case L'x':
+          return true;
+
+        case L'0':
+          return true;
+
+        case L's':
+          // replace "\s" with "[ \t]"
+          input += 2;
+          break;
+
+        case L'n':
+          return true;
+
+        default:
+          // copy "\?" unmodified
+          input += 2;
+        }
+        break;
+
+      case L'.':
+        // replace " with "[^\n]"
+        input++;
+        break;
+
+      case L'[':
+        // copy "]" unmodified
+        insideClass = true;
+        input++;
+        break;
+
+      default:
+        // copy "?" unmodified
+        input++;
+
+      }
+    }
+  }
+
+  return false;
+}
+
+
+
 int KateRegExp::lastIndexIn(const QString & str,
         int offset, QRegExp::CaretMode caretMode) {
     int prevPos = -1;
@@ -252,3 +354,5 @@ int KateRegExp::lastIndexIn(const QString & str,
         return -1;
     }
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

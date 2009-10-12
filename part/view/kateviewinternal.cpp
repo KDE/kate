@@ -3570,6 +3570,11 @@ void KateViewInternal::dynamicMoved( bool mouse )
       if (newRange && !oldRange)
         enterStack.prepend(newRange);
 
+      if (mouse)
+        hl->mouseOver = static_cast<KateSmartRange*>(newRange);
+      else
+        hl->caretOver = static_cast<KateSmartRange*>(newRange);
+
       foreach (KTextEditor::SmartRange* exitedRange, exitStack) {
         endDynamic(hl, static_cast<KateSmartRange*>(exitedRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
         if (mouse)
@@ -3585,11 +3590,6 @@ void KateViewInternal::dynamicMoved( bool mouse )
           static_cast<KateSmartRange*>(enteredRange)->feedbackCaretEnteredRange(m_view);
         startDynamic(hl, static_cast<KateSmartRange*>(enteredRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
       }
-
-      if (mouse)
-        hl->mouseOver = static_cast<KateSmartRange*>(newRange);
-      else
-        hl->caretOver = static_cast<KateSmartRange*>(newRange);
     }
   }
 }

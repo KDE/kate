@@ -268,13 +268,13 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
     KateRunningInstanceMap instances;
     if (!fillinRunningKateAppInstances(&instances))
     {
-      KMessageBox::error(0,i18n("Internal error there is more than one instance open for a given session"));
+      KMessageBox::error(0,i18n("Internal error: there is more than one instance open for a given session."));
       return false;
     }
 
     if (instances.contains(session->sessionName()))
     {
-      if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, changing there instead of reopening",session->sessionName()),
+      if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?",session->sessionName()),
             QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),"katesessionmanager_switch_instance")==KMessageBox::Yes)
       {
         instances[session->sessionName()]->dbus_if->call("activate");

@@ -122,9 +122,9 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   options.add("start <name>", ki18n("Start Kate with a given session"));
   options.add("startanon", ki18n("Start Kate with a new anonymous session, implies '-n'"));
   options.add("n");
-  options.add("new", ki18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no urls are given at all"));
+  options.add("new", ki18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all"));
   options.add("b");
-  options.add("block", ki18n("If using an already running kate instance, block until it exits, if urls given to open"));
+  options.add("block", ki18n("If using an already running kate instance, block until it exits, if URLs given to open"));
   options.add("p");
   options.add("pid <pid>", ki18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)"));
   options.add("e");
@@ -136,7 +136,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   options.add("i");
   options.add("stdin", ki18n("Read the contents of stdin"));
   options.add("u");
-  options.add("use", ki18n("Reuse existing Kate instance, default, only for compatiblity"));
+  options.add("use", ki18n("Reuse existing Kate instance; default, only for compatibility"));
   options.add("+[URL]", ki18n("Document to open"));
   KCmdLineArgs::addCmdLineOptions (options);
   KCmdLineArgs::addTempFileOption();

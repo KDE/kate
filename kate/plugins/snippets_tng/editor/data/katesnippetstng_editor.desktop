@@ -1,5 +1,6 @@
 [Desktop Entry]
 GenericName=Kate Snippets TNG datafile editor
+GenericName[en_GB]=Kate Snippets TNG datafile editor
 GenericName[et]=Kate juppide uue põlvkonna andmefaili redaktor
 GenericName[gl]=Editor de ficheiros TNG de retallos de texto de Kate
 GenericName[nds]=Verbetert Editor för Kate-Snippels
@@ -10,6 +11,7 @@ GenericName[tr]=Kate Snippets TNG veri dosyası düzenleyici
 GenericName[uk]=Редактор файла даних TNG фрагментів тексту Kate
 GenericName[x-test]=xxKate Snippets TNG datafile editorxx
 Name=Kate Snippets TNG datafile editor
+Name[en_GB]=Kate Snippets TNG datafile editor
 Name[et]=Kate juppide uue põlvkonna andmefaili redaktor
 Name[gl]=Editor retallos de texto TNG para Kate
 Name[nds]=Verbetert Editor för Kate-Snippels

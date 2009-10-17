@@ -233,22 +233,21 @@ void KateRenderer::paintTabstop(QPainter &paint, qreal x, qreal y)
 {
   QPen penBackup( paint.pen() );
   QPen pen( config()->tabMarkerColor() );
-  pen.setWidthF(qMax(0.5, spaceWidth() * .1));
-  pen.setCapStyle(Qt::RoundCap);
+  pen.setWidth(qMax(1u, spaceWidth() / 10));
   paint.setPen( pen );
+  paint.setRenderHint(QPainter::Antialiasing, false);
 
-  // FIXME: optimize for speed!
-  qreal dist = spaceWidth() * 0.3;
-  QPointF points[8];
-  points[0] = QPointF(x - dist, y - dist);
-  points[1] = QPointF(x, y);
-  points[2] = QPointF(x, y);
-  points[3] = QPointF(x - dist, y + dist);
+  int dist = spaceWidth() * 0.3;
+  QPoint points[8];
+  points[0] = QPoint(x - dist, y - dist);
+  points[1] = QPoint(x, y);
+  points[2] = QPoint(x, y);
+  points[3] = QPoint(x - dist, y + dist);
   x += spaceWidth() / 3.0;
-  points[4] = QPointF(x - dist, y - dist);
-  points[5] = QPointF(x, y);
-  points[6] = QPointF(x, y);
-  points[7] = QPointF(x - dist, y + dist);
+  points[4] = QPoint(x - dist, y - dist);
+  points[5] = QPoint(x, y);
+  points[6] = QPoint(x, y);
+  points[7] = QPoint(x - dist, y + dist);
   paint.drawLines(points, 4);
   paint.setPen( penBackup );
 }

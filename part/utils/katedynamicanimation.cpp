@@ -57,7 +57,7 @@ KateDynamicAnimation::~KateDynamicAnimation()
 
     if (view())
       view()->renderer()->dynamicRegion().removeRange(m_range);
-    else
+    else if (document())
       foreach (KTextEditor::View* view, document()->views())
         static_cast<KateView*>(view)->renderer()->dynamicRegion().removeRange(m_range);
   }

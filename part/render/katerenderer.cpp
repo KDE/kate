@@ -600,9 +600,12 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         int y = lineHeight() * i + fm.ascent() - fm.strikeOutPos();
 
         if (showTabs()) {
-          int tabIndex = text.indexOf(tabChar, line.startCol());
+          int tabIndex = text.indexOf(tabChar, line.lineLayout().xToCursor(xStart));
           while (tabIndex != -1 && tabIndex < line.endCol()) {
-            paintTabstop(paint, line.lineLayout().cursorToX(tabIndex) - xStart + spaceWidth()/2.0, y);
+            int x = line.lineLayout().cursorToX(tabIndex);
+            if (x > xEnd)
+              break;
+            paintTabstop(paint, x - xStart + spaceWidth()/2.0, y);
             tabIndex = text.indexOf(tabChar, tabIndex + 1);
           }
         }
@@ -704,9 +707,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     QPen pen(config()->wordWrapMarkerColor());
     pen.setCosmetic(true);
     pen.setStyle(Qt::DashLine);
-    QVector<qreal> dash = pen.dashPattern(); // workaround for N226156
     pen.setDashOffset(xStart);
-    pen.setDashPattern(dash);
     paint.setPen(pen);
     paint.drawLine(0, (lineHeight() * range->viewLineCount()) - 1, xEnd - xStart, (lineHeight() * range->viewLineCount()) - 1);
   }

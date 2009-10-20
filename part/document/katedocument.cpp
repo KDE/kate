@@ -2867,10 +2867,11 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   editStart (Kate::CutCopyPasteEdit);
 
-  if (!view->config()->persistentSelection() && view->selection() )
-    view->removeSelectedText();
-
   KTextEditor::Cursor pos = view->cursorPosition();
+  if (!view->config()->persistentSelection() && view->selection()) {
+    pos = view->selectionRange().start();
+    view->removeSelectedText();
+  }
 
   if (config()->configFlags() & KateDocumentConfig::cfOvr) {
     QStringList pasteLines = s.split(QLatin1Char('\n'));
@@ -2904,7 +2905,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   // even in that case, but user expects other behavior in block selection
   // mode !
   if (view->blockSelectionMode())
-    view->setCursorPositionInternal(pos + KTextEditor::Cursor(lines, 0));
+    view->setCursorPositionInternal(view->cursorPosition() + KTextEditor::Cursor(lines, 0));
 
   if (config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
   {

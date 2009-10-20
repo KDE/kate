@@ -18,13 +18,92 @@
 
 #include "snippeteditorwindow.h"
 #include "snippeteditorwindow.moc"
+
 #include "editorapp.h"
 #include "snippeteditornewdialog.h"
 #include "../completionmodel.h"
 #include <kmessagebox.h>
 #include <QDBusConnectionInterface>
 
+#include <QStandardItem>
+
 using namespace JoWenn;
+
+
+FiletypeListDropDown::FiletypeListDropDown(QWidget *parent,KLineEdit *lineEdit,KPushButton *btn,const QStringList &modes):
+  QWidget(parent),Ui::FiletypeListCreatorview(), m_lineEdit(lineEdit),m_btn(btn),m_modes(modes)
+{
+  setupUi(this);
+  hide();
+  filetypeCombo->clear();
+  filetypeCombo->addItems(modes);
+  connect(filetypeAddButton,SIGNAL(clicked()),this,SLOT(addFileType()));
+  filetypeUsedList->setModel(&m_model);
+}
+
+FiletypeListDropDown::~FiletypeListDropDown() {
+}
+
+void FiletypeListDropDown::parseAndShow() {
+  if (isVisibleTo(parentWidget()))
+  {
+    m_lineEdit->removeEventFilter(this);
+    hide();
+    return;
+  }
+    
+  int x=m_lineEdit->pos().x();
+  int y=m_lineEdit->pos().y()+m_lineEdit->height();
+  int width=m_btn->pos().x()+m_btn->width()-x;
+  setGeometry(x,y,width,height());
+  m_lineEdit->installEventFilter(this);
+  
+  m_model.clear();
+  
+  QString txt=m_lineEdit->text().trimmed();
+  QString catchall("*");
+  if (txt.isEmpty()) txt=catchall;
+  if (txt!=catchall) {
+    QStringList src=txt.split(";");
+    QStringList dst;
+    foreach(const QString &item_str,src) {
+      QString item_str_trimmed=item_str.trimmed();      
+      if (item_str_trimmed.isEmpty()) continue;
+      //if (item_str_trimmed==catchall) continue;
+        dst<<item_str_trimmed;
+    }
+    dst.removeDuplicates();
+    txt=dst.join(";");
+    if (txt!=catchall) {
+      foreach (const QString &item_str,dst) {
+        m_model.appendRow(new QStandardItem(item_str));
+      }
+    }
+  }
+  if (txt!=m_lineEdit->text().trimmed()) {
+    m_lineEdit->setText(txt);
+    emit modified();
+  }
+  show();
+}
+
+void FiletypeListDropDown::addFileType() {
+  m_model.appendRow(new QStandardItem(filetypeCombo->currentText()));
+  QStringList items;
+  int rowCount=m_model.rowCount();
+  for (int i=0;i<rowCount;i++) {
+    items<<m_model.data(m_model.index(i,0)).toString();
+  }
+  items.removeDuplicates();
+  m_lineEdit->setText(items.join(";"));
+  emit modified();
+}
+
+bool FiletypeListDropDown::eventFilter(QObject *obj,QEvent *event) {
+  if (event->type()==QEvent::FocusIn) parseAndShow();
+  return false;
+}
+
 
 SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& url): KMainWindow(0), Ui::SnippetEditorView(),m_modified(false),m_url(url),m_snippetData(0),m_selectorModel(0)
 {  
@@ -41,6 +120,8 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   QWidget *widget=new QWidget(this);
   setCentralWidget(widget);
   setupUi(widget);
+  m_filetypeDropDown=new FiletypeListDropDown(this,snippetCollectionFiletype,snippetCollectionFiletypeButton,modes);
+  connect(snippetCollectionFiletypeButton,SIGNAL(clicked()),m_filetypeDropDown,SLOT(parseAndShow()));
   connect(buttonBox,SIGNAL(clicked(QAbstractButton*)),this,SLOT(slotClose(QAbstractButton*)));
   buttonBox->button(QDialogButtonBox::Save)->setEnabled(false);
   addSnippet->setIcon(KIcon("document-new"));
@@ -54,6 +135,8 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   connect(delSnippet,SIGNAL(clicked()),this,SLOT(deleteSnippet()));
   connect(addSnippet,SIGNAL(clicked()),this,SLOT(newSnippet()));
+  connect(snippetCollectionFiletype,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(m_filetypeDropDown,SIGNAL(modified()),this,SLOT(modified()));
   QString name;
   QString filetype;
   QString authors;
@@ -65,17 +148,8 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   snippetCollectionName->setText(name);
   snippetCollectionAuthors->setText(authors);
   snippetCollectionLicense->setText(license);
-  snippetCollectionFiletype->clear();
-  snippetCollectionFiletype->addItem("*");
-  snippetCollectionFiletype->addItems(modes);
-  if (filetype=="*")
-    snippetCollectionFiletype->setCurrentIndex(0);
-  else
-  {
-    int idx=modes.indexOf(filetype);
-    if (idx!=-1)
-      snippetCollectionFiletype->setCurrentIndex(idx+1);
-  }
+  snippetCollectionFiletype->setText(filetype);
+  
   QStringList files;
   files<<m_url.toLocalFile();
   m_snippetData=new KateSnippetCompletionModel(files);
@@ -100,7 +174,9 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
       m_selectorModel->setData(previous,snippetContent->toPlainText(),KateSnippetSelectorModel::FillInRole);
     }  
     
-    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),snippetCollectionFiletype->currentText(),snippetCollectionAuthors->text())) {
+    QString filetype=snippetCollectionFiletype->text();
+    if (filetype.trimmed().isEmpty()) filetype=QString("*");
+    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),filetype,snippetCollectionAuthors->text())) {
       notifyChange();
       close();
     }
@@ -165,3 +241,4 @@ void SnippetEditorWindow::notifyChange() {
     }
   }
 }
+// kate: space-indent on; indent-width 2; replace-tabs on;

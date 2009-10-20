@@ -20,15 +20,41 @@
 #define _SNIPPET_EDITOR_WINDOW_
 
 #include "ui_snippeteditorview.h"
+#include "ui_filetypelistcreatorview.h"
 #include <kmainwindow.h>
 #include <qwidget.h>
 #include <qstringlist.h>
+#include <QStandardItemModel>
 
 class QAbstractButton;
+class QStandardItemModel;
+class KLineEdit;
+class KPushButton;
+
 namespace JoWenn {
   class KateSnippetCompletionModel;
   class KateSnippetSelectorModel;
 }
+
+class FiletypeListDropDown: public QWidget, private Ui::FiletypeListCreatorview
+{
+  Q_OBJECT
+  public:
+    FiletypeListDropDown(QWidget *parent,KLineEdit *lineEdit,KPushButton *btn,const QStringList &modes);
+    virtual ~FiletypeListDropDown();
+    virtual bool eventFilter(QObject *obj,QEvent *event);
+  Q_SIGNALS:
+    void modified();
+  public Q_SLOTS:
+    void parseAndShow();
+  private Q_SLOTS:
+    void addFileType();
+  private:
+    KLineEdit *m_lineEdit;
+    KPushButton *m_btn;
+    QStringList m_modes;
+    QStandardItemModel m_model;
+};
 
 class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
 {
@@ -50,6 +76,8 @@ class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
     JoWenn::KateSnippetSelectorModel *m_selectorModel;
     bool m_ok;
     void notifyChange();
+    FiletypeListDropDown *m_filetypeDropDown;
 };
 
 #endif
+// kate: space-indent on; indent-width 2; replace-tabs on;

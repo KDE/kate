@@ -44,15 +44,26 @@ namespace JoWenn {
   class KateSnippetRepositoryEntry {
     public:
       KateSnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _enabled):
-        name(_name),filename(_filename),fileType(_fileType.split(";")), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){}
+        name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){
+          setFileType(_fileType.split(";"));
+        }
       ~KateSnippetRepositoryEntry(){}
       QString name;
-      QString filename;
-      QStringList fileType;
+      QString filename;      
       QString authors;
       QString license;
       bool systemFile;
-      bool enabled;    
+      bool enabled;
+      void setFileType(const QStringList &list) {
+        m_fileType.clear();
+        foreach(const QString &str,list) {
+          m_fileType<<str.trimmed();
+        }
+        if (m_fileType.count()==0); m_fileType<<"*";
+      }
+      const QStringList& fileType() const {return m_fileType;}
+    private:
+      QStringList m_fileType;
   };
   
 //BEGIN: Delegate  
@@ -234,7 +245,7 @@ namespace JoWenn {
         return entry.filename;
         break;
       case FiletypeRole:
-        return entry.fileType;
+        return entry.fileType();
         break;
       case AuthorsRole:
         return entry.authors;
@@ -262,7 +273,7 @@ namespace JoWenn {
         case EnabledRole:
             entry.enabled=value.toBool();
             emit dataChanged(index,index);
-            emit typeChanged(entry.fileType);
+            emit typeChanged(entry.fileType());
             return true;
             break;
         case DeleteNowRole:
@@ -351,7 +362,7 @@ namespace JoWenn {
           if (entry.filename==filename)
           {
             entry.name=name;
-            entry.fileType=filetype.split(";");
+            entry.setFileType(filetype.split(";"));
             entry.authors=authors;
             entry.license=license;
             entry.systemFile=systemFile;
@@ -371,7 +382,7 @@ namespace JoWenn {
     kDebug(13040)<<"**************************************************************************************************************************"<<filetype;
     QStringList l;
     foreach(const KateSnippetRepositoryEntry& entry, m_entries) {
-      if ((entry.enabled==true) && ( (entry.fileType.contains("*")) || (entry.fileType.contains(filetype)))) {
+      if ((entry.enabled==true) && ( (entry.fileType().contains("*")) || (entry.fileType().contains(filetype)))) {
         l<<entry.filename;
       }
     }

@@ -29,7 +29,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
+     <item row="0" column="1">
       <widget class="QLabel" name="snippetCollectionName">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -55,7 +55,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
+     <item row="1" column="1">
       <widget class="QLabel" name="snippetCollectionLicense">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -81,7 +81,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="snippetCollectionAuthors"/>
      </item>
      <item row="2" column="0">
@@ -91,8 +91,19 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="KComboBox" name="snippetCollectionFiletype"/>
+     <item row="2" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="KLineEdit" name="snippetCollectionFiletype"/>
+       </item>
+       <item>
+        <widget class="KPushButton" name="snippetCollectionFiletypeButton">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -245,9 +256,9 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -7,6 +7,7 @@ set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp
 set(katesnippetstng_editor_UI
   snippeteditorview.ui
   newsnippetfileview.ui
+  filetypelistcreatorview.ui
 )
 
 add_definitions(-DSNIPPET_EDITOR)

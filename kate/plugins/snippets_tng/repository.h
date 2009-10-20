@@ -84,7 +84,7 @@ namespace JoWenn {
       void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
     Q_SIGNALS:
-      void typeChanged(const QString& fileType);
+      void typeChanged(const QStringList& fileType);
     public Q_SLOTS:
       void newEntry();
       void copyToRepository(const KUrl& src);

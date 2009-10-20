@@ -45,7 +45,7 @@ namespace JoWenn {
       Kate::Plugin ( (Kate::Application*)parent )
   {
     m_repositoryData=new KateSnippetRepositoryModel(this);
-    connect(m_repositoryData,SIGNAL(typeChanged(const QString&)),this,SLOT(slotTypeChanged(const QString&)));
+    connect(m_repositoryData,SIGNAL(typeChanged(const QStringList&)),this,SLOT(slotTypeChanged(const QStringList&)));
     
     Kate::DocumentManager* documentManager=application()->documentManager();
     const QList<KTextEditor::Document*>& documents=documentManager->documents ();
@@ -86,6 +86,7 @@ namespace JoWenn {
 
   void KateSnippetsPlugin::removeDocument(KTextEditor::Document* document)
   {
+    //if (!m_document_model_hash.contains(document)) return;
     QSharedPointer<KTextEditor::CodeCompletionModel2>model=m_document_model_hash.take(document);
     const QList<KTextEditor::View*>& views=document->views();
     foreach (KTextEditor::View *view,views) {
@@ -123,17 +124,22 @@ namespace JoWenn {
     addDocument(document);
   }
 
-  void KateSnippetsPlugin::slotTypeChanged(const QString& fileType)
+  void KateSnippetsPlugin::slotTypeChanged(const QStringList& fileType)
   {
-    QList<KTextEditor::Document*> refreshList;
-    if (fileType=="*") {
-      refreshList=m_document_model_hash.keys();
+    QSet<KTextEditor::Document*> refreshList;
+    if (fileType.contains("*")) {
+      QList<KTextEditor::Document*> tmp_list(m_document_model_hash.keys());
+      foreach(KTextEditor::Document *doc,tmp_list) {
+      refreshList.insert(doc);
+      }
     } else {
-      QSharedPointer<KTextEditor::CodeCompletionModel2>model_t=m_mode_model_hash[fileType];
-      QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodeCompletionModel2> >::const_iterator it;
-      for(it=m_document_model_hash.constBegin();it!=m_document_model_hash.constEnd();++it) {
-        if (it.value()==model_t) {
-          refreshList<<it.key();
+      foreach(QString ft, fileType) {
+        QSharedPointer<KTextEditor::CodeCompletionModel2>model_t=m_mode_model_hash[ft];
+        QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodeCompletionModel2> >::const_iterator it;
+        for(it=m_document_model_hash.constBegin();it!=m_document_model_hash.constEnd();++it) {
+          if (it.value()==model_t) {
+            refreshList<<it.key();
+          }
         }
       }
     }
@@ -182,7 +188,7 @@ namespace JoWenn {
   void KateSnippetsPlugin::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
   {
     repositoryData()->readSessionConfig(config,groupPrefix);
-    slotTypeChanged("*");       
+    slotTypeChanged(QStringList("*"));       
   }
   
   void KateSnippetsPlugin::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)

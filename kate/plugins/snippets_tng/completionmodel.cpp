@@ -87,7 +87,7 @@ namespace JoWenn {
       return false;
     }
     *name=el.attribute("name");
-    *filetype=el.attribute("filetype");
+    *filetype=el.attribute("filetypes");
     *authors=el.attribute("authors");
     *license=el.attribute("license");
     return true;
@@ -283,7 +283,7 @@ namespace JoWenn {
     QDomDocument doc;
     QDomElement root=doc.createElement("snippets");
     root.setAttribute("name",name);
-    root.setAttribute("filetype",filetype);
+    root.setAttribute("filetypes",filetype);
     root.setAttribute("authors",authors);
     root.setAttribute("license",license);
     doc.appendChild(root);
@@ -332,7 +332,7 @@ QString KateSnippetCompletionModel::createNew(const QString& name, const QString
     QDomDocument doc;
     QDomElement root=doc.createElement("snippets");
     root.setAttribute("name",name);
-    root.setAttribute("filetype","*");
+    root.setAttribute("filetypes","*");
     root.setAttribute("authors",authors);
     root.setAttribute("license",license);
     doc.appendChild(root);

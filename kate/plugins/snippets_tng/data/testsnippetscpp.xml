@@ -1,4 +1,4 @@
-<snippets name="Testsnippets C++" filetype="C++" authors="Joseph Wenninger" license="BSD">
+<snippets name="Testsnippets C++" filetypes="C++;C" authors="Joseph Wenninger" license="BSD">
   <item>
     <match>testfor</match>
     <displayarguments>(int i=0;i&lt;;100;i++)</displayarguments>

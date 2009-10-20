@@ -73,7 +73,7 @@ namespace JoWenn {
       void removeDocument(KTextEditor::Document* document);
       void addView(KTextEditor::Document *document, KTextEditor::View *view);
       void updateDocument(KTextEditor::Document *document);
-      void slotTypeChanged(const QString& fileType);
+      void slotTypeChanged(const QStringList& fileType);
     public:
       KateSnippetCompletionModel* modelForDocument(KTextEditor::Document *document);
     private:

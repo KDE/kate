@@ -44,11 +44,11 @@ namespace JoWenn {
   class KateSnippetRepositoryEntry {
     public:
       KateSnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _enabled):
-        name(_name),filename(_filename),fileType(_fileType), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){}
+        name(_name),filename(_filename),fileType(_fileType.split(";")), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){}
       ~KateSnippetRepositoryEntry(){}
       QString name;
       QString filename;
-      QString fileType;
+      QStringList fileType;
       QString authors;
       QString license;
       bool systemFile;
@@ -138,11 +138,12 @@ namespace JoWenn {
         label->setVisible(true);
         checkBox->setChecked(index.model()->data(index, KateSnippetRepositoryModel::EnabledRole).toBool());
         //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
-        QString fileType=index.model()->data(index, KateSnippetRepositoryModel::FiletypeRole).toString();
-        if (fileType=="*") fileType="all file types";
+        QStringList fileType=index.model()->data(index, KateSnippetRepositoryModel::FiletypeRole).toStringList();
+        QString displayFileType=fileType.join(";");
+        if (fileType.contains("*")) displayFileType="all file types";
         label->setText(i18n("%1 (%2)\nlicense: %3, authors: %4",
           index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString(),
-          fileType,
+          displayFileType,
           index.model()->data(index, KateSnippetRepositoryModel::LicenseRole).toString(),
           index.model()->data(index, KateSnippetRepositoryModel::AuthorsRole).toString()
           )
@@ -196,7 +197,7 @@ namespace JoWenn {
       if (group.exists()) {         
          if (fi.lastModified()==group.readEntry("lastModified",QDateTime())) {
             name=group.readEntry("name");
-            filetype=group.readEntry("filetype");
+            filetype=group.readEntry("filetypes");
             authors=group.readEntry("authors");
             license=group.readEntry("license");         
             configRead=true;
@@ -206,7 +207,7 @@ namespace JoWenn {
          KateSnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license);
          group.writeEntry("lastModified",fi.lastModified());
          group.writeEntry("name",name);
-         group.writeEntry("filetype",filetype);
+         group.writeEntry("filetypes",filetype);
          group.writeEntry("authors",authors);
          group.writeEntry("license",license);  
       }      
@@ -218,7 +219,7 @@ namespace JoWenn {
     }
     config.sync();
     reset();
-    emit typeChanged("*");
+    emit typeChanged(QStringList("*"));
   }
   
   
@@ -350,7 +351,7 @@ namespace JoWenn {
           if (entry.filename==filename)
           {
             entry.name=name;
-            entry.fileType=filetype;
+            entry.fileType=filetype.split(";");
             entry.authors=authors;
             entry.license=license;
             entry.systemFile=systemFile;
@@ -370,7 +371,7 @@ namespace JoWenn {
     kDebug(13040)<<"**************************************************************************************************************************"<<filetype;
     QStringList l;
     foreach(const KateSnippetRepositoryEntry& entry, m_entries) {
-      if ((entry.enabled==true) && ( (entry.fileType=="*") || (entry.fileType==filetype))) {
+      if ((entry.enabled==true) && ( (entry.fileType.contains("*")) || (entry.fileType.contains(filetype)))) {
         l<<entry.filename;
       }
     }

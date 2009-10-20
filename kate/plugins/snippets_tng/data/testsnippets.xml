@@ -1,4 +1,4 @@
-<snippets name="Testsnippets" filetype="*" authors="Joseph Wenninger" license="BSD">
+<snippets name="Testsnippets" filetypes="*" authors="Joseph Wenninger" license="BSD">
   <item>
     <displayprefix>prefix</displayprefix>
     <match>test1</match>

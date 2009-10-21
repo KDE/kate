@@ -953,6 +953,11 @@ bool KateViNormalMode::commandPaste()
 
   QString textToInsert = getRegisterContent( reg );
 
+  if ( textToInsert.isNull() ) {
+    error(i18n("Nothing in register %1", reg ));
+    return false;
+  }
+
   if ( getCount() > 1 ) {
     textToInsert = textToInsert.repeated( getCount() );
   }

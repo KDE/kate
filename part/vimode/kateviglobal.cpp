@@ -69,7 +69,12 @@ QString KateViGlobal::getRegisterContent( const QChar &reg ) const
   QChar _reg = ( reg != '"' ? reg : m_defaultRegister );
 
   if ( _reg >= '1' && _reg <= '9' ) { // numbered register
-    regContent = m_numberedRegisters->at( QString( _reg ).toInt()-1 );
+    int index = QString( _reg ).toInt()-1;
+    if ( m_numberedRegisters->size() > index) {
+      regContent = m_numberedRegisters->at( index );
+    } else {
+      regContent = QString();
+    }
   } else if ( _reg == '+' ) { // system clipboard register
       regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
   } else if ( _reg == '*' ) { // system selection register

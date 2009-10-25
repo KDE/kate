@@ -4627,6 +4627,32 @@ bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
     KStandardGuiItem::cancel(), QString(), KMessageBox::Notify | KMessageBox::Dangerous );
 }
 
+//BEGIN KTextEditor::ConfigInterface
+
+// BEGIN ConfigInterface stff
+QStringList KateDocument::configKeys() const
+{
+  return QStringList() << "auto-brackets";
+}
+
+QVariant KateDocument::configValue(const QString &key)
+{
+  if(key == "auto-brackets") {
+    return m_config->configFlags() & KateDocumentConfig::cfAutoBrackets;
+  }
+
+  // return invalid variant
+  return QVariant();
+}
+
+void KateDocument::setConfigValue(const QString &key, const QVariant &value)
+{
+  if(key == "auto-brackets" && value.canConvert(QVariant::Bool)) {
+    m_config->setConfigFlags(KateDocumentConfig::cfAutoBrackets, value.toBool());
+  }
+}
+
+//END KTextEditor::ConfigInterface
 
 //BEGIN KTextEditor::TemplateInterface
 bool KateDocument::insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *) {

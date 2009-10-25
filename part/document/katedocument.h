@@ -39,6 +39,7 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 
 #include "katetextline.h"
@@ -73,6 +74,7 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::MarkInterface,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
+                     public KTextEditor::ConfigInterface,
                      public KTextEditor::SmartInterface,
                      private KTextEditor::SmartRangeWatcher,
                      public KTextEditor::AnnotationInterface
@@ -1021,6 +1023,14 @@ class KateDocument : public KTextEditor::Document,
     static QRegExp kvVar;
 
     bool s_fileChangedDialogsActivated;
+
+  //
+  // KTextEditor::ConfigInterface
+  //
+  public:
+     QStringList configKeys() const;
+     QVariant configValue(const QString &key);
+     void setConfigValue(const QString &key, const QVariant &value);
 
   // TemplateInterface
   public:

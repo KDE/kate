@@ -26,29 +26,27 @@
 
 namespace KTextEditor
 {
-
-
-
 /**
- * \brief Config interface extension for the View.
+ * \brief Config interface extension for the Document and View.
  *
  * \ingroup kte_group_view_extensions
+ * \ingroup kte_group_doc_extensions
  *
  * \section config_intro Introduction
  *
  * The ConfigInterface provides methods to access and modify the low level
- * config information for a given View. Examples of this config data can be
+ * config information for a given Document or View. Examples of this config data can be
  * displaying the icon bar, showing line numbers, etc. This generally allows
  * access to settings that otherwise are only accessible during runtime.
  *
  * \section config_access Accessing the Interface
  *
- * The ConfigInterface is supposed to be an extension interface for a View,
- * i.e. the View inherits the interface \e provided that the
+ * The ConfigInterface is supposed to be an extension interface for a Document or View,
+ * i.e. the Document or View inherits the interface \e provided that the
  * KTextEditor library in use implements the interface. Use qobject_cast to access
  * the interface:
  * \code
- * // view is of type KTextEditor::View*
+ * // view is of type KTextEditor::Document* or KTextEditor::View*
  * KTextEditor::ConfigInterface *iface =
  *     qobject_cast<KTextEditor::ConfigInterface*>( view );
  *
@@ -69,13 +67,14 @@ namespace KTextEditor
  *  - line-numbers [bool], show/hide line numbers
  *  - icon-bar [bool], show/hide icon bar
  *  - dynamic-word-wrap [bool], enable/disable dynamic word wrap
+ *  - auto-brackets [bool], enable/disable automatic bracket completion
  *
  * As a small example, if you want to enable dynamic word wrap simply call
  * \code
  * iface->setConfigValue("dynamic-word-wrap", true);
  * \endcode
  *
- * \see KTextEditor::View
+ * \see KTextEditor::View, KTextEditor::Document
  * \author Matt Broadstone \<mbroadst@gmail.com\>
  */
 class KTEXTEDITOR_EXPORT ConfigInterface

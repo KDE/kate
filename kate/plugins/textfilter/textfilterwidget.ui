@@ -43,6 +43,7 @@
      </property>
     </widget>
    </item>
+<<<<<<< HEAD:plugins/textfilter/textfilterwidget.ui
    <item>
     <widget class="QCheckBox" name="checkBox">
      <property name="text">
@@ -50,6 +51,8 @@
      </property>
     </widget>
    </item>
+=======
+>>>>>>> feature: the text filter plugin now has a history combobox that remembers its items.:plugins/textfilter/textfilterwidget.ui
   </layout>
  </widget>
  <customwidgets>

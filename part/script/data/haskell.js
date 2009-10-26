@@ -2,14 +2,17 @@
  * name: Haskell
  * license: LGPL
  * author: Erlend Hamberg <ehamberg@gmail.com>
- * revision: 1
+ * revision: 2
  * kate-version: 3.4
  * type: indentation
  */
 
 // based on Paul Giannaro's Python indenter
 
-var debugMode = false;
+var debugMode = true;
+
+// words for which space character-triggered indentation should be done
+var re_spaceIndent = /where/
 
 // escapes text w.r.t. regex special chars
 function escape(text) {
@@ -44,7 +47,7 @@ function dbg(s) {
         debug("\u001B[34m" + s + "\u001B[0m");
 }
 
-var triggerCharacters = "|";
+var triggerCharacters = "| ";
 
 // General notes:
 // indent() returns the amount of characters (in spaces) to be indented.
@@ -59,6 +62,17 @@ function indent(line, indentWidth, character) {
     dbg("current line: " + currentLine);
     var lastLine = document.line(line - 1);
     var lastCharacter = lastLine.lastCharacter();
+
+    // invocations triggered by a space character should be ignored unless the
+    // line starts with one of the words in re_spaceIndent
+    if (character == ' ') {
+        var firstWord = document.wordAt(line, document.firstVirtualColumn);
+        dbg(firstWord);
+        if (firstWord.search(re_spaceIndent) == -1) {
+            dbg("skipping...");
+            return document.firstVirtualColumn(line);
+        }
+    }
 
     // we can't really indent line 0
     if (line == 0)

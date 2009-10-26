@@ -33,6 +33,7 @@ class KateSessionManager;
 class KateMainWindow;
 class KatePluginManager;
 class KateDocManager;
+class KateAppCommands;
 class KateAppAdaptor;
 
 namespace KTextEditor
@@ -268,12 +269,15 @@ class KATEINTERFACES_EXPORT KateApp : public KApplication
      * dbus interface
      */
     KateAppAdaptor *m_adaptor;
-    
+
     /**
      * known main windows
      */
     QList<KateMainWindow*> m_mainWindows;
     QList<Kate::MainWindow*> m_mainWindowsInterfaces;
+
+    // various vim-inspired command line commands
+    KateAppCommands *m_appCommands;
 
 };
 

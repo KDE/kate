@@ -29,7 +29,6 @@
 #include "kateconfigplugindialogpage.h"
 #include "kateviewmanager.h"
 #include "kateapp.h"
-#include "katefilelist.h"
 #include "katesavemodifieddialog.h"
 #include "katemwmodonhddialog.h"
 #include "katesession.h"

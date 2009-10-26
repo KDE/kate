@@ -23,6 +23,7 @@
 
 #include "katemain.h"
 #include "katemdi.h"
+#include "katefilelist.h"
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
@@ -170,6 +171,10 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void dragEnterEvent( QDragEnterEvent * );
     void dropEvent( QDropEvent * );
 
+  public Q_SLOTS:
+    void slotFileQuit();
+    void slotFileQuitDelayed();
+
     /**
      * slots used for actions in the menus/toolbars
      * or internal signal connections
@@ -181,8 +186,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     void slotOpenWithMenuAction(QAction* a);
 
-    void slotFileQuit();
-    void slotFileQuitDelayed();
     void slotEditToolbars();
     void slotNewToolbarConfig();
     void slotWindowActivated ();
@@ -233,6 +236,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void showHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.value(view); bar=state.bar();  if (bar) {m_containerstack->setCurrentWidget(bar); bar->show(); state.setState(true); m_viewBarMapping[view]=state;  m_horizontalViewBarContainer->show();}}
     inline void deleteHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_containerstack->currentWidget()==bar) m_horizontalViewBarContainer->hide(); delete bar;}}
 
+    void switchToNextDocument() { m_fileList->slotNextDocument(); }
+    void switchToPreviousDocument() { m_fileList->slotPrevDocument(); }
 
   private Q_SLOTS:
     void slotUpdateHorizontalViewBar();

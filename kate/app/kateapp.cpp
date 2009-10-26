@@ -25,6 +25,7 @@
 #include "kateviewmanager.h"
 #include "katesession.h"
 #include "katemainwindow.h"
+#include "kateappcommands.h"
 
 #include <kate/application.h>
 
@@ -69,6 +70,8 @@ KateApp::KateApp (KCmdLineArgs *args)
   
   // real init
   initKate ();
+
+  m_appCommands = new KateAppCommands();
 }
 
 KateApp::~KateApp ()
@@ -78,6 +81,9 @@ KateApp::~KateApp ()
   QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
   delete m_adaptor;
   
+  // l8r, app commands
+  delete m_appCommands;
+
   // cu session manager
   delete m_sessionManager;
 

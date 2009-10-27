@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Literate Haskell" version="1.05" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Literate Haskell" version="1.06" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
 		<item> case </item>
@@ -340,8 +340,9 @@
 			<RegExpr attribute="Normal Text" context="#stay" String="\w[']+" />
 			<DetectChar attribute="Char" context="single_char" char="'" />
 			<RegExpr attribute="Function Definition" context="#stay" String="\s*[a-z_]+\w*'*\s*::" />
-			<Float attribute="Float" context="#stay" />
+			<RegExpr  attribute="Float" context="#stay" String="\d+\.\d+" />
 			<Int attribute="Decimal" context="#stay" />
+			<Detect2Chars attribute="EnumFromTo" context="#stay" char ="." char1="." />
 		</context>
 		<context attribute="Comment" lineEndContext="#pop#pop" name="comment_single_line" />
 		<context attribute="Comment" lineEndContext="#stay" name="comment_multi_line">
@@ -363,21 +364,22 @@
 		</context>
 	</contexts>
 	<itemDatas>
-		<itemData name="Normal Text"		defStyleNum="dsNormal"/>
-		<itemData name="Keyword" 		defStyleNum="dsKeyword"/>
-		<itemData name="Function"		defStyleNum="dsFunction"/>
-		<itemData name="Function Definition"	defStyleNum="dsFunction"/>
-		<itemData name="Class"			defStyleNum="dsKeyword"/>
-		<itemData name="Decimal"		defStyleNum="dsDecVal"/>
-		<itemData name="Float"			defStyleNum="dsFloat"/>
-		<itemData name="Char"			defStyleNum="dsChar"/>
-		<itemData name="String"			defStyleNum="dsString"/>
-		<itemData name="Constructor"		defStyleNum="dsOthers"/>
-		<itemData name="Comment"		defStyleNum="dsComment"/>
-		<itemData name="Data Constructor"	defStyleNum="dsKeyword"/>
-		<itemData name="Type Constructor"	defStyleNum="dsDataType"/>
-		<itemData name="Infix Operator"		defStyleNum="dsOthers"/>
-		<itemData name="Special"		defStyleNum="dsChar"/>
+		<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
+		<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Function" defStyleNum="dsFunction" spellChecking="false" />
+		<itemData name="Function Definition" defStyleNum="dsFunction" spellChecking="false" />
+		<itemData name="Class" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Decimal" defStyleNum="dsDecVal" spellChecking="false" />
+		<itemData name="Float" defStyleNum="dsFloat" spellChecking="false" />
+		<itemData name="Char" defStyleNum="dsChar" spellChecking="false" />
+		<itemData name="String" defStyleNum="dsString" />
+		<itemData name="Constructor" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="Comment" defStyleNum="dsComment"/>
+		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
+		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
+		<itemData name="Infix Operator" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="Special" defStyleNum="dsChar" spellCheck="false" />
+		<itemData name="EnumFromTo" defStyleNum="dsOthers" spellCheck="false" />
 	</itemDatas>
 	</highlighting>
 	<general>

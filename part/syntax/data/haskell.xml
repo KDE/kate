@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Haskell syntax highlighting by Marcel Martin <mmar@freenet.de> -->
-<language name="Haskell" version="1.5" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
+<language name="Haskell" version="1.6" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -334,12 +334,8 @@
 	<contexts>
 		<context attribute="Normal Text" lineEndContext="#stay" name="normal">
 			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
-			<!--
-			<Detect2Chars attribute="Comment" context="comment_single_line" char="-" char1="-" />
-			-->
 			<RegExpr attribute="Comment" context="comment_single_line" String="--$" />
-			<RegExpr attribute="Comment" context="comment_single_line"
-				String="--[ A-Za-z0-9\-,;`].*$" />
+			<RegExpr attribute="Comment" context="comment_single_line" String="--[ A-Za-z0-9\-,;`].*$" />
 			<RegExpr attribute="Module Name" context="#stay" String="([A-Z][A-Za-z0-9]*\.)+[A-Z][A-Za-z0-9]*"/>
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
@@ -351,8 +347,9 @@
 			<RegExpr attribute="Normal Text" context="#stay" String="\w[']+" />
 			<DetectChar attribute="Char" context="single_char" char="'" />
 			<RegExpr attribute="Function Definition" context="#stay" String="[a-z_]+\w*'*\s*::" />
-			<Float attribute="Float" context="#stay" />
+			<RegExpr attribute="Float" context="#stay" String="\d+\.\d+" />
 			<Int attribute="Decimal" context="#stay" />
+			<Detect2Chars attribute="enumFromTo" context="#stay" char ="." char1="." />
 		</context>
 		<context attribute="Comment" lineEndContext="#pop" name="comment_single_line" />
 		<context attribute="Comment" lineEndContext="#stay" name="comment_multi_line">
@@ -389,6 +386,7 @@
 		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
 		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
 		<itemData name="Infix Operator" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="enumFromTo" defStyleNum="dsFunction" spellChecking="false" />
 	</itemDatas>
 	</highlighting>
 	<general>

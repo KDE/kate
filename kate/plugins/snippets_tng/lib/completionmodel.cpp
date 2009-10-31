@@ -250,9 +250,15 @@ namespace JoWenn {
     const KTextEditor::Range& word, const QModelIndex& index) const {
     //document->replaceText(word, m_matches[index.row()]->fillin);
     document->removeText(word);
-    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(document->activeView());
+    KTextEditor::View *view=document->activeView();
+    if (!view) return;
+    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
     if (ti)
       ti->insertTemplateText (word.start(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
+    else {
+      view->setCursorPosition(word.start());
+      view->insertText (m_matches[index.row()]->fillin);
+    }
   }  
 
 #ifdef SNIPPET_EDITOR

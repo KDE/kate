@@ -181,7 +181,7 @@ namespace JoWenn {
     QAbstractListModel(parent) {
     createOrUpdateList(false);
     new KateSnippetRepositoryModelAdaptor(this);
-    QString dbusObjectPath ("/Plugin/SnippetsTNG/Repository");
+    QString dbusObjectPath ("/KTECodesnippetsCore/Repository");
     QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
   }
   
@@ -348,7 +348,7 @@ namespace JoWenn {
       foreach(const QString serviceName,serviceNames) {
         if (serviceName.startsWith("org.kde.kate-")) {
           QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-          QLatin1String("/Plugin/SnippetsTNG/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+          QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
           QDBusConnection::sessionBus().call (m);
         }
       }

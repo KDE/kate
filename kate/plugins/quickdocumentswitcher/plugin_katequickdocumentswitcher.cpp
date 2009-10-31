@@ -133,7 +133,8 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
 
     m_listView=new QTreeView(mainwidget);
     layout->addWidget(m_listView,1);
-
+    m_listView->setTextElideMode(Qt::ElideLeft);
+    
     setMainWidget(mainwidget);
     m_inputLine->setFocus(Qt::OtherFocusReason);
 

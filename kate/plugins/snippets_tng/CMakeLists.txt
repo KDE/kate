@@ -2,10 +2,11 @@
 
 ########### next target ###############
 
-set(katesnippets_tngplugin_PART_SRCS jowennsnippets.cpp repository.cpp completionmodel.cpp selector.cpp)
+add_subdirectory(lib)
+
+set(katesnippets_tngplugin_PART_SRCS jowennsnippets.cpp selector.cpp)
 
 set(katesnippets_tngplugin_PART_UI
-  snippet_repository.ui
   snippet_selector.ui
 )
 kde4_add_ui_files(katesnippets_tngplugin_PART_SRCS ${katesnippets_tngplugin_PART_UI} )
@@ -14,7 +15,7 @@ kde4_add_ui_files(katesnippets_tngplugin_PART_SRCS ${katesnippets_tngplugin_PART
 kde4_add_plugin(katesnippets_tngplugin ${katesnippets_tngplugin_PART_SRCS})
 
 
-target_link_libraries(katesnippets_tngplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
+target_link_libraries(katesnippets_tngplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces ktexteditor_codesnippets_core)
 
 install(TARGETS katesnippets_tngplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

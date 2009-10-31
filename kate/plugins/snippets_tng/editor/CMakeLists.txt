@@ -2,7 +2,7 @@
 
 ########### next target ###############
 
-set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp snippeteditornewdialog.cpp ../completionmodel.cpp)
+set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp snippeteditornewdialog.cpp ../lib/completionmodel.cpp)
 
 set(katesnippetstng_editor_UI
   snippeteditorview.ui
@@ -11,6 +11,8 @@ set(katesnippetstng_editor_UI
 )
 
 add_definitions(-DSNIPPET_EDITOR)
+include_directories("../lib/")
+
 
 kde4_add_ui_files(katesnippetstng_editor_SRCS ${katesnippetstng_editor_UI} )
 

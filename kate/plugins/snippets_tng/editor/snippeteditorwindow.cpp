@@ -21,7 +21,7 @@
 
 #include "editorapp.h"
 #include "snippeteditornewdialog.h"
-#include "../completionmodel.h"
+#include "../lib/completionmodel.h"
 #include <kmessagebox.h>
 #include <QDBusConnectionInterface>
 

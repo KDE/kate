@@ -23,13 +23,14 @@
 #include <QAbstractListModel>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor_codesnippets_core_export.h>
 
 namespace JoWenn {
   class KateSnippetCompletionEntry;
    
   class KateSnippetSelectorModel;
   
-  class KateSnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
+  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
       Q_OBJECT
     public:
       friend class KateSnippetSelectorModel;
@@ -60,7 +61,7 @@ namespace JoWenn {
       void loadEntries(const QString& filename);
   };
   
-  class KateSnippetSelectorModel: public QAbstractItemModel {
+  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetSelectorModel: public QAbstractItemModel {
       Q_OBJECT
     public:
       KateSnippetSelectorModel(KateSnippetCompletionModel* cmodel);

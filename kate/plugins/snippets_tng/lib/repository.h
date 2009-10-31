@@ -23,15 +23,15 @@
 #include <QAbstractListModel>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor_codesnippets_core_export.h>
 #include <qdbusabstractadaptor.h>
-
 class KConfigBase;
 
 namespace JoWenn {
   class KateSnippetRepositoryEntry;
   class KateSnippetCompletionEntry;  
   
-  class KateSnippetRepositoryItemDelegate: public KWidgetItemDelegate
+  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetRepositoryItemDelegate: public KWidgetItemDelegate
   {
       Q_OBJECT
     public:
@@ -53,7 +53,7 @@ namespace JoWenn {
   };
   
   
-  class KateSnippetRepositoryModel: public QAbstractListModel
+  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetRepositoryModel: public QAbstractListModel
   {
       Q_OBJECT
     public:

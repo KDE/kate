@@ -59,7 +59,7 @@ namespace JoWenn {
         foreach(const QString &str,list) {
           m_fileType<<str.trimmed();
         }
-        if (m_fileType.count()==0); m_fileType<<"*";
+        if (m_fileType.count()==0) m_fileType<<"*";
       }
       const QStringList& fileType() const {return m_fileType;}
     private:

@@ -328,7 +328,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::SearchInterface stuff
   //
-  public Q_SLOTS:
+  public:
     QVector<KTextEditor::Range> searchText(
         const KTextEditor::Range & range,
         const QString & pattern,

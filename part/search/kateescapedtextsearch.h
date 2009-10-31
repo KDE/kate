@@ -17,16 +17,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KATE_SEARCH_H_
-#define _KATE_SEARCH_H_
+#ifndef _KATE_ESCAPEDTEXTSEARCH_H_
+#define _KATE_ESCAPEDTEXTSEARCH_H_
 
 #include <QtCore/QObject>
 
 #include <ktexteditor/range.h>
-#include <ktexteditor/searchinterface.h>
 
 class KateDocument;
-class KateRegExp;
 
 // needed for parsing replacement text like "\1:\2"
 struct ReplacementPart {
@@ -48,62 +46,24 @@ struct ReplacementPart {
   QString text;
 };
 
-class KateSearch : public QObject
+class KateEscapedTextSearch : public QObject
 {
   Q_OBJECT
 
   public:
-    explicit KateSearch (KateDocument *document);
-    ~KateSearch ();
+    explicit KateEscapedTextSearch (KateDocument *document, bool casesensitive, bool wholeWords);
+    ~KateEscapedTextSearch ();
 
   //
   // KTextEditor::SearchInterface stuff
   //
   public Q_SLOTS:
-    QVector<KTextEditor::Range> searchText(
-        const KTextEditor::Range & range,
-        const QString & pattern,
-        const KTextEditor::Search::SearchOptions options);
-
-    static KTextEditor::Search::SearchOptions supportedSearchOptions();
+    QVector<KTextEditor::Range> search (const KTextEditor::Range & inputRange,
+        const QString &text, bool backwards = false);
 
   //
   // internal implementation....
   //
-  private:
-    /**
-     * Search for the given \p text inside the range \p inputRange taking
-     * into account whether to search \p casesensitive and \p backwards.
-     *
-     * \param inputRange Range to search in
-     * \param text text to search for
-     * \param casesensitive if \e true, the search is performed case
-     *        sensitive, otherwise case insensitive
-     * \param backwards if \e true, the search will be backwards
-     * \return The valid range of the matched text if \p text was found. If
-     *        the \p text was not found, the returned range is not valid
-     *        (see Range::isValid()).
-     * \see KTextEditor::Range
-     */
-    KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
-        const QString &text, bool casesensitive = true, bool backwards = false);
-
-    /**
-     * Search for the regular expression \p regexp inside the range
-     * \p inputRange. If \p backwards is \e true, the search direction will
-     * be reversed.
-     *
-     * \param inputRange Range to search in
-     * \param regexp text to search for
-     * \param backwards if \e true, the search will be backwards
-     * \return Vector of ranges, one for each capture. The first range (index zero)
-     *        spans the full match. If the pattern does not match the vector
-     *        has length 1 and holds the invalid range (see Range::isValid()).
-     * \see KTextEditor::Range, QRegExp
-     */
-    QVector<KTextEditor::Range> searchRegex (const KTextEditor::Range & inputRange,
-        KateRegExp & regexp, bool backwards = false);
-
   /*
    * Public string processing helpers
    */
@@ -118,11 +78,13 @@ class KateSearch : public QObject
      * \param parts               List of text and references
      * \param replacementGoodies  Enable \L, \E, \E and \#
      */
-    static void escapePlaintext(QString & text, QList<ReplacementPart> * parts = NULL,
+    static QString escapePlaintext(const QString & text, QList<ReplacementPart> * parts = NULL,
         bool replacementGoodies = false);
 
   private:
     KateDocument *const m_document;
+    bool m_casesensitive;
+    bool m_wholeWords;
 };
 
 #endif

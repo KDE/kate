@@ -489,9 +489,8 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
     if (usePlaceholders) {
         // Resolve references and escape sequences
         QList<ReplacementPart> parts;
-        QString writableHack(replacement);
         const bool REPLACEMENT_GOODIES = true;
-        KateSearch::escapePlaintext(writableHack, &parts, REPLACEMENT_GOODIES);
+        KateEscapedTextSearch::escapePlaintext(replacement, &parts, REPLACEMENT_GOODIES);
         buildReplacement(finalReplacement, parts, match, replacementCounter);
     } else {
         // Plain text replacement

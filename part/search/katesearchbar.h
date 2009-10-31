@@ -23,7 +23,7 @@
 #include "katesmartrange.h"
 #include "katedocument.h"
 #include "katehistorymodel.h"
-#include "katesearch.h"
+#include "kateescapedtextsearch.h"
 
 #include <kcolorscheme.h>
 

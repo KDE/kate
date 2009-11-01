@@ -87,6 +87,7 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::ModificationInterface)
   Q_INTERFACES(KTextEditor::SmartInterface)
   Q_INTERFACES(KTextEditor::AnnotationInterface)
+  Q_INTERFACES(KTextEditor::ConfigInterface)
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,

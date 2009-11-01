@@ -318,9 +318,9 @@ namespace JoWenn {
               if (!fiout1.exists()) {ok=true;break;}
             }
             if (!ok) {
-                KMessageBox::error(0,i18n("You have edited a data file not located in your personal data directory, but no suiteable filename could be generated for the data file in your personal data directory"));
+                KMessageBox::error(0,i18n("You have edited a data file not located in your personal data directory, but a suitable filename could not be generated for storing a clone of the file within your personal data directory."));
                 return false;
-            } else KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, a renamed clone of the original datafile is created within your personal data directory"));
+            } else KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory; as such, a renamed clone of the original data file has been created within your personal data directory."));
 //       } else
 //         KMessageBox::information(0,i18n("You have edited a data file not located in your personal data directory, creating a clone of the data file in your personal data directory"));
     }

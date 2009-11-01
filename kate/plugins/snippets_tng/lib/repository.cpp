@@ -278,7 +278,7 @@ namespace JoWenn {
             break;
         case DeleteNowRole:
           if (KMessageBox::warningYesNo(value.value<QWidget*>(),
-                          i18n("Do you really want to delete the file '%1' from the repository? This action is irreversible!",entry.name),
+                          i18n("Do you really want to delete the file '%1' from the repository? This action is irreversible.",entry.name),
                           i18n("Deleting snippet file"))==KMessageBox::Yes) {
             int remove=index.row();
             m_entries.removeAt(remove);

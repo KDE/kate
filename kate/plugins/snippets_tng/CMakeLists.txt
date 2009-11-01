@@ -4,6 +4,9 @@
 
 add_subdirectory(lib)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/lib)
+
 set(katesnippets_tngplugin_PART_SRCS jowennsnippets.cpp selector.cpp)
 
 set(katesnippets_tngplugin_PART_UI

@@ -78,7 +78,9 @@ KateGlobal::KateGlobal ()
   m_aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
   m_aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
   m_aboutData.addAuthor (ki18n("Hamish Rodda"), ki18n("Core Developer"), "rodda@kde.org");
-  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
+  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Core Developer"), "dhaumann@kde.de");
+  m_aboutData.addAuthor (ki18n("Erlend Hamberg"), ki18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
+  m_aboutData.addAuthor (ki18n("Bernhard Beschow"), ki18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
   m_aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
   m_aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
   m_aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
@@ -95,8 +97,6 @@ KateGlobal::KateGlobal ()
   m_aboutData.addAuthor (ki18n("Mirko Stocker"), ki18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
   m_aboutData.addAuthor (ki18n("Matthew Woehlke"), ki18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
   m_aboutData.addAuthor (ki18n("Sebastian Pipping"), ki18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
-  m_aboutData.addAuthor (ki18n("Erlend Hamberg"), ki18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
-  m_aboutData.addAuthor (ki18n("Bernhard Beschow"), ki18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
 
   m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");

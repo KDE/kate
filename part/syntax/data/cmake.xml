@@ -484,27 +484,26 @@
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <DetectChar attribute="Comment" context="Comment" char="#"/>
-        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
-        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <IncludeRules context="Detect Variables"/>
         <RegExpr attribute="Macros" context="Macro Args" String="\w+\s*(?=\()"/>
       </context>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Detect Variables">
+        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
+        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+      </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Command Args">
-        <DetectChar attribute="Normal Text" context="#pop" char=")"/>
-        <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <keyword attribute="Special Args" context="#stay" String="special_args"/>
         <keyword attribute="Special Args" context="#stay" String="extra_special_args"/>
         <keyword attribute="Properties" context="#stay" String="properties"/>
         <keyword attribute="Properties" context="#stay" String="extra_properties"/>
-        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
-        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
-        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <IncludeRules context="Macro Args"/>
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Macro Args">
         <DetectChar attribute="Normal Text" context="#pop" char=")"/>
+        <StringDetect attribute="Escapes" context="#stay" String="\&quot;"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
-        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
-        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <IncludeRules context="Detect Variables"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
         <IncludeRules context="##Alerts" />
@@ -512,8 +511,7 @@
       <context attribute="Strings" lineEndContext="#stay" name="String">
         <DetectChar attribute="Strings" context="#pop" char="&quot;" />
         <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
-        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
-        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <IncludeRules context="Detect Variables"/>
       </context>
 
     </contexts>

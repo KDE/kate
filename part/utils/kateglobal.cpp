@@ -61,7 +61,7 @@ KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
  , m_aboutData ("katepart", 0, ki18n("Kate Part"), katePartVersion().toLatin1(),
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             ki18n( "(c) 2000-2008 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
+             ki18n( "(c) 2000-2009 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
 {
   // set s_self
@@ -96,6 +96,7 @@ KateGlobal::KateGlobal ()
   m_aboutData.addAuthor (ki18n("Matthew Woehlke"), ki18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
   m_aboutData.addAuthor (ki18n("Sebastian Pipping"), ki18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
   m_aboutData.addAuthor (ki18n("Erlend Hamberg"), ki18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
+  m_aboutData.addAuthor (ki18n("Bernhard Beschow"), ki18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
 
   m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");

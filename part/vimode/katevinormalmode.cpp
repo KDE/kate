@@ -449,6 +449,11 @@ bool KateViNormalMode::commandEnterInsertModeAppend()
     c.setColumn( 0 );
   }
 
+  // cursor should never be in a column > number of columns
+  if ( c.column() > doc()->lineLength( c.line() ) ) {
+    c.setColumn( doc()->lineLength( c.line() ) );
+  }
+
   updateCursor( c );
 
   return startInsertMode();

@@ -525,7 +525,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   // the following commands change the focus themselves
   // FIXME: ugly :-(
-  if (cmd != "bn" && cmd != "bp" && cmd != "new" && cmd != "vnew") {
+  if (cmd != "bn" && cmd != "bp" && cmd != "new" && cmd != "vnew" && cmd != "enew") {
     m_view->setFocus ();
   }
 

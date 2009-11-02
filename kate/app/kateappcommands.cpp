@@ -57,7 +57,7 @@ const QStringList& KateAppCommands::cmds()
 
     if (l.empty()) {
         l << "q" << "qa" << "w" << "wq" << "wa" << "wqa" << "x" << "xa"
-          << "bn" << "bp" << "new" << "vnew" << "e" << "edit";
+          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
     }
 
     return l;
@@ -113,6 +113,9 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         } else {                    // horizontal split
             mainWin->viewManager()->slotSplitViewSpaceHoriz();
         }
+        mainWin->viewManager()->slotDocumentNew();
+    }
+    else if (command == "enew") {
         mainWin->viewManager()->slotDocumentNew();
     }
     return true;

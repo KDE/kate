@@ -5,6 +5,7 @@ X-KDE-Library=katefilebrowserplugin
 X-Kate-Version=2.8
 Name=File system browser
 Name[ca]=Navegador del sistema de fitxers
+Name[cs]=Prohlížeč souborového systému
 Name[da]=Filsystemsbrowser
 Name[de]=Dateisystem-Browser
 Name[el]=Περιηγητής συστήματος αρχείων

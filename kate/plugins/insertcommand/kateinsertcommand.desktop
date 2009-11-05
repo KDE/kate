@@ -5,6 +5,7 @@ X-KDE-Library=kateinsertcommandplugin
 X-Kate-Version=2.9
 Name=Insert Command
 Name[ca]=Insereix ordre
+Name[cs]=Vložit příkaz
 Name[da]=Indsæt kommando
 Name[de]=Befehlseingabe
 Name[el]=Εντολή εισαγωγής

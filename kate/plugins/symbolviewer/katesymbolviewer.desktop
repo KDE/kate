@@ -5,6 +5,7 @@ X-KDE-Library=katesymbolviewerplugin
 X-Kate-Version=2.8
 Name=Symbol Viewer
 Name[ca]=Visualitzador de símbols
+Name[cs]=Prohlížeč symbolů
 Name[da]=Symbolfremviser
 Name[de]=Symbolbetrachter
 Name[el]=Προβολέας συμβόλων

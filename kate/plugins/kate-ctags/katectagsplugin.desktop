@@ -6,6 +6,7 @@ X-KDE-Library=katectagsplugin
 X-Kate-Version=2.9
 Name=CTags Plugin
 Name[ca]=Connector CTags
+Name[cs]=Modul CTags
 Name[da]=Plugin til CTags
 Name[de]=CTags-Modul
 Name[el]=Πρόσθετο CTags

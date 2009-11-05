@@ -179,8 +179,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                       block = 0;
                       break;
                      }
-                   if(cl.at(j)=='{' && cl.find(";") < 0 ||
-                      cl.at(j)=='{' && cl.find('}') > (int)j)
+                   if((cl.at(j)=='{' && cl.find(";") < 0) ||
+                      (cl.at(j)=='{' && cl.find('}') > (int)j))
                      {
                       stripped.replace(0x9, " ");
                       if(func_on == true)

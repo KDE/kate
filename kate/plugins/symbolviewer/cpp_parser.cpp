@@ -219,8 +219,8 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       break;
                      }
 
-                   if(cl.at(j)=='{' && structure == false && cl.indexOf(';') < 0 ||
-                      cl.at(j)=='{' && structure == false && cl.indexOf('}') > (int)j)
+                   if((cl.at(j)=='{' && structure == false && cl.indexOf(';') < 0) ||
+                      (cl.at(j)=='{' && structure == false && cl.indexOf('}') > (int)j))
                      {
                       stripped.replace(0x9, " ");
                       if(func_on == true)

@@ -131,10 +131,10 @@ void KateKonsolePluginView::readConfig()
 
 KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget *parent)
     : KVBox (parent), Kate::XMLGUIClient(KateKonsoleFactory::componentData())
-    , m_plugin(plugin)
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
+    , m_plugin(plugin)
 {
 
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");

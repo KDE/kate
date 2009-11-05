@@ -28,8 +28,6 @@
 #include <qpointer.h>
 #include <qsharedpointer.h>
 
-#include "ui_snippet_repository.h"
-
 namespace KParts
 {
   class ReadOnlyPart;
@@ -112,7 +110,7 @@ namespace JoWenn {
   };
 
 
-  class KateSnippetsConfigPage : public Kate::PluginConfigPage, private Ui::KateSnippetRepository {
+  class KateSnippetsConfigPage : public Kate::PluginConfigPage {
       Q_OBJECT
     public:
       explicit KateSnippetsConfigPage( QWidget* parent = 0, KateSnippetsPlugin *plugin = 0 );
@@ -122,10 +120,8 @@ namespace JoWenn {
       virtual void apply();
       virtual void reset();
       virtual void defaults(){}
-    public Q_SLOTS:
-      void slotCopy();
     private:
-//      class QCheckBox *cbAutoSyncronize;
+
       KateSnippetsPlugin *m_plugin;
   };
 

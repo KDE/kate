@@ -19,6 +19,8 @@
 #include "repository.h"
 #include "repository.moc"
 #include "completionmodel.h"
+#include "dbus_helpers.h"
+#include "ui_snippet_repository.h"
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <QFileInfo>
@@ -35,9 +37,11 @@
 #include <kconfiggroup.h>
 #include <krun.h>
 #include <kio/netaccess.h>
+#include <knewstuff2/engine.h>
 #include <QDBusConnectionInterface>
 #include <QDBusConnection>
 #include <QDBusMessage>
+
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -196,7 +200,9 @@ namespace KTextEditor {
     void SnippetRepositoryModel::createOrUpdateList(bool update) {
           KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
       const QStringList list = KGlobal::dirs()->findAllResources("data",
-        "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
+        "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates)<<KGlobal::dirs()->findAllResources("data",
+        "kate/plugins/katesnippets_tng/data/ghns/*.xml",KStandardDirs::NoDuplicates);
+        
       foreach(const QString& filename,list) {
         QString groupName="SnippetRepositoryAndConfigCache "+ filename;
         KConfigGroup group(&config, groupName);
@@ -410,44 +416,51 @@ namespace KTextEditor {
       group.writeEntry("count",enabledCount);
       group.sync();
     }
-    
-    void SnippetRepositoryModel::notifyRepos() {
-      QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
-      if (!interface) return;
-      QStringList serviceNames = interface->registeredServiceNames();
-      QDomDocument xml_doc;
-      foreach(const QString serviceName,serviceNames)
-      {
-        if (serviceName.startsWith("org.kde.kate-"))
-        {
-          QDBusMessage im = QDBusMessage::createMethodCall (serviceName,
-          QLatin1String("/KTECodesnippetsCore/Repository"), "org.freedesktop.DBus.Introspectable", "Introspect");
-          QDBusReply<QString> xml=QDBusConnection::sessionBus().call (im);
-          if (xml.isValid())
-          {            
-            kDebug()<<xml;
-            xml_doc.setContent(xml);
-            QDomElement el=xml_doc.documentElement().firstChildElement();
-            while (!el.isNull())
-            {
-              if (el.tagName()==QLatin1String("node"))
-              {
-                QString objpath_qstring=QString("/KTECodesnippetsCore/Repository/%1").arg(el.attribute("name"));
-                QByteArray objpath_bytestring=objpath_qstring.utf8();
-                QLatin1String objpath(objpath_bytestring.constData());
-                QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
-                objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-                QDBusConnection::sessionBus().call (m);
-              }
-              el=el.nextSiblingElement();
-            }
-          }
-
-        }
-      }
-    }
-    
+        
 //END: Model
+
+//BEGIN: Config Widget
+  SnippetRepositoryConfigWidget::SnippetRepositoryConfigWidget( QWidget* parent, KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repository )
+    : QWidget( parent )
+    , m_repository( repository )
+  {
+    m_ui=new Ui::KateSnippetRepository();
+    m_ui->setupUi(this);
+    m_ui->btnGHNS->setIcon(KIcon("get-hot-new-stuff"));    
+    KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(m_ui->lstSnippetFiles,this);
+    m_ui->lstSnippetFiles->setItemDelegate(delegate);
+    
+    m_ui->lstSnippetFiles->setModel(m_repository);
+    connect(m_ui->btnNew,SIGNAL(clicked()),m_repository,SLOT(newEntry()));
+    connect(m_ui->btnCopy,SIGNAL(clicked()),this,SLOT(slotCopy()));
+    connect(m_ui->btnGHNS,SIGNAL(clicked()),this,SLOT(slotGHNS()));
+  }
+
+  void SnippetRepositoryConfigWidget::slotCopy()
+  {
+    KUrl url(m_ui->urlSource->url());
+    if (!url.isValid()) return;
+    m_repository->copyToRepository(url);
+  }
+  
+  void SnippetRepositoryConfigWidget::slotGHNS()
+  {
+    KNS::Engine engine(this);
+    if (engine.init("ktexteditor_codesnippets_core.knsrc")) {
+        KNS::Entry::List entries = engine.downloadDialogModal(this);
+        if (entries.size() > 0) {
+          notifyRepos();
+        }
+    }
+  }
+
+  SnippetRepositoryConfigWidget::~SnippetRepositoryConfigWidget()
+  {
+    delete m_ui;
+  }
+
+//END: Config Widget
+
 
 
 //BEGIN: DBus Adaptor

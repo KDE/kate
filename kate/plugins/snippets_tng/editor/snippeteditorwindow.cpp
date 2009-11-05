@@ -22,6 +22,7 @@
 #include "editorapp.h"
 #include "snippeteditornewdialog.h"
 #include "../lib/completionmodel.h"
+#include "../lib/dbus_helpers.h"
 #include <kmessagebox.h>
 #include <QDBusConnectionInterface>
 
@@ -114,7 +115,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     QString newPath=KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
     if (newPath.isEmpty()) return;
     m_url=KUrl::fromPath(newPath);
-    notifyChange();
+    notifyRepos();
   }
   m_ok=true;
   QWidget *widget=new QWidget(this);
@@ -177,7 +178,7 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
     QString filetype=snippetCollectionFiletype->text();
     if (filetype.trimmed().isEmpty()) filetype=QString("*");
     if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),filetype,snippetCollectionAuthors->text())) {
-      notifyChange();
+      notifyRepos();
       close();
     }
   } else if (button==buttonBox->button(QDialogButtonBox::Close)) {
@@ -229,49 +230,4 @@ void SnippetEditorWindow::newSnippet() {
   modified();
 }
 
-void SnippetEditorWindow::notifyChange() {
-/*  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
-  if (!interface) return;
-  QStringList serviceNames = interface->registeredServiceNames();
-  foreach(const QString serviceName,serviceNames) {
-    if (serviceName.startsWith("org.kde.kate-")) {
-      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-      QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-      QDBusConnection::sessionBus().call (m);
-    }
-  }*/
-  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
-  if (!interface) return;
-  QStringList serviceNames = interface->registeredServiceNames();
-  QDomDocument xml_doc;
-  foreach(const QString serviceName,serviceNames)
-  {
-    if (serviceName.startsWith("org.kde.kate-"))
-    {
-      QDBusMessage im = QDBusMessage::createMethodCall (serviceName,
-      QLatin1String("/KTECodesnippetsCore/Repository"), "org.freedesktop.DBus.Introspectable", "Introspect");
-      QDBusReply<QString> xml=QDBusConnection::sessionBus().call (im);
-      if (xml.isValid())
-      {            
-        kDebug()<<xml;
-        xml_doc.setContent(xml);
-        QDomElement el=xml_doc.documentElement().firstChildElement();
-        while (!el.isNull())
-        {
-          if (el.tagName()==QLatin1String("node"))
-          {
-            QString objpath_qstring=QString("/KTECodesnippetsCore/Repository/%1").arg(el.attribute("name"));
-            QByteArray objpath_bytestring=objpath_qstring.utf8();
-            QLatin1String objpath(objpath_bytestring.constData());
-            QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
-            objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-            QDBusConnection::sessionBus().call (m);          
-          }
-          el=el.nextSiblingElement();
-        }
-      }
-
-    }
-  }
-}
 // kate: space-indent on; indent-width 2; replace-tabs on;

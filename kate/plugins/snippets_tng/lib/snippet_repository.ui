@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>514</width>
-    <height>354</height>
+    <height>409</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,7 +24,14 @@
    <item>
     <widget class="KPushButton" name="btnNew">
      <property name="text">
-      <string>New snippet file</string>
+      <string>New Snippet File...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KPushButton" name="btnGHNS">
+     <property name="text">
+      <string>Get New Snippets...</string>
      </property>
     </widget>
    </item>

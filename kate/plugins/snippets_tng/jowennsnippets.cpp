@@ -225,16 +225,12 @@ namespace JoWenn {
     : Kate::PluginConfigPage( parent )
     , m_plugin( plugin )
   {
-    setupUi(this);
-    KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(lstSnippetFiles,this);
-    lstSnippetFiles->setItemDelegate(delegate);
-    
-    lstSnippetFiles->setModel(plugin->repositoryData());
-    connect(btnNew,SIGNAL(clicked()),plugin->repositoryData(),SLOT(newEntry()));
-    connect(btnCopy,SIGNAL(clicked()),this,SLOT(slotCopy()));
-  }
-
-  void KateSnippetsConfigPage::apply()
+    QVBoxLayout *l=new QVBoxLayout(this);
+    KTextEditor::CodesnippetsCore::SnippetRepositoryConfigWidget *w=new KTextEditor::CodesnippetsCore::SnippetRepositoryConfigWidget(this,plugin->repositoryData());
+    l->addWidget(w);
+  }    
+  
+    void KateSnippetsConfigPage::apply()
   {
     KConfigGroup config(KGlobal::config(), "JoWennSnippets");
     //config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
@@ -246,15 +242,6 @@ namespace JoWenn {
     KConfigGroup config(KGlobal::config(), "JoWennSnippets");
     //cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   }
-
-  void KateSnippetsConfigPage::slotCopy()
-  {
-    KUrl url(urlSource->url());
-    if (!url.isValid()) return;
-    m_plugin->repositoryData()->copyToRepository(url);
-  }
-  
-
 //END: CONFIG PAGE
 
 }

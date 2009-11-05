@@ -2,7 +2,9 @@
 
 ########### next target ###############
 
-set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp snippeteditornewdialog.cpp ../lib/completionmodel.cpp)
+set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp
+  snippeteditornewdialog.cpp ../lib/completionmodel.cpp
+  ../lib/dbus_helpers.cpp)
 
 set(katesnippetstng_editor_UI
   snippeteditorview.ui

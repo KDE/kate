@@ -27,6 +27,9 @@
 #include <qdbusabstractadaptor.h>
 class KConfigBase;
 
+namespace Ui {
+  class KateSnippetRepository;
+}
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -76,7 +79,6 @@ namespace KTextEditor {
         void createOrUpdateList(bool update);
         friend class SnippetRepositoryModelAdaptor;
         static long s_id;
-        void notifyRepos();
       public:
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -95,7 +97,24 @@ namespace KTextEditor {
       private:
         QList<SnippetRepositoryEntry> m_entries;
     };
+    
+    
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryConfigWidget : public QWidget {
+      Q_OBJECT
+    public:
+      explicit SnippetRepositoryConfigWidget( QWidget* parent, SnippetRepositoryModel *repository );
+      virtual ~SnippetRepositoryConfigWidget();
 
+    public Q_SLOTS:
+      void slotCopy();
+      void slotGHNS();
+    private:
+      SnippetRepositoryModel *m_repository;
+      Ui::KateSnippetRepository *m_ui;
+  };
+
+    
+    
 
     class SnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
     {

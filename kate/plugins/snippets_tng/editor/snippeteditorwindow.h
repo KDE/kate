@@ -31,9 +31,13 @@ class QStandardItemModel;
 class KLineEdit;
 class KPushButton;
 
-namespace JoWenn {
-  class KateSnippetCompletionModel;
-  class KateSnippetSelectorModel;
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+    namespace Editor {
+      class SnippetCompletionModel;
+      class SnippetSelectorModel;
+    }
+  }
 }
 
 class FiletypeListDropDown: public QWidget, private Ui::FiletypeListCreatorview
@@ -72,8 +76,8 @@ class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
   private:      
     bool m_modified;
     KUrl m_url;    
-    JoWenn::KateSnippetCompletionModel *m_snippetData;
-    JoWenn::KateSnippetSelectorModel *m_selectorModel;
+    KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel *m_snippetData;
+    KTextEditor::CodesnippetsCore::Editor::SnippetSelectorModel *m_selectorModel;
     bool m_ok;
     void notifyChange();
     FiletypeListDropDown *m_filetypeDropDown;

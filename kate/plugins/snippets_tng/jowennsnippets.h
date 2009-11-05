@@ -39,13 +39,20 @@ namespace KateMDI
 {
 }
 
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+    class SnippetRepositoryModel;
+    
+    class SnippetCompletionModel;
+  }
+}
+
 namespace JoWenn {
   
   class KateSnippetsPluginView;
-  class KateSnippetRepositoryModel;
   class KateSnippetSelector;
   
-  class KateSnippetCompletionModel;
+  
   
   class KateSnippetsPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
   {
@@ -66,7 +73,7 @@ namespace JoWenn {
 
       void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
       void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
-      KateSnippetRepositoryModel *repositoryData();
+      KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repositoryData();
       
     public Q_SLOTS:
       void addDocument(KTextEditor::Document* document);
@@ -75,12 +82,12 @@ namespace JoWenn {
       void updateDocument(KTextEditor::Document *document);
       void slotTypeChanged(const QStringList& fileType);
     public:
-      KateSnippetCompletionModel* modelForDocument(KTextEditor::Document *document);
+      KTextEditor::CodesnippetsCore::SnippetCompletionModel* modelForDocument(KTextEditor::Document *document);
     private:
       QList<KateSnippetsPluginView*> mViews;
       QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodeCompletionModel2> > m_document_model_hash;
       QHash<QString,QWeakPointer<KTextEditor::CodeCompletionModel2> > m_mode_model_hash;
-      KateSnippetRepositoryModel *m_repositoryData;
+      KTextEditor::CodesnippetsCore::SnippetRepositoryModel *m_repositoryData;
   };
 
   class KateSnippetsPluginView : public Kate::PluginView

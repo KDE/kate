@@ -39,400 +39,402 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 
-namespace JoWenn {
-
-  class KateSnippetRepositoryEntry {
-    public:
-      KateSnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _enabled):
-        name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){
-          setFileType(_fileType.split(";"));
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+    
+    class SnippetRepositoryEntry {
+      public:
+        SnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _enabled):
+          name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){
+            setFileType(_fileType.split(";"));
+          }
+        ~SnippetRepositoryEntry(){}
+        QString name;
+        QString filename;      
+        QString authors;
+        QString license;
+        bool systemFile;
+        bool enabled;
+        void setFileType(const QStringList &list) {
+          m_fileType.clear();
+          foreach(const QString &str,list) {
+            m_fileType<<str.trimmed();
+          }
+          if (m_fileType.count()==0) m_fileType<<"*";
         }
-      ~KateSnippetRepositoryEntry(){}
-      QString name;
-      QString filename;      
-      QString authors;
-      QString license;
-      bool systemFile;
-      bool enabled;
-      void setFileType(const QStringList &list) {
-        m_fileType.clear();
-        foreach(const QString &str,list) {
-          m_fileType<<str.trimmed();
-        }
-        if (m_fileType.count()==0) m_fileType<<"*";
-      }
-      const QStringList& fileType() const {return m_fileType;}
-    private:
-      QStringList m_fileType;
-  };
+        const QStringList& fileType() const {return m_fileType;}
+      private:
+        QStringList m_fileType;
+    };
   
 //BEGIN: Delegate  
-  KateSnippetRepositoryItemDelegate::KateSnippetRepositoryItemDelegate(QAbstractItemView *itemView, QObject * parent):
-      KWidgetItemDelegate(itemView,parent) {}
-  
-  KateSnippetRepositoryItemDelegate::~KateSnippetRepositoryItemDelegate(){}
-  
-  QList<QWidget*> KateSnippetRepositoryItemDelegate::createItemWidgets() const {
-    QList<QWidget*> list;
-    QCheckBox *checkbox=new QCheckBox();
-    list<<checkbox;
-    connect(checkbox,SIGNAL(stateChanged(int)),this,SLOT(enabledChanged(int)));
+    SnippetRepositoryItemDelegate::SnippetRepositoryItemDelegate(QAbstractItemView *itemView, QObject * parent):
+        KWidgetItemDelegate(itemView,parent) {}
     
-    list<<new QLabel();
+    SnippetRepositoryItemDelegate::~SnippetRepositoryItemDelegate(){}
     
-    KPushButton *btn=new KPushButton();
-    btn->setIcon(KIcon("document-edit"));
-    list<<btn;
-    connect(btn,SIGNAL(clicked()),this,SLOT(editEntry()));
-    
-    btn=new KPushButton();
-    btn->setIcon(KIcon("edit-delete-page"));
-    list<<btn;
-    connect(btn,SIGNAL(clicked()),this,SLOT(deleteEntry()));
-    return list;
-  }
-
-  void KateSnippetRepositoryItemDelegate::enabledChanged(int state) {
-    const QModelIndex idx=focusedIndex();
-    if (!idx.isValid()) return;
-    const_cast<QAbstractItemModel*>(idx.model())->setData(idx,(bool)state,KateSnippetRepositoryModel::EnabledRole);
-  }
-
-  void KateSnippetRepositoryItemDelegate::editEntry() {
-    const QModelIndex idx=focusedIndex();
-    if (!idx.isValid()) return;
-    const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),KateSnippetRepositoryModel::EditNowRole);
-  }
-  
-  void KateSnippetRepositoryItemDelegate::deleteEntry() {
-    const QModelIndex idx=focusedIndex();
-    if (!idx.isValid()) return;
-    const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),KateSnippetRepositoryModel::DeleteNowRole);
-  }
-
-#define SPACING 6
-  void KateSnippetRepositoryItemDelegate::updateItemWidgets(const QList<QWidget*> widgets,
-    const QStyleOptionViewItem &option,
-    const QPersistentModelIndex &index) const {
-    //CHECKBOX
-    QCheckBox *checkBox = static_cast<QCheckBox*>(widgets[0]);
-    checkBox->resize(checkBox->sizeHint());
-    checkBox->move(SPACING, option.rect.height() / 2 - checkBox->sizeHint().height() / 2);
-
-    //DELETE BUTTON
-    KPushButton *btnDelete = static_cast<KPushButton*>(widgets[3]);
-    btnDelete->resize(btnDelete->sizeHint());
-    int btnW=btnDelete->sizeHint().width();
-    btnDelete->move(option.rect.width()-SPACING-btnW, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
-    
-    //EDIT BUTTON    
-    KPushButton *btnEdit = static_cast<KPushButton*>(widgets[2]);
-    btnEdit->resize(btnEdit->sizeHint());
-    btnEdit->move(option.rect.width()-2*SPACING-btnW-btnEdit->sizeHint().width(), option.rect.height() / 2 - btnEdit->sizeHint().height() / 2);
-    
-    //NAME LABEL
-    QLabel *label=static_cast<QLabel*>(widgets[1]);
-    label->move(SPACING*2+checkBox->sizeHint().width(),option.rect.height()/2-option.fontMetrics.height()/* *2/2 */);
-    label->resize(btnEdit->x()-SPACING-label->x(),option.fontMetrics.height()*2);
-    
-    //SETUP DATA
-    if (!index.isValid()) {
-        checkBox->setVisible(false);
-        btnEdit->setVisible(false);
-        btnDelete->setVisible(false);
-        label->setVisible(false);
-    } else {
-        bool systemFile=index.model()->data(index, KateSnippetRepositoryModel::SystemFileRole).toBool();
-        checkBox->setVisible(true);
-        btnEdit->setVisible(!systemFile);
-        btnDelete->setVisible(!systemFile);
-        label->setVisible(true);
-        checkBox->setChecked(index.model()->data(index, KateSnippetRepositoryModel::EnabledRole).toBool());
-        //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
-        QStringList fileType=index.model()->data(index, KateSnippetRepositoryModel::FiletypeRole).toStringList();
-        QString displayFileType=fileType.join(";");
-        if (fileType.contains("*")) displayFileType="all file types";
-        label->setText(i18n("%1 (%2)\nlicense: %3, authors: %4",
-          index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString(),
-          displayFileType,
-          index.model()->data(index, KateSnippetRepositoryModel::LicenseRole).toString(),
-          index.model()->data(index, KateSnippetRepositoryModel::AuthorsRole).toString()
-          )
-        );
-        //kDebug(13040)<<label->geometry();
-        //kDebug(13040)<<btnEdit->x()-SPACING-label->x();
+    QList<QWidget*> SnippetRepositoryItemDelegate::createItemWidgets() const {
+      QList<QWidget*> list;
+      QCheckBox *checkbox=new QCheckBox();
+      list<<checkbox;
+      connect(checkbox,SIGNAL(stateChanged(int)),this,SLOT(enabledChanged(int)));
+      
+      list<<new QLabel();
+      
+      KPushButton *btn=new KPushButton();
+      btn->setIcon(KIcon("document-edit"));
+      list<<btn;
+      connect(btn,SIGNAL(clicked()),this,SLOT(editEntry()));
+      
+      btn=new KPushButton();
+      btn->setIcon(KIcon("edit-delete-page"));
+      list<<btn;
+      connect(btn,SIGNAL(clicked()),this,SLOT(deleteEntry()));
+      return list;
     }
-  }
 
-  void KateSnippetRepositoryItemDelegate::paint(QPainter * painter,
-    const QStyleOptionViewItem & option, const QModelIndex & index) const {}
-  
-  QSize KateSnippetRepositoryItemDelegate::sizeHint(const QStyleOptionViewItem & option,
-    const QModelIndex &) const {
-    QSize size;
-    size.setWidth(option.fontMetrics.height() * 8);
-    size.setHeight(option.fontMetrics.height() * 2);
-    return size;
-  }
+    void SnippetRepositoryItemDelegate::enabledChanged(int state) {
+      const QModelIndex idx=focusedIndex();
+      if (!idx.isValid()) return;
+      const_cast<QAbstractItemModel*>(idx.model())->setData(idx,(bool)state,SnippetRepositoryModel::EnabledRole);
+    }
+
+    void SnippetRepositoryItemDelegate::editEntry() {
+      const QModelIndex idx=focusedIndex();
+      if (!idx.isValid()) return;
+      const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),SnippetRepositoryModel::EditNowRole);
+    }
+    
+    void SnippetRepositoryItemDelegate::deleteEntry() {
+      const QModelIndex idx=focusedIndex();
+      if (!idx.isValid()) return;
+      const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),SnippetRepositoryModel::DeleteNowRole);
+    }
+
+  #define SPACING 6
+    void SnippetRepositoryItemDelegate::updateItemWidgets(const QList<QWidget*> widgets,
+      const QStyleOptionViewItem &option,
+      const QPersistentModelIndex &index) const {
+      //CHECKBOX
+      QCheckBox *checkBox = static_cast<QCheckBox*>(widgets[0]);
+      checkBox->resize(checkBox->sizeHint());
+      checkBox->move(SPACING, option.rect.height() / 2 - checkBox->sizeHint().height() / 2);
+
+      //DELETE BUTTON
+      KPushButton *btnDelete = static_cast<KPushButton*>(widgets[3]);
+      btnDelete->resize(btnDelete->sizeHint());
+      int btnW=btnDelete->sizeHint().width();
+      btnDelete->move(option.rect.width()-SPACING-btnW, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
+      
+      //EDIT BUTTON    
+      KPushButton *btnEdit = static_cast<KPushButton*>(widgets[2]);
+      btnEdit->resize(btnEdit->sizeHint());
+      btnEdit->move(option.rect.width()-2*SPACING-btnW-btnEdit->sizeHint().width(), option.rect.height() / 2 - btnEdit->sizeHint().height() / 2);
+      
+      //NAME LABEL
+      QLabel *label=static_cast<QLabel*>(widgets[1]);
+      label->move(SPACING*2+checkBox->sizeHint().width(),option.rect.height()/2-option.fontMetrics.height()/* *2/2 */);
+      label->resize(btnEdit->x()-SPACING-label->x(),option.fontMetrics.height()*2);
+      
+      //SETUP DATA
+      if (!index.isValid()) {
+          checkBox->setVisible(false);
+          btnEdit->setVisible(false);
+          btnDelete->setVisible(false);
+          label->setVisible(false);
+      } else {
+          bool systemFile=index.model()->data(index, SnippetRepositoryModel::SystemFileRole).toBool();
+          checkBox->setVisible(true);
+          btnEdit->setVisible(!systemFile);
+          btnDelete->setVisible(!systemFile);
+          label->setVisible(true);
+          checkBox->setChecked(index.model()->data(index, SnippetRepositoryModel::EnabledRole).toBool());
+          //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
+          QStringList fileType=index.model()->data(index, SnippetRepositoryModel::FiletypeRole).toStringList();
+          QString displayFileType=fileType.join(";");
+          if (fileType.contains("*")) displayFileType="all file types";
+          label->setText(i18n("%1 (%2)\nlicense: %3, authors: %4",
+            index.model()->data(index, SnippetRepositoryModel::NameRole).toString(),
+            displayFileType,
+            index.model()->data(index, SnippetRepositoryModel::LicenseRole).toString(),
+            index.model()->data(index, SnippetRepositoryModel::AuthorsRole).toString()
+            )
+          );
+          //kDebug(13040)<<label->geometry();
+          //kDebug(13040)<<btnEdit->x()-SPACING-label->x();
+      }
+    }
+
+    void SnippetRepositoryItemDelegate::paint(QPainter * painter,
+      const QStyleOptionViewItem & option, const QModelIndex & index) const {}
+    
+    QSize SnippetRepositoryItemDelegate::sizeHint(const QStyleOptionViewItem & option,
+      const QModelIndex &) const {
+      QSize size;
+      size.setWidth(option.fontMetrics.height() * 8);
+      size.setHeight(option.fontMetrics.height() * 2);
+      return size;
+    }
 //END: Delegate
 
 //BEGIN: Model
-  KateSnippetRepositoryModel::KateSnippetRepositoryModel(QObject *parent):
-    QAbstractListModel(parent) {
-    createOrUpdateList(false);
-    new KateSnippetRepositoryModelAdaptor(this);
-    QString dbusObjectPath ("/KTECodesnippetsCore/Repository");
-    QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
-  }
-  
-  KateSnippetRepositoryModel::~KateSnippetRepositoryModel() {}
-  int KateSnippetRepositoryModel::rowCount(const QModelIndex &/*not used*/) const {
-    return m_entries.count();
-  }
-  
-  void KateSnippetRepositoryModel::createOrUpdateList(bool update) {
-        KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
-    const QStringList list = KGlobal::dirs()->findAllResources("data",
-      "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
-    foreach(const QString& filename,list) {
-      QString groupName="SnippetRepositoryAndConfigCache "+ filename;
-      KConfigGroup group(&config, groupName);
+    SnippetRepositoryModel::SnippetRepositoryModel(QObject *parent):
+      QAbstractListModel(parent) {
+      createOrUpdateList(false);
+      new SnippetRepositoryModelAdaptor(this);
+      QString dbusObjectPath ("/KTECodesnippetsCore/Repository");
+      QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
+    }
+    
+    SnippetRepositoryModel::~SnippetRepositoryModel() {}
+    int SnippetRepositoryModel::rowCount(const QModelIndex &/*not used*/) const {
+      return m_entries.count();
+    }
+    
+    void SnippetRepositoryModel::createOrUpdateList(bool update) {
+          KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
+      const QStringList list = KGlobal::dirs()->findAllResources("data",
+        "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
+      foreach(const QString& filename,list) {
+        QString groupName="SnippetRepositoryAndConfigCache "+ filename;
+        KConfigGroup group(&config, groupName);
 
-      QString name;
-      QString filetype;
-      QString authors;
-      QString license;
-      bool systemFile=false;
-      bool configRead=false;
-      QFileInfo fi(filename);
-      if (group.exists()) {         
-         if (fi.lastModified()==group.readEntry("lastModified",QDateTime())) {
-            name=group.readEntry("name");
-            filetype=group.readEntry("filetypes");
-            authors=group.readEntry("authors");
-            license=group.readEntry("license");         
-            configRead=true;
-         }
+        QString name;
+        QString filetype;
+        QString authors;
+        QString license;
+        bool systemFile=false;
+        bool configRead=false;
+        QFileInfo fi(filename);
+        if (group.exists()) {         
+          if (fi.lastModified()==group.readEntry("lastModified",QDateTime())) {
+              name=group.readEntry("name");
+              filetype=group.readEntry("filetypes");
+              authors=group.readEntry("authors");
+              license=group.readEntry("license");         
+              configRead=true;
+          }
+        }
+        if (!configRead) {
+          SnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license);
+          group.writeEntry("lastModified",fi.lastModified());
+          group.writeEntry("name",name);
+          group.writeEntry("filetypes",filetype);
+          group.writeEntry("authors",authors);
+          group.writeEntry("license",license);  
+        }      
+        name=i18nc("snippet name",name.toUtf8());
+        if (update)
+          updateEntry(name, filename, filetype, authors, license, systemFile);
+        else
+          addEntry(name, filename, filetype, authors, license, systemFile,/*enabled*/ false);
       }
-      if (!configRead) {
-         KateSnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license);
-         group.writeEntry("lastModified",fi.lastModified());
-         group.writeEntry("name",name);
-         group.writeEntry("filetypes",filetype);
-         group.writeEntry("authors",authors);
-         group.writeEntry("license",license);  
-      }      
-      name=i18nc("snippet name",name.toUtf8());
-      if (update)
-        updateEntry(name, filename, filetype, authors, license, systemFile);
-      else
-        addEntry(name, filename, filetype, authors, license, systemFile,/*enabled*/ false);
+      config.sync();
+      reset();
+      emit typeChanged(QStringList("*"));
     }
-    config.sync();
-    reset();
-    emit typeChanged(QStringList("*"));
-  }
-  
-  
-  
-  QVariant KateSnippetRepositoryModel::data(const QModelIndex & index, int role) const {
-    const KateSnippetRepositoryEntry& entry=m_entries[index.row()];
-    switch(role) {
-      case NameRole:
-        return entry.name;
-        break;
-      case FilenameRole:
-        return entry.filename;
-        break;
-      case FiletypeRole:
-        return entry.fileType();
-        break;
-      case AuthorsRole:
-        return entry.authors;
-        break;
-      case LicenseRole:
-        return entry.license;
-        break;        
-      case SystemFileRole:
-        return entry.systemFile;
-        break;
-      case EnabledRole:
-        return entry.enabled;
-        break;
-      default:
-        break;
-    }
-    return QVariant();
-  }
-  
-  
-  bool KateSnippetRepositoryModel::setData ( const QModelIndex & index, const QVariant & value, int role) {
-      KateSnippetRepositoryEntry& entry=m_entries[index.row()];
-      if (!index.isValid()) return false;
-      switch (role) {
-        case EnabledRole:
-            entry.enabled=value.toBool();
-            emit dataChanged(index,index);
-            emit typeChanged(entry.fileType());
-            return true;
-            break;
-        case DeleteNowRole:
-          if (KMessageBox::warningYesNo(value.value<QWidget*>(),
-                          i18n("Do you really want to delete the file '%1' from the repository? This action is irreversible.",entry.name),
-                          i18n("Deleting snippet file"))==KMessageBox::Yes) {
-            int remove=index.row();
-            m_entries.removeAt(remove);
-            reset(); //make the KWidgetItemDelegate happy, otherwise the widgets are not relayouted correctly with begin/endRemoveRows
-          }
-          return false;
+    
+    
+    
+    QVariant SnippetRepositoryModel::data(const QModelIndex & index, int role) const {
+      const SnippetRepositoryEntry& entry=m_entries[index.row()];
+      switch(role) {
+        case NameRole:
+          return entry.name;
           break;
-        case EditNowRole:
-          if (!KRun::runUrl(KUrl::fromPath(entry.filename),"application/x-katesnippets_tng",value.value<QWidget*>())) {
-            KMessageBox::error(value.value<QWidget*>(),i18n("Editor application for file '%1' with mimetype 'application/x-katesnippets_tng' could not be started",entry.filename));
-          }
-          return false;
+        case FilenameRole:
+          return entry.filename;
+          break;
+        case FiletypeRole:
+          return entry.fileType();
+          break;
+        case AuthorsRole:
+          return entry.authors;
+          break;
+        case LicenseRole:
+          return entry.license;
+          break;        
+        case SystemFileRole:
+          return entry.systemFile;
+          break;
+        case EnabledRole:
+          return entry.enabled;
           break;
         default:
           break;
       }
-      return QAbstractListModel::setData(index,value,role);
-  }
-
-  void KateSnippetRepositoryModel::newEntry() {
-    QWidget *widget=qobject_cast<QWidget*>(sender());
-    if (!KRun::runUrl(KUrl("new-file://"),"application/x-katesnippets_tng",widget)) {
-      KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+      return QVariant();
     }
-
-  }
-
-  void KateSnippetRepositoryModel::copyToRepository(const KUrl& src) {
-    if (!src.isValid()) return;
-    QString filename=src.fileName();
-    if (filename.isEmpty()) {
-      KMessageBox::error((QWidget*)0,i18n("No file specified"));
-      return;
-    }
-/*    const QStringList list = KGlobal::dirs()->findAllResources("data",
-      "kate/plugins/katesnippets_tng/data/"+,KStandardDirs::NoDuplicates);
-    if (!list.isEmpty()) {
-      
-    }*/
-    QString fileName=QUrl::toPercentEncoding(filename);
-    QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
-    QFileInfo fiout(outname);
-    if (fiout.exists()) {
-      bool ok=false;
-      for (int i=0;i<1000;i++) {
-        outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
-        QFileInfo fiout1(outname);
-        if (!fiout1.exists()) {ok=true;break;}
-      }
-      if (!ok) {
-        KMessageBox::error(0,i18n("It was not possible to create a unique file name for the imported file"));
-        return;
-      } else {
-        KMessageBox::information(0,i18n("Imported file has been renamed because of a name conflict"));
-      }
-    }
-    KUrl target;
-    target.setPath(outname);
     
-    if (!KIO::NetAccess::file_copy( src, target, (QWidget*)0)) {
-      KMessageBox::error((QWidget*)0,i18n("File could not be copied to repository"));
-    } else {
-      // notify everybody
-      QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
-      if (!interface) return;
-      QStringList serviceNames = interface->registeredServiceNames();
-      foreach(const QString serviceName,serviceNames) {
-        if (serviceName.startsWith("org.kde.kate-")) {
-          QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-          QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-          QDBusConnection::sessionBus().call (m);
+    
+    bool SnippetRepositoryModel::setData ( const QModelIndex & index, const QVariant & value, int role) {
+        SnippetRepositoryEntry& entry=m_entries[index.row()];
+        if (!index.isValid()) return false;
+        switch (role) {
+          case EnabledRole:
+              entry.enabled=value.toBool();
+              emit dataChanged(index,index);
+              emit typeChanged(entry.fileType());
+              return true;
+              break;
+          case DeleteNowRole:
+            if (KMessageBox::warningYesNo(value.value<QWidget*>(),
+                            i18n("Do you really want to delete the file '%1' from the repository? This action is irreversible.",entry.name),
+                            i18n("Deleting snippet file"))==KMessageBox::Yes) {
+              int remove=index.row();
+              m_entries.removeAt(remove);
+              reset(); //make the KWidgetItemDelegate happy, otherwise the widgets are not relayouted correctly with begin/endRemoveRows
+            }
+            return false;
+            break;
+          case EditNowRole:
+            if (!KRun::runUrl(KUrl::fromPath(entry.filename),"application/x-katesnippets_tng",value.value<QWidget*>())) {
+              KMessageBox::error(value.value<QWidget*>(),i18n("Editor application for file '%1' with mimetype 'application/x-katesnippets_tng' could not be started",entry.filename));
+            }
+            return false;
+            break;
+          default:
+            break;
+        }
+        return QAbstractListModel::setData(index,value,role);
+    }
+
+    void SnippetRepositoryModel::newEntry() {
+      QWidget *widget=qobject_cast<QWidget*>(sender());
+      if (!KRun::runUrl(KUrl("new-file://"),"application/x-katesnippets_tng",widget)) {
+        KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+      }
+
+    }
+
+    void SnippetRepositoryModel::copyToRepository(const KUrl& src) {
+      if (!src.isValid()) return;
+      QString filename=src.fileName();
+      if (filename.isEmpty()) {
+        KMessageBox::error((QWidget*)0,i18n("No file specified"));
+        return;
+      }
+  /*    const QStringList list = KGlobal::dirs()->findAllResources("data",
+        "kate/plugins/katesnippets_tng/data/"+,KStandardDirs::NoDuplicates);
+      if (!list.isEmpty()) {
+        
+      }*/
+      QString fileName=QUrl::toPercentEncoding(filename);
+      QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+      QFileInfo fiout(outname);
+      if (fiout.exists()) {
+        bool ok=false;
+        for (int i=0;i<1000;i++) {
+          outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
+          QFileInfo fiout1(outname);
+          if (!fiout1.exists()) {ok=true;break;}
+        }
+        if (!ok) {
+          KMessageBox::error(0,i18n("It was not possible to create a unique file name for the imported file"));
+          return;
+        } else {
+          KMessageBox::information(0,i18n("Imported file has been renamed because of a name conflict"));
+        }
+      }
+      KUrl target;
+      target.setPath(outname);
+      
+      if (!KIO::NetAccess::file_copy( src, target, (QWidget*)0)) {
+        KMessageBox::error((QWidget*)0,i18n("File could not be copied to repository"));
+      } else {
+        // notify everybody
+        QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+        if (!interface) return;
+        QStringList serviceNames = interface->registeredServiceNames();
+        foreach(const QString serviceName,serviceNames) {
+          if (serviceName.startsWith("org.kde.kate-")) {
+            QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+            QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+            QDBusConnection::sessionBus().call (m);
+          }
         }
       }
     }
-  }
 
-  void KateSnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile)
-  {
-      for (int i=0;i<m_entries.count();i++) {
-          KateSnippetRepositoryEntry& entry=m_entries[i];
-          if (entry.filename==filename)
-          {
-            entry.name=name;
-            entry.setFileType(filetype.split(";"));
-            entry.authors=authors;
-            entry.license=license;
-            entry.systemFile=systemFile;
-            return;
-          }
-      }
-      addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
-  }
-  void KateSnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled) {
-    beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
-    m_entries.append(KateSnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,enabled));
-    endInsertRows();
-  }
-
-  KTextEditor::CodeCompletionModel2* KateSnippetRepositoryModel::completionModel(const QString &filetype) {
-    kDebug(13040)<<"Creating a new completion model";
-    kDebug(13040)<<"**************************************************************************************************************************"<<filetype;
-    QStringList l;
-    foreach(const KateSnippetRepositoryEntry& entry, m_entries) {
-      if ((entry.enabled==true) && ( (entry.fileType().contains("*")) || (entry.fileType().contains(filetype)))) {
-        l<<entry.filename;
-      }
+    void SnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile)
+    {
+        for (int i=0;i<m_entries.count();i++) {
+            SnippetRepositoryEntry& entry=m_entries[i];
+            if (entry.filename==filename)
+            {
+              entry.name=name;
+              entry.setFileType(filetype.split(";"));
+              entry.authors=authors;
+              entry.license=license;
+              entry.systemFile=systemFile;
+              return;
+            }
+        }
+        addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
     }
-    return new KateSnippetCompletionModel(l);
-
-  }
- 
-  void KateSnippetRepositoryModel::readSessionConfig (KConfigBase* config, const QString& groupPrefix) {
-    QSet<QString> enabledSet;
-    KConfigGroup group(config,groupPrefix+"enabled-snippets");
-    int enabledCount=group.readEntry("count",0);
-    for (int i=0;i<enabledCount;i++)
-      enabledSet.insert(group.readPathEntry(QString("enabled_%1").arg(i),""));
-    for (int i=0;i<m_entries.count();i++) {
-      KateSnippetRepositoryEntry& entry=m_entries[i];
-      entry.enabled=enabledSet.contains(entry.filename);
+    void SnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled) {
+      beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
+      m_entries.append(SnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,enabled));
+      endInsertRows();
     }
-  }
+
+    KTextEditor::CodeCompletionModel2* SnippetRepositoryModel::completionModel(const QString &filetype) {
+      kDebug(13040)<<"Creating a new completion model";
+      kDebug(13040)<<"**************************************************************************************************************************"<<filetype;
+      QStringList l;
+      foreach(const SnippetRepositoryEntry& entry, m_entries) {
+        if ((entry.enabled==true) && ( (entry.fileType().contains("*")) || (entry.fileType().contains(filetype)))) {
+          l<<entry.filename;
+        }
+      }
+      return new SnippetCompletionModel(l);
+
+    }
   
-  void KateSnippetRepositoryModel::writeSessionConfig (KConfigBase* config, const QString& groupPrefix) {
-    KConfigGroup group(config,groupPrefix+"enabled-snippets");
-    group.deleteGroup();
-    int enabledCount=0;
-    for (int i=0;i<m_entries.count();i++) {
-      const KateSnippetRepositoryEntry& entry=m_entries[i];
-      if (entry.enabled) {
-        group.writePathEntry(QString("enabled_%1").arg(enabledCount),entry.filename);
-        enabledCount++;
+    void SnippetRepositoryModel::readSessionConfig (KConfigBase* config, const QString& groupPrefix) {
+      QSet<QString> enabledSet;
+      KConfigGroup group(config,groupPrefix+"enabled-snippets");
+      int enabledCount=group.readEntry("count",0);
+      for (int i=0;i<enabledCount;i++)
+        enabledSet.insert(group.readPathEntry(QString("enabled_%1").arg(i),""));
+      for (int i=0;i<m_entries.count();i++) {
+        SnippetRepositoryEntry& entry=m_entries[i];
+        entry.enabled=enabledSet.contains(entry.filename);
       }
     }
-    group.writeEntry("count",enabledCount);
-    group.sync();
-  }
+    
+    void SnippetRepositoryModel::writeSessionConfig (KConfigBase* config, const QString& groupPrefix) {
+      KConfigGroup group(config,groupPrefix+"enabled-snippets");
+      group.deleteGroup();
+      int enabledCount=0;
+      for (int i=0;i<m_entries.count();i++) {
+        const SnippetRepositoryEntry& entry=m_entries[i];
+        if (entry.enabled) {
+          group.writePathEntry(QString("enabled_%1").arg(enabledCount),entry.filename);
+          enabledCount++;
+        }
+      }
+      group.writeEntry("count",enabledCount);
+      group.sync();
+    }
 //END: Model
 
 
 //BEGIN: DBus Adaptor
 
-  KateSnippetRepositoryModelAdaptor::KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository):
-    QDBusAbstractAdaptor(repository),m_repository(repository) {}
-  
-  KateSnippetRepositoryModelAdaptor::~KateSnippetRepositoryModelAdaptor() {}
-  
-  void KateSnippetRepositoryModelAdaptor::updateSnippetRepository()
-  {
-    m_repository->createOrUpdateList(true);
-  }
+    SnippetRepositoryModelAdaptor::SnippetRepositoryModelAdaptor(SnippetRepositoryModel *repository):
+      QDBusAbstractAdaptor(repository),m_repository(repository) {}
+    
+    SnippetRepositoryModelAdaptor::~SnippetRepositoryModelAdaptor() {}
+    
+    void SnippetRepositoryModelAdaptor::updateSnippetRepository()
+    {
+      m_repository->createOrUpdateList(true);
+    }
  
 
 //END: DBus Adaptor
 
+  }
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

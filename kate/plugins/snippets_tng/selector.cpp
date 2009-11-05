@@ -58,7 +58,7 @@ namespace JoWenn {
 
   void KateSnippetSelector::clicked(const QModelIndex& current)
   {
-    plainTextEdit->setPlainText(treeView->model()->data(current,KateSnippetSelectorModel::FillInRole).toString());
+    plainTextEdit->setPlainText(treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString());
   }
 
   void KateSnippetSelector::doubleClicked(const QModelIndex& current)
@@ -66,7 +66,7 @@ namespace JoWenn {
     KTextEditor::View *view=m_mainWindow->activeView();
     KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
     if (ti)
-      ti->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KateSnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>());
+      ti->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>());
     view->setFocus();
   }
 

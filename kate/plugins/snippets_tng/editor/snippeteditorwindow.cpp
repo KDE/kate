@@ -27,7 +27,7 @@
 
 #include <QStandardItem>
 
-using namespace JoWenn;
+using namespace KTextEditor::CodesnippetsCore::Editor;
 
 
 FiletypeListDropDown::FiletypeListDropDown(QWidget *parent,KLineEdit *lineEdit,KPushButton *btn,const QStringList &modes):
@@ -111,7 +111,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     m_ok=false;
     SnippetEditorNewDialog nd(this);
     if (nd.exec()==QDialog::Rejected) return;
-    QString newPath=KateSnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
+    QString newPath=KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
     if (newPath.isEmpty()) return;
     m_url=KUrl::fromPath(newPath);
     notifyChange();
@@ -142,7 +142,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   QString authors;
   QString license;
 
-  KateSnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license);    
+  KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license);    
   setCaption(m_url.fileName());  
 
   snippetCollectionName->setText(name);
@@ -152,7 +152,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   
   QStringList files;
   files<<m_url.toLocalFile();
-  m_snippetData=new KateSnippetCompletionModel(files);
+  m_snippetData=new KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel(files);
   m_selectorModel=m_snippetData->selectorModel();
   snippetListView->setModel(m_selectorModel);
   connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
@@ -167,11 +167,11 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
   if (button==buttonBox->button(QDialogButtonBox::Save)) {
     QModelIndex previous=snippetListView->selectionModel()->currentIndex();
     if (previous.isValid()) {      
-      m_selectorModel->setData(previous,snippetPrefix->text(),KateSnippetSelectorModel::PrefixRole);
-      m_selectorModel->setData(previous,snippetMatch->text(),KateSnippetSelectorModel::MatchRole);
-      m_selectorModel->setData(previous,snippetPostfix->text(),KateSnippetSelectorModel::PostfixRole);
-      m_selectorModel->setData(previous,snippetArguments->text(),KateSnippetSelectorModel::ArgumentsRole);
-      m_selectorModel->setData(previous,snippetContent->toPlainText(),KateSnippetSelectorModel::FillInRole);
+      m_selectorModel->setData(previous,snippetPrefix->text(),SnippetSelectorModel::PrefixRole);
+      m_selectorModel->setData(previous,snippetMatch->text(),SnippetSelectorModel::MatchRole);
+      m_selectorModel->setData(previous,snippetPostfix->text(),SnippetSelectorModel::PostfixRole);
+      m_selectorModel->setData(previous,snippetArguments->text(),SnippetSelectorModel::ArgumentsRole);
+      m_selectorModel->setData(previous,snippetContent->toPlainText(),SnippetSelectorModel::FillInRole);
     }  
     
     QString filetype=snippetCollectionFiletype->text();
@@ -187,18 +187,18 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
 
 void SnippetEditorWindow::currentChanged(const QModelIndex& current, const QModelIndex& previous) {
   if (previous.isValid()) {
-    m_selectorModel->setData(previous,snippetPrefix->text(),KateSnippetSelectorModel::PrefixRole);
-    m_selectorModel->setData(previous,snippetMatch->text(),KateSnippetSelectorModel::MatchRole);
-    m_selectorModel->setData(previous,snippetPostfix->text(),KateSnippetSelectorModel::PostfixRole);
-    m_selectorModel->setData(previous,snippetArguments->text(),KateSnippetSelectorModel::ArgumentsRole);
-    m_selectorModel->setData(previous,snippetContent->toPlainText(),KateSnippetSelectorModel::FillInRole);
+    m_selectorModel->setData(previous,snippetPrefix->text(),SnippetSelectorModel::PrefixRole);
+    m_selectorModel->setData(previous,snippetMatch->text(),SnippetSelectorModel::MatchRole);
+    m_selectorModel->setData(previous,snippetPostfix->text(),SnippetSelectorModel::PostfixRole);
+    m_selectorModel->setData(previous,snippetArguments->text(),SnippetSelectorModel::ArgumentsRole);
+    m_selectorModel->setData(previous,snippetContent->toPlainText(),SnippetSelectorModel::FillInRole);
   }
-  snippetPrefix->setText(m_selectorModel->data(current,KateSnippetSelectorModel::PrefixRole).toString());
-  snippetMatch->setText(m_selectorModel->data(current,KateSnippetSelectorModel::MatchRole).toString());
-  snippetPostfix->setText(m_selectorModel->data(current,KateSnippetSelectorModel::PostfixRole).toString());
-  snippetArguments->setText(m_selectorModel->data(current,KateSnippetSelectorModel::ArgumentsRole).toString());
+  snippetPrefix->setText(m_selectorModel->data(current,SnippetSelectorModel::PrefixRole).toString());
+  snippetMatch->setText(m_selectorModel->data(current,SnippetSelectorModel::MatchRole).toString());
+  snippetPostfix->setText(m_selectorModel->data(current,SnippetSelectorModel::PostfixRole).toString());
+  snippetArguments->setText(m_selectorModel->data(current,SnippetSelectorModel::ArgumentsRole).toString());
   disconnect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
-  snippetContent->setPlainText(m_selectorModel->data(current,KateSnippetSelectorModel::FillInRole).toString());
+  snippetContent->setPlainText(m_selectorModel->data(current,SnippetSelectorModel::FillInRole).toString());
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   bool enabled=current.isValid();
   snippetPrefix->setEnabled(enabled);

@@ -25,70 +25,79 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor_codesnippets_core_export.h>
 
-namespace JoWenn {
-  class KateSnippetCompletionEntry;
-   
-  class KateSnippetSelectorModel;
-  
-  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
-      Q_OBJECT
-    public:
-      friend class KateSnippetSelectorModel;
-      KateSnippetCompletionModel(QStringList &snippetFiles);
-      virtual ~KateSnippetCompletionModel();
-      virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
-      virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
-      
-      virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
-      virtual QModelIndex parent(const QModelIndex& index) const;
-      virtual int rowCount ( const QModelIndex & parent ) const;
-      
-      virtual void executeCompletionItem2(KTextEditor::Document* document,
-        const KTextEditor::Range& word, const QModelIndex& index) const;
 
-      static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license);
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+#ifdef SNIPPET_EDITOR
+  namespace Editor {
+#endif
+    class SnippetCompletionEntry;
+    
+    class SnippetSelectorModel;
+    
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
+        Q_OBJECT
+      public:
+        friend class SnippetSelectorModel;
+        SnippetCompletionModel(QStringList &snippetFiles);
+        virtual ~SnippetCompletionModel();
+        virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
+        virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
+        
+        virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
+        virtual QModelIndex parent(const QModelIndex& index) const;
+        virtual int rowCount ( const QModelIndex & parent ) const;
+        
+        virtual void executeCompletionItem2(KTextEditor::Document* document,
+          const KTextEditor::Range& word, const QModelIndex& index) const;
 
-      KateSnippetSelectorModel *selectorModel();
-      
+        static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license);
+
+        SnippetSelectorModel *selectorModel();
+        
+  #ifdef SNIPPET_EDITOR
+        bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors);
+        static QString createNew(const QString& name, const QString& license,const QString& authors);
+  #endif
+        
+      private:
+        QList<SnippetCompletionEntry> m_entries;
+        QList<const SnippetCompletionEntry*> m_matches;
+        void loadEntries(const QString& filename);
+    };
+    
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetSelectorModel: public QAbstractItemModel {
+        Q_OBJECT
+      public:
+        SnippetSelectorModel(SnippetCompletionModel* cmodel);
+        virtual ~SnippetSelectorModel();
+        virtual int columnCount(const QModelIndex& parent) const {return parent.isValid()?0:1;}
+        virtual int rowCount(const QModelIndex& parent) const;
+        virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+        virtual QVariant data(const QModelIndex &index, int role) const;
+        virtual QModelIndex parent ( const QModelIndex & index) const {return QModelIndex();}
+        virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
+        
+  #ifdef SNIPPET_EDITOR
+        // for editor only
+        virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+        virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
+        QModelIndex newItem();
+        enum {FillInRole=Qt::UserRole+1,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
+        //#warning SNIPPET_EDITOR IS SET
+  #else
+        enum {FillInRole=Qt::UserRole+1};
+        //#warning SNIPPET_EDITOR IS NOT SET
+  #endif
+      private:
+          SnippetCompletionModel *m_cmodel;
+    };
+    
 #ifdef SNIPPET_EDITOR
-      bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors);
-      static QString createNew(const QString& name, const QString& license,const QString& authors);
+  }
 #endif
-      
-    private:
-      QList<KateSnippetCompletionEntry> m_entries;
-      QList<const KateSnippetCompletionEntry*> m_matches;
-      void loadEntries(const QString& filename);
-  };
-  
-  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetSelectorModel: public QAbstractItemModel {
-      Q_OBJECT
-    public:
-      KateSnippetSelectorModel(KateSnippetCompletionModel* cmodel);
-      virtual ~KateSnippetSelectorModel();
-      virtual int columnCount(const QModelIndex& parent) const {return parent.isValid()?0:1;}
-      virtual int rowCount(const QModelIndex& parent) const;
-      virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-      virtual QVariant data(const QModelIndex &index, int role) const;
-      virtual QModelIndex parent ( const QModelIndex & index) const {return QModelIndex();}
-      virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
-      
-#ifdef SNIPPET_EDITOR
-      // for editor only
-      virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-      virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
-      QModelIndex newItem();
-      enum {FillInRole=Qt::UserRole+1,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
-      //#warning SNIPPET_EDITOR IS SET
-#else
-      enum {FillInRole=Qt::UserRole+1};
-      //#warning SNIPPET_EDITOR IS NOT SET
-#endif
-    private:
-        KateSnippetCompletionModel *m_cmodel;
-  };
-  
-  
+    
+  }
 }
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

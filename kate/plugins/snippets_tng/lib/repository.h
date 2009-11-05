@@ -27,86 +27,87 @@
 #include <qdbusabstractadaptor.h>
 class KConfigBase;
 
-namespace JoWenn {
-  class KateSnippetRepositoryEntry;
-  class KateSnippetCompletionEntry;  
-  
-  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetRepositoryItemDelegate: public KWidgetItemDelegate
-  {
-      Q_OBJECT
-    public:
-      explicit KateSnippetRepositoryItemDelegate(QAbstractItemView *itemView, QObject * parent = 0);
-      virtual ~KateSnippetRepositoryItemDelegate();
 
-      virtual QList<QWidget*> createItemWidgets() const;
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+    class SnippetRepositoryEntry;
+    class SnippetCompletionEntry;  
+    
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryItemDelegate: public KWidgetItemDelegate
+    {
+        Q_OBJECT
+      public:
+        explicit SnippetRepositoryItemDelegate(QAbstractItemView *itemView, QObject * parent = 0);
+        virtual ~SnippetRepositoryItemDelegate();
 
-      virtual void updateItemWidgets(const QList<QWidget*> widgets,
-        const QStyleOptionViewItem &option,
-        const QPersistentModelIndex &index) const;
-        
-      virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-      virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
-    public Q_SLOTS:
-      void enabledChanged(int state);
-      void editEntry();
-      void deleteEntry();      
-  };
-  
-  
-  class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT KateSnippetRepositoryModel: public QAbstractListModel
-  {
-      Q_OBJECT
-    public:
-      explicit KateSnippetRepositoryModel(QObject *parent=0);
-      virtual ~KateSnippetRepositoryModel();
-      enum Roles {
-        NameRole = Qt::UserRole,
-        FilenameRole,
-        FiletypeRole,
-        AuthorsRole,
-        LicenseRole,
-        SystemFileRole,
-        EnabledRole,
-        DeleteNowRole,
-        EditNowRole
-      };
-    private:
-      void createOrUpdateList(bool update);
-      friend class KateSnippetRepositoryModelAdaptor;
-    public:
-      virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
-      virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-      virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-      void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile);
-      void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled);
-      KTextEditor::CodeCompletionModel2* completionModel(const QString &filetype);
-      void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-      void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+        virtual QList<QWidget*> createItemWidgets() const;
 
-    Q_SIGNALS:
-      void typeChanged(const QStringList& fileType);
-    public Q_SLOTS:
-      void newEntry();
-      void copyToRepository(const KUrl& src);
-    private:
-      QList<KateSnippetRepositoryEntry> m_entries;
-  };
+        virtual void updateItemWidgets(const QList<QWidget*> widgets,
+          const QStyleOptionViewItem &option,
+          const QPersistentModelIndex &index) const;
+          
+        virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
+      public Q_SLOTS:
+        void enabledChanged(int state);
+        void editEntry();
+        void deleteEntry();      
+    };
+    
+    
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryModel: public QAbstractListModel
+    {
+        Q_OBJECT
+      public:
+        explicit SnippetRepositoryModel(QObject *parent=0);
+        virtual ~SnippetRepositoryModel();
+        enum Roles {
+          NameRole = Qt::UserRole,
+          FilenameRole,
+          FiletypeRole,
+          AuthorsRole,
+          LicenseRole,
+          SystemFileRole,
+          EnabledRole,
+          DeleteNowRole,
+          EditNowRole
+        };
+      private:
+        void createOrUpdateList(bool update);
+        friend class SnippetRepositoryModelAdaptor;
+      public:
+        virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
+        virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+        virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+        void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile);
+        void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled);
+        KTextEditor::CodeCompletionModel2* completionModel(const QString &filetype);
+        void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+        void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+
+      Q_SIGNALS:
+        void typeChanged(const QStringList& fileType);
+      public Q_SLOTS:
+        void newEntry();
+        void copyToRepository(const KUrl& src);
+      private:
+        QList<SnippetRepositoryEntry> m_entries;
+    };
 
 
-  class KateSnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
-  {
-      Q_OBJECT
-      Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
-    public:
-      KateSnippetRepositoryModelAdaptor(KateSnippetRepositoryModel *repository);
-      virtual ~KateSnippetRepositoryModelAdaptor();
-    public Q_SLOTS:
-      void updateSnippetRepository();
-    private:
-      KateSnippetRepositoryModel* m_repository;
-  };
-
-  
+    class SnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
+    {
+        Q_OBJECT
+        Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
+      public:
+        SnippetRepositoryModelAdaptor(SnippetRepositoryModel *repository);
+        virtual ~SnippetRepositoryModelAdaptor();
+      public Q_SLOTS:
+        void updateSnippetRepository();
+      private:
+        SnippetRepositoryModel* m_repository;
+    };
+  }
 }
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

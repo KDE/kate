@@ -45,7 +45,7 @@ namespace JoWenn {
       Kate::Plugin ( (Kate::Application*)parent )
   {
     KGlobal::locale()->insertCatalog("ktexteditor_codesnippets_core");
-    m_repositoryData=new KateSnippetRepositoryModel(this);
+    m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this);
     connect(m_repositoryData,SIGNAL(typeChanged(const QStringList&)),this,SLOT(slotTypeChanged(const QStringList&)));
     
     Kate::DocumentManager* documentManager=application()->documentManager();
@@ -99,10 +99,10 @@ namespace JoWenn {
     }
   }
 
-  JoWenn::KateSnippetCompletionModel* KateSnippetsPlugin::modelForDocument(KTextEditor::Document *document)
+  KTextEditor::CodesnippetsCore::SnippetCompletionModel* KateSnippetsPlugin::modelForDocument(KTextEditor::Document *document)
   {
     QSharedPointer<KTextEditor::CodeCompletionModel2>model=m_document_model_hash[document];
-    return (KateSnippetCompletionModel*)model.data();
+    return (KTextEditor::CodesnippetsCore::SnippetCompletionModel*)model.data();
   }
 
   void KateSnippetsPlugin::addView(KTextEditor::Document* document,KTextEditor::View* view)
@@ -197,7 +197,7 @@ namespace JoWenn {
     repositoryData()->writeSessionConfig(config,groupPrefix);
   }
 
-  KateSnippetRepositoryModel * KateSnippetsPlugin::repositoryData() {
+  KTextEditor::CodesnippetsCore::SnippetRepositoryModel * KateSnippetsPlugin::repositoryData() {
     return m_repositoryData;
   }
 
@@ -226,7 +226,7 @@ namespace JoWenn {
     , m_plugin( plugin )
   {
     setupUi(this);
-    KateSnippetRepositoryItemDelegate *delegate=new KateSnippetRepositoryItemDelegate(lstSnippetFiles,this);
+    KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(lstSnippetFiles,this);
     lstSnippetFiles->setItemDelegate(delegate);
     
     lstSnippetFiles->setModel(plugin->repositoryData());

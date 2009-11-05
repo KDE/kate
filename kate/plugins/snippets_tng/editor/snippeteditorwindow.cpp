@@ -230,7 +230,7 @@ void SnippetEditorWindow::newSnippet() {
 }
 
 void SnippetEditorWindow::notifyChange() {
-  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+/*  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
   if (!interface) return;
   QStringList serviceNames = interface->registeredServiceNames();
   foreach(const QString serviceName,serviceNames) {
@@ -238,6 +238,39 @@ void SnippetEditorWindow::notifyChange() {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
       QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
       QDBusConnection::sessionBus().call (m);
+    }
+  }*/
+  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+  if (!interface) return;
+  QStringList serviceNames = interface->registeredServiceNames();
+  QDomDocument xml_doc;
+  foreach(const QString serviceName,serviceNames)
+  {
+    if (serviceName.startsWith("org.kde.kate-"))
+    {
+      QDBusMessage im = QDBusMessage::createMethodCall (serviceName,
+      QLatin1String("/KTECodesnippetsCore/Repository"), "org.freedesktop.DBus.Introspectable", "Introspect");
+      QDBusReply<QString> xml=QDBusConnection::sessionBus().call (im);
+      if (xml.isValid())
+      {            
+        kDebug()<<xml;
+        xml_doc.setContent(xml);
+        QDomElement el=xml_doc.documentElement().firstChildElement();
+        while (!el.isNull())
+        {
+          if (el.tagName()==QLatin1String("node"))
+          {
+            QString objpath_qstring=QString("/KTECodesnippetsCore/Repository/%1").arg(el.attribute("name"));
+            QByteArray objpath_bytestring=objpath_qstring.utf8();
+            QLatin1String objpath(objpath_bytestring.constData());
+            QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
+            objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+            QDBusConnection::sessionBus().call (m);          
+          }
+          el=el.nextSiblingElement();
+        }
+      }
+
     }
   }
 }

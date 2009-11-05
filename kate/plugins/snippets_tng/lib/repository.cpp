@@ -178,11 +178,13 @@ namespace KTextEditor {
 //END: Delegate
 
 //BEGIN: Model
+    long SnippetRepositoryModel::s_id=0;
+
     SnippetRepositoryModel::SnippetRepositoryModel(QObject *parent):
       QAbstractListModel(parent) {
       createOrUpdateList(false);
       new SnippetRepositoryModelAdaptor(this);
-      QString dbusObjectPath ("/KTECodesnippetsCore/Repository");
+      QString dbusObjectPath (QString("/KTECodesnippetsCore/Repository/%1").arg(++s_id));
       QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
     }
     
@@ -343,16 +345,7 @@ namespace KTextEditor {
         KMessageBox::error((QWidget*)0,i18n("File could not be copied to repository"));
       } else {
         // notify everybody
-        QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
-        if (!interface) return;
-        QStringList serviceNames = interface->registeredServiceNames();
-        foreach(const QString serviceName,serviceNames) {
-          if (serviceName.startsWith("org.kde.kate-")) {
-            QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-            QLatin1String("/KTECodesnippetsCore/Repository"), "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-            QDBusConnection::sessionBus().call (m);
-          }
-        }
+        notifyRepos();
       }
     }
 
@@ -417,6 +410,43 @@ namespace KTextEditor {
       group.writeEntry("count",enabledCount);
       group.sync();
     }
+    
+    void SnippetRepositoryModel::notifyRepos() {
+      QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
+      if (!interface) return;
+      QStringList serviceNames = interface->registeredServiceNames();
+      QDomDocument xml_doc;
+      foreach(const QString serviceName,serviceNames)
+      {
+        if (serviceName.startsWith("org.kde.kate-"))
+        {
+          QDBusMessage im = QDBusMessage::createMethodCall (serviceName,
+          QLatin1String("/KTECodesnippetsCore/Repository"), "org.freedesktop.DBus.Introspectable", "Introspect");
+          QDBusReply<QString> xml=QDBusConnection::sessionBus().call (im);
+          if (xml.isValid())
+          {            
+            kDebug()<<xml;
+            xml_doc.setContent(xml);
+            QDomElement el=xml_doc.documentElement().firstChildElement();
+            while (!el.isNull())
+            {
+              if (el.tagName()==QLatin1String("node"))
+              {
+                QString objpath_qstring=QString("/KTECodesnippetsCore/Repository/%1").arg(el.attribute("name"));
+                QByteArray objpath_bytestring=objpath_qstring.utf8();
+                QLatin1String objpath(objpath_bytestring.constData());
+                QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
+                objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+                QDBusConnection::sessionBus().call (m);
+              }
+              el=el.nextSiblingElement();
+            }
+          }
+
+        }
+      }
+    }
+    
 //END: Model
 
 

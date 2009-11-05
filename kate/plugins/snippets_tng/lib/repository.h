@@ -75,6 +75,8 @@ namespace KTextEditor {
       private:
         void createOrUpdateList(bool update);
         friend class SnippetRepositoryModelAdaptor;
+        static long s_id;
+        void notifyRepos();
       public:
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;

@@ -24,6 +24,43 @@
 
 #include "katesmartrange.h"
 #include "katedynamicanimation.h"
+#include <kcolorutils.h>
+
+void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::Ptr add)
+{
+  bool hadBg = base->hasProperty(KTextEditor::Attribute::BackgroundBrush);
+  bool hadFg = base->hasProperty(KTextEditor::Attribute::ForegroundBrush);
+  
+  QBrush baseBgBrush, baseFgBrush;
+  if(hadBg)
+    baseBgBrush = base->background();
+  
+  if(hadFg)
+    baseFgBrush = base->foreground();
+  
+  *base += *add;
+  
+  if(hadBg && add->hasProperty(KTextEditor::Attribute::BackgroundBrush))
+  {
+    QBrush bg = add->background();
+    if(!bg.isOpaque()) {
+      QColor mixWithColor = bg.color();
+      mixWithColor.setAlpha(255);
+      bg.setColor(KColorUtils::mix(baseBgBrush.color(), mixWithColor, bg.color().alphaF()));
+      base->setBackground(bg);
+    }
+  }
+  if(hadFg && add->hasProperty(KTextEditor::Attribute::ForegroundBrush))
+  {
+    QBrush fg = add->foreground();
+    if(!fg.isOpaque()) {
+      QColor mixWithColor = fg.color();
+      mixWithColor.setAlpha(255);
+      fg.setColor(KColorUtils::mix(baseFgBrush.color(), mixWithColor, fg.color().alphaF()));
+      base->setForeground(fg);
+    }
+  }
+}
 
 ///Returns the first index of a range that contains @param pos, or the index of the first range that is behind pos(or ranges.count() if pos is behind all ranges)
 ///The list must be sorted by the ranges end-positions.
@@ -203,7 +240,7 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* _range, bool intermediate)
       *a = *m_attribs.top();
 
     if (KTextEditor::Attribute::Ptr a2 = range->attribute())
-      *a += *a2;
+      mergeAttributes(a, a2);
 
     if (m_useDynamic && range->hasDynamic())
       foreach (KateDynamicAnimation* anim, range->dynamicAnimations())
@@ -346,7 +383,7 @@ KTextEditor::Attribute::Ptr RenderRangeList::generateAttribute() const
 	  ownsAttribute = true;
 	  a = new KTextEditor::Attribute(*a);
 	}
-       *a += *a2;
+        mergeAttributes(a, a2);
       }
     }
   }

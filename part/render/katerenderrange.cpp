@@ -28,10 +28,25 @@
 
 void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::Ptr add)
 {
+  if(!add)
+    return;
+  
   bool hadBg = base->hasProperty(KTextEditor::Attribute::BackgroundBrush);
+  bool hasBg = add->hasProperty(KTextEditor::Attribute::BackgroundBrush);
+  
   bool hadFg = base->hasProperty(KTextEditor::Attribute::ForegroundBrush);
+  bool hasFg = add->hasProperty(KTextEditor::Attribute::ForegroundBrush);
+
+  if(((!hadBg || !hasBg) && (!hadFg || !hasFg))) {
+    //Nothing to blend
+    *base += *add;
+    return;
+  }
+
+  //We eventually have to blend
   
   QBrush baseBgBrush, baseFgBrush;
+  
   if(hadBg)
     baseBgBrush = base->background();
   
@@ -40,7 +55,7 @@ void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::P
   
   *base += *add;
   
-  if(hadBg && add->hasProperty(KTextEditor::Attribute::BackgroundBrush))
+  if(hadBg && hasBg)
   {
     QBrush bg = add->background();
     if(!bg.isOpaque()) {
@@ -50,7 +65,7 @@ void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::P
       base->setBackground(bg);
     }
   }
-  if(hadFg && add->hasProperty(KTextEditor::Attribute::ForegroundBrush))
+  if(hadFg && hasFg)
   {
     QBrush fg = add->foreground();
     if(!fg.isOpaque()) {

@@ -46,9 +46,9 @@ namespace KTextEditor
  * KTextEditor library in use implements the interface. Use qobject_cast to access
  * the interface:
  * \code
- * // view is of type KTextEditor::Document* or KTextEditor::View*
+ * // ptr is of type KTextEditor::Document* or KTextEditor::View*
  * KTextEditor::ConfigInterface *iface =
- *     qobject_cast<KTextEditor::ConfigInterface*>( view );
+ *     qobject_cast<KTextEditor::ConfigInterface*>( ptr );
  *
  * if( iface ) {
  *
@@ -62,14 +62,21 @@ namespace KTextEditor
  * A list of available config variables (or keys) can be optained by calling
  * configKeys(). For all available keys configValue() returns the corresponding
  * value as QVariant. A value for a given key can be set by calling
- * setConfigValue(). Right now KatePart has support for the following
- * tuples:
+ * setConfigValue(). Right now, when using KatePart as editor component,
+ * KTextEditor::View has support for the following tuples:
  *  - line-numbers [bool], show/hide line numbers
  *  - icon-bar [bool], show/hide icon bar
  *  - dynamic-word-wrap [bool], enable/disable dynamic word wrap
- *  - auto-brackets [bool], enable/disable automatic bracket completion
  *
- * As a small example, if you want to enable dynamic word wrap simply call
+ * KTextEditor::Document has support for the following:
+ *  - auto-brackets [bool], enable/disable automatic bracket completion
+ *  - backup-on-save-local [bool], enable/disable backup when saving local files
+ *  - backup-on-save-remote [bool], enable/disable backup when saving remote files
+ *  - backup-on-save-suffix [string], set the suffix for file backups, e.g. "~"
+ *  - backup-on-save-prefix [string], set the prefix for file backups, e.g. "."
+ *
+ * For instance, if you want to enable dynamic word wrap of a KTextEditor::View
+ * simply call
  * \code
  * iface->setConfigValue("dynamic-word-wrap", true);
  * \endcode

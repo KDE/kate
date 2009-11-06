@@ -240,7 +240,7 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* _range, bool intermediate)
       *a = *m_attribs.top();
 
     if (KTextEditor::Attribute::Ptr a2 = range->attribute())
-      mergeAttributes(a, a2);
+      *a += *a2;
 
     if (m_useDynamic && range->hasDynamic())
       foreach (KateDynamicAnimation* anim, range->dynamicAnimations())

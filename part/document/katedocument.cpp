@@ -4693,7 +4693,13 @@ QVariant KateDocument::configValue(const QString &key)
 
 void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 {
-  if (value.canConvert(QVariant::Bool)) {
+  if (value.type() == QVariant::String) {
+    if (key == "backup-on-save-suffix") {
+      m_config->setBackupSuffix(value.toString());
+    } else if (key == "backup-on-save-prefix") {
+      m_config->setBackupPrefix(value.toString());
+    }
+  } else if (value.canConvert(QVariant::Bool)) {
     const bool bValue = value.toBool();
     if (key == "auto-brackets") {
       m_config->setConfigFlags(KateDocumentConfig::cfAutoBrackets, bValue);
@@ -4715,12 +4721,6 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       }
 
       m_config->setBackupFlags(f);
-    }
-  } else if (value.type() == QVariant::String) {
-    if (key == "backup-on-save-suffix") {
-      m_config->setBackupSuffix(value.toString());
-    } else if (key == "backup-on-save-prefix") {
-      m_config->setBackupPrefix(value.toString());
     }
   }
 }

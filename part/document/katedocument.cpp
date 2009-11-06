@@ -4675,8 +4675,16 @@ QStringList KateDocument::configKeys() const
 
 QVariant KateDocument::configValue(const QString &key)
 {
-  if(key == "auto-brackets") {
+  if (key == "auto-brackets") {
     return m_config->configFlags() & KateDocumentConfig::cfAutoBrackets;
+  } else if (key == "backup-on-save-local") {
+    return m_config->backupFlags() & KateDocumentConfig::LocalFiles;
+  } else if (key == "backup-on-save-remote") {
+    return m_config->backupFlags() & KateDocumentConfig::RemoteFiles;
+  } else if (key == "backup-on-save-suffix") {
+    return m_config->backupSuffix();
+  } else if (key == "backup-on-save-prefix") {
+    return m_config->backupPrefix();
   }
 
   // return invalid variant
@@ -4685,8 +4693,35 @@ QVariant KateDocument::configValue(const QString &key)
 
 void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 {
-  if(key == "auto-brackets" && value.canConvert(QVariant::Bool)) {
-    m_config->setConfigFlags(KateDocumentConfig::cfAutoBrackets, value.toBool());
+  if (value.canConvert(QVariant::Bool)) {
+    const bool bValue = value.toBool();
+    if (key == "auto-brackets") {
+      m_config->setConfigFlags(KateDocumentConfig::cfAutoBrackets, bValue);
+    } else if (key == "backup-on-save-local" && value.type() == QVariant::String) {
+      uint f = m_config->backupFlags();
+      if (bValue) {
+        f |= KateDocumentConfig::LocalFiles;
+      } else {
+        f ^= KateDocumentConfig::LocalFiles;
+      }
+
+      m_config->setBackupFlags(f);
+    } else if (key == "backup-on-save-remote") {
+      uint f = m_config->backupFlags();
+      if (bValue) {
+        f |= KateDocumentConfig::RemoteFiles;
+      } else {
+        f ^= KateDocumentConfig::RemoteFiles;
+      }
+
+      m_config->setBackupFlags(f);
+    }
+  } else if (value.type() == QVariant::String) {
+    if (key == "backup-on-save-suffix") {
+      m_config->setBackupSuffix(value.toString());
+    } else if (key == "backup-on-save-prefix") {
+      m_config->setBackupPrefix(value.toString());
+    }
   }
 }
 

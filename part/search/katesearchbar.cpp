@@ -1864,7 +1864,10 @@ void KateSearchBar::onMutateIncremental() {
     }
 
     // Set initial search pattern
+    if (!create)
+        disconnect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
     m_incUi->pattern->setText(initialPattern);
+    connect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
     m_incUi->pattern->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)
@@ -1875,7 +1878,6 @@ void KateSearchBar::onMutateIncremental() {
         // Slots
         connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
         connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
-        connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
         connect(m_incMenuMatchCase, SIGNAL(changed()), this, SLOT(onIncMatchCaseToggle()));

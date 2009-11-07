@@ -23,6 +23,7 @@
 #include "kateview.h"
 #include "kateconfig.h"
 #include "katerenderer.h"
+#include "kateundomanager.h"
 
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/smartcursor.h>
@@ -41,7 +42,7 @@ using namespace KTextEditor;
 /* ####################################### */
 
 KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& position,
-                                          const QString &templateString, const QMap<QString, QString> &initialValues )
+                                          const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager )
     : QObject(doc)
     , m_doc(doc), m_wholeTemplateRange(0), m_finalCursorPosition(0)
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
@@ -65,6 +66,11 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
       connect(m_doc, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
+
+      setEditWithUndo(undoManager->isUndoTrackingEnabled());
+
+      connect(undoManager, SIGNAL(undoTrackingEnabledChanged(bool)),
+              this, SLOT(setEditWithUndo(bool)));
     } else {
       // when no interesting ranges got added, we can terminate directly
       jumpToFinalCursorPosition();
@@ -120,7 +126,8 @@ void KateTemplateHandler::cleanupAndExit()
 
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
-  if ( m_doc->activeView() && m_wholeTemplateRange->contains(m_doc->activeView()->cursorPosition()) ) {
+  if ( m_doc->activeView() && (!m_wholeTemplateRange
+        || m_wholeTemplateRange->contains(m_doc->activeView()->cursorPosition())) ) {
     m_doc->activeView()->setSelection(Range::invalid());
     m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
   }

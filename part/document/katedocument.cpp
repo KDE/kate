@@ -4731,12 +4731,7 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
                                                      const QMap<QString,QString> &initialValues, QWidget * )
 {
   // the handler will delete itself when neccessary
-  KateTemplateHandler* handler = new KateTemplateHandler(this, c, templateString, initialValues);
-
-  handler->setEditWithUndo(m_undoManager->isUndoTrackingEnabled());
-
-  connect(m_undoManager, SIGNAL(undoTrackingEnabledChanged(bool)),
-          handler, SLOT(setEditWithUndo(bool)));
+  KateTemplateHandler* handler = new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager);
 
   return true;
 }

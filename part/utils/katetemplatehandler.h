@@ -28,6 +28,7 @@
 #include <QtCore/QList>
 
 class KateDocument;
+class KateUndoManager;
 
 namespace KTextEditor {
   class SmartRange;
@@ -67,18 +68,13 @@ class KateTemplateHandler: public QObject
      *       keep track of it.
      */
     KateTemplateHandler(KateDocument *doc, const KTextEditor::Cursor& position,
-                        const QString &templateString, const QMap<QString, QString> &initialValues);
+                        const QString &templateString, const QMap<QString, QString> &initialValues,
+                        KateUndoManager* undoManager);
 
     /**
      * Cancels the template handler and cleans everything up.
      */
     virtual ~KateTemplateHandler();
-
-  public Q_SLOTS:
-    /**
-     * Keeps track of whether undo tracking is enabled in the document's undo manager.
-     */
-    void setEditWithUndo(const bool &enabled);
 
   protected:
     /**
@@ -164,6 +160,12 @@ class KateTemplateHandler: public QObject
      */
     void jumpToFinalCursorPosition();
 
+    /**
+     * By default, all ranges have ExpandLeft | ExpandRight insert behavior set.
+     * For adjacent ranges this leads to unexpected behavior, hence fix it.
+     */
+    void fixAdjacentInsertBehavior();
+
   private Q_SLOTS:
     /**
      * Install event filter on new views.
@@ -177,6 +179,11 @@ class KateTemplateHandler: public QObject
      * @see syncMirroredRanges()
      */
     void slotTextChanged(KTextEditor::Document* document, const KTextEditor::Range& oldRange);
+
+    /**
+     * Keeps track of whether undo tracking is enabled in the document's undo manager.
+     */
+    void setEditWithUndo(const bool &enabled);
 
   private:
     /// The document we operate on.
@@ -202,6 +209,9 @@ class KateTemplateHandler: public QObject
     /// be selected when they get focused. All others just get the cursor placed at the
     /// beginning.
     QList<KTextEditor::SmartRange*> m_uneditedRanges;
+    /// Sorted list of all ranges in one level.
+    /// \see fixAdjacentInsertBehavior()
+    QList<KTextEditor::SmartRange*> m_AllRangesSorted;
     /// Set to true when we are currently mirroring, to prevent recursion.
     bool m_isMirroring;
     /// Whether undo tracking is enabled in the undo manager.

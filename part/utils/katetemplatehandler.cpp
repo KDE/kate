@@ -63,8 +63,6 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
     if ( !m_templateRanges.isEmpty() ) {
       foreach ( View* view, m_doc->views() ) {
         setupEventHandler(view);
-        connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor)),
-                this, SLOT(slotCursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor)));
       }
 
       connect(m_doc, SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
@@ -103,10 +101,6 @@ void deleteSmartRange(SmartRange* range, KateDocument* doc) {
 
 void KateTemplateHandler::cleanupAndExit()
 {
-  foreach ( View* view, m_doc->views() ) {
-    disconnect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
-               this, SLOT(slotCursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)));
-  }
   disconnect(m_doc, SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
              this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
   disconnect(m_doc, SIGNAL(textChanged(KTextEditor::Document*,KTextEditor::Range,KTextEditor::Range)),
@@ -134,6 +128,7 @@ void KateTemplateHandler::cleanupAndExit()
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
   if ( m_doc->activeView() ) {
+    m_doc->activeView()->setSelection(Range::invalid());
     m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
   }
 }
@@ -147,8 +142,6 @@ void KateTemplateHandler::slotViewCreated(Document* document, View* view)
 {
   Q_ASSERT(document == m_doc);
   setupEventHandler(view);
-  connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
-          this, SLOT(slotCursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)));
 }
 
 void KateTemplateHandler::setupEventHandler(View* view)
@@ -200,6 +193,11 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
 void KateTemplateHandler::jumpToPreviousRange()
 {
   const Cursor & cursor = m_doc->activeView()->cursorPosition();
+  if ( cursor == *m_finalCursorPosition ) {
+    // wrap and jump to last range
+    setCurrentRange(m_templateRanges.last());
+    return;
+  }
   SmartRange* previousRange = 0;
   foreach ( SmartRange* range, m_templateRanges ) {
     if ( range->start() >= cursor ) {
@@ -213,14 +211,19 @@ void KateTemplateHandler::jumpToPreviousRange()
   if ( previousRange ) {
     setCurrentRange(previousRange);
   } else {
-    // wrap and jump to last range
-    setCurrentRange(m_templateRanges.last());
+    // wrap and jump to final cursor
+    jumpToFinalCursorPosition();
   }
 }
 
 void KateTemplateHandler::jumpToNextRange()
 {
   const Cursor & cursor = m_doc->activeView()->cursorPosition();
+  if ( cursor == *m_finalCursorPosition ) {
+    // wrap and jump to first range
+    setCurrentRange(m_templateRanges.first());
+    return;
+  }
   SmartRange* nextRange = 0;
   foreach ( SmartRange* range, m_templateRanges ) {
     if ( range->start() <= cursor ) {
@@ -233,8 +236,8 @@ void KateTemplateHandler::jumpToNextRange()
   if ( nextRange ) {
     setCurrentRange(nextRange);
   } else {
-    // wrap and jump to first range
-    setCurrentRange(m_templateRanges.first());
+    // wrap and jump to final cursor
+    jumpToFinalCursorPosition();
   }
 }
 
@@ -446,62 +449,6 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   }
 
   setCurrentRange(m_templateRanges.first());
-}
-
-void KateTemplateHandler::slotCursorPositionChanged(View* view, const Cursor &cursor)
-{
-  Q_UNUSED(view);
-
-  if ( m_jumping ) {
-    return;
-  }
-
-  // once again, use <= end() instead of < end() which is used in .contains()
-  if ( m_wholeTemplateRange->start() > cursor || m_wholeTemplateRange->end() < cursor ) {
-    // terminate
-    cleanupAndExit();
-    return;
-  }
-
-  // only jump when cursor is exactly one pos after or before the last position
-  Cursor diff(cursor - m_lastCaretPosition);
-  kDebug() << diff << cursor << m_lastCaretPosition;
-  if ( 1 != abs(diff.column()) + abs(diff.line()) ) {
-    m_lastCaretPosition = cursor;
-    return;
-  }
-
-  // don't jump when we are still inside one of our ranges
-  // or if the old one was not inside on of our ranges
-  bool wasInRange = false;
-  foreach ( SmartRange* range, m_templateRanges ) {
-    if ( !range->childRanges().isEmpty() ) {
-      range = range->childRanges().first();
-    }
-
-    // don't use contains() as it checks for < end(), we want <= end()
-    if ( cursor >= range->start() && cursor <= range->end() ) {
-      // cursor is in one of our tracked ranges, do nothing
-      m_lastCaretPosition = cursor;
-      return;
-    }
-    if ( !wasInRange ) {
-      wasInRange = m_lastCaretPosition >= range->start() && m_lastCaretPosition <= range->end();
-    }
-  }
-
-  if ( !wasInRange ) {
-    m_lastCaretPosition = cursor;
-    return;
-  }
-
-  if ( cursor > m_lastCaretPosition ) {
-    // moved cursor to the right
-    jumpToNextRange();
-  } else {
-    // moved cursor to the left
-    jumpToPreviousRange();
-  }
 }
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)

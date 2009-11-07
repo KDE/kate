@@ -171,13 +171,6 @@ class KateTemplateHandler: public QObject
     void slotViewCreated(KTextEditor::Document* document, KTextEditor::View* view);
 
     /**
-     * When we exit one of our ranges, jump to the next one.
-     *
-     * If we exit \p m_templateRange terminate the template handler.
-     */
-    void slotCursorPositionChanged(KTextEditor::View* view, const KTextEditor::Cursor &cursor);
-
-    /**
      * When the start of @p oldRange overlaps with one of our mirrored ranges,
      * update the contents of the siblings.
      *

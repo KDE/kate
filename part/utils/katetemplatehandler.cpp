@@ -134,13 +134,7 @@ void KateTemplateHandler::cleanupAndExit()
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
   if ( m_doc->activeView() ) {
-    if ( m_finalCursorPosition ) {
-      // jump to user defined end position
-      m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
-    } else if ( m_wholeTemplateRange ) {
-      // jump to the end of our template
-      m_doc->activeView()->setCursorPosition(m_wholeTemplateRange->end());
-    }
+    m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
   }
 }
 
@@ -184,6 +178,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
     } else if ( keyEvent->key() == Qt::Key_Escape ) {
       if ( !m_doc->activeView() || !m_doc->activeView()->selection() ) {
         // terminate
+        jumpToFinalCursorPosition();
         cleanupAndExit();
         return true;
       }
@@ -406,6 +401,8 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
 
   if ( finalCursorPosition.isValid() ) {
     m_finalCursorPosition = m_doc->newSmartCursor(finalCursorPosition);
+  } else {
+    m_finalCursorPosition = m_doc->newSmartCursor(Cursor(line, column));
   }
 
   if ( ranges.isEmpty() ) {
@@ -511,6 +508,11 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
 {
   if ( m_wholeTemplateRange->isEmpty() ) {
     kDebug() << "template range got deleted, exiting";
+    cleanupAndExit();
+    return;
+  }
+  if ( range.start() <= *m_finalCursorPosition && range.end() >= *m_finalCursorPosition ) {
+    kDebug() << "editing at final cursor position, exiting.";
     cleanupAndExit();
     return;
   }

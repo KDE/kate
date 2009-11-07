@@ -158,6 +158,12 @@ class KateTemplateHandler: public QObject
      */
     void cleanupAndExit();
 
+    /**
+     * Jumps to the final cursor position. This is either \p m_finalCursorPosition, or
+     * if that is not set, the end of \p m_templateRange.
+     */
+    void jumpToFinalCursorPosition();
+
   private Q_SLOTS:
     /**
      * Install event filter on new views.
@@ -193,11 +199,13 @@ class KateTemplateHandler: public QObject
     /// A range that occupies the whole range of the inserted template.
     /// When the cursor moves outside it, the template handler gets closed.
     KTextEditor::SmartRange* m_wholeTemplateRange;
-    /// the last caret position
+    /// Position of the (last) occurrence of ${cursor} in the template string.
+    KTextEditor::SmartCursor* m_finalCursorPosition;
+    /// The last caret position during editing.
     KTextEditor::Cursor m_lastCaretPosition;
-    /// set to true when we are currently mirroring, to prevent recursion
+    /// Set to true when we are currently mirroring, to prevent recursion.
     bool m_isMirroring;
-    /// whether undo tracking is enabled in the undo manager
+    /// Whether undo tracking is enabled in the undo manager.
     bool m_editWithUndo;
 };
 

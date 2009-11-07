@@ -52,7 +52,8 @@ void dumpRange(SmartRange* range, int depth = 0) {
 KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& position,
                                           const QString &templateString, const QMap<QString, QString> &initialValues )
     : QObject(doc)
-    , m_doc(doc), m_wholeTemplateRange(0), m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false)
+    , m_doc(doc), m_wholeTemplateRange(0), m_finalCursorPosition(0)
+    , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false)
 {
   if ( !initialValues.isEmpty() ) {
     // only do complex stuff when required
@@ -77,6 +78,7 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 
     } else {
       // when no interesting ranges got added, we can terminate directly
+      jumpToFinalCursorPosition();
       cleanupAndExit();
     }
   } else {
@@ -111,7 +113,23 @@ void KateTemplateHandler::cleanupAndExit()
   if ( m_wholeTemplateRange ) {
     deleteSmartRange(m_wholeTemplateRange, m_doc);
   }
+  if ( m_finalCursorPosition ) {
+    delete m_finalCursorPosition;
+  }
   deleteLater();
+}
+
+void KateTemplateHandler::jumpToFinalCursorPosition()
+{
+  if ( m_doc->activeView() ) {
+    if ( m_finalCursorPosition ) {
+      // jump to user defined end position
+      m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
+    } else if ( m_wholeTemplateRange ) {
+      // jump to the end of our template
+      m_doc->activeView()->setCursorPosition(m_wholeTemplateRange->end());
+    }
+  }
 }
 
 void KateTemplateHandler::setEditWithUndo(const bool &enabled)
@@ -147,12 +165,8 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
   if ( event->type() == QEvent::ShortcutOverride ) {
     QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
     if ( keyEvent->key() == Qt::Key_Return && keyEvent->modifiers() & Qt::AltModifier ) {
-      // jump to the end of our template
-      if ( m_doc->activeView() ) {
-        // TODO: jump to %{cursor} if available
-        m_doc->activeView()->setCursorPosition(m_templateRanges.last()->end());
-      }
       // terminate
+      jumpToFinalCursorPosition();
       cleanupAndExit();
       return true;
     } else if ( keyEvent->key() == Qt::Key_Escape ) {
@@ -281,6 +295,9 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   QQueue<QString> keyQueue;
   QMultiMap<QString, Range> ranges;
 
+  // valid, if we find an occurrence of ${cursor}
+  Cursor finalCursorPosition = Cursor::invalid();
+
   // parse string for ${VAR} or %{VAR}
   // VAR must not contain $ or %
   // VAR must not contain newlines
@@ -319,10 +336,17 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
       const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
       if ( !initialValues.contains(key) ) {
         kWarning() << "unknown variable key:" << key;
+      } else if ( key == "cursor" ) {
+        finalCursorPosition = Cursor(line, column - key.length() - 1);
+        // don't insert anything, just remove the placeholder
+        templateString.remove(startPos, i - startPos + 1);
+        // correct iterator pos, 3 == $ + { + } or % + { + }
+        i -= 3 + key.length();
+        startPos = -1;
       } else {
         // replace variable with initial value
         templateString.replace( startPos, i - startPos + 1, initialValues[key] );
-        // correct iterator pos
+        // correct iterator pos, 3 == % + { + } or $ + { + }
         int offset = 3 + key.length() - initialValues[key].length();
         i -= offset;
         // always add ${...} to the editable ranges
@@ -344,8 +368,24 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   // need to insert here, so that the following smart range can get their ranges set properly.
   insertText(position, templateString);
 
-  m_wholeTemplateRange = m_doc->newSmartRange( Range(position, Cursor(line, column)),
-                                               0,  SmartRange::ExpandLeft | SmartRange::ExpandRight );
+  if ( m_doc->activeKateView() ) {
+    ///HACK: make sure the view cache is up2date so we can safely set the cursor position
+    ///      else one might hit the Q_ASSERT(false) in KateViewInternal::endPos()
+    ///      the cause is that the view get's ::update()'d, but that does not trigger a
+    ///      paint event right away.
+    m_doc->activeKateView()->updateView(true);
+  }
+
+  if ( finalCursorPosition.isValid() ) {
+    m_finalCursorPosition = m_doc->newSmartCursor(finalCursorPosition);
+  }
+
+  if ( ranges.isEmpty() ) {
+    return;
+  }
+
+  m_wholeTemplateRange = m_doc->newSmartRange( Range(position, Cursor(line, column)), 0,
+                                               SmartRange::ExpandLeft | SmartRange::ExpandRight );
   m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor()));
   m_doc->addHighlightToDocument(m_wholeTemplateRange, true);
 

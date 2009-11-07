@@ -348,6 +348,7 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
         startPos = i;
         // skip {
         ++i;
+        column += 2;
       }
     } else if ( templateString[i] == '}' && startPos != -1 ) {
       // get key, i.e. contents between ${..}
@@ -355,25 +356,34 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
       if ( !initialValues.contains(key) ) {
         kWarning() << "unknown variable key:" << key;
       } else if ( key == "cursor" ) {
-        finalCursorPosition = Cursor(line, column - key.length() - 1);
+        finalCursorPosition = Cursor(line, column - key.length() - 2);
         // don't insert anything, just remove the placeholder
         templateString.remove(startPos, i - startPos + 1);
-        // correct iterator pos, 3 == $ + { + } or % + { + }
+        // correct iterator pos, 3 == $ + { + }
         i -= 3 + key.length();
+        column -= 2 + key.length();
         startPos = -1;
       } else {
+        // whether the variable starts with % or $
+        QChar c = templateString[startPos];
         // replace variable with initial value
         templateString.replace( startPos, i - startPos + 1, initialValues[key] );
-        // correct iterator pos, 3 == % + { + } or $ + { + }
-        int offset = 3 + key.length() - initialValues[key].length();
-        i -= offset;
+        // correct iterator pos, 3 == % + { + }
+        i -= 3 + key.length() - initialValues[key].length();
+        // correct column to point at end of range, taking replacement width diff into account
+        // 2 == % + {
+        column -= 2 + key.length() - initialValues[key].length();
         // always add ${...} to the editable ranges
         // only add %{...} to the editable ranges when it's value equals the key
-        if ( templateString[startPos] == '$' || key == initialValues[key] ) {
+        if ( c == '$' || key == initialValues[key] ) {
           if ( !keyQueue.contains(key) ) {
             keyQueue.append(key);
           }
-          ranges.insert( key, Range(line, column - initialValues[key].length(), line, column) );
+          ranges.insert( key,
+                         Range( line, column - initialValues[key].length(),
+                                line, column
+                              )
+                        );
         }
       }
       startPos = -1;

@@ -2393,10 +2393,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       m_view->completionWidget()->tab();
       return;
     }
-    if (doc()->invokeTemplateHandler(key)) {
-      e->accept();
-      return;
-    }
 
     if( key == Qt::Key_Tab )
     {

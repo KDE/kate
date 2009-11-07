@@ -917,18 +917,6 @@ void KateView::setupEditActions()
     a->setShortcuts(scuts);
     connect(a, SIGNAL(triggered(bool)), SLOT(smartNewline()));
     m_editActions << a;
-
-
-#if 0
-#ifdef __GNUC__
-#warning REMOVE THIS IN THE RELEASE
-#endif
-
-//     a = ac->addAction("debug_template_code");
-//     a->setText(i18n("Debug TemplateCode"));
-//     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
-//     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
-#endif
   }
 
   if( hasFocus() )

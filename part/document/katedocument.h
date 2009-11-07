@@ -1035,17 +1035,17 @@ class KateDocument : public KTextEditor::Document,
 
   // TemplateInterface
   public:
-      bool invokeTemplateHandler(int key);
-      virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *); //PORT ME
-
-  private Q_SLOTS:
-    void templateHandlerDestroyed();
-
-  protected:
-      KateTemplateHandler *m_templateHandler;
+    /**
+     * Starts a KateTemplateHandler for the given template. Multiple handlers may
+     * run at the same time, while only the last one created for this document
+     * will be active.
+     *
+     * \see KTextEditor::TemplateInterface::insertTemplateTextImplementation(), KateTemplateHandler
+     */
+    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString,
+                                                    const QMap<QString,QString> &initialValues, QWidget *);
 
   protected Q_SLOTS:
-      void testTemplateCode();
       void dumpRegionTree();
 
   private slots:

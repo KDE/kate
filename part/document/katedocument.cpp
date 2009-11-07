@@ -173,7 +173,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
   s_fileChangedDialogsActivated (false),
-  m_templateHandler(0),
   m_savingToUrl(false),
   m_onTheFlyChecker(NULL),
   m_dictionaryRangeNotifier(NULL)
@@ -4728,32 +4727,18 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 //END KTextEditor::ConfigInterface
 
 //BEGIN KTextEditor::TemplateInterface
-bool KateDocument::insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *) {
-  if (m_templateHandler != 0)
-    return false;
+bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c, const QString &templateString,
+                                                     const QMap<QString,QString> &initialValues, QWidget * )
+{
+  // the handler will delete itself when neccessary
+  KateTemplateHandler* handler = new KateTemplateHandler(this, c, templateString, initialValues);
 
-  m_templateHandler = new KateTemplateHandler(this,c,templateString,initialValues);
-  m_templateHandler->setEditWithUndo(m_undoManager->isUndoTrackingEnabled());
+  handler->setEditWithUndo(m_undoManager->isUndoTrackingEnabled());
 
-  connect(m_undoManager, SIGNAL(undoTrackingEnabledChanged(bool)), m_templateHandler, SLOT(setEditWithUndo(bool)));
-  connect(m_templateHandler, SIGNAL(destroyed(QObject *)), this, SLOT(templateHandlerDestroyed()));
+  connect(m_undoManager, SIGNAL(undoTrackingEnabledChanged(bool)),
+          handler, SLOT(setEditWithUndo(bool)));
 
-  return m_templateHandler->initOk();
-}
-
-void KateDocument::testTemplateCode() {
-  //qobject_cast<KTextEditor::TemplateInterface*>(activeView())->insertTemplateText(activeView()->cursorPosition(),"for ${index} \\${NOPLACEHOLDER} ${index} ${blah} ${fullname} \\$${Placeholder} \\${${PLACEHOLDER2}}\n next line:${ANOTHERPLACEHOLDER} $${DOLLARBEFOREPLACEHOLDER} {NOTHING} {\n${cursor}\n}",QMap<QString,QString>());
-  qobject_cast<KTextEditor::TemplateInterface*>(activeView())->insertTemplateText(activeView()->cursorPosition(),"for ${index} \\${NOPLACEHOLDER} ${index} ${blah} \\$${Placeholder} \\${${PLACEHOLDER2}}\n next line:${ANOTHERPLACEHOLDER} $${DOLLARBEFOREPLACEHOLDER} {NOTHING} {\n${cursor}\n}",QMap<QString,QString>());
-}
-
-
-bool KateDocument::invokeTemplateHandler(int key) {
-  if (m_templateHandler) return (*m_templateHandler)(key);
-  return false;
-}
-
-void KateDocument::templateHandlerDestroyed() {
-  m_templateHandler=0;
+  return true;
 }
 
 KateView * KateDocument::activeKateView( ) const

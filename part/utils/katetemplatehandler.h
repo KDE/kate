@@ -160,12 +160,6 @@ class KateTemplateHandler: public QObject
      */
     void jumpToFinalCursorPosition();
 
-    /**
-     * By default, all ranges have ExpandLeft | ExpandRight insert behavior set.
-     * For adjacent ranges this leads to unexpected behavior, hence fix it.
-     */
-    void fixAdjacentInsertBehavior();
-
   private Q_SLOTS:
     /**
      * Install event filter on new views.

@@ -192,6 +192,8 @@ class KateTemplateHandler: public QObject
     /// Mirrored variables will have a parent range and the real ranges will be the children.
     /// Each direct child of the list is added as a Highlighting Range with dynamic attribs.
     ///
+    /// Ordered by first occurrence in the document.
+    ///
     /// NOTE: this design is due to some Kate limiations with overlapping ranges.
     ///       and using a structure like Parent -> NotMirrored + MirrorParents -> Mirrors
     ///       leads to overlaps, since mirrors often occur anywhere in the template text.
@@ -207,6 +209,8 @@ class KateTemplateHandler: public QObject
     bool m_isMirroring;
     /// Whether undo tracking is enabled in the undo manager.
     bool m_editWithUndo;
+    /// Whether we are currently setting the cursor manually.
+    bool m_jumping;
 };
 
 #endif

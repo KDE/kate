@@ -462,12 +462,12 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     cleanupAndExit();
     return;
   }
-  if ( range.start() <= *m_finalCursorPosition && range.end() >= *m_finalCursorPosition ) {
+  if ( range.start() == *m_finalCursorPosition ) {
     ifDebug(kDebug() << "editing at final cursor position, exiting.";)
     cleanupAndExit();
     return;
   }
-  if ( !m_wholeTemplateRange->contains(range) ) {
+  if ( !m_wholeTemplateRange->contains(range.start()) ) {
     // outside our template or one of our own changes
     ifDebug(kDebug() << range << "not contained in" << *m_wholeTemplateRange;)
     return;
@@ -519,6 +519,10 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
           if ( baseRange && baseRange->end() != range.end() ) {
             // finish, don't look for adjacent mirror as we are not at the end of this range
             break;
+          } else if ( baseRange && (baseRange->isEmpty() || range == *baseRange) ) {
+            // always add to empty ranges first. else ${foo}${bar} will make foo unusable when
+            // it gets selected and an edit takes place.
+            break;
           } // else don't finish, look for baseRange or adjacent mirror first
         }
       }
@@ -553,12 +557,12 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
   m_isMirroring = true;
   m_doc->editStart();
 
-  const QStringList &newText = m_doc->textLines(*range);
+  const QString &newText = m_doc->text(*range);
   ifDebug(kDebug() << "mirroring" << newText << "from" << *range;)
 
   foreach ( SmartRange* sibling, range->parentRange()->childRanges() ) {
     if ( sibling != range ) {
-      sibling->replaceText(newText);
+      m_doc->replaceText(*sibling, newText);
     }
   }
 

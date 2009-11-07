@@ -168,7 +168,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
   // prevent indenting by eating the keypress event for TAB
   if ( event->type() == QEvent::KeyPress ) {
     QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-    if ( keyEvent->key() == Qt::Key_Tab ) {
+    if ( keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Backtab ) {
       if ( !m_doc->activeKateView()->isCompletionActive() ) {
         return true;
       }
@@ -194,6 +194,9 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
       } else {
         jumpToNextRange();
       }
+      return true;
+    } else if ( keyEvent->key() == Qt::Key_Backtab ) {
+      jumpToPreviousRange();
       return true;
     }
   }
@@ -250,8 +253,9 @@ void KateTemplateHandler::setCurrentRange(SmartRange* range)
 
   if ( m_doc->activeView() ) {
     m_jumping = true;
-    //TODO: only select when range has not been changed yet
-    m_doc->activeView()->setSelection(*range);
+    if ( m_uneditedRanges.contains(range) ) {
+      m_doc->activeView()->setSelection(*range);
+    }
     m_doc->activeView()->setCursorPosition(range->start());
     m_jumping = false;
   }
@@ -420,6 +424,7 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
         // the last item will be our real first range (see multimap docs)
         if ( i == values.size() - 1 ) {
           range->setAttribute(editableAttribute);
+          m_uneditedRanges.append(range);
         } else {
           range->setAttribute(mirroredAttribute);
         }
@@ -427,6 +432,7 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
     } else {
       // just a single range
       parent->setAttribute(editableAttribute);
+      m_uneditedRanges.append(parent);
     }
 
     m_doc->addHighlightToDocument(parent, true);
@@ -499,7 +505,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     cleanupAndExit();
     return;
   }
-  if ( m_doc->isEditRunning() && !m_editWithUndo ) {
+  if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
     kDebug(13020) << "slotTextChanged returning prematurely";
     return;
   }
@@ -526,35 +532,40 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   SmartRange* leftAdjacentRange = 0;
 
   foreach ( SmartRange* parent, m_templateRanges ) {
-    if ( !parent->childRanges().isEmpty() &&
-          parent->start() <= range.start() && parent->end() >= range.start() )
+    if ( parent->start() <= range.start() && parent->end() >= range.start() )
     {
-      if ( baseRange ) {
-        // look for adjacent range (we find the right-handed one here)
-        kDebug() << "find adjacent mirror";
-        foreach ( SmartRange* child, parent->childRanges() ) {
-          kDebug() << "current baserange:" << *baseRange << "vs" << *child;
-          if ( child->start() == range.start() && child->end() >= range.end() ) {
-            kDebug() << "found adjacent";
-            leftAdjacentRange = baseRange;
-            baseRange = child;
-            break;
-          }
-        }
-        // adjacent mirror handled, we can finish
-        break;
+      if ( parent->childRanges().isEmpty() ) {
+        // simple, not-mirrored range got changed
+        m_uneditedRanges.removeOne(parent);
       } else {
-        // find mirrored range
-        foreach ( SmartRange* child, parent->childRanges() ) {
-          if ( child->start() <= range.start() && child->end() >= range.start() ) {
-            baseRange = child;
-            break;
+        // handle mirrored ranges
+        if ( baseRange ) {
+          // look for adjacent range (we find the right-handed one here)
+          kDebug() << "find adjacent mirror";
+          foreach ( SmartRange* child, parent->childRanges() ) {
+            kDebug() << "current baserange:" << *baseRange << "vs" << *child;
+            if ( child->start() == range.start() && child->end() >= range.end() ) {
+              kDebug() << "found adjacent";
+              leftAdjacentRange = baseRange;
+              baseRange = child;
+              break;
+            }
           }
-        }
-        if ( baseRange && baseRange->end() != range.end() ) {
-          // finish, don't look for adjacent mirror as we are not at the end of this range
+          // adjacent mirror handled, we can finish
           break;
-        } // else don't finish, look for baseRange or adjacent mirror first
+        } else {
+          // find mirrored range that got edited
+          foreach ( SmartRange* child, parent->childRanges() ) {
+            if ( child->start() <= range.start() && child->end() >= range.start() ) {
+              baseRange = child;
+              break;
+            }
+          }
+          if ( baseRange && baseRange->end() != range.end() ) {
+            // finish, don't look for adjacent mirror as we are not at the end of this range
+            break;
+          } // else don't finish, look for baseRange or adjacent mirror first
+        }
       }
     } else if ( baseRange ) {
       // no adjacent mirrored range found, we can finish
@@ -562,6 +573,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     }
   }
   if ( baseRange ) {
+    m_uneditedRanges.removeOne(baseRange);
     if ( leftAdjacentRange ) {
       // revert that something got added to the adjacent range
       kDebug() << "removing edited range" << range << "from left adjacent range" << *leftAdjacentRange;

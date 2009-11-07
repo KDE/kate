@@ -205,6 +205,10 @@ class KateTemplateHandler: public QObject
     KTextEditor::SmartCursor* m_finalCursorPosition;
     /// The last caret position during editing.
     KTextEditor::Cursor m_lastCaretPosition;
+    /// SmartRanges that are still in this list have not yet been changed. Hence they'll
+    /// be selected when they get focused. All others just get the cursor placed at the
+    /// beginning.
+    QList<KTextEditor::SmartRange*> m_uneditedRanges;
     /// Set to true when we are currently mirroring, to prevent recursion.
     bool m_isMirroring;
     /// Whether undo tracking is enabled in the undo manager.

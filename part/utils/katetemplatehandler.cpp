@@ -122,7 +122,7 @@ void KateTemplateHandler::cleanupAndExit()
   if ( m_finalCursorPosition ) {
     delete m_finalCursorPosition;
   }
-  deleteLater();
+  delete this;
 }
 
 void KateTemplateHandler::jumpToFinalCursorPosition()
@@ -453,6 +453,18 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)
 {
+  Q_ASSERT(document == m_doc);
+
+  kDebug() << "text changed" << document << range;
+
+  if ( m_isMirroring ) {
+    kDebug() << "mirroring - ignoring edit";
+    return;
+  }
+  if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
+    kDebug(13020) << "slotTextChanged returning prematurely";
+    return;
+  }
   if ( m_wholeTemplateRange->isEmpty() ) {
     kDebug() << "template range got deleted, exiting";
     cleanupAndExit();
@@ -463,19 +475,13 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     cleanupAndExit();
     return;
   }
-  if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
-    kDebug(13020) << "slotTextChanged returning prematurely";
-    return;
-  }
-  Q_ASSERT(document == m_doc);
-
-  if ( !m_wholeTemplateRange->contains(range) || m_isMirroring ) {
+  if ( !m_wholeTemplateRange->contains(range) ) {
     // outside our template or one of our own changes
-    kDebug() << range << "not contained in" << *m_wholeTemplateRange << "or mirroring:" << m_isMirroring;
+    kDebug() << range << "not contained in" << *m_wholeTemplateRange;
     return;
   }
 
-  kDebug() << "see if we have to mirror the edit in" << range;
+  kDebug() << "see if we have to mirror the edit";
 
   // Check if @p range is mirrored.
   // If we have two adjacent mirrored ranges, think ${first}${second},

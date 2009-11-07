@@ -127,7 +127,7 @@ void KateTemplateHandler::cleanupAndExit()
 
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
-  if ( m_doc->activeView() ) {
+  if ( m_doc->activeView() && m_wholeTemplateRange->contains(m_doc->activeView()->cursorPosition()) ) {
     m_doc->activeView()->setSelection(Range::invalid());
     m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
   }
@@ -207,7 +207,6 @@ void KateTemplateHandler::jumpToPreviousRange()
       previousRange = range;
     }
   }
-  kDebug() << previousRange << *previousRange;
   if ( previousRange ) {
     setCurrentRange(previousRange);
   } else {

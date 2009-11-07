@@ -18,7 +18,6 @@
 */
 
 #include "katetemplatehandler.h"
-#include "katetemplatehandler.moc"
 #include "katedocument.h"
 #include "katesmartcursor.h"
 #include "kateview.h"
@@ -55,6 +54,7 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
     , m_doc(doc), m_wholeTemplateRange(0), m_finalCursorPosition(0)
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
 {
+  kDebug() << templateString << initialValues;
   if ( !initialValues.isEmpty() ) {
     // only do complex stuff when required
 
@@ -75,7 +75,6 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
       connect(m_doc, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
-
     } else {
       // when no interesting ranges got added, we can terminate directly
       jumpToFinalCursorPosition();
@@ -617,5 +616,7 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
   m_doc->setUndoDontMerge(undoDontMerge);
   m_isMirroring = false;
 }
+
+#include "katetemplatehandler.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

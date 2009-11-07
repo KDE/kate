@@ -10,9 +10,6 @@
     <height>179</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>

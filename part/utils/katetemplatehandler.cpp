@@ -469,7 +469,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     cleanupAndExit();
     return;
   }
-  if ( range.start() == *m_finalCursorPosition ) {
+  if ( range.end() == *m_finalCursorPosition ) {
     ifDebug(kDebug() << "editing at final cursor position, exiting.";)
     cleanupAndExit();
     return;

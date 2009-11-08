@@ -1736,7 +1736,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
                    || m_view->selectionRange().boundaryAtCursor(m_cursor))) )
     {
       m_selectAnchor = m_cursor;
-      m_view->setSelection( KTextEditor::Range(m_cursor, newCursor) );
+      setSelection( KTextEditor::Range(m_cursor, newCursor) );
     }
     else
     {
@@ -1839,9 +1839,9 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
       }
 
       if ( doSelect )
-        m_view->setSelection( KTextEditor::Range(m_selectAnchor, newCursor) );
+        setSelection( KTextEditor::Range(m_selectAnchor, newCursor) );
       else if ( m_selectionCached.isValid() ) // we have a cached selection, so we restore that
-        m_view->setSelection( m_selectionCached );
+        setSelection( m_selectionCached );
     }
 
     m_selChangedByUser = true;
@@ -1852,6 +1852,13 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
 
     m_selectionCached = KTextEditor::Range::invalid();
   }
+}
+
+void KateViewInternal::setSelection( const KTextEditor::Range &range )
+{
+  disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(viewSelectionChanged()));
+  m_view->setSelection(range);
+  connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(viewSelectionChanged()));
 }
 
 void KateViewInternal::moveCursorToSelectionEdge()
@@ -2607,7 +2614,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
               else
                 m_selectAnchor = m_selectionCached.start();
             }
-            m_view->setSelection( KTextEditor::Range( m_selectAnchor, m_cursor ) );
+            setSelection( KTextEditor::Range( m_selectAnchor, m_cursor ) );
           }
           else
           {
@@ -3244,7 +3251,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     KTextEditor::Cursor endCursor(endCursor1);
     kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
-    m_view->setSelection(KTextEditor::Range(startCursor,endCursor));
+    setSelection(KTextEditor::Range(startCursor,endCursor));
     editSetCursor(endCursor);
 
     doc()->editEnd ();
@@ -3395,8 +3402,6 @@ void KateViewInternal::editSetCursor (const KTextEditor::Cursor &_cursor)
 
 void KateViewInternal::viewSelectionChanged ()
 {
-  if (!m_view->selection())
-  {
     m_selectAnchor = KTextEditor::Cursor::invalid();
     // Do NOT nuke the entire range! The reason is that a shift+DC selection
     // might (correctly) set the range to be empty (i.e. start() == end()), and
@@ -3405,7 +3410,6 @@ void KateViewInternal::viewSelectionChanged ()
     // updateSelection is not confused. See also comments in updateSelection.
     m_selectionCached.start() = KTextEditor::Cursor::invalid();
 //     updateView(true);
-  }
 }
 
 KateLayoutCache* KateViewInternal::cache( ) const

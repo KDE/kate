@@ -24,6 +24,7 @@
 #include "katesmartrange.h"
 #include "katecursor.h"
 #include "kateconfig.h"
+#include "katecompletionwidget.h"
 
 KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
     KateView * view, KateViewInternal * viewInternal ) : KateViModeBase()
@@ -154,13 +155,22 @@ bool KateViInsertMode::commandMoveOneWordRight()
 
 bool KateViInsertMode::commandCompleteNext()
 {
-  m_view->userInvokedCompletion();
+  if(m_view->completionWidget()->isCompletionActive()) {
+    m_view->completionWidget()->cursorDown();
+  } else {
+    m_view->userInvokedCompletion();
+  }
   return true;
 }
 
 bool KateViInsertMode::commandCompletePrevious()
 {
-  m_view->userInvokedCompletion();
+  if(m_view->completionWidget()->isCompletionActive()) {
+    m_view->completionWidget()->cursorUp();
+  } else {
+    m_view->userInvokedCompletion();
+    m_view->completionWidget()->bottom();
+  }
   return true;
 }
 

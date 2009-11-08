@@ -175,14 +175,14 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
         cleanupAndExit();
         return true;
       }
-    } else if ( keyEvent->key() == Qt::Key_Tab ) {
+    } else if ( keyEvent->key() == Qt::Key_Tab && !m_doc->activeKateView()->isCompletionActive() ) {
       if ( keyEvent->modifiers() & Qt::Key_Shift ) {
         jumpToPreviousRange();
       } else {
         jumpToNextRange();
       }
       return true;
-    } else if ( keyEvent->key() == Qt::Key_Backtab ) {
+    } else if ( keyEvent->key() == Qt::Key_Backtab && !m_doc->activeKateView()->isCompletionActive() ) {
       jumpToPreviousRange();
       return true;
     }

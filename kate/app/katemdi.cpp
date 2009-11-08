@@ -123,6 +123,7 @@ namespace KateMDI
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
     actionCollection()->addAction( "kate_mdi_sidebar_visibility", m_showSidebarsAction );
     m_showSidebarsAction->setShortcut(  Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F );
+    
     m_showSidebarsAction->setChecked( m_mw->sidebarsVisible() );
     connect( m_showSidebarsAction, SIGNAL( toggled( bool ) ),
              m_mw, SLOT( setSidebarsVisible( bool ) ) );
@@ -757,6 +758,7 @@ namespace KateMDI
 
   void MainWindow::setSidebarsVisible( bool visible )
   {
+    bool old_visible=m_sidebarsVisible;
     m_sidebarsVisible = visible;
 
     m_sidebars[0]->setVisible(visible);
@@ -767,7 +769,7 @@ namespace KateMDI
     m_guiClient->updateSidebarsVisibleAction();
 
     // show information message box, if the users hides the sidebars
-    if( !m_sidebarsVisible )
+    if( old_visible && (!m_sidebarsVisible) )
     {
       KMessageBox::information( this,
                                 i18n("<qt>You are about to hide the sidebars. With "

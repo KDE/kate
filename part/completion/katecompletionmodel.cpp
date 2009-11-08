@@ -1703,6 +1703,15 @@ bool KateCompletionModel::Item::filter( )
   return matchFilters;
 }
 
+uint KateCompletionModel::filteredItemCount() const
+{
+  uint ret = 0;
+  foreach(Group* group, m_rowTable)
+    ret += group->filtered.size();
+  
+  return ret;
+}
+
 bool KateCompletionModel::shouldMatchHideCompletionList() const {
 //   return m_haveExactMatch;
   ///@todo Make this faster

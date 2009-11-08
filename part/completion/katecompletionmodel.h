@@ -172,6 +172,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     ///Returns whether one of the filtered items exactly matches its completion string
     bool shouldMatchHideCompletionList() const;
     
+    uint filteredItemCount() const;
+    
   protected:
     virtual int contextMatchQuality(const QModelIndex & index) const;
 

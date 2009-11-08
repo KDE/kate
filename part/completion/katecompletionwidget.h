@@ -72,7 +72,7 @@ class KateCompletionWidget : public QFrame
     void cursorDown();
     void cursorUp();
     
-    void tab();
+    void tab(bool shift);
     
     ///Returns whether the current item was expanded/unexpanded
     bool toggleExpanded(bool forceExpand = false, bool forceUnExpand = false);

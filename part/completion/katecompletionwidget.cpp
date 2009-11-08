@@ -1258,12 +1258,27 @@ void KateCompletionWidget::userInvokedCompletion()
   startCompletion(KTextEditor::CodeCompletionModel::UserInvocation);
 }
 
-void KateCompletionWidget::tab()
+void KateCompletionWidget::tab(bool shift)
 {
   m_noAutoHide = true;
-  QString prefix = m_presentationModel->commonPrefix(m_inCompletionList ? m_entryList->currentIndex() : QModelIndex());
-  if(!prefix.isEmpty()) {
-    view()->insertText(prefix);
+  if(!shift) {
+    QString prefix = m_presentationModel->commonPrefix(m_inCompletionList ? m_entryList->currentIndex() : QModelIndex());
+    if(!prefix.isEmpty()) {
+      view()->insertText(prefix);
+    }
+  }else{
+    uint itemCount = m_presentationModel->filteredItemCount();
+    while(view()->cursorPosition().column() > 0 && m_presentationModel->filteredItemCount() == itemCount) {
+      KTextEditor::Range lastcharRange = KTextEditor::Range(view()->cursorPosition()-KTextEditor::Cursor(0,1), view()->cursorPosition());
+      QString cursorText = view()->document()->text(lastcharRange);
+      if(!cursorText[0].isSpace())
+      {
+        view()->document()->removeText(lastcharRange);
+        QApplication::sendPostedEvents();
+      }else{
+        break;
+      }
+    }
   }
 }
 

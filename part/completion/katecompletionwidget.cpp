@@ -56,6 +56,9 @@
 
 const bool hideAutomaticCompletionOnExactMatch = true;
 
+//If this is true, the completion-list is navigated up/down when 'tab' is pressed, instead of doing partial completion
+const bool tabCompletionSwitchesListItem = false;
+
 KTextEditor::CodeCompletionModelControllerInterface* modelController(KTextEditor::CodeCompletionModel *model)
 {
   static KTextEditor::CodeCompletionModelControllerInterface defaultIf;
@@ -260,9 +263,9 @@ void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::Inv
 
 void KateCompletionWidget::deleteCompletionRanges()
 {
-foreach(CompletionRange r, m_completionRanges)
-      delete r.range;
-    m_completionRanges.clear();
+  foreach(CompletionRange r, m_completionRanges)
+    delete r.range;
+  m_completionRanges.clear();
 }
 
 void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
@@ -360,7 +363,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     //In manual invocation mode, bound the activity either the the point from where completion was invoked, or to the start of the range
     if(invocationType != KTextEditor::CodeCompletionModel::AutomaticInvocation)
       if(range.start() < m_completionRanges[model].leftBoundary)
-      m_completionRanges[model].leftBoundary = range.start();
+        m_completionRanges[model].leftBoundary = range.start();
     
     if(!m_completionRanges[model].range->isValid()) {
       kWarning(13035) << "Could not construct valid smart-range from" << range << "instead got" << *m_completionRanges[model].range;
@@ -462,11 +465,8 @@ bool KateCompletionWidget::updatePosition(bool force)
   QPoint p = view()->mapToGlobal( cursorPosition );
   int x = p.x() - m_entryList->columnTextViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 4 - (m_entryList->viewport()->pos().x());
   int y = p.y();
-  //We do not need to move the widget up, because updateHeight will resize the widget to fit the screen
-/*  if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->screenGeometry(this).bottom() )
-    y -= height();
-  else*/
-  y += view()->renderer()->config()->fontMetrics().height();
+
+  y += view()->renderer()->config()->fontMetrics().height() + 4;
 
   bool borderHit = false;
 
@@ -1260,6 +1260,15 @@ void KateCompletionWidget::userInvokedCompletion()
 
 void KateCompletionWidget::tab(bool shift)
 {
+  if(tabCompletionSwitchesListItem) {
+    if(shift)
+      cursorUp();
+    else
+      cursorDown();
+    return;
+  }
+  
+  
   m_noAutoHide = true;
   if(!shift) {
     QString prefix = m_presentationModel->commonPrefix(m_inCompletionList ? m_entryList->currentIndex() : QModelIndex());
@@ -1267,6 +1276,12 @@ void KateCompletionWidget::tab(bool shift)
       view()->insertText(prefix);
     }
   }else{
+    
+    //Reset left boundaries, so completion isn't stopped
+    typedef QMap<KTextEditor::CodeCompletionModel*, CompletionRange> CompletionRangeMap;
+    for(CompletionRangeMap::iterator it = m_completionRanges.begin(); it != m_completionRanges.end(); ++it)
+      (*it).leftBoundary = (*it).range->start();
+
     uint itemCount = m_presentationModel->filteredItemCount();
     while(view()->cursorPosition().column() > 0 && m_presentationModel->filteredItemCount() == itemCount) {
       KTextEditor::Range lastcharRange = KTextEditor::Range(view()->cursorPosition()-KTextEditor::Cursor(0,1), view()->cursorPosition());

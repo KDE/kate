@@ -68,7 +68,6 @@ class KateCompletionWidget : public QFrame
 
     //Executed when return is pressed while completion is active.
     void execute();
-        //Callbacks for keyboard-input, they return true when the event was handled, and should not be reached on.
     void cursorDown();
     void cursorUp();
     

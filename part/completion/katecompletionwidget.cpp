@@ -57,7 +57,7 @@
 const bool hideAutomaticCompletionOnExactMatch = true;
 
 //If this is true, the completion-list is navigated up/down when 'tab' is pressed, instead of doing partial completion
-const bool tabCompletionSwitchesListItem = false;
+const bool shellLikeTabCompletion = false;
 
 KTextEditor::CodeCompletionModelControllerInterface* modelController(KTextEditor::CodeCompletionModel *model)
 {
@@ -1260,29 +1260,29 @@ void KateCompletionWidget::userInvokedCompletion()
 
 void KateCompletionWidget::tab(bool shift)
 {
-  if(tabCompletionSwitchesListItem) {
-    if(shift)
-      cursorUp();
-    else
-      cursorDown();
-    return;
-  }
-  
-  
   m_noAutoHide = true;
   if(!shift) {
-    QString prefix = m_presentationModel->commonPrefix(m_inCompletionList ? m_entryList->currentIndex() : QModelIndex());
+    QString prefix = m_presentationModel->commonPrefix((m_inCompletionList && !shellLikeTabCompletion) ? m_entryList->currentIndex() : QModelIndex());
     if(!prefix.isEmpty()) {
       view()->insertText(prefix);
+    }else if(shellLikeTabCompletion) {
+      cursorDown();
+      return;
     }
   }else{
+    if(shellLikeTabCompletion) {
+      cursorUp();
+      return;
+    }
     
     //Reset left boundaries, so completion isn't stopped
     typedef QMap<KTextEditor::CodeCompletionModel*, CompletionRange> CompletionRangeMap;
     for(CompletionRangeMap::iterator it = m_completionRanges.begin(); it != m_completionRanges.end(); ++it)
       (*it).leftBoundary = (*it).range->start();
 
+    //Remove suffix until the completion-list filter is widened again
     uint itemCount = m_presentationModel->filteredItemCount();
+    
     while(view()->cursorPosition().column() > 0 && m_presentationModel->filteredItemCount() == itemCount) {
       KTextEditor::Range lastcharRange = KTextEditor::Range(view()->cursorPosition()-KTextEditor::Cursor(0,1), view()->cursorPosition());
       QString cursorText = view()->document()->text(lastcharRange);

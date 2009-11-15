@@ -187,7 +187,7 @@ class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
       SkipUrl           = 1 << 0,
       SkipMode          = 1 << 1,
       SkipHighlighting  = 1 << 2,
-      SkipEncoding      = 1 << 3,
+      SkipEncoding      = 1 << 3
     };
 
     /**

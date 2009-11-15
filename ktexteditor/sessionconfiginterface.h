@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2005 Dominik Haumann (dhdev@gmx.de) (documentation)
+   Copyright (C) 2009 Michel Ludwig (michel.ludwig@kdemail.net)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -119,9 +120,113 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
     class SessionConfigInterfacePrivate* const d;
 };
 
+
+/**
+ * \brief Parameterized session config interface extension for the Document.
+ *
+ * \ingroup kte_group_doc_extensions
+ *
+ * \section parameterizedsessionconfig_intro Introduction
+ *
+ * The ParameterizedSessionConfigInterface is an extension for Documents
+ * to add support for session-specific configuration settings with more fine-grained
+ * control over the settings that are manipulated.
+ * The readParameterizedSessionConfig() method is called whenever session-specific settings are to be
+ * read from the given KConfig* and the writeParameterizedSessionConfig() method whenever they are to
+ * be written, for example when a session changed or was closed.
+ *
+ * \note A \e session does not have anything to do with an X-session under Unix.
+ *       What is meant is rather a context, think of sessions in Kate or
+ *       projects in KDevelop for example.
+ *
+ * \note ParameterizedSessionConfigInterface is meant to be an extension of SessionConfigInterface.
+ *       Due to limitations with qobject_cast it is not possible in KDE4 to derive this interface
+ *       from SessionConfigInterface.
+ *
+ * \section parameterizedsessionconfig_support Adding Session Support
+ *
+ * To add support for sessions a KTextEditor implementation has to derive the
+ * Document class from ParameterizedSessionConfigInterface and reimplement the methods defined
+ * in this class.
+ *
+ * \section parameterizedsessionconfig_access Accessing the ParameterizedSessionConfigInterface
+ *
+ * The ParameterizedSessionConfigInterface is supposed to be an extension interface for a
+ * Document i.e. the Document inherits the
+ * interface \e provided that it implements the interface. Use qobject_cast to
+ * access the interface:
+ * \code
+ * // object is of type KTextEditor::Document*
+ * KTextEditor::ParameterizedSessionConfigInterface *iface =
+ *     qobject_cast<KTextEditor::ParameterizedSessionConfigInterface*>( object );
+ *
+ * if( iface ) {
+ *     // interface is supported
+ *     // do stuff
+ * }
+ * \endcode
+ *
+ * \see KTextEditor::Document
+ *
+ * \since 4.4
+ */
+class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
+{
+  public:
+    ParameterizedSessionConfigInterface();
+
+    /**
+     * Virtual destructor.
+     */
+    virtual ~ParameterizedSessionConfigInterface();
+
+  public:
+
+    enum SessionConfigParameter {
+      SkipNone          = 0,
+      SkipUrl           = 1 << 0,
+      SkipMode          = 1 << 1,
+      SkipHighlighting  = 1 << 2,
+      SkipEncoding      = 1 << 3,
+    };
+
+    /**
+     * Read session settings from the given \p config excluding the settings specified in
+     * \p parameters.
+     *
+     * That means for example
+     *  - a Document should reload the file, restore all marks etc...
+     *  - a View should scroll to the last position and restore the cursor
+     *    position etc...
+     *  - a Plugin should restore session specific settings
+     *  - If no file is being loaded, because an empty new document is going to be displayed or
+     *    'SkipUrl' is set, this function should emit ReadOnlyPart::completed
+     *
+     * \param config read the session settings from this KConfigGroup
+     * \param parameters settings that should not be read (i.e. a combination of flags from SessionConfigParameter)
+     * \see writeSessionConfig()
+     */
+    virtual void readParameterizedSessionConfig (const KConfigGroup& config,
+                                                 unsigned long parameters) = 0;
+
+    /**
+     * Write session settings to the \p config excluding the settings specified in
+     * \p parameters.
+     * See readSessionConfig() for more details.
+     *
+     * \param config write the session settings to this KConfigGroup
+     * \param parameters settings that should not be written (i.e. a combination of flags from SessionConfigParameter)
+     * \see readSessionConfig()
+     */
+    virtual void writeParameterizedSessionConfig (KConfigGroup& config,
+                                                  unsigned long parameters) = 0;
+};
+
+
 }
 
 Q_DECLARE_INTERFACE(KTextEditor::SessionConfigInterface, "org.kde.KTextEditor.SessionConfigInterface")
+Q_DECLARE_INTERFACE(KTextEditor::ParameterizedSessionConfigInterface, "org.kde.KTextEditor.ParameterizedSessionConfigInterface")
 
 #endif
 

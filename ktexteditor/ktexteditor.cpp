@@ -318,6 +318,12 @@ SessionConfigInterface::SessionConfigInterface()
 SessionConfigInterface::~SessionConfigInterface()
 {}
 
+ParameterizedSessionConfigInterface::ParameterizedSessionConfigInterface()
+{}
+
+ParameterizedSessionConfigInterface::~ParameterizedSessionConfigInterface()
+{}
+
 TemplateInterface::TemplateInterface()
   : d(0)
 {}

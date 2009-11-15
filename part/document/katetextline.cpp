@@ -124,6 +124,14 @@ int KateTextLine::lastChar() const
   return previousNonSpaceChar(m_text.length() - 1);
 }
 
+QString KateTextLine::leadingWhitespace() const
+{
+  if (firstChar() < 0)
+    return string(0, length());
+
+  return string(0, firstChar());
+}
+
 int KateTextLine::indentDepth (int tabWidth) const
 {
   int d = 0;

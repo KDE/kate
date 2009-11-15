@@ -208,13 +208,26 @@ void KateAutoIndent::keepIndent ( int line )
   if (line <= 0)
     return;
 
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line-1);
+  KateTextLine::Ptr prevTextLine = doc->plainKateTextLine(line-1);
+  KateTextLine::Ptr textLine     = doc->plainKateTextLine(line);
 
   // textline not found, cu
-  if (!textline)
+  if (!prevTextLine || !textLine)
     return;
 
-  doIndent (line, textline->indentDepth (tabWidth));
+  const QString previousWhitespace = prevTextLine->leadingWhitespace();
+
+  // remove leading whitespace, then insert the leading indentation
+  doc->editStart ();
+
+  if (!keepExtra)
+  {
+    const QString currentWhitespace = textLine->leadingWhitespace();
+    doc->editRemoveText (line, 0, currentWhitespace.length());
+  }
+
+  doc->editInsertText (line, 0, previousWhitespace);
+  doc->editEnd ();
 }
 
 void KateAutoIndent::reloadScript()

@@ -167,6 +167,8 @@ class KateTextLine : public KShared
     inline QString string(int column, int length) const
     { return m_text.mid(column, length); }
 
+    QString leadingWhitespace() const;
+
     /**
      * Returns the indentation depth with each tab expanded into \e tabWidth characters.
      */

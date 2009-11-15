@@ -784,28 +784,20 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
     }
     else
     {
-      for (int line = range.end().line(); line >= range.start().line(); --line)
-      {
-        if ((line > range.start().line()) && (line < range.end().line())) {
-          editRemoveLine(line);
+      int from = range.start().line();
+      int to = range.end().line();
 
-        } else if (line == range.end().line()) {
-         if ( range.end().line() <= lastLine() )
-            editRemoveText(line, 0, range.end().column());
+      if (to <= lastLine())
+        editRemoveText(to, 0, range.end().column());
 
-        } else {
-          if ( range.start().column() == 0 )
-            editRemoveLine(line);
-          else {
-            if ( (m_buffer->plainLine(line)->length() - range.start().column()) > 0 )
-              editRemoveText(line, range.start().column(), m_buffer->plainLine(line)->length() - range.start().column());
+      if (range.start().column() == 0)
+        --from;
 
-            editUnWrapLine(range.start().line());
-          }
-        }
-
-        if ( line == 0 )
-          break;
+      editRemoveLines(from+1, to-1);
+ 
+      if (range.start().column() > 0) {
+        editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
+        editUnWrapLine(from);
       }
     }
   } // if ( ! block )
@@ -1437,64 +1429,70 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
 
 bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 {
-  if (line < 0)
+  return editRemoveLines(line, line, editSource);
+}
+
+bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSource )
+{
+  if (to < from || from < 0 || to > lastLine())
     return false;
 
   if (!isReadWrite())
     return false;
 
-  if ( line > lastLine() )
-    return false;
+  editStart(editSource);
+  QStringList oldText;
 
-  if ( lines() == 1 )
-    return editRemoveText (0, 0, kateTextLine(0)->length());
+  if (lines() == 1)
+    return editRemoveText(0, 0, kateTextLine(0)->length());
 
-  KateLineInfo info;;
-  lineInfo (&info, line);
-  if (info.startsInVisibleBlock)
-    foldingTree()->toggleRegionVisibility(line);
+  for (int line = to; line >= from; line--) {
+    KateLineInfo info;
+    lineInfo(&info, line);
+    if (info.startsInVisibleBlock)
+      foldingTree()->toggleRegionVisibility(line);
 
-  editStart (editSource);
+    oldText << this->line(line);
+    m_undoManager->slotLineRemoved(line, this->line(line));
 
-  QString oldText = this->line(line);
-
-  m_undoManager->slotLineRemoved(line, this->line(line));
-
-  KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
-
-  if (line < lastLine()) {
-    rangeRemoved.end().setPosition(line + 1, 0);
-  } else if (line) {
-    KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
-    rangeRemoved.start().setPosition(line - 1, prevLine->length());
+    m_buffer->removeLine(line);
   }
 
-  m_buffer->removeLine(line);
+  QList<int> rmark;
+  QList<int> list;
+ 
+  foreach (KTextEditor::Mark* mark, m_marks) {
+    int line = mark->line;
+    if (line > to)
+      list << line;
+    else if (line >= from)
+      rmark << line;
+  }
 
-  KTextEditor::Mark* rmark = 0;
-  QList<KTextEditor::Mark*> list;
-  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+  foreach (int line, rmark)
+    delete m_marks.take(line);
+ 
+  foreach (int line, list)
   {
-    if ( (i.value()->line > line) )
-      list.append( i.value() );
-    else if ( (i.value()->line == line) )
-      rmark = i.value();
+    KTextEditor::Mark* mark = m_marks.take(line);
+    mark->line -= to - from + 1;
+    m_marks.insert(mark->line, mark);
   }
+ 
+  if (!list.isEmpty())
+    emit marksChanged(this);
 
-  if (rmark)
-    delete (m_marks.take (rmark->line));
+  KTextEditor::Range rangeRemoved(from, 0, to + 1, 0);
 
-  for( int i=0; i < list.size(); ++i )
-  {
-    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
-    mark->line--;
-    m_marks.insert( mark->line, mark );
+  if (to == lastLine()) {
+    rangeRemoved.end().setPosition(to, oldText.first().length());
+    if (from > 0) {
+      KateTextLine::Ptr prevLine = plainKateTextLine(from - 1);
+      rangeRemoved.start().setPosition(from - 1, prevLine->length());
+    }
   }
-
-  if( !list.isEmpty() )
-    emit marksChanged( this );
-
-  history()->doEdit( new KateEditInfo(m_editSources.top(), rangeRemoved, QStringList(QString(oldText)), KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()) );
+  
+  history()->doEdit(new KateEditInfo(m_editSources.top(), rangeRemoved, oldText, KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()));
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
 
   editEnd();

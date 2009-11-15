@@ -268,6 +268,8 @@ class KateDocument : public KTextEditor::Document,
      */
     bool editRemoveLine ( int line, Kate::EditSource editSource = Kate::NoEditSource );
 
+    bool editRemoveLines ( int from, int to, Kate::EditSource editSource = Kate::NoEditSource );
+
     /**
      * Remove a line
      * @param startLine line to begin wrapping

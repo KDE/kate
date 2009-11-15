@@ -70,6 +70,7 @@ class KateTemplateHandler;
 //
 class KateDocument : public KTextEditor::Document,
                      public KTextEditor::SessionConfigInterface,
+                     public KTextEditor::ParameterizedSessionConfigInterface,
                      public KTextEditor::SearchInterface,
                      public KTextEditor::MarkInterface,
                      public KTextEditor::VariableInterface,
@@ -81,6 +82,7 @@ class KateDocument : public KTextEditor::Document,
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
+  Q_INTERFACES(KTextEditor::ParameterizedSessionConfigInterface)
   Q_INTERFACES(KTextEditor::SearchInterface)
   Q_INTERFACES(KTextEditor::MarkInterface)
   Q_INTERFACES(KTextEditor::VariableInterface)
@@ -444,11 +446,13 @@ class KateDocument : public KTextEditor::Document,
     void bomSetByUser();
     
   //
-  // KTextEditor::ConfigInterface stuff
+  // KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff
   //
   public:
     void readSessionConfig (const KConfigGroup&);
     void writeSessionConfig (KConfigGroup&);
+    void readParameterizedSessionConfig (const KConfigGroup&, unsigned long configParameters);
+    void writeParameterizedSessionConfig (KConfigGroup&, unsigned long configParameters);
 
   //
   // KTextEditor::MarkInterface

@@ -1668,27 +1668,44 @@ void KateDocument::bomSetByUser()
 }
 //END
 
-//BEGIN KTextEditor::ConfigInterface stuff
+//BEGIN KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff
 void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 {
-  // restore the url
-  KUrl url (kconfig.readEntry("URL"));
+  readParameterizedSessionConfig(kconfig, SkipNone);
+}
 
-  // get the encoding
-  QString tmpenc=kconfig.readEntry("Encoding");
-  if (!tmpenc.isEmpty() && (tmpenc != encoding()))
-    setEncoding(tmpenc);
+void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
+                                                  unsigned long configParameters)
+{
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipEncoding)) {
+    // get the encoding
+    QString tmpenc=kconfig.readEntry("Encoding");
+    if (!tmpenc.isEmpty() && (tmpenc != encoding()))
+      setEncoding(tmpenc);
+  }
 
-  // open the file if url valid
-  if (!url.isEmpty() && url.isValid())
-    openUrl (url);
-  else completed(); //perhaps this should be emitted at the end of this function
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipUrl)) {
+    // restore the url
+    KUrl url (kconfig.readEntry("URL"));
 
-  // restore the filetype
-  updateFileType (kconfig.readEntry("Mode", "Normal"));
+    // open the file if url valid
+    if (!url.isEmpty() && url.isValid())
+      openUrl (url);
+    else completed(); //perhaps this should be emitted at the end of this function
+  }
+  else {
+    completed(); //perhaps this should be emitted at the end of this function
+  }
 
-  // restore the hl stuff
-  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipMode)) {
+    // restore the filetype
+    updateFileType (kconfig.readEntry("Mode", "Normal"));
+  }
+
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipHighlighting)) {
+    // restore the hl stuff
+    m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
+  }
 
   // read only mode
   // todo: what does m_bReadOnly mean?
@@ -1705,23 +1722,38 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 {
+  writeParameterizedSessionConfig(kconfig, SkipNone);
+}
+
+void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
+                                                   unsigned long configParameters)
+{
   if ( this->url().isLocalFile() ) {
     const QString path = this->url().toLocalFile();
     if ( KGlobal::dirs()->relativeLocation( "tmp", path ) != path ) {
       return; // inside tmp resource, do not save
     }
   }
-  // save url
-  kconfig.writeEntry("URL", this->url().prettyUrl() );
 
-  // save encoding
-  kconfig.writeEntry("Encoding",encoding());
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipUrl)) {
+    // save url
+    kconfig.writeEntry("URL", this->url().prettyUrl() );
+  }
 
-  // save file type
-  kconfig.writeEntry("Mode", m_fileType);
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipEncoding)) {
+    // save encoding
+    kconfig.writeEntry("Encoding",encoding());
+  }
 
-  // save hl
-  kconfig.writeEntry("Highlighting", highlight()->name());
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipMode)) {
+    // save file type
+    kconfig.writeEntry("Mode", m_fileType);
+  }
+
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipHighlighting)) {
+    // save hl
+    kconfig.writeEntry("Highlighting", highlight()->name());
+  }
 
   // read only mode
   kconfig.writeEntry("ReadWrite", isReadWrite());
@@ -1737,6 +1769,8 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 
   kconfig.writeEntry( "Bookmarks", marks );
 }
+
+//END KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff
 
 uint KateDocument::mark( int line )
 {

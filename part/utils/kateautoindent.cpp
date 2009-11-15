@@ -141,9 +141,7 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
   if (indentDepth < 0)
     indentDepth = 0;
 
-  int first_char = textline->firstChar();
-  if (first_char < 0)
-    first_char = textline->length();
+  const QString oldIndentation = textline->leadingWhitespace();
 
   // Preserve existing "tabs then spaces" alignment if and only if:
   //  - no alignment was passed to doIndent and
@@ -155,7 +153,6 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
   if (align == 0 && preserveAlignment)
   {
     // Count the number of consecutive spaces at the end of the existing indentation
-    QString oldIndentation = textline->string(0, first_char);
     int i = oldIndentation.size() - 1;
     while (i >= 0 && oldIndentation.at(i) == ' ')
       --i;
@@ -169,7 +166,7 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 
   // remove leading whitespace, then insert the leading indentation
   doc->editStart ();
-  doc->editRemoveText (line, 0, first_char);
+  doc->editRemoveText (line, 0, oldIndentation.length());
   doc->editInsertText (line, 0, indentString);
   doc->editEnd ();
 

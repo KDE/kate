@@ -98,7 +98,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
-  : QObject(_doc), doc(_doc), m_normal (false), m_script (0)
+  : QObject(_doc), doc(_doc), m_script (0)
 {
   // don't call updateConfig() here, document might is not ready for that....
 
@@ -266,7 +266,6 @@ void KateAutoIndent::setMode (const QString &name)
 
   // cleanup
   m_script = 0;
-  m_normal = false;
 
   // first, catch easy stuff... normal mode and none, easy...
   if ( name.isEmpty() || name == MODE_NONE )
@@ -277,7 +276,6 @@ void KateAutoIndent::setMode (const QString &name)
 
   if ( name == MODE_NORMAL )
   {
-    m_normal = true;
     m_mode = MODE_NORMAL;
     return;
   }
@@ -305,7 +303,6 @@ void KateAutoIndent::setMode (const QString &name)
   }
 
   // Fall back to normal
-  m_normal = true;
   m_mode = MODE_NORMAL;
 }
 
@@ -388,7 +385,7 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
 void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
   // normal mode
-  if (m_normal)
+  if (m_mode == MODE_NORMAL)
   {
     // only indent on new line, per default
     if (typedChar != '\n')

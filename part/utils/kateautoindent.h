@@ -219,7 +219,6 @@ class KateAutoIndent : public QObject
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
     QString m_mode;
-    bool m_normal;
     KateIndentScript *m_script;
 };
 

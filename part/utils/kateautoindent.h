@@ -30,6 +30,7 @@
 
 class KateDocument;
 class KateIndentScript;
+class KateHighlighting;
 
 /**
  * Provides Auto-Indent functionality for katepart.
@@ -144,10 +145,9 @@ class KateAutoIndent : public QObject
     void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
     /**
-     * Return true if the required style for the script is provided by the
-     * current highlighter.
+     * Return true if the required style for the script is provided by the highlighter.
      */
-    bool isStyleProvided(KateIndentScript *script);
+    static bool isStyleProvided(const KateIndentScript *script, const KateHighlighting *highlight);
 
   public:
     /**

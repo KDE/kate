@@ -32,7 +32,7 @@ KateIndentScript::KateIndentScript(const QString &url, const KateIndentScriptHea
 {
 }
 
-const KateIndentScriptHeader& KateIndentScript::header()
+const KateIndentScriptHeader& KateIndentScript::header() const
 {
   return m_header;
 }

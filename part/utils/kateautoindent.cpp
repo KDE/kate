@@ -252,10 +252,10 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
   doIndent (position.line(), newIndentInChars, align);
 }
 
-bool KateAutoIndent::isStyleProvided(KateIndentScript *script)
+bool KateAutoIndent::isStyleProvided(const KateIndentScript *script, const KateHighlighting *highlight)
 {
   QString requiredStyle = script->header().requiredStyle();
-  return (requiredStyle.isEmpty() || requiredStyle == doc->highlight()->style());
+  return (requiredStyle.isEmpty() || requiredStyle == highlight->style());
 }
 
 void KateAutoIndent::setMode (const QString &name)
@@ -286,7 +286,7 @@ void KateAutoIndent::setMode (const QString &name)
   KateIndentScript *script = KateGlobal::self()->scriptManager()->indentationScript(name);
   if ( script )
   {
-    if (isStyleProvided(script))
+    if (isStyleProvided(script, doc->highlight()))
     {
       m_script = script;
       m_mode = name;
@@ -313,7 +313,7 @@ void KateAutoIndent::checkRequiredStyle()
 {
   if (m_script)
   {
-    if (!isStyleProvided(m_script))
+    if (!isStyleProvided(m_script, doc->highlight()))
     {
       kDebug( 13060 ) << "mode" << m_mode << "requires a different highlight style";
       doc->config()->setIndentationMode(MODE_NORMAL);

@@ -103,7 +103,7 @@ class KateIndentScript : public KateScript
 
     const QString &triggerCharacters();
 
-    const KateIndentScriptHeader& header();
+    const KateIndentScriptHeader& header() const;
 
     /**
      * Returns a pair where the first value is the indent amount, and the second

@@ -97,7 +97,6 @@ unsigned int KateArgumentHintTree::rowHeight(const QModelIndex& index) const {
 }
 
 void KateArgumentHintTree::updateGeometry(QRect geom) {
-  setAnimated(false);
   //Avoid recursive calls of updateGeometry
   static bool updatingGeometry = false;
   if( updatingGeometry ) return;
@@ -110,8 +109,6 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
     updatingGeometry = false;
     return;
   }
-
-  setUpdatesEnabled(false);
 
   int bottom = geom.bottom();
   int totalWidth = resizeColumns();
@@ -136,17 +133,17 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
 //   if( totalWidth > geom.width() )
     geom.setWidth(totalWidth);
 
+  bool enableScrollBars = false;
+  
   //Resize and move so it fits the screen horizontally
   int maxWidth = (QApplication::desktop()->screenGeometry(m_parent->view()).width()*3)/4;
   if( geom.width() > maxWidth ) {
     geom.setWidth(maxWidth);
     geom.setHeight(geom.height() + horizontalScrollBar()->height() +2);
     geom.moveBottom(bottom);
-    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
-  }else{
-    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    enableScrollBars = true;
   }
-
+  
   if (geom.right() > QApplication::desktop()->screenGeometry(m_parent->view()).right())
     geom.moveRight( QApplication::desktop()->screenGeometry(m_parent->view()).right() );
 
@@ -161,15 +158,24 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
     geom.moveTo(geom.left(), QApplication::desktop()->screenGeometry(this).top());
     resized = true;
   }
-  
-/*  kDebug( 13035 ) << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom;*/
-  setGeometry(geom);
-  
-  if( resized && currentIndex().isValid() )
-    scrollTo(currentIndex());
+
+  if(geom != geometry())
+  {
+    setUpdatesEnabled(false);
+    setAnimated(false);
+    
+    setHorizontalScrollBarPolicy( enableScrollBars ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff );
+    
+  /*  kDebug( 13035 ) << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom;*/
+    setGeometry(geom);
+    
+    if( resized && currentIndex().isValid() )
+      scrollTo(currentIndex());
+    
+    setUpdatesEnabled(true);
+  }
   
   updatingGeometry = false;
-  setUpdatesEnabled(true);
 }
 
 int KateArgumentHintTree::resizeColumns() {

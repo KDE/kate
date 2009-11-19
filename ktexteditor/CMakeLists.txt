@@ -18,6 +18,7 @@ set(ktexteditor_LIB_SRCS
    codecompletionmodelcontrollerinterface.cpp
    configinterface.cpp
    smartinterface.cpp
+   highlightinterface.cpp
    )
 
 
@@ -71,6 +72,7 @@ install( FILES
     containerinterface.h
     annotationinterface.h
     loadsavefiltercheckplugin.h
+    highlightinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

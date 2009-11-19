@@ -457,6 +457,9 @@ class KateDocument : public KTextEditor::Document,
     void readParameterizedSessionConfig (const KConfigGroup&, unsigned long configParameters);
     void writeParameterizedSessionConfig (KConfigGroup&, unsigned long configParameters);
 
+  Q_SIGNALS:
+    void configChanged();
+
   //
   // KTextEditor::MarkInterface
   //

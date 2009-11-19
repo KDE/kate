@@ -1501,6 +1501,8 @@ void KateView::updateConfig ()
   }
   tagAll ();
   updateView (true);
+
+  emit configChanged();
 }
 
 void KateView::updateDocumentConfig()

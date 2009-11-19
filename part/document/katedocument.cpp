@@ -4135,6 +4135,8 @@ void KateDocument::updateConfig ()
   if(m_onTheFlyChecker) {
     m_onTheFlyChecker->updateConfig();
   }
+
+  emit configChanged();
 }
 
 //BEGIN Variable reader

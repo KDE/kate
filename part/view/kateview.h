@@ -177,6 +177,9 @@ class KateView : public KTextEditor::View,
      QVariant configValue(const QString &key);
      void setConfigValue(const QString &key, const QVariant &value);
 
+  Q_SIGNALS:
+    void configChanged();
+
   //
   // KTextEditor::CodeCompletionInterface2
   //

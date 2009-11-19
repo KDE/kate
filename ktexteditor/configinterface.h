@@ -67,6 +67,8 @@ namespace KTextEditor
  *  - line-numbers [bool], show/hide line numbers
  *  - icon-bar [bool], show/hide icon bar
  *  - dynamic-word-wrap [bool], enable/disable dynamic word wrap
+ *  - background-color [QColor], read/set the default background color
+ *  - selection-color [QColor], read/set the default color for selections
  *
  * KTextEditor::Document has support for the following:
  *  - auto-brackets [bool], enable/disable automatic bracket completion

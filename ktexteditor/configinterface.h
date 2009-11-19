@@ -77,6 +77,9 @@ namespace KTextEditor
  *  - backup-on-save-suffix [string], set the suffix for file backups, e.g. "~"
  *  - backup-on-save-prefix [string], set the prefix for file backups, e.g. "."
  *
+ * Either interface should emit the \p configChanged signal when appropriate.
+ * TODO: Add to interface in KDE 5.
+ *
  * For instance, if you want to enable dynamic word wrap of a KTextEditor::View
  * simply call
  * \code

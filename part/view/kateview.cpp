@@ -2578,7 +2578,8 @@ void KateView::aboutToShowContextMenu( )
 // BEGIN ConfigInterface stff
 QStringList KateView::configKeys() const
 {
-  return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap";
+  return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap"
+                       << "background-color" << "selection-color";
 }
 
 QVariant KateView::configValue(const QString &key)
@@ -2589,6 +2590,10 @@ QVariant KateView::configValue(const QString &key)
     return config()->lineNumbers();
   else if (key == "dynamic-word-wrap")
     return config()->dynWordWrap();
+  else if (key == "background-color")
+    return renderer()->config()->backgroundColor();
+  else if (key == "selection-color")
+    return renderer()->config()->selectionColor();
 
   // return invalid variant
   return QVariant();
@@ -2596,17 +2601,16 @@ QVariant KateView::configValue(const QString &key)
 
 void KateView::setConfigValue(const QString &key, const QVariant &value)
 {
-  // We can only get away with this right now because there are no
-  // non-bool functions here.. change this later if you are adding
-  // a config option which uses variables other than bools..
-  bool toggle = value.toBool();
-
   if (key == "icon-bar")
-    config()->setIconBar(toggle);
+    config()->setIconBar(value.toBool());
   else if (key == "line-numbers")
-    config()->setLineNumbers(toggle);
+    config()->setLineNumbers(value.toBool());
   else if (key == "dynamic-word-wrap")
-    config()->setDynWordWrap(toggle);
+    config()->setDynWordWrap(value.toBool());
+  else if (key == "background-color")
+    renderer()->config()->setBackgroundColor(value.value<QColor>());
+  else if (key == "selection-color")
+    renderer()->config()->setSelectionColor(value.value<QColor>());
 }
 
 // END ConfigInterface

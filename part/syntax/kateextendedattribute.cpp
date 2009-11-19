@@ -22,6 +22,8 @@
 
 #include "kateextendedattribute.h"
 
+#include <ktexteditor/highlightinterface.h>
+
 KateExtendedAttribute::KateExtendedAttribute(const QString& name, int defaultStyleIndex)
 {
   setName(name);
@@ -31,22 +33,22 @@ KateExtendedAttribute::KateExtendedAttribute(const QString& name, int defaultSty
 
 int KateExtendedAttribute::indexForStyleName( const QString & name )
 {
-  if (name=="dsNormal") return KateExtendedAttribute::dsNormal;
-  else if (name=="dsKeyword") return KateExtendedAttribute::dsKeyword;
-  else if (name=="dsDataType") return KateExtendedAttribute::dsDataType;
-  else if (name=="dsDecVal") return KateExtendedAttribute::dsDecVal;
-  else if (name=="dsBaseN") return KateExtendedAttribute::dsBaseN;
-  else if (name=="dsFloat") return KateExtendedAttribute::dsFloat;
-  else if (name=="dsChar") return KateExtendedAttribute::dsChar;
-  else if (name=="dsString") return KateExtendedAttribute::dsString;
-  else if (name=="dsComment") return KateExtendedAttribute::dsComment;
-  else if (name=="dsOthers")  return KateExtendedAttribute::dsOthers;
-  else if (name=="dsAlert") return KateExtendedAttribute::dsAlert;
-  else if (name=="dsFunction") return KateExtendedAttribute::dsFunction;
-  else if (name=="dsRegionMarker") return KateExtendedAttribute::dsRegionMarker;
-  else if (name=="dsError") return KateExtendedAttribute::dsError;
+  if (name=="dsNormal") return KTextEditor::HighlightInterface::dsNormal;
+  else if (name=="dsKeyword") return KTextEditor::HighlightInterface::dsKeyword;
+  else if (name=="dsDataType") return KTextEditor::HighlightInterface::dsDataType;
+  else if (name=="dsDecVal") return KTextEditor::HighlightInterface::dsDecVal;
+  else if (name=="dsBaseN") return KTextEditor::HighlightInterface::dsBaseN;
+  else if (name=="dsFloat") return KTextEditor::HighlightInterface::dsFloat;
+  else if (name=="dsChar") return KTextEditor::HighlightInterface::dsChar;
+  else if (name=="dsString") return KTextEditor::HighlightInterface::dsString;
+  else if (name=="dsComment") return KTextEditor::HighlightInterface::dsComment;
+  else if (name=="dsOthers")  return KTextEditor::HighlightInterface::dsOthers;
+  else if (name=="dsAlert") return KTextEditor::HighlightInterface::dsAlert;
+  else if (name=="dsFunction") return KTextEditor::HighlightInterface::dsFunction;
+  else if (name=="dsRegionMarker") return KTextEditor::HighlightInterface::dsRegionMarker;
+  else if (name=="dsError") return KTextEditor::HighlightInterface::dsError;
 
-  return KateExtendedAttribute::dsNormal;
+  return KTextEditor::HighlightInterface::dsNormal;
 }
 
 QString KateExtendedAttribute::name( ) const

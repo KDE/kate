@@ -41,6 +41,7 @@
 #include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
+#include <ktexteditor/highlightinterface.h>
 
 #include "katetextline.h"
 #include "katenamespace.h"
@@ -78,7 +79,8 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::ConfigInterface,
                      public KTextEditor::SmartInterface,
                      private KTextEditor::SmartRangeWatcher,
-                     public KTextEditor::AnnotationInterface
+                     public KTextEditor::AnnotationInterface,
+                     public KTextEditor::HighlightInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
@@ -90,6 +92,7 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::SmartInterface)
   Q_INTERFACES(KTextEditor::AnnotationInterface)
   Q_INTERFACES(KTextEditor::ConfigInterface)
+  Q_INTERFACES(KTextEditor::HighlightInterface)
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -1050,6 +1053,15 @@ class KateDocument : public KTextEditor::Document,
      */
     virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString,
                                                     const QMap<QString,QString> &initialValues, QWidget *);
+
+  //
+  // KTextEditor::HighlightInterface
+  //
+  public:
+    virtual KTextEditor::Attribute::Ptr defaultStyle(const KTextEditor::HighlightInterface::DefaultStyle ds) const;
+    virtual QList< KTextEditor::HighlightInterface::AttributeBlock > lineAttributes(const unsigned int line);
+    virtual QStringList embeddedModes() const;
+    virtual QString modeAt(const KTextEditor::Cursor& position);
 
   protected Q_SLOTS:
       void dumpRegionTree();

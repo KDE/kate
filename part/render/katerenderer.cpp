@@ -40,6 +40,8 @@
 #include <QtCore/QStack>
 #include <QtGui/QBrush>
 
+#include <ktexteditor/highlightinterface.h>
+
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
@@ -325,7 +327,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
 
       backgroundAttribute->setBackground(config()->selectionColor());
-      backgroundAttribute->setForeground(attribute(KateExtendedAttribute::dsNormal)->selectedForeground().color());
+      backgroundAttribute->setForeground(attribute(KTextEditor::HighlightInterface::dsNormal)->selectedForeground().color());
 
       // Create a range for the current selection
       if (completionHighlight && completionSelected)
@@ -495,7 +497,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // We may have changed the pen, be absolutely sure it gets set back to
       // normal foreground color before drawing text for text that does not
       // set the pen color
-      paint.setPen(attribute(KateExtendedAttribute::dsNormal)->foreground().color());
+      paint.setPen(attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color());
       // Draw the text :)
       if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))) {
         // FIXME toVector() may be a performance issue
@@ -672,7 +674,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
         // still no color found, fall back to default style
         if (!c.isValid())
-            c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
+            c = attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
       }
 
       // make it possible to see the selected character in the vi input mode's normal/visual mode

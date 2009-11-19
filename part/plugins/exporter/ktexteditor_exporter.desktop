@@ -1,0 +1,21 @@
+[Desktop Entry]
+X-KDE-Library=ktexteditor_exporter
+X-KDE-PluginKeyword=ktexteditor_exporter
+X-KDE-PluginInfo-Author=Milian Wolff
+X-KDE-PluginInfo-Email=mail@milianw.de
+X-KDE-PluginInfo-Name=ktexteditorexporter
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://kate.kde.org
+X-KDE-PluginInfo-Category=Editor
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=kate
+X-KDE-Version=4.0
+X-KDE-ServiceTypes=KTextEditor/Plugin
+Type=Service
+Icon=ktexteditorexporter
+Name=Exporter
+Name[x-test]=xxExporterxx
+Comment=Export highlighted document to HTML
+Comment[x-test]=xxExport highlighted document to HTMLxx

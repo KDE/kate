@@ -245,6 +245,11 @@ class KateHighlighting
     const QHash<QChar, QString>& getReverseCharacterEncodings( int attrib ) const;
     int getEncodedCharactersInsertionPolicy( int attrib ) const;
 
+    /**
+     * Returns a list of names of embedded modes.
+     */
+    QStringList getEmbeddedModes() const;
+
   private:
     /**
       * 'encoding' must not contain new line characters, i.e. '\n' or '\r'!
@@ -292,7 +297,10 @@ class KateHighlighting
     QMap< QPair<KateHlContext *, QString>, short> dynamicCtxs;
 
     // make them pointers perhaps
+    // NOTE: gets cleaned once makeContextList() finishes
     KateEmbeddedHlInfos embeddedHls;
+    // valid once makeContextList() finishes
+    QStringList embeddedModes;
     KateHlUnresolvedCtxRefs unresolvedContextReferences;
     QStringList RegionList;
     QStringList ContextNameList;

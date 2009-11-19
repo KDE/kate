@@ -39,23 +39,6 @@ class KateExtendedAttribute : public KTextEditor::Attribute
 
     explicit KateExtendedAttribute(const QString& name, int defaultStyleIndex = -1);
 
-    enum DefaultStyle {
-      dsNormal,
-      dsKeyword,
-      dsDataType,
-      dsDecVal,
-      dsBaseN,
-      dsFloat,
-      dsChar,
-      dsString,
-      dsComment,
-      dsOthers,
-      dsAlert,
-      dsFunction,
-      dsRegionMarker,
-      dsError
-    };
-
     enum InternalProperties {
       AttributeName = AttributeInternalProperty,
       AttributeDefaultStyleIndex,

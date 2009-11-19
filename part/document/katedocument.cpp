@@ -5518,4 +5518,65 @@ void KateDocument::replaceCharactersByEncoding(const KTextEditor::Range& range)
   }
 }
 
+//
+// KTextEditor::HighlightInterface
+//
+
+KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::HighlightInterface::DefaultStyle ds) const
+{
+  return KateHlManager::self()->getDefaultAttribute(ds);
+}
+
+QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttributes(const unsigned int line)
+{
+  ///TODO: should this maybe be put into the View until the glory day the renderer does not require a View?
+
+  QList< KTextEditor::HighlightInterface::AttributeBlock > attribs;
+
+  KateView* view = activeKateView();
+  Q_ASSERT(view);
+
+  KateTextLine::Ptr kateLine = kateTextLine(line);
+
+  if ( !kateLine ) {
+    return attribs;
+  }
+
+  const QVector<int> & intAttrs = kateLine->attributesList();
+
+  Q_ASSERT(intAttrs.size() % 3 == 0);
+
+  for ( int i = 0; i < intAttrs.size(); i += 3 ) {
+    attribs << KTextEditor::HighlightInterface::AttributeBlock(
+      intAttrs[i],
+      intAttrs[i+1],
+      view->renderer()->attribute(intAttrs[i+2])
+    );
+  }
+
+  return attribs;
+}
+
+QStringList KateDocument::embeddedModes() const
+{
+  return highlight()->getEmbeddedModes();
+}
+
+QString KateDocument::modeAt(const KTextEditor::Cursor& position)
+{
+  KateTextLine::Ptr kateLine = kateTextLine(position.line());
+
+  const QVector<int> & intAttrs = kateLine->attributesList();
+
+  Q_ASSERT(intAttrs.size() % 3 == 0);
+
+  for ( int i = 0; i < intAttrs.size(); i += 3 ) {
+    if ( intAttrs[i] <= position.column() && intAttrs[i] + intAttrs[i+1] > position.column() ) {
+      return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(intAttrs[i+2]));
+    }
+  }
+
+  return mode();
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

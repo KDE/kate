@@ -35,7 +35,6 @@
 #include "kateviglobal.h"
 #include "katehighlight.h"
 #include "katehighlightmenu.h"
-#include "katehtmlexporter.h"
 #include "katedialogs.h"
 #include "katetextline.h"
 #include "katecodefolding.h"
@@ -252,9 +251,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
-
-  if (!doc->simpleMode ())
-    new KateHTMLExporter(this);
 }
 
 KateView::~KateView()

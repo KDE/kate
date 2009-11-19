@@ -26,6 +26,8 @@
 #include "katehighlight.h"
 #include "katescript.h"
 
+#include <ktexteditor/highlightinterface.h>
+
 #include <QtScript/QScriptEngine>
 
 KateScriptDocument::KateScriptDocument(QObject *parent)
@@ -71,7 +73,7 @@ bool KateScriptDocument::isCode(const KTextEditor::Cursor& cursor)
 bool KateScriptDocument::isComment(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KateExtendedAttribute::dsComment;
+  return defaultStyle == KTextEditor::HighlightInterface::dsComment;
 }
 
 bool KateScriptDocument::isComment(const KTextEditor::Cursor& cursor)
@@ -82,7 +84,7 @@ bool KateScriptDocument::isComment(const KTextEditor::Cursor& cursor)
 bool KateScriptDocument::isString(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KateExtendedAttribute::dsString;
+  return defaultStyle == KTextEditor::HighlightInterface::dsString;
 }
 
 bool KateScriptDocument::isString(const KTextEditor::Cursor& cursor)
@@ -93,7 +95,7 @@ bool KateScriptDocument::isString(const KTextEditor::Cursor& cursor)
 bool KateScriptDocument::isRegionMarker(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KateExtendedAttribute::dsRegionMarker;
+  return defaultStyle == KTextEditor::HighlightInterface::dsRegionMarker;
 }
 
 bool KateScriptDocument::isRegionMarker(const KTextEditor::Cursor& cursor)
@@ -104,7 +106,7 @@ bool KateScriptDocument::isRegionMarker(const KTextEditor::Cursor& cursor)
 bool KateScriptDocument::isChar(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KateExtendedAttribute::dsChar;
+  return defaultStyle == KTextEditor::HighlightInterface::dsChar;
 }
 
 bool KateScriptDocument::isChar(const KTextEditor::Cursor& cursor)
@@ -115,7 +117,7 @@ bool KateScriptDocument::isChar(const KTextEditor::Cursor& cursor)
 bool KateScriptDocument::isOthers(int line, int column)
 {
   const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KateExtendedAttribute::dsOthers;
+  return defaultStyle == KTextEditor::HighlightInterface::dsOthers;
 }
 
 bool KateScriptDocument::isOthers(const KTextEditor::Cursor& cursor)
@@ -631,11 +633,11 @@ QString KateScriptDocument::variable(const QString &s)
 
 bool KateScriptDocument::_isCode(int defaultStyle)
 {
-  return (defaultStyle != KateExtendedAttribute::dsComment
-       && defaultStyle != KateExtendedAttribute::dsString
-       && defaultStyle != KateExtendedAttribute::dsRegionMarker
-       && defaultStyle != KateExtendedAttribute::dsChar
-       && defaultStyle != KateExtendedAttribute::dsOthers);
+  return (defaultStyle != KTextEditor::HighlightInterface::dsComment
+       && defaultStyle != KTextEditor::HighlightInterface::dsString
+       && defaultStyle != KTextEditor::HighlightInterface::dsRegionMarker
+       && defaultStyle != KTextEditor::HighlightInterface::dsChar
+       && defaultStyle != KTextEditor::HighlightInterface::dsOthers);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

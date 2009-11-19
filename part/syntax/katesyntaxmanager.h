@@ -24,6 +24,8 @@
 #include "katetextline.h"
 #include "kateextendedattribute.h"
 
+#include <ktexteditor/highlightinterface.h>
+
 #include <kconfig.h>
 #include <kactionmenu.h>
 
@@ -61,11 +63,17 @@ class KateHlManager : public QObject
     int nameFind(const QString &name);
 
     QString identifierForName(const QString&);
+    /**
+     * Returns the mode name for a given identifier, as e.g.
+     * returned by KateHighlighting::hlKeyForAttrib().
+     */
+    QString nameForIdentifier(const QString&);
 
     // methodes to get the default style count + names
     static uint defaultStyles();
     static QString defaultStyleName(int n, bool translateNames = false);
 
+    KTextEditor::Attribute::Ptr getDefaultAttribute(const KTextEditor::HighlightInterface::DefaultStyle ds) const;
     void getDefaults(const QString &schema, KateAttributeList &);
     void setDefaults(const QString &schema, KateAttributeList &);
 

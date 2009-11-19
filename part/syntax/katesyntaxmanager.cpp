@@ -53,6 +53,8 @@
 #include <QtCore/QTextStream>
 //END
 
+using namespace KTextEditor;
+
 //BEGIN KateHlManager
 KateHlManager::KateHlManager()
   : QObject()
@@ -170,86 +172,111 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
   return translateNames ? translatedNames[n] : names[n];
 }
 
-void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
+Attribute::Ptr KateHlManager::getDefaultAttribute(const HighlightInterface::DefaultStyle ds) const
 {
+  // TODO: Is it too inefficient to always create this for every attrib?
   KColorScheme scheme(QPalette::Active, KColorScheme::View);
   KColorScheme schemeSelected(QPalette::Active, KColorScheme::Selection);
 
-  KTextEditor::Attribute::Ptr normal(new KTextEditor::Attribute());
-  normal->setForeground( scheme.foreground().color() );
-  normal->setSelectedForeground( schemeSelected.foreground().color() );
-  list.append(normal);
+  Attribute::Ptr attrib(new KTextEditor::Attribute());
 
-  KTextEditor::Attribute::Ptr keyword(new KTextEditor::Attribute());
-  keyword->setForeground( scheme.foreground().color() );
-  keyword->setSelectedForeground( schemeSelected.foreground().color() );
-  keyword->setFontBold(true);
-  list.append(keyword);
+  switch ( ds ) {
+    case HighlightInterface::dsNormal:
+      attrib->setForeground( scheme.foreground().color() );
+      attrib->setSelectedForeground( schemeSelected.foreground().color() );
+      break;
+    case HighlightInterface::dsKeyword:
+      attrib->setForeground( scheme.foreground().color() );
+      attrib->setSelectedForeground( schemeSelected.foreground().color() );
+      attrib->setFontBold(true);
+      break;
+    case HighlightInterface::dsDataType:
+      attrib->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
+      break;
+    case HighlightInterface::dsDecVal:
+      attrib->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
+      break;
+    case HighlightInterface::dsBaseN:
+      attrib->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
+      break;
+    case HighlightInterface::dsFloat:
+      attrib->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
+      break;
+    case HighlightInterface::dsChar:
+      attrib->setForeground( scheme.foreground(KColorScheme::ActiveText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::ActiveText).color() );
+      break;
+    case HighlightInterface::dsString:
+      attrib->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
+      break;
+    case HighlightInterface::dsComment:
+      attrib->setForeground( scheme.foreground(KColorScheme::InactiveText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::InactiveText).color() );
+      attrib->setFontItalic(true);
+      break;
+    case HighlightInterface::dsOthers:
+      attrib->setForeground( scheme.foreground(KColorScheme::PositiveText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::PositiveText).color() );
+      break;
+    case HighlightInterface::dsAlert:
+      attrib->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
+      attrib->setFontBold(true);
+      attrib->setBackground( scheme.background(KColorScheme::NegativeBackground).color() );
+      break;
+    case HighlightInterface::dsFunction:
+      attrib->setForeground( scheme.foreground(KColorScheme::VisitedText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::VisitedText).color() );
+      break;
+    case HighlightInterface::dsRegionMarker:
+      attrib->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
+      attrib->setBackground( scheme.background(KColorScheme::LinkBackground).color() );
+      break;
+    case HighlightInterface::dsError:
+      attrib->setForeground( scheme.foreground(KColorScheme::NegativeText) );
+      attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
+      attrib->setFontUnderline(true);
+      break;
+  }
 
-  KTextEditor::Attribute::Ptr dataType(new KTextEditor::Attribute());
-  dataType->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
-  dataType->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
-  list.append(dataType);
+  return attrib;
+}
 
-  KTextEditor::Attribute::Ptr decimal(new KTextEditor::Attribute());
-  decimal->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
-  decimal->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
-  list.append(decimal);
+void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
+{
+  list.append(getDefaultAttribute(HighlightInterface::dsNormal));
 
-  KTextEditor::Attribute::Ptr basen(new KTextEditor::Attribute());
-  basen->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
-  basen->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
-  list.append(basen);
+  list.append(getDefaultAttribute(HighlightInterface::dsKeyword));
 
-  KTextEditor::Attribute::Ptr floatAttribute(new KTextEditor::Attribute());
-  floatAttribute->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
-  floatAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
-  list.append(floatAttribute);
+  list.append(getDefaultAttribute(HighlightInterface::dsDataType));
 
-  KTextEditor::Attribute::Ptr charAttribute(new KTextEditor::Attribute());
-  charAttribute->setForeground( scheme.foreground(KColorScheme::ActiveText).color() );
-  charAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::ActiveText).color() );
-  list.append(charAttribute);
+  list.append(getDefaultAttribute(HighlightInterface::dsDecVal));
 
-  KTextEditor::Attribute::Ptr string(new KTextEditor::Attribute());
-  string->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
-  string->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
-  list.append(string);
+  list.append(getDefaultAttribute(HighlightInterface::dsBaseN));
 
-  KTextEditor::Attribute::Ptr comment(new KTextEditor::Attribute());
-  comment->setForeground( scheme.foreground(KColorScheme::InactiveText).color() );
-  comment->setSelectedForeground( schemeSelected.foreground(KColorScheme::InactiveText).color() );
-  comment->setFontItalic(true);
-  list.append(comment);
+  list.append(getDefaultAttribute(HighlightInterface::dsFloat));
 
-  KTextEditor::Attribute::Ptr others(new KTextEditor::Attribute());
-  others->setForeground( scheme.foreground(KColorScheme::PositiveText).color() );
-  others->setSelectedForeground( schemeSelected.foreground(KColorScheme::PositiveText).color() );
-  list.append(others);
+  list.append(getDefaultAttribute(HighlightInterface::dsChar));
 
-  KTextEditor::Attribute::Ptr alert(new KTextEditor::Attribute());
-  alert->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
-  alert->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
-  alert->setFontBold(true);
-  alert->setBackground( scheme.background(KColorScheme::NegativeBackground).color() );
-  list.append(alert);
+  list.append(getDefaultAttribute(HighlightInterface::dsString));
 
-  KTextEditor::Attribute::Ptr functionAttribute(new KTextEditor::Attribute());
-  functionAttribute->setForeground( scheme.foreground(KColorScheme::VisitedText).color() );
-  functionAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::VisitedText).color() );
-  list.append(functionAttribute);
+  list.append(getDefaultAttribute(HighlightInterface::dsComment));
 
-  KTextEditor::Attribute::Ptr regionmarker(new KTextEditor::Attribute());
-  regionmarker->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
-  regionmarker->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
-  regionmarker->setBackground( scheme.background(KColorScheme::LinkBackground).color() );
-  list.append(regionmarker);
+  list.append(getDefaultAttribute(HighlightInterface::dsOthers));
 
-  KTextEditor::Attribute::Ptr error(new KTextEditor::Attribute());
-  error->setForeground( scheme.foreground(KColorScheme::NegativeText) );
-  error->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
-  error->setFontUnderline(true);
-  list.append(error);
+  list.append(getDefaultAttribute(HighlightInterface::dsAlert));
+
+  list.append(getDefaultAttribute(HighlightInterface::dsFunction));
+
+  list.append(getDefaultAttribute(HighlightInterface::dsRegionMarker));
+
+  list.append(getDefaultAttribute(HighlightInterface::dsError));
 
   KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
                       "Default Item Styles - Schema " + schema);
@@ -361,6 +388,19 @@ QString KateHlManager::identifierForName(const QString& name)
 
   if ((hl = hlDict[name]))
     return hl->getIdentifier ();
+
+  return QString();
+}
+
+QString KateHlManager::nameForIdentifier(const QString& identifier)
+{
+  for ( QHash<QString, KateHighlighting*>::iterator it = hlDict.begin();
+        it != hlDict.end(); ++it )
+  {
+    if ( (*it)->getIdentifier() == identifier ) {
+      return it.key();
+    }
+  }
 
   return QString();
 }

@@ -46,6 +46,8 @@
 #include <kmessagebox.h>
 #include <kapplication.h>
 
+#include <ktexteditor/highlightinterface.h>
+
 #include <QtCore/QSet>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
@@ -256,7 +258,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   // no hl set, nothing to do more than the above cleaning ;)
   if (noHl) {
-    textLine->addAttribute (0, textLine->length(), KateExtendedAttribute::dsNormal);
+    textLine->addAttribute (0, textLine->length(), KTextEditor::HighlightInterface::dsNormal);
     return;
   }
 
@@ -494,7 +496,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   //set the dsNormal attribute if we haven't found anything else
   if(textLine->attributesList().empty()) {
-    textLine->addAttribute (0, textLine->length(), KateExtendedAttribute::dsNormal);
+    textLine->addAttribute (0, textLine->length(), KTextEditor::HighlightInterface::dsNormal);
   }
 }
 
@@ -686,7 +688,7 @@ void KateHighlighting::createKateExtendedAttribute(QList<KateExtendedAttribute::
   // If no highlighting is selected we need only one default.
   if (noHl)
   {
-    list.append(KateExtendedAttribute::Ptr(new KateExtendedAttribute(i18n("Normal Text"), KateExtendedAttribute::dsNormal)));
+    list.append(KateExtendedAttribute::Ptr(new KateExtendedAttribute(i18n("Normal Text"), KTextEditor::HighlightInterface::dsNormal)));
     return;
   }
 
@@ -1409,6 +1411,7 @@ void KateHighlighting::makeContextList()
     return;
 
   embeddedHls.clear();
+  embeddedModes.clear();
   unresolvedContextReferences.clear();
   RegionList.clear();
   ContextNameList.clear();
@@ -1496,6 +1499,9 @@ void KateHighlighting::makeContextList()
   // to include the context0 from a different definition, than the one the rule
   // belongs to
   handleKateHlIncludeRules();
+
+  embeddedModes = embeddedHls.keys();
+  embeddedModes.removeOne(iName);
 
   embeddedHls.clear(); //save some memory.
   unresolvedContextReferences.clear(); //save some memory
@@ -1940,6 +1946,11 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &
   m_attributeArrays.insert(schema, array);
 
   return array;
+}
+
+QStringList KateHighlighting::getEmbeddedModes() const
+{
+  return embeddedModes;
 }
 
 //END

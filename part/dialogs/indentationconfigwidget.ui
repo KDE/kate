@@ -140,7 +140,7 @@
          <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&gt;Tab key action (if no selection exists) &lt;a href=&quot;If you want &lt;b&gt;Tab&lt;/b&gt; to align the current line in the current code block like in emacs, make &lt;b&gt;Tab&lt;/b&gt; a shortcut to the action &lt;b&gt;Align&lt;/b&gt;.&quot;&gt;&lt;span&gt;More ...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p&gt;Tab key action (if no selection exists) &lt;a href=&quot;If you want &lt;b&gt;Tab&lt;/b&gt; to align the current line in the current code block like in emacs, make &lt;b&gt;Tab&lt;/b&gt; a shortcut to the action &lt;b&gt;Align&lt;/b&gt;.&quot;&gt;&lt;span&gt;More ...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>

@@ -2603,16 +2603,19 @@ QVariant KateView::configValue(const QString &key)
 
 void KateView::setConfigValue(const QString &key, const QVariant &value)
 {
-  if (key == "icon-bar")
-    config()->setIconBar(value.toBool());
-  else if (key == "line-numbers")
-    config()->setLineNumbers(value.toBool());
-  else if (key == "dynamic-word-wrap")
-    config()->setDynWordWrap(value.toBool());
-  else if (key == "background-color")
-    renderer()->config()->setBackgroundColor(value.value<QColor>());
-  else if (key == "selection-color")
-    renderer()->config()->setSelectionColor(value.value<QColor>());
+  if ( value.canConvert(QVariant::Color) ) {
+     if (key == "background-color")
+      renderer()->config()->setBackgroundColor(value.value<QColor>());
+    else if (key == "selection-color")
+      renderer()->config()->setSelectionColor(value.value<QColor>());
+  } else if ( value.canConvert(QVariant::Bool) ) {
+    if (key == "icon-bar")
+      config()->setIconBar(value.toBool());
+    else if (key == "line-numbers")
+      config()->setLineNumbers(value.toBool());
+    else if (key == "dynamic-word-wrap")
+      config()->setDynWordWrap(value.toBool());
+  }
 }
 
 // END ConfigInterface

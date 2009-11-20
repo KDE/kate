@@ -16,7 +16,7 @@
         </size>
        </property>
        <property name="text" >
-        <string>Please choose the default text editing component that you wish to use in this application. If you choose &lt;B>System Default&lt;/B>, the application will honor your changes in the Control Center. All other choices will override that setting.</string>
+        <string>Please choose the default text editing component that you wish to use in this application. If you choose &lt;B>System Default&lt;/B>, the application will honor your changes in the System Settings. All other choices will override that setting.</string>
        </property>
        <property name="textFormat" >
         <enum>Qt::AutoText</enum>

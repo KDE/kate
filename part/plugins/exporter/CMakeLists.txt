@@ -1,12 +1,6 @@
 project( ktexteditor_exporter )
 
-find_package( KDE4 REQUIRED )
-include( KDE4Defaults )
-
 ########### next target ###############
-
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
-add_definitions( ${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
 
 set( ktexteditor_exporter_PART_SRCS
   exporterplugin.cpp

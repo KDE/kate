@@ -955,21 +955,21 @@ void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
 
 
 void KateSearchBar::givePatternFeedback(const QString & pattern) {
-    bool enabled = true;
+    bool isPatternValid = true;
 
     if (pattern.isEmpty()) {
-        enabled = false;
+        isPatternValid = false;
     } else {
         switch (m_powerUi->searchMode->currentIndex()) {
         case MODE_WHOLE_WORDS:
             if (pattern.trimmed() != pattern) {
-                enabled = false;
+                isPatternValid = false;
             }
             break;
 
         case MODE_REGEX:
             m_patternTester.setPattern(pattern);
-            enabled = m_patternTester.isValid();
+            isPatternValid = m_patternTester.isValid();
             break;
 
         case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
@@ -981,10 +981,10 @@ void KateSearchBar::givePatternFeedback(const QString & pattern) {
     }
 
     // Enable/disable next/prev and replace next/all
-    m_powerUi->findNext->setDisabled(!enabled);
-    m_powerUi->findPrev->setDisabled(!enabled);
-    m_powerUi->replaceNext->setDisabled(!enabled);
-    m_powerUi->replaceAll->setDisabled(!enabled);
+    m_powerUi->findNext->setEnabled(isPatternValid);
+    m_powerUi->findPrev->setEnabled(isPatternValid);
+    m_powerUi->replaceNext->setEnabled(isPatternValid);
+    m_powerUi->replaceAll->setEnabled(isPatternValid);
 }
 
 

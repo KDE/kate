@@ -97,6 +97,7 @@ KateGlobal::KateGlobal ()
   m_aboutData.addAuthor (ki18n("Mirko Stocker"), ki18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
   m_aboutData.addAuthor (ki18n("Matthew Woehlke"), ki18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
   m_aboutData.addAuthor (ki18n("Sebastian Pipping"), ki18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
+  m_aboutData.addAuthor (ki18n("Michel Ludwig"), ki18n("On-the-fly spell checking"), "michel.ludwig@kdemail.net");
 
   m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");

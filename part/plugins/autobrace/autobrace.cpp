@@ -22,6 +22,10 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 
+#include <ktexteditor/configinterface.h>
+#include <kmessagebox.h>
+#include <klocalizedstring.h>
+
 AutoBracePlugin *AutoBracePlugin::plugin = 0;
 
 K_PLUGIN_FACTORY_DEFINITION(AutoBracePluginFactory,
@@ -43,6 +47,16 @@ AutoBracePlugin::~AutoBracePlugin()
 
 void AutoBracePlugin::addView(KTextEditor::View *view)
 {
+    if ( KTextEditor::ConfigInterface* confIface = qobject_cast< KTextEditor::ConfigInterface* >(view->document()) ) {
+        QVariant brackets = confIface->configValue("auto-brackets");
+        if ( brackets.isValid() && brackets.canConvert(QVariant::Bool) && brackets.toBool() ) {
+            confIface->setConfigValue("auto-brackets", false);
+            KMessageBox::information(view, i18n("The autobrace plugin supersedes the Kate-internal \"Auto Brackets\" feature.\n"
+                                                "The setting was automatically disabled for this document."),
+                                           i18n("Auto brackets feature disabled"), "AutoBraceSupersedesInformation");
+        }
+    }
+
     AutoBracePluginDocument *docplugin;
 
     // We're not storing the brace inserter by view but by document,

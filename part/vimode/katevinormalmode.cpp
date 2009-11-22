@@ -27,6 +27,7 @@
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
 #include "katebuffer.h"
+#include "kateviewhelpers.h"
 #include <QApplication>
 #include <QList>
 
@@ -1070,6 +1071,14 @@ bool KateViNormalMode::commandReplaceCharacter()
 
 bool KateViNormalMode::commandSwitchToCmdLine()
 {
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    // if a count is given, the range [current line] to [current line] + count should be prepended
+    // to the command line
+    if ( getCount() != 1 ) {
+      m_view->cmdLine()->setText( ".,.+" +QString::number( getCount()-1 ), false);
+    }
+
     m_view->switchToCmdLine();
     return true;
 }

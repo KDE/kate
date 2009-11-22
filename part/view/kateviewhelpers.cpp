@@ -300,12 +300,14 @@ KateCmdLine::~KateCmdLine()
 {
 }
 
-// inserts the given string in the command line edit and selects it so the user can type over it if
-// she wants to
-void KateCmdLine::setText(const QString &text)
+// inserts the given string in the command line edit and (if selcted = true) selects it so the user
+// can type over it if she wants to
+void KateCmdLine::setText(const QString &text, bool selected)
 {
   m_lineEdit->setText(text);
-  m_lineEdit->selectAll();
+  if (selected) {
+    m_lineEdit->selectAll();
+  }
 }
 
 KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
@@ -323,7 +325,8 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
 
   completionObject()->insertItems (KateCmd::self()->commandList());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^([0-9.$]+)?,([0-9.$]+)?");
+  m_cmdRange.setPattern("^([0-9$]+|\\.([+-]\\d+)?)?,([0-9$]+|\\.([+-]\\d+)?)?");
+  m_cmdExpr.setPattern("^(\\d+)([+-])(\\d+)$");
   m_gotoLine.setPattern("[+-]?\\d+");
 
   m_hideTimer = new QTimer(this);
@@ -424,7 +427,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     cmd.remove( m_cmdRange );
 
     QString s = m_cmdRange.capturedTexts().at(1);
-    QString e = m_cmdRange.capturedTexts().at(2);
+    QString e = m_cmdRange.capturedTexts().at(3);
 
     if ( s.isEmpty() )
       s = ".";
@@ -432,16 +435,29 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       e = s;
 
     // replace '$' with the number of the last line and '.' with the current line
-    if ( s == "$" ) {
-      s = QString::number( m_view->doc()->lines() );
-    } else if ( s == "." ) {
-      s = QString::number( m_view->cursorPosition().line()+1 );
-    }
+    s.replace('$', QString::number( m_view->doc()->lines() ) );
+    e.replace('$', QString::number( m_view->doc()->lines() ) );
+    s.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
+    e.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
 
-    if ( e == "$" ) {
-      e = QString::number( m_view->doc()->lines() );
-    } else if ( e == "." ) {
-      e = QString::number( m_view->cursorPosition().line()+1 );
+    // evaluate expressions (a+b or a-b) if we have any
+    if (m_cmdExpr.indexIn(s) != -1) {
+      if (m_cmdExpr.capturedTexts().at(2) == "+") {
+        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
+            + m_cmdExpr.capturedTexts().at(1).toInt());
+      } else {
+        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
+            - m_cmdExpr.capturedTexts().at(1).toInt());
+      }
+    }
+    if (m_cmdExpr.indexIn(e) != -1) {
+      if (m_cmdExpr.capturedTexts().at(2) == "+") {
+        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
+            + m_cmdExpr.capturedTexts().at(1).toInt());
+      } else {
+        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
+            - m_cmdExpr.capturedTexts().at(1).toInt());
+      }
     }
 
     range.setRange(KTextEditor::Range(s.toInt()-1, 0, e.toInt()-1, 0));

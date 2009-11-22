@@ -378,7 +378,7 @@ class KateCmdLine : public KateViewBarWidget
     explicit KateCmdLine(KateView *view, QWidget *parent = 0);
     ~KateCmdLine();
 
-  void setText(const QString &text);
+  void setText(const QString &text, bool selected = true);
 
   private:
     class KateCmdLineEdit *m_lineEdit;
@@ -419,6 +419,7 @@ class KateCmdLineEdit : public KLineEdit
     class KCompletion *m_oldCompletionObject; ///< save while completing command args.
     class KateCmdLnWhatsThis *m_help;
     QRegExp m_cmdRange;
+    QRegExp m_cmdExpr;
     QRegExp m_gotoLine;
     QTimer *m_hideTimer;
 };

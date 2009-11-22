@@ -76,6 +76,7 @@ class AutoBracePluginDocument
     KTextEditor::Document *m_document;
     int m_insertionLine;
     QString m_indentation;
+    bool m_withSemicolon;
 };
 
 K_PLUGIN_FACTORY_DECLARATION(AutoBracePluginFactory)

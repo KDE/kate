@@ -90,7 +90,7 @@ void AutoBracePlugin::removeView(KTextEditor::View *view)
 }
 
 AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document *document)
-  : QObject(document), m_insertionLine(0)
+  : QObject(document), m_insertionLine(0), m_withSemicolon(false)
 {
     connect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
             this, SLOT(slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&)));
@@ -135,7 +135,7 @@ void AutoBracePluginDocument::slotTextChanged(KTextEditor::Document *document) {
         }
         // The line with the closing brace. (Inserted via insertLine() in order
         // to avoid space removal by potential indenters.)
-        document->insertLine(m_insertionLine + 1, m_indentation + "}");
+        document->insertLine(m_insertionLine + 1, m_indentation + "}" + (m_withSemicolon ? ";" : ""));
 
         document->endEditing();
         view->setCursorPosition(document->endOfLine(m_insertionLine));
@@ -253,6 +253,12 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
 
     if (isCandidate) {
         m_indentation = indentation;
+        // in C++ automatically add a semicolon after the closing brace when we create a new class/struct
+        if ( document->mode() == "C++" && document->line(openingBraceLine).indexOf(QRegExp("(?:class|struct)\\s+[^\\s]+\\s*\\{\\s*$")) != -1 ) {
+            m_withSemicolon = true;
+        } else {
+            m_withSemicolon = false;
+        }
     }
     return isCandidate;
 }

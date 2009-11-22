@@ -193,6 +193,21 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
     QString indentationLength = QString::number(indentation.length());
     QString indentationLengthMinusOne = QString::number(indentation.length() - 1);
 
+    ///TODO: make configurable
+    QStringList tokens;
+    if ( line.contains("class") || line.contains("interface") || line.contains("struct") ) {
+        tokens << "private" << "public" << "protected";
+        // C++ specific
+        tokens << "signals" << "Q_SIGNALS";
+        // PHP and potentially others
+        tokens << "function";
+    }
+    if ( line.contains("namespace", Qt::CaseInsensitive) ) {
+        // C++ specific
+        tokens << "class" << "struct";
+    }
+    QString forbiddenTokens = tokens.isEmpty() ? "" : "(?!" + tokens.join("|") + ")";
+
     for (int i = openingBraceLine + 1; i < document->lines(); ++i)
     {
         line = document->line(i);
@@ -203,7 +218,10 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
         if (indentation.length() == 0) {
             // Inserting a brace is ok if there is a line (not starting with a
             // brace) without indentation.
-            rx.setPattern("^[^\\}\\s]");
+            rx.setPattern("^(?=[^\\}\\s])"
+                // But it's not OK if the line starts with one of our forbidden tokens.
+                + forbiddenTokens
+            );
         }
         else {
             rx.setPattern("^(?:"
@@ -213,14 +231,17 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
                 "|"
                 // Inserting a brace is ok if there is a line (not starting with a
                 // brace) with less or similar indentation as the original line.
-                "[\\s]{0," + indentationLength + "}[^\\}\\s]"
+                "[\\s]{0," + indentationLength + "}(?=[^\\}\\s])"
+                // But it's not OK if the line starts with one of our forbidden tokens.
+                + forbiddenTokens +
                 ")"
             );
         }
 
         if (rx.indexIn(line) == -1) {
             // There is already a brace, or the line is indented more than the
-            // opener line (which means we expect a brace somewhere further down).
+            // opener line (which means we expect a brace somewhere further down),
+            // or we found a forbidden token.
             // So don't insert the brace, and just indent the line.
             isCandidate = false;
         }

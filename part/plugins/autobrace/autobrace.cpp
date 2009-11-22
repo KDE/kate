@@ -197,10 +197,12 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
     QStringList tokens;
     if ( line.contains("class") || line.contains("interface") || line.contains("struct") ) {
         tokens << "private" << "public" << "protected";
-        // C++ specific
-        tokens << "signals" << "Q_SIGNALS";
-        // PHP and potentially others
-        tokens << "function";
+        if ( document->mode() == "C++" ) {
+            tokens << "signals" << "Q_SIGNALS";
+        } else {
+            // PHP and potentially others
+            tokens << "function";
+        }
     }
     if ( line.contains("namespace", Qt::CaseInsensitive) ) {
         // C++ specific

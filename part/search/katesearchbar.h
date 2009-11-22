@@ -88,7 +88,7 @@ protected:
 private Q_SLOTS:
     void onIncPatternChanged(const QString & pattern, bool invokedByUserAction = true);
     void onMatchCaseToggled(bool matchCase);
-    void onIncHighlightAllToggle(bool checked);
+    void onHighlightAllToggled(bool checked);
     void onIncFromCursorToggle();
 
     void onReturnPressed();
@@ -98,7 +98,6 @@ private Q_SLOTS:
     void onPowerPatternChanged(const QString & pattern);
     void onPowerReplaceNext();
     void onPowerReplaceAll();
-    void onPowerHighlightAllToggle(bool checked);
     void onPowerFromCursorToggle();
 
     void onPowerModeChanged(int index, bool invokedByUserAction = true);

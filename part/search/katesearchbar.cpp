@@ -611,10 +611,11 @@ void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
 
 
 
-void KateSearchBar::onIncHighlightAllToggle(bool checked) {
-        sendConfig();
+void KateSearchBar::onHighlightAllToggled(bool checked) {
+    sendConfig();
 
-        if (checked) {
+    if (checked) {
+        if (m_incUi != 0) {
             const QString pattern = m_incUi->pattern->displayText();
             if (!pattern.isEmpty()) {
                 // How to search while highlighting?
@@ -629,8 +630,42 @@ void KateSearchBar::onIncHighlightAllToggle(bool checked) {
                 highlightAllMatches(pattern, enabledOptions);
             }
         } else {
-            resetHighlights();
+            const QString pattern = m_powerUi->pattern->currentText();
+            if (!pattern.isEmpty()) {
+                // How to search while highlighting?
+                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+                const bool matchCase = isChecked(m_powerUi->matchCase);
+                if (!matchCase) {
+                    enabledOptions |= Search::CaseInsensitive;
+                }
+
+                switch (m_powerUi->searchMode->currentIndex()) {
+                case MODE_WHOLE_WORDS:
+                    enabledOptions |= Search::WholeWords;
+                    break;
+
+                case MODE_ESCAPE_SEQUENCES:
+                    enabledOptions |= Search::EscapeSequences;
+                    break;
+
+                case MODE_REGEX:
+                    enabledOptions |= Search::Regex;
+                    break;
+
+                case MODE_PLAIN_TEXT: // FALLTHROUGH
+                default:
+                    break;
+
+                }
+
+                // Highlight them all
+                resetHighlights();
+                highlightAllMatches(pattern, enabledOptions);
+            }
         }
+    } else {
+        resetHighlights();
+    }
 }
 
 
@@ -1390,49 +1425,6 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
 
 
 
-void KateSearchBar::onPowerHighlightAllToggle(bool checked) {
-        sendConfig();
-
-        if (checked) {
-            const QString pattern = m_powerUi->pattern->currentText();
-            if (!pattern.isEmpty()) {
-                // How to search while highlighting?
-                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-                const bool matchCase = isChecked(m_powerUi->matchCase);
-                if (!matchCase) {
-                    enabledOptions |= Search::CaseInsensitive;
-                }
-
-                switch (m_powerUi->searchMode->currentIndex()) {
-                case MODE_WHOLE_WORDS:
-                    enabledOptions |= Search::WholeWords;
-                    break;
-
-                case MODE_ESCAPE_SEQUENCES:
-                    enabledOptions |= Search::EscapeSequences;
-                    break;
-
-                case MODE_REGEX:
-                    enabledOptions |= Search::Regex;
-                    break;
-
-                case MODE_PLAIN_TEXT: // FALLTHROUGH
-                default:
-                    break;
-
-                }
-
-                // Highlight them all
-                resetHighlights();
-                highlightAllMatches(pattern, enabledOptions);
-            }
-        } else {
-            resetHighlights();
-        }
-}
-
-
-
 void KateSearchBar::onPowerFromCursorToggle() {
         sendConfig();
 }
@@ -1656,7 +1648,7 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
         connect(m_powerUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
-        connect(m_powerMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onPowerHighlightAllToggle(bool)));
+        connect(m_powerMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
         connect(m_powerMenuFromCursor, SIGNAL(changed()), this, SLOT(onPowerFromCursorToggle()));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button
@@ -1797,7 +1789,7 @@ void KateSearchBar::onMutateIncremental() {
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
         connect(m_incMenuMatchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
         connect(m_incMenuFromCursor, SIGNAL(changed()), this, SLOT(onIncFromCursorToggle()));
-        connect(m_incMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onIncHighlightAllToggle(bool)));
+        connect(m_incMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button
         // better shows his nature than in instant popup mode.

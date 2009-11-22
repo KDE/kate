@@ -133,7 +133,6 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
-        m_isPower(false),
         m_incUi(NULL),
         m_incMenu(NULL),
         m_incMenuMatchCase(NULL),
@@ -968,8 +967,7 @@ void KateSearchBar::givePatternFeedback(const QString & pattern) {
             break;
 
         case MODE_REGEX:
-            m_patternTester.setPattern(pattern);
-            isPatternValid = m_patternTester.isValid();
+            isPatternValid = QRegExp(pattern).isValid();
             break;
 
         case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
@@ -1492,8 +1490,6 @@ void KateSearchBar::onMutatePower() {
     QString initialPattern;
     bool selectionOnly = false;
 
-    m_isPower=true;
-    
     // Guess settings from context: init pattern with current selection
     const bool selected = view()->selection();
     if (selected) {
@@ -1673,8 +1669,6 @@ void KateSearchBar::onMutatePower() {
 void KateSearchBar::onMutateIncremental() {
     QString initialPattern;
 
-    m_isPower=false;
-    
     // Guess settings from context: init pattern with current selection
     const bool selected = view()->selection();
     if (selected) {
@@ -1919,7 +1913,7 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
 
 
 bool KateSearchBar::isPower() const {
-    return m_isPower;
+    return m_powerUi != 0;
 }
 
 #include "katesearchbar.moc"

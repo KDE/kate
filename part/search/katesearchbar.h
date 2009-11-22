@@ -27,8 +27,6 @@
 
 #include <kcolorscheme.h>
 
-#include <QtCore/QRegExp>
-
 
 namespace KTextEditor {
     class SmartRangeNotifier;
@@ -150,10 +148,8 @@ private:
     // Shared by both dialogs
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRangeNotifier *m_rangeNotifier;
-    QVBoxLayout * m_layout;
+    QVBoxLayout *const m_layout;
     QWidget * m_widget;
-    QRegExp m_patternTester;
-    bool m_isPower;
 
     // Incremental search related
     Ui::IncrementalSearchBar * m_incUi;

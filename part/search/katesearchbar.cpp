@@ -215,10 +215,13 @@ KateSearchBar::~KateSearchBar() {
 
 
 void KateSearchBar::findNext() {
-    if (m_incUi != NULL) {
-        onIncNext();
-    } else {
-        onPowerFindNext();
+    const bool FIND = false;
+
+    const bool found = find(FIND);
+
+    if (found && m_powerUi != NULL) {
+        // Add to search history
+        addCurrentTextToHistory(m_powerUi->pattern);
     }
 }
 
@@ -590,13 +593,6 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
 
 
 
-void KateSearchBar::onIncNext() {
-    const bool FIND = false;
-    find(FIND);
-}
-
-
-
 void KateSearchBar::onIncPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
@@ -702,11 +698,7 @@ void KateSearchBar::onReturnPressed() {
         }
     } else {
         // Shift up, search forwards
-        if (m_powerUi != NULL) {
-            onPowerFindNext();
-        } else {
-            onIncNext();
-        }
+        findNext();
     }
 
     if (controlDown) {
@@ -1042,16 +1034,6 @@ void KateSearchBar::sendConfig() {
 
     // Adjust global config
     globalConfig->setSearchFlags(futureFlags);
-}
-
-
-
-void KateSearchBar::onPowerFindNext() {
-    const bool FIND = false;
-    if (find(FIND)) {
-        // Add to search history
-        addCurrentTextToHistory(m_powerUi->pattern);
-    }
 }
 
 
@@ -1690,7 +1672,7 @@ void KateSearchBar::onMutatePower() {
         // Slots
         connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
         connect(patternLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
-        connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
+        connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
         connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
         connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
@@ -1832,7 +1814,8 @@ void KateSearchBar::onMutateIncremental() {
         // Slots
         connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
         connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
-        connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
+        connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
+        connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
         connect(m_incMenuMatchCase, SIGNAL(changed()), this, SLOT(onIncMatchCaseToggle()));
         connect(m_incMenuFromCursor, SIGNAL(changed()), this, SLOT(onIncFromCursorToggle()));

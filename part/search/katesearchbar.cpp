@@ -670,7 +670,7 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
 
 
 
-void KateSearchBar::onIncFromCursorToggle() {
+void KateSearchBar::onFromCursorToggled(bool /*fromCursor*/) {
         sendConfig();
 }
 
@@ -1425,12 +1425,6 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
 
 
 
-void KateSearchBar::onPowerFromCursorToggle() {
-        sendConfig();
-}
-
-
-
 void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) {
     if (invokedByUserAction) {
         if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
@@ -1649,7 +1643,7 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
         connect(m_powerUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
         connect(m_powerMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
-        connect(m_powerMenuFromCursor, SIGNAL(changed()), this, SLOT(onPowerFromCursorToggle()));
+        connect(m_powerMenuFromCursor, SIGNAL(toggled(bool)), this, SLOT(onFromCursorToggled(bool)));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button
         // better shows his nature than in instant popup mode.
@@ -1788,7 +1782,7 @@ void KateSearchBar::onMutateIncremental() {
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
         connect(m_incMenuMatchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
-        connect(m_incMenuFromCursor, SIGNAL(changed()), this, SLOT(onIncFromCursorToggle()));
+        connect(m_incMenuFromCursor, SIGNAL(toggled(bool)), this, SLOT(onFromCursorToggled(bool)));
         connect(m_incMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button

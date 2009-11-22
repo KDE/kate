@@ -228,9 +228,8 @@ void KateSearchBar::findNext() {
 
 void KateSearchBar::findPrevious() {
     const bool FIND = false;
-    const bool BACKWARDS = false;
 
-    const bool found = find(FIND, BACKWARDS);
+    const bool found = find(FIND, SearchBackward);
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -671,9 +670,9 @@ void KateSearchBar::onFromCursorToggled(bool /*fromCursor*/) {
 
 
 
-void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
+void KateSearchBar::fixForSingleLine(Range & range, SearchDirection searchDirection) {
     FAST_DEBUG("Single-line workaround checking BEFORE" << range);
-    if (forwards) {
+    if (searchDirection == SearchForward) {
         const int line = range.start().line();
         const int col = range.start().column();
         const int maxColWithNewline = view()->doc()->lineLength(line) + 1;
@@ -734,7 +733,7 @@ void KateSearchBar::onReturnPressed() {
 
 
 
-bool KateSearchBar::find(bool replace, bool forwards) {
+bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error
@@ -749,7 +748,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
         enabledOptions |= Search::CaseInsensitive;
     }
 
-    if (!forwards) {
+    if (searchDirection == SearchBackward) {
         enabledOptions |= Search::Backwards;
     }
 
@@ -796,7 +795,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
             inputRange = selection;
         } else {
             // Next match after/before selection if a match was selected before
-            if (forwards) {
+            if (searchDirection == SearchForward) {
                 inputRange.setRange(selection.start(), view()->doc()->documentEnd());
             } else {
                 inputRange.setRange(Cursor(0, 0), selection.end());
@@ -809,7 +808,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
                 : isChecked(m_incMenuFromCursor);
         if (fromCursor) {
             const Cursor cursorPos = view()->cursorPosition();
-            if (forwards) {
+            if (searchDirection == SearchForward) {
                 // if the vi input mode is used, the cursor will stay a the first character of the
                 // matched pattern (no selection will be made), so the next search should start from
                 // match column + 1
@@ -829,7 +828,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
 
     // Single-line pattern workaround
     if (regexMode && !multiLinePattern) {
-        fixForSingleLine(inputRange, forwards);
+        fixForSingleLine(inputRange, searchDirection);
     }
 
 
@@ -851,14 +850,14 @@ bool KateSearchBar::find(bool replace, bool forwards) {
                 replaceMatch(resultRanges, replacement);
 
                 // Find, second try after replaced text
-                if (forwards) {
+                if (searchDirection == SearchForward) {
                     inputRange.setRange(afterReplace->end(), inputRange.end());
                 } else {
                     inputRange.setRange(inputRange.start(), afterReplace->start());
                 }
             } else {
                 // Find, second try after old selection
-                if (forwards) {
+                if (searchDirection == SearchForward) {
                     inputRange.setRange(selection.end(), inputRange.end());
                 } else {
                     inputRange.setRange(inputRange.start(), selection.start());
@@ -866,7 +865,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
             }
 
             // Single-line pattern workaround
-            fixForSingleLine(inputRange, forwards);
+            fixForSingleLine(inputRange, searchDirection);
 
             const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
             const Range & match2 = resultRanges2[0];
@@ -1436,21 +1435,21 @@ void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) 
 
 
 
-/*static*/ void KateSearchBar::nextMatchForSelection(KateView * view, bool forwards) {
+/*static*/ void KateSearchBar::nextMatchForSelection(KateView * view, SearchDirection searchDirection) {
     const bool selected = view->selection();
     if (selected) {
         const QString pattern = view->selectionText();
 
         // How to find?
         Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-        if (!forwards) {
+        if (searchDirection == SearchBackward) {
             enabledOptions |= Search::Backwards;
         }
 
         // Where to find?
         const Range selRange = view->selectionRange();
         Range inputRange;
-        if (forwards) {
+        if (searchDirection == SearchForward) {
             inputRange.setRange(selRange.end(), view->doc()->documentEnd());
         } else {
             inputRange.setRange(Cursor(0, 0), selRange.start());
@@ -1464,7 +1463,7 @@ void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) 
             selectRange(view, match);
         } else {
             // Find, second try
-            if (forwards) {
+            if (searchDirection == SearchForward) {
                 inputRange.setRange(Cursor(0, 0), selRange.start());
             } else {
                 inputRange.setRange(selRange.end(), view->doc()->documentEnd());

@@ -59,13 +59,19 @@ private:
     };
 
 public:
+    enum SearchDirection {
+      SearchForward,
+      SearchBackward
+    };
+
+public:
     explicit KateSearchBar(bool initAsPower, KateView* view, QWidget* parent=0);
     ~KateSearchBar();
 
     bool isPower() const;
 
     // Only used by KateView
-    static void nextMatchForSelection(KateView * view, bool forwards);
+    static void nextMatchForSelection(KateView * view, SearchDirection searchDirection);
 
 public Q_SLOTS:
     // Called for <F3> and <Shift>+<F3>
@@ -107,7 +113,7 @@ private Q_SLOTS:
 
 private:
     // Helpers
-    bool find(bool replace, bool forwards = true);
+    bool find(bool replace, SearchDirection searchDirection = SearchForward);
     void findAll(KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
             const QString * replacement);
@@ -144,7 +150,7 @@ private:
     void addCurrentTextToHistory(QComboBox * combo);
     void backupConfig(bool ofPower);
     void sendConfig();
-    void fixForSingleLine(KTextEditor::Range & range, bool forwards);
+    void fixForSingleLine(KTextEditor::Range & range, SearchDirection searchDirection);
 
 private:
     // Shared by both dialogs

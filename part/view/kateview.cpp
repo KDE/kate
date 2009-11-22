@@ -1370,14 +1370,12 @@ void KateView::find()
 
 void KateView::findSelectedForwards()
 {
-  const bool FORWARDS = true;
-  KateSearchBar::nextMatchForSelection(this, FORWARDS);
+  KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchForward);
 }
 
 void KateView::findSelectedBackwards()
 {
-  const bool BACKWARDS = false;
-  KateSearchBar::nextMatchForSelection(this, BACKWARDS);
+  KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchBackward);
 }
 
 void KateView::replace()

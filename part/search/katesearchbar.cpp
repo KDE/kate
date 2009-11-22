@@ -133,6 +133,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
+        m_isPower(false),
         m_incUi(NULL),
         m_incMenu(NULL),
         m_incMenuMatchCase(NULL),
@@ -150,11 +151,10 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerMode(0),
-        m_isPower(false) {
+        m_powerMode(0) {
 
     connect(m_rangeNotifier,SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),
-      this,SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
+      this,SLOT(onRangeContentsChanged(KTextEditor::SmartRange*)));
 
     // Modify parent
     QWidget * const widget = centralWidget();
@@ -259,11 +259,11 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 void KateSearchBar::highlightAllMatches(const QString & pattern,
         Search::SearchOptions searchOptions) {
-    onForAll(pattern, view()->doc()->documentRange(),
+    findAll(pattern, view()->doc()->documentRange(),
             searchOptions, NULL);
 }
 
-void KateSearchBar::rangeContentsChanged(KTextEditor::SmartRange* range) {
+void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
   neutralMatch();
   Attribute::Ptr attribute(new Attribute());
   //attribute->setBackground(color);
@@ -592,7 +592,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
 
 void KateSearchBar::onIncNext() {
     const bool FIND = false;
-    onStep(FIND);
+    find(FIND);
 }
 
 
@@ -600,7 +600,7 @@ void KateSearchBar::onIncNext() {
 void KateSearchBar::onIncPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
-    onStep(FIND, BACKWARDS);
+    find(FIND, BACKWARDS);
 }
 
 
@@ -722,7 +722,7 @@ void KateSearchBar::onReturnPressed() {
 
 
 
-bool KateSearchBar::onStep(bool replace, bool forwards) {
+bool KateSearchBar::find(bool replace, bool forwards) {
     // What to find?
     const QString pattern = (m_powerUi != NULL)
             ? m_powerUi->pattern->currentText()
@@ -1054,7 +1054,7 @@ void KateSearchBar::sendConfig() {
 
 void KateSearchBar::onPowerFindNext() {
     const bool FIND = false;
-    if (onStep(FIND)) {
+    if (find(FIND)) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
     }
@@ -1065,7 +1065,7 @@ void KateSearchBar::onPowerFindNext() {
 void KateSearchBar::onPowerFindPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
-    if (onStep(FIND, BACKWARDS)) {
+    if (find(FIND, BACKWARDS)) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
     }
@@ -1075,7 +1075,7 @@ void KateSearchBar::onPowerFindPrev() {
 
 void KateSearchBar::onPowerReplaceNext() {
     const bool REPLACE = true;
-    if (onStep(REPLACE)) {
+    if (find(REPLACE)) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
 
@@ -1088,7 +1088,7 @@ void KateSearchBar::onPowerReplaceNext() {
 
 // replacement == NULL --> Highlight all matches
 // replacement != NULL --> Replace and highlight all matches
-void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
+void KateSearchBar::findAll(const QString & pattern, Range inputRange,
         Search::SearchOptions enabledOptions,
         const QString * replacement) {
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
@@ -1223,7 +1223,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    onForAll(pattern, inputRange, enabledOptions, &replacement);
+    findAll(pattern, inputRange, enabledOptions, &replacement);
 
 
     // Add to search history
@@ -2017,7 +2017,7 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
 }
 
 
-bool KateSearchBar::isPower() {
+bool KateSearchBar::isPower() const {
     return m_isPower;
 }
 

@@ -64,11 +64,28 @@ public:
     explicit KateSearchBar(bool initAsPower, KateView* view, QWidget* parent=0);
     ~KateSearchBar();
 
+    bool isPower() const;
+
+    // Only used by KateView
+    static void nextMatchForSelection(KateView * view, bool forwards);
+
 public Q_SLOTS:
     // Called for <F3> and <Shift>+<F3>
     void findNext();
     void findPrevious();
 
+    // Also used by KateView
+    void onMutatePower();
+    void onMutateIncremental();
+
+    void enableHighlights(bool enable);
+
+protected:
+    // Overridden
+    virtual void showEvent(QShowEvent * event);
+    virtual void closed();
+
+private Q_SLOTS:
     void onIncPatternChanged(const QString & pattern, bool invokedByUserAction = true);
     void onIncNext();
     void onIncPrev();
@@ -76,10 +93,6 @@ public Q_SLOTS:
     void onIncHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onIncFromCursorToggle(bool invokedByUserAction = true);
 
-    void onForAll(const QString & pattern, KTextEditor::Range inputRange,
-            KTextEditor::Search::SearchOptions enabledOptions,
-            const QString * replacement);
-    bool onStep(bool replace, bool forwards = true);
     void onReturnPressed();
     void onSelectionChanged();
     void onCursorPositionChanged();
@@ -96,29 +109,24 @@ public Q_SLOTS:
     void onPowerModeChangedWholeWords();
     void onPowerModeChangedEscapeSequences();
     void onPowerModeChangedRegularExpression();
-private:
+
     void onPowerModeChanged();
-public Q_SLOTS:
+
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
     void onPowerPatternContextMenuRequest();
     void onPowerPatternContextMenuRequest(const QPoint&);
     void onPowerReplacmentContextMenuRequest();
     void onPowerReplacmentContextMenuRequest(const QPoint&);
 
-public:
-    // Only used by KateView
-    static void nextMatchForSelection(KateView * view, bool forwards);
-
-public Q_SLOTS:
-    // Also used by KateView
-    void onMutatePower();
-    void onMutateIncremental();
-
-private Q_SLOTS:
-    void rangeContentsChanged(KTextEditor::SmartRange* range);
+    void onRangeContentsChanged(KTextEditor::SmartRange* range);
 
 private:
     // Helpers
+    bool find(bool replace, bool forwards = true);
+    void findAll(const QString & pattern, KTextEditor::Range inputRange,
+            KTextEditor::Search::SearchOptions enabledOptions,
+            const QString * replacement);
+
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);
@@ -130,7 +138,6 @@ private:
     void highlightReplacement(const KTextEditor::Range & range);
     void highlightAllMatches(const QString & pattern,
             KTextEditor::Search::SearchOptions searchOptions);
-    void adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole);
     void neutralMatch();
     void indicateMatch(bool wrapped);
     void indicateMismatch();
@@ -153,20 +160,13 @@ private:
     void fixForSingleLine(KTextEditor::Range & range, bool forwards);
 
 private:
-    // Overridden
-    void showEvent(QShowEvent * event);
-    //void hideEvent(QHideEvent * event);
-public:
-    void closed();
-    void enableHighlights(bool enable);
-    bool isPower();
-private:
     // Shared by both dialogs
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRangeNotifier *m_rangeNotifier;
     QVBoxLayout * m_layout;
     QWidget * m_widget;
     QRegExp m_patternTester;
+    bool m_isPower;
 
     // Incremental search related
     Ui::IncrementalSearchBar * m_incUi;
@@ -191,7 +191,6 @@ private:
     bool m_powerFromCursor : 1;
     bool m_powerHighlightAll : 1;
     unsigned int m_powerMode : 2;
-    bool m_isPower:1;
 };
 
 

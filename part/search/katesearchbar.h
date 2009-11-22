@@ -105,10 +105,6 @@ private Q_SLOTS:
     void onPowerMatchCaseToggle(bool invokedByUserAction = true);
     void onPowerHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
-    void onPowerModeChangedPlainText();
-    void onPowerModeChangedWholeWords();
-    void onPowerModeChangedEscapeSequences();
-    void onPowerModeChangedRegularExpression();
 
     void onPowerModeChanged();
 

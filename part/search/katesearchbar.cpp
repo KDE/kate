@@ -1491,34 +1491,6 @@ void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerModeChangedPlainText() {
-    m_powerUi->searchMode->setCurrentIndex(MODE_PLAIN_TEXT);
-    onPowerModeChanged();
-}
-
-
-
-void KateSearchBar::onPowerModeChangedWholeWords() {
-    m_powerUi->searchMode->setCurrentIndex(MODE_WHOLE_WORDS);
-    onPowerModeChanged();
-}
-
-
-
-void KateSearchBar::onPowerModeChangedEscapeSequences() {
-    m_powerUi->searchMode->setCurrentIndex(MODE_ESCAPE_SEQUENCES);
-    onPowerModeChanged();
-}
-
-
-
-void KateSearchBar::onPowerModeChangedRegularExpression() {
-    m_powerUi->searchMode->setCurrentIndex(MODE_REGEX);
-    onPowerModeChanged();
-}
-
-
-
 void KateSearchBar::onPowerModeChanged() {
     if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
         setChecked(m_powerUi->matchCase, true);

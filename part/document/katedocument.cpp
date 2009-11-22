@@ -1451,7 +1451,9 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
     lineInfo(&info, line);
     if (info.startsInVisibleBlock)
       foldingTree()->toggleRegionVisibility(line);
+  }
 
+  for (int line = to; line >= from; line--) {
     oldText << this->line(line);
     m_undoManager->slotLineRemoved(line, this->line(line));
 

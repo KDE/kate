@@ -106,8 +106,6 @@ private Q_SLOTS:
     void onPowerHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
 
-    void onPowerModeChanged();
-
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
     void onPowerPatternContextMenuRequest();
     void onPowerPatternContextMenuRequest(const QPoint&);

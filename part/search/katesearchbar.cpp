@@ -1491,20 +1491,14 @@ void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerModeChanged() {
-    if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
-        setChecked(m_powerUi->matchCase, true);
-    }
-
-    sendConfig();
-    indicateNothing();
-}
-
-
-
 void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) {
     if (invokedByUserAction) {
-        onPowerModeChanged();
+        if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
+            m_powerUi->matchCase->setChecked(true);
+        }
+
+        sendConfig();
+        indicateNothing();
     }
 
     givePatternFeedback(m_powerUi->pattern->currentText());

@@ -108,7 +108,7 @@ private Q_SLOTS:
 private:
     // Helpers
     bool find(bool replace, bool forwards = true);
-    void findAll(const QString & pattern, KTextEditor::Range inputRange,
+    void findAll(KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
             const QString * replacement);
 
@@ -116,13 +116,15 @@ private:
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);
     void setChecked(QAction * menuAction, bool checked);
+
+    QString searchPattern() const;
+
     void resetHighlights();
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
-    void highlightAllMatches(const QString & pattern,
-            KTextEditor::Search::SearchOptions searchOptions);
+    void highlightAllMatches(KTextEditor::Search::SearchOptions searchOptions);
     void neutralMatch();
     void indicateMatch(bool wrapped);
     void indicateMismatch();
@@ -135,10 +137,10 @@ private:
     void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement,
             int replacementCounter = 1);
 
-    QVector<QString> getCapturePatterns(const QString & pattern);
+    QVector<QString> getCapturePatterns(const QString & pattern) const;
     void showExtendedContextMenu(bool forPattern, const QPoint& pos);
 
-    void givePatternFeedback(const QString & pattern);
+    void givePatternFeedback();
     void addCurrentTextToHistory(QComboBox * combo);
     void backupConfig(bool ofPower);
     void sendConfig();

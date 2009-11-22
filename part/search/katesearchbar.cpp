@@ -263,10 +263,8 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
-void KateSearchBar::highlightAllMatches(const QString & pattern,
-        Search::SearchOptions searchOptions) {
-    findAll(pattern, view()->doc()->documentRange(),
-            searchOptions, NULL);
+void KateSearchBar::highlightAllMatches(Search::SearchOptions searchOptions) {
+    findAll(view()->doc()->documentRange(), searchOptions, NULL);
 }
 
 void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
@@ -583,7 +581,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         // Highlight all
         if (isChecked(m_incMenuHighlightAll)) {
             if (found ) {
-                highlightAllMatches(pattern, enabledOptions);
+                highlightAllMatches(enabledOptions);
             } else {
                 resetHighlights();
             }
@@ -615,8 +613,7 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
 
     if (checked) {
         if (m_incUi != 0) {
-            const QString pattern = m_incUi->pattern->displayText();
-            if (!pattern.isEmpty()) {
+            if (!searchPattern().isEmpty()) {
                 // How to search while highlighting?
                 Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
                 const bool matchCase = isChecked(m_incMenuMatchCase);
@@ -626,11 +623,10 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
 
                 // Highlight them all
                 resetHighlights();
-                highlightAllMatches(pattern, enabledOptions);
+                highlightAllMatches(enabledOptions);
             }
         } else {
-            const QString pattern = m_powerUi->pattern->currentText();
-            if (!pattern.isEmpty()) {
+            if (!searchPattern().isEmpty()) {
                 // How to search while highlighting?
                 Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
                 const bool matchCase = isChecked(m_powerUi->matchCase);
@@ -659,7 +655,7 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
 
                 // Highlight them all
                 resetHighlights();
-                highlightAllMatches(pattern, enabledOptions);
+                highlightAllMatches(enabledOptions);
             }
         }
     } else {
@@ -740,10 +736,7 @@ void KateSearchBar::onReturnPressed() {
 
 bool KateSearchBar::find(bool replace, bool forwards) {
     // What to find?
-    const QString pattern = (m_powerUi != NULL)
-            ? m_powerUi->pattern->currentText()
-            : m_incUi->pattern->displayText();
-    if (pattern.isEmpty()) {
+    if (searchPattern().isEmpty()) {
         return false; // == Pattern error
     }
 
@@ -775,7 +768,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
         case MODE_REGEX:
             {
                 // Check if pattern multi-line
-                multiLinePattern = KateRegExp(pattern).isMultiLine();
+                multiLinePattern = KateRegExp(searchPattern()).isMultiLine();
                 regexMode = true;
             }
             enabledOptions |= Search::Regex;
@@ -841,7 +834,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
 
 
     // Find, first try
-    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, enabledOptions);
+    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
     bool found = false;
@@ -875,7 +868,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
             // Single-line pattern workaround
             fixForSingleLine(inputRange, forwards);
 
-            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
+            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 nonstatic_selectRange2(view(), match2);
@@ -900,7 +893,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
     // Wrap around
     if (wrap) {
         inputRange = view()->doc()->documentRange();
-        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
+        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
             // Previously selected match again?
@@ -924,7 +917,7 @@ bool KateSearchBar::find(bool replace, bool forwards) {
     if ((found && highlightAll) || (afterReplace != NULL)) {
         // Highlight all matches
         if (found && highlightAll) {
-            highlightAllMatches(pattern, enabledOptions);
+            highlightAllMatches(enabledOptions);
         }
 
         // Highlight replacement (on top if overlapping) if new match selected
@@ -946,28 +939,28 @@ bool KateSearchBar::find(bool replace, bool forwards) {
 
 
 
-void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
-    givePatternFeedback(pattern);
+void KateSearchBar::onPowerPatternChanged(const QString & /*pattern*/) {
+    givePatternFeedback();
     indicateNothing();
 }
 
 
 
-void KateSearchBar::givePatternFeedback(const QString & pattern) {
+void KateSearchBar::givePatternFeedback() {
     bool isPatternValid = true;
 
-    if (pattern.isEmpty()) {
+    if (searchPattern().isEmpty()) {
         isPatternValid = false;
     } else {
         switch (m_powerUi->searchMode->currentIndex()) {
         case MODE_WHOLE_WORDS:
-            if (pattern.trimmed() != pattern) {
+            if (searchPattern().trimmed() != searchPattern()) {
                 isPatternValid = false;
             }
             break;
 
         case MODE_REGEX:
-            isPatternValid = QRegExp(pattern).isValid();
+            isPatternValid = QRegExp(searchPattern()).isValid();
             break;
 
         case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
@@ -1082,11 +1075,10 @@ void KateSearchBar::onPowerReplaceNext() {
 
 // replacement == NULL --> Highlight all matches
 // replacement != NULL --> Replace and highlight all matches
-void KateSearchBar::findAll(const QString & pattern, Range inputRange,
-        Search::SearchOptions enabledOptions,
+void KateSearchBar::findAll(Range inputRange, Search::SearchOptions enabledOptions,
         const QString * replacement) {
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
-    const bool multiLinePattern = regexMode ? KateRegExp(pattern).isMultiLine() : false;
+    const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
 
     // Clear backwards flag, this algorithm is for forward mode
     if (enabledOptions.testFlag(Search::Backwards)) {
@@ -1100,7 +1092,7 @@ void KateSearchBar::findAll(const QString & pattern, Range inputRange,
     QList<Range> highlightRanges;
     int matchCounter = 0;
     for (;;) {
-        const QVector<Range> resultRanges = view()->doc()->searchText(*workingRange, pattern, enabledOptions);
+        const QVector<Range> resultRanges = view()->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
         Range match = resultRanges[0];
         if (!match.isValid()) {
             break;
@@ -1174,7 +1166,6 @@ void KateSearchBar::findAll(const QString & pattern, Range inputRange,
 
 void KateSearchBar::onPowerReplaceAll() {
     // What to find/replace?
-    const QString pattern = m_powerUi->pattern->currentText();
     const QString replacement = m_powerUi->replacement->currentText();
 
 
@@ -1217,7 +1208,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    findAll(pattern, inputRange, enabledOptions, &replacement);
+    findAll(inputRange, enabledOptions, &replacement);
 
 
     // Add to search history
@@ -1225,6 +1216,13 @@ void KateSearchBar::onPowerReplaceAll() {
 
     // Add to replace history
     addCurrentTextToHistory(m_powerUi->replacement);
+}
+
+
+
+QString KateSearchBar::searchPattern() const {
+    return (m_powerUi != 0) ? m_powerUi->pattern->currentText()
+                            : m_incUi->pattern->displayText();
 }
 
 
@@ -1237,7 +1235,7 @@ struct ParInfo {
 
 
 
-QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
+QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) const {
     QVector<QString> capturePatterns;
     capturePatterns.reserve(9);
     QStack<ParInfo> parInfos;
@@ -1433,7 +1431,7 @@ void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) 
         indicateNothing();
     }
 
-    givePatternFeedback(m_powerUi->pattern->currentText());
+    givePatternFeedback();
 }
 
 

@@ -605,20 +605,17 @@ void KateSearchBar::onIncPrev() {
 
 
 
-void KateSearchBar::onIncMatchCaseToggle(bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onIncMatchCaseToggle() {
         sendConfig();
 
         // Re-search with new settings
         const QString pattern = m_incUi->pattern->displayText();
         onIncPatternChanged(pattern);
-    }
 }
 
 
 
-void KateSearchBar::onIncHighlightAllToggle(bool checked, bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onIncHighlightAllToggle(bool checked) {
         sendConfig();
 
         if (checked) {
@@ -638,15 +635,12 @@ void KateSearchBar::onIncHighlightAllToggle(bool checked, bool invokedByUserActi
         } else {
             resetHighlights();
         }
-    }
 }
 
 
 
-void KateSearchBar::onIncFromCursorToggle(bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onIncFromCursorToggle() {
         sendConfig();
-    }
 }
 
 
@@ -1429,17 +1423,14 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
 
 
 
-void KateSearchBar::onPowerMatchCaseToggle(bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onPowerMatchCaseToggle() {
         sendConfig();
         indicateNothing();
-    }
 }
 
 
 
-void KateSearchBar::onPowerHighlightAllToggle(bool checked, bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onPowerHighlightAllToggle(bool checked) {
         sendConfig();
 
         if (checked) {
@@ -1478,15 +1469,12 @@ void KateSearchBar::onPowerHighlightAllToggle(bool checked, bool invokedByUserAc
         } else {
             resetHighlights();
         }
-    }
 }
 
 
 
-void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
-    if (invokedByUserAction) {
+void KateSearchBar::onPowerFromCursorToggle() {
         sendConfig();
-    }
 }
 
 

@@ -1440,11 +1440,11 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
   if (!isReadWrite())
     return false;
 
-  editStart(editSource);
-  QStringList oldText;
-
   if (lines() == 1)
     return editRemoveText(0, 0, kateTextLine(0)->length());
+
+  editStart(editSource);
+  QStringList oldText;
 
   for (int line = to; line >= from; line--) {
     KateLineInfo info;
@@ -1486,7 +1486,7 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
 
   KTextEditor::Range rangeRemoved(from, 0, to + 1, 0);
 
-  if (to == lastLine()) {
+  if (to == lastLine() + to - from + 1) {
     rangeRemoved.end().setPosition(to, oldText.first().length());
     if (from > 0) {
       KateTextLine::Ptr prevLine = plainKateTextLine(from - 1);

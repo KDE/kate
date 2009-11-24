@@ -790,12 +790,12 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
       if (to <= lastLine())
         editRemoveText(to, 0, range.end().column());
 
-      if (range.start().column() == 0)
+      if (range.start().column() == 0 && from > 0)
         --from;
 
       editRemoveLines(from+1, to-1);
  
-      if (range.start().column() > 0) {
+      if (range.start().column() > 0 || from == 0) {
         editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
         editUnWrapLine(from);
       }

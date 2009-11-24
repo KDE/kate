@@ -204,7 +204,7 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
             tokens << "function";
         }
     }
-    if ( line.contains("namespace", Qt::CaseInsensitive) ) {
+    if ( (document->mode() == "C++" || document->mode() == "C") && line.contains("namespace", Qt::CaseInsensitive) ) {
         // C++ specific
         tokens << "class" << "struct";
     }
@@ -254,7 +254,9 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
     if (isCandidate) {
         m_indentation = indentation;
         // in C++ automatically add a semicolon after the closing brace when we create a new class/struct
-        if ( document->mode() == "C++" && document->line(openingBraceLine).indexOf(QRegExp("(?:class|struct)\\s+[^\\s]+\\s*\\{\\s*$")) != -1 ) {
+        if ( (document->mode() == "C++" || document->mode() == "C")
+                && document->line(openingBraceLine).indexOf(QRegExp("(?:class|struct|enum)\\s+[^\\s]+\\s*\\{\\s*$")) != -1 )
+        {
             m_withSemicolon = true;
         } else {
             m_withSemicolon = false;

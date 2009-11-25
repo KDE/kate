@@ -35,7 +35,7 @@
 #include <kmessagebox.h>
 
 K_PLUGIN_FACTORY(JoWennKateSnippetsFactory, registerPlugin<JoWenn::KateSnippetsPlugin>();)
-K_EXPORT_PLUGIN(JoWennKateSnippetsFactory(KAboutData("katesnippets_tng","katesnippets_tng",ki18n("JOWENN's Snippets"), "0.1", ki18n("JOWENN's Snippets"), KAboutData::License_LGPL)) )
+K_EXPORT_PLUGIN(JoWennKateSnippetsFactory(KAboutData("katesnippets_tng","katesnippets_tng",ki18n("Kate Snippets"), "0.1", ki18n("Kate Snippets"), KAboutData::License_LGPL)) )
 
 namespace JoWenn {
   
@@ -170,13 +170,13 @@ namespace JoWenn {
   QString KateSnippetsPlugin::configPageName (uint number) const
   {
     if (number != 0) return QString();
-    return i18n("JOWENN's Kate Snippets");
+    return i18n("Kate Snippets");
   }
 
   QString KateSnippetsPlugin::configPageFullName (uint number) const
   {
     if (number != 0) return QString();
-    return i18n("JOWENN's Kate Snippets Settings");
+    return i18n("Kate Snippets Settings");
   }
 
   KIcon KateSnippetsPlugin::configPageIcon (uint number) const
@@ -208,7 +208,7 @@ namespace JoWenn {
   KateSnippetsPluginView::KateSnippetsPluginView (Kate::MainWindow *mainWindow, JoWenn::KateSnippetsPlugin *plugin)
       : Kate::PluginView (mainWindow)
   {
-    QWidget *toolview = mainWindow->createToolView ("jowenn_kate_plugin_snippets_tng", Kate::MainWindow::Left, SmallIcon("text-field"), i18n("JOWENN's Kate Snippets"));
+    QWidget *toolview = mainWindow->createToolView ("kate_plugin_snippets_tng", Kate::MainWindow::Left, SmallIcon("text-field"), i18n("Kate Snippets"));
     m_snippetSelector = new KateSnippetSelector(mainWindow, plugin, toolview);
   }
 
@@ -232,14 +232,14 @@ namespace JoWenn {
   
     void KateSnippetsConfigPage::apply()
   {
-    KConfigGroup config(KGlobal::config(), "JoWennSnippets");
+    KConfigGroup config(KGlobal::config(), "Kate Snippets");
     //config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
     config.sync();    
   }
 
   void KateSnippetsConfigPage::reset()
   {
-    KConfigGroup config(KGlobal::config(), "JoWennSnippets");
+    KConfigGroup config(KGlobal::config(), "Kate Snippets");
     //cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   }
 //END: CONFIG PAGE

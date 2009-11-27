@@ -1590,7 +1590,7 @@ void KateIconBorder::updateAnnotationLine( int line )
 void KateIconBorder::showAnnotationMenu( int line, const QPoint& pos)
 {
   KMenu menu;
-  QAction a("Disable Annotation Bar", &menu);
+  QAction a(i18n("Disable Annotation Bar"), &menu);
   menu.addAction(&a);
   emit m_view->annotationContextMenuAboutToShow( m_view, &menu, line  );
   if (menu.exec(pos) == &a)

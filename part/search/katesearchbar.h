@@ -121,7 +121,7 @@ private Q_SLOTS:
 
 private:
     // Helpers
-    bool find(bool replace, KTextEditor::Search::SearchOptions searchOptions);
+    bool find(KTextEditor::Search::SearchOptions searchOptions, const QString * replacement = 0);
     void findAll(KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
             const QString * replacement);

@@ -214,9 +214,7 @@ KateSearchBar::~KateSearchBar() {
 
 
 void KateSearchBar::findNext() {
-    const bool FIND = false;
-
-    const bool found = find(FIND, searchOptions());
+    const bool found = find(searchOptions());
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -227,9 +225,7 @@ void KateSearchBar::findNext() {
 
 
 void KateSearchBar::findPrevious() {
-    const bool FIND = false;
-
-    const bool found = find(FIND, searchOptions(SearchBackward));
+    const bool found = find(searchOptions(SearchBackward));
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -656,7 +652,7 @@ void KateSearchBar::onReturnPressed() {
 
 
 
-bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions) {
+bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QString * replacement) {
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error
@@ -728,14 +724,13 @@ bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions
     SmartRange * afterReplace = NULL;
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && (match == selection) && (!selectionOnly || replace)) {
+        if (selected && (match == selection) && (!selectionOnly || replacement != 0)) {
             // Same match again
-            if (replace) {
+            if (replacement != 0) {
                 // Selection is match -> replace
-                const QString replacement = m_powerUi->replacement->currentText();
                 afterReplace = view()->doc()->newSmartRange(match);
                 afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
-                replaceMatch(resultRanges, replacement);
+                replaceMatch(resultRanges, *replacement);
 
                 // Find, second try after replaced text
                 if (searchDirection == SearchForward) {
@@ -951,8 +946,9 @@ void KateSearchBar::sendConfig() {
 
 
 void KateSearchBar::onPowerReplaceNext() {
-    const bool REPLACE = true;
-    if (find(REPLACE, searchOptions())) {
+    const QString replacement = m_powerUi->replacement->currentText();
+
+    if (find(searchOptions(), &replacement)) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
 

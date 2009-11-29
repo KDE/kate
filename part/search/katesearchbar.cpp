@@ -216,7 +216,7 @@ KateSearchBar::~KateSearchBar() {
 void KateSearchBar::findNext() {
     const bool FIND = false;
 
-    const bool found = find(FIND);
+    const bool found = find(FIND, searchOptions());
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -229,7 +229,7 @@ void KateSearchBar::findNext() {
 void KateSearchBar::findPrevious() {
     const bool FIND = false;
 
-    const bool found = find(FIND, SearchBackward);
+    const bool found = find(FIND, searchOptions(SearchBackward));
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -733,46 +733,13 @@ void KateSearchBar::onReturnPressed() {
 
 
 
-bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
+bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions) {
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error
     }
 
-    // How to find?
-    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    const bool matchCase = (m_powerUi != NULL)
-            ? isChecked(m_powerUi->matchCase)
-            : isChecked(m_incMenuMatchCase);
-    if (!matchCase) {
-        enabledOptions |= Search::CaseInsensitive;
-    }
-
-    if (searchDirection == SearchBackward) {
-        enabledOptions |= Search::Backwards;
-    }
-
-    if (m_powerUi != NULL) {
-        switch (m_powerUi->searchMode->currentIndex()) {
-        case MODE_WHOLE_WORDS:
-            enabledOptions |= Search::WholeWords;
-            break;
-
-        case MODE_ESCAPE_SEQUENCES:
-            enabledOptions |= Search::EscapeSequences;
-            break;
-
-        case MODE_REGEX:
-            enabledOptions |= Search::Regex;
-            break;
-
-        case MODE_PLAIN_TEXT: // FALLTHROUGH
-        default:
-            break;
-
-        }
-    }
-
+    const SearchDirection searchDirection = searchOptions.testFlag(Search::Backwards) ? SearchBackward : SearchForward;
 
     // Where to find?
     Range inputRange;
@@ -831,7 +798,7 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
 
 
     // Find, first try
-    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
     bool found = false;
@@ -865,7 +832,7 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
             // Single-line pattern workaround
             fixForSingleLine(inputRange, searchDirection);
 
-            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 nonstatic_selectRange2(view(), match2);
@@ -890,7 +857,7 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
     // Wrap around
     if (wrap) {
         inputRange = view()->doc()->documentRange();
-        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
             // Previously selected match again?
@@ -914,7 +881,7 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
     if ((found && highlightAll) || (afterReplace != NULL)) {
         // Highlight all matches
         if (found && highlightAll) {
-            highlightAllMatches(enabledOptions);
+            highlightAllMatches(searchOptions);
         }
 
         // Highlight replacement (on top if overlapping) if new match selected
@@ -1065,7 +1032,7 @@ void KateSearchBar::sendConfig() {
 
 void KateSearchBar::onPowerReplaceNext() {
     const bool REPLACE = true;
-    if (find(REPLACE)) {
+    if (find(REPLACE, searchOptions())) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
 
@@ -1227,6 +1194,47 @@ QString KateSearchBar::searchPattern() const {
     return (m_powerUi != 0) ? m_powerUi->pattern->currentText()
                             : m_incUi->pattern->displayText();
 }
+
+
+
+KTextEditor::Search::SearchOptions KateSearchBar::searchOptions(SearchDirection searchDirection) const {
+    Search::SearchOptions enabledOptions = KTextEditor::Search::Default;
+
+    const bool matchCase = (m_powerUi != NULL)
+            ? m_powerUi->matchCase->isChecked()
+            : m_incMenuMatchCase->isChecked();
+    if (!matchCase) {
+        enabledOptions |= Search::CaseInsensitive;
+    }
+
+    if (searchDirection == SearchBackward) {
+        enabledOptions |= Search::Backwards;
+    }
+
+    if (m_powerUi != NULL) {
+        switch (m_powerUi->searchMode->currentIndex()) {
+        case MODE_WHOLE_WORDS:
+            enabledOptions |= Search::WholeWords;
+            break;
+
+        case MODE_ESCAPE_SEQUENCES:
+            enabledOptions |= Search::EscapeSequences;
+            break;
+
+        case MODE_REGEX:
+            enabledOptions |= Search::Regex;
+            break;
+
+        case MODE_PLAIN_TEXT: // FALLTHROUGH
+        default:
+            break;
+
+        }
+    }
+
+    return enabledOptions;
+}
+
 
 
 

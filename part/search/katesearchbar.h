@@ -113,7 +113,7 @@ private Q_SLOTS:
 
 private:
     // Helpers
-    bool find(bool replace, SearchDirection searchDirection = SearchForward);
+    bool find(bool replace, KTextEditor::Search::SearchOptions searchOptions);
     void findAll(KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
             const QString * replacement);
@@ -125,6 +125,8 @@ private:
 
     QString searchPattern() const;
     bool isPatternValid() const;
+
+    KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void resetHighlights();
 

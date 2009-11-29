@@ -102,7 +102,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       }
       else if ( placeholder == "cursor" )
       {
-        map[ placeholder ] = "|";
+        map[ placeholder ] = '|';
       }
       else map[ placeholder ] = placeholder;
     }

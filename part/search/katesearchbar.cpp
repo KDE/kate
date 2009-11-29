@@ -275,83 +275,75 @@ void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
 }
 
 void KateSearchBar::neutralMatch() {
-    if (m_incUi != NULL) {
-        QPalette background(m_incUi->pattern->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
-        m_incUi->pattern->setPalette(background);
-    } else {
-        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
-        QPalette background(lineEdit->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
-        lineEdit->setPalette(background);
-    }
+    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
+                                           : m_incUi->pattern;
+    QPalette background(lineEdit->palette());
+
+    KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
+
+    lineEdit->setPalette(background);
 }
 
 void KateSearchBar::indicateMatch(bool wrapped) {
-    if (m_incUi != NULL) {
-        // Green background for line edit
-        QPalette background(m_incUi->pattern->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
-        m_incUi->pattern->setPalette(background);
+    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
+                                           : m_incUi->pattern;
+    QPalette background(lineEdit->palette());
 
+    // Green background for line edit
+    KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+
+    if (m_incUi != NULL) {
         // Update status label
         m_incUi->status->setText(wrapped
                 ? i18n("Reached bottom, continued from top")
                 : "");
-    } else {
-        // Green background for line edit
-        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
-        QPalette background(lineEdit->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
-        lineEdit->setPalette(background);
     }
+
+    lineEdit->setPalette(background);
 }
 
 
 
 void KateSearchBar::indicateMismatch() {
-    if (m_incUi != NULL) {
-        // Red background for line edit
-        QPalette background(m_incUi->pattern->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
-        m_incUi->pattern->setPalette(background);
+    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
+                                           : m_incUi->pattern;
+    QPalette background(lineEdit->palette());
 
+    // Red background for line edit
+    KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
+
+    if (m_incUi != NULL) {
         // Update status label
         m_incUi->status->setText(i18n("Not found"));
-    } else {
-        // Red background for line edit
-        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
-        QPalette background(lineEdit->palette());
-        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
-        lineEdit->setPalette(background);
     }
+
+    lineEdit->setPalette(background);
 }
 
 
 
 void KateSearchBar::indicateNothing() {
+    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
+                                           : m_incUi->pattern;
+    QPalette background(lineEdit->palette());
+
     if (m_incUi != NULL) {
         // Reset background of line edit
-        m_incUi->pattern->setPalette(QPalette());
+        background = QPalette();
 
         // Update status label
         m_incUi->status->setText("");
     } else {
         // Reset background of line edit
-        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
         // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
         // ...would it better to cache the original palette?
         QColor color = QPalette().color(QPalette::Base);
-        QPalette background(lineEdit->palette());
         background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
         background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
         background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
-        lineEdit->setPalette(background);
     }
+
+    lineEdit->setPalette(background);
 }
 
 

@@ -58,6 +58,9 @@ private:
         MODE_REGEX = 3
     };
 
+    enum MatchResult {
+    };
+
 public:
     enum SearchDirection {
       SearchForward,

@@ -752,8 +752,6 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
         enabledOptions |= Search::Backwards;
     }
 
-    bool multiLinePattern = false;
-    bool regexMode = false;
     if (m_powerUi != NULL) {
         switch (m_powerUi->searchMode->currentIndex()) {
         case MODE_WHOLE_WORDS:
@@ -765,11 +763,6 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
             break;
 
         case MODE_REGEX:
-            {
-                // Check if pattern multi-line
-                multiLinePattern = KateRegExp(searchPattern()).isMultiLine();
-                regexMode = true;
-            }
             enabledOptions |= Search::Regex;
             break;
 
@@ -826,9 +819,14 @@ bool KateSearchBar::find(bool replace, SearchDirection searchDirection) {
     }
     FAST_DEBUG("Search range is" << inputRange);
 
-    // Single-line pattern workaround
-    if (regexMode && !multiLinePattern) {
-        fixForSingleLine(inputRange, searchDirection);
+    {
+        const bool regexMode = searchOptions.testFlag(Search::Regex);
+        const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
+
+        // Single-line pattern workaround
+        if (regexMode && !multiLinePattern) {
+            fixForSingleLine(inputRange, searchDirection);
+        }
     }
 
 

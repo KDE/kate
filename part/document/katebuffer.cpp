@@ -1049,9 +1049,7 @@ void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,int 
 
     //Make the whole last line marked as still belonging to the block
     for (int z=0;z<deindent;z++) {
-      //FIXME: Not sure if this is really a performance problem
-      foldingList.prepend(linelength+1);
-      foldingList.prepend(-1);
+      foldingList << -1 << linelength+1;
     }
 
 /*    for (int z= foldingList.size()-(deindent*2); z < foldingList.size(); z=z+2)

@@ -59,6 +59,11 @@ private:
     };
 
     enum MatchResult {
+        MatchFound,
+        MatchWrapped,
+        MatchMismatch,
+        MatchNothing,
+        MatchNeutral
     };
 
 public:
@@ -137,10 +142,7 @@ private:
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
     void highlightAllMatches(KTextEditor::Search::SearchOptions searchOptions);
-    void neutralMatch();
-    void indicateMatch(bool wrapped);
-    void indicateMismatch();
-    void indicateNothing();
+    void indicateMatch(MatchResult matchResult);
     static void selectRange(KateView * view, const KTextEditor::Range & range);
     void nonstatic_selectRange(KateView * view, const KTextEditor::Range & range);
     void nonstatic_selectRange2(KateView * view, const KTextEditor::Range & range);

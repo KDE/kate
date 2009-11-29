@@ -267,80 +267,62 @@ void KateSearchBar::highlightAllMatches(KTextEditor::Search::SearchOptions searc
 }
 
 void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
-  neutralMatch();
+  indicateMatch(MatchNeutral);
   Attribute::Ptr attribute(new Attribute());
   //attribute->setBackground(color);
   range->setAttribute(attribute);
 
 }
 
-void KateSearchBar::neutralMatch() {
+void KateSearchBar::indicateMatch(MatchResult matchResult) {
     QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
                                            : m_incUi->pattern;
     QPalette background(lineEdit->palette());
 
-    KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
-
-    lineEdit->setPalette(background);
-}
-
-void KateSearchBar::indicateMatch(bool wrapped) {
-    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
-                                           : m_incUi->pattern;
-    QPalette background(lineEdit->palette());
-
-    // Green background for line edit
-    KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
-
-    if (m_incUi != NULL) {
-        // Update status label
-        m_incUi->status->setText(wrapped
-                ? i18n("Reached bottom, continued from top")
-                : "");
+    switch (matchResult) {
+    case MatchFound:  // FALLTHROUGH
+    case MatchWrapped:
+        // Green background for line edit
+        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+    case MatchMismatch:
+        // Red background for line edit
+        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
+        break;
+    case MatchNothing:
+        // Reset background of line edit
+        if (m_incUi != NULL) {
+            background = QPalette();
+        } else {
+            // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
+            // ...would it better to cache the original palette?
+            QColor color = QPalette().color(QPalette::Base);
+            background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
+            background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
+            background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
+        }
+        break;
+    case MatchNeutral:
+        KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
+        break;
     }
 
-    lineEdit->setPalette(background);
-}
-
-
-
-void KateSearchBar::indicateMismatch() {
-    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
-                                           : m_incUi->pattern;
-    QPalette background(lineEdit->palette());
-
-    // Red background for line edit
-    KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
-
+    // Update status label
     if (m_incUi != NULL) {
-        // Update status label
-        m_incUi->status->setText(i18n("Not found"));
-    }
-
-    lineEdit->setPalette(background);
-}
-
-
-
-void KateSearchBar::indicateNothing() {
-    QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
-                                           : m_incUi->pattern;
-    QPalette background(lineEdit->palette());
-
-    if (m_incUi != NULL) {
-        // Reset background of line edit
-        background = QPalette();
-
-        // Update status label
-        m_incUi->status->setText("");
-    } else {
-        // Reset background of line edit
-        // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
-        // ...would it better to cache the original palette?
-        QColor color = QPalette().color(QPalette::Base);
-        background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
-        background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
-        background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
+        switch (matchResult) {
+        case MatchFound: // FALLTHROUGH
+        case MatchNothing:
+            m_incUi->status->setText("");
+            break;
+        case MatchWrapped:
+            m_incUi->status->setText(i18n("Reached bottom, continued from top"));
+            break;
+        case MatchMismatch:
+            m_incUi->status->setText(i18n("Not found"));
+            break;
+        case MatchNeutral:
+            /* do nothing */
+            break;
+        }
     }
 
     lineEdit->setPalette(background);
@@ -509,7 +491,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         }
 
         // Reset edit color
-        indicateNothing();
+        indicateMatch(MatchNothing);
 
         // Disable next/prev
         m_incUi->next->setDisabled(true);
@@ -538,8 +520,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         bool found = false;
         if (match.isValid()) {
             nonstatic_selectRange(view(), match);
-            const bool NOT_WRAPPED = false;
-            indicateMatch(NOT_WRAPPED);
+            indicateMatch(MatchFound);
             found = true;
         } else {
             // Wrap if it makes sense
@@ -550,14 +531,13 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
                     nonstatic_selectRange(view(), match2);
-                    const bool WRAPPED = true;
-                    indicateMatch(WRAPPED);
+                    indicateMatch(MatchWrapped);
                     found = true;
                 } else {
-                    indicateMismatch();
+                    indicateMatch(MatchMismatch);
                 }
             } else {
-                indicateMismatch();
+                indicateMatch(MatchMismatch);
             }
         }
 
@@ -585,7 +565,7 @@ void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
         const QString pattern = m_incUi->pattern->displayText();
         onIncPatternChanged(pattern);
     } else {
-        indicateNothing();
+        indicateMatch(MatchNothing);
     }
 }
 
@@ -780,8 +760,7 @@ bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions
             if (match2.isValid()) {
                 nonstatic_selectRange2(view(), match2);
                 found = true;
-                const bool NOT_WRAPPED = false;
-                indicateMatch(NOT_WRAPPED);
+                indicateMatch(MatchFound);
             } else {
                 // Find, third try from doc start on
                 wrap = true;
@@ -789,8 +768,7 @@ bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions
         } else {
             nonstatic_selectRange2(view(), match);
             found = true;
-            const bool NOT_WRAPPED = false;
-            indicateMatch(NOT_WRAPPED);
+            indicateMatch(MatchFound);
         }
     } else if (!selected || !selectionOnly) {
         // Find, second try from doc start on
@@ -810,10 +788,9 @@ bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions
                 nonstatic_selectRange2(view(), match3);
                 found = true;
             }
-            const bool WRAPPED = true;
-            indicateMatch(WRAPPED);
+            indicateMatch(MatchWrapped);
         } else {
-            indicateMismatch();
+            indicateMatch(MatchMismatch);
         }
     }
 
@@ -848,7 +825,7 @@ bool KateSearchBar::find(bool replace, const Search::SearchOptions searchOptions
 
 void KateSearchBar::onPowerPatternChanged(const QString & /*pattern*/) {
     givePatternFeedback();
-    indicateNothing();
+    indicateMatch(MatchNothing);
 }
 
 
@@ -1352,7 +1329,7 @@ void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) 
         }
 
         sendConfig();
-        indicateNothing();
+        indicateMatch(MatchNothing);
     }
 
     givePatternFeedback();

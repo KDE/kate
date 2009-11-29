@@ -945,21 +945,21 @@ void KateSearchBar::onPowerPatternChanged(const QString & /*pattern*/) {
 
 
 
-void KateSearchBar::givePatternFeedback() {
-    bool isPatternValid = true;
+bool KateSearchBar::isPatternValid() const {
+    bool isValid = true;
 
     if (searchPattern().isEmpty()) {
-        isPatternValid = false;
+        isValid = false;
     } else {
         switch (m_powerUi->searchMode->currentIndex()) {
         case MODE_WHOLE_WORDS:
             if (searchPattern().trimmed() != searchPattern()) {
-                isPatternValid = false;
+                isValid = false;
             }
             break;
 
         case MODE_REGEX:
-            isPatternValid = QRegExp(searchPattern()).isValid();
+            isValid = QRegExp(searchPattern()).isValid();
             break;
 
         case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
@@ -970,11 +970,17 @@ void KateSearchBar::givePatternFeedback() {
         }
     }
 
+    return isValid;
+}
+
+
+
+void KateSearchBar::givePatternFeedback() {
     // Enable/disable next/prev and replace next/all
-    m_powerUi->findNext->setEnabled(isPatternValid);
-    m_powerUi->findPrev->setEnabled(isPatternValid);
-    m_powerUi->replaceNext->setEnabled(isPatternValid);
-    m_powerUi->replaceAll->setEnabled(isPatternValid);
+    m_powerUi->findNext->setEnabled(isPatternValid());
+    m_powerUi->findPrev->setEnabled(isPatternValid());
+    m_powerUi->replaceNext->setEnabled(isPatternValid());
+    m_powerUi->replaceAll->setEnabled(isPatternValid());
 }
 
 

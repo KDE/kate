@@ -124,6 +124,7 @@ private:
     void setChecked(QAction * menuAction, bool checked);
 
     QString searchPattern() const;
+    bool isPatternValid() const;
 
     void resetHighlights();
 

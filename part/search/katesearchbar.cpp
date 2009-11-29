@@ -530,14 +530,6 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
     m_incUi->prev->setDisabled(false);
 
     if (invokedByUserAction) {
-        // How to find?
-        Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-        const bool matchCase = isChecked(m_incMenuMatchCase);
-        if (!matchCase) {
-            enabledOptions |= Search::CaseInsensitive;
-        }
-
-
         // Where to find?
         Range inputRange;
         const bool fromCursor = isChecked(m_incMenuFromCursor);
@@ -548,7 +540,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         }
 
         // Find, first try
-        const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, enabledOptions);
+        const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, searchOptions());
         const Range & match = resultRanges[0];
 
         bool found = false;
@@ -562,7 +554,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
             if (fromCursor) {
                 // Find, second try
                 inputRange = view()->doc()->documentRange();
-                const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, enabledOptions);
+                const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, searchOptions());
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
                     nonstatic_selectRange(view(), match2);
@@ -580,7 +572,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         // Highlight all
         if (isChecked(m_incMenuHighlightAll)) {
             if (found ) {
-                highlightAllMatches(enabledOptions);
+                highlightAllMatches(searchOptions());
             } else {
                 resetHighlights();
             }

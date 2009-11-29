@@ -1097,36 +1097,6 @@ void KateSearchBar::onPowerReplaceAll() {
     // What to find/replace?
     const QString replacement = m_powerUi->replacement->currentText();
 
-
-    // How to find?
-    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    const bool matchCase = isChecked(m_powerUi->matchCase);
-    if (!matchCase) {
-        enabledOptions |= Search::CaseInsensitive;
-    }
-
-    if (m_powerUi != NULL) {
-        switch (m_powerUi->searchMode->currentIndex()) {
-        case MODE_WHOLE_WORDS:
-            enabledOptions |= Search::WholeWords;
-            break;
-
-        case MODE_ESCAPE_SEQUENCES:
-            enabledOptions |= Search::EscapeSequences;
-            break;
-
-        case MODE_REGEX:
-            enabledOptions |= Search::Regex;
-            break;
-
-        case MODE_PLAIN_TEXT: // FALLTHROUGH
-        default:
-            break;
-
-        }
-    }
-
-
     // Where to replace?
     Range selection;
     const bool selected = view()->selection();
@@ -1137,7 +1107,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    findAll(inputRange, enabledOptions, &replacement);
+    findAll(inputRange, searchOptions(), &replacement);
 
 
     // Add to search history

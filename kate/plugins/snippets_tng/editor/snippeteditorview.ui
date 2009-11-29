@@ -38,7 +38,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string comment="KDE::DoNotExtract">TextLabel</string>
        </property>
       </widget>
      </item>
@@ -64,7 +64,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string comment="KDE::DoNotExtract">TextLabel</string>
        </property>
       </widget>
      </item>

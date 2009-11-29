@@ -1,5 +1,6 @@
 [Desktop Entry]
 GenericName=Kate Snippets TNG datafile editor
+GenericName[ca]=Editor de fitxers de dades TNG de retalls del Kate
 GenericName[da]=Kate-stumper TNG datafil-editor
 GenericName[en_GB]=Kate Snippets TNG datafile editor
 GenericName[es]=Editor de archivos de datos TNG de snippets para Kate
@@ -18,6 +19,7 @@ GenericName[uk]=Редактор файла даних TNG фрагментів 
 GenericName[x-test]=xxKate Snippets TNG datafile editorxx
 GenericName[zh_TW]=Kate 片段 TNG 資料檔編輯器
 Name=Kate Snippets TNG datafile editor
+Name[ca]=Editor de fitxers de dades TNG de retalls del Kate
 Name[da]=Kate-stumper TNG datafil-editor
 Name[en_GB]=Kate Snippets TNG datafile editor
 Name[es]=Editor de archivos de datos TNG de snippets para Kate

@@ -262,7 +262,7 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
-void KateSearchBar::highlightAllMatches(Search::SearchOptions searchOptions) {
+void KateSearchBar::highlightAllMatches(KTextEditor::Search::SearchOptions searchOptions) {
     findAll(view()->doc()->documentRange(), searchOptions, NULL);
 }
 
@@ -611,51 +611,10 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
     sendConfig();
 
     if (checked) {
-        if (m_incUi != 0) {
-            if (!searchPattern().isEmpty()) {
-                // How to search while highlighting?
-                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-                const bool matchCase = isChecked(m_incMenuMatchCase);
-                if (!matchCase) {
-                    enabledOptions |= Search::CaseInsensitive;
-                }
-
-                // Highlight them all
-                resetHighlights();
-                highlightAllMatches(enabledOptions);
-            }
-        } else {
-            if (!searchPattern().isEmpty()) {
-                // How to search while highlighting?
-                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-                const bool matchCase = isChecked(m_powerUi->matchCase);
-                if (!matchCase) {
-                    enabledOptions |= Search::CaseInsensitive;
-                }
-
-                switch (m_powerUi->searchMode->currentIndex()) {
-                case MODE_WHOLE_WORDS:
-                    enabledOptions |= Search::WholeWords;
-                    break;
-
-                case MODE_ESCAPE_SEQUENCES:
-                    enabledOptions |= Search::EscapeSequences;
-                    break;
-
-                case MODE_REGEX:
-                    enabledOptions |= Search::Regex;
-                    break;
-
-                case MODE_PLAIN_TEXT: // FALLTHROUGH
-                default:
-                    break;
-
-                }
-
-                // Highlight them all
-                resetHighlights();
-                highlightAllMatches(enabledOptions);
-            }
+        if (!searchPattern().isEmpty()) {
+            // Highlight them all
+            resetHighlights();
+            highlightAllMatches(searchOptions());
         }
     } else {
         resetHighlights();

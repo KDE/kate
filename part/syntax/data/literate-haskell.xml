@@ -10,6 +10,7 @@
 		<item> do </item>
 		<item> else </item>
 		<item> if </item>
+		<item> import </item>
 		<item> in </item>
 		<item> infixl </item>
 		<item> infixr </item>
@@ -326,10 +327,12 @@
 	<contexts>
 		<context attribute="Comment" lineEndContext="#stay" name="literate-normal">
 			<DetectChar attribute="Special" context="normal" char="&gt;" column="0"/>
+			<StringDetect attribute="Comment" context="normal-sticky" String="&#92;begin&#123;code&#125;"/>
 		</context>
 		<context attribute="Normal Text" lineEndContext="#pop" name="normal">
 			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
 			<Detect2Chars attribute="Comment" context="comment_single_line" char="-" char1="-" />
+			<StringDetect attribute="Comment" context="literate-normal" String="&#92;end&#123;code&#125;" />
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
 			<keyword attribute="Type Constructor" context="#stay" String="type constructors" />
@@ -343,6 +346,9 @@
 			<RegExpr  attribute="Float" context="#stay" String="\d+\.\d+" />
 			<Int attribute="Decimal" context="#stay" />
 			<Detect2Chars attribute="EnumFromTo" context="#stay" char ="." char1="." />
+		</context>
+		<context attribute="Normal Text" lineEndContext="#stay" name="normal-sticky">
+			<IncludeRules context="normal" includeAttrib="true" />
 		</context>
 		<context attribute="Comment" lineEndContext="#pop#pop" name="comment_single_line" />
 		<context attribute="Comment" lineEndContext="#stay" name="comment_multi_line">

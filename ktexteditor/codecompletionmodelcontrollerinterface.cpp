@@ -42,7 +42,8 @@ bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, c
         return false;
 
     QChar lastChar = insertedText.at(insertedText.count() - 1);
-    if ((userInsertion && (lastChar.isLetter() || lastChar.isNumber() || lastChar == '_')) || lastChar == '.' || insertedText.endsWith("->")) {
+    if ((userInsertion && (lastChar.isLetter() || lastChar.isNumber() || lastChar == '_')) ||
+        lastChar == '.' || insertedText.endsWith(QLatin1String("->"))) {
         return true;
     }
     return false;

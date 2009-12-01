@@ -280,6 +280,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
     case MatchWrapped:
         // Green background for line edit
         KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+        break;
     case MatchMismatch:
         // Red background for line edit
         KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);

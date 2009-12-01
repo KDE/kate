@@ -378,8 +378,8 @@
 		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
 		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
 		<itemData name="Infix Operator" defStyleNum="dsOthers" spellChecking="false" />
-		<itemData name="Special" defStyleNum="dsChar" spellCheck="false" />
-		<itemData name="EnumFromTo" defStyleNum="dsOthers" spellCheck="false" />
+		<itemData name="Special" defStyleNum="dsChar" spellChecking="false" />
+		<itemData name="EnumFromTo" defStyleNum="dsOthers" spellChecking="false" />
 	</itemDatas>
 	</highlighting>
 	<general>

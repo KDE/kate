@@ -1983,7 +1983,7 @@ void KateViewInternal::updateBracketMarks()
   }
 
   // add some limit to this, this is really endless on big files without limit
-  int maxLines = linesDisplayed () * 3;
+  int maxLines = 5000;
   doc()->newBracketMark( m_cursor, *m_bm, maxLines );
 
   if ( m_bm->isValid() ) {

@@ -3764,13 +3764,13 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
   while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
 
-    if( forward )
-      cursor.moveForward(1);
-    else
-      cursor.moveBackward(1);
-
-    if( !cursor.validPosition() )
+    if (forward) {
+      if (!cursor.moveForward(1))
+        return false;
+    } else {
+      if (!cursor.moveBackward(1))
       return false;
+    }
 
     if( cursor.currentAttrib() == validAttr )
     {
@@ -3789,9 +3789,6 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
         nesting--;
       }
     }
-
-    if(cursor == KTextEditor::Cursor(0,0) || cursor >= documentEnd())
-      return false;
   }
 
   return false;

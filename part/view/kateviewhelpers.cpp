@@ -1533,7 +1533,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
   if ( result > 100)
   {
      KateViewConfig::global()->setDefaultMarkType (vec[result-100]);
-     // flush config, otherwise it isn't nessecarily done
+     // flush config, otherwise it isn't necessarily done
      KConfigGroup cg(KGlobal::config(), "Kate View Defaults");
      KateViewConfig::global()->writeConfig(cg);
   }

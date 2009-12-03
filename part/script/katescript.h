@@ -183,7 +183,7 @@ class KateScript {
     static void reloadScriptingApi();
 
   private:
-    /** True, if the katepartapi.js file is alrady loaded, otherwise false */
+    /** True, if the katepartapi.js file is already loaded, otherwise false */
     static bool s_scriptingApiLoaded;
 };
 

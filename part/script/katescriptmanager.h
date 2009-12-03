@@ -113,7 +113,7 @@ class KateScriptManager : public QObject, public KTextEditor::Command
     KateIndentScript *indentationScriptByIndex (int index) { return m_indentationScripts[index]; }
 
   public:
-    /** explicitely reload all scripts */
+    /** explicitly reload all scripts */
     void reload();
 
   Q_SIGNALS:

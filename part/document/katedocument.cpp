@@ -4763,7 +4763,7 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c, const QString &templateString,
                                                      const QMap<QString,QString> &initialValues, QWidget * )
 {
-  // the handler will delete itself when neccessary
+  // the handler will delete itself when necessary
   KateTemplateHandler* handler = new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager);
 
   return true;

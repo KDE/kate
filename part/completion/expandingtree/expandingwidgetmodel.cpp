@@ -61,7 +61,7 @@ uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
   {
     bool alternate = index.row() & 1;
     
-    QColor badMatchColor(0xff00aa44); //Blueish green
+    QColor badMatchColor(0xff00aa44); //Blue-ish green
     QColor goodMatchColor(0xff00ff00); //Green
 
     QColor background = treeView()->palette().light().color();

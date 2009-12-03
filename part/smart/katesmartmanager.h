@@ -107,7 +107,7 @@ class KateSmartManager : public QObject
 
 /**
  * This class holds a ground of cursors and ranges which involve a certain
- * number of lines in a document.  It allows us to optimise away having to
+ * number of lines in a document.  It allows us to optimize away having to
  * iterate though every single cursor and range when anything changes in the
  * document.
  *

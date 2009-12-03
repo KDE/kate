@@ -2087,7 +2087,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
   }
   else
   {
-    // FIXME Do we get enough good info in editRemoveText to optimise this more?
+    // FIXME Do we get enough good info in editRemoveText to optimize this more?
     //bool justTagged = false;
     for (int z = 0; z < cache()->viewCacheLineCount(); z++)
     {

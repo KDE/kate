@@ -120,7 +120,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     }
 
     // read key/value pairs from the cached file if possible
-    // otherwise, parse it and then save the needed infos to the cache.
+    // otherwise, parse it and then save the needed information to the cache.
     QHash<QString, QString> pairs;
     if(useCache) {
       const QMap<QString, QString> entries = config.entryMap();

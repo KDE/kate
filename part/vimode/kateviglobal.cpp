@@ -72,8 +72,6 @@ QString KateViGlobal::getRegisterContent( const QChar &reg ) const
     int index = QString( _reg ).toInt()-1;
     if ( m_numberedRegisters->size() > index) {
       regContent = m_numberedRegisters->at( index );
-    } else {
-      regContent = QString();
     }
   } else if ( _reg == '+' ) { // system clipboard register
       regContent = QApplication::clipboard()->text( QClipboard::Clipboard );

@@ -883,9 +883,8 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
   QString renderDiff;
   QString domDiff;
 
-  char pwd[PATH_MAX];
-  (void) getcwd( pwd, PATH_MAX );
-  chdir( QFile::encodeName( m_baseDir ) );
+  QString pwd = QDir::currentPath();
+  QDir::setCurrent( m_baseDir );
   QString resolvedBaseDir = QDir::currentPath();
 
   QString relOutputDir = makeRelativePath(resolvedBaseDir/*m_baseDir*/, m_outputDir);
@@ -919,7 +918,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     }
   }
 
-  chdir( pwd );
+  QDir::setCurrent( pwd );
 
     // create a relative path so that it works via web as well. ugly
   QString relpath = makeRelativePath(m_outputDir + '/'

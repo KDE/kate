@@ -72,7 +72,7 @@ ExporterPluginView::~ExporterPluginView()
 
 void ExporterPluginView::updateSelectionAction(KTextEditor::View* view)
 {
-  Q_ASSERT(view == m_view);
+  Q_ASSERT(view == m_view); Q_UNUSED(view)
   m_copyAction->setEnabled(m_view->selection());
 }
 

@@ -140,7 +140,7 @@ void KateTemplateHandler::setEditWithUndo(const bool &enabled)
 
 void KateTemplateHandler::slotViewCreated(Document* document, View* view)
 {
-  Q_ASSERT(document == m_doc);
+  Q_ASSERT(document == m_doc); Q_UNUSED(document)
   setupEventHandler(view);
 }
 

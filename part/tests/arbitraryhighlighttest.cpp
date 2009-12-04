@@ -152,21 +152,25 @@ void ArbitraryHighlightTest::slotCreateTopRange( )
 
 void ArbitraryHighlightTest::slotMouseEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
 {
+  Q_UNUSED(view)
   kDebug() << k_funcinfo << *range;
 }
 
 void ArbitraryHighlightTest::slotMouseExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
 {
+  Q_UNUSED(view)
   kDebug() << k_funcinfo << *range;
 }
 
 void ArbitraryHighlightTest::slotCaretEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
 {
+  Q_UNUSED(view)
   kDebug() << k_funcinfo << *range;
 }
 
 void ArbitraryHighlightTest::slotCaretExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
 {
+  Q_UNUSED(view)
   kDebug() << k_funcinfo << *range;
 }
 

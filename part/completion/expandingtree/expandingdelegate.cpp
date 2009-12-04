@@ -137,6 +137,8 @@ QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const Q
 
 void ExpandingDelegate::adjustStyle( const QModelIndex& index, QStyleOptionViewItem & option ) const
 {
+    Q_UNUSED(index)
+    Q_UNUSED(option)
 }
 
 void ExpandingDelegate::adjustRect(QRect& rect) const {
@@ -278,6 +280,7 @@ void ExpandingDelegate::drawDecoration(QPainter* painter, const QStyleOptionView
 }
 
 void ExpandingDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const {
+    Q_UNUSED(index)
     QStyleOptionViewItemV4 opt = option;
     //initStyleOption(&opt, index);
     //Problem: This isn't called at all, because drawBrackground is not virtual :-/

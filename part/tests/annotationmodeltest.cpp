@@ -84,6 +84,8 @@ void AnnotationModelTest::annotationActivated( KTextEditor::View* view, int line
 
 void AnnotationModelTest::annotationContextMenuAboutToShow( KTextEditor::View * view, QMenu * menu, int line )
 {
+    Q_UNUSED(view)
+    Q_UNUSED(line)
     QAction* a = new QAction("Show diff from revision", menu);
     menu->addAction(a);
 }

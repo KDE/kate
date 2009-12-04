@@ -485,6 +485,7 @@ void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
 
 void KateSmartGroup::translatedChanged2(const KateEditInfo& edit)
 {
+  Q_UNUSED(edit)
   //Tell the affected parent smart-ranges to rebuild their child-structure, so they stay consistent
   QSet<KTextEditor::SmartRange*> rebuilt;
 

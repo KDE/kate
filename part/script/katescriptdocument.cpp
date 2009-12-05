@@ -158,6 +158,12 @@ int KateScriptDocument::toVirtualColumn(const KTextEditor::Cursor& cursor)
   return toVirtualColumn(cursor.line(), cursor.column());
 }
 
+KTextEditor::Cursor KateScriptDocument::toVirtualCursor(const KTextEditor::Cursor& cursor)
+{
+  return KTextEditor::Cursor(cursor.line(),
+                             toVirtualColumn(cursor.line(), cursor.column()));
+}
+
 int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
 {
   const int tabWidth = m_document->config()->tabWidth();
@@ -170,6 +176,12 @@ int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
 int KateScriptDocument::fromVirtualColumn(const KTextEditor::Cursor& virtualCursor)
 {
   return fromVirtualColumn(virtualCursor.line(), virtualCursor.column());
+}
+
+KTextEditor::Cursor KateScriptDocument::fromVirtualCursor(const KTextEditor::Cursor& virtualCursor)
+{
+  return KTextEditor::Cursor(virtualCursor.line(),
+                             fromVirtualColumn(virtualCursor.line(), virtualCursor.column()));
 }
 
 KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QString& text, int attribute)

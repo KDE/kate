@@ -133,8 +133,10 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE int lastVirtualColumn(int line);
     Q_INVOKABLE int toVirtualColumn(int line, int column);
     Q_INVOKABLE int toVirtualColumn(const KTextEditor::Cursor& cursor);
+    Q_INVOKABLE KTextEditor::Cursor toVirtualCursor(const KTextEditor::Cursor& cursor);
     Q_INVOKABLE int fromVirtualColumn(int line, int virtualColumn);
     Q_INVOKABLE int fromVirtualColumn(const KTextEditor::Cursor& virtualCursor);
+    Q_INVOKABLE KTextEditor::Cursor fromVirtualCursor(const KTextEditor::Cursor& virtualCursor);
 
     Q_INVOKABLE KTextEditor::Cursor anchor(int line, int column, QChar character);
     Q_INVOKABLE KTextEditor::Cursor anchor(const KTextEditor::Cursor& cursor, QChar character);

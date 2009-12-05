@@ -1727,6 +1727,10 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
 : KSelectAction(text, parent), doc(_doc), view (_view), d(new Private(this))
 {
   d->init(true);
+  // set current encoding before setting the connections, otherwise
+  // the document is reloaded on the split-view action (bug #217139)
+  setCurrentCodec(doc->config()->encoding());
+
   connect(this,SIGNAL(triggered(KEncodingProber::ProberType)),this,SLOT(setProberTypeForEncodingAutoDetection(KEncodingProber::ProberType)));
   connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));

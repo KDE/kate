@@ -794,7 +794,7 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
         --from;
 
       editRemoveLines(from+1, to-1);
- 
+
       if (range.start().column() > 0 || range.start().line() == 0) {
         editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
         editUnWrapLine(from);
@@ -1462,7 +1462,7 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
 
   QList<int> rmark;
   QList<int> list;
- 
+
   foreach (KTextEditor::Mark* mark, m_marks) {
     int line = mark->line;
     if (line > to)
@@ -1473,14 +1473,14 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
 
   foreach (int line, rmark)
     delete m_marks.take(line);
- 
+
   foreach (int line, list)
   {
     KTextEditor::Mark* mark = m_marks.take(line);
     mark->line -= to - from + 1;
     m_marks.insert(mark->line, mark);
   }
- 
+
   if (!list.isEmpty())
     emit marksChanged(this);
 
@@ -1493,7 +1493,7 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
       rangeRemoved.start().setPosition(from - 1, prevLine->length());
     }
   }
-  
+
   history()->doEdit(new KateEditInfo(m_editSources.top(), rangeRemoved, oldText, KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()));
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
 
@@ -1883,7 +1883,7 @@ void KateDocument::requestMarkTooltip( int line, QPoint position )
 {
   if(!mark(line))
     return;
-  
+
   bool handled = false;
   emit markToolTipRequested( this, *marks()[line], position, handled );
 }
@@ -1894,9 +1894,9 @@ bool KateDocument::handleMarkClick( int line )
 
   if(!mark(line))
     return false;
-  
+
   emit markClicked( this, *marks()[line], handled );
-  
+
   return handled;
 }
 
@@ -1906,9 +1906,9 @@ bool KateDocument::handleMarkContextMenu( int line, QPoint position )
 
   if(!mark(line))
     return false;
-  
+
   emit markContextMenuRequested( this, *marks()[line], position, handled );
-  
+
   return handled;
 }
 
@@ -2056,7 +2056,7 @@ bool KateDocument::openFile()
 
   history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
   emit KTextEditor::Document::textInserted(this, documentRange());
-  
+
   //
   // yeah, success
   //
@@ -2497,7 +2497,7 @@ bool KateDocument::closeUrl()
   }
 
   emit KTextEditor::Document::textRemoved(this, documentRange());
-  
+
   {
     QMutexLocker l(smartMutex());
     history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
@@ -2679,42 +2679,10 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
       if (!bracketInserted && (config()->configFlags() & KateDocumentConfig::cfAutoBrackets))
       {
-        QChar end_ch;
-        bool complete = true;
-        QChar prevChar = textLine->at(view->cursorPosition().column()-1);
-        QChar nextChar = textLine->at(view->cursorPosition().column());
-        switch(ch.toAscii()) {
-          case '(': end_ch = ')'; break;
-          case '[': end_ch = ']'; break;
-          case '{': end_ch = '}'; break;
-          case '\'':end_ch = '\'';break;
-          case '"': end_ch = '"'; break;
-          default: complete = false;
-        }
-        if (complete)
-        {
-          if (view->selection())
-          { // there is a selection, enclose the selection
-            buf.append (view->selectionText());
-            buf.append (end_ch);
-            bracketInserted = true;
-          }
-          else
-          { // no selection, check whether we should better refuse to complete
-            if ( ( (ch == '\'' || ch == '"') &&
-                   (prevChar.isLetterOrNumber() || prevChar == ch) )
-              || nextChar.isLetterOrNumber()
-              || (nextChar == end_ch && prevChar != ch) )
-            {
-              kDebug(13020) << "AutoBracket refused before: " << nextChar << "\n";
-            }
-            else
-            {
-              buf.append (end_ch);
-              bracketInserted = true;
-            }
-          }
-        }
+        if (ch == '(') { bracketInserted = true; buf.append (')'); }
+        if (ch == '[') { bracketInserted = true; buf.append (']'); }
+        if (ch == '{') { bracketInserted = true; buf.append ('}'); }
+        if (ch == '"') { bracketInserted = true; buf.append ('"'); }
       }
     }
   }
@@ -2837,31 +2805,13 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
   if ((col == 0) && (line == 0))
     return;
 
-  int complement = 0;
   if (col > 0)
   {
-    if (config()->configFlags() & KateDocumentConfig::cfAutoBrackets)
-    {
-      // if inside empty (), {}, [], '', "" delete both
-      KateTextLine::Ptr tl = m_buffer->plainLine(line);
-      if(!tl) return;
-      QChar prevChar = tl->at(col-1);
-      QChar nextChar = tl->at(col);
-
-      if ( (prevChar == '"' && nextChar == '"') ||
-           (prevChar == '\'' && nextChar == '\'') ||
-           (prevChar == '(' && nextChar == ')') ||
-           (prevChar == '[' && nextChar == ']') ||
-           (prevChar == '{' && nextChar == '}') )
-      {
-        complement = 1;
-      }
-    }
     if (!(config()->configFlags() & KateDocumentConfig::cfBackspaceIndents))
     {
       // ordinary backspace
       //c.cursor.col--;
-      removeText(KTextEditor::Range(line, col-1, line, col+complement));
+      removeText(KTextEditor::Range(line, col-1, line, col));
     }
     else
     {
@@ -2883,7 +2833,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
         indent( view, line, -1);
       }
       else
-        removeText(KTextEditor::Range(line, col-1, line, col+complement));
+        removeText(KTextEditor::Range(line, col-1, line, col));
     }
   }
   else
@@ -2956,7 +2906,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
       for (int i = pos.line(); i < maxi; ++i) {
         int pasteLength = pasteLines[i-pos.line()].length();
-        removeText(KTextEditor::Range(i, pos.column(), 
+        removeText(KTextEditor::Range(i, pos.column(),
                                       i, qMin(pasteLength + pos.column(), lineLength(i))));
       }
     }
@@ -4129,7 +4079,7 @@ void KateDocument::updateConfig ()
   // update all views, does tagAll and updateView...
   foreach (KateView * view, m_views)
     view->updateDocumentConfig ();
-  
+
   // update on-the-fly spell checking as spell checking defaults might have changes
   if(m_onTheFlyChecker) {
     m_onTheFlyChecker->updateConfig();
@@ -4330,7 +4280,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setEol( n );
       }
       else if (var == "bom" || var =="byte-order-marker")
-      {          
+      {
           if (checkBoolValue(val,&state)) {
             m_config->setBom(state);
           }

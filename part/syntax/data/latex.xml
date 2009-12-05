@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-	  <language name="LaTeX" version="1.37" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+	  <language name="LaTeX" version="1.38" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
       <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
-        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
+        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindBeginEnvironment" beginRegion="block" />
+        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEndEnvironment" />
 	<RegExpr String="\\(cite|parencite|autocite|Autocite|citetitle)\*(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
 	<RegExpr String="\\(cites|Cites|parencites|Parencites|autocites|Autocites|supercites|footcites|Footcites)(?=[^a-zA-Z])" attribute="Structure" context="FancyLabel"/>
 	<RegExpr String="\\(cite|nocite|Cite|parencite|Parencite|footcite|Footcite|textcite|Textcite|supercite|autocite|Autocite|citeauthor|Citeauthor|citetitle|citeyear|citeurl|nocite|fullcite|footfullcite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
@@ -197,14 +197,33 @@
 	      <RegExpr String="\s*\)\s*" attribute="Normal Text" context="#pop"/>
       </context>
 
+      <!-- end of an environment -->
+      <context name="FindEndEnvironment" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar char="{" attribute="Normal Text" context="EndEnvironment"/>
+        <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
+      </context>
+
+      <context name="EndEnvironment" attribute="Environment" lineEndContext="#stay">
+        <RegExpr String="[a-zA-Z]" attribute="Environment" context="EndLatexEnv"/>
+        <RegExpr String="\s+" attribute="Error" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Error" context="#pop"/>
+      </context>
+
+       <context name="EndLatexEnv" attribute="Environment" lineEndContext="#stay">
+        <DetectChar char="}" attribute="Normal Text" endRegion="block" context="#pop#pop#pop"/>
+        <RegExpr String="[a-zA-Z]+(\*)?" attribute="Environment" context="#stay"/>
+        <RegExpr String="\s+" attribute="Error" context="#stay"/>
+        <RegExpr String="[a-zA-Z]" attribute="Error" context="#pop#pop#pop"/>
+      </context>
+
       <!-- start of an environment -->
-      <context name="FindEnvironment" attribute="Normal Text" lineEndContext="#stay">
-        <DetectChar char="{" attribute="Normal Text" context="Environment"/>
+      <context name="FindBeginEnvironment" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar char="{" attribute="Normal Text" context="BeginEnvironment"/>
         <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
       </context>
 
       <!-- filter the environment name and check the type -->
-      <context name="Environment" attribute="Environment" lineEndContext="#stay">
+      <context name="BeginEnvironment" attribute="Environment" lineEndContext="#stay">
         <RegExpr String="(lstlisting|(B|L)?Verbatim)" attribute="Environment" context="VerbatimEnvParam"/>
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>

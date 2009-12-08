@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Literate Haskell" version="1.06" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Literate Haskell" version="1.07" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
+		<item> as </item>
 		<item> case </item>
 		<item> class </item>
 		<item> data </item>
@@ -19,6 +20,7 @@
 		<item> module </item>
 		<item> of </item>
 		<item> primitive </item>
+		<item> qualified </item>
 		<item> then </item>
 		<item> type </item>
 		<item> where </item>
@@ -34,7 +36,7 @@
 	</list>
 	<list name="functions">
 		<!--
-                These operators are not handled yet.
+		These operators are not handled yet.
 		<item> !! </item>
 		<item> % </item>
 		<item> && </item>
@@ -129,6 +131,7 @@
 		<item> getChar </item>
 		<item> getContents </item>
 		<item> getLine </item>
+		<item> group </item>
 		<item> head </item>
 		<item> id </item>
 		<item> inRange </item>
@@ -184,6 +187,7 @@
 		<item> or </item>
 		<item> ord </item>
 		<item> otherwise </item>
+		<item> pack </item>
 		<item> pi </item>
 		<item> pred </item>
 		<item> primExitWith </item>
@@ -243,6 +247,7 @@
 		<item> sin </item>
 		<item> sinh </item>
 		<item> snd </item>
+		<item> sort </item>
 		<item> span </item>
 		<item> splitAt </item>
 		<item> sqrt </item>
@@ -280,7 +285,7 @@
 	<list name="type constructors">
 		<item> Bool </item>
 		<item> Char </item>
-                <item> Double </item>
+		<item> Double </item>
 		<item> Either </item>
 		<item> Float </item>
 		<item> IO </item>
@@ -293,6 +298,7 @@
 		<item> ReadS </item>
 		<item> ShowS </item>
 		<item> String </item>
+		<item> ByteString </item>
 
 	</list>
 	<list name="classes">
@@ -329,10 +335,10 @@
 			<DetectChar attribute="Special" context="normal" char="&gt;" column="0"/>
 			<StringDetect attribute="Comment" context="normal-sticky" String="&#92;begin&#123;code&#125;"/>
 		</context>
-		<context attribute="Normal Text" lineEndContext="#pop" name="normal">
+		<context attribute="Normal Text" lineEndContext="#stay" name="normal-shared">
 			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
-			<Detect2Chars attribute="Comment" context="comment_single_line" char="-" char1="-" />
 			<StringDetect attribute="Comment" context="literate-normal" String="&#92;end&#123;code&#125;" />
+			<RegExpr attribute="Module Name" context="#stay" String="([A-Z][A-Za-z0-9]*\.)+[A-Z][A-Za-z0-9]*"/>
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
 			<keyword attribute="Type Constructor" context="#stay" String="type constructors" />
@@ -348,11 +354,20 @@
 			<Detect2Chars attribute="EnumFromTo" context="#stay" char ="." char1="." />
 		</context>
 		<context attribute="Normal Text" lineEndContext="#stay" name="normal-sticky">
-			<IncludeRules context="normal" includeAttrib="true" />
+			<RegExpr attribute="Comment" context="comment_single_line-sticky" String="--$" />
+			<RegExpr attribute="Comment" context="comment_single_line-sticky" String="--[ A-Za-z0-9\-,;`].*$" />
+			<IncludeRules context="normal-shared" includeAttrib="true" />
+		</context>
+		<context attribute="Normal Text" lineEndContext="#pop" name="normal">
+			<RegExpr attribute="Comment" context="comment_single_line" String="--$" />
+			<RegExpr attribute="Comment" context="comment_single_line" String="--[ A-Za-z0-9\-,;`].*$" />
+			<IncludeRules context="normal-shared" includeAttrib="true" />
 		</context>
 		<context attribute="Comment" lineEndContext="#pop#pop" name="comment_single_line" />
+		<context attribute="Comment" lineEndContext="#pop" name="comment_single_line-sticky" />
 		<context attribute="Comment" lineEndContext="#stay" name="comment_multi_line">
 			<Detect2Chars attribute="Comment" context="#pop" char="-" char1="}" />
+			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
 		</context>
 		<context attribute="String" lineEndContext="#stay" name="string">
 			<RegExpr attribute="String" context="#stay" String="\\." />
@@ -371,6 +386,7 @@
 	</contexts>
 	<itemDatas>
 		<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
+		<itemData name="Module Name" defStyleNum="dsNormal" spellChecking="false" />
 		<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
 		<itemData name="Function" defStyleNum="dsFunction" spellChecking="false" />
 		<itemData name="Function Definition" defStyleNum="dsFunction" spellChecking="false" />
@@ -389,6 +405,10 @@
 	</itemDatas>
 	</highlighting>
 	<general>
+		<comments>
+			<comment name="singleLine" start="--" />
+			<comment name="multiLine" start="{-" end="-}" />
+		</comments>
 		<keywords casesensitive="1" />
 	</general>
 </language>

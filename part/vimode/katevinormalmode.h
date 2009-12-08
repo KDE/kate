@@ -214,7 +214,6 @@ class KateViNormalMode : public KateViModeBase
     QString m_keys;
     unsigned int m_countTemp;
     bool m_findWaitingForChar;
-    int m_waitingForMotionOrTextObject;
 
     QVector<KateViCommand *> m_commands;
     QVector<KateViMotion *> m_motions;

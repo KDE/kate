@@ -103,7 +103,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     foreach ( const QString &str, getMappings() ) {
       if ( str.startsWith( m_mappingKeys ) ) {
         if ( str == m_mappingKeys ) {
-          kDebug( 13070 ) << getMapping( str ) << " @@@@@@@@@@@@@@@@";
           m_viInputModeManager->feedKeyPresses( getMapping( str ) );
           m_mappingTimer->stop();
           return true;
@@ -327,12 +326,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
       return true;
     }
   } else if ( m_matchingCommands.size() == 0 && m_matchingMotions.size() == 0 ) {
-    //if ( m_awaitingMotionOrTextObject.size() == 0 ) {
       resetParser();
       return false;
-    //} else {
-
-    //}
   }
 
   m_matchingMotions.clear();
@@ -352,7 +347,6 @@ void KateViNormalMode::resetParser()
   m_countTemp = 0;
   m_register = QChar::Null;
   m_findWaitingForChar = false;
-  m_waitingForMotionOrTextObject = -1;
   m_matchingCommands.clear();
   m_matchingMotions.clear();
   m_awaitingMotionOrTextObject.clear();

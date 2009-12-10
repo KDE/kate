@@ -15,5 +15,11 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
+#ifndef KDELIBS_KTEXTEDITOR_RANGEFEEDBACK_H
+#define KDELIBS_KTEXTEDITOR_RANGEFEEDBACK_H
+
 #include "smartrangenotifier.h"
 #include "smartrangewatcher.h"
+
+#endif // KDELIBS_KTEXTEDITOR_RANGEFEEDBACK_H

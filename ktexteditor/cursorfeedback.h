@@ -15,5 +15,11 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
+#ifndef KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H
+#define KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H
+
 #include "smartcursornotifier.h"
 #include "smartcursorwatcher.h"
+
+#endif // KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H

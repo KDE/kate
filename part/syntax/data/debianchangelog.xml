@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.63" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.64" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -22,6 +22,8 @@
             <item>etch-volatile</item>
             <item>lenny-backports</item>
             <item>lenny-volatile</item>
+            <item>squeeze-backports</item>
+            <item>squeeze-volatile</item>
             <!-- Ubuntu releases -->
             <item>dapper</item>
             <item>dapper-security</item>
@@ -65,6 +67,16 @@
             <item>jaunty-updates</item>
             <item>jaunty-backports</item>
             <item>jaunty-partner</item>
+            <item>karmic</item>
+            <item>karmic-security</item>
+            <item>karmic-proposed</item>
+            <item>karmic-updates</item>
+            <item>karmic-backports</item>
+            <item>lucid</item>
+            <item>lucid-security</item>
+            <item>lucid-proposed</item>
+            <item>lucid-updates</item>
+            <item>lucid-backports</item>
         </list>
 
         <list name="urgencies">

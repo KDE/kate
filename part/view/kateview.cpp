@@ -2515,13 +2515,16 @@ KTextEditor::Document * KateView::document( ) const
 
 void KateView::setContextMenu( QMenu * menu )
 {
-  if (m_contextMenu)
+  if (m_contextMenu) {
     disconnect(m_contextMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
-
+    disconnect(m_contextMenu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
+  }
   m_contextMenu = menu;
 
-  if (m_contextMenu)
+  if (m_contextMenu) {
     connect(m_contextMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
+    connect(m_contextMenu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
+  }
 }
 
 QMenu * KateView::contextMenu( ) const
@@ -2570,8 +2573,15 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
 void KateView::aboutToShowContextMenu( )
 {
   QMenu* menu = qobject_cast<QMenu*>(sender());
-  if (menu)
+
+  if (menu) {
     emit contextMenuAboutToShow(this, menu);
+  }
+}
+
+void KateView::aboutToHideContextMenu( )
+{
+  m_spellingMenu->setUseMouseForMisspelledRange(false);
 }
 
 // BEGIN ConfigInterface stff

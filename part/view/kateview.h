@@ -130,6 +130,7 @@ class KateView : public KTextEditor::View,
 
   private Q_SLOTS:
     void aboutToShowContextMenu();
+    void aboutToHideContextMenu();
 
   private:
     QPointer<QMenu> m_contextMenu;

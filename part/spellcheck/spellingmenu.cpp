@@ -38,6 +38,9 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
     m_addToDictionaryAction(NULL),
     m_spellingMenu(NULL),
     m_currentMisspelledRange(NULL),
+    m_currentMouseMisspelledRange(NULL),
+    m_currentCaretMisspelledRange(NULL),
+    m_useMouseForMisspelledRange(false),
     m_suggestionsSignalMapper(new QSignalMapper(this))
 {
   connect(m_suggestionsSignalMapper, SIGNAL(mapped(const QString&)),
@@ -50,6 +53,22 @@ KateSpellingMenu::~KateSpellingMenu()
     m_currentMisspelledRange->removeWatcher(this);
     m_currentMisspelledRange = NULL;
   }
+  if(m_currentCaretMisspelledRange) {
+    m_currentCaretMisspelledRange->removeWatcher(this);
+    m_currentCaretMisspelledRange = NULL;
+  }
+  if(m_currentMouseMisspelledRange) {
+    m_currentMouseMisspelledRange->removeWatcher(this);
+    m_currentMouseMisspelledRange = NULL;
+  }
+}
+
+bool KateSpellingMenu::isEnabled() const
+{
+  if(!m_spellingMenuAction) {
+    return false;
+  }
+  return m_spellingMenuAction->isEnabled();
 }
 
 void KateSpellingMenu::setEnabled(bool b)
@@ -84,13 +103,12 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
   ac->addAction("spelling_suggestions", m_spellingMenuAction);
   m_spellingMenu = m_spellingMenuAction->menu();
   connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
+  connect(m_spellingMenu, SIGNAL(aboutToHide()), this, SLOT(clearCurrentMisspelledRange()));
 
   m_ignoreWordAction = new KAction(i18n("Ignore Word"), this);
-  ac->addAction("spelling_ignore_word", m_ignoreWordAction);
   connect(m_ignoreWordAction, SIGNAL(triggered()), this, SLOT(ignoreCurrentWord()));
 
   m_addToDictionaryAction = new KAction(i18n("Add to Dictionary"), this);
-  ac->addAction("spelling_add_to_dictionary", m_addToDictionaryAction);
   connect(m_addToDictionaryAction, SIGNAL(triggered()), this, SLOT(addCurrentWordToDictionary()));
 
   setEnabled(false);
@@ -98,46 +116,110 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
 }
 
 /**
- * WARNING: SmartInterface lock must have been obtained before entering this function!
+ * WARNING: SmartInterface lock must have been obtained before entering this method!
  **/
-void KateSpellingMenu::enteredMisspelledRange(KTextEditor::SmartRange *range)
+void KateSpellingMenu::caretEnteredMisspelledRange(KTextEditor::SmartRange *range)
 {
-  if(m_currentMisspelledRange) {
-    m_currentMisspelledRange->removeWatcher(this);
-    m_currentMisspelledRange = NULL;
+  if(m_currentCaretMisspelledRange == range) {
+      return;
+  }
+  if(m_currentCaretMisspelledRange) {
+    if(m_currentCaretMisspelledRange != m_currentMouseMisspelledRange) {
+      m_currentCaretMisspelledRange->removeWatcher(this);
+    }
+    m_currentCaretMisspelledRange = NULL;
   }
   setEnabled(true);
-  m_currentMisspelledRange = range;
-  m_currentMisspelledRange->addWatcher(this);
+  m_currentCaretMisspelledRange = range;
+  m_currentCaretMisspelledRange->addWatcher(this);
 }
 
 /**
- * WARNING: SmartInterface lock must have been obtained before entering this function!
+ * WARNING: SmartInterface lock must have been obtained before entering this method!
  **/
-void KateSpellingMenu::exitedMisspelledRange(KTextEditor::SmartRange *range)
+void KateSpellingMenu::caretExitedMisspelledRange(KTextEditor::SmartRange *range)
 {
-  if(range != m_currentMisspelledRange) { // order of 'exit' and 'entered' signals
-    return;                               // was wrong
+  if(range != m_currentCaretMisspelledRange) { // order of 'exit' and 'entered' signals
+    return;                                    // was wrong
   }
   setEnabled(false);
-  if(m_currentMisspelledRange) {
-    m_currentMisspelledRange->removeWatcher(this);
-    m_currentMisspelledRange = NULL;
+  if(m_currentCaretMisspelledRange) {
+    if(m_currentCaretMisspelledRange != m_currentMouseMisspelledRange) {
+      m_currentCaretMisspelledRange->removeWatcher(this);
+    }
+    m_currentCaretMisspelledRange = NULL;
+  }
+}
+
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this method!
+ **/
+void KateSpellingMenu::mouseEnteredMisspelledRange(KTextEditor::SmartRange *range)
+{
+  if(m_currentMouseMisspelledRange == range) {
+      return;
+  }
+  if(m_currentMouseMisspelledRange) {
+    if(m_currentMouseMisspelledRange != m_currentCaretMisspelledRange) {
+      m_currentMouseMisspelledRange->removeWatcher(this);
+    }
+    m_currentMouseMisspelledRange = NULL;
+  }
+  m_currentMouseMisspelledRange = range;
+  m_currentMouseMisspelledRange->addWatcher(this);
+}
+
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this method!
+ **/
+void KateSpellingMenu::mouseExitedMisspelledRange(KTextEditor::SmartRange *range)
+{
+  if(range != m_currentMouseMisspelledRange) { // order of 'exit' and 'entered' signals
+    return;                                    // was wrong
+  }
+  if(m_currentMouseMisspelledRange) {
+    if(m_currentMouseMisspelledRange != m_currentCaretMisspelledRange) {
+      m_currentMouseMisspelledRange->removeWatcher(this);
+    }
+    m_currentMouseMisspelledRange = NULL;
   }
 }
 
 void KateSpellingMenu::rangeDeleted(KTextEditor::SmartRange *range)
 {
-  exitedMisspelledRange(range);
+  if(m_currentCaretMisspelledRange == range) {
+    m_currentCaretMisspelledRange = NULL;
+  }
+  if(m_currentMouseMisspelledRange == range) {
+    m_currentMouseMisspelledRange = NULL;
+  }
+  if(m_currentMisspelledRange == range) {
+    m_currentMisspelledRange = NULL;
+  }
+  setEnabled(m_currentCaretMisspelledRange != NULL);
+}
+
+void KateSpellingMenu::setUseMouseForMisspelledRange(bool b)
+{
+  m_useMouseForMisspelledRange = b;
+  if(m_useMouseForMisspelledRange) {
+    setEnabled(m_currentMouseMisspelledRange != NULL);
+  }
+  else if(!m_useMouseForMisspelledRange) {
+    setEnabled(m_currentCaretMisspelledRange != NULL);
+  }
 }
 
 void KateSpellingMenu::populateSuggestionsMenu()
 {
   QMutexLocker(m_view->doc()->smartMutex());
   m_spellingMenu->clear();
-  if(!m_currentMisspelledRange) {
+  if((m_useMouseForMisspelledRange && !m_currentMouseMisspelledRange)
+      || (!m_useMouseForMisspelledRange && !m_currentCaretMisspelledRange)) {
     return;
   }
+  m_currentMisspelledRange = (m_useMouseForMisspelledRange ? m_currentMouseMisspelledRange
+                                                           : m_currentCaretMisspelledRange);
   m_spellingMenu->addAction(m_ignoreWordAction);
   m_spellingMenu->addAction(m_addToDictionaryAction);
   m_spellingMenu->addSeparator();

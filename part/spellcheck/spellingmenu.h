@@ -40,10 +40,21 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
     KateSpellingMenu(KateView *view);
     virtual ~KateSpellingMenu();
 
+    bool isEnabled() const;
+
     void createActions(KActionCollection *ac);
 
-    void enteredMisspelledRange(KTextEditor::SmartRange *range);
-    void exitedMisspelledRange(KTextEditor::SmartRange *range);
+    void caretEnteredMisspelledRange(KTextEditor::SmartRange *range);
+    void caretExitedMisspelledRange(KTextEditor::SmartRange *range);
+    void mouseEnteredMisspelledRange(KTextEditor::SmartRange *range);
+    void mouseExitedMisspelledRange(KTextEditor::SmartRange *range);
+
+    /**
+     * This method has to be called before the menu is shown in response to a context
+     * menu event. It will trigger that the misspelled range located under the mouse pointer
+     * is considered for the spelling suggestions.
+     **/
+    void setUseMouseForMisspelledRange(bool b);
 
   public Q_SLOTS:
     void setEnabled(bool b);
@@ -55,6 +66,9 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
     KAction *m_ignoreWordAction, *m_addToDictionaryAction;
     KMenu *m_spellingMenu;
     KTextEditor::SmartRange *m_currentMisspelledRange;
+    KTextEditor::SmartRange *m_currentMouseMisspelledRange;
+    KTextEditor::SmartRange *m_currentCaretMisspelledRange;
+    bool m_useMouseForMisspelledRange;
     QStringList m_currentSuggestions;
     QSignalMapper *m_suggestionsSignalMapper;
 

@@ -571,11 +571,35 @@ void KateOnTheFlyChecker::rangeEliminated(KTextEditor::SmartRange *range)
 /**
  * WARNING: SmartInterface lock must have been obtained before entering this function!
  **/
+void KateOnTheFlyChecker::mouseEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+{
+  KateView *kateView = static_cast<KateView*>(view);
+  QMutexLocker(kateView->doc()->smartMutex());
+  kateView->spellingMenu()->mouseEnteredMisspelledRange(range);
+}
+
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this function!
+ **/
+
+void KateOnTheFlyChecker::mouseExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
+{
+  KateView *kateView = static_cast<KateView*>(view);
+  QMutexLocker(kateView->doc()->smartMutex());
+  kateView->spellingMenu()->mouseExitedMisspelledRange(range);
+}
+
+/**
+ * WARNING: SmartInterface lock must have been obtained before entering this function!
+ *
+ * It is not enough to use 'caret/Entered/ExitedRange' only as the cursor doesn't move when some
+ * text has been selected.
+ **/
 void KateOnTheFlyChecker::caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view)
 {
   KateView *kateView = static_cast<KateView*>(view);
   QMutexLocker(kateView->doc()->smartMutex());
-  kateView->spellingMenu()->enteredMisspelledRange(range);
+  kateView->spellingMenu()->caretEnteredMisspelledRange(range);
 }
 
 /**
@@ -586,7 +610,7 @@ void KateOnTheFlyChecker::caretExitedRange(KTextEditor::SmartRange *range, KText
 {
   KateView *kateView = static_cast<KateView*>(view);
   QMutexLocker(kateView->doc()->smartMutex());
-  kateView->spellingMenu()->exitedMisspelledRange(range);
+  kateView->spellingMenu()->caretExitedMisspelledRange(range);
 }
 
 void KateOnTheFlyChecker::deleteSmartRangeLater(KTextEditor::SmartRange *range)

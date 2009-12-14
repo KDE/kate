@@ -42,6 +42,7 @@
 #include "katenamespace.h"
 #include "kateviinputmodemanager.h"
 #include "katevimodebar.h"
+#include "spellcheck/spellingmenu.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -2518,6 +2519,7 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
 
   // popup is a qguardedptr now
   if (m_view->contextMenu()) {
+    m_view->spellingMenu()->setUseMouseForMisspelledRange((e->reason() == QContextMenuEvent::Mouse));
     m_view->contextMenu()->popup( mapToGlobal( p ) );
     e->accept ();
   }

@@ -6524,7 +6524,7 @@ Changes:
         <RegExpr attribute="Keyword" context="case"  String="(case|default)(\s|:|$)" />
         <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
         <DetectChar attribute="Normal Text" context="#stay" char=":" beginRegion="Alternate Block" />
-        <RegExpr attribute="Keyword" context="#stay" String="endif|endwhile|endfor|endforeach|endswitch" endRegion="Alternate Block" />
+        <RegExpr attribute="Control Structures" context="#stay" String="endif|endwhile|endfor|endforeach|endswitch" endRegion="Alternate Block" />
         <!--/ Alternate PHP Block Syntax -->
         
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />

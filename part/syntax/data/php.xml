@@ -1809,7 +1809,6 @@ Changes:
       <item> array_diff_key </item>
       <item> array_diff_uassoc </item>
       <item> array_diff_ukey </item>
-      <item> array_diff </item>
       <item> array_fill </item>
       <item> array_filter </item>
       <item> array_flip </item>
@@ -1818,7 +1817,6 @@ Changes:
       <item> array_intersect_key </item>
       <item> array_intersect_uassoc </item>
       <item> array_intersect_ukey </item>
-      <item> array_intersect </item>
       <item> array_key_exists </item>
       <item> array_keys </item>
       <item> array_map </item>
@@ -1843,7 +1841,6 @@ Changes:
       <item> array_uintersect </item>
       <item> array_uintersect_assoc </item>
       <item> array_uintersect_uassoc </item>
-      <item> array_uintersect </item>
       <item> array_unique </item>
       <item> array_unshift </item>
       <item> array_values </item>
@@ -2178,8 +2175,6 @@ Changes:
       <item> debug_backtrace </item>
       <item> debug_print_backtrace </item>
       <item> debug_zval_dump </item>
-      <item> dcgettext </item>
-      <item> dcngettext </item>
       <item> debugger_off </item>
       <item> debugger_on </item>
       <item> decbin </item>
@@ -2212,7 +2207,6 @@ Changes:
       <item> dns_get_mx </item>
       <item> dns_get_record </item>
       <item> dom_import_simplexml </item>
-      <item> dngettext </item>
       <item> domxml_add_root </item>
       <item> domxml_attributes </item>
       <item> domxml_children </item>
@@ -2613,7 +2607,6 @@ Changes:
       <item> hw_unlock </item>
       <item> hw_who </item>
       <item> hypot </item>
-      <item> idate </item>
       <item> ibase_blob_add </item>
       <item> ibase_blob_cancel </item>
       <item> ibase_blob_close </item>
@@ -2658,6 +2651,7 @@ Changes:
       <item> iconv_mime_decode_headers </item>
       <item> iconv_mime_encode </item>
       <item> iconv_set_encoding </item>
+      <item> idate </item>
       <item> ifx_affected_rows </item>
       <item> ifx_blobinfile_mode </item>
       <item> ifx_byteasvarchar </item>
@@ -3175,12 +3169,6 @@ Changes:
       <item> mktime </item>
       <item> money_format </item>
       <item> move_uploaded_file </item>
-      <item> msg_get_queue </item>
-      <item> msg_receive </item>
-      <item> msg_remove_queue </item>
-      <item> msg_send </item>
-      <item> msg_set_queue </item>
-      <item> msg_stat_queue </item>
       <item> msession_connect </item>
       <item> msession_count </item>
       <item> msession_create </item>
@@ -3202,6 +3190,12 @@ Changes:
       <item> msession_timeout </item>
       <item> msession_uniq </item>
       <item> msession_unlock </item>
+      <item> msg_get_queue </item>
+      <item> msg_receive </item>
+      <item> msg_remove_queue </item>
+      <item> msg_send </item>
+      <item> msg_set_queue </item>
+      <item> msg_stat_queue </item>
       <item> msql </item>
       <item> msql_affected_rows </item>
       <item> msql_close </item>
@@ -3281,9 +3275,9 @@ Changes:
       <item> muscat_setup_net </item>
       <item> mysql </item>
       <item> mysql_affected_rows </item>
-      <item> mysql_client_encoding </item>
       <item> mysql_change_user </item>
       <item> mysql_character_set_name </item>
+      <item> mysql_client_encoding </item>
       <item> mysql_close </item>
       <item> mysql_connect </item>
       <item> mysql_create_db </item>

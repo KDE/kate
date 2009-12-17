@@ -770,6 +770,11 @@ const QChar KateViModeBase::getCharAtVirtualColumn( QString &line, int virtualCo
   int column = 0;
   int tempCol = 0;
 
+  // sanity check: if the line is empty, there are no chars
+  if ( line.length() == 0 ) {
+    return QChar::Null;
+  }
+
   while ( tempCol < virtualColumn ) {
     if ( line.at( column ) == '\t' ) {
       tempCol += tabWidth - ( tempCol % tabWidth );

@@ -41,6 +41,7 @@
 #include <QTimer>
 #include <QEvent>
 #include <QMouseEvent>
+#include <QSizeGrip>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace( KateViewManager *viewManager,
@@ -299,6 +300,11 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
   m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
   m_fileNameLabel->installEventFilter( this );
+
+#ifdef Q_WS_MAC
+  setSizeGripEnabled( false );
+  addPermanentWidget( new QSizeGrip( this ) );
+#endif
 
   installEventFilter( this );
   m_modPm = KIcon("modified").pixmap(16);

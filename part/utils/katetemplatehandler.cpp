@@ -48,10 +48,11 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
 {
   ifDebug(kDebug() << templateString << initialValues;)
+
+  handleTemplateString(position, templateString, initialValues);
+
   if ( !initialValues.isEmpty() ) {
     // only do complex stuff when required
-
-    handleTemplateString(position, templateString, initialValues);
 
     if ( !m_templateRanges.isEmpty() ) {
       foreach ( View* view, m_doc->views() ) {
@@ -77,8 +78,7 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
       cleanupAndExit();
     }
   } else {
-    // simple templates just need to be inserted
-    insertText(position, templateString);
+    // simple templates just need to be (which gets done in handleTemplateString())
     cleanupAndExit();
   }
 }
@@ -283,15 +283,6 @@ void KateTemplateHandler::insertText(const Cursor &position, const QString& text
 void KateTemplateHandler::handleTemplateString(const Cursor& position, QString templateString,
                                                const QMap< QString, QString >& initialValues)
 {
-  KateRendererConfig *config = m_doc->activeKateView()->renderer()->config();
-
-  Attribute::Ptr editableAttribute = getAttribute(config->templateEditablePlaceholderColor());
-  editableAttribute->setDynamicAttribute(
-      Attribute::ActivateCaretIn, getAttribute(config->templateFocusedEditablePlaceholderColor())
-  );
-
-  Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor());
-
   int line = position.line();
   int column = position.column();
 
@@ -410,6 +401,15 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   if ( ranges.isEmpty() ) {
     return;
   }
+
+  KateRendererConfig *config = m_doc->activeKateView()->renderer()->config();
+
+  Attribute::Ptr editableAttribute = getAttribute(config->templateEditablePlaceholderColor());
+  editableAttribute->setDynamicAttribute(
+      Attribute::ActivateCaretIn, getAttribute(config->templateFocusedEditablePlaceholderColor())
+  );
+
+  Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor());
 
   m_wholeTemplateRange = m_doc->newSmartRange( Range(position, Cursor(line, column)), 0,
                                                SmartRange::ExpandLeft | SmartRange::ExpandRight );

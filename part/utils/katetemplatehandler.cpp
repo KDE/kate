@@ -352,13 +352,11 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
           QChar c = templateString[startPos];
           // replace variable with initial value
           templateString.replace( startPos, i - startPos + 1, initialValues[key] );
-          kDebug() << c << templateString;
           // correct iterator pos, 3 == % + { + }
           i -= 3 + key.length() - initialValues[key].length();
           // correct column to point at end of range, taking replacement width diff into account
           // 2 == % + {
           column -= 2 + key.length() - initialValues[key].length();
-          kDebug() << templateString.mid(i - initialValues[key].length(), initialValues[key].length());
           // always add ${...} to the editable ranges
           // only add %{...} to the editable ranges when it's value equals the key
           if ( c == '$' || key == initialValues[key] ) {

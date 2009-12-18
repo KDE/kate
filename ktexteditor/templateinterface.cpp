@@ -117,7 +117,7 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
   QRegExp rx( "[$%]\\{([^}\\s]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
-  int opos = 0;
+  int offset;
 
   while ( pos >= 0 )
   {
@@ -125,20 +125,20 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
 
     if ( pos > -1 )
     {
-      if ( ( pos - opos ) > 0 )
-      {
-        if ( templateString[ pos - 1 ] == '\\' )
-        {
-          pos = opos = pos + 1;
-          continue;
-        }
+      offset = 0;
+      while ( pos - offset > 0 && templateString[ pos - offset - 1 ] == '\\' ) {
+        ++offset;
+      }
+      if ( offset % 2 == 1 ) {
+        // match is escaped
+        ++pos;
+        continue;
       }
       QString placeholder = rx.cap( 1 );
       if ( ! enhancedInitValues.contains( placeholder ) )
         enhancedInitValues[ placeholder ] = "";
 
       pos += rx.matchedLength();
-      opos = pos;
     }
   }
 

@@ -286,11 +286,6 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   int line = position.line();
   int column = position.column();
 
-  // true, when the last char was a backslash
-  // and that one wasn't prepended by an odd number
-  // of backslashes
-  bool isEscaped = false;
-
   // not equal -1 when we found a start position
   int startPos = -1;
 
@@ -310,73 +305,76 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
   // VAR must be set as key in initialValues
   // expression must not be escaped
   for ( int i = 0; i < templateString.size(); ++i ) {
-    if ( templateString[i] == '\\' ) {
-      ++column;
-      isEscaped = !isEscaped;
-    } else if ( templateString[i] == '\n' ) {
+    if ( templateString[i] == '\n' ) {
       ++line;
       column = 0;
-      isEscaped = false;
       if ( startPos != -1 ) {
         // don't allow variables to span multiple lines
         startPos = -1;
       }
-    } else if ( templateString[i] == '%' || templateString[i] == '$' ) {
-      if ( isEscaped && startPos == -1 ) {
-        // remove escape char
-        templateString.remove(i - 1, 1);
-        --i;
-        isEscaped = false;
-      } else if ( startPos != -1 ) {
-        // don't allow nested variables
-        startPos = -1;
-        ++column;
-      } else if ( i + 2 < templateString.size() && templateString[i + 1] == '{' ) {
-        // need at least %{}
-        startPos = i;
-        // skip {
-        ++i;
-        column += 2;
-      }
+    } else if ( (templateString[i] == '%' || templateString[i] == '$')
+                && i + 1 < templateString.size() && templateString[i+1] == '{' ) {
+      // don't check for startPos == -1 here, overwrite blindly since nested variables are not supported
+      startPos = i;
+      // skip '{'
+      ++i;
+      column += 2;
     } else if ( templateString[i] == '}' && startPos != -1 ) {
-      // get key, i.e. contents between ${..}
-      const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
-      if ( !initialValues.contains(key) ) {
-        kWarning() << "unknown variable key:" << key;
-      } else if ( key == "cursor" ) {
-        finalCursorPosition = Cursor(line, column - key.length() - 2);
-        // don't insert anything, just remove the placeholder
-        templateString.remove(startPos, i - startPos + 1);
-        // correct iterator pos, 3 == $ + { + }
-        i -= 3 + key.length();
-        column -= 2 + key.length();
-        startPos = -1;
-      } else {
-        // whether the variable starts with % or $
-        QChar c = templateString[startPos];
-        // replace variable with initial value
-        templateString.replace( startPos, i - startPos + 1, initialValues[key] );
-        // correct iterator pos, 3 == % + { + }
-        i -= 3 + key.length() - initialValues[key].length();
-        // correct column to point at end of range, taking replacement width diff into account
-        // 2 == % + {
-        column -= 2 + key.length() - initialValues[key].length();
-        // always add ${...} to the editable ranges
-        // only add %{...} to the editable ranges when it's value equals the key
-        if ( c == '$' || key == initialValues[key] ) {
-          if ( !keyQueue.contains(key) ) {
-            keyQueue.append(key);
+      // check whether this var is escaped
+      int escapeChars = 0;
+      while ( startPos - escapeChars > 0 && templateString[startPos - escapeChars - 1] == '\\' ) {
+        ++escapeChars;
+      }
+      if ( escapeChars > 0 ) {
+        // remove half of the escape chars (i.e. \\ => \) and make sure the
+        // odd rest is removed as well (i.e. the one that escapes this var)
+        int toRemove = (escapeChars + 1) / 2;
+        templateString.remove(startPos - escapeChars, toRemove);
+        i -= toRemove;
+        column -= toRemove;
+        startPos -= toRemove;
+      }
+      if ( escapeChars % 2 == 0 ) {
+        // get key, i.e. contents between ${..}
+        const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
+        if ( !initialValues.contains(key) ) {
+          kWarning() << "unknown variable key:" << key;
+        } else if ( key == "cursor" ) {
+          finalCursorPosition = Cursor(line, column - key.length() - 2);
+          // don't insert anything, just remove the placeholder
+          templateString.remove(startPos, i - startPos + 1);
+          // correct iterator pos, 3 == $ + { + }
+          i -= 3 + key.length();
+          column -= 2 + key.length();
+          startPos = -1;
+        } else {
+          // whether the variable starts with % or $
+          QChar c = templateString[startPos];
+          // replace variable with initial value
+          templateString.replace( startPos, i - startPos + 1, initialValues[key] );
+          kDebug() << c << templateString;
+          // correct iterator pos, 3 == % + { + }
+          i -= 3 + key.length() - initialValues[key].length();
+          // correct column to point at end of range, taking replacement width diff into account
+          // 2 == % + {
+          column -= 2 + key.length() - initialValues[key].length();
+          kDebug() << templateString.mid(i - initialValues[key].length(), initialValues[key].length());
+          // always add ${...} to the editable ranges
+          // only add %{...} to the editable ranges when it's value equals the key
+          if ( c == '$' || key == initialValues[key] ) {
+            if ( !keyQueue.contains(key) ) {
+              keyQueue.append(key);
+            }
+            ranges.insert( key,
+                          Range( line, column - initialValues[key].length(),
+                                  line, column
+                                )
+                          );
           }
-          ranges.insert( key,
-                         Range( line, column - initialValues[key].length(),
-                                line, column
-                              )
-                        );
         }
       }
       startPos = -1;
     } else {
-      isEscaped = false;
       ++column;
     }
   }

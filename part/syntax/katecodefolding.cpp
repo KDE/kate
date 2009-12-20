@@ -1486,24 +1486,24 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
   if (hiddenLines.isEmpty())
     return virtualLine;
 
-  // kDebug(13000)<<QString("VirtualLine %1").arg(virtualLine);
+  // kDebug(13000) << "virtualLine" << virtualLine;
 
   if (lineMapping.contains(virtualLine))
     return lineMapping[virtualLine];
 
-  unsigned int tmp = virtualLine;
+  unsigned int realLine = virtualLine;
   for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.constBegin();it!=hiddenLines.constEnd();++it)
   {
-    if ((*it).start<=virtualLine)
-      virtualLine += (*it).length;
+    if ((*it).start <= realLine)
+      realLine += (*it).length;
     else
       break;
   }
 
-  // kDebug(13000)<<QString("Real Line %1").arg(virtualLine);
+  // kDebug(13000) << "realLine" << realLine;
 
-  lineMapping.insert(tmp, virtualLine);
-  return virtualLine;
+  lineMapping.insert(virtualLine, realLine);
+  return realLine;
 }
 
 //
@@ -1515,19 +1515,22 @@ unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
   if (hiddenLines.isEmpty())
     return realLine;
 
-  // kDebug(13000)<<QString("RealLine--> %1").arg(realLine);
+  // kDebug(13000) << "realLine" << realLine;
+  int virtualLine = realLine;
 
-  for (int i = hiddenLines.size()-1; i >= 0; --i)
-  {
-    if (hiddenLines[i].start <= realLine)
-      realLine -= hiddenLines[i].length;
+  for (int i = hiddenLines.size()-1; i >= 0; --i) {
+    if ((int)hiddenLines[i].start <= virtualLine) {
+        virtualLine -= hiddenLines[i].length;
+        if (virtualLine < (int)hiddenLines[i].start)
+            virtualLine = hiddenLines[i].start-1;
+    }
     // else
       // break;
   }
 
-  // kDebug(13000)<<QString("-->virtual Line %1").arg(realLine);
+  // kDebug(13000) << "virtualLine" << virtualLine;
 
-  return realLine;
+  return virtualLine;
 }
 
 //

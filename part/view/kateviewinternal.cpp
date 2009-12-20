@@ -710,10 +710,17 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cac
   if (startPos() > max)
     scrollPos(max);
 
-  if (clear_cache || m_view != doc()->activeView()) {
+  {
     QMutexLocker lock(doc()->smartMutex());
     cache()->clear ();
   }
+
+  m_preserveX = true;
+  KTextEditor::Cursor newPos = toRealCursor(toVirtualCursor(m_cursor));
+  KateTextLayout newLine = cache()->textLayout(newPos);
+  newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
+  updateCursor(newPos, true);
+
   updateView();
   update();
   m_leftBorder->update();

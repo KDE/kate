@@ -79,7 +79,6 @@ class KateFileList: public QListView
     virtual void mousePressEvent ( QMouseEvent * event );
     virtual void mouseReleaseEvent ( QMouseEvent * event );
     virtual void contextMenuEvent ( QContextMenuEvent * event );
-    virtual void wheelEvent ( QWheelEvent * event );
 
   Q_SIGNALS:
     void closeDocument(KTextEditor::Document*);

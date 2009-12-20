@@ -102,16 +102,6 @@ void KateFileList::contextMenuEvent ( QContextMenuEvent * event ) {
   event->accept();
 }
 
-void KateFileList::wheelEvent ( QWheelEvent * event ) {
-  if (event->delta() < 0) {
-    //negative, flicked towards user.
-    slotNextDocument();
-  } else {
-    slotPrevDocument();
-  }
-  event->accept();
-}
-
 void KateFileList::slotDocumentClose() {
   m_previouslySelected = QModelIndex();
   QVariant v = m_indexContextMenu.data(KateDocManager::DocumentRole);

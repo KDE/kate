@@ -18,6 +18,7 @@ GenericName[sv]=TNG-datafileditor för textsnuttar i Kate
 GenericName[tr]=Kate Snippets TNG veri dosyası düzenleyici
 GenericName[uk]=Редактор файла даних TNG фрагментів тексту Kate
 GenericName[x-test]=xxKate Snippets TNG datafile editorxx
+GenericName[zh_CN]=Kate 片段插件的 TNG 数据文件编辑器
 GenericName[zh_TW]=Kate 片段 TNG 資料檔編輯器
 Name=Kate Snippets TNG datafile editor
 Name[ca]=Editor de fitxers de dades TNG de retalls del Kate
@@ -38,6 +39,7 @@ Name[sv]=TNG-datafileditor för textsnuttar i Kate
 Name[tr]=Kate Snippets TNG veri dosyası düzenleyici
 Name[uk]=Редактор файла даних TNG фрагментів тексту Kate
 Name[x-test]=xxKate Snippets TNG datafile editorxx
+Name[zh_CN]=Kate 片段插件的 TNG 数据文件编辑器
 Name[zh_TW]=Kate 片段 TNG 資料檔編輯器
 
 MimeType=application/x-katesnippets_tng;

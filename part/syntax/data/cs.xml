@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.14" kateversion="2.3" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.15" kateversion="2.3" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
       <item> abstract</item>
@@ -116,6 +116,11 @@
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="block1"/>
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="block1"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bpartial(?=\s+(class|struct|interface|void))"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\bvar(?=\s+\w+\s*=\s*\w+)"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\byield(?=\s+(return|break))"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\b(set|get)(?=\s*[;{])"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bglobal(?=\s*::\s*\w+)"/>
         <RegExpr attribute="Decimal" context="#stay" String="#region.*$" beginRegion="Region1"/>
         <RegExpr attribute="Decimal" context="#stay" String="#endregion.*$" endRegion="Region1"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />

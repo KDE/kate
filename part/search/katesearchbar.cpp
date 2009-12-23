@@ -446,17 +446,8 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
 void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement,
         int replacementCounter) {
     // Placeholders depending on search mode
-    bool usePlaceholders = false;
-    switch (m_powerUi->searchMode->currentIndex()) {
-    case MODE_REGEX: // FALLTHROUGH
-    case MODE_ESCAPE_SEQUENCES:
-        usePlaceholders = true;
-        break;
-
-    default:
-        break;
-
-    }
+    const bool usePlaceholders = searchOptions().testFlag(Search::Regex) ||
+                                 searchOptions().testFlag(Search::EscapeSequences);
 
     const Range & targetRange = match[0];
     QString finalReplacement;

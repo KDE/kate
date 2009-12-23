@@ -494,8 +494,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
     if (invokedByUserAction) {
         // Where to find?
         Range inputRange;
-        const bool fromCursor = isChecked(m_incMenuFromCursor);
-        if (fromCursor) {
+        if (fromCursor()) {
             inputRange.setRange(m_incInitCursor, view()->doc()->documentEnd());
         } else {
             inputRange = view()->doc()->documentRange();
@@ -512,7 +511,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
             found = true;
         } else {
             // Wrap if it makes sense
-            if (fromCursor) {
+            if (fromCursor()) {
                 // Find, second try
                 inputRange = view()->doc()->documentRange();
                 const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, searchOptions());
@@ -674,10 +673,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
         }
     } else {
         // No selection
-        const bool fromCursor = (m_powerUi != NULL)
-                ? isChecked(m_powerMenuFromCursor)
-                : isChecked(m_incMenuFromCursor);
-        if (fromCursor) {
+        if (fromCursor()) {
             const Cursor cursorPos = view()->cursorPosition();
             if (searchDirection == SearchForward) {
                 // if the vi input mode is used, the cursor will stay a the first character of the
@@ -1052,6 +1048,13 @@ void KateSearchBar::onPowerReplaceAll() {
 QString KateSearchBar::searchPattern() const {
     return (m_powerUi != 0) ? m_powerUi->pattern->currentText()
                             : m_incUi->pattern->displayText();
+}
+
+
+
+bool KateSearchBar::fromCursor() const {
+    return isPower() ? m_powerMenuFromCursor->isChecked()
+                     : m_incMenuFromCursor->isChecked();
 }
 
 

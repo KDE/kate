@@ -134,6 +134,7 @@ private:
     QString searchPattern() const;
     bool isPatternValid() const;
 
+    bool fromCursor() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void resetHighlights();

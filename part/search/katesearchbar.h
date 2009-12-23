@@ -135,6 +135,7 @@ private:
     bool isPatternValid() const;
 
     bool fromCursor() const;
+    bool selectionOnly() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void resetHighlights();

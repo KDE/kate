@@ -655,12 +655,9 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     Range inputRange;
     Range selection;
     const bool selected = view()->selection();
-    const bool selectionOnly = (m_powerUi != NULL)
-            ? isChecked(m_powerMenuSelectionOnly)
-            : false;
     if (selected) {
         selection = view()->selectionRange();
-        if (selectionOnly) {
+        if (selectionOnly()) {
             // First match in selection
             inputRange = selection;
         } else {
@@ -712,7 +709,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     SmartRange * afterReplace = NULL;
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && (match == selection) && (!selectionOnly || replacement != 0)) {
+        if (selected && (match == selection) && (!selectionOnly() || replacement != 0)) {
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
@@ -753,7 +750,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
             found = true;
             indicateMatch(MatchFound);
         }
-    } else if (!selected || !selectionOnly) {
+    } else if (!selected || !selectionOnly()) {
         // Find, second try from doc start on
         wrap = true;
     }
@@ -765,7 +762,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
             // Previously selected match again?
-            if (selected && !selectionOnly && (match3 == selection)) {
+            if (selected && !selectionOnly() && (match3 == selection)) {
                 // NOOP, same match again
             } else {
                 nonstatic_selectRange2(view(), match3);
@@ -1026,8 +1023,7 @@ void KateSearchBar::onPowerReplaceAll() {
     // Where to replace?
     Range selection;
     const bool selected = view()->selection();
-    const bool selectionOnly = isChecked(m_powerMenuSelectionOnly);
-    Range inputRange = (selected && selectionOnly)
+    Range inputRange = (selected && selectionOnly())
             ? view()->selectionRange()
             : view()->doc()->documentRange();
 
@@ -1055,6 +1051,13 @@ QString KateSearchBar::searchPattern() const {
 bool KateSearchBar::fromCursor() const {
     return isPower() ? m_powerMenuFromCursor->isChecked()
                      : m_incMenuFromCursor->isChecked();
+}
+
+
+
+bool KateSearchBar::selectionOnly() const {
+    return isPower() ? m_powerMenuSelectionOnly->isChecked()
+                     : false;
 }
 
 

@@ -136,6 +136,7 @@ private:
 
     bool fromCursor() const;
     bool selectionOnly() const;
+    bool highlightAll() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void resetHighlights();

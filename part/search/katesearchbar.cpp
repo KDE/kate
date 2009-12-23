@@ -775,19 +775,16 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     }
 
     // Highlight all matches and/or replacement
-    const bool highlightAll = (m_powerUi != NULL)
-            ? isChecked(m_powerMenuHighlightAll)
-            : isChecked(m_incMenuHighlightAll);
-    if ((found && highlightAll) || (afterReplace != NULL)) {
+    if ((found && highlightAll()) || (afterReplace != NULL)) {
         // Highlight all matches
-        if (found && highlightAll) {
+        if (found && highlightAll()) {
             highlightAllMatches(searchOptions);
         }
 
         // Highlight replacement (on top if overlapping) if new match selected
         if (found && (afterReplace != NULL)) {
             // Note: highlightAllMatches already reset for us
-            if (!(found && highlightAll)) {
+            if (!(found && highlightAll())) {
                 resetHighlights();
             }
 
@@ -1058,6 +1055,13 @@ bool KateSearchBar::fromCursor() const {
 bool KateSearchBar::selectionOnly() const {
     return isPower() ? m_powerMenuSelectionOnly->isChecked()
                      : false;
+}
+
+
+
+bool KateSearchBar::highlightAll() const {
+    return isPower() ? m_powerMenuHighlightAll->isChecked()
+                     : m_incMenuHighlightAll->isChecked();
 }
 
 

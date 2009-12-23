@@ -818,31 +818,12 @@ void KateSearchBar::onPowerPatternChanged(const QString & /*pattern*/) {
 
 
 bool KateSearchBar::isPatternValid() const {
-    bool isValid = true;
+    if (searchPattern().isEmpty())
+        return false;
 
-    if (searchPattern().isEmpty()) {
-        isValid = false;
-    } else {
-        switch (m_powerUi->searchMode->currentIndex()) {
-        case MODE_WHOLE_WORDS:
-            if (searchPattern().trimmed() != searchPattern()) {
-                isValid = false;
-            }
-            break;
-
-        case MODE_REGEX:
-            isValid = QRegExp(searchPattern()).isValid();
-            break;
-
-        case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
-        case MODE_PLAIN_TEXT: // FALLTHROUGH
-        default:
-            ; // NOOP
-
-        }
-    }
-
-    return isValid;
+    return searchOptions().testFlag(Search::WholeWords) ? searchPattern().trimmed() == searchPattern() :
+           searchOptions().testFlag(Search::Regex)      ? QRegExp(searchPattern()).isValid() :
+                                                          true;
 }
 
 

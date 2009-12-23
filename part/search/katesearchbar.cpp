@@ -214,7 +214,7 @@ KateSearchBar::~KateSearchBar() {
 
 
 void KateSearchBar::findNext() {
-    const bool found = find(searchOptions());
+    const bool found = find();
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -225,7 +225,7 @@ void KateSearchBar::findNext() {
 
 
 void KateSearchBar::findPrevious() {
-    const bool found = find(searchOptions(SearchBackward));
+    const bool found = find(SearchBackward);
 
     if (found && m_powerUi != NULL) {
         // Add to search history
@@ -258,8 +258,8 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
-void KateSearchBar::highlightAllMatches(KTextEditor::Search::SearchOptions searchOptions) {
-    findAll(view()->doc()->documentRange(), searchOptions, NULL);
+void KateSearchBar::highlightAllMatches() {
+    findAll(view()->doc()->documentRange(), NULL);
 }
 
 void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
@@ -531,7 +531,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         // Highlight all
         if (isChecked(m_incMenuHighlightAll)) {
             if (found ) {
-                highlightAllMatches(searchOptions());
+                highlightAllMatches();
             } else {
                 resetHighlights();
             }
@@ -565,7 +565,7 @@ void KateSearchBar::onHighlightAllToggled(bool checked) {
         if (!searchPattern().isEmpty()) {
             // Highlight them all
             resetHighlights();
-            highlightAllMatches(searchOptions());
+            highlightAllMatches();
         }
     } else {
         resetHighlights();
@@ -643,13 +643,13 @@ void KateSearchBar::onReturnPressed() {
 
 
 
-bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QString * replacement) {
+bool KateSearchBar::find(SearchDirection searchDirection, const QString * replacement) {
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error
     }
 
-    const SearchDirection searchDirection = searchOptions.testFlag(Search::Backwards) ? SearchBackward : SearchForward;
+    const Search::SearchOptions enabledOptions = searchOptions(searchDirection);
 
     // Where to find?
     Range inputRange;
@@ -691,7 +691,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     FAST_DEBUG("Search range is" << inputRange);
 
     {
-        const bool regexMode = searchOptions.testFlag(Search::Regex);
+        const bool regexMode = enabledOptions.testFlag(Search::Regex);
         const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
 
         // Single-line pattern workaround
@@ -702,7 +702,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
 
 
     // Find, first try
-    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
+    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
     bool found = false;
@@ -735,7 +735,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
             // Single-line pattern workaround
             fixForSingleLine(inputRange, searchDirection);
 
-            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
+            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 nonstatic_selectRange2(view(), match2);
@@ -758,7 +758,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     // Wrap around
     if (wrap) {
         inputRange = view()->doc()->documentRange();
-        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), searchOptions);
+        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
             // Previously selected match again?
@@ -778,7 +778,7 @@ bool KateSearchBar::find(const Search::SearchOptions searchOptions, const QStrin
     if ((found && highlightAll()) || (afterReplace != NULL)) {
         // Highlight all matches
         if (found && highlightAll()) {
-            highlightAllMatches(searchOptions);
+            highlightAllMatches();
         }
 
         // Highlight replacement (on top if overlapping) if new match selected
@@ -911,7 +911,7 @@ void KateSearchBar::sendConfig() {
 void KateSearchBar::onPowerReplaceNext() {
     const QString replacement = m_powerUi->replacement->currentText();
 
-    if (find(searchOptions(), &replacement)) {
+    if (find(SearchForward, &replacement)) {
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
 
@@ -924,15 +924,11 @@ void KateSearchBar::onPowerReplaceNext() {
 
 // replacement == NULL --> Highlight all matches
 // replacement != NULL --> Replace and highlight all matches
-void KateSearchBar::findAll(Range inputRange, Search::SearchOptions enabledOptions,
-        const QString * replacement) {
+void KateSearchBar::findAll(Range inputRange, const QString * replacement) {
+    const Search::SearchOptions enabledOptions = searchOptions(SearchForward);
+
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
     const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
-
-    // Clear backwards flag, this algorithm is for forward mode
-    if (enabledOptions.testFlag(Search::Backwards)) {
-        enabledOptions &= ~Search::SearchOptions(Search::Backwards);
-    }
 
     // Before first match
     resetHighlights();
@@ -1026,7 +1022,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    findAll(inputRange, searchOptions(), &replacement);
+    findAll(inputRange, &replacement);
 
 
     // Add to search history

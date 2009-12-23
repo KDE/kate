@@ -121,10 +121,8 @@ private Q_SLOTS:
 
 private:
     // Helpers
-    bool find(KTextEditor::Search::SearchOptions searchOptions, const QString * replacement = 0);
-    void findAll(KTextEditor::Range inputRange,
-            KTextEditor::Search::SearchOptions enabledOptions,
-            const QString * replacement);
+    bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);
+    void findAll(KTextEditor::Range inputRange, const QString * replacement);
 
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
@@ -144,7 +142,7 @@ private:
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
-    void highlightAllMatches(KTextEditor::Search::SearchOptions searchOptions);
+    void highlightAllMatches();
     void indicateMatch(MatchResult matchResult);
     static void selectRange(KateView * view, const KTextEditor::Range & range);
     void nonstatic_selectRange(KateView * view, const KTextEditor::Range & range);

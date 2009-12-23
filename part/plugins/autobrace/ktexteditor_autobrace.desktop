@@ -16,6 +16,7 @@ X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=ktexteditorautobrace
 Name=AutoBrace
+Name[ast]=AutoBrace
 Name[bg]=Автоматични скоби
 Name[ca]=Parèntesis automàtics
 Name[da]=AutoKlamme

@@ -16,6 +16,7 @@ X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=ktexteditorexporter
 Name=Exporter
+Name[ast]=Exporter
 Name[bg]=Изнасяне
 Name[ca]=Exportador
 Name[da]=Eksport

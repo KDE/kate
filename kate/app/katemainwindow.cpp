@@ -1006,6 +1006,7 @@ void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
 
 void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
 {
+  setWindowState(Qt::WindowNoState);
   applyMainWindowSettings(config);
   restoreWindowSize(config);
   setWindowState( QFlags<Qt::WindowState>(config.readEntry("WindowState", int(Qt::WindowActive))) );

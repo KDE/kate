@@ -121,10 +121,10 @@ function indent(line, indentWidth, character) {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
-    // indent line after 'where'
+    // indent line after 'where' unless it starts with 'module'
     // instance Functor Tree where
     // >>>>fmap = treeMap
-    if (lastLine.endsWith('where')) {
+    if (lastLine.endsWith('where') && !lastLine.startsWith('module')) {
         dbg('indenting line for where');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }

@@ -468,15 +468,13 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
 
 
 
-void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByUserAction) {
+void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     if (pattern.isEmpty()) {
-        if (invokedByUserAction) {
-            // Kill selection
-            nonstatic_selectRange(view(), Range(m_incInitCursor, m_incInitCursor));
+        // Kill selection
+        nonstatic_selectRange(view(), Range(m_incInitCursor, m_incInitCursor));
 
-            // Kill highlight
-            resetHighlights();
-        }
+        // Kill highlight
+        resetHighlights();
 
         // Reset edit color
         indicateMatch(MatchNothing);
@@ -491,54 +489,52 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
     m_incUi->next->setDisabled(false);
     m_incUi->prev->setDisabled(false);
 
-    if (invokedByUserAction) {
-        // Where to find?
-        Range inputRange;
+    // Where to find?
+    Range inputRange;
+    if (fromCursor()) {
+        inputRange.setRange(m_incInitCursor, view()->doc()->documentEnd());
+    } else {
+        inputRange = view()->doc()->documentRange();
+    }
+
+    // Find, first try
+    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, searchOptions());
+    const Range & match = resultRanges[0];
+
+    bool found = false;
+    if (match.isValid()) {
+        nonstatic_selectRange(view(), match);
+        indicateMatch(MatchFound);
+        found = true;
+    } else {
+        // Wrap if it makes sense
         if (fromCursor()) {
-            inputRange.setRange(m_incInitCursor, view()->doc()->documentEnd());
-        } else {
+            // Find, second try
             inputRange = view()->doc()->documentRange();
-        }
-
-        // Find, first try
-        const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, searchOptions());
-        const Range & match = resultRanges[0];
-
-        bool found = false;
-        if (match.isValid()) {
-            nonstatic_selectRange(view(), match);
-            indicateMatch(MatchFound);
-            found = true;
-        } else {
-            // Wrap if it makes sense
-            if (fromCursor()) {
-                // Find, second try
-                inputRange = view()->doc()->documentRange();
-                const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, searchOptions());
-                const Range & match2 = resultRanges2[0];
-                if (match2.isValid()) {
-                    nonstatic_selectRange(view(), match2);
-                    indicateMatch(MatchWrapped);
-                    found = true;
-                } else {
-                    indicateMatch(MatchMismatch);
-                }
+            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, pattern, searchOptions());
+            const Range & match2 = resultRanges2[0];
+            if (match2.isValid()) {
+                nonstatic_selectRange(view(), match2);
+                indicateMatch(MatchWrapped);
+                found = true;
             } else {
                 indicateMatch(MatchMismatch);
             }
+        } else {
+            indicateMatch(MatchMismatch);
         }
+    }
 
-        // Highlight all
-        if (isChecked(m_incMenuHighlightAll)) {
-            if (found ) {
-                highlightAllMatches();
-            } else {
-                resetHighlights();
-            }
+    // Highlight all
+    if (isChecked(m_incMenuHighlightAll)) {
+        if (found ) {
+            highlightAllMatches();
+        } else {
+            resetHighlights();
         }
-        if (!found) {
-          view()->setSelection(Range::invalid());
-        }
+    }
+    if (!found) {
+        view()->setSelection(Range::invalid());
     }
 }
 
@@ -1639,8 +1635,14 @@ void KateSearchBar::onMutateIncremental() {
     m_incUi->pattern->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)
-    const bool NOT_INVOKED_BY_USER_ACTION = false;
-    onIncPatternChanged(initialPattern, NOT_INVOKED_BY_USER_ACTION);
+    if (initialPattern.isEmpty()) {
+        // Reset edit color
+        indicateMatch(MatchNothing);
+    }
+
+    // Enable/disable next/prev
+    m_incUi->next->setDisabled(initialPattern.isEmpty());
+    m_incUi->prev->setDisabled(initialPattern.isEmpty());
 
     if (create) {
         // Slots

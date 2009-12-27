@@ -98,7 +98,7 @@ protected:
     virtual void closed();
 
 private Q_SLOTS:
-    void onIncPatternChanged(const QString & pattern, bool invokedByUserAction = true);
+    void onIncPatternChanged(const QString & pattern);
     void onMatchCaseToggled(bool matchCase);
     void onHighlightAllToggled(bool checked);
     void onFromCursorToggled(bool fromCursor);

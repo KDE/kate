@@ -185,9 +185,14 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
             continue;
           }
           else if(inSpellCheckArea) {
-            toReturn.push_back(RangeDictionaryPair(KTextEditor::Range(begin, KTextEditor::Cursor(line, i)), dictionary));
-            if(returnSingleRange) {
-              return toReturn;
+            KTextEditor::Range spellCheckRange(begin, KTextEditor::Cursor(line, i));
+            // work around Qt bug 6498
+            trimRange(document, spellCheckRange);
+            if(!spellCheckRange.isEmpty()) {
+              toReturn.push_back(RangeDictionaryPair(spellCheckRange, dictionary));
+              if(returnSingleRange) {
+                return toReturn;
+              }
             }
             begin = KTextEditor::Cursor::invalid();
             inSpellCheckArea = false;
@@ -203,7 +208,15 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
       }
     }
     if(inSpellCheckArea) {
-      toReturn.push_back(RangeDictionaryPair(KTextEditor::Range(begin, rangeToSplit.end()), dictionary));
+      KTextEditor::Range spellCheckRange(begin, rangeToSplit.end());
+      // work around Qt bug 6498
+      trimRange(document, spellCheckRange);
+      if(!spellCheckRange.isEmpty()) {
+        toReturn.push_back(RangeDictionaryPair(spellCheckRange, dictionary));
+        if(returnSingleRange) {
+          return toReturn;
+        }
+      }
     }
   }
 
@@ -239,6 +252,47 @@ void KateSpellCheckManager::replaceCharactersEncodedIfNecessary(const QString& n
   else {
     doc->replaceText(replacementRange, newWord);
   }
+}
+
+void KateSpellCheckManager::trimRange(KateDocument *doc, KTextEditor::Range &r)
+{
+  if(r.isEmpty()) {
+    return;
+  }
+  KTextEditor::Cursor cursor = r.start();
+  while(cursor < r.end()) {
+    if(doc->lineLength(cursor.line()) > 0
+       && !doc->character(cursor).isSpace() && doc->character(cursor).category() != QChar::Other_Control) {
+        break;
+    }
+    cursor.setColumn(cursor.column() + 1);
+    if(cursor.column() >= doc->lineLength(cursor.line())) {
+      cursor.setPosition(cursor.line() + 1, 0);
+    }
+  }
+  r.start() = cursor;
+  if(r.isEmpty()) {
+    return;
+  }
+
+  cursor = r.end();
+  KTextEditor::Cursor prevCursor = cursor;
+  // the range cannot be empty now
+  do {
+    prevCursor = cursor;
+    if(cursor.column() <= 0) {
+      cursor.setPosition(cursor.line() - 1, doc->lineLength(cursor.line() - 1));
+    }
+    else {
+      cursor.setColumn(cursor.column() - 1);
+    }
+    if(cursor.column() < doc->lineLength(cursor.line())
+       && !doc->character(cursor).isSpace() && doc->character(cursor).category() != QChar::Other_Control) {
+        break;
+    }
+  }
+  while(cursor > r.start());
+  r.end() = prevCursor;
 }
 
 #include "spellcheck.moc"

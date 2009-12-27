@@ -142,7 +142,7 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
         this,SLOT(cancelClicked()));
 
     connect(m_sonnetDialog,SIGNAL(destroyed(QObject*)),
-            this,SLOT(objectDestroyed()));
+            this,SLOT(objectDestroyed(QObject*)));
   }
 
   QMutexLocker(m_view->doc()->smartMutex());
@@ -220,10 +220,12 @@ void KateSpellCheckDialog::performSpellCheck(const KTextEditor::Range& range)
   }
   m_languagesInSpellCheckRange = KateGlobal::self()->spellCheckManager()->spellCheckLanguageRanges(m_view->doc(), range);
   m_currentLanguageRangeIterator = m_languagesInSpellCheckRange.begin();
-
   m_currentSpellCheckRange = KTextEditor::Range::invalid();
   installNextSpellCheckRange();
-  m_sonnetDialog->show();
+  // first check if there is really something to spell check
+  if(m_currentSpellCheckRange.isValid()) {
+    m_sonnetDialog->show();
+  }
 }
 
 void KateSpellCheckDialog::installNextSpellCheckRange()
@@ -231,13 +233,16 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
   if ( m_spellCheckCancelledByUser
        || m_currentLanguageRangeIterator == m_languagesInSpellCheckRange.end() )
   {
+    m_currentSpellCheckRange = KTextEditor::Range::invalid();
+    m_currentDecToEncOffsetList.clear();
     spellCheckDone();
     return;
   }
-
   KateSpellCheckManager *spellCheckManager = KateGlobal::self()->spellCheckManager();
   KTextEditor::Cursor nextRangeBegin = (m_currentSpellCheckRange.isValid() ? m_currentSpellCheckRange.end()
                                                                            : KTextEditor::Cursor::invalid());
+  m_currentSpellCheckRange = KTextEditor::Range::invalid();
+  m_currentDecToEncOffsetList.clear();
   QList<QPair<KTextEditor::Range, QString> > rangeDictionaryPairList;
   while ( m_currentLanguageRangeIterator != m_languagesInSpellCheckRange.end() )
   {

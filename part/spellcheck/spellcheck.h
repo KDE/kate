@@ -62,6 +62,9 @@ class KateSpellCheckManager : public QObject {
                                                                                      bool singleLine = false);
 
       void replaceCharactersEncodedIfNecessary(const QString& newWord, KateDocument *doc, const KTextEditor::Range& replacementRange);
+
+  private:
+      void trimRange(KateDocument *doc, KTextEditor::Range &r);
 };
 
 #endif

@@ -240,7 +240,7 @@ void KateUndoManager::undo()
       KateView *view = qobject_cast<KateView*>(v);
 
       if (view->searchBar(false))
-        view->searchBar(false)->enableHighlights(false);
+        view->searchBar(false)->disableHighlights();
     }
 
     undoItems.last()->undo();
@@ -263,7 +263,7 @@ void KateUndoManager::redo()
       KateView *view = qobject_cast<KateView*>(v);
 
       if (view->searchBar(false))
-        view->searchBar(false)->enableHighlights(false);
+        view->searchBar(false)->disableHighlights();
     }
 
     redoItems.last()->redo();

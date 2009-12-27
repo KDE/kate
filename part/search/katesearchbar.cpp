@@ -167,7 +167,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
       m_topRange = view()->doc()->newSmartRange(view()->doc()->documentRange());
       static_cast<KateSmartRange*>(m_topRange)->setInternal();
       m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
-      enableHighlights(true);
+      disableHighlights();
     }
 
 
@@ -1677,20 +1677,22 @@ void KateSearchBar::setChecked(QAction * menuAction, bool checked) {
 
 
 
-void KateSearchBar::enableHighlights(bool enable) {
-    if (enable) {
-        view()->addInternalHighlight(m_topRange);
-    } else {
-        view()->removeInternalHighlight(m_topRange);
-        m_topRange->deleteChildRanges();
-    }
+void KateSearchBar::enableHighlights() {
+    view()->addInternalHighlight(m_topRange);
+}
+
+
+
+void KateSearchBar::disableHighlights() {
+    view()->removeInternalHighlight(m_topRange);
+    m_topRange->deleteChildRanges();
 }
 
 
 
 void KateSearchBar::resetHighlights() {
-    enableHighlights(false);
-    enableHighlights(true);
+    disableHighlights();
+    enableHighlights();
 }
 
 
@@ -1706,7 +1708,7 @@ void KateSearchBar::showEvent(QShowEvent * event) {
     connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(onCursorPositionChanged()));
 
-    enableHighlights(true);
+    enableHighlights();
     KateViewBarWidget::showEvent(event);
 }
 
@@ -1718,7 +1720,7 @@ void KateSearchBar::closed() {
     disconnect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(onCursorPositionChanged()));
 
-    enableHighlights(false);
+    disableHighlights();
 }
 
 

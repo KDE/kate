@@ -90,7 +90,8 @@ public Q_SLOTS:
     void onMutatePower();
     void onMutateIncremental();
 
-    void enableHighlights(bool enable);
+    void enableHighlights();
+    void disableHighlights();
 
 protected:
     // Overridden

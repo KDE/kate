@@ -9,7 +9,7 @@
 
 // based on Paul Giannaro's Python indenter
 
-var debugMode = true;
+var debugMode = false;
 
 // words for which space character-triggered indentation should be done
 var re_spaceIndent = /where/

@@ -17,9 +17,9 @@
 */
 #include "kateundomanager.h"
 
+#include <ktexteditor/view.h>
+
 #include "katedocument.h"
-#include "kateview.h"
-#include "katesearchbar.h"
 #include "kateundo.h"
 
 KateUndoManager::KateUndoManager (KateDocument *doc)
@@ -227,26 +227,13 @@ void KateUndoManager::undo()
 
   if (undoItems.count() > 0)
   {
-    //clearSelection ();
-    /*Disable searchbar highlights due to performance issue
-     * if undoGroup contains n items, and there're m search highlight regions,
-     * the total cost is n*m*log(m),
-     * to undo a simple Replace operation, n=2*m 
-     * (replace contains both delete and insert undoItem, assume the replaced regions are highlighted),
-     * cost = 2*m^2*log(m), too high
-     * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()
-     */
-    foreach (KTextEditor::View *v, m_document->views()) {
-      KateView *view = qobject_cast<KateView*>(v);
-
-      if (view->searchBar(false))
-        view->searchBar(false)->disableHighlights();
-    }
+    emit aboutToUndo();
 
     undoItems.last()->undo();
     redoItems.append (undoItems.last());
     undoItems.removeLast ();
     updateModified();
+
     emit undoChanged ();
   }
 }
@@ -257,14 +244,7 @@ void KateUndoManager::redo()
 
   if (redoItems.count() > 0)
   {
-    //clearSelection ();
-    //Disable searchbar highlights due to performance issue, see ::undo()'s comment
-    foreach (KTextEditor::View *v, m_document->views()) {
-      KateView *view = qobject_cast<KateView*>(v);
-
-      if (view->searchBar(false))
-        view->searchBar(false)->disableHighlights();
-    }
+    emit aboutToRedo();
 
     redoItems.last()->redo();
     undoItems.append (redoItems.last());

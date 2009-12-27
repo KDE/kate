@@ -73,7 +73,7 @@ public:
     };
 
 public:
-    explicit KateSearchBar(bool initAsPower, KateView* view, QWidget* parent=0);
+    explicit KateSearchBar(bool initAsPower, KateView* view);
     ~KateSearchBar();
 
     bool isPower() const;

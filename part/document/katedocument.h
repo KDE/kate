@@ -296,6 +296,7 @@ class KateDocument : public KTextEditor::Document,
     void editLineUnWrapped ( int line, int col );
 
   public:
+    KateUndoManager *undoManager();
     void undoSafePoint();
 
     bool undoDontMerge() const;

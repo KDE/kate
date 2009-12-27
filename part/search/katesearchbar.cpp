@@ -40,6 +40,7 @@
 #include <QStringListModel>
 #include <QCompleter>
 #include <QMutexLocker>
+#include "katesearch.h"
 
 using namespace KTextEditor;
 
@@ -127,8 +128,8 @@ public:
 
 
 
-KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* parent)
-        : KateViewBarWidget(true, kateView, parent),
+KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
+        : KateViewBarWidget(true, view, view),
         m_topRange(NULL),
         m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
@@ -162,9 +163,9 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
 
     // Init highlight
     {
-      QMutexLocker lock(view()->doc()->smartMutex());
+      QMutexLocker lock(view->doc()->smartMutex());
       
-      m_topRange = view()->doc()->newSmartRange(view()->doc()->documentRange());
+      m_topRange = view->doc()->newSmartRange(view->doc()->documentRange());
       static_cast<KateSmartRange*>(m_topRange)->setInternal();
       m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
       disableHighlights();

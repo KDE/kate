@@ -170,6 +170,8 @@ class KateUndoManager : public QObject
 
   Q_SIGNALS:
     void undoChanged ();
+    void aboutToUndo ();
+    void aboutToRedo ();
     void undoTrackingEnabledChanged(bool enabled);
 
   private:

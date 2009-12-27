@@ -130,8 +130,26 @@ function indent(line, indentWidth, character) {
     // indent line after 'let' 4 characters for alignment:
     // ... let foo = 3
     //     >>>>bar = 4
+    //
+    // unless if we're in a do block
     var letCol = lastLine.search(/\blet\b/);
     if (letCol != -1) {
+
+        // do a basic test of whether we are in a do block or not
+        l = line - 2;
+
+        // find the last line with an indentation level different from the
+        // current line ...
+        while (document.firstVirtualColumn(l) == document.firstVirtualColumn(line-1)) {
+            l = l - 1;
+        }
+
+        // ... if that line ends with 'do', don't indent
+        if (document.line(l).endsWith('do')) {
+            dbg('not indenting for let; in a do block');
+            return -1;
+        }
+
         dbg('indenting line for let');
         return letCol + 4;
     }

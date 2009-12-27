@@ -1232,7 +1232,9 @@ bool KateViNormalMode::commandPrintCharacterCode()
 bool KateViNormalMode::commandRepeatLastChange()
 {
   resetParser();
+  doc()->editStart();
   m_viInputModeManager->repeatLastChange();
+  doc()->editEnd();
 
   return true;
 }

@@ -12,7 +12,7 @@
 var debugMode = false;
 
 // words for which space character-triggered indentation should be done
-var re_spaceIndent = /where/
+var re_spaceIndent = /\bwhere\b|\bin\b|\belse\b/
 
 // escapes text w.r.t. regex special chars
 function escape(text) {
@@ -66,9 +66,7 @@ function indent(line, indentWidth, character) {
     // invocations triggered by a space character should be ignored unless the
     // line starts with one of the words in re_spaceIndent
     if (character == ' ') {
-        var firstWord = document.wordAt(line, document.firstVirtualColumn);
-        dbg(firstWord);
-        if (firstWord.search(re_spaceIndent) == -1) {
+        if (currentLine.search(re_spaceIndent) == -1) {
             dbg("skipping...");
             return document.firstVirtualColumn(line);
         }
@@ -142,7 +140,7 @@ function indent(line, indentWidth, character) {
     // ... let foo = 3
     //         bar = 4
     //     in foo+bar
-    if (currentLine.stripWhiteSpace().startsWith("in")) {
+    if (currentLine.stripWhiteSpace().startsWith('in')) {
         dbg('indenting line for in');
         var t = line-1;
         var indent = -1;
@@ -150,6 +148,26 @@ function indent(line, indentWidth, character) {
             var letCol = document.line(t).search(/\blet\b/);
             if (letCol != -1) {
                 indent = letCol;
+                break;
+            }
+            t--;
+        }
+        return indent;
+    }
+
+    // deindent line starting with 'else' to the level of 'then':
+    // ... if foo
+    //        then do
+    //           bar baz
+    //        else return []
+    if (currentLine.stripWhiteSpace().startsWith('else')) {
+        dbg('indenting line for else');
+        var t = line-1;
+        var indent = -1;
+        while (t >= 0 && line-t < 100) {
+            var thenCol = document.line(t).search(/\bthen\b/); // \s*\bthen\b
+            if (thenCol != -1) {
+                indent = thenCol;
                 break;
             }
             t--;

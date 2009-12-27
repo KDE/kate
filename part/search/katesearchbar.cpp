@@ -1293,15 +1293,13 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
 
 
 
-void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) {
-    if (invokedByUserAction) {
-        if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
-            m_powerUi->matchCase->setChecked(true);
-        }
-
-        sendConfig();
-        indicateMatch(MatchNothing);
+void KateSearchBar::onPowerModeChanged(int /*index*/) {
+    if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
+        m_powerUi->matchCase->setChecked(true);
     }
+
+    sendConfig();
+    indicateMatch(MatchNothing);
 
     givePatternFeedback();
 }
@@ -1438,22 +1436,6 @@ void KateSearchBar::onMutatePower() {
         m_powerMenuSelectionOnly = m_powerMenu->addAction(i18n("Selection &only"));
         m_powerMenuSelectionOnly->setCheckable(true);
 
-#if 0 // perhaps make actions for this, perhaps let be, don't seems to me that important to grab such prominent shortcuts
-        // Grab Alt+1 .. Alt+4 for search mode switching
-        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1), m_widget,
-                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
-                this, SLOT(onPowerModeChangedPlainText()));
-        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_2), m_widget,
-                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
-                this, SLOT(onPowerModeChangedWholeWords()));
-        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_3), m_widget,
-                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
-                this, SLOT(onPowerModeChangedEscapeSequences()));
-        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_4), m_widget,
-                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
-                this, SLOT(onPowerModeChangedRegularExpression()));
-#endif
-
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
         m_powerUi->findNext->setIcon(KIcon("go-down-search"));
@@ -1495,8 +1477,7 @@ void KateSearchBar::onMutatePower() {
 
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);
-    const bool NOT_INVOKED_BY_USER_ACTION = false;
-    onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
+    givePatternFeedback();
 
     if (create) {
         // Slots

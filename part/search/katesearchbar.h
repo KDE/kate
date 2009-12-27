@@ -111,7 +111,7 @@ private Q_SLOTS:
     void onPowerReplaceNext();
     void onPowerReplaceAll();
 
-    void onPowerModeChanged(int index, bool invokedByUserAction = true);
+    void onPowerModeChanged(int index);
     void onPowerPatternContextMenuRequest();
     void onPowerPatternContextMenuRequest(const QPoint&);
     void onPowerReplacmentContextMenuRequest();

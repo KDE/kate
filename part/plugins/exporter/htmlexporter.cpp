@@ -50,8 +50,8 @@ HTMLExporter::HTMLExporter(KTextEditor::View* view, QTextStream& output, const b
     m_output << QString("<pre style='%1%2%3%4'>")
                   .arg(m_defaultAttribute->fontBold() ? "font-weight:bold;" : "")
                   .arg(m_defaultAttribute->fontItalic() ? "text-style:italic;" : "")
-                  .arg("color:" + m_defaultAttribute->foreground().color().name() + ";")
-                  .arg("background-color:" + m_defaultAttribute->background().color().name() + ";")
+                  .arg("color:" + m_defaultAttribute->foreground().color().name() + ';')
+                  .arg("background-color:" + m_defaultAttribute->background().color().name() + ';')
              << endl;
   }
 }
@@ -99,8 +99,8 @@ void HTMLExporter::exportText(const QString& text, const KTextEditor::Attribute:
 
   if ( writeForeground || writeBackground ) {
     m_output << QString("<span style='%1%2'>")
-                  .arg(writeForeground ? "color:" + attrib->foreground().color().name() + ";" : "")
-                  .arg(writeBackground ? "background:" + attrib->background().color().name() + ";" : "");
+                  .arg(writeForeground ? "color:" + attrib->foreground().color().name() + ';' : "")
+                  .arg(writeBackground ? "background:" + attrib->background().color().name() + ';' : "");
   }
 
   m_output << Qt::escape(text);

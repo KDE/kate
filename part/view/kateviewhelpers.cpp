@@ -430,7 +430,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     QString e = m_cmdRange.capturedTexts().at(3);
 
     if ( s.isEmpty() )
-      s = ".";
+      s = '.';
     if ( e.isEmpty() )
       e = s;
 

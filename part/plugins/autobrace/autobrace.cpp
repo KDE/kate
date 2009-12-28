@@ -135,7 +135,7 @@ void AutoBracePluginDocument::slotTextChanged(KTextEditor::Document *document) {
         }
         // The line with the closing brace. (Inserted via insertLine() in order
         // to avoid space removal by potential indenters.)
-        document->insertLine(m_insertionLine + 1, m_indentation + "}" + (m_withSemicolon ? ";" : ""));
+        document->insertLine(m_insertionLine + 1, m_indentation + '}' + (m_withSemicolon ? ";" : ""));
 
         document->endEditing();
         view->setCursorPosition(document->endOfLine(m_insertionLine));
@@ -208,7 +208,7 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
         // C++ specific
         tokens << "class" << "struct";
     }
-    QString forbiddenTokens = tokens.isEmpty() ? "" : "(?!" + tokens.join("|") + ")";
+    QString forbiddenTokens = tokens.isEmpty() ? "" : "(?!" + tokens.join("|") + ')';
 
     for (int i = openingBraceLine + 1; i < document->lines(); ++i)
     {

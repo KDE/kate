@@ -40,7 +40,6 @@
 #include <QStringListModel>
 #include <QCompleter>
 #include <QMutexLocker>
-#include "katesearch.h"
 
 using namespace KTextEditor;
 

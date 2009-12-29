@@ -103,7 +103,6 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
   ac->addAction("spelling_suggestions", m_spellingMenuAction);
   m_spellingMenu = m_spellingMenuAction->menu();
   connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
-  connect(m_spellingMenu, SIGNAL(aboutToHide()), this, SLOT(clearCurrentMisspelledRange()));
 
   m_ignoreWordAction = new KAction(i18n("Ignore Word"), this);
   connect(m_ignoreWordAction, SIGNAL(triggered()), this, SLOT(ignoreCurrentWord()));

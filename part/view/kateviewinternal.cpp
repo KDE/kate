@@ -352,7 +352,7 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
   int range = y / renderer()->lineHeight();
 
   // lineRanges is always bigger than 0, after the initial updateView call
-  if (range >= 0 && range <= cache()->viewCacheLineCount())
+  if (range >= 0 && range < cache()->viewCacheLineCount())
     return cache()->viewLine(range);
 
   return KateTextLayout::invalid();

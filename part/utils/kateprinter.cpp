@@ -608,20 +608,25 @@ bool KatePrinter::print (KateDocument *doc)
 
       // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
       // clip and adjust the painter position as necessary
-      int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
-      int _yadjust = remainder * fontHeight; // if we need to clip at the start of the line, it's this much.
-      bool _needWrap = (fontHeight*_lines > maxHeight-y);
+      int _lines = (*rangeptr)->viewLineCount(); // number of "sublines" to paint.
 
-      if (remainder || _needWrap) {
-        remainder = _needWrap? _lines - ((maxHeight-y)/fontHeight) : 0;
-        paint.translate(0, -_yadjust);
-        paint.setClipRect(0,_yadjust,maxWidth,((_lines-remainder)*fontHeight)-1); //### drop the crosspatch in printerfriendly mode???
+      if (remainder) {
+        int _height = (maxHeight-y)/fontHeight;
+        _height = qMin(_height, remainder);        
+
+        paint.translate(0, -(_lines-remainder)*fontHeight+1);
+        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, _height*fontHeight); //### drop the crosspatch in printerfriendly mode???
+        remainder -= _height;
+      }
+      else if (fontHeight*_lines > maxHeight-y) {
+        remainder = _lines - ((maxHeight-y)/fontHeight);
+        paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
       }
 
       renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
 
       paint.setClipping(false);
-      paint.translate(_xadjust, (fontHeight * _lines)+_yadjust);
+      paint.translate(_xadjust, (fontHeight * _lines));
 
       y += fontHeight*_lines;
 

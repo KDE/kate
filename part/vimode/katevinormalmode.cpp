@@ -1325,6 +1325,34 @@ KateViRange KateViNormalMode::motionPageUp()
   return r;
 }
 
+KateViRange KateViNormalMode::motionDownToFirstNonBlank()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r = goLineDown();
+
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\S" ) );
+
+  if ( r.endColumn < 0 ) {
+    r.endColumn = 0;
+  }
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionUpToFirstNonBlank()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  KateViRange r = goLineUp();
+
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\S" ) );
+
+  if ( r.endColumn < 0 ) {
+    r.endColumn = 0;
+  }
+
+  return r;
+}
+
 KateViRange KateViNormalMode::motionWordForward()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -2225,8 +2253,10 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "<backspace>", &KateViNormalMode::motionLeft ) );
   m_motions.push_back( new KateViMotion( this, "j", &KateViNormalMode::motionDown ) );
   m_motions.push_back( new KateViMotion( this, "<down>", &KateViNormalMode::motionDown ) );
+  m_motions.push_back( new KateViMotion( this, "<enter>", &KateViNormalMode::motionDownToFirstNonBlank ) );
   m_motions.push_back( new KateViMotion( this, "k", &KateViNormalMode::motionUp ) );
   m_motions.push_back( new KateViMotion( this, "<up>", &KateViNormalMode::motionUp ) );
+  m_motions.push_back( new KateViMotion( this, "-", &KateViNormalMode::motionUpToFirstNonBlank ) );
   m_motions.push_back( new KateViMotion( this, "l", &KateViNormalMode::motionRight ) );
   m_motions.push_back( new KateViMotion( this, "<right>", &KateViNormalMode::motionRight ) );
   m_motions.push_back( new KateViMotion( this, " ", &KateViNormalMode::motionRight ) );

@@ -356,6 +356,18 @@ KTextEditor::Editor *KateDocument::editor ()
   return KateGlobal::self();
 }
 
+KTextEditor::Range KateDocument::rangeOnLine(KTextEditor::Range range, int line) const
+{
+  int col1 = const_cast<KateDocument*>(this)->toVirtualColumn(range.start());
+  int col2 = const_cast<KateDocument*>(this)->toVirtualColumn(range.end());
+
+  KateTextLine::Ptr tl = const_cast<KateDocument*>(this)->kateTextLine(line);
+  col1 = tl->fromVirtualColumn(col1, config()->tabWidth());
+  col2 = tl->fromVirtualColumn(col2, config()->tabWidth());
+  
+  return KTextEditor::Range(line, col1, line, col2);
+}
+
 //BEGIN KTextEditor::EditInterface stuff
 
 QString KateDocument::text() const
@@ -420,7 +432,8 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
       }
       else
       {
-        s.append( textLine->string( range.start().column(), range.end().column()-range.start().column()));
+        KTextEditor::Range subRange = rangeOnLine(range, i);
+        s.append(textLine->string(subRange.start().column(), subRange.columnWidth()));
       }
 
       if ( i < range.end().line() )
@@ -484,7 +497,8 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
       }
       else
       {
-        ret << textLine->string(range.start().column(), range.end().column() - range.start().column());
+        KTextEditor::Range subRange = rangeOnLine(range, i);
+        ret << textLine->string(subRange.start().column(), subRange.columnWidth());
       }
     }
   }

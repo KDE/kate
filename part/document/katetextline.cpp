@@ -192,7 +192,7 @@ int KateTextLine::toVirtualColumn (int column, int tabWidth) const
       x++;
   }
 
-  return x;
+  return x + column - zmax;
 }
 
 int KateTextLine::fromVirtualColumn (int column, int tabWidth) const

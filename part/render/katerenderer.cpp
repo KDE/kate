@@ -334,7 +334,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
       else
         if(m_view->blockSelection() && m_view->selectionRange().overlapsLine(line))
-          selectionHighlight->addRange(new KTextEditor::Range(line, m_view->selectionRange().start().column(), line, m_view->selectionRange().end().column()), backgroundAttribute);
+          selectionHighlight->addRange(new KTextEditor::Range(m_doc->rangeOnLine(m_view->selectionRange(), line)), backgroundAttribute);
         else {
           selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
           kDebug( 13070 ) << m_view->selectionRange() << " SEL RANGE";
@@ -372,10 +372,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     // Calculate the range which we need to iterate in order to get the highlighting for just this line
     if (selectionsOnly) {
       if(m_view->blockSelection()) {
-        int startColumn = m_view->selectionRange().start().column();
-        int endColumn = m_view->selectionRange().end().column();
-        currentPosition = KTextEditor::Cursor(line, qMin(startColumn, endColumn));
-        endPosition = KTextEditor::Cursor(line, qMax(startColumn, endColumn));
+        KTextEditor::Range subRange = m_doc->rangeOnLine(m_view->selectionRange(), line);
+        currentPosition = subRange.start();
+        endPosition = subRange.end(); 
       } else {
         KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
         rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
@@ -418,16 +417,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         fr.format = *a;
 
         if(selectionsOnly) {
-          if(m_view->blockSelection()) {
-            int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
-            int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
-
-            if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
               assignSelectionBrushesFromAttribute(fr, *a);
-
-          } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
-            assignSelectionBrushesFromAttribute(fr, *a);
-          }
         } else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
           if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)) {
             assignSelectionBrushesFromAttribute(fr, *a);

@@ -104,6 +104,8 @@ class KateDocument : public KTextEditor::Document,
 
     KTextEditor::Editor *editor ();
 
+    KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
+
   /*
    * Overload this to have on-demand view creation
    */

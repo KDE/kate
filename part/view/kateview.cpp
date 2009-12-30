@@ -1753,9 +1753,6 @@ QString KateView::selectionText() const
 
   KTextEditor::Range range = *m_selection;
 
-  if ( blockSelect )
-    blockFix(range);
-
   return m_doc->text(range, blockSelect);
 }
 
@@ -1769,9 +1766,6 @@ bool KateView::removeSelectedText()
   m_doc->editStart (Kate::CutCopyPasteEdit);
 
   KTextEditor::Range range = *m_selection;
-
-  if ( blockSelect )
-    blockFix(range);
 
   m_doc->removeText(range, blockSelect);
 

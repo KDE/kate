@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
-  Syntax definition for kdev-pg grammars.
+  Syntax definition for kdev-pg/kdev-pg-qt grammars.
 -->
-<language name="KDev-PG Grammar" version="0.20" kateversion="2.5" section="Markup" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de)" license="">
+<language name="KDev-PG[-Qt] Grammar" version="0.21" kateversion="2.5" section="Markup" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de), Jonathan Schmidt-Dominé (devel@the-user.org)" license="">
   <highlighting>
     <list name="macros">
       <item> ast_extra_members </item>
@@ -13,16 +13,35 @@
       <item> parserclass </item>
       <item> token </item>
       <item> token_stream </item>
+      <item> parser_declaration_header </item>
+      <item> parser_bits_header </item>
+      <item> ast_header </item>
+      <item> ast_base </item>
+      <item> parser_base </item>
     </list>
     <list name="keywords">
       <item> try/rollback </item>
+      <item> try/recover </item>
       <item> catch </item>
     </list>
+    <list name="access">
+      <item> public </item>
+      <item> protected </item>
+      <item> private </item>
+    </list>
+    <list name="locations">
+      <item> declaration </item>
+      <item> destructor </item>
+      <item> constructor </item>
+    </list>
+    
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
         <!-- keywords -->
         <DetectChar attribute="Keyword" context="Macros" char="%" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Access" context="#stay" String="access" />
+        <keyword attribute="Location" context="#stay" String="locations" />
         <!-- numbers -->
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
@@ -57,6 +76,8 @@
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
       <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+      <itemData name="Access" defStyleNum="dsDataType" spellChecking="false" />
+      <itemData name="Location" defStyleNum="dsOthers" spellChecking="false" />
       <itemData name="Decimal"  defStyleNum="dsDecVal" spellChecking="false" />
       <itemData name="Float"  defStyleNum="dsFloat" spellChecking="false" />
       <itemData name="String" defStyleNum="dsString" />

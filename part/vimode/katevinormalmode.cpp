@@ -1330,7 +1330,7 @@ KateViRange KateViNormalMode::motionDownToFirstNonBlank()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineDown();
 
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\S" ) );
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
 
   if ( r.endColumn < 0 ) {
     r.endColumn = 0;
@@ -1344,7 +1344,7 @@ KateViRange KateViNormalMode::motionUpToFirstNonBlank()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineUp();
 
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\S" ) );
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
 
   if ( r.endColumn < 0 ) {
     r.endColumn = 0;

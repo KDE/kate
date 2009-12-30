@@ -1405,8 +1405,8 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
     }
     if ( positionToArea( e->pos() ) != IconBorder )
     {
-      QMouseEvent forward( QEvent::MouseMove,
-        QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
+      QPoint p = m_viewInternal->mapFromGlobal( e->globalPos() );
+      QMouseEvent forward( QEvent::MouseMove, p, e->button(), e->buttons(), e->modifiers() );
       m_viewInternal->mouseMoveEvent( &forward );
     }
   }

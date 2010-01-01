@@ -992,11 +992,11 @@ void KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     }
 
     if (replacement == NULL)
-        foreach (Range r, highlightRanges) {
+        foreach (const Range &r, highlightRanges) {
             highlightMatch(r);
         }
     else
-        foreach (Range r, highlightRanges) {
+        foreach (const Range &r, highlightRanges) {
             highlightReplacement(r);
         }
 

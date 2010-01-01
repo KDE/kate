@@ -84,8 +84,6 @@ class KateViewObject : public KateScriptView
 
     explicit KateViewObject(KateView *view);
 
-    Q_INVOKABLE bool setCursorPosition(int row, int col);
-
     // Edit functions
     Q_INVOKABLE void keyReturn(int cnt = 1);
     Q_INVOKABLE void backspace(int cnt = 1);
@@ -216,8 +214,8 @@ class RegressionTest : public QObject
 
   public:
 
-    RegressionTest(KateDocument *part, KConfig *baseConfig,
-                   const QString &baseDir, KCmdLineArgs *args);
+    RegressionTest(KateDocument *part, const KConfig *baseConfig,
+                   const QString &baseDir, const KCmdLineArgs *args);
     ~RegressionTest();
 
     enum OutputType { ResultDocument };
@@ -244,9 +242,9 @@ class RegressionTest : public QObject
 
   private:
 
-    KateDocument *m_part;
-    KateView *m_view;
-    KConfig *m_baseConfig;
+    KateDocument *const m_part;
+    KateView *const m_view;
+    const KConfig *const m_baseConfig;
     QString m_baseDir;
     QString m_outputDir;
     bool m_genOutput;

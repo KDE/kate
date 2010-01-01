@@ -148,11 +148,6 @@ KateViewObject::KateViewObject(KateView *view)
   setView(view);
 }
 
-bool KateViewObject::setCursorPosition(int row, int col)
-{
-  return view()->setCursorPosition(KTextEditor::Cursor(row, col));
-}
-
 // Implements a function that calls an edit function repeatedly as specified by
 // its first parameter (once if not specified).
 #define REP_CALL(func) \
@@ -381,15 +376,15 @@ int main(int argc, char *argv[])
   options.add("+[testcases]", ki18n("Relative path to testcase, or directory of testcases to be run (equivalent to -t)."));
 
   // forget about any settings
-  passwd* pw = getpwuid( getuid() );
-  if (!pw) {
+  passwd* password = getpwuid( getuid() );
+  if (!password) {
     fprintf(stderr, "dang, I don't even know who I am.\n");
     exit(1);
   }
 
-  QString kh(UNIQUE_HOME_DIR);
-  kh = kh.arg( pw->pw_name );
-  setenv( "KDEHOME", kh.toLatin1().constData(), 1 );
+  QString kdeHome(UNIQUE_HOME_DIR);
+  kdeHome = kdeHome.arg( password->pw_name );
+  setenv( "KDEHOME", kdeHome.toLatin1().constData(), 1 );
   setenv( "LC_ALL", "C", 1 );
   setenv( "LANG", "C", 1 );
 
@@ -546,8 +541,8 @@ int main(int argc, char *argv[])
   for (; testcase_index < args->count(); testcase_index++)
     tests << args->arg(testcase_index);
   if (tests.count() > 0) {
-    for (QStringList::ConstIterator it = tests.constBegin(); it != tests.constEnd(); ++it) {
-      result = regressionTest->runTests(*it,true);
+    foreach (const QString &test, tests) {
+      result = regressionTest->runTests(test,true);
       if (!result) break;
     }
   } else {
@@ -568,32 +563,33 @@ int main(int argc, char *argv[])
 
 // -------------------------------------------------------------------------
 
-RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
-                               const QString &baseDir, KCmdLineArgs *args)
+RegressionTest::RegressionTest(KateDocument *part, const KConfig *baseConfig,
+                               const QString &baseDir, const KCmdLineArgs *args)
   : QObject(part)
+  , m_part(part)
+  , m_view( static_cast<KateView *>(m_part->widget()) )
+  , m_baseConfig(baseConfig)
+  , m_baseDir(baseDir)
+  , m_outputDir(args->getOption("output"))
+  , m_genOutput(args->isSet("genoutput"))
+  , m_fork(args->isSet("fork"))
+  , m_failureComp(0)
+  , m_failureSave(0)
+  , m_keepOutput(args->isSet("keep-output"))
+  , m_passes_work(0)
+  , m_passes_fail(0)
+  , m_passes_new(0)
+  , m_failures_work(0)
+  , m_failures_fail(0)
+  , m_failures_new(0)
+  , m_errors(0)
 {
-  m_part = part;
-  m_view = static_cast<KateView *>(m_part->widget());
-  m_baseConfig = baseConfig;
-  m_baseDir = baseDir;
   m_baseDir = m_baseDir.replace( "//", "/" );
   if ( m_baseDir.endsWith( "/" ) )
     m_baseDir = m_baseDir.left( m_baseDir.length() - 1 );
 
-  QString outputDir = args->getOption("output");
-  if (outputDir.isEmpty())
+  if (m_outputDir.isEmpty())
     m_outputDir = m_baseDir + "/output";
-  else
-    m_outputDir = outputDir;
-  createMissingDirs(m_outputDir + '/');
-  m_keepOutput = args->isSet("keep-output");
-  m_genOutput = args->isSet("genoutput");
-  m_fork = args->isSet("fork");
-  m_failureComp = 0;
-  m_failureSave = 0;
-  m_passes_work = m_passes_fail = m_passes_new = 0;
-  m_failures_work = m_failures_fail = m_failures_new = 0;
-  m_errors = 0;
 
   QFile::remove( m_outputDir + "/links.html" );
   QFile f( m_outputDir + "/empty.html" );
@@ -818,16 +814,6 @@ static QString makeRelativePath(const QString &base, const QString &path)
     rel += relPath;
   }
   return rel;
-}
-
-/** processes events for at least \c msec milliseconds */
-static void pause(int msec)
-{
-  QTime t;
-  t.start();
-  do {
-    kapp->processEvents();
-  } while (t.elapsed() < msec);
 }
 
 /**
@@ -1269,30 +1255,33 @@ void RegressionTest::printDescription(const QString& description)
 
 void RegressionTest::printSummary()
 {
-  printf("\nTests completed.\n");
-  printf("Total:    %d\n", m_passes_work + m_passes_fail +
-      m_failures_work + m_failures_fail + m_errors);
+  QTextStream out(stdout, QIODevice::WriteOnly);
+
+  out << endl;
+  out << "Tests completed." << endl;
+  out << "Total:    " << m_passes_work + m_passes_fail +
+      m_failures_work + m_failures_fail + m_errors << endl;
 
   //BEGIN Passes
-  printf("Passes:   %d", m_passes_work);
+  out << "Passes:   " << m_passes_work;
   if (m_passes_fail > 0)
-    printf(" (%d unexpected passes)", m_passes_fail);
+    out << QString(" (%1 unexpected passes)").arg(m_passes_fail);
   if (m_passes_new > 0)
-    printf(" (%d new since %s)", m_passes_new, m_failureComp->name().toLatin1().constData());
-  printf("\n");
+    out << QString(" (%1 new since %2)").arg(m_passes_new).arg(m_failureComp->name());
+  out << endl;
   //END Passes
 
   //BEGIN Failures
-  printf("Failures: %d", m_failures_work);
+  out << "Failures: " << m_failures_work;
   if (m_failures_fail > 0)
-    printf(" (%d expected failures)", m_failures_fail);
+    out << QString(" (%1 expected failures)").arg(m_failures_fail);
   if (m_failures_new > 0)
-    printf(" (%d new since %s)", m_failures_new, m_failureComp->name().toLatin1().constData());
-  printf("\n");
+    out << QString(" (%d new since %s)").arg(m_failures_new).arg(m_failureComp->name());
+  out << endl;
   //END Failures
 
   if (m_errors > 0)
-    printf("Errors:   %d\n", m_errors);
+    out << "Errors:   " << m_errors << endl;
 
   //BEGIN html
   QFile list(m_outputDir + "/links.html");

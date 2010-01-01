@@ -13,10 +13,15 @@ add_subdirectory( script/data )
 add_subdirectory( plugins )
 
 # tests
+if(KDE4_BUILD_TESTS)
+  # only with this definition will the KATEPART_TESTS_EXPORT macro do something
+  add_definitions(-DCOMPILE_TESTS)
+endif(KDE4_BUILD_TESTS)
 add_subdirectory( tests )
 
 # includes
 include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
@@ -30,8 +35,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
-  ${CMAKE_SOURCE_DIR}/kjsembed
-  ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES})
 
 # our sources
@@ -200,33 +203,3 @@ endif(KDE4_ENABLE_FINAL)
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
-
-########### next target ###############
-
-if(NOT MINGW)
-
-# Tests don't need to go into toplevel/bin, they are fine in the current dir.
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
-
-# This can be used for finding data files in the source dir, without installing them
-#add_definitions( -DKDESRCDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\" )
-
-#include_directories( ${KDE4_KDECORE_INCLUDES} )
-
-set(testkateregression_SRCS
-    ${katepart_PART_SRCS}
-    tests/test_regression.cpp
-    tests/codecompletiontestmodel.cpp
-    tests/completiontest.cpp
-    tests/undomanagertest.cpp
-)
-
-kde4_add_executable(testkateregression NOGUI ${testkateregression_SRCS})
-
-target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor )
-
-#add_dependencies(check testkateregression)
-
-add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
-
-endif(NOT MINGW)

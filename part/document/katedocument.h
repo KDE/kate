@@ -43,6 +43,7 @@
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/highlightinterface.h>
 
+#include "katepartprivate_export.h"
 #include "katetextline.h"
 #include "katenamespace.h"
 
@@ -69,7 +70,7 @@ class KateTemplateHandler;
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public KTextEditor::Document,
+class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      public KTextEditor::SessionConfigInterface,
                      public KTextEditor::ParameterizedSessionConfigInterface,
                      public KTextEditor::SearchInterface,

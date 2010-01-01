@@ -20,18 +20,17 @@
 #include "tests/completiontest.h"
 
 #include <qtest_kde.h>
-#include <ksycoca.h>
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
+#include <katedocument.h>
 #include <kateview.h>
 #include <katecompletionwidget.h>
 #include <katecompletionmodel.h>
 #include <katerenderer.h>
 #include <kateconfig.h>
-#include <kateglobal.h>
 
 #include "codecompletiontestmodel.h"
 #include <katesmartrange.h>
@@ -50,13 +49,7 @@ int countItems(KateCompletionModel *model)
 
 void CompletionTest::init()
 {
-    if ( !KSycoca::isAvailable() )
-        QSKIP( "ksycoca not available", SkipAll );
-
-    Editor* editor = KateGlobal::self();
-    QVERIFY(editor);
-    m_doc = editor->createDocument(this);
-    QVERIFY(m_doc);
+    m_doc = new KateDocument(false, false, false, 0, this);
     m_doc->setText("aa bb cc\ndd");
 
     KTextEditor::View *v = m_doc->createView(0);

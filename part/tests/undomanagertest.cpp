@@ -17,25 +17,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "tests/undomanagertest.h"
-
+#include "undomanagertest.h"
 #include "moc_undomanagertest.cpp"
 
 #include <qtest_kde.h>
-#include <ksycoca.h>
-
-#include <ktexteditor/editor.h>
-#include <ktexteditor/document.h>
 
 #include <katedocument.h>
 #include <kateview.h>
-#include <katecompletionwidget.h>
-#include <katecompletionmodel.h>
-#include <katerenderer.h>
-#include <kateconfig.h>
-#include <kateglobal.h>
 
-#include <katesmartrange.h>
 
 UndoManagerTest::UndoManagerTest()
     : QObject()
@@ -50,13 +39,7 @@ UndoManagerTest::~UndoManagerTest()
 
 void UndoManagerTest::init()
 {
-    if ( !KSycoca::isAvailable() )
-        QSKIP( "ksycoca not available", SkipAll );
-
-    KTextEditor::Editor* editor = KateGlobal::self();
-    QVERIFY(editor);
-    m_doc = qobject_cast<KateDocument*>(editor->createDocument(this));
-    QVERIFY(m_doc);
+    m_doc = new KateDocument(false, false, false, 0, this);
 
     m_view = qobject_cast<KateView*>(m_doc->createView(0));
     QApplication::setActiveWindow(m_view);

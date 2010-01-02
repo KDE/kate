@@ -1594,6 +1594,9 @@ void KateSearchBar::onMutateIncremental() {
         m_incUi->next->setIcon(KIcon("go-down-search"));
         m_incUi->prev->setIcon(KIcon("go-up-search"));
 
+        // Ensure minimum size
+        m_incUi->pattern->setMinimumWidth(12 * m_incUi->pattern->fontMetrics().height());
+
 	// Customize status area
 	m_incUi->status->setTextElideMode(Qt::ElideLeft);
 

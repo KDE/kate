@@ -11,11 +11,11 @@
   <!ENTITY label     "((&varname;)\s*:\s*)?">
   
 ]>
-<language name="VHDL" version="1.08" kateversion="2.3" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl" author="Rocky Scaletta (rocky@purdue.edu), Stefan Endrullis (stefan@endrullis.de), Jan Michel (jan@mueschelsoft.de)">
+<language name="VHDL" version="1.09" kateversion="2.3" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl" author="Rocky Scaletta (rocky@purdue.edu), Stefan Endrullis (stefan@endrullis.de), Jan Michel (jan@mueschelsoft.de), Chris Higgs (chiggs.99@gmail.com)">
   <highlighting>
     <list name="keywordsToplevel">
       <item> file </item>
-      <item> package </item>
+<!--      <item> package </item> -->
       <item> library </item>
       <item> use </item>
 <!--
@@ -171,6 +171,8 @@
       <context name="start" attribute="Normal Text" lineEndContext="#stay">
         <RegExpr attribute="Normal Text" context="entity" String="&bos;(entity\s*(&varname;)\s*is)&eos;" beginRegion="EntityRegion1" lookAhead="true" insensitive="true" />
         <RegExpr attribute="Normal Text" context="architecture" String="&bos;(architecture\s*(&varname;)\s*of\s*&varname;\s*is)&eos;" beginRegion="ArchitectureRegion1" lookAhead="true" insensitive="true" />
+        <RegExpr attribute="Normal Text" context="package" String="&bos;(package\s+(&varname;)\s+is)&eos;" beginRegion="PackageRegion1" lookAhead="true" insensitive="true" />
+        <RegExpr attribute="Normal Text" context="packagebody" String="&bos;(package\s+body\s+(&varname;)\s+is)&eos;" beginRegion="PackageBodyRegion1" lookAhead="true" insensitive="true" />
         <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />
         <keyword attribute="Keyword" context="#stay"  String="keywordsToplevel"/>
       </context>
@@ -212,6 +214,28 @@
         <DetectChar attribute="Vector" context="string" char="&quot;" />
         <DetectChar attribute="Operator" context="#pop" char=")"/>
       </context>-->
+
+
+      <!-- package environment -->
+    
+      <context name="package" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
+        <IncludeRules context="preDetection" />
+        <StringDetect attribute="Redirection" context="#stay" String="begin" insensitive="true" />
+        <RegExpr attribute="Redirection" context="#pop" String="&bos;end(\s+package)?(\s+%3)?\s*;" dynamic="true" endRegion="PackageRegion1"  insensitive="true" />
+        <IncludeRules context="generalDetection" />
+      </context>
+      
+      <!-- package body environment -->
+
+      <context name="packagebody" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
+        <IncludeRules context="preDetection" />
+        <StringDetect attribute="Redirection" context="#stay" String="begin" insensitive="true" />
+        <RegExpr attribute="Redirection" context="#pop" String="&bos;end(\s+package)?(\s+%3)?\s*;" dynamic="true" endRegion="PackageBodyRegion1"  insensitive="true" />
+        <IncludeRules context="generalDetection" />
+      </context>
+
       
       <!-- architecture environment -->
       <context name="architecture" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
@@ -263,7 +287,6 @@
         <AnyChar attribute="Operator" context="#stay" String="[&amp;&gt;&lt;=:+\-*\/|]().,;" />
         <DetectChar attribute="Attribute" context="attribute" char="'" />
       </context>
-      
       <!-- process environment -->
       <context name="process1" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <StringDetect attribute="Process" context="process2" String="%2" dynamic="true" />

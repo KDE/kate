@@ -270,7 +270,6 @@
         <DetectSpaces />
         <IncludeRules context="##Alerts" />
         <DetectIdentifier />
-        <DetectChar attribute="String" context="String" char="&quot;"/>
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>

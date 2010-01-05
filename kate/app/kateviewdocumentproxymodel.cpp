@@ -207,7 +207,13 @@ void KateViewDocumentProxyModel::opened(const QModelIndex &index)
 
   m_current = index;
   m_markOpenedTimer->start(100);
-  //sort();
+
+  // This to protect Multiple call to sort()
+  // As this function is getting called on KateFileList clicked event to open and activate doc
+  // So if the sender is KateFileList ignore sorting.
+  KateFileList* f = qobject_cast<KateFileList*>(sender());
+  if(!f)
+    sort();
 }
 
 void KateViewDocumentProxyModel::slotMarkOpenedTimer()
@@ -578,8 +584,6 @@ void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, 
     m_mapToSource[m_mapFromSource[i]] = i;
   }
   endInsertRows();
-  if (m_sortRole == Qt::DisplayRole || m_sortRole == KateDocManager::UrlRole)
-    sort();
 }
 void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, int start, int end )
 {

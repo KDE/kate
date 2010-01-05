@@ -49,17 +49,24 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
-  connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range &)),
-          this, SLOT(slotTemplateInserted(KTextEditor::Document*, const KTextEditor::Range &)));
+  connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
+          this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
 
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
   m_doc->editStart();
   if ( m_doc->insertText(position, templateString) ) {
+    Q_ASSERT(m_wholeTemplateRange);
+
+    if ( m_doc->activeKateView() ) {
+      // indent the inserted template properly, this makes it possible
+      // to share snippets e.g. via GHNS without caring about
+      // what indent-style to use.
+      m_doc->align(m_doc->activeKateView(), *m_wholeTemplateRange);
+    }
+
     m_doc->undoSafePoint();
   }
   m_doc->editEnd();
-
-  Q_ASSERT(m_wholeTemplateRange);
 
   if ( !initialValues.isEmpty() ) {
     // only do complex stuff when required

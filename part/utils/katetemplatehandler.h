@@ -101,14 +101,12 @@ class KateTemplateHandler: public QObject
     void insertText(const KTextEditor::Cursor& position, const QString& text);
 
     /**
-     * Parses the template string for variables and replaces their palceholders
-     * with their \p initialValues. Also create child ranges to \p m_templateRange
-     * for editable ranges. When a variable occurs more than once, create mirrored ranges.
-     *
-     * Also inserts the template text after evaluation.
+     * Parses the inserted & indented template string (in \p m_wholeTemplateRange)
+     * for variables and replaces their palceholders with their \p initialValues.
+     * Also create child ranges to \p m_templateRange for editable ranges. When a
+     * variable occurs more than once, create mirrored ranges.
      */
-    void handleTemplateString(const KTextEditor::Cursor &position, QString templateString,
-                              const QMap<QString, QString> &initialValues);
+    void handleTemplateString(const QMap<QString, QString> &initialValues);
 
     /**
      * Install an event filter on the filter proxy of \p view for
@@ -162,10 +160,15 @@ class KateTemplateHandler: public QObject
 
   private Q_SLOTS:
     /**
+     * Saves the range of the inserted template. This is required since
+     * tabs could get expanded on insert. While we are at it, we can
+     * use it to auto-indent the code after insert.
+     */
+    void slotTemplateInserted(KTextEditor::Document* document, const KTextEditor::Range& range);
+    /**
      * Install event filter on new views.
      */
     void slotViewCreated(KTextEditor::Document* document, KTextEditor::View* view);
-
     /**
      * When the start of @p oldRange overlaps with one of our mirrored ranges,
      * update the contents of the siblings.

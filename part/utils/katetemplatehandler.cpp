@@ -49,10 +49,22 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
-  handleTemplateString(position, templateString, initialValues);
+  connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range &)),
+          this, SLOT(slotTemplateInserted(KTextEditor::Document*, const KTextEditor::Range &)));
+
+  ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
+  m_doc->editStart();
+  if ( m_doc->insertText(position, templateString) ) {
+    m_doc->undoSafePoint();
+  }
+  m_doc->editEnd();
+
+  Q_ASSERT(m_wholeTemplateRange);
 
   if ( !initialValues.isEmpty() ) {
     // only do complex stuff when required
+
+    handleTemplateString(initialValues);
 
     if ( !m_templateRanges.isEmpty() ) {
       foreach ( View* view, m_doc->views() ) {
@@ -85,6 +97,17 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 
 KateTemplateHandler::~KateTemplateHandler()
 {
+}
+
+void KateTemplateHandler::slotTemplateInserted(Document* document, const Range& range)
+{
+  Q_ASSERT(document == m_doc);
+  ifDebug(kDebug() << "template range inserted" << range;)
+
+  m_wholeTemplateRange = m_doc->newSmartRange( range, 0, SmartRange::ExpandLeft | SmartRange::ExpandRight );
+
+  disconnect(m_doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+             this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 /// simple wrapper to delete a smartrange
@@ -270,21 +293,12 @@ Attribute::Ptr getAttribute(QColor color)
   return attribute;
 }
 
-void KateTemplateHandler::insertText(const Cursor &position, const QString& text)
+void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& initialValues)
 {
-  ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
-  m_doc->editStart();
-  if ( m_doc->insertText(position, text) ) {
-    m_doc->undoSafePoint();
-  }
-  m_doc->editEnd();
-}
+  QString templateString = m_doc->text(*m_wholeTemplateRange);
 
-void KateTemplateHandler::handleTemplateString(const Cursor& position, QString templateString,
-                                               const QMap< QString, QString >& initialValues)
-{
-  int line = position.line();
-  int column = position.column();
+  int line = m_wholeTemplateRange->start().line();
+  int column = m_wholeTemplateRange->start().column();
 
   // not equal -1 when we found a start position
   int startPos = -1;
@@ -377,8 +391,13 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
     }
   }
 
-  // need to insert here, so that the following smart range can get their ranges set properly.
-  insertText(position, templateString);
+  m_doc->editStart();
+  if ( m_doc->replaceText(*m_wholeTemplateRange, templateString) ) {
+    m_doc->undoSafePoint();
+  }
+  m_doc->editEnd();
+
+  Q_ASSERT(!m_wholeTemplateRange->isEmpty());
 
   if ( m_doc->activeKateView() ) {
     ///HACK: make sure the view cache is up2date so we can safely set the cursor position
@@ -407,8 +426,6 @@ void KateTemplateHandler::handleTemplateString(const Cursor& position, QString t
 
   Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor());
 
-  m_wholeTemplateRange = m_doc->newSmartRange( Range(position, Cursor(line, column)), 0,
-                                               SmartRange::ExpandLeft | SmartRange::ExpandRight );
   m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor()));
   m_doc->addHighlightToDocument(m_wholeTemplateRange, true);
 

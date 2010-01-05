@@ -192,10 +192,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     /**
      * Enclose editor actions with @p editStart() and @p editEnd() to group
      * them.
-     * @param withUndo if true, add undo history
+     *
+     * @param editSource the source for the grouped edit actions.
      */
     void editStart (Kate::EditSource editSource = Kate::NoEditSource);
-    /** Same as editStart() with undo */
+    /**
+     * Alias for @p editStart()
+     */
     void editBegin (Kate::EditSource editSource = Kate::NoEditSource) { editStart(editSource); }
     /**
      * End a editor operation.

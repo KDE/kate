@@ -17,13 +17,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "undomanagertest.h"
-#include "moc_undomanagertest.cpp"
+#include "undomanager_test.h"
+#include "moc_undomanager_test.cpp"
 
 #include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <kateview.h>
+
+QTEST_KDEMAIN(UndoManagerTest, GUI)
 
 
 UndoManagerTest::UndoManagerTest()

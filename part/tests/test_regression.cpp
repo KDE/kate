@@ -34,7 +34,6 @@
 #include "kateglobal.h"
 #include <ktexteditor/commandinterface.h>
 #include "completiontest.h"
-#include "undomanagertest.h"
 
 #include <kapplication.h>
 #include <kglobal.h>
@@ -92,8 +91,6 @@ QScriptValue runNativeTestCase(QScriptContext *context, QScriptEngine *engine)
   QObject* test = 0;
   if (context->argument(0).toString() == "completion") {
     test = new CompletionTest;
-  } else if (context->argument(0).toString() == "undomanager") {
-      test = new UndoManagerTest;
   } else {
     return context->throwError("test does not exist");
   }

@@ -58,7 +58,6 @@ set(testkateregression_SRCS
   test_regression.cpp
   codecompletiontestmodel.cpp
   completiontest.cpp
-  undomanagertest.cpp
 )
 
 kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})
@@ -70,6 +69,17 @@ target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBR
 add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 
 endif(NOT MINGW)
+
+########### undomanager test ###############
+
+kde4_add_unit_test(undomanager_test undomanager_test.cpp)
+
+target_link_libraries( undomanager_test
+  ${KDE4_KDECORE_LIBS}
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  katepart
+)
 
 
 ########### install files ###############

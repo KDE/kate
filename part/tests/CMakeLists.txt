@@ -34,16 +34,15 @@ target_link_libraries(katetest  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 ########### next target ###############
 
-set(kateregression_SRCS
-kateregression.cpp
-rangeexpectation.cpp
-cursorexpectation.cpp
+set(cursorrange_regression_SRCS
+  cursorrange_regression.cpp
+  rangeexpectation.cpp
+  cursorexpectation.cpp
 )
 
+kde4_add_unit_test(cursorrange_regression ${cursorrange_regression_SRCS})
 
-kde4_add_executable(kateregression TEST ${kateregression_SRCS})
-
-target_link_libraries(kateregression  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor katepart )
+target_link_libraries(cursorrange_regression  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
 
 
 ########### next target ###############

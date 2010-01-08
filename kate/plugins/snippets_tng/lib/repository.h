@@ -34,7 +34,8 @@ namespace Ui {
 namespace KTextEditor {
   namespace CodesnippetsCore {
     class SnippetRepositoryEntry;
-    class SnippetCompletionEntry;  
+    class SnippetCompletionEntry;
+    class SnippetCompletionModel;
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryItemDelegate: public KWidgetItemDelegate
     {
@@ -85,7 +86,7 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile);
         void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled);
-        KTextEditor::CodeCompletionModel2* completionModel(const QString &filetype);
+        SnippetCompletionModel* completionModel(const QString &filetype);
         void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
         void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 

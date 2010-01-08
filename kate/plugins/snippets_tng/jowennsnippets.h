@@ -83,8 +83,8 @@ namespace JoWenn {
       KTextEditor::CodesnippetsCore::SnippetCompletionModel* modelForDocument(KTextEditor::Document *document);
     private:
       QList<KateSnippetsPluginView*> mViews;
-      QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodeCompletionModel2> > m_document_model_hash;
-      QHash<QString,QWeakPointer<KTextEditor::CodeCompletionModel2> > m_mode_model_hash;
+      QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_document_model_hash;
+      QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_mode_model_hash;
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *m_repositoryData;
   };
 

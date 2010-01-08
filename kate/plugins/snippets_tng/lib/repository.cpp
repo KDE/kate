@@ -377,7 +377,7 @@ namespace KTextEditor {
       endInsertRows();
     }
 
-    KTextEditor::CodeCompletionModel2* SnippetRepositoryModel::completionModel(const QString &filetype) {
+    SnippetCompletionModel* SnippetRepositoryModel::completionModel(const QString &filetype) {
       kDebug(13040)<<"Creating a new completion model";
       kDebug(13040)<<"**************************************************************************************************************************"<<filetype;
       QStringList l;

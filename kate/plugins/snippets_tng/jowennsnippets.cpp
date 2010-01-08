@@ -20,6 +20,8 @@
 #include "jowennsnippets.moc"
 #include "repository.h"
 #include "selector.h"
+#include "lib/completionmodel.h"
+
 #include <kate/documentmanager.h>
 #include <kate/application.h>
 #include <ktexteditor/document.h>
@@ -67,16 +69,17 @@ namespace JoWenn {
 
   void KateSnippetsPlugin::addDocument(KTextEditor::Document* document)
   {
-    QSharedPointer<KTextEditor::CodeCompletionModel2> completionModel;
-    QHash<QString,QWeakPointer<KTextEditor::CodeCompletionModel2> >::iterator it=m_mode_model_hash.find(document->mode());
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> completionModel;
+    QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::iterator it=m_mode_model_hash.find(document->mode());
     if (it!=m_mode_model_hash.end()) {
       completionModel=it.value();
     }
     if (completionModel.isNull()) {
-      completionModel=QSharedPointer<KTextEditor::CodeCompletionModel2>(m_repositoryData->completionModel(document->mode()));
+      completionModel=QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(m_repositoryData->completionModel(document->mode()));
       m_mode_model_hash.insert(document->mode(),completionModel);
     }
-    m_document_model_hash.insert(document,QSharedPointer<KTextEditor::CodeCompletionModel2>(completionModel));
+    m_document_model_hash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
+    Q_ASSERT(modelForDocument(document));
     const QList<KTextEditor::View*>& views=document->views();
     foreach (KTextEditor::View *view,views) {
       addView(document,view);
@@ -88,7 +91,7 @@ namespace JoWenn {
   void KateSnippetsPlugin::removeDocument(KTextEditor::Document* document)
   {
     //if (!m_document_model_hash.contains(document)) return;
-    QSharedPointer<KTextEditor::CodeCompletionModel2>model=m_document_model_hash.take(document);
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash.take(document);
     const QList<KTextEditor::View*>& views=document->views();
     foreach (KTextEditor::View *view,views) {
       KTextEditor::CodeCompletionInterface *iface =
@@ -101,13 +104,13 @@ namespace JoWenn {
 
   KTextEditor::CodesnippetsCore::SnippetCompletionModel* KateSnippetsPlugin::modelForDocument(KTextEditor::Document *document)
   {
-    QSharedPointer<KTextEditor::CodeCompletionModel2>model=m_document_model_hash[document];
-    return (KTextEditor::CodesnippetsCore::SnippetCompletionModel*)model.data();
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash[document];
+    return model.data();
   }
 
   void KateSnippetsPlugin::addView(KTextEditor::Document* document,KTextEditor::View* view)
   {
-    QSharedPointer<KTextEditor::CodeCompletionModel2>model=m_document_model_hash[document];
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash[document];
     KTextEditor::CodeCompletionInterface *iface =
       qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
     if (iface) {
@@ -118,8 +121,8 @@ namespace JoWenn {
 
   void KateSnippetsPlugin::updateDocument(KTextEditor::Document* document)
   {
-    QSharedPointer<KTextEditor::CodeCompletionModel2>model_d=m_document_model_hash[document];
-    QSharedPointer<KTextEditor::CodeCompletionModel2>model_t=m_mode_model_hash[document->mode()];
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_d=m_document_model_hash[document];
+    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[document->mode()];
     if (model_t==model_d) return;
     removeDocument(document);
     addDocument(document);
@@ -135,8 +138,8 @@ namespace JoWenn {
       }
     } else {
       foreach(QString ft, fileType) {
-        QSharedPointer<KTextEditor::CodeCompletionModel2>model_t=m_mode_model_hash[ft];
-        QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodeCompletionModel2> >::const_iterator it;
+        QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[ft];
+        QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::const_iterator it;
         for(it=m_document_model_hash.constBegin();it!=m_document_model_hash.constEnd();++it) {
           if (it.value()==model_t) {
             refreshList<<it.key();

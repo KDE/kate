@@ -48,9 +48,12 @@ namespace JoWenn {
     {
       QString mode=view->document()->mode();
       if ((mode!=m_mode) || (treeView->model()==0))
-       {
-        treeView->setModel(m_plugin->modelForDocument(view->document())->selectorModel());
-        m_mode=mode;
+      {
+        KTextEditor::CodesnippetsCore::SnippetCompletionModel* model = m_plugin->modelForDocument(view->document());
+        if ( model ) {
+          treeView->setModel(model->selectorModel());
+          m_mode=mode;
+        }
       }
     }
   }

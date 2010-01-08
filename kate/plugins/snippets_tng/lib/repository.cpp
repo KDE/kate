@@ -37,7 +37,7 @@
 #include <kconfiggroup.h>
 #include <krun.h>
 #include <kio/netaccess.h>
-#include <knewstuff2/engine.h>
+#include <knewstuff3/downloaddialog.h>
 #include <QDBusConnectionInterface>
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -445,12 +445,10 @@ namespace KTextEditor {
   
   void SnippetRepositoryConfigWidget::slotGHNS()
   {
-    KNS::Engine engine(this);
-    if (engine.init("ktexteditor_codesnippets_core.knsrc")) {
-        KNS::Entry::List entries = engine.downloadDialogModal(this);
-        if (entries.size() > 0) {
-          notifyRepos();
-        }
+    KNS3::DownloadDialog dialog("ktexteditor_codesnippets_core.knsrc", this);
+    dialog.exec();
+    if (!dialog.changedEntries().isEmpty()) {
+        notifyRepos();
     }
   }
 

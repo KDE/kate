@@ -327,7 +327,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     int currentCanExpand = endGroup ? s_maximumGroupSize - currentGroup->length() : s_defaultGroupSize - currentGroup->length();
     int expanded = 0;
 
-    if (currentCanExpand) {
+    if (currentCanExpand > 0) {
        int expandBy = qMin(edit->translate().line(), currentCanExpand);
       // Current group can expand to accommodate the extra lines
       currentGroup->setNewEndLine(currentGroup->endLine() + expandBy);

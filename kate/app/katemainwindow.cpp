@@ -264,10 +264,11 @@ void KateMainWindow::setupMainWindow ()
   m_fileList->setDragEnabled(true);
   m_fileList->setDragDropMode(QAbstractItemView::InternalMove);
   m_fileList->setDropIndicatorShown(true);
+  m_fileList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 #ifdef __GNUC__
 #warning I do not like it, it looks like a hack, search for a better way, but for now it should work. (Even on windows most lisviews, except exploder are single click) (jowenn)
 #endif
-  if (!style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, m_fileList))
+  if (!style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, m_fileList) )
   {
     kDebug() << "HACK:***********************CONNECTING CLICKED***************************";
     connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
@@ -278,6 +279,10 @@ void KateMainWindow::setupMainWindow ()
   connect(m_fileList, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showFileListPopup(const QPoint&)));
   connect(m_fileList, SIGNAL(closeDocument(KTextEditor::Document*)),m_viewManager,SLOT(slotDocumentClose(KTextEditor::Document*)));
   connect(m_fileList, SIGNAL(closeOtherDocument(KTextEditor::Document*)),this,SLOT(slotDocumentCloseOther(KTextEditor::Document*)));
+  connect(m_fileList, SIGNAL(closeSelectedDocument(QList<KTextEditor::Document*>)),
+                      this, SLOT(slotDocumentCloseSelected(QList<KTextEditor::Document*>)));
+  connect(m_fileList, SIGNAL(saveSelectedDocument(QList<KTextEditor::Document*>)),
+                      KateDocManager::self(), SLOT(saveSelected(QList<KTextEditor::Document*>)));
   //filelist = new KateFileList (this, m_viewManager, ft);
 //   m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
 
@@ -320,7 +325,7 @@ void KateMainWindow::setupActions()
   a->setText( i18n("Close Orphaned") );
   connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( closeOrphaned() ) );
   a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
-  
+
   actionCollection()->addAction( KStandardAction::Close, "file_close", m_viewManager, SLOT( slotDocumentClose() ) )
   ->setWhatsThis(i18n("Close the current document."));
 
@@ -428,6 +433,15 @@ void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 {
   if (queryClose_internal(document))
     KateDocManager::self()->closeOtherDocuments(document);
+}
+
+void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document*> &docList)
+{
+  foreach(KTextEditor::Document *doc, docList)
+  {
+    if(queryClose_internal(doc))
+      KateDocManager::self()->closeDocument(doc);
+  }
 }
 
 void KateMainWindow::slotDocumentCloseOther()
@@ -678,7 +692,7 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
       if (vs != 0) m_viewManager->setActiveSpace(vs);
     }
   }
-  
+
   for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
   {
     m_viewManager->openUrl (*i);
@@ -693,7 +707,7 @@ void KateMainWindow::editKeys()
 
   foreach(KXMLGUIClient *client, clients) {
 #ifdef __GNUC__
-#warning there appear to be invalid clients after session switching    
+#warning there appear to be invalid clients after session switching
 #endif
 //     kDebug(13001)<<"adding client to shortcut editor";
 //     kDebug(13001)<<client;
@@ -1037,7 +1051,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     DocVector list;
     list.reserve( KateDocManager::self()->documents() );
     list.append(doc);
-    
+
     s_modOnHdDialog= new KateMwModOnHdDialog( list, this );
     m_modignore = true;
     KWindowSystem::setOnAllDesktops( s_modOnHdDialog->winId(), true);

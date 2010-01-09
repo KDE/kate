@@ -150,16 +150,22 @@ class KateDocManager : public QStandardItemModel
      */
     void saveAll();
 
-	/**
-	 * reloads all documents that has at least one view.
-	 * documents with no views are ignored :P
-	 */
-	void reloadAll();
+  	/**
+	   * reloads all documents that has at least one view.
+	   * documents with no views are ignored :P
+	   */
+	  void reloadAll();
 
-        /**
-         * close all documents, which could not be reopened
-         */
-        void closeOrphaned();
+    /**
+     * close all documents, which could not be reopened
+     */
+    void closeOrphaned();
+
+    /**
+     * save selected documents from the File List
+     */
+    void saveSelected(const QList<KTextEditor::Document*>&);
+
   Q_SIGNALS:
 
     /**

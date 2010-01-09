@@ -242,7 +242,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   private Q_SLOTS:
     void slotUpdateHorizontalViewBar();
 
-    
+
   private Q_SLOTS:
     void showFileListPopup(const QPoint& pos);
   protected:
@@ -252,6 +252,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);
+    void slotDocumentCloseSelected(const QList<KTextEditor::Document*>&);
     void slotDocModified(KTextEditor::Document *document);
   private:
     static uint uniqueID;

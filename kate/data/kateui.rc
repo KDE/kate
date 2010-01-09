@@ -135,6 +135,7 @@
 <Menu name="filelist_popup" noMerge="1">
   <DefineGroup name="save_merge" />
   <Action name="file_save_all"/>
+  <Action name="filelist_save_selected"/>
   <Separator/>
   <DefineGroup name="revert_merge" />
   <Action name="file_open_with" />
@@ -144,6 +145,7 @@
   <Action name="filelist_close"/>
   <Action name="filelist_close_other"/>
   <Action name="file_close_all"/>
+  <Action name="filelist_close_selected"/>
   <Separator/>
   <Action name="filelist_sortby"/>
 </Menu>

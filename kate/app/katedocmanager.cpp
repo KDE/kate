@@ -509,6 +509,15 @@ void KateDocManager::saveAll()
     doc->documentSave();
 }
 
+void KateDocManager::saveSelected(const QList<KTextEditor::Document*> &docList)
+{
+  foreach(KTextEditor::Document* doc, docList)
+  {
+    if ( doc->isModified() )
+      doc->documentSave();
+  }
+}
+
 void KateDocManager::reloadAll()
 {
   foreach ( KTextEditor::Document *doc, m_docList )
@@ -711,7 +720,7 @@ void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
     if (doc->isModified()) item->setIcon(KIcon("modmod"));
     else item->setIcon(KIcon("modonhd"));
 
-    KateApp::self()->activeMainWindow()->queueModifiedOnDisc(doc);      
+    KateApp::self()->activeMainWindow()->queueModifiedOnDisc(doc);
   } else
     if (doc->isModified()) item->setIcon(KIcon("modified"));
     else item->setIcon(KIcon("null"));
@@ -743,7 +752,7 @@ QModelIndex KateDocManager::indexForDocument(KTextEditor::Document *document)
 void KateDocManager::documentOpened()
 {
   KColorScheme colors(QPalette::Active);
-  
+
   KTextEditor::Document *doc = qobject_cast<KTextEditor::Document*>(sender());
   if (!doc) return; // should never happen, but who knows
   doc->setSuppressOpeningErrorDialogs(false);

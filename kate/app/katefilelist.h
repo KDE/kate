@@ -62,6 +62,8 @@ class KateFileList: public QListView
     QAction* m_windowPrev;
     QAction* m_filelistCloseDocument;
     QAction* m_filelistCloseDocumentOther;
+    QAction* m_filelistCloseDocumentSelected;
+    QAction* m_filelistSaveDocumentSelected;
     KSelectAction* m_sortAction;
     QPersistentModelIndex m_previouslySelected;
     QPersistentModelIndex m_indexContextMenu;
@@ -72,6 +74,8 @@ class KateFileList: public QListView
     void slotPrevDocument();
     void slotDocumentClose();
     void slotDocumentCloseOther();
+    void slotDocumentCloseSelected();
+    void slotDocumentSaveSelected();
     void setSortRole(int role);
     void setSortRoleFromAction(QAction*);
 
@@ -83,6 +87,8 @@ class KateFileList: public QListView
   Q_SIGNALS:
     void closeDocument(KTextEditor::Document*);
     void closeOtherDocument(KTextEditor::Document*);
+    void closeSelectedDocument(const QList<KTextEditor::Document*>&);
+    void saveSelectedDocument(const QList<KTextEditor::Document*>&);
 };
 
 class KateFileListConfigPage : public QWidget {

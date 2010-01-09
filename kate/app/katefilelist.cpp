@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001, 2007 Anders Lund <anders@alweb.dk>
+   Copyright (C) 2009, Abhishek Patil <abhishekworld@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -59,6 +60,16 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   connect( m_filelistCloseDocumentOther, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseOther() ) );
   m_filelistCloseDocumentOther->setWhatsThis(i18n("Close other open documents."));
 
+  m_filelistCloseDocumentSelected = actionCollection->addAction("filelist_close_selected");
+  m_filelistCloseDocumentSelected->setText( i18n("Close Selected") );
+  connect( m_filelistCloseDocumentSelected, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseSelected() ) );
+  m_filelistCloseDocumentSelected->setWhatsThis( i18n("Close selected open documents.") );
+
+  m_filelistSaveDocumentSelected = actionCollection->addAction("filelist_save_selected");
+  m_filelistSaveDocumentSelected->setText(i18n("Save Selected"));
+  connect( m_filelistSaveDocumentSelected, SIGNAL( triggered() ), this, SLOT(slotDocumentSaveSelected() ) );
+  m_filelistSaveDocumentSelected->setWhatsThis( i18n("Save selected open documents.") );
+
   m_sortAction = new KSelectAction( i18n("Sort &By"), this );
   actionCollection->addAction( "filelist_sortby", m_sortAction );
 
@@ -76,7 +87,7 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
   p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
   setPalette(p);
-}  
+}
 
 KateFileList::~KateFileList()
 {}
@@ -89,6 +100,12 @@ void KateFileList::mousePressEvent ( QMouseEvent * event ) {
 void KateFileList::mouseReleaseEvent ( QMouseEvent * event ) {
   kDebug()<<"KateFileList::mouseReleaseEvent";
   m_previouslySelected = QModelIndex();
+
+  // This will prevent the clicked() signal
+  // from activating the "single click activation mode"
+  // while selecting multipal item in list
+  if( event->modifiers() == Qt::ControlModifier) return;
+
   QListView::mouseReleaseEvent(event);
 }
 
@@ -99,6 +116,7 @@ void KateFileList::contextMenuEvent ( QContextMenuEvent * event ) {
     selectionModel()->select(m_previouslySelected,QItemSelectionModel::SelectCurrent);
     selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::SelectCurrent);
   }
+
   event->accept();
 }
 
@@ -116,6 +134,39 @@ void KateFileList::slotDocumentCloseOther() {
   emit closeOtherDocument(v.value<KTextEditor::Document*>());
 }
 
+void KateFileList::slotDocumentCloseSelected()
+{
+  QModelIndexList selectedItemList;
+  selectedItemList.clear();
+  selectedItemList = selectionModel()->selectedIndexes();
+  QList<KTextEditor::Document*> documentList;
+  documentList.clear();
+
+  foreach(QModelIndex i, selectedItemList){
+    QVariant v = i.data(KateDocManager::DocumentRole);
+    if(!v.isValid()) continue;
+    documentList.append(v.value<KTextEditor::Document*>());
+  }
+
+  emit closeSelectedDocument(documentList);
+}
+
+void KateFileList::slotDocumentSaveSelected()
+{
+  QModelIndexList selectedItemList;
+  selectedItemList.clear();
+  selectedItemList = selectionModel()->selectedIndexes();
+  QList<KTextEditor::Document*> documentList;
+  documentList.clear();
+
+  foreach(QModelIndex i, selectedItemList){
+    QVariant v = i.data(KateDocManager::DocumentRole);
+    if(!v.isValid()) continue;
+    documentList.append(v.value<KTextEditor::Document*>());
+  }
+
+  emit saveSelectedDocument(documentList);
+}
 
 void KateFileList::setSortRole(int role)
 {

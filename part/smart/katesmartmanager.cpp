@@ -126,7 +126,7 @@ struct KateSmartManager::KateTranslationDebugger {
     return;
     KateSmartCursor* cursor = dynamic_cast<KateSmartCursor*>(_cursor);
     Q_ASSERT(cursor);
-    KTextEditor::Cursor realPos( cursor->m_line + cursor->m_smartGroup->m_newStartLine, cursor->m_column);
+    KTextEditor::Cursor realPos( cursor->line() + cursor->smartGroup()->newStartLine(), cursor->column());
     kDebug() << "changing cursor from" << m_cursorTranslations[cursor].from << "to" << realPos;
 
     if(m_cursorTranslations[cursor].to != realPos) {

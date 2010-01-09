@@ -113,9 +113,9 @@ struct KateSmartManager::KateTranslationDebugger {
   void verifyAll() {
     for(QMap<const SmartRange*, RangeTranslation>::iterator it = m_rangeTranslations.begin(); it != m_rangeTranslations.end(); ++it) {
       if(*it.key() != it.value().to) {
-    kDebug() << "mismatch. Translation should be:" << it.value().to << "translation is:" << *it.key() << "from:" << it.value().from;
-      kDebug() << "edit:" << m_edit->oldRange() << m_edit->newRange();
-    Q_ASSERT(0);
+        kWarning() << "mismatch. Translation should be:" << it.value().to << "translation is:" << *it.key() << "from:" << it.value().from;
+        kWarning() << "edit:" << m_edit->oldRange() << m_edit->newRange();
+        Q_ASSERT(0);
       }
     }
   }
@@ -130,8 +130,8 @@ struct KateSmartManager::KateTranslationDebugger {
     kDebug() << "changing cursor from" << m_cursorTranslations[cursor].from << "to" << realPos;
 
     if(m_cursorTranslations[cursor].to != realPos) {
-      kDebug() << "mismatch. Translation of cursor should be:" << m_cursorTranslations[cursor].to << "is:" << realPos << "from:" << m_cursorTranslations[cursor].from;
-      kDebug() << "edit:" << m_edit->oldRange() << m_edit->newRange();
+      kWarning() << "mismatch. Translation of cursor should be:" << m_cursorTranslations[cursor].to << "is:" << realPos << "from:" << m_cursorTranslations[cursor].from;
+      kWarning() << "edit:" << m_edit->oldRange() << m_edit->newRange();
       Q_ASSERT(0);
     }
   }

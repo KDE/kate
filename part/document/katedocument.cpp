@@ -3177,8 +3177,16 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
 
   editStart();
 
-  insertText (range.end(), endComment);
-  insertText (range.start(), startComment);
+  if (!view->blockSelection()) {
+    insertText(range.end(), endComment);
+    insertText(range.start(), startComment);
+  } else {
+    for (int line = range.start().line(); line <= range.end().line(); line++ ) {
+      KTextEditor::Range subRange = rangeOnLine(range, line);
+      insertText(subRange.end(), endComment);
+      insertText(subRange.start(), startComment);
+    }
+  }
 
   editEnd ();
   // selection automatically updated (KateSmartRange)

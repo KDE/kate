@@ -150,11 +150,11 @@ class KateDocManager : public QStandardItemModel
      */
     void saveAll();
 
-  	/**
-	   * reloads all documents that has at least one view.
-	   * documents with no views are ignored :P
-	   */
-	  void reloadAll();
+    /**
+     * reloads all documents that has at least one view.
+     * documents with no views are ignored :P
+     */
+    void reloadAll();
 
     /**
      * close all documents, which could not be reopened

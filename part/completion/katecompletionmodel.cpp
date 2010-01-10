@@ -877,7 +877,7 @@ QModelIndex KateCompletionModel::mapToSource( const QModelIndex & proxyIndex ) c
       ModelRow source = g->filtered[proxyIndex.row()].sourceRow();
       return source.second.sibling(source.second.row(), proxyIndex.column());
     }else{
-      kDebug("Invalid proxy-index");
+      kDebug( 13035 ) << "Invalid proxy-index";
     }
   }
 

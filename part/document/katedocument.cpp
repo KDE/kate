@@ -3470,10 +3470,10 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
     else
     {
       // anders: this seems like it will work with above changes :)
-      removed = ( hasStartLineCommentMark
-          && removeStartLineCommentFromSelection( v, startAttrib ) )
-        || ( hasStartStopCommentMark
-          && removeStartStopCommentFromSelection( v, startAttrib ) );
+      removed = ( hasStartStopCommentMark
+          && removeStartStopCommentFromSelection( v, startAttrib ) )
+      || ( hasStartLineCommentMark
+          && removeStartLineCommentFromSelection( v, startAttrib ) );
     }
 
     // recursive call for toggle comment

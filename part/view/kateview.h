@@ -417,6 +417,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void align();
     void comment();
     void uncomment();
+    void toggleComment();
     void killLine();
 
     /**

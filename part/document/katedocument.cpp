@@ -3449,7 +3449,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
             KTextEditor::Cursor start,end;
             if ((n->nodeType()==(int)commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
                 kDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line();
-                removeStartStopCommentFromRegion(start,end,startAttrib);
+                removed = removeStartStopCommentFromRegion(start,end,startAttrib);
              } else {
                   kDebug(13020)<<"Enclosing region found, but not valid";
                   kDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion;
@@ -3467,6 +3467,10 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
         || ( hasStartStopCommentMark
           && removeStartStopCommentFromSelection( v, startAttrib ) );
     }
+
+    // recursive call for toggle comment
+    if (!removed && change == 0)
+      comment(v, line, column, 1);
   }
 }
 

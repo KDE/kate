@@ -385,6 +385,10 @@ void KateView::setupActions()
     "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(uncomment()));
 
+    a = ac->addAction("tools_toggle_comment");
+    a->setText(i18n("Toggle Comment"));
+    connect(a, SIGNAL(triggered(bool)), SLOT(toggleComment()));
+
     a = m_toggleWriteLock = new KToggleAction(i18n("&Read Only Mode"), this);
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
     a->setChecked( !m_doc->isReadWrite() );
@@ -1038,7 +1042,7 @@ void KateView::slotReadWriteChanged ()
 
   l << "edit_replace" << "set_insert" << "tools_spelling" << "tools_indent"
       << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
-      << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
+      << "tools_uncomment" << "tools_toggle_comment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
       << "tools_spelling_from_cursor"
       << "tools_spelling_selection";
@@ -1673,6 +1677,9 @@ void KateView::slotHlChanged()
   if (actionCollection()->action("tools_uncomment"))
     actionCollection()->action("tools_uncomment")->setEnabled( ok );
 
+  if (actionCollection()->action("tools_toggle_comment"))
+    actionCollection()->action("tools_toggle_comment")->setEnabled( ok );
+
   // show folding bar if "view defaults" says so, otherwise enable/disable only the menu entry
   updateFoldingConfig ();
 }
@@ -2253,6 +2260,11 @@ void KateView::comment( )
 void KateView::uncomment( )
 {
   m_doc->comment( this, cursorPosition().line(), cursorPosition().column(),-1 );
+}
+
+void KateView::toggleComment( )
+{
+  m_doc->comment( this, cursorPosition().line(), cursorPosition().column(), 0 );
 }
 
 void KateView::uppercase( )

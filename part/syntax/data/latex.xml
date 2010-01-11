@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-	  <language name="LaTeX" version="1.39" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.40" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -12,7 +12,7 @@
 	<RegExpr String="\\(cite|nocite|Cite|parencite|Parencite|footcite|Footcite|textcite|Textcite|supercite|autocite|Autocite|citeauthor|Citeauthor|citetitle|citeyear|citeurl|nocite|fullcite|footfullcite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
 	<RegExpr String="\\(subref\*?|cref\*?|label|pageref|autoref|ref|vpageref|vref|pagecite|eqref)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
         <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
-        <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Footnote" context="Footnoting"/>
+        <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Keyword" context="Footnoting"/>
 	<RegExpr String="\\(renewcommand|providenewcommand|newcommand)\*?(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
         <RegExpr String="\\(e|g|x)?def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
 	<RegExpr String="&lt;&lt;.*&gt;&gt;=" attribute="Normal Text" context="NoWeb" />
@@ -79,33 +79,19 @@
         <DetectChar char="}" attribute="Normal Text" context="#pop"/>
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
-      <context name="FootnotingInside" attribute="Footnote Text" lineEndContext="#stay">
+      <context name="FootnotingInside" attribute="Normal Text" lineEndContext="#stay">
         <DetectChar char="{" attribute="Normal Text" context="FootnotingInside"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop"/>
-        <StringDetect String="\(" attribute="Footnote Math" context="FootnotingMathMode" beginRegion="mathMode" />
-        <DetectChar char="\" attribute="Footnote Keyword" context="FootnotingContrSeq"/>
-        <DetectChar char="$" attribute="Footnote Math" context="FootnotingMathMode" beginRegion="mathMode" />
-        <DetectChar char="%" attribute="Comment" context="Comment"/>
-        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <StringDetect String="\(" attribute="Math" context="FootnotingMathMode" beginRegion="mathMode" />
+        <DetectChar char="$" attribute="Math" context="FootnotingMathMode" beginRegion="mathMode" />
+        <IncludeRules context="Normal Text" />
       </context>
-      <context name="FootnotingContrSeq" attribute="Keyword" lineEndContext="#pop">
-         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="[a-zA-Z]+(\+?|\*{0,3})" attribute="Footnote Keyword" context="#pop"/>
-        <RegExpr String="[^a-zA-Z]" attribute="Footnote Keyword" context="#pop" />
-      </context>
-      <context name="FootnotingMathMode" attribute="Footnote Math" lineEndContext="#stay">
+      <context name="FootnotingMathMode" attribute="Math" lineEndContext="#stay">
         <StringDetect String="$$" attribute="Error" context="#stay" />
-        <DetectChar char="$" attribute="Footnote Math" context="#pop" endRegion="mathMode" />
-        <Detect2Chars char="\" char1=")" attribute="Footnote Math" context="#pop" endRegion="mathMode" />
+        <DetectChar char="$" attribute="Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1=")" attribute="Math" context="#pop" endRegion="mathMode" />
         <Detect2Chars char="\" char1="]" attribute="Error" context="#stay" />
-        <DetectChar char="\" attribute="Footnote Keyword Mathmode" context="FootnotingMathContrSeq"/>
-        <DetectChar char="%" attribute="Comment" context="Comment"/>
-        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-      </context>
-      <context name="FootnotingMathContrSeq" attribute="Footnote Keyword Mathmode" lineEndContext="#pop">
-        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="[a-zA-Z]+\*?" attribute="Footnote Keyword Mathmode" context="#pop"/>
-        <RegExpr String="[^a-zA-Z]" attribute="Footnote Keyword Mathmode" context="#pop" /> 
+        <IncludeRules context="MathMode" />
       </context>
 
       <!-- LaTeX commands \newcommand and \renewcommand -->
@@ -443,7 +429,7 @@
       <itemData name="Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Error" defStyleNum="dsAlert" spellChecking="false"/>
-      <itemData name="Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
+      <itemData name="Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0" spellChecking="false"/>
       <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Environment" defStyleNum="dsNormal" color="#0000D0" selColor="#FFFF90" bold="0" italic="0" spellChecking="false"/>
@@ -457,11 +443,6 @@
       <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0" spellChecking="false"/>
       <itemData name="Structure Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="1" italic="0"/>
       <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0" spellChecking="false"/>
-      <itemData name="Footnote" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
-      <itemData name="Footnote Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="0" italic="0"/>
-      <itemData name="Footnote Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
-      <itemData name="Footnote Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
-      <itemData name="Footnote Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0" spellChecking="false"/>
      </itemDatas>
   </highlighting>
 

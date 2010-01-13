@@ -2701,6 +2701,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
         if (ch == '[') { bracketInserted = true; buf.append (']'); }
         if (ch == '{') { bracketInserted = true; buf.append ('}'); }
         if (ch == '"') { bracketInserted = true; buf.append ('"'); }
+        if (ch == '\'') { bracketInserted = true; buf.append ('\''); }
       }
     }
   }

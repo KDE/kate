@@ -33,17 +33,23 @@ K_EXPORT_PLUGIN(ExporterPluginFactory("ktexteditor_exporter", "ktexteditor_plugi
 ExporterPlugin::ExporterPlugin(QObject *parent, const QVariantList &args)
     : KTextEditor::Plugin(parent)
 {
-    Q_UNUSED(args);
+  Q_UNUSED(args);
 }
 
 ExporterPlugin::~ExporterPlugin()
 {
+  qDeleteAll(m_views);
 }
 
 void ExporterPlugin::addView(KTextEditor::View *view)
 {
-  // no need to keep track of, QObject inheritance will take care of deletion
-  new ExporterPluginView(view);
+  // need to keep track of, since the plugin might get disabled and we have to delete the views
+  m_views[view] = new ExporterPluginView(view);
+}
+
+void ExporterPlugin::removeView(KTextEditor::View* view)
+{
+  delete m_views.take(view);
 }
 
 #include "exporterplugin.moc"

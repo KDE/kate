@@ -42,6 +42,10 @@ class ExporterPlugin
     virtual ~ExporterPlugin();
 
     virtual void addView (KTextEditor::View *view);
+    virtual void removeView(KTextEditor::View* view);
+
+  private:
+    QMap<KTextEditor::View*, ExporterPluginView*> m_views;
 };
 
 K_PLUGIN_FACTORY_DECLARATION(ExporterPluginFactory)

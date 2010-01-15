@@ -29,17 +29,15 @@
 #include <kdemacros.h>
 
 /* Classes from the kate part, which are exported only for unit tests */
-#ifdef COMPILE_TESTS
-  #ifndef KATEPART_TESTS_EXPORT
-    /* We are building this library */
-    #define KATEPART_TESTS_EXPORT KDE_EXPORT
-  #else
-    /* We are using this library */
-    #define KATEPART_TESTS_EXPORT KDE_IMPORT
-  #endif
-#else
-  /* We are not compiling tests */
+#if defined(COMPILING_KATEPART)
+  /* We are compling the kate part, so don't export symbols */
   #define KATEPART_TESTS_EXPORT
+#elif defined(COMPILING_KATEPARTTESTLIB)
+  /* We build the test library, so export symbols */
+  #define KATEPART_TESTS_EXPORT KDE_EXPORT
+#else
+  /* We are using this library */
+  #define KATEPART_TESTS_EXPORT KDE_IMPORT
 #endif
 
 #endif  // KATEPARTPRIVATE_EXPORT_H

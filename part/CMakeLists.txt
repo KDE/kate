@@ -13,10 +13,6 @@ add_subdirectory( script/data )
 add_subdirectory( plugins )
 
 # tests
-if(KDE4_BUILD_TESTS)
-  # only with this definition will the KATEPART_TESTS_EXPORT macro do something
-  add_definitions(-DCOMPILE_TESTS)
-endif(KDE4_BUILD_TESTS)
 add_subdirectory( tests )
 
 # includes
@@ -191,6 +187,7 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
+set_target_properties(katepart PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPART)
 
 # linking
 target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
@@ -201,6 +198,14 @@ if(KDE4_ENABLE_FINAL)
 else(KDE4_ENABLE_FINAL)
    macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/script/katescript.cpp )
 endif(KDE4_ENABLE_FINAL)
+
+#tests
+if(KDE4_BUILD_TESTS)
+kde4_add_library(kateparttestlib ${katepart_PART_SRCS})
+set_target_properties(kateparttestlib PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPARTTESTLIB)
+target_link_libraries(kateparttestlib ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
+                                      ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY})
+endif(KDE4_BUILD_TESTS)
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

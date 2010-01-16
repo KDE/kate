@@ -2824,13 +2824,31 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
   if ((col == 0) && (line == 0))
     return;
 
+  int complement = 0;
   if (col > 0)
   {
+    if (config()->configFlags() & KateDocumentConfig::cfAutoBrackets)
+    {
+      // if inside empty (), {}, [], '', "" delete both
+      KateTextLine::Ptr tl = m_buffer->plainLine(line);
+      if(!tl) return;
+      QChar prevChar = tl->at(col-1);
+      QChar nextChar = tl->at(col);
+
+      if ( (prevChar == '"' && nextChar == '"') ||
+           (prevChar == '\'' && nextChar == '\'') ||
+           (prevChar == '(' && nextChar == ')') ||
+           (prevChar == '[' && nextChar == ']') ||
+           (prevChar == '{' && nextChar == '}') )
+      {
+        complement = 1;
+      }
+    }
     if (!(config()->configFlags() & KateDocumentConfig::cfBackspaceIndents))
     {
       // ordinary backspace
       //c.cursor.col--;
-      removeText(KTextEditor::Range(line, col-1, line, col));
+      removeText(KTextEditor::Range(line, col-1, line, col+complement));
     }
     else
     {
@@ -2852,7 +2870,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
         indent( view, line, -1);
       }
       else
-        removeText(KTextEditor::Range(line, col-1, line, col));
+        removeText(KTextEditor::Range(line, col-1, line, col+complement));
     }
   }
   else

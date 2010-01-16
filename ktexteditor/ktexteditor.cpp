@@ -439,7 +439,7 @@ class KTextEditor::LoadSaveFilterCheckPluginPrivate {
 };
 
 LoadSaveFilterCheckPlugin::LoadSaveFilterCheckPlugin(QObject *parent):
-    QObject(),
+    QObject(parent),
     d(new LoadSaveFilterCheckPluginPrivate()) { }
 
 LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }

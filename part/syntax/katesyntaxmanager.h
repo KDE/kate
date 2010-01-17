@@ -73,7 +73,6 @@ class KateHlManager : public QObject
     static uint defaultStyles();
     static QString defaultStyleName(int n, bool translateNames = false);
 
-    KTextEditor::Attribute::Ptr getDefaultAttribute(const KTextEditor::HighlightInterface::DefaultStyle ds) const;
     void getDefaults(const QString &schema, KateAttributeList &);
     void setDefaults(const QString &schema, KateAttributeList &);
 

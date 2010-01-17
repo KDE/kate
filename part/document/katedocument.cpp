@@ -5524,7 +5524,12 @@ void KateDocument::replaceCharactersByEncoding(const KTextEditor::Range& range)
 
 KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::HighlightInterface::DefaultStyle ds) const
 {
-  return KateHlManager::self()->getDefaultAttribute(ds);
+  ///TODO: should this maybe be put into the View until the glory day the renderer does not require a View?
+  KateView* view = activeKateView();
+  Q_ASSERT(view);
+
+  KateAttributeList list;
+  return highlight()->attributes(view->renderer()->config()->schema()).at(ds);
 }
 
 QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttributes(const unsigned int line)

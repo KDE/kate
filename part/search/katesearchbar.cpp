@@ -1632,7 +1632,6 @@ void KateSearchBar::onMutateIncremental() {
         // Slots
         connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
         connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
-        connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
         connect(m_incMenuMatchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));

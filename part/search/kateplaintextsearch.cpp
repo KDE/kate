@@ -140,7 +140,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
             uint myMatchLen;
             const uint colOffset = (j > forMin) ? 0 : minLeft;
             const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
-              &myMatchLen, m_caseSensitivity, false);
+              &myMatchLen, m_caseSensitivity, true);
             if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
               FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
               break;

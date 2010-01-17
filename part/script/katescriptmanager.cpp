@@ -77,13 +77,15 @@ void KateScriptManager::collect(const QString& resourceFile,
                                 bool force)
 {
   KConfig cfgFile(resourceFile, KConfig::NoGlobals);
-  KConfigGroup config = cfgFile.group("General");
 
   force = false;
-  // If KatePart version does not match, better force a true reload
-  if(KateGlobal::katePartVersion() != config.readEntry("kate-version", QString("0.0"))) {
-    config.writeEntry("kate-version", KateGlobal::katePartVersion());
-    force = true;
+  {
+    KConfigGroup config(&cfgFile, "General");
+    // If KatePart version does not match, better force a true reload
+    if(KateGlobal::katePartVersion() != config.readEntry("kate-version", QString("0.0"))) {
+      config.writeEntry("kate-version", KateGlobal::katePartVersion());
+      force = true;
+    }
   }
   // get a list of all .js files
   const QStringList list = KGlobal::dirs()->findAllResources("data", directory, KStandardDirs::NoDuplicates);
@@ -98,20 +100,20 @@ void KateScriptManager::collect(const QString& resourceFile,
   m_commandLineScriptMap.clear();
 
   // iterate through the files and read info out of cache or file
-  for(QStringList::ConstIterator fileit = list.begin(); fileit != list.end(); ++fileit) {
+  foreach(const QString fileName, list) {
     // get abs filename....
-    QFileInfo fi(*fileit);
+    QFileInfo fi(fileName);
     const QString absPath = fi.absoluteFilePath();
     const QString baseName = fi.baseName ();
 
     // each file has a group
-    QString group = "Cache "+ *fileit;
-    config.changeGroup(group);
+    const QString group = "Cache "+ fileName;
+    KConfigGroup config(&cfgFile, group);
 
     // stat the file to get the last-modified-time
     KDE_struct_stat sbuf;
     memset(&sbuf, 0, sizeof(sbuf));
-    KDE::stat(*fileit, &sbuf);
+    KDE::stat(fileName, &sbuf);
 
     // check whether file is already cached
     bool useCache = false;
@@ -129,8 +131,7 @@ void KateScriptManager::collect(const QString& resourceFile,
           ++entry)
         pairs[entry.key()] = entry.value();
     }
-    else if(parseMetaInformation(*fileit, pairs)) {
-      config.changeGroup(group);
+    else if(parseMetaInformation(fileName, pairs)) {
       config.writeEntry("last-modified", int(sbuf.st_mtime));
       // iterate keys and save cache
       for(QHash<QString, QString>::ConstIterator item = pairs.constBegin();
@@ -151,7 +152,7 @@ void KateScriptManager::collect(const QString& resourceFile,
       commonHeader.setScriptType(Kate::CommandLineScript);
     } else {
       kDebug(13050) << "Script value error: No type specified in script meta data: "
-                      << qPrintable(*fileit) << '\n';
+                      << qPrintable(fileName) << '\n';
       continue;
     }
 
@@ -168,7 +169,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         header.setBaseName(baseName);
         if (header.name().isNull()) {
           kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
-                 << qPrintable(*fileit) << '\n' << "-> skipping indenter" << '\n';
+                 << qPrintable(fileName) << '\n' << "-> skipping indenter" << '\n';
           continue;
         }
 
@@ -182,7 +183,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         else {
           header.setIndentLanguages(QStringList() << header.name());
           kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
-                    << "script " << qPrintable(*fileit) << ". Using the name ("
+                    << "script " << qPrintable(fileName) << ". Using the name ("
                     << qPrintable(header.name()) << ")\n";
         }
         // priority?
@@ -190,10 +191,10 @@ void KateScriptManager::collect(const QString& resourceFile,
         int priority = pairs.take("priority").toInt(&convertedToInt);
         if(!convertedToInt) {
           kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
-                    << "in: " << qPrintable(*fileit) << ". Setting priority to 0\n";
+                    << "in: " << qPrintable(fileName) << ". Setting priority to 0\n";
         }
         header.setPriority(convertedToInt ? priority : 0);
-        KateIndentScript *script = new KateIndentScript(*fileit, header);
+        KateIndentScript *script = new KateIndentScript(fileName, header);
         foreach(const QString &language, header.indentLanguages()) {
           m_languageToIndenters[language.toLower()].push_back(script);
         }
@@ -207,10 +208,10 @@ void KateScriptManager::collect(const QString& resourceFile,
         header.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
         if (header.functions().isEmpty()) {
           kDebug(13050) << "Script value error: No functions specified in script meta data: "
-                        << qPrintable(*fileit) << '\n' << "-> skipping script" << '\n';
+                        << qPrintable(fileName) << '\n' << "-> skipping script" << '\n';
           continue;
         }
-        KateCommandLineScript* script = new KateCommandLineScript(*fileit, header);
+        KateCommandLineScript* script = new KateCommandLineScript(fileName, header);
         foreach (const QString function, header.functions()) {
           m_commandLineScriptMap.insert(function, script);
         }
@@ -220,7 +221,7 @@ void KateScriptManager::collect(const QString& resourceFile,
       case Kate::UnknownScript:
       default:
         kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
-                  << qPrintable(*fileit) << '\n';
+                  << qPrintable(fileName) << '\n';
     }
   }
 
@@ -237,7 +238,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     kDebug( 13050 ) << "C: " << qPrintable(indenter("C")->url()) << "\n";
   if(indenter("lisp"))
     kDebug( 13050 ) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
-  config.sync();
+  cfgFile.sync();
 }
 
 

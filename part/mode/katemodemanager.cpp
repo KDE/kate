@@ -169,12 +169,11 @@ void KateModeManager::update ()
 void KateModeManager::save (const QList<KateFileType *>& v)
 {
   KConfig katerc("katemoderc", KConfig::NoGlobals);
-  KConfigGroup config(&katerc, QString());
 
   QStringList newg;
   foreach (const KateFileType *type, v)
   {
-    config.changeGroup(type->name);
+    KConfigGroup config(&katerc, type->name);
 
     config.writeEntry ("Section", type->section);
     config.writeXdgListEntry ("Wildcards", type->wildcards);
@@ -197,17 +196,15 @@ void KateModeManager::save (const QList<KateFileType *>& v)
     newg << type->name;
   }
 
-  QStringList g (katerc.groupList());
-
-  for (int z=0; z < g.count(); z++)
+  foreach (const QString &groupName, katerc.groupList())
   {
-    if (newg.indexOf (g[z]) == -1)
+    if (newg.indexOf (groupName) == -1)
     {
-      katerc.deleteGroup (g[z]);
+      katerc.deleteGroup (groupName);
     }
   }
 
-  config.sync ();
+  katerc.sync ();
 
   update ();
 }

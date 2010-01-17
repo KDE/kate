@@ -527,7 +527,7 @@ static void exchangeAbbrevs(QString &str)
 int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
                                         const QString &find, const QString &repOld, const QString &delim,
                                         bool noCase, bool repeat,
-                                        uint startcol, int endcol )
+                                        int startcol, int endcol )
 {
   KateTextLine::Ptr ln = doc->kateTextLine( line );
   if ( ! ln || ! ln->length() ) return 0;
@@ -558,13 +558,13 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
   QRegExp matcher(patterns[0], noCase ?Qt::CaseSensitive:Qt::CaseInsensitive);
 
-  uint len;
   int matches = 0;
 
-  while ( ln->searchText( startcol, matcher, &startcol, &len ) )
+  while ( (startcol = matcher.indexIn(ln->string(), startcol)) >= 0 )
   {
+    const int len = matcher.matchedLength();
 
-    if ( endcol >= 0  && startcol + len > (uint)endcol )
+    if ( endcol >= 0  && startcol + len > endcol )
       break;
 
     matches++;
@@ -612,7 +612,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     {
       line += lns;
 
-      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || (uint)endcol  >= startcol + len ) )
+      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || endcol  >= startcol + len ) )
       {
       //  if ( endcol  >= startcol + len )
           endcol -= (startcol + len);
@@ -625,7 +625,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     startcol+=rep.length();
 
     // sanity check -- avoid infinite loops eg with %s,.*,,g ;)
-    uint ll = ln->length();
+    int ll = ln->length();
     if ( ! ll || startcol > ll )
       break;
   }

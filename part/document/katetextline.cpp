@@ -279,37 +279,6 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
   return false;
 }
 
-bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards) const
-{
-  int index;
-
-  if (backwards)
-  {
-    int col = startCol;
-
-    // allow finding the string ending at eol
-    if ( col == (int) m_text.length() ) ++startCol;
-    do {
-      index = regexp.lastIndexIn (m_text, col);
-      col--;
-    } while ( col >= 0 && regexp.matchedLength() + index >= (int)startCol );
-  }
-  else
-    index = regexp.indexIn (m_text, startCol);
-
-  if (index > -1)
-  {
-    if (foundAtCol)
-      (*foundAtCol) = index;
-
-    if (matchLen)
-      (*matchLen)=regexp.matchedLength();
-    return true;
-  }
-
-  return false;
-}
-
 void KateTextLine::addAttribute (int start, int length, int attribute)
 {
 //  kDebug( 13020 ) << "addAttribute: " << start << " " << length << " " << attribute;

@@ -198,7 +198,7 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
     static int sedMagic(KateDocument *doc, int &line,
                         const QString &find, const QString &replace, const QString &delim,
                         bool noCase, bool repeat,
-                        uint startcol=0, int endcol=-1);
+                        int startcol=0, int endcol=-1);
 };
 
 /**

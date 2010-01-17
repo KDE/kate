@@ -223,19 +223,6 @@ class KateTextLine : public KShared
                      bool backwards = false) const;
 
     /**
-     * search given regexp
-     * @param startCol column to start search
-     * @param regexp regex to search for
-     * @param foundAtCol column where text was found
-     * @param matchLen length of matching
-     * @param backwards search backwards?
-     * @return regexp found?
-     */
-    bool searchText (uint startCol, const QRegExp &regexp,
-                     uint *foundAtCol, uint *matchLen,
-                     bool backwards = false) const;
-
-    /**
      * Gets the attribute at the given position
      * use KRenderer::attributes  to get the KTextAttribute for this.
      *

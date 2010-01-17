@@ -40,10 +40,10 @@
 //
 // KateEscapedTextSearch Constructor
 //
-KateEscapedTextSearch::KateEscapedTextSearch ( KateDocument *document, bool casesensitive, bool wholeWords )
+KateEscapedTextSearch::KateEscapedTextSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
 : QObject (document)
 , m_document (document)
-, m_casesensitive (casesensitive)
+, m_caseSensitivity (caseSensitivity)
 , m_wholeWords (wholeWords)
 {
 }
@@ -59,7 +59,7 @@ KateEscapedTextSearch::~KateEscapedTextSearch()
 QVector<KTextEditor::Range> KateEscapedTextSearch::search (const KTextEditor::Range & inputRange,
         const QString & text, bool backwards)
 {
-  KatePlainTextSearch searcher(m_document, m_casesensitive, m_wholeWords);
+  KatePlainTextSearch searcher(m_document, m_caseSensitivity, m_wholeWords);
   return searcher.search(inputRange, escapePlaintext(text), backwards);
 }
 

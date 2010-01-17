@@ -1556,27 +1556,27 @@ QVector<KTextEditor::Range> KateDocument::searchText(
 
   const bool escapeSequences =  options.testFlag(KTextEditor::Search::EscapeSequences);
   const bool regexMode       =  options.testFlag(KTextEditor::Search::Regex);
-  const bool caseSensitive   = !options.testFlag(KTextEditor::Search::CaseInsensitive);
   const bool backwards       =  options.testFlag(KTextEditor::Search::Backwards);
   const bool wholeWords      =  options.testFlag(KTextEditor::Search::WholeWords);
+  const Qt::CaseSensitivity caseSensitivity = options.testFlag(KTextEditor::Search::CaseInsensitive) ? Qt::CaseInsensitive : Qt::CaseSensitive;
 
   if (regexMode)
   {
     // regexp search
     // escape sequences are supported by definition
-    KateRegExpSearch searcher(this, caseSensitive);
+    KateRegExpSearch searcher(this, caseSensitivity);
     return searcher.search(range, pattern, backwards);
   }
 
   if (escapeSequences)
   {
     // escaped search
-    KateEscapedTextSearch searcher(this, caseSensitive, wholeWords);
+    KateEscapedTextSearch searcher(this, caseSensitivity, wholeWords);
     return searcher.search(range, pattern, backwards);
   }
 
   // plaintext search
-  KatePlainTextSearch searcher(this, caseSensitive, wholeWords);
+  KatePlainTextSearch searcher(this, caseSensitivity, wholeWords);
   return searcher.search(range, pattern, backwards);
 }
 

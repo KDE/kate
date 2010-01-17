@@ -33,7 +33,7 @@ class KateRegExpSearch : public QObject
   Q_OBJECT
 
   public:
-    explicit KateRegExpSearch (KateDocument *document, bool caseSensitive);
+    explicit KateRegExpSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity);
     ~KateRegExpSearch ();
 
   //
@@ -58,7 +58,7 @@ class KateRegExpSearch : public QObject
 
   private:
     KateDocument *const m_document;
-    bool m_caseSensitive;
+    Qt::CaseSensitivity m_caseSensitivity;
 };
 
 #endif

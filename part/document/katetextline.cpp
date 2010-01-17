@@ -237,7 +237,7 @@ int KateTextLine::virtualLength (int tabWidth) const
 }
 
 bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, uint *foundAtCol,
-                               uint *matchLen, bool casesensitive, bool backwards) const
+                               uint *matchLen, Qt::CaseSensitivity caseSensitivity, bool backwards) const
 {
   int index;
 
@@ -255,7 +255,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
 
 
     do {
-      index = m_text.lastIndexOf( text, col, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
+      index = m_text.lastIndexOf( text, col, caseSensitivity);
       col--;
       //kDebug( 13020 )<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
       //(col>=start_col)<<"---"<<(index >= startCol)<<"---"<<((l + index) <= (int)endCol)<<endl<<text<<endl<<m_text<<endl<<
@@ -263,7 +263,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
     } while ( (col>=start_col) && (index >= (int)startCol) && ((l + index) > (int)endCol) );
   }
   else
-    index = m_text.indexOf (text, startCol, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
+    index = m_text.indexOf (text, startCol, caseSensitivity);
 
   if (index > -1)
   {

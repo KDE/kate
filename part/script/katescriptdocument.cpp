@@ -205,7 +205,7 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
     bool found = true;
     while (found) {
       uint foundAt;
-      found = textLine->searchText(0, cursor.column(), text, &foundAt, 0, true, true);
+      found = textLine->searchText(0, cursor.column(), text, &foundAt, 0, Qt::CaseSensitive, true);
       if (found) {
         bool hasStyle = true;
         if (attribute != -1) {

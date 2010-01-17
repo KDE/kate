@@ -219,7 +219,7 @@ class KateTextLine : public KShared
      */
     bool searchText (uint startCol, uint endCol,const QString &text,
                      uint *foundAtCol, uint *matchLen,
-                     bool casesensitive = true,
+                     Qt::CaseSensitivity caseSensitivity = Qt::CaseSensitive,
                      bool backwards = false) const;
 
     /**

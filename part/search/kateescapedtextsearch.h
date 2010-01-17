@@ -51,7 +51,7 @@ class KateEscapedTextSearch : public QObject
   Q_OBJECT
 
   public:
-    explicit KateEscapedTextSearch (KateDocument *document, bool casesensitive, bool wholeWords);
+    explicit KateEscapedTextSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KateEscapedTextSearch ();
 
   //
@@ -83,7 +83,7 @@ class KateEscapedTextSearch : public QObject
 
   private:
     KateDocument *const m_document;
-    bool m_casesensitive;
+    Qt::CaseSensitivity m_caseSensitivity;
     bool m_wholeWords;
 };
 

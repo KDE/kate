@@ -40,10 +40,10 @@
 //
 // KateSearch Constructor
 //
-KatePlainTextSearch::KatePlainTextSearch ( KateDocument *document, bool casesensitive, bool wholeWords )
+KatePlainTextSearch::KatePlainTextSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
 : QObject (document)
 , m_document (document)
-, m_casesensitive (casesensitive)
+, m_caseSensitivity (caseSensitivity)
 , m_wholeWords (wholeWords)
 {
 }
@@ -64,7 +64,7 @@ QVector<KTextEditor::Range> KatePlainTextSearch::search (const KTextEditor::Rang
     // escape dot and friends
     const QString workPattern = "\\b" + QRegExp::escape(text) + "\\b";
 
-    return KateRegExpSearch(m_document, m_casesensitive).search(inputRange, workPattern, backwards);
+    return KateRegExpSearch(m_document, m_caseSensitivity).search(inputRange, workPattern, backwards);
   }
 
   QVector<KTextEditor::Range> result;
@@ -140,7 +140,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
             uint myMatchLen;
             const uint colOffset = (j > forMin) ? 0 : minLeft;
             const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
-              &myMatchLen, m_casesensitive, false);
+              &myMatchLen, m_caseSensitivity, false);
             if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
               FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
               break;
@@ -150,7 +150,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
         } else if (k == numNeedleLines - 1) {
           // last line
           uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0,hayLine->length(), needleLine, &foundAt, &myMatchLen, m_casesensitive, false);
+          const bool matches = hayLine->searchText(0,hayLine->length(), needleLine, &foundAt, &myMatchLen, m_caseSensitivity, false);
           if (matches && (foundAt == 0) && !((k == lastLine)
               && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
           {
@@ -161,7 +161,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
         } else {
           // mid lines
           uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, m_casesensitive, false);
+          const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, m_caseSensitivity, false);
           if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
             FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
             break;
@@ -224,7 +224,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
       const int line_end= (j==forMax) ? maxRight : textLine->length();
       uint foundAt, myMatchLen;
       FAST_DEBUG("searchText | searching in line line: " << j);
-      const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, m_casesensitive, backwards);
+      const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, m_caseSensitivity, backwards);
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
         FAST_DEBUG("searchText | line " << j << ": yes");

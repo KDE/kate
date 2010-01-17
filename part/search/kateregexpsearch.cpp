@@ -39,10 +39,10 @@
 //
 // KateSearch Constructor
 //
-KateRegExpSearch::KateRegExpSearch ( KateDocument *document, bool caseSensitive )
+KateRegExpSearch::KateRegExpSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity )
 : QObject (document)
 , m_document (document)
-, m_caseSensitive (caseSensitive)
+, m_caseSensitivity (caseSensitivity)
 {
 }
 
@@ -80,12 +80,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     bool backwards)
 {
   // regex search
-  const Qt::CaseSensitivity caseSensitivity =
-      m_caseSensitive
-      ? Qt::CaseSensitive
-      : Qt::CaseInsensitive;
-
-  KateRegExp regexp(pattern, caseSensitivity);
+  KateRegExp regexp(pattern, m_caseSensitivity);
 
   FAST_DEBUG("KateRegExpSearch::searchRegex( " << inputRange.start().line() << ", "
     << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )");

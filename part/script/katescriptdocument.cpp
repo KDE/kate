@@ -591,6 +591,16 @@ QString KateScriptDocument::commentEnd(int attribute)
   return m_document->highlight()->getCommentEnd(attribute);
 }
 
+KTextEditor::Range KateScriptDocument::documentRange()
+{
+  return m_document->documentRange();
+}
+
+KTextEditor::Cursor KateScriptDocument::documentEnd()
+{
+  return m_document->documentEnd();
+}
+
 int KateScriptDocument::attribute(int line, int column)
 {
   KateTextLine::Ptr textLine = m_document->kateTextLine(line);

@@ -105,6 +105,9 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE QString commentStart(int attribute);
     Q_INVOKABLE QString commentEnd(int attribute);
 
+    Q_INVOKABLE KTextEditor::Range documentRange();
+    Q_INVOKABLE KTextEditor::Cursor documentEnd();
+
     /**
      * Get the syntax highlighting attribute at a given position in the document.
      */

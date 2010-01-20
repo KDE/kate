@@ -68,8 +68,6 @@ target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBR
 
 add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 
-endif(NOT MINGW)
-
 ########### undomanager test ###############
 
 kde4_add_unit_test(undomanager_test undomanager_test.cpp)
@@ -81,6 +79,7 @@ target_link_libraries( undomanager_test
   kateparttestlib
 )
 
+endif(NOT MINGW)
 
 ########### install files ###############
 

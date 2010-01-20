@@ -49,10 +49,8 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
-  if ( m_doc->activeView() ) {
-    connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-            this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
-  }
+  connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
+          this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
 
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
   m_doc->editStart();

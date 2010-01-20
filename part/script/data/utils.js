@@ -25,6 +25,7 @@ function uniq()
             }
           }
         }
+        return lines;
     });
 }
 

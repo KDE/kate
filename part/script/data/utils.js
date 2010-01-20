@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, natsort, uniq, test
+ * functions: sort, natsort, uniq, rtrim, ltrim, trim, test
  */
 
 function sort()
@@ -32,6 +32,36 @@ function uniq()
 function natsort()
 {
     each(function(lines){return lines.sort(natcompare);});
+}
+
+function rtrim()
+{
+    each(function(lines){
+        for ( var i = 0; i < lines.length; ++i ) {
+            lines[i] = lines[i].replace(/\s+$/, '');
+        }
+        return lines;
+    });
+}
+
+function ltrim()
+{
+    each(function(lines){
+        for ( var i = 0; i < lines.length; ++i ) {
+            lines[i] = lines[i].replace(/^\s+/, '');
+        }
+        return lines;
+    });
+}
+
+function trim()
+{
+    each(function(lines){
+        for ( var i = 0; i < lines.length; ++i ) {
+            lines[i] = lines[i].replace(/^\s+|\s+$/, '');
+        }
+        return lines;
+    });
 }
 
 function test()
@@ -63,6 +93,12 @@ function help(cmd)
               +"Here's an example to show the difference to the normal sort method:<br>"
               +"sort(a10, a1, a2) => a1, a10, a2<br>"
               +"natsort(a10, a1, a2) => a1, a2, a10";
+    } else if (cmd == "rtrim") {
+        return "Trims trailing whitespace from selection.";
+    } else if (cmd == "ltrim") {
+        return "Trims leading whitespace from selection.";
+    } else if (cmd == "trim") {
+        return "Trims leading and trailing whitespace from selection.";
     }
 }
 

@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, natsort, uniq, rtrim, ltrim, trim, test
+ * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, test
  */
 
 function sort()
@@ -64,6 +64,18 @@ function trim()
     });
 }
 
+///TODO: make it possible to pass a deliminator
+///      but this requires a better cmd interpretation
+///      in katepart. currently e.g. `join ' | '` passes three
+///      arguments (', |, ') to the function, instead one with
+///      the whitespaces...
+function join()
+{
+    each(function(lines){
+        return [lines.join("")];
+    });
+}
+
 function test()
 {
     var start = new Cursor(3, 6);
@@ -99,6 +111,8 @@ function help(cmd)
         return "Trims leading whitespace from selection or whole document.";
     } else if (cmd == "trim") {
         return "Trims leading and trailing whitespace from selection or whole document.";
+    } else if (cmd == "join") {
+        return "Joins selected lines or whole document.";
     }
 }
 

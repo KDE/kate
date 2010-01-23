@@ -21,6 +21,7 @@
 #include <QDBusReply>
 #include <QStringList>
 #include <QDBusConnectionInterface>
+#include <unistd.h>
 
 #ifdef Q_WS_WIN
 #include <process.h>

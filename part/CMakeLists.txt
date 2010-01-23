@@ -32,7 +32,9 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_SOURCE_DIR}/kutils
-  ${KDE4_KIO_INCLUDES})
+  ${KDE4_KIO_INCLUDES}
+  ${ZLIB_INCLUDE_DIR}
+)
 
 # our sources
 set(katepart_PART_SRCS
@@ -191,7 +193,7 @@ set_target_properties(katepart PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPART
 
 # linking
 target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-                               ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY})
+                               ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${ZLIB_LIBRARY})
 
 if(KDE4_ENABLE_FINAL)
    macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )
@@ -204,7 +206,7 @@ if(KDE4_BUILD_TESTS)
 kde4_add_library(kateparttestlib ${katepart_PART_SRCS})
 set_target_properties(kateparttestlib PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPARTTESTLIB)
 target_link_libraries(kateparttestlib ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-                                      ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY})
+                                      ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${ZLIB_LIBRARY})
 endif(KDE4_BUILD_TESTS)
 
 # install the stuff

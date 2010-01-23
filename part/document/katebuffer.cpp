@@ -26,6 +26,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+// on the fly compression
+#include <zlib.h>
+
 #include "katedocument.h"
 #include "katehighlight.h"
 #include "kateconfig.h"
@@ -103,7 +106,8 @@ class KateFileLoader
       , m_lastLineStart (0)
       , m_eol (-1) // no eol type detected atm
       , m_file (filename)
-      , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
+      , m_gzFile (NULL)
+      , m_buffer (KATE_FILE_LOADER_BS, 0)
       , m_decoder(m_codec->makeDecoder())
       , m_bom (BomUnknown)
     {
@@ -111,6 +115,11 @@ class KateFileLoader
 
     ~KateFileLoader ()
     {
+      if (m_gzFile) {
+        gzclose (m_gzFile);
+        m_gzFile = NULL;
+      }
+      
       delete m_prober;
       delete m_decoder;
     }
@@ -122,7 +131,9 @@ class KateFileLoader
     {
       if (m_file.open (QIODevice::ReadOnly))
       {
-        int c = m_file.read (m_buffer.data(), m_buffer.size());
+        m_gzFile = gzdopen (m_file.handle (), "rb");
+        
+        int c = gzread (m_gzFile, m_buffer.data(), m_buffer.size());
 
         if (c > 0)
         {
@@ -340,7 +351,7 @@ class KateFileLoader
           // try to load more text if something is around
           if (!m_eof)
           {
-            int c = m_file.read (m_buffer.data(), m_buffer.size());
+            int c = gzread (m_gzFile, m_buffer.data(), m_buffer.size());
 
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
@@ -449,6 +460,7 @@ class KateFileLoader
     int m_lastLineStart;
     int m_eol;
     QFile m_file;
+    gzFile m_gzFile;
     QByteArray m_buffer;
     QString m_text;
     QTextDecoder *m_decoder;

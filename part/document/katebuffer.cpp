@@ -26,9 +26,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// on the fly compression
-#include <zlib.h>
-
 #include "katedocument.h"
 #include "katehighlight.h"
 #include "kateconfig.h"
@@ -40,6 +37,10 @@
 #include <kcharsets.h>
 #include <kencodingprober.h>
 #include <kde_file.h>
+
+// on the fly compression
+#include <kfilterdev.h>
+#include <kmimetype.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -105,23 +106,25 @@ class KateFileLoader
       , m_position (0)
       , m_lastLineStart (0)
       , m_eol (-1) // no eol type detected atm
-      , m_file (filename)
-      , m_gzFile (NULL)
       , m_buffer (KATE_FILE_LOADER_BS, 0)
       , m_decoder(m_codec->makeDecoder())
       , m_bom (BomUnknown)
     {
+      // try to get mimetype for on the fly decompression, don't rely on filename!
+      QFile testMime (filename);
+      if (testMime.open (QIODevice::ReadOnly))
+        m_mimeType = KMimeType::findByContent (&testMime)->name ();
+      else
+        m_mimeType = KMimeType::findByPath (filename, 0, false)->name ();
+        
+      m_file = KFilterDev::deviceForFile (filename, m_mimeType, false);
     }
 
     ~KateFileLoader ()
     {
-      if (m_gzFile) {
-        gzclose (m_gzFile);
-        m_gzFile = NULL;
-      }
-      
       delete m_prober;
       delete m_decoder;
+      delete m_file;
     }
 
     /**
@@ -129,11 +132,9 @@ class KateFileLoader
      */
     bool open ()
     {
-      if (m_file.open (QIODevice::ReadOnly))
+      if (m_file->open (QIODevice::ReadOnly))
       {
-        m_gzFile = gzdopen (m_file.handle (), "rb");
-        
-        int c = gzread (m_gzFile, m_buffer.data(), m_buffer.size());
+        int c = m_file->read (m_buffer.data(), m_buffer.size());
 
         if (c > 0)
         {
@@ -351,7 +352,7 @@ class KateFileLoader
           // try to load more text if something is around
           if (!m_eof)
           {
-            int c = gzread (m_gzFile, m_buffer.data(), m_buffer.size());
+            int c = m_file->read (m_buffer.data(), m_buffer.size());
 
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
@@ -459,8 +460,8 @@ class KateFileLoader
     int m_position;
     int m_lastLineStart;
     int m_eol;
-    QFile m_file;
-    gzFile m_gzFile;
+    QString m_mimeType;
+    QIODevice *m_file;
     QByteArray m_buffer;
     QString m_text;
     QTextDecoder *m_decoder;

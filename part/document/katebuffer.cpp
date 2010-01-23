@@ -243,6 +243,9 @@ class KateFileLoader
     inline bool brokenUTF8 () const { return m_utf8Borked; }
     
     inline QTextDecoder* decoder() const { return m_decoder; }
+    
+    // mime type used to create filter dev
+    const QString &mimeTypeForFilterDev () const { return m_mimeType; }
 
     bool errorsIfUtf8 (const char* data, int length)
     {
@@ -484,6 +487,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_lines (0),
    m_binary (false),
    m_brokenUTF8 (false),
+   m_mimeTypeForFilterDev ("text/plain"),
    m_highlight (0),
    m_regionTree (this),
    m_tabWidth (8),
@@ -585,6 +589,7 @@ void KateBuffer::clear()
   // reset the state
   m_binary = false;
   m_brokenUTF8 = false;
+  m_mimeTypeForFilterDev = "text/plain";
 
   m_lineHighlightedMax = 0;
   m_lineHighlighted = 0;
@@ -674,6 +679,9 @@ bool KateBuffer::openFile (const QString &m_file)
   // broken utf-8?
   m_brokenUTF8 = file.brokenUTF8();
   
+  // remember mime type for filter device
+  m_mimeTypeForFilterDev = file.mimeTypeForFilterDev ();
+  
   kDebug (13020) << "Broken UTF-8: " << m_brokenUTF8;
 
   kDebug (13020) << "LOADING DONE " << t.elapsed();
@@ -707,17 +715,19 @@ bool KateBuffer::canEncode ()
 
 bool KateBuffer::saveFile (const QString &m_file)
 {
-  QFile file (m_file);
-  QTextStream stream (&file);
-
-  if ( !file.open( QIODevice::WriteOnly ) )
+  // construct correct filter device
+  QIODevice *file = KFilterDev::deviceForFile (m_file, m_mimeTypeForFilterDev, false);
+  
+  if ( !file->open( QIODevice::WriteOnly ) )
   {
+    delete file;
     return false; // Error
   }
 
   QTextCodec *codec = m_doc->config()->codec();
 
   // disable Unicode headers
+  QTextStream stream (file);
   stream.setCodec(QTextCodec::codecForName("UTF-16"));
 
   // this line sets the mapper to the correct codec
@@ -755,10 +765,15 @@ bool KateBuffer::saveFile (const QString &m_file)
     if ((i+1) < m_lines)
       stream << eol;
   }
-
-  file.close ();
-
-  return (file.error() == QFile::NoError);
+  
+  // flush stream
+  stream.flush ();
+  
+  // close and delete file
+  file->close ();
+  delete file;
+  
+  return stream.status() == QTextStream::Ok;
 }
 
 int KateBuffer::findBlock (int line)

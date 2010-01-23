@@ -325,6 +325,12 @@ class KateBuffer : public QObject
      * binary file loaded ?
      */
     bool m_brokenUTF8;
+    
+    /**
+     * mime-type to chose filter dev for saving
+     * default: text/plain == no compression
+     */
+    QString m_mimeTypeForFilterDev;
 
   /**
    * highlighting & folding relevant stuff

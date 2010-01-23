@@ -13,23 +13,48 @@
 
 # A spec file starts with "Normal" context. Here, you can specify values for some tags:
 Name:                kradioripper-unstable # Note that here in no comment possible!
+# Some tags support only _one_ word as value
+Version:             0.4test5 up-from-the-space-this-is-an-error
 # Some tag can have parameters: Any char in paranthesis:
 Summary:             Recorder for internet radios (based on Streamripper)  
 Summary(de.UTF-8):   Aufnahmeprogramm für Internetradios (basiert auf Streamripper)
+# requiere free text:
+License:             License 1 2 3
+# requiere a well defines value:
 Requires( / (  = ):  Some value
+# new type "switch" accepts: yes, no, 0, 1
+AutoReq: yes
+AutoReq: no
+AutoReq: 0
+AutoReq: 1
+# requiere a number:
+Epoch:               123123
 # If tags are used that are not known, they are not highlighted:
 Invalidtag:          Some value
   
 # You can use conditions in specs (highlighted with region markers):
 %if 0%{?mandriva_version}  
+# numbers and strings are distingished: string:
+%if lsdksfj
+# number:
+%if 23472398
+# string:
+%if lksdjfsl72939
+# invalid:
+%if 92437lsdkfjdsl
+# valid:
+%if "lsdfj ksdf 3489"
 Release:             %mkrel 1.2
 %else  
 Release:             0  
 %endif  
+# requiere a well defined value:
+%ifos fixed_value
 # You must use these special macros (%%if etc.) always at the start of the line - if not,
-# that's an error. You must also always use the specified form. Everything else is an
+# that's bad but not an arror. You must also always use the specified form. Everything else is an
 # error:
  %if
+something %if
 %{if}
 %if(some options)
 # However, this are different macros and therefore correct:
@@ -37,10 +62,23 @@ Release:             0
 %{ifx}
 %ifx(some options)
 
+# the \ is escaped in the line. At the end of the line it escapes the line break:
+echo This is \" a text \\ and here\
+it continues.
+
+%define name value
+%define invalid_näme value
+%global name value
+%global invalid_näme value
+%undefine name
+%undefine name too-many-parameters
+
 # This special comment is treated and highlighted like a tag:
 # norootforbuild  
 # It can't have parameters, so every following non-whitespace character is an error:
 # norootforbuild  DONT WRITE ANYTHING HERE!
+# wrong spacing is also recognized:
+#  norootforbuild
   
 # This following "Conflicts" tag will be removed by set-version.sh,  
 # if it is a "kradioripper" release (and not a "kradioripper-unstable" release)...  
@@ -160,6 +198,8 @@ rm -rf "%{buildroot}"
 * Mon Sep 32 2003 bad day
 * Mon Sep 08 03 bad year
 * Mon Sep 08 2003 Name
+# When using macros, the error check is disabled:
+* %myDataMacro Title of the entry
 - Text
     - can
         - be

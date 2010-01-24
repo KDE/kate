@@ -100,7 +100,7 @@ void KateScriptManager::collect(const QString& resourceFile,
   m_commandLineScriptMap.clear();
 
   // iterate through the files and read info out of cache or file
-  foreach(const QString fileName, list) {
+  foreach(const QString &fileName, list) {
     // get abs filename....
     QFileInfo fi(fileName);
     const QString absPath = fi.absoluteFilePath();
@@ -212,7 +212,7 @@ void KateScriptManager::collect(const QString& resourceFile,
           continue;
         }
         KateCommandLineScript* script = new KateCommandLineScript(fileName, header);
-        foreach (const QString function, header.functions()) {
+        foreach (const QString &function, header.functions()) {
           m_commandLineScriptMap.insert(function, script);
         }
         m_commandLineScripts.push_back(script);

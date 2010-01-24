@@ -263,7 +263,7 @@ void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::Inv
 
 void KateCompletionWidget::deleteCompletionRanges()
 {
-  foreach(CompletionRange r, m_completionRanges)
+  foreach(const CompletionRange &r, m_completionRanges)
     delete r.range;
   m_completionRanges.clear();
 }

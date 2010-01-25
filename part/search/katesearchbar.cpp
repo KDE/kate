@@ -309,11 +309,11 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
         switch (matchResult) {
         case MatchFound: // FALLTHROUGH
         case MatchNothing:
-            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText);
+            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
             m_incUi->status->setText("");
             break;
         case MatchWrapped:
-            KColorScheme::adjustForeground(foreground, KColorScheme::ActiveText, QPalette::WindowText);
+            KColorScheme::adjustForeground(foreground, KColorScheme::ActiveText, QPalette::WindowText, KColorScheme::Window);
             if(m_searchDirection == SearchBackward) {
                 m_incUi->status->setText(i18n("Reached top, continued from bottom"));
             } else {
@@ -321,7 +321,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
             }
             break;
         case MatchMismatch:
-            KColorScheme::adjustForeground(foreground, KColorScheme::NegativeText, QPalette::WindowText);
+            KColorScheme::adjustForeground(foreground, KColorScheme::NegativeText, QPalette::WindowText, KColorScheme::Window);
             m_incUi->status->setText(i18n("Not found"));
             break;
         case MatchNeutral:

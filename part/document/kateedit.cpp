@@ -164,12 +164,12 @@ void KateEditHistory::doEdit(KateEditInfo* edit) {
 
 QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) const
 {
-  QMutexLocker lock(&m_mutex);
-
   QList<KateEditInfo*> ret;
 
   if (from == -1)
     return ret;
+
+  QMutexLocker lock(&m_mutex);
 
   if (m_edits.isEmpty())
     return ret;

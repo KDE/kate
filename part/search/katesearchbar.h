@@ -176,6 +176,7 @@ private:
     QAction * m_incMenuFromCursor;
     QAction * m_incMenuHighlightAll;
     KTextEditor::Cursor m_incInitCursor;
+    SearchDirection m_searchDirection; // For use in indicateMatch()
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;

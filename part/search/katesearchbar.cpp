@@ -304,16 +304,24 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
     }
 
     // Update status label
+    QPalette foreground(m_incUi->status->palette());
     if (m_incUi != NULL) {
         switch (matchResult) {
         case MatchFound: // FALLTHROUGH
         case MatchNothing:
+            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText);
             m_incUi->status->setText("");
             break;
         case MatchWrapped:
-            m_incUi->status->setText(i18n("Reached bottom, continued from top"));
+            KColorScheme::adjustForeground(foreground, KColorScheme::ActiveText, QPalette::WindowText);
+            if(m_searchDirection == SearchBackward) {
+                m_incUi->status->setText(i18n("Reached top, continued from bottom"));
+            } else {
+                m_incUi->status->setText(i18n("Reached bottom, continued from top"));
+            }
             break;
         case MatchMismatch:
+            KColorScheme::adjustForeground(foreground, KColorScheme::NegativeText, QPalette::WindowText);
             m_incUi->status->setText(i18n("Not found"));
             break;
         case MatchNeutral:
@@ -323,6 +331,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
     }
 
     lineEdit->setPalette(background);
+    m_incUi->status->setPalette(foreground);
 }
 
 
@@ -640,6 +649,10 @@ void KateSearchBar::onReturnPressed() {
 
 
 bool KateSearchBar::find(SearchDirection searchDirection, const QString * replacement) {
+
+    // Store search direction for proper visual feedback on top/bottom wraps
+    m_searchDirection = searchDirection;
+
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error

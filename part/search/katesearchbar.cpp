@@ -277,7 +277,8 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
     switch (matchResult) {
     case MatchFound:  // FALLTHROUGH
-    case MatchWrapped:
+    case MatchWrappedForward:
+    case MatchWrappedBackward:
         // Green background for line edit
         KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
         break;
@@ -312,9 +313,10 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
             KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
             m_incUi->status->setText("");
             break;
-        case MatchWrapped:
+        case MatchWrappedForward:
+        case MatchWrappedBackward:
             KColorScheme::adjustForeground(foreground, KColorScheme::ActiveText, QPalette::WindowText, KColorScheme::Window);
-            if(m_searchDirection == SearchBackward) {
+            if (matchResult == MatchWrappedBackward) {
                 m_incUi->status->setText(i18n("Reached top, continued from bottom"));
             } else {
                 m_incUi->status->setText(i18n("Reached bottom, continued from top"));
@@ -524,7 +526,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 nonstatic_selectRange(view(), match2);
-                indicateMatch(MatchWrapped);
+                indicateMatch(MatchWrappedForward);
                 found = true;
             } else {
                 indicateMatch(MatchMismatch);
@@ -649,10 +651,6 @@ void KateSearchBar::onReturnPressed() {
 
 
 bool KateSearchBar::find(SearchDirection searchDirection, const QString * replacement) {
-
-    // Store search direction for proper visual feedback on top/bottom wraps
-    m_searchDirection = searchDirection;
-
     // What to find?
     if (searchPattern().isEmpty()) {
         return false; // == Pattern error
@@ -777,7 +775,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
                 nonstatic_selectRange2(view(), match3);
                 found = true;
             }
-            indicateMatch(MatchWrapped);
+            indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
         } else {
             indicateMatch(MatchMismatch);
         }

@@ -304,8 +304,8 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
     }
 
     // Update status label
-    QPalette foreground(m_incUi->status->palette());
     if (m_incUi != NULL) {
+        QPalette foreground(m_incUi->status->palette());
         switch (matchResult) {
         case MatchFound: // FALLTHROUGH
         case MatchNothing:
@@ -328,10 +328,10 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
             /* do nothing */
             break;
         }
+        m_incUi->status->setPalette(foreground);
     }
 
     lineEdit->setPalette(background);
-    m_incUi->status->setPalette(foreground);
 }
 
 

@@ -44,6 +44,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QToolButton>
+
 //END Includes
 
 
@@ -71,6 +72,12 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_dirOperator->setView(KFile::/* Simple */Detail);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+
+  // Mime filter for the KDirOperator 
+  QStringList filter;
+  filter << "text/plain" << "text/html" << "inode/directory";
+  m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
+
   setFocusProxy(m_dirOperator);
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
           this, SLOT(selectorViewChanged(QAbstractItemView *)));

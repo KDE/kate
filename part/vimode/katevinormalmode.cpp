@@ -835,6 +835,11 @@ bool KateViNormalMode::commandChange()
 
   commandEnterInsertMode();
 
+  // correct indentation level
+  if ( linewise ) {
+    m_view->align();
+  }
+
   return true;
 }
 
@@ -868,6 +873,9 @@ bool KateViNormalMode::commandChangeLine()
 
   // ... then enter insert mode
   commandEnterInsertModeAppend();
+
+  // correct indentation level
+  m_view->align();
 
   return true;
 }

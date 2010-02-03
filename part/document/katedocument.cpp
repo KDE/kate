@@ -5524,9 +5524,12 @@ void KateDocument::replaceCharactersByEncoding(const KTextEditor::Range& range)
 
 KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::HighlightInterface::DefaultStyle ds) const
 {
-  ///TODO: should this maybe be put into the View until the glory day the renderer does not require a View?
+  ///TODO: move attributes to document, they are not view-dependant
   KateView* view = activeKateView();
-  Q_ASSERT(view);
+  if ( !view ) {
+    kWarning() << "ATTENTION: cannot access defaultStyle() without any View (will be fixed eventually)";
+    return KTextEditor::Attribute::Ptr(0);
+  }
 
   KateAttributeList list;
   return highlight()->attributes(view->renderer()->config()->schema()).at(ds);
@@ -5534,12 +5537,15 @@ KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::Highli
 
 QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttributes(const unsigned int line)
 {
-  ///TODO: should this maybe be put into the View until the glory day the renderer does not require a View?
+  ///TODO: move attributes to document, they are not view-dependant
 
   QList< KTextEditor::HighlightInterface::AttributeBlock > attribs;
 
   KateView* view = activeKateView();
-  Q_ASSERT(view);
+  if ( !view ) {
+    kWarning() << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
+    return attribs;
+  }
 
   KateTextLine::Ptr kateLine = kateTextLine(line);
 

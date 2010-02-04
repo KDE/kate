@@ -295,12 +295,12 @@ void KateTemplateHandler::setCurrentRange(SmartRange* range)
 }
 
 /**
- * Returns an attribute with \p color as background with 0x88 alpha value.
+ * Returns an attribute with \p color as background with @p alpha alpha value.
  */
-Attribute::Ptr getAttribute(QColor color)
+Attribute::Ptr getAttribute(QColor color, int alpha = 230)
 {
   Attribute::Ptr attribute(new Attribute());
-  color.setAlpha(0x88);
+  color.setAlpha(alpha);
   attribute->setBackground(QBrush(color));
   return attribute;
 }
@@ -433,12 +433,12 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   Attribute::Ptr editableAttribute = getAttribute(config->templateEditablePlaceholderColor());
   editableAttribute->setDynamicAttribute(
-      Attribute::ActivateCaretIn, getAttribute(config->templateFocusedEditablePlaceholderColor())
+      Attribute::ActivateCaretIn, getAttribute(config->templateFocusedEditablePlaceholderColor(), 255)
   );
 
   Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor());
 
-  m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor()));
+  m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor(), 200));
   m_doc->addHighlightToDocument(m_wholeTemplateRange, true);
 
   // create smart ranges for each found variable

@@ -144,6 +144,13 @@ class KateTemplateHandler: public QObject
     void syncMirroredRanges(KTextEditor::SmartRange* range);
 
     /**
+     * Jumps to the final cursor position. This is either \p m_finalCursorPosition, or
+     * if that is not set, the end of \p m_templateRange.
+     */
+    void jumpToFinalCursorPosition();
+
+  private Q_SLOTS:
+    /**
      * Cleans up the template handler and deletes it.
      *
      * We cannot always do that blindly in the dtor, as it would crash
@@ -152,13 +159,6 @@ class KateTemplateHandler: public QObject
      */
     void cleanupAndExit();
 
-    /**
-     * Jumps to the final cursor position. This is either \p m_finalCursorPosition, or
-     * if that is not set, the end of \p m_templateRange.
-     */
-    void jumpToFinalCursorPosition();
-
-  private Q_SLOTS:
     /**
      * Saves the range of the inserted template. This is required since
      * tabs could get expanded on insert. While we are at it, we can

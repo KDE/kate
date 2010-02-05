@@ -49,6 +49,9 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
+  connect(m_doc, SIGNAL(aboutToReload(KTextEditor::Document*)),
+          this, SLOT(cleanupAndExit()));
+
   connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
           this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
 

@@ -55,6 +55,8 @@ void KateSmartRegion::calculateBounds( )
     else
       *m_bounding = m_bounding->encompass(*range);
   }
+
+  m_bounding->setInternal();
 }
 
 

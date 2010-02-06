@@ -27,13 +27,16 @@
 #include <QPair>
 #include <QString>
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/rangefeedback.h>
-#include <sonnet/backgroundchecker.h>
+#include <ktexteditor/range.h>
+#include <ktexteditor/smartrangewatcher.h>
+
 #include <sonnet/speller.h>
 
 #include "katedocument.h"
-#include "kateview.h"
+
+namespace Sonnet {
+  class BackgroundChecker;
+}
 
 class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatcher {
   Q_OBJECT

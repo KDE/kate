@@ -25,20 +25,15 @@
 #include "ontheflycheck.h"
 
 #include <QMutex>
-#include <QHash>
 #include <QTimer>
-#include <QThread>
 
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/smartrange.h>
-#include <ktexteditor/view.h>
-#include <sonnet/speller.h>
 
 #include "kateconfig.h"
 #include "kateglobal.h"
-#include "katehighlight.h"
 #include "katerenderer.h"
-#include "katetextline.h"
+#include "kateview.h"
 #include "spellcheck.h"
 #include "spellingmenu.h"
 

@@ -63,9 +63,8 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
           this, SLOT(updateConfig()));
   connect(document, SIGNAL(respellCheckBlock(KateDocument*, int, int)), 
           this, SLOT(handleRespellCheckBlock(KateDocument*, int, int)));
-  const QList<KTextEditor::View*>& views = document->views();
-  for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
-    addView(document, *i);
+  foreach(KTextEditor::View* view, document->views()) {
+    addView(document, view);
   }
   refreshSpellCheck();
 }
@@ -84,9 +83,7 @@ int KateOnTheFlyChecker::debugArea()
 QPair<KTextEditor::Range, QString> KateOnTheFlyChecker::getMisspelledItem(const KTextEditor::Cursor &cursor) const
 {
   QMutexLocker smartLock(m_document->smartMutex());
-  const MisspelledList& misspelledList = m_misspelledList;
-  for(MisspelledList::const_iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
-    MisspelledItem item = *i;
+  foreach(const MisspelledItem &item, m_misspelledList) {
     KTextEditor::SmartRange *smartRange = item.first;
     if(smartRange->contains(cursor)) {
       return QPair<KTextEditor::Range, QString>(*smartRange, item.second);
@@ -98,9 +95,7 @@ QPair<KTextEditor::Range, QString> KateOnTheFlyChecker::getMisspelledItem(const 
 QString KateOnTheFlyChecker::dictionaryForMisspelledRange(const KTextEditor::Range& range) const
 {
   QMutexLocker smartLock(m_document->smartMutex());
-  const MisspelledList& misspelledList = m_misspelledList;
-  for(MisspelledList::const_iterator i = misspelledList.constBegin(); i != misspelledList.constEnd(); ++i) {
-    MisspelledItem item = *i;
+  foreach(const MisspelledItem &item, m_misspelledList) {
     KTextEditor::SmartRange *smartRange = item.first;
     if(*smartRange == range) {
       return item.second;
@@ -113,8 +108,7 @@ void KateOnTheFlyChecker::clearMisspellingForWord(const QString& word)
 {
   QMutexLocker smartLock(m_document->smartMutex());
   MisspelledList misspelledList = m_misspelledList; // make a copy
-  for(MisspelledList::const_iterator i = misspelledList.constBegin(); i != misspelledList.constEnd(); ++i) {
-    MisspelledItem item = *i;
+  foreach(const MisspelledItem &item, misspelledList) {
     KTextEditor::SmartRange *smartRange = item.first;
     if(m_document->text(*smartRange) == word) {
       delete(smartRange);
@@ -160,10 +154,9 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
   if(documentIntersection.isEmpty()) {
     return;
   }
-  const QList<KTextEditor::View*>& viewList = m_document->views();
   // for performance reasons we only want to schedule spellchecks for ranges that are visible
-  for(QList<KTextEditor::View*>::const_iterator i = viewList.begin(); i != viewList.end(); ++i) {
-    KateView *view = static_cast<KateView*>(*i);
+  foreach(KTextEditor::View* i, m_document->views()) {
+    KateView *view = static_cast<KateView*>(i);
     KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
     if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
       // we don't handle this directly as the highlighting information might not be up-to-date yet
@@ -265,10 +258,9 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
   }
   QMutexLocker smartLock(m_document->smartMutex());
 
-  const QList<KTextEditor::View*>& viewList = m_document->views();
   // for performance reasons we only want to schedule spellchecks for ranges that are visible
-  for(QList<KTextEditor::View*>::const_iterator i = viewList.begin(); i != viewList.end(); ++i) {
-    KateView *view = static_cast<KateView*>(*i);
+  foreach(KTextEditor::View *i, m_document->views()) {
+    KateView *view = static_cast<KateView*>(i);
     KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
     if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
       // we don't handle this directly as the highlighting information might not be up-to-date yet
@@ -392,8 +384,8 @@ void KateOnTheFlyChecker::freeDocument()
   stopCurrentSpellCheck();
 
   MisspelledList misspelledList = m_misspelledList; // make a copy!
-  for(MisspelledList::iterator i = misspelledList.begin(); i != misspelledList.end(); ++i) {
-    delete((*i).first);
+  foreach(const MisspelledItem &i, misspelledList) {
+    delete(i.first);
   }
   m_misspelledList.clear();
   clearModificationList();
@@ -739,9 +731,7 @@ QList<KTextEditor::SmartRange*> KateOnTheFlyChecker::installedSmartRanges(const 
   SmartRangeList toReturn;
 
   m_document->smartMutex()->lock();
-  const SmartRangeList& smartRangeList = m_document->documentHighlights();
-  for(SmartRangeList::const_iterator j = smartRangeList.begin(); j != smartRangeList.end(); ++j) {
-    KTextEditor::SmartRange *smartRange = *j;
+  foreach(KTextEditor::SmartRange *smartRange, m_document->documentHighlights()) {
     if (m_myranges.contains(smartRange)) { //JOWENN
       if(smartRange->overlaps(range)) {
         toReturn.push_back(smartRange);
@@ -832,14 +822,12 @@ void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
   KTextEditor::Range newDisplayRange = view->visibleRange();
   ON_THE_FLY_DEBUG << "new range: " << newDisplayRange;
   ON_THE_FLY_DEBUG << "old range: " << oldDisplayRange;
-  const QList<KTextEditor::View*>& viewList = m_document->views();
-  for(MisspelledList::iterator it = m_misspelledList.begin(); it != m_misspelledList.end(); ++it) {
-    KTextEditor::SmartRange *smartRange = (*it).first;
+  foreach(const MisspelledItem &item, m_misspelledList) {
+    KTextEditor::SmartRange *smartRange = item.first;
     if(!smartRange->overlaps(newDisplayRange)) {
       bool stillVisible = false;
-      for(QList<KTextEditor::View*>::const_iterator it2 = viewList.begin();
-                                                   it2 != viewList.end(); ++it2) {
-        KateView *view2 = static_cast<KateView*>(*it2);
+      foreach(KTextEditor::View *it2, m_document->views()) {
+        KateView *view2 = static_cast<KateView*>(it2);
         if(view != view2 && smartRange->overlaps(view2->visibleRange())) {
           stillVisible = true;
           break;
@@ -857,9 +845,8 @@ void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
     for(int line = newDisplayRange.end().line(); line >= newDisplayRange.start().line(); --line) {
       if(!oldDisplayRange.containsLine(line)) {
         bool visible = false;
-        for(QList<KTextEditor::View*>::const_iterator it2 = viewList.begin();
-                                                    it2 != viewList.end(); ++it2) {
-          KateView *view2 = static_cast<KateView*>(*it2);
+        foreach(KTextEditor::View *it2, m_document->views()) {
+          KateView *view2 = static_cast<KateView*>(it2);
           if(view != view2 && view2->visibleRange().containsLine(line)) {
             visible = true;
             break;
@@ -1035,8 +1022,7 @@ void KateOnTheFlyChecker::deleteEliminatedRanges()
 
 void KateOnTheFlyChecker::handleModifiedRanges()
 {
-  for(ModificationList::iterator i = m_modificationList.begin(); i != m_modificationList.end(); ++i) {
-    ModificationItem item = *i;
+  foreach(const ModificationItem &item, m_modificationList) {
     QMutexLocker smartLock(m_document->smartMutex());
     KTextEditor::SmartRange *smartRange = item.second;
     KTextEditor::Range range = *smartRange;
@@ -1072,9 +1058,7 @@ bool KateOnTheFlyChecker::removeRangeFromModificationList(KTextEditor::SmartRang
 
 void KateOnTheFlyChecker::clearModificationList()
 {
-  for(ModificationList::iterator i = m_modificationList.begin(); i != m_modificationList.end(); ++i) {
-    ModificationItem item = *i;
-
+  foreach(const ModificationItem &item, m_modificationList) {
     QMutexLocker smartLock(m_document->smartMutex());
     KTextEditor::SmartRange *smartRange = item.second;
     smartRange->removeWatcher(this);

@@ -456,8 +456,8 @@ void KateSpellCheckConfigTab::showWhatsThis(const QString& text)
 
 void KateSpellCheckConfigTab::apply()
 {
-// nothing changed, no need to apply stuff
   if (!hasChanged()) {
+    // nothing changed, no need to apply stuff
     return;
   }
   m_changed = false;
@@ -465,10 +465,8 @@ void KateSpellCheckConfigTab::apply()
   KateDocumentConfig::global()->configStart();
   m_sonnetConfigWidget->save();
   KateDocumentConfig::global()->configEnd();
-  const QList<KateDocument*>& kateDocumentList = KateGlobal::self()->kateDocuments();
-  for (QList<KateDocument*>::const_iterator it = kateDocumentList.begin();
-       it != kateDocumentList.end(); ++it) {
-    (*it)->refreshOnTheFlyCheck();
+  foreach (KateDocument *doc, KateGlobal::self()->kateDocuments()) {
+    doc->refreshOnTheFlyCheck();
   }
 }
 

@@ -836,14 +836,6 @@ void KateOnTheFlyChecker::removeView(KTextEditor::View *view)
   m_displayRangeMap.remove(view);
 }
 
-void KateOnTheFlyChecker::updateInstalledSmartRanges()
-{
-  const QList<KTextEditor::View*>& views = m_document->views();
-  for(QList<KTextEditor::View*>::const_iterator i = views.begin(); i != views.end(); ++i) {
-    updateInstalledSmartRanges(static_cast<KateView*>(*i));
-  }
-}
-
 void KateOnTheFlyChecker::updateInstalledSmartRanges(KateView *view)
 {
   ON_THE_FLY_DEBUG;

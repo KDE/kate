@@ -1098,7 +1098,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
       QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges() const;
       bool isOnTheFlySpellCheckingEnabled() const;
 
-      QPair<KTextEditor::Range, QString> onTheFlyMisspelledItem(const KTextEditor::Cursor &cursor) const;
       QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
       void clearMisspellingForWord(const QString& word);
 

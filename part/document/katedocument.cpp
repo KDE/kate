@@ -5315,16 +5315,6 @@ bool KateDocument::isOnTheFlySpellCheckingEnabled() const
   return m_onTheFlyChecker != 0;
 }
 
-QPair<KTextEditor::Range, QString> KateDocument::onTheFlyMisspelledItem(const KTextEditor::Cursor &cursor) const
-{
-  if (!m_onTheFlyChecker)
-  {
-    return QPair<KTextEditor::Range, QString>(KTextEditor::Range::invalid(), QString());
-  } else {
-    return m_onTheFlyChecker->getMisspelledItem(cursor);
-  }
-}
-
 QString KateDocument::dictionaryForMisspelledRange(const KTextEditor::Range& range) const
 {
   if (!m_onTheFlyChecker)

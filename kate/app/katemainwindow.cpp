@@ -398,27 +398,27 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionNew() ) );
   a = actionCollection()->addAction( "sessions_open" );
   a->setIcon( KIcon("document-open") );
-  a->setText( i18n("&Open...") );
+  a->setText( i18n("&Open Session") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionOpen() ) );
   a = actionCollection()->addAction( "sessions_save" );
   a->setIcon( KIcon("document-save") );
-  a->setText( i18n("&Save") );
+  a->setText( i18n("&Save Session") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSave() ) );
   a = actionCollection()->addAction( "sessions_save_as" );
   a->setIcon( KIcon("document-save-as") );
-  a->setText( i18n("Save &As...") );
+  a->setText( i18n("Save Session &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
   a = actionCollection()->addAction( "sessions_save_default" );
   a->setIcon( KIcon("document-save-as") );
-  a->setText( i18n("Save as &Default...") );
+  a->setText( i18n("Save Session as &Default...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAsDefault() ) );
   a = actionCollection()->addAction( "sessions_manage" );
   a->setIcon( KIcon("view-choose") );
-  a->setText( i18n("&Manage...") );
+  a->setText( i18n("&Manage Sessions...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionManage() ) );
 
   // quick open menu ;)
-  a = new KateSessionsAction (i18n("&Quick Open"), this);
+  a = new KateSessionsAction (i18n("&Quick Open Session"), this);
   actionCollection()->addAction("sessions_list", a);
 }
 

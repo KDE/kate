@@ -114,7 +114,7 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
 {
   QMap<QString, QString> enhancedInitValues( initialValues );
 
-  QRegExp rx( "[$%]\\{([^}\\s]+)\\}" );
+  QRegExp rx( "[$%]\\{([^}\\r\\n]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
   int offset;

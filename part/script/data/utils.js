@@ -1,5 +1,5 @@
 /* kate-script
- * author: Dominik Haumann <dhdev@gmx.de>
+ * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
  * license: LGPL
  * revision: 2
  * kate-version: 3.4

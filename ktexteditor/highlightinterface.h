@@ -134,9 +134,9 @@ class KTEXTEDITOR_EXPORT HighlightInterface
      *
      * \return Returns a list of embedded highlighting modes for the current Document.
      *
-     * \see KTextEditor::Document::mode()
+     * \see KTextEditor::Document::highlightingMode()
      */
-    virtual QStringList embeddedModes() const = 0;
+    virtual QStringList embeddedHighlightingModes() const = 0;
 
     /**
      * \brief Get the highlight mode used at a given position in the document.
@@ -144,12 +144,12 @@ class KTEXTEDITOR_EXPORT HighlightInterface
      * Retrieve the name of the applied highlight mode at a given \p position
      * in the current document.
      *
-     * \see modes()
+     * \see highlightingModes()
      *
      * TODO: I intended to make this const but Kate's implementation needs to
      * call kateTextline which is non-const. Solution?
      */
-    virtual QString modeAt(const Cursor &position) = 0;
+    virtual QString highlightingModeAt(const Cursor &position) = 0;
 };
 
 }

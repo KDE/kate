@@ -1070,8 +1070,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   public:
     virtual KTextEditor::Attribute::Ptr defaultStyle(const KTextEditor::HighlightInterface::DefaultStyle ds) const;
     virtual QList< KTextEditor::HighlightInterface::AttributeBlock > lineAttributes(const unsigned int line);
-    virtual QStringList embeddedModes() const;
-    virtual QString modeAt(const KTextEditor::Cursor& position);
+    virtual QStringList embeddedHighlightingModes() const;
+    virtual QString highlightingModeAt(const KTextEditor::Cursor& position);
 
   protected Q_SLOTS:
       void dumpRegionTree();

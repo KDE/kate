@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2008-2009 by Michel Ludwig (michel.ludwig@kdemail.net)
+ * Copyright (C) 2008-2010 by Michel Ludwig (michel.ludwig@kdemail.net)
  * Copyright (C) 2009 by Joseph Wenninger (jowenn@kde.org)
  *
  *  This library is free software; you can redistribute it and/or
@@ -422,6 +422,10 @@ void KateOnTheFlyChecker::performSpellCheck()
                                               m_currentDecToEncOffsetList,
                                               encToDecOffsetList);
   ON_THE_FLY_DEBUG << "next spell checking" << text;
+  if(text.isEmpty()) { // passing an empty string to Sonnet can lead to a bad allocation exception
+    spellCheckDone();  // (bug 225867)
+    return;
+  }
   if(m_speller.language() != language) {
     m_speller.setLanguage(language);
   }

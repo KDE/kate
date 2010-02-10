@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2008-2009 by Michel Ludwig (michel.ludwig@kdemail.net)
+ * Copyright (C) 2008-2010 by Michel Ludwig (michel.ludwig@kdemail.net)
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -174,7 +174,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
       const int start = (line == startLine) ? startColumn : 0;
       const int end = (line == endLine) ? endColumn : kateTextLine->length();
       const KTextEditor::Cursor startCursor();
-      for(int i = start; i < end; ++i) {
+      for(int i = start; i < end;) { // WARNING: 'i' has to be incremented manually!
         int attr = kateTextLine->attribute(i);
         const KatePrefixStore& prefixStore = highlighting->getCharacterEncodingsPrefixStore(attr);
         QString prefixFound = prefixStore.findPrefix(kateTextLine, i);
@@ -182,6 +182,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
         if(!document->highlight()->attributeRequiresSpellchecking(attribute)
            && prefixFound.isEmpty()) {
           if(i == start) {
+            ++i;
             continue;
           }
           else if(inSpellCheckArea) {
@@ -204,6 +205,9 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
         }
         if(!prefixFound.isEmpty()) {
           i += prefixFound.length();
+        }
+        else {
+          ++i;
         }
       }
     }

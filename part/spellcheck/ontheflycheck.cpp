@@ -151,14 +151,14 @@ void KateOnTheFlyChecker::textInserted(KTextEditor::Document *document, const KT
   QMutexLocker smartLock(m_document->smartMutex());
   // don't consider a range that is not within the document range
   const KTextEditor::Range documentIntersection = m_document->documentRange().intersect(range);
-  if(documentIntersection.isEmpty()) {
+  if(!documentIntersection.isValid()) {
     return;
   }
   // for performance reasons we only want to schedule spellchecks for ranges that are visible
   foreach(KTextEditor::View* i, m_document->views()) {
     KateView *view = static_cast<KateView*>(i);
     KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
-    if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
+    if(visibleIntersection.isValid()) { // allow empty intersections
       // we don't handle this directly as the highlighting information might not be up-to-date yet
       KTextEditor::SmartRange *smartRange = m_document->newSmartRange(visibleIntersection);
       smartRange->addWatcher(this);

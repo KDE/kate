@@ -253,8 +253,8 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
 
   // don't consider a range that is behind the end of the document
   const KTextEditor::Range documentIntersection = m_document->documentRange().intersect(range);
-  if(documentIntersection.isEmpty()) {
-    return;
+  if(!documentIntersection.isValid()) { // the intersection might however be empty if the last
+    return;                             // word has been removed, for example
   }
   QMutexLocker smartLock(m_document->smartMutex());
 
@@ -262,7 +262,7 @@ void KateOnTheFlyChecker::textRemoved(KTextEditor::Document *document, const KTe
   foreach(KTextEditor::View *i, m_document->views()) {
     KateView *view = static_cast<KateView*>(i);
     KTextEditor::Range visibleIntersection = documentIntersection.intersect(view->visibleRange());
-    if(visibleIntersection.isValid() && !visibleIntersection.isEmpty()) {
+    if(visibleIntersection.isValid()) { // see above
       // we don't handle this directly as the highlighting information might not be up-to-date yet
       KTextEditor::SmartRange *smartRange = m_document->newSmartRange(visibleIntersection);
       smartRange->addWatcher(this);

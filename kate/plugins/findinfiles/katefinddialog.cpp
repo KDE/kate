@@ -150,7 +150,7 @@ void KateFindDialog::slotSearch()
   QRegExp reg (cmbPattern->currentText()
     , chkCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive
     , chkRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
-    
+
   QList<QRegExp> liste;
   liste << reg;
 
@@ -213,7 +213,8 @@ void KateFindDialog::setUrl(const QString& url)
 
 void KateFindDialog::setFilter(const QString& filter)
 {
-  cmbFilter->setEditText(filter);
+  if (!filter.isEmpty())
+    cmbFilter->setEditText(filter);
 }
 
 void KateFindDialog::setOptions(const KateFindInFilesOptions& options)

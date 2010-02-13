@@ -132,9 +132,6 @@ class KateScriptManager : public QObject, public KTextEditor::Command
 
     /** Map of language to indent scripts */
     QHash<QString, QVector<KateIndentScript*> > m_languageToIndenters;
-
-    /** Command line map to scripts */
-    QHash<QString, KateCommandLineScript*> m_commandLineScriptMap;
 };
 
 

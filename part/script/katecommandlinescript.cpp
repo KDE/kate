@@ -25,11 +25,18 @@
 
 #include "katedocument.h"
 #include "kateview.h"
+#include "katecmd.h"
 
 KateCommandLineScript::KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header)
   : KateScript(url)
   , m_header(header)
 {
+  KateCmd::self()->registerCommand (this);
+}
+
+KateCommandLineScript::~KateCommandLineScript()
+{
+  KateCmd::self()->unregisterCommand (this);
 }
 
 const KateCommandLineScriptHeader& KateCommandLineScript::header()
@@ -63,6 +70,27 @@ bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList a
 
   return true;
 }
+
+const QStringList &KateCommandLineScript::cmds ()
+{
+  return m_header.functions();
+}
+
+bool KateCommandLineScript::exec (KTextEditor::View *view, const QString &_cmd, QString &errorMsg)
+{
+  QStringList args(_cmd.split(QRegExp("\\s+"), QString::SkipEmptyParts));
+  QString cmd(args.first());
+  args.removeFirst();
+
+  if (!view) {
+    errorMsg = i18n("Could not access view");
+    return false;
+  }
+
+  setView(qobject_cast<KateView*>(view));
+  return callFunction(cmd, args, errorMsg);
+}
+
 
 bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QString &msg)
 {

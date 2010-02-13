@@ -23,6 +23,7 @@
 #include "kateview.h"
 
 #include <QtCore/QPair>
+#include <ktexteditor/commandinterface.h>
 
 class KateScriptDocument;
 
@@ -51,15 +52,23 @@ class KateCommandLineScriptHeader : public KateScriptHeader
  * A specialized class for scripts that are of type
  * KateScriptInformation::IndentationScript
  */
-class KateCommandLineScript : public KateScript
+class KateCommandLineScript : public KateScript, public KTextEditor::Command
 {
   public:
     KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header);
+    virtual ~KateCommandLineScript();
 
     const KateCommandLineScriptHeader& header();
 
     bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
-    bool help(KTextEditor::View* view, const QString& cmd, QString &msg);
+
+  //
+  // KTextEditor::Command interface
+  //
+  public:
+    virtual const QStringList &cmds ();
+    virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+    virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 
   private:
     KateCommandLineScriptHeader m_header;

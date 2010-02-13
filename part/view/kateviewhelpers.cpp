@@ -318,12 +318,11 @@ KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
   , m_histpos( 0 )
   , m_cmdend( 0 )
   , m_command( 0L )
-  , m_oldCompletionObject( 0L )
 {
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
 
-  completionObject()->insertItems (KateCmd::self()->commandList());
+  setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
   m_cmdRange.setPattern("^([0-9$]+|\\.([+-]\\d+)?)?,([0-9$]+|\\.([+-]\\d+)?)?");
   m_cmdExpr.setPattern("^(\\d+)([+-])(\\d+)$");
@@ -528,13 +527,11 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   }
 
   // clean up
-  if ( m_oldCompletionObject )
+  if (completionObject() != KateCmd::self()->commandCompletionObject())
   {
     KCompletion *c = completionObject();
-    setCompletionObject( m_oldCompletionObject );
-    m_oldCompletionObject = 0;
+    setCompletionObject(KateCmd::self()->commandCompletionObject());
     delete c;
-    c = 0;
   }
   m_command = 0;
   m_cmdend = 0;
@@ -635,13 +632,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
       else
       {
         // clean up if needed
-        if ( m_oldCompletionObject )
+        if (completionObject() != KateCmd::self()->commandCompletionObject())
         {
           KCompletion *c = completionObject();
-          setCompletionObject( m_oldCompletionObject );
-          m_oldCompletionObject = 0;
+          setCompletionObject(KateCmd::self()->commandCompletionObject());
           delete c;
-          c = 0;
         }
 
         m_cmdend = 0;
@@ -658,12 +653,9 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         KCompletion *cmpl = ce->completionObject( m_view, text().left( m_cmdend ).trimmed() );
         if ( cmpl )
         {
-        // save the old completion object and use what the command provides
-        // instead. We also need to prepend the current command name + flag string
+        // We need to prepend the current command name + flag string
         // when completion is done
           //kDebug(13025)<<"keypress in commandline: Setting completion object!";
-          if ( ! m_oldCompletionObject )
-            m_oldCompletionObject = completionObject();
 
           setCompletionObject( cmpl );
         }

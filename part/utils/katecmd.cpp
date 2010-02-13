@@ -48,6 +48,7 @@ bool KateCmd::registerCommand (KTextEditor::Command *cmd)
   }
 
   m_cmds += l;
+  m_cmdCompletion.insertItems(l);
 
   return true;
 }
@@ -64,6 +65,7 @@ bool KateCmd::unregisterCommand (KTextEditor::Command *cmd)
 
   for ( QStringList::Iterator it1 = l.begin(); it1 != l.end(); ++it1 ) {
     m_dict.remove(*it1);
+    m_cmdCompletion.removeItem(*it1);
     //kDebug(13050)<<"Removed command:"<<*it1;
   }
 
@@ -118,6 +120,11 @@ const QString KateCmd::fromHistory( int index ) const
   if ( index < 0 || index > m_history.count() - 1 )
     return QString();
   return m_history[ index ];
+}
+
+KCompletion* KateCmd::commandCompletionObject()
+{
+  return &m_cmdCompletion;
 }
 //END KateCmd
 

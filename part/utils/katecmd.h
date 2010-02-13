@@ -47,10 +47,13 @@ class KATEPART_TESTS_EXPORT KateCmd
     const QString fromHistory( int i ) const;
     uint historyLength() const { return m_history.count(); }
 
+    KCompletion* commandCompletionObject();
+
   private:
     QHash<QString, KTextEditor::Command *> m_dict;
     QStringList m_cmds;
     QStringList m_history;
+    KCompletion m_cmdCompletion; // shared completion object for all KateCmdLineEdits in each KTE::View
 };
 
 /**

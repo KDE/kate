@@ -73,6 +73,7 @@ install( FILES
     annotationinterface.h
     loadsavefiltercheckplugin.h
     highlightinterface.h
+    modeinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

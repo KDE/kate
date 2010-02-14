@@ -56,6 +56,8 @@
 #include "loadsavefiltercheckplugin.h"
 #include "loadsavefiltercheckplugin.moc"
 
+#include "modeinterface.h"
+
 //#include <kaction.h>
 #include <kparts/factory.h>
 #include <kpluginfactory.h>
@@ -446,6 +448,15 @@ LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }
 
 CoordinatesToCursorInterface::~CoordinatesToCursorInterface() {
 }
+
+
+
+ModeInterface::ModeInterface() {
+}
+
+ModeInterface::~ModeInterface() {
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

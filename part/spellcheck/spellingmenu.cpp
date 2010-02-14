@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 by Michel Ludwig (michel.ludwig@kdemail.net)
+ * Copyright (C) 2009-2010 by Michel Ludwig (michel.ludwig@kdemail.net)
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -37,7 +37,10 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
     m_ignoreWordAction(NULL),
     m_addToDictionaryAction(NULL),
     m_spellingMenu(NULL),
-    m_currentMisspelledRange(NULL),
+    m_currentMisspelledRange(NULL), // we have to use 'm_currentMisspelledRange'
+                                    // as QSignalMapper doesn't work with pairs of objects;
+                                    // it just points to the object pointed to by either
+                                    // 'm_currentMouseMisspelledRange' or 'm_currentCaretMisspelledRange'
     m_currentMouseMisspelledRange(NULL),
     m_currentCaretMisspelledRange(NULL),
     m_useMouseForMisspelledRange(false),
@@ -49,10 +52,10 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
 
 KateSpellingMenu::~KateSpellingMenu()
 {
-  if(m_currentMisspelledRange) {
-    m_currentMisspelledRange->removeWatcher(this);
-    m_currentMisspelledRange = NULL;
-  }
+  m_currentMisspelledRange = NULL; // it shouldn't be accessed anymore as it could
+                                   // point to a non-existing object (bug 226724)
+                                   // (for example, when it pointed to m_currentCaretMisspelledRange
+                                   // and that range got deleted after the caret had left)
   if(m_currentCaretMisspelledRange) {
     m_currentCaretMisspelledRange->removeWatcher(this);
     m_currentCaretMisspelledRange = NULL;

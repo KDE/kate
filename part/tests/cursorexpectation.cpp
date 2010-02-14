@@ -23,6 +23,7 @@
 #include <qtest_kde.h>
 #include <kdebug.h>
 #include <ktexteditor/smartcursor.h>
+#include <ktexteditor/smartcursornotifier.h>
 
 #include "kateregression.h"
 

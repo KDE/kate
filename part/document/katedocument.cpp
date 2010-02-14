@@ -46,7 +46,6 @@
 #include "katesmartmanager.h"
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/loadsavefiltercheckplugin.h>
-#include <ktexteditor/rangefeedback.h>
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"

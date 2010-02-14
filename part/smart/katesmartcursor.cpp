@@ -24,6 +24,8 @@
 #include "katesmartcursornotifier.h"
 #include "katesmartrange.h"
 
+#include <ktexteditor/smartcursorwatcher.h>
+
 #include <kdebug.h>
 
 //#define DEBUG_KATESMARTCURSOR

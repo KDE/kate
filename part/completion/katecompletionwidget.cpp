@@ -35,7 +35,7 @@
 #include <kicon.h>
 #include <kdialog.h>
 
-#include <ktexteditor/cursorfeedback.h>
+#include <ktexteditor/smartcursornotifier.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include "kateview.h"

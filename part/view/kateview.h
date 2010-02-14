@@ -31,7 +31,7 @@
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
-#include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/smartrangewatcher.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 

@@ -21,7 +21,7 @@
 
 #include <QtCore/QBool>
 #include <ktexteditor/cursor.h>
-#include <ktexteditor/cursorfeedback.h>
+#include <ktexteditor/smartcursorwatcher.h>
 
 class CursorExpectation : public QObject, public KTextEditor::SmartCursorWatcher
 {

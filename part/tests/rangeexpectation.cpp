@@ -22,6 +22,7 @@
 
 #include <qtest_kde.h>
 #include <ktexteditor/smartrange.h>
+#include <ktexteditor/smartrangenotifier.h>
 
 #include "kateregression.h"
 

@@ -27,7 +27,7 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include <ktexteditor/attribute.h>
-#include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/smartrangewatcher.h>
 
 #include "katesmartcursor.h"
 #include "katelinelayout.h"

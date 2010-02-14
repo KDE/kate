@@ -29,7 +29,7 @@
 #include "ui_searchbarpower.h"
 
 #include <kactioncollection.h>
-#include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/smartrangenotifier.h>
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>

@@ -37,7 +37,6 @@
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/smartrange.h>
-#include <ktexteditor/rangefeedback.h>
 
 #include <kconfig.h>
 #include <kdialog.h>

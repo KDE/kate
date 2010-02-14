@@ -20,7 +20,7 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/smartinterface.h>
-#include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/smartrangenotifier.h>
 #include <ktexteditor/attribute.h>
 
 #include <QtCore/QTimer>

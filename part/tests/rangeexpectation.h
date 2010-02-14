@@ -22,7 +22,7 @@
 #include <QtCore/QBool>
 
 #include <ktexteditor/range.h>
-#include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/smartrangewatcher.h>
 
 class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
 {

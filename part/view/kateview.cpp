@@ -56,8 +56,6 @@
 #include "spellcheck/spellcheckdialog.h"
 #include "spellcheck/spellingmenu.h"
 
-#include <ktexteditor/cursorfeedback.h>
-
 #include <kparts/event.h>
 
 #include <kconfig.h>

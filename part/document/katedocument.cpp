@@ -787,11 +787,7 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
 
   if ( !block )
   {
-    if ( range.end().line() > lastLine() )
-    {
-      range.end().setPosition(lastLine()+1, 0);
-    }
-
+    // either simple removing of text in one line or cutting lines and unwrap
     if (range.onSingleLine())
     {
       editRemoveText(range.start().line(), range.start().column(), range.columnWidth());
@@ -801,18 +797,17 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
       int from = range.start().line();
       int to = range.end().line();
 
+      // cut text in last line
       if (to <= lastLine())
         editRemoveText(to, 0, range.end().column());
 
-      if (range.start().column() == 0 && from > 0)
-        --from;
+      // cut lines out
+      if ((to - from) > 1)
+        editRemoveLines (from+1, to-1);
 
-      editRemoveLines(from+1, to-1);
-
-      if (range.start().column() > 0 || range.start().line() == 0) {
-        editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
-        editUnWrapLine(from);
-      }
+      // cut text from first line + unwrap
+      editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
+      editUnWrapLine(from);
     }
   } // if ( ! block )
   else

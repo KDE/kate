@@ -4594,6 +4594,13 @@ QString KateDocument::reasonedMOHString() const
 
 void KateDocument::removeTrailingSpace(int line)
 {
+  // if undo/redo is active, never remove trailing spaces, because the undo/redo
+  // action also sets the cursor position. If the trailing spaces are removed,
+  // the cursor position can get invalid (i.e. it is behind the last column).
+  // Then, moving the cursor leads to a crash, see bug #152203.
+  if (!m_undoManager->isUndoTrackingEnabled())
+    return;
+
   // remove trailing spaces from left line if required
   if (m_blockRemoveTrailingSpaces
       || !(config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn))

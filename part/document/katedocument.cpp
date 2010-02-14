@@ -364,7 +364,7 @@ KTextEditor::Range KateDocument::rangeOnLine(KTextEditor::Range range, int line)
   KateTextLine::Ptr tl = const_cast<KateDocument*>(this)->kateTextLine(line);
   col1 = tl->fromVirtualColumn(col1, config()->tabWidth());
   col2 = tl->fromVirtualColumn(col2, config()->tabWidth());
-  
+
   return KTextEditor::Range(line, col1, line, col2);
 }
 
@@ -2692,11 +2692,23 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
       if (!bracketInserted && (config()->configFlags() & KateDocumentConfig::cfAutoBrackets))
       {
-        if (ch == '(') { bracketInserted = true; buf.append (')'); }
-        if (ch == '[') { bracketInserted = true; buf.append (']'); }
-        if (ch == '{') { bracketInserted = true; buf.append ('}'); }
-        if (ch == '"') { bracketInserted = true; buf.append ('"'); }
-        if (ch == '\'') { bracketInserted = true; buf.append ('\''); }
+        QChar end_ch;
+
+        if (ch == '(') { end_ch = ')'; }
+        if (ch == '[') { end_ch = ']'; }
+        if (ch == '{') { end_ch = '}'; }
+        if (ch == '"') { end_ch = '"'; }
+        if (ch == '\'') { end_ch = '\''; }
+
+        if (!end_ch.isNull()) {
+          bracketInserted = true;
+
+          if (view->selection()) {
+            buf.append(view->selectionText());
+          }
+
+          buf.append(end_ch);
+        }
       }
     }
   }

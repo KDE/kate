@@ -23,10 +23,11 @@
 #include "codecompletiontestmodels.moc"
 
 #include <qtest_kde.h>
+#include <ksycoca.h>
 
 #include <ktexteditor/document.h>
+#include <ktexteditor/editorchooser.h>
 
-#include <katedocument.h>
 #include <kateview.h>
 #include <katecompletionwidget.h>
 #include <katecompletionmodel.h>
@@ -52,7 +53,14 @@ int countItems(KateCompletionModel *model)
 
 void CompletionTest::init()
 {
-    m_doc = new KateDocument(false, false, false, 0, this);
+    if ( !KSycoca::isAvailable() )
+        QSKIP( "ksycoca not available", SkipAll );
+
+    Editor* editor = EditorChooser::editor();
+    QVERIFY(editor);
+
+    m_doc = editor->createDocument(this);
+    QVERIFY(m_doc);
     m_doc->setText("aa bb cc\ndd");
 
     KTextEditor::View *v = m_doc->createView(0);

@@ -20,7 +20,7 @@
 //BEGIN includes
 #include "kateregexpsearch.h"
 
-#include "katedocument.h"
+#include <ktexteditor/document.h>
 //END  includes
 
 
@@ -39,7 +39,7 @@
 //
 // KateSearch Constructor
 //
-KateRegExpSearch::KateRegExpSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity )
+KateRegExpSearch::KateRegExpSearch ( KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity )
 : QObject (document)
 , m_document (document)
 , m_caseSensitivity (caseSensitivity)
@@ -124,17 +124,17 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     QVector<int> lineLens (inputLineCount);
 
     // first line
-    KateTextLine::Ptr firstLine = m_document->plainKateTextLine(firstLineIndex);
-    if (!firstLine)
+    if (firstLineIndex < 0 || m_document->lines() >= firstLineIndex)
     {
       QVector<KTextEditor::Range> result;
       result.append(KTextEditor::Range::invalid());
       return result;
     }
 
-    QString firstLineText = firstLine->string();
-    const int firstLineLen = firstLineText.length() - minColStart;
-    wholeDocument.append(firstLineText.right(firstLineLen));
+    const QString firstLine = m_document->line(firstLineIndex);
+
+    const int firstLineLen = firstLine.length() - minColStart;
+    wholeDocument.append(firstLine.right(firstLineLen));
     lineLens[0] = firstLineLen;
     FAST_DEBUG("  line" << 0 << "has length" << lineLens[0]);
 
@@ -142,15 +142,15 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     const QString sep("\n");
     for (int i = 1; i < inputLineCount; i++)
     {
-      KateTextLine::Ptr textLine = m_document->plainKateTextLine(firstLineIndex + i);
-      if (!textLine)
+      const int lineNum = firstLineIndex + i;
+      if (lineNum < 0 || m_document->lines() >= lineNum)
       {
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
         return result;
       }
+      const QString text = m_document->line(lineNum);
 
-      QString text = textLine->string();
       lineLens[i] = text.length();
       wholeDocument.append(sep);
       wholeDocument.append(text);
@@ -333,24 +333,24 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
       << (backwards ? forMin : forMax));
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
-      KateTextLine::Ptr textLine = m_document->plainKateTextLine(j);
-      if (!textLine)
+      if (j < 0 || m_document->lines() <= j)
       {
         FAST_DEBUG("searchText | line " << j << ": no");
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
         return result;
       }
+      const QString textLine = m_document->line(j);
 
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
-        const int afterLast = (j == forMax) ? maxRight : textLine->length();
-        const QString hay = textLine->string().left(afterLast);
+        const int afterLast = (j == forMax) ? maxRight : textLine.length();
+        const QString hay = textLine.left(afterLast);
         bool found = true;
         int foundAt;
         uint myMatchLen;
         if (backwards) {
-            const int lineLen = textLine->length();
+            const int lineLen = textLine.length();
             const int offset = afterLast - lineLen - 1;
             FAST_DEBUG("lastIndexIn(" << hay << "," << offset << ")");
             foundAt = regexp.lastIndexIn(hay, offset);

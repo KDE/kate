@@ -21,7 +21,8 @@
 #include "kateplaintextsearch.h"
 
 #include "kateregexpsearch.h"
-#include "katedocument.h"
+
+#include <ktexteditor/document.h>
 
 #include <kdebug.h>
 //END  includes
@@ -31,7 +32,7 @@
 //
 // KateSearch Constructor
 //
-KatePlainTextSearch::KatePlainTextSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
+KatePlainTextSearch::KatePlainTextSearch ( KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
 : QObject (document)
 , m_document (document)
 , m_caseSensitivity (caseSensitivity)
@@ -82,24 +83,24 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
       {
         // which lines to compare
         const QString & needleLine = needleLines[k];
-        KateTextLine::Ptr hayLine = m_document->plainKateTextLine(j + k);
+        const QString & hayLine = m_document->line(j + k);
 
         // position specific comparison (first, middle, last)
         if (k == 0) {
           // first line
           if (forMin == j && startCol < inputRange.start().column())
             break;
-          if (!hayLine->string().endsWith(needleLine, m_caseSensitivity))
+          if (!hayLine.endsWith(needleLine, m_caseSensitivity))
             break;
         } else if (k == needleLines.count() - 1) {
           // last line
-          const int maxRight = (j + k == inputRange.end().line()) ? inputRange.end().column() : hayLine->length();
+          const int maxRight = (j + k == inputRange.end().line()) ? inputRange.end().column() : hayLine.length();
 
-          if (hayLine->string().startsWith(needleLine, m_caseSensitivity) && needleLine.length() <= maxRight)
+          if (hayLine.startsWith(needleLine, m_caseSensitivity) && needleLine.length() <= maxRight)
             return KTextEditor::Range(j, startCol, j + k, needleLine.length());
         } else {
           // mid lines
-          if (hayLine->string().compare(needleLine, m_caseSensitivity) != 0) {
+          if (hayLine.compare(needleLine, m_caseSensitivity) != 0) {
             break;
           }
         }
@@ -120,17 +121,18 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
 
     for (int line = backwards ? endLine : startLine; (startLine <= line) && (line <= endLine); line += forInc)
     {
-      KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
-      if (!textLine)
+      if ((line < 0) || (m_document->lines() <= line))
       {
         kWarning() << "line " << line << " is not within interval [0.." << m_document->lines() << ") ... returning invalid range";
         return KTextEditor::Range::invalid();
       }
 
+      const QString textLine = m_document->line(line);
+
       const int offset   = (line == startLine) ? startCol : 0;
-      const int line_end = (line ==   endLine) ?   endCol : textLine->length();
-      const int foundAt = backwards ? textLine->string().lastIndexOf(text, line_end-text.length(), m_caseSensitivity) :
-                                      textLine->string().indexOf(text, offset, m_caseSensitivity);
+      const int line_end = (line ==   endLine) ?   endCol : textLine.length();
+      const int foundAt = backwards ? textLine.lastIndexOf(text, line_end-text.length(), m_caseSensitivity) :
+                                      textLine.indexOf(text, offset, m_caseSensitivity);
 
       if ((offset <= foundAt) && (foundAt + text.length() <= line_end))
         return KTextEditor::Range(line, foundAt, line, foundAt + text.length());

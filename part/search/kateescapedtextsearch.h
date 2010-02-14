@@ -24,7 +24,9 @@
 
 #include <ktexteditor/range.h>
 
-class KateDocument;
+namespace KTextEditor {
+  class Document;
+}
 
 // needed for parsing replacement text like "\1:\2"
 struct ReplacementPart {
@@ -51,7 +53,7 @@ class KateEscapedTextSearch : public QObject
   Q_OBJECT
 
   public:
-    explicit KateEscapedTextSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
+    explicit KateEscapedTextSearch (KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KateEscapedTextSearch ();
 
   public:
@@ -79,7 +81,7 @@ class KateEscapedTextSearch : public QObject
         bool replacementGoodies = false);
 
   private:
-    KateDocument *const m_document;
+    KTextEditor::Document *const m_document;
     Qt::CaseSensitivity m_caseSensitivity;
     bool m_wholeWords;
 };

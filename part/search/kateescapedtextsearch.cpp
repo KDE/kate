@@ -21,26 +21,16 @@
 #include "kateescapedtextsearch.h"
 
 #include "kateplaintextsearch.h"
-#include "katedocument.h"
+
+#include <ktexteditor/document.h>
 //END  includes
-
-
-
-// Turn debug messages on/off here
-// #define FAST_DEBUG_ENABLE
-
-#ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) kDebug() << x
-#else
-# define FAST_DEBUG(x)
-#endif
 
 
 //BEGIN d'tor, c'tor
 //
 // KateEscapedTextSearch Constructor
 //
-KateEscapedTextSearch::KateEscapedTextSearch ( KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
+KateEscapedTextSearch::KateEscapedTextSearch ( KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
 : QObject (document)
 , m_document (document)
 , m_caseSensitivity (caseSensitivity)
@@ -438,10 +428,5 @@ KTextEditor::Range KateEscapedTextSearch::search (const QString & text,
   return output;
 }
 //END
-// Kill our helpers again
-#ifdef FAST_DEBUG_ENABLE
-# undef FAST_DEBUG_ENABLE
-#endif
-#undef FAST_DEBUG
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

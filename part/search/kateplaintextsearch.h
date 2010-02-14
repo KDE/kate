@@ -24,14 +24,16 @@
 
 #include <ktexteditor/range.h>
 
-class KateDocument;
+namespace KTextEditor {
+  class Document;
+}
 
 class KatePlainTextSearch : public QObject
 {
   Q_OBJECT
 
   public:
-    explicit KatePlainTextSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
+    explicit KatePlainTextSearch (KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KatePlainTextSearch ();
 
   public:
@@ -53,7 +55,7 @@ class KatePlainTextSearch : public QObject
         const KTextEditor::Range & inputRange, bool backwards = false);
 
   private:
-    KateDocument *m_document;
+    KTextEditor::Document *m_document;
     Qt::CaseSensitivity m_caseSensitivity;
     bool m_wholeWords;
 };

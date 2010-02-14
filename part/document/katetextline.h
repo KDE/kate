@@ -212,15 +212,13 @@ class KateTextLine : public KShared
      * @param endCol column to end search
      * @param text string to search for
      * @param foundAtCol column where text was found
-     * @param matchLen length of matching
      * @param casesensitive should search be case-sensitive
      * @param backwards search backwards?
      * @return string found?
      */
-    bool searchText (uint startCol, uint endCol,const QString &text,
-                     uint *foundAtCol, uint *matchLen,
-                     Qt::CaseSensitivity caseSensitivity = Qt::CaseSensitive,
-                     bool backwards = false) const;
+    int searchText (uint startCol, uint endCol,const QString &text,
+                    Qt::CaseSensitivity caseSensitivity = Qt::CaseSensitive,
+                    bool backwards = false) const;
 
     /**
      * Gets the attribute at the given position

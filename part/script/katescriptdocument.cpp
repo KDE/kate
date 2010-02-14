@@ -202,11 +202,8 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
       cursor.setColumn(qMax(textLine->length(), 0));
     }
 
-    bool found = true;
-    while (found) {
-      uint foundAt;
-      found = textLine->searchText(0, cursor.column(), text, &foundAt, 0, Qt::CaseSensitive, true);
-      if (found) {
+    int foundAt;
+    while ((foundAt = textLine->searchText(0, cursor.column(), text, Qt::CaseSensitive, true)) >= 0) {
         bool hasStyle = true;
         if (attribute != -1) {
           KTextEditor::Attribute::Ptr a = attributes[textLine->attribute(foundAt)];
@@ -219,7 +216,6 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
         } else {
           cursor.setColumn(foundAt);
         }
-      }
     }
   } while (cursor.gotoPreviousLine());
 

@@ -22,6 +22,8 @@
 
 #include "kateregexpsearch.h"
 #include "katedocument.h"
+
+#include <kdebug.h>
 //END  includes
 
 
@@ -77,7 +79,7 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
       // try to match all lines
-      uint startCol = 0; // init value not important
+      int startCol = 0; // init value not important
       for (int k = 0; k < needleLines.count(); k++)
       {
         // which lines to compare
@@ -93,29 +95,26 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
           }
           else
           {
-            uint myMatchLen;
             const uint colOffset = (j > forMin) ? 0 : inputRange.start().column();
-            const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
-              &myMatchLen, m_caseSensitivity, true);
-            if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
+            startCol = hayLine->searchText(colOffset, hayLine->length(),needleLine,
+              m_caseSensitivity, true);
+            if (startCol < 0 || (startCol + needleLine.length() != hayLine->length())) {
               break;
             }
           }
         } else if (k == needleLines.count() - 1) {
           // last line
-          const uint maxRight = inputRange.end().column();
+          const int maxRight = inputRange.end().column();
 
-          uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0,hayLine->length(), needleLine, &foundAt, &myMatchLen, m_caseSensitivity, false);
-          if (matches && (foundAt == 0) && !((k == lastLine) && (foundAt + myMatchLen > maxRight)))
+          const int foundAt = hayLine->searchText(0,hayLine->length(), needleLine, m_caseSensitivity, false);
+          if ((foundAt == 0) && !((k == lastLine) && (foundAt + needleLine.length() > maxRight)))
           {
             return KTextEditor::Range(j, startCol, j + k, needleLine.length());
           }
         } else {
           // mid lines
-          uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, m_caseSensitivity, false);
-          if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
+          const int foundAt = hayLine->searchText(0, hayLine->length(),needleLine, m_caseSensitivity, false);
+          if (foundAt != 0 || hayLine->length() != needleLine.length()) {
             break;
           }
         }
@@ -145,11 +144,10 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
 
       const int offset   = (line == startLine) ? startCol : 0;
       const int line_end = (line ==   endLine) ?   endCol : textLine->length();
-      uint foundAt, myMatchLen;
-      const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, m_caseSensitivity, backwards);
+      const int foundAt = textLine->searchText (offset,line_end, text, m_caseSensitivity, backwards);
 
-      if (found && (foundAt + myMatchLen <= static_cast<uint>(line_end)))
-        return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+      if ((foundAt >= 0) && (foundAt + text.length() <= line_end))
+        return KTextEditor::Range(line, foundAt, line, foundAt + text.length());
     }
   }
   return KTextEditor::Range::invalid();

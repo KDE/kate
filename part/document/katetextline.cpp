@@ -236,8 +236,8 @@ int KateTextLine::virtualLength (int tabWidth) const
   return x;
 }
 
-bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, uint *foundAtCol,
-                               uint *matchLen, Qt::CaseSensitivity caseSensitivity, bool backwards) const
+int KateTextLine::searchText (uint startCol, uint endCol, const QString &text,
+                              Qt::CaseSensitivity caseSensitivity, bool backwards) const
 {
   int index;
 
@@ -268,15 +268,11 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
   if (index > -1)
   {
     if ( (index>=(int)startCol)  && ( (index+l)<=(int)endCol) ) {
-      if (foundAtCol)
-        (*foundAtCol) = index;
-      if (matchLen)
-        (*matchLen)=text.length();
-      return true;
+      return index;
     }
   }
 
-  return false;
+  return -1;
 }
 
 void KateTextLine::addAttribute (int start, int length, int attribute)

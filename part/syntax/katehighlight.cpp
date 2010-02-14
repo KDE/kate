@@ -313,6 +313,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   // loop over the line, offset gives current offset
   int offset = 0;
+
+  KateHighlighting::HighlightPropertyBag* additionalData = m_additionalData[context->hlId];
+  KateHlContext* oldContext = context;
   while (offset < len)
   {
     bool anItemMatched = false;
@@ -335,7 +338,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         if (item->customStartEnable)
         {
-            if (customStartEnableDetermined || m_additionalData[context->hlId]->deliminator.contains(lastChar))
+            if ( oldContext != context ) {
+              oldContext = context;
+              additionalData = m_additionalData[oldContext->hlId];
+            }
+            if (customStartEnableDetermined || additionalData->deliminator.contains(lastChar))
             customStartEnableDetermined = true;
           else
             continue;

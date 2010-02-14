@@ -95,7 +95,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
     friend class KateViewInternal;
     friend class KateIconBorder;
-    friend class KateSearchBar;
     friend class KateViModeBase;
 
   public:

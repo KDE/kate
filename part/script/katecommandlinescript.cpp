@@ -26,6 +26,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecmd.h"
+#include "kshell.h"
 
 KateCommandLineScript::KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header)
   : KateScript(url)
@@ -78,7 +79,14 @@ const QStringList &KateCommandLineScript::cmds ()
 
 bool KateCommandLineScript::exec (KTextEditor::View *view, const QString &_cmd, QString &errorMsg)
 {
-  QStringList args(_cmd.split(QRegExp("\\s+"), QString::SkipEmptyParts));
+  KShell::Errors errorCode;
+  QStringList args(KShell::splitArgs(_cmd, KShell::NoOptions, &errorCode));
+
+  if (errorCode != KShell::NoError) {
+    errorMsg = i18n("Bad quoting in call: %1. Please escape single quotes with a backslash.", _cmd);
+    return false;
+  }
+
   QString cmd(args.first());
   args.removeFirst();
 

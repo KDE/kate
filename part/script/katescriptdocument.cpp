@@ -203,7 +203,7 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
     }
 
     int foundAt;
-    while ((foundAt = textLine->searchText(0, cursor.column(), text, Qt::CaseSensitive, true)) >= 0) {
+    while ((foundAt = textLine->string().left(cursor.column()).lastIndexOf(text, -1, Qt::CaseSensitive)) >= 0) {
         bool hasStyle = true;
         if (attribute != -1) {
           KTextEditor::Attribute::Ptr a = attributes[textLine->attribute(foundAt)];

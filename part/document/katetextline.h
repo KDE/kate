@@ -207,20 +207,6 @@ class KateTextLine : public KShared
     inline bool endsWith(const QString& match) const { return m_text.endsWith (match); }
 
     /**
-     * search given string
-     * @param startCol column to start search
-     * @param endCol column to end search
-     * @param text string to search for
-     * @param foundAtCol column where text was found
-     * @param casesensitive should search be case-sensitive
-     * @param backwards search backwards?
-     * @return string found?
-     */
-    int searchText (uint startCol, uint endCol,const QString &text,
-                    Qt::CaseSensitivity caseSensitivity = Qt::CaseSensitive,
-                    bool backwards = false) const;
-
-    /**
      * Gets the attribute at the given position
      * use KRenderer::attributes  to get the KTextAttribute for this.
      *

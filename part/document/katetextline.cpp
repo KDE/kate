@@ -236,45 +236,6 @@ int KateTextLine::virtualLength (int tabWidth) const
   return x;
 }
 
-int KateTextLine::searchText (uint startCol, uint endCol, const QString &text,
-                              Qt::CaseSensitivity caseSensitivity, bool backwards) const
-{
-  int index;
-
-  //kDebug( 13020 )<<"KateTextLine::searchText()"<<startCol<<"__"<<casesensitive<<"___"<< backwards;
-  
-  int l = text.length();
-
-  if (backwards)
-  {
-    int col = -1; //endCol-m_text.length();
-    int start_col=startCol-m_text.length();
-
-    // allow finding the string ending at eol
-    //if ( col == m_text.length() ) ++startCol;
-
-
-    do {
-      index = m_text.lastIndexOf( text, col, caseSensitivity);
-      col--;
-      //kDebug( 13020 )<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
-      //(col>=start_col)<<"---"<<(index >= startCol)<<"---"<<((l + index) <= (int)endCol)<<endl<<text<<endl<<m_text<<endl<<
-      //m_text.left(m_text.length()+1-col)<<endl<<(l+index)<<"_"<<index<<"__"<<endCol<<endl;
-    } while ( (col>=start_col) && (index >= (int)startCol) && ((l + index) > (int)endCol) );
-  }
-  else
-    index = m_text.indexOf (text, startCol, caseSensitivity);
-
-  if (index > -1)
-  {
-    if ( (index>=(int)startCol)  && ( (index+l)<=(int)endCol) ) {
-      return index;
-    }
-  }
-
-  return -1;
-}
-
 void KateTextLine::addAttribute (int start, int length, int attribute)
 {
 //  kDebug( 13020 ) << "addAttribute: " << start << " " << length << " " << attribute;

@@ -186,7 +186,7 @@ KateDocument * KateSmartManager::doc( ) const
 
 KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, SmartCursor::InsertBehavior insertBehavior, bool internal )
 {
-  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+  QMutexLocker l(doc()->smartMutex());
 
   KateSmartCursor* c;
   if (usingRevision() != -1 && !internal)
@@ -201,7 +201,7 @@ KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, Sma
 
 KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+  QMutexLocker l(doc()->smartMutex());
 
   KateSmartRange* newRange;
 
@@ -219,7 +219,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 
 KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+  QMutexLocker l (doc()->smartMutex());
 
 //Why translate "smart" cursors? They should translate automatically!
 //   if (usingRevision() != -1 && !internal) {

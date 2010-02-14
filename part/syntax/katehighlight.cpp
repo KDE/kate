@@ -1418,7 +1418,7 @@ void KateHighlighting::makeContextList()
     return;
 
   embeddedHls.clear();
-  embeddedModes.clear();
+  embeddedHighlightingModes.clear();
   unresolvedContextReferences.clear();
   RegionList.clear();
   ContextNameList.clear();
@@ -1507,8 +1507,8 @@ void KateHighlighting::makeContextList()
   // belongs to
   handleKateHlIncludeRules();
 
-  embeddedModes = embeddedHls.keys();
-  embeddedModes.removeOne(iName);
+  embeddedHighlightingModes = embeddedHls.keys();
+  embeddedHighlightingModes.removeOne(iName);
 
   embeddedHls.clear(); //save some memory.
   unresolvedContextReferences.clear(); //save some memory
@@ -1955,9 +1955,9 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &
   return array;
 }
 
-QStringList KateHighlighting::getEmbeddedModes() const
+QStringList KateHighlighting::getEmbeddedHighlightingModes() const
 {
-  return embeddedModes;
+  return embeddedHighlightingModes;
 }
 
 //END

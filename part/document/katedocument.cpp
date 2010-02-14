@@ -5575,7 +5575,7 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
 
 QStringList KateDocument::embeddedHighlightingModes() const
 {
-  return highlight()->getEmbeddedModes();
+  return highlight()->getEmbeddedHighlightingModes();
 }
 
 QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)

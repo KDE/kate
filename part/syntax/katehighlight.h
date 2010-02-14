@@ -248,7 +248,7 @@ class KateHighlighting
     /**
      * Returns a list of names of embedded modes.
      */
-    QStringList getEmbeddedModes() const;
+    QStringList getEmbeddedHighlightingModes() const;
 
   private:
     /**
@@ -300,7 +300,7 @@ class KateHighlighting
     // NOTE: gets cleaned once makeContextList() finishes
     KateEmbeddedHlInfos embeddedHls;
     // valid once makeContextList() finishes
-    QStringList embeddedModes;
+    QStringList embeddedHighlightingModes;
     KateHlUnresolvedCtxRefs unresolvedContextReferences;
     QStringList RegionList;
     QStringList ContextNameList;

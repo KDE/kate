@@ -50,7 +50,7 @@ namespace KTextEditor
 
 class KateDocument;
 class KateBookmarks;
-class KateCmdLine;
+class KateCommandLineBar;
 class KateViewConfig;
 class KateRenderer;
 class KateSpellCheckDialog;
@@ -647,7 +647,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
    */
   public:
     KateViewBar *viewBar() const;
-    KateCmdLine *cmdLine ();
+    KateCommandLineBar *cmdLineBar ();
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
@@ -662,7 +662,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateViewBar *m_bottomViewBar;
     KateViewBar *m_topViewBar;
     // created on demand..., only access them through the above accessors....
-    KateCmdLine *m_cmdLine;
+    KateCommandLineBar *m_cmdLine;
     KateSearchBar *m_searchBar;
     KateViModeBar *m_viModeBar;
     KateGotoBar *m_gotoBar;

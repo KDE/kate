@@ -283,7 +283,7 @@ class KateCmdLineEditFlagCompletion : public KCompletion
 //END KateCmdLineEditFlagCompletion
 
 //BEGIN KateCmdLineEdit
-KateCmdLine::KateCmdLine (KateView *view, QWidget *parent)
+KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
     : KateViewBarWidget (true, view, parent)
 {
     QVBoxLayout *topLayout = new QVBoxLayout ();
@@ -296,13 +296,15 @@ KateCmdLine::KateCmdLine (KateView *view, QWidget *parent)
     setFocusProxy (m_lineEdit);
 }
 
-KateCmdLine::~KateCmdLine()
+KateCommandLineBar::~KateCommandLineBar()
 {
 }
 
 // inserts the given string in the command line edit and (if selcted = true) selects it so the user
 // can type over it if she wants to
-void KateCmdLine::setText(const QString &text, bool selected)
+// inserts the given string in the command line edit and selects it so the user can type over it if
+// she wants to
+void KateCommandLineBar::setText(const QString &text, bool selected)
 {
   m_lineEdit->setText(text);
   if (selected) {
@@ -310,7 +312,7 @@ void KateCmdLine::setText(const QString &text, bool selected)
   }
 }
 
-KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
+KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   : KLineEdit ()
   , m_view (view)
   , m_bar (bar)

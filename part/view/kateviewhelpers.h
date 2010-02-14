@@ -372,11 +372,11 @@ class KateViewBar : public QWidget
     QVBoxLayout *m_layout;
 };
 
-class KateCmdLine : public KateViewBarWidget
+class KateCommandLineBar : public KateViewBarWidget
 {
   public:
-    explicit KateCmdLine(KateView *view, QWidget *parent = 0);
-    ~KateCmdLine();
+    explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);
+    ~KateCommandLineBar();
 
   void setText(const QString &text, bool selected = true);
 
@@ -389,7 +389,7 @@ class KateCmdLineEdit : public KLineEdit
   Q_OBJECT
 
   public:
-    KateCmdLineEdit (KateCmdLine *bar, KateView *view);
+    KateCmdLineEdit (KateCommandLineBar *bar, KateView *view);
     virtual bool event(QEvent *e);
 
     void hideEvent (QHideEvent *e);
@@ -410,7 +410,7 @@ class KateCmdLineEdit : public KLineEdit
     QString helptext( const QPoint & ) const;
 
     KateView *m_view;
-    KateCmdLine *m_bar;
+    KateCommandLineBar *m_bar;
     bool m_msgMode;
     QString m_oldText;
     uint m_histpos; ///< position in the history

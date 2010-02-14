@@ -1419,11 +1419,11 @@ void KateView::switchToCmdLine ()
   // if the user has selected text, insert the selection's range (start line to end line) in the
   // command line when opened
   if (selectionRange().start().line() != -1 && selectionRange().end().line() != -1) {
-    cmdLine()->setText(QString::number(selectionRange().start().line()+1)+','
+    cmdLineBar()->setText(QString::number(selectionRange().start().line()+1)+','
         +QString::number(selectionRange().end().line()+1));
   }
-  m_bottomViewBar->showBarWidget(cmdLine());
-  cmdLine()->setFocus ();
+  m_bottomViewBar->showBarWidget(cmdLineBar());
+  cmdLineBar()->setFocus ();
   hideViModeBar();
 }
 
@@ -2642,10 +2642,10 @@ KateViewBar *KateView::viewBar() const
   return m_bottomViewBar;
 }
 
-KateCmdLine *KateView::cmdLine ()
+KateCommandLineBar *KateView::cmdLineBar ()
 {
   if (!m_cmdLine) {
-    m_cmdLine = new KateCmdLine (this, m_bottomViewBar);
+    m_cmdLine = new KateCommandLineBar (this, m_bottomViewBar);
     m_bottomViewBar->addBarWidget(m_cmdLine);
   }
 

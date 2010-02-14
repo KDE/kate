@@ -90,6 +90,17 @@ target_link_libraries( plaintextsearch_test
   kateparttestlib
 )
 
+########### scriptdocument test ###############
+
+kde4_add_unit_test(scriptdocument_test scriptdocument_test.cpp)
+
+target_link_libraries( scriptdocument_test
+  ${KDE4_KDECORE_LIBS}
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  kateparttestlib
+)
+
 endif(NOT MINGW)
 
 ########### install files ###############

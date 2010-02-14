@@ -45,16 +45,16 @@ class KateRegExpSearch : public QObject
      * \p inputRange. If \p backwards is \e true, the search direction will
      * be reversed.
      *
-     * \param inputRange Range to search in
      * \param regexp text to search for
+     * \param inputRange Range to search in
      * \param backwards if \e true, the search will be backwards
      * \return Vector of ranges, one for each capture. The first range (index zero)
      *        spans the full match. If the pattern does not match the vector
      *        has length 1 and holds the invalid range (see Range::isValid()).
      * \see KTextEditor::Range, QRegExp
      */
-    QVector<KTextEditor::Range> search (const KTextEditor::Range & inputRange,
-        const QString &pattern, bool backwards = false);
+    QVector<KTextEditor::Range> search (const QString &pattern,
+        const KTextEditor::Range & inputRange, bool backwards = false);
 
   private:
     KateDocument *const m_document;

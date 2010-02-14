@@ -34,20 +34,13 @@ class KatePlainTextSearch : public QObject
     explicit KatePlainTextSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KatePlainTextSearch ();
 
-  //
-  // KTextEditor::SearchInterface stuff
-  //
-  public Q_SLOTS:
-    QVector<KTextEditor::Range> search (const KTextEditor::Range & inputRange,
-        const QString & text, bool backwards = false);
-
-  private:
+  public:
     /**
      * Search for the given \p text inside the range \p inputRange taking
      * into account whether to search \p casesensitive and \p backwards.
      *
-     * \param inputRange Range to search in
      * \param text text to search for
+     * \param inputRange Range to search in
      * \param casesensitive if \e true, the search is performed case
      *        sensitive, otherwise case insensitive
      * \param backwards if \e true, the search will be backwards
@@ -56,8 +49,8 @@ class KatePlainTextSearch : public QObject
      *        (see Range::isValid()).
      * \see KTextEditor::Range
      */
-    KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
-        const QString & text, bool backwards = false);
+    KTextEditor::Range search (const QString & text,
+        const KTextEditor::Range & inputRange, bool backwards = false);
 
   private:
     KateDocument *m_document;

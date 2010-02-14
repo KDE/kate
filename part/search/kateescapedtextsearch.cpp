@@ -56,11 +56,11 @@ KateEscapedTextSearch::~KateEscapedTextSearch()
 }
 //END
 
-QVector<KTextEditor::Range> KateEscapedTextSearch::search (const KTextEditor::Range & inputRange,
-        const QString & text, bool backwards)
+KTextEditor::Range KateEscapedTextSearch::search (const QString & text,
+        const KTextEditor::Range & inputRange, bool backwards)
 {
   KatePlainTextSearch searcher(m_document, m_caseSensitivity, m_wholeWords);
-  return searcher.search(inputRange, escapePlaintext(text), backwards);
+  return searcher.search(escapePlaintext(text), inputRange, backwards);
 }
 
 //BEGIN KTextEditor::SearchInterface stuff

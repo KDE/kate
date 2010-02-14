@@ -1560,19 +1560,27 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     // regexp search
     // escape sequences are supported by definition
     KateRegExpSearch searcher(this, caseSensitivity);
-    return searcher.search(range, pattern, backwards);
+    return searcher.search(pattern, range, backwards);
   }
 
   if (escapeSequences)
   {
     // escaped search
     KateEscapedTextSearch searcher(this, caseSensitivity, wholeWords);
-    return searcher.search(range, pattern, backwards);
+    KTextEditor::Range match = searcher.search(pattern, range, backwards);
+
+    QVector<KTextEditor::Range> result;
+    result.append(match);
+    return result;
   }
 
   // plaintext search
   KatePlainTextSearch searcher(this, caseSensitivity, wholeWords);
-  return searcher.search(range, pattern, backwards);
+  KTextEditor::Range match = searcher.search(pattern, range, backwards);
+
+  QVector<KTextEditor::Range> result;
+  result.append(match);
+  return result;
 }
 
 

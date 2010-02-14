@@ -54,12 +54,9 @@ class KateEscapedTextSearch : public QObject
     explicit KateEscapedTextSearch (KateDocument *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KateEscapedTextSearch ();
 
-  //
-  // KTextEditor::SearchInterface stuff
-  //
-  public Q_SLOTS:
-    QVector<KTextEditor::Range> search (const KTextEditor::Range & inputRange,
-        const QString &text, bool backwards = false);
+  public:
+    KTextEditor::Range search (const QString &text,
+        const KTextEditor::Range & inputRange, bool backwards = false);
 
   //
   // internal implementation....

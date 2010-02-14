@@ -56,7 +56,7 @@ KatePlainTextSearch::~KatePlainTextSearch()
 }
 //END
 
-QVector<KTextEditor::Range> KatePlainTextSearch::search (const KTextEditor::Range & inputRange, const QString & text, bool backwards)
+KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTextEditor::Range & inputRange, bool backwards)
 {
   // abuse regex for whole word plaintext search
   if (m_wholeWords)
@@ -64,20 +64,9 @@ QVector<KTextEditor::Range> KatePlainTextSearch::search (const KTextEditor::Rang
     // escape dot and friends
     const QString workPattern = "\\b" + QRegExp::escape(text) + "\\b";
 
-    return KateRegExpSearch(m_document, m_caseSensitivity).search(inputRange, workPattern, backwards);
+    return KateRegExpSearch(m_document, m_caseSensitivity).search(workPattern, inputRange, backwards)[0];
   }
 
-  QVector<KTextEditor::Range> result;
-  KTextEditor::Range resultRange = searchText(inputRange, text, backwards);
-  result.append(resultRange);
-
-  return result;
-}
-
-//BEGIN KTextEditor::SearchInterface stuff
-
-KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & inputRange, const QString & text, bool backwards)
-{
   FAST_DEBUG("KatePlainTextSearch::searchText( " << inputRange.start().line() << ", "
     << inputRange.start().column() << ", " << text << ", " << backwards << " )");
   if (text.isEmpty() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
@@ -238,7 +227,7 @@ KTextEditor::Range KatePlainTextSearch::searchText (const KTextEditor::Range & i
   }
   return KTextEditor::Range::invalid();
 }
-//END
+
 // Kill our helpers again
 #ifdef FAST_DEBUG_ENABLE
 # undef FAST_DEBUG_ENABLE

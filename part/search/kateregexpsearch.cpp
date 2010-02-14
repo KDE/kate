@@ -75,8 +75,8 @@ struct IndexPair {
 
 
 QVector<KTextEditor::Range> KateRegExpSearch::search(
-    const KTextEditor::Range & inputRange,
     const QString &pattern,
+    const KTextEditor::Range & inputRange,
     bool backwards)
 {
   // regex search

@@ -17,13 +17,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "tests/completiontest.h"
+#include "completion_test.h"
+
+#include "codecompletiontestmodels.h"
+#include "codecompletiontestmodels.moc"
 
 #include <qtest_kde.h>
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include <katedocument.h>
 #include <kateview.h>
@@ -32,8 +33,10 @@
 #include <katerenderer.h>
 #include <kateconfig.h>
 
-#include "codecompletiontestmodel.h"
 #include <katesmartrange.h>
+
+QTEST_KDEMAIN(CompletionTest, GUI)
+
 
 using namespace KTextEditor;
 
@@ -128,38 +131,6 @@ void CompletionTest::testAbortInvalidText()
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
-class CustomRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    CustomRangeModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-    Range completionRange(View* view, const Cursor &position)
-    {
-        Range range = CodeCompletionModelControllerInterface::completionRange(view, position);
-        if (range.start().column() > 0) {
-            KTextEditor::Range preRange(Cursor(range.start().line(), range.start().column()-1),
-                                        Cursor(range.start().line(), range.start().column()));
-            kDebug() << preRange << view->document()->text(preRange);
-            if (view->document()->text(preRange) == "$") {
-                range.expandToRange(preRange);
-                kDebug() << "using custom completion range" << range;
-            }
-        }
-        return range;
-    }
-
-    bool shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion)
-    {
-        Q_UNUSED(view);
-        Q_UNUSED(range);
-        static const QRegExp allowedText("^\\$?(\\w*)");
-        return !allowedText.exactMatch(currentCompletion);
-    }
-};
-
 void CompletionTest::testCustomRange1()
 {
     m_doc->setText("$aa bb cc\ndd");
@@ -237,24 +208,6 @@ void CompletionTest::testAbortController()
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
-class CustomAbortModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    CustomAbortModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-
-    bool shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion)
-    {
-        Q_UNUSED(view);
-        Q_UNUSED(range);
-        static const QRegExp allowedText("^([\\w-]*)");
-        return !allowedText.exactMatch(currentCompletion);
-    }
-};
-
 void CompletionTest::testAbortControllerMultipleModels()
 {
     KateCompletionModel *model = m_view->completionWidget()->model();
@@ -284,22 +237,6 @@ void CompletionTest::testAbortControllerMultipleModels()
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
-
-class EmptyFilterStringModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    EmptyFilterStringModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-
-    QString filterString(View*, const SmartRange&, const Cursor &)
-    {
-        return QString();
-    }
-};
-
 void CompletionTest::testEmptyFilterString()
 {
     KateCompletionModel *model = m_view->completionWidget()->model();
@@ -318,31 +255,6 @@ void CompletionTest::testEmptyFilterString()
     QCOMPARE(countItems(model), 40);
 }
 
-class UpdateCompletionRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    UpdateCompletionRangeModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-
-    void updateCompletionRange(View* view, SmartRange& range)
-    {
-        Q_UNUSED(view);
-        if (range.text().first() == QString("ab")) {
-            range.setRange(Range(Cursor(range.start().line(), 0), range.end()));
-        }
-    }
-    bool shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion)
-    {
-        Q_UNUSED(view);
-        Q_UNUSED(range);
-        Q_UNUSED(currentCompletion);
-        return false;
-    }
-};
-
 void CompletionTest::testUpdateCompletionRange()
 {
     m_doc->setText("ab    bb cc\ndd");
@@ -359,31 +271,6 @@ void CompletionTest::testUpdateCompletionRange()
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel)), Range(Cursor(0, 0), Cursor(0, 5)));
     QCOMPARE(countItems(model), 40);
 }
-
-class StartCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    StartCompletionModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-
-    bool shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position)
-    {
-        Q_UNUSED(view);
-        Q_UNUSED(userInsertion);
-        Q_UNUSED(position);
-        if(insertedText.isEmpty())
-            return false;
-
-        QChar lastChar = insertedText.at(insertedText.count() - 1);
-        if (lastChar == '%') {
-            return true;
-        }
-        return false;
-    }
-};
 
 void CompletionTest::testCustomStartCompl()
 {
@@ -417,24 +304,6 @@ void CompletionTest::testKateCompletionModel()
     QCOMPARE(countItems(model), 40);
 }
 
-class ImmideatelyAbortCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
-public:
-    ImmideatelyAbortCompletionModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
-        : CodeCompletionTestModel(parent, startText)
-    {}
-
-    virtual bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::SmartRange& range, const QString& currentCompletion)
-    {
-        Q_UNUSED(view);
-        Q_UNUSED(range);
-        Q_UNUSED(currentCompletion);
-        return true;
-    }
-};
-
 void CompletionTest::testAbortImmideatelyAfterStart()
 {
     KateCompletionModel *model = m_view->completionWidget()->model();
@@ -446,5 +315,4 @@ void CompletionTest::testAbortImmideatelyAfterStart()
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
-#include "completiontest.moc"
-#include "moc_completiontest.cpp"
+#include "completion_test.moc"

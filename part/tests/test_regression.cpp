@@ -33,7 +33,6 @@
 #include "katecmd.h"
 #include "kateglobal.h"
 #include <ktexteditor/commandinterface.h>
-#include "completiontest.h"
 
 #include <kapplication.h>
 #include <kglobal.h>
@@ -85,28 +84,6 @@ static KMainWindow* toplevel;
 
 //BEGIN TestScriptEnv
 
-
-QScriptValue runNativeTestCase(QScriptContext *context, QScriptEngine *engine)
-{
-  QObject* test = 0;
-  if (context->argument(0).toString() == "completion") {
-    test = new CompletionTest;
-  } else {
-    return context->throwError("test does not exist");
-  }
-  KateDocumentObject* d = qobject_cast<KateDocumentObject*>(engine->globalObject().property("document").toQObject());
-  QStringList arguments;
-  arguments << context->argument(0).toString();
-  arguments << context->argument(1).toString();
-  if (QTest::qExec(test, arguments) == 0) {
-    d->document()->setText("success");
-    return engine->newVariant(true);
-  } else {
-    d->document()->setText("failure");
-    return engine->newVariant(false);
-  }
-}
-
 TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
   : m_engine(0), m_viewObj(0), m_docObj(0), m_output(0)
 {
@@ -132,8 +109,6 @@ TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
   m_engine->globalObject().setProperty("output", so);
   m_engine->globalObject().setProperty("out", so);
   m_engine->globalObject().setProperty("o", so);
-
-  m_engine->globalObject().setProperty("runNativeTestCase", m_engine->newFunction(runNativeTestCase));
 }
 //END TestScriptEnv
 

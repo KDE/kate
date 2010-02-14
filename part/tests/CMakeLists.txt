@@ -56,8 +56,6 @@ if(NOT MINGW)
 
 set(testkateregression_SRCS
   test_regression.cpp
-  codecompletiontestmodel.cpp
-  completiontest.cpp
 )
 
 kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})
@@ -95,6 +93,22 @@ target_link_libraries( plaintextsearch_test
 kde4_add_unit_test(scriptdocument_test scriptdocument_test.cpp)
 
 target_link_libraries( scriptdocument_test
+  ${KDE4_KDECORE_LIBS}
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  kateparttestlib
+)
+
+########### completion test ###############
+
+set(completion_test_SRCS
+  completion_test.cpp
+  codecompletiontestmodel.cpp
+)
+
+kde4_add_unit_test(completion_test ${completion_test_SRCS})
+
+target_link_libraries( completion_test
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}

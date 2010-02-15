@@ -27,6 +27,7 @@
 
 #include <kdebug.h>
 
+//#define DEBUG_TRANSLATION
 
 static QThreadStorage<QMap<KateSmartManager*,int> *> m_usingRevision;
 
@@ -311,11 +312,26 @@ KateSmartGroup * KateSmartManager::groupForLine( int line ) const
 void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 {
   QMutexLocker lock(doc()->smartMutex());
+
 #ifdef DEBUG_TRANSLATION
   KateTranslationDebugger KateTranslationDebugger(this, edit);
 #endif
+
   KateSmartGroup* firstSmartGroup = groupForLine(edit->oldRange().start().line());
   KateSmartGroup* currentGroup = firstSmartGroup;
+
+#ifdef DEBUG_TRANSLATION
+  // lala
+  kDebug() << "line diff for edit" << edit->translate().line ();
+
+  kDebug() << "before edit tranlate";
+  for (KateSmartGroup* smartGroup = m_firstGroup; smartGroup; smartGroup = smartGroup->next())
+  {  
+    kDebug () << "group from" << smartGroup->startLine() << "to" << smartGroup->endLine();
+    foreach (KateSmartCursor *c, smartGroup->normalCursors ())
+      kDebug() << "cursor" << c << "line" << c->line ();
+  }
+#endif
 
   // Check to see if we need to split or consolidate
   int splitEndLine = edit->translate().line() + firstSmartGroup->endLine();
@@ -355,8 +371,20 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       currentGroup->merge();
 
     // Reduce the size of the current group
-    currentGroup->setNewEndLine(currentGroup->endLine() + edit->translate().line());
+    // this leads to broken groups where end line is smaller than the line of
+    // some contained cursors, bug 226409
+    //currentGroup->setNewEndLine(currentGroup->endLine() + edit->translate().line());
   }
+//   
+#ifdef DEBUG_TRANSLATION  
+  kDebug() << "before edit 2 tranlate";
+  for (KateSmartGroup* smartGroup = m_firstGroup; smartGroup; smartGroup = smartGroup->next())
+  {  
+    kDebug () << "group from" << smartGroup->startLine() << "to" << smartGroup->newEndLine();
+    foreach (KateSmartCursor *c, smartGroup->normalCursors ())
+      kDebug() << "cursor" << c << "line" << c->line ();
+  }
+#endif
 
   // Shift the groups so they have their new start and end lines
   if (edit->translate().line())
@@ -410,9 +438,17 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
 #ifdef DEBUG_TRANSLATION
   KateTranslationDebugger.verifyAll();
-#endif
   //debugOutput();
-//   verifyCorrect();
+  verifyCorrect();
+
+  kDebug() << "after edit tranlate";
+  for (KateSmartGroup* smartGroup = m_firstGroup; smartGroup; smartGroup = smartGroup->next())
+  {  
+    kDebug () << "group from" << smartGroup->startLine() << "to" << smartGroup->endLine();
+    foreach (KateSmartCursor *c, smartGroup->normalCursors ())
+      kDebug() << "cursor" << c << "line" << c->line ();
+  }
+#endif
 }
 
 KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )

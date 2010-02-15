@@ -103,7 +103,6 @@ private Q_SLOTS:
     void onIncPatternChanged(const QString & pattern);
     void onMatchCaseToggled(bool matchCase);
     void onHighlightAllToggled(bool checked);
-    void onFromCursorToggled(bool fromCursor);
 
     void onReturnPressed();
     void onSelectionChanged();
@@ -134,7 +133,6 @@ private:
     QString searchPattern() const;
     bool isPatternValid() const;
 
-    bool fromCursor() const;
     bool selectionOnly() const;
     bool highlightAll() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
@@ -174,14 +172,12 @@ private:
     Ui::IncrementalSearchBar * m_incUi;
     QMenu * m_incMenu;
     QAction * m_incMenuMatchCase;
-    QAction * m_incMenuFromCursor;
     QAction * m_incMenuHighlightAll;
     KTextEditor::Cursor m_incInitCursor;
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;
     QMenu * m_powerMenu;
-    QAction * m_powerMenuFromCursor;
     QAction * m_powerMenuHighlightAll;
     QAction * m_powerMenuSelectionOnly;
 

@@ -1142,6 +1142,10 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   if (!l)
     return false;
 
+  // nothing to do, do nothing!
+  if (s.isEmpty())
+    return true;
+  
   editStart (editSource);
 
   QString s2 = s;
@@ -1179,6 +1183,10 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (!l)
     return false;
 
+  // nothing to do, do nothing!
+  if (len == 0)
+    return true;
+  
   editStart (editSource);
 
   m_undoManager->slotTextRemoved(line, col, l->string().mid(col, len));

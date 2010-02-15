@@ -5,7 +5,7 @@
   original by Shane Wright (me@shanewright.co.uk)
   modifications by Milian Wolff (mail@milianw.de)
 -->
-<language name="SQL (MySQL)" version="1.12" kateversion="2.5" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
+<language name="SQL (MySQL)" version="1.13" kateversion="2.5" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -397,6 +397,7 @@
         <!-- extra data types -->
         <RegExpr attribute="Data Type" context="#stay" String="%(?:bulk_(?:exceptions|rowcount)|found|isopen|notfound|rowcount|rowtype|type)\b" insensitive="true"/>
         <!-- numbers -->
+        <HlCHex attribute="Hex" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
         <!-- strings -->
@@ -452,6 +453,7 @@
       <itemData name="Data Type" defStyleNum="dsDataType" spellChecking="false"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="Float"  defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Hex" defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="String" defStyleNum="dsString"/>
       <itemData name="Name" color="#080" defStyleNum="dsString" spellChecking="false"/>
       <itemData name="String Char" defStyleNum="dsChar" spellChecking="false"/>

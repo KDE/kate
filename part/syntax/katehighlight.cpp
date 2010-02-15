@@ -322,14 +322,15 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // optimization: list of highlighting items that need their cache reset
   static QVarLengthArray<KateHlItem*> cachingItems;
 
+
+  QChar lastDelimChar = 0;
   while (offset < len)
   {
     bool anItemMatched = false;
-    bool standardStartEnableDetermined = false;
     bool customStartEnableDetermined = false;
 
     int index = 0;
-    
+
     for (item = context->items.value(0, 0); item; item = context->items.value(++index, 0))
     {
       // does we only match if we are firstNonSpace?
@@ -355,10 +356,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
         }
         else
         {
-          if (standardStartEnableDetermined || stdDeliminator.contains(lastChar))
-            standardStartEnableDetermined = true;
-          else
+          if (lastDelimChar == lastChar) {
+          } else if ( stdDeliminator.contains(lastChar) ) {
+            lastDelimChar = lastChar;
+          } else {
             continue;
+          }
         }
       }
 

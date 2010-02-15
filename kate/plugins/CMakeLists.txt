@@ -26,7 +26,6 @@ add_subdirectory( katebuild-plugin )
 
 add_subdirectory( kttsd )
 
-#add_subdirectory( htmltools )
 add_subdirectory( kpybrowser )
 add_subdirectory( openheader )
 #add_subdirectory( xmltools )

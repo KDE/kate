@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="katepybrowse" library="libkatepybrowseplugin" version="3">
-<MenuBar>
-	<Menu name="python"><text>P&amp;ython</text>
-  	<Action name="python_update_pybrowse" />
-  </Menu>
-</MenuBar>
-</gui>

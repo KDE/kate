@@ -427,8 +427,8 @@ function tryCondition(line)
         //       statement();  <-- we catch this trailing ';'
         // Now, look for a line that starts with if/for/while, that has one
         // indent level less.
-        indentation = document.firstVirtualColumn(currentLine);
-        if (indentation == 0)
+        var currentIndentation = document.firstVirtualColumn(currentLine);
+        if (currentIndentation == 0)
             return -1;
 
         var lineDelimiter = 10; // 10 limit search, hope this is a sane value
@@ -439,7 +439,7 @@ function tryCondition(line)
             if (firstPosVirtual == -1)
                 continue;
 
-            if (firstPosVirtual < indentation) {
+            if (firstPosVirtual < currentIndentation) {
                 currentString = document.line(currentLine);
                 if (currentString.search(/^\s*(if\b|[}]?\s*else|do\b|while\b|for)[^{]*$/) != -1)
                     indentation = firstPosVirtual;

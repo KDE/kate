@@ -108,6 +108,9 @@ class SmartCursor;
  * lock the smartMutex() whenever you are making a non-const call to a smart object.
  * This allows the text editor to guarantee that the objects will not change
  * when it locks the mutex (for example, when performing layout or rendering).
+ * The useRevision function has only effect for the thread calling it. It will
+ * store the selected revision in a thread local storage to allow multiple threads
+ * to have different views on the same document in respect to the smart interface.
  *
  * \author Hamish Rodda \<rodda@kde.org\>
  */

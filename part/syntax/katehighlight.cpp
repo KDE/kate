@@ -84,6 +84,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     m_additionalData["none"]->deliminator = stdDeliminator;
     m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
     m_hlIndex[0] = "none";
+    m_ctxIndex[0]="";
   }
   else
   {
@@ -958,6 +959,20 @@ bool KateHighlighting::attributeRequiresSpellchecking( int attr )
   return true;
 }
 
+QString KateHighlighting::hlKeyForContext(int i) const
+{
+  int k = 0;
+  QMap<int,QString>::const_iterator it = m_ctxIndex.constEnd();
+  while ( it != m_hlIndex.constBegin() )
+  {
+    --it;
+    k = it.key();
+    if ( i >= k )
+      break;
+  }
+  return it.value();
+}
+
 QString KateHighlighting::hlKeyForAttrib( int i ) const
 {
   // find entry. This is faster than QMap::find. m_hlIndex always has an entry
@@ -1658,7 +1673,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
  */
 int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 {
-  kDebug(13010)<<"=== Adding hl with ident '"<<ident<<"'";
+  //kDebug(13010)<<"=== Adding hl with ident '"<<ident<<"' ctx0="<<ctx0;
 
   buildIdentifier=ident;
   KateSyntaxContextData *data, *datasub;
@@ -1685,6 +1700,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   RegionList<<"!KateInternal_TopLevel!";
 
   m_hlIndex[internalIDList.count()] = ident;
+  m_ctxIndex[ctx0]=ident;
   m_additionalData.insert( ident, new HighlightPropertyBag );
 
   // fill out the propertybag

@@ -5589,17 +5589,30 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 {
   KateTextLine::Ptr kateLine = kateTextLine(position.line());
 
-  const QVector<int> & intAttrs = kateLine->attributesList();
-
-  Q_ASSERT(intAttrs.size() % 3 == 0);
-
-  for ( int i = 0; i < intAttrs.size(); i += 3 ) {
-    if ( intAttrs[i] <= position.column() && intAttrs[i] + intAttrs[i+1] > position.column() ) {
-      return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(intAttrs[i+2]));
-    }
+//   QVector<short>attrs=kateLine->ctxArray();
+//   kDebug()<<"----------------------------------------------------------------------";
+//   foreach(short a, attrs)
+//   {
+//     kDebug()<<a;
+//   }
+//   kDebug()<<"----------------------------------------------------------------------";
+  //kDebug()<<"col: "<<position.column()<<" lastchar:"<<kateLine->lastChar()<<" length:"<<kateLine->length();
+  int len=kateLine->length();
+  int pos=position.column();
+  if (pos>=len) {
+    QVector<short>ctxs=kateLine->ctxArray();
+    int ctxcnt=ctxs.count();
+    if (ctxcnt==0) return mode();
+    int ctx=ctxs[ctxcnt-1];
+    if (ctx==0) return mode();
+    return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
   }
-
-  return mode();
+  
+  int attr=kateLine->attribute(pos);
+  if (attr==0) return mode();
+  
+  return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
+  
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -223,6 +223,7 @@ class KateHighlighting
      * the returned string is used as key for m_additionalData.
      */
     QString hlKeyForAttrib( int attrib ) const;
+    QString hlKeyForContext( int attrib ) const;
 
     int defaultStyleForAttribute( int attrib ) const;
 
@@ -377,7 +378,7 @@ class KateHighlighting
      * @see hlKeyForAttrib
      */
     QMap<int, QString> m_hlIndex;
-
+    QMap<int, QString> m_ctxIndex;
   public:
     inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
     inline bool allowsFolding(){return folding;}

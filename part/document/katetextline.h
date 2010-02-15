@@ -213,7 +213,7 @@ class KateTextLine : public KShared
      * @param pos position of attribute requested
      * @return value of attribute
      */
-    inline uchar attribute (int pos) const
+    inline int attribute (int pos) const
     {
       for (int i=0; i < m_attributesList.size(); i+=3)
       {

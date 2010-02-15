@@ -86,6 +86,7 @@ public Q_SLOTS:
     // Called for <F3> and <Shift>+<F3>
     void findNext();
     void findPrevious();
+    void findAll();
 
     // Also used by KateView
     void onMutatePower();
@@ -102,7 +103,6 @@ protected:
 private Q_SLOTS:
     void onIncPatternChanged(const QString & pattern);
     void onMatchCaseToggled(bool matchCase);
-    void onHighlightAllToggled(bool checked);
 
     void onReturnPressed();
     void onSelectionChanged();
@@ -123,7 +123,7 @@ private Q_SLOTS:
 private:
     // Helpers
     bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);
-    void findAll(KTextEditor::Range inputRange, const QString * replacement);
+    int findAll(KTextEditor::Range inputRange, const QString * replacement);
 
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
@@ -134,7 +134,6 @@ private:
     bool isPatternValid() const;
 
     bool selectionOnly() const;
-    bool highlightAll() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void resetHighlights();
@@ -142,7 +141,6 @@ private:
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
-    void highlightAllMatches();
     void indicateMatch(MatchResult matchResult);
     static void selectRange(KateView * view, const KTextEditor::Range & range);
     void nonstatic_selectRange(KateView * view, const KTextEditor::Range & range);
@@ -170,16 +168,10 @@ private:
 
     // Incremental search related
     Ui::IncrementalSearchBar * m_incUi;
-    QMenu * m_incMenu;
-    QAction * m_incMenuMatchCase;
-    QAction * m_incMenuHighlightAll;
     KTextEditor::Cursor m_incInitCursor;
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;
-    QMenu * m_powerMenu;
-    QAction * m_powerMenuHighlightAll;
-    QAction * m_powerMenuSelectionOnly;
 
     // Status backup
     bool m_incHighlightAll : 1;

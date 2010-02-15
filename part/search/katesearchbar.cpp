@@ -134,14 +134,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
         m_incUi(NULL),
-        m_incMenu(NULL),
-        m_incMenuMatchCase(NULL),
-        m_incMenuHighlightAll(NULL),
         m_incInitCursor(0, 0),
         m_powerUi(NULL),
-        m_powerMenu(NULL),
-        m_powerMenuHighlightAll(NULL),
-        m_powerMenuSelectionOnly(NULL),
         m_incHighlightAll(false),
         m_incFromCursor(true),
         m_incMatchCase(false),
@@ -203,10 +197,7 @@ KateSearchBar::~KateSearchBar() {
     delete m_widget;
 
     delete m_incUi;
-    delete m_incMenu;
-
     delete m_powerUi;
-    delete m_powerMenu;
 }
 
 
@@ -255,10 +246,6 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 }
 
 
-
-void KateSearchBar::highlightAllMatches() {
-    findAll(view()->doc()->documentRange(), NULL);
-}
 
 void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
   indicateMatch(MatchNeutral);
@@ -521,14 +508,8 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
             }
     }
 
-    // Highlight all
-    if (isChecked(m_incMenuHighlightAll)) {
-        if (match.isValid()) {
-            highlightAllMatches();
-        } else {
-            resetHighlights();
-        }
-    }
+    resetHighlights();
+
     if (!match.isValid()) {
         view()->setSelection(Range::invalid());
     }
@@ -545,22 +526,6 @@ void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
         onIncPatternChanged(pattern);
     } else {
         indicateMatch(MatchNothing);
-    }
-}
-
-
-
-void KateSearchBar::onHighlightAllToggled(bool checked) {
-    sendConfig();
-
-    if (checked) {
-        if (!searchPattern().isEmpty()) {
-            // Highlight them all
-            resetHighlights();
-            highlightAllMatches();
-        }
-    } else {
-        resetHighlights();
     }
 }
 
@@ -756,28 +721,30 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         }
     }
 
-    // Highlight all matches and/or replacement
-    if ((found && highlightAll()) || (afterReplace != NULL)) {
-        // Highlight all matches
-        if (found && highlightAll()) {
-            highlightAllMatches();
-        }
+    // Reset highlighting for all matches and highlight replacement if there is one
+    resetHighlights();
+    if (afterReplace != NULL) {
+        highlightReplacement(*afterReplace);
+    }
 
-        // Highlight replacement (on top if overlapping) if new match selected
-        if (found && (afterReplace != NULL)) {
-            // Note: highlightAllMatches already reset for us
-            if (!(found && highlightAll())) {
-                resetHighlights();
-            }
-
-            highlightReplacement(*afterReplace);
-        }
-
+    if (match.isValid()) {
+        nonstatic_selectRange2(view(), match);
     }
 
     delete afterReplace;
 
     return true; // == No pattern error
+}
+
+
+
+
+void KateSearchBar::findAll()
+{
+    resetHighlights();
+    const int occurrences = findAll(view()->doc()->documentRange(), NULL);
+
+    indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
 
 
@@ -825,11 +792,9 @@ void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
 void KateSearchBar::backupConfig(bool ofPower) {
     if (ofPower) {
         m_powerMatchCase = isChecked(m_powerUi->matchCase);
-        m_powerHighlightAll = isChecked(m_powerMenuHighlightAll);
         m_powerMode = m_powerUi->searchMode->currentIndex();
     } else {
-        m_incHighlightAll = isChecked(m_incMenuHighlightAll);
-        m_incMatchCase = isChecked(m_incMenuMatchCase);
+        m_incMatchCase = m_incUi->matchCase->isChecked();
     }
 }
 
@@ -904,7 +869,7 @@ void KateSearchBar::onPowerReplaceNext() {
 
 // replacement == NULL --> Highlight all matches
 // replacement != NULL --> Replace and highlight all matches
-void KateSearchBar::findAll(Range inputRange, const QString * replacement) {
+int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     const Search::SearchOptions enabledOptions = searchOptions(SearchForward);
 
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
@@ -985,6 +950,8 @@ void KateSearchBar::findAll(Range inputRange, const QString * replacement) {
         }
 
     delete workingRange;
+
+    return matchCounter;
 }
 
 
@@ -1022,15 +989,8 @@ QString KateSearchBar::searchPattern() const {
 
 
 bool KateSearchBar::selectionOnly() const {
-    return isPower() ? m_powerMenuSelectionOnly->isChecked()
+    return isPower() ? m_powerUi->selectionOnly->isChecked()
                      : false;
-}
-
-
-
-bool KateSearchBar::highlightAll() const {
-    return isPower() ? m_powerMenuHighlightAll->isChecked()
-                     : m_incMenuHighlightAll->isChecked();
 }
 
 
@@ -1040,7 +1000,7 @@ KTextEditor::Search::SearchOptions KateSearchBar::searchOptions(SearchDirection 
 
     const bool matchCase = (m_powerUi != NULL)
             ? m_powerUi->matchCase->isChecked()
-            : m_incMenuMatchCase->isChecked();
+            : m_incUi->matchCase->isChecked();
     if (!matchCase) {
         enabledOptions |= Search::CaseInsensitive;
     }
@@ -1378,11 +1338,7 @@ void KateSearchBar::onMutatePower() {
 
             // Kill widget
             delete m_incUi;
-            delete m_incMenu;
             m_incUi = NULL;
-            m_incMenu = NULL;
-            m_incMenuMatchCase = NULL;
-            m_incMenuHighlightAll = NULL;
             m_layout->removeWidget(m_widget);
             m_widget->deleteLater(); // I didn't get a crash here but for symmetrie to the other mutate slot^
         }
@@ -1402,18 +1358,11 @@ void KateSearchBar::onMutatePower() {
         m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
         m_powerUi->replacement->setModel(replacementHistoryModel);
 
-        // Fill options menu
-        m_powerMenu = new QMenu();
-        m_powerUi->options->setMenu(m_powerMenu);
-        m_powerMenuHighlightAll = m_powerMenu->addAction(i18n("Hi&ghlight all"));
-        m_powerMenuHighlightAll->setCheckable(true);
-        m_powerMenuSelectionOnly = m_powerMenu->addAction(i18n("Selection &only"));
-        m_powerMenuSelectionOnly->setCheckable(true);
-
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
         m_powerUi->findNext->setIcon(KIcon("go-down-search"));
         m_powerUi->findPrev->setIcon(KIcon("go-up-search"));
+        m_powerUi->findAll->setIcon(KIcon("edit-find"));
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
@@ -1428,12 +1377,11 @@ void KateSearchBar::onMutatePower() {
         replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
     }
 
-    setChecked(m_powerMenuSelectionOnly, selectionOnly);
+    m_powerUi->selectionOnly->setChecked(selectionOnly);
 
     // Restore previous settings
     if (create) {
         setChecked(m_powerUi->matchCase, m_powerMatchCase);
-        setChecked(m_powerMenuHighlightAll, m_powerHighlightAll);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
     }
 
@@ -1462,11 +1410,7 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
         connect(m_powerUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
-        connect(m_powerMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
-
-        // Make button click open the menu as well. IMHO with the dropdown arrow present the button
-        // better shows his nature than in instant popup mode.
-        connect(m_powerUi->options, SIGNAL(clicked()), m_powerUi->options, SLOT(showMenu()));
+        connect(m_powerUi->findAll, SIGNAL(clicked()), this, SLOT(findAll()));
 
         // Make [return] in pattern line edit trigger <find next> action
         connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
@@ -1551,14 +1495,6 @@ void KateSearchBar::onMutateIncremental() {
             new QShortcut(KStandardShortcut::paste().alternate(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
 
 
-        // Fill options menu
-        m_incMenu = new QMenu();
-        m_incUi->options->setMenu(m_incMenu);
-        m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
-        m_incMenuHighlightAll->setCheckable(true);
-        m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
-        m_incMenuMatchCase->setCheckable(true);
-
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
         m_incUi->next->setIcon(KIcon("go-down-search"));
@@ -1576,8 +1512,7 @@ void KateSearchBar::onMutateIncremental() {
 
     // Restore previous settings
     if (create) {
-        setChecked(m_incMenuHighlightAll, m_incHighlightAll);
-        setChecked(m_incMenuMatchCase, m_incMatchCase);
+        m_incUi->matchCase->setChecked(m_incMatchCase);
     }
 
     // Set initial search pattern
@@ -1603,12 +1538,7 @@ void KateSearchBar::onMutateIncremental() {
         connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
-        connect(m_incMenuMatchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
-        connect(m_incMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onHighlightAllToggled(bool)));
-
-        // Make button click open the menu as well. IMHO with the dropdown arrow present the button
-        // better shows his nature than in instant popup mode.
-        connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
+        connect(m_incUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
     }
 
     // Focus
@@ -1707,7 +1637,7 @@ void KateSearchBar::onSelectionChanged() {
         Range const & selection = view()->selectionRange();
         selectionOnly = !selection.onSingleLine();
     }
-    setChecked(m_powerMenuSelectionOnly, selectionOnly);
+    m_powerUi->selectionOnly->setChecked(selectionOnly);
 }
 
 

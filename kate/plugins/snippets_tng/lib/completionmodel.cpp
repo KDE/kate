@@ -520,6 +520,10 @@ namespace KTextEditor {
             }
         }        
         
+        CategorizedSnippetModel::~CategorizedSnippetModel() {
+          qDeleteAll(m_models);
+        }
+        
         void CategorizedSnippetModel::subDestroyed(QObject* obj) {
           int i=m_models.indexOf((SnippetSelectorModel*)(obj));
           if (i==-1) return;

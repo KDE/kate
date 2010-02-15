@@ -87,7 +87,7 @@ namespace JoWenn {
       }
       if (completionModel.isNull()) {
         completionModel=QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(m_repositoryData->completionModel(mode));
-        m_mode_model_hash.insert(document->mode(),completionModel);
+        m_mode_model_hash.insert(mode,completionModel);
       }
       m_document_model_multihash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
     }
@@ -156,6 +156,9 @@ namespace JoWenn {
     if (model_t==model_d) return;*/
     removeDocument(document);
     addDocument(document);
+    kDebug()<<"invoking typeHasChanged(doc)";
+    emit typeHasChanged(document);
+
   }
 
   void KateSnippetsPlugin::slotTypeChanged(const QStringList& fileType)
@@ -182,7 +185,9 @@ namespace JoWenn {
     }
     foreach(KTextEditor::Document* doc,refreshList) {
       addDocument(doc);
-    }
+      kDebug()<<"invoking typeHasChanged(doc)";
+      emit typeHasChanged(doc);
+    }    
   }
 
   Kate::PluginView *KateSnippetsPlugin::createView (Kate::MainWindow *mainWindow)

@@ -31,6 +31,7 @@ namespace JoWenn {
     setupUi(this);
     plainTextEdit->setReadOnly(true);
     connect(mainWindow,SIGNAL(viewChanged()),this,SLOT(viewChanged()));
+    connect(plugin,SIGNAL(typeHasChanged(KTextEditor::Document*)),this,SLOT(typeChanged(KTextEditor::Document*)));
     connect(treeView,SIGNAL(clicked(const QModelIndex&)),this,SLOT(clicked(const QModelIndex&)));
     connect(treeView,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(doubleClicked(const QModelIndex&)));
   }
@@ -54,6 +55,17 @@ namespace JoWenn {
           treeView->setModel(m_plugin->modelForDocument(view->document()));
           m_mode=mode;
       }
+    }
+  }
+
+  void KateSnippetSelector::typeChanged(KTextEditor::Document* document) {
+    KTextEditor::View *view=m_mainWindow->activeView();
+    kDebug(13040);
+    if (!view) return;    
+    if (view->document()==document)
+    {
+      kDebug(13040)<<"calling view changed";
+      viewChanged();
     }
   }
 

@@ -80,6 +80,8 @@ namespace JoWenn {
       void addView(KTextEditor::Document *document, KTextEditor::View *view);
       void updateDocument(KTextEditor::Document *document);
       void slotTypeChanged(const QStringList& fileType);
+    Q_SIGNALS:
+      void typeHasChanged(KTextEditor::Document*);
     public:
       KTextEditor::CodesnippetsCore::CategorizedSnippetModel* modelForDocument(KTextEditor::Document *document);
     private:

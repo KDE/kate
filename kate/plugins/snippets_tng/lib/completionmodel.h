@@ -71,7 +71,7 @@ namespace KTextEditor {
       Q_OBJECT
       public:
         CategorizedSnippetModel(const QList<SnippetSelectorModel*>& models);
-        
+        virtual ~CategorizedSnippetModel();
         virtual int columnCount(const QModelIndex& parent) const {return 1;}
         virtual int rowCount(const QModelIndex& parent) const;
         virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;

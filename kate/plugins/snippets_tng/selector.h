@@ -38,6 +38,7 @@ namespace JoWenn {
       void viewChanged();
       void clicked(const QModelIndex& current);
       void doubleClicked(const QModelIndex& current);
+      void typeChanged(KTextEditor::Document* document);
     private:
       JoWenn::KateSnippetsPlugin *m_plugin;
       Kate::MainWindow *m_mainWindow;

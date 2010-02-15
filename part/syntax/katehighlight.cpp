@@ -344,9 +344,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
               additionalData = m_additionalData[oldContext->hlId];
             }
             if (customStartEnableDetermined || additionalData->deliminator.contains(lastChar))
-            customStartEnableDetermined = true;
-          else
-            continue;
+              customStartEnableDetermined = true;
+            else
+              continue;
         }
         else
         {

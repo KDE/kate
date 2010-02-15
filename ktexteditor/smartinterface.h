@@ -160,7 +160,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * Retrieve a token representing the current version of the document. This can
      * be used later to create cursors and ranges as they would have been at this revision.
      *
-     * Once you have finished with the token, release it with releaseRevision();
+     * Once you have finished with the token, release it with releaseRevision().
      */
     virtual int currentRevision() const = 0;
 
@@ -172,7 +172,8 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     /**
      * Tell the smart interface to work against the given \a revision when creating cursors and
-     * ranges.
+     * ranges. This has only an effect for the thread calling this function, as this property
+     * is stored thread locally.
      *
      * \param revision the token representing a revision retrieved by currentRevision(), or -1 to
      *                 clear any previous setting and use the current document revision.
@@ -181,6 +182,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     /**
      * Clear any previous setting to use a specific revision.
+     * Convenience wrapper for useRevision (-1).
      */
     void clearRevision();
 

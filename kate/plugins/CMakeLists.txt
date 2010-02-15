@@ -29,9 +29,6 @@ add_subdirectory( kttsd )
 add_subdirectory( openheader )
 #add_subdirectory( xmltools )
 add_subdirectory( xmlcheck )
-if(NOT WIN32)
-    add_subdirectory( snippets )
-endif(NOT WIN32)
 
 add_subdirectory( snippets_tng )
 

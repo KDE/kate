@@ -73,7 +73,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
-  // Mime filter for the KDirOperator 
+  // Mime filter for the KDirOperator
   QStringList filter;
   filter << "text/plain" << "text/html" << "inode/directory";
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
@@ -176,12 +176,11 @@ void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & na
 
 void KateFileBrowser::slotFilterChange(const QString & nf)
 {
-  QString f = '*' + nf.trimmed() + '*';
-  const bool empty = f.isEmpty() || f == "*" || f == "**" || f == "***";
+  QString f = nf.trimmed();
+  const bool empty = f.isEmpty() || f == "*";
 
   if (empty) {
     m_dirOperator->clearFilter();
-    m_filter->lineEdit()->clear();
   } else {
     m_dirOperator->setNameFilter(f);
   }

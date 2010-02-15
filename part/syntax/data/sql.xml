@@ -3,7 +3,7 @@
 <!-- Oracle10g SQL and PL/SQL syntax - ANSI SQL 2003 superset -->
 <!-- This file is maintained by Anders Lund <anders@alweb.dk> since 2005-11-06 -->
 <!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
-<language name="SQL" version="1.13" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
+<language name="SQL" version="1.14" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -884,20 +884,21 @@
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <DetectSpaces />
+
         <keyword attribute="Keyword" String="keywords" context="#stay"/>
         <keyword attribute="Operator" String="operators" context="#stay"/>
         <keyword attribute="Function" String="functions" context="#stay"/>
         <keyword attribute="Data Type" String="types" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%bulk_exceptions\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%bulk_rowcount\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%found\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%isopen\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%notfound\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%rowcount\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%rowtype\b" insensitive="true" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%type\b" insensitive="true" context="#stay"/>
+
+        <DetectIdentifier />
+
+        <RegExpr attribute="Data Type" context="#stay" String="%(?:bulk_(?:exceptions|rowcount)|found|isopen|notfound|rowcount|rowtype|type)\b" insensitive="true"/>
+
+        <HlCHex attribute="Hex" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
+
         <DetectChar attribute="String" context="String literal" char="'"/>
         <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
         <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
@@ -931,6 +932,7 @@
       <itemData name="Function"          defStyleNum="dsFunction"/>
       <itemData name="Data Type"         defStyleNum="dsDataType"/>
       <itemData name="Decimal"           defStyleNum="dsDecVal"/>
+      <itemData name="Hex"             defStyleNum="dsBaseN"/>
       <itemData name="Float"             defStyleNum="dsFloat"/>
       <itemData name="String"            defStyleNum="dsString"/>
       <itemData name="String Char"       defStyleNum="dsChar"/>

@@ -48,7 +48,9 @@ KateHlItem::KateHlItem(int attribute, KateHlContextModification context,signed c
     onlyConsume(false),
     column (-1),
     alwaysStartEnable (true),
-    customStartEnable (false)
+    customStartEnable (false),
+    haveCache(false),
+    cachingHandled(false)
 {
 }
 
@@ -570,8 +572,9 @@ KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, 
   , _regexp(regexp)
   , _insensitive(insensitive)
   , _minimal(minimal)
+  , _lastOffset(-2) // -2 is start value, -1 is "not found at all"
 {
-  Expr = new QRegExp(handlesLinestart ? regexp : '^' + regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
+  Expr = new QRegExp(regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
   Expr->setMinimal(_minimal);
 }
 
@@ -580,11 +583,31 @@ int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   if (offset && handlesLinestart)
     return 0;
 
-  int offset2 = Expr->indexIn( text, offset, QRegExp::CaretAtOffset );
+  // optimization: if we check something on the same text as the last time,
+  //               try to reuse what we got that time
+  if ( haveCache ) {
+    if ( offset < _lastOffset || _lastOffset == -1 ) {
+      // reuse last match: not found or offset before match
+      return 0;
+    } else if ( offset == _lastOffset ) {
+      // reuse last match: found at this position
+      return (_lastOffset + _lastOffsetLength);
+    }
+  }
 
-  if (offset2 == -1) return 0;
+  haveCache = true;
+  _lastOffset = Expr->indexIn( text, offset, QRegExp::CaretAtOffset );
 
-  return (offset + Expr->matchedLength());
+  if (_lastOffset == -1) return 0;
+
+  _lastOffsetLength = Expr->matchedLength();
+
+  if ( _lastOffset == offset ) {
+    // only valid when we match at the exact offset
+    return (_lastOffset + _lastOffsetLength);
+  } else {
+    return 0;
+  }
 }
 
 QStringList *KateHlRegExpr::capturedTexts()

@@ -60,6 +60,11 @@ class KateHlItem
     // saves function calls
     bool alwaysStartEnable;
     bool customStartEnable;
+
+    // set to true when you cached something
+    bool haveCache;
+    // internal for doHighlight, don't set it in the items
+    bool cachingHandled;
 };
 
 class KateHlContext
@@ -273,6 +278,12 @@ class KateHlRegExpr : public KateHlItem
     QString _regexp;
     bool _insensitive;
     bool _minimal;
+
+    // optimization stuff below
+    /// index of the last match
+    int _lastOffset;
+    /// length of the last match
+    int _lastOffsetLength;
 };
 
 class KateHlDetectSpaces : public KateHlItem

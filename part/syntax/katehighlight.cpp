@@ -53,6 +53,7 @@
 #include <QtGui/QApplication>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
+#include <QVarLengthArray>
 //END
 
 //BEGIN defines
@@ -317,6 +318,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   KateHighlighting::HighlightPropertyBag* additionalData = m_additionalData[context->hlId];
   KateHlContext* oldContext = context;
+
+  // optimization: list of highlighting items that need their cache reset
+  static QVarLengthArray<KateHlItem*> cachingItems;
+
   while (offset < len)
   {
     bool anItemMatched = false;
@@ -358,6 +363,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       }
 
       int offset2 = item->checkHgl(text, offset, len-offset);
+      if ( item->haveCache && !item->cachingHandled ) {
+        cachingItems.append(item);
+        item->cachingHandled = true;
+      }
 
       if (offset2 <= offset)
         continue;
@@ -506,6 +515,13 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   if(textLine->attributesList().empty()) {
     textLine->addAttribute (0, textLine->length(), KTextEditor::HighlightInterface::dsNormal);
   }
+
+  // invalidate caches
+  for ( int i = 0; i < cachingItems.size(); ++i) {
+    cachingItems[i]->cachingHandled = false;
+    cachingItems[i]->haveCache = false;
+  }
+  cachingItems.clear();
 }
 
 void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QList<KateExtendedAttribute::Ptr> &list)

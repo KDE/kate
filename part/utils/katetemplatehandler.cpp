@@ -39,6 +39,12 @@ using namespace KTextEditor;
 
 #define ifDebug(x) x
 
+/// just like Range::contains() but returns true when the cursor is at the end of the range
+bool customContains(SmartRange* range, const Cursor& cursor)
+{
+  return range->start() <= cursor && range->end() >= cursor;
+}
+
 /* ####################################### */
 
 KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& position,
@@ -165,7 +171,8 @@ void KateTemplateHandler::cleanupAndExit()
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
   if ( m_doc->activeView() && (!m_wholeTemplateRange
-        || m_wholeTemplateRange->contains(m_doc->activeView()->cursorPosition())) ) {
+        || customContains(m_wholeTemplateRange, m_doc->activeView()->cursorPosition())) )
+  {
     m_doc->activeView()->setSelection(Range::invalid());
     m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
   }
@@ -523,7 +530,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   SmartRange* leftAdjacentRange = 0;
 
   foreach ( SmartRange* parent, m_templateRanges ) {
-    if ( parent->start() <= range.start() && parent->end() >= range.start() )
+    if ( customContains(parent, range.start()) )
     {
       if ( parent->childRanges().isEmpty() ) {
         // simple, not-mirrored range got changed
@@ -546,7 +553,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
         } else {
           // find mirrored range that got edited
           foreach ( SmartRange* child, parent->childRanges() ) {
-            if ( child->start() <= range.start() && child->end() >= range.start() ) {
+            if ( customContains(child, range.start()) ) {
               baseRange = child;
               break;
             }

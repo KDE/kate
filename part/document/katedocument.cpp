@@ -3715,17 +3715,18 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
 */
 void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KTextEditor::Range& bm, int maxLines )
 {
-  bm.start() = cursor;
-
-  if( findMatchingBracket( bm, maxLines ) )
+  // search from cursor for brackets
+  KTextEditor::Range range (cursor, cursor);
+  
+  // if match found, remember the range
+  if( findMatchingBracket( range, maxLines ) ) {
+    bm = range;
     return;
+  }
 
-  bm = KTextEditor::Range::invalid();
-
- // const int tw = config()->tabWidth();
- // const int indentStart = m_buffer->plainLine(bm.start().line())->indentDepth(tw);
- // const int indentEnd = m_buffer->plainLine(bm.end().line())->indentDepth(tw);
-  //bm.setIndentMin(qMin(indentStart, indentEnd));
+  // else, invalidate, if still valid
+  if (bm.isValid())
+    bm = KTextEditor::Range::invalid();
 }
 
 bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines )

@@ -21,6 +21,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <ktexteditor/templateinterface.h>
+#include <ktexteditor/highlightinterface.h>
 #include <ktexteditor/view.h>
 #include <kmessagebox.h>
 #ifdef SNIPPET_EDITOR
@@ -51,8 +52,8 @@ namespace KTextEditor {
 
 //BEGIN: CompletionModel
 
-    SnippetCompletionModel::SnippetCompletionModel(QStringList &snippetFiles):
-      KTextEditor::CodeCompletionModel2((QObject*)0) {
+    SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles):
+      KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType) {
         foreach(const QString& str, snippetFiles) {
           loadEntries(str);
         }      
@@ -100,6 +101,10 @@ namespace KTextEditor {
     
     SnippetSelectorModel *SnippetCompletionModel::selectorModel() {
       return new SnippetSelectorModel(this);
+    }
+    
+    QString SnippetCompletionModel::fileType() {
+        return m_fileType;
     }
     
     void SnippetCompletionModel::loadEntries(const QString &filename) {
@@ -168,25 +173,37 @@ namespace KTextEditor {
     void SnippetCompletionModel::completionInvoked(KTextEditor::View* view,
       const KTextEditor::Range& range, InvocationType invocationType) {
         //kDebug(13040);
-        if (invocationType==AutomaticInvocation) {
-          //KateView *v = qobject_cast<KateView*> (view);
-          
-          if (range.columnWidth() >= 3) {
-            m_matches.clear();
-            foreach(const SnippetCompletionEntry& entry,m_entries) {
-              m_matches.append(&entry);
+        bool my_mode=true;
+        KTextEditor::HighlightInterface *hli=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
+        if (hli)
+        {          
+          kDebug()<<"me: "<<m_fileType<<" current hl in file: "<<hli->highlightingModeAt(range.end());
+          if (hli->highlightingModeAt(range.end())!=m_fileType) my_mode=false;
+        }
+        if (my_mode) {
+          if (invocationType==AutomaticInvocation) {
+            //KateView *v = qobject_cast<KateView*> (view);
+            
+            if (range.columnWidth() >= 3) {
+              m_matches.clear();
+              foreach(const SnippetCompletionEntry& entry,m_entries) {
+                m_matches.append(&entry);
+              }
+              reset();
+              //kDebug(13040)<<"matches:"<<m_matches.count();
+            } else {
+              m_matches.clear();
+              reset();
             }
-            reset();
-            //kDebug(13040)<<"matches:"<<m_matches.count();
           } else {
             m_matches.clear();
-            reset();
+              foreach(const SnippetCompletionEntry& entry,m_entries) {
+                m_matches.append(&entry);
+              }
+              reset();
           }
         } else {
-          m_matches.clear();
-            foreach(const SnippetCompletionEntry& entry,m_entries) {
-              m_matches.append(&entry);
-            }
+            m_matches.clear();
             reset();
         }
     }
@@ -386,9 +403,14 @@ namespace KTextEditor {
       kDebug(13040);
     }
     
+    
     SnippetSelectorModel::~SnippetSelectorModel()
     {
       kDebug(13040);
+    }
+    
+    QString SnippetSelectorModel::fileType() {
+        return m_cmodel->fileType();
     }
 
     int SnippetSelectorModel::rowCount(const QModelIndex& parent) const
@@ -489,6 +511,101 @@ namespace KTextEditor {
     }
   #endif
 //END: SelectorModel
+
+//BEGIN: CategorizedSnippetModel
+        CategorizedSnippetModel::CategorizedSnippetModel(const QList<SnippetSelectorModel*>& models):
+          QAbstractItemModel(),m_models(models) {
+            foreach(SnippetSelectorModel *model,m_models) {
+              connect(model, SIGNAL(destroyed(QObject*)),this,SLOT(subDestroyed(QObject*)));
+            }
+        }        
+        
+        void CategorizedSnippetModel::subDestroyed(QObject* obj) {
+          int i=m_models.indexOf((SnippetSelectorModel*)(obj));
+          if (i==-1) return;
+          m_models.removeAt(i);
+          reset();
+        }
+        
+        int CategorizedSnippetModel::rowCount(const QModelIndex& parent) const {
+          if (!parent.isValid())
+          {
+            return m_models.count();
+          } else {
+//             kDebug()<<"Requested rowCount with valid parent";
+//             kDebug()<<"parent.internalPointer"<<parent.internalPointer();
+//             kDebug()<<"parent.internalId"<<parent.internalId();
+            if (!parent.internalPointer()) {
+              SnippetSelectorModel* m=m_models[parent.row()];
+//               kDebug()<<"Returning child rowCount:"<<m->rowCount(QModelIndex());
+              return m->rowCount(QModelIndex());
+            }
+          }
+          return 0;          
+        }
+        
+        QModelIndex CategorizedSnippetModel::index ( int row, int column, const QModelIndex & parent) const
+        {
+          if (row==-1) {
+//               kDebug()<<"row==-1 -> returning invalid index"<<endl;
+              return QModelIndex();
+          }
+          if (parent.isValid()) {
+//             kDebug()<<"Requested index for valid parent"<<endl;
+            if ((column==0) && ((row>=0) && (row<m_models[parent.row()]->rowCount(QModelIndex()))))
+            {
+              QModelIndex idx=createIndex(row,column,m_models[parent.row()]);
+              kDebug()<<idx;
+              return idx;
+            }
+          } else  {
+//               kDebug()<<"Requested index for invalid parent, row="<<row;
+              if ((row>=0) && (row<m_models.count()) && (column==0))
+                return createIndex(row,column);                
+          }
+          return QModelIndex();
+        }
+        
+        QVariant CategorizedSnippetModel::data(const QModelIndex &index, int role) const {          
+          if (!index.isValid()) 
+          {
+//             kDebug()<<"invoked with invalid index";
+            return QVariant();
+          }
+          if (!index.internalPointer()) {
+//             kDebug()<<"invoked for entry with no internalPointer: row:"<<index.row()<<endl;
+            if (role==Qt::DisplayRole)
+              return m_models[index.row()]->fileType();
+          } else {
+//             kDebug()<<"invoked for valid parent";
+            SnippetSelectorModel *m=(SnippetSelectorModel*)(index.internalPointer());
+            Q_ASSERT(m);
+            return m->data(m->index(index.row(),index.column(),QModelIndex()),role);
+          }
+          return QVariant();
+        }
+        
+        QModelIndex CategorizedSnippetModel::parent ( const QModelIndex & index) const {
+//           kDebug()<<index<<" valid?"<<index.isValid()<<" internalPointer:"<<index.internalPointer();
+          if (!index.isValid()) return QModelIndex();
+          if (index.internalPointer())
+          {
+            QModelIndex idx=createIndex(m_models.indexOf((SnippetSelectorModel*)(index.internalPointer())),0);
+//             kDebug()<<"==========>"<<idx;
+            return idx;
+          }          
+          return QModelIndex();
+        }
+        
+        QVariant CategorizedSnippetModel::headerData ( int section, Qt::Orientation orientation, int role) const {
+          if (orientation==Qt::Vertical) return QVariant();
+          if (section!=0) return QVariant();
+          if (role!=Qt::DisplayRole) return QVariant();
+          return QString("Snippet");
+        }
+        
+//END: CategorizedSnippetModel
+
 #ifdef SNIPPET_EDITOR
   }
 #endif

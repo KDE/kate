@@ -386,7 +386,7 @@ namespace KTextEditor {
           l<<entry.filename;
         }
       }
-      return new SnippetCompletionModel(l);
+      return new SnippetCompletionModel(filetype,l);
 
     }
   

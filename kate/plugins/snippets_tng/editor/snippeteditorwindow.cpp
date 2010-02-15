@@ -153,7 +153,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   
   QStringList files;
   files<<m_url.toLocalFile();
-  m_snippetData=new KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel(files);
+  m_snippetData=new KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel("",files);
   m_selectorModel=m_snippetData->selectorModel();
   snippetListView->setModel(m_selectorModel);
   connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));

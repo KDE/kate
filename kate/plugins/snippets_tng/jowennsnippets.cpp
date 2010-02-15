@@ -27,6 +27,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/highlightinterface.h>
 
 #include <kpluginloader.h>
 #include <kaboutdata.h>
@@ -62,24 +63,46 @@ namespace JoWenn {
 
   KateSnippetsPlugin::~KateSnippetsPlugin()
   {
-    m_document_model_hash.clear();
+    m_document_model_multihash.clear();
     m_mode_model_hash.clear();
   }
 
 
   void KateSnippetsPlugin::addDocument(KTextEditor::Document* document)
   {
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> completionModel;
-    QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::iterator it=m_mode_model_hash.find(document->mode());
-    if (it!=m_mode_model_hash.end()) {
-      completionModel=it.value();
+    KTextEditor::HighlightInterface *hli=qobject_cast<KTextEditor::HighlightInterface*>(document);
+    if (!hli) return;
+    QStringList modes;
+    modes<<document->mode();
+    modes<<hli->embeddedHighlightingModes();    
+    kDebug()<<modes;
+    kDebug()<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+    QList<KTextEditor::CodesnippetsCore::SnippetCompletionModel> models;
+    foreach (const QString& mode, modes)
+    {    
+      QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> completionModel;
+      QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::iterator it=m_mode_model_hash.find(mode);
+      if (it!=m_mode_model_hash.end()) {
+        completionModel=it.value();
+      }
+      if (completionModel.isNull()) {
+        completionModel=QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(m_repositoryData->completionModel(mode));
+        m_mode_model_hash.insert(document->mode(),completionModel);
+      }
+      m_document_model_multihash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
     }
-    if (completionModel.isNull()) {
-      completionModel=QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(m_repositoryData->completionModel(document->mode()));
-      m_mode_model_hash.insert(document->mode(),completionModel);
+    
+    
+    QList <QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >models2=m_document_model_multihash.values(document);
+    QList<KTextEditor::CodesnippetsCore::SnippetSelectorModel*> list;
+    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model, models2)
+    {
+      list.append(model->selectorModel());
     }
-    m_document_model_hash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
-    Q_ASSERT(modelForDocument(document));
+    m_document_categorized_hash.insert(document,new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
+    
+    
+    //Q_ASSERT(modelForDocument(document));
     const QList<KTextEditor::View*>& views=document->views();
     foreach (KTextEditor::View *view,views) {
       addView(document,view);
@@ -91,39 +114,46 @@ namespace JoWenn {
   void KateSnippetsPlugin::removeDocument(KTextEditor::Document* document)
   {
     //if (!m_document_model_hash.contains(document)) return;
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash.take(document);
+    delete m_document_categorized_hash.take(document);
+    QList<QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >models=m_document_model_multihash.values(document);
     const QList<KTextEditor::View*>& views=document->views();
-    foreach (KTextEditor::View *view,views) {
-      KTextEditor::CodeCompletionInterface *iface =
-        qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
-      if (iface) {
-        iface->unregisterCompletionModel(model.data());
-      }
+    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model,models)
+    {
+      foreach (KTextEditor::View *view,views) {
+        KTextEditor::CodeCompletionInterface *iface =
+          qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
+        if (iface) {
+          iface->unregisterCompletionModel(model.data());
+        }
+      }     
     }
+    m_document_model_multihash.remove(document);
+    Q_ASSERT(m_document_model_multihash.find(document)==m_document_model_multihash.end());
   }
 
-  KTextEditor::CodesnippetsCore::SnippetCompletionModel* KateSnippetsPlugin::modelForDocument(KTextEditor::Document *document)
+  KTextEditor::CodesnippetsCore::CategorizedSnippetModel* KateSnippetsPlugin::modelForDocument(KTextEditor::Document *document)
   {
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash[document];
-    return model.data();
+    return m_document_categorized_hash[document];
   }
 
   void KateSnippetsPlugin::addView(KTextEditor::Document* document,KTextEditor::View* view)
   {
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model=m_document_model_hash[document];
-    KTextEditor::CodeCompletionInterface *iface =
-      qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
-    if (iface) {
-      iface->unregisterCompletionModel(model.data());
-      iface->registerCompletionModel(model.data());
+    QList<QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > models=m_document_model_multihash.values(document);
+    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model, models) {
+      KTextEditor::CodeCompletionInterface *iface =
+        qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
+      if (iface) {
+        iface->unregisterCompletionModel(model.data());
+        iface->registerCompletionModel(model.data());
+      }
     }
   }
 
   void KateSnippetsPlugin::updateDocument(KTextEditor::Document* document)
   {
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_d=m_document_model_hash[document];
+/*    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_d=m_document_model_multihash[document];
     QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[document->mode()];
-    if (model_t==model_d) return;
+    if (model_t==model_d) return;*/
     removeDocument(document);
     addDocument(document);
   }
@@ -132,15 +162,15 @@ namespace JoWenn {
   {
     QSet<KTextEditor::Document*> refreshList;
     if (fileType.contains("*")) {
-      QList<KTextEditor::Document*> tmp_list(m_document_model_hash.keys());
+      QList<KTextEditor::Document*> tmp_list(m_document_model_multihash.keys());
       foreach(KTextEditor::Document *doc,tmp_list) {
       refreshList.insert(doc);
       }
     } else {
       foreach(QString ft, fileType) {
         QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[ft];
-        QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::const_iterator it;
-        for(it=m_document_model_hash.constBegin();it!=m_document_model_hash.constEnd();++it) {
+        QMultiHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::const_iterator it;
+        for(it=m_document_model_multihash.constBegin();it!=m_document_model_multihash.constEnd();++it) {
           if (it.value()==model_t) {
             refreshList<<it.key();
           }

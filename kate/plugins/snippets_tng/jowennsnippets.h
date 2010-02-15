@@ -42,6 +42,7 @@ namespace KTextEditor {
     class SnippetRepositoryModel;
     
     class SnippetCompletionModel;
+    class CategorizedSnippetModel;
   }
 }
 
@@ -80,11 +81,12 @@ namespace JoWenn {
       void updateDocument(KTextEditor::Document *document);
       void slotTypeChanged(const QStringList& fileType);
     public:
-      KTextEditor::CodesnippetsCore::SnippetCompletionModel* modelForDocument(KTextEditor::Document *document);
+      KTextEditor::CodesnippetsCore::CategorizedSnippetModel* modelForDocument(KTextEditor::Document *document);
     private:
       QList<KateSnippetsPluginView*> mViews;
-      QHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_document_model_hash;
+      QMultiHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_document_model_multihash;
       QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_mode_model_hash;
+      QHash<KTextEditor::Document*,KTextEditor::CodesnippetsCore::CategorizedSnippetModel*> m_document_categorized_hash;
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *m_repositoryData;
   };
 

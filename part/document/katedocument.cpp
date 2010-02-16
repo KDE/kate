@@ -783,37 +783,37 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
     emit aboutToRemoveText(range);
 
   editStart();
-
+ 
+  // the following code does use editRemoveLine
+  // if appropriate (to remove bookmark)
   if ( !block )
   {
-    int from = range.start().line();
-    int to = range.end().line();
-    
-    // simple: just inside one line, remove text
+    if ( range.end().line() > lastLine() )
+    {
+      range.end().setPosition(lastLine()+1, 0);
+    }
+
     if (range.onSingleLine())
     {
       editRemoveText(range.start().line(), range.start().column(), range.columnWidth());
     }
-    // second case: deleting only full lines
-    // this for example takes care that bookmarks are remove if you delete the line
-    // containing them
-    else if ((to - from) > 0 && range.start().column() == 0 && range.end().column() == 0) {
-        editRemoveLines (from, to-1);
-    } 
-    // else, delete some text + some lines + unwrap
     else
     {
-      // cut text in last line
+      int from = range.start().line();
+      int to = range.end().line();
+
       if (to <= lastLine())
         editRemoveText(to, 0, range.end().column());
 
-      // cut lines out
-      if ((to - from) > 1)
-        editRemoveLines (from+1, to-1);
+      if (range.start().column() == 0 && from > 0)
+        --from;
 
-      // cut text from first line + unwrap
-      editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
-      editUnWrapLine(from);
+      editRemoveLines(from+1, to-1);
+
+      if (range.start().column() > 0 || range.start().line() == 0) {
+        editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
+        editUnWrapLine(from);
+      }
     }
   } // if ( ! block )
   else

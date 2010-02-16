@@ -160,13 +160,14 @@ const QString KateViGlobal::getMapping( ViMode mode, const QString &from, bool d
 const QStringList KateViGlobal::getMappings( ViMode mode, bool decode ) const
 {
   QStringList l;
+  QHash<QString, QString>::const_iterator i;
   switch (mode ) {
   case NormalMode:
-    foreach ( const QString &str, m_normalModeMappings.keys() ) {
+    for (i = m_normalModeMappings.constBegin(); i != m_normalModeMappings.constEnd(); ++i) {
       if ( decode ) {
-        l << KateViKeyParser::getInstance()->decodeKeySequence( str );
+        l << KateViKeyParser::getInstance()->decodeKeySequence( i.key() );
       } else {
-        l << str;
+        l << i.key();
       }
     }
     break;

@@ -318,14 +318,14 @@ void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
 {
   const QMap<QChar, QString>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
   QStringList names, contents;
-  foreach ( const QString &s, regs->keys() ) {
-    QString c = regs->value( s.at(0) );
-    if ( c.length() <= 1000 ) {
-      names << s;
-      contents << c;
+  QMap<QChar, QString>::const_iterator i;
+  for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
+    if ( i.value().length() <= 1000 ) {
+      names << i.key();
+      contents << i.value();
     } else {
-      kDebug( 13070 ) << "Did not save contents of register " << s << ": contents too long ("
-        << c.length() << " characters)";
+      kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
+        << i.value().length() << " characters)";
     }
   }
 

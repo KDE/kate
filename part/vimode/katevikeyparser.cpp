@@ -226,8 +226,9 @@ void KateViKeyParser::initKeyTables()
   m_qt2katevi->insert( Qt::Key_Zoom, QString( "zoom" ) );
   m_qt2katevi->insert( Qt::Key_Cancel, QString( "cancel" ) );
 
-  foreach( int code, m_qt2katevi->keys() ) {
-      m_katevi2qt->insert( m_qt2katevi->value( code ), code );
+  for (QHash<int, QString>::const_iterator i = m_qt2katevi->constBegin();
+      i != m_qt2katevi->constEnd(); ++i) {
+    m_katevi2qt->insert( i.value(), i.key() );
   }
 
   m_nameToKeyCode->insert( QString( "invalid" ), -1 );
@@ -473,8 +474,9 @@ void KateViKeyParser::initKeyTables()
   m_nameToKeyCode->insert( QString( " " ), 339 );
   //m_nameToKeyCode->insert( QString( "<" ), 341 );
 
-  foreach( const QString& str, m_nameToKeyCode->keys() ) {
-      m_keyCodeToName->insert( m_nameToKeyCode->value( str ), str );
+  for (QHash<QString, int>::const_iterator i = m_nameToKeyCode->constBegin();
+      i != m_nameToKeyCode->constEnd(); ++i) {
+    m_keyCodeToName->insert( i.value(), i.key() );
   }
 }
 

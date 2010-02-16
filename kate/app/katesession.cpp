@@ -987,7 +987,12 @@ KateSessionsAction::KateSessionsAction(const QString& text, QObject* parent)
   connect(menu(), SIGNAL(aboutToShow()), this, SLOT(slotAboutToShow()));
 
   sessionsGroup = new QActionGroup( menu() );
-  connect(sessionsGroup, SIGNAL( triggered(QAction *) ), this, SLOT( openSession(QAction *)));
+
+  // reason for Qt::QueuedConnection: when switching session with N mainwindows
+  // to e.g. 1 mainwindow, the last N - 1 mainwindows are deleted. Invoking
+  // a session switch without queued connection deletes a mainwindow in which
+  // the current code path is executed ---> crash. See bug #227008.
+  connect(sessionsGroup, SIGNAL( triggered(QAction *) ), this, SLOT( openSession(QAction *)), Qt::QueuedConnection);
 }
 
 void KateSessionsAction::slotAboutToShow()

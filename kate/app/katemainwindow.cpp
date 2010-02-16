@@ -286,12 +286,6 @@ void KateMainWindow::setupMainWindow ()
   //filelist = new KateFileList (this, m_viewManager, ft);
 //   m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
 
-#if 0
-  KateMDI::ToolView *t = createToolView("kate_fileselector", KMultiTabBar::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));
-  fileselector = new KateFileSelector( this, m_viewManager, t, "operator");
-  connect(fileselector->dirOperator(), SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
-#endif
-
   // make per default the filelist visible, if we are in session restore, katemdi will skip this ;)
   showToolView (ft);
 }
@@ -395,11 +389,13 @@ void KateMainWindow::setupActions()
   a = actionCollection()->addAction( "sessions_new" );
   a->setIcon( KIcon("document-new") );
   a->setText( i18nc("Menu entry Session->New", "&New") );
-  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionNew() ) );
+  // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
+  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionNew() ), Qt::QueuedConnection );
   a = actionCollection()->addAction( "sessions_open" );
   a->setIcon( KIcon("document-open") );
   a->setText( i18n("&Open Session") );
-  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionOpen() ) );
+  // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
+  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionOpen() ), Qt::QueuedConnection );
   a = actionCollection()->addAction( "sessions_save" );
   a->setIcon( KIcon("document-save") );
   a->setText( i18n("&Save Session") );

@@ -411,7 +411,8 @@ void KateMainWindow::setupActions()
   a = actionCollection()->addAction( "sessions_manage" );
   a->setIcon( KIcon("view-choose") );
   a->setText( i18n("&Manage Sessions...") );
-  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionManage() ) );
+  // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
+  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionManage() ), Qt::QueuedConnection );
 
   // quick open menu ;)
   a = new KateSessionsAction (i18n("&Quick Open Session"), this);

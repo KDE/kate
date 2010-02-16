@@ -727,10 +727,6 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         highlightReplacement(*afterReplace);
     }
 
-    if (match.isValid()) {
-        nonstatic_selectRange2(view(), match);
-    }
-
     delete afterReplace;
 
     return true; // == No pattern error

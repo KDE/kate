@@ -173,7 +173,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   public Q_SLOTS:
     void slotFileQuit();
-    void slotFileQuitDelayed();
 
     /**
      * slots used for actions in the menus/toolbars

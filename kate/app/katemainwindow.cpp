@@ -333,8 +333,10 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseAll() ) );
   a->setWhatsThis(i18n("Close all open documents."));
 
-  actionCollection()->addAction( KStandardAction::Quit, "file_quit", this, SLOT( slotFileQuit() ) )
-  ->setWhatsThis(i18n("Close this window"));
+  a = actionCollection()->addAction( KStandardAction::Quit, "file_quit" );
+  // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
+  connect( a, SIGNAL( triggered() ), this, SLOT( slotFileQuit() ), Qt::QueuedConnection );
+  a->setWhatsThis(i18n("Close this window"));
 
   a = actionCollection()->addAction( "view_new_view" );
   a->setIcon( KIcon("window-new") );
@@ -521,12 +523,6 @@ void KateMainWindow::slotNewToolbarConfig()
 }
 
 void KateMainWindow::slotFileQuit()
-{
-  // delay real shutdown outside of this, as we are inside menu action handling
-  QTimer::singleShot(0, this, SLOT(slotFileQuitDelayed()));
-}
-
-void KateMainWindow::slotFileQuitDelayed()
 {
   KateApp::self()->shutdownKate (this);
 }

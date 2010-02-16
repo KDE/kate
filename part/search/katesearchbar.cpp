@@ -654,7 +654,6 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
-    bool found = false;
     SmartRange * afterReplace = NULL;
     if (match.isValid()) {
         // Previously selected match again?
@@ -688,7 +687,6 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 nonstatic_selectRange2(view(), match2);
-                found = true;
                 indicateMatch(MatchFound);
             } else {
                 // Find, third try from doc start on
@@ -696,7 +694,6 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             }
         } else {
             nonstatic_selectRange2(view(), match);
-            found = true;
             indicateMatch(MatchFound);
         }
     } else if (!selected || !selectionOnly()) {
@@ -715,7 +712,6 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
                 // NOOP, same match again
             } else {
                 nonstatic_selectRange2(view(), match3);
-                found = true;
             }
             indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
         } else {

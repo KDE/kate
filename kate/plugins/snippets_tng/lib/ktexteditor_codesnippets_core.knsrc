@@ -10,7 +10,8 @@ Categories=KTextEditor Snippet
 # # Where to install? Exactly one of the lines below
 # # Note: if all three are missing, entry is considered remote resource
 # StandardResource=wallpapers # becomes $KDEHOME/share/wallpapers
-TargetDir=/kate/plugins/katesnippets_tng/ghns  # becomes $KDEHOME/share/apps/appname/datadir
+# becomes $KDEHOME/share/apps/appname/datadir
+TargetDir=/kate/plugins/katesnippets_tng/ghns
 # InstallPath=.dir/subdir # becomes $HOME/.dir/subdir
 
 # # How to name the files?

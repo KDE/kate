@@ -680,11 +680,19 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 
   int replacementsDone = 0;
   int linesTouched = 0;
+  int linesAdded = 0;
 
   if (r.isValid()) { // given range
-    for (int line = r.start().line(); line <= r.end().line(); line++) {
+    for (int line = r.start().line(); line <= r.end().line()+linesAdded; line++) {
       int temp = replacementsDone;
-      replacementsDone += sedMagic( doc, line, find, replace, d, !noCase, repeat );
+      int r = sedMagic( doc, line, find, replace, d, !noCase, repeat );
+      replacementsDone += r;
+
+      // if we replaced the text with n newlines, we have n new lines to look at
+      if (replace.contains('\n') ) {
+        linesAdded += r * replace.count('\n');
+      }
+
       if (replacementsDone > temp) {
         linesTouched++;
       }

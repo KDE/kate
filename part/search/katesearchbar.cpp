@@ -41,6 +41,8 @@
 #include <QCompleter>
 #include <QMutexLocker>
 
+#include <kpassivepopup.h>
+
 using namespace KTextEditor;
 
 
@@ -965,9 +967,9 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    findAll(inputRange, &replacement);
-
-
+    int replacementsDone=findAll(inputRange, &replacement);
+    KPassivePopup::message(i18n("%1 replacements have been done",replacementsDone),this);
+    
     // Add to search history
     addCurrentTextToHistory(m_powerUi->pattern);
 

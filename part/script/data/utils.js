@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, rmblank, test
+ * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, test
  */
 
 function sort()
@@ -89,6 +89,67 @@ function join()
     });
 }
 
+// unwrap does the opposite of the script word wrap
+function unwrap ()
+{
+    var selectionRange = view.selection();
+    if (selectionRange.isValid()) {
+        // unwrap all paragraphs in the selection range
+        var currentLine = selectionRange.start.line;
+        var count = selectionRange.end.line - selectionRange.start.line;
+
+        document.editBegin();
+        while (count >= 0) {
+            // skip empty lines
+            while (count >= 0 && document.firstColumn(currentLine) == -1) {
+                --count;
+                ++currentLine;
+            }
+
+            // find block of text lines to join
+            var anchorLine = currentLine;
+            while (count >= 0 && document.firstColumn(currentLine) != -1) {
+                --count;
+                ++currentLine;
+            }
+
+            if (currentLine != anchorLine) {
+                document.joinLines(anchorLine, currentLine - 1);
+                currentLine -= currentLine - anchorLine - 1;
+            }
+        }
+        document.editEnd();
+    } else {
+        // unwrap paragraph under the cursor
+        var cursorPosition = view.cursorPosition();
+        if (document.firstColumn(cursorPosition.line) != -1) {
+            var startLine = cursorPosition.line;
+            while (startLine > 0) {
+                if (document.firstColumn(startLine - 1) == -1) {
+                    break;
+                }
+                --startLine;
+            }
+
+            var endLine = cursorPosition.line;
+            var lineCount = document.lines();
+            while (endLine < lineCount) {
+                if (document.firstColumn(endLine + 1) == -1) {
+                    break;
+                }
+                ++endLine;
+            }
+
+            if (startLine != endLine) {
+                document.editBegin();
+                document.joinLines(startLine, endLine);
+                document.editEnd();
+            }
+        }
+    }
+}
+
+
 function test()
 {
     var start = new Cursor(3, 6);
@@ -128,6 +189,8 @@ function help(cmd)
         return "Joins selected lines or whole document.";
     } else if (cmd == "rmblank") {
         return "Removes empty lines from selection or whole document.";
+    } else if (cmd == "unwrap") {
+        return "Unwraps all paragraphs in the text selection, or the paragraph under the text cursor if there is no selected text.";
     }
 }
 

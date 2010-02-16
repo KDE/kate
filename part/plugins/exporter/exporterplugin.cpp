@@ -38,7 +38,6 @@ ExporterPlugin::ExporterPlugin(QObject *parent, const QVariantList &args)
 
 ExporterPlugin::~ExporterPlugin()
 {
-  qDeleteAll(m_views);
 }
 
 void ExporterPlugin::addView(KTextEditor::View *view)

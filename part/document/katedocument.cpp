@@ -786,16 +786,23 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
 
   if ( !block )
   {
-    // either simple removing of text in one line or cutting lines and unwrap
+    int from = range.start().line();
+    int to = range.end().line();
+    
+    // simple: just inside one line, remove text
     if (range.onSingleLine())
     {
       editRemoveText(range.start().line(), range.start().column(), range.columnWidth());
     }
+    // second case: deleting only full lines
+    // this for example takes care that bookmarks are remove if you delete the line
+    // containing them
+    else if ((to - from) > 0 && range.start().column() == 0 && range.end().column() == 0) {
+        editRemoveLines (from, to-1);
+    } 
+    // else, delete some text + some lines + unwrap
     else
     {
-      int from = range.start().line();
-      int to = range.end().line();
-
       // cut text in last line
       if (to <= lastLine())
         editRemoveText(to, 0, range.end().column());

@@ -784,8 +784,6 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
 
   editStart();
  
-  // the following code does use editRemoveLine
-  // if appropriate (to remove bookmark)
   if ( !block )
   {
     if ( range.end().line() > lastLine() )
@@ -802,14 +800,18 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
       int from = range.start().line();
       int to = range.end().line();
 
+      // remove last line
       if (to <= lastLine())
         editRemoveText(to, 0, range.end().column());
 
+      // editRemoveLines() will be called on first line (to remove bookmark)
       if (range.start().column() == 0 && from > 0)
         --from;
 
+      // remove middle lines
       editRemoveLines(from+1, to-1);
 
+      // remove first line if not already removed by editRemoveLines()
       if (range.start().column() > 0 || range.start().line() == 0) {
         editRemoveText(from, range.start().column(), m_buffer->plainLine(from)->length() - range.start().column());
         editUnWrapLine(from);

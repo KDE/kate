@@ -95,14 +95,21 @@ bool KateCommandLineScript::exec (KTextEditor::View *view, const QString &_cmd, 
     return false;
   }
 
-  setView(qobject_cast<KateView*>(view));
-  return callFunction(cmd, args, errorMsg);
+  if (setView(qobject_cast<KateView*>(view))) {
+    // setView fails, if the script cannot be loaded
+    return callFunction(cmd, args, errorMsg);
+  }
+
+  return false;
 }
 
 
 bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QString &msg)
 {
-  setView(qobject_cast<KateView*>(view));
+  if (!setView(qobject_cast<KateView*>(view))) {
+    // setView fails, if the script cannot be loaded
+    return false;
+  }
 
   clearExceptions();
   QScriptValue helpFunction = function("help");

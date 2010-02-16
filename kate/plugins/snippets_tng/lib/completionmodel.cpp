@@ -324,14 +324,14 @@ namespace KTextEditor {
       }
       //KMessageBox::information(0,doc.toString());
       QFileInfo fi(filename);
-      QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fi.fileName());
+      QString outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+fi.fileName());
       if (filename!=outname) {
         QFileInfo fiout(outname);
   //      if (fiout.exists()) {
   // there could be cases that new new name clashes with a global file, but I guess it is not that often.
               bool ok=false;
               for (int i=0;i<1000;i++) {
-                outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fi.fileName());
+                outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+QString("%1_").arg(i)+fi.fileName());
                 QFileInfo fiout1(outname);
                 if (!fiout1.exists()) {ok=true;break;}
               }
@@ -361,7 +361,7 @@ namespace KTextEditor {
       root.setAttribute("license",license);
       doc.appendChild(root);
       QString fileName=QUrl::toPercentEncoding(name)+QString(".xml");
-      QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+      QString outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+fileName);
   #ifdef __GNUC__
   #warning add handling of conflicts with global names
   #endif
@@ -369,7 +369,7 @@ namespace KTextEditor {
       if (fiout.exists()) {
         bool ok=false;
         for (int i=0;i<1000;i++) {
-          outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
+          outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+QString("%1_").arg(i)+fileName);
           QFileInfo fiout1(outname);
           if (!fiout1.exists()) {ok=true;break;}
         }

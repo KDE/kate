@@ -198,11 +198,10 @@ namespace KTextEditor {
     }
     
     void SnippetRepositoryModel::createOrUpdateList(bool update) {
-          KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
-      const QStringList list = KGlobal::dirs()->findAllResources("data",
-        "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates)<<KGlobal::dirs()->findAllResources("data",
-        "kate/plugins/katesnippets_tng/data/ghns/*.xml",KStandardDirs::NoDuplicates);
-        
+      KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
+      const QStringList list = KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/data/*.xml",KStandardDirs::NoDuplicates)
+                            << KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/ghns/*.xml",KStandardDirs::NoDuplicates);
+
       foreach(const QString& filename,list) {
         QString groupName="SnippetRepositoryAndConfigCache "+ filename;
         KConfigGroup group(&config, groupName);
@@ -322,18 +321,13 @@ namespace KTextEditor {
         KMessageBox::error((QWidget*)0,i18n("No file specified"));
         return;
       }
-  /*    const QStringList list = KGlobal::dirs()->findAllResources("data",
-        "kate/plugins/katesnippets_tng/data/"+,KStandardDirs::NoDuplicates);
-      if (!list.isEmpty()) {
-        
-      }*/
       QString fileName=QUrl::toPercentEncoding(filename);
-      QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fileName);
+      QString outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+fileName);
       QFileInfo fiout(outname);
       if (fiout.exists()) {
         bool ok=false;
         for (int i=0;i<1000;i++) {
-          outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+QString("%1_").arg(i)+fileName);
+          outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+QString("%1_").arg(i)+fileName);
           QFileInfo fiout1(outname);
           if (!fiout1.exists()) {ok=true;break;}
         }

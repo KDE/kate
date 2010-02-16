@@ -28,7 +28,7 @@ install(TARGETS katesnippets_tngplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katesnippets_tng )
 
 file(GLOB SNIPPETS "${CMAKE_CURRENT_SOURCE_DIR}/data/*.xml")
-install( FILES ${SNIPPETS} DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katesnippets_tng/data )
+install( FILES ${SNIPPETS} DESTINATION  ${DATA_INSTALL_DIR}/ktexteditor_snippets/data )
 
 install( FILES katesnippets_tngplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 

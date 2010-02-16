@@ -921,7 +921,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   if ( !sessName.isEmpty() )
     sessName = QString("%1: ").arg( sessName );
 
-  setCaption( sessName + KStringHandler::lsqueeze(c, 64),
+  setCaption( sessName + c,
               m_viewManager->activeView()->document()->isModified());
 }
 

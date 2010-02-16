@@ -324,8 +324,6 @@ namespace KTextEditor {
       }
       //KMessageBox::information(0,doc.toString());
       QFileInfo fi(filename);
-      const QStringList list = KGlobal::dirs()->findAllResources("data",
-        "kate/plugins/katesnippets_tng/data/*.xml",KStandardDirs::NoDuplicates);
       QString outname=KGlobal::dirs()->locateLocal( "data", "kate/plugins/katesnippets_tng/data/"+fi.fileName());
       if (filename!=outname) {
         QFileInfo fiout(outname);

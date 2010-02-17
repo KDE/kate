@@ -155,12 +155,8 @@ void KateViVisualMode::setVisualBlock( bool l )
 
 void KateViVisualMode::setVisualModeType( ViMode mode )
 {
-  if ( mode != VisualMode && mode != VisualLineMode && mode != VisualBlockMode ) {
-    kDebug( 13070 ) << "ERROR: invalid mode requested.";
-    m_mode = VisualMode;
-  } else {
-    m_mode = mode;
-  }
+  Q_ASSERT( mode == VisualMode || mode == VisualLineMode || mode == VisualBlockMode );
+  m_mode = mode;
 }
 
 void KateViVisualMode::switchStartEnd()

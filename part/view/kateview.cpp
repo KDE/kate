@@ -2542,16 +2542,13 @@ QMenu *KateView::contextMenu( ) const
     while (client->parentClient())
       client = client->parentClient();
     
-    kDebug()<<"looking up all menu containers";
+    //kDebug() << "looking up all menu containers";
     if (client->factory()){
-      QList<QWidget*> conts=client->factory()->containers("menu"); 
+      QList<QWidget*> conts = client->factory()->containers("menu"); 
       foreach (QWidget *w, conts)
       {
-        kDebug()<<"container:"<<w->objectName();
-        if (w->objectName()=="ktexteditor_popup")
+        if (w->objectName() == "ktexteditor_popup")
         {
-
-          kDebug()<<"container:YIPIEE";
           return (QMenu*)w;
         }
       }

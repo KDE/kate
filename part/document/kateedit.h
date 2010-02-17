@@ -132,11 +132,14 @@ class KateEditHistory : public QObject
     void editDone(KateEditInfo* edit);
 
   private:
-    QList<KateEditInfo*> m_edits;
-    mutable QMutex m_mutex; ///Mutex that protects m_edits. @warning: Do not call any external functions if this is locked
-
-    QMap<int, KateEditInfo*> m_revisions;
+    // document pointer, used to access mutex
+    KateDocument *m_doc;
+    
+    // current revision
     int m_revision;
+    
+    QList<KateEditInfo*> m_edits;
+    QMap<int, KateEditInfo*> m_revisions;
 };
 
 #endif

@@ -115,6 +115,7 @@ bool KateEditInfo::isRemoval() const
 
 KateEditHistory::KateEditHistory( KateDocument * doc )
   : QObject(doc)
+  , m_doc (doc)
   , m_revision(0)
 {
 }
@@ -126,7 +127,8 @@ KateEditHistory::~KateEditHistory()
 
 int KateEditHistory::revision()
 {
-  QMutexLocker lock(&m_mutex);
+  QMutexLocker locker (m_doc->smartMutex());
+
   if (!m_edits.isEmpty()) {
     KateEditInfo* edit = m_edits.last();
     if (!edit->isReferenced())
@@ -141,7 +143,8 @@ int KateEditHistory::revision()
 
 void KateEditHistory::releaseRevision(int revision)
 {
-  QMutexLocker lock(&m_mutex);
+  QMutexLocker locker (m_doc->smartMutex());
+
   if (m_revisions.contains(revision)) {
     KateEditInfo* edit = m_revisions[revision];
     edit->dereferenceRevision();
@@ -154,10 +157,10 @@ void KateEditHistory::releaseRevision(int revision)
 }
 
 void KateEditHistory::doEdit(KateEditInfo* edit) {
-  
-  m_mutex.lock();
-  m_edits.append(edit);
-  m_mutex.unlock();
+  {
+    QMutexLocker locker (m_doc->smartMutex());  
+    m_edits.append(edit);
+  }
   
   emit editDone(edit);
 }
@@ -169,7 +172,7 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
   if (from == -1)
     return ret;
 
-  QMutexLocker lock(&m_mutex);
+  QMutexLocker locker (m_doc->smartMutex());
 
   if (m_edits.isEmpty())
     return ret;

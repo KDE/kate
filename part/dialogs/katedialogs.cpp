@@ -741,6 +741,10 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
+  // hide power user mode if activated anyway
+  if (!KateGlobal::self()->simpleMode ())
+    ui->chkDeveloperMode->hide ();
+    
   // What's This? help is in the ui-file
 
   reload();

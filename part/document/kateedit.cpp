@@ -165,6 +165,15 @@ void KateEditHistory::releaseRevision(int revision)
 void KateEditHistory::doEdit(KateEditInfo* edit) {
   {
     QMutexLocker locker (m_doc->smartMutex());  
+    
+    // here we go, don't be a memory pirate
+    // if we atm only have one edit and it is not referenced, just delete it
+    // in other cases, the releaseRevision will clean up
+    if (m_edits.size() == 1 && !m_edits.last()->isReferenced()) {
+	delete m_edits.takeLast ();
+    }
+    
+    // append the new edit in any case
     m_edits.append(edit);
   }
   

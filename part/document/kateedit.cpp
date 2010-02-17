@@ -122,13 +122,16 @@ KateEditHistory::KateEditHistory( KateDocument * doc )
 
 KateEditHistory::~KateEditHistory()
 {
-  qDeleteAll(m_edits);
+  // just delete all edits, referenced or not
+  qDeleteAll (m_edits);
 }
 
 int KateEditHistory::revision()
 {
+  // protect the edit history with the smart mutexs
   QMutexLocker locker (m_doc->smartMutex());
 
+  // just take the last edit
   if (!m_edits.isEmpty()) {
     KateEditInfo* edit = m_edits.last();
     if (!edit->isReferenced())
@@ -138,22 +141,25 @@ int KateEditHistory::revision()
     return m_revision;
   }
 
+  // no edits, no revision
   return 0;
 }
 
 void KateEditHistory::releaseRevision(int revision)
 {
+  // protect the edit history with the smart mutexs
   QMutexLocker locker (m_doc->smartMutex());
 
-  if (m_revisions.contains(revision)) {
-    KateEditInfo* edit = m_revisions[revision];
-    edit->dereferenceRevision();
-    if (!edit->isReferenced())
-      m_revisions.remove(revision);
+  // search for revision, if not found, back out
+  QMap<int, KateEditInfo*>::iterator it = m_revisions.find (revision);
+  if (it == m_revisions.end())
     return;
-  }
-
-  kWarning() << "Unknown revision token " << revision;
+    
+  // dereference the revision
+  KateEditInfo* edit = *it;
+  edit->dereferenceRevision();
+  if (!edit->isReferenced())
+    m_revisions.remove(revision);
 }
 
 void KateEditHistory::doEdit(KateEditInfo* edit) {

@@ -763,6 +763,9 @@ int KateSmartManager::currentRevision() const
 
 Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior)
 {
+  // guard the generated edit history list
+  QMutexLocker locker (doc()->smartMutex());
+  
   Cursor ret = cursor;
 
   foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(usingRevision()))
@@ -773,6 +776,9 @@ Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor
 
 Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
 {
+  // guard the generated edit history list
+  QMutexLocker locker (doc()->smartMutex());
+  
   Cursor start = range.start(), end = range.end();
 
   foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(usingRevision())) {

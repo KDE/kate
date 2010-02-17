@@ -10,10 +10,7 @@
     <height>98</height>
    </rect>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <property name="fieldGrowthPolicy">
-    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-   </property>
+  <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
@@ -32,31 +29,42 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="KComboBox" name="snippetCollectionLicense">
-     <property name="currentIndex">
-      <number>1</number>
-     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <property name="text">
-       <string>Artistic</string>
-      </property>
+      <widget class="KComboBox" name="snippetCollectionLicense">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>Artistic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>BSD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LGPL v2+</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LGPL v3+</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item>
-      <property name="text">
-       <string>BSD</string>
-      </property>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>(for repository, not content)</string>
+       </property>
+      </widget>
      </item>
-     <item>
-      <property name="text">
-       <string>LGPL v2+</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>LGPL v3+</string>
-      </property>
-     </item>
-    </widget>
+    </layout>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_3">

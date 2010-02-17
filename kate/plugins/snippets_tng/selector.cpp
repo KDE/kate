@@ -40,7 +40,7 @@ namespace JoWenn {
     setupUi(this);
     plainTextEdit->setReadOnly(true);
     addSnippetToButton->setIcon(KIcon("snippetadd"));
-    addSnippetToButton->setToolTip(i18n("Add current text selection to a snippet file"));
+    addSnippetToButton->setToolTip(i18n("Add current text selection to a snippet file (click=add to on-the-go, hold=menu=more options)"));
     editSnippet->setIcon(KIcon("snippetedit"));
     editSnippet->setToolTip(i18n("Modify the current snippet"));
     newRepoButton->setIcon(KIcon("repoadd"));

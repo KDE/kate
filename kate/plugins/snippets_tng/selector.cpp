@@ -137,7 +137,7 @@ namespace JoWenn {
       {
         currentHlMode=fi->highlightingModeAt(view->cursorPosition());
         //edit-selection is not the best choice, but the current version of the icon, an arrow is a good symbol for the default action now
-        m_addSnippetToPopup->addAction(KIcon("edit-selection"),i18n(ON_THE_GO_TEMPLATESTR,currentHlMode));
+        m_addSnippetToPopup->addAction(KIcon("edit-select"),i18n(ON_THE_GO_TEMPLATESTR,currentHlMode));
       } else kDebug()<<"document does not implement the highlight interface";
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repo=m_plugin->repositoryData();
       for (int i=0;i<modeCount;i++) {

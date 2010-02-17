@@ -279,7 +279,9 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      *
      * \note any previously assigned menu is not deleted.  If you are finished
      *       with the previous menu, you may delete it.
-     *       !!!! USE THIS WITH CARE, PLUGINS ARE NOT MERGED INTO THIS MENU !!!!
+     *
+     * \warning Use this with care! Plugin xml gui clients are not merged
+     *          into this menu!
      *
      * \param menu new context menu object for this view
      * \see contextMenu()
@@ -300,23 +302,28 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      *
      * \note to use this menu, you will next need to call setContextMenu(),
      *       as this does not assign the new context menu.
-     *       !!!!!!! IMPORTANT, THIS CONTAINS ONLY BASIC OPTIONS AND PLUGINS
-     *       DO NOT GET INTEGRATED INTO IT !!!!!!
-     *       If you want to be a better citizen and take full advantage of
-     *       ktexteditor plugins do something like:
-     * KXMLGUIClient* client = dynamic_cast<KXMLGUIClient*>(view);
-     * while (client->parentClient())
-     * client = client->parentClient();
+     *
+     * \warning This contains only basic options from the editor component
+     *          (katepart). Plugins are \p not merged/integrated into it!
+     *          If you want to be a better citizen and take full advantage
+     *          of KTextEditor plugins do something like:
+     * \code
+     * KXMLGUIClient* client = view;
+     * // search parent XmlGuiClient
+     * while (client->parentClient()) {
+     *   client = client->parentClient();
+     * }
      *    
-     * if (client->factory()){
-     * QList<QWidget*> conts=client->factory()->containers("menu");       
-     * foreach (QWidget *w, conts)
-     * {
-     *   if (w->objectName()=="ktexteditor_popup")
-     *   {
-     *  do something with the menu (ie adding an onshow handler)
-     *  break;
+     * if (client->factory()) {
+     *   QList<QWidget*> conts = client->factory()->containers("menu");       
+     *   foreach (QWidget *w, conts) {
+     *     if (w->objectName() == "ktexteditor_popup") {
+     *       // do something with the menu (ie adding an onshow handler)
+     *       break;
+     *     }
      *   }
+     * }
+     * \endcode
      *
      * \param menu the menu to be populated, or null to create a new menu.
      * \return the menu, whether created or passed initially

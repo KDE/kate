@@ -156,10 +156,31 @@ void KateEditHistory::releaseRevision(int revision)
     return;
     
   // dereference the revision
-  KateEditInfo* edit = *it;
+  KateEditInfo *edit = *it;
   edit->dereferenceRevision();
-  if (!edit->isReferenced())
+  if (!edit->isReferenced()) {
+    // no longer refed
     m_revisions.remove(revision);
+    
+    // clean up memory, try to delete any unrefed revisions
+    
+    // delete unrefed
+    int deletedEdits = 0;
+    for (int i = 0; i < m_edits.size(); ++i) {
+      if (m_edits[i]->isReferenced())
+	break;
+      
+      // already delete edit
+      delete m_edits[i];
+      
+      // remember deleted count
+      ++deletedEdits;
+    }
+    
+    // remove unrefed from the list now, already deleted
+    if (deletedEdits > 0)
+      m_edits.erase (m_edits.begin(), m_edits.end() + deletedEdits);
+  }
 }
 
 void KateEditHistory::doEdit(KateEditInfo* edit) {

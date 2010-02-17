@@ -2545,7 +2545,6 @@ QMenu *KateView::contextMenu( ) const
     kDebug()<<"looking up all menu containers";
     if (client->factory()){
       QList<QWidget*> conts=client->factory()->containers("menu"); 
-      kDebug()<<"container:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
       foreach (QWidget *w, conts)
       {
         kDebug()<<"container:"<<w->objectName();

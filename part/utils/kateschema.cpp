@@ -537,7 +537,7 @@ void KateSchemaConfigFontColorTab::apply ()
 //END FontColorConfig
 
 //BEGIN KateSchemaConfigHighlightTab -- 'Highlighting Text Styles' tab
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, uint hl )
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page)
 {
   m_defaults = page;
 
@@ -571,6 +571,16 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
   connect(m_styles, SIGNAL(changed()), this, SIGNAL(changed()));
   layout->addWidget (m_styles, 999);
 
+  // get current highlighting from the host application
+  int hl = 0;
+  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
+  if (iface) {
+    KateView *kv = qobject_cast<KateView*>(iface->activeView());
+    if (kv) {
+      const QString hlName = kv->doc()->highlight()->name();
+      hl = KateHlManager::self()->nameFind(hlName);
+    }
+  }
   hlCombo->setCurrentIndex ( hl );
   hlChanged ( hl );
 
@@ -697,7 +707,7 @@ void KateSchemaConfigHighlightTab::apply ()
 //END KateSchemaConfigHighlightTab
 
 //BEGIN KateSchemaConfigPage -- Main dialog page
-KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
+KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   : KateConfigPage( parent ),
     m_lastSchema (-1)
 {
@@ -737,7 +747,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
   connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, 0 );
+  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab);
   m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 

@@ -328,7 +328,7 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateViewDefaultsConfig (parent);
 
     case 1:
-      return new KateSchemaConfigPage (parent, 0);
+      return new KateSchemaConfigPage (parent);
 
     case 2:
       return new KateEditConfigTab (parent);

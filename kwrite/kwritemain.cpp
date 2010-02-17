@@ -110,9 +110,6 @@ KWrite::KWrite (KTextEditor::Document *doc)
   createShellGUI( true );
   guiFactory()->addClient( m_view );
 
-  // install a working kate part popup dialog thingy
-  m_view->setContextMenu(m_view->defaultContextMenu());
-
   // init with more useful size, stolen from konq :)
   if (!initialGeometrySet())
     resize( QSize(700, 480).expandedTo(minimumSizeHint()));

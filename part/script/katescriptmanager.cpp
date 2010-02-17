@@ -319,6 +319,8 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
 
 bool KateScriptManager::help(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
+  Q_UNUSED(view)
+
   if (cmd == "reload-scripts") {
     msg = i18n("Reload all JavaScript files (indenters, command line scripts, etc).");
     return true;

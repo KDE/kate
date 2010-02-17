@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2008 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2010 Dominik Haumann <dhaumann kde org>
 
    In addition to the following license there is an exception, that the KDE e.V.
    may decide on other forms of relicensing.
@@ -31,20 +32,39 @@ namespace KTextEditor {
   class View;
 }
 
-class KateContainer: public QObject, public KTextEditor::ViewBarContainer {
+class KateContainer
+  : public QObject
+  , public KTextEditor::ViewBarContainer
+  , public KTextEditor::MdiContainer
+{
   Q_OBJECT
   Q_INTERFACES( KTextEditor::ViewBarContainer )
+  Q_INTERFACES( KTextEditor::MdiContainer )
   public:
     KateContainer(KateApp* parent);
     virtual ~KateContainer();
-  
+
+  //
+  // KTextEditor::ViewBarContainer
+  //
   public:
-    //KTextEditor::HorizontalViewBarContainer
     virtual QWidget* getViewBarParent(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
     virtual void addViewBarToLayout(KTextEditor::View *view,QWidget *bar,KTextEditor::ViewBarContainer::Position position);
     virtual void showViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
     virtual void hideViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
     virtual void deleteViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
+
+  //
+  // KTextEditor::MdiContainer
+  //
+  public:
+    virtual void setActiveView( KTextEditor::View * view );
+    virtual KTextEditor::View * activeView();
+    virtual KTextEditor::Document * createDocument();
+    virtual bool closeDocument( KTextEditor::Document * doc );
+    virtual KTextEditor::View * createView( KTextEditor::Document * doc );
+    virtual bool closeView( KTextEditor::View * view );
+
   private:
     KateApp *m_app;
 };

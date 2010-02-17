@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2008 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2010 Dominik Haumann <dhaumann kde org>
 
    In addition to the following license there is an exception, that the KDE e.V.
    may decide on other forms of relicensing.
@@ -23,16 +24,22 @@
 #include "katecontainer.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
+#include "kateviewmanager.h"
 
 #include <kdebug.h>
 
-KateContainer::KateContainer(KateApp* parent):QObject(parent),KTextEditor::ViewBarContainer(),m_app(parent) {
-
+KateContainer::KateContainer(KateApp* parent)
+  : QObject(parent)
+  , KTextEditor::ViewBarContainer()
+  , KTextEditor::MdiContainer()
+  , m_app(parent)
+{
 }
 
 KateContainer::~KateContainer() {
 }
 
+//BEGIN KTextEditor::ViewBarContainer
 QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position) {
   if (position!=KTextEditor::ViewBarContainer::BottomBar) return 0;
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
@@ -86,6 +93,54 @@ void KateContainer::deleteViewBarForView(KTextEditor::View *view, KTextEditor::V
   }
   mainWindow->deleteHorizontalViewBarForView(view);
 }
+//END KTextEditor::ViewBarContainer
+
+
+
+//BEGIN KTextEditor::MdiContainer
+void KateContainer::setActiveView(KTextEditor::View *view)
+{
+  Q_UNUSED(view)
+  // NOTE: not implemented
+}
+
+KTextEditor::View *KateContainer::activeView()
+{
+  return KateApp::self()->activeMainWindow()->viewManager()->activeView();
+}
+
+KTextEditor::Document *KateContainer::createDocument()
+{
+  // NOTE: not implemented
+  kWarning() << "WARNING: interface call not implemented";
+  return 0;
+}
+
+bool KateContainer::closeDocument(KTextEditor::Document *doc)
+{
+  Q_UNUSED(doc)
+  // NOTE: not implemented
+  kWarning() << "WARNING: interface call not implemented";
+  return false;
+}
+
+KTextEditor::View *KateContainer::createView(KTextEditor::Document *doc)
+{
+  Q_UNUSED(doc)
+  // NOTE: not implemented
+  kWarning() << "WARNING: interface call not implemented";
+  return 0;
+}
+
+bool KateContainer::closeView(KTextEditor::View *view)
+{
+  Q_UNUSED(view)
+  // NOTE: not implemented
+  kWarning() << "WARNING: interface call not implemented";
+  return false;
+}
+//END KTextEditor::MdiContainer
+
 
 #include "katecontainer.moc"
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -756,8 +756,8 @@ int KateSmartManager::usingRevision()
 {
   // query thread local revision info, if any
   if (threadLocalRevision.hasLocalData()) {
-    QHash<const KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->find (this);
-    if (it != threadLocalRevision.localData()->end ())
+    QHash<const KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->constFind (this);
+    if (it != threadLocalRevision.localData()->constEnd ())
       return it.value ();
   }
   

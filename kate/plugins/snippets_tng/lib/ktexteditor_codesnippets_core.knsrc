@@ -2,6 +2,7 @@
 #ProvidersUrl=http://.../provider.xml
 ProvidersUrl=http://download.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet
+UploadCategories=KTextEditor Snippet
 
 # # How to check? Any number of the lines below, 'ifpossible' is default
 # ChecksumPolicy=... # never/ifpossible/always

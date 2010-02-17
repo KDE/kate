@@ -71,15 +71,15 @@ void KDataToolPlugin::removeView(KTextEditor::View *view)
 
 
 KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
-	:m_menu(0),m_notAvailable(0)
+	:QObject(view),KXMLGUIClient(view),m_menu(0),m_notAvailable(0)
 {
 	setComponentData( KDataToolPluginFactory::componentData() );
-
+	setXMLFile("ktexteditor_kdatatoolui.rc");
+	
 	m_menu = new KActionMenu(i18n("Data Tools"), this);
         actionCollection()->addAction("popup_dataTool", m_menu);
 	connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
-	setXMLFile("ktexteditor_kdatatoolui.rc");
-
+	
 	m_view = view;
 }
 
@@ -122,7 +122,7 @@ void KDataToolPluginView::aboutToShow()
 		m_wordUnderCursor = "";
 		// find begin of word:
 		m_singleWord_start = 0;
-		for(int i = col; i >= 0; i--) {
+		for(int i = qMin(col,tmp_line.length()-1); i >= 0; i--) {
 			QChar ch = tmp_line.at(i);
 			if( ! (ch.isLetter() || ch == '-' || ch == '\'') )
 			{

@@ -121,7 +121,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_dictionaryBar(NULL)
     , m_spellingMenu( new KateSpellingMenu( this ) )
 {
-
+  m_userContextMenuSet=false;
   setComponentData ( KateGlobal::self()->componentData () );
 
   KateGlobal::self()->registerView( this );
@@ -2524,6 +2524,7 @@ void KateView::setContextMenu( QMenu * menu )
     disconnect(m_contextMenu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
   }
   m_contextMenu = menu;
+  m_userContextMenuSet=true;
 
   if (m_contextMenu) {
     connect(m_contextMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
@@ -2531,27 +2532,40 @@ void KateView::setContextMenu( QMenu * menu )
   }
 }
 
-QMenu * KateView::contextMenu( ) const
+QMenu *KateView::contextMenu( ) const
 {
-  return m_contextMenu;
+  if (m_userContextMenuSet)
+    return m_contextMenu;
+  else
+  {
+    KXMLGUIClient* client = const_cast<KateView*>(this);
+    while (client->parentClient())
+      client = client->parentClient();
+    
+    kDebug()<<"looking up all menu containers";
+    if (client->factory()){
+      QList<QWidget*> conts=client->factory()->containers("menu"); 
+      kDebug()<<"container:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+      foreach (QWidget *w, conts)
+      {
+        kDebug()<<"container:"<<w->objectName();
+        if (w->objectName()=="ktexteditor_popup")
+        {
+
+          kDebug()<<"container:YIPIEE";
+          return (QMenu*)w;
+        }
+      }
+    }
+  }
+  return 0;
 }
 
 QMenu * KateView::defaultContextMenu(QMenu* menu) const
 {
-  if (!menu)
-    menu = new KMenu(const_cast<KateView*>(this));
-
-  // Find top client
-  KXMLGUIClient* client = const_cast<KateView*>(this);
-  while (client->parentClient())
-    client = client->parentClient();
-
-  QWidget* popupwidget = 0;
-  if (client->factory() && (popupwidget = client->factory()->container("ktexteditor_popup", client))) {
-    menu->addActions(popupwidget->actions());
-
-  } else {
-    kDebug( 13030 ) << "no ktexteditor_popup container found; populating manually";
+    if (!menu)
+      menu = new KMenu(const_cast<KateView*>(this));
+    
     menu->addAction(m_editUndo);
     menu->addAction(m_editRedo);
     menu->addSeparator();
@@ -2569,8 +2583,6 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
       menu->addSeparator();
       menu->addAction(bookmark);
     }
-  }
-
   return menu;
 }
 

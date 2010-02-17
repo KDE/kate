@@ -1,4 +1,4 @@
-/* This file is part of the KDE libraries
+ /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -718,6 +718,9 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
   public:
     KateSpellingMenu* spellingMenu();
+  private:
+    bool m_userContextMenuSet;
+
 };
 
 /**

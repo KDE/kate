@@ -21,19 +21,22 @@
 #include "jowennsnippets.h"
 #include "completionmodel.h"
 #include "repository.h"
+#include "kate/documentmanager.h"
 #include <ktexteditor/view.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/highlightinterface.h>
 #include <kate/pluginconfigpageinterface.h>
+
 #include <kdebug.h>
 #include <qmenu.h>
+#include <kmessagebox.h>
 
 #define ON_THE_GO_TEMPLATESTR "%1 On-The-Go"
 
 namespace JoWenn {
   
   KateSnippetSelector::KateSnippetSelector(Kate::MainWindow *mainWindow,JoWenn::KateSnippetsPlugin *plugin, QWidget *parent):QWidget(parent),m_plugin(plugin),m_mainWindow(mainWindow),m_mode("_____")
-  {
+  {    
     setupUi(this);
     plainTextEdit->setReadOnly(true);
     addSnippetToButton->setIcon(KIcon("snippetadd"));
@@ -52,7 +55,10 @@ namespace JoWenn {
     connect(showRepoManagerButton,SIGNAL(clicked()),this,SLOT(showRepoManager()));
     m_addSnippetToPopup = new QMenu(this);
     addSnippetToButton->setDelayedMenu(m_addSnippetToPopup);
+    connect(addSnippetToButton,SIGNAL(clicked()),this,SLOT(addSnippetToClicked()));
     connect(m_addSnippetToPopup,SIGNAL(aboutToShow()),this,SLOT(addSnippetToPopupAboutToShow()));
+       
+    viewChanged();
   }
   
   KateSnippetSelector::~KateSnippetSelector()
@@ -79,9 +85,13 @@ namespace JoWenn {
     KTextEditor::View *view=m_mainWindow->activeView();
     kDebug(13040)<<view;
     QAbstractItemModel *m=treeView->model();
-    
-    if (view)
+    if (m_associatedView.isNull())
+      disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
+    if (view)      
     {
+      m_associatedView=view;
+      connect(view,SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
+      selectionChanged(view);
       QString mode=view->document()->mode();
       if ((mode!=m_mode) || (treeView->model()==0))
       {
@@ -159,6 +169,25 @@ namespace JoWenn {
       }
   }
 
+  void KateSnippetSelector::addSnippetToClicked() {
+      KTextEditor::View *view=m_mainWindow->activeView();
+      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
+      if (!fi) {
+          KMessageBox::error(this,i18n("Developer's fault! Your editor component doesn't support the retrieval of certain\n"
+                                       "information, please press this button longer to open the menu for manual\n"
+                                       "destination selection"));
+          return;
+      }
+      KMessageBox::error(this,i18n("Not implemented yet"));
+  }
+
+  void KateSnippetSelector::selectionChanged(KTextEditor::View *view) {
+    bool enabled=addSnippetToButton->isEnabled();
+    if (enabled!=view->selection()) {
+      addSnippetToButton->setEnabled(!enabled);
+      emit enableAdd(!enabled);
+    }
+  }
 
 }
 

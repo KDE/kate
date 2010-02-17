@@ -20,8 +20,10 @@
 #define __JOWENN_SNIPPETS_SELECTOR_H__
 
 #include <kate/mainwindow.h>
+#include <ktexteditor/view.h>
 #include "ui_snippet_selector.h"
 #include <qwidget.h>
+#include <qpointer.h>
 
 class QMenu;
 
@@ -42,11 +44,18 @@ namespace JoWenn {
       void showHideSnippetText();
       void showRepoManager();
       void addSnippetToPopupAboutToShow();
+      void addSnippetToClicked();
+      void selectionChanged(KTextEditor::View *);
+    Q_SIGNALS:
+      void enableAdd(bool);
     private:
       JoWenn::KateSnippetsPlugin *m_plugin;
       Kate::MainWindow *m_mainWindow;
       QString m_mode;
       QMenu *m_addSnippetToPopup;
+      QPointer<KTextEditor::View> m_associatedView;
+    public:
+      QMenu *addSnippetToPopup(){return m_addSnippetToPopup;}
   };
 
 }

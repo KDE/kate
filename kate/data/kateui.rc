@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="63">
+<kpartgui name="kate" version="64">
 
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
@@ -72,6 +72,7 @@
     <Action name="tools_external" />
     <Separator />
     <DefineGroup name="tools_operations" />
+    <DefineGroup name="tools_operations2" />
     <Action name="scripts"/>
   </Menu>
 
@@ -119,6 +120,7 @@
 
 <Menu name="ktexteditor_popup" noMerge="1">
   <DefineGroup name="popup_operations" />
+  <DefineGroup name="popup_operations2" />
 </Menu>
 
 <Menu name="viewspace_popup" noMerge="1">

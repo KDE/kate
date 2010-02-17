@@ -92,7 +92,7 @@ namespace JoWenn {
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *m_repositoryData;
   };
 
-  class KateSnippetsPluginView : public Kate::PluginView
+  class KateSnippetsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
   {
       Q_OBJECT
 

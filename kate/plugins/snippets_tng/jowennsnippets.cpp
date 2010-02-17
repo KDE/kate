@@ -37,6 +37,9 @@
 #include <kconfiggroup.h>
 #include <kmessagebox.h>
 
+#include <kactioncollection.h>
+#include <kaction.h>
+
 K_PLUGIN_FACTORY(JoWennKateSnippetsFactory, registerPlugin<JoWenn::KateSnippetsPlugin>();)
 K_EXPORT_PLUGIN(JoWennKateSnippetsFactory(KAboutData("katesnippets_tng","katesnippets_tng",ki18n("Kate Snippets"), "0.1", ki18n("Kate Snippets"), KAboutData::License_LGPL)) )
 
@@ -244,10 +247,17 @@ namespace JoWenn {
 //BEGIN: VIEW
 
   KateSnippetsPluginView::KateSnippetsPluginView (Kate::MainWindow *mainWindow, JoWenn::KateSnippetsPlugin *plugin)
-      : Kate::PluginView (mainWindow)
+      : Kate::PluginView (mainWindow), Kate::XMLGUIClient(JoWennKateSnippetsFactory::componentData())
   {
     QWidget *toolview = mainWindow->createToolView ("kate_plugin_snippets_tng", Kate::MainWindow::Left, SmallIcon("text-field"), i18n("Kate Snippets"));
     m_snippetSelector = new KateSnippetSelector(mainWindow, plugin, toolview);
+    
+    KAction *a=actionCollection()->addAction("popup_katesnippets_addto");
+    a->setMenu(m_snippetSelector->addSnippetToPopup());    
+    a->setIcon(KIcon("snippetadd"));
+    a->setText(i18n("Create snippet"));
+    mainWindow->guiFactory()->addClient (this);
+    connect(m_snippetSelector,SIGNAL(enableAdd(bool)),a,SLOT(setEnabled(bool)));
   }
 
   KateSnippetsPluginView::~KateSnippetsPluginView ()

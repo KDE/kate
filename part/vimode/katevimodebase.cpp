@@ -35,7 +35,7 @@
 #include "katevimodebar.h"
 
 // TODO: the "previous word/WORD [end]" methods should be optimized. now they're being called in a
-// loop and all calculations done up to finding a match are wasted when called with a count > 1
+// loop and all calculations done up to finding a match are trown away when called with a count > 1
 // because they will simply be called again from the last found position.
 // They should take the count as a parameter and collect the positions in a QList, then return
 // element (count - 1)

@@ -69,7 +69,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     appendKeyEventToLog( copy );
   }
 
-  // FIXME: I this we're making things difficult for ourselves here.  Maybe some
+  // FIXME: I think we're making things difficult for ourselves here.  Maybe some
   //        more thought needs to go into the inheritance hierarchy.
   switch(m_currentViMode) {
   case NormalMode:

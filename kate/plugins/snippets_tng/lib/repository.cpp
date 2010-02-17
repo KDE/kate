@@ -48,8 +48,8 @@ namespace KTextEditor {
     
     class SnippetRepositoryEntry {
       public:
-        SnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _enabled):
-          name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),enabled(_enabled){
+        SnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _ghnsFile,bool _enabled):
+          name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),ghnsFile(_ghnsFile),enabled(_enabled){
             setFileType(_fileType.split(";"));
           }
         ~SnippetRepositoryEntry(){}
@@ -58,6 +58,7 @@ namespace KTextEditor {
         QString authors;
         QString license;
         bool systemFile;
+        bool ghnsFile;
         bool enabled;
         void setFileType(const QStringList &list) {
           m_fileType.clear();
@@ -82,6 +83,7 @@ namespace KTextEditor {
       QCheckBox *checkbox=new QCheckBox();
       list<<checkbox;
       connect(checkbox,SIGNAL(stateChanged(int)),this,SLOT(enabledChanged(int)));
+      list<<new QLabel();
       
       list<<new QLabel();
       
@@ -124,20 +126,25 @@ namespace KTextEditor {
       checkBox->resize(checkBox->sizeHint());
       checkBox->move(SPACING, option.rect.height() / 2 - checkBox->sizeHint().height() / 2);
 
+      //TYPE
+      QLabel *typeicon=static_cast<QLabel*>(widgets[1]);
+      typeicon->move(SPACING*2+checkBox->sizeHint().width(),checkBox->sizeHint().height() / 2);
+      typeicon->resize(checkBox->sizeHint().height(),checkBox->sizeHint().height());
+           
       //DELETE BUTTON
-      KPushButton *btnDelete = static_cast<KPushButton*>(widgets[3]);
+      KPushButton *btnDelete = static_cast<KPushButton*>(widgets[4]);
       btnDelete->resize(btnDelete->sizeHint());
       int btnW=btnDelete->sizeHint().width();
       btnDelete->move(option.rect.width()-SPACING-btnW, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
       
       //EDIT BUTTON    
-      KPushButton *btnEdit = static_cast<KPushButton*>(widgets[2]);
+      KPushButton *btnEdit = static_cast<KPushButton*>(widgets[3]);
       btnEdit->resize(btnEdit->sizeHint());
       btnEdit->move(option.rect.width()-2*SPACING-btnW-btnEdit->sizeHint().width(), option.rect.height() / 2 - btnEdit->sizeHint().height() / 2);
       
       //NAME LABEL
-      QLabel *label=static_cast<QLabel*>(widgets[1]);
-      label->move(SPACING*2+checkBox->sizeHint().width(),option.rect.height()/2-option.fontMetrics.height()/* *2/2 */);
+      QLabel *label=static_cast<QLabel*>(widgets[2]);
+      label->move(SPACING*3+2*checkBox->sizeHint().width(),option.rect.height()/2-option.fontMetrics.height()/* *2/2 */);
       label->resize(btnEdit->x()-SPACING-label->x(),option.fontMetrics.height()*2);
       
       //SETUP DATA
@@ -146,12 +153,22 @@ namespace KTextEditor {
           btnEdit->setVisible(false);
           btnDelete->setVisible(false);
           label->setVisible(false);
+          typeicon->setVisible(false);
       } else {
           bool systemFile=index.model()->data(index, SnippetRepositoryModel::SystemFileRole).toBool();
+          bool ghnsFile=index.model()->data(index, SnippetRepositoryModel::GhnsFileRole).toBool();
           checkBox->setVisible(true);
           btnEdit->setVisible(!systemFile);
-          btnDelete->setVisible(!systemFile);
+          btnDelete->setVisible((!systemFile) && !(ghnsFile));
           label->setVisible(true);
+          typeicon->setVisible(true);
+          kDebug()<<"GHNSFILE==="<<ghnsFile;
+          if (systemFile) {
+            typeicon->setText(i18n("S")); //SYSTEM
+          } else {
+            if (ghnsFile) typeicon->setPixmap(KIcon("get-hot-new-stuff").pixmap(16,16));
+            else typeicon->setText(i18n("U"));//USER
+          }
           checkBox->setChecked(index.model()->data(index, SnippetRepositoryModel::EnabledRole).toBool());
           //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
           QStringList fileType=index.model()->data(index, SnippetRepositoryModel::FiletypeRole).toStringList();
@@ -197,11 +214,19 @@ namespace KTextEditor {
       return m_entries.count();
     }
     
+       
     void SnippetRepositoryModel::createOrUpdateList(bool update) {
       KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
-      const QStringList list = KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/data/*.xml",KStandardDirs::NoDuplicates)
-                            << KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/ghns/*.xml",KStandardDirs::NoDuplicates);
 
+      createOrUpdateListSub(config,KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/data/*.xml",KStandardDirs::NoDuplicates),update,false);
+      createOrUpdateListSub(config,KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/ghns/*.xml",KStandardDirs::NoDuplicates),update,true);
+
+      config.sync();
+      reset();
+      emit typeChanged(QStringList("*"));
+    }
+    
+    void SnippetRepositoryModel::createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile) {
       foreach(const QString& filename,list) {
         QString groupName="SnippetRepositoryAndConfigCache "+ filename;
         KConfigGroup group(&config, groupName);
@@ -232,13 +257,10 @@ namespace KTextEditor {
         }      
         name=i18nc("snippet name",name.toUtf8());
         if (update)
-          updateEntry(name, filename, filetype, authors, license, systemFile);
+          updateEntry(name, filename, filetype, authors, license, systemFile,ghnsFile);
         else
-          addEntry(name, filename, filetype, authors, license, systemFile,/*enabled*/ false);
+          addEntry(name, filename, filetype, authors, license, systemFile,ghnsFile,/*enabled*/ false);
       }
-      config.sync();
-      reset();
-      emit typeChanged(QStringList("*"));
     }
     
     
@@ -263,6 +285,9 @@ namespace KTextEditor {
           break;        
         case SystemFileRole:
           return entry.systemFile;
+          break;
+        case GhnsFileRole:
+          return entry.ghnsFile;
           break;
         case EnabledRole:
           return entry.enabled;
@@ -349,7 +374,7 @@ namespace KTextEditor {
       }
     }
 
-    void SnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile)
+    void SnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile)
     {
         for (int i=0;i<m_entries.count();i++) {
             SnippetRepositoryEntry& entry=m_entries[i];
@@ -363,11 +388,11 @@ namespace KTextEditor {
               return;
             }
         }
-        addEntry(name, filename, filetype, authors, license, systemFile, /*enabled*/ false);
+        addEntry(name, filename, filetype, authors, license, systemFile, ghnsFile, /*enabled*/ false);
     }
-    void SnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled) {
+    void SnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile, bool enabled) {
       beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
-      m_entries.append(SnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,enabled));
+      m_entries.append(SnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,ghnsFile,enabled));
       endInsertRows();
     }
 
@@ -409,6 +434,19 @@ namespace KTextEditor {
       }
       group.writeEntry("count",enabledCount);
       group.sync();
+    }
+        
+    QModelIndex SnippetRepositoryModel::indexForFile(const QString& filename)
+    {
+      for (uint i=0;i<m_entries.count();i++)
+      {
+        const SnippetRepositoryEntry& entry=m_entries[i];
+        //kdDebug()<<"comparing entry.filename with filename:"<< entry.filename<<" -- "<<filename;
+        if (entry.filename==filename) {         
+          return index(i,0);
+        }
+      }
+      return QModelIndex();
     }
         
 //END: Model
@@ -467,7 +505,6 @@ namespace KTextEditor {
       m_repository->createOrUpdateList(true);
     }
  
-
 //END: DBus Adaptor
 
   }

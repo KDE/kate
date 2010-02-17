@@ -737,10 +737,18 @@ void KateMainWindow::openUrl (const QString &name)
 
 void KateMainWindow::slotConfigure()
 {
+  showPluginConfigPage(0,0);
+}
+
+void KateMainWindow::showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id)
+{
   if (!m_viewManager->activeView())
     return;
 
   KateConfigDialog* dlg = new KateConfigDialog (this, m_viewManager->activeView());
+  if (configpageinterface) {
+    dlg->showAppPluginPage(configpageinterface,id);
+  }
   dlg->exec();
 
   delete dlg;

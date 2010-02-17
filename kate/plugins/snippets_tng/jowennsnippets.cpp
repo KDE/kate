@@ -220,7 +220,7 @@ namespace JoWenn {
   KIcon KateSnippetsPlugin::configPageIcon (uint number) const
   {
     if (number != 0) return KIcon();
-    return KIcon(/*Icon name here*/);
+    return KIcon("textfield");
   }
 
 

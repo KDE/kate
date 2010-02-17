@@ -25,7 +25,7 @@
 
 #include "../app/katemainwindow.h"
 #include "../app/kateviewmanager.h"
-
+#include "pluginconfigpageinterface.h"
 namespace Kate
 {
 
@@ -112,6 +112,10 @@ namespace Kate
     return d->win->hideToolView (qobject_cast<KateMDI::ToolView*>(widget));
   }
 
+  void MainWindow::showPluginConfigPage(PluginConfigPageInterface *configpageinterface,uint id)
+  {
+    d->win->showPluginConfigPage(configpageinterface,id);
+  }
 
 }
 

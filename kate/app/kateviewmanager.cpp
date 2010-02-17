@@ -289,7 +289,7 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   delete view->actionCollection()->action( "set_confdlg" );
   delete view->actionCollection()->action( "editor_options" );
 
-  view->setContextMenu(view->defaultContextMenu());
+  //view->setContextMenu(view->defaultContextMenu());
 
   connect(view, SIGNAL(dropEventPass(QDropEvent *)), mainWindow(), SLOT(slotDropEvent(QDropEvent *)));
   connect(view, SIGNAL(focusIn(KTextEditor::View *)), this, SLOT(activateSpace(KTextEditor::View *)));

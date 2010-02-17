@@ -23,7 +23,7 @@
 #include "ui_snippet_selector.h"
 #include <qwidget.h>
 
-
+class QMenu;
 
 namespace JoWenn {
   
@@ -39,10 +39,14 @@ namespace JoWenn {
       void clicked(const QModelIndex& current);
       void doubleClicked(const QModelIndex& current);
       void typeChanged(KTextEditor::Document* document);
+      void showHideSnippetText();
+      void showRepoManager();
+      void addSnippetToPopupAboutToShow();
     private:
       JoWenn::KateSnippetsPlugin *m_plugin;
       Kate::MainWindow *m_mainWindow;
       QString m_mode;
+      QMenu *m_addSnippetToPopup;
   };
 
 }

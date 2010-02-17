@@ -47,6 +47,7 @@ namespace Kate
   class MainWindow;
   class Plugin;
   class PluginView;
+  class PluginConfigPageInterface;
 }
 
 class KFileItem;
@@ -312,6 +313,9 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     }
   private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
+
+  public:
+    void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);  
 
 };
 

@@ -65,6 +65,7 @@ namespace KTextEditor {
         QList<const SnippetCompletionEntry*> m_matches;
         void loadEntries(const QString& filename);
         QString m_fileType;
+        QStringList mergedFiles;
     };
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT CategorizedSnippetModel: public QAbstractItemModel {
@@ -103,10 +104,10 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
+        enum {FillInRole=Qt::UserRole+1,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
         //#warning SNIPPET_EDITOR IS SET
   #else
-        enum {FillInRole=Qt::UserRole+1};
+        enum {FillInRole=Qt::UserRole+1,MergedFilesRole};
         //#warning SNIPPET_EDITOR IS NOT SET
   #endif
       private:

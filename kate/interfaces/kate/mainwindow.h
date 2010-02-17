@@ -38,6 +38,8 @@ namespace KTextEditor
 namespace Kate
 {
 
+  class PluginConfigPageInterface;
+  
   /**
    * \brief Interface to a mainwindow.
    *
@@ -216,6 +218,15 @@ namespace Kate
        */
       bool hideToolView (QWidget *widget);
 
+      
+      /**
+       * This function is used by a plugin to open the kate configuration dialog
+       * at one of it's own config pages.
+       * \param configpageinterface the plugin config page interface of the plugin which requests the settings dialog
+       * \param id the positional id of the page within the configuration
+       */
+      void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+      
     private:
       class PrivateMainWindow *d;
   };

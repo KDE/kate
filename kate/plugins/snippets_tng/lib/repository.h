@@ -26,6 +26,7 @@
 #include <ktexteditor_codesnippets_core_export.h>
 #include <qdbusabstractadaptor.h>
 class KConfigBase;
+class KConfig;
 
 namespace Ui {
   class KateSnippetRepository;
@@ -72,6 +73,7 @@ namespace KTextEditor {
           AuthorsRole,
           LicenseRole,
           SystemFileRole,
+          GhnsFileRole,
           EnabledRole,
           DeleteNowRole,
           EditNowRole
@@ -84,12 +86,14 @@ namespace KTextEditor {
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-        void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile);
-        void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool enabled);
+        void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile);
+        void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile, bool enabled);
         SnippetCompletionModel* completionModel(const QString &filetype);
         void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
         void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
+        QModelIndex indexForFile(const QString&);
+        
       Q_SIGNALS:
         void typeChanged(const QStringList& fileType);
       public Q_SLOTS:
@@ -97,6 +101,7 @@ namespace KTextEditor {
         void copyToRepository(const KUrl& src);
       private:
         QList<SnippetRepositoryEntry> m_entries;
+        void createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile);
     };
     
     

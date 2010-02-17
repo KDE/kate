@@ -53,7 +53,7 @@ namespace KTextEditor {
 //BEGIN: CompletionModel
 
     SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles):
-      KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType) {
+      KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType),mergedFiles(snippetFiles) {        
         foreach(const QString& str, snippetFiles) {
           loadEntries(str);
         }      
@@ -428,6 +428,7 @@ namespace KTextEditor {
     
     QVariant SnippetSelectorModel::data(const QModelIndex &index, int role) const
     {
+        if (role==MergedFilesRole) return m_cmodel->mergedFiles;
         if (!index.isValid()) return QVariant();
         switch (role) {
           case Qt::DisplayRole:
@@ -568,7 +569,7 @@ namespace KTextEditor {
           return QModelIndex();
         }
         
-        QVariant CategorizedSnippetModel::data(const QModelIndex &index, int role) const {          
+        QVariant CategorizedSnippetModel::data(const QModelIndex &index, int role) const {
           if (!index.isValid()) 
           {
 //             kDebug()<<"invoked with invalid index";
@@ -578,6 +579,9 @@ namespace KTextEditor {
 //             kDebug()<<"invoked for entry with no internalPointer: row:"<<index.row()<<endl;
             if (role==Qt::DisplayRole)
               return m_models[index.row()]->fileType();
+            if (role==SnippetSelectorModel::MergedFilesRole) {
+                return m_models[index.row()]->data(QModelIndex(),SnippetSelectorModel::MergedFilesRole);
+            }
           } else {
 //             kDebug()<<"invoked for valid parent";
             SnippetSelectorModel *m=(SnippetSelectorModel*)(index.internalPointer());

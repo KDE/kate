@@ -268,7 +268,9 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
 
     PluginPageListItem *info = new PluginPageListItem;
     info->plugin = plugin;
-    info->page = Kate::pluginConfigPageInterface(plugin)->configPage (i, page);
+    info->configPageInterface=Kate::pluginConfigPageInterface(plugin);
+    info->page = info->configPageInterface->configPage (i, page);
+    info->idInPlugin=i;
     info->pageWidgetItem = item;
     connect( info->page, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
     m_pluginPages.append(info);
@@ -361,6 +363,18 @@ void KateConfigDialog::slotChanged()
   m_dataChanged = true;
   enableButton( Apply, true );
   m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
+}
+
+void KateConfigDialog::showAppPluginPage(Kate::PluginConfigPageInterface *configpageinterface,uint id)
+{
+  foreach (PluginPageListItem *plugin, m_pluginPages)
+  {
+    if ((plugin->configPageInterface==configpageinterface) && (id==plugin->idInPlugin))
+    {
+      setCurrentPage(plugin->pageWidgetItem);
+      break;
+    }
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

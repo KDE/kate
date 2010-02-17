@@ -39,6 +39,8 @@ class KateMainWindow;
 struct PluginPageListItem
 {
   Kate::Plugin *plugin;
+  Kate::PluginConfigPageInterface *configPageInterface;
+  uint idInPlugin;
   Kate::PluginConfigPage *page;
   KPageWidgetItem *pageWidgetItem;
 };
@@ -54,7 +56,7 @@ class KateConfigDialog : public KPageDialog
   public:
     void addPluginPage (Kate::Plugin *plugin);
     void removePluginPage (Kate::Plugin *plugin);
-
+    void showAppPluginPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
   protected Q_SLOTS:
     void slotOk();
     void slotApply();

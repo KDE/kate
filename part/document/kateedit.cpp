@@ -115,7 +115,7 @@ bool KateEditInfo::isRemoval() const
 
 KateEditHistory::KateEditHistory( KateDocument * doc )
   : QObject(doc)
-  , m_doc (doc)
+  , m_mutex (QMutex::Recursive)
   , m_revision(0)
 {
 }
@@ -128,8 +128,8 @@ KateEditHistory::~KateEditHistory()
 
 int KateEditHistory::revision()
 {
-  // protect the edit history with the smart mutexs
-  QMutexLocker locker (m_doc->smartMutex());
+  // protect the edit history
+  QMutexLocker locker (&m_mutex);
 
   // just take the last edit
   if (!m_edits.isEmpty()) {
@@ -147,8 +147,8 @@ int KateEditHistory::revision()
 
 void KateEditHistory::releaseRevision(int revision)
 {
-  // protect the edit history with the smart mutexs
-  QMutexLocker locker (m_doc->smartMutex());
+  // protect the edit history
+  QMutexLocker locker (&m_mutex);
 
   // search for revision, if not found, back out
   QMap<int, KateEditInfo*>::iterator it = m_revisions.find (revision);
@@ -183,9 +183,9 @@ void KateEditHistory::releaseRevision(int revision)
   }
 }
 
-void KateEditHistory::doEdit(KateEditInfo* edit) {
+void KateEditHistory::doEdit (KateEditInfo* edit) {
   {
-    QMutexLocker locker (m_doc->smartMutex());  
+    QMutexLocker locker (&m_mutex);  
     
     // here we go, don't be a memory pirate
     // if we atm only have one edit and it is not referenced, just delete it
@@ -208,7 +208,7 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
   if (from == -1)
     return ret;
 
-  QMutexLocker locker (m_doc->smartMutex());
+  QMutexLocker locker (&m_mutex);
 
   if (m_edits.isEmpty())
     return ret;

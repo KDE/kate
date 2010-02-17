@@ -128,12 +128,14 @@ class KateEditHistory : public QObject
 
     void doEdit(KateEditInfo* edit);
 
+    QMutex *mutex () { return &m_mutex; }
+
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
 
   private:
-    // document pointer, used to access mutex
-    KateDocument *m_doc;
+    // mutex to protect the edit history
+    mutable QMutex m_mutex;
     
     // current revision
     int m_revision;

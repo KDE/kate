@@ -164,6 +164,7 @@ struct KateSmartManager::KateTranslationDebugger {
   KateEditInfo* m_edit;
 };
 #endif
+
 KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
@@ -171,8 +172,8 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   , m_clearing(false)
   , m_currentKateTranslationDebugger(0)
 {
+  // connect to editDone, in this signal, the edit history lock is already released
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
-  //connect(doc(), SIGNAL(textChanged(Document*)), SLOT(verifyCorrect()));
 }
 
 KateSmartManager::~KateSmartManager()
@@ -778,6 +779,7 @@ int KateSmartManager::currentRevision() const
 Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior)
 {
   // guard the generated edit history list
+  QMutexLocker historyLocker (doc()->history()->mutex());
   QMutexLocker locker (doc()->smartMutex());
   
   Cursor ret = cursor;
@@ -791,6 +793,7 @@ Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor
 Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
 {
   // guard the generated edit history list
+  QMutexLocker historyLocker (doc()->history()->mutex());
   QMutexLocker locker (doc()->smartMutex());
   
   Cursor start = range.start(), end = range.end();

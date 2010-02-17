@@ -883,21 +883,23 @@ void KateViewInternal::doDeleteWordRight()
 
 class CalculatingCursor : public KTextEditor::Cursor {
 public:
+  // These constructors constrain their arguments to valid positions
+  // before only the third one did, but that leads to crashs
+  // see bug 227449
   CalculatingCursor(KateViewInternal* vi)
     : KTextEditor::Cursor()
     , m_vi(vi)
   {
-    Q_ASSERT(valid());
+    makeValid();
   }
 
   CalculatingCursor(KateViewInternal* vi, const KTextEditor::Cursor& c)
     : KTextEditor::Cursor(c)
     , m_vi(vi)
   {
-    Q_ASSERT(valid());
+    makeValid();
   }
 
-  // This one constrains its arguments to valid positions
   CalculatingCursor(KateViewInternal* vi, int line, int col)
     : KTextEditor::Cursor(line, col)
     , m_vi(vi)

@@ -24,12 +24,21 @@
 
 #include <QThread>
 #include <QMutexLocker>
+#include <QHash>
 
 #include <kdebug.h>
 
 //#define DEBUG_TRANSLATION
 
-static QThreadStorage<QMap<KateSmartManager*,int> *> threadLocalRevision;
+/**
+ * thread local storage for the revisions corresponding to some smart manager
+ * we need to store them per thread, to allow for example the kdevelop
+ * background parser to use its own revision and still not interfer with the
+ * kate parts own ranges. It is no member of the smartmanager, as this leads
+ * to problems with dynamic creation of the thread storage and its deletion.
+ * Tune by using a hash instead of map.
+ */
+static QThreadStorage<QHash<const KateSmartManager *, int> *> threadLocalRevision;
 
 //Uncomment this to debug the translation of ranges. If that is enabled,
 //all ranges are first translated completely separately out of the translation process,
@@ -737,7 +746,7 @@ void KateSmartManager::useRevision(int revision)
 {
   // create thread local data if not already there
   if (!threadLocalRevision.hasLocalData())
-    threadLocalRevision.setLocalData (new QMap<KateSmartManager*, int> ());
+    threadLocalRevision.setLocalData (new QHash<const KateSmartManager*, int> ());
 
   // insert revision
   threadLocalRevision.localData()->insert (this, revision);
@@ -747,7 +756,7 @@ int KateSmartManager::usingRevision()
 {
   // query thread local revision info, if any
   if (threadLocalRevision.hasLocalData()) {
-    QMap<KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->find (this);
+    QHash<const KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->find (this);
     if (it != threadLocalRevision.localData()->end ())
       return it.value ();
   }

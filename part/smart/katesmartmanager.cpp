@@ -29,7 +29,7 @@
 
 //#define DEBUG_TRANSLATION
 
-static QThreadStorage<QMap<KateSmartManager*,int> *> m_usingRevision;
+static QThreadStorage<QMap<KateSmartManager*,int> *> threadLocalRevision;
 
 //Uncomment this to debug the translation of ranges. If that is enabled,
 //all ranges are first translated completely separately out of the translation process,
@@ -735,19 +735,24 @@ void KateSmartManager::clear( bool includingInternal )
 
 void KateSmartManager::useRevision(int revision)
 {
-  if (!m_usingRevision.hasLocalData())
-    m_usingRevision.setLocalData(new QMap<KateSmartManager*,int>());
+  // create thread local data if not already there
+  if (!threadLocalRevision.hasLocalData())
+    threadLocalRevision.setLocalData (new QMap<KateSmartManager*, int> ());
 
-  m_usingRevision.localData()->insert(this,revision);
+  // insert revision
+  threadLocalRevision.localData()->insert (this, revision);
 }
 
 int KateSmartManager::usingRevision()
 {
-  if (m_usingRevision.hasLocalData()) {
-    QMap<KateSmartManager*,int> *m=m_usingRevision.localData();
-    if (m->contains(this))
-      return m->value(this);
+  // query thread local revision info, if any
+  if (threadLocalRevision.hasLocalData()) {
+    QMap<KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->find (this);
+    if (it != threadLocalRevision.localData()->end ())
+      return it.value ();
   }
+  
+  // no thread local data or nothing found, no revision set
   return -1;
 }
 

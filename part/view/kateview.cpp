@@ -989,7 +989,7 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
-  kDebug(13020) << "KateView::slotGotFocus";
+  //kDebug(13020) << "KateView::slotGotFocus";
 
   if ( !viInputMode() ) {
     activateEditActions();
@@ -999,15 +999,12 @@ void KateView::slotGotFocus()
 
 void KateView::slotLostFocus()
 {
-  kDebug(13020) << "KateView::slotLostFocus";
+  //kDebug(13020) << "KateView::slotLostFocus";
+  
   if ( !viInputMode() ) {
     deactivateEditActions();
   }
 
-//jowenn: what was that for ?
-//   if (m_bottomViewBar->isVisibleTo(m_bottomViewBar->parentWidget()) && (m_bottomViewBar->parentWidget() !=this) )
-//     m_bottomViewBar->hide();
-//   m_bottomViewBar->hide();
   emit focusOut ( this );
 }
 
@@ -1656,8 +1653,9 @@ void KateView::repaintText (bool paintOnlyDirty)
 
 void KateView::updateView (bool changed)
 {
+  //kDebug(13020) << "KateView::updateView";
+  
   m_viewInternal->updateView (changed);
-  kDebug(13020) << "KateView::updateView";
   m_viewInternal->m_leftBorder->update();
 }
 

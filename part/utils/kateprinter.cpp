@@ -1,12 +1,13 @@
-/*
- *  This file is part of the KDE libraries
- *  Copyright (c) 2001-2002 Michael Goffioul <kdeprint@swing.be>
- *  Complete rewrite on Sat Jun 15 2002 (c) Anders Lund <anders@alweb.dk>
- *  Copyright (c) 2002, 2003 Anders Lund <anders@alweb.dk>
+/*  This file is part of the KDE libraries and the Kate part.
+ *
+ *  Copyright (C) 2002-2010 Anders Lund <anders@alweb.dk>
+ *
+ *  Rewritten based on code of Copyright (c) 2002 Michael Goffioul <kdeprint@swing.be>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
- *  License version 2 as published by the Free Software Foundation.
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
  *
  *  This library is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,7 +18,7 @@
  *  along with this library; see the file COPYING.LIB.  If not, write to
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
- **/
+ */
 
 #include "kateprinter.h"
 

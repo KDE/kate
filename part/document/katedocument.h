@@ -417,20 +417,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual QString modeSection( int index ) const;
 
   /*
-   * SIGNALS
-   * Following signals should be emitted by the document if the mode
-   * or highlighting mode of the document changes
-   */
-  Q_SIGNALS:
-    /**
-     * Warn anyone listening that the current document's mode has
-     * changed.
-     *
-     * \param document the document which's mode has changed
-     */
-    void modeChanged(KTextEditor::Document *document);
-
-  /*
    * Helpers....
    */
   public:

@@ -708,7 +708,7 @@ bool KateCompletionWidget::isCompletionActive( ) const
 
 void KateCompletionWidget::abortCompletion( )
 {
-  kDebug(13035) ;
+  //kDebug(13035) ;
 
   m_isSuspended = false;
 

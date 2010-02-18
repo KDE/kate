@@ -109,6 +109,7 @@ class KateDocument::LoadSaveFilterCheckPlugins
         libname=ptr->library();
         libname=libname.right(libname.length()-12); //ktexteditor_ == 12
         m_plugins[libname]=0;//new KatePythonEncodingCheck();
+        m_plugins2Service[libname] = ptr;
       }
 
     }
@@ -149,11 +150,12 @@ class KateDocument::LoadSaveFilterCheckPlugins
     {
       if (!m_plugins.contains(pluginName)) return 0;
       if (!m_plugins[pluginName]) {
-        m_plugins[pluginName]=KLibLoader::createInstance<KTextEditor::LoadSaveFilterCheckPlugin>( "ktexteditor_"+pluginName);
+        m_plugins[pluginName]=m_plugins2Service[pluginName]->createInstance<KTextEditor::LoadSaveFilterCheckPlugin>();
       }
       return m_plugins[pluginName];
     }
     QHash <QString,KTextEditor::LoadSaveFilterCheckPlugin*> m_plugins;
+    QHash <QString, KService::Ptr> m_plugins2Service;
 };
 
 //BEGIN d'tor, c'tor

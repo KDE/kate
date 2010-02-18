@@ -1,4 +1,4 @@
-set(kwrite_KDEINIT_SRCS kwritemain.cpp)
+set(kwrite_KDEINIT_SRCS kwritemain.cpp kwriteapp.cpp)
 
 kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
 

@@ -20,6 +20,7 @@
 
 #include "kwritemain.h"
 #include "kwritemain.moc"
+#include "kwriteapp.h"
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -543,14 +544,14 @@ void KWrite::cursorPositionChanged ( KTextEditor::View *view )
   KTextEditor::Cursor position (view->cursorPositionVirtual());
 
   m_lineColLabel->setText(
-    i18nc("@info:status Statusbar label for cursor line and column position", 
+    i18nc("@info:status Statusbar label for cursor line and column position",
     	" Line: %1 Col: %2 ", position.line()+1, position.column()+1) ) ;
 }
 
 void KWrite::selectionChanged (KTextEditor::View *view)
 {
-  m_selectModeLabel->setText( 
-  	view->blockSelection() ? i18nc("@info:status Statusbar label for block selection mode", " BLOCK ") : 
+  m_selectModeLabel->setText(
+  	view->blockSelection() ? i18nc("@info:status Statusbar label for block selection mode", " BLOCK ") :
 				i18nc("@info:status Statusbar label for line selection mode", " LINE ") );
 }
 
@@ -678,103 +679,11 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   options.add("line <argument>", ki18n("Navigate to this line"));
   options.add("column <argument>", ki18n("Navigate to this column"));
   options.add("+[URL]", ki18n("Document to open"));
+
   KCmdLineArgs::addCmdLineOptions( options );
-
-  KApplication a;
-
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (a.isSessionRestored())
-  {
-    KWrite::restore();
-  }
-  else
-  {
-    bool nav = false;
-    int line = 0, column = 0;
-
-    QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding").toLocal8Bit()) : 0;
-
-    if (args->isSet ("line"))
-    {
-      line = args->getOption ("line").toInt() - 1;
-      nav = true;
-    }
-
-    if (args->isSet ("column"))
-    {
-      column = args->getOption ("column").toInt() - 1;
-      nav = true;
-    }
-
-    if ( args->count() == 0 )
-    {
-        KWrite *t = new KWrite;
-
-        if( args->isSet( "stdin" ) )
-        {
-          QTextStream input(stdin, QIODevice::ReadOnly);
-
-          // set chosen codec
-          if (codec)
-            input.setCodec (codec);
-
-          QString line;
-          QString text;
-
-          do
-          {
-            line = input.readLine();
-            text.append( line + '\n' );
-          } while( !line.isNull() );
-
-
-          KTextEditor::Document *doc = t->view()->document();
-          if( doc )
-              doc->setText( text );
-        }
-
-        if (nav && t->view())
-          t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
-    }
-    else
-    {
-      int docs_opened = 0;
-      for ( int z = 0; z < args->count(); z++ )
-      {
-        // this file is no local dir, open it, else warn
-        bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).toLocalFile()).exists();
-
-        if (noDir)
-        {
-          ++docs_opened;
-          KWrite *t = new KWrite();
-
-          t->view()->document()->setSuppressOpeningErrorDialogs (true);
-
-          if (codec)
-            t->view()->document()->setEncoding(codec->name());
-
-          t->loadURL( args->url( z ) );
-
-          t->view()->document()->setSuppressOpeningErrorDialogs (false);
-
-          if (nav)
-            t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
-        }
-        else
-        {
-          KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()));
-        }
-      }
-      if (!docs_opened) return 1; // see http://bugs.kde.org/show_bug.cgi?id=124708
-    }
-  }
-
-  // no window there, uh, ohh, for example borked session config !!!
-  // create at least one !!
-  if (KWrite::noWindows())
-    new KWrite();
+  KWriteApp a(args);
 
   return a.exec ();
 }

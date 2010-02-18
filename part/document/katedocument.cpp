@@ -3193,9 +3193,8 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 
   editStart();
 
-#ifdef __GNUC__
-#warning "that's a bad idea, can lead to stray endings, FIXME"
-#endif
+  // TODO "that's a bad idea, can lead to stray endings, FIXME"
+
   // Try to remove the long start comment mark first
   bool removedStart = (removeStringFromBeginning(line, longStartCommentMark)
                     || removeStringFromBeginning(line, shortStartCommentMark));
@@ -4804,8 +4803,9 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
                                                      const QMap<QString,QString> &initialValues, QWidget * )
 {
   if (templateString.isEmpty()) return false;
+  
   // the handler will delete itself when necessary
-  KateTemplateHandler* handler = new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager);
+  new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager);
 
   return true;
 }

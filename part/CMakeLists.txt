@@ -96,6 +96,7 @@ search/kateplaintextsearch.cpp
 search/kateescapedtextsearch.cpp
 search/kateregexpsearch.cpp
 search/katesearchbar.cpp
+search/katehistorymodel.cpp
 
 # smart stuff (cursors, ranges, ...)
 smart/katesmartcursor.cpp
@@ -160,7 +161,6 @@ utils/katecmd.cpp
 utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
 utils/katepartpluginmanager.cpp
-utils/katehistorymodel.cpp
 
 )
 

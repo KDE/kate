@@ -140,6 +140,26 @@ public:
    */
   void repeatLastChange();
 
+  /**
+   * get the last search term used
+   */
+  const QString getLastSearchPattern() const { return m_lastSearchPattern; }
+
+  /**
+   * record a search term so that it will be used with 'n' and 'N'
+   */
+  void setLastSearchPattern( const QString &p ) { m_lastSearchPattern = p; }
+
+  /**
+   * get search direction of last search. (true if backwards, false if forwards)
+   */
+  bool lastSearchBackwards() const { return m_lastSearchBackwards; }
+
+  /**
+   * set search direction of last search. (true if backwards, false if forwards)
+   */
+  void setLastSearchBackwards( bool b ) { m_lastSearchBackwards = b; }
+
   // session stuff
   void readSessionConfig( const KConfigGroup& config );
   void writeSessionConfig( KConfigGroup& config );
@@ -171,6 +191,16 @@ private:
    * a list of the key events that was part of the last change.
    */
   QString m_lastChange;
+
+  /**
+   * the last pattern searched for
+   */
+  QString m_lastSearchPattern;
+
+  /**
+   * keeps track of whether the last search was done backwards or not.
+   */
+  bool m_lastSearchBackwards;
 };
 
 #endif

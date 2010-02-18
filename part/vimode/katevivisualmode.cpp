@@ -233,8 +233,6 @@ void KateViVisualMode::initializeCommands()
   ADDCMD(":", commandSwitchToCmdLine, 0 );
   ADDCMD("/", commandSearch, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN );
-  ADDCMD("n", commandFindNext, 0 );
-  ADDCMD("N", commandFindPrev, 0 );
   ADDCMD(">", commandIndentLines, 0 );
   ADDCMD("<", commandUnindentLines, 0 );
   ADDCMD("<c-c>", commandAbort, 0 );
@@ -268,6 +266,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("T.", motionToCharBackward, REGEX_PATTERN );
   ADDMOTION(";", motionRepeatlastTF, 0 );
   ADDMOTION(",", motionRepeatlastTFBackward, 0 );
+  ADDMOTION("n", motionFindNext, 0 );
+  ADDMOTION("N", motionFindPrev, 0 );
   ADDMOTION("gg", motionToLineFirst, 0 );
   ADDMOTION("G", motionToLineLast, 0 );
   ADDMOTION("w", motionWordForward, 0 );

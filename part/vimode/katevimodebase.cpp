@@ -128,6 +128,68 @@ const QChar KateViModeBase::getCharUnderCursor() const
   return line.at( c.column() );
 }
 
+const QString KateViModeBase::getWordUnderCursor() const
+{
+  Cursor c( m_view->cursorPosition() );
+  Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+  Cursor c2 = findWordEnd( c1.line(), c1.column()-1, true );
+  c2.setColumn( c2.column()+1 );
+
+  return doc()->text( Range( c1, c2 ) );
+}
+
+KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards, int count ) const
+{
+  kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
+    << ", count = " << count;
+  if ( pattern.isEmpty() ) {
+    return KateViRange();
+  }
+
+  Cursor c( m_view->cursorPosition() );
+
+  KTextEditor::Search::SearchOptions flags = KTextEditor::Search::Regex;
+
+  if ( backwards ) {
+    flags |= KTextEditor::Search::Backwards;
+  }
+
+  for ( int i = count; i > 0; i-- ) {
+    // prepare two ranges, one from start → cursor and one from cursor → end
+    Range r1 = Range( Cursor( 0,0 ), c );
+
+    // we want to search from current position + one
+    if ( c.column() < doc()->lineLength( c.line() ) ) {
+      c.setColumn( c.column()+1 );
+    } else if ( c.line() < doc()->lines() ) {
+      c.setColumn( 0 );
+      c.setLine( c.line()+1 );
+    }
+
+    Range r2 = Range( c, doc()->documentEnd() );
+
+    //kDebug( 13070 ) << "r1: " << r1;
+    //kDebug( 13070 ) << "r2: " << r2;
+
+    //// see if we can find the term before the end of the document (opposite if backwards)
+    //kDebug( 13070 ) << "searching for " << pattern << " in " << (backwards ? "r1" : "r2") << " backwards = " << backwards;
+    Range result = doc()->searchText( backwards ? r1 : r2, pattern, flags ).first();
+    //kDebug( 13070 ) << "result: " << result;
+
+    if ( result.isValid() ) {
+      c = result.start();
+    } else {
+
+      // no hits, continue from the top
+      result = doc()->searchText( backwards ? r2 : r1, pattern, flags ).first();
+
+      c = result.start();
+    }
+  }
+
+  return KateViRange( c.line(), c.column(), ViMotion::ExclusiveMotion );
+}
+
 Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );

@@ -50,6 +50,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_viewInternal = viewInternal;
 
   m_runningMacro = false;
+
+  m_lastSearchBackwards = false;
 }
 
 KateViInputModeManager::~KateViInputModeManager()

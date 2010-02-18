@@ -109,9 +109,6 @@ class KateViNormalMode : public KateViModeBase
 
     bool commandSetMark();
 
-    bool commandFindNext();
-    bool commandFindPrev();
-
     bool commandIndentLine();
     bool commandUnindentLine();
     bool commandIndentLines();
@@ -159,6 +156,9 @@ class KateViNormalMode : public KateViModeBase
     KateViRange motionToCharBackward();
     KateViRange motionRepeatlastTF();
     KateViRange motionRepeatlastTFBackward();
+    KateViRange motionFindNext();
+    KateViRange motionFindPrev();
+
 
     KateViRange motionToEOL();
     KateViRange motionToColumn0();
@@ -178,6 +178,9 @@ class KateViNormalMode : public KateViModeBase
     KateViRange motionToNextBraceBlockStart();
     KateViRange motionToPreviousBraceBlockEnd();
     KateViRange motionToNextBraceBlockEnd();
+
+    KateViRange motionToNextOccurrence();
+    KateViRange motionToPrevOccurrence();
 
     // TEXT OBJECTS
 

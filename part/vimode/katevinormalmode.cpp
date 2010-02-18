@@ -1125,20 +1125,6 @@ bool KateViNormalMode::commandSetMark()
   return true;
 }
 
-bool KateViNormalMode::commandFindPrev()
-{
-    m_view->findPrevious();
-
-    return true;
-}
-
-bool KateViNormalMode::commandFindNext()
-{
-    m_view->findNext();
-
-    return true;
-}
-
 bool KateViNormalMode::commandIndentLine()
 {
     Cursor c( m_view->cursorPosition() );
@@ -1750,6 +1736,23 @@ KateViRange KateViNormalMode::motionRepeatlastTFBackward()
   return r;
 }
 
+// FIXME: should honour the provided count
+KateViRange KateViNormalMode::motionFindPrev()
+{
+  QString pattern = m_viInputModeManager->getLastSearchPattern();
+  bool backwards = m_viInputModeManager->lastSearchBackwards();
+
+  return findPattern( pattern, !backwards, getCount() );
+}
+
+KateViRange KateViNormalMode::motionFindNext()
+{
+  QString pattern = m_viInputModeManager->getLastSearchPattern();
+  bool backwards = m_viInputModeManager->lastSearchBackwards();
+
+  return findPattern( pattern, backwards, getCount() );
+}
+
 
 KateViRange KateViNormalMode::motionToLineFirst()
 {
@@ -2027,6 +2030,29 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
   return r;
 }
 
+KateViRange KateViNormalMode::motionToNextOccurrence()
+{
+  QString word = getWordUnderCursor();
+  word.prepend("\\b").append("\\b");
+
+  m_viInputModeManager->setLastSearchPattern( word );
+  m_viInputModeManager->setLastSearchBackwards( false );
+
+  return findPattern( word );
+}
+
+KateViRange KateViNormalMode::motionToPrevOccurrence()
+{
+  QString word = getWordUnderCursor();
+  word.prepend("\\b").append("\\b");
+
+  m_viInputModeManager->setLastSearchPattern( word );
+  m_viInputModeManager->setLastSearchBackwards( true );
+
+  return findPattern( word, true );
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // TEXT OBJECTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -2248,8 +2274,6 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<c-r>", commandRedo, 0 );
   ADDCMD("U", commandRedo, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN );
-  ADDCMD("n", commandFindNext, 0 );
-  ADDCMD("N", commandFindPrev, 0 );
   ADDCMD(">>", commandIndentLine, IS_CHANGE );
   ADDCMD("<<", commandUnindentLine, IS_CHANGE );
   ADDCMD(">", commandIndentLines, IS_CHANGE | NEEDS_MOTION );
@@ -2289,6 +2313,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("T.", motionToCharBackward, REGEX_PATTERN );
   ADDMOTION(";", motionRepeatlastTF, 0 );
   ADDMOTION(",", motionRepeatlastTFBackward, 0 );
+  ADDMOTION("n", motionFindNext, 0 );
+  ADDMOTION("N", motionFindPrev, 0 );
   ADDMOTION("gg", motionToLineFirst, 0 );
   ADDMOTION("G", motionToLineLast, 0 );
   ADDMOTION("w", motionWordForward, 0 );
@@ -2307,6 +2333,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );
   ADDMOTION("][", motionToNextBraceBlockEnd, 0 );
+  ADDMOTION("*", motionToNextOccurrence, 0 );
+  ADDMOTION("#", motionToPrevOccurrence, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );

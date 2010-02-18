@@ -764,9 +764,11 @@
       </context>
 
       <context name="slash_safe_escape" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Normal Text" context="#pop" String="\s*\]?\s*/" />
-        <RegExpr attribute="Normal Text" context="#pop" String="\s*\}?\s*/" endRegion="Block" />
-        <RegExpr attribute="Normal Text" context="#pop" String="\s*\)?\s*/" />
+        <DetectSpaces />
+        <!-- operators // and (implicitly) //= -->
+        <Detect2Chars attribute="Normal Text" context="#pop" char="/" char1="/" />
+        <RegExpr attribute="Normal Text" context="#pop" String="[])]?\s*/" />
+        <RegExpr attribute="Normal Text" context="#pop" String="\}?\s*/" endRegion="Block" />
         <keyword attribute="Keyword" context="#pop" String="keywords" />
       </context>
 

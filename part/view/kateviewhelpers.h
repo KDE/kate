@@ -235,17 +235,10 @@ class KateViewEncodingAction: public KSelectAction
     void triggered(QTextCodec *codec);
 
     /**
-    * Specific (proper) codec was selected
-    *
-    * @returns codec name
-    */
-    void triggered(const QString&);
-
-        /**
-        * Autodetection has been selected.
-        *
-        * Applicable only if showAutoOptions in c'tor was true
-        */
+     * Autodetection has been selected.
+     *
+     * Applicable only if showAutoOptions in c'tor was true
+     */
     void triggered(KEncodingProber::ProberType);
 
   protected Q_SLOTS:

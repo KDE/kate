@@ -45,7 +45,7 @@
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
-#include "katenamespace.h"
+#include "kateedit.h"
 
 namespace KTextEditor { class Plugin; class Attribute; }
 

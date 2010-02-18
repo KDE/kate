@@ -26,9 +26,44 @@
 
 #include <ktexteditor/range.h>
 
-#include "katenamespace.h"
-
 class KateDocument;
+
+namespace Kate
+{
+  enum EditSource {
+    /// Editing from opening a file
+    OpenFileEdit,
+    /// Editing from closing a file
+    CloseFileEdit,
+    /// Editing performed by the user
+    UserInputEdit,
+    /// Editing performed by the user within an input method context
+    InputMethodContextEdit,
+    /// Editing from cutting, copying and pasting
+    CutCopyPasteEdit,
+    /// Editing from search + replace algorithms
+    SearchReplaceEdit,
+    /// Edits from Kate's internal indentation routines
+    AutomaticIndentationEdit,
+    /// Edits from code completion
+    CodeCompletionEdit,
+    /// Edits by Kate scripts
+    ScriptActionEdit,
+    /// Inter-process communication derived edits
+    IPCEdit,
+    /// Editing from the kate inbuilt command line
+    CommandLineEdit,
+    /// Editing from a Kate plugin
+    PluginEdit,
+    /// Editing from a client application, eg. kdevelop.
+    ThirdPartyEdit,
+    /// Other internal editing done by Kate
+    InternalEdit,
+    /// An edit type which means that no edit source was otherwise specified, and any preexisting type should be inherited.
+    NoEditSource
+  };
+
+}
 
 /**
  * Represents a single edit to a KateDocument.

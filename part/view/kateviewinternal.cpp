@@ -39,7 +39,6 @@
 #include "katedynamicanimation.h"
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
-#include "katenamespace.h"
 #include "kateviinputmodemanager.h"
 #include "katevimodebar.h"
 #include "spellcheck/spellingmenu.h"

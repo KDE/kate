@@ -464,7 +464,7 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
-    var result = /^(.*)(,|[)];)\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
+    var result = /^(.*)(,|\);|")\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
         var comma = (result[2].length == 1);
         var cursor = document.anchor(currentLine, result[1].length, '(');

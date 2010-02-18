@@ -46,6 +46,7 @@ namespace JoWenn {
       void addSnippetToPopupAboutToShow();
       void addSnippetToClicked();
       void selectionChanged(KTextEditor::View *);
+      void newRepo();
     Q_SIGNALS:
       void enableAdd(bool);
     private:

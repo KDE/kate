@@ -62,7 +62,7 @@ namespace KTextEditor {
     SnippetCompletionModel::~SnippetCompletionModel() {
     }
     
-    bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license) {
+    bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString* snippetlicense) {
       name->clear();
       filetype->clear();
       authors->clear();
@@ -94,6 +94,8 @@ namespace KTextEditor {
       *filetype=el.attribute("filetypes");
       *authors=el.attribute("authors");
       *license=el.attribute("license");
+      *snippetlicense=el.attribute("snippetlicense");
+      if (snippetlicense->isEmpty()) *snippetlicense=QString("public domain");
       return true;
     }
     
@@ -289,7 +291,7 @@ namespace KTextEditor {
       item.appendChild(element);
     }
 
-    bool SnippetCompletionModel::save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors)
+    bool SnippetCompletionModel::save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors,const QString& snippetlicense)
     {
   /*
       <snippets name="Testsnippets" filetype="*" authors="Joseph Wenninger" license="BSD">
@@ -312,6 +314,7 @@ namespace KTextEditor {
       root.setAttribute("filetypes",filetype);
       root.setAttribute("authors",authors);
       root.setAttribute("license",license);
+      root.setAttribute("snippetlicense",snippetlicense);
       doc.appendChild(root);
       foreach(const SnippetCompletionEntry& entry, m_entries) {
         QDomElement item=doc.createElement("item");

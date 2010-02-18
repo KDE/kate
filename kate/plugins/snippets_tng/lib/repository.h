@@ -38,6 +38,8 @@ namespace KTextEditor {
     class SnippetCompletionEntry;
     class SnippetCompletionModel;
     
+    class SnippetRepositoryItemDelegatePrivate;
+    
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryItemDelegate: public KWidgetItemDelegate
     {
         Q_OBJECT
@@ -57,8 +59,12 @@ namespace KTextEditor {
         void enabledChanged(int state);
         void editEntry();
         void deleteEntry();      
+      private:
+        SnippetRepositoryItemDelegatePrivate* d;
     };
     
+    
+    class SnippetRepositoryModelPrivate;
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryModel: public QAbstractListModel
     {
@@ -72,11 +78,13 @@ namespace KTextEditor {
           FiletypeRole,
           AuthorsRole,
           LicenseRole,
+          SnippetLicenseRole,
           SystemFileRole,
           GhnsFileRole,
           EnabledRole,
           DeleteNowRole,
-          EditNowRole
+          EditNowRole,
+          ForExtension=Qt::UserRole+100
         };
       private:
         void createOrUpdateList(bool update);
@@ -86,8 +94,8 @@ namespace KTextEditor {
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-        void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile);
-        void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile, bool enabled);
+        void updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, const QString& snippetlicense, bool systemFile, bool ghnsFile);
+        void addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, const QString& snippetlicense, bool systemFile, bool ghnsFile, bool enabled);
         SnippetCompletionModel* completionModel(const QString &filetype);
         void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
         void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
@@ -96,15 +104,19 @@ namespace KTextEditor {
         
       Q_SIGNALS:
         void typeChanged(const QStringList& fileType);
+      public:
+        void newEntry(QWidget *dialogParent,const QString& type=QString());
       public Q_SLOTS:
         void newEntry();
         void copyToRepository(const KUrl& src);
       private:
         QList<SnippetRepositoryEntry> m_entries;
         void createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile);
+        class SnippetRepositoryModelPrivate *d;
     };
     
     
+    class SnippetRepositoryConfigWidgetPrivate;
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryConfigWidget : public QWidget {
       Q_OBJECT
     public:
@@ -117,11 +129,13 @@ namespace KTextEditor {
     private:
       SnippetRepositoryModel *m_repository;
       Ui::KateSnippetRepository *m_ui;
+      SnippetRepositoryConfigWidgetPrivate *d;
   };
 
     
     
-
+    class SnippetRepositoryModelAdaptorPrivate;
+    
     class SnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
     {
         Q_OBJECT
@@ -133,6 +147,7 @@ namespace KTextEditor {
         void updateSnippetRepository();
       private:
         SnippetRepositoryModel* m_repository;
+        SnippetRepositoryModelAdaptorPrivate *d;
     };
   }
 }

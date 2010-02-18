@@ -34,7 +34,9 @@ namespace KTextEditor {
     class SnippetCompletionEntry;
     
     class SnippetSelectorModel;
-    
+
+    class SnippetCompletionModelPrivate;
+
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
         Q_OBJECT
       public:
@@ -51,12 +53,12 @@ namespace KTextEditor {
         virtual void executeCompletionItem2(KTextEditor::Document* document,
           const KTextEditor::Range& word, const QModelIndex& index) const;
 
-        static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license);
+        static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString *snippetlicense);
 
         SnippetSelectorModel *selectorModel();
         QString fileType();
   #ifdef SNIPPET_EDITOR
-        bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors);
+        bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors, const QString& snippetlicense);
         static QString createNew(const QString& name, const QString& license,const QString& authors);
   #endif
         
@@ -66,7 +68,10 @@ namespace KTextEditor {
         void loadEntries(const QString& filename);
         QString m_fileType;
         QStringList mergedFiles;
+        SnippetCompletionModelPrivate *d;
     };
+    
+    class CategorizedSnippetModelPrivate;
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT CategorizedSnippetModel: public QAbstractItemModel {
       Q_OBJECT
@@ -83,7 +88,10 @@ namespace KTextEditor {
         void subDestroyed(QObject*);
       private:
         QList<SnippetSelectorModel*> m_models;
+        CategorizedSnippetModelPrivate *d;
     };
+    
+    class SnippetSelectorModelPrivate;
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetSelectorModel: public QAbstractItemModel {
         Q_OBJECT
@@ -104,7 +112,7 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole};
+        enum {FillInRole=Qt::UserRole+1,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
         enum {FillInRole=Qt::UserRole+1,MergedFilesRole};
@@ -112,6 +120,7 @@ namespace KTextEditor {
   #endif
       private:
           SnippetCompletionModel *m_cmodel;
+          SnippetSelectorModelPrivate *d;
     };
     
 #ifdef SNIPPET_EDITOR

@@ -21,7 +21,6 @@
 #include "jowennsnippets.h"
 #include "completionmodel.h"
 #include "repository.h"
-#include "kate/documentmanager.h"
 #include <ktexteditor/view.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/highlightinterface.h>
@@ -57,7 +56,7 @@ namespace JoWenn {
     addSnippetToButton->setDelayedMenu(m_addSnippetToPopup);
     connect(addSnippetToButton,SIGNAL(clicked()),this,SLOT(addSnippetToClicked()));
     connect(m_addSnippetToPopup,SIGNAL(aboutToShow()),this,SLOT(addSnippetToPopupAboutToShow()));
-       
+    connect(newRepoButton,SIGNAL(clicked()),this,SLOT(newRepo()));
     viewChanged();
   }
   
@@ -179,6 +178,16 @@ namespace JoWenn {
           return;
       }
       KMessageBox::error(this,i18n("Not implemented yet"));
+  }
+
+  void KateSnippetSelector::newRepo() {
+      KTextEditor::View *view=m_mainWindow->activeView();
+      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
+      if (!fi) {
+        m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()));
+      } else {
+        m_plugin->repositoryData()->newEntry(this);
+      }
   }
 
   void KateSnippetSelector::selectionChanged(KTextEditor::View *view) {

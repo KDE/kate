@@ -80,7 +80,8 @@ class SnippetEditorWindow: public KMainWindow, private Ui::SnippetEditorView
     KTextEditor::CodesnippetsCore::Editor::SnippetSelectorModel *m_selectorModel;
     bool m_ok;
     void notifyChange();
-    FiletypeListDropDown *m_filetypeDropDown;
+    QString m_snippetLicense;
+    FiletypeListDropDown *m_filetypeDropDown;    
 };
 
 #endif

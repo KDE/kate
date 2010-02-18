@@ -143,7 +143,8 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   QString authors;
   QString license;
 
-  KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license);    
+  KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::loadHeader(m_url.toLocalFile(),&name, &filetype, &authors, &license,&m_snippetLicense);
+  if (m_snippetLicense.isEmpty()) m_snippetLicense="public domain";
   setCaption(m_url.fileName());  
 
   snippetCollectionName->setText(name);
@@ -177,7 +178,7 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
     
     QString filetype=snippetCollectionFiletype->text();
     if (filetype.trimmed().isEmpty()) filetype=QString("*");
-    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),filetype,snippetCollectionAuthors->text())) {
+    if (m_snippetData->save(m_url.toLocalFile(),snippetCollectionName->text(),snippetCollectionLicense->text(),filetype,snippetCollectionAuthors->text(),m_snippetLicense)) {
       notifyRepos();
       close();
     }

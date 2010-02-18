@@ -41,15 +41,15 @@
 #include <QDBusConnectionInterface>
 #include <QDBusConnection>
 #include <QDBusMessage>
-
+#include <kcolorscheme.h>
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
     
     class SnippetRepositoryEntry {
       public:
-        SnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, bool _systemFile, bool _ghnsFile,bool _enabled):
-          name(_name),filename(_filename), authors(_authors), license(_license),systemFile(_systemFile),ghnsFile(_ghnsFile),enabled(_enabled){
+        SnippetRepositoryEntry(const QString& _name, const QString& _filename, const QString& _fileType, const QString& _authors, const QString& _license, const QString& _snippetLicense, bool _systemFile, bool _ghnsFile,bool _enabled):
+          name(_name),filename(_filename), authors(_authors), license(_license),snippetLicense(_snippetLicense),systemFile(_systemFile),ghnsFile(_ghnsFile),enabled(_enabled){
             setFileType(_fileType.split(";"));
           }
         ~SnippetRepositoryEntry(){}
@@ -57,6 +57,7 @@ namespace KTextEditor {
         QString filename;      
         QString authors;
         QString license;
+        QString snippetLicense;
         bool systemFile;
         bool ghnsFile;
         bool enabled;
@@ -128,7 +129,7 @@ namespace KTextEditor {
 
       //TYPE
       QLabel *typeicon=static_cast<QLabel*>(widgets[1]);
-      typeicon->move(SPACING*2+checkBox->sizeHint().width(),checkBox->sizeHint().height() / 2);
+      typeicon->move(SPACING*2+checkBox->sizeHint().width(),option.rect.height()/2-checkBox->sizeHint().height() / 2);
       typeicon->resize(checkBox->sizeHint().height(),checkBox->sizeHint().height());
            
       //DELETE BUTTON
@@ -145,7 +146,7 @@ namespace KTextEditor {
       //NAME LABEL
       QLabel *label=static_cast<QLabel*>(widgets[2]);
       label->move(SPACING*3+2*checkBox->sizeHint().width(),option.rect.height()/2-option.fontMetrics.height()/* *2/2 */);
-      label->resize(btnEdit->x()-SPACING-label->x(),option.fontMetrics.height()*2);
+      label->resize(btnEdit->x()-SPACING-label->x(),option.fontMetrics.height()*4);
       
       //SETUP DATA
       if (!index.isValid()) {
@@ -164,23 +165,40 @@ namespace KTextEditor {
           typeicon->setVisible(true);
           kDebug()<<"GHNSFILE==="<<ghnsFile;
           if (systemFile) {
-            typeicon->setText(i18n("S")); //SYSTEM
+            typeicon->setPixmap(KIcon("folder-red").pixmap(16,16));
           } else {
             if (ghnsFile) typeicon->setPixmap(KIcon("get-hot-new-stuff").pixmap(16,16));
-            else typeicon->setText(i18n("U"));//USER
+            else typeicon->setPixmap(KIcon("user-home").pixmap(16,16));
           }
           checkBox->setChecked(index.model()->data(index, SnippetRepositoryModel::EnabledRole).toBool());
           //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
           QStringList fileType=index.model()->data(index, SnippetRepositoryModel::FiletypeRole).toStringList();
           QString displayFileType=fileType.join(";");
           if (fileType.contains("*")) displayFileType="all file types";
-          label->setText(i18n("%1 (%2)\nlicense: %3, authors: %4",
+          QString snippetLicense=index.model()->data(index, SnippetRepositoryModel::SnippetLicenseRole).toString();
+          bool tainted=false;
+          if (snippetLicense!="public domain") {
+            snippetLicense=i18n("!TAINTED!:%1",snippetLicense);
+            tainted=true;   
+            QPalette palette = label->palette();
+            palette.setColor( label->foregroundRole(),
+              KColorScheme(QPalette::Active, KColorScheme::Window).
+                foreground(KColorScheme::NegativeText).color() );
+            label->setPalette( palette );
+            label->update();
+            
+          }
+          label->setText(i18n("%1 (%2)\ncontent license: %3\nrepository license: %4 authors: %5",
             index.model()->data(index, SnippetRepositoryModel::NameRole).toString(),
             displayFileType,
+            snippetLicense,
             index.model()->data(index, SnippetRepositoryModel::LicenseRole).toString(),
             index.model()->data(index, SnippetRepositoryModel::AuthorsRole).toString()
             )
           );
+          QFont f=label->font();
+          f.setItalic(tainted);
+          label->setFont(f);
           //kDebug(13040)<<label->geometry();
           //kDebug(13040)<<btnEdit->x()-SPACING-label->x();
       }
@@ -193,7 +211,7 @@ namespace KTextEditor {
       const QModelIndex &) const {
       QSize size;
       size.setWidth(option.fontMetrics.height() * 8);
-      size.setHeight(option.fontMetrics.height() * 2);
+      size.setHeight(option.fontMetrics.height() * 4);
       return size;
     }
 //END: Delegate
@@ -235,6 +253,7 @@ namespace KTextEditor {
         QString filetype;
         QString authors;
         QString license;
+        QString snippetlicense;
         bool systemFile=false;
         bool configRead=false;
         QFileInfo fi(filename);
@@ -243,23 +262,26 @@ namespace KTextEditor {
               name=group.readEntry("name");
               filetype=group.readEntry("filetypes");
               authors=group.readEntry("authors");
-              license=group.readEntry("license");         
-              configRead=true;
+              license=group.readEntry("license");
+              snippetlicense=group.readEntry("snippetlicense");
+              if (!snippetlicense.isEmpty())
+                configRead=true;
           }
         }
         if (!configRead) {
-          SnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license);
+          SnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license,&snippetlicense);
           group.writeEntry("lastModified",fi.lastModified());
           group.writeEntry("name",name);
           group.writeEntry("filetypes",filetype);
           group.writeEntry("authors",authors);
-          group.writeEntry("license",license);  
+          group.writeEntry("license",license);
+          group.writeEntry("snippetlicense",snippetlicense);  
         }      
         name=i18nc("snippet name",name.toUtf8());
         if (update)
-          updateEntry(name, filename, filetype, authors, license, systemFile,ghnsFile);
+          updateEntry(name, filename, filetype, authors, license, snippetlicense, systemFile,ghnsFile);
         else
-          addEntry(name, filename, filetype, authors, license, systemFile,ghnsFile,/*enabled*/ false);
+          addEntry(name, filename, filetype, authors, license, snippetlicense,systemFile,ghnsFile,/*enabled*/ false);
       }
     }
     
@@ -279,6 +301,9 @@ namespace KTextEditor {
           break;
         case AuthorsRole:
           return entry.authors;
+          break;
+        case SnippetLicenseRole:
+          return entry.snippetLicense;
           break;
         case LicenseRole:
           return entry.license;
@@ -331,12 +356,17 @@ namespace KTextEditor {
         return QAbstractListModel::setData(index,value,role);
     }
 
+    void SnippetRepositoryModel::newEntry(QWidget *dialogParent,const QString& type) {
+      if (!KRun::runUrl(KUrl("new-file://"+QUrl::toPercentEncoding(type)),"application/x-katesnippets_tng",dialogParent)) {
+        KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+      }
+    }
+
     void SnippetRepositoryModel::newEntry() {
       QWidget *widget=qobject_cast<QWidget*>(sender());
       if (!KRun::runUrl(KUrl("new-file://"),"application/x-katesnippets_tng",widget)) {
         KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
       }
-
     }
 
     void SnippetRepositoryModel::copyToRepository(const KUrl& src) {
@@ -374,7 +404,7 @@ namespace KTextEditor {
       }
     }
 
-    void SnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile)
+    void SnippetRepositoryModel::updateEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, const QString& snippetLicense, bool systemFile, bool ghnsFile)
     {
         for (int i=0;i<m_entries.count();i++) {
             SnippetRepositoryEntry& entry=m_entries[i];
@@ -385,14 +415,15 @@ namespace KTextEditor {
               entry.authors=authors;
               entry.license=license;
               entry.systemFile=systemFile;
+              entry.snippetLicense=snippetLicense;
               return;
             }
         }
-        addEntry(name, filename, filetype, authors, license, systemFile, ghnsFile, /*enabled*/ false);
+        addEntry(name, filename, filetype, authors, license, snippetLicense, systemFile, ghnsFile, /*enabled*/ false);
     }
-    void SnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, bool systemFile, bool ghnsFile, bool enabled) {
+    void SnippetRepositoryModel::addEntry(const QString& name, const QString& filename, const QString& filetype, const QString& authors, const QString& license, const QString& snippetLicense, bool systemFile, bool ghnsFile, bool enabled) {
       beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count());
-      m_entries.append(SnippetRepositoryEntry(name,filename,filetype,authors,license,systemFile,ghnsFile,enabled));
+      m_entries.append(SnippetRepositoryEntry(name,filename,filetype,authors,license,snippetLicense,systemFile,ghnsFile,enabled));
       endInsertRows();
     }
 

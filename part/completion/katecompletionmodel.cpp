@@ -929,7 +929,7 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
     changeType = Narrow;
   }
 
-  kDebug( 13035 ) << model << "Old match: " << m_currentMatch[model] << ", new: " << completion << ", type: " << changeType;
+  //kDebug( 13035 ) << model << "Old match: " << m_currentMatch[model] << ", new: " << completion << ", type: " << changeType;
 
   m_currentMatch[model] = completion;
 
@@ -1449,7 +1449,7 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 {
   int ret = 0;
 
-    //kDebug( 13035 ) << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
+  //kDebug( 13035 ) << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
   if( model->isSortingByInheritanceDepth() )
     ret = inheritanceDepth - rhs.inheritanceDepth;

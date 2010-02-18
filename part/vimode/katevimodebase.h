@@ -29,6 +29,9 @@
 
 #include <QList>
 
+using KTextEditor::Cursor;
+using KTextEditor::Range;
+
 class QKeyEvent;
 class QString;
 class QRegExp;
@@ -61,18 +64,18 @@ class KateViModeBase : public QObject
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     const QString getLine( int lineNumber = -1 ) const;
     const QChar getCharUnderCursor() const;
-    KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false ) const;
     KateViRange findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner = false ) const;
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
-    void updateCursor( const KTextEditor::Cursor &c ) const;
+    void updateCursor( const Cursor &c ) const;
     const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
 
     KateViRange goLineUp();

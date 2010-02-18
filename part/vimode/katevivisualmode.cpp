@@ -22,6 +22,9 @@
 #include "katesmartrange.h"
 #include "katevirange.h"
 
+using KTextEditor::Cursor;
+using KTextEditor::Range;
+
 #define ADDCMD(STR,FUNC, FLGS) m_commands.push_back( \
     new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
@@ -45,7 +48,7 @@ KateViVisualMode::~KateViVisualMode()
 
 void KateViVisualMode::updateDirty( bool entireView ) const
 {
-  KTextEditor::Cursor c = m_view->cursorPosition();
+  Cursor c = m_view->cursorPosition();
 
   if ( entireView ) {
     m_view->tagLines(0, m_view->doc()->lastLine() );
@@ -70,7 +73,7 @@ void KateViVisualMode::updateDirty( bool entireView ) const
 
 void KateViVisualMode::goToPos( const KateViRange &r )
 {
-  KTextEditor::Cursor c = m_view->cursorPosition();
+  Cursor c = m_view->cursorPosition();
   m_previous = c;
 
   if ( r.startLine != -1 && r.startColumn != -1 && c == m_start ) {
@@ -162,7 +165,7 @@ void KateViVisualMode::setVisualModeType( ViMode mode )
 
 void KateViVisualMode::switchStartEnd()
 {
-  KTextEditor::Cursor c = m_start;
+  Cursor c = m_start;
   m_start = m_view->cursorPosition();
 
   updateCursor( c );
@@ -172,9 +175,9 @@ void KateViVisualMode::switchStartEnd()
   updateDirty();
 }
 
-KTextEditor::Range KateViVisualMode::getVisualRange() const
+Range KateViVisualMode::getVisualRange() const
 {
-  KTextEditor::Cursor c = m_view->cursorPosition();
+  Cursor c = m_view->cursorPosition();
 
   int startLine = qMin( c.line(), m_start.line() );
   int endLine = qMax( c.line(), m_start.line() );
@@ -197,7 +200,7 @@ KTextEditor::Range KateViVisualMode::getVisualRange() const
     }
   }
 
-  return KTextEditor::Range( startLine, startCol, endLine, endCol );
+  return Range( startLine, startCol, endLine, endCol );
 }
 
 void KateViVisualMode::initializeCommands()

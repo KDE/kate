@@ -32,6 +32,9 @@
 #include <QApplication>
 #include <QList>
 
+using KTextEditor::Cursor;
+using KTextEditor::Range;
+
 #define ADDCMD(STR,FUNC, FLGS) m_commands.push_back( \
     new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
@@ -156,8 +159,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   if ( ( m_keys == "cw" || m_keys == "cW" ) && !getCharUnderCursor().isSpace() ) {
     // Special case of the special case: :-)
     // If the cursor is at the end of the current word rewrite to "cl"
-    KTextEditor::Cursor c1( m_view->cursorPosition() ); // current position
-    KTextEditor::Cursor c2 = findWordEnd(c1.line(), c1.column()-1, true); // word end
+    Cursor c1( m_view->cursorPosition() ); // current position
+    Cursor c2 = findWordEnd(c1.line(), c1.column()-1, true); // word end
 
     if ( c1 == c2 ) { // the cursor is at the end of a word
       m_keys = "cl";
@@ -275,7 +278,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
             // if we didn't get an explicit start position, use the current cursor position
             if ( m_commandRange.startLine == -1 ) {
-              KTextEditor::Cursor c( m_view->cursorPosition() );
+              Cursor c( m_view->cursorPosition() );
               m_commandRange.startLine = c.line();
               m_commandRange.startColumn = c.column();
             }
@@ -286,7 +289,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 && m_commandRange.endLine > m_commandRange.startLine ) {
               m_commandRange = motionToEOL();
 
-              KTextEditor::Cursor c( m_view->cursorPosition() );
+              Cursor c( m_view->cursorPosition() );
               m_commandRange.startLine = c.line();
               m_commandRange.startColumn = c.column();
             }
@@ -370,7 +373,7 @@ void KateViNormalMode::reset()
 
 void KateViNormalMode::goToPos( const KateViRange &r )
 {
-  KTextEditor::Cursor c;
+  Cursor c;
   c.setLine( r.endLine );
   c.setColumn( r.endColumn );
 
@@ -400,7 +403,7 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
   }
 
   // make sure the cursor does not end up after the end of the line
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
     int lineLength = doc()->lineLength( c.line() );
 
@@ -417,7 +420,7 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
     KateSmartCursor *cursor = doc()->smartManager()->newSmartCursor( c );
 
@@ -443,7 +446,7 @@ bool KateViNormalMode::commandEnterInsertMode()
 
 bool KateViNormalMode::commandEnterInsertModeAppend()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   c.setColumn( c.column()+1 );
 
   // if empty line, the cursor should start at column 0
@@ -467,7 +470,7 @@ bool KateViNormalMode::commandEnterInsertModeAppend()
 
 bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
   m_stickyColumn = -1;
@@ -477,7 +480,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 
 bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
 {
-  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  Cursor cursor( m_view->cursorPosition() );
   QRegExp nonSpace( "\\S" );
   int c = getLine().indexOf( nonSpace );
   if ( c == -1 ) {
@@ -538,7 +541,7 @@ bool KateViNormalMode::commandEnterReplaceMode()
 
 bool KateViNormalMode::commandDeleteLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   KateViRange r;
 
@@ -579,7 +582,7 @@ bool KateViNormalMode::commandDelete()
 
 bool KateViNormalMode::commandDeleteToEOL()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   m_commandRange.endLine = c.line()+getCount()-1;
   m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine );
@@ -625,9 +628,9 @@ bool KateViNormalMode::commandMakeLowercase()
   QString text = getRange( m_commandRange, linewise );
   QString lowerCase = text.toLower();
 
-  KTextEditor::Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
-  KTextEditor::Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
-  KTextEditor::Range range( start, end );
+  Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
+  Range range( start, end );
 
   doc()->replaceText( range, lowerCase );
 
@@ -636,7 +639,7 @@ bool KateViNormalMode::commandMakeLowercase()
 
 bool KateViNormalMode::commandMakeLowercaseLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line();
@@ -654,9 +657,9 @@ bool KateViNormalMode::commandMakeUppercase()
   QString text = getRange( m_commandRange, linewise );
   QString upperCase = text.toUpper();
 
-  KTextEditor::Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
-  KTextEditor::Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
-  KTextEditor::Range range( start, end );
+  Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
+  Range range( start, end );
 
   doc()->replaceText( range, upperCase );
 
@@ -665,7 +668,7 @@ bool KateViNormalMode::commandMakeUppercase()
 
 bool KateViNormalMode::commandMakeUppercaseLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line();
@@ -678,12 +681,12 @@ bool KateViNormalMode::commandMakeUppercaseLine()
 bool KateViNormalMode::commandChangeCase()
 {
   QString text;
-  KTextEditor::Range range;
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Range range;
+  Cursor c( m_view->cursorPosition() );
 
   // in visual mode, the range is from start position to end position...
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
-    KTextEditor::Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
+    Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
 
     if ( c2 > c ) {
       c2.setColumn( c2.column()+1 );
@@ -695,7 +698,7 @@ bool KateViNormalMode::commandChangeCase()
   // ... in visual line mode, the range is from column 0 on the first line to
   // the line length of the last line...
   } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
-    KTextEditor::Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
+    Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
 
     if ( c2 > c ) {
       c2.setColumn( doc()->lineLength( c2.line() ) );
@@ -709,7 +712,7 @@ bool KateViNormalMode::commandChangeCase()
   // ... and in normal mode the range is from the current position to the
   // current position + count
   } else {
-    KTextEditor::Cursor c2 = c;
+    Cursor c2 = c;
     c2.setColumn( c.column()+getCount() );
 
     if ( c2.column() > doc()->lineLength( c.line() ) ) {
@@ -747,7 +750,7 @@ bool KateViNormalMode::commandChangeCase()
 
 bool KateViNormalMode::commandOpenNewLineUnder()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
@@ -764,7 +767,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
 
 bool KateViNormalMode::commandOpenNewLineOver()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   if ( c.line() == 0 ) {
     for (unsigned int i = 0; i < getCount(); i++ ) {
@@ -797,7 +800,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
 
 bool KateViNormalMode::commandJoinLines()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   int n = getCount();
 
@@ -820,7 +823,7 @@ bool KateViNormalMode::commandJoinLines()
 
 bool KateViNormalMode::commandChange()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode );
@@ -860,7 +863,7 @@ bool KateViNormalMode::commandChangeToEOL()
 
 bool KateViNormalMode::commandChangeLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   c.setColumn( 0 );
   updateCursor( c );
 
@@ -903,7 +906,7 @@ bool KateViNormalMode::commandSubstituteLine()
 
 bool KateViNormalMode::commandYank()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   bool r = false;
   QString yankedText;
@@ -921,7 +924,7 @@ bool KateViNormalMode::commandYank()
 
 bool KateViNormalMode::commandYankLine()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   QString lines;
   int linenum = c.line();
 
@@ -935,7 +938,7 @@ bool KateViNormalMode::commandYankLine()
 
 bool KateViNormalMode::commandYankToEOL()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   bool r = false;
   QString yankedText;
@@ -962,8 +965,8 @@ bool KateViNormalMode::commandYankToEOL()
 // the cursor should end up at the beginning of what was pasted
 bool KateViNormalMode::commandPaste()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KTextEditor::Cursor cAfter = c;
+  Cursor c( m_view->cursorPosition() );
+  Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
@@ -1003,8 +1006,8 @@ bool KateViNormalMode::commandPaste()
 // the cursor should end up at the beginning of what was pasted
 bool KateViNormalMode::commandPasteBefore()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KTextEditor::Cursor cAfter = c;
+  Cursor c( m_view->cursorPosition() );
+  Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
@@ -1027,7 +1030,7 @@ bool KateViNormalMode::commandPasteBefore()
 
 bool KateViNormalMode::commandDeleteChar()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
     KateViRange r( c.line(), c.column(), c.line(), c.column()+getCount(), ViMotion::ExclusiveMotion );
 
     if ( m_commandRange.startLine != -1 && m_commandRange.startColumn != -1 ) {
@@ -1046,7 +1049,7 @@ bool KateViNormalMode::commandDeleteChar()
 
 bool KateViNormalMode::commandDeleteCharBackward()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
     KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );
 
@@ -1066,12 +1069,12 @@ bool KateViNormalMode::commandDeleteCharBackward()
 
 bool KateViNormalMode::commandReplaceCharacter()
 {
-  KTextEditor::Cursor c1( m_view->cursorPosition() );
-  KTextEditor::Cursor c2( m_view->cursorPosition() );
+  Cursor c1( m_view->cursorPosition() );
+  Cursor c2( m_view->cursorPosition() );
 
   c2.setColumn( c2.column()+1 );
 
-  bool r = doc()->replaceText( KTextEditor::Range( c1, c2 ), m_keys.right( 1 ) );
+  bool r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ) );
 
   updateCursor( c1 );
 
@@ -1080,7 +1083,7 @@ bool KateViNormalMode::commandReplaceCharacter()
 
 bool KateViNormalMode::commandSwitchToCmdLine()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
     // if a count is given, the range [current line] to [current line] + count should be prepended
     // to the command line
@@ -1112,7 +1115,7 @@ bool KateViNormalMode::commandRedo()
 
 bool KateViNormalMode::commandSetMark()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   KateSmartCursor *cursor = doc()->smartManager()->newSmartCursor( c );
 
@@ -1138,7 +1141,7 @@ bool KateViNormalMode::commandFindNext()
 
 bool KateViNormalMode::commandIndentLine()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         doc()->indent( m_view, c.line()+i, 1 );
@@ -1149,7 +1152,7 @@ bool KateViNormalMode::commandIndentLine()
 
 bool KateViNormalMode::commandUnindentLine()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         doc()->indent( m_view, c.line()+i, -1 );
@@ -1160,7 +1163,7 @@ bool KateViNormalMode::commandUnindentLine()
 
 bool KateViNormalMode::commandIndentLines()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   m_commandRange.normalize();
 
@@ -1178,7 +1181,7 @@ bool KateViNormalMode::commandIndentLines()
 
 bool KateViNormalMode::commandUnindentLines()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   m_commandRange.normalize();
 
@@ -1210,7 +1213,7 @@ bool KateViNormalMode::commandScrollPageUp()
 
 bool KateViNormalMode::commandCentreViewOnCursor()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   int linesToScroll = (m_viewInternal->endLine()-linesDisplayed()/2)-c.line();
 
   scrollViewLines( -linesToScroll );
@@ -1257,7 +1260,7 @@ bool KateViNormalMode::commandRepeatLastChange()
 bool KateViNormalMode::commandAlignLine()
 {
   const int line = m_view->cursorPosition().line();
-  KTextEditor::Range alignRange( KTextEditor::Cursor(line, 0), KTextEditor::Cursor(line, 0) );
+  Range alignRange( Cursor(line, 0), Cursor(line, 0) );
 
   doc()->align( m_view, alignRange );
 
@@ -1266,13 +1269,13 @@ bool KateViNormalMode::commandAlignLine()
 
 bool KateViNormalMode::commandAlignLines()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   m_commandRange.normalize();
 
-  KTextEditor::Cursor start(m_commandRange.startLine, 0);
-  KTextEditor::Cursor end(m_commandRange.endLine, 0);
+  Cursor start(m_commandRange.startLine, 0);
+  Cursor end(m_commandRange.endLine, 0);
 
-  doc()->align( m_view, KTextEditor::Range( start, end ) );
+  doc()->align( m_view, Range( start, end ) );
 
   return true;
 }
@@ -1294,7 +1297,7 @@ KateViRange KateViNormalMode::motionUp()
 
 KateViRange KateViNormalMode::motionLeft()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   m_stickyColumn = -1;
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
   r.endColumn -= getCount();
@@ -1304,7 +1307,7 @@ KateViRange KateViNormalMode::motionLeft()
 
 KateViRange KateViNormalMode::motionRight()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   m_stickyColumn = -1;
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
   r.endColumn += getCount();
@@ -1314,7 +1317,7 @@ KateViRange KateViNormalMode::motionRight()
 
 KateViRange KateViNormalMode::motionPageDown()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   int linesToScroll = linesDisplayed();
 
   KateViRange r( c.line()+linesToScroll, c.column(), ViMotion::InclusiveMotion );
@@ -1328,7 +1331,7 @@ KateViRange KateViNormalMode::motionPageDown()
 
 KateViRange KateViNormalMode::motionPageUp()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   int linesToScroll = linesDisplayed();
 
   KateViRange r( c.line()-linesToScroll, c.column(), ViMotion::InclusiveMotion );
@@ -1342,7 +1345,7 @@ KateViRange KateViNormalMode::motionPageUp()
 
 KateViRange KateViNormalMode::motionDownToFirstNonBlank()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineDown();
 
   r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
@@ -1356,7 +1359,7 @@ KateViRange KateViNormalMode::motionDownToFirstNonBlank()
 
 KateViRange KateViNormalMode::motionUpToFirstNonBlank()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineUp();
 
   r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
@@ -1370,7 +1373,7 @@ KateViRange KateViNormalMode::motionUpToFirstNonBlank()
 
 KateViRange KateViNormalMode::motionWordForward()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
 
   m_stickyColumn = -1;
@@ -1403,7 +1406,7 @@ KateViRange KateViNormalMode::motionWordForward()
 
 KateViRange KateViNormalMode::motionWordBackward()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
 
   m_stickyColumn = -1;
@@ -1425,7 +1428,7 @@ KateViRange KateViNormalMode::motionWordBackward()
 
 KateViRange KateViNormalMode::motionWORDForward()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
 
   m_stickyColumn = -1;
@@ -1447,7 +1450,7 @@ KateViRange KateViNormalMode::motionWORDForward()
 
 KateViRange KateViNormalMode::motionWORDBackward()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
 
   m_stickyColumn = -1;
@@ -1469,7 +1472,7 @@ KateViRange KateViNormalMode::motionWORDBackward()
 
 KateViRange KateViNormalMode::motionToEndOfWord()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
     KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     m_stickyColumn = -1;
@@ -1486,7 +1489,7 @@ KateViRange KateViNormalMode::motionToEndOfWord()
 
 KateViRange KateViNormalMode::motionToEndOfWORD()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
     KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     m_stickyColumn = -1;
@@ -1503,7 +1506,7 @@ KateViRange KateViNormalMode::motionToEndOfWORD()
 
 KateViRange KateViNormalMode::motionToEndOfPrevWord()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
     KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     m_stickyColumn = -1;
@@ -1525,7 +1528,7 @@ KateViRange KateViNormalMode::motionToEndOfPrevWord()
 
 KateViRange KateViNormalMode::motionToEndOfPrevWORD()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
     KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     m_stickyColumn = -1;
@@ -1547,7 +1550,7 @@ KateViRange KateViNormalMode::motionToEndOfPrevWORD()
 
 KateViRange KateViNormalMode::motionToEOL()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   // set sticky column to a rediculously high value so that the cursor will stick to EOL,
   // but only if it's a regular motion
@@ -1564,7 +1567,7 @@ KateViRange KateViNormalMode::motionToEOL()
 KateViRange KateViNormalMode::motionToColumn0()
 {
   m_stickyColumn = -1;
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   KateViRange r( cursor.line(), 0, ViMotion::ExclusiveMotion );
 
   return r;
@@ -1574,7 +1577,7 @@ KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
 {
   m_stickyColumn = -1;
 
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QRegExp nonSpace( "\\S" );
   int c = getLine().indexOf( nonSpace );
 
@@ -1586,7 +1589,7 @@ KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
 KateViRange KateViNormalMode::motionFindChar()
 {
   m_lastTFcommand = m_keys;
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
   m_stickyColumn = -1;
@@ -1612,7 +1615,7 @@ KateViRange KateViNormalMode::motionFindChar()
 KateViRange KateViNormalMode::motionFindCharBackward()
 {
   m_lastTFcommand = m_keys;
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
   m_stickyColumn = -1;
@@ -1643,7 +1646,7 @@ KateViRange KateViNormalMode::motionFindCharBackward()
 KateViRange KateViNormalMode::motionToChar()
 {
   m_lastTFcommand = m_keys;
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
   m_stickyColumn = -1;
@@ -1667,7 +1670,7 @@ KateViRange KateViNormalMode::motionToChar()
 KateViRange KateViNormalMode::motionToCharBackward()
 {
   m_lastTFcommand = m_keys;
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
   m_stickyColumn = -1;
@@ -1783,7 +1786,7 @@ KateViRange KateViNormalMode::motionToScreenColumn()
 {
   m_stickyColumn = -1;
 
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   int column = getCount()-1;
 
@@ -1837,7 +1840,7 @@ KateViRange KateViNormalMode::motionToMarkLine()
 KateViRange KateViNormalMode::motionToMatchingItem()
 {
   KateViRange r;
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   int lines = doc()->lines();
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
@@ -2030,10 +2033,10 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 
 KateViRange KateViNormalMode::textObjectAWord()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
-    KTextEditor::Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
-    KTextEditor::Cursor c2( c );
+    Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+    Cursor c2( c );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findNextWordStart( c2.line(), c2.column(), true );
@@ -2057,11 +2060,11 @@ KateViRange KateViNormalMode::textObjectAWord()
 
 KateViRange KateViNormalMode::textObjectInnerWord()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
-    KTextEditor::Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+    Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
     // need to start search in column-1 because it might be a one-character word
-    KTextEditor::Cursor c2( c.line(), c.column()-1 );
+    Cursor c2( c.line(), c.column()-1 );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findWordEnd( c2.line(), c2.column(), true );
@@ -2084,10 +2087,10 @@ KateViRange KateViNormalMode::textObjectInnerWord()
 
 KateViRange KateViNormalMode::textObjectAWORD()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
-    KTextEditor::Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
-    KTextEditor::Cursor c2( c );
+    Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+    Cursor c2( c );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findNextWORDStart( c2.line(), c2.column(), true );
@@ -2110,10 +2113,10 @@ KateViRange KateViNormalMode::textObjectAWORD()
 
 KateViRange KateViNormalMode::textObjectInnerWORD()
 {
-    KTextEditor::Cursor c( m_view->cursorPosition() );
+    Cursor c( m_view->cursorPosition() );
 
-    KTextEditor::Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
-    KTextEditor::Cursor c2( c );
+    Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+    Cursor c2( c );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findWORDEnd( c2.line(), c2.column(), true );

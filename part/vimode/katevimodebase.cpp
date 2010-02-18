@@ -35,6 +35,9 @@
 #include "kateviewinternal.h"
 #include "katevimodebar.h"
 
+using KTextEditor::Cursor;
+using KTextEditor::Range;
+
 // TODO: the "previous word/WORD [end]" methods should be optimized. now they're being called in a
 // loop and all calculations done up to finding a match are trown away when called with a count > 1
 // because they will simply be called again from the last found position.
@@ -58,7 +61,7 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
     }
     doc()->editEnd();
   } else {
-      res = doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
   if ( addToRegister ) {
@@ -86,7 +89,7 @@ const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
     r.endColumn++;
   }
 
-  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
+  Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( linewise ) {
     s = doc()->textLines( range ).join( QChar( '\n' ) );
@@ -103,7 +106,7 @@ const QString KateViModeBase::getLine( int lineNumber ) const
   QString line;
 
   if ( lineNumber == -1 ) {
-    KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+    Cursor cursor ( m_view->cursorPosition() );
     line = m_view->currentTextLine();
   } else {
     line = doc()->line( lineNumber );
@@ -114,7 +117,7 @@ const QString KateViModeBase::getLine( int lineNumber ) const
 
 const QChar KateViModeBase::getCharUnderCursor() const
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   QString line = getLine( c.line() );
 
@@ -125,7 +128,7 @@ const QChar KateViModeBase::getCharUnderCursor() const
   return line.at( c.column() );
 }
 
-KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -152,10 +155,10 @@ KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromCol
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 ) {
         if ( onlyCurrentLine ) {
-            return KTextEditor::Cursor( l, c );
+            return Cursor( l, c );
         } else if ( l >= doc()->lines()-1 ) {
             c = line.length()-1;
-            return KTextEditor::Cursor( l, c );
+            return Cursor( l, c );
         } else {
             c = 0;
             l++;
@@ -184,12 +187,12 @@ KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromCol
     found = true;
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
 
@@ -204,7 +207,7 @@ KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromCol
 
     if ( c == -1 ) {
       if ( onlyCurrentLine ) {
-          return KTextEditor::Cursor( l, c );
+          return Cursor( l, c );
       } else if ( l >= doc()->lines()-1 ) {
         c = line.length()-1;
         break;
@@ -226,10 +229,10 @@ KTextEditor::Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromCol
     }
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -254,7 +257,7 @@ KTextEditor::Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColum
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else if ( l > 0 ) {
               line = getLine( --l );
               c = line.length();
@@ -262,15 +265,15 @@ KTextEditor::Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColum
               continue;
           } else {
               c = 0;
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           }
       }
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -291,7 +294,7 @@ KTextEditor::Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColum
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else if ( l > 0 ) {
               line = getLine( --l );
               c = line.length();
@@ -299,15 +302,15 @@ KTextEditor::Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColum
               continue;
           } else {
               c = 0;
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           }
       }
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -336,9 +339,9 @@ KTextEditor::Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromCol
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 && c4 == -1 ) {
       if ( onlyCurrentLine ) {
-          return KTextEditor::Cursor( l, c );
+          return Cursor( l, c );
       } else if ( l <= 0 ) {
-        return KTextEditor::Cursor( 0, 0 );
+        return Cursor( 0, 0 );
       } else {
         line = getLine( --l );
         c = line.length()-1;
@@ -368,10 +371,10 @@ KTextEditor::Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromCol
     found = true;
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -389,9 +392,9 @@ KTextEditor::Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromCol
 
     if ( c1 == -1 && c2 == -1 ) {
       if ( onlyCurrentLine ) {
-          return KTextEditor::Cursor( l, c );
+          return Cursor( l, c );
       } else if ( l <= 0 ) {
-        return KTextEditor::Cursor( 0, 0 );
+        return Cursor( 0, 0 );
       } else {
         line = getLine( --l );
         c = line.length()-1;
@@ -415,10 +418,10 @@ KTextEditor::Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromCol
     found = true;
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -443,10 +446,10 @@ KTextEditor::Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, b
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else {
               c = -1;
               line = getLine( ++l );
@@ -456,10 +459,10 @@ KTextEditor::Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, b
       }
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
+Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -478,10 +481,10 @@ KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, b
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
-              return KTextEditor::Cursor( l, c );
+              return Cursor( l, c );
           } else {
               c = -1;
               line = getLine( ++l );
@@ -491,13 +494,13 @@ KTextEditor::Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, b
       }
   }
 
-  return KTextEditor::Cursor( l, c );
+  return Cursor( l, c );
 }
 
 // FIXME: i" won't work if the cursor is on one of the chars
 KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, bool inner ) const
 {
-  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  Cursor cursor( m_view->cursorPosition() );
   QString line = getLine();
 
   int col1 = line.lastIndexOf( c1, cursor.column() );
@@ -519,7 +522,7 @@ KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, b
 
 KateViRange KateViModeBase::findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner ) const
 {
-  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  Cursor cursor( m_view->cursorPosition() );
   QString line = getLine();
 
   int col1 = line.lastIndexOf( c1, cursor.column() );
@@ -572,7 +575,7 @@ int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int coun
   return -1;
 }
 
-void KateViModeBase::updateCursor( const KTextEditor::Cursor &c ) const
+void KateViModeBase::updateCursor( const Cursor &c ) const
 {
   m_viewInternal->updateCursor( c );
 }
@@ -619,7 +622,7 @@ KateViRange KateViModeBase::goLineUp()
  */
 KateViRange KateViModeBase::goLineUpDown( int lines )
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
   int tabstop = doc()->config()->tabWidth();
 

@@ -1216,7 +1216,10 @@ void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned
 
   if(add)
   markedForDeleting.append(node);
+  
+#ifdef JW_DEBUG
   kDebug(13000)<<"marking for deletion:"<<node;
+#endif
 }
 
 

@@ -133,6 +133,7 @@ vimode/katevikeyparser.cpp
 vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp
+vimode/katevimodebar.cpp
 
 # spell checking
 spellcheck/prefixstore.h
@@ -147,7 +148,6 @@ spellcheck/spellingmenu.h
 spellcheck/spellingmenu.cpp
 
 # generic stuff, unsorted...
-utils/katevimodebar.cpp
 utils/katecmds.cpp
 utils/katefactory.cpp
 utils/kateconfig.cpp

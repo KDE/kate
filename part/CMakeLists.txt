@@ -103,6 +103,7 @@ smart/katesmartrange.cpp
 smart/katesmartmanager.cpp
 smart/katesmartcursornotifier.cpp
 smart/katesmartregion.cpp
+smart/katesmartgroup.cpp
 
 # syntax related stuff (highlighting, xml file parsing, folding, ...)
 syntax/katesyntaxmanager.cpp

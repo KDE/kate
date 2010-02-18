@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.23" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.24" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -85,6 +85,7 @@
       <item> **= </item>
       <item> |= </item>
       <item> ||= </item>
+      <item> //= </item>
       <item> &amp;= </item>
       <item> &amp;&amp;= </item>
       <item> ?= </item>

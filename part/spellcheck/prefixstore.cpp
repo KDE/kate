@@ -1,5 +1,6 @@
-/*
- *  Copyright (C) 2009 by Michel Ludwig (michel.ludwig@kdemail.net)
+/*  This file is part of the KDE libraries and the Kate part.
+ *
+ *  Copyright (C) 2009 by Michel Ludwig <michel.ludwig@kdemail.net>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -15,7 +16,7 @@
  *  along with this library; see the file COPYING.LIB.  If not, write to
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
-*/
+ */
 
 #include "prefixstore.h"
 

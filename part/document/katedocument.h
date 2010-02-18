@@ -430,14 +430,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     void modeChanged(KTextEditor::Document *document);
 
-    /**
-     * Warn anyone listening that the current document's highlighting mode has
-     * changed.
-     *
-     * \param document the document which's mode has changed
-     */
-    void highlightingModeChanged(KTextEditor::Document *document);
-
   /*
    * Helpers....
    */

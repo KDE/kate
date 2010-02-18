@@ -58,20 +58,25 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
   foreach(KateIndentScript *indenter, m_languageToIndenters.value(language.toLower())) {
     // don't overwrite if there is already a result with a higher priority
     if(highestPriorityIndenter && indenter->header().priority() < highestPriorityIndenter->header().priority()) {
+#ifdef DEBUG_SCRIPTMANAGER
       kDebug(13050) << "Not overwriting indenter for"
                     << language << "as the priority isn't big enough (" <<
                     indenter->header().priority() << '<'
                     << highestPriorityIndenter->header().priority() << ')';
+#endif
     }
     else {
       highestPriorityIndenter = indenter;
     }
   }
+  
+#ifdef DEBUG_SCRIPTMANAGER
   if(highestPriorityIndenter) {
     kDebug(13050) << "Found indenter" << highestPriorityIndenter->url() << "for" << language;
   } else {
     kDebug(13050) << "No indenter for" << language;
   }
+#endif
 
   return highestPriorityIndenter;
 }
@@ -185,17 +190,24 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         else {
           header.setIndentLanguages(QStringList() << header.name());
+          
+#ifdef DEBUG_SCRIPTMANAGER
           kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
                     << "script " << qPrintable(fileName) << ". Using the name ("
                     << qPrintable(header.name()) << ")\n";
+#endif                    
         }
         // priority?
         bool convertedToInt;
         int priority = pairs.take("priority").toInt(&convertedToInt);
+        
+#ifdef DEBUG_SCRIPTMANAGER
         if(!convertedToInt) {
           kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
                     << "in: " << qPrintable(fileName) << ". Setting priority to 0\n";
         }
+#endif
+
         header.setPriority(convertedToInt ? priority : 0);
         KateIndentScript *script = new KateIndentScript(fileName, header);
         foreach(const QString &language, header.indentLanguages()) {
@@ -226,6 +238,7 @@ void KateScriptManager::collect(const QString& resourceFile,
 
 
 
+#ifdef DEBUG_SCRIPTMANAGER
  // XX Test
   if(indenter("Python")) {
     kDebug( 13050 ) << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
@@ -237,6 +250,8 @@ void KateScriptManager::collect(const QString& resourceFile,
     kDebug( 13050 ) << "C: " << qPrintable(indenter("C")->url()) << "\n";
   if(indenter("lisp"))
     kDebug( 13050 ) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
+#endif
+  
   cfgFile.sync();
 }
 

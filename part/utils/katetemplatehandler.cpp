@@ -122,9 +122,10 @@ KateTemplateHandler::~KateTemplateHandler()
 {
 }
 
-void KateTemplateHandler::slotTemplateInserted(Document* document, const Range& range)
+void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& range)
 {
   Q_ASSERT(document == m_doc);
+  Q_UNUSED(document);
   ifDebug(kDebug() << "template range inserted" << range;)
 
   m_wholeTemplateRange = m_doc->newSmartRange( range, 0, SmartRange::ExpandLeft | SmartRange::ExpandRight );

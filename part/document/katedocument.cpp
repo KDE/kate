@@ -4675,7 +4675,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             v->renderer()->config()->configStart();
           }
 
-          bool bom_settings;
+          bool bom_settings = false;
           if (m_bomSetByUser)
             bom_settings=m_config->bom();
           readVariableLine( KateGlobal::self()->modeManager()->fileType(newType).varLine );

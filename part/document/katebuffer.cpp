@@ -1110,17 +1110,13 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   if (!m_highlight)
     return false;
 
-  /*if (m_highlight->foldingIndentationSensitive())
-  {
-    startLine=0;
-    endLine=50;
-  }*/
-
-  //QTime t;
-  //t.start();
-  //kDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  //kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
-  //kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
+#ifdef BUFFER_DEBUGGING
+  QTime t;
+  t.start();
+  kDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
+  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
+  kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
+#endif
 
   // see if there are too many dynamic contexts; if yes, invalidate HL of all documents
   if (KateHlManager::self()->countDynamicCtxs() >= m_maxDynamicContexts)
@@ -1128,7 +1124,9 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     {
       if (KateHlManager::self()->resetDynamicCtxs())
       {
+#ifdef BUFFER_DEBUGGING
         kDebug (13020) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")";
+#endif
 
         // avoid recursive invalidation
         KateHlManager::self()->setForceNoDCReset(true);
@@ -1148,7 +1146,10 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       else
       {
         m_maxDynamicContexts *= 2;
+        
+#ifdef BUFFER_DEBUGGING
         kDebug (13020) << "New dynamic contexts limit: " << m_maxDynamicContexts;
+#endif
       }
     }
   }
@@ -1184,17 +1185,19 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
     m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
 
+#ifdef BUFFER_DEBUGGING
     // debug stuff
-    //kDebug( 13020 ) << "current line to hl: " << current_line + buf->startLine();
-    //kDebug( 13020 ) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
-    /*
+    kDebug( 13020 ) << "current line to hl: " << current_line + buf->startLine();
+    kDebug( 13020 ) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
+    
     const QVector<int> &ml (textLine->attributesList());
     for (int i=2; i < ml.size(); i+=3)
     {
       kDebug( 13020 ) << "start: " << ml[i-2] << " len: " << ml[i-1] << " at: " << ml[i] << " ";
     }
     kDebug( 13020 );
-*/
+#endif
+
     //
     // indentation sensitive folding
     //
@@ -1213,24 +1216,37 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       }
 
       textLine->setNoIndentBasedFoldingAtStart(prevLine->noIndentBasedFolding());
+      
       // this line is empty, beside spaces, or has indentaion based folding disabled, use indentation depth of the previous line !
+      
+#ifdef BUFFER_DEBUGGING
       kDebug(13020)<<"current_line:"<<current_line<<" textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart();
+#endif
+
       if ( (textLine->firstChar() == -1) || textLine->noIndentBasedFoldingAtStart() || isEmptyLine(textLine) )
       {
         // do this to get skipped empty lines indent right, which was given in the indenation array
         if (!prevLine->indentationDepthArray().isEmpty())
         {
           iDepth = (prevLine->indentationDepthArray())[prevLine->indentationDepthArray().size()-1];
+
+#ifdef BUFFER_DEBUGGING
           kDebug(13020)<<"reusing old depth as current";
+#endif
         }
         else
         {
           iDepth = prevLine->indentDepth(m_tabWidth);
+          
+#ifdef BUFFER_DEBUGGING
           kDebug(13020)<<"creating indentdepth for previous line";
+#endif
         }
       }
 
+#ifdef BUFFER_DEBUGGING
       kDebug(13020)<<"iDepth:"<<iDepth;
+#endif
 
       // query the next line indentation, if we are at the end of the block
       // use the first line of the next buf block
@@ -1256,7 +1272,10 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
         if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
         {
+#ifdef BUFFER_DEBUGGING
           kDebug(13020)<<"adding depth to \"stack\":"<<iDepth;
+#endif
+
           indentDepth.append (iDepth);
         } else {
           if (!indentDepth.isEmpty())
@@ -1266,7 +1285,10 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
                 indentDepth.resize(z);
             if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
             {
+#ifdef BUFFER_DEBUGGING
               kDebug(13020)<<"adding depth to \"stack\":"<<iDepth;
+#endif
+
               indentDepth.append (iDepth);
               if (prevLine->firstChar()==-1) {
 
@@ -1282,22 +1304,38 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
         {
           //if (textLine->firstChar()!=-1)
           {
+#ifdef BUFFER_DEBUGGING
             kDebug(13020)<<"nextLineIndentation:"<<nextLineIndentation;
+#endif
+
             bool addindent=false;
             int deindent=0;
+
+#ifdef BUFFER_DEBUGGING
             if (!indentDepth.isEmpty())
               kDebug(13020)<<"indentDepth[indentDepth.size()-1]:"<<indentDepth[indentDepth.size()-1];
+#endif            
+            
             if ((nextLineIndentation>0) && ( indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1]<nextLineIndentation)))
             {
+#ifdef BUFFER_DEBUGGING
               kDebug(13020)<<"addindent==true";
+#endif
+
               addindent=true;
             } else {
             if ((!indentDepth.isEmpty()) && (indentDepth[indentDepth.size()-1]>nextLineIndentation))
               {
+#ifdef BUFFER_DEBUGGING
                 kDebug(13020)<<"....";
+#endif
+
                 for (int z=indentDepth.size()-1; z > -1; z--)
                 {
+#ifdef BUFFER_DEBUGGING
                   kDebug(13020)<<indentDepth[z]<<"  "<<nextLineIndentation;
+#endif
+
                   if (indentDepth[z]>nextLineIndentation)
                     deindent++;
                 }
@@ -1388,10 +1426,12 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   if (codeFoldingUpdate)
     emit codeFoldingUpdated();
 
+#ifdef BUFFER_DEBUGGING
   kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
   kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
   kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
-  //kDebug (13020) << "TIME TAKEN: " << t.elapsed();
+  kDebug (13020) << "TIME TAKEN: " << t.elapsed();
+#endif
 
   // if we are at the last line of the block + we still need to continue
   // return the need of that !

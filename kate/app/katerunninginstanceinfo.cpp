@@ -53,7 +53,7 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
       {
         if (map->contains(rii->sessionName)) return false; //ERROR no two instances may have the same session name
         map->insert(rii->sessionName,rii);        
-        std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
+        //std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
       } else delete rii;
     }
   }

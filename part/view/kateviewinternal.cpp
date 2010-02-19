@@ -218,7 +218,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect(doc(), SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
-  connect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), SLOT(rangeDeleted(KateSmartRange*)));
+  
+  // use a direct connect, otherwise the range pointer might already be invalid
+  connect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)), Qt::DirectConnection);
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call

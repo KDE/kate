@@ -227,7 +227,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   
   // auto word completion
   new KateWordCompletionView (this, actionCollection ());
-
+  
   // enable the plugins of this view
   KatePartPluginManager::self()->addView(this);
 
@@ -2546,8 +2546,13 @@ QMenu *KateView::contextMenu( ) const
       foreach (QWidget *w, conts)
       {
         if (w->objectName() == "ktexteditor_popup")
-        {
-          return (QMenu*)w;
+        {//perhaps optimize this block
+              QMenu* menu=(QMenu*)w; 
+              disconnect(menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
+              disconnect(menu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
+              connect(menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
+              connect(menu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
+              return menu;
         }
       }
     }

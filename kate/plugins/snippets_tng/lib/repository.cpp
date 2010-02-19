@@ -338,6 +338,7 @@ namespace KTextEditor {
             if (KMessageBox::warningYesNo(value.value<QWidget*>(),
                             i18n("Do you really want to delete the file '%1' from the repository? This action is irreversible.",entry.name),
                             i18n("Deleting snippet file"))==KMessageBox::Yes) {
+              KIO::NetAccess::del(KUrl::fromPath(entry.filename),value.value<QWidget*>());
               int remove=index.row();
               m_entries.removeAt(remove);
               reset(); //make the KWidgetItemDelegate happy, otherwise the widgets are not relayouted correctly with begin/endRemoveRows
@@ -469,7 +470,7 @@ namespace KTextEditor {
         
     QModelIndex SnippetRepositoryModel::indexForFile(const QString& filename)
     {
-      for (uint i=0;i<m_entries.count();i++)
+      for (int i=0;i<m_entries.count();i++)
       {
         const SnippetRepositoryEntry& entry=m_entries[i];
         //kdDebug()<<"comparing entry.filename with filename:"<< entry.filename<<" -- "<<filename;

@@ -1,12 +1,3 @@
-project(kdeviconinserter)
-
-find_package(KDE4 REQUIRED)
-
-include (KDE4Defaults)
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-
-include_directories(${KDE4_INCLUDES})
 
 set(ktexteditor_iconinserter_SRCS
 	iconinserterplugin.cpp

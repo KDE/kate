@@ -465,7 +465,7 @@ function tryStatement(line)
     var indentation = -1;
     var currentString = document.line(currentLine);
     // multi-language support: [\.+] for javascript or php
-    var result = /^(.*)(,|\)|"|')(;?)\s*[\.+]?\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
+    var result = /^(.*)(,|"|')(\)?;?)\s*[\.+]?\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
         var alignOnAnchor = result[3].length == 0;
         // search for opening ", ' or (

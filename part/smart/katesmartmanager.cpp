@@ -44,6 +44,11 @@
  */
 static QThreadStorage<QHash<const KateSmartManager *, int> *> threadLocalRevision;
 
+/**
+ * special hash table to identify the main thread...
+ */
+static QHash<const KateSmartManager *, int> *mainThread = 0;
+
 //Uncomment this to debug the translation of ranges. If that is enabled,
 //all ranges are first translated completely separately out of the translation process,
 //and at the end the result is compared. If the result mismatches, an assertion is triggered.
@@ -176,6 +181,14 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   , m_clearing(false)
   , m_currentKateTranslationDebugger(0)
 {
+  // create the global hash to know if we are in gui thread!
+  if (!mainThread)
+    mainThread = new QHash<const KateSmartManager *, int> ();
+  
+  // remember our static hash for the mainthread
+  if (!threadLocalRevision.hasLocalData())
+    threadLocalRevision.setLocalData (mainThread);
+  
   // connect to editDone, in this signal, the edit history lock is already released
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
 }
@@ -564,6 +577,11 @@ void KateSmartManager::useRevision(int revision)
   if (!threadLocalRevision.hasLocalData())
     threadLocalRevision.setLocalData (new QHash<const KateSmartManager*, int> ());
 
+  if (threadLocalRevision.localData() == mainThread) {
+    kFatal() << "tried to do useRevision for main thread, that is not supported, this will break the kate part";
+    return;
+  }
+  
   // insert revision
   threadLocalRevision.localData()->insert (this, revision);
 }
@@ -572,7 +590,12 @@ int KateSmartManager::usingRevision()
 {
   // query thread local revision info, if any
   if (threadLocalRevision.hasLocalData()) {
-    QHash<const KateSmartManager*, int>::const_iterator it = threadLocalRevision.localData()->constFind (this);
+    // no using revision for main thread!
+    QHash<const KateSmartManager*, int> *hash = threadLocalRevision.localData();
+    if (hash == mainThread)
+      return -1;
+    
+    QHash<const KateSmartManager*, int>::const_iterator it = hash->constFind (this);
     if (it != threadLocalRevision.localData()->constEnd ())
       return it.value ();
   }

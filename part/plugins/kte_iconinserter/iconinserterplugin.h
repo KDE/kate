@@ -22,13 +22,13 @@
 #ifndef KDEVICONINSERTERPLUGIN_H
 #define KDEVICONINSERTERPLUGIN_H
 
-#include <KTextEditor/Plugin>
+#include <ktexteditor/plugin.h>
 
 #include <kpluginfactory.h>
 
 #include <QVariantList>
 
-#include <KAction>
+#include <kaction.h>
 #include <kxmlguiclient.h>
 
 using namespace KTextEditor;

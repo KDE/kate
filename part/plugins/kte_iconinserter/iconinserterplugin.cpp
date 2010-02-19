@@ -23,10 +23,10 @@
 
 #include <kicondialog.h>
 
-#include <KPluginFactory>
-#include <KAboutData>
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
+#include <kpluginfactory.h>
+#include <kaboutdata.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 #include <QMenu>
 #include <kactioncollection.h>
 

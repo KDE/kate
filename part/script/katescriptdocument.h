@@ -21,6 +21,7 @@
 #define KATE_SCRIPT_DOCUMENT_H
 
 #include <QObject>
+#include <QStringList>
 #include <QtScript/QScriptable>
 
 #include "katepartprivate_export.h"

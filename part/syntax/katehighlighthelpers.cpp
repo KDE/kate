@@ -573,9 +573,10 @@ KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, 
   , _insensitive(insensitive)
   , _minimal(minimal)
   , _lastOffset(-2) // -2 is start value, -1 is "not found at all"
+  , Expr (regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive)
 {
-  Expr = new QRegExp(regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
-  Expr->setMinimal(_minimal);
+  // minimal or not ;)
+  Expr.setMinimal(_minimal);
 }
 
 int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
@@ -596,11 +597,11 @@ int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   }
 
   haveCache = true;
-  _lastOffset = Expr->indexIn( text, offset, QRegExp::CaretAtOffset );
+  _lastOffset = Expr.indexIn( text, offset, QRegExp::CaretAtOffset );
 
   if (_lastOffset == -1) return 0;
 
-  _lastOffsetLength = Expr->matchedLength();
+  _lastOffsetLength = Expr.matchedLength();
 
   if ( _lastOffset == offset ) {
     // only valid when we match at the exact offset
@@ -610,9 +611,9 @@ int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   }
 }
 
-QStringList *KateHlRegExpr::capturedTexts()
+void KateHlRegExpr::capturedTexts (QStringList &list)
 {
-  return new QStringList(Expr->capturedTexts());
+  list = Expr.capturedTexts();
 }
 
 KateHlItem *KateHlRegExpr::clone(const QStringList *args)

@@ -425,17 +425,18 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // dynamic context: substitute the model with an 'instance'
       if (context->dynamic)
       {
-        QStringList *lst = item->capturedTexts();
-        if (lst != 0)
+        // try to retrieve captures from regexp
+        QStringList captures;
+        item->capturedTexts (captures);
+        if (!captures.empty())
         {
           // Replace the top of the stack and the current context
-          int newctx = makeDynamicContext(context, lst);
+          int newctx = makeDynamicContext(context, &captures);
           if (ctx.size() > 0)
             ctx[ctx.size() - 1] = newctx;
 
           context = contextNum(newctx);
         }
-        delete lst;
       }
 
       // dominik: look ahead w/o changing offset?

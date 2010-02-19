@@ -23,6 +23,8 @@
 
 #include "katehighlight.h"
 
+#include <QRegExp>
+
 class KateHlItem
 {
   public:
@@ -37,7 +39,7 @@ class KateHlItem
 
     virtual bool lineContinue(){return false;}
 
-    virtual QStringList *capturedTexts() {return 0;}
+    virtual void capturedTexts (QStringList &) { }
     virtual KateHlItem *clone(const QStringList *) {return this;}
 
     static void dynamicSubstitute(QString& str, const QStringList *args);
@@ -266,14 +268,14 @@ class KateHlRegExpr : public KateHlItem
 {
   public:
     KateHlRegExpr(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2 ,const QString &expr, bool insensitive, bool minimal);
-    ~KateHlRegExpr() { delete Expr; }
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual QStringList *capturedTexts();
+    
+    virtual void capturedTexts (QStringList &);
+    
     virtual KateHlItem *clone(const QStringList *args);
 
   private:
-    QRegExp *Expr;
     bool handlesLinestart;
     QString _regexp;
     bool _insensitive;
@@ -284,6 +286,8 @@ class KateHlRegExpr : public KateHlItem
     int _lastOffset;
     /// length of the last match
     int _lastOffsetLength;
+    
+    QRegExp Expr;
 };
 
 class KateHlDetectSpaces : public KateHlItem

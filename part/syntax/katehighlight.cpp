@@ -898,21 +898,19 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     context=getContextModificationFromString(ContextNameList, tmpcontext,unresolvedContext);
 
   // Get the char parameter (eg DetectChar)
-  char chr;
-  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
-    chr= qPrintable((KateHlManager::self()->syntax->groupItemData(data,QString("char"))))[0];
-  else
-    chr=0;
+  QChar chr;
+  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty()) {
+    chr= (KateHlManager::self()->syntax->groupItemData(data,QString("char")))[0];
+  }
 
   // Get the String parameter (eg. StringDetect)
   QString stringdata=KateHlManager::self()->syntax->groupItemData(data,QString("String"));
 
   // Get a second char parameter (char1) (eg Detect2Chars)
-  char chr1;
-  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
-    chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")).toLatin1())[0];
-  else
-    chr1=0;
+  QChar chr1;
+  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty()) {
+    chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")))[0];
+  }
 
   // Will be removed eventually. Atm used for StringDetect, keyword and RegExp
   const QString & insensitive_str = KateHlManager::self()->syntax->groupItemData(data,QString("insensitive"));

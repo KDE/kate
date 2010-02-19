@@ -2072,7 +2072,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 //BEGIN KParts::ReadWrite stuff
 bool KateDocument::openFile()
-{
+{ 
   // no open errors until now...
   setOpeningError(false);
 
@@ -2093,6 +2093,10 @@ bool KateDocument::openFile()
 
   bool success = m_buffer->openFile (localFilePath());
 
+  // disable view updates
+  foreach (KateView * view, m_views)
+    view->setUpdatesEnabled (false);
+  
   history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
   emit KTextEditor::Document::textInserted(this, documentRange());
 
@@ -2132,8 +2136,9 @@ bool KateDocument::openFile()
   foreach (KateView * view, m_views)
   {
     // This is needed here because inserting the text moves the view's start position (it is a SmartCursor)
-    view->setCursorPosition(KTextEditor::Cursor());
-    view->updateView(true);
+    view->setCursorPosition (KTextEditor::Cursor());
+    view->setUpdatesEnabled (true);
+    view->updateView (true);
   }
 
   if (!m_reloading)

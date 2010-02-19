@@ -166,15 +166,16 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual int currentRevision() const = 0;
 
     /**
-     * Release a revision token provided by currentRevision().  You will no longer be able to
-     * create cursors and ranges agaist this revision.
+     * Release a revision token provided by currentRevision(). You will no longer be able to
+     * create cursors and ranges against this revision.
      */
     virtual void releaseRevision(int revision) const = 0;
 
     /**
      * Tell the smart interface to work against the given \a revision when creating cursors and
      * ranges. This has only an effect for the thread calling this function, as this property
-     * is stored thread locally.
+     * is stored thread locally. This is not allowed to be called in the main gui thread.
+     * If you call it in the main gui thread, fatal error will occur.
      *
      * \param revision the token representing a revision retrieved by currentRevision(), or -1 to
      *                 clear any previous setting and use the current document revision.

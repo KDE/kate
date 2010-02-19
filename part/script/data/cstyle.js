@@ -464,7 +464,8 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
-    var result = /^(.*)(,|\)|"|')(;?)\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
+    // multi-language support: [\.+] for javascript or php
+    var result = /^(.*)(,|\)|"|')(;?)\s*[\.+]?\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
         var alignOnAnchor = result[3].length == 0;
         // search for opening ", ' or (
@@ -483,10 +484,12 @@ function tryStatement(line)
                 if (!alignOnAnchor && currentLine) {
                     // when we finished the statement (;) we need to get the first line and use it's indentation
                     // i.e.: $foo = "asdf"; -> align on $
-                    // first: skip whitespaces
                     --i; // skip " or '
+                    // skip whitespaces and stuff like + or . (for PHP, JavaScript, ...)
                     for ( ; i >= 0; --i ) {
-                        if (currentString[i] == ' ' || currentString[i] == "\t") {
+                        if (currentString[i] == ' ' || currentString[i] == "\t"
+                            || currentString[i] == '.' || currentString[i] == '+')
+                        {
                             continue;
                         } else {
                             break;

@@ -32,13 +32,12 @@ class KateKttsdPlugin : public Kate::Plugin
     Q_OBJECT
 
     public:
-        explicit KateKttsdPlugin( QObject *parent = 0,
-                		  const QStringList &args = QStringList() );
+        explicit KateKttsdPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
         virtual ~KateKttsdPlugin() {};
         Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
-class KateKttsdPluginView : public Kate::PluginView, public KXMLGUIClient
+class KateKttsdPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

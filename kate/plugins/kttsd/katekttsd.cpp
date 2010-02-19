@@ -37,11 +37,10 @@
 #include <KAboutData>
 #include <kate/mainwindow.h>
 
+K_PLUGIN_FACTORY(KateKttsdFactory, registerPlugin<KateKttsdPlugin>();)
+K_EXPORT_PLUGIN(KateKttsdFactory(KAboutData("kate_kttsd","kate_kttsd",ki18n("KTTSD Plugin"), "0.1", ki18n("KTTSD Plugin"), KAboutData::License_LGPL_V2)) )
 
-K_EXPORT_COMPONENT_FACTORY( kate_kttsd, KGenericFactory<KateKttsdPlugin>( "kate_kttsd" ) )
-
-
-KateKttsdPlugin::KateKttsdPlugin(QObject *parent, const QStringList&)
+KateKttsdPlugin::KateKttsdPlugin(QObject* parent, const QList<QVariant>&)
     : Kate::Plugin ((Kate::Application*)parent)
 {
 }
@@ -53,18 +52,15 @@ Kate::PluginView *KateKttsdPlugin::createView (Kate::MainWindow *mainWindow)
 
 KateKttsdPluginView::KateKttsdPluginView( Kate::MainWindow *mw )
     : Kate::PluginView (mw),
-    KXMLGUIClient( )
+    Kate::XMLGUIClient(KateKttsdFactory::componentData())
 {
     KGlobal::locale()->insertCatalog("kttsd");
-    setComponentData( KGenericFactory<KateKttsdPlugin>::componentData() );
     KAction *a = actionCollection()->addAction("tools_kttsd");
     a->setText(i18n("Speak Text"));
     a->setIcon(KIcon("preferences-desktop-text-to-speech"));
     connect( a, SIGNAL(triggered(bool)), this, SLOT(slotReadOut()) );
 
-    setXMLFile( "plugins/kate_kttsd/ui.rc" );
     mainWindow()->guiFactory()->addClient(this);
-
 }
 
 KateKttsdPluginView::~KateKttsdPluginView()

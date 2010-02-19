@@ -112,7 +112,9 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     m_ok=false;
     SnippetEditorNewDialog nd(this);
     if (nd.exec()==QDialog::Rejected) return;
-    QString newPath=KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text());
+    QString new_type=m_url.path();
+    new_type=new_type.right(new_type.length()-1);
+    QString newPath=KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text(),new_type);
     if (newPath.isEmpty()) return;
     m_url=KUrl::fromPath(newPath);
     notifyRepos();

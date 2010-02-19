@@ -357,14 +357,14 @@ namespace KTextEditor {
     }
 
     void SnippetRepositoryModel::newEntry(QWidget *dialogParent,const QString& type) {
-      if (!KRun::runUrl(KUrl("new-file://"+QUrl::toPercentEncoding(type)),"application/x-katesnippets_tng",dialogParent)) {
+      if (!KRun::runUrl(KUrl("new-file:///"+QUrl::toPercentEncoding(type)),"application/x-katesnippets_tng",dialogParent)) {
         KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
       }
     }
 
     void SnippetRepositoryModel::newEntry() {
       QWidget *widget=qobject_cast<QWidget*>(sender());
-      if (!KRun::runUrl(KUrl("new-file://"),"application/x-katesnippets_tng",widget)) {
+      if (!KRun::runUrl(KUrl("new-file:///"),"application/x-katesnippets_tng",widget)) {
         KMessageBox::error(widget,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
       }
     }

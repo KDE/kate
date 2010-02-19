@@ -59,7 +59,7 @@ namespace KTextEditor {
         QString fileType();
   #ifdef SNIPPET_EDITOR
         bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors, const QString& snippetlicense);
-        static QString createNew(const QString& name, const QString& license,const QString& authors);
+        static QString createNew(const QString& name, const QString& license,const QString& authors,const QString& filetypes);
   #endif
         
       private:

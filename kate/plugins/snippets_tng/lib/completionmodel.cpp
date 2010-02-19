@@ -355,13 +355,14 @@ namespace KTextEditor {
       return true;
     }
     
-  QString SnippetCompletionModel::createNew(const QString& name, const QString& license,const QString& authors) {
+  QString SnippetCompletionModel::createNew(const QString& name, const QString& license,const QString& authors,const QString& filetypes) {
       QDomDocument doc;
       QDomElement root=doc.createElement("snippets");
       root.setAttribute("name",name);
-      root.setAttribute("filetypes","*");
+      root.setAttribute("filetypes",filetypes.isEmpty()?"*":filetypes);
       root.setAttribute("authors",authors);
       root.setAttribute("license",license);
+      root.setAttribute("snippetlicense",QString("public domain"));
       doc.appendChild(root);
       QString fileName=QUrl::toPercentEncoding(name)+QString(".xml");
       QString outname=KGlobal::dirs()->locateLocal( "data", "ktexteditor_snippets/data/"+fileName);

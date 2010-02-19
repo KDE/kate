@@ -184,9 +184,9 @@ namespace JoWenn {
       KTextEditor::View *view=m_mainWindow->activeView();
       KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
       if (!fi) {
-        m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()));
+        m_plugin->repositoryData()->newEntry(this);        
       } else {
-        m_plugin->repositoryData()->newEntry(this);
+        m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()));
       }
   }
 

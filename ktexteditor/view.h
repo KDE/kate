@@ -282,6 +282,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      *
      * \warning Use this with care! Plugin xml gui clients are not merged
      *          into this menu!
+     * \warning !!!!!! DONT USE THIS FUNCTION, UNLESS YOU ARE SURE YOU DON'T WANT PLUGINS TO WORK !!!!!!
      *
      * \param menu new context menu object for this view
      * \see contextMenu()
@@ -290,7 +291,9 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
 
     /**
      * Get the context menu for this view. The return value can be NULL
-     * if no context menu object was set.
+     * if no context menu object was set and kxmlgui is not initialized yet.
+     * If there is no user set menu, the kxmlgui menu is returned. Do not delete this menu, if
+     * if it is the xmlgui menu.
      * \return context menu object
      * \see setContextMenu()
      */
@@ -324,6 +327,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      *   }
      * }
      * \endcode
+     * \warning or simply use the aboutToShow, aboutToHide signals !!!!!
      *
      * \param menu the menu to be populated, or null to create a new menu.
      * \return the menu, whether created or passed initially

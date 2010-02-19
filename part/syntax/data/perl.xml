@@ -364,8 +364,9 @@
 
         <RegExpr attribute="Operator" context="find_here_document" String="\s*&lt;&lt;(?=\w+|\s*[&quot;'])" beginRegion="HereDocument" />
 
-        <RegExpr attribute="Normal Text" context="#stay" String="\s*\}\s*/" endRegion="Block"/>
-        <RegExpr attribute="Normal Text" context="#stay" String="\s*[)]\s*/" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*\}\s*/{1,2}" endRegion="Block"/>
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*[)\]]\s*/{1,2}" />
+        
         <RegExpr attribute="Function" context="sub_name_def" String="\w+::" />
         <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
 
@@ -681,7 +682,7 @@
         <RegExpr attribute="Data Type" context="var_detect_unsafe" String="\$+::" />
         <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
         <RegExpr attribute="Data Type" context="var_detect_unsafe" String="[\$@%]\{[\w_]+\}" />
-        <RegExpr attribute="Data Type" context="var_detect_unsafe" String="[\$@%]" />
+        <RegExpr attribute="Data Type" context="var_detect_unsafe" String="[\$@%]" /><!-- AnyChar! -->
         <RegExpr attribute="Data Type" context="var_detect_unsafe" String="\*\w+" />
         <AnyChar attribute="Operator" context="#pop" String="$@%*" />
       </context>
@@ -765,11 +766,9 @@
 
       <context name="slash_safe_escape" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectSpaces />
-        <!-- operators // and (implicitly) //= -->
-        <Detect2Chars attribute="Normal Text" context="#pop" char="/" char1="/" />
-        <RegExpr attribute="Normal Text" context="#pop" String="[])]?\s*/" />
-        <RegExpr attribute="Normal Text" context="#pop" String="\}?\s*/" endRegion="Block" />
-        <keyword attribute="Keyword" context="#pop" String="keywords" />
+        <RegExpr attribute="Normal Text" context="#pop" String="\}\s*/{1,2}" endRegion="Block"/>
+        <RegExpr attribute="Normal Text" context="#pop" String="[)\]]?\s*/{1,2}" />
+        <keyword attribute="Keyword" context="#pop" String="keywords" /><!-- wonder why??? -->
       </context>
 
       <context name="package_qualified_blank" attribute="Normal Text" lineEndContext="#stay">

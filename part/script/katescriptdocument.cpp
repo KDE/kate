@@ -318,6 +318,21 @@ QString KateScriptDocument::encoding()
   return m_document->encoding();
 }
 
+QString KateScriptDocument::highlightingMode()
+{
+  return m_document->highlightingMode();
+}
+
+QStringList KateScriptDocument::embeddedHighlightingModes()
+{
+  return m_document->embeddedHighlightingModes();
+}
+
+QString KateScriptDocument::highlightingModeAt(const KTextEditor::Cursor& pos)
+{
+  return m_document->highlightingModeAt(pos);
+}
+
 bool KateScriptDocument::isModified()
 {
   return m_document->isModified();

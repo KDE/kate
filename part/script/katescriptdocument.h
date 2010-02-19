@@ -57,6 +57,9 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE QString url();
     Q_INVOKABLE QString mimeType();
     Q_INVOKABLE QString encoding();
+    Q_INVOKABLE QString highlightingMode();
+    Q_INVOKABLE QStringList embeddedHighlightingModes();
+    Q_INVOKABLE QString highlightingModeAt(const KTextEditor::Cursor& pos);
     Q_INVOKABLE bool isModified();
     Q_INVOKABLE QString text();
     Q_INVOKABLE QString text(int fromLine, int fromColumn, int toLine, int toColumn);

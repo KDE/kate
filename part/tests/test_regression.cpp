@@ -110,6 +110,20 @@ TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
   m_engine->globalObject().setProperty("out", so);
   m_engine->globalObject().setProperty("o", so);
 }
+
+TestScriptEnv::~TestScriptEnv()
+{
+  // delete explicitely, as the parent is the KTE::Document kpart, which is
+  // reused for all tests. Hence, we explicitely have to delete the bindings.
+  delete m_output; m_output = 0;
+  delete m_docObj; m_docObj = 0;
+  delete m_viewObj; m_viewObj = 0;
+
+  // delete this too, although this should also be automagically be freed
+  delete m_engine; m_engine = 0;
+
+//   kDebug() << "deleted";
+}
 //END TestScriptEnv
 
 //BEGIN KateViewObject
@@ -118,6 +132,11 @@ KateViewObject::KateViewObject(KateView *view)
   : KateScriptView()
 {
   setView(view);
+}
+
+KateViewObject::~KateViewObject()
+{
+//   kDebug() << "deleted";
 }
 
 // Implements a function that calls an edit function repeatedly as specified by
@@ -203,6 +222,10 @@ KateDocumentObject::KateDocumentObject(KateDocument *doc)
   setDocument(doc);
 }
 
+KateDocumentObject::~KateDocumentObject()
+{
+//   kDebug() << "deleted";
+}
 //END KateDocumentObject
 
 //BEGIN OutputObject
@@ -210,6 +233,11 @@ KateDocumentObject::KateDocumentObject(KateDocument *doc)
 OutputObject::OutputObject(KateView *v, bool &cflag)
   : view(v), cflag(cflag)
 {
+}
+
+OutputObject::~OutputObject()
+{
+//   kDebug() << "deleted";
 }
 
 void OutputObject::output(bool cp, bool ln)

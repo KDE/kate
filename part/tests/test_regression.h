@@ -59,6 +59,7 @@ class TestScriptEnv : public QObject
 {
   public:
     explicit TestScriptEnv(KateDocument *part, bool &cflag);
+    virtual ~TestScriptEnv();
 
     QScriptEngine *engine() const { return m_engine; }
 
@@ -83,6 +84,7 @@ class KateViewObject : public KateScriptView
   public:
 
     explicit KateViewObject(KateView *view);
+    virtual ~KateViewObject();
 
     // Edit functions
     Q_INVOKABLE void keyReturn(int cnt = 1);
@@ -158,6 +160,7 @@ class KateDocumentObject : public KateScriptDocument
 
   public:
     explicit KateDocumentObject(KateDocument* doc);
+    virtual ~KateDocumentObject();
 
   private:
     Q_DISABLE_COPY(KateDocumentObject)
@@ -175,6 +178,7 @@ class OutputObject : public QObject, protected QScriptable
 
   public:
     OutputObject(KateView *v, bool &cflag);
+    virtual ~OutputObject();
 
     void setOutputFile(const QString &filename) { this->filename = filename; }
 

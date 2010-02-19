@@ -27,6 +27,8 @@
 #include "kateconfig.h"
 #include "katecompletionwidget.h"
 
+using KTextEditor::Cursor;
+
 KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
     KateView * view, KateViewInternal * viewInternal ) : KateViModeBase()
 {
@@ -42,7 +44,7 @@ KateViInsertMode::~KateViInsertMode()
 
 bool KateViInsertMode::commandInsertFromAbove()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   if ( c.line() <= 0 ) {
     return false;
@@ -61,7 +63,7 @@ bool KateViInsertMode::commandInsertFromAbove()
 
 bool KateViInsertMode::commandInsertFromBelow()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
 
   if ( c.line() >= doc()->lines()-1 ) {
     return false;
@@ -80,8 +82,8 @@ bool KateViInsertMode::commandInsertFromBelow()
 
 bool KateViInsertMode::commandDeleteWord()
 {
-    KTextEditor::Cursor c1( m_view->cursorPosition() );
-    KTextEditor::Cursor c2;
+    Cursor c1( m_view->cursorPosition() );
+    Cursor c2;
 
     c2 = findPrevWordStart( c1.line(), c1.column() );
 
@@ -113,7 +115,7 @@ bool KateViInsertMode::commandUnindent()
 
 bool KateViInsertMode::commandToFirstCharacterInFile()
 {
-  KTextEditor::Cursor c;
+  Cursor c;
 
   c.setLine( 0 );
   c.setColumn( 0 );
@@ -125,7 +127,7 @@ bool KateViInsertMode::commandToFirstCharacterInFile()
 
 bool KateViInsertMode::commandToLastCharacterInFile()
 {
-  KTextEditor::Cursor c;
+  Cursor c;
 
   int lines = doc()->lines()-1;
   c.setLine( lines );
@@ -138,7 +140,7 @@ bool KateViInsertMode::commandToLastCharacterInFile()
 
 bool KateViInsertMode::commandMoveOneWordLeft()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   c = findPrevWordStart( c.line(), c.column() );
 
   updateCursor( c );
@@ -147,7 +149,7 @@ bool KateViInsertMode::commandMoveOneWordLeft()
 
 bool KateViInsertMode::commandMoveOneWordRight()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  Cursor c( m_view->cursorPosition() );
   c = findNextWordStart( c.line(), c.column() );
 
   updateCursor( c );

@@ -5140,10 +5140,7 @@ bool KateDocument::queryClose()
 
     QString docName = documentName();
 
-    QWidget *parentWidget=widget();
-    if(!parentWidget) parentWidget=QApplication::activeWindow();
-
-    int res = KMessageBox::warningYesNoCancel( parentWidget,
+    int res = KMessageBox::warningYesNoCancel( dialogParent(),
                                                i18n( "The document \"%1\" has been modified.\n"
                                                      "Do you want to save your changes or discard them?" ,  docName ),
                                                i18n( "Close Document" ), KStandardGuiItem::save(), KStandardGuiItem::discard() );
@@ -5158,7 +5155,7 @@ bool KateDocument::queryClose()
         {
             if (url().isEmpty())
             {
-                KUrl url = KFileDialog::getSaveUrl(KUrl(), QString(), parentWidget);
+                KUrl url = KFileDialog::getSaveUrl(KUrl(), QString(), dialogParent());
                 if (url.isEmpty())
                     return false;
 

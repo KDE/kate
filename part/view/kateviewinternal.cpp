@@ -5,6 +5,7 @@
    Copyright (C) 2002-2007 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003 Anakim Border <aborder@sources.sourceforge.net>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
    Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
 
    Based on:

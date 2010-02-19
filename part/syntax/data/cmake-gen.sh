@@ -1,5 +1,6 @@
 #!/bin/env bash
 # kate: tab-width 4; indent-mode normal;
+# Copyright 2008, 2009 Matthew Woehlke (mw_triad@users.sourceforge.net)
 
 export LC_ALL=C
 

@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2008, 2009 Matthew Woehlke <mw_triad@users.sourceforge.net>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>

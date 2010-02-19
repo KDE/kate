@@ -578,7 +578,13 @@ void KateSmartManager::useRevision(int revision)
     threadLocalRevision.setLocalData (new QHash<const KateSmartManager*, int> ());
 
   if (threadLocalRevision.localData() == mainThread) {
-    kFatal() << "tried to do useRevision for main thread, that is not supported, this will break the kate part";
+    // clear revision is kind of ok in main thread, at least it will create no errors
+    // but it should indicate a problem in your code
+    if (revision == -1)
+      kWarning() << "tried to do useRevision(-1) == clearRevision() for main thread, that is not supported, this will break the kate part";
+    else
+      kFatal() << "tried to do useRevision for main thread, that is not supported, this will break the kate part";
+    
     return;
   }
   

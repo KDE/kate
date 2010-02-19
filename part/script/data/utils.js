@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, test
+ * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, test, each
  */
 
 function sort()
@@ -191,6 +191,11 @@ function help(cmd)
         return "Removes empty lines from selection or whole document.";
     } else if (cmd == "unwrap") {
         return "Unwraps all paragraphs in the text selection, or the paragraph under the text cursor if there is no selected text.";
+    } else if (cmd == "each") {
+        return "Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the" +
+               "return value of that callback.<br>" +
+               "Example (join selected lines):<br>" +
+                "<code>each 'function(lines){return lines.join(\", \"}'</code>";
     }
 }
 
@@ -199,8 +204,13 @@ function help(cmd)
 function each(func)
 {
     if ( typeof(func) != "function" ) {
-        debug("parameter is not a function: " + typeof(func));
-        return;
+        func = eval("(" + func + ")");
+        if ( typeof(func) != "function" ) {
+          debug("parameter is not a function: " + typeof(func));
+          return;
+        } else {
+          debug("using argument as evaluated callback")
+        }
     }
 
     var selection = view.selection();
@@ -216,7 +226,13 @@ function each(func)
 
     var lines = text.split("\n");
     lines = func(lines);
-    text = lines.join("\n");
+    if ( typeof(lines) == "object" ) {
+      text = lines.join("\n");
+    } else if ( typeof(lines) == "string" ) {
+      text = lines
+    } else {
+      throw "callback function for each has to return object or array of lines";
+    }
 
     view.clearSelection();
 

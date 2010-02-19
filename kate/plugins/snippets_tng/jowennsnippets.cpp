@@ -78,8 +78,8 @@ namespace JoWenn {
     QStringList modes;
     modes<<document->mode();
     modes<<hli->embeddedHighlightingModes();    
-    kDebug()<<modes;
-    kDebug()<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+    kDebug(13040)<<modes;
+    kDebug(13040)<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     QList<KTextEditor::CodesnippetsCore::SnippetCompletionModel> models;
     foreach (const QString& mode, modes)
     {    
@@ -159,7 +159,7 @@ namespace JoWenn {
     if (model_t==model_d) return;*/
     removeDocument(document);
     addDocument(document);
-    kDebug()<<"invoking typeHasChanged(doc)";
+    kDebug(13040)<<"invoking typeHasChanged(doc)";
     emit typeHasChanged(document);
 
   }
@@ -188,7 +188,7 @@ namespace JoWenn {
     }
     foreach(KTextEditor::Document* doc,refreshList) {
       addDocument(doc);
-      kDebug()<<"invoking typeHasChanged(doc)";
+      kDebug(13040)<<"invoking typeHasChanged(doc)";
       emit typeHasChanged(doc);
     }    
   }

@@ -120,7 +120,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( range.isValid() ) {
       v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
-        v->doc()->indent( v, line, 1 );
+        v->doc()->indent( KTextEditor::Range(line, 0, line, 0), 1 );
       }
       v->doc()->editEnd();
     } else {
@@ -143,7 +143,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( range.isValid() ) {
       v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
-        v->doc()->indent( v, line, -1 );
+        v->doc()->indent( KTextEditor::Range(line, 0, line, 0), -1 );
       }
       v->doc()->editEnd();
     } else {
@@ -156,7 +156,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( range.isValid() ) {
       v->doc()->editStart();
       for ( int line = range.start().line(); line <= range.end().line(); line++ ) {
-        v->doc()->indent( v, line, 0 );
+        v->doc()->indent( KTextEditor::Range(line, 0, line, 0), 0 );
       }
       v->doc()->editEnd();
     } else {

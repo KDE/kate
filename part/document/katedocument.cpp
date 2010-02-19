@@ -2905,7 +2905,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (pos < 0 || pos >= (int)colX)
       {
         // only spaces on left side of cursor
-        indent( view, line, -1);
+        indent( KTextEditor::Range( line, 0, line, 0), -1);
       }
       else
         removeText(KTextEditor::Range(line, col-1, line, col+complement));
@@ -3028,22 +3028,19 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   m_undoManager->setUndoDontMerge (true);
 }
 
-void KateDocument::indent ( KateView *v, uint line, int change)
+void KateDocument::indent (KTextEditor::Range range, int change)
 {
   // dominik: if there is a selection, iterate afterwards over all lines and
   // remove trailing spaces
-  const bool hasSelection = v->selection();
-  int start = v->selectionRange().start().line();
-  const int end = v->selectionRange().end().line();
-
-  KTextEditor::Range range = hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0));
+  int start = range.start().line();
+  const int end = range.end().line();
 
   editStart();
   blockRemoveTrailingSpaces(true);
   m_indenter->changeIndent(range, change);
   blockRemoveTrailingSpaces(false);
 
-  if (hasSelection) {
+  if (range.numberOfLines() > 1) {
     for (; start <= end; ++start)
       removeTrailingSpace(start);
   }

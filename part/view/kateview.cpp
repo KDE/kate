@@ -2222,17 +2222,23 @@ QString KateView::currentWord( )
 
 void KateView::indent( )
 {
-  m_doc->indent( this, cursorPosition().line(), 1 );
+  KTextEditor::Cursor c(cursorPosition().line(), 0);
+  KTextEditor::Range r = selection() ? selectionRange() : KTextEditor::Range(c, c);
+  m_doc->indent( r, 1 );
 }
 
 void KateView::unIndent( )
 {
-  m_doc->indent( this, cursorPosition().line(), -1 );
+  KTextEditor::Cursor c(cursorPosition().line(), 0);
+  KTextEditor::Range r = selection() ? selectionRange() : KTextEditor::Range(c, c);
+  m_doc->indent( r, -1 );
 }
 
 void KateView::cleanIndent( )
 {
-  m_doc->indent( this, cursorPosition().line(), 0 );
+  KTextEditor::Cursor c(cursorPosition().line(), 0);
+  KTextEditor::Range r = selection() ? selectionRange() : KTextEditor::Range(c, c);
+  m_doc->indent( r, 0 );
 }
 
 void KateView::align( )

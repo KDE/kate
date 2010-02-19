@@ -2441,7 +2441,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       if (tabHandling == KateDocumentConfig::tabInsertsTab)
         doc()->typeChars( m_view, QString("\t") );
       else
-        doc()->indent( m_view, m_cursor.line(), 1 );
+        doc()->indent( KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), 1 );
 
       e->accept();
 
@@ -2450,7 +2450,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     else if (doc()->config()->tabHandling() != KateDocumentConfig::tabInsertsTab)
     {
       // key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab
-      doc()->indent( m_view, m_cursor.line(), -1 );
+      doc()->indent( KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), -1 );
       e->accept();
 
       return;

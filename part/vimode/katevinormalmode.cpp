@@ -1130,7 +1130,7 @@ bool KateViNormalMode::commandIndentLine()
     Cursor c( m_view->cursorPosition() );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( m_view, c.line()+i, 1 );
+        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), 1 );
     }
 
     return true;
@@ -1141,7 +1141,7 @@ bool KateViNormalMode::commandUnindentLine()
     Cursor c( m_view->cursorPosition() );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( m_view, c.line()+i, -1 );
+        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), -1 );
     }
 
     return true;
@@ -1157,9 +1157,7 @@ bool KateViNormalMode::commandIndentLines()
   int line2 = m_commandRange.endLine;
 
   doc()->editStart();
-  for ( int i = line1; i <= line2; i++ ) {
-      doc()->indent( m_view, i, 1 );
-  }
+  doc()->indent( KTextEditor::Range( line1, 0, line2, 0), getCount() );
   doc()->editEnd();
 
   return true;
@@ -1175,9 +1173,7 @@ bool KateViNormalMode::commandUnindentLines()
   int line2 = m_commandRange.endLine;
 
   doc()->editStart();
-  for ( int i = line1; i <= line2; i++ ) {
-      doc()->indent( m_view, i, -getCount() );
-  }
+  doc()->indent( KTextEditor::Range( line1, 0, line2, 0), -getCount() );
   doc()->editEnd();
 
   return true;

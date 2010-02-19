@@ -691,7 +691,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void paste ( KateView* view, QClipboard::Mode = QClipboard::Clipboard );
 
   public:
-    void indent ( KateView *view, uint line, int change );
+    void indent ( KTextEditor::Range range, int change );
     void comment ( KateView *view, uint line, uint column, int change );
     void align ( KateView *view, const KTextEditor::Range &range );
 

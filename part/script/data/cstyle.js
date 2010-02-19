@@ -471,8 +471,8 @@ function tryStatement(line)
         // search for opening ", ' or (
         var cursor = new Cursor().invalid();
         if (result[2] == '"' || result[2] == "'") {
-            var i = result[1].length - 1; // start from matched closing ' or "
             while(true) {
+                var i = result[1].length - 1; // start from matched closing ' or "
                 // find string opener
                 for ( ; i >= 0; --i ) {
                     // make sure it's not commented out
@@ -502,7 +502,6 @@ function tryStatement(line)
                         // go to previous line
                         --currentLine;
                         currentString = document.line(currentLine);
-                        i = currentString.length
                     }
                 } else {
                     break;

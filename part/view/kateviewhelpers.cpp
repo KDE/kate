@@ -736,7 +736,6 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_foldingRange(0)
   , m_nextHighlightBlock(-2)
   , m_currentBlockLine(-1)
-  , m_delayFoldingHlTimer(new QTimer())
 {
   initializeFoldingColors();
 
@@ -748,9 +747,9 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
 
   updateFont();
 
-  m_delayFoldingHlTimer->setSingleShot(true);
-  m_delayFoldingHlTimer->setInterval(250);
-  connect(m_delayFoldingHlTimer, SIGNAL(timeout()), this, SLOT(showBlock()));
+  m_delayFoldingHlTimer.setSingleShot(true);
+  m_delayFoldingHlTimer.setInterval(250);
+  connect(&m_delayFoldingHlTimer, SIGNAL(timeout()), this, SLOT(showBlock()));
 }
 
 void KateIconBorder::initializeFoldingColors()
@@ -1294,8 +1293,8 @@ void KateIconBorder::showDelayedBlock(int line)
   // if the smart range already exists
   m_nextHighlightBlock = line;
   if (!m_foldingRange) {
-    if (!m_delayFoldingHlTimer->isActive()) {
-      m_delayFoldingHlTimer->start();
+    if (!m_delayFoldingHlTimer.isActive()) {
+      m_delayFoldingHlTimer.start();
     }
   } else {
     showBlock();
@@ -1354,8 +1353,8 @@ void KateIconBorder::showBlock()
 
 void KateIconBorder::hideBlock()
 {
-  if (m_delayFoldingHlTimer->isActive()) {
-    m_delayFoldingHlTimer->stop();
+  if (m_delayFoldingHlTimer.isActive()) {
+    m_delayFoldingHlTimer.stop();
   }
 
   m_nextHighlightBlock = -2;
@@ -1916,7 +1915,7 @@ bool KateViewEncodingAction::setCurrentCodec( int mib )
 KateViewBarWidget::KateViewBarWidget (bool addCloseButton, KateView* view, QWidget *parent)
  : QWidget (parent), m_view(view)
 {
-  QHBoxLayout *layout = new QHBoxLayout;
+  QHBoxLayout *layout = new QHBoxLayout (this);
 
   // NOTE: Here be cosmetics.
   layout->setMargin(0);

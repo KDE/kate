@@ -31,6 +31,7 @@
 #include <QtCore/QHash>
 #include <QtGui/QStackedWidget>
 #include <QtCore/QMap>
+#include <QtCore/QTimer>
 
 #include <ktexteditor/containerinterface.h>
 
@@ -185,7 +186,7 @@ class KateIconBorder : public QWidget
     KTextEditor::SmartRange *m_foldingRange;
     int m_nextHighlightBlock;
     int m_currentBlockLine;
-    QTimer* m_delayFoldingHlTimer;
+    QTimer m_delayFoldingHlTimer;
     void showDelayedBlock(int line);
     void hideBlock();
 

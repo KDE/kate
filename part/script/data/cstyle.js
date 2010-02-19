@@ -464,14 +464,58 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
-    var result = /^(.*)(,|\);|")\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
+    var result = /^(.*)(,|\)|"|')(;?)\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
-        var comma = (result[2].length == 1);
-        var cursor = document.anchor(currentLine, result[1].length, '(');
-        if (cursor) {
-            if (comma) {
+        var alignOnAnchor = result[3].length == 0;
+        // search for opening ", ' or (
+        var cursor = new Cursor().invalid();
+        if (result[2] == '"' || result[2] == "'") {
+            var i = result[1].length - 1; // start from matched closing ' or "
+            while(true) {
+                // find string opener
+                for ( ; i >= 0; --i ) {
+                    // make sure it's not commented out
+                    if (currentString[i] == result[2] && (i == 0 || currentString[i - 1] != '\\')) {
+                        cursor = new Cursor(currentLine, i);
+                        break;
+                    }
+                }
+                if (!alignOnAnchor && currentLine) {
+                    // when we finished the statement (;) we need to get the first line and use it's indentation
+                    // i.e.: $foo = "asdf"; -> align on $
+                    // first: skip whitespaces
+                    --i; // skip " or '
+                    for ( ; i >= 0; --i ) {
+                        if (currentString[i] == ' ' || currentString[i] == "\t") {
+                            continue;
+                        } else {
+                            break;
+                        }
+                    }
+                    if ( i > 0 ) {
+                        // there's something in this line, use it's indentation
+                        break;
+                    } else {
+                        // go to previous line
+                        --currentLine;
+                        currentString = document.line(currentLine);
+                        i = currentString.length
+                    }
+                } else {
+                    break;
+                }
+            }
+        } else {
+            cursor = document.anchor(currentLine, result[1].length, '(');
+        }
+        if (cursor.isValid()) {
+            if (alignOnAnchor) {
                 currentLine = cursor.line;
-                var column = cursor.column + 1;
+                var column = cursor.column;
+                if (result[2] != '"' && result[2] != "'") {
+                    // place one column after the opening parens
+                    column++;
+                }
                 var lastColumn = document.lastColumn(currentLine);
                 while (column < lastColumn && document.isSpace(currentLine, column))
                     ++column;

@@ -337,6 +337,8 @@ class KateHighlighting
     // map schema name to attributes...
     QHash< QString, QList<KTextEditor::Attribute::Ptr> > m_attributeArrays;
 
+    // list of all created items to delete them later
+    QList<KateHlItem *> m_hlItemCleanupList;
 
     /**
      * This class holds the additional properties for one highlight

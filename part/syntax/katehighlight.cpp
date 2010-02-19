@@ -115,6 +115,9 @@ void KateHighlighting::cleanup ()
 {
   qDeleteAll (m_contexts);
   m_contexts.clear ();
+  
+  qDeleteAll (m_hlItemCleanupList);
+  m_hlItemCleanupList.clear ();
 
   m_attributeArrays.clear ();
 
@@ -975,6 +978,9 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   {
     unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
   }
+  
+  // remember all to delete them
+  m_hlItemCleanupList.append (tmpItem);
 
   return tmpItem;
 }

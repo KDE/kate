@@ -56,9 +56,6 @@ KateHlItem::KateHlItem(int attribute, KateHlContextModification context,signed c
 
 KateHlItem::~KateHlItem()
 {
-  //kDebug(13010)<<"In hlItem::~KateHlItem()";
-  for (int i=0; i < subItems.size(); i++)
-    delete subItems[i];
 }
 
 void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)

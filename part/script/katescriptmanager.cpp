@@ -295,11 +295,13 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
     QString key = line.mid(start, colon - start).trimmed();
     QString value = line.right(line.length() - (colon + 1)).trimmed();
     pairs[key] = value;
-
+    
+#ifdef DEBUG_SCRIPTMANAGER
     kDebug(13050) << "KateScriptManager::parseMetaInformation: found pair: "
                   << "(" << key << " | " << value << ")";
+#endif  
   }
-  file.close();
+  
   return true;
 }
 

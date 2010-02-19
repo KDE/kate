@@ -1,30 +1,23 @@
-/*
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License version 2 as published by the Free Software Foundation.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    ---
-    file: docwordcompletion.h
-
-    KTextEditor plugin to autocompletion with document words.
-    Copyright Anders Lund <anders.lund@lund.tdcadsl.dk>, 2003
-
-    The following completion methods are supported:
-    * Completion with bigger matching words in
-      either direction (backward/forward).
-    * NOT YET Pop up a list of all bigger matching words in document
-
-*/
+/*  This file is part of the KDE libraries and the Kate part.
+ *
+ *  Copyright (C) 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
+ *  Copyright (C) 2010 Christoph Cullmann <cullmann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
 
 #ifndef _KateWordCompletion_h_
 #define _KateWordCompletion_h_

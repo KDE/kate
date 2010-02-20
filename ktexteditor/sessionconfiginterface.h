@@ -77,6 +77,7 @@ namespace KTextEditor
  *
  * \see KTextEditor::Document, KTextEditor::View, KTextEditor::Plugin
  * \author Christoph Cullmann \<cullmann@kde.org\>
+ * \note KDE5: Replace this interface with ParameterizedSessionConfigInterface
  */
 class KTEXTEDITOR_EXPORT SessionConfigInterface
 {
@@ -167,9 +168,10 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
  * }
  * \endcode
  *
- * \see KTextEditor::Document
+ * \see KTextEditor::Document, KTextEditor::SessionConfigInterface
  *
  * \since 4.4
+ * \note KDE5: Rename to SessionConfigInterface, delete old SessionConfigInterface
  */
 class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
 {
@@ -183,6 +185,9 @@ class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
 
   public:
 
+    /**
+     * Flags for session restore.
+     */
     enum SessionConfigParameter {
       SkipNone          = 0,
       SkipUrl           = 1 << 0,
@@ -205,7 +210,7 @@ class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
      *
      * \param config read the session settings from this KConfigGroup
      * \param parameters settings that should not be read (i.e. a combination of flags from SessionConfigParameter)
-     * \see writeSessionConfig()
+     * \see writeParameterizedSessionConfig()
      */
     virtual void readParameterizedSessionConfig (const KConfigGroup& config,
                                                  unsigned long parameters) = 0;
@@ -217,7 +222,7 @@ class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
      *
      * \param config write the session settings to this KConfigGroup
      * \param parameters settings that should not be written (i.e. a combination of flags from SessionConfigParameter)
-     * \see readSessionConfig()
+     * \see readParameterizedSessionConfig()
      */
     virtual void writeParameterizedSessionConfig (KConfigGroup& config,
                                                   unsigned long parameters) = 0;

@@ -1,0 +1,186 @@
+<chapter id="xmltools">
+<chapterinfo>
+
+<title>&XML; Completion</title>
+
+<authorgroup>
+<author>
+<firstname>Daniel</firstname>
+<surname>Naber</surname>
+<affiliation>
+<address>&Daniel.Naber.mail;</address>
+</affiliation>
+</author>
+</authorgroup>
+<date>2006-05-17</date>
+<releaseinfo>3.5.2</releaseinfo>
+<abstract>
+
+<para>This plugin supports writing &XML; files by listing allowed tags
+and more.</para>
+
+</abstract>
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kate</keyword>
+<keyword>xml</keyword>
+</keywordset>
+</chapterinfo>
+
+<title>Introduction</title>
+
+<para>This plugin gives hints about what is allowed at a certain position in
+an &XML; file, according to the file's DTD. It will list possible
+elements, attributes, attribute values or entities, depending on the
+cursor position (&eg; all entities are listed if the character on the left
+of the cursor is <quote>&amp;</quote>). It's also possible to close the nearest
+open tag on the left.</para>
+
+<para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
+<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>. 
+Some meta DTDs are supplied. They are installed in
+<filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
+which is also the default folder when you choose
+<guimenuitem>Assign Meta DTD...</guimenuitem>.
+To produce your own meta DTDs, get <command>dtdparse</command> from
+<ulink url="http://dtdparse.sourceforge.net">http://dtdparse.sourceforge.net</ulink>.</para>
+
+<sect1 id="xmltools-how-to-use">
+<title>How to Use</title>
+
+<para>Start &kate; and open the configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>Kate XML Completion</guilabel> which will appear
+in the <guilabel>Application</guilabel>/<guilabel>Plugins</guilabel> section and close the dialog. After
+that, select <menuchoice><guimenu>XML</guimenu><guimenuitem>Assign Meta DTD...</guimenuitem></menuchoice>.
+If your document contains no <quote>DOCTYPE</quote> or the doctype is unknown, you'll have to
+select a meta DTD from the file system. Otherwise the meta DTD that
+matches the current document's DOCTYPE will be loaded automatically.</para>
+
+<para>You can now use the plugin while typing your text:</para>
+
+<variablelist>
+
+<varlistentry>
+<term>&lt; (less than key)</term>
+<listitem><para>This will trigger a list of possible elements unless the
+cursor is inside a tag already. Note that you currently cannot use
+this to insert the top level element (&eg; <quote>&lt;html&gt;</quote>).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>" (quote key)</term>
+<listitem><para>The quote key will trigger a list of possible attribute
+values (if there are some) if you are inside a tag.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>(space key)</term>
+<listitem><para>This key will trigger a list of possible attributes for the
+current element if you are inside a tag.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>&amp; (ampersand key)</term>
+<listitem><para>This key will trigger a list of named entities.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="xmltools-features-and-limitations">
+<title>Features and Limitations</title>
+
+<para>You can test all functions and limitations by loading
+<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename>
+into &kate; and following the instructions. Note that working with
+more than one view per document is not yet correctly supported by
+this plugin.</para>
+
+</sect1>
+
+
+<sect1 id="xmltools-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+</shortcut>
+<guimenu>XML</guimenu>
+<guimenuitem>Insert Element...</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will open a dialog that lets you insert an &XML; element.
+The &lt;, &gt; characters and the closing tag will be inserted automatically.
+If you have selected text when this menu item is selected, the selected
+text will be surrounded by the opening and the closing tag.
+The dialog also offers completion of all elements that may be inserted
+at the current cursor position if you have assigned a meta DTD by
+using <guimenuitem>Assign Meta DTD...</guimenuitem>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>&lt;</keycap></keycombo>
+</shortcut>
+<guimenu>XML</guimenu>
+<guimenuitem>Close Element</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will search your text for a tag that is not yet closed
+and will close it by inserting the corresponding closing tag.
+The search starts at the cursor position and goes left. If
+it cannot find an open tag nothing will happen.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>XML</guimenu>
+<guimenuitem>Assign Meta DTD...</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will tell the plugin which meta DTD to use for the
+current document. Note that this assignment will not be saved.
+You will have to repeat it when you start &kate; the next time.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="xmltools-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+
+<para>
+&kate; Plugin <quote>XML Completion</quote> copyright 2001,2002 &Daniel.Naber;
+&Daniel.Naber.mail;.
+</para>
+
+<para>
+Documentation copyright 2001,2002 &Daniel.Naber;
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+<!-- &underFDL; -->
+&underGPL;
+
+</sect1>
+</chapter>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-omittag: nil
+sgml-shorttag: t
+End:
+-->
+

@@ -29,8 +29,10 @@
 
 #include <kurl.h>
 #include <kconfig.h>
+#include <kapplication.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QPointer>
 #include <QtCore/QStringList>
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptable>
@@ -298,6 +300,29 @@ class RegressionTest : public QObject
     void slotOpenURL(const KUrl &url, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&);
     void resizeTopLevelWidget( int, int );
 
+};
+
+class KateTestApp : public KApplication
+{
+  Q_OBJECT
+
+  public:
+    KateTestApp(KCmdLineArgs *args, const QString& baseDir, int testcaseIndex);
+    virtual ~KateTestApp();
+
+    bool allTestsSucceeded();
+
+  public Q_SLOTS:
+    void runTests();
+
+  private:
+    KCmdLineArgs *m_args;
+    KConfig m_cfg;
+    QString m_baseDir;
+    int m_testcaseIndex;
+
+    KateDocument *m_document;
+    QPointer<RegressionTest> m_regressionTest;
 };
 
 #endif

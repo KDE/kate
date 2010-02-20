@@ -71,6 +71,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/Q_PID>
 #include <QtCore/QEvent>
+#include <QtCore/QTimer>
 
 #include <QtScript/QScriptEngine>
 #include <QTest>
@@ -442,123 +443,14 @@ int main(int argc, char *argv[])
     }
   }
 
-  KApplication a;
+  KateTestApp a(args, baseDir, testcase_index);
 
-  // FIXME: Any analogous call for dbus?
-//   a.disableAutoDcopRegistration();
-  a.setStyle("windows");
-  KConfig cfg( "testkateregressionrc", KConfig::SimpleConfig );
-  KConfigGroup group = cfg.group("Kate Document Defaults");
-  group.writeEntry("Basic Config Flags",
-                   KateDocumentConfig::cfBackspaceIndents
-//                  | KateDocumentConfig::cfWordWrap
-//                  | KateDocumentConfig::cfRemoveSpaces
-                 | KateDocumentConfig::cfWrapCursor
-//                  | KateDocumentConfig::cfAutoBrackets
-//                  | KateDocumentConfig::cfTabIndentsMode
-//                  | KateDocumentConfig::cfOvr
-                 | KateDocumentConfig::cfKeepExtraSpaces
-                 | KateDocumentConfig::cfTabIndents
-                 | KateDocumentConfig::cfShowTabs
-//                  | KateDocumentConfig::cfSpaceIndent TODO lookup replacement
-                 | KateDocumentConfig::cfSmartHome
-                 | KateDocumentConfig::cfTabInsertsTab
-//                  | KateDocumentConfig::cfReplaceTabsDyn
-//                  | KateDocumentConfig::cfRemoveTrailingDyn
-//                  | KateDocumentConfig::cfDoxygenAutoTyping // TODO lookup replacement
-//                  | KateDocumentConfig::cfMixedIndent
-                 | KateDocumentConfig::cfIndentPastedText
-                  );
-  cfg.sync();
+  // queue quit action
+  QTimer::singleShot(0, &a, SLOT(quit()));
 
-  {
-    KConfig dc( "kdebugrc", KConfig::SimpleConfig );
-    // FIXME adapt to kate
-    static int areas[] = { 1000, 13000, 13001, 13002, 13010,
-        13020, 13025, 13030, 13033, 13035,
-        13040, 13050, 13051, 13070, 7000, 7006, 170,
-        171, 7101, 7002, 7019, 7027, 7014,
-        7001, 7011, 6070, 6080, 6090, 0};
-    int channel = args->isSet( "debug" ) ? 2 : 4;
-    for ( int i = 0; areas[i]; ++i ) {
-      KConfigGroup group = dc.group( QString::number( areas[i] ) );
-      group.writeEntry( "InfoOutput", channel );
-    }
-    dc.sync();
+  a.exec();
 
-    kClearDebugConfig();
-  }
-
-  // create widgets
-  std::auto_ptr<KMainWindow> mw(toplevel = new KMainWindow());
-  std::auto_ptr<KateDocument> part(new KateDocument(true, false, false, mw.get()));
-  part->setObjectName("testkate");
-
-  mw->setCentralWidget( part->widget() );
-
-  if (args->isSet("show"))
-    mw->show();
-
-  // we're not interested
-  mw->statusBar()->hide();
-
-  if (qgetenv("KDE_DEBUG").isEmpty()) {
-    // set ulimits
-    rlimit vmem_limit = { 256*1024*1024, RLIM_INFINITY };	// 256Mb Memory should suffice
-#if defined(RLIMIT_AS)
-    setrlimit(RLIMIT_AS, &vmem_limit);
-#endif
-#if defined(RLIMIT_DATA)
-    setrlimit(RLIMIT_DATA, &vmem_limit);
-#endif
-    rlimit stack_limit = { 8*1024*1024, RLIM_INFINITY };	// 8Mb Memory should suffice
-    setrlimit(RLIMIT_STACK, &stack_limit);
-  }
-
-  // run the tests
-  std::auto_ptr<RegressionTest> regressionTest(new RegressionTest(part.get(), &cfg, baseDir, args));
-
-  {
-    QString failureSnapshot = args->getOption("cmp-failures");
-    if (failureSnapshot.isEmpty())
-      failureSnapshot = findMostRecentFailureSnapshot();
-    if (!failureSnapshot.isEmpty())
-      regressionTest->setFailureSnapshotConfig(new KConfig(failureSnapshotPrefix + failureSnapshot,
-                                                           KConfig::SimpleConfig),
-                                               failureSnapshot);
-  }
-
-  if (args->isSet("save-failures")) {
-    QString failureSaver = args->getOption("save-failures");
-    regressionTest->setFailureSnapshotSaver(new KConfig(failureSnapshotPrefix + failureSaver,
-                                                        KConfig::SimpleConfig),
-                                            failureSaver);
-  }
-
-  bool result = false;
-  QStringList tests = args->getOptionList("test");
-  // merge testcases specified on command line
-  for (; testcase_index < args->count(); testcase_index++)
-    tests << args->arg(testcase_index);
-  if (tests.count() > 0) {
-    foreach (const QString &test, tests) {
-      result = regressionTest->runTests(test,true);
-      if (!result) break;
-    }
-  } else {
-    result = regressionTest->runTests();
-  }
-
-  if (result) {
-    if (args->isSet("genoutput")) {
-      printf("\nOutput generation completed.\n");
-    } else {
-      regressionTest->printSummary();
-    }
-  }
-
-  // Only return a 0 exit code if all tests were successful
-  return regressionTest->allTestsSucceeded() ? 0 : 1;
+  return a.allTestsSucceeded() ? 0 : 1;
 }
 
 // -------------------------------------------------------------------------
@@ -1362,6 +1254,146 @@ void RegressionTest::resizeTopLevelWidget( int w, int h )
   toplevel->resize( w, h );
   // Since we're not visible, this doesn't have an immediate effect, QWidget posts the event
   QApplication::sendPostedEvents( 0, QEvent::Resize );
+}
+
+
+
+KateTestApp::KateTestApp(KCmdLineArgs *args, const QString& baseDir, int testcaseIndex)
+  : KApplication()
+  , m_args(args)
+  , m_cfg("testkateregressionrc", KConfig::SimpleConfig)
+  , m_baseDir(baseDir)
+  , m_testcaseIndex(testcaseIndex)
+{
+  // FIXME: Any analogous call for dbus?
+  //   a.disableAutoDcopRegistration();
+  setStyle("windows");
+  KConfigGroup group = m_cfg.group("Kate Document Defaults");
+  group.writeEntry("Basic Config Flags",
+                   KateDocumentConfig::cfBackspaceIndents
+//                  | KateDocumentConfig::cfWordWrap
+//                  | KateDocumentConfig::cfRemoveSpaces
+                   | KateDocumentConfig::cfWrapCursor
+//                  | KateDocumentConfig::cfAutoBrackets
+//                  | KateDocumentConfig::cfTabIndentsMode
+//                  | KateDocumentConfig::cfOvr
+                   | KateDocumentConfig::cfKeepExtraSpaces
+                   | KateDocumentConfig::cfTabIndents
+                   | KateDocumentConfig::cfShowTabs
+//                  | KateDocumentConfig::cfSpaceIndent TODO lookup replacement
+                   | KateDocumentConfig::cfSmartHome
+                   | KateDocumentConfig::cfTabInsertsTab
+//                  | KateDocumentConfig::cfReplaceTabsDyn
+//                  | KateDocumentConfig::cfRemoveTrailingDyn
+//                  | KateDocumentConfig::cfDoxygenAutoTyping // TODO lookup replacement
+//                  | KateDocumentConfig::cfMixedIndent
+                   | KateDocumentConfig::cfIndentPastedText
+                   );
+  m_cfg.sync();
+
+//   {
+//     KConfig dc( "kdebugrc", KConfig::SimpleConfig );
+//     // FIXME adapt to kate
+//     static int areas[] = { 1000, 13000, 13001, 13002, 13010,
+//     13020, 13025, 13030, 13033, 13035,
+//     13040, 13050, 13051, 13070, 7000, 7006, 170,
+//     171, 7101, 7002, 7019, 7027, 7014,
+//     7001, 7011, 6070, 6080, 6090, 0};
+//     int channel = args->isSet( "debug" ) ? 2 : 4;
+//     for ( int i = 0; areas[i]; ++i ) {
+//       KConfigGroup group = dc.group( QString::number( areas[i] ) );
+//       group.writeEntry( "InfoOutput", channel );
+//     }
+//     dc.sync();
+//
+//     kClearDebugConfig();
+//   }
+
+  // create widgets
+  toplevel = new KMainWindow();
+  m_document = new KateDocument(true, false, false, toplevel);
+  m_document->setObjectName("testkate");
+
+  toplevel->setCentralWidget( m_document->widget() );
+
+  if (args->isSet("show"))
+    toplevel->show();
+
+  // we're not interested
+  toplevel->statusBar()->hide();
+
+  if (false && qgetenv("KDE_DEBUG").isEmpty()) {
+    // set ulimits
+    rlimit vmem_limit = { 256*1024*1024, RLIM_INFINITY };   // 256Mb Memory should suffice
+#if defined(RLIMIT_AS)
+    setrlimit(RLIMIT_AS, &vmem_limit);
+#endif
+#if defined(RLIMIT_DATA)
+    setrlimit(RLIMIT_DATA, &vmem_limit);
+#endif
+    rlimit stack_limit = { 8*1024*1024, RLIM_INFINITY };    // 8Mb Memory should suffice
+    setrlimit(RLIMIT_STACK, &stack_limit);
+  }
+
+  // run the tests
+  m_regressionTest = new RegressionTest(m_document, &m_cfg, baseDir, args);
+
+  {
+    QString failureSnapshot = args->getOption("cmp-failures");
+    if (failureSnapshot.isEmpty())
+      failureSnapshot = findMostRecentFailureSnapshot();
+    if (!failureSnapshot.isEmpty())
+      m_regressionTest->setFailureSnapshotConfig(new KConfig(failureSnapshotPrefix + failureSnapshot,
+                                                             KConfig::SimpleConfig),
+                                                 failureSnapshot);
+  }
+
+  if (args->isSet("save-failures")) {
+    QString failureSaver = args->getOption("save-failures");
+    m_regressionTest->setFailureSnapshotSaver(new KConfig(failureSnapshotPrefix + failureSaver,
+                                                          KConfig::SimpleConfig),
+                                              failureSaver);
+  }
+
+  QTimer::singleShot(0, this, SLOT(runTests()));
+}
+
+KateTestApp::~KateTestApp()
+{
+  delete m_document;
+  m_document = 0;
+
+  Q_ASSERT(m_regressionTest == 0);
+}
+
+bool KateTestApp::allTestsSucceeded()
+{
+  return m_regressionTest->allTestsSucceeded();
+}
+
+void KateTestApp::runTests()
+{
+  bool result = false;
+  QStringList tests = m_args->getOptionList("test");
+  // merge testcases specified on command line
+  for (; m_testcaseIndex < m_args->count(); m_testcaseIndex++)
+    tests << m_args->arg(m_testcaseIndex);
+  if (tests.count() > 0) {
+    foreach (const QString &test, tests) {
+      result = m_regressionTest->runTests(test, true);
+      if (!result) break;
+    }
+  } else {
+    result = m_regressionTest->runTests();
+  }
+
+  if (result) {
+    if (m_args->isSet("genoutput")) {
+      printf("\nOutput generation completed.\n");
+    } else {
+      m_regressionTest->printSummary();
+    }
+  }
 }
 
 #include "test_regression.moc"

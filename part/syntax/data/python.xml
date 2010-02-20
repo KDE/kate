@@ -11,7 +11,8 @@
 <!-- v2.03 highlight decorators, remove operator regex, don't highlight parens as operators -->
 <!-- v2.04 make alerts visible even if they are directly after ''' or # without a space -->
 <!-- v2.06 decorator names can (and often do) contain periods -->
-<language name="Python" version="2.06" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- v2.07 add support for %prog and co, see bug 142832 -->
+<language name="Python" version="2.07" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -229,7 +230,7 @@
 				<Int attribute="Int" context="#stay">
 					<StringDetect attribute="Int" String="L" insensitive="true" context="#stay"/>
 				</Int>
-  
+
 				<RegExpr attribute="Raw String" String="[rR]'''" context="Raw Tripple A-string"/>
 				<RegExpr attribute="Raw String" String="[rR]&quot;&quot;&quot;" context="Raw Tripple Q-string"/>
 
@@ -295,7 +296,7 @@
 
 			<!-- Strings -->
 
-			<!-- format characters --> 
+			<!-- format characters -->
 			<context name="stringformat" attribute="String Substitution" lineEndContext="#stay">
 				<!-- Python 2 style. Syntax:
 				     1. start character '%'
@@ -305,8 +306,9 @@
 				     5. [optional] Precision, '.' followed by integer or '*'
 				     6. [optional] Length modifier, one of 'hlL'
 				     7. conversion type, one of 'crsdiouxXeEfFgG%'
+				     [Special cases: %prog and %default - see http://docs.python.org/library/optparse.html]
 				-->
-				<RegExpr attribute="String Substitution" String="%(\([a-zA-Z0-9_]+\))?[#0\- +]?([1-9][0-9]*|\*)?(\.([1-9][0-9]*|\*))?[hlL]?[crsdiouxXeEfFgG%]" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%((\([a-zA-Z0-9_]+\))?[#0\- +]?([1-9][0-9]*|\*)?(\.([1-9][0-9]*|\*))?[hlL]?[crsdiouxXeEfFgG%]|prog|default)" context="#stay"/>
 			</context>
 
 			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">

@@ -340,28 +340,11 @@ void KateView::setupActions()
     " when the view is resized."));
     connect(a, SIGNAL(triggered(bool)), SLOT(applyWordWrap()));
 
-    // setup Tools menu
-    a = ac->addAction("tools_indent");
-    a->setIcon(KIcon("format-indent-more"));
-    a->setText(i18n("&Indent"));
-    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
-    a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
-        "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
-    connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
-
-    a = ac->addAction("tools_unindent");
-    a->setIcon(KIcon("format-indent-less"));
-    a->setText(i18n("&Unindent"));
-    a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));
-    a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
-    connect(a, SIGNAL(triggered(bool)), SLOT(unIndent()));
-
     a = ac->addAction("tools_cleanIndent");
     a->setText(i18n("&Clean Indentation"));
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces).<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(cleanIndent()));
-
 
     a = ac->addAction("tools_align");
     a->setText(i18n("&Align"));
@@ -914,6 +897,21 @@ void KateView::setupEditActions()
     a->setShortcuts(scuts);
     connect(a, SIGNAL(triggered(bool)), SLOT(smartNewline()));
     m_editActions << a;
+
+    a = ac->addAction("tools_indent");
+    a->setIcon(KIcon("format-indent-more"));
+    a->setText(i18n("&Indent"));
+    a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
+        "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));                       
+    connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
+
+    a = ac->addAction("tools_unindent");
+    a->setIcon(KIcon("format-indent-less"));
+    a->setText(i18n("&Unindent"));
+    a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));
+    connect(a, SIGNAL(triggered(bool)), SLOT(unIndent()));
   }
 
   if( hasFocus() )

@@ -117,7 +117,12 @@ function indent(line, indentWidth, character) {
     // >>>>where y = x+1
     if (currentLine.stripWhiteSpace().startsWith('where')) {
         dbg('indenting line for where (2)');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
+
+        if (lastLine.startsWith('else')) {
+            return document.firstVirtualColumn(line - 1) + indentWidth;
+        } else {
+            return indentWidth;
+        }
     }
 
     // indent line after 'where' unless it starts with 'module'

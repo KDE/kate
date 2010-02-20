@@ -61,6 +61,7 @@ function indent(line, indentWidth, character) {
     var currentLine = document.line(line);
     dbg("current line: " + currentLine);
     var lastLine = document.line(line - 1);
+    dbg("last line: " + lastLine);
     var lastCharacter = lastLine.lastCharacter();
 
     // invocations triggered by a space character should be ignored unless the
@@ -107,7 +108,7 @@ function indent(line, indentWidth, character) {
     // ... where foo = 3
     //     >>>>>>bar = 4
     if (lastLine.stripWhiteSpace().startsWith('where')) {
-        dbg('indenting line for where');
+        dbg('indenting line for where (1)');
         return document.firstVirtualColumn(line - 1) + 6;
     }
 
@@ -115,7 +116,7 @@ function indent(line, indentWidth, character) {
     // fun x = y
     // >>>>where y = x+1
     if (currentLine.stripWhiteSpace().startsWith('where')) {
-        dbg('indenting line for where');
+        dbg('indenting line for where (2)');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
@@ -123,7 +124,7 @@ function indent(line, indentWidth, character) {
     // instance Functor Tree where
     // >>>>fmap = treeMap
     if (lastLine.endsWith('where') && !lastLine.startsWith('module')) {
-        dbg('indenting line for where');
+        dbg('indenting line for where (3)');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
@@ -138,9 +139,10 @@ function indent(line, indentWidth, character) {
         // do a basic test of whether we are in a do block or not
         l = line - 2;
 
-        // find the last line with an indentation level different from the
-        // current line ...
-        while (document.firstVirtualColumn(l) == document.firstVirtualColumn(line-1)) {
+        // find the last non-empty line with an indentation level different
+        // from the current line ...
+        while (document.firstVirtualColumn(l) == document.firstVirtualColumn(line-1)
+                || document.line(l).search(/^\s*$/) != -1) {
             l = l - 1;
         }
 
@@ -218,7 +220,9 @@ function indent(line, indentWidth, character) {
     // >>>then baz
     // >>>else vaff
     var ifCol = lastLine.search(/\bif\b/);
-    if (ifCol != -1) {
+    var thenCol = lastLine.search(/\bthen\b/);
+    var elseCol = lastLine.search(/\belse\b/);
+    if (ifCol != -1 && thenCol == -1 && elseCol == -1) {
         dbg('indenting line for if');
         return ifCol + 3;
     }

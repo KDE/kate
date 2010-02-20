@@ -87,22 +87,34 @@ function indent(line, indentWidth, character) {
 
     // check the line contents ...
 
-    // indent lines following a line ending with '='
-    if (lastLine.endsWith("=")) {
-        dbg('indenting for =');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
-    }
+    // rules that check the end of the last line.
+    // first, check that the end of the last line actually is code...
+    if (document.isCode(line - 1, document.lineLength(line - 1) - 1)) {
+        // indent lines following a line ending with '='
+        if (lastLine.endsWith("=")) {
+            dbg('indenting for =');
+            return document.firstVirtualColumn(line - 1) + indentWidth;
+        }
 
-    // indent lines following a line ending with '{'
-    if (lastLine.endsWith("{")) {
-        dbg('indenting for {');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
-    }
+        // indent lines following a line ending with '{'
+        if (lastLine.endsWith("{")) {
+            dbg('indenting for {');
+            return document.firstVirtualColumn(line - 1) + indentWidth;
+        }
 
-    // indent lines following a line ending with 'do'
-    if (lastLine.endsWith("do")) {
-        dbg('indenting for do');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
+        // indent lines following a line ending with 'do'
+        if (lastLine.endsWith("do")) {
+            dbg('indenting for do');
+            return document.firstVirtualColumn(line - 1) + indentWidth;
+        }
+
+        // indent line after 'where' unless it starts with 'module'
+        // instance Functor Tree where
+        // >>>>fmap = treeMap
+        if (lastLine.endsWith('where') && !lastLine.startsWith('module')) {
+            dbg('indenting line for where (3)');
+            return document.firstVirtualColumn(line - 1) + indentWidth;
+        }
     }
 
     // indent line after 'where' 6 characters for alignment:
@@ -132,14 +144,6 @@ function indent(line, indentWidth, character) {
         } else {
             return indentWidth;
         }
-    }
-
-    // indent line after 'where' unless it starts with 'module'
-    // instance Functor Tree where
-    // >>>>fmap = treeMap
-    if (lastLine.endsWith('where') && !lastLine.startsWith('module')) {
-        dbg('indenting line for where (3)');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
     // indent line after 'let' 4 characters for alignment:

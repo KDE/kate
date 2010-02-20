@@ -1803,7 +1803,12 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   m_hlIndex[internalIDList.count()] = ident;
   m_ctxIndex[ctx0]=ident;
-  m_additionalData.insert( ident, new HighlightPropertyBag );
+  
+  // clear and reuse or create new
+  if (m_additionalData[ident])
+    *m_additionalData[ident] = HighlightPropertyBag ();
+  else
+    m_additionalData.insert( ident, new HighlightPropertyBag );
 
   // fill out the propertybag
   readCommentConfig();

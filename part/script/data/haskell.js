@@ -108,9 +108,17 @@ function indent(line, indentWidth, character) {
     // indent line after 'where' 6 characters for alignment:
     // ... where foo = 3
     //     >>>>>>bar = 4
+    if (lastLine.search(/\s*where\s+[^-]/) != -1) {
+        dbg('indenting line for where (0)');
+        return document.firstVirtualColumn(line - 1) + 6;
+    }
+
+    // indent line after 'where' 6 characters for alignment:
+    // ... where -- comment
+    //     >>>>foo = 4
     if (lastLine.stripWhiteSpace().startsWith('where')) {
         dbg('indenting line for where (1)');
-        return document.firstVirtualColumn(line - 1) + 6;
+        return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
     // indent 'where' to column 0 + indentWidth

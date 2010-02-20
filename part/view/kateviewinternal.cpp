@@ -2420,10 +2420,13 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       // convert tabSmart into tabInsertsTab or tabIndents:
       if (tabHandling == KateDocumentConfig::tabSmart)
       {
-        if (m_view->selection())
+        // multiple lines selected
+        if (m_view->selection() && !m_view->selectionRange().onSingleLine())
         {
           tabHandling = KateDocumentConfig::tabIndents;
         }
+        
+        // otherwise: take look at cursor position
         else
         {
           // if the cursor is at or before the first non-space character
@@ -2441,7 +2444,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       if (tabHandling == KateDocumentConfig::tabInsertsTab)
         doc()->typeChars( m_view, QString("\t") );
       else
-        doc()->indent( KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), 1 );
+        doc()->indent( m_view->selection() ? m_view->selectionRange() : KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), 1 );
 
       e->accept();
 
@@ -2450,7 +2453,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     else if (doc()->config()->tabHandling() != KateDocumentConfig::tabInsertsTab)
     {
       // key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab
-      doc()->indent( KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), -1 );
+      doc()->indent( m_view->selection() ? m_view->selectionRange() : KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), -1 );
       e->accept();
 
       return;

@@ -77,8 +77,9 @@ function indent(line, indentWidth, character) {
     if (line == 0)
         return -2;
 
-    // make sure the last line is code
+    // make sure [some of] the last line is code
     if (!document.isCode(line - 1, document.lineLength(line - 1) - 1)
+            && !document.isCode(line - 1, 0)
             && lastCharacter != "\"" && lastCharacter != "'") {
         dbg("attributes that we don't want! Returning");
         return -1;

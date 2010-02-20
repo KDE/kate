@@ -22,6 +22,8 @@
 #define __KATE_VIEWMANAGER_H__
 
 #include "katemain.h"
+#include "katedocmanager.h"
+
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
@@ -31,6 +33,8 @@
 #include <QModelIndex>
 #include <QSplitter>
 #include <QStackedWidget>
+
+class KateDocumentInfo;
 
 class KConfigGroup;
 class KConfigBase;
@@ -66,7 +70,11 @@ class KateViewManager : public QSplitter
     /* restore it */
     void restoreViewConfiguration (const KConfigGroup& group);
 
-    KTextEditor::Document *openUrl (const KUrl &url, const QString& encoding, bool activate = true, bool isTempFile = false);
+    KTextEditor::Document *openUrl (const KUrl &url,
+                                    const QString& encoding,
+                                    bool activate = true,
+                                    bool isTempFile = false,
+                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
 
     KTextEditor::View *openUrlWithView (const KUrl &url, const QString& encoding);
 

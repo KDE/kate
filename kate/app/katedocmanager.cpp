@@ -135,7 +135,7 @@ QVariant KateDocManager::data( const QModelIndex & index, int role ) const
   return QStandardItemModel::data( index, role );
 }
 
-KTextEditor::Document *KateDocManager::createDoc ()
+KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInfo)
 {
 
   kDebug()<<"createDoc"<<endl;
@@ -147,7 +147,7 @@ KTextEditor::Document *KateDocManager::createDoc ()
     qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (false);
 
   m_docList.append(doc);
-  m_docInfos.insert (doc, new KateDocumentInfo ());
+  m_docInfos.insert (doc, new KateDocumentInfo (docInfo));
 
   QStandardItem *modelitem = new QStandardItem(doc->documentName());
   modelitem->setData(QVariant::fromValue(doc), DocumentRole);
@@ -231,7 +231,7 @@ KTextEditor::Document *KateDocManager::document (uint n)
   return m_docList.at(n);
 }
 
-const KateDocumentInfo *KateDocManager::documentInfo (KTextEditor::Document *doc)
+KateDocumentInfo *KateDocManager::documentInfo (KTextEditor::Document *doc)
 {
   return m_docInfos[doc];
 }
@@ -266,7 +266,7 @@ bool KateDocManager::isOpen(KUrl url)
   return findDocument (url) != 0;
 }
 
-KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile)
+KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
   KUrl u(url);
   u.cleanPath();
@@ -281,6 +281,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
     {
       doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
 
+      (*documentInfo(doc)) = docInfo;
       if (!loadMetaInfos(doc, u))
         doc->openUrl (u);
       else if (! encoding.isEmpty()) // set encoding again if provided, as metainfos sets it.
@@ -314,7 +315,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
   if ( !doc )
   {
-    doc = createDoc ();
+    doc = createDoc (docInfo);
 
     doc->setEncoding(encoding);
 
@@ -546,9 +547,11 @@ void KateDocManager::saveDocumentList (KConfig* config)
   foreach ( KTextEditor::Document *doc, m_docList)
   {
     KConfigGroup cg( config, QString("Document %1").arg(i) );
-
-    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-      iface->writeSessionConfig(cg);
+    if (KTextEditor::ParameterizedSessionConfigInterface *iface =
+      qobject_cast<KTextEditor::ParameterizedSessionConfigInterface*>(doc))
+    {
+      iface->writeParameterizedSessionConfig(cg, KTextEditor::ParameterizedSessionConfigInterface::SkipNone);
+    }
 
     i++;
   }
@@ -591,8 +594,11 @@ void KateDocManager::restoreDocumentList (KConfig* config)
     doc->setSuppressOpeningErrorDialogs(true);
     connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
     connect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
-    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-      iface->readSessionConfig(cg);
+    if (KTextEditor::ParameterizedSessionConfigInterface *iface =
+      qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
+    {
+      iface->readParameterizedSessionConfig(cg, KTextEditor::ParameterizedSessionConfigInterface::SkipNone);
+    }
 
     pd->progressBar()->setValue(pd->progressBar()->value() + 1);
   }
@@ -631,8 +637,16 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const KUrl &url)
 
     if ((const char *)md5 == old_md5)
     {
-      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-        iface->readSessionConfig(urlGroup);
+      if (KTextEditor::ParameterizedSessionConfigInterface *iface =
+        qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
+      {
+        KTextEditor::ParameterizedSessionConfigInterface::SessionConfigParameter flags =
+          KTextEditor::ParameterizedSessionConfigInterface::SkipNone;
+        if (documentInfo(doc)->openedByUser) {
+          flags = KTextEditor::ParameterizedSessionConfigInterface::SkipEncoding;
+        }
+        iface->readParameterizedSessionConfig(urlGroup, flags);
+      }
     }
     else
     {

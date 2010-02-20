@@ -48,12 +48,15 @@ class KateDocumentInfo
 {
   public:
     KateDocumentInfo ()
-        : modifiedOnDisc (false),
-        modifiedOnDiscReason (KTextEditor::ModificationInterface::OnDiskUnmodified)
+        : modifiedOnDisc (false)
+        , modifiedOnDiscReason (KTextEditor::ModificationInterface::OnDiskUnmodified)
+        , openedByUser(false)
     {}
 
     bool modifiedOnDisc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason modifiedOnDiscReason;
+
+    bool openedByUser;
 };
 
 class KateDocManager : public QStandardItemModel
@@ -85,12 +88,12 @@ class KateDocManager : public QStandardItemModel
       return m_editor;
     }
 
-    KTextEditor::Document *createDoc ();
+    KTextEditor::Document *createDoc (const KateDocumentInfo& docInfo = KateDocumentInfo());
     void deleteDoc (KTextEditor::Document *doc);
 
     KTextEditor::Document *document (uint n);
 
-    const KateDocumentInfo *documentInfo (KTextEditor::Document *doc);
+    KateDocumentInfo *documentInfo (KTextEditor::Document *doc);
 
     int findDocument (KTextEditor::Document *doc);
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
@@ -109,7 +112,10 @@ class KateDocManager : public QStandardItemModel
       return m_docList;
     }
 
-    KTextEditor::Document *openUrl(const KUrl&, const QString &encoding = QString(), bool isTempFile = false);
+    KTextEditor::Document *openUrl(const KUrl&,
+                                   const QString &encoding = QString(),
+                                   bool isTempFile = false,
+                                   const KateDocumentInfo& docInfo = KateDocumentInfo());
 
     bool closeDocument(class KTextEditor::Document *, bool closeUrl = true);
     bool closeDocument(uint);

@@ -59,6 +59,8 @@ class KateScriptHeader
   public:
     KateScriptHeader() : m_revision(0), m_scriptType(Kate::UnknownScript)
     {}
+    virtual ~KateScriptHeader()
+    {}
 
     inline void setLicense(const QString& license)
     { m_license = license; }
@@ -106,7 +108,7 @@ class KateScript {
      * Loading of the script will happen lazily
      */
     KateScript(const QString &url);
-    ~KateScript();
+    virtual ~KateScript();
 
     /** The script's URL */
     const QString &url() { return m_url; }
@@ -157,7 +159,7 @@ class KateScript {
   private:
     /** init API, can fail on error in api files */
     bool initApi ();
-    
+
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();
 

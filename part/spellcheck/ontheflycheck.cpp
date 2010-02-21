@@ -613,8 +613,12 @@ void KateOnTheFlyChecker::deleteSmartRangesLater(const QList<KTextEditor::SmartR
 KTextEditor::Range KateOnTheFlyChecker::findWordBoundaries(const KTextEditor::Cursor& begin,
                                                            const KTextEditor::Cursor& end)
 {
+  // FIXME: QTextBoundaryFinder should be ideally used for this, but it is currently
+  //        still broken in Qt
   const QRegExp boundaryRegExp("\\b");
+  const QRegExp boundaryQuoteRegExp("\\b\\w+'\\w*$");  // handle spell checking of "isn't", "doesn't", etc.
   const QRegExp extendedBoundaryRegExp("(\\W|$)");
+  const QRegExp extendedBoundaryQuoteRegExp("^\\w*'\\w+\\b"); // see above
   KateDocument::OffsetList decToEncOffsetList, encToDecOffsetList;
   const int startLine = begin.line();
   const int startColumn = begin.column();
@@ -628,8 +632,11 @@ KTextEditor::Range KateOnTheFlyChecker::findWordBoundaries(const KTextEditor::Cu
                                                                startColumn);
   QString text = decodedLineText.mid(0, translatedColumn);
   boundaryStart.setLine(startLine);
-  boundaryStart.setColumn(m_document->computePositionWrtOffsets(decToEncOffsetList,
-                                                                qMax(0, text.lastIndexOf(boundaryRegExp))));
+  int match = text.lastIndexOf(boundaryQuoteRegExp);
+  if(match < 0) {
+    match = text.lastIndexOf(boundaryRegExp);
+  }
+  boundaryStart.setColumn(m_document->computePositionWrtOffsets(decToEncOffsetList, qMax(0, match)));
   // and now the end position
   const int endLine = end.line();
   const int endColumn = end.column();
@@ -645,9 +652,15 @@ KTextEditor::Range KateOnTheFlyChecker::findWordBoundaries(const KTextEditor::Cu
                                                            endColumn);
   text = decodedLineText.mid(translatedColumn);
   boundaryEnd.setLine(endLine);
+  match = extendedBoundaryQuoteRegExp.indexIn(text);
+  if(match == 0) {
+    match = extendedBoundaryQuoteRegExp.matchedLength();
+  }
+  else {
+    match = extendedBoundaryRegExp.indexIn(text);
+  }
   boundaryEnd.setColumn(m_document->computePositionWrtOffsets(decToEncOffsetList,
-                                                              translatedColumn +
-                                                              qMax(0, extendedBoundaryRegExp.indexIn(text))));
+                                                              translatedColumn + qMax(0, match)));
   return KTextEditor::Range(boundaryStart, boundaryEnd);
 }
 

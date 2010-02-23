@@ -337,7 +337,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
           selectionHighlight->addRange(new KTextEditor::Range(m_doc->rangeOnLine(m_view->selectionRange(), line)), backgroundAttribute);
         else {
           selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
-          kDebug( 13070 ) << m_view->selectionRange() << " SEL RANGE";
         }
 
       renderRanges.append(selectionHighlight);

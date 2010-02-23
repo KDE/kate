@@ -1,21 +1,27 @@
 [Desktop Entry]
 Type=Service
 Comment=Select an icon and use it as a KIcon in your source-code
+Comment[es]=Seleccionar un icono y usarlo como KIcon en su código fuente
 Comment[pt]=Seleccione um ícone e use-o como um KIcon no seu código-fonte
+Comment[pt_BR]=Selecione um ícone e use-o como um KIcon no seu código-fonte
 Comment[sv]=Välj en ikon och använd den som en KIcon i källkoden
 Comment[uk]=Виберіть піктограму і використайте її як KIcon у коді вашої програми
 Comment[x-test]=xxSelect an icon and use it as a KIcon in your source-codexx
 Name=IconInserter
+Name[es]=IconInserter
 Name[nb]=Sett inn
 Name[nn]=Set inn
 Name[pt]=Inserção de Ícones
+Name[pt_BR]=Inserção de Ícones
 Name[sv]=Infoga ikon
 Name[uk]=IconInserter
 Name[x-test]=xxIconInserterxx
 GenericName=Insert Code for KIcon-Creation
+GenericName[es]=Insertar código para la creación de un KIcon
 GenericName[nb]=Sett inn før deklarasjon
 GenericName[nn]=Set inn før deklarasjon
 GenericName[pt]=Inserir o Código de Criação de KIcon's
+GenericName[pt_BR]=Inserir o código de criação de KIcons
 GenericName[sv]=Infoga kod för att skapa en KIcon
 GenericName[uk]=Додавання коду для створення KIcon
 GenericName[x-test]=xxInsert Code for KIcon-Creationxx

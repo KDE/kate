@@ -25,10 +25,10 @@
 			<item> del </item>
 			<item> global </item>
 			<item> lambda </item>
+			<item> nonlocal </item>
 		</list>
 		<list name="operators">
 			<item> and </item>
-			<item> assert </item>
 			<item> in </item>
 			<item> is </item>
 			<item> not </item>
@@ -39,6 +39,7 @@
 			<item> print </item>
 		</list>
 		<list name="flow">
+			<item> assert </item>
 			<item> break </item>
 			<item> continue </item>
 			<item> elif </item>
@@ -52,6 +53,7 @@
 			<item> return </item>
 			<item> try </item>
 			<item> while </item>
+			<item> with </item>
 			<item> yield </item>
 		</list>
 		<list name="builtinfuncs">
@@ -63,6 +65,7 @@
 			<item> any </item>
 			<item> apply </item>
 			<item> basestring </item>
+			<item> bin </item>
 			<item> bool </item>
 			<item> buffer </item>
 			<item> callable </item>
@@ -82,11 +85,13 @@
 			<item> file </item>
 			<item> filter </item>
 			<item> float </item>
+			<item> format </item>
 			<item> frozenset </item>
 			<item> getattr </item>
 			<item> globals </item>
 			<item> hasattr </item>
 			<item> hash </item>
+			<item> help </item>
 			<item> hex </item>
 			<item> id </item>
 			<item> input </item>
@@ -102,6 +107,7 @@
 			<item> map </item>
 			<item> max </item>
 			<item> min </item>
+			<item> next </item>
 			<item> object </item>
 			<item> oct </item>
 			<item> open </item>
@@ -138,6 +144,8 @@
 			<item> False </item>
 			<item> NotImplemented </item>
 			<item> Ellipsis </item>
+			<item> __debug__ </item>
+			<item> __file__ </item>
 		</list>
 		<list name="bindings">
 			<item> SIGNAL </item>
@@ -161,6 +169,79 @@
 			<item>__hash__</item>
 			<item>__nonzero__</item>
 			<item>__unicode__</item>
+			<item>__getattr__</item>
+			<item>__setattr__</item>
+			<item>__delattr__</item>
+			<item>__getattribute__</item>
+			<item>__get__</item>
+			<item>__set__</item>
+			<item>__delete__</item>
+			<item>__call__</item>
+			<item>__len__</item>
+			<item>__getitem__</item>
+			<item>__setitem__</item>
+			<item>__delitem__</item>
+			<item>__iter__</item>
+			<item>__reversed__</item>
+			<item>__contains__</item>
+			<item>__getslice__</item>
+			<item>__setslice__</item>
+			<item>__delslice__</item>
+			<item>__add__</item>
+			<item>__sub__</item>
+			<item>__mul__</item>
+			<item>__floordiv__</item>
+			<item>__mod__</item>
+			<item>__divmod__</item>
+			<item>__pow__</item>
+			<item>__lshift__</item>
+			<item>__rshift__</item>
+			<item>__and__</item>
+			<item>__xor__</item>
+			<item>__or__</item>
+			<item>__div__</item>
+			<item>__truediv__</item>
+			<item>__radd__</item>
+			<item>__rsub__</item>
+			<item>__rmul__</item>
+			<item>__rdiv__</item>
+			<item>__rtruediv__</item>
+			<item>__rfloordiv__</item>
+			<item>__rmod__</item>
+			<item>__rdivmod__</item>
+			<item>__rpow__</item>
+			<item>__rlshift__</item>
+			<item>__rrshift__</item>
+			<item>__rand__</item>
+			<item>__rxor__</item>
+			<item>__ror__</item>
+			<item>__iadd__</item>
+			<item>__isub__</item>
+			<item>__imul__</item>
+			<item>__idiv__</item>
+			<item>__itruediv__</item>
+			<item>__ifloordiv__</item>
+			<item>__imod__</item>
+			<item>__ipow__</item>
+			<item>__ilshift__</item>
+			<item>__irshift__</item>
+			<item>__iand__</item>
+			<item>__ixor__</item>
+			<item>__ior__</item>
+			<item>__neg__</item>
+			<item>__pos__</item>
+			<item>__abs__</item>
+			<item>__invert__</item>
+			<item>__complex__</item>
+			<item>__int__</item>
+			<item>__long__</item>
+			<item>__float__</item>
+			<item>__oct__</item>
+			<item>__hex__</item>
+			<item>__index__</item>
+			<item>__coerce__</item>
+			<item>__enter__</item>
+			<item>__exit__</item>
 		</list>
 		<list name="exceptions">
 			<item>ArithmeticError</item>

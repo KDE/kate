@@ -27,6 +27,7 @@
 #include <QObject>
 #include <QPair>
 #include <QString>
+#include <QSet>
 
 #include <ktexteditor/smartrangewatcher.h>
 #include <sonnet/speller.h>
@@ -111,7 +112,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     virtual void caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
     virtual void caretExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
 
-    QList<KTextEditor::SmartRange*> m_eliminatedRanges;
+    QSet<KTextEditor::SmartRange*> m_eliminatedRanges;
 
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
     QList<KTextEditor::SmartRange*> m_myranges;
@@ -120,6 +121,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
 
     void deleteSmartRangeLater(KTextEditor::SmartRange *range);
     void deleteSmartRangesLater(const QList<KTextEditor::SmartRange*>& list);
+    void deleteSmartRangeQuickly(KTextEditor::SmartRange *range);
     void stopCurrentSpellCheck();
 
   protected Q_SLOTS:

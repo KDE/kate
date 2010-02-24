@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Haskell syntax highlighting by Marcel Martin <mmar@freenet.de> -->
-<language name="Haskell" version="1.6" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
+
+<!-- If you add or fix things here, change literate-haskell.xml too (if applicable) -->
+
+<language name="Haskell" version="1.7" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -333,10 +336,11 @@
 	</list>
 	<contexts>
 		<context attribute="Normal Text" lineEndContext="#stay" name="normal">
-			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
+			<RegExpr attribute="Comment" context="comment_multi_line" String="\{-[^#]" />
 			<RegExpr attribute="Comment" context="comment_single_line" String="--$" />
 			<RegExpr attribute="Comment" context="comment_single_line" String="--[ A-Za-z0-9\-,;`].*$" />
 			<RegExpr attribute="Module Name" context="#stay" String="([A-Z][A-Za-z0-9]*\.)+[A-Z][A-Za-z0-9]*"/>
+			<RegExpr attribute="Language Pragma" context="#stay" String="\{-#.*#-\}"/>
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
 			<keyword attribute="Type Constructor" context="#stay" String="type constructors" />
@@ -382,6 +386,7 @@
 		<itemData name="Char" defStyleNum="dsChar" spellChecking="false" />
 		<itemData name="String" defStyleNum="dsString" />
 		<itemData name="Constructor" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="Language Pragma" defStyleNum="dsOthers" spellChecking="false" />
 		<itemData name="Comment" defStyleNum="dsComment" />
 		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
 		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
@@ -393,7 +398,6 @@
 		<folding indentationsensitive="1" />
 		<comments>
 			<comment name="singleLine" start="--" />
-			<comment name="multiLine" start="{-" end="-}" />
 		</comments>
 		<keywords casesensitive="1" />
 	</general>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Literate Haskell" version="1.07" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
+
+<!-- If you add or fix things here, change haskell.xml too (if applicable) -->
+
+<language name="Literate Haskell" version="1.7" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -336,9 +339,10 @@
 			<StringDetect attribute="Comment" context="normal-sticky" String="&#92;begin&#123;code&#125;"/>
 		</context>
 		<context attribute="Normal Text" lineEndContext="#stay" name="normal-shared">
-			<Detect2Chars attribute="Comment" context="comment_multi_line" char="{" char1="-" />
+			<RegExpr attribute="Comment" context="comment_multi_line" String="\{-[^#]" />
 			<StringDetect attribute="Comment" context="literate-normal" String="&#92;end&#123;code&#125;" />
 			<RegExpr attribute="Module Name" context="#stay" String="([A-Z][A-Za-z0-9]*\.)+[A-Z][A-Za-z0-9]*"/>
+			<RegExpr attribute="Language Pragma" context="#stay" String="\{-#.*#-\}"/>
 			<keyword attribute="Keyword" context="#stay" String="keywords" />
 			<keyword attribute="Class" context="#stay" String="classes" />
 			<keyword attribute="Type Constructor" context="#stay" String="type constructors" />
@@ -396,6 +400,7 @@
 		<itemData name="Char" defStyleNum="dsChar" spellChecking="false" />
 		<itemData name="String" defStyleNum="dsString" />
 		<itemData name="Constructor" defStyleNum="dsOthers" spellChecking="false" />
+		<itemData name="Language Pragma" defStyleNum="dsOthers" spellChecking="false" />
 		<itemData name="Comment" defStyleNum="dsComment"/>
 		<itemData name="Data Constructor" defStyleNum="dsKeyword" spellChecking="false" />
 		<itemData name="Type Constructor" defStyleNum="dsDataType" spellChecking="false" />
@@ -407,7 +412,6 @@
 	<general>
 		<comments>
 			<comment name="singleLine" start="--" />
-			<comment name="multiLine" start="{-" end="-}" />
 		</comments>
 		<keywords casesensitive="1" />
 	</general>

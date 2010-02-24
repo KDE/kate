@@ -3,7 +3,7 @@
 
 <!-- If you add or fix things here, change haskell.xml too (if applicable) -->
 
-<language name="Literate Haskell" version="1.7" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Literate Haskell" version="1.8" kateversion="2.4" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -21,6 +21,7 @@
 		<item> instance </item>
 		<item> let </item>
 		<item> module </item>
+		<item> newtype </item>
 		<item> of </item>
 		<item> primitive </item>
 		<item> qualified </item>

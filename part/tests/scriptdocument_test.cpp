@@ -27,7 +27,7 @@
 #include <katedocument.h>
 #include <katescriptdocument.h>
 
-Q_DECLARE_METATYPE(KTextEditor::Cursor);
+Q_DECLARE_METATYPE(KTextEditor::Cursor)
 
 QTEST_KDEMAIN(ScriptDocumentTest, GUI)
 

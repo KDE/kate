@@ -25,7 +25,7 @@
 #include <katedocument.h>
 #include <kateplaintextsearch.h>
 
-Q_DECLARE_METATYPE(KTextEditor::Range);
+Q_DECLARE_METATYPE(KTextEditor::Range)
 
 QTEST_KDEMAIN(PlainTextSearchTest, GUI)
 

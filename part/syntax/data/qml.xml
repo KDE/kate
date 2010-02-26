@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Milian Wolff <mail@milianw.de> -->
-<language name="QML" version="1.0" kateversion="2.4" section="Scripts" extensions="*.qml"
+<language name="QML" version="1.1" kateversion="2.4" section="Scripts" extensions="*.qml"
           mimetype="text/x-qml;application/x-qml" indenter="cstyle"
           author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
@@ -83,21 +83,38 @@
       <item>GradientStop</item>
       <item>MouseRegion</item>
     </list>
+    <list name="propertyKeywords">
+      <item>string</item>
+    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
         <StringDetect attribute="Import" context="Import" String="import"/>
         <keyword attribute="Elements" context="#stay" String="elements" />
+        <StringDetect attribute="Signal" context="Signal" String="signal" />
+        <StringDetect attribute="Keywords" context="Property" String="property" />
         <IncludeRules context="##JavaScript" />
       </context>
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
+      </context>
+      <context attribute="Data" lineEndContext="#pop" name="Property">
+        <keyword attribute="Keywords" context="#stay" String="propertyKeywords" />
+        <DetectSpaces />
+        <DetectIdentifier />
+      </context>
+      <context attribute="Data" lineEndContext="#pop" name="Signal">
+        <DetectSpaces />
+        <DetectIdentifier />
       </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"  spellChecking="false" />
       <itemData name="Import"  defStyleNum="dsKeyword"  spellChecking="false" />
       <itemData name="ImportValue"  defStyleNum="dsString"  spellChecking="false" />
+      <itemData name="Keywords"  defStyleNum="dsKeyword"  spellChecking="false" />
       <itemData name="Elements" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Signal" defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" spellChecking="false"/>
+      <itemData name="Data" defStyleNum="dsDataType" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

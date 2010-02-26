@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.16" kateversion="2.4" section="Scripts" extensions="*.js"
+<language name="JavaScript" version="1.17" kateversion="2.4" section="Scripts" extensions="*.js"
           mimetype="text/x-javascript;application/x-javascript" indenter="cstyle"
           author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
   <highlighting>
@@ -398,6 +398,7 @@
 	<DetectSpaces/>
         <StringDetect attribute="Region Marker" context="region_marker" String="//BEGIN" beginRegion="Region1"/>
         <StringDetect attribute="Region Marker" context="region_marker" String="//END" endRegion="Region1"/>
+        <RegExpr attribute="JSON" context="#stay" String="\b[\w\.]+\b\s*(?=:)" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Objects" context="#stay" String="objects" />
@@ -493,6 +494,7 @@
       <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" spellChecking="false"/>
       <itemData name="Pattern Character Class" defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="JSON" defStyleNum="dsDataType" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

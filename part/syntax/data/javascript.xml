@@ -136,12 +136,14 @@
         <Int attribute="Decimal" context="#stay" />
         <RegExpr attribute="JSON" context="#stay" String="\b[\w\.]+\b\s*(?=:)" />
 
-        <RegExpr attribute="Objects" context="ObjectMember" String="\b[\w\.]+(?=\.)" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Objects" context="#stay" String="objects" />
         <keyword attribute="Math" context="#stay" String="math" />
         <keyword attribute="Events" context="#stay" String="events" />
+
+        <DetectChar lookahead="true" context="ObjectMember" char="." />
+        <RegExpr attribute="Objects" context="ObjectMember" String="\b[\w\.]+(?=\.)" />
 
 	<DetectIdentifier/>
         <DetectChar attribute="String" context="String" char="&quot;"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Milian Wolff <mail@milianw.de> -->
-<language name="QML" version="1.1" kateversion="2.4" section="Scripts" extensions="*.qml"
+<language name="QML" version="1.2" kateversion="2.4" section="Scripts" extensions="*.qml"
           mimetype="text/x-qml;application/x-qml" indenter="cstyle"
           author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
@@ -84,27 +84,36 @@
       <item>MouseRegion</item>
     </list>
     <list name="propertyKeywords">
+      <!-- see: http://doc.trolltech.com/4.7-snapshot/qml-extending-types.html -->
       <item>string</item>
+      <item>int</item>
+      <item>bool</item>
+      <item>date</item>
+      <item>color</item>
+      <item>url</item>
+      <item>real</item>
+      <item>double</item>
+      <item>var</item>
+      <item>variant</item>
+      <item>alias</item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
         <StringDetect attribute="Import" context="Import" String="import"/>
         <keyword attribute="Elements" context="#stay" String="elements" />
-        <StringDetect attribute="Signal" context="Signal" String="signal" />
+        <StringDetect attribute="Signal" context="#stay" String="signal" />
+        <StringDetect attribute="Keywords" context="Property" String="default property" />
         <StringDetect attribute="Keywords" context="Property" String="property" />
         <IncludeRules context="##JavaScript" />
       </context>
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
       </context>
-      <context attribute="Data" lineEndContext="#pop" name="Property">
-        <keyword attribute="Keywords" context="#stay" String="propertyKeywords" />
+      <context attribute="Normal Text" lineEndContext="#pop" name="Property">
+        <keyword attribute="Property Type" context="#stay" String="propertyKeywords" />
         <DetectSpaces />
         <DetectIdentifier />
-      </context>
-      <context attribute="Data" lineEndContext="#pop" name="Signal">
-        <DetectSpaces />
-        <DetectIdentifier />
+        <DetectChar char=":" context="#pop" />
       </context>
     </contexts>
     <itemDatas>
@@ -114,7 +123,7 @@
       <itemData name="Keywords"  defStyleNum="dsKeyword"  spellChecking="false" />
       <itemData name="Elements" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0" spellChecking="false"/>
       <itemData name="Signal" defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" spellChecking="false"/>
-      <itemData name="Data" defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Property Type" defStyleNum="dsDataType" spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>

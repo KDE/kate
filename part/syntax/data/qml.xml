@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Milian Wolff <mail@milianw.de> -->
-<language name="QML" version="1.2" kateversion="2.4" section="Scripts" extensions="*.qml"
+<language name="QML" version="1.3" kateversion="2.4" section="Scripts" extensions="*.qml"
           mimetype="text/x-qml;application/x-qml" indenter="cstyle"
           author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
@@ -83,7 +83,7 @@
       <item>GradientStop</item>
       <item>MouseRegion</item>
     </list>
-    <list name="propertyKeywords">
+    <list name="types">
       <!-- see: http://doc.trolltech.com/4.7-snapshot/qml-extending-types.html -->
       <item>string</item>
       <item>int</item>
@@ -95,14 +95,13 @@
       <item>double</item>
       <item>var</item>
       <item>variant</item>
-      <item>alias</item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
         <StringDetect attribute="Import" context="Import" String="import"/>
         <keyword attribute="Elements" context="#stay" String="elements" />
-        <StringDetect attribute="Signal" context="#stay" String="signal" />
+        <StringDetect attribute="Signal" context="Signal" String="signal" />
         <StringDetect attribute="Keywords" context="Property" String="default property" />
         <StringDetect attribute="Keywords" context="Property" String="property" />
         <IncludeRules context="##JavaScript" />
@@ -110,10 +109,25 @@
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Property">
-        <keyword attribute="Property Type" context="#stay" String="propertyKeywords" />
+        <StringDetect attribute="Property Type" context="#stay" String="alias" />
+        <keyword attribute="Property Type" context="#stay" String="types" />
         <DetectSpaces />
         <DetectIdentifier />
+        <DetectSpaces />
         <DetectChar char=":" context="#pop" />
+      </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Signal">
+        <DetectSpaces />
+        <DetectIdentifier />
+        <DetectChar char="(" context="SignalParameter" />
+      </context>
+      <context attribute="Normal Text" name="SignalParameter" lineEndContext="#pop">
+        <DetectSpaces />
+        <keyword attribute="Property Type" context="#stay" String="types" />
+        <DetectSpaces />
+        <DetectIdentifier />
+        <DetectSpaces />
+        <AnyChar String=")" context="#pop"/>
       </context>
     </contexts>
     <itemDatas>

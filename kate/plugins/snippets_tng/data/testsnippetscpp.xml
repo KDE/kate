@@ -1,8 +1,8 @@
 <snippets name="Testsnippets C++" filetypes="C++;C" authors="Joseph Wenninger" license="BSD">
   <item>
     <match>testfor</match>
-    <displayarguments>(int i=0;i&lt;;100;i++)</displayarguments>
-    <fillin>for (int i=0;i&lt;;100;i++) {
+    <displayarguments>(int i=0;i!=100;++i)</displayarguments>
+    <fillin>for (int i=0;i!=100;++i) {
     ${cursor}
     }</fillin>
   </item>

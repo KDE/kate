@@ -28,7 +28,10 @@
 
 class KateUndoManager;
 class KateDocument;
-class KateView;
+
+namespace KTextEditor {
+  class View;
+}
 
 /**
  * Base class for Kate undo commands.
@@ -371,12 +374,12 @@ class KateUndoGroup
     /**
      * Undo the contained undo items
      */
-    void undo(KateView *view);
+    void undo(KTextEditor::View *view);
 
     /**
      * Redo the contained undo items
      */
-    void redo(KateView *view);
+    void redo(KTextEditor::View *view);
 
     void editEnd(const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range selectionRange);
 

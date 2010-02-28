@@ -21,7 +21,6 @@
 
 #include "katedocument.h"
 #include "kateundo.h"
-#include <kateview.h>
 
 KateUndoManager::KateUndoManager (KateDocument *doc)
   : QObject (doc)
@@ -68,8 +67,8 @@ void KateUndoManager::editStart()
   // editStart() and editEnd() must be called in alternating fashion
   Q_ASSERT(m_editCurrentUndo == 0); // make sure to enter a clean state
 
-  const KTextEditor::Cursor cursorPosition = activeKateView() ? activeKateView()->cursorPosition() : KTextEditor::Cursor::invalid();
-  const KTextEditor::Range selectionRange = activeKateView() ? activeKateView()->selectionRange() : KTextEditor::Range::invalid();
+  const KTextEditor::Cursor cursorPosition = activeView() ? activeView()->cursorPosition() : KTextEditor::Cursor::invalid();
+  const KTextEditor::Range selectionRange = activeView() ? activeView()->selectionRange() : KTextEditor::Range::invalid();
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(this, cursorPosition, selectionRange);
@@ -85,8 +84,8 @@ void KateUndoManager::editEnd()
   // editStart() and editEnd() must be called in alternating fashion
   Q_ASSERT(m_editCurrentUndo != 0); // an undo group must have been created by editStart()
 
-  const KTextEditor::Cursor cursorPosition = activeKateView() ? activeKateView()->cursorPosition() : KTextEditor::Cursor::invalid();
-  const KTextEditor::Range selectionRange = activeKateView() ? activeKateView()->selectionRange() : KTextEditor::Range::invalid();
+  const KTextEditor::Cursor cursorPosition = activeView() ? activeView()->cursorPosition() : KTextEditor::Cursor::invalid();
+  const KTextEditor::Range selectionRange = activeView() ? activeView()->selectionRange() : KTextEditor::Range::invalid();
 
   m_editCurrentUndo->editEnd(cursorPosition, selectionRange);
 
@@ -236,7 +235,7 @@ void KateUndoManager::undo()
   {
     emit aboutToUndo();
 
-    undoItems.last()->undo(activeKateView());
+    undoItems.last()->undo(activeView());
     redoItems.append (undoItems.last());
     undoItems.removeLast ();
     updateModified();
@@ -253,7 +252,7 @@ void KateUndoManager::redo()
   {
     emit aboutToRedo();
 
-    redoItems.last()->redo(activeKateView());
+    redoItems.last()->redo(activeView());
     undoItems.append (redoItems.last());
     redoItems.removeLast ();
     updateModified();
@@ -401,9 +400,9 @@ void KateUndoManager::setUndoDontMerge(bool dontMerge)
   m_undoDontMerge = dontMerge;
 }
 
-KateView* KateUndoManager::activeKateView()
+KTextEditor::View* KateUndoManager::activeView()
 {
-  return m_document->activeKateView();
+  return m_document->activeView();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

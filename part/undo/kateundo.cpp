@@ -23,9 +23,9 @@
 
 #include "kateundomanager.h"
 #include "katedocument.h"
-#include "kateview.h"
 
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/view.h>
 
 KateUndo::KateUndo (KateDocument *document)
 : m_document (document)
@@ -199,7 +199,7 @@ KateUndoGroup::~KateUndoGroup ()
   qDeleteAll (m_items);
 }
 
-void KateUndoGroup::undo (KateView *view)
+void KateUndoGroup::undo (KTextEditor::View *view)
 {
   if (m_items.isEmpty())
     return;
@@ -213,16 +213,16 @@ void KateUndoGroup::undo (KateView *view)
     if (m_undoSelection.isValid())
       view->setSelection(m_undoSelection);
     else
-      view->clearSelection();
+      view->removeSelection();
 
     if (m_undoCursor.isValid())
-      view->editSetCursor(m_undoCursor);
+      view->setCursorPosition(m_undoCursor);
   }
 
   m_manager->undoEnd ();
 }
 
-void KateUndoGroup::redo (KateView *view)
+void KateUndoGroup::redo (KTextEditor::View *view)
 {
   if (m_items.isEmpty())
     return;
@@ -236,10 +236,10 @@ void KateUndoGroup::redo (KateView *view)
     if (m_redoSelection.isValid())
       view->setSelection(m_redoSelection);
     else
-      view->clearSelection();
+      view->removeSelection();
 
     if (m_redoCursor.isValid())
-      view->editSetCursor(m_redoCursor);
+      view->setCursorPosition(m_redoCursor);
   }
 
   m_manager->undoEnd ();

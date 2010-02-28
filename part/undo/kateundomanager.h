@@ -23,7 +23,6 @@
 #include <QtCore/QList>
 
 class KateDocument;
-class KateView;
 class KateUndo;
 class KateUndoGroup;
 
@@ -191,7 +190,7 @@ class KateUndoManager : public QObject
     void viewCreated (KTextEditor::Document *, KTextEditor::View *newView);
 
   private:
-    KateView *activeKateView();
+    KTextEditor::View *activeView();
 
   private:
     KateDocument *m_document;

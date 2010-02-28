@@ -407,7 +407,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool isOverwriteMode() const;
     enum KTextEditor::View::EditMode viewEditMode() const {return isOverwriteMode() ? KTextEditor::View::EditOverwrite : KTextEditor::View::EditInsert;}
     QString currentTextLine();
-    QString currentWord();
 
   public Q_SLOTS:
     void indent();

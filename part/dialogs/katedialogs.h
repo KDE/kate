@@ -71,7 +71,6 @@ class KProcess;
 
 class QCheckBox;
 class QLabel;
-class QToolButton;
 class QCheckBox;
 class QKeyEvent;
 
@@ -115,7 +114,7 @@ class KateGotoBar : public KateViewBarWidget
   Q_OBJECT
 
   public:
-    explicit KateGotoBar(KateView *view, QWidget *parent = 0);
+    explicit KateGotoBar(KTextEditor::View *view, QWidget *parent = 0);
 
     void updateData();
 
@@ -126,9 +125,8 @@ class KateGotoBar : public KateViewBarWidget
     virtual void keyPressEvent(QKeyEvent* event);
 
   private:
-    KateView* m_view;
+    KTextEditor::View *const m_view;
     KIntSpinBox *gotoRange;
-    QToolButton *btnOK;
 };
 
 class KateDictionaryBar : public KateViewBarWidget

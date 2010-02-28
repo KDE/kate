@@ -1285,9 +1285,12 @@ void KateHlDownloadDialog::slotUser1()
 //END KateHlDownloadDialog
 
 //BEGIN KateGotoBar
-KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
-  : KateViewBarWidget( true, view, parent )
+KateGotoBar::KateGotoBar(KTextEditor::View *view, QWidget *parent)
+  : KateViewBarWidget( true, parent )
+  , m_view( view )
 {
+  Q_ASSERT( m_view != 0 );  // this bar widget is pointless w/o a view
+
   QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
   topLayout->setMargin(0);
   gotoRange = new KIntSpinBox(centralWidget());
@@ -1295,7 +1298,7 @@ KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
   label->setBuddy(gotoRange);
 
-  btnOK = new QToolButton();
+  QToolButton *btnOK = new QToolButton(centralWidget());
   btnOK->setAutoRaise(true);
   btnOK->setIcon(QIcon(SmallIcon("go-jump")));
   btnOK->setText(i18n("Go"));
@@ -1311,13 +1314,10 @@ KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
 
 void KateGotoBar::updateData()
 {
-  if (!view())
-    return;
-
-  gotoRange->setMaximum(view()->doc()->lines());
+  gotoRange->setMaximum(m_view->document()->lines());
   if (!isVisible())
   {
-    gotoRange->setValue(view()->cursorPosition().line() + 1);
+    gotoRange->setValue(m_view->cursorPosition().line() + 1);
     gotoRange->adjustSize(); // ### does not respect the range :-(
   }
   gotoRange->setFocus(Qt::OtherFocusReason);
@@ -1336,16 +1336,18 @@ void KateGotoBar::keyPressEvent(QKeyEvent* event)
 
 void KateGotoBar::gotoLine()
 {
-  view()->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
-  view()->setFocus();
+  m_view->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
+  m_view->setFocus();
   emit hideMe();
 }
 //END KateGotoBar
 
 //BEGIN KateDictionaryBar
 KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
-  : KateViewBarWidget( true, view, parent )
+  : KateViewBarWidget( true, parent )
+  , m_view( view )
 {
+  Q_ASSERT(m_view != 0); // this bar widget is pointless w/o a view
 
   QHBoxLayout *topLayout = new QHBoxLayout(centralWidget());
   topLayout->setMargin(0);
@@ -1370,11 +1372,7 @@ KateDictionaryBar::~KateDictionaryBar()
 
 void KateDictionaryBar::updateData()
 {
-  if (!view()) {
-    return;
-  }
-
-  KateDocument *document = view()->doc();
+  KateDocument *document = m_view->doc();
   QString dictionary = document->defaultDictionary();
   if(dictionary.isEmpty()) {
     dictionary = Sonnet::Speller().defaultLanguage();
@@ -1384,17 +1382,12 @@ void KateDictionaryBar::updateData()
 
 void KateDictionaryBar::dictionaryChanged(const QString& dictionary)
 {
-  KateView *kateView = view();
-  if (!kateView) {
-    return;
-  }
-
-  KTextEditor::Range selection = kateView->selectionRange();
+  KTextEditor::Range selection = m_view->selectionRange();
   if(selection.isValid() && !selection.isEmpty()) {
-    kateView->doc()->setDictionary(dictionary, selection);
+    m_view->doc()->setDictionary(dictionary, selection);
   }
   else {
-    kateView->doc()->setDefaultDictionary(dictionary);
+    m_view->doc()->setDefaultDictionary(dictionary);
   }
 }
 

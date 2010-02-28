@@ -285,7 +285,7 @@ class KateCmdLineEditFlagCompletion : public KCompletion
 
 //BEGIN KateCmdLineEdit
 KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
-    : KateViewBarWidget (true, view, parent)
+    : KateViewBarWidget (true, parent)
 {
     QVBoxLayout *topLayout = new QVBoxLayout ();
     centralWidget()->setLayout(topLayout);
@@ -1912,8 +1912,8 @@ bool KateViewEncodingAction::setCurrentCodec( int mib )
 
 //BEGIN KateViewBar related classes
 
-KateViewBarWidget::KateViewBarWidget (bool addCloseButton, KateView* view, QWidget *parent)
- : QWidget (parent), m_view(view)
+KateViewBarWidget::KateViewBarWidget (bool addCloseButton, QWidget *parent)
+ : QWidget (parent)
 {
   QHBoxLayout *layout = new QHBoxLayout (this);
 

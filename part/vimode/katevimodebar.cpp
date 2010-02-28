@@ -32,8 +32,8 @@
 
 #include "klocale.h"
 
-KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
-: KateViewBarWidget(false, view, parent),
+KateViModeBar::KateViModeBar(QWidget* parent)
+: KateViewBarWidget(false, parent),
   m_labelStatus(new QLabel(this)),
   m_labelMessage(new QLabel(this)),
   m_labelCommand(new QLabel(this)),

@@ -130,7 +130,8 @@ public:
 
 
 KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
-        : KateViewBarWidget(true, view, view),
+        : KateViewBarWidget(true, view),
+        m_view(view),
         m_topRange(NULL),
         m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
@@ -227,7 +228,7 @@ void KateSearchBar::findPrevious() {
 
 
 void KateSearchBar::highlight(const Range & range, const QColor & color) {
-    SmartRange * const highlight = view()->doc()->newSmartRange(range, m_topRange);
+    SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
     highlight->setInsertBehavior(SmartRange::DoNotExpand);
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
@@ -374,8 +375,8 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
                 const Range & captureRange = details[curPart.index];
                 if (captureRange.isValid()) {
                     // Copy capture content
-                    const bool blockMode = view()->blockSelection();
-                    const QString content = view()->doc()->text(captureRange, blockMode);
+                    const bool blockMode = m_view->blockSelection();
+                    const QString content = m_view->document()->text(captureRange, blockMode);
                     switch (caseConversion) {
                     case ReplacementPart::UpperCase:
                         // Copy as uppercase
@@ -460,8 +461,8 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
         finalReplacement = replacement;
     }
 
-    const bool blockMode = (view()->blockSelection() && !targetRange.onSingleLine());
-    view()->doc()->replaceText(targetRange, finalReplacement, blockMode);
+    const bool blockMode = (m_view->blockSelection() && !targetRange.onSingleLine());
+    m_view->document()->replaceText(targetRange, finalReplacement, blockMode);
 }
 
 
@@ -469,7 +470,7 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     if (pattern.isEmpty()) {
         // Kill selection
-        nonstatic_selectRange(view(), Range(m_incInitCursor, m_incInitCursor));
+        nonstatic_selectRange(m_view, Range(m_incInitCursor, m_incInitCursor));
 
         // Kill highlight
         resetHighlights();
@@ -488,22 +489,22 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     m_incUi->prev->setDisabled(false);
 
     // Where to find?
-    const Range inputRange = KTextEditor::Range(m_incInitCursor, view()->doc()->documentEnd());
+    const Range inputRange = KTextEditor::Range(m_incInitCursor, m_view->document()->documentEnd());
 
     // Find, first try
-    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, pattern, searchOptions());
+    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
     Range match = resultRanges[0];
 
     if (match.isValid()) {
-        nonstatic_selectRange(view(), match);
+        nonstatic_selectRange(m_view, match);
         indicateMatch(MatchFound);
     } else {
             // Find, second try
-            const KTextEditor::Range inputRange2 = view()->doc()->documentRange();
-            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange2, pattern, searchOptions());
+            const KTextEditor::Range inputRange2 = m_view->document()->documentRange();
+            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange2, pattern, searchOptions());
             match = resultRanges2[0];
             if (match.isValid()) {
-                nonstatic_selectRange(view(), match);
+                nonstatic_selectRange(m_view, match);
                 indicateMatch(MatchWrappedForward);
             } else {
                 indicateMatch(MatchMismatch);
@@ -513,7 +514,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     resetHighlights();
 
     if (!match.isValid()) {
-        view()->setSelection(Range::invalid());
+        m_view->setSelection(Range::invalid());
     }
 }
 
@@ -538,10 +539,10 @@ void KateSearchBar::fixForSingleLine(Range & range, SearchDirection searchDirect
     if (searchDirection == SearchForward) {
         const int line = range.start().line();
         const int col = range.start().column();
-        const int maxColWithNewline = view()->doc()->lineLength(line) + 1;
+        const int maxColWithNewline = m_view->document()->lineLength(line) + 1;
         if (col == maxColWithNewline) {
             FAST_DEBUG("Starting on a newline" << range);
-            const int maxLine = view()->doc()->lines() - 1;
+            const int maxLine = m_view->document()->lines() - 1;
             if (line < maxLine) {
                 range.setRange(Cursor(line + 1, 0), range.end());
                 FAST_DEBUG("Search range fixed to " << range);
@@ -556,7 +557,7 @@ void KateSearchBar::fixForSingleLine(Range & range, SearchDirection searchDirect
             FAST_DEBUG("Ending after a newline" << range);
             const int line = range.end().line();
             if (line > 0) {
-                const int maxColWithNewline = view()->doc()->lineLength(line - 1);
+                const int maxColWithNewline = m_view->document()->lineLength(line - 1);
                 range.setRange(range.start(), Cursor(line - 1, maxColWithNewline));
                 FAST_DEBUG("Search range fixed to " << range);
             } else {
@@ -576,7 +577,7 @@ void KateSearchBar::onReturnPressed() {
     const bool controlDown = (modifiers & Qt::ControlModifier) != 0;
 
     // if vi input mode is active, the search box should be closed when hitting enter
-    if (view()->viInputMode()) {
+    if (m_view->viInputMode()) {
         emit hideMe();
         return;
     }
@@ -607,31 +608,31 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     // Where to find?
     Range inputRange;
     Range selection;
-    const bool selected = view()->selection();
+    const bool selected = m_view->selection();
     if (selected) {
-        selection = view()->selectionRange();
+        selection = m_view->selectionRange();
         if (selectionOnly()) {
             // First match in selection
             inputRange = selection;
         } else {
             // Next match after/before selection if a match was selected before
             if (searchDirection == SearchForward) {
-                inputRange.setRange(selection.start(), view()->doc()->documentEnd());
+                inputRange.setRange(selection.start(), m_view->document()->documentEnd());
             } else {
                 inputRange.setRange(Cursor(0, 0), selection.end());
             }
         }
     } else {
         // No selection
-            const Cursor cursorPos = view()->cursorPosition();
+            const Cursor cursorPos = m_view->cursorPosition();
             if (searchDirection == SearchForward) {
                 // if the vi input mode is used, the cursor will stay a the first character of the
                 // matched pattern (no selection will be made), so the next search should start from
                 // match column + 1
-                if (!view()->viInputMode()) {
-                    inputRange.setRange(cursorPos, view()->doc()->documentEnd());
+                if (!m_view->viInputMode()) {
+                    inputRange.setRange(cursorPos, m_view->document()->documentEnd());
                 } else {
-                    inputRange.setRange(Cursor(cursorPos.line(), cursorPos.column()+1), view()->doc()->documentEnd());
+                    inputRange.setRange(Cursor(cursorPos.line(), cursorPos.column()+1), m_view->document()->documentEnd());
                 }
             } else {
                 inputRange.setRange(Cursor(0, 0), cursorPos);
@@ -651,7 +652,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
 
     // Find, first try
-    const QVector<Range> resultRanges = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
     SmartRange * afterReplace = NULL;
@@ -661,7 +662,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
-                afterReplace = view()->doc()->newSmartRange(match);
+                afterReplace = m_view->doc()->newSmartRange(match);
                 afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
                 replaceMatch(resultRanges, *replacement);
 
@@ -683,17 +684,17 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Single-line pattern workaround
             fixForSingleLine(inputRange, searchDirection);
 
-            const QVector<Range> resultRanges2 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                nonstatic_selectRange2(view(), match2);
+                nonstatic_selectRange2(m_view, match2);
                 indicateMatch(MatchFound);
             } else {
                 // Find, third try from doc start on
                 wrap = true;
             }
         } else {
-            nonstatic_selectRange2(view(), match);
+            nonstatic_selectRange2(m_view, match);
             indicateMatch(MatchFound);
         }
     } else if (!selected || !selectionOnly()) {
@@ -703,15 +704,15 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     // Wrap around
     if (wrap) {
-        inputRange = view()->doc()->documentRange();
-        const QVector<Range> resultRanges3 = view()->doc()->searchText(inputRange, searchPattern(), enabledOptions);
+        inputRange = m_view->document()->documentRange();
+        const QVector<Range> resultRanges3 = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
             // Previously selected match again?
             if (selected && !selectionOnly() && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                nonstatic_selectRange2(view(), match3);
+                nonstatic_selectRange2(m_view, match3);
             }
             indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
         } else {
@@ -736,7 +737,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 void KateSearchBar::findAll()
 {
     resetHighlights();
-    const int occurrences = findAll(view()->doc()->documentRange(), NULL);
+    const int occurrences = findAll(m_view->document()->documentRange(), NULL);
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -872,11 +873,11 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     // Before first match
     resetHighlights();
 
-    SmartRange * const workingRange = view()->doc()->newSmartRange(inputRange);
+    SmartRange * const workingRange = m_view->doc()->newSmartRange(inputRange);
     QList<Range> highlightRanges;
     int matchCounter = 0;
     for (;;) {
-        const QVector<Range> resultRanges = view()->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
+        const QVector<Range> resultRanges = m_view->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
         Range match = resultRanges[0];
         if (!match.isValid()) {
             break;
@@ -886,11 +887,11 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
         // Work with the match
         if (replacement != NULL) {
             if (matchCounter == 0) {
-                view()->doc()->editBegin();
+                m_view->document()->startEditing();
             }
 
             // Track replacement operation
-            SmartRange * const afterReplace = view()->doc()->newSmartRange(match);
+            SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
             afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
 
             // Replace
@@ -930,7 +931,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     // After last match
     if (matchCounter > 0) {
         if (replacement != NULL) {
-            view()->doc()->editEnd();
+            m_view->document()->endEditing();
         }
     }
 
@@ -956,10 +957,10 @@ void KateSearchBar::onPowerReplaceAll() {
 
     // Where to replace?
     Range selection;
-    const bool selected = view()->selection();
+    const bool selected = m_view->selection();
     Range inputRange = (selected && selectionOnly())
-            ? view()->selectionRange()
-            : view()->doc()->documentRange();
+            ? m_view->selectionRange()
+            : m_view->document()->documentRange();
 
 
     // Pass on the hard work
@@ -1290,12 +1291,12 @@ void KateSearchBar::onMutatePower() {
     bool selectionOnly = false;
 
     // Guess settings from context: init pattern with current selection
-    const bool selected = view()->selection();
+    const bool selected = m_view->selection();
     if (selected) {
-        const Range & selection = view()->selectionRange();
+        const Range & selection = m_view->selectionRange();
         if (selection.onSingleLine()) {
             // ... with current selection
-            initialPattern = view()->selectionText();
+            initialPattern = m_view->selectionText();
         } else {
             // Enable selection only
             selectionOnly = true;
@@ -1431,12 +1432,12 @@ void KateSearchBar::onMutateIncremental() {
     QString initialPattern;
 
     // Guess settings from context: init pattern with current selection
-    const bool selected = view()->selection();
+    const bool selected = m_view->selection();
     if (selected) {
-        const Range & selection = view()->selectionRange();
+        const Range & selection = m_view->selectionRange();
         if (selection.onSingleLine()) {
             // ... with current selection
-            initialPattern = view()->selectionText();
+            initialPattern = m_view->selectionText();
         }
     }
 
@@ -1459,7 +1460,8 @@ void KateSearchBar::onMutateIncremental() {
 
     // Still no search pattern? Use the word under the cursor
     if (initialPattern.isNull()) {
-        initialPattern = view()->currentWord();
+        const KTextEditor::Cursor cursorPosition = m_view->cursorPosition();
+        initialPattern = m_view->doc()->getWord( cursorPosition );
     }
 
     // Create dialog
@@ -1572,13 +1574,13 @@ void KateSearchBar::setChecked(QAction * menuAction, bool checked) {
 
 
 void KateSearchBar::enableHighlights() {
-    view()->addInternalHighlight(m_topRange);
+    m_view->addInternalHighlight(m_topRange);
 }
 
 
 
 void KateSearchBar::disableHighlights() {
-    view()->removeInternalHighlight(m_topRange);
+    m_view->removeInternalHighlight(m_topRange);
     m_topRange->deleteChildRanges();
 }
 
@@ -1594,12 +1596,12 @@ void KateSearchBar::resetHighlights() {
 void KateSearchBar::showEvent(QShowEvent * event) {
     // Update init cursor
     if (m_incUi != NULL) {
-        m_incInitCursor = view()->cursorPosition();
+        m_incInitCursor = m_view->cursorPosition();
     }
 
-    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *)),
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
             this, SLOT(onSelectionChanged()));
-    connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(onCursorPositionChanged()));
 
     enableHighlights();
@@ -1609,9 +1611,9 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::closed() {
-    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *)),
+    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
             this, SLOT(onSelectionChanged()));
-    disconnect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+    disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(onCursorPositionChanged()));
 
     disableHighlights();
@@ -1625,10 +1627,10 @@ void KateSearchBar::onSelectionChanged() {
     }
 
     // Re-init "Selection only" checkbox if power search bar open
-    const bool selected = view()->selection();
+    const bool selected = m_view->selection();
     bool selectionOnly = selected;
     if (selected) {
-        Range const & selection = view()->selectionRange();
+        Range const & selection = m_view->selectionRange();
         selectionOnly = !selection.onSingleLine();
     }
     m_powerUi->selectionOnly->setChecked(selectionOnly);
@@ -1641,7 +1643,7 @@ void KateSearchBar::onCursorPositionChanged() {
     }
 
     // Update init cursor
-    m_incInitCursor = view()->cursorPosition();
+    m_incInitCursor = m_view->cursorPosition();
 }
 
 

@@ -265,7 +265,7 @@ class KateViewBarWidget : public QWidget
   Q_OBJECT
 
   public:
-    explicit KateViewBarWidget (bool addCloseButton, KateView* view, QWidget* parent = 0);
+    explicit KateViewBarWidget (bool addCloseButton, QWidget* parent = 0);
 
     virtual void closed(){};
   protected:
@@ -273,14 +273,12 @@ class KateViewBarWidget : public QWidget
      * @return widget that should be used to add controls to bar widget
      */
     QWidget *centralWidget() { return m_centralWidget; }
-    KateView* view() { return m_view; }
 
   signals:
     void hideMe();
 
   private:
     QWidget *m_centralWidget;
-    KateView* m_view;
 };
 
 // Helper layout class to always provide minimum size

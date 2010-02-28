@@ -36,7 +36,7 @@ class KateViModeBar : public KateViewBarWidget
 {
   Q_OBJECT
 public:
-  explicit KateViModeBar(KateView* view, QWidget* parent = 0);
+  explicit KateViModeBar(QWidget* parent = 0);
   ~KateViModeBar();
 
   void updateViMode(ViMode mode);

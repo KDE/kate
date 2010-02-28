@@ -2213,11 +2213,6 @@ QString KateView::currentTextLine( )
   return m_doc->line( cursorPosition().line() );
 }
 
-QString KateView::currentWord( )
-{
-  return m_doc->getWord( cursorPosition() );
-}
-
 void KateView::indent( )
 {
   KTextEditor::Cursor c(cursorPosition().line(), 0);

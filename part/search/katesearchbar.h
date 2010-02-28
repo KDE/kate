@@ -162,6 +162,7 @@ private:
 
 private:
     // Shared by both dialogs
+    KateView *const m_view;
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRangeNotifier *m_rangeNotifier;
     QVBoxLayout *const m_layout;

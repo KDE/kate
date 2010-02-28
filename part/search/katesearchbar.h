@@ -93,8 +93,7 @@ public Q_SLOTS:
     void enterPowerMode();
     void enterIncrementalMode();
 
-    void enableHighlights();
-    void disableHighlights();
+    void resetHighlights();
 
 protected:
     // Overridden
@@ -121,6 +120,9 @@ private Q_SLOTS:
 
     void onRangeContentsChanged(KTextEditor::SmartRange* range);
 
+    void enableHighlights();
+    void disableHighlights();
+
 private:
     // Helpers
     bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);
@@ -136,8 +138,6 @@ private:
 
     bool selectionOnly() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
-
-    void resetHighlights();
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);

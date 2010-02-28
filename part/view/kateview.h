@@ -646,10 +646,12 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   public:
     KateViewBar *viewBar() const;
     KateCommandLineBar *cmdLineBar ();
+    KateDictionaryBar *dictionaryBar();
+
+  private:
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
-    KateDictionaryBar *dictionaryBar();
 
   /**
    * viewbar + its widgets

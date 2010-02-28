@@ -154,17 +154,22 @@ namespace JoWenn {
         QString title=m->data(mergedRepoIndex,Qt::DisplayRole).toString();       
         QMenu  *menu=m_addSnippetToPopup->addMenu(title);
         //kDebug()<<"currentHlMode:"<<currentHlMode<<" title:"<<title;
+        QString on_the_go_title=i18n(ON_THE_GO_TEMPLATESTR,title);
         QStringList files=m->data(mergedRepoIndex, KTextEditor::CodesnippetsCore::SnippetSelectorModel::MergedFilesRole).toStringList();
         //kDebug()<<files;
+        bool on_the_go_found=false;
         foreach (const QString& filename, files) {          
           //kDebug()<<"looking up filename: "<<filename;
           QModelIndex repoFileIdx=repo->indexForFile(filename);
           //kDebug()<<repoFileIdx;
           if (repoFileIdx.isValid())
           {
-            menu->addAction(repo->data(repoFileIdx,KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NameRole).toString());
+            QString n=repo->data(repoFileIdx,KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NameRole).toString();
+            if (n==on_the_go_title) on_the_go_found=true;
+            menu->addAction(n)->setData(QVariant(filename));;
           } else kDebug()<<"Filename not found in repository";
         }
+        if (!on_the_go_found) menu->insertAction(0,new QAction(on_the_go_title,menu));
       }
   }
 

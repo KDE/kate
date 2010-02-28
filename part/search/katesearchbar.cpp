@@ -186,9 +186,9 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
 
     // Load one of either dialogs
     if (initAsPower) {
-        onMutatePower();
+        enterPowerMode();
     } else {
-        onMutateIncremental();
+        enterIncrementalMode();
     }
 }
 
@@ -338,10 +338,10 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
 void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
     disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-               this, SLOT(onSelectionChanged()));
+               this, SLOT(updateSelectionOnly()));
     selectRange(m_view, range);
     connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(onSelectionChanged()));
+            this, SLOT(updateSelectionOnly()));
 }
 
 
@@ -490,10 +490,10 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
 
     // don't update m_incInitCursor when we move the cursor
     disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
-               this, SLOT(onCursorPositionChanged()));
+               this, SLOT(updateIncInitCursor()));
     selectRange2(selectionRange);
     connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
-            this, SLOT(onCursorPositionChanged()));
+            this, SLOT(updateIncInitCursor()));
 
     indicateMatch(matchResult);
 }
@@ -830,7 +830,7 @@ void KateSearchBar::sendConfig() {
 
 
 
-void KateSearchBar::onPowerReplaceNext() {
+void KateSearchBar::replaceNext() {
     const QString replacement = m_powerUi->replacement->currentText();
 
     if (find(SearchForward, &replacement)) {
@@ -933,7 +933,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
 
 
 
-void KateSearchBar::onPowerReplaceAll() {
+void KateSearchBar::replaceAll() {
     // What to find/replace?
     const QString replacement = m_powerUi->replacement->currentText();
 
@@ -1268,7 +1268,7 @@ void KateSearchBar::onPowerModeChanged(int /*index*/) {
 
 
 
-void KateSearchBar::onMutatePower() {
+void KateSearchBar::enterPowerMode() {
     QString initialPattern;
     bool selectionOnly = false;
 
@@ -1379,19 +1379,19 @@ void KateSearchBar::onMutatePower() {
 
     if (create) {
         // Slots
-        connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
+        connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(enterIncrementalMode()));
         connect(patternLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
         connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(findPrevious()));
-        connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
-        connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+        connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(replaceNext()));
+        connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(replaceAll()));
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
         connect(m_powerUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));
         connect(m_powerUi->findAll, SIGNAL(clicked()), this, SLOT(findAll()));
 
         // Make [return] in pattern line edit trigger <find next> action
         connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
-        connect(replacementLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerReplaceNext()));
+        connect(replacementLineEdit, SIGNAL(returnPressed()), this, SLOT(replaceNext()));
 
         // Hook into line edit context menus
         m_powerUi->pattern->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -1410,7 +1410,7 @@ void KateSearchBar::onMutatePower() {
 
 
 
-void KateSearchBar::onMutateIncremental() {
+void KateSearchBar::enterIncrementalMode() {
     QString initialPattern;
 
     // Guess settings from context: init pattern with current selection
@@ -1512,7 +1512,7 @@ void KateSearchBar::onMutateIncremental() {
 
     if (create) {
         // Slots
-        connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
+        connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(enterPowerMode()));
         connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
@@ -1582,9 +1582,9 @@ void KateSearchBar::showEvent(QShowEvent * event) {
     }
 
     connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(onSelectionChanged()));
+            this, SLOT(updateSelectionOnly()));
     connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
-            this, SLOT(onCursorPositionChanged()));
+            this, SLOT(updateIncInitCursor()));
 
     enableHighlights();
     KateViewBarWidget::showEvent(event);
@@ -1594,16 +1594,16 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 void KateSearchBar::closed() {
     disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(onSelectionChanged()));
+            this, SLOT(updateSelectionOnly()));
     disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
-            this, SLOT(onCursorPositionChanged()));
+            this, SLOT(updateIncInitCursor()));
 
     disableHighlights();
 }
 
 
 
-void KateSearchBar::onSelectionChanged() {
+void KateSearchBar::updateSelectionOnly() {
     if (m_powerUi == NULL) {
         return;
     }
@@ -1619,7 +1619,7 @@ void KateSearchBar::onSelectionChanged() {
 }
 
 
-void KateSearchBar::onCursorPositionChanged() {
+void KateSearchBar::updateIncInitCursor() {
     if (m_incUi == NULL) {
         return;
     }

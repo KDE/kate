@@ -90,8 +90,8 @@ public Q_SLOTS:
     void findAll();
 
     // Also used by KateView
-    void onMutatePower();
-    void onMutateIncremental();
+    void enterPowerMode();
+    void enterIncrementalMode();
 
     void enableHighlights();
     void disableHighlights();
@@ -106,12 +106,12 @@ private Q_SLOTS:
     void onMatchCaseToggled(bool matchCase);
 
     void onReturnPressed();
-    void onSelectionChanged();
-    void onCursorPositionChanged();
+    void updateSelectionOnly();
+    void updateIncInitCursor();
 
     void onPowerPatternChanged(const QString & pattern);
-    void onPowerReplaceNext();
-    void onPowerReplaceAll();
+    void replaceNext();
+    void replaceAll();
 
     void onPowerModeChanged(int index);
     void onPowerPatternContextMenuRequest();

@@ -244,6 +244,7 @@ namespace KTextEditor {
     
        
     void SnippetRepositoryModel::createOrUpdateList(bool update) {
+      kDebug()<<"BEGIN";
       KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
 
       createOrUpdateListSub(config,KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/data/*.xml",KStandardDirs::NoDuplicates),update,false);
@@ -252,6 +253,7 @@ namespace KTextEditor {
       config.sync();
       reset();
       emit typeChanged(QStringList("*"));
+      kDebug()<<"END";
     }
     
     void SnippetRepositoryModel::createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile) {
@@ -339,6 +341,7 @@ namespace KTextEditor {
         if (!index.isValid()) return false;
         switch (role) {
           case EnabledRole:
+              kDebug()<<"setting enabled state for:"<<entry.filename;
               entry.enabled=value.toBool();
               emit dataChanged(index,index);
               emit typeChanged(entry.fileType());
@@ -372,8 +375,9 @@ namespace KTextEditor {
       if (add_after_creation) {
         QString token=QUuid::createUuid().toString();
         tracking_params=QString("?token=")+QUrl::toPercentEncoding(token)+
-        "&service="+QUrl::toPercentEncoding("BLAH");
+        "&service="+QUrl::toPercentEncoding(m_dbusServiceName)+
         "&object="+QUrl::toPercentEncoding(m_dbusObjectPath);
+        m_newTokens.append(token);
       }
       if (!KRun::runUrl(KUrl("new-file:///"+QUrl::toPercentEncoding(type)+tracking_params),"application/x-katesnippets_tng",dialogParent)) {
         KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
@@ -497,7 +501,17 @@ namespace KTextEditor {
       }
       return QModelIndex();
     }
-        
+
+  void SnippetRepositoryModel::tokenNewHandled(const QString& token, const QString& filepath)
+  {
+      if (!m_newTokens.contains(token)) return;
+      m_newTokens.remove(token);
+      if (!filepath.isEmpty()) {
+        QModelIndex idx=indexForFile(filepath);
+        if (idx.isValid())
+          setData(idx,QVariant(true),EnabledRole);
+      }
+  }
 //END: Model
 
 //BEGIN: Config Widget
@@ -541,7 +555,6 @@ namespace KTextEditor {
 //END: Config Widget
 
 
-
 //BEGIN: DBus Adaptor
 
     SnippetRepositoryModelAdaptor::SnippetRepositoryModelAdaptor(SnippetRepositoryModel *repository):
@@ -552,6 +565,11 @@ namespace KTextEditor {
     void SnippetRepositoryModelAdaptor::updateSnippetRepository()
     {
       m_repository->createOrUpdateList(true);
+    }
+ 
+    void SnippetRepositoryModelAdaptor::tokenNewHandled(const QString& token, const QString& filepath)
+    {
+      m_repository->tokenNewHandled(token,filepath);
     }
  
 //END: DBus Adaptor

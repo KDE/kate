@@ -89,6 +89,7 @@ namespace KTextEditor {
         };
       private:
         void createOrUpdateList(bool update);
+        void tokenNewHandled(const QString& token, const QString& filepath);
         QString m_dbusServiceName;
         QString m_dbusObjectPath;
         friend class SnippetRepositoryModelAdaptor;
@@ -117,6 +118,7 @@ namespace KTextEditor {
         QList<SnippetRepositoryEntry> m_entries;
         void createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile);
         class SnippetRepositoryModelPrivate *d;
+        QStringList m_newTokens;
     };
     
     
@@ -149,6 +151,7 @@ namespace KTextEditor {
         virtual ~SnippetRepositoryModelAdaptor();
       public Q_SLOTS:
         void updateSnippetRepository();
+        void tokenNewHandled(const QString& token, const QString& filepath);
       private:
         SnippetRepositoryModel* m_repository;
         SnippetRepositoryModelAdaptorPrivate *d;

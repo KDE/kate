@@ -25,7 +25,22 @@ namespace KTextEditor {
   namespace CodesnippetsCore {
 #ifdef SNIPPET_EDITOR
   namespace Editor {
+    
+    void  notifyTokenNewHandled(const QString& token, const QString& service, const QString& object, const QString& filePath) {
+	    QString objpath_qstring=QString(service);
+	    QByteArray objpath_bytestring=object.utf8();
+	    QLatin1String objpath(objpath_bytestring.constData());
+	    QDBusMessage m = QDBusMessage::createMethodCall (service,            
+	    object, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "tokenNewHandled");
+	    QList<QVariant>args;
+	    args<<QVariant(token);
+	    args<<QVariant(filePath);
+	    m.setArguments(args);
+	    QDBusConnection::sessionBus().call (m);          
+    }    
+    
 #endif
+
     void notifyRepos() {
     /*  QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
       if (!interface) return;

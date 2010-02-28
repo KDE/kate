@@ -109,15 +109,34 @@ bool FiletypeListDropDown::eventFilter(QObject *obj,QEvent *event) {
 SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& url): KMainWindow(0), Ui::SnippetEditorView(),m_modified(false),m_url(url),m_snippetData(0),m_selectorModel(0)
 {  
   if (!m_url.isLocalFile()) {
+    kDebug()<<m_url.query();    
+    QString token=m_url.queryItem("token");
+    QString service=m_url.queryItem("service");
+    QString object=m_url.queryItem("object");
+    kDebug()<<token;
+    kDebug()<<service;
+    kDebug()<<object;
     m_ok=false;
     SnippetEditorNewDialog nd(this);
-    if (nd.exec()==QDialog::Rejected) return;
+    if (nd.exec()==QDialog::Rejected) 
+    {
+      if (!token.isEmpty())
+        notifyTokenNewHandled(token,service,object,"");
+      return;
+    }
     QString new_type=m_url.path();
     new_type=new_type.right(new_type.length()-1);
     QString newPath=KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel::createNew(nd.snippetCollectionName->text(),nd.snippetCollectionLicense->currentText(),nd.snippetCollectionAuthors->text(),new_type);
-    if (newPath.isEmpty()) return;
+    if (newPath.isEmpty()) 
+    {
+      if (!token.isEmpty())
+        notifyTokenNewHandled(token,service,object,"");
+      return;
+    }
     m_url=KUrl::fromPath(newPath);
     notifyRepos();
+    if (!token.isEmpty())
+      notifyTokenNewHandled(token,service,object,newPath);
   }
   m_ok=true;
   QWidget *widget=new QWidget(this);

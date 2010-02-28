@@ -22,6 +22,7 @@ namespace KTextEditor {
   namespace CodesnippetsCore {
 #ifdef SNIPPET_EDITOR
   namespace Editor {
+    void  notifyTokenNewHandled(const QString& token, const QString& service, const QString& object, const QString&filePath);
 #endif
     KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT void notifyRepos();
 #ifdef SNIPPET_EDITOR

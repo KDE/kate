@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2009 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
+   Copyright (C) 2009-2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -360,7 +360,7 @@ class KateUndoGroup
      * Constructor
      * @param manager KateUndoManager this undo group will belong to
      */
-    explicit KateUndoGroup (KateUndoManager *manager);
+    explicit KateUndoGroup (KateUndoManager *manager, const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range &selectionRange);
 
     /**
      * Destructor
@@ -371,14 +371,14 @@ class KateUndoGroup
     /**
      * Undo the contained undo items
      */
-    void undo();
+    void undo(KateView *view);
 
     /**
      * Redo the contained undo items
      */
-    void redo();
+    void redo(KateView *view);
 
-    void editEnd();
+    void editEnd(const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range selectionRange);
 
     /**
      * merge this group with an other
@@ -399,9 +399,7 @@ class KateUndoGroup
     bool isEmpty() const { return m_items.isEmpty(); }
 
   private:
-    KateDocument *document();
-
-    KateView *activeKateView();
+    KTextEditor::Document *document();
 
     /**
      * singleType
@@ -439,7 +437,7 @@ class KateUndoGroup
     /**
      * the text selection of the active view before the edit step
      */
-    KTextEditor::Range m_undoSelection;
+    const KTextEditor::Range m_undoSelection;
 
     /**
      * the text selection of the active view after the edit step
@@ -449,7 +447,7 @@ class KateUndoGroup
     /**
      * the cursor position of the active view before the edit step
      */
-    KTextEditor::Cursor m_undoCursor;
+    const KTextEditor::Cursor m_undoCursor;
 
     /**
      * the cursor position of the active view after the edit step

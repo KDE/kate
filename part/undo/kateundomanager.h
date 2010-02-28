@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2009 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
+   Copyright (C) 2009-2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -23,6 +23,7 @@
 #include <QtCore/QList>
 
 class KateDocument;
+class KateView;
 class KateUndo;
 class KateUndoGroup;
 
@@ -52,7 +53,7 @@ class KateUndoManager : public QObject
 
     ~KateUndoManager();
 
-    KateDocument *document();
+    KTextEditor::Document *document();
 
     /**
      * Returns how many undo() actions can be performed.
@@ -174,7 +175,7 @@ class KateUndoManager : public QObject
     void aboutToRedo ();
     void isActiveChanged(bool enabled);
 
-  private:
+  private Q_SLOTS:
     /**
      * @short Add an undo item to the current undo group.
      *
@@ -186,9 +187,11 @@ class KateUndoManager : public QObject
 
     void updateModified();
 
-  private Q_SLOTS:
     void undoCancel();
     void viewCreated (KTextEditor::Document *, KTextEditor::View *newView);
+
+  private:
+    KateView *activeKateView();
 
   private:
     KateDocument *m_document;

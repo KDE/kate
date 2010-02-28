@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2009 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
+   Copyright (C) 2009-2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -22,10 +22,10 @@
 #include "kateundo.h"
 
 #include "kateundomanager.h"
-
 #include "katedocument.h"
 #include "kateview.h"
-#include "katecursor.h"
+
+#include <ktexteditor/cursor.h>
 
 KateUndo::KateUndo (KateDocument *document)
 : m_document (document)
@@ -184,19 +184,14 @@ void KateEditMarkLineAutoWrappedUndo::redo ()
       doc->editMarkLineAutoWrapped (m_line, m_autowrapped);
 }
 
-KateUndoGroup::KateUndoGroup (KateUndoManager *manager)
+KateUndoGroup::KateUndoGroup (KateUndoManager *manager, const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range &selectionRange)
   : m_manager (manager)
   , m_safePoint(false)
-  , m_undoSelection(-1, -1, -1, -1)
+  , m_undoSelection(selectionRange)
   , m_redoSelection(-1, -1, -1, -1)
-  , m_undoCursor(-1, -1)
+  , m_undoCursor(cursorPosition)
   , m_redoCursor(-1, -1)
 {
-  if (activeKateView())
-  {
-    m_undoCursor = activeKateView()->cursorPosition();
-    m_undoSelection = activeKateView()->selectionRange();
-  }
 }
 
 KateUndoGroup::~KateUndoGroup ()
@@ -204,7 +199,7 @@ KateUndoGroup::~KateUndoGroup ()
   qDeleteAll (m_items);
 }
 
-void KateUndoGroup::undo ()
+void KateUndoGroup::undo (KateView *view)
 {
   if (m_items.isEmpty())
     return;
@@ -214,7 +209,7 @@ void KateUndoGroup::undo ()
   for (int i=m_items.size()-1; i >= 0; --i)
     m_items[i]->undo();
 
-  if (KateView *view = activeKateView()) {
+  if (view != 0) {
     if (m_undoSelection.isValid())
       view->setSelection(m_undoSelection);
     else
@@ -227,7 +222,7 @@ void KateUndoGroup::undo ()
   m_manager->undoEnd ();
 }
 
-void KateUndoGroup::redo ()
+void KateUndoGroup::redo (KateView *view)
 {
   if (m_items.isEmpty())
     return;
@@ -237,7 +232,7 @@ void KateUndoGroup::redo ()
   for (int i=0; i < m_items.size(); ++i)
     m_items[i]->redo();
 
-  if (KateView *view = activeKateView()) {
+  if (view != 0) {
     if (m_redoSelection.isValid())
       view->setSelection(m_redoSelection);
     else
@@ -250,13 +245,10 @@ void KateUndoGroup::redo ()
   m_manager->undoEnd ();
 }
 
-void KateUndoGroup::editEnd()
+void KateUndoGroup::editEnd(const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range selectionRange)
 {
-  if (activeKateView())
-  {
-    m_redoCursor = activeKateView()->cursorPosition();
-    m_redoSelection = activeKateView()->selectionRange();
-  }
+  m_redoCursor = cursorPosition;
+  m_redoSelection = selectionRange;
 }
 
 void KateUndoGroup::addItem(KateUndo* u)
@@ -299,14 +291,9 @@ void KateUndoGroup::safePoint (bool safePoint)
   m_safePoint=safePoint;
 }
 
-KateDocument *KateUndoGroup::document()
+KTextEditor::Document *KateUndoGroup::document()
 {
   return m_manager->document();
-}
-
-KateView *KateUndoGroup::activeKateView()
-{
-  return document()->activeKateView();
 }
 
 KateUndo::UndoType KateUndoGroup::singleType() const

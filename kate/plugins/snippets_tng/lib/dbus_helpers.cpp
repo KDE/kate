@@ -40,33 +40,18 @@ namespace KTextEditor {
       QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
       if (!interface) return;
       QStringList serviceNames = interface->registeredServiceNames();
-      QDomDocument xml_doc;
+
       foreach(const QString serviceName,serviceNames)
       {
-	if (serviceName.startsWith("org.kde.kate-"))
+	//m_dbusServiceName=QString("org.kde.KTECodesnippetsCore-%1.%2").arg(getpid()).arg(++s_id);
+	if (serviceName.startsWith("org.kde.ktecodesnippetscore-"))
 	{
-	  QDBusMessage im = QDBusMessage::createMethodCall (serviceName,
-	  QLatin1String("/KTECodesnippetsCore/Repository"), "org.freedesktop.DBus.Introspectable", "Introspect");
-	  QDBusReply<QString> xml=QDBusConnection::sessionBus().call (im);
-	  if (xml.isValid())
-	  {            
-	    kDebug()<<xml;
-	    xml_doc.setContent(xml);
-	    QDomElement el=xml_doc.documentElement().firstChildElement();
-	    while (!el.isNull())
-	    {
-	      if (el.tagName()==QLatin1String("node"))
-	      {
-		QString objpath_qstring=QString("/KTECodesnippetsCore/Repository/%1").arg(el.attribute("name"));
-		QByteArray objpath_bytestring=objpath_qstring.utf8();
-		QLatin1String objpath(objpath_bytestring.constData());
-		QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
-		objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-		QDBusConnection::sessionBus().call (m);          
-	      }
-	      el=el.nextSiblingElement();
-	    }
-	  }
+	    QString objpath_qstring=QString("/Repository");
+	    QByteArray objpath_bytestring=objpath_qstring.utf8();
+	    QLatin1String objpath(objpath_bytestring.constData());
+	    QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
+	    objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
+	    QDBusConnection::sessionBus().call (m);          
 	}
       }
     }

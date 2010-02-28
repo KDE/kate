@@ -42,6 +42,8 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <kcolorscheme.h>
+#include <QUuid>
+#include <unistd.h>
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -220,11 +222,19 @@ namespace KTextEditor {
     long SnippetRepositoryModel::s_id=0;
 
     SnippetRepositoryModel::SnippetRepositoryModel(QObject *parent):
-      QAbstractListModel(parent) {
+      QAbstractListModel(parent),m_connection(QDBusConnection::connectToBus(QDBusConnection::SessionBus,"KTECSCRepoConn"))
+    {
       createOrUpdateList(false);
+      kDebug()<<m_connection.lastError().message();
+      Q_ASSERT(m_connection.isConnected());
+      m_dbusServiceName=QString("org.kde.ktecodesnippetscore-%1-%2").arg(getpid()).arg(++s_id);
+      kDebug()<<m_dbusServiceName;
+      bool register_service=m_connection.registerService(m_dbusServiceName);
+      kDebug()<<m_connection.lastError().message();
+      Q_ASSERT(register_service);
       new SnippetRepositoryModelAdaptor(this);
-      QString dbusObjectPath (QString("/KTECodesnippetsCore/Repository/%1").arg(++s_id));
-      QDBusConnection::sessionBus().registerObject( dbusObjectPath, this );
+      m_dbusObjectPath=QString("/Repository");
+      m_connection.registerObject( m_dbusObjectPath, this );
     }
     
     SnippetRepositoryModel::~SnippetRepositoryModel() {}
@@ -357,8 +367,15 @@ namespace KTextEditor {
         return QAbstractListModel::setData(index,value,role);
     }
 
-    void SnippetRepositoryModel::newEntry(QWidget *dialogParent,const QString& type) {
-      if (!KRun::runUrl(KUrl("new-file:///"+QUrl::toPercentEncoding(type)),"application/x-katesnippets_tng",dialogParent)) {
+    void SnippetRepositoryModel::newEntry(QWidget *dialogParent,const QString& type,bool add_after_creation) {
+      QString tracking_params;
+      if (add_after_creation) {
+        QString token=QUuid::createUuid().toString();
+        tracking_params=QString("?token=")+QUrl::toPercentEncoding(token)+
+        "&service="+QUrl::toPercentEncoding("BLAH");
+        "&object="+QUrl::toPercentEncoding(m_dbusObjectPath);
+      }
+      if (!KRun::runUrl(KUrl("new-file:///"+QUrl::toPercentEncoding(type)+tracking_params),"application/x-katesnippets_tng",dialogParent)) {
         KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
       }
     }

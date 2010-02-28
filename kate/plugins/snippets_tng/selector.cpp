@@ -186,7 +186,7 @@ namespace JoWenn {
       if (!fi) {
         m_plugin->repositoryData()->newEntry(this);        
       } else {
-        m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()));
+        m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()),true);
       }
   }
 

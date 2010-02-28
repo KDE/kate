@@ -25,6 +25,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor_codesnippets_core_export.h>
 #include <qdbusabstractadaptor.h>
+#include <QDBusConnection>
 class KConfigBase;
 class KConfig;
 
@@ -88,8 +89,11 @@ namespace KTextEditor {
         };
       private:
         void createOrUpdateList(bool update);
+        QString m_dbusServiceName;
+        QString m_dbusObjectPath;
         friend class SnippetRepositoryModelAdaptor;
         static long s_id;
+        QDBusConnection m_connection;
       public:
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -105,7 +109,7 @@ namespace KTextEditor {
       Q_SIGNALS:
         void typeChanged(const QStringList& fileType);
       public:
-        void newEntry(QWidget *dialogParent,const QString& type=QString());
+        void newEntry(QWidget *dialogParent,const QString& type=QString(),bool add_after_creation=false);
       public Q_SLOTS:
         void newEntry();
         void copyToRepository(const KUrl& src);

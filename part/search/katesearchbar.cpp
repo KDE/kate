@@ -336,22 +336,11 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
 
 
-void KateSearchBar::nonstatic_selectRange(KateView * view, const KTextEditor::Range & range) {
-    // don't update m_incInitCursor when we move the cursor 
-    disconnect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
-               this, SLOT(onCursorPositionChanged()));
-    nonstatic_selectRange2(view, range);
-    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
-            this, SLOT(onCursorPositionChanged()));
-}
-
-
-
-void KateSearchBar::nonstatic_selectRange2(KateView * view, const KTextEditor::Range & range) {
-    disconnect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
+    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
                this, SLOT(onSelectionChanged()));
-    selectRange(view, range);
-    connect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+    selectRange(m_view, range);
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
             this, SLOT(onSelectionChanged()));
 }
 
@@ -468,54 +457,45 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
 
 
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
-    if (pattern.isEmpty()) {
-        // Kill selection
-        nonstatic_selectRange(m_view, Range(m_incInitCursor, m_incInitCursor));
-
-        // Kill highlight
-        resetHighlights();
-
-        // Reset edit color
-        indicateMatch(MatchNothing);
-
-        // Disable next/prev
-        m_incUi->next->setDisabled(true);
-        m_incUi->prev->setDisabled(true);
-        return;
-    }
-
-    // Enable next/prev
-    m_incUi->next->setDisabled(false);
-    m_incUi->prev->setDisabled(false);
-
-    // Where to find?
-    const Range inputRange = KTextEditor::Range(m_incInitCursor, m_view->document()->documentEnd());
-
-    // Find, first try
-    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
-    Range match = resultRanges[0];
-
-    if (match.isValid()) {
-        nonstatic_selectRange(m_view, match);
-        indicateMatch(MatchFound);
-    } else {
-            // Find, second try
-            const KTextEditor::Range inputRange2 = m_view->document()->documentRange();
-            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange2, pattern, searchOptions());
-            match = resultRanges2[0];
-            if (match.isValid()) {
-                nonstatic_selectRange(m_view, match);
-                indicateMatch(MatchWrappedForward);
-            } else {
-                indicateMatch(MatchMismatch);
-            }
-    }
-
     resetHighlights();
 
-    if (!match.isValid()) {
-        m_view->setSelection(Range::invalid());
+    m_incUi->next->setDisabled(pattern.isEmpty());
+    m_incUi->prev->setDisabled(pattern.isEmpty());
+
+    Range match = Range::invalid();
+
+    if (!pattern.isEmpty()) {
+        // Find, first try
+        const Range inputRange = KTextEditor::Range(m_incInitCursor, m_view->document()->documentEnd());
+        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
+        match = resultRanges[0];
     }
+
+    const bool wrap = !match.isValid() && !pattern.isEmpty();
+
+    if (wrap) {
+        // Find, second try
+        const KTextEditor::Range inputRange = m_view->document()->documentRange();
+        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
+        match = resultRanges[0];
+    }
+
+    const MatchResult matchResult = match.isValid()   ? (wrap ? MatchWrappedForward : MatchFound) :
+                                    pattern.isEmpty() ? MatchNothing :
+                                                        MatchMismatch;
+
+    const Range selectionRange = pattern.isEmpty() ? Range(m_incInitCursor, m_incInitCursor) :
+                                 match.isValid()   ? match :
+                                                     Range::invalid();
+
+    // don't update m_incInitCursor when we move the cursor
+    disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+               this, SLOT(onCursorPositionChanged()));
+    selectRange2(selectionRange);
+    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+            this, SLOT(onCursorPositionChanged()));
+
+    indicateMatch(matchResult);
 }
 
 
@@ -687,14 +667,14 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                nonstatic_selectRange2(m_view, match2);
+                selectRange2(match2);
                 indicateMatch(MatchFound);
             } else {
                 // Find, third try from doc start on
                 wrap = true;
             }
         } else {
-            nonstatic_selectRange2(m_view, match);
+            selectRange2(match);
             indicateMatch(MatchFound);
         }
     } else if (!selected || !selectionOnly()) {
@@ -712,7 +692,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             if (selected && !selectionOnly() && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                nonstatic_selectRange2(m_view, match3);
+                selectRange2(match3);
             }
             indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
         } else {

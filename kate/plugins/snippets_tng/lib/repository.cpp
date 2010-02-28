@@ -44,6 +44,7 @@
 #include <kcolorscheme.h>
 #include <QUuid>
 #include <unistd.h>
+#include <ktemporaryfile.h>
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -379,6 +380,13 @@ namespace KTextEditor {
         "&object="+QUrl::toPercentEncoding(m_dbusObjectPath);
         m_newTokens.append(token);
       }
+#ifdef Q_WS_X11
+      if (tracking_params.isEmpty())
+        tracking_params+="?";
+      else
+        tracking_params+="&";
+      tracking_params+=QString("window=%1").arg(dialogParent->effectiveWinId());
+#endif
       if (!KRun::runUrl(KUrl("new-file:///"+QUrl::toPercentEncoding(type)+tracking_params),"application/x-katesnippets_tng",dialogParent)) {
         KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
       }
@@ -489,19 +497,32 @@ namespace KTextEditor {
       group.sync();
     }
         
-    QModelIndex SnippetRepositoryModel::indexForFile(const QString& filename)
+  QModelIndex SnippetRepositoryModel::indexForFile(const QString& filename)
+  {
+    for (int i=0;i<m_entries.count();i++)
     {
-      for (int i=0;i<m_entries.count();i++)
-      {
-        const SnippetRepositoryEntry& entry=m_entries[i];
-        //kdDebug()<<"comparing entry.filename with filename:"<< entry.filename<<" -- "<<filename;
-        if (entry.filename==filename) {         
-          return index(i,0);
-        }
+      const SnippetRepositoryEntry& entry=m_entries[i];
+      //kdDebug()<<"comparing entry.filename with filename:"<< entry.filename<<" -- "<<filename;
+      if (entry.filename==filename) {         
+        return index(i,0);
       }
-      return QModelIndex();
     }
+    return QModelIndex();
+  }
 
+  QModelIndex SnippetRepositoryModel::findFirstByName(const QString& name)
+  {
+    for (int i=0;i<m_entries.count();i++)
+    {
+      const SnippetRepositoryEntry& entry=m_entries[i];
+      //kdDebug()<<"comparing entry.filename with filename:"<< entry.filename<<" -- "<<filename;
+      if (entry.name==name) {         
+        return index(i,0);
+      }
+    }
+    return QModelIndex();
+  }
+  
   void SnippetRepositoryModel::tokenNewHandled(const QString& token, const QString& filepath)
   {
       if (!m_newTokens.contains(token)) return;
@@ -512,6 +533,57 @@ namespace KTextEditor {
           setData(idx,QVariant(true),EnabledRole);
       }
   }
+  
+  void SnippetRepositoryModel::addSnippetToFile(QWidget *dialogParent,const QString& snippet, const QString& filename)
+  {
+      KTemporaryFile tf;
+      tf.setAutoRemove(false);
+      tf.open();
+      QString destFileName=tf.fileName();
+      tf.write(snippet.toUtf8());
+      tf.close();
+            
+      KUrl url=KUrl::fromPath(filename);
+      url.addQueryItem("addthis",destFileName);
+#ifdef Q_WS_X11      
+      url.addQueryItem("window",QString("%1").arg(dialogParent->effectiveWinId()));
+#endif
+      kDebug()<<destFileName<<" --> "<<url.prettyUrl();      
+      if (!KRun::runUrl(url,"application/x-katesnippets_tng",dialogParent)) {
+        tf.remove();
+        KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+      }                  
+  }
+
+void SnippetRepositoryModel::addSnippetToNewEntry(QWidget * dialogParent, const QString& snippet,
+  const QString &repoTitle, const QString& type, bool add_after_creation)   {
+      KTemporaryFile tf;
+      tf.setAutoRemove(false);
+      tf.open();
+      QString destFileName=tf.fileName();
+      tf.write(snippet.toUtf8());
+      tf.close();
+            
+      KUrl url=KUrl(QString("new-file:///%1").arg(type));
+      url.addQueryItem("addthis",destFileName);
+      url.addQueryItem("repotitle",repoTitle);
+
+      if (add_after_creation) {
+        QString token=QUuid::createUuid().toString();
+        url.addQueryItem("token",token);
+        url.addQueryItem("service",m_dbusServiceName);
+        url.addQueryItem("object",m_dbusObjectPath);
+        m_newTokens.append(token);
+      }           
+#ifdef Q_WS_X11
+      url.addQueryItem("window",QString("%1").arg(dialogParent->effectiveWinId()));
+#endif
+      if (!KRun::runUrl(url,"application/x-katesnippets_tng",dialogParent)) {
+        KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-katesnippets_tng' could not be started"));
+      }
+  }
+
+
 //END: Model
 
 //BEGIN: Config Widget

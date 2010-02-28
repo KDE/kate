@@ -24,9 +24,10 @@
 #include "../lib/completionmodel.h"
 #include "../lib/dbus_helpers.h"
 #include <kmessagebox.h>
+#include <kwindowsystem.h>
 #include <QDBusConnectionInterface>
-
 #include <QStandardItem>
+#include <qfile.h>
 
 using namespace KTextEditor::CodesnippetsCore::Editor;
 
@@ -109,6 +110,7 @@ bool FiletypeListDropDown::eventFilter(QObject *obj,QEvent *event) {
 SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& url): KMainWindow(0), Ui::SnippetEditorView(),m_modified(false),m_url(url),m_snippetData(0),m_selectorModel(0)
 {  
   if (!m_url.isLocalFile()) {
+    QString addThis=m_url.queryItem("addthis");
     kDebug()<<m_url.query();    
     QString token=m_url.queryItem("token");
     QString service=m_url.queryItem("service");
@@ -118,10 +120,24 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     kDebug()<<object;
     m_ok=false;
     SnippetEditorNewDialog nd(this);
+    #ifdef Q_WS_X11  
+    if (!m_url.queryItem("window").isEmpty())
+    {
+      KWindowSystem::setMainWindow(&nd,m_url.queryItem("window").toULongLong());
+    }  
+    #endif
+    if (!m_url.queryItem("repotitle").isEmpty()) {
+      nd.snippetCollectionName->setText(m_url.queryItem("repotitle"));
+      nd.snippetCollectionName->setReadOnly(true);
+    }
     if (nd.exec()==QDialog::Rejected) 
     {
       if (!token.isEmpty())
         notifyTokenNewHandled(token,service,object,"");
+      if(!addThis.isEmpty()) {
+        QFile f(m_url.queryItem("addthis"));
+        f.remove();
+      }
       return;
     }
     QString new_type=m_url.path();
@@ -131,9 +147,14 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
     {
       if (!token.isEmpty())
         notifyTokenNewHandled(token,service,object,"");
+      if(!addThis.isEmpty()) {
+        QFile f(m_url.queryItem("addthis"));
+        f.remove();
+      }
       return;
     }
     m_url=KUrl::fromPath(newPath);
+    if (!addThis.isEmpty()) m_url.addQueryItem("addthis",addThis);
     notifyRepos();
     if (!token.isEmpty())
       notifyTokenNewHandled(token,service,object,newPath);
@@ -180,6 +201,29 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   snippetListView->setModel(m_selectorModel);
   connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
   currentChanged(QModelIndex(),QModelIndex());
+  
+#ifdef Q_WS_X11  
+  if (!m_url.queryItem("window").isEmpty())
+  {
+    KWindowSystem::setMainWindow(this,m_url.queryItem("window").toULongLong());
+  }  
+#endif
+
+  if (!m_url.queryItem("addthis").isEmpty())
+  {
+    newSnippet();
+    QFile f(m_url.queryItem("addthis"));
+    if (!f.open(QIODevice::ReadOnly))
+    {
+      //ERROR HERE
+      //CLEANUP FILE
+    } else {
+      snippetContent->setPlainText(f.readAll());
+      f.close();
+      f.remove();
+    }
+  }
+  
 }
 
 SnippetEditorWindow::~SnippetEditorWindow()

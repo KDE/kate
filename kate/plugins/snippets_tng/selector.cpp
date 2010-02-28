@@ -135,41 +135,84 @@ namespace JoWenn {
 
   void KateSnippetSelector::addSnippetToPopupAboutToShow()
   {
+      //clear the menu and do some sanity checks
       m_addSnippetToPopup->clear();
       if (!treeView->model()) return;
+      //get out model and request the highlighting interface
       QAbstractItemModel *m=treeView->model();
       const int modeCount=m->rowCount(QModelIndex());
       QString currentHlMode;
       KTextEditor::View *view=m_mainWindow->activeView();
-      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
+      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
+      
+      QAction *quickAction=0;
+      QString quickActionTitle;
       if (fi)
-      {
+      { // highlighting interface found, adding quick action
         currentHlMode=fi->highlightingModeAt(view->cursorPosition());
         //edit-selection is not the best choice, but the current version of the icon, an arrow is a good symbol for the default action now
-        m_addSnippetToPopup->addAction(KIcon("edit-select"),i18n(ON_THE_GO_TEMPLATESTR,currentHlMode));
+        QString on_the_go_title=i18n(ON_THE_GO_TEMPLATESTR,currentHlMode);
+        quickActionTitle=i18n(ON_THE_GO_TEMPLATESTR,currentHlMode);
+        quickAction=m_addSnippetToPopup->addAction(KIcon("edit-select"),quickActionTitle);
+        QVariant v;
+        v.setValue(ActionData("",currentHlMode));
+        quickAction->setData(v);
+        connect(quickAction,SIGNAL(triggered(bool)),this,SLOT(addSnippetToTriggered()));
       } else kDebug()<<"document does not implement the highlight interface";
+      
+      //highlighting interface is here, add all embedded highlightings to the menu
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repo=m_plugin->repositoryData();
       for (int i=0;i<modeCount;i++) {
+        // create a new menu for the given mode
         QModelIndex mergedRepoIndex=m->index(i,0,QModelIndex());
         QString title=m->data(mergedRepoIndex,Qt::DisplayRole).toString();       
         QMenu  *menu=m_addSnippetToPopup->addMenu(title);
-        //kDebug()<<"currentHlMode:"<<currentHlMode<<" title:"<<title;
+      
+
         QString on_the_go_title=i18n(ON_THE_GO_TEMPLATESTR,title);
+        //get all files merged for the current highlighting mode
         QStringList files=m->data(mergedRepoIndex, KTextEditor::CodesnippetsCore::SnippetSelectorModel::MergedFilesRole).toStringList();
-        //kDebug()<<files;
+
+        //iterate over all files of the current mode and add them to the menu
         bool on_the_go_found=false;
         foreach (const QString& filename, files) {          
-          //kDebug()<<"looking up filename: "<<filename;
+          //lookup the file in the 
           QModelIndex repoFileIdx=repo->indexForFile(filename);
           //kDebug()<<repoFileIdx;
-          if (repoFileIdx.isValid())
+     
+          if (repoFileIdx.isValid())           
           {
+            //if the file is still in the repository, add the action to the  menu
             QString n=repo->data(repoFileIdx,KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NameRole).toString();
-            if (n==on_the_go_title) on_the_go_found=true;
-            menu->addAction(n)->setData(QVariant(filename));;
+            //if the title of the current file equals the on-the-go title, we don't have to add an additional lateron
+            if (n==on_the_go_title)
+            {
+              on_the_go_found=true;
+              if (quickActionTitle==n) //if the current on-the-go action equals the "global" one set the filename for it
+              {
+                if (quickAction) {
+                  QVariant v;
+                  v.setValue(ActionData(filename,""));
+                  quickAction->setData(v);
+                }
+              }
+            }
+            QAction *a=menu->addAction(n);
+            QVariant v;
+            v.setValue(ActionData(filename,""));
+            a->setData(v);
+            connect(a,SIGNAL(triggered(bool)),this,SLOT(addSnippetToTriggered()));
           } else kDebug()<<"Filename not found in repository";
         }
-        if (!on_the_go_found) menu->insertAction(0,new QAction(on_the_go_title,menu));
+        //for the current hl mode there was no active on the fly file active, add a new one, this will be autocreated
+        if (!on_the_go_found) {
+          QAction *a=new QAction(on_the_go_title,menu);
+          QVariant v;
+          v.setValue(ActionData("",title));
+          a->setData(v);
+          menu->insertAction(0,a);
+          connect(a,SIGNAL(triggered(bool)),this,SLOT(addSnippetToTriggered()));
+        }
       }
   }
 
@@ -182,7 +225,49 @@ namespace JoWenn {
                                        "destination selection"));
           return;
       }
-      KMessageBox::error(this,i18n("Not implemented yet"));
+      QString hlmode=fi->highlightingModeAt(view->cursorPosition());
+      //Fill the menu and extract the on-the-go action
+      addSnippetToPopupAboutToShow();
+      if (m_addSnippetToPopup->actions().count()==0)
+      {
+        KMessageBox::error(this,i18n("Should not happen, cannot add snippet to a repository"));
+        return;
+      }
+      addSnippetToAction(m_addSnippetToPopup->actions()[0]);
+  }
+  
+  void KateSnippetSelector::addSnippetToTriggered() {
+    addSnippetToAction(dynamic_cast<QAction*>(sender()));
+  }
+  
+  void KateSnippetSelector::addSnippetToAction(QAction *action) {
+      //retrieve name and filepath      
+      QString filePath;
+      if (action->data().isValid())
+      {
+        filePath=action->data().value<JoWenn::KateSnippetSelector::ActionData>().filePath;
+      }
+      KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repo=m_plugin->repositoryData();
+      if (filePath.isEmpty())       
+      {
+        //Only on-the-go may have an empty path.
+        //If the on-the-go menu has no file attached, look if there is one in the repository and activate it.
+        //If there is no one in the repository list, create a new one        
+        QModelIndex index=repo->findFirstByName(action->text());
+        if (index.isValid())
+        {
+          repo->setData(index,QVariant(true),KTextEditor::CodesnippetsCore::SnippetRepositoryModel::EnabledRole);
+          filePath=repo->data(index,KTextEditor::CodesnippetsCore::SnippetRepositoryModel::FilenameRole).toString();
+        } //create a new on the go
+      }
+      if (filePath.isEmpty()) {
+        QString hlMode=action->data().value<JoWenn::KateSnippetSelector::ActionData>().hlMode;
+        m_plugin->repositoryData()->addSnippetToNewEntry(this,m_mainWindow->activeView()->selectionText(),
+        i18n(ON_THE_GO_TEMPLATESTR,hlMode),hlMode,true);
+        return;
+      }
+      //we found the file
+      repo->addSnippetToFile(this,m_mainWindow->activeView()->selectionText(),filePath);
   }
 
   void KateSnippetSelector::newRepo() {

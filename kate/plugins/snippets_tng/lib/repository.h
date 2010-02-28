@@ -106,11 +106,13 @@ namespace KTextEditor {
         void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
         QModelIndex indexForFile(const QString&);
-        
+        QModelIndex findFirstByName(const QString&);
       Q_SIGNALS:
         void typeChanged(const QStringList& fileType);
       public:
         void newEntry(QWidget *dialogParent,const QString& type=QString(),bool add_after_creation=false);
+        void addSnippetToFile(QWidget *dialogParent, const QString& snippet, const QString& filename);
+        void addSnippetToNewEntry(QWidget * dialogParent, const QString& snippet, const QString &repoTitle, const QString& type, bool add_after_creation);
       public Q_SLOTS:
         void newEntry();
         void copyToRepository(const KUrl& src);

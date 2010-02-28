@@ -47,6 +47,8 @@ namespace JoWenn {
       void addSnippetToClicked();
       void selectionChanged(KTextEditor::View *);
       void newRepo();
+      void addSnippetToAction(QAction *action);
+      void addSnippetToTriggered();
     Q_SIGNALS:
       void enableAdd(bool);
     private:
@@ -56,9 +58,21 @@ namespace JoWenn {
       QMenu *m_addSnippetToPopup;
       QPointer<KTextEditor::View> m_associatedView;
     public:
+      class ActionData {
+        public:
+          ActionData(){}
+          ActionData(const QString &_filePath,const QString &_hlMode):filePath(_filePath),hlMode(_hlMode){}
+          ~ActionData(){}
+          QString filePath;
+          QString hlMode;
+      };
+    
       QMenu *addSnippetToPopup(){return m_addSnippetToPopup;}
   };
 
 }
+
+Q_DECLARE_METATYPE(JoWenn::KateSnippetSelector::ActionData)
+
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

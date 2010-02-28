@@ -739,6 +739,8 @@ void KateSearchBar::findAll()
     resetHighlights();
     const int occurrences = findAll(m_view->document()->documentRange(), NULL);
 
+    KPassivePopup::message(i18n("%1 matches found", occurrences), this);
+
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
 

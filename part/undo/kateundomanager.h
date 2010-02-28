@@ -94,7 +94,7 @@ class KateUndoManager : public QObject
 
     bool allowComplexMerge() const;
 
-    bool isUndoTrackingEnabled() const { return m_isUndoTrackingEnabled; }
+    bool isActive() const { return m_isActive; }
 
     void setModified( bool m );
     void updateConfig ();
@@ -172,7 +172,7 @@ class KateUndoManager : public QObject
     void undoChanged ();
     void aboutToUndo ();
     void aboutToRedo ();
-    void undoTrackingEnabledChanged(bool enabled);
+    void isActiveChanged(bool enabled);
 
   private:
     /**
@@ -182,7 +182,7 @@ class KateUndoManager : public QObject
      */
     void addUndoItem(KateUndo *undo);
 
-    void setUndoTrackingEnabled(bool enabled);
+    void setActive(bool active);
 
     void updateModified();
 
@@ -193,7 +193,7 @@ class KateUndoManager : public QObject
   private:
     KateDocument *m_document;
     bool m_undoComplexMerge;
-    bool m_isUndoTrackingEnabled;
+    bool m_isActive;
     KateUndoGroup* m_editCurrentUndo;
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;

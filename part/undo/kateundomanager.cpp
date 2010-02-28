@@ -26,7 +26,7 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   : QObject (doc)
   , m_document (doc)
   , m_undoComplexMerge (false)
-  , m_isUndoTrackingEnabled (true)
+  , m_isActive (true)
   , m_editCurrentUndo (0)
   , m_undoDontMerge (false)
   , lastUndoGroupWhenSaved(0)
@@ -61,7 +61,7 @@ void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *n
 
 void KateUndoManager::editStart()
 {
-  if (!m_isUndoTrackingEnabled)
+  if (!m_isActive)
     return;
 
   // editStart() and editEnd() must be called in alternating fashion
@@ -75,7 +75,7 @@ void KateUndoManager::editStart()
 
 void KateUndoManager::editEnd()
 {
-  if (!m_isUndoTrackingEnabled)
+  if (!m_isActive)
     return;
 
   // editStart() and editEnd() must be called in alternating fashion
@@ -108,26 +108,26 @@ void KateUndoManager::editEnd()
 
 void KateUndoManager::inputMethodStart()
 {
-  setUndoTrackingEnabled(false);
+  setActive(false);
   m_document->editStart();
 }
 
 void KateUndoManager::inputMethodEnd()
 {
   m_document->editEnd();
-  setUndoTrackingEnabled(true);
+  setActive(true);
 }
 
 void KateUndoManager::undoStart()
 {
-  setUndoTrackingEnabled(false);
+  setActive(false);
   m_document->editStart();
 }
 
 void KateUndoManager::undoEnd()
 {
   m_document->editEnd();
-  setUndoTrackingEnabled(true);
+  setActive(true);
 }
 
 void KateUndoManager::slotTextInserted(int line, int col, const QString &s)
@@ -201,14 +201,14 @@ void KateUndoManager::addUndoItem(KateUndo *undo)
   redoItems.clear();
 }
 
-void KateUndoManager::setUndoTrackingEnabled(bool enabled)
+void KateUndoManager::setActive(bool enabled)
 {
   Q_ASSERT(m_editCurrentUndo == 0); // must not already be in edit mode
-  Q_ASSERT(m_isUndoTrackingEnabled != enabled);
+  Q_ASSERT(m_isActive != enabled);
 
-  m_isUndoTrackingEnabled = enabled;
+  m_isActive = enabled;
 
-  emit undoTrackingEnabledChanged(enabled);
+  emit isActiveChanged(enabled);
 }
 
 uint KateUndoManager::undoCount () const

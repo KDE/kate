@@ -103,9 +103,9 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
       connect(m_doc, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
 
-      setEditWithUndo(undoManager->isUndoTrackingEnabled());
+      setEditWithUndo(undoManager->isActive());
 
-      connect(undoManager, SIGNAL(undoTrackingEnabledChanged(bool)),
+      connect(undoManager, SIGNAL(isActiveChanged(bool)),
               this, SLOT(setEditWithUndo(bool)));
     } else {
       // when no interesting ranges got added, we can terminate directly

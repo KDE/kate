@@ -962,7 +962,7 @@ void KateDocument::editEnd ()
 
   // wrap the new/changed text, if something really changed!
   if (m_buffer->editChanged() && (editSessionNumber == 1))
-    if (m_undoManager->isUndoTrackingEnabled() && config()->wordWrap())
+    if (m_undoManager->isActive() && config()->wordWrap())
       wrapText (m_buffer->editTagStart(), m_buffer->editTagEnd());
 
   editSessionNumber--;
@@ -4619,7 +4619,7 @@ void KateDocument::removeTrailingSpace(int line)
   // action also sets the cursor position. If the trailing spaces are removed,
   // the cursor position can get invalid (i.e. it is behind the last column).
   // Then, moving the cursor leads to a crash, see bug #152203.
-  if (!m_undoManager->isUndoTrackingEnabled())
+  if (!m_undoManager->isActive())
     return;
 
   // remove trailing spaces from left line if required

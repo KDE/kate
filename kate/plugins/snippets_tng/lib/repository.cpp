@@ -526,7 +526,7 @@ namespace KTextEditor {
   void SnippetRepositoryModel::tokenNewHandled(const QString& token, const QString& filepath)
   {
       if (!m_newTokens.contains(token)) return;
-      m_newTokens.remove(token);
+      m_newTokens.removeAll(token);
       if (!filepath.isEmpty()) {
         QModelIndex idx=indexForFile(filepath);
         if (idx.isValid())

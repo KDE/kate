@@ -1,6 +1,5 @@
-
-
-
+# TODO: port away from QT3_SUPPORT!
+add_definitions(-DQT3_SUPPORT)
 
 ########### next target ###############
 

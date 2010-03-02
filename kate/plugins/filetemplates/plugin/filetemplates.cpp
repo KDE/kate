@@ -208,18 +208,18 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
         if ( ! trymore ) break;
 
         int pos ( 0 );
-        while ( ( ( pos = re.search( _line, pos ) ) >= 0 ) )
+        while ( ( ( pos = re.indexIn( _line, pos ) ) >= 0 ) )
         {
           pos += re.cap( 1 ).length();
-          if ( re.cap( 1 ).lower() == "template" )
+          if ( re.cap( 1 ).toLower() == "template" )
             tmp->tmplate = i18nc( "@item:inmenu", re.cap( 2 ).toUtf8() );
-          if ( re.cap( 1 ).lower() == "group" )
+          if ( re.cap( 1 ).toLower() == "group" )
             tmp->group = i18nc( "@item:inmenu", re.cap( 2 ).toUtf8() );
-          if ( re.cap( 1 ).lower() == "description" )
+          if ( re.cap( 1 ).toLower() == "description" )
             tmp->description = i18nc( "@info:whatsthis", re.cap( 2 ).toUtf8() );
-          if ( re.cap( 1 ).lower() == "author" )
+          if ( re.cap( 1 ).toLower() == "author" )
             tmp->author = i18nc( "@info:credit", re.cap( 2 ).toUtf8() );
-          if ( re.cap( 1 ).lower() == "highlight" )
+          if ( re.cap( 1 ).toLower() == "highlight" )
             tmp->highlight = re.cap( 2 );
           if ( re.cap( 1 ) == "icon" )
             tmp->icon = re.cap( 2 );
@@ -383,9 +383,9 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
         // look for document name, highlight
         if ( ! (doneheader & 1) )
         {
-          QRegExp reName( "\\bdocumentname\\s*=\\s*(.+)(?:\\s+\\w+\\s*=|$)", false );
+          QRegExp reName( "\\bdocumentname\\s*=\\s*(.+)(?:\\s+\\w+\\s*=|$)", Qt::CaseInsensitive );
           reName.setMinimal( true );
-          if ( reName.search( tmp ) > -1 )
+          if ( reName.indexIn( tmp ) > -1 )
           {
             docname = reName.cap( 1 );
             docname = docname.replace( "%N", "%1" );
@@ -395,10 +395,10 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
 
         if ( ! (doneheader & 2) )
         {
-          QRegExp reHl( "\\bhighlight\\s*=\\s*(.+)(?:\\s+\\w+\\s*=|$)", false );
+          QRegExp reHl( "\\bhighlight\\s*=\\s*(.+)(?:\\s+\\w+\\s*=|$)", Qt::CaseInsensitive );
           reHl.setMinimal( true );
             kDebug()<<"looking for a hl mode";
-          if ( reHl.search( tmp ) > -1 )
+          if ( reHl.indexIn( tmp ) > -1 )
           {
             kDebug()<<"looking for a hl mode -- "<<reHl.cap();
             // this is overly complex, too bad the interface is
@@ -425,7 +425,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
 
     if ( ! isTemplate )
     {
-      int d = filename.findRev('.');
+      int d = filename.lastIndexOf('.');
 // ### warning i18n: Hack to have localized number later...
       docname = i18n("Untitled %1", QString("%1"));
       if ( d > 0 ) docname += filename.mid( d );
@@ -444,7 +444,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     int count = 1;
     const QList<KTextEditor::Document*> docs=application()->documentManager()->documents();
     foreach(const KTextEditor::Document *doc,docs) {
-      if ( ( reName.search ( doc->documentName() ) > -1 ) )
+      if ( ( reName.indexIn( doc->documentName() ) > -1 ) )
         count++;
     }
     if ( docname.contains( "%1" ) )
@@ -524,7 +524,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
     info( info ),
     kft( kft )
 {
-  QGridLayout *lo = new QGridLayout( this, 6, 2 );
+  QGridLayout *lo = new QGridLayout( this );
   lo->setAutoAdd( true );
   lo->setSpacing( KDialog::spacingHint() );
 
@@ -542,7 +542,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
 
   l = new QLabel( i18n("&Group:"), this );
   cmbGroup = new KComboBox( true, this );
-  cmbGroup->insertStringList( kft->groups() );
+  cmbGroup->insertItems( 0, kft->groups() );
   l->setBuddy( cmbGroup );
   cmbGroup->setToolTip(i18n("<p>The group is used for choosing a "
       "submenu for the plugin. If it is empty, 'Other' is used.</p>"
@@ -731,7 +731,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   page->setSubTitle( i18n("<p>Choose a location for the "
     "template. If you store it in the template directory, it will "
     "automatically be added to the template menu.</p>") );
-  glo = new QGridLayout( page, 7, 2 );
+  glo = new QGridLayout( page );
   glo->setSpacing( KDialog::spacingHint() );
 
   bgLocation = new QButtonGroup( page );

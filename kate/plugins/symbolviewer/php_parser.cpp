@@ -129,7 +129,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
          {
           if (cl.indexOf('{') >= 0)
             {
-             cl = cl.right(cl.find('{'));
+             cl = cl.mid(cl.indexOf('{'));
              mclass = 4;
             }
          }
@@ -179,8 +179,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                       block = 0;
                       break;
                      }
-                   if((cl.at(j)=='{' && cl.find(";") < 0) ||
-                      (cl.at(j)=='{' && cl.find('}') > (int)j))
+                   if((cl.at(j)=='{' && cl.indexOf(';') < 0) ||
+                      (cl.at(j)=='{' && cl.indexOf('}') > (int)j))
                      {
                       stripped.replace(0x9, " ");
                       if(func_on == true)
@@ -188,12 +188,12 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                          if (types_on == false)
                            {
                             while (stripped.indexOf('(') >= 0)
-                              stripped = stripped.left(stripped.find('('));
-                            while (stripped.find("::") >= 0)
-                              stripped = stripped.mid(stripped.find("::") + 2);
+                              stripped = stripped.left(stripped.indexOf('('));
+                            while (stripped.indexOf("::") >= 0)
+                              stripped = stripped.mid(stripped.indexOf("::") + 2);
                             stripped = stripped.trimmed();
-                            while (stripped.find(0x20) >= 0)
-                              stripped = stripped.mid(stripped.find(0x20, 0) + 1);
+                            while (stripped.indexOf(0x20) >= 0)
+                              stripped = stripped.mid(stripped.indexOf(0x20, 0) + 1);
                            }
                          //kdDebug(13000)<<"Function -- Inserted: "<<stripped<<" at row: "<<tmpPos<<" mclass: "<<(uint)mclass<<endl;
                          if (treeMode)
@@ -203,7 +203,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                                node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                                lastMtdNode = node;
                               }
-                            else 
+                            else
                               {
                                node = new QTreeWidgetItem(clsNode, lastClsNode);
                                lastClsNode = node;
@@ -239,9 +239,9 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
          } // BLOCK > 0
        if (mclass == 4 && block == 0 && func_close == 0)
          {
-          if (cl.indexOf('}') >= 0) 
+          if (cl.indexOf('}') >= 0)
             {
-             cl = cl.right(cl.indexOf('}'));
+             cl = cl.mid(cl.indexOf('}'));
              mclass = 0;
             }
          }

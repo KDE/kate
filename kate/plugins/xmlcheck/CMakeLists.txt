@@ -1,5 +1,5 @@
-
-
+# Uses Q3ListView!! TODO: port!
+add_definitions(-DQT3_SUPPORT)
 
 
 ########### next target ###############

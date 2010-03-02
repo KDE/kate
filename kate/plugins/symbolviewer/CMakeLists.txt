@@ -1,5 +1,6 @@
 
-
+# TODO: port QMenu changeItem/idAt code
+add_definitions(-DQT3_SUPPORT)
 
 
 ########### next target ###############

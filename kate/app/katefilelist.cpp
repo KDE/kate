@@ -273,12 +273,14 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
   QGridLayout *lo = new QGridLayout( gbEnableShading);
 
   kcbViewShade = new KColorButton( gbEnableShading );
-  lViewShade = new QLabel( kcbViewShade, i18n("&Viewed documents' shade:"), gbEnableShading );
+  lViewShade = new QLabel( i18n("&Viewed documents' shade:"), gbEnableShading );
+  lViewShade->setBuddy( kcbViewShade );
   lo->addWidget( lViewShade, 2, 0 );
   lo->addWidget( kcbViewShade, 2, 1 );
 
   kcbEditShade = new KColorButton( gbEnableShading );
-  lEditShade = new QLabel( kcbEditShade, i18n("&Modified documents' shade:"), gbEnableShading );
+  lEditShade = new QLabel( i18n("&Modified documents' shade:"), gbEnableShading );
+  lEditShade->setBuddy( kcbEditShade );
   lo->addWidget( lEditShade, 3, 0 );
   lo->addWidget( kcbEditShade, 3, 1 );
 
@@ -329,7 +331,7 @@ void KateFileListConfigPage::apply()
   m_filelist->setViewShade( kcbViewShade->color() );
   m_filelist->setEditShade( kcbEditShade->color() );
   m_filelist->setShadingEnabled( gbEnableShading->isChecked() );
-  m_filelist->setSortRole( cmbSort->itemData(cmbSort->currentItem()).toInt() );
+  m_filelist->setSortRole( cmbSort->itemData(cmbSort->currentIndex()).toInt() );
 
   // write config
   KConfigGroup config(KGlobal::config(), "FileList");
@@ -340,7 +342,7 @@ void KateFileListConfigPage::apply()
     config.writeEntry("View Shade", kcbViewShade->color());
   if (kcbEditShade->color() != colors.foreground(KColorScheme::ActiveText).color())
     config.writeEntry("Edit Shade", kcbEditShade->color());
-  config.writeEntry("SortRole", cmbSort->itemData(cmbSort->currentItem()));
+  config.writeEntry("SortRole", cmbSort->itemData(cmbSort->currentIndex()));
 
   // repaint the affected items
   m_filelist->repaint();

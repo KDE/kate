@@ -126,7 +126,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
           {
            if (cl.length() == 0 || cl.at(cl.length() - 1) != '\\')
                macro = 0;
-           continue; 
+           continue;
           }
 
        /* ******************************************************************** */
@@ -161,9 +161,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
          }
        if (mclass == 3)
          {
-          if (cl.find('{') >= 0) 
+          if (cl.indexOf('{') >= 0)
             {
-             cl = cl.right(cl.find('{'));
+             cl = cl.mid(cl.indexOf('{'));
              mclass = 4;
             }
          }
@@ -180,7 +180,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
           for (j = 0; j < cl.length(); j++)
             {
              if ( ((j+1) < cl.length()) && (cl.at(j) == '/' && (cl.at(j + 1) == '*') && comment != 3)) comment = 2;
-             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/') && comment != 3) ) 
+             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/') && comment != 3) )
                    {  comment = 0; j+=2; if (j>=cl.length()) break;}
              // Handles a string. Those are freaking evilish !
              if (cl.at(j) == '"' && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
@@ -242,7 +242,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                                lastMtdNode = node;
                               }
-                            else 
+                            else
                               {
                                node = new QTreeWidgetItem(clsNode, lastClsNode);
                                lastClsNode = node;
@@ -323,9 +323,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
          } // BLOCK > 0
        if (mclass == 4 && block == 0 && func_close == 0)
          {
-          if (cl.indexOf('}') >= 0) 
+          if (cl.indexOf('}') >= 0)
             {
-             cl = cl.right(cl.indexOf('}'));
+             cl = cl.mid(cl.indexOf('}'));
              mclass = 0;
             }
          }

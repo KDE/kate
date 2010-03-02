@@ -1,5 +1,3 @@
-
-
 ########### next target ###############
 
 set(katesnippetstng_editor_SRCS editor.cpp editorapp.cpp snippeteditorwindow.cpp

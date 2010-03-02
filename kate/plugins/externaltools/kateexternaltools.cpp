@@ -203,7 +203,7 @@ bool KateExternalToolsCommand::exec (KTextEditor::View *view, const QString &cmd
 //   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget";
     return false;
   }
-  
+
 
 //  kDebug(13001)<<"cmd="<<cmd.trimmed();
   QString actionName = m_map[cmd.trimmed()];
@@ -599,7 +599,7 @@ void KateExternalToolServiceEditor::slotButtonClicked(int button)
 {
   switch( button ) {
     case Ok:
-      if ( leName->text().isEmpty() || teCommand->text().isEmpty() )
+      if ( leName->text().isEmpty() || teCommand->document()->isEmpty() )
       {
         KMessageBox::information( this, i18n("You must specify at least a name and a command") );
         return;
@@ -740,7 +740,7 @@ void KateExternalToolsConfigWidget::apply()
   {
     for ( QStringList::iterator it = m_removed.begin(); it != m_removed.end(); ++it )
     {
-      if ( config->hasGroup( *it ) )    
+      if ( config->hasGroup( *it ) )
         config->deleteGroup( *it  );
     }
     QStringList removed = config->group("Global").readEntry( "removed", QStringList() );
@@ -759,10 +759,10 @@ void KateExternalToolsConfigWidget::apply()
     }
     config->group("Global").writeEntry( "removed", removed );
   }
-                    
+
   config->sync();
   m_plugin->reload();
-} 
+}
 
 void KateExternalToolsConfigWidget::slotSelectionChanged()
 {
@@ -784,7 +784,7 @@ void KateExternalToolsConfigWidget::slotNew()
   {
     KateExternalTool *t = new KateExternalTool(
                             editor.leName->text(),
-                            editor.teCommand->text(),
+                            editor.teCommand->toPlainText(),
                             editor.btnIcon->icon(),
                             editor.leExecutable->text(),
                             editor.leMimetypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts ) );
@@ -830,7 +830,7 @@ void KateExternalToolsConfigWidget::slotEdit()
 
     t->name = editor.leName->text();
     t->cmdname = editor.leCmdLine->text();
-    t->command = editor.teCommand->text();
+    t->command = editor.teCommand->toPlainText();
     t->icon = editor.btnIcon->icon();
     t->tryexec = editor.leExecutable->text();
     t->mimetypes = editor.leMimetypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );

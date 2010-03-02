@@ -335,8 +335,9 @@ KateTabBarExtensionConfigPage::KateTabBarExtensionConfigPage(
     QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
   : Kate::PluginConfigPage( parentWidget )
 {
-  QVBoxLayout* top = new QVBoxLayout(this, 0,
-      KDialog::spacingHint());
+    QVBoxLayout* top = new QVBoxLayout(this);
+    top->setMargin(0);
+    top->setSpacing(KDialog::spacingHint());
 
   Q3GroupBox* gb = new Q3GroupBox( i18n("Sorting Behavior"),
       this, "tab_bar_extension_config_page_layout" );
@@ -344,7 +345,7 @@ KateTabBarExtensionConfigPage::KateTabBarExtensionConfigPage(
   gb->setInsideSpacing(KDialog::spacingHint());
   pSortAlpha = new QCheckBox(i18n("Sort files alphabetically"), gb);
 
-  top->add(gb);
+  top->addWidget(gb);
   top->addStretch(1);
 //  throw signal changed
   connect(pSortAlpha, SIGNAL(toggled(bool)), this, SIGNAL(changed()));

@@ -32,7 +32,7 @@ namespace KTextEditor {
   namespace Editor {
 #endif
     class SnippetCompletionEntry;
-    
+
     class SnippetSelectorModel;
 
     class SnippetCompletionModelPrivate;
@@ -45,11 +45,11 @@ namespace KTextEditor {
         virtual ~SnippetCompletionModel();
         virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
         virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
-        
+
         virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
         virtual QModelIndex parent(const QModelIndex& index) const;
         virtual int rowCount ( const QModelIndex & parent ) const;
-        
+
         virtual void executeCompletionItem2(KTextEditor::Document* document,
           const KTextEditor::Range& word, const QModelIndex& index) const;
 
@@ -61,7 +61,7 @@ namespace KTextEditor {
         bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors, const QString& snippetlicense);
         static QString createNew(const QString& name, const QString& license,const QString& authors,const QString& filetypes);
   #endif
-        
+
       private:
         QList<SnippetCompletionEntry> m_entries;
         QList<const SnippetCompletionEntry*> m_matches;
@@ -70,15 +70,15 @@ namespace KTextEditor {
         QStringList mergedFiles;
         SnippetCompletionModelPrivate *d;
     };
-    
+
     class CategorizedSnippetModelPrivate;
-    
+
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT CategorizedSnippetModel: public QAbstractItemModel {
       Q_OBJECT
       public:
         CategorizedSnippetModel(const QList<SnippetSelectorModel*>& models);
         virtual ~CategorizedSnippetModel();
-        virtual int columnCount(const QModelIndex& parent) const {return 1;}
+        virtual int columnCount(const QModelIndex&) const {return 1;}
         virtual int rowCount(const QModelIndex& parent) const;
         virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
         virtual QVariant data(const QModelIndex &index, int role) const;
@@ -90,9 +90,9 @@ namespace KTextEditor {
         QList<SnippetSelectorModel*> m_models;
         CategorizedSnippetModelPrivate *d;
     };
-    
+
     class SnippetSelectorModelPrivate;
-    
+
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetSelectorModel: public QAbstractItemModel {
         Q_OBJECT
       public:
@@ -104,9 +104,9 @@ namespace KTextEditor {
         virtual QVariant data(const QModelIndex &index, int role) const;
         virtual QModelIndex parent ( const QModelIndex & index) const {return QModelIndex();}
         virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
-        
+
         QString fileType();
-        
+
   #ifdef SNIPPET_EDITOR
         // for editor only
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
@@ -122,11 +122,11 @@ namespace KTextEditor {
           SnippetCompletionModel *m_cmodel;
           SnippetSelectorModelPrivate *d;
     };
-    
+
 #ifdef SNIPPET_EDITOR
   }
 #endif
-    
+
   }
 }
 #endif

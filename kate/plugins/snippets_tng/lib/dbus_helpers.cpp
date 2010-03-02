@@ -25,20 +25,17 @@ namespace KTextEditor {
   namespace CodesnippetsCore {
 #ifdef SNIPPET_EDITOR
   namespace Editor {
-    
+
     void  notifyTokenNewHandled(const QString& token, const QString& service, const QString& object, const QString& filePath) {
-	    QString objpath_qstring=QString(service);
-	    QByteArray objpath_bytestring=object.utf8();
-	    QLatin1String objpath(objpath_bytestring.constData());
-	    QDBusMessage m = QDBusMessage::createMethodCall (service,            
+	    QDBusMessage m = QDBusMessage::createMethodCall (service,
 	    object, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "tokenNewHandled");
 	    QList<QVariant>args;
 	    args<<QVariant(token);
 	    args<<QVariant(filePath);
 	    m.setArguments(args);
-	    QDBusConnection::sessionBus().call (m);          
-    }    
-    
+	    QDBusConnection::sessionBus().call (m);
+    }
+
 #endif
 
     void notifyRepos() {
@@ -61,12 +58,10 @@ namespace KTextEditor {
 	//m_dbusServiceName=QString("org.kde.KTECodesnippetsCore-%1.%2").arg(getpid()).arg(++s_id);
 	if (serviceName.startsWith("org.kde.ktecodesnippetscore-"))
 	{
-	    QString objpath_qstring=QString("/Repository");
-	    QByteArray objpath_bytestring=objpath_qstring.utf8();
-	    QLatin1String objpath(objpath_bytestring.constData());
-	    QDBusMessage m = QDBusMessage::createMethodCall (serviceName,            
+	    QString objpath("/Repository");
+	    QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
 	    objpath, "org.kde.Kate.Plugin.SnippetsTNG.Repository", "updateSnippetRepository");
-	    QDBusConnection::sessionBus().call (m);          
+	    QDBusConnection::sessionBus().call (m);
 	}
       }
     }

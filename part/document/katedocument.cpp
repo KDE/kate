@@ -398,9 +398,6 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
     return QString();
   }
 
-  if ( blockwise && (range.start().column() > range.end().column()) )
-    return QString ();
-
   QString s;
 
   if (range.start().line() == range.end().line())
@@ -772,9 +769,6 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   if (!isReadWrite())
     return false;
 
-  if ( block && (range.start().column() > range.end().column()) )
-    return false;
-
   // Should now be impossible to trigger with the new Range class
   Q_ASSERT( range.start().line() <= range.end().line() );
 
@@ -823,8 +817,10 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   else
   {
     int startLine = qMax(0, range.start().line());
-    for (int line = qMin(range.end().line(), lastLine()); line >= startLine; --line)
-      editRemoveText(line, range.start().column(), range.end().column() - range.start().column());
+    for (int line = qMin(range.end().line(), lastLine()); line >= startLine; --line) {
+      KTextEditor::Range subRange = rangeOnLine(range, line);
+      editRemoveText(line, subRange.start().column(), subRange.end().column() - subRange.start().column());
+    }
   }
 
   editEnd ();

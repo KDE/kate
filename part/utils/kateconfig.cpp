@@ -34,10 +34,7 @@
 #include <kcolorutils.h>
 #include <kcharsets.h>
 #include <klocale.h>
-#include <kfinddialog.h>
-#include <kreplacedialog.h>
 #include <kcomponentdata.h>
-#include <kfind.h>
 #include <kdebug.h>
 
 #include <QtCore/QTextCodec>

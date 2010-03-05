@@ -337,11 +337,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
 
 void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
-    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-               this, SLOT(updateSelectionOnly()));
     selectRange(m_view, range);
-    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(updateSelectionOnly()));
 }
 
 

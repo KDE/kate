@@ -1346,8 +1346,6 @@ void KateView::find()
 {
   const bool INIT_HINT_AS_INCREMENTAL = false;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
-  if (bar->hasFocus() && (!bar->isPower())) //make returning to main edit widget w/o losing search info possible
-    return m_viewInternal->setFocus();
   bar->enterIncrementalMode();
   m_bottomViewBar->showBarWidget(bar);
   bar->setFocus();
@@ -1367,8 +1365,6 @@ void KateView::replace()
 {
   const bool INIT_HINT_AS_POWER = true;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
-  if (bar->hasFocus() && (bar->isPower())) //make returning to main edit widget w/o losing search info possible
-    return m_viewInternal->setFocus();
   bar->enterPowerMode();
   m_bottomViewBar->showBarWidget(bar);
   bar->setFocus();

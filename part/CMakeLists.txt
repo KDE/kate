@@ -1,5 +1,5 @@
 # define project
-project(kate)
+project(katepart)
 
 # these subdirs have their own CMakeLists
 add_subdirectory( data )

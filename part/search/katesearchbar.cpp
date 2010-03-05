@@ -510,6 +510,15 @@ void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
 
 
 
+bool KateSearchBar::matchCase() const
+{
+    return isPower() ? m_powerUi->matchCase->isChecked()
+                     : m_incUi->matchCase->isChecked();
+}
+
+
+
+
 void KateSearchBar::fixForSingleLine(Range & range, SearchDirection searchDirection) {
     FAST_DEBUG("Single-line workaround checking BEFORE" << range);
     if (searchDirection == SearchForward) {
@@ -971,10 +980,7 @@ bool KateSearchBar::selectionOnly() const {
 KTextEditor::Search::SearchOptions KateSearchBar::searchOptions(SearchDirection searchDirection) const {
     Search::SearchOptions enabledOptions = KTextEditor::Search::Default;
 
-    const bool matchCase = (m_powerUi != NULL)
-            ? m_powerUi->matchCase->isChecked()
-            : m_incUi->matchCase->isChecked();
-    if (!matchCase) {
+    if (!matchCase()) {
         enabledOptions |= Search::CaseInsensitive;
     }
 

@@ -137,6 +137,7 @@ private:
     bool isPatternValid() const;
 
     bool selectionOnly() const;
+    bool matchCase() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void highlight(const KTextEditor::Range & range, const QColor & color);

@@ -606,7 +606,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool       m_hasWrap;
 
   private Q_SLOTS:
-    void slotNeedTextHint(int line, int col, QString &text);
     void slotHlChanged();
 
   /**

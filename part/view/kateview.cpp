@@ -239,12 +239,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   slotHlChanged();
   KCursor::setAutoHideCursor( m_viewInternal, true );
-  /*test texthint
-  connect(this,SIGNAL(needTextHint(int, int, QString &)),
-  this,SLOT(slotNeedTextHint(int, int, QString &)));
-  enableTextHints(1000);
-  test texthint*/
-//  setFocus();
 
   if ( viInputMode() && !config()->viInputModeHideStatusBar() ) {
     deactivateEditActions();
@@ -1346,11 +1340,6 @@ ViMode KateView::getCurrentViMode() const
 KateViInputModeManager* KateView::getViInputModeManager()
 {
   return m_viewInternal->getViInputModeManager();
-}
-
-void KateView::slotNeedTextHint(int line, int col, QString &text)
-{
-  text=QString("test %1 %2").arg(line).arg(col);
 }
 
 void KateView::find()

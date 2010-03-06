@@ -151,7 +151,7 @@ class TextBuffer : public QObject {
 
     /**
      * Save the current buffer content to the given file.
-     * Before calling this, setTextCodec must have been used to set codec!
+     * Before calling this, setTextCodec and setFallbackTextCodec must have been used to set codec!
      * @param filename file to save
      * @return success
      * Virtual, can be overwritten.

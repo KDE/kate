@@ -147,7 +147,8 @@ void KateBuffer::clear()
 
 bool KateBuffer::openFile (const QString &m_file)
 {
-  // first: setup encoding
+  // first: setup fallback and normal encoding
+  setFallbackTextCodec (m_doc->config()->fallbackCodec ());
   setTextCodec (m_doc->config()->codec ());
 
   // setup eol
@@ -205,7 +206,8 @@ bool KateBuffer::canEncode ()
 
 bool KateBuffer::saveFile (const QString &m_file)
 {
-  // first: setup encoding
+  // first: setup fallback and normal encoding
+  setFallbackTextCodec (m_doc->config()->fallbackCodec ());
   setTextCodec (m_doc->config()->codec ());
 
   // setup eol

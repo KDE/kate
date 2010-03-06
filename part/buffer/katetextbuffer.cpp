@@ -36,7 +36,7 @@ TextBuffer::TextBuffer (QObject *parent, int blockSize)
   , m_editingLastLines (0)
   , m_editingMinimalLineChanged (-1)
   , m_editingMaximalLineChanged (-1)
-  , m_fallbackTextCodec (QTextCodec::codecForName("ISO 8859-15"))
+  , m_fallbackTextCodec (0)
   , m_textCodec (0)
   , m_generateByteOrderMark (false)
   , m_endOfLineMode (eolUnix)
@@ -44,9 +44,6 @@ TextBuffer::TextBuffer (QObject *parent, int blockSize)
 {
   // minimal block size must be > 0
   Q_ASSERT (m_blockSize > 0);
-
-  // fallback codec must exist
-  Q_ASSERT (m_fallbackTextCodec);
 
   // create initial state
   clear ();
@@ -437,6 +434,9 @@ void TextBuffer::debugPrint (const QString &title) const
 
 bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 {
+  // fallback codec must exist
+  Q_ASSERT (m_fallbackTextCodec);
+
   // codec must be set!
   Q_ASSERT (m_textCodec);
 

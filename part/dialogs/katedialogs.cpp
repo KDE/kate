@@ -744,7 +744,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // hide power user mode if activated anyway
   if (!KateGlobal::self()->simpleMode ())
     ui->chkDeveloperMode->hide ();
-    
+
   // What's This? help is in the ui-file
 
   reload();
@@ -863,7 +863,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   //
 
   connect( ui->cmbEncoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect( ui->cmbEncodingDetection, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( ui->cmbEncodingFallback, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkEnableBOM, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -934,9 +934,9 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
+  // set both standard and fallback encoding
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
-  KateDocumentConfig::global()->setEncodingProberType(
-      (KEncodingProber::ProberType)ui->cmbEncodingDetection->itemData(ui->cmbEncodingDetection->currentIndex()).toUInt());
+  KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(ui->cmbEncodingFallback->currentText()));
 
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
@@ -949,10 +949,11 @@ void KateSaveConfigTab::reload()
 {
   modeConfigPage->reload();
 
-  // encoding
+  // encodings
   ui->cmbEncoding->clear ();
   ui->cmbEncoding->addItem (i18n("KDE Default"));
   ui->cmbEncoding->setCurrentIndex(0);
+  ui->cmbEncodingFallback->clear ();
   QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
   int insert = 1;
   for (int i=0; i < encodings.count(); i++)
@@ -963,40 +964,28 @@ void KateSaveConfigTab::reload()
     if (found)
     {
       ui->cmbEncoding->addItem (encodings[i]);
+      ui->cmbEncodingFallback->addItem (encodings[i]);
 
       if ( codecForEnc->name() == KateDocumentConfig::global()->encoding() )
       {
         ui->cmbEncoding->setCurrentIndex(insert);
       }
 
+      if ( codecForEnc == KateDocumentConfig::global()->fallbackCodec() )
+      {
+        // adjust index for fallback config, has no default!
+        ui->cmbEncodingFallback->setCurrentIndex(insert-1);
+      }
+
       insert++;
     }
-  }
-
-  // encoding detection
-  ui->cmbEncodingDetection->clear ();
-
-  ui->cmbEncodingDetection->addItem (i18n("Disabled"), QVariant((uint)KEncodingProber::None));
-  ui->cmbEncodingDetection->setCurrentIndex(0);
-
-  ui->cmbEncodingDetection->addItem (i18n("Universal"), QVariant((uint)KEncodingProber::Universal));
-
-  QStringList items;
-  foreach (const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
-    items << encodingsForScript.at(0);
-  items.sort();
-  foreach (const QString &item, items) {
-    KEncodingProber::ProberType scri=KEncodingProber::proberTypeForName(item);
-    ui->cmbEncodingDetection->addItem (item, QVariant((uint)scri));
-    if (scri==KateDocumentConfig::global()->encodingProberType())
-      ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
   }
 
   // eol
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
   ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
-  
+
   const uint configFlags = KateDocumentConfig::global()->configFlags();
   ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());

@@ -185,8 +185,10 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     const QString &encoding () const;
     bool setEncoding (const QString &encoding,bool resetDetection=true);
     bool isSetEncoding () const;
-    KEncodingProber::ProberType encodingProberType() const;
-    void setEncodingProberType(KEncodingProber::ProberType);
+
+    QTextCodec *fallbackCodec () const;
+    const QString &fallbackEncoding () const;
+    bool setFallbackEncoding (const QString &encoding);
 
     enum Eol
     {
@@ -202,7 +204,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
 
     bool bom () const;
     void setBom(bool bom);
-    
+
     bool allowEolDetection () const;
     void setAllowEolDetection (bool on);
 
@@ -236,7 +238,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool onTheFlySpellCheck() const;
     void setOnTheFlySpellCheck(bool on);
 
-    
+
   private:
     QString m_indentationMode;
     int m_indentationWidth;
@@ -252,12 +254,12 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_bom;
     uint m_backupFlags;
     int m_searchDirConfigDepth;
-    KEncodingProber::ProberType m_proberTypeForEncodingAutoDetection;
     QString m_encoding;
+    QString m_fallbackEncoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
     bool m_onTheFlySpellCheck;
-    
+
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
     bool m_indentationModeSet : 1;
@@ -266,6 +268,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_pageUpDownMovesCursorSet : 1;
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
+    bool m_fallbackEncodingSet : 1;
     bool m_eolSet : 1;
     bool m_bomSet :1;
     bool m_allowEolDetectionSet : 1;
@@ -396,7 +399,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
 
     bool wordCompletion () const;
     void setWordCompletion (bool on);
-    
+
     int wordCompletionMinimalWordLength () const;
     void setWordCompletionMinimalWordLength (int length);
 

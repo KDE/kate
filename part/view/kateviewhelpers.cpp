@@ -1760,7 +1760,6 @@ void KateViewEncodingAction::setEncoding (const QString &e)
 }
 void KateViewEncodingAction::setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType proberType)
 {
-  doc->setProberTypeForEncodingAutoDetection(proberType);
   view->reloadFile();
 }
 

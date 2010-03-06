@@ -4111,23 +4111,12 @@ KateCodeFoldingTree *KateDocument::foldingTree ()
 
 bool KateDocument::setEncoding (const QString &e)
 {
-  setProberTypeForEncodingAutoDetection(KEncodingProber::None);
   return m_config->setEncoding(e);
 }
 
 const QString &KateDocument::encoding() const
 {
   return m_config->encoding();
-}
-
-void KateDocument::setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType proberType)
-{
-  m_config->setEncodingProberType(proberType);
-}
-
-KEncodingProber::ProberType KateDocument::proberTypeForEncodingAutoDetection() const
-{
-  return m_config->encodingProberType();
 }
 
 void KateDocument::updateConfig ()

@@ -87,7 +87,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_tabHandling (tabSmart),
    m_configFlags (0),
    m_wordWrapAt (80),
-   m_proberTypeForEncodingAutoDetection(KEncodingProber::Universal),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_indentationModeSet (true),
@@ -96,6 +95,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_pageUpDownMovesCursorSet (true),
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
+   m_fallbackEncodingSet (true),
    m_eolSet (true),
    m_bomSet (true),
    m_allowEolDetectionSet (false),
@@ -125,6 +125,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_pageUpDownMovesCursorSet (false),
    m_configFlagsSet (0),
    m_encodingSet (false),
+   m_fallbackEncodingSet (false),
    m_eolSet (false),
    m_bomSet (false),
    m_allowEolDetectionSet (false),
@@ -136,7 +137,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_onTheFlySpellCheckSet (false),
    m_doc (doc)
 {
-  m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
 }
 
 KateDocumentConfig::~KateDocumentConfig ()
@@ -165,13 +165,13 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
     | KateDocumentConfig::cfSmartHome));
 
   setEncoding (config.readEntry("Encoding", ""));
-  setEncodingProberType ((KEncodingProber::ProberType)config.readEntry("ProberType for Encoding Autodetection", 0));
+  setEncoding (config.readEntry("Fallback Encoding", ""));
 
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
 
   setBom (config.readEntry("BOM",false));
-  
+
   setAllowSimpleMode (config.readEntry("Allow Simple Mode", true));
 
   setBackupFlags (config.readEntry("Backup Config Flags", 1));
@@ -183,7 +183,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
   setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
-  
+
   configEnd ();
 }
 
@@ -204,13 +204,13 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Basic Config Flags", configFlags());
 
   config.writeEntry("Encoding", encoding());
-  config.writeEntry("ProberType for Encoding Autodetection", (int)encodingProberType());
+  config.writeEntry("Fallback Encoding", encoding());
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
-  
+
   config.writeEntry("BOM",bom());
-  
+
   config.writeEntry("Allow Simple Mode", allowSimpleMode());
 
   config.writeEntry("Backup Config Flags", backupFlags());
@@ -220,7 +220,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Backup Prefix", backupPrefix());
 
   config.writeEntry("Backup Suffix", backupSuffix());
-  
+
   config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
 }
 
@@ -450,13 +450,6 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
 
   configStart ();
 
-  if (resetDetection)
-  {
-    if (!m_encodingSet || encoding.isEmpty())
-      m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
-    else
-      m_proberTypeForEncodingAutoDetection = KEncodingProber::None;
-  }
   m_encodingSet = true;
   m_encoding = codec->name();
 
@@ -472,21 +465,50 @@ bool KateDocumentConfig::isSetEncoding () const
   return m_encodingSet;
 }
 
-KEncodingProber::ProberType KateDocumentConfig::encodingProberType() const
+const QString &KateDocumentConfig::fallbackEncoding () const
 {
-  return m_proberTypeForEncodingAutoDetection;
+  if (m_fallbackEncodingSet || isGlobal())
+    return m_fallbackEncoding;
+
+  return s_global->fallbackEncoding();
 }
 
-void KateDocumentConfig::setEncodingProberType(KEncodingProber::ProberType proberType)
+QTextCodec *KateDocumentConfig::fallbackCodec () const
 {
+  if (m_fallbackEncodingSet || isGlobal())
+  {
+    if (m_fallbackEncoding.isEmpty() && isGlobal())
+      return QTextCodec::codecForName("ISO 8859-15");
+    else if (m_fallbackEncoding.isEmpty())
+      return s_global->codec ();
+    else
+      return KGlobal::charsets()->codecForName (m_fallbackEncoding);
+  }
+
+  return s_global->codec ();
+}
+
+bool KateDocumentConfig::setFallbackEncoding (const QString &encoding)
+{
+  QTextCodec *codec;
+  bool found = false;
+  if (encoding.isEmpty())
+  {
+    codec = s_global->codec();
+    found = true;
+  }
+  else
+    codec = KGlobal::charsets()->codecForName (encoding, found);
+
+  if (!found || !codec)
+    return false;
+
   configStart ();
-
-  m_proberTypeForEncodingAutoDetection=proberType;
-
+  m_fallbackEncodingSet = true;
+  m_fallbackEncoding = codec->name();
   configEnd ();
-
+  return true;
 }
-
 
 int KateDocumentConfig::eol () const
 {
@@ -726,7 +748,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
    m_smartCopyCutSet (false),
-   m_scrollPastEndSet (false), 
+   m_scrollPastEndSet (false),
    m_view (view)
 {
 }

@@ -848,8 +848,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   public:
     bool setEncoding (const QString &e);
     const QString &encoding() const;
-    void setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType);
-    KEncodingProber::ProberType proberTypeForEncodingAutoDetection() const;
 
 
   public Q_SLOTS:

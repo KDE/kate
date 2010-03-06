@@ -142,7 +142,7 @@
         <keyword attribute="Math" context="#stay" String="math" />
         <keyword attribute="Events" context="#stay" String="events" />
 
-        <DetectChar lookahead="true" context="ObjectMember" char="." />
+        <DetectChar context="ObjectMember" char="." />
         <RegExpr attribute="Objects" context="ObjectMember" String="\b[\w\.]+(?=\.)" />
 
 	<DetectIdentifier/>

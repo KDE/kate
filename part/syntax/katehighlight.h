@@ -132,8 +132,8 @@ class KateHighlighting
     void cleanup ();
 
   public:
-    void doHighlight ( KateTextLine *prevLine,
-                       KateTextLine *textLine,
+    void doHighlight ( Kate::TextLineData *prevLine,
+                       Kate::TextLineData *textLine,
                        QVector<int> &foldingList,
                        bool &ctxChanged );
 

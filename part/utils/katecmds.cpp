@@ -531,7 +531,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
                                         bool noCase, bool repeat,
                                         int startcol, int endcol )
 {
-  KateTextLine::Ptr ln = doc->kateTextLine( line );
+  Kate::TextLine ln = doc->kateTextLine( line );
   if ( ! ln || ! ln->length() ) return 0;
 
   // HANDLING "\n"s in PATTERN

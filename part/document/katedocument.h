@@ -871,8 +871,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     uint getRealLine(unsigned int virtualLine);
     uint getVirtualLine(unsigned int realLine);
     uint visibleLines ();
-    KateTextLine::Ptr kateTextLine(uint i);
-    KateTextLine::Ptr plainKateTextLine(uint i);
+    Kate::TextLine kateTextLine(uint i);
+    Kate::TextLine plainKateTextLine(uint i);
 
   Q_SIGNALS:
     void codeFoldingUpdated();

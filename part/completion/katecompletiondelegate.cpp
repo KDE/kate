@@ -49,7 +49,7 @@ void KateCompletionDelegate::adjustStyle( const QModelIndex& index, QStyleOption
         uint color = model()->matchColor(index);
         if(color != 0) {
             QColor match(color);
-        
+
             for(int a = 0; a <=2; a++ )
             option.palette.setColor( (QPalette::ColorGroup)a, QPalette::Highlight, match );
         }
@@ -78,14 +78,14 @@ void KateCompletionDelegate::heightChanged() const {
 }
 
 QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
-    
+
     QVariant highlight = model()->data(index, KTextEditor::CodeCompletionModel::HighlightingMethod);
 
     // TODO: config enable specifying no highlight as default
     int highlightMethod = KTextEditor::CodeCompletionModel::InternalHighlighting;
     if (highlight.canConvert(QVariant::Int))
       highlightMethod = highlight.toInt();
-    
+
     if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
         m_currentColumnStart = 0;
         return highlightingFromVariantList(model()->data(index, KTextEditor::CodeCompletionModel::CustomHighlight).toList());
@@ -94,46 +94,47 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
 #ifdef DISABLE_INTERNAL_HIGHLIGHTING
     return QList<QTextLayout::FormatRange>();
 #endif
-    
+
     if( index.row() == m_cachedRow && highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting ) {
-        
+
         if( index.column() < m_cachedColumnStarts.size() ) {
             m_currentColumnStart = m_cachedColumnStarts[index.column()];
         } else {
             kWarning() << "Column-count does not match";
         }
-        
+
         return m_cachedHighlights;
     }
-    
+
     ///@todo reset the cache when the model changed
     m_cachedRow = index.row();
-    
+
     KTextEditor::Cursor completionStart = widget()->completionRange()->start();
 
     QString startText = document()->text(KTextEditor::Range(completionStart.line(), 0, completionStart.line(), completionStart.column()));
 
-    KateTextLine::Ptr thisLine(new KateTextLine());
-    thisLine->insertText(0, startText);
+    QString lineContent = startText;
 
     int len = completionStart.column();
     m_cachedColumnStarts.clear();
-    
+
     for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
       m_cachedColumnStarts.append(len);
       QString text = model()->data(model()->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
-      thisLine->insertText(thisLine->length(), text);
+      lineContent += text;
       len += text.length();
     }
+
+    Kate::TextLine thisLine = Kate::TextLine (new Kate::TextLineData(lineContent));
 
     //kDebug( 13035 ) << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
 
     if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
-      KateTextLine::Ptr previousLine;
+      Kate::TextLine previousLine;
       if (completionStart.line())
         previousLine = document()->kateTextLine(completionStart.line() - 1);
       else
-        previousLine = new KateTextLine();
+        previousLine = Kate::TextLine (new Kate::TextLineData());
 
       QVector<int> foldingList;
       bool ctxChanged = false;
@@ -141,14 +142,14 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
     }
 
   m_currentColumnStart = m_cachedColumnStarts[index.column()];
-  
+
   NormalRenderRange rr;
   QList<QTextLayout::FormatRange> ret = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
 
   //Remove background-colors
   for( QList<QTextLayout::FormatRange>::iterator it = ret.begin(); it != ret.end(); ++it )
     (*it).format.clearBackground();
-  
+
   return ret;
 }
 

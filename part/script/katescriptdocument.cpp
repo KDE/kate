@@ -128,7 +128,7 @@ bool KateScriptDocument::isOthers(const KTextEditor::Cursor& cursor)
 int KateScriptDocument::firstVirtualColumn(int line)
 {
   const int tabWidth = m_document->config()->tabWidth();
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   const int firstPos = textLine ? textLine->firstChar() : -1;
   if(!textLine || firstPos == -1)
     return -1;
@@ -138,7 +138,7 @@ int KateScriptDocument::firstVirtualColumn(int line)
 int KateScriptDocument::lastVirtualColumn(int line)
 {
   const int tabWidth = m_document->config()->tabWidth();
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   const int lastPos = textLine ? textLine->lastChar() : -1;
   if(!textLine || lastPos == -1)
     return -1;
@@ -148,7 +148,7 @@ int KateScriptDocument::lastVirtualColumn(int line)
 int KateScriptDocument::toVirtualColumn(int line, int column)
 {
   const int tabWidth = m_document->config()->tabWidth();
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if (!textLine || column < 0 || column > textLine->length()) return -1;
   return textLine->toVirtualColumn(column, tabWidth);
 }
@@ -167,7 +167,7 @@ KTextEditor::Cursor KateScriptDocument::toVirtualCursor(const KTextEditor::Curso
 int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
 {
   const int tabWidth = m_document->config()->tabWidth();
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if(!textLine || virtualColumn < 0 || virtualColumn > textLine->virtualLength(tabWidth))
     return -1;
   return textLine->fromVirtualColumn(virtualColumn, tabWidth);
@@ -192,7 +192,7 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
       m_document->highlight()->attributes(((KateView*)m_document->activeView())->renderer()->config()->schema());
 
   do {
-    KateTextLine::Ptr textLine = m_document->plainKateTextLine(cursor.line());
+    Kate::TextLine textLine = m_document->plainKateTextLine(cursor.line());
     if (!textLine)
       break;
 
@@ -272,7 +272,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(const KTextEditor::Cursor& cursor
 
 bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skipWhiteSpaces)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
 
   if (!textLine)
     return false;
@@ -285,7 +285,7 @@ bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skip
 
 bool KateScriptDocument::endsWith (int line, const QString &pattern, bool skipWhiteSpaces)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
 
   if (!textLine)
     return false;
@@ -386,7 +386,7 @@ QString KateScriptDocument::charAt(const KTextEditor::Cursor& cursor)
 
 QString KateScriptDocument::firstChar(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if(!textLine) return "";
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->firstChar());
@@ -395,7 +395,7 @@ QString KateScriptDocument::firstChar(int line)
 
 QString KateScriptDocument::lastChar(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if(!textLine) return "";
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->lastChar());
@@ -414,7 +414,7 @@ bool KateScriptDocument::isSpace(const KTextEditor::Cursor& cursor)
 
 bool KateScriptDocument::matchesAt(int line, int column, const QString &s)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   return textLine ? textLine->matchesAt(column, s) : false;
 }
 
@@ -435,9 +435,12 @@ bool KateScriptDocument::clear()
 
 bool KateScriptDocument::truncate(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
-  if(textLine) textLine->truncate(column);
-  return static_cast<bool>(textLine);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
+  if (!textLine || textLine->text().size() < column)
+    return false;
+
+  KTextEditor::Cursor from (line, column), to (line, textLine->text().size() - column);
+  return removeText(KTextEditor::Range(from, to));
 }
 
 bool KateScriptDocument::truncate(const KTextEditor::Cursor& cursor)
@@ -512,19 +515,19 @@ void KateScriptDocument::editEnd()
 
 int KateScriptDocument::firstColumn(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   return textLine ? textLine->firstChar() : -1;
 }
 
 int KateScriptDocument::lastColumn(int line)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   return textLine ? textLine->lastChar() : -1;
 }
 
 int KateScriptDocument::prevNonSpaceColumn(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if(!textLine) return -1;
   return textLine->previousNonSpaceChar(column);
 }
@@ -536,7 +539,7 @@ int KateScriptDocument::prevNonSpaceColumn(const KTextEditor::Cursor& cursor)
 
 int KateScriptDocument::nextNonSpaceColumn(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+  Kate::TextLine textLine = m_document->plainKateTextLine(line);
   if(!textLine) return -1;
   return textLine->nextNonSpaceChar(column);
 }
@@ -550,7 +553,7 @@ int KateScriptDocument::prevNonEmptyLine(int line)
 {
   const int startLine = line;
   for (int currentLine = startLine; currentLine >= 0; --currentLine) {
-    KateTextLine::Ptr textLine = m_document->plainKateTextLine(currentLine);
+    Kate::TextLine textLine = m_document->plainKateTextLine(currentLine);
     if(!textLine)
       return -1;
     if(textLine->firstChar() != -1)
@@ -563,7 +566,7 @@ int KateScriptDocument::nextNonEmptyLine(int line)
 {
   const int startLine = line;
   for (int currentLine = startLine; currentLine < m_document->lines(); ++currentLine) {
-    KateTextLine::Ptr textLine = m_document->plainKateTextLine(currentLine);
+    Kate::TextLine textLine = m_document->plainKateTextLine(currentLine);
     if(!textLine)
       return -1;
     if(textLine->firstChar() != -1)
@@ -614,7 +617,7 @@ KTextEditor::Cursor KateScriptDocument::documentEnd()
 
 int KateScriptDocument::attribute(int line, int column)
 {
-  KateTextLine::Ptr textLine = m_document->kateTextLine(line);
+  Kate::TextLine textLine = m_document->kateTextLine(line);
   if(!textLine) return 0;
   return textLine->attribute(column);
 }

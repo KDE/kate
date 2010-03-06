@@ -131,7 +131,7 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 {
   kDebug (13060) << "doIndent: line: " << line << " indentDepth: " << indentDepth << " align: " << align;
 
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+  Kate::TextLine textline = doc->plainKateTextLine(line);
 
   // textline not found, cu
   if (!textline)
@@ -177,7 +177,7 @@ bool KateAutoIndent::doIndentRelative(int line, int change)
 {
   kDebug (13060) << "doIndentRelative: line: " << line << " change: " << change;
 
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+  Kate::TextLine textline = doc->plainKateTextLine(line);
 
   // get indent width of current line
   int indentDepth = textline->indentDepth (tabWidth);
@@ -205,8 +205,8 @@ void KateAutoIndent::keepIndent ( int line )
   if (line <= 0)
     return;
 
-  KateTextLine::Ptr prevTextLine = doc->plainKateTextLine(line-1);
-  KateTextLine::Ptr textLine     = doc->plainKateTextLine(line);
+  Kate::TextLine prevTextLine = doc->plainKateTextLine(line-1);
+  Kate::TextLine textLine     = doc->plainKateTextLine(line);
 
   // textline not found, cu
   if (!prevTextLine || !textLine)

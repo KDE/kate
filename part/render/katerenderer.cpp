@@ -291,7 +291,7 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   paint.setPen( penBackup );
 }
 
-QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateTextLine::Ptr& textLine, int line, bool selectionsOnly, KateRenderRange* completionHighlight, bool completionSelected ) const
+QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::TextLine& textLine, int line, bool selectionsOnly, KateRenderRange* completionHighlight, bool completionSelected ) const
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
@@ -803,7 +803,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 {
   // if maxwidth == -1 we have no wrap
 
-  KateTextLine::Ptr textLine = lineLayout->textLine();
+  Kate::TextLine textLine = lineLayout->textLine();
   Q_ASSERT(textLine);
 
   QTextLayout* l = lineLayout->layout();

@@ -1,6 +1,7 @@
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/..
+  ${CMAKE_CURRENT_SOURCE_DIR}/../buffer
   ${CMAKE_CURRENT_SOURCE_DIR}/../completion
   ${CMAKE_CURRENT_SOURCE_DIR}/../dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/../document

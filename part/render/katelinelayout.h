@@ -20,6 +20,8 @@
 #ifndef _KATE_LINELAYOUT_H_
 #define _KATE_LINELAYOUT_H_
 
+#include <ksharedptr.h>
+
 #include "katecursor.h"
 #include "katetextline.h"
 
@@ -49,7 +51,7 @@ class KateLineLayout : public KShared
     friend bool operator< (const KateLineLayout& r, const KTextEditor::Cursor& c);
     friend bool operator<= (const KateLineLayout& r, const KTextEditor::Cursor& c);
 
-    const KateTextLine::Ptr& textLine(bool forceReload = false) const;
+    const Kate::TextLine& textLine(bool forceReload = false) const;
     int length() const;
 
     int line() const;
@@ -101,7 +103,7 @@ private:
     QTextLayout* takeLayout() const;
 
     KateDocument* m_doc;
-    mutable KateTextLine::Ptr m_textLine;
+    mutable Kate::TextLine m_textLine;
     int m_line;
     int m_virtualLine;
     int m_shiftX;

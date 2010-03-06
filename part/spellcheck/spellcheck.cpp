@@ -171,7 +171,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
     const int endColumn = rangeToSplit.end().column();
     bool inSpellCheckArea = false;
     for(int line = startLine; line <= endLine; ++line) {
-      KateTextLine::Ptr kateTextLine = document->kateTextLine(line);
+      Kate::TextLine kateTextLine = document->kateTextLine(line);
       const int start = (line == startLine) ? startColumn : 0;
       const int end = (line == endLine) ? endColumn : kateTextLine->length();
       const KTextEditor::Cursor startCursor();

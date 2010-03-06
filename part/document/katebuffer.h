@@ -20,7 +20,7 @@
 #ifndef __KATE_BUFFER_H__
 #define __KATE_BUFFER_H__
 
-#include "katetextline.h"
+#include "katetextbuffer.h"
 #include "katecodefolding.h"
 
 #include <QtCore/QObject>
@@ -30,39 +30,12 @@ class KateDocument;
 class KateHighlighting;
 
 /**
- * Block inside the buffer
- */
-class KateBufferBlock
-{
-  public:
-    /**
-     * new block
-     */
-    KateBufferBlock (int _start) : start (_start) {}
-
-    /**
-     * get line with absolute line number
-     */
-    inline KateTextLine::Ptr line (int i) { return lines[i - start]; }
-
-    /**
-     * lines contained in this buffer
-     */
-    QVector<KateTextLine::Ptr> lines;
-
-    /**
-     * start line
-     */
-    int start;
-};
-
-/**
  * The KateBuffer class maintains a collections of lines.
  *
  * @author Waldo Bastian <bastian@kde.org>
  * @author Christoph Cullmann <cullmann@kde.org>
  */
-class KateBuffer : public QObject
+class KateBuffer : public Kate::TextBuffer
 {
   Q_OBJECT
 
@@ -94,56 +67,25 @@ class KateBuffer : public QObject
      * editing session?
      * @return changes done?
      */
-    inline bool editChanged () const { return editChangesDone; }
+    inline bool editChanged () const { return editingChangedBuffer (); }
 
     /**
      * dirty lines start
      * @return start line
      */
-    inline int editTagStart () const { return editTagLineStart; }
+    inline int editTagStart () const { return editingMinimalLineChanged (); }
 
     /**
      * dirty lines end
      * @return end line
      */
-    inline int editTagEnd () const { return editTagLineEnd; }
+    inline int editTagEnd () const { return editingMaximalLineChanged (); }
 
     /**
      * line inserted/removed?
      * @return line inserted/removed?
      */
-    inline bool editTagFrom () const { return editTagLineFrom; }
-
-  private:
-    /**
-     * edit session recursion
-     */
-    int editSessionNumber;
-
-    /**
-     * is a edit session running
-     */
-    bool editIsRunning;
-
-    /**
-     * dirty lines start at line
-     */
-    int editTagLineStart;
-
-    /**
-     * dirty lines end at line
-     */
-    int editTagLineEnd;
-
-    /**
-     * a line was inserted or removed
-     */
-    bool editTagLineFrom;
-
-    /**
-     * changes done?
-     */
-    bool editChangesDone;
+    inline bool editTagFrom () const { return editingChangedNumberOfLines() != 0; }
 
   public:
     /**
@@ -159,17 +101,10 @@ class KateBuffer : public QObject
     bool openFile (const QString &m_file);
 
     /**
-     * is this file a binary?
-     * @return binary file?
+     * Did encoding errors occured on load?
+     * @return encoding errors occured on load?
      */
-    bool binary () const { return m_binary; }
-
-    /**
-     * is this file a broken utf-8?
-     * this means: was it opened as utf-8 but contained invalid chars?
-     * @return binary file?
-     */
-    bool brokenUTF8 () const { return m_brokenUTF8; }
+    bool brokenEncoding () const { return m_brokenEncoding; }
 
     /**
      * Can the current codec handle all chars
@@ -186,54 +121,48 @@ class KateBuffer : public QObject
 
   public:
     /**
-     * Return line @p line.
+     * Return line @p lineno.
      * Highlighting of returned line might be out-dated, which may be sufficient
      * for pure text manipulation functions, like search/replace.
      * If you require highlighting to be up to date, call @ref ensureHighlighted
      * prior to this method.
      */
-    inline KateTextLine::Ptr plainLine (int line)
+    inline Kate::TextLine plainLine (int lineno)
     {
-        // valid line at all?
-        int block = findBlock (line);
-        if (block == -1)
-          return KateTextLine::Ptr();
+        if (lineno < 0 || lineno >= lines())
+          return Kate::TextLine ();
 
-        // return requested line
-        return m_blocks[block]->line (line);
+        return line (lineno);
     }
 
     /**
      * Update highlighting of given line @p line, if needed.
      */
     void ensureHighlighted(int line);
-    
+
     /**
      * Return the total number of lines in the buffer.
      */
-    inline int count() const { return m_lines; }
+    inline int count() const { return lines(); }
 
     /**
-     * Mark line @p i as changed !
+     * Wrap line at given cursor position.
+     * @param position line/column as cursor where to wrap
      */
-    void changeLine(int i);
+    void wrapLine (const KTextEditor::Cursor &position);
 
     /**
-     * Insert @p line in front of line @p i
+     * Unwrap given line.
+     * @param line line to unwrap
      */
-    void insertLine(int i, KateTextLine::Ptr line);
-
-    /**
-     * Remove line @p i
-     */
-    void removeLine(int i);
+    void unwrapLine (int line);
 
   private:
      inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);
      inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
 
   public:
-    inline int countVisible () { return m_lines - m_regionTree.getHiddenLinesCount(m_lines); }
+    inline int countVisible () { return lines() - m_regionTree.getHiddenLinesCount(lines()); }
 
     inline int lineNumber (int visibleLine) { return m_regionTree.getRealLine (visibleLine); }
 
@@ -266,10 +195,6 @@ class KateBuffer : public QObject
     void codeFoldingColumnUpdate(int lineNr);
 
   private:
-    int findBlock (int line);
-
-    void fixBlocksFrom (int lastValidBlock);
-
     /**
      * Highlight information needs to be updated.
      *
@@ -281,8 +206,8 @@ class KateBuffer : public QObject
      * false otherwise.
      */
     bool doHighlight (int from, int to, bool invalidate);
-    bool isEmptyLine(KateTextLine::Ptr textline);
-    
+    bool isEmptyLine(Kate::TextLine textline);
+
   Q_SIGNALS:
     /**
      * Emittend if codefolding returned with a changed list
@@ -302,35 +227,9 @@ class KateBuffer : public QObject
     KateDocument *m_doc;
 
     /**
-     * current line count
+     * file loaded with encoding problems?
      */
-    QVector<KateBufferBlock*> m_blocks;
-
-    /**
-     * last used block
-     */
-    int m_lastUsedBlock;
-
-    /**
-     * count of lines
-     */
-    int m_lines;
-
-    /**
-     * binary file loaded ?
-     */
-    bool m_binary;
-
-    /**
-     * binary file loaded ?
-     */
-    bool m_brokenUTF8;
-    
-    /**
-     * mime-type to chose filter dev for saving
-     * default: text/plain == no compression
-     */
-    QString m_mimeTypeForFilterDev;
+    bool m_brokenEncoding;
 
   /**
    * highlighting & folding relevant stuff

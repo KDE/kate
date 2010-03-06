@@ -702,8 +702,8 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
     r.endLine = doc()->lines()-1;
   }
 
-  KateTextLine::Ptr startLine = doc()->plainKateTextLine( c.line() );
-  KateTextLine::Ptr endLine = doc()->plainKateTextLine( r.endLine );
+  Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
+  Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
 
   int endLineLen = doc()->lineLength( r.endLine )-1;
 

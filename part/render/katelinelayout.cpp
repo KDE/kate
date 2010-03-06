@@ -46,7 +46,7 @@ KateLineLayout::~KateLineLayout()
 
 void KateLineLayout::clear()
 {
-  m_textLine = 0L;
+  m_textLine = Kate::TextLine ();
   m_line = -1;
   m_virtualLine = -1;
   m_shiftX = 0;
@@ -61,7 +61,7 @@ bool KateLineLayout::includesCursor(const KTextEditor::Cursor& realCursor) const
   return realCursor.line() == line();
 }
 
-const KateTextLine::Ptr& KateLineLayout::textLine(bool reloadForce) const
+const Kate::TextLine& KateLineLayout::textLine(bool reloadForce) const
 {
   if (reloadForce || !m_textLine)
     m_textLine = usePlainTextLine() ? m_doc->plainKateTextLine (line()) : m_doc->kateTextLine(line());
@@ -80,7 +80,7 @@ void KateLineLayout::setLine( int line, int virtualLine )
 {
   m_line = line;
   m_virtualLine = (virtualLine == -1) ? m_doc->getVirtualLine(line) : virtualLine;
-  m_textLine = 0L;
+  m_textLine = Kate::TextLine ();
 }
 
 int KateLineLayout::virtualLine( ) const

@@ -116,7 +116,7 @@ void KateHighlighting::cleanup ()
 {
   qDeleteAll (m_contexts);
   m_contexts.clear ();
-  
+
   qDeleteAll (m_hlItemCleanupList);
   m_hlItemCleanupList.clear ();
 
@@ -253,8 +253,8 @@ void KateHighlighting::dropDynamicContexts()
  * @param foldingList will be filled
  * @param ctxChanged will be set to reflect if the context changed
  */
-void KateHighlighting::doHighlight ( KateTextLine *prevLine,
-                                     KateTextLine *textLine,
+void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
+                                     Kate::TextLineData *textLine,
                                      QVector<int> &foldingList,
                                      bool &ctxChanged )
 {
@@ -579,7 +579,7 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
       tmp=s[8]; if (!tmp.isEmpty()) {
          col=tmp.toUInt(0,16); p->setSelectedBackground(QColor(col)); }
 
-      tmp=s[9]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) p->setFontFamily(tmp); 
+      tmp=s[9]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) p->setFontFamily(tmp);
 
     }
   }
@@ -774,7 +774,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
     // is spellchecking desired?
     if (!spellChecking.isEmpty()) newData->setPerformSpellchecking( IS_TRUE(spellChecking) );
     if (!fontFamily.isEmpty()) newData->setFontFamily(fontFamily);
- 
+
     internalIDList.append(newData);
   }
 
@@ -977,7 +977,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   {
     unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
   }
-  
+
   // remember all to delete them
   m_hlItemCleanupList.append (tmpItem);
 
@@ -1167,7 +1167,7 @@ void KateHighlighting::readEmptyLineConfig()
 void KateHighlighting::readGlobalKeywordConfig()
 {
   deliminator = stdDeliminator;
-  
+
 #ifdef HIGHLIGHTING_DEBUG
   kDebug(13010)<<"readGlobalKeywordConfig:BEGIN";
 #endif
@@ -1342,7 +1342,7 @@ void KateHighlighting::readSpellCheckingConfig()
         if(encoding.indexOf(QRegExp("\\r|\\n")) >= 0)
         {
           encoding.replace(QRegExp("\\r|\\n"), "<\\n|\\r>");
-          
+
 #ifdef HIGHLIGHTING_DEBUG
           kDebug() << "Encoding" << encoding
                                  << "contains new-line characters. Ignored.";
@@ -1407,7 +1407,7 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
      }
      KateHlManager::self()->syntax->freeGroupInfo(data);
   }
-  
+
 #ifdef HIGHLIGHTING_DEBUG
   kDebug(13010)<<"creatingContextNameList:END";
 #endif
@@ -1470,7 +1470,7 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
     QString tmp=tmpLineEndContext.mid(o+2);
     if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,KateEmbeddedHlInfo());
     unres=tmp+':'+tmpLineEndContext.left(o);
-    
+
 #ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "unres = " << unres;
 #endif
@@ -1538,11 +1538,11 @@ void KateHighlighting::makeContextList()
 #endif
 
         QString identifierToUse;
-        
+
 #ifdef HIGHLIGHTING_DEBUG
         kDebug(13010)<<"Trying to open highlighting definition file: "<< it.key();
 #endif
-        
+
         if (iName==it.key()) // the own identifier is known
           identifierToUse=identifier;
         else                 // all others have to be looked up
@@ -1591,7 +1591,7 @@ void KateHighlighting::makeContextList()
        ++unresIt)
   {
     QString incCtx = unresIt.value();
-    
+
 #ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "Context " <<incCtx << " is unresolved";
 #endif
@@ -1674,11 +1674,11 @@ void KateHighlighting::handleKateHlIncludeRules()
       {
         // resolve name to id
         (*it)->incCtx=getContextModificationFromString(&ContextNameList,(*it)->incCtxN,dummy).newContext;
-        
+
 #ifdef HIGHLIGHTING_DEBUG
         kDebug(13010)<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx.newContext<<" for include rule";
-#endif        
-        
+#endif
+
         // It would be good to look here somehow, if the result is valid
       }
     }
@@ -1803,7 +1803,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   m_hlIndex[internalIDList.count()] = ident;
   m_ctxIndex[ctx0]=ident;
-  
+
   // clear and reuse or create new
   if (m_additionalData[ident])
     *m_additionalData[ident] = HighlightPropertyBag ();
@@ -1842,8 +1842,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     {
 #ifdef HIGHLIGHTING_DEBUG
       kDebug(13010)<<"Found a context in file, building structure now";
-#endif      
-      
+#endif
+
       //BEGIN - Translation of the attribute parameter
       QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplified();
       int attr;
@@ -1882,7 +1882,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
 #ifdef HIGHLIGHTING_DEBUG
           kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc.newContext;
-#endif        
+#endif
         }
       }
       //END falltrhough props
@@ -1933,8 +1933,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
              //a cross highlighting reference
 #ifdef HIGHLIGHTING_DEBUG
              kDebug(13010)<<"Cross highlight reference <IncludeRules>, context "<<incCtxN;
-#endif             
-             
+#endif
+
              KateHlIncludeRule *ir=new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtxN,includeAttrib);
 
              //use the same way to determine cross hl file references as other items do
@@ -2017,16 +2017,16 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           "<b>%1</b>: Specified multiline comment region (%2) could not be resolved<br />"
                              , buildIdentifier,  m_additionalData[ ident ]->multiLineRegion );
       m_additionalData[ ident ]->multiLineRegion.clear();
-      
+
 #ifdef HIGHLIGHTING_DEBUG
       kDebug(13010)<<"ERROR comment region attribute could not be resolved";
 #endif
     } else {
       m_additionalData[ ident ]->multiLineRegion=QString::number(commentregionid+1);
-      
+
 #ifdef HIGHLIGHTING_DEBUG
       kDebug(13010)<<"comment region resolved to:"<<m_additionalData[ ident ]->multiLineRegion;
-#endif    
+#endif
     }
   }
   //END Resolve multiline region if possible

@@ -136,7 +136,7 @@ QString KatePrefixStore::findPrefix(const QString& s, int start) const
   return QString();
 }
 
-QString KatePrefixStore::findPrefix(const KateTextLine::Ptr& line, int start) const
+QString KatePrefixStore::findPrefix(const Kate::TextLine& line, int start) const
 {
   unsigned long long state = 0;
   for(int i = start; i < line->length(); ++i) {

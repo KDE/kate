@@ -829,7 +829,7 @@ void KateViewInternal::doReturn()
 void KateViewInternal::doSmartNewline()
 {
   int ln = m_cursor.line();
-  KateTextLine::Ptr line = doc()->kateTextLine(ln);
+  Kate::TextLine line = doc()->kateTextLine(ln);
   int col = qMin(m_cursor.column(), line->firstChar());
   if (col != -1) {
     while (line->length() > col &&
@@ -1234,7 +1234,7 @@ void KateViewInternal::home( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = doc()->kateTextLine( m_cursor.line() );
+  Kate::TextLine l = doc()->kateTextLine( m_cursor.line() );
 
   if (!l)
     return;
@@ -1271,7 +1271,7 @@ void KateViewInternal::end( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = doc()->kateTextLine( m_cursor.line() );
+  Kate::TextLine l = doc()->kateTextLine( m_cursor.line() );
 
   if (!l)
     return;
@@ -1772,7 +1772,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
           {
             m_selectAnchor = m_selectionCached.start();
 
-            KateTextLine::Ptr l = doc()->kateTextLine( newCursor.line() );
+            Kate::TextLine l = doc()->kateTextLine( newCursor.line() );
 
             c = newCursor.column();
             if ( c > 0 && doc()->highlight()->isInWord( l->at( c-1 ) ) ) {
@@ -1787,7 +1787,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
           {
             m_selectAnchor = m_selectionCached.end();
 
-            KateTextLine::Ptr l = doc()->kateTextLine( newCursor.line() );
+            Kate::TextLine l = doc()->kateTextLine( newCursor.line() );
 
             c = newCursor.column();
             if ( c > 0 && c < doc()->lineLength( newCursor.line() )
@@ -2432,7 +2432,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
           // if the cursor is at or before the first non-space character
           // or on an empty line,
           // Tab indents, otherwise it inserts a tab character.
-          KateTextLine::Ptr line = doc()->kateTextLine( m_cursor.line() );
+          Kate::TextLine line = doc()->kateTextLine( m_cursor.line() );
           int first = line->firstChar();
           if (first < 0 || m_cursor.column() <= first)
             tabHandling = KateDocumentConfig::tabIndents;
@@ -2665,7 +2665,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
         // Now select the word under the select anchor
         int cs, ce;
-        KateTextLine::Ptr l = doc()->kateTextLine( m_selectAnchor.line() );
+        Kate::TextLine l = doc()->kateTextLine( m_selectAnchor.line() );
 
         ce = m_selectAnchor.column();
         if ( ce > 0 && doc()->highlight()->isInWord( l->at(ce) ) ) {
@@ -3761,7 +3761,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
         return m_cursor.start().column();
 
     case Qt::ImSurroundingText:
-      if (KateTextLine::Ptr l = doc()->kateTextLine(m_cursor.line()))
+      if (Kate::TextLine l = doc()->kateTextLine(m_cursor.line()))
         return l->string();
       else
         return QString();

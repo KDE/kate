@@ -220,14 +220,14 @@ public:
      * \param range line to return decoration for
      * \param selectionsOnly return decorations for selections and/or dynamic highlighting.
      */
-    QList<QTextLayout::FormatRange> decorationsForLine(const KateTextLine::Ptr& textLine, int line, bool selectionsOnly = false, KateRenderRange* completionHighlight = 0L, bool completionSelected = false) const;
+    QList<QTextLayout::FormatRange> decorationsForLine(const Kate::TextLine& textLine, int line, bool selectionsOnly = false, KateRenderRange* completionHighlight = 0L, bool completionSelected = false) const;
 
     KateSmartRegion& dynamicRegion() { return m_dynamicRegion; }
 
     // Width calculators
     uint spaceWidth() const;
-    KDE_DEPRECATED uint textWidth(const KateTextLine::Ptr &, int cursorCol);
-    KDE_DEPRECATED uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
+    KDE_DEPRECATED uint textWidth(const Kate::TextLine &, int cursorCol);
+    KDE_DEPRECATED uint textWidth(const Kate::TextLine &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
     KDE_DEPRECATED uint textWidth(const KTextEditor::Cursor& cursor);
 
     /**

@@ -362,7 +362,7 @@ KTextEditor::Range KateDocument::rangeOnLine(KTextEditor::Range range, int line)
   int col1 = const_cast<KateDocument*>(this)->toVirtualColumn(range.start());
   int col2 = const_cast<KateDocument*>(this)->toVirtualColumn(range.end());
 
-  KateTextLine::Ptr tl = const_cast<KateDocument*>(this)->kateTextLine(line);
+  Kate::TextLine tl = const_cast<KateDocument*>(this)->kateTextLine(line);
   col1 = tl->fromVirtualColumn(col1, config()->tabWidth());
   col2 = tl->fromVirtualColumn(col2, config()->tabWidth());
 
@@ -377,7 +377,7 @@ QString KateDocument::text() const
 
   for (int i = 0; i < m_buffer->count(); i++)
   {
-    KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+    Kate::TextLine textLine = m_buffer->plainLine(i);
 
     if (textLine)
     {
@@ -405,7 +405,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
     if (range.start().column() > range.end().column())
       return QString ();
 
-    KateTextLine::Ptr textLine = m_buffer->plainLine(range.start().line());
+    Kate::TextLine textLine = m_buffer->plainLine(range.start().line());
 
     if ( !textLine )
       return QString ();
@@ -417,7 +417,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
 
     for (int i = range.start().line(); (i <= range.end().line()) && (i < m_buffer->count()); ++i)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+      Kate::TextLine textLine = m_buffer->plainLine(i);
 
       if ( !blockwise )
       {
@@ -444,7 +444,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
 
 QChar KateDocument::character( const KTextEditor::Cursor & position ) const
 {
-  KateTextLine::Ptr textLine = m_buffer->plainLine(position.line());
+  Kate::TextLine textLine = m_buffer->plainLine(position.line());
 
   if ( !textLine )
     return QChar();
@@ -471,7 +471,7 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
   {
     Q_ASSERT(range.start() <= range.end());
 
-    KateTextLine::Ptr textLine = m_buffer->plainLine(range.start().line());
+    Kate::TextLine textLine = m_buffer->plainLine(range.start().line());
 
     if ( !textLine )
       return ret;
@@ -482,7 +482,7 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
   {
     for (int i = range.start().line(); (i <= range.end().line()) && (i < m_buffer->count()); ++i)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+      Kate::TextLine textLine = m_buffer->plainLine(i);
 
       if ( !blockwise )
       {
@@ -506,7 +506,7 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
 
 QString KateDocument::line( int line ) const
 {
-  KateTextLine::Ptr l = m_buffer->plainLine(line);
+  Kate::TextLine l = m_buffer->plainLine(line);
 
   if (!l)
     return QString();
@@ -615,7 +615,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   static const QChar spaceChar(' ');
 
   int insertColumnExpanded = insertColumn;
-  KateTextLine::Ptr l = kateTextLine( currentLine );
+  Kate::TextLine l = kateTextLine( currentLine );
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
@@ -701,7 +701,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   static const QChar spaceChar(' ');
 
   int insertColumnExpanded = insertColumn;
-  KateTextLine::Ptr l = kateTextLine( currentLine );
+  Kate::TextLine l = kateTextLine( currentLine );
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
@@ -779,7 +779,7 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
     emit aboutToRemoveText(range);
 
   editStart();
- 
+
   if ( !block )
   {
     if ( range.end().line() > lastLine() )
@@ -872,7 +872,7 @@ int KateDocument::totalCharacters() const
 
   for (int i = 0; i < m_buffer->count(); ++i)
   {
-    KateTextLine::Ptr line = m_buffer->plainLine(i);
+    Kate::TextLine line = m_buffer->plainLine(i);
 
     if (line)
       l += line->length();
@@ -896,7 +896,7 @@ int KateDocument::lineLength ( int line ) const
   if (line < 0 || line > lastLine())
     return -1;
 
-  KateTextLine::Ptr l = m_buffer->plainLine(line);
+  Kate::TextLine l = m_buffer->plainLine(line);
 
   if (!l)
     return -1;
@@ -1031,7 +1031,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
   for (int line = startLine; (line <= endLine) && (line < lines()); line++)
   {
-    KateTextLine::Ptr l = kateTextLine(line);
+    Kate::TextLine l = kateTextLine(line);
 
     if (!l)
       return false;
@@ -1040,7 +1040,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
     if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
-      KateTextLine::Ptr nextl = kateTextLine(line+1);
+      Kate::TextLine nextl = kateTextLine(line+1);
 
       kDebug (13020) << "do wrap line: " << line;
 
@@ -1144,7 +1144,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = kateTextLine(line);
+  Kate::TextLine l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1152,7 +1152,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   // nothing to do, do nothing!
   if (s.isEmpty())
     return true;
-  
+
   editStart (editSource);
 
   QString s2 = s;
@@ -1164,9 +1164,8 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
 
   m_undoManager->slotTextInserted(line, col2, s2);
 
-  l->insertText (col2, s2);
-
-  m_buffer->changeLine(line);
+  // insert text into line
+  m_buffer->insertText (KTextEditor::Cursor (line, col2), s2);
 
   history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col2, line, col),
               QStringList(), KTextEditor::Range(line, col2, line, col2 + s2.length()), QStringList(s2)) );
@@ -1185,7 +1184,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = kateTextLine(line);
+  Kate::TextLine l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1193,15 +1192,19 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   // nothing to do, do nothing!
   if (len == 0)
     return true;
-  
+
+  // wrong column
+  if (col >= l->text().size())
+    return false;
+
   editStart (editSource);
 
   m_undoManager->slotTextRemoved(line, col, l->string().mid(col, len));
 
-  l->removeText (col, len);
-  removeTrailingSpace( line );
+  // remove text from line
+  m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, col), KTextEditor::Cursor (line, col+len)));
 
-  m_buffer->changeLine(line);
+  removeTrailingSpace( line );
 
   history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col + len), QStringList(l->string().mid(col, len)), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len));
@@ -1219,7 +1222,7 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = kateTextLine(line);
+  Kate::TextLine l = kateTextLine(line);
 
   if (!l)
     return false;
@@ -1229,8 +1232,6 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
   m_undoManager->slotMarkLineAutoWrapped(line, autowrapped);
 
   l->setAutoWrapped (autowrapped);
-
-  m_buffer->changeLine(line);
 
   editEnd ();
 
@@ -1245,14 +1246,14 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = kateTextLine(line);
+  Kate::TextLine l = kateTextLine(line);
 
   if (!l)
     return false;
 
   editStart ();
 
-  KateTextLine::Ptr nextLine = kateTextLine(line+1);
+  Kate::TextLine nextLine = kateTextLine(line+1);
 
   int pos = l->length() - col;
 
@@ -1263,13 +1264,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
 
   if (!nextLine || newLine)
   {
-    KateTextLine::Ptr textLine(new KateTextLine());
-
-    textLine->insertText (0, l->string().mid(col, pos));
-    l->truncate(col);
-
-    m_buffer->insertLine (line+1, textLine);
-    m_buffer->changeLine(line);
+    m_buffer->wrapLine (KTextEditor::Cursor (line, col));
 
     QList<KTextEditor::Mark*> list;
     for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
@@ -1301,11 +1296,8 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   }
   else
   {
-    nextLine->insertText (0, l->string().mid(col, pos));
-    l->truncate(col);
-
-    m_buffer->changeLine(line);
-    m_buffer->changeLine(line+1);
+    m_buffer->insertText (KTextEditor::Cursor (line + 1, 0), l->text().mid(col, pos));
+    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, col), KTextEditor::Cursor (line, l->text().size()-col)));
 
     // no, no new line added !
     if (newLineAdded)
@@ -1329,8 +1321,8 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   if (!isReadWrite())
     return false;
 
-  KateTextLine::Ptr l = kateTextLine(line);
-  KateTextLine::Ptr nextLine = kateTextLine(line+1);
+  Kate::TextLine l = kateTextLine(line);
+  Kate::TextLine nextLine = kateTextLine(line+1);
 
   if (!l || !nextLine)
     return false;
@@ -1343,18 +1335,12 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
   if (removeLine)
   {
-    l->insertText (col, nextLine->string());
-
-    m_buffer->changeLine(line);
-    m_buffer->removeLine(line+1);
+    m_buffer->unwrapLine (line+1);
   }
   else
   {
-    l->insertText (col, nextLine->string().left((nextLine->length() < length) ? nextLine->length() : length));
-    nextLine->removeText (0, (nextLine->length() < length) ? nextLine->length() : length);
-
-    m_buffer->changeLine(line);
-    m_buffer->changeLine(line+1);
+    m_buffer->insertText (KTextEditor::Cursor (line, col), nextLine->string().left((nextLine->length() < length) ? nextLine->length() : length));
+    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line + 1, 0), KTextEditor::Cursor (line + 1, (nextLine->length() < length) ? nextLine->length() : length)));
   }
 
   QList<KTextEditor::Mark*> list;
@@ -1411,12 +1397,20 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
 
   removeTrailingSpace( line ); // old line
 
-  KateTextLine::Ptr tl(new KateTextLine());
-  tl->insertText (0, s);
-  m_buffer->insertLine(line, tl);
-  m_buffer->changeLine(line);
+  // wrap line
+  if (line > 0) {
+    Kate::TextLine previousLine = m_buffer->line (line-1);
+    m_buffer->wrapLine (KTextEditor::Cursor (line-1, previousLine->text().size()));
+  } else {
+    m_buffer->wrapLine (KTextEditor::Cursor (0, 0));
+  }
+
+  // insert text
+  m_buffer->insertText (KTextEditor::Cursor (line, 0), s);
 
   removeTrailingSpace( line ); // new line
+
+  Kate::TextLine tl = m_buffer->line (line);
 
   QList<KTextEditor::Mark*> list;
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
@@ -1440,7 +1434,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   KTextEditor::Range rangeInserted(line, 0, line, tl->length());
 
   if (line) {
-    KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
+    Kate::TextLine prevLine = plainKateTextLine(line - 1);
     rangeInserted.start().setPosition(line - 1, prevLine->length());
   } else {
     rangeInserted.end().setPosition(line + 1, 0);
@@ -1481,10 +1475,15 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
   }
 
   for (int line = to; line >= from; line--) {
+    Kate::TextLine tl = m_buffer->line (line);
     oldText << this->line(line);
     m_undoManager->slotLineRemoved(line, this->line(line));
 
-    m_buffer->removeLine(line);
+    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, 0), KTextEditor::Cursor (line, tl->text().size())));
+    if (line + 1 <= lastLine())
+      m_buffer->unwrapLine (line+1);
+    else if (line != 0)
+      m_buffer->unwrapLine (line);
   }
 
   QList<int> rmark;
@@ -1516,7 +1515,7 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
   if (to == lastLine() + to - from + 1) {
     rangeRemoved.end().setPosition(to, oldText.first().length());
     if (from > 0) {
-      KateTextLine::Ptr prevLine = plainKateTextLine(from - 1);
+      Kate::TextLine prevLine = plainKateTextLine(from - 1);
       rangeRemoved.start().setPosition(from - 1, prevLine->length());
     }
   }
@@ -2068,7 +2067,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 //BEGIN KParts::ReadWrite stuff
 bool KateDocument::openFile()
-{ 
+{
   // no open errors until now...
   setOpeningError(false);
 
@@ -2092,7 +2091,7 @@ bool KateDocument::openFile()
   // disable view updates
   foreach (KateView * view, m_views)
     view->setUpdatesEnabled (false);
-  
+
   history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
   emit KTextEditor::Document::textInserted(this, documentRange());
 
@@ -2175,40 +2174,24 @@ bool KateDocument::openFile()
     setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
   }
 
-  // warn -> opened binary file!!!!!!!
-  if (m_buffer->binary())
-  {
-    // this file can't be saved again without killing it
-    setReadWrite( false );
-
-    if(!suppressOpeningErrorDialogs())
-      KMessageBox::information (parentWidget
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().pathOrUrl())
-        , i18n ("Binary File Opened")
-        , "Binary File Opened Warning");
-
-    setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().pathOrUrl()));
-  }
-
-  // warn: opened broken utf-8 file...
-  // only warn if not already a binary file!
-  else if (m_buffer->brokenUTF8())
+  // warn: broken encoding
+  if (m_buffer->brokenEncoding())
   {
     // this file can't be saved again without killing it
     setReadWrite( false );
 
     if (!suppressOpeningErrorDialogs())
       KMessageBox::information (parentWidget
-        , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
+        , i18n ("The file %1 was opened with %2 encoding but contained invalid characters."
                 " It is set to read-only mode, as saving might destroy its content."
-                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl())
-        , i18n ("Broken UTF-8 File Opened")
-        , "Broken UTF-8 File Opened Warning");
+                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
+                QString (m_buffer->textCodec()->name ()))
+        , i18n ("Broken Encoding")
+        , "Broken Encoding Warning");
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
+    setOpeningErrorMessage(i18n ("The file %1 was opened with 2 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy its content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl()));
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(), QString (m_buffer->textCodec()->name ())));
   }
 
   //
@@ -2224,12 +2207,14 @@ bool KateDocument::saveFile()
   //
   // warn -> try to save binary file!!!!!!!
   //
+#if 0
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (parentWidget
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().pathOrUrl())
         , i18n ("Trying to Save Binary File")
         , KGuiItem(i18n("Save Nevertheless"))
         , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
+#endif
 
   // some warnings, if file was changed by the outside!
   if ( !url().isEmpty() )
@@ -2688,7 +2673,7 @@ bool KateDocument::ownedView(KateView *view) {
 
 uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
 {
-  KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
+  Kate::TextLine textLine = m_buffer->plainLine(cursor.line());
 
   if (textLine)
     return textLine->toVirtualColumn(cursor.column(), config()->tabWidth());
@@ -2701,7 +2686,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   // Because we want to access text before starting an edit, lock the smart mutex now
   QMutexLocker l(smartMutex());
 
-  KateTextLine::Ptr textLine = m_buffer->plainLine(view->cursorPosition().line ());
+  Kate::TextLine textLine = m_buffer->plainLine(view->cursorPosition().line ());
 
   if (!textLine)
     return false;
@@ -2798,7 +2783,7 @@ void KateDocument::newLine( KateView *v )
 
   uint ln = c.line();
 
-  KateTextLine::Ptr textLine = plainKateTextLine(ln);
+  Kate::TextLine textLine = plainKateTextLine(ln);
 
   if (c.column() > (int)textLine->length())
     c.setColumn(textLine->length());
@@ -2816,7 +2801,7 @@ void KateDocument::newLine( KateView *v )
 
 void KateDocument::transpose( const KTextEditor::Cursor& cursor)
 {
-  KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
+  Kate::TextLine textLine = m_buffer->plainLine(cursor.line());
 
   if (!textLine || (textLine->length() < 2))
     return;
@@ -2864,7 +2849,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
     if (config()->configFlags() & KateDocumentConfig::cfAutoBrackets)
     {
       // if inside empty (), {}, [], '', "" delete both
-      KateTextLine::Ptr tl = m_buffer->plainLine(line);
+      Kate::TextLine tl = m_buffer->plainLine(line);
       if(!tl) return;
       QChar prevChar = tl->at(col-1);
       QChar nextChar = tl->at(col);
@@ -2887,7 +2872,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
     else
     {
       // backspace indents: erase to next indent position
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+      Kate::TextLine textLine = m_buffer->plainLine(line);
 
       // don't forget this check!!!! really!!!!
       if (!textLine)
@@ -2912,7 +2897,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
     // col == 0: wrap to previous line
     if (line >= 1)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line-1);
+      Kate::TextLine textLine = m_buffer->plainLine(line-1);
 
       // don't forget this check!!!! really!!!!
       if (!textLine)
@@ -3064,7 +3049,7 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
 */
 bool KateDocument::removeStringFromBeginning(int line, const QString &str)
 {
-  KateTextLine::Ptr textline = m_buffer->plainLine(line);
+  Kate::TextLine textline = m_buffer->plainLine(line);
 
   KTextEditor::Cursor cursor (line, 0);
   bool there = textline->startsWith(str);
@@ -3090,7 +3075,7 @@ bool KateDocument::removeStringFromBeginning(int line, const QString &str)
 */
 bool KateDocument::removeStringFromEnd(int line, const QString &str)
 {
-  KateTextLine::Ptr textline = m_buffer->plainLine(line);
+  Kate::TextLine textline = m_buffer->plainLine(line);
 
   KTextEditor::Cursor cursor (line, 0);
   bool there = textline->endsWith(str);
@@ -3127,7 +3112,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
     pos = 0;
     commentLineMark += ' ';
   } else {
-    const KateTextLine::Ptr l = kateTextLine(line);
+    const Kate::TextLine l = kateTextLine(line);
     pos = l->firstChar();
   }
 
@@ -3272,7 +3257,7 @@ void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
 {
   for(; line < (int)m_buffer->count(); line++) {
-    KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+    Kate::TextLine textLine = m_buffer->plainLine(line);
 
     if (!textLine)
       break;
@@ -3292,7 +3277,7 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 {
   while(true)
   {
-    KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+    Kate::TextLine textLine = m_buffer->plainLine(line);
 
     if (!textLine)
       break;
@@ -3423,7 +3408,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
   int startAttrib, endAttrib;
   if ( hassel )
   {
-    KateTextLine::Ptr ln = kateTextLine( v->selectionRange().start().line() );
+    Kate::TextLine ln = kateTextLine( v->selectionRange().start().line() );
     int l = v->selectionRange().start().line(), c = v->selectionRange().start().column();
     startAttrib = nextNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
 
@@ -3433,7 +3418,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
   }
   else
   {
-    KateTextLine::Ptr ln = kateTextLine( line );
+    Kate::TextLine ln = kateTextLine( line );
     if ( ln->length() )
     {
       startAttrib = ln->attribute( ln->firstChar() );
@@ -3572,7 +3557,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
         s = s.toLower();
       else // Capitalize
       {
-        KateTextLine::Ptr l = m_buffer->plainLine( range.start().line() );
+        Kate::TextLine l = m_buffer->plainLine( range.start().line() );
         int p ( 0 );
         while( p < s.length() )
         {
@@ -3614,7 +3599,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       break;
       case Capitalize:
       {
-        KateTextLine::Ptr l = m_buffer->plainLine( cursor.line() );
+        Kate::TextLine l = m_buffer->plainLine( cursor.line() );
         while ( cursor.column() > 0 && highlight()->isInWord( l->at( cursor.column() - 1 ), l->attribute( cursor.column() - 1 ) ) )
           cursor.setColumn(cursor.column() - 1);
         old = text( KTextEditor::Range(cursor, 1) );
@@ -3648,8 +3633,8 @@ void KateDocument::joinLines( uint first, uint last )
     // This cannot be done in editUnwrapLine, because we do NOT want this
     // behavior when deleting from the start of a line, just when explicitly
     // calling the join command
-    KateTextLine::Ptr l = kateTextLine( line );
-    KateTextLine::Ptr tl = kateTextLine( line + 1 );
+    Kate::TextLine l = kateTextLine( line );
+    Kate::TextLine tl = kateTextLine( line + 1 );
 
     if ( !l || !tl )
     {
@@ -3681,7 +3666,7 @@ QString KateDocument::getWord( const KTextEditor::Cursor& cursor )
 {
   int start, end, len;
 
-  KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
+  Kate::TextLine textLine = m_buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.column();
   if (start > len)        // Probably because of non-wrapping cursor mode.
@@ -3733,7 +3718,7 @@ void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KTextEdito
 {
   // search from cursor for brackets
   KTextEditor::Range range (cursor, cursor);
-  
+
   // if match found, remember the range
   if( findMatchingBracket( range, maxLines ) ) {
     bm = range;
@@ -3747,7 +3732,7 @@ void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KTextEdito
 
 bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines )
 {
-  KateTextLine::Ptr textLine = m_buffer->plainLine( range.start().line() );
+  Kate::TextLine textLine = m_buffer->plainLine( range.start().line() );
   if( !textLine )
     return false;
 
@@ -4623,7 +4608,7 @@ void KateDocument::removeTrailingSpace(int line)
       || !(config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn))
     return;
 
-  KateTextLine::Ptr ln = plainKateTextLine(line);
+  Kate::TextLine ln = plainKateTextLine(line);
 
   if (!ln || ln->length() == 0)
     return;
@@ -4801,7 +4786,7 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
                                                      const QMap<QString,QString> &initialValues, QWidget * )
 {
   if (templateString.isEmpty()) return false;
-  
+
   // the handler will delete itself when necessary
   new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager);
 
@@ -5053,13 +5038,13 @@ uint KateDocument::visibleLines( )
   return m_buffer->countVisible ();
 }
 
-KateTextLine::Ptr KateDocument::kateTextLine( uint i )
+Kate::TextLine KateDocument::kateTextLine( uint i )
 {
   m_buffer->ensureHighlighted (i);
   return m_buffer->plainLine (i);
 }
 
-KateTextLine::Ptr KateDocument::plainKateTextLine( uint i )
+Kate::TextLine KateDocument::plainKateTextLine( uint i )
 {
   return m_buffer->plainLine (i);
 }
@@ -5426,7 +5411,7 @@ KTextEditor::SmartRangeNotifier* KateDocument::dictionaryRangeNotifier()
 bool KateDocument::containsCharacterEncoding(const KTextEditor::Range& range)
 {
   KateHighlighting *highlighting = highlight();
-  KateTextLine::Ptr textLine;
+  Kate::TextLine textLine;
 
   const int rangeStartLine = range.start().line();
   const int rangeStartColumn = range.start().column();
@@ -5471,7 +5456,7 @@ QString KateDocument::decodeCharacters(const KTextEditor::Range& range, KateDocu
   int newI = 0;
 
   KateHighlighting *highlighting = highlight();
-  KateTextLine::Ptr textLine;
+  Kate::TextLine textLine;
 
   const int rangeStartLine = range.start().line();
   const int rangeStartColumn = range.start().column();
@@ -5520,7 +5505,7 @@ QString KateDocument::decodeCharacters(const KTextEditor::Range& range, KateDocu
 void KateDocument::replaceCharactersByEncoding(const KTextEditor::Range& range)
 {
   KateHighlighting *highlighting = highlight();
-  KateTextLine::Ptr textLine;
+  Kate::TextLine textLine;
 
   const int rangeStartLine = range.start().line();
   const int rangeStartColumn = range.start().column();
@@ -5574,7 +5559,7 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
     return attribs;
   }
 
-  KateTextLine::Ptr kateLine = kateTextLine(line);
+  Kate::TextLine kateLine = kateTextLine(line);
 
   if ( !kateLine ) {
     return attribs;
@@ -5602,7 +5587,7 @@ QStringList KateDocument::embeddedHighlightingModes() const
 
 QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 {
-  KateTextLine::Ptr kateLine = kateTextLine(position.line());
+  Kate::TextLine kateLine = kateTextLine(position.line());
 
 //   QVector<short>attrs=kateLine->ctxArray();
 //   kDebug()<<"----------------------------------------------------------------------";
@@ -5622,12 +5607,12 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
     if (ctx==0) return mode();
     return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
   }
-  
+
   int attr=kateLine->attribute(pos);
   if (attr==0) return mode();
-  
+
   return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
-  
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

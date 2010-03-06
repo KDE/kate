@@ -58,7 +58,7 @@ class KatePrefixStore {
      * Returns the shortest prefix of the given string that is contained in
      * this prefix store starting at position 'start'.
      **/
-    QString findPrefix(const KateTextLine::Ptr& line, int start = 0) const;
+    QString findPrefix(const Kate::TextLine& line, int start = 0) const;
 
     int longestPrefixLength() const;
 

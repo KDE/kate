@@ -953,7 +953,7 @@ void KateView::slotCollapseLocal()
 
     // (dh) current solution: use current virtual cursor column and map it to
     //      the real column of the new cursor line
-    KateTextLine::Ptr textLine = m_doc->plainKateTextLine(realLine);
+    Kate::TextLine textLine = m_doc->plainKateTextLine(realLine);
     if (!textLine) return;
     KTextEditor::Cursor cc = KTextEditor::Cursor(realLine, textLine->fromVirtualColumn(virtualCursorColumn(), m_doc->config()->tabWidth()));
     setCursorPositionInternal(cc, 1);
@@ -1073,7 +1073,7 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
 {
   QMutexLocker lock(m_doc->smartMutex());
 
-  KateTextLine::Ptr l = m_doc->kateTextLine( position.line() );
+  Kate::TextLine l = m_doc->kateTextLine( position.line() );
 
   if (!l)
     return false;
@@ -1845,7 +1845,7 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
   int start, end, len;
 
-  KateTextLine::Ptr textLine = m_doc->plainKateTextLine(cursor.line());
+  Kate::TextLine textLine = m_doc->plainKateTextLine(cursor.line());
 
   if (!textLine)
     return;

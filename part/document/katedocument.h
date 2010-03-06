@@ -427,12 +427,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * atm used for the user visible menu to select highlightings
      */
     void setDontChangeHlOnSave();
-    
+
     /**
      * Set that the BOM marker is forced via the tool menu
      */
     void bomSetByUser();
-    
+
   //
   // KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff
   //
@@ -456,12 +456,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void removeMark( int line, uint markType );
 
     void clearMarks();
-    
+
     void requestMarkTooltip( int line, QPoint position );
-    
+
     ///Returns true if the click on the mark should not be further processed
     bool handleMarkClick( int line );
-    
+
     ///Returns true if the context-menu event should not further be processed
     bool handleMarkContextMenu( int line, QPoint position );
 
@@ -481,11 +481,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   Q_SIGNALS:
     void markToolTipRequested( KTextEditor::Document* document, KTextEditor::Mark mark, QPoint position, bool& handled );
-    
+
     void markContextMenuRequested( KTextEditor::Document* document, KTextEditor::Mark mark, QPoint pos, bool& handled );
 
     void markClicked( KTextEditor::Document* document, KTextEditor::Mark mark, bool& handled );
-    
+
     void marksChanged( KTextEditor::Document* );
     void markChanged( KTextEditor::Document*, KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
 
@@ -917,6 +917,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void updateFileType (const QString &newType, bool user = false);
 
     QString fileType () const { return m_fileType; }
+
+    /**
+     * Get access to buffer of this document.
+     * Is needed to create cursors and ranges for example.
+     * @return document buffer
+     */
+    KateBuffer &buffer () { return *m_buffer; }
 
   //
   // REALLY internal data ;)

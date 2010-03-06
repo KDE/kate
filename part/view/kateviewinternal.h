@@ -29,6 +29,7 @@
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/smartrangewatcher.h>
 
+#include "katetextcursor.h"
 #include "katesmartcursor.h"
 #include "katelinelayout.h"
 #include "katetextline.h"
@@ -125,9 +126,9 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
   public:
     // Start Position is a virtual cursor
-    inline const KTextEditor::Cursor& startPos() const { return m_startPos; }
-    inline int startLine () const { return m_startPos.line(); }
-    inline int startX () const { return m_startX; }
+    KTextEditor::Cursor startPos() const { return m_startPos.toCursor(); }
+    int startLine () const { return m_startPos.line(); }
+    int startX () const { return m_startX; }
 
     KTextEditor::Cursor endPos () const;
     int endLine () const;
@@ -274,7 +275,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     //Whether the current completion-item was expanded while the last press of ALT
     bool m_completionItemExpanded;
     QTime m_altDownTime;
-    
+
     // Bracket mark and corresponding decorative ranges
     KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
     bool m_bmHighlighted;
@@ -298,7 +299,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     // These are now cursors to account for word-wrap.
     // Start Position is a virtual cursor
-    KateSmartCursor m_startPos;
+    Kate::TextCursor m_startPos;
     //Count of lines that are visible behind m_startPos.
     //This does not respect dynamic word wrap, so take it as an approximation.
     uint m_visibleLineCount;

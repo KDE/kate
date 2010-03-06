@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.24" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.25" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -664,7 +664,7 @@
         <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
         <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
         <RegExpr attribute="Data Type" context="var_detect" String="\$+::" />
-        <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
+        <RegExpr attribute="Special Variable" context="var_detect" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
         <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]\{[\w_]+\}" />
         <AnyChar attribute="Data Type" context="var_detect" String="$@%" />
         <RegExpr attribute="Data Type" context="var_detect" String="\*[a-zA-Z_]+" />

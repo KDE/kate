@@ -277,66 +277,57 @@ class TextBuffer : public QObject {
     /**
      * Buffer got cleared. This is emited when constructor or load have called clear() internally,
      * or when the user of the buffer has called clear() itself.
-     * @param buffer buffer which got cleared
      */
-    void cleared (TextBuffer *buffer);
+    void cleared ();
 
     /**
      * Buffer loaded successfully a file
-     * @param buffer buffer which loaded the file
      * @param filename file which was loaded
      * @param encodingErrors were there problems occured while decoding the file?
      */
-    void loaded (TextBuffer *buffer, const QString &filename, bool encodingErrors);
+    void loaded (const QString &filename, bool encodingErrors);
 
     /**
      * Buffer saved successfully a file
-     * @param buffer buffer which saved the file
      * @param filename file which was saved
      */
-    void saved (TextBuffer *buffer, const QString &filename);
+    void saved (const QString &filename);
 
     /**
      * Editing transaction has started.
-     * @param buffer buffer for transaction
      */
-    void editingStarted (TextBuffer *buffer);
+    void editingStarted ();
 
     /**
      * Editing transaction has finished.
-     * @param buffer buffer for transaction
      */
-    void editingFinished (TextBuffer *buffer);
+    void editingFinished ();
 
     /**
      * A line got wrapped.
-     * @param buffer buffer which contains the line
      * @param position position where the wrap occured
      */
-    void lineWrapped (TextBuffer *buffer, const KTextEditor::Cursor &position);
+    void lineWrapped (const KTextEditor::Cursor &position);
 
     /**
      * A line got unwrapped.
-     * @param buffer buffer which contains the line
      * @param line line where the unwrap occured
      */
-    void lineUnwrapped (TextBuffer *buffer, int line);
+    void lineUnwrapped (int line);
 
     /**
      * Text got inserted.
-     * @param buffer buffer which contains the line
      * @param position position where the insertion occured
      * @param text inserted text
      */
-    void textInserted (TextBuffer *buffer, const KTextEditor::Cursor &position, const QString &text);
+    void textInserted (const KTextEditor::Cursor &position, const QString &text);
 
     /**
      * Text got removed.
-     * @param buffer buffer which contains the line
      * @param range range where the removal occured
      * @param text removed text
      */
-    void textRemoved (TextBuffer *buffer, const KTextEditor::Range &range, const QString &text);
+    void textRemoved (const KTextEditor::Range &range, const QString &text);
 
   private:
     /**

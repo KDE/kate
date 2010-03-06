@@ -115,7 +115,7 @@ void TextBuffer::clear ()
   m_mimeTypeForFilterDev = "text/plain";
 
   // we got cleared
-  emit cleared (this);
+  emit cleared ();
 }
 
 TextLine TextBuffer::line (int line) const
@@ -155,7 +155,7 @@ bool TextBuffer::startEditing ()
   m_editingMaximalLineChanged = -1;
 
   // transaction has started
-  emit editingStarted (this);
+  emit editingStarted ();
 
   // first transaction started
   return true;
@@ -180,7 +180,7 @@ bool TextBuffer::finishEditing ()
   Q_ASSERT (!editingChangedBuffer() || (m_editingMaximalLineChanged >= 0 && m_editingMaximalLineChanged < m_lines));
 
   // transaction has finished
-  emit editingFinished (this);
+  emit editingFinished ();
 
   // last transaction finished
   return true;
@@ -219,7 +219,7 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
   balanceBlock (blockIndex);
 
   // emit signal about done change
-  emit lineWrapped (this, position);
+  emit lineWrapped (position);
 }
 
 void TextBuffer::unwrapLine (int line)
@@ -265,7 +265,7 @@ void TextBuffer::unwrapLine (int line)
   balanceBlock (blockIndex);
 
   // emit signal about done change
-  emit lineUnwrapped (this, line);
+  emit lineUnwrapped (line);
 }
 
 void TextBuffer::insertText (const KTextEditor::Cursor &position, const QString &text)
@@ -294,7 +294,7 @@ void TextBuffer::insertText (const KTextEditor::Cursor &position, const QString 
     m_editingMaximalLineChanged = position.line ();
 
   // emit signal about done change
-  emit textInserted (this, position, text);
+  emit textInserted (position, text);
 }
 
 void TextBuffer::removeText (const KTextEditor::Range &range)
@@ -331,7 +331,7 @@ void TextBuffer::removeText (const KTextEditor::Range &range)
     m_editingMaximalLineChanged = range.start().line();
 
   // emit signal about done change
-  emit textRemoved (this, range, text);
+  emit textRemoved (range, text);
 }
 
 int TextBuffer::blockForLine (int line) const
@@ -560,7 +560,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
   kDebug (13020) << "used filter device for mime-type" << m_mimeTypeForFilterDev;
 
   // emit success
-  emit loaded (this, filename, encodingErrors);
+  emit loaded (filename, encodingErrors);
 
   // file loading worked, modulo encoding problems
   return true;
@@ -643,7 +643,7 @@ bool TextBuffer::save (const QString &filename)
 
   // emit signal on success
   if (ok)
-    emit saved (this, filename);
+    emit saved (filename);
 
   // return success or not
   return ok;

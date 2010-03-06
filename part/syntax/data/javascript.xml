@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.17" kateversion="2.4" section="Scripts" extensions="*.js"
+<language name="JavaScript" version="1.18" kateversion="2.4" section="Scripts" extensions="*.js"
           mimetype="text/x-javascript;application/x-javascript" indenter="cstyle"
           author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
   <highlighting>
@@ -199,6 +199,7 @@
       </context>
       <context attribute="Pattern Character Class" lineEndContext="#stay" name="Regular Expression Character Class">
         <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[\[\]]" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\." />
         <DetectChar attribute="Pattern Character Class" context="#pop#pop" char="]" />
       </context>
       <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(regex caret first check)" fallthrough="true" fallthroughContext="Regular Expression">

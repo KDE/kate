@@ -430,16 +430,13 @@ QTextCodec *KateDocumentConfig::codec () const
   return s_global->codec ();
 }
 
-bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetection)
+bool KateDocumentConfig::setEncoding (const QString &encoding)
 {
   QTextCodec *codec;
   bool found = false;
   if (encoding.isEmpty())
   {
     codec = s_global->codec();
-#ifdef DECODE_DEBUG
-    kWarning()<<"defaulting to " << codec->name();
-#endif
     found=true;
   }
   else
@@ -449,14 +446,9 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
     return false;
 
   configStart ();
-
   m_encodingSet = true;
   m_encoding = codec->name();
-
   configEnd ();
-#ifdef DECODE_DEBUG
-  kWarning()<<"set to " << codec->name();
-#endif
   return true;
 }
 

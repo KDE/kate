@@ -183,7 +183,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
 
     QTextCodec *codec () const;
     const QString &encoding () const;
-    bool setEncoding (const QString &encoding,bool resetDetection=true);
+    bool setEncoding (const QString &encoding);
     bool isSetEncoding () const;
 
     QTextCodec *fallbackCodec () const;

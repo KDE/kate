@@ -72,9 +72,9 @@ add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS t
 kde4_add_unit_test(undomanager_test undomanager_test.cpp)
 
 target_link_libraries( undomanager_test
-  ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
+  ktexteditor
   katepartinterfaces
 )
 
@@ -83,9 +83,9 @@ target_link_libraries( undomanager_test
 kde4_add_unit_test(plaintextsearch_test plaintextsearch_test.cpp)
 
 target_link_libraries( plaintextsearch_test
-  ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
+  ktexteditor
   katepartinterfaces
 )
 
@@ -94,9 +94,9 @@ target_link_libraries( plaintextsearch_test
 kde4_add_unit_test(scriptdocument_test scriptdocument_test.cpp)
 
 target_link_libraries( scriptdocument_test
-  ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
+  ktexteditor
   katepartinterfaces
 )
 
@@ -110,17 +110,13 @@ set(completion_test_SRCS
 kde4_add_unit_test(completion_test ${completion_test_SRCS})
 
 target_link_libraries( completion_test
-  ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
+  ktexteditor
   katepartinterfaces
 )
 
 endif(NOT MINGW)
 
 ########### install files ###############
-
-
-
-
 

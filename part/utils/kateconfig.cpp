@@ -472,12 +472,12 @@ QTextCodec *KateDocumentConfig::fallbackCodec () const
     if (m_fallbackEncoding.isEmpty() && isGlobal())
       return QTextCodec::codecForName("ISO 8859-15");
     else if (m_fallbackEncoding.isEmpty())
-      return s_global->codec ();
+      return s_global->fallbackCodec ();
     else
       return KGlobal::charsets()->codecForName (m_fallbackEncoding);
   }
 
-  return s_global->codec ();
+  return s_global->fallbackCodec ();
 }
 
 bool KateDocumentConfig::setFallbackEncoding (const QString &encoding)

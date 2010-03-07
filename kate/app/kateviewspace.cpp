@@ -122,6 +122,7 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
   connect(v->document(), SIGNAL(modifiedChanged(KTextEditor::Document *)), mStatusBar, SLOT(modifiedChanged()));
   connect(v->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), mStatusBar, SLOT(modifiedChanged()) );
   connect(v->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), mStatusBar, SLOT(documentNameChanged()));
+  connect(v->document(), SIGNAL(configChanged()), mStatusBar, SLOT(documentConfigChanged()));
 }
 
 void KateViewSpace::removeView(KTextEditor::View* v)
@@ -294,6 +295,11 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
   m_selectModeLabel->installEventFilter( this );
 
+  m_encodingLabel = new QLabel( "", this );
+  addWidget( m_encodingLabel, 0 );
+  m_encodingLabel->setAlignment( Qt::AlignCenter );
+  m_encodingLabel->installEventFilter( this );
+
   m_fileNameLabel = new KSqueezedTextLabel( this );
   addPermanentWidget( m_fileNameLabel, 1 );
   m_fileNameLabel->setMinimumSize( 0, 0 );
@@ -351,6 +357,7 @@ void KateVSStatusBar::updateStatus ()
   selectionChanged (view);
   modifiedChanged ();
   documentNameChanged ();
+  documentConfigChanged ();
 }
 
 void KateVSStatusBar::viewModeChanged ( KTextEditor::View *view )
@@ -423,6 +430,14 @@ void KateVSStatusBar::documentNameChanged ()
 
   if ( v )
     m_fileNameLabel->setText( KStringHandler::lsqueeze(v->document()->documentName (), 64) );
+}
+
+void KateVSStatusBar::documentConfigChanged ()
+{
+  KTextEditor::View *v = m_viewSpace->currentView();
+
+  if ( v )
+    m_encodingLabel->setText( v->document()->encoding() );
 }
 
 //END KateVSStatusBar

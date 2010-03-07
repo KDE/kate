@@ -65,6 +65,8 @@ class KateVSStatusBar : public KStatusBar
 
     void documentNameChanged ();
 
+    void documentConfigChanged ();
+
     void informationMessage (KTextEditor::View *view, const QString &message);
 
   protected:
@@ -76,6 +78,7 @@ class KateVSStatusBar : public KStatusBar
     QLabel* m_modifiedLabel;
     QLabel* m_insertModeLabel;
     QLabel* m_selectModeLabel;
+    QLabel* m_encodingLabel;
     KSqueezedTextLabel* m_fileNameLabel;
     QPixmap m_modPm, m_modDiscPm, m_modmodPm;
     class KateViewSpace *m_viewSpace;

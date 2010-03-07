@@ -61,7 +61,7 @@ set(testkateregression_SRCS
 
 kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor kateparttestlib)
+target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces)
 
 #add_dependencies(check testkateregression)
 
@@ -75,7 +75,7 @@ target_link_libraries( undomanager_test
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
-  kateparttestlib
+  katepartinterfaces
 )
 
 ########### plaintextsearch test ###############
@@ -86,7 +86,7 @@ target_link_libraries( plaintextsearch_test
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
-  kateparttestlib
+  katepartinterfaces
 )
 
 ########### scriptdocument test ###############
@@ -97,7 +97,7 @@ target_link_libraries( scriptdocument_test
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
-  kateparttestlib
+  katepartinterfaces
 )
 
 ########### completion test ###############
@@ -113,7 +113,7 @@ target_link_libraries( completion_test
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
-  kateparttestlib
+  katepartinterfaces
 )
 
 endif(NOT MINGW)

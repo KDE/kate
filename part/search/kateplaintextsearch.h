@@ -26,11 +26,13 @@
 
 #include <ktexteditor/range.h>
 
+#include "katepartprivate_export.h"
+
 namespace KTextEditor {
   class Document;
 }
 
-class KatePlainTextSearch : public QObject
+class KATEPART_TESTS_EXPORT KatePlainTextSearch : public QObject
 {
   Q_OBJECT
 

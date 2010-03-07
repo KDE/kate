@@ -25,11 +25,7 @@
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
 #include <kdemacros.h>
 
-/* Classes from the kate part, which are exported only for unit tests */
-#if defined(COMPILING_KATEPART)
-  /* We are compling the kate part, so don't export symbols */
-  #define KATEPART_TESTS_EXPORT
-#elif defined(COMPILING_KATEPARTTESTLIB)
+#ifdef MAKE_KATEINTERFACES_LIB
   /* We build the test library, so export symbols */
   #define KATEPART_TESTS_EXPORT KDE_EXPORT
 #else

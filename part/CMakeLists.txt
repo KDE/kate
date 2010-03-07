@@ -156,7 +156,6 @@ spellcheck/spellingmenu.cpp
 
 # generic stuff, unsorted...
 utils/katecmds.cpp
-utils/katefactory.cpp
 utils/kateconfig.cpp
 utils/katebookmarks.cpp
 utils/kateautoindent.cpp
@@ -195,26 +194,37 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
-kde4_add_plugin(katepart ${katepart_PART_SRCS})
-set_target_properties(katepart PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPART)
+kde4_add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )
 
-# linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-                               ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY})
+target_link_libraries (
+  katepartinterfaces ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
+  ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY}
+)
+target_link_libraries(katepartinterfaces LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
 
+set_target_properties(
+  katepartinterfaces PROPERTIES
+  VERSION ${GENERIC_LIB_VERSION}
+  SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+
+# kde 4 final support
 if(KDE4_ENABLE_FINAL)
-   macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )
+   macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepartinterfaces_final_cpp.cpp )
 else(KDE4_ENABLE_FINAL)
    macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/script/katescript.cpp )
 endif(KDE4_ENABLE_FINAL)
 
-#tests
-if(KDE4_BUILD_TESTS)
-kde4_add_library(kateparttestlib ${katepart_PART_SRCS})
-set_target_properties(kateparttestlib PROPERTIES COMPILE_DEFINITIONS COMPILING_KATEPARTTESTLIB)
-target_link_libraries(kateparttestlib ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-                                      ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY})
-endif(KDE4_BUILD_TESTS)
+# install kate part interfaces
+install (TARGETS katepartinterfaces EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-# install the stuff
-install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
+# kate part itself just is interfaces + the factory
+kde4_add_plugin (katepart utils/katefactory.cpp)
+
+# link the part, use kate part interfaces + kde stuff
+target_link_libraries (katepart
+  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
+  ${KDE4_KUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} katepartinterfaces)
+
+# install the part
+install (TARGETS katepart DESTINATION ${PLUGIN_INSTALL_DIR})

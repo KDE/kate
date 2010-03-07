@@ -173,7 +173,7 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QRadioButton" name="rbTabAdvances">
             <property name="whatsThis">
-             <string>If this option is selected, the &lt;b&gt;Tab&lt;/b&gt; key always inserts white space so that the next tab postion is reached. If the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
+             <string>If this option is selected, the &lt;b&gt;Tab&lt;/b&gt; key always inserts white space so that the next tab position is reached. If the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
             </property>
             <property name="text">
              <string>Always advance to the next tab position</string>
@@ -193,7 +193,7 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QRadioButton" name="rbTabSmart">
             <property name="whatsThis">
-             <string>If this option is selected, the &lt;b&gt;Tab&lt;/b&gt; key either indents the current line or advances to the next tab position.&lt;p&gt; If the insertion point is at or before the first non-space character in the line, or if there is a selection, the current line is indented by the number of character positions specified in &lt;b&gt;Indentation width&lt;/b&gt;.&lt;p&gt; If the insertion point is located after the first non-space character in the line and there is no selection, white space is inserted so that the next tab postion is reached: if the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
+             <string>If this option is selected, the &lt;b&gt;Tab&lt;/b&gt; key either indents the current line or advances to the next tab position.&lt;p&gt; If the insertion point is at or before the first non-space character in the line, or if there is a selection, the current line is indented by the number of character positions specified in &lt;b&gt;Indentation width&lt;/b&gt;.&lt;p&gt; If the insertion point is located after the first non-space character in the line and there is no selection, white space is inserted so that the next tab position is reached: if the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
             </property>
             <property name="text">
              <string>Increase indentation level if in leading blank space</string>

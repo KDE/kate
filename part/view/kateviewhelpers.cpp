@@ -1646,17 +1646,15 @@ class KateViewEncodingAction::Private
   public:
     Private(KateViewEncodingAction *parent)
     : q(parent),
-    defaultAction(0),
     currentSubAction(0)
     {
     }
 
-    void init(bool);
+    void init();
 
     void _k_subActionTriggered(QAction*);
 
     KateViewEncodingAction *q;
-    QAction *defaultAction;
     QAction *currentSubAction;
 };
 
@@ -1665,35 +1663,23 @@ bool lessThanAction(KSelectAction *a, KSelectAction *b)
   return a->text() < b->text();
 }
 
-void KateViewEncodingAction::Private::init(bool showAutoOptions)
+void KateViewEncodingAction::Private::init()
 {
   QList<KSelectAction *> actions;
 
   q->setToolBarMode(MenuMode);
-  defaultAction = q->addAction(i18nc("Encodings menu", "Disabled"));
-  defaultAction->setData(QVariant((uint)KEncodingProber::None));
-
-  QAction *tmp = q->addAction(i18nc("Encodings menu", "Autodetect"));
-  tmp->setData(QVariant((uint)KEncodingProber::Universal));
-
-  q->menu()->addSeparator();
 
   int i;
   foreach(const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
   {
     KSelectAction* tmp = new KSelectAction(encodingsForScript.at(0),q);
-    if (showAutoOptions)
-    {
-      KEncodingProber::ProberType scri=KEncodingProber::proberTypeForName(encodingsForScript.at(0));
-      tmp->addAction(i18nc("Encodings menu","Autodetect"))->setData(QVariant((uint)scri));
-      tmp->menu()->addSeparator();
-    }
+
     for (i=1; i<encodingsForScript.size(); ++i)
     {
       tmp->addAction(encodingsForScript.at(i));
     }
     q->connect(tmp,SIGNAL(triggered(QAction*)),q,SLOT(_k_subActionTriggered(QAction*)));
-    tmp->setCheckable(true);
+    //tmp->setCheckable(true);
     actions << tmp;
   }
   qSort(actions.begin(), actions.end(), lessThanAction);
@@ -1713,24 +1699,15 @@ void KateViewEncodingAction::Private::_k_subActionTriggered(QAction *action)
     emit q->KSelectAction::triggered(action->text());
     emit q->triggered(q->codecForMib(mib));
   }
-  else
-  {
-    if (!action->data().isNull())
-      emit q->triggered((KEncodingProber::ProberType) action->data().toUInt());
-  }
 }
 
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
 : KSelectAction(text, parent), doc(_doc), view (_view), d(new Private(this))
 {
-  d->init(true);
-  // set current encoding before setting the connections, otherwise
-  // the document is reloaded on the split-view action (bug #217139)
-  setCurrentCodec(doc->config()->encoding());
+  d->init();
 
-  connect(this,SIGNAL(triggered(KEncodingProber::ProberType)),this,SLOT(setProberTypeForEncodingAutoDetection(KEncodingProber::ProberType)));
-  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
 }
 
 KateViewEncodingAction::~KateViewEncodingAction()
@@ -1738,17 +1715,9 @@ KateViewEncodingAction::~KateViewEncodingAction()
     delete d;
 }
 
-void KateViewEncodingAction::actionTriggered(QAction *action)
-{
-  if (action == d->defaultAction)
-    emit triggered(KEncodingProber::None);
-  else
-    emit triggered(KEncodingProber::Universal);
-}
-
 void KateViewEncodingAction::slotAboutToShow()
 {
-  // setCurrentProberType(doc->proberTypeForEncodingAutoDetection());
+  setCurrentCodec(doc->config()->encoding());
 }
 
 void KateViewEncodingAction::setEncoding (const QString &e)
@@ -1758,54 +1727,6 @@ void KateViewEncodingAction::setEncoding (const QString &e)
   view->reloadFile();
 
 }
-void KateViewEncodingAction::setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType proberType)
-{
-  view->reloadFile();
-}
-
-KEncodingProber::ProberType KateViewEncodingAction::currentProberType() const
-{
-  return d->currentSubAction->data().isNull()?
-  KEncodingProber::None:
-  (KEncodingProber::ProberType)d->currentSubAction->data().toUInt();
-}
-
-bool KateViewEncodingAction::setCurrentProberType(KEncodingProber::ProberType scri)
-{
-    int i;
-
-    if (scri == KEncodingProber::None)
-    {
-      d->currentSubAction=actions().at(0);
-      d->currentSubAction->trigger();
-      return true;
-    }
-
-    if (scri == KEncodingProber::Universal)
-    {
-      d->currentSubAction=actions().at(1);
-      d->currentSubAction->trigger();
-      return true;
-    }
-
-    for (i=2;i<actions().size();++i)
-    {
-      if (actions().at(i)->menu())
-      {
-        if (!actions().at(i)->menu()->actions().isEmpty()
-          &&!actions().at(i)->menu()->actions().at(0)->data().isNull()
-          &&actions().at(i)->menu()->actions().at(0)->data().toUInt()==(uint)scri
-          )
-        {
-          d->currentSubAction=actions().at(i)->menu()->actions().at(0);
-          d->currentSubAction->trigger();
-          return true;
-        }
-      }
-    }
-    return false;
-}
-
 int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
 {
   // FIXME logic is good but code is ugly
@@ -1814,10 +1735,6 @@ int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
   int mib = MIB_DEFAULT;
   KCharsets *charsets = KGlobal::charsets();
 
-  if (codecName == d->defaultAction->text())
-    success = true;
-  else
-  {
     QTextCodec *codec = charsets->codecForName(codecName, success);
     if (!success)
     {
@@ -1827,7 +1744,6 @@ int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
 
     if (codec)
       mib = codec->mibEnum();
-  }
 
   if (ok)
     *ok = success;
@@ -1857,15 +1773,14 @@ QTextCodec *KateViewEncodingAction::currentCodec() const
 
 bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
 {
-  if (!codec)
-    return false;
+  disconnect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
 
   int i,j;
-  for (i=2;i<actions().size();++i)
+  for (i=0;i<actions().size();++i)
   {
     if (actions().at(i)->menu())
     {
-      for (j=1;j<actions().at(i)->menu()->actions().size();++j)
+      for (j=0;j<actions().at(i)->menu()->actions().size();++j)
       {
         if (!j && !actions().at(i)->menu()->actions().at(j)->data().isNull())
           continue;
@@ -1875,14 +1790,16 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
         if (codec==KGlobal::charsets()->codecForName(actions().at(i)->menu()->actions().at(j)->text()))
         {
           d->currentSubAction=actions().at(i)->menu()->actions().at(j);
-          d->currentSubAction->trigger();
-          return true;
+          d->currentSubAction->setChecked(true);
         }
+        else
+          actions().at(i)->menu()->actions().at(j)->setChecked (false);
       }
     }
   }
-  return false;
 
+  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
+  return true;
 }
 
 QString KateViewEncodingAction::currentCodecName() const
@@ -1902,10 +1819,7 @@ int KateViewEncodingAction::currentCodecMib() const
 
 bool KateViewEncodingAction::setCurrentCodec( int mib )
 {
-  if (mib == MIB_DEFAULT)
-    return setCurrentAction(d->defaultAction);
-  else
-    return setCurrentCodec(codecForMib(mib));
+  return setCurrentCodec(codecForMib(mib));
 }
 //END KateViewEncodingAction
 

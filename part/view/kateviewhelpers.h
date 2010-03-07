@@ -213,10 +213,6 @@ class KateViewEncodingAction: public KSelectAction
 
     ~KateViewEncodingAction();
 
-    KEncodingProber::ProberType currentProberType() const;
-
-    bool setCurrentProberType(KEncodingProber::ProberType);
-
     int mibForName(const QString &codecName, bool *ok = 0) const;
     QTextCodec *codecForMib(int mib) const;
 
@@ -235,16 +231,6 @@ class KateViewEncodingAction: public KSelectAction
     */
     void triggered(QTextCodec *codec);
 
-    /**
-     * Autodetection has been selected.
-     *
-     * Applicable only if showAutoOptions in c'tor was true
-     */
-    void triggered(KEncodingProber::ProberType);
-
-  protected Q_SLOTS:
-    virtual void actionTriggered(QAction*);
-
   private:
     KateDocument* doc;
     KateView *view;
@@ -254,7 +240,6 @@ class KateViewEncodingAction: public KSelectAction
 
   private Q_SLOTS:
     void setEncoding (const QString &e);
-    void setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType);
     void slotAboutToShow();
 };
 

@@ -83,13 +83,13 @@ void ExporterPluginView::exportToClipboard()
   }
 
   QMimeData *data = new QMimeData();
-  data->setText(m_view->selectionText());
 
   QString s;
   QTextStream output( &s, QIODevice::WriteOnly );
   exportData(true, output);
 
   data->setHtml(s);
+  data->setText(s);
 
   QApplication::clipboard()->setMimeData(data);
 }

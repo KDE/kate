@@ -3789,7 +3789,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
   // if the input method event is text that should be inserted, call KateDocument::typeChars() with
   // the text. that method will handle the input and take care of overwrite mode, etc.
-  if ( e->commitString().length() > 0 && doc()->typeChars( m_view, e->commitString() ) ) {
+  if ( e->commitString().length() > 0 && !m_imPreeditRange && doc()->typeChars( m_view, e->commitString() ) ) {
     e->accept();
     return;
   }

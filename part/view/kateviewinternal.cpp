@@ -186,9 +186,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   installEventFilter(this);
   m_view->viewBar()->installEventFilter(this);
 
-  // im
-  setAttribute(Qt::WA_InputMethodEnabled, true);
-
   // set initial cursor
   m_mouseCursor = Qt::IBeamCursor;
   setCursor(m_mouseCursor);

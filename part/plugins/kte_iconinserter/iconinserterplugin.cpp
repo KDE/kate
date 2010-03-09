@@ -46,7 +46,7 @@ IconInserterPluginView::IconInserterPluginView(IconInserterPlugin *plugin, KText
 	a->setIcon(KIcon("kcoloredit"));
 	a->setText(i18n ("Insert KIcon-Code"));
 	a->setToolTip (i18n ("Insert Code for KIcon-Creation"));
-	a->setWhatsThis (i18n ("<b>IconInserter</b><p> Select an icon and use it as a KIcon in your source-code!"));
+	a->setWhatsThis (i18n ("<b>IconInserter</b><p> Select an icon and use it as a KIcon in your source code."));
 }
 
 IconInserterPluginView::~IconInserterPluginView()
@@ -63,7 +63,7 @@ void IconInserterPluginView::insertIcon()
 							0,
 							false,
 							0,
-							i18n( "Select the Icon you want to use in your code as KIcon!" )
+							i18n( "Select the Icon you want to use in your code as KIcon." )
 						);
 	if(iconName == "")
 		return;

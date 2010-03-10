@@ -724,7 +724,7 @@ void KateSearchBar::findAll()
     resetHighlights();
     const int occurrences = findAll(m_view->document()->documentRange(), NULL);
 
-    KPassivePopup::message(i18n("%1 matches found", occurrences), this);
+    KPassivePopup::message(i18np("1 match found", "%1 matches found", occurrences), this);
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -952,7 +952,7 @@ void KateSearchBar::replaceAll() {
 
     // Pass on the hard work
     int replacementsDone=findAll(inputRange, &replacement);
-    KPassivePopup::message(i18n("%1 replacements have been done",replacementsDone),this);
+    KPassivePopup::message(i18np("1 replacement has been made","%1 replacements have been made",replacementsDone),this);
     
     // Add to search history
     addCurrentTextToHistory(m_powerUi->pattern);

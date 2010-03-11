@@ -118,5 +118,5 @@ target_link_libraries( completion_test
 
 endif(NOT MINGW)
 
-########### install files ###############
-
+# encoding tets
+add_subdirectory (encoding)

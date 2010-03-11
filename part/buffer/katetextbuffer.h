@@ -27,6 +27,7 @@
 #include <QtCore/QSet>
 #include <QtCore/QTextCodec>
 
+#include "katepartprivate_export.h"
 #include "katetextblock.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
@@ -40,7 +41,7 @@ namespace Kate {
  * Class representing a text buffer.
  * The interface is line based, internally the text will be stored in blocks of text lines.
  */
-class TextBuffer : public QObject {
+class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
   friend class TextCursor;
   friend class TextRange;
 

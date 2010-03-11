@@ -28,3 +28,13 @@ KATE_ENCODING_TEST ("utf-8" "utf32be.txt")
 
 # this file is utf16, big endian, but fallback should work!
 KATE_ENCODING_TEST ("utf-8" "utf16be.txt")
+
+# cyrillic utf-8
+KATE_ENCODING_TEST ("utf-8" "cyrillic_utf8.txt")
+
+# cyrillic cp1251
+KATE_ENCODING_TEST ("utf-8" "cp1251.txt")
+
+# cyrillic koi8-r
+KATE_ENCODING_TEST ("utf-8" "koi8-r.txt")
+

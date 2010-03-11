@@ -453,17 +453,18 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
     return false;
 
   /**
-   * construct the file loader for the given file, with correct fallback codec
+   * construct the file loader for the given file, with correct prober type
    */
-  Kate::TextLoader file (filename, m_fallbackTextCodec);
+  Kate::TextLoader file (filename, KEncodingProber::Universal);
 
   /**
    * triple play, maximal three loading rounds
    * 0) use the given encoding, be done, if no encoding errors happen
-   * 1) use fallback encoding, be done, if no encoding errors happen
-   * 2) use again given encoding, be done in any case
+   * 1) use BOM to decided if unicode or if that fails, use encoding prober, if no encoding errors happen, be done
+   * 2) use fallback encoding, be done, if no encoding errors happen
+   * 3) use again given encoding, be done in any case
    */
-  for (int i = 0; i < 3;  ++i) {
+  for (int i = 0; i < 4;  ++i) {
     /**
      * kill all blocks beside first one
      */
@@ -481,9 +482,17 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
     /**
      * try to open file, with given encoding
-     * in round 0 + 2 use the given encoding from user
+     * in round 0 + 3 use the given encoding from user
+     * in round 1 use 0, to trigger detection
+     * in round 2 use fallback
      */
-    if (!file.open ((i % 2 == 0) ? m_textCodec : 0)) {
+    QTextCodec *codec = m_textCodec;
+    if (i == 1)
+      codec = 0;
+    else if (i == 2)
+      codec = m_fallbackTextCodec;
+
+    if (!file.open (codec)) {
       // create one dummy textline, in any case
       m_blocks.last()->appendLine (TextLine (new TextLineData()));
       m_lines++;
@@ -500,7 +509,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
       encodingErrors = encodingErrors || currentError;
 
       // bail out on encoding error, if not last round!
-      if (encodingErrors && i < 2)
+      if (encodingErrors && i < 3)
         break;
 
       // get unicode data for this line

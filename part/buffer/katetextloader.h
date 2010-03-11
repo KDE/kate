@@ -28,6 +28,9 @@
 #include <kfilterdev.h>
 #include <kmimetype.h>
 
+// encoding prober
+#include <kencodingprober.h>
+
 namespace Kate {
 
 /**
@@ -46,9 +49,9 @@ class TextLoader
     /**
      * Construct file loader for given file.
      * @param filename file to open
-     * @param fallbackTextCodec fallback text codec
+     * @param proberType prober type
      */
-    TextLoader (const QString &filename, QTextCodec *fallbackTextCodec)
+    TextLoader (const QString &filename, KEncodingProber::ProberType proberType)
       : m_codec (0)
       , m_eof (false) // default to not eof
       , m_lastWasEndOfLine (true) // at start of file, we had a virtual newline
@@ -60,7 +63,7 @@ class TextLoader
       , m_converterState (0)
       , m_bomFound (false)
       , m_firstRead (true)
-      , m_fallbackTextCodec (fallbackTextCodec)
+      , m_proberType (proberType)
     {
       // try to get mimetype for on the fly decompression, don't rely on filename!
       QFile testMime (filename);
@@ -197,12 +200,30 @@ class TextLoader
                     bomBytes = 4;
                 }
 
+                /**
+                 * if no codec given, do autodetection
+                 */
                 if (!m_codec) {
-                  // byte order said something about encoding?
+                  /**
+                   * byte order said something about encoding?
+                   */
                   if (codecForByteOrderMark)
                     m_codec = codecForByteOrderMark;
-                  else // fallback to iso
-                    m_codec = m_fallbackTextCodec;
+                  else {
+                    /**
+                     * no unicode BOM found, trigger prober
+                     */
+                    KEncodingProber prober (m_proberType);
+                    prober.feed (m_buffer.constData(), c);
+
+                    // we found codec with some confidence?
+                    if (prober.confidence() > 0.5)
+                      m_codec = QTextCodec::codecForName(prober.encoding());
+
+                    // no codec, no chance, encoding error
+                    if (!m_codec)
+                      return false;
+                  }
                 }
 
                 m_firstRead = false;
@@ -316,7 +337,7 @@ class TextLoader
     QTextCodec::ConverterState *m_converterState;
     bool m_bomFound;
     bool m_firstRead;
-    QTextCodec *m_fallbackTextCodec;
+    KEncodingProber::ProberType m_proberType;
 };
 
 }

@@ -89,6 +89,58 @@ class KateConfig
     bool configIsRunning;
 };
 
+class KATEPART_TESTS_EXPORT KateGlobalConfig : public KateConfig
+{
+  private:
+    friend class KateGlobal;
+
+    /**
+     * only used in KateGlobal for the static global fallback !!!
+     */
+    KateGlobalConfig ();
+
+    /**
+     * Destructor
+     */
+    ~KateGlobalConfig ();
+
+  public:
+    static KateGlobalConfig *global () { return s_global; }
+
+  public:
+    /**
+     * Read config from object
+     */
+    void readConfig (const KConfigGroup &config);
+
+    /**
+     * Write config to object
+     */
+    void writeConfig (KConfigGroup &config);
+
+  protected:
+    void updateConfig ();
+
+  public:
+    KEncodingProber::ProberType proberType () const
+    {
+      return m_proberType;
+    }
+
+    void setProberType (KEncodingProber::ProberType proberType);
+
+    QTextCodec *fallbackCodec () const;
+    const QString &fallbackEncoding () const;
+    bool setFallbackEncoding (const QString &encoding);
+
+  private:
+    KEncodingProber::ProberType m_proberType;
+    QString m_fallbackEncoding;
+
+  private:
+    static KateGlobalConfig *s_global;
+};
+
 class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
 {
   private:
@@ -186,10 +238,6 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool setEncoding (const QString &encoding);
     bool isSetEncoding () const;
 
-    QTextCodec *fallbackCodec () const;
-    const QString &fallbackEncoding () const;
-    bool setFallbackEncoding (const QString &encoding);
-
     enum Eol
     {
       eolUnix = 0,
@@ -255,7 +303,6 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     uint m_backupFlags;
     int m_searchDirConfigDepth;
     QString m_encoding;
-    QString m_fallbackEncoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
     bool m_onTheFlySpellCheck;
@@ -268,7 +315,6 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_pageUpDownMovesCursorSet : 1;
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
-    bool m_fallbackEncodingSet : 1;
     bool m_eolSet : 1;
     bool m_bomSet :1;
     bool m_allowEolDetectionSet : 1;

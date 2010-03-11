@@ -35,7 +35,6 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcharsets.h>
-#include <kencodingprober.h>
 #include <kde_file.h>
 
 // on the fly compression
@@ -148,7 +147,8 @@ void KateBuffer::clear()
 bool KateBuffer::openFile (const QString &m_file)
 {
   // first: setup fallback and normal encoding
-  setFallbackTextCodec (m_doc->config()->fallbackCodec ());
+  setEncodingProberType (KateGlobalConfig::global()->proberType ());
+  setFallbackTextCodec (KateGlobalConfig::global()->fallbackCodec ());
   setTextCodec (m_doc->config()->codec ());
 
   // setup eol
@@ -207,7 +207,8 @@ bool KateBuffer::canEncode ()
 bool KateBuffer::saveFile (const QString &m_file)
 {
   // first: setup fallback and normal encoding
-  setFallbackTextCodec (m_doc->config()->fallbackCodec ());
+  setEncodingProberType (KateGlobalConfig::global()->proberType ());
+  setFallbackTextCodec (KateGlobalConfig::global()->fallbackCodec ());
   setTextCodec (m_doc->config()->codec ());
 
   // setup eol

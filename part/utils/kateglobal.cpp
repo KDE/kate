@@ -155,6 +155,7 @@ KateGlobal::KateGlobal ()
   m_spellCheckManager = new KateSpellCheckManager ();
 
   // config objects
+  m_globalConfig = new KateGlobalConfig ();
   m_documentConfig = new KateDocumentConfig ();
   m_viewConfig = new KateViewConfig ();
   m_rendererConfig = new KateRendererConfig ();
@@ -187,6 +188,7 @@ KateGlobal::~KateGlobal()
 {
   delete m_pluginManager;
 
+  delete m_globalConfig;
   delete m_documentConfig;
   delete m_viewConfig;
   delete m_rendererConfig;
@@ -233,6 +235,8 @@ void KateGlobal::readConfig(KConfig *config)
   if( !config )
     config = KGlobal::config().data();
 
+  KateGlobalConfig::global()->readConfig (KConfigGroup(config, "Kate Part Defaults"));
+
   KateDocumentConfig::global()->readConfig (KConfigGroup(config, "Kate Document Defaults"));
 
   KateViewConfig::global()->readConfig (KConfigGroup(config, "Kate View Defaults"));
@@ -246,6 +250,9 @@ void KateGlobal::writeConfig(KConfig *config)
 {
   if( !config )
     config = KGlobal::config().data();
+
+  KConfigGroup cgGlobal(config, "Kate Part Defaults");
+  KateGlobalConfig::global()->writeConfig (cgGlobal);
 
   KConfigGroup cg(config, "Kate Document Defaults");
   KateDocumentConfig::global()->writeConfig (cg);
@@ -298,6 +305,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
   if (kd->exec() && kd)
   {
+    KateGlobalConfig::global()->configStart ();
     KateDocumentConfig::global()->configStart ();
     KateViewConfig::global()->configStart ();
     KateRendererConfig::global()->configStart ();
@@ -307,6 +315,7 @@ void KateGlobal::configDialog(QWidget *parent)
       editorPages.at(i)->apply();
     }
 
+    KateGlobalConfig::global()->configEnd ();
     KateDocumentConfig::global()->configEnd ();
     KateViewConfig::global()->configEnd ();
     KateRendererConfig::global()->configEnd ();

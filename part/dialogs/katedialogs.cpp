@@ -863,6 +863,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   //
 
   connect( ui->cmbEncoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( ui->cmbEncodingDetection, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEncodingFallback, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -904,6 +905,7 @@ void KateSaveConfigTab::apply()
     return;
   m_changed = false;
 
+  KateGlobalConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
   if ( uiadv->edtBackupSuffix->text().isEmpty() && uiadv->edtBackupPrefix->text().isEmpty() ) {
@@ -936,13 +938,16 @@ void KateSaveConfigTab::apply()
 
   // set both standard and fallback encoding
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
-  KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(ui->cmbEncodingFallback->currentText()));
+
+  KateGlobalConfig::global()->setProberType((KEncodingProber::ProberType)ui->cmbEncodingDetection->currentIndex());
+  KateGlobalConfig::global()->setFallbackEncoding(KGlobal::charsets()->encodingForName(ui->cmbEncodingFallback->currentText()));
 
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
   KateDocumentConfig::global()->setBom(ui->chkEnableBOM->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
+  KateGlobalConfig::global()->configEnd ();
 }
 
 void KateSaveConfigTab::reload()
@@ -971,7 +976,7 @@ void KateSaveConfigTab::reload()
         ui->cmbEncoding->setCurrentIndex(insert);
       }
 
-      if ( codecForEnc == KateDocumentConfig::global()->fallbackCodec() )
+      if ( codecForEnc == KateGlobalConfig::global()->fallbackCodec() )
       {
         // adjust index for fallback config, has no default!
         ui->cmbEncodingFallback->setCurrentIndex(insert-1);
@@ -980,6 +985,20 @@ void KateSaveConfigTab::reload()
       insert++;
     }
   }
+
+  // encoding detection
+  ui->cmbEncodingDetection->clear ();
+  bool found = false;
+  for (int i = 0; !KEncodingProber::nameForProberType ((KEncodingProber::ProberType) i).isEmpty(); ++i) {
+    ui->cmbEncodingDetection->addItem (KEncodingProber::nameForProberType ((KEncodingProber::ProberType) i));
+    if (i == KateGlobalConfig::global()->proberType()) {
+      ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
+      found = true;
+    }
+  }
+  if (!found)
+      ui->cmbEncodingDetection->setCurrentIndex(KEncodingProber::Universal);
+
 
   // eol
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());

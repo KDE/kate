@@ -77,10 +77,84 @@ void KateConfig::configEnd ()
 //END
 
 //BEGIN KateDocumentConfig
+KateGlobalConfig *KateGlobalConfig::s_global = 0;
 KateDocumentConfig *KateDocumentConfig::s_global = 0;
 KateViewConfig *KateViewConfig::s_global = 0;
 KateRendererConfig *KateRendererConfig::s_global = 0;
 
+KateGlobalConfig::KateGlobalConfig ()
+{
+  s_global = this;
+
+  // init with defaults from config or really hardcoded ones
+  KConfigGroup cg( KGlobal::config(), "Kate Part Defaults");
+  readConfig (cg);
+}
+
+KateGlobalConfig::~KateGlobalConfig ()
+{
+}
+
+void KateGlobalConfig::readConfig (const KConfigGroup &config)
+{
+  configStart ();
+
+  setProberType ((KEncodingProber::ProberType)config.readEntry("Encoding Prober Type", (int)KEncodingProber::Universal));
+  setFallbackEncoding (config.readEntry("Fallback Encoding", ""));
+
+  configEnd ();
+}
+
+void KateGlobalConfig::writeConfig (KConfigGroup &config)
+{
+  config.writeEntry("Encoding Prober Type", (int)proberType());
+  config.writeEntry("Fallback Encoding", fallbackEncoding());
+}
+
+void KateGlobalConfig::updateConfig ()
+{
+}
+
+void KateGlobalConfig::setProberType (KEncodingProber::ProberType proberType)
+{
+  configStart ();
+  m_proberType = proberType;
+  configEnd ();
+}
+
+const QString &KateGlobalConfig::fallbackEncoding () const
+{
+  return m_fallbackEncoding;
+}
+
+QTextCodec *KateGlobalConfig::fallbackCodec () const
+{
+  if (m_fallbackEncoding.isEmpty())
+      return QTextCodec::codecForName("ISO 8859-15");
+
+  return KGlobal::charsets()->codecForName (m_fallbackEncoding);
+}
+
+bool KateGlobalConfig::setFallbackEncoding (const QString &encoding)
+{
+  QTextCodec *codec;
+  bool found = false;
+  if (encoding.isEmpty())
+  {
+    codec = s_global->fallbackCodec();
+    found = true;
+  }
+  else
+    codec = KGlobal::charsets()->codecForName (encoding, found);
+
+  if (!found || !codec)
+    return false;
+
+  configStart ();
+  m_fallbackEncoding = codec->name();
+  configEnd ();
+  return true;
+}
 KateDocumentConfig::KateDocumentConfig ()
  : m_indentationWidth (2),
    m_tabWidth (8),
@@ -95,7 +169,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_pageUpDownMovesCursorSet (true),
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
-   m_fallbackEncodingSet (true),
    m_eolSet (true),
    m_bomSet (true),
    m_allowEolDetectionSet (false),
@@ -125,7 +198,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_pageUpDownMovesCursorSet (false),
    m_configFlagsSet (0),
    m_encodingSet (false),
-   m_fallbackEncodingSet (false),
    m_eolSet (false),
    m_bomSet (false),
    m_allowEolDetectionSet (false),
@@ -165,7 +237,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
     | KateDocumentConfig::cfSmartHome));
 
   setEncoding (config.readEntry("Encoding", ""));
-  setEncoding (config.readEntry("Fallback Encoding", ""));
 
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
@@ -204,7 +275,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Basic Config Flags", configFlags());
 
   config.writeEntry("Encoding", encoding());
-  config.writeEntry("Fallback Encoding", encoding());
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
@@ -455,51 +525,6 @@ bool KateDocumentConfig::setEncoding (const QString &encoding)
 bool KateDocumentConfig::isSetEncoding () const
 {
   return m_encodingSet;
-}
-
-const QString &KateDocumentConfig::fallbackEncoding () const
-{
-  if (m_fallbackEncodingSet || isGlobal())
-    return m_fallbackEncoding;
-
-  return s_global->fallbackEncoding();
-}
-
-QTextCodec *KateDocumentConfig::fallbackCodec () const
-{
-  if (m_fallbackEncodingSet || isGlobal())
-  {
-    if (m_fallbackEncoding.isEmpty() && isGlobal())
-      return QTextCodec::codecForName("ISO 8859-15");
-    else if (m_fallbackEncoding.isEmpty())
-      return s_global->fallbackCodec ();
-    else
-      return KGlobal::charsets()->codecForName (m_fallbackEncoding);
-  }
-
-  return s_global->fallbackCodec ();
-}
-
-bool KateDocumentConfig::setFallbackEncoding (const QString &encoding)
-{
-  QTextCodec *codec;
-  bool found = false;
-  if (encoding.isEmpty())
-  {
-    codec = s_global->codec();
-    found = true;
-  }
-  else
-    codec = KGlobal::charsets()->codecForName (encoding, found);
-
-  if (!found || !codec)
-    return false;
-
-  configStart ();
-  m_fallbackEncodingSet = true;
-  m_fallbackEncoding = codec->name();
-  configEnd ();
-  return true;
 }
 
 int KateDocumentConfig::eol () const

@@ -37,6 +37,7 @@
 class KateCmd;
 class KateModeManager;
 class KateSchemaManager;
+class KateGlobalConfig;
 class KateDocumentConfig;
 class KateViewConfig;
 class KateRendererConfig;
@@ -400,6 +401,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     KatePartPluginManager *m_pluginManager;
 
     /**
+     * global config
+     */
+    KateGlobalConfig *m_globalConfig;
+
+    /**
      * fallback document config
      */
     KateDocumentConfig *m_documentConfig;
@@ -450,7 +456,7 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * container interface
      */
     QPointer<QObject> m_container;
-    
+
     /**
      * global instance of the simple word completion mode
      */

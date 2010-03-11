@@ -28,9 +28,6 @@
 #include <kfilterdev.h>
 #include <kmimetype.h>
 
-// encoding prober
-#include <kencodingprober.h>
-
 namespace Kate {
 
 /**

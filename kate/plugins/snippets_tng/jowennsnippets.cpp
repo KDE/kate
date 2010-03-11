@@ -48,7 +48,7 @@ namespace JoWenn {
 //BEGIN: PLUGIN
 
   KateSnippetsPlugin::KateSnippetsPlugin( QObject* parent, const QList<QVariant>& ):
-      Kate::Plugin ( (Kate::Application*)parent )
+      Kate::Plugin ( qobject_cast<Kate::Application*>(parent) )
   {
     KGlobal::locale()->insertCatalog("ktexteditor_codesnippets_core");
     m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this);

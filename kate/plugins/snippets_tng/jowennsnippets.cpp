@@ -44,16 +44,16 @@ K_PLUGIN_FACTORY(JoWennKateSnippetsFactory, registerPlugin<JoWenn::KateSnippetsP
 K_EXPORT_PLUGIN(JoWennKateSnippetsFactory(KAboutData("katesnippets_tng","katesnippets_tng",ki18n("Kate Snippets"), "0.1", ki18n("Kate Snippets"), KAboutData::License_LGPL)) )
 
 namespace JoWenn {
-  
-//BEGIN: PLUGIN  
-  
+
+//BEGIN: PLUGIN
+
   KateSnippetsPlugin::KateSnippetsPlugin( QObject* parent, const QList<QVariant>& ):
       Kate::Plugin ( (Kate::Application*)parent )
   {
     KGlobal::locale()->insertCatalog("ktexteditor_codesnippets_core");
     m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this);
     connect(m_repositoryData,SIGNAL(typeChanged(const QStringList&)),this,SLOT(slotTypeChanged(const QStringList&)));
-    
+
     Kate::DocumentManager* documentManager=application()->documentManager();
     const QList<KTextEditor::Document*>& documents=documentManager->documents ();
     foreach(KTextEditor::Document* document,documents) {
@@ -110,8 +110,8 @@ namespace JoWenn {
     foreach (KTextEditor::View *view,views) {
       addView(document,view);
     }
-    connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));      
-    connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));      
+    connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
   }
 
   void KateSnippetsPlugin::removeDocument(KTextEditor::Document* document)
@@ -230,9 +230,9 @@ namespace JoWenn {
   void KateSnippetsPlugin::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
   {
     repositoryData()->readSessionConfig(config,groupPrefix);
-    slotTypeChanged(QStringList("*"));       
+    slotTypeChanged(QStringList("*"));
   }
-  
+
   void KateSnippetsPlugin::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
   {
     repositoryData()->writeSessionConfig(config,groupPrefix);
@@ -276,13 +276,13 @@ namespace JoWenn {
     QVBoxLayout *l=new QVBoxLayout(this);
     KTextEditor::CodesnippetsCore::SnippetRepositoryConfigWidget *w=new KTextEditor::CodesnippetsCore::SnippetRepositoryConfigWidget(this,plugin->repositoryData());
     l->addWidget(w);
-  }    
-  
+  }
+
     void KateSnippetsConfigPage::apply()
   {
     KConfigGroup config(KGlobal::config(), "Kate Snippets");
     //config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
-    config.sync();    
+    config.sync();
   }
 
   void KateSnippetsConfigPage::reset()

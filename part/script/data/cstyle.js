@@ -477,6 +477,10 @@ function tryStatement(line)
                 for ( ; i >= 0; --i ) {
                     // make sure it's not commented out
                     if (currentString[i] == result[2] && (i == 0 || currentString[i - 1] != '\\')) {
+                        // also make sure that this is not a line like '#include "..."' <-- we don't want to indent here
+                        if (currentString.match(/^#include/)) {
+                            return indentation;
+                        }
                         cursor = new Cursor(currentLine, i);
                         break;
                     }

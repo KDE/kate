@@ -29,6 +29,8 @@ var cfgIndentNamespace = true;    // indent after 'namespace'?
 var cfgAutoInsertStar = false;    // auto insert '*' in C-comments
 var cfgSnapSlash = false;         // snap '/' to '*/' in C-comments
 var cfgAutoInsertSlashes = false; // auto insert '//' after C++-comments
+var cfgAccessModifiers = 0;       // indent level of access modifiers, relative to the class indent level
+                                  // set to -1 to disable auto-indendation after access modifiers.
 //END USER CONFIGURATION
 
 // indent gets three arguments: line, indentwidth in spaces, typed character
@@ -133,6 +135,9 @@ function trySwitchStatement(line)
  */
 function tryAccessModifiers(line)
 {
+    if (cfgAccessModifiers < 0)
+        return -1;
+
     var currentString = document.line(line);
     if (currentString.search(/^\s*((public|protected|private)\s*\S*|(signals|Q_SIGNALS)\s*):/) == -1)
         return -1;
@@ -142,8 +147,9 @@ function tryAccessModifiers(line)
         return -1;
 
     var indentation = document.firstVirtualColumn(cursor.line);
-    if (cfgIndentCase)
+    for ( var i = 0; i < cfgAccessModifiers; ++i ) {
         indentation += gIndentWidth;
+    }
 
     if (indentation != -1) dbg("tryAccessModifiers: success in line " + cursor.line);
     return indentation;

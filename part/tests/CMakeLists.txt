@@ -1,4 +1,5 @@
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/..
   ${CMAKE_CURRENT_SOURCE_DIR}/../buffer
@@ -18,6 +19,8 @@ include_directories(
   ${KDE4_KIO_INCLUDES}
 )
 
+set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces)
+
 ########### next target ###############
 
 set(katetest_SRCS
@@ -30,7 +33,7 @@ annotationmodeltest.cpp
 
 kde4_add_executable(katetest TEST ${katetest_SRCS})
 
-target_link_libraries(katetest  ${KDE4_KDECORE_LIBS} ktexteditor )
+target_link_libraries(katetest ${KATE_TEST_LINK_LIBS} )
 
 
 ########### next target ###############
@@ -43,7 +46,7 @@ set(cursorrange_regression_SRCS
 
 kde4_add_unit_test(cursorrange_regression ${cursorrange_regression_SRCS})
 
-target_link_libraries(cursorrange_regression  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
+target_link_libraries(cursorrange_regression ${KATE_TEST_LINK_LIBS} )
 
 
 ########### next target ###############
@@ -61,7 +64,7 @@ set(testkateregression_SRCS
 
 kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces)
+target_link_libraries(testkateregression ${KATE_TEST_LINK_LIBS})
 
 #add_dependencies(check testkateregression)
 
@@ -71,33 +74,21 @@ add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS t
 
 kde4_add_unit_test(undomanager_test undomanager_test.cpp)
 
-target_link_libraries( undomanager_test
-  ${KDE4_KDEUI_LIBS}
-  ${QT_QTTEST_LIBRARY}
-  ktexteditor
-  katepartinterfaces
+target_link_libraries( undomanager_test ${KATE_TEST_LINK_LIBS}
 )
 
 ########### plaintextsearch test ###############
 
 kde4_add_unit_test(plaintextsearch_test plaintextsearch_test.cpp)
 
-target_link_libraries( plaintextsearch_test
-  ${KDE4_KDEUI_LIBS}
-  ${QT_QTTEST_LIBRARY}
-  ktexteditor
-  katepartinterfaces
+target_link_libraries( plaintextsearch_test ${KATE_TEST_LINK_LIBS}
 )
 
 ########### scriptdocument test ###############
 
 kde4_add_unit_test(scriptdocument_test scriptdocument_test.cpp)
 
-target_link_libraries( scriptdocument_test
-  ${KDE4_KDEUI_LIBS}
-  ${QT_QTTEST_LIBRARY}
-  ktexteditor
-  katepartinterfaces
+target_link_libraries( scriptdocument_test ${KATE_TEST_LINK_LIBS}
 )
 
 ########### completion test ###############
@@ -109,11 +100,7 @@ set(completion_test_SRCS
 
 kde4_add_unit_test(completion_test ${completion_test_SRCS})
 
-target_link_libraries( completion_test
-  ${KDE4_KDEUI_LIBS}
-  ${QT_QTTEST_LIBRARY}
-  ktexteditor
-  katepartinterfaces
+target_link_libraries( completion_test ${KATE_TEST_LINK_LIBS}
 )
 
 endif(NOT MINGW)

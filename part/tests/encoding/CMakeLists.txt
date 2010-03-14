@@ -1,7 +1,7 @@
 # test executable for encoding
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 kde4_add_executable(kateencodingtest NOGUI kateencodingtest.cpp)
-target_link_libraries(kateencodingtest ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces )
+target_link_libraries(kateencodingtest ${KATE_TEST_LINK_LIBS})
 
 # test macro for encoding tests
 MACRO(KATE_ENCODING_TEST _encoding _testname)

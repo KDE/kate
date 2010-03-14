@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2009 by Michel Ludwig <michel.ludwig@kdemail.net>
+ *  Copyright (C) 2009-2010 by Michel Ludwig <michel.ludwig@kdemail.net>
  *  Copyright (C) 2008 Mirko Stocker <me@misto.ch>
  *  Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
  *  Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
@@ -234,8 +234,6 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
   if ( m_spellCheckCancelledByUser
        || m_currentLanguageRangeIterator == m_languagesInSpellCheckRange.end() )
   {
-    m_currentSpellCheckRange = KTextEditor::Range::invalid();
-    m_currentDecToEncOffsetList.clear();
     spellCheckDone();
     return;
   }
@@ -251,7 +249,6 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
     const QString& dictionary = (*m_currentLanguageRangeIterator).second;
     KTextEditor::Range languageSubRange = (nextRangeBegin.isValid() ? KTextEditor::Range(nextRangeBegin, currentLanguageRange.end())
                                                                     : currentLanguageRange);
-
     rangeDictionaryPairList = spellCheckManager->spellCheckWrtHighlightingRanges(m_view->doc(),
                                                                                  languageSubRange,
                                                                                  dictionary,
@@ -265,6 +262,30 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
       }
     }
     else {
+      m_currentSpellCheckRange = rangeDictionaryPairList.first().first;
+      const QString& dictionary = rangeDictionaryPairList.first().second;
+
+      m_spellPosCursor = m_currentSpellCheckRange.start();
+      m_spellLastPos = 0;
+
+      m_currentDecToEncOffsetList.clear();
+      KateDocument::OffsetList encToDecOffsetList;
+      QString text = m_view->doc()->decodeCharacters(m_currentSpellCheckRange,
+                                                     m_currentDecToEncOffsetList,
+                                                     encToDecOffsetList);
+      // ensure that no empty string is passed on to Sonnet as this can lead to a crash
+      // (bug 228789)
+      if(text.isEmpty()) {
+        nextRangeBegin = m_currentSpellCheckRange.end();
+        continue;
+      }
+
+      if(m_speller->language() != dictionary) {
+        m_speller->setLanguage(dictionary);
+        m_backgroundChecker->setSpeller(*m_speller);
+      }
+
+      m_sonnetDialog->setBuffer(text);
       break;
     }
   }
@@ -273,25 +294,6 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
     spellCheckDone();
     return;
   }
-
-  const KTextEditor::Range& range = rangeDictionaryPairList.first().first;
-  const QString& dictionary = rangeDictionaryPairList.first().second;
-
-  m_spellPosCursor = range.start();
-  m_spellLastPos = 0;
-
-  if(m_speller->language() != dictionary) {
-    m_speller->setLanguage(dictionary);
-    m_backgroundChecker->setSpeller(*m_speller);
-  }
-
-  KateDocument *kateDocument = m_view->doc();
-  m_currentSpellCheckRange = range;
-  m_currentDecToEncOffsetList.clear();
-  KateDocument::OffsetList encToDecOffsetList;
-  QString text = kateDocument->decodeCharacters(m_currentSpellCheckRange, m_currentDecToEncOffsetList,
-                                                encToDecOffsetList);
-  m_sonnetDialog->setBuffer(text);
 }
 
 void KateSpellCheckDialog::cancelClicked()
@@ -301,6 +303,8 @@ void KateSpellCheckDialog::cancelClicked()
 
 void KateSpellCheckDialog::spellCheckDone()
 {
+  m_currentSpellCheckRange = KTextEditor::Range::invalid();
+  m_currentDecToEncOffsetList.clear();
   m_view->clearSelection();
 }
 

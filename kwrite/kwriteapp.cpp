@@ -30,8 +30,20 @@ KWriteApp::KWriteApp(KCmdLineArgs *m_args)
   : KApplication ()
   , m_args(m_args)
 {
+  m_editor = KTextEditor::EditorChooser::editor();
+
+  if ( !m_editor )
+  {
+    KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
+                                  "Please check your KDE installation."));
+    exit(1);
+  }
+
+  // set simple mode
+  m_editor->setSimpleMode (true);
+
   KTextEditor::ContainerInterface *iface =
-    qobject_cast<KTextEditor::ContainerInterface*>(KTextEditor::EditorChooser::editor());
+    qobject_cast<KTextEditor::ContainerInterface*>(m_editor);
   if (iface) {
     iface->setContainer(this);
   }

@@ -22,6 +22,7 @@ Boston, MA 02110-1301, USA.
 #include "kwritemain.h"
 
 #include <KApplication>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/containerinterface.h>
 
 #include <QList>
@@ -70,6 +71,11 @@ class KWriteApp
      */
     void init();
 
+    /**
+     * Editor instance
+     */
+    KTextEditor::Editor *editor () { return m_editor; }
+
   //
   // KTextEditor::MdiContainer
   //
@@ -91,6 +97,11 @@ class KWriteApp
      * known main windows
      */
     QList<KWrite*> m_mainWindows;
+
+    /**
+     * editor instance
+     */
+    KTextEditor::Editor *m_editor;
 };
 
 #endif

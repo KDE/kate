@@ -65,19 +65,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 {
   if ( !doc )
   {
-    KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
-
-    if ( !editor )
-    {
-      KMessageBox::error(this, i18n("A KDE text-editor component could not be found.\n"
-                                    "Please check your KDE installation."));
-      kapp->exit(1);
-    }
-
-    // set simple mode
-    editor->setSimpleMode (true);
-
-    doc = editor->createDocument(0);
+    doc = KWriteApp::self()->editor()->createDocument(0);
 
     // enable the modified on disk warning dialogs if any
     if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
@@ -262,7 +250,7 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
+  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KWriteApp::self()->editor()->defaultEncoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
 
   for (KUrl::List::ConstIterator i=r.URLs.constBegin(); i != r.URLs.constEnd(); ++i)
   {

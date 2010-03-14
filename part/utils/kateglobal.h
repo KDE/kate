@@ -69,6 +69,9 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
   Q_INTERFACES(KTextEditor::CommandInterface)
   Q_INTERFACES(KTextEditor::ContainerInterface)
 
+  // for setDefaultEncoding
+  friend class KateDocumentConfig;
+
   private:
     /**
      * Default constructor, private, as singleton

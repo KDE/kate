@@ -81,6 +81,7 @@ class KTextEditor::EditorPrivate {
     EditorPrivate()
       : simpleMode (false) { }
     bool simpleMode;
+    QString defaultEncoding;
 };
 
 Editor::Editor( QObject *parent )
@@ -104,6 +105,15 @@ bool Editor::simpleMode () const
   return d->simpleMode;
 }
 
+const QString &Editor::defaultEncoding () const
+{
+  return d->defaultEncoding;
+}
+
+void Editor::setDefaultEncoding (const QString &defaultEncoding)
+{
+  d->defaultEncoding = defaultEncoding;
+}
 
 class KTextEditor::DocumentPrivate {
   public:

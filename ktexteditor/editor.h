@@ -166,6 +166,22 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      */
     virtual const KAboutData *aboutData () const = 0;
 
+    /**
+     * Get the current default encoding for this Editor part.
+     * \return default encoding
+     * \since 4.5
+     */
+    const QString &defaultEncoding () const;
+
+  protected:
+    /**
+     * Set the current default encoding for this Editor part.
+     * Editor part implementation should call this internally on creation and config changes.
+     * \param defaultEncoding new default encoding
+     * \since 4.5
+     */
+    void setDefaultEncoding (const QString &defaultEncoding);
+
   /*
    * Configuration management.
    */

@@ -173,7 +173,7 @@ void KateViewManager::slotDocumentOpen ()
   if (cv)
   {
     KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(
-                                      cv->document()->encoding(),
+                                      KateDocManager::self()->editor()->defaultEncoding(),
                                       cv->document()->url().url(),
                                       QString(), m_mainWindow, i18n("Open File"));
 

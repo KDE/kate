@@ -373,22 +373,7 @@ KTextEditor::Range KateDocument::rangeOnLine(KTextEditor::Range range, int line)
 
 QString KateDocument::text() const
 {
-  QString s;
-
-  for (int i = 0; i < m_buffer->count(); i++)
-  {
-    Kate::TextLine textLine = m_buffer->plainLine(i);
-
-    if (textLine)
-    {
-      s.append (textLine->string());
-
-      if ((i+1) < m_buffer->count())
-        s.append(QChar::fromAscii('\n'));
-    }
-  }
-
-  return s;
+  return m_buffer->text ();
 }
 
 QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) const

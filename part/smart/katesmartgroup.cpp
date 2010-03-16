@@ -26,10 +26,6 @@
 #include "katesmartcursor.h"
 #include "katesmartrange.h"
 
-#include <QThread>
-#include <QMutexLocker>
-#include <QHash>
-
 #include <kdebug.h>
 
 //#define DEBUG_TRANSLATION

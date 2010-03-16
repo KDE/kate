@@ -22,10 +22,7 @@
 #ifndef KATESMARTGROUP_H
 #define KATESMARTGROUP_H
 
-#include <QtCore/QObject>
 #include <QtCore/QSet>
-#include <QtCore/QLinkedList>
-#include <QtCore/QThreadStorage>
 
 #include <ktexteditor/smartrange.h>
 

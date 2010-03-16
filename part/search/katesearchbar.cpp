@@ -722,7 +722,10 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 void KateSearchBar::findAll()
 {
     resetHighlights();
-    const int occurrences = findAll(m_view->document()->documentRange(), NULL);
+    Range inputRange = (m_view->selection() && selectionOnly())
+            ? m_view->selectionRange()
+            : m_view->document()->documentRange();
+    const int occurrences = findAll(inputRange, NULL);
 
     KPassivePopup::message(i18np("1 match found", "%1 matches found", occurrences), this);
 

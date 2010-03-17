@@ -28,7 +28,7 @@ class KateRegExp
 {
   public:
     explicit KateRegExp(const QString &pattern, Qt::CaseSensitivity cs = Qt::CaseSensitive,
-        QRegExp::PatternSyntax syntax = QRegExp::RegExp);
+        QRegExp::PatternSyntax syntax = QRegExp::RegExp2);
 
     bool isEmpty() const { return m_regExp.isEmpty(); }
     bool isValid() const { return m_regExp.isValid(); }

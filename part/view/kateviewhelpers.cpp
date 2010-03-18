@@ -1878,6 +1878,7 @@ KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position 
   m_layout = new QVBoxLayout(this);
   m_stack = new KateStackedWidget(this);
   m_layout->addWidget(m_stack);
+  m_layout->setMargin(0);
 
   m_stack->hide();
   hide ();

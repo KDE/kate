@@ -83,6 +83,7 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
   // get line
   TextLine textLine = block->line (position.line());
 
+#if 0 // this is no good idea, smart cursors don't do that, too, for non-wrapping cursors
   // now, validate column, else stay invalid
   if (position.column() > textLine->text().size()) {
     m_buffer.m_invalidCursors.insert (this);
@@ -90,6 +91,7 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
     m_line = m_column = -1;
     return;
   }
+#endif
 
   // else: valid cursor
   m_block = block;

@@ -136,7 +136,14 @@ class TextCursor {
      * Even if this cursor belongs to a range, the created one not.
      * @return normal cursor
      */
-    KTextEditor::Cursor toCursor () const { return KTextEditor::Cursor (line(), column()); }
+    const KTextEditor::Cursor toCursor () const { return KTextEditor::Cursor (line(), column()); }
+
+    /**
+     * Convert this clever cursor into a dumb one. Equal to toCursor, allowing to use implicit conversion.
+     * Even if this cursor belongs to a range, the created one not.
+     * @return normal cursor
+     */
+    operator const KTextEditor::Cursor () const { return KTextEditor::Cursor (line(), column()); }
 
     /**
      * Get range this cursor belongs to, if any

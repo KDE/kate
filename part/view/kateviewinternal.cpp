@@ -67,7 +67,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   , editSessionNumber (0)
   , editIsRunning (false)
   , m_view (view)
-  , m_cursor(doc())
+  , m_cursor(doc()->buffer(), KTextEditor::Cursor(0, 0), Kate::TextCursor::MoveOnInsert)
   , m_mouse()
   , m_possibleTripleClick (false)
   , m_completionItemExpanded (false)
@@ -112,10 +112,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
   setAttribute(Qt::WA_InputMethodEnabled);
-
-  // cursor
-  m_cursor.setInsertBehavior (KTextEditor::SmartCursor::MoveOnInsert);
-  m_cursor.setInternal();
 
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();
@@ -178,7 +174,6 @@ KateViewInternal::KateViewInternal(KateView *view)
            this, SLOT(slotCodeFoldingChanged()) );
 
   m_displayCursor.setPosition(0, 0);
-  m_cursor.setInsertBehavior(KTextEditor::SmartCursor::MoveOnInsert);
 
   setAcceptDrops( true );
 
@@ -755,13 +750,6 @@ int KateViewInternal::linesDisplayed() const
   return qMax (1, (h - (h % fh)) / fh);
 }
 
-KTextEditor::Cursor KateViewInternal::getCursor() const
-{
-  QMutexLocker l(doc()->smartMutex());
-
-  return m_cursor;
-}
-
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor, bool includeBorder ) const
 {
   QMutexLocker l(doc()->smartMutex());
@@ -804,9 +792,9 @@ KTextEditor::Cursor KateViewInternal::findMatchingBracket()
   Q_ASSERT(m_bmEnd->isValid());
   Q_ASSERT(m_bmStart->isValid());
 
-  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor) {
+  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor.toCursor()) {
     c = m_bmEnd->end();
-  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor) {
+  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor.toCursor()) {
     c = m_bmStart->start();
   } else {
     // should never happen: a range exists, but the cursor position is
@@ -1888,7 +1876,7 @@ void KateViewInternal::moveCursorToSelectionEdge()
 
 void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool force, bool center, bool calledExternally )
 {
-  if ( !force && (m_cursor == newCursor) )
+  if ( !force && (m_cursor.toCursor() == newCursor) )
   {
     if ( !m_madeVisible && m_view == doc()->activeView() )
     {
@@ -1906,8 +1894,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   KTextEditor::Cursor oldDisplayCursor = m_displayCursor;
 
-  m_cursor = newCursor;
-  m_displayCursor = toVirtualCursor(m_cursor);
+  m_displayCursor = toVirtualCursor(newCursor);
+  m_cursor.setPosition( newCursor );
 
   if ( m_view == doc()->activeView() )
     makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
@@ -2622,7 +2610,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
             placeCursor( e->pos(), true, false );
             if ( m_selectionCached.start().isValid() )
             {
-              if ( m_cursor < m_selectionCached.start() )
+              if ( m_cursor.toCursor() < m_selectionCached.start() )
                 m_selectAnchor = m_selectionCached.end();
               else
                 m_selectAnchor = m_selectionCached.start();
@@ -3015,7 +3003,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
         // The paintTextLine function should be well behaved, but if not, this clipping may be needed
         //paint.setClipRect(QRect(xStart, 0, xEnd - xStart, h * (thisLine.kateLineLayout()->viewLineCount())));
 
-        renderer()->paintTextLine(paint, thisLine.kateLineLayout(), xStart, xEnd, &m_cursor);
+        KTextEditor::Cursor pos = m_cursor;
+        renderer()->paintTextLine(paint, thisLine.kateLineLayout(), xStart, xEnd, &pos);
 
         //paint.setClipping(false);
 
@@ -3283,7 +3272,8 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 void KateViewInternal::clear()
 {
   m_startPos.setPosition (0, 0);
-  m_displayCursor = m_cursor = KTextEditor::Cursor(0, 0);
+  m_displayCursor = KTextEditor::Cursor(0, 0);
+  m_cursor.setPosition(0, 0);
   updateView(true);
 }
 
@@ -3394,12 +3384,12 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   else
     tagLines (editTagLineStart, tagFrom ? qMax(doc()->lastLine() + 1, editTagLineEnd) : editTagLineEnd, true);
 
-  if (editOldCursor == m_cursor)
+  if (editOldCursor == m_cursor.toCursor())
     updateBracketMarks();
 
   updateView(true);
 
-  if (editOldCursor != m_cursor || m_view == doc()->activeView())
+  if (editOldCursor != m_cursor.toCursor() || m_view == doc()->activeView())
   {
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
@@ -3410,9 +3400,9 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
 void KateViewInternal::editSetCursor (const KTextEditor::Cursor &_cursor)
 {
-  if (m_cursor != _cursor)
+  if (m_cursor.toCursor() != _cursor)
   {
-    m_cursor = _cursor;
+    m_cursor.setPosition(_cursor);
   }
 }
 //END
@@ -3759,7 +3749,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       if (m_imPreeditRange)
         return m_imPreeditRange->start().column();
       else
-        return m_cursor.start().column();
+        return 0;
 
     case Qt::ImSurroundingText:
       if (Kate::TextLine l = doc()->kateTextLine(m_cursor.line()))
@@ -3883,7 +3873,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   renderer()->setDrawCaret(hideCursor);
   renderer()->setCaretOverrideColor(caretColor);
 
-  if (newCursor != m_cursor)
+  if (newCursor != m_cursor.toCursor())
     updateCursor(newCursor);
 
   e->accept();

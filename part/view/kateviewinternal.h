@@ -126,7 +126,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
   public:
     // Start Position is a virtual cursor
-    KTextEditor::Cursor startPos() const { return m_startPos.toCursor(); }
+    KTextEditor::Cursor startPos() const { return m_startPos; }
     int startLine () const { return m_startPos.line(); }
     int startX () const { return m_startX; }
 
@@ -182,7 +182,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void top_home(bool sel=false);
     void bottom_end(bool sel=false);
 
-    KTextEditor::Cursor getCursor() const;
+    KTextEditor::Cursor getCursor() const { return m_cursor; }
+
     QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true, bool includeBorder = true) const;
     //Always works on coordinates of the whole widget, eg. offsetted by the border
     KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const;
@@ -266,7 +267,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     Qt::CursorShape m_mouseCursor;
 
-    KateSmartCursor m_cursor;
+    Kate::TextCursor m_cursor;
     KTextEditor::Cursor m_mouse;
     KTextEditor::Cursor m_displayCursor;
 

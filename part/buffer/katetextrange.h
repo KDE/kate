@@ -116,7 +116,13 @@ class TextRange {
      * Convert this clever range into a dumb one.
      * @return normal range
      */
-    KTextEditor::Range toRange () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
+    const KTextEditor::Range toRange () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
+
+    /**
+     * Convert this clever range into a dumb one. Equal to toRange, allowing to use implicit conversion.
+     * @return normal range
+     */
+    operator const KTextEditor::Range () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
 
   private:
     /**

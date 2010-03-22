@@ -194,21 +194,22 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
     QString indentationLengthMinusOne = QString::number(indentation.length() - 1);
 
     ///TODO: make configurable
-    QStringList tokens;
+    // these tokens must not start a line that is used to get the correct indendation width
+    QStringList forbiddenTokenList;
     if ( line.contains("class") || line.contains("interface") || line.contains("struct") ) {
-        tokens << "private" << "public" << "protected";
+        forbiddenTokenList  << "private" << "public" << "protected";
         if ( document->mode() == "C++" ) {
-            tokens << "signals" << "Q_SIGNALS";
+                        forbiddenTokenList  << "signals" << "Q_SIGNALS";
         } else {
             // PHP and potentially others
-            tokens << "function";
+            forbiddenTokenList  << "function";
         }
     }
     if ( (document->mode() == "C++" || document->mode() == "C") && line.contains("namespace", Qt::CaseInsensitive) ) {
         // C++ specific
-        tokens << "class" << "struct";
+        forbiddenTokenList  << "class" << "struct";
     }
-    QString forbiddenTokens = tokens.isEmpty() ? "" : "(?!" + tokens.join("|") + ')';
+    QString forbiddenTokens = forbiddenTokenList.isEmpty() ? "" : "(?!" + forbiddenTokenList.join("|") + ')';
 
     for (int i = openingBraceLine + 1; i < document->lines(); ++i)
     {

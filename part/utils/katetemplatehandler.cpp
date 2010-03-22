@@ -39,7 +39,7 @@
 
 using namespace KTextEditor;
 
-#define ifDebug(x) x
+#define ifDebug(x)
 
 /// just like Range::contains() but returns true when the cursor is at the end of the range
 bool customContains(SmartRange* range, const Cursor& cursor)

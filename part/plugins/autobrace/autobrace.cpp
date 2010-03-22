@@ -199,7 +199,7 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
     if ( line.contains("class") || line.contains("interface") || line.contains("struct") ) {
         forbiddenTokenList  << "private" << "public" << "protected";
         if ( document->mode() == "C++" ) {
-                        forbiddenTokenList  << "signals" << "Q_SIGNALS";
+            forbiddenTokenList  << "signals" << "Q_SIGNALS";
         } else {
             // PHP and potentially others
             forbiddenTokenList  << "function";

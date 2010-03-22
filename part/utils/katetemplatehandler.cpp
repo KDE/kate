@@ -74,10 +74,7 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
       // what indent-style to use.
       m_doc->align(m_doc->activeKateView(), *m_wholeTemplateRange);
     }
-
-    m_doc->undoSafePoint();
   }
-  m_doc->editEnd();
 
   ///TODO: maybe support delayed actions, i.e.:
   /// - create doc
@@ -88,6 +85,8 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
     // only do complex stuff when required
 
     handleTemplateString(initialValues);
+    m_doc->undoSafePoint();
+    m_doc->editEnd();
 
     if ( !m_templateRanges.isEmpty() ) {
       foreach ( View* view, m_doc->views() ) {
@@ -113,6 +112,8 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
       cleanupAndExit();
     }
   } else {
+    m_doc->undoSafePoint();
+    m_doc->editEnd();
     // simple templates just need to be (which gets done in handleTemplateString())
     cleanupAndExit();
   }
@@ -416,11 +417,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
     }
   }
 
-  m_doc->editStart();
-  if ( m_doc->replaceText(*m_wholeTemplateRange, templateString) ) {
-    m_doc->undoSafePoint();
-  }
-  m_doc->editEnd();
+  m_doc->replaceText(*m_wholeTemplateRange, templateString);
 
   Q_ASSERT(!m_wholeTemplateRange->isEmpty());
 

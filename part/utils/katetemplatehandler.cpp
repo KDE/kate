@@ -354,61 +354,67 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       }
     } else if ( (templateString[i] == '%' || templateString[i] == '$')
                 && i + 1 < templateString.size() && templateString[i+1] == '{' ) {
-      // don't check for startPos == -1 here, overwrite blindly since nested variables are not supported
-      startPos = i;
+      // check whether this var is escaped
+      int escapeChars = 0;
+      while ( i - escapeChars > 0 && templateString[i - escapeChars - 1] == '\\' ) {
+        ++escapeChars;
+      }
+      if ( escapeChars > 0 ) {
+        ifDebug(kDebug() << "found" << escapeChars << "escape chars at " << templateString.mid(i - escapeChars - 10, escapeChars + 10);)
+        // remove half of the escape chars (i.e. \\ => \) and make sure the
+        // odd rest is removed as well (i.e. the one that escapes this var)
+        int toRemove = (escapeChars + 1) / 2;
+        ifDebug(kDebug() << "will remove" << toRemove << "of those escape chars";)
+        templateString.remove(i - escapeChars, toRemove);
+        i -= toRemove;
+        column -= toRemove;
+      }
+      if ( escapeChars % 2 == 0 ) {
+        // don't check for startPos == -1 here, overwrite blindly since nested variables are not supported
+        startPos = i;
+      }
       // skip '{'
       ++i;
       column += 2;
     } else if ( templateString[i] == '}' && startPos != -1 ) {
-      // check whether this var is escaped
-      int escapeChars = 0;
-      while ( startPos - escapeChars > 0 && templateString[startPos - escapeChars - 1] == '\\' ) {
-        ++escapeChars;
-      }
-      if ( escapeChars > 0 ) {
-        // remove half of the escape chars (i.e. \\ => \) and make sure the
-        // odd rest is removed as well (i.e. the one that escapes this var)
-        int toRemove = (escapeChars + 1) / 2;
-        templateString.remove(startPos - escapeChars, toRemove);
-        i -= toRemove;
-        column -= toRemove;
-        startPos -= toRemove;
-      }
-      if ( escapeChars % 2 == 0 ) {
-        // get key, i.e. contents between ${..}
-        const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
-        if ( !initialValues.contains(key) ) {
-          kWarning() << "unknown variable key:" << key;
-        } else if ( key == "cursor" ) {
-          finalCursorPosition = Cursor(line, column - key.length() - 2);
-          // don't insert anything, just remove the placeholder
-          templateString.remove(startPos, i - startPos + 1);
-          // correct iterator pos, 3 == $ + { + }
-          i -= 3 + key.length();
-          column -= 2 + key.length();
-          startPos = -1;
-        } else {
-          // whether the variable starts with % or $
-          QChar c = templateString[startPos];
-          // replace variable with initial value
-          templateString.replace( startPos, i - startPos + 1, initialValues[key] );
-          // correct iterator pos, 3 == % + { + }
-          i -= 3 + key.length() - initialValues[key].length();
-          // correct column to point at end of range, taking replacement width diff into account
-          // 2 == % + {
-          column -= 2 + key.length() - initialValues[key].length();
-          // always add ${...} to the editable ranges
-          // only add %{...} to the editable ranges when it's value equals the key
-          if ( c == '$' || key == initialValues[key] ) {
-            if ( !keyQueue.contains(key) ) {
-              keyQueue.append(key);
-            }
-            ranges.insert( key,
-                          Range( line, column - initialValues[key].length(),
-                                  line, column
-                                )
-                          );
+      // get key, i.e. contents between ${..}
+      const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
+      ifDebug(kDebug() << "key found:" << key;)
+      if ( !initialValues.contains(key) ) {
+        kWarning() << "unknown variable key:" << key;
+      } else if ( key == "cursor" ) {
+        finalCursorPosition = Cursor(line, column - key.length() - 2);
+        // don't insert anything, just remove the placeholder
+        templateString.remove(startPos, i - startPos + 1);
+        // correct iterator pos, 3 == $ + { + }
+        i -= 3 + key.length();
+        column -= 2 + key.length();
+        startPos = -1;
+      } else {
+        // whether the variable starts with % or $
+        QChar c = templateString[startPos];
+        // replace variable with initial value
+        templateString.replace( startPos, i - startPos + 1, initialValues[key] );
+        // correct iterator pos, 3 == % + { + }
+        i -= 3 + key.length() - initialValues[key].length();
+        // correct column to point at end of range, taking replacement width diff into account
+        // 2 == % + {
+        column -= 2 + key.length() - initialValues[key].length();
+        // always add ${...} to the editable ranges
+        // only add %{...} to the editable ranges when it's value equals the key
+        ifDebug(kDebug() << "char is:" << c << "initial value is:" << initialValues[key];)
+        if ( c == '$' || key == initialValues[key] ) {
+          if ( !keyQueue.contains(key) ) {
+            keyQueue.append(key);
           }
+          ranges.insert( key,
+                        Range( line, column - initialValues[key].length(),
+                                line, column
+                              )
+                        );
+          ifDebug(kDebug() << "range is:" << Range( line, column - initialValues[key].length(),
+                                line, column
+                              );)
         }
       }
       startPos = -1;

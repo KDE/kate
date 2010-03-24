@@ -1337,10 +1337,9 @@ void KateSearchBar::enterPowerMode() {
         m_layout->addWidget(m_widget);
 
         // Bind to shared history models
-        const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
-        m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
+        m_powerUi->pattern->setMaxCount(m_config->maxHistorySize());
         m_powerUi->pattern->setModel(m_config->patternHistoryModel());
-        m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
+        m_powerUi->replacement->setMaxCount(m_config->maxHistorySize());
         m_powerUi->replacement->setModel(m_config->replacementHistoryModel());
 
         // Icons

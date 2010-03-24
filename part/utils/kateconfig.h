@@ -416,6 +416,8 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     long searchFlags () const;
     void setSearchFlags (long flags);
 
+    int maxHistorySize() const;
+
     QStringListModel *patternHistoryModel();
     QStringListModel *replacementHistoryModel();
 
@@ -470,6 +472,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     int m_bookmarkSort;
     int m_autoCenterLines;
     long m_searchFlags;
+    int m_maxHistorySize;
     QStringListModel m_patternHistoryModel;
     QStringListModel m_replacementHistoryModel;
     uint m_defaultMarkType;

@@ -808,6 +808,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setSearchFlags(config.readEntry(KEY_SEARCH_REPLACE_FLAGS,
       IncFromCursor|PowerMatchCase|PowerModePlainText));
 
+  m_maxHistorySize = config.readEntry("Maximum Search History Size", 100);
+
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
@@ -823,14 +825,12 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
 
   if (isGlobal()) {
-    QStringList empty;
-
     // Read search pattern history
-    QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, empty);
+    QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, QStringList());
     m_patternHistoryModel.setStringList(patternHistory);
 
     // Read replacement text history
-    QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, empty);
+    QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, QStringList());
     m_replacementHistoryModel.setStringList(replacementHistory);
   }
 
@@ -856,6 +856,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Auto Center Lines", autoCenterLines() );
 
   config.writeEntry(KEY_SEARCH_REPLACE_FLAGS, int(searchFlags()));
+
+  config.writeEntry("Maximum Search History Size", m_maxHistorySize);
 
   config.writeEntry("Default Mark Type", defaultMarkType());
 
@@ -1085,6 +1087,11 @@ void KateViewConfig::setSearchFlags (long flags)
 QStringListModel *KateViewConfig::patternHistoryModel()
 {
   return &m_patternHistoryModel;
+}
+
+int KateViewConfig::maxHistorySize() const
+{
+  return m_maxHistorySize;
 }
 
 QStringListModel *KateViewConfig::replacementHistoryModel()

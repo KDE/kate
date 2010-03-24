@@ -22,12 +22,9 @@
 #define KATE_SEARCH_BAR_H 1
 
 #include "kateviewhelpers.h"
-#include "katesmartrange.h"
-#include "katedocument.h"
-#include "katehistorymodel.h"
 #include "kateescapedtextsearch.h"
 
-#include <kcolorscheme.h>
+#include <ktexteditor/searchinterface.h>
 
 namespace KTextEditor {
     class SmartRangeNotifier;
@@ -37,7 +34,6 @@ class KateView;
 class QVBoxLayout;
 class QCheckBox;
 class QComboBox;
-class QStringListModel;
 
 namespace Ui {
     class IncrementalSearchBar;

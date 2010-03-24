@@ -19,33 +19,32 @@
 */
 
 #include "katesearchbar.h"
+#include "katesearchbar.moc"
+
 #include "kateregexp.h"
+#include "katehistorymodel.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "katesmartrange.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
 
-#include <kactioncollection.h>
 #include <ktexteditor/smartrangenotifier.h>
+
+#include <kcolorscheme.h>
+#include <kstandardaction.h>
+#include <kpassivepopup.h>
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
-#include <QtGui/QKeySequence>
 #include <QtGui/QShortcut>
-#include <QtGui/QCursor>
 #include <QStringListModel>
 #include <QCompleter>
 #include <QMutexLocker>
-
-#include <kpassivepopup.h>
-
-using namespace KTextEditor;
-
-
 
 // Turn debug messages on/off here
 // #define FAST_DEBUG_ENABLE
@@ -56,7 +55,7 @@ using namespace KTextEditor;
 # define FAST_DEBUG(x)
 #endif
 
-
+using namespace KTextEditor;
 
 namespace {
 
@@ -1666,7 +1665,5 @@ void KateSearchBar::onPowerReplacmentContextMenuRequest() {
 bool KateSearchBar::isPower() const {
     return m_powerUi != 0;
 }
-
-#include "katesearchbar.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

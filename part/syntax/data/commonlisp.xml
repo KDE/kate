@@ -23,7 +23,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language version="1.04" kateversion="2.3" name="Common Lisp" section="Scripts" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language version="1.05" kateversion="2.3" name="Common Lisp" section="Sources" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="symbols">
       <item> &lt; </item>

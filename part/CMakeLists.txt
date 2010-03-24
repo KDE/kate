@@ -103,7 +103,6 @@ search/kateplaintextsearch.cpp
 search/kateescapedtextsearch.cpp
 search/kateregexpsearch.cpp
 search/katesearchbar.cpp
-search/katehistorymodel.cpp
 
 # smart stuff (cursors, ranges, ...)
 smart/katesmartcursor.cpp

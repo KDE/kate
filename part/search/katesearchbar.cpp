@@ -22,7 +22,6 @@
 #include "katesearchbar.moc"
 
 #include "kateregexp.h"
-#include "katehistorymodel.h"
 #include "kateview.h"
 #include "katedocument.h"
 #include "katesmartrange.h"
@@ -1339,12 +1338,10 @@ void KateSearchBar::enterPowerMode() {
 
         // Bind to shared history models
         const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
-        QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
-        QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
         m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
-        m_powerUi->pattern->setModel(patternHistoryModel);
+        m_powerUi->pattern->setModel(m_config->patternHistoryModel());
         m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
-        m_powerUi->replacement->setModel(replacementHistoryModel);
+        m_powerUi->replacement->setModel(m_config->replacementHistoryModel());
 
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));

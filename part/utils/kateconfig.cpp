@@ -24,7 +24,6 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateschema.h"
-#include "katehistorymodel.h"
 
 #include <math.h>
 
@@ -827,14 +826,12 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
     QStringList empty;
 
     // Read search pattern history
-    QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
     QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, empty);
-    patternHistoryModel->setStringList(patternHistory);
+    m_patternHistoryModel.setStringList(patternHistory);
 
     // Read replacement text history
-    QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
     QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, empty);
-    replacementHistoryModel->setStringList(replacementHistory);
+    m_replacementHistoryModel.setStringList(replacementHistory);
   }
 
   configEnd ();
@@ -880,12 +877,10 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   if (isGlobal()) {
     // Write search pattern history
-    QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
-    config.writeEntry(KEY_PATTERN_HISTORY, patternHistoryModel->stringList());
+    config.writeEntry(KEY_PATTERN_HISTORY, m_patternHistoryModel.stringList());
 
     // Write replacement text history
-    QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
-    config.writeEntry(KEY_REPLACEMENT_HISTORY, replacementHistoryModel->stringList());
+    config.writeEntry(KEY_REPLACEMENT_HISTORY, m_replacementHistoryModel.stringList());
   }
 }
 
@@ -1085,6 +1080,16 @@ void KateViewConfig::setSearchFlags (long flags)
   m_searchFlags = flags;
 
   configEnd ();
+}
+
+QStringListModel *KateViewConfig::patternHistoryModel()
+{
+  return &m_patternHistoryModel;
+}
+
+QStringListModel *KateViewConfig::replacementHistoryModel()
+{
+  return &m_replacementHistoryModel;
 }
 
 uint KateViewConfig::defaultMarkType () const

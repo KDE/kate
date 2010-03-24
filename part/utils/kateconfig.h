@@ -29,6 +29,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QVector>
 #include <QtGui/QFontMetrics>
+#include <QStringListModel>
 
 class KConfigGroup;
 class KateView;
@@ -415,6 +416,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     long searchFlags () const;
     void setSearchFlags (long flags);
 
+    QStringListModel *patternHistoryModel();
+    QStringListModel *replacementHistoryModel();
+
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
 
@@ -466,6 +470,8 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     int m_bookmarkSort;
     int m_autoCenterLines;
     long m_searchFlags;
+    QStringListModel m_patternHistoryModel;
+    QStringListModel m_replacementHistoryModel;
     uint m_defaultMarkType;
     bool m_persistentSelection;
     bool m_viInputMode;

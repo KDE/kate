@@ -31,6 +31,7 @@ namespace KTextEditor {
 }
 
 class KateView;
+class KateViewConfig;
 class QVBoxLayout;
 class QCheckBox;
 class QComboBox;
@@ -71,7 +72,7 @@ public:
     };
 
 public:
-    explicit KateSearchBar(bool initAsPower, KateView* view);
+    explicit KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *config);
     ~KateSearchBar();
 
     bool isPower() const;
@@ -159,6 +160,7 @@ private:
 private:
     // Shared by both dialogs
     KateView *const m_view;
+    KateViewConfig *const m_config;
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRangeNotifier *m_rangeNotifier;
     QVBoxLayout *const m_layout;

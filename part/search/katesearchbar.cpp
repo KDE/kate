@@ -26,7 +26,6 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "katesmartrange.h"
-#include "kateglobal.h"
 #include "kateconfig.h"
 
 #include "ui_searchbarincremental.h"
@@ -128,9 +127,10 @@ public:
 
 
 
-KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
+KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *config)
         : KateViewBarWidget(true, view),
         m_view(view),
+        m_config(config),
         m_topRange(NULL),
         m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
@@ -166,8 +166,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view)
 
 
     // Copy global to local config backup
-    KateViewConfig * const globalConfig = KateGlobal::self()->viewConfig();
-    const long searchFlags = globalConfig->searchFlags();
+    const long searchFlags = m_config->searchFlags();
     m_incHighlightAll = (searchFlags & KateViewConfig::IncHighlightAll) != 0;
     m_incFromCursor = (searchFlags & KateViewConfig::IncFromCursor) != 0;
     m_incMatchCase = (searchFlags & KateViewConfig::IncMatchCase) != 0;
@@ -785,8 +784,7 @@ void KateSearchBar::backupConfig(bool ofPower) {
 
 
 void KateSearchBar::sendConfig() {
-    KateViewConfig * const globalConfig = KateGlobal::self()->viewConfig();
-    const long pastFlags = globalConfig->searchFlags();
+    const long pastFlags = m_config->searchFlags();
     long futureFlags = pastFlags;
 
     if (m_powerUi != NULL) {
@@ -832,7 +830,7 @@ void KateSearchBar::sendConfig() {
     }
 
     // Adjust global config
-    globalConfig->setSearchFlags(futureFlags);
+    m_config->setSearchFlags(futureFlags);
 }
 
 

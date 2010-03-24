@@ -2649,7 +2649,7 @@ KateCommandLineBar *KateView::cmdLineBar ()
 KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
-    m_searchBar = new KateSearchBar(initHintAsPower, this);
+    m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
 
     /*Disable searchbar highlights due to performance issue
      * if undoGroup contains n items, and there're m search highlight regions,

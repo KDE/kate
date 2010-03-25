@@ -310,7 +310,7 @@ void KateView::setupActions()
   m_copy = a = ac->addAction(KStandardAction::Copy, this, SLOT(copy()));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
-  if (m_doc->isReadWrite())
+  if (!m_doc->readOnly())
   {
     a = ac->addAction(KStandardAction::Save, m_doc, SLOT(documentSave()));
     a->setWhatsThis(i18n("Save the current document"));
@@ -835,7 +835,7 @@ void KateView::setupEditActions()
 
 
   // anders: shortcuts doing any changes should not be created in browserextension
-  if ( m_doc->isReadWrite() )
+  if ( !m_doc->readOnly() )
   {
     a = ac->addAction("transpose_char");
     a->setText(i18n("Transpose Characters"));
@@ -1036,7 +1036,7 @@ void KateView::slotReadWriteChanged ()
 
 void KateView::slotUpdateUndo()
 {
-  if (!m_doc->isReadWrite())
+  if (m_doc->readOnly())
     return;
 
   m_editUndo->setEnabled(m_doc->isReadWrite() && m_doc->undoCount() > 0);
@@ -1379,7 +1379,7 @@ void KateView::slotSelectionChanged ()
   m_copy->setEnabled (selection() || m_config->smartCopyCut());
   m_deSelect->setEnabled (selection());
 
-  if (!m_doc->isReadWrite())
+  if (m_doc->readOnly())
     return;
 
   m_cut->setEnabled (selection() || m_config->smartCopyCut() );

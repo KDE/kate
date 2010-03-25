@@ -95,7 +95,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::HighlightInterface)
 
   public:
-    explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false,
+    explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
@@ -116,14 +116,16 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual QWidget *widget();
 
   public:
+    bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
     static bool simpleMode ();
 
   private:
     // only to make part work, don't change it !
-    bool const m_bSingleViewMode;
-    bool const m_bBrowserView;
+    const bool m_bSingleViewMode;
+    const bool m_bBrowserView;
+    const bool m_bReadOnly;
 
   //
   // KTextEditor::Document stuff

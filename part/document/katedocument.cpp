@@ -161,10 +161,12 @@ class KateDocument::LoadSaveFilterCheckPlugins
 // KateDocument Constructor
 //
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
-                             QWidget *parentWidget, QObject *parent)
+                             bool bReadOnly, QWidget *parentWidget,
+                             QObject *parent)
 : KTextEditor::Document (parent),
   m_bSingleViewMode(bSingleViewMode),
   m_bBrowserView(bBrowserView),
+  m_bReadOnly(bReadOnly),
   m_activeView(0),
   editSessionNumber(0),
   editIsRunning(false),

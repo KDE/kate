@@ -41,7 +41,7 @@ UndoManagerTest::~UndoManagerTest()
 
 void UndoManagerTest::init()
 {
-    m_doc = new KateDocument(false, false, false, 0, this);
+    m_doc = new KateDocument(false, false, 0, this);
 
     m_view = qobject_cast<KateView*>(m_doc->createView(0));
     QApplication::setActiveWindow(m_view);

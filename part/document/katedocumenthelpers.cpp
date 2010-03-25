@@ -36,26 +36,12 @@ KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
   m_doc (doc)
 {
   setObjectName( "katepartbrowserextension" );
-  connect( doc, SIGNAL( activeViewSelectionChanged(KTextEditor::View*) ),
-           this, SLOT( slotSelectionChanged() ) );
   emit enableAction( "print", true );
 }
-
-// void KateBrowserExtension::copy()
-// {
-//     if (m_doc->activeView())
-//         m_doc->activeKateView()->copy();
-// }
 
 void KateBrowserExtension::print()
 {
   m_doc->printDialog();
-}
-
-void KateBrowserExtension::slotSelectionChanged()
-{
-//   if (m_doc->activeView())
-//     emit enableAction( "copy", m_doc->activeKateView()->selection() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

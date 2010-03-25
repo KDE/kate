@@ -63,7 +63,6 @@
 
 #include <klocale.h>
 #include <kglobal.h>
-#include <kapplication.h>
 #include <kmenu.h>
 #include <kconfig.h>
 #include <kfiledialog.h>
@@ -162,12 +161,10 @@ class KateDocument::LoadSaveFilterCheckPlugins
 // KateDocument Constructor
 //
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
-                             bool bReadOnly, QWidget *parentWidget,
-                             QObject *parent)
+                             QWidget *parentWidget, QObject *parent)
 : KTextEditor::Document (parent),
   m_bSingleViewMode(bSingleViewMode),
   m_bBrowserView(bBrowserView),
-  m_bReadOnly(bReadOnly),
   m_activeView(0),
   editSessionNumber(0),
   editIsRunning(false),
@@ -209,7 +206,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // normal hl
   m_buffer->setHighlight (0);
 
-  m_extension = new KateBrowserExtension( this );
+  new KateBrowserExtension( this ); // deleted by QObject memory management
 
   // important, fill in the config into the indenter we use...
   m_indenter->updateConfig ();
@@ -791,7 +788,6 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   }
 
   editEnd ();
-  emit textRemoved();
   return true;
 }
 
@@ -2258,7 +2254,7 @@ bool KateDocument::saveFile()
       // get the right permissions, start with safe default
       mode_t  perms = 0600;
       KIO::UDSEntry fentry;
-      if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
+      if (KIO::NetAccess::stat (url(), fentry, QApplication::activeWindow()))
       {
         kDebug( 13020 ) << "stating succesfull: " << url();
         KFileItem item (fentry, url());
@@ -2620,17 +2616,10 @@ void KateDocument::removeView(KTextEditor::View *view) {
 
 void KateDocument::setActiveView(KTextEditor::View* view)
 {
-  if ( m_activeView == view ) return;
-
-  if (m_activeView) {
-    disconnect(m_activeView, SIGNAL(selectionChanged(KTextEditor::View*)), this, SIGNAL(activeViewSelectionChanged(KTextEditor::View*)));
-  }
+  if ( m_activeView == view )
+    return;
 
   m_activeView = (KateView*)view;
-
-  if (m_activeView) {
-    connect(m_activeView, SIGNAL(selectionChanged(KTextEditor::View*)), SIGNAL(activeViewSelectionChanged(KTextEditor::View*)));
-  }
 }
 
 bool KateDocument::ownedView(KateView *view) {
@@ -3776,13 +3765,6 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   }
 
   return false;
-}
-
-void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )
-{
-  KParts::ReadWritePart::guiActivateEvent( ev );
-  //if ( ev->activated() )
-  //  emit selectionChanged();
 }
 
 void KateDocument::setDocName (QString name )

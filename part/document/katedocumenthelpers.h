@@ -46,16 +46,6 @@ class KateBrowserExtension : public KParts::BrowserExtension
 
   public Q_SLOTS:
     /**
-     * copy text to clipboard
-     */
-//     void copy();
-
-    /**
-     * selection has changed
-     */
-    void slotSelectionChanged();
-
-    /**
      * print the current file
      */
     void print();

@@ -3768,7 +3768,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 
 void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 {
-  if ( doc()->readOnly() ) {
+  if ( !doc()->isReadWrite() ) {
     e->ignore();
     return;
   }

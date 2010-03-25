@@ -56,7 +56,6 @@ class KateBuffer;
 class KateView;
 class KateSmartRange;
 class KateLineInfo;
-class KateBrowserExtension;
 class KateDocumentConfig;
 class KateHighlighting;
 class KateSmartManager;
@@ -96,7 +95,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::HighlightInterface)
 
   public:
-    explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
+    explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
@@ -117,18 +116,14 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual QWidget *widget();
 
   public:
-    bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
-    KateBrowserExtension *browserExtension () { return m_extension; }
     static bool simpleMode ();
 
   private:
     // only to make part work, don't change it !
     bool const m_bSingleViewMode;
     bool const m_bBrowserView;
-    bool m_bReadOnly;
-    KateBrowserExtension *m_extension;
 
   //
   // KTextEditor::Document stuff
@@ -140,9 +135,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual KTextEditor::View* activeView() const { return m_activeView; }
     // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
     KateView* activeKateView() const;
-
-  Q_SIGNALS:
-    void activeViewSelectionChanged(KTextEditor::View* view);
 
   private:
     QLinkedList<KateView*> m_views;
@@ -787,9 +779,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void newBracketMark( const KTextEditor::Cursor& start, KTextEditor::Range& bm, int maxLines = -1 );
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 
-  private:
-    virtual void guiActivateEvent( KParts::GUIActivateEvent *ev );
-
   public:
     virtual const QString &documentName () const { return m_docName; }
 
@@ -875,7 +864,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_SIGNALS:
     void codeFoldingUpdated();
     void aboutToRemoveText(const KTextEditor::Range&);
-    void textRemoved();
 
   private Q_SLOTS:
     void slotModOnHdDirty (const QString &path);

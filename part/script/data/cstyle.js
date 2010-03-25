@@ -37,7 +37,7 @@ var cfgAccessModifiers = 0;       // indent level of access modifiers, relative 
 // indent
 
 // specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = "{}/:;";
+triggerCharacters = "{})/:;";
 
 var debugMode = false;
 
@@ -470,6 +470,15 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
+    if (currentString[currentString.length - 1] == '(') {
+        // increase indent level relative to function identifier when last line ends on (
+        indentation = currentString.search(/\b(\w+)\s*\($/);
+        if (indentation != -1) {
+            indentation = document.toVirtualColumn(currentLine, indentation) + gIndentWidth;
+            dbg("tryStatement: success in line " + currentLine);
+        }
+        return indentation;
+    }
     // multi-language support: [\.+] for javascript or php
     var result = /^(.*)(,|"|'|\))(;?)\s*[\.+]?\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
@@ -517,6 +526,12 @@ function tryStatement(line)
                     break;
                 }
             }
+        } else if (result[2] == ',' && !currentString.match(/\(/)) {
+            // when we have cases like this:
+            // fooasdfasdf(
+            //   asdfasdf,
+            // we don't want to align the next line on the (, but on the loc before!
+            indentation = document.firstVirtualColumn(currentLine);
         } else {
             cursor = document.anchor(currentLine, result[1].length, '(');
         }
@@ -578,7 +593,7 @@ function indentLine(line, alignOnly)
 
 function processChar(line, c)
 {
-    if (c != '{' && c != '}' && c != '/' && c != ':')
+    if (c != '{' && c != '}' && c != '/' && c != ':' && c != ')')
         return -2;
 
     var cursor = view.cursorPosition();
@@ -630,6 +645,19 @@ function processChar(line, c)
         if (filler == -1)
             filler = -2;
         return filler;
+    } else if (c == ')' && firstPos == column - 1) {
+        // align on start of identifier of function call
+        var openParen = document.anchor(line, column - 1, '(');
+        if (openParen.isValid()) {
+            // get identifier
+            var callLine = document.line(openParen.line);
+            // strip starting from opening paren
+            callLine = callLine.substring(0, openParen.column - 1);
+            indentation = callLine.search(/\b(\w+)\s*$/);
+            if (indentation != -1) {
+                return document.toVirtualColumn(openParen.line, indentation);
+            }
+        }
     }
     return -2;
 }

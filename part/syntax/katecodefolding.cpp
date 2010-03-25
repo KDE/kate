@@ -151,7 +151,10 @@ void KateCodeFoldingNode::clearChildren ()
   m_children.resize (0);
 }
 
-KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer): QObject(buffer), m_buffer (buffer),m_clearCache(false)
+KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer)
+  : QObject(buffer)
+  , m_buffer(buffer)
+  , m_clearCache(false)
 {
   clear();
 }

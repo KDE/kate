@@ -313,8 +313,8 @@ public:
 
     void assignSelectionBrushesFromAttribute(QTextLayout::FormatRange& target, const KTextEditor::Attribute& attribute) const;
 
-    KateDocument* m_doc;
-    KateView *m_view;
+    KateDocument *const m_doc;
+    KateView *const m_view;
 
     // cache of config values
     int m_tabWidth;
@@ -340,7 +340,7 @@ public:
     void updateConfig ();
 
   private:
-    KateRendererConfig *m_config;
+    KateRendererConfig *const m_config;
 
     KateSmartRegion m_dynamicRegion;
 };

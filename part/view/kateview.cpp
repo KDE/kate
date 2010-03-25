@@ -105,9 +105,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_completionWidget(0)
     , m_annotationModel(0)
     , m_doc( doc )
+    , m_renderer( new KateRenderer( doc, this ) )
+    , m_viewInternal( new KateViewInternal( this ) )
     , m_spell( new KateSpellCheckDialog( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_hasWrap( false )
+    , m_config( new KateViewConfig( this ) )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
     , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
@@ -120,8 +123,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_gotoBar (0)
     , m_dictionaryBar(NULL)
     , m_spellingMenu( new KateSpellingMenu( this ) )
+    , m_userContextMenuSet( false )
 {
-  m_userContextMenuSet=false;
   setComponentData ( KateGlobal::self()->componentData () );
 
   KateGlobal::self()->registerView( this );
@@ -130,19 +133,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   QWidget *bottomBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
   QWidget *topBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::TopBar):0;
 
-  m_bottomBarExternal=bottomBarParent;
-  m_topBarExternal=topBarParent;
-
-  m_bottomViewBar=new KateViewBar (m_bottomBarExternal,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
-  m_topViewBar=new KateViewBar (m_topBarExternal,KTextEditor::ViewBarContainer::TopBar,topBarParent?topBarParent:this,this);
-
-
-
-  m_config = new KateViewConfig (this);
-
-  m_renderer = new KateRenderer(doc, this);
-
-  m_viewInternal = new KateViewInternal( this );
+  m_bottomViewBar=new KateViewBar (bottomBarParent!=0,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
+  m_topViewBar=new KateViewBar (topBarParent!=0,KTextEditor::ViewBarContainer::TopBar,topBarParent?topBarParent:this,this);
 
   // ugly workaround:
   // Force the layout to be left-to-right even on RTL deskstop, as discussed
@@ -154,6 +146,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_vBox = new QVBoxLayout (this);
   m_vBox->setMargin (0);
   m_vBox->setSpacing (0);
+
+  m_bottomViewBar->installEventFilter(m_viewInternal);
 
   QHBoxLayout *hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox, 100);

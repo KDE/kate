@@ -46,19 +46,19 @@ static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
-  : m_doc(doc), m_view (view), m_caretStyle(KateRenderer::Line)
+  : m_doc(doc)
+    , m_view (view)
+    , m_tabWidth(m_doc->config()->tabWidth())
+    , m_indentWidth(m_doc->config()->indentationWidth())
+    , m_caretStyle(KateRenderer::Line)
     , m_drawCaret(true)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_showSpaces(true)
     , m_printerFriendly(false)
+    , m_config(new KateRendererConfig(this))
     , m_dynamicRegion(doc)
 {
-  m_config = new KateRendererConfig (this);
-
-  m_tabWidth = m_doc->config()->tabWidth();
-  m_indentWidth = m_doc->config()->indentationWidth();
-
   updateAttributes ();
 }
 

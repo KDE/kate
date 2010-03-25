@@ -222,9 +222,9 @@ class KateBuffer : public Kate::TextBuffer
     void respellCheckBlock(int start, int end);
   private:
     /**
-     * document we belong too
+     * document we belong to
      */
-    KateDocument *m_doc;
+    KateDocument *const m_doc;
 
     /**
      * file loaded with encoding problems?

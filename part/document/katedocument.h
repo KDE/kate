@@ -125,8 +125,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   private:
     // only to make part work, don't change it !
-    bool m_bSingleViewMode;
-    bool m_bBrowserView;
+    bool const m_bSingleViewMode;
+    bool const m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
 
@@ -334,8 +334,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     KateEditHistory* history() const { return m_editHistory; }
 
   private:
-    KateUndoManager* m_undoManager;
-    KateEditHistory* m_editHistory;
+    KateUndoManager* const m_undoManager;
+    KateEditHistory* const m_editHistory;
 
   Q_SIGNALS:
     void undoChanged ();
@@ -592,7 +592,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     // Smart range watcher overrides
     virtual void rangeDeleted(KTextEditor::SmartRange* range);
 
-    KateSmartManager* m_smartManager;
+    KateSmartManager* const m_smartManager;
     QList<KTextEditor::SmartRange*> m_documentHighlights;
     QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;
     QList<KTextEditor::SmartRange*> m_documentActions;
@@ -801,7 +801,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   public:
     /**
-     * @return wheather the document is modified on disk since last saved.
+     * @return whether the document is modified on disk since last saved
      */
     bool isModifiedOnDisc() { return m_modOnHd; }
 
@@ -928,7 +928,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   //
   private:
     // text buffer
-    KateBuffer *m_buffer;
+    KateBuffer *const m_buffer;
 
     // indenter
     KateAutoIndent *const m_indenter;
@@ -972,7 +972,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void updateConfig ();
 
   private:
-    KateDocumentConfig *m_config;
+    KateDocumentConfig *const m_config;
 
   /**
    * Variable Reader
@@ -1025,7 +1025,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     static QRegExp kvLineMime;
     static QRegExp kvVar;
 
-    bool s_fileChangedDialogsActivated;
+    bool m_fileChangedDialogsActivated;
 
   //
   // KTextEditor::ConfigInterface

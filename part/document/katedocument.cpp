@@ -166,17 +166,35 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
 : KTextEditor::Document (parent),
-  m_activeView(0L),
+  m_bSingleViewMode(bSingleViewMode),
+  m_bBrowserView(bBrowserView),
+  m_bReadOnly(bReadOnly),
+  m_activeView(0),
+  editSessionNumber(0),
+  editIsRunning(false),
   m_undoManager(new KateUndoManager(this)),
-  m_annotationModel( 0 ),
+  m_editHistory(new KateEditHistory(this)),
+  m_editableMarks(markType01),
+  m_smartManager(new KateSmartManager(this)),
+  m_annotationModel(0),
   m_saveAs(false),
-  m_indenter (new KateAutoIndent(this)),
-  m_modOnHd (false),
-  m_modOnHdReason (OnDiskUnmodified),
-  s_fileChangedDialogsActivated (false),
+  m_isasking(0),
+  m_blockRemoveTrailingSpaces(false),
+  m_buffer(new KateBuffer(this)),
+  m_indenter(new KateAutoIndent(this)),
+  hlSetByUser(false),
+  m_bomSetByUser(false),
+  m_modOnHd(false),
+  m_modOnHdReason(OnDiskUnmodified),
+  m_docName("need init"),
+  m_docNameNumber(0),
+  m_fileTypeSetByUser(false),
+  m_reloading(false),
+  m_config(new KateDocumentConfig(this)),
+  m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
-  m_onTheFlyChecker(NULL),
-  m_dictionaryRangeNotifier(NULL)
+  m_onTheFlyChecker(0),
+  m_dictionaryRangeNotifier(0)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -189,42 +207,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // register doc at factory
   KateGlobal::self()->registerDocument(this);
 
-  m_reloading = false;
-
-  m_editHistory = new KateEditHistory(this);
-  m_smartManager = new KateSmartManager(this);
-  m_buffer = new KateBuffer(this);
-
-  // init the config object, be careful not to use it
-  // until the initial readConfig() call is done
-  m_config = new KateDocumentConfig(this);
-
-  // init some more vars !
-  setActiveView(0L);
-
-  hlSetByUser = false;
-  m_bomSetByUser=false;
-  m_fileTypeSetByUser = false;
-
-  editSessionNumber = 0;
-  editIsRunning = false;
-
-  m_docNameNumber = 0;
-  m_docName = "need init";
-
-  m_bSingleViewMode = bSingleViewMode;
-  m_bBrowserView = bBrowserView;
-  m_bReadOnly = bReadOnly;
-
-  setEditableMarks( markType01 );
-
-  clearMarks ();
-  setModified (false);
-
   // normal hl
   m_buffer->setHighlight (0);
 
-  m_blockRemoveTrailingSpaces = false;
   m_extension = new KateBrowserExtension( this );
 
   // important, fill in the config into the indenter we use...
@@ -265,8 +250,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   }
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
-
-  m_isasking = 0;
 
   onTheFlySpellCheckingEnabled(config()->onTheFlySpellCheck());
 
@@ -339,7 +322,7 @@ QWidget *KateDocument::widget()
 KTextEditor::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
-  if ( s_fileChangedDialogsActivated )
+  if ( m_fileChangedDialogsActivated )
     connect( newView, SIGNAL(focusIn( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
@@ -2204,7 +2187,7 @@ bool KateDocument::saveFile()
   // some warnings, if file was changed by the outside!
   if ( !url().isEmpty() )
   {
-    if (s_fileChangedDialogsActivated && m_modOnHd)
+    if (m_fileChangedDialogsActivated && m_modOnHd)
     {
       QString str = reasonedMOHString() + "\n\n";
 
@@ -2466,7 +2449,7 @@ bool KateDocument::closeUrl()
   //
   if ( !m_reloading && !url().isEmpty() )
   {
-    if (s_fileChangedDialogsActivated && m_modOnHd)
+    if (m_fileChangedDialogsActivated && m_modOnHd)
     {
       QWidget *parentWidget(dialogParent());
 
@@ -3852,7 +3835,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
     return;
   }
 
-  if ( !s_fileChangedDialogsActivated || m_isasking )
+  if ( !m_fileChangedDialogsActivated || m_isasking )
     return;
 
   if (m_modOnHd && !url().isEmpty())
@@ -3934,14 +3917,14 @@ class KateDocumentTmpMark
 
 void KateDocument::setModifiedOnDiskWarning (bool on)
 {
-  s_fileChangedDialogsActivated = on;
+  m_fileChangedDialogsActivated = on;
 }
 
 bool KateDocument::documentReload()
 {
   if ( !url().isEmpty() )
   {
-    if (m_modOnHd && s_fileChangedDialogsActivated)
+    if (m_modOnHd && m_fileChangedDialogsActivated)
     {
       QWidget *parentWidget(dialogParent());
 

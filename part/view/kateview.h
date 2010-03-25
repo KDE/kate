@@ -292,9 +292,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     QList<KTextEditor::SmartRange*> m_internalHighlights;
     QList<KTextEditor::SmartRange*> m_actions;
 
-    bool m_bottomBarExternal;
-    bool m_topBarExternal;
-
   //
   // internal helper stuff, for katerenderer and so on
   //
@@ -596,10 +593,10 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction *m_toggleWriteLock;
 
     KateDocument     *const m_doc;
-    KateViewInternal*      m_viewInternal;
-    KateRenderer*          m_renderer;
+    KateRenderer     *const m_renderer;
+    KateViewInternal *const m_viewInternal;
     KateSpellCheckDialog  *m_spell;
-    KateBookmarks*         m_bookmarks;
+    KateBookmarks    *const m_bookmarks;
 
     QVBoxLayout *m_vBox;
 
@@ -624,7 +621,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void updateFoldingConfig ();
 
   private:
-    KateViewConfig *m_config;
+    KateViewConfig *const m_config;
     bool m_startingUp;
     bool m_updatingDocumentConfig;
 

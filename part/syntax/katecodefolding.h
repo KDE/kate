@@ -156,7 +156,7 @@ class KateCodeFoldingTree : public QObject
 
     KateCodeFoldingNode m_root;
 
-    KateBuffer *m_buffer;
+    KateBuffer *const m_buffer;
 
     QHash<int,unsigned int> lineMapping;
     QSet<int>         dontIgnoreUnchangedLines;

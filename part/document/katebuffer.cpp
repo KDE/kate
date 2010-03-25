@@ -75,7 +75,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
-  clear();
 }
 
 /**

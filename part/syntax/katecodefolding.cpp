@@ -149,14 +149,18 @@ void KateCodeFoldingNode::clearChildren ()
     delete m_children[i];
 
   m_children.resize (0);
+
+  startLineValid=true;
+  endLineValid=true; // temporary, should be false;
+  endLineRel=1;      // temporary;
 }
 
 KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer)
   : QObject(buffer)
   , m_buffer(buffer)
+  , hiddenLinesCountCacheValid(false)
   , m_clearCache(false)
 {
-  clear();
 }
 
 void KateCodeFoldingTree::fixRoot(int endLRel)
@@ -167,11 +171,6 @@ void KateCodeFoldingTree::fixRoot(int endLRel)
 void KateCodeFoldingTree::clear()
 {
   m_root.clearChildren();
-
-  // initialize the root "special" node
-  m_root.startLineValid=true;
-  m_root.endLineValid=true; // temporary, should be false;
-  m_root.endLineRel=1;      // temporary;
 
   hiddenLinesCountCacheValid=false;
   hiddenLines.clear();

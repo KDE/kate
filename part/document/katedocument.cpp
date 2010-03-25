@@ -38,14 +38,11 @@
 #include "kateplaintextsearch.h"
 #include "kateescapedtextsearch.h"
 #include "kateregexpsearch.h"
-#include <ktexteditor/attribute.h>
 #include "kateconfig.h"
 #include "katemodemanager.h"
 #include "kateschema.h"
 #include "katetemplatehandler.h"
 #include "katesmartmanager.h"
-#include <ktexteditor/plugin.h>
-#include <ktexteditor/loadsavefiltercheckplugin.h>
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"
@@ -55,12 +52,14 @@
 #include "spellcheck/ontheflycheck.h"
 #include "spellcheck/spellcheck.h"
 
+#include <ktexteditor/attribute.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/loadsavefiltercheckplugin.h>
+
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <kio/netaccess.h>
 #include <kfileitem.h>
-
-#include <kparts/event.h>
 
 #include <klocale.h>
 #include <kglobal.h>
@@ -76,7 +75,6 @@
 #include <klibloader.h>
 #include <kdirwatch.h>
 #include <kencodingfiledialog.h>
-#include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kstandarddirs.h>
 #include <kstringhandler.h>
@@ -84,6 +82,7 @@
 #include <kservicetypetrader.h>
 
 #include <QtDBus/QtDBus>
+#include <QtGui/QApplication>
 #include <QtCore/QTimer>
 #include <QtCore/QFile>
 #include <QtGui/QClipboard>

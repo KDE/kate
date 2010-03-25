@@ -101,9 +101,9 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     ~KateDocument ();
 
     using ReadWritePart::closeUrl;
-    bool closeUrl();
+    virtual bool closeUrl();
 
-    KTextEditor::Editor *editor ();
+    virtual KTextEditor::Editor *editor ();
 
     KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
 
@@ -134,8 +134,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::Document stuff
   //
   public:
-    KTextEditor::View *createView( QWidget *parent );
-    const QList<KTextEditor::View*> &views () const;
+    virtual KTextEditor::View *createView( QWidget *parent );
+    virtual const QList<KTextEditor::View*> &views () const;
 
     virtual KTextEditor::View* activeView() const { return m_activeView; }
     // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
@@ -163,13 +163,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual bool insertLine ( int line, const QString &s );
     virtual bool insertLines ( int line, const QStringList &s );
 
-    bool removeText ( const KTextEditor::Range &range, bool block = false );
-    bool removeLine ( int line );
+    virtual bool removeText ( const KTextEditor::Range &range, bool block = false );
+    virtual bool removeLine ( int line );
 
-    bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
+    virtual bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
 
     // unhide method...
-    bool replaceText (const KTextEditor::Range &r, const QStringList &l, bool b)
+    virtual bool replaceText (const KTextEditor::Range &r, const QStringList &l, bool b)
     { return KTextEditor::Document::replaceText (r, l, b); }
 
   public:
@@ -178,11 +178,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual QString text() const;
     virtual QString line(int line) const;
     virtual QChar character(const KTextEditor::Cursor& position) const;
-    int lines() const;
+    virtual int lines() const;
     virtual KTextEditor::Cursor documentEnd() const;
     int numVisLines() const;
-    int totalCharacters() const;
-    int lineLength(int line) const;
+    virtual int totalCharacters() const;
+    virtual int lineLength(int line) const;
 
   Q_SIGNALS:
     void charactersSemiInteractivelyInserted(const KTextEditor::Cursor& position, const QString& text);
@@ -209,8 +209,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void pushEditState();
     void popEditState();
 
-    bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
-    bool endEditing () { editEnd (); return true; }
+    virtual bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
+    virtual bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd
 
@@ -344,12 +344,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::SearchInterface stuff
   //
   public:
-    QVector<KTextEditor::Range> searchText(
+    virtual QVector<KTextEditor::Range> searchText(
         const KTextEditor::Range & range,
         const QString & pattern,
         const KTextEditor::Search::SearchOptions options);
 
-    KTextEditor::Search::SearchOptions supportedSearchOptions() const;
+    virtual KTextEditor::Search::SearchOptions supportedSearchOptions() const;
 
   private:
     /**
@@ -437,10 +437,10 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff
   //
   public:
-    void readSessionConfig (const KConfigGroup&);
-    void writeSessionConfig (KConfigGroup&);
-    void readParameterizedSessionConfig (const KConfigGroup&, unsigned long configParameters);
-    void writeParameterizedSessionConfig (KConfigGroup&, unsigned long configParameters);
+    virtual void readSessionConfig (const KConfigGroup&);
+    virtual void writeSessionConfig (KConfigGroup&);
+    virtual void readParameterizedSessionConfig (const KConfigGroup&, unsigned long configParameters);
+    virtual void writeParameterizedSessionConfig (KConfigGroup&, unsigned long configParameters);
 
   Q_SIGNALS:
     void configChanged();
@@ -449,13 +449,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::MarkInterface
   //
   public Q_SLOTS:
-    void setMark( int line, uint markType );
-    void clearMark( int line );
+    virtual void setMark( int line, uint markType );
+    virtual void clearMark( int line );
 
-    void addMark( int line, uint markType );
-    void removeMark( int line, uint markType );
+    virtual void addMark( int line, uint markType );
+    virtual void removeMark( int line, uint markType );
 
-    void clearMarks();
+    virtual void clearMarks();
 
     void requestMarkTooltip( int line, QPoint position );
 
@@ -465,19 +465,19 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     ///Returns true if the context-menu event should not further be processed
     bool handleMarkContextMenu( int line, QPoint position );
 
-    void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
+    virtual void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
 
-    void setMarkDescription( MarkInterface::MarkTypes, const QString& );
+    virtual void setMarkDescription( MarkInterface::MarkTypes, const QString& );
 
-    void setEditableMarks( uint markMask );
+    virtual void setEditableMarks( uint markMask );
 
   public:
-    uint mark( int line );
-    const QHash<int, KTextEditor::Mark*> &marks ();
-    QPixmap markPixmap( MarkInterface::MarkTypes ) const;
-    QString markDescription( MarkInterface::MarkTypes ) const;
-    QColor markColor( MarkInterface::MarkTypes ) const;
-    uint editableMarks() const;
+    virtual uint mark( int line );
+    virtual const QHash<int, KTextEditor::Mark*> &marks ();
+    virtual QPixmap markPixmap( MarkInterface::MarkTypes ) const;
+    virtual QString markDescription( MarkInterface::MarkTypes ) const;
+    virtual QColor markColor( MarkInterface::MarkTypes ) const;
+    virtual uint editableMarks() const;
 
   Q_SIGNALS:
     void markToolTipRequested( KTextEditor::Document* document, KTextEditor::Mark mark, QPoint position, bool& handled );
@@ -513,7 +513,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * is then still the default MimeType for a nonlocal or unsaved file,
      * uses mimeTypeForContent().
      */
-    QString mimeType();
+    virtual QString mimeType();
 
     /**
      * @return a pointer to the KMimeType for this document, found by analyzing the
@@ -527,7 +527,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::VariableInterface
   //
   public:
-    QString variable( const QString &name ) const;
+    virtual QString variable( const QString &name ) const;
 
   Q_SIGNALS:
     void variableChanged( KTextEditor::Document*, const QString &, const QString & );
@@ -620,18 +620,18 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * the framework abstracts the loading of remote files
      * @return success
      */
-    bool openFile ();
+    virtual bool openFile ();
 
     /**
      * save the file obtained by the kparts framework
      * the framework abstracts the uploading of remote files
      * @return success
      */
-    bool saveFile ();
+    virtual bool saveFile ();
 
-    void setReadWrite ( bool rw = true );
+    virtual void setReadWrite ( bool rw = true );
 
-    void setModified( bool m );
+    virtual void setModified( bool m );
 
   private:
     void activateDirWatch (const QString &useFileName = QString());
@@ -788,10 +788,10 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 
   private:
-    void guiActivateEvent( KParts::GUIActivateEvent *ev );
+    virtual void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
   public:
-    const QString &documentName () const { return m_docName; }
+    virtual const QString &documentName () const { return m_docName; }
 
     void setDocName (QString docName);
 
@@ -805,24 +805,24 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     bool isModifiedOnDisc() { return m_modOnHd; }
 
-    void setModifiedOnDisk( ModifiedOnDiskReason reason );
+    virtual void setModifiedOnDisk( ModifiedOnDiskReason reason );
 
-    void setModifiedOnDiskWarning ( bool on );
+    virtual void setModifiedOnDiskWarning ( bool on );
 
   public Q_SLOTS:
     /**
      * Ask the user what to do, if the file has been modified on disk.
      * Reimplemented from KTextEditor::Document.
      */
-    void slotModifiedOnDisk( KTextEditor::View *v = 0 );
+    virtual void slotModifiedOnDisk( KTextEditor::View *v = 0 );
 
     /**
      * Reloads the current document from disk if possible
      */
-    bool documentReload ();
+    virtual bool documentReload ();
 
-    bool documentSave ();
-    bool documentSaveAs ();
+    virtual bool documentSave ();
+    virtual bool documentSaveAs ();
 
     virtual bool save();
   public:
@@ -846,8 +846,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                     // -1: ignore once, 0: false, 1: true
 
   public:
-    bool setEncoding (const QString &e);
-    const QString &encoding() const;
+    virtual bool setEncoding (const QString &e);
+    virtual const QString &encoding() const;
 
 
   public Q_SLOTS:
@@ -1031,9 +1031,9 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::ConfigInterface
   //
   public:
-     QStringList configKeys() const;
-     QVariant configValue(const QString &key);
-     void setConfigValue(const QString &key, const QVariant &value);
+     virtual QStringList configKeys() const;
+     virtual QVariant configValue(const QString &key);
+     virtual void setConfigValue(const QString &key, const QVariant &value);
 
   // TemplateInterface
   public:

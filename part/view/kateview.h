@@ -593,6 +593,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction *m_toggleWriteLock;
 
     KateDocument     *const m_doc;
+    KateViewConfig   *const m_config;
     KateRenderer     *const m_renderer;
     KateViewInternal *const m_viewInternal;
     KateSpellCheckDialog  *m_spell;
@@ -621,7 +622,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void updateFoldingConfig ();
 
   private:
-    KateViewConfig *const m_config;
     bool m_startingUp;
     bool m_updatingDocumentConfig;
 

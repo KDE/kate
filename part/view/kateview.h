@@ -592,6 +592,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction *m_toggleInsert;
     KToggleAction *m_toggleWriteLock;
 
+    bool m_hasWrap;
+
     KateDocument     *const m_doc;
     KateViewConfig   *const m_config;
     KateRenderer     *const m_renderer;
@@ -600,8 +602,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateBookmarks    *const m_bookmarks;
 
     QVBoxLayout *m_vBox;
-
-    bool       m_hasWrap;
 
   private Q_SLOTS:
     void slotHlChanged();

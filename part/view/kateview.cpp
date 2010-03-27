@@ -1304,7 +1304,7 @@ void KateView::showViModeBar()
 
 void KateView::hideViModeBar()
 {
-  if (m_bottomViewBar) {
+  if (m_bottomViewBar && m_viModeBar) {
     m_bottomViewBar->removePermanentBarWidget(viModeBar());
   }
 }

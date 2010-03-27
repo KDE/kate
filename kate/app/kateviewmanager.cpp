@@ -657,7 +657,7 @@ void KateViewManager::removeViewSpace (KateViewSpace *viewspace)
     // we are the root splitter and have only one child, which is also a splitter
     // -> eliminate the redundant splitter and move both children into the root splitter
     QList<int> sizes = splitter->sizes();
-    // adapt root splitter orientation to the splitter we are about to delete
+    // adapt splitter orientation to the splitter we are about to delete
     currentSplitter->setOrientation(splitter->orientation());
     currentSplitter->addWidget( splitter->widget(0) );
     currentSplitter->addWidget( splitter->widget(0) );

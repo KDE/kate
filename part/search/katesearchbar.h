@@ -126,9 +126,7 @@ private:
     int findAll(KTextEditor::Range inputRange, const QString * replacement);
 
     bool isChecked(QCheckBox * checkbox);
-    bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);
-    void setChecked(QAction * menuAction, bool checked);
 
     QString searchPattern() const;
     bool isPatternValid() const;
@@ -162,7 +160,7 @@ private:
     KateView *const m_view;
     KateViewConfig *const m_config;
     KTextEditor::SmartRange * m_topRange;
-    KTextEditor::SmartRangeNotifier *m_rangeNotifier;
+    KTextEditor::SmartRangeNotifier *const m_rangeNotifier;
     QVBoxLayout *const m_layout;
     QWidget * m_widget;
 

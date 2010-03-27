@@ -40,7 +40,6 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
 #include <QtGui/QShortcut>
-#include <QStringListModel>
 #include <QCompleter>
 #include <QMutexLocker>
 
@@ -1541,23 +1540,9 @@ bool KateSearchBar::isChecked(QCheckBox * checkbox) {
 
 
 
-bool KateSearchBar::isChecked(QAction * menuAction) {
-    Q_ASSERT(menuAction != NULL);
-    return menuAction->isChecked();
-}
-
-
-
 void KateSearchBar::setChecked(QCheckBox * checkbox, bool checked) {
     Q_ASSERT(checkbox != NULL);
     checkbox->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
-}
-
-
-
-void KateSearchBar::setChecked(QAction * menuAction, bool checked) {
-    Q_ASSERT(menuAction != NULL);
-    menuAction->setChecked(checked);
 }
 
 

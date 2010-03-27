@@ -624,7 +624,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
                          ki18n("KWrite"),
                          KDE_VERSION_STRING,
                          ki18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org" );
+                         ki18n( "(c) 2000-2010 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org" );
   aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
   aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
   aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");

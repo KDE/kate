@@ -155,7 +155,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     // Init highlight
     {
       QMutexLocker lock(view->doc()->smartMutex());
-      
+
       m_topRange = view->doc()->newSmartRange(view->doc()->documentRange());
       static_cast<KateSmartRange*>(m_topRange)->setInternal();
       m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
@@ -865,60 +865,60 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     bool block = m_view->selection() && m_view->blockSelection();
     int line = inputRange.start().line();
     do {
-    if (block)
-        workingRange = m_view->doc()->newSmartRange(m_view->doc()->rangeOnLine(inputRange, line));
+        if (block)
+            workingRange = m_view->doc()->newSmartRange(m_view->doc()->rangeOnLine(inputRange, line));
 
-    for (;;) {
-        const QVector<Range> resultRanges = m_view->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
-        Range match = resultRanges[0];
-        if (!match.isValid()) {
-            break;
-        }
-        bool const originalMatchEmpty = match.isEmpty();
+        for (;;) {
+            const QVector<Range> resultRanges = m_view->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
+            Range match = resultRanges[0];
+            if (!match.isValid()) {
+                break;
+            }
+            bool const originalMatchEmpty = match.isEmpty();
 
-        // Work with the match
-        if (replacement != NULL) {
-            if (matchCounter == 0) {
-                m_view->document()->startEditing();
+            // Work with the match
+            if (replacement != NULL) {
+                if (matchCounter == 0) {
+                    m_view->document()->startEditing();
+                }
+
+                // Track replacement operation
+                SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
+                afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
+
+                // Replace
+                replaceMatch(resultRanges, *replacement, ++matchCounter);
+
+                // Highlight and continue after adjusted match
+                //highlightReplacement(*afterReplace);
+                match = *afterReplace;
+                highlightRanges << match;
+                delete afterReplace;
+            } else {
+                // Highlight and continue after original match
+                //highlightMatch(match);
+                highlightRanges << match;
+                matchCounter++;
             }
 
-            // Track replacement operation
-            SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
-            afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
+            // Continue after match
+            SmartCursor & workingStart = workingRange->smartStart();
+            workingStart.setPosition(match.end());
+            if (originalMatchEmpty) {
+                // Can happen for regex patterns like "^".
+                // If we don't advance here we will loop forever...
+                workingStart.advance(1);
+            } else if (regexMode && !multiLinePattern && workingStart.atEndOfLine()) {
+                // single-line regexps might match the naked line end
+                // therefore we better advance to the next line
+                workingStart.advance(1);
+            }
 
-            // Replace
-            replaceMatch(resultRanges, *replacement, ++matchCounter);
-
-            // Highlight and continue after adjusted match
-            //highlightReplacement(*afterReplace);
-            match = *afterReplace;
-            highlightRanges << match;
-            delete afterReplace;
-        } else {
-            // Highlight and continue after original match
-            //highlightMatch(match);
-            highlightRanges << match;
-            matchCounter++;
+            // Are we done?
+            if (!workingRange->isValid() || workingStart.atEndOfDocument()) {
+                break;
+            }
         }
-
-        // Continue after match
-        SmartCursor & workingStart = workingRange->smartStart();
-        workingStart.setPosition(match.end());
-        if (originalMatchEmpty) {
-            // Can happen for regex patterns like "^".
-            // If we don't advance here we will loop forever...
-            workingStart.advance(1);
-        } else if (regexMode && !multiLinePattern && workingStart.atEndOfLine()) {
-            // single-line regexps might match the naked line end
-            // therefore we better advance to the next line
-            workingStart.advance(1);
-        }
-
-        // Are we done?
-        if (!workingRange->isValid() || workingStart.atEndOfDocument()) {
-            break;
-        }
-    }
 
     } while (block && ++line <= inputRange.end().line());
 
@@ -960,7 +960,7 @@ void KateSearchBar::replaceAll() {
     // Pass on the hard work
     int replacementsDone=findAll(inputRange, &replacement);
     KPassivePopup::message(i18np("1 replacement has been made","%1 replacements have been made",replacementsDone),this);
-    
+
     // Add to search history
     addCurrentTextToHistory(m_powerUi->pattern);
 
@@ -1117,7 +1117,7 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
     bool extendMenu = false;
     bool regexMode = false;
     switch (m_powerUi->searchMode->currentIndex()) {
-    case MODE_REGEX: 
+    case MODE_REGEX:
         regexMode = true;
         // FALLTHROUGH
 
@@ -1158,7 +1158,7 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
             if (regexMode) {
                 const QString pattern = m_powerUi->pattern->currentText();
                 const QVector<QString> capturePatterns = getCapturePatterns(pattern);
-    
+
                 const int captureCount = capturePatterns.count();
                 for (int i = 1; i <= 9; i++) {
                     const QString number = QString::number(i);
@@ -1168,14 +1168,14 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
                     addMenuManager.addEntry("\\" + number, "",
                             i18n("Reference") + ' ' + number + captureDetails);
                 }
-    
+
                 addMenuManager.addSeparator();
             }
         }
-    
+
         addMenuManager.addEntry("\\n", "", i18n("Line break"));
         addMenuManager.addEntry("\\t", "", i18n("Tab"));
-    
+
         if (forPattern && regexMode) {
             addMenuManager.addEntry("\\b", "", i18n("Word boundary"));
             addMenuManager.addEntry("\\B", "", i18n("Not word boundary"));
@@ -1186,18 +1186,18 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
             addMenuManager.addEntry("\\w", "", i18n("Word character (alphanumerics plus '_')"));
             addMenuManager.addEntry("\\W", "", i18n("Non-word character"));
         }
-    
+
         addMenuManager.addEntry("\\0???", "", i18n("Octal character 000 to 377 (2^8-1)"), "\\0");
         addMenuManager.addEntry("\\x????", "", i18n("Hex character 0000 to FFFF (2^16-1)"), "\\x");
         addMenuManager.addEntry("\\\\", "", i18n("Backslash"));
-    
+
         if (forPattern && regexMode) {
             addMenuManager.addSeparator();
             addMenuManager.addEntry("(?:E", ")", i18n("Group, non-capturing"), "(?:");
             addMenuManager.addEntry("(?=E", ")", i18n("Lookahead"), "(?=");
             addMenuManager.addEntry("(?!E", ")", i18n("Negative lookahead"), "(?!");
         }
-    
+
         if (!forPattern) {
             addMenuManager.addSeparator();
             addMenuManager.addEntry("\\L", "", i18n("Begin lowercase conversion"));

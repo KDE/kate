@@ -118,7 +118,7 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
             // don't change indentation then
             return document.firstVirtualColumn(line);
         }
-        if (!prevLineString.match(/<[^/>]+>[^<>]*$/)) {
+        if (!prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
             // decrease indent when we write </ and prior line did not start a tag
             return prevIndent - indentWidth;
         }
@@ -131,19 +131,19 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
             return 0;
         } else if (lineString.match(/^\s*<\//)) {
             // closing tag, decrease indentation when previous didn't open tag
-            if (prevLineString.match(/<[^\/>]+>[^<>]*$/)) {
-                // keep indent when prev line closed a tag
+            if (prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
+                // keep indent when prev line opened a tag
                 return prevIndent;
             } else {
                 return prevIndent - indentWidth;
             }
-        } else if (prevLineString.match(/<(\/[^\/>]+|[^\/]+\/)>\s*$/)) {
+        } else if (prevLineString.match(/<(\/[^>]+|[^>]+\/)>\s*$/)) {
             // keep indent when prev line closed a tag or was empty
             return prevIndent;
         }
         return prevIndent + indentWidth;
     } else if (char == '\n') {
-        if (prevLineString.match(/<[^\/>]+>[^<>]*$/)) {
+        if (prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
             // increase indent when prev line opened a tag
             return prevIndent + indentWidth;
         }

@@ -41,44 +41,73 @@ function dbg(s) {
  */
 function indent(line, indentWidth, char)
 {
+    var prefLineString = line ? document.line(line-1) : "";
+    var prefIndent = document.firstVirtualColumn(line-1);
+    var lineString = document.line(line);
+
     var alignOnly = (char == "");
     if (alignOnly) {
-        var lineString = document.line(line);
-        if (lineString.match(/^\s*<\//)) {
-            char = '/';
-        } else if (lineString.match(/\>[^<>]*$/)) {
-            char = '>';
+        // XML might be all in one line, in which case we
+        // want to break that up.
+        var tokens = lineString.split(/>\s*</);
+        if (tokens.length > 1) {
+            var oldLine = line;
+            var oldPrefIndent = prefIndent;
+            for (var l in tokens) {
+                var newLine = tokens[l];
+                if (l > 0) {
+                    newLine = '<' + newLine;
+                }
+                if (l < tokens.length - 1) {
+                    newLine += '>';
+                }
+
+                if (newLine.match(/^\s*<\//)) {
+                    char = '/';
+                } else if (newLine.match(/\>[^<>]*$/)) {
+                    char = '>';
+                } else {
+                    char = '\n';
+                }
+                var indentation = processChar(line, newLine, prefLineString, prefIndent, char, indentWidth);
+                prefIndent = indentation;
+                while (indentation > 0) {
+                    //TODO: what about tabs
+                    newLine = " " + newLine;
+                    --indentation;
+                }
+                ++line;
+                prefLineString = newLine;
+                tokens[l] = newLine;
+            }
+            dbg(tokens.join('\n'));
+            document.editBegin();
+            document.removeLine(oldLine);
+            document.insertText(oldLine, 0, tokens.join('\n'));
+            document.editEnd();
+            return oldPrefIndent;
+        } else {
+            if (lineString.match(/^\s*<\//)) {
+                char = '/';
+            } else if (lineString.match(/\>[^<>]*$/)) {
+                char = '>';
+            }
         }
     }
 
-    if (char == '/' || char == '>') {
-        return processChar(line, char, indentWidth);
-    } else if(char == '\n' ) {
-        var prefLineString = line ? document.line(line-1) : "";
-        if (prefLineString.match(/<[^\/>]+>[^<>]*$/)) {
-            // increase indent when pref line opened a tag
-            return document.firstVirtualColumn(line-1) + indentWidth;
-        }
-    }
-
-    // keep indent width
-    return document.firstVirtualColumn(line-1);
+    return processChar(line, lineString, prefLineString, prefIndent, char, indentWidth);
 }
 
-function processChar(line, char, indentWidth)
+function processChar(line, lineString, prefLineString, prefIndent, char, indentWidth)
 {
-    var lineString = document.line(line);
-    var prefLineString = line ? document.line(line-1) : "";
-
     if (char == '/') {
         if (lineString.match(/^\s*<\//) && !prefLineString.match(/<[^/>]+>[^<>]*$/)) {
             // decrease indent when we write </ and prior line did not start a tag
-            return document.firstVirtualColumn(line-1) - indentWidth;
+            return prefIndent - indentWidth;
         }
     } else if (char == '>') {
         // increase indent width when we write <...> or <.../> but not </...>
         // and the prior line didn't close a tag
-        var prefIndent = document.firstVirtualColumn(line-1);
         if (line == 0) {
             return 0;
         } else if (prefLineString.match(/^<\?xml/)) {
@@ -86,7 +115,7 @@ function processChar(line, char, indentWidth)
         } else if (lineString.match(/^\s*<\//)) {
             // closing tag, decrease indentation when previous didn't open tag
             if (prefLineString.match(/<[^\/>]+>[^<>]*$/)) {
-                // keep indent
+                // keep indent when pref line closed a tag
                 return prefIndent;
             } else {
                 return prefIndent - indentWidth;
@@ -96,9 +125,14 @@ function processChar(line, char, indentWidth)
             return prefIndent;
         }
         return prefIndent + indentWidth;
+    } else if (char == '\n') {
+        if (prefLineString.match(/<[^\/>]+>[^<>]*$/)) {
+            // increase indent when pref line opened a tag
+            return prefIndent + indentWidth;
+        }
     }
 
-    return -1;
+    return prefIndent;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

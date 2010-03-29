@@ -41,9 +41,9 @@ function dbg(s) {
  */
 function indent(line, indentWidth, char)
 {
-    var prevLine = line - 1;
+    var prevLine = line;
     var prevLineString = " ";
-    while (prevLine > 0 && prevLineString.match(/^\s+$/)) {
+    while (prevLine >= 0 && prevLineString.match(/^\s+$/)) {
         prevLine--;
         prevLineString = document.line(prevLine);
     }
@@ -96,10 +96,17 @@ function indent(line, indentWidth, char)
                 char = '/';
             } else if (lineString.match(/\>[^<>]*$/)) {
                 char = '>';
+            } else {
+                char = '\n';
             }
         }
     }
 
+    dbg(line);
+    dbg(lineString);
+    dbg(prevLineString);
+    dbg(prevIndent);
+    dbg(char);
     return processChar(line, lineString, prevLineString, prevIndent, char, indentWidth);
 }
 

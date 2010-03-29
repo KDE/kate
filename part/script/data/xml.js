@@ -41,8 +41,13 @@ function dbg(s) {
  */
 function indent(line, indentWidth, char)
 {
-    var prefLineString = line ? document.line(line-1) : "";
-    var prefIndent = document.firstVirtualColumn(line-1);
+    var prefLine = line - 1;
+    var prefLineString = " ";
+    while (prefLine > 0 && prefLineString.match(/^\s+$/)) {
+        prefLine--;
+        prefLineString = document.line(prefLine);
+    }
+    var prefIndent = document.firstVirtualColumn(prefLine);
     var lineString = document.line(line);
 
     var alignOnly = (char == "");

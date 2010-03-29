@@ -118,7 +118,7 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
             // don't change indentation then
             return document.firstVirtualColumn(line);
         }
-        if (!prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
+        if (!prevLineString.match(/<[^\/][^>]*[^\/]>[^<>]*$/)) {
             // decrease indent when we write </ and prior line did not start a tag
             return prevIndent - indentWidth;
         }
@@ -130,8 +130,8 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
         } else if (prevLineString.match(/^<\?xml/)) {
             return 0;
         } else if (lineString.match(/^\s*<\//)) {
-            // closing tag, decrease indentation when previous didn't open tag
-            if (prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
+            // closing tag, decrease indentation when previous didn't open a tag
+            if (prevLineString.match(/<[^\/][^>]*[^\/]>[^<>]*$/)) {
                 // keep indent when prev line opened a tag
                 return prevIndent;
             } else {

@@ -132,8 +132,8 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
             } else {
                 return prevIndent - indentWidth;
             }
-        } else if (prevLineString.match(/<\/[^\/>]+>\s*$/)) {
-            // keep indent when prev line closed a tag
+        } else if (prevLineString.match(/<(\/[^\/>]+|[^\/]+\/)>\s*$/)) {
+            // keep indent when prev line closed a tag or was empty
             return prevIndent;
         }
         return prevIndent + indentWidth;

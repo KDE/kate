@@ -34,6 +34,8 @@ add_subdirectory( xmlcheck )
 
 add_subdirectory( snippets_tng )
 
+add_subdirectory( tabify )
+
 MESSAGE( STATUS "remember to find maintainers for these plugins and port them to the kate 3.0 interfaces...")
 
 # Example plugin, not meant to be built for production use.

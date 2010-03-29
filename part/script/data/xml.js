@@ -41,13 +41,13 @@ function dbg(s) {
  */
 function indent(line, indentWidth, char)
 {
-    var prefLine = line - 1;
-    var prefLineString = " ";
-    while (prefLine > 0 && prefLineString.match(/^\s+$/)) {
-        prefLine--;
-        prefLineString = document.line(prefLine);
+    var prevLine = line - 1;
+    var prevLineString = " ";
+    while (prevLine > 0 && prevLineString.match(/^\s+$/)) {
+        prevLine--;
+        prevLineString = document.line(prevLine);
     }
-    var prefIndent = document.firstVirtualColumn(prefLine);
+    var prevIndent = document.firstVirtualColumn(prevLine);
     var lineString = document.line(line);
 
     var alignOnly = (char == "");
@@ -57,7 +57,7 @@ function indent(line, indentWidth, char)
         var tokens = lineString.split(/>\s*</);
         if (tokens.length > 1) {
             var oldLine = line;
-            var oldPrefIndent = prefIndent;
+            var oldPrevIndent = prevIndent;
             for (var l in tokens) {
                 var newLine = tokens[l];
                 if (l > 0) {
@@ -74,15 +74,15 @@ function indent(line, indentWidth, char)
                 } else {
                     char = '\n';
                 }
-                var indentation = processChar(line, newLine, prefLineString, prefIndent, char, indentWidth);
-                prefIndent = indentation;
+                var indentation = processChar(line, newLine, prevLineString, prevIndent, char, indentWidth);
+                prevIndent = indentation;
                 while (indentation > 0) {
                     //TODO: what about tabs
                     newLine = " " + newLine;
                     --indentation;
                 }
                 ++line;
-                prefLineString = newLine;
+                prevLineString = newLine;
                 tokens[l] = newLine;
             }
             dbg(tokens.join('\n'));
@@ -90,7 +90,7 @@ function indent(line, indentWidth, char)
             document.removeLine(oldLine);
             document.insertText(oldLine, 0, tokens.join('\n'));
             document.editEnd();
-            return oldPrefIndent;
+            return oldPrevIndent;
         } else {
             if (lineString.match(/^\s*<\//)) {
                 char = '/';
@@ -100,44 +100,44 @@ function indent(line, indentWidth, char)
         }
     }
 
-    return processChar(line, lineString, prefLineString, prefIndent, char, indentWidth);
+    return processChar(line, lineString, prevLineString, prevIndent, char, indentWidth);
 }
 
-function processChar(line, lineString, prefLineString, prefIndent, char, indentWidth)
+function processChar(line, lineString, prevLineString, prevIndent, char, indentWidth)
 {
     if (char == '/') {
-        if (lineString.match(/^\s*<\//) && !prefLineString.match(/<[^/>]+>[^<>]*$/)) {
+        if (lineString.match(/^\s*<\//) && !prevLineString.match(/<[^/>]+>[^<>]*$/)) {
             // decrease indent when we write </ and prior line did not start a tag
-            return prefIndent - indentWidth;
+            return prevIndent - indentWidth;
         }
     } else if (char == '>') {
         // increase indent width when we write <...> or <.../> but not </...>
         // and the prior line didn't close a tag
         if (line == 0) {
             return 0;
-        } else if (prefLineString.match(/^<\?xml/)) {
+        } else if (prevLineString.match(/^<\?xml/)) {
             return 0;
         } else if (lineString.match(/^\s*<\//)) {
             // closing tag, decrease indentation when previous didn't open tag
-            if (prefLineString.match(/<[^\/>]+>[^<>]*$/)) {
-                // keep indent when pref line closed a tag
-                return prefIndent;
+            if (prevLineString.match(/<[^\/>]+>[^<>]*$/)) {
+                // keep indent when prev line closed a tag
+                return prevIndent;
             } else {
-                return prefIndent - indentWidth;
+                return prevIndent - indentWidth;
             }
-        } else if (prefLineString.match(/<\/[^\/>]+>\s*$/)) {
-            // keep indent when pref line closed a tag
-            return prefIndent;
+        } else if (prevLineString.match(/<\/[^\/>]+>\s*$/)) {
+            // keep indent when prev line closed a tag
+            return prevIndent;
         }
-        return prefIndent + indentWidth;
+        return prevIndent + indentWidth;
     } else if (char == '\n') {
-        if (prefLineString.match(/<[^\/>]+>[^<>]*$/)) {
-            // increase indent when pref line opened a tag
-            return prefIndent + indentWidth;
+        if (prevLineString.match(/<[^\/>]+>[^<>]*$/)) {
+            // increase indent when prev line opened a tag
+            return prevIndent + indentWidth;
         }
     }
 
-    return prefIndent;
+    return prevIndent;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

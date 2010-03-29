@@ -113,7 +113,12 @@ function indent(line, indentWidth, char)
 function processChar(line, lineString, prevLineString, prevIndent, char, indentWidth)
 {
     if (char == '/') {
-        if (lineString.match(/^\s*<\//) && !prevLineString.match(/<[^/>]+>[^<>]*$/)) {
+        if (!lineString.match(/^\s*<\//)) {
+            // might happen when we have something like <foo bar="asdf/ycxv">
+            // don't change indentation then
+            return document.firstVirtualColumn(line);
+        }
+        if (!prevLineString.match(/<[^/>]+>[^<>]*$/)) {
             // decrease indent when we write </ and prior line did not start a tag
             return prevIndent - indentWidth;
         }

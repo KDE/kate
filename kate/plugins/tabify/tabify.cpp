@@ -37,7 +37,7 @@
 
 K_PLUGIN_FACTORY(TabBarFactory, registerPlugin<TabBarPlugin>();)
 K_EXPORT_PLUGIN(TabBarFactory(KAboutData("tabifyplugin", "katetabifyplugin",
-                              ki18n("TabifyPlguin"), "0.1", ki18n("Tabify Plugin"), KAboutData::License_LGPL_V2)))
+                              ki18n("TabifyPlugin"), "0.1", ki18n("Tabify Plugin"), KAboutData::License_LGPL_V2)))
 
 ///////////////////////////////////////////////////////////////////////////////
 // TabBarPluginView

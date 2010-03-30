@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ResultWidget</class>
- <widget class="QWidget" name="ResultWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ResultWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,94 +10,97 @@
     <height>305</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <property name="margin" >
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="margin">
     <number>0</number>
    </property>
-   <item row="0" column="0" >
-    <widget class="QTreeWidget" name="twResults" >
-     <property name="indentation" >
+   <item row="0" column="0">
+    <widget class="QTreeWidget" name="twResults">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+     <property name="indentation">
       <number>0</number>
      </property>
-     <property name="rootIsDecorated" >
+     <property name="rootIsDecorated">
       <bool>false</bool>
      </property>
-     <property name="uniformRowHeights" >
+     <property name="uniformRowHeights">
       <bool>true</bool>
      </property>
-     <property name="itemsExpandable" >
+     <property name="itemsExpandable">
       <bool>false</bool>
      </property>
-     <property name="allColumnsShowFocus" >
+     <property name="allColumnsShowFocus">
       <bool>true</bool>
      </property>
-     <property name="expandsOnDoubleClick" >
+     <property name="expandsOnDoubleClick">
       <bool>false</bool>
      </property>
-     <property name="columnCount" >
+     <property name="columnCount">
       <number>3</number>
      </property>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>File</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Line</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Text</string>
       </property>
      </column>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QProgressBar" name="progressBar" >
-       <property name="maximum" >
+      <widget class="QProgressBar" name="progressBar">
+       <property name="maximum">
         <number>0</number>
        </property>
-       <property name="value" >
+       <property name="value">
         <number>0</number>
        </property>
-       <property name="textVisible" >
+       <property name="textVisible">
         <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="btnCancel" >
-       <property name="autoRaise" >
+      <widget class="QToolButton" name="btnCancel">
+       <property name="autoRaise">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lblStatus" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+      <widget class="QLabel" name="lblStatus">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Searching for files...</string>
        </property>
-       <property name="buddy" >
+       <property name="buddy">
         <cstring>btnCancel</cstring>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>128</width>
          <height>20</height>
@@ -105,15 +109,29 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btnRefine" >
-       <property name="text" >
+      <widget class="KPushButton" name="btnOpenSelected">
+       <property name="text">
+        <string>Open Selected</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="btnOpenAll">
+       <property name="text">
+        <string>Open All</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="btnRefine">
+       <property name="text">
         <string>Refine Search...</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btnRemove" >
-       <property name="text" >
+      <widget class="KPushButton" name="btnRemove">
+       <property name="text">
         <string>Remove</string>
        </property>
       </widget>

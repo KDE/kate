@@ -64,6 +64,8 @@ class KateResultView : public QWidget, private Ui::ResultWidget
     void killThread ();
     void deleteToolview();
     void refineSearch();
+    void openAllFound();
+    void openSelected();
 
   private:
 

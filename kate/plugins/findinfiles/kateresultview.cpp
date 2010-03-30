@@ -64,6 +64,14 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
 
   btnRefine->setGuiItem(KStandardGuiItem::find());
   btnRefine->setText(i18n("Refine Search..."));
+  
+  btnOpenAll->setGuiItem(KStandardGuiItem::open());
+  btnOpenAll->setText(i18n("Open All"));
+  btnOpenAll->setToolTip(i18n("Open all files found"));
+  
+  btnOpenSelected->setGuiItem(KStandardGuiItem::open());
+  btnOpenSelected->setText(i18n("Open Selected"));
+  btnOpenSelected->setToolTip(i18n("Open selected files"));
 
   // auto-accels
   KAcceleratorManager::manage(m_toolView);
@@ -74,12 +82,14 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
                                "on the item to show the respective line in the editor."));
   setFocusProxy(twResults);
 
-  connect(twResults, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
+  connect(twResults, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
           this, SLOT(itemSelected(QTreeWidgetItem *, int)));
 
   connect(btnCancel, SIGNAL(clicked()), this, SLOT(killThread()));
   connect(btnRemove, SIGNAL(clicked()), this, SLOT(deleteToolview()));
   connect(btnRefine, SIGNAL(clicked()), this, SLOT(refineSearch()));
+  connect(btnOpenAll, SIGNAL(clicked()), this, SLOT(openAllFound()));
+  connect(btnOpenSelected, SIGNAL(clicked()), this, SLOT(openSelected()));
   connect(m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
   connect(m_grepThread, SIGNAL(foundMatch (const QString &, const QString &, const QList<int> &,
                      const QList<int> &, const QString &, const QStringList &)),
@@ -211,6 +221,15 @@ void KateResultView::keyPressEvent(QKeyEvent *event)
     event->accept();
     return;
   }
+  if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
+  {
+    if( !(twResults->selectedItems().empty()) )
+    {
+      itemSelected(twResults->currentItem(), 0);
+      event->accept();
+      return;
+    }
+  }
   QWidget::keyPressEvent(event);
 }
 
@@ -237,6 +256,37 @@ void KateResultView::refineSearch()
   dlg->setOptions(m_options);
   dlg->useResultView(m_id);
   dlg->show();
+}
+
+void KateResultView::openAllFound()
+{
+  QString lastFilename;
+  QString filename;
+  for (int i = 0; i < twResults->topLevelItemCount(); ++i )
+  {
+    QTreeWidgetItem *item = twResults->topLevelItem(i);
+    filename = item->data(0, Qt::UserRole).toString();
+    if ( filename != lastFilename )
+    {
+      itemSelected(item, 0);
+      lastFilename = filename;
+    }
+  }
+}
+
+void KateResultView::openSelected()
+{
+  QString lastFilename;
+  QString filename;
+  foreach( QTreeWidgetItem *item, twResults->selectedItems() )
+  {
+    filename = item->data(0, Qt::UserRole).toString();
+    if ( filename != lastFilename )
+    {
+      itemSelected(item, 0);
+      lastFilename = filename;
+    }
+  }
 }
 
 int KateResultView::id() const

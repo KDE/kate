@@ -86,8 +86,9 @@ function indent(line, indentWidth, char)
                 tokens[l] = newLine;
             }
             dbg(tokens.join('\n'));
+            dbg(oldLine);
             document.editBegin();
-            document.removeLine(oldLine);
+            document.truncate(oldLine, 0);
             document.insertText(oldLine, 0, tokens.join('\n'));
             document.editEnd();
             return oldPrevIndent;

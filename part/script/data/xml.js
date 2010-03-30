@@ -143,6 +143,9 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
         }
         return prevIndent + indentWidth;
     } else if (char == '\n') {
+        if (prevLineString.match(/^<\?xml/)) {
+            return 0;
+        }
         if (prevLineString.match(/<[^\/][^>]+>[^<>]*$/)) {
             // increase indent when prev line opened a tag
             return prevIndent + indentWidth;

@@ -63,6 +63,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
 
   connect(m_tabBar, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
   connect(m_tabBar, SIGNAL(closeRequest(int)), this, SLOT(slotTabCloseRequest(int)));
+  connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotTabCloseRequest(int)));
 
   foreach(KTextEditor::Document* document, Kate::application()->documentManager()->documents()) {
     slotDocumentCreated(document);
@@ -88,6 +89,7 @@ void TabBarPluginView::slotDocumentCreated(KTextEditor::Document* document)
           this, SLOT(slotNameChanged(KTextEditor::Document*)));
 
   int index = m_tabBar->addTab(document->documentName());
+  m_tabBar->setTabToolTip(index, document->url().prettyUrl());
   m_tabDocMap[index] = document;
   m_docTabMap[document] = index;
 }
@@ -113,6 +115,7 @@ void TabBarPluginView::slotDocumentDeleted(KTextEditor::Document* document)
   //Rebuild the Map with current tab index...
   QList<KTextEditor::Document*>documentList =  Kate::application()->documentManager()->documents();
   for (int i = 0; i <  documentList.count(); i++) {
+    m_tabBar->setTabToolTip(i, documentList.at(i)->url().prettyUrl());
     m_tabDocMap[i] = documentList.at(i);
     m_docTabMap[documentList.at(i)] = i;
   }
@@ -186,6 +189,7 @@ void TabBarPluginView::slotNameChanged(KTextEditor::Document* document)
 
   int tabID = m_docTabMap[document];
   m_tabBar->setTabText(tabID, document->documentName());
+  m_tabBar->setTabToolTip(tabID, document->url().prettyUrl());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

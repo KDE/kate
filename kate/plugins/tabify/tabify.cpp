@@ -64,6 +64,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
   connect(m_tabBar, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
   connect(m_tabBar, SIGNAL(closeRequest(int)), this, SLOT(slotTabCloseRequest(int)));
   connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotTabCloseRequest(int)));
+  connect(m_tabBar, SIGNAL(wheelDelta(int)), this, SLOT(slotWheelDelta(int)));
 
   foreach(KTextEditor::Document* document, Kate::application()->documentManager()->documents()) {
     slotDocumentCreated(document);
@@ -192,6 +193,25 @@ void TabBarPluginView::slotNameChanged(KTextEditor::Document* document)
   m_tabBar->setTabToolTip(tabID, document->url().prettyUrl());
 }
 
+void TabBarPluginView::slotWheelDelta(int delta)
+{
+  if (m_tabBar->count() < 2) {
+    return;
+  }
+
+  int page = m_tabBar->currentIndex();
+  if (delta < 0) {
+    page = (page + 1) % m_tabBar->count();
+  } else {
+    page --;
+  }
+
+  if (page < 0) {
+    page = m_tabBar->count() - 1;
+  }
+
+  m_tabBar->setCurrentIndex(page);
+}
 ///////////////////////////////////////////////////////////////////////////////
 // TabBarPlugin
 ///////////////////////////////////////////////////////////////////////////////

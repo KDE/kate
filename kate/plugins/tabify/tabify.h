@@ -55,6 +55,7 @@ public slots:
   void slotModifiedOnDisc(KTextEditor::Document*, bool,
                           KTextEditor::ModificationInterface::ModifiedOnDiskReason);
   void slotNameChanged(KTextEditor::Document*);
+  void slotWheelDelta(int);
 
 private:
   KTabBar* m_tabBar;

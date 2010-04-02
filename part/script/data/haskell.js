@@ -151,9 +151,11 @@ function indent(line, indentWidth, character) {
     // ... let foo = 3
     //     >>>>bar = 4
     //
-    // unless if we're in a do block
+    // unless
+    // * we're in a do block OR
+    // * the current line starts with 'in'
     var letCol = lastLine.search(/\blet\b/);
-    if (letCol != -1) {
+    if (letCol != -1 && !currentLine.stripWhiteSpace().startsWith('in')) {
 
         // do a basic test of whether we are in a do block or not
         l = line - 2;

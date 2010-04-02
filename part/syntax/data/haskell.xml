@@ -4,7 +4,7 @@
 
 <!-- If you add or fix things here, change literate-haskell.xml too (if applicable) -->
 
-<language name="Haskell" version="1.8" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
+<language name="Haskell" version="1.9" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Marcel Martin (mmar@freenet.de)" license="" indenter="haskell">
 	<highlighting>
 	<list name="keywords">
 		<item> as </item>
@@ -14,6 +14,7 @@
 		<item> deriving </item>
 		<item> do </item>
 		<item> else </item>
+		<item> hiding </item>
 		<item> if </item>
 		<item> import </item>
 		<item> in </item>

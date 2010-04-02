@@ -229,6 +229,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
   } else if ( e->modifiers() == Qt::ControlModifier ) {
     switch( e->key() ) {
     case Qt::Key_BracketLeft:
+    case Qt::Key_3:
     case Qt::Key_C:
       startNormalMode();
       return true;

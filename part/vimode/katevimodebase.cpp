@@ -386,7 +386,7 @@ Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onl
   QRegExp startOfWord( startOfWordPattern );    // start of a word
   QRegExp nonSpaceAfterSpace( "\\s\\S" );       // non-space right after space
   QRegExp nonWordAfterWord( "\\b(?!\\s)\\W" );  // word-boundary followed by a non-word which is not a space
-  QRegExp startOfLine( "^\\S" );                  // non-space at start of line
+  QRegExp startOfLine( "^\\S" );                // non-space at start of line
 
   int l = fromLine;
   int c = fromColumn;
@@ -406,7 +406,7 @@ Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onl
         return Cursor( 0, 0 );
       } else {
         line = getLine( --l );
-        c = line.length()-1;
+        c = line.length();
 
         if ( line.length() == 0 ) {
           c = 0;
@@ -459,7 +459,7 @@ Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromColumn, bool onl
         return Cursor( 0, 0 );
       } else {
         line = getLine( --l );
-        c = line.length()-1;
+        c = line.length();
 
         if ( line.length() == 0 ) {
           c = 0;

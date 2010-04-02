@@ -437,6 +437,7 @@ void KateViNormalMode::addCurrentPositionToJumpList()
 
 bool KateViNormalMode::commandEnterInsertMode()
 {
+  m_stickyColumn = -1;
   return startInsertMode();
 }
 
@@ -461,6 +462,7 @@ bool KateViNormalMode::commandEnterInsertModeAppend()
 
   updateCursor( c );
 
+  m_stickyColumn = -1;
   return startInsertMode();
 }
 
@@ -473,8 +475,8 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   Cursor c( m_view->cursorPosition() );
   c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
-  m_stickyColumn = -1;
 
+  m_stickyColumn = -1;
   return startInsertMode();
 }
 
@@ -489,6 +491,7 @@ bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
   cursor.setColumn( c );
   updateCursor( cursor );
 
+  m_stickyColumn = -1;
   return startInsertMode();
 }
 
@@ -759,6 +762,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
     doc()->newLine( m_view );
   }
 
+  m_stickyColumn = -1;
   startInsertMode();
   m_viewInternal->repaint ();
 
@@ -792,6 +796,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
     //c.setLine( c.line()-getCount() );
   }
 
+  m_stickyColumn = -1;
   startInsertMode();
   m_viewInternal->repaint ();
 

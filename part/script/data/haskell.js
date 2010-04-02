@@ -47,7 +47,7 @@ function dbg(s) {
         debug("\u001B[34m" + s + "\u001B[0m");
 }
 
-var triggerCharacters = "| ";
+var triggerCharacters = "|} ";
 
 // General notes:
 // indent() returns the amount of characters (in spaces) to be indented.
@@ -305,6 +305,26 @@ function indent(line, indentWidth, character) {
             && currentLine.search(/^\s*[!$#%&*+.\/<=>?@\\^|~-]/) != -1) {
         dbg('indenting for operator');
         return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+
+    // [de]indent line starting wih '}' to match the indentation level of '{':
+    // data Foo {
+    //       a :: Int
+    //     , b :: Double
+    // }<<<
+    if (currentLine.stripWhiteSpace().endsWith('}')) {
+        dbg('indenting line for }');
+        var t = line-1;
+        var indent = -1;
+        while (t >= 0 && line-t < 100) {
+            var braceCol = document.line(t).search(/{/);
+            if (braceCol != -1) {
+                indent = document.firstVirtualColumn(t);
+                break;
+            }
+            t--;
+        }
+        return indent;
     }
 
     //if (lastLine.search(/^\s*$/) != -1) {

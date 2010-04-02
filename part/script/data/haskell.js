@@ -70,7 +70,7 @@ function indent(line, indentWidth, character) {
         if (currentLine.search(re_spaceIndent) == -1 ||
                 !document.isCode(line, document.lineLength(line) - 2)) {
             dbg("skipping...");
-            return document.firstVirtualColumn(line);
+            return -2;
         }
     }
 

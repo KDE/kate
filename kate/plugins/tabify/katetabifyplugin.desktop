@@ -6,6 +6,7 @@ ServiceTypes=Kate/Plugin
 Type=Service
 Icon=korganizer
 Name=Tabify
+Name[en_GB]=Tabify
 Name[pt]=Tabulações
 Name[pt_BR]=Tabify
 Name[sv]=Tabulatortillägg

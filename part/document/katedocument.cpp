@@ -2702,7 +2702,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
           textLine->length() - view->cursorPosition().column()));
 
     // replace mode needs to know what was removed so it can be restored with backspace
-    if (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode) {
+    if (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode
+            && oldCur.column() < line( view->cursorPosition().line() ).length() ) {
       QChar removed = line( view->cursorPosition().line() ).at( r.start().column() );
       view->getViInputModeManager()->getViReplaceMode()->overwrittenChar( removed );
     }

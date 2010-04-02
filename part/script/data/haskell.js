@@ -24,7 +24,7 @@ String.prototype.startsWith = function(prefix) {
 }
 
 String.prototype.endsWith = function(suffix) {
-    return this.search(RegExp("(\\b|\\s)"+escape(suffix)+"\\s*$")) != -1;
+    return this.search(RegExp("(\\b|\\s|^)"+escape(suffix)+"\\s*$")) != -1;
 }
 
 String.prototype.lastCharacter = function() {

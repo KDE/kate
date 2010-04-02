@@ -223,11 +223,6 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       m_view->pageDown();
       return true;
     default:
-      // accept completion if active
-      if(m_view->completionWidget()->isCompletionActive()) {
-        m_view->completionWidget()->execute();
-      }
-
       return false;
       break;
     }

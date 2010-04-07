@@ -50,6 +50,10 @@ TextLine TextBlock::line (int line) const
   // calc internal line
   line = line - startLine ();
 
+  Q_ASSERT_X(line >= 0 && line < m_lines.size(), kBacktrace().toLocal8Bit().constData(),
+             QString("invalid line %1 requested for block of lines from %2 to %3")
+               .arg(line + startLine()).arg(startLine()).arg(startLine() + m_lines.size())
+               .toLocal8Bit().constData());
   // get text line
   return m_lines[line];
 }

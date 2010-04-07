@@ -73,10 +73,15 @@ class AutoBracePluginDocument
     void indent();
 
   private:
-    KTextEditor::Document *m_document;
+    void insertAutoBracket(KTextEditor::Document *document,const KTextEditor::Range& range,
+                         const QString& brace);
+    bool isBracketAllowed(KTextEditor::Document *document,const KTextEditor::Range& range,
+                         const QString& brace);
+
     int m_insertionLine;
     QString m_indentation;
     bool m_withSemicolon;
+    QMap<QString,QString> m_brackets;
 };
 
 K_PLUGIN_FACTORY_DECLARATION(AutoBracePluginFactory)

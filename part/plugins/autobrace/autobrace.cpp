@@ -92,6 +92,10 @@ void AutoBracePlugin::removeView(KTextEditor::View *view)
 AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document *document)
   : QObject(document), m_insertionLine(0), m_withSemicolon(false)
 {
+    // Fill brackets map matching opening and closing brackets.
+    m_brackets["("] = ")";
+    m_brackets["["] = "]";
+
     connect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
             this, SLOT(slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&)));
 }
@@ -157,24 +161,94 @@ void AutoBracePluginDocument::slotTextChanged(KTextEditor::Document *document) {
 void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
                                                const KTextEditor::Range& range)
 {
-    // Make sure we don't even try to handle other events than brace openers.
-    if (document->text(range) != "\n") {
-        return;
+    const QString text = document->text(range);
+
+    // Make sure to handle only:
+    // 1.) New lines after { (brace openers)
+    // 2.) Opening braces like '(' and '['
+
+    // Handle brace openers
+    if (text == "\n") {
+        // Remember this position as insertion candidate.
+        // We don't directly insert this here because of KatePart specifics:
+        // a) Setting the cursor position crashes at this point, and
+        // b) textChanged() only gets called once per edit operation, so we can
+        //    ignore the same braces when they're being inserted via paste.
+        if (isInsertionCandidate(document, range.start().line())) {
+            m_insertionLine = range.end().line();
+            connect(document, SIGNAL(textChanged(KTextEditor::Document*)),
+                    this, SLOT(slotTextChanged(KTextEditor::Document*)));
+        }
+        else {
+            m_insertionLine = 0;
+        }
+    }
+    // Opening brackets (defined in ctor)
+    else if (m_brackets.contains(text)) {
+        // Only insert auto closing brackets if current text range
+        // isn't followed by the same opening bracket e.g. |( and inserting ( yields
+        // (( and not ()(
+        if (isBracketAllowed(document,range,text)) {
+            insertAutoBracket(document,range,text);
+        }
+    }
+    // Check whether closing brackets are allowed.
+    // If a brace is not allowed remove it
+    // and set the cursor to the position after that text range.
+    else if (m_brackets.values().contains(text)) {
+        if (!isBracketAllowed(document,range,text)) {
+            KTextEditor::Cursor saved = range.end();
+            document->removeText(range);
+            document->activeView()->setCursorPosition(saved);
+        }
+    }
+}
+
+/**
+ * Automatically inserts closing bracket depending on opening bracket. Cursor
+ * is placed in between the brackets.
+ * @param document Current document.
+ * @param range Inserted text range (by text-inserted slot)
+ * @param brace Opening brace to consider.
+ */
+void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
+                                              const KTextEditor::Range& range,
+                                              const QString& brace) {
+    // Depending on brace, set corresponding closing brace.
+    QString closingBrace = m_brackets[brace];
+
+    // Disconnect Slots to avoid check for redundant closing brackets
+    disconnect(document, 0, this, 0);
+
+
+    KTextEditor::Cursor saved = range.end();
+    document->insertText(range.end(),closingBrace);
+    document->activeView()->setCursorPosition(saved);
+
+    // Re-Enable insertion slot.
+    connect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
+            this, SLOT(slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&)));
+}
+
+/**
+ * Checks whether a bracket is allowed at the specified text range.
+ * Bracket tests bases on this simple idea: A bracket can only be inserted
+ * if it is NOT followed by the same bracket. This results in overwriting closing brackets.
+ * @param document Current document.
+ * @param range Inserted text range (by text-inserted slot)
+ * @param brace Opening brace to consider.
+ * @return true if bracket can be inserted.
+ */
+bool AutoBracePluginDocument::isBracketAllowed(KTextEditor::Document* document, const KTextEditor::Range& range, const QString& brace)
+{
+    // Calculate range after insertion (excatly one character)
+    KTextEditor::Range afterRange(range.end(),range.end().line(),range.end().column()+1);
+
+    if (afterRange.isValid()) {
+        return document->text(afterRange) != brace;
     }
 
-    // Remember this position as insertion candidate.
-    // We don't directly insert this here because of KatePart specifics:
-    // a) Setting the cursor position crashes at this point, and
-    // b) textChanged() only gets called once per edit operation, so we can
-    //    ignore the same braces when they're being inserted via paste.
-    if (isInsertionCandidate(document, range.start().line())) {
-        m_insertionLine = range.end().line();
-        connect(document, SIGNAL(textChanged(KTextEditor::Document*)),
-                this, SLOT(slotTextChanged(KTextEditor::Document*)));
-    }
-    else {
-        m_insertionLine = 0;
-    }
+    return false;
 }
 
 bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *document, int openingBraceLine) {

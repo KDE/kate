@@ -26,8 +26,8 @@
 //BEGIN USER CONFIGURATION
 var cfgIndentCase = true;         // indent 'case' and 'default' in a switch?
 var cfgIndentNamespace = true;    // indent after 'namespace'?
-var cfgAutoInsertStar = false;    // auto insert '*' in C-comments
-var cfgSnapSlash = false;         // snap '/' to '*/' in C-comments
+var cfgAutoInsertStar = true;    // auto insert '*' in C-comments
+var cfgSnapSlash = true;         // snap '/' to '*/' in C-comments
 var cfgAutoInsertSlashes = false; // auto insert '//' after C++-comments
 var cfgAccessModifiers = 0;       // indent level of access modifiers, relative to the class indent level
                                   // set to -1 to disable auto-indendation after access modifiers.

@@ -342,18 +342,21 @@ int TextBuffer::blockForLine (int line) const
   if (m_lastUsedBlock < 0 || m_lastUsedBlock >= m_blocks.size())
     m_lastUsedBlock = 0;
 
+  int index = m_lastUsedBlock;
   // search for right block
   forever {
-    int start = m_blocks[m_lastUsedBlock]->startLine();
-    int lines = m_blocks[m_lastUsedBlock]->lines ();
+    int start = m_blocks[index]->startLine();
+    int lines = m_blocks[index]->lines ();
 
-    if (start <= line && line < (start + lines))
-      return m_lastUsedBlock;
+    if (start <= line && line < (start + lines)) {
+      m_lastUsedBlock = index;
+      return index;
+    }
 
     if (line < start)
-      m_lastUsedBlock--;
+      index--;
     else
-      m_lastUsedBlock++;
+      index++;
   }
 
   // we should always find a block

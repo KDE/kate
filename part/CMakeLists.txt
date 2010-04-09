@@ -101,6 +101,7 @@ render/katelinelayout.cpp
 search/kateregexp.cpp
 search/kateplaintextsearch.cpp
 search/kateregexpsearch.cpp
+search/katematch.cpp
 search/katesearchbar.cpp
 
 # smart stuff (cursors, ranges, ...)

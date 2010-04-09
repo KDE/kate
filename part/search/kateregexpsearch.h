@@ -24,8 +24,6 @@
 
 #include <QtCore/QObject>
 
-#include "kateregexp.h"
-
 #include <ktexteditor/range.h>
 
 namespace KTextEditor {

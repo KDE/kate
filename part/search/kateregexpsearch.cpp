@@ -21,6 +21,7 @@
 
 //BEGIN includes
 #include "kateregexpsearch.h"
+#include "kateregexp.h"
 
 #include <ktexteditor/document.h>
 //END  includes

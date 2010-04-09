@@ -22,6 +22,7 @@
 #include "katesearchbar.moc"
 
 #include "kateregexp.h"
+#include "katematch.h"
 #include "kateview.h"
 #include "katedocument.h"
 #include "katesmartrange.h"
@@ -338,129 +339,18 @@ void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
 
 
 
-void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & parts,
-        const QVector<Range> & details, int replacementCounter) {
-    const int MIN_REF_INDEX = 0;
-    const int MAX_REF_INDEX = details.count() - 1;
-
-    output.clear();
-    ReplacementPart::Type caseConversion = ReplacementPart::KeepCase;
-    for (QList<ReplacementPart>::iterator iter = parts.begin(); iter != parts.end(); iter++) {
-        ReplacementPart & curPart = *iter;
-        switch (curPart.type) {
-        case ReplacementPart::Reference:
-            if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX)) {
-                // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
-                output.append(QString::number(curPart.index));
-            } else {
-                const Range & captureRange = details[curPart.index];
-                if (captureRange.isValid()) {
-                    // Copy capture content
-                    const bool blockMode = m_view->blockSelection();
-                    const QString content = m_view->document()->text(captureRange, blockMode);
-                    switch (caseConversion) {
-                    case ReplacementPart::UpperCase:
-                        // Copy as uppercase
-                        output.append(content.toUpper());
-                        break;
-
-                    case ReplacementPart::LowerCase:
-                        // Copy as lowercase
-                        output.append(content.toLower());
-                        break;
-
-                    case ReplacementPart::KeepCase: // FALLTHROUGH
-                    default:
-                        // Copy unmodified
-                        output.append(content);
-                        break;
-
-                    }
-                }
-            }
-            break;
-
-        case ReplacementPart::UpperCase: // FALLTHROUGH
-        case ReplacementPart::LowerCase: // FALLTHROUGH
-        case ReplacementPart::KeepCase:
-            caseConversion = curPart.type;
-            break;
-
-        case ReplacementPart::Counter:
-            {
-                // Zero padded counter value
-                const int minWidth = curPart.index;
-                const int number = replacementCounter;
-                output.append(QString("%1").arg(number, minWidth, 10, QLatin1Char('0')));
-            }
-            break;
-
-        case ReplacementPart::Text: // FALLTHROUGH
-        default:
-            switch (caseConversion) {
-            case ReplacementPart::UpperCase:
-                // Copy as uppercase
-                output.append(curPart.text.toUpper());
-                break;
-
-            case ReplacementPart::LowerCase:
-                // Copy as lowercase
-                output.append(curPart.text.toLower());
-                break;
-
-            case ReplacementPart::KeepCase: // FALLTHROUGH
-            default:
-                // Copy unmodified
-                output.append(curPart.text);
-                break;
-
-            }
-            break;
-
-        }
-    }
-}
-
-
-
-void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement,
-        int replacementCounter) {
-    // Placeholders depending on search mode
-    const bool usePlaceholders = searchOptions().testFlag(Search::Regex) ||
-                                 searchOptions().testFlag(Search::EscapeSequences);
-
-    const Range & targetRange = match[0];
-    QString finalReplacement;
-    if (usePlaceholders) {
-        // Resolve references and escape sequences
-        QList<ReplacementPart> parts;
-        const bool REPLACEMENT_GOODIES = true;
-        KateRegExpSearch::escapePlaintext(replacement, &parts, REPLACEMENT_GOODIES);
-        buildReplacement(finalReplacement, parts, match, replacementCounter);
-    } else {
-        // Plain text replacement
-        finalReplacement = replacement;
-    }
-
-    const bool blockMode = (m_view->blockSelection() && !targetRange.onSingleLine());
-    m_view->document()->replaceText(targetRange, finalReplacement, blockMode);
-}
-
-
-
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     resetHighlights();
 
     m_incUi->next->setDisabled(pattern.isEmpty());
     m_incUi->prev->setDisabled(pattern.isEmpty());
 
-    Range match = Range::invalid();
+    KateMatch match(m_view->doc(), searchOptions());
 
     if (!pattern.isEmpty()) {
         // Find, first try
         const Range inputRange = KTextEditor::Range(m_incInitCursor, m_view->document()->documentEnd());
-        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
-        match = resultRanges[0];
+        match.searchText(inputRange, pattern);
     }
 
     const bool wrap = !match.isValid() && !pattern.isEmpty();
@@ -468,8 +358,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     if (wrap) {
         // Find, second try
         const KTextEditor::Range inputRange = m_view->document()->documentRange();
-        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, searchOptions());
-        match = resultRanges[0];
+        match.searchText(inputRange, pattern);
     }
 
     const MatchResult matchResult = match.isValid()   ? (wrap ? MatchWrappedForward : MatchFound) :
@@ -477,7 +366,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
                                                         MatchMismatch;
 
     const Range selectionRange = pattern.isEmpty() ? Range(m_incInitCursor, m_incInitCursor) :
-                                 match.isValid()   ? match :
+                                 match.isValid()   ? match.range() :
                                                      Range::invalid();
 
     // don't update m_incInitCursor when we move the cursor
@@ -631,27 +520,24 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         }
     }
 
-
     // Find, first try
-    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
-    const Range & match = resultRanges[0];
+    KateMatch match(m_view->doc(), enabledOptions);
+    match.searchText(inputRange, searchPattern());
     bool wrap = false;
-    SmartRange * afterReplace = NULL;
+    Range afterReplace = Range::invalid();
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && (match == selection) && (!selectionOnly() || replacement != 0)) {
+        if (selected && (match.range() == selection) && (!selectionOnly() || replacement != 0)) {
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
-                afterReplace = m_view->doc()->newSmartRange(match);
-                afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
-                replaceMatch(resultRanges, *replacement);
+                afterReplace = match.replace(*replacement, m_view->blockSelection());
 
                 // Find, second try after replaced text
                 if (searchDirection == SearchForward) {
-                    inputRange.setRange(afterReplace->end(), inputRange.end());
+                    inputRange.setRange(afterReplace.end(), inputRange.end());
                 } else {
-                    inputRange.setRange(inputRange.start(), afterReplace->start());
+                    inputRange.setRange(inputRange.start(), afterReplace.start());
                 }
             } else {
                 // Find, second try after old selection
@@ -665,17 +551,17 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Single-line pattern workaround
             fixForSingleLine(inputRange, searchDirection);
 
-            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
-            const Range & match2 = resultRanges2[0];
+            KateMatch match2(m_view->doc(), enabledOptions);
+            match2.searchText(inputRange, searchPattern());
             if (match2.isValid()) {
-                selectRange2(match2);
+                selectRange2(match2.range());
                 indicateMatch(MatchFound);
             } else {
                 // Find, third try from doc start on
                 wrap = true;
             }
         } else {
-            selectRange2(match);
+            selectRange2(match.range());
             indicateMatch(MatchFound);
         }
     } else if (!selected || !selectionOnly()) {
@@ -686,14 +572,14 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     // Wrap around
     if (wrap) {
         inputRange = m_view->document()->documentRange();
-        const QVector<Range> resultRanges3 = m_view->doc()->searchText(inputRange, searchPattern(), enabledOptions);
-        const Range & match3 = resultRanges3[0];
+        KateMatch match3(m_view->doc(), enabledOptions);
+        match3.searchText(inputRange, searchPattern());
         if (match3.isValid()) {
             // Previously selected match again?
-            if (selected && !selectionOnly() && (match3 == selection)) {
+            if (selected && !selectionOnly() && (match3.range() == selection)) {
                 // NOOP, same match again
             } else {
-                selectRange2(match3);
+                selectRange2(match3.range());
             }
             indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
         } else {
@@ -703,11 +589,9 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     // Reset highlighting for all matches and highlight replacement if there is one
     resetHighlights();
-    if (afterReplace != NULL) {
-        highlightReplacement(*afterReplace);
+    if (afterReplace.isValid()) {
+        highlightReplacement(afterReplace);
     }
-
-    delete afterReplace;
 
     return true; // == No pattern error
 }
@@ -869,8 +753,8 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
             workingRange = m_view->doc()->newSmartRange(m_view->doc()->rangeOnLine(inputRange, line));
 
         for (;;) {
-            const QVector<Range> resultRanges = m_view->doc()->searchText(*workingRange, searchPattern(), enabledOptions);
-            Range match = resultRanges[0];
+            KateMatch match(m_view->doc(), enabledOptions);
+            match.searchText(*workingRange, searchPattern());
             if (!match.isValid()) {
                 break;
             }
@@ -882,28 +766,22 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
                     m_view->document()->startEditing();
                 }
 
-                // Track replacement operation
-                SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
-                afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
-
                 // Replace
-                replaceMatch(resultRanges, *replacement, ++matchCounter);
+                const Range afterReplace = match.replace(*replacement, ++matchCounter);
 
                 // Highlight and continue after adjusted match
                 //highlightReplacement(*afterReplace);
-                match = *afterReplace;
-                highlightRanges << match;
-                delete afterReplace;
+                highlightRanges << afterReplace;
             } else {
                 // Highlight and continue after original match
                 //highlightMatch(match);
-                highlightRanges << match;
+                highlightRanges << match.range();
                 matchCounter++;
             }
 
             // Continue after match
             SmartCursor & workingStart = workingRange->smartStart();
-            workingStart.setPosition(match.end());
+            workingStart.setPosition(highlightRanges.last().end());
             if (originalMatchEmpty) {
                 // Can happen for regex patterns like "^".
                 // If we don't advance here we will loop forever...
@@ -1250,11 +1128,11 @@ void KateSearchBar::onPowerModeChanged(int /*index*/) {
         }
 
         // Find, first try
-        const QVector<Range> resultRanges = view->doc()->searchText(inputRange, pattern, enabledOptions);
-        const Range & match = resultRanges[0];
+        KateMatch match(view->doc(), enabledOptions);
+        match.searchText(inputRange, pattern);
 
         if (match.isValid()) {
-            selectRange(view, match);
+            selectRange(view, match.range());
         } else {
             // Find, second try
             if (searchDirection == SearchForward) {
@@ -1262,10 +1140,10 @@ void KateSearchBar::onPowerModeChanged(int /*index*/) {
             } else {
                 inputRange.setRange(selRange.end(), view->doc()->documentEnd());
             }
-            const QVector<Range> resultRanges2 = view->doc()->searchText(inputRange, pattern, enabledOptions);
-            const Range & match2 = resultRanges2[0];
+            KateMatch match2(view->doc(), enabledOptions);
+            match2.searchText(inputRange, pattern);
             if (match2.isValid()) {
-                selectRange(view, match2);
+                selectRange(view, match2.range());
             }
         }
     } else {

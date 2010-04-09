@@ -22,7 +22,7 @@
 #define KATE_SEARCH_BAR_H 1
 
 #include "kateviewhelpers.h"
-#include "kateescapedtextsearch.h"
+#include "kateregexpsearch.h"
 
 #include <ktexteditor/searchinterface.h>
 

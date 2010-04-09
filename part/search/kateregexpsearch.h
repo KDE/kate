@@ -32,6 +32,26 @@ namespace KTextEditor {
   class Document;
 }
 
+// needed for parsing replacement text like "\1:\2"
+struct ReplacementPart {
+  enum Type {
+    Reference, // \1..\9
+    Text,
+    UpperCase, // \U = Uppercase from now on
+    LowerCase, // \L = Lowercase from now on
+    KeepCase, // \E = back to original case
+    Counter // \# = 1, 2, ... incremented for each replacement of <Replace All>
+  };
+
+  Type type;
+
+  // Type in {Reference, Counter}
+  int index; // [0..9] 0=full match, 1=first capture, ..
+
+  // Type = Text
+  QString text;
+};
+
 class KateRegExpSearch : public QObject
 {
   Q_OBJECT
@@ -59,6 +79,19 @@ class KateRegExpSearch : public QObject
      */
     QVector<KTextEditor::Range> search (const QString &pattern,
         const KTextEditor::Range & inputRange, bool backwards = false);
+
+    /**
+     * Resolves escape sequences (e.g. "\\n" to "\n") in <code>text</code>
+     * if <code>parts</code> is NULL. Otherwise it leaves <code>text</code>
+     * unmodified and creates a list of text and capture references out of it.
+     * These two modes are fused into one function to avoid code duplication.
+     *
+     * \param text                Text to process
+     * \param parts               List of text and references
+     * \param replacementGoodies  Enable \L, \E, \E and \#
+     */
+    static QString escapePlaintext(const QString & text, QList<ReplacementPart> * parts = NULL,
+        bool replacementGoodies = false);
 
   private:
     KTextEditor::Document *const m_document;

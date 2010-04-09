@@ -100,7 +100,6 @@ render/katelinelayout.cpp
 # search stuff
 search/kateregexp.cpp
 search/kateplaintextsearch.cpp
-search/kateescapedtextsearch.cpp
 search/kateregexpsearch.cpp
 search/katesearchbar.cpp
 

@@ -36,7 +36,6 @@
 #include "katerenderer.h"
 #include "kateregexp.h"
 #include "kateplaintextsearch.h"
-#include "kateescapedtextsearch.h"
 #include "kateregexpsearch.h"
 #include "kateconfig.h"
 #include "katemodemanager.h"
@@ -1544,8 +1543,8 @@ QVector<KTextEditor::Range> KateDocument::searchText(
   if (escapeSequences)
   {
     // escaped search
-    KateEscapedTextSearch searcher(this, caseSensitivity, wholeWords);
-    KTextEditor::Range match = searcher.search(pattern, range, backwards);
+    KatePlainTextSearch searcher(this, caseSensitivity, wholeWords);
+    KTextEditor::Range match = searcher.search(KateRegExpSearch::escapePlaintext(pattern), range, backwards);
 
     QVector<KTextEditor::Range> result;
     result.append(match);

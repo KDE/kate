@@ -1,5 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
+ *  Copyright (C) 2009-2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
  *  Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
  *
  *  This library is free software; you can redistribute it and/or

@@ -772,7 +772,7 @@ void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
 
 void KateSearchBar::backupConfig(bool ofPower) {
     if (ofPower) {
-        m_powerMatchCase = isChecked(m_powerUi->matchCase);
+        m_powerMatchCase = m_powerUi->matchCase->isChecked();
         m_powerMode = m_powerUi->searchMode->currentIndex();
     } else {
         m_incMatchCase = m_incUi->matchCase->isChecked();
@@ -1364,7 +1364,7 @@ void KateSearchBar::enterPowerMode() {
 
     // Restore previous settings
     if (create) {
-        setChecked(m_powerUi->matchCase, m_powerMatchCase);
+        m_powerUi->matchCase->setChecked(m_powerMatchCase);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
     }
 
@@ -1529,20 +1529,6 @@ void KateSearchBar::enterIncrementalMode() {
     if (m_widget->isVisible()) {
         m_incUi->pattern->setFocus(Qt::MouseFocusReason);
     }
-}
-
-
-
-bool KateSearchBar::isChecked(QCheckBox * checkbox) {
-    Q_ASSERT(checkbox != NULL);
-    return checkbox->checkState() == Qt::Checked;
-}
-
-
-
-void KateSearchBar::setChecked(QCheckBox * checkbox, bool checked) {
-    Q_ASSERT(checkbox != NULL);
-    checkbox->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
 }
 
 

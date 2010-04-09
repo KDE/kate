@@ -33,7 +33,6 @@ namespace KTextEditor {
 class KateView;
 class KateViewConfig;
 class QVBoxLayout;
-class QCheckBox;
 class QComboBox;
 
 namespace Ui {
@@ -124,9 +123,6 @@ private:
     // Helpers
     bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);
     int findAll(KTextEditor::Range inputRange, const QString * replacement);
-
-    bool isChecked(QCheckBox * checkbox);
-    void setChecked(QCheckBox * checkbox, bool checked);
 
     QString searchPattern() const;
     bool isPatternValid() const;

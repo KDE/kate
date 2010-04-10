@@ -338,16 +338,20 @@ int TextBuffer::blockForLine (int line) const
   Q_ASSERT (line >= 0);
   Q_ASSERT (line < lines());
 
-  // reset invalid last blocks
-  if (m_lastUsedBlock < 0 || m_lastUsedBlock >= m_blocks.size())
-    m_lastUsedBlock = 0;
-
+  // block to start search with
   int index = m_lastUsedBlock;
+
+  // check if start is ok
+  if (index < 0 || index >= m_blocks.size())
+    index = 0;
+
   // search for right block
   forever {
-    int start = m_blocks[index]->startLine();
-    int lines = m_blocks[index]->lines ();
+    // facts bout this block
+    const int start = m_blocks[index]->startLine();
+    const int lines = m_blocks[index]->lines ();
 
+    // right block found, remember it and return it
     if (start <= line && line < (start + lines)) {
       m_lastUsedBlock = index;
       return index;

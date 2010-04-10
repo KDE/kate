@@ -22,6 +22,8 @@
 #ifndef _KATE_TEMPLATE_HANDLER_H_
 #define _KATE_TEMPLATE_HANDLER_H_
 
+#include <kateregexpsearch.h>
+
 #include "katesmartrange.h"
 #include <QtCore/QPointer>
 #include <QtCore/QObject>
@@ -29,6 +31,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QString>
 #include <QtCore/QList>
+#include <QtCore/QRegExp>
 
 class KateDocument;
 class KateUndoManager;
@@ -146,6 +149,26 @@ class KateTemplateHandler: public QObject
      */
     void syncMirroredRanges(KTextEditor::SmartRange* range);
 
+public:
+    class MirrorBehaviour {
+    public:
+
+      MirrorBehaviour(); //clone
+      MirrorBehaviour(const QString &regexp, const QString &replacement); //regexp
+      ~MirrorBehaviour();
+      QString getMirrorString(QString source);
+    private:
+      enum Behaviour {Clone=0, Regexp=1, Scripted=2};
+      enum Behaviour m_behaviour;
+      QString m_search;
+      QString m_replace;
+      QRegExp m_expr;
+    };
+private:
+
+    QHash<KTextEditor::SmartRange*,MirrorBehaviour> m_mirrorBehaviour;
+
+
     /**
      * Jumps to the final cursor position. This is either \p m_finalCursorPosition, or
      * if that is not set, the end of \p m_templateRange.
@@ -219,6 +242,7 @@ class KateTemplateHandler: public QObject
     /// Whether we are currently setting the cursor manually.
     bool m_jumping;
 };
+
 
 #endif
 

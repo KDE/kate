@@ -36,7 +36,9 @@ struct ReplacementPart {
     Reference, // \1..\9
     Text,
     UpperCase, // \U = Uppercase from now on
+    UpperCaseFirst, // \u = Uppercase the first letter
     LowerCase, // \L = Lowercase from now on
+    LowerCaseFirst, // \l = Lowercase the first letter
     KeepCase, // \E = back to original case
     Counter // \# = 1, 2, ... incremented for each replacement of <Replace All>
   };

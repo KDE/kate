@@ -1008,7 +1008,7 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
         break;
     }
 
-    AddMenuManager addMenuManager(contextMenu, 35);
+    AddMenuManager addMenuManager(contextMenu, 37);
     if (!extendMenu) {
         addMenuManager.enableMenu(extendMenu);
     } else {
@@ -1082,6 +1082,8 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
             addMenuManager.addEntry("\\L", "", i18n("Begin lowercase conversion"));
             addMenuManager.addEntry("\\U", "", i18n("Begin uppercase conversion"));
             addMenuManager.addEntry("\\E", "", i18n("End case conversion"));
+            addMenuManager.addEntry("\\l", "", i18n("Lowercase first character conversion"));
+            addMenuManager.addEntry("\\u", "", i18n("Uppercase first character conversion"));
             addMenuManager.addEntry("\\#[#..]", "", i18n("Replacement counter (for Replace All)"), "\\#");
         }
     }

@@ -26,6 +26,8 @@
 #include "kateconfig.h"
 #include "katerenderer.h"
 #include "kateundomanager.h"
+#include "katesearchbar.h"
+#include "katematch.h"
 
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/smartcursor.h>
@@ -36,6 +38,7 @@
 #include <QtCore/QQueue>
 
 #include <kdebug.h>
+
 
 using namespace KTextEditor;
 
@@ -335,6 +338,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   // the keys in a queue.
   QQueue<QString> keyQueue;
   QMultiMap<QString, Range> ranges;
+  QMap<Range,MirrorBehaviour> mirrorBehaviourBuildHelper;
 
   // valid, if we find an occurrence of ${cursor}
   Cursor finalCursorPosition = Cursor::invalid();
@@ -378,8 +382,16 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       column += 2;
     } else if ( templateString[i] == '}' && startPos != -1 ) {
       // get key, i.e. contents between ${..}
-      const QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
+      QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
+      int keyLength=key.length();
+      QString searchReplace;
       ifDebug(kDebug() << "key found:" << key;)
+      if (key.contains("/")) {
+        searchReplace=key.mid(key.indexOf("/")+1);
+        key=key.left(key.indexOf("/"));
+        ifDebug(kDebug() << "real key found:" << key;)
+        ifDebug(kDebug() << "search_replace" << searchReplace;)
+      }
       if ( !initialValues.contains(key) ) {
         kWarning() << "unknown variable key:" << key;
       } else if ( key == "cursor" ) {
@@ -391,28 +403,64 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         column -= 2 + key.length();
         startPos = -1;
       } else {
+        MirrorBehaviour behaviour;
+        if (!searchReplace.isEmpty()) {
+          QString search;
+          bool searchValid=false;
+          QString replace;
+          bool replaceValid=false;
+          //search part;
+          while (!searchReplace.isEmpty()) {
+            int regescapes=0;
+            int pos=searchReplace.indexOf("/");
+            for (int epos=pos-1;(i>0) && (searchReplace.at(epos)=='\\');epos--)
+              regescapes++;
+            if ((regescapes%2)==1) {
+              search+=searchReplace.left(pos+1);
+              searchReplace=searchReplace.mid(pos+1);
+            } else {
+              search=searchReplace.left(pos);
+              searchReplace=searchReplace.mid(pos+1);
+              searchValid=true;
+              break;
+            }
+          }
+          //replace part
+          if (searchValid) {
+            replace=searchReplace.left(searchReplace.lastIndexOf("/"));
+            replaceValid=true;
+          }
+          if (searchValid && replaceValid)
+            behaviour=MirrorBehaviour(search,replace);
+        }
+        const QString initialVal=behaviour.getMirrorString(initialValues[key]);
+
         // whether the variable starts with % or $
         QChar c = templateString[startPos];
         // replace variable with initial value
-        templateString.replace( startPos, i - startPos + 1, initialValues[key] );
+        templateString.replace( startPos, i - startPos + 1, initialVal );
         // correct iterator pos, 3 == % + { + }
-        i -= 3 + key.length() - initialValues[key].length();
+        i -= 3 + key.length() - initialVal.length();
         // correct column to point at end of range, taking replacement width diff into account
         // 2 == % + {
-        column -= 2 + key.length() - initialValues[key].length();
+
+        column -= 2 + keyLength - initialVal.length();
         // always add ${...} to the editable ranges
         // only add %{...} to the editable ranges when it's value equals the key
-        ifDebug(kDebug() << "char is:" << c << "initial value is:" << initialValues[key];)
+        ifDebug(kDebug() << "char is:" << c << "initial value is:" << initialValues[key] <<" after fixup is:"<<initialVal)
         if ( c == '$' || key == initialValues[key] ) {
           if ( !keyQueue.contains(key) ) {
             keyQueue.append(key);
           }
+          Range tmp;
           ranges.insert( key,
-                        Range( line, column - initialValues[key].length(),
+                        tmp=Range( line, column - initialVal.length(),
                                 line, column
                               )
                         );
-          ifDebug(kDebug() << "range is:" << Range( line, column - initialValues[key].length(),
+          mirrorBehaviourBuildHelper.insert(tmp,behaviour);
+
+          ifDebug(kDebug() << "range is:" << Range( line, column - initialVal.length(),
                                 line, column
                               );)
         }
@@ -476,6 +524,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           m_uneditedRanges.append(range);
         } else {
           range->setAttribute(mirroredAttribute);
+          m_mirrorBehaviour.insert(range,mirrorBehaviourBuildHelper[values[i]]);
         }
       }
     } else {
@@ -489,6 +538,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   }
 
   setCurrentRange(m_templateRanges.first());
+  mirrorBehaviourBuildHelper.clear();
 }
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)
@@ -610,7 +660,7 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
 
   foreach ( SmartRange* sibling, range->parentRange()->childRanges() ) {
     if ( sibling != range ) {
-      m_doc->replaceText(*sibling, newText);
+      m_doc->replaceText(*sibling, m_mirrorBehaviour[sibling].getMirrorString(newText));
     }
   }
 
@@ -624,6 +674,44 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
   m_doc->setUndoDontMerge(undoDontMerge);
   m_isMirroring = false;
 }
+
+
+
+//BEGIN MIRROR BEHAVIOUR
+  KateTemplateHandler::MirrorBehaviour::MirrorBehaviour():
+    m_behaviour(Clone){}
+
+  KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString &regexp, const QString &replacement):
+    m_behaviour(Regexp),m_search(regexp),m_replace(replacement) {
+      m_expr=QRegExp(regexp,Qt::CaseSensitive,QRegExp::RegExp2);
+  }
+
+  KateTemplateHandler::MirrorBehaviour::~MirrorBehaviour(){}
+
+  QString KateTemplateHandler::MirrorBehaviour::getMirrorString(QString source) {
+    QString output;
+    int pos;
+    switch (m_behaviour) {
+      case Clone:
+        return source;
+        break;
+      case Regexp: {
+        if ((pos=m_expr.indexIn(source))==-1) return source;
+        KateMatch match (0, KTextEditor::Search::Default);
+        QStringList results = m_expr.capturedTexts();
+        output = match.buildReplacement (m_replace, false, 1, &results);
+        return source.left(pos)+output+source.mid(pos+m_expr.matchedLength());
+        break;
+      }
+      case Scripted:
+      default:
+        return QString();
+    }
+    return QString();
+  }
+
+//END MIRROR BEHAVOUR
+
 
 #include "katetemplatehandler.moc"
 

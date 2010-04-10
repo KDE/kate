@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
+    <width>704</width>
     <height>305</height>
    </rect>
   </property>
@@ -65,7 +65,7 @@
         <number>0</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>1272</number>
        </property>
        <property name="textVisible">
         <bool>false</bool>
@@ -109,16 +109,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btnOpenSelected">
+      <widget class="KPushButton" name="btnOpen">
        <property name="text">
-        <string>Open Selected</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btnOpenAll">
-       <property name="text">
-        <string>Open All</string>
+        <string>Open</string>
        </property>
       </widget>
      </item>

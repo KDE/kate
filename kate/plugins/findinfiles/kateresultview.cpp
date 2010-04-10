@@ -33,6 +33,7 @@
 #include <QClipboard>
 #include <QRegExp>
 #include <QKeyEvent>
+#include <QtGui/QMenu>
 
 #include <kacceleratormanager.h>
 #include <kconfig.h>
@@ -64,14 +65,14 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
 
   btnRefine->setGuiItem(KStandardGuiItem::find());
   btnRefine->setText(i18n("Refine Search..."));
-  
-  btnOpenAll->setGuiItem(KStandardGuiItem::open());
-  btnOpenAll->setText(i18n("Open All"));
-  btnOpenAll->setToolTip(i18n("Open all files found"));
-  
-  btnOpenSelected->setGuiItem(KStandardGuiItem::open());
-  btnOpenSelected->setText(i18n("Open Selected"));
-  btnOpenSelected->setToolTip(i18n("Open selected files"));
+
+  QMenu* openMenu = new QMenu(btnOpen);
+  btnOpen->setMenu(openMenu);
+  btnOpen->setGuiItem(KStandardGuiItem::open());
+  btnOpen->setText(i18n("Open"));
+  openMenu->addAction(i18n("Open All Files"), this, SLOT(openAllFound()));
+  openMenu->addAction(i18n("Open Selected Files"), this, SLOT(openSelected()));
+
 
   // auto-accels
   KAcceleratorManager::manage(m_toolView);
@@ -88,8 +89,6 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
   connect(btnCancel, SIGNAL(clicked()), this, SLOT(killThread()));
   connect(btnRemove, SIGNAL(clicked()), this, SLOT(deleteToolview()));
   connect(btnRefine, SIGNAL(clicked()), this, SLOT(refineSearch()));
-  connect(btnOpenAll, SIGNAL(clicked()), this, SLOT(openAllFound()));
-  connect(btnOpenSelected, SIGNAL(clicked()), this, SLOT(openSelected()));
   connect(m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
   connect(m_grepThread, SIGNAL(foundMatch (const QString &, const QString &, const QList<int> &,
                      const QList<int> &, const QString &, const QStringList &)),

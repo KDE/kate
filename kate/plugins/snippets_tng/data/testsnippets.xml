@@ -1,4 +1,4 @@
-<snippets name="Testsnippets" filetypes="*" authors="Joseph Wenninger" license="BSD">
+<snippets name="Testsnippets" filetypes="*" snippetlicense="public domain" authors="Joseph Wenninger" license="BSD">
   <item>
     <displayprefix>prefix</displayprefix>
     <match>test1</match>
@@ -10,4 +10,22 @@
     <match>testtemplate</match>
     <fillin>This is a test ${WHAT} template</fillin>
   </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroring1</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is a  simple mirroring test:
+This ${field} should be mirrored into ${field}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroring2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is a  simple mirroring test:
+This ${field} should be mirrored into
+${field/./\u\0/} with the first character being uppercase</fillin>
+ </item>
+
 </snippets>

@@ -45,6 +45,8 @@
 #include <QLineEdit>
 #include <QToolButton>
 
+#include <kdeversion.h>
+
 //END Includes
 
 
@@ -76,7 +78,9 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   // Mime filter for the KDirOperator
   QStringList filter;
   filter << "text/plain" << "text/html" << "inode/directory";
+#if KDE_IS_VERSION(4, 4, 60)
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
+#endif
 
   setFocusProxy(m_dirOperator);
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),

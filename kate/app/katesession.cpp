@@ -805,7 +805,7 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   setResult (resultCancel);
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
-  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged()));
+  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
   connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotUser2()));
 
 }

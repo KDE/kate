@@ -173,6 +173,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void dropEvent( QDropEvent * );
 
   public Q_SLOTS:
+    void slotFileClose();
     void slotFileQuit();
 
     /**

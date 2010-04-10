@@ -527,6 +527,11 @@ void KateMainWindow::slotFileQuit()
   KateApp::self()->shutdownKate (this);
 }
 
+void KateMainWindow::slotFileClose()
+{
+  m_viewManager->slotDocumentClose();
+}
+
 void KateMainWindow::readOptions ()
 {
   KSharedConfig::Ptr config = KGlobal::config();

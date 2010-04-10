@@ -71,7 +71,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     KateMainWindow *mainWin = KateApp::self()->activeMainWindow();
 
     if (re_write.exactMatch(command)) {
-        if (!re_quit.cap(1).isEmpty()) { // [a]ll
+        if (!re_write.cap(1).isEmpty()) { // [a]ll
             KateDocManager::self()->saveAll();
             msg = i18n("All documents written to disk");
         } else {
@@ -80,19 +80,34 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         }
     }
     else if (re_quit.exactMatch(command)) {
-        if (!re_quit.cap(1).isEmpty()) { // [w]rite
-            view->document()->documentSave();
-        }
         if (!re_quit.cap(2).isEmpty()) { // a[ll]
-            KateDocManager::self()->saveAll();
-        }
-        QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
-    }
-    else if (re_exit.exactMatch(command)) {
+            if (!re_quit.cap(1).isEmpty()) { // [w]rite
+                KateDocManager::self()->saveAll();
+            }
+            QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+        } else {
+            if (!re_quit.cap(1).isEmpty() && view->document()->isModified()) { // [w]rite
+                view->document()->documentSave();
+            }
+
+            if (KateDocManager::self()->documents() > 1)
+                QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
+            else
+                QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+         }
+    } else if (re_exit.exactMatch(command)) {
         if (!re_exit.cap(1).isEmpty()) { // a[ll]
             KateDocManager::self()->saveAll();
-        } else if (view->document()->isModified()) {
-            view->document()->documentSave();
+            QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+        } else {
+            if (view->document()->isModified()) {
+                view->document()->documentSave();
+            }
+
+            if (KateDocManager::self()->documents() > 1)
+                QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
+            else
+                QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
         }
         QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
     }

@@ -72,6 +72,15 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * For all others the initial value is the name of the placeholder.
      *
      * Placeholder names may only consist of a-zA-Z0-9_
+     * 
+     * @since 4.5
+     * if a placeholder is a mirror, the place holder name may contain additional information
+     * ${something/regexp/replacement/} takes the value of the placeholder something and replaces the match with the replacement before inserting the mirrored value
+     * ${something/regexp/replacement/g} like above, but for all occurences
+     *                          The syntax of the regexp and the replacement are the ones from kateparts regexp search/replace
+     * If a literal / should appear in the regexp, it has to be escaped \/,
+     * literal \ has to be escaped too 
+     *
      * Common placeholders and values are
      *
      * - index: "i"

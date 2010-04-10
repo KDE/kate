@@ -135,6 +135,8 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
         continue;
       }
       QString placeholder = rx.cap( 1 );
+      if (placeholder.contains("/"))
+        placeholder=placeholder.left(placeholder.indexOf("/"));
       if ( ! enhancedInitValues.contains( placeholder ) )
         enhancedInitValues[ placeholder ] = "";
 

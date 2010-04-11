@@ -26,6 +26,7 @@
 
 #include <ktexteditor/range.h>
 
+#include "katepartprivate_export.h"
 #include "katetextcursor.h"
 
 namespace Kate {
@@ -39,7 +40,7 @@ class TextBuffer;
  * A TextRange is not allowed to be empty, as soon as start == end position, it will become
  * automatically invalid!
  */
-class TextRange {
+class KATEPART_TESTS_EXPORT TextRange {
   // this is a friend, block changes might invalidate ranges...
   friend class TextBlock;
 

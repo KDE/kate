@@ -24,6 +24,7 @@
 #include <QtCore/QVector>
 #include <QtCore/QSet>
 
+#include "katepartprivate_export.h"
 #include "katetextrange.h"
 #include "katetextcursor.h"
 #include "katetextline.h"
@@ -36,7 +37,7 @@ class TextBuffer;
  * Class representing a text block.
  * This is used to build up a Kate::TextBuffer.
  */
-class TextBlock {
+class KATEPART_TESTS_EXPORT TextBlock {
   friend class TextCursor;
   friend class TextRange;
   friend class TextBuffer;

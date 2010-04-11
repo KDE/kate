@@ -26,6 +26,8 @@
 
 #include <ktexteditor/cursor.h>
 
+#include "katepartprivate_export.h"
+
 namespace Kate {
 
 class TextBuffer;
@@ -37,7 +39,7 @@ class TextRange;
  * It will automagically move if the text inside the buffer it belongs to is modified.
  * By intention no subclass of KTextEditor::Cursor, must be converted manually.
  */
-class TextCursor {
+class KATEPART_TESTS_EXPORT TextCursor {
   // range wants direct access to some internals
   friend class TextRange;
 

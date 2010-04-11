@@ -25,6 +25,8 @@
 #include <QtCore/QString>
 #include <QtCore/QSharedPointer>
 
+#include "katepartprivate_export.h"
+
 namespace Kate {
 
 /**
@@ -32,7 +34,7 @@ namespace Kate {
  * For efficience reasons, not only pure text is stored here, but also additional data.
  * Will be only accessed over shared pointers.
  */
-class TextLineData {
+class KATEPART_TESTS_EXPORT TextLineData {
   /**
    * TextBuffer/Block are friend classes, only ones allowed to touch the text content.
    */

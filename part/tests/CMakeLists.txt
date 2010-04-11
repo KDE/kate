@@ -21,6 +21,10 @@ include_directories(
 
 set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces)
 
+# buffer test
+kde4_add_unit_test(katetextbuffertest katetextbuffertest.cpp katetextbuffertest.h)
+target_link_libraries (katetextbuffertest ${KATE_TEST_LINK_LIBS})
+
 ########### next target ###############
 
 set(katetest_SRCS
@@ -47,7 +51,6 @@ set(cursorrange_regression_SRCS
 kde4_add_unit_test(cursorrange_regression ${cursorrange_regression_SRCS})
 
 target_link_libraries(cursorrange_regression ${KATE_TEST_LINK_LIBS} )
-
 
 ########### next target ###############
 

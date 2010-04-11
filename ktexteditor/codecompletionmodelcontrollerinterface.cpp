@@ -87,9 +87,7 @@ bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, c
     if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
       return true; //Always abort when the completion-range has been left
     //Do not abort completions when the text has been empty already before and a newline has been entered
-    
-    Q_UNUSED(view);
-    Q_UNUSED(range);
+
     static const QRegExp allowedText("^(\\w*)");
     return !allowedText.exactMatch(currentCompletion);
 }

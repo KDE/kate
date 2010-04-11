@@ -121,6 +121,9 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
   QScrollBar::paintEvent(e);
+  
+  if (!m_showMarks)
+    return;
 
   QPainter painter(this);
 

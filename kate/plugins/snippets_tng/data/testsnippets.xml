@@ -27,5 +27,127 @@ This ${field} should be mirrored into ${field}</fillin>
 This ${field} should be mirrored into
 ${field/./\u\0/} with the first character being uppercase</fillin>
  </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorunderline</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>The field should be underlined
+${field}
+${field/(.)/=/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorsensitive</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>All As are replaced by X:
+${field}
+${field/A/X/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorinsensitive</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>All As and as are replaced by X:
+${field}
+${field/A/X/gi}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplacebackslash</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>replace all \ by |
+${field}
+${field/\\/|/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplaceslash</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>replace all / by |
+${field}
+${field/\//|/g}</fillin>
+ </item>
+
+<item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplaceend</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This adds an X to the end of the field
+${field}
+${field/$/X/}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbroken1</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is broken, the regexp is not closed
+${field}
+${field/a/b}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbroken2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is broken, the regexp is not closed
+${field}
+${field/a}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/}
+</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/} ${blup}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar3</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/}    ${blup}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorandindependent</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>One mirrored field and one independent:
+${field}
+${field} ${blah}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroruppercaseandindependent</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>One mirrored field  with uppercasing and one independent:
+${field}
+${field/(.*)/\U\1\E/} ${blah}</fillin>
+ </item>
 
 </snippets>

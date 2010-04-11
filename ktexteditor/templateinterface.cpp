@@ -135,8 +135,37 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
         continue;
       }
       QString placeholder = rx.cap( 1 );
-      if (placeholder.contains("/"))
+      if (placeholder.contains("/")) {
+        
+        //in most cases it should not matter, but better safe then sorry.
+        const int end=placeholder.length();
+        int slashcount=0;
+        int backslashcount=0;
+        for (int i=0;i<end;i++) {
+          if (placeholder[i]=='/') {
+            if ((backslashcount%2)==0) slashcount++;
+            if (slashcount==3) break;
+            backslashcount=0;
+          } else if (placeholder[i]=='\\')
+            backslashcount++;
+          else
+            backslashcount=0; //any character terminates a backslash sequence
+        }
+        if (slashcount!=3) {
+          const int tmpStrLength=templateString.length();
+          for (int i=pos+rx.matchedLength();(slashcount<3) && (i<tmpStrLength);i++,pos++) {
+              if (templateString[i]=='/') {
+                if ((backslashcount%2)==0) slashcount++;
+                backslashcount=0;
+              } else if (placeholder[i]=='\\')
+                backslashcount++;
+              else
+                backslashcount=0; //any character terminates a backslash sequence              
+          }
+        }
+        //this is needed
         placeholder=placeholder.left(placeholder.indexOf("/"));
+      }
       if ( ! enhancedInitValues.contains( placeholder ) )
         enhancedInitValues[ placeholder ] = "";
 

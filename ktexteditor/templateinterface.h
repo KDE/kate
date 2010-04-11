@@ -78,6 +78,9 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * ${something/regexp/replacement/} takes the value of the placeholder something and replaces the match with the replacement before inserting the mirrored value
      * ${something/regexp/replacement/g} like above, but for all occurences
      *                          The syntax of the regexp and the replacement are the ones from kateparts regexp search/replace
+     * ${something/regexp/replacement/i} like above, but case insensitive
+     *                          The syntax of the regexp and the replacement are the ones from kateparts regexp search/replace
+     * Possible flags: g and i. Those flags can be combined too
      * If a literal / should appear in the regexp, it has to be escaped \/,
      * literal \ has to be escaped too 
      *

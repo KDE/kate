@@ -26,12 +26,14 @@
 
 #include <ktexteditor/range.h>
 
+#include "katepartprivate_export.h"
+
 namespace KTextEditor {
   class Document;
 }
 
 // needed for parsing replacement text like "\1:\2"
-struct ReplacementPart {
+struct KATEPART_TESTS_EXPORT ReplacementPart {
   enum Type {
     Reference, // \1..\9
     Text,
@@ -52,7 +54,7 @@ struct ReplacementPart {
   QString text;
 };
 
-class KateRegExpSearch : public QObject
+class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
 {
   Q_OBJECT
 
@@ -92,6 +94,11 @@ class KateRegExpSearch : public QObject
      */
     static QString escapePlaintext(const QString & text, QList<ReplacementPart> * parts = NULL,
         bool replacementGoodies = false);
+
+    /**
+     * Resolve references and escape sequences.
+     */
+    static QString buildReplacement(const QString &replacement, const QStringList &resultRangesReplacement, int replacementCounter);
 
   private:
     KTextEditor::Document *const m_document;

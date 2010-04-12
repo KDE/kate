@@ -37,11 +37,11 @@ public:
     bool isEmpty() const;
     KTextEditor::Range range() const;
 
+private:
     /**
      * Resolve references and escape sequences.
-     * If stringlist is given, will use that instead of result ranges
      */
-    QString buildReplacement(const QString &replacement, bool blockMode, int replacementCounter, QStringList *resultRangesReplacement = 0);
+    QString buildReplacement(const QString &replacement, bool blockMode, int replacementCounter);
 
 private:
     KateDocument *const m_document;

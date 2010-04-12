@@ -83,136 +83,14 @@ bool KateMatch::isValid() const
 }
 
 
-QString KateMatch::buildReplacement(const QString &replacement, bool blockMode, int replacementCounter, QStringList *resultRangesReplacement) {
-    const bool use_ranges = !resultRangesReplacement;
-    const int MIN_REF_INDEX = 0;
-    const int MAX_REF_INDEX = use_ranges ? m_resultRanges.count() - 1 : resultRangesReplacement->count() - 1;
-
-    QList<ReplacementPart> parts;
-    const bool REPLACEMENT_GOODIES = true;
-    KateRegExpSearch::escapePlaintext(replacement, &parts, REPLACEMENT_GOODIES);
-
-    QString output;
-    ReplacementPart::Type caseConversion = ReplacementPart::KeepCase;
-    foreach (const ReplacementPart &curPart, parts) {
-        switch (curPart.type) {
-        case ReplacementPart::Reference:
-            if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX)) {
-                // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
-                output.append(QString::number(curPart.index));
-            } else {
-                QString content;
-                bool doref=false;
-                if (use_ranges) {
-                    const KTextEditor::Range captureRange = m_resultRanges[curPart.index];
-                    if (captureRange.isValid()) {
-                        // Copy capture content
-                        content = m_document->text(captureRange, blockMode);
-                        doref=true;
-                    }
-                } else {
-                    content=resultRangesReplacement->at (curPart.index);
-                    doref=true;
-                }
-
-                if (doref) {
-                    switch (caseConversion) {
-                    case ReplacementPart::UpperCase:
-                        // Copy as uppercase
-                        output.append(content.toUpper());
-                        break;
-
-                    case ReplacementPart::UpperCaseFirst:
-                        if (content.length()>0) {
-                            output.append(content.at(0).toUpper());
-                            output.append(content.mid(1));
-                            caseConversion=ReplacementPart::KeepCase;
-                        }
-                        break;
-
-                    case ReplacementPart::LowerCase:
-                        // Copy as lowercase
-                        output.append(content.toLower());
-                        break;
-
-                    case ReplacementPart::LowerCaseFirst:
-                        if (content.length()>0) {
-                            output.append(content.at(0).toLower());
-                            output.append(content.mid(1));
-                            caseConversion=ReplacementPart::KeepCase;
-                        }
-                        break;
-
-                    case ReplacementPart::KeepCase: // FALLTHROUGH
-                    default:
-                        // Copy unmodified
-                        output.append(content);
-                        break;
-
-                    }
-                }
-            }
-            break;
-
-        case ReplacementPart::UpperCase: // FALLTHROUGH
-        case ReplacementPart::UpperCaseFirst: // FALLTHROUGH
-        case ReplacementPart::LowerCase: // FALLTHROUGH
-        case ReplacementPart::LowerCaseFirst: // FALLTHROUGH
-        case ReplacementPart::KeepCase:
-            caseConversion = curPart.type;
-            break;
-
-        case ReplacementPart::Counter:
-            {
-                // Zero padded counter value
-                const int minWidth = curPart.index;
-                const int number = replacementCounter;
-                output.append(QString("%1").arg(number, minWidth, 10, QLatin1Char('0')));
-            }
-            break;
-
-        case ReplacementPart::Text: // FALLTHROUGH
-        default:
-            switch (caseConversion) {
-            case ReplacementPart::UpperCase:
-                // Copy as uppercase
-                output.append(curPart.text.toUpper());
-                break;
-
-            case ReplacementPart::UpperCaseFirst:
-                if (curPart.text.length()>0) {
-                    output.append(curPart.text.at(0).toUpper());
-                    output.append(curPart.text.mid(1));
-                    caseConversion=ReplacementPart::KeepCase;
-                }
-                break;
-
-            case ReplacementPart::LowerCase:
-                // Copy as lowercase
-                output.append(curPart.text.toLower());
-                break;
-
-            case ReplacementPart::LowerCaseFirst:
-                if (curPart.text.length()>0) {
-                    output.append(curPart.text.at(0).toUpper());
-                    output.append(curPart.text.mid(1));
-                    caseConversion=ReplacementPart::KeepCase;
-                }
-                break;
-
-            case ReplacementPart::KeepCase: // FALLTHROUGH
-            default:
-                // Copy unmodified
-                output.append(curPart.text);
-                break;
-
-            }
-            break;
-
-        }
+QString KateMatch::buildReplacement(const QString &replacement, bool blockMode, int replacementCounter) {
+    QStringList capturedTexts;
+    foreach (const KTextEditor::Range &captureRange, m_resultRanges) {
+        // Copy capture content
+        capturedTexts << m_document->text(captureRange, blockMode);
     }
 
-    return output;
+    return KateRegExpSearch::buildReplacement(replacement, capturedTexts, replacementCounter);
 }
 
 

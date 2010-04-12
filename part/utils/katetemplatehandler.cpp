@@ -26,7 +26,7 @@
 #include "kateconfig.h"
 #include "katerenderer.h"
 #include "kateundomanager.h"
-#include "katematch.h"
+#include "kateregexpsearch.h"
 
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/smartcursor.h>
@@ -746,18 +746,16 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
           ahead=source;
           while (ahead.length()>0) {
             if ((pos=m_expr.indexIn(ahead))==-1) return finalOutput+ahead;
-            KateMatch match (0, KTextEditor::Search::Default);
             QStringList results = m_expr.capturedTexts();
-            output = match.buildReplacement (m_replace, false, ++matchCounter, &results);
+            output = KateRegExpSearch::buildReplacement (m_replace, results, ++matchCounter);
             finalOutput=finalOutput+ahead.left(pos)+output;
             ahead=ahead.mid(pos+m_expr.matchedLength());
           }
           return finalOutput;
         } else {
          if ((pos=m_expr.indexIn(source))==-1) return source;
-         KateMatch match (0, KTextEditor::Search::Default);
          QStringList results = m_expr.capturedTexts();
-         output = match.buildReplacement (m_replace, false, 1, &results);
+         output = KateRegExpSearch::buildReplacement (m_replace, results, 1);
          return source.left(pos)+output+source.mid(pos+m_expr.matchedLength());
          break;
         }

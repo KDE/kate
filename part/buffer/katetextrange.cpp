@@ -40,18 +40,25 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
 
 TextRange::~TextRange ()
 {
-  // remember this range in buffer
+  // remove range from m_ranges
+  fixLookup (m_start.line(), m_end.line(), -1, -1);
+
+  // remove this range from the buffer
   m_buffer.m_ranges.remove (this);
 }
 
 void TextRange::setRange (const KTextEditor::Range &range)
 {
+  // remember old line range
+  int oldStartLine = m_start.line();
+  int oldEndLine = m_end.line();
+
   // change start and end cursor
   m_start.setPosition (range.start ());
   m_end.setPosition (range.end ());
 
   // check if range now invalid
-  checkValidity ();
+  checkValidity (oldStartLine, oldEndLine);
 }
 
 void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::Cursor &end)
@@ -60,7 +67,7 @@ void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::C
   setRange (KTextEditor::Range (start, end));
 }
 
-void TextRange::checkValidity ()
+void TextRange::checkValidity (int oldStartLine, int oldEndLine)
 {
   // check if any cursor is invalid or the range is zero size
   // if yes, invalidate this range
@@ -68,6 +75,52 @@ void TextRange::checkValidity ()
     m_start.setPosition (-1, -1);
     m_end.setPosition (-1, -1);
   }
+
+  // fix lookup
+  fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());
+}
+
+void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine)
+{
+  // nothing changed?
+  if (oldStartLine == startLine && oldEndLine == endLine)
+    return;
+
+  // now, not both can be invalid
+  Q_ASSERT (oldStartLine >= 0 || startLine >= 0);
+  Q_ASSERT (oldEndLine >= 0 || endLine >= 0);
+
+  // get full range
+  int startLineMin = oldStartLine;
+  if (oldStartLine == -1 || startLine < oldStartLine)
+    startLineMin = startLine;
+
+  int endLineMax = oldEndLine;
+  if (oldEndLine == -1 || endLine > oldEndLine)
+    endLineMax = endLine;
+
+  // get start block
+  int blockIndex = m_buffer.blockForLine (startLineMin);
+  Q_ASSERT (blockIndex >= 0);
+
+  // remove this range from m_ranges
+  for (; blockIndex < m_buffer.m_blocks.size(); ++blockIndex) {
+    // get block
+    TextBlock *block = m_buffer.m_blocks[blockIndex];
+
+    // either insert or remove range
+    if ((endLine < block->startLine()) || (startLine >= (block->startLine() + block->lines())))
+      block->m_ranges.remove (this);
+    else
+      block->m_ranges.insert (this);
+
+    // ok, reached end block
+    if (endLineMax < (block->startLine() + block->lines()))
+      return;
+  }
+
+  // we should not be here, really, then endLine is wrong
+  Q_ASSERT (false);
 }
 
 }

@@ -174,6 +174,13 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * Set of cursors for this block.
      */
     QSet<TextCursor *> m_cursors;
+
+    /**
+     * Set of ranges spanning this block or being contained in it.
+     * This is used for fast lookup of ranges.
+     * Only expensive for ranges spanning many blocks, which are rare, beside selection.
+     */
+    QSet<TextRange *> m_ranges;
 };
 
 }

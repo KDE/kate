@@ -130,8 +130,19 @@ class KATEPART_TESTS_EXPORT TextRange {
      * Check if range is valid, used by constructor and setRange.
      * If at least one cursor is invalid, both will set to invalid.
      * Same if range itself is invalid (start >= end).
+     * @param oldStartLine old start line of this range before changing of cursors, needed to add/remove range from m_ranges in blocks
+     * @param oldEndLine old end line of this range
      */
-    void checkValidity ();
+    void checkValidity (int oldStartLine = -1, int oldEndLine = -1);
+
+    /**
+     * Add/Remove range from the lookup m_ranges hash of each block
+     * @param oldStartLine old start line of this range before changing of cursors, needed to add/remove range from m_ranges in blocks
+     * @param oldEndLine old end line of this range
+     * @param startLine start line to start looking for the range to remove
+     * @param endLine end line of this range
+     */
+    void fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine);
 
   private:
     /**

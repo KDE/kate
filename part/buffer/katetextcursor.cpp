@@ -55,7 +55,9 @@ TextCursor::~TextCursor ()
   // remove cursor from block or buffer
   if (m_block)
     m_block->m_cursors.remove (this);
-  else
+
+  // only cursors without range are here!
+  else if (!m_range)
     m_buffer.m_invalidCursors.remove (this);
 }
 
@@ -71,7 +73,8 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
 
   // first: validate the line and column, else invalid
   if (position.column() < 0 || position.line () < 0 || position.line () >= m_buffer.lines ()) {
-    m_buffer.m_invalidCursors.insert (this);
+    if (!m_range)
+      m_buffer.m_invalidCursors.insert (this);
     m_block = 0;
     m_line = m_column = -1;
     return;
@@ -86,7 +89,8 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
 #if 0 // this is no good idea, smart cursors don't do that, too, for non-wrapping cursors
   // now, validate column, else stay invalid
   if (position.column() > textLine->text().size()) {
-    m_buffer.m_invalidCursors.insert (this);
+    if (!m_range)
+      m_buffer.m_invalidCursors.insert (this);
     m_block = 0;
     m_line = m_column = -1;
     return;

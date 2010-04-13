@@ -55,6 +55,7 @@
 #include "spellcheck/spellcheck.h"
 #include "spellcheck/spellcheckdialog.h"
 #include "spellcheck/spellingmenu.h"
+#include "katebuffer.h"
 
 #include <kparts/event.h>
 
@@ -113,7 +114,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
+    , m_selection (m_doc->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::ExpandRight)
     , blockSelect (false)
     , m_bottomViewBar (0)
     , m_topViewBar (0)
@@ -218,10 +219,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   setupConnections();
   setupActions();
-  
+
   // auto word completion
   new KateWordCompletionView (this, actionCollection ());
-  
+
   // enable the plugins of this view
   KatePartPluginManager::self()->addView(this);
 
@@ -261,10 +262,6 @@ KateView::~KateView()
     removeInternalHighlight(range);
 
   delete m_viewInternal;
-
-  // after m_viewInternal to allow KateViewInternal to disconnect from signal signalRangeDeleted
-  delete m_selection;
-  m_selection = 0L;
 
   delete m_renderer;
 
@@ -891,7 +888,7 @@ void KateView::setupEditActions()
     a->setText(i18n("&Indent"));
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
-    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));                       
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
     a = ac->addAction("tools_unindent");
@@ -986,7 +983,7 @@ void KateView::slotGotFocus()
 void KateView::slotLostFocus()
 {
   //kDebug(13020) << "KateView::slotLostFocus";
-  
+
   if ( !viInputMode() ) {
     deactivateEditActions();
   }
@@ -1173,7 +1170,7 @@ void KateView::setAddBom(bool enabled)
 
   if (m_updatingDocumentConfig)
    return;
-  
+
   m_doc->config()->setBom (enabled);
   m_doc->bomSetByUser();
 }
@@ -1486,9 +1483,9 @@ void KateView::updateDocumentConfig()
   m_updatingDocumentConfig = true;
 
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
-  
+
   m_addBom->setChecked(m_doc->config()->bom());
-  
+
   m_updatingDocumentConfig = false;
 
   // maybe block selection or wrap-cursor mode changed
@@ -1631,7 +1628,7 @@ void KateView::repaintText (bool paintOnlyDirty)
 void KateView::updateView (bool changed)
 {
   //kDebug(13020) << "KateView::updateView";
-  
+
   m_viewInternal->updateView (changed);
   m_viewInternal->m_leftBorder->update();
 }
@@ -1675,78 +1672,102 @@ void KateView::notifyMousePositionChanged(const KTextEditor::Cursor& newPosition
 
 bool KateView::setSelection( const KTextEditor::Range &selection )
 {
-  QMutexLocker l(m_doc->smartMutex());
+  /**
+   * anything to do?
+   */
+  if (selection == m_selection)
+    return true;
 
-  KTextEditor::Range oldSelection = *m_selection;
-  *m_selection = selection.isEmpty() ? KTextEditor::Range::invalid() : selection;
+  /**
+   * backup old range
+   */
+  KTextEditor::Range oldSelection = m_selection;
 
+  /**
+   * set new range
+   */
+  m_selection.setRange (selection.isEmpty() ? KTextEditor::Range::invalid() : selection);
+
+  /**
+   * trigger update of correct area
+   */
   tagSelection(oldSelection);
-
   repaintText(true);
 
+  /**
+   * emit holy signal
+   */
   emit selectionChanged (this);
 
+  /**
+   * be done
+   */
   return true;
 }
 
 bool KateView::clearSelection()
 {
-  return clearSelection(true);
+  return clearSelection (true);
 }
 
 bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 {
-  QMutexLocker l(m_doc->smartMutex());
-
+  /**
+   * no selection, nothing to do...
+   */
   if( !selection() )
     return false;
 
-  KTextEditor::Range oldSelection = *m_selection;
+  /**
+   * backup old range
+   */
+  KTextEditor::Range oldSelection = m_selection;
 
-  *m_selection = KTextEditor::Range::invalid();
+  /**
+   * invalidate current selection
+   */
+  m_selection.setRange (KTextEditor::Range::invalid());
 
+  /**
+   * trigger update of correct area
+   */
   tagSelection(oldSelection);
-
-  oldSelection = *m_selection;
-
   if (redraw)
     repaintText(true);
 
+  /**
+   * emit holy signal
+   */
   if (finishedChangingSelection)
-    emit selectionChanged(this);
+    emit selectionChanged (this);
 
+  /**
+   * be done
+   */
   return true;
 }
 
 bool KateView::selection() const
 {
-  if(!wrapCursor())
-    return *m_selection != KateSmartRange::invalid();
+  if (!wrapCursor())
+    return m_selection != KTextEditor::Range::invalid();
   else
-    return m_selection->isValid();
+    return m_selection.toRange().isValid();
 }
 
 QString KateView::selectionText() const
 {
-  QMutexLocker l(m_doc->smartMutex());
-
-  KTextEditor::Range range = *m_selection;
-
-  return m_doc->text(range, blockSelect);
+  return m_doc->text(m_selection, blockSelect);
 }
 
 bool KateView::removeSelectedText()
 {
-  QMutexLocker l(m_doc->smartMutex());
-
   if (!selection())
     return false;
 
   m_doc->editStart (Kate::CutCopyPasteEdit);
 
-  KTextEditor::Range range = *m_selection;
-
-  m_doc->removeText(range, blockSelect);
+  m_doc->removeText (m_selection, blockSelect);
 
   // don't redraw the cleared selection - that's done in editEnd().
   clearSelection(false);
@@ -1771,32 +1792,32 @@ bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
     ret.setColumn(0);
 
   if (blockSelect)
-    return cursor.line() >= m_selection->start().line() && ret.line() <= m_selection->end().line()
-        && ret.column() >= m_selection->start().column() && ret.column() <= m_selection->end().column();
+    return cursor.line() >= m_selection.start().line() && ret.line() <= m_selection.end().line()
+        && ret.column() >= m_selection.start().column() && ret.column() <= m_selection.end().column();
   else
-    return m_selection->contains(cursor) || m_selection->end() == cursor;
+    return m_selection.toRange().contains(cursor) || m_selection.end() == cursor;
 }
 
 bool KateView::lineSelected (int line)
 {
-  return !blockSelect && m_selection->containsLine(line);
+  return !blockSelect && m_selection.toRange().containsLine(line);
 }
 
 bool KateView::lineEndSelected (const KTextEditor::Cursor& lineEndPos)
 {
   return (!blockSelect)
-    && (lineEndPos.line() > m_selection->start().line() || (lineEndPos.line() == m_selection->start().line() && (m_selection->start().column() < lineEndPos.column() || lineEndPos.column() == -1)))
-    && (lineEndPos.line() < m_selection->end().line() || (lineEndPos.line() == m_selection->end().line() && (lineEndPos.column() <= m_selection->end().column() && lineEndPos.column() != -1)));
+    && (lineEndPos.line() > m_selection.start().line() || (lineEndPos.line() == m_selection.start().line() && (m_selection.start().column() < lineEndPos.column() || lineEndPos.column() == -1)))
+    && (lineEndPos.line() < m_selection.end().line() || (lineEndPos.line() == m_selection.end().line() && (lineEndPos.column() <= m_selection.end().column() && lineEndPos.column() != -1)));
 }
 
 bool KateView::lineHasSelected (int line)
 {
-  return selection() && m_selection->containsLine(line);
+  return selection() && m_selection.toRange().containsLine(line);
 }
 
 bool KateView::lineIsSelection (int line)
 {
-  return (line == m_selection->start().line() && line == m_selection->end().line());
+  return (line == m_selection.start().line() && line == m_selection.end().line());
 }
 
 void KateView::tagSelection(const KTextEditor::Range &oldSelection)
@@ -1806,26 +1827,26 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
       // We have to tag the whole lot if
       // 1) we have a selection, and:
       //  a) it's new; or
-      tagLines(*m_selection, true);
+      tagLines(m_selection, true);
 
-    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection->start().column() || oldSelection.end().column() != m_selection->end().column())) {
+    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection.start().column() || oldSelection.end().column() != m_selection.end().column())) {
       //  b) we're in block selection mode and the columns have changed
-      tagLines(*m_selection, true);
+      tagLines(m_selection, true);
       tagLines(oldSelection, true);
 
     } else {
-      if (oldSelection.start() != m_selection->start()) {
-        if (oldSelection.start() < m_selection->start())
-          tagLines(oldSelection.start(), m_selection->start(), true);
+      if (oldSelection.start() != m_selection.start()) {
+        if (oldSelection.start() < m_selection.start())
+          tagLines(oldSelection.start(), m_selection.start(), true);
         else
-          tagLines(m_selection->start(), oldSelection.start(), true);
+          tagLines(m_selection.start(), oldSelection.start(), true);
       }
 
-      if (oldSelection.end() != m_selection->end()) {
-        if (oldSelection.end() < m_selection->end())
-          tagLines(oldSelection.end(), m_selection->end(), true);
+      if (oldSelection.end() != m_selection.end()) {
+        if (oldSelection.end() < m_selection.end())
+          tagLines(oldSelection.end(), m_selection.end(), true);
         else
-          tagLines(m_selection->end(), oldSelection.end(), true);
+          tagLines(m_selection.end(), oldSelection.end(), true);
       }
     }
 
@@ -1915,7 +1936,7 @@ bool KateView::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
 
-    KTextEditor::Range oldSelection = *m_selection;
+    KTextEditor::Range oldSelection = m_selection;
 
     clearSelection(false, false);
 
@@ -2481,10 +2502,10 @@ void KateView::shiftToMatchingBracket( )
 
 const KTextEditor::Range & KateView::selectionRange( ) const
 {
-  QMutexLocker l(m_doc->smartMutex());
+  // update the cache
+  m_holdSelectionRangeForAPI = m_selection;
 
-  m_holdSelectionRangeForAPI = *m_selection;
-
+  // return cached value, has right type!
   return m_holdSelectionRangeForAPI;
 }
 
@@ -2517,15 +2538,15 @@ QMenu *KateView::contextMenu( ) const
     KXMLGUIClient* client = const_cast<KateView*>(this);
     while (client->parentClient())
       client = client->parentClient();
-    
+
     //kDebug() << "looking up all menu containers";
     if (client->factory()){
-      QList<QWidget*> conts = client->factory()->containers("menu"); 
+      QList<QWidget*> conts = client->factory()->containers("menu");
       foreach (QWidget *w, conts)
       {
         if (w->objectName() == "ktexteditor_popup")
         {//perhaps optimize this block
-              QMenu* menu=(QMenu*)w; 
+              QMenu* menu=(QMenu*)w;
               disconnect(menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
               disconnect(menu, SIGNAL(aboutToHide()), this, SLOT(aboutToHideContextMenu()));
               connect(menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
@@ -2542,7 +2563,7 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
 {
     if (!menu)
       menu = new KMenu(const_cast<KateView*>(this));
-    
+
     menu->addAction(m_editUndo);
     menu->addAction(m_editRedo);
     menu->addSeparator();
@@ -2648,7 +2669,7 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
     /*Disable searchbar highlights due to performance issue
      * if undoGroup contains n items, and there're m search highlight regions,
      * the total cost is n*m*log(m),
-     * to undo a simple Replace operation, n=2*m 
+     * to undo a simple Replace operation, n=2*m
      * (replace contains both delete and insert undoItem, assume the replaced regions are highlighted),
      * cost = 2*m^2*log(m), too high
      * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()

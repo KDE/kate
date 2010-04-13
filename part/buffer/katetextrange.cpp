@@ -92,7 +92,7 @@ void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int 
 
   // get full range
   int startLineMin = oldStartLine;
-  if (oldStartLine == -1 || startLine < oldStartLine)
+  if (oldStartLine == -1 || (startLine != -1 && startLine < oldStartLine))
     startLineMin = startLine;
 
   int endLineMax = oldEndLine;

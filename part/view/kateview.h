@@ -22,9 +22,6 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "katepartprivate_export.h"
-#include "kateviinputmodemanager.h"
-
 #include <ktexteditor/view.h>
 #include <ktexteditor/texthintinterface.h>
 #include <ktexteditor/markinterface.h>
@@ -42,6 +39,9 @@
 #include <QtCore/QHash>
 
 #include <kdebug.h>
+
+#include "kateviinputmodemanager.h"
+#include "katetextrange.h"
 
 namespace KTextEditor
 {
@@ -252,7 +252,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     static void blockFix(KTextEditor::Range& range);
 
   private:
-    // TODO KDE5: remove
     mutable KTextEditor::Range m_holdSelectionRangeForAPI;
 
   //
@@ -626,7 +625,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool m_updatingDocumentConfig;
 
     // stores the current selection
-    KateSmartRange* m_selection;
+    Kate::TextRange m_selection;
 
     // do we select normal or blockwise ?
     bool blockSelect;

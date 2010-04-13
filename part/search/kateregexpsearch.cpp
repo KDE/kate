@@ -901,7 +901,7 @@ QString KateRegExpSearch::buildReplacement(const QString &replacement, const QSt
 
             case ReplacementPart::LowerCaseFirst:
                 if (curPart.text.length()>0) {
-                    output.append(curPart.text.at(0).toUpper());
+                    output.append(curPart.text.at(0).toLower());
                     output.append(curPart.text.mid(1));
                     caseConversion=ReplacementPart::KeepCase;
                 }

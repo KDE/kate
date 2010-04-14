@@ -665,7 +665,6 @@ bool TextBuffer::save (const QString &filename)
   return ok;
 }
 
-
 void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
 {
   /**
@@ -680,7 +679,7 @@ void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int star
   emit rangeAttributeChanged (view, startLine, endLine);
 }
 
-QList<TextRange *> TextBuffer::rangesForLine (int line) const
+QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view, bool rangesWithAttributeOnly) const
 {
   // get block, this will assert on invalid line
   const int blockIndex = blockForLine (line);
@@ -691,7 +690,7 @@ QList<TextRange *> TextBuffer::rangesForLine (int line) const
   // collect the right ones
   QList<TextRange *> rightRanges;
   foreach (TextRange * const range, ranges) {
-      if (range->start().line() <= line && line <= range->end().line())
+      if ((!rangesWithAttributeOnly || range->attribute()) && range->start().line() <= line && line <= range->end().line())
         rightRanges.append (range);
   }
 

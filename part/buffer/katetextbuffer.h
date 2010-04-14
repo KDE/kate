@@ -388,11 +388,13 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     void debugPrint (const QString &title) const;
 
     /**
-     * Return the ranges which affect the given line
+     * Return the ranges which affect the given line.
      * @param line line to look at
+     * @param view only return ranges associated with given view
+     * @param rangesWithAttributeOnly only return ranges which have a attribute set
      * @return list of ranges affecting this line
      */
-    QList<TextRange *> rangesForLine (int line) const;
+    QList<TextRange *> rangesForLine (int line, KTextEditor::View *view, bool rangesWithAttributeOnly) const;
 
   Q_SIGNALS:
     /**

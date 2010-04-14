@@ -80,6 +80,10 @@ void TextBuffer::clear ()
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 
+  // invalidate all ranges!
+  foreach (TextRange *range, m_ranges)
+    range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
+  
   // new block for empty buffer
   TextBlock *newBlock = new TextBlock (this, 0);
   newBlock->appendLine (TextLine (new TextLineData()));
@@ -87,10 +91,6 @@ void TextBuffer::clear ()
   // clean out all cursors and lines, either move them to newBlock or invalidate them, if belonging to a range
   for (int i = 0; i < m_blocks.size(); ++i)
     m_blocks[i]->clearBlockContent (newBlock);
-
-  // invalidate all ranges!
-  foreach (TextRange *range, m_ranges)
-    range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
 
   // kill all buffer blocks
   qDeleteAll (m_blocks);

@@ -80,9 +80,6 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_view(parent->m_view)
   , m_doc(parent->doc())
   , m_viewInternal(parent)
-  , m_topMargin(0)
-  , m_bottomMargin(0)
-  , m_savVisibleLines(0)
   , m_showMarks(false)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
@@ -162,23 +159,6 @@ void KateScrollBar::resizeEvent(QResizeEvent *e)
 void KateScrollBar::styleChange(QStyle &s)
 {
   QScrollBar::styleChange(s);
-
-  // Calculate height of buttons
-  QStyleOptionSlider opt;
-  opt.init(this);
-  opt.subControls = QStyle::SC_None;
-  opt.activeSubControls = QStyle::SC_None;
-  opt.orientation = this->orientation();
-  opt.minimum = minimum();
-  opt.maximum = maximum();
-  opt.sliderPosition = sliderPosition();
-  opt.sliderValue = value();
-  opt.singleStep = singleStep();
-  opt.pageStep = pageStep();
-
-  m_topMargin = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() + 2;
-  m_bottomMargin = m_topMargin + style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddLine, this).height() + 1;
-
   recomputeMarksPositions();
 }
 
@@ -218,9 +198,13 @@ void KateScrollBar::redrawMarks()
 void KateScrollBar::recomputeMarksPositions()
 {
   m_lines.clear();
-  m_savVisibleLines = m_doc->visibleLines();
+  int visibleLines = m_doc->visibleLines();
+ 
+  QStyleOptionSlider opt;
+  initStyleOption(&opt);
 
-  int realHeight = frameGeometry().height() - m_topMargin - m_bottomMargin;
+  int topMargin = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubPage, this).top() + 1;
+  int realHeight = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddPage, this).bottom() - topMargin - 1;
 
   const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
   KateCodeFoldingTree *tree = m_doc->foldingTree();
@@ -245,8 +229,8 @@ void KateScrollBar::recomputeMarksPositions()
 
     line = m_doc->getVirtualLine(line);
 
-    double d = (double)line / (m_savVisibleLines - 1);
-    m_lines.insert(m_topMargin + (int)(d * realHeight),
+    double d = (double)line / (visibleLines - 1);
+    m_lines.insert(topMargin + (int)(d * realHeight),
                    QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
   }
 

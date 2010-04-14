@@ -95,10 +95,6 @@ class KateScrollBar : public QScrollBar
     KateDocument *m_doc;
     class KateViewInternal *m_viewInternal;
 
-    int m_topMargin;
-    int m_bottomMargin;
-    int m_savVisibleLines;
-
     QHash<int, QColor> m_lines;
 
     bool m_showMarks;

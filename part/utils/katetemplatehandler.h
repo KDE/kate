@@ -232,6 +232,8 @@ private:
     /// be selected when they get focused. All others just get the cursor placed at the
     /// beginning.
     QList<KTextEditor::SmartRange*> m_uneditedRanges;
+    /// stores the master ranges for mirroring, otherwise just the range, needed for cursor placement
+    QList<KTextEditor::SmartRange*> m_masterRanges;
     /// Sorted list of all ranges in one level.
     /// \see fixAdjacentInsertBehavior()
     QList<KTextEditor::SmartRange*> m_AllRangesSorted;

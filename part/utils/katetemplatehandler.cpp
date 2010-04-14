@@ -43,6 +43,12 @@ using namespace KTextEditor;
 
 #define ifDebug(x) x;
 
+
+static bool cmp_smart_ranges(const KTextEditor::SmartRange* r1, const KTextEditor::SmartRange* r2) {
+  return r1->start()<r2->start();
+}
+
+
 /// just like Range::contains() but returns true when the cursor is at the end of the range
 bool customContains(SmartRange* range, const Cursor& cursor)
 {
@@ -246,16 +252,17 @@ void KateTemplateHandler::jumpToPreviousRange()
   const Cursor & cursor = m_doc->activeView()->cursorPosition();
   if ( cursor == *m_finalCursorPosition ) {
     // wrap and jump to last range
-    setCurrentRange(m_templateRanges.last());
+    setCurrentRange(m_masterRanges.last());
     return;
   }
   SmartRange* previousRange = 0;
-  foreach ( SmartRange* range, m_templateRanges ) {
+  foreach ( SmartRange* range, m_masterRanges ) {
     if ( range->start() >= cursor ) {
       continue;
     }
     if ( !previousRange || range->start() > previousRange->start() ) {
       previousRange = range;
+      if (previousRange->parentRange()) previousRange=previousRange->parentRange();
     }
   }
   if ( previousRange ) {
@@ -271,11 +278,11 @@ void KateTemplateHandler::jumpToNextRange()
   const Cursor & cursor = m_doc->activeView()->cursorPosition();
   if ( cursor == *m_finalCursorPosition ) {
     // wrap and jump to first range
-    setCurrentRange(m_templateRanges.first());
+    setCurrentRange(m_masterRanges.first());
     return;
   }
   SmartRange* nextRange = 0;
-  foreach ( SmartRange* range, m_templateRanges ) {
+  foreach ( SmartRange* range, m_masterRanges ) {
     if ( range->start() <= cursor ) {
       continue;
     }
@@ -284,6 +291,7 @@ void KateTemplateHandler::jumpToNextRange()
     }
   }
   if ( nextRange ) {
+    if (nextRange->parentRange()) nextRange=nextRange->parentRange();
     setCurrentRange(nextRange);
   } else {
     // wrap and jump to final cursor
@@ -294,8 +302,20 @@ void KateTemplateHandler::jumpToNextRange()
 void KateTemplateHandler::setCurrentRange(SmartRange* range)
 {
   if ( !range->childRanges().isEmpty() ) {
+    ifDebug(kDebug()<<"looking for mirroring range";)
     // jump to first mirrored range
-    range = range->childRanges().first();
+    bool found=false;
+    foreach (SmartRange* childRange,range->childRanges()) {
+      ifDebug(kDebug()<<"checking range equality";);
+      if (m_masterRanges.contains(childRange)) { 
+        ifDebug(kDebug()<<"found master range";);
+        range=childRange;
+        found=true;
+        break;        
+      }
+    if (!found) range = range->childRanges().first();
+    }
+        
   }
 
   if ( m_doc->activeView() ) {
@@ -410,6 +430,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         }
       }      
     } else if ( templateString[i] == '}' && startPos != -1 ) {
+      bool force_first=false;
       // get key, i.e. contents between ${..}
       QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
       int keyLength=key.length();
@@ -420,6 +441,10 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         key=key.left(key.indexOf("/"));
         ifDebug(kDebug() << "real key found:" << key;)
         ifDebug(kDebug() << "search_replace" << searchReplace;)
+      }
+      if (key.contains("@")) {
+        key=key.left(key.indexOf("@"));
+        force_first=true;
       }
       if ( !initialValues.contains(key) ) {
         kWarning() << "unknown variable key:" << key;
@@ -491,12 +516,19 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           if ( !keyQueue.contains(key) ) {
             keyQueue.append(key);
           }
-          Range tmp;
-          ranges.insert( key,
-                        tmp=Range( line, column - initialVal.length(),
+          
+          Range tmp=Range( line, column - initialVal.length(),
                                 line, column
-                              )
-                        );
+                              );
+          if (force_first) {
+            QList<Range> range_list=ranges.values(key);
+            range_list.append(tmp);            
+            ranges.remove(key);
+            while (!range_list.isEmpty())
+              ranges.insert(key,range_list.takeLast());
+          } else {          
+            ranges.insert( key, tmp );
+          }
           mirrorBehaviourBuildHelper.insert(tmp,behaviour);
 
           ifDebug(kDebug() << "range is:" << Range( line, column - initialVal.length(),
@@ -551,7 +583,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
     const QList<Range> &values = ranges.values(key);
     // used as parent for mirrored variables,
     // and as only item for not-mirrored variables
-    SmartRange* parent = m_doc->newSmartRange(values.first(), 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
+    SmartRange* parent = m_doc->newSmartRange(values.last(), 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
     if ( values.size() > 1 ) {
       // add all "real" ranges as children
       for (int i = 0; i < values.size(); ++i )  {
@@ -562,6 +594,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         if ( i == values.size() - 1 ) {
           range->setAttribute(editableAttribute);
           m_uneditedRanges.append(range);
+          m_masterRanges.append(range);
         } else {
           range->setAttribute(mirroredAttribute);
           m_mirrorBehaviour.insert(range,mirrorBehaviourBuildHelper[values[i]]);
@@ -571,12 +604,15 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       // just a single range
       parent->setAttribute(editableAttribute);
       m_uneditedRanges.append(parent);
+      m_masterRanges.append(parent);
     }
 
     m_doc->addHighlightToDocument(parent, true);
     m_templateRanges.append(parent);
   }
 
+  qSort(m_masterRanges.begin(),m_masterRanges.end(),cmp_smart_ranges);
+  
   setCurrentRange(m_templateRanges.first());
   mirrorBehaviourBuildHelper.clear();
 }

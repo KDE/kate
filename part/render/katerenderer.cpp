@@ -297,7 +297,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
   QList<QTextLayout::FormatRange> newHighlight;
 
   // Don't compute the highlighting if there isn't going to be any highlighting
-  if (selectionsOnly || textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
+  QList<Kate::TextRange *> rangesWithAttributes = m_doc->buffer().rangesForLine (line, m_view, true);
+  if (selectionsOnly || textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()
+    || rangesWithAttributes.count()) {
     RenderRangeList renderRanges;
 
     // Add the inbuilt highlighting to the list
@@ -314,7 +316,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
       renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
 
       // add ranges with attributes to the list
-      QList<Kate::TextRange *> rangesWithAttributes = m_doc->buffer().rangesForLine (line, m_view, true);
       if (!rangesWithAttributes.empty()) {
         NormalRenderRange *additionaHl = new NormalRenderRange();
         for (int i = 0; i < rangesWithAttributes.size(); ++i)

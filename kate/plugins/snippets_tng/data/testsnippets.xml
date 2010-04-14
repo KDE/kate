@@ -183,4 +183,50 @@ ${field@}</fillin>
  </item>
 
 
+
+ <displayprefix></displayprefix>
+  <match>mirrorinitvalues</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>Test snippet for initial values
+
+\${no_init_value}
+${no_init_value}
+
+\${with_init_value:Hello, I'm an init value}
+${with_init_value:Hello, I'm an init value}
+
+\${with_brace:Hello, I contain a \}}
+${with_brace:Hello, I contain a \}}
+
+\${with_brace_and_slashes:Hello, I contain a \ and one before the brace \\\}}
+${with_brace_and_slashes:Hello, I contain a \ and one before the brace \\\}}
+
+\${i_m_mirrored}
+and initialized later
+\${i_m_mirrored@:Mirror mirror on the wall}
+
+
+${i_m_mirrored}
+and initialized later
+${i_m_mirrored@:Mirror mirror on the wall}
+
+Not a regexp:
+\${not_a_regexp:hallo / blah}
+${not_a_regexp:hallo / blah}
+
+This is a regexp:
+\${a_regexp}
+\${a_regexp/X/:/}
+
+This is a regexp:
+${a_regexp}
+${a_regexp/X/:/}
+
+The END !!</fillin>
+ </item>
+
+
+
+
 </snippets>

@@ -83,10 +83,20 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * Possible flags: g and i. Those flags can be combined too
      * If a literal / should appear in the regexp, it has to be escaped \/,
      * literal \ has to be escaped too 
-     *
      * 
      * If you have mirrored ranges and want another occurence than the first one as the master
      * you can add @ directly after the placeholder name.
+     * 
+     * 
+     * Specification of initial values
+     * You can specify initial values which are different from the placeholder name
+     * this is done via, this makes only sense for $ placeholders, not for %
+     * ${placeholder:some value} or ${placeholder@:some value}
+     * It is not allowed to mix : and /
+     * after the first  colon, everything is interpreted as default value, } in
+     * the default value have to be escaped (backslashes before } have to be escaped themselves) and regexp searches are ignored. The : has to be
+     * directly after the placeholder name or after an optional @ symbol.
+     * 
      * 
      * Common placeholders and values are
      *

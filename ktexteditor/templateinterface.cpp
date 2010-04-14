@@ -31,6 +31,8 @@
 
 #include <kdebug.h>
 
+#define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
+
 using namespace KTextEditor;
 
 bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *parentWindow)
@@ -118,9 +120,10 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
   rx.setMinimal( true );
   int pos = 0;
   int offset;
-
+  QString initValue;
   while ( pos >= 0 )
   {
+    bool initValue_specified=false;
     pos = rx.indexIn( templateString, pos );
 
     if ( pos > -1 )
@@ -135,8 +138,25 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
         continue;
       }
       QString placeholder = rx.cap( 1 );
-      if (placeholder.contains("/")) {
-        
+      
+      int pos_colon=placeholder.indexOf(":");
+      int pos_slash=placeholder.indexOf("/");
+      bool check_slash=false;
+      bool check_colon=false;
+      if ((pos_colon==-1) && ( pos_slash==-1)) {
+        //do nothing
+      } else if ( (pos_colon==-1) && (pos_slash!=-1)) {
+        check_slash=true;
+      } else if ( (pos_colon!=-1) && (pos_slash==-1)) {
+        check_colon=true;
+      } else {
+        if (pos_colon<pos_slash)
+          check_colon=true;
+        else
+          check_slash=true;
+      }
+      
+      if (check_slash) {                
         //in most cases it should not matter, but better safe then sorry.
         const int end=placeholder.length();
         int slashcount=0;
@@ -165,15 +185,51 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
         }
         //this is needed
         placeholder=placeholder.left(placeholder.indexOf("/"));
+      } else if (check_colon) {
+        initValue=placeholder.mid(pos_colon+1);
+        initValue_specified=true;
+        int  backslashcount=0;
+        for (int i=initValue.length()-1;(i>=0) && (initValue[i]=='\\'); i--) {
+          backslashcount++;
+        }
+        initValue=initValue.left(initValue.length()-((backslashcount+1)/2));
+        if ((backslashcount % 2) ==1) {
+          initValue+="}";
+          const int tmpStrLength=templateString.length();
+          backslashcount=0;
+          for (int i=pos+rx.matchedLength();(i<tmpStrLength);i++,pos++) {
+              if (templateString[i]=='}') {
+                initValue=initValue.left(initValue.length()-((backslashcount+1)/2));
+                if ((backslashcount%2)==0) break;
+                backslashcount=0;
+              } else if (placeholder[i]=='\\')
+                backslashcount++;
+              else
+                backslashcount=0; //any character terminates a backslash sequence              
+            initValue+=placeholder[i];
+          }
+        }
+        placeholder=placeholder.left(placeholder.indexOf(":"));
       }
+      
       if (placeholder.contains("@")) placeholder=placeholder.left(placeholder.indexOf("@"));
-      if ( ! enhancedInitValues.contains( placeholder ) )
-        enhancedInitValues[ placeholder ] = "";
-
+      if ( (! enhancedInitValues.contains( placeholder )) || (enhancedInitValues[placeholder]==DUMMY_VALUE)  ) {
+        if (initValue_specified) {
+          enhancedInitValues[placeholder]=initValue;
+        } else {
+          enhancedInitValues[ placeholder ] = DUMMY_VALUE;
+        }
+      }
       pos += rx.matchedLength();
     }
   }
 
+  kDebug()<<"-----------------------------------";
+  for (QMap<QString,QString>::iterator it=enhancedInitValues.begin();it!=enhancedInitValues.end();++it) {
+    kDebug()<<"key:"<<it.key()<<" init value:"<<it.value();
+    if (it.value()==DUMMY_VALUE) it.value()="";
+  }
+  kDebug()<<"-----------------------------------";
   return expandMacros( enhancedInitValues, dynamic_cast<QWidget*>(this) )
          && insertTemplateTextImplementation( insertPosition, templateString, enhancedInitValues);
 }

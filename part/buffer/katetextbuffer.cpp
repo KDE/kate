@@ -680,4 +680,23 @@ void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int star
   emit rangeAttributeChanged (view, startLine, endLine);
 }
 
+QList<TextRange *> TextBuffer::rangesForLine (int line) const
+{
+  // get block, this will assert on invalid line
+  const int blockIndex = blockForLine (line);
+
+  // get the ranges
+  const QSet<TextRange *> ranges = m_blocks[blockIndex]->m_ranges;
+
+  // collect the right ones
+  QList<TextRange *> rightRanges;
+  foreach (TextRange * const range, ranges) {
+      if (range->start().line() <= line && line <= range->end().line())
+        rightRanges.append (range);
+  }
+
+  // return right ranges
+  return rightRanges;
+}
+
 }

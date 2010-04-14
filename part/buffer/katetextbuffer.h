@@ -387,6 +387,13 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     void debugPrint (const QString &title) const;
 
+    /**
+     * Return the ranges which affect the given line
+     * @param line line to look at
+     * @return list of ranges affecting this line
+     */
+    QList<TextRange *> rangesForLine (int line) const;
+
   Q_SIGNALS:
     /**
      * Attribute of a range changed or range with attribute changed in given line range.

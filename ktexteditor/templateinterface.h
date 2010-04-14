@@ -84,6 +84,10 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * If a literal / should appear in the regexp, it has to be escaped \/,
      * literal \ has to be escaped too 
      *
+     * 
+     * If you have mirrored ranges and want another occurence than the first one as the master
+     * you can add @ directly after the placeholder name.
+     * 
      * Common placeholders and values are
      *
      * - index: "i"

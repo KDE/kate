@@ -400,6 +400,34 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       // skip '{'
       ++i;
       column += 2;
+    } else if ( (startPos!=-1) && (templateString[i] == ':') ) { // skip init value, handled by KTE
+      i++;
+      column++;
+      int backslash_count=0;
+      for (;i<templateString.size();i++,column++) {
+        if ( templateString[i] == '\n' ) {
+          ++line;
+          column = 0;
+          if ( startPos != -1 ) {
+            // don't allow variables to span multiple lines
+            startPos = -1;
+          }
+          break;
+        }
+        if (templateString[i]=='}') {
+          if ((backslash_count % 2) ==0) {
+            i--;
+            //column--;
+            break;
+          } else {
+            backslash_count=0;
+          }
+        } else if (templateString[i]=='\\') {
+          backslash_count++;
+        } else { // any character teminates a backslash sequence
+          backslash_count=0; 
+        }
+      }      
     } else if ( (startPos!=-1) && (templateString[i] == '/') ) { // skip regexp
       i++;
       column++;
@@ -436,16 +464,37 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       int keyLength=key.length();
       QString searchReplace;
       ifDebug(kDebug() << "key found:" << key;)
-      if (key.contains("/")) {
-        searchReplace=key.mid(key.indexOf("/")+1);
-        key=key.left(key.indexOf("/"));
-        ifDebug(kDebug() << "real key found:" << key;)
-        ifDebug(kDebug() << "search_replace" << searchReplace;)
+      bool check_slash=false;
+      bool check_colon=false;
+      int pos_slash=key.indexOf("/");
+      int pos_colon=key.indexOf(":");
+      if ( (pos_slash==-1) && (pos_colon==-1) ) {
+          // do nothing
+      } else if ( (pos_slash!=-1) && (pos_colon==-1) ) {
+          check_slash=true;
+      } else if ( (pos_slash==-1) && (pos_colon!=-1) ) {
+          check_colon=true;
+      } else {
+        if (pos_colon<pos_slash) {
+            check_colon=true;
+        } else {
+            check_slash=true;
+        }
       }
+      if (check_slash) {
+        searchReplace=key.mid(pos_slash+1);
+        key=key.left(pos_slash);
+        ifDebug(kDebug() << "search_replace" << searchReplace;)
+      } else if (check_colon) {
+        key=key.left(pos_colon);
+        ifDebug(kDebug() << "real key found:" << key;)
+      }      
+      
       if (key.contains("@")) {
         key=key.left(key.indexOf("@"));
         force_first=true;
       }
+      ifDebug(kDebug() << "real key found:" << key;)
       if ( !initialValues.contains(key) ) {
         kWarning() << "unknown variable key:" << key;
       } else if ( key == "cursor" ) {

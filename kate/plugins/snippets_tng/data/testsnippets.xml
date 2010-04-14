@@ -150,4 +150,37 @@ ${field}
 ${field/(.*)/\U\1\E/} ${blah}</fillin>
  </item>
 
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrormastersel</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet shows the operation of the @ operator, the second
+occurence of \${field} is the one the text is entered too, whereas
+the first occurence of \${field1} is the master .
+${field}
+${field@}
+
+${field1}
+${field1}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrormastersel2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet shows the operation of the @ operator, the second
+occurence of \${field} is the one the text is entered too, whereas
+the first occurence of \${field1} is the master .
+${field}
+
+
+${field1}
+${field1}
+
+
+${field@}</fillin>
+ </item>
+
+
 </snippets>

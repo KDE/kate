@@ -579,6 +579,19 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
   // emit success
   emit loaded (filename, encodingErrors);
 
+#if 0
+  // fake ranges for debugging
+
+  Kate::TextRange *range = new Kate::TextRange (*this, KTextEditor::Range (KTextEditor::Cursor (0, 0), KTextEditor::Cursor (10, 10)), Kate::TextRange::ExpandRight);
+
+  KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
+  attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+  QColor lineColor(Qt::red);
+  attribute->setUnderlineColor(lineColor);
+  range->setAttribute(KTextEditor::Attribute::Ptr(attribute));
+
+#endif
+
   // file loading worked, modulo encoding problems
   return true;
 }

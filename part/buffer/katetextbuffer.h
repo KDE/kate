@@ -372,12 +372,29 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     TextBlock *blockForIndex (int index) { return m_blocks[index]; }
 
+    /**
+     * Attribute of a range changed or range with attribute changed in given line range.
+     * @param view which view is affected? 0 for all views
+     * @param startLine start line of change
+     * @param endLine end line of change
+     */
+    void triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
+
   public:
     /**
      * Debug output, print whole buffer content with line numbers and line length
      * @param title title for this output
      */
     void debugPrint (const QString &title) const;
+
+  Q_SIGNALS:
+    /**
+     * Attribute of a range changed or range with attribute changed in given line range.
+     * @param view which view is affected? 0 for all views
+     * @param startLine start line of change
+     * @param endLine end line of change
+     */
+    void rangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
 
   private:
     /**

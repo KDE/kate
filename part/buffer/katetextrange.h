@@ -24,7 +24,9 @@
 #ifndef KATE_TEXTRANGE_H
 #define KATE_TEXTRANGE_H
 
+#include <ktexteditor/attribute.h>
 #include <ktexteditor/range.h>
+#include <ktexteditor/view.h>
 
 #include "katepartprivate_export.h"
 #include "katetextcursor.h"
@@ -125,6 +127,22 @@ class KATEPART_TESTS_EXPORT TextRange {
      */
     operator const KTextEditor::Range () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
 
+    /**
+     * Gets the active Attribute for this range.
+     *
+     * \return a pointer to the active attribute
+     */
+    KTextEditor::Attribute::Ptr attribute () const { return m_attribute; }
+
+    /**
+     * Sets the currently active attribute for this range.
+     * This will trigger update of the relevant view parts, if the attribute changed.
+     *
+     * \param attribute Attribute to assign to this range. If null, simply
+     *                  removes the previous Attribute.
+     */
+    void setAttribute (KTextEditor::Attribute::Ptr attribute);
+
   private:
     /**
      * Check if range is valid, used by constructor and setRange.
@@ -160,6 +178,11 @@ class KATEPART_TESTS_EXPORT TextRange {
      * End cursor for this range, is a clever cursor
      */
     TextCursor m_end;
+
+    /**
+     * This range's current attribute.
+     */
+    KTextEditor::Attribute::Ptr m_attribute;
 };
 
 }

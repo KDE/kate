@@ -582,6 +582,15 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual void attributeDynamic(KTextEditor::Attribute::Ptr a);
     virtual void attributeNotDynamic(KTextEditor::Attribute::Ptr a);
 
+  private Q_SLOTS:
+    /**
+     * Attribute of a range changed or range with attribute changed in given line range.
+     * @param view which view is affected? 0 for all views
+     * @param startLine start line of change
+     * @param endLine end line of change
+     */
+    void textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
+
   private:
     // Smart range watcher overrides
     virtual void rangeDeleted(KTextEditor::SmartRange* range);

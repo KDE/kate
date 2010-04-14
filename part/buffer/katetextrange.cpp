@@ -59,6 +59,24 @@ void TextRange::setRange (const KTextEditor::Range &range)
 
   // check if range now invalid
   checkValidity (oldStartLine, oldEndLine);
+
+  // no attribute set, be done
+  if (!m_attribute)
+    return;
+
+  // get full range
+  int startLineMin = oldStartLine;
+  if (oldStartLine == -1 || (m_start.line() != -1 && m_start.line() < oldStartLine))
+    startLineMin = m_start.line();
+
+  int endLineMax = oldEndLine;
+  if (oldEndLine == -1 || m_end.line() > oldEndLine)
+    endLineMax = m_end.line();
+
+  /**
+   * notify buffer about attribute change, it will propagate the changes
+   */
+  m_buffer.triggerRangeAttributeChanged (0, startLineMin, endLineMax);
 }
 
 void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::Cursor &end)
@@ -122,5 +140,25 @@ void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int 
   // we should not be here, really, then endLine is wrong
   Q_ASSERT (false);
 }
+
+void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
+{
+  /**
+   * nothing changes, nop
+   */
+  if (attribute == m_attribute)
+    return;
+
+  /**
+   * remember the new attribute
+   */
+  m_attribute = attribute;
+
+  /**
+   * notify buffer about attribute change, it will propagate the changes
+   */
+  m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+}
+
 
 }

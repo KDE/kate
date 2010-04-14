@@ -83,7 +83,7 @@ void TextBuffer::clear ()
   // invalidate all ranges!
   foreach (TextRange *range, m_ranges)
     range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
-  
+
   // new block for empty buffer
   TextBlock *newBlock = new TextBlock (this, 0);
   newBlock->appendLine (TextLine (new TextLineData()));
@@ -663,6 +663,21 @@ bool TextBuffer::save (const QString &filename)
 
   // return success or not
   return ok;
+}
+
+
+void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+{
+  /**
+   * ignore invalid calls, might happen if invalid ranges get an attribute
+   */
+  if (startLine == -1 || endLine == -1)
+    return;
+
+  /**
+   * emit the holy signal
+   */
+  emit rangeAttributeChanged (view, startLine, endLine);
 }
 
 }

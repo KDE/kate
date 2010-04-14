@@ -216,6 +216,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(respellCheckBlock(int, int)), this , SLOT(respellCheckBlock(int, int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
+  connect(m_buffer, SIGNAL(rangeAttributeChanged (KTextEditor::View *, int, int)), this, SLOT(textRangeAttributeChanged (KTextEditor::View *, int, int)));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -5559,6 +5560,16 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 
   return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
 
+}
+
+void KateDocument::textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+{
+  Q_ASSERT (startLine >= 0);
+  Q_ASSERT (endLine >= 0);
+
+  // dummy implementation, just update all views!!!
+  foreach (KateView * view, m_views)
+    view->updateView (true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

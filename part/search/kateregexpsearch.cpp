@@ -543,22 +543,32 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 }
 
 
-/*static*/ QString KateRegExpSearch::escapePlaintext(const QString & text, QList<ReplacementPart> * parts,
-        bool replacementGoodies) {
+/*static*/ QString KateRegExpSearch::escapePlaintext(const QString & text)
+{
+  return buildReplacement(text, QStringList(), 0, false);
+}
+
+
+/*static*/ QString KateRegExpSearch::buildReplacement(const QString & text, const QStringList &capturedTexts, int replacementCounter)
+{
+  return buildReplacement(text, capturedTexts, replacementCounter, true);
+}
+
+
+/*static*/ QString KateRegExpSearch::buildReplacement(const QString & text, const QStringList &capturedTexts, int replacementCounter, bool replacementGoodies) {
   // get input
   const int inputLen = text.length();
   int input = 0; // walker index
 
   // prepare output
-  QString output;
-  output.reserve(inputLen + 1);
+  ReplacementStream out(capturedTexts);
 
   while (input < inputLen)
   {
     switch (text[input].unicode())
     {
     case L'\n':
-      output.append(text[input]);
+      out << text[input];
       input++;
       break;
 
@@ -566,7 +576,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
       if (input + 1 >= inputLen)
       {
         // copy backslash
-        output.append(text[input]);
+        out << text[input];
         input++;
         break;
       }
@@ -576,31 +586,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
       case L'0': // "\0000".."\0377"
         if (input + 4 >= inputLen)
         {
-          if (parts == NULL)
-          {
-            // strip backslash ("\0" -> "0")
-            output.append(text[input + 1]);
-          }
-          else
-          {
-            // handle reference
-            ReplacementPart curPart;
-
-            // append text before the reference
-            if (!output.isEmpty())
-            {
-              curPart.type = ReplacementPart::Text;
-              curPart.text = output;
-              output.clear();
-              parts->append(curPart);
-              curPart.text.clear();
-            }
-
-            // append reference
-            curPart.type = ReplacementPart::Reference;
-            curPart.index = 0;
-            parts->append(curPart);
-          }
+          out << ReplacementStream::cap(0);
           input += 2;
         }
         else
@@ -621,7 +607,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
                   digits[i] = 7 - (L'7' - text[input + 2 + i].unicode());
                 }
                 const int ch = 64 * digits[0] + 8 * digits[1] + digits[2];
-                output.append(QChar(ch));
+                out << QChar(ch);
                 input += 5;
               }
               else
@@ -641,31 +627,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 
           if (stripAndSkip)
           {
-            if (parts == NULL)
-            {
-              // strip backslash ("\0" -> "0")
-              output.append(text[input + 1]);
-            }
-            else
-            {
-              // handle reference
-              ReplacementPart curPart;
-
-              // append text before the reference
-              if (!output.isEmpty())
-              {
-                curPart.type = ReplacementPart::Text;
-                curPart.text = output;
-                output.clear();
-                parts->append(curPart);
-                curPart.text.clear();
-              }
-
-              // append reference
-              curPart.type = ReplacementPart::Reference;
-              curPart.index = 0;
-              parts->append(curPart);
-            }
+            out << ReplacementStream::cap(0);
             input += 2;
           }
         }
@@ -680,31 +642,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
       case L'7':
       case L'8':
       case L'9':
-        if (parts == NULL)
-        {
-          // strip backslash ("\?" -> "?")
-          output.append(text[input + 1]);
-        }
-        else
-        {
-          // handle reference
-          ReplacementPart curPart;
-
-          // append text before the reference
-          if (!output.isEmpty())
-          {
-            curPart.type = ReplacementPart::Text;
-            curPart.text = output;
-            output.clear();
-            parts->append(curPart);
-            curPart.text.clear();
-          }
-
-          // append reference
-          curPart.type = ReplacementPart::Reference;
-          curPart.index = 9 - (L'9' - text[input + 1].unicode());
-          parts->append(curPart);
-        }
+        out << ReplacementStream::cap(9 - (L'9' - text[input + 1].unicode()));
         input += 2;
         break;
 
@@ -713,110 +651,82 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
       case L'l': // FALLTHROUGH
       case L'U': // FALLTHROUGH
       case L'u':
-        if ((parts == NULL) || !replacementGoodies) {
+        if (!replacementGoodies) {
           // strip backslash ("\?" -> "?")
-          output.append(text[input + 1]);
+          out << text[input + 1];
         } else {
           // handle case switcher
-          ReplacementPart curPart;
-
-          // append text before case switcher
-          if (!output.isEmpty())
-          {
-            curPart.type = ReplacementPart::Text;
-            curPart.text = output;
-            output.clear();
-            parts->append(curPart);
-            curPart.text.clear();
-          }
-
-          // append case switcher
           switch (text[input + 1].unicode()) {
           case L'L':
-            curPart.type = ReplacementPart::LowerCase;
+            out << ReplacementStream::lowerCase;
             break;
 
           case L'l':
-            curPart.type = ReplacementPart::LowerCaseFirst;
+            out << ReplacementStream::lowerCaseFirst;
             break;
 
           case L'U':
-            curPart.type = ReplacementPart::UpperCase;
+            out << ReplacementStream::upperCase;
             break;
 
           case L'u':
-            curPart.type = ReplacementPart::UpperCaseFirst;
+            out << ReplacementStream::upperCaseFirst;
             break;
 
           case L'E': // FALLTHROUGH
           default:
-            curPart.type = ReplacementPart::KeepCase;
+            out << ReplacementStream::keepCase;
 
           }
-          parts->append(curPart);
         }
         input += 2;
         break;
 
       case L'#':
-        if ((parts == NULL) || !replacementGoodies) {
+        if (!replacementGoodies) {
           // strip backslash ("\?" -> "?")
-          output.append(text[input + 1]);
+          out << text[input + 1];
           input += 2;
         } else {
           // handle replacement counter
-          ReplacementPart curPart;
-
-          // append text before replacement counter
-          if (!output.isEmpty())
-          {
-            curPart.type = ReplacementPart::Text;
-            curPart.text = output;
-            output.clear();
-            parts->append(curPart);
-            curPart.text.clear();
-          }
-
           // eat and count all following hash marks
           // each hash stands for a leading zero: \### will produces 001, 002, ...
-          int count = 1;
-          while ((input + count + 1 < inputLen) && (text[input + count + 1].unicode() == L'#')) {
-            count++;
+          int minWidth = 1;
+          while ((input + minWidth + 1 < inputLen) && (text[input + minWidth + 1].unicode() == L'#')) {
+            minWidth++;
           }
-          curPart.type = ReplacementPart::Counter;
-          curPart.index = count; // Each hash stands
-          parts->append(curPart);
-          input += 1 + count;
+          out << ReplacementStream::counter(replacementCounter, minWidth);
+          input += 1 + minWidth;
         }
         break;
 
       case L'a':
-        output.append(QChar(0x07));
+        out << QChar(0x07);
         input += 2;
         break;
 
       case L'f':
-        output.append(QChar(0x0c));
+        out << QChar(0x0c);
         input += 2;
         break;
 
       case L'n':
-        output.append(QChar(0x0a));
+        out << QChar(0x0a);
         input += 2;
         break;
 
       case L'r':
-        output.append(QChar(0x0d));
+        out << QChar(0x0d);
         input += 2;
         break;
 
       case L't':
-        output.append(QChar(0x09));
+        out << QChar(0x09);
         input += 2;
         break;
 
       case L'v':
-        output.append(QChar(0x0b));
+        out << QChar(0x0b);
         input += 2;
         break;
 
@@ -824,7 +734,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         if (input + 5 >= inputLen)
         {
           // strip backslash ("\x" -> "x")
-          output.append(text[input + 1]);
+          out << text[input + 1];
           input += 2;
         }
         else
@@ -869,7 +779,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
                   }
 
                   const int ch = 4096 * digits[0] + 256 * digits[1] + 16 * digits[2] + digits[3];
-                  output.append(QChar(ch));
+                  out << QChar(ch);
                   input += 6;
                 }
                 else
@@ -891,7 +801,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
           if (stripAndSkip)
           {
             // strip backslash ("\x" -> "x")
-            output.append(text[input + 1]);
+            out << text[input + 1];
             input += 2;
           }
         }
@@ -899,74 +809,20 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 
       default:
         // strip backslash ("\?" -> "?")
-        output.append(text[input + 1]);
+        out << text[input + 1];
         input += 2;
 
       }
       break;
 
     default:
-      output.append(text[input]);
+      out << text[input];
       input++;
 
     }
   }
 
-  if (parts != NULL)
-  {
-    // append text after the last reference if any
-    if (!output.isEmpty())
-    {
-      ReplacementPart curPart;
-      curPart.type = ReplacementPart::Text;
-      curPart.text = output;
-      parts->append(curPart);
-    }
-  }
-
-  return output;
-}
-
-
-QString KateRegExpSearch::buildReplacement(const QString &replacement, const QStringList &capturedTexts, int replacementCounter) {
-    QList<ReplacementPart> parts;
-    const bool REPLACEMENT_GOODIES = true;
-    escapePlaintext(replacement, &parts, REPLACEMENT_GOODIES);
-
-    ReplacementStream out(capturedTexts);
-    foreach (const ReplacementPart &curPart, parts) {
-        switch (curPart.type) {
-        case ReplacementPart::Reference:
-            out << ReplacementStream::cap(curPart.index);
-            break;
-
-        case ReplacementPart::UpperCase:
-            out << ReplacementStream::upperCase;
-            break;
-        case ReplacementPart::UpperCaseFirst:
-            out << ReplacementStream::upperCaseFirst;
-            break;
-        case ReplacementPart::LowerCase:
-            out << ReplacementStream::lowerCase;
-            break;
-        case ReplacementPart::LowerCaseFirst:
-            out << ReplacementStream::lowerCaseFirst;
-            break;
-        case ReplacementPart::KeepCase:
-            out << ReplacementStream::keepCase;
-            break;
-
-        case ReplacementPart::Counter:
-            out << ReplacementStream::counter(replacementCounter, curPart.index);
-            break;
-
-        case ReplacementPart::Text: // FALLTHROUGH
-        default:
-            out << curPart.text;
-        }
-    }
-
-    return out.str();
+  return out.str();
 }
 
 

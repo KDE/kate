@@ -32,28 +32,6 @@ namespace KTextEditor {
   class Document;
 }
 
-// needed for parsing replacement text like "\1:\2"
-struct KATEPART_TESTS_EXPORT ReplacementPart {
-  enum Type {
-    Reference, // \1..\9
-    Text,
-    UpperCase, // \U = Uppercase from now on
-    UpperCaseFirst, // \u = Uppercase the first letter
-    LowerCase, // \L = Lowercase from now on
-    LowerCaseFirst, // \l = Lowercase the first letter
-    KeepCase, // \E = back to original case
-    Counter // \# = 1, 2, ... incremented for each replacement of <Replace All>
-  };
-
-  Type type;
-
-  // Type in {Reference, Counter}
-  int index; // [0..9] 0=full match, 1=first capture, ..
-
-  // Type = Text
-  QString text;
-};
-
 class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
 {
   Q_OBJECT
@@ -83,22 +61,37 @@ class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
         const KTextEditor::Range & inputRange, bool backwards = false);
 
     /**
-     * Resolves escape sequences (e.g. "\\n" to "\n") in <code>text</code>
-     * if <code>parts</code> is NULL. Otherwise it leaves <code>text</code>
-     * unmodified and creates a list of text and capture references out of it.
-     * These two modes are fused into one function to avoid code duplication.
+     * Returns a mofified version of text where escape sequences are resolved, e.g. "\\n" to "\n".
      *
-     * \param text                Text to process
-     * \param parts               List of text and references
-     * \param replacementGoodies  Enable \L, \E, \E and \#
+     * \param text text containing escape sequences
+     * \return text with resolved escape sequences
      */
-    static QString escapePlaintext(const QString & text, QList<ReplacementPart> * parts = NULL,
-        bool replacementGoodies = false);
+    static QString escapePlaintext(const QString &text);
 
     /**
-     * Resolve references and escape sequences.
+     * Returns a mofified version of text where
+     * \li escape sequences are resolved, e.g. "\\n" to "\n",
+     * \li references are resolved, e.g. "\\1" to <i>1st entry in capturedTexts</i>, and
+     * \li counter sequences are resolved, e.g. "\\#...#" to <i>replacementCounter</i>.
+     *
+     * \param text text containing escape sequences, references, and counter sequences
+     * \param capturedTexts list of substitutes for references
+     * \param replacementCounter value for replacement counter
+     * \return resolved text
      */
-    static QString buildReplacement(const QString &replacement, const QStringList &resultRangesReplacement, int replacementCounter);
+    static QString buildReplacement(const QString &text, const QStringList &capturedTexts, int replacementCounter);
+
+  private:
+    /**
+     * Implementation of escapePlainText() and public buildReplacement().
+     *
+     * \param text text containing escape sequences and possibly references and counters
+     * \param capturedTexts list of substitutes for references
+     * \param replacementCounter value for replacement counter (only used when replacementGoodies == true)
+     * \param replacementGoodies <code>true</code> for buildReplacement(), <code>false</code> for escapePlainText()
+     * \return resolved text
+     */
+    static QString buildReplacement(const QString &text, const QStringList &capturedTexts, int replacementCounter, bool replacementGoodies);
 
   private:
     KTextEditor::Document *const m_document;

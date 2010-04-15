@@ -30,6 +30,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   : m_buffer (buffer)
   , m_start (buffer, this, range.start(), (insertBehavior & ExpandLeft) ? Kate::TextCursor::StayOnInsert : Kate::TextCursor::MoveOnInsert)
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
+  , m_view (0)
 {
   // remember this range in buffer
   m_buffer.m_ranges.insert (this);
@@ -47,8 +48,9 @@ TextRange::~TextRange ()
   m_buffer.m_ranges.remove (this);
 
   // trigger update, if we have attribute
+  // notify right view
   if (m_attribute)
-    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+    m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
 }
 
 void TextRange::setRange (const KTextEditor::Range &range)
@@ -79,8 +81,9 @@ void TextRange::setRange (const KTextEditor::Range &range)
 
   /**
    * notify buffer about attribute change, it will propagate the changes
+   * notify right view
    */
-  m_buffer.triggerRangeAttributeChanged (0, startLineMin, endLineMax);
+  m_buffer.triggerRangeAttributeChanged (m_view, startLineMin, endLineMax);
 }
 
 void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::Cursor &end)
@@ -160,9 +163,30 @@ void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
 
   /**
    * notify buffer about attribute change, it will propagate the changes
+   * notify right view
    */
-  m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+  m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
 }
 
+void TextRange::setView (KTextEditor::View *view)
+{
+  /**
+   * nothing changes, nop
+   */
+  if (view == m_view)
+    return;
+
+  /**
+   * remember the new attribute
+   */
+  m_view = view;
+
+  /**
+   * notify buffer about attribute change, it will propagate the changes
+   * notify all views (can be optimized later)
+   */
+  if (m_attribute)
+    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+}
 
 }

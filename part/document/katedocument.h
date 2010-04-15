@@ -591,6 +591,17 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     void textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
 
+    /**
+     * Delayed update for all views after text ranges changed
+     */
+    void slotDelayedUpdateOfViews ();
+
+  Q_SIGNALS:
+    /**
+     * Delayed update for all views after text ranges changed
+     */
+    void delayedUpdateOfViews ();
+
   private:
     // Smart range watcher overrides
     virtual void rangeDeleted(KTextEditor::SmartRange* range);
@@ -1127,6 +1138,30 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
       KTextEditor::SmartRangeNotifier *m_dictionaryRangeNotifier;
 
       KTextEditor::SmartRangeNotifier* dictionaryRangeNotifier();
+
+      /**
+       * helpers for delayed view update after ranges changes
+       */
+
+      /**
+       * update already inited?
+       */
+      int m_delayedUpdateTriggered;
+
+      /**
+       * minimal line to update
+       */
+      int m_lineToUpdateMin;
+
+      /**
+       * maximal line to update
+       */
+      int m_lineToUpdateMax;
+
+      /**
+       * view to update, 0 if all
+       */
+      KTextEditor::View *m_viewToUpdate;
 };
 
 #endif

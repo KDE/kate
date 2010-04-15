@@ -120,7 +120,7 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
   QScrollBar::paintEvent(e);
-  
+
   if (!m_showMarks)
     return;
 
@@ -201,7 +201,7 @@ void KateScrollBar::recomputeMarksPositions()
 {
   m_lines.clear();
   int visibleLines = m_doc->visibleLines();
- 
+
   QStyleOptionSlider opt;
   initStyleOption(&opt);
 
@@ -1334,10 +1334,8 @@ void KateIconBorder::showBlock()
     m_foldingRange = new Kate::TextRange(m_doc->buffer(), newRange, Kate::TextRange::ExpandRight);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     attr->setBackground(foldingColor(0, m_currentBlockLine, false));
+    m_foldingRange->setView (m_view);
     m_foldingRange->setAttribute(attr);
-
-    // FIXME:
-//    m_doc->addHighlightToView(m_view, m_foldingRange, false);
   }
 }
 

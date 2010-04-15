@@ -191,7 +191,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
   m_onTheFlyChecker(0),
-  m_dictionaryRangeNotifier(0)
+  m_dictionaryRangeNotifier(0),
+  m_delayedUpdateTriggered (false),
+  m_lineToUpdateMin (-1),
+  m_lineToUpdateMax (-1),
+  m_viewToUpdate (0)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -217,6 +221,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_buffer, SIGNAL(respellCheckBlock(int, int)), this , SLOT(respellCheckBlock(int, int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   connect(m_buffer, SIGNAL(rangeAttributeChanged (KTextEditor::View *, int, int)), this, SLOT(textRangeAttributeChanged (KTextEditor::View *, int, int)));
+
+  // queued connect to collapse view updates for range changes
+  connect(this, SIGNAL(delayedUpdateOfViews ()), this, SLOT(slotDelayedUpdateOfViews ()), Qt::QueuedConnection);
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -260,6 +267,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  // invalidate update signal
+  m_delayedUpdateTriggered = false;
+
   // delete it here because it has to be deleted before the SmartMutex is destroyed
   delete m_onTheFlyChecker;
   m_onTheFlyChecker = NULL;
@@ -5567,13 +5577,55 @@ void KateDocument::textRangeAttributeChanged (KTextEditor::View *view, int start
   Q_ASSERT (startLine >= 0);
   Q_ASSERT (endLine >= 0);
 
-  kDebug() << "trigger attribute changed" << startLine << endLine;
+  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine << "view" << view;
 
-  // dummy implementation, just update all views!!!
-  foreach (KateView * view, m_views) {
-    view->tagAll ();
-    view->updateView (true);
+  // first call:
+  if (!m_delayedUpdateTriggered) {
+      m_delayedUpdateTriggered = true;
+      m_lineToUpdateMin = startLine;
+      m_lineToUpdateMax = endLine;
+      m_viewToUpdate = view;
+
+      // emit queued signal and be done
+      emit delayedUpdateOfViews ();
+      return;
   }
+
+  // update line range
+  if (startLine < m_lineToUpdateMin)
+    m_lineToUpdateMin = startLine;
+
+  if (endLine > m_lineToUpdateMax)
+    m_lineToUpdateMax = endLine;
+
+  // more than one view to update
+  if (m_viewToUpdate != view)
+    m_viewToUpdate = 0;
+}
+
+void KateDocument::slotDelayedUpdateOfViews ()
+{
+  if (!m_delayedUpdateTriggered)
+    return;
+
+  Q_ASSERT (m_lineToUpdateMin >= 0);
+  Q_ASSERT (m_lineToUpdateMax >= 0);
+
+  kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax << "view" << m_viewToUpdate;
+
+  // update matchin view(s)
+  foreach (KTextEditor::View *view, m_textEditViews) {
+    if (m_viewToUpdate && m_viewToUpdate != view)
+      continue;
+
+    static_cast<KateView *> (view)->tagLines (m_lineToUpdateMin, m_lineToUpdateMax, true);
+    static_cast<KateView *> (view)->updateView (true);
+  }
+
+  m_delayedUpdateTriggered = false;
+  m_lineToUpdateMin = -1;
+  m_lineToUpdateMax = -1;
+  m_viewToUpdate = 0;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

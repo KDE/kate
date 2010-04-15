@@ -128,6 +128,23 @@ class KATEPART_TESTS_EXPORT TextRange {
     operator const KTextEditor::Range () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
 
     /**
+     * Gets the active view for this range. Might be already invalid, internally only used for pointer comparisons.
+     *
+     * \return a pointer to the active view
+     */
+    KTextEditor::View *view () const { return m_view; }
+
+    /**
+     * Sets the currently active view for this range.
+     * This will trigger update of the relevant view parts, if the view changed.
+     * Set view before the attribute, that will avoid not needed redraws.
+     *
+     * \param attribute View to assign to this range. If null, simply
+     *                  removes the previous view.
+     */
+    void setView (KTextEditor::View *view);
+
+    /**
      * Gets the active Attribute for this range.
      *
      * \return a pointer to the active attribute
@@ -178,6 +195,11 @@ class KATEPART_TESTS_EXPORT TextRange {
      * End cursor for this range, is a clever cursor
      */
     TextCursor m_end;
+
+    /**
+     * The view for which the attribute is valid, 0 means any view
+     */
+    KTextEditor::View *m_view;
 
     /**
      * This range's current attribute.

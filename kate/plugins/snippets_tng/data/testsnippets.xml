@@ -183,7 +183,7 @@ ${field@}</fillin>
  </item>
 
 
-
+<item>
  <displayprefix></displayprefix>
   <match>mirrorinitvalues</match>
   <displaypostfix></displaypostfix>

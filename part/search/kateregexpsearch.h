@@ -103,6 +103,7 @@ class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
   private:
     KTextEditor::Document *const m_document;
     Qt::CaseSensitivity m_caseSensitivity;
+    class ReplacementStream;
 };
 
 #endif

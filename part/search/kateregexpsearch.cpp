@@ -38,6 +38,129 @@
 #endif
 
 
+class KateRegExpSearch::ReplacementStream
+{
+public:
+  struct counter {
+    counter(int value, int minWidth)
+      : value(value)
+      , minWidth(minWidth)
+    {}
+
+    const int value;
+    const int minWidth;
+  };
+
+  struct cap {
+    cap(int n)
+      : n(n)
+    {}
+
+    const int n;
+  };
+
+  enum CaseConversion {
+    upperCase,      ///< \U ... uppercase from now on
+    upperCaseFirst, ///< \u ... uppercase the first letter
+    lowerCase,      ///< \L ... lowercase from now on
+    lowerCaseFirst, ///< \l ... lowercase the first letter
+    keepCase,       ///< \E ... back to original case
+  };
+
+public:
+  ReplacementStream(const QStringList &capturedTexts);
+
+  QString str() const { return m_str; }
+
+  ReplacementStream &operator<<(const QString &);
+  ReplacementStream &operator<<(const counter &);
+  ReplacementStream &operator<<(const cap &);
+  ReplacementStream &operator<<(CaseConversion);
+
+private:
+  const QStringList m_capturedTexts;
+  CaseConversion m_caseConversion;
+  QString m_str;
+};
+
+
+KateRegExpSearch::ReplacementStream::ReplacementStream(const QStringList &capturedTexts)
+  : m_capturedTexts(capturedTexts)
+  , m_caseConversion(keepCase)
+{
+}
+
+KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operator<<(const QString &str)
+{
+    switch (m_caseConversion) {
+    case upperCase:
+        // Copy as uppercase
+        m_str.append(str.toUpper());
+        break;
+
+    case upperCaseFirst:
+        if (str.length() > 0) {
+            m_str.append(str.at(0).toUpper());
+            m_str.append(str.mid(1));
+            m_caseConversion = keepCase;
+        }
+        break;
+
+    case lowerCase:
+        // Copy as lowercase
+        m_str.append(str.toLower());
+        break;
+
+    case lowerCaseFirst:
+        if (str.length() > 0) {
+            m_str.append(str.at(0).toLower());
+            m_str.append(str.mid(1));
+            m_caseConversion = keepCase;
+        }
+        break;
+
+    case keepCase: // FALLTHROUGH
+    default:
+        // Copy unmodified
+        m_str.append(str);
+        break;
+
+    }
+
+    return *this;
+}
+
+
+KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operator<<(const counter &c)
+{
+  // Zero padded counter value
+  m_str.append(QString("%1").arg(c.value, c.minWidth, 10, QLatin1Char('0')));
+
+  return *this;
+}
+
+
+KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operator<<(const cap &cap)
+{
+  if (0 <= cap.n && cap.n < m_capturedTexts.size()) {
+      (*this) << m_capturedTexts[cap.n];
+  } else {
+      // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
+      m_str.append(QString::number(cap.n));
+  }
+
+  return *this;
+}
+
+
+KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operator<<(CaseConversion caseConversion)
+{
+  m_caseConversion = caseConversion;
+
+  return *this;
+}
+
+
 //BEGIN d'tor, c'tor
 //
 // KateSearch Constructor
@@ -805,121 +928,45 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 }
 
 
-QString KateRegExpSearch::buildReplacement(const QString &replacement, const QStringList &resultRangesReplacement, int replacementCounter) {
-    const int MIN_REF_INDEX = 0;
-    const int MAX_REF_INDEX = resultRangesReplacement.count() - 1;
-
+QString KateRegExpSearch::buildReplacement(const QString &replacement, const QStringList &capturedTexts, int replacementCounter) {
     QList<ReplacementPart> parts;
     const bool REPLACEMENT_GOODIES = true;
     escapePlaintext(replacement, &parts, REPLACEMENT_GOODIES);
 
-    QString output;
-    ReplacementPart::Type caseConversion = ReplacementPart::KeepCase;
+    ReplacementStream out(capturedTexts);
     foreach (const ReplacementPart &curPart, parts) {
         switch (curPart.type) {
         case ReplacementPart::Reference:
-            if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX)) {
-                // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
-                output.append(QString::number(curPart.index));
-            } else {
-                const QString content = resultRangesReplacement[curPart.index];
-
-                switch (caseConversion) {
-                case ReplacementPart::UpperCase:
-                    // Copy as uppercase
-                    output.append(content.toUpper());
-                    break;
-
-                case ReplacementPart::UpperCaseFirst:
-                    if (content.length()>0) {
-                        output.append(content.at(0).toUpper());
-                        output.append(content.mid(1));
-                        caseConversion=ReplacementPart::KeepCase;
-                    }
-                    break;
-
-                case ReplacementPart::LowerCase:
-                    // Copy as lowercase
-                    output.append(content.toLower());
-                    break;
-
-                case ReplacementPart::LowerCaseFirst:
-                    if (content.length()>0) {
-                        output.append(content.at(0).toLower());
-                        output.append(content.mid(1));
-                        caseConversion=ReplacementPart::KeepCase;
-                    }
-                    break;
-
-                case ReplacementPart::KeepCase: // FALLTHROUGH
-                default:
-                    // Copy unmodified
-                    output.append(content);
-                    break;
-
-                }
-            }
+            out << ReplacementStream::cap(curPart.index);
             break;
 
-        case ReplacementPart::UpperCase: // FALLTHROUGH
-        case ReplacementPart::UpperCaseFirst: // FALLTHROUGH
-        case ReplacementPart::LowerCase: // FALLTHROUGH
-        case ReplacementPart::LowerCaseFirst: // FALLTHROUGH
+        case ReplacementPart::UpperCase:
+            out << ReplacementStream::upperCase;
+            break;
+        case ReplacementPart::UpperCaseFirst:
+            out << ReplacementStream::upperCaseFirst;
+            break;
+        case ReplacementPart::LowerCase:
+            out << ReplacementStream::lowerCase;
+            break;
+        case ReplacementPart::LowerCaseFirst:
+            out << ReplacementStream::lowerCaseFirst;
+            break;
         case ReplacementPart::KeepCase:
-            caseConversion = curPart.type;
+            out << ReplacementStream::keepCase;
             break;
 
         case ReplacementPart::Counter:
-            {
-                // Zero padded counter value
-                const int minWidth = curPart.index;
-                const int number = replacementCounter;
-                output.append(QString("%1").arg(number, minWidth, 10, QLatin1Char('0')));
-            }
+            out << ReplacementStream::counter(replacementCounter, curPart.index);
             break;
 
         case ReplacementPart::Text: // FALLTHROUGH
         default:
-            switch (caseConversion) {
-            case ReplacementPart::UpperCase:
-                // Copy as uppercase
-                output.append(curPart.text.toUpper());
-                break;
-
-            case ReplacementPart::UpperCaseFirst:
-                if (curPart.text.length()>0) {
-                    output.append(curPart.text.at(0).toUpper());
-                    output.append(curPart.text.mid(1));
-                    caseConversion=ReplacementPart::KeepCase;
-                }
-                break;
-
-            case ReplacementPart::LowerCase:
-                // Copy as lowercase
-                output.append(curPart.text.toLower());
-                break;
-
-            case ReplacementPart::LowerCaseFirst:
-                if (curPart.text.length()>0) {
-                    output.append(curPart.text.at(0).toLower());
-                    output.append(curPart.text.mid(1));
-                    caseConversion=ReplacementPart::KeepCase;
-                }
-                break;
-
-            case ReplacementPart::KeepCase: // FALLTHROUGH
-            default:
-                // Copy unmodified
-                output.append(curPart.text);
-                break;
-
-            }
-            break;
-
+            out << curPart.text;
         }
     }
 
-    return output;
+    return out.str();
 }
 
 

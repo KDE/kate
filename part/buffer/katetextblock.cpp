@@ -285,6 +285,7 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
 
   // get text
   QString &textOfLine = m_lines[line]->textReadWrite ();
+  int oldLength = m_lines[line]->textReadWrite ().size ();
 
   // check if valid column
   Q_ASSERT (position.column() >= 0);
@@ -316,7 +317,11 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
       }
 
       // patch column of cursor
-      cursor->m_column += text.size ();
+      if (cursor->m_column <= oldLength)
+        cursor->m_column += text.size ();
+      // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
+      else if (cursor->m_column < textOfLine.size())
+        cursor->m_column = textOfLine.size();
 
       // remember range, if any
       if (cursor->range())

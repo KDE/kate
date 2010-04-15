@@ -37,6 +37,8 @@
 #include "katetextlayout.h"
 #include "katesmartrange.h"
 #include "kateglobal.h"
+#include "katebuffer.h"
+#include "katetextrange.h"
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -1329,12 +1331,13 @@ void KateIconBorder::showBlock()
 
   if (newRange.isValid()) {
     kDebug(13025) << "new folding hl-range:" << newRange;
-    m_foldingRange = m_doc->newSmartRange(newRange);
-    static_cast<KateSmartRange*>(m_foldingRange)->setInternal();
+    m_foldingRange = new Kate::TextRange(m_doc->buffer(), newRange, Kate::TextRange::ExpandRight);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     attr->setBackground(foldingColor(0, m_currentBlockLine, false));
     m_foldingRange->setAttribute(attr);
-    m_doc->addHighlightToView(m_view, m_foldingRange, false);
+
+    // FIXME:
+//    m_doc->addHighlightToView(m_view, m_foldingRange, false);
   }
 }
 

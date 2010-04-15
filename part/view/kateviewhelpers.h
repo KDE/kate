@@ -49,6 +49,10 @@ namespace KTextEditor {
   class AnnotationModel;
 }
 
+namespace Kate {
+  class TextRange;
+}
+
 class QTimer;
 
 /**
@@ -179,7 +183,7 @@ class KateIconBorder : public QWidget
     mutable QColor m_oldBackgroundColor;
 
 
-    KTextEditor::SmartRange *m_foldingRange;
+    Kate::TextRange *m_foldingRange;
     int m_nextHighlightBlock;
     int m_currentBlockLine;
     QTimer m_delayFoldingHlTimer;

@@ -335,9 +335,7 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
     bool anItemMatched = false;
     bool customStartEnableDetermined = false;
 
-    int index = 0;
-
-    for (item = context->items.value(0, 0); item; item = context->items.value(++index, 0))
+    foreach (item, context->items)
     {
       // does we only match if we are firstNonSpace?
       if (item->firstNonSpace && (offset > startNonSpace))

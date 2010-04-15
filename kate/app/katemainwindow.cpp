@@ -985,6 +985,10 @@ void KateMainWindow::saveGlobalProperties( KConfig* sessionConfig )
 
   KConfigGroup cg( sessionConfig, "General");
   cg.writeEntry ("Last Session", KateApp::self()->sessionManager()->activeSession()->sessionFileRelative());
+
+  // save plugin config !!
+  KateApp::self()->pluginManager()->writeConfig (sessionConfig);
+  
 }
 
 void KateMainWindow::showFileListPopup(const QPoint& pos)

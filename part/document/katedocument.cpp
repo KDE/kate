@@ -5567,9 +5567,13 @@ void KateDocument::textRangeAttributeChanged (KTextEditor::View *view, int start
   Q_ASSERT (startLine >= 0);
   Q_ASSERT (endLine >= 0);
 
+  kDebug() << "trigger attribute changed" << startLine << endLine;
+
   // dummy implementation, just update all views!!!
-  foreach (KateView * view, m_views)
+  foreach (KateView * view, m_views) {
+    view->tagAll ();
     view->updateView (true);
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

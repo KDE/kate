@@ -45,6 +45,10 @@ TextRange::~TextRange ()
 
   // remove this range from the buffer
   m_buffer.m_ranges.remove (this);
+
+  // trigger update, if we have attribute
+  if (m_attribute)
+    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
 }
 
 void TextRange::setRange (const KTextEditor::Range &range)

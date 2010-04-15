@@ -472,8 +472,8 @@
 	<general>
 		<folding indentationsensitive="1" />
 		<emptyLines>
-			<emptyLine regexpr="\s+" casesensitive="false"/>
-			<emptyLine regexpr="\s*#.*$" casesensitive="false"/>
+			<emptyLine regexpr="\s+"/>
+			<emptyLine regexpr="\s*#.*$"/>
 		</emptyLines>
 		<comments>
 			<comment name="singleLine" start="#" position="afterwhitespace"/>

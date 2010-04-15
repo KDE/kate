@@ -87,6 +87,13 @@ kde4_add_unit_test(plaintextsearch_test plaintextsearch_test.cpp)
 target_link_libraries( plaintextsearch_test ${KATE_TEST_LINK_LIBS}
 )
 
+########### regexpsearch test ###############
+
+kde4_add_unit_test(regexpsearch_test regexpsearch_test.cpp)
+
+target_link_libraries( regexpsearch_test ${KATE_TEST_LINK_LIBS}
+)
+
 ########### scriptdocument test ###############
 
 kde4_add_unit_test(scriptdocument_test scriptdocument_test.cpp)

@@ -106,6 +106,9 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       {
         map[ placeholder ] = '|';
       }
+      else if (placeholder== "selection" ) {
+        //DO NOTHING, THE IMPLEMENTATION WILL HANDLE THIS
+      }
       else map[ placeholder ] = placeholder;
     }
   }
@@ -115,7 +118,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
 bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const QString &templateString, const QMap<QString, QString> &initialValues)
 {
   QMap<QString, QString> enhancedInitValues( initialValues );
-
+  
   QRegExp rx( "[$%]\\{([^}\\r\\n]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;

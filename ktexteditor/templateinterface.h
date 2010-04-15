@@ -65,7 +65,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * "for( int ${index}=0;${index}<10;${index}++) { ${cursor} };"
      * or "%{date}"
      *
-     * This syntax is somewhat similar to the one found in the Eclipse editor.
+     * This syntax is somewhat similar to the one found in the Eclipse editor or textmate.
      *
      * There are certain common placeholders (macros), which get assigned a
      * default initialValue, If the second parameter does not a given value.
@@ -112,6 +112,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * - month: current month
      * - day: current day
      * - hostname: hostname of the computer
+     * - selection: The implementation should set this to the selected text, if any
      * - cursor: at this position the cursor will be after editing of the
      *   template has finished, this has to be taken care of by the actual
      *   implementation. The placeholder gets a value of "|" assigned.

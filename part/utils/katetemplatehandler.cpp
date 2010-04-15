@@ -65,6 +65,19 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
+  QMap<QString,QString> initial_Values(initialValues);
+  KTextEditor::View *view=doc->activeView();
+  if (initial_Values.contains("selection")) {
+    if (initial_Values["selection"].isEmpty()) {      
+      Q_ASSERT(view);
+      initial_Values[ "selection" ] = view->selectionText();      
+    }
+  }
+  if (view) view->removeSelectionText();
+  
+  ifDebug(kDebug()<<initial_Values;);
+  
+  
   connect(m_doc, SIGNAL(aboutToReload(KTextEditor::Document*)),
           this, SLOT(cleanupAndExit()));
 
@@ -92,7 +105,7 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
   if ( !initialValues.isEmpty() && m_doc->activeView() ) {
     // only do complex stuff when required
 
-    handleTemplateString(initialValues);
+    handleTemplateString(initial_Values);
     m_doc->undoSafePoint();
     m_doc->editEnd();
 

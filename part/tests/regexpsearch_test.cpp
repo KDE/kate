@@ -29,7 +29,21 @@ Q_DECLARE_METATYPE(KTextEditor::Range)
 
 QTEST_KDEMAIN(RegExpSearchTest, GUI)
 
+namespace QTest {
+  template<>
+  char *toString(const KTextEditor::Range &range)
+  {
+    QByteArray ba = "Range[";
+    ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column()) + ", ";
+    ba += QByteArray::number(range.end().line())   + ", " + QByteArray::number(range.end().column());
+    ba += "]";
+    return qstrdup(ba.data());
+  }
+}
+
 #define testNewRow() (QTest::newRow(QString("line %1").arg(__LINE__).toAscii().data()))
+
+using namespace KTextEditor;
 
 RegExpSearchTest::RegExpSearchTest()
   : QObject()
@@ -162,6 +176,17 @@ void RegExpSearchTest::testReplacementCounter()
   const QString result = KateRegExpSearch::buildReplacement(pattern, QStringList(), counter);
 
   QCOMPARE(result, expected);
+}
+
+void RegExpSearchTest::testSearchBackwardInSelection()
+{
+  KateDocument doc(false, false, false);
+  doc.setText("foobar foo bar foo bar foo");
+
+  KateRegExpSearch search(&doc, Qt::CaseSensitive);
+  const Range result = search.search("foo", Range(0, 0, 0, 15), true)[0];
+
+  QCOMPARE(result, Range(0, 7, 0, 10));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

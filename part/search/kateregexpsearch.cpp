@@ -207,8 +207,6 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
   // regex search
   KateRegExp regexp(pattern, m_caseSensitivity);
 
-  FAST_DEBUG("KateRegExpSearch::searchRegex( " << inputRange.start().line() << ", "
-    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )");
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
     QVector<KTextEditor::Range> result;
@@ -470,22 +468,11 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
         const int afterLast = (j == forMax) ? maxRight : textLine.length();
-        const QString hay = textLine.left(afterLast);
-        bool found = true;
-        int foundAt;
-        uint myMatchLen;
-        if (backwards) {
-            const int lineLen = textLine.length();
-            const int offset = afterLast - lineLen - 1;
-            FAST_DEBUG("lastIndexIn(" << hay << "," << offset << ")");
-            foundAt = regexp.lastIndexIn(hay, offset);
-            found = (foundAt != -1) && (foundAt >= first);
-        } else {
-            FAST_DEBUG("indexIn(" << hay << "," << first << ")");
-            foundAt = regexp.indexIn(hay, first);
-            found = (foundAt != -1);
-        }
-        myMatchLen = found ? regexp.matchedLength() : 0;
+        const QString hay = textLine.mid(first, afterLast-first);
+        const int foundAt = backwards ? regexp.lastIndexIn(hay)
+                                      : regexp.indexIn(hay);
+        const bool found = (foundAt != -1);
+        const uint myMatchLen = found ? regexp.matchedLength() : 0;
 
       /*
       TODO do we still need this?

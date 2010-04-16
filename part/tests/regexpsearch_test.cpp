@@ -178,6 +178,17 @@ void RegExpSearchTest::testReplacementCounter()
   QCOMPARE(result, expected);
 }
 
+void RegExpSearchTest::testSearchForward()
+{
+  KateDocument doc(false, false, false);
+  doc.setText("  \\piinfercong");
+
+  KateRegExpSearch search(&doc, Qt::CaseSensitive);
+  const Range result = search.search("\\\\piinfer(\\w)", Range(0, 2, 0, 15))[0];
+
+  QCOMPARE(result, Range(0, 2, 0, 11));
+}
+
 void RegExpSearchTest::testSearchBackwardInSelection()
 {
   KateDocument doc(false, false, false);

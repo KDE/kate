@@ -469,9 +469,9 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         const int first = (j == forMin) ? minLeft : 0;
         const int afterLast = (j == forMax) ? maxRight : textLine.length();
         const QString hay = textLine.mid(first, afterLast-first);
-        const int foundAt = backwards ? regexp.lastIndexIn(hay)
-                                      : regexp.indexIn(hay);
-        const bool found = (foundAt != -1);
+        const int foundAt = first + (backwards ? regexp.lastIndexIn(hay)
+                                               : regexp.indexIn(hay));
+        const bool found = (foundAt >= first);
         const uint myMatchLen = found ? regexp.matchedLength() : 0;
 
       /*
@@ -491,7 +491,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
           }
       */
 
-      if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
+      if (found)
       {
         FAST_DEBUG("line " << j << ": yes");
 

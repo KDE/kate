@@ -44,13 +44,23 @@ class AutoBracePlugin
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
 
+    void readConfig();
+    void writeConfig();
+
     virtual void readConfig (KConfig *) {}
     virtual void writeConfig (KConfig *) {}
 
+    /// Inline Option Get/Setters
+    bool autoBrackets() const { return m_autoBrackets; }
+    void setAutoBrackets(bool y) { m_autoBrackets = y; }
+    bool autoQuotations() const { return m_autoQuotations; }
+    void setAutoQuotations(bool y) { m_autoQuotations = y; }
   private:
     static AutoBracePlugin *plugin;
     QHash<class KTextEditor::View*, class KTextEditor::Document*> m_documents;
     QHash<class KTextEditor::Document*, class AutoBracePluginDocument*> m_docplugins;
+    bool m_autoBrackets;
+    bool m_autoQuotations;
 };
 
 class AutoBracePluginDocument
@@ -59,12 +69,13 @@ class AutoBracePluginDocument
   Q_OBJECT
 
   public:
-    explicit AutoBracePluginDocument(KTextEditor::Document *document = 0);
+    explicit AutoBracePluginDocument(KTextEditor::Document *document, const bool& autoBrackets, const bool& autoQuotations);
     ~AutoBracePluginDocument();
 
   private Q_SLOTS:
     void slotTextChanged(KTextEditor::Document *document);
     void slotTextInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
+    void slotTextRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
 
   private:
     bool isInsertionCandidate(KTextEditor::Document *document, int openingBraceLine);
@@ -75,13 +86,17 @@ class AutoBracePluginDocument
   private:
     void insertAutoBracket(KTextEditor::Document *document,const KTextEditor::Range& range,
                          const QString& brace);
-    bool isBracketAllowed(KTextEditor::Document *document,const KTextEditor::Range& range,
-                         const QString& brace);
+    const QString previousToken(KTextEditor::Document *document,const KTextEditor::Range& range);
+    const QString nextToken(KTextEditor::Document *document,const KTextEditor::Range& range);
+    void setupSlots(KTextEditor::Document* document);
 
     int m_insertionLine;
     QString m_indentation;
     bool m_withSemicolon;
     QMap<QString,QString> m_brackets;
+    KTextEditor::Range m_lastRange;
+    const bool& m_autoBrackets;
+    const bool& m_autoQuotations;
 };
 
 K_PLUGIN_FACTORY_DECLARATION(AutoBracePluginFactory)

@@ -4,7 +4,7 @@ add_subdirectory( icons )
 
 ########### next target ###############
 
-set(ktexteditor_autobrace_PART_SRCS autobrace.cpp )
+set(ktexteditor_autobrace_PART_SRCS autobrace.cpp autobrace_config.cpp)
 
 kde4_add_plugin(ktexteditor_autobrace ${ktexteditor_autobrace_PART_SRCS} )
 
@@ -14,4 +14,4 @@ install(TARGETS ktexteditor_autobrace DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install(FILES ktexteditor_autobrace.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+install(FILES ktexteditor_autobrace.desktop ktexteditor_autobrace_config.desktop DESTINATION ${SERVICES_INSTALL_DIR} )

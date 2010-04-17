@@ -703,7 +703,28 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
   // collect the right ones
   QList<TextRange *> rightRanges;
   foreach (TextRange * const range, ranges) {
-      if ((!rangesWithAttributeOnly || range->attribute()) && (!range->view() || range->view() == view) && range->start().line() <= line && line <= range->end().line())
+      /**
+       * we want only ranges with attributes, but this one has none
+       */
+      if (rangesWithAttributeOnly && !range->attribute())
+          continue;
+      
+      /**
+       * we want ranges for no view, but this one's attribute is only valid for views
+       */
+      if (!view && range->attibuteOnlyForViews())
+          continue;
+      
+      /**
+       * the range's attribute is not valid for this view
+       */
+      if (range->view() && range->view() != view)
+          continue;
+      
+      /**
+       * if line is in the range, ok
+       */
+      if (range->start().line() <= line && line <= range->end().line())
         rightRanges.append (range);
   }
 

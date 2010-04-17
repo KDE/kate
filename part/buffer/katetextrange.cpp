@@ -31,6 +31,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_start (buffer, this, range.start(), (insertBehavior & ExpandLeft) ? Kate::TextCursor::StayOnInsert : Kate::TextCursor::MoveOnInsert)
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
+  , m_attibuteOnlyForViews (false)
 {
   // remember this range in buffer
   m_buffer.m_ranges.insert (this);
@@ -148,6 +149,27 @@ void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int 
   Q_ASSERT (false);
 }
 
+void TextRange::setView (KTextEditor::View *view)
+{
+  /**
+   * nothing changes, nop
+   */
+  if (view == m_view)
+    return;
+
+  /**
+   * remember the new attribute
+   */
+  m_view = view;
+
+  /**
+   * notify buffer about attribute change, it will propagate the changes
+   * notify all views (can be optimized later)
+   */
+  if (m_attribute)
+    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+}
+
 void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
 {
   /**
@@ -168,25 +190,12 @@ void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
   m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
 }
 
-void TextRange::setView (KTextEditor::View *view)
+bool TextRange::setAttibuteOnlyForViews (bool onlyForViews)
 {
-  /**
-   * nothing changes, nop
-   */
-  if (view == m_view)
-    return;
-
-  /**
-   * remember the new attribute
-   */
-  m_view = view;
-
-  /**
-   * notify buffer about attribute change, it will propagate the changes
-   * notify all views (can be optimized later)
-   */
-  if (m_attribute)
-    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+    /**
+     * just set the value, no need to trigger updates, printing is not interruptable
+     */
+    m_attibuteOnlyForViews = onlyForViews;
 }
 
 }

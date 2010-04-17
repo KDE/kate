@@ -27,6 +27,9 @@
 #include "katerenderer.h"
 #include "kateundomanager.h"
 #include "kateregexpsearch.h"
+#include "kateglobal.h"
+#include "script/katetemplatescript.h"
+#include "script/katescriptmanager.h"
 
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/smartcursor.h>
@@ -58,10 +61,11 @@ bool customContains(SmartRange* range, const Cursor& cursor)
 /* ####################################### */
 
 KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& position,
-                                          const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager )
+                                          const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager, const QString& scriptToken)
     : QObject(doc)
     , m_doc(doc), m_wholeTemplateRange(0), m_finalCursorPosition(0)
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
+    , m_scriptToken(scriptToken)
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
@@ -479,8 +483,10 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       ifDebug(kDebug() << "key found:" << key;)
       bool check_slash=false;
       bool check_colon=false;
+      bool check_backtick=false;
       int pos_slash=key.indexOf("/");
       int pos_colon=key.indexOf(":");
+      int pos_backtick=key.indexOf("`");
       if ( (pos_slash==-1) && (pos_colon==-1) ) {
           // do nothing
       } else if ( (pos_slash!=-1) && (pos_colon==-1) ) {
@@ -494,6 +500,12 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
             check_slash=true;
         }
       }
+      
+      if ( (!check_slash) && (!check_colon) && (pos_backtick>=0) )
+        check_backtick=true;
+      
+      QString functionName;
+      
       if (check_slash) {
         searchReplace=key.mid(pos_slash+1);
         key=key.left(pos_slash);
@@ -501,7 +513,12 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       } else if (check_colon) {
         key=key.left(pos_colon);
         ifDebug(kDebug() << "real key found:" << key;)
-      }      
+      } else if (check_backtick) {
+        functionName=key.mid(pos_backtick+1);
+        functionName=functionName.left(functionName.indexOf("`"));
+        key=key.left(pos_backtick);
+        ifDebug(kDebug() << "real key found:" << key << "function:"<<functionName;)
+      }
       
       if (key.contains("@")) {
         key=key.left(key.indexOf("@"));
@@ -542,7 +559,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
               search+=searchReplace.left(pos);
               searchReplace=searchReplace.mid(pos+1);
               searchValid=true;
-              ifDebug(kDebug()<<"final search string ist="<<search;)
+              ifDebug(kDebug()<<"final search string is="<<search;)
               ifDebug(kDebug()<<"remaining characters in searchReplace"<<searchReplace;)
               break;
             }
@@ -558,6 +575,8 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           }
           if (searchValid && replaceValid)
             behaviour=MirrorBehaviour(search,replace,flags);
+        } else if (!functionName.isEmpty()) {
+            behaviour=MirrorBehaviour(m_scriptToken,functionName,this);
         }
         const QString initialVal=behaviour.getMirrorString(initialValues[key]);
 
@@ -639,6 +658,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor(), 200));
   m_doc->addHighlightToDocument(m_wholeTemplateRange, true);
 
+    
   // create smart ranges for each found variable
   // if the variable exists more than once, create "mirrored" ranges
   foreach ( const QString& key, keyQueue ) {
@@ -677,6 +697,16 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   
   setCurrentRange(m_templateRanges.first());
   mirrorBehaviourBuildHelper.clear();
+  
+  //OPTIMIZE ME, PERHAPS ONLY DO THE MIRRORING ACTION FOR THE MASTER RANGE IN THE CODE ABOVE
+  //THIS WOULD REDUCE MIRRORING ACTIONS
+  
+  m_initialRemodify=true;
+  foreach(SmartRange* smr,m_masterRanges) {
+    slotTextChanged(m_doc,Range(*smr));
+  }
+  m_initialRemodify=false;
+  
 }
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)
@@ -689,9 +719,12 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     ifDebug(kDebug() << "mirroring - ignoring edit";)
     return;
   }
-  if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
-    ifDebug(kDebug(13020) << "slotTextChanged returning prematurely";)
-    return;
+  
+  if (!m_initialRemodify) {
+    if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
+      ifDebug(kDebug(13020) << "slotTextChanged returning prematurely";)
+      return;
+    }
   }
   if ( m_wholeTemplateRange->isEmpty() ) {
     ifDebug(kDebug() << "template range got deleted, exiting";)
@@ -814,6 +847,8 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
 }
 
 
+KateView* KateTemplateHandler::view() {return qobject_cast<KateView*>(m_doc->activeView());}
+
 
 //BEGIN MIRROR BEHAVIOUR
   KateTemplateHandler::MirrorBehaviour::MirrorBehaviour():
@@ -823,6 +858,10 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
     m_behaviour(Regexp),m_search(regexp),m_replace(replacement) {
       m_global=flags.contains("g");
       m_expr=QRegExp(regexp,flags.contains("i")?Qt::CaseInsensitive:Qt::CaseSensitive,QRegExp::RegExp2);
+  }
+
+  KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString& scriptToken, const QString& functionName, KateTemplateHandler* handler):
+    m_behaviour(Scripted),m_scriptToken(scriptToken),m_functionName(functionName),m_handler(handler) {
   }
 
   KateTemplateHandler::MirrorBehaviour::~MirrorBehaviour(){}
@@ -859,7 +898,17 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
         }
         break;
       }
-      case Scripted:
+      case Scripted: {
+        KateTemplateScript *script=KateGlobal::self()->scriptManager()->templateScript(m_scriptToken);
+        if (script) {
+          QString result=script->invoke(m_handler->view(),m_functionName,source);
+          if (!result.isNull()) {
+            return result;
+          }
+        }
+        return source;
+        break;
+      }
       default:
         return QString();
     }

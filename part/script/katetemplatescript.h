@@ -30,7 +30,7 @@ class KateTemplateScript : public KateScript
     KateTemplateScript(const QString& script);
     virtual ~KateTemplateScript();
 
-    bool invoke(KateView* view, const QString& functionName/*, ....*/);
+    QString invoke(KateView* view, const QString& functionName, const QString& srcText/*, ....*/);
 };
 
 #endif

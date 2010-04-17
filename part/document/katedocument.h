@@ -1065,7 +1065,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * \see KTextEditor::TemplateInterface::insertTemplateTextImplementation(), KateTemplateHandler
      */
     virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString,
-                                                    const QMap<QString,QString> &initialValues, const QString& scriptToken, QWidget *);
+                                                    const QMap<QString,QString> &initialValues, const QString& scriptToken, KateView *view);
 
   //
   // KTextEditor::HighlightInterface

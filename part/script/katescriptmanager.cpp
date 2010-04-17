@@ -384,7 +384,7 @@ void KateScriptManager::unregisterTemplateScript(const QString& scriptToken) {
 void KateScriptManager::callTestIt(KateView* view, const QString & token) {
   kDebug()<<"Invoking testit";
   KateTemplateScript *script=m_tokenTemplateScript[token];
-  script->invoke(view,"testit");
+  script->invoke(view,"testit","BLAH");
   kDebug()<<"Testit has been invoked";
 }
   
@@ -395,4 +395,9 @@ void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner) {
     delete m_tokenTemplateScript.take(token);
   }
 }
+
+KateTemplateScript* KateScriptManager::templateScript(const QString& scriptToken) {
+  return m_tokenTemplateScript[scriptToken];
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

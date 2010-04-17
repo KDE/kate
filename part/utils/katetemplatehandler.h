@@ -24,6 +24,7 @@
 
 
 #include "katesmartrange.h"
+#include "kateview.h"
 #include <QtCore/QPointer>
 #include <QtCore/QObject>
 #include <QtCore/QMap>
@@ -74,7 +75,7 @@ class KateTemplateHandler: public QObject
      */
     KateTemplateHandler(KateDocument *doc, const KTextEditor::Cursor& position,
                         const QString &templateString, const QMap<QString, QString> &initialValues,
-                        KateUndoManager* undoManager);
+                        KateUndoManager* undoManager, const QString& scriptToken);
 
     /**
      * Cancels the template handler and cleans everything up.
@@ -154,6 +155,7 @@ public:
       
       MirrorBehaviour(); //clone
       MirrorBehaviour(const QString &regexp, const QString &replacement,const QString &flags); //regexp
+      MirrorBehaviour(const QString& scriptToken, const QString& functionName, KateTemplateHandler* handler); //scripted
       ~MirrorBehaviour();
       QString getMirrorString(const QString &source);
     private:
@@ -163,6 +165,9 @@ public:
       QString m_replace;
       QRegExp m_expr;
       bool m_global;
+      QString m_scriptToken;
+      QString m_functionName;
+      KateTemplateHandler *m_handler;
     };
 private:
     
@@ -208,6 +213,8 @@ private:
      */
     void setEditWithUndo(const bool &enabled);
 
+  public:
+    KateView* view();
   private:
     /// The document we operate on.
     KateDocument *m_doc;
@@ -243,6 +250,10 @@ private:
     bool m_editWithUndo;
     /// Whether we are currently setting the cursor manually.
     bool m_jumping;
+    /// script token for the template script, which might be used by the current template
+    QString m_scriptToken;
+    
+    bool m_initialRemodify;
 };
 
 

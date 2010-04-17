@@ -30,7 +30,7 @@ KateTemplateScript::KateTemplateScript(const QString& script)
 
 KateTemplateScript::~KateTemplateScript(){}
 
-bool KateTemplateScript::invoke(KateView* view, const QString& functionName) {
+QString KateTemplateScript::invoke(KateView* view, const QString& functionName, const QString &srcText) {
 
   if(!setView(view))
     return false;;
@@ -42,21 +42,21 @@ bool KateTemplateScript::invoke(KateView* view, const QString& functionName) {
   }
 
   QScriptValueList arguments;
-  arguments << QScriptValue(m_engine, QString("HALLO"));
+  arguments << QScriptValue(m_engine, srcText);
 
   QScriptValue result = myFunction.call(QScriptValue(), arguments);
   
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, "Error while calling helper function");
-    return false;
+    return QString();
   }
  
   
-  if (result.isBool()) {
-    return result.toBool();
+  if (result.isNull()) {
+    return QString();
   }
 
-  return false;
+  return result.toString();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

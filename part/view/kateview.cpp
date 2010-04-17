@@ -1977,9 +1977,9 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, 
 }
 
 bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken) {
-  if (!scriptToken.isEmpty()) {
+/*  if (!scriptToken.isEmpty()) {
     KateGlobal::self()->scriptManager()->callTestIt(this,scriptToken);
-  }
+  }*/
   return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,scriptToken,this);
 }
 

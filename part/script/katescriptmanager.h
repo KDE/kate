@@ -142,6 +142,8 @@ class KateScriptManager : public QObject, public KTextEditor::Command
     /** unregister a given script */
     void unregisterTemplateScript(const QString& scriptToken);
 
+
+    KateTemplateScript* templateScript(const QString& scriptToken);
     
     void callTestIt(KateView* view, const QString & token);
   public Q_SLOTS:

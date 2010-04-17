@@ -169,17 +169,6 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   buttonBox->button(QDialogButtonBox::Save)->setEnabled(false);
   addSnippet->setIcon(KIcon("document-new"));
   delSnippet->setIcon(KIcon("edit-delete-page"));  
-  connect(snippetCollectionAuthors,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetMatch,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPostfix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetArguments,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
-  connect(delSnippet,SIGNAL(clicked()),this,SLOT(deleteSnippet()));
-  connect(addSnippet,SIGNAL(clicked()),this,SLOT(newSnippet()));
-  connect(snippetCollectionFiletype,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(m_filetypeDropDown,SIGNAL(modified()),this,SLOT(modified()));
   QString name;
   QString filetype;
   QString authors;
@@ -193,6 +182,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   snippetCollectionAuthors->setText(authors);
   snippetCollectionLicense->setText(license);
   snippetCollectionFiletype->setText(filetype);
+
   
   QStringList files;
   files<<m_url.toLocalFile();
@@ -201,7 +191,23 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   snippetListView->setModel(m_selectorModel);
   connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
   currentChanged(QModelIndex(),QModelIndex());
-  
+  scriptEditor->setPlainText(m_snippetData->script());  
+
+
+  connect(snippetCollectionAuthors,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetMatch,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetPostfix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetArguments,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
+  connect(delSnippet,SIGNAL(clicked()),this,SLOT(deleteSnippet()));
+  connect(addSnippet,SIGNAL(clicked()),this,SLOT(newSnippet()));
+  connect(snippetCollectionFiletype,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(m_filetypeDropDown,SIGNAL(modified()),this,SLOT(modified()));
+  connect(scriptEditor,SIGNAL(textChanged()),this,SLOT(modified()));
+
+
 #ifdef Q_WS_X11  
   if (!m_url.queryItem("window").isEmpty())
   {
@@ -233,6 +239,7 @@ SnippetEditorWindow::~SnippetEditorWindow()
 
 void SnippetEditorWindow::slotClose(QAbstractButton* button) {
   if (button==buttonBox->button(QDialogButtonBox::Save)) {
+    m_snippetData->setScript(scriptEditor->toPlainText());
     QModelIndex previous=snippetListView->selectionModel()->currentIndex();
     if (previous.isValid()) {      
       m_selectorModel->setData(previous,snippetPrefix->text(),SnippetSelectorModel::PrefixRole);

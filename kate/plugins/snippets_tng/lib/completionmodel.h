@@ -72,6 +72,14 @@ namespace KTextEditor {
         QStringList m_scripts;
         TemplateScriptRegistrar *m_scriptRegistrar;
         SnippetCompletionModelPrivate *d;
+
+  #ifdef SNIPPET_EDITOR
+          QString m_script;
+      public:
+          QString script();
+          void setScript(const QString& script);
+  #endif
+
     };
 
     class CategorizedSnippetModelPrivate;
@@ -115,7 +123,7 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,ScriptRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
         enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole};

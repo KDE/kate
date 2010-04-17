@@ -62,7 +62,12 @@ namespace KTextEditor {
     
     SnippetCompletionModel::~SnippetCompletionModel() {
     }
-    
+
+#ifdef SNIPPET_EDITOR    
+    QString SnippetCompletionModel::script() { return m_script;}
+    void SnippetCompletionModel::setScript(const QString& script) {m_script=script;}
+#endif
+
     bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString* snippetlicense) {
       name->clear();
       filetype->clear();
@@ -141,6 +146,9 @@ namespace KTextEditor {
         if (script_node.tagName()=="script") {
           kDebug()<<"Script tag has been found";
           script=script_node.firstChild().nodeValue();
+  #ifdef SNIPPET_EDITOR
+          m_script=script;
+  #endif
           kDebug()<<"Script is:"<< script;
           if (m_scriptRegistrar) {
             QString scriptToken=m_scriptRegistrar->registerTemplateScript(this,script);
@@ -346,6 +354,9 @@ namespace KTextEditor {
       root.setAttribute("license",license);
       root.setAttribute("snippetlicense",snippetlicense);
       doc.appendChild(root);
+      if (!m_script.isEmpty()) {
+        addAndCreateElement(doc,root,"script",m_script);
+      }
       foreach(const SnippetCompletionEntry& entry, m_entries) {
         QDomElement item=doc.createElement("item");
         addAndCreateElement(doc,item,"displayprefix",entry.prefix);

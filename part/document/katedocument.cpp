@@ -5045,7 +5045,17 @@ void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
 
 //END KTextEditor::SmartInterface
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+//BEGIN Kate::TextRange and TextCursor
+Kate::TextCursor* KateDocument::newTextCursor(const KTextEditor::Cursor &position, Kate::TextCursor::InsertBehavior insertBehavior)
+{
+  return new Kate::TextCursor(buffer(), position, insertBehavior);
+}
+
+Kate::TextRange* KateDocument::newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehavior insertBehavior)
+{
+  return new Kate::TextRange(buffer(), range, insertBehavior);
+}
+//END
 
 bool KateDocument::simpleMode ()
 {

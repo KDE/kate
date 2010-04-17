@@ -46,6 +46,8 @@
 #include "katepartprivate_export.h"
 #include "katetextline.h"
 #include "kateedit.h"
+#include "katetextcursor.h"
+#include "katetextrange.h"
 
 namespace KTextEditor { class Plugin; class Attribute; }
 
@@ -570,6 +572,14 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual void clearViewActions(KTextEditor::View* view);
 
     KateSmartManager* smartManager() const { return m_smartManager; }
+
+  //
+  // Kate::TextCursor and Kate::TextRange handling
+  // (will eventually become new KTextEditor interface)
+  //
+  public:
+    Kate::TextCursor* newTextCursor(const KTextEditor::Cursor &position, Kate::TextCursor::InsertBehavior insertBehavior = Kate::TextCursor::MoveOnInsert);
+    Kate::TextRange* newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehavior insertBehavior = Kate::TextRange::DoNotExpand);
 
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);

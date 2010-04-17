@@ -5587,7 +5587,8 @@ void KateDocument::textRangeAttributeChanged (KTextEditor::View *view, int start
   Q_ASSERT (startLine >= 0);
   Q_ASSERT (endLine >= 0);
 
-  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine << "view" << view;
+  // output view as void *, might be invalid pointer!
+  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine << "view" << (void *) view;
 
   // first call:
   if (!m_delayedUpdateTriggered) {
@@ -5621,7 +5622,8 @@ void KateDocument::slotDelayedUpdateOfViews ()
   Q_ASSERT (m_lineToUpdateMin >= 0);
   Q_ASSERT (m_lineToUpdateMax >= 0);
 
-  kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax << "view" << m_viewToUpdate;
+  // output view as void *, might be invalid pointer!
+  kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax << "view" << (void *) m_viewToUpdate;
 
   // update matchin view(s)
   foreach (KTextEditor::View *view, m_textEditViews) {

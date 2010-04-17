@@ -71,7 +71,7 @@ protected:
 };
 
 
-/// This is an extension für
+/// This is an extension for KTextEditor::Editor
 class KTEXTEDITOR_EXPORT TemplateScriptRegistrar {
 
 public:

@@ -250,6 +250,7 @@ void KateSearchBar::findPrevious() {
 void KateSearchBar::highlight(const Range & range, const QColor & color) {
     Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
     highlight->setAttibuteOnlyForViews(true); // ignore when printing
+    highlight->setView(m_view); // show only in this view
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
     highlight->setAttribute(attribute);

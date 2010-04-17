@@ -54,15 +54,15 @@ TextBuffer::~TextBuffer ()
 {
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
-
-  // clean out all cursors and lines, only cursors belonging to range will survive
-  for (int i = 0; i < m_blocks.size(); ++i)
-    m_blocks[i]->deleteBlockContent ();
-
+  
   // kill all ranges
   QSet<TextRange *> copyRanges = m_ranges;
   qDeleteAll (copyRanges);
   Q_ASSERT (m_ranges.empty());
+  
+  // clean out all cursors and lines, only cursors belonging to range will survive
+  for (int i = 0; i < m_blocks.size(); ++i)
+    m_blocks[i]->deleteBlockContent ();
 
   // delete all blocks, now that all cursors are really deleted
   // else asserts in destructor of blocks will fail!

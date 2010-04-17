@@ -39,8 +39,9 @@ class TextBuffer;
  * Class representing a 'clever' text range.
  * It will automagically move if the text inside the buffer it belongs to is modified.
  * By intention no subclass of KTextEditor::Range, must be converted manually.
- * A TextRange is not allowed to be empty, as soon as start == end position, it will become
- * automatically invalid!
+ * A TextRange is allowed to be empty. If you call setInvalidateIfEmpty(true),
+ * a TextRange will become automatically invalid as soon as start() == end()
+ * position holds.
  */
 class KATEPART_TESTS_EXPORT TextRange {
   // this is a friend, block changes might invalidate ranges...

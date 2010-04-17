@@ -364,12 +364,12 @@ void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,int 
 {
   if (addindent) {
     //kDebug(13020)<<"adding indent for line :"<<current_line + buf->startLine()<<"  textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart();
-    kDebug(13020)<<"adding ident";
+    //kDebug(13020)<<"adding ident";
     foldingList.resize (foldingList.size() + 2);
     foldingList[foldingList.size()-2] = 1;
     foldingList[foldingList.size()-1] = 0;
   }
-  kDebug(13020)<<"DEINDENT: "<<deindent;
+  //kDebug(13020)<<"DEINDENT: "<<deindent;
   if (deindent > 0)
   {
     //foldingList.resize (foldingList.size() + (deindent*2));
@@ -392,14 +392,11 @@ bool KateBuffer::isEmptyLine(Kate::TextLine textline)
 {
   QLinkedList<QRegExp> l;
   l=m_highlight->emptyLines(textline->attribute(0));
-  kDebug(13020)<<"trying to find empty line data";
   if (l.isEmpty()) return false;
   QString txt=textline->string();
-  kDebug(13020)<<"checking empty line regexp";
   foreach(const QRegExp &re,l) {
     if (re.exactMatch(txt)) return true;
   }
-  kDebug(13020)<<"no matches";
   return false;
 }
 

@@ -1288,11 +1288,11 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
     KateCodeFoldingNode *node = markedForDeleting.at(i);
 #ifdef JW_DEBUG
     kDebug(13000)<<"index:"<<i<<" node:"<<node<<endl;
-#endif
     if (node->deleteOpening)
       kDebug(13000)<<"DELETE OPENING SET";
     if (node->deleteEnding)
       kDebug(13000)<<"DELETE ENDING SET";
+#endif
 
     if ((node->deleteOpening) && (node->deleteEnding))
     {

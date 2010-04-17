@@ -219,6 +219,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
       //CLEANUP FILE
     } else {
       snippetContent->setPlainText(f.readAll());
+      snippetMatch->setFocus();
       f.close();
       f.remove();
     }

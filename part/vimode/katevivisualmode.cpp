@@ -19,7 +19,6 @@
  */
 
 #include "katevivisualmode.h"
-#include "katesmartrange.h"
 #include "katevirange.h"
 
 using KTextEditor::Cursor;

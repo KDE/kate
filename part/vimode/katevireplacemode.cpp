@@ -22,7 +22,6 @@
 #include "kateviinputmodemanager.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
-#include "katesmartrange.h"
 #include "katecursor.h"
 #include "kateconfig.h"
 

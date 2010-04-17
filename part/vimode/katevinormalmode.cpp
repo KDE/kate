@@ -26,7 +26,6 @@
 #include "kateviglobal.h"
 #include "kateglobal.h"
 #include "katesmartmanager.h"
-#include "katesmartrange.h"
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
 #include <QApplication>

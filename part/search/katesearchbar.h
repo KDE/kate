@@ -104,8 +104,6 @@ public Q_SLOTS:
     void enterPowerMode();
     void enterIncrementalMode();
 
-    void resetHighlights();
-
 protected:
     // Overridden
     virtual void showEvent(QShowEvent * event);
@@ -127,8 +125,7 @@ private Q_SLOTS:
     void onPowerReplacmentContextMenuRequest();
     void onPowerReplacmentContextMenuRequest(const QPoint&);
 
-    void enableHighlights();
-    void disableHighlights();
+    void clearHighlights();
 
 private:
     // Helpers

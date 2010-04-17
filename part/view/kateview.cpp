@@ -2687,8 +2687,8 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
      * cost = 2*m^2*log(m), too high
      * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()
      */
-    connect(m_doc->undoManager(), SIGNAL(aboutToUndo()), m_searchBar, SLOT(resetHighlights()));
-    connect(m_doc->undoManager(), SIGNAL(aboutToRedo()), m_searchBar, SLOT(resetHighlights()));
+    connect(m_doc->undoManager(), SIGNAL(aboutToUndo()), m_searchBar, SLOT(clearHighlights()));
+    connect(m_doc->undoManager(), SIGNAL(aboutToRedo()), m_searchBar, SLOT(clearHighlights()));
 
     m_bottomViewBar->addBarWidget(m_searchBar);
   }

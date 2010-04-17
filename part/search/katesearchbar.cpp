@@ -355,7 +355,7 @@ void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
 
 
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
-    resetHighlights();
+    clearHighlights();
 
     m_incUi->next->setDisabled(pattern.isEmpty());
     m_incUi->prev->setDisabled(pattern.isEmpty());
@@ -614,7 +614,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     }
 
     // Reset highlighting for all matches and highlight replacement if there is one
-    resetHighlights();
+    clearHighlights();
     if (afterReplace.isValid()) {
         highlightReplacement(afterReplace);
     }
@@ -627,7 +627,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
 void KateSearchBar::findAll()
 {
-    resetHighlights();
+    clearHighlights();
     Range inputRange = (m_view->selection() && selectionOnly())
             ? m_view->selectionRange()
             : m_view->document()->documentRange();
@@ -766,7 +766,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
 
     // Before first match
-    resetHighlights();
+    clearHighlights();
 
     Kate::TextRange * workingRange = m_view->doc()->newTextRange(inputRange);
     QList<Range> highlightRanges;
@@ -1463,26 +1463,10 @@ void KateSearchBar::enterIncrementalMode() {
 }
 
 
-
-void KateSearchBar::enableHighlights() {
-    //m_view->addInternalHighlight(m_topRange);
-    // FIXME: dh remove?
-}
-
-
-
-void KateSearchBar::disableHighlights() {
+void KateSearchBar::clearHighlights() {
     qDeleteAll(m_hlRanges);
     m_hlRanges.clear();
 }
-
-
-
-void KateSearchBar::resetHighlights() {
-    disableHighlights();
-    enableHighlights();
-}
-
 
 
 void KateSearchBar::showEvent(QShowEvent * event) {
@@ -1491,7 +1475,6 @@ void KateSearchBar::showEvent(QShowEvent * event) {
         m_incInitCursor = m_view->cursorPosition();
     }
 
-    enableHighlights();
     updateSelectionOnly();
     KateViewBarWidget::showEvent(event);
 }
@@ -1499,7 +1482,7 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::closed() {
-    disableHighlights();
+    clearHighlights();
 }
 
 

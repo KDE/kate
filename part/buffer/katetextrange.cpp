@@ -190,7 +190,7 @@ void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
   m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
 }
 
-bool TextRange::setAttibuteOnlyForViews (bool onlyForViews)
+void TextRange::setAttibuteOnlyForViews (bool onlyForViews)
 {
     /**
      * just set the value, no need to trigger updates, printing is not interruptable

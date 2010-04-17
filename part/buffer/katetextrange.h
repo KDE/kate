@@ -159,19 +159,19 @@ class KATEPART_TESTS_EXPORT TextRange {
      *                  removes the previous Attribute.
      */
     void setAttribute (KTextEditor::Attribute::Ptr attribute);
-    
+
     /**
      * Is this range's attribute only visible in views, not for example prints?
      * Default is false.
      * @return range visible only for views
      */
     bool attibuteOnlyForViews () const { return m_attibuteOnlyForViews; }
-    
+
     /**
      * Set if this range's attribute is only visible in views, not for example prints.
      * @param onlyForViews attribute only valid for views
      */
-    bool setAttibuteOnlyForViews (bool onlyForViews);
+    void setAttibuteOnlyForViews (bool onlyForViews);
 
   private:
     /**
@@ -218,7 +218,7 @@ class KATEPART_TESTS_EXPORT TextRange {
      * This range's current attribute.
      */
     KTextEditor::Attribute::Ptr m_attribute;
-    
+
     /**
      * Is this range's attribute only visible in views, not for example prints?
      */

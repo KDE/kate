@@ -22,7 +22,7 @@
 #include "completionmodel.h"
 #include "repository.h"
 #include <ktexteditor/view.h>
-#include <ktexteditor/templateinterface.h>
+#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/highlightinterface.h>
 #include <kate/pluginconfigpageinterface.h>
 
@@ -120,9 +120,16 @@ namespace JoWenn {
   void KateSnippetSelector::doubleClicked(const QModelIndex& current)
   {
     KTextEditor::View *view=m_mainWindow->activeView();
-    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
-    if (ti)
-      ti->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>());
+    KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
+    if (ti2) {
+      
+      ti2->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>(),
+                               treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::ScriptTokenRole).toString());
+    } else {
+      KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
+      if (ti)
+        ti->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>());
+    }
     view->setFocus();
   }
 

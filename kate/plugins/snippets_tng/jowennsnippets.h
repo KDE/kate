@@ -23,6 +23,7 @@
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/document.h>
 #include <kxmlguiclient.h>
 #include <qpointer.h>
@@ -53,7 +54,7 @@ namespace JoWenn {
   
   
   
-  class KateSnippetsPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+  class KateSnippetsPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface, public KTextEditor::TemplateScriptRegistrar
   {
       Q_OBJECT
       Q_INTERFACES(Kate::PluginConfigPageInterface)
@@ -73,6 +74,10 @@ namespace JoWenn {
       void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
       void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repositoryData();
+  
+      virtual QString registerTemplateScript(QObject* owner,const QString& script);
+      virtual void unregisterTemplateScript(const QString& scriptToken);
+
       
     public Q_SLOTS:
       void addDocument(KTextEditor::Document* document);
@@ -90,6 +95,7 @@ namespace JoWenn {
       QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_mode_model_hash;
       QHash<KTextEditor::Document*,KTextEditor::CodesnippetsCore::CategorizedSnippetModel*> m_document_categorized_hash;
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *m_repositoryData;
+      KTextEditor::TemplateScriptRegistrar* m_templateScriptRegistrar;
   };
 
   class KateSnippetsPluginView : public Kate::PluginView, public Kate::XMLGUIClient

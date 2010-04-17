@@ -22,6 +22,7 @@
 
 #include <QAbstractListModel>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor_codesnippets_core_export.h>
 
@@ -41,7 +42,7 @@ namespace KTextEditor {
         Q_OBJECT
       public:
         friend class SnippetSelectorModel;
-        SnippetCompletionModel(const QString& fileType, QStringList &snippetFiles);
+        SnippetCompletionModel(const QString& fileType, QStringList &snippetFiles,KTextEditor::TemplateScriptRegistrar* scriptRegistrar);
         virtual ~SnippetCompletionModel();
         virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
         virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -68,6 +69,8 @@ namespace KTextEditor {
         void loadEntries(const QString& filename);
         QString m_fileType;
         QStringList mergedFiles;
+        QStringList m_scripts;
+        TemplateScriptRegistrar *m_scriptRegistrar;
         SnippetCompletionModelPrivate *d;
     };
 
@@ -112,10 +115,10 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,ScriptRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
-        enum {FillInRole=Qt::UserRole+1,MergedFilesRole};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole};
         //#warning SNIPPET_EDITOR IS NOT SET
   #endif
       private:

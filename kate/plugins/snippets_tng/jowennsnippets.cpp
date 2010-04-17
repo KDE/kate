@@ -40,6 +40,8 @@
 #include <kactioncollection.h>
 #include <kaction.h>
 
+#include <ktexteditor/editor.h>
+
 K_PLUGIN_FACTORY(JoWennKateSnippetsFactory, registerPlugin<JoWenn::KateSnippetsPlugin>();)
 K_EXPORT_PLUGIN(JoWennKateSnippetsFactory(KAboutData("katesnippets_tng","katesnippets_tng",ki18n("Kate Snippets"), "0.1", ki18n("Kate Snippets"), KAboutData::License_LGPL)) )
 
@@ -51,7 +53,7 @@ namespace JoWenn {
       Kate::Plugin ( qobject_cast<Kate::Application*>(parent) )
   {
     KGlobal::locale()->insertCatalog("ktexteditor_codesnippets_core");
-    m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this);
+    m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this,this);
     connect(m_repositoryData,SIGNAL(typeChanged(const QStringList&)),this,SLOT(slotTypeChanged(const QStringList&)));
 
     Kate::DocumentManager* documentManager=application()->documentManager();
@@ -61,6 +63,8 @@ namespace JoWenn {
     }
     connect(documentManager,SIGNAL(documentCreated (KTextEditor::Document *)),this,SLOT(addDocument(KTextEditor::Document*)));
     connect(documentManager,SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),this,SLOT(removeDocument(KTextEditor::Document*)));
+
+    m_templateScriptRegistrar=qobject_cast<KTextEditor::TemplateScriptRegistrar*>(qobject_cast<Kate::Application*>(parent)->editor());
   }
 
 
@@ -68,6 +72,17 @@ namespace JoWenn {
   {
     m_document_model_multihash.clear();
     m_mode_model_hash.clear();
+  }
+
+  QString KateSnippetsPlugin::registerTemplateScript(QObject* owner,const QString& script) {
+    if (m_templateScriptRegistrar)
+      return m_templateScriptRegistrar->registerTemplateScript(owner,script);
+    return QString();
+  }
+  
+  void KateSnippetsPlugin::unregisterTemplateScript(const QString& scriptToken) {
+      if (m_templateScriptRegistrar)
+        m_templateScriptRegistrar->unregisterTemplateScript(scriptToken);
   }
 
 

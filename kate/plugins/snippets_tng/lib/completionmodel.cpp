@@ -40,20 +40,21 @@ namespace KTextEditor {
 #endif
     class SnippetCompletionEntry {
       public:
-        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin):
-          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin){}
+        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin, int _script=-1):
+          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin),script(_script){}
         ~SnippetCompletionEntry(){};
         QString match;
         QString prefix;
         QString postfix;
         QString arguments;
         QString fillin;
+        int     script;
     };
 
 //BEGIN: CompletionModel
 
-    SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles):
-      KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType),mergedFiles(snippetFiles) {        
+    SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles,TemplateScriptRegistrar *scriptRegistrar):
+      KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType),mergedFiles(snippetFiles),m_scriptRegistrar(scriptRegistrar) {        
         foreach(const QString& str, snippetFiles) {
           loadEntries(str);
         }      
@@ -110,7 +111,8 @@ namespace KTextEditor {
     }
     
     void SnippetCompletionModel::loadEntries(const QString &filename) {
-
+      int scriptID=-1;
+      QString script;
       QFile f(filename);
       QDomDocument doc;
       if (f.open(QIODevice::ReadOnly)) {
@@ -133,6 +135,26 @@ namespace KTextEditor {
         KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );     
         return;
       }
+      QDomNodeList script_nodes=el.childNodes();
+      for (int i_script=0;i_script<script_nodes.count();i_script++) {
+        QDomElement script_node=script_nodes.item(i_script).toElement();
+        if (script_node.tagName()=="script") {
+          kDebug()<<"Script tag has been found";
+          script=script_node.firstChild().nodeValue();
+          kDebug()<<"Script is:"<< script;
+          if (m_scriptRegistrar) {
+            QString scriptToken=m_scriptRegistrar->registerTemplateScript(this,script);
+            kDebug()<<"Script token is"<<scriptToken;
+            if (!scriptToken.isEmpty()) {
+              m_scripts.append(scriptToken);
+              scriptID=m_scripts.count()-1;
+            }
+          }
+          break;
+        }
+      }
+      
+      
       QDomNodeList item_nodes=el.childNodes();
       
       QLatin1String match_str("match");
@@ -166,7 +188,7 @@ namespace KTextEditor {
             fillin=data.text();
         }
         //kDebug(13040)<<prefix<<match<<postfix<<arguments<<fillin;
-        m_entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin));
+        m_entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin,scriptID));
         
       }
     }
@@ -274,12 +296,20 @@ namespace KTextEditor {
       document->removeText(word);
       KTextEditor::View *view=document->activeView();
       if (!view) return;
-      KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
-      if (ti)
-        ti->insertTemplateText (word.start(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
-      else {
-        view->setCursorPosition(word.start());
-        view->insertText (m_matches[index.row()]->fillin);
+      
+      KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
+      if (ti2) {
+        int script=m_matches[index.row()]->script;    
+        ti2->insertTemplateText (word.start(), m_matches[index.row()]->fillin, QMap<QString,QString> (),
+                                 (script==-1)?QString():m_scripts[script]);
+      } else {
+        KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
+        if (ti)
+          ti->insertTemplateText (word.start(), m_matches[index.row()]->fillin, QMap<QString,QString> ());
+        else {
+          view->setCursorPosition(word.start());
+          view->insertText (m_matches[index.row()]->fillin);
+        }
       }
     }  
 
@@ -441,6 +471,12 @@ namespace KTextEditor {
           case FillInRole:
             return m_cmodel->m_entries[index.row()].fillin;
             break;
+          case ScriptTokenRole: {
+            int script=m_cmodel->m_entries[index.row()].script;
+            if (script==-1) return QString();
+            return m_cmodel->m_scripts[script];
+            break;
+          }
   #ifdef SNIPPET_EDITOR
           case PrefixRole:
             return m_cmodel->m_entries[index.row()].prefix;

@@ -222,8 +222,9 @@ namespace KTextEditor {
 //BEGIN: Model
     long SnippetRepositoryModel::s_id=0;
 
-    SnippetRepositoryModel::SnippetRepositoryModel(QObject *parent):
-      QAbstractListModel(parent),m_connection(QDBusConnection::connectToBus(QDBusConnection::SessionBus,"KTECSCRepoConn"))
+    SnippetRepositoryModel::SnippetRepositoryModel(QObject *parent, TemplateScriptRegistrar *scriptRegistrar):
+      QAbstractListModel(parent),m_connection(QDBusConnection::connectToBus(QDBusConnection::SessionBus,"KTECSCRepoConn")),
+      m_scriptRegistrar(scriptRegistrar)
     {
       createOrUpdateList(false);
       kDebug()<<m_connection.lastError().message();
@@ -466,7 +467,7 @@ namespace KTextEditor {
           l<<entry.filename;
         }
       }
-      return new SnippetCompletionModel(filetype,l);
+      return new SnippetCompletionModel(filetype,l, m_scriptRegistrar);
 
     }
   

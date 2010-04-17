@@ -24,6 +24,7 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor_codesnippets_core_export.h>
+#include <ktexteditor/templateinterface2.h>
 #include <qdbusabstractadaptor.h>
 #include <QDBusConnection>
 class KConfigBase;
@@ -64,14 +65,14 @@ namespace KTextEditor {
         SnippetRepositoryItemDelegatePrivate* d;
     };
     
-    
+
     class SnippetRepositoryModelPrivate;
     
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetRepositoryModel: public QAbstractListModel
     {
         Q_OBJECT
       public:
-        explicit SnippetRepositoryModel(QObject *parent=0);
+        explicit SnippetRepositoryModel(QObject *parent=0,KTextEditor::TemplateScriptRegistrar *scriptRegistrar=0);
         virtual ~SnippetRepositoryModel();
         enum Roles {
           NameRole = Qt::UserRole,
@@ -121,6 +122,7 @@ namespace KTextEditor {
         void createOrUpdateListSub(KConfig& config,QStringList list, bool update, bool ghnsFile);
         class SnippetRepositoryModelPrivate *d;
         QStringList m_newTokens;
+        TemplateScriptRegistrar *m_scriptRegistrar;
     };
     
     

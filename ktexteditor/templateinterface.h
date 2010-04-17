@@ -87,6 +87,19 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * If you have mirrored ranges and want another occurence than the first one as the master
      * you can add @ directly after the placeholder name.
      * 
+     * The interface2 version invokes the function specified by functionName within the script specified
+     * by the scriptToken, if a placeholder is specified with backticks like
+     * ${placeholder`functionName`}
+     * The function has a global environment containing "view", "document" and "debug", at 
+     * least in the katepart implementation. The function invokation is not allowed to be mixed with other replacements
+     * 
+     * If a / or ` replacement is done on a master the initial value is modified and therefor
+     * also all mirrored placeholders are affected too, later on the replacement is not done anymore on master ranges
+     * 
+     *
+     * The parameters for invoked javascript functions will be the following:
+     * value of the master (or initial value), //to be done: placeholder name, small wrapper around the template handler (to do more sophisticated things, like adding additional placehlder points, aattaching custom properties for state keeping, ....) you tell
+     *
      * 
      * Specification of initial values
      * You can specify initial values which are different from the placeholder name

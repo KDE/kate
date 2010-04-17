@@ -144,8 +144,10 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
       
       int pos_colon=placeholder.indexOf(":");
       int pos_slash=placeholder.indexOf("/");
+      int pos_backtick=placeholder.indexOf("`");
       bool check_slash=false;
       bool check_colon=false;
+      bool check_backtick=false;
       if ((pos_colon==-1) && ( pos_slash==-1)) {
         //do nothing
       } else if ( (pos_colon==-1) && (pos_slash!=-1)) {
@@ -158,6 +160,9 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
         else
           check_slash=true;
       }
+      
+      if ( (!check_slash) && (!check_colon) && (pos_backtick>=0) )
+        check_backtick=true;
       
       if (check_slash) {                
         //in most cases it should not matter, but better safe then sorry.
@@ -213,6 +218,8 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
           }
         }
         placeholder=placeholder.left(placeholder.indexOf(":"));
+      } else if (check_backtick) {
+        placeholder=placeholder.left(pos_backtick);
       }
       
       if (placeholder.contains("@")) placeholder=placeholder.left(placeholder.indexOf("@"));

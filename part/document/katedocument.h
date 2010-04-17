@@ -1139,10 +1139,10 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
       KTextEditor::SmartRangeNotifier* dictionaryRangeNotifier();
 
-      /**
-       * helpers for delayed view update after ranges changes
-       */
-
+  //
+  // helpers for delayed view update after ranges changes
+  //
+  private:
       /**
        * update already inited?
        */

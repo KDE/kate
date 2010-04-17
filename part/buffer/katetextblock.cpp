@@ -285,7 +285,7 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
 
   // get text
   QString &textOfLine = m_lines[line]->textReadWrite ();
-  int oldLength = m_lines[line]->textReadWrite ().size ();
+  int oldLength = textOfLine.size ();
 
   // check if valid column
   Q_ASSERT (position.column() >= 0);

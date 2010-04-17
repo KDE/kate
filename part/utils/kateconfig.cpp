@@ -750,6 +750,7 @@ KateViewConfig::KateViewConfig ()
 
 KateViewConfig::KateViewConfig (KateView *view)
  :
+   m_searchFlags (PowerModePlainText),
    m_dynWordWrapSet (false),
    m_dynWordWrapIndicatorsSet (false),
    m_dynWordWrapAlignIndentSet (false),

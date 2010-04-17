@@ -210,6 +210,34 @@ KateSearchBar::~KateSearchBar() {
 
 
 
+
+void KateSearchBar::setReplacePattern(const QString &replacementPattern) {
+    Q_ASSERT(isPower());
+
+    if (this->replacementPattern() == replacementPattern)
+        return;
+
+    m_powerUi->replacement->setEditText(replacementPattern);
+}
+
+
+
+QString KateSearchBar::replacementPattern() const {
+    Q_ASSERT(isPower());
+
+    return m_powerUi->replacement->currentText();
+}
+
+
+
+void KateSearchBar::setSearchMode(KateSearchBar::SearchMode mode) {
+    Q_ASSERT(isPower());
+
+    m_powerUi->searchMode->setCurrentIndex(mode);
+}
+
+
+
 void KateSearchBar::findNext() {
     const bool found = find();
 
@@ -389,6 +417,18 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
 
 
 
+void KateSearchBar::setMatchCase(bool matchCase) {
+    if (this->matchCase() == matchCase)
+        return;
+
+    if (isPower())
+        m_powerUi->matchCase->setChecked(matchCase);
+    else
+        m_incUi->matchCase->setChecked(matchCase);
+}
+
+
+
 void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
     sendConfig();
 
@@ -408,7 +448,6 @@ bool KateSearchBar::matchCase() const
     return isPower() ? m_powerUi->matchCase->isChecked()
                      : m_incUi->matchCase->isChecked();
 }
-
 
 
 
@@ -535,24 +574,24 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     Range afterReplace = Range::invalid();
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && (match.range() == selection) && (!selectionOnly() || replacement != 0)) {
+        if (selected && (match.range() == selection)) {
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
+                SmartRange *smartInputRange = m_view->doc()->newSmartRange(inputRange, 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
                 afterReplace = match.replace(*replacement, m_view->blockSelection());
+                inputRange = *smartInputRange;
+                delete smartInputRange;
+            }
 
-                // Find, second try after replaced text
-                if (searchDirection == SearchForward) {
-                    inputRange.setRange(afterReplace.end(), inputRange.end());
-                } else {
-                    inputRange.setRange(inputRange.start(), afterReplace.start());
-                }
-            } else {
+            if (!selectionOnly()) {
                 // Find, second try after old selection
                 if (searchDirection == SearchForward) {
-                    inputRange.setRange(selection.end(), inputRange.end());
+                    const Cursor start = (replacement != 0) ? afterReplace.end() : selection.end();
+                    inputRange.setRange(start, inputRange.end());
                 } else {
-                    inputRange.setRange(inputRange.start(), selection.start());
+                    const Cursor end = (replacement != 0) ? afterReplace.start() : selection.start();
+                    inputRange.setRange(inputRange.start(), end);
                 }
             }
 
@@ -856,10 +895,35 @@ void KateSearchBar::replaceAll() {
 
 
 
+void KateSearchBar::setSearchPattern(const QString &searchPattern)
+{
+    if (searchPattern == this->searchPattern())
+        return;
+
+    if (isPower())
+        m_powerUi->pattern->setEditText(searchPattern);
+    else
+        m_incUi->pattern->setText(searchPattern);
+}
+
+
+
 QString KateSearchBar::searchPattern() const {
     return (m_powerUi != 0) ? m_powerUi->pattern->currentText()
                             : m_incUi->pattern->displayText();
 }
+
+
+
+void KateSearchBar::setSelectionOnly(bool selectionOnly)
+{
+    if (this->selectionOnly() == selectionOnly)
+        return;
+
+    if (isPower())
+        m_powerUi->selectionOnly->setChecked(selectionOnly);
+}
+
 
 
 

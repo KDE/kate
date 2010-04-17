@@ -113,6 +113,17 @@ kde4_add_unit_test(completion_test ${completion_test_SRCS})
 target_link_libraries( completion_test ${KATE_TEST_LINK_LIBS}
 )
 
+########### searchbar test ###############
+
+kde4_add_unit_test(searchbar_test searchbar_test.cpp)
+
+target_link_libraries( searchbar_test
+  ${KDE4_KDECORE_LIBS}
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

@@ -23,6 +23,7 @@
 #define KATE_SEARCH_BAR_H 1
 
 #include "kateviewhelpers.h"
+#include "katepartprivate_export.h"
 
 #include <ktexteditor/searchinterface.h>
 
@@ -42,10 +43,10 @@ namespace Ui {
 
 
 
-class KateSearchBar : public KateViewBarWidget {
+class KATEPART_TESTS_EXPORT KateSearchBar : public KateViewBarWidget {
     Q_OBJECT
 
-private:
+public:
     enum SearchMode {
         // NOTE: Concrete values are important here
         // to work with the combobox index!
@@ -64,7 +65,6 @@ private:
         MatchNeutral
     };
 
-public:
     enum SearchDirection {
       SearchForward,
       SearchBackward
@@ -76,14 +76,30 @@ public:
 
     bool isPower() const;
 
+    QString searchPattern() const;
+    QString replacementPattern() const;
+
+    bool selectionOnly() const;
+    bool matchCase() const;
+
     // Only used by KateView
     static void nextMatchForSelection(KateView * view, SearchDirection searchDirection);
 
 public Q_SLOTS:
+    void setSearchPattern(const QString &searchPattern);
+    void setReplacePattern(const QString &replacePattern);
+    void setSearchMode(SearchMode mode);
+
+    void setSelectionOnly(bool selectionOnly);
+    void setMatchCase(bool matchCase);
+
     // Called for <F3> and <Shift>+<F3>
     void findNext();
     void findPrevious();
     void findAll();
+
+    void replaceNext();
+    void replaceAll();
 
     // Also used by KateView
     void enterPowerMode();
@@ -105,8 +121,6 @@ private Q_SLOTS:
     void updateIncInitCursor();
 
     void onPowerPatternChanged(const QString & pattern);
-    void replaceNext();
-    void replaceAll();
 
     void onPowerModeChanged(int index);
     void onPowerPatternContextMenuRequest();
@@ -124,11 +138,8 @@ private:
     bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);
     int findAll(KTextEditor::Range inputRange, const QString * replacement);
 
-    QString searchPattern() const;
     bool isPatternValid() const;
 
-    bool selectionOnly() const;
-    bool matchCase() const;
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
@@ -147,11 +158,13 @@ private:
     void sendConfig();
     void fixForSingleLine(KTextEditor::Range & range, SearchDirection searchDirection);
 
-private:
-    // Shared by both dialogs
+protected:
     KateView *const m_view;
     KateViewConfig *const m_config;
     KTextEditor::SmartRange * m_topRange;
+
+private:
+    // Shared by both dialogs
     KTextEditor::SmartRangeNotifier *const m_rangeNotifier;
     QVBoxLayout *const m_layout;
     QWidget * m_widget;

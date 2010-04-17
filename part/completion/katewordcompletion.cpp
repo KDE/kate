@@ -25,11 +25,11 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
-#include "katesmartrange.h"
+#include "katebuffer.h"
+#include "katetextrange.h"
+//#include "katetextcursor.h"
 
 #include <ktexteditor/variableinterface.h>
-#include <ktexteditor/smartinterface.h>
-#include <ktexteditor/smartrange.h>
 
 #include <kconfig.h>
 #include <kdialog.h>
@@ -82,7 +82,7 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
 {
   if( role == InheritanceDepth )
     return 10000; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
-  
+
   if( !index.parent().isValid() ) {
     //It is the group header
     switch ( role )
@@ -93,7 +93,7 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
         return Qt::DisplayRole;
     }
   }
-  
+
   if( index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole )
     return m_matches.at( index.row() );
 
@@ -101,7 +101,7 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
     static QIcon icon(KIcon("insert-text").pixmap(QSize(16, 16)));
     return icon;
   }
-  
+
   return QVariant();
 }
 
@@ -124,7 +124,7 @@ QModelIndex KateWordCompletionModel::index(int row, int column, const QModelInde
   }else if(parent.parent().isValid())
     return QModelIndex();
 
-  
+
   if (row < 0 || row >= m_matches.count() || column < 0 || column >= ColumnCount )
     return QModelIndex();
 
@@ -212,7 +212,7 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
 //BEGIN KateWordCompletionView
 struct KateWordCompletionViewPrivate
 {
-  KTextEditor::SmartRange* liRange;       // range containing last inserted text
+  Kate::TextRange* liRange;       // range containing last inserted text
   KTextEditor::Range dcRange;  // current range to be completed by directional completion
   KTextEditor::Cursor dcCursor;     // directional completion search cursor
   QRegExp re;           // hrm
@@ -228,15 +228,8 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
 {
   d->isCompleting = false;
   d->dcRange = KTextEditor::Range::invalid();
-  KTextEditor::SmartInterface *si =
-     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
 
-  if( ! si )
-    return;
-
-  d->liRange = si->newSmartRange();
-  // (dh) guard the smart range to not become a dangling pointer on document reload
-  static_cast<KateSmartRange*>(d->liRange)->setInternal();
+  d->liRange = new Kate::TextRange(static_cast<KateDocument*>(m_view->document())->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand);
 
   KColorScheme colors(QPalette::Active);
   KTextEditor::Attribute::Ptr a = KTextEditor::Attribute::Ptr( new KTextEditor::Attribute() );
@@ -330,12 +323,9 @@ void KateWordCompletionView::shellComplete()
   else
   {
     m_view->document()->insertText( r.end(), partial.mid( r.columnWidth() ) );
-    KTextEditor::SmartInterface *si = qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
-    if ( si ) {
-      si->addHighlightToView( m_view, d->liRange, true );
-      d->liRange->setRange( KTextEditor::Range( r.end(), partial.length() - r.columnWidth() ) );
-      connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
-    }
+    d->liRange->setView(m_view);
+    d->liRange->setRange( KTextEditor::Range( r.end(), partial.length() - r.columnWidth() ) );
+    connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
   }
 }
 
@@ -359,18 +349,21 @@ void KateWordCompletionView::complete( bool fw )
     if ( ( fw && d->directionalPos == -1 ) ||
          ( !fw && d->directionalPos == 1 ) )
     {
-      if ( d->liRange->columnWidth() )
+      const int spansColumns = d->liRange->end().column() - d->liRange->start().column();
+      if ( spansColumns > 0 )
         doc->removeText( *d->liRange );
 
-      d->liRange->setRange( KTextEditor::Range( d->liRange->start(), 0 )  );
+      d->liRange->setRange( KTextEditor::Range::invalid()  );
       d->dcCursor = r.end();
       d->directionalPos = 0;
 
       return;
     }
 
-    if ( fw )
-      d->dcCursor.setColumn( d->dcCursor.column() + d->liRange->columnWidth() );
+    if ( fw ) {
+      const int spansColumns = d->liRange->end().column() - d->liRange->start().column();
+      d->dcCursor.setColumn( d->dcCursor.column() + spansColumns );
+    }
 
     d->directionalPos += inc;
   }
@@ -378,14 +371,11 @@ void KateWordCompletionView::complete( bool fw )
   {
     //kDebug( 13040 )<<"RESET FOR NEW";
     d->dcRange = r;
-    d->liRange->setRange( KTextEditor::Range( r.end(), 0 ) );
+    d->liRange->setRange( KTextEditor::Range::invalid() );
     d->dcCursor = r.start();
     d->directionalPos = inc;
 
-  KTextEditor::SmartInterface *si =
-     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
-  if ( si )
-    si->addHighlightToView( m_view, d->liRange, true );
+    d->liRange->setView( m_view );
 
     connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
 
@@ -410,7 +400,11 @@ void KateWordCompletionView::complete( bool fw )
       {
         // we got good a match! replace text and return.
         d->isCompleting = true;
-        doc->replaceText( *d->liRange, m );
+        KTextEditor::Range replaceRange(d->liRange->toRange());
+        if (!replaceRange.isValid()) {
+          replaceRange.setRange(r.end(), r.end());
+        }
+        doc->replaceText( replaceRange, m );
         d->liRange->setRange( KTextEditor::Range( d->dcRange.end(), m.length() ) );
 
         d->dcCursor.setColumn( pos ); // for next try
@@ -475,10 +469,8 @@ void KateWordCompletionView::slotCursorMoved()
 
   disconnect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
 
-  KTextEditor::SmartInterface *si =
-     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
-  if ( si )
-    si->removeHighlightFromView( m_view, d->liRange );
+  d->liRange->setView(0);
+  d->liRange->setRange(KTextEditor::Range::invalid());
 }
 
 // Contributed by <brain@hdsnet.hu> FIXME

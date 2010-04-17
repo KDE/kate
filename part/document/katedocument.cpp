@@ -4740,7 +4740,7 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 
 //BEGIN KTextEditor::TemplateInterface
 bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c, const QString &templateString,
-                                                     const QMap<QString,QString> &initialValues, QWidget * )
+                                                     const QMap<QString,QString> &initialValues, const QString& scriptToken, QWidget * )
 {
   if (templateString.isEmpty()) return false;
 

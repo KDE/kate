@@ -1,6 +1,7 @@
 // This file is part of the KDE libraries
 // Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
 // Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+// Copyright (C) 2010 Joseph Wenninger <jowenn@kde.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -30,6 +31,7 @@
 #include "katescript.h"
 #include "kateindentscript.h"
 #include "katecommandlinescript.h"
+#include "katetemplatescript.h"
 
 class QString;
 
@@ -132,6 +134,22 @@ class KateScriptManager : public QObject, public KTextEditor::Command
 
     /** Map of language to indent scripts */
     QHash<QString, QVector<KateIndentScript*> > m_languageToIndenters;
+    
+    
+  public:
+    /** managing of scripts for the template handler. The scripts are given as string content, not as  files*/
+    const QString registerTemplateScript (QObject* owner, const QString& script);
+    /** unregister a given script */
+    void unregisterTemplateScript(const QString& scriptToken);
+
+    
+    void callTestIt(KateView* view, const QString & token);
+  public Q_SLOTS:
+    void slotTemplateScriptOwnerDestroyed(QObject* owner);
+    
+  private:
+    QMultiMap<QObject*, QString> m_ownerScriptTokens;
+    QHash<QString, KateTemplateScript*> m_tokenTemplateScript;
 };
 
 

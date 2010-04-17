@@ -1,6 +1,7 @@
 // This file is part of the KDE libraries
 // Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
 // Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+// Copyright (C) 2010 Joseph Wenninger <jowenn@kde.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -45,6 +46,7 @@ namespace Kate {
     /** Don't know what kind of script this is */
     UnknownScript
   };
+
 
   /** Top-level script functions */
   namespace Script {
@@ -103,11 +105,17 @@ class KateScriptHeader
  */
 class KateScript {
   public:
+
+  enum InputType {
+    InputURL,
+    InputSCRIPT
+  };
+    
     /**
      * Create a new script representation, passing a file @p url to it.
      * Loading of the script will happen lazily
      */
-    KateScript(const QString &url);
+    KateScript(const QString &urlOrScript, enum InputType inputType=InputURL);
     virtual ~KateScript();
 
     /** The script's URL */
@@ -187,6 +195,10 @@ class KateScript {
   private:
     /** True, if the katepartapi.js file is already loaded, otherwise false */
     static bool s_scriptingApiLoaded;
+    
+    /** if input is script or url**/
+    enum InputType m_inputType;
+    QString m_script;
 };
 
 //END

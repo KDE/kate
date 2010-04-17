@@ -3,6 +3,7 @@
 // Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
 // Copyright (C) 2006, 2009 Dominik Haumann <dhaumann kde org>
 // Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2010 Joseph Wenninger <jowenn@kde.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -28,6 +29,7 @@
 #include <QFileInfo>
 #include <QStringList>
 #include <QMap>
+#include <QUuid>
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -358,4 +360,39 @@ const QStringList &KateScriptManager::cmds()
 }
 
 
+
+const QString KateScriptManager::registerTemplateScript (QObject* owner, const QString& script) {
+  static uint counter=0;
+  QUuid tokenId=QUuid::createUuid();
+  ++counter;
+  QString token=QString("%1").arg(counter)+tokenId.toString();
+  
+  m_tokenTemplateScript.insert(token, new KateTemplateScript(script));
+    
+  connect (owner,SIGNAL(destroyed(QObject*)),this,SLOT(slotTemplateScriptOwnerDestroyed(QObject*)));
+  m_ownerScriptTokens.insertMulti(owner,token);
+  return token;
+}
+
+void KateScriptManager::unregisterTemplateScript(const QString& scriptToken) {
+  QObject* k=m_ownerScriptTokens.key(scriptToken);
+  if (!k) return;
+  m_ownerScriptTokens.remove(k,scriptToken);
+  delete m_tokenTemplateScript.take(scriptToken);
+}
+  
+void KateScriptManager::callTestIt(KateView* view, const QString & token) {
+  kDebug()<<"Invoking testit";
+  KateTemplateScript *script=m_tokenTemplateScript[token];
+  script->invoke(view,"testit");
+  kDebug()<<"Testit has been invoked";
+}
+  
+void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner) {
+  while(m_ownerScriptTokens.contains(owner)) {
+    QString token=m_ownerScriptTokens.take(owner);
+    kDebug()<<"Destroying template script"<<token;
+    delete m_tokenTemplateScript.take(token);
+  }
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

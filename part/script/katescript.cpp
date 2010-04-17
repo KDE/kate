@@ -1,6 +1,7 @@
 // This file is part of the KDE libraries
 // Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
 // Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+// Copyright (C) 2010 Joseph Wenninger <jowenn@kde.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -117,13 +118,15 @@ bool KateScript::readFile(const QString& sourceUrl, QString& sourceCode)
 }
 
 
-KateScript::KateScript(const QString &url)
+KateScript::KateScript(const QString &urlOrScript, enum InputType inputType)
   : m_loaded(false)
   , m_loadSuccessful(false)
-  , m_url(url)
+  , m_url(inputType==InputURL?urlOrScript:QString())
   , m_engine(0)
   , m_document(0)
   , m_view(0)
+  , m_inputType(inputType)
+  , m_script(inputType==InputSCRIPT?urlOrScript:QString())
 {
 }
 
@@ -235,9 +238,11 @@ bool KateScript::load()
 
   // read the script file into memory
   QString source;
-  if (!readFile(m_url, source)) {
-    return false;
-  }
+  if (m_inputType==InputURL) {
+    if (!readFile(m_url, source)) {
+      return false;
+    }
+  } else source=m_script;
 
   // create script engine, register meta types
   m_engine = new QScriptEngine();

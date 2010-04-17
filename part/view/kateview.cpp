@@ -4,7 +4,7 @@
    Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2001-2010 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -56,6 +56,7 @@
 #include "spellcheck/spellcheckdialog.h"
 #include "spellcheck/spellingmenu.h"
 #include "katebuffer.h"
+#include "script/katescriptmanager.h"
 
 #include <kparts/event.h>
 
@@ -1972,8 +1973,16 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
 }
 
 bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues) {
-  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,this);
+  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,QString(),this);
 }
+
+bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken) {
+  if (!scriptToken.isEmpty()) {
+    KateGlobal::self()->scriptManager()->callTestIt(this,scriptToken);
+  }
+  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,scriptToken,this);
+}
+
 
 bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 {

@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2004 Joseph Wenninger <jowenn@kde.org>
+ *  Copyright (C) 2004,2010 Joseph Wenninger <jowenn@kde.org>
  *  Copyright (C) 2009 Milian Wolff <mail@milianw.de>
  *
  *  This library is free software; you can redistribute it and/or

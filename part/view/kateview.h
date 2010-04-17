@@ -1,7 +1,7 @@
  /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2001-2010 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
+#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/smartrangewatcher.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
@@ -77,7 +78,7 @@ class QVBoxLayout;
 class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
                  public KTextEditor::TextHintInterface,
                  public KTextEditor::SessionConfigInterface,
-                 public KTextEditor::TemplateInterface,
+                 public KTextEditor::TemplateInterface2,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
                  private KTextEditor::SmartRangeWatcher,
@@ -88,6 +89,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     Q_INTERFACES(KTextEditor::TextHintInterface)
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
     Q_INTERFACES(KTextEditor::TemplateInterface)
+    Q_INTERFACES(KTextEditor::TemplateInterface2)
     Q_INTERFACES(KTextEditor::ConfigInterface)
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::AnnotationViewInterface)
@@ -633,8 +635,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   ///Template stuff
   public:
     virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues);
-
-
+    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken);
   /**
    * Accessors to the bars...
    */

@@ -79,6 +79,7 @@ undo/kateundomanager.cpp
 script/katescript.cpp
 script/kateindentscript.cpp
 script/katecommandlinescript.cpp
+script/katetemplatescript.cpp
 script/katescriptmanager.cpp
 # scripting wrappers
 script/katescriptdocument.cpp

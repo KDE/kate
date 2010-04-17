@@ -497,4 +497,13 @@ void KateGlobal::setContainer( QObject * container )
 //END container interface
 
 
+
+QString KateGlobal::registerTemplateScript (QObject* owner, const QString& script) {
+  return scriptManager()->registerTemplateScript(owner,script);  
+}
+
+void KateGlobal::unregisterTemplateScript(const QString& scriptToken) {
+  scriptManager()->unregisterTemplateScript(scriptToken);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

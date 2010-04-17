@@ -316,10 +316,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
       renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
 
       // add ranges with attributes to the list
-      if (!rangesWithAttributes.empty()) {
+      for (int i = 0; i < rangesWithAttributes.size(); ++i) {
         NormalRenderRange *additionaHl = new NormalRenderRange();
-        for (int i = 0; i < rangesWithAttributes.size(); ++i)
-          additionaHl->addRange(new KTextEditor::Range (*rangesWithAttributes[i]), rangesWithAttributes[i]->attribute());
+        additionaHl->addRange(new KTextEditor::Range (*rangesWithAttributes[i]), rangesWithAttributes[i]->attribute());
         renderRanges.append(additionaHl);
       }
     } else {

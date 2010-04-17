@@ -71,9 +71,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_mouse()
   , m_possibleTripleClick (false)
   , m_completionItemExpanded (false)
-  , m_bm(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
-  , m_bmStart(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
-  , m_bmEnd(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bm(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bmStart(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bmEnd(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -83,7 +83,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_madeVisible(false)
   , m_shiftKeyPressed (false)
   , m_autoCenterLines(0)
-  , m_minLinesVisible(0)  
+  , m_minLinesVisible(0)
   , m_selChangedByUser (false)
   , m_selectAnchor (-1, -1)
   , m_selectionMode( Default )
@@ -113,7 +113,7 @@ KateViewInternal::KateViewInternal(KateView *view)
 
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();
-  
+
   // bracket markers are only for this view
   m_bm->setView (m_view);
   m_bmStart->setView (m_view);
@@ -268,7 +268,7 @@ KateViewInternal::~KateViewInternal ()
   if (m_viInputModeManager) {
     delete m_viInputModeManager;
   }
-  
+
   // delete bracket markers
   delete m_bm;
   delete m_bmStart;
@@ -1975,18 +1975,18 @@ void KateViewInternal::updateBracketMarks()
   int maxLines = 5000;
   KTextEditor::Range newRange;
   doc()->newBracketMark( m_cursor, newRange, maxLines );
-  
+
   // new range valid, then set ranges to it
   if (newRange.isValid ()) {
       // modify full range
       m_bm->setRange (newRange);
-    
+
       // modify start and end ranges
       m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
       m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
       return;
   }
-  
+
   // new range was invalid
   m_bm->setRange (KTextEditor::Range::invalid());
   m_bmStart->setRange (KTextEditor::Range::invalid());

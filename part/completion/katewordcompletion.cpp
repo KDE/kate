@@ -25,9 +25,7 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
-#include "katebuffer.h"
 #include "katetextrange.h"
-//#include "katetextcursor.h"
 
 #include <ktexteditor/variableinterface.h>
 
@@ -229,7 +227,7 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
   d->isCompleting = false;
   d->dcRange = KTextEditor::Range::invalid();
 
-  d->liRange = new Kate::TextRange(static_cast<KateDocument*>(m_view->document())->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand);
+  d->liRange = static_cast<KateDocument*>(m_view->document())->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand);
 
   KColorScheme colors(QPalette::Active);
   KTextEditor::Attribute::Ptr a = KTextEditor::Attribute::Ptr( new KTextEditor::Attribute() );

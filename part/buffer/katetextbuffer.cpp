@@ -54,12 +54,12 @@ TextBuffer::~TextBuffer ()
 {
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
-  
+
   // kill all ranges
   QSet<TextRange *> copyRanges = m_ranges;
   qDeleteAll (copyRanges);
   Q_ASSERT (m_ranges.empty());
-  
+
   // clean out all cursors and lines, only cursors belonging to range will survive
   for (int i = 0; i < m_blocks.size(); ++i)
     m_blocks[i]->deleteBlockContent ();
@@ -195,8 +195,8 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
   // let the block handle the wrapLine
   // this can only lead to one more line in this block
   // no other blocks will change
+  ++m_lines; // first alter the line counter, as functions called will need the valid one
   m_blocks[blockIndex]->wrapLine (position);
-  ++m_lines;
 
   // remember changes
   ++m_revision;
@@ -708,19 +708,19 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
        */
       if (rangesWithAttributeOnly && !range->attribute())
           continue;
-      
+
       /**
        * we want ranges for no view, but this one's attribute is only valid for views
        */
       if (!view && range->attibuteOnlyForViews())
           continue;
-      
+
       /**
        * the range's attribute is not valid for this view
        */
       if (range->view() && range->view() != view)
           continue;
-      
+
       /**
        * if line is in the range, ok
        */

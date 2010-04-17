@@ -646,6 +646,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
   private:
     KateSearchBar *searchBar (bool initHintAsPower = false);
+    bool hasSearchBar () const { return m_searchBar != 0; }
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
 

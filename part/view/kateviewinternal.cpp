@@ -43,6 +43,7 @@
 #include "katecompletionwidget.h"
 #include "kateviinputmodemanager.h"
 #include "katevimodebar.h"
+#include "katesearchbar.h"
 #include "spellcheck/spellingmenu.h"
 
 #include <kcursor.h>
@@ -2215,6 +2216,9 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           k->accept();
           //kDebug() << obj << "shortcut override" << k->key() << "clearing selection";
           return true;
+        } else if (m_view->hasSearchBar()) {
+          // hide search&replace highlights
+          m_view->searchBar()->clearHighlights();
         }
       }
 

@@ -186,8 +186,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
 
 
 KateSearchBar::~KateSearchBar() {
-    qDeleteAll(m_hlRanges);
-    m_hlRanges.clear();
+    clearHighlights();
     delete m_layout;
     delete m_widget;
 
@@ -1482,7 +1481,7 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::closed() {
-    clearHighlights();
+    // empty, can probably be removed
 }
 
 

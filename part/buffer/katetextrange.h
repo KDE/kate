@@ -128,6 +128,19 @@ class KATEPART_TESTS_EXPORT TextRange {
     operator const KTextEditor::Range () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
 
     /**
+     * Will this range invalidate itself if it becomes empty?
+     * Default is false.
+     * @return auto invalidate range if becomes empty
+     */
+    bool invalidateIfEmpty () const { return m_invalidateIfEmpty; }
+
+    /**
+     * Set if this range's attribute is only visible in views, not for example prints.
+     * @param onlyForViews attribute only valid for views
+     */
+    void setInvalidateIfEmpty (bool invalidate) { m_invalidateIfEmpty = invalidate; }
+
+    /**
      * Gets the active view for this range. Might be already invalid, internally only used for pointer comparisons.
      *
      * \return a pointer to the active view
@@ -223,6 +236,11 @@ class KATEPART_TESTS_EXPORT TextRange {
      * Is this range's attribute only visible in views, not for example prints?
      */
     bool m_attibuteOnlyForViews;
+
+    /**
+     * Will this range invalidate itself if it becomes empty?
+     */
+    bool m_invalidateIfEmpty;
 };
 
 }

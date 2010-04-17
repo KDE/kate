@@ -129,6 +129,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
+  // selection if for this view only and will invalidate if becoming empty
+  m_selection.setInvalidateIfEmpty (true);
+  m_selection.setView (this);
+
   KateGlobal::self()->registerView( this );
 
   KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );

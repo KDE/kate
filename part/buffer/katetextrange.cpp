@@ -32,6 +32,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
   , m_attibuteOnlyForViews (false)
+  , m_invalidateIfEmpty (false)
 {
   // remember this range in buffer
   m_buffer.m_ranges.insert (this);
@@ -97,7 +98,7 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine)
 {
   // check if any cursor is invalid or the range is zero size
   // if yes, invalidate this range
-  if (!m_start.toCursor().isValid() || !m_end.toCursor().isValid() || m_end.toCursor() <= m_start.toCursor()) {
+  if (!m_start.toCursor().isValid() || !m_end.toCursor().isValid() || (m_invalidateIfEmpty ? (m_end.toCursor() <= m_start.toCursor()) : (m_end.toCursor() < m_start.toCursor()))) {
     m_start.setPosition (-1, -1);
     m_end.setPosition (-1, -1);
   }

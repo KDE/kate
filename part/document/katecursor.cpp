@@ -150,31 +150,4 @@ uchar KateDocCursor::currentAttrib() const
   return m_doc->plainKateTextLine(line())->attribute(column());
 }
 
-bool KateDocCursor::nextNonSpaceChar()
-{
-  for(; m_line < m_doc->lines(); ++m_line) {
-    m_column = m_doc->plainKateTextLine(line())->nextNonSpaceChar(column());
-    if(m_column != -1)
-      return true; // Next non-space char found
-    m_column = 0;
-  }
-  // No non-space char found
-  setPosition(-1, -1);
-  return false;
-}
-
-bool KateDocCursor::previousNonSpaceChar()
-{
-  while (true) {
-    m_column = m_doc->plainKateTextLine(line())->previousNonSpaceChar(column());
-    if(m_column != -1) return true; // Previous non-space char found
-    if(m_line == 0) return false;
-    --m_line;
-    m_column = m_doc->plainKateTextLine(m_line)->length();
-  }
-  // No non-space char found
-  setPosition(-1, -1);
-  return false;
-}
-
 // kate: space-indent on; indent-width 2; replace-tabs on;

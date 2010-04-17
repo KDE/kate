@@ -58,26 +58,6 @@ class KateDocCursor : public KTextEditor::Cursor
 
     uchar currentAttrib() const;
 
-    /**
-      Find the position (line and col) of the next char
-      that is not a space. If found KateDocCursor points to the
-      found character. Otherwise to a invalid Position such that
-      validPosition() returns false.
-      @return True if the specified or a following character is not a space
-               Otherwise false.
-    */
-    bool nextNonSpaceChar();
-
-    /**
-      Find the position (line and col) of the previous char
-      that is not a space. If found KateDocCursor points to the
-      found character. Otherwise to a invalid Position such that
-      validPosition() returns false.
-      @return True if the specified or a preceding character is not a space
-               Otherwise false.
-    */
-    bool previousNonSpaceChar();
-
   protected:
     KateDocument *m_doc;
 };

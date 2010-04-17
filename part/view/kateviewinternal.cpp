@@ -71,10 +71,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_mouse()
   , m_possibleTripleClick (false)
   , m_completionItemExpanded (false)
-  , m_bm(smartManager()->newSmartRange())
-  , m_bmStart(smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
-  , m_bmEnd(smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
-  , m_bmHighlighted(false)
+  , m_bm(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bmStart(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bmEnd(new Kate::TextRange(m_view->doc()->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -108,14 +107,20 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
 
-  updateBracketMarkAttributes();
-
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
   setAttribute(Qt::WA_InputMethodEnabled);
 
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();
+  
+  // bracket markers are only for this view
+  m_bm->setView (m_view);
+  m_bmStart->setView (m_view);
+  m_bmEnd->setView (m_view);
+
+  // update mark attributes
+  updateBracketMarkAttributes();
 
   //
   // scrollbar for lines
@@ -263,6 +268,11 @@ KateViewInternal::~KateViewInternal ()
   if (m_viInputModeManager) {
     delete m_viInputModeManager;
   }
+  
+  // delete bracket markers
+  delete m_bm;
+  delete m_bmStart;
+  delete m_bmEnd;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -785,20 +795,20 @@ KTextEditor::Cursor KateViewInternal::findMatchingBracket()
 {
   KTextEditor::Cursor c;
 
-  if (!m_bm->isValid())
-    return KTextEditor::Cursor(-1, -1);
+  if (!m_bm->toRange().isValid())
+    return KTextEditor::Cursor::invalid();
 
-  Q_ASSERT(m_bmEnd->isValid());
-  Q_ASSERT(m_bmStart->isValid());
+  Q_ASSERT(m_bmEnd->toRange().isValid());
+  Q_ASSERT(m_bmStart->toRange().isValid());
 
-  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor.toCursor()) {
+  if (m_bmStart->toRange().contains(m_cursor) || m_bmStart->end() == m_cursor.toCursor()) {
     c = m_bmEnd->end();
-  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor.toCursor()) {
+  } else if (m_bmEnd->toRange().contains(m_cursor) || m_bmEnd->end() == m_cursor.toCursor()) {
     c = m_bmStart->start();
   } else {
     // should never happen: a range exists, but the cursor position is
     // neither at the start nor at the end...
-    return KTextEditor::Cursor(-1, -1);
+    return KTextEditor::Cursor::invalid();
   }
 
   return c;
@@ -1949,7 +1959,6 @@ void KateViewInternal::updateBracketMarkAttributes()
   m_bmEnd->setAttribute(bracketFill);
 
   if (m_view->m_renderer->config()->showWholeBracketExpression()) {
-
     KTextEditor::Attribute::Ptr expressionFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
     expressionFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
     expressionFill->setBackgroundFillWhitespace(false);
@@ -1962,46 +1971,26 @@ void KateViewInternal::updateBracketMarkAttributes()
 
 void KateViewInternal::updateBracketMarks()
 {
-  bool showWholeBracketExpression = m_view->m_renderer->config()->showWholeBracketExpression();
-
-  QMutexLocker lock(doc()->smartMutex());
-  if (m_bmHighlighted) {
-    m_view->removeInternalHighlight(m_bmStart);
-    m_view->removeInternalHighlight(m_bmEnd);
-    m_view->removeInternalHighlight(m_bm);
-    m_bmHighlighted = false;
-  }
-
-  if ( m_bm->isValid() ) {
-    tagRange(*m_bmStart, true);
-    tagRange(*m_bmEnd, true);
-    tagRange(*m_bm, true);
-  }
-
   // add some limit to this, this is really endless on big files without limit
   int maxLines = 5000;
-  doc()->newBracketMark( m_cursor, *m_bm, maxLines );
-
-  if ( m_bm->isValid() ) {
-    m_bmStart->start() = m_bm->start();
-    m_bmStart->end().setPosition(m_bm->start().line(), m_bm->start().column() + 1);
-
-    m_bmEnd->start() = m_bm->end();
-    m_bmEnd->end().setPosition(m_bm->end().line(), m_bm->end().column() + 1);
-
-    tagRange(*m_bmStart, true);
-    tagRange(*m_bmEnd, true);
-    if (showWholeBracketExpression) {
-      tagRange(*m_bm, true);
-    }
-
-    m_view->addInternalHighlight(m_bmStart);
-    m_view->addInternalHighlight(m_bmEnd);
-    if (showWholeBracketExpression) {
-      m_view->addInternalHighlight(m_bm);
-    }
-    m_bmHighlighted = true;
+  KTextEditor::Range newRange;
+  doc()->newBracketMark( m_cursor, newRange, maxLines );
+  
+  // new range valid, then set ranges to it
+  if (newRange.isValid ()) {
+      // modify full range
+      m_bm->setRange (newRange);
+    
+      // modify start and end ranges
+      m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
+      m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
+      return;
   }
+  
+  // new range was invalid
+  m_bm->setRange (KTextEditor::Range::invalid());
+  m_bmStart->setRange (KTextEditor::Range::invalid());
+  m_bmEnd->setRange (KTextEditor::Range::invalid());
 }
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)

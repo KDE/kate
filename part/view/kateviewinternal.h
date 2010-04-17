@@ -30,6 +30,7 @@
 #include <ktexteditor/smartrangewatcher.h>
 
 #include "katetextcursor.h"
+#include "katetextrange.h"
 #include "katesmartcursor.h"
 #include "katelinelayout.h"
 #include "katetextline.h"
@@ -278,8 +279,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     QTime m_altDownTime;
 
     // Bracket mark and corresponding decorative ranges
-    KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
-    bool m_bmHighlighted;
+    Kate::TextRange *m_bm, *m_bmStart, *m_bmEnd;
     void updateBracketMarkAttributes();
 
     enum DragState { diNone, diPending, diDragging };

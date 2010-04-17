@@ -1,4 +1,18 @@
 <snippets name="Testsnippets" filetypes="*" snippetlicense="public domain" authors="Joseph Wenninger" license="BSD">
+<script>
+
+function testit(src) {
+        debug("HELLO I'm a script");
+        return "HELLO I'm a script. Text is:"+src+" I'm done";
+}
+
+function getFileName(src) {
+        return document.fileName();
+}
+
+</script>
+
+
   <item>
     <displayprefix>prefix</displayprefix>
     <match>test1</match>
@@ -226,7 +240,43 @@ ${a_regexp/X/:/}
 The END !!</fillin>
  </item>
 
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroringscripted</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>The mirror value is calculated by a script
+This ${field} should be mirrored
+into ${field`testit`}</fillin>
+ </item>
 
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn} The filename of the document is ${fn`getFileName`}
+  </fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn`getFileName`} is the filename
+  </fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename3</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn`getFileName`} is the filename
+  and now it is in uppercase: ${fn/(.*)/\U\1\E/} !!!
+  </fillin>
+ </item>
 
 
 </snippets>

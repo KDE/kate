@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2004 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2004, 2010 Joseph Wenninger <jowenn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -123,6 +123,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      *
      * If the editor supports some kind of smart indentation, the inserted code
      * should be layouted by the indenter.
+     * @deprecated
      */
     bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
 
@@ -133,9 +134,16 @@ protected:
      * this method should work as described in the documentation for
      * insertTemplateText above.
      * \return true if any text was inserted.
+     * @deprecated
      */
     virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
 
+    /**
+     * DO NOT USE !!!! THIS IS USED INTERNALLY by the interface only !!!!!!
+     * Behaviour might change !!!!!!!
+     */
+    bool KTE_INTERNAL_setupIntialValues(const QString &templateString, QMap<QString,QString> *initialValues);
+    
   private:
     class TemplateInterfacePrivate* const d;
 };

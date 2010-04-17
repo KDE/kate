@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-  Copyright (C) 2004 Joseph Wenninger <jowenn@kde.org>
+  Copyright (C) 2004, 2010 Joseph Wenninger <jowenn@kde.org>
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Library General Public
@@ -115,9 +115,9 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
   return true;
 }
 
-bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const QString &templateString, const QMap<QString, QString> &initialValues)
+bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateString,QMap<QString,QString> *initialValues)
 {
-  QMap<QString, QString> enhancedInitValues( initialValues );
+  QMap<QString, QString> enhancedInitValues( *initialValues );
   
   QRegExp rx( "[$%]\\{([^}\\r\\n]+)\\}" );
   rx.setMinimal( true );
@@ -233,8 +233,15 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
     if (it.value()==DUMMY_VALUE) it.value()="";
   }
   kDebug()<<"-----------------------------------";
-  return expandMacros( enhancedInitValues, dynamic_cast<QWidget*>(this) )
-         && insertTemplateTextImplementation( insertPosition, templateString, enhancedInitValues);
+  if (!expandMacros( enhancedInitValues, dynamic_cast<QWidget*>(this) ) ) return false;
+  *initialValues=enhancedInitValues;
+  return true;
+}  
+
+bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const QString &templateString, const QMap<QString, QString> &initialValues) {
+  QMap<QString,QString> enhancedInitValues(initialValues);
+  if (!KTE_INTERNAL_setupIntialValues(templateString,&enhancedInitValues)) return false;
+  return insertTemplateTextImplementation( insertPosition, templateString, enhancedInitValues);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

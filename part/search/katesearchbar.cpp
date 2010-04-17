@@ -136,7 +136,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
         m_incUi(NULL),
-        m_incInitCursor(0, 0),
+        m_incInitCursor(view->cursorPosition()),
         m_powerUi(NULL),
         m_incHighlightAll(false),
         m_incFromCursor(true),
@@ -148,6 +148,9 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
 
     connect(m_rangeNotifier,SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),
       this,SLOT(onRangeContentsChanged(KTextEditor::SmartRange*)));
+
+    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+            this, SLOT(updateIncInitCursor()));
 
     // Modify parent
     QWidget * const widget = centralWidget();
@@ -188,6 +191,10 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     } else {
         enterIncrementalMode();
     }
+
+    updateSelectionOnly();
+    connect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+            this, SLOT(updateSelectionOnly()));
 }
 
 
@@ -1440,23 +1447,14 @@ void KateSearchBar::showEvent(QShowEvent * event) {
         m_incInitCursor = m_view->cursorPosition();
     }
 
-    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(updateSelectionOnly()));
-    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
-            this, SLOT(updateIncInitCursor()));
-
     enableHighlights();
+    updateSelectionOnly();
     KateViewBarWidget::showEvent(event);
 }
 
 
 
 void KateSearchBar::closed() {
-    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)),
-            this, SLOT(updateSelectionOnly()));
-    disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
-            this, SLOT(updateIncInitCursor()));
-
     disableHighlights();
 }
 

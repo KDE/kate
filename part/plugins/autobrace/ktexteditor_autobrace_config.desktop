@@ -5,3 +5,4 @@ X-KDE-Library=ktexteditor_autobrace
 X-KDE-PluginKeyword=ktexteditor_autobrace_config
 X-KDE-ParentComponents=ktexteditorautobrace
 Name=AutoBrace Configuration
+Name[x-test]=xxAutoBrace Configurationxx

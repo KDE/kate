@@ -55,6 +55,17 @@ bool KateDocCursor::validPosition()
   return validPosition(line(), column());
 }
 
+bool KateDocCursor::atEndOfLine() const
+{
+  return line() >= 0 && line() <= m_doc->lastLine() && column() >= m_doc->lineLength(line());
+}
+
+bool KateDocCursor::atEndOfDocument() const
+{
+  return *this >= m_doc->documentEnd();
+}
+
+
 bool KateDocCursor::gotoNextLine()
 {
   bool ok = (line() + 1 < m_doc->lines());

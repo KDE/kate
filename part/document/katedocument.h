@@ -579,7 +579,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   //
   public:
     Kate::TextCursor* newTextCursor(const KTextEditor::Cursor &position, Kate::TextCursor::InsertBehavior insertBehavior = Kate::TextCursor::MoveOnInsert);
-    Kate::TextRange* newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehavior insertBehavior = Kate::TextRange::DoNotExpand);
+    Kate::TextRange* newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehaviors insertBehavior = Kate::TextRange::DoNotExpand);
 
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);

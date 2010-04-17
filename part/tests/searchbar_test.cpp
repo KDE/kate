@@ -26,6 +26,7 @@
 #include <kateview.h>
 #include <kateconfig.h>
 #include <katesearchbar.h>
+#include <katetextrange.h>
 
 QTEST_KDEMAIN(SearchBarTest, GUI)
 
@@ -54,10 +55,9 @@ public:
     : KateSearchBar(initAsPower, view, config)
   {}
 
-  const QList<SmartRange*> &childRanges() const
+  const QList<Kate::TextRange*> &childRanges() const
   {
-    Q_ASSERT(m_topRange != 0);
-    return m_topRange->childRanges();
+    return m_hlRanges;
   }
 };
 
@@ -278,9 +278,9 @@ void SearchBarTest::testFindAll()
   bar.findAll();
 
   QCOMPARE(bar.childRanges().size(), 3);
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(0)), Range(0, 0, 0, 1));
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(1)), Range(0, 2, 0, 3));
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(2)), Range(0, 4, 0, 5));
+  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 1));
+  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 2, 0, 3));
+  QCOMPARE(bar.childRanges().at(2)->toRange(), Range(0, 4, 0, 5));
 
   bar.setSearchPattern("a ");
 
@@ -313,17 +313,17 @@ void SearchBarTest::testReplaceAll()
   bar.replaceAll();
 
   QCOMPARE(bar.childRanges().size(), 3);
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(0)), Range(0, 0, 0, 0));
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(1)), Range(0, 1, 0, 1));
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(2)), Range(0, 2, 0, 2));
+  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 0));
+  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 1, 0, 1));
+  QCOMPARE(bar.childRanges().at(2)->toRange(), Range(0, 2, 0, 2));
 
   bar.setSearchPattern(" ");
   bar.setReplacePattern("b");
   bar.replaceAll();
 
   QCOMPARE(bar.childRanges().size(), 2);
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(0)), Range(0, 0, 0, 1));
-  QCOMPARE(*static_cast<Range *>(bar.childRanges().at(1)), Range(0, 1, 0, 2));
+  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 1));
+  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 1, 0, 2));
 }
 
 void SearchBarTest::testFindSelectionForward_data()

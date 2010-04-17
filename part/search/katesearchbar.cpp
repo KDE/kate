@@ -26,13 +26,13 @@
 #include "katematch.h"
 #include "kateview.h"
 #include "katedocument.h"
-#include "katesmartrange.h"
+#include "katecursor.h"
+#include "katetextcursor.h"
+#include "katetextrange.h"
 #include "kateconfig.h"
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
-
-#include <ktexteditor/smartrangenotifier.h>
 
 #include <kcolorscheme.h>
 #include <kstandardaction.h>
@@ -131,8 +131,6 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         : KateViewBarWidget(true, view),
         m_view(view),
         m_config(config),
-        m_topRange(NULL),
-        m_rangeNotifier(new KTextEditor::SmartRangeNotifier),
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
         m_incUi(NULL),
@@ -144,10 +142,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerMode(0) {
-
-    connect(m_rangeNotifier,SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),
-      this,SLOT(onRangeContentsChanged(KTextEditor::SmartRange*)));
+        m_powerMode(0)
+{
 
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(updateIncInitCursor()));
@@ -156,16 +152,6 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
     m_layout->setMargin(0);
-
-    // Init highlight
-    {
-      QMutexLocker lock(view->doc()->smartMutex());
-
-      m_topRange = view->doc()->newSmartRange(view->doc()->documentRange());
-      static_cast<KateSmartRange*>(m_topRange)->setInternal();
-      m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
-      disableHighlights();
-    }
 
 
     // Copy global to local config backup
@@ -200,7 +186,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
 
 
 KateSearchBar::~KateSearchBar() {
-//  delete m_topRange; this gets deleted somewhere else (bug #176027)
+    qDeleteAll(m_hlRanges);
+    m_hlRanges.clear();
     delete m_layout;
     delete m_widget;
 
@@ -261,12 +248,12 @@ void KateSearchBar::findPrevious() {
 
 
 void KateSearchBar::highlight(const Range & range, const QColor & color) {
-    SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
-    highlight->setInsertBehavior(SmartRange::DoNotExpand);
+    Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
+    highlight->setAttibuteOnlyForViews(true); // ignore when printing
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
     highlight->setAttribute(attribute);
-    highlight->addNotifier(m_rangeNotifier);
+    m_hlRanges.append(highlight);
 }
 
 
@@ -281,15 +268,6 @@ void KateSearchBar::highlightReplacement(const Range & range) {
     highlight(range, Qt::green); // TODO make this part of the color scheme
 }
 
-
-
-void KateSearchBar::onRangeContentsChanged(KTextEditor::SmartRange* range) {
-  indicateMatch(MatchNeutral);
-  Attribute::Ptr attribute(new Attribute());
-  //attribute->setBackground(color);
-  range->setAttribute(attribute);
-
-}
 
 void KateSearchBar::indicateMatch(MatchResult matchResult) {
     QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
@@ -789,7 +767,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     // Before first match
     resetHighlights();
 
-    SmartRange * workingRange = m_view->doc()->newSmartRange(inputRange);
+    Kate::TextRange * workingRange = m_view->doc()->newTextRange(inputRange);
     QList<Range> highlightRanges;
     int matchCounter = 0;
 
@@ -797,7 +775,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     int line = inputRange.start().line();
     do {
         if (block)
-            workingRange = m_view->doc()->newSmartRange(m_view->doc()->rangeOnLine(inputRange, line));
+            workingRange = m_view->doc()->newTextRange(m_view->doc()->rangeOnLine(inputRange, line));
 
         for (;;) {
             KateMatch match(m_view->doc(), enabledOptions);
@@ -827,20 +805,20 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
             }
 
             // Continue after match
-            SmartCursor & workingStart = workingRange->smartStart();
-            workingStart.setPosition(highlightRanges.last().end());
+            KateDocCursor workingStart(highlightRanges.last().end(), m_view->doc());
             if (originalMatchEmpty) {
                 // Can happen for regex patterns like "^".
                 // If we don't advance here we will loop forever...
-                workingStart.advance(1);
+                workingStart.moveForward(1);
             } else if (regexMode && !multiLinePattern && workingStart.atEndOfLine()) {
                 // single-line regexps might match the naked line end
                 // therefore we better advance to the next line
-                workingStart.advance(1);
+                workingStart.moveForward(1);
             }
+            workingRange->setRange(workingStart, workingRange->end());
 
             // Are we done?
-            if (!workingRange->isValid() || workingStart.atEndOfDocument()) {
+            if (!workingRange->toRange().isValid() || workingStart.atEndOfDocument()) {
                 break;
             }
         }
@@ -1486,14 +1464,15 @@ void KateSearchBar::enterIncrementalMode() {
 
 
 void KateSearchBar::enableHighlights() {
-    m_view->addInternalHighlight(m_topRange);
+    //m_view->addInternalHighlight(m_topRange);
+    // FIXME: dh remove?
 }
 
 
 
 void KateSearchBar::disableHighlights() {
-    m_view->removeInternalHighlight(m_topRange);
-    m_topRange->deleteChildRanges();
+    qDeleteAll(m_hlRanges);
+    m_hlRanges.clear();
 }
 
 

@@ -5051,7 +5051,7 @@ Kate::TextCursor* KateDocument::newTextCursor(const KTextEditor::Cursor &positio
   return new Kate::TextCursor(buffer(), position, insertBehavior);
 }
 
-Kate::TextRange* KateDocument::newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehavior insertBehavior)
+Kate::TextRange* KateDocument::newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehaviors insertBehavior)
 {
   return new Kate::TextRange(buffer(), range, insertBehavior);
 }

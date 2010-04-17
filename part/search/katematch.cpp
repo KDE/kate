@@ -21,7 +21,7 @@
 
 #include "kateregexpsearch.h"
 #include "katedocument.h"
-
+#include "katetextrange.h"
 
 KateMatch::KateMatch(KateDocument *document, KTextEditor::Search::SearchOptions options)
     : m_document(document)
@@ -49,8 +49,9 @@ KTextEditor::Range KateMatch::replace(const QString &replacement, bool blockMode
                                                      : replacement;
 
     // Track replacement operation
-    KTextEditor::SmartRange *const afterReplace = m_document->newSmartRange(range());
-    afterReplace->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
+    Kate::TextRange::InsertBehaviors insertBehavior = Kate::TextRange::ExpandLeft;
+    insertBehavior |= Kate::TextRange::ExpandRight;
+    Kate::TextRange *const afterReplace = m_document->newTextRange(range(), insertBehavior);
 
     blockMode = blockMode && !range().onSingleLine();
     m_document->replaceText(range(), finalReplacement, blockMode);

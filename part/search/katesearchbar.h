@@ -27,10 +27,6 @@
 
 #include <ktexteditor/searchinterface.h>
 
-namespace KTextEditor {
-    class SmartRangeNotifier;
-}
-
 class KateView;
 class KateViewConfig;
 class QVBoxLayout;
@@ -41,6 +37,9 @@ namespace Ui {
     class PowerSearchBar;
 }
 
+namespace Kate {
+    class TextRange;
+}
 
 
 class KATEPART_TESTS_EXPORT KateSearchBar : public KateViewBarWidget {
@@ -128,8 +127,6 @@ private Q_SLOTS:
     void onPowerReplacmentContextMenuRequest();
     void onPowerReplacmentContextMenuRequest(const QPoint&);
 
-    void onRangeContentsChanged(KTextEditor::SmartRange* range);
-
     void enableHighlights();
     void disableHighlights();
 
@@ -161,11 +158,10 @@ private:
 protected:
     KateView *const m_view;
     KateViewConfig *const m_config;
-    KTextEditor::SmartRange * m_topRange;
+    QList<Kate::TextRange*> m_hlRanges;
 
 private:
     // Shared by both dialogs
-    KTextEditor::SmartRangeNotifier *const m_rangeNotifier;
     QVBoxLayout *const m_layout;
     QWidget * m_widget;
 

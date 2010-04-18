@@ -500,10 +500,8 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     // Where to find?
     Range inputRange;
-    Range selection;
-    const bool selected = m_view->selection();
-    if (selected) {
-        selection = m_view->selectionRange();
+    const Range selection = m_view->selection() ? m_view->selectionRange() : Range::invalid();
+    if (selection.isValid()) {
         if (selectionOnly()) {
             // First match in selection
             inputRange = selection;
@@ -550,7 +548,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     Range afterReplace = Range::invalid();
     if (match.isValid()) {
         // Previously selected match again?
-        if (selected && (match.range() == selection)) {
+        if (match.range() == selection) {
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
@@ -587,7 +585,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             selectRange2(match.range());
             indicateMatch(MatchFound);
         }
-    } else if (!selected || !selectionOnly()) {
+    } else if (!selection.isValid() || !selectionOnly()) {
         // Find, second try from doc start on
         wrap = true;
     }
@@ -599,7 +597,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         match3.searchText(inputRange, searchPattern());
         if (match3.isValid()) {
             // Previously selected match again?
-            if (selected && !selectionOnly() && (match3.range() == selection)) {
+            if ((match3.range() == selection) && !selectionOnly()) {
                 // NOOP, same match again
             } else {
                 selectRange2(match3.range());

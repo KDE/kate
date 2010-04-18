@@ -27,7 +27,6 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "katecursor.h"
-#include "katetextcursor.h"
 #include "katetextrange.h"
 #include "kateconfig.h"
 
@@ -43,7 +42,6 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QShortcut>
 #include <QCompleter>
-#include <QMutexLocker>
 
 // Turn debug messages on/off here
 // #define FAST_DEBUG_ENABLE
@@ -556,7 +554,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
-                SmartRange *smartInputRange = m_view->doc()->newSmartRange(inputRange, 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
+                Kate::TextRange *smartInputRange = m_view->doc()->newTextRange (inputRange, Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
                 afterReplace = match.replace(*replacement, m_view->blockSelection());
                 inputRange = *smartInputRange;
                 delete smartInputRange;

@@ -244,6 +244,8 @@ class KATEPART_TESTS_EXPORT TextRange {
     bool m_invalidateIfEmpty;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(TextRange::InsertBehaviors)
+
 }
 
 #endif

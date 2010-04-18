@@ -118,9 +118,9 @@ target_link_libraries( completion_test ${KATE_TEST_LINK_LIBS}
 kde4_add_unit_test(searchbar_test searchbar_test.cpp)
 
 target_link_libraries( searchbar_test
-  ${KDE4_KDECORE_LIBS}
   ${KDE4_KDEUI_LIBS}
   ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
   katepartinterfaces
 )
 

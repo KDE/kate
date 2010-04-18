@@ -25,7 +25,8 @@
 #include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor_codesnippets_core_export.h>
-
+#include <ktexteditor/smartrange.h>
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -38,8 +39,9 @@ namespace KTextEditor {
 
     class SnippetCompletionModelPrivate;
 
-    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2 {
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface {
         Q_OBJECT
+        Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
       public:
         friend class SnippetSelectorModel;
         SnippetCompletionModel(const QString& fileType, QStringList &snippetFiles,KTextEditor::TemplateScriptRegistrar* scriptRegistrar);
@@ -56,6 +58,9 @@ namespace KTextEditor {
 
         static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString *snippetlicense);
 
+        virtual bool shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion);
+        virtual Range completionRange(View* view, const Cursor &position);
+        
         SnippetSelectorModel *selectorModel();
         QString fileType();
   #ifdef SNIPPET_EDITOR

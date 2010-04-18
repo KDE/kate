@@ -321,6 +321,47 @@ namespace KTextEditor {
       }
     }  
 
+
+  bool SnippetCompletionModel::shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion) {
+      if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
+        return true; //Always abort when the completion-range has been left
+      //Do not abort completions when the text has been empty already before and a newline has been entered
+
+      static const QRegExp allowedText("^([\\w:_]*)");
+  //    kDebug()<<!allowedText.exactMatch(currentCompletion);
+      return !allowedText.exactMatch(currentCompletion);
+  }
+
+
+  Range SnippetCompletionModel::completionRange(View* view, const Cursor &position)
+  {
+//      kDebug()<<position;
+      Cursor end = position;
+
+      QString text = view->document()->line(end.line());
+
+      static QRegExp findWordEnd( "^([_:\\w]*)\\b" );
+
+      Cursor start = end;
+      for (int i=end.column()-1;i>=-1;i--) {
+          if (i==-1) {
+            start.setColumn(0);
+            break;
+          }
+          QChar c=text.at(i);
+          if (! (c.isLetter() || c.isNumber() || (c=='_') || (c==':')) ) {
+            start.setColumn(i+1);
+            break;
+          }
+      }
+
+      if (findWordEnd.indexIn(text.mid(end.column())) >= 0)
+          end.setColumn(end.column() + findWordEnd.cap(1).length());
+
+//      kDebug()<<Range(start,end);
+      return Range(start, end);
+  }
+
   #ifdef SNIPPET_EDITOR
     static void addAndCreateElement(QDomDocument& doc, QDomElement& item, const QString& name, const QString &content)
     {

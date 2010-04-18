@@ -194,10 +194,7 @@ void KateTemplateHandler::cleanupAndExit()
   }
 
   delete m_wholeTemplateRange;
-
-  if ( m_finalCursorPosition ) {
-    delete m_finalCursorPosition;
-  }
+  delete m_finalCursorPosition;
   delete this;
 }
 
@@ -641,9 +638,9 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   }
 
   if ( finalCursorPosition.isValid() ) {
-    m_finalCursorPosition = m_doc->newSmartCursor(finalCursorPosition);
+    m_finalCursorPosition = m_doc->newTextCursor(finalCursorPosition);
   } else {
-    m_finalCursorPosition = m_doc->newSmartCursor(Cursor(line, column));
+    m_finalCursorPosition = m_doc->newTextCursor(Cursor(line, column));
   }
 
   if ( ranges.isEmpty() ) {

@@ -21,9 +21,9 @@
 #include <kcmdlineargs.h>
 
 int main(int argc, char **argv) {
-  KAboutData aboutData ("katesnippetstng_editor", 0, ki18n("Kate Snippets TNG Datafile Editor"), "0.1",
-                        ki18n( "Kate Snippets TNG Datafile Editor" ), KAboutData::License_LGPL,
-                        ki18n( "(c) 2009 Joseph Wenninger" ), KLocalizedString(), "http://www.kate-editor.org");
+  KAboutData aboutData ("ktesnippets_editor", 0, ki18n("Snippets Datafile Editor"), "0.1",
+                        ki18n( "Snippets Datafile Editor" ), KAboutData::License_LGPL,
+                        ki18n( "(c) 2009,2010 Joseph Wenninger" ), KLocalizedString(), "http://www.kate-editor.org");
   aboutData.setOrganizationDomain("kde.org");
   aboutData.setProgramIconName("kate");
   KCmdLineArgs::init (argc, argv, &aboutData);

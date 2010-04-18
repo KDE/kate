@@ -20,6 +20,9 @@
 #include<QObject>
 #include<QDBusAbstractAdaptor>
 
+#ifndef DBUS_HELPERS_H
+#define DBUS_HELPERS_H
+
 namespace KTextEditor {
   namespace CodesnippetsCore {
 #ifndef SNIPPET_EDITOR
@@ -50,3 +53,5 @@ namespace KTextEditor {
 #endif
   }
 }
+
+#endif

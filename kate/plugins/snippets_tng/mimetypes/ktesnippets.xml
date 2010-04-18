@@ -13,8 +13,8 @@ Notes:
   the mime type there.
 -->
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-  <mime-type type="application/x-katesnippets_tng">
+  <mime-type type="application/x-ktesnippets">
     <sub-class-of type="application/xml"/>
-    <comment>Kate Snippets TNG data file</comment>
+    <comment>KTE Snippets data file</comment>
   </mime-type>
 </mime-info>

@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/katesnippetstng_editor.pot
+$XGETTEXT *.cpp -o $podir/ktesnippets_editor.pot

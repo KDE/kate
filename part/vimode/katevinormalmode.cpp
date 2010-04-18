@@ -25,7 +25,7 @@
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
 #include "kateglobal.h"
-#include "katesmartmanager.h"
+#include "katetextcursor.h"
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
 #include <QApplication>
@@ -56,7 +56,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_matchItemRegex = generateMatchingItemRegex();
 
   m_defaultRegister = '"';
-  m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
 
   m_timeoutlen = 1000; // FIXME: make configurable
   m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
@@ -69,7 +68,9 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
 KateViNormalMode::~KateViNormalMode()
 {
-  delete m_marks;
+  // delete the text cursors
+  qDeleteAll( m_marks );
+
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
 }
@@ -421,9 +422,13 @@ void KateViNormalMode::addCurrentPositionToJumpList()
 {
     Cursor c( m_view->cursorPosition() );
 
-    KateSmartCursor *cursor = doc()->smartManager()->newSmartCursor( c );
+    // delete old cursor if any
+    if (Kate::TextCursor *oldCursor = m_marks.value('\''))
+      delete oldCursor;
 
-    m_marks->insert( '\'', cursor );
+    // create and remember new one
+    Kate::TextCursor *cursor = doc()->newTextCursor( c );
+    m_marks.insert( '\'', cursor );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1121,9 +1126,14 @@ bool KateViNormalMode::commandSetMark()
 {
   Cursor c( m_view->cursorPosition() );
 
-  KateSmartCursor *cursor = doc()->smartManager()->newSmartCursor( c );
+  // delete old cursor if any
+  if (Kate::TextCursor *oldCursor = m_marks.value(m_keys.at( m_keys.size()-1 )))
+    delete oldCursor;
 
-  m_marks->insert( m_keys.at( m_keys.size()-1 ), cursor );
+  // create and remember new one
+  Kate::TextCursor *cursor = doc()->newTextCursor( c );
+  m_marks.insert( m_keys.at( m_keys.size()-1 ), cursor );
+
   kDebug( 13070 ) << "set mark at (" << c.line() << "," << c.column() << ")";
 
   return true;
@@ -1814,9 +1824,8 @@ KateViRange KateViNormalMode::motionToMark()
       reg = '\'';
   }
 
-  KTextEditor::SmartCursor* cursor;
-  if ( m_marks->contains( reg ) ) {
-    cursor = m_marks->value( reg );
+  if ( m_marks.contains( reg ) ) {
+    Kate::TextCursor *cursor = m_marks.value( reg );
     r.endLine = cursor->line();
     r.endColumn = cursor->column();
   } else {

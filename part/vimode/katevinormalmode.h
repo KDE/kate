@@ -237,7 +237,7 @@ class KateViNormalMode : public KateViModeBase
     QString m_registerTemp;
 
     // marks
-    QMap<QChar, KTextEditor::SmartCursor*> *m_marks;
+    QMap<QChar, Kate::TextCursor*> m_marks;
 
     // item matching ('%' motion)
     QHash<QString, QString> m_matchingItems;

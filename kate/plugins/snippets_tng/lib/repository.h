@@ -16,8 +16,8 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#ifndef __JOWENN_SNIPPETS_REPOSITORY_H__
-#define __JOWENN_SNIPPETS_REPOSITORY_H__
+#ifndef __KTE_SNIPPETS_REPOSITORY_H__
+#define __KTE_SNIPPETS_REPOSITORY_H__
 
 #include "kwidgetitemdelegate.h"
 #include <QAbstractListModel>
@@ -143,23 +143,7 @@ namespace KTextEditor {
   };
 
     
-    
-    class SnippetRepositoryModelAdaptorPrivate;
-    
-    class SnippetRepositoryModelAdaptor: public QDBusAbstractAdaptor
-    {
-        Q_OBJECT
-        Q_CLASSINFO("D-Bus Interface", "org.kde.Kate.Plugin.SnippetsTNG.Repository")
-      public:
-        SnippetRepositoryModelAdaptor(SnippetRepositoryModel *repository);
-        virtual ~SnippetRepositoryModelAdaptor();
-      public Q_SLOTS:
-        void updateSnippetRepository();
-        void tokenNewHandled(const QString& token, const QString& filepath);
-      private:
-        SnippetRepositoryModel* m_repository;
-        SnippetRepositoryModelAdaptorPrivate *d;
-    };
+
   }
 }
 #endif

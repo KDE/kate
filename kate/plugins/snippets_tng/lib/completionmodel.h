@@ -16,8 +16,8 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#ifndef __JOWENN_SNIPPETS_COMPLETIONMODEL_H__
-#define __JOWENN_SNIPPETS_COMPLETIONMODEL_H__
+#ifndef __KTE_SNIPPETS_COMPLETIONMODEL_H__
+#define __KTE_SNIPPETS_COMPLETIONMODEL_H__
 
 
 #include <QAbstractListModel>
@@ -126,7 +126,7 @@ namespace KTextEditor {
         enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
-        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS NOT SET
   #endif
       private:

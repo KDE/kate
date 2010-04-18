@@ -96,12 +96,19 @@ void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::C
 
 void TextRange::checkValidity (int oldStartLine, int oldEndLine)
 {
-  // check if any cursor is invalid or the range is zero size
-  // if yes, invalidate this range
-  if (!m_start.toCursor().isValid() || !m_end.toCursor().isValid() || (m_invalidateIfEmpty ? (m_end.toCursor() <= m_start.toCursor()) : (m_end.toCursor() < m_start.toCursor()))) {
+  /**
+   * check if any cursor is invalid or the range is zero size and it should be invalidated then
+   */
+  if (!m_start.toCursor().isValid() || !m_end.toCursor().isValid() || (m_invalidateIfEmpty && m_end.toCursor() <= m_start.toCursor())) {
     m_start.setPosition (-1, -1);
     m_end.setPosition (-1, -1);
   }
+
+  /**
+   * for ranges which are allowed to become empty, normalize them, if the end has moved to the front of the start
+   */
+  if (!m_invalidateIfEmpty && m_end.toCursor() < m_start.toCursor())
+    m_end.setPosition (m_start.toCursor());
 
   // fix lookup
   fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());

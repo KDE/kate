@@ -52,6 +52,17 @@ kde4_add_unit_test(cursorrange_regression ${cursorrange_regression_SRCS})
 
 target_link_libraries(cursorrange_regression ${KATE_TEST_LINK_LIBS} )
 
+########### range test ###############
+
+kde4_add_unit_test(range_test range_test.cpp)
+
+target_link_libraries( range_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### next target ###############
 
 if(NOT MINGW)

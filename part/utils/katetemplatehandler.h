@@ -40,6 +40,10 @@ namespace KTextEditor {
   class SmartRange;
 }
 
+namespace Kate {
+  class TextRange;
+}
+
 /**
  * \brief Inserts a template and offers advanced snippet features, like navigation and mirroring.
  *
@@ -152,7 +156,7 @@ class KateTemplateHandler: public QObject
 public:
     class MirrorBehaviour {
     public:
-      
+
       MirrorBehaviour(); //clone
       MirrorBehaviour(const QString &regexp, const QString &replacement,const QString &flags); //regexp
       MirrorBehaviour(const QString& scriptToken, const QString& functionName, KateTemplateHandler* handler); //scripted
@@ -170,10 +174,10 @@ public:
       KateTemplateHandler *m_handler;
     };
 private:
-    
+
     QHash<KTextEditor::SmartRange*,MirrorBehaviour> m_mirrorBehaviour;
-    
-    
+
+
     /**
      * Jumps to the final cursor position. This is either \p m_finalCursorPosition, or
      * if that is not set, the end of \p m_templateRange.
@@ -230,7 +234,7 @@ private:
     QList<KTextEditor::SmartRange*> m_templateRanges;
     /// A range that occupies the whole range of the inserted template.
     /// When the cursor moves outside it, the template handler gets closed.
-    KTextEditor::SmartRange* m_wholeTemplateRange;
+    Kate::TextRange *m_wholeTemplateRange;
     /// Position of the (last) occurrence of ${cursor} in the template string.
     KTextEditor::SmartCursor* m_finalCursorPosition;
     /// The last caret position during editing.
@@ -252,7 +256,7 @@ private:
     bool m_jumping;
     /// script token for the template script, which might be used by the current template
     QString m_scriptToken;
-    
+
     bool m_initialRemodify;
 };
 

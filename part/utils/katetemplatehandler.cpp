@@ -21,6 +21,7 @@
 
 #include "katetemplatehandler.h"
 #include "katedocument.h"
+#include "katetextrange.h"
 #include "katesmartcursor.h"
 #include "kateview.h"
 #include "kateconfig.h"
@@ -46,16 +47,19 @@ using namespace KTextEditor;
 
 #define ifDebug(x) x;
 
-
 static bool cmp_smart_ranges(const KTextEditor::SmartRange* r1, const KTextEditor::SmartRange* r2) {
   return r1->start()<r2->start();
 }
 
-
 /// just like Range::contains() but returns true when the cursor is at the end of the range
-bool customContains(SmartRange* range, const Cursor& cursor)
+static bool customContains(SmartRange* range, const Cursor& cursor)
 {
   return range->start() <= cursor && range->end() >= cursor;
+}
+
+static bool customContains(const KTextEditor::Range &range, const Cursor& cursor)
+{
+  return range.start() <= cursor && range.end() >= cursor;
 }
 
 /* ####################################### */
@@ -72,16 +76,16 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
   QMap<QString,QString> initial_Values(initialValues);
   KTextEditor::View *view=doc->activeView();
   if (initial_Values.contains("selection")) {
-    if (initial_Values["selection"].isEmpty()) {      
+    if (initial_Values["selection"].isEmpty()) {
       Q_ASSERT(view);
-      initial_Values[ "selection" ] = view->selectionText();      
+      initial_Values[ "selection" ] = view->selectionText();
     }
   }
   if (view) view->removeSelectionText();
-  
+
   ifDebug(kDebug()<<initial_Values;);
-  
-  
+
+
   connect(m_doc, SIGNAL(aboutToReload(KTextEditor::Document*)),
           this, SLOT(cleanupAndExit()));
 
@@ -154,7 +158,7 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
   Q_UNUSED(document);
   ifDebug(kDebug() << "template range inserted" << range;)
 
-  m_wholeTemplateRange = m_doc->newSmartRange( range, 0, SmartRange::ExpandLeft | SmartRange::ExpandRight );
+  m_wholeTemplateRange = m_doc->newTextRange( range, Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight );
 
   disconnect(m_doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -188,9 +192,9 @@ void KateTemplateHandler::cleanupAndExit()
       }
       m_templateRanges.clear();
   }
-  if ( m_wholeTemplateRange ) {
-    deleteSmartRange(m_wholeTemplateRange, m_doc);
-  }
+
+  delete m_wholeTemplateRange;
+
   if ( m_finalCursorPosition ) {
     delete m_finalCursorPosition;
   }
@@ -200,7 +204,7 @@ void KateTemplateHandler::cleanupAndExit()
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
   if ( m_doc->activeView() && (!m_wholeTemplateRange
-        || customContains(m_wholeTemplateRange, m_doc->activeView()->cursorPosition())) )
+        || customContains(m_wholeTemplateRange->toRange(), m_doc->activeView()->cursorPosition())) )
   {
     m_doc->activeView()->setSelection(Range::invalid());
     m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
@@ -324,15 +328,15 @@ void KateTemplateHandler::setCurrentRange(SmartRange* range)
     bool found=false;
     foreach (SmartRange* childRange,range->childRanges()) {
       ifDebug(kDebug()<<"checking range equality";);
-      if (m_masterRanges.contains(childRange)) { 
+      if (m_masterRanges.contains(childRange)) {
         ifDebug(kDebug()<<"found master range";);
         range=childRange;
         found=true;
-        break;        
+        break;
       }
     if (!found) range = range->childRanges().first();
     }
-        
+
   }
 
   if ( m_doc->activeView() ) {
@@ -442,9 +446,9 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         } else if (templateString[i]=='\\') {
           backslash_count++;
         } else { // any character teminates a backslash sequence
-          backslash_count=0; 
+          backslash_count=0;
         }
-      }      
+      }
     } else if ( (startPos!=-1) && (templateString[i] == '/') ) { // skip regexp
       i++;
       column++;
@@ -467,13 +471,13 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         } else if (templateString[i]=='\\') {
           backslash_count++;
         } else { // any character teminates a backslash sequence
-          backslash_count=0; 
+          backslash_count=0;
         }
         if (slashcount==3) {
           column++;
           break;
         }
-      }      
+      }
     } else if ( templateString[i] == '}' && startPos != -1 ) {
       bool force_first=false;
       // get key, i.e. contents between ${..}
@@ -500,12 +504,12 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
             check_slash=true;
         }
       }
-      
+
       if ( (!check_slash) && (!check_colon) && (pos_backtick>=0) )
         check_backtick=true;
-      
+
       QString functionName;
-      
+
       if (check_slash) {
         searchReplace=key.mid(pos_slash+1);
         key=key.left(pos_slash);
@@ -519,7 +523,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         key=key.left(pos_backtick);
         ifDebug(kDebug() << "real key found:" << key << "function:"<<functionName;)
       }
-      
+
       if (key.contains("@")) {
         key=key.left(key.indexOf("@"));
         force_first=true;
@@ -597,17 +601,17 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           if ( !keyQueue.contains(key) ) {
             keyQueue.append(key);
           }
-          
+
           Range tmp=Range( line, column - initialVal.length(),
                                 line, column
                               );
           if (force_first) {
             QList<Range> range_list=ranges.values(key);
-            range_list.append(tmp);            
+            range_list.append(tmp);
             ranges.remove(key);
             while (!range_list.isEmpty())
               ranges.insert(key,range_list.takeLast());
-          } else {          
+          } else {
             ranges.insert( key, tmp );
           }
           mirrorBehaviourBuildHelper.insert(tmp,behaviour);
@@ -626,7 +630,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   m_doc->replaceText(*m_wholeTemplateRange, templateString);
 
-  Q_ASSERT(!m_wholeTemplateRange->isEmpty());
+  Q_ASSERT(!m_wholeTemplateRange->toRange().isEmpty());
 
   if ( m_doc->activeKateView() ) {
     ///HACK: make sure the view cache is up2date so we can safely set the cursor position
@@ -648,17 +652,17 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   KateRendererConfig *config = m_doc->activeKateView()->renderer()->config();
 
-  Attribute::Ptr editableAttribute = getAttribute(config->templateEditablePlaceholderColor());
+  // TODO: finetune the attribute alpha values, text ranges behave a bit different there...
+
+  Attribute::Ptr editableAttribute = getAttribute(config->templateEditablePlaceholderColor(), 255);
   editableAttribute->setDynamicAttribute(
       Attribute::ActivateCaretIn, getAttribute(config->templateFocusedEditablePlaceholderColor(), 255)
   );
 
-  Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor());
+  Attribute::Ptr mirroredAttribute = getAttribute(config->templateNotEditablePlaceholderColor(), 255);
 
   m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor(), 200));
-  m_doc->addHighlightToDocument(m_wholeTemplateRange, true);
 
-    
   // create smart ranges for each found variable
   // if the variable exists more than once, create "mirrored" ranges
   foreach ( const QString& key, keyQueue ) {
@@ -694,19 +698,19 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   }
 
   qSort(m_masterRanges.begin(),m_masterRanges.end(),cmp_smart_ranges);
-  
+
   setCurrentRange(m_templateRanges.first());
   mirrorBehaviourBuildHelper.clear();
-  
+
   //OPTIMIZE ME, PERHAPS ONLY DO THE MIRRORING ACTION FOR THE MASTER RANGE IN THE CODE ABOVE
   //THIS WOULD REDUCE MIRRORING ACTIONS
-  
+
   m_initialRemodify=true;
   foreach(SmartRange* smr,m_masterRanges) {
     slotTextChanged(m_doc,Range(*smr));
   }
   m_initialRemodify=false;
-  
+
 }
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)
@@ -719,14 +723,14 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     ifDebug(kDebug() << "mirroring - ignoring edit";)
     return;
   }
-  
+
   if (!m_initialRemodify) {
     if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
       ifDebug(kDebug(13020) << "slotTextChanged returning prematurely";)
       return;
     }
   }
-  if ( m_wholeTemplateRange->isEmpty() ) {
+  if ( m_wholeTemplateRange->toRange().isEmpty() ) {
     ifDebug(kDebug() << "template range got deleted, exiting";)
     cleanupAndExit();
     return;
@@ -736,9 +740,9 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     cleanupAndExit();
     return;
   }
-  if ( !m_wholeTemplateRange->contains(range.start()) ) {
+  if ( !m_wholeTemplateRange->toRange().contains(range.start()) ) {
     // outside our template or one of our own changes
-    ifDebug(kDebug() << range << "not contained in" << *m_wholeTemplateRange;)
+    ifDebug(kDebug() << range << "not contained in" << m_wholeTemplateRange->toRange();)
     return;
   }
 
@@ -853,7 +857,7 @@ KateView* KateTemplateHandler::view() {return qobject_cast<KateView*>(m_doc->act
 //BEGIN MIRROR BEHAVIOUR
   KateTemplateHandler::MirrorBehaviour::MirrorBehaviour():
     m_behaviour(Clone){}
-  
+
   KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString &regexp, const QString &replacement,const QString& flags):
     m_behaviour(Regexp),m_search(regexp),m_replace(replacement) {
       m_global=flags.contains("g");
@@ -866,7 +870,7 @@ KateView* KateTemplateHandler::view() {return qobject_cast<KateView*>(m_doc->act
 
   KateTemplateHandler::MirrorBehaviour::~MirrorBehaviour(){}
 
-  
+
   QString KateTemplateHandler::MirrorBehaviour::getMirrorString(const QString &source) {
     QString ahead;
     QString output;

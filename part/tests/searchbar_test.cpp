@@ -376,31 +376,20 @@ void SearchBarTest::testFindSelectionForward()
   QCOMPARE(view.selectionRange(), match);
 }
 
-void SearchBarTest::testReplaceSelectionForward_data()
+void SearchBarTest::testRemoveSelectionForward_data()
 {
-  QTest::addColumn<bool>("selectionOnly");
   QTest::addColumn<Range>("selectionRange");
   QTest::addColumn<Range>("match");
 
-  testNewRow() << false << Range(0, 0, 0, 1) << Range(0, 0, 0, 2);
-  testNewRow() << true  << Range(0, 0, 0, 1) << Range(0, 0, 0, 1);
-
-  testNewRow() << false << Range(0, 0, 0, 2) << Range(0, 0, 0, 2);
-  testNewRow() << true  << Range(0, 0, 0, 2) << Range(0, 0, 0, 2);
-
-  testNewRow() << false << Range(0, 0, 0, 3) << Range(0, 0, 0, 2);
-  testNewRow() << true  << Range(0, 0, 0, 3) << Range(0, 0, 0, 2);
-
-  testNewRow() << false << Range(0, 2, 0, 4) << Range(0, 0, 0, 2);
-  testNewRow() << true  << Range(0, 2, 0, 4) << Range(0, 0, 0, 2); // Range(0, 2, 0, 2);
-
-  testNewRow() << false << Range(0, 3, 0, 4) << Range(0, 0, 0, 2);
-  testNewRow() << true  << Range(0, 3, 0, 4) << Range(0, 3, 0, 4);
+  testNewRow() << Range(0, 0, 0, 1) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 0, 0, 2) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 0, 0, 3) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 2, 0, 4) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 3, 0, 4) << Range(0, 0, 0, 2);
 }
 
-void SearchBarTest::testReplaceSelectionForward()
+void SearchBarTest::testRemoveSelectionForward()
 {
-  QFETCH(bool, selectionOnly);
   QFETCH(Range, selectionRange);
   QFETCH(Range, match);
 
@@ -409,17 +398,46 @@ void SearchBarTest::testReplaceSelectionForward()
   KateViewConfig config(&view);
 
   doc.setText("a a a");
-  view.setSelection(Range(0, 0, 0, 2));
-
-  KateSearchBar bar(true, &view, &config);
-
-  QVERIFY(bar.searchPattern() == QString("a "));
-
   view.setSelection(selectionRange);
 
-  QCOMPARE(view.selectionRange(), selectionRange);
+  KateSearchBar bar(true, &view, &config);
+  bar.setSearchPattern("a ");
+  bar.setSelectionOnly(false);
 
-  bar.setSelectionOnly(selectionOnly);
+  bar.replaceNext();
+
+  QCOMPARE(view.selectionRange(), match);
+}
+
+void SearchBarTest::testRemoveInSelectionForward_data()
+{
+  QTest::addColumn<Range>("selectionRange");
+  QTest::addColumn<Range>("match");
+
+  testNewRow() << Range(0, 0, 0, 1) << Range(0, 0, 0, 1);
+  testNewRow() << Range(0, 0, 0, 2) << Range::invalid();
+  testNewRow() << Range(0, 0, 0, 3) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 0, 0, 4) << Range(0, 0, 0, 2);
+  testNewRow() << Range(0, 2, 0, 4) << Range::invalid();
+  testNewRow() << Range(0, 3, 0, 4) << Range(0, 3, 0, 4);
+}
+
+void SearchBarTest::testRemoveInSelectionForward()
+{
+  QFETCH(Range, selectionRange);
+  QFETCH(Range, match);
+
+  KateDocument doc(false, false, false);
+  KateView view(&doc, 0);
+  KateViewConfig config(&view);
+
+  doc.setText("a a a");
+  view.setSelection(selectionRange);
+
+  KateSearchBar bar(true, &view, &config);
+  bar.setSearchPattern("a ");
+  bar.setSelectionOnly(true);
+
   bar.replaceNext();
 
   QCOMPARE(view.selectionRange(), match);

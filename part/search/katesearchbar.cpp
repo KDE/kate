@@ -285,16 +285,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
         break;
     case MatchNothing:
         // Reset background of line edit
-        if (m_incUi != NULL) {
-            background = QPalette();
-        } else {
-            // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
-            // ...would it better to cache the original palette?
-            QColor color = QPalette().color(QPalette::Base);
-            background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
-            background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
-            background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
-        }
+        background = QPalette();
         break;
     case MatchNeutral:
         KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
@@ -541,14 +532,12 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         }
     }
 
-    // Find, first try
     KateMatch match(m_view->doc(), enabledOptions);
-    match.searchText(inputRange, searchPattern());
-    bool wrap = false;
     Range afterReplace = Range::invalid();
-    if (match.isValid()) {
-        // Previously selected match again?
-        if (match.range() == selection) {
+
+    // Find, first try
+    match.searchText(inputRange, searchPattern());
+    if (match.isValid() && match.range() == selection) {
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
@@ -572,41 +561,24 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Single-line pattern workaround
             fixForSingleLine(inputRange, searchDirection);
 
-            KateMatch match2(m_view->doc(), enabledOptions);
-            match2.searchText(inputRange, searchPattern());
-            if (match2.isValid()) {
-                selectRange2(match2.range());
-                indicateMatch(MatchFound);
-            } else {
-                // Find, third try from doc start on
-                wrap = true;
-            }
-        } else {
-            selectRange2(match.range());
-            indicateMatch(MatchFound);
-        }
-    } else if (!selection.isValid() || !selectionOnly()) {
-        // Find, second try from doc start on
-        wrap = true;
+            match.searchText(inputRange, searchPattern());
     }
 
-    // Wrap around
+    const bool wrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
     if (wrap) {
         inputRange = m_view->document()->documentRange();
-        KateMatch match3(m_view->doc(), enabledOptions);
-        match3.searchText(inputRange, searchPattern());
-        if (match3.isValid()) {
-            // Previously selected match again?
-            if ((match3.range() == selection) && !selectionOnly()) {
-                // NOOP, same match again
-            } else {
-                selectRange2(match3.range());
-            }
-            indicateMatch(searchDirection == SearchForward ? MatchWrappedForward : MatchWrappedBackward);
-        } else {
-            indicateMatch(MatchMismatch);
-        }
+        match.searchText(inputRange, searchPattern());
     }
+
+    if (match.isValid()) {
+        selectRange2(match.range());
+    }
+
+    const MatchResult matchResult = !match.isValid()                 ? MatchMismatch :
+                                    !wrap                            ? MatchFound :
+                                    searchDirection == SearchForward ? MatchWrappedForward :
+                                                                       MatchWrappedBackward;
+    indicateMatch(matchResult);
 
     // Reset highlighting for all matches and highlight replacement if there is one
     clearHighlights();

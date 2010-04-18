@@ -2678,18 +2678,6 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
-
-    /*Disable searchbar highlights due to performance issue
-     * if undoGroup contains n items, and there're m search highlight regions,
-     * the total cost is n*m*log(m),
-     * to undo a simple Replace operation, n=2*m
-     * (replace contains both delete and insert undoItem, assume the replaced regions are highlighted),
-     * cost = 2*m^2*log(m), too high
-     * since there's a qStableSort inside KTextEditor::SmartRegion::rebuildChildStruct()
-     */
-    connect(m_doc->undoManager(), SIGNAL(aboutToUndo()), m_searchBar, SLOT(clearHighlights()));
-    connect(m_doc->undoManager(), SIGNAL(aboutToRedo()), m_searchBar, SLOT(clearHighlights()));
-
     m_bottomViewBar->addBarWidget(m_searchBar);
   }
   return m_searchBar;

@@ -31,7 +31,7 @@ class KConfigBase;
 class KConfig;
 
 namespace Ui {
-  class KateSnippetRepository;
+  class KTESnippetRepository;
 }
 
 namespace KTextEditor {
@@ -138,7 +138,7 @@ namespace KTextEditor {
       void slotGHNS();
     private:
       SnippetRepositoryModel *m_repository;
-      Ui::KateSnippetRepository *m_ui;
+      Ui::KTESnippetRepository *m_ui;
       SnippetRepositoryConfigWidgetPrivate *d;
   };
 

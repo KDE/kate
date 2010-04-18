@@ -248,7 +248,7 @@ namespace KTextEditor {
        
     void SnippetRepositoryModel::createOrUpdateList(bool update) {
       kDebug()<<"BEGIN";
-      KConfig config ("katesnippets_tngrc", KConfig::NoGlobals);
+      KConfig config ("ktesnippetsrc", KConfig::NoGlobals);
 
       createOrUpdateListSub(config,KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/data/*.xml",KStandardDirs::NoDuplicates),update,false);
       createOrUpdateListSub(config,KGlobal::dirs()->findAllResources("data", "ktexteditor_snippets/ghns/*.xml",KStandardDirs::NoDuplicates),update,true);
@@ -593,7 +593,7 @@ void SnippetRepositoryModel::addSnippetToNewEntry(QWidget * dialogParent, const 
     : QWidget( parent )
     , m_repository( repository )
   {
-    m_ui=new Ui::KateSnippetRepository();
+    m_ui=new Ui::KTESnippetRepository();
     m_ui->setupUi(this);
     m_ui->btnGHNS->setIcon(KIcon("get-hot-new-stuff"));    
     KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(m_ui->lstSnippetFiles,this);

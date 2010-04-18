@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KateSnippetRepository</class>
- <widget class="QWidget" name="KateSnippetRepository">
+ <class>KTESnippetRepository</class>
+ <widget class="QWidget" name="KTESnippetRepository">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -31,7 +31,6 @@
 
 #include "katetextcursor.h"
 #include "katetextrange.h"
-#include "katesmartcursor.h"
 #include "katelinelayout.h"
 #include "katetextline.h"
 #include "katedocument.h"
@@ -404,7 +403,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
 
   private:
-    KTextEditor::SmartRange* m_imPreeditRange;
+    Kate::TextRange *m_imPreeditRange;
+    QList<Kate::TextRange *> m_imPreeditRangeChildren;
 
   // Arbitrary highlighting
   public:

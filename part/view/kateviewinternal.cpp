@@ -33,7 +33,6 @@
 #include "katecodefolding.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
-#include "katesmartrange.h"
 #include "katebuffer.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
@@ -100,7 +99,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
   , m_textHintMouseY(-1)
-  , m_imPreeditRange(0L)
+  , m_imPreeditRange(0)
   , m_smartDirty(false)
   , m_viInputMode(false)
   , m_viInputModeManager (0)
@@ -260,15 +259,15 @@ void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::S
 KateViewInternal::~KateViewInternal ()
 {
   // crashes on close without
-  disconnect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
+  disconnect (smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
 
-  qDeleteAll(m_dynamicHighlights);
+  qDeleteAll (m_dynamicHighlights);
 
+  // kill preedit ranges
   delete m_imPreeditRange;
+  qDeleteAll (m_imPreeditRangeChildren);
 
-  if (m_viInputModeManager) {
-    delete m_viInputModeManager;
-  }
+  delete m_viInputModeManager;
 
   // delete bracket markers
   delete m_bm;
@@ -3730,20 +3729,15 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       // which supports Asian input methods. Asian input methods need
       // start point of IM selection text to place candidate window as
       // adjacent to the selection text.
-      KTextEditor::Cursor c = m_cursor;
-      if (m_imPreeditRange)
-        c = m_imPreeditRange->start();
-      return QRect(cursorToCoordinate(c, true, false), QSize(0, renderer()->lineHeight()));
+      KTextEditor::Cursor c = m_imPreeditRange ? m_imPreeditRange->start() : m_cursor;
+      return QRect (cursorToCoordinate(c, true, false), QSize(0, renderer()->lineHeight()));
     }
 
     case Qt::ImFont:
       return renderer()->currentFont();
 
     case Qt::ImCursorPosition:
-      if (m_imPreeditRange)
-        return m_imPreeditRange->start().column();
-      else
-        return 0;
+      return m_imPreeditRange ? m_imPreeditRange->start().column() : 0;
 
     case Qt::ImSurroundingText:
       if (Kate::TextLine l = doc()->kateTextLine(m_cursor.line()))
@@ -3783,10 +3777,10 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   bool createdPreedit = false;
   if (!m_imPreeditRange) {
     createdPreedit = true;
-    m_imPreeditRange = smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
+    m_imPreeditRange = doc()->newTextRange (KTextEditor::Range(m_cursor, m_cursor), Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
   }
 
-  if (!m_imPreeditRange->isEmpty()) {
+  if (!m_imPreeditRange->toRange().isEmpty()) {
     doc()->inputMethodStart();
     doc()->removeText(*m_imPreeditRange);
     doc()->inputMethodEnd();
@@ -3818,11 +3812,11 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
   // Finished this input method context?
   if (m_imPreeditRange && e->preeditString().isEmpty()) {
-    if (!createdPreedit)
-      m_view->removeInternalHighlight(m_imPreeditRange);
-
+    // delete the range and reset the pointer
     delete m_imPreeditRange;
     m_imPreeditRange = 0L;
+    qDeleteAll (m_imPreeditRangeChildren);
+    m_imPreeditRangeChildren.clear ();
 
     if ( KApplication::cursorFlashTime() > 0 )
       renderer()->setDrawCaret(false);
@@ -3835,8 +3829,9 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   bool hideCursor = false;
   QColor caretColor;
 
-  if (m_imPreeditRange != 0) {
-    m_imPreeditRange->clearAndDeleteChildRanges();
+  if (m_imPreeditRange) {
+    qDeleteAll (m_imPreeditRangeChildren);
+    m_imPreeditRangeChildren.clear ();
 
     int decorationColumn = 0;
     foreach (const QInputMethodEvent::Attribute &a, e->attributes()) {
@@ -3851,17 +3846,15 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
         QTextCharFormat f = qvariant_cast<QTextFormat>(a.value).toCharFormat();
         if (f.isValid() && decorationColumn <= a.start) {
           KTextEditor::Range fr(m_imPreeditRange->start().line(),  m_imPreeditRange->start().column() + a.start, m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + a.start + a.length);
-          KTextEditor::SmartRange* formatRange = smartManager()->newSmartRange(fr, m_imPreeditRange);
+          Kate::TextRange* formatRange = doc()->newTextRange (fr);
           KTextEditor::Attribute::Ptr attribute(new KTextEditor::Attribute());
           attribute->merge(f);
           formatRange->setAttribute(attribute);
           decorationColumn = a.start + a.length;
+          m_imPreeditRangeChildren.push_back (formatRange);
         }
       }
     }
-
-    if (createdPreedit)
-      m_view->addInternalHighlight(m_imPreeditRange);
   }
 
   renderer()->setDrawCaret(hideCursor);

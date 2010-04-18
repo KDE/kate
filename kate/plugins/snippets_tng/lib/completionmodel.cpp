@@ -55,6 +55,7 @@ namespace KTextEditor {
 
     SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles,TemplateScriptRegistrar *scriptRegistrar):
       KTextEditor::CodeCompletionModel2((QObject*)0),m_fileType(fileType),mergedFiles(snippetFiles),m_scriptRegistrar(scriptRegistrar) {        
+        kDebug()<<"About to load files "<<snippetFiles<<" for file type "<<fileType;
         foreach(const QString& str, snippetFiles) {
           loadEntries(str);
         }      
@@ -69,6 +70,7 @@ namespace KTextEditor {
 #endif
 
     bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString* snippetlicense) {
+      kDebug()<<filename;
       name->clear();
       filetype->clear();
       authors->clear();

@@ -125,6 +125,10 @@ namespace JoWenn {
     foreach (KTextEditor::View *view,views) {
       addView(document,view);
     }
+    
+    disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    disconnect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+    
     connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
     connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
   }
@@ -146,6 +150,8 @@ namespace JoWenn {
       }     
     }
     m_document_model_multihash.remove(document);
+    disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    disconnect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
     Q_ASSERT(m_document_model_multihash.find(document)==m_document_model_multihash.end());
   }
 

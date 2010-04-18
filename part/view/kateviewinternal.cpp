@@ -2219,6 +2219,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
         } else if (m_view->hasSearchBar()) {
           // hide search&replace highlights
           m_view->searchBar()->clearHighlights();
+          k->accept();
+          return true;
         }
       }
 

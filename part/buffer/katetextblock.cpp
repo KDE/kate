@@ -142,8 +142,8 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
       }
 
       // remember range, if any
-      if (cursor->range())
-        changedRanges.insert (cursor->range());
+      if (cursor->kateRange())
+        changedRanges.insert (cursor->kateRange());
   }
 
   // check validity of all ranges, might invalidate them...
@@ -196,8 +196,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
         }
 
         // remember range, if any
-        if (cursor->range())
-          changedRanges.insert (cursor->range());
+        if (cursor->kateRange())
+          changedRanges.insert (cursor->kateRange());
     }
 
     // move cursors of the moved line from previous block to this block now
@@ -210,8 +210,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
         m_cursors.insert (cursor);
 
         // remember ranges moved over block boundary
-        if (cursor->range())
-          rangesMoved.insert (cursor->range());
+        if (cursor->kateRange())
+          rangesMoved.insert (cursor->kateRange());
       }
       else
         newPreviousCursors.insert (cursor);
@@ -268,8 +268,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
       cursor->m_line--;
 
       // remember range, if any
-      if (cursor->range())
-        changedRanges.insert (cursor->range());
+      if (cursor->kateRange())
+        changedRanges.insert (cursor->kateRange());
   }
 
   // check validity of all ranges, might invalidate them...
@@ -324,8 +324,8 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
         cursor->m_column = textOfLine.size();
 
       // remember range, if any
-      if (cursor->range())
-        changedRanges.insert (cursor->range());
+      if (cursor->kateRange())
+        changedRanges.insert (cursor->kateRange());
   }
 
   // check validity of all ranges, might invalidate them...
@@ -381,8 +381,8 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
         cursor->m_column -= (range.end().column() - range.start().column());
 
       // remember range, if any
-      if (cursor->range())
-        changedRanges.insert (cursor->range());
+      if (cursor->kateRange())
+        changedRanges.insert (cursor->kateRange());
   }
 
   // check validity of all ranges, might invalidate them...
@@ -417,8 +417,8 @@ TextBlock *TextBlock::splitBlock (int fromLine)
   QSet<TextCursor*> oldBlockSet;
   QSet<TextRange*> rangesInteresting;
   foreach (TextCursor *cursor, m_cursors) {
-      if (cursor->range())
-        rangesInteresting.insert (cursor->range());
+      if (cursor->kateRange())
+        rangesInteresting.insert (cursor->kateRange());
 
       if (cursor->lineInBlock() >= fromLine) {
         cursor->m_line = cursor->lineInBlock() - fromLine;
@@ -470,7 +470,7 @@ void TextBlock::deleteBlockContent ()
   // kill cursors, if not belonging to a range
   QSet<TextCursor *> copy = m_cursors;
   foreach (TextCursor *cursor, copy)
-    if (!cursor->range())
+    if (!cursor->kateRange())
       delete cursor;
 
   // kill lines
@@ -482,7 +482,7 @@ void TextBlock::clearBlockContent (TextBlock *targetBlock)
   // move cursors, if not belonging to a range
   QSet<TextCursor *> copy = m_cursors;
   foreach (TextCursor *cursor, copy) {
-    if (!cursor->range()) {
+    if (!cursor->kateRange()) {
       cursor->m_column = 0;
       cursor->m_line = 0;
       cursor->m_block = targetBlock;

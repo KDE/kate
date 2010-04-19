@@ -124,4 +124,9 @@ KTextEditor::Document *Kate::TextCursor::document () const
   return m_buffer.document();
 }
 
+KTextEditor::MovingRange *Kate::TextCursor::range () const
+{
+  return m_range;
+}
+
 }

@@ -111,13 +111,19 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
      * Get range this cursor belongs to, if any
      * @return range this pointer is part of, else 0
      */
-    TextRange *range () { return m_range; }
+    KTextEditor::MovingRange *range () const;
+
+    /**
+     * Get range this cursor belongs to, if any
+     * @return range this pointer is part of, else 0
+     */
+    Kate::TextRange *kateRange () const { return m_range; }
 
     /**
      * Get block this cursor belongs to, if any
      * @return block this pointer is part of, else 0
      */
-    TextBlock *block () { return m_block; }
+    TextBlock *block () const { return m_block; }
 
     /**
      * Get offset into block this cursor belongs to, if any

@@ -20,6 +20,8 @@ set(ktexteditor_LIB_SRCS
    configinterface.cpp
    smartinterface.cpp
    highlightinterface.cpp
+   movingcursor.cpp
+   movingrange.cpp
    )
 
 

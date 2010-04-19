@@ -36,7 +36,7 @@ class Cursor;
  * fields into a document.
  * \ingroup kte_group_view_extensions
  */
-class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
+class KTEXTEDITOR_EXPORT_DEPRECATED TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {
   public:
     TemplateInterface();

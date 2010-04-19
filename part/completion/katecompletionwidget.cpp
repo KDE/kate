@@ -63,7 +63,7 @@ const bool shellLikeTabCompletion = false;
 
 #define CALLCI(WHAT,WHATELSE,WHAT2,model,FUNC) \
 {\
-  kDebug()<<"CALLCI"; \
+  /*kDebug()<<"CALLCI";*/ \
   KTextEditor::CodeCompletionModelControllerInterface* ret =\
     qobject_cast<KTextEditor::CodeCompletionModelControllerInterface*>(model);\
   if (ret) {\
@@ -690,13 +690,13 @@ void KateCompletionWidget::cursorPositionChanged( )
       KTextEditor::CodeCompletionModel *model = *it;
       KateSmartRange* range = m_completionRanges[*it].range;
 
-      kDebug()<<"range before _updateRange:"<< *range;
+      //kDebug()<<"range before _updateRange:"<< *range;
       *range=_updateRange(model, view(),*range);
-      kDebug()<<"range after _updateRange:"<< *range;
+      //kDebug()<<"range after _updateRange:"<< *range;
       QString currentCompletion = _filterString(model,view(), *range, view()->cursorPosition());
-      kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
+      //kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
       bool abort = _shouldAbortCompletion(model,view(), *range, currentCompletion);
-      kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
+      //kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
       if(view()->cursorPosition() < m_completionRanges[*it].leftBoundary) {
         kDebug() << "aborting because of boundary";
         abort = true;

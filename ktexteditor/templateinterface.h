@@ -36,7 +36,7 @@ class Cursor;
  * fields into a document.
  * \ingroup kte_group_view_extensions
  */
-class KTEXTEDITOR_EXPORT_DEPRECATED TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
+class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {
   public:
     TemplateInterface();
@@ -138,7 +138,7 @@ class KTEXTEDITOR_EXPORT_DEPRECATED TemplateInterface //should be named Abstract
      * should be layouted by the indenter.
      * @deprecated
      */
-    bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
+    KDE_DEPRECATED bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
 
 protected:
     /**
@@ -149,7 +149,7 @@ protected:
      * \return true if any text was inserted.
      * @deprecated
      */
-    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
+    virtual KDE_DEPRECATED bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
 
     /**
      * DO NOT USE !!!! THIS IS USED INTERNALLY by the interface only !!!!!!

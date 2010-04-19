@@ -27,7 +27,7 @@
 
 class RangeTest : public QObject
 {
-  Q_OBJECT;
+  Q_OBJECT
 
 public:
   RangeTest();

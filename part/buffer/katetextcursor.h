@@ -24,7 +24,7 @@
 #ifndef KATE_TEXTCURSOR_H
 #define KATE_TEXTCURSOR_H
 
-#include <ktexteditor/cursor.h>
+#include <ktexteditor/movingcursor.h>
 
 #include "katepartprivate_export.h"
 
@@ -39,7 +39,7 @@ class TextRange;
  * It will automagically move if the text inside the buffer it belongs to is modified.
  * By intention no subclass of KTextEditor::Cursor, must be converted manually.
  */
-class KATEPART_TESTS_EXPORT TextCursor {
+class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
   // range wants direct access to some internals
   friend class TextRange;
 
@@ -47,15 +47,6 @@ class KATEPART_TESTS_EXPORT TextCursor {
   friend class TextBlock;
 
   public:
-    /**
-     * Insert behavior of this cursor, should it stay if text is insert at it's position
-     * or should it move.
-     */
-    enum InsertBehavior {
-      StayOnInsert = 0x0,
-      MoveOnInsert = 0x1
-    };
-
     /**
      * Construct a text cursor.
      * @param buffer text buffer this cursor belongs to
@@ -78,20 +69,15 @@ class KATEPART_TESTS_EXPORT TextCursor {
     /**
      * Destruct the text cursor
      */
-    virtual ~TextCursor ();
-
-  private:
-    /**
-     * no copy constructor, don't allow this to be copied
-     */
-    TextCursor (const TextCursor &);
-
-    /**
-     * no assignment operator, no copying around clever cursors
-     */
-    TextCursor &operator= (const TextCursor &);
+    ~TextCursor ();
 
   public:
+    /**
+     * Gets the document to which this cursor is bound.
+     * \return a pointer to the document
+     */
+    KTextEditor::Document *document () const;
+
     /**
      * Set the current cursor position to \e position.
      *
@@ -107,7 +93,7 @@ class KATEPART_TESTS_EXPORT TextCursor {
      * \param line new cursor line
      * \param column new cursor column
      */
-    void setPosition (int line, int column);
+    void setPosition (int line, int column) { KTextEditor::MovingCursor::setPosition (line, column); }
 
     /**
      * Retrieve the line on which this cursor is situated.
@@ -116,36 +102,10 @@ class KATEPART_TESTS_EXPORT TextCursor {
     int line() const;
 
     /**
-     * Set the cursor line to \e line.
-     * \param line new cursor line
-     */
-    void setLine(int line);
-
-    /**
      * Retrieve the column on which this cursor is situated.
      * \return column number, where 0 is the first column.
      */
     int column() const { return m_column; }
-
-    /**
-     * Set the cursor column to \e column.
-     * \param column new cursor column
-     */
-    void setColumn(int column);
-
-    /**
-     * Convert this clever cursor into a dumb one.
-     * Even if this cursor belongs to a range, the created one not.
-     * @return normal cursor
-     */
-    const KTextEditor::Cursor toCursor () const { return KTextEditor::Cursor (line(), column()); }
-
-    /**
-     * Convert this clever cursor into a dumb one. Equal to toCursor, allowing to use implicit conversion.
-     * Even if this cursor belongs to a range, the created one not.
-     * @return normal cursor
-     */
-    operator const KTextEditor::Cursor () const { return KTextEditor::Cursor (line(), column()); }
 
     /**
      * Get range this cursor belongs to, if any

@@ -88,12 +88,6 @@ void TextRange::setRange (const KTextEditor::Range &range)
   m_buffer.triggerRangeAttributeChanged (m_view, startLineMin, endLineMax);
 }
 
-void TextRange::setRange (const KTextEditor::Cursor &start, const KTextEditor::Cursor &end)
-{
-  // just use other function, KTextEditor::Range will handle some normalization
-  setRange (KTextEditor::Range (start, end));
-}
-
 void TextRange::checkValidity (int oldStartLine, int oldEndLine)
 {
   /**
@@ -204,6 +198,11 @@ void TextRange::setAttibuteOnlyForViews (bool onlyForViews)
      * just set the value, no need to trigger updates, printing is not interruptable
      */
     m_attibuteOnlyForViews = onlyForViews;
+}
+
+KTextEditor::Document *Kate::TextRange::document () const
+{
+  return m_buffer.document();
 }
 
 }

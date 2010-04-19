@@ -27,6 +27,8 @@
 #include <QtCore/QSet>
 #include <QtCore/QTextCodec>
 
+#include <ktexteditor/document.h>
+
 #include "katepartprivate_export.h"
 #include "katetextblock.h"
 #include "katetextcursor.h"
@@ -64,7 +66,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @param parent parent qobject
      * @param blockSize block size in lines the buffer should try to hold, default 256 lines
      */
-    TextBuffer (QObject *parent = 0, int blockSize = 256);
+    TextBuffer (KTextEditor::Document *parent = 0, int blockSize = 256);
 
     /**
      * Destruct the text buffer
@@ -382,6 +384,12 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
 
   public:
     /**
+     * Gets the document to which this buffer is bound.
+     * \return a pointer to the document
+     */
+    KTextEditor::Document *document () const { return m_document; }
+
+    /**
      * Debug output, print whole buffer content with line numbers and line length
      * @param title title for this output
      */
@@ -406,6 +414,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     void rangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
 
   private:
+    /**
+     * parent document
+     */
+    KTextEditor::Document *m_document;
+
     /**
      * block size in lines the buffer will try to hold
      */

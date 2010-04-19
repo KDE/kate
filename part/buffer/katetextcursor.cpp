@@ -109,11 +109,6 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position)
     setPosition(position, false);
 }
 
-void TextCursor::setPosition(int line, int column)
-{
-    setPosition(KTextEditor::Cursor(line, column), false);
-}
-
 int TextCursor::line() const
 {
   // invalid cursor have no block
@@ -124,16 +119,9 @@ int TextCursor::line() const
   return m_block->startLine () + m_line;
 }
 
-void TextCursor::setLine (int line)
+KTextEditor::Document *Kate::TextCursor::document () const
 {
-  // just use setPosition
-  setPosition (line, column());
-}
-
-void TextCursor::setColumn (int column)
-{
-  // just use setPosition
-  setPosition (line(), column);
+  return m_buffer.document();
 }
 
 }

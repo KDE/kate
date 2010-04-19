@@ -25,8 +25,9 @@
 
 namespace Kate {
 
-TextBuffer::TextBuffer (QObject *parent, int blockSize)
+TextBuffer::TextBuffer (KTextEditor::Document *parent, int blockSize)
   : QObject (parent)
+  , m_document (parent)
   , m_blockSize (blockSize)
   , m_lines (0)
   , m_lastUsedBlock (0)

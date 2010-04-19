@@ -324,7 +324,7 @@ namespace KTextEditor {
     }  
 
 
-  bool SnippetCompletionModel::shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion) {
+  bool SnippetCompletionModel::shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion) {
       if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
         return true; //Always abort when the completion-range has been left
       //Do not abort completions when the text has been empty already before and a newline has been entered

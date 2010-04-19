@@ -39,9 +39,9 @@ namespace KTextEditor {
 
     class SnippetCompletionModelPrivate;
 
-    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface {
+    class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT SnippetCompletionModel: public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface3 {
         Q_OBJECT
-        Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+        Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
       public:
         friend class SnippetSelectorModel;
         SnippetCompletionModel(const QString& fileType, QStringList &snippetFiles,KTextEditor::TemplateScriptRegistrar* scriptRegistrar);
@@ -58,7 +58,7 @@ namespace KTextEditor {
 
         static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString *snippetlicense);
 
-        virtual bool shouldAbortCompletion(View* view, const SmartRange &range, const QString &currentCompletion);
+        virtual bool shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion);
         virtual Range completionRange(View* view, const Cursor &position);
         
         SnippetSelectorModel *selectorModel();

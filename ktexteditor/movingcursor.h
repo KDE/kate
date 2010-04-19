@@ -88,6 +88,12 @@ class KTEXTEDITOR_EXPORT MovingCursor
     virtual Document *document () const = 0;
 
     /**
+     * Get range this cursor belongs to, if any
+     * @return range this pointer is part of, else 0
+     */
+    virtual MovingRange *range () const = 0;
+
+    /**
      * Set the current cursor position to \e position.
      *
      * \param position new cursor position

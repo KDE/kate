@@ -108,6 +108,12 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
     int column() const { return m_column; }
 
     /**
+     * Retrieve the insertion behavior
+     * @return insertion behavior of this cursor
+     */
+    virtual InsertBehavior insertBehavior () const { return m_moveOnInsert ? MoveOnInsert : StayOnInsert; }
+
+    /**
      * Get range this cursor belongs to, if any
      * @return range this pointer is part of, else 0
      */

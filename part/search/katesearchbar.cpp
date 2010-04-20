@@ -250,6 +250,15 @@ void KateSearchBar::highlight(const Range & range, const QColor & color) {
     highlight->setView(m_view); // show only in this view
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
+
+    Attribute::Ptr mouseInAttribute(new Attribute());
+    mouseInAttribute->setFontBold(true);
+    attribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
+
+    Attribute::Ptr caretInAttribute(new Attribute());
+    caretInAttribute->setFontItalic(true);
+    attribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
+
     highlight->setAttribute(attribute);
     m_hlRanges.append(highlight);
 }

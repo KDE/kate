@@ -315,10 +315,33 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
       renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
       renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
 
-      // add ranges with attributes to the list
+      // add ranges with attributes to the list, perhaps with dynamic hl
+      const QSet<Kate::TextRange *> *rangesMouseIn = m_view ? m_view->rangesMouseIn () : 0;
+      const QSet<Kate::TextRange *> *rangesCaretIn = m_view ? m_view->rangesCaretIn () : 0;
+      bool anyDynamicHlsActive = m_view && (!rangesMouseIn->empty() || !rangesCaretIn->empty());
       for (int i = 0; i < rangesWithAttributes.size(); ++i) {
+        // real range
+        Kate::TextRange *kateRange = rangesWithAttributes[i];
+
+        // calculate attribute, default: normal attribute
+        KTextEditor::Attribute::Ptr attribute = kateRange->attribute();
+        if (anyDynamicHlsActive) {
+          // check mouse in
+          if (KTextEditor::Attribute::Ptr attributeMouseIn = attribute->dynamicAttribute (KTextEditor::Attribute::ActivateMouseIn)) {
+            if (rangesMouseIn->contains (kateRange))
+              attribute = attributeMouseIn;
+          }
+
+          // check caret in
+          if (KTextEditor::Attribute::Ptr attributeCaretIn = attribute->dynamicAttribute (KTextEditor::Attribute::ActivateCaretIn)) {
+            if (rangesCaretIn->contains (kateRange))
+              attribute = attributeCaretIn;
+          }
+        }
+
+        // span range
         NormalRenderRange *additionaHl = new NormalRenderRange();
-        additionaHl->addRange(new KTextEditor::Range (*rangesWithAttributes[i]), rangesWithAttributes[i]->attribute());
+        additionaHl->addRange(new KTextEditor::Range (*kateRange), attribute);
         renderRanges.append(additionaHl);
       }
     } else {

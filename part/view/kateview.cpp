@@ -2812,6 +2812,10 @@ void KateView::slotDelayedUpdateOfView ()
   // output view as void *, might be invalid pointer!
   kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
 
+  // update ranges in
+  updateRangesIn (KTextEditor::Attribute::ActivateMouseIn);
+  updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
+
   // update view
   tagLines (m_lineToUpdateMin, m_lineToUpdateMax, true);
   updateView (true);
@@ -2820,6 +2824,69 @@ void KateView::slotDelayedUpdateOfView ()
   m_delayedUpdateTriggered = false;
   m_lineToUpdateMin = -1;
   m_lineToUpdateMax = -1;
+}
+
+void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activationType)
+{
+  // new ranges with cursor in, default none
+  QSet<Kate::TextRange *> newRangesIn;
+
+  // on which range set we work?
+  QSet<Kate::TextRange *> &oldSet = (activationType == KTextEditor::Attribute::ActivateMouseIn) ? m_rangesMouseIn : m_rangesCaretIn;
+
+  // which cursor position to honor?
+  KTextEditor::Cursor currentCursor =  (activationType == KTextEditor::Attribute::ActivateMouseIn) ? m_viewInternal->getMouse() : m_viewInternal->getCursor ();
+
+  // first: validate the remembered ranges
+  QSet<Kate::TextRange *> validRanges;
+  foreach (Kate::TextRange *range, oldSet)
+    if (m_doc->buffer().rangePointerValid(range))
+      validRanges.insert (range);
+
+  // cursor valid? else no new ranges can be found
+  if (currentCursor.isValid ()) {
+    // now: get current ranges for the line of cursor with an attribute
+    QList<Kate::TextRange *> rangesForCurrentCursor = m_doc->buffer().rangesForLine (currentCursor.line(), this, true);
+
+    // match which ranges really fit the given cursor
+    foreach (Kate::TextRange *range, rangesForCurrentCursor) {
+      // range has no dynamic attribute of right type
+      if (!range->attribute()->dynamicAttribute (activationType))
+        continue;
+
+      // range doesn't contain cursor, not interesting
+      if ((range->start().insertBehavior() == KTextEditor::MovingCursor::StayOnInsert)
+          ? (currentCursor < range->start().toCursor ()) : (currentCursor <= range->start().toCursor ()))
+        continue;
+
+      if ((range->end().insertBehavior() == KTextEditor::MovingCursor::StayOnInsert)
+          ? (range->end().toCursor () <= currentCursor) : (range->end().toCursor () < currentCursor))
+        continue;
+
+      // range contains cursor, was it already in old set?
+      if (validRanges.contains (range)) {
+        // insert in new, remove from old, be done with it
+        newRangesIn.insert (range);
+        validRanges.remove (range);
+        continue;
+      }
+
+      // oh, new range, trigger update and insert into new set
+      textRangeAttributeChanged (this, range->start().line(), range->end().line());
+      newRangesIn.insert (range);
+
+      // found new range for activation
+      kDebug() << "activated new range" << range << "by" << activationType;
+    }
+  }
+
+  // now: trigger update for ranges left, if still valid...
+  foreach (Kate::TextRange *range, validRanges)
+    if (range->toRange().isValid())
+      textRangeAttributeChanged (this, range->start().line(), range->end().line());
+
+  // set new ranges
+  oldSet = newRangesIn;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

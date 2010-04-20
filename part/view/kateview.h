@@ -739,6 +739,25 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
      */
     void delayedUpdateOfView ();
 
+  public:
+      /**
+       * set of ranges which had the mouse inside last time, used for rendering
+       * @return set of ranges which had the mouse inside last time checked
+       */
+      const QSet<Kate::TextRange *> *rangesMouseIn () const { return &m_rangesMouseIn; }
+
+      /**
+       * set of ranges which had the caret inside last time, used for rendering
+       * @return set of ranges which had the caret inside last time checked
+       */
+      const QSet<Kate::TextRange *> *rangesCaretIn () const { return &m_rangesCaretIn; }
+
+      /**
+       * check if ranges changed for mouse in and caret in
+       * @param activationType type of activation to check
+       */
+      void updateRangesIn (KTextEditor::Attribute::ActivationType activationType);
+
   //
   // helpers for delayed view update after ranges changes
   //
@@ -758,6 +777,15 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
        */
       int m_lineToUpdateMax;
 
+      /**
+       * set of ranges which had the mouse inside last time
+       */
+      QSet<Kate::TextRange *> m_rangesMouseIn;
+
+      /**
+       * set of ranges which had the caret inside last time
+       */
+      QSet<Kate::TextRange *> m_rangesCaretIn;
 };
 
 /**

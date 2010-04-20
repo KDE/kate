@@ -3600,6 +3600,7 @@ void KateViewInternal::mouseMoved( )
   m_view->notifyMousePositionChanged(m_mouse);
 
   dynamicMoved(true);
+  m_view->updateRangesIn (KTextEditor::Attribute::ActivateMouseIn);
 }
 
 KateViewInternal::DynamicRangeHL::DynamicRangeHL(KateSmartRange* _top)
@@ -3619,6 +3620,7 @@ KateViewInternal::DynamicRangeHL::~ DynamicRangeHL( )
 void KateViewInternal::cursorMoved( )
 {
   dynamicMoved(false);
+  m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
 }
 
 bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const

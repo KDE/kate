@@ -90,6 +90,8 @@
 #include <QtCore/QMimeData>
 #include <QtCore/QMutexLocker>
 
+#undef VIEW_RANGE_DEBUG
+
 //END includes
 
 void KateView::blockFix(KTextEditor::Range& range)
@@ -2779,8 +2781,10 @@ void KateView::textRangeAttributeChanged (KTextEditor::View *view, int startLine
   if (view && view != this)
     return;
 
+#ifdef VIEW_RANGE_DEBUG
   // output flags
   kDebug() << "trigger attribute changed from" << startLine << "to" << endLine;
+#endif
 
   // first call:
   if (!m_delayedUpdateTriggered) {
@@ -2809,8 +2813,10 @@ void KateView::slotDelayedUpdateOfView ()
   Q_ASSERT (m_lineToUpdateMin >= 0);
   Q_ASSERT (m_lineToUpdateMax >= 0);
 
+#ifdef VIEW_RANGE_DEBUG
   // output view as void *, might be invalid pointer!
   kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
+#endif
 
   // update ranges in
   updateRangesIn (KTextEditor::Attribute::ActivateMouseIn);
@@ -2875,8 +2881,10 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
       textRangeAttributeChanged (this, range->start().line(), range->end().line());
       newRangesIn.insert (range);
 
+#ifdef VIEW_RANGE_DEBUG
       // found new range for activation
       kDebug() << "activated new range" << range << "by" << activationType;
+#endif
     }
   }
 

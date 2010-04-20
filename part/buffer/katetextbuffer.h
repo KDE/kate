@@ -404,6 +404,12 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     QList<TextRange *> rangesForLine (int line, KTextEditor::View *view, bool rangesWithAttributeOnly) const;
 
+    /**
+     * Check if the given range pointer is still valid.
+     * @return range pointer still belongs to range for this buffer
+     */
+    bool rangePointerValid (TextRange *range) const { return m_ranges.contains (range); }
+
   Q_SIGNALS:
     /**
      * Attribute of a range changed or range with attribute changed in given line range.

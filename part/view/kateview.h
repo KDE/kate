@@ -719,6 +719,45 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   private:
     bool m_userContextMenuSet;
 
+  private Q_SLOTS:
+    /**
+     * Attribute of a range changed or range with attribute changed in given line range.
+     * @param view which view is affected? 0 for all views
+     * @param startLine start line of change
+     * @param endLine end line of change
+     */
+    void textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
+
+    /**
+     * Delayed update for view after text ranges changed
+     */
+    void slotDelayedUpdateOfView ();
+
+  Q_SIGNALS:
+    /**
+     * Delayed update for view after text ranges changed
+     */
+    void delayedUpdateOfView ();
+
+  //
+  // helpers for delayed view update after ranges changes
+  //
+  private:
+      /**
+       * update already inited?
+       */
+      int m_delayedUpdateTriggered;
+
+      /**
+       * minimal line to update
+       */
+      int m_lineToUpdateMin;
+
+      /**
+       * maximal line to update
+       */
+      int m_lineToUpdateMax;
+
 };
 
 /**

@@ -126,6 +126,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_dictionaryBar(NULL)
     , m_spellingMenu( new KateSpellingMenu( this ) )
     , m_userContextMenuSet( false )
+    , m_delayedUpdateTriggered (false)
+    , m_lineToUpdateMin (-1)
+    , m_lineToUpdateMax (-1)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -244,10 +247,19 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
+
+  // connect to range changed of buffer
+  connect(&m_doc->buffer(), SIGNAL(rangeAttributeChanged (KTextEditor::View *, int, int)), this, SLOT(textRangeAttributeChanged (KTextEditor::View *, int, int)));
+
+  // queued connect to collapse view updates for range changes
+  connect(this, SIGNAL(delayedUpdateOfView ()), this, SLOT(slotDelayedUpdateOfView ()), Qt::QueuedConnection);
 }
 
 KateView::~KateView()
 {
+  // invalidate update signal
+  m_delayedUpdateTriggered = false;
+
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
     if (viewBarContainer) {
      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
@@ -2757,4 +2769,57 @@ KateSpellingMenu* KateView::spellingMenu()
 {
   return m_spellingMenu;
 }
+
+void KateView::textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+{
+  Q_ASSERT (startLine >= 0);
+  Q_ASSERT (endLine >= 0);
+
+  // filter wrong views
+  if (view && view != this)
+    return;
+
+  // output flags
+  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine;
+
+  // first call:
+  if (!m_delayedUpdateTriggered) {
+      m_delayedUpdateTriggered = true;
+      m_lineToUpdateMin = startLine;
+      m_lineToUpdateMax = endLine;
+
+      // emit queued signal and be done
+      emit delayedUpdateOfView ();
+      return;
+  }
+
+  // update line range
+  if (startLine < m_lineToUpdateMin)
+    m_lineToUpdateMin = startLine;
+
+  if (endLine > m_lineToUpdateMax)
+    m_lineToUpdateMax = endLine;
+}
+
+void KateView::slotDelayedUpdateOfView ()
+{
+  if (!m_delayedUpdateTriggered)
+    return;
+
+  Q_ASSERT (m_lineToUpdateMin >= 0);
+  Q_ASSERT (m_lineToUpdateMax >= 0);
+
+  // output view as void *, might be invalid pointer!
+  kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
+
+  // update view
+  tagLines (m_lineToUpdateMin, m_lineToUpdateMax, true);
+  updateView (true);
+
+  // reset flags
+  m_delayedUpdateTriggered = false;
+  m_lineToUpdateMin = -1;
+  m_lineToUpdateMax = -1;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

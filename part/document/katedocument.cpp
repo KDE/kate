@@ -3945,9 +3945,6 @@ bool KateDocument::documentReload()
 
     emit aboutToReload(this);
 
-    if (clearOnDocumentReload())
-      m_smartManager->clear(false);
-
     QList<KateDocumentTmpMark> tmp;
 
     for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
@@ -3973,10 +3970,16 @@ bool KateDocument::documentReload()
     foreach (KateView *v, m_views)
       cursorPositions.append( v->cursorPosition() );
 
+    QMutexLocker smartLock(smartMutex());
+
+    if (clearOnDocumentReload())
+      m_smartManager->clear(false);
+
     m_reloading = true;
     KateDocument::openUrl( url() );
     m_reloading = false;
 
+    smartLock.unlock();
 
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();

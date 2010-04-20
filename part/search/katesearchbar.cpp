@@ -253,10 +253,12 @@ void KateSearchBar::highlight(const Range & range, const QColor & color) {
 
     Attribute::Ptr mouseInAttribute(new Attribute());
     mouseInAttribute->setFontBold(true);
+    mouseInAttribute->setBackground(color);
     attribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
 
     Attribute::Ptr caretInAttribute(new Attribute());
     caretInAttribute->setFontItalic(true);
+    caretInAttribute->setBackground(color);
     attribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
 
     highlight->setAttribute(attribute);

@@ -6,6 +6,7 @@ ServiceTypes=Kate/Plugin
 Type=Service
 Icon=korganizer
 Name=Tabify
+Name[ca]=Pestanyes
 Name[de]=Tabify
 Name[en_GB]=Tabify
 Name[nb]=Tabify

@@ -1,7 +1,15 @@
 [Desktop Entry]
 GenericName=Snippets datafile editor
+GenericName[ca]=Editor de fitxer de base de dades de retalls
+GenericName[pt]=Editor de ficheiros de dados de excertos
+GenericName[sv]=Datafileditor för textsnuttar
+GenericName[uk]=Редактор файлів даних фрагментів
 GenericName[x-test]=xxSnippets datafile editorxx
 Name=Snippets datafile editor
+Name[ca]=Editor de fitxer de base de dades de retalls
+Name[pt]=Editor de ficheiros de dados de excertos
+Name[sv]=Datafileditor för textsnuttar
+Name[uk]=Редактор файлів даних фрагментів
 Name[x-test]=xxSnippets datafile editorxx
 
 MimeType=application/x-ktesnippets;

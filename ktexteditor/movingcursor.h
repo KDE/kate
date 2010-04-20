@@ -113,6 +113,12 @@ class KTEXTEDITOR_EXPORT MovingCursor
     virtual int column() const = 0;
 
     /**
+     * Retrieve the insertion behavior
+     * @return insertion behavior of this cursor
+     */
+    virtual InsertBehavior insertBehavior () const = 0;
+
+    /**
      * Destruct the moving cursor.
      */
     virtual ~MovingCursor ();

@@ -121,8 +121,14 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine)
   fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());
 
   // perhaps need to notify stuff!
-  if (m_feedback)
+  if (m_feedback) {
     m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), false /* attribute not interesting here */);
+
+    if (!toRange().isValid())
+      m_feedback->rangeInvalid (this);
+    else if (toRange().isEmpty())
+      m_feedback->rangeEmpty (this);
+  }
 }
 
 void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine)

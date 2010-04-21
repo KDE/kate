@@ -3764,13 +3764,6 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
-  // if the input method event is text that should be inserted, call KateDocument::typeChars() with
-  // the text. that method will handle the input and take care of overwrite mode, etc.
-  if ( e->commitString().length() > 0 && !m_imPreeditRange && doc()->typeChars( m_view, e->commitString() ) ) {
-    e->accept();
-    return;
-  }
-
   //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
   if ( m_view->selection() )
@@ -3797,8 +3790,11 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     doc()->editStart();
     if (start != removeEnd)
       doc()->removeText(KTextEditor::Range(start, removeEnd));
-    if (!e->commitString().isEmpty())
-      doc()->insertText(start, e->commitString());
+    if (!e->commitString().isEmpty()) {
+      // if the input method event is text that should be inserted, call KateDocument::typeChars()
+      // with the text. that method will handle the input and take care of overwrite mode, etc.
+      doc()->typeChars(m_view, e->commitString());
+    }
     doc()->editEnd();
 
     // Revert to the same range as above
@@ -3824,6 +3820,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
       renderer()->setDrawCaret(false);
     renderer()->setCaretOverrideColor(QColor());
 
+    e->accept();
     return;
   }
 

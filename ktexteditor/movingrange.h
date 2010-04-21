@@ -268,6 +268,21 @@ class KTEXTEDITOR_EXPORT MovingRangeFeedback
     virtual ~MovingRangeFeedback ();
 
     /**
+     * The range is now empty (ie. the start and end cursors are the same).
+     * If the range has invalidateIfEmpty set, this will never be emitted, but instead rangeInvalid is triggered.
+     *
+     * \param range pointer to the range which generated the notification.
+     */
+    virtual void rangeEmpty (MovingRange* range);
+
+    /**
+     * The range is now invalid (ie. the start and end cursors are invalid).
+     *
+     * \param range pointer to the range which generated the notification.
+     */
+    virtual void rangeInvalid (MovingRange* range);
+
+    /**
      * The mouse cursor on \a view entered \p range.
      *
      * \param range pointer to the range which generated the notification.

@@ -47,6 +47,14 @@ MovingRangeFeedback::~MovingRangeFeedback ()
 {
 }
 
+void MovingRangeFeedback::rangeEmpty (MovingRange*)
+{
+}
+
+void MovingRangeFeedback::rangeInvalid (MovingRange*)
+{
+}
+
 void MovingRangeFeedback::mouseEnteredRange (MovingRange*, View*)
 {
 }

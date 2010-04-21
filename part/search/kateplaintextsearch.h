@@ -32,10 +32,13 @@ namespace KTextEditor {
   class Document;
 }
 
-class KATEPART_TESTS_EXPORT KatePlainTextSearch : public QObject
+/**
+ * Object to help to search for plain text.
+ * This should be NO QObject, it is created to often!
+ * I measured that, if you create it 20k times to replace for example " " in a document, that takes seconds on a modern machine!
+ */
+class KATEPART_TESTS_EXPORT KatePlainTextSearch
 {
-  Q_OBJECT
-
   public:
     explicit KatePlainTextSearch (KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords);
     ~KatePlainTextSearch ();

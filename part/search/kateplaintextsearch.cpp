@@ -35,8 +35,7 @@
 // KateSearch Constructor
 //
 KatePlainTextSearch::KatePlainTextSearch ( KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity, bool wholeWords )
-: QObject (document)
-, m_document (document)
+: m_document (document)
 , m_caseSensitivity (caseSensitivity)
 , m_wholeWords (wholeWords)
 {

@@ -32,10 +32,13 @@ namespace KTextEditor {
   class Document;
 }
 
-class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
+/**
+ * Object to help to search for regexp.
+ * This should be NO QObject, it is created to often!
+ * I measured that, if you create it 20k times to replace for example " " in a document, that takes seconds on a modern machine!
+ */
+class KATEPART_TESTS_EXPORT KateRegExpSearch
 {
-  Q_OBJECT
-
   public:
     explicit KateRegExpSearch (KTextEditor::Document *document, Qt::CaseSensitivity caseSensitivity);
     ~KateRegExpSearch ();
@@ -43,7 +46,7 @@ class KATEPART_TESTS_EXPORT KateRegExpSearch : public QObject
   //
   // KTextEditor::SearchInterface stuff
   //
-  public Q_SLOTS:
+  public:
     /**
      * Search for the regular expression \p regexp inside the range
      * \p inputRange. If \p backwards is \e true, the search direction will

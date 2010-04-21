@@ -31,6 +31,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_start (buffer, this, range.start(), (insertBehavior & ExpandLeft) ? Kate::TextCursor::StayOnInsert : Kate::TextCursor::MoveOnInsert)
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
+  , m_feedback (0)
   , m_attibuteOnlyForViews (false)
   , m_invalidateIfEmpty (false)
 {
@@ -43,20 +44,32 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
 
 TextRange::~TextRange ()
 {
+  /**
+   * reset feedback, don't want feedback during destruction
+   */
+  m_feedback = 0;
+
   // remove range from m_ranges
   fixLookup (m_start.line(), m_end.line(), -1, -1);
 
   // remove this range from the buffer
   m_buffer.m_ranges.remove (this);
 
-  // trigger update, if we have attribute
-  // notify right view
+  /**
+   * trigger update, if we have attribute
+   * notify right view
+   * here we can ignore feedback, even with feedback, we want none if the range is deleted!
+   */
   if (m_attribute)
-    m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
+    m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), true /* we have a attribute */);
 }
 
 void TextRange::setRange (const KTextEditor::Range &range)
 {
+  // avoid work if nothing changed!
+  if (range == toRange())
+    return;
+
   // remember old line range
   int oldStartLine = m_start.line();
   int oldEndLine = m_end.line();
@@ -69,7 +82,7 @@ void TextRange::setRange (const KTextEditor::Range &range)
   checkValidity (oldStartLine, oldEndLine);
 
   // no attribute set, be done
-  if (!m_attribute)
+  if (!m_attribute && !m_feedback)
     return;
 
   // get full range
@@ -85,7 +98,7 @@ void TextRange::setRange (const KTextEditor::Range &range)
    * notify buffer about attribute change, it will propagate the changes
    * notify right view
    */
-  m_buffer.triggerRangeAttributeChanged (m_view, startLineMin, endLineMax);
+  m_buffer.notifyAboutRangeChange (m_view, startLineMin, endLineMax, m_attribute);
 }
 
 void TextRange::checkValidity (int oldStartLine, int oldEndLine)
@@ -106,6 +119,10 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine)
 
   // fix lookup
   fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());
+
+  // perhaps need to notify stuff!
+  if (m_feedback)
+    m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), false /* attribute not interesting here */);
 }
 
 void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine)
@@ -168,8 +185,8 @@ void TextRange::setView (KTextEditor::View *view)
    * notify buffer about attribute change, it will propagate the changes
    * notify all views (can be optimized later)
    */
-  if (m_attribute)
-    m_buffer.triggerRangeAttributeChanged (0, m_start.line(), m_end.line());
+  if (m_attribute || m_feedback)
+    m_buffer.notifyAboutRangeChange (0, m_start.line(), m_end.line(), m_attribute);
 }
 
 void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
@@ -189,7 +206,27 @@ void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
    * notify buffer about attribute change, it will propagate the changes
    * notify right view
    */
-  m_buffer.triggerRangeAttributeChanged (m_view, m_start.line(), m_end.line());
+  m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), m_attribute);
+}
+
+void TextRange::setFeedback (KTextEditor::MovingRangeFeedback *feedback)
+{
+  /**
+   * nothing changes, nop
+   */
+  if (feedback == m_feedback)
+    return;
+
+  /**
+   * remember the new feedback object
+   */
+  m_feedback = feedback;
+
+  /**
+   * notify buffer about feedback change, it will propagate the changes
+   * notify right view
+   */
+  m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), m_attribute);
 }
 
 void TextRange::setAttibuteOnlyForViews (bool onlyForViews)
@@ -202,7 +239,7 @@ void TextRange::setAttibuteOnlyForViews (bool onlyForViews)
 
 KTextEditor::Document *Kate::TextRange::document () const
 {
-  return m_buffer.document();
+    return m_buffer.document();
 }
 
 }

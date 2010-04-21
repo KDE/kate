@@ -670,12 +670,12 @@ bool TextBuffer::save (const QString &filename)
   return ok;
 }
 
-void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+void TextBuffer::notifyAboutRangeChange (KTextEditor::View *view, int startLine, int endLine, bool rangeWithAttribute)
 {
   /**
-   * ignore invalid calls, might happen if invalid ranges get an attribute or no document is around
+   * ignore calls if no document is around
    */
-  if (startLine == -1 || endLine == -1 || !m_document)
+  if (!m_document)
     return;
 
   /**
@@ -686,13 +686,13 @@ void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int star
   for (int i = 0; i < views.size(); ++i) {
     // get view
     KTextEditor::View *curView = views[i];
-    
+
     // filter wrong views
     if (view && view != curView)
      continue;
-    
+
     // notify view, it is really a kate view
-    static_cast<KateView *> (curView)->textRangeAttributeChanged (startLine, endLine);
+    static_cast<KateView *> (curView)->notifyAboutRangeChange (startLine, endLine, rangeWithAttribute);
   }
 }
 

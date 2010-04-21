@@ -90,7 +90,7 @@
 #include <QtCore/QMimeData>
 #include <QtCore/QMutexLocker>
 
-#undef VIEW_RANGE_DEBUG
+//#define VIEW_RANGE_DEBUG
 
 //END includes
 
@@ -132,6 +132,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_lineToUpdateMin (-1)
     , m_lineToUpdateMax (-1)
 {
+  // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
+  connect(this, SIGNAL(delayedUpdateOfView ()), this, SLOT(slotDelayedUpdateOfView ()), Qt::QueuedConnection);
+
   setComponentData ( KateGlobal::self()->componentData () );
 
   // selection if for this view only and will invalidate if becoming empty
@@ -249,12 +252,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
-
-  // connect to range changed of buffer
-  connect(&m_doc->buffer(), SIGNAL(rangeAttributeChanged (KTextEditor::View *, int, int)), this, SLOT(textRangeAttributeChanged (KTextEditor::View *, int, int)));
-
-  // queued connect to collapse view updates for range changes
-  connect(this, SIGNAL(delayedUpdateOfView ()), this, SLOT(slotDelayedUpdateOfView ()), Qt::QueuedConnection);
 }
 
 KateView::~KateView()
@@ -2772,36 +2769,39 @@ KateSpellingMenu* KateView::spellingMenu()
   return m_spellingMenu;
 }
 
-void KateView::textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+void KateView::notifyAboutRangeChange (int startLine, int endLine, bool rangeWithAttribute)
 {
-  Q_ASSERT (startLine >= 0);
-  Q_ASSERT (endLine >= 0);
-
-  // filter wrong views
-  if (view && view != this)
-    return;
-
 #ifdef VIEW_RANGE_DEBUG
-  // output flags
-  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine;
+  // output args
+  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine << "rangeWithAttribute" << rangeWithAttribute;
 #endif
 
   // first call:
   if (!m_delayedUpdateTriggered) {
       m_delayedUpdateTriggered = true;
-      m_lineToUpdateMin = startLine;
-      m_lineToUpdateMax = endLine;
+      m_lineToUpdateMin = -1;
+      m_lineToUpdateMax = -1;
+
+      // only set initial line range, if range with attribute!
+      if (rangeWithAttribute) {
+        m_lineToUpdateMin = startLine;
+        m_lineToUpdateMax = endLine;
+      }
 
       // emit queued signal and be done
       emit delayedUpdateOfView ();
       return;
   }
 
+  // ignore lines if no attribute
+  if (!rangeWithAttribute)
+    return;
+
   // update line range
-  if (startLine < m_lineToUpdateMin)
+  if (startLine != -1 && (m_lineToUpdateMin == -1 || startLine < m_lineToUpdateMin))
     m_lineToUpdateMin = startLine;
 
-  if (endLine > m_lineToUpdateMax)
+  if (endLine != -1 && endLine > m_lineToUpdateMax)
     m_lineToUpdateMax = endLine;
 }
 
@@ -2810,11 +2810,8 @@ void KateView::slotDelayedUpdateOfView ()
   if (!m_delayedUpdateTriggered)
     return;
 
-  Q_ASSERT (m_lineToUpdateMin >= 0);
-  Q_ASSERT (m_lineToUpdateMax >= 0);
-
 #ifdef VIEW_RANGE_DEBUG
-  // output view as void *, might be invalid pointer!
+  // output args
   kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
 #endif
 
@@ -2822,9 +2819,11 @@ void KateView::slotDelayedUpdateOfView ()
   updateRangesIn (KTextEditor::Attribute::ActivateMouseIn);
   updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
 
-  // update view
-  tagLines (m_lineToUpdateMin, m_lineToUpdateMax, true);
-  updateView (true);
+  // update view, if valid line range, else only feedback update wanted anyway
+  if (m_lineToUpdateMin != -1 && m_lineToUpdateMax != -1) {
+    tagLines (m_lineToUpdateMin, m_lineToUpdateMax, true);
+    updateView (true);
+  }
 
   // reset flags
   m_delayedUpdateTriggered = false;
@@ -2852,12 +2851,12 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
   // cursor valid? else no new ranges can be found
   if (currentCursor.isValid ()) {
     // now: get current ranges for the line of cursor with an attribute
-    QList<Kate::TextRange *> rangesForCurrentCursor = m_doc->buffer().rangesForLine (currentCursor.line(), this, true);
+    QList<Kate::TextRange *> rangesForCurrentCursor = m_doc->buffer().rangesForLine (currentCursor.line(), this, false);
 
     // match which ranges really fit the given cursor
     foreach (Kate::TextRange *range, rangesForCurrentCursor) {
-      // range has no dynamic attribute of right type
-      if (!range->attribute()->dynamicAttribute (activationType))
+      // range has no dynamic attribute of right type and no feedback object
+      if ((!range->attribute() || !range->attribute()->dynamicAttribute (activationType)) && !range->feedback())
         continue;
 
       // range doesn't contain cursor, not interesting
@@ -2878,8 +2877,18 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
       }
 
       // oh, new range, trigger update and insert into new set
-      textRangeAttributeChanged (this, range->start().line(), range->end().line());
       newRangesIn.insert (range);
+
+      if (range->attribute() && range->attribute()->dynamicAttribute (activationType))
+        notifyAboutRangeChange (range->start().line(), range->end().line(), true);
+
+      // feedback
+      if (range->feedback ()) {
+          if (activationType == KTextEditor::Attribute::ActivateMouseIn)
+            range->feedback ()->mouseEnteredRange (range, this);
+          else
+            range->feedback ()->caretEnteredRange (range, this);
+      }
 
 #ifdef VIEW_RANGE_DEBUG
       // found new range for activation
@@ -2888,10 +2897,20 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
     }
   }
 
-  // now: trigger update for ranges left, if still valid...
-  foreach (Kate::TextRange *range, validRanges)
-    if (range->toRange().isValid())
-      textRangeAttributeChanged (this, range->start().line(), range->end().line());
+  // now: notify for left ranges!
+  foreach (Kate::TextRange *range, validRanges) {
+    // range valid + right dynamic attribute, trigger update
+    if (range->toRange().isValid() && range->attribute() && range->attribute()->dynamicAttribute (activationType))
+      notifyAboutRangeChange (range->start().line(), range->end().line(), true);
+
+    // feedback
+    if (range->feedback ()) {
+        if (activationType == KTextEditor::Attribute::ActivateMouseIn)
+          range->feedback ()->mouseExitedRange (range, this);
+        else
+          range->feedback ()->caretExitedRange (range, this);
+    }
+  }
 
   // set new ranges
   oldSet = newRangesIn;

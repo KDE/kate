@@ -375,12 +375,13 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     TextBlock *blockForIndex (int index) { return m_blocks[index]; }
 
     /**
-     * Attribute of a range changed or range with attribute changed in given line range.
+     * A range changed, notify the views, in case of attributes or feedback.
      * @param view which view is affected? 0 for all views
      * @param startLine start line of change
      * @param endLine end line of change
+     * @param rangeWithAttribute attribute changed or is active, this will perhaps lead to repaints
      */
-    void triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
+    void notifyAboutRangeChange (KTextEditor::View *view, int startLine, int endLine, bool rangeWithAttribute);
 
   public:
     /**

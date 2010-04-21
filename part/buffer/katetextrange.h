@@ -157,6 +157,22 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
     void setAttribute (KTextEditor::Attribute::Ptr attribute);
 
     /**
+     * Gets the active MovingRangeFeedback for this range.
+     *
+     * \return a pointer to the active MovingRangeFeedback
+     */
+    KTextEditor::MovingRangeFeedback *feedback () const { return m_feedback; }
+
+    /**
+     * Sets the currently active MovingRangeFeedback for this range.
+     * This will trigger evaluation if feedback must be send again (for example if mouse is already inside range).
+     *
+     * \param attribute MovingRangeFeedback to assign to this range. If null, simply
+     *                  removes the previous MovingRangeFeedback.
+     */
+    void setFeedback (KTextEditor::MovingRangeFeedback *feedback);
+
+    /**
      * Is this range's attribute only visible in views, not for example prints?
      * Default is false.
      * @return range visible only for views
@@ -214,6 +230,11 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * This range's current attribute.
      */
     KTextEditor::Attribute::Ptr m_attribute;
+
+    /**
+     * pointer to the active MovingRangeFeedback
+     */
+    KTextEditor::MovingRangeFeedback *m_feedback;
 
     /**
      * Is this range's attribute only visible in views, not for example prints?

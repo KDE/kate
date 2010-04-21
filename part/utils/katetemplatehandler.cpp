@@ -193,6 +193,14 @@ void KateTemplateHandler::cleanupAndExit()
       m_templateRanges.clear();
   }
 
+  if (!m_spacersSmart.isEmpty()) {
+    foreach (SmartRange* range, m_spacersSmart ) {
+      m_doc->removeText(*range);
+      deleteSmartRange(range,m_doc);
+    }
+    m_spacersSmart.clear();
+  }
+
   delete m_wholeTemplateRange;
   delete m_finalCursorPosition;
   delete this;
@@ -369,6 +377,8 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   // not equal -1 when we found a start position
   int startPos = -1;
 
+  bool lastWasBrace=false;
+
   // each found variable gets it's range(s) added to the list.
   // the key is the varname, e.g. the same as in initialValues
   // to be able to iterate over them in a FIFO matter, also store
@@ -377,6 +387,8 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   QMultiMap<QString, Range> ranges;
   QMap<Range,MirrorBehaviour> mirrorBehaviourBuildHelper;
 
+
+  QList<Range> spacers;
   // valid, if we find an occurrence of ${cursor}
   Cursor finalCursorPosition = Cursor::invalid();
 
@@ -388,6 +400,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   for ( int i = 0; i < templateString.size(); ++i ) {
     ifDebug(kDebug()<<"checking character:"<<templateString[i];);
     if ( templateString[i] == '\n' ) {
+      lastWasBrace=false;
       ++line;
       column = 0;
       if ( startPos != -1 ) {
@@ -396,6 +409,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       }
     } else if ( (templateString[i] == '%' || templateString[i] == '$')
                 && i + 1 < templateString.size() && templateString[i+1] == '{' ) {
+           
       // check whether this var is escaped
       int escapeChars = 0;
       while ( i - escapeChars > 0 && templateString[i - escapeChars - 1] == '\\' ) {
@@ -413,8 +427,15 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       }
       if ( escapeChars % 2 == 0 ) {
         // don't check for startPos == -1 here, overwrite blindly since nested variables are not supported
-        startPos = i;
+        if (lastWasBrace) {
+          templateString.insert(i," ");
+          spacers.append(Range(line,column,line,column+1));
+          ++i;
+          ++column;
+        }
+        startPos = i;        
       }
+      lastWasBrace=false;
       // skip '{'
       ++i;
       column += 2;
@@ -476,6 +497,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         }
       }
     } else if ( templateString[i] == '}' && startPos != -1 ) {
+      lastWasBrace=true;
       bool force_first=false;
       // get key, i.e. contents between ${..}
       QString key = templateString.mid( startPos + 2, i - (startPos + 2) );
@@ -622,9 +644,15 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       ifDebug(kDebug()<<"i="<<i<<" template size="<<templateString.size(););
     } else {
       ++column;
+      lastWasBrace=false;
     }
   }
 
+  if ( lastWasBrace && (!finalCursorPosition.isValid()) ) {
+    templateString+=" ";
+    spacers.append(Range(line,column,line,column+1));
+    ++column;
+  }
   m_doc->replaceText(*m_wholeTemplateRange, templateString);
 
   Q_ASSERT(!m_wholeTemplateRange->toRange().isEmpty());
@@ -692,6 +720,19 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
     m_doc->addHighlightToDocument(parent, true);
     m_templateRanges.append(parent);
+  }
+
+  foreach ( const Range& spacer, spacers) {
+    SmartRange *r=m_doc->newSmartRange(spacer,0);
+    Attribute::Ptr attribute(new Attribute());
+    //attribute->setBackground(QBrush(Qt::yellow));
+    attribute->setFont(QFont("fixed",1));
+    attribute->setFontStrikeOut(true);
+    attribute->setFontOverline(true);
+    attribute->setFontUnderline(true);
+    r->setAttribute(attribute);
+    m_doc->addHighlightToDocument(r,true);
+    m_spacersSmart.append(r);
   }
 
   qSort(m_masterRanges.begin(),m_masterRanges.end(),cmp_smart_ranges);

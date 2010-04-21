@@ -258,6 +258,8 @@ private:
     /// script token for the template script, which might be used by the current template
     QString m_scriptToken;
 
+    QList<KTextEditor::SmartRange*> m_spacersSmart;
+
     bool m_initialRemodify;
 };
 

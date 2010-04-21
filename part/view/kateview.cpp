@@ -250,9 +250,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     showViModeBar();
   }
 
-  // connect to range changed of buffer
-  connect(&m_doc->buffer(), SIGNAL(rangeAttributeChanged (KTextEditor::View *, int, int)), this, SLOT(textRangeAttributeChanged (KTextEditor::View *, int, int)));
-
   // queued connect to collapse view updates for range changes
   connect(this, SIGNAL(delayedUpdateOfView ()), this, SLOT(slotDelayedUpdateOfView ()), Qt::QueuedConnection);
 }
@@ -2772,17 +2769,13 @@ KateSpellingMenu* KateView::spellingMenu()
   return m_spellingMenu;
 }
 
-void KateView::textRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
+void KateView::textRangeAttributeChanged (int startLine, int endLine)
 {
   Q_ASSERT (startLine >= 0);
   Q_ASSERT (endLine >= 0);
 
-  // filter wrong views
-  if (view && view != this)
-    return;
-
 #ifdef VIEW_RANGE_DEBUG
-  // output flags
+  // output args
   kDebug() << "trigger attribute changed from" << startLine << "to" << endLine;
 #endif
 
@@ -2814,7 +2807,7 @@ void KateView::slotDelayedUpdateOfView ()
   Q_ASSERT (m_lineToUpdateMax >= 0);
 
 #ifdef VIEW_RANGE_DEBUG
-  // output view as void *, might be invalid pointer!
+  // output args
   kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
 #endif
 
@@ -2878,7 +2871,7 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
       }
 
       // oh, new range, trigger update and insert into new set
-      textRangeAttributeChanged (this, range->start().line(), range->end().line());
+      textRangeAttributeChanged (range->start().line(), range->end().line());
       newRangesIn.insert (range);
 
 #ifdef VIEW_RANGE_DEBUG
@@ -2891,7 +2884,7 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
   // now: trigger update for ranges left, if still valid...
   foreach (Kate::TextRange *range, validRanges)
     if (range->toRange().isValid())
-      textRangeAttributeChanged (this, range->start().line(), range->end().line());
+      textRangeAttributeChanged (range->start().line(), range->end().line());
 
   // set new ranges
   oldSet = newRangesIn;

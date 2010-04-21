@@ -21,6 +21,10 @@
 #include "katetextbuffer.h"
 #include "katetextloader.h"
 
+// this is unfortunate, but needed for performance
+#include "katedocument.h"
+#include "kateview.h"
+
 #include <kde_file.h>
 
 namespace Kate {
@@ -580,19 +584,6 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
   // emit success
   emit loaded (filename, encodingErrors);
 
-#if 0
-  // fake ranges for debugging
-
-  Kate::TextRange *range = new Kate::TextRange (*this, KTextEditor::Range (KTextEditor::Cursor (0, 0), KTextEditor::Cursor (10, 10)), Kate::TextRange::ExpandRight);
-
-  KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
-  attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-  QColor lineColor(Qt::red);
-  attribute->setUnderlineColor(lineColor);
-  range->setAttribute(KTextEditor::Attribute::Ptr(attribute));
-
-#endif
-
   // file loading worked, modulo encoding problems
   return true;
 }
@@ -682,15 +673,27 @@ bool TextBuffer::save (const QString &filename)
 void TextBuffer::triggerRangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine)
 {
   /**
-   * ignore invalid calls, might happen if invalid ranges get an attribute
+   * ignore invalid calls, might happen if invalid ranges get an attribute or no document is around
    */
-  if (startLine == -1 || endLine == -1)
+  if (startLine == -1 || endLine == -1 || !m_document)
     return;
 
   /**
-   * emit the holy signal
+   * update all views, this IS ugly and could be a signal, but I profiled and a signal is TOO slow, really
+   * just create 20k ranges in a go and you wait seconds on a decent machine
    */
-  emit rangeAttributeChanged (view, startLine, endLine);
+  const QList<KTextEditor::View *> &views = m_document->views ();
+  for (int i = 0; i < views.size(); ++i) {
+    // get view
+    KTextEditor::View *curView = views[i];
+    
+    // filter wrong views
+    if (view && view != curView)
+     continue;
+    
+    // notify view, it is really a kate view
+    static_cast<KateView *> (curView)->textRangeAttributeChanged (startLine, endLine);
+  }
 }
 
 QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view, bool rangesWithAttributeOnly) const

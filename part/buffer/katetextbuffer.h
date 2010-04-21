@@ -410,15 +410,6 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     bool rangePointerValid (TextRange *range) const { return m_ranges.contains (range); }
 
-  Q_SIGNALS:
-    /**
-     * Attribute of a range changed or range with attribute changed in given line range.
-     * @param view which view is affected? 0 for all views
-     * @param startLine start line of change
-     * @param endLine end line of change
-     */
-    void rangeAttributeChanged (KTextEditor::View *view, int startLine, int endLine);
-
   private:
     /**
      * parent document

@@ -34,6 +34,7 @@ namespace KTextEditor
 
 class Document;
 class View;
+class MovingRangeFeedback;
 
 /**
  * \short A range which is bound to a specific Document, and maintains its position.
@@ -171,6 +172,22 @@ class KTEXTEDITOR_EXPORT MovingRange
     virtual void setAttibuteOnlyForViews (bool onlyForViews) = 0;
 
     /**
+     * Gets the active MovingRangeFeedback for this range.
+     *
+     * \return a pointer to the active MovingRangeFeedback
+     */
+    virtual MovingRangeFeedback *feedback () const = 0;
+
+    /**
+     * Sets the currently active MovingRangeFeedback for this range.
+     * This will trigger evaluation if feedback must be send again (for example if mouse is already inside range).
+     *
+     * \param attribute MovingRangeFeedback to assign to this range. If null, simply
+     *                  removes the previous MovingRangeFeedback.
+     */
+    virtual void setFeedback (MovingRangeFeedback *feedback) = 0;
+
+    /**
      * Destruct the moving range.
      */
     virtual ~MovingRange ();
@@ -223,6 +240,65 @@ class KTEXTEDITOR_EXPORT MovingRange
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MovingRange::InsertBehaviors)
+
+/**
+ * \short A class which provides notifications of state changes to a MovingRange.
+ *
+ * \ingroup kte_group_moving_classes
+ *
+ * This class provides notifications of changes to the position or contents of a MovingRange.
+ *
+ * Before destruction, you must unregister the feedback class from any range using it.
+ *
+ * \author Christoph Cullmann \<cullmann@kde.org\>
+ *
+ * \since 4.5
+ */
+class KTEXTEDITOR_EXPORT MovingRangeFeedback
+{
+  public:
+    /**
+     * Default constructor
+     */
+    MovingRangeFeedback ();
+
+    /**
+     * Virtual destructor
+     */
+    virtual ~MovingRangeFeedback ();
+
+    /**
+     * The mouse cursor on \a view entered \p range.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void mouseEnteredRange (MovingRange* range, View* view);
+
+    /**
+     * The mouse cursor on \a view exited \p range.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void mouseExitedRange (MovingRange* range, View* view);
+
+    /**
+     * The caret on \a view entered \p range.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void caretEnteredRange (MovingRange* range, View* view);
+
+    /**
+     * The caret on \a view exited \p range.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void caretExitedRange (MovingRange* range, View* view);
+};
 
 }
 

@@ -134,6 +134,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         m_incUi(NULL),
         m_incInitCursor(view->cursorPosition()),
         m_powerUi(NULL),
+        highlightMatchAttribute (new Attribute()),
+        highlightReplacementAttribute (new Attribute()),
         m_incHighlightAll(false),
         m_incFromCursor(true),
         m_incMatchCase(false),
@@ -146,6 +148,22 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
             this, SLOT(updateIncInitCursor()));
 
+    // init match attribute
+    highlightMatchAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+
+    Attribute::Ptr mouseInAttribute(new Attribute());
+    mouseInAttribute->setFontBold(true);
+    mouseInAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
+
+    Attribute::Ptr caretInAttribute(new Attribute());
+    caretInAttribute->setFontItalic(true);
+    caretInAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
+    
+    // init replacement attribute
+    highlightReplacementAttribute->setBackground(Qt::green); // TODO make this part of the color scheme
+    
     // Modify parent
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
@@ -242,41 +260,19 @@ void KateSearchBar::findPrevious() {
     }
 }
 
-
-
-void KateSearchBar::highlight(const Range & range, const QColor & color) {
+void KateSearchBar::highlightMatch(const Range & range) {
     Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
-    highlight->setAttibuteOnlyForViews(true); // ignore when printing
     highlight->setView(m_view); // show only in this view
-    Attribute::Ptr attribute(new Attribute());
-    attribute->setBackground(color);
-
-    Attribute::Ptr mouseInAttribute(new Attribute());
-    mouseInAttribute->setFontBold(true);
-    mouseInAttribute->setBackground(color);
-    attribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
-
-    Attribute::Ptr caretInAttribute(new Attribute());
-    caretInAttribute->setFontItalic(true);
-    caretInAttribute->setBackground(color);
-    attribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
-
-    highlight->setAttribute(attribute);
+    highlight->setAttribute(highlightMatchAttribute);
     m_hlRanges.append(highlight);
 }
 
-
-
-void KateSearchBar::highlightMatch(const Range & range) {
-    highlight(range, Qt::yellow); // TODO make this part of the color scheme
-}
-
-
-
 void KateSearchBar::highlightReplacement(const Range & range) {
-    highlight(range, Qt::green); // TODO make this part of the color scheme
+    Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
+    highlight->setView(m_view); // show only in this view
+    highlight->setAttribute(highlightReplacementAttribute);
+    m_hlRanges.append(highlight);
 }
-
 
 void KateSearchBar::indicateMatch(MatchResult matchResult) {
     QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()

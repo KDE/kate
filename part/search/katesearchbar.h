@@ -25,6 +25,7 @@
 #include "kateviewhelpers.h"
 #include "katepartprivate_export.h"
 
+#include <ktexteditor/attribute.h>
 #include <ktexteditor/searchinterface.h>
 
 class KateView;
@@ -136,7 +137,6 @@ private:
 
     KTextEditor::Search::SearchOptions searchOptions(SearchDirection searchDirection = SearchForward) const;
 
-    void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
     void indicateMatch(MatchResult matchResult);
@@ -168,6 +168,10 @@ private:
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;
+
+    // attribute to highlight matches with
+    KTextEditor::Attribute::Ptr highlightMatchAttribute;
+    KTextEditor::Attribute::Ptr highlightReplacementAttribute;
 
     // Status backup
     bool m_incHighlightAll : 1;

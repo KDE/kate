@@ -358,8 +358,10 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     KTextEditor::Range range;
     if (word.isValid()) {
       range = word;
+      kDebug()<<"word is used";
     } else {
       range=_completionRange(model,view(), view()->cursorPosition());
+      kDebug()<<"completionRange has been called, cursor pos is"<<view()->cursorPosition();
     }
     if(!range.isValid()) {
       if(m_completionRanges.contains(model)) {
@@ -385,6 +387,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     
     connect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
     
+    kdDebug()<<"Before completin invoke: range:"<<range;
     model->completionInvoked(view(), range, invocationType);
     
     disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
@@ -698,7 +701,7 @@ void KateCompletionWidget::cursorPositionChanged( )
       bool abort = _shouldAbortCompletion(model,view(), *range, currentCompletion);
       //kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
       if(view()->cursorPosition() < m_completionRanges[*it].leftBoundary) {
-        kDebug() << "aborting because of boundary";
+        kDebug() << "aborting because of boundary: cursor:"<<view()->cursorPosition()<<"completion_Range_left_boundary:"<<m_completionRanges[*it].leftBoundary;
         abort = true;
       }
       

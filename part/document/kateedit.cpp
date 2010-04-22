@@ -154,50 +154,50 @@ void KateEditHistory::releaseRevision(int revision)
   QMap<int, KateEditInfo*>::iterator it = m_revisions.find (revision);
   if (it == m_revisions.end())
     return;
-    
+
   // dereference the revision
   KateEditInfo *edit = *it;
   edit->dereferenceRevision();
   if (!edit->isReferenced()) {
     // no longer refed
     m_revisions.remove(revision);
-    
+
     // clean up memory, try to delete any unrefed revisions
-    
+
     // delete unrefed
     int deletedEdits = 0;
     for (int i = 0; i < m_edits.size(); ++i) {
       if (m_edits[i]->isReferenced())
 	break;
-      
+
       // already delete edit
       delete m_edits[i];
-      
+
       // remember deleted count
       ++deletedEdits;
     }
-    
+
     // remove unrefed from the list now, already deleted
     if (deletedEdits > 0)
-      m_edits.erase (m_edits.begin(), m_edits.end() + deletedEdits);
+      m_edits.erase (m_edits.begin(), m_edits.begin() + deletedEdits);
   }
 }
 
 void KateEditHistory::doEdit (KateEditInfo* edit) {
   {
-    QMutexLocker locker (&m_mutex);  
-    
+    QMutexLocker locker (&m_mutex);
+
     // here we go, don't be a memory pirate
     // if we atm only have one edit and it is not referenced, just delete it
     // in other cases, the releaseRevision will clean up
     if (m_edits.size() == 1 && !m_edits.last()->isReferenced()) {
 	delete m_edits.takeLast ();
     }
-    
+
     // append the new edit in any case
     m_edits.append(edit);
   }
-  
+
   emit editDone(edit);
 }
 

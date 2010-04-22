@@ -21,22 +21,17 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "movingrange.h"
+#include "movinginterface.h"
 
 using namespace KTextEditor;
 
-MovingRange::MovingRange ()
+MovingInterface::MovingInterface ()
+  : d (0)
 {
 }
 
-MovingRange::~MovingRange ()
+MovingInterface::~MovingInterface ()
 {
-}
-
-void MovingRange::setRange (const Cursor &start, const Cursor &end)
-{
-  // just use other function, KTextEditor::Range will handle some normalization
-  setRange (Range (start, end));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -21,22 +21,52 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "movingrange.h"
+#ifndef KDELIBS_KTEXTEDITOR_MOVINGINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_MOVINGINTERFACE_H
 
-using namespace KTextEditor;
+#include <ktexteditor/ktexteditor_export.h>
+#include <ktexteditor/movingcursor.h>
+#include <ktexteditor/movingrange.h>
+#include <ktexteditor/movingrangefeedback.h>
 
-MovingRange::MovingRange ()
+namespace KTextEditor
 {
+
+/**
+ * \short A class which provides notifications of state changes to a MovingRange.
+ *
+ * \ingroup kte_group_moving_classes
+ *
+ * This class provides notifications of changes to the position or contents of a MovingRange.
+ *
+ * Before destruction, you must unregister the feedback class from any range using it.
+ *
+ * \author Christoph Cullmann \<cullmann@kde.org\>
+ *
+ * \since 4.5
+ */
+class KTEXTEDITOR_EXPORT MovingInterface
+{
+  public:
+    /**
+     * Default constructor
+     */
+    MovingInterface ();
+
+    /**
+     * Virtual destructor
+     */
+    virtual ~MovingInterface ();
+
+  private:
+    /**
+     * private d-pointer
+     */
+    class MovingInterfacePrivate * const d;
+};
+
 }
 
-MovingRange::~MovingRange ()
-{
-}
-
-void MovingRange::setRange (const Cursor &start, const Cursor &end)
-{
-  // just use other function, KTextEditor::Range will handle some normalization
-  setRange (Range (start, end));
-}
+#endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

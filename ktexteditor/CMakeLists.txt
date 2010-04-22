@@ -20,8 +20,10 @@ set(ktexteditor_LIB_SRCS
    configinterface.cpp
    smartinterface.cpp
    highlightinterface.cpp
+   movinginterface.cpp
    movingcursor.cpp
    movingrange.cpp
+   movingrangefeedback.cpp
    )
 
 
@@ -78,6 +80,10 @@ install( FILES
     loadsavefiltercheckplugin.h
     highlightinterface.h
     modeinterface.h
+    movinginterface.h
+    movingcursor.h
+    movingrange.h
+    movingrangefeedback.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

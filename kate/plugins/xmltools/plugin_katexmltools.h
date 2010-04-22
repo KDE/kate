@@ -126,8 +126,8 @@ class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
     // code completion stuff:
     KTextEditor::CodeCompletionInterface* m_codeInterface;
 
-    /// maps KTE::Document::docNumber -> DTD
-    Q3IntDict<PseudoDTD> m_docDtds;
+    /// maps KTE::Document::documentName -> DTD
+    Q3Dict<PseudoDTD> m_docDtds;
 
     /// maps DTD filename -> DTD
     Q3Dict<PseudoDTD> m_dtds;

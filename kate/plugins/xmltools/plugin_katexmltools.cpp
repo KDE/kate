@@ -233,8 +233,8 @@ void PluginKateXMLToolsCompletionModel::backspacePressed()
       return;
     }
     //kDebug() << "++ redisplay popup, " << m_lastAllowed.count() << ", len:" << len;
-    connectSlots( kv );
-    kv->showCompletionBox( stringListToCompletionEntryList(m_lastAllowed), len, false );
+    //connectSlots( kv );
+//    kv->showCompletionBox( stringListToCompletionEntryList(m_lastAllowed), len, false );
   }
 }
 
@@ -332,52 +332,14 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
   if( allowed.count() >= 1 && allowed[0] != "__EMPTY" )
   {
     allowed = sortQStringList( allowed );
-    connectSlots( kv );
-    kv->showCompletionBox( stringListToCompletionEntryList( allowed ), 0, false );
+    //connectSlots( kv );
+//    kv->showCompletionBox( stringListToCompletionEntryList( allowed ), 0, false );
     m_popupOpenCol = col;
     m_lastAllowed = allowed;
   }
   //else {
   //  m_lastAllowed.clear();
   //}
-}
-
-Q3ValueList<KTextEditor::CompletionItem>
-PluginKateXMLToolsCompletionModel::stringListToCompletionEntryList( QStringList list )
-{
-  Q3ValueList<KTextEditor::CompletionItem> compList;
-  KTextEditor::CompletionItem entry;
-  for( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
-  {
-    entry=KTextEditor::CompletionItem(*it);
-    compList << entry;
-  }
-  return compList;
-}
-
-
-/**
- * disconnect all signals of a specified kateview from the local slots
- *
- */
-void  PluginKateXMLToolsView::disconnectSlots( KTextEditor::View *kv )
-{
-  disconnect( kv, SIGNAL(filterInsertString(KTextEditor::CompletionItem*,QString*)), this, 0 );
-  disconnect( kv, SIGNAL(completionDone(KTextEditor::CompletionItem)), this, 0 );
-  disconnect( kv, SIGNAL(completionAborted()), this, 0 );
-}
-
-/**
- * connect all signals of a specified kateview to the local slots
- *
- */
-void PluginKateXMLToolsView::connectSlots( KTextEditor::View *kv )
-{
-  connect( kv, SIGNAL(filterInsertString(KTextEditor::CompletionItem*,QString*) ),
-          this, SLOT(filterInsertString(KTextEditor::CompletionItem*,QString*)) );
-  connect( kv, SIGNAL(completionDone(KTextEditor::CompletionItem) ),
-          this, SLOT(completionDone(KTextEditor::CompletionItem)) );
-  connect( kv, SIGNAL(completionAborted()), this, SLOT(completionAborted()) );
 }
 
 /**
@@ -625,6 +587,7 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
     kv->insertText( closeTag );
 }
 
+#if 0 // not ported yet
 // modify the completion string before it gets inserted
 void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::CompletionItem *ce, QString *text )
 {
@@ -726,6 +689,7 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
       m_correctPos = -str.length() + 1;
   }
 }
+#endif
 
 static void correctPos( KTextEditor::View *kv, int count )
 {
@@ -741,52 +705,6 @@ static void correctPos( KTextEditor::View *kv, int count )
   }
 }
 
-void PluginKateXMLToolsCompletionModel::completionAborted()
-{
-  if ( !application()->activeMainWindow() )
-    return;
-
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
-  if( ! kv )
-  {
-    kDebug() << "Warning (completionAborted() ): no KTextEditor::View";
-    return;
-  }
-  disconnectSlots( kv );
-  kv->cursorPosition().position ( m_lastLine, m_lastCol );
-  m_lastCol--;
-
-  correctPos( kv,m_correctPos );
-  m_correctPos = 0;
-
-  kDebug() << "completionAborted() at line:" << m_lastLine << ", col:" << m_lastCol;
-}
-
-void PluginKateXMLToolsCompletionModel::completionDone( KTextEditor::CompletionItem )
-{
-  kDebug() << "completionDone()";
-
-  if ( !application()->activeMainWindow() )
-    return;
-
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
-  if( ! kv )
-  {
-    kDebug() << "Warning (completionDone() ): no KTextEditor::View";
-    return;
-  }
-  disconnectSlots( kv );
-
-  correctPos( kv,m_correctPos );
-  m_correctPos = 0;
-
-  if( m_mode == attributes )
-  {
-    // immediately show attribute values:
-    QTimer::singleShot( 10, this, SLOT(emptyKeyEvent()) );
-  }
-
-}
 
 // ========================================================================
 // Pseudo-XML stuff:

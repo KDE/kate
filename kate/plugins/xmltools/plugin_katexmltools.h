@@ -73,9 +73,6 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
     void slotInsertElement();
     void slotCloseElement();
-    void filterInsertString( KTextEditor::CompletionItem *ce, QString *str );
-    void completionDone( KTextEditor::CompletionItem completionEntry );
-    void completionAborted();
 
     void slotFinished( KJob *job );
     void slotData( KIO::Job *, const QByteArray &data );
@@ -104,8 +101,6 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
     enum Mode {none, entities, attributevalues, attributes, elements};
     enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};
-
-    Q3ValueList<KTextEditor::CompletionItem> stringListToCompletionEntryList( QStringList list );
 
     /// Assign the PseudoDTD @p dtd to the Kate::Document @p doc
     void assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc );
@@ -144,9 +139,6 @@ class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
     virtual ~PluginKateXMLToolsView();
 
   protected:
-
-    void connectSlots( KTextEditor::View *kv );
-    void disconnectSlots( KTextEditor::View *kv );
 
     Kate::DocumentManager *m_documentManager;
 };

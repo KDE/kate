@@ -60,6 +60,8 @@ namespace KTextEditor {
 
         virtual bool shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion);
         virtual Range completionRange(View* view, const Cursor &position);
+        virtual bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
+
         
         SnippetSelectorModel *selectorModel();
         QString fileType();
@@ -69,17 +71,9 @@ namespace KTextEditor {
   #endif
 
       private:
-        QList<SnippetCompletionEntry> m_entries;
-        QList<const SnippetCompletionEntry*> m_matches;
-        void loadEntries(const QString& filename);
-        QString m_fileType;
-        QStringList mergedFiles;
-        QStringList m_scripts;
-        TemplateScriptRegistrar *m_scriptRegistrar;
-        SnippetCompletionModelPrivate *d;
+        SnippetCompletionModelPrivate  * const d;
 
   #ifdef SNIPPET_EDITOR
-          QString m_script;
       public:
           QString script();
           void setScript(const QString& script);

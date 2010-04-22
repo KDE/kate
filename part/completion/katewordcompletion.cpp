@@ -60,7 +60,7 @@
 
 //BEGIN KateWordCompletionModel
 KateWordCompletionModel::KateWordCompletionModel( QObject *parent )
-  : CodeCompletionModel( parent )
+  : CodeCompletionModel( parent ), m_automatic(false)
 {
   setHasGroups(false);
 }
@@ -139,12 +139,50 @@ int KateWordCompletionModel::rowCount ( const QModelIndex & parent ) const
     return m_matches.count();
 }
 
+
+bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
+{
+    if (!userInsertion) return false;
+    if(insertedText.isEmpty())
+        return false;
+
+
+    KateView *v = qobject_cast<KateView*> (view);
+    
+    QString text = view->document()->line(position.line()).left(position.column());
+    uint check=v->config()->wordCompletionMinimalWordLength();
+    if (check<=0) return true;
+    int start=text.length();
+    int end=text.length()-check;
+    if (end<0) return false;
+    for (int i=start-1;i>=end;i--) {
+      QChar c=text.at(i);
+      if (! (c.isLetter() || (c.isNumber()) || c=='_') ) return false;
+    }
+   
+    return true;
+}
+
+bool KateWordCompletionModel::shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion) {
+
+    if (m_automatic) {
+      KateView *v = qobject_cast<KateView*> (view);
+      if (currentCompletion.length()<v->config()->wordCompletionMinimalWordLength()) return true;
+    }
+  
+    return CodeCompletionModelControllerInterface3::shouldAbortCompletion(view,range,currentCompletion);
+}
+
+
+
 void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
   /**
    * auto invoke...
    */
+  m_automatic=false;
   if (it==AutomaticInvocation) {
+      m_automatic=true;
       KateView *v = qobject_cast<KateView*> (view);
 
       if (range.columnWidth() >= v->config()->wordCompletionMinimalWordLength())

@@ -181,7 +181,28 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
      * should this cursor move on insert
      */
     bool m_moveOnInsert;
+    
+    
+  public:
+  inline friend QDebug operator<< (QDebug s, const TextCursor& cursor) {
+      if (&cursor)
+        s.nospace() << "(" << cursor.line() << ", " << cursor.column() << ")";
+      else
+        s.nospace() << "(null cursor)";
+      return s.space();
+    }
+
 };
+
+
+  inline QDebug operator<< (QDebug s, TextCursor* cursor) {
+      if (cursor)
+        s.nospace() << "(" << cursor->line() << ", " << cursor->column() << ")";
+      else
+        s.nospace() << "(null cursor)";
+      return s.space();
+    }
+
 
 }
 

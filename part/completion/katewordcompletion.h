@@ -27,6 +27,7 @@
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/configpage.h>
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 #include <kxmlguiclient.h>
 
 #include <QtCore/QEvent>
@@ -35,9 +36,11 @@
 
 #include <kdebug.h>
 
-class KateWordCompletionModel : public KTextEditor::CodeCompletionModel
+
+class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
 {
   Q_OBJECT
+  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
   public:
     KateWordCompletionModel( QObject *parent );
     ~KateWordCompletionModel();
@@ -54,6 +57,12 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel
      * */
     void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
 
+    
+    bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
+    bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion);
+
+    
+    
     void saveMatches( KTextEditor::View* view,
                             const KTextEditor::Range& range);
 
@@ -67,6 +76,7 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel
 
   private:
     QStringList m_matches;
+    bool m_automatic;
 };
 
 class KateWordCompletionView : public QObject

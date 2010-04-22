@@ -42,6 +42,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 #include <kcombobox.h>
 #include <kdialog.h>
@@ -57,14 +58,14 @@ class PluginKateXMLTools : public Kate::Plugin
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
-class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
+class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel
 {
   Q_OBJECT
 
   public:
+    PluginKateXMLToolsCompletionModel( QObject *parent );
+    ~PluginKateXMLToolsCompletionModel();
 
-    explicit PluginKateXMLToolsView( Kate::MainWindow *w);
-    virtual ~PluginKateXMLToolsView();
 
   public slots:
 
@@ -84,7 +85,7 @@ class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
     void keyEvent( int, int, const QString & );
 
     /// Connected to the document manager, to manage the dtd collection.
-    void slotDocumentDeleted( uint n );
+    void slotDocumentDeleted( KTextEditor::Document *doc );
 
   protected:
 
@@ -131,7 +132,18 @@ class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
 
     /// maps DTD filename -> DTD
     Q3Dict<PseudoDTD> m_dtds;
+};
 
+class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
+{
+  Q_OBJECT
+
+  public:
+
+    explicit PluginKateXMLToolsView( Kate::MainWindow *w);
+    virtual ~PluginKateXMLToolsView();
+
+  protected:
 
     void connectSlots( KTextEditor::View *kv );
     void disconnectSlots( KTextEditor::View *kv );

@@ -131,19 +131,7 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *w)
 {
   //kDebug() << "PluginKateXMLTools constructor called";
 
-  m_dtdString.clear();
-  m_urlString.clear();
-  m_docToAssignTo = 0L;
 
-  m_mode = none;
-  m_correctPos = 0;
-
-  m_lastLine = 0;
-  m_lastCol = 0;
-  m_lastAllowed = QStringList();
-  m_popupOpenCol = -1;
-
-  m_dtds.setAutoDelete( true );
   ( void) new KAction ( i18n("&Insert Element..."), Qt::CTRL+Qt::Key_Return, this,
                         SLOT( slotInsertElement()), view->actionCollection(), "xml_tool_insert_element" );
   ( void) new KAction ( i18n("&Close Element"), Qt::CTRL+Qt::Key_Less, this,
@@ -159,8 +147,8 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *w)
 
 //   connect( m_documentManager, SIGNAL(documentCreated()),
 //             this, SLOT(slotDocumentCreated()) );
-  connect( m_documentManager, SIGNAL(documentDeleted(uint)),
-            this, SLOT(slotDocumentDeleted(uint)) );
+  connect( m_documentManager, SIGNAL(documentDeleted(KTextEditor::Document *)),
+            this, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
 }
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
@@ -168,7 +156,29 @@ PluginKateXMLToolsView::~PluginKateXMLToolsView()
   //kDebug() << "xml tools descructor 1...";
 }
 
-void PluginKateXMLToolsView::slotDocumentDeleted( KTextEditor::Document *doc )
+PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *parent ) : CodeCompletionModel (parent)
+{
+  m_dtdString.clear();
+  m_urlString.clear();
+  m_docToAssignTo = 0L;
+
+  m_mode = none;
+  m_correctPos = 0;
+
+  m_lastLine = 0;
+  m_lastCol = 0;
+  m_lastAllowed = QStringList();
+  m_popupOpenCol = -1;
+
+  m_dtds.setAutoDelete( true );
+}
+
+PluginKateXMLToolsCompletionModel::~PluginKateXMLToolsCompletionModel()
+{
+
+}
+
+void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Document *doc )
 {
   // Remove the document from m_DTDs, and also delete the PseudoDTD
   // if it becomes unused.
@@ -197,7 +207,7 @@ void PluginKateXMLToolsView::slotDocumentDeleted( KTextEditor::Document *doc )
   }
 }
 
-void PluginKateXMLToolsView::backspacePressed()
+void PluginKateXMLToolsCompletionModel::backspacePressed()
 {
   kDebug() << "xml tools backspacePressed";
 
@@ -228,12 +238,12 @@ void PluginKateXMLToolsView::backspacePressed()
   }
 }
 
-void PluginKateXMLToolsView::emptyKeyEvent()
+void PluginKateXMLToolsCompletionModel::emptyKeyEvent()
 {
   keyEvent( 0, 0, QString() );
 }
 
-void PluginKateXMLToolsView::keyEvent( int, int, const QString &/*s*/ )
+void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/ )
 {
   //kDebug() << "xml tools keyEvent: '" << s;
 
@@ -333,7 +343,7 @@ void PluginKateXMLToolsView::keyEvent( int, int, const QString &/*s*/ )
 }
 
 Q3ValueList<KTextEditor::CompletionItem>
-PluginKateXMLToolsView::stringListToCompletionEntryList( QStringList list )
+PluginKateXMLToolsCompletionModel::stringListToCompletionEntryList( QStringList list )
 {
   Q3ValueList<KTextEditor::CompletionItem> compList;
   KTextEditor::CompletionItem entry;
@@ -374,7 +384,7 @@ void PluginKateXMLToolsView::connectSlots( KTextEditor::View *kv )
  * Load the meta DTD. In case of success set the 'ready'
  * flag to true, to show that we're is ready to give hints about the DTD.
  */
-void PluginKateXMLToolsView::getDTD()
+void PluginKateXMLToolsCompletionModel::getDTD()
 {
   if ( !application()->activeMainWindow() )
     return;
@@ -483,7 +493,7 @@ void PluginKateXMLToolsView::getDTD()
   kDebug()<<"XMLTools::getDTD: Documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
 }
 
-void PluginKateXMLToolsView::slotFinished( KJob *job )
+void PluginKateXMLToolsCompletionModel::slotFinished( KJob *job )
 {
   if( job->error() )
   {
@@ -512,12 +522,12 @@ void PluginKateXMLToolsView::slotFinished( KJob *job )
   QApplication::restoreOverrideCursor();
 }
 
-void PluginKateXMLToolsView::slotData( KIO::Job *, const QByteArray &data )
+void PluginKateXMLToolsCompletionModel::slotData( KIO::Job *, const QByteArray &data )
 {
   m_dtdString += QString( data );
 }
 
-void PluginKateXMLToolsView::assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc )
+void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc )
 {
   m_docDtds.replace( doc->documentName(), dtd );
   connect( doc, SIGNAL(charactersInteractivelyInserted(int,int,const QString&) ),
@@ -533,7 +543,7 @@ void PluginKateXMLToolsView::assignDTD( PseudoDTD *dtd, KTextEditor::Document *d
  * tag one chosen/entered by the user, plus its closing tag. If there's a text selection,
  * add the markup around it.
  */
-void PluginKateXMLToolsView::slotInsertElement()
+void PluginKateXMLToolsCompletionModel::slotInsertElement()
 {
   if ( !application()->activeMainWindow() )
     return;
@@ -596,7 +606,7 @@ void PluginKateXMLToolsView::slotInsertElement()
 /**
  * Insert a closing tag for the nearest not-closed parent element.
  */
-void PluginKateXMLToolsView::slotCloseElement()
+void PluginKateXMLToolsCompletionModel::slotCloseElement()
 {
   if ( !application()->activeMainWindow() )
     return;
@@ -616,7 +626,7 @@ void PluginKateXMLToolsView::slotCloseElement()
 }
 
 // modify the completion string before it gets inserted
-void PluginKateXMLToolsView::filterInsertString( KTextEditor::CompletionItem *ce, QString *text )
+void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::CompletionItem *ce, QString *text )
 {
   kDebug() << "filterInsertString str: " << *text;
   kDebug() << "filterInsertString text: " << ce.text();
@@ -731,7 +741,7 @@ static void correctPos( KTextEditor::View *kv, int count )
   }
 }
 
-void PluginKateXMLToolsView::completionAborted()
+void PluginKateXMLToolsCompletionModel::completionAborted()
 {
   if ( !application()->activeMainWindow() )
     return;
@@ -752,7 +762,7 @@ void PluginKateXMLToolsView::completionAborted()
   kDebug() << "completionAborted() at line:" << m_lastLine << ", col:" << m_lastCol;
 }
 
-void PluginKateXMLToolsView::completionDone( KTextEditor::CompletionItem )
+void PluginKateXMLToolsCompletionModel::completionDone( KTextEditor::CompletionItem )
 {
   kDebug() << "completionDone()";
 
@@ -786,7 +796,7 @@ void PluginKateXMLToolsView::completionDone( KTextEditor::CompletionItem )
  * if "<" occurs before ">" occurs ( on the left side of the cursor ).
  * Return the tag name, return "" if we cursor is outside a tag.
  */
-QString PluginKateXMLToolsView::insideTag( KTextEditor::View &kv )
+QString PluginKateXMLToolsCompletionModel::insideTag( KTextEditor::View &kv )
 {
   int line, col;
   kv.cursorPosition().position( line, col );
@@ -837,7 +847,7 @@ QString PluginKateXMLToolsView::insideTag( KTextEditor::View &kv )
  * Note: only call when insideTag() == true.
  * TODO: allow whitespace around "="
  */
-QString PluginKateXMLToolsView::insideAttribute( KTextEditor::View &kv )
+QString PluginKateXMLToolsCompletionModel::insideAttribute( KTextEditor::View &kv )
 {
   int line, col;
   kv.cursorPosition().position( line, col );
@@ -895,7 +905,7 @@ QString PluginKateXMLToolsView::insideAttribute( KTextEditor::View &kv )
  * <p> foo <img/> bar X
  * <p> foo bar X
  */
-QString PluginKateXMLToolsView::getParentElement( KTextEditor::View &kv, bool ignoreSingleChar )
+QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &kv, bool ignoreSingleChar )
 {
   enum {
     parsingText,
@@ -1027,7 +1037,7 @@ QString PluginKateXMLToolsView::getParentElement( KTextEditor::View &kv, bool ig
  * Return true if the tag is neither a closing tag
  * nor an empty tag, nor a comment, nor processing instruction.
  */
-bool PluginKateXMLToolsView::isOpeningTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isOpeningTag( QString tag )
 {
   return ( !isClosingTag(tag) && !isEmptyTag(tag ) &&
       !tag.startsWith( "<?") && !tag.startsWith("<!") );
@@ -1037,12 +1047,12 @@ bool PluginKateXMLToolsView::isOpeningTag( QString tag )
  * Return true if the tag is a closing tag. Return false
  * if the tag is an opening tag or an empty tag ( ! )
  */
-bool PluginKateXMLToolsView::isClosingTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isClosingTag( QString tag )
 {
   return ( tag.startsWith("</") );
 }
 
-bool PluginKateXMLToolsView::isEmptyTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isEmptyTag( QString tag )
 {
   return ( tag.right(2) == "/>" );
 }
@@ -1050,7 +1060,7 @@ bool PluginKateXMLToolsView::isEmptyTag( QString tag )
 /**
  * Return true if ch is a single or double quote. Expects ch to be of length 1.
  */
-bool PluginKateXMLToolsView::isQuote( QString ch )
+bool PluginKateXMLToolsCompletionModel::isQuote( QString ch )
 {
   return ( ch == "\"" || ch == "'" );
 }
@@ -1060,7 +1070,7 @@ bool PluginKateXMLToolsView::isQuote( QString ch )
 // Tools:
 
 /** Sort a QStringList case-insensitively. Static. TODO: make it more simple. */
-QStringList PluginKateXMLToolsView::sortQStringList( QStringList list ) {
+QStringList PluginKateXMLToolsCompletionModel::sortQStringList( QStringList list ) {
   // Sort list case-insensitive. This looks complicated but using a QMap
   // is even suggested by the Qt documentation.
   QMap<QString,QString> mapList;

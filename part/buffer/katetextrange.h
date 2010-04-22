@@ -24,8 +24,9 @@
 #ifndef KATE_TEXTRANGE_H
 #define KATE_TEXTRANGE_H
 
-#include <ktexteditor/movingrange.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/movingrange.h>
+#include <ktexteditor/movingrangefeedback.h>
 
 #include "katepartprivate_export.h"
 #include "katetextcursor.h"

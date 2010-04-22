@@ -128,7 +128,8 @@ Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 
 
 PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
-  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KComponentData("kate") )
+  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KComponentData("kate") ),
+    m_model ( this )
 {
   //kDebug() << "PluginKateXMLTools constructor called";
 
@@ -148,13 +149,15 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
 
 //   connect( m_documentManager, SIGNAL(documentCreated()),
 //             this, SLOT(slotDocumentCreated()) );
-  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
-            this, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
+ /* connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
+            &m_model, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
+*/
 }
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
   //kDebug() << "xml tools descructor 1...";
+  //TODO: unregister the model
 }
 
 PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *parent ) : CodeCompletionModel (parent)
@@ -168,7 +171,7 @@ PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *p
 
   m_lastLine = 0;
   m_lastCol = 0;
-  m_lastAllowed = QStringList();
+  m_allowed = QStringList();
   m_popupOpenCol = -1;
 
   m_dtds.setAutoDelete( true );
@@ -233,30 +236,21 @@ void PluginKateXMLToolsCompletionModel::backspacePressed()
       kDebug() << "**Warning: len < 0";
       return;
     }
-    //kDebug() << "++ redisplay popup, " << m_lastAllowed.count() << ", len:" << len;
     //connectSlots( kv );
-//    kv->showCompletionBox( stringListToCompletionEntryList(m_lastAllowed), len, false );
+    //TODO:redisplay the popup here
   }
 }
 
 void PluginKateXMLToolsCompletionModel::emptyKeyEvent()
 {
-  keyEvent( 0, 0, QString() );
+//  keyEvent( 0, 0, QString() );
 }
 
-void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/ )
+void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv,
+                                                           const KTextEditor::Range &range, InvocationType invocationType )
 {
+  kDebug() << "xml tools completionInvoked";
   //kDebug() << "xml tools keyEvent: '" << s;
-
-  if ( !application()->activeMainWindow() )
-    return;
-
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
-  if( ! kv )
-  {
-    kDebug() << "Warning: no KTextEditor::View";
-    return;
-  }
 
   QString docName = kv->document()->documentName();
   if( ! m_docDtds[ docName ] )
@@ -266,7 +260,8 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
   // debug to test speed:
   //QTime t; t.start();
 
-  QStringList allowed = QStringList();
+  beginResetModel();
+  m_allowed.clear();
 
   // get char on the left of the cursor:
   KTextEditor::Cursor curpos = kv->cursorPosition();
@@ -279,7 +274,7 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
   if( leftCh == "&" )
   {
     kDebug() << "Getting entities";
-    allowed = m_docDtds[docName]->entities("" );
+    m_allowed = m_docDtds[docName]->entities("" );
     m_mode = entities;
   }
   else if( leftCh == "<" )
@@ -287,7 +282,7 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
     kDebug() << "*outside tag -> get elements";
     QString parentElement = getParentElement( *kv, true );
     kDebug() << "parent: " << parentElement;
-    allowed = m_docDtds[docName]->allowedElements(parentElement );
+    m_allowed = m_docDtds[docName]->allowedElements(parentElement );
     m_mode = elements;
   }
   // TODO: optionally close parent tag if not left=="/>"
@@ -306,14 +301,14 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
     if( ! currentElement.isEmpty() && ! currentAttribute.isEmpty() )
     {
       kDebug() << "*inside attribute -> get attribute values";
-      allowed = m_docDtds[docName]->attributeValues(currentElement, currentAttribute );
-      if( allowed.count() == 1 &&
-          (allowed[0] == "CDATA" || allowed[0] == "ID" || allowed[0] == "IDREF" ||
-          allowed[0] == "IDREFS" || allowed[0] == "ENTITY" || allowed[0] == "ENTITIES" ||
-          allowed[0] == "NMTOKEN" || allowed[0] == "NMTOKENS" || allowed[0] == "NAME") )
+      m_allowed = m_docDtds[docName]->attributeValues(currentElement, currentAttribute );
+      if( m_allowed.count() == 1 &&
+          (m_allowed[0] == "CDATA" || m_allowed[0] == "ID" || m_allowed[0] == "IDREF" ||
+          m_allowed[0] == "IDREFS" || m_allowed[0] == "ENTITY" || m_allowed[0] == "ENTITIES" ||
+          m_allowed[0] == "NMTOKEN" || m_allowed[0] == "NMTOKENS" || m_allowed[0] == "NAME") )
       {
         // these must not be taken literally, e.g. don't insert the string "CDATA"
-        allowed.clear();
+        m_allowed.clear();
       }
       else
       {
@@ -323,26 +318,34 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
     else if( ! currentElement.isEmpty() )
     {
       kDebug() << "*inside tag -> get attributes";
-      allowed = m_docDtds[docName]->allowedAttributes(currentElement );
+      m_allowed = m_docDtds[docName]->allowedAttributes(currentElement );
       m_mode = attributes;
     }
   }
 
   //kDebug() << "time elapsed (ms): " << t.elapsed();
-  //kDebug() << "Allowed strings: " << allowed.count();
+  kDebug() << "Allowed strings: " << m_allowed.count();
 
-  if( allowed.count() >= 1 && allowed[0] != "__EMPTY" )
+  if( m_allowed.count() >= 1 && m_allowed[0] != "__EMPTY" )
   {
-    allowed = sortQStringList( allowed );
+    m_allowed = sortQStringList( m_allowed );
     //connectSlots( kv );
-//    kv->showCompletionBox( stringListToCompletionEntryList( allowed ), 0, false );
+//    kv->showCompletionBox( stringListToCompletionEntryList( m_allowed ), 0, false );
     m_popupOpenCol = col;
-    m_lastAllowed = allowed;
   }
-  //else {
-  //  m_lastAllowed.clear();
-  //}
+  setRowCount( m_allowed.count() );
+  endResetModel();
 }
+
+QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &idx, int role) const
+{
+  //kDebug() << "XMLToolsCompletionModel::data index " << idx << " role " << role;
+  if( (idx.column() == KTextEditor::CodeCompletionModel::Name) && (role == Qt::DisplayRole) )
+    return m_allowed.at( idx.row() );
+  else
+    return QVariant();
+}
+
 
 /**
  * Load the meta DTD. In case of success set the 'ready'
@@ -494,12 +497,17 @@ void PluginKateXMLToolsCompletionModel::slotData( KIO::Job *, const QByteArray &
 void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc )
 {
   m_docDtds.replace( doc->documentName(), dtd );
-  connect( doc, SIGNAL(charactersInteractivelyInserted(int,int,const QString&) ),
-           this, SLOT(keyEvent(int,int,const QString&)) );
 
-  disconnect( doc, SIGNAL(backspacePressed()), this, 0 );
-  connect( doc, SIGNAL(backspacePressed() ),
-           this, SLOT(backspacePressed()) );
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(doc->activeView()); //TODO:perhaps foreach views()?
+
+  if( cci ) {
+    cci->registerCompletionModel( this );
+    cci->setAutomaticInvocationEnabled( true );
+    kDebug() << "PluginKateXMLToolsView: completion model registered";
+  }
+  else {
+    kWarning() << "PluginKateXMLToolsView: completion interface unavailable";
+  }
 }
 
 /**

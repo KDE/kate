@@ -66,6 +66,8 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     PluginKateXMLToolsCompletionModel( QObject *parent );
     virtual ~PluginKateXMLToolsCompletionModel();
 
+    virtual QVariant data(const QModelIndex &idx, int role) const;
+
 
   public slots:
 
@@ -79,7 +81,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
     void backspacePressed();
     void emptyKeyEvent();
-    void keyEvent( int, int, const QString & );
+    void completionInvoked( KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType );
 
     /// Connected to the document manager, to manage the dtd collection.
     void slotDocumentDeleted( KTextEditor::Document *doc );
@@ -113,7 +115,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     QString m_urlString;
 
     int m_lastLine, m_lastCol;
-    QStringList m_lastAllowed;
+    QStringList m_allowed;
     int m_popupOpenCol;
 
     Mode m_mode;
@@ -139,7 +141,7 @@ class PluginKateXMLToolsView : public Kate::PluginView, public Kate::XMLGUIClien
     virtual ~PluginKateXMLToolsView();
 
   protected:
-
+    PluginKateXMLToolsCompletionModel m_model;
     Kate::DocumentManager *m_documentManager;
 };
 

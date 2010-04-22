@@ -311,10 +311,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
     renderRanges.append(inbuiltHighlight);
 
     if (!completionHighlight) {
-      // Add arbitrary highlighting ranges to the list
-      renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
-      renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
-
       // add ranges with attributes to the list, perhaps with dynamic hl
       const QSet<Kate::TextRange *> *rangesMouseIn = m_view ? m_view->rangesMouseIn () : 0;
       const QSet<Kate::TextRange *> *rangesCaretIn = m_view ? m_view->rangesCaretIn () : 0;
@@ -344,6 +340,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
         additionaHl->addRange(new KTextEditor::Range (*kateRange), attribute);
         renderRanges.append(additionaHl);
       }
+
+      // Add arbitrary highlighting ranges to the list
+      renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
+      renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
     } else {
       // Add the code completion arbitrary highlight to the list
       renderRanges.append(completionHighlight);

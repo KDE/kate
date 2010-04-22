@@ -94,6 +94,7 @@ TODO:
 #include <Q3ValueList>
 
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kapplication.h>
 #include <klineedit.h>
 #include <kdebug.h>
@@ -128,19 +129,25 @@ Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 
 
 PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
-  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KComponentData("kate") ),
+  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KGenericFactory<PluginKateXMLTools>::componentData() ),
     m_model ( this )
 {
   //kDebug() << "PluginKateXMLTools constructor called";
 
-/*
-  ( void) new KAction ( i18n("&Insert Element..."), Qt::CTRL+Qt::Key_Return, this,
-                        SLOT( slotInsertElement()), view->actionCollection(), "xml_tool_insert_element" );
-  ( void) new KAction ( i18n("&Close Element"), Qt::CTRL+Qt::Key_Less, this,
-                        SLOT( slotCloseElement()), view->actionCollection(), "xml_tool_close_element" );
-  ( void) new KAction ( i18n("Assign Meta &DTD..." ), 0, this,
-                        SLOT( getDTD()), view->actionCollection(), "xml_tool_assign" );
-*/
+
+  KAction *actionInsert = new KAction ( i18n("&Insert Element..."), this );
+  actionInsert->setShortcut( Qt::CTRL+Qt::Key_Return );
+  connect( actionInsert, SIGNAL(triggered()), &m_model, SLOT(slotInsertElement()) );
+  actionCollection()->addAction( "xml_tool_insert_element", actionInsert );
+
+  KAction *actionClose = new KAction ( i18n("&Close Element"), this );
+  actionClose->setShortcut( Qt::CTRL+Qt::Key_Less );
+  connect( actionClose, SIGNAL(triggered()), &m_model, SLOT(slotCloseElement()) );
+  actionCollection()->addAction( "xml_tool_close_element", actionClose );
+
+  KAction *actionAssignDTD = new KAction ( i18n("Assign Meta &DTD..." ), this );
+  connect( actionAssignDTD, SIGNAL(triggered()), &m_model, SLOT(getDTD()) );
+  actionCollection()->addAction( "xml_tool_assign", actionAssignDTD );
 
   setXMLFile( "plugins/katexmltools/ui.rc" );
   win->guiFactory()->addClient( this );

@@ -64,6 +64,40 @@ TextRange::~TextRange ()
     m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), true /* we have a attribute */);
 }
 
+void TextRange::setInsertBehaviors (InsertBehaviors _insertBehaviors)
+{
+  /**
+   * nothing to do?
+   */
+  if (_insertBehaviors == insertBehaviors ())
+    return;
+
+  /**
+   * modify cursors
+   */
+  m_start.setInsertBehavior ((_insertBehaviors & ExpandLeft) ? KTextEditor::MovingCursor::StayOnInsert : KTextEditor::MovingCursor::MoveOnInsert);
+  m_end.setInsertBehavior ((_insertBehaviors & ExpandRight) ? KTextEditor::MovingCursor::MoveOnInsert : KTextEditor::MovingCursor::StayOnInsert);
+
+  /**
+   * notify world
+   */
+  if (m_attribute || m_feedback)
+    m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), true /* we have a attribute */);
+}
+
+KTextEditor::MovingRange::InsertBehaviors TextRange::insertBehaviors () const
+{
+  InsertBehaviors behaviors = DoNotExpand;
+
+  if (m_start.insertBehavior() == KTextEditor::MovingCursor::StayOnInsert)
+    behaviors = behaviors & ExpandLeft;
+
+  if (m_end.insertBehavior() == KTextEditor::MovingCursor::MoveOnInsert)
+    behaviors = behaviors & ExpandRight;
+
+  return behaviors;
+}
+
 void TextRange::setRange (const KTextEditor::Range &range)
 {
   // avoid work if nothing changed!

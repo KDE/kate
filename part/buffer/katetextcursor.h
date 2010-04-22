@@ -46,15 +46,6 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
   // this is a friend, because this is needed to efficiently transfer cursors from on to an other block
   friend class TextBlock;
 
-  public:
-    /**
-     * Construct a text cursor.
-     * @param buffer text buffer this cursor belongs to
-     * @param position wanted cursor position, if not valid for given buffer, will lead to invalid cursor
-     * @param insertBehavior behavior of this cursor on insert of text at it's position
-     */
-    TextCursor (TextBuffer &buffer, const KTextEditor::Cursor &position, InsertBehavior insertBehavior);
-
   private:
     /**
      * Construct a text cursor with given range as parent, private, used by TextRange constructor only.
@@ -67,11 +58,30 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
 
   public:
     /**
+     * Construct a text cursor.
+     * @param buffer text buffer this cursor belongs to
+     * @param position wanted cursor position, if not valid for given buffer, will lead to invalid cursor
+     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     */
+    TextCursor (TextBuffer &buffer, const KTextEditor::Cursor &position, InsertBehavior insertBehavior);
+
+    /**
      * Destruct the text cursor
      */
     ~TextCursor ();
 
-  public:
+    /**
+     * Set insert behavior.
+     * @param insertBehavior new insert behavior
+     */
+    void setInsertBehavior (InsertBehavior insertBehavior) { m_moveOnInsert = insertBehavior == MoveOnInsert; }
+
+    /**
+     * Get current insert behavior.
+     * @return current insert behavior
+     */
+    InsertBehavior insertBehavior () const { return m_moveOnInsert ? MoveOnInsert : StayOnInsert; }
+
     /**
      * Gets the document to which this cursor is bound.
      * \return a pointer to the document
@@ -106,12 +116,6 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
      * \return column number, where 0 is the first column.
      */
     int column() const { return m_column; }
-
-    /**
-     * Retrieve the insertion behavior
-     * @return insertion behavior of this cursor
-     */
-    virtual InsertBehavior insertBehavior () const { return m_moveOnInsert ? MoveOnInsert : StayOnInsert; }
 
     /**
      * Get range this cursor belongs to, if any

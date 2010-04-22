@@ -63,6 +63,18 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
     ~TextRange ();
 
     /**
+     * Set insert behaviors.
+     * @param insertBehaviors new insert behaviors
+     */
+    void setInsertBehaviors (InsertBehaviors insertBehaviors);
+
+    /**
+     * Get current insert behaviors.
+     * @return current insert behaviors
+     */
+    InsertBehaviors insertBehaviors () const;
+
+    /**
      * Gets the document to which this range is bound.
      * \return a pointer to the document
      */

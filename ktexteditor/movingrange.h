@@ -87,6 +87,18 @@ class KTEXTEDITOR_EXPORT MovingRange
   //
   public:
     /**
+     * Set insert behaviors.
+     * @param insertBehaviors new insert behaviors
+     */
+    virtual void setInsertBehaviors (InsertBehaviors insertBehaviors) = 0;
+
+    /**
+     * Get current insert behaviors.
+     * @return current insert behaviors
+     */
+    virtual InsertBehaviors insertBehaviors () const = 0;
+
+    /**
      * Gets the document to which this range is bound.
      * \return a pointer to the document
      */

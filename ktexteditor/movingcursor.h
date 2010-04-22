@@ -83,6 +83,18 @@ class KTEXTEDITOR_EXPORT MovingCursor
   //
   public:
     /**
+     * Set insert behavior.
+     * @param insertBehavior new insert behavior
+     */
+    virtual void setInsertBehavior (InsertBehavior insertBehavior) = 0;
+
+    /**
+     * Get current insert behavior.
+     * @return current insert behavior
+     */
+    virtual InsertBehavior insertBehavior () const = 0;
+
+    /**
      * Gets the document to which this cursor is bound.
      * \return a pointer to the document
      */
@@ -112,12 +124,6 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * \return column number, where 0 is the first column.
      */
     virtual int column() const = 0;
-
-    /**
-     * Retrieve the insertion behavior
-     * @return insertion behavior of this cursor
-     */
-    virtual InsertBehavior insertBehavior () const = 0;
 
     /**
      * Destruct the moving cursor.

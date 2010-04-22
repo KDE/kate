@@ -2849,7 +2849,7 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
       validRanges.insert (range);
 
   // cursor valid? else no new ranges can be found
-  if (currentCursor.isValid ()) {
+  if (currentCursor.isValid () && currentCursor.line() < m_doc->buffer().lines()) {
     // now: get current ranges for the line of cursor with an attribute
     QList<Kate::TextRange *> rangesForCurrentCursor = m_doc->buffer().rangesForLine (currentCursor.line(), this, false);
 

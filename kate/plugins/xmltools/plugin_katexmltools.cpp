@@ -109,6 +109,7 @@ TODO:
 
 K_EXPORT_COMPONENT_FACTORY( katexmltoolsplugin, KGenericFactory<PluginKateXMLTools>( "katexmltools" ) )
 
+using Kate::application;
 
 
 PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QStringList& )
@@ -126,28 +127,28 @@ Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 }
 
 
-PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *w)
-  : Kate::Plugin ( (Kate::Application*)parent ), win(w )
+PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
+  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KComponentData("kate") )
 {
   //kDebug() << "PluginKateXMLTools constructor called";
 
-
+/*
   ( void) new KAction ( i18n("&Insert Element..."), Qt::CTRL+Qt::Key_Return, this,
                         SLOT( slotInsertElement()), view->actionCollection(), "xml_tool_insert_element" );
   ( void) new KAction ( i18n("&Close Element"), Qt::CTRL+Qt::Key_Less, this,
                         SLOT( slotCloseElement()), view->actionCollection(), "xml_tool_close_element" );
   ( void) new KAction ( i18n("Assign Meta &DTD..." ), 0, this,
                         SLOT( getDTD()), view->actionCollection(), "xml_tool_assign" );
+*/
 
-  view->setComponentData( KComponentData("kate") );
-  view->setXMLFile( "plugins/katexmltools/ui.rc" );
+  setXMLFile( "plugins/katexmltools/ui.rc" );
   win->guiFactory()->addClient( this );
 
-  m_documentManager = ((Kate::Application*)parent)->documentManager();
+  //m_documentManager = ((Kate::Application*)parent)->documentManager();
 
 //   connect( m_documentManager, SIGNAL(documentCreated()),
 //             this, SLOT(slotDocumentCreated()) );
-  connect( m_documentManager, SIGNAL(documentDeleted(KTextEditor::Document *)),
+  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
             this, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
 }
 
@@ -268,9 +269,10 @@ void PluginKateXMLToolsCompletionModel::keyEvent( int, int, const QString &/*s*/
   QStringList allowed = QStringList();
 
   // get char on the left of the cursor:
-  uint line, col;
-  kv->cursorPositionReal( &line, &col );
-  QString lineStr = kv->getDoc()->textLine( line );
+  KTextEditor::Cursor curpos = kv->cursorPosition();
+  uint line = curpos.line(), col = curpos.column();
+
+  QString lineStr = kv->document()->line( line );
   QString leftCh = lineStr.mid( col-1, 1 );
   QString secondLeftCh = lineStr.mid( col-2, 1 );
 
@@ -374,7 +376,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
   // Example syntax:
   // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
   uint checkMaxLines = 200;
-  QString documentStart = kv->getDoc()->text(0, 0, checkMaxLines+1, 0 );
+  QString documentStart = kv->document()->text( KTextEditor::Range(0, 0, checkMaxLines+1, 0) );
   QRegExp re( "<!DOCTYPE\\s+(.*)\\s+PUBLIC\\s+[\"'](.*)[\"']", Qt::CaseInsensitive );
   re.setMinimal( true );
   int matchPos = re.indexIn( documentStart );
@@ -556,10 +558,10 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
 
     QString marked;
     if ( ! post.isEmpty() )
-      marked = kv->getDoc()->selection();
+      marked = kv->selectionText();
 
     if( marked.length() > 0 )
-      kv->getDoc()->removeSelectedText();
+      kv->removeSelectionText();
 
     kv->insertText( pre + marked + post );
   }
@@ -693,6 +695,7 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
 
 static void correctPos( KTextEditor::View *kv, int count )
 {
+  /*TODO:port to cursor arithmetics
   if( count > 0 )
   {
     for( int i = 0; i < count; i++ )
@@ -703,6 +706,7 @@ static void correctPos( KTextEditor::View *kv, int count )
     for( int i = 0; i < -count; i++ )
       kv->cursorLeft();
   }
+  */
 }
 
 

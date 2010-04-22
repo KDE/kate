@@ -64,7 +64,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
   public:
     PluginKateXMLToolsCompletionModel( QObject *parent );
-    ~PluginKateXMLToolsCompletionModel();
+    virtual ~PluginKateXMLToolsCompletionModel();
 
 
   public slots:
@@ -129,13 +129,13 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     Q3Dict<PseudoDTD> m_dtds;
 };
 
-class PluginKateXMLToolsView : public Kate::Plugin,public KXMLGUIClient
+class PluginKateXMLToolsView : public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
 
   public:
 
-    explicit PluginKateXMLToolsView( Kate::MainWindow *w);
+    explicit PluginKateXMLToolsView( Kate::MainWindow *win);
     virtual ~PluginKateXMLToolsView();
 
   protected:

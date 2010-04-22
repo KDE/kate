@@ -42,6 +42,7 @@
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/highlightinterface.h>
+#include <ktexteditor/movinginterface.h>
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
@@ -82,7 +83,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      public KTextEditor::SmartInterface,
                      private KTextEditor::SmartRangeWatcher,
                      public KTextEditor::AnnotationInterface,
-                     public KTextEditor::HighlightInterface
+                     public KTextEditor::HighlightInterface,
+                     public KTextEditor::MovingInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
@@ -95,6 +97,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::AnnotationInterface)
   Q_INTERFACES(KTextEditor::ConfigInterface)
   Q_INTERFACES(KTextEditor::HighlightInterface)
+  Q_INTERFACES(KTextEditor::MovingInterface)
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -572,6 +575,32 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual void clearViewActions(KTextEditor::View* view);
 
     KateSmartManager* smartManager() const { return m_smartManager; }
+
+  //
+  // MovingInterface
+  //
+  public:
+    /**
+     * Create a new moving cursor for this document.
+     * @param position position of the moving cursor to create
+     * @param insertBehavior insertion behavior
+     * @return new moving cursor for the document
+     */
+    KTextEditor::MovingCursor *newMovingCursor (const KTextEditor::Cursor &position, KTextEditor::MovingCursor::InsertBehavior insertBehavior = KTextEditor::MovingCursor::MoveOnInsert)
+    {
+      return newTextCursor (position, insertBehavior);
+    }
+
+    /**
+     * Create a new moving range for this document.
+     * @param range range of the moving range to create
+     * @param insertBehaviors insertion behaviors
+     * @return new moving range for the document
+     */
+    KTextEditor::MovingRange *newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors = KTextEditor::MovingRange::DoNotExpand)
+    {
+      return newTextRange (range, insertBehaviors);
+    }
 
   //
   // Kate::TextCursor and Kate::TextRange handling

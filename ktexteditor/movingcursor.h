@@ -24,6 +24,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_MOVINGCURSOR_H
 #define KDELIBS_KTEXTEDITOR_MOVINGCURSOR_H
 
+#include <kdebug.h>
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
@@ -182,6 +183,30 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * @return normal cursor
      */
     operator const Cursor () const { return Cursor (line(), column()); }
+
+    /**
+     * kDebug() stream operator. Writes this cursor to the debug output in a nicely formatted way.
+     * @param s debug stream
+     * @param cursor cursor to print
+     * @return debug stream
+     */
+    inline friend QDebug operator<< (QDebug s, const MovingCursor *cursor) {
+      if (cursor)
+        s.nospace() << "(" << cursor->line() << ", " << cursor->column() << ")";
+      else
+        s.nospace() << "(null cursor)";
+      return s.space();
+    }
+
+    /**
+     * kDebug() stream operator. Writes this cursor to the debug output in a nicely formatted way.
+     * @param s debug stream
+     * @param cursor cursor to print
+     * @return debug stream
+     */
+    inline friend QDebug operator<< (QDebug s, const MovingCursor &cursor) {
+      return s << &cursor;
+    }
 };
 
 }

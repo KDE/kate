@@ -237,6 +237,30 @@ class KTEXTEDITOR_EXPORT MovingRange
      * @return normal range
      */
     operator const Range () const { return Range (start().toCursor(), end().toCursor()); }
+
+    /**
+     * kDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
+     * @param s debug stream
+     * @param cursor range to print
+     * @return debug stream
+     */
+    inline friend QDebug operator<< (QDebug s, const MovingRange *range) {
+      if (range)
+        s << "[" << range->start() << " -> " << range->end() << "]";
+      else
+        s << "(null range)";
+      return s.space();
+    }
+
+    /**
+     * kDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
+     * @param s debug stream
+     * @param range range to print
+     * @return debug stream
+     */
+    inline friend QDebug operator<< (QDebug s, const MovingRange &range) {
+      return s << &range;
+    }
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MovingRange::InsertBehaviors)

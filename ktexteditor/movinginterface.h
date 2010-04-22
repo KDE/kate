@@ -33,13 +33,11 @@ namespace KTextEditor
 {
 
 /**
- * \short A class which provides notifications of state changes to a MovingRange.
+ * \short A class which provides the interface to create MovingCursors and MovingRanges.
  *
  * \ingroup kte_group_moving_classes
  *
- * This class provides notifications of changes to the position or contents of a MovingRange.
- *
- * Before destruction, you must unregister the feedback class from any range using it.
+ * This class provides the interface for KTextEditor::Documents to create MovingCursors/Ranges.
  *
  * \author Christoph Cullmann \<cullmann@kde.org\>
  *
@@ -58,6 +56,22 @@ class KTEXTEDITOR_EXPORT MovingInterface
      */
     virtual ~MovingInterface ();
 
+    /**
+     * Create a new moving cursor for this document.
+     * @param position position of the moving cursor to create
+     * @param insertBehavior insertion behavior
+     * @return new moving cursor for the document
+     */
+    virtual MovingCursor *newMovingCursor (const Cursor &position, MovingCursor::InsertBehavior insertBehavior = MovingCursor::MoveOnInsert) = 0;
+
+    /**
+     * Create a new moving range for this document.
+     * @param range range of the moving range to create
+     * @param insertBehaviors insertion behaviors
+     * @return new moving range for the document
+     */
+    virtual MovingRange *newMovingRange (const Range &range, MovingRange::InsertBehaviors insertBehaviors = MovingRange::DoNotExpand) = 0;
+
   private:
     /**
      * private d-pointer
@@ -66,6 +80,8 @@ class KTEXTEDITOR_EXPORT MovingInterface
 };
 
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::MovingInterface, "org.kde.KTextEditor.MovingInterface")
 
 #endif
 

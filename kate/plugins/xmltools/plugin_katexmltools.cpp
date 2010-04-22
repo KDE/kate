@@ -94,11 +94,12 @@ TODO:
 #include <Q3ValueList>
 
 #include <kaction.h>
+#include <kapplication.h>
 #include <klineedit.h>
-#include <kcursor.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <kglobal.h>
+#include <khistorycombobox.h>
 #include <kcomponentdata.h>
 #include <kio/job.h>
 #include <klocale.h>
@@ -401,9 +402,9 @@ void PluginKateXMLToolsView::getDTD()
   // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
   uint checkMaxLines = 200;
   QString documentStart = kv->getDoc()->text(0, 0, checkMaxLines+1, 0 );
-  QRegExp re( "<!DOCTYPE\\s+(.*)\\s+PUBLIC\\s+[\"'](.*)[\"']", false );
+  QRegExp re( "<!DOCTYPE\\s+(.*)\\s+PUBLIC\\s+[\"'](.*)[\"']", Qt::CaseInsensitive );
   re.setMinimal( true );
-  int matchPos = re.search( documentStart );
+  int matchPos = re.indexIn( documentStart );
   QString filename;
   QString doctype;
   QString topElement;
@@ -429,8 +430,8 @@ void PluginKateXMLToolsView::getDTD()
     else if ( doctype == "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN" )
       filename = "kde-docbook.dtd.xml";
   }
-  else if( documentStart.find("<xsl:stylesheet" ) != -1 &&
-             documentStart.find( "xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"") != -1 )
+  else if( documentStart.indexOf("<xsl:stylesheet" ) != -1 &&
+             documentStart.indexOf( "xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"") != -1 )
   {
     /* XSLT doesn't have a doctype/DTD. We look for an xsl:stylesheet tag instead.
       Example:
@@ -472,7 +473,7 @@ void PluginKateXMLToolsView::getDTD()
     m_dtdString = "";
     m_docToAssignTo = kv->document();
 
-    QApplication::setOverrideCursor( KCursor::waitCursor() );
+    KApplication::setOverrideCursor( Qt::WaitCursor );
     KIO::Job *job = KIO::get( url );
     connect( job, SIGNAL(result(KJob *)), this, SLOT(slotFinished(KJob *)) );
     connect( job, SIGNAL(data(KIO::Job *, const QByteArray &)),
@@ -557,7 +558,7 @@ void PluginKateXMLToolsView::slotInsertElement()
 
   if( !text.isEmpty() )
   {
-    QStringList list = QStringList::split( ' ', text );
+    QStringList list = text.split( QChar(' ') );
     QString pre;
     QString post;
     // anders: use <tagname/> if the tag is required to be empty.
@@ -1065,16 +1066,16 @@ QStringList PluginKateXMLToolsView::sortQStringList( QStringList list ) {
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     QString str = *it;
-    if( mapList.contains(str.lower()) )
+    if( mapList.contains(str.toLower()) )
     {
       // do not override a previous value, e.g. "Auml" and "auml" are two different
       // entities, but they should be sorted next to each other.
       // TODO: currently it's undefined if e.g. "A" or "a" comes first, it depends on
       // the meta DTD ( really? it seems to work okay?!? )
-      mapList[str.lower()+'_'] = str;
+      mapList[str.toLower()+'_'] = str;
     }
     else
-      mapList[str.lower()] = str;
+      mapList[str.toLower()] = str;
   }
 
   list.clear();
@@ -1082,7 +1083,7 @@ QStringList PluginKateXMLToolsView::sortQStringList( QStringList list ) {
 
   // Qt doc: "the items are alphabetically sorted [by key] when iterating over the map":
   for( it = mapList.begin(); it != mapList.end(); ++it )
-    list.append( it.data() );
+    list.append( it.value() );
 
   return list;
 }
@@ -1110,14 +1111,14 @@ QString InsertElement::showDialog( QStringList &completions )
 {
   QWidget *page = new QWidget( this );
   setMainWidget( page );
-  QVBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
+  QVBoxLayout *topLayout = new QVBoxLayout( page );
 
-  KHistoryCombo *combo = new KHistoryCombo( page );
+  KHistoryComboBox *combo = new KHistoryComboBox( page );
   combo->setHistoryItems( completions, true );
   connect( combo->lineEdit(), SIGNAL(textChanged ( const QString & )),
            this, SLOT(slotHistoryTextChanged(const QString &)) );
   QString text = i18n( "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):" );
-  QLabel *label = new QLabel( text, page, "insert" );
+  QLabel *label = new QLabel( text, page );
 
   topLayout->addWidget( label );
   topLayout->addWidget( combo );

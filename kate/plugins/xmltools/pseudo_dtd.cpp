@@ -170,7 +170,7 @@ bool PseudoDTD::parseElements( QDomDocument *doc, QProgressDialog *progress )
             {
               QMap<QString,bool>::Iterator it = subelementList.find( subElem.attribute( "name" ) );
               if( it != subelementList.end() )
-                subelementList.remove(it);
+                subelementList.erase(it);
             }
           }
         }
@@ -203,8 +203,8 @@ QStringList PseudoDTD::allowedElements( QString parentElement )
     QMap<QString,QStringList>::Iterator it;
     for( it = m_elementsList.begin(); it != m_elementsList.end(); ++it )
     {
-      if( it.key().lower() == parentElement.lower() )
-        return it.data();
+      if( it.key().compare( parentElement, Qt::CaseInsensitive ) == 0 )
+        return it.value();
     }
   }
   else if( m_elementsList.contains(parentElement) )
@@ -269,8 +269,9 @@ QStringList PseudoDTD::allowedAttributes( QString element )
     // find the matching element, ignoring case:
     QMap<QString,ElementAttributes>::Iterator it;
     for( it = m_attributesList.begin(); it != m_attributesList.end(); ++it ) {
-      if( it.key().lower() == element.lower() ) {
-        return it.data().optionalAttributes + it.data().requiredAttributes;
+      if( it.key().compare( element, Qt::CaseInsensitive ) == 0 )
+      {
+        return it.value().optionalAttributes + it.value().requiredAttributes;
       }
     }
   }
@@ -287,8 +288,8 @@ QStringList PseudoDTD::requiredAttributes( const QString &element ) const
     QMap<QString,ElementAttributes>::ConstIterator it;
     for( it = m_attributesList.begin(); it != m_attributesList.end(); ++it )
     {
-      if( it.key().lower() == element.lower() )
-        return it.data().requiredAttributes;
+      if( it.key().compare( element, Qt::CaseInsensitive ) == 0 )
+        return it.value().requiredAttributes;
     }
   }
   else if( m_attributesList.contains(element) )
@@ -332,7 +333,7 @@ bool PseudoDTD::parseAttributeValues( QDomDocument *doc, QProgressDialog *progre
         if( ! attributeElem.isNull() )
         {
           QString value = attributeElem.attribute( "value" );
-          attributevaluesTmp.insert( attributeElem.attribute("name"), QStringList::split(QRegExp(" "), value) );
+          attributevaluesTmp.insert( attributeElem.attribute("name"), value.split( QChar(' ') ) );
         }
       }
       m_attributevaluesList.insert( elem.attribute("name"), attributevaluesTmp );
@@ -355,15 +356,15 @@ QStringList PseudoDTD::attributeValues( QString element, QString attribute )
     QMap< QString,QMap<QString,QStringList> >::Iterator it;
     for( it = m_attributevaluesList.begin(); it != m_attributevaluesList.end(); ++it )
     {
-      if( it.key().lower() == element.lower() )
+      if( it.key().compare( element, Qt::CaseInsensitive ) == 0 )
       {
-        QMap<QString,QStringList> attrVals = it.data();
+        QMap<QString,QStringList> attrVals = it.value();
         QMap<QString,QStringList>::Iterator itV;
         // then find the matching attribute for that element, ignoring case:
         for( itV = attrVals.begin(); itV != attrVals.end(); ++itV )
         {
-          if( itV.key().lower() == attribute.lower() )
-            return( itV.data() );
+          if( itV.key().compare( attribute, Qt::CaseInsensitive ) == 0 )
+            return( itV.value() );
         }
       }
     }

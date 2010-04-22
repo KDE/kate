@@ -57,6 +57,9 @@ TextBuffer::TextBuffer (KTextEditor::Document *parent, int blockSize)
 
 TextBuffer::~TextBuffer ()
 {
+  // remove document pointer, this will avoid any notifyAboutRangeChange to have a effect
+  m_document = 0;
+    
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 

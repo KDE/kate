@@ -27,11 +27,11 @@
 #include <kdebug.h>
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/document.h>
 
 namespace KTextEditor
 {
 
-class Document;
 class MovingRange;
 
 /**
@@ -74,8 +74,16 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * or should it move.
      */
     enum InsertBehavior {
-      StayOnInsert = 0x0,
-      MoveOnInsert = 0x1
+      StayOnInsert = 0x0, ///< stay on insert
+      MoveOnInsert = 0x1  ///< move on insert
+    };
+
+    /**
+     * Wrap behavior for end of line treatement used in move().
+     */
+    enum WrapBehavior {
+      Wrap = 0x0,  ///< wrap at end of line
+      NoWrap = 0x1 ///< do not wrap at end of line
     };
 
   //
@@ -154,6 +162,25 @@ class KTEXTEDITOR_EXPORT MovingCursor
   // convenience API
   //
   public:
+
+    /**
+     * Returns whether the current position of this cursor is a valid position,
+     * i.e. whether line() >= 0 and column() >= 0.
+     * \return \e true , if the cursor position is valid, otherwise \e false
+     */
+    inline bool isValid() const {
+      return line() >= 0 && column() >= 0;
+    }
+
+    /**
+     * Check whether the current position of this cursor is a valid text
+     * position.
+     * \return \e true , if the cursor is a valid text position , otherwise \e false
+     */
+    inline bool isValidTextPosition() const {
+      return isValid() && line() < document()->lines() && column() <= document()->lineLength(line());
+    }
+
     /**
      * \overload
      *
@@ -175,6 +202,66 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * \param column new cursor column
      */
     void setColumn(int column);
+
+    /**
+     * Determine if this cursor is located at column 0 of a valid text line.
+     *
+     * \return \e true if cursor is a valid text position and column()=0, otherwise \e false.
+     */
+    bool atStartOfLine() const;
+
+    /**
+     * Determine if this cursor is located at the end of the current line.
+     *
+     * \return \e true if the cursor is situated at the end of the line, otherwise \e false.
+     */
+    bool atEndOfLine() const;
+
+    /**
+     * Determine if this cursor is located at line 0 and column 0.
+     *
+     * \return \e true if the cursor is at start of the document, otherwise \e false.
+     */
+    bool atStartOfDocument() const;
+
+    /**
+     * Determine if this cursor is located at the end of the last line in the
+     * document.
+     *
+     * \return \e true if the cursor is at the end of the document, otherwise \e false.
+     */
+    bool atEndOfDocument() const;
+
+    /**
+     * Moves the cursor to the next line and sets the column to 0. If the cursor
+     * position is already in the last line of the document, the cursor position
+     * remains unchanged and the return value is \e false.
+     *
+     * \return \e true on success, otherwise \e false
+     */
+    bool gotoNextLine();
+
+    /**
+     * Moves the cursor to the previous line and sets the column to 0. If the
+     * cursor position is already in line 0, the cursor position remains
+     * unchanged and the return value is \e false.
+     *
+     * \return \e true on success, otherwise \e false
+     */
+    bool gotoPreviousLine();
+
+    /**
+     * Moves the cursor \p chars character forward or backwards. If \e wrapBehavior
+     * equals WrapBehavior::Wrap, the cursor is automatically wrapped to the
+     * next line at the end of a line.
+     *
+     * When moving backwards, the WrapBehavior does not have any effect.
+     * \note If the cursor could not be moved the amount of chars requested,
+     *       the cursor is not moved at all!
+     *
+     * \return \e true on success, otherwise \e false
+     */
+    bool move(int chars, WrapBehavior wrapBehavior = Wrap);
 
     /**
      * Convert this clever cursor into a dumb one.

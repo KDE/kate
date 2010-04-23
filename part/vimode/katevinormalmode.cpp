@@ -25,9 +25,10 @@
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
 #include "kateglobal.h"
-#include "katetextcursor.h"
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
+
+#include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QList>
 
@@ -423,11 +424,11 @@ void KateViNormalMode::addCurrentPositionToJumpList()
     Cursor c( m_view->cursorPosition() );
 
     // delete old cursor if any
-    if (Kate::TextCursor *oldCursor = m_marks.value('\''))
+    if (KTextEditor::MovingCursor *oldCursor = m_marks.value('\''))
       delete oldCursor;
 
     // create and remember new one
-    Kate::TextCursor *cursor = doc()->newTextCursor( c );
+    KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
     m_marks.insert( '\'', cursor );
 }
 
@@ -1127,11 +1128,11 @@ bool KateViNormalMode::commandSetMark()
   Cursor c( m_view->cursorPosition() );
 
   // delete old cursor if any
-  if (Kate::TextCursor *oldCursor = m_marks.value(m_keys.at( m_keys.size()-1 )))
+  if (KTextEditor::MovingCursor *oldCursor = m_marks.value(m_keys.at( m_keys.size()-1 )))
     delete oldCursor;
 
   // create and remember new one
-  Kate::TextCursor *cursor = doc()->newTextCursor( c );
+  KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
   m_marks.insert( m_keys.at( m_keys.size()-1 ), cursor );
 
   kDebug( 13070 ) << "set mark at (" << c.line() << "," << c.column() << ")";
@@ -1825,7 +1826,7 @@ KateViRange KateViNormalMode::motionToMark()
   }
 
   if ( m_marks.contains( reg ) ) {
-    Kate::TextCursor *cursor = m_marks.value( reg );
+    KTextEditor::MovingCursor *cursor = m_marks.value( reg );
     r.endLine = cursor->line();
     r.endColumn = cursor->column();
   } else {

@@ -5037,15 +5037,15 @@ void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
 
 //END KTextEditor::SmartInterface
 
-//BEGIN Kate::TextRange and TextCursor
-Kate::TextCursor* KateDocument::newTextCursor(const KTextEditor::Cursor &position, Kate::TextCursor::InsertBehavior insertBehavior)
+//BEGIN KTextEditor::MovingInterface
+KTextEditor::MovingCursor *KateDocument::newMovingCursor (const KTextEditor::Cursor &position, KTextEditor::MovingCursor::InsertBehavior insertBehavior)
 {
   return new Kate::TextCursor(buffer(), position, insertBehavior);
 }
 
-Kate::TextRange* KateDocument::newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehaviors insertBehavior)
+KTextEditor::MovingRange *KateDocument::newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors)
 {
-  return new Kate::TextRange(buffer(), range, insertBehavior);
+  return new Kate::TextRange(buffer(), range, insertBehaviors);
 }
 //END
 

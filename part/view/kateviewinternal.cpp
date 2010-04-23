@@ -45,6 +45,7 @@
 #include "katesearchbar.h"
 #include "spellcheck/spellingmenu.h"
 
+#include <ktexteditor/movingrange.h>
 #include <kcursor.h>
 #include <kdebug.h>
 #include <kapplication.h>
@@ -71,9 +72,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_mouse()
   , m_possibleTripleClick (false)
   , m_completionItemExpanded (false)
-  , m_bm(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
-  , m_bmStart(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
-  , m_bmEnd(doc()->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand))
+  , m_bm(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
+  , m_bmStart(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
+  , m_bmEnd(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -3772,7 +3773,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   bool createdPreedit = false;
   if (!m_imPreeditRange) {
     createdPreedit = true;
-    m_imPreeditRange = doc()->newTextRange (KTextEditor::Range(m_cursor, m_cursor), Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
+    m_imPreeditRange = doc()->newMovingRange (KTextEditor::Range(m_cursor, m_cursor), KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
   }
 
   if (!m_imPreeditRange->toRange().isEmpty()) {
@@ -3845,7 +3846,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
         QTextCharFormat f = qvariant_cast<QTextFormat>(a.value).toCharFormat();
         if (f.isValid() && decorationColumn <= a.start) {
           KTextEditor::Range fr(m_imPreeditRange->start().line(),  m_imPreeditRange->start().column() + a.start, m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + a.start + a.length);
-          Kate::TextRange* formatRange = doc()->newTextRange (fr);
+          KTextEditor::MovingRange* formatRange = doc()->newMovingRange (fr);
           KTextEditor::Attribute::Ptr attribute(new KTextEditor::Attribute());
           attribute->merge(f);
           formatRange->setAttribute(attribute);

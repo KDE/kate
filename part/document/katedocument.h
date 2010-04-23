@@ -586,10 +586,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param insertBehavior insertion behavior
      * @return new moving cursor for the document
      */
-    KTextEditor::MovingCursor *newMovingCursor (const KTextEditor::Cursor &position, KTextEditor::MovingCursor::InsertBehavior insertBehavior = KTextEditor::MovingCursor::MoveOnInsert)
-    {
-      return newTextCursor (position, insertBehavior);
-    }
+    virtual KTextEditor::MovingCursor *newMovingCursor (const KTextEditor::Cursor &position, KTextEditor::MovingCursor::InsertBehavior insertBehavior = KTextEditor::MovingCursor::MoveOnInsert);
 
     /**
      * Create a new moving range for this document.
@@ -597,18 +594,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param insertBehaviors insertion behaviors
      * @return new moving range for the document
      */
-    KTextEditor::MovingRange *newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors = KTextEditor::MovingRange::DoNotExpand)
-    {
-      return newTextRange (range, insertBehaviors);
-    }
-
-  //
-  // Kate::TextCursor and Kate::TextRange handling
-  // (will eventually become new KTextEditor interface)
-  //
-  public:
-    Kate::TextCursor* newTextCursor(const KTextEditor::Cursor &position, Kate::TextCursor::InsertBehavior insertBehavior = Kate::TextCursor::MoveOnInsert);
-    Kate::TextRange* newTextRange(const KTextEditor::Range &range, Kate::TextRange::InsertBehaviors insertBehavior = Kate::TextRange::DoNotExpand);
+    virtual KTextEditor::MovingRange *newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors = KTextEditor::MovingRange::DoNotExpand);
 
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);

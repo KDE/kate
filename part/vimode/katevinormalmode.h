@@ -40,10 +40,13 @@
 class KateViMotion;
 class KateViInputModeManager;
 
+namespace KTextEditor {
+  class MovingCursor;
+}
+
 /**
  * Commands for the vi normal mode
  */
-
 class KateViNormalMode : public KateViModeBase
 {
   Q_OBJECT
@@ -237,7 +240,7 @@ class KateViNormalMode : public KateViModeBase
     QString m_registerTemp;
 
     // marks
-    QMap<QChar, Kate::TextCursor*> m_marks;
+    QMap<QChar, KTextEditor::MovingCursor*> m_marks;
 
     // item matching ('%' motion)
     QHash<QString, QString> m_matchingItems;

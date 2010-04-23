@@ -26,7 +26,8 @@
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateconfig.h>
-#include <katetextrange.h>
+#include <ktexteditor/movingcursor.h>
+#include <ktexteditor/movingrange.h>
 
 QTEST_KDEMAIN(RangeTest, GUI)
 
@@ -93,7 +94,7 @@ void RangeTest::testTextRange()
 {
   // test text range
   KateDocument doc (false, false, false);
-  Kate::TextRange *complexRange = doc.newTextRange (KTextEditor::Range());
+  KTextEditor::MovingRange *complexRange = doc.newMovingRange (KTextEditor::Range());
   KTextEditor::Range range = *complexRange;
   rangeCheck (range);
   delete complexRange;
@@ -104,8 +105,8 @@ void RangeTest::testInsertText()
   KateDocument doc (false, false, false);
 
   // Multi-line insert
-  Kate::TextCursor* cursor1 = doc.newTextCursor(KTextEditor::Cursor(), Kate::TextCursor::StayOnInsert);
-  Kate::TextCursor* cursor2 = doc.newTextCursor(KTextEditor::Cursor(), Kate::TextCursor::MoveOnInsert);
+  KTextEditor::MovingCursor* cursor1 = doc.newMovingCursor(KTextEditor::Cursor(), KTextEditor::MovingCursor::StayOnInsert);
+  KTextEditor::MovingCursor* cursor2 = doc.newMovingCursor(KTextEditor::Cursor(), KTextEditor::MovingCursor::MoveOnInsert);
 
   doc.insertText(KTextEditor::Cursor(), "Test Text\nMore Test Text");
   QCOMPARE(doc.documentEnd(), KTextEditor::Cursor(1,14));
@@ -129,7 +130,7 @@ void RangeTest::testCornerCaseInsertion()
 {
   KateDocument doc (false, false, false);
 
-  Kate::TextRange* rangeEdit = doc.newTextRange(KTextEditor::Range(0,0,0,0));
+  KTextEditor::MovingRange* rangeEdit = doc.newMovingRange(KTextEditor::Range(0,0,0,0));
   QCOMPARE(rangeEdit->toRange(), KTextEditor::Range(0,0,0,0));
 
   doc.insertText(KTextEditor::Cursor(0,0), "\n");

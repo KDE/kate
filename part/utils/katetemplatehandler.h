@@ -38,11 +38,8 @@ class KateUndoManager;
 
 namespace KTextEditor {
   class SmartRange;
-}
-
-namespace Kate {
-  class TextRange;
-  class TextCursor;
+  class MovingCursor;
+  class MovingRange;
 }
 
 /**
@@ -235,9 +232,9 @@ private:
     QList<KTextEditor::SmartRange*> m_templateRanges;
     /// A range that occupies the whole range of the inserted template.
     /// When the cursor moves outside it, the template handler gets closed.
-    Kate::TextRange *m_wholeTemplateRange;
+    KTextEditor::MovingRange *m_wholeTemplateRange;
     /// Position of the (last) occurrence of ${cursor} in the template string.
-    Kate::TextCursor *m_finalCursorPosition;
+    KTextEditor::MovingCursor *m_finalCursorPosition;
     /// The last caret position during editing.
     KTextEditor::Cursor m_lastCaretPosition;
     /// SmartRanges that are still in this list have not yet been changed. Hence they'll

@@ -21,7 +21,6 @@
 
 #include "katetemplatehandler.h"
 #include "katedocument.h"
-#include "katetextrange.h"
 #include "katesmartcursor.h"
 #include "kateview.h"
 #include "kateconfig.h"
@@ -32,6 +31,8 @@
 #include "script/katetemplatescript.h"
 #include "script/katescriptmanager.h"
 
+#include <ktexteditor/movingcursor.h>
+#include <ktexteditor/movingrange.h>
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/smartcursor.h>
 #include <ktexteditor/smartrange.h>
@@ -158,7 +159,7 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
   Q_UNUSED(document);
   ifDebug(kDebug() << "template range inserted" << range;)
 
-  m_wholeTemplateRange = m_doc->newTextRange( range, Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight );
+  m_wholeTemplateRange = m_doc->newMovingRange( range, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight );
 
   disconnect(m_doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -409,7 +410,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       }
     } else if ( (templateString[i] == '%' || templateString[i] == '$')
                 && i + 1 < templateString.size() && templateString[i+1] == '{' ) {
-           
+
       // check whether this var is escaped
       int escapeChars = 0;
       while ( i - escapeChars > 0 && templateString[i - escapeChars - 1] == '\\' ) {
@@ -433,7 +434,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           ++i;
           ++column;
         }
-        startPos = i;        
+        startPos = i;
       }
       lastWasBrace=false;
       // skip '{'
@@ -666,9 +667,9 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   }
 
   if ( finalCursorPosition.isValid() ) {
-    m_finalCursorPosition = m_doc->newTextCursor(finalCursorPosition);
+    m_finalCursorPosition = m_doc->newMovingCursor(finalCursorPosition);
   } else {
-    m_finalCursorPosition = m_doc->newTextCursor(Cursor(line, column));
+    m_finalCursorPosition = m_doc->newMovingCursor(Cursor(line, column));
   }
 
   if ( ranges.isEmpty() ) {

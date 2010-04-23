@@ -27,8 +27,9 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "katecursor.h"
-#include "katetextrange.h"
 #include "kateconfig.h"
+
+#include <ktexteditor/movingrange.h>
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
@@ -160,10 +161,10 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     caretInAttribute->setFontItalic(true);
     caretInAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
     highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
-    
+
     // init replacement attribute
     highlightReplacementAttribute->setBackground(Qt::green); // TODO make this part of the color scheme
-    
+
     // Modify parent
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
@@ -261,14 +262,14 @@ void KateSearchBar::findPrevious() {
 }
 
 void KateSearchBar::highlightMatch(const Range & range) {
-    Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
+    KTextEditor::MovingRange* const highlight = m_view->doc()->newMovingRange(range, Kate::TextRange::DoNotExpand);
     highlight->setView(m_view); // show only in this view
     highlight->setAttribute(highlightMatchAttribute);
     m_hlRanges.append(highlight);
 }
 
 void KateSearchBar::highlightReplacement(const Range & range) {
-    Kate::TextRange* const highlight = m_view->doc()->newTextRange(range, Kate::TextRange::DoNotExpand);
+    KTextEditor::MovingRange* const highlight = m_view->doc()->newMovingRange(range, Kate::TextRange::DoNotExpand);
     highlight->setView(m_view); // show only in this view
     highlight->setAttribute(highlightReplacementAttribute);
     m_hlRanges.append(highlight);

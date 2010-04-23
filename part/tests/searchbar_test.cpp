@@ -26,7 +26,7 @@
 #include <kateview.h>
 #include <kateconfig.h>
 #include <katesearchbar.h>
-#include <katetextrange.h>
+#include <ktexteditor/movingrange.h>
 
 QTEST_KDEMAIN(SearchBarTest, GUI)
 
@@ -55,7 +55,7 @@ public:
     : KateSearchBar(initAsPower, view, config)
   {}
 
-  const QList<Kate::TextRange*> &childRanges() const
+  const QList<KTextEditor::MovingRange*> &childRanges() const
   {
     return m_hlRanges;
   }

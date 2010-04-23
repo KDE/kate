@@ -25,9 +25,9 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
-#include "katetextrange.h"
 
 #include <ktexteditor/variableinterface.h>
+#include <ktexteditor/movingrange.h>
 
 #include <kconfig.h>
 #include <kdialog.h>
@@ -148,7 +148,7 @@ bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, con
 
 
     KateView *v = qobject_cast<KateView*> (view);
-    
+
     QString text = view->document()->line(position.line()).left(position.column());
     uint check=v->config()->wordCompletionMinimalWordLength();
     if (check<=0) return true;
@@ -159,7 +159,7 @@ bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, con
       QChar c=text.at(i);
       if (! (c.isLetter() || (c.isNumber()) || c=='_') ) return false;
     }
-   
+
     return true;
 }
 
@@ -169,7 +169,7 @@ bool KateWordCompletionModel::shouldAbortCompletion(KTextEditor::View* view, con
       KateView *v = qobject_cast<KateView*> (view);
       if (currentCompletion.length()<v->config()->wordCompletionMinimalWordLength()) return true;
     }
-  
+
     return CodeCompletionModelControllerInterface3::shouldAbortCompletion(view,range,currentCompletion);
 }
 
@@ -248,7 +248,7 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
 //BEGIN KateWordCompletionView
 struct KateWordCompletionViewPrivate
 {
-  Kate::TextRange* liRange;       // range containing last inserted text
+  KTextEditor::MovingRange* liRange;       // range containing last inserted text
   KTextEditor::Range dcRange;  // current range to be completed by directional completion
   KTextEditor::Cursor dcCursor;     // directional completion search cursor
   QRegExp re;           // hrm
@@ -265,7 +265,7 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
   d->isCompleting = false;
   d->dcRange = KTextEditor::Range::invalid();
 
-  d->liRange = static_cast<KateDocument*>(m_view->document())->newTextRange(KTextEditor::Range::invalid(), Kate::TextRange::DoNotExpand);
+  d->liRange = static_cast<KateDocument*>(m_view->document())->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand);
 
   KColorScheme colors(QPalette::Active);
   KTextEditor::Attribute::Ptr a = KTextEditor::Attribute::Ptr( new KTextEditor::Attribute() );

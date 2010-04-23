@@ -38,8 +38,8 @@ namespace Ui {
     class PowerSearchBar;
 }
 
-namespace Kate {
-    class TextRange;
+namespace KTextEditor {
+    class MovingRange;
 }
 
 
@@ -155,7 +155,7 @@ private:
 protected:
     KateView *const m_view;
     KateViewConfig *const m_config;
-    QList<Kate::TextRange*> m_hlRanges;
+    QList<KTextEditor::MovingRange*> m_hlRanges;
 
 private:
     // Shared by both dialogs

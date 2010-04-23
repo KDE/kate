@@ -21,11 +21,11 @@
 #ifndef __KATE_AUTO_INDENT_H__
 #define __KATE_AUTO_INDENT_H__
 
-#include "katecursor.h"
 #include "kateconfig.h"
 
 #include <QtCore/QObject>
 
+#include <ktexteditor/cursor.h>
 #include <kactionmenu.h>
 
 class KateDocument;

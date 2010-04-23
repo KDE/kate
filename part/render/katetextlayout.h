@@ -24,7 +24,6 @@
 
 #include <ksharedptr.h>
 
-#include "katecursor.h"
 #include "katelinelayout.h"
 
 

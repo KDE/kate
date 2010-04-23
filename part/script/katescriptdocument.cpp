@@ -27,6 +27,7 @@
 #include "katescript.h"
 
 #include <ktexteditor/highlightinterface.h>
+#include <ktexteditor/movingcursor.h>
 
 #include <QtScript/QScriptEngine>
 
@@ -47,9 +48,8 @@ KateDocument *KateScriptDocument::document()
 
 int KateScriptDocument::defStyleNum(int line, int column)
 {
-  KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
-  KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+  KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(line)->attribute(column)];
   return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
 }
 
@@ -186,24 +186,24 @@ KTextEditor::Cursor KateScriptDocument::fromVirtualCursor(const KTextEditor::Cur
 
 KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QString& text, int attribute)
 {
-  KateDocCursor cursor(line, column, m_document);
-  const int start = cursor.line();
+  QScopedPointer<KTextEditor::MovingCursor> cursor(document()->newMovingCursor(KTextEditor::Cursor(line, column)));
+  const int start = cursor->line();
   QList<KTextEditor::Attribute::Ptr> attributes =
       m_document->highlight()->attributes(((KateView*)m_document->activeView())->renderer()->config()->schema());
 
   do {
-    Kate::TextLine textLine = m_document->plainKateTextLine(cursor.line());
+    Kate::TextLine textLine = m_document->plainKateTextLine(cursor->line());
     if (!textLine)
       break;
 
-    if (cursor.line() != start) {
-      cursor.setColumn(textLine->length());
+    if (cursor->line() != start) {
+      cursor->setColumn(textLine->length());
     } else if (column >= textLine->length()) {
-      cursor.setColumn(qMax(textLine->length(), 0));
+      cursor->setColumn(qMax(textLine->length(), 0));
     }
 
     int foundAt;
-    while ((foundAt = textLine->string().left(cursor.column()).lastIndexOf(text, -1, Qt::CaseSensitive)) >= 0) {
+    while ((foundAt = textLine->string().left(cursor->column()).lastIndexOf(text, -1, Qt::CaseSensitive)) >= 0) {
         bool hasStyle = true;
         if (attribute != -1) {
           KTextEditor::Attribute::Ptr a = attributes[textLine->attribute(foundAt)];
@@ -212,12 +212,12 @@ KTextEditor::Cursor KateScriptDocument::rfind(int line, int column, const QStrin
         }
 
         if (hasStyle) {
-          return KTextEditor::Cursor(cursor.line(), foundAt);
+          return KTextEditor::Cursor(cursor->line(), foundAt);
         } else {
-          cursor.setColumn(foundAt);
+          cursor->setColumn(foundAt);
         }
     }
-  } while (cursor.gotoPreviousLine());
+  } while (cursor->gotoPreviousLine());
 
   return KTextEditor::Cursor::invalid();
 }
@@ -229,7 +229,6 @@ KTextEditor::Cursor KateScriptDocument::rfind(const KTextEditor::Cursor& cursor,
 
 KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar character)
 {
-  KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes =
       m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
   int count = 1;
@@ -240,18 +239,20 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
   else if (lc == '[') rc = ']';
   else return KTextEditor::Cursor::invalid ();
 
+  QScopedPointer<KTextEditor::MovingCursor> cursor(document()->newMovingCursor(KTextEditor::Cursor(line, column)));
+
   // Move backwards char by char and find the opening character
-  while (cursor.moveBackward(1)) {
-    QChar ch = cursor.currentChar();
+  while (cursor->move(1)) {
+    QChar ch = document()->character(cursor->toCursor());
     if (ch == lc) {
-      KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+      KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(cursor->line())->attribute(cursor->column())];
       const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
       if (_isCode(ds)) {
         --count;
       }
     }
     else if (ch == rc) {
-      KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+      KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(cursor->line())->attribute(cursor->column())];
       const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
       if (_isCode(ds)) {
         ++count;
@@ -259,7 +260,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
     }
 
     if (count == 0) {
-      return cursor;
+      return cursor->toCursor();
     }
   }
   return KTextEditor::Cursor::invalid ();
@@ -639,9 +640,8 @@ bool KateScriptDocument::isAttribute(const KTextEditor::Cursor& cursor, int attr
 
 QString KateScriptDocument::attributeName(int line, int column)
 {
-  KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
-  KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+  KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(line)->attribute(column)];
   return a->property(KateExtendedAttribute::AttributeName).toString();
 }
 

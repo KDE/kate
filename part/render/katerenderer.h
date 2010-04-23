@@ -23,7 +23,6 @@
 #ifndef __KATE_RENDERER_H__
 #define __KATE_RENDERER_H__
 
-#include "katecursor.h"
 #include <ktexteditor/attribute.h>
 #include "katetextline.h"
 #include "katelinelayout.h"
@@ -205,9 +204,9 @@ public:
     /**
      * This is a smaller QString::isRightToLeft(). It's also marked as internal to kate
      * instead of internal to Qt, so we can modify. This method searches for the first
-     * strong character in the paragraph and then returns its direction. In case of a 
+     * strong character in the paragraph and then returns its direction. In case of a
      * line without any strong characters, the direction is forced to be LTR.
-     * 
+     *
      * Back in KDE 4.1 this method counted chars, which lead to unwanted side effects.
      * (see https://bugs.kde.org/show_bug.cgi?id=178594). As this function is internal
      * the way it work will probably change between releases. Be warned!

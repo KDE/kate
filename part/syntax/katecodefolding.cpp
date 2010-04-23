@@ -20,7 +20,6 @@
 #include "katecodefolding.moc"
 
 #include "katebuffer.h"
-#include "katecursor.h"
 #include <kdebug.h>
 
 #include <QtCore/QString>
@@ -1051,7 +1050,7 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
-  
+
   lineMapping.clear();
   dontIgnoreUnchangedLines.insert(line);
   dontIgnoreUnchangedLines.insert(line-1);
@@ -1218,7 +1217,7 @@ void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned
 
   if(add)
   markedForDeleting.append(node);
-  
+
 #ifdef JW_DEBUG
   kDebug(13000)<<"marking for deletion:"<<node;
 #endif

@@ -22,8 +22,9 @@
 
 #include <ksharedptr.h>
 
-#include "katecursor.h"
 #include "katetextline.h"
+
+#include <ktexteditor/cursor.h>
 
 class QTextLayout;
 class KateDocument;

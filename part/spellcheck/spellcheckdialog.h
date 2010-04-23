@@ -27,8 +27,6 @@
 #ifndef __KATE_SPELLCHECKDIALOG_H__
 #define __KATE_SPELLCHECKDIALOG_H__
 
-#include "katecursor.h"
-
 #include <QtCore/QObject>
 
 class KateView;

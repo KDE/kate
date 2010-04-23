@@ -3731,38 +3731,33 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   default: return false;
   }
 
-  bool forward = isStartBracket( bracket );
+  const int searchDir = isStartBracket( bracket ) ? 1 : -1;
   uint nesting = 0;
 
   int minLine = qMax( range.start().line() - maxLines, 0 );
   int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
 
   range.end() = range.start();
-  KateDocCursor cursor(range.start(), this);
-  uchar validAttr = cursor.currentAttrib();
+  QScopedPointer<KTextEditor::MovingCursor> cursor(newMovingCursor(range.start()));
+  int validAttr = plainKateTextLine(cursor->line())->attribute(cursor->column());
 
-  while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
+  while( cursor->line() >= minLine && cursor->line() <= maxLine ) {
 
-    if (forward) {
-      if (!cursor.moveForward(1))
-        return false;
-    } else {
-      if (!cursor.moveBackward(1))
+    if (!cursor->move(searchDir))
       return false;
-    }
 
-    if( cursor.currentAttrib() == validAttr )
+    if (plainKateTextLine(cursor->line())->attribute(cursor->column()) == validAttr )
     {
       /* Check for match */
-      QChar c = cursor.currentChar();
+      QChar c = character(cursor->toCursor());
       if( c == bracket ) {
         nesting++;
       } else if( c == opposite ) {
         if( nesting == 0 ) {
-          if( forward )
-            range.end() = cursor;
+          if (searchDir > 0) // forward
+            range.end() = cursor->toCursor();
           else
-            range.start() = cursor;
+            range.start() = cursor->toCursor();
           return true;
         }
         nesting--;

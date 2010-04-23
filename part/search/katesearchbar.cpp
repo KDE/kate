@@ -26,9 +26,9 @@
 #include "katematch.h"
 #include "kateview.h"
 #include "katedocument.h"
-#include "katecursor.h"
 #include "kateconfig.h"
 
+#include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
 
 #include "ui_searchbarincremental.h"
@@ -781,20 +781,23 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
             }
 
             // Continue after match
-            KateDocCursor workingStart(highlightRanges.last().end(), m_view->doc());
+            KTextEditor::MovingCursor* workingStart =
+                static_cast<KateDocument*>(m_view->document())->newMovingCursor(highlightRanges.last().end());
             if (originalMatchEmpty) {
                 // Can happen for regex patterns like "^".
                 // If we don't advance here we will loop forever...
-                workingStart.moveForward(1);
-            } else if (regexMode && !multiLinePattern && workingStart.atEndOfLine()) {
+                workingStart->move(1);
+            } else if (regexMode && !multiLinePattern && workingStart->atEndOfLine()) {
                 // single-line regexps might match the naked line end
                 // therefore we better advance to the next line
-                workingStart.moveForward(1);
+                workingStart->move(1);
             }
-            workingRange->setRange(workingStart, workingRange->end());
+            workingRange->setRange(*workingStart, workingRange->end());
 
+            const bool atEndOfDocument = workingStart->atEndOfDocument();
+            delete workingStart;
             // Are we done?
-            if (!workingRange->toRange().isValid() || workingStart.atEndOfDocument()) {
+            if (!workingRange->toRange().isValid() || atEndOfDocument) {
                 break;
             }
         }

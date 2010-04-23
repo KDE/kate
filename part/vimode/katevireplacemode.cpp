@@ -22,7 +22,6 @@
 #include "kateviinputmodemanager.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
-#include "katecursor.h"
 #include "kateconfig.h"
 
 KateViReplaceMode::KateViReplaceMode( KateViInputModeManager *viInputModeManager,

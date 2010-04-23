@@ -292,6 +292,19 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   paint.setPen( penBackup );
 }
 
+static bool rangeLessThanForRenderer (const Kate::TextRange *a, const Kate::TextRange *b)
+{
+  // end of a > end of b?
+  if (a->end().toCursor() > b->end().toCursor())
+    return true;
+  
+  // if ends are equal, start of a < start of b?
+  if (a->end().toCursor() == b->end().toCursor())
+    return a->start().toCursor() < b->start().toCursor();
+  
+  return false;
+}
+
 QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::TextLine& textLine, int line, bool selectionsOnly, KateRenderRange* completionHighlight, bool completionSelected ) const
 {
   QList<QTextLayout::FormatRange> newHighlight;
@@ -311,10 +324,15 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
     renderRanges.append(inbuiltHighlight);
 
     if (!completionHighlight) {
-      // add ranges with attributes to the list, perhaps with dynamic hl
+      // check for dynamic hl stuff
       const QSet<Kate::TextRange *> *rangesMouseIn = m_view ? m_view->rangesMouseIn () : 0;
       const QSet<Kate::TextRange *> *rangesCaretIn = m_view ? m_view->rangesCaretIn () : 0;
       bool anyDynamicHlsActive = m_view && (!rangesMouseIn->empty() || !rangesCaretIn->empty());
+      
+      // sort all ranges, we want that the most specific ranges win during rendering, multiple equal ranges are kind of random, still better than old smart rangs behavior ;)
+      qSort (rangesWithAttributes.begin(), rangesWithAttributes.end(), rangeLessThanForRenderer);
+      
+      // loop over all ranges
       for (int i = 0; i < rangesWithAttributes.size(); ++i) {
         // real range
         Kate::TextRange *kateRange = rangesWithAttributes[i];

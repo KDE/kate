@@ -549,7 +549,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
             // Same match again
             if (replacement != 0) {
                 // Selection is match -> replace
-                Kate::TextRange *smartInputRange = m_view->doc()->newTextRange (inputRange, Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
+                KTextEditor::MovingRange *smartInputRange = m_view->doc()->newMovingRange (inputRange, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
                 afterReplace = match.replace(*replacement, m_view->blockSelection());
                 inputRange = *smartInputRange;
                 delete smartInputRange;
@@ -743,7 +743,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     // Before first match
     clearHighlights();
 
-    Kate::TextRange * workingRange = m_view->doc()->newTextRange(inputRange);
+    KTextEditor::MovingRange * workingRange = m_view->doc()->newMovingRange(inputRange);
     QList<Range> highlightRanges;
     int matchCounter = 0;
 
@@ -751,7 +751,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
     int line = inputRange.start().line();
     do {
         if (block)
-            workingRange = m_view->doc()->newTextRange(m_view->doc()->rangeOnLine(inputRange, line));
+            workingRange = m_view->doc()->newMovingRange(m_view->doc()->rangeOnLine(inputRange, line));
 
         for (;;) {
             KateMatch match(m_view->doc(), enabledOptions);

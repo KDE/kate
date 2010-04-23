@@ -135,6 +135,17 @@ target_link_libraries( searchbar_test
   katepartinterfaces
 )
 
+########### cursor test ###############
+
+kde4_add_unit_test(movingcursor_test movingcursor_test.cpp)
+
+target_link_libraries( movingcursor_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

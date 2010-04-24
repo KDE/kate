@@ -58,4 +58,20 @@ void TextHistory::setLastSavedRevision ()
   m_lastSavedRevision = currentRevision ();
 }
 
+void TextHistory::wrapLine (const KTextEditor::Cursor &position)
+{
+}
+
+void TextHistory::unwrapLine (int line)
+{
+}
+
+void TextHistory::insertText (const KTextEditor::Cursor &position, int length, int oldLineLength)
+{
+}
+
+void TextHistory::removeText (const KTextEditor::Range &range)
+{
+}
+
 }

@@ -20,7 +20,6 @@
 
 #include "katetextblock.h"
 #include "katetextbuffer.h"
-#include <kdebug.h>
 
 namespace Kate {
 
@@ -101,6 +100,11 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
   }
 
   /**
+   * notify the text history
+   */
+  m_buffer->history().wrapLine (position);
+
+  /**
    * cursor and range handling below
    */
 
@@ -155,6 +159,11 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
 
 void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
 {
+  /**
+   * notify the text history in advance
+   */
+  m_buffer->history().unwrapLine (line);
+
   // calc internal line
   line = line - startLine ();
 
@@ -296,6 +305,11 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
   textOfLine.insert (position.column(), text);
 
   /**
+   * notify the text history
+   */
+  m_buffer->history().insertText (position, text.size(), oldLength);
+
+  /**
    * cursor and range handling below
    */
 
@@ -362,6 +376,11 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
 
   // remove text
   textOfLine.remove (range.start().column(), range.end().column() - range.start().column());
+
+  /**
+   * notify the text history
+   */
+  m_buffer->history().removeText (range);
 
   /**
    * cursor and range handling below

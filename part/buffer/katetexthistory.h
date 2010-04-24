@@ -23,6 +23,8 @@
 
 #include <QtCore/QList>
 
+#include <ktexteditor/range.h>
+
 #include "katepartprivate_export.h"
 
 namespace Kate {
@@ -34,6 +36,7 @@ class TextBuffer;
  */
 class KATEPART_TESTS_EXPORT TextHistory {
   friend class TextBuffer;
+  friend class TextBlock;
 
   public:
     /**
@@ -124,6 +127,32 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * Set current revision as last saved revision
      */
     void setLastSavedRevision ();
+
+    /**
+     * Notify about wrap line at given cursor position.
+     * @param position line/column as cursor where to wrap
+     */
+    void wrapLine (const KTextEditor::Cursor &position);
+
+    /**
+     * Notify about unwrap given line.
+     * @param line line to unwrap
+     */
+    void unwrapLine (int line);
+
+    /**
+     * Notify about insert text at given cursor position.
+     * @param position position where to insert text
+     * @param length text length to be inserted
+     * @param oldLineLength text length of the line before this insert
+     */
+    void insertText (const KTextEditor::Cursor &position, int length, int oldLineLength);
+
+    /**
+     * Notify about remove text at given range.
+     * @param range range of text to remove, must be on one line only.
+     */
+    void removeText (const KTextEditor::Range &range);
 
   private:
     /**

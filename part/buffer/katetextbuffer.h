@@ -292,6 +292,12 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     virtual void removeText (const KTextEditor::Range &range);
 
+    /**
+     * TextHistory of this buffer
+     * @return text history for this buffer
+     */
+    TextHistory &history () { return m_history; }
+
   Q_SIGNALS:
     /**
      * Buffer got cleared. This is emited when constructor or load have called clear() internally,

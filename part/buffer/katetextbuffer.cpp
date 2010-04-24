@@ -661,7 +661,7 @@ bool TextBuffer::save (const QString &filename)
   // did save work?
   bool ok = stream.status() == QTextStream::Ok;
 
-  // reset revision, on successfull save
+  // remember this revision as last saved if we had success!
   if (ok)
     m_history.setLastSavedRevision ();
 

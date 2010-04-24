@@ -131,8 +131,8 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
     bool invalidateIfEmpty () const { return m_invalidateIfEmpty; }
 
     /**
-     * Set if this range's attribute is only visible in views, not for example prints.
-     * @param onlyForViews attribute only valid for views
+     * Set if this range will invalidate itself if it becomes empty.
+     * @param invalidate invalidate range if it becomes empty?
      */
     void setInvalidateIfEmpty (bool invalidate) { m_invalidateIfEmpty = invalidate; }
 

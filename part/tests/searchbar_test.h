@@ -50,8 +50,8 @@ private Q_SLOTS:
   void testFindSelectionForward_data();
   void testFindSelectionForward();
 
-  void testRemoveSelectionForward_data();
-  void testRemoveSelectionForward();
+  void testRemoveWithSelectionForward_data();
+  void testRemoveWithSelectionForward();
 
   void testRemoveInSelectionForward_data();
   void testRemoveInSelectionForward();

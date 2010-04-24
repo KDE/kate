@@ -376,7 +376,7 @@ void SearchBarTest::testFindSelectionForward()
   QCOMPARE(view.selectionRange(), match);
 }
 
-void SearchBarTest::testRemoveSelectionForward_data()
+void SearchBarTest::testRemoveWithSelectionForward_data()
 {
   QTest::addColumn<Range>("selectionRange");
   QTest::addColumn<Range>("match");
@@ -388,7 +388,7 @@ void SearchBarTest::testRemoveSelectionForward_data()
   testNewRow() << Range(0, 3, 0, 4) << Range(0, 0, 0, 2);
 }
 
-void SearchBarTest::testRemoveSelectionForward()
+void SearchBarTest::testRemoveWithSelectionForward()
 {
   QFETCH(Range, selectionRange);
   QFETCH(Range, match);

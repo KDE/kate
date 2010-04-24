@@ -132,8 +132,8 @@ class KTEXTEDITOR_EXPORT MovingRange
     virtual bool invalidateIfEmpty () const = 0;
 
     /**
-     * Set if this range's attribute is only visible in views, not for example prints.
-     * @param onlyForViews attribute only valid for views
+     * Set if this range will invalidate itself if it becomes empty.
+     * @param invalidate invalidate range if it becomes empty?
      */
     virtual void setInvalidateIfEmpty (bool invalidate) = 0;
 

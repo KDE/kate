@@ -121,6 +121,9 @@ void TextBuffer::clear ()
   // reset the filter device
   m_mimeTypeForFilterDev = "text/plain";
 
+  // clear edit history
+  m_history.clear ();
+
   // we got cleared
   emit cleared ();
 }
@@ -660,7 +663,7 @@ bool TextBuffer::save (const QString &filename)
 
   // reset revision, on successfull save
   if (ok)
-    m_revision = 0;
+    m_history.setLastSavedRevision ();
 
   // report CODEC + ERRORS
   kDebug (13020) << "Saved file " << filename << "with codec" << m_textCodec->name()

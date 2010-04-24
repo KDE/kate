@@ -19,16 +19,36 @@
  */
 
 #include "katetexthistory.h"
+#include "katetextbuffer.h"
 
 namespace Kate {
 
 TextHistory::TextHistory (TextBuffer &buffer)
   : m_buffer (buffer)
+  , m_lastSavedRevision (-1)
 {
 }
 
 TextHistory::~TextHistory ()
 {
+}
+
+qint64 TextHistory::currentRevision () const
+{
+  // just output last revisions of buffer
+  return m_buffer.revision ();
+}
+
+void TextHistory::clear ()
+{
+  // reset last saved revision
+  m_lastSavedRevision = -1;
+}
+
+void TextHistory::setLastSavedRevision ()
+{
+  // current revision was succesful saved
+  m_lastSavedRevision = currentRevision ();
 }
 
 }

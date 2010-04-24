@@ -31,7 +31,22 @@ class TextBuffer;
  * Class representing the editing history of a TextBuffer
  */
 class KATEPART_TESTS_EXPORT TextHistory {
+  friend class TextBuffer;
+
   public:
+    /**
+     * Current revision, just relay the revision of the buffer
+     * @return current revision
+     */
+    qint64 currentRevision () const;
+
+    /**
+     * Last revision the buffer got successful saved
+     * @return last revision buffer got saved, -1 if none
+     */
+    qint64 lastSavedRevision () const { return m_lastSavedRevision; }
+
+  private:
     /**
      * Construct an empty text history.
      * @param buffer buffer this text history belongs to
@@ -43,11 +58,26 @@ class KATEPART_TESTS_EXPORT TextHistory {
      */
     ~TextHistory ();
 
+    /**
+     * Clear the edit history, this is done on clear() in buffer.
+     */
+    void clear ();
+
+    /**
+     * Set current revision as last saved revision
+     */
+    void setLastSavedRevision ();
+
   private:
     /**
      * TextBuffer this history belongs to
      */
     TextBuffer &m_buffer;
+
+    /**
+     * Last revision the buffer got saved
+     */
+    qint64 m_lastSavedRevision;
 };
 
 }

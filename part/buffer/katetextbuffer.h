@@ -184,7 +184,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     int lines () const { Q_ASSERT (m_lines > 0); return m_lines; }
 
     /**
-     * Revision of this buffer. Is set to 0 on construction, clear(), load and successfull save.
+     * Revision of this buffer. Is set to 0 on construction, clear() (load will trigger clear()).
      * Is incremented on each change to the buffer.
      * @return current revision
      */

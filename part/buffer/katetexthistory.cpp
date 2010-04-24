@@ -36,7 +36,7 @@ TextHistory::~TextHistory ()
 {
 }
 
-qint64 TextHistory::currentRevision () const
+qint64 TextHistory::revision () const
 {
   // just output last revisions of buffer
   return m_buffer.revision ();
@@ -58,7 +58,7 @@ void TextHistory::clear ()
 void TextHistory::setLastSavedRevision ()
 {
   // current revision was succesful saved
-  m_lastSavedRevision = currentRevision ();
+  m_lastSavedRevision = revision ();
 }
 
 void TextHistory::wrapLine (const KTextEditor::Cursor &position)
@@ -71,12 +71,14 @@ void TextHistory::wrapLine (const KTextEditor::Cursor &position)
   addEntry (entry);
 }
 
-void TextHistory::unwrapLine (int line)
+void TextHistory::unwrapLine (int line, int oldLineLength)
 {
   // create and add new entry
   Entry entry;
   entry.type = Entry::UnwrapLine;
   entry.line = line;
+  entry.column = 0;
+  entry.oldLineLength = oldLineLength;
   addEntry (entry);
 }
 
@@ -118,7 +120,7 @@ void TextHistory::addEntry (const Entry &entry)
     /**
      * remember new revision for first element, it is the revision we get after this change
      */
-    m_firstHistoryEntryRevision = currentRevision () + 1;
+    m_firstHistoryEntryRevision = revision () + 1;
 
     /**
      * remember edit
@@ -137,51 +139,36 @@ void TextHistory::addEntry (const Entry &entry)
   m_historyEntries.push_back (entry);
 }
 
-bool TextHistory::lockRevision (qint64 revision)
+void TextHistory::lockRevision (qint64 revision)
 {
   /**
-   * history should never be empty
+   * some invariants must hold
    */
   Q_ASSERT (!m_historyEntries.empty ());
-
-  /**
-   * is this revision valid at all?
-   */
-  if (revision < m_firstHistoryEntryRevision || revision >= (m_firstHistoryEntryRevision + m_historyEntries.size()))
-    return false;
+  Q_ASSERT (revision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (revision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
 
   /**
    * increment revision reference counter
    */
   Entry &entry = m_historyEntries[revision - m_firstHistoryEntryRevision];
   ++entry.referenceCounter;
-
-  /**
-   * be done
-   */
-  return true;
 }
 
-bool TextHistory::releaseRevision (qint64 revision)
+void TextHistory::unlockRevision (qint64 revision)
 {
-
   /**
-   * history should never be empty
+   * some invariants must hold
    */
   Q_ASSERT (!m_historyEntries.empty ());
+  Q_ASSERT (revision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (revision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
 
   /**
-   * is this revision valid at all?
-   */
-  if (revision < m_firstHistoryEntryRevision || revision >= (m_firstHistoryEntryRevision + m_historyEntries.size()))
-    return false;
-
-  /**
-   * decrement revision reference counter, if possible
+   * decrement revision reference counter
    */
   Entry &entry = m_historyEntries[revision - m_firstHistoryEntryRevision];
-  if (!entry.referenceCounter)
-    return false;
+  Q_ASSERT (entry.referenceCounter);
   --entry.referenceCounter;
 
   /**
@@ -211,11 +198,193 @@ bool TextHistory::releaseRevision (qint64 revision)
       m_firstHistoryEntryRevision += unreferencedEdits;
     }
   }
+}
+
+void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool moveOnInsert) const
+{
+  /**
+   * simple stuff, sort out generic things
+   */
 
   /**
-   * be done
+   * no change, if this change is in line behind cursor
    */
-  return true;
+  if (line > cursor.line ())
+    return;
+
+  /**
+   * handle all history types
+   */
+  switch (type) {
+    /**
+     * Wrap a line
+     */
+    case WrapLine:
+      /**
+       * we wrap this line
+       */
+      if (cursor.line() == line) {
+        /**
+         * skip cursors with too small column
+         */
+        if (cursor.column() <= column) {
+          if (cursor.column() < column || !moveOnInsert)
+            return;
+        }
+
+        /**
+         * adjust column
+         */
+        cursor.setColumn (cursor.column() - column);
+      }
+
+      /**
+       * always increment cursor line
+       */
+      cursor.setLine (cursor.line() + 1);
+      return;
+
+    /**
+     * Unwrap a line
+     */
+    case UnwrapLine:
+      /**
+       * we unwrap this line, adjust column
+       */
+      if (cursor.line() == line)
+        cursor.setColumn (cursor.column() + oldLineLength);
+
+      /**
+       * decrease cursor line
+       */
+      cursor.setLine (cursor.line() - 1);
+      return;
+
+    /**
+     * Insert text
+     */
+    case InsertText:
+      /**
+       * only interesting, if same line
+       */
+      if (cursor.line() != line)
+        return;
+
+      // skip cursors with too small column
+      if (cursor.column() <= column)
+        if (cursor.column() < column || !moveOnInsert)
+          return;
+
+      // patch column of cursor
+      if (cursor.column() <= oldLineLength)
+        cursor.setColumn (cursor.column () + length);
+
+      // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
+      else if (cursor.column() < (oldLineLength + length))
+        cursor.setColumn (oldLineLength + length);
+
+      return;
+
+    /**
+     * Remove text
+     */
+    case RemoveText:
+      /**
+       * only interesting, if same line
+       */
+      if (cursor.line() != line)
+        return;
+
+      // skip cursors with too small column
+      if (cursor.column() <= column)
+          return;
+
+      // patch column of cursor
+      if (cursor.column() <= (column + length))
+        cursor.setColumn (column);
+      else
+        cursor.setColumn (cursor.column () - length);
+
+      return;
+
+    /**
+     * nothing
+     */
+    default:
+      return;
+  }
+}
+
+void TextHistory::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision)
+{
+  /**
+   * -1 special meaning for toRevision
+   */
+  if (toRevision == -1)
+    toRevision = revision ();
+
+  /**
+   * shortcut, same revision
+   */
+  if (fromRevision == toRevision)
+    return;
+
+  /**
+   * some invariants must hold
+   */
+  Q_ASSERT (!m_historyEntries.empty ());
+  Q_ASSERT (fromRevision < toRevision);
+  Q_ASSERT (fromRevision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (fromRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
+  Q_ASSERT (toRevision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (toRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
+
+  /**
+   * transform cursor
+   */
+  bool moveOnInsert = insertBehavior == KTextEditor::MovingCursor::MoveOnInsert;
+  for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
+    const Entry &entry = m_historyEntries[rev];
+    entry.transformCursor (cursor, moveOnInsert);
+  }
+}
+
+void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision)
+{
+  /**
+   * -1 special meaning for toRevision
+   */
+  if (toRevision == -1)
+    toRevision = revision ();
+
+  /**
+   * shortcut, same revision
+   */
+  if (fromRevision == toRevision)
+    return;
+
+  /**
+   * some invariants must hold
+   */
+  Q_ASSERT (!m_historyEntries.empty ());
+  Q_ASSERT (fromRevision < toRevision);
+  Q_ASSERT (fromRevision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (fromRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
+  Q_ASSERT (toRevision >= m_firstHistoryEntryRevision);
+  Q_ASSERT (toRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
+
+  /**
+   * transform cursors
+   */
+  KTextEditor::Cursor &start = range.start ();
+  KTextEditor::Cursor &end = range.end ();
+  bool moveOnInsertStart = !(insertBehaviors & KTextEditor::MovingRange::ExpandLeft);
+  bool moveOnInsertEnd = (insertBehaviors & KTextEditor::MovingRange::ExpandRight);
+  for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
+    const Entry &entry = m_historyEntries[rev];
+    entry.transformCursor (start, moveOnInsertStart);
+    entry.transformCursor (end, moveOnInsertEnd);
+  }
 }
 
 }

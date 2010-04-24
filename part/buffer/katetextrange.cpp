@@ -232,12 +232,6 @@ void TextRange::setView (KTextEditor::View *view)
 void TextRange::setAttribute ( KTextEditor::Attribute::Ptr attribute )
 {
   /**
-   * nothing changes, nop
-   */
-  if (attribute == m_attribute)
-    return;
-
-  /**
    * remember the new attribute
    */
   m_attribute = attribute;

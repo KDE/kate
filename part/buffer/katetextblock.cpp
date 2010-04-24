@@ -159,11 +159,6 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
 
 void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
 {
-  /**
-   * notify the text history in advance
-   */
-  m_buffer->history().unwrapLine (line);
-
   // calc internal line
   line = line - startLine ();
 
@@ -185,6 +180,11 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
 
     // patch startLine of this block
     --m_startLine;
+
+    /**
+     * notify the text history in advance
+     */
+    m_buffer->history().unwrapLine (startLine () + line, oldSizeOfPreviousLine);
 
     /**
      * cursor and range handling below
@@ -251,6 +251,11 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
   int oldSizeOfPreviousLine = m_lines[line-1]->text().size();
   m_lines[line-1]->textReadWrite().append (m_lines[line]->text());
   m_lines.erase (m_lines.begin () + line);
+
+  /**
+   * notify the text history in advance
+   */
+  m_buffer->history().unwrapLine (startLine () + line, oldSizeOfPreviousLine);
 
   /**
    * cursor and range handling below

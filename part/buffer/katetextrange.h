@@ -162,7 +162,7 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
 
     /**
      * Sets the currently active attribute for this range.
-     * This will trigger update of the relevant view parts, if the attribute changed.
+     * This will trigger update of the relevant view parts.
      *
      * \param attribute Attribute to assign to this range. If null, simply
      *                  removes the previous Attribute.

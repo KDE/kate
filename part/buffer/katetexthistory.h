@@ -26,6 +26,8 @@
 #include <ktexteditor/range.h>
 
 #include "katepartprivate_export.h"
+#include "katetextcursor.h"
+#include "katetextrange.h"
 
 namespace Kate {
 
@@ -43,7 +45,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * Current revision, just relay the revision of the buffer
      * @return current revision
      */
-    qint64 currentRevision () const;
+    qint64 revision () const;
 
     /**
      * Last revision the buffer got successful saved
@@ -55,16 +57,32 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * Lock a revision, this will keep it around until released again.
      * But all revisions will always be cleared on buffer clear() (and therefor load())
      * @param revision revision to lock
-     * @return sucess of the operation, might fail, if revision is invalid
      */
-    bool lockRevision (qint64 revision);
+    void lockRevision (qint64 revision);
 
     /**
      * Release a revision.
      * @param revision revision to release
-     * @return sucess of the operation, might fail, if revision is invalid or was not locked before
      */
-    bool releaseRevision (qint64 revision);
+    void unlockRevision (qint64 revision);
+
+    /**
+     * Transform a cursor from one revision to an other.
+     * @param cursor cursor to transform
+     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param fromRevision from this revision we want to transform
+     * @param toRevision to this revision we want to transform, default of -1 is current revision
+     */
+    void transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
+
+    /**
+     * Transform a range from one revision to an other.
+     * @param range range to transform
+     * @param insertBehaviors behavior of this range on insert of text at it's position
+     * @param fromRevision from this revision we want to transform
+     * @param toRevision to this revision we want to transform, default of -1 is current revision
+     */
+    void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision = -1);
 
   private:
     /**
@@ -72,6 +90,13 @@ class KATEPART_TESTS_EXPORT TextHistory {
      */
     class Entry {
       public:
+        /**
+         * transform cursor for this history entry
+         * @param cursor cursor to transform
+         * @param moveOnInsert behavior of this cursor on insert of text at it's position
+         */
+        void transformCursor (KTextEditor::Cursor &cursor, bool moveOnInsert) const;
+
         /**
          * Types of entries, matching editing primitives of buffer and placeholder
          */
@@ -117,7 +142,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
         int length;
 
         /**
-         * old line length (needed for insert)
+         * old line length (needed for unwrap and insert)
          */
         int oldLineLength;
     };
@@ -152,8 +177,9 @@ class KATEPART_TESTS_EXPORT TextHistory {
     /**
      * Notify about unwrap given line.
      * @param line line to unwrap
+     * @param oldLineLength text length of the line in front of this one before this unwrap
      */
-    void unwrapLine (int line);
+    void unwrapLine (int line, int oldLineLength);
 
     /**
      * Notify about insert text at given cursor position.

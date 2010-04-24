@@ -53,6 +53,54 @@ class KATEPART_TESTS_EXPORT TextHistory {
      */
     class Entry {
       public:
+        /**
+         * Types of entries, matching editing primitives of buffer and placeholder
+         */
+        enum Type {
+          Invalid
+          , WrapLine
+          , UnwrapLine
+          , InsertText
+          , RemoveText
+        };
+
+        /**
+         * Defaul Constructor, invalidates all fields
+         */
+        Entry ()
+         : referenceCounter (0), type (Invalid), line (-1), column (-1), length (-1), oldLineLength (-1)
+        {
+        }
+
+        /**
+         * Reference counter, how often ist this entry referenced from the outside?
+         */
+        int referenceCounter;
+
+        /**
+         * Type of change
+         */
+        Type type;
+
+        /**
+         * line the change occured
+         */
+        int line;
+
+        /**
+         * column the change occured
+         */
+        int column;
+
+        /**
+         * length of change (length of insert or removed text)
+         */
+        int length;
+
+        /**
+         * old line length (needed for insert)
+         */
+        int oldLineLength;
     };
 
   private:

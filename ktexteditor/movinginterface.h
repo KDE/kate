@@ -72,6 +72,49 @@ class KTEXTEDITOR_EXPORT MovingInterface
      */
     virtual MovingRange *newMovingRange (const Range &range, MovingRange::InsertBehaviors insertBehaviors = MovingRange::DoNotExpand) = 0;
 
+    /**
+     * Current revision
+     * @return current revision
+     */
+    virtual qint64 revision () const = 0;
+
+    /**
+     * Last revision the buffer got successful saved
+     * @return last revision buffer got saved, -1 if none
+     */
+    virtual qint64 lastSavedRevision () const = 0;
+
+    /**
+     * Lock a revision, this will keep it around until released again.
+     * But all revisions will always be cleared on buffer clear() (and therefor load())
+     * @param revision revision to lock
+     */
+    virtual void lockRevision (qint64 revision) = 0;
+
+    /**
+     * Release a revision.
+     * @param revision revision to release
+     */
+    virtual void unlockRevision (qint64 revision) = 0;
+
+    /**
+     * Transform a cursor from one revision to an other.
+     * @param cursor cursor to transform
+     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param fromRevision from this revision we want to transform
+     * @param toRevision to this revision we want to transform, default of -1 is current revision
+     */
+    virtual void transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1) = 0;
+
+    /**
+     * Transform a range from one revision to an other.
+     * @param range range to transform
+     * @param insertBehaviors behavior of this range on insert of text at it's position
+     * @param fromRevision from this revision we want to transform
+     * @param toRevision to this revision we want to transform, default of -1 is current revision
+     */
+    virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision = -1) = 0;
+
   private:
     /**
      * private d-pointer

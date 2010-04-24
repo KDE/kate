@@ -51,6 +51,21 @@ class KATEPART_TESTS_EXPORT TextHistory {
      */
     qint64 lastSavedRevision () const { return m_lastSavedRevision; }
 
+    /**
+     * Lock a revision, this will keep it around until released again.
+     * But all revisions will always be cleared on buffer clear() (and therefor load())
+     * @param revision revision to lock
+     * @return sucess of the operation, might fail, if revision is invalid
+     */
+    bool lockRevision (qint64 revision);
+
+    /**
+     * Release a revision.
+     * @param revision revision to release
+     * @return sucess of the operation, might fail, if revision is invalid or was not locked before
+     */
+    bool releaseRevision (qint64 revision);
+
   private:
     /**
      * Class representing one entry in the editing history.

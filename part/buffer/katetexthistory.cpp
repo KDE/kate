@@ -137,4 +137,85 @@ void TextHistory::addEntry (const Entry &entry)
   m_historyEntries.push_back (entry);
 }
 
+bool TextHistory::lockRevision (qint64 revision)
+{
+  /**
+   * history should never be empty
+   */
+  Q_ASSERT (!m_historyEntries.empty ());
+
+  /**
+   * is this revision valid at all?
+   */
+  if (revision < m_firstHistoryEntryRevision || revision >= (m_firstHistoryEntryRevision + m_historyEntries.size()))
+    return false;
+
+  /**
+   * increment revision reference counter
+   */
+  Entry &entry = m_historyEntries[revision - m_firstHistoryEntryRevision];
+  ++entry.referenceCounter;
+
+  /**
+   * be done
+   */
+  return true;
+}
+
+bool TextHistory::releaseRevision (qint64 revision)
+{
+
+  /**
+   * history should never be empty
+   */
+  Q_ASSERT (!m_historyEntries.empty ());
+
+  /**
+   * is this revision valid at all?
+   */
+  if (revision < m_firstHistoryEntryRevision || revision >= (m_firstHistoryEntryRevision + m_historyEntries.size()))
+    return false;
+
+  /**
+   * decrement revision reference counter, if possible
+   */
+  Entry &entry = m_historyEntries[revision - m_firstHistoryEntryRevision];
+  if (!entry.referenceCounter)
+    return false;
+  --entry.referenceCounter;
+
+  /**
+   * clean up no longer used revisions...
+   */
+  if (!entry.referenceCounter) {
+    /**
+     * search for now unused stuff
+     */
+    int unreferencedEdits = 0;
+    for (int i = 0; i < m_historyEntries.size(); ++i) {
+      if (m_historyEntries[i].referenceCounter)
+        break;
+
+      // remember deleted count
+      ++unreferencedEdits;
+    }
+
+    /**
+     * remove unrefed from the list now
+     */
+    if (unreferencedEdits > 0) {
+      // remove stuff from history
+      m_historyEntries.erase (m_historyEntries.begin(), m_historyEntries.begin() + unreferencedEdits);
+
+      // patch first entry revision
+      m_firstHistoryEntryRevision += unreferencedEdits;
+    }
+  }
+
+  /**
+   * be done
+   */
+  return true;
+}
+
 }

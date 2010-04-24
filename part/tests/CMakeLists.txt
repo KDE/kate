@@ -40,18 +40,6 @@ kde4_add_executable(katetest TEST ${katetest_SRCS})
 target_link_libraries(katetest ${KATE_TEST_LINK_LIBS} )
 
 
-########### next target ###############
-
-set(cursorrange_regression_SRCS
-  cursorrange_regression.cpp
-  rangeexpectation.cpp
-  cursorexpectation.cpp
-)
-
-kde4_add_unit_test(cursorrange_regression ${cursorrange_regression_SRCS})
-
-target_link_libraries(cursorrange_regression ${KATE_TEST_LINK_LIBS} )
-
 ########### range test ###############
 
 kde4_add_unit_test(range_test range_test.cpp)

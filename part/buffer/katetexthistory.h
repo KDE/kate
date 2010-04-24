@@ -79,7 +79,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
         /**
          * Reference counter, how often ist this entry referenced from the outside?
          */
-        int referenceCounter;
+        unsigned int referenceCounter;
 
         /**
          * Type of change
@@ -153,6 +153,12 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * @param range range of text to remove, must be on one line only.
      */
     void removeText (const KTextEditor::Range &range);
+
+    /**
+     * Generic function to add a entry to the history. Is used by the above functions for the different editing primitives.
+     * @param entry new entry to add
+     */
+    void addEntry (const Entry &entry);
 
   private:
     /**

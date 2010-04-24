@@ -63,18 +63,78 @@ void TextHistory::setLastSavedRevision ()
 
 void TextHistory::wrapLine (const KTextEditor::Cursor &position)
 {
+  // create and add new entry
+  Entry entry;
+  entry.type = Entry::WrapLine;
+  entry.line = position.line ();
+  entry.column = position.column ();
+  addEntry (entry);
 }
 
 void TextHistory::unwrapLine (int line)
 {
+  // create and add new entry
+  Entry entry;
+  entry.type = Entry::UnwrapLine;
+  entry.line = line;
+  addEntry (entry);
 }
 
 void TextHistory::insertText (const KTextEditor::Cursor &position, int length, int oldLineLength)
 {
+  // create and add new entry
+  Entry entry;
+  entry.type = Entry::InsertText;
+  entry.line = position.line ();
+  entry.column = position.column ();
+  entry.length = length;
+  entry.oldLineLength = oldLineLength;
+  addEntry (entry);
 }
 
 void TextHistory::removeText (const KTextEditor::Range &range)
 {
+  // create and add new entry
+  Entry entry;
+  entry.type = Entry::RemoveText;
+  entry.line = range.start().line ();
+  entry.column = range.start().column ();
+  entry.length = range.end().column() - range.start().column();
+  addEntry (entry);
+}
+
+void TextHistory::addEntry (const Entry &entry)
+{
+  /**
+   * history should never be empty
+   */
+  Q_ASSERT (!m_historyEntries.empty ());
+
+  /**
+   * simple efficient check: if we only have one entry, and the entry is not referenced
+   * just replace it with the new one and adjust the revision
+   */
+  if ((m_historyEntries.size () == 1) && !m_historyEntries.first().referenceCounter) {
+    /**
+     * remember new revision for first element, it is the revision we get after this change
+     */
+    m_firstHistoryEntryRevision = currentRevision () + 1;
+
+    /**
+     * remember edit
+     */
+    m_historyEntries.first() = entry;
+
+    /**
+     * be done...
+     */
+    return;
+  }
+
+  /**
+   * ok, we have more than one entry or the entry is referenced, just add up new entries
+   */
+  m_historyEntries.push_back (entry);
 }
 
 }

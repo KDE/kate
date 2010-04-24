@@ -65,17 +65,16 @@ static bool customContains(const KTextEditor::Range &range, const Cursor& cursor
 
 /* ####################################### */
 
-KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& position,
+KateTemplateHandler::KateTemplateHandler( KateView *view, const Cursor& position,
                                           const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager, const QString& scriptToken)
-    : QObject(doc)
-    , m_doc(doc), m_wholeTemplateRange(0), m_finalCursorPosition(0)
+    : QObject(view)
+    , m_view(view), m_wholeTemplateRange(0), m_finalCursorPosition(0)
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
     , m_scriptToken(scriptToken)
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
   QMap<QString,QString> initial_Values(initialValues);
-  KTextEditor::View *view=doc->activeView();
   if (initial_Values.contains("selection")) {
     if (initial_Values["selection"].isEmpty()) {
       Q_ASSERT(view);
@@ -87,22 +86,22 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
   ifDebug(kDebug()<<initial_Values;);
 
 
-  connect(m_doc, SIGNAL(aboutToReload(KTextEditor::Document*)),
+  connect(doc(), SIGNAL(aboutToReload(KTextEditor::Document*)),
           this, SLOT(cleanupAndExit()));
 
-  connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
+  connect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
           this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
 
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
-  m_doc->editStart();
-  if ( m_doc->insertText(position, templateString) ) {
+  doc()->editStart();
+  if ( doc()->insertText(position, templateString) ) {
     Q_ASSERT(m_wholeTemplateRange);
 
-    if ( m_doc->activeKateView() ) {
+    if ( m_view ) {
       // indent the inserted template properly, this makes it possible
       // to share snippets e.g. via GHNS without caring about
       // what indent-style to use.
-      m_doc->align(m_doc->activeKateView(), *m_wholeTemplateRange);
+      doc()->align(m_view, *m_wholeTemplateRange);
     }
   }
 
@@ -111,25 +110,25 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
   /// - insert template
   /// - create view => ranges are added
   /// for now simply "just insert" the code when we have no active view
-  if ( !initialValues.isEmpty() && m_doc->activeView() ) {
+  if ( !initialValues.isEmpty() && m_view ) {
     // only do complex stuff when required
 
     handleTemplateString(initial_Values);
-    m_doc->undoSafePoint();
-    m_doc->editEnd();
+    doc()->undoSafePoint();
+    doc()->editEnd();
 
     if ( !m_templateRanges.isEmpty() ) {
-      foreach ( View* view, m_doc->views() ) {
+      foreach ( View* view, doc()->views() ) {
         setupEventHandler(view);
       }
 
-      connect(m_doc, SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
+      connect(doc(), SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
               this, SLOT(slotViewCreated(KTextEditor::Document*, KTextEditor::View*)));
-      connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*, KTextEditor::Range, KTextEditor::Range)),
+      connect(doc(), SIGNAL(textChanged(KTextEditor::Document*, KTextEditor::Range, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
-      connect(m_doc, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
+      connect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
-      connect(m_doc, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
+      connect(doc(), SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
 
       setEditWithUndo(undoManager->isActive());
@@ -142,8 +141,8 @@ KateTemplateHandler::KateTemplateHandler( KateDocument *doc, const Cursor& posit
       cleanupAndExit();
     }
   } else {
-    m_doc->undoSafePoint();
-    m_doc->editEnd();
+    doc()->undoSafePoint();
+    doc()->editEnd();
     // simple templates just need to be (which gets done in handleTemplateString())
     cleanupAndExit();
   }
@@ -155,13 +154,13 @@ KateTemplateHandler::~KateTemplateHandler()
 
 void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& range)
 {
-  Q_ASSERT(document == m_doc);
+  Q_ASSERT(document == doc());
   Q_UNUSED(document);
   ifDebug(kDebug() << "template range inserted" << range;)
 
-  m_wholeTemplateRange = m_doc->newMovingRange( range, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight );
+  m_wholeTemplateRange = doc()->newMovingRange( range, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight );
 
-  disconnect(m_doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 }
 
@@ -178,26 +177,26 @@ void deleteSmartRange(SmartRange* range, KateDocument* doc) {
 void KateTemplateHandler::cleanupAndExit()
 {
   ifDebug(kDebug() << "cleaning up and exiting";)
-  disconnect(m_doc, SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
+  disconnect(doc(), SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
              this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
-  disconnect(m_doc, SIGNAL(textChanged(KTextEditor::Document*,KTextEditor::Range,KTextEditor::Range)),
+  disconnect(doc(), SIGNAL(textChanged(KTextEditor::Document*,KTextEditor::Range,KTextEditor::Range)),
              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
-  disconnect(m_doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
-  disconnect(m_doc, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+  disconnect(doc(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
 
   if ( !m_templateRanges.isEmpty() ) {
       foreach ( SmartRange* range, m_templateRanges ) {
-        deleteSmartRange(range, m_doc);
+        deleteSmartRange(range, doc());
       }
       m_templateRanges.clear();
   }
 
   if (!m_spacersSmart.isEmpty()) {
     foreach (SmartRange* range, m_spacersSmart ) {
-      m_doc->removeText(*range);
-      deleteSmartRange(range,m_doc);
+      doc()->removeText(*range);
+      deleteSmartRange(range,doc());
     }
     m_spacersSmart.clear();
   }
@@ -209,12 +208,17 @@ void KateTemplateHandler::cleanupAndExit()
 
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
-  if ( m_doc->activeView() && (!m_wholeTemplateRange
-        || customContains(m_wholeTemplateRange->toRange(), m_doc->activeView()->cursorPosition())) )
+  if ( m_view && (!m_wholeTemplateRange
+        || customContains(m_wholeTemplateRange->toRange(), m_view->cursorPosition())) )
   {
-    m_doc->activeView()->setSelection(Range::invalid());
-    m_doc->activeView()->setCursorPosition(*m_finalCursorPosition);
+    m_view->setSelection(Range::invalid());
+    m_view->setCursorPosition(*m_finalCursorPosition);
   }
+}
+
+KateDocument *KateTemplateHandler::doc()
+{
+  return m_view->doc();
 }
 
 void KateTemplateHandler::setEditWithUndo(const bool &enabled)
@@ -224,7 +228,7 @@ void KateTemplateHandler::setEditWithUndo(const bool &enabled)
 
 void KateTemplateHandler::slotViewCreated(Document* document, View* view)
 {
-  Q_ASSERT(document == m_doc); Q_UNUSED(document)
+  Q_ASSERT(document == doc()); Q_UNUSED(document)
   setupEventHandler(view);
 }
 
@@ -239,7 +243,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
   if ( event->type() == QEvent::KeyPress ) {
     QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
     if ( keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Backtab ) {
-      if ( !m_doc->activeKateView()->isCompletionActive() ) {
+      if ( !m_view->isCompletionActive() ) {
         return true;
       }
     }
@@ -253,20 +257,20 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
       cleanupAndExit();
       return true;
     } else if ( keyEvent->key() == Qt::Key_Escape ) {
-      if ( !m_doc->activeView() || !m_doc->activeView()->selection() ) {
+      if ( !m_view || !m_view->selection() ) {
         // terminate
         jumpToFinalCursorPosition();
         cleanupAndExit();
         return true;
       }
-    } else if ( keyEvent->key() == Qt::Key_Tab && !m_doc->activeKateView()->isCompletionActive() ) {
+    } else if ( keyEvent->key() == Qt::Key_Tab && !m_view->isCompletionActive() ) {
       if ( keyEvent->modifiers() & Qt::Key_Shift ) {
         jumpToPreviousRange();
       } else {
         jumpToNextRange();
       }
       return true;
-    } else if ( keyEvent->key() == Qt::Key_Backtab && !m_doc->activeKateView()->isCompletionActive() ) {
+    } else if ( keyEvent->key() == Qt::Key_Backtab && !m_view->isCompletionActive() ) {
       jumpToPreviousRange();
       return true;
     }
@@ -276,7 +280,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
 
 void KateTemplateHandler::jumpToPreviousRange()
 {
-  const Cursor & cursor = m_doc->activeView()->cursorPosition();
+  const Cursor & cursor = m_view->cursorPosition();
   if ( cursor == *m_finalCursorPosition ) {
     // wrap and jump to last range
     setCurrentRange(m_masterRanges.last());
@@ -302,7 +306,7 @@ void KateTemplateHandler::jumpToPreviousRange()
 
 void KateTemplateHandler::jumpToNextRange()
 {
-  const Cursor & cursor = m_doc->activeView()->cursorPosition();
+  const Cursor & cursor = m_view->cursorPosition();
   if ( cursor == *m_finalCursorPosition ) {
     // wrap and jump to first range
     setCurrentRange(m_masterRanges.first());
@@ -345,12 +349,12 @@ void KateTemplateHandler::setCurrentRange(SmartRange* range)
 
   }
 
-  if ( m_doc->activeView() ) {
+  if ( m_view ) {
     m_jumping = true;
     if ( m_uneditedRanges.contains(range) ) {
-      m_doc->activeView()->setSelection(*range);
+      m_view->setSelection(*range);
     }
-    m_doc->activeView()->setCursorPosition(range->start());
+    m_view->setCursorPosition(range->start());
     m_jumping = false;
   }
 
@@ -370,7 +374,7 @@ Attribute::Ptr getAttribute(QColor color, int alpha = 230)
 
 void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& initialValues)
 {
-  QString templateString = m_doc->text(*m_wholeTemplateRange);
+  QString templateString = doc()->text(*m_wholeTemplateRange);
 
   int line = m_wholeTemplateRange->start().line();
   int column = m_wholeTemplateRange->start().column();
@@ -654,29 +658,29 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
     spacers.append(Range(line,column,line,column+1));
     ++column;
   }
-  m_doc->replaceText(*m_wholeTemplateRange, templateString);
+  doc()->replaceText(*m_wholeTemplateRange, templateString);
 
   Q_ASSERT(!m_wholeTemplateRange->toRange().isEmpty());
 
-  if ( m_doc->activeKateView() ) {
+  if ( m_view ) {
     ///HACK: make sure the view cache is up2date so we can safely set the cursor position
     ///      else one might hit the Q_ASSERT(false) in KateViewInternal::endPos()
     ///      the cause is that the view get's ::update()'d, but that does not trigger a
     ///      paint event right away.
-    m_doc->activeKateView()->updateView(true);
+    m_view->updateView(true);
   }
 
   if ( finalCursorPosition.isValid() ) {
-    m_finalCursorPosition = m_doc->newMovingCursor(finalCursorPosition);
+    m_finalCursorPosition = doc()->newMovingCursor(finalCursorPosition);
   } else {
-    m_finalCursorPosition = m_doc->newMovingCursor(Cursor(line, column));
+    m_finalCursorPosition = doc()->newMovingCursor(Cursor(line, column));
   }
 
   if ( ranges.isEmpty() ) {
     return;
   }
 
-  KateRendererConfig *config = m_doc->activeKateView()->renderer()->config();
+  KateRendererConfig *config = m_view->renderer()->config();
 
   // TODO: finetune the attribute alpha values, text ranges behave a bit different there...
 
@@ -695,11 +699,11 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
     const QList<Range> &values = ranges.values(key);
     // used as parent for mirrored variables,
     // and as only item for not-mirrored variables
-    SmartRange* parent = m_doc->newSmartRange(values.last(), 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
+    SmartRange* parent = doc()->newSmartRange(values.last(), 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
     if ( values.size() > 1 ) {
       // add all "real" ranges as children
       for (int i = 0; i < values.size(); ++i )  {
-        SmartRange* range = m_doc->newSmartRange(
+        SmartRange* range = doc()->newSmartRange(
           values[i], parent, SmartRange::ExpandLeft | SmartRange::ExpandRight
         );
         // the last item will be our real first range (see multimap docs)
@@ -719,12 +723,12 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       m_masterRanges.append(parent);
     }
 
-    m_doc->addHighlightToDocument(parent, true);
+    doc()->addHighlightToDocument(parent, true);
     m_templateRanges.append(parent);
   }
 
   foreach ( const Range& spacer, spacers) {
-    SmartRange *r=m_doc->newSmartRange(spacer,0);
+    SmartRange *r=doc()->newSmartRange(spacer,0);
     Attribute::Ptr attribute(new Attribute());
     //attribute->setBackground(QBrush(Qt::yellow));
     attribute->setFont(QFont("fixed",1));
@@ -732,7 +736,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
     attribute->setFontOverline(true);
     attribute->setFontUnderline(true);
     r->setAttribute(attribute);
-    m_doc->addHighlightToDocument(r,true);
+    doc()->addHighlightToDocument(r,true);
     m_spacersSmart.append(r);
   }
 
@@ -746,7 +750,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   m_initialRemodify=true;
   foreach(SmartRange* smr,m_masterRanges) {
-    slotTextChanged(m_doc,Range(*smr));
+    slotTextChanged(doc(),Range(*smr));
   }
   m_initialRemodify=false;
 
@@ -754,7 +758,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
 void KateTemplateHandler::slotTextChanged(Document* document, const Range& range)
 {
-  Q_ASSERT(document == m_doc);
+  Q_ASSERT(document == doc());
 
   ifDebug(kDebug() << "text changed" << document << range;)
 
@@ -764,7 +768,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   }
 
   if (!m_initialRemodify) {
-    if ( (!m_editWithUndo && m_doc->isEditRunning()) || range.isEmpty() ) {
+    if ( (!m_editWithUndo && doc()->isEditRunning()) || range.isEmpty() ) {
       ifDebug(kDebug(13020) << "slotTextChanged returning prematurely";)
       return;
     }
@@ -852,7 +856,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
       ifDebug(kDebug() << "new range:" << *leftAdjacentRange;)
     }
     syncMirroredRanges(baseRange);
-    if ( range.start() == baseRange->start() && m_doc->activeKateView() ) {
+    if ( range.start() == baseRange->start() && m_view ) {
       // TODO: update the attribute, since kate doesn't do that automatically
       // TODO: fix in kate itself
       // TODO: attribute->changed == undefined reference...
@@ -867,30 +871,30 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
   Q_ASSERT(m_templateRanges.contains(range->parentRange()));
 
   m_isMirroring = true;
-  m_doc->editStart();
+  doc()->editStart();
 
-  const QString &newText = m_doc->text(*range);
+  const QString &newText = doc()->text(*range);
   ifDebug(kDebug() << "mirroring" << newText << "from" << *range;)
 
   foreach ( SmartRange* sibling, range->parentRange()->childRanges() ) {
     if ( sibling != range ) {
-      m_doc->replaceText(*sibling, m_mirrorBehaviour[sibling].getMirrorString(newText));
+      doc()->replaceText(*sibling, m_mirrorBehaviour[sibling].getMirrorString(newText));
     }
   }
 
   /// TODO: now undo only undos the last char edit, and does not
   ///       merge those edits as usual
-  bool undoDontMerge = m_doc->undoDontMerge();
-  m_doc->setUndoDontMerge(false);
-  m_doc->setUndoAllowComplexMerge(true);
-  m_doc->undoSafePoint();
-  m_doc->editEnd();
-  m_doc->setUndoDontMerge(undoDontMerge);
+  bool undoDontMerge = doc()->undoDontMerge();
+  doc()->setUndoDontMerge(false);
+  doc()->setUndoAllowComplexMerge(true);
+  doc()->undoSafePoint();
+  doc()->editEnd();
+  doc()->setUndoDontMerge(undoDontMerge);
   m_isMirroring = false;
 }
 
 
-KateView* KateTemplateHandler::view() {return qobject_cast<KateView*>(m_doc->activeView());}
+KateView* KateTemplateHandler::view() {return qobject_cast<KateView*>(m_view);}
 
 
 //BEGIN MIRROR BEHAVIOUR

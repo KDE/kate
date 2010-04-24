@@ -4732,7 +4732,7 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
   if (templateString.isEmpty()) return false;
 
   // the handler will delete itself when necessary
-  new KateTemplateHandler(this, c, templateString, initialValues, m_undoManager, scriptToken);
+  new KateTemplateHandler(view, c, templateString, initialValues, m_undoManager, scriptToken);
 
   return true;
 }

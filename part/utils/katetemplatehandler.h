@@ -75,7 +75,7 @@ class KateTemplateHandler: public QObject
      * NOTE: The handler deletes itself when required, you do not need to
      *       keep track of it.
      */
-    KateTemplateHandler(KateDocument *doc, const KTextEditor::Cursor& position,
+    KateTemplateHandler(KateView *view, const KTextEditor::Cursor& position,
                         const QString &templateString, const QMap<QString, QString> &initialValues,
                         KateUndoManager* undoManager, const QString& scriptToken);
 
@@ -182,6 +182,8 @@ private:
      */
     void jumpToFinalCursorPosition();
 
+    KateDocument *doc();
+
   private Q_SLOTS:
     /**
      * Cleans up the template handler and deletes it.
@@ -219,7 +221,7 @@ private:
     KateView* view();
   private:
     /// The document we operate on.
-    KateDocument *m_doc;
+    KateView *m_view;
     /// List of ranges with highlighting, marking the inserted variables in the template.
     /// Mirrored variables will have a parent range and the real ranges will be the children.
     /// Each direct child of the list is added as a Highlighting Range with dynamic attribs.

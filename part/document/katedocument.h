@@ -67,7 +67,6 @@ class KateEditHistory;
 class KateOnTheFlyChecker;
 
 class KateAutoIndent;
-class KateTemplateHandler;
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)

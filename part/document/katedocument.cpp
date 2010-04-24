@@ -5042,6 +5042,37 @@ KTextEditor::MovingRange *KateDocument::newMovingRange (const KTextEditor::Range
 {
   return new Kate::TextRange(buffer(), range, insertBehaviors);
 }
+
+qint64 KateDocument::revision () const
+{
+  return m_buffer->history().revision ();
+}
+
+qint64 KateDocument::lastSavedRevision () const
+{
+  return m_buffer->history().lastSavedRevision ();
+}
+
+void KateDocument::lockRevision (qint64 revision)
+{
+  m_buffer->history().lockRevision (revision);
+}
+
+void KateDocument::unlockRevision (qint64 revision)
+{
+  m_buffer->history().unlockRevision (revision);
+}
+
+void KateDocument::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision)
+{
+  m_buffer->history().transformCursor (cursor, insertBehavior, fromRevision, toRevision);
+}
+
+void KateDocument::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision)
+{
+  m_buffer->history().transformRange (range, insertBehaviors, fromRevision, toRevision);
+}
+
 //END
 
 bool KateDocument::simpleMode ()

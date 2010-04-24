@@ -51,6 +51,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
      */
     qint64 lastSavedRevision () const { return m_lastSavedRevision; }
 
+  private:
     /**
      * Class representing one entry in the editing history.
      */
@@ -60,7 +61,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * Types of entries, matching editing primitives of buffer and placeholder
          */
         enum Type {
-          Invalid
+          NoChange
           , WrapLine
           , UnwrapLine
           , InsertText
@@ -71,7 +72,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * Defaul Constructor, invalidates all fields
          */
         Entry ()
-         : referenceCounter (0), type (Invalid), line (-1), column (-1), length (-1), oldLineLength (-1)
+         : referenceCounter (0), type (NoChange), line (-1), column (-1), length (-1), oldLineLength (-1)
         {
         }
 
@@ -106,7 +107,6 @@ class KATEPART_TESTS_EXPORT TextHistory {
         int oldLineLength;
     };
 
-  private:
     /**
      * Construct an empty text history.
      * @param buffer buffer this text history belongs to

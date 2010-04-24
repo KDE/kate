@@ -23,23 +23,11 @@
 #include <qtest_kde.h>
 
 #include <katedocument.h>
-#include <kateview.h>
-#include <kateconfig.h>
 #include <ktexteditor/movingcursor.h>
 
-QTEST_KDEMAIN(MovingCursorTest, GUI)
+using namespace KTextEditor;
 
-// namespace QTest {
-//   template<>
-//   char *toString(const KTextEditor::Range &range)
-//   {
-//     QByteArray ba = "Range[";
-//     ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column()) + ", ";
-//     ba += QByteArray::number(range.end().line())   + ", " + QByteArray::number(range.end().column());
-//     ba += "]";
-//     return qstrdup(ba.data());
-//   }
-// }
+QTEST_KDEMAIN(MovingCursorTest, GUI)
 
 MovingCursorTest::MovingCursorTest()
   : QObject()
@@ -50,8 +38,67 @@ MovingCursorTest::~MovingCursorTest()
 {
 }
 
+// tests:
+// - MovingCursor with StayOnInsert
+// - MovingCursor with MoveOnInsert
 void MovingCursorTest::testMovingCursor()
 {
+  KateDocument doc (false, false, false);
+  MovingCursor* invalid = doc.newMovingCursor(Cursor::invalid());
+  MovingCursor* moveOnInsert = doc.newMovingCursor(Cursor(0, 0), MovingCursor::MoveOnInsert);
+  MovingCursor* stayOnInsert = doc.newMovingCursor(Cursor(0, 0), MovingCursor::StayOnInsert);
+
+  // verify initial conditions
+  QVERIFY(!invalid->isValid());
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(0, 0));
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(0, 0));
+
+  // insert some text
+  doc.insertText(Cursor(0, 0), "\n"
+                                "1\n"
+                                "22");
+
+  // check new cursor positions
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(2, 2));
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(0, 0));
+
+  // set position to (1, 1) and insert text before cursor
+  stayOnInsert->setPosition(Cursor(1, 1));
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(1, 1));
+  doc.insertText(Cursor(1, 0), "test");
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(1, 5));
+  doc.undo();
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(1, 1));
+
+  // position still at (1, 1). insert text at cursor
+  doc.insertText(Cursor(1, 1), "test");
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(1, 1));
+  doc.undo();
+  QCOMPARE(stayOnInsert->toCursor(), Cursor(1, 1));
+
+  //
+  // same tests with the moveOnInsert cursor
+  //
+  // set position to (1, 1) and insert text before cursor
+  moveOnInsert->setPosition(Cursor(1, 1));
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(1, 1));
+  doc.insertText(Cursor(1, 0), "test");
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(1, 5));
+  doc.undo();
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(1, 1));
+
+  // position still at (1, 1). insert text at cursor
+  doc.insertText(Cursor(1, 1), "test");
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(1, 5));
+  doc.undo();
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(1, 1));
+
+  // set both cursors to (2, 1) then delete text range that contains cursors
+  moveOnInsert->setPosition(Cursor(2, 1));
+  stayOnInsert->setPosition(Cursor(2, 1));
+  doc.removeText(Range(Cursor(2, 0), Cursor(2, 2)));
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(2, 0));
+  QCOMPARE(moveOnInsert->toCursor(), Cursor(2, 0));
 }
 
 // tests:
@@ -75,42 +122,42 @@ void MovingCursorTest::testConvenienceApi()
               "55555");
 
   // check start and end of document
-  KTextEditor::MovingCursor *startOfDoc = doc.newMovingCursor(KTextEditor::Cursor(0, 0));
-  KTextEditor::MovingCursor *endOfDoc = doc.newMovingCursor(KTextEditor::Cursor(5, 5));
+  MovingCursor *startOfDoc = doc.newMovingCursor(Cursor(0, 0));
+  MovingCursor *endOfDoc = doc.newMovingCursor(Cursor(5, 5));
   QVERIFY(startOfDoc->atStartOfDocument());
   QVERIFY(startOfDoc->atStartOfLine());
   QVERIFY(endOfDoc->atEndOfDocument());
   QVERIFY(endOfDoc->atEndOfLine());
 
   // set cursor to (2, 2) and then move to the left two times
-  KTextEditor::MovingCursor *moving = doc.newMovingCursor(KTextEditor::Cursor(2, 2));
+  MovingCursor *moving = doc.newMovingCursor(Cursor(2, 2));
   QVERIFY(moving->atEndOfLine()); // at 2, 2
   QVERIFY(moving->move(-1));   // at 2, 1
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(2, 1));
+  QCOMPARE(moving->toCursor(), Cursor(2, 1));
   QVERIFY(!moving->atEndOfLine());
   QVERIFY(moving->move(-1));   // at 2, 0
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(2, 0));
+  QCOMPARE(moving->toCursor(), Cursor(2, 0));
   QVERIFY(moving->atStartOfLine());
 
   // now move again to the left, should wrap to (1, 1)
   QVERIFY(moving->move(-1));   // at 1, 1
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(1, 1));
+  QCOMPARE(moving->toCursor(), Cursor(1, 1));
   QVERIFY(moving->atEndOfLine());
 
   // advance 7 characters to position (3, 3)
   QVERIFY(moving->move(7));   // at 3, 3
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(3, 3));
+  QCOMPARE(moving->toCursor(), Cursor(3, 3));
 
   // advance 20 characters in NoWrap mode, then go back 10 characters
-  QVERIFY(moving->move(20, KTextEditor::MovingCursor::NoWrap));   // at 3, 23
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(3, 23));
+  QVERIFY(moving->move(20, MovingCursor::NoWrap));   // at 3, 23
+  QCOMPARE(moving->toCursor(), Cursor(3, 23));
   QVERIFY(moving->move(-10));   // at 3, 13
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(3, 13));
+  QCOMPARE(moving->toCursor(), Cursor(3, 13));
 
   // still at invalid text position. move one char to wrap around
   QVERIFY(!moving->isValidTextPosition());   // at 3, 13
   QVERIFY(moving->move(1));   // at 4, 0
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(4, 0));
+  QCOMPARE(moving->toCursor(), Cursor(4, 0));
 
   // moving 11 characters in wrap mode moves to (5, 6), which is not a valid
   // text position anymore. Hence, moving should be rejected.
@@ -121,23 +168,10 @@ void MovingCursorTest::testConvenienceApi()
   // try to move to next line, which fails. then go to previous line
   QVERIFY(!moving->gotoNextLine());
   QVERIFY(moving->gotoPreviousLine());
-  QCOMPARE(moving->toCursor(), KTextEditor::Cursor(4, 0));
+  QCOMPARE(moving->toCursor(), Cursor(4, 0));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void MovingCursorTest::testComparison()
+{
+  // TODO: implement, once comparison is implemented
+}

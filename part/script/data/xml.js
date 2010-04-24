@@ -128,7 +128,7 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
         // and the prior line didn't close a tag
         if (line == 0) {
             return 0;
-        } else if (prevLineString.match(/^<\?xml/)) {
+        } else if (prevLineString.match(/^<(\?xml|!DOCTYPE)/)) {
             return 0;
         } else if (lineString.match(/^\s*<\//)) {
             // closing tag, decrease indentation when previous didn't open a tag
@@ -138,17 +138,17 @@ function processChar(line, lineString, prevLineString, prevIndent, char, indentW
             } else {
                 return prevIndent - indentWidth;
             }
-        } else if (prevLineString.match(/<(\/[^>]+|[^>]+\/)>\s*$/)) {
-            // keep indent when prev line closed a tag or was empty
+        } else if (prevLineString.match(/<([\/!][^>]+|[^>]+\/)>\s*$/)) {
+            // keep indent when prev line closed a tag or was empty or a comment
             return prevIndent;
         }
         return prevIndent + indentWidth;
     } else if (char == '\n') {
-        if (prevLineString.match(/^<\?xml/)) {
+        if (prevLineString.match(/^<(\?xml|!DOCTYPE)/)) {
             return 0;
         }
-        if (prevLineString.match(/<[^\/][^>]*[^\/]>[^<>]*$/)) {
-            // increase indent when prev line opened a tag
+        if (prevLineString.match(/<[^\/!][^>]*[^\/]>[^<>]*$/)) {
+            // increase indent when prev line opened a tag (but not for comments)
             return prevIndent + indentWidth;
         }
     }

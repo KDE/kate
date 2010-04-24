@@ -45,6 +45,7 @@ buffer/katetextblock.cpp
 buffer/katetextline.cpp
 buffer/katetextcursor.cpp
 buffer/katetextrange.cpp
+buffer/katetexthistory.cpp
 
 # completion (widget, model, delegate, ...)
 completion/katecompletionwidget.cpp
@@ -80,6 +81,7 @@ script/kateindentscript.cpp
 script/katecommandlinescript.cpp
 script/katetemplatescript.cpp
 script/katescriptmanager.cpp
+
 # scripting wrappers
 script/katescriptdocument.cpp
 script/katescriptview.cpp
@@ -127,7 +129,6 @@ view/kateviewinternal.cpp
 view/kateviewhelpers.cpp
 
 # vi input mode
-
 vimode/kateviinputmodemanager.cpp
 vimode/katevimodebase.cpp
 vimode/katevinormalmode.cpp

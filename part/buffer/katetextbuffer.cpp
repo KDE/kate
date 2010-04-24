@@ -32,6 +32,7 @@ namespace Kate {
 TextBuffer::TextBuffer (KTextEditor::Document *parent, int blockSize)
   : QObject (parent)
   , m_document (parent)
+  , m_history (*this)
   , m_blockSize (blockSize)
   , m_lines (0)
   , m_lastUsedBlock (0)
@@ -59,7 +60,7 @@ TextBuffer::~TextBuffer ()
 {
   // remove document pointer, this will avoid any notifyAboutRangeChange to have a effect
   m_document = 0;
-    
+
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 

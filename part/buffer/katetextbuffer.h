@@ -33,6 +33,7 @@
 #include "katetextblock.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
+#include "katetexthistory.h"
 
 // encoding prober
 #include <kencodingprober.h>
@@ -416,6 +417,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * parent document
      */
     KTextEditor::Document *m_document;
+
+    /**
+     * text history
+     */
+    TextHistory m_history;
 
     /**
      * block size in lines the buffer will try to hold

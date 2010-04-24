@@ -21,6 +21,8 @@
 #ifndef KATE_TEXTHISTORY_H
 #define KATE_TEXTHISTORY_H
 
+#include <QtCore/QList>
+
 #include "katepartprivate_export.h"
 
 namespace Kate {
@@ -45,6 +47,13 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * @return last revision buffer got saved, -1 if none
      */
     qint64 lastSavedRevision () const { return m_lastSavedRevision; }
+
+    /**
+     * Class representing one entry in the editing history.
+     */
+    class Entry {
+      public:
+    };
 
   private:
     /**
@@ -78,6 +87,16 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * Last revision the buffer got saved
      */
     qint64 m_lastSavedRevision;
+
+    /**
+     * history of edits
+     */
+    QList<Entry> m_historyEntries;
+
+    /**
+     * offset for the first entry in m_history, to which revision it really belongs?
+     */
+    qint64 m_firstHistoryEntryRevision;
 };
 
 }

@@ -26,6 +26,7 @@ namespace Kate {
 TextHistory::TextHistory (TextBuffer &buffer)
   : m_buffer (buffer)
   , m_lastSavedRevision (-1)
+  , m_firstHistoryEntryRevision (1)
 {
 }
 
@@ -43,6 +44,12 @@ void TextHistory::clear ()
 {
   // reset last saved revision
   m_lastSavedRevision = -1;
+
+  // remove all history entries
+  m_historyEntries.clear ();
+
+  // first entry will again belong to first revision
+  m_firstHistoryEntryRevision = 1;
 }
 
 void TextHistory::setLastSavedRevision ()

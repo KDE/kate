@@ -124,7 +124,12 @@ AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document* document
     m_brackets["("] = ")";
     m_brackets["["] = "]";
 
-    setupSlots(document);
+    connect(document, SIGNAL(internalEditStart(KTextEditor::Document *)),
+            this, SLOT(disconnectSlots(KTextEditor::Document *)));
+    connect(document, SIGNAL(internalEditEnd(KTextEditor::Document *)),
+            this, SLOT(connectSlots(KTextEditor::Document *)));
+
+    connectSlots(document);
 }
 
 AutoBracePluginDocument::~AutoBracePluginDocument()
@@ -136,12 +141,20 @@ AutoBracePluginDocument::~AutoBracePluginDocument()
  * (Re-)setups slots for AutoBracePluginDocument.
  * @param document Current document.
  */
-void AutoBracePluginDocument::setupSlots(KTextEditor::Document *document)
+void AutoBracePluginDocument::connectSlots(KTextEditor::Document *document)
 {
     connect(document, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
             this, SLOT(slotTextInserted(KTextEditor::Document*, KTextEditor::Range)));
     connect(document, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
             this, SLOT(slotTextRemoved(KTextEditor::Document*, KTextEditor::Range)));
+}
+
+void AutoBracePluginDocument::disconnectSlots(KTextEditor::Document* document)
+{
+    disconnect(document, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
+               this, SLOT(slotTextInserted(KTextEditor::Document*, KTextEditor::Range)));
+    disconnect(document, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
+               this, SLOT(slotTextRemoved(KTextEditor::Document*, KTextEditor::Range)));
 }
 
 /**
@@ -151,8 +164,8 @@ void AutoBracePluginDocument::setupSlots(KTextEditor::Document *document)
  */
 void AutoBracePluginDocument::slotTextChanged(KTextEditor::Document *document) {
     // Disconnect from all signals as we insert stuff by ourselves.
-    // In other words, this is in order to prevent infinite recursion.
-    disconnect(document, 0, this, 0);
+    // Prevent infinite recursion.
+    disconnectSlots(document);
 
     // Make really sure that we want to insert the brace, paste guard and all.
     if (m_insertionLine != 0
@@ -186,7 +199,7 @@ void AutoBracePluginDocument::slotTextChanged(KTextEditor::Document *document) {
     m_insertionLine = 0;
 
     // Re-enable the textInserted() slot again.
-    setupSlots(document);
+    connectSlots(document);
 }
 
 /**
@@ -200,7 +213,7 @@ void AutoBracePluginDocument::slotTextRemoved(KTextEditor::Document* document, c
     // is last inserted bracket), we also delete the associated closing bracket.
     if (m_lastRange == range) {
         // avoid endless recursion
-        disconnect(document, 0, this, 0);
+        disconnectSlots(document);
 
         // Delete the character at the same range because the opening
         // bracket has already been removed so the closing bracket
@@ -209,7 +222,7 @@ void AutoBracePluginDocument::slotTextRemoved(KTextEditor::Document* document, c
             document->removeText(range);
         }
 
-        setupSlots(document);
+        connectSlots(document);
     }
 }
 
@@ -308,7 +321,7 @@ void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
                                                 const KTextEditor::Range& range,
                                                 const QString& brace) {
     // Disconnect Slots to avoid check for redundant closing brackets
-    disconnect(document, 0, this, 0);
+    disconnectSlots(document);
 
     // Save range to allow following remove operation to
     // detect the corresponding closing bracket
@@ -320,7 +333,7 @@ void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
     document->activeView()->setCursorPosition(saved);
 
     // Re-Enable insertion slot.
-    setupSlots(document);
+    connectSlots(document);
 }
 
 /**

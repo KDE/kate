@@ -77,6 +77,9 @@ class AutoBracePluginDocument
     void slotTextInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
     void slotTextRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
 
+    void connectSlots(KTextEditor::Document* document);
+    void disconnectSlots(KTextEditor::Document* document);
+
   private:
     bool isInsertionCandidate(KTextEditor::Document *document, int openingBraceLine);
 
@@ -88,7 +91,6 @@ class AutoBracePluginDocument
                          const QString& brace);
     const QString previousToken(KTextEditor::Document *document,const KTextEditor::Range& range);
     const QString nextToken(KTextEditor::Document *document,const KTextEditor::Range& range);
-    void setupSlots(KTextEditor::Document* document);
 
     int m_insertionLine;
     QString m_indentation;

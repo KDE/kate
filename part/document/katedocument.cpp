@@ -4888,54 +4888,38 @@ const QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEdit
   return static_cast<KateView*>(view)->externalHighlights();
 }
 
-void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )
+void KateDocument::addActionsToDocument( KTextEditor::SmartRange * )
 {
-  if (m_documentActions.contains(topRange))
-    return;
-
-  m_documentActions.append(topRange);
-
-  // Deal with the range being deleted externally
-  topRange->addWatcher(this);
 }
 
-void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange )
+void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * )
 {
-  if (!m_documentActions.contains(topRange))
-    return;
-
-  m_documentActions.removeAll(topRange);
-  topRange->removeWatcher(this);
 }
 
 const QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
 {
-  return m_documentActions;
+  return QList< KTextEditor::SmartRange * > ();
 }
 
-void KateDocument::addActionsToView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+void KateDocument::addActionsToView( KTextEditor::View *, KTextEditor::SmartRange * )
 {
-  static_cast<KateView*>(view)->addActions(topRange);
 }
 
-void KateDocument::removeActionsFromView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+void KateDocument::removeActionsFromView( KTextEditor::View *, KTextEditor::SmartRange * )
 {
-  static_cast<KateView*>(view)->removeActions(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * view ) const
+const QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * ) const
 {
-  return static_cast<KateView*>(view)->actions();
+  return QList< KTextEditor::SmartRange * > ();
 }
 
 void KateDocument::attributeDynamic( KTextEditor::Attribute::Ptr )
 {
-  // TODO link in with cursor + mouse tracking
 }
 
 void KateDocument::attributeNotDynamic( KTextEditor::Attribute::Ptr )
 {
-  // TODO de-link cursor + mouse tracking
 }
 
 void KateDocument::clearSmartInterface( )
@@ -4971,12 +4955,10 @@ void KateDocument::clearViewHighlights( KTextEditor::View * view )
 
 void KateDocument::clearDocumentActions( )
 {
-  m_documentActions.clear();
 }
 
-void KateDocument::clearViewActions( KTextEditor::View * view )
+void KateDocument::clearViewActions( KTextEditor::View * )
 {
-  static_cast<KateView*>(view)->clearActions();
 }
 
 void KateDocument::ignoreModifiedOnDiskOnce( )

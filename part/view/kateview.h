@@ -266,9 +266,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void clearExternalHighlights();
 
     // Action association extension
-    void addActions(KTextEditor::SmartRange* topRange);
-    const QList<KTextEditor::SmartRange*>& actions() const;
-    void clearActions();
     void deactivateEditActions();
     void activateEditActions();
 
@@ -278,7 +275,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
   public Q_SLOTS:
     void removeExternalHighlight(KTextEditor::SmartRange* topRange);
-    void removeActions(KTextEditor::SmartRange* topRange);
 
   private:
     // Smart range watcher overrides

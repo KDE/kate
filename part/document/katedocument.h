@@ -673,7 +673,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     KateSmartManager* const m_smartManager;
     QList<KTextEditor::SmartRange*> m_documentHighlights;
     QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;
-    QList<KTextEditor::SmartRange*> m_documentActions;
 
   //
   // Annotation Interface

@@ -694,7 +694,6 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
       m_correctPos = -str.length() + 1;
   }
 }
-#endif
 
 static void correctPos( KTextEditor::View *kv, int count )
 {
@@ -711,6 +710,7 @@ static void correctPos( KTextEditor::View *kv, int count )
   }
   */
 }
+#endif
 
 
 // ========================================================================

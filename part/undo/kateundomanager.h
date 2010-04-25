@@ -170,8 +170,10 @@ class KateUndoManager : public QObject
 
   Q_SIGNALS:
     void undoChanged ();
-    void aboutToUndo ();
-    void aboutToRedo ();
+    void undoStart ();
+    void undoEnd ();
+    void redoStart ();
+    void redoEnd ();
     void isActiveChanged(bool enabled);
 
   private Q_SLOTS:

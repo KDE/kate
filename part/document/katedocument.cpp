@@ -246,6 +246,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     setWidget( view );
   }
 
+  connect(m_undoManager, SIGNAL(undoChanged()), this, SIGNAL(undoChanged()));
+  connect(m_undoManager, SIGNAL(undoStart()),   this, SLOT(emitInternalEditStart()));
+  connect(m_undoManager, SIGNAL(undoEnd()),     this, SLOT(emitInternalEditEnd()));
+  connect(m_undoManager, SIGNAL(redoStart()),   this, SLOT(emitInternalEditStart()));
+  connect(m_undoManager, SIGNAL(redoEnd()),     this, SLOT(emitInternalEditEnd()));
+
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
 
   onTheFlySpellCheckingEnabled(config()->onTheFlySpellCheck());

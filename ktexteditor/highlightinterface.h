@@ -59,6 +59,7 @@ class Document;
  *
  * \see KTextEditor::Document
  * \author Milian Wolff \<mail@milianw.de\>
+ * \since 4.4
  */
 class KTEXTEDITOR_EXPORT HighlightInterface
 {
@@ -116,11 +117,7 @@ class KTEXTEDITOR_EXPORT HighlightInterface
     /**
      * Get the list of AttributeBlocks for a given \p line in the document.
      *
-     * \return List of AttributeBlocks for given \p line.
-     *
-     * TODO: I intended to make this const but Kate's implementation needs to
-     * call kateTextline which is non-const. Solution?
-     * TODO: Cannot be QVector since we have a CTor. Should it be removed?
+     * \return list of AttributeBlocks for given \p line.
      */
     virtual QList<AttributeBlock> lineAttributes(const unsigned int line) = 0;
 

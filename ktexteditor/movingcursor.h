@@ -138,28 +138,6 @@ class KTEXTEDITOR_EXPORT MovingCursor
      */
     virtual ~MovingCursor ();
 
-    /**
-     * Equality operator.
-     *
-     * \note comparison between two invalid cursors is undefined.
-     *       comparison between and invalid and a valid cursor will always be \e false.
-     *
-     * \param c1 first cursor to compare
-     * \param c2 second cursor to compare
-     * \return \e true, if c1's and c2's line and column are \e equal.
-     */
-    inline friend bool operator==(const MovingCursor& c1, const MovingCursor& c2)
-      { return c1.line() == c2.line() && c1.column() == c2.column(); }
-
-    /**
-     * Inequality operator.
-     * \param c1 first cursor to compare
-     * \param c2 second cursor to compare
-     * \return \e true, if c1's and c2's line and column are \e not equal.
-     */
-    inline friend bool operator!=(const MovingCursor& c1, const MovingCursor& c2)
-      { return !(c1 == c2); }
-    
   //
   // forbidden stuff
   //
@@ -298,6 +276,71 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * @return normal cursor
      */
     operator const Cursor () const { return Cursor (line(), column()); }
+
+//
+// operators for: MovingCursor <-> MovingCursor
+//
+    /**
+     * Equality operator.
+     *
+     * \note comparison between two invalid cursors is undefined.
+     *       comparison between and invalid and a valid cursor will always be \e false.
+     *
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e equal.
+     */
+    inline friend bool operator==(const MovingCursor& c1, const MovingCursor& c2)
+      { return c1.line() == c2.line() && c1.column() == c2.column(); }
+
+    /**
+     * Inequality operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e not equal.
+     */
+    inline friend bool operator!=(const MovingCursor& c1, const MovingCursor& c2)
+      { return !(c1 == c2); }
+
+    /**
+     * Greater than operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than c2's position,
+     *         otherwise \e false.
+     */
+    inline friend bool operator>(const MovingCursor& c1, const MovingCursor& c2)
+      { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.column() > c2.column()); }
+
+    /**
+     * Greater than or equal to operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise \e false.
+     */
+    inline friend bool operator>=(const MovingCursor& c1, const MovingCursor& c2)
+      { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.column() >= c2.column()); }
+
+    /**
+     * Less than operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise \e false.
+     */
+    inline friend bool operator<(const MovingCursor& c1, const MovingCursor& c2)
+      { return !(c1 >= c2); }
+
+    /**
+     * Less than or equal to operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is lesser than or equal to c2's
+     *         position, otherwise \e false.
+     */
+    inline friend bool operator<=(const MovingCursor& c1, const MovingCursor& c2)
+      { return !(c1 > c2); }
 
     /**
      * kDebug() stream operator. Writes this cursor to the debug output in a nicely formatted way.

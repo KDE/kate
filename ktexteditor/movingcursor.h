@@ -284,7 +284,7 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * Equality operator.
      *
      * \note comparison between two invalid cursors is undefined.
-     *       comparison between and invalid and a valid cursor will always be \e false.
+     *       comparison between an invalid and a valid cursor will always be \e false.
      *
      * \param c1 first cursor to compare
      * \param c2 second cursor to compare

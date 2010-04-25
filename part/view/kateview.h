@@ -265,10 +265,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     const QList<KTextEditor::SmartRange*>& externalHighlights() const;
     void clearExternalHighlights();
 
-    void addInternalHighlight(KTextEditor::SmartRange* topRange);
-    void removeInternalHighlight(KTextEditor::SmartRange* topRange);
-    const QList<KTextEditor::SmartRange*>& internalHighlights() const;
-
     // Action association extension
     void addActions(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& actions() const;
@@ -290,7 +286,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
     QList<KTextEditor::SmartRange*> m_externalHighlights;
     QList<KTextEditor::SmartRange*> m_externalHighlightsDynamic;
-    QList<KTextEditor::SmartRange*> m_internalHighlights;
     QList<KTextEditor::SmartRange*> m_actions;
 
   //

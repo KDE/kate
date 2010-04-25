@@ -274,9 +274,6 @@ KateView::~KateView()
   foreach (KTextEditor::SmartRange* range, m_externalHighlights)
     removeExternalHighlight(range);
 
-  foreach (KTextEditor::SmartRange* range, m_internalHighlights)
-    removeInternalHighlight(range);
-
   delete m_viewInternal;
 
   delete m_renderer;
@@ -2002,25 +1999,6 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, 
 bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 {
   return tagLines(range.start(), range.end(), realRange);
-}
-
-void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
-{
-  m_internalHighlights.append(topRange);
-
-  m_viewInternal->addHighlightRange(topRange);
-}
-
-void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
-{
-  m_internalHighlights.removeAll(topRange);
-
-  m_viewInternal->removeHighlightRange(topRange);
-}
-
-const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
-{
-  return m_internalHighlights;
 }
 
 void KateView::rangeDeleted( KTextEditor::SmartRange * range )

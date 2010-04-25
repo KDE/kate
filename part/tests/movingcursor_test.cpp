@@ -171,7 +171,147 @@ void MovingCursorTest::testConvenienceApi()
   QCOMPARE(moving->toCursor(), Cursor(4, 0));
 }
 
-void MovingCursorTest::testComparison()
+void MovingCursorTest::testOperators()
 {
-  // TODO: implement, once comparison is implemented
+    KateDocument doc (false, false, false);
+    doc.setText("--oo--\n"
+                "--oo--\n"
+                "--oo--");
+
+    // create lots of cursors for comparison
+    Cursor invalid = Cursor::invalid();
+    Cursor c02(0, 2);
+    Cursor c04(0, 4);
+    Cursor c14(1, 4);
+
+    MovingCursor* m02 = doc.newMovingCursor(Cursor(0, 2));
+    MovingCursor* m04 = doc.newMovingCursor(Cursor(0, 4));
+    MovingCursor* m14 = doc.newMovingCursor(Cursor(1, 4));
+
+    // invalid comparison
+    QVERIFY(invalid == invalid);
+    QVERIFY(invalid <= c02);
+    QVERIFY(invalid < c02);
+    QVERIFY(!(invalid > c02));
+    QVERIFY(!(invalid >= c02));
+
+    QVERIFY(!(invalid == *m02));
+    QVERIFY(invalid <= *m02);
+    QVERIFY(invalid < *m02);
+    QVERIFY(!(invalid > *m02));
+    QVERIFY(!(invalid >= *m02));
+
+    QVERIFY(!(*m02 == invalid));
+    QVERIFY(!(*m02 <= invalid));
+    QVERIFY(!(*m02 < invalid));
+    QVERIFY(*m02 > invalid);
+    QVERIFY(*m02 >= invalid);
+
+    // MovingCursor <-> MovingCursor
+    QVERIFY(*m02 == *m02);
+    QVERIFY(*m02 <= *m02);
+    QVERIFY(*m02 >= *m02);
+    QVERIFY(!(*m02 < *m02));
+    QVERIFY(!(*m02 > *m02));
+    QVERIFY(!(*m02 != *m02));
+
+    QVERIFY(!(*m02 == *m04));
+    QVERIFY(*m02 <= *m04);
+    QVERIFY(!(*m02 >= *m04));
+    QVERIFY(*m02 < *m04);
+    QVERIFY(!(*m02 > *m04));
+    QVERIFY(*m02 != *m04);
+
+    QVERIFY(!(*m04 == *m02));
+    QVERIFY(!(*m04 <= *m02));
+    QVERIFY(*m04 >= *m02);
+    QVERIFY(!(*m04 < *m02));
+    QVERIFY(*m04 > *m02);
+    QVERIFY(*m04 != *m02);
+
+    QVERIFY(!(*m02 == *m14));
+    QVERIFY(*m02 <= *m14);
+    QVERIFY(!(*m02 >= *m14));
+    QVERIFY(*m02 < *m14);
+    QVERIFY(!(*m02 > *m14));
+    QVERIFY(*m02 != *m14);
+
+    QVERIFY(!(*m14 == *m02));
+    QVERIFY(!(*m14 <= *m02));
+    QVERIFY(*m14 >= *m02);
+    QVERIFY(!(*m14 < *m02));
+    QVERIFY(*m14 > *m02);
+    QVERIFY(*m14 != *m02);
+
+    // MovingCursor <-> Cursor
+    QVERIFY(*m02 == c02);
+    QVERIFY(*m02 <= c02);
+    QVERIFY(*m02 >= c02);
+    QVERIFY(!(*m02 < c02));
+    QVERIFY(!(*m02 > c02));
+    QVERIFY(!(*m02 != c02));
+
+    QVERIFY(!(*m02 == c04));
+    QVERIFY(*m02 <= c04);
+    QVERIFY(!(*m02 >= c04));
+    QVERIFY(*m02 < c04);
+    QVERIFY(!(*m02 > c04));
+    QVERIFY(*m02 != c04);
+
+    QVERIFY(!(*m04 == c02));
+    QVERIFY(!(*m04 <= c02));
+    QVERIFY(*m04 >= c02);
+    QVERIFY(!(*m04 < c02));
+    QVERIFY(*m04 > c02);
+    QVERIFY(*m04 != c02);
+
+    QVERIFY(!(*m02 == c14));
+    QVERIFY(*m02 <= c14);
+    QVERIFY(!(*m02 >= c14));
+    QVERIFY(*m02 < c14);
+    QVERIFY(!(*m02 > c14));
+    QVERIFY(*m02 != c14);
+
+    QVERIFY(!(*m14 == c02));
+    QVERIFY(!(*m14 <= c02));
+    QVERIFY(*m14 >= c02);
+    QVERIFY(!(*m14 < c02));
+    QVERIFY(*m14 > c02);
+    QVERIFY(*m14 != c02);
+
+    // Cursor <-> MovingCursor
+    QVERIFY(c02 == *m02);
+    QVERIFY(c02 <= *m02);
+    QVERIFY(c02 >= *m02);
+    QVERIFY(!(c02 < *m02));
+    QVERIFY(!(c02 > *m02));
+    QVERIFY(!(c02 != *m02));
+
+    QVERIFY(!(c02 == *m04));
+    QVERIFY(c02 <= *m04);
+    QVERIFY(!(c02 >= *m04));
+    QVERIFY(c02 < *m04);
+    QVERIFY(!(c02 > *m04));
+    QVERIFY(c02 != *m04);
+
+    QVERIFY(!(c04 == *m02));
+    QVERIFY(!(c04 <= *m02));
+    QVERIFY(c04 >= *m02);
+    QVERIFY(!(c04 < *m02));
+    QVERIFY(c04 > *m02);
+    QVERIFY(c04 != *m02);
+
+    QVERIFY(!(c02 == *m14));
+    QVERIFY(c02 <= *m14);
+    QVERIFY(!(c02 >= *m14));
+    QVERIFY(c02 < *m14);
+    QVERIFY(!(c02 > *m14));
+    QVERIFY(c02 != *m14);
+
+    QVERIFY(!(c14 == *m02));
+    QVERIFY(!(c14 <= *m02));
+    QVERIFY(c14 >= *m02);
+    QVERIFY(!(c14 < *m02));
+    QVERIFY(c14 > *m02);
+    QVERIFY(c14 != *m02);
 }

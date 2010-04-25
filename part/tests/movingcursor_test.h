@@ -33,7 +33,7 @@ public:
 private Q_SLOTS:
   void testMovingCursor();
   void testConvenienceApi();
-  void testComparison();
+  void testOperators();
 };
 
 #endif // KATE_MOVINGCURSOR_TEST_H

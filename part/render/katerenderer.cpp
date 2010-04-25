@@ -359,7 +359,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
       }
 
       // Add arbitrary highlighting ranges to the list
-      renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
+      renderRanges.appendRanges(m_view->externalHighlights(), view());
     } else {
       // Add the code completion arbitrary highlight to the list
       renderRanges.append(completionHighlight);

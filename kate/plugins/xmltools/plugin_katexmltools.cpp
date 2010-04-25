@@ -160,7 +160,7 @@ PluginKateXMLToolsView::~PluginKateXMLToolsView()
   //TODO: unregister the model
 }
 
-PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *parent ) : CodeCompletionModel (parent)
+PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *parent ) : CodeCompletionModel2 (parent)
 {
   m_dtdString.clear();
   m_urlString.clear();
@@ -608,48 +608,50 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
     kv->insertText( closeTag );
 }
 
-#if 0 // not ported yet
+
 // modify the completion string before it gets inserted
-void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::CompletionItem *ce, QString *text )
+void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Document *document,
+                                                                const KTextEditor::Range &word,
+                                                                const QModelIndex &index ) const
 {
-  kDebug() << "filterInsertString str: " << *text;
-  kDebug() << "filterInsertString text: " << ce.text();
+  KTextEditor::Range toReplace = word;
 
-  if ( !application()->activeMainWindow() )
-    return;
+  QString text = data( index.sibling( index.row(), Name ), Qt::DisplayRole ).toString();
 
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
+  kDebug() << "executeCompletionItem text: " << text;
+
+  KTextEditor::View *kv = document->activeView();
   if( ! kv )
   {
     kDebug() << "Warning (filterInsertString() ): no KTextEditor::View";
     return;
   }
 
-  uint line, col;
-  kv->cursorPositionReal( &line, &col );
-  QString lineStr = kv->getDoc()->textLine(line );
+  int line, col;
+  kv->cursorPosition().position( line, col );
+  QString lineStr = document->line( line );
   QString leftCh = lineStr.mid( col-1, 1 );
   QString rightCh = lineStr.mid( col, 1 );
 
-  m_correctPos = 0;	// where to move the cursor after completion ( >0 = move right )
+  int posCorrection = 0;	// where to move the cursor after completion ( >0 = move right )
   if( m_mode == entities )
   {
     // This is a bit ugly, but entities are case-sensitive
     // and we want the correct completion even if the user started typing
     // e.g. in lower case but the entity is in upper case
-    kv->getDoc()->removeText( line, col - (ce->text.length() - text->length()), line, col );
-    *text = ce->text + ';';
+    // document->removeText( line, col - (ce->text.length() - text->length()), line, col );
+    text = text + ';';
   }
 
   else if( m_mode == attributes )
   {
-    *text = *text + "=\"\"";
-    m_correctPos = -1;
+    text = text + "=\"\"";
+    posCorrection = -1;
     if( !rightCh.isEmpty() && rightCh != ">" && rightCh != "/" && rightCh != " " )
     {	// TODO: other whitespaces
       // add space in front of the next attribute
-      *text = *text + ' ';
-      m_correctPos--;
+      text = text + ' ';
+      posCorrection--;
     }
   }
 
@@ -668,65 +670,47 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
     }
 
     // find right quote:
-    for( endAttValue = col; endAttValue <= lineStr.length(); endAttValue++ )
+    for( endAttValue = col; endAttValue <= (uint) lineStr.length(); endAttValue++ )
     {
       QString ch = lineStr.mid( endAttValue-1, 1 );
       if( isQuote(ch) )
         break;
     }
 
-    // maybe the user has already typed something to trigger completion,
-    // don't overwrite that:
-    startAttValue += ce->text.length() - text->length();
-		// delete the current contents of the attribute:
+    // replace the current contents of the attribute
     if( startAttValue < endAttValue )
-    {
-      kv->getDoc()->removeText( line, startAttValue, line, endAttValue-1 );
-      // FIXME: this makes the scrollbar jump
-      // but without it, inserting sometimes goes crazy :-(
-      kv->setCursorPositionReal( line, startAttValue );
-    }
+      toReplace = KTextEditor::Range( line, startAttValue, line, endAttValue-1 );
   }
 
   else if( m_mode == elements )
   {
     // anders: if the tag is marked EMPTY, insert in form <tagname/>
     QString str;
-    KTextEditor::Document *doc = kv->document();
-    bool isEmptyTag =m_docDtds[doc]->allowedElements(ce->text).contains( "__EMPTY" );
+    bool isEmptyTag =m_docDtds[document]->allowedElements(text).contains( "__EMPTY" );
     if ( isEmptyTag )
-      str = "/>";
+      str = text + "/>";
     else
-      str = "></" + ce->text + '>';
-    *text = *text + str;
+      str = text + "></" + text + '>';
 
     // Place the cursor where it is most likely wanted:
     // always inside the tag if the tag is empty AND the DTD indicates that there are attribs)
     // outside for open tags, UNLESS there are mandatory attributes
-    if ( m_docDtds[doc]->requiredAttributes(ce->text).count()
-         || ( isEmptyTag && m_docDtds[doc]->allowedAttributes( ce->text).count() ) )
-      m_correctPos = - str.length();
+    if ( m_docDtds[document]->requiredAttributes(text).count()
+         || ( isEmptyTag && m_docDtds[document]->allowedAttributes(text).count() ) )
+      posCorrection = text.length() - str.length();
     else if ( ! isEmptyTag )
-      m_correctPos = -str.length() + 1;
-  }
-}
+      posCorrection = text.length() - str.length() + 1;
 
-static void correctPos( KTextEditor::View *kv, int count )
-{
-  /*TODO:port to cursor arithmetics
-  if( count > 0 )
-  {
-    for( int i = 0; i < count; i++ )
-      kv->cursorRight();
+    text = str;
   }
-  else if( count < 0 )
-  {
-    for( int i = 0; i < -count; i++ )
-      kv->cursorLeft();
-  }
-  */
+
+  document->replaceText( toReplace, text );
+
+  // move the cursor to desired position
+  KTextEditor::Cursor curPos = kv->cursorPosition();
+  curPos.setColumn( curPos.column() + posCorrection );
+  kv->setCursorPosition( curPos );
 }
-#endif
 
 
 // ========================================================================

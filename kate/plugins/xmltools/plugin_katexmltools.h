@@ -52,7 +52,7 @@ class PluginKateXMLTools : public Kate::Plugin
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
-class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
+class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface3
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
@@ -62,6 +62,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     virtual ~PluginKateXMLToolsCompletionModel();
 
     virtual QVariant data(const QModelIndex &idx, int role) const;
+    virtual void executeCompletionItem2( KTextEditor::Document *document, const KTextEditor::Range &word, const QModelIndex &index ) const;
 
     virtual bool shouldStartCompletion( KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position );
 
@@ -90,10 +91,10 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     QString insideTag( KTextEditor::View &kv );
     QString insideAttribute( KTextEditor::View &kv );
 
-    bool isOpeningTag( QString tag );
-    bool isClosingTag( QString tag );
-    bool isEmptyTag( QString tag );
-    bool isQuote( QString ch );
+    static bool isOpeningTag( QString tag );
+    static bool isClosingTag( QString tag );
+    static bool isEmptyTag( QString tag );
+    static bool isQuote( QString ch );
 
     QString getParentElement( KTextEditor::View &view, bool ignoreSingleBracket );
 

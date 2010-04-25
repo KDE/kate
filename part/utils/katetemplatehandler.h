@@ -22,9 +22,6 @@
 #ifndef _KATE_TEMPLATE_HANDLER_H_
 #define _KATE_TEMPLATE_HANDLER_H_
 
-
-#include "katesmartrange.h"
-#include "kateview.h"
 #include <QtCore/QPointer>
 #include <QtCore/QObject>
 #include <QtCore/QMap>
@@ -34,10 +31,10 @@
 #include <QtCore/QRegExp>
 
 class KateDocument;
+class KateView;
 class KateUndoManager;
 
 namespace KTextEditor {
-  class SmartRange;
   class MovingCursor;
   class MovingRange;
 }
@@ -141,7 +138,7 @@ class KateTemplateHandler: public QObject
     /**
      * Set selection to \p range and move the cursor to it's beginning.
      */
-    void setCurrentRange(KTextEditor::SmartRange* range);
+    void setCurrentRange(KTextEditor::MovingRange* range);
 
     /**
      * Syncs the contents of all mirrored ranges for a given variable.
@@ -149,7 +146,7 @@ class KateTemplateHandler: public QObject
      * \param range The range that acts as base. It's contents will be propagated.
      *              Mirrored ranges can be found as child of a child of \p m_templateRange
      */
-    void syncMirroredRanges(KTextEditor::SmartRange* range);
+    void syncMirroredRanges(KTextEditor::MovingRange* range);
 
 public:
     class MirrorBehaviour {
@@ -173,7 +170,7 @@ public:
     };
 private:
 
-    QHash<KTextEditor::SmartRange*,MirrorBehaviour> m_mirrorBehaviour;
+    QHash<KTextEditor::MovingRange*,MirrorBehaviour> m_mirrorBehaviour;
 
 
     /**
@@ -231,7 +228,12 @@ private:
     /// NOTE: this design is due to some Kate limiations with overlapping ranges.
     ///       and using a structure like Parent -> NotMirrored + MirrorParents -> Mirrors
     ///       leads to overlaps, since mirrors often occur anywhere in the template text.
-    QList<KTextEditor::SmartRange*> m_templateRanges;
+    QList<KTextEditor::MovingRange*> m_templateRanges;
+    
+    /// mapping of ranges to there children
+    QMap<KTextEditor::MovingRange*, QList<KTextEditor::MovingRange*> > m_templateRangesChildren;
+    QMap<KTextEditor::MovingRange*, KTextEditor::MovingRange*> m_templateRangesChildToParent;
+    
     /// A range that occupies the whole range of the inserted template.
     /// When the cursor moves outside it, the template handler gets closed.
     KTextEditor::MovingRange *m_wholeTemplateRange;
@@ -239,15 +241,12 @@ private:
     KTextEditor::MovingCursor *m_finalCursorPosition;
     /// The last caret position during editing.
     KTextEditor::Cursor m_lastCaretPosition;
-    /// SmartRanges that are still in this list have not yet been changed. Hence they'll
+    /// MovingRanges that are still in this list have not yet been changed. Hence they'll
     /// be selected when they get focused. All others just get the cursor placed at the
     /// beginning.
-    QList<KTextEditor::SmartRange*> m_uneditedRanges;
+    QList<KTextEditor::MovingRange*> m_uneditedRanges;
     /// stores the master ranges for mirroring, otherwise just the range, needed for cursor placement
-    QList<KTextEditor::SmartRange*> m_masterRanges;
-    /// Sorted list of all ranges in one level.
-    /// \see fixAdjacentInsertBehavior()
-    QList<KTextEditor::SmartRange*> m_AllRangesSorted;
+    QList<KTextEditor::MovingRange*> m_masterRanges;
     /// Set to true when we are currently mirroring, to prevent recursion.
     bool m_isMirroring;
     /// Whether undo tracking is enabled in the undo manager.
@@ -257,7 +256,7 @@ private:
     /// script token for the template script, which might be used by the current template
     QString m_scriptToken;
 
-    QList<KTextEditor::SmartRange*> m_spacersSmart;
+    QList<KTextEditor::MovingRange*> m_spacersMovingRanges;
 
     bool m_initialRemodify;
 };

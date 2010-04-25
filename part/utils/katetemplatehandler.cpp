@@ -19,9 +19,13 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include <QtCore/QQueue>
+
+#include <ktexteditor/movingcursor.h>
+#include <ktexteditor/movingrange.h>
+
 #include "katetemplatehandler.h"
 #include "katedocument.h"
-#include "katesmartcursor.h"
 #include "kateview.h"
 #include "kateconfig.h"
 #include "katerenderer.h"
@@ -31,29 +35,16 @@
 #include "script/katetemplatescript.h"
 #include "script/katescriptmanager.h"
 
-#include <ktexteditor/movingcursor.h>
-#include <ktexteditor/movingrange.h>
-#include <ktexteditor/cursor.h>
-#include <ktexteditor/smartcursor.h>
-#include <ktexteditor/smartrange.h>
-#include <ktexteditor/range.h>
-#include <ktexteditor/attribute.h>
-
-#include <QtCore/QQueue>
-
-#include <kdebug.h>
-
-
 using namespace KTextEditor;
 
 #define ifDebug(x) x;
 
-static bool cmp_smart_ranges(const KTextEditor::SmartRange* r1, const KTextEditor::SmartRange* r2) {
+static bool cmp_moving_ranges (const KTextEditor::MovingRange* r1, const KTextEditor::MovingRange* r2) {
   return r1->start()<r2->start();
 }
 
 /// just like Range::contains() but returns true when the cursor is at the end of the range
-static bool customContains(SmartRange* range, const Cursor& cursor)
+static bool customContains(MovingRange* range, const Cursor& cursor)
 {
   return range->start() <= cursor && range->end() >= cursor;
 }
@@ -164,16 +155,6 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
              this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 }
 
-/// simple wrapper to delete a smartrange
-void deleteSmartRange(SmartRange* range, KateDocument* doc) {
-  doc->removeHighlightFromDocument(range);
-  SmartCursor* start = &range->smartStart();
-  SmartCursor* end = &range->smartEnd();
-  doc->unbindSmartRange(range);
-  delete start;
-  delete end;
-}
-
 void KateTemplateHandler::cleanupAndExit()
 {
   ifDebug(kDebug() << "cleaning up and exiting";)
@@ -187,18 +168,27 @@ void KateTemplateHandler::cleanupAndExit()
              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
 
   if ( !m_templateRanges.isEmpty() ) {
-      foreach ( SmartRange* range, m_templateRanges ) {
-        deleteSmartRange(range, doc());
+      foreach ( MovingRange* range, m_templateRanges ) {
+        // delete all children
+        foreach (MovingRange* child, m_templateRangesChildren[range])
+          delete child;
+        
+        delete range;
       }
       m_templateRanges.clear();
+      m_templateRangesChildren.clear();
+      m_templateRangesChildToParent.clear();
   }
+  // no children if no ranges around
+  Q_ASSERT (m_templateRangesChildren.isEmpty());
+  Q_ASSERT (m_templateRangesChildToParent.isEmpty());
 
-  if (!m_spacersSmart.isEmpty()) {
-    foreach (SmartRange* range, m_spacersSmart ) {
+  if (!m_spacersMovingRanges.isEmpty()) {
+    foreach (MovingRange* range, m_spacersMovingRanges ) {
       doc()->removeText(*range);
-      deleteSmartRange(range,doc());
+      delete range;
     }
-    m_spacersSmart.clear();
+    m_spacersMovingRanges.clear();
   }
 
   delete m_wholeTemplateRange;
@@ -286,14 +276,14 @@ void KateTemplateHandler::jumpToPreviousRange()
     setCurrentRange(m_masterRanges.last());
     return;
   }
-  SmartRange* previousRange = 0;
-  foreach ( SmartRange* range, m_masterRanges ) {
+  MovingRange* previousRange = 0;
+  foreach ( MovingRange* range, m_masterRanges ) {
     if ( range->start() >= cursor ) {
       continue;
     }
     if ( !previousRange || range->start() > previousRange->start() ) {
       previousRange = range;
-      if (previousRange->parentRange()) previousRange=previousRange->parentRange();
+      if (m_templateRangesChildToParent.value (previousRange)) previousRange=m_templateRangesChildToParent.value (previousRange);
     }
   }
   if ( previousRange ) {
@@ -312,8 +302,8 @@ void KateTemplateHandler::jumpToNextRange()
     setCurrentRange(m_masterRanges.first());
     return;
   }
-  SmartRange* nextRange = 0;
-  foreach ( SmartRange* range, m_masterRanges ) {
+  MovingRange* nextRange = 0;
+  foreach ( MovingRange* range, m_masterRanges ) {
     if ( range->start() <= cursor ) {
       continue;
     }
@@ -322,7 +312,7 @@ void KateTemplateHandler::jumpToNextRange()
     }
   }
   if ( nextRange ) {
-    if (nextRange->parentRange()) nextRange=nextRange->parentRange();
+    if (m_templateRangesChildToParent.value (nextRange)) nextRange=m_templateRangesChildToParent.value (nextRange);
     setCurrentRange(nextRange);
   } else {
     // wrap and jump to final cursor
@@ -330,13 +320,13 @@ void KateTemplateHandler::jumpToNextRange()
   }
 }
 
-void KateTemplateHandler::setCurrentRange(SmartRange* range)
+void KateTemplateHandler::setCurrentRange(MovingRange* range)
 {
-  if ( !range->childRanges().isEmpty() ) {
+  if ( !m_templateRangesChildren[range].isEmpty() ) {
     ifDebug(kDebug()<<"looking for mirroring range";)
     // jump to first mirrored range
     bool found=false;
-    foreach (SmartRange* childRange,range->childRanges()) {
+    foreach (MovingRange* childRange,m_templateRangesChildren[range]) {
       ifDebug(kDebug()<<"checking range equality";);
       if (m_masterRanges.contains(childRange)) {
         ifDebug(kDebug()<<"found master range";);
@@ -344,7 +334,7 @@ void KateTemplateHandler::setCurrentRange(SmartRange* range)
         found=true;
         break;
       }
-    if (!found) range = range->childRanges().first();
+    if (!found) range = m_templateRangesChildren[range].first();
     }
 
   }
@@ -594,7 +584,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           }
           //replace part
           if (searchValid) {
-            uint last_slash=searchReplace.lastIndexOf("/");
+            int last_slash=searchReplace.lastIndexOf("/");
             if (last_slash!=-1) {
               replace=searchReplace.left(last_slash);
               replaceValid=true;
@@ -693,19 +683,22 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   m_wholeTemplateRange->setAttribute(getAttribute(config->templateBackgroundColor(), 200));
 
-  // create smart ranges for each found variable
+  // create moving ranges ranges for each found variable
   // if the variable exists more than once, create "mirrored" ranges
   foreach ( const QString& key, keyQueue ) {
     const QList<Range> &values = ranges.values(key);
     // used as parent for mirrored variables,
     // and as only item for not-mirrored variables
-    SmartRange* parent = doc()->newSmartRange(values.last(), 0, SmartRange::ExpandLeft | SmartRange::ExpandRight);
+    MovingRange* parent = doc()->newMovingRange(values.last(), MovingRange::ExpandLeft | MovingRange::ExpandRight);
     if ( values.size() > 1 ) {
       // add all "real" ranges as children
       for (int i = 0; i < values.size(); ++i )  {
-        SmartRange* range = doc()->newSmartRange(
-          values[i], parent, SmartRange::ExpandLeft | SmartRange::ExpandRight
-        );
+        MovingRange* range = doc()->newMovingRange(values[i], MovingRange::ExpandLeft | MovingRange::ExpandRight);
+        
+        // remember child - parent mapping
+        m_templateRangesChildren[parent].push_back (range);
+        m_templateRangesChildToParent[range] = parent;
+        
         // the last item will be our real first range (see multimap docs)
         if ( i == values.size() - 1 ) {
           range->setAttribute(editableAttribute);
@@ -723,24 +716,22 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       m_masterRanges.append(parent);
     }
 
-    doc()->addHighlightToDocument(parent, true);
     m_templateRanges.append(parent);
   }
 
+  // create spacers, only once create the attribute
+  Attribute::Ptr attribute(new Attribute());
+  attribute->setFont(QFont("fixed",1));
+  attribute->setFontStrikeOut(true);
+  attribute->setFontOverline(true);
+  attribute->setFontUnderline(true);
   foreach ( const Range& spacer, spacers) {
-    SmartRange *r=doc()->newSmartRange(spacer,0);
-    Attribute::Ptr attribute(new Attribute());
-    //attribute->setBackground(QBrush(Qt::yellow));
-    attribute->setFont(QFont("fixed",1));
-    attribute->setFontStrikeOut(true);
-    attribute->setFontOverline(true);
-    attribute->setFontUnderline(true);
+    MovingRange *r=doc()->newMovingRange (spacer);    
     r->setAttribute(attribute);
-    doc()->addHighlightToDocument(r,true);
-    m_spacersSmart.append(r);
+    m_spacersMovingRanges.append(r);
   }
 
-  qSort(m_masterRanges.begin(),m_masterRanges.end(),cmp_smart_ranges);
+  qSort(m_masterRanges.begin(),m_masterRanges.end(),cmp_moving_ranges);
 
   setCurrentRange(m_templateRanges.first());
   mirrorBehaviourBuildHelper.clear();
@@ -749,7 +740,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   //THIS WOULD REDUCE MIRRORING ACTIONS
 
   m_initialRemodify=true;
-  foreach(SmartRange* smr,m_masterRanges) {
+  foreach(MovingRange* smr,m_masterRanges) {
     slotTextChanged(doc(),Range(*smr));
   }
   m_initialRemodify=false;
@@ -799,14 +790,14 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   // TODO: make it possible to select either, the left or right rannge (LOWPRIO)
 
   // The found child range to act as base for mirroring.
-  SmartRange* baseRange = 0;
+  MovingRange* baseRange = 0;
   // The left-adjacent range that gets some special treatment (if it exists).
-  SmartRange* leftAdjacentRange = 0;
+  MovingRange* leftAdjacentRange = 0;
 
-  foreach ( SmartRange* parent, m_templateRanges ) {
+  foreach ( MovingRange* parent, m_templateRanges ) {
     if ( customContains(parent, range.start()) )
     {
-      if ( parent->childRanges().isEmpty() ) {
+      if ( m_templateRangesChildren[parent].isEmpty() ) {
         // simple, not-mirrored range got changed
         m_uneditedRanges.removeOne(parent);
       } else {
@@ -814,7 +805,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
         if ( baseRange ) {
           // look for adjacent range (we find the right-handed one here)
           ifDebug(kDebug() << "looking for adjacent mirror to" << *baseRange;)
-          foreach ( SmartRange* child, parent->childRanges() ) {
+          foreach ( MovingRange* child, m_templateRangesChildren[parent] ) {
             if ( child->start() == range.start() && child->end() >= range.end() ) {
               ifDebug(kDebug() << "found adjacent mirror - using as base" << *child;)
               leftAdjacentRange = baseRange;
@@ -826,7 +817,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
           break;
         } else {
           // find mirrored range that got edited
-          foreach ( SmartRange* child, parent->childRanges() ) {
+          foreach ( MovingRange* child, m_templateRangesChildren[parent] ) {
             if ( customContains(child, range.start()) ) {
               baseRange = child;
               break;
@@ -852,7 +843,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     if ( leftAdjacentRange ) {
       // revert that something got added to the adjacent range
       ifDebug(kDebug() << "removing edited range" << range << "from left adjacent range" << *leftAdjacentRange;)
-      leftAdjacentRange->end() = range.start();
+      leftAdjacentRange->setRange(Range (leftAdjacentRange->start(), range.start()));
       ifDebug(kDebug() << "new range:" << *leftAdjacentRange;)
     }
     syncMirroredRanges(baseRange);
@@ -866,9 +857,9 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   }
 }
 
-void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
+void KateTemplateHandler::syncMirroredRanges(MovingRange* range)
 {
-  Q_ASSERT(m_templateRanges.contains(range->parentRange()));
+  Q_ASSERT(m_templateRanges.contains(m_templateRangesChildToParent[range]));
 
   m_isMirroring = true;
   doc()->editStart();
@@ -876,7 +867,7 @@ void KateTemplateHandler::syncMirroredRanges(SmartRange* range)
   const QString &newText = doc()->text(*range);
   ifDebug(kDebug() << "mirroring" << newText << "from" << *range;)
 
-  foreach ( SmartRange* sibling, range->parentRange()->childRanges() ) {
+  foreach ( MovingRange* sibling, m_templateRangesChildren[m_templateRangesChildToParent[range]] ) {
     if ( sibling != range ) {
       doc()->replaceText(*sibling, m_mirrorBehaviour[sibling].getMirrorString(newText));
     }

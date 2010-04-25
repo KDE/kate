@@ -42,6 +42,7 @@
 #include "kateschema.h"
 #include "katetemplatehandler.h"
 #include "katesmartmanager.h"
+#include "katesmartrange.h"
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"

@@ -105,9 +105,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_viInputMode(false)
   , m_viInputModeManager (0)
 {
-  m_watcherCount1 = 0;
-  m_watcherCount3 = 0;
-
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
   setAttribute(Qt::WA_InputMethodEnabled);
@@ -223,7 +220,6 @@ KateViewInternal::KateViewInternal(KateView *view)
 void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
   if (range->watchers().contains(this)) {
-    --m_watcherCount1;
     range->removeWatcher(watcher);
     //kDebug( 13030 ) << *range;
   }
@@ -240,7 +236,6 @@ void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::S
 
   if (!range->watchers().contains(watcher)) {
     range->addWatcher(watcher);
-    ++m_watcherCount1;
     Q_ASSERT(range->watchers().contains(watcher));
     //kDebug( 13030 ) << *range;
   }
@@ -3516,7 +3511,6 @@ void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
   QMutexLocker lock(doc()->smartMutex());
 
   relayoutRange(*range);
-  ++m_watcherCount3;
   addWatcher(range, this);
 }
 
@@ -3525,7 +3519,6 @@ void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
   QMutexLocker lock(doc()->smartMutex());
 
   relayoutRange(*range);
-  --m_watcherCount3;
   removeWatcher(range, this);
 }
 

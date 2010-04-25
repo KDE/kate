@@ -432,7 +432,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
-    int m_watcherCount1, m_watcherCount3;
 
   private:
     inline KateDocument *doc() { return m_view->doc(); }

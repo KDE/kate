@@ -269,10 +269,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void deactivateEditActions();
     void activateEditActions();
 
-  Q_SIGNALS:
-    void dynamicHighlightAdded(KateSmartRange* range);
-    void dynamicHighlightRemoved(KateSmartRange* range);
-
   public Q_SLOTS:
     void removeExternalHighlight(KTextEditor::SmartRange* topRange);
 
@@ -281,8 +277,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     virtual void rangeDeleted(KTextEditor::SmartRange* range);
 
     QList<KTextEditor::SmartRange*> m_externalHighlights;
-    QList<KTextEditor::SmartRange*> m_externalHighlightsDynamic;
-    QList<KTextEditor::SmartRange*> m_actions;
 
   //
   // internal helper stuff, for katerenderer and so on

@@ -655,9 +655,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     void aboutToInvalidateMovingInterfaceContent (KTextEditor::Document *document);
 
-  Q_SIGNALS:
-    void dynamicHighlightAdded(KateSmartRange* range);
-    void dynamicHighlightRemoved(KateSmartRange* range);
   public Q_SLOTS:
     virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
@@ -672,7 +669,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     KateSmartManager* const m_smartManager;
     QList<KTextEditor::SmartRange*> m_documentHighlights;
-    QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;
 
   //
   // Annotation Interface

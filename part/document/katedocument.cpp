@@ -2616,8 +2616,7 @@ void KateDocument::addView(KTextEditor::View *view) {
   m_textEditViews.append( view );
 
   foreach(KTextEditor::SmartRange* highlight, m_documentHighlights) {
-    Q_ASSERT(dynamic_cast<KateView*>(view));
-    static_cast<KateView*>(view)->addExternalHighlight(highlight, m_documentDynamicHighlights.contains(highlight));
+    static_cast<KateView*>(view)->addExternalHighlight(highlight, false);
 }
 
   // apply the view & renderer vars from the file type
@@ -4832,7 +4831,7 @@ bool KateDocument::replaceText( const KTextEditor::Range & range, const QString 
   return changed;
 }
 
-void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, bool supportDynamic )
+void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, bool )
 {
   if (m_documentHighlights.contains(topRange))
     return;
@@ -4842,13 +4841,8 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
   // Deal with the range being deleted externally
   topRange->addWatcher(this);
 
-  if (supportDynamic) {
-    m_documentDynamicHighlights.append(topRange);
-    emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
-  }
-
   foreach (KateView * view, m_views)
-    view->addExternalHighlight(topRange, supportDynamic);
+    view->addExternalHighlight(topRange, false);
 }
 
 void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
@@ -4861,11 +4855,6 @@ void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRan
 
   m_documentHighlights.removeAll(topRange);
   topRange->removeWatcher(this);
-
-  if (m_documentDynamicHighlights.contains(topRange)) {
-    m_documentDynamicHighlights.removeAll(topRange);
-    emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
-  }
 }
 
 const QList< KTextEditor::SmartRange * > KateDocument::documentHighlights( ) const

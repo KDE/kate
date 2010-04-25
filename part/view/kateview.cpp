@@ -2006,36 +2006,25 @@ void KateView::rangeDeleted( KTextEditor::SmartRange * range )
   removeExternalHighlight(range);
 }
 
-void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool supportDynamic )
+void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool )
 {
-  if(m_externalHighlights.contains(topRange)) {
+  if(m_externalHighlights.contains(topRange))
     return;
-  }
 
   m_externalHighlights.append(topRange);
 
   // Deal with the range being deleted externally
   topRange->addWatcher(this);
 
-  if (supportDynamic) {
-    m_externalHighlightsDynamic.append(topRange);
-    emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
-  }
-
   m_viewInternal->addHighlightRange(topRange);
 }
 
 void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
 {
-  if(!m_externalHighlights.contains(topRange)) {
+  if(!m_externalHighlights.contains(topRange))
     return;
-  }
-  m_externalHighlights.removeAll(topRange);
 
-  if (m_externalHighlightsDynamic.contains(topRange)) {
-    m_externalHighlightsDynamic.removeAll(topRange);
-    emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
-  }
+  m_externalHighlights.removeAll(topRange);
 
   m_viewInternal->removeHighlightRange(topRange);
 }

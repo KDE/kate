@@ -443,16 +443,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   private:
     bool m_viInputMode;
     bool m_viInputModeStealKeys;
-    //ViMode m_currentViMode;
-
-    //KateViNormalMode* m_viNormalMode;
-    //KateViNormalMode* getViNormalMode();
-
-    //KateViVisualMode* m_viVisualMode;
-    //KateViVisualMode* getViVisualMode();
-
-    //KateViInsertMode* m_viInsertMode;
-    //KateViInsertMode* getViInsertMode();
 
     /**
      * returns the current vi mode

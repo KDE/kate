@@ -376,15 +376,25 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
   /**
    * transform cursors
    */
-  KTextEditor::Cursor &start = range.start ();
-  KTextEditor::Cursor &end = range.end ();
+
+  // first: copy cursors, without range association
+  KTextEditor::Cursor start = range.start ();
+  KTextEditor::Cursor end = range.end ();
+
   bool moveOnInsertStart = !(insertBehaviors & KTextEditor::MovingRange::ExpandLeft);
   bool moveOnInsertEnd = (insertBehaviors & KTextEditor::MovingRange::ExpandRight);
   for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
     const Entry &entry = m_historyEntries[rev];
     entry.transformCursor (start, moveOnInsertStart);
     entry.transformCursor (end, moveOnInsertEnd);
+
+    // normalize them
+    if (end < start)
+      end = start;
   }
+
+  // now, copy cursors back
+  range.setRange (start, end);
 }
 
 }

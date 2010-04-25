@@ -130,9 +130,17 @@ void RangeTest::testCornerCaseInsertion()
 {
   KateDocument doc (false, false, false);
 
+  // lock first revision
+  doc.lockRevision (0);
+
   KTextEditor::MovingRange* rangeEdit = doc.newMovingRange(KTextEditor::Range(0,0,0,0));
   QCOMPARE(rangeEdit->toRange(), KTextEditor::Range(0,0,0,0));
 
   doc.insertText(KTextEditor::Cursor(0,0), "\n");
   QCOMPARE(rangeEdit->toRange(), KTextEditor::Range(1,0,1,0));
+
+  // test translate
+  KTextEditor::Range translateTest (0,0,0,0);
+  doc.transformRange (translateTest, KTextEditor::MovingRange::DoNotExpand, 0);
+  QCOMPARE(translateTest, KTextEditor::Range(1,0,1,0));
 }

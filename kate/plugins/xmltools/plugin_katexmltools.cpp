@@ -99,6 +99,7 @@ TODO:
 #include <khistorycombobox.h>
 #include <kcomponentdata.h>
 #include <kio/job.h>
+#include <kio/jobuidelegate.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
@@ -459,7 +460,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished( KJob *job )
   if( job->error() )
   {
     //kDebug() << "XML Plugin error: DTD in XML format (" << filename << " ) could not be loaded";
-    static_cast<KIO::Job*>(job)->showErrorDialog( 0 );
+    static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
   }
   else if ( static_cast<KIO::TransferJob *>(job)->isErrorPage() )
   {

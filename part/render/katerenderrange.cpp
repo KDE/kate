@@ -25,7 +25,6 @@
 #include <limits.h>
 
 #include "katesmartrange.h"
-#include "katedynamicanimation.h"
 #include <kcolorutils.h>
 
 void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::Ptr add)
@@ -250,7 +249,7 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* _range, bool intermediate)
     r = r->parentRange();
   }
   
-  if(m_attribs.isEmpty() || (range->attribute() && (range->attribute()->isValid() || range->attribute()->hasAnyProperty() || (m_useDynamic && range->hasDynamic())))) {
+  if(m_attribs.isEmpty() || (range->attribute() && (range->attribute()->isValid() || range->attribute()->hasAnyProperty()))) {
     //Only merge attributes if it's required
     KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
     if (!m_attribs.isEmpty())
@@ -259,11 +258,7 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* _range, bool intermediate)
     if (KTextEditor::Attribute::Ptr a2 = range->attribute())
       *a += *a2;
 
-    if (m_useDynamic && range->hasDynamic())
-      foreach (KateDynamicAnimation* anim, range->dynamicAnimations())
-	anim->mergeToAttribute(a);
-
-      m_attribs.push(a);
+    m_attribs.push(a);
   }else{
     m_attribs.push(m_attribs.top());
   }

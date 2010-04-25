@@ -111,7 +111,6 @@ smart/katesmartcursor.cpp
 smart/katesmartrange.cpp
 smart/katesmartmanager.cpp
 smart/katesmartcursornotifier.cpp
-smart/katesmartregion.cpp
 smart/katesmartgroup.cpp
 
 # syntax related stuff (highlighting, xml file parsing, folding, ...)
@@ -164,7 +163,6 @@ utils/katetemplatehandler.cpp
 utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp
-utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
 utils/katepartpluginmanager.cpp
 

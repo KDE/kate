@@ -26,9 +26,6 @@
 #include "kateview.h"
 #include <ktexteditor/attribute.h>
 #include "katesmartmanager.h"
-#include "katedynamicanimation.h"
-
-#include <kdebug.h>
 
 KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
   : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehavior)

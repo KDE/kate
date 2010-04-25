@@ -416,24 +416,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void removeHighlightRange(KTextEditor::SmartRange* range);
 
   private:
-    // Dynamic highlighting
-    struct DynamicRangeHL {
-      DynamicRangeHL(KateSmartRange* top);
-      ~DynamicRangeHL();
-
-      KateSmartRange* top;
-      bool isView;
-      KateSmartRange* caretOver;
-      KateSmartRange* mouseOver;
-      QHash<KateSmartRange*, QPointer<class KateDynamicAnimation> > caretAnimations;
-      QHash<KateSmartRange*, QPointer<KateDynamicAnimation> > mouseAnimations;
-    };
-
     void mouseMoved();
     void cursorMoved();
-    void dynamicMoved(bool mouse);
-    void startDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
-    void endDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
 
   private:
     // Overrides for watched highlighting ranges
@@ -444,14 +428,11 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute);
 
   public Q_SLOTS:
-    void dynamicHighlightAdded(KateSmartRange* range);
-    void dynamicHighlightRemoved(KateSmartRange* range);
     void rangeDeleted(KateSmartRange* range);
 
     void updateRange(KateSmartRange* range);
 
   private:
-    QHash<KateSmartRange*, DynamicRangeHL*> m_dynamicHighlights;
     bool m_smartDirty;
 
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);

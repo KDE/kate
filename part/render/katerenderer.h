@@ -26,7 +26,6 @@
 #include <ktexteditor/attribute.h>
 #include "katetextline.h"
 #include "katelinelayout.h"
-#include "katesmartregion.h"
 
 #include <QtGui/QFont>
 #include <QtGui/QFontMetrics>
@@ -221,8 +220,6 @@ public:
      */
     QList<QTextLayout::FormatRange> decorationsForLine(const Kate::TextLine& textLine, int line, bool selectionsOnly = false, KateRenderRange* completionHighlight = 0L, bool completionSelected = false) const;
 
-    KateSmartRegion& dynamicRegion() { return m_dynamicRegion; }
-
     // Width calculators
     uint spaceWidth() const;
     KDE_DEPRECATED uint textWidth(const Kate::TextLine &, int cursorCol);
@@ -340,8 +337,6 @@ public:
 
   private:
     KateRendererConfig *const m_config;
-
-    KateSmartRegion m_dynamicRegion;
 };
 
 #endif

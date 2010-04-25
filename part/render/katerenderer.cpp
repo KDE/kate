@@ -58,7 +58,6 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showSpaces(true)
     , m_printerFriendly(false)
     , m_config(new KateRendererConfig(this))
-    , m_dynamicRegion(doc)
 {
   updateAttributes ();
 }
@@ -425,8 +424,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
         currentPosition = subRange.start();
         endPosition = subRange.end();
       } else {
-        KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
-        rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
+        KTextEditor::Range rangeNeeded = m_view->selectionRange() & KTextEditor::Range(line, 0, line + 1, 0);
 
         currentPosition = qMax(KTextEditor::Cursor(line, 0), rangeNeeded.start());
         endPosition = qMin(KTextEditor::Cursor(line + 1, 0), rangeNeeded.end());
@@ -538,7 +536,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // set the pen color
       paint.setPen(attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color());
       // Draw the text :)
-      if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))) {
+      if (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line())) {
         // FIXME toVector() may be a performance issue
         additionalFormats = decorationsForLine(range->textLine(), range->line(), true).toVector();
         range->layout()->draw(&paint, QPoint(-xStart,0), additionalFormats);

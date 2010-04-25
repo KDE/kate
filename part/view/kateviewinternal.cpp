@@ -37,12 +37,12 @@
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katelayoutcache.h"
-#include "katedynamicanimation.h"
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
 #include "kateviinputmodemanager.h"
 #include "katevimodebar.h"
 #include "katesearchbar.h"
+#include "katesmartrange.h"
 #include "spellcheck/spellingmenu.h"
 
 #include <ktexteditor/movingrange.h>
@@ -213,11 +213,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
 
-  connect(doc(), SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
-  connect(doc(), SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
-  connect(m_view, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
-  connect(m_view, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
-
   // use a direct connect, otherwise the range pointer might already be invalid
   connect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)), Qt::DirectConnection);
 
@@ -261,8 +256,6 @@ KateViewInternal::~KateViewInternal ()
 {
   // crashes on close without
   disconnect (smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
-
-  qDeleteAll (m_dynamicHighlights);
 
   // kill preedit ranges
   delete m_imPreeditRange;
@@ -3433,119 +3426,8 @@ KateRenderer * KateViewInternal::renderer( ) const
   return m_view->renderer();
 }
 
-void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
+void KateViewInternal::rangeDeleted( KateSmartRange * )
 {
-  QMutexLocker lock(doc()->smartMutex());
-
-  DynamicRangeHL* hl = new DynamicRangeHL(range);
-  hl->isView = m_view == sender();
-
-  m_dynamicHighlights.insert(range, hl);
-
-  if (m_mouse.isValid())
-    // Could be more efficient when there are several ranges around
-    dynamicMoved(true);
-
-  dynamicMoved(false);
-}
-
-void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  removeWatcher(range, this);
-
-  delete m_dynamicHighlights.take(range);
-}
-
-void KateViewInternal::rangeDeleted( KateSmartRange * range )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if (m_dynamicHighlights.contains(range)) {
-    delete m_dynamicHighlights.take(range);
-    return;
-  }
-
-  foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
-    // FIXME if deletion signal was emitted in proper order, the hasParent hack would not be required
-    if (hl->mouseAnimations.contains(range))
-      delete hl->mouseAnimations.take(range);
-
-    if (hl->mouseOver && (hl->mouseOver == range || hl->mouseOver->hasParent(range))) {
-      hl->mouseOver = static_cast<KateSmartRange*>(range->parentRange());
-    }
-
-    if (hl->caretAnimations.contains(range))
-      delete hl->caretAnimations.take(range);
-
-    if (hl->caretOver && (hl->caretOver == range || hl->caretOver->hasParent(range))) {
-      hl->caretOver = static_cast<KateSmartRange*>(range->parentRange());
-    }
-  }
-}
-
-void KateViewInternal::startDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if (type == KTextEditor::Attribute::ActivateMouseIn)
-    range->setMouseOver(true);
-  else
-    range->setCaretOver(true);
-
-  if (!range->attribute() || !range->attribute()->dynamicAttribute(type))
-    return;
-
-  KateDynamicAnimation* anim;
-  if (hl->isView)
-    anim = new KateDynamicAnimation(m_view, range, type);
-  else
-    anim = new KateDynamicAnimation(doc(), range, type);
-
-  connect(anim, SIGNAL(redraw(KateSmartRange*)), SLOT(updateRange(KateSmartRange*)));
-
-  if (type == KTextEditor::Attribute::ActivateMouseIn)
-    hl->mouseAnimations.insert(range, anim);
-  else
-    hl->caretAnimations.insert(range, anim);
-
-  renderer()->dynamicRegion().addRange(range);
-}
-
-void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if (type == KTextEditor::Attribute::ActivateMouseIn)
-    range->setMouseOver(false);
-  else
-    range->setCaretOver(false);
-
-  if (!range->attribute() || !range->attribute()->dynamicAttribute(type))
-    return;
-
-  KateDynamicAnimation* anim = 0L;
-  if (type == KTextEditor::Attribute::ActivateMouseIn) {
-    Q_ASSERT(hl->mouseAnimations.contains(range));
-    anim = hl->mouseAnimations.take(range);
-
-  } else {
-    Q_ASSERT(hl->caretAnimations.contains(range));
-    anim = hl->caretAnimations.take(range);
-  }
-
-  if (anim)
-    anim->finish();
-
-  // it deletes itself
-  //delete anim;
-
-  // The animation object does this on deletion as well,
-  // but since the range could be deleted right after this
-  // and the animation takes some time, make sure
-  // we don't keep a dangling pointer.
-  renderer()->dynamicRegion().removeRange(range);
 }
 
 void KateViewInternal::updateRange(KateSmartRange* range)
@@ -3555,72 +3437,14 @@ void KateViewInternal::updateRange(KateSmartRange* range)
   updateDirty();
 }
 
-void KateViewInternal::dynamicMoved( bool mouse )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
-    QStack<KTextEditor::SmartRange*> enterStack, exitStack;
-    KTextEditor::SmartRange* oldRange = mouse ? hl->mouseOver : hl->caretOver;
-    KTextEditor::SmartRange* newRange;
-    if (mouse)
-      newRange = (hl->mouseOver ? hl->mouseOver : hl->top)->deepestRangeContaining(m_mouse, &enterStack, &exitStack);
-    else
-      newRange = (hl->caretOver ? hl->caretOver : hl->top)->deepestRangeContaining(m_cursor, &enterStack, &exitStack);
-
-    if (newRange != oldRange) {
-      if (newRange && !oldRange)
-        enterStack.prepend(newRange);
-
-      if (mouse)
-        hl->mouseOver = static_cast<KateSmartRange*>(newRange);
-      else
-        hl->caretOver = static_cast<KateSmartRange*>(newRange);
-
-      foreach (KTextEditor::SmartRange* exitedRange, exitStack) {
-        endDynamic(hl, static_cast<KateSmartRange*>(exitedRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
-        if (mouse)
-          static_cast<KateSmartRange*>(exitedRange)->feedbackMouseExitedRange(m_view);
-        else
-          static_cast<KateSmartRange*>(exitedRange)->feedbackCaretExitedRange(m_view);
-      }
-
-      foreach (KTextEditor::SmartRange* enteredRange, enterStack) {
-        if (mouse)
-          static_cast<KateSmartRange*>(enteredRange)->feedbackMouseEnteredRange(m_view);
-        else
-          static_cast<KateSmartRange*>(enteredRange)->feedbackCaretEnteredRange(m_view);
-        startDynamic(hl, static_cast<KateSmartRange*>(enteredRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
-      }
-    }
-  }
-}
-
 void KateViewInternal::mouseMoved( )
 {
   m_view->notifyMousePositionChanged(m_mouse);
-
-  dynamicMoved(true);
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateMouseIn);
-}
-
-KateViewInternal::DynamicRangeHL::DynamicRangeHL(KateSmartRange* _top)
-  : top(_top)
-  , isView(false)
-  , caretOver(0L)
-  , mouseOver(0L)
-{
-}
-
-KateViewInternal::DynamicRangeHL::~ DynamicRangeHL( )
-{
-  qDeleteAll(caretAnimations);
-  qDeleteAll(mouseAnimations);
 }
 
 void KateViewInternal::cursorMoved( )
 {
-  dynamicMoved(false);
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
 }
 

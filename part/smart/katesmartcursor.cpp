@@ -24,12 +24,25 @@
 #include "katedocument.h"
 #include "kateedit.h"
 #include "katesmartmanager.h"
-#include "katesmartcursornotifier.h"
 #include "katesmartrange.h"
 
+#include <ktexteditor/smartcursornotifier.h>
 #include <ktexteditor/smartcursorwatcher.h>
 
 #include <kdebug.h>
+
+/**
+ * Internal implementation of the smart cursor notifier.  Basically allows emission of signals.
+ * @author Hamish Rodda <rodda@kde.org>
+ */
+class KateSmartCursorNotifier : public KTextEditor::SmartCursorNotifier
+{
+  friend class KateSmartCursor;
+
+  public:
+    KateSmartCursorNotifier() : KTextEditor::SmartCursorNotifier () {}
+    virtual ~KateSmartCursorNotifier() {}
+};
 
 //#define DEBUG_KATESMARTCURSOR
 

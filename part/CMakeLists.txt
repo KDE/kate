@@ -110,7 +110,6 @@ search/katesearchbar.cpp
 smart/katesmartcursor.cpp
 smart/katesmartrange.cpp
 smart/katesmartmanager.cpp
-smart/katesmartcursornotifier.cpp
 smart/katesmartgroup.cpp
 
 # syntax related stuff (highlighting, xml file parsing, folding, ...)

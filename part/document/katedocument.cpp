@@ -248,10 +248,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   }
 
   connect(m_undoManager, SIGNAL(undoChanged()), this, SIGNAL(undoChanged()));
-  connect(m_undoManager, SIGNAL(undoStart()),   this, SLOT(emitInternalEditStart()));
-  connect(m_undoManager, SIGNAL(undoEnd()),     this, SLOT(emitInternalEditEnd()));
-  connect(m_undoManager, SIGNAL(redoStart()),   this, SLOT(emitInternalEditStart()));
-  connect(m_undoManager, SIGNAL(redoEnd()),     this, SLOT(emitInternalEditEnd()));
+  connect(m_undoManager, SIGNAL(undoStart(KTextEditor::Document*)),   this, SIGNAL(internalEditStart(KTextEditor::Document*)));
+  connect(m_undoManager, SIGNAL(undoEnd(KTextEditor::Document*)),     this, SIGNAL(internalEditEnd(KTextEditor::Document*)));
+  connect(m_undoManager, SIGNAL(redoStart(KTextEditor::Document*)),   this, SIGNAL(internalEditStart(KTextEditor::Document*)));
+  connect(m_undoManager, SIGNAL(redoEnd(KTextEditor::Document*)),     this, SIGNAL(internalEditEnd(KTextEditor::Document*)));
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
 

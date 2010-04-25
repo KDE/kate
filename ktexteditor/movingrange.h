@@ -273,6 +273,103 @@ class KTEXTEDITOR_EXPORT MovingRange
     inline friend QDebug operator<< (QDebug s, const MovingRange &range) {
       return s << &range;
     }
+
+    /**
+     * Returns true if this range contains no characters, ie. the start() and
+     * end() positions are the same.
+     *
+     * \returns \e true if the range contains no characters, otherwise \e false
+     */
+    inline bool isEmpty() const {
+      return start() == end();
+    }
+
+    //BEGIN comparison functions
+    /**
+     * \name Comparison
+     *
+     * The following functions perform checks against this range in comparison
+     * to other lines, columns, cursors, and ranges.
+     */
+    /**
+     * Check whether the this range wholly encompasses \e range.
+     *
+     * \param range range to check
+     *
+     * \return \e true, if this range contains \e range, otherwise \e false
+     */
+    inline bool contains(const Range& range) const {
+      return range.start() >= start() && range.end() <= end();
+    }
+    
+    /**
+     * Check to see if \p cursor is contained within this range, ie >= start() and \< end().
+     *
+     * \param cursor the position to test for containment
+     *
+     * \return \e true if the cursor is contained within this range, otherwise \e false.
+     */
+    inline bool contains(const Cursor& cursor) const {
+      return cursor >= start() && cursor < end();
+    }
+
+    /**
+     * Returns true if this range wholly encompasses \p line.
+     *
+     * \param line line to check
+     *
+     * \return \e true if the line is wholly encompassed by this range, otherwise \e false.
+     */
+    inline bool containsLine(int line) const {
+      return (line > start().line() || (line == start().line() && !start().column())) && line < end().line();
+    }
+
+    /**
+     * Check whether the range contains \e column.
+     *
+     * \param column column to check
+     *
+     * \return \e true if the range contains \e column, otherwise \e false
+     */
+    inline bool containsColumn(int column) const {
+      return column >= start().column() && column < end().column();
+    }
+
+    /**
+     * Check whether the this range overlaps with \e range.
+     *
+     * \param range range to check against
+     *
+     * \return \e true, if this range overlaps with \e range, otherwise \e false
+     */
+    bool overlaps(const Range& range) const;
+
+    /**
+     * Check whether the range overlaps at least part of \e line.
+     *
+     * \param line line to check
+     *
+     * \return \e true, if the range overlaps at least part of \e line, otherwise \e false
+     */
+    inline bool overlapsLine(int line) const {
+      return line >= start().line() && line <= end().line();
+    }
+
+    /**
+     * Check to see if this range overlaps \p column; that is, if \p column is
+     * between start().column() and end().column().  This function is most likely
+     * to be useful in relation to block text editing.
+     *
+     * \param column the column to test
+     *
+     * \return \e true if the column is between the range's starting and ending
+     *         columns, otherwise \e false.
+     */
+    inline bool overlapsColumn(int column) const {
+      return start().column() <= column && end().column() > column;
+    }
+    
+    //END comparison functions
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MovingRange::InsertBehaviors)

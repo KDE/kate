@@ -138,6 +138,28 @@ class KTEXTEDITOR_EXPORT MovingCursor
      */
     virtual ~MovingCursor ();
 
+    /**
+     * Equality operator.
+     *
+     * \note comparison between two invalid cursors is undefined.
+     *       comparison between and invalid and a valid cursor will always be \e false.
+     *
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e equal.
+     */
+    inline friend bool operator==(const MovingCursor& c1, const MovingCursor& c2)
+      { return c1.line() == c2.line() && c1.column() == c2.column(); }
+
+    /**
+     * Inequality operator.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e not equal.
+     */
+    inline friend bool operator!=(const MovingCursor& c1, const MovingCursor& c2)
+      { return !(c1 == c2); }
+    
   //
   // forbidden stuff
   //

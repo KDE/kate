@@ -204,7 +204,7 @@ void KateUndoGroup::undo (KTextEditor::View *view)
   if (m_items.isEmpty())
     return;
 
-  m_manager->undoStart ();
+  m_manager->startUndo ();
 
   for (int i=m_items.size()-1; i >= 0; --i)
     m_items[i]->undo();
@@ -219,7 +219,7 @@ void KateUndoGroup::undo (KTextEditor::View *view)
       view->setCursorPosition(m_undoCursor);
   }
 
-  m_manager->undoEnd ();
+  m_manager->endUndo ();
 }
 
 void KateUndoGroup::redo (KTextEditor::View *view)
@@ -227,7 +227,7 @@ void KateUndoGroup::redo (KTextEditor::View *view)
   if (m_items.isEmpty())
     return;
 
-  m_manager->undoStart ();
+  m_manager->startUndo ();
 
   for (int i=0; i < m_items.size(); ++i)
     m_items[i]->redo();
@@ -242,7 +242,7 @@ void KateUndoGroup::redo (KTextEditor::View *view)
       view->setCursorPosition(m_redoCursor);
   }
 
-  m_manager->undoEnd ();
+  m_manager->endUndo ();
 }
 
 void KateUndoGroup::editEnd(const KTextEditor::Cursor &cursorPosition, const KTextEditor::Range selectionRange)

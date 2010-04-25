@@ -127,8 +127,8 @@ class KateUndoManager : public QObject
      */
     void editEnd();
 
-    void undoStart();
-    void undoEnd();
+    void startUndo();
+    void endUndo();
 
     void inputMethodStart();
     void inputMethodEnd();

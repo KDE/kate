@@ -124,13 +124,13 @@ void KateUndoManager::inputMethodEnd()
   setActive(true);
 }
 
-void KateUndoManager::undoStart()
+void KateUndoManager::startUndo()
 {
   setActive(false);
   m_document->editStart();
 }
 
-void KateUndoManager::undoEnd()
+void KateUndoManager::endUndo()
 {
   m_document->editEnd();
   setActive(true);

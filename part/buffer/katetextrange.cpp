@@ -26,14 +26,14 @@
 
 namespace Kate {
 
-TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, InsertBehaviors insertBehavior)
+TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, InsertBehaviors insertBehavior, EmptyBehavior emptyBehavior)
   : m_buffer (buffer)
   , m_start (buffer, this, range.start(), (insertBehavior & ExpandLeft) ? Kate::TextCursor::StayOnInsert : Kate::TextCursor::MoveOnInsert)
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
   , m_feedback (0)
   , m_attibuteOnlyForViews (false)
-  , m_invalidateIfEmpty (false)
+  , m_invalidateIfEmpty (emptyBehavior == InvalidateIfEmpty)
 {
   // remember this range in buffer
   m_buffer.m_ranges.insert (this);
@@ -96,6 +96,26 @@ KTextEditor::MovingRange::InsertBehaviors TextRange::insertBehaviors () const
     behaviors = behaviors & ExpandRight;
 
   return behaviors;
+}
+
+void TextRange::setEmptyBehavior (EmptyBehavior emptyBehavior)
+{
+  /**
+   * nothing to do?
+   */
+  if (m_invalidateIfEmpty == (emptyBehavior == InvalidateIfEmpty))
+    return;
+
+  /**
+   * remember value
+   */
+  m_invalidateIfEmpty = (emptyBehavior == InvalidateIfEmpty);
+
+  /**
+   * invalidate range?
+   */
+  if (end() <= start())
+    setRange (KTextEditor::Range::invalid());
 }
 
 void TextRange::setRange (const KTextEditor::Range &range)

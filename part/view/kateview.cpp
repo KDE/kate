@@ -117,7 +117,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_selection (m_doc->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::ExpandRight)
+    , m_selection (m_doc->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::ExpandRight, Kate::TextRange::InvalidateIfEmpty)
     , blockSelect (false)
     , m_bottomViewBar (0)
     , m_topViewBar (0)
@@ -138,7 +138,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setComponentData ( KateGlobal::self()->componentData () );
 
   // selection if for this view only and will invalidate if becoming empty
-  m_selection.setInvalidateIfEmpty (true);
   m_selection.setView (this);
 
   KateGlobal::self()->registerView( this );

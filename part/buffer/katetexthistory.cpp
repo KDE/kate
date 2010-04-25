@@ -349,8 +349,17 @@ void TextHistory::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::Mov
   }
 }
 
-void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision)
+void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, KTextEditor::MovingRange::EmptyBehavior emptyBehavior, qint64 fromRevision, qint64 toRevision)
 {
+  /**
+   * invalidate on empty?
+   */
+  bool invalidateIfEmpty = emptyBehavior == KTextEditor::MovingRange::InvalidateIfEmpty;
+  if (invalidateIfEmpty && range.end() <= range.start()) {
+    range = KTextEditor::Range::invalid();
+    return;
+  }
+
   /**
    * -1 special meaning for toRevision
    */
@@ -388,7 +397,13 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
     entry.transformCursor (start, moveOnInsertStart);
     entry.transformCursor (end, moveOnInsertEnd);
 
-    // normalize them
+    // got empty?
+    if (invalidateIfEmpty && range.end() <= range.start()) {
+      range = KTextEditor::Range::invalid();
+      return;
+    }
+
+    // else normalize them
     if (end < start)
       end = start;
   }

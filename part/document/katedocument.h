@@ -591,9 +591,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * Create a new moving range for this document.
      * @param range range of the moving range to create
      * @param insertBehaviors insertion behaviors
+     * @param emptyBehavior behavior on becoming empty
      * @return new moving range for the document
      */
-    virtual KTextEditor::MovingRange *newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors = KTextEditor::MovingRange::DoNotExpand);
+    virtual KTextEditor::MovingRange *newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors = KTextEditor::MovingRange::DoNotExpand
+      , KTextEditor::MovingRange::EmptyBehavior emptyBehavior = KTextEditor::MovingRange::AllowEmpty);
 
     /**
      * Current revision
@@ -633,10 +635,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * Transform a range from one revision to an other.
      * @param range range to transform
      * @param insertBehaviors behavior of this range on insert of text at it's position
+     * @param emptyBehavior behavior on becoming empty
      * @param fromRevision from this revision we want to transform
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
-    virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision = -1);
+    virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, KTextEditor::MovingRange::EmptyBehavior emptyBehavior, qint64 fromRevision, qint64 toRevision = -1);
 
   //
   // MovingInterface Signals

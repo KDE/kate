@@ -5031,9 +5031,9 @@ KTextEditor::MovingCursor *KateDocument::newMovingCursor (const KTextEditor::Cur
   return new Kate::TextCursor(buffer(), position, insertBehavior);
 }
 
-KTextEditor::MovingRange *KateDocument::newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors)
+KTextEditor::MovingRange *KateDocument::newMovingRange (const KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, KTextEditor::MovingRange::EmptyBehavior emptyBehavior)
 {
-  return new Kate::TextRange(buffer(), range, insertBehaviors);
+  return new Kate::TextRange(buffer(), range, insertBehaviors, emptyBehavior);
 }
 
 qint64 KateDocument::revision () const
@@ -5061,9 +5061,9 @@ void KateDocument::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::Mo
   m_buffer->history().transformCursor (cursor, insertBehavior, fromRevision, toRevision);
 }
 
-void KateDocument::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision)
+void KateDocument::transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, KTextEditor::MovingRange::EmptyBehavior emptyBehavior, qint64 fromRevision, qint64 toRevision)
 {
-  m_buffer->history().transformRange (range, insertBehaviors, fromRevision, toRevision);
+  m_buffer->history().transformRange (range, insertBehaviors, emptyBehavior, fromRevision, toRevision);
 }
 
 //END

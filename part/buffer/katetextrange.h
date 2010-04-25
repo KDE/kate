@@ -55,8 +55,9 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * @param buffer parent text buffer
      * @param range The initial text range assumed by the new range.
      * @param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
+     * @param emptyBehavior Define whether the range should invalidate itself on becoming empty.
      */
-    TextRange (TextBuffer &buffer, const KTextEditor::Range &range, InsertBehaviors insertBehavior);
+    TextRange (TextBuffer &buffer, const KTextEditor::Range &range, InsertBehaviors insertBehavior, EmptyBehavior emptyBehavior = AllowEmpty);
 
     /**
      * Destruct the text block
@@ -74,6 +75,18 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * @return current insert behaviors
      */
     InsertBehaviors insertBehaviors () const;
+
+    /**
+     * Set if this range will invalidate itself if it becomes empty.
+     * @param emptyBehavior behavior on becoming empty
+     */
+    void setEmptyBehavior (EmptyBehavior emptyBehavior);
+
+    /**
+     * Will this range invalidate itself if it becomes empty?
+     * @return behavior on becoming empty
+     */
+    EmptyBehavior emptyBehavior () const { return m_invalidateIfEmpty ? InvalidateIfEmpty : AllowEmpty; }
 
     /**
      * Gets the document to which this range is bound.
@@ -122,19 +135,6 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * @return normal range
      */
     operator const KTextEditor::Range () const { return KTextEditor::Range (start().toCursor(), end().toCursor()); }
-
-    /**
-     * Will this range invalidate itself if it becomes empty?
-     * Default is false.
-     * @return auto invalidate range if becomes empty
-     */
-    bool invalidateIfEmpty () const { return m_invalidateIfEmpty; }
-
-    /**
-     * Set if this range will invalidate itself if it becomes empty.
-     * @param invalidate invalidate range if it becomes empty?
-     */
-    void setInvalidateIfEmpty (bool invalidate) { m_invalidateIfEmpty = invalidate; }
 
     /**
      * Gets the active view for this range. Might be already invalid, internally only used for pointer comparisons.

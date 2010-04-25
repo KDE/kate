@@ -25,14 +25,7 @@
 
 #include "pseudo_dtd.h"
 
-#include <q3dict.h>
 #include <qstring.h>
-#include <q3listbox.h>
-#include <q3progressdialog.h>
-#include <q3intdict.h>
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PtrList>
 
 #include <kate/plugin.h>
 #include <kate/application.h>

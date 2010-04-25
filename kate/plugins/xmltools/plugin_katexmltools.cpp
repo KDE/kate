@@ -82,16 +82,12 @@ TODO:
 #include <qdom.h>
 #include <qfile.h>
 #include <qlayout.h>
-#include <q3listbox.h>
-#include <q3progressdialog.h>
 #include <qpushbutton.h>
 #include <qregexp.h>
 #include <qstring.h>
 #include <qtimer.h>
-//Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>
-#include <Q3ValueList>
 
 #include <kaction.h>
 #include <kactioncollection.h>

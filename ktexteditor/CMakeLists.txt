@@ -4,6 +4,7 @@ include_directories( ${KDE4_KPARTS_INCLUDES} )
 
 set(ktexteditor_LIB_SRCS
    ktexteditor.cpp
+   document.cpp
    range.cpp
    cursor.cpp
    templateinterface.cpp

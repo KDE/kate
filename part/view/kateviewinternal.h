@@ -427,11 +427,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
     void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute);
 
-  public Q_SLOTS:
-    void rangeDeleted(KateSmartRange* range);
-
-    void updateRange(KateSmartRange* range);
-
   private:
     bool m_smartDirty;
 

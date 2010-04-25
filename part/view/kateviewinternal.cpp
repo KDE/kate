@@ -213,9 +213,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
 
-  // use a direct connect, otherwise the range pointer might already be invalid
-  connect(smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)), Qt::DirectConnection);
-
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
 
@@ -254,9 +251,6 @@ void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::S
 
 KateViewInternal::~KateViewInternal ()
 {
-  // crashes on close without
-  disconnect (smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
-
   // kill preedit ranges
   delete m_imPreeditRange;
   qDeleteAll (m_imPreeditRangeChildren);
@@ -3424,17 +3418,6 @@ KTextEditor::Cursor KateViewInternal::toVirtualCursor( const KTextEditor::Cursor
 KateRenderer * KateViewInternal::renderer( ) const
 {
   return m_view->renderer();
-}
-
-void KateViewInternal::rangeDeleted( KateSmartRange * )
-{
-}
-
-void KateViewInternal::updateRange(KateSmartRange* range)
-{
-  //kDebug( 13030 ) << *range;
-  tagRange(*range, true);
-  updateDirty();
 }
 
 void KateViewInternal::mouseMoved( )

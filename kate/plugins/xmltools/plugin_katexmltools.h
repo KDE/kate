@@ -36,6 +36,7 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include <kcombobox.h>
 #include <kdialog.h>
@@ -51,9 +52,10 @@ class PluginKateXMLTools : public Kate::Plugin
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
-class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel
+class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
 {
   Q_OBJECT
+  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
 
   public:
     PluginKateXMLToolsCompletionModel( QObject *parent );
@@ -61,6 +63,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
     virtual QVariant data(const QModelIndex &idx, int role) const;
 
+    virtual bool shouldStartCompletion( KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position );
 
   public slots:
 

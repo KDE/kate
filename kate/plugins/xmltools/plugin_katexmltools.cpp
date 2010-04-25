@@ -173,6 +173,8 @@ PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *p
   m_lastCol = 0;
   m_allowed = QStringList();
   m_popupOpenCol = -1;
+
+  setHasGroups( false );
 }
 
 PluginKateXMLToolsCompletionModel::~PluginKateXMLToolsCompletionModel()
@@ -339,6 +341,20 @@ QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &idx, int rol
     return m_allowed.at( idx.row() );
   else
     return QVariant();
+}
+
+
+bool PluginKateXMLToolsCompletionModel::shouldStartCompletion( KTextEditor::View *view,
+                                                               const QString &insertedText,
+                                                               bool userInsertion,
+                                                               const KTextEditor::Cursor &position )
+{
+  Q_UNUSED( view )
+  Q_UNUSED( userInsertion )
+  Q_UNUSED( position )
+  const QString triggerChars = "&< '\""; // these are subsequently handled by completionInvoked()
+
+  return triggerChars.contains( insertedText.right(1) );
 }
 
 

@@ -616,17 +616,6 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     void internalEditEnd(KTextEditor::Document *document);
 
-  protected Q_SLOTS:
-    /**
-     * Convenience slot to emit internalEditStart() without providing this-pointer.
-     */
-    void emitInternalEditStart();
-
-    /**
-     * Convenience slot to emit internalEditEnd() without providing this-pointer.
-     */
-    void emitInternalEditEnd();
-
   /*
    * Access to the mode/highlighting subsystem
    */

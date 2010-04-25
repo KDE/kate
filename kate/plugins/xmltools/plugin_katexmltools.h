@@ -124,11 +124,11 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     // code completion stuff:
     KTextEditor::CodeCompletionInterface* m_codeInterface;
 
-    /// maps KTE::Document::documentName -> DTD
-    Q3Dict<PseudoDTD> m_docDtds;
+    /// maps KTE::Document -> DTD
+    QHash<KTextEditor::Document *, PseudoDTD *> m_docDtds;
 
     /// maps DTD filename -> DTD
-    Q3Dict<PseudoDTD> m_dtds;
+    QHash<QString, PseudoDTD *> m_dtds;
 };
 
 class PluginKateXMLToolsView : public Kate::PluginView, public Kate::XMLGUIClient

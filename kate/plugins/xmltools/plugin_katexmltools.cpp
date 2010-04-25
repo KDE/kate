@@ -152,13 +152,9 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
   setXMLFile( "plugins/katexmltools/ui.rc" );
   win->guiFactory()->addClient( this );
 
-  //m_documentManager = ((Kate::Application*)parent)->documentManager();
-
-//   connect( m_documentManager, SIGNAL(documentCreated()),
-//             this, SLOT(slotDocumentCreated()) );
- /* connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
+  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
             &m_model, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
-*/
+
 }
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
@@ -180,38 +176,33 @@ PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *p
   m_lastCol = 0;
   m_allowed = QStringList();
   m_popupOpenCol = -1;
-
-  m_dtds.setAutoDelete( true );
 }
 
 PluginKateXMLToolsCompletionModel::~PluginKateXMLToolsCompletionModel()
 {
-
+  qDeleteAll( m_dtds );
+  m_dtds.clear();
 }
 
 void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Document *doc )
 {
   // Remove the document from m_DTDs, and also delete the PseudoDTD
   // if it becomes unused.
-  QString name = doc->documentName();
-  if ( m_docDtds[ name ] )
+  if ( m_docDtds[ doc ] )
   {
     kDebug()<<"XMLTools:slotDocumentDeleted: documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
-    PseudoDTD *dtd = m_docDtds.take( name );
+    PseudoDTD *dtd = m_docDtds.take( doc );
 
-    Q3DictIterator<PseudoDTD> it ( m_docDtds );
-    for ( ; it.current(); ++it )
-    {
-      if ( it.current() == dtd )
-        return;
-    }
+    if ( m_docDtds.key( dtd ) )
+      return;
 
-    Q3DictIterator<PseudoDTD> it1( m_dtds );
-    for ( ; it1.current() ; ++it1 )
+    QHash<QString, PseudoDTD *>::iterator it;
+    for ( it = m_dtds.begin() ; it != m_dtds.end() ; ++it )
     {
-      if ( it1.current() == dtd )
+      if ( it.value() == dtd )
       {
-        m_dtds.remove( it1.currentKey() );
+        m_dtds.erase(it);
+        delete dtd;
         return;
       }
     }
@@ -259,8 +250,8 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   kDebug() << "xml tools completionInvoked";
   //kDebug() << "xml tools keyEvent: '" << s;
 
-  QString docName = kv->document()->documentName();
-  if( ! m_docDtds[ docName ] )
+  KTextEditor::Document *doc = kv->document();
+  if( ! m_docDtds[ doc ] )
     // no meta DTD assigned yet
     return;
 
@@ -281,7 +272,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   if( leftCh == "&" )
   {
     kDebug() << "Getting entities";
-    m_allowed = m_docDtds[docName]->entities("" );
+    m_allowed = m_docDtds[doc]->entities("" );
     m_mode = entities;
   }
   else if( leftCh == "<" )
@@ -289,7 +280,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
     kDebug() << "*outside tag -> get elements";
     QString parentElement = getParentElement( *kv, true );
     kDebug() << "parent: " << parentElement;
-    m_allowed = m_docDtds[docName]->allowedElements(parentElement );
+    m_allowed = m_docDtds[doc]->allowedElements(parentElement );
     m_mode = elements;
   }
   // TODO: optionally close parent tag if not left=="/>"
@@ -308,7 +299,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
     if( ! currentElement.isEmpty() && ! currentAttribute.isEmpty() )
     {
       kDebug() << "*inside attribute -> get attribute values";
-      m_allowed = m_docDtds[docName]->attributeValues(currentElement, currentAttribute );
+      m_allowed = m_docDtds[doc]->attributeValues(currentElement, currentAttribute );
       if( m_allowed.count() == 1 &&
           (m_allowed[0] == "CDATA" || m_allowed[0] == "ID" || m_allowed[0] == "IDREF" ||
           m_allowed[0] == "IDREFS" || m_allowed[0] == "ENTITY" || m_allowed[0] == "ENTITIES" ||
@@ -325,7 +316,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
     else if( ! currentElement.isEmpty() )
     {
       kDebug() << "*inside tag -> get attributes";
-      m_allowed = m_docDtds[docName]->allowedAttributes(currentElement );
+      m_allowed = m_docDtds[doc]->allowedAttributes(currentElement );
       m_mode = attributes;
     }
   }
@@ -503,7 +494,7 @@ void PluginKateXMLToolsCompletionModel::slotData( KIO::Job *, const QByteArray &
 
 void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc )
 {
-  m_docDtds.replace( doc->documentName(), dtd );
+  m_docDtds.insert( doc, dtd );
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(doc->activeView()); //TODO:perhaps foreach views()?
 
@@ -534,7 +525,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     return;
   }
 
-  PseudoDTD *dtd = m_docDtds[kv->document()->documentName()];
+  PseudoDTD *dtd = m_docDtds[kv->document()];
   QString parentElement = getParentElement( *kv, false );
   QStringList allowed;
 
@@ -688,8 +679,8 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
   {
     // anders: if the tag is marked EMPTY, insert in form <tagname/>
     QString str;
-    QString docName = kv->document()->documentName();
-    bool isEmptyTag =m_docDtds[docName]->allowedElements(ce->text).contains( "__EMPTY" );
+    KTextEditor::Document *doc = kv->document();
+    bool isEmptyTag =m_docDtds[doc]->allowedElements(ce->text).contains( "__EMPTY" );
     if ( isEmptyTag )
       str = "/>";
     else
@@ -699,8 +690,8 @@ void PluginKateXMLToolsCompletionModel::filterInsertString( KTextEditor::Complet
     // Place the cursor where it is most likely wanted:
     // always inside the tag if the tag is empty AND the DTD indicates that there are attribs)
     // outside for open tags, UNLESS there are mandatory attributes
-    if ( m_docDtds[docName]->requiredAttributes(ce->text).count()
-         || ( isEmptyTag && m_docDtds[docName]->allowedAttributes( ce->text).count() ) )
+    if ( m_docDtds[doc]->requiredAttributes(ce->text).count()
+         || ( isEmptyTag && m_docDtds[doc]->allowedAttributes( ce->text).count() ) )
       m_correctPos = - str.length();
     else if ( ! isEmptyTag )
       m_correctPos = -str.length() + 1;

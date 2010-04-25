@@ -82,6 +82,14 @@ class KTEXTEDITOR_EXPORT MovingRange
     };
     Q_DECLARE_FLAGS(InsertBehaviors, InsertBehavior)
 
+    /**
+     * Behavior of range if it becomes empty.
+     */
+    enum EmptyBehavior {
+      AllowEmpty        = 0x0, ///< allow range to be empty
+      InvalidateIfEmpty = 0x1  ///< invalidate range, if it becomes empty
+    };
+
   //
   // stuff that needs to be implemented by editor part cusors
   //
@@ -97,6 +105,18 @@ class KTEXTEDITOR_EXPORT MovingRange
      * @return current insert behaviors
      */
     virtual InsertBehaviors insertBehaviors () const = 0;
+
+    /**
+     * Set if this range will invalidate itself if it becomes empty.
+     * @param emptyBehavior behavior on becoming empty
+     */
+    virtual void setEmptyBehavior (EmptyBehavior emptyBehavior) = 0;
+
+    /**
+     * Will this range invalidate itself if it becomes empty?
+     * @return behavior on becoming empty
+     */
+    virtual EmptyBehavior emptyBehavior () const = 0;
 
     /**
      * Gets the document to which this range is bound.
@@ -123,19 +143,6 @@ class KTEXTEDITOR_EXPORT MovingRange
      * @return end cursor
      */
     virtual const MovingCursor &end () const = 0;
-
-    /**
-     * Will this range invalidate itself if it becomes empty?
-     * Default is false.
-     * @return auto invalidate range if becomes empty
-     */
-    virtual bool invalidateIfEmpty () const = 0;
-
-    /**
-     * Set if this range will invalidate itself if it becomes empty.
-     * @param invalidate invalidate range if it becomes empty?
-     */
-    virtual void setInvalidateIfEmpty (bool invalidate) = 0;
 
     /**
      * Gets the active view for this range. Might be already invalid, internally only used for pointer comparisons.
@@ -301,7 +308,7 @@ class KTEXTEDITOR_EXPORT MovingRange
     inline bool contains(const Range& range) const {
       return range.start() >= start() && range.end() <= end();
     }
-    
+
     /**
      * Check to see if \p cursor is contained within this range, ie >= start() and \< end().
      *
@@ -368,7 +375,7 @@ class KTEXTEDITOR_EXPORT MovingRange
     inline bool overlapsColumn(int column) const {
       return start().column() <= column && end().column() > column;
     }
-    
+
     //END comparison functions
 };
 

@@ -75,9 +75,11 @@ class KTEXTEDITOR_EXPORT MovingInterface
      * Create a new moving range for this document.
      * @param range range of the moving range to create
      * @param insertBehaviors insertion behaviors
+     * @param emptyBehavior behavior on becoming empty
      * @return new moving range for the document
      */
-    virtual MovingRange *newMovingRange (const Range &range, MovingRange::InsertBehaviors insertBehaviors = MovingRange::DoNotExpand) = 0;
+    virtual MovingRange *newMovingRange (const Range &range, MovingRange::InsertBehaviors insertBehaviors = MovingRange::DoNotExpand
+      , MovingRange::EmptyBehavior emptyBehavior = MovingRange::AllowEmpty) = 0;
 
     /**
      * Current revision
@@ -117,10 +119,11 @@ class KTEXTEDITOR_EXPORT MovingInterface
      * Transform a range from one revision to an other.
      * @param range range to transform
      * @param insertBehaviors behavior of this range on insert of text at it's position
+     * @param emptyBehavior behavior on becoming empty
      * @param fromRevision from this revision we want to transform
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
-    virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision = -1) = 0;
+    virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, MovingRange::EmptyBehavior emptyBehavior, qint64 fromRevision, qint64 toRevision = -1) = 0;
 
   //
   // Signals

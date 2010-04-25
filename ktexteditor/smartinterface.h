@@ -408,16 +408,8 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void clearViewHighlights(View* view) = 0;
     //END
 
-    //BEGIN Action binding extension
-    /**
-     * \}
-     *
-     * \name Action Binding
-     *
-     * The following functions allow for the processing of KAction%s bound to SmartRange%s.
-     * \{
-     */
-    /**
+    //BEGIN Action binding extension - not implemented
+    /* not implemented
      * Register a SmartRange tree as providing bound actions,
      * and that they should interact with all of the views of a document.
      *
@@ -425,7 +417,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual void addActionsToDocument(SmartRange* topRange) = 0;
 
-    /**
+    /* not implemented
      * Remove a SmartRange tree from providing bound actions
      * to all of the views of a document.
      *
@@ -433,18 +425,18 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual void removeActionsFromDocument(SmartRange* topRange) = 0;
 
-    /**
+    /* not implemented
      * Return a list of SmartRange%s which are currently registered as
      * providing bound actions to all of the views of a document.
      */
     virtual const QList<SmartRange*> documentActions() const = 0;
 
-    /**
+    /* not implemented
      * Remove all bound SmartRange%s which provide actions to the document.
      */
     virtual void clearDocumentActions() = 0;
 
-    /**
+    /* not implemented
      * Register a SmartRange tree as providing bound actions,
      * and that they should interact with the specified \p view.
      *
@@ -453,7 +445,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual void addActionsToView(View* view, SmartRange* topRange) = 0;
 
-    /**
+    /* not implemented
      * Remove a SmartRange tree from providing bound actions
      * to the specified \p view.
      *
@@ -466,7 +458,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual void removeActionsFromView(View* view, SmartRange* topRange) = 0;
 
-    /**
+    /* not implemented
      * Return a list of SmartRange%s which are currently registered as
      * providing bound actions to the specified \p view.
      *
@@ -478,13 +470,12 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual const QList<SmartRange*> viewActions(View* view) const = 0;
 
-    /**
+    /* not implemented
      * Remove all bound SmartRange%s which provide actions to the specified \p view.
      *
      * \param view view from which to remove actions
      */
     virtual void clearViewActions(View* view) = 0;
-    //!\}
     //END
 
   protected:

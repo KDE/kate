@@ -259,6 +259,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  /**
+   * we are about to delete cursors/ranges/...
+   */
+  emit aboutToDeleteMovingInterfaceContent (this);
+
   // delete it here because it has to be deleted before the SmartMutex is destroyed
   delete m_onTheFlyChecker;
   m_onTheFlyChecker = NULL;
@@ -2036,6 +2041,11 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 //BEGIN KParts::ReadWrite stuff
 bool KateDocument::openFile()
 {
+  /**
+   * we are about to invalidate all cursors/ranges/.. => m_buffer->openFile will do so
+   */
+  emit aboutToInvalidateMovingInterfaceContent (this);
+
   // no open errors until now...
   setOpeningError(false);
 
@@ -2471,6 +2481,11 @@ bool KateDocument::closeUrl()
   // Tell the world that we're about to go ahead with the close
   if (!m_reloading)
     emit aboutToClose(this);
+
+  /**
+   * we are about to invalidate all cursors/ranges/.. => m_buffer->clear will do so
+   */
+  emit aboutToInvalidateMovingInterfaceContent (this);
 
   // remove file from dirwatch
   deactivateDirWatch ();

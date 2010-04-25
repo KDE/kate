@@ -576,7 +576,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     KateSmartManager* smartManager() const { return m_smartManager; }
 
   //
-  // MovingInterface
+  // MovingInterface API
   //
   public:
     /**
@@ -637,6 +637,23 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
     virtual void transformRange (KTextEditor::Range &range, KTextEditor::MovingRange::InsertBehaviors insertBehaviors, qint64 fromRevision, qint64 toRevision = -1);
+
+  //
+  // MovingInterface Signals
+  //
+  Q_SIGNALS:
+    /**
+     * This signal is emitted before the cursors/ranges/revisions of a document are destroyed as the document is deleted.
+     * @param document the document which the interface belongs too which is in the process of being deleted
+     */
+    void aboutToDeleteMovingInterfaceContent (KTextEditor::Document *document);
+
+    /**
+     * This signal is emitted before the ranges of a document are invalidated and the revisions are deleted as the document is cleared (for example on load/reload).
+     * While this signal is emitted, still the old document content is around before the clear.
+     * @param document the document which the interface belongs too which will invalidate its data
+     */
+    void aboutToInvalidateMovingInterfaceContent (KTextEditor::Document *document);
 
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);

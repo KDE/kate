@@ -29,30 +29,18 @@
 
 KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
   : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehavior)
-//  , m_feedbackLevel(NoFeedback)
-  , m_dynamicDoc(0L)
-  , m_mouseOver(false)
-  , m_caretOver(false)
   , m_isInternal(false)
 {
 }
 
 KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent)
   : KTextEditor::SmartRange(new KateSmartCursor(doc), new KateSmartCursor(doc), parent)
-//  , m_feedbackLevel(NoFeedback)
-  , m_dynamicDoc(0L)
-  , m_mouseOver(false)
-  , m_caretOver(false)
   , m_isInternal(false)
 {
 }
 
 KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
   : KTextEditor::SmartRange(start, end, parent, insertBehavior)
-//  , m_feedbackLevel(NoFeedback)
-  , m_dynamicDoc(0L)
-  , m_mouseOver(false)
-  , m_caretOver(false)
   , m_isInternal(false)
 {
 }
@@ -228,30 +216,6 @@ void KateSmartRange::setInternal( )
   m_isInternal = true;
   kStart().setInternal();
   kEnd().setInternal();
-}
-
-/*KateDynamicAnimation * KateSmartRange::dynamicForView( const KateView * const view) const
-{
-  foreach (KateDynamicAnimation* anim, m_dynamic)
-    if (anim->view() == view)
-      return anim;
-
-  return 0L;
-}*/
-
-void KateSmartRange::addDynamic( KateDynamicAnimation * anim )
-{
-  m_dynamic.append(anim);
-}
-
-void KateSmartRange::removeDynamic( KateDynamicAnimation * anim )
-{
-  m_dynamic.removeAll(anim);
-}
-
-const QList<KateDynamicAnimation*> & KateSmartRange::dynamicAnimations( ) const
-{
-  return m_dynamic;
 }
 
 void KateSmartRange::registerPointer( KateSmartRangePtr * ptr )

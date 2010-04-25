@@ -27,7 +27,6 @@
 #include <ktexteditor/smartrangenotifier.h>
 
 class KateSmartRange;
-class KateDynamicAnimation;
 class KateEditInfo;
 
 /**
@@ -90,16 +89,6 @@ class KateSmartRange : public KTextEditor::SmartRange
     bool isInternal() const { return m_isInternal; }
     void setInternal();
 
-    /// Is the mouse over this range? Mouseover must be explicitly
-    /// set by setMouseOver().
-    inline bool isMouseOver() { return m_mouseOver; }
-    /// Tell this range whether the mouse is somewhere over it.
-    /// @param mouseOver whether the mouse is over the range or not.
-    inline void setMouseOver(bool mouseOver) { m_mouseOver = mouseOver; }
-
-    inline bool isCaretOver() { return m_caretOver; }
-    inline void setCaretOver(bool caretOver) { m_caretOver = caretOver; }
-
     void unbindAndDelete();
 
     enum AttachActions {
@@ -112,11 +101,6 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     using SmartRange::rebuildChildStructure;
     
-    inline bool hasDynamic() { return m_dynamic.count(); }
-    const QList<KateDynamicAnimation*>& dynamicAnimations() const;
-    void addDynamic(KateDynamicAnimation* anim);
-    void removeDynamic(KateDynamicAnimation* anim);
-
     /**
      * Implementation detail. Defines the level of feedback required for any connected
      * watcher / notifier.
@@ -161,13 +145,9 @@ class KateSmartRange : public KTextEditor::SmartRange
   private:
     void init();
 
-    KateDynamicAnimation* m_dynamicDoc;
-    QList<KateDynamicAnimation*> m_dynamic;
     QList<KateSmartRangePtr*> m_pointers;
 
-    bool  m_mouseOver   :1,
-          m_caretOver   :1,
-          m_isInternal  :1;
+    bool m_isInternal;
 };
 
 /**

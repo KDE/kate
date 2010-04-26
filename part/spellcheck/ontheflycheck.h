@@ -38,17 +38,17 @@ namespace Sonnet {
   class BackgroundChecker;
 }
 
-class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatcher {
+class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeedback {
   Q_OBJECT
 
   enum ModificationType {TEXT_INSERTED = 0, TEXT_REMOVED};
 
-  typedef QPair<KTextEditor::SmartRange*, QString> SpellCheckItem;
-  typedef QList<KTextEditor::SmartRange*> SmartRangeList;
-  typedef QPair<KTextEditor::SmartRange*, QString> MisspelledItem;
+  typedef QPair<KTextEditor::MovingRange*, QString> SpellCheckItem;
+  typedef QList<KTextEditor::MovingRange*> MovingRangeList;
+  typedef QPair<KTextEditor::MovingRange*, QString> MisspelledItem;
   typedef QList<MisspelledItem> MisspelledList;
 
-  typedef QPair<ModificationType, KTextEditor::SmartRange*> ModificationItem;
+  typedef QPair<ModificationType, KTextEditor::MovingRange*> ModificationItem;
   typedef QList<ModificationItem> ModificationList;
 
   public:
@@ -69,7 +69,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void updateConfig();
     void refreshSpellCheck(const KTextEditor::Range &range = KTextEditor::Range::invalid());
 
-    void updateInstalledSmartRanges(KateView *view);
+    void updateInstalledMovingRanges(KateView *view);
 
   protected:
     KateDocument *const m_document;
@@ -79,15 +79,15 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     SpellCheckItem m_currentlyCheckedItem;
     static const SpellCheckItem invalidSpellCheckQueueItem;
     MisspelledList m_misspelledList;
-    SmartRangeList m_installedSmartRangeList;
+    MovingRangeList m_installedMovingRangeList;
     ModificationList m_modificationList;
     KateDocument::OffsetList m_currentDecToEncOffsetList;
 
     void freeDocument();
 
-    SmartRangeList installedSmartRanges(const KTextEditor::Range& range);
+    MovingRangeList installedMovingRanges(const KTextEditor::Range& range);
 
-    void installSmartRange(KTextEditor::SmartRange *smartRange);
+    void installMovingRange(KTextEditor::MovingRange *smartRange);
 
     void queueLineSpellCheck(KateDocument *document, int line);
     /**
@@ -98,30 +98,32 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void queueSpellCheckVisibleRange(KateView *view, const KTextEditor::Range& range);
 
     void addToSpellCheckQueue(const KTextEditor::Range& range, const QString& dictionary);
-    void addToSpellCheckQueue(KTextEditor::SmartRange *range, const QString& dictionary);
+    void addToSpellCheckQueue(KTextEditor::MovingRange *range, const QString& dictionary);
 
     QTimer *m_viewRefreshTimer;
     QPointer<KateView> m_refreshView;
 
-    virtual void rangeDeleted(KTextEditor::SmartRange *range);
-    bool removeRangeFromCurrentSpellCheck(KTextEditor::SmartRange *range);
-    bool removeRangeFromSpellCheckQueue(KTextEditor::SmartRange *range);
-    virtual void rangeEliminated(KTextEditor::SmartRange *range);
-    virtual void mouseEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
-    virtual void mouseExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
-    virtual void caretEnteredRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
-    virtual void caretExitedRange(KTextEditor::SmartRange *range, KTextEditor::View *view);
+    virtual void removeRangeFromEverything(KTextEditor::MovingRange *range);
+    bool removeRangeFromCurrentSpellCheck(KTextEditor::MovingRange *range);
+    bool removeRangeFromSpellCheckQueue(KTextEditor::MovingRange *range);
+    virtual void rangeEmpty(KTextEditor::MovingRange *range);
+    virtual void mouseEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
+    virtual void mouseExitedRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
+    virtual void caretEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
+    virtual void caretExitedRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
 
-    QSet<KTextEditor::SmartRange*> m_eliminatedRanges;
+    QSet<KTextEditor::MovingRange*> m_eliminatedRanges;
 
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
-    QList<KTextEditor::SmartRange*> m_myranges;
+    QList<KTextEditor::MovingRange*> m_myranges;
     KTextEditor::Range findWordBoundaries(const KTextEditor::Cursor& begin,
                                           const KTextEditor::Cursor& end);
 
-    void deleteSmartRangeLater(KTextEditor::SmartRange *range);
-    void deleteSmartRangesLater(const QList<KTextEditor::SmartRange*>& list);
-    void deleteSmartRangeQuickly(KTextEditor::SmartRange *range);
+    void deleteMovingRange(KTextEditor::MovingRange *range);
+    void deleteMovingRanges(const QList<KTextEditor::MovingRange*>& list);
+    void deleteMovingRangeLater(KTextEditor::MovingRange *range);
+    void deleteMovingRangesLater(const QList<KTextEditor::MovingRange*>& list);
+    void deleteMovingRangeQuickly(KTextEditor::MovingRange *range);
     void stopCurrentSpellCheck();
 
   protected Q_SLOTS:
@@ -142,7 +144,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::SmartRangeWatch
     void handleInsertedText(const KTextEditor::Range &range);
     void handleRemovedText(const KTextEditor::Range &range);
     void handleRespellCheckBlock(KateDocument *document, int start, int end);
-    bool removeRangeFromModificationList(KTextEditor::SmartRange *range);
+    bool removeRangeFromModificationList(KTextEditor::MovingRange *range);
     void clearModificationList();
 };
 

@@ -27,15 +27,19 @@
 #include <kactioncollection.h>
 #include <kactionmenu.h>
 #include <kmenu.h>
+#include <ktexteditor/movingrange.h>
+#include <ktexteditor/movingrangefeedback.h>
 #include <ktexteditor/range.h>
-#include <ktexteditor/smartrangewatcher.h>
 #include <ktexteditor/view.h>
 
 class KateDocument;
 class KateView;
 
-class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher {
+class KateOnTheFlyChecker;
+
+class KateSpellingMenu : public QObject {
   Q_OBJECT
+  friend class KateOnTheFlyChecker;
 
   public:
     KateSpellingMenu(KateView *view);
@@ -44,11 +48,6 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
     bool isEnabled() const;
 
     void createActions(KActionCollection *ac);
-
-    void caretEnteredMisspelledRange(KTextEditor::SmartRange *range);
-    void caretExitedMisspelledRange(KTextEditor::SmartRange *range);
-    void mouseEnteredMisspelledRange(KTextEditor::SmartRange *range);
-    void mouseExitedMisspelledRange(KTextEditor::SmartRange *range);
 
     /**
      * This method has to be called before the menu is shown in response to a context
@@ -66,14 +65,20 @@ class KateSpellingMenu : public QObject, private KTextEditor::SmartRangeWatcher 
     KActionMenu *m_spellingMenuAction;
     KAction *m_ignoreWordAction, *m_addToDictionaryAction;
     KMenu *m_spellingMenu;
-    KTextEditor::SmartRange *m_currentMisspelledRange;
-    KTextEditor::SmartRange *m_currentMouseMisspelledRange;
-    KTextEditor::SmartRange *m_currentCaretMisspelledRange;
+    KTextEditor::MovingRange *m_currentMisspelledRange;
+    KTextEditor::MovingRange *m_currentMouseMisspelledRange;
+    KTextEditor::MovingRange *m_currentCaretMisspelledRange;
     bool m_useMouseForMisspelledRange;
     QStringList m_currentSuggestions;
     QSignalMapper *m_suggestionsSignalMapper;
 
-    void rangeDeleted(KTextEditor::SmartRange *range);
+    // These methods are called from KateOnTheFlyChecker to inform about events involving
+    // moving ranges.
+    void rangeDeleted(KTextEditor::MovingRange *range);
+    void caretEnteredMisspelledRange(KTextEditor::MovingRange *range);
+    void caretExitedMisspelledRange(KTextEditor::MovingRange *range);
+    void mouseEnteredMisspelledRange(KTextEditor::MovingRange *range);
+    void mouseExitedMisspelledRange(KTextEditor::MovingRange *range);
 
   protected Q_SLOTS:
     void populateSuggestionsMenu();

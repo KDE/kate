@@ -89,6 +89,7 @@ class KateDocManager : public QStandardItemModel
     }
 
     KTextEditor::Document *createDoc (const KateDocumentInfo& docInfo = KateDocumentInfo());
+    
     void deleteDoc (KTextEditor::Document *doc);
 
     KTextEditor::Document *document (uint n);
@@ -187,7 +188,10 @@ class KateDocManager : public QStandardItemModel
     void documentWillBeDeleted (KTextEditor::Document *document);
 
     /**
-     * This signal is emitted when the \p document was deleted.
+     * This signal is emitted when the \p document has been deleted.
+     *    
+     *  Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+     *  Use the pointer only to remove mappings in hash or maps
      */
     void documentDeleted (KTextEditor::Document *document);
 

@@ -210,19 +210,22 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   emit documentWillBeDeleted (doc);
   emit m_documentManager->documentWillBeDeleted (doc);
 
+
+  for (int i=0;i<rowCount();i++) {
+        kDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
+  }
+  if (remove_row>-1)
+      removeRow(remove_row);
+  
   // really delete the document and it's infos
   delete m_docInfos.take (doc);
   delete m_docList.takeAt (m_docList.indexOf(doc));
-
+  
+  //??????????????? AT THIS POINT THE REFERENCED POINTER IS INVALID
   // document is gone, emit our signals
   emit documentDeleted (doc);
   emit m_documentManager->documentDeleted (doc);
 
-  for (int i=0;i<rowCount();i++) {
-	kDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
-  }
-  if (remove_row>-1)
-      removeRow(remove_row);
 
 }
 

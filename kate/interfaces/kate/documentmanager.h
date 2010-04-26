@@ -134,7 +134,10 @@ namespace Kate
       void documentWillBeDeleted (KTextEditor::Document *document);
 
       /**
-       * This signal is emitted when the \p document was deleted.
+       * This signal is emitted when the \p document has been deleted.
+       *
+       *  Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+       *  Use the pointer only to remove mappings in hash or maps
        */
       void documentDeleted (KTextEditor::Document *document);
 

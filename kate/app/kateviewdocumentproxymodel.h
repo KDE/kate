@@ -79,6 +79,10 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
 
     void sort(); ///< sorts the local row order (m_mapToSource) according to sortRole();
 
+    virtual void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder )  {
+      QAbstractItemModel::sort(column,order);
+    }
+
     virtual void readSessionConfig( const KConfigBase *config, const QString & name );
     virtual void writeSessionConfig( KConfigBase *config, const QString & name );
 

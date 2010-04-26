@@ -395,7 +395,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     
     connect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
     
-    kdDebug()<<"Before completin invoke: range:"<<range;
+    kDebug()<<"Before completin invoke: range:"<<range;
     model->completionInvoked(view(), range, invocationType);
     
     disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));

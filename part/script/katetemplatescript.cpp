@@ -33,12 +33,12 @@ KateTemplateScript::~KateTemplateScript(){}
 QString KateTemplateScript::invoke(KateView* view, const QString& functionName, const QString &srcText) {
 
   if(!setView(view))
-    return false;;
+    return QString();
 
   clearExceptions();
   QScriptValue myFunction = function(functionName);
   if(!myFunction.isValid()) {
-    return false;
+    return QString();
   }
 
   QScriptValueList arguments;

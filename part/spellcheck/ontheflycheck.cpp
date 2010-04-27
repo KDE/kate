@@ -493,6 +493,12 @@ void KateOnTheFlyChecker::rangeEmpty(KTextEditor::MovingRange *range)
   deleteMovingRangeLater(range);
 }
 
+void KateOnTheFlyChecker::rangeInvalid (KTextEditor::MovingRange* range)
+{
+  ON_THE_FLY_DEBUG << range->start() << range->end() << "(" << range << ")";
+  deleteMovingRangeLater(range);
+}
+
 void KateOnTheFlyChecker::mouseEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view)
 {
   KateView *kateView = static_cast<KateView*>(view);

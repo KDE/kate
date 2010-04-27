@@ -107,6 +107,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     bool removeRangeFromCurrentSpellCheck(KTextEditor::MovingRange *range);
     bool removeRangeFromSpellCheckQueue(KTextEditor::MovingRange *range);
     virtual void rangeEmpty(KTextEditor::MovingRange *range);
+    virtual void rangeInvalid (KTextEditor::MovingRange* range);
     virtual void mouseEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
     virtual void mouseExitedRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
     virtual void caretEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);

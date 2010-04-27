@@ -33,6 +33,7 @@
 #include <QtGui/QAbstractScrollArea>
 #include <QtGui/QScrollBar>
 #include <QtCore/QMutex>
+#include <QtCore/QScopedPointer>
 
 #include <kicon.h>
 #include <kdialog.h>
@@ -87,14 +88,14 @@ const bool shellLikeTabCompletion = false;
 static KTextEditor::Range _completionRange(KTextEditor::CodeCompletionModel *model, KTextEditor::View *view, const KTextEditor::Cursor& cursor){
   CALLCI(return,,return, model,completionRange(view, cursor));
 }
-      
+
 static KTextEditor::Range _updateRange(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, KTextEditor::SmartRange& range) {
   CALLCI(, return range,return, model,updateCompletionRange(view, range));
 }
 
 static QString _filterString(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::SmartRange& range, const KTextEditor::Cursor& cursor) {
   CALLCI(return,,return, model,filterString(view, range, cursor));
-}                
+}
 
 static bool _shouldAbortCompletion(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::SmartRange& range, const QString& currentCompletion) {
       CALLCI(return,,return, model,shouldAbortCompletion(view, range, currentCompletion));
@@ -144,7 +145,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_entryList->setColumnWidth(0, 0); //These will be determined automatically in KateCompletionTree::resizeColumns
   m_entryList->setColumnWidth(1, 0);
   m_entryList->setColumnWidth(2, 0);
-  
+
   m_entryList->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 
   m_argumentHintTree->setParent(0, Qt::ToolTip);
@@ -199,12 +200,12 @@ void KateCompletionWidget::modelContentChanged() {
     abortCompletion();
     return;
   }
-  
+
   if(!view()->hasFocus()) {
     kDebug( 13035 ) << "view does not have focus";
     return;
   }
-  
+
   if(!m_waitingForReset.isEmpty()) {
     kDebug( 13035 ) << "waiting for" << m_waitingForReset.size() << "completion-models to reset";
     return;
@@ -320,16 +321,16 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
 
 void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const QList<KTextEditor::CodeCompletionModel*>& modelsToStart, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
-  
+
   kDebug()<<"============";
-  
+
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
   m_needShow = true;
 
   if(m_completionRanges.isEmpty())
     m_noAutoHide = false; //Re-enable auto-hide on every clean restart of the completion
-  
+
   m_lastInvocationType = invocationType;
 
   disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
@@ -392,36 +393,36 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
         delete oldRange;
       }
     }
-    
+
     connect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
-    
+
     kDebug()<<"Before completin invoke: range:"<<range;
     model->completionInvoked(view(), range, invocationType);
-    
+
     disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
-    
+
     QMutexLocker lock(view()->doc()->smartMutex());
-    
+
     m_completionRanges[model] = view()->doc()->smartManager()->newSmartRange(range);
     m_completionRanges[model].range->setInsertBehavior(KTextEditor::SmartRange::ExpandRight | KTextEditor::SmartRange::ExpandLeft);
-    
+
     //In automatic invocation mode, hide the completion widget as soon as the position where the completion was started is passed to the left
     m_completionRanges[model].leftBoundary = view()->cursorPosition();
-    
+
     //In manual invocation mode, bound the activity either the the point from where completion was invoked, or to the start of the range
     if(invocationType != KTextEditor::CodeCompletionModel::AutomaticInvocation)
       if(range.start() < m_completionRanges[model].leftBoundary)
         m_completionRanges[model].leftBoundary = range.start();
-    
+
     if(!m_completionRanges[model].range->isValid()) {
       kWarning(13035) << "Could not construct valid smart-range from" << range << "instead got" << *m_completionRanges[model].range;
       lock.unlock();
       abortCompletion();
       return;
     }
-    
+
     lock.unlock();
-    
+
     connect(m_completionRanges[model].range->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)),
               SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
   }
@@ -457,7 +458,7 @@ void KateCompletionWidget::updateAndShow()
     kDebug( 13035 ) << "view does not have focus";
     return;
   }
-  
+
   setUpdatesEnabled(false);
 
   modelReset();
@@ -665,7 +666,7 @@ void KateCompletionWidget::updateHeight()
 
   //Work around a crash deep within the Qt 4.5 raster engine
   m_entryList->setScrollingEnabled(false);
-  
+
   if(geometry() != geom)
     setGeometry(geom);
 
@@ -686,11 +687,11 @@ void KateCompletionWidget::cursorPositionChanged( )
   QModelIndex oldCurrentSourceIndex;
   if(m_inCompletionList && m_entryList->currentIndex().isValid())
     oldCurrentSourceIndex = m_presentationModel->mapToSource(m_entryList->currentIndex());
-  
+
   KTextEditor::Cursor cursor = view()->cursorPosition();
 
   QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
-  
+
   QMutexLocker lock(view()->doc()->smartMutex());
   lock.unlock();
 
@@ -714,7 +715,7 @@ void KateCompletionWidget::cursorPositionChanged( )
         kDebug() << "aborting because of boundary: cursor:"<<view()->cursorPosition()<<"completion_Range_left_boundary:"<<m_completionRanges[*it].leftBoundary;
         abort = true;
       }
-      
+
       if(!m_completionRanges.contains(*it))
         continue;
 
@@ -739,7 +740,7 @@ void KateCompletionWidget::cursorPositionChanged( )
         m_presentationModel->setCurrentCompletion(model, currentCompletion);
       }
   }
-  
+
   if(oldCurrentSourceIndex.isValid()) {
     QModelIndex idx = m_presentationModel->mapFromSource(oldCurrentSourceIndex);
     if(idx.isValid()) {
@@ -751,7 +752,7 @@ void KateCompletionWidget::cursorPositionChanged( )
       kDebug() << "failed to map from source";
     }
   }
-  
+
   m_entryList->scheduleUpdate();
 }
 
@@ -788,7 +789,7 @@ void KateCompletionWidget::clear() {
     _aborted(model,view());
 
   QMutexLocker lock(view()->doc()->smartMutex());
-  
+
   deleteCompletionRanges();
 }
 
@@ -833,7 +834,8 @@ void KateCompletionWidget::execute()
   // encapsulate all editing as being from the code completion, and undo-able in one step.
   view()->doc()->editStart(Kate::CodeCompletionEdit);
 
-  KTextEditor::SmartCursor* oldPos = view()->doc()->smartManager()->newSmartCursor(view()->cursorPosition(), KTextEditor::SmartCursor::StayOnInsert);
+  // create scoped pointer, to ensure deletion of cursor
+  QScopedPointer<KTextEditor::MovingCursor> oldPos (view()->doc()->newMovingCursor(view()->cursorPosition(), KTextEditor::MovingCursor::StayOnInsert));
 
   KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
   Q_ASSERT(model);
@@ -873,10 +875,6 @@ void KateCompletionWidget::execute()
     m_lastInsertionByUser = false;
     m_automaticInvocationTimer->start();
   }
-
-  view()->doc()->smartMutex()->lock();
-  delete oldPos;
-  view()->doc()->smartMutex()->unlock();
 }
 
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )
@@ -1201,16 +1199,16 @@ void KateCompletionWidget::completionModelReset()
     kWarning() << "bad sender";
     return;
   }
-  
+
   if(!m_waitingForReset.contains(model))
     return;
-  
+
   m_waitingForReset.remove(model);
-  
+
   if(m_waitingForReset.isEmpty()) {
     if(!isCompletionActive()) {
       kDebug() << "all completion-models we waited for are ready. Last one: " << model->objectName();
-      //Eventually show the completion-list if this was the last model we were waiting for      
+      //Eventually show the completion-list if this was the last model we were waiting for
       //Use a queued connection once again to make sure that KateCompletionModel is notified before we are
       QMetaObject::invokeMethod(this, "modelContentChanged", Qt::QueuedConnection);
     }
@@ -1334,7 +1332,7 @@ void KateCompletionWidget::tab(bool shift)
       cursorUp();
       return;
     }
-    
+
     //Reset left boundaries, so completion isn't stopped
     typedef QMap<KTextEditor::CodeCompletionModel*, CompletionRange> CompletionRangeMap;
     for(CompletionRangeMap::iterator it = m_completionRanges.begin(); it != m_completionRanges.end(); ++it)
@@ -1342,7 +1340,7 @@ void KateCompletionWidget::tab(bool shift)
 
     //Remove suffix until the completion-list filter is widened again
     uint itemCount = m_presentationModel->filteredItemCount();
-    
+
     while(view()->cursorPosition().column() > 0 && m_presentationModel->filteredItemCount() == itemCount) {
       KTextEditor::Range lastcharRange = KTextEditor::Range(view()->cursorPosition()-KTextEditor::Cursor(0,1), view()->cursorPosition());
       QString cursorText = view()->document()->text(lastcharRange);

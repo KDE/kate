@@ -422,9 +422,6 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     }
 
     lock.unlock();
-
-    connect(m_completionRanges[model].range->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)),
-              SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
   }
 
   m_presentationModel->setCompletionModels(models);
@@ -1035,13 +1032,6 @@ void KateCompletionWidget::setCurrentItemExpanded( bool expanded ) {
     if( !m_argumentHintTree->currentIndex().isValid() ) return;
     m_argumentHintModel->setExpanded(m_argumentHintTree->currentIndex(), expanded);
   }
-}
-
-void KateCompletionWidget::startCharacterDeleted( KTextEditor::SmartCursor*, bool deletedBefore )
-{
-  if (deletedBefore)
-    // Cannot abort completion from this function, or the cursor will be deleted before returning
-    QTimer::singleShot(0, this, SLOT(abortCompletion()));
 }
 
 bool KateCompletionWidget::eventFilter( QObject * watched, QEvent * event )

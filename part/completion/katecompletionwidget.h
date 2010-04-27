@@ -75,36 +75,36 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     void execute();
     void cursorDown();
     void cursorUp();
-    
+
     void tab(bool shift);
-    
+
     ///Returns whether the current item was expanded/unexpanded
     bool toggleExpanded(bool forceExpand = false, bool forceUnExpand = false);
 
     const KateCompletionModel* model() const;
     KateCompletionModel* model();
-    
+
     void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
     void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
-    
+
     int automaticInvocationDelay() const;
     void setAutomaticInvocationDelay(int delay);
-    
+
     struct CompletionRange{
       CompletionRange() : range(0) {
       }
       CompletionRange(KateSmartRange* r) : range(r) {
       }
-      
+
       bool operator==(const CompletionRange& rhs) const {
         return range == rhs.range;
       }
-      
+
       KateSmartRange* range;
       //Whenever the cursor goes before this position, the completion is stopped, unless it is invalid.
       KTextEditor::Cursor leftBoundary;
     };
-    
+
     KateSmartRange* completionRange(KTextEditor::CodeCompletionModel* model = 0) const;
     QMap<KTextEditor::CodeCompletionModel*, CompletionRange> completionRanges( ) const;
 
@@ -113,31 +113,31 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     void pageUp();
     void top();
     void bottom();
-    
+
     QWidget* currentEmbeddedWidget();
-    
+
     bool canExpandCurrentItem() const;
 
     bool canCollapseCurrentItem() const;
 
     void setCurrentItemExpanded( bool );
-    
+
     //Returns true if a screen border has been hit
     bool updatePosition(bool force = false);
 
     virtual bool eventFilter( QObject * watched, QEvent * event );
 
     KateArgumentHintTree* argumentHintTree() const;
-    
+
     KateArgumentHintModel* argumentHintModel() const;
 
     ///Called by KateViewInternal, because we need the specific information from the event.
-    
+
     void updateHeight();
-    
+
   public Q_SLOTS:
     void waitForModelReset();
-    
+
     void abortCompletion();
     void showConfig();
 /*    void viewFocusIn();
@@ -147,14 +147,14 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
 
 /*    void updateFocus();*/
     void argumentHintsChanged(bool hasContent);
-    
+
     bool navigateUp();
     bool navigateDown();
     bool navigateLeft();
     bool navigateRight();
     bool navigateAccept();
     bool navigateBack();
-    
+
     bool hadNavigation() const;
     void resetHadNavigation();
 
@@ -170,7 +170,6 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     void cursorPositionChanged();
     void editDone(KateEditInfo* edit);
     void modelReset();
-    void startCharacterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
     void viewFocusOut();
   private:
@@ -191,7 +190,7 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
 
     QMap<KTextEditor::CodeCompletionModel*, CompletionRange> m_completionRanges;
     QSet<KTextEditor::CodeCompletionModel*> m_waitingForReset;
-    
+
     KTextEditor::Cursor m_lastCursorPosition;
 
     KateCompletionTree* m_entryList;
@@ -220,11 +219,11 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     bool m_needShow;
 
     bool m_hadCompletionNavigation;
-    
+
     bool m_haveExactMatch;
-    
+
     bool m_noAutoHide;
-    
+
     int m_expandedAddedHeightBase;
     KTextEditor::CodeCompletionModel::InvocationType m_lastInvocationType;
 };

@@ -29,7 +29,7 @@ add_subdirectory( katebuild-plugin )
 add_subdirectory( kttsd )
 
 add_subdirectory( openheader )
-#add_subdirectory( xmltools )
+add_subdirectory( xmltools )
 add_subdirectory( xmlcheck )
 
 add_subdirectory( snippets_tng )

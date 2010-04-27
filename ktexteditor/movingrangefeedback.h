@@ -61,6 +61,7 @@ class KTEXTEDITOR_EXPORT MovingRangeFeedback
     /**
      * The range is now empty (ie. the start and end cursors are the same).
      * If the range has invalidateIfEmpty set, this will never be emitted, but instead rangeInvalid is triggered.
+     * You may delete the range inside this method, but don't alter the range here (for example by using setRange).
      *
      * \param range pointer to the range which generated the notification.
      */
@@ -68,6 +69,7 @@ class KTEXTEDITOR_EXPORT MovingRangeFeedback
 
     /**
      * The range is now invalid (ie. the start and end cursors are invalid).
+     * You may delete the range inside this method, but don't alter the range here (for example by using setRange).
      *
      * \param range pointer to the range which generated the notification.
      */

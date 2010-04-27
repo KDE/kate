@@ -64,7 +64,7 @@ TextBuffer::~TextBuffer ()
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 
-  // kill all ranges
+  // kill all ranges, work on copy, they will remove themself from the hash
   QSet<TextRange *> copyRanges = m_ranges;
   qDeleteAll (copyRanges);
   Q_ASSERT (m_ranges.empty());
@@ -89,8 +89,9 @@ void TextBuffer::clear ()
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 
-  // invalidate all ranges!
-  foreach (TextRange *range, m_ranges)
+  // invalidate all ranges, work on copy, they might delete themself...
+  QSet<TextRange *> copyRanges = m_ranges;
+  foreach (TextRange *range, copyRanges)
     range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
 
   // new block for empty buffer

@@ -205,8 +205,9 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * Same if range itself is invalid (start >= end).
      * @param oldStartLine old start line of this range before changing of cursors, needed to add/remove range from m_ranges in blocks
      * @param oldEndLine old end line of this range
+     * @param notifyAboutChange should feedback be emited or not?
      */
-    void checkValidity (int oldStartLine = -1, int oldEndLine = -1);
+    void checkValidity (int oldStartLine = -1, int oldEndLine = -1, bool notifyAboutChange = true);
 
     /**
      * Add/Remove range from the lookup m_ranges hash of each block

@@ -345,7 +345,6 @@ void KateOnTheFlyChecker::freeDocument()
 {
   ON_THE_FLY_DEBUG;
 
-  deleteEliminatedRanges();
   for(QList<SpellCheckItem>::iterator i = m_spellCheckQueue.begin();
                                       i != m_spellCheckQueue.end();) {
       ON_THE_FLY_DEBUG << "erasing range " << *i;
@@ -420,8 +419,6 @@ void KateOnTheFlyChecker::removeRangeFromEverything(KTextEditor::MovingRange *mo
   Q_ASSERT(m_document == movingRange->document());
   ON_THE_FLY_DEBUG << *movingRange << "(" << movingRange << ")";
   
-  m_eliminatedRanges.remove(movingRange);
-
   if(removeRangeFromModificationList(movingRange)) {
     return; // range was part of the modification queue, so we don't have
             // to look further for it
@@ -490,13 +487,13 @@ bool KateOnTheFlyChecker::removeRangeFromSpellCheckQueue(KTextEditor::MovingRang
 void KateOnTheFlyChecker::rangeEmpty(KTextEditor::MovingRange *range)
 {
   ON_THE_FLY_DEBUG << range->start() << range->end() << "(" << range << ")";
-  deleteMovingRangeLater(range);
+  deleteMovingRange (range);
 }
 
 void KateOnTheFlyChecker::rangeInvalid (KTextEditor::MovingRange* range)
 {
   ON_THE_FLY_DEBUG << range->start() << range->end() << "(" << range << ")";
-  deleteMovingRangeLater(range);
+  deleteMovingRange (range);
 }
 
 void KateOnTheFlyChecker::mouseEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view)
@@ -543,27 +540,6 @@ void KateOnTheFlyChecker::deleteMovingRanges(const QList<KTextEditor::MovingRang
 {
   foreach(KTextEditor::MovingRange *r, list) {
     deleteMovingRange(r);
-  }
-}
-
-void KateOnTheFlyChecker::deleteMovingRangeLater(KTextEditor::MovingRange *range)
-{
-  ON_THE_FLY_DEBUG << range;
-  // remove it from all our structures but we cannot remove the watcher yet
-  // as the range might still be deleted before we reach 'deleteEliminatedRanges'
-  removeRangeFromEverything(range);
-
-  m_eliminatedRanges.insert(range);
-  if(m_eliminatedRanges.size() == 1) { // otherwise there is already a call to '
-                                       // 'deleteEliminatedRanges()' scheduled
-    QTimer::singleShot(0, this, SLOT(deleteEliminatedRanges()));
-  }
-}
-
-void KateOnTheFlyChecker::deleteMovingRangesLater(const QList<KTextEditor::MovingRange*>& list)
-{
-  foreach(KTextEditor::MovingRange *r, list) {
-    deleteMovingRangeLater(r);
   }
 }
 
@@ -763,7 +739,7 @@ void KateOnTheFlyChecker::updateInstalledMovingRanges(KateView *view)
       }
     }
   }
-  deleteMovingRangesLater(toDelete);
+  deleteMovingRanges (toDelete);
   m_displayRangeMap[view] = newDisplayRange;
   if(oldDisplayRange.isValid()) {
     bool emptyAtStart = m_spellCheckQueue.empty();
@@ -905,24 +881,9 @@ void KateOnTheFlyChecker::restartViewRefreshTimer(KateView *view)
   m_viewRefreshTimer->start(100);
 }
 
-void KateOnTheFlyChecker::deleteEliminatedRanges()
-{
-  ON_THE_FLY_DEBUG << "deleting eliminated ranges\n";
-  foreach(KTextEditor::MovingRange *r, m_eliminatedRanges) {
-    r->setFeedback(NULL);
-    foreach(KTextEditor::View *view, m_document->views()) {
-      static_cast<KateView*>(view)->spellingMenu()->rangeDeleted(r);
-    }
-    ON_THE_FLY_DEBUG << r;
-    delete(r);
-  }
-  m_eliminatedRanges.clear();
-}
-
 void KateOnTheFlyChecker::deleteMovingRangeQuickly(KTextEditor::MovingRange *range)
 {
   range->setFeedback(NULL);
-  m_eliminatedRanges.remove(range);
   foreach(KTextEditor::View *view, m_document->views()) {
     static_cast<KateView*>(view)->spellingMenu()->rangeDeleted(range);
   }

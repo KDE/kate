@@ -38,7 +38,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   // remember this range in buffer
   m_buffer.m_ranges.insert (this);
 
-  // check if range now invalid
+  // check if range now invalid, there can happen no feedback, as m_feedback == 0
   checkValidity ();
 }
 
@@ -132,10 +132,11 @@ void TextRange::setRange (const KTextEditor::Range &range)
   m_start.setPosition (range.start ());
   m_end.setPosition (range.end ());
 
-  // check if range now invalid
-  checkValidity (oldStartLine, oldEndLine);
+  // check if range now invalid, don't emit feedback here, will be handled below
+  // otherwise you can't delete ranges in feedback!
+  checkValidity (oldStartLine, oldEndLine, false);
 
-  // no attribute set, be done
+  // no attribute or feedback set, be done
   if (!m_attribute && !m_feedback)
     return;
 
@@ -153,9 +154,18 @@ void TextRange::setRange (const KTextEditor::Range &range)
    * notify right view
    */
   m_buffer.notifyAboutRangeChange (m_view, startLineMin, endLineMax, m_attribute);
+
+  // perhaps need to notify stuff!
+  if (m_feedback) {
+    // do this last: may delete this range
+    if (!toRange().isValid())
+      m_feedback->rangeInvalid (this);
+    else if (toRange().isEmpty())
+      m_feedback->rangeEmpty (this);
+  }
 }
 
-void TextRange::checkValidity (int oldStartLine, int oldEndLine)
+void TextRange::checkValidity (int oldStartLine, int oldEndLine, bool notifyAboutChange)
 {
   /**
    * check if any cursor is invalid or the range is zero size and it should be invalidated then
@@ -175,9 +185,10 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine)
   fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());
 
   // perhaps need to notify stuff!
-  if (m_feedback) {
+  if (notifyAboutChange && m_feedback) {
     m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), false /* attribute not interesting here */);
 
+    // do this last: may delete this range
     if (!toRange().isValid())
       m_feedback->rangeInvalid (this);
     else if (toRange().isEmpty())

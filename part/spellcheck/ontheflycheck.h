@@ -113,8 +113,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     virtual void caretEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
     virtual void caretExitedRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
 
-    QSet<KTextEditor::MovingRange*> m_eliminatedRanges;
-
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
     QList<KTextEditor::MovingRange*> m_myranges;
     KTextEditor::Range findWordBoundaries(const KTextEditor::Cursor& begin,
@@ -122,8 +120,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
 
     void deleteMovingRange(KTextEditor::MovingRange *range);
     void deleteMovingRanges(const QList<KTextEditor::MovingRange*>& list);
-    void deleteMovingRangeLater(KTextEditor::MovingRange *range);
-    void deleteMovingRangesLater(const QList<KTextEditor::MovingRange*>& list);
     void deleteMovingRangeQuickly(KTextEditor::MovingRange *range);
     void stopCurrentSpellCheck();
 
@@ -138,8 +134,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
 
     void restartViewRefreshTimer(KateView *view);
     void viewRefreshTimeout();
-
-    void deleteEliminatedRanges();
 
     void handleModifiedRanges();
     void handleInsertedText(const KTextEditor::Range &range);

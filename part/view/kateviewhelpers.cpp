@@ -35,7 +35,6 @@
 #include "kateviewinternal.h"
 #include "katelayoutcache.h"
 #include "katetextlayout.h"
-#include "katesmartrange.h"
 #include "kateglobal.h"
 
 #include <kapplication.h>

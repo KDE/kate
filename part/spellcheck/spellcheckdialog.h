@@ -43,7 +43,7 @@ namespace Sonnet {
 #include "ktexteditor/range.h"
 
 namespace KTextEditor {
-    class SmartRange;
+    class MovingRange;
 }
 
 class KateSpellCheckDialog : public QObject
@@ -97,7 +97,7 @@ class KateSpellCheckDialog : public QObject
 
     // define the part of the text to check
     KTextEditor::Range m_currentSpellCheckRange;
-    KTextEditor::SmartRange *m_globalSpellCheckRange;
+    KTextEditor::MovingRange *m_globalSpellCheckRange;
 
     QList<QPair<int, int> > m_currentDecToEncOffsetList;
 

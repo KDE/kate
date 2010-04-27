@@ -40,10 +40,6 @@
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/speller.h>
 
-#include <QMutexLocker>
-
-#include <kdebug.h>
-
 KateSpellCheckDialog::KateSpellCheckDialog( KateView* view )
   : QObject( view )
   , m_view (view)
@@ -146,12 +142,10 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
             this,SLOT(objectDestroyed(QObject*)));
   }
 
-  QMutexLocker(m_view->doc()->smartMutex());
   delete m_globalSpellCheckRange;
   // we expand to handle the situation when the last word in the range is replace by a new one
-  m_globalSpellCheckRange = m_view->doc()->newSmartRange( KTextEditor::Range( start, end ),
-                                                          NULL,
-                                                          KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
+  m_globalSpellCheckRange = m_view->doc()->newMovingRange (KTextEditor::Range( start, end ),
+                                                           KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
   m_spellCheckCancelledByUser = false;
   performSpellCheck( *m_globalSpellCheckRange );
 }
@@ -210,7 +204,6 @@ void KateSpellCheckDialog::corrected( const QString& word, int pos, const QStrin
   // the misspelled word being replaced, i.e. new line breaks might be inserted as well. As such, the text
   // in the 'Sonnet::Dialog' might be eventually out of sync with the visible text. Therefore, we 'restart'
   // spell checking from the current position.
-  QMutexLocker( doc->smartMutex() );
   performSpellCheck( KTextEditor::Range( replacementStartCursor, m_globalSpellCheckRange->end() ) );
 }
 

@@ -29,7 +29,6 @@
 #include <QString>
 #include <QSet>
 
-#include <ktexteditor/smartrangewatcher.h>
 #include <sonnet/speller.h>
 
 #include "katedocument.h"

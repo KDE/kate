@@ -31,8 +31,6 @@
 #include <QThread>
 
 #include <kactioncollection.h>
-#include <ktexteditor/smartinterface.h>
-#include <ktexteditor/smartrange.h>
 #include <ktexteditor/view.h>
 #include <sonnet/speller.h>
 

@@ -20,8 +20,8 @@
  */
 
 #include "katelayoutcache.h"
+#include "katelayoutcache.moc"
 
-#include <QtCore/QMutex>
 #include <QtAlgorithms>
 
 #include "katerenderer.h"
@@ -29,14 +29,9 @@
 #include "katedocument.h"
 #include "kateedit.h"
 
-#include <kdebug.h>
-
-
 static QThreadStorage<QMap<KateLayoutCache*,bool>*> m_acceptDirtyLayouts;
 
 static bool enableLayoutCache = false;
-
-QMutex QAssertMutexLocker::wait;
 
 //BEGIN KateLineLayoutMap
 KateLineLayoutMap::KateLineLayoutMap()
@@ -150,7 +145,6 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
   , m_wrap(false)
-  , m_debugMutex(QMutex::Recursive)
 {
   Q_ASSERT(m_renderer);
 
@@ -159,7 +153,6 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
 {
-  QAssertMutexLocker lock(m_debugMutex);
   //kDebug( 13033 ) << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled;
 
   int oldViewLineCount = m_textLayouts.count();
@@ -273,8 +266,6 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
 KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
 {
-  QAssertMutexLocker lock(m_debugMutex);
-  
   if (m_lineLayouts.contains(realLine)) {
     KateLineLayoutPtr l = m_lineLayouts[realLine];
 
@@ -294,7 +285,7 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
       l->textLine (true);
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
     }
-    
+
     Q_ASSERT(l->isValid() && (!l->isLayoutDirty() || acceptDirtyLayouts()));
 
     return l;
@@ -305,32 +296,29 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
 
   KateLineLayoutPtr l(new KateLineLayout(m_renderer->doc()));
   l->setLine(realLine, virtualLine);
-  
+
   // Mark it dirty, because it may not have the syntax highlighting applied
   // mark this here, to allow layoutLine to use plainLines...
   if (acceptDirtyLayouts())
     l->setUsePlainTextLine (true);
-  
+
   m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());
-  
+
   if (acceptDirtyLayouts())
     l->setLayoutDirty (true);
-  
+
   m_lineLayouts.insert(realLine, l);
   return l;
 }
 
 KateLineLayoutPtr KateLayoutCache::line( const KTextEditor::Cursor & realCursor )
 {
-  QAssertMutexLocker lock(m_debugMutex);
-  
   return line(realCursor.line());
 }
 
 KateTextLayout KateLayoutCache::textLayout( const KTextEditor::Cursor & realCursor )
 {
-  QAssertMutexLocker lock(m_debugMutex);
   /*if (realCursor >= viewCacheStart() && (realCursor < viewCacheEnd() || realCursor == viewCacheEnd() && !m_textLayouts.last().wrap()))
     foreach (const KateTextLayout& l, m_textLayouts)
       if (l.line() == realCursor.line() && (l.endCol() < realCursor.column() || !l.wrap()))
@@ -341,7 +329,6 @@ KateTextLayout KateLayoutCache::textLayout( const KTextEditor::Cursor & realCurs
 
 KateTextLayout KateLayoutCache::textLayout( uint realLine, int _viewLine )
 {
-  QAssertMutexLocker lock(m_debugMutex);
   /*if (m_textLayouts.count() && (realLine >= m_textLayouts.first().line() && _viewLine >= m_textLayouts.first().viewLine()) &&
       (realLine <= m_textLayouts.last().line() && _viewLine <= m_textLayouts.first().viewLine()))
     foreach (const KateTextLayout& l, m_textLayouts)
@@ -353,26 +340,22 @@ KateTextLayout KateLayoutCache::textLayout( uint realLine, int _viewLine )
 
 KateTextLayout & KateLayoutCache::viewLine( int _viewLine )
 {
-  QAssertMutexLocker lock(m_debugMutex);
   Q_ASSERT(_viewLine >= 0 && _viewLine < m_textLayouts.count());
   return m_textLayouts[_viewLine];
 }
 
 int KateLayoutCache::viewCacheLineCount( ) const
 {
-  QAssertMutexLocker lock(m_debugMutex);
   return m_textLayouts.count();
 }
 
 KTextEditor::Cursor KateLayoutCache::viewCacheStart( ) const
 {
-  QAssertMutexLocker lock(m_debugMutex);
   return m_textLayouts.count() ? m_textLayouts.first().start() : KTextEditor::Cursor();
 }
 
 KTextEditor::Cursor KateLayoutCache::viewCacheEnd( ) const
 {
-  QAssertMutexLocker lock(m_debugMutex);
   return m_textLayouts.count() ? m_textLayouts.last().end() : KTextEditor::Cursor();
 }
 
@@ -388,8 +371,6 @@ int KateLayoutCache::viewWidth( ) const
  */
 int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor)
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   if (realCursor.column() == 0) return 0;
 
   KateLineLayoutPtr thisLine = line(realCursor.line());
@@ -405,8 +386,6 @@ int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor)
 
 int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible)
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   KTextEditor::Cursor work = viewCacheStart();
   work.setLine(m_renderer->doc()->getVirtualLine(work.line()));
 
@@ -462,8 +441,6 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
 
 int KateLayoutCache::lastViewLine(int realLine)
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   if (!m_renderer->view()->dynWordWrap()) return 0;
 
   KateLineLayoutPtr l = line(realLine);
@@ -489,8 +466,6 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
 
 void KateLayoutCache::slotEditDone(KateEditInfo* edit)
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   int fromLine = edit->oldRange().start().line();
   int toLine = edit->oldRange().end().line();
   int shiftAmount = edit->translate().line();
@@ -500,8 +475,6 @@ void KateLayoutCache::slotEditDone(KateEditInfo* edit)
 
 void KateLayoutCache::clear( )
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   m_textLayouts.clear();
   m_lineLayouts.clear();
   m_startPos = KTextEditor::Cursor(-1,-1);
@@ -509,8 +482,6 @@ void KateLayoutCache::clear( )
 
 void KateLayoutCache::setViewWidth( int width )
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   bool wider = width > m_viewWidth;
 
   m_viewWidth = width;
@@ -528,8 +499,6 @@ void KateLayoutCache::setViewWidth( int width )
 
 bool KateLayoutCache::wrap( ) const
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   return m_wrap;
 }
 
@@ -541,8 +510,6 @@ void KateLayoutCache::setWrap( bool wrap )
 
 void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
   if (startRealLine > endRealLine)
     kWarning() << "start" << startRealLine << "before end" << endRealLine;
 
@@ -551,27 +518,21 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 
 bool KateLayoutCache::acceptDirtyLayouts()
 {
-  QAssertMutexLocker lock(m_debugMutex);
-
-    if (m_acceptDirtyLayouts.hasLocalData()) {
-      QMap<KateLayoutCache*,bool>* m=m_acceptDirtyLayouts.localData();
-      if (m->contains(this))
-        return m->value(this);
-    }
+  if (m_acceptDirtyLayouts.hasLocalData()) {
+    QMap<KateLayoutCache*,bool>* m=m_acceptDirtyLayouts.localData();
+    if (m->contains(this))
+      return m->value(this);
+  }
 
   return false;
 }
 
 void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
 {
-  QAssertMutexLocker lock(m_debugMutex);
-  
   if (!m_acceptDirtyLayouts.hasLocalData())
     m_acceptDirtyLayouts.setLocalData(new QMap<KateLayoutCache*,bool>());
 
   m_acceptDirtyLayouts.localData()->insert(this,accept);
 }
-
-#include "katelayoutcache.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

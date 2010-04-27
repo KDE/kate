@@ -57,9 +57,6 @@ KateSmartRange::~KateSmartRange()
 
   if (m_start)
     kateDocument()->smartManager()->rangeDeleted(this);
-
-  foreach (KateSmartRangePtr* ptr, m_pointers)
-    ptr->deleted();
 }
 
 KateDocument * KateSmartRange::kateDocument( ) const
@@ -216,16 +213,6 @@ void KateSmartRange::setInternal( )
   m_isInternal = true;
   kStart().setInternal();
   kEnd().setInternal();
-}
-
-void KateSmartRange::registerPointer( KateSmartRangePtr * ptr )
-{
-  m_pointers.append(ptr);
-}
-
-void KateSmartRange::deregisterPointer( KateSmartRangePtr * ptr )
-{
-  m_pointers.removeAll(ptr);
 }
 
 void KateSmartRange::checkFeedback()

@@ -18,6 +18,15 @@
       <item> ast_header </item>
       <item> ast_base </item>
       <item> parser_base </item>
+      <item> bin </item>
+      <item> pre </item>
+      <item> post </item>
+      <item> tern </item>
+      <item> paren </item>
+      <item> left </item>
+      <item> right </item>
+      <item> &lt; </item>
+      <item> &gt; </item>
     </list>
     <list name="keywords">
       <item> try/rollback </item>

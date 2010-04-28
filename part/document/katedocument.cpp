@@ -1277,7 +1277,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   else
   {
     m_buffer->insertText (KTextEditor::Cursor (line + 1, 0), l->text().mid(col, pos));
-    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, col), KTextEditor::Cursor (line, l->text().size()-col)));
+    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, col), KTextEditor::Cursor (line, l->text().size())));
 
     // no, no new line added !
     if (newLineAdded)

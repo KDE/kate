@@ -24,8 +24,8 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.6-patch 3" -->
-<language name="CMake" version="1.11" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<!-- generated for "cmake version 2.6-patch 4" -->
+<language name="CMake" version="1.12" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -298,6 +298,7 @@
       <item> RANGE </item>
       <item> READ </item>
       <item> READ_WITH_PREFIX </item>
+      <item> REALPATH </item>
       <item> REGEX </item>
       <item> REGULAR_EXPRESSION </item>
       <item> RELATIVE </item>

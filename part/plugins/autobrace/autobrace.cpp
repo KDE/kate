@@ -155,6 +155,8 @@ void AutoBracePluginDocument::disconnectSlots(KTextEditor::Document* document)
                this, SLOT(slotTextInserted(KTextEditor::Document*, KTextEditor::Range)));
     disconnect(document, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
                this, SLOT(slotTextRemoved(KTextEditor::Document*, KTextEditor::Range)));
+    disconnect(document, SIGNAL(textChanged(KTextEditor::Document*)),
+               this, SLOT(slotTextChanged(KTextEditor::Document*)));
 }
 
 /**

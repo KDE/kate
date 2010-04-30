@@ -179,7 +179,7 @@ void TextHistory::unlockRevision (qint64 revision)
      * search for now unused stuff
      */
     int unreferencedEdits = 0;
-    for (int i = 0; i < m_historyEntries.size(); ++i) {
+    for (int i = 0; i + 1 < m_historyEntries.size(); ++i) {
       if (m_historyEntries[i].referenceCounter)
         break;
 

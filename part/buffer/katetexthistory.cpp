@@ -398,7 +398,7 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
     entry.transformCursor (end, moveOnInsertEnd);
 
     // got empty?
-    if (invalidateIfEmpty && range.end() <= range.start()) {
+    if (invalidateIfEmpty && end <= start) {
       range = KTextEditor::Range::invalid();
       return;
     }

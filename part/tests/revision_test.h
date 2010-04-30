@@ -31,7 +31,8 @@ public:
   ~RevisionTest();
 
 private Q_SLOTS:
-  void testRevision();
+  void testTransformCursor();
+  void testTransformRange();
 };
 
 #endif // KATE_REVISION_TEST_H

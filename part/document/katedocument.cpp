@@ -2078,7 +2078,6 @@ bool KateDocument::openFile()
     view->setUpdatesEnabled (false);
 
   history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
-  emit KTextEditor::Document::textInserted(this, documentRange());
 
   //
   // yeah, success
@@ -2107,9 +2106,6 @@ bool KateDocument::openFile()
     }
   }
 
-  // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
-  emit textChanged (this);
-
   //
   // update views
   //
@@ -2121,6 +2117,12 @@ bool KateDocument::openFile()
     view->updateView (true);
   }
 
+  // emit all signals about new text after view updates
+  emit KTextEditor::Document::textInserted(this, documentRange());
+
+  // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
+  emit textChanged (this);
+  
   if (!m_reloading)
   {
     //

@@ -115,8 +115,6 @@ KateTemplateHandler::KateTemplateHandler( KateView *view, const Cursor& position
 
       connect(doc(), SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
               this, SLOT(slotViewCreated(KTextEditor::Document*, KTextEditor::View*)));
-      connect(doc(), SIGNAL(textChanged(KTextEditor::Document*, KTextEditor::Range, KTextEditor::Range)),
-              this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
       connect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
               this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
       connect(doc(), SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
@@ -160,8 +158,6 @@ void KateTemplateHandler::cleanupAndExit()
   ifDebug(kDebug() << "cleaning up and exiting";)
   disconnect(doc(), SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
              this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
-  disconnect(doc(), SIGNAL(textChanged(KTextEditor::Document*,KTextEditor::Range,KTextEditor::Range)),
-             this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
   disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
   disconnect(doc(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),

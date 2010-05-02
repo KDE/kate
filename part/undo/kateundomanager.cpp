@@ -28,7 +28,6 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   , m_undoComplexMerge (false)
   , m_isActive (true)
   , m_editCurrentUndo (0)
-  , m_undoDontMerge (false)
   , lastUndoGroupWhenSaved(0)
   , lastRedoGroupWhenSaved(0)
   , docWasSavedWhenUndoWasEmpty(true)
@@ -95,16 +94,13 @@ void KateUndoManager::editEnd()
 
     if (m_editCurrentUndo->isEmpty()) {
       delete m_editCurrentUndo;
-    } else if (!m_undoDontMerge
-        && !undoItems.isEmpty()
+    } else if (!undoItems.isEmpty()
         && undoItems.last()->merge(m_editCurrentUndo, m_undoComplexMerge)) {
       delete m_editCurrentUndo;
     } else {
       undoItems.append(m_editCurrentUndo);
       changedUndo = true;
     }
-
-    m_undoDontMerge = false;
 
     m_editCurrentUndo = 0L;
 
@@ -186,15 +182,19 @@ void KateUndoManager::undoCancel()
   if (m_document->isEditRunning())
     return;
 
-  m_undoDontMerge = true;
-
-  Q_ASSERT(m_editCurrentUndo == 0);
+  undoSafePoint();
 }
 
 void KateUndoManager::undoSafePoint() {
-  Q_ASSERT(m_editCurrentUndo != 0); // call this method only in between editStart() and editEnd()
+  KateUndoGroup *undoGroup = m_editCurrentUndo;
 
-  m_editCurrentUndo->safePoint();
+  if (undoGroup == 0 && !undoItems.isEmpty())
+    undoGroup = undoItems.last();
+
+  if (undoGroup == 0)
+    return;
+
+  undoGroup->safePoint();
 }
 
 void KateUndoManager::addUndoItem(KateUndo *undo)
@@ -330,7 +330,7 @@ void KateUndoManager::updateModified()
       m_document->setModified( false );
       // (dominik) whenever the doc is not modified, succeeding edits
       // should not be merged
-      setUndoDontMerge(true);
+      undoSafePoint();
       kDebug() << "setting modified to false!";
       break;
     }
@@ -385,11 +385,6 @@ void KateUndoManager::updateConfig ()
 void KateUndoManager::setAllowComplexMerge(bool allow)
 {
   m_undoComplexMerge = allow;
-}
-
-void KateUndoManager::setUndoDontMerge(bool dontMerge)
-{
-  m_undoDontMerge = dontMerge;
 }
 
 KTextEditor::View* KateUndoManager::activeView()

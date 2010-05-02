@@ -69,16 +69,9 @@ class KateUndoManager : public QObject
     uint redoCount () const;
 
     /**
-     * Prevent the current KateUndoGroup from being merged with the next one.
+     * Prevent latest KateUndoGroup from being merged with the next one.
      */
     void undoSafePoint();
-
-    /**
-     * Allows or disallows merging with previous undo group.
-     *
-     * @param dontMerge whether merging is not allowed
-     */
-    void setUndoDontMerge(bool dontMerge);
 
     /**
      * Allows or disallows merging of "complex" undo groups.
@@ -197,7 +190,6 @@ class KateUndoManager : public QObject
     KateUndoGroup* m_editCurrentUndo;
     QList<KateUndoGroup*> undoItems;
     QList<KateUndoGroup*> redoItems;
-    bool m_undoDontMerge;
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...
     KateUndoGroup* lastUndoGroupWhenSaved;

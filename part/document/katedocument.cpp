@@ -2370,7 +2370,7 @@ bool KateDocument::saveFile()
 
   // (dominik) mark last undo group as not mergeable, otherwise the next
   // edit action might be merged and undo will never stop at the saved state
-  m_undoManager->setUndoDontMerge(true);
+  m_undoManager->undoSafePoint();
 
   //
   // return success
@@ -2917,7 +2917,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   int lines = s.count (QChar::fromAscii ('\n'));
 
-  m_undoManager->setUndoDontMerge (true);
+  m_undoManager->undoSafePoint();
 
   editStart (Kate::CutCopyPasteEdit);
 
@@ -2985,7 +2985,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   if (!view->blockSelectionMode())
     emit charactersSemiInteractivelyInserted (pos, s);
-  m_undoManager->setUndoDontMerge (true);
+  m_undoManager->undoSafePoint();
 }
 
 void KateDocument::indent (KTextEditor::Range range, int change)
@@ -4987,7 +4987,7 @@ bool KateDocument::isEditRunning() const
 
 void KateDocument::setUndoMergeAllEdits(bool merge)
 {
-  m_undoManager->setUndoDontMerge(true);
+  m_undoManager->undoSafePoint();
   m_undoManager->setAllowComplexMerge(merge);
 }
 

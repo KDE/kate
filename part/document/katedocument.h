@@ -310,7 +310,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     bool isEditRunning() const;
 
-    void setMergeAllEdits(bool merge);
+    void setUndoMergeAllEdits(bool merge);
 
   private:
     int editSessionNumber;

@@ -5009,7 +5009,7 @@ bool KateDocument::isEditRunning() const
   return editIsRunning;
 }
 
-void KateDocument::setMergeAllEdits(bool merge)
+void KateDocument::setUndoMergeAllEdits(bool merge)
 {
   setUndoDontMerge(true);
   setUndoAllowComplexMerge(merge);

@@ -1162,7 +1162,7 @@ void KateViewConfig::setViInputMode (bool on)
 
   // make sure to turn off edits mergin when leaving vi input mode
   if (!on && m_view) {
-    m_view->doc()->setMergeAllEdits(false);
+    m_view->doc()->setUndoMergeAllEdits(false);
   }
 
   configEnd ();

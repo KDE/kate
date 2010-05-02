@@ -746,7 +746,7 @@ bool KateViModeBase::startNormalMode()
   }
 
   m_viInputModeManager->viEnterNormalMode();
-  m_view->doc()->setMergeAllEdits(false);
+  m_view->doc()->setUndoMergeAllEdits(false);
   m_view->updateViModeBarMode();
 
   return true;
@@ -755,7 +755,7 @@ bool KateViModeBase::startNormalMode()
 bool KateViModeBase::startInsertMode()
 {
   m_viInputModeManager->viEnterInsertMode();
-  m_view->doc()->setMergeAllEdits(true);
+  m_view->doc()->setUndoMergeAllEdits(true);
   m_view->updateViModeBarMode();
 
   return true;
@@ -763,7 +763,7 @@ bool KateViModeBase::startInsertMode()
 
 bool KateViModeBase::startReplaceMode()
 {
-  m_view->doc()->setMergeAllEdits(true);
+  m_view->doc()->setUndoMergeAllEdits(true);
   m_viInputModeManager->viEnterReplaceMode();
   m_view->updateViModeBarMode();
 

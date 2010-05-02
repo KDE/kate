@@ -92,8 +92,6 @@ class KateUndoManager : public QObject
      */
     void setAllowComplexMerge(bool allow);
 
-    bool allowComplexMerge() const;
-
     bool isActive() const { return m_isActive; }
 
     void setModified( bool m );

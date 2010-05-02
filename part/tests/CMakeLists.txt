@@ -156,6 +156,17 @@ target_link_libraries( revision_test
   katepartinterfaces
 )
 
+########### templatehandler test ###############
+
+kde4_add_unit_test(templatehandler_test templatehandler_test.cpp)
+
+target_link_libraries( templatehandler_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

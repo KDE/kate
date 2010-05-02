@@ -1922,9 +1922,6 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   cursorMoved();
 
-  if(!doc()->isEditRunning())
-	  doc()->setUndoDontMerge(true);
-
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
   ///@todo The smart-lock should _NOT_ be held while this is emitted!

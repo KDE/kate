@@ -4944,6 +4944,14 @@ void KateDocument::clearViewActions( KTextEditor::View * )
 {
 }
 
+void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
+{
+  removeHighlightFromDocument(range);
+  removeActionsFromDocument(range);
+}
+
+//END KTextEditor::SmartInterface
+
 void KateDocument::ignoreModifiedOnDiskOnce( )
 {
   m_isasking = -1;
@@ -4990,14 +4998,6 @@ void KateDocument::setUndoMergeAllEdits(bool merge)
   m_undoManager->undoSafePoint();
   m_undoManager->setAllowComplexMerge(merge);
 }
-
-void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
-{
-  removeHighlightFromDocument(range);
-  removeActionsFromDocument(range);
-}
-
-//END KTextEditor::SmartInterface
 
 //BEGIN KTextEditor::MovingInterface
 KTextEditor::MovingCursor *KateDocument::newMovingCursor (const KTextEditor::Cursor &position, KTextEditor::MovingCursor::InsertBehavior insertBehavior)

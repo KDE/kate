@@ -300,14 +300,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void editLineUnWrapped ( int line, int col );
 
   public:
-    void undoSafePoint();
-
-    bool undoDontMerge() const;
-    void setUndoDontMerge(bool dontMerge);
-
-    bool undoAllowComplexMerge() const;
-    void setUndoAllowComplexMerge(bool allow);
-
     bool isEditRunning() const;
 
     void setUndoMergeAllEdits(bool merge);

@@ -916,10 +916,6 @@ void KateDocument::editStart (Kate::EditSource editSource)
   m_buffer->editStart ();
 }
 
-void KateDocument::undoSafePoint() {
-  m_undoManager->undoSafePoint();
-}
-
 //
 // End edit session and update Views
 //
@@ -2374,7 +2370,7 @@ bool KateDocument::saveFile()
 
   // (dominik) mark last undo group as not mergeable, otherwise the next
   // edit action might be merged and undo will never stop at the saved state
-  setUndoDontMerge(true);
+  m_undoManager->setUndoDontMerge(true);
 
   //
   // return success
@@ -4984,26 +4980,6 @@ Kate::TextLine KateDocument::plainKateTextLine( uint i )
   return m_buffer->plainLine (i);
 }
 
-bool KateDocument::undoDontMerge( ) const
-{
-  return m_undoManager->undoDontMerge ();
-}
-
-void KateDocument::setUndoAllowComplexMerge(bool allow)
-{
-  m_undoManager->setAllowComplexMerge (allow);
-}
-
-bool KateDocument::undoAllowComplexMerge( ) const
-{
-  return m_undoManager->allowComplexMerge ();
-}
-
-void KateDocument::setUndoDontMerge(bool dontMerge)
-{
-  m_undoManager->setUndoDontMerge (dontMerge);
-}
-
 bool KateDocument::isEditRunning() const
 {
   return editIsRunning;
@@ -5011,8 +4987,8 @@ bool KateDocument::isEditRunning() const
 
 void KateDocument::setUndoMergeAllEdits(bool merge)
 {
-  setUndoDontMerge(true);
-  setUndoAllowComplexMerge(merge);
+  m_undoManager->setUndoDontMerge(true);
+  m_undoManager->setAllowComplexMerge(merge);
 }
 
 void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )

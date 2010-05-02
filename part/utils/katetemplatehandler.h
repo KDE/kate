@@ -219,6 +219,8 @@ private:
   private:
     /// The document we operate on.
     KateView *m_view;
+    /// The undo manager associated with our document
+    KateUndoManager *const m_undoManager;
     /// List of ranges with highlighting, marking the inserted variables in the template.
     /// Mirrored variables will have a parent range and the real ranges will be the children.
     /// Each direct child of the list is added as a Highlighting Range with dynamic attribs.

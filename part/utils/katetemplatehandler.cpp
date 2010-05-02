@@ -59,7 +59,10 @@ static bool customContains(const KTextEditor::Range &range, const Cursor& cursor
 KateTemplateHandler::KateTemplateHandler( KateView *view, const Cursor& position,
                                           const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager, const QString& scriptToken)
     : QObject(view)
-    , m_view(view), m_wholeTemplateRange(0), m_finalCursorPosition(0)
+    , m_view(view)
+    , m_undoManager(undoManager)
+    , m_wholeTemplateRange(0)
+    , m_finalCursorPosition(0)
     , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
     , m_scriptToken(scriptToken)
 {
@@ -105,7 +108,7 @@ KateTemplateHandler::KateTemplateHandler( KateView *view, const Cursor& position
     // only do complex stuff when required
 
     handleTemplateString(initial_Values);
-    doc()->undoSafePoint();
+    m_undoManager->undoSafePoint();
     doc()->editEnd();
 
     if ( !m_templateRanges.isEmpty() ) {
@@ -130,7 +133,7 @@ KateTemplateHandler::KateTemplateHandler( KateView *view, const Cursor& position
       cleanupAndExit();
     }
   } else {
-    doc()->undoSafePoint();
+    m_undoManager->undoSafePoint();
     doc()->editEnd();
     // simple templates just need to be (which gets done in handleTemplateString())
     cleanupAndExit();
@@ -871,12 +874,12 @@ void KateTemplateHandler::syncMirroredRanges(MovingRange* range)
 
   /// TODO: now undo only undos the last char edit, and does not
   ///       merge those edits as usual
-  bool undoDontMerge = doc()->undoDontMerge();
-  doc()->setUndoDontMerge(false);
-  doc()->setUndoAllowComplexMerge(true);
-  doc()->undoSafePoint();
+  bool undoDontMerge = m_undoManager->undoDontMerge();
+  m_undoManager->setUndoDontMerge(false);
+  m_undoManager->setAllowComplexMerge(true);
+  m_undoManager->undoSafePoint();
   doc()->editEnd();
-  doc()->setUndoDontMerge(undoDontMerge);
+  m_undoManager->setUndoDontMerge(undoDontMerge);
   m_isMirroring = false;
 }
 

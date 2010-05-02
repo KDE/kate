@@ -382,11 +382,6 @@ void KateUndoManager::updateConfig ()
   emit undoChanged ();
 }
 
-bool KateUndoManager::undoDontMerge( ) const
-{
-  return m_undoDontMerge;
-}
-
 void KateUndoManager::setAllowComplexMerge(bool allow)
 {
   m_undoComplexMerge = allow;

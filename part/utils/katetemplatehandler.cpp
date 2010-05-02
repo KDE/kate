@@ -874,12 +874,7 @@ void KateTemplateHandler::syncMirroredRanges(MovingRange* range)
 
   /// TODO: now undo only undos the last char edit, and does not
   ///       merge those edits as usual
-  bool undoDontMerge = m_undoManager->undoDontMerge();
-  m_undoManager->setUndoDontMerge(false);
-  m_undoManager->setAllowComplexMerge(true);
-  m_undoManager->undoSafePoint();
   doc()->editEnd();
-  m_undoManager->setUndoDontMerge(undoDontMerge);
   m_isMirroring = false;
 }
 

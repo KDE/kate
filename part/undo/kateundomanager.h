@@ -73,8 +73,6 @@ class KateUndoManager : public QObject
      */
     void undoSafePoint();
 
-    bool undoDontMerge() const;
-
     /**
      * Allows or disallows merging with previous undo group.
      *

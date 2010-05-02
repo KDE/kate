@@ -916,10 +916,6 @@ void KateDocument::editStart (Kate::EditSource editSource)
   m_buffer->editStart ();
 }
 
-KateUndoManager *KateDocument::undoManager() {
-  return m_undoManager;
-}
-
 void KateDocument::undoSafePoint() {
   m_undoManager->undoSafePoint();
 }

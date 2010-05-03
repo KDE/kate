@@ -103,7 +103,7 @@ void RevisionTest::testTransformCursor()
 
 
     // free revision and lock current again
-    doc.unlockRevision(rev); // FIXME: cullmann?
+    doc.unlockRevision(rev);
     rev = doc.revision();
     doc.lockRevision(rev);
 
@@ -157,7 +157,7 @@ void RevisionTest::testTransformRange()
     QCOMPARE(invalidOnEmpty, Range::invalid());
 
     // free revision and lock current again
-    doc.unlockRevision(rev); // FIXME: cullmann?
+    doc.unlockRevision(rev);
     rev = doc.revision();
     doc.lockRevision(rev);
 

@@ -322,7 +322,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     uint redoCount () const;
     KateEditHistory* history() const { return m_editHistory; }
 
-  private:
+  protected:
     KateUndoManager* const m_undoManager;
     KateEditHistory* const m_editHistory;
 

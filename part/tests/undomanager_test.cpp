@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
@@ -24,82 +25,173 @@
 
 #include <katedocument.h>
 #include <kateview.h>
+#include <kateundomanager.h>
 
 QTEST_KDEMAIN(UndoManagerTest, GUI)
 
+using namespace KTextEditor;
 
-UndoManagerTest::UndoManagerTest()
-    : QObject()
-    , m_doc(0)
-    , m_view(0)
+class UndoManagerTest::TestDocument : public KateDocument
 {
+public:
+  TestDocument()
+    : KateDocument(false, false, false, 0, 0)
+  {}
+
+  KateUndoManager *undoManager() { return m_undoManager; }
+};
+
+void UndoManagerTest::testUndoRedoCount()
+{
+  TestDocument doc;
+  KateUndoManager *undoManager = doc.undoManager();
+
+  doc.insertText(Cursor(0, 0), "a");
+
+  // create one insert-group
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.undo();
+
+  // move insert-group to redo items
+  QCOMPARE(undoManager->undoCount(), 0u);
+  QCOMPARE(undoManager->redoCount(), 1u);
+
+  doc.redo();
+
+  // move insert-group back to undo items
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.insertText(Cursor(0, 1), "b");
+
+  // merge "b" into insert-group
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.removeText(Range(0, 1, 0, 2));
+
+  // create an additional remove-group
+  QCOMPARE(undoManager->undoCount(), 2u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.undo();
+
+  // move remove-group to redo items
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 1u);
+
+  doc.insertText(Cursor(0, 1), "b");
+
+  // merge "b" into insert-group
+  // and remove remove-group
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 0u);
 }
 
-UndoManagerTest::~UndoManagerTest()
+void UndoManagerTest::testSafePoint()
 {
+  TestDocument doc;
+  KateUndoManager *undoManager = doc.undoManager();
+
+  doc.insertText(Cursor(0, 0), "a");
+
+  // create one undo group
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  undoManager->undoSafePoint();
+  doc.insertText(Cursor(0, 1), "b");
+
+  // create a second undo group (don't merge)
+  QCOMPARE(undoManager->undoCount(), 2u);
+
+  doc.undo();
+
+  // move second undo group to redo items
+  QCOMPARE(undoManager->undoCount(), 1u);
+  QCOMPARE(undoManager->redoCount(), 1u);
+
+  doc.insertText(Cursor(0, 1), "b");
+
+  // create a second undo group again, (don't merge)
+  QCOMPARE(undoManager->undoCount(), 2u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.editStart();
+  doc.insertText(Cursor(0, 2), "c");
+  undoManager->undoSafePoint();
+  doc.insertText(Cursor(0, 3), "d");
+  doc.editEnd();
+
+  // merge both edits into second undo group
+  QCOMPARE(undoManager->undoCount(), 2u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
+  doc.insertText(Cursor(0, 4), "e");
+
+  // create a third undo group (don't merge)
+  QCOMPARE(undoManager->undoCount(), 3u);
+  QCOMPARE(undoManager->redoCount(), 0u);
 }
 
-void UndoManagerTest::init()
+void UndoManagerTest::testCursorPosition()
 {
-    m_doc = new KateDocument(false, false, false, 0, this);
+  TestDocument doc;
+  KateView *view = static_cast<KateView*>(doc.createView(0));
 
-    m_view = qobject_cast<KateView*>(m_doc->createView(0));
-    QApplication::setActiveWindow(m_view);
-    QVERIFY(m_view);
+  doc.setText("aaaa bbbb cccc\n"
+              "dddd  ffff");
+  view->setCursorPosition(KTextEditor::Cursor(1, 5));
 
-//     m_view->show();
-}
+  doc.typeChars(view, "eeee");
 
-void UndoManagerTest::cleanup()
-{
-    delete m_view;
-    delete m_doc;
-}
+  // cursor position: "dddd eeee| ffff"
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(1, 9));
 
-void UndoManagerTest::testSimpleUndo()
-{
-    m_doc->setText("aaaa bbbb cccc\n"
-                   "dddd  ffff");
-    m_view->setCursorPosition(KTextEditor::Cursor(1, 5));
+  // undo once to remove "eeee", cursor position: "dddd | ffff"
+  doc.undo();
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(1, 5));
 
-    m_doc->typeChars(m_view, "eeee");
+  // redo once to insert "eeee" again. cursor position: "dddd eeee| ffff"
+  doc.redo();
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(1, 9));
 
-    // cursor position: "dddd eeee| ffff"
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
-
-    // undo once to remove "eeee", cursor position: "dddd | ffff"
-    m_doc->undo();
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 5));
-
-    // redo once to insert "eeee" again. cursor position: "dddd eeee| ffff"
-    m_doc->redo();
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
+  delete view;
 }
 
 void UndoManagerTest::testSelectionUndo()
 {
-    m_doc->setText("aaaa bbbb cccc\n"
-    "dddd eeee ffff");
-    m_view->setCursorPosition(KTextEditor::Cursor(1, 9));
-    KTextEditor::Range selectionRange(KTextEditor::Cursor(0, 5),
-                                      KTextEditor::Cursor(1, 9));
-    m_view->setSelection(selectionRange);
+  TestDocument doc;
+  KateView *view = static_cast<KateView*>(doc.createView(0));
 
-    m_doc->typeChars(m_view, "eeee");
+  doc.setText("aaaa bbbb cccc\n"
+              "dddd eeee ffff");
+  view->setCursorPosition(KTextEditor::Cursor(1, 9));
+  KTextEditor::Range selectionRange(KTextEditor::Cursor(0, 5),
+                                    KTextEditor::Cursor(1, 9));
+  view->setSelection(selectionRange);
 
-    // cursor position: "aaaa eeee| ffff", no selection anymore
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(0, 9));
-    QCOMPARE(m_view->selection(), false);
+  doc.typeChars(view, "eeee");
 
-    // undo to remove "eeee" and add selection and text again
-    m_doc->undo();
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(1, 9));
-    QCOMPARE(m_view->selection(), true);
-    QCOMPARE(m_view->selectionRange(), selectionRange);
+  // cursor position: "aaaa eeee| ffff", no selection anymore
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(0, 9));
+  QCOMPARE(view->selection(), false);
 
-    // redo to insert "eeee" again and remove selection
-    // cursor position: "aaaa eeee| ffff", no selection anymore
-    m_doc->redo();
-    QCOMPARE(m_view->cursorPosition(), KTextEditor::Cursor(0, 9));
-    QCOMPARE(m_view->selection(), false);
+  // undo to remove "eeee" and add selection and text again
+  doc.undo();
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(1, 9));
+  QCOMPARE(view->selection(), true);
+  QCOMPARE(view->selectionRange(), selectionRange);
+
+  // redo to insert "eeee" again and remove selection
+  // cursor position: "aaaa eeee| ffff", no selection anymore
+  doc.redo();
+  QCOMPARE(view->cursorPosition(), KTextEditor::Cursor(0, 9));
+  QCOMPARE(view->selection(), false);
+
+  delete view;
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

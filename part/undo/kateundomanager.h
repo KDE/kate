@@ -20,6 +20,9 @@
 #define KATEUNDOMANAGER_H
 
 #include <QtCore/QObject>
+
+#include "katepartprivate_export.h"
+
 #include <QtCore/QList>
 
 class KateDocument;
@@ -38,7 +41,7 @@ namespace KTextEditor {
  *
  * The state of the KateUndomanager can be switched using editStart() and editEnd().
  */
-class KateUndoManager : public QObject
+class KATEPART_TESTS_EXPORT KateUndoManager : public QObject
 {
   Q_OBJECT
 

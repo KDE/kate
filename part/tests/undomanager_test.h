@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
@@ -22,26 +23,20 @@
 
 #include <QtCore/QObject>
 
-class KateDocument;
-class KateView;
-
 class UndoManagerTest : public QObject
 {
   Q_OBJECT
 
-  public:
-    UndoManagerTest();
-    virtual ~UndoManagerTest();
-
   private Q_SLOTS:
-    void init();
-    void cleanup();
-    void testSimpleUndo();
+    void testUndoRedoCount();
+    void testSafePoint();
+    void testCursorPosition();
     void testSelectionUndo();
 
   private:
-    KateDocument* m_doc;
-    KateView *m_view;
+    class TestDocument;
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

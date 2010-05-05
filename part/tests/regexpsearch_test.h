@@ -46,6 +46,8 @@ class RegExpSearchTest : public QObject
     void testSearchForward();
   
     void testSearchBackwardInSelection();
+
+    void test();
 };
 
 #endif

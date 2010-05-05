@@ -501,8 +501,8 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         FAST_DEBUG("result range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
         for (int y = 1; y <= numCaptures; y++)
         {
-          const int openIndex = regexp.pos(y);
-          if (openIndex == -1)
+          const int openIndex = first + regexp.pos(y);
+          if (openIndex < first)
           {
             result[y] = KTextEditor::Range::invalid();
             FAST_DEBUG("capture []");

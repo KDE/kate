@@ -200,4 +200,19 @@ void RegExpSearchTest::testSearchBackwardInSelection()
   QCOMPARE(result, Range(0, 7, 0, 10));
 }
 
+void RegExpSearchTest::test()
+{
+  KateDocument doc(false, false, false);
+  doc.setText("\\newcommand{\\piReductionOut}");
+
+  KateRegExpSearch search(&doc, Qt::CaseSensitive);
+  const QVector<Range> result = search.search("\\\\piReduction(\\S)", Range(0, 10, 0, 28), true);
+
+  QCOMPARE(result.size(), 2);
+  QCOMPARE(result[0], Range(0, 12, 0, 25));
+  QCOMPARE(result[1], Range(0, 24, 0, 25));
+  QCOMPARE(doc.text(result[0]), QString("\\piReductionO"));
+  QCOMPARE(doc.text(result[1]), QString("O"));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

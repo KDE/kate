@@ -41,7 +41,7 @@ private:
     /**
      * Resolve references and escape sequences.
      */
-    QString buildReplacement(const QString &replacement, bool blockMode, int replacementCounter);
+    QString buildReplacement(const QString &replacement, bool blockMode, int replacementCounter) const;
 
 private:
     KateDocument *const m_document;

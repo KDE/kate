@@ -82,7 +82,7 @@ bool KateMatch::isValid() const
 }
 
 
-QString KateMatch::buildReplacement(const QString &replacement, bool blockMode, int replacementCounter) {
+QString KateMatch::buildReplacement(const QString &replacement, bool blockMode, int replacementCounter) const {
     QStringList capturedTexts;
     foreach (const KTextEditor::Range &captureRange, m_resultRanges) {
         // Copy capture content

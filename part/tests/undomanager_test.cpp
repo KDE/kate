@@ -46,6 +46,10 @@ void UndoManagerTest::testUndoRedoCount()
   TestDocument doc;
   KateUndoManager *undoManager = doc.undoManager();
 
+  // no undo/redo items at the beginning
+  QCOMPARE(undoManager->undoCount(), 0u);
+  QCOMPARE(undoManager->redoCount(), 0u);
+
   doc.insertText(Cursor(0, 0), "a");
 
   // create one insert-group

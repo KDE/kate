@@ -182,13 +182,13 @@ class KTEXTEDITOR_EXPORT MovingRange
      * Default is false.
      * @return range visible only for views
      */
-    virtual bool attibuteOnlyForViews () const = 0;
+    virtual bool attributeOnlyForViews () const = 0;
 
     /**
      * Set if this range's attribute is only visible in views, not for example prints.
      * @param onlyForViews attribute only valid for views
      */
-    virtual void setAttibuteOnlyForViews (bool onlyForViews) = 0;
+    virtual void setAttributeOnlyForViews (bool onlyForViews) = 0;
 
     /**
      * Gets the active MovingRangeFeedback for this range.

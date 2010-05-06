@@ -375,6 +375,17 @@ class KTEXTEDITOR_EXPORT MovingRange
     inline bool overlapsColumn(int column) const {
       return start().column() <= column && end().column() > column;
     }
+    
+    /**
+     * Check whether the start() and end() cursors of this range
+     * are on the same line.
+     *
+     * \return \e true if both the start and end positions are on the same
+     *         line, otherwise \e false
+     */
+    inline bool onSingleLine() const {
+      return start().line() == end().line();
+    }
 
     //END comparison functions
 };

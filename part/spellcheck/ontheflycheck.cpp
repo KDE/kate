@@ -58,7 +58,7 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
           this, SLOT(addView(KTextEditor::Document*, KTextEditor::View*)));
   connect(document, SIGNAL(highlightingModeChanged (KTextEditor::Document*)),
           this, SLOT(updateConfig()));
-  connect(document, SIGNAL(respellCheckBlock(KateDocument*, int, int)), 
+  connect(document, SIGNAL(respellCheckBlock(KateDocument*, int, int)),
           this, SLOT(handleRespellCheckBlock(KateDocument*, int, int)));
   foreach(KTextEditor::View* view, document->views()) {
     addView(document, view);
@@ -418,7 +418,7 @@ void KateOnTheFlyChecker::removeRangeFromEverything(KTextEditor::MovingRange *mo
 {
   Q_ASSERT(m_document == movingRange->document());
   ON_THE_FLY_DEBUG << *movingRange << "(" << movingRange << ")";
-  
+
   if(removeRangeFromModificationList(movingRange)) {
     return; // range was part of the modification queue, so we don't have
             // to look further for it
@@ -631,6 +631,10 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
     lineColor = activeView->renderer()->config()->spellingMistakeLineColor();
   }
   attribute->setUnderlineColor(lineColor);
+
+  // don'T print this range
+  movingRange->setAttibuteOnlyForViews (true);
+
   movingRange->setAttribute(KTextEditor::Attribute::Ptr(attribute));
   m_misspelledList.push_back(MisspelledItem(movingRange, m_currentlyCheckedItem.second));
   installMovingRange(movingRange);
@@ -808,7 +812,7 @@ void KateOnTheFlyChecker::queueLineSpellCheck(KateDocument *kateDocument, int li
     const MovingRangeList highlightsList = installedMovingRanges(range);
     deleteMovingRanges(highlightsList);
 
-    QList<QPair<KTextEditor::Range, QString> > spellCheckRanges 
+    QList<QPair<KTextEditor::Range, QString> > spellCheckRanges
                              = KateGlobal::self()->spellCheckManager()->spellCheckRanges(kateDocument,
                                                                                          range,
                                                                                          true);

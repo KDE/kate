@@ -86,7 +86,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
 
     MovingRangeList installedMovingRanges(const KTextEditor::Range& range);
 
-    void installMovingRange(KTextEditor::MovingRange *smartRange);
+    void installMovingRange(KTextEditor::MovingRange *movingRange);
 
     void queueLineSpellCheck(KateDocument *document, int line);
     /**

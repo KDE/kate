@@ -83,7 +83,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      private KTextEditor::SmartRangeWatcher,
                      public KTextEditor::AnnotationInterface,
                      public KTextEditor::HighlightInterface,
-                     public KTextEditor::MovingInterface
+                     public KTextEditor::MovingInterface,
+                     private KTextEditor::MovingRangeFeedback
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
@@ -1141,7 +1142,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   public:
       QString defaultDictionary() const;
-      QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges() const;
+      QList<QPair<KTextEditor::MovingRange*, QString> > dictionaryRanges() const;
       bool isOnTheFlySpellCheckingEnabled() const;
 
       QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
@@ -1155,10 +1156,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
       void onTheFlySpellCheckingEnabled(bool enable);
       void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
       void refreshOnTheFlyCheck(const KTextEditor::Range &range = KTextEditor::Range::invalid());
-
-  protected Q_SLOTS:
-      void dictionaryRangeEliminated(KTextEditor::SmartRange *smartRange);
-      void deleteDiscardedSmartRanges();
 
   Q_SIGNALS:
       void respellCheckBlock(KateDocument *document,int start, int end);
@@ -1186,11 +1183,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   protected:
       KateOnTheFlyChecker *m_onTheFlyChecker;
       QString m_defaultDictionary;
-      QList<QPair<KTextEditor::SmartRange*, QString> > m_dictionaryRanges;
-      QList<KTextEditor::SmartRange*> m_discardedSmartRanges;
-      KTextEditor::SmartRangeNotifier *m_dictionaryRangeNotifier;
+      QList<QPair<KTextEditor::MovingRange*, QString> > m_dictionaryRanges;
 
-      KTextEditor::SmartRangeNotifier* dictionaryRangeNotifier();
+      // from KTextEditor::MovingRangeFeedback
+      void rangeInvalid(KTextEditor::MovingRange *movingRange);
+      void rangeEmpty(KTextEditor::MovingRange *movingRange);
+
+      void deleteDictionaryRange(KTextEditor::MovingRange *movingRange);
 };
 
 #endif

@@ -4,7 +4,7 @@
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
-   Copyright (C) 2009 Michel Ludwig <michel.ludwig@kdemail.net>
+   Copyright (C) 2009-2010 Michel Ludwig <michel.ludwig@kdemail.net>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -191,8 +191,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_config(new KateDocumentConfig(this)),
   m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
-  m_onTheFlyChecker(0),
-  m_dictionaryRangeNotifier(0)
+  m_onTheFlyChecker(0)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -276,7 +275,6 @@ KateDocument::~KateDocument()
   m_onTheFlyChecker = NULL;
 
   clearDictionaryRanges();
-  deleteDiscardedSmartRanges();
 
   // Tell the world that we're about to close (== destruct)
   // Apps must receive this in a direct signal-slot connection, and prevent
@@ -5147,15 +5145,14 @@ QString KateDocument::defaultDictionary() const
   return m_defaultDictionary;
 }
 
-QList<QPair<KTextEditor::SmartRange*, QString> > KateDocument::dictionaryRanges() const
+QList<QPair<KTextEditor::MovingRange*, QString> > KateDocument::dictionaryRanges() const
 {
   return m_dictionaryRanges;
 }
 
 void KateDocument::clearDictionaryRanges()
 {
-  QMutexLocker smartLock(smartMutex());
-  for(QList<QPair<KTextEditor::SmartRange*, QString> >::iterator i = m_dictionaryRanges.begin();
+  for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
       i != m_dictionaryRanges.end();++i)
   {
     delete (*i).first;
@@ -5175,10 +5172,9 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
   {
     return;
   }
-  QMutexLocker smartLock(smartMutex());
-  QList<QPair<KTextEditor::SmartRange*, QString> > newRanges;
+  QList<QPair<KTextEditor::MovingRange*, QString> > newRanges;
   // all ranges is 'm_dictionaryRanges' are assumed to be mutually disjoint
-  for(QList<QPair<KTextEditor::SmartRange*, QString> >::iterator i = m_dictionaryRanges.begin();
+  for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
       i != m_dictionaryRanges.end();)
   {
     kDebug(13000) << "new iteration" << newDictionaryRange;
@@ -5186,9 +5182,9 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
     {
       break;
     }
-    QPair<KTextEditor::SmartRange*, QString> pair = *i;
+    QPair<KTextEditor::MovingRange*, QString> pair = *i;
     QString dictionarySet = pair.second;
-    KTextEditor::SmartRange *dictionaryRange = pair.first;
+    KTextEditor::MovingRange *dictionaryRange = pair.first;
     kDebug(13000) << *dictionaryRange << dictionarySet;
     if(dictionaryRange->contains(newDictionaryRange) && newDictionary == dictionarySet)
     {
@@ -5203,7 +5199,7 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
       continue;
     }
 
-    KTextEditor::Range intersection = dictionaryRange->intersect(newDictionaryRange);
+    KTextEditor::Range intersection = dictionaryRange->toRange().intersect(newDictionaryRange);
     if(!intersection.isEmpty() && intersection.isValid())
     {
       if(dictionarySet == newDictionary)  // we don't have to do anything for 'intersection'
@@ -5218,10 +5214,10 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
       QList<KTextEditor::Range> remainingRanges = KateSpellCheckManager::rangeDifference(*dictionaryRange, intersection);
       for(QList<KTextEditor::Range>::iterator j = remainingRanges.begin(); j != remainingRanges.end(); ++j)
       {
-        KTextEditor::SmartRange *remainingRange = newSmartRange(*j, NULL,
-                                                                KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
-        remainingRange->addNotifier(dictionaryRangeNotifier());
-        newRanges.push_back(QPair<KTextEditor::SmartRange*, QString>(remainingRange, dictionarySet));
+        KTextEditor::MovingRange *remainingRange = newMovingRange(*j,
+                                                                  KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
+        remainingRange->setFeedback(this);
+        newRanges.push_back(QPair<KTextEditor::MovingRange*, QString>(remainingRange, dictionarySet));
       }
       i = m_dictionaryRanges.erase(i);
       delete dictionaryRange;
@@ -5232,10 +5228,10 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
   m_dictionaryRanges += newRanges;
   if(!newDictionaryRange.isEmpty() && !newDictionary.isEmpty()) // we don't add anything for the default dictionary
   {
-    KTextEditor::SmartRange *newDictionarySmartRange = newSmartRange(newDictionaryRange, NULL,
-                                                                     KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
-    newDictionarySmartRange->addNotifier(dictionaryRangeNotifier());
-    m_dictionaryRanges.push_back(QPair<KTextEditor::SmartRange*, QString>(newDictionarySmartRange, newDictionary));
+    KTextEditor::MovingRange *newDictionaryMovingRange = newMovingRange(newDictionaryRange,
+                                                                        KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
+    newDictionaryMovingRange->setFeedback(this);
+    m_dictionaryRanges.push_back(QPair<KTextEditor::MovingRange*, QString>(newDictionaryMovingRange, newDictionary));
   }
   if(m_onTheFlyChecker && !newDictionaryRange.isEmpty())
   {
@@ -5313,51 +5309,31 @@ void KateDocument::refreshOnTheFlyCheck(const KTextEditor::Range &range)
   }
 }
 
-void KateDocument::dictionaryRangeEliminated(KTextEditor::SmartRange *smartRange)
+void KateDocument::rangeInvalid(KTextEditor::MovingRange *movingRange)
 {
-  QMutexLocker smartLock(smartMutex());
-  kDebug(13020) << smartRange << "eliminated";
-  bool found = false;
-  for(QList<QPair<KTextEditor::SmartRange*, QString> >::iterator i = m_dictionaryRanges.begin();
+  deleteDictionaryRange(movingRange);
+}
+
+void KateDocument::rangeEmpty(KTextEditor::MovingRange *movingRange)
+{
+  deleteDictionaryRange(movingRange);
+}
+
+void KateDocument::deleteDictionaryRange(KTextEditor::MovingRange *movingRange)
+{
+  kDebug(13020) << "deleting" << movingRange;
+  for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
       i != m_dictionaryRanges.end();)
   {
-    KTextEditor::SmartRange *dictionaryRange = (*i).first;
-    if(dictionaryRange == smartRange)
+    KTextEditor::MovingRange *dictionaryRange = (*i).first;
+    if(dictionaryRange == movingRange)
     {
-      m_discardedSmartRanges.push_back(dictionaryRange); // we can't delete them here already
-      found = true;
+      delete movingRange;
       i = m_dictionaryRanges.erase(i);
     } else {
       ++i;
     }
   }
-  if(found)
-  {
-    QTimer::singleShot(0, this, SLOT(deleteDiscardedSmartRanges()));
-  }
-}
-
-void KateDocument::deleteDiscardedSmartRanges()
-{
-  for(QList<KTextEditor::SmartRange*>::iterator i = m_discardedSmartRanges.begin();
-                                                i != m_discardedSmartRanges.end(); ++i)
-  {
-    delete(*i);
-  }
-  m_discardedSmartRanges.clear();
-}
-
-KTextEditor::SmartRangeNotifier* KateDocument::dictionaryRangeNotifier()
-{
-  if(m_dictionaryRangeNotifier)
-  {
-    return m_dictionaryRangeNotifier;
-  }
-  m_dictionaryRangeNotifier = new KTextEditor::SmartRangeNotifier();
-  connect(m_dictionaryRangeNotifier, SIGNAL(rangeEliminated(KTextEditor::SmartRange*)),
-          this, SLOT(dictionaryRangeEliminated(KTextEditor::SmartRange*)));
-  m_dictionaryRangeNotifier->setWantsDirectChanges(true);
-  return m_dictionaryRangeNotifier;
 }
 
 bool KateDocument::containsCharacterEncoding(const KTextEditor::Range& range)

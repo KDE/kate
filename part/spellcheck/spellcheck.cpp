@@ -24,7 +24,6 @@
 
 #include "spellcheck.h"
 
-#include <QMutex>
 #include <QHash>
 #include <QtAlgorithms>
 #include <QTimer>
@@ -96,8 +95,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
 {
   QString defaultDict = doc->defaultDictionary();
   QList<RangeDictionaryPair> toReturn;
-  QMutexLocker smartLock(doc->smartMutex());
-  QList<QPair<KTextEditor::SmartRange*, QString> > dictionaryRanges = doc->dictionaryRanges();
+  QList<QPair<KTextEditor::MovingRange*, QString> > dictionaryRanges = doc->dictionaryRanges();
   if(dictionaryRanges.isEmpty()) {
     toReturn.push_back(RangeDictionaryPair(range, defaultDict));
     return toReturn;
@@ -107,7 +105,7 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckLang
   while(!splitQueue.isEmpty()) {
     bool handled = false;
     KTextEditor::Range consideredRange = splitQueue.takeFirst();
-    for(QList<QPair<KTextEditor::SmartRange*, QString> >::iterator i = dictionaryRanges.begin();
+    for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = dictionaryRanges.begin();
         i != dictionaryRanges.end(); ++i) {
       KTextEditor::Range languageRange = *((*i).first);
       KTextEditor::Range intersection = languageRange.intersect(consideredRange);

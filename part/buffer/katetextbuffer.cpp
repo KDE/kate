@@ -724,7 +724,7 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
       /**
        * we want ranges for no view, but this one's attribute is only valid for views
        */
-      if (!view && range->attibuteOnlyForViews())
+      if (!view && range->attributeOnlyForViews())
           continue;
 
       /**

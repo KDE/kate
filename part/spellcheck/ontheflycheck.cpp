@@ -633,7 +633,7 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
   attribute->setUnderlineColor(lineColor);
 
   // don'T print this range
-  movingRange->setAttibuteOnlyForViews (true);
+  movingRange->setAttributeOnlyForViews (true);
 
   movingRange->setAttribute(KTextEditor::Attribute::Ptr(attribute));
   m_misspelledList.push_back(MisspelledItem(movingRange, m_currentlyCheckedItem.second));

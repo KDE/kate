@@ -190,13 +190,13 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * Default is false.
      * @return range visible only for views
      */
-    bool attibuteOnlyForViews () const { return m_attibuteOnlyForViews; }
+    bool attributeOnlyForViews () const { return m_attributeOnlyForViews; }
 
     /**
      * Set if this range's attribute is only visible in views, not for example prints.
      * @param onlyForViews attribute only valid for views
      */
-    void setAttibuteOnlyForViews (bool onlyForViews);
+    void setAttributeOnlyForViews (bool onlyForViews);
 
   private:
     /**
@@ -253,7 +253,7 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
     /**
      * Is this range's attribute only visible in views, not for example prints?
      */
-    bool m_attibuteOnlyForViews;
+    bool m_attributeOnlyForViews;
 
     /**
      * Will this range invalidate itself if it becomes empty?

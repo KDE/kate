@@ -32,7 +32,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
   , m_feedback (0)
-  , m_attibuteOnlyForViews (false)
+  , m_attributeOnlyForViews (false)
   , m_invalidateIfEmpty (emptyBehavior == InvalidateIfEmpty)
 {
   // remember this range in buffer
@@ -294,12 +294,12 @@ void TextRange::setFeedback (KTextEditor::MovingRangeFeedback *feedback)
   m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), m_attribute);
 }
 
-void TextRange::setAttibuteOnlyForViews (bool onlyForViews)
+void TextRange::setAttributeOnlyForViews (bool onlyForViews)
 {
     /**
      * just set the value, no need to trigger updates, printing is not interruptable
      */
-    m_attibuteOnlyForViews = onlyForViews;
+    m_attributeOnlyForViews = onlyForViews;
 }
 
 KTextEditor::Document *Kate::TextRange::document () const

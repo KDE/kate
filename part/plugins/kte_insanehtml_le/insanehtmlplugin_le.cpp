@@ -30,6 +30,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <kactioncollection.h>
 #include <kpassivepopup.h>
 #include <ktexteditor/document.h>
+#include <kstandarddirs.h>
+#include <kconfiggroup.h>
 
 #define IHP_DEBUG
 
@@ -69,6 +71,17 @@ InsaneHTMLPluginLEView::InsaneHTMLPluginLEView(QObject* parent,KTextEditor::View
     m_view->insertChildClient(this);
 
     m_emptyTags<<"br"<<"hr"<<"img"<<"input"<<"meta"<<"link";
+    QStringList cfgFiles=KGlobal::dirs()->findAllResources("data", "ktexteditor_insanehtml_le/xhtml.cfg",KStandardDirs::NoDuplicates);
+    if (cfgFiles.count()>0) {
+      KConfig attribConfig(cfgFiles[0],KConfig::SimpleConfig);
+      KConfigGroup group(&attribConfig,"Default Attributes");
+      foreach (const QString& tag, group.keyList()) {
+        QStringList attribs=group.readEntry(tag,QStringList());
+        foreach (const QString& attrib,attribs) {
+          m_defaultAttributes.insert(tag,attrib);
+        }
+      }
+    }
 }
 
 InsaneHTMLPluginLEView::~InsaneHTMLPluginLEView() {
@@ -137,6 +150,11 @@ int InsaneHTMLPluginLEView::find_region_start(int cursor_x, const QString& line,
       }
     }
     
+    if (in_attrib) {
+      start_x=tmp_x;
+      continue;
+    }
+    
     if ( (c.isSpace() || c==QChar('=')) && (!in_attrib))
       break;
     
@@ -166,12 +184,14 @@ int InsaneHTMLPluginLEView::find_region_start(int cursor_x, const QString& line,
 }
 
 
-QString InsaneHTMLPluginLEView::parseIdentifier(const QString& input, int *offset) {
+QString InsaneHTMLPluginLEView::parseIdentifier(const QString& input, int *offset,bool firstDigit) {
   int offset_tmp=*offset;
   int len=input.length();
   QString identifier;
-  if (offset_tmp<input.length()) {
-    if (input.at(offset_tmp).isDigit()) return QString();
+  if (!firstDigit) {
+    if (offset_tmp<input.length()) {     
+      if (input.at(offset_tmp).isDigit()) return QString();
+    }
   }
   while (offset_tmp<len) {
     QChar c=input.at(offset_tmp);
@@ -208,14 +228,18 @@ int InsaneHTMLPluginLEView::parseNumber(const QString& input, int *offset) {
 
 QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
   QString tag;
-  QStringList attributes;
   QStringList classes;
   QStringList sub;
   QStringList relatives;
   QString id;
+  QMap<QString,QString> attributes;
+  QString attributesString;
   int multiply=1;
   bool error=false;
   tag=parseIdentifier(input,&offset);
+  QStringList defAttribs=m_defaultAttributes.values(tag);
+  foreach (const QString& defAttr,defAttribs)
+    attributes.insert(defAttr,"");
   while (offset<input.length()) {
     QChar c=input.at(offset);
     if (c==QChar('.')){
@@ -235,6 +259,99 @@ QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
     } else if (c==QChar('#')) {
       offset++;
       id=parseIdentifier(input,&offset);
+    } else if (c==QChar('[')) {
+      offset++;
+      while (offset<input.length()) {
+        c=input.at(offset);
+        if (! ( (c==QChar(' ')) || (c==QChar('\t')) || (c==QChar(',')) ) ) {
+          break;
+        }
+        offset++;
+      }
+      if (offset>=input.length()) {
+        error=true;
+        break;
+      }
+      while (offset<input.length()) {
+        if (input.at(offset)==QChar(']')) {
+          offset++;
+          break;
+        }
+        QString attr=parseIdentifier(input,&offset);
+        QString value;
+        if (attr.isEmpty() || offset>=input.length()) {
+          error=true;
+          break;
+        }
+        c=input.at(offset);
+        if (c==QChar('=')) {
+          offset++;
+          //PARSE PARAMETER
+          if (offset>=input.length()) {
+            error=true;
+            break;
+          }
+          if (input.at(offset)==QChar('"')) {
+            // parse quoted string
+            offset++;
+            int stringStart=offset;
+            while (offset<input.length()) {
+              if (input.at(offset)==QChar('"')) {
+                attributes.insert(attr,input.mid(stringStart,offset-stringStart));
+                offset++;
+                break;
+              }
+              offset++;
+            }
+            if (offset>=input.length()) {
+              error=true;
+              break;
+            }
+            //skip whitespace and ,
+            while (offset<input.length()) {
+              c=input.at(offset);
+              if (! ( (c==QChar(' ')) || (c==QChar('\t')) || (c==QChar(',')) ) ) {
+                break;
+              }
+              offset++;
+            }   
+          } else {
+            //no "
+            value=parseIdentifier(input,&offset,true);
+            attributes.insert(attr,value);
+          }
+
+
+          if (offset>=input.length()) {
+            error=true;
+            break;
+          }
+          //skip whitespace and ,
+          while (offset<input.length()) {
+            c=input.at(offset);
+            if (! ( (c==QChar(' ')) || (c==QChar('\t')) || (c==QChar(',')) ) ) {
+              break;
+            }
+            offset++;
+          }
+        } else { //no parameter for attribute specified
+          if (offset>=input.length()) {
+            error=true;
+            break;
+          }
+          //skip whitespace and ,
+          while (offset<input.length()) {
+            c=input.at(offset);
+            if (! ( (c==QChar(' ')) || (c==QChar('\t')) || (c==QChar(',')) ) ) {
+              break;
+            }
+            offset++;
+          }
+          attributes.insert(attr,QString());
+        }
+        //offset++;
+      }
+      if (error) break;
     } else {
 #ifdef IHP_DEBUG
   KPassivePopup::message(i18n("error %1",c),m_view);
@@ -246,6 +363,10 @@ QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
   }
   
   if (!error) {
+    for(QMap<QString,QString>::const_iterator it=attributes.constBegin();it!=attributes.constEnd();++it) {
+      attributesString+=" "+it.key();
+      if (!it.value().isNull()) attributesString+="=\""+it.value()+"\"";
+    }
     QStringList result;
     QString idAttrib;
     if (!id.isEmpty()) idAttrib=QString(" id=\"%1\"").arg(id);
@@ -263,17 +384,17 @@ QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
       if (!classComment.isEmpty()) result<<QString("|c-%1-c|").arg(classComment);
       if (sub.isEmpty()) {        
 	if (m_emptyTags.contains(tag)) {
-	  result<<QString("<%1%2%3/>").arg(tag).arg(idAttrib).arg(classAttrib);
+	  result<<QString("<%1%2%3%4/>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
 	  done=true;
 	}
       }   
       if (!done){
 	if (!sub.isEmpty()) {
-	  result<<QString("<%1%2%3>").arg(tag).arg(idAttrib).arg(classAttrib);
+	  result<<QString("<%1%2%3%4>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
 	  result<<sub;
 	  result<<QString("</%1>").arg(tag);
 	} else
-	  result<<QString("<%1%2%3></%1>").arg(tag).arg(idAttrib).arg(classAttrib);
+	  result<<QString("<%1%2%3%4></%1>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
       }
       
       if (!idAttrib.isEmpty()) result<<QString("|c-/#%1-c|").arg(id);

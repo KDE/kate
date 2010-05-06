@@ -41,10 +41,11 @@ public Q_SLOTS:
 private:
   KTextEditor::View *m_view;
   QStringList m_emptyTags;
+  QMultiMap<QString,QString> m_defaultAttributes;
   int find_region_start(int cursor_x, const QString& line, int * filtercount);
   int find_region_end(int cursor_x, const QString& line, int * filtercount);
   QStringList parse(const QString& input, int offset);
-  QString parseIdentifier(const QString& input, int *offset);
+  QString parseIdentifier(const QString& input, int *offset,bool firstDigit=false);
   int parseNumber(const QString& input, int *offset);
   void apply_filter_e(QStringList *lines);
   void apply_filter_c(QStringList *lines);

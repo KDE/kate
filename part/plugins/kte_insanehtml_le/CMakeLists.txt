@@ -18,6 +18,7 @@ install(TARGETS ktexteditor_insanehtml_le DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES  data/insanehtml_le_ui.rc DESTINATION ${DATA_INSTALL_DIR}/ktexteditor_insanehtml_le )
+install( FILES  data/xhtml.cfg DESTINATION ${DATA_INSTALL_DIR}/ktexteditor_insanehtml_le )
 install( FILES  data/ktexteditor_insanehtml_le.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
 
 

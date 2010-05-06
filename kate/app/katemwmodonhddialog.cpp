@@ -311,6 +311,15 @@ void KateMwModOnHdDialog::slotPDone()
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 {
+    for ( QTreeWidgetItemIterator it ( twDocuments ); *it; ++it )
+    {
+      KateDocItem *item = (KateDocItem *) * it;
+      if (item->document==doc)
+      {
+        delete item;
+        break;
+      }
+    }
     new KateDocItem( doc, m_stateTexts[ (uint)KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason ], twDocuments );
 }
 

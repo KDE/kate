@@ -83,6 +83,8 @@ EditorChooser::EditorChooser(QWidget *parent)
   d->chooser->editorCombo->setCurrentIndex(0);
 
   connect(d->chooser->editorCombo,SIGNAL(activated(int)),this,SIGNAL(changed()));
+
+  setMinimumSize(sizeHint());
 }
 
 EditorChooser:: ~EditorChooser()

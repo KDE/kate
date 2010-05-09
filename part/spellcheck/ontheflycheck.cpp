@@ -627,12 +627,7 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
   m_myranges.push_back(movingRange);
   KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
   attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-  QColor lineColor(Qt::red);
-  KateView *activeView = dynamic_cast<KateView*>(m_document->activeView());
-  if(activeView) {
-    lineColor = activeView->renderer()->config()->spellingMistakeLineColor();
-  }
-  attribute->setUnderlineColor(lineColor);
+  attribute->setUnderlineColor(KateRendererConfig::global()->spellingMistakeLineColor());
 
   // don'T print this range
   movingRange->setAttributeOnlyForViews (true);

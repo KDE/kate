@@ -1933,7 +1933,10 @@ void KateViewInternal::updateBracketMarkAttributes()
   KTextEditor::Attribute::Ptr bracketFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
   bracketFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
   bracketFill->setBackgroundFillWhitespace(false);
-  bracketFill->setFontBold();
+  if (QFontInfo(renderer()->currentFont()).fixedPitch()) {
+    // make font bold only for fixed fonts, otherwise text jumps around
+    bracketFill->setFontBold();
+  }
 
   m_bmStart->setAttribute(bracketFill);
   m_bmEnd->setAttribute(bracketFill);

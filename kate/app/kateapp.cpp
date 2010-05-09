@@ -386,15 +386,8 @@ KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup
 {
   KConfig *sconfig = sconfig_ ? sconfig_ : new KConfig(m_sessionManager->defaultSessionFile());
   QString sgroup = !sgroup_.isEmpty() ? sgroup_ : "MainWindow0";
+
   KateMainWindow *mainWindow = new KateMainWindow (sconfig, sgroup);
-
-  if ((mainWindows() > 1) && m_mainWindows[m_mainWindows.count()-2]->viewManager()->activeView())
-    mainWindow->viewManager()->activateView ( m_mainWindows[m_mainWindows.count()-2]->viewManager()->activeView()->document() );
-  else if ((mainWindows() > 1) && (m_docManager->documents() > 0))
-    mainWindow->viewManager()->activateView ( (m_docManager->document(m_docManager->documents() - 1)) );
-  else if ((mainWindows() > 1) && (m_docManager->documents() < 1))
-    mainWindow->viewManager()->openUrl ( KUrl() );
-
   mainWindow->show ();
 
   return mainWindow;

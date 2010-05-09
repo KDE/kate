@@ -80,7 +80,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     MisspelledList m_misspelledList;
     ModificationList m_modificationList;
     KateDocument::OffsetList m_currentDecToEncOffsetList;
-    QList<KTextEditor::MovingRange*> m_myranges;
     QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
 
     void freeDocument();

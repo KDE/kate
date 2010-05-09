@@ -358,8 +358,6 @@ void KateOnTheFlyChecker::freeDocument()
       deleteMovingRangeQuickly(movingRange);
   }
   stopCurrentSpellCheck();
-
-  m_myranges.clear();
   
   MisspelledList misspelledList = m_misspelledList; // make a copy!
   foreach(const MisspelledItem &i, misspelledList) {
@@ -428,8 +426,6 @@ void KateOnTheFlyChecker::removeRangeFromEverything(KTextEditor::MovingRange *mo
     return; // range was part of the spell check queue, so it cannot have been
             // a misspelled range
   }
-
-  m_myranges.removeAll(movingRange);
 
   for(MisspelledList::iterator i = m_misspelledList.begin(); i != m_misspelledList.end();) {
     if((*i).first == movingRange) {
@@ -620,7 +616,6 @@ void KateOnTheFlyChecker::misspelling(const QString &word, int start)
                                                                          line,
                                                                          rangeStart + translatedEnd));
   movingRange->setFeedback(this);
-  m_myranges.push_back(movingRange);
   KTextEditor::Attribute *attribute = new KTextEditor::Attribute();
   attribute->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
   attribute->setUnderlineColor(KateRendererConfig::global()->spellingMistakeLineColor());
@@ -656,7 +651,9 @@ QList<KTextEditor::MovingRange*> KateOnTheFlyChecker::installedMovingRanges(cons
   ON_THE_FLY_DEBUG << range;
   MovingRangeList toReturn;
 
-  foreach(KTextEditor::MovingRange *movingRange, m_myranges) {
+  for(QList<SpellCheckItem>::iterator i = m_misspelledList.begin();
+                                      i != m_misspelledList.end(); ++i) {
+    KTextEditor::MovingRange *movingRange = (*i).first;
     if(movingRange->overlaps(range)) {
       toReturn.push_back(movingRange);
     }

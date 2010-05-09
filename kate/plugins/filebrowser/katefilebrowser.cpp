@@ -85,7 +85,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   setFocusProxy(m_dirOperator);
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
           this, SLOT(selectorViewChanged(QAbstractItemView *)));
-  connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl&)),
+  connect(m_urlNavigator, SIGNAL(returnPressed()),
           m_dirOperator, SLOT(setFocus()));
   // now all actions exist in dir operator and we can use them in the toolbar
   setupActions();

@@ -4848,13 +4848,13 @@ Changes:
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
         <DetectSpaces />
         <StringDetect attribute="Keyword" context="#pop" String="?&gt;" lookAhead="true" />
-        
-        <!-- Alternate PHP Block Syntax 
+
+        <!-- Alternate PHP Block Syntax
           -  http://www.php.net/manual/en/control-structures.alternative-syntax.php
           -
-          -  We must treat the ternary and case/default statements specially so that the : in those can be 
+          -  We must treat the ternary and case/default statements specially so that the : in those can be
           -  ignored.  Then otherwise we treat the : as a block start, and the 5 different end statements as
-          -  a block end.          
+          -  a block end.
           -
           -  The ternary and case/default switch to a context which short-circuits the : detection and
           -  just pops back to this context instead of starting a block.
@@ -4864,14 +4864,14 @@ Changes:
           -
           -  Additionally the paamayim nekudotayim (::) must not start a subcontext that is never terminated.
           -->
-        
+
         <DetectChar attribute="Other" context="ternary" char="?" />
         <RegExpr attribute="Keyword" context="case"  String="(case|default)(\s|:|$)" />
         <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
         <DetectChar attribute="Normal Text" context="#stay" char=":" beginRegion="Alternate Block" />
         <RegExpr attribute="Control Structures" context="#stay" String="endif|endwhile|endfor|endforeach|endswitch" endRegion="Alternate Block" />
         <!--/ Alternate PHP Block Syntax -->
-        
+
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
@@ -4907,11 +4907,11 @@ Changes:
         <DetectChar attribute="Other" char=":" context="#pop" />
         <IncludeRules context="phpsource" />
       </context>
-      
+
       <context name="case" attribute="PHP Text" lineEndContext="#stay">
         <IncludeRules context="ternary" />
       </context>
-            
+
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
         <StringDetect attribute="Keyword" context="#pop" lookAhead="true" String="?&gt;" />
       </context>

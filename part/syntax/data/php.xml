@@ -3,7 +3,8 @@
 
 Changes:
 [ Version 1.42 (2010-05-09) ]
-- Add codefolding to heredocs
+- fix handling of paamayim nekudotayim in ternary / case context, which used to
+  lead to improper region starts
 
 [ Version 1.41 (2009-08-26) ]
 - Add codefolding to heredocs

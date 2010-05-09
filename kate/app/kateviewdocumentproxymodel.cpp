@@ -506,19 +506,20 @@ void KateViewDocumentProxyModel::removeItemFromColoring(int row)
 //   kDebug(13001)<<row;
   QModelIndex removeit = mapToSource(createIndex(row, 0));
   m_editHistory.removeAll(removeit);
+
   // adjust all indices below 'row'
   for(int i = 0; i < m_editHistory.count(); ++i) {
-    QModelIndex idx = mapFromSource(m_editHistory[i]);
-    if(idx.row() > row)
-      m_editHistory[i] = mapToSource(createIndex(idx.row() - 1, row));
+    if (m_editHistory[i].row() >= removeit.row())
+      m_editHistory[i] = createIndex(m_editHistory[i].row() - 1, 0);
   }
-  m_viewHistory.removeAll(removeit);
+
   // adjust all indices below 'row'
+  m_viewHistory.removeAll(removeit);
   for(int i = 0; i < m_viewHistory.count(); ++i) {
-    QModelIndex idx = mapFromSource(m_viewHistory[i]);
-    if(idx.row() > row)
-      m_viewHistory[i] = mapToSource(createIndex(idx.row() - 1, row));
+    if (m_viewHistory[i].row() >= removeit.row())
+      m_viewHistory[i] = createIndex(m_viewHistory[i].row() - 1, 0);
   }
+
   updateBackgrounds(false);
 }
 
@@ -537,21 +538,20 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
 
     m_rowCountOffset--;
 
-    for (int i = 0, i2 = 0;i < m_mapToSource.count();i++)
+    m_mapToSource.removeAt(removeRow);
+    for (int i = 0; i < m_mapToSource.count(); i++)
     {
-      if (i == removeRow) continue;
-      int x = m_mapToSource[i];
-      m_mapToSource[i2] = (x > row) ? (x - 1) : x;
-      i2++;
+      const int currentRow = m_mapToSource[i];
+      if (currentRow > row) {
+        m_mapToSource[i] = currentRow - 1;
+      }
     }
-
-    m_mapToSource.removeLast();
-    m_mapFromSource.removeLast();
 
     foreach (int sr, m_mapToSource) kDebug()<<sr;
     kDebug()<<"**************";
 
-    for (int i = 0;i < m_mapToSource.count();i++)
+    m_mapFromSource.removeLast();
+    for (int i = 0; i < m_mapToSource.count(); i++)
     {
       int tmp = m_mapToSource[i];
       m_mapFromSource[tmp] = i;

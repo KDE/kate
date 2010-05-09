@@ -2,6 +2,9 @@
 <!--
 
 Changes:
+[ Version 1.42 (2010-05-09) ]
+- Add codefolding to heredocs
+
 [ Version 1.41 (2009-08-26) ]
 - Add codefolding to heredocs
 
@@ -54,7 +57,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" indenter="cstyle" version="1.41" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" indenter="cstyle" version="1.42" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -4897,9 +4900,11 @@ Changes:
         <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
         <AnyChar attribute="Other" context="#stay" String=";(),[]" />
       </context>
-      
-      <context name="ternary" attribute="PHP Text" lineEndContext="#stay">        
-        <DetectChar attribute="Other" char=":" context="#pop" />        
+
+      <context name="ternary" attribute="PHP Text" lineEndContext="#stay">
+        <!-- the paamayim nekudotayim (::) must not start a subcontext that is never terminated. -->
+        <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
+        <DetectChar attribute="Other" char=":" context="#pop" />
         <IncludeRules context="phpsource" />
       </context>
       

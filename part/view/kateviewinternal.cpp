@@ -112,10 +112,13 @@ KateViewInternal::KateViewInternal(KateView *view)
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();
 
-  // bracket markers are only for this view
+  // bracket markers are only for this view and should not be printed
   m_bm->setView (m_view);
   m_bmStart->setView (m_view);
   m_bmEnd->setView (m_view);
+  m_bm->setAttributeOnlyForViews (true);
+  m_bmStart->setAttributeOnlyForViews (true);
+  m_bmEnd->setAttributeOnlyForViews (true);
 
   // update mark attributes
   updateBracketMarkAttributes();

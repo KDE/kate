@@ -82,7 +82,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     ModificationList m_modificationList;
     KateDocument::OffsetList m_currentDecToEncOffsetList;
 
-    void freeDocument();
+    void freeDocument(bool onDestruction = false);
 
     MovingRangeList installedMovingRanges(const KTextEditor::Range& range);
 

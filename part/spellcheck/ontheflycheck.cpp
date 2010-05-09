@@ -68,7 +68,7 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
 
 KateOnTheFlyChecker::~KateOnTheFlyChecker()
 {
-  freeDocument();
+  freeDocument(true);
 }
 
 int KateOnTheFlyChecker::debugArea()
@@ -341,7 +341,7 @@ void KateOnTheFlyChecker::handleRemovedText(const KTextEditor::Range &range)
   }
 }
 
-void KateOnTheFlyChecker::freeDocument()
+void KateOnTheFlyChecker::freeDocument(bool onDestruction)
 {
   ON_THE_FLY_DEBUG;
 
@@ -364,7 +364,9 @@ void KateOnTheFlyChecker::freeDocument()
   }
   m_misspelledList.clear();
   clearModificationList();
-  if(!m_spellCheckQueue.isEmpty()) {
+  
+  // only fire timer if we are not destructed atm
+  if(!onDestruction && !m_spellCheckQueue.isEmpty()) {
     QTimer::singleShot(0, this, SLOT(performSpellCheck()));
   }
 }

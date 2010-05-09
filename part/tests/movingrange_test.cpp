@@ -333,6 +333,7 @@ void MovingRangeTest::testFeedbackMouse()
 
   // left
   QTest::mouseMove(view, QPoint(20, 15));
+  QTest::qWait(200); // process mouse events. do not move mouse manually
   QVERIFY(!rf.mouseEnteredRangeCalled());
   QVERIFY(!rf.mouseExitedRangeCalled());
 

@@ -134,6 +134,17 @@ target_link_libraries( movingcursor_test
   katepartinterfaces
 )
 
+########### moving range and feedback test ###############
+
+kde4_add_unit_test(movingrange_test movingrange_test.cpp)
+
+target_link_libraries( movingrange_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### document test ###############
 
 kde4_add_unit_test(katedocument_test katedocument_test.cpp)

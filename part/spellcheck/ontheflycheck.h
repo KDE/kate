@@ -78,15 +78,14 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     SpellCheckItem m_currentlyCheckedItem;
     static const SpellCheckItem invalidSpellCheckQueueItem;
     MisspelledList m_misspelledList;
-    MovingRangeList m_installedMovingRangeList;
     ModificationList m_modificationList;
     KateDocument::OffsetList m_currentDecToEncOffsetList;
+    QList<KTextEditor::MovingRange*> m_myranges;
+    QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
 
-    void freeDocument(bool onDestruction = false);
+    void freeDocument();
 
     MovingRangeList installedMovingRanges(const KTextEditor::Range& range);
-
-    void installMovingRange(KTextEditor::MovingRange *movingRange);
 
     void queueLineSpellCheck(KateDocument *document, int line);
     /**
@@ -112,8 +111,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     virtual void caretEnteredRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
     virtual void caretExitedRange(KTextEditor::MovingRange *range, KTextEditor::View *view);
 
-    QMap<KTextEditor::View*, KTextEditor::Range> m_displayRangeMap;
-    QList<KTextEditor::MovingRange*> m_myranges;
     KTextEditor::Range findWordBoundaries(const KTextEditor::Cursor& begin,
                                           const KTextEditor::Cursor& end);
 

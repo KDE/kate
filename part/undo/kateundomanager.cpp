@@ -289,7 +289,7 @@ void KateUndoManager::updateModified()
   */
 
   unsigned char currentPattern = 0;
-  const unsigned char patterns[] = {5,16,21,24,26,88,90,93,133,144,149,165};
+  const unsigned char patterns[] = {5,16,21,24,26,88,90,93,133,144,149,154,165};
   const unsigned char patternCount = sizeof(patterns);
   KateUndoGroup* undoLast = 0;
   KateUndoGroup* redoLast = 0;

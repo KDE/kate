@@ -145,9 +145,10 @@ void KatePartPluginManager::loadConfig ()
   KConfigGroup cg = KConfigGroup(m_config, "Kate Part Plugins");
 
   // disable all plugin if no config...
-  foreach (const KatePartPluginInfo &plugin, m_pluginList)
-    plugin.load = cg.readEntry (plugin.service()->library(), false)
-               || cg.readEntry (plugin.service()->property("X-KDE-PluginInfo-Name").toString(), false);
+  foreach (const KatePartPluginInfo &plugin, m_pluginList) {
+    bool enabledByDefault = plugin.isEnabledByDefault();
+    plugin.load = cg.readEntry (plugin.saveName(), enabledByDefault);
+  }
 
   loadAllPlugins();
 }

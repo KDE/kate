@@ -45,6 +45,7 @@ class KatePartPluginInfo
     QString saveName() const;
     KService::Ptr service() const { return m_pluginInfo.service(); }
     QStringList dependencies() const { return m_pluginInfo.dependencies(); }
+    bool isEnabledByDefault() const { return m_pluginInfo.isPluginEnabledByDefault(); }
   private:
     KPluginInfo m_pluginInfo;
     QString m_saveName;

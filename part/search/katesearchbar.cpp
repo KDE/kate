@@ -265,6 +265,7 @@ void KateSearchBar::highlightMatch(const Range & range) {
     KTextEditor::MovingRange* const highlight = m_view->doc()->newMovingRange(range, Kate::TextRange::DoNotExpand);
     highlight->setView(m_view); // show only in this view
     highlight->setAttribute(highlightMatchAttribute);
+    highlight->setAttributeOnlyForViews(true);
     m_hlRanges.append(highlight);
 }
 
@@ -272,6 +273,7 @@ void KateSearchBar::highlightReplacement(const Range & range) {
     KTextEditor::MovingRange* const highlight = m_view->doc()->newMovingRange(range, Kate::TextRange::DoNotExpand);
     highlight->setView(m_view); // show only in this view
     highlight->setAttribute(highlightReplacementAttribute);
+    highlight->setAttributeOnlyForViews(true);
     m_hlRanges.append(highlight);
 }
 

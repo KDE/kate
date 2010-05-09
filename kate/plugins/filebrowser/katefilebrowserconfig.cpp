@@ -63,7 +63,7 @@ class ActionLBItem : public QListWidgetItem
 //BEGIN KateFileBrowserConfigPage
 KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, const char *, KateFileBrowser *kfb )
     : Kate::PluginConfigPage( parent ),
-    fileBrowser( kfb ),
+    fileBrowser( kfb ), // NOTE: fileBrowser might be 0, if createView was not called for the plugin yet...
     m_changed( false )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
@@ -110,7 +110,8 @@ void KateFileBrowserConfigPage::apply()
     l << aItem->idstring();
   }
   config.writeEntry( "toolbar actions", l );
-  fileBrowser->setupToolbar();
+  if (fileBrowser)
+    fileBrowser->setupToolbar();
 }
 
 void KateFileBrowserConfigPage::reset()
@@ -137,15 +138,17 @@ void KateFileBrowserConfigPage::init()
              << "show hidden" /*<< "view menu" << "properties"*/
              << "bookmarks" << "sync_dir" << "configure";
   QRegExp re("&(?=[^&])");
-  QAction *ac;
+  QAction *ac = 0;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )
   {
     lb = l.contains( *it ) ? acSel->selectedListWidget() : acSel->availableListWidget();
-    if ( *it == "bookmarks" || *it == "sync_dir" || *it == "configure" )
-      ac = fileBrowser->actionCollection()->action( (*it).toLatin1().constData() );
-    else
-      ac = fileBrowser->dirOperator()->actionCollection()->action( (*it).toLatin1().constData() );
+    if (fileBrowser) {
+      if ( *it == "bookmarks" || *it == "sync_dir" || *it == "configure" )
+        ac = fileBrowser->actionCollection()->action( (*it).toLatin1().constData() );
+      else
+        ac = fileBrowser->dirOperator()->actionCollection()->action( (*it).toLatin1().constData() );
+    }
     if ( ac )
     {
       QString text = ac->text().remove( re );

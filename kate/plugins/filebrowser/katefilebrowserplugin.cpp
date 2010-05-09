@@ -39,6 +39,7 @@ K_EXPORT_PLUGIN(KateFileBrowserFactory(KAboutData("katefilebrowserplugin","katef
 //BEGIN KateFileBrowserPlugin
 KateFileBrowserPlugin::KateFileBrowserPlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
+  , m_fileBrowser(0)
 {
 }
 

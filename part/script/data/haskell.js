@@ -14,6 +14,12 @@ var debugMode = false;
 // words for which space character-triggered indentation should be done
 var re_spaceIndent = /\bwhere\b|\bin\b|\belse\b/
 
+// ‘|’-triggered indentation should only indent if the line starts with ‘|’
+var re_pipeIndent = /^\s*\|/
+
+// regex for symbols
+var re_symbols = /^\s*[!$#%&*+.\/<=>?@\\^|~-]/
+
 // escapes text w.r.t. regex special chars
 function escape(text) {
     return text.replace(/(\/|\.|,|\+|\?|\||\*|\(|\)|\[|\]|\{|\}|\\)/g, "\\$1");
@@ -68,6 +74,12 @@ function indent(line, indentWidth, character) {
     // line starts with one of the words in re_spaceIndent
     if (character == ' ') {
         if (currentLine.search(re_spaceIndent) == -1 ||
+                !document.isCode(line, document.lineLength(line) - 2)) {
+            dbg("skipping...");
+            return -2;
+        }
+    } else if (character == '|') {
+        if (currentLine.search(re_pipeIndent) == -1 ||
                 !document.isCode(line, document.lineLength(line) - 2)) {
             dbg("skipping...");
             return -2;
@@ -302,7 +314,8 @@ function indent(line, indentWidth, character) {
 
     // line starting with !#$%&*+./<=>?@\^|~-
     if (document.isCode(line, document.lineLength(line) - 1)
-            && currentLine.search(/^\s*[!$#%&*+.\/<=>?@\\^|~-]/) != -1) {
+            && currentLine.search(re_symbols) != -1
+            && lastLine.search(re_symbols) == -1) {
         dbg('indenting for operator');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }

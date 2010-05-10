@@ -41,7 +41,8 @@ class KateGrepThread : public QThread
                      const QString &dir,
                      const QStringList &fileWildcards,
                      bool recursive,
-                     bool followDirSymlinks);
+                     bool followDirSymlinks,
+                     bool includeHiddenFiles);
 
   public Q_SLOTS:
     void cancel ()
@@ -63,6 +64,7 @@ class KateGrepThread : public QThread
     QStringList m_workQueue;
     bool m_recursive;
     bool m_followDirSymlinks;
+    bool m_includeHiddenFiles;
     QStringList m_fileWildcards;
     QList<QRegExp> m_searchPattern;
     QString m_dir;

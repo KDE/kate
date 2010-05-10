@@ -34,6 +34,7 @@ KateGrepThread::KateGrepThread(KateResultView* parent)
     , m_cancel (false)
     , m_recursive (false)
     , m_followDirSymlinks (false)
+    , m_includeHiddenFiles (false)
 {
 }
 
@@ -44,12 +45,14 @@ void KateGrepThread::startSearch(const QList<QRegExp> &pattern,
                                  const QString &dir,
                                  const QStringList &fileWildcards,
                                  bool recursive,
-                                 bool followDirSymlinks)
+                                 bool followDirSymlinks,
+                                 bool includeHiddenFiles)
 {
   m_cancel = false;
 
   m_recursive = recursive;
   m_followDirSymlinks = followDirSymlinks;
+  m_includeHiddenFiles = includeHiddenFiles;
   m_fileWildcards = fileWildcards;
   m_searchPattern = pattern;
 
@@ -78,6 +81,8 @@ void KateGrepThread::run ()
       QDir::Filters dirFilter = QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable;
       if (!m_followDirSymlinks)
         dirFilter |= QDir::NoSymLinks;
+      if (m_includeHiddenFiles)
+        dirFilter |= QDir::Hidden;
       
       QFileInfoList currentSubDirs = currentDir.entryInfoList (dirFilter);
 
@@ -87,7 +92,10 @@ void KateGrepThread::run ()
     }
 
     // work with all files in this dir..., use wildcards for them...
-    QFileInfoList currentFiles = currentDir.entryInfoList (m_fileWildcards, QDir::Files | QDir::NoDotAndDotDot | QDir::Readable);
+    QDir::Filters fileFilter = QDir::Files | QDir::NoDotAndDotDot | QDir::Readable;
+    if (m_includeHiddenFiles)
+      fileFilter |= QDir::Hidden;
+    QFileInfoList currentFiles = currentDir.entryInfoList (m_fileWildcards, fileFilter);
 
     // iterate over all files
     for (int i = 0; !m_cancel && i < currentFiles.size(); ++i)

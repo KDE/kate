@@ -70,7 +70,7 @@ void KateFindInFilesOptions::save(KConfigGroup& config)
   config.writeEntry("FollowDirectorySymlinks", m_followDirectorySymlinks);
 }
 
-QStringList KateFindInFilesOptions::searchItems()
+ QStringList KateFindInFilesOptions::searchItems()
 {
   return m_searchItems;
 }
@@ -168,6 +168,19 @@ void KateFindInFilesOptions::setFollowDirectorySymlinks(bool follow)
 
   if (this != &self())
     self().setFollowDirectorySymlinks(follow);
+}
+
+bool KateFindInFilesOptions::includeHiddenFiles() const
+{
+  return m_includeHiddenFiles;
+}
+
+void KateFindInFilesOptions::setIncludeHiddenFiles(bool include)
+{
+  m_includeHiddenFiles = include;
+
+  if (this != &self())
+    self().setIncludeHiddenFiles(include);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

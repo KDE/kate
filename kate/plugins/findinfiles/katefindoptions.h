@@ -55,11 +55,15 @@ class KateFindInFilesOptions
     bool followDirectorySymlinks() const;
     void setFollowDirectorySymlinks(bool follow);
 
+    bool includeHiddenFiles() const;
+    void setIncludeHiddenFiles(bool include);
+
   private:
-    bool m_recursive;
-    bool m_casesensitive;
-    bool m_regexp;
-    bool m_followDirectorySymlinks;
+    bool m_recursive : 1;
+    bool m_casesensitive : 1;
+    bool m_regexp : 1;
+    bool m_followDirectorySymlinks : 1;
+    bool m_includeHiddenFiles : 1;
 
     QStringList m_searchItems;
     QStringList m_searchPaths;

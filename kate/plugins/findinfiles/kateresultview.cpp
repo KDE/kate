@@ -143,7 +143,8 @@ void KateResultView::startSearch(KateFindInFilesOptions options,
                             url,
                             filter.split(QRegExp("[,;]"), QString::SkipEmptyParts),
                             m_options.recursive(),
-                            m_options.followDirectorySymlinks());
+                            m_options.followDirectorySymlinks(),
+                            m_options.includeHiddenFiles());
 }
 
 

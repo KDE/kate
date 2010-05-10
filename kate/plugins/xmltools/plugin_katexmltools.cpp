@@ -282,7 +282,17 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
     m_allowed = m_docDtds[doc]->allowedElements(parentElement );
     m_mode = elements;
   }
-  // TODO: optionally close parent tag if not left=="/>"
+  else if ( leftCh == "/" && secondLeftCh == "<" )
+  {
+    kDebug() << "*close parent element";
+    QString parentElement = getParentElement( *kv, 2 );
+
+    if ( ! parentElement.isEmpty() )
+    {
+      m_mode = closingtag;
+      m_allowed = QStringList( parentElement );
+    }
+  }
   else if( leftCh == " " || (isQuote(leftCh) && secondLeftCh == "=") )
   {
     // TODO: check secondLeftChar, too?! then you don't need to trigger
@@ -352,7 +362,7 @@ bool PluginKateXMLToolsCompletionModel::shouldStartCompletion( KTextEditor::View
   Q_UNUSED( view )
   Q_UNUSED( userInsertion )
   Q_UNUSED( position )
-  const QString triggerChars = "&< '\""; // these are subsequently handled by completionInvoked()
+  const QString triggerChars = "&</ '\""; // these are subsequently handled by completionInvoked()
 
   return triggerChars.contains( insertedText.right(1) );
 }
@@ -702,6 +712,11 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Doc
       posCorrection = text.length() - str.length() + 1;
 
     text = str;
+  }
+
+  else if( m_mode == closingtag )
+  {
+    text += ">";
   }
 
   document->replaceText( toReplace, text );

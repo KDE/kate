@@ -98,7 +98,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
     QString getParentElement( KTextEditor::View &view, int skipCharacters );
 
-    enum Mode {none, entities, attributevalues, attributes, elements};
+    enum Mode {none, entities, attributevalues, attributes, elements, closingtag};
     enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};
 
     /// Assign the PseudoDTD @p dtd to the Kate::Document @p doc

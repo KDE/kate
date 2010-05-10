@@ -170,10 +170,13 @@ void KateFindDialog::slotSearch()
 
 void KateFindDialog::updateConfig()
 {
-  // update last pattern
-  KateFindInFilesOptions::self().addSearchItem(cmbPattern->currentText());
-  KateFindInFilesOptions::self().addSearchPath(cmbDir->url().url());
-  KateFindInFilesOptions::self().addSearchFilter(cmbFilter->currentText());
+  // prepend item, if it does not already exist
+  if (cmbPattern->itemText(0) != cmbPattern->currentText())
+    cmbPattern->insertItem(0, cmbPattern->currentText());
+  if (cmbDir->comboBox()->itemText(0) != cmbDir->url().url())
+    cmbDir->comboBox()->insertItem(0, cmbDir->url().url());
+  if (cmbFilter->itemText(0) != cmbFilter->currentText())
+    cmbFilter->insertItem(0, cmbFilter->currentText());
 
   KateFindInFilesOptions::self().setRecursive(chkRecursive->isChecked());
   KateFindInFilesOptions::self().setCaseSensitive(chkCaseSensitive->isChecked());
@@ -185,15 +188,21 @@ void KateFindDialog::updateConfig()
 void KateFindDialog::updateItems()
 {
   cmbPattern->clear();
-  cmbDir->clear();
-  cmbFilter->clear();
-
-  cmbPattern->insertItems(0, KateFindInFilesOptions::self().searchItems());
-  cmbDir->comboBox()->insertItems(0, KateFindInFilesOptions::self().searchPaths());
-  cmbFilter->insertItems(0, KateFindInFilesOptions::self().searchFilters());
-
+  cmbPattern->setDuplicatesEnabled(false);
+  cmbPattern->setInsertPolicy(QComboBox::InsertAtTop);
+  cmbPattern->setModel(KateFindInFilesOptions::self().searchItems());
   cmbPattern->setCurrentIndex(0);
+
+  cmbDir->comboBox()->clear();
+  cmbDir->comboBox()->setDuplicatesEnabled(false);
+  cmbDir->comboBox()->setInsertPolicy(QComboBox::InsertAtTop);
+  cmbDir->comboBox()->setModel(KateFindInFilesOptions::self().searchPaths());
   cmbDir->comboBox()->setCurrentIndex(0);
+
+  cmbFilter->clear();
+  cmbFilter->setDuplicatesEnabled(false);
+  cmbFilter->setInsertPolicy(QComboBox::InsertAtTop);
+  cmbFilter->setModel(KateFindInFilesOptions::self().searchFilters());
   cmbFilter->setCurrentIndex(0);
 
   chkRecursive->setChecked(KateFindInFilesOptions::self().recursive());

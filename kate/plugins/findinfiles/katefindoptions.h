@@ -20,7 +20,7 @@
 #define KATE_FINDINFILES_OPTIONS_H
 
 #include <QString>
-#include <QStringList>
+#include <QStringListModel>
 
 class KConfigGroup;
 
@@ -29,19 +29,18 @@ class KateFindInFilesOptions
   public:
     KateFindInFilesOptions();
     ~KateFindInFilesOptions();
+    
+    KateFindInFilesOptions(const KateFindInFilesOptions& copy);
+    KateFindInFilesOptions& operator=(const KateFindInFilesOptions& copy);
 
     static KateFindInFilesOptions& self();
 
     void load(const KConfigGroup& config);
     void save(KConfigGroup& config);
 
-    QStringList searchItems();
-    QStringList searchPaths();
-    QStringList searchFilters();
-
-    void addSearchItem(const QString& item);
-    void addSearchPath(const QString& path);
-    void addSearchFilter(const QString& filter);
+    QStringListModel* searchItems();
+    QStringListModel* searchPaths();
+    QStringListModel* searchFilters();
 
     bool recursive() const;
     void setRecursive(bool recursive);
@@ -65,9 +64,9 @@ class KateFindInFilesOptions
     bool m_followDirectorySymlinks : 1;
     bool m_includeHiddenFiles : 1;
 
-    QStringList m_searchItems;
-    QStringList m_searchPaths;
-    QStringList m_searchFilters;
+    QStringListModel m_searchItems;
+    QStringListModel m_searchPaths;
+    QStringListModel m_searchFilters;
 };
 
 #endif

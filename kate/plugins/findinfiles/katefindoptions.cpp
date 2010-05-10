@@ -28,6 +28,23 @@ KateFindInFilesOptions::~KateFindInFilesOptions()
 {
 }
 
+KateFindInFilesOptions::KateFindInFilesOptions(const KateFindInFilesOptions& copy)
+{
+  *this = copy;
+}
+
+KateFindInFilesOptions& KateFindInFilesOptions::operator=(const KateFindInFilesOptions& copy)
+{
+    m_recursive = copy.m_recursive;
+    m_casesensitive = copy.m_casesensitive;
+    m_regexp = copy.m_regexp;
+    m_followDirectorySymlinks = copy.m_followDirectorySymlinks;
+    m_includeHiddenFiles = copy.m_includeHiddenFiles;
+
+    // only the global models are used
+}
+
+
 KateFindInFilesOptions& KateFindInFilesOptions::self()
 {
   static KateFindInFilesOptions fifo;
@@ -36,86 +53,87 @@ KateFindInFilesOptions& KateFindInFilesOptions::self()
 
 void KateFindInFilesOptions::load(const KConfigGroup& config)
 {
+  if (this != &self()) {
+    self().load(config);
+    return;
+  }
+
   // now restore new session settings
-  m_searchItems = config.readEntry("LastSearchItems", QStringList());
-  m_searchPaths = config.readEntry("LastSearchPaths", QStringList());
-  m_searchFilters = config.readEntry("LastSearchFiles", QStringList());
+  m_searchItems.setStringList(config.readEntry("LastSearchItems", QStringList()));
+  m_searchPaths.setStringList(config.readEntry("LastSearchPaths", QStringList()));
+  m_searchFilters.setStringList(config.readEntry("LastSearchFiles", QStringList()));
 
   // sane default values
-  if (m_searchFilters.isEmpty())
+  if (m_searchFilters.rowCount() == 0)
   {
     // if there are no entries, most probably the first Kate start.
     // Initialize with default values.
-    m_searchFilters << "*"
-    << "*.h,*.hxx,*.cpp,*.cc,*.C,*.cxx,*.idl,*.c"
-    << "*.cpp,*.cc,*.C,*.cxx,*.c"
-    << "*.h,*.hxx,*.idl";
+    QStringList stringList;
+    stringList << "*"
+               << "*.h,*.hxx,*.cpp,*.cc,*.C,*.cxx,*.idl,*.c"
+               << "*.cpp,*.cc,*.C,*.cxx,*.c"
+               << "*.h,*.hxx,*.idl";
+    m_searchFilters.setStringList(stringList);
   }
 
   m_casesensitive = config.readEntry("CaseSensitive", true);
   m_recursive = config.readEntry("Recursive", true);
   m_regexp = config.readEntry("RegExp", false);
   m_followDirectorySymlinks = config.readEntry("FollowDirectorySymlinks", false);
+  m_includeHiddenFiles = config.readEntry("IncludeHiddenFiles", false);
 }
 
 void KateFindInFilesOptions::save(KConfigGroup& config)
 {
-  config.writeEntry("LastSearchItems", m_searchItems);
-  config.writeEntry("LastSearchPaths", m_searchPaths);
-  config.writeEntry("LastSearchFiles", m_searchFilters);
+  if (this != &self()) {
+    self().save(config);
+    return;
+  }
+
+  // first remove duplicates, as setDuplicatesEnabled does not work for QComboBox with Model
+  QStringList stringList = m_searchItems.stringList();
+  if (stringList.removeDuplicates() > 0)
+    m_searchItems.setStringList(stringList);
+  
+  stringList = m_searchPaths.stringList();
+  if (stringList.removeDuplicates() > 0)
+    m_searchPaths.setStringList(stringList);
+
+  stringList = m_searchFilters.stringList();
+  if (stringList.removeDuplicates() > 0)
+    m_searchFilters.setStringList(stringList);
+
+  // now save
+  config.writeEntry("LastSearchItems", m_searchItems.stringList());
+  config.writeEntry("LastSearchPaths", m_searchPaths.stringList());
+  config.writeEntry("LastSearchFiles", m_searchFilters.stringList());
 
   config.writeEntry("Recursive", m_recursive);
   config.writeEntry("CaseSensitive", m_casesensitive);
   config.writeEntry("RegExp", m_regexp);
   config.writeEntry("FollowDirectorySymlinks", m_followDirectorySymlinks);
+  config.writeEntry("IncludeHiddenFiles", m_includeHiddenFiles);
 }
 
- QStringList KateFindInFilesOptions::searchItems()
+QStringListModel* KateFindInFilesOptions::searchItems()
 {
-  return m_searchItems;
-}
-
-QStringList KateFindInFilesOptions::searchPaths()
-{
-  return m_searchPaths;
-}
-
-QStringList KateFindInFilesOptions::searchFilters()
-{
-  return m_searchFilters;
-}
-
-void KateFindInFilesOptions::addSearchItem(const QString& item)
-{
-  m_searchItems.removeAll(item);
-  m_searchItems.prepend(item);
-  while (m_searchItems.count() > 10)
-    m_searchItems.removeLast();
-
   if (this != &self())
-    self().addSearchItem(item);
+    return self().searchItems();
+  return &m_searchItems;
 }
 
-void KateFindInFilesOptions::addSearchPath(const QString& path)
+QStringListModel* KateFindInFilesOptions::searchPaths()
 {
-  m_searchPaths.removeAll(path);
-  m_searchPaths.prepend(path);
-  while (m_searchPaths.count() > 10)
-    m_searchPaths.removeLast();
-
   if (this != &self())
-    self().addSearchPath(path);
+    return self().searchPaths();
+  return &m_searchPaths;
 }
 
-void KateFindInFilesOptions::addSearchFilter(const QString& filter)
+QStringListModel* KateFindInFilesOptions::searchFilters()
 {
-  m_searchFilters.removeAll(filter);
-  m_searchFilters.prepend(filter);
-  while (m_searchFilters.count() > 10)
-    m_searchFilters.removeLast();
-
   if (this != &self())
-    self().addSearchFilter(filter);
+    return self().searchFilters();
+  return &m_searchFilters;
 }
 
 bool KateFindInFilesOptions::recursive() const

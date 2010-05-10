@@ -279,7 +279,7 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 void KateSearchBar::indicateMatch(MatchResult matchResult) {
     QLineEdit * const lineEdit = isPower() ? m_powerUi->pattern->lineEdit()
-                                           : m_incUi->pattern;
+                                           : m_incUi->pattern->lineEdit();
     QPalette background(lineEdit->palette());
 
     switch (matchResult) {
@@ -411,7 +411,7 @@ void KateSearchBar::onMatchCaseToggled(bool /*matchCase*/) {
 
     if (m_incUi != 0) {
        // Re-search with new settings
-        const QString pattern = m_incUi->pattern->displayText();
+        const QString pattern = m_incUi->pattern->currentText();
         onIncPatternChanged(pattern);
     } else {
         indicateMatch(MatchNothing);
@@ -862,14 +862,14 @@ void KateSearchBar::setSearchPattern(const QString &searchPattern)
     if (isPower())
         m_powerUi->pattern->setEditText(searchPattern);
     else
-        m_incUi->pattern->setText(searchPattern);
+        m_incUi->pattern->setEditText(searchPattern);
 }
 
 
 
 QString KateSearchBar::searchPattern() const {
     return (m_powerUi != 0) ? m_powerUi->pattern->currentText()
-                            : m_incUi->pattern->displayText();
+                            : m_incUi->pattern->currentText();
 }
 
 
@@ -1220,7 +1220,7 @@ void KateSearchBar::enterPowerMode() {
         // Coming from incremental search?
         const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
         if (fromIncremental) {
-            initialPattern = m_incUi->pattern->displayText();
+            initialPattern = m_incUi->pattern->currentText();
         }
     }
 
@@ -1247,8 +1247,10 @@ void KateSearchBar::enterPowerMode() {
         m_layout->addWidget(m_widget);
 
         // Bind to shared history models
+        m_powerUi->pattern->setInsertPolicy(QComboBox::InsertAtTop);
         m_powerUi->pattern->setMaxCount(m_config->maxHistorySize());
         m_powerUi->pattern->setModel(m_config->patternHistoryModel());
+        m_powerUi->replacement->setInsertPolicy(QComboBox::InsertAtTop);
         m_powerUi->replacement->setMaxCount(m_config->maxHistorySize());
         m_powerUi->replacement->setModel(m_config->replacementHistoryModel());
 
@@ -1278,6 +1280,10 @@ void KateSearchBar::enterPowerMode() {
         m_powerUi->matchCase->setChecked(m_powerMatchCase);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
     }
+    
+    // force current index of -1 --> <cursor down> shows 1st completion entry instead of 2nd
+    m_powerUi->pattern->setCurrentIndex(-1);
+    m_powerUi->replacement->setCurrentIndex(-1);
 
     // Set initial search pattern
     QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
@@ -1345,7 +1351,7 @@ void KateSearchBar::enterIncrementalMode() {
         // Coming from incremental search?
         const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
         if (fromIncremental) {
-            m_incUi->pattern->selectAll();
+            m_incUi->pattern->lineEdit()->selectAll();
             m_incUi->pattern->setFocus(Qt::MouseFocusReason);
             return;
         }
@@ -1385,9 +1391,9 @@ void KateSearchBar::enterIncrementalMode() {
         m_incUi->setupUi(m_widget);
         m_layout->addWidget(m_widget);
 
-        new QShortcut(KStandardShortcut::paste().primary(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
-        if (!KStandardShortcut::paste().alternate().isEmpty())
-            new QShortcut(KStandardShortcut::paste().alternate(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
+//         new QShortcut(KStandardShortcut::paste().primary(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
+//         if (!KStandardShortcut::paste().alternate().isEmpty())
+//             new QShortcut(KStandardShortcut::paste().alternate(), m_incUi->pattern, SLOT(paste()), 0, Qt::WidgetWithChildrenShortcut);
 
 
         // Icons
@@ -1403,6 +1409,10 @@ void KateSearchBar::enterIncrementalMode() {
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);
+
+        m_incUi->pattern->setInsertPolicy(QComboBox::InsertAtTop);
+        m_incUi->pattern->setMaxCount(m_config->maxHistorySize());
+        m_incUi->pattern->setModel(m_config->patternHistoryModel());
     }
 
     // Restore previous settings
@@ -1410,12 +1420,15 @@ void KateSearchBar::enterIncrementalMode() {
         m_incUi->matchCase->setChecked(m_incMatchCase);
     }
 
+    // force current index of -1 --> <cursor down> shows 1st completion entry instead of 2nd
+    m_incUi->pattern->setCurrentIndex(-1);
+
     // Set initial search pattern
     if (!create)
         disconnect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
-    m_incUi->pattern->setText(initialPattern);
+    m_incUi->pattern->setEditText(initialPattern);
     connect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
-    m_incUi->pattern->selectAll();
+    m_incUi->pattern->lineEdit()->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)
     if (initialPattern.isEmpty()) {
@@ -1430,7 +1443,7 @@ void KateSearchBar::enterIncrementalMode() {
     if (create) {
         // Slots
         connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(enterPowerMode()));
-        connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
+        connect(m_incUi->pattern->lineEdit(), SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(findPrevious()));
         connect(m_incUi->matchCase, SIGNAL(toggled(bool)), this, SLOT(onMatchCaseToggled(bool)));

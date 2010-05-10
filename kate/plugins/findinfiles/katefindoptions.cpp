@@ -91,17 +91,24 @@ void KateFindInFilesOptions::save(KConfigGroup& config)
   }
 
   // first remove duplicates, as setDuplicatesEnabled does not work for QComboBox with Model
+  // further, limit count of entries to 15
   QStringList stringList = m_searchItems.stringList();
-  if (stringList.removeDuplicates() > 0)
-    m_searchItems.setStringList(stringList);
+  stringList.removeDuplicates();
+  if (stringList.count() > 15)
+    stringList.erase(stringList.begin() + 15, stringList.end());
+  m_searchItems.setStringList(stringList);
   
   stringList = m_searchPaths.stringList();
-  if (stringList.removeDuplicates() > 0)
-    m_searchPaths.setStringList(stringList);
+  stringList.removeDuplicates();
+  if (stringList.count() > 15)
+    stringList.erase(stringList.begin() + 15, stringList.end());
+  m_searchPaths.setStringList(stringList);
 
   stringList = m_searchFilters.stringList();
-  if (stringList.removeDuplicates() > 0)
-    m_searchFilters.setStringList(stringList);
+  stringList.removeDuplicates();
+  if (stringList.count() > 15)
+    stringList.erase(stringList.begin() + 15, stringList.end());
+  m_searchFilters.setStringList(stringList);
 
   // now save
   config.writeEntry("LastSearchItems", m_searchItems.stringList());

@@ -76,8 +76,6 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     void slotFinished( KJob *job );
     void slotData( KIO::Job *, const QByteArray &data );
 
-    void backspacePressed();
-    void emptyKeyEvent();
     void completionInvoked( KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType );
 
     /// Connected to the document manager, to manage the dtd collection.
@@ -111,9 +109,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     /// URL of the last loaded meta DTD
     QString m_urlString;
 
-    int m_lastLine, m_lastCol;
     QStringList m_allowed;
-    int m_popupOpenCol;
 
     Mode m_mode;
     int m_correctPos;

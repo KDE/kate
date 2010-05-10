@@ -8,6 +8,8 @@
   email				: daniel.naber@t-online.de
 
   Copyright (C) 2005 by Anders Lund <anders@alweb.dk>
+
+  KDE SC 4 version (C) 2010 Tomas Trnka <tomastrnka@gmx.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -35,19 +37,9 @@ Also see the user documentation. If backspace is pressed after a completion popu
 was closed, the popup will re-open. This way typos can be corrected and the popup
 will reappear, which is quite comfortable.
 
-FIXME for jowenn if he has time:
--Ctrl-Z doesn't work if completion is visible
--Typing with popup works, but right/left cursor keys and start/end don't, i.e.
- they should be ignored by the completion ( ? )
--popup not completely visible if it's long and appears at the bottom of the screen
-
 FIXME:
 -( docbook ) <author lang="">: insert space between the quotes, press "de" and return -> only "d" inserted
--Correctly support more than one view:
- charactersInteractivelyInserted( ..) is tied to kv->document()
- but filterInsertString( .. ) is tied to kv
 -The "Insert Element" dialog isn't case insensitive, but it should be
--fix upper/lower case problems ( start typing lowercase if the tag etc. is upper case )
 -See the "fixme"'s in the code
 
 TODO:
@@ -169,10 +161,7 @@ PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *p
   m_mode = none;
   m_correctPos = 0;
 
-  m_lastLine = 0;
-  m_lastCol = 0;
   m_allowed = QStringList();
-  m_popupOpenCol = -1;
 
   setHasGroups( false );
 }
@@ -208,46 +197,14 @@ void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Docume
   }
 }
 
-void PluginKateXMLToolsCompletionModel::backspacePressed()
-{
-  kDebug() << "xml tools backspacePressed";
-
-  if ( !application()->activeMainWindow() )
-    return;
-
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
-  if( ! kv )
-  {
-    kDebug() << "Warning: no KTextEditor::View";
-    return;
-  }
-  int line, col;
-  kv->cursorPosition().position ( line, col );
-
-  //kDebug() << "++ redisplay popup? line:" << line << ", col: " << col;
-  if( m_lastLine == line && col == m_lastCol )
-  {
-    int len = col - m_popupOpenCol;
-    if( len < 0 )
-    {
-      kDebug() << "**Warning: len < 0";
-      return;
-    }
-    //connectSlots( kv );
-    //TODO:redisplay the popup here
-  }
-}
-
-void PluginKateXMLToolsCompletionModel::emptyKeyEvent()
-{
-//  keyEvent( 0, 0, QString() );
-}
 
 void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv,
                                                            const KTextEditor::Range &range, InvocationType invocationType )
 {
+  Q_UNUSED( range )
+  Q_UNUSED( invocationType )
+
   kDebug() << "xml tools completionInvoked";
-  //kDebug() << "xml tools keyEvent: '" << s;
 
   KTextEditor::Document *doc = kv->document();
   if( ! m_docDtds[ doc ] )
@@ -336,9 +293,6 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   if( m_allowed.count() >= 1 && m_allowed[0] != "__EMPTY" )
   {
     m_allowed = sortQStringList( m_allowed );
-    //connectSlots( kv );
-//    kv->showCompletionBox( stringListToCompletionEntryList( m_allowed ), 0, false );
-    m_popupOpenCol = col;
   }
   setRowCount( m_allowed.count() );
   endResetModel();
@@ -646,10 +600,6 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Doc
   int posCorrection = 0;	// where to move the cursor after completion ( >0 = move right )
   if( m_mode == entities )
   {
-    // This is a bit ugly, but entities are case-sensitive
-    // and we want the correct completion even if the user started typing
-    // e.g. in lower case but the entity is in upper case
-    // document->removeText( line, col - (ce->text.length() - text->length()), line, col );
     text = text + ';';
   }
 
@@ -1044,6 +994,8 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList( QStringList list
 InsertElement::InsertElement( QWidget *parent, const char *name )
   :KDialog( parent)
 {
+  Q_UNUSED( name )
+
   setCaption(i18n("Insert XML Element" ));
   setButtons(KDialog::Ok|KDialog::Cancel);
   setDefaultButton(KDialog::Cancel);

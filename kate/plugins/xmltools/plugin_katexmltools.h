@@ -96,7 +96,7 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     static bool isEmptyTag( QString tag );
     static bool isQuote( QString ch );
 
-    QString getParentElement( KTextEditor::View &view, bool ignoreSingleBracket );
+    QString getParentElement( KTextEditor::View &view, int skipCharacters );
 
     enum Mode {none, entities, attributevalues, attributes, elements};
     enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};

@@ -277,7 +277,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   else if( leftCh == "<" )
   {
     kDebug() << "*outside tag -> get elements";
-    QString parentElement = getParentElement( *kv, true );
+    QString parentElement = getParentElement( *kv, 1 );
     kDebug() << "parent: " << parentElement;
     m_allowed = m_docDtds[doc]->allowedElements(parentElement );
     m_mode = elements;
@@ -539,7 +539,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
   }
 
   PseudoDTD *dtd = m_docDtds[kv->document()];
-  QString parentElement = getParentElement( *kv, false );
+  QString parentElement = getParentElement( *kv, 0 );
   QStringList allowed;
 
   if( dtd )
@@ -600,7 +600,7 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
     kDebug() << "Warning: no KTextEditor::View";
     return;
   }
-  QString parentElement = getParentElement( *kv, false );
+  QString parentElement = getParentElement( *kv, 0 );
 
   //kDebug() << "parentElement: '" << parentElement << "'";
   QString closeTag = "</" + parentElement + '>';
@@ -830,7 +830,7 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute( KTextEditor::View &k
  * <p> foo <img/> bar X
  * <p> foo bar X
  */
-QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &kv, bool ignoreSingleChar )
+QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &kv, int skipCharacters )
 {
   enum {
     parsingText,
@@ -841,7 +841,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &
     parsingAttributeSquote,
     parsingIgnore
   } parseState;
-  parseState = ignoreSingleChar ? parsingIgnore : parsingText;
+  parseState = (skipCharacters > 0) ? parsingIgnore : parsingText;
 
   int nestingLevel = 0;
 
@@ -868,7 +868,8 @@ QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &
     switch( parseState )
     {
       case parsingIgnore:
-        parseState = parsingText;
+        // ignore the specified number of characters
+        parseState = ( --skipCharacters > 0 ) ? parsingIgnore : parsingText;
         break;
 
       case parsingText:

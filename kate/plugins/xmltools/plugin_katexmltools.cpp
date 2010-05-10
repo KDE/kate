@@ -176,7 +176,7 @@ void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Docume
 {
   // Remove the document from m_DTDs, and also delete the PseudoDTD
   // if it becomes unused.
-  if ( m_docDtds[ doc ] )
+  if ( m_docDtds.contains (doc) )
   {
     kDebug()<<"XMLTools:slotDocumentDeleted: documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
     PseudoDTD *dtd = m_docDtds.take( doc );

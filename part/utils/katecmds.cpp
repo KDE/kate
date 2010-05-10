@@ -128,16 +128,6 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-#if 0
-  else if ( cmd == "run-myself" )
-  {
-#ifndef Q_WS_WIN //todo
-    return KateGlobal::self()->jscript()->execute(v, v->doc()->text(), errorMsg);
-#else
-    return 0;
-#endif
-  }
-#endif
   else if ( cmd == "unindent" )
   {
     if ( range.isValid() ) {

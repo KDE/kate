@@ -53,6 +53,7 @@ function dbg(s) {
 var gLineDelimiter = 50;     // number
 
 var gIndentWidth = 4;
+var gMode = "C";
 //END global variables and functions
 
 
@@ -479,13 +480,15 @@ function tryStatement(line)
         }
         return indentation;
     }
+    var alignOnSingleQuote = gMode == "PHP/PHP" || gMode == "JavaScript";
+    // align on strings "..."\n => below the opening quote
     // multi-language support: [\.+] for javascript or php
     var result = /^(.*)(,|"|'|\))(;?)\s*[\.+]?\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
     if (result != null && result.index == 0) {
         var alignOnAnchor = result[3].length == 0 && result[2] != ')';
         // search for opening ", ' or (
         var cursor = new Cursor().invalid();
-        if (result[2] == '"' || result[2] == "'") {
+        if (result[2] == '"' || (alignOnSingleQuote && result[2] == "'")) {
             while(true) {
                 var i = result[1].length - 1; // start from matched closing ' or "
                 // find string opener
@@ -669,6 +672,7 @@ function processChar(line, c)
 function indent(line, indentWidth, ch)
 {
     gIndentWidth = indentWidth;
+    gMode = document.highlightingModeAt(new Cursor(line, document.lineLength(line)));
     var alignOnly = (ch == "");
 
     if (ch != '\n' && !alignOnly)

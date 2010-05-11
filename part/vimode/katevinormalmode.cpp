@@ -812,6 +812,9 @@ bool KateViNormalMode::commandJoinLines()
 {
   Cursor c( m_view->cursorPosition() );
 
+  // remember line length so the cursor can be put between the joined lines
+  int l = doc()->lineLength( c.line() );
+
   int n = getCount();
 
   // if we were given a range of lines, this information overrides the previous
@@ -827,6 +830,10 @@ bool KateViNormalMode::commandJoinLines()
   }
 
   doc()->joinLines( c.line(), c.line()+n );
+
+  // position cursor between the joined lines
+  c.setColumn( l );
+  updateCursor( c );
 
   return true;
 }

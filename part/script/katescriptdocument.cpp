@@ -242,7 +242,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
   QScopedPointer<KTextEditor::MovingCursor> cursor(document()->newMovingCursor(KTextEditor::Cursor(line, column)));
 
   // Move backwards char by char and find the opening character
-  while (cursor->move(1)) {
+  while (cursor->move(-1)) {
     QChar ch = document()->character(cursor->toCursor());
     if (ch == lc) {
       KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(cursor->line())->attribute(cursor->column())];

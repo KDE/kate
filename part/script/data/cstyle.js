@@ -403,6 +403,15 @@ function tryCKeywords(line, isBrace)
         indentation = document.firstVirtualColumn(currentLine);
         if (!isBrace)
             indentation += gIndentWidth;
+    } else if (lastChar == ';') {
+        // stuff like:
+        // for(int b;
+        //     b < 10;
+        //     --b)
+        cursor = document.anchor(currentLine, lastPos, '(');
+        if (cursor.isValid()) {
+            indentation = document.toVirtualColumn(cursor.line, cursor.column + 1);
+        }
     }
 
     if (indentation != -1) dbg("tryCKeywords: success in line " + currentLine);

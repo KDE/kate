@@ -561,6 +561,22 @@ function tryStatement(line)
     return indentation;
 }
 
+/// called when a newline got inserted before a closing brace
+function tryMatchedBrace(line)
+{
+    var indentation = findLeftBrace(line, document.firstColumn(line));
+    if (indentation == -1) {
+        // no opening brace found
+        return indentation;
+    }
+    // otherwise it's found, increase indentation and place closing brace on the next line
+    document.insertText(line, document.firstColumn(line), "\n");
+    view.setCursorPosition(line, indentation);
+    // indent closing brace
+    document.indent(new Range(line + 1, 0, line + 1, 1), indentation / 2);
+    return indentation + gIndentWidth;
+}
+
 /**
  * Indent line.
  * Return filler or null.
@@ -573,7 +589,7 @@ function indentLine(line, alignOnly)
     var filler = -1;
 
     if (filler == -1 && firstChar == '}')
-        filler = findLeftBrace(line, document.firstColumn(line));
+        filler = tryMatchedBrace(line);
     if (filler == -1)
         filler = tryCComment(line);
     if (filler == -1 && !alignOnly)

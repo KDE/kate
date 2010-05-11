@@ -5517,27 +5517,33 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 {
   Kate::TextLine kateLine = kateTextLine(position.line());
 
-//   QVector<short>attrs=kateLine->ctxArray();
-//   kDebug()<<"----------------------------------------------------------------------";
-//   foreach(short a, attrs)
-//   {
-//     kDebug()<<a;
+//   const QVector< short >& attrs = kateLine->ctxArray();
+//   kDebug() << "----------------------------------------------------------------------";
+//   foreach( short a, attrs ) {
+//     kDebug() << a;
 //   }
-//   kDebug()<<"----------------------------------------------------------------------";
-  //kDebug()<<"col: "<<position.column()<<" lastchar:"<<kateLine->lastChar()<<" length:"<<kateLine->length();
-  int len=kateLine->length();
-  int pos=position.column();
-  if (pos>=len) {
-    QVector<short>ctxs=kateLine->ctxArray();
-    int ctxcnt=ctxs.count();
-    if (ctxcnt==0) return mode();
-    int ctx=ctxs[ctxcnt-1];
-    if (ctx==0) return mode();
+//   kDebug() << "----------------------------------------------------------------------";
+//   kDebug() << "col: "<<position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length();
+
+  int len = kateLine->length();
+  int pos = position.column();
+  if ( pos >= len ) {
+    const QVector< short >& ctxs = kateLine->ctxArray();
+    int ctxcnt = ctxs.count();
+    if ( ctxcnt == 0 ) {
+      return mode();
+    }
+    int ctx = ctxs[ctxcnt-1];
+    if ( ctx == 0 ) {
+      return mode();
+    }
     return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
   }
 
-  int attr=kateLine->attribute(pos);
-  if (attr==0) return mode();
+  int attr = kateLine->attribute(pos);
+  if ( attr == 0 ) {
+    return mode();
+  }
 
   return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
 

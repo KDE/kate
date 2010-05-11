@@ -232,12 +232,21 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
   QList<KTextEditor::Attribute::Ptr> attributes =
       m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
   int count = 1;
-  QChar lc = character;
+  QChar lc;
   QChar rc;
-  if (lc == '(') rc = ')';
-  else if (lc == '{') rc = '}';
-  else if (lc == '[') rc = ']';
-  else return KTextEditor::Cursor::invalid ();
+  if (character == '(' || character == ')') {
+    lc = '(';
+    rc = ')';
+  } else if (character == '{' || character == '}') {
+    lc = '{';
+    rc = '}';
+  } else if (character == '[' || character == ']') {
+    lc = '[';
+    rc = ']';
+  } else {
+    kDebug(13060) << "invalid anchor character:" << character << " allowed are: (){}[]";
+    return KTextEditor::Cursor::invalid();
+  }
 
   QScopedPointer<KTextEditor::MovingCursor> cursor(document()->newMovingCursor(KTextEditor::Cursor(line, column)));
 

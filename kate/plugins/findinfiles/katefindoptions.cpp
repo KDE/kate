@@ -42,6 +42,8 @@ KateFindInFilesOptions& KateFindInFilesOptions::operator=(const KateFindInFilesO
     m_includeHiddenFiles = copy.m_includeHiddenFiles;
 
     // only the global models are used
+
+    return *this;
 }
 
 

@@ -322,6 +322,8 @@ void MovingRangeTest::testFeedbackMouse()
 
   // create range feedback
   RangeFeedback rf;
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
 
   // allow empty
   MovingRange* range = doc.newMovingRange(Range(Cursor(0, 2), Cursor(1, 4)),
@@ -331,20 +333,22 @@ void MovingRangeTest::testFeedbackMouse()
   range->setFeedback(&rf);
   rf.verifyReset();
 
-  // left
-  QTest::mouseMove(view, QPoint(20, 15));
+  // left (nothing)
+  QTest::mouseMove(view, view->cursorToCoordinate(Cursor(0, 0)) + QPoint(0, 5));
   QTest::qWait(200); // process mouse events. do not move mouse manually
   QVERIFY(!rf.mouseEnteredRangeCalled());
   QVERIFY(!rf.mouseExitedRangeCalled());
 
+  // middle (enter)
   rf.reset();
-  QTest::mouseMove(view, QPoint(40, 15));
+  QTest::mouseMove(view, view->cursorToCoordinate(Cursor(0, 3)) + QPoint(0, 5));
   QTest::qWait(200); // process mouse events. do not move mouse manually
   QVERIFY(rf.mouseEnteredRangeCalled());
   QVERIFY(!rf.mouseExitedRangeCalled());
 
+  // right (exit)
   rf.reset();
-  QTest::mouseMove(view, QPoint(60, 30));
+  QTest::mouseMove(view, view->cursorToCoordinate(Cursor(1, 6)) + QPoint(10, 5));
   QTest::qWait(200); // process mouse events. do not move mouse manually
   QVERIFY(!rf.mouseEnteredRangeCalled());
   QVERIFY(rf.mouseExitedRangeCalled());

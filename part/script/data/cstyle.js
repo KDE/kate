@@ -561,19 +561,28 @@ function tryStatement(line)
     return indentation;
 }
 
-/// called when a newline got inserted before a closing brace
-function tryMatchedBrace(line)
+/**
+ * find out whether we pressed return in something like {} or () or [] and indent properly:
+ * {}
+ * becomes:
+ * {
+ *   |
+ * }
+ */
+function tryMatchedAnchor(line)
 {
-    var indentation = findLeftBrace(line, document.firstColumn(line));
-    if (indentation == -1) {
-        // no opening brace found
-        return indentation;
+    var closingAnchor = document.anchor(line, 0, document.firstChar(line));
+    if (!closingAnchor.isValid()) {
+        // nothing found, continue with other cases
+        return -1;
     }
-    // otherwise it's found, increase indentation and place closing brace on the next line
+    // otherwise it's found, increase indentation and place closing anchor on the next line
+    var indentation = document.firstVirtualColumn(closingAnchor.line);
     document.insertText(line, document.firstColumn(line), "\n");
     view.setCursorPosition(line, indentation);
     // indent closing brace
     document.indent(new Range(line + 1, 0, line + 1, 1), indentation / 2);
+    dbg("tryMatchedAnchor: success in line " + closingAnchor.line);
     return indentation + gIndentWidth;
 }
 
@@ -588,8 +597,8 @@ function indentLine(line, alignOnly)
 
     var filler = -1;
 
-    if (filler == -1 && firstChar == '}')
-        filler = tryMatchedBrace(line);
+    if (filler == -1)
+        filler = tryMatchedAnchor(line);
     if (filler == -1)
         filler = tryCComment(line);
     if (filler == -1 && !alignOnly)

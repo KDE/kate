@@ -19,7 +19,7 @@ include_directories(
   ${KDE4_KIO_INCLUDES}
 )
 
-set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kutils ktexteditor katepartinterfaces)
+set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} kcmutils ktexteditor katepartinterfaces)
 
 # buffer test
 kde4_add_unit_test(katetextbuffertest katetextbuffertest.cpp katetextbuffertest.h)

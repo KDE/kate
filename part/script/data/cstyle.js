@@ -580,6 +580,10 @@ function tryStatement(line)
  */
 function tryMatchedAnchor(line)
 {
+    var char = document.firstChar(line);
+    if ( char != '}' && char != ')' && char != ']' ) {
+        return -1;
+    }
     var closingAnchor = document.anchor(line, 0, document.firstChar(line));
     if (!closingAnchor.isValid()) {
         // nothing found, continue with other cases

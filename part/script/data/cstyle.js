@@ -590,7 +590,7 @@ function tryMatchedAnchor(line)
     document.insertText(line, document.firstColumn(line), "\n");
     view.setCursorPosition(line, indentation);
     // indent closing brace
-    document.indent(new Range(line + 1, 0, line + 1, 1), indentation / 2);
+    document.indent(new Range(line + 1, 0, line + 1, 1), indentation / gIndentWidth);
     dbg("tryMatchedAnchor: success in line " + closingAnchor.line);
     return indentation + gIndentWidth;
 }

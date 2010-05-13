@@ -17,7 +17,7 @@ class KatePluginHelloWorld : public Kate::Plugin
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
 };
 
-class KatePluginHelloWorldView : public Kate::PluginView, public KXMLGUIClient
+class KatePluginHelloWorldView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

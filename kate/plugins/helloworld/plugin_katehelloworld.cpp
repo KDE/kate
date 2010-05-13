@@ -31,11 +31,9 @@ Kate::PluginView *KatePluginHelloWorld::createView( Kate::MainWindow *mainWindow
 
 
 KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *mainWin )
-    : Kate::PluginView( mainWin )
+    : Kate::PluginView( mainWin ),
+    Kate::XMLGUIClient(KatePluginHelloWorldFactory::componentData())
 {
-  setComponentData( KatePluginHelloWorldFactory::componentData() );
-  setXMLFile( "plugins/katehelloworld/ui.rc" );
-
   KAction *a = actionCollection()->addAction( "edit_insert_helloworld" );
   a->setText( i18n("Insert Hello World") );
   connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotInsertHello() ) );

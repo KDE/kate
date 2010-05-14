@@ -62,6 +62,7 @@ if(NOT MINGW)
 
 set(testkateregression_SRCS
   test_regression.cpp
+  testutils.cpp
 )
 
 kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})

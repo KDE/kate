@@ -25,6 +25,7 @@
 
 //BEGIN Includes
 #include "test_regression.h"
+#include "testutils.h"
 
 #include "kateview.h"
 #include "katedocument.h"
@@ -126,220 +127,6 @@ TestScriptEnv::~TestScriptEnv()
 //   kDebug() << "deleted";
 }
 //END TestScriptEnv
-
-//BEGIN KateViewObject
-
-KateViewObject::KateViewObject(KateView *view)
-  : KateScriptView()
-{
-  setView(view);
-}
-
-KateViewObject::~KateViewObject()
-{
-//   kDebug() << "deleted";
-}
-
-// Implements a function that calls an edit function repeatedly as specified by
-// its first parameter (once if not specified).
-#define REP_CALL(func) \
-void KateViewObject::func(int cnt) {  \
-  while (cnt--) { view()->func(); }   \
-}
-REP_CALL(keyReturn)
-REP_CALL(backspace)
-REP_CALL(deleteWordLeft)
-REP_CALL(keyDelete)
-REP_CALL(deleteWordRight)
-REP_CALL(transpose)
-REP_CALL(cursorLeft)
-REP_CALL(shiftCursorLeft)
-REP_CALL(cursorRight)
-REP_CALL(shiftCursorRight)
-REP_CALL(wordLeft)
-REP_CALL(shiftWordLeft)
-REP_CALL(wordRight)
-REP_CALL(shiftWordRight)
-REP_CALL(home)
-REP_CALL(shiftHome)
-REP_CALL(end)
-REP_CALL(shiftEnd)
-REP_CALL(up)
-REP_CALL(shiftUp)
-REP_CALL(down)
-REP_CALL(shiftDown)
-REP_CALL(scrollUp)
-REP_CALL(scrollDown)
-REP_CALL(topOfView)
-REP_CALL(shiftTopOfView)
-REP_CALL(bottomOfView)
-REP_CALL(shiftBottomOfView)
-REP_CALL(pageUp)
-REP_CALL(shiftPageUp)
-REP_CALL(pageDown)
-REP_CALL(shiftPageDown)
-REP_CALL(top)
-REP_CALL(shiftTop)
-REP_CALL(bottom)
-REP_CALL(shiftBottom)
-REP_CALL(toMatchingBracket)
-REP_CALL(shiftToMatchingBracket)
-#undef REP_CALL
-
-bool KateViewObject::type(const QString& str) {
-  return view()->doc()->typeChars(view(), str);
-}
-
-#define ALIAS(alias, func) \
-void KateViewObject::alias(int cnt) { \
-  func(cnt);                          \
-}
-ALIAS(enter, keyReturn)
-ALIAS(cursorPrev, cursorLeft)
-ALIAS(left, cursorLeft)
-ALIAS(prev, cursorLeft)
-ALIAS(shiftCursorPrev, shiftCursorLeft)
-ALIAS(shiftLeft, shiftCursorLeft)
-ALIAS(shiftPrev, shiftCursorLeft)
-ALIAS(cursorNext, cursorRight)
-ALIAS(right, cursorRight)
-ALIAS(next, cursorRight)
-ALIAS(shiftCursorNext, shiftCursorRight)
-ALIAS(shiftRight, shiftCursorRight)
-ALIAS(shiftNext, shiftCursorRight)
-ALIAS(wordPrev, wordLeft)
-ALIAS(shiftWordPrev, shiftWordLeft)
-ALIAS(wordNext, wordRight)
-ALIAS(shiftWordNext, shiftWordRight)
-#undef ALIAS
-
-//END KateViewObject
-
-//BEGIN KateDocumentObject
-
-KateDocumentObject::KateDocumentObject(KateDocument *doc)
-  : KateScriptDocument()
-{
-  setDocument(doc);
-}
-
-KateDocumentObject::~KateDocumentObject()
-{
-//   kDebug() << "deleted";
-}
-//END KateDocumentObject
-
-//BEGIN OutputObject
-
-OutputObject::OutputObject(KateView *v, bool &cflag)
-  : view(v), cflag(cflag)
-{
-}
-
-OutputObject::~OutputObject()
-{
-//   kDebug() << "deleted";
-}
-
-void OutputObject::output(bool cp, bool ln)
-{
-  RegressionTest::createMissingDirs(filename);
-  QFile out(filename);
-
-  QString str;
-  for (int i = 0; i < context()->argumentCount(); ++i) {
-    QScriptValue arg = context()->argument(i);
-    str += arg.toString();
-  }
-
-  if (cp) {
-    KTextEditor::Cursor c = view->cursorPosition();
-    str += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
-  }
-
-  if (ln) {
-    str += '\n';
-  }
-
-  QFile::OpenMode mode = QFile::WriteOnly | (cflag ? QFile::Append : QFile::Truncate);
-  if (!out.open(mode)) {
-    fprintf(stderr, "ERROR: Could not append to %s\n", filename.toLatin1().constData());
-  }
-  out.write(str.toUtf8());
-  cflag = true;
-}
-
-void OutputObject::write()
-{
-  output(false, false);
-}
-
-void OutputObject::writeln()
-{
-  output(false, true);
-}
-
-void OutputObject::writeLn()
-{
-  output(false, true);
-}
-
-void OutputObject::print()
-{
-  output(false, false);
-}
-
-void OutputObject::println()
-{
-  output(false, true);
-}
-
-void OutputObject::printLn()
-{
-  output(false, true);
-}
-
-void OutputObject::writeCursorPosition()
-{
-  output(true, false);
-}
-
-void OutputObject::writeCursorPositionln()
-{
-  output(true, true);
-}
-
-void OutputObject::cursorPosition()
-{
-  output(true, false);
-}
-
-void OutputObject::cursorPositionln()
-{
-  output(true, true);
-}
-
-void OutputObject::cursorPositionLn()
-{
-  output(true, true);
-}
-
-void OutputObject::pos()
-{
-  output(true, false);
-}
-
-void OutputObject::posln()
-{
-  output(true, true);
-}
-
-void OutputObject::posLn()
-{
-  output(true, true);
-}
-
-//END OutputObject
 
 // -------------------------------------------------------------------------
 
@@ -637,7 +424,7 @@ bool RegressionTest::allTestsSucceeded() const
 
 void RegressionTest::createLink( const QString& test, int failures )
 {
-  createMissingDirs( m_outputDir + '/' + test + "-compare.html" );
+  OutputObject::createMissingDirs( m_outputDir + '/' + test + "-compare.html" );
 
   QFile list( m_outputDir + "/links.html" );
   list.open( QFile::WriteOnly|QFile::Append );
@@ -1044,7 +831,7 @@ RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFi
   }
 
   // generate result file
-  createMissingDirs( outputFilename );
+  OutputObject::createMissingDirs( outputFilename );
   QFile file2(outputFilename);
   if (!file2.open(QFile::WriteOnly)) {
     fprintf(stderr,"Error writing to file %s\n",outputFilename.toLatin1().constData());
@@ -1195,34 +982,6 @@ void RegressionTest::printSummary()
   }
   list.close();
   //END html
-}
-
-void RegressionTest::createMissingDirs(const QString & filename)
-{
-  QFileInfo dif(filename);
-  QFileInfo dirInfo( dif.dir().path() );
-  if (dirInfo.exists())
-    return;
-
-  QStringList pathComponents;
-  QFileInfo parentDir = dirInfo;
-  pathComponents.prepend(parentDir.absoluteFilePath());
-  while (!parentDir.exists()) {
-    QString parentPath = parentDir.absoluteFilePath();
-    int slashPos = parentPath.lastIndexOf('/');
-    if (slashPos < 0)
-      break;
-    parentPath = parentPath.left(slashPos);
-    pathComponents.prepend(parentPath);
-    parentDir = QFileInfo(parentPath);
-  }
-  for (int pathno = 1; pathno < pathComponents.count(); pathno++) {
-    if (!QFileInfo(pathComponents[pathno]).exists() &&
-        !QDir(pathComponents[pathno-1]).mkdir(pathComponents[pathno])) {
-      fprintf(stderr,"Error creating directory %s\n",pathComponents[pathno].toLatin1().constData());
-      exit(1);
-    }
-  }
 }
 
 void RegressionTest::slotOpenURL(const KUrl &url, const KParts::OpenUrlArguments & args, const KParts::BrowserArguments&)

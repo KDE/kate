@@ -27,8 +27,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 
-#include <KApplication>
-#include <KUrl>
+#include <kapplication.h>
+#include <kurl.h>
 
 class QScriptEngine;
 

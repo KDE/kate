@@ -77,6 +77,16 @@ function findLeftBrace(line, column)
 }
 
 /**
+ * Returns true when string ends with @p needle.
+ * False otherwise.
+ */
+String.prototype.endsWith = function(needle)
+{
+    return this.substr(- needle.length) == needle;
+}
+
+
+/**
  * Character at (line, column) has to be a '{'.
  * Now try to find the right line for indentation for constructs like:
  * if (a == b
@@ -480,7 +490,7 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
-    if (currentString[currentString.length - 1] == '(') {
+    if (currentString.endsWith('(')) {
         // increase indent level relative to function identifier when last line ends on (
         indentation = currentString.search(/\b(\w+)\s*\($/);
         if (indentation != -1) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C++" section="Sources"
-          version="1.46" kateversion="2.4"
+          version="1.47" kateversion="2.4"
           indenter="cstyle"
           mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
           extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
@@ -178,7 +178,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0\s*$" beginRegion="PP" firstNonSpace="true" />
         <DetectChar context="AfterHash" char="#" firstNonSpace="true" lookAhead="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region1" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />

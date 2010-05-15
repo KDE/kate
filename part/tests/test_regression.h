@@ -46,29 +46,6 @@ namespace KParts {
 
 /**
  * @internal
- * The backbone of Kate's automatic regression tests.
- */
-class TestScriptEnv : public QObject
-{
-  public:
-    explicit TestScriptEnv(KateDocument *part, bool &cflag);
-    virtual ~TestScriptEnv();
-
-    QScriptEngine *engine() const { return m_engine; }
-
-    /** returns the output object */
-    OutputObject *output() const { return m_output; }
-
-  private:
-    QScriptEngine *m_engine;
-    KateViewObject *m_viewObj;
-    KateDocumentObject *m_docObj;
-
-    OutputObject *m_output;
-};
-
-/**
- * @internal
  */
 class RegressionTest : public QObject
 {

@@ -179,6 +179,17 @@ target_link_libraries( templatehandler_test
   katepartinterfaces
 )
 
+########### indenting test ################
+
+set(indenttest_SRCS
+  indenttest.cpp
+  testutils.cpp
+)
+
+kde4_add_unit_test(indenttest ${indenttest_SRCS})
+
+target_link_libraries(indenttest ${KATE_TEST_LINK_LIBS})
+
 endif(NOT MINGW)
 
 # encoding tets

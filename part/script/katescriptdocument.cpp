@@ -229,6 +229,7 @@ KTextEditor::Cursor KateScriptDocument::rfind(const KTextEditor::Cursor& cursor,
 
 KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar character)
 {
+  qDebug() << line << column << character;
   QList<KTextEditor::Attribute::Ptr> attributes =
       m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
   int count = 1;

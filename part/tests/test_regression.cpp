@@ -84,50 +84,6 @@
 
 static KMainWindow* toplevel;
 
-//BEGIN TestScriptEnv
-
-TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
-  : m_engine(0), m_viewObj(0), m_docObj(0), m_output(0)
-{
-  m_engine = new QScriptEngine(this);
-
-  KateView *view = qobject_cast<KateView *>(part->widget());
-
-  m_viewObj = new KateViewObject(view);
-  QScriptValue sv = m_engine->newQObject(m_viewObj);
-
-  m_engine->globalObject().setProperty("view", sv);
-  m_engine->globalObject().setProperty("v", sv);
-
-  m_docObj = new KateDocumentObject(view->doc());
-  QScriptValue sd = m_engine->newQObject(m_docObj);
-
-  m_engine->globalObject().setProperty("document", sd);
-  m_engine->globalObject().setProperty("d", sd);
-
-  m_output = new OutputObject(view, cflag);
-  QScriptValue so = m_engine->newQObject(m_output);
-
-  m_engine->globalObject().setProperty("output", so);
-  m_engine->globalObject().setProperty("out", so);
-  m_engine->globalObject().setProperty("o", so);
-}
-
-TestScriptEnv::~TestScriptEnv()
-{
-  // delete explicitely, as the parent is the KTE::Document kpart, which is
-  // reused for all tests. Hence, we explicitely have to delete the bindings.
-  delete m_output; m_output = 0;
-  delete m_docObj; m_docObj = 0;
-  delete m_viewObj; m_viewObj = 0;
-
-  // delete this too, although this should also be automagically be freed
-  delete m_engine; m_engine = 0;
-
-//   kDebug() << "deleted";
-}
-//END TestScriptEnv
-
 // -------------------------------------------------------------------------
 
 const char failureSnapshotPrefix[] = "testkateregressionrc-FS.";

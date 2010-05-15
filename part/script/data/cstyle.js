@@ -39,7 +39,7 @@ var cfgAccessModifiers = 0;       // indent level of access modifiers, relative 
 // specifies the characters which should trigger indent, beside the default '\n'
 triggerCharacters = "{})/:;";
 
-var debugMode = false;
+var debugMode = true;
 
 function dbg(s) {
     if (debugMode)
@@ -548,14 +548,25 @@ function tryStatement(line)
                     break;
                 }
             }
-        } else if (result[2] == ',' && !currentString.match(/\(/)) {
+        } else if (result[2] == ',' && !result[1].endsWith(')') && !currentString.match(/\(/)) {
+            dbg(result[1]);
             // when we have cases like this:
             // fooasdfasdf(
             //   asdfasdf,
             // we don't want to align the next line on the (, but on the loc before!
+            // otoh, when we have something like this:
+            // foo(
+            //   asdf,
+            //   asdf),
+            // we want to align on the opening paren
             indentation = document.firstVirtualColumn(currentLine);
         } else {
+            dbg(currentLine);
+            dbg(result[1].length);
+            dbg('(');
             cursor = document.anchor(currentLine, result[1].length, '(');
+            dbg(result[1]);
+            dbg(cursor);
         }
         if (cursor.isValid()) {
             if (alignOnAnchor) {
@@ -604,6 +615,7 @@ function tryMatchedAnchor(line)
     document.insertText(line, document.firstColumn(line), "\n");
     view.setCursorPosition(line, indentation);
     // indent closing brace
+    dbg(indentation);dbg(gIndentWidth);dbg(indentation/gIndentWidth);
     document.indent(new Range(line + 1, 0, line + 1, 1), indentation / gIndentWidth);
     dbg("tryMatchedAnchor: success in line " + closingAnchor.line);
     return indentation + gIndentWidth;

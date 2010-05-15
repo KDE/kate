@@ -60,6 +60,7 @@ void KateHighlightingMenu::init()
   m_doc = 0;
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  m_actionGroup = new QActionGroup(menu());
 }
 
 void KateHighlightingMenu::updateMenu (KateDocument *doc)
@@ -89,6 +90,7 @@ void KateHighlightingMenu::slotAboutToShow()
         int m = subMenusName.indexOf (hlSection);
         names << hlName;
         QAction *a=subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl()));
+        m_actionGroup->addAction(a);
         a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);
         subActions.append(a);
@@ -97,6 +99,7 @@ void KateHighlightingMenu::slotAboutToShow()
       {
         names << hlName;
         QAction *a=menu()->addAction ( '&' + hlName, this, SLOT(setHl()));
+        m_actionGroup->addAction(a);
         a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);
         subActions.append(a);
@@ -118,7 +121,7 @@ void KateHighlightingMenu::setHl ()
   if (!action) return;
   QString mode=action->data().toString();
   m_doc->setHighlightingMode(mode);
-  
+
   // use change, honor this
   m_doc->setDontChangeHlOnSave();
 }

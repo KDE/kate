@@ -47,6 +47,8 @@ class KateHighlightingMenu : public KActionMenu
     QStringList names;
     QList<QMenu*> subMenus;
     QList<QAction*> subActions;
+    QActionGroup *m_actionGroup;
+
   public  Q_SLOTS:
     void slotAboutToShow();
 

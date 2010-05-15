@@ -61,9 +61,11 @@ void KateModeMenu::init()
   connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+
+  m_actionGroup = new QActionGroup(menu());
 }
 
-KateModeMenu::~ KateModeMenu( )
+KateModeMenu::~KateModeMenu( )
 {
   qDeleteAll(subMenus);
 }
@@ -97,6 +99,7 @@ void KateModeMenu::slotAboutToShow()
       int m = subMenusName.indexOf (hlSection);
       names << hlName;
       QAction *action = subMenus.at(m)->addAction ( hlName );
+      m_actionGroup->addAction(action);
       action->setCheckable( true );
       action->setData( hlName );
     }
@@ -108,6 +111,7 @@ void KateModeMenu::slotAboutToShow()
       connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
 
       QAction *action = menu()->addAction ( hlName );
+      m_actionGroup->addAction(action);
       action->setCheckable( true );
       action->setData( hlName );
     }

@@ -49,6 +49,7 @@ class KateModeMenu : public KActionMenu
     QStringList subMenusName;
     QStringList names;
     QList<QMenu*> subMenus;
+    QActionGroup *m_actionGroup;
 
   public  Q_SLOTS:
     void slotAboutToShow();

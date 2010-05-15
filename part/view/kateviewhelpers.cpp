@@ -791,6 +791,8 @@ void KateIconBorder::setAnnotationBorderOn( bool enable )
   emit m_view->annotationBorderVisibilityChanged(m_view, enable);
 
   updateGeometry();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 void KateIconBorder::removeAnnotationHovering()

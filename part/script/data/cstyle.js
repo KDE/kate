@@ -156,6 +156,13 @@ String.prototype.trim = function()
     return this.rtrim().ltrim();
 }
 
+/**
+ * Returns true when @p needle is contained in this string, false otherwise.
+ */
+String.prototype.contains = function(needle)
+{
+    return this.indexOf(needle) !== -1;
+}
 
 /**
  * Character at (line, column) has to be a '{'.
@@ -714,7 +721,7 @@ function indentLine(line, alignOnly)
 
 function processChar(line, c)
 {
-    if (c != '{' && c != '}' && c != '/' && c != ':' && c != ')')
+    if (c == ';' || !triggerCharacters.contains(c))
         return -2;
 
     var cursor = view.cursorPosition();

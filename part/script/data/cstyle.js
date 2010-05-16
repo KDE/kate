@@ -41,9 +41,10 @@ triggerCharacters = "{})/:;";
 
 var debugMode = false;
 
-function dbg(s) {
-    if (debugMode)
-        debug(s);
+function dbg() {
+    if (debugMode) {
+        debug.apply(this, arguments);
+    }
 }
 
 

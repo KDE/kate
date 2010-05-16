@@ -150,7 +150,7 @@ function tryAccessModifiers(line)
         return -1;
 
     var currentString = document.line(line);
-    if (currentString.search(/^\s*((public|protected|private)\s*\S*|(signals|Q_SIGNALS)\s*):/) == -1)
+    if (currentString.search(/^\s*((public|protected|private)\s*(slots|Q_SLOTS)?|(signals|Q_SIGNALS)\s*):\s*$/) == -1)
         return -1;
 
     var cursor = document.anchor(line, 0, '{');

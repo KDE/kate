@@ -37,7 +37,7 @@ var cfgAccessModifiers = 0;       // indent level of access modifiers, relative 
 // indent
 
 // specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = "{})/:;";
+triggerCharacters = "{})/:;#";
 
 var debugMode = false;
 
@@ -783,6 +783,9 @@ function processChar(line, c)
                 return document.toVirtualColumn(openParen.line, indentation);
             }
         }
+    } else if (firstPos == column - 1 && c == '#' && ( gMode == 'C' || gMode == 'C++' ) ) {
+        // always put preprocessor stuff upfront
+        return 0;
     }
     return -2;
 }

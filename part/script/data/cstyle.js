@@ -77,6 +77,32 @@ function findLeftBrace(line, column)
 }
 
 /**
+ * Find last non-empty line that is not inside a comment or preprocessor
+ */
+function lastNonEmptyLine(line)
+{
+    while (true) {
+        dbg(line);
+        line = document.prevNonEmptyLine(line);
+        dbg(line);
+        if ( line == -1 ) {
+            return -1;
+        }
+        var string = document.line(line).ltrim();
+        dbg(string);dbg(string.startsWith('#'));dbg(string.startsWith("//"));
+        ///TODO: cpp multiline comments
+        ///TODO: multiline macros
+        if ( string.startsWith("//") || string.startsWith('#') ) {
+            --line;
+            continue;
+        }
+        break;
+    }
+
+    return line;
+}
+
+/**
  * Returns true when string ends with @p needle.
  * False otherwise.
  */
@@ -528,7 +554,7 @@ function tryCondition(line)
  */
 function tryStatement(line)
 {
-    var currentLine = document.prevNonEmptyLine(line - 1);
+    var currentLine = lastNonEmptyLine(line - 1);
     if (currentLine < 0)
         return -1;
 
@@ -615,6 +641,8 @@ function tryStatement(line)
                 indentation = document.firstVirtualColumn(currentLine);
             }
         }
+    } else if ( currentString.rtrim().endsWith(';') ) {
+        indentation = document.firstVirtualColumn(currentLine);
     }
 
     if (indentation != -1) dbg("tryStatement: success in line " + currentLine);

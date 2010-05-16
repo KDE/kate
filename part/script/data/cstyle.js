@@ -85,6 +85,50 @@ String.prototype.endsWith = function(needle)
     return this.substr(- needle.length) == needle;
 }
 
+/**
+ * Returns true when string starts with @p needle.
+ * False otherwise.
+ */
+String.prototype.startsWith = function(needle)
+{
+    return this.substr(0, needle.length) == needle;
+}
+
+/**
+ * Returns @p string without leading spaces.
+ */
+String.prototype.ltrim = function()
+{
+    var i = 0;
+    for ( ; i < this.length && (this[i] == ' ' || this[i] == '\t'); ++i ) {
+        // continue
+    }
+    return this.substr(i);
+}
+
+/**
+ * Returns @p string without trailing spaces.
+ */
+String.prototype.rtrim = function()
+{
+    if ( this.length == 0 ) {
+        return string;
+    }
+    var i = this.length - 1;
+    for ( ; i >= 0 && (this[i] == ' ' || this[i] == '\t'); --i ) {
+        // continue
+    }
+    return this.substr(-i);
+}
+
+/**
+ * Returns @p string without leading or trailing spaces.
+ */
+String.prototype.trim = function()
+{
+    return this.rtrim().ltrim();
+}
+
 
 /**
  * Character at (line, column) has to be a '{'.

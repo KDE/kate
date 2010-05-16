@@ -1,7 +1,7 @@
 /** kate-script
  * name: C Style
  * license: LGPL
- * author: Dominik Haumann <dhdev@gmx.de>
+ * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
  * revision: 1
  * kate-version: 3.4
  * type: indentation

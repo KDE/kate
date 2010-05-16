@@ -491,12 +491,9 @@ function tryStatement(line)
     var indentation = -1;
     var currentString = document.line(currentLine);
     if (currentString.endsWith('(')) {
-        // increase indent level relative to function identifier when last line ends on (
-        indentation = currentString.search(/\b(\w+)\s*\($/);
-        if (indentation != -1) {
-            indentation = document.toVirtualColumn(currentLine, indentation) + gIndentWidth;
-            dbg("tryStatement: success in line " + currentLine);
-        }
+        // increase indent level
+        indentation = document.firstVirtualColumn(currentLine) + gIndentWidth;
+        dbg("tryStatement: success in line " + currentLine);
         return indentation;
     }
     var alignOnSingleQuote = gMode == "PHP/PHP" || gMode == "JavaScript";

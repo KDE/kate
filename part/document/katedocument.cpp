@@ -5523,7 +5523,7 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 //     kDebug() << a;
 //   }
 //   kDebug() << "----------------------------------------------------------------------";
-//   kDebug() << "col: "<<position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length();
+//   kDebug() << "col: " << position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length() << "global mode:" << highlightingMode();
 
   int len = kateLine->length();
   int pos = position.column();
@@ -5531,11 +5531,11 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
     const QVector< short >& ctxs = kateLine->ctxArray();
     int ctxcnt = ctxs.count();
     if ( ctxcnt == 0 ) {
-      return mode();
+      return highlightingMode();
     }
     int ctx = ctxs[ctxcnt-1];
     if ( ctx == 0 ) {
-      return mode();
+      return highlightingMode();
     }
     return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
   }

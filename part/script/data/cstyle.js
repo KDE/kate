@@ -83,14 +83,11 @@ function findLeftBrace(line, column)
 function lastNonEmptyLine(line)
 {
     while (true) {
-        dbg(line);
         line = document.prevNonEmptyLine(line);
-        dbg(line);
         if ( line == -1 ) {
             return -1;
         }
         var string = document.line(line).ltrim();
-        dbg(string);dbg(string.startsWith('#'));dbg(string.startsWith("//"));
         ///TODO: cpp multiline comments
         ///TODO: multiline macros
         if ( string.startsWith("//") || string.startsWith('#') ) {

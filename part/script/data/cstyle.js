@@ -367,15 +367,15 @@ function tryCComment(line)
 }
 
 /**
- * C++ comment checking. If the previous line begins with a "//", then
- * return its leading white spaces + '//'. Special treatment for:
+ * C++ comment checking. when we want to insert slashes:
  * //, ///, //! ///<, //!< and ////...
  * return: filler string or null, if not in a star comment
+ * NOTE: otherwise comments get skipped generally and we use the last code-line
  */
 function tryCppComment(line)
 {
     var currentLine = line - 1;
-    if (currentLine < 0)
+    if (currentLine < 0 || !cfgAutoInsertSlashes)
         return -1;
 
     var indentation = -1;

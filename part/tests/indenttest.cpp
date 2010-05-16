@@ -175,9 +175,12 @@ void IndentTest::cstyle_data()
 
 void IndentTest::cstyle()
 {
-  runTest( ExpectedFailures() << FAILURE( "using2", "this is insane, those who write such code can cope with it :P" )
+  runTest( ExpectedFailures() << FAILURE( "using1", "this is insane, those who write such code can cope with it :P" )
+                              << FAILURE( "using2", "this is insane, those who write such code can cope with it :P" )
                               << FAILURE( "plist14", "in function signatures it might be wanted to use the indentation of the\n"
                                                      "opening paren instead of just increasing the indentation level like in function calls" )
+                              << FAILURE( "switch10", "test for case where cfgSwitchIndent = false; needs proper config-interface" )
+                              << FAILURE( "switch11", "test for case where cfgSwitchIndent = false; needs proper config-interface" )
   );
 }
 

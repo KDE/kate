@@ -320,6 +320,13 @@ function indent(line, indentWidth, character) {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
 
+    // the line after aline ending with a comma should be indented
+    if (document.isCode(line - 1, document.lineLength(lastLine) - 1)
+            && lastLine.search(',\s*$') != -1) {
+        dbg('indenting after line ending with comma');
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+
     // [de]indent line starting wih '}' to match the indentation level of '{':
     // data Foo {
     //       a :: Int

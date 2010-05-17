@@ -184,6 +184,17 @@ void IndentTest::cstyle()
   );
 }
 
+void IndentTest::haskell_data()
+{
+  getTestData( "haskell" );
+}
+
+void IndentTest::haskell()
+{
+  runTest( ExpectedFailures() );
+}
+
+
 void IndentTest::ruby_data()
 {
   getTestData( "ruby" );

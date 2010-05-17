@@ -39,6 +39,9 @@ private slots:
   void ruby_data();
   void ruby();
 
+  void haskell_data();
+  void haskell();
+
   void normal_data();
   void normal();
 

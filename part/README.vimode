@@ -1,5 +1,7 @@
-To enable the vi input mode, go to Settings → Configure Kate... → Editing →
-Vi Input Mode.
+To enable the VI input mode, go to Settings → Configure Kate... → Editing →
+VI Input Mode. It can also be toggled with the “VI Input Mode” setting in the
+“Edit” menu (default shortcut key is Meta+Ctrl+V – where Meta usually is the
+Windows key).
 
 Vim incompatibilities:
 
@@ -17,6 +19,6 @@ Vim incompatibilities:
     Vim:    :print prints the lines of the given range like its grandfather ed
 
 4)
-    Kate:   'Y' yanks to end of line.
-    Vim:    'Y' yanks whole line, just like 'yy'. This is described as 'more
+    Kate:   'Y' yanks to end of line.  This is described as 'more
             logical' in the Vim documentation (:help Y).
+    Vim:    'Y' yanks whole line, just like 'yy'.

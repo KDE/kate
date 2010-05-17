@@ -1285,6 +1285,20 @@ bool KateViNormalMode::commandAlignLines()
   return true;
 }
 
+bool KateViNormalMode::commandAddToNumber()
+{
+    addToNumberUnderCursor( getCount() );
+
+    return true;
+}
+
+bool KateViNormalMode::commandSubtractFromNumber()
+{
+    addToNumberUnderCursor( -getCount() );
+
+    return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -2306,6 +2320,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("==", commandAlignLine, IS_CHANGE );
   ADDCMD("=", commandAlignLines, IS_CHANGE | NEEDS_MOTION);
   ADDCMD("~", commandChangeCase, IS_CHANGE );
+  ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
+  ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

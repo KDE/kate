@@ -862,3 +862,44 @@ const QChar KateViModeBase::getCharAtVirtualColumn( QString &line, int virtualCo
 
   return QChar::Null;
 }
+
+void KateViModeBase::addToNumberUnderCursor( int count )
+{
+    Cursor c( m_view->cursorPosition() );
+    QString line = getLine();
+
+    int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
+    int wordEnd = findWordEnd( c.line(), c.column()-1, true ).column();
+
+    QRegExp number( "(0x)([0-9a-fA-F]+)|\\d+" );
+
+    int start = number.indexIn( line, wordStart );
+    if ( start <= wordEnd ) {
+        // FIXME: ignore leading zeroes
+        QString nString = number.cap();
+        bool ok = false;
+        int base = number.cap( 1 ).isEmpty() ? 10 : 16;
+        int n = nString.toInt( &ok, base );
+
+        kDebug( 13070 ) << "base: " << base;
+        kDebug( 13070 ) << "n: " << n;
+
+        if ( !ok ) {
+            // conversion to int failed. give up.
+            return;
+        }
+
+        // increase/decrease number
+        n += count;
+
+        // create the new text string to be inserted. prepend with “0x” if in base 16
+        QString newText = (base == 16 ? "0x" : "") + QString::number(n, base);
+
+        // replace the old number string with the new
+        doc()->editStart();
+        doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
+        doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
+        doc()->editEnd();
+    }
+}
+

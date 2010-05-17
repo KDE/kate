@@ -80,6 +80,8 @@ class KateViModeBase : public QObject
     void updateCursor( const Cursor &c ) const;
     const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
 
+    void addToNumberUnderCursor( int count );
+
     KateViRange goLineUp();
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);

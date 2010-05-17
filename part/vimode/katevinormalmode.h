@@ -130,6 +130,9 @@ class KateViNormalMode : public KateViModeBase
     bool commandAlignLine();
     bool commandAlignLines();
 
+    bool commandAddToNumber();
+    bool commandSubtractFromNumber();
+
     // MOTIONS
 
     KateViRange motionLeft();

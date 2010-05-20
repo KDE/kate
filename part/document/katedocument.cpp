@@ -2112,7 +2112,7 @@ bool KateDocument::openFile()
 
   // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
   emit textChanged (this);
-  
+
   if (!m_reloading)
   {
     //
@@ -3496,11 +3496,13 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
 void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
                             KateDocument::TextTransform t )
 {
-  editStart();
-  KTextEditor::Cursor cursor = c;
-
   if ( v->selection() )
   {
+    editStart();
+
+    // remember cursor
+    KTextEditor::Cursor cursor = c;
+
     // cache the selection and cursor, so we can be sure to restore.
     KTextEditor::Range selection = v->selectionRange();
 
@@ -3561,11 +3563,19 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       range.setBothLines(range.start().line() + 1);
     }
 
-    // restore selection
+    editEnd();
+
+    // restore selection & cursor
     v->setSelection( selection );
+    v->setCursorPosition( c );
 
   } else {  // no selection
-    QString old = text( KTextEditor::Range(cursor, 1) );
+    editStart();
+
+    // get cursor
+    KTextEditor::Cursor cursor = c;
+
+    QString old = Text( KTextEditor::Range(cursor, 1) );
     QString s;
     switch ( t ) {
       case Uppercase:
@@ -3591,11 +3601,10 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       removeText( KTextEditor::Range(cursor, 1) );
       insertText( cursor, s );
     }
+
+    editEnd();
   }
 
-  editEnd();
-
-  v->setCursorPosition( c );
 }
 
 void KateDocument::joinLines( uint first, uint last )

@@ -2218,7 +2218,6 @@ void KateView::toggleComment( )
 void KateView::uppercase( )
 {
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Uppercase );
-  m_viewInternal->m_cursor.move(1);
 }
 
 void KateView::killLine( )
@@ -2229,7 +2228,6 @@ void KateView::killLine( )
 void KateView::lowercase( )
 {
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Lowercase );
-  m_viewInternal->m_cursor.move(1);
 }
 
 void KateView::capitalize( )
@@ -2237,7 +2235,6 @@ void KateView::capitalize( )
   m_doc->editStart();
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Lowercase );
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Capitalize );
-  m_viewInternal->m_cursor.move(1);
   m_doc->editEnd();
 }
 

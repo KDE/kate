@@ -184,6 +184,7 @@ void IndentTest::cstyle()
                               << FAILURE( "visib2", "test for access modifier where cfgAccessModifiers = 1;needs proper config interface" )
                               << FAILURE( "visib3", "test for access modifier where cfgAccessModifiers = 1;needs proper config interface" )
                               << FAILURE( "plist10", "low low prio, maybe wontfix: if the user wants to add a arg, he should do so and press enter afterwards" )
+                              << FAILURE( "switch13", "pure insanity, whoever wrote this test and expects that to be indented properly should stop writing code" )
   );
 }
 

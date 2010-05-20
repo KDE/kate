@@ -471,7 +471,8 @@ void KWrite::restore()
   {
     KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
                                   "Please check your KDE installation."));
-    kapp->exit(1);
+    // exit immediately (do not use kapp->exit(1))
+    ::exit(1);
   }
 
   // simple mode

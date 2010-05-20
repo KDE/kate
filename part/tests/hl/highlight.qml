@@ -1,9 +1,12 @@
 import Qt 4.6
 
-# some random qml snippets stolen from the qt docs
+// some random qml snippets stolen from the qt docs
 
 Rectangle {
+    important: true
+    propertyAsdf:
     id: container
+    signalA: bla
     property string label
     signal clicked
     radius: 5; border.color: "black"
@@ -33,6 +36,7 @@ Rectangle {
     default property color innerColor: "black"
     property color innerColor: "black"
     property alias text: textElement.text
+    property alias aliasXYZ: testElement.text
     signal bar
     signal bar(var blah, string yxcv)
     width: 240; height: 320;

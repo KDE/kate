@@ -99,17 +99,17 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
-        <StringDetect attribute="Import" context="Import" String="import"/>
+        <RegExpr attribute="Import" context="Import" String="\bimport\b"/>
         <keyword attribute="Elements" context="#stay" String="elements" />
-        <StringDetect attribute="Signal" context="Signal" String="signal" />
-        <StringDetect attribute="Keywords" context="Property" String="default property" />
-        <StringDetect attribute="Keywords" context="Property" String="property" />
+        <RegExpr attribute="Signal" context="Signal" String="\bsignal\b" />
+        <RegExpr attribute="Keywords" context="Property" String="\bdefault property\b" />
+        <RegExpr attribute="Keywords" context="Property" String="\bproperty\b" />
         <IncludeRules context="##JavaScript" />
       </context>
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Property">
-        <StringDetect attribute="Property Type" context="#stay" String="alias" />
+        <RegExpr attribute="Property Type" context="#stay" String="\balias\b" />
         <keyword attribute="Property Type" context="#stay" String="types" />
         <DetectSpaces />
         <DetectIdentifier />

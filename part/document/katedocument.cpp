@@ -3575,7 +3575,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
     // get cursor
     KTextEditor::Cursor cursor = c;
 
-    QString old = Text( KTextEditor::Range(cursor, 1) );
+    QString old = text( KTextEditor::Range(cursor, 1) );
     QString s;
     switch ( t ) {
       case Uppercase:

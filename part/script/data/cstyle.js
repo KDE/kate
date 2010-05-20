@@ -162,6 +162,19 @@ String.prototype.contains = function(needle)
 }
 
 /**
+ * Fills with @p size @p char's.
+ * @return the string itself (for chain calls)
+ */
+String.prototype.fill = function(char, size)
+{
+    var string = "";
+    for ( var i = 0; i < size; ++i ) {
+        string += char;
+    }
+    return string;
+}
+
+/**
  * Character at (line, column) has to be a '{'.
  * Now try to find the right line for indentation for constructs like:
  * if (a == b
@@ -668,13 +681,50 @@ function tryMatchedAnchor(line)
     if ( char != '}' && char != ')' && char != ']' ) {
         return -1;
     }
+    // we pressed enter in e.g. ()
     var closingAnchor = document.anchor(line, 0, document.firstChar(line));
     if (!closingAnchor.isValid()) {
         // nothing found, continue with other cases
         return -1;
     }
-    // otherwise it's found, increase indentation and place closing anchor on the next line
-    var indentation = document.firstVirtualColumn(closingAnchor.line);
+    var lastChar = document.lastChar(line - 1);
+    var charsMatch = ( lastChar == '(' && char == ')' ) ||
+                     ( lastChar == '{' && char == '}' ) ||
+                     ( lastChar == '[' && char == ']' );
+    var indentLine = -1;
+    var indentation = -1;
+    if ( !charsMatch && char != '}' ) {
+        // otherwise check whether the last line has the expected
+        // indentation, if not use it instead and place the closing
+        // anchor on the level of the openeing anchor
+        var expectedIndentation = document.firstVirtualColumn(closingAnchor.line) + gIndentWidth;
+        var actualIndentation = document.firstVirtualColumn(line - 1);
+        var indentation = -1;
+        if ( expectedIndentation < actualIndentation ) {
+            if ( lastChar == ',' ) {
+                // use indentation of last line instead and place closing anchor
+                // in same column of the openeing anchor
+                document.insertText(line, document.firstColumn(line), "\n");
+                view.setCursorPosition(line, actualIndentation);
+                // indent closing anchor
+                document.indent(new Range(line + 1, 0, line + 1, 1), document.toVirtualColumn(closingAnchor) / gIndentWidth);
+                // make sure we add spaces to align perfectly on closing anchor
+                var padding = document.toVirtualColumn(closingAnchor) % gIndentWidth;
+                if ( padding > 0 ) {
+                    document.insertText(line + 1, document.column - padding, String().fill(' ', padding));
+                }
+                indentation = actualIndentation;
+            } else {
+                // otherwise don't add a new line, just align on closing anchor
+                indentation = document.toVirtualColumn(closingAnchor);
+            }
+            dbg("tryMatchedAnchor: success in line " + closingAnchor.line);
+            return indentation;
+        }
+    }
+    // otherwise we i.e. pressed enter between (), [] or when we enter before curly brace
+    // increase indentation and place closing anchor on the next line
+    indentation = document.firstVirtualColumn(closingAnchor.line);
     document.insertText(line, document.firstColumn(line), "\n");
     view.setCursorPosition(line, indentation);
     // indent closing brace

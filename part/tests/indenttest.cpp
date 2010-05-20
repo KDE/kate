@@ -181,6 +181,8 @@ void IndentTest::cstyle()
                                                      "opening paren instead of just increasing the indentation level like in function calls" )
                               << FAILURE( "switch10", "test for case where cfgSwitchIndent = false; needs proper config-interface" )
                               << FAILURE( "switch11", "test for case where cfgSwitchIndent = false; needs proper config-interface" )
+                              << FAILURE( "visib2", "test for access modifier where cfgAccessModifiers = 1;needs proper config interface" )
+                              << FAILURE( "visib3", "test for access modifier where cfgAccessModifiers = 1;needs proper config interface" )
   );
 }
 

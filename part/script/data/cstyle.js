@@ -700,7 +700,7 @@ function tryMatchedAnchor(line)
         var expectedIndentation = document.firstVirtualColumn(closingAnchor.line) + gIndentWidth;
         var actualIndentation = document.firstVirtualColumn(line - 1);
         var indentation = -1;
-        if ( expectedIndentation < actualIndentation ) {
+        if ( expectedIndentation <= actualIndentation ) {
             if ( lastChar == ',' ) {
                 // use indentation of last line instead and place closing anchor
                 // in same column of the openeing anchor
@@ -714,6 +714,9 @@ function tryMatchedAnchor(line)
                     document.insertText(line + 1, document.column - padding, String().fill(' ', padding));
                 }
                 indentation = actualIndentation;
+            } else if ( expectedIndentation == actualIndentation ) {
+                // otherwise don't add a new line, just use indentation of closing anchor line
+                indentation = document.firstVirtualColumn(closingAnchor.line);
             } else {
                 // otherwise don't add a new line, just align on closing anchor
                 indentation = document.toVirtualColumn(closingAnchor);

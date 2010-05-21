@@ -573,6 +573,7 @@
     <element-name name="Detect2Chars"/>
     <element-name name="AnyChar"/>
     <element-name name="StringDetect"/>
+    <element-name name="WordDetect"/>
     <element-name name="RegExpr"/>
     <element-name name="LineContinue"/>
     <element-name name="HlCStringChar"/>
@@ -592,6 +593,7 @@
     <element-name name="Detect2Chars"/>
     <element-name name="AnyChar"/>
     <element-name name="StringDetect"/>
+    <element-name name="WordDetect"/>
     <element-name name="RegExpr"/>
     <element-name name="LineContinue"/>
     <element-name name="HlCStringChar"/>
@@ -796,6 +798,50 @@
 </element>
 
 <attlist name="StringDetect">
+<attdecl>
+  String        CDATA   #REQUIRED       -- The string to look for --
+  insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.
+                                           Defaults to false --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="insensitive"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="TRUE FALSE"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="String"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="WordDetect"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="WordDetect">
 <attdecl>
   String        CDATA   #REQUIRED       -- The string to look for --
   insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.

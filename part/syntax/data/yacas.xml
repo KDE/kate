@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="yacas" version="1.02" kateversion="2.3" section="Sources" extensions="*.ys" mimetype="text/x-yacassrc">
+<language name="yacas" version="1.02" kateversion="2.3" section="Scientific" extensions="*.ys" mimetype="text/x-yacassrc">
   <highlighting>
     <list name="keywords">
       <item> And </item>

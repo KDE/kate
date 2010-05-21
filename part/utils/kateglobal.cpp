@@ -56,7 +56,7 @@ int KateGlobal::s_ref = 0;
 
 QString KateGlobal::katePartVersion()
 {
-  return QString("%1.%2").arg(KDE::versionMajor() - 1).arg(KDE::versionMinor());
+  return QString("3.5");
 }
 
 KateGlobal::KateGlobal ()
@@ -499,7 +499,7 @@ void KateGlobal::setContainer( QObject * container )
 
 
 QString KateGlobal::registerTemplateScript (QObject* owner, const QString& script) {
-  return scriptManager()->registerTemplateScript(owner,script);  
+  return scriptManager()->registerTemplateScript(owner,script);
 }
 
 void KateGlobal::unregisterTemplateScript(const QString& scriptToken) {

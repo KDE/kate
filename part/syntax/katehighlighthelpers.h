@@ -150,10 +150,19 @@ class KateHlStringDetect : public KateHlItem
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual KateHlItem *clone(const QStringList *args);
 
-  private:
+  protected:
     const QString str;
     const int strLen;
     const bool _inSensitive;
+};
+
+class KateHlWordDetect : public KateHlStringDetect
+{
+  public:
+    KateHlWordDetect(int attribute, KateHlContextModification context, signed char regionId, signed char regionId2, const QString &, bool inSensitive = false);
+
+    virtual int checkHgl(const QString& text, int offset, int len);
+    virtual KateHlItem *clone(const QStringList *args);
 };
 
 class KateHlRangeDetect : public KateHlItem

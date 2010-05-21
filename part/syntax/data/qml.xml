@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Milian Wolff <mail@milianw.de> -->
-<language name="QML" version="1.3" kateversion="2.4" section="Scripts" extensions="*.qml"
+<language name="QML" version="1.4" kateversion="3.4" section="Scripts" extensions="*.qml"
           mimetype="text/x-qml;application/x-qml" indenter="cstyle"
           author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
@@ -99,17 +99,17 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
-        <RegExpr attribute="Import" context="Import" String="\bimport\b"/>
+        <WordDetect attribute="Import" context="Import" String="import"/>
         <keyword attribute="Elements" context="#stay" String="elements" />
-        <RegExpr attribute="Signal" context="Signal" String="\bsignal\b" />
-        <RegExpr attribute="Keywords" context="Property" String="\bdefault property\b" />
-        <RegExpr attribute="Keywords" context="Property" String="\bproperty\b" />
+        <WordDetect attribute="Signal" context="Signal" String="signal" />
+        <WordDetect attribute="Keywords" context="Property" String="default property" />
+        <WordDetect attribute="Keywords" context="Property" String="property" />
         <IncludeRules context="##JavaScript" />
       </context>
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Property">
-        <RegExpr attribute="Property Type" context="#stay" String="\balias\b" />
+        <WordDetect attribute="Property Type" context="#stay" String="alias" />
         <keyword attribute="Property Type" context="#stay" String="types" />
         <DetectSpaces />
         <DetectIdentifier />

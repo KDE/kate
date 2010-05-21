@@ -195,6 +195,44 @@ KateHlItem *KateHlStringDetect::clone(const QStringList *args)
 }
 //END
 
+//BEGIN KateHlWordDetect
+
+KateHlWordDetect::KateHlWordDetect(int attribute, KateHlContextModification context, signed char regionId, signed char regionId2, const QString& s, bool inSensitive)
+  : KateHlStringDetect(attribute, context, regionId, regionId2, s, inSensitive)
+{
+}
+
+int KateHlWordDetect::checkHgl(const QString& text, int offset, int len)
+{
+  // make sure there is no letter or number before the word starts
+  if (offset > 0 && text.at(offset - 1).isLetterOrNumber()) {
+    return 0;
+  }
+  offset = KateHlStringDetect::checkHgl(text, offset, len);
+  // make sure there is no letter or number after the word ends
+  if (offset && offset < text.length() && text.at(offset).isLetterOrNumber()) {
+    return 0;
+  }
+  return offset;
+}
+
+KateHlItem* KateHlWordDetect::clone(const QStringList* args)
+{
+  QString newstr = str;
+
+  dynamicSubstitute(newstr, args);
+
+  if (newstr == str)
+    return this;
+
+  KateHlWordDetect *ret = new KateHlWordDetect(attr, ctx, region, region2, newstr, _inSensitive);
+  ret->dynamicChild = true;
+  return ret;
+}
+
+
+//END KateHlWordDetect
+
 //BEGIN KateHlRangeDetect
 KateHlRangeDetect::KateHlRangeDetect(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
   : KateHlItem(attribute,context,regionId,regionId2)

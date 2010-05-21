@@ -910,7 +910,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")))[0];
   }
 
-  // Will be removed eventually. Atm used for StringDetect, keyword and RegExp
+  // Will be removed eventually. Atm used for StringDetect, WordDetect, keyword and RegExp
   const QString & insensitive_str = KateHlManager::self()->syntax->groupItemData(data,QString("insensitive"));
   bool insensitive = IS_TRUE( insensitive_str );
 
@@ -949,6 +949,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   else if (dataname=="RangeDetect") tmpItem=(new KateHlRangeDetect(attr,context,regionId,regionId2, chr, chr1));
   else if (dataname=="LineContinue") tmpItem=(new KateHlLineContinue(attr,context,regionId,regionId2));
   else if (dataname=="StringDetect") tmpItem=(new KateHlStringDetect(attr,context,regionId,regionId2,stringdata,insensitive));
+  else if (dataname=="WordDetect") tmpItem=(new KateHlWordDetect(attr,context,regionId,regionId2,stringdata,insensitive));
   else if (dataname=="AnyChar") tmpItem=(new KateHlAnyChar(attr,context,regionId,regionId2,stringdata));
   else if (dataname=="RegExpr") tmpItem=(new KateHlRegExpr(attr,context,regionId,regionId2,stringdata, insensitive, minimal));
   else if (dataname=="HlCChar") tmpItem= ( new KateHlCChar(attr,context,regionId,regionId2));

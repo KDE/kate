@@ -92,7 +92,7 @@ TODO
   hidden:      Should it be hidden in menu [boolean, optional, default=false]
 
 TODO
-  - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect...?
+  - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect, WordDetect...?
 
 WARNING: due to helper scripts, the language opening tag must be on a
 *single line* and *cannot* be split in multiple lines.
@@ -234,7 +234,7 @@ TODO:
   - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwise.
   - Make lineEndContext optional, defaults to '#stay'. Reasonable?
 -->
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | DetectSpaces | DetectIdentifier)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | WordDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | DetectSpaces | DetectIdentifier)*>
 <!ATTLIST context
   name              CDATA       #IMPLIED
   attribute         CDATA       #REQUIRED
@@ -391,6 +391,23 @@ TODO
 -->
 <!ELEMENT StringDetect EMPTY>
 <!ATTLIST StringDetect
+  %commonAttributes;
+  String        CDATA       #REQUIRED
+  insensitive   (%boolean;)  #IMPLIED
+  dynamic       (%boolean;) #IMPLIED
+>
+
+<!-- Detect a word, i.e. a string at word boundaries
+  commonAttributes: Common attributes
+  String:           The string to look for
+  insensitive:      Whether the string is matched case INsensitive. [boolean, optional, default=false]
+  dynamic:          Uses %0 ... %9 as placeholders for dynamic arguments [boolean, optional, default=false]
+
+TODO
+  - What's default of insensitive? I'm not sure...
+-->
+<!ELEMENT WordDetect EMPTY>
+<!ATTLIST WordDetect
   %commonAttributes;
   String        CDATA       #REQUIRED
   insensitive   (%boolean;)  #IMPLIED

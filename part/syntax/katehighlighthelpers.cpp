@@ -202,15 +202,25 @@ KateHlWordDetect::KateHlWordDetect(int attribute, KateHlContextModification cont
 {
 }
 
+inline bool isWordCharacter(const QChar& c)
+{
+  // The Qt docs say for word characters:
+  //      \w  - Matches a word character (QChar::isLetterOrNumber(), QChar::isMark(), or '_').
+  // see also: http://doc.trolltech.com/qregexp.html
+  return c.isLetterOrNumber() || c.isMark() || c.unicode() == '_';
+}
+
 int KateHlWordDetect::checkHgl(const QString& text, int offset, int len)
 {
+  //NOTE: word boundary means: any non-word character.
+
   // make sure there is no letter or number before the word starts
-  if (offset > 0 && text.at(offset - 1).isLetterOrNumber()) {
+  if (offset > 0 && isWordCharacter(text.at(offset))) {
     return 0;
   }
   offset = KateHlStringDetect::checkHgl(text, offset, len);
   // make sure there is no letter or number after the word ends
-  if (offset && offset < text.length() && text.at(offset).isLetterOrNumber()) {
+  if (offset && offset < text.length() && isWordCharacter(text.at(offset))) {
     return 0;
   }
   return offset;

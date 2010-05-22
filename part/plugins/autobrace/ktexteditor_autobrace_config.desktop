@@ -7,6 +7,7 @@ X-KDE-ParentComponents=ktexteditorautobrace
 Name=AutoBrace Configuration
 Name[bg]=Настройки на автоматичните скоби
 Name[ca]=Configuració dels parèntesis automàtics
+Name[da]=Indstilling af AutoBrace
 Name[en_GB]=AutoBrace Configuration
 Name[es]=Configuración de los paréntesis automáticos
 Name[ia]=Configuration de AutoBrace (Parentheses Automatic)

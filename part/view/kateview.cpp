@@ -2202,7 +2202,9 @@ void KateView::align( )
 
 void KateView::comment( )
 {
+  m_selection.setInsertBehaviors(Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
   m_doc->comment( this, cursorPosition().line(), cursorPosition().column(), 1 );
+  m_selection.setInsertBehaviors(Kate::TextRange::ExpandRight);
 }
 
 void KateView::uncomment( )
@@ -2212,7 +2214,9 @@ void KateView::uncomment( )
 
 void KateView::toggleComment( )
 {
+  m_selection.setInsertBehaviors(Kate::TextRange::ExpandLeft | Kate::TextRange::ExpandRight);
   m_doc->comment( this, cursorPosition().line(), cursorPosition().column(), 0 );
+  m_selection.setInsertBehaviors(Kate::TextRange::ExpandRight);
 }
 
 void KateView::uppercase( )

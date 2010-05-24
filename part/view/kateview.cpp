@@ -1950,7 +1950,7 @@ bool KateView::setBlockSelectionMode (bool on)
 
     KTextEditor::Range oldSelection = m_selection;
 
-    clearSelection(false, false);
+    const bool hadSelection = clearSelection(false, false);
 
     setSelection(oldSelection);
 
@@ -1959,6 +1959,14 @@ bool KateView::setBlockSelectionMode (bool on)
     // when leaving block selection mode, if cursor is at an invalid position or past the end of the
     // line, move the cursor to the last column of the current line unless cursor wrapping is off
     ensureCursorColumnValid();
+
+    if (!hadSelection) {
+      // emit selectionChanged() according to the KTextEditor::View api
+      // documentation also if there is no selection around. This is needed,
+      // as e.g. the Kate App status bar uses this signal to update the state
+      // of the selection mode (block selection, line based selection)
+      emit selectionChanged(this);
+    }
   }
 
   return true;

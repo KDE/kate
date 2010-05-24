@@ -123,7 +123,7 @@ namespace KateMDI
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
     actionCollection()->addAction( "kate_mdi_sidebar_visibility", m_showSidebarsAction );
     m_showSidebarsAction->setShortcut(  Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F );
-    
+
     m_showSidebarsAction->setChecked( m_mw->sidebarsVisible() );
     connect( m_showSidebarsAction, SIGNAL( toggled( bool ) ),
              m_mw, SLOT( setSidebarsVisible( bool ) ) );
@@ -849,12 +849,14 @@ namespace KateMDI
     m_restoreConfig = config;
     m_restoreGroup = group;
 
-    // set sane default sizes
-    QList<int> hs = (QList<int>() << 200 << 100 << 200);
-    QList<int> vs = (QList<int>() << 150 << 100 << 200);
-
     if (!m_restoreConfig || !m_restoreConfig->hasGroup (m_restoreGroup))
     {
+      // if no config around, set already now sane default sizes
+      // otherwise, set later in ::finishRestore(), since it does not work
+      // if set already now (see bug #164438)
+      QList<int> hs = (QList<int>() << 200 << 100 << 200);
+      QList<int> vs = (QList<int>() << 150 << 100 << 200);
+
       m_sidebars[0]->setLastSize (hs[0]);
       m_sidebars[1]->setLastSize (hs[2]);
       m_sidebars[2]->setLastSize (vs[0]);
@@ -868,18 +870,6 @@ namespace KateMDI
     // apply size once, to get sizes ready ;)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
     restoreWindowSize (cg);
-
-    // get main splitter sizes ;)
-    hs = cg.readEntry ("Kate-MDI-H-Splitter", hs);
-    vs = cg.readEntry ("Kate-MDI-V-Splitter", vs);
-
-    m_sidebars[0]->setLastSize (hs[0]);
-    m_sidebars[1]->setLastSize (hs[2]);
-    m_sidebars[2]->setLastSize (vs[0]);
-    m_sidebars[3]->setLastSize (vs[2]);
-
-    m_hSplitter->setSizes(hs);
-    m_vSplitter->setSizes(vs);
 
     setToolViewStyle( (KMultiTabBar::KMultiTabBarStyle)cg.readEntry ("Kate-MDI-Sidebar-Style", (int)toolViewStyle()) );
     // after reading m_sidebarsVisible, update the GUI toggle action
@@ -912,6 +902,22 @@ namespace KateMDI
       // restore the sidebars
       for (unsigned int i = 0; i < 4; ++i)
         m_sidebars[i]->restoreSession (cg);
+
+      // restore splitter sizes
+      QList<int> hs = (QList<int>() << 200 << 100 << 200);
+      QList<int> vs = (QList<int>() << 150 << 100 << 200);
+
+      // get main splitter sizes ;)
+      hs = cg.readEntry ("Kate-MDI-H-Splitter", hs);
+      vs = cg.readEntry ("Kate-MDI-V-Splitter", vs);
+
+      m_sidebars[0]->setLastSize (hs[0]);
+      m_sidebars[1]->setLastSize (hs[2]);
+      m_sidebars[2]->setLastSize (vs[0]);
+      m_sidebars[3]->setLastSize (vs[2]);
+
+      m_hSplitter->setSizes(hs);
+      m_vSplitter->setSizes(vs);
     }
 
     // clear this stuff, we are done ;)

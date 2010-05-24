@@ -181,26 +181,8 @@ void KateViewSpace::setActive( bool active, bool )
 {
   mIsActiveSpace = active;
 
-  // change the statusbar palette and make sure it gets updated
-  QPalette pal( palette() );
-  if ( ! active )
-  {
-    pal.setColor( QPalette::Window, pal.color(QPalette::Window).dark() );
-    pal.setColor( QPalette::Light, pal.color(QPalette::Light).light() );
-  }
-
-  mStatusBar->setPalette( pal );
-  mStatusBar->update();
-}
-
-bool KateViewSpace::event( QEvent *e )
-{
-  if ( e->type() == QEvent::PaletteChange )
-  {
-    setActive( mIsActiveSpace );
-    return true;
-  }
-  return KVBox::event( e );
+  // change the statusbar palette according to the activation state
+  mStatusBar->setEnabled(active);
 }
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)

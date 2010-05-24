@@ -118,11 +118,6 @@ class KateViewSpace : public KVBox
   private Q_SLOTS:
     void statusBarToggled ();
 
-  protected:
-    /** reimplemented to catch QEvent::PaletteChange,
-    since we use a modified palette for the statusbar */
-    bool event( QEvent * );
-
   private:
     bool mIsActiveSpace;
     KateVSStatusBar* mStatusBar;

@@ -337,7 +337,7 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
 
 /*static*/ void KateSearchBar::selectRange(KateView * view, const KTextEditor::Range & range) {
-    view->setCursorPositionInternal(range.start(), 1);
+    view->setCursorPositionInternal(range.end());
 
     // don't make a selection if the vi input mode is used
     if (!view->viInputMode())
@@ -1280,7 +1280,7 @@ void KateSearchBar::enterPowerMode() {
         m_powerUi->matchCase->setChecked(m_powerMatchCase);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
     }
-    
+
     // force current index of -1 --> <cursor down> shows 1st completion entry instead of 2nd
     m_powerUi->pattern->setCurrentIndex(-1);
     m_powerUi->replacement->setCurrentIndex(-1);

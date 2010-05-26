@@ -1102,13 +1102,14 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 {
     Cursor c( m_view->cursorPosition() );
 
+    m_view->switchToCmdLine();
+
     // if a count is given, the range [current line] to [current line] + count should be prepended
     // to the command line
     if ( getCount() != 1 ) {
       m_view->cmdLineBar()->setText( ".,.+" +QString::number( getCount()-1 ), false);
     }
 
-    m_view->switchToCmdLine();
     return true;
 }
 

@@ -432,19 +432,19 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     if (m_cmdExpr.indexIn(s) != -1) {
       if (m_cmdExpr.capturedTexts().at(2) == "+") {
         s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(1).toInt());
+            + m_cmdExpr.capturedTexts().at(3).toInt());
       } else {
         s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(1).toInt());
+            - m_cmdExpr.capturedTexts().at(3).toInt());
       }
     }
     if (m_cmdExpr.indexIn(e) != -1) {
       if (m_cmdExpr.capturedTexts().at(2) == "+") {
         e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(1).toInt());
+            + m_cmdExpr.capturedTexts().at(3).toInt());
       } else {
         e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(1).toInt());
+            - m_cmdExpr.capturedTexts().at(3).toInt());
       }
     }
 

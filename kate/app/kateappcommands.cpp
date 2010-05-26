@@ -141,18 +141,18 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
     Q_UNUSED(view);
 
     if (re_write.exactMatch(cmd)) {
-        msg = "<p><b>w/wa &mdash; write document(s) to disk</b></p>"
+        msg = i18n("<p><b>w/wa &mdash; write document(s) to disk</b></p>"
               "<p>Usage: <tt><b>w[a]</b></tt></p>"
               "<p>Writes the current document(s) to disk. "
               "It can be called in two ways:<br />"
               " <tt>w</tt> &mdash; writes the current document to disk<br />"
               " <tt>wa</tt> &mdash; writes all document to disk.</p>"
               "<p>If no file name is associated with the document, "
-              "a file dialog will be shown.</p>";
+              "a file dialog will be shown.</p>");
         return true;
     }
     else if (re_quit.exactMatch(cmd)) {
-        msg = "<p><b>q/qa/wq/wqa &mdash; [write and] quit</b></p>"
+        msg = i18n("<p><b>q/qa/wq/wqa &mdash; [write and] quit</b></p>"
               "<p>Usage: <tt><b>[w]q[a]</b></tt></p>"
               "<p>Quits the application. If <tt>w</tt> is prepended, it also writes"
               " the document(s) to disk. This command "
@@ -163,11 +163,11 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               " <tt>wqa</tt> &mdash; writes all document to disk and quits.</p>"
               "<p>In all cases, if the view being closed is the last view, the application quits. "
               "If no file name is associated with the document and it should be written to disk, "
-              "a file dialog will be shown.</p>";
+              "a file dialog will be shown.</p>");
         return true;
     }
     else if (re_exit.exactMatch(cmd)) {
-        msg = "<p><b>x/xa &mdash; write and quit</b></p>"
+        msg = i18n("<p><b>x/xa &mdash; write and quit</b></p>"
               "<p>Usage: <tt><b>x[a]</b></tt></p>"
               "<p>Saves document(s) and quits (e<b>x</b>its). This command "
               "can be called in two ways:<br />"
@@ -177,11 +177,11 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "If no file name is associated with the document and it should be written to disk, "
               "a file dialog will be shown.</p>"
               "<p>Unlike the 'w' commands, this command only writes the doucment if it is modified."
-              "</p>";
+              "</p>");
         return true;
     }
     else if (re_changeBuffer.exactMatch(cmd)) {
-        msg = "<p><b>bp/bn &mdash; switch no previous/next document</b></p>"
+        msg = i18n("<p><b>bp/bn &mdash; switch no previous/next document</b></p>"
               "<p>Usage: <tt><b>bp/bn</b></tt></p>"
               "<p>Goes to <b>p</b>revious or <b>n</b>ext document (\"<b>b</b>uffer\"). The two"
               " commands are:<br />"
@@ -190,24 +190,24 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               " <tt>bn</tt> &mdash; goes to the document after the current one in the document"
               " list.<br />"
               "<p>Both commands wrap around, i.e., if you go past the last document you and up"
-              " at the first and vice versa.</p>";
+              " at the first and vice versa.</p>");
         return true;
     }
     else if (re_new.exactMatch(cmd)) {
-        msg = "<p><b>[v]new &mdash; split view and create new document</b></p>"
+        msg = i18n("<p><b>[v]new &mdash; split view and create new document</b></p>"
               "<p>Usage: <tt><b>[v]new</b></tt></p>"
               "<p>Splits the current view and opens a new document in the new view."
               " This command can be called in two ways:<br />"
               " <tt>new</tt> &mdash; splits the view horizontally and opens a new document.<br />"
               " <tt>vnew</tt> &mdash; splits the view vertically and opens a new document.<br />"
-              "</p>";
+              "</p>");
         return true;
     }
     else if (re_edit.exactMatch(cmd)) {
-        msg = "<p><b>e[dit] &mdash; reload current document</b></p>"
+        msg = i18n("<p><b>e[dit] &mdash; reload current document</b></p>"
               "<p>Usage: <tt><b>e[dit]</b></tt></p>"
               "<p>Starts <b>e</b>diting the current document again. This is useful to re-edit"
-             " the current file, when it has been changed by another program.</p>";
+             " the current file, when it has been changed by another program.</p>");
         return true;
     }
 

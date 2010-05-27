@@ -176,7 +176,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "<p>In all cases, if the view being closed is the last view, the application quits. "
               "If no file name is associated with the document and it should be written to disk, "
               "a file dialog will be shown.</p>"
-              "<p>Unlike the 'w' commands, this command only writes the doucment if it is modified."
+              "<p>Unlike the 'w' commands, this command only writes the document if it is modified."
               "</p>");
         return true;
     }

@@ -1,6 +1,7 @@
 [Desktop Entry]
 GenericName=Snippets datafile editor
 GenericName[ca]=Editor de fitxer de base de dades de retalls
+GenericName[ca@valencia]=Editor de fitxer de base de dades de retalls
 GenericName[de]=Schnipsel-Datendatei-Editor
 GenericName[en_GB]=Snippets datafile editor
 GenericName[nds]=Editor för Snippels-Datendateien
@@ -12,6 +13,7 @@ GenericName[x-test]=xxSnippets datafile editorxx
 GenericName[zh_TW]=片段資料檔編輯器
 Name=Snippets datafile editor
 Name[ca]=Editor de fitxer de base de dades de retalls
+Name[ca@valencia]=Editor de fitxer de base de dades de retalls
 Name[de]=Schnipsel-Datendatei-Editor
 Name[en_GB]=Snippets datafile editor
 Name[nds]=Editor för Snippels-Datendateien

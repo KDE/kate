@@ -139,7 +139,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   endRemoveRows();
 
    kDebug()<<sourcerow<<"/////"<<insertRowAt;
-// 
+//
     beginInsertRows(parent, insertRowAt, insertRowAt);
     m_mapToSource.insert(insertRowAt, sourceModelRow);
 
@@ -148,10 +148,10 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
       int tmp = m_mapToSource[i];
       m_mapFromSource[tmp] = i;
     }
-// 
+//
    kDebug()<<"m_mapFromSource"<<m_mapFromSource;
    kDebug()<<"m_mapToSource"<<m_mapToSource;
-// 
+//
     m_rowCountOffset++;
     endInsertRows();
     QModelIndex index = createIndex(insertRowAt, 0);
@@ -634,9 +634,9 @@ void KateViewDocumentProxyModel::sort()
     {
       QMap<QString,int> sorted;
       foreach( int row, m_mapToSource ) {
-	QString key=data(sourceModel()->index(row, 0), m_sortRole).toString();
+        QString key=data(sourceModel()->index(row, 0), m_sortRole).toString();
         if (key.isEmpty()) key=QString("kate-internal-untitled:/%1").arg(row);
-	sorted.insert(key, m_mapToSource[row]);
+        sorted.insertMulti(key, m_mapToSource[row]);
       }
       m_mapToSource = sorted.values();
     }

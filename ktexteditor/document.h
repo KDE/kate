@@ -602,19 +602,19 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     void aboutToReload(KTextEditor::Document *document);
 
     /**
-     * Upon emission, the document's content may not be changed externally until
-     * internalEditEnd() is signalled. It is, however, permitted to react upon
-     * changes to the content.
+     * Upon emission, the document's content may only be changed by the initiator
+     * of this signal until exclusiveEditEnd() is signalled. It is, however,
+     * possible to listen to changes of the content.
      *
      * Signalled e.g. on undo or redo.
      */
-    void internalEditStart(KTextEditor::Document *document);
+    void exclusiveEditStart(KTextEditor::Document *document);
 
     /**
-     * In conjunction with internalEditStart(), signals that the document's content
+     * In conjunction with exclusiveEditStart(), signals that the document's content
      * may be changed again without restriction.
      */
-    void internalEditEnd(KTextEditor::Document *document);
+    void exclusiveEditEnd(KTextEditor::Document *document);
 
   /*
    * Access to the mode/highlighting subsystem

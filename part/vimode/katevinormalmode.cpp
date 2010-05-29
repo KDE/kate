@@ -961,7 +961,7 @@ bool KateViNormalMode::commandYankToEOL()
   QString yankedText;
 
   m_commandRange.endLine = c.line()+getCount()-1;
-  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine );
+  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
 
   bool linewise = ( m_viInputModeManager->getCurrentViMode() == VisualMode
       || m_viInputModeManager->getCurrentViMode() == VisualLineMode );

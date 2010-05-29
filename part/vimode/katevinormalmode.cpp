@@ -593,7 +593,7 @@ bool KateViNormalMode::commandDeleteToEOL()
   Cursor c( m_view->cursorPosition() );
 
   m_commandRange.endLine = c.line()+getCount()-1;
-  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine );
+  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
 
   if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
     m_commandRange.startLine = c.line();

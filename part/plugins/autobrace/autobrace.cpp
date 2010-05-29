@@ -124,9 +124,9 @@ AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document* document
     m_brackets["("] = ")";
     m_brackets["["] = "]";
 
-    connect(document, SIGNAL(internalEditStart(KTextEditor::Document *)),
+    connect(document, SIGNAL(exclusiveEditStart(KTextEditor::Document *)),
             this, SLOT(disconnectSlots(KTextEditor::Document *)));
-    connect(document, SIGNAL(internalEditEnd(KTextEditor::Document *)),
+    connect(document, SIGNAL(exclusiveEditEnd(KTextEditor::Document *)),
             this, SLOT(connectSlots(KTextEditor::Document *)));
 
     connectSlots(document);

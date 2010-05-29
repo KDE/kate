@@ -607,12 +607,16 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * possible to listen to changes of the content.
      *
      * Signalled e.g. on undo or redo.
+     *
+     * @since 4.5
      */
     void exclusiveEditStart(KTextEditor::Document *document);
 
     /**
      * In conjunction with exclusiveEditStart(), signals that the document's content
      * may be changed again without restriction.
+     *
+     * @since 4.5
      */
     void exclusiveEditEnd(KTextEditor::Document *document);
 

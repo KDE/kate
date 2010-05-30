@@ -282,6 +282,14 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	*m_proc << exe << "--catalogs" << "--noout";
 
+	// tell xmllint the working path of the document's file, if possible.
+	// otherweise it will not find relative DTDs
+	QString path = kv->document()->url().directory();
+	kDebug() << path;
+	if (!path.isEmpty()) {
+		*m_proc << "--path" << path;
+	}
+
 	// heuristic: assume that the doctype is in the first 10,000 bytes:
 	QString text_start = kv->document()->text().left(10000);
 	// remove comments before looking for doctype (as a doctype might be commented out

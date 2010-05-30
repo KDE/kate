@@ -146,7 +146,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "<p>Writes the current document(s) to disk. "
               "It can be called in two ways:<br />"
               " <tt>w</tt> &mdash; writes the current document to disk<br />"
-              " <tt>wa</tt> &mdash; writes all document to disk.</p>"
+              " <tt>wa</tt> &mdash; writes all documents to disk.</p>"
               "<p>If no file name is associated with the document, "
               "a file dialog will be shown.</p>");
         return true;
@@ -158,7 +158,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               " the document(s) to disk. This command "
               "can be called in several ways:<br />"
               " <tt>q</tt> &mdash; closes the current view.<br />"
-              " <tt>qa</tt> &mdash; closes all view, effectively quitting the application.<br />"
+              " <tt>qa</tt> &mdash; closes all views, effectively quitting the application.<br />"
               " <tt>wq</tt> &mdash; writes the current document to disk and closes its view.<br />"
               " <tt>wqa</tt> &mdash; writes all documents to disk and quits.</p>"
               "<p>In all cases, if the view being closed is the last view, the application quits. "
@@ -172,7 +172,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "<p>Saves document(s) and quits (e<b>x</b>its). This command "
               "can be called in two ways:<br />"
               " <tt>x</tt> &mdash; closes the current view.<br />"
-              " <tt>xa</tt> &mdash; closes all view, effectively quitting the application.</p>"
+              " <tt>xa</tt> &mdash; closes all views, effectively quitting the application.</p>"
               "<p>In all cases, if the view being closed is the last view, the application quits. "
               "If no file name is associated with the document and it should be written to disk, "
               "a file dialog will be shown.</p>"

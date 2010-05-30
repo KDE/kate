@@ -1873,6 +1873,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 {
   if ( !force && (m_cursor.toCursor() == newCursor) )
   {
+    m_displayCursor = toVirtualCursor(newCursor);
     if ( !m_madeVisible && m_view == doc()->activeView() )
     {
       // unfold if required

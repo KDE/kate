@@ -147,6 +147,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect(m_lineScroll, SIGNAL(actionTriggered(int)), SLOT(scrollAction(int)));
   connect(m_lineScroll, SIGNAL(sliderMoved(int)), SLOT(scrollLines(int)));
   connect(m_lineScroll, SIGNAL(sliderMMBMoved(int)), SLOT(scrollLines(int)));
+  connect(m_lineScroll, SIGNAL(valueChanged(int)), SLOT(scrollLines(int)));
 
   // catch wheel events, completing the hijack
   //m_lineScroll->installEventFilter(this);

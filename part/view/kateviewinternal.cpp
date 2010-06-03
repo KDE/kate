@@ -2452,7 +2452,7 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
     m_view->completionWidget()->toggleExpanded(false, true);
   }
 
-  if (e->key() == Qt::SHIFT)
+  if ((e->modifiers() & Qt::SHIFT) == Qt::SHIFT)
   {
     m_shiftKeyPressed = true;
   }

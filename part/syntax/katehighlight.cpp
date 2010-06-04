@@ -464,6 +464,8 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
     if (anItemMatched)
       continue;
 
+    item = 0;
+
     // nothing found: set attribute of one char
     // anders: unless this context does not want that!
     if ( context->fallthrough )

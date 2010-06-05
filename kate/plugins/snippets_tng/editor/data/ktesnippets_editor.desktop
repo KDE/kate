@@ -2,6 +2,7 @@
 GenericName=Snippets datafile editor
 GenericName[ca]=Editor de fitxer de base de dades de retalls
 GenericName[ca@valencia]=Editor de fitxer de base de dades de retalls
+GenericName[da]=Editor til tekststump-datafiler
 GenericName[de]=Schnipsel-Datendatei-Editor
 GenericName[en_GB]=Snippets datafile editor
 GenericName[it]=Editor dei file di dati per i frammenti di Kate
@@ -15,6 +16,7 @@ GenericName[zh_TW]=片段資料檔編輯器
 Name=Snippets datafile editor
 Name[ca]=Editor de fitxer de base de dades de retalls
 Name[ca@valencia]=Editor de fitxer de base de dades de retalls
+Name[da]=Editor til tekststump-datafiler
 Name[de]=Schnipsel-Datendatei-Editor
 Name[en_GB]=Snippets datafile editor
 Name[it]=Editor dei file di dati per i frammenti di Kate

@@ -814,7 +814,7 @@ void KateViewInternal::doSmartNewline()
   int col = qMin(m_cursor.column(), line->firstChar());
   if (col != -1) {
     while (line->length() > col &&
-            line->at(col).isSpace() &&
+            !(line->at(col).isLetterOrNumber() || line->at(col) == QLatin1Char('_')) &&
             col < m_cursor.column()) ++col;
   } else {
     col = line->length(); // stay indented

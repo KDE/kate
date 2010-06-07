@@ -1,6 +1,6 @@
 // This file is part of the KDE libraries
 // Copyright (C) 2008 Paul Giannaros <paul@giannaros.org>
-// Copyright (C) 2009 Dominik Haumann <dhaumann kde org>
+// Copyright (C) 2009, 2010 Dominik Haumann <dhaumann kde org>
 // Copyright (C) 2010 Joseph Wenninger <jowenn@kde.org>
 //
 // This library is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
+#include <klocalizedstring.h>
 
 //BEGIN conversion functions for Cursors and Ranges
 /** Converstion function from KTextEditor::Cursor to QtScript cursor */
@@ -78,7 +79,8 @@ static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &ra
 namespace Kate {
   namespace Script {
 
-    QScriptValue debug(QScriptContext *context, QScriptEngine *engine) {
+    QScriptValue debug(QScriptContext *context, QScriptEngine *engine)
+    {
       QStringList message;
       for(int i = 0; i < context->argumentCount(); ++i) {
         message << context->argument(i).toString();
@@ -87,6 +89,153 @@ namespace Kate {
       std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
       return engine->nullValue();
     }
+
+//BEGIN code adapted from kdelibs/kross/modules/translation.cpp
+    /// helper function to do the substitution from QtScript > QVariant > real values
+    KLocalizedString substituteArguments( const KLocalizedString &kls, const QVariantList &arguments, int max = 99 )
+    {
+      KLocalizedString ls = kls;
+      int cnt = qMin( arguments.count(), max ); // QString supports max 99
+      for ( int i = 0; i < cnt; ++i ) {
+        QVariant arg = arguments[i];
+        switch ( arg.type() ) {
+          case QVariant::Int: ls = ls.subs(arg.toInt()); break;
+          case QVariant::UInt: ls = ls.subs(arg.toUInt()); break;
+          case QVariant::LongLong: ls = ls.subs(arg.toLongLong()); break;
+          case QVariant::ULongLong: ls = ls.subs(arg.toULongLong()); break;
+          case QVariant::Double: ls = ls.subs(arg.toDouble()); break;
+          default: ls = ls.subs(arg.toString()); break;
+        }
+      }
+      return ls;
+    }
+
+    /// i18n("text", arguments [optional])
+    QScriptValue i18n( QScriptContext *context, QScriptEngine *engine )
+    {
+      Q_UNUSED(engine)
+      QString text;
+      QVariantList args;
+      const int argCount = context->argumentCount();
+
+      if (argCount == 0) {
+        kWarning(13050) << "wrong usage of i18n:" << context->backtrace().join("\n\t");
+      }
+
+      if (argCount > 0) {
+        text = context->argument(0).toString();
+      }
+
+      for (int i = 1; i < argCount; ++i) {
+        args << context->argument(i).toVariant();
+      }
+
+      KLocalizedString ls = ki18n(text.toUtf8());
+      return substituteArguments( ls, args ).toString();
+    }
+
+    /// i18nc("context", "text", arguments [optional])
+    QScriptValue i18nc( QScriptContext *context, QScriptEngine *engine )
+    {
+      Q_UNUSED(engine)
+      QString text;
+      QString textContext;
+      QVariantList args;
+      const int argCount = context->argumentCount();
+
+      if (argCount < 2) {
+        kWarning(13050) << "wrong usage of i18nc:" << context->backtrace().join("\n\t");
+      }
+
+      if (argCount > 0) {
+        textContext = context->argument(0).toString();
+      }
+
+      if (argCount > 1) {
+        text = context->argument(1).toString();
+      }
+
+      for (int i = 2; i < argCount; ++i) {
+        args << context->argument(i).toVariant();
+      }
+
+      KLocalizedString ls = ki18nc(textContext.toUtf8(), text.toUtf8());
+      return substituteArguments( ls, args ).toString();
+    }
+
+    /// i18n("singular", "plural", number, arguments [optional])
+    QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
+    {
+      Q_UNUSED(engine)
+      QString trSingular;
+      QString trPlural;
+      int number;
+      QVariantList args;
+      const int argCount = context->argumentCount();
+
+      if (argCount < 3) {
+        kWarning(13050) << "wrong usage of i18np:" << context->backtrace().join("\n\t");
+      }
+
+      if (argCount > 0) {
+        trSingular = context->argument(0).toString();
+      }
+
+      if (argCount > 1) {
+        trPlural = context->argument(1).toString();
+      }
+
+      if (argCount > 2) {
+        number = context->argument(2).toInt32();
+      }
+
+      for (int i = 3; i < argCount; ++i) {
+        args << context->argument(i).toVariant();
+      }
+
+      KLocalizedString ls = ki18np(trSingular.toUtf8(), trPlural.toUtf8()).subs(number);
+      return substituteArguments( ls, args, 98 ).toString();
+    }
+
+    /// i18n("context", "singular", "plural", number, arguments [optional])
+    QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
+    {
+      Q_UNUSED(engine)
+      QString trContext;
+      QString trSingular;
+      QString trPlural;
+      int number;
+      QVariantList args;
+      const int argCount = context->argumentCount();
+
+      if (argCount < 4) {
+        kWarning(13050) << "wrong usage of i18ncp:" << context->backtrace().join("\n\t");
+      }
+
+      if (argCount > 0) {
+        trContext = context->argument(0).toString();
+      }
+
+      if (argCount > 1) {
+        trSingular = context->argument(1).toString();
+      }
+
+      if (argCount > 2) {
+        trPlural = context->argument(2).toString();
+      }
+
+      if (argCount > 3) {
+        number = context->argument(3).toInt32();
+      }
+
+      for (int i = 4; i < argCount; ++i) {
+        args << context->argument(i).toVariant();
+      }
+
+      KLocalizedString ls = ki18ncp(trContext.toUtf8(), trSingular.toUtf8(), trPlural.toUtf8()).subs( number );
+      return substituteArguments( ls, args, 98 ).toString();
+    }
+//END code adapted from kdelibs/kross/modules/translation.cpp
 
   }
 }
@@ -182,38 +331,38 @@ bool KateScript::initApi ()
   static QStringList apiFileBaseNames;
   static QHash<QString, QString> apiBaseName2FileName;
   static QHash<QString, QString> apiBaseName2Content;
-  
+
   // read katepart javascript api
   if (!s_scriptingApiLoaded) {
     s_scriptingApiLoaded = true;
     apiFileBaseNames.clear ();
     apiBaseName2FileName.clear ();
     apiBaseName2Content.clear ();
-    
+
     // get all api files
     const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/api/*.js", KStandardDirs::NoDuplicates);
-    
+
     for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
     {
       // get abs filename....
       QFileInfo fi(*it);
       const QString absPath = fi.absoluteFilePath();
       const QString baseName = fi.baseName ();
-      
+
       // remember filenames
       apiFileBaseNames.append (baseName);
       apiBaseName2FileName[baseName] = absPath;
-      
+
       // read the file
       QString content;
       readFile(absPath, content);
       apiBaseName2Content[baseName] = content;
     }
-    
+
     // sort...
     apiFileBaseNames.sort ();
   }
-  
+
   // register all script apis found
   for ( QStringList::ConstIterator it = apiFileBaseNames.constBegin(); it != apiFileBaseNames.constEnd(); ++it )
   {
@@ -223,7 +372,7 @@ bool KateScript::initApi ()
       return false;
     }
   }
-  
+
   // success ;)
   return true;
 }
@@ -252,7 +401,7 @@ bool KateScript::load()
   // init API
   if (!initApi ())
     return false;
-  
+
   // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);
   if (hasException(result, m_url)) {
@@ -279,12 +428,20 @@ bool KateScript::hasException(const QScriptValue& object, const QString& file)
 }
 
 
-void KateScript::initEngine() {
+void KateScript::initEngine()
+{
   // set the view/document objects as necessary
   m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
   m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
 
+  // export debug scripts
   m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
+
+  // export translation functions
+  m_engine->globalObject().setProperty("i18n", m_engine->newFunction(Kate::Script::i18n));
+  m_engine->globalObject().setProperty("i18nc", m_engine->newFunction(Kate::Script::i18nc));
+  m_engine->globalObject().setProperty("i18ncp", m_engine->newFunction(Kate::Script::i18ncp));
+  m_engine->globalObject().setProperty("i18np", m_engine->newFunction(Kate::Script::i18np));
 }
 
 bool KateScript::setView(KateView *view)

@@ -205,6 +205,26 @@ class KTEXTEDITOR_EXPORT MovingRange
      *                  removes the previous MovingRangeFeedback.
      */
     virtual void setFeedback (MovingRangeFeedback *feedback) = 0;
+    
+    /**
+     * Gets the current Z-depth of this range.
+     * Ranges with smaller Z-depth than others will win during rendering.
+     * Default is 0.0.
+     * 
+     * \return current Z-depth of this range
+     */
+    virtual qreal zDepth () const = 0;
+    
+    /**
+     * Set the current Z-depth of this range.
+     * Ranges with smaller Z-depth than others will win during rendering.
+     * This will trigger update of the relevant view parts, if the depth changed.
+     * Set depth before the attribute, that will avoid not needed redraws.
+     * Default is 0.0.
+     * 
+     * \param zDepth new Z-depth of this range
+     */
+    virtual void setZDepth (qreal zDepth) = 0;
 
     /**
      * Destruct the moving range.

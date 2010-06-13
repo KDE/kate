@@ -410,7 +410,7 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab()
     // sizemanagment
   QGridLayout *grid = new QGridLayout( this );
 
-  m_fontchooser = new KFontChooser ( this, false, QStringList(), false );
+  m_fontchooser = new KFontChooser ( this, KFontChooser::NoDisplayFlags );
   grid->addWidget( m_fontchooser, 0, 0);
 
   m_schema = -1;

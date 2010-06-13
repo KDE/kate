@@ -68,12 +68,13 @@ class KATEPART_TESTS_EXPORT TextHistory {
 
     /**
      * Transform a cursor from one revision to an other.
-     * @param cursor cursor to transform
+     * @param line line number of the cursor to transform
+     * @param column column number of the cursor to transform
      * @param insertBehavior behavior of this cursor on insert of text at it's position
      * @param fromRevision from this revision we want to transform
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
-    void transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
+    void transformCursor (int& line, int& column, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
 
     /**
      * Transform a range from one revision to an other.
@@ -96,7 +97,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * @param cursor cursor to transform
          * @param moveOnInsert behavior of this cursor on insert of text at it's position
          */
-        void transformCursor (KTextEditor::Cursor &cursor, bool moveOnInsert) const;
+        void transformCursor (int line, int column, bool moveOnInsert) const;
 
         /**
          * Types of entries, matching editing primitives of buffer and placeholder

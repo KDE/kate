@@ -200,7 +200,7 @@ void TextHistory::unlockRevision (qint64 revision)
   }
 }
 
-void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool moveOnInsert) const
+void TextHistory::Entry::transformCursor (int cursorLine, int cursorColumn, bool moveOnInsert) const
 {
   /**
    * simple stuff, sort out generic things
@@ -209,7 +209,7 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
   /**
    * no change, if this change is in line behind cursor
    */
-  if (line > cursor.line ())
+  if (line > cursorLine)
     return;
 
   /**
@@ -223,25 +223,25 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
       /**
        * we wrap this line
        */
-      if (cursor.line() == line) {
+      if (cursorLine == line) {
         /**
          * skip cursors with too small column
          */
-        if (cursor.column() <= column) {
-          if (cursor.column() < column || !moveOnInsert)
+        if (cursorColumn <= column) {
+          if (cursorColumn < column || !moveOnInsert)
             return;
         }
 
         /**
          * adjust column
          */
-        cursor.setColumn (cursor.column() - column);
+        cursorColumn =  cursorColumn - column;
       }
 
       /**
        * always increment cursor line
        */
-      cursor.setLine (cursor.line() + 1);
+      cursorLine +=  1;
       return;
 
     /**
@@ -251,13 +251,13 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
       /**
        * we unwrap this line, adjust column
        */
-      if (cursor.line() == line)
-        cursor.setColumn (cursor.column() + oldLineLength);
+      if (cursorLine == line)
+        cursorColumn +=  oldLineLength;
 
       /**
        * decrease cursor line
        */
-      cursor.setLine (cursor.line() - 1);
+      cursorLine -= 1;
       return;
 
     /**
@@ -267,21 +267,21 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
       /**
        * only interesting, if same line
        */
-      if (cursor.line() != line)
+      if (cursorLine != line)
         return;
 
       // skip cursors with too small column
-      if (cursor.column() <= column)
-        if (cursor.column() < column || !moveOnInsert)
+      if (cursorColumn <= column)
+        if (cursorColumn < column || !moveOnInsert)
           return;
 
       // patch column of cursor
-      if (cursor.column() <= oldLineLength)
-        cursor.setColumn (cursor.column () + length);
+      if (cursorColumn <= oldLineLength)
+        cursorColumn += length;
 
       // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
-      else if (cursor.column() < (oldLineLength + length))
-        cursor.setColumn (oldLineLength + length);
+      else if (cursorColumn < oldLineLength + length)
+        cursorColumn =  oldLineLength + length;
 
       return;
 
@@ -292,18 +292,18 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
       /**
        * only interesting, if same line
        */
-      if (cursor.line() != line)
+      if (cursorLine != line)
         return;
 
       // skip cursors with too small column
-      if (cursor.column() <= column)
+      if (cursorColumn <= column)
           return;
 
       // patch column of cursor
-      if (cursor.column() <= (column + length))
-        cursor.setColumn (column);
+      if (cursorColumn <= column + length)
+        cursorColumn =  column;
       else
-        cursor.setColumn (cursor.column () - length);
+        cursorColumn -=  length;
 
       return;
 
@@ -315,7 +315,7 @@ void TextHistory::Entry::transformCursor (KTextEditor::Cursor &cursor, bool move
   }
 }
 
-void TextHistory::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision)
+void TextHistory::transformCursor (int& line, int& column, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision)
 {
   /**
    * -1 special meaning for toRevision
@@ -345,7 +345,7 @@ void TextHistory::transformCursor (KTextEditor::Cursor &cursor, KTextEditor::Mov
   bool moveOnInsert = insertBehavior == KTextEditor::MovingCursor::MoveOnInsert;
   for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
     const Entry &entry = m_historyEntries[rev];
-    entry.transformCursor (cursor, moveOnInsert);
+    entry.transformCursor (line, column, moveOnInsert);
   }
 }
 
@@ -387,29 +387,38 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
    */
 
   // first: copy cursors, without range association
-  KTextEditor::Cursor start = range.start ();
-  KTextEditor::Cursor end = range.end ();
-
+  int startLine = range.start().line(), startColumn = range.start().column(), endLine = range.end().line(), endColumn = range.end().column();
+  
   bool moveOnInsertStart = !(insertBehaviors & KTextEditor::MovingRange::ExpandLeft);
   bool moveOnInsertEnd = (insertBehaviors & KTextEditor::MovingRange::ExpandRight);
   for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
     const Entry &entry = m_historyEntries[rev];
-    entry.transformCursor (start, moveOnInsertStart);
-    entry.transformCursor (end, moveOnInsertEnd);
+    
+    entry.transformCursor (startLine, startColumn, moveOnInsertStart);
+    
+    entry.transformCursor (endLine, endColumn, moveOnInsertEnd);
 
     // got empty?
-    if (invalidateIfEmpty && end <= start) {
-      range = KTextEditor::Range::invalid();
-      return;
+    if(endLine < startLine || (endLine == startLine && endColumn <= startColumn))
+    {
+      if (invalidateIfEmpty) {
+        range = KTextEditor::Range::invalid();
+        return;
+      }
+      else{
+        // else normalize them
+        endLine = startLine;
+        endColumn = startColumn;
+      }
     }
-
-    // else normalize them
-    if (end < start)
-      end = start;
   }
 
   // now, copy cursors back
-  range.setRange (start, end);
+  range.start().setLine(startLine);
+  range.start().setColumn(startColumn);
+  range.end().setLine(endLine);
+  range.end().setColumn(endColumn);
+  
 }
 
 }

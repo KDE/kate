@@ -624,6 +624,16 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual void transformCursor (KTextEditor::Cursor &cursor, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
 
     /**
+     * Transform a cursor from one revision to an other.
+     * @param line line number of the cursor to transform
+     * @param column column number of the cursor to transform
+     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param fromRevision from this revision we want to transform
+     * @param toRevision to this revision we want to transform, default of -1 is current revision
+     */
+    virtual void transformCursor (int& line, int& column, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
+    
+    /**
      * Transform a range from one revision to an other.
      * @param range range to transform
      * @param insertBehaviors behavior of this range on insert of text at it's position

@@ -38,11 +38,7 @@ class KateRegExp
     QString cap(int nth = 0) const { return m_regExp.cap(nth); }
     int matchedLength() const { return m_regExp.matchedLength(); }
 
-    int indexIn(const QString &str, int offset = 0,
-        QRegExp::CaretMode caretMode = QRegExp::CaretAtZero)
-    {
-      return m_regExp.indexIn(str, offset, caretMode);
-    }
+    int indexIn(const QString &str, int offset, int end) const;
 
     /**
      * This function is a replacement for QRegExp.lastIndexIn that
@@ -53,11 +49,9 @@ class KateRegExp
      *
      * \param str        Text to search in
      * \param offset     Offset (-1 starts from end, -2 from one before the end)
-     * \param caretMode  Meaning of caret (^) in the regular expression
      * \return           Index of match or -1 if no match is found
      */
-    int lastIndexIn(const QString & str, int offset = -1,
-        QRegExp::CaretMode caretMode = QRegExp::CaretAtZero);
+    int lastIndexIn(const QString &str, int offset, int end) const;
 
     /**
      * Repairs a regular Expression pattern.

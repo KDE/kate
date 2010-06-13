@@ -280,8 +280,8 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     }
 
     const int pos = backwards
-        ? regexp.lastIndexIn(wholeDocument, -1, QRegExp::CaretAtZero)
-        : regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
+        ? regexp.lastIndexIn(wholeDocument, 0, wholeDocument.length())
+        : regexp.indexIn(wholeDocument, 0, wholeDocument.length());
     if (pos == -1)
     {
       // no match
@@ -466,12 +466,9 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
-        const int afterLast = (j == forMax) ? maxRight : textLine.length();
-        const QString hay = textLine.mid(first, afterLast-first);
-        const int foundAt = first + (backwards ? regexp.lastIndexIn(hay)
-                                               : regexp.indexIn(hay));
-        const bool found = (foundAt >= first);
-        const uint myMatchLen = found ? regexp.matchedLength() : 0;
+        const int foundAt = (backwards ? regexp.lastIndexIn(textLine, first, maxRight)
+                                       : regexp.indexIn(textLine, first, maxRight));
+        const bool found = (foundAt != -1);
 
       /*
       TODO do we still need this?
@@ -497,12 +494,12 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         // build result array
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
-        result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
+        result[0] = KTextEditor::Range(j, foundAt, j, foundAt + regexp.matchedLength());
         FAST_DEBUG("result range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
         for (int y = 1; y <= numCaptures; y++)
         {
-          const int openIndex = first + regexp.pos(y);
-          if (openIndex < first)
+          const int openIndex = regexp.pos(y);
+          if (openIndex == -1)
           {
             result[y] = KTextEditor::Range::invalid();
             FAST_DEBUG("capture []");

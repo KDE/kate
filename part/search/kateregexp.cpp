@@ -305,55 +305,31 @@ bool KateRegExp::isMultiLine() const
 
 
 
-int KateRegExp::lastIndexIn(const QString & str,
-        int offset, QRegExp::CaretMode caretMode) {
-    int prevPos = -1;
-    int prevLen = 1;
-    const int strLen = str.length();
-    for (;;) {
-        const int pos = m_regExp.indexIn(str, prevPos + prevLen, caretMode);
-        if (pos == -1) {
-            // No more matches
-            break;
-        } else {
-            const int len = m_regExp.matchedLength();
-            if (pos > strLen + offset + 1) {
-                // Gone too far, match in no way of use
-                break;
-            }
+int KateRegExp::indexIn(const QString &str, int start, int end) const
+{
+  const int index = m_regExp.indexIn(str, start, QRegExp::CaretAtZero);
 
-            if (pos + len > strLen + offset + 1) {
-                // Gone too far, check if usable
-                if (offset == -1) {
-                    // No shrinking possible
-                    break;
-                }
+  if (index != -1 && index + m_regExp.matchedLength() > end)
+    return -1;
 
-                const QString str2 = str.mid(0, strLen + offset + 1);
-                const int pos2 = m_regExp.indexIn(str2, pos, caretMode);
-                if (pos2 != -1) {
-                    // Match usable
-                    return pos2;
-                } else {
-                    // Match NOT usable
-                    break;
-                }
-            }
+  return index;
+}
 
-            // Valid match, but maybe not the last one
-            prevPos = pos;
-            prevLen = (len == 0) ? 1 : len;
-        }
-    }
 
-    // Previous match is what we want
-    if (prevPos != -1) {
-        // Do that very search again
-        m_regExp.indexIn(str, prevPos, caretMode);
-        return prevPos;
-    } else {
-        return -1;
-    }
+
+int KateRegExp::lastIndexIn(const QString &str, int start, int end) const
+{
+  const int index = m_regExp.lastIndexIn(str.mid(start, end-start), -1, QRegExp::CaretAtZero);
+
+  if (index == -1)
+    return -1;
+
+  const int index2 = m_regExp.indexIn(str, start+index, QRegExp::CaretAtZero);
+
+  if (index2 != -1 && index2 + m_regExp.matchedLength() > end)
+    return -1;
+
+  return index2;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

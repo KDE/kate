@@ -71,7 +71,7 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
       highestPriorityIndenter = indenter;
     }
   }
-  
+
 #ifdef DEBUG_SCRIPTMANAGER
   if(highestPriorityIndenter) {
     kDebug(13050) << "Found indenter" << highestPriorityIndenter->url() << "for" << language;
@@ -192,17 +192,17 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         else {
           header.setIndentLanguages(QStringList() << header.name());
-          
+
 #ifdef DEBUG_SCRIPTMANAGER
           kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
                     << "script " << qPrintable(fileName) << ". Using the name ("
                     << qPrintable(header.name()) << ")\n";
-#endif                    
+#endif
         }
         // priority?
         bool convertedToInt;
         int priority = pairs.take("priority").toInt(&convertedToInt);
-        
+
 #ifdef DEBUG_SCRIPTMANAGER
         if(!convertedToInt) {
           kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
@@ -253,7 +253,7 @@ void KateScriptManager::collect(const QString& resourceFile,
   if(indenter("lisp"))
     kDebug( 13050 ) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
 #endif
-  
+
   cfgFile.sync();
 }
 
@@ -297,13 +297,13 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
     QString key = line.mid(start, colon - start).trimmed();
     QString value = line.right(line.length() - (colon + 1)).trimmed();
     pairs[key] = value;
-    
+
 #ifdef DEBUG_SCRIPTMANAGER
     kDebug(13050) << "KateScriptManager::parseMetaInformation: found pair: "
                   << "(" << key << " | " << value << ")";
-#endif  
+#endif
   }
-  
+
   return true;
 }
 
@@ -361,42 +361,40 @@ const QStringList &KateScriptManager::cmds()
 
 
 
-const QString KateScriptManager::registerTemplateScript (QObject* owner, const QString& script) {
-  static uint counter=0;
-  QUuid tokenId=QUuid::createUuid();
+const QString KateScriptManager::registerTemplateScript (QObject* owner, const QString& script)
+{
+  static uint counter = 0;
+  QUuid tokenId = QUuid::createUuid();
   ++counter;
-  QString token=QString("%1").arg(counter)+tokenId.toString();
-  
+  QString token = QString("%1").arg(counter) + tokenId.toString();
+
   m_tokenTemplateScript.insert(token, new KateTemplateScript(script));
-    
-  connect (owner,SIGNAL(destroyed(QObject*)),this,SLOT(slotTemplateScriptOwnerDestroyed(QObject*)));
-  m_ownerScriptTokens.insertMulti(owner,token);
+
+  connect(owner, SIGNAL(destroyed(QObject*)),
+          this, SLOT(slotTemplateScriptOwnerDestroyed(QObject*)));
+  m_ownerScriptTokens.insertMulti(owner, token);
   return token;
 }
 
-void KateScriptManager::unregisterTemplateScript(const QString& scriptToken) {
-  QObject* k=m_ownerScriptTokens.key(scriptToken);
+void KateScriptManager::unregisterTemplateScript(const QString& scriptToken)
+{
+  QObject* k = m_ownerScriptTokens.key(scriptToken);
   if (!k) return;
-  m_ownerScriptTokens.remove(k,scriptToken);
+  m_ownerScriptTokens.remove(k, scriptToken);
   delete m_tokenTemplateScript.take(scriptToken);
 }
-  
-void KateScriptManager::callTestIt(KateView* view, const QString & token) {
-  kDebug()<<"Invoking testit";
-  KateTemplateScript *script=m_tokenTemplateScript[token];
-  script->invoke(view,"testit","BLAH");
-  kDebug()<<"Testit has been invoked";
-}
-  
-void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner) {
-  while(m_ownerScriptTokens.contains(owner)) {
-    QString token=m_ownerScriptTokens.take(owner);
-    kDebug()<<"Destroying template script"<<token;
+
+void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner)
+{
+  while (m_ownerScriptTokens.contains(owner)) {
+    QString token = m_ownerScriptTokens.take(owner);
+    kDebug() << "Destroying template script" << token;
     delete m_tokenTemplateScript.take(token);
   }
 }
 
-KateTemplateScript* KateScriptManager::templateScript(const QString& scriptToken) {
+KateTemplateScript* KateScriptManager::templateScript(const QString& scriptToken)
+{
   return m_tokenTemplateScript[scriptToken];
 }
 

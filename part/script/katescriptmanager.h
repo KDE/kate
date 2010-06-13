@@ -126,7 +126,7 @@ class KateScriptManager : public QObject, public KTextEditor::Command
     /** List of all command line scripts */
     QVector<KateCommandLineScript*> m_commandLineScripts;
 
-    /** * list of all indentation scripts */
+    /** list of all indentation scripts */
     QList<KateIndentScript*> m_indentationScripts;
 
     /** hash of all existing indenter scripts, hashes basename -> script */
@@ -134,21 +134,22 @@ class KateScriptManager : public QObject, public KTextEditor::Command
 
     /** Map of language to indent scripts */
     QHash<QString, QVector<KateIndentScript*> > m_languageToIndenters;
-    
-    
+
+
+  //
+  // Template handling
+  //
   public:
     /** managing of scripts for the template handler. The scripts are given as string content, not as  files*/
     const QString registerTemplateScript (QObject* owner, const QString& script);
     /** unregister a given script */
     void unregisterTemplateScript(const QString& scriptToken);
 
-
     KateTemplateScript* templateScript(const QString& scriptToken);
-    
-    void callTestIt(KateView* view, const QString & token);
+
   public Q_SLOTS:
     void slotTemplateScriptOwnerDestroyed(QObject* owner);
-    
+
   private:
     QMultiMap<QObject*, QString> m_ownerScriptTokens;
     QHash<QString, KateTemplateScript*> m_tokenTemplateScript;

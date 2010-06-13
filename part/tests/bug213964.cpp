@@ -130,11 +130,10 @@ void BugTest::reproduceCrash()
   doc.buffer().ensureHighlighted (75);
   doc.foldingTree()->collapseToplevelNodes();
   doc.buffer().ensureHighlighted (75);
-  QTest::qWait(200);
 
   doc.insertText(Cursor(6, 0), "(");
-  QTest::qWait(200);
   qDebug() << "!!! The next line usually crashes in the code folding code";
+  QTest::qWait(500);
   doc.insertText(Cursor(6, 1), "'");
   qDebug() << "!!! Huh, no crash. qWait above not long enough?";
 }

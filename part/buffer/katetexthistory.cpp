@@ -200,7 +200,7 @@ void TextHistory::unlockRevision (qint64 revision)
   }
 }
 
-void TextHistory::Entry::transformCursor (int cursorLine, int cursorColumn, bool moveOnInsert) const
+void TextHistory::Entry::transformCursor (int &cursorLine, int &cursorColumn, bool moveOnInsert) const
 {
   /**
    * simple stuff, sort out generic things

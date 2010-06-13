@@ -94,10 +94,11 @@ class KATEPART_TESTS_EXPORT TextHistory {
       public:
         /**
          * transform cursor for this history entry
-         * @param cursor cursor to transform
+         * @param line line number of the cursor to transform
+         * @param column column number of the cursor to transform
          * @param moveOnInsert behavior of this cursor on insert of text at it's position
          */
-        void transformCursor (int line, int column, bool moveOnInsert) const;
+        void transformCursor (int &line, int &column, bool moveOnInsert) const;
 
         /**
          * Types of entries, matching editing primitives of buffer and placeholder

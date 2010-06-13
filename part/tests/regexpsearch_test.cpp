@@ -178,6 +178,56 @@ void RegExpSearchTest::testReplacementCounter()
   QCOMPARE(result, expected);
 }
 
+void RegExpSearchTest::testAnchoredRegexp_data()
+{
+  QTest::addColumn<QString>("pattern");
+  QTest::addColumn<Range>("inputRange");
+  QTest::addColumn<bool>("backwards");
+  QTest::addColumn<Range>("expected");
+
+  testNewRow() << "^fe" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 2);
+  testNewRow() << "^fe" << Range(0, 0, 0, 1) << false << Range::invalid();
+  testNewRow() << "^fe" << Range(0, 0, 0, 2) << false << Range(0, 0, 0, 2);
+  testNewRow() << "^fe" << Range(0, 3, 0, 8) << false << Range::invalid(); // only match at line start
+  testNewRow() << "^fe" << Range(0, 0, 0, 2) << true << Range(0, 0, 0, 2);
+  testNewRow() << "^fe" << Range(0, 0, 0, 1) << true << Range::invalid();
+  testNewRow() << "^fe" << Range(0, 0, 0, 2) << true << Range(0, 0, 0, 2);
+  testNewRow() << "^fe" << Range(0, 3, 0, 8) << true << Range::invalid();
+
+  testNewRow() << "fe$" << Range(0, 0, 0, 8) << false << Range(0, 6, 0, 8);
+  testNewRow() << "fe$" << Range(0, 7, 0, 8) << false << Range::invalid();
+  testNewRow() << "fe$" << Range(0, 6, 0, 8) << false << Range(0, 6, 0, 8);
+  testNewRow() << "fe$" << Range(0, 0, 0, 5) << false << Range::invalid(); // only match at line end
+  testNewRow() << "fe$" << Range(0, 0, 0, 8) << true << Range(0, 6, 0, 8);
+  testNewRow() << "fe$" << Range(0, 7, 0, 8) << true << Range::invalid();
+  testNewRow() << "fe$" << Range(0, 6, 0, 8) << true << Range(0, 6, 0, 8);
+  testNewRow() << "fe$" << Range(0, 0, 0, 5) << true << Range::invalid();
+
+  testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
+  testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 8) << false << Range::invalid();
+  testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 5) << false << Range::invalid();
+  testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);
+  testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 8) << true << Range::invalid();
+  testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 5) << true << Range::invalid();
+}
+
+void RegExpSearchTest::testAnchoredRegexp()
+{
+  QFETCH(QString, pattern);
+  QFETCH(Range, inputRange);
+  QFETCH(bool, backwards);
+  QFETCH(Range, expected);
+
+  KateDocument doc(false, false, false);
+  doc.setText("fe fe fe");
+
+  KateRegExpSearch searcher(&doc, Qt::CaseInsensitive);
+
+  const Range result = searcher.search(pattern, inputRange, backwards)[0];
+
+  QCOMPARE(result, expected);
+}
+
 void RegExpSearchTest::testSearchForward()
 {
   KateDocument doc(false, false, false);

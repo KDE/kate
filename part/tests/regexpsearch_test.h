@@ -43,8 +43,11 @@ class RegExpSearchTest : public QObject
     void testReplacementCounter_data();
     void testReplacementCounter();
 
+    void testAnchoredRegexp_data();
+    void testAnchoredRegexp();
+
     void testSearchForward();
-  
+
     void testSearchBackwardInSelection();
 
     void test();

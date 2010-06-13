@@ -197,6 +197,26 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * @param onlyForViews attribute only valid for views
      */
     void setAttributeOnlyForViews (bool onlyForViews);
+    
+    /**
+     * Gets the current Z-depth of this range.
+     * Ranges with smaller Z-depth than others will win during rendering.
+     * Default is 0.0.
+     * 
+     * \return current Z-depth of this range
+     */
+    qreal zDepth () const { return m_zDepth; }
+    
+    /**
+     * Set the current Z-depth of this range.
+     * Ranges with smaller Z-depth than others will win during rendering.
+     * This will trigger update of the relevant view parts, if the depth changed.
+     * Set depth before the attribute, that will avoid not needed redraws.
+     * Default is 0.0.
+     * 
+     * \param zDepth new Z-depth of this range
+     */
+    void setZDepth (qreal zDepth);
 
   private:
     /**
@@ -249,6 +269,11 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * pointer to the active MovingRangeFeedback
      */
     KTextEditor::MovingRangeFeedback *m_feedback;
+    
+    /**
+     * Z-depth of this range for rendering
+     */
+    qreal m_zDepth;
 
     /**
      * Is this range's attribute only visible in views, not for example prints?

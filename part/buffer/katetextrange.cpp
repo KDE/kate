@@ -32,6 +32,7 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_end (buffer, this, range.end(), (insertBehavior & ExpandRight) ? Kate::TextCursor::MoveOnInsert : Kate::TextCursor::StayOnInsert)
   , m_view (0)
   , m_feedback (0)
+  , m_zDepth (0.0)
   , m_attributeOnlyForViews (false)
   , m_invalidateIfEmpty (emptyBehavior == InvalidateIfEmpty)
 {
@@ -300,6 +301,26 @@ void TextRange::setAttributeOnlyForViews (bool onlyForViews)
      * just set the value, no need to trigger updates, printing is not interruptable
      */
     m_attributeOnlyForViews = onlyForViews;
+}
+
+void TextRange::setZDepth (qreal zDepth)
+{
+  /**
+   * nothing changes, nop
+   */
+  if (zDepth == m_zDepth)
+    return;
+
+  /**
+   * remember the new attribute
+   */
+  m_zDepth = zDepth;
+
+  /**
+   * notify buffer about attribute change, it will propagate the changes
+   */
+  if (m_attribute)
+    m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), m_attribute);
 }
 
 KTextEditor::Document *Kate::TextRange::document () const

@@ -307,12 +307,7 @@ bool KateRegExp::isMultiLine() const
 
 int KateRegExp::indexIn(const QString &str, int start, int end) const
 {
-  const int index = m_regExp.indexIn(str, start, QRegExp::CaretAtZero);
-
-  if (index != -1 && index + m_regExp.matchedLength() > end)
-    return -1;
-
-  return index;
+  return m_regExp.indexIn(str.left(end), start, QRegExp::CaretAtZero);
 }
 
 
@@ -324,10 +319,7 @@ int KateRegExp::lastIndexIn(const QString &str, int start, int end) const
   if (index == -1)
     return -1;
 
-  const int index2 = m_regExp.indexIn(str, start+index, QRegExp::CaretAtZero);
-
-  if (index2 != -1 && index2 + m_regExp.matchedLength() > end)
-    return -1;
+  const int index2 = m_regExp.indexIn(str.left(end), start+index, QRegExp::CaretAtZero);
 
   return index2;
 }

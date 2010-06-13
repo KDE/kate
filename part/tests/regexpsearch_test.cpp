@@ -185,6 +185,9 @@ void RegExpSearchTest::testAnchoredRegexp_data()
   QTest::addColumn<bool>("backwards");
   QTest::addColumn<Range>("expected");
 
+  testNewRow() << "fe" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 2);
+  testNewRow() << "fe" << Range(0, 0, 0, 8) << true << Range(0, 6, 0, 8);
+
   testNewRow() << "^fe" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 2);
   testNewRow() << "^fe" << Range(0, 0, 0, 1) << false << Range::invalid();
   testNewRow() << "^fe" << Range(0, 0, 0, 2) << false << Range(0, 0, 0, 2);
@@ -197,18 +200,41 @@ void RegExpSearchTest::testAnchoredRegexp_data()
   testNewRow() << "fe$" << Range(0, 0, 0, 8) << false << Range(0, 6, 0, 8);
   testNewRow() << "fe$" << Range(0, 7, 0, 8) << false << Range::invalid();
   testNewRow() << "fe$" << Range(0, 6, 0, 8) << false << Range(0, 6, 0, 8);
-  testNewRow() << "fe$" << Range(0, 0, 0, 5) << false << Range::invalid(); // only match at line end
+  testNewRow() << "fe$" << Range(0, 0, 0, 5) << false << Range::invalid(); // only match at line end, fails
   testNewRow() << "fe$" << Range(0, 0, 0, 8) << true << Range(0, 6, 0, 8);
   testNewRow() << "fe$" << Range(0, 7, 0, 8) << true << Range::invalid();
   testNewRow() << "fe$" << Range(0, 6, 0, 8) << true << Range(0, 6, 0, 8);
-  testNewRow() << "fe$" << Range(0, 0, 0, 5) << true << Range::invalid();
+  testNewRow() << "fe$" << Range(0, 0, 0, 5) << true << Range::invalid();  // fails due to $-shortcoming in QRegExp
 
   testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
   testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 8) << false << Range::invalid();
   testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 5) << false << Range::invalid();
+  testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 5) << false << Range::invalid();
   testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);
   testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 8) << true << Range::invalid();
   testNewRow() << "^fe fe fe$" << Range(0, 0, 0, 5) << true << Range::invalid();
+  testNewRow() << "^fe fe fe$" << Range(0, 3, 0, 5) << true << Range::invalid();
+
+  testNewRow() << "^fe( fe)*$" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
+  testNewRow() << "^fe( fe)*"  << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
+  testNewRow() <<  "fe( fe)*$" << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
+  testNewRow() <<  "fe( fe)*"  << Range(0, 0, 0, 8) << false << Range(0, 0, 0, 8);
+  testNewRow() << "^fe( fe)*$" << Range(0, 3, 0, 8) << false << Range::invalid();
+  testNewRow() <<  "fe( fe)*$" << Range(0, 3, 0, 8) << false << Range(0, 3, 0, 8);
+  testNewRow() << "^fe( fe)*$" << Range(0, 0, 0, 5) << false << Range::invalid();  // fails due to $-shortcoming in QRegExp
+  testNewRow() << "^fe( fe)*"  << Range(0, 0, 0, 5) << false << Range(0, 0, 0, 5);
+  testNewRow() << "^fe( fe)*$" << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);
+  testNewRow() << "^fe( fe)*"  << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);
+  testNewRow() <<  "fe( fe)*$" << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);  // fails, shouldn't matching be greedy?
+  testNewRow() <<  "fe( fe)*"  << Range(0, 0, 0, 8) << true << Range(0, 0, 0, 8);  // fails, shouldn't matching be greedy?
+  testNewRow() << "^fe( fe)*$" << Range(0, 3, 0, 8) << true << Range::invalid();
+  testNewRow() <<  "fe( fe)*$" << Range(0, 3, 0, 8) << true << Range(0, 3, 0, 8);  // fails, shouldn't matching be greedy?
+  testNewRow() << "^fe( fe)*$" << Range(0, 0, 0, 5) << true << Range::invalid();   // fails due to $-shortcoming in QRegExp
+
+  testNewRow() << "^fe|fe$" << Range(0, 0, 0, 5) << false << Range(0, 0, 0, 2);
+  testNewRow() << "^fe|fe$" << Range(0, 3, 0, 8) << false << Range(0, 6, 0, 8);
+  testNewRow() << "^fe|fe$" << Range(0, 0, 0, 5) << true << Range(0, 0, 0, 2);  // fails due to $-shortcoming in QRegExp
+  testNewRow() << "^fe|fe$" << Range(0, 3, 0, 8) << true << Range(0, 6, 0, 8);
 }
 
 void RegExpSearchTest::testAnchoredRegexp()
@@ -222,6 +248,11 @@ void RegExpSearchTest::testAnchoredRegexp()
   doc.setText("fe fe fe");
 
   KateRegExpSearch searcher(&doc, Qt::CaseInsensitive);
+
+  static int i = 0;
+  if (i == 34 || i == 36)
+    qDebug() << i;
+  i++;
 
   const Range result = searcher.search(pattern, inputRange, backwards)[0];
 

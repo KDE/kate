@@ -100,16 +100,16 @@ class KateScriptHeader
 class KateScript {
   public:
 
-  enum InputType {
-    InputURL,
-    InputSCRIPT
-  };
+    enum InputType {
+      InputURL,
+      InputSCRIPT
+    };
 
     /**
      * Create a new script representation, passing a file @p url to it.
      * Loading of the script will happen lazily
      */
-    KateScript(const QString &urlOrScript, enum InputType inputType=InputURL);
+    KateScript(const QString &urlOrScript, enum InputType inputType = InputURL);
     virtual ~KateScript();
 
     /** The script's URL */

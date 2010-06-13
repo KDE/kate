@@ -112,6 +112,7 @@ Changes:
       <item> or </item>
       <item> xor </item>
       <item> var </item>
+      <item> namespace </item>
       <!-- magic constants, see http://php.net/manual/en/language.constants.predefined.php -->
       <item> __LINE__ </item>
       <item> __FILE__ </item>

@@ -23,6 +23,8 @@
 #include "katetextbuffer.h"
 #include "katecodefolding.h"
 
+#include "katepartprivate_export.h"
+
 #include <QtCore/QObject>
 
 class KateLineInfo;
@@ -35,7 +37,7 @@ class KateHighlighting;
  * @author Waldo Bastian <bastian@kde.org>
  * @author Christoph Cullmann <cullmann@kde.org>
  */
-class KateBuffer : public Kate::TextBuffer
+class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
 {
   Q_OBJECT
 

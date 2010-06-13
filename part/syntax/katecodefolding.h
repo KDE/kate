@@ -26,6 +26,8 @@
 #include <QtCore/QList>
 #include <QtCore/QVector>
 
+#include "katepartprivate_export.h"
+
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
 class KateBuffer;
@@ -121,7 +123,7 @@ class KateCodeFoldingNode
     QVector<KateCodeFoldingNode*> m_children;
 };
 
-class KateCodeFoldingTree : public QObject
+class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 {
   friend class KateCodeFoldingNode;
 

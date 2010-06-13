@@ -190,6 +190,17 @@ kde4_add_unit_test(indenttest ${indenttest_SRCS})
 
 target_link_libraries(indenttest ${KATE_TEST_LINK_LIBS})
 
+########### bug 213964 test ###############
+
+kde4_add_unit_test(bug213964_test bug213964.cpp)
+
+target_link_libraries( bug213964_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

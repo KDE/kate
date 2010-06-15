@@ -82,8 +82,8 @@
 
   <context name="FindPango" attribute="Normal Text" lineEndContext="#stay">
     <DetectSpaces/>
-    <RegExpr attribute="Element" context="#stay" String="&lt;/(span|b|big|i|s|sub|sup|small|tt|u)&gt;" />
-    <RegExpr attribute="Element" context="FindAttributes" String="&lt;(span|b|big|i|s|sub|sup|small|tt|u)" />
+    <RegExpr attribute="Element" context="#stay" String="&lt;/(span|b|big|i|s|sub|sup|small|tt|u)&gt;" endRegion="pango_node" />
+    <RegExpr attribute="Element" context="FindAttributes" String="&lt;(span|b|big|i|s|sub|sup|small|tt|u)" beginRegion="pango_node" />
     <DetectIdentifier />
   </context>
 
@@ -174,5 +174,6 @@
 
 </highlighting>
 <general>
+<indentation mode="xml" />
 </general>
 </language>

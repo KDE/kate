@@ -665,7 +665,6 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
     editInsertLine(position.line(),QString());
 
   int currentLine = position.line();
-  int currentLineStart = 0;
   int insertColumn = position.column();
 
   bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
@@ -683,6 +682,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   foreach (const QString &text, textLines)
   {
     int pos = 0;
+    int currentLineStart = 0;
     for (; pos < text.length(); pos++)
     {
       const QChar& ch = text.at(pos);
@@ -695,7 +695,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
 
         if ( !block )
         {
-          editWrapLine(currentLine, pos + insertColumn);
+          editWrapLine(currentLine, pos + insertColumn - currentLineStart);
           insertColumn = 0;
         }
         else

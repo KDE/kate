@@ -2189,7 +2189,6 @@ Changes:
       <item> define_syslog_variables </item>
       <item> defined </item>
       <item> deg2rad </item>
-      <item> delete </item>
       <item> dgettext </item>
       <item> die </item>
       <item> dio_close </item>

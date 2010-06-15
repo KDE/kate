@@ -32,6 +32,7 @@ public:
 
 private Q_SLOTS:
   void testWordWrap();
+  void testReplaceQStringList();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

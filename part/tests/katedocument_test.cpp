@@ -80,3 +80,18 @@ void KateDocumentTest::testWordWrap()
     QCOMPARE(doc.text(), secondWrap);
     QCOMPARE(c->toCursor(), Cursor(1, 15));
 }
+
+void KateDocumentTest::testReplaceQStringList()
+{
+    KateDocument doc(false, false, false);
+    doc.setWordWrap(false);
+    doc.setText("asdf\n"
+                "foo\n"
+                "foo\n"
+                "bar\n");
+    doc.replaceText( Range(1, 0, 2, 3), QStringList() << "new\n" << "text\n", false );
+    QCOMPARE(doc.text(), QString("asdf\n"
+                                 "new\n"
+                                 "text\n"
+                                 "bar\n"));
+}

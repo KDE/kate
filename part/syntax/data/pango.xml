@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Pango" version="0.1" kateversion="2.4" section="Markup" extensions="" mimetype=""  author="Jonathan Schmidt-Domniné &lt;devel@the-user.org&gt;" license="LGPL" priority="10">
+
+<highlighting>
+    
+  <list name="tags">
+      <item> &lt;span </item>
+      <item> &lt;b </item>
+      <item> &lt;big </item>
+      <item> &lt;i </item>
+      <item> &lt;s </item>
+      <item> &lt;sub </item>
+      <item> &lt;sup </item>
+      <item> &lt;small </item>
+      <item> &lt;tt </item>
+      <item> &lt;u </item>
+  </list>
+  
+  <list name="endtags">
+      <item> &lt;/span&gt; </item>
+      <item> &lt;/b&gt; </item>
+      <item> &lt;/big&gt; </item>
+      <item> &lt;/i&gt; </item>
+      <item> &lt;/s&gt; </item>
+      <item> &lt;/sub&gt; </item>
+      <item> &lt;/sup&gt; </item>
+      <item> &lt;/small&gt; </item>
+      <item> &lt;/tt&gt; </item>
+      <item> &lt;/u&gt; </item>
+  </list>
+  
+  <list name="int_attributes">
+      <item> size= </item>
+      <item> font_size= </item>
+      <item> rise= </item>
+      <item> letter_spacing= </item>
+  </list>
+  
+  <list name="plain_attributes">
+      <item> font= </item>
+      <item> font_desc= </item>
+      <item> font_family= </item>
+      <item> face= </item>
+      <item> lang= </item>
+  </list>
+  
+  <list name="color_attributes">
+      <item> strikethrough_color= </item>
+      <item> foreground= </item>
+      <item> fgcolor= </item>
+      <item> color= </item>
+      <item> background= </item>
+      <item> bgcolor= </item>
+      <item> underline_color= </item>
+  </list>
+  
+  <list name="colors">
+     <item> 'aqua' </item>
+     <item> 'black' </item>
+     <item> 'blue' </item>
+     <item> 'cyan' </item>
+     <item> 'fuchsia' </item>
+     <item> 'gray' </item>
+     <item> 'green' </item>
+     <item> 'lime' </item>
+     <item> 'maroon' </item>
+     <item> 'navy' </item>
+     <item> 'olive' </item>
+     <item> 'purple' </item>
+     <item> 'red' </item>
+     <item> 'silver' </item>
+     <item> 'teal' </item>
+     <item> 'white' </item>
+     <item> 'yellow' </item>
+  </list>
+
+<contexts>
+  <context name="Start" attribute="Normal Text" lineEndContext="#stay">
+    <IncludeRules context="FindPango" />
+  </context>
+
+  <context name="FindPango" attribute="Normal Text" lineEndContext="#stay">
+    <DetectSpaces/>
+    <RegExpr attribute="Element" context="#stay" String="&lt;/(span|b|big|i|s|sub|sup|small|tt|u)&gt;" />
+    <RegExpr attribute="Element" context="FindAttributes" String="&lt;(span|b|big|i|s|sub|sup|small|tt|u)" />
+    <DetectIdentifier />
+  </context>
+
+  <context name="FindAttributes" attribute="Normal Text" lineEndContext="#stay">
+      <DetectSpaces/>
+      <RegExpr attribute="Key" context="InGravity" String="gravity=" />
+      <RegExpr attribute="Key" context="InGravityHint" String="gravity_hint=" />
+      <RegExpr attribute="Key" context="InStretch" String="(font_)?stretch=" />
+      <RegExpr attribute="Key" context="InBoolean" String="(strikethrough|fallback)=" />
+      <RegExpr attribute="Key" context="InStyle" String="(font_)?style=" />
+      <RegExpr attribute="Key" context="InUnderline" String="underline=" />
+      <RegExpr attribute="Key" context="InVariant" String="(font_)?variant=" />
+      <RegExpr attribute="Key" context="InWeight" String="(font_)?weight=" />
+      <RegExpr attribute="Key" context="InInt" String="(size|font_size|rise|letter_spacing)=" />
+      <RegExpr attribute="Key" context="InString" String="(font|font_desc|font_family|face|lang)=" />
+      <RegExpr attribute="Key" context="InColor" String="(strikethrough_color|foreground|fgcolor|color|background|bgcolor|underline_color)=" />
+      <DetectChar attribute="Element" context="#pop" char="&gt;" />
+      <RegExpr attribute="Error" context="#stay" String="\S" />
+  </context>
+  
+  <context name="InGravity" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(south|east|north|west|auto)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InGravityHint" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(natural|strong|line)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InStretch" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(ultracondensed|extracondensed|condensed|semicondensed|normal|semiexpanded|expanded|extraexpanded|ultraexpanded)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InBoolean" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(false|true)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InStyle" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(normal|oblique|italic)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InUnderline" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(none|single|double|low|error)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InVariant" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'(normal|smallcaps)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+
+  <context name="InWeight" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="Decimal" context="#pop" String="'[0-9]*'" />
+      <RegExpr attribute="String" context="#pop" String="'(ultralight|light|normal|bold|ultrabold|heavy)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InColor" attribute="Color" lineEndContext="#stay">
+      <RegExpr attribute="Color" context="#pop" String="'(#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?|aqua|black|blue|cyan|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InInt" attribute="Decimal" lineEndContext="#stay">
+      <RegExpr attribute="Decimal" context="#pop" String="'(-?)[0-9]*'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+  
+  <context name="InString" attribute="String" lineEndContext="#stay">
+      <RegExpr attribute="String" context="#pop" String="'[^']*'" />
+      <RegExpr attribute="Error" context="#pop#pop" String="\S" />
+  </context>
+
+</contexts>
+<itemDatas>
+  <itemData name="Normal Text" defStyleNum="dsNormal" />
+  <itemData name="Element" defStyleNum="dsKeyword" />
+  <itemData name="Key" defStyleNum="dsOthers" />
+  <itemData name="Value" defStyleNum="dsString" color="#a00" />
+  <itemData name="Decimal" defStyleNum="dsDecVal" />
+  <itemData name="Color" defStyleNum="dsFloat" />
+  <itemData name="String" defStyleNum="dsString" />
+  <itemData name="Error" defStyleNum="dsError" />
+</itemDatas>
+
+</highlighting>
+<general>
+</general>
+</language>

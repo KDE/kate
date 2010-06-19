@@ -32,13 +32,19 @@ namespace KTextEditor
 
 class Cursor;
 
+class KTEXTEDITOR_EXPORT TemplateScript
+{
+  public:
+    virtual ~TemplateScript();
+};
+
 /**
  * @since 4.5
  * This is an interface for inserting template strings with user editable
  * fields into a document and support for scripts. Fold back into base Interface in KDE 5
  * \ingroup kte_group_view_extensions
  */
-class KTEXTEDITOR_EXPORT TemplateInterface2: public TemplateInterface 
+class KTEXTEDITOR_EXPORT TemplateInterface2: public TemplateInterface
 {
   public:
     TemplateInterface2();
@@ -47,12 +53,15 @@ class KTEXTEDITOR_EXPORT TemplateInterface2: public TemplateInterface
   public:
 
     /**
-     * See the function  description in TemplateInterface, this should be folded into the base Iterface in KDE 5
-     * @param scriptToken is a token created by registerScript
+     * See the function  description in TemplateInterface, this should be folded into the base Interface in KDE 5
+     * @param templateScript pointer to TemplateScript created by TemplateScriptRegistrar::registerTemplateScript
      */
-    bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken);
+    bool insertTemplateText ( const Cursor &insertPosition,
+                              const QString &templateString,
+                              const QMap<QString,QString> &initialValues,
+                              TemplateScript* templateScript);
 
-     
+
 protected:
     /**
      * You must implement this, it is called by insertTemplateText, after all
@@ -61,26 +70,31 @@ protected:
      * insertTemplateText above.
      * \return true if any text was inserted.
      */
-    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues,const QString& scriptToken)=0;
+    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition,
+                                                    const QString &templateString,
+                                                    const QMap<QString,QString> &initialValues,
+                                                    TemplateScript* templateScript) = 0;
 
 
-    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
+    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition,
+                                                    const QString &templateString,
+                                                    const QMap<QString,QString> &initialValues) = 0;
 
   private:
     class TemplateInterfacePrivate2* const d;
 };
 
-
 /// This is an extension for KTextEditor::Editor
+/// @since 4.5
 class KTEXTEDITOR_EXPORT TemplateScriptRegistrar {
 
 public:
     TemplateScriptRegistrar();
     virtual ~TemplateScriptRegistrar();
-  
+
     /**
      * This registeres the script, which is contained in \param script.
-     * \return the script token, returns an empty QString on error
+     * \return the template script pointer, returns an empty QString on error
      * The implementation has to register the script for all views and all documents,
      * == globally
      * If owner is destructed, all scripts owned by it are automatically freed.
@@ -88,13 +102,13 @@ public:
      * Depending on the underlying editor, there might be some global functions,
      * perhaps there will be a specifiction for a common functionset later on, but not
      * yet.
-     */ 
-    virtual QString registerTemplateScript(QObject *owner,const QString& script)=0;
-    
+     */
+    virtual TemplateScript* registerTemplateScript(QObject *owner, const QString& script) = 0;
+
     /**
      * This frees the template script which is identified by the token
      */
-    virtual void unregisterTemplateScript(const QString& scriptToken)=0;
+    virtual void unregisterTemplateScript(TemplateScript* templateScript) = 0;
 
 };
 

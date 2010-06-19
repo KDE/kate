@@ -22,18 +22,41 @@
 
 using namespace KTextEditor;
 
-TemplateScriptRegistrar::TemplateScriptRegistrar(){}
-TemplateScriptRegistrar::~TemplateScriptRegistrar(){}
+TemplateScript::~TemplateScript()
+{
+}
 
-TemplateInterface2::TemplateInterface2(): TemplateInterface(),d(0) {}
-TemplateInterface2::~TemplateInterface2(){}
 
-bool TemplateInterface2::insertTemplateText ( const Cursor& insertPosition, const QString &templateString, const QMap<QString, QString> &initialValues, const QString& scriptToken) {
+
+
+TemplateScriptRegistrar::TemplateScriptRegistrar()
+{
+}
+
+TemplateScriptRegistrar::~TemplateScriptRegistrar()
+{
+}
+
+TemplateInterface2::TemplateInterface2()
+  : TemplateInterface()
+  , d(0)
+{
+}
+
+TemplateInterface2::~TemplateInterface2()
+{
+}
+
+bool TemplateInterface2::insertTemplateText ( const Cursor& insertPosition,
+                                              const QString &templateString,
+                                              const QMap<QString, QString> &initialValues,
+                                              TemplateScript* templateScript)
+{
   QMap<QString,QString> enhancedInitValues(initialValues);
   if (!KTE_INTERNAL_setupIntialValues(templateString,&enhancedInitValues)) {
     return false;
   }
-  return insertTemplateTextImplementation( insertPosition, templateString, enhancedInitValues,scriptToken);
+  return insertTemplateTextImplementation( insertPosition, templateString, enhancedInitValues, templateScript);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

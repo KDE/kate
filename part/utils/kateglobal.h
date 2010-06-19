@@ -70,7 +70,7 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
   Q_INTERFACES(KTextEditor::CommandInterface)
   Q_INTERFACES(KTextEditor::ContainerInterface)
   Q_INTERFACES(KTextEditor::TemplateScriptRegistrar)
-  
+
   // for setDefaultEncoding
   friend class KateDocumentConfig;
 
@@ -354,15 +354,15 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      */
     void setContainer( QObject * container );
 
-    
+
     /**
      *  TemplateScriptRegistrar interface
      */
-    
-    QString registerTemplateScript (QObject* owner, const QString& script);
-    void unregisterTemplateScript(const QString& scriptToken);
 
-    
+    KTextEditor::TemplateScript* registerTemplateScript (QObject* owner, const QString& script);
+    void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
+
+
   private:
     /**
      * instance of this factory

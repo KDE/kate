@@ -50,7 +50,11 @@
 #include "katetextcursor.h"
 #include "katetextrange.h"
 
-namespace KTextEditor { class Plugin; class Attribute; }
+namespace KTextEditor {
+  class Plugin;
+  class Attribute;
+  class TemplateScript;
+}
 
 namespace KIO { class TransferJob; }
 
@@ -632,7 +636,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
     virtual void transformCursor (int& line, int& column, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision = -1);
-    
+
     /**
      * Transform a range from one revision to an other.
      * @param range range to transform
@@ -1109,7 +1113,9 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      virtual QVariant configValue(const QString &key);
      virtual void setConfigValue(const QString &key, const QVariant &value);
 
-  // TemplateInterface
+  //
+  // KTextEditor::TemplateInterface + KTextEditor::TemplateInterface2
+  //
   public:
     /**
      * Starts a KateTemplateHandler for the given template. Multiple handlers may
@@ -1118,8 +1124,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      *
      * \see KTextEditor::TemplateInterface::insertTemplateTextImplementation(), KateTemplateHandler
      */
-    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString,
-                                                    const QMap<QString,QString> &initialValues, const QString& scriptToken, KateView *view);
+    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c,
+                                                    const QString &templateString,
+                                                    const QMap<QString,QString> &initialValues,
+                                                    KTextEditor::TemplateScript* templateScript,
+                                                    KateView *view);
 
   //
   // KTextEditor::HighlightInterface

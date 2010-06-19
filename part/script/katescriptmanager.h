@@ -141,18 +141,18 @@ class KateScriptManager : public QObject, public KTextEditor::Command
   //
   public:
     /** managing of scripts for the template handler. The scripts are given as string content, not as  files*/
-    const QString registerTemplateScript (QObject* owner, const QString& script);
+    KTextEditor::TemplateScript* registerTemplateScript (QObject* owner, const QString& script);
     /** unregister a given script */
-    void unregisterTemplateScript(const QString& scriptToken);
+    void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
 
-    KateTemplateScript* templateScript(const QString& scriptToken);
+    KateTemplateScript* templateScript(KTextEditor::TemplateScript* templateScript);
 
   public Q_SLOTS:
     void slotTemplateScriptOwnerDestroyed(QObject* owner);
 
   private:
-    QMultiMap<QObject*, QString> m_ownerScriptTokens;
-    QHash<QString, KateTemplateScript*> m_tokenTemplateScript;
+    QMultiMap<QObject*, KTextEditor::TemplateScript*> m_ownerScript;
+    QList<KTextEditor::TemplateScript*> m_templateScripts;
 };
 
 

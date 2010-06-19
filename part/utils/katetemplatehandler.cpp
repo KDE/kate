@@ -57,15 +57,22 @@ static bool customContains(const KTextEditor::Range &range, const Cursor& cursor
 
 /* ####################################### */
 
-KateTemplateHandler::KateTemplateHandler(KateView *view, const Cursor& position,
-    const QString &templateString, const QMap<QString, QString> &initialValues, KateUndoManager* undoManager, const QString& scriptToken)
+KateTemplateHandler::KateTemplateHandler(KateView *view,
+                                         const Cursor& position,
+                                         const QString &templateString,
+                                         const QMap<QString, QString> &initialValues,
+                                         KateUndoManager* undoManager,
+                                         KateTemplateScript* templateScript)
     : QObject(view)
     , m_view(view)
     , m_undoManager(undoManager)
     , m_wholeTemplateRange(0)
     , m_finalCursorPosition(0)
-    , m_lastCaretPosition(position), m_isMirroring(false), m_editWithUndo(false), m_jumping(false)
-    , m_scriptToken(scriptToken)
+    , m_lastCaretPosition(position)
+    , m_isMirroring(false)
+    , m_editWithUndo(false)
+    , m_jumping(false)
+    , m_templateScript(templateScript)
 {
   ifDebug(kDebug() << templateString << initialValues;)
 
@@ -680,7 +687,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
             behaviour = MirrorBehaviour(search, replace, flags);
 
         } else if (!functionName.isEmpty()) {
-          behaviour = MirrorBehaviour(m_scriptToken, functionName, this);
+          behaviour = MirrorBehaviour(m_templateScript, functionName, this);
         }
 
         const QString initialVal = behaviour.getMirrorString(initialValues[key]);
@@ -1005,22 +1012,35 @@ KateView* KateTemplateHandler::view()
 
 
 //BEGIN MIRROR BEHAVIOUR
-KateTemplateHandler::MirrorBehaviour::MirrorBehaviour():
-    m_behaviour(Clone) {}
+KateTemplateHandler::MirrorBehaviour::MirrorBehaviour()
+  : m_behaviour(Clone)
+{
+}
 
-KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString &regexp, const QString &replacement, const QString& flags):
-    m_behaviour(Regexp), m_search(regexp), m_replace(replacement)
+KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString &regexp,
+                                                      const QString &replacement,
+                                                      const QString& flags)
+  : m_behaviour(Regexp)
+  , m_search(regexp)
+  , m_replace(replacement)
 {
   m_global = flags.contains("g");
   m_expr = QRegExp(regexp, flags.contains("i") ? Qt::CaseInsensitive : Qt::CaseSensitive, QRegExp::RegExp2);
 }
 
-KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString& scriptToken, const QString& functionName, KateTemplateHandler* handler):
-    m_behaviour(Scripted), m_scriptToken(scriptToken), m_functionName(functionName), m_handler(handler)
+KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(KateTemplateScript* templateScript,
+                                                      const QString& functionName,
+                                                      KateTemplateHandler* handler)
+  : m_behaviour(Scripted)
+  , m_templateScript(templateScript)
+  , m_functionName(functionName)
+  , m_handler(handler)
 {
 }
 
-KateTemplateHandler::MirrorBehaviour::~MirrorBehaviour() {}
+KateTemplateHandler::MirrorBehaviour::~MirrorBehaviour()
+{
+}
 
 
 QString KateTemplateHandler::MirrorBehaviour::getMirrorString(const QString &source)
@@ -1073,7 +1093,7 @@ QString KateTemplateHandler::MirrorBehaviour::getMirrorString(const QString &sou
     }
 
     case Scripted: {
-      KateTemplateScript *script = KateGlobal::self()->scriptManager()->templateScript(m_scriptToken);
+      KateTemplateScript *script = KateGlobal::self()->scriptManager()->templateScript(m_templateScript);
 
       if (script) {
         QString result = script->invoke(m_handler->view(), m_functionName, source);

@@ -498,12 +498,14 @@ void KateGlobal::setContainer( QObject * container )
 
 
 
-QString KateGlobal::registerTemplateScript (QObject* owner, const QString& script) {
-  return scriptManager()->registerTemplateScript(owner,script);
+KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)
+{
+  return scriptManager()->registerTemplateScript(owner, script);
 }
 
-void KateGlobal::unregisterTemplateScript(const QString& scriptToken) {
-  scriptManager()->unregisterTemplateScript(scriptToken);
+void KateGlobal::unregisterTemplateScript(KTextEditor::TemplateScript* templateScript)
+{
+  scriptManager()->unregisterTemplateScript(templateScript);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

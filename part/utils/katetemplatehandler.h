@@ -36,6 +36,8 @@ class KateView;
 
 class KateUndoManager;
 
+class KateTemplateScript;
+
 namespace KTextEditor
 {
 
@@ -79,9 +81,12 @@ public:
    * NOTE: The handler deletes itself when required, you do not need to
    *       keep track of it.
    */
-  KateTemplateHandler(KateView *view, const KTextEditor::Cursor& position,
-                      const QString &templateString, const QMap<QString, QString> &initialValues,
-                      KateUndoManager* undoManager, const QString& scriptToken);
+  KateTemplateHandler(KateView *view,
+                      const KTextEditor::Cursor& position,
+                      const QString &templateString,
+                      const QMap<QString, QString> &initialValues,
+                      KateUndoManager* undoManager,
+                      KateTemplateScript* templateScript);
 
   /**
    * Cancels the template handler and cleans everything up.
@@ -163,7 +168,7 @@ public:
   public:
     MirrorBehaviour(); //clone
     MirrorBehaviour(const QString &regexp, const QString &replacement, const QString &flags);   //regexp
-    MirrorBehaviour(const QString& scriptToken, const QString& functionName, KateTemplateHandler* handler);   //scripted
+    MirrorBehaviour(KateTemplateScript* templateScript, const QString& functionName, KateTemplateHandler* handler);   //scripted
     ~MirrorBehaviour();
     QString getMirrorString(const QString &source);
 
@@ -178,7 +183,7 @@ public:
     QString m_replace;
     QRegExp m_expr;
     bool m_global;
-    QString m_scriptToken;
+    KateTemplateScript* m_templateScript;
     QString m_functionName;
     KateTemplateHandler *m_handler;
   };
@@ -271,8 +276,8 @@ private:
   bool m_editWithUndo;
   /// Whether we are currently setting the cursor manually.
   bool m_jumping;
-  /// script token for the template script, which might be used by the current template
-  QString m_scriptToken;
+  /// template script pointer for the template script, which might be used by the current template
+  KateTemplateScript* m_templateScript;
 
   QList<KTextEditor::MovingRange*> m_spacersMovingRanges;
 

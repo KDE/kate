@@ -1991,15 +1991,22 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
   emit textInserted ( view, position, text);
 }
 
-bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues) {
-  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,QString(),this);
+bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
+                                                  const QString &templateString,
+                                                  const QMap<QString,QString> &initialValues)
+{
+  return m_doc->insertTemplateTextImplementation(c, templateString, initialValues, 0, this);
 }
 
-bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken) {
+bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
+                                                  const QString &templateString,
+                                                  const QMap<QString,QString> &initialValues,
+                                                  KTextEditor::TemplateScript* templateScript)
+{
 /*  if (!scriptToken.isEmpty()) {
     KateGlobal::self()->scriptManager()->callTestIt(this,scriptToken);
   }*/
-  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,scriptToken,this);
+  return m_doc->insertTemplateTextImplementation(c, templateString, initialValues, templateScript, this);
 }
 
 

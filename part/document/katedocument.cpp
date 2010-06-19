@@ -51,6 +51,7 @@
 #include "spellcheck/prefixstore.h"
 #include "spellcheck/ontheflycheck.h"
 #include "spellcheck/spellcheck.h"
+#include "katescriptmanager.h"
 
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
@@ -94,6 +95,7 @@
 
 static int dummy = 0;
 
+class KateTemplateScript;
 
 class KateDocument::LoadSaveFilterCheckPlugins
 {
@@ -4748,16 +4750,25 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 //END KTextEditor::ConfigInterface
 
 //BEGIN KTextEditor::TemplateInterface
-bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c, const QString &templateString,
-                                                     const QMap<QString,QString> &initialValues, const QString& scriptToken, KateView* view)
+bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c,
+                                                     const QString &templateString,
+                                                     const QMap<QString,QString> &initialValues,
+                                                     KTextEditor::TemplateScript* templateScript,
+                                                     KateView* view)
 {
-  if (templateString.isEmpty()) return false;
+  KateTemplateScript* kateTemplateScript =
+    KateGlobal::self()->scriptManager()->templateScript(templateScript);
+  if (kateTemplateScript) {
+    return false;
+  }
 
   // the handler will delete itself when necessary
-  new KateTemplateHandler(view, c, templateString, initialValues, m_undoManager, scriptToken);
+  new KateTemplateHandler(view, c, templateString, initialValues, m_undoManager, kateTemplateScript);
 
   return true;
 }
+//END KTextEditor::TemplateInterface
+
 
 KateView * KateDocument::activeKateView( ) const
 {
@@ -4768,7 +4779,7 @@ KTextEditor::Cursor KateDocument::documentEnd( ) const
 {
   return KTextEditor::Cursor(lastLine(), lineLength(lastLine()));
 }
-//END KTextEditor::TemplateInterface
+
 
 //BEGIN KTextEditor::SmartInterface
 int KateDocument::currentRevision() const

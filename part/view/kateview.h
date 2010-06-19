@@ -617,10 +617,12 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     // do we select normal or blockwise ?
     bool blockSelect;
 
-  ///Template stuff
+  //
+  // TemplateInterface + TemplateInterface2
+  //
   public:
     virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues);
-    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues, const QString& scriptToken);
+    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues, KTextEditor::TemplateScript* templateScript);
   /**
    * Accessors to the bars...
    */

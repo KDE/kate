@@ -43,7 +43,7 @@ void TemplateHandlerTest::testUndo()
     KateDocument doc(false, false, false, 0, this);
     KateView view(&doc, 0);
 
-    doc.insertTemplateTextImplementation(Cursor(0, 0), snippet, initialValues, "", &view);
+    doc.insertTemplateTextImplementation(Cursor(0, 0), snippet, initialValues, 0, &view);
 
     const QString result = "for (int i = ; i < ; ++i)\n"
                            "{\n"

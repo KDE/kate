@@ -361,41 +361,45 @@ const QStringList &KateScriptManager::cmds()
 
 
 
-const QString KateScriptManager::registerTemplateScript (QObject* owner, const QString& script)
+KTextEditor::TemplateScript* KateScriptManager::registerTemplateScript (QObject* owner, const QString& script)
 {
-  static uint counter = 0;
-  QUuid tokenId = QUuid::createUuid();
-  ++counter;
-  QString token = QString("%1").arg(counter) + tokenId.toString();
-
-  m_tokenTemplateScript.insert(token, new KateTemplateScript(script));
+  KateTemplateScript* kts = new KateTemplateScript(script);
+  m_templateScripts.append(kts);
 
   connect(owner, SIGNAL(destroyed(QObject*)),
           this, SLOT(slotTemplateScriptOwnerDestroyed(QObject*)));
-  m_ownerScriptTokens.insertMulti(owner, token);
-  return token;
+  m_ownerScript.insertMulti(owner, kts);
+  return kts;
 }
 
-void KateScriptManager::unregisterTemplateScript(const QString& scriptToken)
+void KateScriptManager::unregisterTemplateScript(KTextEditor::TemplateScript* templateScript)
 {
-  QObject* k = m_ownerScriptTokens.key(scriptToken);
-  if (!k) return;
-  m_ownerScriptTokens.remove(k, scriptToken);
-  delete m_tokenTemplateScript.take(scriptToken);
+  int index = m_templateScripts.indexOf(templateScript);
+  if (index != -1) {
+    QObject* k = m_ownerScript.key(templateScript);
+    m_ownerScript.remove(k, templateScript);
+    m_templateScripts.removeAt(index);
+    delete templateScript;
+  }
 }
 
 void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner)
 {
-  while (m_ownerScriptTokens.contains(owner)) {
-    QString token = m_ownerScriptTokens.take(owner);
-    kDebug() << "Destroying template script" << token;
-    delete m_tokenTemplateScript.take(token);
+  while (m_ownerScript.contains(owner)) {
+    KTextEditor::TemplateScript* templateScript = m_ownerScript.take(owner);
+    kDebug() << "Destroying template script" << templateScript;
+    m_templateScripts.removeAll(templateScript);
+    delete templateScript;
   }
 }
 
-KateTemplateScript* KateScriptManager::templateScript(const QString& scriptToken)
+KateTemplateScript* KateScriptManager::templateScript(KTextEditor::TemplateScript* templateScript)
 {
-  return m_tokenTemplateScript[scriptToken];
+  if (m_templateScripts.contains(templateScript)) {
+    return static_cast<KateTemplateScript*>(templateScript);
+  }
+
+  return 0;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

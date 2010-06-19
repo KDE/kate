@@ -4756,11 +4756,10 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
                                                      KTextEditor::TemplateScript* templateScript,
                                                      KateView* view)
 {
+  if (templateString.isEmpty()) return false;
+
   KateTemplateScript* kateTemplateScript =
     KateGlobal::self()->scriptManager()->templateScript(templateScript);
-  if (!kateTemplateScript) {
-    return false;
-  }
 
   // the handler will delete itself when necessary
   new KateTemplateHandler(view, c, templateString, initialValues, m_undoManager, kateTemplateScript);

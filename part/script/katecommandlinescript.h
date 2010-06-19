@@ -29,17 +29,11 @@
 
 class KateScriptDocument;
 
-class KateCommandLineScriptHeader : public KateScriptHeader
+class KateCommandLineScriptHeader
 {
   public:
-    KateCommandLineScriptHeader() : KateScriptHeader()
+    KateCommandLineScriptHeader()
     {}
-
-    KateCommandLineScriptHeader(const KateScriptHeader& scriptHeader)
-    : KateScriptHeader()
-    {
-      *static_cast<KateScriptHeader*>(this) = scriptHeader;
-    }
 
     inline void setFunctions(const QStringList& functions)
     { m_functions = functions; }

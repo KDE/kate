@@ -74,15 +74,15 @@ namespace JoWenn {
     m_mode_model_hash.clear();
   }
 
-  QString KateSnippetsPlugin::registerTemplateScript(QObject* owner,const QString& script) {
+  KTextEditor::TemplateScript* KateSnippetsPlugin::registerTemplateScript(QObject* owner,const QString& script) {
     if (m_templateScriptRegistrar)
       return m_templateScriptRegistrar->registerTemplateScript(owner,script);
-    return QString();
+    return 0;
   }
-  
-  void KateSnippetsPlugin::unregisterTemplateScript(const QString& scriptToken) {
+
+  void KateSnippetsPlugin::unregisterTemplateScript(KTextEditor::TemplateScript* templateScript) {
       if (m_templateScriptRegistrar)
-        m_templateScriptRegistrar->unregisterTemplateScript(scriptToken);
+        m_templateScriptRegistrar->unregisterTemplateScript(templateScript);
   }
 
 
@@ -92,12 +92,12 @@ namespace JoWenn {
     if (!hli) return;
     QStringList modes;
     modes<<document->mode();
-    modes<<hli->embeddedHighlightingModes();    
+    modes<<hli->embeddedHighlightingModes();
     kDebug(13040)<<modes;
     kDebug(13040)<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     QList<KTextEditor::CodesnippetsCore::SnippetCompletionModel> models;
     foreach (const QString& mode, modes)
-    {    
+    {
       QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> completionModel;
       QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::iterator it=m_mode_model_hash.find(mode);
       if (it!=m_mode_model_hash.end()) {
@@ -109,8 +109,8 @@ namespace JoWenn {
       }
       m_document_model_multihash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
     }
-    
-    
+
+
     QList <QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >models2=m_document_model_multihash.values(document);
     QList<KTextEditor::CodesnippetsCore::SnippetSelectorModel*> list;
     foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model, models2)
@@ -118,17 +118,17 @@ namespace JoWenn {
       list.append(model->selectorModel());
     }
     m_document_categorized_hash.insert(document,new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
-    
-    
+
+
     //Q_ASSERT(modelForDocument(document));
     const QList<KTextEditor::View*>& views=document->views();
     foreach (KTextEditor::View *view,views) {
       addView(document,view);
     }
-    
+
     disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
     disconnect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
-    
+
     connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
     connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
   }
@@ -147,7 +147,7 @@ namespace JoWenn {
         if (iface) {
           iface->unregisterCompletionModel(model.data());
         }
-      }     
+      }
     }
     m_document_model_multihash.remove(document);
     disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
@@ -211,7 +211,7 @@ namespace JoWenn {
       addDocument(doc);
       kDebug(13040)<<"invoking typeHasChanged(doc)";
       emit typeHasChanged(doc);
-    }    
+    }
   }
 
   Kate::PluginView *KateSnippetsPlugin::createView (Kate::MainWindow *mainWindow)
@@ -272,9 +272,9 @@ namespace JoWenn {
   {
     QWidget *toolview = mainWindow->createToolView ("kate_plugin_snippets_tng", Kate::MainWindow::Left, SmallIcon("text-field"), i18n("Kate Snippets"));
     m_snippetSelector = new KateSnippetSelector(mainWindow, plugin, toolview);
-    
+
     KAction *a=actionCollection()->addAction("popup_katesnippets_addto");
-    a->setMenu(m_snippetSelector->addSnippetToPopup());    
+    a->setMenu(m_snippetSelector->addSnippetToPopup());
     a->setIcon(KIcon("snippetadd"));
     a->setText(i18n("Create snippet"));
     mainWindow->guiFactory()->addClient (this);

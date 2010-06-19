@@ -33,9 +33,9 @@
 #define ON_THE_GO_TEMPLATESTR "%1 On-The-Go"
 
 namespace JoWenn {
-  
+
   KateSnippetSelector::KateSnippetSelector(Kate::MainWindow *mainWindow,JoWenn::KateSnippetsPlugin *plugin, QWidget *parent):QWidget(parent),m_plugin(plugin),m_mainWindow(mainWindow),m_mode("_____")
-  {    
+  {
     setupUi(this);
     plainTextEdit->setReadOnly(true);
     addSnippetToButton->setIcon(KIcon("snippetadd"));
@@ -59,7 +59,7 @@ namespace JoWenn {
     connect(newRepoButton,SIGNAL(clicked()),this,SLOT(newRepo()));
     viewChanged();
   }
-  
+
   KateSnippetSelector::~KateSnippetSelector()
   {
   }
@@ -86,7 +86,7 @@ namespace JoWenn {
     QAbstractItemModel *m=treeView->model();
     if (m_associatedView.isNull())
       disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
-    if (view)      
+    if (view)
     {
       m_associatedView=view;
       connect(view,SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
@@ -103,7 +103,7 @@ namespace JoWenn {
   void KateSnippetSelector::typeChanged(KTextEditor::Document* document) {
     KTextEditor::View *view=m_mainWindow->activeView();
     kDebug(13040);
-    if (!view) return;    
+    if (!view) return;
     if (view->document()==document)
     {
       kDebug(13040)<<"calling view changed";
@@ -122,9 +122,9 @@ namespace JoWenn {
     KTextEditor::View *view=m_mainWindow->activeView();
     KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
     if (ti2) {
-      
+
       ti2->insertTemplateText (view->cursorPosition(), treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>(),
-                               treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::ScriptTokenRole).toString());
+                               (KTextEditor::TemplateScript*)qvariant_cast<void*>(treeView->model()->data(current,KTextEditor::CodesnippetsCore::SnippetSelectorModel::ScriptTokenRole)));
     } else {
       KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
       if (ti)
@@ -151,7 +151,7 @@ namespace JoWenn {
       QString currentHlMode;
       KTextEditor::View *view=m_mainWindow->activeView();
       KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
-      
+
       QAction *quickAction=0;
       QString quickActionTitle;
       if (fi)
@@ -166,15 +166,15 @@ namespace JoWenn {
         quickAction->setData(v);
         connect(quickAction,SIGNAL(triggered(bool)),this,SLOT(addSnippetToTriggered()));
       } else kDebug()<<"document does not implement the highlight interface";
-      
+
       //highlighting interface is here, add all embedded highlightings to the menu
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repo=m_plugin->repositoryData();
       for (int i=0;i<modeCount;i++) {
         // create a new menu for the given mode
         QModelIndex mergedRepoIndex=m->index(i,0,QModelIndex());
-        QString title=m->data(mergedRepoIndex,Qt::DisplayRole).toString();       
+        QString title=m->data(mergedRepoIndex,Qt::DisplayRole).toString();
         QMenu  *menu=m_addSnippetToPopup->addMenu(title);
-      
+
 
         QString on_the_go_title=i18n(ON_THE_GO_TEMPLATESTR,title);
         //get all files merged for the current highlighting mode
@@ -182,12 +182,12 @@ namespace JoWenn {
 
         //iterate over all files of the current mode and add them to the menu
         bool on_the_go_found=false;
-        foreach (const QString& filename, files) {          
-          //lookup the file in the 
+        foreach (const QString& filename, files) {
+          //lookup the file in the
           QModelIndex repoFileIdx=repo->indexForFile(filename);
           //kDebug()<<repoFileIdx;
-     
-          if (repoFileIdx.isValid())           
+
+          if (repoFileIdx.isValid())
           {
             //if the file is still in the repository, add the action to the  menu
             QString n=repo->data(repoFileIdx,KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NameRole).toString();
@@ -225,7 +225,7 @@ namespace JoWenn {
 
   void KateSnippetSelector::addSnippetToClicked() {
       KTextEditor::View *view=m_mainWindow->activeView();
-      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
+      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
       if (!fi) {
           KMessageBox::error(this,i18n("Developer's fault! Your editor component doesn't support the retrieval of certain\n"
                                        "information, please press this button longer to open the menu for manual\n"
@@ -242,24 +242,24 @@ namespace JoWenn {
       }
       addSnippetToAction(m_addSnippetToPopup->actions()[0]);
   }
-  
+
   void KateSnippetSelector::addSnippetToTriggered() {
     addSnippetToAction(dynamic_cast<QAction*>(sender()));
   }
-  
+
   void KateSnippetSelector::addSnippetToAction(QAction *action) {
-      //retrieve name and filepath      
+      //retrieve name and filepath
       QString filePath;
       if (action->data().isValid())
       {
         filePath=action->data().value<JoWenn::KateSnippetSelector::ActionData>().filePath;
       }
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repo=m_plugin->repositoryData();
-      if (filePath.isEmpty())       
+      if (filePath.isEmpty())
       {
         //Only on-the-go may have an empty path.
         //If the on-the-go menu has no file attached, look if there is one in the repository and activate it.
-        //If there is no one in the repository list, create a new one        
+        //If there is no one in the repository list, create a new one
         QModelIndex index=repo->findFirstByName(action->text());
         if (index.isValid())
         {
@@ -279,9 +279,9 @@ namespace JoWenn {
 
   void KateSnippetSelector::newRepo() {
       KTextEditor::View *view=m_mainWindow->activeView();
-      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());      
+      KTextEditor::HighlightInterface *fi=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
       if (!fi) {
-        m_plugin->repositoryData()->newEntry(this);        
+        m_plugin->repositoryData()->newEntry(this);
       } else {
         m_plugin->repositoryData()->newEntry(this,fi->highlightingModeAt(view->cursorPosition()),true);
       }

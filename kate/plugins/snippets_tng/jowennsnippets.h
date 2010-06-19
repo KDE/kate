@@ -41,19 +41,19 @@ namespace KateMDI
 namespace KTextEditor {
   namespace CodesnippetsCore {
     class SnippetRepositoryModel;
-    
+
     class SnippetCompletionModel;
     class CategorizedSnippetModel;
   }
 }
 
 namespace JoWenn {
-  
+
   class KateSnippetsPluginView;
   class KateSnippetSelector;
-  
-  
-  
+
+
+
   class KateSnippetsPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface, public KTextEditor::TemplateScriptRegistrar
   {
       Q_OBJECT
@@ -74,11 +74,11 @@ namespace JoWenn {
       void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
       void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
       KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repositoryData();
-  
-      virtual QString registerTemplateScript(QObject* owner,const QString& script);
-      virtual void unregisterTemplateScript(const QString& scriptToken);
 
-      
+      virtual KTextEditor::TemplateScript* registerTemplateScript(QObject* owner,const QString& script);
+      virtual void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
+
+
     public Q_SLOTS:
       void addDocument(KTextEditor::Document* document);
       void removeDocument(KTextEditor::Document* document);

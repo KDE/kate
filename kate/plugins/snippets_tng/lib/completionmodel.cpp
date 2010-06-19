@@ -53,7 +53,7 @@ namespace KTextEditor {
         int     script;
     };
 
-//BEGIN: SnippetCompletionModelPrivate 
+//BEGIN: SnippetCompletionModelPrivate
   class SnippetCompletionModelPrivate {
   public:
     SnippetCompletionModelPrivate(const QString &_fileType,const QStringList &_snippetFiles,TemplateScriptRegistrar *_scriptRegistrar):
@@ -62,12 +62,12 @@ namespace KTextEditor {
     scriptRegistrar(_scriptRegistrar),
     automatic(false) {
     }
-    
+
     QList<SnippetCompletionEntry> entries;
     QList<const SnippetCompletionEntry*> matches;
     QString fileType;
     QStringList mergedFiles;
-    QStringList scripts;
+    QList<KTextEditor::TemplateScript*> scripts;
     TemplateScriptRegistrar *scriptRegistrar;
     bool automatic;
   #ifdef SNIPPET_EDITOR
@@ -93,12 +93,12 @@ namespace KTextEditor {
             return;
           }
         } else {
-          KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", filename) );     
+          KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", filename) );
           return;
         }
         QDomElement el=doc.documentElement();
         if (el.tagName()!="snippets") {
-          KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );     
+          KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );
           return;
         }
         QDomNodeList script_nodes=el.childNodes();
@@ -109,30 +109,30 @@ namespace KTextEditor {
             script=script_node.firstChild().nodeValue();
             kDebug()<<"Script is:"<< script;
             if (scriptRegistrar) {
-              QString scriptToken=scriptRegistrar->registerTemplateScript(scriptParent,script);
-              kDebug()<<"Script token is"<<scriptToken;
-              if (!scriptToken.isEmpty()) {
-                scripts.append(scriptToken);
+              KTextEditor::TemplateScript* templateScript = scriptRegistrar->registerTemplateScript(scriptParent, script);
+              kDebug() << "Template Script pointer:" << templateScript;
+              if (templateScript) {
+                scripts.append(templateScript);
                 scriptID=scripts.count()-1;
               }
             }
             break;
           }
         }
-        
-        
+
+
         QDomNodeList item_nodes=el.childNodes();
-        
+
         QLatin1String match_str("match");
         QLatin1String prefix_str("displayprefix");
         QLatin1String postfix_str("displaypostfix");
         QLatin1String arguments_str("displayarguments");
         QLatin1String fillin_str("fillin");
-        
+
         for (int i_item=0;i_item<item_nodes.count();i_item++) {
           QDomElement item=item_nodes.item(i_item).toElement();
           if (item.tagName()!="item") continue;
-            
+
           QString match;
           QString prefix;
           QString postfix;
@@ -155,11 +155,11 @@ namespace KTextEditor {
           }
           //kDebug(13040)<<prefix<<match<<postfix<<arguments<<fillin;
           entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin,scriptID));
-          
+
         }
       }
 
-  
+
   };
 //END: SnippetCompletionModelPrivate
 
@@ -169,18 +169,18 @@ namespace KTextEditor {
     SnippetCompletionModel::SnippetCompletionModel(const QString &fileType, QStringList &snippetFiles,TemplateScriptRegistrar *scriptRegistrar):
       KTextEditor::CodeCompletionModel2((QObject*)0),
       d(new SnippetCompletionModelPrivate(fileType,snippetFiles,scriptRegistrar))
-       {        
+       {
         kDebug()<<"About to load files "<<snippetFiles<<" for file type "<<fileType;
         foreach(const QString& str, snippetFiles) {
           d->loadEntries(this,str);
-        }      
+        }
     }
-    
+
     SnippetCompletionModel::~SnippetCompletionModel() {
       delete d;
     }
 
-#ifdef SNIPPET_EDITOR    
+#ifdef SNIPPET_EDITOR
     QString SnippetCompletionModel::script() { return d->script;}
     void SnippetCompletionModel::setScript(const QString& script) {d->script=script;}
 #endif
@@ -191,7 +191,7 @@ namespace KTextEditor {
       filetype->clear();
       authors->clear();
       license->clear();
-      
+
       QFile f(filename);
       QDomDocument doc;
       if (f.open(QIODevice::ReadOnly)) {
@@ -206,12 +206,12 @@ namespace KTextEditor {
           return false;
         }
       } else {
-        KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", filename) );     
+        KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", filename) );
         return false;
       }
       QDomElement el=doc.documentElement();
       if (el.tagName()!="snippets") {
-        KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );     
+        KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );
         return false;
       }
       *name=el.attribute("name");
@@ -222,26 +222,26 @@ namespace KTextEditor {
       if (snippetlicense->isEmpty()) *snippetlicense=QString("public domain");
       return true;
     }
-    
-    
-    
+
+
+
     SnippetSelectorModel *SnippetCompletionModel::selectorModel() {
       return new SnippetSelectorModel(this);
     }
-    
+
     QString SnippetCompletionModel::fileType() {
         return d->fileType;
     }
-    
 
-    
+
+
     void SnippetCompletionModel::completionInvoked(KTextEditor::View* view,
       const KTextEditor::Range& range, InvocationType invocationType) {
         //kDebug(13040);
         bool my_mode=true;
         KTextEditor::HighlightInterface *hli=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
         if (hli)
-        {          
+        {
           kDebug()<<"me: "<<d->fileType<<" current hl in file: "<<hli->highlightingModeAt(range.end());
           if (hli->highlightingModeAt(range.end())!=d->fileType) my_mode=false;
         }
@@ -250,7 +250,7 @@ namespace KTextEditor {
           if (invocationType==AutomaticInvocation) {
             d->automatic=true;
             //KateView *v = qobject_cast<KateView*> (view);
-            
+
             if (range.columnWidth() >= COMPLETION_THRESHOLD) {
               d->matches.clear();
               foreach(const SnippetCompletionEntry& entry,d->entries) {
@@ -274,7 +274,7 @@ namespace KTextEditor {
             reset();
         }
     }
-    
+
     QVariant SnippetCompletionModel::data( const QModelIndex & index, int role) const {
       //kDebug(13040);
       if (role == KTextEditor::CodeCompletionModel::InheritanceDepth)
@@ -301,7 +301,7 @@ namespace KTextEditor {
       }
       return QVariant();
     }
-    
+
     QModelIndex SnippetCompletionModel::parent(const QModelIndex& index) const {
       if (index.internalId())
         return createIndex(0, 0, 0);
@@ -332,19 +332,19 @@ namespace KTextEditor {
       else
         return d->matches.count(); // only the children
     }
-    
+
     void SnippetCompletionModel::executeCompletionItem2(KTextEditor::Document* document,
       const KTextEditor::Range& word, const QModelIndex& index) const {
       //document->replaceText(word, m_matches[index.row()]->fillin);
       document->removeText(word);
       KTextEditor::View *view=document->activeView();
       if (!view) return;
-      
+
       KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
       if (ti2) {
-        int script=d->matches[index.row()]->script;    
+        int script=d->matches[index.row()]->script;
         ti2->insertTemplateText (word.start(), d->matches[index.row()]->fillin, QMap<QString,QString> (),
-                                 (script==-1)?QString():d->scripts[script]);
+                                 (script==-1)?0:d->scripts[script]);
       } else {
         KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
         if (ti)
@@ -354,7 +354,7 @@ namespace KTextEditor {
           view->insertText (d->matches[index.row()]->fillin);
         }
       }
-    }  
+    }
 
 
 
@@ -393,18 +393,18 @@ bool SnippetCompletionModel::shouldStartCompletion(KTextEditor::View* view, cons
     if (!userInsertion) return false;
     if(insertedText.isEmpty())
         return false;
-    
+
     bool my_mode=true;
     KTextEditor::HighlightInterface *hli=qobject_cast<KTextEditor::HighlightInterface*>(view->document());
     if (hli)
-    {          
+    {
       kDebug()<<"me: "<<d->fileType<<" current hl in file: "<<hli->highlightingModeAt(position);
       if (hli->highlightingModeAt(position)!=d->fileType) my_mode=false;
     }
 
     if (!my_mode) return false;
 
-    
+
     QString text = view->document()->line(position.line()).left(position.column());
     int start=text.length();
     int end=text.length()-COMPLETION_THRESHOLD;
@@ -413,7 +413,7 @@ bool SnippetCompletionModel::shouldStartCompletion(KTextEditor::View* view, cons
       QChar c=text.at(i);
       if (! (c.isLetter() || (c.isNumber()) || c=='_' || c==':') ) return false;
     }
-   
+
     return true;
 }
 
@@ -422,7 +422,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
     if (d->automatic) {
       if (currentCompletion.length()<COMPLETION_THRESHOLD) return true;
     }
-  
+
     if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
         return true; //Always abort when the completion-range has been left
       //Do not abort completions when the text has been empty already before and a newline has been entered
@@ -507,7 +507,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       outfile.close();
       return true;
     }
-    
+
   QString SnippetCompletionModel::createNew(const QString& name, const QString& license,const QString& authors,const QString& filetypes) {
       QDomDocument doc;
       QDomElement root=doc.createElement("snippets");
@@ -542,28 +542,28 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       }
       outfile.write(doc.toByteArray());
       outfile.close();
-      
+
       return outname;
 
   }
-    
-  #endif  
-  
+
+  #endif
+
 //END: CompletionModel
 
-//BEGIN: SelectorModel    
+//BEGIN: SelectorModel
     SnippetSelectorModel::SnippetSelectorModel(SnippetCompletionModel* cmodel):
       QAbstractItemModel(cmodel),m_cmodel(cmodel)
     {
       kDebug(13040);
     }
-    
-    
+
+
     SnippetSelectorModel::~SnippetSelectorModel()
     {
       kDebug(13040);
     }
-    
+
     QString SnippetSelectorModel::fileType() {
         return m_cmodel->fileType();
     }
@@ -573,7 +573,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       if (parent.isValid()) return 0;
       return m_cmodel->d->entries.count();
     }
-    
+
     QModelIndex SnippetSelectorModel::index ( int row, int column, const QModelIndex & parent ) const
     {
       if (parent.isValid()) return QModelIndex();
@@ -582,7 +582,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
         return createIndex(row,column);
       return QModelIndex();
     }
-    
+
     QVariant SnippetSelectorModel::data(const QModelIndex &index, int role) const
     {
         if (role==MergedFilesRole) return m_cmodel->d->mergedFiles;
@@ -597,7 +597,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           case ScriptTokenRole: {
             int script=m_cmodel->d->entries[index.row()].script;
             if (script==-1) return QString();
-            return m_cmodel->d->scripts[script];
+            return qVariantFromValue<void*>( (void*)m_cmodel->d->scripts[script]);
             break;
           }
   #ifdef SNIPPET_EDITOR
@@ -613,7 +613,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           case ArgumentsRole:
             return m_cmodel->d->entries[index.row()].arguments;
             break;
-  #endif          
+  #endif
           default:
             break;
         }
@@ -627,8 +627,8 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       if (role!=Qt::DisplayRole) return QVariant();
       return QString("Snippet");
     }
-    
-  #ifdef SNIPPET_EDITOR 
+
+  #ifdef SNIPPET_EDITOR
     bool SnippetSelectorModel::setData ( const QModelIndex & index, const QVariant & value, int role) {
       if (!index.isValid()) return false;
       switch (role) {
@@ -653,7 +653,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       }
       return true;
     }
-    
+
     bool SnippetSelectorModel::removeRows ( int row, int count, const QModelIndex & parent) {
       if (parent.isValid()) return false;
       if (count!=1) return false;
@@ -663,7 +663,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       endRemoveRows();
       return true;
     }
-    
+
     QModelIndex SnippetSelectorModel::newItem() {
       int new_row=m_cmodel->d->entries.count();
       beginInsertRows(QModelIndex(),new_row,new_row);
@@ -680,19 +680,19 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
             foreach(SnippetSelectorModel *model,m_models) {
               connect(model, SIGNAL(destroyed(QObject*)),this,SLOT(subDestroyed(QObject*)));
             }
-        }        
-        
+        }
+
         CategorizedSnippetModel::~CategorizedSnippetModel() {
           qDeleteAll(m_models);
         }
-        
+
         void CategorizedSnippetModel::subDestroyed(QObject* obj) {
           int i=m_models.indexOf((SnippetSelectorModel*)(obj));
           if (i==-1) return;
           m_models.removeAt(i);
           reset();
         }
-        
+
         int CategorizedSnippetModel::rowCount(const QModelIndex& parent) const {
           if (!parent.isValid())
           {
@@ -707,9 +707,9 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
               return m->rowCount(QModelIndex());
             }
           }
-          return 0;          
+          return 0;
         }
-        
+
         QModelIndex CategorizedSnippetModel::index ( int row, int column, const QModelIndex & parent) const
         {
           if (row==-1) {
@@ -727,13 +727,13 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           } else  {
 //               kDebug()<<"Requested index for invalid parent, row="<<row;
               if ((row>=0) && (row<m_models.count()) && (column==0))
-                return createIndex(row,column);                
+                return createIndex(row,column);
           }
           return QModelIndex();
         }
-        
+
         QVariant CategorizedSnippetModel::data(const QModelIndex &index, int role) const {
-          if (!index.isValid()) 
+          if (!index.isValid())
           {
 //             kDebug()<<"invoked with invalid index";
             return QVariant();
@@ -753,7 +753,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           }
           return QVariant();
         }
-        
+
         QModelIndex CategorizedSnippetModel::parent ( const QModelIndex & index) const {
 //           kDebug()<<index<<" valid?"<<index.isValid()<<" internalPointer:"<<index.internalPointer();
           if (!index.isValid()) return QModelIndex();
@@ -762,17 +762,17 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
             QModelIndex idx=createIndex(m_models.indexOf((SnippetSelectorModel*)(index.internalPointer())),0);
 //             kDebug()<<"==========>"<<idx;
             return idx;
-          }          
+          }
           return QModelIndex();
         }
-        
+
         QVariant CategorizedSnippetModel::headerData ( int section, Qt::Orientation orientation, int role) const {
           if (orientation==Qt::Vertical) return QVariant();
           if (section!=0) return QVariant();
           if (role!=Qt::DisplayRole) return QVariant();
           return QString("Snippet");
         }
-        
+
 //END: CategorizedSnippetModel
 
 #ifdef SNIPPET_EDITOR

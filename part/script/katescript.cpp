@@ -117,6 +117,12 @@ KateScript::KateScript(const QString &urlOrScript, enum InputType inputType)
 KateScript::~KateScript()
 {
   if(m_loadSuccessful) {
+    // unload i18n catalog if available + loaded
+    if (!generalHeader().catalog().isEmpty()) {
+      kDebug() << "unloading i18n catalog" << generalHeader().catalog();
+      KGlobal::locale()->removeCatalog(generalHeader().catalog());
+    }
+
     // remove data...
     delete m_engine;
     delete m_document;
@@ -246,6 +252,11 @@ bool KateScript::load()
   // yip yip!
   initEngine();
   m_loadSuccessful = true;
+  // load i18n catalog if available
+  if (!generalHeader().catalog().isEmpty()) {
+    kDebug() << "loading i18n catalog" << generalHeader().catalog();
+    KGlobal::locale()->insertCatalog(generalHeader().catalog());
+  }
   return true;
 }
 
@@ -287,6 +298,16 @@ bool KateScript::setView(KateView *view)
   m_document->setDocument (view->doc());
   m_view->setView (view);
   return true;
+}
+
+void KateScript::setGeneralHeader(const KateScriptHeader& generalHeader)
+{
+  m_generalHeader = generalHeader;
+}
+
+KateScriptHeader& KateScript::generalHeader()
+{
+  return m_generalHeader;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

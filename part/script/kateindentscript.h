@@ -27,16 +27,11 @@
 
 class KateScriptDocument;
 
-class KateIndentScriptHeader : public KateScriptHeader
+class KateIndentScriptHeader
 {
   public:
-    KateIndentScriptHeader() : KateScriptHeader(), m_priority(0)
+    KateIndentScriptHeader() : m_priority(0)
     {}
-    KateIndentScriptHeader(const KateScriptHeader& scriptHeader)
-    : KateScriptHeader(), m_priority(0)
-    {
-      *static_cast<KateScriptHeader*>(this) = scriptHeader;
-    }
 
     inline void setName(const QString& name)
     { m_name = name; }
@@ -103,7 +98,7 @@ class KateIndentScript : public KateScript
 
     const QString &triggerCharacters();
 
-    const KateIndentScriptHeader& header() const;
+    const KateIndentScriptHeader& indentHeader() const;
 
     /**
      * Returns a pair where the first value is the indent amount, and the second
@@ -115,7 +110,7 @@ class KateIndentScript : public KateScript
   private:
     QString m_triggerCharacters;
     bool m_triggerCharactersSet;
-    KateIndentScriptHeader m_header;
+    KateIndentScriptHeader m_indentHeader;
 };
 
 

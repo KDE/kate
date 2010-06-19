@@ -28,13 +28,13 @@
 KateIndentScript::KateIndentScript(const QString &url, const KateIndentScriptHeader &header)
   : KateScript(url)
   , m_triggerCharactersSet (false)
-  , m_header(header)
+  , m_indentHeader(header)
 {
 }
 
-const KateIndentScriptHeader& KateIndentScript::header() const
+const KateIndentScriptHeader& KateIndentScript::indentHeader() const
 {
-  return m_header;
+  return m_indentHeader;
 }
 
 const QString &KateIndentScript::triggerCharacters()

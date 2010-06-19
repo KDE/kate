@@ -60,7 +60,7 @@ class KateCommandLineScript : public KateScript, public KTextEditor::Command
     KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header);
     virtual ~KateCommandLineScript();
 
-    const KateCommandLineScriptHeader& header();
+    const KateCommandLineScriptHeader& commandHeader();
 
     bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
 
@@ -73,7 +73,7 @@ class KateCommandLineScript : public KateScript, public KTextEditor::Command
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 
   private:
-    KateCommandLineScriptHeader m_header;
+    KateCommandLineScriptHeader m_commandHeader;
 };
 
 #endif

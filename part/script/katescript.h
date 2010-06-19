@@ -78,6 +78,11 @@ class KateScriptHeader
     inline const QString& kateVersion() const
     { return m_kateVersion; }
 
+    inline void setCatalog(const QString& catalog)
+    { m_i18nCatalog = catalog; }
+    inline const QString& catalog() const
+    { return m_i18nCatalog; }
+
     inline void setScriptType(Kate::ScriptType scriptType)
     { m_scriptType = scriptType; }
     inline Kate::ScriptType scriptType() const
@@ -88,6 +93,7 @@ class KateScriptHeader
     QString m_author;         ///< the script author, e.g. "John Smith <john@example.com>"
     int m_revision;           ///< script revision, a simple number, e.g. 1, 2, 3, ...
     QString m_kateVersion;    ///< required katepart version
+    QString m_i18nCatalog;        ///< i18n catalog
     Kate::ScriptType m_scriptType;  ///< the script type
 };
 //END
@@ -106,8 +112,9 @@ class KateScript {
     };
 
     /**
-     * Create a new script representation, passing a file @p url to it.
-     * Loading of the script will happen lazily
+     * Create a new script representation, passing either a file or the script
+     * content @p urlOrScript to it.
+     * In case of a file, loading of the script will happen lazily.
      */
     KateScript(const QString &urlOrScript, enum InputType inputType = InputURL);
     virtual ~KateScript();
@@ -151,6 +158,11 @@ class KateScript {
     /** Clears any uncaught exceptions in the script engine. */
     void clearExceptions();
 
+    /** set the general header after construction of the script */
+    void setGeneralHeader(const KateScriptHeader& generalHeader);
+    /** Return the general header */
+    KateScriptHeader& generalHeader();
+
   protected:
     /** Checks for exception and gives feedback on the console. */
     bool hasException(const QScriptValue& object, const QString& file);
@@ -179,6 +191,9 @@ class KateScript {
     QScriptEngine *m_engine;
 
   private:
+    /** general header data */
+    KateScriptHeader m_generalHeader;
+
     /** document/view wrapper objects */
     KateScriptDocument *m_document;
     KateScriptView *m_view;

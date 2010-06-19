@@ -66,7 +66,7 @@ QString KateAutoIndent::modeName (int mode)
   if (mode == 1)
     return MODE_NORMAL;
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().baseName();
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->indentHeader().baseName();
 }
 
 QString KateAutoIndent::modeDescription (int mode)
@@ -77,7 +77,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18nc ("Autoindent mode", "Normal");
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().name();
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->indentHeader().name();
 }
 
 QString KateAutoIndent::modeRequiredStyle(int mode)
@@ -85,7 +85,7 @@ QString KateAutoIndent::modeRequiredStyle(int mode)
   if (mode == 0 || mode == 1 || mode >= modeCount())
     return QString();
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->header().requiredStyle();
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->indentHeader().requiredStyle();
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
@@ -264,7 +264,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
 
 bool KateAutoIndent::isStyleProvided(const KateIndentScript *script, const KateHighlighting *highlight)
 {
-  QString requiredStyle = script->header().requiredStyle();
+  QString requiredStyle = script->indentHeader().requiredStyle();
   return (requiredStyle.isEmpty() || requiredStyle == highlight->style());
 }
 

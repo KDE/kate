@@ -32,7 +32,7 @@
 
 KateCommandLineScript::KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header)
   : KateScript(url)
-  , m_header(header)
+  , m_commandHeader(header)
 {
   KateCmd::self()->registerCommand (this);
 }
@@ -42,9 +42,9 @@ KateCommandLineScript::~KateCommandLineScript()
   KateCmd::self()->unregisterCommand (this);
 }
 
-const KateCommandLineScriptHeader& KateCommandLineScript::header()
+const KateCommandLineScriptHeader& KateCommandLineScript::commandHeader()
 {
-  return m_header;
+  return m_commandHeader;
 }
 
 
@@ -76,7 +76,7 @@ bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList a
 
 const QStringList &KateCommandLineScript::cmds ()
 {
-  return m_header.functions();
+  return m_commandHeader.functions();
 }
 
 bool KateCommandLineScript::exec (KTextEditor::View *view, const QString &_cmd, QString &errorMsg)

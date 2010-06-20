@@ -58,6 +58,10 @@ private Q_SLOTS:
 
   void testReplaceWithDoubleSelecion_data();
   void testReplaceWithDoubleSelecion();
+
+  void testReplaceDollar();
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

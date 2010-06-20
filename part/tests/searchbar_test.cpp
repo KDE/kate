@@ -486,3 +486,24 @@ void SearchBarTest::testReplaceWithDoubleSelecion()
   QCOMPARE(doc.text(), result);
   QCOMPARE(view.selectionRange(), match);
 }
+
+void SearchBarTest::testReplaceDollar()
+{
+  KateDocument doc(false, false, false);
+  KateView view(&doc, 0);
+  KateViewConfig config(&view);
+
+  doc.setText("aaa\nbbb\nccc\n\n\naaa\nbbb\nccc\nddd\n");
+
+  KateSearchBar bar(true, &view, &config);
+
+  bar.setSearchPattern("$");
+  bar.setSearchMode(KateSearchBar::MODE_REGEX);
+  bar.setReplacePattern("D");
+
+  bar.replaceAll();
+
+  QCOMPARE(doc.text(), QString("aaaD\nbbbD\ncccD\nD\nD\naaaD\nbbbD\ncccD\ndddD\n"));
+}
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -466,8 +466,9 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
 
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
-        const int foundAt = (backwards ? regexp.lastIndexIn(textLine, first, maxRight)
-                                       : regexp.indexIn(textLine, first, maxRight));
+        const int last = (j == forMax) ? maxRight : textLine.length();
+        const int foundAt = (backwards ? regexp.lastIndexIn(textLine, first, last)
+                                       : regexp.indexIn(textLine, first, last));
         const bool found = (foundAt != -1);
 
       /*

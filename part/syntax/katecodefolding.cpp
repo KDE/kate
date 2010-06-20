@@ -40,7 +40,8 @@ KateCodeFoldingNode::KateCodeFoldingNode() :
     type(0),
     visible(true),
     deleteOpening(false),
-    deleteEnding(false)
+    deleteEnding(false),
+    allowDestruction(true)
 {
 }//the endline fields should be initialised to not valid
 
@@ -55,7 +56,8 @@ KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char t
     type(typ),
     visible(true),
     deleteOpening(false),
-    deleteEnding(false)
+    deleteEnding(false),
+    allowDestruction(true)
 {
 }//the endline fields should be initialised to not valid
 
@@ -547,7 +549,9 @@ bool KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
   if (!node->visible)
   {
     m_clearCache=true;
+    node->setAllowDestruction(false);
     toggleRegionVisibility(getStartLine(node));
+    node->setAllowDestruction(true);
     m_clearCache=false;
   }
 
@@ -1302,7 +1306,7 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
       {
         int f = node->parentNode->findChild (node);
 
-        if (f >= 0) {
+        if (f >= 0 && node->allowDestruction) {
          KateCodeFoldingNode *delN=node->parentNode->takeChild(f);
 //          removeParentReferencesFromChilds(delN);
          delete delN;

@@ -101,6 +101,8 @@ class KateCodeFoldingNode
 
     int cmpPos(KateCodeFoldingTree *tree, uint line, uint col);
 
+    void setAllowDestruction(bool allowDestruction) { this->allowDestruction = allowDestruction; }
+    
   /**
    * data members
    */
@@ -119,7 +121,8 @@ class KateCodeFoldingNode
     bool visible;
     bool deleteOpening;
     bool deleteEnding;
-
+    bool allowDestruction;
+    
     QVector<KateCodeFoldingNode*> m_children;
 };
 

@@ -304,6 +304,11 @@ public:
      */
     void paintTabstop(QPainter &paint, qreal x, qreal y);
 
+    /**
+     * Paint a non-breaking space marker on position (x, y).
+     */
+    void paintNonBreakSpace(QPainter &paint, qreal x, qreal y);
+
     /** Paint a SciTE-like indent marker. */
     void paintIndentMarker(QPainter &paint, uint x, uint y);
 

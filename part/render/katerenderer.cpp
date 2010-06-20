@@ -45,6 +45,7 @@
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
+static const QChar nbSpaceChar(0xa0); // non-breaking space
 
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   : m_doc(doc)
@@ -263,6 +264,28 @@ void KateRenderer::paintTrailingSpace(QPainter &paint, qreal x, qreal y)
   paint.setPen( pen );
 
   paint.drawPoint( QPointF(x, y) );
+  paint.setPen( penBackup );
+}
+
+void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
+{
+  QPen penBackup( paint.pen() );
+  QPen pen( config()->tabMarkerColor() );
+  pen.setWidth(qMax(1u, spaceWidth() / 10));
+  paint.setPen( pen );
+  paint.setRenderHint(QPainter::Antialiasing, false);
+
+  const int height = config()->fontMetrics().height();
+  const int width = spaceWidth();
+
+  QPoint points[8];
+  points[0] = QPoint(x+width/10, y+height/4);
+  points[1] = QPoint(x+width/10, y+height/3);
+  points[2] = QPoint(x+width/10, y+height/3);
+  points[3] = QPoint(x+width-width/10, y+height/3);
+  points[4] = QPoint(x+width-width/10, y+height/3);
+  points[5] = QPoint(x+width-width/10, y+height/4);
+  paint.drawLines(points, 3);
   paint.setPen( penBackup );
 }
 
@@ -639,11 +662,21 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         }
       }
 
+      // draw an open box to mark non-breaking spaces
+      const QString& text = range->textLine()->string();
+      int y = lineHeight() * i + fm.ascent() - fm.strikeOutPos();
+      int nbSpaceIndex = text.indexOf(nbSpaceChar, line.lineLayout().xToCursor(xStart));
+
+      while (nbSpaceIndex != -1 && nbSpaceIndex < line.endCol()) {
+        int x = line.lineLayout().cursorToX(nbSpaceIndex);
+        if (x > xEnd)
+          break;
+        paintNonBreakSpace(paint, x - xStart, y);
+        nbSpaceIndex = text.indexOf(nbSpaceChar, nbSpaceIndex + 1);
+      }
+
       // Draw tab stops and trailing spaces
       if (showTabs() || showTrailingSpaces()) {
-        const QString& text = range->textLine()->string();
-        int y = lineHeight() * i + fm.ascent() - fm.strikeOutPos();
-
         if (showTabs()) {
           int tabIndex = text.indexOf(tabChar, line.lineLayout().xToCursor(xStart));
           while (tabIndex != -1 && tabIndex < line.endCol()) {

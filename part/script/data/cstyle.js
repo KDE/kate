@@ -136,13 +136,13 @@ String.prototype.ltrim = function()
 String.prototype.rtrim = function()
 {
     if ( this.length == 0 ) {
-        return string;
+        return "";
     }
     var i = this.length - 1;
     for ( ; i >= 0 && (this[i] == ' ' || this[i] == '\t'); --i ) {
         // continue
     }
-    return this.substr(-i);
+    return this.substr(0, i + 1);
 }
 
 /**
@@ -494,6 +494,13 @@ function tryCKeywords(line, isBrace)
     lastPos = document.lastColumn(currentLine);
     var lastChar = currentString.charAt(lastPos);
     var indentation = -1;
+
+    // ignore trailing comments see: https://bugs.kde.org/show_bug.cgi?id=189339
+    var commentPos = currentString.indexOf("//")
+    if (commentPos != -1) {
+        currentString = currentString.substring(0, pos).rtrim();
+        lastChar = currentString.charAt(currentString.length - 1);
+    }
 
     // try to ignore lines like: if (a) b; or if (a) { b; }
     if (lastChar != ';' && lastChar != '}') {

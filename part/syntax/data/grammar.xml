@@ -3,7 +3,7 @@
 <!--
   Syntax definition for kdev-pg/kdev-pg-qt grammars.
 -->
-<language name="KDev-PG[-Qt] Grammar" version="0.23" kateversion="2.5" section="Sources" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de), Jonathan Schmidt-Dominé (devel@the-user.org)" license="">
+<language name="KDev-PG[-Qt] Grammar" version="0.24" kateversion="2.5" section="Sources" extensions="*.g" casesensitive="1" author="Milian Wolff (mail@milianw.de), Jonathan Schmidt-Dominé (devel@the-user.org)" license="">
   <highlighting>
     <list name="macros">
       <item> ast_extra_members </item>
@@ -62,6 +62,8 @@
         <Detect2Chars attribute="Code Segment" context="CodeSegment" char="[" char1=":" beginRegion="code" />
         <!-- tokens are all-uppercase -->
         <RegExpr attribute="Token" insensitive="false" context="#stay" String="\b[A-Z_]+\b" />
+        <!-- simple use of an ASTNode without assigning it -->
+        <RegExpr attribute="AstNode" insensitive="true" context="#stay" String="\b[a-z]+\b(?!=)" />
         <!-- member=ASTNode -->
         <DetectChar attribute="Symbol" context="MemberAst" char="=" />
         <!-- -> ASTNode -->
@@ -93,9 +95,23 @@
         <DetectIdentifier attribute="AstNode" context="#pop" />
       </context>
       <!-- -> AstNode -->
-      <context name="AstDecl" attribute="AstNode" lineEndContext="#pop">
+      <context name="AstDecl" attribute="Error" lineEndContext="#stay">
+        <DetectSpaces attribute="Normal Text" />
+        <DetectIdentifier attribute="AstNode" />
+        <DetectChar char="[" attribute="Symbol" context="AstMemberDecl" />
+        <Detect2Chars char=";" char1=";" attribute="Symbol" context="#pop" />
+      </context>
+      <!-- member or temporary variables -->
+      <context name="AstMemberDecl" attribute="Normal Text" lineEndContext="#stay">
         <DetectSpaces />
-        <DetectIdentifier attribute="AstNode" context="#pop" />
+        <RegExpr attribute="Keyword" String="\b(member|temporary)\s+variable\b" />
+        <DetectIdentifier attribute="AstMember" />
+        <DetectChar attribute="Symbol" char=":" context="AstMemberType" />
+        <DetectChar attribute="Symbol" char="]" context="#pop" />
+      </context>
+      <context name="AstMemberType" attribute="Normal Text" lineEndContext="#stay">
+        <DetectIdentifier attribute="AstMemberType" />
+        <DetectChar attribute="Symbol" char=";" context="#pop" />
       </context>
     </contexts>
     <itemDatas>
@@ -112,6 +128,9 @@
       <itemData name="Code Segment" defStyleNum="dsFunction" />
       <itemData name="Token" defStyleNum="dsKeyword" spellChecking="false" />
       <itemData name="AstNode" defStyleNum="dsFunction" spellChecking="false" />
+      <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
+      <itemData name="AstMember" defStyleNum="dsNormal" spellChecking="false" />
+      <itemData name="AstMemberType" defStyleNum="dsDataType" spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>

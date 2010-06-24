@@ -104,6 +104,14 @@ void IndentTest::getTestData(const QString& indenter)
 {
   QTest::addColumn<QString>("testcase");
 
+  // make sure the indenters are valid
+  QFile indenterFile(srcPath + "/../script/data/" + indenter + ".js");
+  QVERIFY(indenterFile.exists());
+  QVERIFY(indenterFile.open(QFile::ReadOnly));
+  QScriptValue result = m_env->engine()->evaluate(indenterFile.readAll(), indenterFile.fileName());
+  QVERIFY2( !result.isError(), qPrintable(result.toString() + "\nat "
+                                          + m_env->engine()->uncaughtExceptionBacktrace().join("\n")) );
+
   const QString testDir( srcPath + "/../../testdata/indent/" + indenter + '/' );
   Q_ASSERT( QFile::exists(testDir) );
   QDirIterator contents( testDir );

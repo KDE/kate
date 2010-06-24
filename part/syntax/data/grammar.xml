@@ -92,6 +92,8 @@
       <!-- memberVar=AstNode -->
       <context name="MemberAst" attribute="AstNode" lineEndContext="#pop">
         <DetectSpaces />
+        <!-- tokens are all-uppercase -->
+        <RegExpr attribute="Token" insensitive="false" context="#pop" String="\b[A-Z_]+\b" />
         <DetectIdentifier attribute="AstNode" context="#pop" />
       </context>
       <!-- -> AstNode -->

@@ -35,7 +35,7 @@
     - improved highlighting
 
     -->
-<language name="Lua" version="1.03" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="1.03" indenter="lua" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
   <highlighting>
     <list name="keywords">
       <item> and </item>

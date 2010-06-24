@@ -4581,7 +4581,7 @@ void KateDocument::removeTrailingSpace(int line)
   if (!ln || ln->length() == 0)
     return;
 
-  if (line == activeView()->cursorPosition().line()
+  if (activeView() && line == activeView()->cursorPosition().line()
       && activeView()->cursorPosition().column() >= qMax(0, ln->lastChar()))
     return;
 

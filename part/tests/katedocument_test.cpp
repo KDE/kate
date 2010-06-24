@@ -24,6 +24,7 @@
 
 #include <katedocument.h>
 #include <ktexteditor/movingcursor.h>
+#include <kateconfig.h>
 
 using namespace KTextEditor;
 
@@ -94,4 +95,14 @@ void KateDocumentTest::testReplaceQStringList()
                                  "new\n"
                                  "text\n"
                                  "bar\n"));
+}
+
+void KateDocumentTest::testRemoveTrailingSpace()
+{
+    // https://bugs.kde.org/show_bug.cgi?id=242611
+    KateDocument doc(false, false, false);
+    doc.setText("asdf         \t   ");
+    doc.config()->setConfigFlags(KateDocumentConfig::cfRemoveTrailingDyn, true);
+    doc.editRemoveText(0, 0, 1);
+    QCOMPARE(doc.text(), QString("sdf"));
 }

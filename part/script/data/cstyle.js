@@ -493,13 +493,6 @@ function tryCKeywords(line, isBrace)
     dbg("Found first word: " + RegExp.$1);
     lastPos = document.lastColumn(currentLine);
     var lastChar = currentString.charAt(lastPos);
-
-    // ignore trailing comments see: https://bugs.kde.org/show_bug.cgi?id=189339
-    if (var pos = currentString.indexOf("//")) {
-        currentString = currentString.substring(0, pos).rtrim();
-        lastChar = currentString.charAt(currentString.length - 1);
-    }
-
     var indentation = -1;
 
     // try to ignore lines like: if (a) b; or if (a) { b; }

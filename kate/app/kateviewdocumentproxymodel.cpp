@@ -79,7 +79,7 @@ QMimeData *KateViewDocumentProxyModel::mimeData(const QModelIndexList &indexes) 
     if (index.isValid())
     {
       kDebug()<<"mimeData:"<<index;
-      stream << index.row() << index.column();
+      stream << index.row();
     }
   }
   mimeData->setData("application/x-kateviewdocumentproxymodel", encodedData);
@@ -113,14 +113,10 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
 #warning handle single item moves only for now;
 #endif
   int sourcerow;
-  int sourcecolumn;
   stream >> sourcerow;
-  stream >> sourcecolumn;
-  kDebug() << sourcerow << "/" << sourcecolumn;
+  kDebug() << sourcerow;
 
   int insertRowAt = row - ((sourcerow < row) ? 1 : 0);
-
-
 
   beginRemoveRows(parent, sourcerow, sourcerow);
 
@@ -328,7 +324,7 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
 QModelIndex KateViewDocumentProxyModel::mapFromSource ( const QModelIndex & sourceIndex ) const
 {
   if (!sourceIndex.isValid()) return QModelIndex();
-  return createIndex(m_mapFromSource[sourceIndex.row()], sourceIndex.column());
+  return createIndex(m_mapFromSource[sourceIndex.row()], 0);
 }
 
 QItemSelection KateViewDocumentProxyModel::mapSelectionFromSource ( const QItemSelection & sourceSelection ) const
@@ -345,12 +341,13 @@ QModelIndex KateViewDocumentProxyModel::mapToSource ( const QModelIndex & proxyI
 {
   if (!proxyIndex.isValid()) return QModelIndex();
   if (proxyIndex.row()>=m_mapToSource.count()) return QModelIndex();
-  return sourceModel()->index(m_mapToSource[proxyIndex.row()], proxyIndex.column(), QModelIndex());
+  return sourceModel()->index(m_mapToSource[proxyIndex.row()], 0, QModelIndex());
 }
 
 int KateViewDocumentProxyModel::columnCount ( const QModelIndex & parent) const
 {
-  return sourceModel()->columnCount(mapToSource(parent));
+  Q_UNUSED(parent)
+  return 1;
 }
 
 QModelIndex KateViewDocumentProxyModel::index ( int row, int column, const QModelIndex & parent) const
@@ -493,7 +490,7 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeInserted ( const QModelIndex &
   {
     if (m_current.row() > start)
     {
-      m_current = createIndex(m_current.row() + insertedRange, m_current.column());
+      m_current = createIndex(m_current.row() + insertedRange, 0);
     }
   }
   updateBackgrounds(false);

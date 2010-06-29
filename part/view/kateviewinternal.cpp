@@ -568,15 +568,17 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
-  if(!isVisible() && !viewLinesScrolled)
+  if(!isVisible() && !viewLinesScrolled )
     return; //When this view is not visible, don't do anything
 
   m_updatingView = true;
 
   bool blocked = m_lineScroll->blockSignals(true);
 
-  if (width() != cache()->viewWidth())
+  if (width() != cache()->viewWidth()) {
     cache()->setViewWidth(width());
+    changed = true;
+  }
 
   /* It was observed that height() could be negative here --
      when the main Kate view has 0 as size (during creation),

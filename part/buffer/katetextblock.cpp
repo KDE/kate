@@ -332,24 +332,17 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
 
       // skip cursors with too small column
       if (cursor->column() <= position.column()) {
-        if (cursor->column() < position.column() || !cursor->m_moveOnInsert) {
-	  kDebug()<<"skipping cursor:"<<cursor;
+        if (cursor->column() < position.column() || !cursor->m_moveOnInsert)
           continue;
-	}
       }
 
       // patch column of cursor
-      if (cursor->m_column <= oldLength) {
-	kDebug()<<"Patching cursor"<<cursor;
+      if (cursor->m_column <= oldLength)
         cursor->m_column += text.size ();
-	kDebug()<<"cursor has been patched"<<cursor;
-      }
+      
       // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
-      else if (cursor->m_column < textOfLine.size()) {
-	kDebug()<<"cursor has been behind end of line"<<cursor;
+      else if (cursor->m_column < textOfLine.size())
         cursor->m_column = textOfLine.size();
-	kDebug()<<"after end of line patched"<<cursor;
-      }
 
       // remember range, if any
       if (cursor->kateRange())

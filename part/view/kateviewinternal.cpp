@@ -3574,9 +3574,6 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
   //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
-  if ( m_view->selection() )
-    m_view->removeSelectedText();
-
   bool createdPreedit = false;
   if (!m_imPreeditRange) {
     createdPreedit = true;
@@ -3590,6 +3587,8 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   }
 
   if (!e->commitString().isEmpty() || e->replacementLength()) {
+    m_view->removeSelectedText();
+
     KTextEditor::Range preeditRange = *m_imPreeditRange;
 
     KTextEditor::Cursor start(m_imPreeditRange->start().line(), m_imPreeditRange->start().column() + e->replacementStart());

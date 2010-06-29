@@ -205,10 +205,6 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
 {
   QStringList l;
 
-  // we complete words on a single line, that has a length
-  if ( range.numberOfLines() || ! range.columnWidth() )
-    return l;
-
   int i( 0 );
   int pos( 0 );
   KTextEditor::Document *doc = view->document();
@@ -323,9 +319,6 @@ void KateWordCompletionView::popupCompletionList()
   kDebug( 13040 ) << "entered ...";
   KTextEditor::Range r = range();
 
-  if ( r.isEmpty() )
-    return;
-
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
   if(!cci || cci->isCompletionActive())
     return;
@@ -343,8 +336,6 @@ void KateWordCompletionView::popupCompletionList()
 void KateWordCompletionView::shellComplete()
 {
   KTextEditor::Range r = range();
-  if (r.isEmpty())
-    return;
 
   QStringList matches = m_dWCompletionModel->allMatches( m_view, r );
 
@@ -370,8 +361,6 @@ void KateWordCompletionView::shellComplete()
 void KateWordCompletionView::complete( bool fw )
 {
   KTextEditor::Range r = range();
-  if ( r.isEmpty() )
-    return;
 
   int inc = fw ? 1 : -1;
   KTextEditor::Document *doc = m_view->document();
@@ -547,7 +536,6 @@ const KTextEditor::Range KateWordCompletionView::range() const
 {
   KTextEditor::Cursor end = m_view->cursorPosition();
 
-  if ( ! end.column() ) return KTextEditor::Range(); // no word
   int line = end.line();
   int col = end.column();
 

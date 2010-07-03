@@ -522,6 +522,8 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * Register a notifier to receive signals indicating change of state of this range.
      *
+     * NOTE: Make sure you call @c removeNotifier() when deleting the notifier before the range.
+     *
      * \param notifier notifier to register. Ownership is not transferred.
      */
     void addNotifier(SmartRangeNotifier* notifier);
@@ -556,6 +558,8 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * Register a SmartRangeWatcher to receive calls indicating change of state
      * of this range. To finish receiving notifications, call removeWatcher().
+     *
+     * NOTE: Make sure you call @c removeWachter() when deleting the notifier before the range.
      *
      * \param watcher the instance of a class which is to receive
      *                notifications about changes to this range.

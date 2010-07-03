@@ -2038,6 +2038,9 @@ void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
   if(!m_externalHighlights.contains(topRange))
     return;
 
+  // remove 'this' watcher from the Highlight, see also: bug 243365
+  topRange->removeWatcher(this);
+
   m_externalHighlights.removeAll(topRange);
 
   m_viewInternal->removeHighlightRange(topRange);

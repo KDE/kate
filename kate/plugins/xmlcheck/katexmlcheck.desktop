@@ -42,6 +42,7 @@ Name[x-test]=xxXML Validationxx
 Name[zh_CN]=XML 校验
 Name[zh_TW]=XML 檢查器
 Comment=Validates XML files using xmllint
+Comment[bg]=Валидиране на XML-файлове с помощта на xmllint
 Comment[ca]=Valida els fitxers XML usant el xmllint
 Comment[ca@valencia]=Valida els fitxers XML usant el xmllint
 Comment[da]=Validerer XML-filer ved brug af xmllint

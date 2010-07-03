@@ -1,5 +1,6 @@
 [Desktop Entry]
 GenericName=Advanced Text Editor
+GenericName[bg]=Усъвършенстван текстов редактор
 GenericName[ca]=Editor de text avançat
 GenericName[ca@valencia]=Editor de text avançat
 GenericName[cs]=Pokročilý textový editor
@@ -45,6 +46,7 @@ GenericName[zh_CN]=高级文本编辑器
 GenericName[zh_TW]=進階文字編輯器
 Name=Kate
 Name[be]=Kate
+Name[bg]=Kate
 Name[ca]=Kate
 Name[ca@valencia]=Kate
 Name[cs]=Kate

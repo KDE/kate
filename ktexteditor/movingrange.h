@@ -211,6 +211,13 @@ class KTEXTEDITOR_EXPORT MovingRange
      * Ranges with smaller Z-depth than others will win during rendering.
      * Default is 0.0.
      * 
+     * Defined depths for common kind of ranges use in editor components implenting this interface,
+     * smaller depths are more more in the foreground and will win during rendering:
+     * - Selection == -100000.0
+     * - Search == -10000.0
+     * - Bracket Highlighting == -1000.0
+     * - Folding Hover == -100.0
+     * 
      * \return current Z-depth of this range
      */
     virtual qreal zDepth () const = 0;

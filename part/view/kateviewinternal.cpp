@@ -119,6 +119,11 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_bm->setAttributeOnlyForViews (true);
   m_bmStart->setAttributeOnlyForViews (true);
   m_bmEnd->setAttributeOnlyForViews (true);
+  
+  // use z depth defined in moving ranges interface
+  m_bm->setZDepth (-1000.0);
+  m_bmStart->setZDepth (-1000.0);
+  m_bmEnd->setZDepth (-1000.0);
 
   // update mark attributes
   updateBracketMarkAttributes();

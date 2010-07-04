@@ -139,6 +139,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   // selection if for this view only and will invalidate if becoming empty
   m_selection.setView (this);
+  
+  // use z depth defined in moving ranges interface
+  m_selection.setZDepth (-100000.0);
 
   KateGlobal::self()->registerView( this );
 

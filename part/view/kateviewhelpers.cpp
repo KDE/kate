@@ -1334,7 +1334,8 @@ void KateIconBorder::showBlock()
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     attr->setBackground(foldingColor(0, m_currentBlockLine, false));
     m_foldingRange->setView (m_view);
-    m_foldingRange->setZDepth (1000.0);
+    // use z depth defined in moving ranges interface
+    m_foldingRange->setZDepth (-100.0);
     m_foldingRange->setAttribute(attr);
   }
 }

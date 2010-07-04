@@ -44,7 +44,7 @@ private:
   QMultiMap<QString,QString> m_defaultAttributes;
   int find_region_start(int cursor_x, const QString& line, int * filtercount);
   int find_region_end(int cursor_x, const QString& line, int * filtercount);
-  QStringList parse(const QString& input, int offset);
+  QStringList parse(const QString& input, int offset, int *newOffset=0);
   QString parseIdentifier(const QString& input, int *offset,bool firstDigit=false);
   int parseNumber(const QString& input, int *offset);
   void apply_filter_e(QStringList *lines);

@@ -33,7 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 
-#define IHP_DEBUG
+#undef IHP_DEBUG
 
 K_PLUGIN_FACTORY_DECLARATION(InsaneHTMLPluginLEFactory)
 K_PLUGIN_FACTORY_DEFINITION(InsaneHTMLPluginLEFactory,
@@ -98,7 +98,7 @@ int InsaneHTMLPluginLEView::find_region_end(int cursor_x, const QString& line, i
   const int len=line.length();
   while (end_x<len) {
     QChar c=line.at(end_x);
-    if (c.isLetter() || c.isDigit() || (c==QChar('*')) || (c==QChar('_')) || (c==QChar('-')) || (c==QChar(':')) || (c==QChar('.')) || (c==QChar('#')) )
+    if (c.isLetter() || c.isDigit() || (c==QChar('*')) || (c==QChar('_')) || (c==QChar('-')) || (c==QChar(':')) || (c==QChar('.')) || (c==QChar('#')) || (c==QChar(')'))  )
       end_x++;
     else if (c==QChar('|')) {
       end_x++;
@@ -161,7 +161,8 @@ int InsaneHTMLPluginLEView::find_region_start(int cursor_x, const QString& line,
     
     if (c.isLetter() || c.isDigit() || (c==QChar('*')) || (c==QChar('_')) ||
       (c==QChar('-')) || (c==QChar(':')) || (c==QChar('.')) || (c==QChar('#')) || 
-      (c==QChar('>')) || (c==QChar('$')) || (c==QChar('+'))) {
+      (c==QChar('>')) || (c==QChar('$')) || (c==QChar('+')) || (c==QChar('(')) ||
+      (c==QChar(')'))) {
       start_x=tmp_x;
       continue;
     }
@@ -178,7 +179,7 @@ int InsaneHTMLPluginLEView::find_region_start(int cursor_x, const QString& line,
   if (in_attrib || in_string) return -1;
   if (start_x>=len) return -1;
   if (start_x>=0) {
-    if (!line.at(start_x).isLetter()) return -1;
+    if (!( (line.at(start_x).isLetter()) || (line.at(start_x)==QChar('(')) ) ) return -1;
   }
   return start_x;
 }
@@ -226,12 +227,14 @@ int InsaneHTMLPluginLEView::parseNumber(const QString& input, int *offset) {
   
 }
 
-QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
+QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset,int *newOffset) {
   QString tag;
   QStringList classes;
   QStringList sub;
   QStringList relatives;
   QString id;
+  bool compound=false;
+  QStringList compoundSub;
   QMap<QString,QString> attributes;
   QString attributesString;
   int multiply=1;
@@ -242,16 +245,30 @@ QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
     attributes.insert(defAttr,"");
   while (offset<input.length()) {
     QChar c=input.at(offset);
-    if (c==QChar('.')){
+    if (c==QChar(')')) {
+      offset++;
+      break;
+    } else if (c==QChar('(')) {
+      offset++;
+#ifdef IHP_DEBUG
+      KPassivePopup::message(i18n("offset1 %1",offset),m_view);
+#endif
+      compoundSub=parse(input,offset,&offset);
+      compound=true;
+#ifdef IHP_DEBUG
+      KPassivePopup::message(i18n("offset2 %1",offset),m_view);
+#endif
+      
+    } else if (c==QChar('.')) {
       offset++;
       classes << parseIdentifier(input,&offset);
     } else if (c==QChar('>')) {
       offset++;
-      sub=parse(input,offset);
+      sub=parse(input,offset,&offset);
       break;
     } else if (c==QChar('+')) {
       offset++;
-      relatives=parse(input,offset);
+      relatives=parse(input,offset,&offset);
       break;
     } else if (c==QChar('*')) {
       offset++;
@@ -362,43 +379,54 @@ QStringList InsaneHTMLPluginLEView::parse(const QString& input, int offset) {
     }
   }
   
+  if (newOffset) *newOffset=offset;
+  
   if (!error) {
+      
+      
     for(QMap<QString,QString>::const_iterator it=attributes.constBegin();it!=attributes.constEnd();++it) {
       attributesString+=" "+it.key();
       if (!it.value().isNull()) attributesString+="=\""+it.value()+"\"";
     }
     QStringList result;
-    QString idAttrib;
-    if (!id.isEmpty()) idAttrib=QString(" id=\"%1\"").arg(id);
-    QString classAttrib=classes.join(" ");
-    QString classComment;
-    if (!classAttrib.isEmpty()) classComment="."+classes.join(" .");
-    if (!classAttrib.isEmpty()) classAttrib=QString(" class=\"%1\"").arg(classAttrib);
+    if (!compound) {
+      QString idAttrib;
+      if (!id.isEmpty()) idAttrib=QString(" id=\"%1\"").arg(id);
+      QString classAttrib=classes.join(" ");
+      QString classComment;
+      if (!classAttrib.isEmpty()) classComment="."+classes.join(" .");
+      if (!classAttrib.isEmpty()) classAttrib=QString(" class=\"%1\"").arg(classAttrib);
 
-    if (!sub.isEmpty())
-      sub=sub.replaceInStrings(QRegExp("^"),"  ");
-    
-    for (int i=1;i<=multiply;i++) {
-      bool done=false;
-      if (!idAttrib.isEmpty()) result<<QString("|c-#%1-c|").arg(id);
-      if (!classComment.isEmpty()) result<<QString("|c-%1-c|").arg(classComment);
-      if (sub.isEmpty()) {        
-	if (m_emptyTags.contains(tag)) {
-	  result<<QString("<%1%2%3%4/>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
-	  done=true;
-	}
-      }   
-      if (!done){
-	if (!sub.isEmpty()) {
-	  result<<QString("<%1%2%3%4>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
-	  result<<sub;
-	  result<<QString("</%1>").arg(tag);
-	} else
-	  result<<QString("<%1%2%3%4></%1>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
-      }
+      if (!sub.isEmpty())
+        sub=sub.replaceInStrings(QRegExp("^"),"  ");
       
-      if (!idAttrib.isEmpty()) result<<QString("|c-/#%1-c|").arg(id);
-      if (!classComment.isEmpty()) result<<QString("|c-/%1-c|").arg(classComment);
+      for (int i=1;i<=multiply;i++) {
+        bool done=false;
+        if (!idAttrib.isEmpty()) result<<QString("|c-#%1-c|").arg(id);
+        if (!classComment.isEmpty()) result<<QString("|c-%1-c|").arg(classComment);
+        if (sub.isEmpty()) {        
+          if (m_emptyTags.contains(tag)) {
+            result<<QString("<%1%2%3%4/>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
+            done=true;
+          }
+        }   
+        if (!done){
+          if (!sub.isEmpty()) {
+            result<<QString("<%1%2%3%4>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
+            result<<sub;
+            result<<QString("</%1>").arg(tag);
+          } else
+            result<<QString("<%1%2%3%4></%1>").arg(tag).arg(idAttrib).arg(classAttrib).arg(attributesString);
+        }
+        
+        if (!idAttrib.isEmpty()) result<<QString("|c-/#%1-c|").arg(id);
+        if (!classComment.isEmpty()) result<<QString("|c-/%1-c|").arg(classComment);
+      }
+    } else {
+      for (int i=1;i<=multiply;i++) {
+        QStringList  tmp=compoundSub;
+        result<<tmp;
+      }
     }
     if (!relatives.isEmpty())
       result<<relatives;

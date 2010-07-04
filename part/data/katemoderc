@@ -1,5 +1,6 @@
 [Python]
-Variables=kate: presave-postdialog python-encoding; indent-mode python;
+Variables=kate: indent-mode python;
+#Variables=kate: presave-postdialog python-encoding; indent-mode python;
 
 [Makefile]
 Variables=kate: tab-width 8; indent-width 8; replace-tabs off; replace-tabs-save off;

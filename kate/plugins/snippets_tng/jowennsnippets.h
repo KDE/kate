@@ -85,6 +85,7 @@ namespace JoWenn {
       void addView(KTextEditor::Document *document, KTextEditor::View *view);
       void updateDocument(KTextEditor::Document *document);
       void slotTypeChanged(const QStringList& fileType);
+      void provideView(KTextEditor::View** pView);
     Q_SIGNALS:
       void typeHasChanged(KTextEditor::Document*);
     public:

@@ -22,8 +22,12 @@
 #include <klocale.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/highlightinterface.h>
+#include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/view.h>
 #include <kmessagebox.h>
+#include <kshortcut.h>
+#include <kaction.h>
+#include <kactioncollection.h>
 #ifdef SNIPPET_EDITOR
   #include <kstandarddirs.h>
   #include <kglobal.h>
@@ -42,17 +46,49 @@ namespace KTextEditor {
 #endif
     class SnippetCompletionEntry {
       public:
-        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin, int _script=-1):
-          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin),script(_script){}
+        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin, int _script=-1, QString _shortcut=QString()):
+          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin),script(_script),shortcut(_shortcut){
+            kDebug()<<"SnippetCompletionEntry: shortcut"<<shortcut;
+          }
         ~SnippetCompletionEntry(){};
         QString match;
         QString prefix;
         QString postfix;
         QString arguments;
         QString fillin;
+        QString shortcut;
         int     script;
     };
 
+    
+    class FilteredEntry {
+      public:
+        FilteredEntry(SnippetCompletionModel *_model, int _id):
+          model(_model),id(_id){          
+        }
+      SnippetCompletionModel *model;
+      int id;       
+    };
+
+
+  }
+  }
+#ifdef SNIPPET_EDITOR
+  }
+#endif
+
+    
+#include "internalcompletionmodel.h"
+#include "internalcompletionmodel.moc"
+    
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+#ifdef SNIPPET_EDITOR
+  namespace Editor {
+#endif
+    
+        
+    
 //BEGIN: SnippetCompletionModelPrivate
   class SnippetCompletionModelPrivate {
   public:
@@ -128,7 +164,8 @@ namespace KTextEditor {
         QLatin1String postfix_str("displaypostfix");
         QLatin1String arguments_str("displayarguments");
         QLatin1String fillin_str("fillin");
-
+        QLatin1String shortcut_str("shortcut");
+        
         for (int i_item=0;i_item<item_nodes.count();i_item++) {
           QDomElement item=item_nodes.item(i_item).toElement();
           if (item.tagName()!="item") continue;
@@ -138,6 +175,7 @@ namespace KTextEditor {
           QString postfix;
           QString arguments;
           QString fillin;
+          QString shortcut;
           QDomNodeList data_nodes=item.childNodes();
           for (int i_data=0;i_data<data_nodes.count();i_data++) {
             QDomElement data=data_nodes.item(i_data).toElement();
@@ -152,9 +190,11 @@ namespace KTextEditor {
               arguments=data.text();
             else if (tagName==fillin_str)
               fillin=data.text();
+            else if (tagName==shortcut_str)
+              shortcut=data.text();
           }
           //kDebug(13040)<<prefix<<match<<postfix<<arguments<<fillin;
-          entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin,scriptID));
+          entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin,scriptID,shortcut));
 
         }
       }
@@ -475,6 +515,8 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
         addAndCreateElement(doc,item,"match",entry.match);
         addAndCreateElement(doc,item,"displaypostfix",entry.postfix);
         addAndCreateElement(doc,item,"displayarguments",entry.arguments);
+        if (!entry.shortcut.isEmpty())
+          addAndCreateElement(doc,item,"shortcut",entry.shortcut);
         addAndCreateElement(doc,item,"fillin",entry.fillin);
         root.appendChild(item);
       }
@@ -574,6 +616,22 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       return m_cmodel->d->entries.count();
     }
 
+    QList<QAction*> SnippetSelectorModel::actions() {
+      QList<QAction*> as;
+      for (int i=0;i<rowCount(QModelIndex());i++) {
+            QString shortcut;
+            shortcut=m_cmodel->d->entries[i].shortcut;            
+            if (shortcut.isEmpty()) continue;
+            kDebug()<<"Shortcut for snippet: "<<shortcut;
+            KAction *a=new KAction(0);
+            a->setObjectName(shortcut);
+            a->setShortcut(KShortcut(shortcut));
+            a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+            as.append(a);            
+      }
+      return as;
+    }
+    
     QModelIndex SnippetSelectorModel::index ( int row, int column, const QModelIndex & parent ) const
     {
       if (parent.isValid()) return QModelIndex();
@@ -613,6 +671,9 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           case ArgumentsRole:
             return m_cmodel->d->entries[index.row()].arguments;
             break;
+          case ShortcutRole:
+            return m_cmodel->d->entries[index.row()].shortcut;
+            break;
   #endif
           default:
             break;
@@ -648,6 +709,9 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           case ArgumentsRole:
             m_cmodel->d->entries[index.row()].arguments=value.toString();
             break;
+          case ShortcutRole:
+            m_cmodel->d->entries[index.row()].shortcut=value.toString();
+            break;
         default:
           return QAbstractItemModel::setData(index,value,role);
       }
@@ -672,18 +736,95 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       return createIndex(new_row,0);
     }
   #endif
+  
+    void SnippetSelectorModel::entriesForShortcut(const QString &shortcut, void* list) {
+      QList<FilteredEntry> *l=(QList<FilteredEntry>*)list;
+      for (int i=0;i<m_cmodel->d->entries.count();i++) {
+        if (m_cmodel->d->entries[i].shortcut==shortcut) {
+          l->append(FilteredEntry(m_cmodel,i));
+        }
+      }
+    }
+  
 //END: SelectorModel
+
+
+
+
 
 //BEGIN: CategorizedSnippetModel
         CategorizedSnippetModel::CategorizedSnippetModel(const QList<SnippetSelectorModel*>& models):
-          QAbstractItemModel(),m_models(models) {
+          QAbstractItemModel(),m_models(models),m_actionCollection(new KActionCollection(this)) {
             foreach(SnippetSelectorModel *model,m_models) {
               connect(model, SIGNAL(destroyed(QObject*)),this,SLOT(subDestroyed(QObject*)));
+              connect(model, SIGNAL(needView(KTextEditor::View **)), this, SIGNAL(needView(KTextEditor::View **)));
+              foreach(QAction *a,model->actions()) {
+              if (m_actionCollection->action(a->objectName())) {
+                delete a;
+              } else {
+                a->setParent(this);
+                m_actionCollection->addAction(a->objectName(),a);
+                connect(a,SIGNAL(triggered()),this,SLOT(actionTriggered()));
+              }
             }
+          }
         }
 
         CategorizedSnippetModel::~CategorizedSnippetModel() {
           qDeleteAll(m_models);
+        }
+
+        void CategorizedSnippetModel::actionTriggered() {          
+          //KMessageBox::error(0,QString("Action triggered:%1").arg(sender()->objectName()));
+          QList<FilteredEntry> entries;
+          foreach (SnippetSelectorModel *model, m_models) {
+            model->entriesForShortcut(sender()->objectName(), &entries);
+          }
+          kDebug()<<"Found entries:"<<entries.count();
+          if (entries.count()==0) return;
+          if (entries.count()==1) {
+              SnippetCompletionModel *m=entries[0].model;
+              KTextEditor::View* view;
+              view=0;
+              needView(&view);
+              if (view==0) return;
+              /*m->executeCompletionItem2(view->document(),
+                KTextEditor::Range(view->cursorPosition(),view->cursorPosition()),
+                m->index(entries[0].id,0,QModelIndex()));*/
+              kDebug()<<entries[0].id;
+              
+              QString fillin=m->d->entries[entries[0].id].fillin;
+              int script=m->d->entries[entries[0].id].script;
+              TemplateScript * ts=0;
+              if (script!=-1)
+                ts=m->d->scripts[script];
+            
+              kDebug()<<"snippet content to insert is:"<<fillin;
+              
+              KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
+              if (ti2) {
+
+                ti2->insertTemplateText (view->cursorPosition(), fillin,QMap<QString,QString>(),ts);
+              } else {
+                KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
+                if (ti)
+                  ti->insertTemplateText (view->cursorPosition(), fillin,QMap<QString,QString>());
+              }
+              view->setFocus();
+              return;
+          } else { 
+            // MORE THEN ONE FOUND
+            KTextEditor::View* view;
+            view=0;
+            needView(&view);
+            if (view==0) return;
+            
+            KTextEditor::CodeCompletionInterface *iface =
+            qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
+            if (iface) {
+              iface->startCompletion(Range(view->cursorPosition(),view->cursorPosition()), new InternalCompletionModel(entries));
+            }            
+          }
         }
 
         void CategorizedSnippetModel::subDestroyed(QObject* obj) {
@@ -735,6 +876,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
         QVariant CategorizedSnippetModel::data(const QModelIndex &index, int role) const {
           if (!index.isValid())
           {
+            
 //             kDebug()<<"invoked with invalid index";
             return QVariant();
           }
@@ -772,12 +914,127 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           if (role!=Qt::DisplayRole) return QVariant();
           return QString("Snippet");
         }
+        
+        KActionCollection *CategorizedSnippetModel::actionCollection() {
+          return m_actionCollection;
+        }
 
 //END: CategorizedSnippetModel
+
+
+//BEGIN: InternalCompletionModel
+        InternalCompletionModel::InternalCompletionModel(QList<FilteredEntry> _entries):
+          CodeCompletionModel2(0),entries(_entries){}
+        InternalCompletionModel::~InternalCompletionModel(){}
+        void InternalCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType) {          
+        }
+        
+        QVariant InternalCompletionModel::data( const QModelIndex & index, int role) const {
+          //kDebug(13040);
+          if (role == KTextEditor::CodeCompletionModel::InheritanceDepth)
+            return 1;
+          if (!index.parent().isValid()) {
+            if (role==Qt::DisplayRole) return i18n("Snippets");
+            if (role==GroupRole) return Qt::DisplayRole;
+            return QVariant();
+          }
+          if (role == Qt::DisplayRole) {
+            if (index.column() == KTextEditor::CodeCompletionModel::Name ) {
+              //kDebug(13040)<<"returning: "<<m_matches[index.row()]->match;
+              return entries[index.row()].model->d->entries[entries[index.row()].id].match;
+            } else if (index.column() == KTextEditor::CodeCompletionModel::Prefix ) {
+              const QString& tmp=entries[index.row()].model->d->entries[entries[index.row()].id].prefix;
+              if (!tmp.isEmpty()) return tmp;
+            } else if (index.column() == KTextEditor::CodeCompletionModel::Postfix ) {
+              const QString& tmp=entries[index.row()].model->d->entries[entries[index.row()].id].postfix;
+              if (!tmp.isEmpty()) return tmp;
+            } else if (index.column() == KTextEditor::CodeCompletionModel::Arguments ) {
+              const QString& tmp=entries[index.row()].model->d->entries[entries[index.row()].id].arguments;
+              if (!tmp.isEmpty()) return tmp;
+            }
+          }
+          return QVariant();
+        }
+
+        QModelIndex InternalCompletionModel::parent(const QModelIndex& index) const {
+          if (index.internalId())
+            return createIndex(0, 0, 0);
+          else
+            return QModelIndex();
+        }
+
+        QModelIndex InternalCompletionModel::index(int row, int column, const QModelIndex& parent) const {
+          if (!parent.isValid()) {
+            if (row == 0)
+              return createIndex(row, column, 0); //header  index
+            else
+              return QModelIndex();
+          } else if (parent.parent().isValid()) //we only have header and children, no subheaders
+            return QModelIndex();
+
+          if (row < 0 || row >= entries.count() || column < 0 || column >= ColumnCount )
+            return QModelIndex();
+
+          return createIndex(row, column, 1); // normal item index
+        }
+
+        int InternalCompletionModel::rowCount (const QModelIndex & parent) const {
+          if (!parent.isValid() && !entries.isEmpty())
+            return 1; //one toplevel node (group header)
+          else if(parent.parent().isValid())
+            return 0; //we don't have sub children
+          else
+            return entries.count(); // only the children
+        }
+
+        void InternalCompletionModel::executeCompletionItem2(KTextEditor::Document* document,
+          const KTextEditor::Range& word, const QModelIndex& index) const {
+            KTextEditor::View *view=document->activeView();
+            int row=index.row();
+            SnippetCompletionModel *m=entries[row].model;
+            QString fillin=m->d->entries[entries[row].id].fillin;
+              int script=m->d->entries[entries[row].id].script;
+              TemplateScript * ts=0;
+              if (script!=-1)
+                ts=m->d->scripts[script];
+            
+              kDebug()<<"snippet content to insert is:"<<fillin;
+              
+              KTextEditor::TemplateInterface2 *ti2=qobject_cast<KTextEditor::TemplateInterface2*>(view);
+              if (ti2) {
+
+                ti2->insertTemplateText (view->cursorPosition(), fillin,QMap<QString,QString>(),ts);
+              } else {
+                KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(view);
+                if (ti)
+                  ti->insertTemplateText (view->cursorPosition(), fillin,QMap<QString,QString>());
+              }
+              view->setFocus();
+            const_cast<InternalCompletionModel*>(this)->deleteLater();
+        }
+
+
+        void InternalCompletionModel::aborted(View* view) {
+          kDebug();
+          deleteLater();
+        }
+
+/*
+         virtual bool shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion);
+        virtual Range completionRange(View* view, const Cursor &position);
+        virtual bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
+*/
+
+
+//END:  InternalCompletionModel
+
+
 
 #ifdef SNIPPET_EDITOR
   }
 #endif
   }
 }
+
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

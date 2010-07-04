@@ -26,6 +26,7 @@
 #include <ktexteditor/highlightinterface.h>
 #include <kate/pluginconfigpageinterface.h>
 
+#include <kactioncollection.h>
 #include <kdebug.h>
 #include <qmenu.h>
 #include <kmessagebox.h>
@@ -84,8 +85,13 @@ namespace JoWenn {
     KTextEditor::View *view=m_mainWindow->activeView();
     kDebug(13040)<<view;
     QAbstractItemModel *m=treeView->model();
-    if (m_associatedView.isNull())
-      disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
+    if (!m_associatedView.isNull()) {
+      disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));      
+      if (!m_currentCollection.isNull()) {
+        m_currentCollection->removeAssociatedWidget(m_associatedView.data());
+      }
+      
+    }
     if (view)
     {
       m_associatedView=view;
@@ -96,6 +102,10 @@ namespace JoWenn {
       {
           treeView->setModel(m_plugin->modelForDocument(view->document()));
           m_mode=mode;
+      }
+      if (treeView->model()) {
+        m_currentCollection=m_plugin->modelForDocument(view->document())->actionCollection();
+        if (!m_currentCollection.isNull()) m_currentCollection->addAssociatedWidget(view);        
       }
     }
   }

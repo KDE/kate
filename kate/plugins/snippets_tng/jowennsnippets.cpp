@@ -117,7 +117,9 @@ namespace JoWenn {
     {
       list.append(model->selectorModel());
     }
-    m_document_categorized_hash.insert(document,new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
+    KTextEditor::CodesnippetsCore::CategorizedSnippetModel *mod;
+    m_document_categorized_hash.insert(document,mod=new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
+    connect(mod,SIGNAL(needView(KTextEditor::View **)),this,SLOT(provideView(KTextEditor::View**)));
 
 
     //Q_ASSERT(modelForDocument(document));
@@ -131,6 +133,10 @@ namespace JoWenn {
 
     connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
     connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+  }
+
+  void KateSnippetsPlugin::provideView(KTextEditor::View** pView) {
+    *pView=application()->activeMainWindow()->activeView();
   }
 
   void KateSnippetsPlugin::removeDocument(KTextEditor::Document* document)

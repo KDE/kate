@@ -25,6 +25,7 @@
 #include "../lib/dbus_helpers.h"
 #include <kmessagebox.h>
 #include <kwindowsystem.h>
+#include <kkeysequencewidget.h>
 #include <QDBusConnectionInterface>
 #include <QStandardItem>
 #include <qfile.h>
@@ -192,7 +193,8 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
   currentChanged(QModelIndex(),QModelIndex());
   scriptEditor->setPlainText(m_snippetData->script());  
-
+  snippetShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+  
 
   connect(snippetCollectionAuthors,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
   connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
@@ -200,6 +202,7 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   connect(snippetMatch,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
   connect(snippetPostfix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
   connect(snippetArguments,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   connect(delSnippet,SIGNAL(clicked()),this,SLOT(deleteSnippet()));
   connect(addSnippet,SIGNAL(clicked()),this,SLOT(newSnippet()));
@@ -246,6 +249,7 @@ void SnippetEditorWindow::slotClose(QAbstractButton* button) {
       m_selectorModel->setData(previous,snippetMatch->text(),SnippetSelectorModel::MatchRole);
       m_selectorModel->setData(previous,snippetPostfix->text(),SnippetSelectorModel::PostfixRole);
       m_selectorModel->setData(previous,snippetArguments->text(),SnippetSelectorModel::ArgumentsRole);
+      m_selectorModel->setData(previous,snippetShortcut->keySequence().toString(),SnippetSelectorModel::ShortcutRole);
       m_selectorModel->setData(previous,snippetContent->toPlainText(),SnippetSelectorModel::FillInRole);
     }  
     
@@ -266,12 +270,16 @@ void SnippetEditorWindow::currentChanged(const QModelIndex& current, const QMode
     m_selectorModel->setData(previous,snippetMatch->text(),SnippetSelectorModel::MatchRole);
     m_selectorModel->setData(previous,snippetPostfix->text(),SnippetSelectorModel::PostfixRole);
     m_selectorModel->setData(previous,snippetArguments->text(),SnippetSelectorModel::ArgumentsRole);
+    m_selectorModel->setData(previous,snippetShortcut->keySequence().toString(QKeySequence::PortableText),SnippetSelectorModel::ShortcutRole);
     m_selectorModel->setData(previous,snippetContent->toPlainText(),SnippetSelectorModel::FillInRole);
   }
   snippetPrefix->setText(m_selectorModel->data(current,SnippetSelectorModel::PrefixRole).toString());
   snippetMatch->setText(m_selectorModel->data(current,SnippetSelectorModel::MatchRole).toString());
   snippetPostfix->setText(m_selectorModel->data(current,SnippetSelectorModel::PostfixRole).toString());
   snippetArguments->setText(m_selectorModel->data(current,SnippetSelectorModel::ArgumentsRole).toString());
+  disconnect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
+  snippetShortcut->setKeySequence(QKeySequence(m_selectorModel->data(current,SnippetSelectorModel::ShortcutRole).toString()));
+  connect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
   disconnect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   snippetContent->setPlainText(m_selectorModel->data(current,SnippetSelectorModel::FillInRole).toString());
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));

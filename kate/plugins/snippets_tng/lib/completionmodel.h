@@ -72,7 +72,9 @@ namespace KTextEditor {
 
       private:
         SnippetCompletionModelPrivate  * const d;
-
+        friend class CategorizedSnippetModel;
+        friend class InternalCompletionModel;
+        
   #ifdef SNIPPET_EDITOR
       public:
           QString script();
@@ -94,11 +96,17 @@ namespace KTextEditor {
         virtual QVariant data(const QModelIndex &index, int role) const;
         virtual QModelIndex parent ( const QModelIndex & index) const;
         virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
+        
+        KActionCollection *actionCollection();
       public Q_SLOTS:
         void subDestroyed(QObject*);
+        void actionTriggered();
       private:
         QList<SnippetSelectorModel*> m_models;
+        KActionCollection *m_actionCollection;
         CategorizedSnippetModelPrivate *d;
+      Q_SIGNALS:
+        void needView(KTextEditor::View **);
     };
 
     class SnippetSelectorModelPrivate;
@@ -122,7 +130,7 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ForExtension=Qt::UserRole+100};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ShortcutRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
         enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,ForExtension=Qt::UserRole+100};
@@ -131,6 +139,9 @@ namespace KTextEditor {
       private:
           SnippetCompletionModel *m_cmodel;
           SnippetSelectorModelPrivate *d;
+          QList<QAction*> actions();
+          void entriesForShortcut(const QString &shortcut, void* list);
+          friend class CategorizedSnippetModel;    
     };
 
 #ifdef SNIPPET_EDITOR

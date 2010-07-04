@@ -57,6 +57,7 @@ namespace JoWenn {
       QString m_mode;
       QMenu *m_addSnippetToPopup;
       QPointer<KTextEditor::View> m_associatedView;
+      QPointer<KActionCollection> m_currentCollection;
     public:
       class ActionData {
         public:

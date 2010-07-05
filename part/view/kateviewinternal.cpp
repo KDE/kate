@@ -746,7 +746,9 @@ void KateViewInternal::showEvent ( QShowEvent *e )
 int KateViewInternal::linesDisplayed() const
 {
   int h = height();
-  int fh = renderer()->lineHeight();
+  
+  // catch zero heights, even if should not happen
+  int fh = qMax (1, renderer()->lineHeight());
 
   // default to 1, there is always one line around....
   // too many places calc with linesDisplayed() - 1

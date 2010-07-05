@@ -22,6 +22,8 @@
 #include "kateswapfile.h"
 #include "kateview.h"
 
+#include <kde_file.h>
+
 #include <QFileInfo>
 #include <QDir>
 
@@ -234,6 +236,11 @@ void SwapFile::finishEditing ()
   // format: qint8
   m_stream << EA_FinishEditing;
   m_swapfile.flush();
+
+#ifndef Q_OS_WIN
+  // ensure that the file is written to disk
+  fdatasync (m_swapfile.handle());
+#endif
 }
 
 void SwapFile::wrapLine (const KTextEditor::Cursor &position)

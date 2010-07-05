@@ -659,6 +659,14 @@ bool TextBuffer::save (const QString &filename)
   file->close ();
   delete file;
 
+#ifndef Q_OS_WIN
+  // ensure that the file is written to disk
+  // we crete new qfile, as the above might be wrapper around compression
+  QFile syncFile (filename);
+  syncFile.open (QIODevice::ReadOnly);
+  fdatasync (syncFile.handle());
+#endif
+  
   // did save work?
   bool ok = stream.status() == QTextStream::Ok;
 

@@ -53,10 +53,9 @@ SwapFile::SwapFile(KateDocument *document)
 
 SwapFile::~SwapFile()
 {
-  m_stream.setDevice(0);
-  if (m_swapfile.exists())
-    m_swapfile.remove();
+  removeSwapFile();
 }
+
 void SwapFile::setTrackingEnabled(bool enable)
 {
   if (m_trackingEnabled == enable) {
@@ -88,8 +87,6 @@ void SwapFile::setTrackingEnabled(bool enable)
 
 void SwapFile::fileLoaded(const QString&)
 {
-  // TODO FIXME: remove old swap file if there exists one
-  
   // look for swap file
   if (!updateFileName())
     return;

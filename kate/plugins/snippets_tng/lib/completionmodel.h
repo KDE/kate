@@ -57,7 +57,7 @@ namespace KTextEditor {
         virtual void executeCompletionItem2(KTextEditor::Document* document,
           const KTextEditor::Range& word, const QModelIndex& index) const;
 
-        static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString *snippetlicense);
+        static bool loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString *snippetlicense,QString *nameSpace);
 
         virtual bool shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion);
         virtual Range completionRange(View* view, const Cursor &position);
@@ -67,7 +67,7 @@ namespace KTextEditor {
         SnippetSelectorModel *selectorModel();
         QString fileType();
   #ifdef SNIPPET_EDITOR
-        bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors, const QString& snippetlicense);
+        bool save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors, const QString& snippetlicense, const QString& nameSpace);
         static QString createNew(const QString& name, const QString& license,const QString& authors,const QString& filetypes);
   #endif
 

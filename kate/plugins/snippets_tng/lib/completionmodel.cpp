@@ -147,6 +147,7 @@ namespace KTextEditor {
           KMessageBox::error(QApplication::activeWindow(), i18n("Not a valid snippet file: %1", filename) );
           return;
         }
+        QString nameSpace=el.attribute("namespace");
         QDomNodeList script_nodes=el.childNodes();
         for (int i_script=0;i_script<script_nodes.count();i_script++) {
           QDomElement script_node=script_nodes.item(i_script).toElement();
@@ -204,8 +205,11 @@ namespace KTextEditor {
               shortcut=data.text();
           }
           //kDebug(13040)<<prefix<<match<<postfix<<arguments<<fillin;
+#ifdef SNIPPET_EDITOR
           entries.append(SnippetCompletionEntry(match,prefix,postfix,arguments,fillin,scriptID,shortcut));
-
+#else
+          entries.append(SnippetCompletionEntry(nameSpace+match,prefix,postfix,arguments,fillin,scriptID,shortcut));
+#endif          
         }
       }
 
@@ -235,12 +239,13 @@ namespace KTextEditor {
     void SnippetCompletionModel::setScript(const QString& script) {d->script=script;}
 #endif
 
-    bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString* snippetlicense) {
+    bool SnippetCompletionModel::loadHeader(const QString& filename, QString* name, QString* filetype, QString* authors, QString* license, QString* snippetlicense, QString* nameSpace) {
       kDebug()<<filename;
       name->clear();
       filetype->clear();
       authors->clear();
       license->clear();
+      nameSpace->clear();
 
       QFile f(filename);
       QDomDocument doc;
@@ -268,7 +273,8 @@ namespace KTextEditor {
       *filetype=el.attribute("filetypes");
       *authors=el.attribute("authors");
       *license=el.attribute("license");
-      *snippetlicense=el.attribute("snippetlicense");
+      *nameSpace=el.attribute("namespace");
+      *snippetlicense=el.attribute("snippetlicense");      
       if (snippetlicense->isEmpty()) *snippetlicense=QString("public domain");
       return true;
     }
@@ -491,7 +497,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       item.appendChild(element);
     }
 
-    bool SnippetCompletionModel::save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors,const QString& snippetlicense)
+    bool SnippetCompletionModel::save(const QString& filename, const QString& name, const QString& license, const QString& filetype, const QString& authors,const QString& snippetlicense, const QString& nameSpace)
     {
   /*
       <snippets name="Testsnippets" filetype="*" authors="Joseph Wenninger" license="BSD">
@@ -515,6 +521,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
       root.setAttribute("authors",authors);
       root.setAttribute("license",license);
       root.setAttribute("snippetlicense",snippetlicense);
+      root.setAttribute("namespace",nameSpace);
       doc.appendChild(root);
       if (!d->script.isEmpty()) {
         addAndCreateElement(doc,root,"script",d->script);

@@ -269,6 +269,7 @@ namespace KTextEditor {
         QString authors;
         QString license;
         QString snippetlicense;
+        QString nameSpace;
         bool systemFile=false;
         bool configRead=false;
         QFileInfo fi(filename);
@@ -284,7 +285,7 @@ namespace KTextEditor {
           }
         }
         if (!configRead) {
-          SnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license,&snippetlicense);
+          SnippetCompletionModel::loadHeader(filename,&name,&filetype,&authors,&license,&snippetlicense,&nameSpace);
           group.writeEntry("lastModified",fi.lastModified());
           group.writeEntry("name",name);
           group.writeEntry("filetypes",filetype);

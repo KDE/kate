@@ -34,7 +34,8 @@ namespace KTextEditor {
   namespace Editor {
 #endif
     class SnippetCompletionEntry;
-
+    class FilteredEntry;
+    
     class SnippetSelectorModel;
 
     class SnippetCompletionModelPrivate;
@@ -74,7 +75,8 @@ namespace KTextEditor {
         SnippetCompletionModelPrivate  * const d;
         friend class CategorizedSnippetModel;
         friend class InternalCompletionModel;
-        
+        friend bool lessThanFilteredEntry(const FilteredEntry& first,const FilteredEntry& second);          
+
   #ifdef SNIPPET_EDITOR
       public:
           QString script();
@@ -83,6 +85,7 @@ namespace KTextEditor {
 
     };
 
+    
     class CategorizedSnippetModelPrivate;
 
     class KTEXTEDITOR_CODESNIPPETS_CORE_EXPORT CategorizedSnippetModel: public QAbstractItemModel {
@@ -96,7 +99,7 @@ namespace KTextEditor {
         virtual QVariant data(const QModelIndex &index, int role) const;
         virtual QModelIndex parent ( const QModelIndex & index) const;
         virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
-        
+                
         KActionCollection *actionCollection();
       public Q_SLOTS:
         void subDestroyed(QObject*);

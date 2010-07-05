@@ -58,9 +58,19 @@ namespace KTextEditor {
         QString fillin;
         QString shortcut;
         int     script;
+
+        friend bool operator == (const SnippetCompletionEntry& first, const SnippetCompletionEntry &second);
     };
 
-    
+    bool operator == (const SnippetCompletionEntry& first, const SnippetCompletionEntry &second) {
+          if (first.match!=second.match) return false;
+          if (first.prefix!=second.prefix) return false;
+          if (first.postfix!=second.postfix) return false;
+          if (first.arguments!=second.arguments) return false;
+          if (first.fillin!=second.fillin) return false;
+          return true;          
+        }
+        
     class FilteredEntry {
       public:
         FilteredEntry(SnippetCompletionModel *_model, int _id):
@@ -751,7 +761,6 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
 
 
 
-
 //BEGIN: CategorizedSnippetModel
         CategorizedSnippetModel::CategorizedSnippetModel(const QList<SnippetSelectorModel*>& models):
           QAbstractItemModel(),m_models(models),m_actionCollection(new KActionCollection(this)) {
@@ -774,6 +783,11 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           qDeleteAll(m_models);
         }
 
+      
+        bool lessThanFilteredEntry(const FilteredEntry& first,const FilteredEntry& second) {
+          return ((first.model->d->entries[first.id]).match<(second.model->d->entries[second.id].match));
+        }
+
         void CategorizedSnippetModel::actionTriggered() {          
           //KMessageBox::error(0,QString("Action triggered:%1").arg(sender()->objectName()));
           QList<FilteredEntry> entries;
@@ -781,6 +795,27 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
             model->entriesForShortcut(sender()->objectName(), &entries);
           }
           kDebug()<<"Found entries:"<<entries.count();
+          if (entries.count()>1) {
+            qSort(entries.begin(),entries.end(),lessThanFilteredEntry);
+            //remove duplicates
+            for (QList<FilteredEntry>::iterator it=entries.begin();it!=entries.end();) {
+              QList<FilteredEntry>::iterator it1=it+1;
+              SnippetCompletionEntry e1=it->model->d->entries[it->id];
+              ++it;
+              while (it1!=entries.end()) {
+                SnippetCompletionEntry e2=it1->model->d->entries[it1->id];
+                if ( e1 == e2) {
+                  it1=entries.erase(it1);                  
+                  it=it1;
+                  kDebug()<<"removed an entry";
+                } else {
+                  kDebug()<<"breaking out of inner loop";
+                  break;
+                }
+              }
+            }
+          }
+          
           if (entries.count()==0) return;
           if (entries.count()==1) {
               SnippetCompletionModel *m=entries[0].model;

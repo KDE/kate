@@ -41,6 +41,9 @@ SwapFile::SwapFile(KateDocument *document)
   , m_document(document)
   , m_trackingEnabled(false)
 {
+  // fixed version of serialisation
+  m_stream.setVersion (QDataStream::Qt_4_6);
+  
   // connecting the signals
   connect(&m_document->buffer(), SIGNAL(saved(const QString &)), this, SLOT(fileSaved(const QString&)));
   connect(&m_document->buffer(), SIGNAL(loaded(const QString &, bool)), this, SLOT(fileLoaded(const QString&)));
@@ -115,8 +118,27 @@ void SwapFile::recover()
   setTrackingEnabled(false);
 
   // replay the swap file
-  m_swapfile.open(QIODevice::ReadOnly);
+  if (!m_swapfile.open(QIODevice::ReadOnly))
+  {
+    kWarning( 13020 ) << "Can't open swap file";
+    return;
+  }
+    
+  // open data stream
   m_stream.setDevice(&m_swapfile);
+  
+  // read and check header
+  QString header;
+  m_stream >> header;
+  if (header != QString ("Kate Swap File Version 1.0"))
+  {
+    m_stream.setDevice (0);
+    m_swapfile.close ();
+    kWarning( 13020 ) << "Can't open swap file, wrong version";
+    return;
+  }
+  
+  // replay swapfile
   bool editStarted = false;
   while (!m_stream.atEnd()) {
     qint8 type;
@@ -198,6 +220,9 @@ void SwapFile::startEditing ()
   if (!m_swapfile.exists()) { 
     m_swapfile.open(QIODevice::WriteOnly);
     m_stream.setDevice(&m_swapfile);
+    
+    // write file header
+    m_stream << QString ("Kate Swap File Version 1.0");
   } else if (m_stream.device() == 0) {
     m_swapfile.open(QIODevice::Append);
     m_stream.setDevice(&m_swapfile);

@@ -32,22 +32,20 @@ class KateFactory : public KTextEditor::Factory
 {
   public:
     /**
-     * constructor, increments reference count of KateGlobal
+     * constructor
      * @param parent parent object
      * @param name name of factory
      */
     KateFactory ( QObject *parent = 0 )
       : KTextEditor::Factory (parent)
     {
-      KateGlobal::incRef ();
     }
 
     /**
-     * destructor, decrements reference count of KateGlobal
+     * destructor
      */
     virtual ~KateFactory ()
     {
-      KateGlobal::decRef ();
     }
 
     KTextEditor::Editor *editor () { return KateGlobal::self(); }

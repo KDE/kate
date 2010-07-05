@@ -57,6 +57,8 @@
 #include "spellcheck/spellingmenu.h"
 #include "katebuffer.h"
 #include "script/katescriptmanager.h"
+#include "kateswapfile.h"
+#include "katerecoverbar.h"
 
 #include <kparts/event.h>
 
@@ -121,6 +123,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , blockSelect (false)
     , m_bottomViewBar (0)
     , m_topViewBar (0)
+    , m_recoverBar(0)
     , m_cmdLine (0)
     , m_searchBar (0)
     , m_viModeBar (0)
@@ -254,6 +257,13 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
+  
+  // swap file handling
+  connect (doc->swapFile(), SIGNAL(swapFileFound()), this, SLOT(showRecoverBar()));
+  connect (doc->swapFile(), SIGNAL(swapFileHandled()), this, SLOT(hideRecoverBar()));
+  if (doc->swapFile()->shouldRecover())
+    showRecoverBar();
+    
 }
 
 KateView::~KateView()
@@ -2869,6 +2879,29 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 
   // set new ranges
   oldSet = newRangesIn;
+}
+
+void KateView::showRecoverBar()
+{
+  m_bottomViewBar->showBarWidget(recoverBar());
+}
+
+KateRecoverBar* KateView::recoverBar()
+{
+  if (!m_recoverBar) {
+    m_recoverBar = new KateRecoverBar(this);
+    m_bottomViewBar->addBarWidget(m_recoverBar);
+  }
+  return m_recoverBar;
+}
+
+void KateView::hideRecoverBar()
+{
+  if (m_recoverBar)
+  {
+    delete m_recoverBar;
+    m_recoverBar = 0;
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

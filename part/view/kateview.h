@@ -64,6 +64,7 @@ class KateViewBar;
 class KateGotoBar;
 class KateDictionaryBar;
 class KateSpellingMenu;
+class KateRecoverBar;
 
 class KToggleAction;
 class KAction;
@@ -630,12 +631,13 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateViewBar *viewBar() const;
     KateCommandLineBar *cmdLineBar ();
     KateDictionaryBar *dictionaryBar();
-
+    
   private:
     KateSearchBar *searchBar (bool initHintAsPower = false);
     bool hasSearchBar () const { return m_searchBar != 0; }
     KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
+    KateRecoverBar *recoverBar();
 
   /**
    * viewbar + its widgets
@@ -645,6 +647,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     // created in constructor of the view
     KateViewBar *m_bottomViewBar;
     KateViewBar *m_topViewBar;
+    KateRecoverBar* m_recoverBar;
     // created on demand..., only access them through the above accessors....
     KateCommandLineBar *m_cmdLine;
     KateSearchBar *m_searchBar;
@@ -696,10 +699,12 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
   protected Q_SLOTS:
     void toggleOnTheFlySpellCheck(bool b);
+    void showRecoverBar();
 
   public Q_SLOTS:
     void changeDictionary();
     void reflectOnTheFlySpellCheckStatus(bool enabled);
+    void hideRecoverBar();
 
   public:
     KateSpellingMenu* spellingMenu();

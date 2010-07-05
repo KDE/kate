@@ -58,6 +58,8 @@ namespace KTextEditor {
 
 namespace KIO { class TransferJob; }
 
+namespace Kate { class SwapFile; }
+
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
@@ -1209,6 +1211,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
       void rangeEmpty(KTextEditor::MovingRange *movingRange);
 
       void deleteDictionaryRange(KTextEditor::MovingRange *movingRange);
+  
+  private:
+    Kate::SwapFile *m_swapfile;
+  public:
+    Kate::SwapFile* swapFile();
 };
 
 #endif

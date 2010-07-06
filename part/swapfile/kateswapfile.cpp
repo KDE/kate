@@ -27,14 +27,18 @@
 #include <QFileInfo>
 #include <QDir>
 
-namespace Kate {
+// swap file version header
+const static char * const swapFileVersionString = "Kate Swap File - Version 1.0";
 
+// tokens for swap files
 const static qint8 EA_StartEditing  = 'S';
 const static qint8 EA_FinishEditing = 'E';
 const static qint8 EA_WrapLine      = 'W';
 const static qint8 EA_UnwrapLine    = 'U';
 const static qint8 EA_InsertText    = 'I';
 const static qint8 EA_RemoveText    = 'R';
+
+namespace Kate {
 
 SwapFile::SwapFile(KateDocument *document)
   : QObject(document)
@@ -125,9 +129,9 @@ void SwapFile::recover()
   m_stream.setDevice(&m_swapfile);
   
   // read and check header
-  QString header;
+  QByteArray header;
   m_stream >> header;
-  if (header != QString ("Kate Swap File Version 1.0"))
+  if (header != swapFileVersionString)
   {
     m_stream.setDevice (0);
     m_swapfile.close ();
@@ -172,9 +176,9 @@ void SwapFile::recover()
       }
       case EA_InsertText: {
         int line, column;
-        QString text;
+        QByteArray text;
         m_stream >> line >> column >> text;
-        m_document->insertText(KTextEditor::Cursor(line, column), text);
+        m_document->insertText(KTextEditor::Cursor(line, column), QString::fromUtf8 (text.data (), text.size()));
         break;
       }
       case EA_RemoveText: {
@@ -225,7 +229,7 @@ void SwapFile::startEditing ()
     m_stream.setDevice(&m_swapfile);
     
     // write file header
-    m_stream << QString ("Kate Swap File Version 1.0");
+    m_stream << QByteArray (swapFileVersionString);
   } else if (m_stream.device() == 0) {
     m_swapfile.open(QIODevice::Append);
     m_stream.setDevice(&m_swapfile);
@@ -261,8 +265,8 @@ void SwapFile::unwrapLine (int line)
 
 void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &text)
 {
-  // format: qint8, int, int, string
-  m_stream << EA_InsertText << position.line() << position.column() << text;
+  // format: qint8, int, int, bytearray
+  m_stream << EA_InsertText << position.line() << position.column() << text.toUtf8 ();
 }
 
 void SwapFile::removeText (const KTextEditor::Range &range)

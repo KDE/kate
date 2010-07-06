@@ -6,23 +6,50 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>72</height>
+    <width>713</width>
+    <height>82</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string/>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" rowspan="2">
+    <widget class="QLabel" name="lblIcon">
+     <property name="minimumSize">
+      <size>
+       <width>15</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
     <widget class="QLabel" name="lblSwap">
      <property name="text">
       <string>There has been a swap file. Do you want to recover it?</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="chkIgnoreWhiteSpaces">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Ignore white space changes</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="btnDiff">
+       <property name="text">
+        <string>View Differences</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -35,13 +62,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btnDiff">
-       <property name="text">
-        <string>View Differences</string>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="KPushButton" name="btnRecover">
@@ -68,6 +88,12 @@
    <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>chkIgnoreWhiteSpaces</tabstop>
+  <tabstop>btnDiff</tabstop>
+  <tabstop>btnRecover</tabstop>
+  <tabstop>btnDiscard</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -166,18 +166,18 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_vBox->setMargin (0);
   m_vBox->setSpacing (0);
 
+  // add top viewbar...
+  if (topBarParent)
+    viewBarContainer->addViewBarToLayout(this,m_topViewBar,KTextEditor::ViewBarContainer::TopBar);
+  else
+    m_vBox->addWidget(m_topViewBar);
+
   m_bottomViewBar->installEventFilter(m_viewInternal);
 
   QHBoxLayout *hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox, 100);
   hbox->setMargin (0);
   hbox->setSpacing (0);
-
-  // add top viewbar...
-  if (topBarParent)
-    viewBarContainer->addViewBarToLayout(this,m_topViewBar,KTextEditor::ViewBarContainer::TopBar);
-  else
-    m_vBox->addWidget(m_topViewBar);
 
   QStyleOption option;
   option.initFrom(this);
@@ -2883,14 +2883,14 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 
 void KateView::showRecoverBar()
 {
-  m_bottomViewBar->showBarWidget(recoverBar());
+  m_topViewBar->showBarWidget(recoverBar());
 }
 
 KateRecoverBar* KateView::recoverBar()
 {
   if (!m_recoverBar) {
     m_recoverBar = new KateRecoverBar(this);
-    m_bottomViewBar->addBarWidget(m_recoverBar);
+    m_topViewBar->addBarWidget(m_recoverBar);
   }
   return m_recoverBar;
 }
@@ -2899,7 +2899,7 @@ void KateView::hideRecoverBar()
 {
   if (m_recoverBar)
   {
-    m_bottomViewBar->removeBarWidget(m_recoverBar);
+    m_topViewBar->removeBarWidget(m_recoverBar);
     delete m_recoverBar;
     m_recoverBar = 0;
   }

@@ -682,7 +682,7 @@ function tryStatement(line)
  *   |
  * }
  */
-function tryMatchedAnchor(line)
+function tryMatchedAnchor(line, alignOnly)
 {
     var char = document.firstChar(line);
     if ( char != '}' && char != ')' && char != ']' ) {
@@ -693,6 +693,10 @@ function tryMatchedAnchor(line)
     if (!closingAnchor.isValid()) {
         // nothing found, continue with other cases
         return -1;
+    }
+    if (alignOnly) {
+        // when aligning only, don't be too smart and just take the indent level of the open anchor
+        return document.firstVirtualColumn(closingAnchor.line);
     }
     var lastChar = document.lastChar(line - 1);
     var charsMatch = ( lastChar == '(' && char == ')' ) ||
@@ -755,7 +759,7 @@ function indentLine(line, alignOnly)
     var filler = -1;
 
     if (filler == -1)
-        filler = tryMatchedAnchor(line);
+        filler = tryMatchedAnchor(line, alignOnly);
     if (filler == -1)
         filler = tryCComment(line);
     if (filler == -1 && !alignOnly)

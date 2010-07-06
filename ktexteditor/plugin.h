@@ -202,7 +202,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
  * \endcode
  * \return the plugin or NULL if it could not be loaded
  */
-KTEXTEDITOR_EXPORT Plugin *createPlugin ( KService::Ptr service, QObject *parent );
+KTEXTEDITOR_EXPORT_DEPRECATED Plugin *createPlugin ( KService::Ptr service, QObject *parent );
 
 }
 

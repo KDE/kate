@@ -302,7 +302,7 @@ void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::Inv
 
 void KateCompletionWidget::deleteCompletionRanges()
 {
-  kDebug();
+  //kDebug();
   foreach(const CompletionRange &r, m_completionRanges)
     delete r.range;
   m_completionRanges.clear();
@@ -677,7 +677,7 @@ void KateCompletionWidget::updateHeight()
 
 void KateCompletionWidget::cursorPositionChanged( )
 {
-  kDebug();
+  //kDebug();
   if (m_completionRanges.isEmpty())
     return;
 
@@ -806,7 +806,7 @@ bool KateCompletionWidget::navigateAccept() {
 
 void KateCompletionWidget::execute()
 {
-  kDebug(13035) ;
+  //kDebug(13035) ;
 
   if (!isCompletionActive())
     return;

@@ -231,18 +231,24 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
       return m_pluginViews;
     }
 
-    inline QWidget *horizontalViewBarContainer() {return m_horizontalViewBarContainer;}
-    inline void addToHorizontalViewBarContainer(KTextEditor::View *view,QWidget *bar){m_containerstack->addWidget (bar); m_viewBarMapping[view]=BarState(bar);}
-    inline void hideHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.value(view); bar=state.bar(); if (bar) {m_containerstack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_viewBarMapping[view]=state;} m_horizontalViewBarContainer->hide();}
-    inline void showHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.value(view); bar=state.bar();  if (bar) {m_containerstack->setCurrentWidget(bar); bar->show(); state.setState(true); m_viewBarMapping[view]=state;  m_horizontalViewBarContainer->show();}}
-    inline void deleteHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_containerstack->currentWidget()==bar) m_horizontalViewBarContainer->hide(); delete bar;}}
+    inline QWidget *bottomViewBarContainer() {return m_bottomViewBarContainer;}
+    inline void addToBottomViewBarContainer(KTextEditor::View *view,QWidget *bar){m_bottomContainerStack->addWidget (bar); m_bottomViewBarMapping[view]=BarState(bar);}
+    inline void hideBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar(); if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_bottomViewBarMapping[view]=state;} m_bottomViewBarContainer->hide();}
+    inline void showBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar();  if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_bottomViewBarMapping[view]=state;  m_bottomViewBarContainer->show();}}
+    inline void deleteBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_bottomContainerStack->currentWidget()==bar) m_bottomViewBarContainer->hide(); delete bar;}}
+
+    inline QWidget *topViewBarContainer() {return m_topViewBarContainer;}
+    inline void addToTopViewBarContainer(KTextEditor::View *view,QWidget *bar){m_topContainerStack->addWidget (bar); m_topViewBarMapping[view]=BarState(bar);}
+    inline void hideTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar(); if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_topViewBarMapping[view]=state;} m_topViewBarContainer->hide();}
+    inline void showTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar();  if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_topViewBarMapping[view]=state;  m_topViewBarContainer->show();}}
+    inline void deleteTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_topContainerStack->currentWidget()==bar) m_topViewBarContainer->hide(); delete bar;}}
 
     void switchToNextDocument() { m_fileList->slotNextDocument(); }
     void switchToPreviousDocument() { m_fileList->slotPrevDocument(); }
 
   private Q_SLOTS:
-    void slotUpdateHorizontalViewBar();
-
+    void slotUpdateBottomViewBar();
+    void slotUpdateTopViewBar();
 
   private Q_SLOTS:
     void showFileListPopup(const QPoint& pos);
@@ -290,8 +296,11 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
     KToggleAction *m_paShowStatusBar;
-    QWidget *m_horizontalViewBarContainer;
-    KateContainerStackedLayout *m_containerstack;
+    QWidget *m_bottomViewBarContainer;
+    KateContainerStackedLayout *m_bottomContainerStack;
+    QWidget *m_topViewBarContainer;
+    KateContainerStackedLayout *m_topContainerStack;
+
     class BarState{
       public:
         BarState():m_bar(0),m_state(false){}
@@ -304,8 +313,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
         QWidget *m_bar;
         bool m_state;
     };
-    QHash<KTextEditor::View*,BarState> m_viewBarMapping;
-
+    QHash<KTextEditor::View*,BarState> m_bottomViewBarMapping;
+    QHash<KTextEditor::View*,BarState> m_topViewBarMapping;
 
   public:
     void queueModifiedOnDisc(KTextEditor::Document *doc);

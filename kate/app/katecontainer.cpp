@@ -41,57 +41,83 @@ KateContainer::~KateContainer() {
 
 //BEGIN KTextEditor::ViewBarContainer
 QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position) {
-  if (position!=KTextEditor::ViewBarContainer::BottomBar) return 0;
-  KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-  if (!mainWindow) {
-    kDebug()<<"returning hardcoded 0, views window is not a KateMainWindow";
-    return 0;
+  if (position==KTextEditor::ViewBarContainer::BottomBar) {
+    KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
+    if (!mainWindow) {
+      kDebug()<<"returning hardcoded 0, views window is not a KateMainWindow";
+      return 0;
+    }
+    //Toplevel is a KateMainWindow
+    kDebug()<<"window is a KateMainWindow";
+    return mainWindow->bottomViewBarContainer();
+  } else if (position==KTextEditor::ViewBarContainer::TopBar) {
+    KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
+    if (!mainWindow) {
+      kDebug()<<"returning hardcoded 0, views window is not a KateMainWindow";
+      return 0;
+    }
+    //Toplevel is a KateMainWindow
+    kDebug()<<"window is a KateMainWindow";
+    return mainWindow->topViewBarContainer();
   }
-  //Toplevel is a KateMainWindow
-  kDebug()<<"window is a KateMainWindow";
-  return mainWindow->horizontalViewBarContainer();
+  return 0;
 }
 
 void KateContainer::addViewBarToLayout(KTextEditor::View *view,QWidget *bar, KTextEditor::ViewBarContainer::Position position) {
-  if (position!=KTextEditor::ViewBarContainer::BottomBar) return;
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
     kDebug()<<"main window is not a katemainwindow";
     return;
   }
-  //Toplevel is a KateMainWindow
-  kDebug()<<"window is a KateMainWindow";
-  mainWindow->addToHorizontalViewBarContainer(view,bar);
+
+  if (position==KTextEditor::ViewBarContainer::BottomBar) {
+    mainWindow->addToBottomViewBarContainer(view,bar);
+  } else   if (position==KTextEditor::ViewBarContainer::TopBar) {
+    mainWindow->addToTopViewBarContainer(view,bar);
+  }
+    
 }
 
 void KateContainer::showViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  if (position!=KTextEditor::ViewBarContainer::BottomBar) return;
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-  if (!mainWindow) {
-    kDebug()<<"main window is not a katemainwindow";
-    return;
+    if (!mainWindow) {
+      kDebug()<<"main window is not a katemainwindow";
+      return;
   }
-  mainWindow->showHorizontalViewBarForView(view);
+  
+  if (position==KTextEditor::ViewBarContainer::BottomBar) {
+    mainWindow->showBottomViewBarForView(view);
+  } else if (position==KTextEditor::ViewBarContainer::TopBar) {
+    mainWindow->showTopViewBarForView(view);
+  }
 }
 
 void KateContainer::hideViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  if (position!=KTextEditor::ViewBarContainer::BottomBar) return;
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
     kDebug()<<"main window is not a katemainwindow";
     return;
   }
-  mainWindow->hideHorizontalViewBarForView(view);
+
+  if (position==KTextEditor::ViewBarContainer::BottomBar) {
+    mainWindow->hideBottomViewBarForView(view);      
+  } else if (position==KTextEditor::ViewBarContainer::TopBar) {    
+    mainWindow->hideTopViewBarForView(view);      
+  }
 }
 
 void KateContainer::deleteViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  if (position!=KTextEditor::ViewBarContainer::BottomBar) return;
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
     kDebug()<<"main window is not a katemainwindow";
     return;
   }
-  mainWindow->deleteHorizontalViewBarForView(view);
+  
+  if (position==KTextEditor::ViewBarContainer::BottomBar) {      
+    mainWindow->deleteBottomViewBarForView(view);
+  } else if (position==KTextEditor::ViewBarContainer::TopBar) {      
+    mainWindow->deleteTopViewBarForView(view);
+  }
 }
 //END KTextEditor::ViewBarContainer
 

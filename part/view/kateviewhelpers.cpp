@@ -1840,32 +1840,13 @@ KateViewBarWidget::KateViewBarWidget (bool addCloseButton, QWidget *parent)
   setFocusProxy(m_centralWidget);
 }
 
-KateStackedWidget::KateStackedWidget(QWidget* parent)
-  : QStackedWidget(parent)
-{}
-
-QSize KateStackedWidget::sizeHint() const
-{
-  if (currentWidget())
-    return currentWidget()->sizeHint();
-  return QStackedWidget::sizeHint();
-}
-
-QSize KateStackedWidget::minimumSize() const
-{
-  if (currentWidget())
-    return currentWidget()->minimumSize();
-  return QStackedWidget::minimumSize();
-}
-
-
 
 KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position pos,QWidget *parent, KateView *view)
  : QWidget (parent), m_external(external), m_pos(pos),m_view (view), m_permanentBarWidget(0)
 
 {
   m_layout = new QVBoxLayout(this);
-  m_stack = new KateStackedWidget(this);
+  m_stack = new QStackedWidget(this);
   m_layout->addWidget(m_stack);
   m_layout->setMargin(0);
 

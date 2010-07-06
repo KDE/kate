@@ -51,6 +51,7 @@ namespace KTextEditor {
 }
 
 class QTimer;
+class QVBoxLayout;
 
 /**
  * This class is required because QScrollBar's sliderMoved() signal is
@@ -263,18 +264,6 @@ class KateViewBarWidget : public QWidget
     QWidget *m_centralWidget;
 };
 
-// Helper layout class to always provide minimum size
-class KateStackedWidget : public QStackedWidget
-{
-  Q_OBJECT
-public:
-  KateStackedWidget(QWidget* parent);
-  virtual QSize sizeHint() const;
-  virtual QSize minimumSize() const;
-};
-
-class QVBoxLayout;
-
 class KateViewBar : public QWidget
 {
   Q_OBJECT
@@ -341,7 +330,7 @@ class KateViewBar : public QWidget
 
   private:
     KateView *m_view;
-    KateStackedWidget *m_stack;
+    QStackedWidget *m_stack;
     KateViewBarWidget *m_permanentBarWidget;
     QVBoxLayout *m_layout;
 };

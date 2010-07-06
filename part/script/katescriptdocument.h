@@ -173,6 +173,7 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE bool endsWith (int line, const QString &pattern, bool skipWhiteSpaces);
 
     Q_INVOKABLE void indent(KTextEditor::Range range, int change);
+    Q_INVOKABLE void align(const KTextEditor::Range& range);
 
   private:
     bool _isCode(int defaultStyle);

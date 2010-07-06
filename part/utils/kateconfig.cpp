@@ -154,6 +154,7 @@ bool KateGlobalConfig::setFallbackEncoding (const QString &encoding)
   configEnd ();
   return true;
 }
+
 KateDocumentConfig::KateDocumentConfig ()
  : m_indentationWidth (2),
    m_tabWidth (8),
@@ -166,7 +167,19 @@ KateDocumentConfig::KateDocumentConfig ()
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
    m_pageUpDownMovesCursorSet (true),
-   m_configFlagsSet (0xFFFF),
+   m_keepExtraSpacesSet (false),
+   m_indentPastedTextSet (false),
+   m_backspaceIndentsSet (false),
+   m_smartHomeSet (false),
+   m_wrapCursorSet (false),
+   m_autoBracketsSet (false),
+   m_showTabsSet (false),
+   m_showSpacesSet (false),
+   m_replaceTabsDynSet (false),
+   m_removeTrailingDynSet (false),
+   m_removeSpacesSet (false),
+   m_overwiteModeSet (false),
+   m_tabIndentsSet (false),
    m_encodingSet (true),
    m_eolSet (true),
    m_bomSet (true),
@@ -186,6 +199,47 @@ KateDocumentConfig::KateDocumentConfig ()
   readConfig (cg);
 }
 
+KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
+ : m_indentationWidth (2),
+   m_tabWidth (8),
+   m_tabHandling (tabSmart),
+   m_configFlags (0),
+   m_wordWrapAt (80),
+   m_tabWidthSet (true),
+   m_indentationWidthSet (true),
+   m_indentationModeSet (true),
+   m_wordWrapSet (true),
+   m_wordWrapAtSet (true),
+   m_pageUpDownMovesCursorSet (true),
+   m_keepExtraSpacesSet (false),
+   m_indentPastedTextSet (false),
+   m_backspaceIndentsSet (false),
+   m_smartHomeSet (false),
+   m_wrapCursorSet (false),
+   m_autoBracketsSet (false),
+   m_showTabsSet (false),
+   m_showSpacesSet (false),
+   m_replaceTabsDynSet (false),
+   m_removeTrailingDynSet (false),
+   m_removeSpacesSet (false),
+   m_overwiteModeSet (false),
+   m_tabIndentsSet (false),
+   m_encodingSet (true),
+   m_eolSet (true),
+   m_bomSet (true),
+   m_allowEolDetectionSet (false),
+   m_allowSimpleModeSet (false),
+   m_backupFlagsSet (true),
+   m_searchDirConfigDepthSet (true),
+   m_backupPrefixSet (true),
+   m_backupSuffixSet (true),
+   m_onTheFlySpellCheckSet (true),
+   m_doc (0)
+{
+  // init with defaults from config or really hardcoded ones
+  readConfig (cg);
+}
+
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_tabHandling (tabSmart),
    m_configFlags (0),
@@ -195,7 +249,19 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),
    m_pageUpDownMovesCursorSet (false),
-   m_configFlagsSet (0),
+   m_keepExtraSpacesSet (false),
+   m_indentPastedTextSet (false),
+   m_backspaceIndentsSet (false),
+   m_smartHomeSet (false),
+   m_wrapCursorSet (false),
+   m_autoBracketsSet (false),
+   m_showTabsSet (false),
+   m_showSpacesSet (false),
+   m_replaceTabsDynSet (false),
+   m_removeTrailingDynSet (false),
+   m_removeSpacesSet (false),
+   m_overwiteModeSet (false),
+   m_tabIndentsSet (false),
    m_encodingSet (false),
    m_eolSet (false),
    m_bomSet (false),
@@ -230,10 +296,19 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setWordWrapAt (config.readEntry("Word Wrap Column", 80));
   setPageUpDownMovesCursor (config.readEntry("PageUp/PageDown Moves Cursor", false));
 
-  setConfigFlags (config.readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
-    | KateDocumentConfig::cfWrapCursor
-    | KateDocumentConfig::cfShowTabs
-    | KateDocumentConfig::cfSmartHome));
+  setSmartHome (config.readEntry("Smart Home", true));
+  setWrapCursor (config.readEntry("Wrap Cursor", true));
+  setShowTabs (config.readEntry("Show Tabs", true));
+  setTabIndents (config.readEntry("Indent On Tab", true));
+  setKeepExtraSpaces (config.readEntry("Keep Extra Spaces", false));
+  setIndentPastedText (config.readEntry("Indent On Text Paste", false));
+  setBackspaceIndents (config.readEntry("Indent On Backspace", false));
+  setAutoBrackets (config.readEntry("Automatically Insert Closing Brackets", false));
+  setShowSpaces (config.readEntry("Show Spaces", false));
+  setReplaceTabsDyn (config.readEntry("ReplaceTabsDyn", false));
+  setRemoveTrailingDyn (config.readEntry("RemoveTrailingDyn", false));
+  setRemoveSpaces (config.readEntry("Remove Spaces", false));
+  setOvr (config.readEntry("Overwrite Mode", false));
 
   setEncoding (config.readEntry("Encoding", ""));
 
@@ -271,7 +346,19 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
 
-  config.writeEntry("Basic Config Flags", configFlags());
+  config.writeEntry("Smart Home", smartHome());
+  config.writeEntry("Wrap Cursor", wrapCursor());
+  config.writeEntry("Show Tabs", showTabs());
+  config.writeEntry("Indent On Tab", tabIndentsEnabled());
+  config.writeEntry("Keep Extra Spaces", keepExtraSpaces());
+  config.writeEntry("Indent On Text Paste", indentPastedText());
+  config.writeEntry("Indent On Backspace", backspaceIndents());
+  config.writeEntry("Automatically Insert Closing Brackets", autoBrackets());
+  config.writeEntry("Show Spaces", showSpaces());
+  config.writeEntry("ReplaceTabsDyn", replaceTabsDyn());
+  config.writeEntry("RemoveTrailingDyn", removeTrailingDyn());
+  config.writeEntry("Remove Spaces", removeSpaces());
+  config.writeEntry("Overwrite Mode", ovr());
 
   config.writeEntry("Encoding", encoding());
 
@@ -444,36 +531,238 @@ void KateDocumentConfig::setPageUpDownMovesCursor (bool on)
   configEnd ();
 }
 
-uint KateDocumentConfig::configFlags () const
-{
-  if (isGlobal())
-    return m_configFlags;
-
-  return ((s_global->configFlags() & ~ m_configFlagsSet) | m_configFlags);
-}
-
-void KateDocumentConfig::setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable)
+void KateDocumentConfig::setKeepExtraSpaces(bool on)
 {
   configStart ();
 
-  m_configFlagsSet |= flag;
-
-  if (enable)
-    m_configFlags = m_configFlags | flag;
-  else
-    m_configFlags = m_configFlags & ~ flag;
+  m_keepExtraSpacesSet = true;
+  m_keepExtraSpaces = on;
 
   configEnd ();
 }
 
-void KateDocumentConfig::setConfigFlags (uint fullFlags)
+bool KateDocumentConfig::keepExtraSpaces() const
+{
+  if (m_keepExtraSpacesSet || isGlobal())
+    return m_keepExtraSpaces;
+
+  return s_global->keepExtraSpaces();
+}
+
+void KateDocumentConfig::setIndentPastedText(bool on)
 {
   configStart ();
 
-  m_configFlagsSet = 0xFFFF;
-  m_configFlags = fullFlags;
+  m_indentPastedTextSet = true;
+  m_indentPastedText = on;
 
   configEnd ();
+}
+
+bool KateDocumentConfig::indentPastedText() const
+{
+  if (m_indentPastedTextSet || isGlobal())
+    return m_indentPastedText;
+
+  return s_global->indentPastedText();
+}
+
+void KateDocumentConfig::setBackspaceIndents(bool on)
+{
+  configStart ();
+
+  m_backspaceIndentsSet = true;
+  m_backspaceIndents = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::backspaceIndents() const
+{
+  if (m_backspaceIndentsSet || isGlobal())
+    return m_backspaceIndents;
+
+  return s_global->backspaceIndents();
+}
+
+void KateDocumentConfig::setSmartHome(bool on)
+{
+  configStart ();
+
+  m_smartHomeSet = true;
+  m_smartHome = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::smartHome() const
+{
+  if (m_smartHomeSet || isGlobal())
+    return m_smartHome;
+
+  return s_global->smartHome();
+}
+
+void KateDocumentConfig::setWrapCursor(bool on)
+{
+  configStart ();
+
+  m_wrapCursorSet = true;
+  m_wrapCursor = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::wrapCursor() const
+{
+  if (m_wrapCursorSet || isGlobal())
+    return m_wrapCursor;
+
+  return s_global->wrapCursor();
+}
+
+void KateDocumentConfig::setAutoBrackets(bool on)
+{
+  configStart ();
+
+  m_autoBracketsSet = true;
+  m_autoBrackets = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::autoBrackets() const
+{
+  if (m_autoBracketsSet || isGlobal())
+    return m_autoBrackets;
+
+  return s_global->autoBrackets();
+}
+
+void KateDocumentConfig::setShowTabs(bool on)
+{
+  configStart ();
+
+  m_showTabsSet = true;
+  m_showTabs = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::showTabs() const
+{
+  if (m_showTabsSet || isGlobal())
+    return m_showTabs;
+
+  return s_global->showTabs();
+}
+
+void KateDocumentConfig::setShowSpaces(bool on)
+{
+  configStart ();
+
+  m_showSpacesSet = true;
+  m_showSpaces = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::showSpaces() const
+{
+  if (m_showSpacesSet || isGlobal())
+    return m_showSpaces;
+
+  return s_global->showSpaces();
+}
+
+void KateDocumentConfig::setReplaceTabsDyn(bool on)
+{
+  configStart ();
+
+  m_replaceTabsDynSet = true;
+  m_replaceTabsDyn = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::replaceTabsDyn() const
+{
+  if (m_replaceTabsDynSet || isGlobal())
+    return m_replaceTabsDyn;
+
+  return s_global->replaceTabsDyn();
+}
+
+void KateDocumentConfig::setRemoveTrailingDyn(bool on)
+{
+  configStart ();
+
+  m_removeTrailingDynSet = true;
+  m_removeTrailingDyn = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::removeTrailingDyn() const
+{
+  if (m_removeTrailingDynSet || isGlobal())
+    return m_removeTrailingDyn;
+
+  return s_global->removeTrailingDyn();
+}
+
+void KateDocumentConfig::setRemoveSpaces(bool on)
+{
+  configStart ();
+
+  m_removeSpacesSet = true;
+  m_removeSpaces = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::removeSpaces() const
+{
+  if (m_removeSpacesSet || isGlobal())
+    return m_removeSpaces;
+
+  return s_global->removeSpaces();
+}
+
+void KateDocumentConfig::setOvr(bool on)
+{
+  configStart ();
+
+  m_overwiteModeSet = true;
+  m_overwiteMode = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::ovr() const
+{
+  if (m_overwiteModeSet || isGlobal())
+    return m_overwiteMode;
+
+  return s_global->ovr();
+}
+
+void KateDocumentConfig::setTabIndents(bool on)
+{
+  configStart ();
+
+  m_tabIndentsSet = true;
+  m_tabIndents = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::tabIndentsEnabled() const
+{
+  if (m_tabIndentsSet || isGlobal())
+    return m_tabIndents;
+
+  return s_global->tabIndentsEnabled();
 }
 
 const QString &KateDocumentConfig::encoding () const

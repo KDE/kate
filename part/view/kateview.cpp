@@ -1023,7 +1023,7 @@ void KateView::setDynWrapIndicators(int mode)
 
 bool KateView::isOverwriteMode() const
 {
-  return m_doc->config()->configFlags() & KateDocumentConfig::cfOvr;
+  return m_doc->config()->ovr();
 }
 
 void KateView::reloadFile()
@@ -1113,7 +1113,7 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
 
 void KateView::toggleInsert()
 {
-  m_doc->config()->setConfigFlags(m_doc->config()->configFlags() ^ KateDocumentConfig::cfOvr);
+  m_doc->config()->setOvr(!m_doc->config()->ovr());
   m_toggleInsert->setChecked (isOverwriteMode ());
 
   emit viewModeChanged(this);
@@ -1681,7 +1681,7 @@ void KateView::slotHlChanged()
 int KateView::virtualCursorColumn() const
 {
   int r = m_doc->toVirtualColumn(m_viewInternal->getCursor());
-  if ( !( m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor ) &&
+  if ( !( m_doc->config()->wrapCursor() ) &&
        m_viewInternal->getCursor().column() > m_doc->line( m_viewInternal->getCursor().line() ).length()  )
     r += m_viewInternal->getCursor().column() - m_doc->line( m_viewInternal->getCursor().line() ).length();
 
@@ -1993,7 +1993,7 @@ bool KateView::toggleBlockSelectionMode ()
 
 bool KateView::wrapCursor () const
 {
-  return !blockSelectionMode() && (m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor);
+  return !blockSelectionMode() && (m_doc->config()->wrapCursor());
 }
 
 //END

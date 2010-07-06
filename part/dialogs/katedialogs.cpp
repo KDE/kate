@@ -203,17 +203,9 @@ void KateIndentConfigTab::apply ()
 
   KateDocumentConfig::global()->configStart ();
 
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocumentConfig::cfKeepExtraSpaces;
-  configFlags &= ~KateDocumentConfig::cfIndentPastedText;
-  configFlags &= ~KateDocumentConfig::cfBackspaceIndents;
-
-  if (ui->chkKeepExtraSpaces->isChecked()) configFlags |= KateDocumentConfig::cfKeepExtraSpaces;
-  if (ui->chkIndentPaste->isChecked()) configFlags |= KateDocumentConfig::cfIndentPastedText;
-  if (ui->chkBackspaceUnindents->isChecked()) configFlags |= KateDocumentConfig::cfBackspaceIndents;
-
-  KateDocumentConfig::global()->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setKeepExtraSpaces(ui->chkKeepExtraSpaces->isChecked());
+  KateDocumentConfig::global()->setBackspaceIndents(ui->chkBackspaceUnindents->isChecked());
+  KateDocumentConfig::global()->setIndentPastedText(ui->chkIndentPaste->isChecked());
   KateDocumentConfig::global()->setIndentationWidth(ui->sbIndentWidth->value());
   KateDocumentConfig::global()->setIndentationMode(KateAutoIndent::modeName(ui->cmbMode->currentIndex()));
 
@@ -229,13 +221,11 @@ void KateIndentConfigTab::apply ()
 
 void KateIndentConfigTab::reload ()
 {
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
   ui->sbIndentWidth->setSuffix(ki18np(" character", " characters"));
   ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
-  ui->chkKeepExtraSpaces->setChecked(configFlags & KateDocumentConfig::cfKeepExtraSpaces);
-  ui->chkIndentPaste->setChecked(configFlags & KateDocumentConfig::cfIndentPastedText);
-  ui->chkBackspaceUnindents->setChecked(configFlags & KateDocumentConfig::cfBackspaceIndents);
+  ui->chkKeepExtraSpaces->setChecked(KateDocumentConfig::global()->keepExtraSpaces());
+  ui->chkIndentPaste->setChecked(KateDocumentConfig::global()->indentPastedText());
+  ui->chkBackspaceUnindents->setChecked(KateDocumentConfig::global()->backspaceIndents());
 
   ui->rbTabAdvances->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabInsertsTab );
   ui->rbTabIndents->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabIndents );
@@ -522,15 +512,8 @@ void KateSelectConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocumentConfig::cfSmartHome;
-  configFlags &= ~KateDocumentConfig::cfWrapCursor;
-
-  if (ui->chkSmartHome->isChecked()) configFlags |= KateDocumentConfig::cfSmartHome;
-  if (ui->chkWrapCursor->isChecked()) configFlags |= KateDocumentConfig::cfWrapCursor;
-
-  KateDocumentConfig::global()->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setSmartHome(ui->chkSmartHome->isChecked());
+  KateDocumentConfig::global()->setWrapCursor(ui->chkWrapCursor->isChecked());
 
   KateViewConfig::global()->setAutoCenterLines(qMax(0, ui->sbAutoCenterCursor->value()));
   KateDocumentConfig::global()->setPageUpDownMovesCursor(ui->chkPagingMovesCursor->isChecked());
@@ -546,10 +529,8 @@ void KateSelectConfigTab::reload ()
   ui->rbNormal->setChecked( ! KateViewConfig::global()->persistentSelection() );
   ui->rbPersistent->setChecked( KateViewConfig::global()->persistentSelection() );
 
-  const uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  ui->chkSmartHome->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
-  ui->chkWrapCursor->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
+  ui->chkSmartHome->setChecked(KateDocumentConfig::global()->smartHome());
+  ui->chkWrapCursor->setChecked(KateDocumentConfig::global()->wrapCursor());
   ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
 }
@@ -599,21 +580,11 @@ void KateEditGeneralConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocumentConfig::cfAutoBrackets;
-  configFlags &= ~KateDocumentConfig::cfShowTabs;
-  configFlags &= ~KateDocumentConfig::cfShowSpaces;
-  configFlags &= ~KateDocumentConfig::cfReplaceTabsDyn;
-  configFlags &= ~KateDocumentConfig::cfRemoveTrailingDyn;
-
-  if (ui->chkAutoBrackets->isChecked()) configFlags |= KateDocumentConfig::cfAutoBrackets;
-  if (ui->chkShowTabs->isChecked()) configFlags |= KateDocumentConfig::cfShowTabs;
-  if (ui->chkShowSpaces->isChecked()) configFlags |= KateDocumentConfig::cfShowSpaces;
-  if (ui->chkReplaceTabs->isChecked()) configFlags |= KateDocumentConfig::cfReplaceTabsDyn;
-  if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveTrailingDyn;
-
-  KateDocumentConfig::global()->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setAutoBrackets(ui->chkAutoBrackets->isChecked());
+  KateDocumentConfig::global()->setShowTabs(ui->chkShowTabs->isChecked());
+  KateDocumentConfig::global()->setShowSpaces(ui->chkShowSpaces->isChecked());
+  KateDocumentConfig::global()->setReplaceTabsDyn(ui->chkReplaceTabs->isChecked());
+  KateDocumentConfig::global()->setRemoveTrailingDyn(ui->chkRemoveTrailingSpaces->isChecked());
 
   KateDocumentConfig::global()->setWordWrapAt(ui->sbWordWrap->value());
   KateDocumentConfig::global()->setWordWrap(ui->chkStaticWordWrap->isChecked());
@@ -629,19 +600,17 @@ void KateEditGeneralConfigTab::apply ()
 
 void KateEditGeneralConfigTab::reload ()
 {
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  ui->chkReplaceTabs->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
-  ui->chkShowTabs->setChecked( configFlags & KateDocumentConfig::cfShowTabs );
-  ui->chkShowSpaces->setChecked( configFlags & KateDocumentConfig::cfShowSpaces );
+  ui->chkReplaceTabs->setChecked( KateDocumentConfig::global()->replaceTabsDyn() );
+  ui->chkShowTabs->setChecked( KateDocumentConfig::global()->showTabs() );
+  ui->chkShowSpaces->setChecked( KateDocumentConfig::global()->showSpaces() );
   ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
   ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
   ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
-  ui->chkRemoveTrailingSpaces->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
-  ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
+  ui->chkRemoveTrailingSpaces->setChecked( KateDocumentConfig::global()->removeTrailingDyn() );
+  ui->chkAutoBrackets->setChecked( KateDocumentConfig::global()->autoBrackets() );
   ui->chkSmartCopyCut->setChecked( KateViewConfig::global()->smartCopyCut() );
   ui->chkScrollPastEnd->setChecked( KateViewConfig::global()->scrollPastEnd() );
 }
@@ -929,12 +898,7 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
-  uint configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocumentConfig::cfRemoveSpaces; // clear flag
-  if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveSpaces; // set flag if checked
-
-  KateDocumentConfig::global()->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setRemoveSpaces(ui->chkRemoveTrailingSpaces->isChecked());
 
   // set both standard and fallback encoding
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
@@ -1005,8 +969,7 @@ void KateSaveConfigTab::reload()
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
   ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
 
-  const uint configFlags = KateDocumentConfig::global()->configFlags();
-  ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
+  ui->chkRemoveTrailingSpaces->setChecked(KateDocumentConfig::global()->removeSpaces());
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff

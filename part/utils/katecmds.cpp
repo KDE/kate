@@ -41,13 +41,6 @@
 #include <QtCore/QRegExp>
 
 //BEGIN CoreCommands
-// syncs a config flag in the document with a boolean value
-static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
-                  KateDocument *doc )
-{
-  doc->config()->setConfigFlags( flag, enable );
-}
-
 // this returns wheather the string s could be converted to
 // a bool value, one of on|off|1|0|true|false. the argument val is
 // set to the extracted value in case of success
@@ -302,6 +295,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false",  cmd ) );
     bool enable = false;
+    KateDocumentConfig * const config = v->doc()->config();
     if ( getBoolArg( args.first(), &enable ) )
     {
       if ( cmd == "set-icon-border" )
@@ -313,19 +307,19 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       else if ( cmd == "set-show-indent" )
         v->renderer()->setShowIndentLines( enable );
       else if ( cmd == "set-replace-tabs" )
-        setDocFlag( KateDocumentConfig::cfReplaceTabsDyn, enable, v->doc() );
+        config->setReplaceTabsDyn( enable );
       else if ( cmd == "set-remove-trailing-space" )
-        setDocFlag( KateDocumentConfig::cfRemoveTrailingDyn, enable, v->doc() );
+        config->setRemoveTrailingDyn( enable );
       else if ( cmd == "set-show-tabs" )
-        setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
+        config->setShowTabs( enable );
       else if ( cmd == "set-show-trailing-spaces" )
-        setDocFlag( KateDocumentConfig::cfShowSpaces, enable, v->doc() );
+        config->setShowSpaces( enable );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-remove-trailing-space-save" )
-        setDocFlag( KateDocumentConfig::cfRemoveSpaces, enable, v->doc() );
+        config->setRemoveSpaces( enable );
       else if ( cmd == "set-wrap-cursor" )
-        setDocFlag( KateDocumentConfig::cfWrapCursor, enable, v->doc() );
+        config->setWrapCursor( enable );
 
       return true;
     }

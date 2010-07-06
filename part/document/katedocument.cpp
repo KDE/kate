@@ -588,7 +588,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
     }
   }
 
-  bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+  bool replacetabs = ( config()->replaceTabsDyn() );
   int tabWidth = config()->tabWidth();
 
   static const QChar newLineChar('\n');
@@ -673,7 +673,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   int currentLine = position.line();
   int insertColumn = position.column();
 
-  bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+  bool replacetabs = ( config()->replaceTabsDyn() );
   int tabWidth = config()->tabWidth();
 
   static const QChar newLineChar('\n');
@@ -2682,7 +2682,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     {
       buf.append (ch);
 
-      if (!bracketInserted && (config()->configFlags() & KateDocumentConfig::cfAutoBrackets))
+      if (!bracketInserted && (config()->autoBrackets()))
       {
         QChar end_ch;
 
@@ -2717,7 +2717,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   KTextEditor::Cursor oldCur (view->cursorPosition());
 
-  if (config()->configFlags() & KateDocumentConfig::cfOvr
+  if (config()->ovr()
       || (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode)) {
 
     KTextEditor::Range r = KTextEditor::Range(view->cursorPosition(), qMin(buf.length(),
@@ -2827,7 +2827,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
   int complement = 0;
   if (col > 0)
   {
-    if (config()->configFlags() & KateDocumentConfig::cfAutoBrackets)
+    if (config()->autoBrackets())
     {
       // if inside empty (), {}, [], '', "" delete both
       Kate::TextLine tl = m_buffer->plainLine(line);
@@ -2844,7 +2844,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
         complement = 1;
       }
     }
-    if (!(config()->configFlags() & KateDocumentConfig::cfBackspaceIndents))
+    if (!(config()->backspaceIndents()))
     {
       // ordinary backspace
       //c.cursor.col--;
@@ -2933,7 +2933,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     view->removeSelectedText();
   }
 
-  if (config()->configFlags() & KateDocumentConfig::cfOvr) {
+  if (config()->ovr()) {
     QStringList pasteLines = s.split(QLatin1Char('\n'));
 
     if (!view->blockSelectionMode()) {
@@ -2967,7 +2967,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   if (view->blockSelectionMode())
     view->setCursorPositionInternal(view->cursorPosition() + KTextEditor::Cursor(lines, 0));
 
-  if (config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
+  if (config()->indentPastedText())
   {
     KTextEditor::Range range = KTextEditor::Range(KTextEditor::Cursor(pos.line(), 0),
                                                   KTextEditor::Cursor(pos.line() + lines, 0));
@@ -3732,7 +3732,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   QChar left  = textLine->at( range.start().column() - 1 );
   QChar bracket;
 
-  if ( config()->configFlags() & KateDocumentConfig::cfOvr ) {
+  if ( config()->ovr() ) {
     if( isBracket( right ) ) {
       bracket = right;
     } else {
@@ -4264,37 +4264,37 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       // KateConfig::configFlags
       // FIXME should this be optimized to only a few calls? how?
       else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+        m_config->setBackspaceIndents( state );
       else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
       {
-        m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabsDyn, state );
+        m_config->setReplaceTabsDyn( state );
         replaceTabsSet = true;  // for backward compatibility; see below
       }
       else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfRemoveTrailingDyn, state );
+        m_config->setRemoveTrailingDyn( state );
       else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfWrapCursor, state );
+        m_config->setWrapCursor( state );
       else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
+        m_config->setAutoBrackets( state );
       else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
+        m_config->setOvr( state );
       else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfKeepExtraSpaces, state );
+        m_config->setKeepExtraSpaces( state );
       else if ( var == "tab-indents" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
+        m_config->setTabIndents( state );
       else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
+        m_config->setShowTabs( state );
       else if ( var == "show-trailing-spaces" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfShowSpaces, state );
+        m_config->setShowSpaces( state );
       else if ( var == "space-indent" && checkBoolValue( val, &state ) )
       {
         // this is for backward compatibility; see below
         spaceIndent = state;
       }
       else if ( var == "smart-home" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
+        m_config->setSmartHome( state );
       else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
+        m_config->setRemoveSpaces( state );
 
       // INTEGER SETTINGS
       else if ( var == "tab-width" && checkIntValue( val, &n ) )
@@ -4367,7 +4367,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   // Note that if onlyViewAndRenderer was requested, spaceIndent is -1.
   if ( !replaceTabsSet && spaceIndent >= 0 )
   {
-    m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabsDyn, spaceIndent > 0 );
+    m_config->setReplaceTabsDyn( spaceIndent > 0 );
   }
 }
 
@@ -4577,7 +4577,7 @@ void KateDocument::removeTrailingSpace(int line)
 
   // remove trailing spaces from left line if required
   if (m_blockRemoveTrailingSpaces
-      || !(config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn))
+      || !(config()->removeTrailingDyn()))
     return;
 
   Kate::TextLine ln = plainKateTextLine(line);
@@ -4702,7 +4702,7 @@ QStringList KateDocument::configKeys() const
 QVariant KateDocument::configValue(const QString &key)
 {
   if (key == "auto-brackets") {
-    return m_config->configFlags() & KateDocumentConfig::cfAutoBrackets;
+    return m_config->autoBrackets();
   } else if (key == "backup-on-save-local") {
     return m_config->backupFlags() & KateDocumentConfig::LocalFiles;
   } else if (key == "backup-on-save-remote") {
@@ -4728,7 +4728,7 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
   } else if (value.canConvert(QVariant::Bool)) {
     const bool bValue = value.toBool();
     if (key == "auto-brackets") {
-      m_config->setConfigFlags(KateDocumentConfig::cfAutoBrackets, bValue);
+      m_config->setAutoBrackets(bValue);
     } else if (key == "backup-on-save-local" && value.type() == QVariant::String) {
       uint f = m_config->backupFlags();
       if (bValue) {

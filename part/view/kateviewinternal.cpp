@@ -1219,7 +1219,7 @@ void KateViewInternal::home( bool sel )
     }
   }
 
-  if( !(doc()->config()->configFlags() & KateDocumentConfig::cfSmartHome) ) {
+  if( !doc()->config()->smartHome() ) {
     moveEdge( left, sel );
     return;
   }
@@ -1256,7 +1256,7 @@ void KateViewInternal::end( bool sel )
     }
   }
 
-  if( !(doc()->config()->configFlags() & KateDocumentConfig::cfSmartHome) ) {
+  if( !doc()->config()->smartHome() ) {
     moveEdge( right, sel );
     return;
   }
@@ -2951,8 +2951,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
   // TODO put in the proper places
   renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Block : KateRenderer::Line);
-  renderer()->setShowTabs(doc()->config()->configFlags() & KateDocumentConfig::cfShowTabs);
-  renderer()->setShowTrailingSpaces(doc()->config()->configFlags() & KateDocumentConfig::cfShowSpaces);
+  renderer()->setShowTabs(doc()->config()->showTabs());
+  renderer()->setShowTrailingSpaces(doc()->config()->showSpaces());
 
   int sy = startz * h;
   paint.translate(unionRect.x(), startz * h);

@@ -159,7 +159,7 @@ bool KateBuffer::openFile (const QString &m_file)
   setEndOfLineMode ((EndOfLineMode) m_doc->config()->eol());
 
   // remove trailing spaces?
-  setRemoveTrailingSpaces (m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces);
+  setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
 
   // then, try to load the file
   m_brokenEncoding = false;
@@ -222,7 +222,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   setGenerateByteOrderMark (m_doc->config()->bom());
 
   // remove trailing spaces?
-  setRemoveTrailingSpaces (m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces);
+  setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
 
   // try to save
   if (!save (m_file))

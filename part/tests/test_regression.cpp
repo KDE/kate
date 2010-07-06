@@ -984,27 +984,25 @@ KateTestApp::KateTestApp(KCmdLineArgs *args, const QString& baseDir, int testcas
   //   a.disableAutoDcopRegistration();
   setStyle("windows");
   KConfigGroup group = m_cfg.group("Kate Document Defaults");
-  group.writeEntry("Basic Config Flags",
-                   KateDocumentConfig::cfBackspaceIndents
-//                  | KateDocumentConfig::cfWordWrap
-//                  | KateDocumentConfig::cfRemoveSpaces
-                   | KateDocumentConfig::cfWrapCursor
-//                  | KateDocumentConfig::cfAutoBrackets
-//                  | KateDocumentConfig::cfTabIndentsMode
-//                  | KateDocumentConfig::cfOvr
-                   | KateDocumentConfig::cfKeepExtraSpaces
-                   | KateDocumentConfig::cfTabIndents
-                   | KateDocumentConfig::cfShowTabs
-//                  | KateDocumentConfig::cfSpaceIndent TODO lookup replacement
-                   | KateDocumentConfig::cfSmartHome
-                   | KateDocumentConfig::cfTabInsertsTab
-//                  | KateDocumentConfig::cfReplaceTabsDyn
-//                  | KateDocumentConfig::cfRemoveTrailingDyn
-//                  | KateDocumentConfig::cfDoxygenAutoTyping // TODO lookup replacement
-//                  | KateDocumentConfig::cfMixedIndent
-                   | KateDocumentConfig::cfIndentPastedText
-                   );
+  KateDocumentConfig config(group);
+  config.setBackspaceIndents(true);
+  config.setWordWrap(false);
+  config.setWrapCursor(true);
+  config.setKeepExtraSpaces(true);
+  config.setShowTabs(true);
+  config.setSmartHome(true);
+  config.setTabIndents(true);
+  config.setIndentPastedText(true);
+
+  config.setAutoBrackets(false);
+  config.setShowSpaces(false);
+  config.setReplaceTabsDyn(false);
+  config.setRemoveTrailingDyn(false);
+  config.setRemoveSpaces(false);
+  config.setOvr(false);
+
   m_cfg.sync();
+  config.writeConfig(group);
 
 //   {
 //     KConfig dc( "kdebugrc", KConfig::SimpleConfig );

@@ -147,12 +147,11 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
   private:
     friend class KateGlobal;
 
-    /**
-     * only used in KateGlobal for the static global fallback !!!
-     */
     KateDocumentConfig ();
 
   public:
+    KateDocumentConfig (const KConfigGroup &cg);
+
     /**
      * Construct a DocumentConfig
      */
@@ -210,29 +209,44 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool pageUpDownMovesCursor () const;
     void setPageUpDownMovesCursor (bool on);
 
-    enum ConfigFlags
-    {
-      cfBackspaceIndents= 0x2,
-      cfWordWrap= 0x4,
-      cfRemoveSpaces = 0x10,
-      cfWrapCursor= 0x20,
-      cfAutoBrackets= 0x40,
-      cfTabIndentsMode = 0x200,
-      cfOvr= 0x1000,
-      cfKeepExtraSpaces= 0x10000,
-      cfTabIndents= 0x80000,
-      cfShowTabs= 0x200000,
-      cfShowSpaces= 0x400000,
-      cfSmartHome = 0x800000,
-      cfTabInsertsTab = 0x1000000,
-      cfReplaceTabsDyn=   0x2000000,
-      cfRemoveTrailingDyn=0x4000000,
-      cfIndentPastedText = 0x10000000
-    };
+    void setKeepExtraSpaces (bool on);
+    bool keepExtraSpaces () const;
 
-    uint configFlags () const;
-    void setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable);
-    void setConfigFlags (uint fullFlags);
+    void setIndentPastedText (bool on);
+    bool indentPastedText () const;
+
+    void setBackspaceIndents (bool on);
+    bool backspaceIndents () const;
+
+    void setSmartHome (bool on);
+    bool smartHome () const;
+
+    void setWrapCursor (bool on);
+    bool wrapCursor () const;
+
+    void setAutoBrackets (bool on);
+    bool autoBrackets () const;
+
+    void setShowTabs (bool on);
+    bool showTabs() const;
+
+    void setShowSpaces (bool on);
+    bool showSpaces() const;
+
+    void setReplaceTabsDyn (bool on);
+    bool replaceTabsDyn() const;
+
+    void setRemoveTrailingDyn (bool on);
+    bool removeTrailingDyn() const;
+
+    void setRemoveSpaces (bool on);
+    bool removeSpaces () const;
+
+    void setOvr (bool on);
+    bool ovr () const;
+
+    void setTabIndents (bool on);
+    bool tabIndentsEnabled () const;
 
     QTextCodec *codec () const;
     const QString &encoding () const;
@@ -314,7 +328,34 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
     bool m_pageUpDownMovesCursorSet : 1;
-    uint m_configFlagsSet;
+
+    bool m_keepExtraSpacesSet : 1;
+    bool m_keepExtraSpaces : 1;
+    bool m_indentPastedTextSet : 1;
+    bool m_indentPastedText : 1;
+    bool m_backspaceIndentsSet : 1;
+    bool m_backspaceIndents : 1;
+    bool m_smartHomeSet : 1;
+    bool m_smartHome : 1;
+    bool m_wrapCursorSet : 1;
+    bool m_wrapCursor : 1;
+    bool m_autoBracketsSet : 1;
+    bool m_autoBrackets : 1;
+    bool m_showTabsSet : 1;
+    bool m_showTabs : 1;
+    bool m_showSpacesSet : 1;
+    bool m_showSpaces : 1;
+    bool m_replaceTabsDynSet : 1;
+    bool m_replaceTabsDyn : 1;
+    bool m_removeTrailingDynSet : 1;
+    bool m_removeTrailingDyn : 1;
+    bool m_removeSpacesSet : 1;
+    bool m_removeSpaces : 1;
+    bool m_overwiteModeSet : 1;
+    bool m_overwiteMode : 1;
+    bool m_tabIndentsSet : 1;
+    bool m_tabIndents : 1;
+
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
     bool m_bomSet :1;

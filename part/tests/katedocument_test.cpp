@@ -102,7 +102,7 @@ void KateDocumentTest::testRemoveTrailingSpace()
     // https://bugs.kde.org/show_bug.cgi?id=242611
     KateDocument doc(false, false, false);
     doc.setText("asdf         \t   ");
-    doc.config()->setConfigFlags(KateDocumentConfig::cfRemoveTrailingDyn, true);
+    doc.config()->setRemoveTrailingDyn(true);
     doc.editRemoveText(0, 0, 1);
     QCOMPARE(doc.text(), QString("sdf"));
 }

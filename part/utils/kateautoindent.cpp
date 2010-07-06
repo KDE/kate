@@ -332,8 +332,8 @@ void KateAutoIndent::updateConfig ()
 {
   KateDocumentConfig *config = doc->config();
 
-  useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
-  keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
+  useSpaces   = config->replaceTabsDyn();
+  keepExtra   = config->keepExtraSpaces();
   tabWidth    = config->tabWidth();
   indentWidth = config->indentationWidth();
 }

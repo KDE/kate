@@ -289,6 +289,11 @@ class KateViewBar : public QWidget
      * widgets in the viewbar.
      */
     void removeBarWidget (KateViewBarWidget *barWidget);
+    
+    /**
+     * @return if viewbar has widget @p barWidget
+     */
+    bool hasBarWidget(KateViewBarWidget* barWidget) const;
 
     /**
      * Shows barWidget that was previously added with addBarWidget.
@@ -308,6 +313,7 @@ class KateViewBar : public QWidget
      * Old widget is not deleted, caller can do it if it wishes
      */
     void addPermanentBarWidget (KateViewBarWidget *barWidget);
+
     /**
      * Removes permanent bar widget from viewbar.
      * If no other viewbar widgets are shown, viewbar gets hidden.
@@ -315,6 +321,7 @@ class KateViewBar : public QWidget
      * barWidget is not deleted, caller must do it if it wishes
      */
     void removePermanentBarWidget (KateViewBarWidget *barWidget);
+
     /**
      * @return if viewbar has permanent widget @p barWidget
      */
@@ -331,7 +338,6 @@ class KateViewBar : public QWidget
     virtual void hideEvent(QHideEvent* event);
 
   private:
-    bool hasWidget(KateViewBarWidget*) const;
     /**
      * Shows or hides whole viewbar
      */

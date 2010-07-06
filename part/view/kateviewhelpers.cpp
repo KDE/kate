@@ -1856,7 +1856,7 @@ KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position 
 
 void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
-  if (hasWidget(newBarWidget)) {
+  if (hasBarWidget(newBarWidget)) {
     kDebug(13025) << "this bar widget is already added";
     return;
   }
@@ -1926,15 +1926,9 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
   }
 }
 
-bool KateViewBar::hasWidget(KateViewBarWidget* wid) const
+bool KateViewBar::hasBarWidget(KateViewBarWidget* barWidget) const
 {
-    int count = m_stack->count();
-    for (int i=0; i<count; ++i) {
-        if (m_stack->widget(i) == wid) {
-            return true;
-        }
-    }
-    return false;
+  return m_stack->indexOf(barWidget) != -1;
 }
 
 void KateViewBar::hideCurrentBarWidget ()

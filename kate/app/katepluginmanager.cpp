@@ -159,7 +159,7 @@ void KatePluginManager::loadPlugin (KatePluginInfo *item)
   if (pluginName.isEmpty())
     pluginName = item->service->library();
 
-  item->load = (item->plugin = Kate::createPlugin (QFile::encodeName(item->service->library()), Kate::application(), QStringList(pluginName)));
+  item->load = (item->plugin = item->service->createInstance<Kate::Plugin>(Kate::application(), QVariantList() << pluginName));
 }
 
 void KatePluginManager::unloadPlugin (KatePluginInfo *item)

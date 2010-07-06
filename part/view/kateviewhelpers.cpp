@@ -1868,6 +1868,11 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
   kDebug(13025)<<"add barwidget " << newBarWidget;
 }
 
+void KateViewBar::removeBarWidget (KateViewBarWidget *barWidget)
+{
+  m_stack->removeWidget(barWidget);
+}
+
 void KateViewBar::addPermanentBarWidget (KateViewBarWidget *barWidget)
 {
   // remove old widget from layout (if any)

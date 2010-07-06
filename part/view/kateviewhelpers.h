@@ -269,7 +269,10 @@ class KateViewBar : public QWidget
   Q_OBJECT
 
   public:
-    KateViewBar (bool external, KTextEditor::ViewBarContainer::Position pos,QWidget *parent,KateView *view);
+    KateViewBar (bool external, 
+                 KTextEditor::ViewBarContainer::Position pos,
+                 QWidget *parent,
+                 KateView *view);
 
 
     /**
@@ -278,6 +281,15 @@ class KateViewBar : public QWidget
      * Several widgets can be added to the bar, but only one can be visible
      */
     void addBarWidget (KateViewBarWidget *newBarWidget);
+
+    /**
+     * Removes a widget from this viewbar.
+     * Removing a widget makes sense if it takes a lot of space vertically,
+     * because we use a QStackedWidget to maintain the same height for all
+     * widgets in the viewbar.
+     */
+    void removeBarWidget (KateViewBarWidget *barWidget);
+
     /**
      * Shows barWidget that was previously added with addBarWidget.
      * @see hideCurrentBarWidget

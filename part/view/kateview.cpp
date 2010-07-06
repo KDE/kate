@@ -2899,6 +2899,7 @@ void KateView::hideRecoverBar()
 {
   if (m_recoverBar)
   {
+    m_bottomViewBar->removeBarWidget(m_recoverBar);
     delete m_recoverBar;
     m_recoverBar = 0;
   }

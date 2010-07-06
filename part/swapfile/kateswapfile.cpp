@@ -185,6 +185,7 @@ void SwapFile::recover()
         int line, startColumn, endColumn;
         m_stream >> line >> startColumn >> endColumn;
         m_document->removeText (KTextEditor::Range(KTextEditor::Cursor(line, startColumn), KTextEditor::Cursor(line, endColumn)));
+        break;
       }
       default: {
         kWarning( 13020 ) << "Unknown type:" << type;

@@ -80,10 +80,51 @@
 
 //BEGIN TestScriptEnv
 
+//BEGIN conversion functions for Cursors and Ranges
+/** Converstion function from KTextEditor::Cursor to QtScript cursor */
+static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)
+{
+  QString code = QString("new Cursor(%1, %2);").arg(cursor.line())
+                                               .arg(cursor.column());
+  return engine->evaluate(code);
+}
+
+/** Converstion function from QtScript cursor to KTextEditor::Cursor */
+static void cursorFromScriptValue(const QScriptValue &obj, KTextEditor::Cursor &cursor)
+{
+  cursor.setPosition(obj.property("line").toInt32(),
+                     obj.property("column").toInt32());
+}
+
+/** Converstion function from QtScript range to KTextEditor::Range */
+static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor::Range &range)
+{
+  QString code = QString("new Range(%1, %2, %3, %4);").arg(range.start().line())
+                                                      .arg(range.start().column())
+                                                      .arg(range.end().line())
+                                                      .arg(range.end().column());
+  return engine->evaluate(code);
+}
+
+/** Converstion function from QtScript range to KTextEditor::Range */
+static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
+{
+  range.start().setPosition(obj.property("start").property("line").toInt32(),
+                            obj.property("start").property("column").toInt32());
+  range.end().setPosition(obj.property("end").property("line").toInt32(),
+                          obj.property("end").property("column").toInt32());
+}
+//END
+
 TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
   : m_engine(0), m_viewObj(0), m_docObj(0), m_output(0)
 {
   m_engine = new QScriptEngine(this);
+
+  qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
+  qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
+
+  initApi();
 
   KateView *view = qobject_cast<KateView *>(part->widget());
 
@@ -120,6 +161,66 @@ TestScriptEnv::~TestScriptEnv()
 
 //   kDebug() << "deleted";
 }
+
+void TestScriptEnv::initApi()
+{
+  // cache file names
+  static QStringList apiFileBaseNames;
+  static QHash<QString, QString> apiBaseName2FileName;
+  static QHash<QString, QString> apiBaseName2Content;
+
+  // read katepart javascript api
+    apiFileBaseNames.clear ();
+    apiBaseName2FileName.clear ();
+    apiBaseName2Content.clear ();
+
+    // get all api files
+    const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/api/*.js", KStandardDirs::NoDuplicates);
+
+    for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
+    {
+      // get abs filename....
+      QFileInfo fi(*it);
+      const QString absPath = fi.absoluteFilePath();
+      const QString baseName = fi.baseName ();
+
+      // remember filenames
+      apiFileBaseNames.append (baseName);
+      apiBaseName2FileName[baseName] = absPath;
+
+      // read the file
+      QFile file(absPath);
+      QString content;
+      if (!file.open(QIODevice::ReadOnly)) {
+        kFatal() << i18n("Unable to find '%1'", absPath);
+        return;
+      } else {
+        QTextStream stream(&file);
+        stream.setCodec("UTF-8");
+        content = stream.readAll();
+        file.close();
+      }
+      apiBaseName2Content[baseName] = content;
+    }
+
+    // sort...
+    apiFileBaseNames.sort ();
+
+  // register all script apis found
+  for ( QStringList::ConstIterator it = apiFileBaseNames.constBegin(); it != apiFileBaseNames.constEnd(); ++it )
+  {
+    // try to load into engine, bail out one error, use fullpath for error messages
+    QScriptValue apiObject = m_engine->evaluate(apiBaseName2Content[*it], apiBaseName2FileName[*it]);
+
+    if(m_engine->hasUncaughtException()) {
+      kFatal() << "Error loading script" << (*it);
+      return;
+    }
+  }
+
+  // success ;)
+}
+
 //END TestScriptEnv
 
 //BEGIN KateViewObject

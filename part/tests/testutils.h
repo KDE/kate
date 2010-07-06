@@ -51,6 +51,7 @@ class TestScriptEnv : public QObject
     OutputObject *output() const { return m_output; }
 
   private:
+    void initApi();
     QScriptEngine *m_engine;
     KateViewObject *m_viewObj;
     KateDocumentObject *m_docObj;

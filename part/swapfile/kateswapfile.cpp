@@ -29,14 +29,12 @@
 
 namespace Kate {
 
-const static qint8 EA_StartEditing  = 0x02; // 0000 0010
-const static qint8 EA_FinishEditing = 0x03; // 0000 0011
-const static qint8 EA_WrapLine      = 0x04; // 0000 0100
-const static qint8 EA_UnwrapLine    = 0x05; // 0000 0101
-const static qint8 EA_InsertText    = 0x08; // 0000 1000
-const static qint8 EA_RemoveText    = 0x09; // 0000 1001
-
-
+const static qint8 EA_StartEditing  = 'S';
+const static qint8 EA_FinishEditing = 'E';
+const static qint8 EA_WrapLine      = 'W';
+const static qint8 EA_UnwrapLine    = 'U';
+const static qint8 EA_InsertText    = 'I';
+const static qint8 EA_RemoveText    = 'R';
 
 SwapFile::SwapFile(KateDocument *document)
   : QObject(document)
@@ -154,15 +152,22 @@ void SwapFile::recover()
         break;
       }
       case EA_WrapLine: {
-        int line, column;
+        int line = 0, column = 0;
         m_stream >> line >> column;
-        m_document->editWrapLine(line, column);
+        
+        // emulate buffer unwrapLine with document
+        m_document->editWrapLine(line, column, true);
         break;
       }
       case EA_UnwrapLine: {
-        int line;
+        int line = 0;
         m_stream >> line;
-        m_document->editUnWrapLine(line);
+        
+        // assert valid line
+        Q_ASSERT (line > 0);
+        
+        // emulate buffer unwrapLine with document
+        m_document->editUnWrapLine(line - 1, true, 0);
         break;
       }
       case EA_InsertText: {
@@ -173,10 +178,9 @@ void SwapFile::recover()
         break;
       }
       case EA_RemoveText: {
-        int startLine, startColumn, endLine, endColumn;
-        m_stream >> startLine >> startColumn >> endLine >> endColumn;
-        m_document->removeText(KTextEditor::Range(KTextEditor::Cursor(startLine, startColumn),
-                                              KTextEditor::Cursor(endLine, endColumn)));
+        int line, startColumn, endColumn;
+        m_stream >> line >> startColumn >> endColumn;
+        m_document->removeText (KTextEditor::Range(KTextEditor::Cursor(line, startColumn), KTextEditor::Cursor(line, endColumn)));
       }
       default: {
         kWarning( 13020 ) << "Unknown type:" << type;
@@ -263,10 +267,11 @@ void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &t
 
 void SwapFile::removeText (const KTextEditor::Range &range)
 {
-  // format: qint8, int, int, int, int
+  // format: qint8, int, int, int
+  Q_ASSERT (range.start().line() == range.end().line());
   m_stream << EA_RemoveText
             << range.start().line() << range.start().column()
-            << range.end().line() << range.end().column();
+            << range.end().column();
 }
 
 bool SwapFile::shouldRecover() const

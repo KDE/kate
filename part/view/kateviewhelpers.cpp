@@ -1914,6 +1914,8 @@ bool KateViewBar::hasPermanentWidget (KateViewBarWidget *barWidget ) const
 
 void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
+  Q_ASSERT(barWidget != 0);
+
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
   barWidget->show();

@@ -24,13 +24,19 @@
 #include "kateswapfile.h"
 #include "kateview.h"
 
+#include <QWhatsThis>
+
 //BEGIN KateRecoverBar
 KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
-  : KateViewBarWidget( true, parent )
+  : KateViewBarWidget( false, parent )
   , m_view( view )
 {
   Ui::RecoverWidget* ui = new Ui::RecoverWidget();
   ui->setupUi( centralWidget() );
+  
+  // clicking on the "Help" link pops up the content as what's this
+  connect(ui->lblSwap, SIGNAL(linkActivated(const QString&)),
+          this, SLOT(showWhatsThis(const QString&)));
 
   // set icons, but keep text from ui file
   ui->btnRecover->setGuiItem(KGuiItem(ui->btnRecover->text(), KIcon("edit-redo")));
@@ -43,9 +49,15 @@ KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   connect(ui->btnDiff, SIGNAL(clicked()), this, SLOT(viewDiff()));
 }
 
+void KateRecoverBar::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
+}
+
 void KateRecoverBar::viewDiff()
 {
 }
+
 //END KateRecoverBar
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

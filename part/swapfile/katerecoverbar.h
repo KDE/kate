@@ -34,6 +34,7 @@ class KateRecoverBar : public KateViewBarWidget
     explicit KateRecoverBar(KateView *view, QWidget *parent = 0);
 
   protected Q_SLOTS:
+    void showWhatsThis(const QString&);
     void viewDiff();
 
   private:

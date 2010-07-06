@@ -658,90 +658,9 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   if (!isReadWrite())
     return false;
 
-  if (textLines.isEmpty() || (textLines.count() == 1 && textLines.first().isEmpty()))
-    return true;
-
-  // FIXME - huh, contradicted below
-  if (position.line() > lines())
-    return false;
-
-  editStart();
-
-  if (position.line() > lines())
-    editInsertLine(position.line(),QString());
-
-  int currentLine = position.line();
-  int insertColumn = position.column();
-
-  bool replacetabs = ( config()->replaceTabsDyn() );
-  int tabWidth = config()->tabWidth();
-
-  static const QChar newLineChar('\n');
-  static const QChar tabChar('\t');
-  static const QChar spaceChar(' ');
-
-  int insertColumnExpanded = insertColumn;
-  Kate::TextLine l = kateTextLine( currentLine );
-  if (l)
-    insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
-
-  foreach (const QString &text, textLines)
-  {
-    int pos = 0;
-    int currentLineStart = 0;
-    for (; pos < text.length(); pos++)
-    {
-      const QChar& ch = text.at(pos);
-
-      if (ch == newLineChar)
-      {
-        // Only perform the text insert if there is text to insert
-        if (currentLineStart < pos)
-          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-
-        if ( !block )
-        {
-          editWrapLine(currentLine, pos + insertColumn - currentLineStart);
-          insertColumn = 0;
-        }
-        else
-        {
-          if ( currentLine == lastLine() )
-            editWrapLine(currentLine , insertColumn + pos - currentLineStart);
-          insertColumn = position.column(); // tab expansion might change this
-        }
-
-        currentLine++;
-        currentLineStart = pos + 1;
-        l = kateTextLine( currentLine );
-        if (l)
-          insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
-      }
-      else
-      {
-        if ( replacetabs && ch == tabChar )
-        {
-          int spacesRequired = tabWidth - ( (insertColumnExpanded + pos - currentLineStart) % tabWidth );
-          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
-
-          insertColumn += pos - currentLineStart + spacesRequired;
-          l = kateTextLine( currentLine );
-          if (l)
-            insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
-          currentLineStart = pos + 1;
-        }
-      }
-    }
-
-    // Only perform the text insert if there is text to insert
-    if (currentLineStart < pos - currentLineStart)
-      editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-  }
-
-  editEnd();
-  return true;
+  // just reuse normal function
+  return insertText (position, textLines.join ("\n"), block);
 }
-
 
 bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
 {
@@ -833,7 +752,6 @@ bool KateDocument::insertLines( int line, const QStringList & text )
 
   bool success = true;
   foreach (const QString &string, text)
-    // FIXME assumes no \n in each string
     success &= editInsertLine (line++, string);
 
   return success;

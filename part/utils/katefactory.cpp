@@ -32,20 +32,22 @@ class KateFactory : public KTextEditor::Factory
 {
   public:
     /**
-     * constructor
+     * constructor, ref the editor, too keep it alive
      * @param parent parent object
      * @param name name of factory
      */
     KateFactory ( QObject *parent = 0 )
       : KTextEditor::Factory (parent)
     {
+      KateGlobal::incRef ();
     }
 
     /**
-     * destructor
+     * destructor, release editor
      */
     virtual ~KateFactory ()
     {
+      KateGlobal::decRef ();
     }
 
     KTextEditor::Editor *editor () { return KateGlobal::self(); }

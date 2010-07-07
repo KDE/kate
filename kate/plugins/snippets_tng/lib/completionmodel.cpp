@@ -773,7 +773,6 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           QAbstractItemModel(),m_models(models),m_actionCollection(new KActionCollection(this)) {
             foreach(SnippetSelectorModel *model,m_models) {
               connect(model, SIGNAL(destroyed(QObject*)),this,SLOT(subDestroyed(QObject*)));
-              connect(model, SIGNAL(needView(KTextEditor::View **)), this, SIGNAL(needView(KTextEditor::View **)));
               foreach(QAction *a,model->actions()) {
               if (m_actionCollection->action(a->objectName())) {
                 delete a;

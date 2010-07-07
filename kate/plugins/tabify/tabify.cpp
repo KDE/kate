@@ -148,7 +148,7 @@ void TabBarPluginView::slotDocumentChanged(KTextEditor::Document* document)
   int tabID = m_docTabMap[document];
   if (document->isModified()) {
     m_tabBar->setTabIcon(tabID, KIconLoader::global()
-                         ->loadIcon("modified", KIconLoader::Small, 16));
+                         ->loadIcon("document-save", KIconLoader::Small, 16));
   } else {
     m_tabBar->setTabIcon(tabID, QIcon());
   }
@@ -165,18 +165,18 @@ void TabBarPluginView::slotModifiedOnDisc(KTextEditor::Document* document, bool 
     switch (reason) {
     case KTextEditor::ModificationInterface::OnDiskModified:
       m_tabBar->setTabIcon(tabID, KIconLoader::global()
-                           ->loadIcon("cancel", KIconLoader::Small));
+                           ->loadIcon("dialog-warning", KIconLoader::Small));
       break;
     case KTextEditor::ModificationInterface::OnDiskCreated:
       m_tabBar->setTabIcon(tabID, KIconLoader::global()
-                           ->loadIcon("modified", KIconLoader::Small));
+                           ->loadIcon("document-save", KIconLoader::Small));
       break;
     case KTextEditor::ModificationInterface::OnDiskDeleted:
       m_tabBar->setTabIcon(tabID, KIconLoader::global()
-                           ->loadIcon("cancel", KIconLoader::Small));
+                           ->loadIcon("dialog-warning", KIconLoader::Small));
     default:
       m_tabBar->setTabIcon(tabID, KIconLoader::global()
-                           ->loadIcon("cancel", KIconLoader::Small));
+                           ->loadIcon("dialog-warning", KIconLoader::Small));
     }
   }
 }

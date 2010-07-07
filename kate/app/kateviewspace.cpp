@@ -295,9 +295,9 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 #endif
 
   installEventFilter( this );
-  m_modPm = KIcon("modified").pixmap(16);
-  m_modDiscPm = KIcon("modonhd").pixmap(16);
-  m_modmodPm = KIcon("modmod").pixmap(16);
+  m_modPm = KIcon("document-save").pixmap(16);
+  m_modDiscPm = KIcon("dialog-warning").pixmap(16);
+  m_modmodPm = KIcon("document-save", 0, QStringList () << "emblem-important").pixmap(16);
 }
 
 KateVSStatusBar::~KateVSStatusBar ()

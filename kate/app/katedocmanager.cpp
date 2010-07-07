@@ -153,7 +153,7 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   modelitem->setData(QVariant::fromValue(doc), DocumentRole);
 //   modelitem->setData(m_docList.count()-1, OpeningOrderRole);
   modelitem->setEditable(false);
-  modelitem->setIcon(KIcon("null"));
+  modelitem->setIcon(KIcon ("null"));
   modelitem->setToolTip(doc->url().prettyUrl());
   modelitem->setData(false,RestoreOpeningFailedRole);
   appendRow(modelitem);
@@ -578,7 +578,6 @@ void KateDocManager::restoreDocumentList (KConfig* config)
   pd->progressBar()->setRange(0, count);
 
   bool first = true;
-  const int countM1 = count - 1;
   m_documentStillToRestore = count;
   m_restoringDocumentList = true;
   m_openingErrors.clear();
@@ -731,33 +730,17 @@ void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
   kDebug() << "KateDocManager::slotModChanged (2)";
   QStandardItem *item = m_documentItemMapping[doc];
   const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
-  item->setIcon(QIcon());
+  item->setIcon(KIcon("null"));
   if (info && info->modifiedOnDisc)
   {
-    if (doc->isModified()) item->setIcon(KIcon("modmod"));
-    else item->setIcon(KIcon("modonhd"));
+    if (doc->isModified()) item->setIcon(KIcon("document-save", 0, QStringList () << "emblem-important"));
+    else item->setIcon(KIcon("dialog-warning"));
 
     KateApp::self()->activeMainWindow()->queueModifiedOnDisc(doc);
   } else
-    if (doc->isModified()) item->setIcon(KIcon("modified"));
+    if (doc->isModified()) item->setIcon(KIcon("document-save"));
     else item->setIcon(KIcon("null"));
-  /*  if ( column == 0) {
-      static QPixmap noPm = SmallIcon ("null");
-      static QPixmap modPm = SmallIcon("modified");
-      static QPixmap discPm = SmallIcon("modonhd");
-      static QPixmap modmodPm = SmallIcon("modmod");
-
-      const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
-
-      if (info && info->modifiedOnDisc)
-        return doc->isModified() ? &modmodPm : &discPm;
-      else
-        return doc->isModified() ? &modPm : &noPm;
-    }
-
-    return 0; */
 }
-
 
 QModelIndex KateDocManager::indexForDocument(KTextEditor::Document *document)
 {

@@ -109,8 +109,6 @@ void SwapFile::fileLoaded(const QString&)
 
   // emit signal in case the document has more views
   emit swapFileFound();
-  
-  // TODO set file as read-only
 }
 
 void SwapFile::recover()
@@ -225,10 +223,11 @@ void SwapFile::startEditing ()
   //  if swap file doesn't exists, open it in WriteOnly mode
   // if it does, append the data to the existing swap file,
   // in case you recover and start edititng again
-  if (!m_swapfile.exists()) { 
+  if (!m_swapfile.exists()) {
+    // TODO set file as read-only
     m_swapfile.open(QIODevice::WriteOnly);
     m_stream.setDevice(&m_swapfile);
-    
+
     // write file header
     m_stream << QByteArray (swapFileVersionString);
   } else if (m_stream.device() == 0) {

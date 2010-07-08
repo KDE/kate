@@ -299,6 +299,11 @@ void KateCommandLineBar::setText(const QString &text, bool selected)
   }
 }
 
+void KateCommandLineBar::execute(const QString &text)
+{
+  m_lineEdit->slotReturnPressed(text);
+}
+
 KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   : KLineEdit ()
   , m_view (view)

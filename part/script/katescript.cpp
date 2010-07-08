@@ -147,6 +147,8 @@ void KateScript::displayBacktrace(const QScriptValue &error, const QString &head
 
 void KateScript::clearExceptions()
 {
+  if (!load())
+    return;
   m_engine->clearExceptions();
 }
 

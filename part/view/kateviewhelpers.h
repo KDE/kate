@@ -359,7 +359,8 @@ class KateCommandLineBar : public KateViewBarWidget
     explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);
     ~KateCommandLineBar();
 
-  void setText(const QString &text, bool selected = true);
+    void setText(const QString &text, bool selected = true);
+    void execute(const QString &text);
 
   private:
     class KateCmdLineEdit *m_lineEdit;
@@ -377,10 +378,12 @@ class KateCmdLineEdit : public KLineEdit
 
   signals:
     void hideRequested();
+    
+  public Q_SLOTS:
+    void slotReturnPressed ( const QString& cmd );
 
   private Q_SLOTS:
     void hideLineEdit();
-    void slotReturnPressed ( const QString& cmd );
 
   protected:
     void focusInEvent ( QFocusEvent *ev );

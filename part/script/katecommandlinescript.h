@@ -44,6 +44,35 @@ class KateCommandLineScriptHeader
     QStringList m_functions; ///< the functions the script contains
 };
 
+class ScriptActionInfo
+{
+  public:
+    ScriptActionInfo() {}
+    
+    inline bool isValid() const { return !(m_command.isEmpty() || m_text.isEmpty()); }
+
+    inline void setCommand(const QString& command) { m_command = command; }
+    inline QString command() const { return m_command; }
+    inline void setText(const QString& text) { m_text = text; }
+    inline QString text() const { return m_text; }
+    inline void setIcon(const QString& icon) { m_icon = icon; }
+    inline QString icon() const { return m_icon; }
+    inline void setCategory(const QString& category) { m_category = category; }
+    inline QString category() const { return m_category; }
+    inline void setInteractive(bool interactive) { m_interactive = interactive; }
+    inline bool interactive() const { return m_interactive; }
+    inline void setShortcut(const QString& shortcut) { m_shortcut = shortcut; }
+    inline QString shortcut() const { return m_shortcut; }
+
+  private:
+    QString m_command;
+    QString m_text;
+    QString m_icon;
+    QString m_category;
+    bool m_interactive;
+    QString m_shortcut;
+};
+
 /**
  * A specialized class for scripts that are of type
  * KateScriptInformation::IndentationScript
@@ -57,6 +86,8 @@ class KateCommandLineScript : public KateScript, public KTextEditor::Command
     const KateCommandLineScriptHeader& commandHeader();
 
     bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
+    
+    ScriptActionInfo actionInfo(const QString& cmd);
 
   //
   // KTextEditor::Command interface

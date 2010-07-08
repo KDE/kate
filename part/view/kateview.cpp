@@ -57,6 +57,7 @@
 #include "spellcheck/spellingmenu.h"
 #include "katebuffer.h"
 #include "script/katescriptmanager.h"
+#include "script/katescriptaction.h"
 #include "kateswapfile.h"
 #include "katerecoverbar.h"
 
@@ -342,6 +343,11 @@ void KateView::setupActions()
 
     a = m_editRedo = ac->addAction(KStandardAction::Redo, m_doc, SLOT(redo()));
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
+    
+    // Tools > Scripts
+    KateScriptActionMenu* scriptActionMenu = new KateScriptActionMenu(this, i18n("&Scripts"));
+    ac->addAction("tools_scripts", scriptActionMenu);
+    
 
     a = ac->addAction("tools_apply_wordwrap");
     a->setText(i18n("Apply &Word Wrap"));

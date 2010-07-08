@@ -501,7 +501,8 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
           if (msg.length() > 0)
             setText (i18n ("Success: ") + msg);
           else
-            m_bar->hide(); // always hide on success without message
+            // always hide on success without message
+            emit hideRequested();
         }
         else
         {
@@ -536,7 +537,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_view->setFocus ();
   }
 
-  m_hideTimer->start(4000);
+  if (isVisible()) {
+    m_hideTimer->start(4000);
+  }
 }
 
 void KateCmdLineEdit::hideLineEdit () // unless i have focus ;)

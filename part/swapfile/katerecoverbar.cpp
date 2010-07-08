@@ -41,7 +41,7 @@ KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   // set icons, but keep text from ui file
   ui->btnRecover->setGuiItem(KGuiItem(ui->btnRecover->text(), KIcon("edit-redo")));
   ui->btnDiscard->setGuiItem(KStandardGuiItem::discard());
-  ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(48, 48));
+  ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(64, 64));
 
   // use queued connections because this (all) KateRecoverBar widgets are deleted
   connect(ui->btnRecover, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);

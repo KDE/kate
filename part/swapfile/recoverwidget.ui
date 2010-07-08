@@ -6,30 +6,33 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>251</height>
+    <width>741</width>
+    <height>112</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="lblIcon">
-       <property name="minimumSize">
-        <size>
-         <width>15</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignHCenter|Qt::AlignTop</set>
-       </property>
-      </widget>
-     </item>
+    <widget class="QLabel" name="lblIcon">
+     <property name="minimumSize">
+      <size>
+       <width>15</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinAndMaxSize</enum>
+     </property>
      <item>
       <widget class="QLabel" name="lblSwap">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -40,77 +43,54 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body&gt;
 &lt;p&gt;&lt;b&gt;Data Recovery&lt;/b&gt; &lt;a href=&quot;Kate stores the things you changed in a swap file. Using the original file you started from plus the swap file you can mostly recover your work.&quot;&gt;&lt;span&gt;(Help)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The file was not closed appropriately. Do you want to recover the data?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Minimum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chkIgnoreWhiteSpaces">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ignore white space changes</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btnDiff">
-       <property name="text">
-        <string>View Changes</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btnRecover">
-       <property name="text">
-        <string>Recover</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btnDiscard">
-       <property name="text">
-        <string>Discard</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="KPushButton" name="btnDiff">
+         <property name="text">
+          <string>View Changes</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="KPushButton" name="btnRecover">
+         <property name="text">
+          <string>Recover</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="btnDiscard">
+         <property name="text">
+          <string>Discard</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -124,7 +104,6 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>chkIgnoreWhiteSpaces</tabstop>
   <tabstop>btnDiff</tabstop>
   <tabstop>btnRecover</tabstop>
   <tabstop>btnDiscard</tabstop>

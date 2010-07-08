@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, test, each
+ * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each
  */
 
 function sort()
@@ -149,53 +149,112 @@ function unwrap ()
     }
 }
 
-
-function test()
+function moveLinesDown()
 {
-    var start = new Cursor(3, 6);
-    var end = new Cursor(start);
-    end.column = 12;
+    var fromLine = -1;
+    var toLine = -1;
 
-    var range = new Range(start, end);
-    debug("line: " + end.line);
-    debug("column: " + end.column);
-    debug("range:" + range);
-    debug("range:" + range.start.line);
-    debug("range:" + range.start.column);
-    debug("range:" + range.end.line);
-    debug("range:" + range.end.column);
+    var selectionRange = view.selection();
+    if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
+        toLine = selectionRange.start.line;
+        fromLine = selectionRange.end.line + 1;
+    } else if (view.cursorPosition().line < document.lines() - 1) {
+        toLine = view.cursorPosition().line;
+        fromLine = toLine + 1;
+    }
 
-    view.setCursorPosition(start);
+    if (fromLine != -1 && toLine != -1) {
+        var text = document.line(fromLine);
+
+        document.editBegin();
+        document.removeLine(fromLine);
+        document.insertLine(toLine, text);
+        document.editEnd();
+    }
+}
+
+function moveLinesUp()
+{
+    var fromLine = -1;
+    var toLine = -1;
+
+    var selectionRange = view.selection();
+    if (selectionRange.isValid() && selectionRange.start.line > 0) {
+        fromLine = selectionRange.start.line - 1;
+        toLine = selectionRange.end.line;
+    } else if (view.cursorPosition().line > 0) {
+        toLine = view.cursorPosition().line;
+        fromLine = toLine - 1;
+    }
+
+    if (fromLine != -1 && toLine != -1) {
+        var text = document.line(fromLine);
+
+        document.editBegin();
+        document.removeLine(fromLine);
+        document.insertLine(toLine, text);
+        document.editEnd();
+    }
+}
+
+function action(cmd)
+{
+    var a = new Array();
+    if (cmd == "sort") {
+        a['text'] = i18n("Sort Selected Text");
+        a['icon'] = "";
+        a['category'] = "";
+        a['interactive'] = false;
+        a['shortcut'] = "";
+    } else if (cmd == "moveLinesDown") {
+        a['text'] = i18n("Move Lines Down");
+        a['icon'] = "";
+        a['category'] = "";
+        a['interactive'] = false;
+        a['shortcut'] = "";
+    } else if (cmd == "moveLinesUp") {
+        a['text'] = i18n("Move Lines Up");
+        a['icon'] = "";
+        a['category'] = "";
+        a['interactive'] = false;
+        a['shortcut'] = "";
+    }
+
+    return a;
 }
 
 function help(cmd)
 {
     if (cmd == "sort") {
-        return "Sort the selected text or whole document.";
+        return i18n("Sort the selected text or whole document.");
+    } else if (cmd == "moveLinesDown") {
+        return i18n("Move selected lines down.");
+    } else if (cmd == "moveLinesUp") {
+        return i18n("Move selected lines up.");
     } else if (cmd == "uniq") {
-        return "Remove duplicate lines from the selected text or whole document.";
+        return i18n("Remove duplicate lines from the selected text or whole document.");
     } else if (cmd == "natsort") {
-        return "Sort the selected text or whole document in natural order.<br>"
+        return i18n("Sort the selected text or whole document in natural order.<br>"
               +"Here's an example to show the difference to the normal sort method:<br>"
               +"sort(a10, a1, a2) => a1, a10, a2<br>"
-              +"natsort(a10, a1, a2) => a1, a2, a10";
+              +"natsort(a10, a1, a2) => a1, a2, a10");
     } else if (cmd == "rtrim") {
-        return "Trims trailing whitespace from selection or whole document.";
+        return i18n("Trims trailing whitespace from selection or whole document.");
     } else if (cmd == "ltrim") {
-        return "Trims leading whitespace from selection or whole document.";
+        return i18n("Trims leading whitespace from selection or whole document.");
     } else if (cmd == "trim") {
-        return "Trims leading and trailing whitespace from selection or whole document.";
+        return i18n("Trims leading and trailing whitespace from selection or whole document.");
     } else if (cmd == "join") {
-        return "Joins selected lines or whole document.";
+        return i18n("Joins selected lines or whole document.");
     } else if (cmd == "rmblank") {
-        return "Removes empty lines from selection or whole document.";
+        return i18n("Removes empty lines from selection or whole document.");
     } else if (cmd == "unwrap") {
         return "Unwraps all paragraphs in the text selection, or the paragraph under the text cursor if there is no selected text.";
     } else if (cmd == "each") {
-        return "Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the" +
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the" +
                "return value of that callback.<br>" +
                "Example (join selected lines):<br>" +
-                "<code>each 'function(lines){return lines.join(\", \"}'</code>";
+                "<code>each 'function(lines){return lines.join(\", \"}'</code>");
     }
 }
 
@@ -399,3 +458,4 @@ function natcompare(a,b) {
     }
 }
 
+// kate: space-indent on; indent-width 4; replace-tabs on;

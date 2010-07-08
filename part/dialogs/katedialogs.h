@@ -77,7 +77,8 @@ class QKeyEvent;
 namespace Ui
 {
   class ModOnHdWidget;
-  class AppearanceConfigWidget;
+  class TextareaAppearanceConfigWidget;
+  class BordersAppearanceConfigWidget;
   class CursorConfigWidget;
   class EditConfigWidget;
   class IndentationConfigWidget;
@@ -310,7 +311,8 @@ public Q_SLOTS:
   void defaults ();
 
 private:
-  Ui::AppearanceConfigWidget *ui;
+  Ui::TextareaAppearanceConfigWidget *const textareaUi;
+  Ui::BordersAppearanceConfigWidget *const bordersUi;
 };
 
 class KateSaveConfigTab : public KateConfigPage

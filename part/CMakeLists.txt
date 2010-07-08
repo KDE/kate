@@ -175,7 +175,8 @@ swapfile/kateswapfile.cpp
 )
 
 set( katepart_PART_UI
-dialogs/appearanceconfigwidget.ui
+dialogs/textareaappearanceconfigwidget.ui
+dialogs/bordersappearanceconfigwidget.ui
 dialogs/commandmenuconfigwidget.ui
 dialogs/commandmenueditwidget.ui
 dialogs/completionconfigtab.ui

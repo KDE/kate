@@ -46,7 +46,8 @@
 
 // auto generated ui files
 #include "ui_modonhdwidget.h"
-#include "ui_appearanceconfigwidget.h"
+#include "ui_textareaappearanceconfigwidget.h"
+#include "ui_bordersappearanceconfigwidget.h"
 #include "ui_cursorconfigwidget.h"
 #include "ui_editconfigwidget.h"
 #include "ui_indentationconfigwidget.h"
@@ -714,21 +715,33 @@ void KateEditConfigTab::defaults ()
 
 //BEGIN KateViewDefaultsConfig
 KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
-  :KateConfigPage(parent)
+  : KateConfigPage(parent)
+  , textareaUi(new Ui::TextareaAppearanceConfigWidget())
+  , bordersUi(new Ui::BordersAppearanceConfigWidget())
 {
-  ui = new Ui::AppearanceConfigWidget();
-  ui->setupUi( this );
+  QLayout *layout = new QVBoxLayout( this );
+  QTabWidget *tabWidget = new QTabWidget( this );
+  layout->addWidget( tabWidget );
+  layout->setMargin( 0 );
+
+  QWidget *textareaTab = new QWidget( tabWidget );
+  textareaUi->setupUi( textareaTab );
+  tabWidget->addTab( textareaTab, i18n("General") );
+
+  QWidget *bordersTab = new QWidget( tabWidget );
+  bordersUi->setupUi( bordersTab );
+  tabWidget->addTab( bordersTab, i18n("Borders") );
 
   if (KateDocument::simpleMode ())
-    ui->gbSortBookmarks->hide ();
+    bordersUi->gbSortBookmarks->hide ();
 
-  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
-  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
-  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
+  textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
+  textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
+  textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
   // hide power user mode if activated anyway
   if (!KateGlobal::self()->simpleMode ())
-    ui->chkDeveloperMode->hide ();
+    textareaUi->chkDeveloperMode->hide ();
 
   // What's This? help is in the ui-file
 
@@ -738,25 +751,27 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(ui->gbWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->cmbDynamicWordWrapIndicator, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(ui->sbDynamicWordWrapDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkDeveloperMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->gbWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->cmbDynamicWordWrapIndicator, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(textareaUi->sbDynamicWordWrapDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkDeveloperMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  connect(bordersUi->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
 {
-  delete ui;
+  delete bordersUi;
+  delete textareaUi;
 }
 
 void KateViewDefaultsConfig::apply ()
@@ -769,22 +784,22 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->configStart ();
   KateRendererConfig::global()->configStart ();
 
-  KateViewConfig::global()->setDynWordWrap (ui->gbWordWrap->isChecked());
-  KateViewConfig::global()->setDynWordWrapIndicators (ui->cmbDynamicWordWrapIndicator->currentIndex ());
-  KateViewConfig::global()->setDynWordWrapAlignIndent(ui->sbDynamicWordWrapDepth->value());
-  KateDocumentConfig::global()->setShowTabs (ui->chkShowTabs->isChecked());
-  KateDocumentConfig::global()->setShowSpaces (ui->chkShowSpaces->isChecked());
-  KateViewConfig::global()->setLineNumbers (ui->chkLineNumbers->isChecked());
-  KateViewConfig::global()->setIconBar (ui->chkIconBorder->isChecked());
-  KateViewConfig::global()->setScrollBarMarks (ui->chkScrollbarMarks->isChecked());
-  KateViewConfig::global()->setFoldingBar (ui->chkShowFoldingMarkers->isChecked());
+  KateViewConfig::global()->setDynWordWrap (textareaUi->gbWordWrap->isChecked());
+  KateViewConfig::global()->setDynWordWrapIndicators (textareaUi->cmbDynamicWordWrapIndicator->currentIndex ());
+  KateViewConfig::global()->setDynWordWrapAlignIndent(textareaUi->sbDynamicWordWrapDepth->value());
+  KateDocumentConfig::global()->setShowTabs (textareaUi->chkShowTabs->isChecked());
+  KateDocumentConfig::global()->setShowSpaces (textareaUi->chkShowSpaces->isChecked());
+  KateViewConfig::global()->setLineNumbers (bordersUi->chkLineNumbers->isChecked());
+  KateViewConfig::global()->setIconBar (bordersUi->chkIconBorder->isChecked());
+  KateViewConfig::global()->setScrollBarMarks (bordersUi->chkScrollbarMarks->isChecked());
+  KateViewConfig::global()->setFoldingBar (bordersUi->chkShowFoldingMarkers->isChecked());
 
-  KateViewConfig::global()->setBookmarkSort (ui->rbSortBookmarksByPosition->isChecked()?0:1);
-  KateRendererConfig::global()->setShowIndentationLines(ui->chkShowIndentationLines->isChecked());
-  KateRendererConfig::global()->setShowWholeBracketExpression(ui->chkShowWholeBracketExpression->isChecked());
+  KateViewConfig::global()->setBookmarkSort (bordersUi->rbSortBookmarksByPosition->isChecked()?0:1);
+  KateRendererConfig::global()->setShowIndentationLines(textareaUi->chkShowIndentationLines->isChecked());
+  KateRendererConfig::global()->setShowWholeBracketExpression(textareaUi->chkShowWholeBracketExpression->isChecked());
 
   // warn user that he needs restart the application
-  if (!ui->chkDeveloperMode->isChecked() != KateDocumentConfig::global()->allowSimpleMode())
+  if (!textareaUi->chkDeveloperMode->isChecked() != KateDocumentConfig::global()->allowSimpleMode())
   {
     // inform...
     KMessageBox::information(
@@ -792,7 +807,7 @@ void KateViewDefaultsConfig::apply ()
                 i18n("Changing the power user mode affects only newly opened / created documents. In KWrite a restart is recommended."),
                 i18n("Power user mode changed"));
 
-    KateDocumentConfig::global()->setAllowSimpleMode (!ui->chkDeveloperMode->isChecked());
+    KateDocumentConfig::global()->setAllowSimpleMode (!textareaUi->chkDeveloperMode->isChecked());
   }
 
   KateRendererConfig::global()->configEnd ();
@@ -801,20 +816,20 @@ void KateViewDefaultsConfig::apply ()
 
 void KateViewDefaultsConfig::reload ()
 {
-  ui->gbWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
-  ui->cmbDynamicWordWrapIndicator->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
-  ui->sbDynamicWordWrapDepth->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
-  ui->chkShowTabs->setChecked(KateDocumentConfig::global()->showTabs());
-  ui->chkShowSpaces->setChecked(KateDocumentConfig::global()->showSpaces());
-  ui->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());
-  ui->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
-  ui->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
-  ui->chkShowFoldingMarkers->setChecked(KateViewConfig::global()->foldingBar());
-  ui->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
-  ui->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
-  ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
-  ui->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
-  ui->chkDeveloperMode->setChecked(!KateDocumentConfig::global()->allowSimpleMode());
+  textareaUi->gbWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
+  textareaUi->cmbDynamicWordWrapIndicator->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
+  textareaUi->sbDynamicWordWrapDepth->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
+  textareaUi->chkShowTabs->setChecked(KateDocumentConfig::global()->showTabs());
+  textareaUi->chkShowSpaces->setChecked(KateDocumentConfig::global()->showSpaces());
+  bordersUi->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());
+  bordersUi->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
+  bordersUi->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
+  bordersUi->chkShowFoldingMarkers->setChecked(KateViewConfig::global()->foldingBar());
+  bordersUi->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
+  bordersUi->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
+  textareaUi->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
+  textareaUi->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
+  textareaUi->chkDeveloperMode->setChecked(!KateDocumentConfig::global()->allowSimpleMode());
 }
 
 void KateViewDefaultsConfig::reset () {;}

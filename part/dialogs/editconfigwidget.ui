@@ -2,82 +2,18 @@
 <ui version="4.0">
  <class>EditConfigWidget</class>
  <widget class="QWidget" name="EditConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>377</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>
    </property>
-   <item>
-    <widget class="QGroupBox" name="gbTabulators">
-     <property name="title">
-      <string>Tabulators</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <item>
-       <widget class="QCheckBox" name="chkReplaceTabs">
-        <property name="whatsThis">
-         <string>If this is enabled, the editor will calculate the number of spaces up to the next tab position as defined by the tab width, and insert that number of spaces instead of a TAB character.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Insert spaces instead of tabulators</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="chkShowTabs">
-        <property name="whatsThis">
-         <string>The editor will display a symbol to indicate the presence of a tab in the text.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Highlight tabulators</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout">
-        <property name="margin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="lblTabWidth">
-          <property name="text">
-           <string>Tab wi&amp;dth:</string>
-          </property>
-          <property name="buddy">
-           <cstring>sbTabWidth</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="KIntSpinBox" name="sbTabWidth">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>16</number>
-          </property>
-          <property name="value">
-           <number>8</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>1</width>
-            <height>0</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="gbStaticWordWrap">
      <property name="title">
@@ -166,13 +102,6 @@
         </property>
         <property name="text">
          <string>Remove &amp;trailing spaces while editing</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="chkShowSpaces">
-        <property name="text">
-         <string>Highlight trailing &amp;spaces</string>
         </property>
        </widget>
       </item>

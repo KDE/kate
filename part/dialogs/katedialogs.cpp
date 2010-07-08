@@ -169,11 +169,16 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   //
 
   connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(ui->rbIndentWithTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbIndentWithSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbIndentMixed, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbIndentWithTabs, SIGNAL(toggled(bool)), ui->sbIndentWidth, SLOT(setDisabled(bool)));
 
   connect(ui->chkKeepExtraSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkIndentPaste, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkBackspaceUnindents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(ui->sbIndentWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   connect(ui->rbTabAdvances, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -187,6 +192,14 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 KateIndentConfigTab::~KateIndentConfigTab()
 {
   delete ui;
+}
+
+void KateIndentConfigTab::slotChanged()
+{
+  if (ui->rbIndentWithTabs->isChecked())
+    ui->sbIndentWidth->setValue(ui->sbTabWidth->value());
+
+  KateConfigPage::slotChanged();
 }
 
 void KateIndentConfigTab::showWhatsThis(const QString& text)
@@ -208,6 +221,8 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setIndentPastedText(ui->chkIndentPaste->isChecked());
   KateDocumentConfig::global()->setIndentationWidth(ui->sbIndentWidth->value());
   KateDocumentConfig::global()->setIndentationMode(KateAutoIndent::modeName(ui->cmbMode->currentIndex()));
+  KateDocumentConfig::global()->setTabWidth(ui->sbTabWidth->value());
+  KateDocumentConfig::global()->setReplaceTabsDyn(ui->rbIndentWithSpaces->isChecked());
 
   if (ui->rbTabAdvances->isChecked())
     KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabInsertsTab );
@@ -221,6 +236,8 @@ void KateIndentConfigTab::apply ()
 
 void KateIndentConfigTab::reload ()
 {
+  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
+  ui->sbTabWidth->setValue(KateDocumentConfig::global()->tabWidth());
   ui->sbIndentWidth->setSuffix(ki18np(" character", " characters"));
   ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
   ui->chkKeepExtraSpaces->setChecked(KateDocumentConfig::global()->keepExtraSpaces());
@@ -232,6 +249,18 @@ void KateIndentConfigTab::reload ()
   ui->rbTabSmart->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
 
   ui->cmbMode->setCurrentIndex (KateAutoIndent::modeNumber (KateDocumentConfig::global()->indentationMode()));
+
+  if (KateDocumentConfig::global()->replaceTabsDyn())
+    ui->rbIndentWithSpaces->setChecked (true);
+  else
+  {
+    if (KateDocumentConfig::global()->indentationWidth() == KateDocumentConfig::global()->tabWidth())
+      ui->rbIndentWithTabs->setChecked (true);
+    else
+      ui->rbIndentMixed->setChecked (true);
+  }
+
+  ui->sbIndentWidth->setEnabled(!ui->rbIndentWithTabs->isChecked());
 }
 //END KateIndentConfigTab
 
@@ -547,10 +576,6 @@ KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
 
   reload();
 
-  connect( ui->chkReplaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-  connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(ui->chkStaticWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -581,14 +606,10 @@ void KateEditGeneralConfigTab::apply ()
   KateDocumentConfig::global()->configStart ();
 
   KateDocumentConfig::global()->setAutoBrackets(ui->chkAutoBrackets->isChecked());
-  KateDocumentConfig::global()->setShowTabs(ui->chkShowTabs->isChecked());
-  KateDocumentConfig::global()->setShowSpaces(ui->chkShowSpaces->isChecked());
-  KateDocumentConfig::global()->setReplaceTabsDyn(ui->chkReplaceTabs->isChecked());
   KateDocumentConfig::global()->setRemoveTrailingDyn(ui->chkRemoveTrailingSpaces->isChecked());
 
   KateDocumentConfig::global()->setWordWrapAt(ui->sbWordWrap->value());
   KateDocumentConfig::global()->setWordWrap(ui->chkStaticWordWrap->isChecked());
-  KateDocumentConfig::global()->setTabWidth(ui->sbTabWidth->value());
 
   KateRendererConfig::global()->setWordWrapMarker (ui->chkShowStaticWordWrapMarker->isChecked());
 
@@ -600,11 +621,6 @@ void KateEditGeneralConfigTab::apply ()
 
 void KateEditGeneralConfigTab::reload ()
 {
-  ui->chkReplaceTabs->setChecked( KateDocumentConfig::global()->replaceTabsDyn() );
-  ui->chkShowTabs->setChecked( KateDocumentConfig::global()->showTabs() );
-  ui->chkShowSpaces->setChecked( KateDocumentConfig::global()->showSpaces() );
-  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
-  ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
   ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
@@ -725,6 +741,8 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(ui->gbWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->cmbDynamicWordWrapIndicator, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(ui->sbDynamicWordWrapDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -754,6 +772,8 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setDynWordWrap (ui->gbWordWrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (ui->cmbDynamicWordWrapIndicator->currentIndex ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(ui->sbDynamicWordWrapDepth->value());
+  KateDocumentConfig::global()->setShowTabs (ui->chkShowTabs->isChecked());
+  KateDocumentConfig::global()->setShowSpaces (ui->chkShowSpaces->isChecked());
   KateViewConfig::global()->setLineNumbers (ui->chkLineNumbers->isChecked());
   KateViewConfig::global()->setIconBar (ui->chkIconBorder->isChecked());
   KateViewConfig::global()->setScrollBarMarks (ui->chkScrollbarMarks->isChecked());
@@ -784,6 +804,8 @@ void KateViewDefaultsConfig::reload ()
   ui->gbWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
   ui->cmbDynamicWordWrapIndicator->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
   ui->sbDynamicWordWrapDepth->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
+  ui->chkShowTabs->setChecked(KateDocumentConfig::global()->showTabs());
+  ui->chkShowSpaces->setChecked(KateDocumentConfig::global()->showSpaces());
   ui->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());
   ui->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
   ui->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());

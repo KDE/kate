@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>AppearanceConfigWidget</class>
  <widget class="QWidget" name="AppearanceConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>497</width>
+    <height>488</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>
@@ -67,6 +75,32 @@
         </property>
         <property name="singleStep">
          <number>10</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbWhitespaceHighlighting">
+     <property name="title">
+      <string>Whitespace Highlighting</string>
+     </property>
+     <layout class="QVBoxLayout" name="_2">
+      <item>
+       <widget class="QCheckBox" name="chkShowTabs">
+        <property name="whatsThis">
+         <string>The editor will display a symbol to indicate the presence of a tab in the text.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Highlight tabulators</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkShowSpaces">
+        <property name="text">
+         <string>Highlight trailing &amp;spaces</string>
         </property>
        </widget>
       </item>
@@ -210,14 +244,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

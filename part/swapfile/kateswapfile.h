@@ -49,6 +49,8 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     ~SwapFile();
     bool shouldRecover() const;
     
+    void fileClosed ();
+    
   private:
     void setTrackingEnabled(bool trackingEnabled);
     void removeSwapFile();

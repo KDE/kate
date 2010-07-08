@@ -2459,13 +2459,16 @@ bool KateDocument::closeUrl()
 
   if (!m_reloading)
   {
-
     // uh, fileName changed
     emit documentUrlChanged (this);
 
     // update doc name
     setDocName (QString());
   }
+  
+  // purge swap file
+  m_swapfile->fileClosed ();
+  
   // success
   return true;
 }

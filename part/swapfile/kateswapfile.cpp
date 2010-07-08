@@ -89,6 +89,15 @@ void SwapFile::setTrackingEnabled(bool enable)
   }
 }
 
+void SwapFile::fileClosed ()
+{
+  // remove old swap file, file is now closed
+  removeSwapFile();
+  
+  // purge filename
+  updateFileName();
+}
+
 void SwapFile::fileLoaded(const QString&)
 {
   // look for swap file
@@ -214,12 +223,15 @@ void SwapFile::fileSaved(const QString&)
   removeSwapFile();
   
   // set the name for the new swap file
-  if (!updateFileName())
-    return;
+  updateFileName();
 }
 
 void SwapFile::startEditing ()
 {
+  // no swap file, no work
+  if (m_swapfile.fileName().isEmpty())
+    return;
+  
   //  if swap file doesn't exists, open it in WriteOnly mode
   // if it does, append the data to the existing swap file,
   // in case you recover and start edititng again
@@ -241,6 +253,10 @@ void SwapFile::startEditing ()
 
 void SwapFile::finishEditing ()
 {
+  // skip if not open
+  if (!m_swapfile.isOpen ())
+    return;
+  
   // format: qint8
   m_stream << EA_FinishEditing;
   m_swapfile.flush();
@@ -253,24 +269,40 @@ void SwapFile::finishEditing ()
 
 void SwapFile::wrapLine (const KTextEditor::Cursor &position)
 {
+  // skip if not open
+  if (!m_swapfile.isOpen ())
+    return;
+  
   // format: qint8, int, int
   m_stream << EA_WrapLine << position.line() << position.column();
 }
 
 void SwapFile::unwrapLine (int line)
 {
+  // skip if not open
+  if (!m_swapfile.isOpen ())
+    return;
+  
   // format: qint8, int
   m_stream << EA_UnwrapLine << line;
 }
 
 void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &text)
 {
+  // skip if not open
+  if (!m_swapfile.isOpen ())
+    return;
+  
   // format: qint8, int, int, bytearray
   m_stream << EA_InsertText << position.line() << position.column() << text.toUtf8 ();
 }
 
 void SwapFile::removeText (const KTextEditor::Range &range)
 {
+  // skip if not open
+  if (!m_swapfile.isOpen ())
+    return;
+  
   // format: qint8, int, int, int
   Q_ASSERT (range.start().line() == range.end().line());
   m_stream << EA_RemoveText
@@ -280,7 +312,7 @@ void SwapFile::removeText (const KTextEditor::Range &range)
 
 bool SwapFile::shouldRecover() const
 {
-  return m_swapfile.exists() && m_stream.device() == 0;
+  return !m_swapfile.fileName().isEmpty() && m_swapfile.exists() && m_stream.device() == 0;
 }
 
 void SwapFile::discard()
@@ -291,7 +323,7 @@ void SwapFile::discard()
 
 void SwapFile::removeSwapFile()
 {
-  if (m_swapfile.exists()) {
+  if (!m_swapfile.fileName().isEmpty() && m_swapfile.exists()) {
     m_stream.setDevice(0);
     m_swapfile.close();
     m_swapfile.remove();
@@ -300,8 +332,11 @@ void SwapFile::removeSwapFile()
 
 bool SwapFile::updateFileName()
 {
-  KUrl url = m_document->url();
-  if (!url.isLocalFile())
+  // first clear filename
+  m_swapfile.setFileName ("");
+  
+  const KUrl &url = m_document->url();
+  if (url.isEmpty() || !url.isLocalFile())
     return false;
 
   QString path = url.toLocalFile();
@@ -309,7 +344,6 @@ bool SwapFile::updateFileName()
   path.insert(poz+1, ".swp.");
 
   m_swapfile.setFileName(path);
-
   return true;
 }
 

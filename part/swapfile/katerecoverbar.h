@@ -26,12 +26,17 @@
 
 class KateView;
 
+namespace Ui {
+  class RecoverWidget;
+}
+
 class KateRecoverBar : public KateViewBarWidget
 {
   Q_OBJECT
 
   public:
     explicit KateRecoverBar(KateView *view, QWidget *parent = 0);
+    ~KateRecoverBar ();
 
   protected Q_SLOTS:
     void showWhatsThis(const QString&);
@@ -39,6 +44,7 @@ class KateRecoverBar : public KateViewBarWidget
 
   private:
     KateView *const m_view;
+    Ui::RecoverWidget *m_ui;
 };
 
 #endif //_KATE_RECOVER_H__

@@ -29,24 +29,29 @@
 //BEGIN KateRecoverBar
 KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   : KateViewBarWidget( false, parent )
-  , m_view( view )
+  , m_view ( view )
+  , m_ui (new Ui::RecoverWidget())
 {
-  Ui::RecoverWidget* ui = new Ui::RecoverWidget();
-  ui->setupUi( centralWidget() );
+  m_ui->setupUi( centralWidget() );
   
   // clicking on the "Help" link pops up the content as what's this
-  connect(ui->lblSwap, SIGNAL(linkActivated(const QString&)),
+  connect(m_ui->lblSwap, SIGNAL(linkActivated(const QString&)),
           this, SLOT(showWhatsThis(const QString&)));
 
   // set icons, but keep text from ui file
-  ui->btnRecover->setGuiItem(KGuiItem(ui->btnRecover->text(), KIcon("edit-redo")));
-  ui->btnDiscard->setGuiItem(KStandardGuiItem::discard());
-  ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(64, 64));
+  m_ui->btnRecover->setGuiItem(KGuiItem(m_ui->btnRecover->text(), KIcon("edit-redo")));
+  m_ui->btnDiscard->setGuiItem(KStandardGuiItem::discard());
+  m_ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(64, 64));
 
   // use queued connections because this (all) KateRecoverBar widgets are deleted
-  connect(ui->btnRecover, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);
-  connect(ui->btnDiscard, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(discard()), Qt::QueuedConnection);
-  connect(ui->btnDiff, SIGNAL(clicked()), this, SLOT(viewDiff()));
+  connect(m_ui->btnRecover, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);
+  connect(m_ui->btnDiscard, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(discard()), Qt::QueuedConnection);
+  connect(m_ui->btnDiff, SIGNAL(clicked()), this, SLOT(viewDiff()));
+}
+
+KateRecoverBar::~KateRecoverBar ()
+{
+  delete m_ui;
 }
 
 void KateRecoverBar::showWhatsThis(const QString& text)

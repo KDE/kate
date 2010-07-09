@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BordersAppearanceConfigWidget</class>
+ <widget class="QWidget" name="BordersAppearanceConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>275</width>
+    <height>260</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="gbBorders">
+     <property name="title">
+      <string>Borders</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QCheckBox" name="chkShowFoldingMarkers">
+        <property name="whatsThis">
+         <string>If this option is checked, every new view will display marks for code folding, if code folding is available.</string>
+        </property>
+        <property name="text">
+         <string>Show &amp;folding markers (if available)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkIconBorder">
+        <property name="whatsThis">
+         <string>&lt;p&gt;If this option is checked, every new view will display an icon border on the left hand side.&lt;/p&gt;&lt;p&gt;The icon border shows bookmark signs, for instance.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Show &amp;icon border</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkLineNumbers">
+        <property name="whatsThis">
+         <string>If this option is checked, every new view will display line numbers on the left hand side.</string>
+        </property>
+        <property name="text">
+         <string>Show &amp;line numbers</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkScrollbarMarks">
+        <property name="whatsThis">
+         <string>&lt;p&gt;If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p&gt;&lt;p&gt;These marks will show bookmarks, for instance.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Show &amp;scrollbar marks</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbSortBookmarks">
+     <property name="whatsThis">
+      <string>Choose how the bookmarks should be ordered in the &lt;b&gt;Bookmarks&lt;/b&gt; menu.</string>
+     </property>
+     <property name="title">
+      <string>Sort Bookmarks Menu</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QRadioButton" name="rbSortBookmarksByCreation">
+        <property name="whatsThis">
+         <string>Each new bookmark will be added to the bottom, independently from where it is placed in the document.</string>
+        </property>
+        <property name="text">
+         <string>By c&amp;reation</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbSortBookmarksByPosition">
+        <property name="whatsThis">
+         <string>The bookmarks will be ordered by the line numbers they are placed at.</string>
+        </property>
+        <property name="text">
+         <string>By &amp;position</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>31</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

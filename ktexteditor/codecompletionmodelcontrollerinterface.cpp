@@ -109,7 +109,7 @@ bool CodeCompletionModelControllerInterface::shouldExecute(const QModelIndex& in
 
 KTextEditor::CodeCompletionModelControllerInterface2::MatchReaction CodeCompletionModelControllerInterface2::matchingItem(const QModelIndex& selected) {
   Q_UNUSED(selected)
-  return None;
+  return HideListIfAutomaticInvocation;
 }
 
 //END OLD

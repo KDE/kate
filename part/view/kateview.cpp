@@ -1135,13 +1135,13 @@ void KateView::slotSaveCanceled( const QString& error )
 void KateView::gotoLine()
 {
   gotoBar()->updateData();
-  m_bottomViewBar->showBarWidget(gotoBar());
+  bottomViewBar()->showBarWidget(gotoBar());
 }
 
 void KateView::changeDictionary()
 {
   dictionaryBar()->updateData();
-  m_bottomViewBar->showBarWidget(dictionaryBar());
+  bottomViewBar()->showBarWidget(dictionaryBar());
 }
 
 void KateView::joinLines()
@@ -1325,15 +1325,15 @@ void KateView::toggleViInputMode()
 void KateView::showViModeBar()
 {
   if (viInputMode() && !config()->viInputModeHideStatusBar()) {
-    m_bottomViewBar->addPermanentBarWidget(viModeBar());
+    bottomViewBar()->addPermanentBarWidget(viModeBar());
     updateViModeBarMode();
   }
 }
 
 void KateView::hideViModeBar()
 {
-  if (m_bottomViewBar && m_viModeBar) {
-    m_bottomViewBar->removePermanentBarWidget(viModeBar());
+  if (bottomViewBar() && m_viModeBar) {
+    bottomViewBar()->removePermanentBarWidget(viModeBar());
   }
 }
 
@@ -1369,7 +1369,7 @@ void KateView::find()
   const bool INIT_HINT_AS_INCREMENTAL = false;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
   bar->enterIncrementalMode();
-  m_bottomViewBar->showBarWidget(bar);
+  bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
 
@@ -1388,7 +1388,7 @@ void KateView::replace()
   const bool INIT_HINT_AS_POWER = true;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
   bar->enterPowerMode();
-  m_bottomViewBar->showBarWidget(bar);
+  bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
 
@@ -1423,7 +1423,7 @@ void KateView::switchToCmdLine ()
     cmdLineBar()->setText(QString::number(selectionRange().start().line()+1)+','
         +QString::number(selectionRange().end().line()+1));
   }
-  m_bottomViewBar->showBarWidget(cmdLineBar());
+  bottomViewBar()->showBarWidget(cmdLineBar());
   cmdLineBar()->setFocus ();
   hideViModeBar();
 }
@@ -2641,7 +2641,12 @@ void KateView::userInvokedCompletion()
   completionWidget()->userInvokedCompletion();
 }
 
-KateViewBar *KateView::viewBar() const
+KateViewBar *KateView::topViewBar() const
+{
+  return m_topViewBar;
+}
+
+KateViewBar *KateView::bottomViewBar() const
 {
   return m_bottomViewBar;
 }
@@ -2649,8 +2654,8 @@ KateViewBar *KateView::viewBar() const
 KateCommandLineBar *KateView::cmdLineBar ()
 {
   if (!m_cmdLine) {
-    m_cmdLine = new KateCommandLineBar (this, m_bottomViewBar);
-    m_bottomViewBar->addBarWidget(m_cmdLine);
+    m_cmdLine = new KateCommandLineBar (this, bottomViewBar());
+    bottomViewBar()->addBarWidget(m_cmdLine);
   }
 
   return m_cmdLine;
@@ -2660,7 +2665,7 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
-    m_bottomViewBar->addBarWidget(m_searchBar);
+    bottomViewBar()->addBarWidget(m_searchBar);
   }
   return m_searchBar;
 }
@@ -2678,7 +2683,7 @@ KateGotoBar *KateView::gotoBar ()
 {
   if (!m_gotoBar) {
     m_gotoBar = new KateGotoBar (this);
-    m_bottomViewBar->addBarWidget(m_gotoBar);
+    bottomViewBar()->addBarWidget(m_gotoBar);
   }
 
   return m_gotoBar;
@@ -2688,7 +2693,7 @@ KateDictionaryBar *KateView::dictionaryBar ()
 {
   if(!m_dictionaryBar) {
     m_dictionaryBar = new KateDictionaryBar(this);
-    m_bottomViewBar->addBarWidget(m_dictionaryBar);
+    bottomViewBar()->addBarWidget(m_dictionaryBar);
   }
 
   return m_dictionaryBar;
@@ -2889,14 +2894,14 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 
 void KateView::showRecoverBar()
 {
-  m_topViewBar->showBarWidget(recoverBar());
+  topViewBar()->showBarWidget(recoverBar());
 }
 
 KateRecoverBar* KateView::recoverBar()
 {
   if (!m_recoverBar) {
     m_recoverBar = new KateRecoverBar(this);
-    m_topViewBar->addBarWidget(m_recoverBar);
+    topViewBar()->addBarWidget(m_recoverBar);
   }
   return m_recoverBar;
 }
@@ -2905,7 +2910,7 @@ void KateView::hideRecoverBar()
 {
   if (m_recoverBar)
   {
-    m_topViewBar->removeBarWidget(m_recoverBar);
+    topViewBar()->removeBarWidget(m_recoverBar);
     delete m_recoverBar;
     m_recoverBar = 0;
   }

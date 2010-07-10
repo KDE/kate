@@ -57,7 +57,7 @@ void KateScriptAction::exec()
   KateCommandLineBar* cmdLine = m_view->cmdLineBar();
 
   if (m_interactive) {
-    m_view->viewBar()->showBarWidget(cmdLine);
+    m_view->bottomViewBar()->showBarWidget(cmdLine);
     cmdLine->setText(m_command + ' ', false);
   } else {
     cmdLine->execute(m_command);

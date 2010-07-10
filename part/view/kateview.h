@@ -628,7 +628,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
    * Accessors to the bars...
    */
   public:
-    KateViewBar *viewBar() const;
+    KateViewBar *topViewBar() const;
+    KateViewBar *bottomViewBar() const;
     KateCommandLineBar *cmdLineBar ();
     KateDictionaryBar *dictionaryBar();
     

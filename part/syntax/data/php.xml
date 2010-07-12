@@ -113,6 +113,7 @@ Changes:
       <item> xor </item>
       <item> var </item>
       <item> namespace </item>
+      <item> use </item>
       <!-- magic constants, see http://php.net/manual/en/language.constants.predefined.php -->
       <item> __LINE__ </item>
       <item> __FILE__ </item>

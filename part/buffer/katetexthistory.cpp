@@ -94,7 +94,7 @@ void TextHistory::insertText (const KTextEditor::Cursor &position, int length, i
   addEntry (entry);
 }
 
-void TextHistory::removeText (const KTextEditor::Range &range)
+void TextHistory::removeText (const KTextEditor::Range &range, int oldLineLength)
 {
   // create and add new entry
   Entry entry;
@@ -102,6 +102,7 @@ void TextHistory::removeText (const KTextEditor::Range &range)
   entry.line = range.start().line ();
   entry.column = range.start().column ();
   entry.length = range.end().column() - range.start().column();
+  entry.oldLineLength = oldLineLength;
   addEntry (entry);
 }
 
@@ -315,11 +316,131 @@ void TextHistory::Entry::transformCursor (int &cursorLine, int &cursorColumn, bo
   }
 }
 
+void TextHistory::Entry::reverseTransformCursor (int &cursorLine, int &cursorColumn, bool moveOnInsert) const
+{   
+  /**
+   * handle all history types
+   */
+  switch (type) {
+    /**
+     * Wrap a line
+     */
+    case WrapLine:
+      /**
+       * ignore this line
+       */
+      if (cursorLine <= line)
+          return;
+        
+      /**
+       * next line is unwrapped
+       */
+      if (cursorLine == line + 1) {
+        /**
+         * adjust column
+         */
+        cursorColumn = cursorColumn + column;
+      }
+
+      /**
+       * always decrement cursor line
+       */
+      cursorLine -=  1;
+      return;
+
+    /**
+     * Unwrap a line
+     */
+    case UnwrapLine:
+      /**
+       * ignore lines before unwrapped one
+       */
+      if (cursorLine < line - 1)
+          return;
+        
+      /**
+       * we unwrap this line, try to adjust cursor column if needed
+       */
+      if (cursorLine == line - 1) {
+        /**
+         * skip cursors with to small columns
+         */
+        if (cursorColumn <= oldLineLength) {
+            if (cursorColumn < oldLineLength || !moveOnInsert)
+                return;
+        }
+          
+        cursorColumn -= oldLineLength;
+      }
+      
+      /**
+       * increase cursor line
+       */
+      cursorLine += 1;
+      return;
+
+    /**
+     * Insert text
+     */
+    case InsertText:
+      /**
+       * only interesting, if same line
+       */
+      if (cursorLine != line)
+        return;
+
+      // skip cursors with too small column
+      if (cursorColumn <= column)
+        return;
+
+      // patch column of cursor
+      if (cursorColumn - length < column)
+        cursorColumn = column;
+      else
+        cursorColumn -= length;
+
+      return;
+
+    /**
+     * Remove text
+     */
+    case RemoveText:
+      /**
+       * only interesting, if same line
+       */
+      if (cursorLine != line)
+        return;
+
+      // skip cursors with too small column
+      if (cursorColumn <= column)
+        if (cursorColumn < column || !moveOnInsert)
+          return;
+
+      // patch column of cursor
+      if (cursorColumn <= oldLineLength)
+        cursorColumn += length;
+
+      // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
+      else if (cursorColumn < oldLineLength + length)
+        cursorColumn =  oldLineLength + length;
+      return;
+
+    /**
+     * nothing
+     */
+    default:
+      return;
+  }
+}
+
 void TextHistory::transformCursor (int& line, int& column, KTextEditor::MovingCursor::InsertBehavior insertBehavior, qint64 fromRevision, qint64 toRevision)
 {
   /**
-   * -1 special meaning for toRevision
+   * -1 special meaning for from/toRevision
    */
+  if (fromRevision == -1)
+    fromRevision = revision ();
+  
   if (toRevision == -1)
     toRevision = revision ();
 
@@ -333,7 +454,7 @@ void TextHistory::transformCursor (int& line, int& column, KTextEditor::MovingCu
    * some invariants must hold
    */
   Q_ASSERT (!m_historyEntries.empty ());
-  Q_ASSERT (fromRevision < toRevision);
+  Q_ASSERT (fromRevision != toRevision);
   Q_ASSERT (fromRevision >= m_firstHistoryEntryRevision);
   Q_ASSERT (fromRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
   Q_ASSERT (toRevision >= m_firstHistoryEntryRevision);
@@ -343,9 +464,20 @@ void TextHistory::transformCursor (int& line, int& column, KTextEditor::MovingCu
    * transform cursor
    */
   bool moveOnInsert = insertBehavior == KTextEditor::MovingCursor::MoveOnInsert;
-  for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
-    const Entry &entry = m_historyEntries[rev];
-    entry.transformCursor (line, column, moveOnInsert);
+  
+  /**
+   * forward or reverse transform?
+   */
+  if (toRevision > fromRevision) {
+    for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
+        const Entry &entry = m_historyEntries[rev];
+        entry.transformCursor (line, column, moveOnInsert);
+    }
+  } else {
+    for (int rev = fromRevision - m_firstHistoryEntryRevision; rev >= (toRevision - m_firstHistoryEntryRevision + 1); --rev) {
+        const Entry &entry = m_historyEntries[rev];
+        entry.reverseTransformCursor (line, column, moveOnInsert);
+    }
   }
 }
 
@@ -361,8 +493,11 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
   }
 
   /**
-   * -1 special meaning for toRevision
+   * -1 special meaning for from/toRevision
    */
+  if (fromRevision == -1)
+    fromRevision = revision ();
+
   if (toRevision == -1)
     toRevision = revision ();
 
@@ -376,40 +511,68 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
    * some invariants must hold
    */
   Q_ASSERT (!m_historyEntries.empty ());
-  Q_ASSERT (fromRevision < toRevision);
+  Q_ASSERT (fromRevision != toRevision);
   Q_ASSERT (fromRevision >= m_firstHistoryEntryRevision);
   Q_ASSERT (fromRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
   Q_ASSERT (toRevision >= m_firstHistoryEntryRevision);
   Q_ASSERT (toRevision < (m_firstHistoryEntryRevision + m_historyEntries.size()));
-
+  
   /**
    * transform cursors
    */
-
+      
   // first: copy cursors, without range association
   int startLine = range.start().line(), startColumn = range.start().column(), endLine = range.end().line(), endColumn = range.end().column();
   
   bool moveOnInsertStart = !(insertBehaviors & KTextEditor::MovingRange::ExpandLeft);
   bool moveOnInsertEnd = (insertBehaviors & KTextEditor::MovingRange::ExpandRight);
-  for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
-    const Entry &entry = m_historyEntries[rev];
-    
-    entry.transformCursor (startLine, startColumn, moveOnInsertStart);
-    
-    entry.transformCursor (endLine, endColumn, moveOnInsertEnd);
+  
+  /**
+   * forward or reverse transform?
+   */
+  if (toRevision > fromRevision) {
+    for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
+        const Entry &entry = m_historyEntries[rev];
+        
+        entry.transformCursor (startLine, startColumn, moveOnInsertStart);
+        
+        entry.transformCursor (endLine, endColumn, moveOnInsertEnd);
 
-    // got empty?
-    if(endLine < startLine || (endLine == startLine && endColumn <= startColumn))
-    {
-      if (invalidateIfEmpty) {
-        range = KTextEditor::Range::invalid();
-        return;
-      }
-      else{
-        // else normalize them
-        endLine = startLine;
-        endColumn = startColumn;
-      }
+        // got empty?
+        if(endLine < startLine || (endLine == startLine && endColumn <= startColumn))
+        {
+            if (invalidateIfEmpty) {
+                range = KTextEditor::Range::invalid();
+                return;
+            }
+            else{
+                // else normalize them
+                endLine = startLine;
+                endColumn = startColumn;
+            }
+        }
+    }
+  } else {
+    for (int rev = fromRevision - m_firstHistoryEntryRevision ; rev >= (toRevision - m_firstHistoryEntryRevision + 1); --rev) {
+        const Entry &entry = m_historyEntries[rev];
+        
+        entry.reverseTransformCursor (startLine, startColumn, moveOnInsertStart);
+        
+        entry.reverseTransformCursor (endLine, endColumn, moveOnInsertEnd);
+
+        // got empty?
+        if(endLine < startLine || (endLine == startLine && endColumn <= startColumn))
+        {
+            if (invalidateIfEmpty) {
+                range = KTextEditor::Range::invalid();
+                return;
+            }
+            else{
+                // else normalize them
+                endLine = startLine;
+                endColumn = startColumn;
+            }
+        }
     }
   }
 

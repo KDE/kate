@@ -362,6 +362,7 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
 
   // get text
   QString &textOfLine = m_lines[line]->textReadWrite ();
+  int oldLength = textOfLine.size ();
 
   // check if valid column
   Q_ASSERT (range.start().column() >= 0);
@@ -378,7 +379,7 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
   /**
    * notify the text history
    */
-  m_buffer->history().removeText (range);
+  m_buffer->history().removeText (range, oldLength);
 
   /**
    * cursor and range handling below

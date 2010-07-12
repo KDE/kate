@@ -143,4 +143,9 @@ void RangeTest::testCornerCaseInsertion()
   KTextEditor::Range translateTest (0,0,0,0);
   doc.transformRange (translateTest, KTextEditor::MovingRange::DoNotExpand, KTextEditor::MovingRange::AllowEmpty, 0);
   QCOMPARE(translateTest, KTextEditor::Range(1,0,1,0));
+  
+  // test translate reverse
+  KTextEditor::Range reverseTranslateTest (1,0,1,0);
+  doc.transformRange (reverseTranslateTest, KTextEditor::MovingRange::DoNotExpand, KTextEditor::MovingRange::AllowEmpty, -1, 0);
+  QCOMPARE(reverseTranslateTest, KTextEditor::Range(0,0,0,0));
 }

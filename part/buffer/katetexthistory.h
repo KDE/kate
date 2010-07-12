@@ -99,6 +99,14 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * @param moveOnInsert behavior of this cursor on insert of text at it's position
          */
         void transformCursor (int &line, int &column, bool moveOnInsert) const;
+        
+        /**
+         * reverse transform cursor for this history entry
+         * @param line line number of the cursor to transform
+         * @param column column number of the cursor to transform
+         * @param moveOnInsert behavior of this cursor on insert of text at it's position
+         */
+        void reverseTransformCursor (int &line, int &column, bool moveOnInsert) const;
 
         /**
          * Types of entries, matching editing primitives of buffer and placeholder
@@ -195,8 +203,9 @@ class KATEPART_TESTS_EXPORT TextHistory {
     /**
      * Notify about remove text at given range.
      * @param range range of text to remove, must be on one line only.
+     * @param oldLineLength text length of the line before this remove
      */
-    void removeText (const KTextEditor::Range &range);
+    void removeText (const KTextEditor::Range &range, int oldLineLength);
 
     /**
      * Generic function to add a entry to the history. Is used by the above functions for the different editing primitives.

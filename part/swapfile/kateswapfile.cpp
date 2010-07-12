@@ -261,9 +261,11 @@ void SwapFile::finishEditing ()
   m_stream << EA_FinishEditing;
   m_swapfile.flush();
 
+#if 0 // do that only periodically, or the stuff stalls
 #ifndef Q_OS_WIN
   // ensure that the file is written to disk
   fdatasync (m_swapfile.handle());
+#endif
 #endif
 }
 

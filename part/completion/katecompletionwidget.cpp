@@ -894,7 +894,12 @@ KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompleti
   if (!model) {
     if (m_completionRanges.isEmpty()) return 0;
 
-    return m_completionRanges.begin()->range;
+    KateSmartRange* ret = m_completionRanges.begin()->range;
+    
+    foreach(CompletionRange range, m_completionRanges)
+      if(range.range->start() > range.range->start())
+        ret = range.range;
+    return ret;
   }
   if(m_completionRanges.contains(model))
     return m_completionRanges[model].range;

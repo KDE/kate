@@ -18,6 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
 #include "katetextbuffer.h"
 #include "katetextloader.h"
 
@@ -664,9 +666,14 @@ bool TextBuffer::save (const QString &filename)
   // we crete new qfile, as the above might be wrapper around compression
   QFile syncFile (filename);
   syncFile.open (QIODevice::ReadOnly);
+
+#ifdef HAVE_FDATASYNC
   fdatasync (syncFile.handle());
+#else
+  fsync (syncFile.handle());
 #endif
-  
+#endif
+
   // did save work?
   bool ok = stream.status() == QTextStream::Ok;
 

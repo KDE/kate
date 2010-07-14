@@ -897,7 +897,7 @@ KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompleti
     KateSmartRange* ret = m_completionRanges.begin()->range;
     
     foreach(CompletionRange range, m_completionRanges)
-      if(range.range->start() > range.range->start())
+      if(range.range->start() > ret->start())
         ret = range.range;
     return ret;
   }

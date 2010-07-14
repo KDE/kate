@@ -68,7 +68,7 @@ const bool shellLikeTabCompletion = false;
   KTextEditor::CodeCompletionModelControllerInterface* ret =\
     qobject_cast<KTextEditor::CodeCompletionModelControllerInterface*>(model);\
   if (ret) {\
-        kWarning()<<"You are using a deprecated API, this will break in KDE 4.6, please port your module to the new KTextEditor::CodeCompletionModelControllerInterface3";\
+        kDebug()<<"You are using a deprecated API, this will break in KDE 4.6, please port your module to the new KTextEditor::CodeCompletionModelControllerInterface3";\
     WHAT ret->FUNC;\
     WHATELSE;\
   }\

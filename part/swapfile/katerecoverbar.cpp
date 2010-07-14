@@ -23,6 +23,7 @@
 #include "ui_recoverwidget.h"
 #include "kateswapfile.h"
 #include "kateview.h"
+#include "katedocument.h"
 
 #include <QWhatsThis>
 
@@ -61,6 +62,26 @@ void KateRecoverBar::showWhatsThis(const QString& text)
 
 void KateRecoverBar::viewDiff()
 {
+  
+  KateDocument recoverDoc;
+  recoverDoc.setText(m_view->doc()->text());
+
+  QString path = m_view->doc()->swapFile()->fileName();
+  
+  if (path.isNull())
+    return;
+
+  QFile swp(path);
+  if (!swp.open(QIODevice::ReadOnly)) {
+    kWarning( 13020 ) << "Can't open swap file";
+    return;
+  }
+
+  QDataStream stream(&swp);
+  
+  recoverDoc.swapFile()->recover(stream);
+  
+  QString newText = recoverDoc.text();
 }
 
 //END KateRecoverBar

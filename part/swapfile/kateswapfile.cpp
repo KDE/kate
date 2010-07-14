@@ -122,9 +122,6 @@ void SwapFile::fileLoaded(const QString&)
 
 void SwapFile::recover()
 {
-  // disconnect current signals
-  setTrackingEnabled(false);
-
   // replay the swap file
   if (!m_swapfile.open(QIODevice::ReadOnly))
   {
@@ -140,13 +137,16 @@ void SwapFile::recover()
   // close swap file
   m_stream.setDevice(0);
   m_swapfile.close();
-  
+
   // emit signal in case the document has more views
   emit swapFileHandled();
 }
 
 bool SwapFile::recover(QDataStream& stream)
 {  
+  // disconnect current signals
+  setTrackingEnabled(false);
+  
   // read and check header
   QByteArray header;
   stream >> header;
@@ -343,17 +343,27 @@ bool SwapFile::updateFileName()
 {
   // first clear filename
   m_swapfile.setFileName ("");
-  
+
+  // get the new path
+  QString path = fileName();
+  if (path.isNull())
+    return false;
+
+  m_swapfile.setFileName(path);
+  return true;
+}
+
+QString SwapFile::fileName()
+{
   const KUrl &url = m_document->url();
   if (url.isEmpty() || !url.isLocalFile())
-    return false;
+    return QString();
 
   QString path = url.toLocalFile();
   int poz = path.lastIndexOf(QDir::separator());
   path.insert(poz+1, ".swp.");
 
-  m_swapfile.setFileName(path);
-  return true;
+  return path;
 }
 
 }

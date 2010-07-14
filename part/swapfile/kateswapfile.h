@@ -50,6 +50,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     bool shouldRecover() const;
     
     void fileClosed ();
+    QString fileName();
     
   private:
     void setTrackingEnabled(bool trackingEnabled);

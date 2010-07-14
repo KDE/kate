@@ -25,6 +25,7 @@
 #include "kateviewhelpers.h"
 
 class KateView;
+class KateDocument;
 
 namespace Ui {
   class RecoverWidget;

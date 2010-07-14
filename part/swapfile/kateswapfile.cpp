@@ -135,22 +135,34 @@ void SwapFile::recover()
   // open data stream
   m_stream.setDevice(&m_swapfile);
   
+  recover(m_stream);
+  
+  // close swap file
+  m_stream.setDevice(0);
+  m_swapfile.close();
+  
+  // emit signal in case the document has more views
+  emit swapFileHandled();
+}
+
+bool SwapFile::recover(QDataStream& stream)
+{  
   // read and check header
   QByteArray header;
-  m_stream >> header;
+  stream >> header;
   if (header != swapFileVersionString)
   {
-    m_stream.setDevice (0);
+    stream.setDevice (0);
     m_swapfile.close ();
     kWarning( 13020 ) << "Can't open swap file, wrong version";
-    return;
+    return false;
   }
   
   // replay swapfile
   bool editStarted = false;
-  while (!m_stream.atEnd()) {
+  while (!stream.atEnd()) {
     qint8 type;
-    m_stream >> type;
+    stream >> type;
     switch (type) {
       case EA_StartEditing: {
         m_document->editStart();
@@ -164,7 +176,7 @@ void SwapFile::recover()
       }
       case EA_WrapLine: {
         int line = 0, column = 0;
-        m_stream >> line >> column;
+        stream >> line >> column;
         
         // emulate buffer unwrapLine with document
         m_document->editWrapLine(line, column, true);
@@ -172,7 +184,7 @@ void SwapFile::recover()
       }
       case EA_UnwrapLine: {
         int line = 0;
-        m_stream >> line;
+        stream >> line;
         
         // assert valid line
         Q_ASSERT (line > 0);
@@ -184,13 +196,13 @@ void SwapFile::recover()
       case EA_InsertText: {
         int line, column;
         QByteArray text;
-        m_stream >> line >> column >> text;
+        stream >> line >> column >> text;
         m_document->insertText(KTextEditor::Cursor(line, column), QString::fromUtf8 (text.data (), text.size()));
         break;
       }
       case EA_RemoveText: {
         int line, startColumn, endColumn;
-        m_stream >> line >> startColumn >> endColumn;
+        stream >> line >> startColumn >> endColumn;
         m_document->removeText (KTextEditor::Range(KTextEditor::Cursor(line, startColumn), KTextEditor::Cursor(line, endColumn)));
         break;
       }
@@ -206,15 +218,10 @@ void SwapFile::recover()
     m_document->editEnd();
   }
   
-  // close swap file
-  m_stream.setDevice(0);
-  m_swapfile.close();
-
   // reconnect the signals
   setTrackingEnabled(true);
-
-  // emit signal in case the document has more views
-  emit swapFileHandled();
+  
+  return true;
 }
 
 void SwapFile::fileSaved(const QString&)

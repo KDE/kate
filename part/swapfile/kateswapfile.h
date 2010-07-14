@@ -79,6 +79,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
   public Q_SLOTS:
     void discard();
     void recover();
+    bool recover(QDataStream&);
 
   private:
     QDataStream m_stream;

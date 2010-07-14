@@ -724,8 +724,8 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
   // get block, this will assert on invalid line
   const int blockIndex = blockForLine (line);
 
-  // get the ranges
-  const QSet<TextRange *> ranges = m_blocks[blockIndex]->m_ranges;
+  // get the ranges of the right block
+  const QSet<TextRange *> &ranges = m_blocks[blockIndex]->m_ranges;
 
   // collect the right ones
   QList<TextRange *> rightRanges;

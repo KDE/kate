@@ -46,6 +46,8 @@
 
 KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection): QListView(parent)
 {
+  setAcceptDrops(true);
+  
   m_windowNext = actionCollection->addAction(KStandardAction::Back, this, SLOT(slotPrevDocument()));
   m_windowPrev = actionCollection->addAction(KStandardAction::Forward, this, SLOT(slotNextDocument()));
 
@@ -118,6 +120,16 @@ void KateFileList::contextMenuEvent ( QContextMenuEvent * event ) {
   }
 
   event->accept();
+}
+
+void KateFileList::dragEnterEvent( QDragEnterEvent * event ) {
+  if (event->mimeData()->hasFormat("text/plain")) {
+    event->acceptProposedAction();
+  }
+}
+
+void KateFileList::dropEvent( QDropEvent * event ) {
+  emit openDocument(KUrl(event->mimeData()->text()));
 }
 
 void KateFileList::slotDocumentClose() {

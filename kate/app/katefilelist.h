@@ -83,12 +83,15 @@ class KateFileList: public QListView
     virtual void mousePressEvent ( QMouseEvent * event );
     virtual void mouseReleaseEvent ( QMouseEvent * event );
     virtual void contextMenuEvent ( QContextMenuEvent * event );
+    virtual void dragEnterEvent ( QDragEnterEvent * event );
+    virtual void dropEvent ( QDropEvent * event );
 
   Q_SIGNALS:
     void closeDocument(KTextEditor::Document*);
     void closeOtherDocument(KTextEditor::Document*);
     void closeSelectedDocument(const QList<KTextEditor::Document*>&);
     void saveSelectedDocument(const QList<KTextEditor::Document*>&);
+    void openDocument(KUrl);
 };
 
 class KateFileListConfigPage : public QWidget {

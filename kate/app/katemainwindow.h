@@ -191,6 +191,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotNewToolbarConfig();
     void slotWindowActivated ();
     void slotUpdateOpenWith();
+    void slotOpenDocument(KUrl);
 
     void documentMenuAboutToShow();
     void activateDocumentFromDocMenu (QAction *action);

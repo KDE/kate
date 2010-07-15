@@ -285,6 +285,7 @@ void KateMainWindow::setupMainWindow ()
                       this, SLOT(slotDocumentCloseSelected(QList<KTextEditor::Document*>)));
   connect(m_fileList, SIGNAL(saveSelectedDocument(QList<KTextEditor::Document*>)),
                       KateDocManager::self(), SLOT(saveSelected(QList<KTextEditor::Document*>)));
+  connect(m_fileList, SIGNAL(openDocument(KUrl)), this, SLOT(slotOpenDocument(KUrl)));
   //filelist = new KateFileList (this, m_viewManager, ft);
 //   m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
 
@@ -426,8 +427,16 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-  if (queryClose_internal())
-    KateDocManager::self()->closeAllDocuments(false);
+  if ( KateDocManager::self()->documents() > 1 && KMessageBox::warningContinueCancel(this,
+                                       i18n ("This will close all open documents. Are you sure you want to continue?"),
+                                       i18n ("Close all documents"),
+                                       KStandardGuiItem::cont(),
+                                       KStandardGuiItem::cancel(),
+                                       QString("closeAll")) != KMessageBox::Cancel)
+  {
+    if (queryClose_internal())
+      KateDocManager::self()->closeAllDocuments(false);
+  }
 }
 
 
@@ -533,6 +542,14 @@ void KateMainWindow::slotFileQuit()
 void KateMainWindow::slotFileClose()
 {
   m_viewManager->slotDocumentClose();
+}
+
+void KateMainWindow::slotOpenDocument(KUrl url)
+{
+  m_viewManager->openUrl(url,
+                        QString(),
+                        true,
+                        false);
 }
 
 void KateMainWindow::readOptions ()

@@ -44,6 +44,7 @@ SwapFile::SwapFile(KateDocument *document)
   : QObject(document)
   , m_document(document)
   , m_trackingEnabled(false)
+  , m_recovered(false)
 {
   // fixed version of serialisation
   m_stream.setVersion (QDataStream::Qt_4_6);
@@ -128,7 +129,10 @@ void SwapFile::recover()
     kWarning( 13020 ) << "Can't open swap file";
     return;
   }
-    
+
+  // remember that the file has recovered
+  m_recovered = true;
+  
   // open data stream
   m_stream.setDevice(&m_swapfile);
   
@@ -144,9 +148,6 @@ void SwapFile::recover()
 
 bool SwapFile::recover(QDataStream& stream)
 {  
-  // disconnect current signals
-  setTrackingEnabled(false);
-  
   // read and check header
   QByteArray header;
   stream >> header;
@@ -157,7 +158,10 @@ bool SwapFile::recover(QDataStream& stream)
     kWarning( 13020 ) << "Can't open swap file, wrong version";
     return false;
   }
-  
+
+  // disconnect current signals
+  setTrackingEnabled(false);
+
   // replay swapfile
   bool editStarted = false;
   while (!stream.atEnd()) {
@@ -321,6 +325,10 @@ void SwapFile::removeText (const KTextEditor::Range &range)
 
 bool SwapFile::shouldRecover() const
 {
+  // should not recover if the file has already recovered in another view
+  if (m_recovered)
+    return false;
+
   return !m_swapfile.fileName().isEmpty() && m_swapfile.exists() && m_stream.device() == 0;
 }
 

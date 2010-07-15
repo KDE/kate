@@ -85,6 +85,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
   private:
     QDataStream m_stream;
     QFile m_swapfile;
+    bool m_recovered;
 };
 
 }

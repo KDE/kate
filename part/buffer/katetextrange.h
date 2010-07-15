@@ -118,11 +118,23 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      */
     const KTextEditor::MovingCursor &start () const { return m_start; }
 
+	/**
+	 * Non-virtual version of start(), which is faster.
+     * @return start cursor
+	 */
+    const TextCursor &startInternal() const { return m_start; }
+
     /**
      * Retrieve end cursor of this range, read-only.
      * @return end cursor
      */
     const KTextEditor::MovingCursor &end () const { return m_end; }
+
+    /**
+     * Nonvirtual version of end(), which is faster.
+     * @return end cursor
+     */
+    const TextCursor &endInternal () const { return m_end; }
 
     /**
      * Convert this clever range into a dumb one.
@@ -159,6 +171,12 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * \return a pointer to the active attribute
      */
     KTextEditor::Attribute::Ptr attribute () const { return m_attribute; }
+
+    /**
+	 * \return whether a nonzero attribute is set. This is faster than checking attribute(),
+	 *             because the reference-counting is omitted.
+	 */
+    bool hasAttribute() const { return !m_attribute.isNull(); }
 
     /**
      * Sets the currently active attribute for this range.

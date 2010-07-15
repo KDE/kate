@@ -27,6 +27,7 @@
 #include <ktexteditor/movingcursor.h>
 
 #include "katepartprivate_export.h"
+#include "katetextblock.h"
 
 namespace Kate {
 
@@ -112,10 +113,31 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
     int line() const;
 
     /**
+     * Non-virtual version of line(), which is faster.
+	 * Inlined for fast access (especially in KateTextBuffer::rangesForLine
+     * \return line number, where 0 is the first line.
+     */
+    int lineInternal() const
+    {
+      // invalid cursor have no block
+      if (!m_block)
+        return -1;
+
+      // else, calculate real line
+      return m_block->startLine () + m_line;
+    }
+
+    /**
      * Retrieve the column on which this cursor is situated.
      * \return column number, where 0 is the first column.
      */
     int column() const { return m_column; }
+
+	/**
+	 * Non-virtual version of column(), which is faster.
+     * \return column number, where 0 is the first column.
+	 * */
+    int columnInternal() const { return m_column; }
 
     /**
      * Get range this cursor belongs to, if any

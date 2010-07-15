@@ -355,6 +355,8 @@ int TextBuffer::blockForLine (int line) const
 
   // block to start search with
   int index = m_lastUsedBlock;
+  int blockStart = 0;
+  int blockEnd = m_blocks.size();
 
   // check if start is ok
   if (index < 0 || index >= m_blocks.size())
@@ -373,9 +375,14 @@ int TextBuffer::blockForLine (int line) const
     }
 
     if (line < start)
-      index--;
-    else
-      index++;
+	{
+	  // Search left of index
+	  blockEnd = index;
+	}else{
+	  // Search right of index
+	  blockStart = index+1;
+	}
+	index = (blockStart + (blockEnd-1)) / 2;
   }
 
   // we should always find a block
@@ -733,7 +740,7 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
       /**
        * we want only ranges with attributes, but this one has none
        */
-      if (rangesWithAttributeOnly && !range->attribute())
+      if (rangesWithAttributeOnly && !range->hasAttribute())
           continue;
 
       /**
@@ -751,7 +758,7 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
       /**
        * if line is in the range, ok
        */
-      if (range->start().line() <= line && line <= range->end().line())
+      if (range->startInternal().lineInternal() <= line && line <= range->endInternal().lineInternal())
         rightRanges.append (range);
   }
 

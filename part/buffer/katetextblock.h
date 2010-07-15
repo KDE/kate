@@ -25,13 +25,14 @@
 #include <QtCore/QSet>
 
 #include "katepartprivate_export.h"
-#include "katetextrange.h"
-#include "katetextcursor.h"
+#include <ktexteditor/cursor.h>
 #include "katetextline.h"
 
 namespace Kate {
 
 class TextBuffer;
+class TextCursor;
+class TextRange;
 
 /**
  * Class representing a text block.

@@ -25,6 +25,7 @@
 #include "kateedit.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
+#include "katesmartgroup.h"
 
 #include <ktexteditor/smartcursornotifier.h>
 #include <ktexteditor/smartcursorwatcher.h>

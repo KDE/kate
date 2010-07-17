@@ -25,6 +25,7 @@
 #include "kateedit.h"
 #include "katesmartcursor.h"
 #include "katesmartrange.h"
+#include "katesmartgroup.h"
 
 #include <QThreadStorage>
 #include <QMutexLocker>

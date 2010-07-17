@@ -524,7 +524,7 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
               keyCodeTemp += 0x2;
             else if ( str == "a" && ( keyCodeTemp & 0x04 ) != 0x4 )
               keyCodeTemp += 0x4;
-            else if ( str == "m" && ( keyCodeTemp & 0x04 ) != 0x8 )
+            else if ( str == "m" && ( keyCodeTemp & 0x08 ) != 0x8 )
               keyCodeTemp += 0x8;
             else {
               if ( m_nameToKeyCode->contains( str ) || ( str.length() == 1 && str.at( 0 ).isLetterOrNumber() ) ) {

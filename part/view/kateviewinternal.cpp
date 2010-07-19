@@ -846,6 +846,11 @@ void KateViewInternal::doBackspace()
   doc()->backspace( m_view, m_cursor );
 }
 
+void KateViewInternal::doTabulator()
+{
+  doc()->insertTab( m_view, m_cursor );
+}
+
 void KateViewInternal::doTranspose()
 {
   doc()->transpose( m_cursor );

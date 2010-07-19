@@ -2950,6 +2950,16 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
   editEnd();
 }
 
+void KateDocument::insertTab( KateView *view, const KTextEditor::Cursor& c )
+{
+  if (!isReadWrite())
+    return;
+
+  editStart();
+  editInsertText(c.line(), c.column(), QChar('\t'));
+  editEnd();
+}
+
 /*
   Remove a given string at the beginning
   of the current line.

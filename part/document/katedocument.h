@@ -778,6 +778,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void indent ( KTextEditor::Range range, int change );
     void comment ( KateView *view, uint line, uint column, int change );
     void align ( KateView *view, const KTextEditor::Range &range );
+    void insertTab( KateView *view, const KTextEditor::Cursor& );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
 

@@ -904,6 +904,11 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
     m_editActions << a;
 
+    a = ac->addAction("insert_tabulator");
+    a->setText(i18n("Insert Tab"));
+    connect(a, SIGNAL(triggered(bool)), SLOT(insertTab()));
+    m_editActions << a;
+
     a = ac->addAction("smart_newline");
     a->setText(i18n("Insert Smart Newline"));
     a->setWhatsThis(i18n("Insert newline including leading characters of the current line which are not letters or numbers."));
@@ -2295,6 +2300,12 @@ void KateView::backspace( )
 {
   QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doBackspace();
+}
+
+void KateView::insertTab( )
+{
+  QMutexLocker l(m_doc->smartMutex());
+  m_viewInternal->doTabulator();
 }
 
 void KateView::deleteWordLeft( )

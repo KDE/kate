@@ -161,6 +161,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void doSmartNewline();
     void doDelete();
     void doBackspace();
+    void doTabulator();
     void doTranspose();
     void doDeleteWordLeft();
     void doDeleteWordRight();

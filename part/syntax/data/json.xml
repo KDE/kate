@@ -12,9 +12,9 @@
  ** http://tools.ietf.org/html/rfc4627
  ***************************************************************************
 -->
-<language name="JSON" section="Markup" version="1.00" kateversion="2.3" extensions="*.json" mimetype="application/json" author="Sebastian Pipping (webmaster@hartwork.org)" license="GPL">
+<language name="JSON" section="Markup" version="1.2" kateversion="2.3" extensions="*.json" mimetype="application/json" author="Sebastian Pipping (sebastian@pipping.org)" license="GPL">
   <highlighting>
-		<list name="Constants">
+    <list name="Constants">
       <item>null</item>
       <item>true</item>
       <item>false</item>
@@ -23,6 +23,9 @@
     <contexts>
       <context name="Normal" lineEndContext="#stay" attribute="Style_Error">
         <DetectChar char="{"       context="Pair" beginRegion="Region_Object" attribute="Style_Seperator_Pair" />
+        <DetectChar char="["       context="Array" beginRegion="Region_Array" attribute="Style_Seperator_Array" />
+
+        <DetectSpaces context="#stay" attribute="Style_Normal" />
       </context>
 
       <context name="Pair" lineEndContext="#stay" attribute="Style_Error">
@@ -64,6 +67,7 @@
         <DetectChar char="]"       context="#pop" endRegion="Region_Array" attribute="Style_Seperator_Array" />
 
         <DetectChar char="{"       context="Pair" beginRegion="Region_Object" attribute="Style_Seperator_Pair" />
+        <DetectChar char="["       context="Array" beginRegion="Region_Array" attribute="Style_Seperator_Array" />
         <DetectChar char="&quot;"  context="String_Value" attribute="Style_String_Value" />
 
         <DetectSpaces context="#stay" attribute="Style_Normal" />
@@ -88,9 +92,9 @@
       <itemData name="Style_String_Key_Char"    defStyleNum="dsDataType" underline="1" />
       <itemData name="Style_String_Value_Char"  defStyleNum="dsString" color="#FF00FF" underline="1" />
 
-			<itemData name="Style_Keyword"            defStyleNum="dsDecVal" bold="1" />
+      <itemData name="Style_Keyword"            defStyleNum="dsDecVal" bold="1" />
 
-			<itemData name="Style_Error"              defStyleNum="dsError" />
+      <itemData name="Style_Error"              defStyleNum="dsError" />
     </itemDatas>
   </highlighting>
 </language>

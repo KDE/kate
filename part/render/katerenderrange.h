@@ -80,9 +80,9 @@ class NormalRenderRange : public KateRenderRange
     virtual KTextEditor::Attribute::Ptr currentAttribute() const;
 
   private:
-    mutable QList<pairRA> m_ranges;
-    mutable KTextEditor::Cursor m_currentPos;
-    mutable int m_currentRange;
+    QList<pairRA> m_ranges;
+    KTextEditor::Cursor m_currentPos;
+    int m_currentRange;
 };
 
 class RenderRangeList : public QList<KateRenderRange*>

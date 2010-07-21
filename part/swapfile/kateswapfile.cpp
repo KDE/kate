@@ -26,6 +26,7 @@
 
 #include <QFileInfo>
 #include <QDir>
+#include <QApplication>
 
 // swap file version header
 const static char * const swapFileVersionString = "Kate Swap File - Version 1.0";
@@ -40,6 +41,8 @@ const static qint8 EA_RemoveText    = 'R';
 
 namespace Kate {
 
+QTimer* SwapFile::s_timer = new QTimer(QApplication::instance());
+
 SwapFile::SwapFile(KateDocument *document)
   : QObject(document)
   , m_document(document)
@@ -49,6 +52,10 @@ SwapFile::SwapFile(KateDocument *document)
 {
   // fixed version of serialisation
   m_stream.setVersion (QDataStream::Qt_4_6);
+
+  // write the file to the disk every 15 seconds
+  connect(s_timer, SIGNAL(timeout()), this, SLOT(writeFileToDisk()), Qt::DirectConnection);
+  s_timer->start(15000);
   
   // connecting the signals
   connect(&m_document->buffer(), SIGNAL(saved(const QString &)), this, SLOT(fileSaved(const QString&)));
@@ -231,7 +238,7 @@ bool SwapFile::recover(QDataStream& stream)
 
 void SwapFile::fileSaved(const QString&)
 {
-  m_timer.stop();
+  m_modified = false;
   
   // remove old swap file (e.g. if a file A was "saved as" B)
   removeSwapFile();
@@ -242,12 +249,6 @@ void SwapFile::fileSaved(const QString&)
 
 void SwapFile::startEditing ()
 {
-  // write the file to the disk every 15 seconds
-  if (!m_timer.isActive()) {
-    connect(&m_timer, SIGNAL(timeout()), this, SLOT(writeFileToDisk()), Qt::DirectConnection);
-    m_timer.start(15000);
-  }
-  
   // no swap file, no work
   if (m_swapfile.fileName().isEmpty())
     return;

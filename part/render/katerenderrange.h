@@ -81,7 +81,8 @@ class NormalRenderRange : public KateRenderRange
 
   private:
     QList<pairRA> m_ranges;
-    KTextEditor::Cursor m_currentPos;
+    KTextEditor::Cursor m_nextBoundary;
+    KTextEditor::Attribute::Ptr m_currentAttribute;
     int m_currentRange;
 };
 

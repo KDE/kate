@@ -285,46 +285,42 @@ void NormalRenderRange::addRange(KTextEditor::Range* range, KTextEditor::Attribu
 
 KTextEditor::Cursor NormalRenderRange::nextBoundary() const
 {
-  int index = m_currentRange;
-  while (index < m_ranges.count()) {
-    if (m_ranges.at(index).first->start() > m_currentPos)
-      return m_ranges.at(index).first->start();
-
-    else if (m_ranges.at(index).first->end() > m_currentPos)
-      return m_ranges.at(index).first->end();
-
-    ++index;
-
-  }
-
-  return KTextEditor::Cursor(INT_MAX, INT_MAX);
+  return m_nextBoundary;
 }
 
 bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos)
 {
-  m_currentPos = pos;
-
   int index = m_currentRange;
   while (index < m_ranges.count()) {
-    if (m_ranges.at(index).first->end() <= pos) {
+    const pairRA& p = m_ranges.at(index);
+    KTextEditor::Range* r = p.first;
+    if (r->end() <= pos) {
       ++index;
-
     } else {
       bool ret = index != m_currentRange;
       m_currentRange = index;
+
+      if (r->start() > pos) {
+        m_nextBoundary = r->start();
+      } else {
+        m_nextBoundary = r->end();
+      }
+      if (r->contains(pos)) {
+        m_currentAttribute = p.second;
+      }
+
       return ret;
     }
   }
 
+  m_nextBoundary = KTextEditor::Cursor(INT_MAX, INT_MAX);
+  m_currentAttribute.clear();
   return false;
 }
 
 KTextEditor::Attribute::Ptr NormalRenderRange::currentAttribute() const
 {
-  if (m_currentRange < m_ranges.count() && m_ranges[m_currentRange].first->contains(m_currentPos))
-    return m_ranges[m_currentRange].second;
-
-  return KTextEditor::Attribute::Ptr();
+  return m_currentAttribute;
 }
 
 void RenderRangeList::appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, KateView* view)

@@ -88,6 +88,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     QFile m_swapfile;
     bool m_recovered;
     QTimer m_timer;
+    bool m_modified;
 
   protected Q_SLOTS:
     void writeFileToDisk();

@@ -199,25 +199,25 @@ function moveLinesUp()
 
 function action(cmd)
 {
-    var a = new Array();
+    var a = new Object();
     if (cmd == "sort") {
-        a['text'] = i18n("Sort Selected Text");
-        a['icon'] = "";
-        a['category'] = "";
-        a['interactive'] = false;
-        a['shortcut'] = "";
+        a.text = i18n("Sort Selected Text");
+        a.icon = "";
+        a.category = "";
+        a.interactive = false;
+        a.shortcut = "";
     } else if (cmd == "moveLinesDown") {
-        a['text'] = i18n("Move Lines Down");
-        a['icon'] = "";
-        a['category'] = "";
-        a['interactive'] = false;
-        a['shortcut'] = "";
+        a.text = i18n("Move Lines Down");
+        a.icon = "";
+        a.category = "";
+        a.interactive = false;
+        a.shortcut = "";
     } else if (cmd == "moveLinesUp") {
-        a['text'] = i18n("Move Lines Up");
-        a['icon'] = "";
-        a['category'] = "";
-        a['interactive'] = false;
-        a['shortcut'] = "";
+        a.text = i18n("Move Lines Up");
+        a.icon = "";
+        a.category = "";
+        a.interactive = false;
+        a.shortcut = "";
     }
 
     return a;

@@ -630,6 +630,8 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * for example the editing history.
      *
      * \param document the document that was reloaded.
+     * 
+     * @since 4.6
      */
     void reloaded(KTextEditor::Document *document);
 

@@ -625,6 +625,15 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     void aboutToReload(KTextEditor::Document *document);
 
     /**
+     * Emitted after the current document was reloaded.
+     * At this point, some information might have been invalidated, like
+     * for example the editing history.
+     *
+     * \param document the document that was reloaded.
+     */
+    void reloaded(KTextEditor::Document *document);
+
+    /**
      * Upon emission, the document's content may only be changed by the initiator
      * of this signal until exclusiveEditEnd() is signalled. It is, however,
      * possible to listen to changes of the content.

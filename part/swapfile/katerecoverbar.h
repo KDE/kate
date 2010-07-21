@@ -24,6 +24,9 @@
 
 #include "kateviewhelpers.h"
 
+#include <QByteArray>
+
+class KProcess;
 class KateView;
 class KateDocument;
 
@@ -46,6 +49,14 @@ class KateRecoverBar : public KateViewBarWidget
   private:
     KateView *const m_view;
     Ui::RecoverWidget *m_ui;
+
+  protected Q_SLOTS:
+    void slotDataAvailable();
+    void slotDiffFinished();
+
+  private:
+    KProcess* m_proc;
+    QByteArray m_diffContent;
 };
 
 #endif //_KATE_RECOVER_H__

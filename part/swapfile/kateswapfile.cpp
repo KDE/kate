@@ -41,7 +41,7 @@ const static qint8 EA_RemoveText    = 'R';
 
 namespace Kate {
 
-QTimer* SwapFile::s_timer = new QTimer(QApplication::instance());
+QTimer* SwapFile::s_timer = 0;
 
 SwapFile::SwapFile(KateDocument *document)
   : QObject(document)
@@ -53,9 +53,8 @@ SwapFile::SwapFile(KateDocument *document)
   // fixed version of serialisation
   m_stream.setVersion (QDataStream::Qt_4_6);
 
-  // write the file to the disk every 15 seconds
-  connect(s_timer, SIGNAL(timeout()), this, SLOT(writeFileToDisk()), Qt::DirectConnection);
-  s_timer->start(15000);
+  // conect the timer
+  connect(syncTimer(), SIGNAL(timeout()), this, SLOT(writeFileToDisk()), Qt::DirectConnection);
   
   // connecting the signals
   connect(&m_document->buffer(), SIGNAL(saved(const QString &)), this, SLOT(fileSaved(const QString&)));
@@ -277,6 +276,10 @@ void SwapFile::finishEditing ()
   // skip if not open
   if (!m_swapfile.isOpen ())
     return;
+
+  // write the file to the disk every 15 seconds
+  if (!syncTimer()->isActive())
+    syncTimer()->start(15000);
   
   // format: qint8
   m_stream << EA_FinishEditing;
@@ -383,6 +386,16 @@ QString SwapFile::fileName()
   path.insert(poz+1, ".swp.");
 
   return path;
+}
+
+QTimer* SwapFile::syncTimer()
+{
+  if (s_timer == 0) {
+    s_timer = new QTimer(QApplication::instance());
+    s_timer->setSingleShot(true);
+  }
+
+  return s_timer;
 }
 
 void SwapFile::writeFileToDisk()

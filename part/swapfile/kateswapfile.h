@@ -92,6 +92,9 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
 
   protected Q_SLOTS:
     void writeFileToDisk();
+
+  private:
+    QTimer* syncTimer();
 };
 
 }

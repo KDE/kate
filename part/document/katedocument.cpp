@@ -3927,6 +3927,8 @@ bool KateDocument::documentReload()
 
     smartLock.unlock();
 
+    emit reloaded(this);
+
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();
     for(int i = 0; i < m_views.size(); ++i, ++it) {

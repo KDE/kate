@@ -25,6 +25,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QDataStream>
 #include <QFile>
+#include <QTimer>
 
 #include "katepartprivate_export.h"
 #include "katetextbuffer.h"
@@ -86,6 +87,10 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     QDataStream m_stream;
     QFile m_swapfile;
     bool m_recovered;
+    QTimer m_timer;
+
+  protected Q_SLOTS:
+    void writeFileToDisk();
 };
 
 }

@@ -230,6 +230,8 @@ bool SwapFile::recover(QDataStream& stream)
 
 void SwapFile::fileSaved(const QString&)
 {
+  m_timer.stop();
+  
   // remove old swap file (e.g. if a file A was "saved as" B)
   removeSwapFile();
   
@@ -239,6 +241,12 @@ void SwapFile::fileSaved(const QString&)
 
 void SwapFile::startEditing ()
 {
+  // write the file to the disk every 15 seconds
+  if (!m_timer.isActive()) {
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(writeFileToDisk()), Qt::DirectConnection);
+    m_timer.start(15000);
+  }
+  
   // no swap file, no work
   if (m_swapfile.fileName().isEmpty())
     return;
@@ -271,13 +279,6 @@ void SwapFile::finishEditing ()
   // format: qint8
   m_stream << EA_FinishEditing;
   m_swapfile.flush();
-
-#if 0 // do that only periodically, or the stuff stalls
-#ifndef Q_OS_WIN
-  // ensure that the file is written to disk
-  fdatasync (m_swapfile.handle());
-#endif
-#endif
 }
 
 void SwapFile::wrapLine (const KTextEditor::Cursor &position)
@@ -372,6 +373,14 @@ QString SwapFile::fileName()
   path.insert(poz+1, ".swp.");
 
   return path;
+}
+
+void SwapFile::writeFileToDisk()
+{
+#ifndef Q_OS_WIN
+  // ensure that the file is written to disk
+  fdatasync (m_swapfile.handle());
+#endif
 }
 
 }

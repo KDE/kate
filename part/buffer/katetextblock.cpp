@@ -477,8 +477,9 @@ void TextBlock::mergeBlock (TextBlock *targetBlock)
   for (int i = 0; i < m_lines.size(); ++i)
     targetBlock->m_lines.append (m_lines[i]);
   m_lines.clear ();
-  
-  foreach(TextRange* range, m_allRanges)
+
+  QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys();
+  foreach(TextRange* range, allRanges)
   {
     removeRange(range);
     targetBlock->updateRange(range);
@@ -532,7 +533,7 @@ void TextBlock::updateRange(TextRange* range)
     return;
   }
   
-  if(m_allRanges.contains(range))
+  if(containsRange(range))
     removeRange(range);
   
   if(isSingleLine)
@@ -548,19 +549,17 @@ void TextBlock::updateRange(TextRange* range)
     // The range cannot be cached per line, as it spans multiple lines
     m_uncachedRanges.insert(range);
   }
-  
-  m_allRanges.insert(range);
 }
 
 void TextBlock::removeRange(TextRange* range)
 {
-  Q_ASSERT(m_allRanges.contains(range));
-  m_allRanges.remove(range);
   if(m_uncachedRanges.contains(range))
   {
     Q_ASSERT(!m_cachedLineForRanges.contains(range));
     m_uncachedRanges.remove(range);
-  }else{
+  }
+  else if(m_cachedLineForRanges.contains(range))
+  {
     Q_ASSERT(!m_uncachedRanges.contains(range));
     QMap<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
     Q_ASSERT(it != m_cachedLineForRanges.end());

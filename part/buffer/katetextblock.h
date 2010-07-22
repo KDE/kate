@@ -170,6 +170,10 @@ class KATEPART_TESTS_EXPORT TextBlock {
     QList<QSet<TextRange*> > allRangesIntersectingLine(int line) {
       return QList<QSet<TextRange*> >() << m_uncachedRanges << cachedRangesForLine(line);
     }
+
+    bool containsRange(TextRange* range) const {
+      return m_cachedLineForRanges.contains(range) || m_uncachedRanges.contains(range);
+    }
     
   private:
     /**
@@ -207,14 +211,6 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * This contains all the ranges that are not cached.
      */
     QSet<TextRange*> m_uncachedRanges;
-    /**
-     * Set of ranges spanning this block or being contained in it.
-     * This is used for fast lookup of ranges.
-     * Only expensive for ranges spanning many blocks, which are rare, beside selection.
-     *
-     * This set always equals the sum of the uncached and the cached ranges.
-     */
-    QSet<TextRange *> m_allRanges;
 };
 
 }

@@ -155,6 +155,22 @@ class KATEPART_TESTS_EXPORT TextBlock {
      */
     void clearBlockContent (TextBlock *targetBlock);
 
+    void updateRange(TextRange* range);
+    
+    void removeRange(TextRange* range);
+    
+    QSet<TextRange*> cachedRangesForLine(int line) {
+      line -= m_startLine;
+      if(line >= 0 && line < m_cachedRangesForLine.size())
+        return m_cachedRangesForLine[line];
+      else
+        return QSet<TextRange*>();
+    }
+    
+    QList<QSet<TextRange*> > allRangesIntersectingLine(int line) {
+      return QList<QSet<TextRange*> >() << m_uncachedRanges << cachedRangesForLine(line);
+    }
+    
   private:
     /**
      * parent text buffer
@@ -177,11 +193,28 @@ class KATEPART_TESTS_EXPORT TextBlock {
     QSet<TextCursor *> m_cursors;
 
     /**
+     * Contains for each line-offset the ranges that were cached into it.
+     * These ranges are fully contained by the line.
+     */
+    QVector<QSet<TextRange*> > m_cachedRangesForLine;
+    
+    /**
+     * Maps for each cached range the line into which the range was cached.
+     */
+    QMap<TextRange*, int> m_cachedLineForRanges;
+    
+    /**
+     * This contains all the ranges that are not cached.
+     */
+    QSet<TextRange*> m_uncachedRanges;
+    /**
      * Set of ranges spanning this block or being contained in it.
      * This is used for fast lookup of ranges.
      * Only expensive for ranges spanning many blocks, which are rare, beside selection.
+     *
+     * This set always equals the sum of the uncached and the cached ranges.
      */
-    QSet<TextRange *> m_ranges;
+    QSet<TextRange *> m_allRanges;
 };
 
 }

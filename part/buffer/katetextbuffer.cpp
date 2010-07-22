@@ -732,34 +732,36 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
   const int blockIndex = blockForLine (line);
 
   // get the ranges of the right block
-  const QSet<TextRange *> &ranges = m_blocks[blockIndex]->m_ranges;
 
-  // collect the right ones
   QList<TextRange *> rightRanges;
-  foreach (TextRange * const range, ranges) {
-      /**
-       * we want only ranges with attributes, but this one has none
-       */
-      if (rangesWithAttributeOnly && !range->hasAttribute())
-          continue;
 
-      /**
-       * we want ranges for no view, but this one's attribute is only valid for views
-       */
-      if (!view && range->attributeOnlyForViews())
-          continue;
+  foreach(const QSet<TextRange *> &ranges, m_blocks[blockIndex]->allRangesIntersectingLine(line))
+  {
+    foreach (TextRange * const range, ranges) {
+        /**
+        * we want only ranges with attributes, but this one has none
+        */
+        if (rangesWithAttributeOnly && !range->hasAttribute())
+            continue;
 
-      /**
-       * the range's attribute is not valid for this view
-       */
-      if (range->view() && range->view() != view)
-          continue;
+        /**
+        * we want ranges for no view, but this one's attribute is only valid for views
+        */
+        if (!view && range->attributeOnlyForViews())
+            continue;
 
-      /**
-       * if line is in the range, ok
-       */
-      if (range->startInternal().lineInternal() <= line && line <= range->endInternal().lineInternal())
-        rightRanges.append (range);
+        /**
+        * the range's attribute is not valid for this view
+        */
+        if (range->view() && range->view() != view)
+            continue;
+
+        /**
+        * if line is in the range, ok
+        */
+        if (range->startInternal().lineInternal() <= line && line <= range->endInternal().lineInternal())
+          rightRanges.append (range);
+    }
   }
 
   // return right ranges

@@ -227,9 +227,9 @@ void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int 
 
     // either insert or remove range
     if ((endLine < block->startLine()) || (startLine >= (block->startLine() + block->lines())))
-      block->m_ranges.remove (this);
+      block->removeRange (this);
     else
-      block->m_ranges.insert (this);
+      block->updateRange (this);
 
     // ok, reached end block
     if (endLineMax < (block->startLine() + block->lines()))

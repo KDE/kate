@@ -25,6 +25,7 @@
 #include <katedocument.h>
 #include <ktexteditor/movingcursor.h>
 #include <kateconfig.h>
+#include <KTemporaryFile>
 
 using namespace KTextEditor;
 
@@ -105,4 +106,34 @@ void KateDocumentTest::testRemoveTrailingSpace()
     doc.config()->setRemoveTrailingDyn(true);
     doc.editRemoveText(0, 0, 1);
     QCOMPARE(doc.text(), QString("sdf"));
+}
+
+void KateDocumentTest::testMovingInterfaceSignals()
+{
+    KateDocument* doc = new KateDocument(false, false, false);
+    QSignalSpy aboutToDeleteSpy(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)));
+    QSignalSpy aboutToInvalidateSpy(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)));
+
+    QCOMPARE(doc->revision(), qint64(0));
+
+    QCOMPARE(aboutToInvalidateSpy.count(), 0);
+    QCOMPARE(aboutToDeleteSpy.count(), 0);
+
+    KTemporaryFile f;
+    f.open();
+    doc->openUrl(KUrl::fromLocalFile(f.fileName()));
+    QCOMPARE(doc->revision(), qint64(0));
+    //TODO: gets emitted once in closeFile and once in openFile - is that OK?
+    QCOMPARE(aboutToInvalidateSpy.count(), 2);
+    QCOMPARE(aboutToDeleteSpy.count(), 0);
+
+    doc->documentReload();
+    QCOMPARE(doc->revision(), qint64(0));
+    QCOMPARE(aboutToInvalidateSpy.count(), 4);
+    //TODO: gets emitted once in closeFile and once in openFile - is that OK?
+    QCOMPARE(aboutToDeleteSpy.count(), 0);
+
+    delete doc;
+    QCOMPARE(aboutToInvalidateSpy.count(), 4);
+    QCOMPARE(aboutToDeleteSpy.count(), 1);
 }

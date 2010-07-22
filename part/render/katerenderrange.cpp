@@ -307,6 +307,8 @@ bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos)
       }
       if (r->contains(pos)) {
         m_currentAttribute = p.second;
+      } else {
+        m_currentAttribute.clear();
       }
 
       return ret;

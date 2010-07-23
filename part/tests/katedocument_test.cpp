@@ -25,7 +25,7 @@
 #include <katedocument.h>
 #include <ktexteditor/movingcursor.h>
 #include <kateconfig.h>
-#include <KTemporaryFile>
+#include <ktemporaryfile.h>
 
 using namespace KTextEditor;
 

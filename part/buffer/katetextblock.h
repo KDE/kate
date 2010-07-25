@@ -154,27 +154,53 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * @param targetBlock empty target block for cursors
      */
     void clearBlockContent (TextBlock *targetBlock);
+    
+    /**
+     * Return all ranges in this block which might intersect the given line.
+     * @param line line to check intersection
+     * @return list of sets of possible candidate ranges
+     */
+    QList<QSet<TextRange*> > rangesForLine (int line) const {
+      return QList<QSet<TextRange*> >() << m_uncachedRanges << cachedRangesForLine(line);
+    }
 
+    /**
+     * Is the given range contained in this block?
+     * @param range range to check for
+     * @return contained in this blocks mapping?
+     */
+    bool containsRange (TextRange* range) const {
+      return m_cachedLineForRanges.contains(range) || m_uncachedRanges.contains(range);
+    }
+
+  private:
+    /**
+     * Update a range from this block.
+     * Will move the range to right set, either cached for one-line ranges or not.
+     * @param range range to update
+     */
     void updateRange(TextRange* range);
     
-    void removeRange(TextRange* range);
+    /**
+     * Remove a range from this block.
+     * @param range range to remove
+     */
+    void removeRange (TextRange* range);
     
-    QSet<TextRange*> cachedRangesForLine(int line) {
+    /**
+     * Return all ranges in this block which might intersect the given line and only span one line.
+     * For them an internal fast lookup cache is hold.
+     * @param line line to check intersection
+     * @return set of ranges
+     */
+    QSet<TextRange*> cachedRangesForLine (int line) const {
       line -= m_startLine;
       if(line >= 0 && line < m_cachedRangesForLine.size())
         return m_cachedRangesForLine[line];
       else
         return QSet<TextRange*>();
     }
-    
-    QList<QSet<TextRange*> > allRangesIntersectingLine(int line) {
-      return QList<QSet<TextRange*> >() << m_uncachedRanges << cachedRangesForLine(line);
-    }
 
-    bool containsRange(TextRange* range) const {
-      return m_cachedLineForRanges.contains(range) || m_uncachedRanges.contains(range);
-    }
-    
   private:
     /**
      * parent text buffer
@@ -200,17 +226,17 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * Contains for each line-offset the ranges that were cached into it.
      * These ranges are fully contained by the line.
      */
-    QVector<QSet<TextRange*> > m_cachedRangesForLine;
+    QVector<QSet<TextRange *> > m_cachedRangesForLine;
     
     /**
      * Maps for each cached range the line into which the range was cached.
      */
-    QMap<TextRange*, int> m_cachedLineForRanges;
+    QMap<TextRange *, int> m_cachedLineForRanges;
     
     /**
      * This contains all the ranges that are not cached.
      */
-    QSet<TextRange*> m_uncachedRanges;
+    QSet<TextRange *> m_uncachedRanges;
 };
 
 }

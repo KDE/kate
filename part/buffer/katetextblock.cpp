@@ -451,8 +451,7 @@ TextBlock *TextBlock::splitBlock (int fromLine)
 
   foreach (TextRange *range, rangesInteresting) {
       // only in new block
-      if (range->start().line () >= newBlock->startLine())
-      {
+      if (range->start().line () >= newBlock->startLine()) {
         removeRange (range);
         newBlock->updateRange (range);
       }
@@ -479,8 +478,7 @@ void TextBlock::mergeBlock (TextBlock *targetBlock)
   m_lines.clear ();
 
   QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys();
-  foreach(TextRange* range, allRanges)
-  {
+  foreach(TextRange* range, allRanges) {
     removeRange(range);
     targetBlock->updateRange(range);
   }
@@ -516,57 +514,107 @@ void TextBlock::clearBlockContent (TextBlock *targetBlock)
   m_lines.clear ();
 }
 
-void TextBlock::updateRange(TextRange* range)
+void TextBlock::updateRange (TextRange* range)
 {
-  int startLine = range->startInternal().lineInternal();
-  int endLine = range->endInternal().lineInternal();
+  /**
+   * get some simple facts about our nice range
+   */
+  const int startLine = range->startInternal().lineInternal();
+  const int endLine = range->endInternal().lineInternal();
+  const bool isSingleLine = startLine == endLine;
   
-  bool isSingleLine = startLine == endLine;
-  
-  if(isSingleLine && m_cachedLineForRanges.contains(range) && m_cachedLineForRanges[range] == startLine - m_startLine)
-  {
-    // The range is still a single-line range, and is still cached to the correct line.
+  /**
+   * The range is still a single-line range, and is still cached to the correct line.
+   */
+  if(isSingleLine && m_cachedLineForRanges.contains (range) && (m_cachedLineForRanges[range] == startLine - m_startLine))
     return;
-  }else if(startLine != endLine && m_uncachedRanges.contains(range))
-  {
-    // The range is still a multi-line range, and is already in the correct set.
-    return;
-  }
   
+  /**
+   * The range is still a multi-line range, and is already in the correct set.
+   */
+  if(!isSingleLine && m_uncachedRanges.contains (range))
+    return;
+
+  /**
+   * remove, if already there!
+   */
   if(containsRange(range))
     removeRange(range);
   
-  if(isSingleLine)
-  {
-    // The range is contained by a single line, put it into the line-cache 
-    int lineOffset = startLine - m_startLine;
-    if(m_cachedRangesForLine.size() <= lineOffset)
-      m_cachedRangesForLine.resize(lineOffset+1);
-    
-    m_cachedRangesForLine[lineOffset].insert(range);
-    m_cachedLineForRanges[range] = lineOffset;
-  }else{
-    // The range cannot be cached per line, as it spans multiple lines
+  /**
+   * simple case: multi-line range
+   */
+  if (!isSingleLine) {
+    /**
+     * The range cannot be cached per line, as it spans multiple lines
+     */
     m_uncachedRanges.insert(range);
+    return;
   }
+    
+  /**
+   * The range is contained by a single line, put it into the line-cache 
+   */
+  const int lineOffset = startLine - m_startLine;
+  
+  /**
+   * enlarge cache if needed
+   */
+  if (m_cachedRangesForLine.size() <= lineOffset)
+    m_cachedRangesForLine.resize(lineOffset+1);
+    
+  /**
+   * insert into mapping
+   */
+  m_cachedRangesForLine[lineOffset].insert(range);
+  m_cachedLineForRanges[range] = lineOffset;
 }
 
-void TextBlock::removeRange(TextRange* range)
+void TextBlock::removeRange (TextRange* range)
 {
-  if(m_uncachedRanges.contains(range))
-  {
-    Q_ASSERT(!m_cachedLineForRanges.contains(range));
-    m_uncachedRanges.remove(range);
+  /**
+   * uncached range?
+   */
+  if(m_uncachedRanges.contains(range)) {
+    /**
+     * must be only uncached!
+     */
+    Q_ASSERT (!m_cachedLineForRanges.contains(range));
+    
+    /**
+     * remove it and be done
+     */
+    m_uncachedRanges.remove (range);
+    return;
   }
-  else if(m_cachedLineForRanges.contains(range))
-  {
-    Q_ASSERT(!m_uncachedRanges.contains(range));
+  
+  /**
+   * cached range?
+   */
+  if (m_cachedLineForRanges.contains(range)) {
+    /**
+     * must be only cached!
+     */
+    Q_ASSERT (!m_uncachedRanges.contains(range));
+    
+    /**
+     * query the range from cache, must be there
+     */
     QMap<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
-    Q_ASSERT(it != m_cachedLineForRanges.end());
-    Q_ASSERT(m_cachedRangesForLine[*it].contains(range));
+    Q_ASSERT (it != m_cachedLineForRanges.end());
+    Q_ASSERT (m_cachedRangesForLine[*it].contains(range));
+    
+    /**
+     * remove it and be done
+     */
     m_cachedRangesForLine[*it].remove(range);
     m_cachedLineForRanges.erase(it);
+    return;
   }
+  
+  /**
+   * else: perhaps later see if we can assert, that this is not allowed?
+   */
 }
 
 }

@@ -65,9 +65,9 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * Construct an empty text buffer.
      * Empty means one empty line in one block.
      * @param parent parent qobject
-     * @param blockSize block size in lines the buffer should try to hold, default 64 lines
+     * @param blockSize block size in lines the buffer should try to hold, default 128 lines
      */
-    TextBuffer (KTextEditor::Document *parent = 0, int blockSize = 64);
+    TextBuffer (KTextEditor::Document *parent = 0, int blockSize = 128);
 
     /**
      * Destruct the text buffer

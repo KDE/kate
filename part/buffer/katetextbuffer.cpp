@@ -732,11 +732,8 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
   const int blockIndex = blockForLine (line);
 
   // get the ranges of the right block
-
   QList<TextRange *> rightRanges;
-
-  foreach(const QSet<TextRange *> &ranges, m_blocks[blockIndex]->allRangesIntersectingLine(line))
-  {
+  foreach (const QSet<TextRange *> &ranges, m_blocks[blockIndex]->rangesForLine (line)) {
     foreach (TextRange * const range, ranges) {
         /**
         * we want only ranges with attributes, but this one has none

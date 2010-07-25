@@ -17,7 +17,9 @@
 */
 
 #include "dataoutputmodel.h"
+#include "outputstyle.h"
 
+#include <kcolorscheme.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kconfiggroup.h>
@@ -26,10 +28,20 @@
 DataOutputModel::DataOutputModel(QObject *parent)
 : QSqlQueryModel(parent)
 {
-  readConfig();
+  m_styles.insert("text",     new OutputStyle());
+  m_styles.insert("number",   new OutputStyle());
+  m_styles.insert("null",     new OutputStyle());
+  m_styles.insert("blob",     new OutputStyle());
+  m_styles.insert("datetime", new OutputStyle());
+  m_styles.insert("bool",     new OutputStyle());
 
-  m_nullFont = KGlobalSettings::generalFont();
-  m_nullFont.setItalic(true);
+  readConfig();
+}
+
+
+DataOutputModel::~DataOutputModel()
+{
+  qDeleteAll(m_styles);
 }
 
 
@@ -37,8 +49,29 @@ void DataOutputModel::readConfig()
 {
   KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
 
-  m_nullBackgroundColor = config.readEntry("NullBackgroundColor", QColor::fromRgb(255,255,191));
-  m_blobBackgroundColor = config.readEntry("BlobBackgroundColor", QColor::fromRgb(255,255,191));
+  KConfigGroup group = config.group("OutputCustomization");
+
+  KColorScheme scheme(QPalette::Active, KColorScheme::View);
+
+  foreach(QString k, m_styles.keys())
+  {
+    OutputStyle *s = m_styles[k];
+
+    KConfigGroup g = group.group(k);
+
+    s->foreground = scheme.foreground();
+    s->background = scheme.background();
+    s->font = KGlobalSettings::generalFont();
+
+    QFont dummy = g.readEntry("font", KGlobalSettings::generalFont());
+
+    s->font.setBold(dummy.bold());
+    s->font.setItalic(dummy.italic());
+    s->font.setUnderline(dummy.underline());
+    s->font.setStrikeOut(dummy.strikeOut());
+    s->foreground.setColor(g.readEntry("foregroundColor", s->foreground.color()));
+    s->background.setColor(g.readEntry("backgroundColor", s->background.color()));
+  }
 }
 
 
@@ -59,41 +92,76 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
 
   if (value.isNull())
   {
-    if (role == Qt::BackgroundColorRole)
-      return QVariant(m_nullBackgroundColor);
+    if (role == Qt::FontRole)
+      return QVariant(m_styles.value("null")->font);
+    if (role == Qt::ForegroundRole)
+      return QVariant(m_styles.value("null")->foreground);
+    if (role == Qt::BackgroundRole)
+      return QVariant(m_styles.value("null")->background);
     if (role == Qt::DisplayRole)
       return QVariant("NULL");
-    if (role == Qt::FontRole)
-      return QVariant(m_nullFont);
   }
 
   if (value.type() == QVariant::ByteArray)
   {
-    if (role == Qt::BackgroundColorRole)
-      return QVariant(m_blobBackgroundColor);
-
+    if (role == Qt::FontRole)
+      return QVariant(m_styles.value("blob")->font);
+    if (role == Qt::ForegroundRole)
+      return QVariant(m_styles.value("blob")->foreground);
+    if (role == Qt::BackgroundRole)
+      return QVariant(m_styles.value("blob")->background);
     if (role == Qt::DisplayRole)
       return QVariant(value.toByteArray().left(255));
-//       return QVariant("<...>");
 
     return QSqlQueryModel::data(index, role);
   }
 
-//   if (role == Qt::FontRole)
-//     return QVariant(KGlobalSettings::fixedFont());
-
-  if (role == Qt::TextAlignmentRole)
+  if (isNumeric(value.type()))
   {
-    if (isNumeric(value.type()))
+    if (role == Qt::FontRole)
+      return QVariant(m_styles.value("number")->font);
+    if (role == Qt::ForegroundRole)
+      return QVariant(m_styles.value("number")->foreground);
+    if (role == Qt::BackgroundRole)
+      return QVariant(m_styles.value("number")->background);
+    if (role == Qt::TextAlignmentRole)
       return QVariant(Qt::AlignRight | Qt::AlignVCenter);
-    return QVariant(Qt::AlignVCenter);
+    if (role == Qt::DisplayRole)
+      return QVariant(value.toString());
   }
 
-  if (role == Qt::DisplayRole && isNumeric(value.type()))
-    return QVariant(value.toString());
+  if (value.type() == QVariant::Bool)
+  {
+    if (role == Qt::FontRole)
+      return QVariant(m_styles.value("bool")->font);
+    if (role == Qt::ForegroundRole)
+      return QVariant(m_styles.value("bool")->foreground);
+    if (role == Qt::BackgroundRole)
+      return QVariant(m_styles.value("bool")->background);
+    if (role == Qt::DisplayRole)
+      return QVariant(value.toBool() ? "True" : "False");
+  }
 
-  if (role == Qt::DisplayRole && value.type() == QVariant::Bool)
-    return QVariant(value.toBool() ? "True" : "False");
+  if (value.type() == QVariant::Date ||
+      value.type() == QVariant::Time ||
+      value.type() == QVariant::DateTime )
+  {
+    if (role == Qt::FontRole)
+      return QVariant(m_styles.value("datetime")->font);
+    if (role == Qt::ForegroundRole)
+      return QVariant(m_styles.value("datetime")->foreground);
+    if (role == Qt::BackgroundRole)
+      return QVariant(m_styles.value("datetime")->background);
+  }
+
+  if (role == Qt::FontRole)
+    return QVariant(m_styles.value("text")->font);
+  if (role == Qt::ForegroundRole)
+    return QVariant(m_styles.value("text")->foreground);
+  if (role == Qt::BackgroundRole)
+    return QVariant(m_styles.value("text")->background);
+  if (role == Qt::TextAlignmentRole)
+    return QVariant(Qt::AlignVCenter);
 
   return QSqlQueryModel::data(index, role);
 }

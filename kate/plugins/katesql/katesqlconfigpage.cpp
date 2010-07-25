@@ -17,17 +17,14 @@
 */
 
 #include "katesqlconfigpage.h"
+#include "outputstylewidget.h"
 
 #include <kconfiggroup.h>
-#include <kcolorbutton.h>
 #include <klocale.h>
 
-#include <qlayout.h>
-#include <qformlayout.h>
+#include <qboxlayout.h>
 #include <qgroupbox.h>
 #include <qcheckbox.h>
-#include <qlabel.h>
-#include <qradiobutton.h>
 
 KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
 : Kate::PluginConfigPage( parent )
@@ -35,37 +32,26 @@ KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
   QVBoxLayout *layout = new QVBoxLayout( this );
 
   m_box = new QCheckBox(i18n(
-    "Save and restore connections in Kate session (WARNING: passwords will be stored in plain text format)"), this);
+    "Save and restore connections in Kate session\n"
+    "WARNING: passwords will be stored in plain text format"
+  ), this);
 
-  m_nullColorButton = new KColorButton(this);
-  m_blobColorButton = new KColorButton(this);
+  QGroupBox *stylesGroupBox = new QGroupBox(i18n("Output Customization"), this);
+  QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);
 
-  m_nullColorButton->setDefaultColor(QColor::fromRgb(255,255,191));
-  m_blobColorButton->setDefaultColor(QColor::fromRgb(255,255,191));
+  m_outputStyleWidget = new OutputStyleWidget(this);
 
-  m_nullColorButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-  m_blobColorButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-
-  QGroupBox *colorsGroupBox = new QGroupBox(i18n("Output Customization"), this);
-  QFormLayout *colorsLayout = new QFormLayout(colorsGroupBox);
-
-//   colorsLayout->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
-
-  colorsLayout->addRow(i18n("Background color of NULL values:"), m_nullColorButton);
-  colorsLayout->addRow(i18n("Background color of BLOB values:"), m_blobColorButton);
+  stylesLayout->addWidget(m_outputStyleWidget);
 
   layout->addWidget(m_box);
-  layout->addWidget(colorsGroupBox);
-
-  layout->addStretch(1);
+  layout->addWidget(stylesGroupBox, 1);
 
   setLayout(layout);
 
   reset();
 
   connect(m_box, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-  connect(m_nullColorButton, SIGNAL(changed(const QColor&)), this, SIGNAL(changed()));
-  connect(m_blobColorButton, SIGNAL(changed(const QColor&)), this, SIGNAL(changed()));
+  connect(m_outputStyleWidget, SIGNAL(changed()), this, SIGNAL(changed()));
 }
 
 
@@ -80,8 +66,7 @@ void KateSQLConfigPage::apply()
 
   config.writeEntry("SaveConnections", m_box->isChecked());
 
-  config.writeEntry("NullBackgroundColor", m_nullColorButton->color());
-  config.writeEntry("BlobBackgroundColor", m_blobColorButton->color());
+  m_outputStyleWidget->writeConfig();
 
   config.sync();
 
@@ -95,8 +80,7 @@ void KateSQLConfigPage::reset()
 
   m_box->setChecked(config.readEntry("SaveConnections", true));
 
-  m_nullColorButton->setColor(config.readEntry("NullBackgroundColor", m_nullColorButton->defaultColor()));
-  m_blobColorButton->setColor(config.readEntry("BlobBackgroundColor", m_blobColorButton->defaultColor()));
+  m_outputStyleWidget->readConfig();
 }
 
 
@@ -105,12 +89,5 @@ void KateSQLConfigPage::defaults()
   KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
 
   config.revertToDefault("SaveConnections");
-  config.revertToDefault("NullBackgroundColor");
-  config.revertToDefault("BlobBackgroundColor");
-/*
-  m_box->setChecked(true);
-
-  m_nullColorButton->setColor(m_nullColorButton->defaultColor());
-  m_blobColorButton->setColor(m_blobColorButton->defaultColor());
-*/
+  config.revertToDefault("OutputCustomization");
 }

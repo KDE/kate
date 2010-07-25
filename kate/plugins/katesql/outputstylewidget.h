@@ -16,33 +16,36 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DATAOUTPUTMODEL_H
-#define DATAOUTPUTMODEL_H
+#ifndef OUTPUTSTYLEWIDGET_H
+#define OUTPUTSTYLEWIDGET_H
 
-class OutputStyle;
+#include <qtreewidget.h>
 
-#include <qsqlquerymodel.h>
-#include <qcolor.h>
-#include <qfont.h>
+class KConfigGroup;
 
-/// only provide colors for null and blob values
-class DataOutputModel : public QSqlQueryModel
+class OutputStyleWidget : public QTreeWidget
 {
   Q_OBJECT
 
   public:
-    DataOutputModel(QObject *parent = 0);
-    ~DataOutputModel();
+    OutputStyleWidget(QWidget *parent = 0);
+    ~OutputStyleWidget();
 
-    virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    QTreeWidgetItem* addContext(const QString &key, const QString &name);
 
+  public slots:
     void readConfig();
+    void writeConfig();
 
-  private:
-    bool isNumeric(QVariant::Type type) const;
+  protected slots:
+    void slotChanged();
+    void updatePreviews();
 
-  private:
-    QHash<QString,OutputStyle*> m_styles;
+    void readConfig(QTreeWidgetItem *item);
+    void writeConfig(QTreeWidgetItem *item);
+
+  signals:
+    void changed();
 };
 
-#endif // DATAOUTPUTMODEL_H
+#endif // OUTPUTSTYLEWIDGET_H

@@ -19,6 +19,7 @@ set(katesql_SRCS
   connectionwizard.cpp
   katesqlconfigpage.cpp
   exportwizard.cpp
+  outputstylewidget.cpp
 )
 
 kde4_add_plugin(katesqlplugin ${katesql_SRCS})

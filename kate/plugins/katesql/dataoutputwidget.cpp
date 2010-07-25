@@ -329,5 +329,5 @@ void DataOutputWidget::exportData(QTextStream &stream,
     stream << "\n";
   }
 
-  kdDebug() << "Export in" << t.elapsed() << "msecs";
+  kDebug() << "Export in" << t.elapsed() << "msecs";
 }

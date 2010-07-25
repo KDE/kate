@@ -16,33 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DATAOUTPUTMODEL_H
-#define DATAOUTPUTMODEL_H
+#ifndef OUTPUTSTYLE_H
+#define OUTPUTSTYLE_H
 
-class OutputStyle;
-
-#include <qsqlquerymodel.h>
-#include <qcolor.h>
+#include <qmetatype.h>
+#include <qstring.h>
 #include <qfont.h>
+#include <qbrush.h>
 
-/// only provide colors for null and blob values
-class DataOutputModel : public QSqlQueryModel
+struct OutputStyle
 {
-  Q_OBJECT
-
-  public:
-    DataOutputModel(QObject *parent = 0);
-    ~DataOutputModel();
-
-    virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-
-    void readConfig();
-
-  private:
-    bool isNumeric(QVariant::Type type) const;
-
-  private:
-    QHash<QString,OutputStyle*> m_styles;
+  QFont font;
+  QBrush background;
+  QBrush foreground;
 };
 
-#endif // DATAOUTPUTMODEL_H
+// Q_DECLARE_METATYPE(OutputStyle)
+
+#endif // OUTPUTSTYLE_H

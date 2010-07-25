@@ -19,18 +19,14 @@
 #ifndef KATESQLCONFIGPAGE_H
 #define KATESQLCONFIGPAGE_H
 
+class OutputStyleWidget;
 class QCheckBox;
-class KColorButton;
 
 #include "katesqlplugin.h"
 
 #include <kate/pluginconfigpageinterface.h>
 
-/// TODO: improve the output customization section
-/// like the Fonts & Colors page of KTextEditor...
-/// a treeview with kcolorbuttons and checkboxes, to set
-/// bold, underline, italic, strikeout, bgcolor, fgcolor, alignment...
-/// ...and add options to change datetime and numbers format
+/// TODO: add options to change datetime and numbers format
 
 class KateSQLConfigPage : public Kate::PluginConfigPage
 {
@@ -48,8 +44,7 @@ class KateSQLConfigPage : public Kate::PluginConfigPage
   private:
     KateSQLPlugin *m_plugin;
     QCheckBox *m_box;
-    KColorButton *m_nullColorButton;
-    KColorButton *m_blobColorButton;
+    OutputStyleWidget *m_outputStyleWidget;
 
   signals:
     void settingsChanged();

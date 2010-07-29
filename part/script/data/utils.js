@@ -54,15 +54,13 @@ function rmblank()
     filter(function(l) { return l.length > 0; });
 }
 
-///TODO: make it possible to pass a deliminator
-///      but this requires a better cmd interpretation
-///      in katepart. currently e.g. `join ' | '` passes three
-///      arguments (', |, ') to the function, instead one with
-///      the whitespaces...
-function join()
+function join(separator)
 {
+    if (typeof(separator) != "string") {
+        separator = "";
+    }
     each(function(lines){
-        return [lines.join("")];
+        return [lines.join(separator)];
     });
 }
 
@@ -222,7 +220,8 @@ function help(cmd)
     } else if (cmd == "trim") {
         return i18n("Trims leading and trailing whitespace from selection or whole document.");
     } else if (cmd == "join") {
-        return i18n("Joins selected lines or whole document.");
+        return i18n("Joins selected lines or whole document. Optionally pass a separator to put between each line:<br>"
+                    "<code>join ', '</code> will e.g. join lines and separate them by a comma.");
     } else if (cmd == "rmblank") {
         return i18n("Removes empty lines from selection or whole document.");
     } else if (cmd == "unwrap") {

@@ -880,6 +880,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( uiadv->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( uiadv->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( uiadv->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->chkNoSync, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   internalLayout->addWidget(newWidget);
   tmpWidget->setLayout(internalLayout);
@@ -932,6 +933,9 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setBackupFlags(f);
   KateDocumentConfig::global()->setBackupPrefix(uiadv->edtBackupPrefix->text());
   KateDocumentConfig::global()->setBackupSuffix(uiadv->edtBackupSuffix->text());
+
+  if ( uiadv->chkNoSync->isChecked() )
+    KateDocumentConfig::global()->setSwapFileNoSync(true);
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
@@ -1015,6 +1019,7 @@ void KateSaveConfigTab::reload()
   uiadv->chkBackupRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
   uiadv->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
   uiadv->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
+  uiadv->chkNoSync->setChecked( KateDocumentConfig::global()->swapFileNoSync() );
 }
 
 void KateSaveConfigTab::reset()
@@ -1030,6 +1035,7 @@ void KateSaveConfigTab::defaults()
   uiadv->chkBackupRemoteFiles->setChecked( false );
   uiadv->edtBackupPrefix->setText( "" );
   uiadv->edtBackupSuffix->setText( "~" );
+  uiadv->chkNoSync->setChecked( false );
 }
 
 //END KateSaveConfigTab

@@ -189,6 +189,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
    m_backupSuffixSet (true),
+   m_swapFileNoSyncSet (true),
    m_onTheFlySpellCheckSet (true),
    m_doc (0)
 {
@@ -233,6 +234,7 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
    m_backupSuffixSet (true),
+   m_swapFileNoSyncSet (true),
    m_onTheFlySpellCheckSet (true),
    m_doc (0)
 {
@@ -271,6 +273,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
+   m_swapFileNoSyncSet (false),
    m_onTheFlySpellCheckSet (false),
    m_doc (doc)
 {
@@ -327,6 +330,8 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
+  setSwapFileNoSync (config.readEntry("No sync", false));
+
   setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
 
   configEnd ();
@@ -376,6 +381,8 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Backup Prefix", backupPrefix());
 
   config.writeEntry("Backup Suffix", backupSuffix());
+
+  config.writeEntry("No sync", swapFileNoSync());
 
   config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
 }
@@ -956,6 +963,24 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
   m_backupSuffix = suffix;
 
   configEnd ();
+}
+
+bool KateDocumentConfig::swapFileNoSync() const
+{
+  if (m_swapFileNoSyncSet || isGlobal())
+    return m_swapFileNoSync;
+
+  return s_global->swapFileNoSync();
+}
+
+void KateDocumentConfig::setSwapFileNoSync(bool on)
+{
+  configStart();
+
+  m_swapFileNoSyncSet = true;
+  m_swapFileNoSync = on;
+
+  configEnd();
 }
 
 int KateDocumentConfig::searchDirConfigDepth () const

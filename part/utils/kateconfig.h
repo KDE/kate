@@ -289,6 +289,9 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
 
+    bool swapFileNoSync() const;
+    void setSwapFileNoSync(bool on);
+
     /**
      * Should Kate Part search for dir wide config file
      * and if, how depth?
@@ -320,6 +323,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     QString m_encoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
+    bool m_swapFileNoSync;
     bool m_onTheFlySpellCheck;
 
     bool m_tabWidthSet : 1;
@@ -365,6 +369,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;
     bool m_backupSuffixSet : 1;
+    bool m_swapFileNoSyncSet : 1;
     bool m_onTheFlySpellCheckSet : 1;
 
   private:

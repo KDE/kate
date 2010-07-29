@@ -66,15 +66,7 @@ function trim()
 
 function rmblank()
 {
-    each(function(lines){
-        for ( var i = 0; i < lines.length; ++i ) {
-            if ( lines[i].length == 0 ) {
-                lines.splice(i, 1);
-                --i;
-            }
-        }
-        return lines;
-    });
+    filter(function(l) { return l.length > 0; });
 }
 
 ///TODO: make it possible to pass a deliminator
@@ -308,7 +300,11 @@ function each(func)
 
 function filter(func)
 {
-    return each('function(lines){ return lines.filter(' + func + '); }');
+    if ( typeof(func) == "function" ) {
+        each(function(lines) { return lines.filter(func); });
+    } else {
+        each('function(lines){ return lines.filter(' + func + '); }');
+    }
 }
 
 /*

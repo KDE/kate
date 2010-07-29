@@ -246,17 +246,33 @@ function help(cmd)
 
 /// helper code below:
 
-function each(func)
+function __toFunc(func, defaultArgName)
 {
     if ( typeof(func) != "function" ) {
-        func = eval("(" + func + ")");
+        try {
+            func = eval("(" + func + ")");
+        } catch(e) {}
+        debug(func, typeof(func))
         if ( typeof(func) != "function" ) {
-          debug("parameter is not a function: " + typeof(func));
-          return;
-        } else {
-          debug("using argument as evaluated callback")
+            try {
+                // one more try to support e.g.:
+                // map 'l+l'
+                // or:
+                // each 'lines.join("\n")'
+                func = eval("(function(" + defaultArgName + "){ return " + func + ";})");
+                debug(func, typeof(func))
+            } catch(e) {}
+            if ( typeof(func) != "function" ) {
+                throw "parameter is not a valid JavaScript callback function: " + typeof(func);
+            }
         }
     }
+    return func;
+}
+
+function each(func)
+{
+    func = __toFunc(func, 'lines');
 
     var selection = view.selection();
     if (!selection.isValid()) {
@@ -289,20 +305,12 @@ function each(func)
 
 function filter(func)
 {
-    if ( typeof(func) == "function" ) {
-        each(function(lines) { return lines.filter(func); });
-    } else {
-        each('function(lines){ return lines.filter(' + func + '); }');
-    }
+    each(function(lines) { return lines.filter(__toFunc(func, 'line')); });
 }
 
 function map(func)
 {
-    if ( typeof(func) == "function" ) {
-        each(function(lines) { return lines.map(func); });
-    } else {
-        each('function(lines){ return lines.map(' + func + '); }');
-    }
+    each(function(lines) { return lines.map(__toFunc(func, 'line')); });
 }
 
 /*

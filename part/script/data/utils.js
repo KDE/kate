@@ -1,7 +1,7 @@
 /* kate-script
  * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
  * license: LGPL
- * revision: 2
+ * revision: 3
  * kate-version: 3.4
  * type: commands
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map

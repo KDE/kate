@@ -1,3 +1,8 @@
+# building separately or as part of kdesdk?
+if(NOT KDE4_FOUND)
+    find_package(KDE4 REQUIRED)
+endif(NOT KDE4_FOUND)
+
 include_directories (${KDE4_INCLUDES})
 include_directories( ${KDE4_KIO_INCLUDES} )
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )

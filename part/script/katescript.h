@@ -152,6 +152,9 @@ class KateScript {
     /** Return a context-specific error message */
     const QString &errorMessage() { return m_errorMessage; }
 
+    /** Returns the backtrace when a script has errored out */
+    QString backtrace(const QScriptValue &error, const QString &header = QString());
+
     /** Displays the backtrace when a script has errored out */
     void displayBacktrace(const QScriptValue &error, const QString &header = QString());
 

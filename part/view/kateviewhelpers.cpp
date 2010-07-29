@@ -506,9 +506,14 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
         }
         else
         {
-          if (msg.length() > 0)
-            setText (i18n ("Error: ") + msg);
-          else
+          if (msg.length() > 0) {
+            if (msg.contains('\n')) {
+              // multiline error, use widget with more space
+              QWhatsThis::showText(mapToGlobal(QPoint(0,0)), msg);
+            } else {
+              setText(msg);
+            }
+          } else
             setText (i18n ("Command \"%1\" failed.",  cmd));
           KNotification::beep();
         }

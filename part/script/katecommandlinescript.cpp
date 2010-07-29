@@ -66,8 +66,7 @@ bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList a
   QScriptValue result = command.call(QScriptValue(), arguments);
   // error during the calling?
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(result, i18n("Error calling %1", cmd));
-    errorMessage = i18n("Error calling '%1'. Please check for syntax errors.", cmd);
+    errorMessage = backtrace(result, i18n("Error calling %1", cmd));
     return false;
   }
 
@@ -158,8 +157,7 @@ bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QS
 
   // error during the calling?
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(result, i18n("Error calling 'help %1'", cmd));
-    msg = i18n("Error calling '%1'. Please check for syntax errors.", cmd);
+    msg = backtrace(result, i18n("Error calling 'help %1'", cmd));
     return false;
   }
 

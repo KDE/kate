@@ -130,21 +130,26 @@ KateScript::~KateScript()
   }
 }
 
+QString KateScript::backtrace( const QScriptValue& error, const QString& header )
+{
+  QString bt;
+  if(!header.isNull())
+    bt += header + ":\n";
+  if(error.isError())
+    bt += error.toString() + '\n';
+
+  bt += m_engine->uncaughtExceptionBacktrace().join("\n") + '\n';
+
+  return bt;
+}
+
 void KateScript::displayBacktrace(const QScriptValue &error, const QString &header)
 {
   if(!m_engine) {
     std::cerr << "KateScript::displayBacktrace: no engine, cannot display error\n";
     return;
   }
-  std::cerr << "\033[31m";
-
-  if(!header.isNull())
-    std::cerr << qPrintable(header) << ":\n";
-  if(error.isError())
-    std::cerr << qPrintable(error.toString()) << '\n';
-
-  std::cerr << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  std::cerr << "\033[0m" << '\n';
+  std::cerr << "\033[31m" << qPrintable(backtrace(error, header)) << "\033[0m" << '\n';
 }
 
 void KateScript::clearExceptions()

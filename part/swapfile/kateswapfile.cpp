@@ -19,6 +19,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
 #include "kateswapfile.h"
 #include "kateview.h"
 
@@ -405,7 +407,11 @@ void SwapFile::writeFileToDisk()
 
     #ifndef Q_OS_WIN
     // ensure that the file is written to disk
+    #ifdef HAVE_FDATASYNC
     fdatasync (m_swapfile.handle());
+    #else
+    fsync (m_swapfile.handle());
+    #endif
     #endif
   }
 }

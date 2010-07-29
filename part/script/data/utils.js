@@ -239,7 +239,7 @@ function help(cmd)
                     "Example (see also <code>rmblank</code>):<br>" +
                     "<code>filter 'function(l){return l.length > 0;}'</code><br>" +
                     "To save you some typing, you can also do this to achieve the same:<br>" +
-                    "<code>filter 'l.length > 0'</code>");
+                    "<code>filter 'line.length > 0'</code>");
     } else if (cmd == "map") {
         return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines " +
                     "and replace the line with the return value of the callback.<br>" +

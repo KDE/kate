@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter
+ * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map
  */
 
 function sort()
@@ -36,32 +36,17 @@ function natsort()
 
 function rtrim()
 {
-    each(function(lines){
-        for ( var i = 0; i < lines.length; ++i ) {
-            lines[i] = lines[i].replace(/\s+$/, '');
-        }
-        return lines;
-    });
+    map(function(l){ return l.replace(/\s+$/, ''); });
 }
 
 function ltrim()
 {
-    each(function(lines){
-        for ( var i = 0; i < lines.length; ++i ) {
-            lines[i] = lines[i].replace(/^\s+/, '');
-        }
-        return lines;
-    });
+    map(function(l){ return l.replace(/^\s+/, ''); });
 }
 
 function trim()
 {
-    each(function(lines){
-        for ( var i = 0; i < lines.length; ++i ) {
-            lines[i] = lines[i].replace(/^\s+|\s+$/, '');
-        }
-        return lines;
-    });
+    map(function(l){ return l.replace(/^\s+|\s+$/, ''); });
 }
 
 function rmblank()
@@ -252,6 +237,11 @@ function help(cmd)
                     "and remove those where the callback returns false.<br>" +
                     "Example (see also <code>rmblank</code>):<br>" +
                     "<code>filter 'function(l){return l.length > 0;}'</code>");
+    } else if (cmd == "map") {
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines " +
+                    "and replace the line with the return value of the callback.<br>" +
+                    "Example (see also <code>ltrim</code>):<br>" +
+                    "<code>map 'function(l){return l.replace(/^\s+/, '');}'</code>");
     }
 }
 
@@ -304,6 +294,15 @@ function filter(func)
         each(function(lines) { return lines.filter(func); });
     } else {
         each('function(lines){ return lines.filter(' + func + '); }');
+    }
+}
+
+function map(func)
+{
+    if ( typeof(func) == "function" ) {
+        each(function(lines) { return lines.map(func); });
+    } else {
+        each('function(lines){ return lines.map(' + func + '); }');
     }
 }
 

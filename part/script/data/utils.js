@@ -220,7 +220,7 @@ function help(cmd)
     } else if (cmd == "trim") {
         return i18n("Trims leading and trailing whitespace from selection or whole document.");
     } else if (cmd == "join") {
-        return i18n("Joins selected lines or whole document. Optionally pass a separator to put between each line:<br>"
+        return i18n("Joins selected lines or whole document. Optionally pass a separator to put between each line:<br>" +
                     "<code>join ', '</code> will e.g. join lines and separate them by a comma.");
     } else if (cmd == "rmblank") {
         return i18n("Removes empty lines from selection or whole document.");

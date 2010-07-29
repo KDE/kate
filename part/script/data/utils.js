@@ -4,7 +4,7 @@
  * revision: 2
  * kate-version: 3.4
  * type: commands
- * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each
+ * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter
  */
 
 function sort()
@@ -255,6 +255,11 @@ function help(cmd)
                "return value of that callback.<br>" +
                "Example (join selected lines):<br>" +
                 "<code>each 'function(lines){return lines.join(\", \"}'</code>");
+    } else if (cmd == "filter") {
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines " +
+                    "and remove those where the callback returns false.<br>" +
+                    "Example (see also <code>rmblank</code>):<br>" +
+                    "<code>filter 'function(l){return l.length > 0;}'</code>");
     }
 }
 
@@ -299,6 +304,11 @@ function each(func)
     document.removeText(selection);
     document.insertText(selection.start, text);
     document.editEnd();
+}
+
+function filter(func)
+{
+    return each('function(lines){ return lines.filter(' + func + '); }');
 }
 
 /*

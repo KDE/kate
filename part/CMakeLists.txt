@@ -200,7 +200,7 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
-kde4_add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )
+kde4_add_library (katepartinterfaces ${LIBRARY_TYPE} ${katepart_PART_SRCS} )
 
 target_link_libraries (
   katepartinterfaces ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}

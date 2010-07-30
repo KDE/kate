@@ -25,7 +25,10 @@
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
 #include <kdemacros.h>
 
-#ifdef MAKE_KATEPARTINTERFACES_LIB
+#if defined(KDELIBS_STATIC_LIBS)
+   /* No export/import for static libraries */
+# define KATEPART_TESTS_EXPORT
+#elif defined(MAKE_KATEPARTINTERFACES_LIB)
   /* We build the test library, so export symbols */
   #define KATEPART_TESTS_EXPORT KDE_EXPORT
 #else

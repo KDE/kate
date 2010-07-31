@@ -936,6 +936,8 @@ void KateSaveConfigTab::apply()
 
   if ( uiadv->chkNoSync->isChecked() )
     KateDocumentConfig::global()->setSwapFileNoSync(true);
+  else
+    KateDocumentConfig::global()->setSwapFileNoSync(false);
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 

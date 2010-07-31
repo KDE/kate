@@ -23,6 +23,7 @@
 
 #include "kateswapfile.h"
 #include "kateview.h"
+#include "kateconfig.h"
 
 #include <kde_file.h>
 
@@ -61,7 +62,7 @@ SwapFile::SwapFile(KateDocument *document)
   // connecting the signals
   connect(&m_document->buffer(), SIGNAL(saved(const QString &)), this, SLOT(fileSaved(const QString&)));
   connect(&m_document->buffer(), SIGNAL(loaded(const QString &, bool)), this, SLOT(fileLoaded(const QString&)));
-  
+
   setTrackingEnabled(true);
 }
 
@@ -280,7 +281,7 @@ void SwapFile::finishEditing ()
     return;
 
   // write the file to the disk every 15 seconds
-  if (!syncTimer()->isActive())
+  if (!syncTimer()->isActive() && !m_document->config()->swapFileNoSync())
     syncTimer()->start(15000);
   
   // format: qint8

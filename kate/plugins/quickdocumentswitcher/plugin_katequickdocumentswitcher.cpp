@@ -3,12 +3,12 @@
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
     version 2 of the License, or (at your option) any later version.
- 
+
     This library is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Library General Public License for more details.
- 
+
     You should have received a copy of the GNU Library General Public License
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -21,6 +21,7 @@
 #include "plugin_katequickdocumentswitcher.moc"
 
 #include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
@@ -64,8 +65,9 @@ Kate::PluginView *PluginKateQuickDocumentSwitcher::createView (Kate::MainWindow 
 
 //BEGIN: View
 PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::MainWindow *mainwindow):
-    Kate::PluginView(mainwindow),Kate::XMLGUIClient(KateQuickDocumentSwitcherFactory::componentData()) {
-
+    Kate::PluginView(mainwindow),
+    Kate::XMLGUIClient(KateQuickDocumentSwitcherFactory::componentData()),
+    m_prevDoc(0) {
 
     KAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
@@ -81,18 +83,27 @@ PluginViewKateQuickDocumentSwitcher::~PluginViewKateQuickDocumentSwitcher() {
 }
 
 void PluginViewKateQuickDocumentSwitcher::slotQuickSwitch() {
-    KTextEditor::Document *doc=PluginViewKateQuickDocumentSwitcherDialog::document(mainWindow()->window());
+    KTextEditor::Document *doc=PluginViewKateQuickDocumentSwitcherDialog::document(mainWindow()->window(), m_prevDoc);
     if (doc) {
+        // before switching save current document as alternate one so it
+        // would be preselected on a next switch for convenience
+        KTextEditor::Document* currentDocument = mainWindow()->activeView() ? mainWindow()->activeView()->document() : 0;
+        if(currentDocument != m_prevDoc)
+            m_prevDoc = currentDocument;
+
         mainWindow()->activateView(doc);
     }
 }
 //END: View
 
 //BEGIN: Dialog
-KTextEditor::Document *PluginViewKateQuickDocumentSwitcherDialog::document(QWidget *parent) {
-    PluginViewKateQuickDocumentSwitcherDialog dlg(parent);
+KTextEditor::Document *PluginViewKateQuickDocumentSwitcherDialog::document(QWidget *parent, KTextEditor::Document* docToSelect) {
+    PluginViewKateQuickDocumentSwitcherDialog dlg(parent, docToSelect);
     if (QDialog::Accepted==dlg.exec()) {
-        QModelIndex idx(dlg.m_listView->currentIndex());
+        // document ptr is held in the (row,0) , while item at (row, 1) might be selected,
+        // we need to obtain an index in (row,0)
+        QModelIndex selectedIdx = dlg.m_listView->currentIndex();
+        QModelIndex idx(dlg.m_listView->model()->index(selectedIdx.row(), 0));
         if (idx.isValid()) {
             QVariant _doc=idx.data(DocumentRole);
             QPointer<KTextEditor::Document> doc=_doc.value<QPointer<KTextEditor::Document> >();
@@ -102,7 +113,7 @@ KTextEditor::Document *PluginViewKateQuickDocumentSwitcherDialog::document(QWidg
     return 0;
 }
 
-PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDialog(QWidget *parent):
+PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDialog(QWidget *parent, KTextEditor::Document* docToSelect):
     KDialog(parent) {
     setModal(true);
 
@@ -112,13 +123,13 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     setCaption(i18n("Document Quick Switch"));
 
     QWidget *mainwidget=new QWidget(this);
-    
+
     QVBoxLayout *layout=new QVBoxLayout(mainwidget);
     layout->setSpacing(spacingHint());
-    
+
 
     m_inputLine=new KLineEdit(mainwidget);
-    
+
 
     QLabel *label=new QLabel(i18n("&Filter:"),this);
     label->setBuddy(m_inputLine);
@@ -134,25 +145,33 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     m_listView=new QTreeView(mainwidget);
     layout->addWidget(m_listView,1);
     m_listView->setTextElideMode(Qt::ElideLeft);
-    
+
     setMainWidget(mainwidget);
     m_inputLine->setFocus(Qt::OtherFocusReason);
 
     QStandardItemModel *base_model=new QStandardItemModel(0,2,this);
     QList<KTextEditor::Document*> docs=Kate::application()->documentManager()->documents();
     int linecount=0;
+    QModelIndex idxToSelect;
     foreach(KTextEditor::Document *doc,docs) {
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().prettyUrl()));
-        QStandardItem *item=new QStandardItem(doc->documentName());
-        
-        item->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
-        item->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().prettyUrl()),SortFilterRole);
-        QFont font=item->font();
+        QStandardItem *itemName=new QStandardItem(doc->documentName());
+
+        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().prettyUrl()),SortFilterRole);
+        itemName->setEditable(false);
+        QFont font=itemName->font();
         font.setBold(true);
-        item->setFont(font);
-        base_model->setItem(linecount,0,item);
-        base_model->setItem(linecount,1,new QStandardItem(doc->url().prettyUrl()));
+        itemName->setFont(font);
+
+        QStandardItem *itemUrl = new QStandardItem(doc->url().prettyUrl());
+        itemUrl->setEditable(false);
+        base_model->setItem(linecount,0,itemName);
+        base_model->setItem(linecount,1,itemUrl);
         linecount++;
+
+        if(doc == docToSelect)
+            idxToSelect = itemName->index();
     }
 
     m_model=new QSortFilterProxyModel(this);
@@ -160,13 +179,21 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     m_model->setSortRole(SortFilterRole);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
-    
+
     connect(m_inputLine,SIGNAL(textChanged(const QString&)),m_model,SLOT(setFilterFixedString(const QString&)));
     connect(m_model,SIGNAL(rowsInserted(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));
     connect(m_model,SIGNAL(rowsRemoved(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));
+
+    connect(m_listView,SIGNAL(activated(const QModelIndex &)),this,SLOT(accept()));
+
     m_listView->setModel(m_model);
     m_model->setSourceModel(base_model);
-    reselectFirst();
+
+    if(idxToSelect.isValid())
+        m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));
+    else
+        reselectFirst();
+
     m_inputLine->installEventFilter(this);
     m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);

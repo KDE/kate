@@ -48,6 +48,9 @@ class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInter
 {
     Q_OBJECT
     Q_INTERFACES(Kate::PluginConfigPageInterface)
+    
+  friend class KateKonsolePluginView;
+  
   public:
     explicit KateKonsolePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateKonsolePlugin();

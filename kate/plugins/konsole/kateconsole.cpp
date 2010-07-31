@@ -71,8 +71,7 @@ KateKonsolePlugin::~KateKonsolePlugin()
 
 Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  KateKonsolePluginView *view = new KateKonsolePluginView (this,mainWindow);
-  mViews.append( view );
+  KateKonsolePluginView *view = new KateKonsolePluginView (this, mainWindow);
   return view;
 }
 
@@ -114,10 +113,16 @@ KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, Kate::M
   // init console
   QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katekonsoleplugin", Kate::MainWindow::Bottom, SmallIcon("utilities-terminal"), i18n("Terminal"));
   m_console = new KateConsole(m_plugin, mainWindow, toolview);
+  
+  // register this view
+  m_plugin->mViews.append ( this );
 }
 
 KateKonsolePluginView::~KateKonsolePluginView ()
 {
+  // unregister this view
+  m_plugin->mViews.removeAll (this);
+  
   // cleanup, kill toolview + console
   QWidget *toolview = m_console->parentWidget();
   delete m_console;
@@ -136,7 +141,6 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidg
     , m_toolView (parent)
     , m_plugin(plugin)
 {
-
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(KIcon("utilities-terminal"));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
@@ -157,7 +161,7 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidg
 }
 
 KateConsole::~KateConsole ()
-{
+{ 
   m_mw->guiFactory()->removeClient (this);
   if (m_part)
     disconnect ( m_part, SIGNAL(destroyed()), this, SLOT(slotDestroyed()) );

@@ -153,7 +153,7 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
 : QWizardPage(parent)
 {
   setTitle(i18n("Connection Parameters"));
-  setSubTitle(i18n("Please enter the SQLite database file path.\nIf not exist, new database will be created."));
+  setSubTitle(i18n("Please enter the SQLite database file path.\nIf the file does not exist, a new database will be created."));
 
   QFormLayout *layout = new QFormLayout();
 

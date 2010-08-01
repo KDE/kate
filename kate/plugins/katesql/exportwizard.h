@@ -19,7 +19,6 @@
 #ifndef EXPORTWIZARD_H
 #define EXPORTWIZARD_H
 
-class DataOutputWidget;
 
 class KUrlRequester;
 class KLineEdit;

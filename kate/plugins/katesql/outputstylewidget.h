@@ -21,7 +21,6 @@
 
 #include <qtreewidget.h>
 
-class KConfigGroup;
 
 class OutputStyleWidget : public QTreeWidget
 {

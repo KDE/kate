@@ -21,8 +21,6 @@
 
 class QHBoxLayout;
 class QTextEdit;
-class QSqlQuery;
-class QSqlError;
 
 #include "connection.h"
 #include <qwidget.h>

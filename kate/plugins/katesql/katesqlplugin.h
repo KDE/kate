@@ -19,10 +19,7 @@
 #ifndef KATESQLPLUGIN_H
 #define KATESQLPLUGIN_H
 
-class SQLManager;
 
-class KateSQLConfigPage;
-class KateSQLView;
 
 #include <ktexteditor/view.h>
 #include <kate/plugin.h>

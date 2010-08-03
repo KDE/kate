@@ -2010,6 +2010,16 @@ bool KateDocument::openFile()
     // read vars
     readVariables();
 
+    // remove trailing space
+    // NOTE: wait until now because the config or variables might tell us not to do this!
+    m_buffer->setRemoveTrailingSpaces (config()->removeSpaces());
+    if ( m_buffer->removeTrailingSpaces() )
+    {
+      int n = lines();
+      while (n--)
+        removeTrailingSpace (n);
+    }
+
     // update the md5 digest
     createDigest( m_digest );
 

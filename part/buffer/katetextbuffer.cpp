@@ -545,16 +545,6 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
       // get unicode data for this line
       const QChar *unicodeData = file.unicode () + offset;
 
-      // strip trailing spaces
-      if (m_removeTrailingSpaces) {
-        while (length > 0) {
-          if (unicodeData[length-1].isSpace())
-            --length;
-          else
-            break;
-        }
-      }
-
       // construct new text line with content from file
       TextLine textLine = TextLine (new TextLineData(QString (unicodeData, length)));
 

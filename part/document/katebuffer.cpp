@@ -159,6 +159,8 @@ bool KateBuffer::openFile (const QString &m_file)
   setEndOfLineMode ((EndOfLineMode) m_doc->config()->eol());
 
   // remove trailing spaces?
+  // NOTE: The buffer won't actually remove trailing space on load. This is because
+  // we need to do it later, after the config and variables have been parsed.
   setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
 
   // then, try to load the file

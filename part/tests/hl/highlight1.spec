@@ -9,10 +9,12 @@
 # RPM spec says clear that comments must start at the begin of the line. However, in practice
 # the RPM software is more permissive, depending on the context. But for our syntax highlighting,
 # we give, while recognizing the as comment, at least a little alert. Comments should not contain
-# the character % (which is marked as error), but 2 of them are okay: %%. TODO is higlighted.
+# the character % (which is marked as warning), but 2 of them are okay: %%. TODO is higlighted.
 
 # A spec file starts with "Normal" context. Here, you can specify values for some tags:
 Name:                kradioripper-unstable # Note that here in no comment possible!
+Name:                name only _one_ word allowed
+Name:                %macro no further syntax check after macro!
 # Some tags support only _one_ word as value
 Version:             0.4test5 up-from-the-space-this-is-an-error
 # Some tag can have parameters: Any char in paranthesis:
@@ -21,16 +23,21 @@ Summary(de.UTF-8):   Aufnahmeprogramm für Internetradios (basiert auf Streamrip
 # requiere free text:
 License:             License 1 2 3
 # requiere a well defines value:
-Requires( / (  = ):  Some value
+Requires( / (  = ):  Some, value()
 # new type "switch" accepts: yes, no, 0, 1
 AutoReq: yes
+AutoReq: yes invalid
+AutoReq: %macro no further syntax check after macro!
 AutoReq: no
 AutoReq: 0
 AutoReq: 1
 # requiere a number:
 Epoch:               123123
+Epoch:               123123 invalid
+Epoch:               %macro no further syntax check afer macro!
 # If tags are used that are not known, they are not highlighted:
 Invalidtag:          Some value
+Invalid content in this section (only tags are allowed)
   
 # You can use conditions in specs (highlighted with region markers):
 %if 0%{?mandriva_version}  
@@ -43,7 +50,7 @@ Invalidtag:          Some value
 # invalid:
 %if 92437lsdkfjdsl
 # valid:
-%if "lsdfj ksdf 3489"
+%if "lsdfj %ksdf(sdfs) 3489"
 Release:             %mkrel 1.2
 %else  
 Release:             0  
@@ -68,6 +75,8 @@ it continues.
 
 %define name value
 %define invalid_näme value
+%define macroname multi\
+line content with references like %0 %* %# %{-f} %{-f*} %1 %2 and so on
 %global name value
 %global invalid_näme value
 %undefine name
@@ -75,10 +84,12 @@ it continues.
 
 # This special comment is treated and highlighted like a tag:
 # norootforbuild  
-# It can't have parameters, so every following non-whitespace character is an error:
+# It can't have parameters, so every following non-whitespace character is not good:
 # norootforbuild  DONT WRITE ANYTHING HERE!
 # wrong spacing is also recognized:
 #  norootforbuild
+# and also an indeet is not fine for norootforbuild:
+ # norootforbuild
   
 # This following "Conflicts" tag will be removed by set-version.sh,  
 # if it is a "kradioripper" release (and not a "kradioripper-unstable" release)...  
@@ -90,18 +101,10 @@ Conflicts:           kradioripper
 # colored like values:
 A KDE program for ripping internet radios. Based on StreamRipper.  
   
-Authors:  
---------  
-    Tim Fechtner  
-  
   
 # A section start can have parameters:
 %description -l de.UTF-8  
-Ein KDE-Aufnahmeprogramm für Internetradios. Basiert auf StreamRipper.  
-  
-Autoren:  
---------  
-    Tim Fechtner  
+Ein KDE-Aufnahmeprogramm für Internetradios. Basiert auf StreamRipper.   
   
 # These sections starts are errors:
  %description not at the first line

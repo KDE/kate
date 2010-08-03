@@ -511,8 +511,14 @@ void KateCTagsView::setTagsFile(const QString &fname)
 /******************************************************************/
 void KateCTagsView::selectTagFile()
 {
-    //kDebug() << "";
-    KUrl defDir(m_ctagsUi.tagsFile->text());
+    KUrl defDir;
+
+    if (m_ctagsUi.tagsFile->text().isEmpty()) {
+        defDir = m_mWin->activeView()->document()->url();
+    }
+    else {
+        defDir = m_ctagsUi.tagsFile->text();
+    }
     QString new_file = KFileDialog::getOpenFileName(defDir);
 
     if (!new_file.isEmpty()) {
@@ -549,7 +555,14 @@ void KateCTagsView::setTagsFile()
 /******************************************************************/
 void KateCTagsView::newTagsDB()
 {
-    KUrl defDir(m_ctagsUi.tagsFile->text());
+    KUrl defDir;
+    
+    if (m_ctagsUi.tagsFile->text().isEmpty()) {
+        defDir = m_mWin->activeView()->document()->url();
+    }
+    else {
+        defDir = m_ctagsUi.tagsFile->text();
+    }
 
     QString file = KFileDialog::getExistingDirectory(defDir, 0, i18n("CTags Database Location"));
 

@@ -377,10 +377,11 @@ void KateTemplateHandler::setCurrentRange(MovingRange* range)
         found = true;
         break;
       }
-
-      if (!found) range = m_templateRangesChildren[range].first();
     }
 
+    if (!found) {
+      range = m_templateRangesChildren[range].first();
+    }
   }
 
   if (m_view) {

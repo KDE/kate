@@ -174,7 +174,11 @@ bool SwapFile::recover(QDataStream& stream)
 
   // replay swapfile
   bool editStarted = false;
+  bool brokenSwapFile = false;
   while (!stream.atEnd()) {
+    if (brokenSwapFile)
+      break;
+
     qint8 type;
     stream >> type;
     switch (type) {
@@ -189,6 +193,11 @@ bool SwapFile::recover(QDataStream& stream)
         break;
       }
       case EA_WrapLine: {
+        if (!editStarted) {
+          brokenSwapFile = true;
+          break;
+        }
+
         int line = 0, column = 0;
         stream >> line >> column;
         
@@ -197,6 +206,11 @@ bool SwapFile::recover(QDataStream& stream)
         break;
       }
       case EA_UnwrapLine: {
+        if (!editStarted) {
+          brokenSwapFile = true;
+          break;
+        }
+
         int line = 0;
         stream >> line;
         
@@ -208,6 +222,11 @@ bool SwapFile::recover(QDataStream& stream)
         break;
       }
       case EA_InsertText: {
+        if (!editStarted) {
+          brokenSwapFile = true;
+          break;
+        }
+
         int line, column;
         QByteArray text;
         stream >> line >> column >> text;
@@ -215,6 +234,11 @@ bool SwapFile::recover(QDataStream& stream)
         break;
       }
       case EA_RemoveText: {
+        if (!editStarted) {
+          brokenSwapFile = true;
+          break;
+        }
+
         int line, startColumn, endColumn;
         stream >> line >> startColumn >> endColumn;
         m_document->removeText (KTextEditor::Range(KTextEditor::Cursor(line, startColumn), KTextEditor::Cursor(line, endColumn)));
@@ -228,8 +252,14 @@ bool SwapFile::recover(QDataStream& stream)
 
   // balance editStart and editEnd
   if (editStarted) {
-    kWarning ( 13020 ) << "Some data might be lost";
+    brokenSwapFile = true;
     m_document->editEnd();
+  }
+
+  // warn the user if the swap file is not complete
+  if (brokenSwapFile) {
+    kWarning ( 13020 ) << "Some data might be lost";
+    emit swapFileBroken();
   }
   
   // reconnect the signals

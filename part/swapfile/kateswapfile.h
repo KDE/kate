@@ -77,6 +77,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
   Q_SIGNALS:
     void swapFileFound();
     void swapFileHandled();
+    void swapFileBroken();
   
   public Q_SLOTS:
     void discard();

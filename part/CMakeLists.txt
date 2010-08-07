@@ -171,6 +171,7 @@ utils/katepartpluginmanager.cpp
 # swapfile
 swapfile/katerecoverbar.cpp
 swapfile/kateswapfile.cpp
+swapfile/katebrokenswapfilebar.cpp
 
 )
 
@@ -194,6 +195,7 @@ search/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
 swapfile/recoverwidget.ui
+swapfile/brokenswapfilewidget.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )

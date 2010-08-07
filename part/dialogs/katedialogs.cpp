@@ -934,10 +934,7 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setBackupPrefix(uiadv->edtBackupPrefix->text());
   KateDocumentConfig::global()->setBackupSuffix(uiadv->edtBackupSuffix->text());
 
-  if ( uiadv->chkNoSync->isChecked() )
-    KateDocumentConfig::global()->setSwapFileNoSync(true);
-  else
-    KateDocumentConfig::global()->setSwapFileNoSync(false);
+  KateDocumentConfig::global()->setSwapFileNoSync(uiadv->chkNoSync->isChecked());
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 

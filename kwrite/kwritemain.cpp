@@ -659,6 +659,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
   aboutData.setProgramIconName ("accessories-text-editor");
+  aboutData.setProductName("kate/kwrite");
 
   KCmdLineArgs::init( argc, argv, &aboutData );
 

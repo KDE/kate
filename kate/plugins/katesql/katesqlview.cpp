@@ -130,7 +130,7 @@ void KateSQLView::setupActions()
   action = collection->addAction("query_run");
   action->setText( i18n("Run query") );
   action->setIcon( KIcon("quickopen") );
-  action->setShortcut( QKeySequence(Qt::Key_F5) );
+  action->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_E) );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotRunQuery()));
 
   /// TODO: stop sql query

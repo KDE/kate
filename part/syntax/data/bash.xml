@@ -517,7 +517,7 @@
         <!-- match do and if blocks -->
         <RegExpr attribute="Keyword" context="#stay" String="\bdo&noword;" beginRegion="do" />
         <RegExpr attribute="Keyword" context="#stay" String="\bdone&noword;" endRegion="do" />
-        <RegExpr attribute="Keyword" context="#stay" String="\bif&noword;" beginRegion="if" />
+        <RegExpr attribute="Keyword" context="#stay" String="\bif &noword;" beginRegion="if" />
         <RegExpr attribute="Keyword" context="#stay" String="\bfi&noword;" endRegion="if" />
         <!-- handle case as a special case -->
         <RegExpr attribute="Keyword" context="Case" String="\bcase&noword;" beginRegion="case" />

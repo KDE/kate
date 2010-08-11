@@ -446,7 +446,7 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
         m_indentation = indentation;
         // in C++ automatically add a semicolon after the closing brace when we create a new class/struct
         if ( (document->mode() == "C++" || document->mode() == "C")
-                && document->line(openingBraceLine).indexOf(QRegExp("(?:class|struct|enum)\\s+[^\\s]+\\s*\\{\\s*$")) != -1 )
+                && document->line(openingBraceLine).indexOf(QRegExp("(?:class|struct|enum)\\s+[^\\s]+(\\s*[:,](\\s*((public|protected|private)\\s+)?[^\\s]+))*\\s*\\{\\s*$")) != -1 )
         {
             m_withSemicolon = true;
         } else {

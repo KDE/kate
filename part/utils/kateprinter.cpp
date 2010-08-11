@@ -79,7 +79,7 @@ bool KatePrinter::print (KateDocument *doc)
   if ( !parentWidget )
     parentWidget=QApplication::activeWindow();
 
-  QPrintDialog *printDialog = KdePrint::createPrintDialog(&printer, KdePrint::SystemSelectsPages, tabs, parentWidget);
+  QScopedPointer<QPrintDialog> printDialog(KdePrint::createPrintDialog(&printer, KdePrint::SystemSelectsPages, tabs, parentWidget));
 
   if ( doc->activeView()->selection() )
     printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
@@ -672,6 +672,13 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   cbGuide->setWhatsThis(i18n(
         "<p>Print a box displaying typographical conventions for the document type, as "
         "defined by the syntax highlighting being used.</p>") );
+  
+  readSettings();
+}
+
+KatePrintTextSettings::~KatePrintTextSettings()
+{
+  writeSettings();
 }
 
 // bool KatePrintTextSettings::printSelection()
@@ -693,6 +700,31 @@ bool KatePrintTextSettings::printGuide()
 // {
 //   cbSelection->setEnabled( enable );
 // }
+
+void KatePrintTextSettings::readSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup( config, "Kate Print Settings" );
+  
+  KConfigGroup textGroup( &printGroup, "Text" );
+  bool isLineNumbersChecked = textGroup.readEntry( "LineNumbers", false );
+  cbLineNumbers->setChecked( isLineNumbersChecked );
+
+  bool isLegendChecked = textGroup.readEntry( "Legend", false );
+  cbGuide->setChecked( isLegendChecked );
+}
+    
+void KatePrintTextSettings::writeSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup( config, "Kate Print Settings" );
+  
+  KConfigGroup textGroup( &printGroup, "Text" );
+  textGroup.writeEntry( "LineNumbers", printLineNumbers() );
+  textGroup.writeEntry( "Legend", printGuide() );
+  
+  config->sync();
+}
 
 //END KatePrintTextSettings
 
@@ -826,6 +858,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leFooterRight->setWhatsThis(s + s1 );
   leFooterCenter->setWhatsThis(s + s1 );
   leFooterLeft->setWhatsThis(s + s1 );
+  
+  readSettings();
+}
+
+KatePrintHeaderFooter::~KatePrintHeaderFooter()
+{
+  writeSettings();
 }
 
 QFont KatePrintHeaderFooter::font()
@@ -899,6 +938,96 @@ void KatePrintHeaderFooter::setHFFont()
   }
 }
 
+void KatePrintHeaderFooter::readSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup( config, "Kate Print Settings" );
+  
+  // Header
+  KConfigGroup headerFooterGroup( &printGroup, "HeaderFooter" );
+  bool isHeaderEnabledChecked = headerFooterGroup.readEntry( "HeaderEnabled", true );
+  cbEnableHeader->setChecked( isHeaderEnabledChecked );
+
+  QString headerFormatLeft = headerFooterGroup.readEntry( "HeaderFormatLeft", "%y" );
+  leHeaderLeft->setText( headerFormatLeft );
+
+  QString headerFormatCenter = headerFooterGroup.readEntry( "HeaderFormatCenter", "%f" );
+  leHeaderCenter->setText( headerFormatCenter );
+
+  QString headerFormatRight = headerFooterGroup.readEntry( "HeaderFormatRight", "%p" );
+  leHeaderRight->setText( headerFormatRight );
+
+  QColor headerForeground = headerFooterGroup.readEntry( "HeaderForeground", QColor("black") );
+  kcbtnHeaderFg->setColor( headerForeground );
+
+  bool isHeaderBackgroundChecked = headerFooterGroup.readEntry( "HeaderBackgroundEnabled", false );
+  cbHeaderEnableBgColor->setChecked( isHeaderBackgroundChecked );
+
+  QColor headerBackground = headerFooterGroup.readEntry( "HeaderBackground", QColor("lightgrey") );
+  kcbtnHeaderBg->setColor( headerBackground );
+  
+  // Footer
+  bool isFooterEnabledChecked = headerFooterGroup.readEntry( "FooterEnabled", true );
+  cbEnableFooter->setChecked( isFooterEnabledChecked );
+
+  QString footerFormatLeft = headerFooterGroup.readEntry( "FooterFormatLeft", QString() );
+  leFooterLeft->setText( footerFormatLeft );
+
+  QString footerFormatCenter = headerFooterGroup.readEntry( "FooterFormatCenter", QString() );
+  leFooterCenter->setText( footerFormatCenter );
+
+  QString footerFormatRight = headerFooterGroup.readEntry( "FooterFormatRight", "%U" );
+  leFooterRight->setText( footerFormatRight );
+
+  QColor footerForeground = headerFooterGroup.readEntry( "FooterForeground", QColor("black") );
+  kcbtnFooterFg->setColor( footerForeground );
+
+  bool isFooterBackgroundChecked = headerFooterGroup.readEntry( "FooterBackgroundEnabled", false );
+  cbFooterEnableBgColor->setChecked( isFooterBackgroundChecked );
+
+  QColor footerBackground = headerFooterGroup.readEntry( "FooterBackground", QColor("lightgrey") );
+  kcbtnFooterBg->setColor( footerBackground );
+
+  // Font
+  QFont headerFooterFont = headerFooterGroup.readEntry( "HeaderFooterFont", QFont() );
+  lFontPreview->setFont( headerFooterFont );
+  lFontPreview->setText( QString(headerFooterFont.family() + ", %1pt").arg( headerFooterFont.pointSize() ) );
+}
+    
+void KatePrintHeaderFooter::writeSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup( config, "Kate Print Settings" );
+  
+  // Header
+  KConfigGroup headerFooterGroup( &printGroup, "HeaderFooter" );
+  headerFooterGroup.writeEntry( "HeaderEnabled", useHeader() );
+
+  QStringList format = headerFormat();
+  headerFooterGroup.writeEntry( "HeaderFormatLeft", format[0] );
+  headerFooterGroup.writeEntry( "HeaderFormatCenter", format[1] );
+  headerFooterGroup.writeEntry( "HeaderFormatRight", format[2] );
+  headerFooterGroup.writeEntry( "HeaderForeground", headerForeground() );
+  headerFooterGroup.writeEntry( "HeaderBackgroundEnabled", useHeaderBackground() );
+  headerFooterGroup.writeEntry( "HeaderBackground", headerBackground() );
+  
+  // Footer
+  headerFooterGroup.writeEntry( "FooterEnabled", useFooter() );
+
+  format = footerFormat();
+  headerFooterGroup.writeEntry( "FooterFormatLeft", format[0] );
+  headerFooterGroup.writeEntry( "FooterFormatCenter", format[1] );
+  headerFooterGroup.writeEntry( "FooterFormatRight", format[2] );
+  headerFooterGroup.writeEntry( "FooterForeground", footerForeground() );
+  headerFooterGroup.writeEntry( "FooterBackgroundEnabled", useFooterBackground() );
+  headerFooterGroup.writeEntry( "FooterBackground", footerBackground() );
+
+  // Font
+  headerFooterGroup.writeEntry( "HeaderFooterFont", font() );
+
+  config->sync();
+}
+
 //END KatePrintHeaderFooter
 
 //BEGIN KatePrintLayout
@@ -913,7 +1042,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   KHBox *hb = new KHBox( this );
   lo->addWidget( hb );
   QLabel *lSchema = new QLabel( i18n("&Schema:"), hb );
-  cmbSchema = new QComboBox( hb );
+  cmbSchema = new KComboBox( hb );
   cmbSchema->setEditable( false );
   lSchema->setBuddy( cmbSchema );
 
@@ -975,6 +1104,13 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
         "The margin inside boxes, in pixels") );
   kcbtnBoxColor->setWhatsThis(i18n(
         "The line color to use for boxes") );
+  
+  readSettings();
+}
+
+KatePrintLayout::~KatePrintLayout()
+{
+  writeSettings();
 }
 
 QString KatePrintLayout::colorScheme()
@@ -1006,6 +1142,49 @@ QColor KatePrintLayout::boxColor()
 {
   return kcbtnBoxColor->color();
 }
+
+void KatePrintLayout::readSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup(config, "Kate Print Settings");
+  
+  KConfigGroup layoutGroup(&printGroup, "Layout");
+
+  QString colorScheme = layoutGroup.readEntry( "ColorScheme", KateGlobal::self()->schemaManager()->name(1) );
+  cmbSchema->setCurrentItem( colorScheme );
+
+  bool isBackgroundChecked = layoutGroup.readEntry( "BackgroundColorEnabled", false );
+  cbDrawBackground->setChecked( isBackgroundChecked );
+
+  bool isBoxChecked = layoutGroup.readEntry( "BoxEnabled", false );
+  cbEnableBox->setChecked( isBoxChecked );
+
+  int boxWidth = layoutGroup.readEntry( "BoxWidth", 1 );
+  sbBoxWidth->setValue( boxWidth );
+
+  int boxMargin = layoutGroup.readEntry( "BoxMargin", 6 );
+  sbBoxMargin->setValue( boxMargin );
+
+  QColor boxColor = layoutGroup.readEntry( "BoxColor", QColor() );
+  kcbtnBoxColor->setColor( boxColor );
+}
+    
+void KatePrintLayout::writeSettings()
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup printGroup(config, "Kate Print Settings");
+  
+  KConfigGroup layoutGroup(&printGroup, "Layout");
+  layoutGroup.writeEntry( "ColorScheme", colorScheme() );
+  layoutGroup.writeEntry( "BackgroundColorEnabled", useBackground() );
+  layoutGroup.writeEntry( "BoxEnabled", useBox() );
+  layoutGroup.writeEntry( "BoxWidth", boxWidth() );
+  layoutGroup.writeEntry( "BoxMargin", boxMargin() );
+  layoutGroup.writeEntry( "BoxColor", boxColor() );
+  
+  config->sync();
+}
+
 //END KatePrintLayout
 
 #include "kateprinter.moc"

@@ -34,6 +34,7 @@ class QGroupBox;
 class QLabel;
 class KLineEdit;
 class KIntSpinBox;
+class KComboBox;
 
 class KatePrinter
 {
@@ -53,7 +54,7 @@ class KatePrintTextSettings : public QWidget
   Q_OBJECT
   public:
     explicit KatePrintTextSettings( QWidget *parent=0 );
-    ~KatePrintTextSettings(){}
+    ~KatePrintTextSettings();
 
 //     bool printSelection();
     bool printLineNumbers();
@@ -63,6 +64,9 @@ class KatePrintTextSettings : public QWidget
 //     void enableSelection( bool );
 
   private:
+    void readSettings();
+    void writeSettings();
+    
     QCheckBox /* *cbSelection,*/ *cbLineNumbers, *cbGuide;
 };
 //END Text Settings
@@ -81,7 +85,7 @@ class KatePrintHeaderFooter : public QWidget
   Q_OBJECT
   public:
     explicit KatePrintHeaderFooter( QWidget *parent=0 );
-    ~KatePrintHeaderFooter(){}
+    ~KatePrintHeaderFooter();
 
     QFont font();
 
@@ -101,6 +105,9 @@ class KatePrintHeaderFooter : public QWidget
     void setHFFont();
 
   private:
+    void readSettings();
+    void writeSettings();
+    
     QCheckBox *cbEnableHeader, *cbEnableFooter;
     QLabel *lFontPreview;
     QGroupBox *gbHeader, *gbFooter;
@@ -129,7 +136,7 @@ class KatePrintLayout : public QWidget
   Q_OBJECT
   public:
     explicit KatePrintLayout( QWidget *parent=0 );
-    ~KatePrintLayout(){}
+    ~KatePrintLayout();
 
     QString colorScheme();
     bool useBackground();
@@ -139,7 +146,10 @@ class KatePrintLayout : public QWidget
     QColor boxColor();
 
   private:
-    QComboBox *cmbSchema;
+    void readSettings();
+    void writeSettings();
+    
+    KComboBox *cmbSchema;
     QCheckBox *cbEnableBox, *cbDrawBackground;
     QGroupBox *gbBoxProps;
     KIntSpinBox *sbBoxWidth, *sbBoxMargin;

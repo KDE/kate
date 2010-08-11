@@ -1,5 +1,5 @@
-#ifndef KATE_CTAGS_H
-#define KATE_CTAGS_H
+#ifndef KATE_CTAGS_VIEW_H
+#define KATE_CTAGS_VIEW_H
 /* Description : Kate CTags plugin
  *
  * Copyright (C) 2008 by Kare Sars <kare dot sars at iki dot fi>
@@ -29,6 +29,7 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 #include <kate/mainwindow.h>
+#include <kate/pluginconfigpageinterface.h>
 
 #include <kprocess.h>
 #include <kactionmenu.h>
@@ -46,21 +47,6 @@ typedef struct
     KTextEditor::Cursor cursor;
 } TagJump;
 
-class KAction;
-
-//******************************************************************/
-class KateCTagsPlugin : public Kate::Plugin
-{
-    Q_OBJECT
-
-    public:
-        explicit KateCTagsPlugin(QObject* parent = 0, const QStringList& = QStringList());
-        virtual ~KateCTagsPlugin() {}
-
-        Kate::PluginView *createView(Kate::MainWindow *mainWindow);
-
-};
-
 /******************************************************************/
 class KateCTagsView : public Kate::PluginView, public KXMLGUIClient
 {
@@ -73,6 +59,7 @@ class KateCTagsView : public Kate::PluginView, public KXMLGUIClient
         // overwritten: read and write session config
         void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
         void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+        void readConfig();
 
         QWidget *toolView() const;
 

@@ -19,20 +19,17 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kate_ctags.h"
+#include "kate_ctags_view.h"
 
 #include <QFileInfo>
 #include <KFileDialog>
 
-#include <kgenericfactory.h>
 #include <kmenu.h>
 #include <kactioncollection.h>
 #include <kstringhandler.h>
 #include <kmessagebox.h>
 
 #define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --excmd=pattern --exclude=Makefile --exclude=."
-
-K_EXPORT_COMPONENT_FACTORY(katectagsplugin, KGenericFactory<KateCTagsPlugin>("kate-ctags-plugin"))
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
@@ -613,18 +610,8 @@ void KateCTagsView::generateDone()
 }
 
 /******************************************************************/
-KateCTagsPlugin::KateCTagsPlugin(QObject* parent, const QStringList&):
-        Kate::Plugin ((Kate::Application*)parent)
+void KateCTagsView::readConfig()
 {
+    kDebug();
 }
-
-/******************************************************************/
-Kate::PluginView *KateCTagsPlugin::createView(Kate::MainWindow *mainWindow)
-{
-    return new KateCTagsView(mainWindow);
-}
-
-
-
-
 

@@ -11,7 +11,8 @@ set(ctagsplugin_SRC
     readtags.c
     tags.cpp
     ctagskinds.cpp
-    kate_ctags.cpp
+    kate_ctags_view.cpp
+    kate_ctags_plugin.cpp
 )
 
 kde4_add_ui_files(ctagsplugin_SRC kate_ctags.ui)

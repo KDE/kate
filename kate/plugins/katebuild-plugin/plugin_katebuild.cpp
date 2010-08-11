@@ -36,6 +36,8 @@
 #include <qpalette.h>
 #include <qlabel.h>
 #include <QApplication>
+#include <QCompleter>
+#include <QDirModel>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -141,6 +143,14 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     buildUi.buildCmd->setText("make");
     buildUi.cleanCmd->setText("make clean");
     buildUi.quickComp->setText(DEF_QUICK_COMP_CMD);
+
+    QCompleter* dirCompleter = new QCompleter(this);
+    QStringList filter;
+    dirCompleter->setModel(new QDirModel(filter, QDir::AllDirs|QDir::NoDotAndDotDot, QDir::Name, this));
+    buildUi.buildDir->setCompleter(dirCompleter);
+
+
+    
     m_proc = new KProcess();
 
     connect(m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcExited(int, QProcess::ExitStatus)));

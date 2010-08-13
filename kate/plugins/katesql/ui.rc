@@ -1,9 +1,10 @@
 <!DOCTYPE kpartgui>
-<gui name="katesql" library="katesqlplugin" version="3">
+<gui name="katesql" library="katesqlplugin" version="6">
   <MenuBar>
     <Menu name="SQL"><text>&amp;SQL</text>
       <Action name="connection_create" />
       <Action name="connection_remove" />
+      <Action name="connection_edit" />
       <Separator/>
       <Action name="query_run"/>
       <Action name="query_stop"/>
@@ -14,6 +15,7 @@
     <Action name="connection_chooser" />
     <Action name="connection_create" />
     <Action name="connection_remove" />
+    <Action name="connection_edit" />
   </ToolBar>
 
   <ToolBar name="SQLToolBar"><text>SQL Toolbar</text>

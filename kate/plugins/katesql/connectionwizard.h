@@ -25,6 +25,9 @@ class KLineEdit;
 class KIntSpinBox;
 class KUrlRequester;
 
+#include "connection.h"
+
+#include <kwallet.h>
 #include <qwizard.h>
 
 class ConnectionWizard : public QWizard
@@ -39,13 +42,15 @@ class ConnectionWizard : public QWizard
       Page_Save
     };
 
-    ConnectionWizard(SQLManager *manager, QWidget *parent=0, Qt::WindowFlags flags = 0);
+    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent=0, Qt::WindowFlags flags = 0);
     ~ConnectionWizard();
 
     SQLManager *manager() { return m_manager; }
+    Connection *connection() { return m_connection; }
 
   private:
     SQLManager *m_manager;
+    Connection *m_connection;
 };
 
 
@@ -53,6 +58,7 @@ class ConnectionDriverPage : public QWizardPage
 {
   public:
     ConnectionDriverPage(QWidget *parent=0);
+    void initializePage();
     int nextId() const;
 
   private:
@@ -63,6 +69,7 @@ class ConnectionStandardServerPage : public QWizardPage
 {
   public:
     ConnectionStandardServerPage(QWidget *parent=0);
+    ~ConnectionStandardServerPage();
     void initializePage();
     virtual bool validatePage();
     int nextId() const;
@@ -80,6 +87,7 @@ class ConnectionSQLiteServerPage : public QWizardPage
 {
   public:
     ConnectionSQLiteServerPage(QWidget *parent=0);
+    void initializePage();
     virtual bool validatePage();
     int nextId() const;
 
@@ -97,8 +105,6 @@ class ConnectionSavePage : public QWizardPage
     void initializePage();
     virtual bool validatePage();
     int nextId() const;
-
-    bool checkName();
 
   private:
     KLineEdit *connectionNameLineEdit;

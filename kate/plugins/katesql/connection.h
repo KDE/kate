@@ -32,6 +32,7 @@ struct Connection
   QString database;
   QString options;
   int     port;
+  bool    enabled;
 };
 
 Q_DECLARE_METATYPE(Connection)

@@ -41,15 +41,14 @@ class SchemaWidget : public QTreeWidget
     SchemaWidget(QWidget *parent = 0);
     virtual ~SchemaWidget();
 
-  public slots:
-    void buildTree(const QString &connection);
-    void refresh();
-
-  public:
     void buildDatabase(QTreeWidgetItem * databaseItem);
     void buildTables(QTreeWidgetItem * tablesItem);
     void buildViews(QTreeWidgetItem * viewsItem);
     void buildFields(QTreeWidgetItem * tableItem);
+
+  public slots:
+    void buildTree(const QString &connection);
+    void refresh();
 
   private slots:
     void slotCustomContextMenuRequested(const QPoint &pos);

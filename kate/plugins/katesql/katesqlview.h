@@ -28,6 +28,7 @@ class KConfigBase;
 class KComboBox;
 
 class QSqlQuery;
+class QActionGroup;
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
@@ -49,6 +50,7 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
 
   public slots:
     void slotConnectionCreate();
+    void slotConnectionEdit();
     void slotConnectionRemove();
     void slotRunQuery();
     void slotError(const QString &message);
@@ -66,6 +68,7 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
     QWidget *m_textOutputToolView;
     QWidget *m_dataOutputToolView;
     QWidget *m_schemaBrowserToolView;
+    QActionGroup *m_connectionsGroup;
 
     TextOutputWidget *m_textOutputWidget;
     DataOutputWidget *m_dataOutputWidget;

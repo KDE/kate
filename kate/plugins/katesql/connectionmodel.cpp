@@ -19,13 +19,20 @@
 #include "connectionmodel.h"
 
 #include <kdebug.h>
+#include <kicon.h>
+#include <kglobalsettings.h>
 
-#include <qvariant.h>
+#include <qfontmetrics.h>
+#include <qfont.h>
+#include <qsize.h>
 #include <qstringlist.h>
+#include <qvariant.h>
 
 ConnectionModel::ConnectionModel(QObject *parent)
 : QAbstractListModel(parent)
 {
+  enabledIcon  = KIcon("user-online");
+  disabledIcon = KIcon("user-offline");
 }
 
 ConnectionModel::~ConnectionModel()
@@ -46,12 +53,31 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
   QString key = m_connections.keys().at(index.row());
 
-  if (role == Qt::DisplayRole)
-    return QVariant(m_connections.value(key).name);
-   else if (role == Qt::UserRole)
-     return qVariantFromValue<Connection>(m_connections.value(key));
-  else
-    return QVariant();
+  switch (role)
+  {
+    case Qt::DisplayRole:
+      return QVariant(m_connections.value(key).name);
+    break;
+
+    case Qt::UserRole:
+      return qVariantFromValue<Connection>(m_connections.value(key));
+    break;
+
+    case Qt::DecorationRole:
+      return (m_connections.value(key).enabled) ? enabledIcon : disabledIcon;
+    break;
+
+    case Qt::SizeHintRole:
+    {
+      QFontMetrics metrics(KGlobalSettings::generalFont());
+      return QSize(metrics.width(m_connections.value(key).name), 22);
+    }
+    break;
+
+    default:
+      return QVariant();
+    break;
+  }
 }
 
 int ConnectionModel::addConnection( Connection conn )
@@ -88,4 +114,17 @@ void ConnectionModel::removeConnection( const QString &name )
 int ConnectionModel::indexOf(const QString &name)
 {
   return m_connections.keys().indexOf(name);
+}
+
+
+void ConnectionModel::setEnabled(const QString &name, bool enabled)
+{
+  if (!m_connections.contains(name))
+    return;
+
+  m_connections[name].enabled = enabled;
+
+  int i = indexOf(name);
+
+  emit dataChanged(index(i), index(i));
 }

@@ -21,6 +21,8 @@
 
 #include "connection.h"
 
+#include <kicon.h>
+
 #include <QAbstractListModel>
 #include <qstring.h>
 #include <qhash.h>
@@ -39,6 +41,8 @@ class ConnectionModel : public QAbstractListModel
     virtual int addConnection(Connection conn);
     virtual void removeConnection(const QString &name);
 
+    void setEnabled(const QString &name, bool enabled);
+
     int indexOf(const QString &name);
 
 //     virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
@@ -46,6 +50,9 @@ class ConnectionModel : public QAbstractListModel
 
   private:
     QHash<QString, Connection> m_connections;
+
+    KIcon enabledIcon;
+    KIcon disabledIcon;
 };
 
 #endif // CONNECTIONMODEL_H

@@ -23,6 +23,7 @@ class ConnectionModel;
 class KConfigGroup;
 
 #include "connection.h"
+#include <kwallet.h>
 #include <qsqlquery.h>
 
 class SQLManager : public QObject
@@ -36,6 +37,10 @@ class SQLManager : public QObject
     ConnectionModel *connectionModel();
     void createConnection(const Connection &conn);
     bool testConnection(const Connection &conn, QSqlError &error);
+
+    KWallet::Wallet * openWallet();
+    int storeCredentials(const Connection &conn);
+    int readCredentials(Connection &conn);
 
   public slots:
     void removeConnection(const QString &name);
@@ -57,6 +62,7 @@ class SQLManager : public QObject
 
   private:
     ConnectionModel *m_model;
+    KWallet::Wallet *m_wallet;
 };
 
 #endif // SQLMANAGER_H

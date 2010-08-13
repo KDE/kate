@@ -17,7 +17,6 @@
 */
 
 #include "connectionwizard.h"
-#include "connection.h"
 #include "sqlmanager.h"
 
 #include <klocale.h>
@@ -26,18 +25,18 @@
 #include <klineedit.h>
 #include <kurlrequester.h>
 #include <kdebug.h>
-#include <KIntSpinBox>
+#include <knuminput.h>
 
 #include <qformlayout.h>
 #include <qsqldatabase.h>
 #include <qsqlerror.h>
 
-ConnectionWizard::ConnectionWizard ( SQLManager *manager, QWidget *parent, Qt::WindowFlags flags )
+ConnectionWizard::ConnectionWizard ( SQLManager *manager, Connection *conn, QWidget *parent, Qt::WindowFlags flags )
 : QWizard(parent, flags)
+, m_manager(manager)
+, m_connection(conn)
 {
-  m_manager = manager;
-
-  setWindowTitle(i18n("New Connection Wizard"));
+  setWindowTitle(i18n("Connection Wizard"));
 
   setPage(Page_Driver, new ConnectionDriverPage);
   setPage(Page_Standard_Server, new ConnectionStandardServerPage);
@@ -65,6 +64,16 @@ ConnectionDriverPage::ConnectionDriverPage ( QWidget *parent)
   setLayout(layout);
 
   registerField("driver", driverComboBox, "currentText");
+}
+
+
+void ConnectionDriverPage::initializePage()
+{
+  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
+  Connection *c = wiz->connection();
+
+  if (!c->driver.isEmpty())
+    driverComboBox->setCurrentItem(c->driver);
 }
 
 int ConnectionDriverPage::nextId() const
@@ -113,11 +122,32 @@ ConnectionStandardServerPage::ConnectionStandardServerPage ( QWidget *parent )
   registerField("port"     , portSpinBox);
 }
 
+
+ConnectionStandardServerPage::~ConnectionStandardServerPage()
+{
+}
+
+
 void ConnectionStandardServerPage::initializePage()
 {
+  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
+  Connection *c = wiz->connection();
+
   hostnameLineEdit->setText("localhost");
+
+  if (c->driver == field("driver").toString())
+  {
+    hostnameLineEdit->setText(c->hostname);
+    usernameLineEdit->setText(c->username);
+    passwordLineEdit->setText(c->password);
+    databaseLineEdit->setText(c->database);
+    optionsLineEdit->setText(c->options);
+    portSpinBox->setValue(c->port);
+  }
+
   hostnameLineEdit->selectAll();
 }
+
 
 bool ConnectionStandardServerPage::validatePage()
 {
@@ -172,6 +202,19 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
   registerField("sqliteOptions", optionsLineEdit);
 }
 
+
+void ConnectionSQLiteServerPage::initializePage()
+{
+  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
+  Connection *c = wiz->connection();
+
+  if (c->driver == field("driver").toString())
+  {
+    pathUrlRequester->lineEdit()->setText(c->database);
+    optionsLineEdit->setText(c->options);
+  }
+}
+
 bool ConnectionSQLiteServerPage::validatePage()
 {
   Connection c;
@@ -219,7 +262,14 @@ void ConnectionSavePage::initializePage()
 {
   QString name;
 
-  if (field("driver").toString().contains("QSQLITE"))
+  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
+  Connection *c = wiz->connection();
+
+  if (!c->name.isEmpty())
+  {
+    name = c->name;
+  }
+  else if (field("driver").toString().contains("QSQLITE"))
   {
     /// TODO: use db file basename
     name = "SQLite";
@@ -232,57 +282,46 @@ void ConnectionSavePage::initializePage()
     name = QString("%1 on %2").arg(field("database").toString()).arg(field("hostname").toString()).simplified();
 
     for (int i = 1; QSqlDatabase::contains(name); i++)
-      name = QString("%1 in %2 (%3)").arg(field("database").toString()).arg(field("hostname").toString()).arg(i).simplified();
+      name = QString("%1 on %2 (%3)").arg(field("database").toString()).arg(field("hostname").toString()).arg(i).simplified();
   }
 
   connectionNameLineEdit->setText(name);
   connectionNameLineEdit->selectAll();
 }
 
-bool ConnectionSavePage::checkName()
-{
-  QString name = field("connectionName").toString().simplified();
-
-  if (name.isEmpty())
-    return false;
-
-  return (! QSqlDatabase::contains(name));
-}
 
 bool ConnectionSavePage::validatePage()
 {
   QString name = field("connectionName").toString().simplified();
 
-  if (!checkName())
-  {
-    KMessageBox::error(this, i18n("Connection %1 already exists.\nPlease choose a different name").arg(name));
-    return false;
-  }
+  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
+  Connection *c = wiz->connection();
 
-  Connection c;
-
-  c.name   = name;
-  c.driver = field("driver").toString();
+  c->name   = name;
+  c->driver = field("driver").toString();
 
   if (field("driver").toString().contains("QSQLITE"))
   {
-    c.database = field("path").toString();
-    c.options  = field("sqliteOptions").toString();
+    c->database = field("path").toString();
+    c->options  = field("sqliteOptions").toString();
   }
   else
   {
-    c.hostname = field("hostname").toString();
-    c.username = field("username").toString();
-    c.password = field("password").toString();
-    c.database = field("database").toString();
-    c.options  = field("stdOptions").toString();
-    c.port     = field("port").toInt();
+    c->hostname = field("hostname").toString();
+    c->username = field("username").toString();
+    c->password = field("password").toString();
+    c->database = field("database").toString();
+    c->options  = field("stdOptions").toString();
+    c->port     = field("port").toInt();
   }
-
+/*
   ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
 
   wiz->manager()->createConnection(c);
 
+  if (wiz->manager()->storeCredentials(c) != 0)
+    kWarning() << "Connection credentials not saved";
+*/
   return true;
 }
 

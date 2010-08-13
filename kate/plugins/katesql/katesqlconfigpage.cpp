@@ -31,10 +31,7 @@ KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
 {
   QVBoxLayout *layout = new QVBoxLayout( this );
 
-  m_box = new QCheckBox(i18n(
-    "Save and restore connections in Kate session\n"
-    "WARNING: passwords will be stored in plain text format"
-  ), this);
+  m_box = new QCheckBox(i18n("Save and restore connections in Kate session"), this);
 
   QGroupBox *stylesGroupBox = new QGroupBox(i18n("Output Customization"), this);
   QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);

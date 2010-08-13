@@ -126,6 +126,9 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
   systemTablesItem->setIcon(0, KIcon("folder"));
   systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
+  if (!db.isValid() || !db.isOpen() )
+    return;
+
   QStringList tables = db.tables(QSql::SystemTables);
 
   foreach(QString table, tables)
@@ -154,6 +157,9 @@ void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
 {
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
+  if (!db.isValid() || !db.isOpen() )
+    return;
+
   QStringList views = db.tables(QSql::Views);
 
   foreach(QString view, views)
@@ -171,6 +177,9 @@ void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
 void SchemaWidget::buildFields(QTreeWidgetItem * tableItem)
 {
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+
+  if (!db.isValid() || !db.isOpen() )
+    return;
 
   QString tableName = tableItem->text(0);
 

@@ -19,6 +19,7 @@
 #include "sqlmanager.h"
 #include "connectionmodel.h"
 
+#include <kpassworddialog.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kconfig.h>
@@ -29,9 +30,12 @@
 #include <qsqlerror.h>
 #include <qsqldriver.h>
 
+using KWallet::Wallet;
+
 SQLManager::SQLManager(QObject *parent)
 : QObject(parent)
 , m_model(new ConnectionModel(this))
+, m_wallet(0)
 {
 }
 
@@ -45,6 +49,7 @@ SQLManager::~SQLManager()
   }
 
   delete m_model;
+  delete m_wallet;
 }
 
 
@@ -74,14 +79,19 @@ void SQLManager::createConnection(const Connection &conn)
   if (conn.port > 0)
     db.setPort(conn.port);
 
+  m_model->addConnection(conn);
+
   if (!db.open())
   {
     emit error(db.lastError().text());
-    QSqlDatabase::removeDatabase(conn.name);
-    return;
-  }
 
-  m_model->addConnection(conn);
+    m_model->setEnabled(conn.name, false);
+//     conn.enabled = false;
+//    QSqlDatabase::removeDatabase(conn.name);
+//    return;
+  }
+  else
+    m_model->setEnabled(conn.name, true);
 
   emit connectionCreated(conn.name);
 }
@@ -121,6 +131,68 @@ bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
 }
 
 
+Wallet *SQLManager::openWallet()
+{
+  if (!m_wallet)
+    /// FIXME get kate window id...
+    m_wallet = Wallet::openWallet(KWallet::Wallet::NetworkWallet(), 0);
+
+  QString folder("SQL Connections");
+
+  if (!m_wallet->hasFolder(folder))
+    m_wallet->createFolder(folder);
+
+  m_wallet->setFolder(folder);
+
+  return m_wallet;
+}
+
+
+// return 0 on success, -1 on error, -2 on user reject
+int SQLManager::storeCredentials(const Connection &conn)
+{
+  Wallet *wallet = openWallet();
+
+  if (!wallet) // user reject
+    return -2;
+
+  QMap<QString, QString> map;
+
+  map["driver"] = conn.driver.toUpper();
+  map["hostname"] = conn.hostname.toUpper();
+  map["port"] = QString::number(conn.port);
+  map["database"] = conn.database.toUpper();
+  map["username"] = conn.username;
+  map["password"] = conn.password;
+
+  return (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
+}
+
+
+// return 0 on success, -1 on error or not found, -2 on user reject
+// if success, conn.password contain the password
+int SQLManager::readCredentials(Connection &conn)
+{
+  Wallet *wallet = openWallet();
+
+  if (!wallet) // user reject
+    return -2;
+
+  QMap<QString, QString> map;
+
+  if (wallet->readMap(conn.name, map) == 0)
+  {
+    if (!map.isEmpty())
+    {
+      conn.password = map.value("password");
+      return 0;
+    }
+  }
+
+  return -1;
+}
+
+
 ConnectionModel* SQLManager::connectionModel()
 {
   return m_model;
@@ -141,6 +213,9 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 {
   Connection c;
 
+  Wallet *wallet = 0;
+  bool walletErrorOrUserReject = false;
+
   foreach ( const QString& groupName, connectionsGroup->groupList() )
   {
     kDebug() << "reading group:" << groupName;
@@ -149,13 +224,37 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 
     c.name     = groupName;
     c.driver   = group.readEntry("driver");
-    c.hostname = group.readEntry("hostname");
-    c.username = group.readEntry("username");
-    c.password = group.readEntry("password");
-    c.port     = group.readEntry("port").toInt();
     c.database = group.readEntry("database");
     c.options  = group.readEntry("options");
 
+    if (!c.driver.contains("QSQLITE"))
+    {
+      c.hostname = group.readEntry("hostname");
+      c.username = group.readEntry("username");
+      c.port     = group.readEntry("port", 0);
+
+      // for compatibility with version 0.2, when passwords
+      // were stored in config file instead of kwallet
+      c.password = group.readEntry("password");
+
+      if (!c.password.isEmpty())
+        continue;
+
+      if (!walletErrorOrUserReject)
+      {
+        wallet = openWallet();
+
+        if (!wallet)
+          walletErrorOrUserReject = true;
+        else
+        {
+          int ret = readCredentials(c);
+
+          if (ret != 0)
+            kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
+        }
+      }
+    }
     createConnection(c);
   }
 }
@@ -174,12 +273,15 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
   KConfigGroup group = connectionsGroup->group(conn.name);
 
   group.writeEntry("driver"  , conn.driver);
-  group.writeEntry("hostname", conn.hostname);
-  group.writeEntry("username", conn.username);
-  group.writeEntry("password", conn.password);
-  group.writeEntry("port"    , conn.port);
   group.writeEntry("database", conn.database);
   group.writeEntry("options" , conn.options);
+
+  if (!conn.driver.contains("QSQLITE"))
+  {
+    group.writeEntry("hostname", conn.hostname);
+    group.writeEntry("username", conn.username);
+    group.writeEntry("port"    , conn.port);
+  }
 }
 
 
@@ -205,10 +307,13 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
     if (!db.open())
     {
+      m_model->setEnabled(connection, false);
       emit error(db.lastError().text());
       return;
     }
   }
+
+  m_model->setEnabled(connection, true);
 
   QSqlQuery query(db);
 

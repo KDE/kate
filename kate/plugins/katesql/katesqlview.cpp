@@ -43,6 +43,7 @@
 #include <kcombobox.h>
 #include <kconfig.h>
 
+#include <qmenu.h>
 #include <qstring.h>
 #include <qsqlquery.h>
 #include <QVBoxLayout>
@@ -87,6 +88,14 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
 
   setXMLFile(QString::fromLatin1("plugins/katesql/ui.rc"));
   mainWindow()->guiFactory()->addClient(this);
+
+  QMenu *sqlMenu = (QMenu*)factory()->container("SQL", this);
+
+  m_connectionsGroup = new QActionGroup(sqlMenu);
+  m_connectionsGroup->setExclusive(true);
+
+  connect(sqlMenu, SIGNAL(aboutToShow()), this, SLOT(slotSQLMenuAboutToShow()));
+  connect(m_connectionsGroup, SIGNAL(triggered(QAction *)), this, SLOT(slotConnectionSelectedFromMenu(QAction *)));
 
   connect(m_manager, SIGNAL(error(const QString&)), this, SLOT(slotError(const QString&)));
   connect(m_manager, SIGNAL(success(const QString&)), this, SLOT(slotSuccess(const QString&)));
@@ -139,6 +148,43 @@ void KateSQLView::setupActions()
   //   action->setIcon( KIcon("process-stop") );
   //   action->setShortcut( QKeySequence(Qt::ALT + Qt::Key_F5) );
   //   connect( action , SIGNAL(triggered()) , this , SLOT(stopQuery()));
+}
+
+
+void KateSQLView::slotSQLMenuAboutToShow()
+{
+  qDeleteAll( m_connectionsGroup->actions() );
+
+  QMenu *sqlMenu = (QMenu*)factory()->container("SQL", this);
+  QAction *before = action("query_run");
+  QAbstractItemModel *model = m_manager->connectionModel();
+
+  int rows = model->rowCount(QModelIndex());
+
+  for (int row = 0; row < rows; row++)
+  {
+    QModelIndex index = model->index(row, 0, QModelIndex());
+
+    Q_ASSERT(index.isValid());
+
+    QString connectionName = index.data(Qt::DisplayRole).toString();
+
+    QAction *act = new QAction(connectionName, m_connectionsGroup);
+    act->setCheckable(true);
+
+    if (m_connectionsComboBox->currentText() == connectionName)
+      act->setChecked(true);
+
+    sqlMenu->insertAction(before, act);
+  }
+
+  sqlMenu->insertSeparator(before);
+}
+
+
+void KateSQLView::slotConnectionSelectedFromMenu(QAction *action)
+{
+  m_connectionsComboBox->setCurrentItem(action->text());
 }
 
 

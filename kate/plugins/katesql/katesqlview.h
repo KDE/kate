@@ -32,9 +32,6 @@ class QSqlQuery;
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 
-/// TODO:
-/// - add connection list to SQL menu with radiobutton for selection (like Go menu in Kate)
-
 class KateSQLView : public Kate::PluginView, public KXMLGUIClient
 {
   Q_OBJECT
@@ -59,6 +56,8 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
     void slotQueryActivated(QSqlQuery &query);
     void slotConnectionCreated(const QString &name);
     void slotGlobalSettingsChanged();
+    void slotSQLMenuAboutToShow();
+    void slotConnectionSelectedFromMenu(QAction *action);
 
   protected:
     void setupActions();

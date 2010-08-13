@@ -27,7 +27,7 @@
 
 #include "katepartprivate_export.h"
 
-#include <ktexteditor/range.h>
+#include <ktexteditor/movingrange.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
 
@@ -37,7 +37,6 @@ class QLabel;
 class QTimer;
 
 class KateView;
-class KateSmartRange;
 class KateCompletionModel;
 class KateCompletionTree;
 class KateEditInfo;
@@ -93,19 +92,19 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     struct CompletionRange{
       CompletionRange() : range(0) {
       }
-      CompletionRange(KateSmartRange* r) : range(r) {
+      CompletionRange(KTextEditor::MovingRange* r) : range(r) {
       }
 
       bool operator==(const CompletionRange& rhs) const {
-        return range == rhs.range;
+        return range->toRange() == rhs.range->toRange();
       }
 
-      KateSmartRange* range;
+      KTextEditor::MovingRange* range;
       //Whenever the cursor goes before this position, the completion is stopped, unless it is invalid.
       KTextEditor::Cursor leftBoundary;
     };
 
-    KateSmartRange* completionRange(KTextEditor::CodeCompletionModel* model = 0) const;
+    KTextEditor::MovingRange* completionRange(KTextEditor::CodeCompletionModel* model = 0) const;
     QMap<KTextEditor::CodeCompletionModel*, CompletionRange> completionRanges( ) const;
 
     // Navigation

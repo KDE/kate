@@ -29,7 +29,6 @@
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/templateinterface2.h>
-#include <ktexteditor/smartrangewatcher.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 
@@ -56,7 +55,6 @@ class KateViewConfig;
 class KateRenderer;
 class KateSpellCheckDialog;
 class KateCompletionWidget;
-class KateSmartRange;
 class KateViewInternal;
 class KateSearchBar;
 class KateViModeBar;
@@ -83,7 +81,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
                  public KTextEditor::TemplateInterface2,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
-                 private KTextEditor::SmartRangeWatcher,
                  public KTextEditor::AnnotationViewInterface,
                  public KTextEditor::CoordinatesToCursorInterface
 {
@@ -262,23 +259,9 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // Arbitrary Syntax HL + Action extensions
   //
   public:
-    // Syntax highlighting extension
-    void addExternalHighlight(KTextEditor::SmartRange* topRange, bool supportDynamic);
-    const QList<KTextEditor::SmartRange*>& externalHighlights() const;
-    void clearExternalHighlights();
-
     // Action association extension
     void deactivateEditActions();
     void activateEditActions();
-
-  public Q_SLOTS:
-    void removeExternalHighlight(KTextEditor::SmartRange* topRange);
-
-  private:
-    // Smart range watcher overrides
-    virtual void rangeDeleted(KTextEditor::SmartRange* range);
-
-    QList<KTextEditor::SmartRange*> m_externalHighlights;
 
   //
   // internal helper stuff, for katerenderer and so on

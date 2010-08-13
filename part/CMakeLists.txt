@@ -26,7 +26,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/search
-  ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/undo
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
@@ -108,12 +107,6 @@ search/kateplaintextsearch.cpp
 search/kateregexpsearch.cpp
 search/katematch.cpp
 search/katesearchbar.cpp
-
-# smart stuff (cursors, ranges, ...)
-smart/katesmartcursor.cpp
-smart/katesmartrange.cpp
-smart/katesmartmanager.cpp
-smart/katesmartgroup.cpp
 
 # syntax related stuff (highlighting, xml file parsing, folding, ...)
 syntax/katesyntaxmanager.cpp

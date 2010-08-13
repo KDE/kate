@@ -27,7 +27,6 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include <ktexteditor/attribute.h>
-#include <ktexteditor/smartrangewatcher.h>
 
 #include "katetextcursor.h"
 #include "katelinelayout.h"
@@ -48,14 +47,13 @@ namespace KTextEditor {
 
 class KateIconBorder;
 class KateScrollBar;
-class KateSmartRange;
 class KateTextLayout;
 
 class KateViInputModeManager;
 
 class QScrollBar;
 
-class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
+class KateViewInternal : public QWidget
 {
     Q_OBJECT
 
@@ -411,33 +409,16 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KTextEditor::MovingRange *m_imPreeditRange;
     QList<KTextEditor::MovingRange *> m_imPreeditRangeChildren;
 
-  // Arbitrary highlighting
-  public:
-    void addHighlightRange(KTextEditor::SmartRange* range);
-    void removeHighlightRange(KTextEditor::SmartRange* range);
-
   private:
     void mouseMoved();
     void cursorMoved();
 
   private:
-    // Overrides for watched highlighting ranges
-    void rangePositionChanged(KTextEditor::SmartRange* range);
-    void rangeDeleted(KTextEditor::SmartRange* range);
-    void childRangeInserted(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
-    void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
-    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute);
-
-  private:
     bool m_smartDirty;
-
-    void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
-    void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
 
   private:
     inline KateDocument *doc() { return m_view->doc(); }
     inline KateDocument *doc() const { return m_view->doc(); }
-    inline KateSmartManager *smartManager() { return doc()->smartManager(); }
 
   // vi Mode
   private:

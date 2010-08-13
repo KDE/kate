@@ -34,8 +34,6 @@
 #include <katerenderer.h>
 #include <kateconfig.h>
 
-#include <katesmartrange.h>
-
 QTEST_KDEMAIN(CompletionTest, GUI)
 
 

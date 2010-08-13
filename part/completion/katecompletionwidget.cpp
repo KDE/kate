@@ -38,15 +38,12 @@
 #include <kicon.h>
 #include <kdialog.h>
 
-#include <ktexteditor/smartcursornotifier.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include "kateview.h"
-#include "katesmartmanager.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katedocument.h"
-#include "katesmartrange.h"
 #include "kateedit.h"
 
 #include "katecompletionmodel.h"
@@ -64,17 +61,6 @@ const bool shellLikeTabCompletion = false;
 
 #define CALLCI(WHAT,WHATELSE,WHAT2,model,FUNC) \
 {\
-  /*kDebug()<<"CALLCI";*/ \
-  KTextEditor::CodeCompletionModelControllerInterface* ret =\
-    qobject_cast<KTextEditor::CodeCompletionModelControllerInterface*>(model);\
-  if (ret) {\
-        kDebug()<<"You are using a deprecated API, this will break in KDE 4.6, please port your module to the new KTextEditor::CodeCompletionModelControllerInterface3";\
-    WHAT ret->FUNC;\
-    WHATELSE;\
-  }\
-}\
-\
-{\
   static KTextEditor::CodeCompletionModelControllerInterface3 defaultIf;\
   KTextEditor::CodeCompletionModelControllerInterface3* ret =\
     qobject_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(model);\
@@ -89,15 +75,15 @@ static KTextEditor::Range _completionRange(KTextEditor::CodeCompletionModel *mod
   CALLCI(return,,return, model,completionRange(view, cursor));
 }
 
-static KTextEditor::Range _updateRange(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, KTextEditor::SmartRange& range) {
+static KTextEditor::Range _updateRange(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, KTextEditor::Range& range) {
   CALLCI(, return range,return, model,updateCompletionRange(view, range));
 }
 
-static QString _filterString(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::SmartRange& range, const KTextEditor::Cursor& cursor) {
+static QString _filterString(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::Range& range, const KTextEditor::Cursor& cursor) {
   CALLCI(return,,return, model,filterString(view, range, cursor));
 }
 
-static bool _shouldAbortCompletion(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::SmartRange& range, const QString& currentCompletion) {
+static bool _shouldAbortCompletion(KTextEditor::CodeCompletionModel *model,KTextEditor::View *view, const KTextEditor::Range& range, const QString& currentCompletion) {
       CALLCI(return,,return, model,shouldAbortCompletion(view, range, currentCompletion));
 }
 
@@ -168,7 +154,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
   connect(m_argumentHintModel, SIGNAL(contentStateChanged(bool)), this, SLOT(argumentHintsChanged(bool)));
 
-  // These must be queued connections so that we're not holding the smart lock when we ask for the model to update.
+  // These must be queued connections so that we're not holding the smart lock when we ask for the model to update.??? FIXME
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(cursorPositionChanged()), Qt::QueuedConnection);
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)));
   connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()), Qt::QueuedConnection);
@@ -356,7 +342,6 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
   m_presentationModel->clearCompletionModels();
 
   if(invocationType == KTextEditor::CodeCompletionModel::UserInvocation) {
-    QMutexLocker lock(view()->doc()->smartMutex());
     deleteCompletionRanges();
   }
 
@@ -372,8 +357,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     kDebug()<<"range is"<<range;
     if(!range.isValid()) {
       if(m_completionRanges.contains(model)) {
-        QMutexLocker lock(view()->doc()->smartMutex());
-        KTextEditor::SmartRange *oldRange = m_completionRanges[model].range;
+        KTextEditor::MovingRange *oldRange = m_completionRanges[model].range;
         kDebug()<<"removing completion range 1";
         m_completionRanges.remove(model);
         delete oldRange;
@@ -386,8 +370,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
         continue; //Leave it running as it is
       }
       else { // delete the range that was used previously
-        QMutexLocker lock(view()->doc()->smartMutex());
-        KTextEditor::SmartRange *oldRange = m_completionRanges[model].range;
+        KTextEditor::MovingRange *oldRange = m_completionRanges[model].range;
         kDebug()<<"removing completion range 2";
         m_completionRanges.remove(model);
         delete oldRange;
@@ -401,10 +384,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
 
     disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
 
-    QMutexLocker lock(view()->doc()->smartMutex());
-
-    m_completionRanges[model] = view()->doc()->smartManager()->newSmartRange(range);
-    m_completionRanges[model].range->setInsertBehavior(KTextEditor::SmartRange::ExpandRight | KTextEditor::SmartRange::ExpandLeft);
+    m_completionRanges[model] = view()->doc()->newMovingRange(range, KTextEditor::MovingRange::ExpandRight | KTextEditor::MovingRange::ExpandLeft);
 
     //In automatic invocation mode, hide the completion widget as soon as the position where the completion was started is passed to the left
     m_completionRanges[model].leftBoundary = view()->cursorPosition();
@@ -414,14 +394,11 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
       if(range.start() < m_completionRanges[model].leftBoundary)
         m_completionRanges[model].leftBoundary = range.start();
 
-    if(!m_completionRanges[model].range->isValid()) {
+    if(!m_completionRanges[model].range->toRange().isValid()) {
       kWarning(13035) << "Could not construct valid smart-range from" << range << "instead got" << *m_completionRanges[model].range;
-      lock.unlock();
       abortCompletion();
       return;
     }
-
-    lock.unlock();
   }
 
   m_presentationModel->setCompletionModels(models);
@@ -689,9 +666,6 @@ void KateCompletionWidget::cursorPositionChanged( )
 
   QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
 
-  QMutexLocker lock(view()->doc()->smartMutex());
-  lock.unlock();
-
   //Check the models and eventuall abort some
   for(QList<KTextEditor::CodeCompletionModel*>::iterator it = checkCompletionRanges.begin();
       it != checkCompletionRanges.end(); ++it) {
@@ -699,10 +673,11 @@ void KateCompletionWidget::cursorPositionChanged( )
         continue;
 
       KTextEditor::CodeCompletionModel *model = *it;
-      KateSmartRange* range = m_completionRanges[*it].range;
+      KTextEditor::MovingRange *range = m_completionRanges[*it].range;
 
       kDebug()<<"range before _updateRange:"<< *range;
-      *range=_updateRange(model, view(),*range);
+      KTextEditor::Range rangeTE = range->toRange();
+      range->setRange (_updateRange(model, view(),rangeTE));
       kDebug()<<"range after _updateRange:"<< *range;
       QString currentCompletion = _filterString(model,view(), *range, view()->cursorPosition());
       kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
@@ -723,11 +698,9 @@ void KateCompletionWidget::cursorPositionChanged( )
           return;
         } else {
           {
-            lock.relock();
             delete m_completionRanges[*it].range;
             kDebug()<<"removing completion range 3";
             m_completionRanges.remove(*it);
-            lock.unlock();
           }
 
           _aborted(model,view());
@@ -785,8 +758,6 @@ void KateCompletionWidget::clear() {
   foreach(KTextEditor::CodeCompletionModel* model, m_completionRanges.keys())
     _aborted(model,view());
 
-  QMutexLocker lock(view()->doc()->smartMutex());
-
   deleteCompletionRanges();
 }
 
@@ -842,10 +813,6 @@ void KateCompletionWidget::execute()
   Q_ASSERT(m_completionRanges.contains(model));
   KTextEditor::Cursor start = m_completionRanges[model].range->start();
 
-  //editStart locks the smart-mutex, but it must not be locked when calling external functions,
-  //else we may get deadlock-issues.
-  view()->doc()->smartMutex()->unlock();
-
   if(model2)
     model2->executeCompletionItem2(view()->document(), *m_completionRanges[model].range, toExecute);
   else if(toExecute.parent().isValid())
@@ -853,9 +820,6 @@ void KateCompletionWidget::execute()
     view()->document()->replaceText(*m_completionRanges[model].range, model->data(toExecute.sibling(toExecute.row(), KTextEditor::CodeCompletionModel::Name)).toString());
   else
     model->executeCompletionItem(view()->document(), *m_completionRanges[model].range, toExecute.row());
-
-  //Relock, because editEnd expects it to be locked
-  view()->doc()->smartMutex()->lock();
 
   view()->doc()->editEnd();
 
@@ -889,12 +853,12 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
     m_argumentHintTree->show();
 }
 
-KateSmartRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompletionModel* model) const
+KTextEditor::MovingRange * KateCompletionWidget::completionRange(KTextEditor::CodeCompletionModel* model) const
 {
   if (!model) {
     if (m_completionRanges.isEmpty()) return 0;
 
-    KateSmartRange* ret = m_completionRanges.begin()->range;
+    KTextEditor::MovingRange* ret = m_completionRanges.begin()->range;
     
     foreach(CompletionRange range, m_completionRanges)
       if(range.range->start() > ret->start())

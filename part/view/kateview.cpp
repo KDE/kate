@@ -45,8 +45,6 @@
 #include "katemodemenu.h"
 #include "kateautoindent.h"
 #include "katecompletionwidget.h"
-#include "katesmartmanager.h"
-#include "katesmartrange.h"
 #include "katesearchbar.h"
 #include "katevimodebar.h"
 #include "katepartpluginmanager.h"
@@ -286,9 +284,6 @@ KateView::~KateView()
   KatePartPluginManager::self()->removeView(this);
 
   m_doc->removeView( this );
-
-  foreach (KTextEditor::SmartRange* range, m_externalHighlights)
-    removeExternalHighlight(range);
 
   delete m_viewInternal;
 
@@ -1101,8 +1096,6 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 
 bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, uint tabwidth, bool calledExternally )
 {
-  QMutexLocker lock(m_doc->smartMutex());
-
   Kate::TextLine l = m_doc->kateTextLine( position.line() );
 
   if (!l)
@@ -1504,10 +1497,7 @@ void KateView::updateConfig ()
   m_copy->setEnabled(selection() || m_config->smartCopyCut());
 
   // now redraw...
-  {
-    QMutexLocker lock(m_doc->smartMutex());
-    m_viewInternal->cache()->clear();
-  }
+  m_viewInternal->cache()->clear();
   tagAll ();
   updateView (true);
 
@@ -1535,10 +1525,7 @@ void KateView::updateDocumentConfig()
   m_renderer->setIndentWidth (m_doc->config()->indentationWidth());
 
   // now redraw...
-  {
-    QMutexLocker lock(m_doc->smartMutex());
-    m_viewInternal->cache()->clear();
-  }
+  m_viewInternal->cache()->clear();
   tagAll ();
   updateView (true);
 }
@@ -1554,10 +1541,7 @@ void KateView::updateRendererConfig()
   m_viewInternal->updateBracketMarks();
 
   // now redraw...
-  {
-    QMutexLocker lock(m_doc->smartMutex());
-    m_viewInternal->cache()->clear();
-  }
+  m_viewInternal->cache()->clear();
   tagAll ();
   m_viewInternal->updateView (true);
 
@@ -1969,8 +1953,6 @@ bool KateView::blockSelectionMode () const
 
 bool KateView::setBlockSelectionMode (bool on)
 {
-  QMutexLocker l(m_doc->smartMutex());
-
   if (on != blockSelect)
   {
     blockSelect = on;
@@ -2040,47 +2022,6 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
 bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 {
   return tagLines(range.start(), range.end(), realRange);
-}
-
-void KateView::rangeDeleted( KTextEditor::SmartRange * range )
-{
-  removeExternalHighlight(range);
-}
-
-void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool )
-{
-  if(m_externalHighlights.contains(topRange))
-    return;
-
-  m_externalHighlights.append(topRange);
-
-  // Deal with the range being deleted externally
-  topRange->addWatcher(this);
-
-  m_viewInternal->addHighlightRange(topRange);
-}
-
-void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
-{
-  if(!m_externalHighlights.contains(topRange))
-    return;
-
-  // remove 'this' watcher from the Highlight, see also: bug 243365
-  topRange->removeWatcher(this);
-
-  m_externalHighlights.removeAll(topRange);
-
-  m_viewInternal->removeHighlightRange(topRange);
-}
-
-const QList< KTextEditor::SmartRange *>& KateView::externalHighlights() const
-{
-    return m_externalHighlights;
-}
-
-void KateView::clearExternalHighlights( )
-{
-  m_externalHighlights.clear();
 }
 
 void KateView::deactivateEditActions()
@@ -2289,49 +2230,41 @@ void KateView::capitalize( )
 
 void KateView::keyReturn( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doReturn();
 }
 
 void KateView::smartNewline( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doSmartNewline();
 }
 
 void KateView::backspace( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doBackspace();
 }
 
 void KateView::insertTab( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doTabulator();
 }
 
 void KateView::deleteWordLeft( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDeleteWordLeft();
 }
 
 void KateView::keyDelete( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDelete();
 }
 
 void KateView::deleteWordRight( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDeleteWordRight();
 }
 
 void KateView::transpose( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doTranspose();
 }
 
@@ -2357,37 +2290,31 @@ void KateView::shiftCursorRight( )
 
 void KateView::wordLeft( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordLeft();
 }
 
 void KateView::shiftWordLeft( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordLeft(true);
 }
 
 void KateView::wordRight( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordRight();
 }
 
 void KateView::shiftWordRight( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordRight(true);
 }
 
 void KateView::home( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->home();
 }
 
 void KateView::shiftHome( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->home(true);
 }
 
@@ -2423,37 +2350,31 @@ void KateView::shiftDown( )
 
 void KateView::scrollUp( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->scrollUp();
 }
 
 void KateView::scrollDown( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->scrollDown();
 }
 
 void KateView::topOfView( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->topOfView();
 }
 
 void KateView::shiftTopOfView( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->topOfView(true);
 }
 
 void KateView::bottomOfView( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottomOfView();
 }
 
 void KateView::shiftBottomOfView( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottomOfView(true);
 }
 
@@ -2499,13 +2420,11 @@ void KateView::shiftBottom( )
 
 void KateView::toMatchingBracket( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorToMatchingBracket();
 }
 
 void KateView::shiftToMatchingBracket( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorToMatchingBracket(true);
 }
 

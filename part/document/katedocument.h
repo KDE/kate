@@ -37,8 +37,6 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/modificationinterface.h>
-#include <ktexteditor/smartinterface.h>
-#include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/highlightinterface.h>
@@ -63,11 +61,9 @@ namespace Kate { class SwapFile; }
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
-class KateSmartRange;
 class KateLineInfo;
 class KateDocumentConfig;
 class KateHighlighting;
-class KateSmartManager;
 class KateUndoManager;
 class KateEditHistory;
 class KateOnTheFlyChecker;
@@ -85,8 +81,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
                      public KTextEditor::ConfigInterface,
-                     public KTextEditor::SmartInterface,
-                     private KTextEditor::SmartRangeWatcher,
                      public KTextEditor::AnnotationInterface,
                      public KTextEditor::HighlightInterface,
                      public KTextEditor::MovingInterface,
@@ -99,7 +93,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::MarkInterface)
   Q_INTERFACES(KTextEditor::VariableInterface)
   Q_INTERFACES(KTextEditor::ModificationInterface)
-  Q_INTERFACES(KTextEditor::SmartInterface)
   Q_INTERFACES(KTextEditor::AnnotationInterface)
   Q_INTERFACES(KTextEditor::ConfigInterface)
   Q_INTERFACES(KTextEditor::HighlightInterface)
@@ -532,48 +525,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     QMap<QString, QString> m_storedVariables;
 
   //
-  // KTextEditor::SmartInterface
-  //
-  public:
-    virtual void clearSmartInterface();
-
-    virtual int currentRevision() const;
-    virtual void releaseRevision(int revision) const;
-    virtual void useRevision(int revision = -1);
-    virtual KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert) const;
-    virtual KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight) const;
-
-    virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert);
-    virtual void deleteCursors();
-
-    virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand);
-    virtual KTextEditor::SmartRange* newSmartRange(KTextEditor::SmartCursor* start, KTextEditor::SmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand);
-    virtual void unbindSmartRange(KTextEditor::SmartRange* range);
-    virtual void deleteRanges();
-
-    // Syntax highlighting extension
-    virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange, bool supportDynamic);
-    virtual const QList<KTextEditor::SmartRange*> documentHighlights() const;
-    virtual void clearDocumentHighlights();
-
-    virtual void addHighlightToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange, bool supportDynamic);
-    virtual void removeHighlightFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
-    virtual const QList<KTextEditor::SmartRange*> viewHighlights(KTextEditor::View* view) const;
-    virtual void clearViewHighlights(KTextEditor::View* view);
-
-    // Action association extension
-    virtual void addActionsToDocument(KTextEditor::SmartRange* topRange);
-    virtual const QList<KTextEditor::SmartRange*> documentActions() const;
-    virtual void clearDocumentActions();
-
-    virtual void addActionsToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
-    virtual void removeActionsFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
-    virtual const QList<KTextEditor::SmartRange*> viewActions(KTextEditor::View* view) const;
-    virtual void clearViewActions(KTextEditor::View* view);
-
-    KateSmartManager* smartManager() const { return m_smartManager; }
-
-  //
   // MovingInterface API
   //
   public:
@@ -665,22 +616,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param document the document which the interface belongs too which will invalidate its data
      */
     void aboutToInvalidateMovingInterfaceContent (KTextEditor::Document *document);
-
-  public Q_SLOTS:
-    virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
-    virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
-
-  protected:
-    virtual void attributeDynamic(KTextEditor::Attribute::Ptr a);
-    virtual void attributeNotDynamic(KTextEditor::Attribute::Ptr a);
-
-  private:
-    // Smart range watcher overrides
-    virtual void rangeDeleted(KTextEditor::SmartRange* range);
-
-    KateSmartManager* const m_smartManager;
-    QList<KTextEditor::SmartRange*> m_documentHighlights;
-
+  
   //
   // Annotation Interface
   //

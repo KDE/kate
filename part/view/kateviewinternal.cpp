@@ -37,12 +37,10 @@
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katelayoutcache.h"
-#include "katesmartmanager.h"
 #include "katecompletionwidget.h"
 #include "kateviinputmodemanager.h"
 #include "katevimodebar.h"
 #include "katesearchbar.h"
-#include "katesmartrange.h"
 #include "spellcheck/spellingmenu.h"
 
 #include <ktexteditor/movingrange.h>
@@ -226,33 +224,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect(this, SIGNAL(requestViewUpdateIfSmartDirty()), this, SLOT(updateViewIfSmartDirty()), Qt::QueuedConnection);
 }
 
-void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
-{
-  if (range->watchers().contains(this)) {
-    range->removeWatcher(watcher);
-    //kDebug( 13030 ) << *range;
-  }
-
-  foreach (KTextEditor::SmartRange* child, range->childRanges())
-    removeWatcher(child, watcher);
-}
-
-void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
-{
-  //kDebug( 13030 ) << range << watcher;
-
-  //Q_ASSERT(!range->watchers().contains(watcher));
-
-  if (!range->watchers().contains(watcher)) {
-    range->addWatcher(watcher);
-    Q_ASSERT(range->watchers().contains(watcher));
-    //kDebug( 13030 ) << *range;
-  }
-
-  foreach (KTextEditor::SmartRange* child, range->childRanges())
-    addWatcher(child, watcher);
-}
-
 KateViewInternal::~KateViewInternal ()
 {
   // kill preedit ranges
@@ -269,7 +240,6 @@ KateViewInternal::~KateViewInternal ()
 
 void KateViewInternal::prepareForDynWrapChange()
 {
-  QMutexLocker lock(doc()->smartMutex());
   // Which is the current view line?
   m_wrapChangeViewLine = cache()->displayViewLine(m_displayCursor, true);
 }
@@ -289,10 +259,7 @@ void KateViewInternal::dynWrapChanged()
     m_dummy->show();
   }
 
-  {
-    QMutexLocker lock(doc()->smartMutex());
-    cache()->setWrap(m_view->dynWordWrap());
-  }
+  cache()->setWrap(m_view->dynWordWrap());
   updateView();
 
   if (m_view->dynWordWrap())
@@ -310,7 +277,6 @@ void KateViewInternal::dynWrapChanged()
 
 KTextEditor::Cursor KateViewInternal::endPos() const
 {
-  QMutexLocker lock(doc()->smartMutex());
   // Hrm, no lines laid out at all??
   if (!cache()->viewCacheLineCount())
     return KTextEditor::Cursor();
@@ -341,8 +307,6 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
 {
   if (y < 0 || y > size().height())
     return KateTextLayout::invalid();
-
-  QMutexLocker lock(doc()->smartMutex());
 
   int range = y / renderer()->lineHeight();
 
@@ -439,8 +403,6 @@ void KateViewInternal::scrollNextLine()
 
 KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   cache()->setAcceptDirtyLayouts(true);
 
   if (m_cachedMaxStartPos.line() == -1 || changed)
@@ -463,8 +425,6 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 {
   if (!force && ((!m_view->dynWordWrap() && c.line() == startLine()) || c == startPos()))
     return;
-
-  QMutexLocker lock(doc()->smartMutex());
 
   if (c.line() < 0)
     c.setLine(0);
@@ -515,14 +475,11 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
       scroll(0, scrollHeight);
       m_leftBorder->scroll(0, scrollHeight);
 
-      lock.unlock();
       emit m_view->verticalScrollPositionChanged( m_view, c );
       emit m_view->displayRangeChanged(m_view);
       return;
     }
   }
-
-  lock.unlock();
 
   updateView();
   update();
@@ -563,8 +520,6 @@ void KateViewInternal::updateViewIfSmartDirty() {
 // If changed is true, the lines that have been set dirty have been updated.
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   doUpdateView(changed, viewLinesScrolled);
 
   if (changed)
@@ -681,8 +636,6 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
   if (!m_view->dynWordWrap() && (endCol != -1 || m_view->wrapCursor()))
   {
-    QMutexLocker lock(doc()->smartMutex());
-
     KTextEditor::Cursor rc = toRealCursor(c);
     int sX = renderer()->cursorToX(cache()->textLayout(rc), rc, !m_view->wrapCursor());
 
@@ -707,10 +660,7 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cac
   if (startPos() > max)
     scrollPos(max);
 
-  {
-    QMutexLocker lock(doc()->smartMutex());
-    cache()->clear ();
-  }
+  cache()->clear ();
 
   m_preserveX = true;
   KTextEditor::Cursor newPos = toRealCursor(toVirtualCursor(m_cursor));
@@ -757,8 +707,6 @@ int KateViewInternal::linesDisplayed() const
 
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor, bool includeBorder ) const
 {
-  QMutexLocker l(doc()->smartMutex());
-
   int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
 
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
@@ -961,8 +909,6 @@ public:
   BoundedCursor(KateViewInternal* vi, int line, int col )
     : CalculatingCursor( vi, line, col ) {}
   virtual CalculatingCursor& operator+=( int n ) {
-    QMutexLocker lock(m_vi->doc()->smartMutex());
-
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
       kWarning() << "Did not retrieve valid layout for line " << line();
@@ -1026,8 +972,6 @@ public:
     : CalculatingCursor( vi, line, col ) {}
 
   virtual CalculatingCursor& operator+=( int n ) {
-    QMutexLocker lock(m_vi->doc()->smartMutex());
-
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
       kWarning() << "Did not retrieve a valid layout for line " << line();
@@ -1284,14 +1228,11 @@ void KateViewInternal::end( bool sel )
 
 KateTextLayout KateViewInternal::currentLayout() const
 {
-  QMutexLocker lock(doc()->smartMutex());
   return cache()->textLayout(m_cursor);
 }
 
 KateTextLayout KateViewInternal::previousLayout() const
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   int currentViewLine = cache()->viewLine(m_cursor);
 
   if (currentViewLine)
@@ -1302,8 +1243,6 @@ KateTextLayout KateViewInternal::previousLayout() const
 
 KateTextLayout KateViewInternal::nextLayout() const
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   int currentViewLine = cache()->viewLine(m_cursor) + 1;
 
   if (currentViewLine >= cache()->line(m_cursor.line())->viewLineCount()) {
@@ -1323,8 +1262,6 @@ KateTextLayout KateViewInternal::nextLayout() const
  */
 KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& virtualCursor, int offset, bool keepX)
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   if (!m_view->dynWordWrap()) {
     KTextEditor::Cursor ret(qMin((int)doc()->visibleLines() - 1, virtualCursor.line() + offset), 0);
 
@@ -1461,8 +1398,6 @@ void KateViewInternal::cursorUp(bool sel)
     return;
   }
 
-  QMutexLocker l(doc()->smartMutex());
-
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
     return;
 
@@ -1480,7 +1415,6 @@ void KateViewInternal::cursorUp(bool sel)
   KTextEditor::Cursor c = renderer()->xToCursor(pRange, m_preservedX, !m_view->wrapCursor());
 
   updateSelection( c, sel );
-  l.unlock();
   updateCursor( c );
 }
 
@@ -1490,8 +1424,6 @@ void KateViewInternal::cursorDown(bool sel)
     m_view->completionWidget()->cursorDown();
     return;
   }
-
-  QMutexLocker l(doc()->smartMutex());
 
   if ((m_displayCursor.line() >= doc()->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
     return;
@@ -1509,9 +1441,7 @@ void KateViewInternal::cursorDown(bool sel)
 
   KTextEditor::Cursor c = renderer()->xToCursor(nRange, m_preservedX, !m_view->wrapCursor());
 
-  l.unlock();
   updateSelection(c, sel);
-  l.unlock();
   updateCursor(c);
 }
 
@@ -1579,8 +1509,6 @@ void KateViewInternal::pageUp( bool sel )
     return;
   }
 
-  QMutexLocker l(doc()->smartMutex());
-
   // remember the view line and x pos
   int viewLine = cache()->displayViewLine(m_displayCursor);
   bool atTop = startPos().atStartOfDocument();
@@ -1604,7 +1532,6 @@ void KateViewInternal::pageUp( bool sel )
 
     m_preserveX = true;
     updateSelection( newPos, sel );
-    l.unlock();
     updateCursor(newPos);
 
   } else {
@@ -1618,8 +1545,6 @@ void KateViewInternal::pageDown( bool sel )
     m_view->completionWidget()->pageDown();
     return;
   }
-
-  QMutexLocker l(doc()->smartMutex());
 
   // remember the view line
   int viewLine = cache()->displayViewLine(m_displayCursor);
@@ -1644,19 +1569,15 @@ void KateViewInternal::pageDown( bool sel )
 
     m_preserveX = true;
     updateSelection( newPos, sel );
-    l.unlock();
     updateCursor(newPos);
 
   } else {
-    l.unlock();
     scrollLines( linesToScroll, sel );
   }
 }
 
 int KateViewInternal::maxLen(int startLine)
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   Q_ASSERT(!m_view->dynWordWrap());
 
   int displayLines = (m_view->height() / renderer()->lineHeight()) + 1;
@@ -1682,27 +1603,21 @@ bool KateViewInternal::columnScrollingPossible ()
 
 void KateViewInternal::top( bool sel )
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   KTextEditor::Cursor newCursor(0, 0);
 
   newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_preservedX, !m_view->wrapCursor());
 
   updateSelection( newCursor, sel );
-  lock.unlock();
   updateCursor( newCursor );
 }
 
 void KateViewInternal::bottom( bool sel )
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   KTextEditor::Cursor newCursor(doc()->lastLine(), 0);
 
   newCursor = renderer()->xToCursor(cache()->textLayout(newCursor), m_preservedX, !m_view->wrapCursor());
 
   updateSelection( newCursor, sel );
-  lock.unlock();
   updateCursor( newCursor );
 }
 
@@ -1931,10 +1846,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   // Remember the maximum X position if requested
   if (m_preserveX)
     m_preserveX = false;
-  else {
-    QMutexLocker lock(doc()->smartMutex());
+  else
     m_preservedX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor, !m_view->wrapCursor());
-  }
 
   //kDebug(13030) << "m_preservedX: " << m_preservedX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
   //kDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col;
@@ -1943,7 +1856,6 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
-  ///@todo The smart-lock should _NOT_ be held while this is emitted!
   emit m_view->cursorPositionChanged(m_view, m_cursor);
 }
 
@@ -1997,7 +1909,6 @@ void KateViewInternal::updateBracketMarks()
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
 {
-  QMutexLocker lock(doc()->smartMutex());
   // FIXME may be a more efficient way for this
   if ((int)doc()->getRealLine(virtualCursor.line()) > doc()->lastLine())
     return false;
@@ -2019,7 +1930,6 @@ bool KateViewInternal::tagLines( int start, int end, bool realLines )
 
 bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor end, bool realCursors)
 {
-  QMutexLocker lock(doc()->smartMutex());
   if (realCursors)
   {
     cache()->relayoutLines(start.line(), end.line());
@@ -2106,8 +2016,6 @@ bool KateViewInternal::tagRange(const KTextEditor::Range& range, bool realCursor
 
 void KateViewInternal::tagAll()
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   // clear the cache...
   cache()->clear ();
 
@@ -2127,8 +2035,6 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   KateTextLayout thisLine = yToKateTextLayout(p.y());
   KTextEditor::Cursor c;
 
-  QMutexLocker lock(doc()->smartMutex());
-
   if (!thisLine.isValid()) // probably user clicked below the last line -> use the last line
     thisLine = cache()->textLayout(doc()->lines() - 1, -1);
 
@@ -2137,8 +2043,6 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   if (c.line () < 0 || c.line() >= doc()->lines()) {
     return;
   }
-
-  lock.unlock();
 
   if (updateSelection)
     KateViewInternal::updateSelection( c, keepSelection );
@@ -2897,8 +2801,6 @@ void KateViewInternal::updateDirty( )
   QRegion updateRegion;
 
   {
-    QMutexLocker lock(doc()->smartMutex());
-
     for (int i = 0; i < cache()->viewCacheLineCount(); ++i) {
       if (cache()->viewLine(i).isDirty()) {
         if (currentRectStart == -1) {
@@ -2935,8 +2837,6 @@ void KateViewInternal::hideEvent(QHideEvent* e)
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  QMutexLocker lock(doc()->smartMutex());
-
   if (m_smartDirty)
     doUpdateView();
 
@@ -3031,8 +2931,6 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
   if (m_view->dynWordWrap()) {
     bool dirtied = false;
 
-    QMutexLocker lock(doc()->smartMutex());
-
     for (int i = 0; i < cache()->viewCacheLineCount(); i++) {
       // find the first dirty line
       // the word wrap updateView algorithm is forced to check all lines after a dirty one
@@ -3057,9 +2955,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
           KateTextLayout thisLine = currentLayout();
 
           KTextEditor::Cursor newCursor(m_cursor.line(), thisLine.endCol() + ((width() - thisLine.xOffset() - thisLine.width()) / renderer()->spaceWidth()) - 1);
-          lock.unlock();
           updateCursor(newCursor);
-          lock.relock();
         }
       }
     }
@@ -3106,12 +3002,7 @@ void KateViewInternal::textHintTimeout ()
 
   if (m_textHintMouseX> (lineMaxCursorX(thisLine) - thisLine.startX())) return;
 
-  KTextEditor::Cursor c = thisLine.start();
-
-  {
-    QMutexLocker lock(doc()->smartMutex());
-    c = renderer()->xToCursor(cache()->textLayout(c), startX() + m_textHintMouseX, !m_view->wrapCursor());
-  }
+  KTextEditor::Cursor c = renderer()->xToCursor(cache()->textLayout(thisLine.start()), startX() + m_textHintMouseX, !m_view->wrapCursor());
 
   QString tmp;
 
@@ -3233,14 +3124,15 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     // on move: remove selected text; on copy: duplicate text
     doc()->insertText(targetCursor, text, m_view->blockSelection());
 
-    KateSmartCursor startCursor(targetCursor,doc());
+    Kate::TextCursor startCursor(doc()->buffer(), targetCursor, KTextEditor::MovingCursor::MoveOnInsert);
 
     if ( event->dropAction() != Qt::CopyAction )
       m_view->removeSelectedText();
 
-    KateSmartCursor endCursor1(startCursor,doc());
+    Kate::TextCursor endCursor1(doc()->buffer(), startCursor, KTextEditor::MovingCursor::MoveOnInsert);
+    
     if ( !m_view->blockSelection() ) {
-      endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
+      endCursor1.move(text.length());
     } else {
       endCursor1.setColumn(startCursor.column()+selectionWidth);
       endCursor1.setLine(startCursor.line()+selectionHeight);
@@ -3250,7 +3142,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     setSelection(KTextEditor::Range(startCursor,endCursor));
     editSetCursor(endCursor);
-
+    
     doc()->editEnd ();
 
     event->acceptProposedAction();
@@ -3466,79 +3358,10 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 //   kDebug( 13030 )<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 
-  const KateSmartRange* krange = dynamic_cast<const KateSmartRange*>(&range);
-
-  if (!m_smartDirty && (rangeAffectsView(range, realCursors) ||
-       (krange && rangeAffectsView(KTextEditor::Range(krange->kStart().lastPosition(),
-                                                      krange->kEnd().lastPosition()), realCursors)))) {
+  if (!m_smartDirty && rangeAffectsView(range, realCursors)) {
     m_smartDirty = true;
     emit requestViewUpdateIfSmartDirty();
   }
-}
-
-void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
-{
-  // Try to retrieve old range position because that needs to be tagged too
-  // FIXME not working yet...
-  /*if (KateSmartRange* krange = dynamic_cast<KateSmartRange*>(range)) {
-    KTextEditor::Range oldRange(krange->kStart().lastPosition(), krange->kEnd().lastPosition());
-    relayoutRange(oldRange);
-  }*/
-//   QMutexLocker lock(doc()->smartMutex());
-
-  if(range->attribute())
-    relayoutRange(*range);
-}
-
-void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if(range->attribute())
-    relayoutRange(*range);
-}
-
-void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if(child->attribute() || child->childRanges().count())
-    relayoutRange(*child);
-
-  addWatcher(child, this);
-}
-
-void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if (currentAttribute != previousAttribute && !(currentAttribute && previousAttribute && *currentAttribute == *previousAttribute))
-    relayoutRange(*range);
-}
-
-void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  if(child->attribute() || child->childRanges().count())
-    relayoutRange(*child);
-  removeWatcher(child, this);
-}
-
-void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  relayoutRange(*range);
-  addWatcher(range, this);
-}
-
-void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
-{
-  QMutexLocker lock(doc()->smartMutex());
-
-  relayoutRange(*range);
-  removeWatcher(range, this);
 }
 
 //BEGIN IM INPUT STUFF

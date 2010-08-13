@@ -22,14 +22,13 @@
 #ifndef KATERENDERRANGE_H
 #define KATERENDERRANGE_H
 
-#include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 #include <ktexteditor/attribute.h>
 
 #include <QtCore/QStack>
 #include <QtCore/QList>
 #include <QtCore/QPair>
 
-class KateSmartRange;
 class KateView;
 class RenderRangeList;
 
@@ -41,28 +40,6 @@ class KateRenderRange
     virtual bool advanceTo(const KTextEditor::Cursor& pos) = 0;
     virtual KTextEditor::Attribute::Ptr currentAttribute() const = 0;
     virtual bool isReady() const;
-};
-
-class SmartRenderRange : public KateRenderRange
-{
-  public:
-    SmartRenderRange(KateSmartRange* range, KateView* view, RenderRangeList* list);
-
-    virtual KTextEditor::Cursor nextBoundary() const;
-    virtual bool advanceTo(const KTextEditor::Cursor& pos);
-    virtual KTextEditor::Attribute::Ptr currentAttribute() const;
-    virtual bool isReady() const;
-
-  private:
-    SmartRenderRange(KTextEditor::SmartRange* range, const SmartRenderRange& cloneFrom);
-    void addTo(KTextEditor::SmartRange* range, bool intermediate = false) const;
-
-    mutable KTextEditor::SmartRange* m_currentRange, *m_endAtRange;
-    mutable KTextEditor::Cursor m_currentPos;
-    mutable QStack<KTextEditor::Attribute::Ptr> m_attribs;
-    const KateView* m_view;
-    RenderRangeList* m_list;
-    QSet<KTextEditor::SmartRange*> m_ignoreChildRanges;
 };
 
 typedef QPair<KTextEditor::Range*,KTextEditor::Attribute::Ptr> pairRA;
@@ -90,7 +67,6 @@ class RenderRangeList : public QList<KateRenderRange*>
 {
   public:
     ~RenderRangeList();
-    void appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, KateView* view);
     KTextEditor::Cursor nextBoundary() const;
     void advanceTo(const KTextEditor::Cursor& pos);
     bool hasAttribute() const;

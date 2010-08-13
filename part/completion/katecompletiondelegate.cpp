@@ -28,7 +28,6 @@
 #include "kateview.h"
 #include "katehighlight.h"
 #include "katerenderrange.h"
-#include "katesmartrange.h"
 
 #include "katecompletionwidget.h"
 #include "katecompletionmodel.h"

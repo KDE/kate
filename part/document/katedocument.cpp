@@ -32,7 +32,6 @@
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
 #include "kateprinter.h"
-#include "katesmartcursor.h"
 #include "katerenderer.h"
 #include "kateregexp.h"
 #include "kateplaintextsearch.h"
@@ -41,8 +40,6 @@
 #include "katemodemanager.h"
 #include "kateschema.h"
 #include "katetemplatehandler.h"
-#include "katesmartmanager.h"
-#include "katesmartrange.h"
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"
@@ -176,7 +173,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoManager(new KateUndoManager(this)),
   m_editHistory(new KateEditHistory(this)),
   m_editableMarks(markType01),
-  m_smartManager(new KateSmartManager(this)),
   m_annotationModel(0),
   m_saveAs(false),
   m_isasking(0),
@@ -276,7 +272,7 @@ KateDocument::~KateDocument()
    */
   emit aboutToDeleteMovingInterfaceContent (this);
 
-  // delete it here because it has to be deleted before the SmartMutex is destroyed
+  // kill it early, it has ranges!
   delete m_onTheFlyChecker;
   m_onTheFlyChecker = NULL;
 
@@ -820,9 +816,6 @@ void KateDocument::editStart (Kate::EditSource editSource)
   else
     m_editSources.push(editSource);
 
-  // Unlocked in editEnd
-  smartMutex()->lock();
-
   if (editSessionNumber > 1)
     return;
 
@@ -844,8 +837,6 @@ void KateDocument::editStart (Kate::EditSource editSource)
 void KateDocument::editEnd ()
 {
   if (editSessionNumber == 0) {
-    //Dangerous, because bad editStart() editEnd() mismatches defeat the smart-lock protection,
-    //which can lead to random crashes
     Q_ASSERT(0);
     return;
   }
@@ -858,9 +849,6 @@ void KateDocument::editEnd ()
   editSessionNumber--;
 
   m_editSources.pop();
-
-  // Was locked in editStart
-  smartMutex()->unlock();
 
   if (editSessionNumber > 0)
     return;
@@ -2038,7 +2026,7 @@ bool KateDocument::openFile()
   //
   foreach (KateView * view, m_views)
   {
-    // This is needed here because inserting the text moves the view's start position (it is a SmartCursor)
+    // This is needed here because inserting the text moves the view's start position (it is a MovingCursor)
     view->setCursorPosition (KTextEditor::Cursor());
     view->setUpdatesEnabled (true);
     view->updateView (true);
@@ -2443,7 +2431,6 @@ bool KateDocument::closeUrl()
   emit KTextEditor::Document::textRemoved(this, documentRange());
 
   {
-    QMutexLocker l(smartMutex());
     history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
     // clear the buffer
@@ -2547,10 +2534,6 @@ void KateDocument::addView(KTextEditor::View *view) {
   m_views.append( static_cast<KateView*>(view) );
   m_textEditViews.append( view );
 
-  foreach(KTextEditor::SmartRange* highlight, m_documentHighlights) {
-    static_cast<KateView*>(view)->addExternalHighlight(highlight, false);
-}
-
   // apply the view & renderer vars from the file type
   if (!m_fileType.isEmpty())
       readVariableLine(KateGlobal::self()->modeManager()->fileType(m_fileType).varLine, true);
@@ -2597,9 +2580,6 @@ uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
 
 bool KateDocument::typeChars ( KateView *view, const QString &chars )
 {
-  // Because we want to access text before starting an edit, lock the smart mutex now
-  QMutexLocker l(smartMutex());
-
   Kate::TextLine textLine = m_buffer->plainLine(view->cursorPosition().line ());
 
   if (!textLine)
@@ -2641,8 +2621,6 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   if (buf.isEmpty())
     return false;
-
-  l.unlock(); //editStart will lock the smart-mutex again, and it must be un-locked within editEnd. So unlock here.
 
   editStart ();
 
@@ -3150,7 +3128,7 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
   }
 
   editEnd ();
-  // selection automatically updated (KateSmartRange)
+  // selection automatically updated (MovingRange)
 }
 
 /*
@@ -3178,7 +3156,7 @@ void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
   }
 
   editEnd ();
-  // selection automatically updated (KateSmartRange)
+  // selection automatically updated (MovingRange)
 }
 
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
@@ -3261,7 +3239,7 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
     removeText (KTextEditor::Range(sl, sc, sl, sc + startCommentLen));
 
     editEnd ();
-    // selection automatically updated (KateSmartRange)
+    // selection automatically updated (MovingRange)
   }
 
   return remove;
@@ -3316,7 +3294,7 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
   }
 
   editEnd();
-  // selection automatically updated (KateSmartRange)
+  // selection automatically updated (MovingRange)
 
   return removed;
 }
@@ -3926,16 +3904,9 @@ bool KateDocument::documentReload()
     foreach (KateView *v, m_views)
       cursorPositions.append( v->cursorPosition() );
 
-    QMutexLocker smartLock(smartMutex());
-
-    if (clearOnDocumentReload())
-      m_smartManager->clear(false);
-
     m_reloading = true;
     KateDocument::openUrl( url() );
     m_reloading = false;
-
-    smartLock.unlock();
 
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();
@@ -4729,59 +4700,6 @@ KTextEditor::Cursor KateDocument::documentEnd( ) const
   return KTextEditor::Cursor(lastLine(), lineLength(lastLine()));
 }
 
-
-//BEGIN KTextEditor::SmartInterface
-int KateDocument::currentRevision() const
-{
-  return m_smartManager->currentRevision();
-}
-
-void KateDocument::releaseRevision(int revision) const
-{
-  m_smartManager->releaseRevision(revision);
-}
-
-void KateDocument::useRevision(int revision)
-{
-  m_smartManager->useRevision(revision);
-}
-
-KTextEditor::Cursor KateDocument::translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior) const
-{
-  return m_smartManager->translateFromRevision(cursor, insertBehavior);
-}
-
-KTextEditor::Range KateDocument::translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior) const
-{
-  return m_smartManager->translateFromRevision(range, insertBehavior);
-}
-
-KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehavior insertBehavior )
-{
-  return m_smartManager->newSmartCursor(position, insertBehavior, false);
-}
-
-KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
-{
-  return m_smartManager->newSmartRange( range, parent, insertBehavior, false );
-}
-
-KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
-{
-  KateSmartCursor* kstart = dynamic_cast<KateSmartCursor*>(start);
-  KateSmartCursor* kend = dynamic_cast<KateSmartCursor*>(end);
-  if (!kstart || !kend)
-    return 0L;
-  if (kstart->range() || kend->range())
-    return 0L;
-  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehavior, false);
-}
-
-void KateDocument::unbindSmartRange( KTextEditor::SmartRange * range )
-{
-  m_smartManager->unbindSmartRange(range);
-}
-
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )
 {
   // TODO more efficient?
@@ -4791,133 +4709,6 @@ bool KateDocument::replaceText( const KTextEditor::Range & range, const QString 
   editEnd();
   return changed;
 }
-
-void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, bool )
-{
-  if (m_documentHighlights.contains(topRange))
-    return;
-
-  m_documentHighlights.append(topRange);
-
-  // Deal with the range being deleted externally
-  topRange->addWatcher(this);
-
-  foreach (KateView * view, m_views)
-    view->addExternalHighlight(topRange, false);
-}
-
-void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
-{
-  if (!m_documentHighlights.contains(topRange))
-    return;
-
-  foreach (KateView * view, m_views)
-    view->removeExternalHighlight(topRange);
-
-  m_documentHighlights.removeAll(topRange);
-  topRange->removeWatcher(this);
-}
-
-const QList< KTextEditor::SmartRange * > KateDocument::documentHighlights( ) const
-{
-  return m_documentHighlights;
-}
-
-void KateDocument::addHighlightToView( KTextEditor::View * view, KTextEditor::SmartRange * topRange, bool supportDynamic )
-{
-  static_cast<KateView*>(view)->addExternalHighlight(topRange, supportDynamic);
-}
-
-void KateDocument::removeHighlightFromView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
-{
-  static_cast<KateView*>(view)->removeExternalHighlight(topRange);
-}
-
-const QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEditor::View * view ) const
-{
-  return static_cast<KateView*>(view)->externalHighlights();
-}
-
-void KateDocument::addActionsToDocument( KTextEditor::SmartRange * )
-{
-}
-
-void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * )
-{
-}
-
-const QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
-{
-  return QList< KTextEditor::SmartRange * > ();
-}
-
-void KateDocument::addActionsToView( KTextEditor::View *, KTextEditor::SmartRange * )
-{
-}
-
-void KateDocument::removeActionsFromView( KTextEditor::View *, KTextEditor::SmartRange * )
-{
-}
-
-const QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * ) const
-{
-  return QList< KTextEditor::SmartRange * > ();
-}
-
-void KateDocument::attributeDynamic( KTextEditor::Attribute::Ptr )
-{
-}
-
-void KateDocument::attributeNotDynamic( KTextEditor::Attribute::Ptr )
-{
-}
-
-void KateDocument::clearSmartInterface( )
-{
-  clearDocumentHighlights();
-  foreach (KateView* view, m_views)
-    clearViewHighlights(view);
-
-  clearDocumentActions();
-
-  m_smartManager->clear(false);
-}
-
-void KateDocument::deleteCursors( )
-{
-  m_smartManager->deleteCursors(false);
-}
-
-void KateDocument::deleteRanges( )
-{
-  m_smartManager->deleteRanges(false);
-}
-
-void KateDocument::clearDocumentHighlights( )
-{
-  m_documentHighlights.clear();
-}
-
-void KateDocument::clearViewHighlights( KTextEditor::View * view )
-{
-  static_cast<KateView*>(view)->clearExternalHighlights();
-}
-
-void KateDocument::clearDocumentActions( )
-{
-}
-
-void KateDocument::clearViewActions( KTextEditor::View * )
-{
-}
-
-void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
-{
-  removeHighlightFromDocument(range);
-  removeActionsFromDocument(range);
-}
-
-//END KTextEditor::SmartInterface
 
 void KateDocument::ignoreModifiedOnDiskOnce( )
 {

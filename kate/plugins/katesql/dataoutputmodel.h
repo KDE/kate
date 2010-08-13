@@ -34,6 +34,9 @@ class DataOutputModel : public QSqlQueryModel
     DataOutputModel(QObject *parent = 0);
     ~DataOutputModel();
 
+    bool useSystemLocale() const;
+    void setUseSystemLocale(bool useSystemLocale);
+
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     void readConfig();
@@ -41,8 +44,8 @@ class DataOutputModel : public QSqlQueryModel
   private:
     bool isNumeric(QVariant::Type type) const;
 
-  private:
     QHash<QString,OutputStyle*> m_styles;
+    bool m_useSystemLocale;
 };
 
 #endif // DATAOUTPUTMODEL_H

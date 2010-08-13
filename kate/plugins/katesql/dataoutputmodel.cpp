@@ -22,12 +22,15 @@
 #include <kcolorscheme.h>
 #include <kdebug.h>
 #include <kglobal.h>
+#include <klocale.h>
 #include <kconfiggroup.h>
 #include <kglobalsettings.h>
 
 DataOutputModel::DataOutputModel(QObject *parent)
 : QSqlQueryModel(parent)
 {
+  m_useSystemLocale = false;
+
   m_styles.insert("text",     new OutputStyle());
   m_styles.insert("number",   new OutputStyle());
   m_styles.insert("null",     new OutputStyle());
@@ -75,7 +78,21 @@ void DataOutputModel::readConfig()
 }
 
 
-bool DataOutputModel::isNumeric(QVariant::Type type) const
+bool DataOutputModel::useSystemLocale() const
+{
+  return m_useSystemLocale;
+}
+
+
+void DataOutputModel::setUseSystemLocale( bool useSystemLocale )
+{
+  m_useSystemLocale = useSystemLocale;
+
+  emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() -1));
+}
+
+
+bool DataOutputModel::isNumeric(const QVariant::Type type) const
 {
   return (type > 1 && type < 7);
 }
@@ -83,12 +100,8 @@ bool DataOutputModel::isNumeric(QVariant::Type type) const
 
 QVariant DataOutputModel::data(const QModelIndex &index, int role) const
 {
-  // provide quickly the raw value
-  // used by operations that works on large amount of data, like copy or export
-  if (role == Qt::UserRole)
-    return QSqlQueryModel::data(index, Qt::DisplayRole);
-
   QVariant value(QSqlQueryModel::data(index, Qt::DisplayRole));
+  const QVariant::Type type = value.type();
 
   if (value.isNull())
   {
@@ -102,7 +115,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       return QVariant("NULL");
   }
 
-  if (value.type() == QVariant::ByteArray)
+  if (type == QVariant::ByteArray)
   {
     if (role == Qt::FontRole)
       return QVariant(m_styles.value("blob")->font);
@@ -112,11 +125,9 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       return QVariant(m_styles.value("blob")->background);
     if (role == Qt::DisplayRole)
       return QVariant(value.toByteArray().left(255));
-
-    return QSqlQueryModel::data(index, role);
   }
 
-  if (isNumeric(value.type()))
+  if (isNumeric(type))
   {
     if (role == Qt::FontRole)
       return QVariant(m_styles.value("number")->font);
@@ -126,11 +137,14 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       return QVariant(m_styles.value("number")->background);
     if (role == Qt::TextAlignmentRole)
       return QVariant(Qt::AlignRight | Qt::AlignVCenter);
-    if (role == Qt::DisplayRole)
-      return QVariant(value.toString());
+    if (role == Qt::DisplayRole || role == Qt::UserRole)
+      if (useSystemLocale())
+        return QVariant(KGlobal::locale()->formatNumber(value.toString(), false));
+      else
+        return QVariant(value.toString());
   }
 
-  if (value.type() == QVariant::Bool)
+  if (type == QVariant::Bool)
   {
     if (role == Qt::FontRole)
       return QVariant(m_styles.value("bool")->font);
@@ -142,9 +156,9 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       return QVariant(value.toBool() ? "True" : "False");
   }
 
-  if (value.type() == QVariant::Date ||
-      value.type() == QVariant::Time ||
-      value.type() == QVariant::DateTime )
+  if (type == QVariant::Date ||
+      type == QVariant::Time ||
+      type == QVariant::DateTime )
   {
     if (role == Qt::FontRole)
       return QVariant(m_styles.value("datetime")->font);
@@ -152,6 +166,20 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       return QVariant(m_styles.value("datetime")->foreground);
     if (role == Qt::BackgroundRole)
       return QVariant(m_styles.value("datetime")->background);
+    if (role == Qt::DisplayRole || role == Qt::UserRole)
+    {
+      if (useSystemLocale())
+      {
+        if (type == QVariant::Date)
+          return QVariant(KGlobal::locale()->formatDate(value.toDate(), KLocale::ShortDate));
+        if (type == QVariant::Time)
+          return QVariant(KGlobal::locale()->formatTime(value.toTime(), true));
+        if (type == QVariant::DateTime)
+          return QVariant(KGlobal::locale()->formatDateTime(value.toDateTime(), KLocale::ShortDate, true));
+      }
+      else // return sql server format
+        return QVariant(value.toString());
+    }
   }
 
   if (role == Qt::FontRole)
@@ -162,6 +190,8 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     return QVariant(m_styles.value("text")->background);
   if (role == Qt::TextAlignmentRole)
     return QVariant(Qt::AlignVCenter);
+  if (role == Qt::UserRole)
+    return value;
 
   return QSqlQueryModel::data(index, role);
 }

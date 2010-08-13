@@ -24,6 +24,7 @@
 #include <kfiledialog.h>
 #include <kapplication.h>
 #include <ktoolbar.h>
+#include <ktoggleaction.h>
 #include <kaction.h>
 #include <kicon.h>
 #include <klocale.h>
@@ -76,6 +77,12 @@ m_view(new DataOutputView(this))
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotExport()));
 
+  toolbar->addSeparator();
+
+  KToggleAction *toggleAction = new KToggleAction( KIcon("applications-education-language"), i18n("Use system locale"), this);
+  toolbar->addAction(toggleAction);
+  connect(toggleAction, SIGNAL(triggered()), this, SLOT(slotToggleLocale()));
+
   m_dataLayout->addWidget(m_view);
 
   layout->addWidget(toolbar);
@@ -107,6 +114,7 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
   raise();
 }
 
+
 void DataOutputWidget::clearResults()
 {
   /// FIXME
@@ -116,6 +124,7 @@ void DataOutputWidget::clearResults()
    m_view->reset();
 }
 
+
 void DataOutputWidget::resizeColumnsToContents()
 {
   if (m_model->rowCount() == 0)
@@ -123,6 +132,7 @@ void DataOutputWidget::resizeColumnsToContents()
 
   m_view->resizeColumnsToContents();
 }
+
 
 void DataOutputWidget::resizeRowsToContents()
 {
@@ -136,6 +146,13 @@ void DataOutputWidget::resizeRowsToContents()
   if (h > 0)
     m_view->verticalHeader()->setDefaultSectionSize(h);
 }
+
+
+void DataOutputWidget::slotToggleLocale()
+{
+  m_model->setUseSystemLocale(!m_model->useSystemLocale());
+}
+
 
 void DataOutputWidget::slotCopySelected()
 {
@@ -156,6 +173,7 @@ void DataOutputWidget::slotCopySelected()
   if (!text.isEmpty())
     kapp->clipboard()->setText(text);
 }
+
 
 void DataOutputWidget::slotExport()
 {
@@ -232,6 +250,7 @@ void DataOutputWidget::slotExport()
     }
   }
 }
+
 
 void DataOutputWidget::exportData(QTextStream &stream,
                                   const QChar stringsQuoteChar,

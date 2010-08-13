@@ -58,6 +58,7 @@ class DataOutputWidget : public QWidget
     void resizeRowsToContents();
     void clearResults();
 
+    void slotToggleLocale();
     void slotCopySelected();
     void slotExport();
 

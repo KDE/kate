@@ -90,6 +90,7 @@ const QString srcPath(KDESRCDIR);
 
 void IndentTest::initTestCase()
 {
+  KateGlobal::self()->incRef();
   m_toplevel = new KMainWindow();
   m_document = new KateDocument(true, false, false, m_toplevel);
   m_view = static_cast<KateView *>(m_document->widget());
@@ -98,6 +99,7 @@ void IndentTest::initTestCase()
 
 void IndentTest::cleanupTestCase()
 {
+    KateGlobal::self()->decRef();
 }
 
 void IndentTest::getTestData(const QString& indenter)

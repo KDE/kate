@@ -980,8 +980,9 @@ KateTestApp::KateTestApp(KCmdLineArgs *args, const QString& baseDir, int testcas
   , m_baseDir(baseDir)
   , m_testcaseIndex(testcaseIndex)
 {
-  // FIXME: Any analogous call for dbus?
-  //   a.disableAutoDcopRegistration();
+  // increase ref counter so static KateGlobal pointer is valid
+  KateGlobal::self()->incRef();
+
   setStyle("windows");
   KConfigGroup group = m_cfg.group("Kate Document Defaults");
   KateDocumentConfig config(group);
@@ -1077,6 +1078,9 @@ KateTestApp::~KateTestApp()
   m_document = 0;
 
   Q_ASSERT(m_regressionTest == 0);
+
+  // now it's safe to release KateGlobal again
+  KateGlobal::self()->decRef();
 }
 
 bool KateTestApp::allTestsSucceeded()

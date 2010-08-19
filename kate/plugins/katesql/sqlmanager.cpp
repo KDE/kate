@@ -137,6 +137,9 @@ Wallet *SQLManager::openWallet()
     /// FIXME get kate window id...
     m_wallet = Wallet::openWallet(KWallet::Wallet::NetworkWallet(), 0);
 
+  if (!m_wallet)
+    return 0;
+
   QString folder("SQL Connections");
 
   if (!m_wallet->hasFolder(folder))

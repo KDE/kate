@@ -540,7 +540,8 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
       // bail out on encoding error, if not last round!
       if (encodingErrors && i < 3) {
-        kDebug (13020) << "Failed try to load file" << filename << "with codec" << file.textCodec ()->name();
+        kDebug (13020) << "Failed try to load file" << filename << "with codec" <<
+                          (file.textCodec() ? file.textCodec()->name() : "(null)");
         break;
       }
 

@@ -305,8 +305,6 @@ void KateStyleTreeWidget::updateGroupHeadings()
       
       if(backgroundColor.isValid()) {
         currentTopLevelItem->setBackground(KateStyleTreeWidgetItem::Context, backgroundColor);
-      } else {
-        currentTopLevelItem->setBackground(KateStyleTreeWidgetItem::Context, bgcol);
       }
     }
   }

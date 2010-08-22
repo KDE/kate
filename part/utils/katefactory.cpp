@@ -67,7 +67,7 @@ class KateFactory : public KTextEditor::Factory
       bool bWantSingleView = ( classname != "KTextEditor::Document" );
 
       // does user want browserview?
-      bool bWantBrowserView = false;
+      bool bWantBrowserView = ( classname == "Browser/View" );
 
       // should we be readonly?
       bool bWantReadOnly = (bWantBrowserView || ( classname == "KParts::ReadOnlyPart" ));

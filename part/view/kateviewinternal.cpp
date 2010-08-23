@@ -56,8 +56,6 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
 #include <QtCore/QStack>
-#include <QtCore/QMutex>
-#include <QtCore/QThread>
 
 static const bool debugPainting = false;
 

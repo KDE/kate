@@ -25,7 +25,6 @@
 
 #include "ontheflycheck.h"
 
-#include <QMutex>
 #include <QTimer>
 
 #include "kateconfig.h"

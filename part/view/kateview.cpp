@@ -90,7 +90,6 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QLayout>
 #include <QtCore/QMimeData>
-#include <QtCore/QMutexLocker>
 
 //#define VIEW_RANGE_DEBUG
 

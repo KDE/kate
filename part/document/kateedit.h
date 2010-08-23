@@ -21,8 +21,6 @@
 
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
 
 #include <ktexteditor/range.h>
 
@@ -98,27 +96,9 @@ class KateEditInfo
     const KTextEditor::Range& oldRange() const;
 
     /**
-     * Returns the text which occupied \p range before this edit took place.
-     * \sa oldText()
-     */
-    virtual QStringList oldText(const KTextEditor::Range& range) const;
-
-    /**
-     * Returns all of the text that was in place before the edit occurred.
-     * \sa oldText(const KTextEditor::Range&) const
-     */
-    const QStringList& oldText() const;
-
-    /**
      * Returns the range of text occupied by the edit region after the edit took place.
      */
     const KTextEditor::Range& newRange() const;
-
-    /**
-     * Returns the text which occupies \p range after this edit took place.
-     * \sa newText()
-     */
-    virtual QStringList newText(const KTextEditor::Range& range) const;
 
     /**
      * Returns the text which occupies the edit region now that the edit
@@ -129,10 +109,6 @@ class KateEditInfo
 
     inline const KTextEditor::Cursor& translate() const { return m_translate; }
 
-    void referenceRevision();
-    void dereferenceRevision();
-    bool isReferenced() const;
-
   private:
     Kate::EditSource m_editSource;
     KTextEditor::Range m_oldRange;
@@ -140,13 +116,10 @@ class KateEditInfo
     KTextEditor::Range m_newRange;
     QStringList m_newText;
     KTextEditor::Cursor m_translate;
-    int m_revisionTokenCounter;
 };
 
 /**
  * Manages edit history in a document.
- *
- * @warning Smart-lock must be held when using
  */
 class KateEditHistory : public QObject
 {
@@ -156,27 +129,10 @@ class KateEditHistory : public QObject
     explicit KateEditHistory(KateDocument* doc);
     virtual ~KateEditHistory();
 
-    int revision();
-    void releaseRevision(int revision);
-
-    QList<KateEditInfo*> editsBetweenRevisions(int from, int to = -1) const;
-
     void doEdit(KateEditInfo* edit);
-
-    QMutex *mutex () { return &m_mutex; }
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
-
-  private:
-    // mutex to protect the edit history
-    mutable QMutex m_mutex;
-    
-    // current revision
-    int m_revision;
-    
-    QList<KateEditInfo*> m_edits;
-    QMap<int, KateEditInfo*> m_revisions;
 };
 
 #endif

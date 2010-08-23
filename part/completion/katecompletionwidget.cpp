@@ -32,7 +32,6 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QAbstractScrollArea>
 #include <QtGui/QScrollBar>
-#include <QtCore/QMutex>
 #include <QtCore/QScopedPointer>
 
 #include <kicon.h>

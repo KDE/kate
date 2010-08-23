@@ -87,7 +87,6 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
 #include <QtCore/QMap>
-#include <QtCore/QMutex>
 //END  includes
 
 

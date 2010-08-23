@@ -27,7 +27,6 @@
 #include <QHash>
 #include <QtAlgorithms>
 #include <QTimer>
-#include <QThread>
 
 #include <kactioncollection.h>
 #include <ktexteditor/view.h>

@@ -21,8 +21,6 @@
 #include "spellingmenu.h"
 #include "spellingmenu.moc"
 
-#include <QMutexLocker>
-
 #include "katedocument.h"
 #include "kateglobal.h"
 #include "kateview.h"

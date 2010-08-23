@@ -28,6 +28,8 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 
+#include "katefiletreedebug.h"
+
 class ProxyItem {
   public:
     enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8 };
@@ -87,7 +89,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 ProxyItem::ProxyItem(QString d, ProxyItem *p)
   : m_path(d), m_parent(p), m_row(-1), m_flags(ProxyItem::None), m_doc(0)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": this=" << this << "(" << d << ")";
+  kDebug(debugArea()) << "this=" << this << "(" << d << ")";
   initDisplay();
   
   if(p)
@@ -113,13 +115,13 @@ int ProxyItem::addChild(ProxyItem *item)
   item->m_row = item_row;
   m_children.append(item);
   item->m_parent = this;
-  qDebug() << __PRETTY_FUNCTION__ << ": added " << item->display() << "to " << display();
+  kDebug(debugArea()) << "added" << item->display() << "to" << display();
   return item_row;
 }
 
 void ProxyItem::remChild(ProxyItem *item)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": remove " << item->path();
+  kDebug(debugArea()) << "remove" << item->path();
   m_children.removeOne(item);
   // fix up item rows
   // could be done a little better, but this'll work.
@@ -231,14 +233,14 @@ KateFileTreeModel::~KateFileTreeModel()
 
 QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   ProxyItem *item = m_docmap[d];
   if(!item) {
-    qDebug() << __PRETTY_FUNCTION__ << ": doc" << d << "does not exist";
+    kDebug(debugArea()) << "doc" << d << "does not exist";
     return QModelIndex();
   }
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
   return createIndex(item->row(), 0, item);
 }
 
@@ -259,15 +261,15 @@ Qt::ItemFlags KateFileTreeModel::flags( const QModelIndex &index ) const
 
 QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
 {
-  //qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   if(!index.isValid()) {
-    qDebug() << __PRETTY_FUNCTION__ << ": index is invalid!";
+    kDebug(debugArea()) << "index is invalid!";
     return QVariant();
   }
 
   ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
   if(!item) {
-    qDebug() << __PRETTY_FUNCTION__ << ": internal pointer is null!";
+    kDebug(debugArea()) << "internal pointer is null!";
     return QVariant();
   }
   
@@ -294,7 +296,7 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
       break;
   }
 
-  //qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  //kDebug(debugArea()) << "END!";
   return QVariant();
 }
 
@@ -398,7 +400,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
   ProxyItem *item = new ProxyItem(path, 0);
   item->setDoc(doc);
-  qDebug() << __PRETTY_FUNCTION__ << ": " << path << "(" << item << ")";
+  kDebug(debugArea()) << path << "(" << item << ")";
   handleInsert(item);
   setupIcon(item);
   m_docmap[doc] = item;
@@ -411,7 +413,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   
   ProxyItem *item = m_docmap[doc];
   if(!item)
@@ -419,13 +421,13 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 
   if(doc->isModified()) {
     item->setFlag(ProxyItem::Modified);
-    qDebug() << __PRETTY_FUNCTION__ << ": modified!";
+    kDebug(debugArea()) << "modified!";
   }
   else {
     item->clearFlag(ProxyItem::Modified);
     item->clearFlag(ProxyItem::ModifiedExternally);
     item->clearFlag(ProxyItem::DeletedExternally);
-    qDebug() << __PRETTY_FUNCTION__ << ": saved!";
+    kDebug(debugArea()) << "saved!";
   }
 
   setupIcon(item);
@@ -433,13 +435,13 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
   QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason )
 {
   Q_UNUSED(modified);
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   ProxyItem *item = m_docmap[doc];
   if(!item)
     return;
@@ -453,14 +455,14 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
   
   if(reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
     item->setFlag(ProxyItem::DeletedExternally);
-    qDebug() << __PRETTY_FUNCTION__ << ": deleted!";
+    kDebug(debugArea()) << "deleted!";
   }
   else if(reason == KTextEditor::ModificationInterface::OnDiskModified) {
     item->setFlag(ProxyItem::ModifiedExternally);
-    qDebug() << __PRETTY_FUNCTION__ << ": modified!";
+    kDebug(debugArea()) << "modified!";
   }
   else if(reason == KTextEditor::ModificationInterface::OnDiskCreated) {
-    qDebug() << __PRETTY_FUNCTION__ << ": created!";
+    kDebug(debugArea()) << "created!";
     // with out this, on "reload" we don't get the icons removed :(
     item->clearFlag(ProxyItem::ModifiedExternally);
     item->clearFlag(ProxyItem::DeletedExternally);
@@ -470,29 +472,29 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
   
   QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleEmptyParents(ProxyItem *item)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   if(!item || !item->parent()) {
-    qDebug() << __PRETTY_FUNCTION__ << ": parent " << item << " parent " << (item ? item->parent() : 0);
+    kDebug(debugArea()) << "parent" << item << "parent" << (item ? item->parent() : 0);
     return;
   }
   
   ProxyItem *parent = item->parent();
   //emit layoutAboutToBeChanged();
   
-  qDebug() << __PRETTY_FUNCTION__ << ": parent " << item->path() << " parent " << parent;
+  kDebug(debugArea()) << "parent" << item->path() << "parent" << parent;
   while(parent) {
-    qDebug() << __PRETTY_FUNCTION__ << ": parent " << parent->display() << "children: " << item->childCount();
+    kDebug(debugArea()) << "parent" << parent->display() << "children:" << item->childCount();
     if(!item->childCount()) {
       QModelIndex parent_index = parent == m_root ? QModelIndex() : createIndex(parent->row(), 0, parent);
       beginRemoveRows(parent_index, item->row(), item->row());
       parent->remChild(item);
       endRemoveRows();
-      qDebug() << __PRETTY_FUNCTION__ << ": deleted parent!";
+      kDebug(debugArea()) << "deleted parent!";
       delete item;
     }
     
@@ -501,16 +503,16 @@ void KateFileTreeModel::handleEmptyParents(ProxyItem *item)
   }
   
   //emit layoutChanged();
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 {
   QString path = doc->url().path();
   if(!path.length()) path = doc->documentName();
-  printf("KateFileTreeModel::documentClosed: %s (%p)\n", qPrintable(path), m_docmap[doc]);
+  kDebug(debugArea()) << path << m_docmap[doc];
   if(!m_docmap.contains(doc)) {
-    qDebug() << __PRETTY_FUNCTION__ << ": docmap doesn't contain doc!";
+    kDebug(debugArea()) << "docmap doesn't contain doc!";
     return;
   }
   
@@ -530,17 +532,17 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   ProxyItem *item = m_docmap[doc];
   QString path = doc->url().path();
   if(!path.length())
     path = doc->documentName();
   
-  qDebug() << __PRETTY_FUNCTION__ << ": " << item->display() << "->" << path << "(" << item << ")";
+  kDebug(debugArea()) << item->display() << "->" << path << "(" << item << ")";
   
   handleNameChange(item, path);
   
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 ProxyItem *KateFileTreeModel::findRootNode(const QString &name, int r)
@@ -566,18 +568,18 @@ ProxyItem *KateFileTreeModel::findChildNode(ProxyItem *parent, const QString &na
 
   foreach(ProxyItem *item, parent->children()) {
     if(item->display() == name) {
-      qDebug() << __PRETTY_FUNCTION__ << ": found: " << name;
+      kDebug(debugArea()) << "found:" << name;
       return item;
     }
   }
 
-  qDebug() << __PRETTY_FUNCTION__ << ": !found: " << name;
+  kDebug(debugArea()) << "!found:" << name;
   return 0;
 }
 
 void KateFileTreeModel::insertItemInto(ProxyItem *root, ProxyItem *item)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   
   QString tail = item->path();
   tail.remove(0, root->path().length());
@@ -588,14 +590,14 @@ void KateFileTreeModel::insertItemInto(ProxyItem *root, ProxyItem *item)
 
   parts.pop_back();
 
-  qDebug() << __PRETTY_FUNCTION__ << ": creating tree for" << item->path();
+  kDebug(debugArea()) << "creating tree for" << item->path();
   foreach(QString part, parts) {
     current_parts.append(part);
     ProxyItem *find = findChildNode(ptr, part);
     if(!find) {
       QString new_name = current_parts.join(QDir::separator());
       QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
-      qDebug() << __PRETTY_FUNCTION__ << ": adding" << part << "to" << ptr->display();
+      kDebug(debugArea()) << "adding" << part << "to" << ptr->display();
       beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());
       ptr = new ProxyItemDir(new_name, ptr);
       endInsertRows();
@@ -605,23 +607,23 @@ void KateFileTreeModel::insertItemInto(ProxyItem *root, ProxyItem *item)
     }
   }
 
-  qDebug() << __PRETTY_FUNCTION__ << ": adding" << item->display() << "to" << ptr->display();
+  kDebug(debugArea()) << "adding" << item->display() << "to" << ptr->display();
   QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
   beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());
     ptr->addChild(item);
   endInsertRows();
   
-  qDebug() << __PRETTY_FUNCTION__ << ": ptr:" << ptr->path();
+  kDebug(debugArea()) << "ptr:" << ptr->path();
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
 
   if(item->path().startsWith("Untitled")) {
-    qDebug() << __PRETTY_FUNCTION__ << ": empty item";
+    kDebug(debugArea()) << "empty item";
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);
     endInsertRows();
@@ -630,10 +632,10 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   
   ProxyItem *root = findRootNode(item->path());
   if(root) {
-    qDebug() << __PRETTY_FUNCTION__ << ": got a root, inserting into it";
+    kDebug(debugArea()) << "got a root, inserting into it";
     insertItemInto(root, item);
   } else {
-    qDebug() << __PRETTY_FUNCTION__ << ": creating a new root";
+    kDebug(debugArea()) << "creating a new root";
 
     // trim off trailing file and dir
     QString base = item->path().section(QDir::separator(), 0, -2);
@@ -642,7 +644,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     ProxyItem *new_root = new ProxyItemDir(base, 0);
     
     // add new root to m_root
-    qDebug() << __PRETTY_FUNCTION__ << ": add" << new_root->display() << "to m_root";
+    kDebug(debugArea()) << "add" << new_root->display() << "to m_root";
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
       m_root->addChild(new_root);
     endInsertRows();
@@ -650,18 +652,18 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     QModelIndex new_root_index = createIndex(new_root->row(), 0, new_root);
     
     // try and merge existing roots with the new root node.
-    qDebug() << __PRETTY_FUNCTION__ << ": attempting to merge some existing roots";
+    kDebug(debugArea()) << "attempting to merge some existing roots";
     foreach(ProxyItem *item, m_root->children()) {
       if(item == new_root)
         continue;
       
       if(item->path().startsWith(base)) {
-        qDebug() << __PRETTY_FUNCTION__ << ": removing" << item->display() << "from m_root";
+        kDebug(debugArea()) << "removing" << item->display() << "from m_root";
         beginRemoveRows(QModelIndex(), item->row(), item->row());
           m_root->remChild(item);
         endRemoveRows();
 
-        qDebug() << __PRETTY_FUNCTION__ << ": adding" << item->display() << "to" << new_root->display();
+        kDebug(debugArea()) << "adding" << item->display() << "to" << new_root->display();
         beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
           new_root->addChild(item);
         endInsertRows();
@@ -669,23 +671,23 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     }
 
     // add item to new root
-    qDebug() << __PRETTY_FUNCTION__ << ": adding to new root";
+    kDebug(debugArea()) << "adding to new root";
     beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
       new_root->addChild(item);
     endInsertRows();
 
   }
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_name)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   
   // for some reason we get useless name changes
   if(item->path() == new_name) {
-      qDebug() << __PRETTY_FUNCTION__ << ": bogus name change";
+      kDebug(debugArea()) << "bogus name change";
     return;
   }
   
@@ -694,13 +696,13 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   ProxyItem *parent = item->parent();
   if(!parent) {
     item->setPath(new_name);
-    qDebug() << __PRETTY_FUNCTION__ << ": item" << item->path() << "does not have a parent?";
+    kDebug(debugArea()) << "item" << item->path() << "does not have a parent?";
     return;
   }
 
   item->setPath(new_name);
 
-  qDebug() << __PRETTY_FUNCTION__ << ": removing" << item->display() << "from" << parent->display();
+  kDebug(debugArea()) << "removing" << item->display() << "from" << parent->display();
   QModelIndex parent_index = parent == m_root ? QModelIndex() : createIndex(parent->row(), 0, parent);
   beginRemoveRows(parent_index, item->row(), item->row());
     parent->remChild(item);
@@ -716,15 +718,15 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   setupIcon(item);
   
   // new item
-  qDebug() << __PRETTY_FUNCTION__ << ": inserting" << item->display();
+  kDebug(debugArea()) << "inserting" << item->display();
   handleInsert(item);
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::setupIcon(ProxyItem *item)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   
   QStringList emblems;
   QString icon_name;
@@ -739,12 +741,12 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
   
   if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
     emblems << "emblem-important";
-    qDebug() << __PRETTY_FUNCTION__ << ": modified!";
+    kDebug(debugArea()) << "modified!";
   }
 
   item->setIcon(KIcon(icon_name, 0, emblems));
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

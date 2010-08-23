@@ -3,15 +3,17 @@
 
 #include <ktexteditor/document.h>
 
+#include "katefiletreedebug.h"
+
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
   : QSortFilterProxyModel(parent)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
 }
 
 bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-  //qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  //kDebug(debugArea()) << ": BEGIN!";
   KateFileTreeModel *model = static_cast<KateFileTreeModel*>(sourceModel());
   
   bool left_isdir = model->isDir(left);
@@ -20,11 +22,11 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
   QString left_name = model->data(left).toString();
   QString right_name = model->data(right).toString();
 
-  qDebug() << __PRETTY_FUNCTION__ << ":" << left_name << "<" << right_name;
+  //kDebug(debugArea()) << left_name << "<" << right_name;
   if(left_isdir != right_isdir) {
-      //qDebug() << __PRETTY_FUNCTION__ << ": DIR! (END)";
+      //kDebug(debugArea()) << ": DIR! (END)";
       //bool name_lt = QString::localeAwareCompare(left_name, right_name) > 0;
-      qDebug() << __PRETTY_FUNCTION__ << ": dir" << (((left_isdir - right_isdir)) > 0);
+      //kDebug(debugArea()) << "dir" << (((left_isdir - right_isdir)) > 0);
       return ((left_isdir - right_isdir)) > 0;
   }
   
@@ -32,7 +34,7 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
   //QString right_ext = right_name.section('.', -1);
   
   //if(!left_children && !right_children) {
-  //    qDebug() << __PRETTY_FUNCTION__ << ": " << left_ext << right_ext;
+  //    kDebug(debugArea()) << ": " << left_ext << right_ext;
   //    bool ext_res = QString::localeAwareCompare(left_ext, right_ext) > 0;
   //    bool file_res = QString::localeAwareCompare(left_name, right_name) > 0;
   //    return ext_res - file_res;
@@ -43,13 +45,13 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
 //  if(left_name != "CMakeLists.txt" && right_name == "CMakeLists.txt")
 //    return true;
   
-  qDebug() << __PRETTY_FUNCTION__ << ":" << (QString::localeAwareCompare(left_name, right_name) < 0);
+  //kDebug(debugArea()) << (QString::localeAwareCompare(left_name, right_name) < 0);
   return QString::localeAwareCompare(left_name, right_name) < 0;
 }
 
 QModelIndex KateFileTreeProxyModel::docIndex(KTextEditor::Document *doc)
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": !";
+  kDebug(debugArea()) << "!";
   return mapFromSource(static_cast<KateFileTreeModel*>(sourceModel())->docIndex(doc));
 }
 

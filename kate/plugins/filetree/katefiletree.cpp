@@ -67,7 +67,6 @@ void KateFileTree::mousePressEvent ( QMouseEvent * event ) {
 }
 
 void KateFileTree::mouseReleaseEvent ( QMouseEvent * event ) {
-  kDebug()<<"KateFileTree::mouseReleaseEvent";
   KTextEditor::Document *doc = model()->data(selectionModel()->currentIndex(), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
     emit activateDocument(doc);

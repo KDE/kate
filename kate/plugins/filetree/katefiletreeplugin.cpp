@@ -35,6 +35,8 @@
 #include <KAction>
 #include <KActionCollection>
 
+#include "katefiletreedebug.h"
+
 //END Includes
 
 K_PLUGIN_FACTORY(KateFileTreeFactory, registerPlugin<KateFileTreePlugin>();)
@@ -156,7 +158,7 @@ void KateFileTreePluginView::documentClosed(KTextEditor::Document *)
     
 void KateFileTreePluginView::viewChanged()
 {
-  qDebug() << __PRETTY_FUNCTION__ << ": BEGIN!";
+  kDebug(debugArea()) << "BEGIN!";
   
   KTextEditor::View *view = mainWindow()->activeView();
   if(!view)
@@ -164,11 +166,11 @@ void KateFileTreePluginView::viewChanged()
   
   KTextEditor::Document *doc = view->document();
   QModelIndex index = m_proxyModel->docIndex(doc);
-  qDebug() << __PRETTY_FUNCTION__ << ": selected doc=" << doc << index;
+  kDebug(debugArea()) << "selected doc=" << doc << index;
 
   //m_fileTree->setCurrentIndex(index);
   QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
-  qDebug() << __PRETTY_FUNCTION__ << ": display="<<display;
+  kDebug(debugArea()) << "display="<<display;
   m_fileTree->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
 
   m_fileTree->scrollTo(index);
@@ -178,7 +180,7 @@ void KateFileTreePluginView::viewChanged()
     index = index.parent();
   }
 
-  qDebug() << __PRETTY_FUNCTION__ << ": END!";
+  kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)

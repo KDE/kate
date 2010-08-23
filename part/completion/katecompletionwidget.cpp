@@ -1180,6 +1180,10 @@ void KateCompletionWidget::modelDestroyed(QObject* model) {
 
 void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
+  if (m_sourceModels.contains(model)) {
+    return;
+  }
+
   connect(model, SIGNAL(destroyed(QObject*)), SLOT(modelDestroyed(QObject*)));
   //This connection must not be queued
   connect(model, SIGNAL(modelReset()), SLOT(completionModelReset()));

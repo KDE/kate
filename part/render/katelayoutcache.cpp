@@ -29,8 +29,6 @@
 #include "katedocument.h"
 #include "kateedit.h"
 
-static QThreadStorage<QMap<KateLayoutCache*,bool>*> m_acceptDirtyLayouts;
-
 static bool enableLayoutCache = false;
 
 //BEGIN KateLineLayoutMap
@@ -145,6 +143,7 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
   , m_wrap(false)
+  , m_acceptDirtyLayouts (false)
 {
   Q_ASSERT(m_renderer);
 
@@ -518,21 +517,12 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 
 bool KateLayoutCache::acceptDirtyLayouts()
 {
-  if (m_acceptDirtyLayouts.hasLocalData()) {
-    QMap<KateLayoutCache*,bool>* m=m_acceptDirtyLayouts.localData();
-    if (m->contains(this))
-      return m->value(this);
-  }
-
-  return false;
+  return m_acceptDirtyLayouts;
 }
 
 void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
 {
-  if (!m_acceptDirtyLayouts.hasLocalData())
-    m_acceptDirtyLayouts.setLocalData(new QMap<KateLayoutCache*,bool>());
-
-  m_acceptDirtyLayouts.localData()->insert(this,accept);
+  m_acceptDirtyLayouts = accept;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

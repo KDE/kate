@@ -22,7 +22,6 @@
 #ifndef KATELAYOUTCACHE_H
 #define KATELAYOUTCACHE_H
 
-#include <QThreadStorage>
 #include <QPair>
 
 #include <ktexteditor/range.h>
@@ -165,6 +164,7 @@ private:
 
     int m_viewWidth;
     bool m_wrap;
+    bool m_acceptDirtyLayouts;
 };
 
 #endif

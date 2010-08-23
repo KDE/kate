@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katefiletreeplugin
+X-Kate-Version=2.8
+Name=File Tree
+X-Kate-MajorProfiles=Kate
+X-Kate-MinorProfiles=*
+Comment=Displays Open Documents in a Tree

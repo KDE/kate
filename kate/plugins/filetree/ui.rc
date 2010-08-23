@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<gui name="katefiletreeplugin" library="katefiletreeplugin" version="1">
+<ToolBar name="katefiletreeplugin">
+  <text>Kate File Tree</text>
+  <Action name="filetree_show_active_document"/>
+</ToolBar>
+</gui>
+

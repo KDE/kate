@@ -550,7 +550,7 @@ ProxyItem *KateFileTreeModel::findRootNode(const QString &name, int r)
   QString base = name.section(QDir::separator(), 0, -2);
   foreach(ProxyItem *item, m_root->children()) {
     QString path = item->path().section(QDir::separator(), 0, -r);
-    if(path.startsWith("Untitled")) {
+    if(path.startsWith(QLatin1String("Untitled"))) {
       continue;
     }
 
@@ -591,7 +591,7 @@ void KateFileTreeModel::insertItemInto(ProxyItem *root, ProxyItem *item)
   parts.pop_back();
 
   kDebug(debugArea()) << "creating tree for" << item->path();
-  foreach(QString part, parts) {
+  foreach(const QString &part, parts) {
     current_parts.append(part);
     ProxyItem *find = findChildNode(ptr, part);
     if(!find) {
@@ -622,7 +622,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
   kDebug(debugArea()) << "BEGIN!";
 
-  if(item->path().startsWith("Untitled")) {
+  if(item->path().startsWith(QLatin1String("Untitled"))) {
     kDebug(debugArea()) << "empty item";
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);

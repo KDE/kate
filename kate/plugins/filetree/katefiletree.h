@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATE_FILETREE_H__
-#define __KATE_FILETREE_H__
+#ifndef KATE_FILETREE_H
+#define KATE_FILETREE_H
 
 #include <QTreeView>
 #include <KUrl>
@@ -56,6 +56,6 @@ class KateFileTree: public QTreeView
     void openDocument(KUrl);
 };
 
-#endif //__KATE_FILETREE_H__
+#endif // KATE_FILETREE_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

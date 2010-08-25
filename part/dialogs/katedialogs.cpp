@@ -624,7 +624,7 @@ void KateEditGeneralConfigTab::reload ()
 {
   ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
-  ui->sbWordWrap->setSuffix(ki18np(" character", " characters"));
+  ui->sbWordWrap->setSuffix(ki18ncp("Wrap words at", " character", " characters"));
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
   ui->chkRemoveTrailingSpaces->setChecked( KateDocumentConfig::global()->removeTrailingDyn() );
   ui->chkAutoBrackets->setChecked( KateDocumentConfig::global()->autoBrackets() );

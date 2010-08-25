@@ -55,24 +55,6 @@ target_link_libraries( range_test
 
 if(NOT MINGW)
 
-# This can be used for finding data files in the source dir, without installing them
-#add_definitions( -DKDESRCDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\" )
-
-#include_directories( ${KDE4_KDECORE_INCLUDES} )
-
-set(testkateregression_SRCS
-  test_regression.cpp
-  testutils.cpp
-)
-
-kde4_add_unit_test(testkateregression NOGUI ${testkateregression_SRCS})
-
-target_link_libraries(testkateregression ${KATE_TEST_LINK_LIBS})
-
-#add_dependencies(check testkateregression)
-
-add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
-
 ########### undomanager test ###############
 
 kde4_add_unit_test(undomanager_test undomanager_test.cpp)

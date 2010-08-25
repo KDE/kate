@@ -278,7 +278,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
   const int height = config()->fontMetrics().height();
   const int width = spaceWidth();
 
-  QPoint points[8];
+  QPoint points[6];
   points[0] = QPoint(x+width/10, y+height/4);
   points[1] = QPoint(x+width/10, y+height/3);
   points[2] = QPoint(x+width/10, y+height/3);

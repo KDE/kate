@@ -39,20 +39,8 @@ namespace Kate
     InputMethodContextEdit,
     /// Editing from cutting, copying and pasting
     CutCopyPasteEdit,
-    /// Editing from search + replace algorithms
-    SearchReplaceEdit,
-    /// Edits from Kate's internal indentation routines
-    AutomaticIndentationEdit,
     /// Edits from code completion
     CodeCompletionEdit,
-    /// Edits by Kate scripts
-    ScriptActionEdit,
-    /// Inter-process communication derived edits
-    IPCEdit,
-    /// Editing from the kate inbuilt command line
-    CommandLineEdit,
-    /// Editing from a Kate plugin
-    PluginEdit,
     /// Editing from a client application, eg. kdevelop.
     ThirdPartyEdit,
     /// Other internal editing done by Kate

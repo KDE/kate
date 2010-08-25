@@ -195,7 +195,6 @@ QString KateSyntaxDocument::groupData( const KateSyntaxContextData* data,const Q
 
 void KateSyntaxDocument::freeGroupInfo( KateSyntaxContextData* data)
 {
-  if (data)
     delete data;
 }
 

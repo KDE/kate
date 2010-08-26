@@ -36,7 +36,7 @@ ConnectionWizard::ConnectionWizard ( SQLManager *manager, Connection *conn, QWid
 , m_manager(manager)
 , m_connection(conn)
 {
-  setWindowTitle(i18n("Connection Wizard"));
+  setWindowTitle(i18nc("@title:window", "Connection Wizard"));
 
   setPage(Page_Driver, new ConnectionDriverPage);
   setPage(Page_Standard_Server, new ConnectionStandardServerPage);
@@ -51,15 +51,15 @@ ConnectionWizard::~ConnectionWizard()
 ConnectionDriverPage::ConnectionDriverPage ( QWidget *parent)
 : QWizardPage(parent)
 {
-  setTitle(i18n("Database Driver"));
-  setSubTitle(i18n("Select the database driver"));
+  setTitle(i18nc("@title Wizard page title", "Database Driver"));
+  setSubTitle(i18nc("@title Wizard page subtitle", "Select the database driver"));
 
   QFormLayout *layout = new QFormLayout();
 
   driverComboBox = new KComboBox();
   driverComboBox->addItems(QSqlDatabase::drivers());
 
-  layout->addRow(i18n("Database driver:"),   driverComboBox);
+  layout->addRow(i18nc("@label:listbox", "Database driver:"),   driverComboBox);
 
   setLayout(layout);
 
@@ -87,8 +87,8 @@ int ConnectionDriverPage::nextId() const
 ConnectionStandardServerPage::ConnectionStandardServerPage ( QWidget *parent )
 : QWizardPage(parent)
 {
-  setTitle(i18n("Connection Parameters"));
-  setSubTitle(i18n("Please enter connection parameters"));
+  setTitle(i18nc("@title Wizard page title", "Connection Parameters"));
+  setSubTitle(i18nc("@title Wizard page subtitle", "Please enter connection parameters"));
 
   QFormLayout *layout = new QFormLayout();
 
@@ -100,17 +100,17 @@ ConnectionStandardServerPage::ConnectionStandardServerPage ( QWidget *parent )
   portSpinBox      = new KIntSpinBox();
 
   portSpinBox->setMaximum(65535);
-  portSpinBox->setSpecialValueText(i18n("Default"));
+  portSpinBox->setSpecialValueText(i18nc("@item Spinbox special value", "Default"));
   portSpinBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
   passwordLineEdit->setPasswordMode(true);
 
-  layout->addRow(i18n("Hostname:"), hostnameLineEdit);
-  layout->addRow(i18n("Username:"), usernameLineEdit);
-  layout->addRow(i18n("Password:"), passwordLineEdit);
-  layout->addRow(i18n("Port:"), portSpinBox);
-  layout->addRow(i18n("Database name:"), databaseLineEdit);
-  layout->addRow(i18n("Connection options:"), optionsLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Hostname:"), hostnameLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Username:"), usernameLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Password:"), passwordLineEdit);
+  layout->addRow(i18nc("@label:spinbox", "Port:"), portSpinBox);
+  layout->addRow(i18nc("@label:textbox", "Database name:"), databaseLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Connection options:"), optionsLineEdit);
 
   setLayout(layout);
 
@@ -182,8 +182,8 @@ int ConnectionStandardServerPage::nextId() const
 ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
 : QWizardPage(parent)
 {
-  setTitle(i18n("Connection Parameters"));
-  setSubTitle(i18n("Please enter the SQLite database file path.\nIf the file does not exist, a new database will be created."));
+  setTitle(i18nc("@title Wizard page title", "Connection Parameters"));
+  setSubTitle(i18nc("@title Wizard page subtitle", "Please enter the SQLite database file path.\nIf the file does not exist, a new database will be created."));
 
   QFormLayout *layout = new QFormLayout();
 
@@ -193,8 +193,8 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
   pathUrlRequester->setMode( KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
   pathUrlRequester->setFilter("*.db");
 
-  layout->addRow(i18n("Path:"), pathUrlRequester);
-  layout->addRow(i18n("Connection options:"), optionsLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Path:"), pathUrlRequester);
+  layout->addRow(i18nc("@label:textbox", "Connection options:"), optionsLineEdit);
 
   setLayout(layout);
 
@@ -229,7 +229,7 @@ bool ConnectionSQLiteServerPage::validatePage()
 
   if (!wiz->manager()->testConnection(c, e))
   {
-    KMessageBox::error(this, i18n("Unable to connect to database.") + "\n" + e.text());
+    KMessageBox::error(this, i18nc("@info", "Unable to connect to database.<nl/><message>%1</message>").arg(e.text()));
     return false;
   }
 
@@ -244,14 +244,14 @@ int ConnectionSQLiteServerPage::nextId() const
 ConnectionSavePage::ConnectionSavePage ( QWidget *parent)
 : QWizardPage(parent)
 {
-  setTitle(i18n("Connection Name"));
-  setSubTitle(i18n("Enter a unique connection name"));
+  setTitle(i18nc("@title Wizard page title", "Connection Name"));
+  setSubTitle(i18nc("@title Wizard page subtitle", "Enter a unique connection name"));
 
   QFormLayout *layout = new QFormLayout();
 
   connectionNameLineEdit = new KLineEdit();
 
-  layout->addRow(i18n("Connection name:"), connectionNameLineEdit);
+  layout->addRow(i18nc("@label:textbox", "Connection name:"), connectionNameLineEdit);
 
   setLayout(layout);
 

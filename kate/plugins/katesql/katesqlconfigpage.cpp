@@ -31,9 +31,9 @@ KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
 {
   QVBoxLayout *layout = new QVBoxLayout( this );
 
-  m_box = new QCheckBox(i18n("Save and restore connections in Kate session"), this);
+  m_box = new QCheckBox(i18nc("@option:check", "Save and restore connections in Kate session"), this);
 
-  QGroupBox *stylesGroupBox = new QGroupBox(i18n("Output Customization"), this);
+  QGroupBox *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
   QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);
 
   m_outputStyleWidget = new OutputStyleWidget(this);

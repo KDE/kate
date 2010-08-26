@@ -59,27 +59,27 @@ m_view(new DataOutputView(this))
 
   KAction *action;
 
-  action = new KAction( KIcon("distribute-horizontal-x"), i18n("Resize columns to contents"), this);
+  action = new KAction( KIcon("distribute-horizontal-x"), i18nc("@action:intoolbar", "Resize columns to contents"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(resizeColumnsToContents()));
 
-  action = new KAction( KIcon("distribute-vertical-y"), i18n("Resize rows to contents"), this);
+  action = new KAction( KIcon("distribute-vertical-y"), i18nc("@action:intoolbar", "Resize rows to contents"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(resizeRowsToContents()));
 
-  action = new KAction( KIcon("edit-copy"), i18n("Copy"), this);
+  action = new KAction( KIcon("edit-copy"), i18nc("@action:intoolbar", "Copy"), this);
   toolbar->addAction(action);
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotCopySelected()));
 
-  action = new KAction( KIcon("document-export-table"), i18n("Export..."), this);
+  action = new KAction( KIcon("document-export-table"), i18nc("@action:intoolbar", "Export..."), this);
   toolbar->addAction(action);
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotExport()));
 
   toolbar->addSeparator();
 
-  KToggleAction *toggleAction = new KToggleAction( KIcon("applications-education-language"), i18n("Use system locale"), this);
+  KToggleAction *toggleAction = new KToggleAction( KIcon("applications-education-language"), i18nc("@action:intoolbar", "Use system locale"), this);
   toolbar->addAction(toggleAction);
   connect(toggleAction, SIGNAL(triggered()), this, SLOT(slotToggleLocale()));
 
@@ -246,7 +246,7 @@ void DataOutputWidget::slotExport()
     }
     else
     {
-      KMessageBox::error(this, i18n("Unable to open file %1").arg(url));
+      KMessageBox::error(this, i18nc("@info", "Unable to open file <filename>%1</filename>").arg(url));
     }
   }
 }

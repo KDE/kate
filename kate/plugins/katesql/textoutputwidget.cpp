@@ -59,7 +59,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
   KAction *action;
 
-  action = new KAction( KIcon("edit-clear"), i18n("Clear"), this);
+  action = new KAction( KIcon("edit-clear"), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), m_output, SLOT(clear()));
 

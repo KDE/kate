@@ -41,7 +41,9 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
 
   QStringList headerLabels;
 
-  headerLabels << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Text Color") << i18n("Background Color");
+  headerLabels << i18nc("@title:column", "Context") << QString() << QString() << QString() << QString()
+               << i18nc("@title:column", "Text Color")
+               << i18nc("@title:column", "Background Color");
 
   setHeaderLabels(headerLabels);
 
@@ -50,12 +52,12 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
   headerItem()->setIcon(3, KIcon("format-text-underline"));
   headerItem()->setIcon(4, KIcon("format-text-strikethrough"));
 
-  addContext("text", i18n("Text"));
-  addContext("number", i18n("Number"));
-  addContext("bool", i18n("Bool"));
-  addContext("datetime", i18n("Date & Time"));
-  addContext("null", i18n("NULL"));
-  addContext("blob", i18n("BLOB"));
+  addContext("text", i18nc("@item:intable", "Text"));
+  addContext("number", i18nc("@item:intable", "Number"));
+  addContext("bool", i18nc("@item:intable", "Bool"));
+  addContext("datetime", i18nc("@item:intable", "Date & Time"));
+  addContext("null", i18nc("@item:intable", "NULL"));
+  addContext("blob", i18nc("@item:intable", "BLOB"));
 
   for (int i = 0; i < columnCount(); ++i)
     resizeColumnToContents(i);
@@ -161,7 +163,7 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 void OutputStyleWidget::readConfig()
 {
   QTreeWidgetItem *root = invisibleRootItem();
-  
+
   for (int i = 0; i < root->childCount(); ++i)
     readConfig(root->child(i));
 }

@@ -57,20 +57,20 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
   m_textOutputToolView    = mw->createToolView("kate_private_plugin_katesql_textoutput",
                                                Kate::MainWindow::Bottom,
                                                SmallIcon("view-list-text"),
-                                               i18n("SQL Text Output")
+                                               i18nc("@title:window", "SQL Text Output")
                                                );
 
   m_dataOutputToolView    = mw->createToolView("kate_private_plugin_katesql_dataoutput",
-                                              Kate::MainWindow::Bottom,
-                                              SmallIcon("view-form-table"),
-                                              i18n("SQL Data Output")
-                                              );
+                                               Kate::MainWindow::Bottom,
+                                               SmallIcon("view-form-table"),
+                                               i18nc("@title:window", "SQL Data Output")
+                                               );
 
   m_schemaBrowserToolView = mw->createToolView("kate_private_plugin_katesql_schemabrowser",
-                                              Kate::MainWindow::Left,
-                                              SmallIcon("view-list-tree"),
-                                              i18n("SQL Schema Browser")
-                                              );
+                                               Kate::MainWindow::Left,
+                                               SmallIcon("view-list-tree"),
+                                               i18nc("@title:window", "SQL Schema Browser")
+                                               );
 
   m_textOutputWidget = new TextOutputWidget(m_textOutputToolView);
   m_dataOutputWidget = new DataOutputWidget(m_dataOutputToolView);
@@ -124,26 +124,26 @@ void KateSQLView::setupActions()
   KActionCollection* collection = actionCollection();
 
   action = collection->addAction("connection_create");
-  action->setText( i18n("Add connection...") );
+  action->setText( i18nc("@action:inmenu", "Add connection...") );
   action->setIcon( KIcon("list-add") );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionCreate()) );
 
   action = collection->addAction("connection_remove");
-  action->setText( i18n("Remove connection") );
+  action->setText( i18nc("@action:inmenu", "Remove connection") );
   action->setIcon( KIcon("list-remove") );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionRemove()) );
 
   action = collection->addAction("connection_edit");
-  action->setText( i18n("Edit connection...") );
+  action->setText( i18nc("@action:inmenu", "Edit connection...") );
   action->setIcon( KIcon("configure") );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionEdit()) );
 
   action = collection->addAction("connection_chooser");
-  action->setText( i18n("Connection") );
+  action->setText( i18nc("@action:intoolbar", "Connection") );
   action->setDefaultWidget(m_connectionsComboBox);
 
   action = collection->addAction("query_run");
-  action->setText( i18n("Run query") );
+  action->setText( i18nc("@action:inmenu", "Run query") );
   action->setIcon( KIcon("quickopen") );
   action->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_E) );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotRunQuery()));
@@ -351,9 +351,11 @@ void KateSQLView::slotSuccess(const QString &message)
 void KateSQLView::slotQueryActivated(QSqlQuery &query)
 {
   if (query.isSelect())
+  {
     mainWindow()->showToolView(m_dataOutputToolView);
 
-  m_dataOutputWidget->showQueryResultSets(query);
+    m_dataOutputWidget->showQueryResultSets(query);
+  }
 }
 
 

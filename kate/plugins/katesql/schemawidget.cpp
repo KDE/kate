@@ -38,7 +38,7 @@ SchemaWidget::SchemaWidget(QWidget *parent)
   m_tablesLoaded = false;
   m_viewsLoaded = false;
 
-  setHeaderLabels(QStringList() << i18n("Database schema"));
+  setHeaderLabels(QStringList() << i18nc("@title:column", "Database schema"));
 
   setContextMenuPolicy(Qt::CustomContextMenu);
   setDragDropMode(QAbstractItemView::DragOnly);
@@ -98,14 +98,14 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem * databaseItem)
   databaseItem->setIcon(0, KIcon("server-database"));
 
   QTreeWidgetItem *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
-  tablesItem->setText(0, i18n("Tables"));
+  tablesItem->setText(0, i18nc("@title Folder name", "Tables"));
   tablesItem->setIcon(0, KIcon("folder"));
   tablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
 //   buildTables(tablesItem, db);
 
   QTreeWidgetItem *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
-  viewsItem->setText(0, i18n("Views"));
+  viewsItem->setText(0, i18nc("@title Folder name", "Views"));
   viewsItem->setIcon(0, KIcon("folder"));
   viewsItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
@@ -122,7 +122,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
   QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
-  systemTablesItem->setText(0, i18n("System Tables"));
+  systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
   systemTablesItem->setIcon(0, KIcon("folder"));
   systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
@@ -287,7 +287,7 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 
   QMenu menu;
 
-  menu.addAction(KIcon("view-refresh"), i18n("Refresh"), this, SLOT(refresh()));
+  menu.addAction(KIcon("view-refresh"), i18nc("@action:inmenu Context menu", "Refresh"), this, SLOT(refresh()));
 
   menu.exec(QCursor::pos());
 

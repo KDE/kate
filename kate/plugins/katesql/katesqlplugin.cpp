@@ -74,14 +74,14 @@ Kate::PluginConfigPage* KateSQLPlugin::configPage(uint number, QWidget *parent, 
 QString KateSQLPlugin::configPageName (uint number) const
 {
   if (number != 0) return QString();
-    return i18n("SQL");
+    return i18nc("@title", "SQL");
 }
 
 
 QString KateSQLPlugin::configPageFullName (uint number) const
 {
   if (number != 0) return QString();
-    return i18n("SQL Plugin Settings");
+    return i18nc("@title:window", "SQL Plugin Settings");
 }
 
 

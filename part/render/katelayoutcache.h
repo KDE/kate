@@ -29,7 +29,6 @@
 #include "katetextlayout.h"
 
 class KateRenderer;
-class KateEditInfo;
 
 namespace KTextEditor { class Document; }
 
@@ -145,7 +144,10 @@ class KateLayoutCache : public QObject
     // END
 
 private Q_SLOTS:
-    void slotEditDone(KateEditInfo* edit);
+    void wrapLine (const KTextEditor::Cursor &position);
+    void unwrapLine (int line);
+    void insertText (const KTextEditor::Cursor &position, const QString &text);
+    void removeText (const KTextEditor::Range &range);
 
 private:
     KateRenderer* m_renderer;

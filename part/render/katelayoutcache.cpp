@@ -27,7 +27,7 @@
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
-#include "kateedit.h"
+#include "katebuffer.h"
 
 static bool enableLayoutCache = false;
 
@@ -146,8 +146,14 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   , m_acceptDirtyLayouts (false)
 {
   Q_ASSERT(m_renderer);
-
-  connect(m_renderer->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotEditDone(KateEditInfo*)));
+  
+  /**
+   * connect to all possible editing primitives
+   */
+  connect(&m_renderer->doc()->buffer(), SIGNAL(lineWrapped(const KTextEditor::Cursor&)), this, SLOT(wrapLine(const KTextEditor::Cursor&)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(textInserted(const KTextEditor::Cursor &, const QString &)), this, SLOT(insertText(const KTextEditor::Cursor &, const QString &)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(textRemoved(const KTextEditor::Range &, const QString &)), this, SLOT(removeText(const KTextEditor::Range &)));
 }
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
@@ -463,13 +469,24 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
       kDebug( 13033 ) << "Line Invalid.";
 }
 
-void KateLayoutCache::slotEditDone(KateEditInfo* edit)
+void KateLayoutCache::wrapLine (const KTextEditor::Cursor &position)
 {
-  int fromLine = edit->oldRange().start().line();
-  int toLine = edit->oldRange().end().line();
-  int shiftAmount = edit->translate().line();
+   m_lineLayouts.slotEditDone (position.line(), position.line() + 1, 1);
+}
 
-  m_lineLayouts.slotEditDone(fromLine, toLine, shiftAmount);
+void KateLayoutCache::unwrapLine (int line)
+{
+   m_lineLayouts.slotEditDone (line - 1, line, -1);
+}
+
+void KateLayoutCache::insertText (const KTextEditor::Cursor &position, const QString &)
+{
+   m_lineLayouts.slotEditDone(position.line(), position.line(), 0);
+}
+
+void KateLayoutCache::removeText (const KTextEditor::Range &range)
+{
+   m_lineLayouts.slotEditDone(range.start().line(), range.start().line(), 0);
 }
 
 void KateLayoutCache::clear( )

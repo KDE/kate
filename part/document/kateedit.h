@@ -95,15 +95,12 @@ class KateEditInfo
      */
     const QStringList& newText() const;
 
-    inline const KTextEditor::Cursor& translate() const { return m_translate; }
-
   private:
     Kate::EditSource m_editSource;
     KTextEditor::Range m_oldRange;
     QStringList m_oldText;
     KTextEditor::Range m_newRange;
     QStringList m_newText;
-    KTextEditor::Cursor m_translate;
 };
 
 /**

@@ -26,7 +26,6 @@ KateEditInfo::KateEditInfo(Kate::EditSource source, const KTextEditor::Range& ol
   , m_newRange(newRange)
   , m_newText(newText)
 {
-  m_translate = (m_newRange.end() - m_newRange.start()) - (m_oldRange.end() - m_oldRange.start());
 }
 
 KateEditInfo::~KateEditInfo()

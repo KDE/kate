@@ -110,15 +110,13 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
   {
     m_speller = new Sonnet::Speller();
   }
-  else
-  {
-    m_speller->restore(KGlobal::config().data());
-  }
+  m_speller->restore(KGlobal::config().data());
 
   if ( !m_backgroundChecker )
   {
     m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
+  m_backgroundChecker->restore(KGlobal::config().data());
 
   if ( !m_sonnetDialog )
   {

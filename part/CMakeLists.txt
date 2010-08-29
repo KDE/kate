@@ -69,7 +69,6 @@ dialogs/katedialogs.cpp
 document/katedocument.cpp
 document/katedocumenthelpers.cpp
 document/katebuffer.cpp
-document/kateedit.cpp
 
 # undo
 undo/kateundo.cpp

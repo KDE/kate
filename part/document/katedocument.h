@@ -44,7 +44,6 @@
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
-#include "kateedit.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
 
@@ -65,10 +64,34 @@ class KateLineInfo;
 class KateDocumentConfig;
 class KateHighlighting;
 class KateUndoManager;
-class KateEditHistory;
 class KateOnTheFlyChecker;
 
 class KateAutoIndent;
+
+namespace Kate
+{
+  enum EditSource {
+    /// Editing from opening a file
+    OpenFileEdit,
+    /// Editing from closing a file
+    CloseFileEdit,
+    /// Editing performed by the user
+    UserInputEdit,
+    /// Editing performed by the user within an input method context
+    InputMethodContextEdit,
+    /// Editing from cutting, copying and pasting
+    CutCopyPasteEdit,
+    /// Edits from code completion
+    CodeCompletionEdit,
+    /// Editing from a client application, eg. kdevelop.
+    ThirdPartyEdit,
+    /// Other internal editing done by Kate
+    InternalEdit,
+    /// An edit type which means that no edit source was otherwise specified, and any preexisting type should be inherited.
+    NoEditSource
+  };
+
+}
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -320,11 +343,9 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   public:
     uint undoCount () const;
     uint redoCount () const;
-    KateEditHistory* history() const { return m_editHistory; }
 
   protected:
     KateUndoManager* const m_undoManager;
-    KateEditHistory* const m_editHistory;
 
   Q_SIGNALS:
     void undoChanged ();

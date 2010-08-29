@@ -40,7 +40,6 @@
 #include "katemodemanager.h"
 #include "kateschema.h"
 #include "katetemplatehandler.h"
-#include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
@@ -170,7 +169,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editSessionNumber(0),
   editIsRunning(false),
   m_undoManager(new KateUndoManager(this)),
-  m_editHistory(new KateEditHistory(this)),
   m_editableMarks(markType01),
   m_annotationModel(0),
   m_saveAs(false),
@@ -1048,8 +1046,6 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   // insert text into line
   m_buffer->insertText (KTextEditor::Cursor (line, col2), s2);
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col2, line, col),
-              QStringList(), KTextEditor::Range(line, col2, line, col2 + s2.length()), QStringList(s2)) );
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col2, line, col2 + s2.length()));
 
   editEnd();
@@ -1089,7 +1085,6 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
 
   removeTrailingSpace( line );
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col + len), QStringList(l->string().mid(col, len)), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len));
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len), oldText);
 
@@ -1175,8 +1170,6 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     // yes, we added a new line !
     if (newLineAdded)
       (*newLineAdded) = true;
-
-    history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList()) );
   }
   else
   {
@@ -1186,8 +1179,6 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     // no, no new line added !
     if (newLineAdded)
       (*newLineAdded) = false;
-
-    history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line+1, 0), QStringList(), KTextEditor::Range(line, col, line+1, pos), QStringList()) );
   }
 
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, pos));
@@ -1256,7 +1247,6 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   if( !list.isEmpty() )
     emit marksChanged( this );
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(line, col, line+1, 0), QStringList(QString()), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0));
 
   editEnd ();
@@ -1324,7 +1314,6 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
     rangeInserted.end().setPosition(line + 1, 0);
   }
 
-  history()->doEdit( new KateEditInfo(m_editSources.top(), KTextEditor::Range(rangeInserted.start(), rangeInserted.start()), QStringList(), rangeInserted, QStringList(s)) );
   emit KTextEditor::Document::textInserted(this, rangeInserted);
 
   editEnd ();
@@ -1404,7 +1393,6 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
     }
   }
 
-  history()->doEdit(new KateEditInfo(m_editSources.top(), rangeRemoved, oldText, KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()));
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
 
   editEnd();
@@ -1972,7 +1960,6 @@ bool KateDocument::openFile()
     setEncoding (mimeType.mid(pos+1));
 
   // do we have success ?
-  history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, documentRange());
 
   bool success = m_buffer->openFile (localFilePath());
@@ -1980,8 +1967,6 @@ bool KateDocument::openFile()
   // disable view updates
   foreach (KateView * view, m_views)
     view->setUpdatesEnabled (false);
-
-  history()->doEdit( new KateEditInfo(Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
   //
   // yeah, success
@@ -2430,8 +2415,6 @@ bool KateDocument::closeUrl()
   emit KTextEditor::Document::textRemoved(this, documentRange());
 
   {
-    history()->doEdit( new KateEditInfo(Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
-
     // clear the buffer
     m_buffer->clear();
 
@@ -2937,7 +2920,7 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
   editEnd();
 }
 
-void KateDocument::insertTab( KateView *view, const KTextEditor::Cursor& c )
+void KateDocument::insertTab( KateView *, const KTextEditor::Cursor& c )
 {
   if (!isReadWrite())
     return;

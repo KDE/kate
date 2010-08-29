@@ -1221,9 +1221,10 @@ void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
   m_automaticInvocationDelay = delay;
 }
 
-
-void KateCompletionWidget::wrapLine (const KTextEditor::Cursor &position)
+void KateCompletionWidget::wrapLine (const KTextEditor::Cursor &)
 {
+  m_lastInsertionByUser = !m_completionEditRunning;
+  
   // wrap line, be done
   m_automaticInvocationLine.clear();
   m_automaticInvocationTimer->stop();
@@ -1231,6 +1232,8 @@ void KateCompletionWidget::wrapLine (const KTextEditor::Cursor &position)
 
 void KateCompletionWidget::unwrapLine (int)
 {
+  m_lastInsertionByUser = !m_completionEditRunning;
+  
   // just removal
   m_automaticInvocationLine.clear();
   m_automaticInvocationTimer->stop();
@@ -1266,6 +1269,8 @@ void KateCompletionWidget::insertText (const KTextEditor::Cursor &position, cons
 
 void KateCompletionWidget::removeText (const KTextEditor::Range &)
 {
+  m_lastInsertionByUser = !m_completionEditRunning;
+
   // just removal
   m_automaticInvocationLine.clear();
   m_automaticInvocationTimer->stop();

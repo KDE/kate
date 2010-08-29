@@ -116,8 +116,11 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
   {
     m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
-  m_backgroundChecker->restore(KGlobal::config().data());
 
+#if KDE_IS_VERSION(4,5,90)
+  m_backgroundChecker->restore(KGlobal::config().data());
+#endif
+  
   if ( !m_sonnetDialog )
   {
     m_sonnetDialog = new Sonnet::Dialog(m_backgroundChecker, m_view);

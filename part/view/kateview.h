@@ -746,7 +746,7 @@ public:
       /**
        * update already inited?
        */
-      int m_delayedUpdateTriggered;
+      bool m_delayedUpdateTriggered;
 
       /**
        * minimal line to update

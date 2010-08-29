@@ -1629,11 +1629,6 @@ void KateView::tagAll ()
   m_viewInternal->tagAll ();
 }
 
-void KateView::relayoutRange( const KTextEditor::Range & range, bool realLines )
-{
-  return m_viewInternal->relayoutRange(range, realLines);
-}
-
 void KateView::clear ()
 {
   m_viewInternal->clear ();

@@ -314,8 +314,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
     void tagAll ();
 
-    void relayoutRange(const KTextEditor::Range& range, bool realLines = false);
-
     void clear ();
 
     void repaintText (bool paintOnlyDirty = false);

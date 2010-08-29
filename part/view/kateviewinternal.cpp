@@ -217,9 +217,6 @@ KateViewInternal::KateViewInternal(KateView *view)
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
-
-  // Thread-safe updateView() mechanism
-  connect(this, SIGNAL(requestViewUpdateIfSmartDirty()), this, SLOT(updateViewIfSmartDirty()), Qt::QueuedConnection);
 }
 
 KateViewInternal::~KateViewInternal ()
@@ -508,11 +505,6 @@ void KateViewInternal::scrollColumns ( int x )
   bool blocked = m_columnScroll->blockSignals(true);
   m_columnScroll->setValue(m_startX);
   m_columnScroll->blockSignals(blocked);
-}
-
-void KateViewInternal::updateViewIfSmartDirty() {
-  if(m_smartDirty)
-    updateView(true);
 }
 
 // If changed is true, the lines that have been set dirty have been updated.
@@ -3346,20 +3338,6 @@ bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool re
   }
 
   return (range.end().line() >= startLine) || (range.start().line() <= endLine);
-}
-
-void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
-{
-  int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
-  int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
-
-//   kDebug( 13030 )<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
-  cache()->relayoutLines(startLine, endLine);
-
-  if (!m_smartDirty && rangeAffectsView(range, realCursors)) {
-    m_smartDirty = true;
-    emit requestViewUpdateIfSmartDirty();
-  }
 }
 
 //BEGIN IM INPUT STUFF

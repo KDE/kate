@@ -101,24 +101,15 @@ class KateViewInternal : public QWidget
     bool tagRange(const KTextEditor::Range& range, bool realCursors);
 
     void tagAll ();
-
-    void relayoutRange(const KTextEditor::Range& range, bool realCursors = true);
-
+    
     void updateDirty();
 
     void clear ();
-
-  Q_SIGNALS:
-    // Trigger this signal whenever you want to call updateView() and may not be in the same thread.
-    // Make sure to set m_smartDirty = false before, else nothing will happen
-    void requestViewUpdateIfSmartDirty();
   //END
 
   private Q_SLOTS:
     // Updates the view and requests a redraw.
     void updateView (bool changed = false, int viewLinesScrolled = 0);
-    // This is used to prevent multiple unneeded view updates
-    void updateViewIfSmartDirty();
 
   private:
     // Actually performs the updating, but doesn't call update().

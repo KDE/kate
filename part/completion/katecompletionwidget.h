@@ -39,7 +39,6 @@ class QTimer;
 class KateView;
 class KateCompletionModel;
 class KateCompletionTree;
-class KateEditInfo;
 class KateArgumentHintTree;
 class KateArgumentHintModel;
 
@@ -167,10 +166,15 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     void modelDestroyed(QObject* model);
     void modelContentChanged();
     void cursorPositionChanged();
-    void editDone(KateEditInfo* edit);
     void modelReset();
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
     void viewFocusOut();
+    
+    void wrapLine (const KTextEditor::Cursor &position);
+    void unwrapLine (int line);
+    void insertText (const KTextEditor::Cursor &position, const QString &text);
+    void removeText (const KTextEditor::Range &range);
+    
   private:
     void updateAndShow();
     void updateArgumentHintGeometry();
@@ -222,6 +226,11 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     bool m_haveExactMatch;
 
     bool m_noAutoHide;
+    
+    /**
+     * is a completion edit ongoing?
+     */
+    bool m_completionEditRunning;
 
     int m_expandedAddedHeightBase;
     KTextEditor::CodeCompletionModel::InvocationType m_lastInvocationType;

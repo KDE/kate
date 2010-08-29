@@ -43,7 +43,7 @@
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katedocument.h"
-#include "kateedit.h"
+#include "katebuffer.h"
 
 #include "katecompletionmodel.h"
 #include "katecompletiontree.h"
@@ -110,6 +110,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_needShow(false)
   , m_hadCompletionNavigation(false)
   , m_noAutoHide(false)
+  , m_completionEditRunning (false)
   , m_expandedAddedHeightBase(0)
   , m_lastInvocationType(KTextEditor::CodeCompletionModel::AutomaticInvocation)
 {
@@ -155,8 +156,15 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   // These must be queued connections so that we're not holding the smart lock when we ask for the model to update.??? FIXME
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(cursorPositionChanged()), Qt::QueuedConnection);
-  connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)));
   connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()), Qt::QueuedConnection);
+  
+  /**
+   * connect to all possible editing primitives
+   */
+  connect(&view()->doc()->buffer(), SIGNAL(lineWrapped(const KTextEditor::Cursor&)), this, SLOT(wrapLine(const KTextEditor::Cursor&)));
+  connect(&view()->doc()->buffer(), SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
+  connect(&view()->doc()->buffer(), SIGNAL(textInserted(const KTextEditor::Cursor &, const QString &)), this, SLOT(insertText(const KTextEditor::Cursor &, const QString &)));
+  connect(&view()->doc()->buffer(), SIGNAL(textRemoved(const KTextEditor::Range &, const QString &)), this, SLOT(removeText(const KTextEditor::Range &)));
 
   // This is a non-focus widget, it is passed keyboard input from the view
 
@@ -799,7 +807,8 @@ void KateCompletionWidget::execute()
   }
 
   // encapsulate all editing as being from the code completion, and undo-able in one step.
-  view()->doc()->editStart(Kate::CodeCompletionEdit);
+  view()->doc()->editStart();
+  m_completionEditRunning = true;
 
   // create scoped pointer, to ensure deletion of cursor
   QScopedPointer<KTextEditor::MovingCursor> oldPos (view()->doc()->newMovingCursor(view()->cursorPosition(), KTextEditor::MovingCursor::StayOnInsert));
@@ -821,6 +830,7 @@ void KateCompletionWidget::execute()
     model->executeCompletionItem(view()->document(), *m_completionRanges[model].range, toExecute.row());
 
   view()->doc()->editEnd();
+  m_completionEditRunning = false;
 
   abortCompletion();
 
@@ -1211,8 +1221,61 @@ void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
   m_automaticInvocationDelay = delay;
 }
 
+
+void KateCompletionWidget::wrapLine (const KTextEditor::Cursor &position)
+{
+  // wrap line, be done
+  m_automaticInvocationLine.clear();
+  m_automaticInvocationTimer->stop();
+}
+
+void KateCompletionWidget::unwrapLine (int)
+{
+  // just removal
+  m_automaticInvocationLine.clear();
+  m_automaticInvocationTimer->stop();
+}
+
+void KateCompletionWidget::insertText (const KTextEditor::Cursor &position, const QString &text)
+{
+  m_lastInsertionByUser = !m_completionEditRunning;
+
+  // no invoke?
+  if (!view()->config()->automaticCompletionInvocation()) {
+    m_automaticInvocationLine.clear();
+    m_automaticInvocationTimer->stop();
+    return;
+  }
+  
+  if(m_automaticInvocationAt != position) {
+    m_automaticInvocationLine.clear();
+    m_lastInsertionByUser = !m_completionEditRunning;
+  }
+
+  m_automaticInvocationLine += text;
+  m_automaticInvocationAt = position;
+  m_automaticInvocationAt.setColumn (position.column() + text.length());
+
+  if (m_automaticInvocationLine.isEmpty()) {
+    m_automaticInvocationTimer->stop();
+    return;
+  }
+
+  m_automaticInvocationTimer->start(m_automaticInvocationDelay);
+}
+
+void KateCompletionWidget::removeText (const KTextEditor::Range &)
+{
+  // just removal
+  m_automaticInvocationLine.clear();
+  m_automaticInvocationTimer->stop();
+}
+
+#if 0
 void KateCompletionWidget::editDone(KateEditInfo * edit)
 {
+  return;
+  
   if(!edit->newText().join("\n").trimmed().isEmpty())
   m_lastInsertionByUser = edit->editSource() == Kate::UserInputEdit;
 
@@ -1242,6 +1305,7 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
 
   m_automaticInvocationTimer->start(m_automaticInvocationDelay);
 }
+#endif
 
 void KateCompletionWidget::automaticInvocation()
 {

@@ -68,31 +68,6 @@ class KateOnTheFlyChecker;
 
 class KateAutoIndent;
 
-namespace Kate
-{
-  enum EditSource {
-    /// Editing from opening a file
-    OpenFileEdit,
-    /// Editing from closing a file
-    CloseFileEdit,
-    /// Editing performed by the user
-    UserInputEdit,
-    /// Editing performed by the user within an input method context
-    InputMethodContextEdit,
-    /// Editing from cutting, copying and pasting
-    CutCopyPasteEdit,
-    /// Edits from code completion
-    CodeCompletionEdit,
-    /// Editing from a client application, eg. kdevelop.
-    ThirdPartyEdit,
-    /// Other internal editing done by Kate
-    InternalEdit,
-    /// An edit type which means that no edit source was otherwise specified, and any preexisting type should be inherited.
-    NoEditSource
-  };
-
-}
-
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
@@ -213,14 +188,14 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     /**
      * Enclose editor actions with @p editStart() and @p editEnd() to group
      * them.
-     *
-     * @param editSource the source for the grouped edit actions.
      */
-    void editStart (Kate::EditSource editSource = Kate::NoEditSource);
+    void editStart ();
+    
     /**
      * Alias for @p editStart()
      */
-    void editBegin (Kate::EditSource editSource = Kate::NoEditSource) { editStart(editSource); }
+    void editBegin () { editStart(); }
+    
     /**
      * End a editor operation.
      * @see editStart()
@@ -230,7 +205,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void pushEditState();
     void popEditState();
 
-    virtual bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
+    virtual bool startEditing () { editStart (); return true; }
     virtual bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd
@@ -246,7 +221,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param s string to be inserted
      * @return true on success
      */
-    bool editInsertText ( int line, int col, const QString &s, Kate::EditSource editSource = Kate::NoEditSource );
+    bool editInsertText ( int line, int col, const QString &s );
     /**
      * Remove a string in the given line/column
      * @param line line number
@@ -254,7 +229,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param len length of text to be removed
      * @return true on success
      */
-    bool editRemoveText ( int line, int col, int len, Kate::EditSource editSource = Kate::NoEditSource );
+    bool editRemoveText ( int line, int col, int len );
 
     /**
      * Mark @p line as @p autowrapped. This is necessary if static word warp is
@@ -292,15 +267,15 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param s string to insert
      * @return true on success
      */
-    bool editInsertLine ( int line, const QString &s, Kate::EditSource editSource = Kate::NoEditSource );
+    bool editInsertLine ( int line, const QString &s );
     /**
      * Remove a line
      * @param line line number
      * @return true on success
      */
-    bool editRemoveLine ( int line, Kate::EditSource editSource = Kate::NoEditSource );
+    bool editRemoveLine ( int line );
 
-    bool editRemoveLines ( int from, int to, Kate::EditSource editSource = Kate::NoEditSource );
+    bool editRemoveLines ( int from, int to );
 
     /**
      * Remove a line
@@ -330,7 +305,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   private:
     int editSessionNumber;
     QStack<int> editStateStack;
-    QStack<Kate::EditSource> m_editSources;
     bool editIsRunning;
 
   //

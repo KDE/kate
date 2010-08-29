@@ -1782,7 +1782,7 @@ bool KateView::removeSelectedText()
   if (!selection())
     return false;
 
-  m_doc->editStart (Kate::CutCopyPasteEdit);
+  m_doc->editStart ();
 
   m_doc->removeText (m_selection, blockSelect);
 

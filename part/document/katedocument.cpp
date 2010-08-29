@@ -804,14 +804,9 @@ int KateDocument::lineLength ( int line ) const
 //
 // Starts an edit session with (or without) undo, update of view disabled during session
 //
-void KateDocument::editStart (Kate::EditSource editSource)
+void KateDocument::editStart ()
 {
   editSessionNumber++;
-
-  if (editSource == Kate::NoEditSource)
-    m_editSources.push(m_editSources.isEmpty() ? Kate::UserInputEdit : m_editSources.top());
-  else
-    m_editSources.push(editSource);
 
   if (editSessionNumber > 1)
     return;
@@ -821,9 +816,7 @@ void KateDocument::editStart (Kate::EditSource editSource)
   m_undoManager->editStart();
 
   foreach(KateView *view,m_views)
-  {
     view->editStart ();
-  }
 
   m_buffer->editStart ();
 }
@@ -845,8 +838,6 @@ void KateDocument::editEnd ()
 
   editSessionNumber--;
 
-  m_editSources.pop();
-
   if (editSessionNumber > 0)
     return;
 
@@ -860,8 +851,7 @@ void KateDocument::editEnd ()
   foreach(KateView *view, m_views)
     view->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
 
-  if (m_buffer->editChanged())
-  {
+  if (m_buffer->editChanged()) {
     setModified(true);
     emit textChanged (this);
   }
@@ -1015,7 +1005,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
   return true;
 }
 
-bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::EditSource editSource )
+bool KateDocument::editInsertText ( int line, int col, const QString &s )
 {
   if (line < 0 || col < 0)
     return false;
@@ -1032,7 +1022,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   if (s.isEmpty())
     return true;
 
-  editStart (editSource);
+  editStart ();
 
   QString s2 = s;
   int col2 = col;
@@ -1053,7 +1043,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::E
   return true;
 }
 
-bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource editSource )
+bool KateDocument::editRemoveText ( int line, int col, int len )
 {
   if (line < 0 || col < 0 || len < 0)
     return false;
@@ -1074,7 +1064,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (col >= l->text().size())
     return false;
 
-  editStart (editSource);
+  editStart ();
 
   QString oldText = l->string().mid(col, len);
   
@@ -1254,7 +1244,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   return true;
 }
 
-bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource editSource )
+bool KateDocument::editInsertLine ( int line, const QString &s )
 {
   if (line < 0)
     return false;
@@ -1265,7 +1255,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   if ( line > lines() )
     return false;
 
-  editStart (editSource);
+  editStart ();
 
   m_undoManager->slotLineInserted(line, s);
 
@@ -1321,12 +1311,12 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   return true;
 }
 
-bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
+bool KateDocument::editRemoveLine ( int line )
 {
-  return editRemoveLines(line, line, editSource);
+  return editRemoveLines(line, line);
 }
 
-bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSource )
+bool KateDocument::editRemoveLines ( int from, int to )
 {
   if (to < from || from < 0 || to > lastLine())
     return false;
@@ -1337,7 +1327,7 @@ bool KateDocument::editRemoveLines ( int from, int to, Kate::EditSource editSour
   if (lines() == 1)
     return editRemoveText(0, 0, kateTextLine(0)->length());
 
-  editStart(editSource);
+  editStart();
   QStringList oldText;
 
   for (int line = to; line >= from; line--) {
@@ -2817,7 +2807,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
   m_undoManager->undoSafePoint();
 
-  editStart (Kate::CutCopyPasteEdit);
+  editStart ();
 
   KTextEditor::Cursor pos = view->cursorPosition();
   if (!view->config()->persistentSelection() && view->selection()) {

@@ -117,7 +117,8 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
 
-#if KDE_IS_VERSION(4,5,90)
+#if KDE_IS_VERSION(4,5,2)
+// guard necessary to ensure compilation of KatePart's git repository against <= 4.5.1
   m_backgroundChecker->restore(KGlobal::config().data());
 #endif
   

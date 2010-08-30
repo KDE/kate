@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.41" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.42" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -281,9 +281,8 @@
 
       <!-- parse math environment -->
       <context name="MathModeEnv" attribute="Math" lineEndContext="#stay">
-        <RegExpr String="\\end(?=\s*\{(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign|alignat|xalignat|xxalignat)\*?\})" attribute="Structure" context="MathFindEnd"/>
-        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" beginRegion="block" />
-        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" endRegion="block" />
+	<RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindBeginEnvironment" beginRegion="block"/>
+	<RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="MathFindEnd"/>
         <StringDetect String="\(" attribute="Error" context="#stay" />
         <StringDetect String="\[" attribute="Error" context="#stay" />
         <StringDetect String="\)" attribute="Error" context="#stay" />
@@ -371,8 +370,8 @@
       <!-- math mode common -->
       <context name="MathModeCommon" attribute="Math" lineEndContext="#stay">
         <RegExpr String="\\(begin|end)\s*\{(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign|alignat|xalignat|xxalignat)\*?\}" attribute="Error" context="#stay"/>
-        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" beginRegion="block" />
-        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" endRegion="block" />
+	<RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" beginRegion="block" />
+	<RegExpr String="\\end(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" endRegion="block" />
         <RegExpr String="\\(text|intertext|mbox)\s*(?=\{)" attribute="Keyword Mathmode" context="MathModeText" />
         <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>
         <DetectChar char="%" attribute="Comment" context="Comment"/>
@@ -443,7 +442,7 @@
       <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0" spellChecking="false"/>
       <itemData name="Structure Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="1" italic="0"/>
       <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0" spellChecking="false"/>
-     </itemDatas>
+    </itemDatas>
   </highlighting>
 
   <general>

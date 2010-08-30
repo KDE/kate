@@ -525,7 +525,7 @@ void KateMainWindow::slotEditToolbars()
   saveMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
   KEditToolBar dlg( factory() );
 
-  connect( &dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
+  connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
   dlg.exec();
 }
 

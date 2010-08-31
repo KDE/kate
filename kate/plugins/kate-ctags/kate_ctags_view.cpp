@@ -26,10 +26,10 @@
 
 #include <kmenu.h>
 #include <kactioncollection.h>
+#include <kstandarddirs.h>
 #include <kstringhandler.h>
 #include <kmessagebox.h>
 
-#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --excmd=pattern --exclude=Makefile --exclude=."
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
@@ -79,40 +79,35 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
     QWidget *ctagsWidget = new QWidget(m_toolView);
     m_ctagsUi.setupUi(ctagsWidget);
     m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
-    m_ctagsUi.loadFile->setText("");
-    m_ctagsUi.loadFile->setToolTip(i18n("Load a CTags database file."));
-    m_ctagsUi.loadFile->setIcon(KIcon("document-open"));
-    m_ctagsUi.newDB->setText("");
-    m_ctagsUi.newDB->setToolTip(i18n("Create a CTags database file."));
-    m_ctagsUi.newDB->setIcon(KIcon("document-new"));
-    m_ctagsUi.updateDB->setText("");
-    m_ctagsUi.updateDB->setToolTip(i18n("Re-generate the CTags database file."));
+
+    m_ctagsUi.addButton->setToolTip(i18n("Add a directory to index."));
+    m_ctagsUi.addButton->setIcon(KIcon("list-add"));
+
+    m_ctagsUi.delButton->setToolTip(i18n("Remove a directory."));
+    m_ctagsUi.delButton->setIcon(KIcon("list-remove"));
+
+    m_ctagsUi.updateDB->setToolTip(i18n("(Re-)generate the session specific CTags database."));
     m_ctagsUi.updateDB->setIcon(KIcon("view-refresh"));
 
-    connect(m_ctagsUi.newDB, SIGNAL(clicked()), this, SLOT(newTagsDB()));
-    connect(m_ctagsUi.updateDB, SIGNAL(clicked()), this, SLOT(updateDB()));
+    connect(m_ctagsUi.addButton, SIGNAL(clicked()), this, SLOT(addTagTarget()));
+    connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
+    connect(m_ctagsUi.updateDB,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
+    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), 
+            this, SLOT(updateDone(int, QProcess::ExitStatus)));
 
-    connect(m_ctagsUi.loadFile, SIGNAL(clicked()), this, SLOT(selectTagFile()));
-    connect(m_ctagsUi.tagsFile, SIGNAL(returnPressed(QString)), this, SLOT(setTagsFile(QString)));
-    connect(m_ctagsUi.tagsFile, SIGNAL(textChanged(QString)), this, SLOT(startTagFileTmr()));
+    connect(m_ctagsUi.inputEdit, SIGNAL(textChanged(QString)), this, SLOT(startEditTmr()));
 
-    m_dbTimer.setSingleShot(true);
-    connect(&m_dbTimer, SIGNAL(timeout()), this, SLOT(setTagsFile()));
-
-    connect(m_ctagsUi.input_edit, SIGNAL(textChanged(QString)), this, SLOT(startEditTmr()));
     m_editTimer.setSingleShot(true);
     connect(&m_editTimer, SIGNAL(timeout()), this, SLOT(editLookUp()));
 
-    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(generateDone()));
-
-    connect(m_ctagsUi.treeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
+    connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
             SLOT(tagHitClicked(QTreeWidgetItem *)));
 
     setXMLFile(QString::fromLatin1("plugins/katectags/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
 
+    m_commonDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/common_db", true);
 }
-
 
 
 /******************************************************************/
@@ -121,12 +116,6 @@ KateCTagsView::~KateCTagsView()
     mainWindow()->guiFactory()->removeClient( this );
 
     delete m_toolView;
-}
-
-/******************************************************************/
-QWidget *KateCTagsView::toolView() const
-{
-    return m_toolView;
 }
 
 /******************************************************************/
@@ -154,24 +143,42 @@ void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& group
 
     m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 
-    QString tagsFile = cg.readEntry("TagsDatabase", QString());
-    QFileInfo file(tagsFile);
-    if (file.exists() && file.isFile()) {
-      m_ctagsUi.tagsFile->setText(tagsFile);
-    }
-    else {
-      m_ctagsUi.tagsFile->setText("");
-    }
+    kDebug() << config->groupList() << groupPrefix;
 
-    setTagsFile(m_ctagsUi.tagsFile->text());
+    m_ctagsUi.cmdEdit->setText(cg.readEntry("GlobalCommand", DEFAULT_CTAGS_CMD));
+
+    int numEntries = cg.readEntry("GlobalNumTargets", 0);
+    QString nr;
+    QString target;
+    for (int i=0; i<numEntries; i++) {
+        nr = QString("%1").arg(i,3);
+        target = cg.readEntry("GlobalTarget_"+nr, QString());
+        if (!listContains(target)) {
+            new QListWidgetItem(target, m_ctagsUi.targetList);
+        }
+    }
+    
+    m_sessionDB = cg.readEntry("SessionDatabase", QString());
 }
 
 /******************************************************************/
 void KateCTagsView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
+    kDebug() << groupPrefix;
     KConfigGroup cg(config, groupPrefix + ":ctags-plugin");
-    cg.writeEntry("TagsDatabase", m_ctagsUi.tagsFile->text());
-    cg.writeEntry("TagsGenCMD",m_ctagsUi.cmdEdit->text());
+
+    cg.writeEntry("TagsGenCMD", m_ctagsUi.cmdEdit->text());
+    cg.writeEntry("SessionNumTargets", m_ctagsUi.targetList->count());
+    
+    QString nr;
+    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
+        nr = QString("%1").arg(i,3);
+        cg.writeEntry("SessionTarget_"+nr, m_ctagsUi.targetList->item(i)->text());
+    }
+
+    cg.writeEntry("SessionDatabase", m_sessionDB);
+
+    cg.sync();
 }
 
 
@@ -200,12 +207,10 @@ void KateCTagsView::lookupTag( )
         return;
     }
 
-    if (!ctagsDBExists()) {
-        return;
-    }
-
     clearInput();
-    displayHits(Tags::getExactMatches(currWord));
+    Tags::TagList list = Tags::getExactMatches(m_sessionDB, currWord);
+    if (list.size() == 0) list = Tags::getExactMatches(m_commonDB, currWord);
+    displayHits(list);
 
     // activate the hits tab
     m_ctagsUi.tabWidget->setCurrentIndex(0);
@@ -215,10 +220,9 @@ void KateCTagsView::lookupTag( )
 /******************************************************************/
 void KateCTagsView::editLookUp()
 {
-    if (!ctagsDBExists()) {
-        return;
-    }
-    displayHits(Tags::getPartialMatches(m_ctagsUi.input_edit->text()));
+    Tags::TagList list = Tags::getPartialMatches(m_sessionDB, m_ctagsUi.inputEdit->text());
+    if (list.size() == 0) list = Tags::getPartialMatches(m_sessionDB, m_ctagsUi.inputEdit->text());
+    displayHits(list);
 }
 
 /******************************************************************/
@@ -243,48 +247,17 @@ void KateCTagsView::gotoDeclaration( )
     }
 
     QStringList types;
-    types << "L" << "c" << "e" << "g" << "m" << "n" << "p" << "s" << "u" << "x";
+    //types << "L" << "c" << "e" << "g" << "m" << "n" << "p" << "s" << "u" << "x";
+    types << "L" << "c" << "e" << "g" << "m" << "n" << "s" << "u" << "x";
     gotoTagForTypes(currWord, types);
-}
-
-/******************************************************************/
-bool KateCTagsView::ctagsDBExists()
-{
-    if (Tags::getTagsFile().isEmpty()) {
-        KGuiItem createNew =
-                KGuiItem(i18nc("Button text for creating a new CTags database file.","Create New"),
-                         "document-new",
-                         i18n("Select a location and create a new CTags database."));
-        KGuiItem load =
-                KGuiItem(i18nc("Button text for loading a CTags database file","Load"),
-                         "document-open",
-                         i18n("Select an existing CTags database."));
-        int res = KMessageBox::messageBox(0, KMessageBox::QuestionYesNoCancel, i18n("No CTags database is loaded."), i18n("CTags"),
-                                          createNew, load, KStandardGuiItem::cancel());
-
-        if (res == KMessageBox::Yes) {
-            newTagsDB();
-        }
-        else if (res == KMessageBox::No) {
-            selectTagFile();
-        }
-
-        if (Tags::getTagsFile().isEmpty()) {
-            // no database has been created
-            return false;
-        }
-    }
-    return true;
 }
 
 /******************************************************************/
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
-    if (!ctagsDBExists()) {
-        return;
-    }
-
-    Tags::TagList list = Tags::getMatches(word, false, types);
+    Tags::TagList list = Tags::getMatches(m_sessionDB, word, false, types);
+    if (list.size() == 0) list = Tags::getMatches(m_sessionDB, word, false, types);
+ 
     //kDebug() << "found" << list.count() << word << types;
 
     if ( list.count() < 1) {
@@ -308,9 +281,9 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
 /******************************************************************/
 void KateCTagsView::clearInput()
 {
-    m_ctagsUi.input_edit->blockSignals( true );
-    m_ctagsUi.input_edit->clear();
-    m_ctagsUi.input_edit->blockSignals( false );
+    m_ctagsUi.inputEdit->blockSignals( true );
+    m_ctagsUi.inputEdit->clear();
+    m_ctagsUi.inputEdit->blockSignals( false );
 }
 
 /******************************************************************/
@@ -318,8 +291,8 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
 {
     KUrl url;
 
-    m_ctagsUi.treeWidget->clear();
-    m_ctagsUi.treeWidget->setSortingEnabled(false);
+    m_ctagsUi.tagTreeWidget->clear();
+    m_ctagsUi.tagTreeWidget->setSortingEnabled(false);
 
     Tags::TagList::ConstIterator it = list.begin();
     while(it != list.end()) {
@@ -338,7 +311,7 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
             url.setPath(abs.absoluteFilePath());
         }
 
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_ctagsUi.treeWidget);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_ctagsUi.tagTreeWidget);
         item->setText(0, (*it).tag);
         item->setText(1, (*it).type);
         item->setText(2, url.toLocalFile());
@@ -356,7 +329,7 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
 
         ++it;
     }
-    m_ctagsUi.treeWidget->setSortingEnabled(true);
+    m_ctagsUi.tagTreeWidget->setSortingEnabled(true);
 }
 
 /******************************************************************/
@@ -489,107 +462,42 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
 }
 
-/******************************************************************/
-void KateCTagsView::setTagsFile(const QString &fname)
-{
-    //kDebug() << "setting tagsFile" << fname;
-    QFileInfo file(fname);
-    if (file.exists() && file.isFile()) {
-        //kDebug() << "File Found -> setting it";
-        m_ctagsUi.updateDB->setDisabled(false);
-    }
-    else {
-        m_ctagsUi.updateDB->setDisabled(true);
-    }
-    Tags::setTagsFile(fname);
-
-}
-
-/******************************************************************/
-void KateCTagsView::selectTagFile()
-{
-    KUrl defDir;
-
-    if (m_ctagsUi.tagsFile->text().isEmpty()) {
-        defDir = m_mWin->activeView()->document()->url();
-    }
-    else {
-        defDir = m_ctagsUi.tagsFile->text();
-    }
-    QString new_file = KFileDialog::getOpenFileName(defDir);
-
-    if (!new_file.isEmpty()) {
-        m_ctagsUi.tagsFile->setText(new_file);
-    }
-}
-
-
-/******************************************************************/
-void KateCTagsView::startTagFileTmr()
-{
-    //kDebug() << "";
-    if (m_ctagsUi.tagsFile->text().isEmpty()) {
-        m_ctagsUi.updateDB->setDisabled(true);
-    }
-    m_dbTimer.start(500);
-}
 
 /******************************************************************/
 void KateCTagsView::startEditTmr()
 {
-    if (m_ctagsUi.input_edit->text().size() > 3) {
+    if (m_ctagsUi.inputEdit->text().size() > 3) {
         m_editTimer.start(500);
     }
 }
 
-/******************************************************************/
-void KateCTagsView::setTagsFile()
-{
-    //kDebug() << "";
-    setTagsFile(m_ctagsUi.tagsFile->text());
-}
 
 /******************************************************************/
-void KateCTagsView::newTagsDB()
-{
-    KUrl defDir;
-    
-    if (m_ctagsUi.tagsFile->text().isEmpty()) {
-        defDir = m_mWin->activeView()->document()->url();
-    }
-    else {
-        defDir = m_ctagsUi.tagsFile->text();
-    }
-
-    QString file = KFileDialog::getExistingDirectory(defDir, 0, i18n("CTags Database Location"));
-
-    if (!file.isEmpty()) {
-        file += "/.ctagsdb";
-        m_ctagsUi.tagsFile->setText(file);
-        generateTagsDB(file);
-    }
-}
-
-/******************************************************************/
-void KateCTagsView::updateDB()
-{
-    QString file = m_ctagsUi.tagsFile->text();
-
-    if (!file.isEmpty()) {
-        generateTagsDB(file);
-    }
-}
-
-/******************************************************************/
-void KateCTagsView::generateTagsDB(const QString &file)
+void KateCTagsView::updateSessionDB()
 {
     if (m_proc.state() != QProcess::NotRunning) {
         return;
     }
 
-    QString command = m_ctagsUi.cmdEdit->text() + " -f " + file;
+    QString targets;
+    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
+        targets += m_ctagsUi.targetList->item(i)->text() + " ";
+    }
 
-    m_proc.setWorkingDirectory(QFileInfo(file).dir().absolutePath ());
+    // FIXME we need a way to get the session name
+    if (m_sessionDB.isEmpty()) {
+        m_sessionDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/session_db_", true);
+        m_sessionDB += QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+    }
+
+    if (targets.isEmpty()) {
+        QFile::remove(m_sessionDB);
+        m_sessionDB.clear();
+        return;
+    }
+
+    QString command = QString("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_sessionDB).arg(targets) ;
+
     m_proc.setShellCommand(command);
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
     m_proc.start();
@@ -598,20 +506,64 @@ void KateCTagsView::generateTagsDB(const QString &file)
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
-
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    m_ctagsUi.updateDB->setDisabled(true);
 }
 
+
 /******************************************************************/
-void KateCTagsView::generateDone()
+void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
 {
-    QApplication::restoreOverrideCursor();
+    if (status == QProcess::CrashExit) {
+        KMessageBox::error(m_toolView, i18n("The CTags executable crashed."));
+        return;
+    }
+    
+    if (exitCode != 0) {
+        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %d", exitCode));
+        return;
+    }
+
     m_ctagsUi.updateDB->setDisabled(false);
+    QApplication::restoreOverrideCursor();
 }
 
 /******************************************************************/
-void KateCTagsView::readConfig()
+void KateCTagsView::addTagTarget()
 {
-    kDebug();
+    KUrl defDir = m_mWin->activeView()->document()->url().directory();
+    
+    KFileDialog dialog(defDir, QString(), 0, 0);
+    dialog.setMode(KFile::Directory | KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
+    
+    // i18n("CTags Database Location"));
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    QStringList urls = dialog.selectedFiles();
+
+    for (int i=0; i<urls.size(); i++) {
+        if (!listContains(urls[i])) {
+            new QListWidgetItem(urls[i], m_ctagsUi.targetList);
+        }
+    }
+}
+
+/******************************************************************/
+void KateCTagsView::delTagTarget()
+{
+    delete m_ctagsUi.targetList->currentItem ();
+}
+
+/******************************************************************/
+bool KateCTagsView::listContains(const QString &target)
+{
+    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
+        if (m_ctagsUi.targetList->item(i)->text() == target) {
+            return true;
+        }
+    }
+    return false;
 }
 

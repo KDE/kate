@@ -56,6 +56,10 @@ public:
 	static TagList getExactMatches( const QString & tag );
 	static TagList getMatches( const QString & tagpart, bool partial, const QStringList & types = QStringList() );
 
+	static TagList getPartialMatches( const QString & file, const QString & tagpart );
+	static TagList getExactMatches( const QString & file, const QString & tag );
+	static TagList getMatches( const QString & file, const QString & tagpart, bool partial, const QStringList & types = QStringList() );
+
 private:
 	static QString _tagsfile;
 };

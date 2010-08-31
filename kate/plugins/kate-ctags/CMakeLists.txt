@@ -15,7 +15,7 @@ set(ctagsplugin_SRC
     kate_ctags_plugin.cpp
 )
 
-kde4_add_ui_files(ctagsplugin_SRC kate_ctags.ui)
+kde4_add_ui_files(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
 
 kde4_add_plugin(katectagsplugin ${ctagsplugin_SRC})
 

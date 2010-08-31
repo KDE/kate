@@ -1,7 +1,7 @@
 #ifndef KATE_CTAGS_VIEW_H
 #define KATE_CTAGS_VIEW_H
 /* Description : Kate CTags plugin
- *
+ * 
  * Copyright (C) 2008 by Kare Sars <kare dot sars at iki dot fi>
  *
  * This program is free software; you can redistribute it and/or
@@ -41,6 +41,8 @@
 
 #include "ui_kate_ctags.h"
 
+#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --excmd=pattern --exclude=Makefile --exclude=."
+
 typedef struct
 {
     KUrl url;
@@ -51,65 +53,58 @@ typedef struct
 class KateCTagsView : public Kate::PluginView, public KXMLGUIClient
 {
     Q_OBJECT
+    
+public:
+    KateCTagsView(Kate::MainWindow *mw);
+    ~KateCTagsView();
 
-    public:
-        KateCTagsView(Kate::MainWindow *mw);
-        ~KateCTagsView();
+    // overwritten: read and write session config
+    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-        // overwritten: read and write session config
-        void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-        void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
-        void readConfig();
+public slots:
+    void gotoDefinition();
+    void gotoDeclaration();
+    void lookupTag();
+    void stepBack();
+    void editLookUp();
+    void aboutToShow();
+    void tagHitClicked(QTreeWidgetItem *);
+    void startEditTmr();
+    
+    void addTagTarget();
+    void delTagTarget();
+    
+    void updateSessionDB();
+    void updateDone(int exitCode, QProcess::ExitStatus status);
+    
+private:
+    bool listContains(const QString &target);
 
-        QWidget *toolView() const;
+    QString currentWord();
+    
+    void clearInput();
+    void displayHits(const Tags::TagList &list);
+    
+    void gotoTagForTypes(const QString &tag, QStringList const &types);
+    void jumpToTag(const QString &file, const QString &pattern, const QString &word);
+    
 
-    public slots:
-        void gotoDefinition();
-        void gotoDeclaration();
-        void lookupTag();
-        void stepBack();
-        void editLookUp();
-        void startEditTmr();
-        void tagHitClicked(QTreeWidgetItem *);
+    Kate::MainWindow      *m_mWin;
+    QWidget               *m_toolView;
+    Ui::kateCtags          m_ctagsUi;
 
-        void setTagsFile(const QString &fname);
-        void selectTagFile();
-        void startTagFileTmr();
-        void setTagsFile();
+    QPointer<KActionMenu>  m_menu;
+    QAction               *m_gotoDef;
+    QAction               *m_gotoDec;
+    QAction               *m_lookup;
 
-        void aboutToShow();
+    KProcess               m_proc;
+    QString                m_sessionDB;
+    QString                m_commonDB;
 
-        void newTagsDB();
-        void updateDB();
-        void generateTagsDB(const QString &file);
-        void generateDone();
-
-    private:
-        QString currentWord();
-
-        bool ctagsDBExists();
-        void clearInput();
-        void displayHits(const Tags::TagList &list);
-
-        void gotoTagForTypes(const QString &tag, QStringList const &types);
-        void jumpToTag(const QString &file, const QString &pattern, const QString &word);
-
-
-        Kate::MainWindow *m_mWin;
-        QWidget          *m_toolView;
-        Ui::kateCtags     m_ctagsUi;
-
-        KProcess          m_proc;
-
-        QPointer<KActionMenu> m_menu;
-        QAction              *m_gotoDef;
-        QAction              *m_gotoDec;
-        QAction              *m_lookup;
-
-        QTimer               m_dbTimer;
-        QTimer               m_editTimer;
-        QStack<TagJump>      m_jumpStack;
-
+    QTimer                 m_editTimer;
+    QStack<TagJump>        m_jumpStack;
 };
 
 

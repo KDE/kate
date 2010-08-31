@@ -30,8 +30,7 @@
 #include <kactioncollection.h>
 #include <kstringhandler.h>
 #include <kmessagebox.h>
-
-#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --excmd=pattern --exclude=Makefile --exclude=."
+#include <kstandarddirs.h>
 
 K_EXPORT_COMPONENT_FACTORY(katectagsplugin, KGenericFactory<KateCTagsPlugin>("kate-ctags-plugin"))
 
@@ -80,47 +79,159 @@ KIcon KateCTagsPlugin::configPageIcon (uint number) const
 /******************************************************************/
 void KateCTagsPlugin::readConfig()
 {
-    m_view->readConfig();
 }
+
+
+
 
 /******************************************************************/
 KateCTagsConfigPage::KateCTagsConfigPage( QWidget* parent, KateCTagsPlugin *plugin )
 : Kate::PluginConfigPage( parent )
 , m_plugin( plugin )
 {
-    QVBoxLayout *lo = new QVBoxLayout( this );
-    lo->setSpacing( KDialog::spacingHint() );
+    m_confUi.setupUi(this);
+    m_confUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+
+    m_confUi.addButton->setToolTip(i18n("Add a directory to index."));
+    m_confUi.addButton->setIcon(KIcon("list-add"));
+
+    m_confUi.delButton->setToolTip(i18n("Remove a directory."));
+    m_confUi.delButton->setIcon(KIcon("list-remove"));
+
+    m_confUi.updateDB->setToolTip(i18n("(Re-)generate the common CTags database."));
+    m_confUi.updateDB->setIcon(KIcon("view-refresh"));
+
+    connect(m_confUi.updateDB,  SIGNAL(clicked()), this, SLOT(updateGlobalDB()));
+    connect(m_confUi.addButton, SIGNAL(clicked()), this, SLOT(addGlobalTagTarget()));
+    connect(m_confUi.delButton, SIGNAL(clicked()), this, SLOT(delGlobalTagTarget()));
+
+    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), 
+            this,    SLOT(updateDone(int, QProcess::ExitStatus)));
     
-    m_cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
-    lo->addWidget( m_cbAutoSyncronize );
-    m_cbSetEditor = new QCheckBox( i18n("Set &EDITOR environment variable to 'kate -b'"), this );
-    lo->addWidget( m_cbSetEditor );
-    QLabel *tmp = new QLabel(this);
-    tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
-    lo->addWidget(tmp);
     reset();
-    lo->addStretch();
-    connect( m_cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
-    connect( m_cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
 }
 
 /******************************************************************/
 void KateCTagsConfigPage::apply()
 {
     KConfigGroup config(KGlobal::config(), "CTags");
-    config.writeEntry("AutoSyncronize", m_cbAutoSyncronize->isChecked());
-    config.writeEntry("SetEditor", m_cbSetEditor->isChecked());
+    config.writeEntry("GlobalCommand", m_confUi.cmdEdit->text());
+
+    config.writeEntry("GlobalNumTargets", m_confUi.targetList->count());
+    
+    QString nr;
+    for (int i=0; i<m_confUi.targetList->count(); i++) {
+        nr = QString("%1").arg(i,3);
+        config.writeEntry("GlobalTarget_"+nr, m_confUi.targetList->item(i)->text());
+    }
     config.sync();
-    m_plugin->readConfig();
 }
 
 /******************************************************************/
 void KateCTagsConfigPage::reset()
 {
     KConfigGroup config(KGlobal::config(), "CTags");
-    m_cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
-    m_cbSetEditor->setChecked(config.readEntry("SetEditor", false));
+    m_confUi.cmdEdit->setText(config.readEntry("GlobalCommand", DEFAULT_CTAGS_CMD));
+
+    int numEntries = config.readEntry("GlobalNumTargets", 0);
+    QString nr;
+    QString target;
+    for (int i=0; i<numEntries; i++) {
+        nr = QString("%1").arg(i,3);
+        target = config.readEntry("GlobalTarget_"+nr, QString());
+        if (!listContains(target)) {
+            new QListWidgetItem(target, m_confUi.targetList);
+        }
+    }
+    config.sync();
 }
 
+
+/******************************************************************/
+void KateCTagsConfigPage::addGlobalTagTarget()
+{
+    KFileDialog dialog(KUrl(), QString(), 0, 0);
+    dialog.setMode(KFile::Directory | KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
+
+    // i18n("CTags Database Location"));
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    QStringList urls = dialog.selectedFiles();
+
+    for (int i=0; i<urls.size(); i++) {
+        if (!listContains(urls[i])) {
+            new QListWidgetItem(urls[i], m_confUi.targetList);
+        }
+    }
+
+}
+
+
+/******************************************************************/
+void KateCTagsConfigPage::delGlobalTagTarget()
+{
+    delete m_confUi.targetList->currentItem ();
+}
+
+
+/******************************************************************/
+bool KateCTagsConfigPage::listContains(const QString &target)
+{
+    for (int i=0; i<m_confUi.targetList->count(); i++) {
+        if (m_confUi.targetList->item(i)->text() == target) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/******************************************************************/
+void KateCTagsConfigPage::updateGlobalDB()
+{
+    if (m_proc.state() != QProcess::NotRunning) {
+        return;
+    }
+
+    QString targets;
+    for (int i=0; i<m_confUi.targetList->count(); i++) {
+        targets += m_confUi.targetList->item(i)->text() + " ";
+    }
+
+    QString file = KStandardDirs::locateLocal("appdata", "plugins/katectags/common_db", true);
+
+    if (targets.isEmpty()) {
+        QFile::remove(file);
+        return;
+    }
+
+    QString command = QString("%1 -f %2 %3").arg(m_confUi.cmdEdit->text()).arg(file).arg(targets) ;
+
+    m_proc.setShellCommand(command);
+    m_proc.setOutputChannelMode(KProcess::SeparateChannels);
+    m_proc.start();
+
+    if(!m_proc.waitForStarted(500)) {
+        KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        return;
+    }
+    m_confUi.updateDB->setDisabled(true);
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+}
+
+/******************************************************************/
+void KateCTagsConfigPage::updateDone(int exitCode, QProcess::ExitStatus status)
+{
+    if (status == QProcess::CrashExit) {
+        KMessageBox::error(this, i18n("The CTags executable crashed."));
+    }
+    else if (exitCode != 0) {
+        KMessageBox::error(this, i18n("The CTags command exited with code %1", exitCode));
+    }
+    
+    m_confUi.updateDB->setDisabled(false);
+    QApplication::restoreOverrideCursor();
+}
 
 

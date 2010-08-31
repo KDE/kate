@@ -32,6 +32,7 @@
 #include <kate/pluginconfigpageinterface.h>
 
 #include "kate_ctags_view.h"
+#include "ui_CTagsGlobalConfig.h"
 
 //******************************************************************/
 class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterface
@@ -53,24 +54,33 @@ class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterf
         KIcon configPageIcon (uint number = 0) const;
         void readConfig();
         
-    private:
         KateCTagsView *m_view;
 };
 
 //******************************************************************/
 class KateCTagsConfigPage : public Kate::PluginConfigPage {
     Q_OBJECT
-  public:
+public:
     explicit KateCTagsConfigPage( QWidget* parent = 0, KateCTagsPlugin *plugin = 0 );
     ~KateCTagsConfigPage() {}
-
+    
     void apply();
     void reset();
     void defaults() {}
-  private:
-    class QCheckBox *m_cbAutoSyncronize;
-    class QCheckBox *m_cbSetEditor;
-    KateCTagsPlugin *m_plugin;
+
+private Q_SLOTS:
+    void addGlobalTagTarget();
+    void delGlobalTagTarget();
+    void updateGlobalDB();
+    void updateDone(int exitCode, QProcess::ExitStatus status);
+
+private:
+
+    bool listContains(const QString &target);
+
+    KProcess              m_proc;
+    KateCTagsPlugin      *m_plugin;
+    Ui_CTagsGlobalConfig  m_confUi;
 };
 
 #endif

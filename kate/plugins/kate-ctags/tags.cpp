@@ -131,6 +131,24 @@ Tags::TagList Tags::getExactMatches( const QString & tag )
 	return getMatches( tag, false );
 }
 
-// kate: space-indent off; indent-width 4; tab-width 4; show-tabs off;
+Tags::TagList Tags::getPartialMatches( const QString & file, const QString & tagpart )
+{
+	setTagsFile( file );
+	return getMatches( tagpart, true );
+}
+
+Tags::TagList Tags::getExactMatches( const QString & file, const QString & tag )
+{
+	setTagsFile( file );
+	return getMatches( tag, false );
+}
+
+Tags::TagList Tags::getMatches( const QString & file, const QString & tagpart,  bool partial, const QStringList & types )
+{
+	setTagsFile( file );
+	return getMatches( tagpart, partial, types);
+}
+
+	// kate: space-indent off; indent-width 4; tab-width 4; show-tabs off;
 
 

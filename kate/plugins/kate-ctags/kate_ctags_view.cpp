@@ -247,8 +247,7 @@ void KateCTagsView::gotoDeclaration( )
     }
 
     QStringList types;
-    //types << "L" << "c" << "e" << "g" << "m" << "n" << "p" << "s" << "u" << "x";
-    types << "L" << "c" << "e" << "g" << "m" << "n" << "s" << "u" << "x";
+    types << "L" << "c" << "e" << "g" << "m" << "n" << "p" << "s" << "u" << "x";
     gotoTagForTypes(currWord, types);
 }
 

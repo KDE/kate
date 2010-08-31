@@ -221,7 +221,7 @@ void KateCTagsView::lookupTag( )
 void KateCTagsView::editLookUp()
 {
     Tags::TagList list = Tags::getPartialMatches(m_sessionDB, m_ctagsUi.inputEdit->text());
-    if (list.size() == 0) list = Tags::getPartialMatches(m_sessionDB, m_ctagsUi.inputEdit->text());
+    if (list.size() == 0) list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
     displayHits(list);
 }
 
@@ -256,7 +256,7 @@ void KateCTagsView::gotoDeclaration( )
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
     Tags::TagList list = Tags::getMatches(m_sessionDB, word, false, types);
-    if (list.size() == 0) list = Tags::getMatches(m_sessionDB, word, false, types);
+    if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
  
     //kDebug() << "found" << list.count() << word << types;
 

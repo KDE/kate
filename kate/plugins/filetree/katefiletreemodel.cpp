@@ -156,7 +156,7 @@ int ProxyItem::row()
 KIcon ProxyItem::icon()
 {
   if(m_children.count())
-    return KIcon("folder-blue");
+    return KIcon("folder");
 
   return m_icon;
 }

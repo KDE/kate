@@ -269,18 +269,16 @@ bool PluginKateXMLCheckView::slotValidate()
 	}
 
 	// use catalogs for KDE docbook:
-	if( ! getenv("SGML_CATALOG_FILES") ) {
+	if( ! getenv("XML_CATALOG_FILES") ) {
 		KComponentData ins("katexmlcheckplugin");
 		QString catalogs;
-		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog");
-		catalogs += ':';
-		catalogs += ins.dirs()->findResource("data", "ksgmltools2/docbook/xml-dtd-4.1.2/docbook.cat");
+		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog.xml");
 		kDebug() << "catalogs: " << catalogs;
-		setenv("SGML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);
+		setenv("XML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);
 	}
-	//kDebug() << "**catalogs: " << getenv("SGML_CATALOG_FILES");
+	//kDebug() << "**catalogs: " << getenv("XML_CATALOG_FILES");
 
-	*m_proc << exe << "--catalogs" << "--noout";
+	*m_proc << exe << "--noout";
 
 	// tell xmllint the working path of the document's file, if possible.
 	// otherweise it will not find relative DTDs

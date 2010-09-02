@@ -133,10 +133,21 @@ void SwapFile::fileLoaded(const QString&)
 
 void SwapFile::recover()
 {
-  // replay the swap file
+  // if isOpen() returns true, the swap file likely changed already (appended data)
+  // Example: The document was falsely marked as writable and the user changed
+  // text even though the recover bar was visible. In this case, a replay of
+  // the swap file across wrong document content would happen -> certainly wrong
+  if (m_swapfile.isOpen()) {
+    kWarning( 13020 ) << "Attempt to recover an already modified document. Aborting";
+    emit swapFileBroken();
+    return;
+  }
+
+  // if the file doesn't exist, abort (user might have deleted it, or use two editor instances)
   if (!m_swapfile.open(QIODevice::ReadOnly))
   {
     kWarning( 13020 ) << "Can't open swap file";
+    emit swapFileHandled();
     return;
   }
 
@@ -145,9 +156,10 @@ void SwapFile::recover()
   
   // open data stream
   m_stream.setDevice(&m_swapfile);
-  
+
+  // replay the swap file
   recover(m_stream);
-  
+
   // close swap file
   m_stream.setDevice(0);
   m_swapfile.close();

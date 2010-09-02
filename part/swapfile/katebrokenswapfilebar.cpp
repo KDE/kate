@@ -22,9 +22,11 @@
 #include "ui_brokenswapfilewidget.h"
 #include "kateview.h"
 
+#include <QWhatsThis>
+
 //BEGIN KateBrokenSwapFileBar
 KateBrokenSwapFileBar::KateBrokenSwapFileBar(KateView *view, QWidget *parent)
-  : KateViewBarWidget( true, parent )
+  : KateViewBarWidget( false, parent )
   , m_view ( view )
   , m_ui (new Ui::BrokenSwapFileWidget())
 {
@@ -32,12 +34,25 @@ KateBrokenSwapFileBar::KateBrokenSwapFileBar(KateView *view, QWidget *parent)
 
   // set warning icon
   m_ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(64, 64));
+
+  m_ui->btnOk->setGuiItem(KGuiItem(m_ui->btnOk->text(), KIcon("dialog-ok")));
+
+  // clicking on the "Help" link pops up the content as what's this
+  connect(m_ui->lblSwap, SIGNAL(linkActivated(const QString&)),
+          this, SLOT(showWhatsThis(const QString&)));
+  connect(m_ui->btnOk, SIGNAL(clicked()), this, SIGNAL(hideMe()));
 }
 
 KateBrokenSwapFileBar::~KateBrokenSwapFileBar ()
 {
   delete m_ui;
 }
+
+void KateBrokenSwapFileBar::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
+}
+
 //END KateBrokenSwapFileBar
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

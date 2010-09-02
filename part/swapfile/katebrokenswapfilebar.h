@@ -37,6 +37,9 @@ class KateBrokenSwapFileBar : public KateViewBarWidget
     explicit KateBrokenSwapFileBar(KateView *view, QWidget *parent = 0);
     ~KateBrokenSwapFileBar ();
 
+  protected Q_SLOTS:
+    void showWhatsThis(const QString&);
+
   private:
     KateView *const m_view;
     Ui::BrokenSwapFileWidget *m_ui;

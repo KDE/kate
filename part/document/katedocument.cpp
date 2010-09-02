@@ -2405,11 +2405,11 @@ bool KateDocument::closeUrl()
   emit KTextEditor::Document::textRemoved(this, documentRange());
 
   {
-    // clear the buffer
-    m_buffer->clear();
-
     // remove all marks
     clearMarks ();
+
+    // clear the buffer
+    m_buffer->clear();
 
     // clear undo/redo history
     m_undoManager->clearUndo();

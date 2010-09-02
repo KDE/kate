@@ -42,6 +42,7 @@
 #include "katevimodebar.h"
 #include "katesearchbar.h"
 #include "spellcheck/spellingmenu.h"
+#include "kateviewaccessible.h"
 
 #include <ktexteditor/movingrange.h>
 #include <kcursor.h>
@@ -215,12 +216,16 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
 
+  QAccessible::installFactory(accessibleInterfaceFactory);
+
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
 }
 
 KateViewInternal::~KateViewInternal ()
 {
+  QAccessible::removeFactory(accessibleInterfaceFactory);
+
   // kill preedit ranges
   delete m_imPreeditRange;
   qDeleteAll (m_imPreeditRangeChildren);
@@ -640,6 +645,8 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
   }
 
   m_madeVisible = !force;
+
+  QAccessible::updateAccessibility( this, KateCursorAccessible::ChildId, QAccessible::Focus );
 }
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)

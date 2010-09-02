@@ -76,6 +76,7 @@ class KateViewInternal : public QWidget
   public:
     KateViewInternal ( KateView *view );
     ~KateViewInternal ();
+    KateView *view() const { return m_view; }
 
   //BEGIN EDIT STUFF
   public:

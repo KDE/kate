@@ -498,7 +498,7 @@ bool KatePrinter::print (KateDocument *doc)
           y += 1 + innerMargin;
 
           int _widest( 0 );
-          foreach (KateExtendedAttribute::Ptr attribute, _attributes)
+          foreach (const KateExtendedAttribute::Ptr &attribute, _attributes)
             _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(':',1,1)), _widest);
 
           int _guideCols = _w/( _widest + innerMargin );
@@ -509,7 +509,7 @@ bool KatePrinter::print (KateDocument *doc)
 
           _titleFont.setUnderline(true);
           QString _currentHlName;
-          foreach (KateExtendedAttribute::Ptr attribute, _attributes)
+          foreach (const KateExtendedAttribute::Ptr &attribute, _attributes)
           {
             QString _hl = attribute->name().section(':',0,0);
             QString _name = attribute->name().section(':',1,1);

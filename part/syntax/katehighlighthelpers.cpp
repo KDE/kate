@@ -278,7 +278,7 @@ KateHlKeyword::KateHlKeyword (int attribute, KateHlContextModification context, 
 {
   alwaysStartEnable = false;
   customStartEnable = true;
-  foreach (QChar c, delims)
+  foreach (const QChar &c, delims)
     deliminators << c;
 }
 

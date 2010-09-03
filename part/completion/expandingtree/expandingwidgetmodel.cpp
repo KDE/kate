@@ -124,7 +124,7 @@ void ExpandingWidgetModel::clearExpanding() {
     
     clearMatchQualities();
     QMap<QModelIndex,ExpandingWidgetModel::ExpandingType> oldExpandState = m_expandState;
-    foreach( QPointer<QWidget> widget, m_expandingWidgets )
+    foreach( const QPointer<QWidget> &widget, m_expandingWidgets )
       delete widget;
     m_expandingWidgets.clear();
     m_expandState.clear();

@@ -865,7 +865,7 @@ KTextEditor::MovingRange * KateCompletionWidget::completionRange(KTextEditor::Co
 
     KTextEditor::MovingRange* ret = m_completionRanges.begin()->range;
     
-    foreach(CompletionRange range, m_completionRanges)
+    foreach(const CompletionRange &range, m_completionRanges)
       if(range.range->start() > ret->start())
         ret = range.range;
     return ret;

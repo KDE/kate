@@ -121,6 +121,16 @@ function indent(line, indentWidth, character) {
             return document.firstVirtualColumn(line - 1) + indentWidth;
         }
 
+        // indent line after myFunction = do ...
+        // foo = do bar <- baz
+        // >>>>>>>>>qzx <- qqx
+        if (lastLine.search(/\s=\sdo\s\S/)!= -1) {
+            dbg('indenting line for “... = do ...”');
+            var doCol = lastLine.search(/do\s/);
+            return document.firstVirtualColumn(line - 1) + doCol + 3;
+        }
+
+
         // indent line after 'where' unless it starts with 'module'
         // instance Functor Tree where
         // >>>>fmap = treeMap

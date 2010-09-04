@@ -659,7 +659,7 @@ bool KateViNormalMode::commandMakeLowercaseLine()
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line();
   m_commandRange.startColumn = 0;
-  m_commandRange.endColumn = doc()->lineLength( c.line() );
+  m_commandRange.endColumn = doc()->lineLength( c.line() )-1;
 
   return commandMakeLowercase();
 }
@@ -688,7 +688,7 @@ bool KateViNormalMode::commandMakeUppercaseLine()
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line();
   m_commandRange.startColumn = 0;
-  m_commandRange.endColumn = doc()->lineLength( c.line() );
+  m_commandRange.endColumn = doc()->lineLength( c.line() )-1;
 
   return commandMakeUppercase();
 }
@@ -1254,6 +1254,7 @@ bool KateViNormalMode::commandPrintCharacterCode()
     QString hex = QString::number( code, 16 );
     QString oct = QString::number( code, 8 );
     if ( oct.length() < 3 ) { oct.prepend( '0' ); }
+    if ( code > 0x80 && code < 0x1000 ) { hex.prepend( ( code < 0x100 ? "00" : "0" ) ); }
     message( i18n("'%1' %2,  Hex %3,  Octal %4", ch, dec, hex, oct ) );
   }
 

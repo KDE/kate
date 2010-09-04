@@ -138,7 +138,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * should be layouted by the indenter.
      * @deprecated
      */
-    KDE_DEPRECATED bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
+    bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
 
 protected:
     /**
@@ -149,7 +149,7 @@ protected:
      * \return true if any text was inserted.
      * @deprecated
      */
-    virtual KDE_DEPRECATED bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
+    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
 
     /**
      * DO NOT USE !!!! THIS IS USED INTERNALLY by the interface only !!!!!!

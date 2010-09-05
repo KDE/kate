@@ -145,14 +145,14 @@ void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& group
 
     kDebug() << config->groupList() << groupPrefix;
 
-    m_ctagsUi.cmdEdit->setText(cg.readEntry("GlobalCommand", DEFAULT_CTAGS_CMD));
+    m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 
-    int numEntries = cg.readEntry("GlobalNumTargets", 0);
+    int numEntries = cg.readEntry("SessionNumTargets", 0);
     QString nr;
     QString target;
     for (int i=0; i<numEntries; i++) {
         nr = QString("%1").arg(i,3);
-        target = cg.readEntry("GlobalTarget_"+nr, QString());
+        target = cg.readEntry("SessionTarget_"+nr, QString());
         if (!listContains(target)) {
             new QListWidgetItem(target, m_ctagsUi.targetList);
         }

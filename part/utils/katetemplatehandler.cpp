@@ -267,6 +267,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
       // terminate
       jumpToFinalCursorPosition();
       cleanupAndExit();
+      keyEvent->accept();
       return true;
 
     } else if (keyEvent->key() == Qt::Key_Escape) {
@@ -274,6 +275,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
         // terminate
         jumpToFinalCursorPosition();
         cleanupAndExit();
+        keyEvent->accept();
         return true;
       }
 
@@ -285,10 +287,12 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
         jumpToNextRange();
       }
 
+      keyEvent->accept();
       return true;
 
     } else if (keyEvent->key() == Qt::Key_Backtab && !m_view->isCompletionActive()) {
       jumpToPreviousRange();
+      keyEvent->accept();
       return true;
     }
   }

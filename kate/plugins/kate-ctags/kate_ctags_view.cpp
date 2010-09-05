@@ -260,20 +260,26 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     //kDebug() << "found" << list.count() << word << types;
 
     if ( list.count() < 1) {
-        //kDebug() << "No hits found";
+        m_ctagsUi.tagTreeWidget->clear();
+        new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
+        m_ctagsUi.tabWidget->setCurrentIndex(0);
+        m_mWin->showToolView(m_toolView);
         return;
     }
 
     clearInput();
+
     displayHits(list);
+
     if (list.count() == 1) {
         Tags::TagEntry tag = list.first();
         jumpToTag(tag.file, tag.pattern, word);
     }
     else {
+        Tags::TagEntry tag = list.first();
+        jumpToTag(tag.file, tag.pattern, word);
         m_ctagsUi.tabWidget->setCurrentIndex(0);
         m_mWin->showToolView(m_toolView);
-        KMessageBox::error(0, i18n("Multiple hits found."));
     }
 }
 

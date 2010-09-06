@@ -419,7 +419,7 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
         return false;
     }
 
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
     return true;
 }
 

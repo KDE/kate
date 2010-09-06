@@ -22,10 +22,24 @@
 
 #include <plasma/popupapplet.h>
 
+#include "ui_katesessionConfig.h"
+
 class QTreeView;
 class QGraphicsProxyWidget;
 class QStandardItemModel;
 class QModelIndex;
+class KConfigDialog;
+class QStringList;
+class KateSessionConfigInterface : public QWidget {
+    // Wrapper widget class for the configuration interface.
+    Q_OBJECT
+public:
+    KateSessionConfigInterface(QStringList all, QStringList hidden);
+    QStringList hideList();
+private:
+    QStringList m_all;
+    Ui::KateSessionConfig m_config;
+};
 
 
 class KateSessionApplet : public Plasma::PopupApplet
@@ -44,13 +58,18 @@ public:
 protected slots:
     void slotOnItemClicked(const QModelIndex &index);
     void slotUpdateSessionMenu();
+    void slotSaveConfig();
 
 protected:
     void initSessionFiles();
+    void createConfigurationInterface(KConfigDialog *parent);
+    void configChanged();
 private:
     QTreeView *m_listView;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
+    QStringList m_fullList;
+    KateSessionConfigInterface *m_config;
 };
 
 K_EXPORT_PLASMA_APPLET(katesession, KateSessionApplet )

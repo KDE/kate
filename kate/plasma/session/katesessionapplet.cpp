@@ -38,6 +38,7 @@
 #include <KUrl>
 #include <KStringHandler>
 #include <QFile>
+#include <KConfigDialog>
 
 
 bool katesessions_compare_sessions(const QString &s1, const QString &s2) {
@@ -46,7 +47,7 @@ bool katesessions_compare_sessions(const QString &s1, const QString &s2) {
 
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
-    : Plasma::PopupApplet(parent, args), m_listView( 0 )
+    : Plasma::PopupApplet(parent, args), m_listView( 0 ), m_config(0)
 {
     KDirWatch *dirwatch = new KDirWatch( this );
     QStringList lst = KGlobal::dirs()->findDirs( "data", "kate/sessions/" );
@@ -56,6 +57,7 @@ KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
     }
     connect( dirwatch, SIGNAL(dirty (const QString &) ), this, SLOT( slotUpdateSessionMenu() ) );
     setPopupIcon( "kate" );
+    setHasConfigurationInterface(true);
 }
 
 KateSessionApplet::~KateSessionApplet()
@@ -89,30 +91,46 @@ QWidget *KateSessionApplet::widget()
 void KateSessionApplet::slotUpdateSessionMenu()
 {
    m_kateModel->clear();
-   m_sessions.clear(); 
+   m_sessions.clear();
+   m_fullList.clear();
    initSessionFiles();
 }
 
 void KateSessionApplet::initSessionFiles()
 {
+    // Obtain list of items previously configured as hidden
+    const QStringList hideList = config().readEntry("hideList", QStringList());
+
+    // Construct a full list of items (m_fullList) so we can display them
+    // in the config dialog, but leave out the hidden stuff for m_kateModel
+    // that is actually displayed
     int index=0;
     QStandardItem *item = new QStandardItem();
     item->setData(i18n("Start Kate (no arguments)"), Qt::DisplayRole);
     item->setData( KIcon( "kate" ), Qt::DecorationRole );
     item->setData( index++, Index );
-    m_kateModel->appendRow(item);
+    m_fullList << item->data(Qt::DisplayRole).toString();
+    if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
+        m_kateModel->appendRow(item);
+    }
 
     item = new QStandardItem();
     item->setData( i18n("New Kate Session"), Qt::DisplayRole);
     item->setData( KIcon( "document-new" ), Qt::DecorationRole );
     item->setData( index++, Index );
-    m_kateModel->appendRow(item);
+    m_fullList << item->data(Qt::DisplayRole).toString();
+    if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
+        m_kateModel->appendRow(item);
+    }
 
     item = new QStandardItem();
     item->setData( i18n("New Anonymous Session"), Qt::DisplayRole);
     item->setData( index++, Index );
     item->setData( KIcon( "document-new" ), Qt::DecorationRole );
-    m_kateModel->appendRow(item);
+    m_fullList << item->data(Qt::DisplayRole).toString();
+    if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
+        m_kateModel->appendRow(item);
+    }
 
     const QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
     KUrl url;
@@ -130,10 +148,13 @@ void KateSessionApplet::initSessionFiles()
     qSort(m_sessions.begin(),m_sessions.end(),katesessions_compare_sessions);
     for(QStringList::ConstIterator it=m_sessions.constBegin();it!=m_sessions.constEnd();++it)
     {
-        item = new QStandardItem();
-        item->setData(*it, Qt::DisplayRole);
-        item->setData( index++, Index );
-        m_kateModel->appendRow( item);
+        m_fullList << *it;
+        if (!hideList.contains(*it)) {
+            item = new QStandardItem();
+            item->setData(*it, Qt::DisplayRole);
+            item->setData( index++, Index );
+            m_kateModel->appendRow( item);
+        }
     }
 }
 
@@ -182,6 +203,55 @@ void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
     KToolInvocation::kdeinitExec("kate", args);
 }
 
+void KateSessionApplet::createConfigurationInterface(KConfigDialog *parent)
+{
+    const QStringList hideList = config().readEntry("hideList", QStringList());
+    m_config = new KateSessionConfigInterface(m_fullList,
+                                              hideList);
+    parent->addPage(m_config, i18n("Sessions"),
+                    "preferences-desktop-notification",
+                    i18n("Sessions to show"));
+    connect(parent, SIGNAL(applyClicked()), this, SLOT(slotSaveConfig()));
+    connect(parent, SIGNAL(okClicked()), this, SLOT(slotSaveConfig()));
+}
 
+void KateSessionApplet::slotSaveConfig()
+{
+    config().writeEntry("hideList", m_config->hideList());
+}
+
+void KateSessionApplet::configChanged()
+{
+    // refresh menu from config
+    slotUpdateSessionMenu();
+}
+
+KateSessionConfigInterface::KateSessionConfigInterface(QStringList all, QStringList hidden)
+{
+    m_all = all;
+    m_config.setupUi(this);
+    for (int i=0; i < m_all.size(); i++) {
+        QListWidgetItem *item = new QListWidgetItem(m_all[i]);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        if (hidden.contains(item->text())) {
+            item->setCheckState(Qt::Unchecked);
+            m_config.itemList->addItem(item);
+        } else {
+            item->setCheckState(Qt::Checked);
+            m_config.itemList->addItem(item);
+        }
+    }
+}
+
+QStringList KateSessionConfigInterface::hideList()
+{
+    QStringList hideList;
+    for (int i=0; i<m_config.itemList->count(); i++) {
+        QListWidgetItem *item = m_config.itemList->item(i);
+        if (item->checkState() == Qt::Unchecked)
+            hideList << m_config.itemList->item(i)->text();
+    }
+    return hideList;
+}
 
 #include "katesessionapplet.moc"

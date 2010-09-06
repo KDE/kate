@@ -34,8 +34,8 @@ class KateSessionConfigInterface : public QWidget {
     // Wrapper widget class for the configuration interface.
     Q_OBJECT
 public:
-    KateSessionConfigInterface(QStringList all, QStringList hidden);
-    QStringList hideList();
+    KateSessionConfigInterface(const QStringList& all, const QStringList& hidden);
+    QStringList hideList() const;
 private:
     QStringList m_all;
     Ui::KateSessionConfig m_config;

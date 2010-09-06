@@ -226,7 +226,7 @@ void KateSessionApplet::configChanged()
     slotUpdateSessionMenu();
 }
 
-KateSessionConfigInterface::KateSessionConfigInterface(QStringList all, QStringList hidden)
+KateSessionConfigInterface::KateSessionConfigInterface(const QStringList& all, const QStringList& hidden)
 {
     m_all = all;
     m_config.setupUi(this);
@@ -243,7 +243,7 @@ KateSessionConfigInterface::KateSessionConfigInterface(QStringList all, QStringL
     }
 }
 
-QStringList KateSessionConfigInterface::hideList()
+QStringList KateSessionConfigInterface::hideList() const
 {
     QStringList hideList;
     for (int i=0; i<m_config.itemList->count(); i++) {

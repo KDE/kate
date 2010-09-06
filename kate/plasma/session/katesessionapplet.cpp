@@ -246,7 +246,8 @@ KateSessionConfigInterface::KateSessionConfigInterface(const QStringList& all, c
 QStringList KateSessionConfigInterface::hideList() const
 {
     QStringList hideList;
-    for (int i=0; i<m_config.itemList->count(); i++) {
+    const int numberOfItem = m_config.itemList->count();
+    for (int i=0; i< numberOfItem; ++i) {
         QListWidgetItem *item = m_config.itemList->item(i);
         if (item->checkState() == Qt::Unchecked)
             hideList << m_config.itemList->item(i)->text();

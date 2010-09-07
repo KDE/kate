@@ -250,7 +250,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     // for the scrapty indent sensitive langs
     int m_tabWidth;
 
-    int m_lineHighlightedMax;
     int m_lineHighlighted;
 
     /**

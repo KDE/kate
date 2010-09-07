@@ -71,7 +71,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_highlight (0),
    m_regionTree (this),
    m_tabWidth (8),
-   m_lineHighlightedMax (0),
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
@@ -125,12 +124,7 @@ void KateBuffer::editEnd ()
 
       if (needContinue)
         m_lineHighlighted = editTagLineStart;
-
-      if (editTagLineStart > m_lineHighlightedMax)
-        m_lineHighlightedMax = editTagLineStart;
     }
-    else if (editingMinimalLineChanged () < m_lineHighlightedMax)
-      m_lineHighlightedMax = editingMinimalLineChanged ();
   }
 }
 
@@ -144,7 +138,6 @@ void KateBuffer::clear()
   // reset the state
   m_brokenEncoding = false;
 
-  m_lineHighlightedMax = 0;
   m_lineHighlighted = 0;
 }
 
@@ -253,19 +246,12 @@ void KateBuffer::ensureHighlighted (int line)
   doHighlight ( m_lineHighlighted, end, false );
 
   m_lineHighlighted = end;
-
-  // update hl max
-  if (m_lineHighlighted > m_lineHighlightedMax)
-    m_lineHighlightedMax = m_lineHighlighted;
 }
 
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 {
   // call original
   Kate::TextBuffer::wrapLine (position);
-
-  if (m_lineHighlightedMax > position.line()+1)
-    m_lineHighlightedMax++;
 
   if (m_lineHighlighted > position.line()+1)
     m_lineHighlighted++;
@@ -278,9 +264,6 @@ void KateBuffer::unwrapLine (int line)
 {
   // call original
   Kate::TextBuffer::unwrapLine (line);
-
-  if (m_lineHighlightedMax > line)
-    m_lineHighlightedMax--;
 
   if (m_lineHighlighted > line)
     m_lineHighlighted--;
@@ -337,7 +320,6 @@ void KateBuffer::setHighlight(int hlMode)
 
 void KateBuffer::invalidateHighlighting()
 {
-  m_lineHighlightedMax = 0;
   m_lineHighlighted = 0;
 }
 
@@ -417,7 +399,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   QTime t;
   t.start();
   kDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
+  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted;
   kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
 #endif
 
@@ -731,7 +713,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
 #ifdef BUFFER_DEBUGGING
   kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
+  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted;
   kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
   kDebug (13020) << "TIME TAKEN: " << t.elapsed();
 #endif

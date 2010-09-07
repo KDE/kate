@@ -44,14 +44,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <list name="keywords">
       <item>.abort</item>
       <item>.align</item>
-      <item>.appfile</item>
+      <item>.app-file</item>
       <item>.appline</item>
       <item>.ascii</item>
       <item>.asciz</item>
+      <item>.att_syntax</item>
       <item>.balign</item>
       <item>.balignl</item>
       <item>.balignw</item>
       <item>.byte</item>
+      <item>.code16</item>
+      <item>.code32</item>
       <item>.comm</item>
       <item>.common.s</item>
       <item>.common</item>
@@ -128,6 +131,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>.ifnotdef</item>
       <item>.include</item>
       <item>.int</item>
+      <item>.intel_syntax</item>
       <item>.internal</item>
       <item>.irep</item>
       <item>.irepc</item>
@@ -148,6 +152,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>.noformat</item>
       <item>.nolist</item>
       <item>.nopage</item>
+      <item>noprefix</item>
       <item>.octa</item>
       <item>.offset</item>
       <item>.org</item>
@@ -164,6 +169,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>.purgem</item>
       <item>.pushsection</item>
       <item>.quad</item>
+      <item>.rodata</item>
       <item>.rep</item>
       <item>.rept</item>
       <item>.rva</item>
@@ -225,7 +231,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr      attribute="Label" context="#stay" String="[A-Za-z0-9_.$]+:" firstNonSpace="true"/>
+        <RegExpr      attribute="Label" context="#stay" String="[_\w\d-]*\s*:" />
         <keyword      attribute="Keyword" context="#stay" String="keywords"/>
         <HlCOct       attribute="Octal" context="#stay" />
         <HlCHex       attribute="Hex" context="#stay" />
@@ -233,10 +239,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <Int          attribute="Decimal" context="#stay" />
         <RegExpr      attribute="Float" context="#stay" String="0[fFeEdD][-+]?[0-9]*\.?[0-9]*[eE]?[-+]?[0-9]+" />
         <RegExpr      attribute="Normal Text" context="#stay" String="[A-Za-z_.$][A-Za-z0-9_.$]*" />
-        <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
+        <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)'" />
         <DetectChar   attribute="String" context="String" char="&quot;" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
-        <AnyChar      attribute="Comment" context="Commentar 2" String="@;" />
+        <AnyChar      attribute="Comment" context="Commentar 2" String="@;#" />
         <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
         <RegExpr      attribute="Preprocessor" context="Preprocessor" String="^#" />
       </context>
@@ -255,7 +261,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"   />
-      <itemData name="Label"        defStyleNum="dsNormal"   />
+      <itemData name="Label"        defStyleNum="dsKeyword"  />
       <itemData name="Keyword"      defStyleNum="dsKeyword"  />
       <itemData name="Decimal"      defStyleNum="dsDecVal"   />
       <itemData name="Octal"        defStyleNum="dsBaseN"    />
@@ -273,8 +279,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
   <general>
     <comments>
-      <comment name="singleLine" start=";" />
+      <!--<comment name="singleLine" start=";" />
       <comment name="singleLine" start="@" />
+      <comment name="singleLine" start="#" />-->
       <comment name="multiLine"  start="/*" end="*/" />
     </comments>
     <keywords casesensitive="1" weakDeliminator="_.$" />

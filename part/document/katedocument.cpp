@@ -3661,14 +3661,14 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
   range.end() = range.start();
   QScopedPointer<KTextEditor::MovingCursor> cursor(newMovingCursor(range.start()));
-  int validAttr = plainKateTextLine(cursor->line())->attribute(cursor->column());
+  int validAttr = kateTextLine(cursor->line())->attribute(cursor->column());
 
   while( cursor->line() >= minLine && cursor->line() <= maxLine ) {
 
     if (!cursor->move(searchDir))
       return false;
 
-    if (plainKateTextLine(cursor->line())->attribute(cursor->column()) == validAttr )
+    if (kateTextLine(cursor->line())->attribute(cursor->column()) == validAttr )
     {
       /* Check for match */
       QChar c = character(cursor->toCursor());

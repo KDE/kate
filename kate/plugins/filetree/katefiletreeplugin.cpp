@@ -170,11 +170,10 @@ void KateFileTreePluginView::viewChanged()
   QModelIndex index = m_proxyModel->docIndex(doc);
   kDebug(debugArea()) << "selected doc=" << doc << index;
 
-  //m_fileTree->setCurrentIndex(index);
   QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
   kDebug(debugArea()) << "display="<<display;
-  m_fileTree->selectionModel()->select(index, QItemSelectionModel::SelectCurrent);
-  m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+  
+  m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
   
   m_fileTree->scrollTo(index);
   

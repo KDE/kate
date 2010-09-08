@@ -94,9 +94,8 @@ void KateFileTree::mouseClicked ( const QModelIndex &index )
   }
   else {
     kDebug(debugArea()) << "selecting previous item" << m_previouslySelected;
-    //emit activated(m_previouslySelected);
-    selectionModel()->select(m_previouslySelected, QItemSelectionModel::SelectCurrent);
-    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::SelectCurrent);
+
+    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::ClearAndSelect);
   }
   
 }
@@ -105,8 +104,7 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   m_indexContextMenu=selectionModel()->currentIndex();
 
   if (m_previouslySelected.isValid()) {
-    selectionModel()->select(m_previouslySelected,QItemSelectionModel::SelectCurrent);
-    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::SelectCurrent);
+    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::ClearAndSelect);
   }
   
   QMenu menu;

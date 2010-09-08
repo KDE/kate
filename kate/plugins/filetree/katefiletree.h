@@ -45,8 +45,6 @@ class KateFileTree: public QTreeView
     void slotDocumentClose();
     
   protected:
-    virtual void mousePressEvent ( QMouseEvent * event );
-    virtual void mouseReleaseEvent ( QMouseEvent * event );
     virtual void contextMenuEvent ( QContextMenuEvent * event );
 
   Q_SIGNALS:
@@ -54,6 +52,10 @@ class KateFileTree: public QTreeView
     void activateDocument(KTextEditor::Document*);
     
     void openDocument(KUrl);
+
+  private Q_SLOTS:
+    void mouseClicked(const QModelIndex &index);
+    void mousePressed(const QModelIndex &index);
 };
 
 #endif // KATE_FILETREE_H

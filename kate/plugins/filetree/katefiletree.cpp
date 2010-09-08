@@ -20,6 +20,7 @@
 #include "katefiletree.h"
 #include "katefiletree.moc"
 #include "katefiletreemodel.h"
+#include "katefiletreedebug.h"
 
 #include <ktexteditor/document.h>
 #include <kate/application.h>
@@ -42,6 +43,9 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   //setUniformRowHeights(true);
   setAllColumnsShowFocus(true);
   setIconSize(QSize(22,22));
+
+  connect( this, SIGNAL(pressed(const QModelIndex &)), this, SLOT(mousePressed(const QModelIndex &)));
+  connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));
   
   m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL( triggered() ), this, SLOT( slotDocumentClose() ) );
@@ -56,18 +60,21 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 KateFileTree::~KateFileTree()
 {}
 
-void KateFileTree::mousePressEvent ( QMouseEvent * event ) {
-  QModelIndex cur = selectionModel()->currentIndex();
-  KTextEditor::Document *doc = model()->data(cur, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+void KateFileTree::mousePressed ( const QModelIndex &index )
+{
+  kDebug(debugArea()) << "got index" << index;
+  
+  KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
-    m_previouslySelected = cur;
+    m_previouslySelected = index;
   }
-
-  QTreeView::mousePressEvent(event);
 }
 
-void KateFileTree::mouseReleaseEvent ( QMouseEvent * event ) {
-  KTextEditor::Document *doc = model()->data(selectionModel()->currentIndex(), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+void KateFileTree::mouseClicked ( const QModelIndex &index )
+{
+  kDebug(debugArea()) << "got index" << index;
+
+  KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
     emit activateDocument(doc);
     m_previouslySelected = QModelIndex();
@@ -76,8 +83,7 @@ void KateFileTree::mouseReleaseEvent ( QMouseEvent * event ) {
     //emit activated(m_previouslySelected);
     selectionModel()->select(m_previouslySelected, QItemSelectionModel::ClearAndSelect);
   }
-
-  QTreeView::mouseReleaseEvent(event);
+  
 }
 
 void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {

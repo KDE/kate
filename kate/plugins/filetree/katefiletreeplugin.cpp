@@ -121,6 +121,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
 
   m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
+  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)));
+  
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
   setComponentData( KComponentData("kate") );
@@ -171,8 +173,9 @@ void KateFileTreePluginView::viewChanged()
   //m_fileTree->setCurrentIndex(index);
   QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
   kDebug(debugArea()) << "display="<<display;
-  m_fileTree->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-
+  m_fileTree->selectionModel()->select(index, QItemSelectionModel::SelectCurrent);
+  m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+  
   m_fileTree->scrollTo(index);
   
   while(index != QModelIndex()) {

@@ -46,7 +46,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 
   connect( this, SIGNAL(pressed(const QModelIndex &)), this, SLOT(mousePressed(const QModelIndex &)));
   connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));
-  
+
   m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL( triggered() ), this, SLOT( slotDocumentClose() ) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
@@ -60,12 +60,24 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 KateFileTree::~KateFileTree()
 {}
 
+void KateFileTree::currentChanged ( const QModelIndex &current, const QModelIndex &previous )
+{
+  kDebug(debugArea()) << "current:" << current << "previous:" << previous;
+
+  KTextEditor::Document *doc = model()->data(current, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+  if(doc) {
+    kDebug(debugArea()) << "got doc, setting prev:" << current;
+    m_previouslySelected = current;
+  }
+}
+
 void KateFileTree::mousePressed ( const QModelIndex &index )
 {
   kDebug(debugArea()) << "got index" << index;
   
   KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
+    kDebug(debugArea()) << "got doc, setting prev:" << index;
     m_previouslySelected = index;
   }
 }
@@ -76,12 +88,15 @@ void KateFileTree::mouseClicked ( const QModelIndex &index )
 
   KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
+    kDebug(debugArea()) << "got doc" << index << "setting prev:" << QModelIndex();
     emit activateDocument(doc);
-    m_previouslySelected = QModelIndex();
+    //m_previouslySelected = QModelIndex();
   }
   else {
+    kDebug(debugArea()) << "selecting previous item" << m_previouslySelected;
     //emit activated(m_previouslySelected);
-    selectionModel()->select(m_previouslySelected, QItemSelectionModel::ClearAndSelect);
+    selectionModel()->select(m_previouslySelected, QItemSelectionModel::SelectCurrent);
+    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::SelectCurrent);
   }
   
 }

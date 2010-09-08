@@ -106,7 +106,8 @@ ProxyItem::~ProxyItem()
 
 void ProxyItem::initDisplay()
 {
-  m_display = m_path.section(QDir::separator(), -1, -1);
+  QRegExp sep("[/\\\\]");
+  m_display = m_path.section(sep, -1, -1);
 }
 
 int ProxyItem::addChild(ProxyItem *item)
@@ -547,9 +548,10 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 
 ProxyItem *KateFileTreeModel::findRootNode(const QString &name, int r)
 {
-  QString base = name.section(QDir::separator(), 0, -2);
+  QRegExp sep("[/\\\\]");
+  QString base = name.section(sep, 0, -2);
   foreach(ProxyItem *item, m_root->children()) {
-    QString path = item->path().section(QDir::separator(), 0, -r);
+    QString path = item->path().section(sep, 0, -r);
     if(path.startsWith(QLatin1String("Untitled"))) {
       continue;
     }
@@ -580,10 +582,11 @@ ProxyItem *KateFileTreeModel::findChildNode(ProxyItem *parent, const QString &na
 void KateFileTreeModel::insertItemInto(ProxyItem *root, ProxyItem *item)
 {
   kDebug(debugArea()) << "BEGIN!";
-  
+
+  QRegExp sep("[/\\\\]");
   QString tail = item->path();
   tail.remove(0, root->path().length());
-  QStringList parts = tail.split(QDir::separator(), QString::SkipEmptyParts);
+  QStringList parts = tail.split(sep, QString::SkipEmptyParts);
   ProxyItem *ptr = root;
   QStringList current_parts;
   current_parts.append(root->path());
@@ -638,7 +641,8 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     kDebug(debugArea()) << "creating a new root";
 
     // trim off trailing file and dir
-    QString base = item->path().section(QDir::separator(), 0, -2);
+    QRegExp sep("[/\\\\]");
+    QString base = item->path().section(sep, 0, -2);
 
     // create new root
     ProxyItem *new_root = new ProxyItemDir(base, 0);

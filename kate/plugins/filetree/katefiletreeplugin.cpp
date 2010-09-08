@@ -148,8 +148,11 @@ KateFileTreePluginView::~KateFileTreePluginView ()
   delete m_documentModel;
 }
 
-void KateFileTreePluginView::documentOpened(KTextEditor::Document *)
+void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 {
+  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
+          m_documentModel, SLOT(documentEdited(KTextEditor::Document*)));
+  
   m_proxyModel->invalidate();
 }
 
@@ -172,6 +175,9 @@ void KateFileTreePluginView::viewChanged()
 
   QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
   kDebug(debugArea()) << "display="<<display;
+
+  // update the model on which doc is active
+  m_documentModel->documentActivated(doc);
   
   m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
   

@@ -20,6 +20,7 @@
 #define KATEFILETREEMODEL_H
 
 #include <QAbstractItemModel>
+#include <QColor>
 
 #include <ktexteditor/modificationinterface.h>
 namespace KTextEditor {
@@ -58,12 +59,25 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentNameChanged(KTextEditor::Document *);
     void documentModifiedChanged(KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+
+    /* used strictly for the item coloring */
+    void documentActivated(KTextEditor::Document*);
+    void documentEdited(KTextEditor::Document*);
     
   private:
     ProxyItem *m_root;
     QHash<KTextEditor::Document *, ProxyItem *> m_docmap;
     QString m_base;
 
+    bool m_shadingEnabled;
+    
+    QList<QModelIndex> m_viewHistory;
+    QList<QModelIndex> m_editHistory;
+    QMap<QModelIndex, QBrush> m_brushes;
+
+    QColor m_editShade;
+    QColor m_viewShade;
+    
     ProxyItem *findRootNode(const QString &name, int r = 1);
     ProxyItem *findChildNode(ProxyItem *parent, const QString &name);
     void insertItemInto(ProxyItem *root, ProxyItem *item);
@@ -71,6 +85,8 @@ class KateFileTreeModel : public QAbstractItemModel
     void handleNameChange(ProxyItem *item, const QString &new_name);
     void handleEmptyParents(ProxyItem *item);
     void setupIcon(ProxyItem *item);
+
+    void updateBackgrounds();
 };
 
 #endif /* KATEFILETREEMODEL_H */

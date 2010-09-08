@@ -22,6 +22,8 @@
 #include <QList>
 #include <KMimeType>
 #include <KColorScheme>
+#include <KColorUtils>
+#include <KConfigGroup>
 
 #include <ktexteditor/document.h>
 
@@ -222,6 +224,18 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
   : QAbstractItemModel(p),
     m_root(new ProxyItemDir(QString("m_root"), 0))
 {
+  // This is pretty evil, but I don't think any one will mind for now
+  KConfigGroup config(KGlobal::config(), "FileList");
+
+  KColorScheme colors(QPalette::Active);
+
+  QColor bg = colors.background().color();
+  m_editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
+  m_viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
+  m_editShade = config.readEntry("Edit Shade", m_editShade);
+  m_viewShade = config.readEntry("View Shade", m_viewShade);
+  m_shadingEnabled = config.readEntry("Shading Enabled", true);
+  
     // add already existing documents
   foreach( KTextEditor::Document* doc, Kate::application()->documentManager()->documents() )
     documentOpened( doc );
@@ -294,6 +308,8 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
       
     case Qt::BackgroundRole:
       // TODO: do that funky shading the file list does...
+      if(m_brushes.contains(index))
+        return m_brushes[index];
       break;
   }
 
@@ -476,6 +492,125 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
   kDebug(debugArea()) << "END!";
 }
 
+void KateFileTreeModel::documentActivated(KTextEditor::Document *doc)
+{
+  kDebug(debugArea()) << "BEGIN!";
+
+  QModelIndex idx = docIndex(doc);
+  if(!idx.isValid()) {
+    kDebug(debugArea()) << "invalid doc" << doc;
+    return;
+  }
+
+  m_viewHistory.removeAll(idx);
+  m_viewHistory.prepend(idx);
+
+  while (m_viewHistory.count() > 10) m_viewHistory.removeLast();
+
+  updateBackgrounds();
+  
+  kDebug(debugArea()) << "END!";
+}
+
+void KateFileTreeModel::documentEdited(KTextEditor::Document *doc)
+{
+  kDebug(debugArea()) << "BEGIN!";
+
+  QModelIndex idx = docIndex(doc);
+  if(!idx.isValid()) {
+    kDebug(debugArea()) << "invalid doc" << doc;
+    return;
+  }
+
+  m_editHistory.removeAll(idx);
+  m_editHistory.prepend(idx);
+  while (m_editHistory.count() > 10) m_editHistory.removeLast();
+
+  updateBackgrounds();
+  
+  kDebug(debugArea()) << "END!";
+}
+
+class EditViewCount
+{
+  public:
+    EditViewCount(): edit(0), view(0)
+    {}
+    int edit;
+    int view;
+};
+
+// shamelessly "borrowed" from KateViewDocumentProxyModel
+void KateFileTreeModel::updateBackgrounds()
+{
+  if (!m_shadingEnabled) return;
+  
+  kDebug(debugArea()) << "BEGIN!";
+  
+  QMap <QModelIndex, EditViewCount> helper;
+  int i = 1;
+  
+  foreach (const QModelIndex &idx, m_viewHistory)
+  {
+    helper[idx].view = i;
+    i++;
+  }
+  
+  i = 1;
+  foreach (const QModelIndex &idx, m_editHistory)
+  {
+    helper[idx].edit = i;
+    i++;
+  }
+  
+  QMap<QModelIndex, QBrush> oldBrushes = m_brushes;
+  m_brushes.clear();
+  
+  int hc = m_viewHistory.count();
+  int ec = m_editHistory.count();
+  
+  for (QMap<QModelIndex, EditViewCount>::iterator it = helper.begin();it != helper.end();++it)
+  {
+    QColor shade( m_viewShade );
+    QColor eshade( m_editShade );
+    
+    if (it.value().edit > 0)
+    {
+      int v = hc - it.value().view;
+      int e = ec - it.value().edit + 1;
+      
+      e = e * e;
+
+      int n = qMax(v + e, 1);
+      
+      shade.setRgb(
+        ((shade.red()*v) + (eshade.red()*e)) / n,
+        ((shade.green()*v) + (eshade.green()*e)) / n,
+        ((shade.blue()*v) + (eshade.blue()*e)) / n
+      );
+    }
+
+    // blend in the shade color; latest is most colored.
+    double t = double(hc - it.value().view + 1) / double(hc);
+
+    m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
+//     kdDebug()<<"m_brushes[it.key()]"<<it.key()<<m_brushes[it.key()];
+  }
+
+  foreach(const QModelIndex & key, m_brushes.keys())
+  {
+    oldBrushes.remove(key);
+    dataChanged(key, key);
+  }
+  
+  foreach(const QModelIndex & key, oldBrushes.keys())
+  {
+    dataChanged(key, key);
+  }
+
+  kDebug(debugArea()) << "END!";
+}
+
 void KateFileTreeModel::handleEmptyParents(ProxyItem *item)
 {
   kDebug(debugArea()) << "BEGIN!";
@@ -516,6 +651,24 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
     kDebug(debugArea()) << "docmap doesn't contain doc!";
     return;
   }
+
+  if(m_shadingEnabled) {
+    QModelIndex toRemove = docIndex(doc);
+    if(m_brushes.contains(toRemove)) {
+      m_brushes.remove(toRemove);
+      kDebug(debugArea()) << "removing brush" << toRemove;
+    }
+
+    if(m_viewHistory.contains(toRemove)) {
+      m_viewHistory.removeAll(toRemove);
+      kDebug(debugArea()) << "removing view history" << toRemove;
+    }
+
+    if(m_editHistory.contains(toRemove)) {
+      m_editHistory.removeAll(toRemove);
+      kDebug(debugArea()) << "removing edit history" << toRemove;
+    }
+  }
   
   ProxyItem *node = m_docmap[doc];
   ProxyItem *parent = node->parent();
@@ -540,6 +693,24 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
     path = doc->documentName();
   
   kDebug(debugArea()) << item->display() << "->" << path << "(" << item << ")";
+
+  if(m_shadingEnabled) {
+    QModelIndex toRemove = docIndex(doc);
+    if(m_brushes.contains(toRemove)) {
+      m_brushes.remove(toRemove);
+      kDebug(debugArea()) << "removing brush" << toRemove;
+    }
+
+    if(m_viewHistory.contains(toRemove)) {
+      m_viewHistory.removeAll(toRemove);
+      kDebug(debugArea()) << "removing view history" << toRemove;
+    }
+
+    if(m_editHistory.contains(toRemove)) {
+      m_editHistory.removeAll(toRemove);
+      kDebug(debugArea()) << "removing edit history" << toRemove;
+    }
+  }
   
   handleNameChange(item, path);
   

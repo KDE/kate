@@ -1053,6 +1053,7 @@ KateViewConfig::KateViewConfig ()
    m_wordCompletionMinimalWordLengthSet (true),
    m_smartCopyCutSet (true),
    m_scrollPastEndSet (true),
+   m_allowMarkMenu (true),
    m_view (0)
 {
   s_global = this;
@@ -1084,6 +1085,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_wordCompletionMinimalWordLengthSet (false),
    m_smartCopyCutSet (false),
    m_scrollPastEndSet (false),
+   m_allowMarkMenu (true),
    m_view (view)
 {
 }
@@ -1126,6 +1128,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   m_maxHistorySize = config.readEntry("Maximum Search History Size", 100);
 
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
+  setAllowMarkMenu (config.readEntry( "Allow Mark Menu", true ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
@@ -1175,6 +1178,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Maximum Search History Size", m_maxHistorySize);
 
   config.writeEntry("Default Mark Type", defaultMarkType());
+  
+  config.writeEntry("Allow Mark Menu", allowMarkMenu());
 
   config.writeEntry("Persistent Selection", persistentSelection());
 
@@ -1430,6 +1435,16 @@ void KateViewConfig::setDefaultMarkType (uint type)
   m_defaultMarkType = type;
 
   configEnd ();
+}
+
+bool KateViewConfig::allowMarkMenu() const
+{
+  return m_allowMarkMenu;
+}
+
+void KateViewConfig::setAllowMarkMenu (bool allow)
+{
+  m_allowMarkMenu = allow;
 }
 
 bool KateViewConfig::persistentSelection () const

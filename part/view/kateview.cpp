@@ -2539,6 +2539,10 @@ QVariant KateView::configValue(const QString &key)
     return renderer()->config()->backgroundColor();
   else if (key == "selection-color")
     return renderer()->config()->selectionColor();
+  else if (key == "default-mark-type")
+    return config()->defaultMarkType();
+  else if (key == "allow-mark-menu")
+    return config()->allowMarkMenu();
 
   // return invalid variant
   return QVariant();
@@ -2551,13 +2555,20 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
       renderer()->config()->setBackgroundColor(value.value<QColor>());
     else if (key == "selection-color")
       renderer()->config()->setSelectionColor(value.value<QColor>());
-  } else if ( value.canConvert(QVariant::Bool) ) {
+  } else if ( value.type() == QVariant::Bool ) {
+    // Note explicit type check above. If we used canConvert, then
+    // values of type UInt will be trapped here.
     if (key == "icon-bar")
       config()->setIconBar(value.toBool());
     else if (key == "line-numbers")
       config()->setLineNumbers(value.toBool());
     else if (key == "dynamic-word-wrap")
       config()->setDynWordWrap(value.toBool());
+    else if (key == "allow-mark-menu")
+      config()->setAllowMarkMenu(value.toBool());
+  } else if ( value.canConvert(QVariant::UInt) ) {
+    if (key == "default-mark-type")
+      config()->setDefaultMarkType(value.toUInt());
   }
 }
 

@@ -1428,12 +1428,13 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     if( area == IconBorder) {
       if (e->button() == Qt::LeftButton) {
         if( !m_doc->handleMarkClick(cursorOnLine) ) {
-          if( m_doc->editableMarks() & KateViewConfig::global()->defaultMarkType() ) {
-            if( m_doc->mark( cursorOnLine ) & KateViewConfig::global()->defaultMarkType() )
-              m_doc->removeMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
+          KateViewConfig *config = m_view->config();
+          if( m_doc->editableMarks() & config->defaultMarkType() ) {
+            if( m_doc->mark( cursorOnLine ) & config->defaultMarkType() )
+              m_doc->removeMark( cursorOnLine, config->defaultMarkType() );
             else
-              m_doc->addMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
-            } else {
+              m_doc->addMark( cursorOnLine, config->defaultMarkType() );
+            } else if (config->allowMarkMenu()) {
               showMarkMenu( cursorOnLine, QCursor::pos() );
             }
         }
@@ -1485,6 +1486,9 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
+  if( !m_view->config()->allowMarkMenu() )
+    return;
+    
   if( m_doc->handleMarkContextMenu( line, pos ) )
     return;
 

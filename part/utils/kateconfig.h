@@ -469,6 +469,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
 
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
+    
+    bool allowMarkMenu () const;
+    void setAllowMarkMenu (bool allow);
 
     bool persistentSelection () const;
     void setPersistentSelection (bool on);
@@ -552,6 +555,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_wordCompletionMinimalWordLengthSet : 1;
     bool m_smartCopyCutSet : 1;
     bool m_scrollPastEndSet : 1;
+    bool m_allowMarkMenu : 1;
 
   private:
     static KateViewConfig *s_global;

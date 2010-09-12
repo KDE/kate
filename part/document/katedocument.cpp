@@ -3692,12 +3692,16 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
 void KateDocument::setDocName (QString name )
 {
+  /**
+   * avoid senseless name changes
+   */
   if ( name == m_docName )
     return;
 
-  if ( !name.isEmpty() )
-  {
-    // TODO check for similarly named documents
+  /**
+   * if name given, use it!
+   */
+  if ( !name.isEmpty() ) {
     m_docName = name;
     emit documentNameChanged (this);
     return;
@@ -3720,6 +3724,7 @@ void KateDocument::setDocName (QString name )
 
   m_docNameNumber = count + 1;
 
+  QString oldName = m_docName;
   m_docName = url().fileName();
 
   if (m_docName.isEmpty())
@@ -3728,7 +3733,11 @@ void KateDocument::setDocName (QString name )
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
 
-  emit documentNameChanged (this);
+  /**
+   * avoid to emit this, if name doesn't change!
+   */
+  if (oldName != m_docName)
+    emit documentNameChanged (this);
 }
 
 void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )

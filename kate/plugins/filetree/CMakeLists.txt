@@ -1,7 +1,7 @@
 
 project(katefiletreeplugin)
 
-set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp )
+set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp katefiletreeconfigpage.cpp )
 
 if(NOT KDE4_FOUND)
   find_package(KDE4 REQUIRED)

@@ -25,14 +25,18 @@
 #include <ktexteditor/document.h>
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
+#include <kate/pluginconfigpageinterface.h>
 
 class KateFileTree;
 class KateFileTreeModel;
 class KateFileTreeProxyModel;
+class KateFileTreeConfigPage;
+class KateFileTreePluginView;
 
-class KateFileTreePlugin: public Kate::Plugin
+class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
-    Q_OBJECT
+  Q_OBJECT
+  Q_INTERFACES(Kate::PluginConfigPageInterface)
 
   public:
     explicit KateFileTreePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
@@ -46,9 +50,11 @@ class KateFileTreePlugin: public Kate::Plugin
     virtual QString configPageName (uint number = 0) const;
     virtual QString configPageFullName (uint number = 0) const;
     virtual KIcon configPageIcon (uint number = 0) const;
-
+    virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
+    
   private:
-    KateFileTree *m_fileTree;
+    KateFileTreePluginView *m_view;
+    KateFileTreeConfigPage *m_confPage;
 };
 
 class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
@@ -69,18 +75,24 @@ class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
     virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
+    KateFileTreeModel *model();
+    KateFileTreeProxyModel *proxy();
+
+    void setListMode(bool listMode);
+    
   private:
     KateFileTree *m_fileTree;
-    friend class KateFileTreePlugin;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
-
+    
   private Q_SLOTS:
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
     void viewChanged();
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);
+    void viewModeChanged(bool);
+    void sortRoleChanged(int);
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

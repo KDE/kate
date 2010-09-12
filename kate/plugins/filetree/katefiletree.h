@@ -21,10 +21,13 @@
 
 #include <QTreeView>
 #include <KUrl>
+#include <KIcon>
 
 namespace KTextEditor {
   class Document;
 }
+
+class QActionGroup;
 
 class KateFileTree: public QTreeView
 {
@@ -36,8 +39,15 @@ class KateFileTree: public QTreeView
     virtual ~KateFileTree();
 
   private:
-    QAction* m_filelistCloseDocument;
+    QAction *m_filelistCloseDocument;
 
+    QAction *m_treeModeAction;
+    QAction *m_listModeAction;
+
+    QAction *m_sortByFile;
+    QAction *m_sortByPath;
+    QAction *m_sortByOpeningOrder;
+    
     QPersistentModelIndex m_previouslySelected;
     QPersistentModelIndex m_indexContextMenu;
 
@@ -54,9 +64,22 @@ class KateFileTree: public QTreeView
     
     void openDocument(KUrl);
 
+    void viewModeChanged(bool treeMode);
+    void sortRoleChanged(int);
+    
   private Q_SLOTS:
     void mouseClicked(const QModelIndex &index);
     void mousePressed(const QModelIndex &index);
+
+    void slotTreeMode();
+    void slotListMode();
+
+    void slotSortName();
+    void slotSortPath();
+    void slotSortOpeningOrder();
+    
+  private:
+    QAction *setupOption(QActionGroup *group, const KIcon &, const QString &, const QString &, const char *slot, bool checked=false);
 };
 
 #endif // KATE_FILETREE_H

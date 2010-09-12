@@ -23,6 +23,7 @@
 #include "katefiletree.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
+#include "katefiletreeconfigpage.h"
 
 #include <kate/application.h>
 #include <kate/mainwindow.h>
@@ -35,6 +36,8 @@
 #include <KAction>
 #include <KActionCollection>
 
+#include <KConfigGroup>
+
 #include "katefiletreedebug.h"
 
 //END Includes
@@ -45,40 +48,56 @@ K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("katefiletreeplugin","katefiletre
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
-  , m_fileTree(0)
+  , m_view(0)
 {
 }
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  KateFileTreePluginView* kateFileSelectorPluginView = new KateFileTreePluginView (mainWindow);
-  m_fileTree = kateFileSelectorPluginView->m_fileTree;
-  return kateFileSelectorPluginView;
+  m_view = new KateFileTreePluginView (mainWindow);
+  return m_view;
 }
 
 uint KateFileTreePlugin::configPages() const
 {
-  return 0;
+  return 1;
 }
 
 
 QString KateFileTreePlugin::configPageName (uint number) const
 {
-  Q_UNUSED(number);
-  return QString();
+  if(number != 0)
+    return QString();
+  
+  return QString("Tree View");
 }
 
 QString KateFileTreePlugin::configPageFullName (uint number) const
 {
-  Q_UNUSED(number);
-  return QString();
+  if(number != 0)
+    return QString();
+    
+  return QString("Configure Tree View");
 }
 
 KIcon KateFileTreePlugin::configPageIcon (uint number) const
 {
-  Q_UNUSED(number);
-  return KIcon();
+  if(number != 0)
+    return KIcon();
+    
+  return KIcon("view-list-tree");
 }
+
+Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *parent, const char *name)
+{
+  Q_UNUSED(name);
+  if(number != 0)
+    return 0;
+
+  KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, m_view);
+  return page;
+}
+
 //END KateFileTreePlugin
 
 
@@ -96,6 +115,9 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
   connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document*)),
           this, SLOT(activateDocument(KTextEditor::Document*)));
 
+  connect(m_fileTree, SIGNAL(viewModeChanged(bool)), this, SLOT(viewModeChanged(bool)));
+  connect(m_fileTree, SIGNAL(sortRoleChanged(int)), this, SLOT(sortRoleChanged(int)));
+  
   m_documentModel = new KateFileTreeModel(this);
   m_proxyModel = new KateFileTreeProxyModel(this);
   m_proxyModel->setSourceModel(m_documentModel);
@@ -121,7 +143,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
 
   m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)));
+  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
   
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
@@ -135,6 +157,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
   connect( show_active, SIGNAL( triggered(bool) ), this, SLOT( showActiveDocument() ) );
 
   mainWindow->guiFactory()->addClient(this);
+
+  m_proxyModel->setSortRole(Qt::DisplayRole);
   
   m_proxyModel->sort(0, Qt::AscendingOrder);
   m_proxyModel->invalidate();
@@ -146,6 +170,16 @@ KateFileTreePluginView::~KateFileTreePluginView ()
   delete m_fileTree->parentWidget();
   // and TreeModel
   delete m_documentModel;
+}
+
+KateFileTreeModel *KateFileTreePluginView::model()
+{
+  return m_documentModel;
+}
+
+KateFileTreeProxyModel *KateFileTreePluginView::proxy()
+{
+  return m_proxyModel;
 }
 
 void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
@@ -191,6 +225,42 @@ void KateFileTreePluginView::viewChanged()
   kDebug(debugArea()) << "END!";
 }
 
+void KateFileTreePluginView::setListMode(bool listMode)
+{
+  kDebug(debugArea()) << "BEGIN";
+  
+  if(listMode) {
+    kDebug(debugArea()) << "listMode";
+    m_documentModel->setListMode(true);
+    m_fileTree->setRootIsDecorated(false);
+  }
+  else {
+    kDebug(debugArea()) << "treeMode";
+    m_documentModel->setListMode(false);
+    m_fileTree->setRootIsDecorated(true);
+  }
+
+  m_proxyModel->sort(0, Qt::AscendingOrder);
+  m_proxyModel->invalidate();
+
+  kDebug(debugArea()) << "END";
+}
+
+void KateFileTreePluginView::viewModeChanged(bool listMode)
+{
+  kDebug(debugArea()) << "BEGIN";
+  setListMode(listMode);
+  kDebug(debugArea()) << "END";
+}
+
+void KateFileTreePluginView::sortRoleChanged(int role)
+{
+  kDebug(debugArea()) << "BEGIN";
+  m_proxyModel->setSortRole(role);
+  m_proxyModel->invalidate();
+  kDebug(debugArea()) << "END";
+}
+
 void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
 {
   mainWindow()->activateView(doc);
@@ -200,19 +270,30 @@ void KateFileTreePluginView::showActiveDocument()
 {
   // hack?
   viewChanged();
+  // FIXME: make the tool view show if it was hidden
 }
 
 void KateFileTreePluginView::readSessionConfig(KConfigBase* config, const QString& group)
 {
-  Q_UNUSED(config);
-  Q_UNUSED(group);
+  KConfigGroup g = config->group(group);
+  bool listMode = g.readEntry("listMode", QVariant(false)).toBool();
+  
+  setListMode(listMode);
+
+  int sortRole = g.readEntry("sortRole", int(Qt::DisplayRole));
+  m_proxyModel->setSortRole(sortRole);
+  
 //  m_fileTree->readSessionConfig(config, group);
 }
 
 void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QString& group)
 {
-  Q_UNUSED(config);
-  Q_UNUSED(group);
+  KConfigGroup g = config->group(group);
+
+  g.writeEntry("listMode", QVariant(m_documentModel->listMode()));
+  g.writeEntry("sortRole", int(m_proxyModel->sortRole()));
+
+  g.sync();
 //  m_fileTree->writeSessionConfig(config, group);
 }
 //ENDKateFileTreePluginView

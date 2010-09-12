@@ -83,6 +83,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
   }
 
   listView->resizeColumnToContents(0);
+  listView->sortByColumn(0, Qt::AscendingOrder);
   connect(listView, SIGNAL(stateChange(KatePluginListItem *, bool)), this, SLOT(stateChange(KatePluginListItem *, bool)));
 }
 

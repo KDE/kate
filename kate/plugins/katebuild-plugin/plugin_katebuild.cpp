@@ -374,17 +374,16 @@ bool KateBuildView::slotQuickCompile()
         KMessageBox::sorry(0, i18n("The custom command is empty."));
         return false;
     }
+    
+    KUrl url(docUrl());
+    KUrl dir = url.upUrl();// url is a file -> remove the file with upUrl()
     // Check if the command contains the file name or directory
     if (cmd.contains("%f") || cmd.contains("%d")) {
-        KUrl url(docUrl());
         if (!checkLocal(url)) return false;
              
         cmd.replace("%f", url.toLocalFile());
-        url = url.upUrl(); // url is a file -> remove the file with upUrl().
-        cmd.replace("%d", url.toLocalFile());
+        cmd.replace("%d", dir.toLocalFile());
     }
-    
-    KUrl dir(QDir::currentPath());
     
     return startProcess(dir, cmd);
 }

@@ -1,0 +1,27 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=kategdbplugin
+X-Kate-Version=2.9
+Name=GDB Plugin
+Name[en_GB]=GDB Plugin
+Name[es]=Complemento GDB
+Name[et]=GDB plugin
+Name[fr]=Module externe GDB
+Name[it]=Estensione GDB
+Name[pt]='Plugin' do GDB
+Name[pt_BR]=Plugin do GDB
+Name[sv]=Insticksprogram för GDB
+Name[uk]=Додаток GDB
+Name[x-test]=xxGDB Pluginxx
+Comment=Provides a simple GDB frontend for Kate
+Comment[en_GB]=Provides a simple GDB frontend for Kate
+Comment[es]=Proporciona una sencilla interfaz de GDB para Kate
+Comment[et]=Kate lihtne GDB kasutajaliides
+Comment[fr]=Fournit une interface GDB simple pour Kate
+Comment[it]=Fornisce una semplice interfaccia GDB per Kate
+Comment[pt]=Oferece uma interface simples do GDB para o Kate
+Comment[pt_BR]=Oferece uma interface simples do GDB para o Kate
+Comment[sv]=Tillhandahåller ett enkelt gränssnitt för GDB i Kate
+Comment[uk]=Проста оболонка до GDB для Kate
+Comment[x-test]=xxProvides a simple GDB frontend for Katexx

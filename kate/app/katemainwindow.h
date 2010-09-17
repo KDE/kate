@@ -175,6 +175,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public Q_SLOTS:
     void slotFileClose();
     void slotFileQuit();
+    void queueModifiedOnDisc(KTextEditor::Document *doc);
 
     /**
      * slots used for actions in the menus/toolbars
@@ -318,7 +319,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     QHash<KTextEditor::View*,BarState> m_topViewBarMapping;
 
   public:
-    void queueModifiedOnDisc(KTextEditor::Document *doc);
     static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog* diag) {
       if (s_modOnHdDialog==diag) s_modOnHdDialog=0;
     }

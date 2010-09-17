@@ -740,7 +740,8 @@ void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
     if (doc->isModified()) item->setIcon(KIcon("document-save", 0, QStringList () << "emblem-important"));
     else item->setIcon(KIcon("dialog-warning"));
 
-    KateApp::self()->activeMainWindow()->queueModifiedOnDisc(doc);
+    QMetaObject::invokeMethod(KateApp::self()->activeMainWindow(), "queueModifiedOnDisc",
+            Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
   } else
     if (doc->isModified()) item->setIcon(KIcon("document-save"));
     else item->setIcon(KIcon("null"));

@@ -33,6 +33,8 @@ class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 
+#include <QHash>
+
 class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
   Q_OBJECT
@@ -53,7 +55,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
     virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
     
   private:
-    KateFileTreePluginView *m_view;
+    QHash<Kate::MainWindow *, KateFileTreePluginView *> m_view;
     KateFileTreeConfigPage *m_confPage;
 };
 

@@ -38,6 +38,8 @@
 
 #include <KConfigGroup>
 
+#include <QApplication>
+
 #include "katefiletreedebug.h"
 
 //END Includes
@@ -48,15 +50,19 @@ K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("katefiletreeplugin","katefiletre
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
-  , m_view(0)
 {
 
 }
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  m_view = new KateFileTreePluginView (mainWindow);
-  return m_view;
+  if(m_view.contains(mainWindow)) {
+    kDebug(debugArea()) << "ERROR: view hash already contains this mainWindow";
+    Q_ASSERT(m_view.contains(mainWindow) == true);
+  }
+
+  m_view[mainWindow] = new KateFileTreePluginView (mainWindow);
+  return m_view[mainWindow];
 }
 
 uint KateFileTreePlugin::configPages() const
@@ -95,7 +101,46 @@ Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *pa
   if(number != 0)
     return 0;
 
-  KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, m_view);
+  // HACK HACK HACK HACK HACK
+  // This is some fun stuff. KateApp::activeMainWindow uses
+  // QApplication::activeWindow to get the active window,
+  // but by the time this method is called, the active window
+  // is the KateConfigDialog we're going to be displaying in.
+  // And since KateApp::activeMainWindow can't find the
+  // config dialog in its own window list, it'll just return
+  // the first main window. so we have to use
+  // QApplication::activeWindow ourselves!
+
+  Kate::MainWindow *mainWindow;
+  Kate::Application *kate_app = Kate::application();
+  QWidget *hack = qApp->activeWindow();
+
+  // hack->parent() isa KateMainWindow
+  // Kate::MainWindow's parent is a KateMainWindow
+  // since we can't just include KateMainWindow's
+  // header to use the mainWindow method, we have to
+  // compare against Kate::MainWindow->window
+  kDebug(debugArea()) << "hack:" << hack->parent();
+  foreach(Kate::MainWindow *win, kate_app->mainWindows()) {
+    kDebug(debugArea()) << "win:" << win;
+    
+    if(hack->parent() == win->window()) {
+      kDebug(debugArea()) << "found hack!";
+      mainWindow = win;
+      break;
+    }
+  }
+
+  Q_ASSERT(mainWindow != 0);
+  
+  if(!m_view.contains(mainWindow)) {
+    kDebug(debugArea()) << "view hash does not contain given main window :(";
+    return 0;
+  }
+
+  kDebug(debugArea()) << "got mw:" << mainWindow << "parent:" << parent;
+  
+  KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, m_view[mainWindow]);
   return page;
 }
 
@@ -109,6 +154,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
 : Kate::PluginView (mainWindow), KXMLGUIClient()
 {
   // init console
+  kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
+  
   QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Document Tree"));
   m_fileTree = new KateFileTree(toolview);
   m_fileTree->setSortingEnabled(true);

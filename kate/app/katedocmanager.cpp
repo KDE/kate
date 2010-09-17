@@ -167,8 +167,12 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
           this, SLOT(slotModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
   // we have a new document, show it the world
-  emit documentCreated (doc);
+  
+  //  m_documentManager->documentCreated must come first
+  //  as to signal plugins and other api users about the change
+  //  before the view manager gets a chance to signal a viewChanged
   emit m_documentManager->documentCreated (doc);
+  emit documentCreated (doc);
 
   // return our new document
   return doc;

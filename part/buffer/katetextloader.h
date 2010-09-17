@@ -307,6 +307,19 @@ class TextLoader
 
           return !encodingError;
         }
+        else if (m_text.at(m_position) == QChar::LineSeparator)
+        {
+          m_lastWasEndOfLine = true;
+
+          // line data
+          offset = m_lastLineStart;
+          length = m_position-m_lastLineStart;
+
+          m_lastLineStart = m_position+1;
+          m_position++;
+
+          return !encodingError;
+        }
         else
         {
           m_lastWasEndOfLine = false;

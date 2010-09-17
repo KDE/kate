@@ -53,7 +53,7 @@ class KateFileTree: public QTreeView
 
   public Q_SLOTS:
     void slotDocumentClose();
-    void currentChanged( const QModelIndex &current, const QModelIndex &previous );
+    void slotCurrentChanged( const QModelIndex &current, const QModelIndex &previous );
     
   protected:
     virtual void contextMenuEvent ( QContextMenuEvent * event );

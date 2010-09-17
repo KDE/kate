@@ -28,6 +28,10 @@ namespace KTextEditor {
 }
 
 class ProxyItem;
+class ProxyItemDir;
+
+QDebug operator<<(QDebug dbg, ProxyItem *item);
+QDebug operator<<(QDebug dbg, ProxyItemDir *item);
 
 class KateFileTreeModel : public QAbstractItemModel
 {
@@ -77,7 +81,7 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentEdited(KTextEditor::Document*);
     
   private:
-    ProxyItem *m_root;
+    ProxyItemDir *m_root;
     QHash<KTextEditor::Document *, ProxyItem *> m_docmap;
     QString m_base;
 
@@ -92,12 +96,12 @@ class KateFileTreeModel : public QAbstractItemModel
 
     bool m_listMode;
     
-    ProxyItem *findRootNode(const QString &name, int r = 1);
-    ProxyItem *findChildNode(ProxyItem *parent, const QString &name);
-    void insertItemInto(ProxyItem *root, ProxyItem *item);
+    ProxyItemDir *findRootNode(const QString &name, int r = 1);
+    ProxyItemDir *findChildNode(ProxyItemDir *parent, const QString &name);
+    void insertItemInto(ProxyItemDir *root, ProxyItem *item);
     void handleInsert(ProxyItem *item);
     void handleNameChange(ProxyItem *item, const QString &new_name);
-    void handleEmptyParents(ProxyItem *item);
+    void handleEmptyParents(ProxyItemDir *item);
     void setupIcon(ProxyItem *item);
 
     void updateBackgrounds(bool force = false);

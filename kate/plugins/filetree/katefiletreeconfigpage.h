@@ -31,7 +31,7 @@ class KateFileTreePluginView;
 class KateFileTreeConfigPage : public Kate::PluginConfigPage {
   Q_OBJECT
   public:
-    KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePluginView *view=0 );
+    explicit KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePluginView *view=0 );
     ~KateFileTreeConfigPage() {};
 
   public Q_SLOTS:

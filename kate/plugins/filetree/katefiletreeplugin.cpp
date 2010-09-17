@@ -50,6 +50,7 @@ KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
   , m_view(0)
 {
+
 }
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
@@ -143,7 +144,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
 
   m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
+  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SLOT(slotCurrentChanged(const QModelIndex&, const QModelIndex&)));
   
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
@@ -184,14 +185,16 @@ KateFileTreeProxyModel *KateFileTreePluginView::proxy()
 
 void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 {
+  kDebug(debugArea()) << "open" << doc;
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
           m_documentModel, SLOT(documentEdited(KTextEditor::Document*)));
   
   m_proxyModel->invalidate();
 }
 
-void KateFileTreePluginView::documentClosed(KTextEditor::Document *)
+void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 {
+  kDebug(debugArea()) << "close" << doc;
   m_proxyModel->invalidate();
 }
     

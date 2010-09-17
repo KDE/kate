@@ -129,7 +129,7 @@ void KateFileTree::slotSortOpeningOrder()
   emit sortRoleChanged(KateFileTreeModel::OpeningOrderRole);
 }
 
-void KateFileTree::currentChanged ( const QModelIndex &current, const QModelIndex &previous )
+void KateFileTree::slotCurrentChanged ( const QModelIndex &current, const QModelIndex &previous )
 {
   kDebug(debugArea()) << "current:" << current << "previous:" << previous;
 

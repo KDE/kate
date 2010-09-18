@@ -787,6 +787,8 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
             }
 
             // Continue after match
+            if (highlightRanges.last().end() >= workingRange->end())
+                break;
             KTextEditor::MovingCursor* workingStart =
                 static_cast<KateDocument*>(m_view->document())->newMovingCursor(highlightRanges.last().end());
             if (originalMatchEmpty) {

@@ -72,6 +72,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_regionTree (this),
    m_tabWidth (8),
    m_lineHighlighted (0),
+   m_ctxChanged (true),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
   // we need kate global to stay alive
@@ -115,15 +116,12 @@ void KateBuffer::editEnd ()
       if (editTagLineStart > 0)
         --editTagLineStart;
 
-      bool needContinue = doHighlight (
+      m_ctxChanged = doHighlight (
           editTagLineStart,
           editTagLineEnd,
           true);
 
-      editTagLineStart = editTagLineEnd;
-
-      if (needContinue)
-        m_lineHighlighted = editTagLineStart;
+      m_lineHighlighted = editTagLineEnd;
     }
   }
 }
@@ -139,6 +137,7 @@ void KateBuffer::clear()
   m_brokenEncoding = false;
 
   m_lineHighlighted = 0;
+  m_ctxChanged = true;
 }
 
 bool KateBuffer::openFile (const QString &m_file)
@@ -243,7 +242,7 @@ void KateBuffer::ensureHighlighted (int line)
   // update hl until this line + max KATE_HL_LOOKAHEAD
   int end = qMin(line + KATE_HL_LOOKAHEAD, lines ()-1);
 
-  doHighlight ( m_lineHighlighted, end, false );
+  m_ctxChanged = doHighlight ( m_lineHighlighted, end, m_ctxChanged );
 
   m_lineHighlighted = end;
 }
@@ -321,6 +320,7 @@ void KateBuffer::setHighlight(int hlMode)
 void KateBuffer::invalidateHighlighting()
 {
   m_lineHighlighted = 0;
+  m_ctxChanged = true;
 }
 
 
@@ -421,7 +421,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
         // doHighlight *shall* do his work. After invalidation, some highlight has
         // been recalculated, but *maybe not* until endLine ! So we shall force it manually...
-        doHighlight ( m_lineHighlighted, endLine, false );
+        m_ctxChanged = doHighlight ( m_lineHighlighted, endLine, false );
         m_lineHighlighted = endLine;
 
         KateHlManager::self()->setForceNoDCReset(false);
@@ -458,6 +458,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   bool stillcontinue=false;
   bool indentContinueWhitespace=false;
   bool indentContinueNextWhitespace=false;
+  bool ctxChanged = false;
   // loop over the lines of the block, from startline to endline or end of block
   // if stillcontinue forces us to do so
   while ( (current_line < lines()) && (stillcontinue || (current_line <= endLine)) )
@@ -466,7 +467,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     Kate::TextLine textLine = plainLine (current_line);
 
     QVector<int> foldingList;
-    bool ctxChanged = false;
+    ctxChanged = false;
 
     m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
 
@@ -685,7 +686,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
     // need we to continue ?
-    stillcontinue = ctxChanged || indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
+    stillcontinue = indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
     if (stillcontinue && start_spellchecking < 0) {
       start_spellchecking=current_line;
     }
@@ -701,7 +702,12 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
   // tag the changed lines !
   if (invalidate) {
+    // prevent infinite recursion
+    int temp = m_lineHighlighted;
+    m_lineHighlighted = INT_MAX;
     emit tagLines (startLine, current_line);
+    m_lineHighlighted = temp;
+
     if(start_spellchecking >= 0 && lines() > 0) {
       emit respellCheckBlock(start_spellchecking,
                              qMin(lines()-1, (last_line_spellchecking==-1)?current_line:last_line_spellchecking));
@@ -720,7 +726,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
   // if we are at the last line of the block + we still need to continue
   // return the need of that !
-  return stillcontinue;
+  return ctxChanged;
 }
 
 void KateBuffer::codeFoldingColumnUpdate(int lineNr) {

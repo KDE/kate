@@ -251,6 +251,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     int m_tabWidth;
 
     int m_lineHighlighted;
+    bool m_ctxChanged;
 
     /**
      * number of dynamic contexts causing a full invalidation

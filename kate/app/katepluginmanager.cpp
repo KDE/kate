@@ -64,6 +64,8 @@ void KatePluginManager::setupPluginList ()
 {
   KService::List traderList = KServiceTypeTrader::self()->query("Kate/Plugin", "(not ('Kate/ProjectPlugin' in ServiceTypes)) and (not ('Kate/InitPlugin' in ServiceTypes))");
 
+  KatePluginList alwaysLoad;
+  KatePluginList others;
   foreach(const KService::Ptr &ptr, traderList)
   {
     double pVersion = ptr->property("X-Kate-Version").toDouble();
@@ -76,10 +78,19 @@ void KatePluginManager::setupPluginList ()
       info.load = false;
       info.service = ptr;
       info.plugin = 0L;
-
-      m_pluginList.push_back (info);
+      
+      if (info.service->property("X-Kate-LoadAlways").toBool())
+        alwaysLoad.push_back (info);
+      else
+        others.push_back (info);
     }
   }
+  
+  /**
+   * prefer always load plugins in handling
+   */
+  m_pluginList = alwaysLoad;
+  m_pluginList << others;
 }
 
 void KatePluginManager::loadConfig (KConfig* config)

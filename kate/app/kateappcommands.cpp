@@ -16,7 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <klocale.h>
+#include <QTimer>
+#include <KLocale>
+
 #include "kateapp.h"
 #include "kateappcommands.h"
 #include "katemainwindow.h"
@@ -112,12 +114,16 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
     }
     else if (re_changeBuffer.exactMatch(command)) {
+      
+#if 0 // FIXME FILELIST
         if (re_changeBuffer.cap(1) == "n") { // next document
             KateApp::self()->activeMainWindow()->switchToNextDocument();
         }
         else { // previous document
             KateApp::self()->activeMainWindow()->switchToPreviousDocument();
-        }
+        }  
+#endif
+
     }
     else if (re_edit.exactMatch(command)) {
         view->document()->documentReload();

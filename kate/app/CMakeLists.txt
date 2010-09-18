@@ -11,7 +11,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    kateconfigdialog.cpp
    kateconfigplugindialogpage.cpp
    katedocmanager.cpp
-   katefilelist.cpp
    katemainwindow.cpp
    katepluginmanager.cpp
    kateviewmanager.cpp
@@ -21,11 +20,9 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    katesession.cpp
    katemdi.cpp
    katedocmanageradaptor.cpp
-   kateviewdocumentproxymodel.cpp
    katecontainer.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
-#   modeltest.cpp
    )
 
 

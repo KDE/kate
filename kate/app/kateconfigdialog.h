@@ -90,8 +90,6 @@ class KateConfigDialog : public KPageDialog
     KTextEditor::EditorChooser *m_editorChooser;
     KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
-
-    class KateFileListConfigPage *filelistConfigPage;
     
     void addEditorPages();
 };

@@ -28,7 +28,6 @@
 #include "kateconfigplugindialogpage.h"
 #include "kateviewmanager.h"
 #include "kateapp.h"
-#include "katefilelist.h"
 
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/EditorChooser>
@@ -194,14 +193,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   layout->addStretch(1); // :-] works correct without autoadd
   //END Session page
-
-  //BEGIN Document List page
-  filelistConfigPage = new KateFileListConfigPage(this, m_mainWindow->m_fileList);
-  item = addSubPage( applicationItem, filelistConfigPage, i18n("Document List") );
-  item->setHeader( i18n("Document List Settings") );
-  item->setIcon( KIcon( "view-list-text" ) );
-  connect( filelistConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
-  //END Document List page
 
   //BEGIN Plugins page
   KVBox *page = new KVBox();
@@ -377,8 +368,6 @@ void KateConfigDialog::slotApply()
     cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
     m_mainWindow->modNotification = m_modNotifications->isChecked();
 
-    filelistConfigPage->apply();
-
     m_mainWindow->saveOptions ();
 
     // save plugin config !!
@@ -394,11 +383,8 @@ void KateConfigDialog::slotApply()
       plugin->editorPage->apply();
   }
   
-
   // write back the editor config
   KateDocManager::self()->editor()->writeConfig(config.data());
-
-  
 
   config->sync();
 

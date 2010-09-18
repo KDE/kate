@@ -33,9 +33,7 @@
 #include "katemwmodonhddialog.h"
 #include "katesession.h"
 #include "katemainwindowadaptor.h"
-#include "kateviewdocumentproxymodel.h"
 #include "kateviewspace.h"
-//#include "modeltest.h"
 
 #include <kate/mainwindow.h>
 
@@ -61,6 +59,7 @@
 #include <KRun>
 #include <KRecentFilesAction>
 #include <KToggleFullScreenAction>
+#include <KActionCollection>
 #include <KAboutData>
 #include <kwindowsystem.h>
 
@@ -197,16 +196,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   readOptions();
 
   if (sconfig)
-  {
-    int id = KateApp::self()->mainWindowID (this);
-    m_documentModel->readSessionConfig( sconfig,
-        QString("DocumentModel:MainWindow:%1").arg(id) );
-    // sync session config - or do we need an extra
-    // KateFileList::readSessionConfig() here too?
-    m_fileList->setSortRole(m_documentModel->sortRole());
-
     m_viewManager->restoreViewConfiguration (KConfigGroup(sconfig, sgroup) );
-  }
 
   finishRestore ();
 
@@ -254,43 +244,6 @@ void KateMainWindow::setupMainWindow ()
   ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_viewManager,100);
   m_bottomViewBarContainer=new QWidget(centralWidget());
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
-
-
-  KateMDI::ToolView *ft = createToolView("kate_filelist", KMultiTabBar::Left, SmallIcon("document-multiple"), i18n("Documents"));
-  m_fileList = new KateFileList(ft, actionCollection());
-  m_documentModel = new KateViewDocumentProxyModel(this);
-  m_documentModel->setSourceModel(KateDocManager::self());
-//  new ModelTest(m_documentModel,this);
-  m_fileList->setModel(m_documentModel);
-  m_fileList->setSelectionModel(m_documentModel->selection());
-  m_fileList->setDragEnabled(true);
-  m_fileList->setDragDropMode(QAbstractItemView::InternalMove);
-  m_fileList->setDropIndicatorShown(true);
-  m_fileList->setSelectionMode(QAbstractItemView::ExtendedSelection);
-#ifdef __GNUC__
-#warning I do not like it, it looks like a hack, search for a better way, but for now it should work. (Even on windows most lisviews, except exploder are single click) (jowenn)
-#endif
-  if (!style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, m_fileList) )
-  {
-    //kDebug() << "HACK:***********************CONNECTING CLICKED***************************";
-    connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
-    connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_viewManager, SLOT(activateDocument(const QModelIndex &)));
-  }
-  connect(m_fileList, SIGNAL(activated(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
-  connect(m_fileList, SIGNAL(activated(const QModelIndex&)), m_viewManager, SLOT(activateDocument(const QModelIndex &)));
-  connect(m_fileList, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showFileListPopup(const QPoint&)));
-  connect(m_fileList, SIGNAL(closeDocument(KTextEditor::Document*)),m_viewManager,SLOT(slotDocumentClose(KTextEditor::Document*)));
-  connect(m_fileList, SIGNAL(closeOtherDocument(KTextEditor::Document*)),this,SLOT(slotDocumentCloseOther(KTextEditor::Document*)));
-  connect(m_fileList, SIGNAL(closeSelectedDocument(QList<KTextEditor::Document*>)),
-                      this, SLOT(slotDocumentCloseSelected(QList<KTextEditor::Document*>)));
-  connect(m_fileList, SIGNAL(saveSelectedDocument(QList<KTextEditor::Document*>)),
-                      KateDocManager::self(), SLOT(saveSelected(QList<KTextEditor::Document*>)));
-  connect(m_fileList, SIGNAL(openDocument(KUrl)), this, SLOT(slotOpenDocument(KUrl)));
-  //filelist = new KateFileList (this, m_viewManager, ft);
-//   m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
-
-  // make per default the filelist visible, if we are in session restore, katemdi will skip this ;)
-  showToolView (ft);
 }
 
 void KateMainWindow::setupActions()
@@ -580,11 +533,6 @@ void KateMainWindow::saveOptions ()
 
   generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
   generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
-
-#ifdef __GNUC__
-#warning PORTME
-#endif
-  //filelist->writeConfig(config.data(), "Filelist");
 }
 
 void KateMainWindow::toggleShowStatusBar ()
@@ -600,10 +548,7 @@ bool KateMainWindow::showStatusBar ()
 void KateMainWindow::slotWindowActivated ()
 {
   if (m_viewManager->activeView())
-  {
-    m_documentModel->opened(modelIndexForDocument(m_viewManager->activeView()->document()));
     updateCaption (m_viewManager->activeView()->document());
-  }
 
   // update proxy
   centralWidget()->setFocusProxy (m_viewManager->activeView());
@@ -648,6 +593,7 @@ Q_DECLARE_METATYPE(KateRowColumn)
 
 void KateMainWindow::documentMenuAboutToShow()
 {
+#if 0
   qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
   qDeleteAll( documentsGroup->actions() );
   int rows = m_fileList->model()->rowCount(QModelIndex());
@@ -667,10 +613,12 @@ void KateMainWindow::documentMenuAboutToShow()
     action->setData(QVariant::fromValue(KateRowColumn(index.row(), index.column())));
     documentMenu->addAction(action);
   }
+#endif
 }
 
 void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
 {
+#if 0
   KateRowColumn rowCol = action->data().value<KateRowColumn>();
   if (!rowCol.isValid()) return;
   QModelIndex index = m_documentModel->index(rowCol.row(), rowCol.column());
@@ -681,6 +629,7 @@ void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
       m_viewManager->activateView (doc);
     m_documentModel->opened(index);
   }
+#endif
 }
 
 
@@ -914,7 +863,6 @@ bool KateMainWindow::showModOnDiskPrompt()
 
 void KateMainWindow::slotDocumentCreated (KTextEditor::Document *doc)
 {
-  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotDocModified(KTextEditor::Document *)));
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(slotUpdateOpenWith()));
@@ -972,9 +920,6 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
       }
   }
 
-  m_documentModel->writeSessionConfig( config.config(),
-      QString("DocumentModel:MainWindow:%1").arg(id) );
-
   fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->saveViewConfiguration (config);
 }
@@ -991,10 +936,6 @@ void KateMainWindow::readProperties(const KConfigGroup& config)
 
   finishRestore ();
 
-  int id = KateApp::self()->mainWindowID (this);
-  m_documentModel->readSessionConfig( config.config(),
-      QString("DocumentModel:MainWindow:%1").arg(id) );
-
   fileOpenRecent->loadEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->restoreViewConfiguration (config);
 }
@@ -1009,34 +950,6 @@ void KateMainWindow::saveGlobalProperties( KConfig* sessionConfig )
   // save plugin config !!
   KateApp::self()->pluginManager()->writeConfig (sessionConfig);
   
-}
-
-void KateMainWindow::showFileListPopup(const QPoint& pos)
-{
-  if (m_fileList->selectionModel()->selection().count() == 0) return;
-  QMenu *menu = (QMenu*) (factory()->container("filelist_popup", m_viewManager->mainWindow()));
-  if (menu) menu->exec(m_fileList->viewport()->mapToGlobal(pos));
-}
-
-
-static QModelIndex modelIndexForDocumentRec(const QModelIndex &index, QAbstractItemModel *model)
-{
-  QAbstractProxyModel *m = qobject_cast<QAbstractProxyModel*>(model);
-  if (m == 0) return index;
-  return m->mapFromSource(modelIndexForDocumentRec(index, m->sourceModel()));
-}
-
-QModelIndex KateMainWindow::modelIndexForDocument(KTextEditor::Document *document)
-{
-  KTextEditor::Document *tmp = m_documentModel->selection()->currentIndex().data(KateDocManager::DocumentRole).value<KTextEditor::Document*>();
-  if (tmp == document) return m_documentModel->selection()->currentIndex();
-  else return modelIndexForDocumentRec(KateDocManager::self()->indexForDocument(document), m_documentModel);
-}
-
-
-void KateMainWindow::slotDocModified(KTextEditor::Document *document)
-{
-  if (document->isModified()) m_documentModel->modified(modelIndexForDocument(document));
 }
 
 void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)

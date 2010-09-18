@@ -23,7 +23,6 @@
 
 #include "katemain.h"
 #include "katemdi.h"
-#include "katefilelist.h"
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
@@ -226,7 +225,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   public:
     void openUrl (const QString &name = 0L);
-    QModelIndex modelIndexForDocument(KTextEditor::Document *document);
 
     QHash<Kate::Plugin*, Kate::PluginView*> &pluginViews ()
     {
@@ -245,15 +243,10 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void showTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar();  if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_topViewBarMapping[view]=state;  m_topViewBarContainer->show();}}
     inline void deleteTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_topContainerStack->currentWidget()==bar) m_topViewBarContainer->hide(); delete bar;}}
 
-    void switchToNextDocument() { m_fileList->slotNextDocument(); }
-    void switchToPreviousDocument() { m_fileList->slotPrevDocument(); }
-
   private Q_SLOTS:
     void slotUpdateBottomViewBar();
     void slotUpdateTopViewBar();
-
-  private Q_SLOTS:
-    void showFileListPopup(const QPoint& pos);
+    
   protected:
     bool event( QEvent * );
 
@@ -262,7 +255,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);
     void slotDocumentCloseSelected(const QList<KTextEditor::Document*>&);
-    void slotDocModified(KTextEditor::Document *document);
   private:
     static uint uniqueID;
     uint myID;
@@ -276,21 +268,17 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     KRecentFilesAction *fileOpenRecent;
 
-    class KateFileList *m_fileList;
-
     KActionMenu* documentOpenWith;
 
     QMenu *documentMenu;
     QActionGroup *documentsGroup;
 
-    KToggleAction* settingsShowFilelist;
     KToggleAction* settingsShowFileselector;
 
     KateExternalToolsMenuAction *externalTools;
     bool m_modignore, m_grrr;
 
     QString m_dbusObjectPath;
-    KateViewDocumentProxyModel *m_documentModel;
 
     // all plugin views for this mainwindow, used by the pluginmanager
     QHash<Kate::Plugin*, Kate::PluginView*> m_pluginViews;

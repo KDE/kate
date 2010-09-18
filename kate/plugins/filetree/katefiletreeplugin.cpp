@@ -156,7 +156,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
   
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Document Tree"));
+  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(toolview);
   m_fileTree->setSortingEnabled(true);
   

@@ -774,7 +774,7 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
                 }
 
                 // Replace
-                const Range afterReplace = match.replace(*replacement, ++matchCounter);
+                const Range afterReplace = match.replace(*replacement, false, ++matchCounter);
 
                 // Highlight and continue after adjusted match
                 //highlightReplacement(*afterReplace);

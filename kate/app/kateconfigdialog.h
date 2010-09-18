@@ -88,7 +88,7 @@ class KateConfigDialog : public KPageDialog
     
     QHash<KPageWidgetItem*, PluginPageListItem*> m_pluginPages;
     KTextEditor::EditorChooser *m_editorChooser;
-    KPageWidgetItem *m_pluginPage;
+    KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
 
     class KateFileListConfigPage *filelistConfigPage;

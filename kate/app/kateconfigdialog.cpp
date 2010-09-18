@@ -70,6 +70,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
   applicationItem->setIcon( KIcon( "preferences-other" ) );
   applicationItem->setHeader( i18n("Application Options") );
+  m_applicationPage = applicationItem;
 
   //BEGIN General page
   QFrame* generalFrame = new QFrame;
@@ -208,9 +209,9 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
   connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
 
-  m_pluginPage = addSubPage( applicationItem, page, i18n("Plugins") );
-  m_pluginPage->setHeader( i18n("Plugin Manager") );
-  m_pluginPage->setIcon( KIcon( "preferences-plugin" ) );
+  item = addSubPage( applicationItem, page, i18n("Plugins") );
+  item->setHeader( i18n("Plugin Manager") );
+  item->setIcon( KIcon( "preferences-plugin" ) );
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
   foreach (const KatePluginInfo &plugin, pluginList)
@@ -280,7 +281,7 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
     KVBox *page = new KVBox();
     page->setSpacing( -1 );
 
-    KPageWidgetItem *item = addSubPage( m_pluginPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
+    KPageWidgetItem *item = addSubPage( m_applicationPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
     item->setHeader( Kate::pluginConfigPageInterface(plugin)->configPageFullName(i) );
     item->setIcon( Kate::pluginConfigPageInterface(plugin)->configPageIcon(i));
 

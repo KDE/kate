@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/Plugin
 X-KDE-Library=katefiletreeplugin
 X-Kate-Version=2.8
+X-Kate-LoadAlways=True
 Name=File Tree
 Name[de]=Dateibaum
 Name[en_GB]=File Tree

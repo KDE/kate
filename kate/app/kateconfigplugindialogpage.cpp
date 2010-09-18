@@ -46,6 +46,8 @@ KatePluginListItem::KatePluginListItem(bool checked, KatePluginInfo *info)
     , mInfo(info)
 {
   setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
+  // skip plugins that will be loaded always!
+  setDisabled (info->service->property("X-Kate-LoadAlways").toBool());
 }
 
 KatePluginListView::KatePluginListView(QWidget *parent)
@@ -71,11 +73,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
   listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
-#ifdef __GNUC__
-#warning try to fix me
-#endif
-  for (KatePluginList::iterator it = pluginList.begin();it != pluginList.end(); ++it)
-  {
+  for (KatePluginList::iterator it = pluginList.begin();it != pluginList.end(); ++it) { 
     QTreeWidgetItem *item = new KatePluginListItem(it->load, &(*it));
     item->setText(0, it->service->name());
     item->setText(1, it->service->comment());

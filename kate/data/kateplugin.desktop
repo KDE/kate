@@ -55,6 +55,9 @@ Type=QString
 [PropertyDef::X-Kate-PluginName]
 Type=QString
 
+[PropertyDef::X-Kate-LoadAlways]
+Type=bool
+
 [PropertyDef::X-Kate-MajorProfiles]
 Type=QStringList
 

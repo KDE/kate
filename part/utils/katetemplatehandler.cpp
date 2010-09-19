@@ -118,13 +118,12 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   /// - create view => ranges are added
   /// for now simply "just insert" the code when we have no active view
 
+  handleTemplateString(initial_Values);
+  m_undoManager->undoSafePoint();
+  doc()->editEnd();
+
   if (!initialValues.isEmpty() && m_view) {
     // only do complex stuff when required
-
-    handleTemplateString(initial_Values);
-    m_undoManager->undoSafePoint();
-    doc()->editEnd();
-
     if (!m_templateRanges.isEmpty()) {
       foreach(View* view, doc()->views()) {
         setupEventHandler(view);
@@ -149,9 +148,6 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
     }
 
   } else {
-    m_undoManager->undoSafePoint();
-    doc()->editEnd();
-    // simple templates just need to be (which gets done in handleTemplateString())
     cleanupAndExit();
   }
 }

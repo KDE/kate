@@ -32,7 +32,7 @@
 // #define FAST_DEBUG_ENABLE
 
 #ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) (kDebug( 13020 ) << x)
+# define FAST_DEBUG(x) kDebug( 13020 ) << x
 #else
 # define FAST_DEBUG(x)
 #endif
@@ -246,7 +246,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     QVector<int> lineLens (inputLineCount);
 
     // first line
-    if (firstLineIndex < 0 || m_document->lines() >= firstLineIndex)
+    if (firstLineIndex < 0 || m_document->lines() <= firstLineIndex)
     {
       QVector<KTextEditor::Range> result;
       result.append(KTextEditor::Range::invalid());
@@ -265,7 +265,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     for (int i = 1; i < inputLineCount; i++)
     {
       const int lineNum = firstLineIndex + i;
-      if (lineNum < 0 || m_document->lines() >= lineNum)
+      if (lineNum < 0 || m_document->lines() <= lineNum)
       {
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
@@ -496,7 +496,8 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
         result[0] = KTextEditor::Range(j, foundAt, j, foundAt + regexp.matchedLength());
-        FAST_DEBUG("result range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
+        FAST_DEBUG("result range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " <<
+                foundAt + regexp.matchedLength() << ")");
         for (int y = 1; y <= numCaptures; y++)
         {
           const int openIndex = regexp.pos(y);

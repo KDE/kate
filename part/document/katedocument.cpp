@@ -1238,6 +1238,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
     emit marksChanged( this );
 
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0));
+  emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0), "\n");
 
   editEnd ();
 
@@ -1384,6 +1385,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
   }
 
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
+  emit KTextEditor::Document::textRemoved(this, rangeRemoved, oldText.join("\n"));
 
   editEnd();
 
@@ -1951,6 +1953,7 @@ bool KateDocument::openFile()
 
   // do we have success ?
   emit KTextEditor::Document::textRemoved(this, documentRange());
+  emit KTextEditor::Document::textRemoved(this, documentRange(), m_buffer->text());
 
   bool success = m_buffer->openFile (localFilePath());
 
@@ -2403,6 +2406,7 @@ bool KateDocument::closeUrl()
   }
 
   emit KTextEditor::Document::textRemoved(this, documentRange());
+  emit KTextEditor::Document::textRemoved(this, documentRange(), m_buffer->text());
 
   {
     // remove all marks

@@ -38,7 +38,7 @@
 #include <kate/mainwindow.h>
 
 K_PLUGIN_FACTORY(KateKttsdFactory, registerPlugin<KateKttsdPlugin>();)
-K_EXPORT_PLUGIN(KateKttsdFactory(KAboutData("kate_kttsd","kate_kttsd",ki18n("KTTSD Plugin"), "0.1", ki18n("KTTSD Plugin"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateKttsdFactory(KAboutData("kate_kttsd","kate_kttsd",ki18n("Jovie Text-to-Speech Plugin"), "0.1", ki18n("Jovie Text-to-Speech Plugin"), KAboutData::License_LGPL_V2)) )
 
 KateKttsdPlugin::KateKttsdPlugin(QObject* parent, const QList<QVariant>&)
     : Kate::Plugin ((Kate::Application*)parent)
@@ -91,7 +91,7 @@ void KateKttsdPluginView::slotReadOut()
         QString error;
         if (KToolInvocation::startServiceByDesktopName("kttsd", QStringList(), &error))
         {
-            KMessageBox::error(0, i18n( "Starting KTTSD Failed"), error );
+            KMessageBox::error(0, i18n( "Starting Jovie Text-to-Speech Service Failed"), error );
             return;
         }
     }

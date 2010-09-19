@@ -84,7 +84,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                                                 Kate::MainWindow::Bottom,
                                                 SmallIcon("debug"),
                                                 i18n("Debug View") );
-    SizeWidget *container = new SizeWidget( toolView );
+    tabWidget = new QTabWidget( toolView );
     // Output
     outputArea = new QTextEdit();
     outputArea->setAcceptRichText( false  );
@@ -101,14 +101,20 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     outputArea->setPalette( p );
 
     // input
-    toolbar = new QToolBar;
     inputArea = new KHistoryComboBox( true );
     connect( inputArea,  SIGNAL( returnPressed() ), this, SLOT( slotSendCommand() ) );
     QHBoxLayout *inputLayout = new QHBoxLayout();
-    inputLayout->addWidget( toolbar, 0 );
     inputLayout->addWidget( inputArea, 10 );
     inputLayout->setContentsMargins( 0,0,0,0 );
     outputArea->setFocusProxy( inputArea ); // take the focus from the outputArea
+
+    QWidget *gdbPage = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout( gdbPage );
+    layout->addWidget( outputArea );
+    layout->addLayout( inputLayout );
+    layout->setStretch(0, 10);
+    layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(0);
 
     // stack page
     stackTree = new QTreeWidget;
@@ -124,8 +130,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     // config page
     configView = new ConfigView( NULL, mainWin );
 
-    tabWidget = new QTabWidget;
-    tabWidget->addTab( outputArea, i18n( "GDB Output" ) );
+    tabWidget->addTab( gdbPage, i18n( "GDB Output" ) );
     tabWidget->addTab( stackTree, i18n( "Call Stack" ) );
     tabWidget->addTab( configView, i18n( "Settings" ) );
 
@@ -183,28 +188,24 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     a->setIcon( KIcon( "media-playback-pause" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 this,   SLOT( slotToggleBreakpoint() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "step_in" );
     a->setText( i18n( "Step In" ) );
     a->setIcon( KIcon( "debug-step-into" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 debugView,   SLOT( slotStepInto() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "step_over" );
     a->setText( i18n( "Step Over" ) );
     a->setIcon( KIcon( "debug-step-over" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 debugView,   SLOT( slotStepOver() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "step_out" );
     a->setText( i18n( "Step Out" ) );
     a->setIcon( KIcon( "debug-step-out" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 debugView, SLOT( slotStepOut() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "move_pc" );
     a->setText( i18n( "Move PC" ) );
@@ -216,14 +217,12 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     a->setIcon( KIcon( "debug-run-cursor" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 this,   SLOT( slotRunToCursor() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "continue" );
     a->setText( i18n( "Continue" ) );
     a->setIcon( KIcon( "media-playback-start" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 debugView, SLOT( slotContinue() ) );
-    toolbar->addAction(a);
 
     a = actionCollection()->addAction( "print_value" );
     a->setText( i18n( "Print Value" ) );
@@ -246,20 +245,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                                           this, SLOT( slotMovePC() ) );
     popupAction->setText( i18n( "Move PC" ) );
     
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget( tabWidget );
-    layout->addLayout( inputLayout );
-    layout->setStretch(0, 10);
-    layout->setContentsMargins(0,0,0,0);
-
-    container->setLayout(layout);
-    connect(container, SIGNAL(resized()), this, SLOT(resized()));
-    
     enableDebugActions( false );
     
     mainWindow()->guiFactory()->addClient( this );
-
-    resized();
 }
 
 KatePluginGDBView::~KatePluginGDBView()
@@ -514,18 +502,6 @@ void KatePluginGDBView::stackFrameChanged( int level )
     if ( current ) current->setIcon ( 0, QIcon() );
     if ( next )    next->setIcon( 0, KIcon("arrow-right") );
     lastExecFrame = level;
-}
-
-void KatePluginGDBView::resized()
-{
-    if ( ( toolbar->sizeHint().width() * 2.5 ) > toolView->size().width() ) 
-    {
-        toolbar->hide();
-    }
-    else
-    {
-        toolbar->show();
-    }
 }
 
 QString KatePluginGDBView::currentWord( )

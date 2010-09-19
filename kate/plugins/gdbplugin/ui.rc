@@ -17,9 +17,19 @@
             <Action name="print_value" />
         </Menu>
     </MenuBar>
-    
+
     <Menu name="ktexteditor_popup" noMerge="1">
         <Action name="popup_gdb"/>
     </Menu>
+
+    <ToolBar name="gdbplugin">
+        <text>GDB Plugin</text>
+        <Action name="toggle_breakpoint"/>
+        <Action name="step_in"/>
+        <Action name="step_over"/>
+        <Action name="step_out"/>
+        <Action name="run_to_cursor"/>
+        <Action name="continue"/>
+    </ToolBar>
 
 </gui>

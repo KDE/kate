@@ -88,7 +88,6 @@ public Q_SLOTS:
     void slotValue();
 
 private Q_SLOTS:
-    void resized();
     void aboutToShowMenu();
     void slotBreakpointSet( KUrl const& file, int line );
     void slotBreakpointCleared( KUrl const& file, int line );
@@ -109,7 +108,6 @@ private:
     QTabWidget*           tabWidget;
     QTextEdit*            outputArea;
     QTreeWidget*          stackTree;
-    QToolBar*             toolbar;
     KHistoryComboBox*     inputArea;
     QString               lastCommand;
     DebugView*            debugView;
@@ -120,22 +118,6 @@ private:
     int                   lastExecLine;
     int                   lastExecFrame;
     bool                  focusOnInput;
-
-
-};
-
-class SizeWidget: public QWidget
-{
-    Q_OBJECT
-public:
-    SizeWidget( QWidget *parent ): QWidget( parent ) {}
-
-Q_SIGNALS:
-    void resized();
-
-protected:
-    void resizeEvent( QResizeEvent * ) { emit resized(); }
-    void showEvent ( QShowEvent * ) { emit resized(); }
 };
 
 #endif

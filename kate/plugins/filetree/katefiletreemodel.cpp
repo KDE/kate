@@ -888,7 +888,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
   QString base = name.section(sep, 0, -2);
   foreach(ProxyItem *item, m_root->children()) {
     QString path = item->path().section(sep, 0, -r);
-    if(path.startsWith(QLatin1String("Untitled"))) {
+    if(!path.startsWith(QLatin1String("/"))) {
       continue;
     }
 
@@ -981,7 +981,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     return;
   }
   
-  if(item->path().startsWith(QLatin1String("Untitled"))) {
+  if(!item->path().startsWith(QLatin1String("/"))) {
     kDebug(debugArea()) << "empty item";
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);

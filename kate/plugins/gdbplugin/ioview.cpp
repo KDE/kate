@@ -186,7 +186,9 @@ void IOView::readErrors()
             data.remove(data.size()-1, 1);
         }
         kDebug() << data;
-        m_output->append("e:" + QString::fromLocal8Bit(data));
+        m_output->setFontItalic(true);
+        m_output->append(QString::fromLocal8Bit(data));
+        m_output->setFontItalic(false);
     }
     m_stderrNotifier->setEnabled(true);
 }

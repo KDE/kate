@@ -76,6 +76,7 @@ Q_SIGNALS:
     void stackFrameChanged( int level );
     
     void outputText( const QString &text );
+    void outputError( const QString &text );
     void readyForInput( bool ready );
     void programEnded();
     void gdbEnded();

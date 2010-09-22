@@ -100,6 +100,7 @@ private Q_SLOTS:
     void stackFrameChanged( int level );
     void stackFrameSelected();
     void showIO( bool show );
+    void addErrorText( QString const& text );
 
 private:
     QString currentWord();

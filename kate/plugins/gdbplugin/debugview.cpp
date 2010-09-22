@@ -502,7 +502,7 @@ void DebugView::processErrors()
             nextCommands.clear();
             emit programEnded();
         }
-        emit outputText( "e:"+error );
+        emit outputError( error );
     }
  }
 

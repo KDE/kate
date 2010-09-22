@@ -45,6 +45,7 @@ IOView::IOView(QWidget *parent)
     m_output = new QTextEdit();
     m_output->setReadOnly(true);
     m_output->setUndoRedoEnabled(false);
+    m_output->setAcceptRichText(false);
     // fixed wide font, like konsole
     m_output->setFont(KGlobalSettings::fixedFont());
     // alternate color scheme, like konsole

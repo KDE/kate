@@ -148,6 +148,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( debugView,  SIGNAL( outputText( const QString ) ), 
              outputArea, SLOT( append( const QString ) ) );
 
+    connect( debugView,  SIGNAL( outputError( const QString ) ), 
+             this,       SLOT( addErrorText( const QString ) ) );
+
     connect( debugView,  SIGNAL( debugLocationChanged( const char*, int ) ),
              this,       SLOT( slotGoTo( const char*, int ) ) );
 
@@ -591,6 +594,13 @@ void KatePluginGDBView::showIO( bool show )
     {
         tabWidget->removeTab( 3 );
     }        
+}
+
+void KatePluginGDBView::addErrorText( QString const& text )
+{
+    outputArea->setFontItalic( true );
+    outputArea->append( text );
+    outputArea->setFontItalic( false );
 }
 
 

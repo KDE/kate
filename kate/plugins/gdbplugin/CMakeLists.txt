@@ -1,15 +1,17 @@
 cmake_minimum_required( VERSION 2.6 )
 
-find_package( Qt4 REQUIRED )
-find_package( KDE4 REQUIRED )
-include( KDE4Defaults )
-include_directories( ${QT_INCLUDES} )
-include_directories( ${KDE4_INCLUDES} )
-add_definitions( ${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
+# building separately or as part of kdesdk?
+if(NOT KDE4_FOUND)
+    find_package(KDE4 REQUIRED)
+    ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=13040)
+endif(NOT KDE4_FOUND)
 
-ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=13040)
+include_directories (${KDE4_INCLUDES})
+include_directories( ${KDE4_KIO_INCLUDES} )
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-set( kategdbplugin_PART_SRCS plugin_kategdb.cpp debugview.cpp configview.cpp )
+
+set( kategdbplugin_PART_SRCS plugin_kategdb.cpp debugview.cpp configview.cpp ioview.cpp )
 kde4_add_plugin( kategdbplugin ${kategdbplugin_PART_SRCS} )
 target_link_libraries( kategdbplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 

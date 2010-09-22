@@ -33,6 +33,7 @@
 
 #include "debugview.h"
 #include "configview.h"
+#include "ioview.h"
 
 class KHistoryComboBox;
 class QTextEdit;
@@ -98,6 +99,7 @@ private Q_SLOTS:
     void insertStackFrame( QString const& level, QString const& info );
     void stackFrameChanged( int level );
     void stackFrameSelected();
+    void showIO( bool show );
 
 private:
     QString currentWord();
@@ -112,6 +114,7 @@ private:
     QString               lastCommand;
     DebugView*            debugView;
     ConfigView*           configView;
+    IOView*               ioView;
     QPointer<KActionMenu> menu;
     QAction*              breakpoint;
     KUrl                  lastExecUrl;

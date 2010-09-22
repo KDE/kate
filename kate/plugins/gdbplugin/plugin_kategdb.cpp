@@ -48,6 +48,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/markinterface.h>
 
+
 K_PLUGIN_FACTORY(KatePluginGDBFactory, registerPlugin<KatePluginGDB>();)
 K_EXPORT_PLUGIN(KatePluginGDBFactory(
                     KAboutData( "kategdb",
@@ -129,10 +130,16 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     // config page
     configView = new ConfigView( NULL, mainWin );
-
+    
+    ioView = new IOView();
+    connect( configView, SIGNAL( showIO( bool ) ),
+             this,       SLOT( showIO( bool ) ) );
+    kDebug() << ioView->stdinFifo() << ioView->stdoutFifo() << ioView->stderrFifo();
+    
     tabWidget->addTab( gdbPage, i18n( "GDB Output" ) );
     tabWidget->addTab( stackTree, i18n( "Call Stack" ) );
     tabWidget->addTab( configView, i18n( "Settings" ) );
+    //tabWidget->addTab( ioView, i18n( "IO" ) );
 
     debugView  = new DebugView( this );
     connect( debugView,  SIGNAL( readyForInput( bool ) ), 
@@ -270,9 +277,17 @@ void KatePluginGDBView::writeSessionConfig( KConfigBase*    config,
 void KatePluginGDBView::slotDebug()
 {
     configView->snapshotSettings();
+    QString args = configView->currentArgs();
+    if ( configView->showIOTab() )
+    {
+        args += QString( " < %1 1> %2 2> %3" )
+        .arg( ioView->stdinFifo() )
+        .arg( ioView->stdoutFifo() )
+        .arg( ioView->stderrFifo() );
+    }
     debugView->runDebugger( configView->currentWorkingDirectory(),
-                              configView->currentExecutable(),
-                              configView->currentArgs() );
+                            configView->currentExecutable(),
+                            args );
     enableDebugActions( true );
     mainWindow()->showToolView( toolView );
     tabWidget->setCurrentWidget( outputArea );
@@ -315,7 +330,7 @@ void KatePluginGDBView::slotToggleBreakpoint()
     {
         KTextEditor::View* editView = mainWindow()->activeView();
         KUrl               currURL  = editView->document()->url();
-        int                line   = editView->cursorPosition().line();
+        int                line     = editView->cursorPosition().line();
 
         debugView->toggleBreakpoint( currURL, line + 1 );
     }
@@ -352,7 +367,7 @@ void KatePluginGDBView::slotMovePC()
     KUrl                    currURL = editView->document()->url();
     KTextEditor::Cursor     cursor = editView->cursorPosition();
 
-    debugView->movePC( currURL, cursor.line() );
+    debugView->movePC( currURL, cursor.line() + 1 );
 }
 
 void KatePluginGDBView::slotRunToCursor()
@@ -361,7 +376,8 @@ void KatePluginGDBView::slotRunToCursor()
     KUrl                    currURL = editView->document()->url();
     KTextEditor::Cursor     cursor = editView->cursorPosition();
 
-    debugView->runToCursor( currURL, cursor.line() );
+    // GDB starts lines from 1, kate returns lines starting from 0 (displaying 1)
+    debugView->runToCursor( currURL, cursor.line() + 1 );
 }
 
 void KatePluginGDBView::slotGoTo( const char* fileName, int lineNum )
@@ -421,6 +437,8 @@ void KatePluginGDBView::enableDebugActions( bool enable )
         if ( mainWindow()->activeView() ) mainWindow()->activeView()->setFocus();
     }
 
+    ioView->enableInput( !enable && debugView->debuggerRunning() );
+
     if ( (lastExecLine > -1) )
     {
         KTextEditor::MarkInterface* iface =
@@ -456,6 +474,7 @@ void KatePluginGDBView::programEnded()
 void KatePluginGDBView::gdbEnded()
 {
     outputArea->clear();
+    ioView->clearOutput();
 }
 
 void KatePluginGDBView::slotSendCommand()
@@ -561,3 +580,17 @@ void KatePluginGDBView::slotValue()
     sb->setValue(sb->maximum());
 
 }
+
+void KatePluginGDBView::showIO( bool show )
+{
+    if ( show )
+    {
+        tabWidget->addTab( ioView, i18n( "IO" ) );
+    }
+    else 
+    {
+        tabWidget->removeTab( 3 );
+    }        
+}
+
+

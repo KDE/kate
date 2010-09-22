@@ -83,26 +83,29 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
     argumentsLabel->setBuddy( argumentLists );
 
     takeFocus = new QCheckBox( i18n("Keep the focus on the command line") );
-    
+    redirectTerminal = new QCheckBox( i18n("Redirect output") );
+
     QGridLayout* layout = new QGridLayout( this );
     layout->addWidget( targetLabel, 0, 0, Qt::AlignRight );
-    layout->addWidget( targets, 0, 1 );
-    layout->addWidget( chooseTarget, 0, 2 );
-    layout->addWidget( deleteTarget, 0, 3 );
+    layout->addWidget( targets, 0, 1, 1, 2 );
+    layout->addWidget( chooseTarget, 0, 3 );
+    layout->addWidget( deleteTarget, 0, 4 );
     layout->addWidget( workDirLabel, 1, 0, Qt::AlignRight );
-    layout->addWidget( workingDirectories, 1, 1 );
-    layout->addWidget( chooseWorkingDirectory, 1, 2 );
-    layout->addWidget( deleteWorkingDirectory, 1, 3 );
+    layout->addWidget( workingDirectories, 1, 1, 1, 2 );
+    layout->addWidget( chooseWorkingDirectory, 1, 3 );
+    layout->addWidget( deleteWorkingDirectory, 1, 4 );
     layout->addWidget( argumentsLabel, 2, 0, Qt::AlignRight );
-    layout->addWidget( argumentLists, 2, 1 );
+    layout->addWidget( argumentLists, 2, 1, 1, 2 );
     layout->addWidget( takeFocus, 3, 1 );
+    layout->addWidget( redirectTerminal, 3, 2 );
     layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
     layout->setColumnStretch( 1, 1 );
+    layout->setColumnStretch( 2, 1 );
     layout->setRowStretch( 4, 1 );
     useBottomLayout = true;
 
     // calculate the approximate height to exceed before going to "Side Layout"
-    widgetHeights = (targetLabel->sizeHint().height() + /*layout spacing */6) * 8 ;
+    widgetHeights = (targetLabel->sizeHint().height() + /*layout spacing */6) * 9 ;
 
 
     connect(    targets, SIGNAL( currentIndexChanged( int ) ),
@@ -115,6 +118,8 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
                 this, SLOT( slotChooseWorkingDirectory() ) );
     connect(    deleteWorkingDirectory, SIGNAL( clicked() ),
                 this, SLOT( slotDeleteWorkingDirectory() ) );
+    connect(    redirectTerminal, SIGNAL( toggled( bool ) ),
+                this, SIGNAL(showIO( bool ) ) );
 }
 
 ConfigView::~ConfigView()
@@ -188,8 +193,9 @@ void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
         workingDirectories->setCurrentIndex( group.readEntry( "lastWorkDir", 0 ) );
         argumentLists->setCurrentIndex( group.readEntry( "lastArgs", 0 ) );
 
-
         takeFocus->setChecked( group.readEntry( "alwaysFocusOnInput",false ) );
+
+        redirectTerminal->setChecked( group.readEntry( "redirectTerminal",false ) );
     }
 }
 
@@ -236,6 +242,8 @@ void ConfigView::writeConfig( KConfigBase* config, QString const& groupPrefix )
     group.writeEntry( "lastArgs", argumentLists->currentIndex() );
 
     group.writeEntry( "alwaysFocusOnInput", takeFocus->isChecked() );
+
+    group.writeEntry( "redirectTerminal", redirectTerminal->isChecked() );
 
 }
 
@@ -407,9 +415,10 @@ void ConfigView::resizeEvent( QResizeEvent * )
         layout->addWidget( argumentsLabel, 4, 0, Qt::AlignLeft );
         layout->addWidget( argumentLists, 5, 0 );
         layout->addWidget( takeFocus, 6, 0 );
-        layout->addItem( new QSpacerItem( 1, 1 ), 7, 0 );
+        layout->addWidget( redirectTerminal, 7, 0 );
+        layout->addItem( new QSpacerItem( 1, 1 ), 8, 0 );
         layout->setColumnStretch( 0, 1 );
-        layout->setRowStretch( 7, 1 );
+        layout->setRowStretch( 8, 1 );
         useBottomLayout = false;
     }
     else if ( !useBottomLayout && ( size().height() < widgetHeights ) )
@@ -417,20 +426,28 @@ void ConfigView::resizeEvent( QResizeEvent * )
         delete layout();
         QGridLayout* layout = new QGridLayout( this );
         layout->addWidget( targetLabel, 0, 0, Qt::AlignRight );
-        layout->addWidget( targets, 0, 1 );
-        layout->addWidget( chooseTarget, 0, 2 );
-        layout->addWidget( deleteTarget, 0, 3 );
+        layout->addWidget( targets, 0, 1, 1, 2 );
+        layout->addWidget( chooseTarget, 0, 3 );
+        layout->addWidget( deleteTarget, 0, 4 );
         layout->addWidget( workDirLabel, 1, 0, Qt::AlignRight );
-        layout->addWidget( workingDirectories, 1, 1 );
-        layout->addWidget( chooseWorkingDirectory, 1, 2 );
-        layout->addWidget( deleteWorkingDirectory, 1, 3 );
+        layout->addWidget( workingDirectories, 1, 1, 1, 2 );
+        layout->addWidget( chooseWorkingDirectory, 1, 3 );
+        layout->addWidget( deleteWorkingDirectory, 1, 4 );
         layout->addWidget( argumentsLabel, 2, 0, Qt::AlignRight );
-        layout->addWidget( argumentLists, 2, 1 );
+        layout->addWidget( argumentLists, 2, 1, 1, 2 );
         layout->addWidget( takeFocus, 3, 1 );
+        layout->addWidget( redirectTerminal, 3, 2 );
         layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
         layout->setColumnStretch( 1, 1 );
+        layout->setColumnStretch( 2, 1 );
         layout->setRowStretch( 4, 1 );
         useBottomLayout = true;
     }
 }
+
+bool ConfigView::showIOTab()
+{
+    return redirectTerminal->isChecked();
+}
+
 

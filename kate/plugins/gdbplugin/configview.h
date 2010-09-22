@@ -44,11 +44,15 @@ public:
     void readConfig( KConfigBase* config, QString const& groupPrefix );
     void writeConfig( KConfigBase* config, QString const& groupPrefix );
 
-    void snapshotSettings();
+    void    snapshotSettings();
     QString currentExecutable();
     QString currentWorkingDirectory();
     QString currentArgs();
     bool    takeFocusAlways();
+    bool    showIOTab();
+
+Q_SIGNALS:
+    void showIO(bool show);
 
 private Q_SLOTS:
     void slotTargetChanged( int index );
@@ -66,6 +70,7 @@ private:
     QComboBox*          workingDirectories;
     QComboBox*          argumentLists;
     QCheckBox*          takeFocus;
+    QCheckBox*          redirectTerminal;
     bool                useBottomLayout;
     int                 widgetHeights;
     QLabel*             targetLabel;

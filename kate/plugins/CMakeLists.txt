@@ -7,6 +7,7 @@ remove_definitions(-DQT3_SUPPORT)
 
 if(NOT WIN32)
    add_subdirectory( textfilter )   # k3process
+   add_subdirectory( gdbplugin )   # reading /proc/...
 endif(NOT WIN32)
 
 add_subdirectory( konsole )

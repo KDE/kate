@@ -39,8 +39,8 @@ public:
     void runDebugger(   QString const&  workingDirectory,
                         QString const&  target,
                         QString const&  arguments );
-    bool debuggerRunning();
-    bool debuggerBusy();
+    bool debuggerRunning() const;
+    bool debuggerBusy() const;
     bool hasBreakpoint( KUrl const& url, int line );
 
     KUrl resolveFileName( char const* fileName );

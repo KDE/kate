@@ -120,12 +120,12 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
     nextCommands << QString("set args %1").arg(arguments);
 }
 
-bool DebugView::debuggerRunning()
+bool DebugView::debuggerRunning() const
 {
     return( state != none );
 }
 
-bool DebugView::debuggerBusy()
+bool DebugView::debuggerBusy() const
 {
     return( state == executingCmd );
 }

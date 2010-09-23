@@ -45,11 +45,11 @@ public:
     void writeConfig( KConfigBase* config, QString const& groupPrefix );
 
     void    snapshotSettings();
-    QString currentExecutable();
-    QString currentWorkingDirectory();
-    QString currentArgs();
-    bool    takeFocusAlways();
-    bool    showIOTab();
+    QString currentExecutable() const;
+    QString currentWorkingDirectory() const;
+    QString currentArgs() const;
+    bool    takeFocusAlways() const;
+    bool    showIOTab() const;
 
 Q_SIGNALS:
     void showIO(bool show);

@@ -280,17 +280,17 @@ void ConfigView::snapshotSettings()
     }
 }
 
-QString ConfigView::currentExecutable()
+QString ConfigView::currentExecutable() const
 {
     return targets->currentText();
 }
 
-QString ConfigView::currentWorkingDirectory()
+QString ConfigView::currentWorkingDirectory() const
 {
     return workingDirectories->currentText();
 }
 
-QString ConfigView::currentArgs()
+QString ConfigView::currentArgs() const
 {
     return argumentLists->currentText();
 }
@@ -391,7 +391,7 @@ void ConfigView::slotDeleteWorkingDirectory()
     }
 }
 
-bool ConfigView::takeFocusAlways()
+bool ConfigView::takeFocusAlways() const
 {
     return takeFocus->isChecked();
 }
@@ -445,7 +445,7 @@ void ConfigView::resizeEvent( QResizeEvent * )
     }
 }
 
-bool ConfigView::showIOTab()
+bool ConfigView::showIOTab() const
 {
     return redirectTerminal->isChecked();
 }

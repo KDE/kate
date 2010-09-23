@@ -38,8 +38,6 @@
 class KHistoryComboBox;
 class QTextEdit;
 class QTreeWidget;
-class QTreeWidgetItem;
-class QToolBar;
 
 typedef QList<QVariant> VariantList;
 

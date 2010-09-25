@@ -7,6 +7,7 @@ X-Kate-Version=3.0
 Icon=kttsd
 Name=KTextEditor Jovie Text-to-Speech Plugin
 Name[ca]=Connector de text a veu Jovie del KTextEditor
+Name[de]=KTextEditor-Modul für den Sprachausgabe Jovie
 Name[en_GB]=KTextEditor Jovie Text-to-Speech Plugin
 Name[nds]=KTextEditor-Vörlesermoduul "Jovie"
 Name[nl]=KTextEditor tekst-naar-spraak-plugin van Jovie

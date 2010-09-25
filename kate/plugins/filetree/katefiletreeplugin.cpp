@@ -76,7 +76,7 @@ QString KateFileTreePlugin::configPageName (uint number) const
   if(number != 0)
     return QString();
   
-  return QString("Tree View");
+  return QString(i18n("Tree View"));
 }
 
 QString KateFileTreePlugin::configPageFullName (uint number) const
@@ -84,7 +84,7 @@ QString KateFileTreePlugin::configPageFullName (uint number) const
   if(number != 0)
     return QString();
     
-  return QString("Configure Tree View");
+  return QString(i18n("Configure Tree View"));
 }
 
 KIcon KateFileTreePlugin::configPageIcon (uint number) const

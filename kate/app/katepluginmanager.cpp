@@ -74,15 +74,14 @@ void KatePluginManager::setupPluginList ()
     if ((pVersion >= 2.8) && (pVersion <= KateApp::kateVersion(false).toDouble()))
     {
       KatePluginInfo info;
-      info.alwaysLoad=false;
-      info.load = false;
       info.service = ptr;
+      info.alwaysLoad=info.service->property("X-Kate-LoadAlways").toBool();
+      info.load = false;
       info.plugin = 0L;
       
-      if (info.service->property("X-Kate-LoadAlways").toBool()) {
+      if (info.alwaysLoad)
         alwaysLoad.push_back (info);
-        info.alwaysLoad=true;
-      } else
+      else
         others.push_back (info);
     }
   }

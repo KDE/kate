@@ -45,6 +45,8 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   setAllColumnsShowFocus(true);
   setIconSize(QSize(22,22));
 
+  setTextElideMode(Qt::ElideMiddle);
+  
   connect( this, SIGNAL(pressed(const QModelIndex &)), this, SLOT(mousePressed(const QModelIndex &)));
   connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));
 

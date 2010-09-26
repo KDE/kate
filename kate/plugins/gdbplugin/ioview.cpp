@@ -27,6 +27,7 @@
 #include <QtCore/QFile>
 #include <QtGui/QTextEdit>
 #include <QtGui/QLineEdit>
+#include <QtGui/QScrollBar>
 #include <QSocketNotifier>
 
 #include <kglobalsettings.h>
@@ -102,10 +103,6 @@ void IOView::createFifos()
     m_stdout.setFileName(m_stdoutFifo);
     m_stdoutFD = ::open(m_stdoutFifo.toLocal8Bit(), O_RDWR|O_NONBLOCK );
     if (m_stdoutFD == -1) return;
-//     int flags;
-//     ::fcntl(m_stdoutFD, F_GETFL, &flags);
-//     kDebug() << "flags--------" << flags;
-//     ::fcntl(m_stdoutFD, F_SETFL, O_ASYNC|flags);
     if (!m_stdout.open(m_stdoutFD, QIODevice::ReadWrite)) return;
     
     m_stdoutNotifier = new QSocketNotifier(m_stdoutFD, QSocketNotifier::Read, this);
@@ -145,7 +142,6 @@ void IOView::readOutput()
 
     do {
         res = m_stdout.read(chData, 255);
-        kDebug() << "res ==" << res;
         if (res <= 0) {
             m_stdoutD.flush();
         }
@@ -156,11 +152,10 @@ void IOView::readOutput()
     } while (res == 255);
     
     if (data.size() > 0) {
-        if (data.endsWith('\n')) {
-            data.remove(data.size()-1, 1);
-        }
-        kDebug() << data;
-        m_output->append(QString::fromLocal8Bit(data));
+        QTextCursor cursor = m_output->textCursor();
+        if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
+        cursor.insertText(QString::fromLocal8Bit(data));
+        m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
     }
     m_stdoutNotifier->setEnabled(true);
 }
@@ -174,7 +169,6 @@ void IOView::readErrors()
 
     do {
         res = m_stderr.read(chData, 255);
-        kDebug() << "res ==" << res;
         if (res <= 0) {
             m_stderrD.flush();
         }
@@ -184,13 +178,12 @@ void IOView::readErrors()
     } while (res == 255);
 
     if (data.size() > 0) {
-        if (data.endsWith('\n')) {
-            data.remove(data.size()-1, 1);
-        }
-        kDebug() << data;
         m_output->setFontItalic(true);
-        m_output->append(QString::fromLocal8Bit(data));
+        QTextCursor cursor = m_output->textCursor();
+        if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
+        cursor.insertText(QString::fromLocal8Bit(data));
         m_output->setFontItalic(false);
+        m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
     }
     m_stderrNotifier->setEnabled(true);
 }

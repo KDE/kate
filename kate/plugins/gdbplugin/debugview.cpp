@@ -118,6 +118,12 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
     }
     nextCommands << QString("file %1").arg(target);
     nextCommands << QString("set args %1").arg(arguments);
+    if (arguments.contains(">"))
+    {
+        nextCommands << QString("tbreak main");
+        nextCommands << QString("run");
+        nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+    }
 }
 
 bool DebugView::debuggerRunning() const
@@ -282,7 +288,17 @@ void DebugView::slotReRun()
     }
     nextCommands << QString("file %1").arg(target);
     nextCommands << QString("set args %1").arg(arguments);
-    nextCommands << "run";
+    if (arguments.contains(">"))
+    {
+        nextCommands << QString("tbreak main");
+        nextCommands << QString("run");
+        nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+        nextCommands << QString("continue");
+    }
+    else
+    {
+        nextCommands << "run";
+    }
 }
 
 void DebugView::slotStepInto()
@@ -413,6 +429,8 @@ void DebugView::processLine( QString line )
                 line.contains( "The program no longer exists" ) ||
                 line.contains( "Kill the program being debugged" ) )
             {
+                // if there are still commands to execute remove them to remove unneeded output
+                // except  if the "kill was for "re-run"
                 if ( ( nextCommands.size() > 0 ) && !nextCommands[0].contains("file") ) 
                 {
                     nextCommands.clear();
@@ -459,7 +477,17 @@ void DebugView::processErrors()
             if ( lastCommand == "continue" ) 
             {
                 nextCommands.clear();
-                nextCommands << "run";
+                if (arguments.contains(">"))
+                {
+                    nextCommands << QString("tbreak main");
+                    nextCommands << QString("run");
+                    nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+                    nextCommands << QString("continue");
+                }
+                else
+                {
+                    nextCommands << "run";
+                }
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             else if ( ( lastCommand == "step" ) ||
@@ -469,6 +497,7 @@ void DebugView::processErrors()
                 nextCommands.clear();
                 nextCommands << "tbreak main";
                 nextCommands << "run";
+                nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             else if ( (lastCommand == "kill"))

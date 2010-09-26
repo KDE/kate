@@ -593,7 +593,7 @@ void KatePluginGDBView::showIO( bool show )
     else 
     {
         tabWidget->removeTab( 3 );
-    }        
+    }
 }
 
 void KatePluginGDBView::addErrorText( QString const& text )

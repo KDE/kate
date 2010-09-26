@@ -38,6 +38,7 @@ class KatePluginInfo
 {
   public:
     mutable bool load;
+    bool alwaysLoad;
     KService::Ptr service;
     Kate::Plugin *plugin;
     QString saveName() const;

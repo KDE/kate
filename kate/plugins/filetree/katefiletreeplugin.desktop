@@ -19,6 +19,7 @@ Name[zh_TW]=檔案樹狀圖
 X-Kate-MajorProfiles=Kate
 X-Kate-MinorProfiles=*
 Comment=Displays the open documents in a tree
+Comment[en_GB]=Displays the open documents in a tree
 Comment[pt]=Mostra os documentos abertos numa árvore
 Comment[pt_BR]=Exibe os documentos aberto na árvore
 Comment[sv]=Visar öppna dokument i ett träd

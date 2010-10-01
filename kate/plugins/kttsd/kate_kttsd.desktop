@@ -13,6 +13,7 @@ Name[pt_BR]=Texto-para-Fala Jovie
 Name[sv]=Jovie text-till-tal
 Name[uk]=Синтез мовлення з тексту Jovie
 Name[x-test]=xxJovie Text-to-Speechxx
+Name[zh_TW]=Jovie 文字轉語音
 Comment=Adds a menu entry for speaking the text
 Comment[ca]=Afegeix una entrada al menú per parlar el text
 Comment[ca@valencia]=Afig una entrada al menú per parlar el text

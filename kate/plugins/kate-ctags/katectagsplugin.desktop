@@ -6,6 +6,7 @@ X-KDE-Library=katectagsplugin
 X-Kate-Version=2.9
 Name=CTags
 Name[en_GB]=CTags
+Name[nds]=CTags
 Name[pt]=CTags
 Name[pt_BR]=CTags
 Name[sv]=CTags

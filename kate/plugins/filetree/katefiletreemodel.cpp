@@ -34,7 +34,7 @@
 class ProxyItemDir;
 class ProxyItem {
   public:
-    enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8 };
+    enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16 };
     Q_DECLARE_FLAGS(Flags, Flag)
     
     ProxyItem(QString n, ProxyItemDir *p = 0);
@@ -552,10 +552,18 @@ void KateFileTreeModel::setListMode(bool lm)
 void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 {
   QString path = doc->url().path();
-  if(!path.length())
+  bool isEmpty = false;
+  
+  if(doc->url().isEmpty()) {
     path = doc->documentName();
-
+    isEmpty = true;
+  }
+  
   ProxyItem *item = new ProxyItem(path, 0);
+  
+  if(isEmpty)
+    item->setFlag(ProxyItem::Empty);
+  
   m_debugmap[item] = item;
   
   item->setDoc(doc);
@@ -807,13 +815,12 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
 void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 {
   QString path = doc->url().path();
-  if(!path.length()) path = doc->documentName();
   
   if(!m_docmap.contains(doc)) {
     kDebug(debugArea()) << "docmap doesn't contain doc" << doc;
     return;
   }
-
+  
   kDebug(debugArea()) << path << m_docmap[doc];
 
   if(m_shadingEnabled) {
@@ -833,7 +840,7 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
       kDebug(debugArea()) << "removing editHistory" << toRemove;
     }
   }
-  
+
   ProxyItem *node = m_docmap[doc];
   ProxyItemDir *parent = node->parent();
   
@@ -861,8 +868,14 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   
   ProxyItem *item = m_docmap[doc];
   QString path = doc->url().path();
-  if(!path.length())
+  if(doc->url().isEmpty()) {
+    kDebug(debugArea()) << "change to unnamed item";
     path = doc->documentName();
+    item->setFlag(ProxyItem::Empty);
+  }
+  else {
+    item->clearFlag(ProxyItem::Empty);
+  }
 
   kDebug(debugArea()) << item;
   kDebug(debugArea()) << item->display() << "->" << path;
@@ -989,7 +1002,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     return;
   }
   
-  if(!item->path().startsWith(QLatin1String("/"))) {
+  if(item->flag(ProxyItem::Empty)) {
     kDebug(debugArea()) << "empty item";
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);
@@ -1065,7 +1078,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   
   // for some reason we get useless name changes
   if(item->path() == new_name) {
-      kDebug(debugArea()) << "bogus name change";
+    kDebug(debugArea()) << "bogus name change";
     return;
   }
   
@@ -1092,7 +1105,12 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   // set new path
   //item->setPath(new_name);
 
-  item->setFlags(ProxyItem::None);
+  // clear all but Empty flag
+  if(item->flag(ProxyItem::Empty))
+    item->setFlags(ProxyItem::Empty);
+  else
+    item->setFlags(ProxyItem::None);
+  
   setupIcon(item);
   
   // new item

@@ -41,9 +41,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 {
   setAcceptDrops(false);
   setIndentation(12);
-  //setUniformRowHeights(true);
   setAllColumnsShowFocus(true);
-  setIconSize(QSize(22,22));
 
   setTextElideMode(Qt::ElideMiddle);
   

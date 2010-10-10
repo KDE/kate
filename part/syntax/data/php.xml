@@ -57,7 +57,10 @@ Changes:
 - Added alternative syntax control structures, and named logical operators ("and", "or", and "xor") (by Nicola Gigante).
 
 -->
-<!DOCTYPE language SYSTEM "language.dtd">
+<!DOCTYPE language SYSTEM "language.dtd" [
+  <!ENTITY types "int|integer|bool|boolean|float|double|real|string|array|object">
+]>
+
 <language name="PHP/PHP" indenter="cstyle" version="1.42" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
@@ -114,7 +117,9 @@ Changes:
       <item> var </item>
       <item> namespace </item>
       <item> use </item>
+    </list>
       <!-- magic constants, see http://php.net/manual/en/language.constants.predefined.php -->
+    <list name="constants">
       <item> __LINE__ </item>
       <item> __FILE__ </item>
       <item> __DIR__ </item>
@@ -122,6 +127,7 @@ Changes:
       <item> __CLASS__ </item>
       <item> __METHOD__ </item>
       <item> __NAMESPACE__ </item>
+      <item> __COMPILER_HALT_OFFSET__ </item>
 
       <item> ABDAY_1 </item>
       <item> ABDAY_2 </item>
@@ -280,6 +286,7 @@ Changes:
       <item> CURLINFO_CONTENT_TYPE </item>
       <item> CURLINFO_EFFECTIVE_URL </item>
       <item> CURLINFO_FILETIME </item>
+      <item> CURLINFO_HEADER_OUT </item>
       <item> CURLINFO_HEADER_SIZE </item>
       <item> CURLINFO_HTTP_CODE </item>
       <item> CURLINFO_NAMELOOKUP_TIME </item>
@@ -412,6 +419,17 @@ Changes:
       <item> C_EXPLICIT_ABSTRACT </item>
       <item> C_FINAL </item>
       <item> C_IMPLICIT_ABSTRACT </item>
+      <item> DATE_ATOM </item>
+      <item> DATE_COOKIE </item>
+      <item> DATE_ISO8601 </item>
+      <item> DATE_RFC1036 </item>
+      <item> DATE_RFC1123 </item>
+      <item> DATE_RFC2822 </item>
+      <item> DATE_RFC3339 </item>
+      <item> DATE_RFC822 </item>
+      <item> DATE_RFC850 </item>
+      <item> DATE_RSS </item>
+      <item> DATE_W3C </item>
       <item> DAY_1 </item>
       <item> DAY_2 </item>
       <item> DAY_3 </item>
@@ -501,10 +519,13 @@ Changes:
       <item> E_COMPILE_WARNING </item>
       <item> E_CORE_ERROR </item>
       <item> E_CORE_WARNING </item>
+      <item> E_DEPRECATED </item>
       <item> E_ERROR </item>
       <item> E_NOTICE </item>
       <item> E_PARSE </item>
+      <item> E_RECOVERABLE_ERROR </item>
       <item> E_STRICT </item>
+      <item> E_USER_DEPRECATED </item>
       <item> E_USER_ERROR </item>
       <item> E_USER_NOTICE </item>
       <item> E_USER_WARNING </item>
@@ -567,6 +588,7 @@ Changes:
       <item> GMP_ROUND_MINUSINF </item>
       <item> GMP_ROUND_PLUSINF </item>
       <item> GMP_ROUND_ZERO </item>
+      <item> HASH_HMAC </item>
       <item> HTML_ENTITIES </item>
       <item> HTML_SPECIALCHARS </item>
       <item> ICONV_IMPL </item>
@@ -670,6 +692,26 @@ Changes:
       <item> LDAP_OPT_SERVER_CONTROLS </item>
       <item> LDAP_OPT_SIZELIMIT </item>
       <item> LDAP_OPT_TIMELIMIT </item>
+      <item> LIBXML_COMPACT </item>
+      <item> LIBXML_DOTTED_VERSION </item>
+      <item> LIBXML_DTDATTR </item>
+      <item> LIBXML_DTDLOAD </item>
+      <item> LIBXML_DTDVALID </item>
+      <item> LIBXML_ERR_ERROR </item>
+      <item> LIBXML_ERR_FATAL </item>
+      <item> LIBXML_ERR_NONE </item>
+      <item> LIBXML_ERR_WARNING </item>
+      <item> LIBXML_NOBLANKS </item>
+      <item> LIBXML_NOCDATA </item>
+      <item> LIBXML_NOEMPTYTAG </item>
+      <item> LIBXML_NOENT </item>
+      <item> LIBXML_NOERROR </item>
+      <item> LIBXML_NONET </item>
+      <item> LIBXML_NOWARNING </item>
+      <item> LIBXML_NOXMLDECL </item>
+      <item> LIBXML_NSCLEAN </item>
+      <item> LIBXML_VERSION </item>
+      <item> LIBXML_XINCLUDE </item>
       <item> LOCK_EX </item>
       <item> LOCK_NB </item>
       <item> LOCK_SH </item>
@@ -827,6 +869,7 @@ Changes:
       <item> MYSQLI_REPORT_ERROR </item>
       <item> MYSQLI_REPORT_INDEX </item>
       <item> MYSQLI_REPORT_OFF </item>
+      <item> MYSQLI_REPORT_STRICT </item>
       <item> MYSQLI_RPL_ADMIN </item>
       <item> MYSQLI_RPL_MASTER </item>
       <item> MYSQLI_RPL_SLAVE </item>
@@ -1039,6 +1082,39 @@ Changes:
       <item> NIL </item>
       <item> NOEXPR </item>
       <item> NULL </item>
+      <item> OCI_ASSOC </item>
+      <item> OCI_BOTH </item>
+      <item> OCI_B_BFILE </item>
+      <item> OCI_B_BIN </item>
+      <item> OCI_B_BLOB </item>
+      <item> OCI_B_CFILEE </item>
+      <item> OCI_B_CLOB </item>
+      <item> OCI_B_CURSOR </item>
+      <item> OCI_B_INT </item>
+      <item> OCI_B_NTY </item>
+      <item> OCI_B_NUM </item>
+      <item> OCI_B_ROWID </item>
+      <item> OCI_COMMIT_ON_SUCCESS </item>
+      <item> OCI_CRED_EXT </item>
+      <item> OCI_DEFAULT </item>
+      <item> OCI_DESCRIBE_ONLY </item>
+      <item> OCI_DTYPE_FILE </item>
+      <item> OCI_DTYPE_LOB </item>
+      <item> OCI_DTYPE_ROWID </item>
+      <item> OCI_FETCHSTATEMENT_BY_COLUMN </item>
+      <item> OCI_FETCHSTATEMENT_BY_ROW </item>
+      <item> OCI_LOB_BUFFER_FREE </item>
+      <item> OCI_NO_AUTO_COMMIT </item>
+      <item> OCI_NUM </item>
+      <item> OCI_RETURN_LOBS </item>
+      <item> OCI_RETURN_NULLS </item>
+      <item> OCI_SEEK_CUR </item>
+      <item> OCI_SEEK_END </item>
+      <item> OCI_SEEK_SET </item>
+      <item> OCI_SYSDBA </item>
+      <item> OCI_SYSOPER </item>
+      <item> OCI_TEMP_BLOB </item>
+      <item> OCI_TEMP_CLOB </item>
       <item> ODBC_BINMODE_CONVERT </item>
       <item> ODBC_BINMODE_PASSTHRU </item>
       <item> ODBC_BINMODE_RETURN </item>
@@ -1083,6 +1159,7 @@ Changes:
       <item> PATHINFO_BASENAME </item>
       <item> PATHINFO_DIRNAME </item>
       <item> PATHINFO_EXTENSION </item>
+      <item> PATHINFO_FILENAME </item>
       <item> PATH_SEPARATOR </item>
       <item> PEAR_EXTENSION_DIR </item>
       <item> PEAR_INSTALL_DIR </item>
@@ -1130,6 +1207,14 @@ Changes:
       <item> PHP_SAPI </item>
       <item> PHP_SHLIB_SUFFIX </item>
       <item> PHP_SYSCONFDIR </item>
+      <item> PHP_URL_FRAGMENT </item>
+      <item> PHP_URL_HOST </item>
+      <item> PHP_URL_PASS </item>
+      <item> PHP_URL_PATH </item>
+      <item> PHP_URL_PORT </item>
+      <item> PHP_URL_QUERY </item>
+      <item> PHP_URL_SCHEME </item>
+      <item> PHP_URL_USER </item>
       <item> PHP_VERSION </item>
       <item> PKCS7_BINARY </item>
       <item> PKCS7_DETACHED </item>
@@ -1387,6 +1472,17 @@ Changes:
       <item> SO_SNDLOWAT </item>
       <item> SO_SNDTIMEO </item>
       <item> SO_TYPE </item>
+      <item> SQLITE3_ASSOC </item>
+      <item> SQLITE3_BLOB </item>
+      <item> SQLITE3_BOTH </item>
+      <item> SQLITE3_FLOAT </item>
+      <item> SQLITE3_INTEGER </item>
+      <item> SQLITE3_NULL </item>
+      <item> SQLITE3_NUM </item>
+      <item> SQLITE3_OPEN_CREATE </item>
+      <item> SQLITE3_OPEN_READONLY </item>
+      <item> SQLITE3_OPEN_READWRITE </item>
+      <item> SQLITE3_TEXT </item>
       <item> SQLITE_ABORT </item>
       <item> SQLITE_ASSOC </item>
       <item> SQLITE_AUTH </item>
@@ -1417,6 +1513,29 @@ Changes:
       <item> SQLITE_ROW </item>
       <item> SQLITE_SCHEMA </item>
       <item> SQLITE_TOOBIG </item>
+      <item> SQLT_AFC </item>
+      <item> SQLT_AVC </item>
+      <item> SQLT_BDOUBLE </item>
+      <item> SQLT_BFILEE </item>
+      <item> SQLT_BFLOAT </item>
+      <item> SQLT_BIN </item>
+      <item> SQLT_BLOB </item>
+      <item> SQLT_CFILEE </item>
+      <item> SQLT_CHR </item>
+      <item> SQLT_CLOB </item>
+      <item> SQLT_FLT </item>
+      <item> SQLT_INT </item>
+      <item> SQLT_LBI </item>
+      <item> SQLT_LNG </item>
+      <item> SQLT_LVC </item>
+      <item> SQLT_NTY </item>
+      <item> SQLT_NUM </item>
+      <item> SQLT_ODT </item>
+      <item> SQLT_RDD </item>
+      <item> SQLT_RSET </item>
+      <item> SQLT_STR </item>
+      <item> SQLT_UIN </item>
+      <item> SQLT_VCS </item>
       <item> SQL_BIGINT </item>
       <item> SQL_BINARY </item>
       <item> SQL_BIT </item>
@@ -1453,6 +1572,9 @@ Changes:
       <item> SQL_TINYINT </item>
       <item> SQL_VARBINARY </item>
       <item> SQL_VARCHAR </item>
+      <item> STDERR </item>
+      <item> STDIN </item>
+      <item> STDOUT </item>
       <item> STREAM_CLIENT_ASYNC_CONNECT </item>
       <item> STREAM_CLIENT_CONNECT </item>
       <item> STREAM_CLIENT_PERSISTENT </item>
@@ -1637,6 +1759,7 @@ Changes:
       <item> T_WHITESPACE </item>
       <item> T_XOR_EQUAL </item>
       <item> UNKNOWN_TYPE </item>
+      <item> UPLOAD_ERR_CANT_WRITE </item>
       <item> UPLOAD_ERR_FORM_SIZE </item>
       <item> UPLOAD_ERR_INI_SIZE </item>
       <item> UPLOAD_ERR_NO_FILE </item>
@@ -1775,6 +1898,9 @@ Changes:
       <item> YPERR_YPERR </item>
       <item> YPERR_YPSERV </item>
       <item> ZEND_THREAD_SAFE </item>
+      <item> false </item>
+      <item> null </item>
+      <item> true </item>
     </list>
     <list name="special_methods">
       <item> __autoload </item>
@@ -1783,6 +1909,7 @@ Changes:
       <item> __construct </item>
       <item> __destruct </item>
       <item> __get </item>
+      <item> __halt_compiler </item>
       <item> __isset </item>
       <item> __set </item>
       <item> __set_state </item>
@@ -1792,6 +1919,7 @@ Changes:
       <item> __wakeup </item>
     </list>
     <list name="functions">
+      <item> _ </item>
       <item> abs </item>
       <item> acos </item>
       <item> acosh </item>
@@ -1816,6 +1944,7 @@ Changes:
       <item> array_diff_uassoc </item>
       <item> array_diff_ukey </item>
       <item> array_fill </item>
+      <item> array_fill_keys </item>
       <item> array_filter </item>
       <item> array_flip </item>
       <item> array_intersect </item>
@@ -1900,8 +2029,6 @@ Changes:
       <item> cal_to_jd </item>
       <item> call_user_func </item>
       <item> call_user_func_array </item>
-      <item> call_user_method </item>
-      <item> call_user_method_array </item>
       <item> ccvs_add </item>
       <item> ccvs_auth </item>
       <item> ccvs_command </item>
@@ -2066,6 +2193,7 @@ Changes:
       <item> curl_multi_remove_handle </item>
       <item> curl_multi_select </item>
       <item> curl_setopt </item>
+      <item> curl_setopt_array </item>
       <item> curl_version </item>
       <item> current </item>
       <item> cybercash_base64_decode </item>
@@ -2082,6 +2210,8 @@ Changes:
       <item> cyrus_query </item>
       <item> cyrus_unbind </item>
       <item> date </item>
+      <item> date_default_timezone_get </item>
+      <item> date_default_timezone_set </item>
       <item> date_sunrise </item>
       <item> date_sunset </item>
       <item> dba_close </item>
@@ -2537,6 +2667,17 @@ Changes:
       <item> gztell </item>
       <item> gzuncompress </item>
       <item> gzwrite </item>
+      <item> hash </item>
+      <item> hash_algos </item>
+      <item> hash_copy </item>
+      <item> hash_file </item>
+      <item> hash_final </item>
+      <item> hash_hmac </item>
+      <item> hash_hmac_file </item>
+      <item> hash_init </item>
+      <item> hash_update </item>
+      <item> hash_update_file </item>
+      <item> hash_update_stream </item>
       <item> header </item>
       <item> headers_list </item>
       <item> headers_sent </item>
@@ -2548,6 +2689,7 @@ Changes:
       <item> html_entity_decode </item>
       <item> htmlentities </item>
       <item> htmlspecialchars </item>
+      <item> htmlspecialchars_decode </item>
       <item> http_build_query </item>
       <item> hw_array2objrec </item>
       <item> hw_changeobject </item>
@@ -2697,6 +2839,7 @@ Changes:
       <item> ifxus_write_slob </item>
       <item> ignore_user_abort </item>
       <item> image2wbmp </item>
+      <item> image_type_to_extension </item>
       <item> image_type_to_mime_type </item>
       <item> imagealphablending </item>
       <item> imageantialias </item>
@@ -2956,6 +3099,9 @@ Changes:
       <item> jewishtojd </item>
       <item> join </item>
       <item> jpeg2wbmp </item>
+      <item> json_decode </item>
+      <item> json_encode </item>
+      <item> json_last_error </item>
       <item> juliantojd </item>
       <item> key </item>
       <item> key_exists </item>
@@ -3006,7 +3152,12 @@ Changes:
       <item> ldap_unbind </item>
       <item> leak </item>
       <item> levenshtein </item>
+      <item> libxml_clear_errors </item>
+      <item> libxml_get_errors </item>
+      <item> libxml_get_last_error </item>
       <item> libxml_set_streams_context </item>
+      <item> libxml_set_streams_context </item>
+      <item> libxml_use_internal_errors </item>
       <item> link </item>
       <item> linkinfo </item>
       <item> list </item>
@@ -3122,7 +3273,6 @@ Changes:
       <item> mcrypt_cfb </item>
       <item> mcrypt_create_iv </item>
       <item> mcrypt_decrypt </item>
-      <item> mcrypt_ecb </item>
       <item> mcrypt_enc_get_algorithms_name </item>
       <item> mcrypt_enc_get_block_size </item>
       <item> mcrypt_enc_get_iv_size </item>
@@ -3378,7 +3528,9 @@ Changes:
       <item> mysqli_field_seek </item>
       <item> mysqli_field_tell </item>
       <item> mysqli_free_result </item>
+      <item> mysqli_get_cache_stats </item>
       <item> mysqli_get_client_info </item>
+      <item> mysqli_get_client_stats </item>
       <item> mysqli_get_client_version </item>
       <item> mysqli_get_host_info </item>
       <item> mysqli_get_metadata </item>
@@ -3405,16 +3557,11 @@ Changes:
       <item> mysqli_real_query </item>
       <item> mysqli_report </item>
       <item> mysqli_rollback </item>
-      <item> mysqli_rpl_parse_enabled </item>
-      <item> mysqli_rpl_probe </item>
-      <item> mysqli_rpl_query_type </item>
       <item> mysqli_select_db </item>
       <item> mysqli_send_long_data </item>
-      <item> mysqli_send_query </item>
       <item> mysqli_set_local_infile_default </item>
       <item> mysqli_set_local_infile_handler </item>
       <item> mysqli_set_opt </item>
-      <item> mysqli_slave_query </item>
       <item> mysqli_sqlstate </item>
       <item> mysqli_ssl_set </item>
       <item> mysqli_stat </item>
@@ -3642,6 +3789,51 @@ Changes:
       <item> ob_implicit_flush </item>
       <item> ob_list_handlers </item>
       <item> ob_start </item>
+      <item> oci_bind_array_by_name </item>
+      <item> oci_bind_by_name </item>
+      <item> oci_cancel </item>
+      <item> oci_close </item>
+      <item> oci_commit </item>
+      <item> oci_connect </item>
+      <item> oci_define_by_name </item>
+      <item> oci_error </item>
+      <item> oci_execute </item>
+      <item> oci_fetch </item>
+      <item> oci_fetch_all </item>
+      <item> oci_fetch_array </item>
+      <item> oci_fetch_assoc </item>
+      <item> oci_fetch_object </item>
+      <item> oci_fetch_row </item>
+      <item> oci_field_is_null </item>
+      <item> oci_field_name </item>
+      <item> oci_field_precision </item>
+      <item> oci_field_scale </item>
+      <item> oci_field_size </item>
+      <item> oci_field_type </item>
+      <item> oci_field_type_raw </item>
+      <item> oci_free_statement </item>
+      <item> oci_internal_debug </item>
+      <item> oci_lob_copy </item>
+      <item> oci_lob_is_equal </item>
+      <item> oci_new_collection </item>
+      <item> oci_new_connect </item>
+      <item> oci_new_cursor </item>
+      <item> oci_new_descriptor </item>
+      <item> oci_num_fields </item>
+      <item> oci_num_rows </item>
+      <item> oci_parse </item>
+      <item> oci_password_change </item>
+      <item> oci_pconnect </item>
+      <item> oci_result </item>
+      <item> oci_rollback </item>
+      <item> oci_server_version </item>
+      <item> oci_set_action </item>
+      <item> oci_set_client_identifier </item>
+      <item> oci_set_client_info </item>
+      <item> oci_set_edition </item>
+      <item> oci_set_module_name </item>
+      <item> oci_set_prefetch </item>
+      <item> oci_statement_type </item>
       <item> ocibindbyname </item>
       <item> ocicancel </item>
       <item> ocicollappend </item>
@@ -3663,7 +3855,6 @@ Changes:
       <item> ocierror </item>
       <item> ociexecute </item>
       <item> ocifetch </item>
-      <item> ocifetchinto </item>
       <item> ocifetchstatement </item>
       <item> ocifreecollection </item>
       <item> ocifreecursor </item>
@@ -3770,29 +3961,6 @@ Changes:
       <item> openssl_x509_free </item>
       <item> openssl_x509_parse </item>
       <item> openssl_x509_read </item>
-      <item> ora_bind </item>
-      <item> ora_close </item>
-      <item> ora_columnname </item>
-      <item> ora_columnsize </item>
-      <item> ora_columntype </item>
-      <item> ora_commit </item>
-      <item> ora_commitoff </item>
-      <item> ora_commiton </item>
-      <item> ora_do </item>
-      <item> ora_error </item>
-      <item> ora_errorcode </item>
-      <item> ora_exec </item>
-      <item> ora_fetch </item>
-      <item> ora_fetch_into </item>
-      <item> ora_getcolumn </item>
-      <item> ora_logoff </item>
-      <item> ora_logon </item>
-      <item> ora_numcols </item>
-      <item> ora_numrows </item>
-      <item> ora_open </item>
-      <item> ora_parse </item>
-      <item> ora_plogon </item>
-      <item> ora_rollback </item>
       <item> ord </item>
       <item> output_add_rewrite_var </item>
       <item> output_reset_rewrite_vars </item>
@@ -4150,6 +4318,7 @@ Changes:
       <item> proc_nice </item>
       <item> proc_open </item>
       <item> proc_terminate </item>
+      <item> property_exists </item>
       <item> pspell_add_to_personal </item>
       <item> pspell_add_to_session </item>
       <item> pspell_check </item>
@@ -4282,6 +4451,7 @@ Changes:
       <item> show_source </item>
       <item> shuffle </item>
       <item> similar_text </item>
+      <item> simplexml_import_dom </item>
       <item> simplexml_load_file </item>
       <item> simplexml_load_string </item>
       <item> sin </item>
@@ -4348,6 +4518,7 @@ Changes:
       <item> socket_writev </item>
       <item> sort </item>
       <item> soundex </item>
+      <item> spl_autoload_register </item>
       <item> spl_classes </item>
       <item> split </item>
       <item> spliti </item>
@@ -4452,6 +4623,7 @@ Changes:
       <item> strncmp </item>
       <item> strpbrk </item>
       <item> strpos </item>
+      <item> strptime </item>
       <item> strrchr </item>
       <item> strrev </item>
       <item> strripos </item>
@@ -4648,6 +4820,7 @@ Changes:
       <item> sybase_result </item>
       <item> sybase_select_db </item>
       <item> symlink </item>
+      <item> sys_get_temp_dir </item>
       <item> syslog </item>
       <item> system </item>
       <item> tan </item>
@@ -4842,6 +5015,227 @@ Changes:
       <item> zip_read </item>
       <item> zlib_get_coding_type </item>
     </list>
+    <list name="special-variables">
+        <item> $GLOBALS </item>
+        <item> $_COOKIE </item>
+        <item> $_ENV </item>
+        <item> $_FILES </item>
+        <item> $_GET </item>
+        <item> $_POST </item>
+        <item> $_REQUEST </item>
+        <item> $_SERVER </item>
+        <item> $_SESSION </item>
+        <item> $php_errormsg </item>
+        <item> $this </item>
+    </list>
+    <list name="predefined-classes">
+        <item> APCIterator </item>
+        <item> AppendIterator </item>
+        <item> ArrayAccess </item>
+        <item> ArrayIterator </item>
+        <item> ArrayObject </item>
+        <item> BadFunctionCallException </item>
+        <item> BadMethodCallException </item>
+        <item> CachingIterator </item>
+        <item> Closure </item>
+        <item> Countable </item>
+        <item> DOMAttr </item>
+        <item> DOMCDATASection </item>
+        <item> DOMCharacterData </item>
+        <item> DOMComment </item>
+        <item> DOMConfiguration </item>
+        <item> DOMDocument </item>
+        <item> DOMDocumentFragment </item>
+        <item> DOMDocumentType </item>
+        <item> DOMDomError </item>
+        <item> DOMElement </item>
+        <item> DOMEntity </item>
+        <item> DOMEntityReference </item>
+        <item> DOMErrorHandler </item>
+        <item> DOMException </item>
+        <item> DOMImplementation </item>
+        <item> DOMImplementationList </item>
+        <item> DOMImplementationSource </item>
+        <item> DOMLocator </item>
+        <item> DOMNameList </item>
+        <item> DOMNameSpaceNode </item>
+        <item> DOMNamedNodeMap </item>
+        <item> DOMNode </item>
+        <item> DOMNodeList </item>
+        <item> DOMNotation </item>
+        <item> DOMProcessingInstruction </item>
+        <item> DOMStringExtend </item>
+        <item> DOMStringList </item>
+        <item> DOMText </item>
+        <item> DOMTypeinfo </item>
+        <item> DOMUserDataHandler </item>
+        <item> DOMXPath </item>
+        <item> DateInterval </item>
+        <item> DatePeriod </item>
+        <item> DateTime </item>
+        <item> DateTimeZone </item>
+        <item> Directory </item>
+        <item> DirectoryIterator </item>
+        <item> DomainException </item>
+        <item> EmptyIterator </item>
+        <item> ErrorException </item>
+        <item> Exception </item>
+        <item> FilesystemIterator </item>
+        <item> FilterIterator </item>
+        <item> GlobIterator </item>
+        <item> InfiniteIterator </item>
+        <item> InvalidArgumentException </item>
+        <item> Iterator </item>
+        <item> IteratorAggregate </item>
+        <item> IteratorIterator </item>
+        <item> LengthException </item>
+        <item> LibXMLError </item>
+        <item> LimitIterator </item>
+        <item> LogicException </item>
+        <item> MultipleIterator </item>
+        <item> MySQLi </item>
+        <item> MySQLi_Driver </item>
+        <item> MySQLi_SQL_Exception </item>
+        <item> MySQLi_Result </item>
+        <item> MySQLi_STMT </item>
+        <item> MySQLi_Warning </item>
+        <item> NoRewindIterator </item>
+        <item> OCI-Collection </item>
+        <item> OCI-LOB </item>
+        <item> OutOfBoundsException </item>
+        <item> OutOfRangeException </item>
+        <item> OuterIterator </item>
+        <item> OverflowException </item>
+        <item> PDO </item>
+        <item> PDOException </item>
+        <item> PDORow </item>
+        <item> PDOStatement </item>
+        <item> ParentIterator </item>
+        <item> Phar </item>
+        <item> PharData </item>
+        <item> PharException </item>
+        <item> PharFileInfo </item>
+        <item> RangeException </item>
+        <item> RecursiveArrayIterator </item>
+        <item> RecursiveCachingIterator </item>
+        <item> RecursiveDirectoryIterator </item>
+        <item> RecursiveFilterIterator </item>
+        <item> RecursiveIterator </item>
+        <item> RecursiveIteratorIterator </item>
+        <item> RecursiveRegexIterator </item>
+        <item> RecursiveTreeIterator </item>
+        <item> Reflection </item>
+        <item> ReflectionClass </item>
+        <item> ReflectionException </item>
+        <item> ReflectionExtension </item>
+        <item> ReflectionFunction </item>
+        <item> ReflectionFunctionAbstract </item>
+        <item> ReflectionMethod </item>
+        <item> ReflectionObject </item>
+        <item> ReflectionParameter </item>
+        <item> ReflectionProperty </item>
+        <item> Reflector </item>
+        <item> RegexIterator </item>
+        <item> RuntimeException </item>
+        <item> SQLite3 </item>
+        <item> SQLite3Result </item>
+        <item> SQLite3Stmt </item>
+        <item> SQLiteDatabase </item>
+        <item> SQLiteException </item>
+        <item> SQLiteResult </item>
+        <item> SQLiteUnbuffered </item>
+        <item> SeekableIterator </item>
+        <item> Serializable </item>
+        <item> SimpleXMLElement </item>
+        <item> SimpleXMLIterator </item>
+        <item> SplDoublyLinkedList </item>
+        <item> SplFileInfo </item>
+        <item> SplFileObject </item>
+        <item> SplFixedArray </item>
+        <item> SplHeap </item>
+        <item> SplMaxHeap </item>
+        <item> SplMinHeap </item>
+        <item> SplObjectStorage </item>
+        <item> SplObserver </item>
+        <item> SplPriorityQueue </item>
+        <item> SplQueue </item>
+        <item> SplStack </item>
+        <item> SplSubject </item>
+        <item> SplTempFileObject </item>
+        <item> Traversable </item>
+        <item> UnderflowException </item>
+        <item> UnexpectedValueException </item>
+        <item> XMLReader </item>
+        <item> XMLWriter </item>
+        <item> XSLTProcessor </item>
+        <item> ZipArchive </item>
+        <item> __PHP_Incomplete_Class </item>
+        <item> php_user_filter </item>
+        <item> stdClass </item>
+    </list>
+    <list name="deprecated">
+      <!-- Variables -->
+      <item> $HTTP_SERVER_VARS </item>
+      <item> $HTTP_SESSION_VARS </item>
+      <item> $HTTP_ENV_VARS </item>
+      <item> $HTTP_POST_FILES </item>
+      <item> $HTTP_COOKIE_VARS </item>
+      <item> $HTTP_POST_VARS </item>
+      <item> $HTTP_GET_VARS </item>
+      <item> $DOCUMENT_ROOT </item>
+
+      <!-- Functions -->
+      <item> call_user_method </item>
+      <item> call_user_method_array </item>
+      <item> mcrypt_ecb </item>
+      <item> mime_content_type </item>
+      <item> mysqli_disable_reads_from_master </item>
+      <item> mysqli_disable_rpl_parse </item>
+      <item> mysqli_enable_reads_from_master </item>
+      <item> mysqli_enable_rpl_parse </item>
+      <item> mysqli_master_query </item>
+      <item> mysqli_rpl_parse_enabled </item>
+      <item> mysqli_rpl_probe </item>
+      <item> mysqli_rpl_query_type </item>
+      <item> mysqli_send_query </item>
+      <item> mysqli_slave_query </item>
+      <item> ocifetchinto </item>
+      <item> ora_bind </item>
+      <item> ora_close </item>
+      <item> ora_columnname </item>
+      <item> ora_columnsize </item>
+      <item> ora_columntype </item>
+      <item> ora_commit </item>
+      <item> ora_commitoff </item>
+      <item> ora_commiton </item>
+      <item> ora_do </item>
+      <item> ora_error </item>
+      <item> ora_errorcode </item>
+      <item> ora_exec </item>
+      <item> ora_fetch </item>
+      <item> ora_fetch_into </item>
+      <item> ora_getcolumn </item>
+      <item> ora_logoff </item>
+      <item> ora_logon </item>
+      <item> ora_numcols </item>
+      <item> ora_numrows </item>
+      <item> ora_open </item>
+      <item> ora_parse </item>
+      <item> ora_plogon </item>
+      <item> ora_rollback </item>
+
+      <!-- Keywords -->
+      <item> var </item>
+     
+      <!-- Constants -->
+      <item>OCI_DEFAULT</item>
+      <item>OCI_D_FILE</item>
+      <item>OCI_D_LOB</item>
+      <item>OCI_D_ROWID</item>
+      <item>OCI_EXACT_FETCH</item>
+      <item>OCI_SYSDATE</item>
+    </list>
+
     <contexts>
       <context name="start" lineEndContext="#stay" attribute="Normal Text">
         <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" insensitive="true" />
@@ -4878,11 +5272,19 @@ Changes:
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
         <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="*" beginRegion="Comment" />
+        <keyword attribute="Error" context="#stay" String="deprecated"/>
         <keyword attribute="Control Structures" context="#stay" String="control structures" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
-        <DetectChar attribute="Function" context="#stay" char="@" />
+        <keyword attribute="Classes" context="#stay" String="predefined-classes"/>
+        <DetectChar attribute="Error" context="#stay" char="@" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Special method" context="#stay" String="special_methods" />
+        <keyword attribute="Library Constant" context="#stay" String="constants"/>
+        <RegExpr attribute="Constant" context="#stay" String="\b[A-Z_][A-Z_0-9]*\b"/>
+
+        <!-- Type casts -->
+        <RegExpr attribute="Types" context="#stay" String="\(\s*(&types;)\s*\)"/>
+
         <DetectIdentifier />
         <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
         <DetectChar attribute="String" context="backquotestring" char="`" />
@@ -4892,6 +5294,7 @@ Changes:
         <RegExpr attribute="Backslash Code" context="javascriptheredoc" String="&lt;&lt;&lt;((EO)?JAVASCRIPT)\b" beginRegion="Heredoc" />
         <RegExpr attribute="Backslash Code" context="mysqlheredoc" String="&lt;&lt;&lt;((EO)?MYSQL)\b" beginRegion="Heredoc" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" beginRegion="Heredoc" />
+        <keyword attribute="Special Variable" context="#stay" String="special-variables"/>
         <RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
         <RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
         <HlCOct attribute="Octal" context="#stay" />
@@ -4916,9 +5319,11 @@ Changes:
 
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
         <StringDetect attribute="Keyword" context="#pop" lookAhead="true" String="?&gt;" />
+        <IncludeRules context="##Alerts" />
       </context>
       <context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
+        <IncludeRules context="##Alerts" />
       </context>
       <context name="doublebackquotestringcommon" attribute="String" lineEndContext="#stay">
         <!-- Common rules for double quoted strings and backticks (execution operator) URL:
@@ -4927,6 +5332,8 @@ Changes:
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="n" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="r" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="t" />
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="v" />
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="f" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="$" />
         <RegExpr attribute="Backslash Code" context="#stay" String="\\[0-7]{1,3}" />
         <RegExpr attribute="Backslash Code" context="#stay" String="\\x[0-9A-Fa-f]{1,2}" />
@@ -4983,6 +5390,7 @@ Changes:
       <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false" />
       <itemData name="PHP Text" defStyleNum="dsNormal" spellChecking="false" />
       <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+      <itemData name="Classes" defStyleNum="dsKeyword" spellChecking="false" />
       <itemData name="Function" defStyleNum="dsFunction" spellChecking="false" />
       <itemData name="Special method" defStyleNum="dsFunction" spellChecking="false" />
       <itemData name="Decimal" defStyleNum="dsDecVal" spellChecking="false" />
@@ -4991,7 +5399,10 @@ Changes:
       <itemData name="Float" defStyleNum="dsFloat" spellChecking="false" />
       <itemData name="String" defStyleNum="dsString" />
       <itemData name="Comment" defStyleNum="dsComment" />
+      <itemData name="Special Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="1" italic="0" spellChecking="false" />
       <itemData name="Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" spellChecking="false" />
+      <itemData name="Library Constant" defStyleNum="dsKeyword" bold="1" spellChecking="false" />
+      <itemData name="Constant" defStyleNum="dsKeyword" bold="0" spellChecking="false" />
       <itemData name="Control Structures" defStyleNum="dsKeyword" color="#A1A100" selColor="#ffffff" bold="0" italic="0" spellChecking="false" />
       <itemData name="Backslash Code" defStyleNum="dsKeyword" color="#0F0F8F" selColor="#ffffff" bold="1" italic="0" spellChecking="false" />
       <itemData name="Other" defStyleNum="dsOthers" spellChecking="false" />
@@ -5000,6 +5411,7 @@ Changes:
       <itemData name="HTML Comment" defStyleNum="dsComment" />
       <itemData name="Identifier" defStyleNum="dsOthers" spellChecking="false" />
       <itemData name="Types" defStyleNum="dsDataType" spellChecking="false" />
+      <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>

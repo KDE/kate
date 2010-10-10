@@ -890,6 +890,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
   if (!m_wholeTemplateRange->toRange().contains(range.start())) {
     // outside our template or one of our own changes
     ifDebug(kDebug() << range << "not contained in" << m_wholeTemplateRange->toRange();)
+    cleanupAndExit();
     return;
   }
 

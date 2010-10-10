@@ -246,20 +246,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <HlCChar      attribute="Char" context="#stay" />
         <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
         <DetectChar   attribute="String" context="String" char="&quot;" />
+        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*if(?:def|ndef)?(?=\s+\S)" insensitive="true" beginRegion="PP" firstNonSpace="true" />
+        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*endif" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr      attribute="Preprocessor" context="Define" String="#\s*define.*((?=\\))" insensitive="true" firstNonSpace="true" />
+        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
         <AnyChar      attribute="Comment" context="Commentar 2" String="@;#" />
         <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
-        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="^#" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" />
-      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor" />
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue  attribute="String" context="Some Context" />
         <HlCStringChar attribute="String Char" context="#stay" />
         <DetectChar    attribute="String" context="#pop" char="&quot;" />
+      </context>
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor" />
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Define">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context" />
     </contexts>

@@ -308,6 +308,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 #endif
   }
 
+  file.close();
   return true;
 }
 

@@ -362,7 +362,7 @@ function tryCComment(line)
             indentation += 1;
             if (document.firstChar(line) != '*')
                 document.insertText(line, view.cursorPosition().column, '*');
-            if (!document.isSpace(line, document.firstColumn(line) + 1))
+            if (!document.isSpace(line, document.firstColumn(line) + 1) && !document.endsWith(line, "*/", true))
                 document.insertText(line, document.firstColumn(line) + 1, ' ');
         }
     } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {

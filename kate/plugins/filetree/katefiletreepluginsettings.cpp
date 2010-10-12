@@ -40,6 +40,12 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
 
 void KateFileTreePluginSettings::save()
 {
+  m_group.writeEntry("shadingEnabled", m_shadingEnabled);
+  m_group.writeEntry("viewShade", m_viewShade);
+  m_group.writeEntry("editShade", m_editShade);
+  m_group.writeEntry("listMode", m_listMode);
+  m_group.writeEntry("sortRole", m_sortRole);
+  
   kDebug(debugArea()) << "save config!";
   m_group.sync();
 }

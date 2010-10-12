@@ -26,12 +26,12 @@
 
 #include <kate/pluginconfigpageinterface.h>
 
-class KateFileTreePluginView;
+class KateFileTreePlugin;
 
 class KateFileTreeConfigPage : public Kate::PluginConfigPage {
   Q_OBJECT
   public:
-    explicit KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePluginView *view=0 );
+    explicit KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePlugin *plug=0 );
     ~KateFileTreeConfigPage() {};
 
   public Q_SLOTS:
@@ -50,7 +50,7 @@ class KateFileTreeConfigPage : public Kate::PluginConfigPage {
     class KColorButton *kcbViewShade, *kcbEditShade;
     class QLabel *lEditShade, *lViewShade, *lSort, *lMode;
     class KComboBox *cmbSort, *cmbMode;
-    KateFileTreePluginView *m_view;
+    KateFileTreePlugin *m_plug;
 
     bool m_changed;
 };

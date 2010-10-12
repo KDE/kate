@@ -20,6 +20,19 @@
    Boston, MA 02110-1301, USA.
 */
 
+/*
+Config stuff plan:
+-----------------
+
+main default config is stored in KGlobal::config()+":filetree"
+when main config is set, it needs to tell view's to delete
+existing customized settings, and use the global ones (somehow)
+(maybe some kind of "customized" flag?)
+
+view needs to pull default settings from the main plugin config
+
+*/
+
 #include "katefiletreeconfigpage.h"
 #include "katefiletreeplugin.h"
 #include "katefiletreedebug.h"
@@ -30,14 +43,12 @@
 #include <KColorButton>
 #include <QLabel>
 #include <KComboBox>
-#include <KColorUtils>
 #include <QVBoxLayout>
 #include <KLocale>
-#include <KColorScheme>
 
-KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePluginView *fl )
+KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlugin *fl )
   :  Kate::PluginConfigPage( parent ),
-    m_view( fl ),
+    m_plug( fl ),
     m_changed( false )
 {
   kDebug(debugArea()) << "BEGIN";
@@ -124,24 +135,29 @@ void KateFileTreeConfigPage::apply()
   
   m_changed = false;
 
-  // Change settings in the filelist
-  m_view->model()->setViewShade( kcbViewShade->color() );
-  m_view->model()->setEditShade( kcbEditShade->color() );
-  m_view->model()->setShadingEnabled( gbEnableShading->isChecked() );
-  m_view->setListMode( cmbMode->itemData(cmbMode->currentIndex()).toBool() );
-  m_view->proxy()->setSortRole( cmbSort->itemData(cmbSort->currentIndex()).toInt() );
-
+  // apply config to views
+  m_plug->applyConfig(
+    gbEnableShading->isChecked(),
+    kcbViewShade->color(),
+    kcbEditShade->color(),
+    cmbMode->itemData(cmbMode->currentIndex()).toBool(),
+    cmbSort->itemData(cmbSort->currentIndex()).toInt()
+  );
+  
   kDebug(debugArea()) << "END";
 }
 
 void KateFileTreeConfigPage::reset()
 {
   kDebug(debugArea()) << "BEGIN";
-  gbEnableShading->setChecked( m_view->model()->shadingEnabled() );
-  kcbViewShade->setColor( m_view->model()->viewShade() );
-  kcbEditShade->setColor( m_view->model()->editShade() );
-  cmbSort->setCurrentIndex( cmbSort->findData( m_view->proxy()->sortRole() ) );
-  cmbMode->setCurrentIndex( cmbMode->findData( m_view->model()->listMode() ) );
+
+  const KateFileTreePluginSettings &settings = m_plug->settings();
+
+  gbEnableShading->setChecked( settings.shadingEnabled() );
+  kcbEditShade->setColor( settings.editShade() );
+  kcbViewShade->setColor( settings.viewShade() );
+  cmbSort->setCurrentIndex( settings.sortRole() );
+  cmbMode->setCurrentIndex( settings.listMode() );
   
   m_changed = false;
   kDebug(debugArea()) << "END";
@@ -150,17 +166,12 @@ void KateFileTreeConfigPage::reset()
 void KateFileTreeConfigPage::defaults()
 {
   kDebug(debugArea()) << "BEGIN";
-  gbEnableShading->setChecked( true );
 
-  KColorScheme colors(QPalette::Active);
-  QColor bg = colors.background().color();
-  QColor editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
-  QColor viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
-  kcbViewShade->setColor( viewShade );
-  kcbEditShade->setColor( editShade );
+  // m_plug->settings().revertToDefaults() ??
+  // not sure the above is ever needed...
   
-  cmbSort->setCurrentIndex( Qt::DisplayRole );
-  //m_changed = true;
+  reset();
+  
   kDebug(debugArea()) << "END";
 }
 

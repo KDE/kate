@@ -396,7 +396,22 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
       return item->row();
       
     case Qt::DisplayRole:
-      // in list mode we wan't to use kate's fancy names.
+      /* uncomment this if it's deemed acceptable, and remove the old code below
+      if(m_listMode)
+        return item->doc()->documentName();
+      else {
+        if(item->display().startsWith(QDir::homePath())) {
+          QString disp = item->display();
+          disp.replace(0, QDir::homePath().length(), "~");
+          return disp;
+        }
+        else {
+          return item->display();
+        }
+      }
+      */
+      
+      // in list mode we want to use kate's fancy names.
       if(m_listMode)
         return item->doc()->documentName();
       else

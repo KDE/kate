@@ -27,6 +27,8 @@
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
 
+#include "katefiletreepluginsettings.h"
+
 class KateFileTree;
 class KateFileTreeModel;
 class KateFileTreeProxyModel;
@@ -42,8 +44,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
 
   public:
     explicit KateFileTreePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
-    virtual ~KateFileTreePlugin()
-    {}
+    virtual ~KateFileTreePlugin();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
@@ -53,10 +54,15 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
     virtual QString configPageFullName (uint number = 0) const;
     virtual KIcon configPageIcon (uint number = 0) const;
     virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
+
+    const KateFileTreePluginSettings &settings();
+
+    void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole);
     
   private:
     QHash<Kate::MainWindow *, KateFileTreePluginView *> m_view;
     KateFileTreeConfigPage *m_confPage;
+    KateFileTreePluginSettings m_settings;
 };
 
 class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
@@ -67,7 +73,7 @@ class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
     /**
       * Constructor.
       */
-    KateFileTreePluginView (Kate::MainWindow *mainWindow);
+    KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug);
 
     /**
      * Virtual destructor.
@@ -81,11 +87,16 @@ class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
     KateFileTreeProxyModel *proxy();
 
     void setListMode(bool listMode);
+
+    bool hasLocalPrefs();
+    void setHasLocalPrefs(bool);
     
   private:
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
+    bool m_hasLocalPrefs;
+    KateFileTreePlugin *m_plug;
     
   private Q_SLOTS:
     void showActiveDocument();
@@ -95,6 +106,7 @@ class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
     void documentClosed(KTextEditor::Document *);
     void viewModeChanged(bool);
     void sortRoleChanged(int);
+
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

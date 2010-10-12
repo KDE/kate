@@ -54,6 +54,11 @@ KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
 
 }
 
+KateFileTreePlugin::~KateFileTreePlugin()
+{
+  m_settings.save();
+}
+
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
   if(m_view.contains(mainWindow)) {
@@ -61,7 +66,7 @@ Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
     Q_ASSERT(m_view.contains(mainWindow) == true);
   }
 
-  m_view[mainWindow] = new KateFileTreePluginView (mainWindow);
+  m_view[mainWindow] = new KateFileTreePluginView (mainWindow, this);
   return m_view[mainWindow];
 }
 
@@ -101,48 +106,37 @@ Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *pa
   if(number != 0)
     return 0;
 
-  // HACK HACK HACK HACK HACK
-  // This is some fun stuff. KateApp::activeMainWindow uses
-  // QApplication::activeWindow to get the active window,
-  // but by the time this method is called, the active window
-  // is the KateConfigDialog we're going to be displaying in.
-  // And since KateApp::activeMainWindow can't find the
-  // config dialog in its own window list, it'll just return
-  // the first main window. so we have to use
-  // QApplication::activeWindow ourselves!
-
-  Kate::MainWindow *mainWindow;
-  Kate::Application *kate_app = Kate::application();
-  QWidget *hack = qApp->activeWindow();
-
-  // hack->parent() isa KateMainWindow
-  // Kate::MainWindow's parent is a KateMainWindow
-  // since we can't just include KateMainWindow's
-  // header to use the mainWindow method, we have to
-  // compare against Kate::MainWindow->window
-  kDebug(debugArea()) << "hack:" << hack->parent();
-  foreach(Kate::MainWindow *win, kate_app->mainWindows()) {
-    kDebug(debugArea()) << "win:" << win;
-    
-    if(hack->parent() == win->window()) {
-      kDebug(debugArea()) << "found hack!";
-      mainWindow = win;
-      break;
-    }
-  }
-
-  Q_ASSERT(mainWindow != 0);
-  
-  if(!m_view.contains(mainWindow)) {
-    kDebug(debugArea()) << "view hash does not contain given main window :(";
-    return 0;
-  }
-
-  kDebug(debugArea()) << "got mw:" << mainWindow << "parent:" << parent;
-  
-  KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, m_view[mainWindow]);
+  KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, this);
   return page;
 }
+
+const KateFileTreePluginSettings &KateFileTreePlugin::settings()
+{
+  return m_settings;
+}
+
+void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole)
+{
+  // save to settings
+  m_settings.setShadingEnabled(shadingEnabled);
+  m_settings.setViewShade(viewShade);
+  m_settings.setEditShade(editShade);
+
+  m_settings.setListMode(listMode);
+  m_settings.setSortRole(sortRole);
+  m_settings.save();
+
+  // update views
+  foreach(KateFileTreePluginView *view, m_view.values()) {
+    view->setHasLocalPrefs(false);
+    view->model()->setShadingEnabled( shadingEnabled );
+    view->model()->setViewShade( viewShade );
+    view->model()->setEditShade( editShade );
+    view->setListMode( listMode );
+    view->proxy()->setSortRole( sortRole );
+  }
+}
+
 
 //END KateFileTreePlugin
 
@@ -150,8 +144,8 @@ Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *pa
 
 
 //BEGIN KateFileTreePluginView
-KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow)
-: Kate::PluginView (mainWindow), KXMLGUIClient()
+KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug)
+: Kate::PluginView (mainWindow), KXMLGUIClient(), m_plug(plug)
 {
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
@@ -299,6 +293,7 @@ void KateFileTreePluginView::setListMode(bool listMode)
 void KateFileTreePluginView::viewModeChanged(bool listMode)
 {
   kDebug(debugArea()) << "BEGIN";
+  setHasLocalPrefs(true);
   setListMode(listMode);
   kDebug(debugArea()) << "END";
 }
@@ -306,6 +301,7 @@ void KateFileTreePluginView::viewModeChanged(bool listMode)
 void KateFileTreePluginView::sortRoleChanged(int role)
 {
   kDebug(debugArea()) << "BEGIN";
+  setHasLocalPrefs(true);
   m_proxyModel->setSortRole(role);
   m_proxyModel->invalidate();
   kDebug(debugArea()) << "END";
@@ -323,30 +319,53 @@ void KateFileTreePluginView::showActiveDocument()
   // FIXME: make the tool view show if it was hidden
 }
 
+bool KateFileTreePluginView::hasLocalPrefs()
+{
+  return m_hasLocalPrefs;
+}
+
+void KateFileTreePluginView::setHasLocalPrefs(bool h)
+{
+  m_hasLocalPrefs = h;
+}
+
 void KateFileTreePluginView::readSessionConfig(KConfigBase* config, const QString& group)
 {
   KConfigGroup g = config->group(group);
-  bool listMode = g.readEntry("listMode", QVariant(false)).toBool();
+
+  if(g.exists())
+    m_hasLocalPrefs = true;
+  else
+    m_hasLocalPrefs = false;
+  
+  // we chain to the global settings by using them as the defaults
+  //  here in the session view config loading.
+  const KateFileTreePluginSettings &defaults = m_plug->settings();
+  
+  bool listMode = g.readEntry("listMode", defaults.listMode());
   
   setListMode(listMode);
 
-  int sortRole = g.readEntry("sortRole", int(Qt::DisplayRole));
+  int sortRole = g.readEntry("sortRole", defaults.sortRole());
   m_proxyModel->setSortRole(sortRole);
-  
-//  m_fileTree->readSessionConfig(config, group);
+
 }
 
 void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QString& group)
 {
   KConfigGroup g = config->group(group);
 
-  g.writeEntry("listMode", QVariant(m_documentModel->listMode()));
-  g.writeEntry("sortRole", int(m_proxyModel->sortRole()));
-
+  if(m_hasLocalPrefs) {
+    g.writeEntry("listMode", QVariant(m_documentModel->listMode()));
+    g.writeEntry("sortRole", int(m_proxyModel->sortRole()));
+  }
+  else {
+    g.deleteEntry("listMode");
+    g.deleteEntry("sortRole");
+  }
+  
   g.sync();
-//  m_fileTree->writeSessionConfig(config, group);
 }
 //ENDKateFileTreePluginView
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

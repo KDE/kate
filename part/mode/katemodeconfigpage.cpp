@@ -107,6 +107,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
 ModeConfigPage::~ModeConfigPage ()
 {
   qDeleteAll (m_types);
+  delete ui;
 }
 
 void ModeConfigPage::apply()

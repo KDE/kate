@@ -224,7 +224,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void statusBarToggled ();
 
   public:
-    void openUrl (const QString &name = 0L);
+    void openUrl (const QString &name = QString());
 
     QHash<Kate::Plugin*, Kate::PluginView*> &pluginViews ()
     {

@@ -878,7 +878,7 @@ public:
     switch( bias ) {
     case KateViewInternal::left:  return column() == 0;
     case KateViewInternal::none:  return atEdge();
-    case KateViewInternal::right: return column() == doc()->lineLength( line() );
+    case KateViewInternal::right: return column() >= doc()->lineLength( line() );
     default: Q_ASSERT(false); return false;
     }
   }
@@ -977,7 +977,7 @@ public:
 
     if (n >= 0) {
       for (int i = 0; i < n; i++) {
-        if (m_column == thisLine->length()) {
+        if (m_column >= thisLine->length()) {
           // Have come to the end of a line
           if (line() >= doc()->lines() - 1)
             // Have come to the end of the document

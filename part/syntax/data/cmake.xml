@@ -25,7 +25,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.1" -->
-<language name="CMake" version="1.12" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.13" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -550,7 +550,7 @@
         <IncludeRules context="##Alerts" />
       </context>
       <context attribute="Strings" lineEndContext="#stay" name="String">
-        <DetectChar attribute="Strings" context="#pop" char="&quot;" />
+        <RegExpr attribute="Strings" context="#pop" String="&quot;(?=[ );]|$)" />
         <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
         <IncludeRules context="Detect Variables"/>
       </context>

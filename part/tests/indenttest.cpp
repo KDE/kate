@@ -83,8 +83,9 @@
 
 QTEST_KDEMAIN(IndentTest, GUI)
 
-/// somepath/part/tests/
+/// somepath/kdelibs/part/tests/
 const QString srcPath(KDESRCDIR);
+const QString testDataPath(KDESRCDIR "../../testdata/indent/");
 
 #define FAILURE( test, comment ) qMakePair<const char*, const char*>( (test), (comment) )
 
@@ -108,14 +109,18 @@ void IndentTest::getTestData(const QString& indenter)
 
   // make sure the indenters are valid
   QFile indenterFile(srcPath + "/../script/data/" + indenter + ".js");
-  QVERIFY(indenterFile.exists());
+  if (!indenterFile.exists()) {
+    QSKIP(qPrintable(QString(indenterFile.fileName() + " does not exist")), SkipAll);
+  }
   QVERIFY(indenterFile.open(QFile::ReadOnly));
   QScriptValue result = m_env->engine()->evaluate(indenterFile.readAll(), indenterFile.fileName());
   QVERIFY2( !result.isError(), qPrintable(result.toString() + "\nat "
                                           + m_env->engine()->uncaughtExceptionBacktrace().join("\n")) );
 
-  const QString testDir( srcPath + "/../../testdata/indent/" + indenter + '/' );
-  Q_ASSERT( QFile::exists(testDir) );
+  const QString testDir( testDataPath + indenter + '/' );
+  if ( !QFile::exists(testDir) ) {
+    QSKIP(qPrintable(QString(testDir + " does not exist")), SkipAll);
+  }
   QDirIterator contents( testDir );
   while ( contents.hasNext() ) {
     QString entry = contents.next();
@@ -132,6 +137,9 @@ void IndentTest::getTestData(const QString& indenter)
 
 void IndentTest::runTest(const ExpectedFailures& failures)
 {
+  if ( !QFile::exists(testDataPath) )
+    QSKIP(qPrintable(QString(testDataPath + " does not exist")), SkipAll);
+
   QFETCH(QString, testcase);
 
   m_toplevel->resize( 800, 600); // restore size

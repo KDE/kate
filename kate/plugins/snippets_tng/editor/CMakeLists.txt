@@ -27,6 +27,6 @@ install(TARGETS ktesnippets_editor ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ########### install files ###############
 
-install( FILES "data/ktesnippets_editor.desktop"  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( PROGRAMS "data/ktesnippets_editor.desktop"  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 
 

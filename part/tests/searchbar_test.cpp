@@ -415,10 +415,10 @@ void SearchBarTest::testRemoveInSelectionForward_data()
   QTest::addColumn<Range>("match");
 
   testNewRow() << Range(0, 0, 0, 1) << Range(0, 0, 0, 1);
-  testNewRow() << Range(0, 0, 0, 2) << Range::invalid();
+  testNewRow() << Range(0, 0, 0, 2) << Range(0, 0, 0, 0);
   testNewRow() << Range(0, 0, 0, 3) << Range(0, 0, 0, 2);
   testNewRow() << Range(0, 0, 0, 4) << Range(0, 0, 0, 2);
-  testNewRow() << Range(0, 2, 0, 4) << Range::invalid();
+  testNewRow() << Range(0, 2, 0, 4) << Range(0, 2, 0, 2);
   testNewRow() << Range(0, 3, 0, 4) << Range(0, 3, 0, 4);
 }
 
@@ -437,6 +437,8 @@ void SearchBarTest::testRemoveInSelectionForward()
   KateSearchBar bar(true, &view, &config);
   bar.setSearchPattern("a ");
   bar.setSelectionOnly(true);
+
+  QVERIFY(bar.replacementPattern().isEmpty());
 
   bar.replaceNext();
 

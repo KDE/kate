@@ -144,7 +144,11 @@ bool View::insertText (const QString &text )
 
 Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
 {
-  return service->createInstance<KTextEditor::Plugin>(parent);
+  QString error;
+  Plugin* plugin = service->createInstance<KTextEditor::Plugin>(parent, QVariantList(), &error);
+  if (!plugin)
+    kWarning() << error;
+  return plugin;
 }
 
 struct KTextEditorFactorySet : public QSet<KPluginFactory*>

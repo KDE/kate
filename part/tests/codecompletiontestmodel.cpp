@@ -22,6 +22,8 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/smartrange.h>
+#include <kateglobal.h>
+#include <katewordcompletion.h>
 
 CodeCompletionTestModel::CodeCompletionTestModel(KTextEditor::View* parent, const QString &startText)
   : KTextEditor::CodeCompletionModel(parent), m_startText(startText), m_autoStartText(m_startText.isEmpty())
@@ -31,6 +33,7 @@ CodeCompletionTestModel::CodeCompletionTestModel(KTextEditor::View* parent, cons
   Q_ASSERT(cc());
 
   cc()->setAutomaticInvocationEnabled(true);
+  cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
   cc()->registerCompletionModel(this);
 }
 

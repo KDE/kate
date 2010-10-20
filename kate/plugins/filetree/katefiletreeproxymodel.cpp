@@ -68,4 +68,9 @@ QModelIndex KateFileTreeProxyModel::docIndex(KTextEditor::Document *doc)
   return mapFromSource(static_cast<KateFileTreeModel*>(sourceModel())->docIndex(doc));
 }
 
+bool KateFileTreeProxyModel::isDir(const QModelIndex &index)
+{
+  return static_cast<KateFileTreeModel*>(sourceModel())->isDir(mapToSource(index));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

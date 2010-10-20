@@ -198,8 +198,20 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   show_active->setShortcut( QKeySequence(Qt::ALT+Qt::Key_A), KAction::DefaultShortcut );
   connect( show_active, SIGNAL( triggered(bool) ), this, SLOT( showActiveDocument() ) );
 
+  KAction *prev_document = actionCollection()->addAction("filetree_prev_document", mainWindow);
+  prev_document->setText(i18n("&Prev Document"));
+  prev_document->setIcon(KIcon("go-previous"));
+  prev_document->setShortcut( QKeySequence(Qt::ALT+Qt::Key_Left), KAction::DefaultShortcut );
+  connect( prev_document, SIGNAL( triggered(bool) ), m_fileTree, SLOT( slotDocumentPrev() ) );
+  
+  KAction *next_document = actionCollection()->addAction("filetree_next_document", mainWindow);
+  next_document->setText(i18n("&Next Document"));
+  next_document->setIcon(KIcon("go-next"));
+  next_document->setShortcut( QKeySequence(Qt::ALT+Qt::Key_Right), KAction::DefaultShortcut );
+  connect( next_document, SIGNAL( triggered(bool) ), m_fileTree, SLOT( slotDocumentNext() ) );
+  
   mainWindow->guiFactory()->addClient(this);
-
+  
   m_proxyModel->setSortRole(Qt::DisplayRole);
   
   m_proxyModel->sort(0, Qt::AscendingOrder);

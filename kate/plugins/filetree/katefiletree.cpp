@@ -215,6 +215,173 @@ void KateFileTree::slotDocumentClose() {
   Kate::application()->documentManager()->closeDocument(v.value<KTextEditor::Document*>());
 }
 
+void KateFileTree::slotDocumentPrev()
+{
+  kDebug(debugArea()) << "BEGIN";
+  KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
+  
+  QModelIndex current_index = currentIndex();
+  QModelIndex prev;
+  
+  // scan up the tree skipping any dir nodes
+  while(current_index.isValid()) {
+    if(current_index.row() > 0) {
+      current_index = ftpm->sibling(current_index.row()-1, current_index.column(), current_index);
+      if(!current_index.isValid()) {
+        kDebug(debugArea()) << "somehow getting prev index from sibling didn't work :(";
+        break;
+      }
+      
+      if(ftpm->isDir(current_index)) {
+        // try and select the last child in this parent
+        int children = ftpm->rowCount(current_index);
+        current_index = ftpm->index(children-1, 0, current_index);
+        if(ftpm->isDir(current_index)) {
+          // since we're a dir, keep going
+          continue;
+        } else {
+          // we're the previous file, set prev
+          prev = current_index;
+          break;
+        }
+      } else { // found document item
+        prev = current_index;
+        break;
+      }
+    }
+    else {
+      // just select the parent, the logic above will handle the rest
+      current_index = ftpm->parent(current_index);
+      
+      if(!ftpm->parent(current_index).isValid()) {
+        // past the root node here, try and wrap arround
+        int children = ftpm->rowCount(current_index);
+        QModelIndex last_index = ftpm->index(children-1, 0, current_index);
+        if(!last_index.isValid())
+          break;
+        
+        if(ftpm->isDir(last_index)) {
+          // last node is a dir, select last child row
+          int last_children = ftpm->rowCount(last_index);
+          prev = ftpm->index(last_children-1, 0, last_index);
+          break;
+        }
+        else {
+          // got last file node
+          prev = last_index;
+          break;
+        }
+      }
+    }
+  }
+  
+  if(prev.isValid()) {
+    kDebug(debugArea()) << "got prev node:" << prev;
+    kDebug(debugArea()) << "doc:" << ftpm->data(prev, Qt::DisplayRole).value<QString>();
+
+    KTextEditor::Document *doc = model()->data(prev, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    emit activateDocument(doc);
+  }
+  else {
+    kDebug(debugArea()) << "didn't get prev node :(";
+  }
+  
+  kDebug(debugArea()) << "END";
+}
+
+/*
+plan:
+
+default: select next sibling
+if cur is a dir, select it
+
+*/
+
+void KateFileTree::slotDocumentNext()
+{
+  kDebug(debugArea()) << "BEGIN";
+  
+  KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
+  
+  QModelIndex current_index = currentIndex();
+  int parent_row_count = ftpm->rowCount( ftpm->parent(current_index) );
+  QModelIndex next;
+  
+  // scan down the tree skipping any dir nodes
+  while(current_index.isValid()) {
+    if(current_index.row() < parent_row_count-1) {
+      current_index = ftpm->sibling(current_index.row()+1, current_index.column(), current_index);
+      if(!current_index.isValid()) {
+        break;
+      }
+      
+      if(ftpm->isDir(current_index)) {
+        // we have a dir node
+        while(ftpm->isDir(current_index)) {
+          current_index = ftpm->index(0, 0, current_index);
+        }
+        
+        parent_row_count = ftpm->rowCount( ftpm->parent(current_index) );
+        
+        if(!ftpm->isDir(current_index)) {
+          next = current_index;
+          break;
+        }
+      } else { // found document item
+        next = current_index;
+        break;
+      }
+    }
+    else {
+      // select the parent's next sibling
+      QModelIndex parent_index = ftpm->parent(current_index);
+      int grandparent_row_count = ftpm->rowCount( ftpm->parent(parent_index) );
+      
+      current_index = parent_index;
+      parent_row_count = grandparent_row_count;
+      
+      // at least if we're not past the last node
+      if(!ftpm->parent(current_index).isValid()) {
+        // past the root node here, try and wrap arround
+        QModelIndex last_index = ftpm->index(0, 0, QModelIndex());
+        if(!last_index.isValid()) {
+          break;
+        }
+        
+        if(ftpm->isDir(last_index)) {
+          // last node is a dir, select first child row
+          while(ftpm->isDir(last_index)) {
+            if(ftpm->rowCount(last_index)) {
+              // has children, select first
+              last_index = ftpm->index(0, 0, last_index);
+            }
+          }
+          
+          next = last_index;
+          break;
+        }
+        else {
+          // got first file node
+          next = last_index;
+          break;
+        }
+      }
+    }
+  }
+  
+  if(next.isValid()) {
+    kDebug(debugArea()) << "got next node:" << next;
+    kDebug(debugArea()) << "doc:" << ftpm->data(next, Qt::DisplayRole).value<QString>();
+
+    KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    emit activateDocument(doc);
+  }
+  else {
+    kDebug(debugArea()) << "didn't get next node :(";
+  }
+  
+  kDebug(debugArea()) << "END";
+}
 //END KateFileTree
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -140,7 +140,7 @@ void Attribute::setSelectedBackground( const QBrush & brush )
 
 void Attribute::clear( )
 {
-  static_cast<QTextCharFormat>(*this) = QTextCharFormat();
+  QTextCharFormat::operator=(QTextCharFormat());
 
   d->associatedActions.clear();
   d->dynamicAttributes.clear();

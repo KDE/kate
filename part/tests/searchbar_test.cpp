@@ -178,8 +178,9 @@ void SearchBarTest::testSetSelectionOnlyPower()
   bar.findNext();
 
   QCOMPARE(view.selectionRange(), Range(0, 2, 0, 3));
-  QVERIFY(!bar.selectionOnly());
+  QVERIFY(bar.selectionOnly());
 
+  bar.setSelectionOnly(false);
   bar.findNext();
 
   QCOMPARE(view.selectionRange(), Range(0, 4, 0, 5));

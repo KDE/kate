@@ -553,7 +553,9 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
     {
 
       while(s.count()<10) s<<"";
+      QString name = p->name();
       p->clear();
+      p->setName(name);
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
 

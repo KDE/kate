@@ -3173,7 +3173,7 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
       else
         scrollNextPage();
     } else {
-      scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
+      QApplication::sendEvent(m_lineScroll, e);
     }
 
   } else if (columnScrollingPossible()) {

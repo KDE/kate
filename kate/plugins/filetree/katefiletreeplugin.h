@@ -57,7 +57,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
 
     const KateFileTreePluginSettings &settings();
 
-    void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole);
+    void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFulPath);
     
   private:
     QHash<Kate::MainWindow *, KateFileTreePluginView *> m_view;

@@ -69,6 +69,9 @@ class KateFileTreeModel : public QAbstractItemModel
     QColor viewShade();
     void setViewShade(QColor);
     
+    bool showFullPathOnRoots(void);
+    void setShowFullPathOnRoots(bool);
+    
   public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);

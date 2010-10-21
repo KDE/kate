@@ -43,7 +43,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   setIndentation(12);
   setAllColumnsShowFocus(true);
 
-  setTextElideMode(Qt::ElideMiddle);
+  setTextElideMode(Qt::ElideLeft);
   
   connect( this, SIGNAL(pressed(const QModelIndex &)), this, SLOT(mousePressed(const QModelIndex &)));
   connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));

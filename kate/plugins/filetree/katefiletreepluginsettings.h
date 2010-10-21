@@ -44,6 +44,9 @@ class KateFileTreePluginSettings
     int sortRole() const;
     void setSortRole(int);
     
+    bool showFullPathOnRoots() const;
+    void setShowFullPathOnRoots(bool);
+    
   private:
     KConfigGroup m_group;
     
@@ -53,6 +56,8 @@ class KateFileTreePluginSettings
 
     bool m_listMode;
     int m_sortRole;
+    
+    bool m_showFullPathOnRoots;
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

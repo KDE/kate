@@ -115,7 +115,7 @@ const KateFileTreePluginSettings &KateFileTreePlugin::settings()
   return m_settings;
 }
 
-void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole)
+void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFullPath)
 {
   // save to settings
   m_settings.setShadingEnabled(shadingEnabled);
@@ -124,6 +124,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
 
   m_settings.setListMode(listMode);
   m_settings.setSortRole(sortRole);
+  m_settings.setShowFullPathOnRoots(showFullPath);
   m_settings.save();
 
   // update views
@@ -134,6 +135,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
     view->model()->setEditShade( editShade );
     view->setListMode( listMode );
     view->proxy()->setSortRole( sortRole );
+    view->model()->setShowFullPathOnRoots( showFullPath );
   }
 }
 

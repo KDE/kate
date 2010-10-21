@@ -50,6 +50,7 @@ class KateFileTreeConfigPage : public Kate::PluginConfigPage {
     class KColorButton *kcbViewShade, *kcbEditShade;
     class QLabel *lEditShade, *lViewShade, *lSort, *lMode;
     class KComboBox *cmbSort, *cmbMode;
+    class QCheckBox *cbShowFullPath;
     KateFileTreePlugin *m_plug;
 
     bool m_changed;

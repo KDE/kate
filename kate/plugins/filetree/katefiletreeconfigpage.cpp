@@ -45,6 +45,7 @@ view needs to pull default settings from the main plugin config
 #include <KComboBox>
 #include <QVBoxLayout>
 #include <KLocale>
+#include <QCheckBox>
 
 KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlugin *fl )
   :  Kate::PluginConfigPage( parent ),
@@ -98,6 +99,12 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   cmbMode->addItem(i18n("Tree View"), QVariant(false));
   cmbMode->addItem(i18n("List View"), QVariant(true));
 
+  // Show Full Path on Roots?
+  QHBoxLayout *lo4 = new QHBoxLayout;
+  layout->addLayout( lo4 );
+  cbShowFullPath = new QCheckBox( i18n("&Show Full Path"), this );
+  lo4->addWidget( cbShowFullPath );
+  
   layout->insertStretch( -1, 10 );
 
   gbEnableShading->setWhatsThis( i18n(
@@ -111,6 +118,10 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
       "the color for viewed files. The most recently edited documents get "
       "most of this color.") );
 
+  cbShowFullPath->setWhatsThis( i18n(
+      "When enabled, in tree mode, top level folders will show up with their full path "
+      "rather than just the last folder name." ) );
+  
 //   cmbSort->setWhatsThis( i18n(
 //       "Set the sorting method for the documents.") );
 
@@ -121,7 +132,8 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   connect( kcbEditShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
   connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cmbMode, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
-
+  connect( cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()) );
+  
   kDebug(debugArea()) << "END";
 }
 
@@ -141,7 +153,8 @@ void KateFileTreeConfigPage::apply()
     kcbViewShade->color(),
     kcbEditShade->color(),
     cmbMode->itemData(cmbMode->currentIndex()).toBool(),
-    cmbSort->itemData(cmbSort->currentIndex()).toInt()
+    cmbSort->itemData(cmbSort->currentIndex()).toInt(),
+    cbShowFullPath->checkState() == Qt::Checked
   );
   
   kDebug(debugArea()) << "END";
@@ -156,8 +169,9 @@ void KateFileTreeConfigPage::reset()
   gbEnableShading->setChecked( settings.shadingEnabled() );
   kcbEditShade->setColor( settings.editShade() );
   kcbViewShade->setColor( settings.viewShade() );
-  cmbSort->setCurrentIndex( settings.sortRole() );
+  cmbSort->setCurrentIndex( cmbSort->findData( settings.sortRole() ) );
   cmbMode->setCurrentIndex( settings.listMode() );
+  cbShowFullPath->setCheckState( settings.showFullPathOnRoots() ? Qt::Checked : Qt::Unchecked );
   
   m_changed = false;
   kDebug(debugArea()) << "END";

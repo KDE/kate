@@ -36,6 +36,8 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
 
   m_listMode = m_group.readEntry("listMode", false);
   m_sortRole = m_group.readEntry("sortRole", int(Qt::DisplayRole));
+  
+  m_showFullPathOnRoots = m_group.readEntry("showFullPathOnRoots", false);
 }
 
 void KateFileTreePluginSettings::save()
@@ -45,6 +47,7 @@ void KateFileTreePluginSettings::save()
   m_group.writeEntry("editShade", m_editShade);
   m_group.writeEntry("listMode", m_listMode);
   m_group.writeEntry("sortRole", m_sortRole);
+  m_group.writeEntry("showFullPathOnRoots", m_showFullPathOnRoots);
   
   kDebug(debugArea()) << "save config!";
   m_group.sync();
@@ -98,6 +101,16 @@ int KateFileTreePluginSettings::sortRole() const
 void KateFileTreePluginSettings::setSortRole(int sortRole)
 {
   m_sortRole = sortRole;
+}
+
+bool KateFileTreePluginSettings::showFullPathOnRoots() const
+{
+  return m_showFullPathOnRoots;
+}
+
+void KateFileTreePluginSettings::setShowFullPathOnRoots(bool s)
+{
+  m_showFullPathOnRoots = s;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

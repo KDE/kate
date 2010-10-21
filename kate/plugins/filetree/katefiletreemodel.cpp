@@ -33,11 +33,13 @@
 
 class ProxyItemDir;
 class ProxyItem {
+  friend class KateFileTreeModel;
+  
   public:
-    enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16 };
+    enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16, ShowFullPath = 32 };
     Q_DECLARE_FLAGS(Flags, Flag)
     
-    ProxyItem(QString n, ProxyItemDir *p = 0);
+    ProxyItem(QString n, ProxyItemDir *p = 0, Flags f = ProxyItem::None);
     ~ProxyItem();
 
     int addChild(ProxyItem *p);
@@ -120,8 +122,8 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
-ProxyItem::ProxyItem(QString d, ProxyItemDir *p)
-  : m_path(d), m_parent(p), m_row(-1), m_flags(ProxyItem::None), m_doc(0)
+ProxyItem::ProxyItem(QString d, ProxyItemDir *p, ProxyItem::Flags f)
+  : m_path(d), m_parent(p), m_row(-1), m_flags(f), m_doc(0)
 {
   kDebug(debugArea()) << this;
   initDisplay();
@@ -140,8 +142,12 @@ ProxyItem::~ProxyItem()
 
 void ProxyItem::initDisplay()
 {
-  if (flag(ProxyItem::Dir) && ( (!m_parent) || (!m_parent->m_parent)) ) {
-    m_display=m_path;
+  // triggers only if this is a top level node and the root has the show full path flag set.
+  if (flag(ProxyItem::Dir) && m_parent && !m_parent->m_parent && m_parent->flag(ProxyItem::ShowFullPath)) {
+    m_display = m_path;
+    if(m_display.startsWith(QDir::homePath())) {
+      m_display.replace(0, QDir::homePath().length(), "~");
+    }
   } else {
     QRegExp sep("[/\\\\]");
     m_display = m_path.section(sep, -1, -1);
@@ -155,7 +161,13 @@ int ProxyItem::addChild(ProxyItem *item)
   item->m_row = item_row;
   m_children.append(item);
   item->m_parent = (ProxyItemDir*)this;
-  item->initDisplay();
+  
+  // only update display if we've been added to the root,
+  // so ShowFullPath flag can take effect.
+  if(!m_parent) {
+    item->initDisplay();
+  }
+  
   kDebug(debugArea()) << "added" << item << "to" << item->m_parent;
   return item_row;
 }
@@ -171,7 +183,6 @@ void ProxyItem::remChild(ProxyItem *item)
   }
 
   item->m_parent = 0;
-  item->initDisplay();
 }
 
 ProxyItemDir *ProxyItem::parent()
@@ -314,6 +325,23 @@ void KateFileTreeModel::setViewShade(QColor vs)
   m_viewShade = vs;
 }
 
+bool KateFileTreeModel::showFullPathOnRoots(void)
+{
+  return m_root->flag(ProxyItem::ShowFullPath);
+}
+
+void KateFileTreeModel::setShowFullPathOnRoots(bool s)
+{
+  if(s)
+    m_root->setFlag(ProxyItem::ShowFullPath);
+  else
+    m_root->clearFlag(ProxyItem::ShowFullPath);
+  
+  foreach(ProxyItem *root, m_root->children()) {
+    root->initDisplay();
+  }
+}
+
 // FIXME: optimize this later to insert all at once if possible
 // maybe add a "bool emitSignals" to documentOpened
 // and possibly use beginResetModel here? I dunno.
@@ -396,21 +424,6 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
       return item->row();
       
     case Qt::DisplayRole:
-      /* uncomment this if it's deemed acceptable, and remove the old code below
-      if(m_listMode)
-        return item->doc()->documentName();
-      else {
-        if(item->display().startsWith(QDir::homePath())) {
-          QString disp = item->display();
-          disp.replace(0, QDir::homePath().length(), "~");
-          return disp;
-        }
-        else {
-          return item->display();
-        }
-      }
-      */
-      
       // in list mode we want to use kate's fancy names.
       if(m_listMode)
         return item->doc()->documentName();

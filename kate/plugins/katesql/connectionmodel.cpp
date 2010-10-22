@@ -78,6 +78,8 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
       return QVariant();
     break;
   }
+
+  return QVariant();
 }
 
 int ConnectionModel::addConnection( Connection conn )

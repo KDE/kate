@@ -17,6 +17,7 @@ Name[uk]=Синтез мовлення з тексту Jovie
 Name[x-test]=xxJovie Text-to-Speechxx
 Name[zh_TW]=Jovie 文字轉語音
 Comment=Adds a menu entry for speaking the text
+Comment[ast]=Amestar una entrada al menú pa lleer el testu
 Comment[ca]=Afegeix una entrada al menú per parlar el text
 Comment[ca@valencia]=Afig una entrada al menú per parlar el text
 Comment[da]=Tilføjer en menu til oplæsning af tekst

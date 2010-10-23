@@ -5,6 +5,7 @@ X-KDE-Library=katekjswrapperplugin
 X-Kate-Version=2.2
 X-Kate-PluginName=katekjsconsolewindow
 Name=Kate Javascript Console Window
+Name[ast]=Ventana de la consola Javascript de Kate
 Name[ca]=Finestra de la consola JavaScript del Kate
 Name[ca@valencia]=Finestra de la consola JavaScript del Kate
 Name[da]=Kate konsolvindue til JavaScript

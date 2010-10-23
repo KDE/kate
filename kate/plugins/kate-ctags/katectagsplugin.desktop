@@ -15,6 +15,7 @@ Name[uk]=CTags
 Name[x-test]=xxCTagsxx
 Name[zh_TW]=CTags
 Comment=Look up definitions/declarations with CTags
+Comment[ast]=Guetar definiciones/declaraciones con CTags
 Comment[ca]=Cerca definicions/declaracions amb CTags
 Comment[ca@valencia]=Cerca definicions/declaracions amb CTags
 Comment[da]=Slå definitioner/erklæringer op med CTags

@@ -5,6 +5,7 @@ X-KDE-Library=katekjswrapperplugin
 X-Kate-Version=2.2
 X-Kate-PluginName=katekjsselect
 Name=Select Smallest Enclosing Block
+Name[ast]=Esbillar el bloque de zarru más pequeñu
 Name[ca]=Selecciona el bloc de tancament més petit
 Name[ca@valencia]=Selecciona el bloc de tancament més petit
 Name[da]=Vælg mindste omsluttende blok

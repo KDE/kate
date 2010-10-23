@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=kategdbplugin
 X-Kate-Version=2.9
 Name=GDB
+Name[ast]=GDB
 Name[ca]=GDB
 Name[en_GB]=GDB
 Name[nds]=GDB

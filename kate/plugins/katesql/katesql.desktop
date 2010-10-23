@@ -5,6 +5,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katesqlplugin
 X-Kate-Version=3.0
 Name=SQL Plugin
+Name[ast]=Complementu SQL
 Name[bg]=Приставка за SQL
 Name[ca]=Connector SQL
 Name[de]=SQL-Modul

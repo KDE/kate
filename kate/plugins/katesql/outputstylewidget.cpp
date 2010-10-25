@@ -85,7 +85,7 @@ QTreeWidgetItem* OutputStyleWidget::addContext(const QString &key, const QString
   KColorButton *foregroundColorButton = new KColorButton(this);
   KColorButton *backgroundColorButton = new KColorButton(this);
 
-  KColorScheme scheme(QPalette::Active, KColorScheme::View);
+  const KColorScheme scheme(QPalette::Active, KColorScheme::View);
 
   foregroundColorButton->setDefaultColor(scheme.foreground().color());
   backgroundColorButton->setDefaultColor(scheme.background().color());
@@ -122,7 +122,7 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
   KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
   KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
 
-  QFont font = g.readEntry("font", KGlobalSettings::generalFont());
+  const QFont font = g.readEntry("font", KGlobalSettings::generalFont());
 
   boldCheckBox->setChecked(font.bold());
   italicCheckBox->setChecked(font.italic());
@@ -189,12 +189,12 @@ void OutputStyleWidget::updatePreviews()
   {
     QTreeWidgetItem *item = root->child(i);
 
-    QCheckBox *boldCheckBox             = static_cast<QCheckBox*>(itemWidget(item, 1));
-    QCheckBox *italicCheckBox           = static_cast<QCheckBox*>(itemWidget(item, 2));
-    QCheckBox *underlineCheckBox        = static_cast<QCheckBox*>(itemWidget(item, 3));
-    QCheckBox *strikeOutCheckBox        = static_cast<QCheckBox*>(itemWidget(item, 4));
-    KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
-    KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
+    const QCheckBox *boldCheckBox             = static_cast<QCheckBox*>(itemWidget(item, 1));
+    const QCheckBox *italicCheckBox           = static_cast<QCheckBox*>(itemWidget(item, 2));
+    const QCheckBox *underlineCheckBox        = static_cast<QCheckBox*>(itemWidget(item, 3));
+    const QCheckBox *strikeOutCheckBox        = static_cast<QCheckBox*>(itemWidget(item, 4));
+    const KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
+    const KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
 
     QFont f(KGlobalSettings::generalFont());
 

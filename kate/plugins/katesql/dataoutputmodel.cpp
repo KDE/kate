@@ -100,7 +100,7 @@ bool DataOutputModel::isNumeric(const QVariant::Type type) const
 
 QVariant DataOutputModel::data(const QModelIndex &index, int role) const
 {
-  QVariant value(QSqlQueryModel::data(index, Qt::DisplayRole));
+  const QVariant value(QSqlQueryModel::data(index, Qt::DisplayRole));
   const QVariant::Type type = value.type();
 
   if (value.isNull())

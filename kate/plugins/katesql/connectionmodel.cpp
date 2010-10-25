@@ -51,7 +51,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
   if (!index.isValid())
     return QVariant();
 
-  QString key = m_connections.keys().at(index.row());
+  const QString key = m_connections.keys().at(index.row());
 
   switch (role)
   {
@@ -69,7 +69,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
     case Qt::SizeHintRole:
     {
-      QFontMetrics metrics(KGlobalSettings::generalFont());
+      const QFontMetrics metrics(KGlobalSettings::generalFont());
       return QSize(metrics.width(m_connections.value(key).name), 22);
     }
     break;
@@ -126,7 +126,7 @@ void ConnectionModel::setEnabled(const QString &name, bool enabled)
 
   m_connections[name].enabled = enabled;
 
-  int i = indexOf(name);
+  const int i = indexOf(name);
 
   emit dataChanged(index(i), index(i));
 }

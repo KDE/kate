@@ -273,22 +273,20 @@ void DataOutputWidget::exportData(QTextStream &stream,
   QTime t;
   t.start();
 
-  QModelIndex index;
-
   QSet<int> columns;
   QSet<int> rows;
 
-  QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+  const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
   QHash<QPair<int,int>,QString> snapshot;
 
   snapshot.reserve(selectedIndexes.count());
 
-  foreach (index, selectedIndexes)
+  foreach (const QModelIndex index, selectedIndexes)
   {
-    QVariant data = index.data(Qt::UserRole);
+    const QVariant data = index.data(Qt::UserRole);
 
-    int col = index.column();
-    int row = index.row();
+    const int col = index.column();
+    const int row = index.row();
 
     if (!columns.contains(col))
       columns.insert(col);
@@ -319,7 +317,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
     QSetIterator<int> j(columns);
     while (j.hasNext())
     {
-      QVariant data = m_model->headerData(j.next(), Qt::Horizontal);
+      const QVariant data = m_model->headerData(j.next(), Qt::Horizontal);
 
       if (stringsQuoteChar != '\0')
         stream << stringsQuoteChar + data.toString() + stringsQuoteChar;

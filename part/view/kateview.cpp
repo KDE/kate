@@ -1918,11 +1918,8 @@ void KateView::copy() const
   if (!selection()) {
     if (!m_config->smartCopyCut())
       return;
-    int line = m_viewInternal->m_cursor.line();
-    if ( line+1 >= m_doc->lines() )
-      text = m_doc->text(KTextEditor::Range(line, 0, line, m_doc->lineLength(line)));
-    else
-      text = m_doc->text(KTextEditor::Range(line, 0, line+1, 0));
+    text = m_doc->line(m_viewInternal->m_cursor.line()) + '\n';
+    m_viewInternal->moveEdge(KateViewInternal::left, false);
   }
 
   QApplication::clipboard()->setText(text);

@@ -3315,12 +3315,6 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
     }
   }
 
-  if ( ! highlight()->canComment( startAttrib, endAttrib ) )
-  {
-    kDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!";
-    return;
-  }
-
   bool hasStartLineCommentMark = !(highlight()->getCommentSingleLineStart( startAttrib ).isEmpty());
   bool hasStartStopCommentMark = ( !(highlight()->getCommentStart( startAttrib ).isEmpty())
       && !(highlight()->getCommentEnd( endAttrib ).isEmpty()) );

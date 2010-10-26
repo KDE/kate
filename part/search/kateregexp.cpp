@@ -314,10 +314,7 @@ int KateRegExp::indexIn(const QString &str, int start, int end) const
 
 int KateRegExp::lastIndexIn(const QString &str, int start, int end) const
 {
-  if (end <= 0)
-    return -1;
-
-  const int index = m_regExp.lastIndexIn(str.mid(start), end-start-1, QRegExp::CaretAtZero);
+  const int index = m_regExp.lastIndexIn(str.mid(start, end-start), -1, QRegExp::CaretAtZero);
 
   if (index == -1)
     return -1;

@@ -34,6 +34,7 @@ class QLabel;
 
 namespace KTextEditor { class EditorChooser; }
 
+class KDualAction;
 class KToggleAction;
 class KRecentFilesAction;
 class KSqueezedTextLabel;
@@ -108,7 +109,7 @@ class KWrite : public KParts::MainWindow
 
     KRecentFilesAction * m_recentFiles;
     KToggleAction * m_paShowPath;
-    KToggleAction * m_paShowStatusBar;
+    KDualAction * m_paShowStatusBar;
 
     QString encoding;
 

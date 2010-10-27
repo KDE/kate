@@ -100,7 +100,6 @@ private:
     QAction               *m_lookup;
 
     KProcess               m_proc;
-    QString                m_sessionDB;
     QString                m_commonDB;
 
     QTimer                 m_editTimer;

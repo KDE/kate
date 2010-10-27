@@ -86,12 +86,18 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
     m_ctagsUi.delButton->setToolTip(i18n("Remove a directory."));
     m_ctagsUi.delButton->setIcon(KIcon("list-remove"));
 
-    m_ctagsUi.updateDB->setToolTip(i18n("(Re-)generate the session specific CTags database."));
-    m_ctagsUi.updateDB->setIcon(KIcon("view-refresh"));
+    m_ctagsUi.updateButton->setToolTip(i18n("(Re-)generate the session specific CTags database."));
+    m_ctagsUi.updateButton->setIcon(KIcon("view-refresh"));
+
+    m_ctagsUi.updateButton2->setToolTip(i18n("(Re-)generate the session specific CTags database."));
+    m_ctagsUi.updateButton2->setIcon(KIcon("view-refresh"));
+
+    m_ctagsUi.tagsFile->setToolTip(i18n("Select new or existing database file."));
 
     connect(m_ctagsUi.addButton, SIGNAL(clicked()), this, SLOT(addTagTarget()));
     connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
-    connect(m_ctagsUi.updateDB,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
+    connect(m_ctagsUi.updateButton,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
+    connect(m_ctagsUi.updateButton2,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
     connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), 
             this, SLOT(updateDone(int, QProcess::ExitStatus)));
 
@@ -158,7 +164,13 @@ void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& group
         }
     }
     
-    m_sessionDB = cg.readEntry("SessionDatabase", QString());
+    QString sessionDB = cg.readEntry("SessionDatabase", QString());
+    if (sessionDB.isEmpty()) {
+        sessionDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/session_db_", true);
+        sessionDB += QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+    }
+    m_ctagsUi.tagsFile->setText(sessionDB);
+
 }
 
 /******************************************************************/
@@ -176,7 +188,7 @@ void KateCTagsView::writeSessionConfig (KConfigBase* config, const QString& grou
         cg.writeEntry("SessionTarget_"+nr, m_ctagsUi.targetList->item(i)->text());
     }
 
-    cg.writeEntry("SessionDatabase", m_sessionDB);
+    cg.writeEntry("SessionDatabase", m_ctagsUi.tagsFile->text());
 
     cg.sync();
 }
@@ -208,7 +220,7 @@ void KateCTagsView::lookupTag( )
     }
 
     clearInput();
-    Tags::TagList list = Tags::getExactMatches(m_sessionDB, currWord);
+    Tags::TagList list = Tags::getExactMatches(m_ctagsUi.tagsFile->text(), currWord);
     if (list.size() == 0) list = Tags::getExactMatches(m_commonDB, currWord);
     displayHits(list);
 
@@ -220,7 +232,7 @@ void KateCTagsView::lookupTag( )
 /******************************************************************/
 void KateCTagsView::editLookUp()
 {
-    Tags::TagList list = Tags::getPartialMatches(m_sessionDB, m_ctagsUi.inputEdit->text());
+    Tags::TagList list = Tags::getPartialMatches(m_ctagsUi.tagsFile->text(), m_ctagsUi.inputEdit->text());
     if (list.size() == 0) list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
     displayHits(list);
 }
@@ -254,7 +266,7 @@ void KateCTagsView::gotoDeclaration( )
 /******************************************************************/
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
-    Tags::TagList list = Tags::getMatches(m_sessionDB, word, false, types);
+    Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
     if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
  
     //kDebug() << "found" << list.count() << word << types;
@@ -489,19 +501,19 @@ void KateCTagsView::updateSessionDB()
         targets += m_ctagsUi.targetList->item(i)->text() + " ";
     }
 
-    // FIXME we need a way to get the session name
-    if (m_sessionDB.isEmpty()) {
-        m_sessionDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/session_db_", true);
-        m_sessionDB += QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+    if (m_ctagsUi.tagsFile->text().isEmpty()) {
+        // FIXME we need a way to get the session name
+        QString sessionDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/session_db_", true);
+        sessionDB += QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+        m_ctagsUi.tagsFile->setText(sessionDB);
     }
 
     if (targets.isEmpty()) {
-        QFile::remove(m_sessionDB);
-        m_sessionDB.clear();
+        QFile::remove(m_ctagsUi.tagsFile->text());
         return;
     }
 
-    QString command = QString("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_sessionDB).arg(targets) ;
+    QString command = QString("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_ctagsUi.tagsFile->text()).arg(targets) ;
 
     m_proc.setShellCommand(command);
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
@@ -512,7 +524,8 @@ void KateCTagsView::updateSessionDB()
         return;
     }
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-    m_ctagsUi.updateDB->setDisabled(true);
+    m_ctagsUi.updateButton->setDisabled(true);
+    m_ctagsUi.updateButton2->setDisabled(true);
 }
 
 
@@ -529,7 +542,8 @@ void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
         return;
     }
 
-    m_ctagsUi.updateDB->setDisabled(false);
+    m_ctagsUi.updateButton->setDisabled(false);
+    m_ctagsUi.updateButton2->setDisabled(false);
     QApplication::restoreOverrideCursor();
 }
 

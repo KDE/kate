@@ -56,7 +56,7 @@ void DataOutputModel::readConfig()
 
   KColorScheme scheme(QPalette::Active, KColorScheme::View);
 
-  foreach(QString k, m_styles.keys())
+  foreach(const QString& k, m_styles.keys())
   {
     OutputStyle *s = m_styles[k];
 

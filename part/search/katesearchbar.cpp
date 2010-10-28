@@ -1421,6 +1421,7 @@ void KateSearchBar::enterIncrementalMode() {
         m_incUi->pattern->setInsertPolicy(QComboBox::InsertAtTop);
         m_incUi->pattern->setMaxCount(m_config->maxHistorySize());
         m_incUi->pattern->setModel(m_config->patternHistoryModel());
+        m_incUi->pattern->setAutoCompletion(false);
     }
 
     // Restore previous settings

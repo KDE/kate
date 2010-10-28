@@ -281,7 +281,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
   snapshot.reserve(selectedIndexes.count());
 
-  foreach (const QModelIndex index, selectedIndexes)
+  foreach (const QModelIndex& index, selectedIndexes)
   {
     const QVariant data = index.data(Qt::UserRole);
 

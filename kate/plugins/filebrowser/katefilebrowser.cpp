@@ -136,7 +136,7 @@ void KateFileBrowser::setupToolbar()
   m_toolbar->clear();
 
   // now add all actions to the toolbar
-  foreach (QString it, actions)
+  foreach (const QString& it, actions)
   {
     QAction *ac = 0;
     if (it.isEmpty()) continue;

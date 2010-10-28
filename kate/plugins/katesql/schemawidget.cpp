@@ -131,7 +131,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 
   QStringList tables = db.tables(QSql::SystemTables);
 
-  foreach(QString table, tables)
+  foreach(const QString& table, tables)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
     item->setText(0, table);
@@ -141,7 +141,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 
   tables = db.tables(QSql::Tables);
 
-  foreach(QString table, tables)
+  foreach(const QString& table, tables)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(tablesItem, TableType);
     item->setText(0, table);
@@ -160,9 +160,9 @@ void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
   if (!db.isValid() || !db.isOpen() )
     return;
 
-  QStringList views = db.tables(QSql::Views);
+  const QStringList views = db.tables(QSql::Views);
 
-  foreach(QString view, views)
+  foreach(const QString& view, views)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(viewsItem, ViewType);
     item->setText(0, view);

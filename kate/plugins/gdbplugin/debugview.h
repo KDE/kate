@@ -110,21 +110,21 @@ private:
     void outputTextMaybe( const QString &text );
 
 private:
-    QProcess*           debugProcess;
-    QString             workingDirectory;
-    QString             target;
-    QString             arguments;
-    State               state;
-    SubState            subState;
-    QString             currentFile;
-    QString             newFrameFile;
-    int                 newFrameLevel;
-    QStringList         nextCommands;
-    QString             lastCommand;
-    QList<BreakPoint>   breakPointList;
-    QString             outBuffer;
-    QString             errBuffer;
-    QStringList         errorList;
+    QProcess*           m_debugProcess;
+    QString             m_workingDirectory;
+    QString             m_target;
+    QString             m_arguments;
+    State               m_state;
+    SubState            m_subState;
+    QString             m_currentFile;
+    QString             m_newFrameFile;
+    int                 m_newFrameLevel;
+    QStringList         m_nextCommands;
+    QString             m_lastCommand;
+    QList<BreakPoint>   m_breakPointList;
+    QString             m_outBuffer;
+    QString             m_errBuffer;
+    QStringList         m_errorList;
 };
 
 #endif

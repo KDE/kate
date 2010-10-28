@@ -41,25 +41,25 @@ static Q_PID getDebuggeePid( Q_PID gdbPid );
 
 DebugView::DebugView( QObject* parent )
 :   QObject( parent ),
-    debugProcess(0),
-    state( none ),
-    subState( normal )
+    m_debugProcess(0),
+    m_state( none ),
+    m_subState( normal )
 {
 }
 
 
 DebugView::~DebugView()
 {
-    if ( debugProcess && ( debugProcess->state() != QProcess::NotRunning ) )
+    if ( m_debugProcess && ( m_debugProcess->state() != QProcess::NotRunning ) )
     {
-        Q_PID pid = getDebuggeePid( debugProcess->pid() );
+        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
         if( pid != 0 )
         {
             ::kill( pid, SIGKILL );
         }
-        debugProcess->kill();
-        debugProcess->blockSignals( true );
-        debugProcess->waitForFinished();
+        m_debugProcess->kill();
+        m_debugProcess->blockSignals( true );
+        m_debugProcess->waitForFinished();
     }
 }
 
@@ -67,19 +67,19 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
                                 QString const&  newTarget,
                                 QString const&  newArguments )
 {
-    workingDirectory = newWorkingDirectory;
-    target = newTarget;
-    arguments = newArguments;
+    m_workingDirectory = newWorkingDirectory;
+    m_target = newTarget;
+    m_arguments = newArguments;
 
-    if( state == none )
+    if( m_state == none )
     {
-        outBuffer.clear();
-        errBuffer.clear();
-        errorList.clear();
+        m_outBuffer.clear();
+        m_errBuffer.clear();
+        m_errorList.clear();
 
         //create a process to control GDB
-        debugProcess = new QProcess( this );
-        debugProcess->setWorkingDirectory( workingDirectory );
+        m_debugProcess = new QProcess( this );
+        m_debugProcess->setWorkingDirectory( m_workingDirectory );
 
         //use the shell to find gdb for us, rather than launching gdb directly
         const char* shell = getenv( "SHELL" );
@@ -88,27 +88,27 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
             shell = "/bin/sh";
         }
 
-        //prepare the arguments to pass to shell
+        //prepare the m_arguments to pass to shell
         QStringList args;
         args.append( "-c" );
         args.append( "gdb" );
 
-        connect( debugProcess, SIGNAL( error(QProcess::ProcessError) ),
+        connect( m_debugProcess, SIGNAL( error(QProcess::ProcessError) ),
                             this, SLOT( slotError() ) );
 
-        connect( debugProcess, SIGNAL( readyReadStandardError() ),
+        connect( m_debugProcess, SIGNAL( readyReadStandardError() ),
                             this, SLOT( slotReadDebugStdErr() ) );
 
-        connect( debugProcess, SIGNAL( readyReadStandardOutput() ),
+        connect( m_debugProcess, SIGNAL( readyReadStandardOutput() ),
                             this, SLOT( slotReadDebugStdOut() ) );
 
-        connect( debugProcess, SIGNAL( finished(int,QProcess::ExitStatus) ),
+        connect( m_debugProcess, SIGNAL( finished(int,QProcess::ExitStatus) ),
                             this, SLOT( slotDebugFinished(int,QProcess::ExitStatus) ) );
 
-        debugProcess->start( shell, args );
+        m_debugProcess->start( shell, args );
 
-        nextCommands << "set pagination off";
-        state = ready;
+        m_nextCommands << "set pagination off";
+        m_state = ready;
     }
     else
     {
@@ -116,30 +116,30 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         // here we have to trigger it manually.
         QTimer::singleShot(0, this, SLOT(issueNextCommand()));
     }
-    nextCommands << QString("file %1").arg(target);
-    nextCommands << QString("set args %1").arg(arguments);
-    if (arguments.contains(">"))
+    m_nextCommands << QString("file %1").arg(m_target);
+    m_nextCommands << QString("set args %1").arg(m_arguments);
+    if (m_arguments.contains(">"))
     {
-        nextCommands << QString("tbreak main");
-        nextCommands << QString("run");
-        nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+        m_nextCommands << QString("tbreak main");
+        m_nextCommands << QString("run");
+        m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
     }
 }
 
 bool DebugView::debuggerRunning() const
 {
-    return( state != none );
+    return( m_state != none );
 }
 
 bool DebugView::debuggerBusy() const
 {
-    return( state == executingCmd );
+    return( m_state == executingCmd );
 }
 
 bool DebugView::hasBreakpoint( const KUrl& url, int line )
 {
-    for (int i = 0; i<breakPointList.size(); i++) {
-        if ( (url == breakPointList[i].file) && (line == breakPointList[i].line) ) {
+    for (int i = 0; i<m_breakPointList.size(); i++) {
+        if ( (url == m_breakPointList[i].file) && (line == m_breakPointList[i].line) ) {
             return true;
         }
     }
@@ -148,7 +148,7 @@ bool DebugView::hasBreakpoint( const KUrl& url, int line )
 
 void DebugView::toggleBreakpoint( KUrl const& url, int line )
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         QString cmd;
         if (hasBreakpoint( url, line ))
@@ -169,33 +169,33 @@ void DebugView::slotError()
 
 void DebugView::slotReadDebugStdOut()
 {
-    outBuffer += QString::fromLocal8Bit( debugProcess->readAllStandardOutput().data() );
+    m_outBuffer += QString::fromLocal8Bit( m_debugProcess->readAllStandardOutput().data() );
     int end=0;
     // handle one line at a time
     do {
-        end = outBuffer.indexOf('\n');
+        end = m_outBuffer.indexOf('\n');
         if (end < 0) break;
-        processLine( outBuffer.mid(0, end) );
-        outBuffer.remove(0,end+1);
+        processLine( m_outBuffer.mid(0, end) );
+        m_outBuffer.remove(0,end+1);
     } while (1);
 
-    if (outBuffer == "(gdb) ") 
+    if (m_outBuffer == "(gdb) ") 
     {
-        outBuffer.clear();
+        m_outBuffer.clear();
         processLine( "(gdb) " );
     }
 }
 
 void DebugView::slotReadDebugStdErr()
 {
-    errBuffer += QString::fromLocal8Bit( debugProcess->readAllStandardError().data() );
+    m_errBuffer += QString::fromLocal8Bit( m_debugProcess->readAllStandardError().data() );
     int end=0;
     // add whole lines at a time to the error list
     do {
-        end = errBuffer.indexOf('\n');
+        end = m_errBuffer.indexOf('\n');
         if (end < 0) break;
-        errorList << errBuffer.mid(0, end);
-        errBuffer.remove(0,end+1);
+        m_errorList << m_errBuffer.mid(0, end);
+        m_errBuffer.remove(0,end+1);
     } while (1);
 
     processErrors();
@@ -208,16 +208,16 @@ void DebugView::slotDebugFinished( int /*exitCode*/, QProcess::ExitStatus status
         emit outputText( "***gdb abended***" );
     }
 
-    delete debugProcess;
-    debugProcess = NULL;
-    state = none;
+    delete m_debugProcess;
+    m_debugProcess = NULL;
+    m_state = none;
     emit readyForInput( false );
 
     // remove all old breakpoints
     BreakPoint bPoint;
-    while ( breakPointList.size() > 0 )
+    while ( m_breakPointList.size() > 0 )
     {
-        bPoint = breakPointList.takeFirst();
+        bPoint = m_breakPointList.takeFirst();
         emit breakPointCleared( bPoint.file, bPoint.line -1 );
     }
 
@@ -226,29 +226,29 @@ void DebugView::slotDebugFinished( int /*exitCode*/, QProcess::ExitStatus status
 
 void DebugView::movePC( KUrl const& url, int line )
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         QString cmd = QString("tbreak %1%2").arg(url.path()).arg(line);
-        nextCommands <<  QString("jump %1:%2").arg(url.path()).arg(line);
+        m_nextCommands <<  QString("jump %1:%2").arg(url.path()).arg(line);
         issueCommand( cmd );
     }
 }
 
 void DebugView::runToCursor( KUrl const& url, int line )
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
-        nextCommands << "continue";
+        m_nextCommands << "continue";
         issueCommand( cmd );
     }
 }
 
 void DebugView::slotInterrupt()
 {
-    if( state == executingCmd )
+    if( m_state == executingCmd )
     {
-        Q_PID pid = getDebuggeePid( debugProcess->pid() );
+        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
         if( pid != 0 )
         {
             ::kill( pid, SIGINT );
@@ -258,13 +258,13 @@ void DebugView::slotInterrupt()
 
 void DebugView::slotKill()
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         issueCommand( "kill" );
     }
-    else if( state == executingCmd )
+    else if( m_state == executingCmd )
     {
-        Q_PID pid = getDebuggeePid( debugProcess->pid() );
+        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
         if( pid != 0 )
         {
             ::kill( pid, SIGKILL );
@@ -274,58 +274,58 @@ void DebugView::slotKill()
 
 void DebugView::slotReRun()
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         issueCommand( "kill" );
     }
-    else if( state == executingCmd )
+    else if( m_state == executingCmd )
     {
-        Q_PID pid = getDebuggeePid( debugProcess->pid() );
+        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
         if( pid != 0 )
         {
             ::kill( pid, SIGKILL );
         }
     }
-    nextCommands << QString("file %1").arg(target);
-    nextCommands << QString("set args %1").arg(arguments);
-    if (arguments.contains(">"))
+    m_nextCommands << QString("file %1").arg(m_target);
+    m_nextCommands << QString("set args %1").arg(m_arguments);
+    if (m_arguments.contains(">"))
     {
-        nextCommands << QString("tbreak main");
-        nextCommands << QString("run");
-        nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-        nextCommands << QString("continue");
+        m_nextCommands << QString("tbreak main");
+        m_nextCommands << QString("run");
+        m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+        m_nextCommands << QString("continue");
     }
     else
     {
-        nextCommands << "run";
+        m_nextCommands << "run";
     }
 }
 
 void DebugView::slotStepInto()
 {
-    nextCommands << "(Q)info stack";
-    nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info stack";
+    m_nextCommands << "(Q)frame";
     issueCommand( "step" );
 }
 
 void DebugView::slotStepOver()
 {
-    nextCommands << "(Q)info stack";
-    nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info stack";
+    m_nextCommands << "(Q)frame";
     issueCommand( "next" );
 }
 
 void DebugView::slotStepOut()
 {
-    nextCommands << "(Q)info stack";
-    nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info stack";
+    m_nextCommands << "(Q)frame";
     issueCommand( "finish" );
 }
 
 void DebugView::slotContinue()
 {
-    nextCommands << "(Q)info stack";
-    nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info stack";
+    m_nextCommands << "(Q)frame";
     issueCommand( "continue" );
 }
 
@@ -345,7 +345,7 @@ void DebugView::processLine( QString line )
     static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
     static QRegExp exitProgram( "Program\\s+exited.*" );
 
-    switch( state )
+    switch( m_state )
     {
         case none:
         case ready:
@@ -359,44 +359,44 @@ void DebugView::processLine( QString line )
         case executingCmd:
             if( breakpointList.exactMatch( line ) )
             {
-                state = listingBreakpoints;
+                m_state = listingBreakpoints;
             }
             else if ( stackFrameAny.exactMatch( line ) )
             {
-                if ( lastCommand.contains( "info stack" ) )
+                if ( m_lastCommand.contains( "info stack" ) )
                 {
                     emit stackFrameInfo( stackFrameAny.cap(1), stackFrameAny.cap(2));
                 }
                 else
                 {
-                    subState = ( subState == normal ) ? stackFrameSeen : stackTraceSeen;
+                    m_subState = ( m_subState == normal ) ? stackFrameSeen : stackTraceSeen;
 
-                    newFrameLevel = stackFrameAny.cap( 1 ).toInt();
+                    m_newFrameLevel = stackFrameAny.cap( 1 ).toInt();
 
                     if ( stackFrameFile.exactMatch( line ) )
                     {
-                        newFrameFile = stackFrameFile.cap( 4 );
+                        m_newFrameFile = stackFrameFile.cap( 4 );
                     }
                 }
             }
             else if( changeFile.exactMatch( line ) )
             {
-                currentFile = changeFile.cap( 1 ).trimmed();
+                m_currentFile = changeFile.cap( 1 ).trimmed();
                 int lineNum = changeFile.cap( 2 ).toInt();
 
                 // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( currentFile.toLocal8Bit(), lineNum - 1 );
+                emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
             }
             else if( changeLine.exactMatch( line ) )
             {
                 int lineNum = changeLine.cap( 1 ).toInt();
 
-                if( subState == stackFrameSeen )
+                if( m_subState == stackFrameSeen )
                 {
-                    currentFile = newFrameFile;
+                    m_currentFile = m_newFrameFile;
                 }
                 // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( currentFile.toLocal8Bit(), lineNum - 1 );
+                emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
             }
             else if (breakPointReg.exactMatch(line)) 
             {
@@ -404,7 +404,7 @@ void DebugView::processLine( QString line )
                 breakPoint.number = breakPointReg.cap( 1 ).toInt();
                 breakPoint.file = breakPointReg.cap( 2 );
                 breakPoint.line = breakPointReg.cap( 3 ).toInt();
-                breakPointList << breakPoint;
+                m_breakPointList << breakPoint;
                 emit breakPointSet( breakPoint.file, breakPoint.line -1 );
             }
             else if (breakPointDel.exactMatch(line)) 
@@ -414,12 +414,12 @@ void DebugView::processLine( QString line )
                 QStringList numbers = line.split(' ', QString::SkipEmptyParts);
                 for (int i=0; i<numbers.size(); i++) 
                 {
-                    for (int j = 0; j<breakPointList.size(); j++) 
+                    for (int j = 0; j<m_breakPointList.size(); j++) 
                     {
-                        if ( numbers[i].toInt() == breakPointList[j].number ) 
+                        if ( numbers[i].toInt() == m_breakPointList[j].number ) 
                         {
-                            emit breakPointCleared( breakPointList[j].file, breakPointList[j].line -1 );
-                            breakPointList.removeAt(j);
+                            emit breakPointCleared( m_breakPointList[j].file, m_breakPointList[j].line -1 );
+                            m_breakPointList.removeAt(j);
                             break;
                         }
                     }
@@ -431,24 +431,24 @@ void DebugView::processLine( QString line )
             {
                 // if there are still commands to execute remove them to remove unneeded output
                 // except  if the "kill was for "re-run"
-                if ( ( nextCommands.size() > 0 ) && !nextCommands[0].contains("file") ) 
+                if ( ( m_nextCommands.size() > 0 ) && !m_nextCommands[0].contains("file") ) 
                 {
-                    nextCommands.clear();
+                    m_nextCommands.clear();
                 }
                 emit programEnded();
             }
             else if ( line.contains( "Program received signal" ) )
             {
-                nextCommands << "(Q)info stack";
-                nextCommands << "(Q)frame";
+                m_nextCommands << "(Q)info stack";
+                m_nextCommands << "(Q)frame";
             }
             else if( prompt.exactMatch( line ) )
             {
-                if( subState == stackFrameSeen )
+                if( m_subState == stackFrameSeen )
                 {
-                    emit stackFrameChanged( newFrameLevel );
+                    emit stackFrameChanged( m_newFrameLevel );
                 }
-                state = ready;
+                m_state = ready;
 
                 // Give the error a possibility get noticed since stderr and stdout are not in sync
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
@@ -458,7 +458,7 @@ void DebugView::processLine( QString line )
         case listingBreakpoints:
             if( prompt.exactMatch( line ) )
             {
-                state = ready;
+                m_state = ready;
                 emit readyForInput( true );
             }
             break;
@@ -469,51 +469,51 @@ void DebugView::processLine( QString line )
 void DebugView::processErrors()
 {
     QString error;
-    while (errorList.size() > 0) {
-        error = errorList.takeFirst();
+    while (m_errorList.size() > 0) {
+        error = m_errorList.takeFirst();
         //kDebug() << error;
         if( error == "The program is not being run." )
         {
-            if ( lastCommand == "continue" ) 
+            if ( m_lastCommand == "continue" ) 
             {
-                nextCommands.clear();
-                if (arguments.contains(">"))
+                m_nextCommands.clear();
+                if (m_arguments.contains(">"))
                 {
-                    nextCommands << QString("tbreak main");
-                    nextCommands << QString("run");
-                    nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-                    nextCommands << QString("continue");
+                    m_nextCommands << QString("tbreak main");
+                    m_nextCommands << QString("run");
+                    m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+                    m_nextCommands << QString("continue");
                 }
                 else
                 {
-                    nextCommands << "run";
+                    m_nextCommands << "run";
                 }
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
-            else if ( ( lastCommand == "step" ) ||
-                ( lastCommand == "next" ) ||
-                ( lastCommand == "finish" ) )
+            else if ( ( m_lastCommand == "step" ) ||
+                ( m_lastCommand == "next" ) ||
+                ( m_lastCommand == "finish" ) )
             {
-                nextCommands.clear();
-                nextCommands << "tbreak main";
-                nextCommands << "run";
-                nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+                m_nextCommands.clear();
+                m_nextCommands << "tbreak main";
+                m_nextCommands << "run";
+                m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
-            else if ( (lastCommand == "kill"))
+            else if ((m_lastCommand == "kill"))
             {
-                if ( nextCommands.size() > 0 )
+                if ( m_nextCommands.size() > 0 )
                 {
-                    if ( !nextCommands[0].contains("file") )
+                    if ( !m_nextCommands[0].contains("file") )
                     {
-                        nextCommands.clear();
-                        nextCommands << "quit";
+                        m_nextCommands.clear();
+                        m_nextCommands << "quit";
                     }
                     // else continue with "ReRun"
                 }
                 else 
                 {
-                    nextCommands << "quit";
+                    m_nextCommands << "quit";
                 }
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
@@ -523,12 +523,12 @@ void DebugView::processErrors()
             error.contains( "No source file named" ) )
         {
             // setting a breakpoint failed. Do not continue.
-            nextCommands.clear();
+            m_nextCommands.clear();
             emit readyForInput( true );
         }
         else if ( error.contains( "No stack" ) )
         {
-            nextCommands.clear();
+            m_nextCommands.clear();
             emit programEnded();
         }
         emit outputError( error );
@@ -537,30 +537,30 @@ void DebugView::processErrors()
 
 void DebugView::issueCommand( QString const& cmd )
 {
-    if( state == ready )
+    if( m_state == ready )
     {
         emit readyForInput( false );
-        state = executingCmd;
-        subState = normal;
-        lastCommand = cmd;
+        m_state = executingCmd;
+        m_subState = normal;
+        m_lastCommand = cmd;
         if ( cmd.startsWith("(Q)") ) 
         {
-            debugProcess->write( cmd.mid(3).toLocal8Bit() + "\n" );
+            m_debugProcess->write( cmd.mid(3).toLocal8Bit() + "\n" );
         }
         else {
             emit outputText( "(gdb) " + cmd );
-            debugProcess->write( cmd.toLocal8Bit() + "\n" );
+            m_debugProcess->write( cmd.toLocal8Bit() + "\n" );
         }
     }
 }
 
 void DebugView::issueNextCommand()
 {
-    if( state == ready )
+    if( m_state == ready )
     {
-        if( nextCommands.size() > 0)
+        if( m_nextCommands.size() > 0)
         {
-            QString cmd = nextCommands.takeFirst();
+            QString cmd = m_nextCommands.takeFirst();
             //kDebug() << "Next command" << cmd;
             issueCommand( cmd );
         }
@@ -582,7 +582,7 @@ KUrl DebugView::resolveFileName( char const* fileName )
     }
     else
     {
-        url.setPath( workingDirectory );
+        url.setPath( m_workingDirectory );
         url.addPath( fileName );
         url.cleanPath();
     }
@@ -592,7 +592,7 @@ KUrl DebugView::resolveFileName( char const* fileName )
 
 void DebugView::outputTextMaybe( const QString &text )
 {
-    if ( !lastCommand.startsWith( "(Q)" )  && !text.contains( "(gdb)" ) )
+    if ( !m_lastCommand.startsWith( "(Q)" )  && !text.contains( "(gdb)" ) )
     {
         emit outputText( text );
     }

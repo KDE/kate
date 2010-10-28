@@ -78,15 +78,15 @@ public:
     virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
 
-public Q_SLOTS:
+private Q_SLOTS:
     void slotDebug();
+    void slotRestart();
     void slotToggleBreakpoint();
     void slotMovePC();
     void slotRunToCursor();
     void slotGoTo( const char* fileName, int lineNum );
     void slotValue();
 
-private Q_SLOTS:
     void aboutToShowMenu();
     void slotBreakpointSet( KUrl const& file, int line );
     void slotBreakpointCleared( KUrl const& file, int line );
@@ -104,22 +104,23 @@ private:
     QString currentWord();
 
     
-    Kate::Application*    kateApplication;
-    QWidget*              toolView;
-    QTabWidget*           tabWidget;
-    QTextEdit*            outputArea;
-    QTreeWidget*          stackTree;
-    KHistoryComboBox*     inputArea;
-    QString               lastCommand;
-    DebugView*            debugView;
-    ConfigView*           configView;
-    IOView*               ioView;
-    QPointer<KActionMenu> menu;
-    QAction*              breakpoint;
-    KUrl                  lastExecUrl;
-    int                   lastExecLine;
-    int                   lastExecFrame;
-    bool                  focusOnInput;
+    Kate::Application*    m_kateApplication;
+    QWidget*              m_toolView;
+    QTabWidget*           m_tabWidget;
+    QTextEdit*            m_outputArea;
+    KHistoryComboBox*     m_inputArea;
+    QWidget*              m_gdbPage;
+    QTreeWidget*          m_stackTree;
+    QString               m_lastCommand;
+    DebugView*            m_debugView;
+    ConfigView*           m_configView;
+    IOView*               m_ioView;
+    QPointer<KActionMenu> m_menu;
+    QAction*              m_breakpoint;
+    KUrl                  m_lastExecUrl;
+    int                   m_lastExecLine;
+    int                   m_lastExecFrame;
+    bool                  m_focusOnInput;
 };
 
 #endif

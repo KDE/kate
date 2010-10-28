@@ -200,7 +200,7 @@ namespace JoWenn {
       refreshList.insert(doc);
       }
     } else {
-      foreach(QString ft, fileType) {
+      foreach(const QString& ft, fileType) {
         QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[ft];
         QMultiHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::const_iterator it;
         for(it=m_document_model_multihash.constBegin();it!=m_document_model_multihash.constEnd();++it) {

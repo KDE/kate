@@ -51,9 +51,9 @@ namespace KTextEditor {
       }*/
       QDBusConnectionInterface *interface=QDBusConnection::sessionBus().interface();
       if (!interface) return;
-      QStringList serviceNames = interface->registeredServiceNames();
+      const QStringList serviceNames = interface->registeredServiceNames();
 
-      foreach(const QString serviceName,serviceNames)
+      foreach(const QString& serviceName,serviceNames)
       {
 	//m_dbusServiceName=QString("org.kde.KTECodesnippetsCore-%1.%2").arg(getpid()).arg(++s_id);
 	if (serviceName.startsWith("org.kde.ktecodesnippetscore-"))

@@ -1407,7 +1407,11 @@ void KateViewConfig::setSearchFlags (long flags)
 
 QStringListModel *KateViewConfig::patternHistoryModel()
 {
-  return &m_patternHistoryModel;
+  // always return global history
+  if (isGlobal())
+    return &m_patternHistoryModel;
+
+  return s_global->patternHistoryModel();
 }
 
 int KateViewConfig::maxHistorySize() const
@@ -1417,7 +1421,11 @@ int KateViewConfig::maxHistorySize() const
 
 QStringListModel *KateViewConfig::replacementHistoryModel()
 {
-  return &m_replacementHistoryModel;
+  // always return global history
+  if (isGlobal())
+    return &m_replacementHistoryModel;
+
+  return s_global->replacementHistoryModel();
 }
 
 uint KateViewConfig::defaultMarkType () const

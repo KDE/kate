@@ -20,6 +20,9 @@
 #include "searchbar_test.h"
 #include "moc_searchbar_test.cpp"
 
+#include "ui_searchbarincremental.h"
+#include "ui_searchbarpower.h"
+
 #include <qtest_kde.h>
 
 #include <katedocument.h>
@@ -59,6 +62,9 @@ public:
   {
     return m_hlRanges;
   }
+
+  Ui::IncrementalSearchBar *incUi() { return m_incUi; }
+  Ui::PowerSearchBar *powerUi() { return m_powerUi; }
 };
 
 
@@ -543,6 +549,76 @@ void SearchBarTest::testReplaceDollar()
   bar.replaceAll();
 
   QCOMPARE(doc.text(), QString("aaaD\nbbbD\ncccD\nD\nD\naaaD\nbbbD\ncccD\ndddD\n"));
+}
+
+void SearchBarTest::testSearchHistoryIncremental()
+{
+  KateDocument doc(false, false, false);
+  KateView view(&doc, 0);
+  KateViewConfig *const config = view.config();
+
+  doc.setText("foo bar");
+
+  QCOMPARE(config->patternHistoryModel()->stringList(), QStringList());
+
+  TestSearchBar bar(false, &view, config);
+
+  bar.setSearchPattern("foo");
+  bar.findNext();
+
+  QCOMPARE(bar.incUi()->pattern->findText("foo"), 0);
+
+  bar.setSearchPattern("bar");
+  bar.findNext();
+
+  QCOMPARE(bar.incUi()->pattern->findText("bar"), 0);
+  QCOMPARE(bar.incUi()->pattern->findText("foo"), 1);
+
+  KateDocument doc2(false, false, false);
+  KateView view2(&doc2, 0);
+  KateViewConfig *const config2 = view2.config();
+  TestSearchBar bar2(false, &view2, config2);
+
+  QCOMPARE(bar2.incUi()->pattern->findText("bar"), 0);
+  QCOMPARE(bar2.incUi()->pattern->findText("foo"), 1);
+}
+
+void SearchBarTest::testSearchHistoryPower()
+{
+  KateDocument doc(false, false, false);
+  KateView view(&doc, 0);
+  KateViewConfig *const config = view.config();
+
+  doc.setText("foo bar");
+
+  TestSearchBar bar(true, &view, config);
+
+  QCOMPARE(bar.powerUi()->pattern->count(), 0);
+
+  bar.setSearchPattern("foo");
+  bar.findNext();
+
+  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 0);
+
+  bar.findNext();
+
+  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 0);
+  QCOMPARE(bar.powerUi()->pattern->count(), 1);
+
+  bar.setSearchPattern("bar");
+  bar.findNext();
+
+  QCOMPARE(bar.powerUi()->pattern->findText("bar"), 0);
+  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 1);
+  QCOMPARE(bar.powerUi()->pattern->count(), 2);
+
+  KateDocument doc2(false, false, false);
+  KateView view2(&doc2, 0);
+  KateViewConfig *const config2 = view2.config();
+  TestSearchBar bar2(true, &view2, config2);
+
+  QCOMPARE(bar2.powerUi()->pattern->findText("bar"), 0);
+  QCOMPARE(bar2.powerUi()->pattern->findText("foo"), 1);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

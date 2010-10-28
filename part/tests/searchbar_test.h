@@ -62,6 +62,9 @@ private Q_SLOTS:
   void testReplaceWithDoubleSelecion();
 
   void testReplaceDollar();
+
+  void testSearchHistoryIncremental();
+  void testSearchHistoryPower();
 };
 
 #endif

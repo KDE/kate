@@ -157,7 +157,6 @@ protected:
     KateViewConfig *const m_config;
     QList<KTextEditor::MovingRange*> m_hlRanges;
 
-private:
     // Shared by both dialogs
     QVBoxLayout *const m_layout;
     QWidget * m_widget;

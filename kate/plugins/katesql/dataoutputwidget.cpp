@@ -77,6 +77,10 @@ m_view(new DataOutputView(this))
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotExport()));
 
+  action = new KAction( KIcon("edit-clear"), i18nc("@action:intoolbar", "Clear"), this);
+  toolbar->addAction(action);
+  connect(action, SIGNAL(triggered()), this, SLOT(clearResults()));
+
   toolbar->addSeparator();
 
   KToggleAction *toggleAction = new KToggleAction( KIcon("applications-education-language"), i18nc("@action:intoolbar", "Use system locale"), this);
@@ -117,11 +121,14 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 
 void DataOutputWidget::clearResults()
 {
-  /// FIXME
-//  m_model->query().finish();
-   m_model->clear();
+  m_model->clear();
 
-   m_view->reset();
+  /// HACK needed to refresh headers. please correct if there's a better way
+  m_view->horizontalHeader()->hide();
+  m_view->verticalHeader()->hide();
+
+  m_view->horizontalHeader()->show();
+  m_view->verticalHeader()->show();
 }
 
 
@@ -275,9 +282,9 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
   QSet<int> columns;
   QSet<int> rows;
+  QHash<QPair<int,int>,QString> snapshot;
 
   const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
-  QHash<QPair<int,int>,QString> snapshot;
 
   snapshot.reserve(selectedIndexes.count());
 

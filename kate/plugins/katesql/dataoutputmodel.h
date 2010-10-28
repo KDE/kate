@@ -25,7 +25,8 @@ class OutputStyle;
 #include <qcolor.h>
 #include <qfont.h>
 
-/// only provide colors for null and blob values
+
+/// provide colors and styles
 class DataOutputModel : public QSqlQueryModel
 {
   Q_OBJECT
@@ -37,13 +38,13 @@ class DataOutputModel : public QSqlQueryModel
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
 
-    virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+
+    void clear();
 
     void readConfig();
 
   private:
-    bool isNumeric(QVariant::Type type) const;
-
     QHash<QString,OutputStyle*> m_styles;
     bool m_useSystemLocale;
 };

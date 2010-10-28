@@ -26,6 +26,13 @@
 #include <kconfiggroup.h>
 #include <kglobalsettings.h>
 
+
+inline bool isNumeric(const QVariant::Type type)
+{
+  return (type > 1 && type < 7);
+}
+
+
 DataOutputModel::DataOutputModel(QObject *parent)
 : QSqlQueryModel(parent)
 {
@@ -45,6 +52,16 @@ DataOutputModel::DataOutputModel(QObject *parent)
 DataOutputModel::~DataOutputModel()
 {
   qDeleteAll(m_styles);
+}
+
+
+void DataOutputModel::clear()
+{
+  beginResetModel();
+
+  QSqlQueryModel::clear();
+
+  endResetModel();
 }
 
 
@@ -89,12 +106,6 @@ void DataOutputModel::setUseSystemLocale( bool useSystemLocale )
   m_useSystemLocale = useSystemLocale;
 
   emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() -1));
-}
-
-
-bool DataOutputModel::isNumeric(const QVariant::Type type) const
-{
-  return (type > 1 && type < 7);
 }
 
 
@@ -190,6 +201,8 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     return QVariant(m_styles.value("text")->background);
   if (role == Qt::TextAlignmentRole)
     return QVariant(Qt::AlignVCenter);
+  if (role == Qt::DisplayRole)
+    return value.toString();
   if (role == Qt::UserRole)
     return value;
 

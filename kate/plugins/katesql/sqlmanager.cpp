@@ -352,6 +352,6 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
   }
 
   emit success(message);
-  emit queryActivated(query);
+  emit queryActivated(query, connection);
 }
 

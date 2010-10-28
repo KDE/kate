@@ -55,7 +55,7 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
     void slotRunQuery();
     void slotError(const QString &message);
     void slotSuccess(const QString &message);
-    void slotQueryActivated(QSqlQuery &query);
+    void slotQueryActivated(QSqlQuery &query, const QString &connection);
     void slotConnectionCreated(const QString &name);
     void slotGlobalSettingsChanged();
     void slotSQLMenuAboutToShow();
@@ -77,6 +77,8 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
     KComboBox *m_connectionsComboBox;
 
     SQLManager *m_manager;
+
+    QString m_currentResultsetConnection;
 };
 
 #endif // KATESQLVIEW_H

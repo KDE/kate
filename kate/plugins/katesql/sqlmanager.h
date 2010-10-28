@@ -55,7 +55,7 @@ class SQLManager : public QObject
     void connectionCreated(const QString &name);
     void connectionRemoved(const QString &name);
 
-    void queryActivated(QSqlQuery &query);
+    void queryActivated(QSqlQuery &query, const QString &connection);
 
     void error(const QString &message);
     void success(const QString &message);

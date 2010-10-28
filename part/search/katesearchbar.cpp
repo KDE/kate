@@ -244,9 +244,11 @@ void KateSearchBar::setSearchMode(KateSearchBar::SearchMode mode) {
 void KateSearchBar::findNext() {
     const bool found = find();
 
-    if (found && m_powerUi != NULL) {
+    if (found) {
+        QComboBox *combo = m_powerUi != 0 ? m_powerUi->pattern : m_incUi->pattern;
+
         // Add to search history
-        addCurrentTextToHistory(m_powerUi->pattern);
+        addCurrentTextToHistory(combo);
     }
 }
 
@@ -255,9 +257,11 @@ void KateSearchBar::findNext() {
 void KateSearchBar::findPrevious() {
     const bool found = find(SearchBackward);
 
-    if (found && m_powerUi != NULL) {
+    if (found) {
+        QComboBox *combo = m_powerUi != 0 ? m_powerUi->pattern : m_incUi->pattern;
+
         // Add to search history
-        addCurrentTextToHistory(m_powerUi->pattern);
+        addCurrentTextToHistory(combo);
     }
 }
 
@@ -654,11 +658,11 @@ void KateSearchBar::givePatternFeedback() {
 void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
     const QString text = combo->currentText();
     const int index = combo->findText(text);
-    if (index != -1) {
+
+    if (index > 0)
         combo->removeItem(index);
-    }
-    combo->insertItem(0, text);
-    combo->setCurrentIndex(0);
+    if (index != 0)
+        combo->insertItem(0, text);
 }
 
 
@@ -1255,9 +1259,11 @@ void KateSearchBar::enterPowerMode() {
         m_layout->addWidget(m_widget);
 
         // Bind to shared history models
+        m_powerUi->pattern->setDuplicatesEnabled(false);
         m_powerUi->pattern->setInsertPolicy(QComboBox::InsertAtTop);
         m_powerUi->pattern->setMaxCount(m_config->maxHistorySize());
         m_powerUi->pattern->setModel(m_config->patternHistoryModel());
+        m_powerUi->replacement->setDuplicatesEnabled(false);
         m_powerUi->replacement->setInsertPolicy(QComboBox::InsertAtTop);
         m_powerUi->replacement->setMaxCount(m_config->maxHistorySize());
         m_powerUi->replacement->setModel(m_config->replacementHistoryModel());
@@ -1418,6 +1424,7 @@ void KateSearchBar::enterIncrementalMode() {
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);
 
+        m_incUi->pattern->setDuplicatesEnabled(false);
         m_incUi->pattern->setInsertPolicy(QComboBox::InsertAtTop);
         m_incUi->pattern->setMaxCount(m_config->maxHistorySize());
         m_incUi->pattern->setModel(m_config->patternHistoryModel());

@@ -72,6 +72,42 @@ SearchBarTest::~SearchBarTest()
 }
 
 
+void SearchBarTest::testFindNextIncremental()
+{
+  KateDocument doc(false, false, false);
+  doc.setText("a a a b b");
+
+  KateView view(&doc, 0);
+  KateViewConfig config(&view);
+
+  KateSearchBar bar(false, &view, &config);
+
+  bar.setSearchPattern("b");
+
+  QCOMPARE(view.selectionRange(), Range(0, 6, 0, 7));
+
+  bar.findNext();
+
+  QCOMPARE(view.selectionRange(), Range(0, 8, 0, 9));
+
+  bar.setSearchPattern("a");
+
+  QCOMPARE(view.selectionRange(), Range(0, 0, 0, 1));
+
+  bar.findNext();
+
+  QCOMPARE(view.selectionRange(), Range(0, 2, 0, 3));
+
+  bar.findNext();
+
+  QCOMPARE(view.selectionRange(), Range(0, 4, 0, 5));
+
+  bar.findNext();
+
+  QCOMPARE(view.selectionRange(), Range(0, 0, 0, 1));
+}
+
+
 void SearchBarTest::testSetMatchCaseIncremental()
 {
   KateDocument doc(false, false, false);

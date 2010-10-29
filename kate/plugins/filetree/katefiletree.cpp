@@ -224,50 +224,76 @@ void KateFileTree::slotDocumentPrev()
   QModelIndex prev;
   
   // scan up the tree skipping any dir nodes
+  
+  //kDebug(debugArea()) << "cur" << ftpm->data(current_index, Qt::DisplayRole);
   while(current_index.isValid()) {
     if(current_index.row() > 0) {
       current_index = ftpm->sibling(current_index.row()-1, current_index.column(), current_index);
+      //kDebug(debugArea()) << "get prev" << ftpm->data(current_index, Qt::DisplayRole);
       if(!current_index.isValid()) {
-        kDebug(debugArea()) << "somehow getting prev index from sibling didn't work :(";
+        //kDebug(debugArea()) << "somehow getting prev index from sibling didn't work :(";
         break;
       }
       
       if(ftpm->isDir(current_index)) {
         // try and select the last child in this parent
+        //kDebug(debugArea()) << "is a dir";
         int children = ftpm->rowCount(current_index);
         current_index = ftpm->index(children-1, 0, current_index);
+        //kDebug(debugArea()) << "child" << ftpm->data(current_index, Qt::DisplayRole);
         if(ftpm->isDir(current_index)) {
           // since we're a dir, keep going
+          //kDebug(debugArea()) << "child is a dir";
+          while(ftpm->isDir(current_index)) {
+            children = ftpm->rowCount(current_index);
+            current_index = ftpm->index(children-1, 0, current_index);
+          }
+          
+          if(!ftpm->isDir(current_index)) {
+            prev = current_index;
+            break;
+          }
+          
           continue;
         } else {
           // we're the previous file, set prev
+          //kDebug(debugArea()) << "got doc 1";
           prev = current_index;
           break;
         }
       } else { // found document item
+        //kDebug(debugArea()) << "got doc 2";
         prev = current_index;
         break;
       }
     }
     else {
+      //kDebug(debugArea()) << "get parent";
       // just select the parent, the logic above will handle the rest
       current_index = ftpm->parent(current_index);
-      
+      //kDebug(debugArea()) << "got parent" << ftpm->data(current_index, Qt::DisplayRole);
       if(!current_index.isValid()) {
         // past the root node here, try and wrap arround
+        //kDebug(debugArea()) << "parent invalid";
+        
         int children = ftpm->rowCount(current_index);
         QModelIndex last_index = ftpm->index(children-1, 0, current_index);
+        //kDebug(debugArea()) << "last" << ftpm->data(last_index, Qt::DisplayRole);
         if(!last_index.isValid())
           break;
         
         if(ftpm->isDir(last_index)) {
           // last node is a dir, select last child row
+          //kDebug(debugArea()) << "last root is a dir, select child";
           int last_children = ftpm->rowCount(last_index);
           prev = ftpm->index(last_children-1, 0, last_index);
+          //kDebug(debugArea()) << "last child" << ftpm->data(current_index, Qt::DisplayRole);
+          // bug here?
           break;
         }
         else {
           // got last file node
+          //kDebug(debugArea()) << "got doc";
           prev = last_index;
           break;
         }
@@ -276,8 +302,8 @@ void KateFileTree::slotDocumentPrev()
   }
   
   if(prev.isValid()) {
-    kDebug(debugArea()) << "got prev node:" << prev;
-    kDebug(debugArea()) << "doc:" << ftpm->data(prev, Qt::DisplayRole).value<QString>();
+    //kDebug(debugArea()) << "got prev node:" << prev;
+    //kDebug(debugArea()) << "doc:" << ftpm->data(prev, Qt::DisplayRole).value<QString>();
 
     KTextEditor::Document *doc = model()->data(prev, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     emit activateDocument(doc);
@@ -370,8 +396,8 @@ void KateFileTree::slotDocumentNext()
   }
   
   if(next.isValid()) {
-    kDebug(debugArea()) << "got next node:" << next;
-    kDebug(debugArea()) << "doc:" << ftpm->data(next, Qt::DisplayRole).value<QString>();
+    //kDebug(debugArea()) << "got next node:" << next;
+    //kDebug(debugArea()) << "doc:" << ftpm->data(next, Qt::DisplayRole).value<QString>();
 
     KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     emit activateDocument(doc);

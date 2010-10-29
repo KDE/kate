@@ -164,7 +164,7 @@ void DebugView::toggleBreakpoint( KUrl const& url, int line )
 
 void DebugView::slotError()
 {
-    KMessageBox::sorry( NULL, "Could not start debugger process" );
+    KMessageBox::sorry( NULL, i18n("Could not start debugger process") );
 }
 
 void DebugView::slotReadDebugStdOut()

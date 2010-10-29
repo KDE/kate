@@ -51,23 +51,6 @@ namespace QTest {
 using namespace KTextEditor;
 
 
-class TestSearchBar : public KateSearchBar
-{
-public:
-  TestSearchBar(bool initAsPower, KateView *view, KateViewConfig *config)
-    : KateSearchBar(initAsPower, view, config)
-  {}
-
-  const QList<KTextEditor::MovingRange*> &childRanges() const
-  {
-    return m_hlRanges;
-  }
-
-  Ui::IncrementalSearchBar *incUi() { return m_incUi; }
-  Ui::PowerSearchBar *powerUi() { return m_powerUi; }
-};
-
-
 SearchBarTest::SearchBarTest()
     : QObject()
 {
@@ -251,20 +234,20 @@ void SearchBarTest::testSetSearchPattern()
 
   doc.setText("a a a");
 
-  TestSearchBar bar(power, &view, &config);
+  KateSearchBar bar(power, &view, &config);
 
   bar.setSearchPattern("a");
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 3);
+  QCOMPARE(bar.m_hlRanges.size(), 3);
 
   bar.setSearchPattern("a ");
 
-  QCOMPARE(bar.childRanges().size(), numMatches2);
+  QCOMPARE(bar.m_hlRanges.size(), numMatches2);
 
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 2);
+  QCOMPARE(bar.m_hlRanges.size(), 2);
 }
 
 
@@ -277,17 +260,17 @@ void SearchBarTest::testSetSelectionOnly()
   doc.setText("a a a");
   view.setSelection(Range(0, 0, 0, 3));
 
-  TestSearchBar bar(false, &view, &config);
+  KateSearchBar bar(false, &view, &config);
 
   bar.setSelectionOnly(false);
   bar.setSearchPattern("a");
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 3);
+  QCOMPARE(bar.m_hlRanges.size(), 3);
 
   bar.setSelectionOnly(true);
 
-  QCOMPARE(bar.childRanges().size(), 3);
+  QCOMPARE(bar.m_hlRanges.size(), 3);
 }
 
 
@@ -313,33 +296,33 @@ void SearchBarTest::testFindAll()
   KateViewConfig config(&view);
 
   doc.setText("a a a");
-  TestSearchBar bar(power, &view, &config);
+  KateSearchBar bar(power, &view, &config);
 
   QCOMPARE(bar.isPower(), power);
 
   bar.setSearchPattern("a");
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 3);
-  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 1));
-  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 2, 0, 3));
-  QCOMPARE(bar.childRanges().at(2)->toRange(), Range(0, 4, 0, 5));
+  QCOMPARE(bar.m_hlRanges.size(), 3);
+  QCOMPARE(bar.m_hlRanges.at(0)->toRange(), Range(0, 0, 0, 1));
+  QCOMPARE(bar.m_hlRanges.at(1)->toRange(), Range(0, 2, 0, 3));
+  QCOMPARE(bar.m_hlRanges.at(2)->toRange(), Range(0, 4, 0, 5));
 
   bar.setSearchPattern("a ");
 
-  QCOMPARE(bar.childRanges().size(), numMatches2);
+  QCOMPARE(bar.m_hlRanges.size(), numMatches2);
 
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 2);
+  QCOMPARE(bar.m_hlRanges.size(), 2);
 
   bar.setSearchPattern("a  ");
 
-  QCOMPARE(bar.childRanges().size(), numMatches4);
+  QCOMPARE(bar.m_hlRanges.size(), numMatches4);
 
   bar.findAll();
 
-  QCOMPARE(bar.childRanges().size(), 0);
+  QCOMPARE(bar.m_hlRanges.size(), 0);
 }
 
 void SearchBarTest::testReplaceAll()
@@ -349,24 +332,24 @@ void SearchBarTest::testReplaceAll()
   KateViewConfig config(&view);
 
   doc.setText("a a a");
-  TestSearchBar bar(true, &view, &config);
+  KateSearchBar bar(true, &view, &config);
 
   bar.setSearchPattern("a");
   bar.setReplacePattern("");
   bar.replaceAll();
 
-  QCOMPARE(bar.childRanges().size(), 3);
-  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 0));
-  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 1, 0, 1));
-  QCOMPARE(bar.childRanges().at(2)->toRange(), Range(0, 2, 0, 2));
+  QCOMPARE(bar.m_hlRanges.size(), 3);
+  QCOMPARE(bar.m_hlRanges.at(0)->toRange(), Range(0, 0, 0, 0));
+  QCOMPARE(bar.m_hlRanges.at(1)->toRange(), Range(0, 1, 0, 1));
+  QCOMPARE(bar.m_hlRanges.at(2)->toRange(), Range(0, 2, 0, 2));
 
   bar.setSearchPattern(" ");
   bar.setReplacePattern("b");
   bar.replaceAll();
 
-  QCOMPARE(bar.childRanges().size(), 2);
-  QCOMPARE(bar.childRanges().at(0)->toRange(), Range(0, 0, 0, 1));
-  QCOMPARE(bar.childRanges().at(1)->toRange(), Range(0, 1, 0, 2));
+  QCOMPARE(bar.m_hlRanges.size(), 2);
+  QCOMPARE(bar.m_hlRanges.at(0)->toRange(), Range(0, 0, 0, 1));
+  QCOMPARE(bar.m_hlRanges.at(1)->toRange(), Range(0, 1, 0, 2));
 }
 
 void SearchBarTest::testFindSelectionForward_data()
@@ -561,26 +544,26 @@ void SearchBarTest::testSearchHistoryIncremental()
 
   QCOMPARE(config->patternHistoryModel()->stringList(), QStringList());
 
-  TestSearchBar bar(false, &view, config);
+  KateSearchBar bar(false, &view, config);
 
   bar.setSearchPattern("foo");
   bar.findNext();
 
-  QCOMPARE(bar.incUi()->pattern->findText("foo"), 0);
+  QCOMPARE(bar.m_incUi->pattern->findText("foo"), 0);
 
   bar.setSearchPattern("bar");
   bar.findNext();
 
-  QCOMPARE(bar.incUi()->pattern->findText("bar"), 0);
-  QCOMPARE(bar.incUi()->pattern->findText("foo"), 1);
+  QCOMPARE(bar.m_incUi->pattern->findText("bar"), 0);
+  QCOMPARE(bar.m_incUi->pattern->findText("foo"), 1);
 
   KateDocument doc2(false, false, false);
   KateView view2(&doc2, 0);
   KateViewConfig *const config2 = view2.config();
-  TestSearchBar bar2(false, &view2, config2);
+  KateSearchBar bar2(false, &view2, config2);
 
-  QCOMPARE(bar2.incUi()->pattern->findText("bar"), 0);
-  QCOMPARE(bar2.incUi()->pattern->findText("foo"), 1);
+  QCOMPARE(bar2.m_incUi->pattern->findText("bar"), 0);
+  QCOMPARE(bar2.m_incUi->pattern->findText("foo"), 1);
 }
 
 void SearchBarTest::testSearchHistoryPower()
@@ -591,34 +574,34 @@ void SearchBarTest::testSearchHistoryPower()
 
   doc.setText("foo bar");
 
-  TestSearchBar bar(true, &view, config);
+  KateSearchBar bar(true, &view, config);
 
-  QCOMPARE(bar.powerUi()->pattern->count(), 0);
+  QCOMPARE(bar.m_powerUi->pattern->count(), 0);
 
   bar.setSearchPattern("foo");
   bar.findNext();
 
-  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 0);
+  QCOMPARE(bar.m_powerUi->pattern->findText("foo"), 0);
 
   bar.findNext();
 
-  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 0);
-  QCOMPARE(bar.powerUi()->pattern->count(), 1);
+  QCOMPARE(bar.m_powerUi->pattern->findText("foo"), 0);
+  QCOMPARE(bar.m_powerUi->pattern->count(), 1);
 
   bar.setSearchPattern("bar");
   bar.findNext();
 
-  QCOMPARE(bar.powerUi()->pattern->findText("bar"), 0);
-  QCOMPARE(bar.powerUi()->pattern->findText("foo"), 1);
-  QCOMPARE(bar.powerUi()->pattern->count(), 2);
+  QCOMPARE(bar.m_powerUi->pattern->findText("bar"), 0);
+  QCOMPARE(bar.m_powerUi->pattern->findText("foo"), 1);
+  QCOMPARE(bar.m_powerUi->pattern->count(), 2);
 
   KateDocument doc2(false, false, false);
   KateView view2(&doc2, 0);
   KateViewConfig *const config2 = view2.config();
-  TestSearchBar bar2(true, &view2, config2);
+  KateSearchBar bar2(true, &view2, config2);
 
-  QCOMPARE(bar2.powerUi()->pattern->findText("bar"), 0);
-  QCOMPARE(bar2.powerUi()->pattern->findText("foo"), 1);
+  QCOMPARE(bar2.m_powerUi->pattern->findText("bar"), 0);
+  QCOMPARE(bar2.m_powerUi->pattern->findText("foo"), 1);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

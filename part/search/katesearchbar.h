@@ -46,6 +46,8 @@ namespace KTextEditor {
 class KATEPART_TESTS_EXPORT KateSearchBar : public KateViewBarWidget {
     Q_OBJECT
 
+    friend class SearchBarTest;
+
 public:
     enum SearchMode {
         // NOTE: Concrete values are important here
@@ -152,7 +154,7 @@ private:
     void sendConfig();
     void fixForSingleLine(KTextEditor::Range & range, SearchDirection searchDirection);
 
-protected:
+private:
     KateView *const m_view;
     KateViewConfig *const m_config;
     QList<KTextEditor::MovingRange*> m_hlRanges;

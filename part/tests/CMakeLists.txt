@@ -140,6 +140,17 @@ target_link_libraries( katedocument_test
   katepartinterfaces
 )
 
+########### view test ###############
+
+kde4_add_unit_test(kateview_test TESTNAME kate-kateview_test kateview_test.cpp)
+
+target_link_libraries( kateview_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### revision test ###############
 
 kde4_add_unit_test(revision_test TESTNAME kate-revision_test revision_test.cpp)

@@ -239,8 +239,6 @@ class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
      * \param view the view that the annotation border belongs to
      * \param menu the context menu that will be shown
      * \param line the annotated line for which the context menu is shown
-     *
-     * \see setAnnotationContextMenu()
      */
     virtual void annotationContextMenuAboutToShow( KTextEditor::View* view, QMenu* menu, int line ) = 0;
 

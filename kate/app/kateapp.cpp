@@ -147,7 +147,7 @@ void KateApp::initKate ()
 void KateApp::restoreKate ()
 {
   // activate again correct session!!!
-  QString lastSession (sessionConfig()->group("General").readEntry ("Last Session", "default.katesession"));
+  QString lastSession (sessionConfig()->group("General").readEntry ("Last Session", QString()));
   sessionManager()->activateSession (KateSession::Ptr(new KateSession (sessionManager(), lastSession)), false, false, false);
 
   // plugins
@@ -384,7 +384,7 @@ bool KateApp::openInput (const QString &text)
 
 KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup_)
 {
-  KConfig *sconfig = sconfig_ ? sconfig_ : new KConfig(m_sessionManager->defaultSessionFile());
+  KConfig *sconfig = sconfig_ ? sconfig_ : KGlobal::config().data();
   QString sgroup = !sgroup_.isEmpty() ? sgroup_ : "MainWindow0";
 
   KateMainWindow *mainWindow = new KateMainWindow (sconfig, sgroup);

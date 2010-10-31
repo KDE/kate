@@ -28,6 +28,7 @@
 #include "kateconfigplugindialogpage.h"
 #include "kateviewmanager.h"
 #include "kateapp.h"
+#include "katesession.h"
 
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/EditorChooser>
@@ -371,7 +372,9 @@ void KateConfigDialog::slotApply()
     m_mainWindow->saveOptions ();
 
     // save plugin config !!
-    KateApp::self()->pluginManager()->writeConfig (KGlobal::config().data());
+    KateSessionManager *sessionmanager = KateSessionManager::self();
+    KConfig *sessionConfig = sessionmanager->activeSession()->configWrite();
+    KateApp::self()->pluginManager()->writeConfig (sessionConfig);
   }
 
   foreach (PluginPageListItem *plugin, m_pluginPages.values())

@@ -114,6 +114,8 @@ class KateSession  : public KShared
      * on first access, will create the config object, delete will be done automagic
      * return 0 if we have no file to read config from atm
      * @return config to read from
+     * @note never delete configRead(), because the return value might be
+     *       KGlobal::config(). Only delete the member variables directly.
      */
     KConfig *configRead ();
 
@@ -122,6 +124,8 @@ class KateSession  : public KShared
      * on first access, will create the config object, delete will be done automagic
      * return 0 if we have no file to write config to atm
      * @return config to write from
+     * @note never delete configWrite(), because the return value might be
+     *       KGlobal::config(). Only delete the member variables directly.
      */
     KConfig *configWrite ();
 
@@ -240,14 +244,6 @@ class KateSessionManager : public QObject
     }
 
     /**
-     * Returns the url to the default.katesession file.
-     * The url is the global file, if the local file (i.e. in the .kde-folder)
-     * does not exist. The url changes, as soon as the local file exists (this
-     * happens, when the users invokes "Session" > "Save As Default")
-     */
-    QString defaultSessionFile() const;
-
-    /**
      * initial session chooser, on app start
      * @return success, if false, app should exit
      */
@@ -274,11 +270,6 @@ class KateSessionManager : public QObject
      * try to save as current session
      */
     void sessionSaveAs ();
-
-    /**
-     * save the current session's properties for new sessions.
-     */
-    void sessionSaveAsDefault ();
 
     /**
      * show dialog to manage our sessions
@@ -322,8 +313,6 @@ class KateSessionManager : public QObject
      * current active session
      */
     KateSession::Ptr m_activeSession;
-
-    QString m_defaultSessionFile;
 };
 
 class KateSessionChooser : public KDialog

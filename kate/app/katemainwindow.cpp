@@ -363,10 +363,6 @@ void KateMainWindow::setupActions()
   a->setIcon( KIcon("document-save-as") );
   a->setText( i18n("Save Session &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
-  a = actionCollection()->addAction( "sessions_save_default" );
-  a->setIcon( KIcon("document-save-as") );
-  a->setText( i18n("Save Session as &Default...") );
-  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAsDefault() ) );
   a = actionCollection()->addAction( "sessions_manage" );
   a->setIcon( KIcon("view-choose") );
   a->setText( i18n("&Manage Sessions...") );

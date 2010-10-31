@@ -40,17 +40,17 @@
          </property>
          <column>
           <property name="text">
-           <string comment="Header for the file name collumn">File</string>
+           <string comment="Header for the file name column">File</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string comment="Header for the line number collumn">Line</string>
+           <string comment="Header for the line number column">Line</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string comment="Header for the error message collumn">Message</string>
+           <string comment="Header for the error message column">Message</string>
           </property>
          </column>
         </widget>
@@ -71,7 +71,7 @@
           <bool>false</bool>
          </property>
          <property name="lineWrapMode">
-          <enum>QPlainTextEdit::NoWrap</enum>
+          <enum>QPlainTextEdit::WidgetWidth</enum>
          </property>
          <property name="readOnly">
           <bool>true</bool>

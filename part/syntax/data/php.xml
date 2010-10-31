@@ -99,6 +99,7 @@ Changes:
       <item> extends </item>
       <item> final </item>
       <item> function </item>
+      <item> global </item>
       <item> implements </item>
       <item> instanceof </item>
       <item> interface </item>
@@ -1964,6 +1965,8 @@ Changes:
       <item> array_push </item>
       <item> array_rand </item>
       <item> array_reduce </item>
+      <item> array_replace </item>
+      <item> array_replace_recursive </item>
       <item> array_reverse </item>
       <item> array_search </item>
       <item> array_shift </item>
@@ -2210,10 +2213,31 @@ Changes:
       <item> cyrus_query </item>
       <item> cyrus_unbind </item>
       <item> date </item>
+      <item> date_add </item>
+      <item> date_create </item>
+      <item> date_create_from_format </item>
+      <item> date_date_set </item>
       <item> date_default_timezone_get </item>
       <item> date_default_timezone_set </item>
+      <item> date_diff </item>
+      <item> date_format </item>
+      <item> date_get_last_errors </item>
+      <item> date_interval_create_from_date_string </item>
+      <item> date_interval_format </item>
+      <item> date_isodate_set </item>
+      <item> date_modify </item>
+      <item> date_offset_get </item>
+      <item> date_parse </item>
+      <item> date_parse_from_format </item>
+      <item> date_sub </item>
+      <item> date_sun_info </item>
       <item> date_sunrise </item>
       <item> date_sunset </item>
+      <item> date_time_ set </item>
+      <item> date_timestamp_get </item>
+      <item> date_timestamp_set </item>
+      <item> date_timezone_get </item>
+      <item> date_timezone_set </item>
       <item> dba_close </item>
       <item> dba_delete </item>
       <item> dba_exists </item>
@@ -2311,8 +2335,6 @@ Changes:
       <item> debug_backtrace </item>
       <item> debug_print_backtrace </item>
       <item> debug_zval_dump </item>
-      <item> debugger_off </item>
-      <item> debugger_on </item>
       <item> decbin </item>
       <item> dechex </item>
       <item> decoct </item>
@@ -2355,7 +2377,6 @@ Changes:
       <item> domxml_root </item>
       <item> domxml_set_attribute </item>
       <item> domxml_version </item>
-      <item> dotnet_load </item>
       <item> doubleval </item>
       <item> each </item>
       <item> easter_date </item>
@@ -2364,10 +2385,7 @@ Changes:
       <item> echo </item>
       <item> empty </item>
       <item> end </item>
-      <item> ereg </item>
-      <item> ereg_replace </item>
-      <item> eregi </item>
-      <item> eregi_replace </item>
+      <item> error_get_last </item>
       <item> error_log </item>
       <item> error_reporting </item>
       <item> escapeshellarg </item>
@@ -2474,7 +2492,6 @@ Changes:
       <item> fgetcsv </item>
       <item> fgets </item>
       <item> fgetss </item>
-      <item> fgetwrapperdata </item>
       <item> file </item>
       <item> file_exists </item>
       <item> file_get_contents </item>
@@ -2495,6 +2512,13 @@ Changes:
       <item> filepro_rowcount </item>
       <item> filesize </item>
       <item> filetype </item>
+      <item> filter_has_var </item>
+      <item> filter_id </item>
+      <item> filter_input </item>
+      <item> filter_input_array </item>
+      <item> filter_list </item>
+      <item> filter_var </item>
+      <item> filter_var_array </item>
       <item> floatval </item>
       <item> flock </item>
       <item> floor </item>
@@ -2502,8 +2526,11 @@ Changes:
       <item> fmod </item>
       <item> fnmatch </item>
       <item> fopen </item>
+      <item> forward_static_call </item>
+      <item> forward_static_call_array </item>
       <item> fpassthru </item>
       <item> fprintf </item>
+      <item> fputcsv </item>
       <item> fputs </item>
       <item> fread </item>
       <item> frenchtojd </item>
@@ -2554,7 +2581,12 @@ Changes:
       <item> func_num_args </item>
       <item> function_exists </item>
       <item> fwrite </item>
+      <item> gc_collect_cycles </item>
+      <item> gc_disable </item>
+      <item> gc_enable </item>
+      <item> gc_enabled </item>
       <item> gd_info </item>
+      <item> get_called_class </item>
       <item> get_browser </item>
       <item> get_cfg_var </item>
       <item> get_class </item>
@@ -2586,6 +2618,7 @@ Changes:
       <item> gethostbyaddr </item>
       <item> gethostbyname </item>
       <item> gethostbynamel </item>
+      <item> gethostname </item>
       <item> getimagesize </item>
       <item> getlastmod </item>
       <item> getmxrr </item>
@@ -2604,7 +2637,6 @@ Changes:
       <item> gettimeofday </item>
       <item> gettype </item>
       <item> glob </item>
-      <item> global </item>
       <item> gmdate </item>
       <item> gmmktime </item>
       <item> gmp_abs </item>
@@ -2679,6 +2711,7 @@ Changes:
       <item> hash_update_file </item>
       <item> hash_update_stream </item>
       <item> header </item>
+      <item> header_remove </item>
       <item> headers_list </item>
       <item> headers_sent </item>
       <item> hebrev </item>
@@ -2798,6 +2831,10 @@ Changes:
       <item> iconv_mime_decode_headers </item>
       <item> iconv_mime_encode </item>
       <item> iconv_set_encoding </item>
+      <item> iconv_strlen </item>
+      <item> iconv_strpos </item>
+      <item> iconv_strrpos </item>
+      <item> iconv_substr </item>
       <item> idate </item>
       <item> ifx_affected_rows </item>
       <item> ifx_blobinfile_mode </item>
@@ -2862,6 +2899,7 @@ Changes:
       <item> imagecolorsforindex </item>
       <item> imagecolorstotal </item>
       <item> imagecolortransparent </item>
+      <item> imageconvolution </item>
       <item> imagecopy </item>
       <item> imagecopymerge </item>
       <item> imagecopymergegray </item>
@@ -3006,6 +3044,8 @@ Changes:
       <item> in_array </item>
       <item> include </item>
       <item> include_once </item>
+      <item> inet_ntop </item>
+      <item> inet_pton </item>
       <item> ingres_autocommit </item>
       <item> ingres_close </item>
       <item> ingres_commit </item>
@@ -3087,6 +3127,9 @@ Changes:
       <item> is_writable </item>
       <item> is_writeable </item>
       <item> isset </item>
+      <item> iterator_apply </item>
+      <item> iterator_count </item>
+      <item> iterator_to_array </item>
       <item> java_last_exception_clear </item>
       <item> java_last_exception_get </item>
       <item> jddayofweek </item>
@@ -3107,7 +3150,10 @@ Changes:
       <item> key_exists </item>
       <item> krsort </item>
       <item> ksort </item>
+      <item> lcfirst </item>
       <item> lcg_value </item>
+      <item> lchgrp </item>
+      <item> lchown </item>
       <item> ldap_8859_to_t61 </item>
       <item> ldap_add </item>
       <item> ldap_bind </item>
@@ -3150,7 +3196,6 @@ Changes:
       <item> ldap_start_tls </item>
       <item> ldap_t61_to_8859 </item>
       <item> ldap_unbind </item>
-      <item> leak </item>
       <item> levenshtein </item>
       <item> libxml_clear_errors </item>
       <item> libxml_get_errors </item>
@@ -3185,6 +3230,7 @@ Changes:
       <item> mailparse_stream_encode </item>
       <item> mailparse_uudecode_all </item>
       <item> max </item>
+      <item> mb_check_encoding </item>
       <item> mb_convert_case </item>
       <item> mb_convert_encoding </item>
       <item> mb_convert_kana </item>
@@ -3195,6 +3241,7 @@ Changes:
       <item> mb_detect_order </item>
       <item> mb_encode_mimeheader </item>
       <item> mb_encode_numericentity </item>
+      <item> mb_encoding_aliases </item>
       <item> mb_ereg </item>
       <item> mb_ereg_match </item>
       <item> mb_ereg_replace </item>
@@ -3212,6 +3259,7 @@ Changes:
       <item> mb_http_output </item>
       <item> mb_internal_encoding </item>
       <item> mb_language </item>
+      <item> mb_list_encodings </item>
       <item> mb_output_handler </item>
       <item> mb_parse_str </item>
       <item> mb_preferred_mime_name </item>
@@ -3221,14 +3269,21 @@ Changes:
       <item> mb_split </item>
       <item> mb_strcut </item>
       <item> mb_strimwidth </item>
+      <item> mb_stripos </item>
+      <item> mb_stristr </item>
       <item> mb_strlen </item>
       <item> mb_strpos </item>
+      <item> mb_strrchr </item>
+      <item> mb_strrichr </item>
+      <item> mb_strripos </item>
       <item> mb_strrpos </item>
+      <item> mb_strstr </item>
       <item> mb_strtolower </item>
       <item> mb_strtoupper </item>
       <item> mb_strwidth </item>
       <item> mb_substitute_character </item>
       <item> mb_substr </item>
+      <item> mb_substr_count </item>
       <item> mcal_append_event </item>
       <item> mcal_close </item>
       <item> mcal_create_calendar </item>
@@ -3307,6 +3362,7 @@ Changes:
       <item> md5 </item>
       <item> md5_file </item>
       <item> mdecrypt_generic </item>
+      <item> memory_get_peak_usage </item>
       <item> memory_get_usage </item>
       <item> metaphone </item>
       <item> method_exists </item>
@@ -3430,17 +3486,12 @@ Changes:
       <item> muscat_setup_net </item>
       <item> mysql </item>
       <item> mysql_affected_rows </item>
-      <item> mysql_change_user </item>
-      <item> mysql_character_set_name </item>
       <item> mysql_client_encoding </item>
       <item> mysql_close </item>
       <item> mysql_connect </item>
-      <item> mysql_create_db </item>
       <item> mysql_data_seek </item>
       <item> mysql_db_name </item>
       <item> mysql_db_query </item>
-      <item> mysql_dbname </item>
-      <item> mysql_drop_db </item>
       <item> mysql_errno </item>
       <item> mysql_error </item>
       <item> mysql_escape_string </item>
@@ -3456,13 +3507,7 @@ Changes:
       <item> mysql_field_seek </item>
       <item> mysql_field_table </item>
       <item> mysql_field_type </item>
-      <item> mysql_fieldflags </item>
-      <item> mysql_fieldlen </item>
-      <item> mysql_fieldname </item>
-      <item> mysql_fieldtable </item>
-      <item> mysql_fieldtype </item>
       <item> mysql_free_result </item>
-      <item> mysql_freeresult </item>
       <item> mysql_get_client_info </item>
       <item> mysql_get_host_info </item>
       <item> mysql_get_proto_info </item>
@@ -3470,26 +3515,18 @@ Changes:
       <item> mysql_info </item>
       <item> mysql_insert_id </item>
       <item> mysql_list_dbs </item>
-      <item> mysql_list_fields </item>
       <item> mysql_list_processes </item>
-      <item> mysql_list_tables </item>
-      <item> mysql_listdbs </item>
-      <item> mysql_listfields </item>
-      <item> mysql_listtables </item>
       <item> mysql_num_fields </item>
       <item> mysql_num_rows </item>
-      <item> mysql_numfields </item>
-      <item> mysql_numrows </item>
       <item> mysql_pconnect </item>
       <item> mysql_ping </item>
       <item> mysql_query </item>
       <item> mysql_real_escape_string </item>
       <item> mysql_result </item>
       <item> mysql_select_db </item>
-      <item> mysql_selectdb </item>
+      <item> mysql_set_charset </item>
       <item> mysql_stat </item>
       <item> mysql_table_name </item>
-      <item> mysql_tablename </item>
       <item> mysql_thread_id </item>
       <item> mysql_unbuffered_query </item>
       <item> mysqli_affected_rows </item>
@@ -3506,11 +3543,7 @@ Changes:
       <item> mysqli_connect_error </item>
       <item> mysqli_data_seek </item>
       <item> mysqli_debug </item>
-      <item> mysqli_disable_reads_from_master </item>
-      <item> mysqli_disable_rpl_parse </item>
       <item> mysqli_dump_debug_info </item>
-      <item> mysqli_enable_reads_from_master </item>
-      <item> mysqli_enable_rpl_parse </item>
       <item> mysqli_errno </item>
       <item> mysqli_error </item>
       <item> mysqli_escape_string </item>
@@ -3541,7 +3574,6 @@ Changes:
       <item> mysqli_init </item>
       <item> mysqli_insert_id </item>
       <item> mysqli_kill </item>
-      <item> mysqli_master_query </item>
       <item> mysqli_more_results </item>
       <item> mysqli_multi_query </item>
       <item> mysqli_next_result </item>
@@ -3555,10 +3587,12 @@ Changes:
       <item> mysqli_real_connect </item>
       <item> mysqli_real_escape_string </item>
       <item> mysqli_real_query </item>
+      <item> mysqli_refresh </item>
       <item> mysqli_report </item>
       <item> mysqli_rollback </item>
       <item> mysqli_select_db </item>
       <item> mysqli_send_long_data </item>
+      <item> mysqli_set_charset </item>
       <item> mysqli_set_local_infile_default </item>
       <item> mysqli_set_local_infile_handler </item>
       <item> mysqli_set_opt </item>
@@ -3578,6 +3612,7 @@ Changes:
       <item> mysqli_stmt_fetch </item>
       <item> mysqli_stmt_field_count </item>
       <item> mysqli_stmt_free_result </item>
+      <item> mysqli_stmt_get_warnings </item>
       <item> mysqli_stmt_init </item>
       <item> mysqli_stmt_insert_id </item>
       <item> mysqli_stmt_num_rows </item>
@@ -3987,6 +4022,7 @@ Changes:
       <item> ovrimos_rollback </item>
       <item> pack </item>
       <item> parse_ini_file </item>
+      <item> parse_ini_string </item>
       <item> parse_str </item>
       <item> parse_url </item>
       <item> passthru </item>
@@ -4126,6 +4162,7 @@ Changes:
       <item> pfpro_process </item>
       <item> pfpro_process_raw </item>
       <item> pfpro_version </item>
+      <item> pdo_drivers </item>
       <item> pfsockopen </item>
       <item> pg_affected_rows </item>
       <item> pg_cancel_query </item>
@@ -4222,8 +4259,8 @@ Changes:
       <item> pg_untrace </item>
       <item> pg_update </item>
       <item> pg_version </item>
-      <item> php_check_syntax </item>
       <item> php_egg_logo_guid </item>
+      <item> php_ini_loaded_file </item>
       <item> php_ini_scanned_files </item>
       <item> php_logo_guid </item>
       <item> php_real_logo_guid </item>
@@ -4271,7 +4308,9 @@ Changes:
       <item> posix_ttyname </item>
       <item> posix_uname </item>
       <item> pow </item>
+      <item> preg_filter </item>
       <item> preg_grep </item>
+      <item> preg_last_error </item>
       <item> preg_match </item>
       <item> preg_match_all </item>
       <item> preg_quote </item>
@@ -4340,6 +4379,7 @@ Changes:
       <item> qdom_error </item>
       <item> qdom_tree </item>
       <item> quoted_printable_decode </item>
+      <item> quoted_printable_encode </item>
       <item> quotemeta </item>
       <item> rad2deg </item>
       <item> rand </item>
@@ -4360,6 +4400,8 @@ Changes:
       <item> readline_write_history </item>
       <item> readlink </item>
       <item> realpath </item>
+      <item> realpath_cache_get </item>
+      <item> realpath_cache_size </item>
       <item> recode </item>
       <item> recode_file </item>
       <item> recode_string </item>
@@ -4435,6 +4477,8 @@ Changes:
       <item> settype </item>
       <item> sha1 </item>
       <item> sha1_file </item>
+      <item> sha256 </item>
+      <item> sha256_file </item>
       <item> shell_exec </item>
       <item> shm_attach </item>
       <item> shm_detach </item>
@@ -4489,22 +4533,13 @@ Changes:
       <item> socket_getopt </item>
       <item> socket_getpeername </item>
       <item> socket_getsockname </item>
-      <item> socket_iovec_add </item>
-      <item> socket_iovec_alloc </item>
-      <item> socket_iovec_delete </item>
-      <item> socket_iovec_fetch </item>
-      <item> socket_iovec_free </item>
-      <item> socket_iovec_set </item>
       <item> socket_last_error </item>
       <item> socket_listen </item>
       <item> socket_read </item>
-      <item> socket_readv </item>
       <item> socket_recv </item>
       <item> socket_recvfrom </item>
-      <item> socket_recvmsg </item>
       <item> socket_select </item>
       <item> socket_send </item>
-      <item> socket_sendmsg </item>
       <item> socket_sendto </item>
       <item> socket_set_block </item>
       <item> socket_set_blocking </item>
@@ -4515,15 +4550,17 @@ Changes:
       <item> socket_shutdown </item>
       <item> socket_strerror </item>
       <item> socket_write </item>
-      <item> socket_writev </item>
       <item> sort </item>
       <item> soundex </item>
+      <item> spl_autoload </item>
+      <item> spl_autoload_call </item>
+      <item> spl_autoload_extensions </item>
+      <item> spl_autoload_functions </item>
       <item> spl_autoload_register </item>
+      <item> spl_autoload_unregister </item>
       <item> spl_classes </item>
-      <item> split </item>
-      <item> spliti </item>
+      <item> spl_object_hash </item>
       <item> sprintf </item>
-      <item> sql_regcase </item>
       <item> sqlite_array_query </item>
       <item> sqlite_busy_timeout </item>
       <item> sqlite_changes </item>
@@ -4567,6 +4604,7 @@ Changes:
       <item> srand </item>
       <item> sscanf </item>
       <item> stat </item>
+      <item> str_getcsv </item>
       <item> str_ireplace </item>
       <item> str_pad </item>
       <item> str_repeat </item>
@@ -4585,31 +4623,44 @@ Changes:
       <item> stream_bucket_new </item>
       <item> stream_bucket_prepend </item>
       <item> stream_context_create </item>
+      <item> stream_context_get_default </item>
       <item> stream_context_get_options </item>
+      <item> stream_context_get_params </item>
+      <item> stream_context_set_default </item>
       <item> stream_context_set_option </item>
       <item> stream_context_set_params </item>
       <item> stream_copy_to_stream </item>
       <item> stream_filter_append </item>
       <item> stream_filter_prepend </item>
       <item> stream_filter_register </item>
+      <item> stream_filter_remove </item>
       <item> stream_get_contents </item>
       <item> stream_get_filters </item>
       <item> stream_get_line </item>
       <item> stream_get_meta_data </item>
       <item> stream_get_transports </item>
       <item> stream_get_wrappers </item>
+      <item> stream_is_local </item>
       <item> stream_register_wrapper </item>
+      <item> stream_resolve_include_path </item>
       <item> stream_select </item>
       <item> stream_set_blocking </item>
+      <item> stream_set_read_buffer </item>
       <item> stream_set_timeout </item>
       <item> stream_set_write_buffer </item>
       <item> stream_socket_accept </item>
       <item> stream_socket_client </item>
+      <item> stream_socket_enable_crypto </item>
       <item> stream_socket_get_name </item>
+      <item> stream_socket_pair </item>
       <item> stream_socket_recvfrom </item>
       <item> stream_socket_sendto </item>
       <item> stream_socket_server </item>
+      <item> stream_socket_shutdown </item>
+      <item> stream_supports_lock </item>
       <item> stream_wrapper_register </item>
+      <item> stream_wrapper_restore </item>
+      <item> stream_wrapper_unregister </item>
       <item> strftime </item>
       <item> strip_tags </item>
       <item> stripcslashes </item>
@@ -4640,6 +4691,8 @@ Changes:
       <item> substr_compare </item>
       <item> substr_count </item>
       <item> substr_replace </item>
+      <item> suhosin_encrypt_cookie </item>
+      <item> suhosin_get_raw_cookies </item>
       <item> swf_actiongeturl </item>
       <item> swf_actiongotoframe </item>
       <item> swf_actiongotolabel </item>
@@ -4821,6 +4874,7 @@ Changes:
       <item> sybase_select_db </item>
       <item> symlink </item>
       <item> sys_get_temp_dir </item>
+      <item> sys_getloadavg </item>
       <item> syslog </item>
       <item> system </item>
       <item> tan </item>
@@ -4829,6 +4883,16 @@ Changes:
       <item> textdomain </item>
       <item> time </item>
       <item> time_nanosleep </item>
+      <item> time_sleep_until </item>
+      <item> timezone_abbreviations_list </item>
+      <item> timezone_identifiers_list </item>
+      <item> timezone_location_get </item>
+      <item> timezone_name_from_abbr </item>
+      <item> timezone_name_get </item>
+      <item> timezone_offset_get </item>
+      <item> timezone_open </item>
+      <item> timezone_transitions_get </item>
+      <item> timezone_version_get </item>
       <item> tmpfile </item>
       <item> token_get_all </item>
       <item> token_name </item>
@@ -4914,6 +4978,40 @@ Changes:
       <item> wddx_serialize_value </item>
       <item> wddx_serialize_vars </item>
       <item> wordwrap </item>
+      <item> xdebug_break </item>
+      <item> xdebug_call_class </item>
+      <item> xdebug_call_file </item>
+      <item> xdebug_call_function </item>
+      <item> xdebug_call_line </item>
+      <item> xdebug_clear_aggr_profiling_data </item>
+      <item> xdebug_debug_zval </item>
+      <item> xdebug_debug_zval_stdout </item>
+      <item> xdebug_disable </item>
+      <item> xdebug_dump_aggr_profiling_data </item>
+      <item> xdebug_dump_superglobals </item>
+      <item> xdebug_enable </item>
+      <item> xdebug_get_code_coverage </item>
+      <item> xdebug_get_collected_errors </item>
+      <item> xdebug_get_declared_vars </item>
+      <item> xdebug_get_formatted_function_stack </item>
+      <item> xdebug_get_function_count </item>
+      <item> xdebug_get_function_stack </item>
+      <item> xdebug_get_headers </item>
+      <item> xdebug_get_profiler_filename </item>
+      <item> xdebug_get_stack_depth </item>
+      <item> xdebug_get_tracefile_name </item>
+      <item> xdebug_is_enabled </item>
+      <item> xdebug_memory_usage </item>
+      <item> xdebug_peak_memory_usage </item>
+      <item> xdebug_print_function_stack </item>
+      <item> xdebug_start_code_coverage </item>
+      <item> xdebug_start_error_collection </item>
+      <item> xdebug_start_trace </item>
+      <item> xdebug_stop_code_coverage </item>
+      <item> xdebug_stop_error_collection </item>
+      <item> xdebug_stop_trace </item>
+      <item> xdebug_time_index </item>
+      <item> xdebug_var_dump </item>
       <item> xml_error_string </item>
       <item> xml_get_current_byte_index </item>
       <item> xml_get_current_column_number </item>
@@ -4953,6 +5051,48 @@ Changes:
       <item> xmlrpc_server_register_method </item>
       <item> xmlrpc_set_type </item>
       <item> xmltree </item>
+      <item> xmlwriter_end_attribute </item>
+      <item> xmlwriter_end_cdata </item>
+      <item> xmlwriter_end_comment </item>
+      <item> xmlwriter_end_document </item>
+      <item> xmlwriter_end_dtd </item>
+      <item> xmlwriter_end_dtd_attlist </item>
+      <item> xmlwriter_end_dtd_element </item>
+      <item> xmlwriter_end_dtd_entity </item>
+      <item> xmlwriter_end_element </item>
+      <item> xmlwriter_end_pi </item>
+      <item> xmlwriter_flush </item>
+      <item> xmlwriter_full_end_element </item>
+      <item> xmlwriter_open_memory </item>
+      <item> xmlwriter_open_uri </item>
+      <item> xmlwriter_output_memory </item>
+      <item> xmlwriter_set_indent </item>
+      <item> xmlwriter_set_indent_string </item>
+      <item> xmlwriter_start_attribute </item>
+      <item> xmlwriter_start_attribute_ns </item>
+      <item> xmlwriter_start_cdata </item>
+      <item> xmlwriter_start_comment </item>
+      <item> xmlwriter_start_document </item>
+      <item> xmlwriter_start_dtd </item>
+      <item> xmlwriter_start_dtd_attlist </item>
+      <item> xmlwriter_start_dtd_element </item>
+      <item> xmlwriter_start_dtd_entity </item>
+      <item> xmlwriter_start_element </item>
+      <item> xmlwriter_start_element_ns </item>
+      <item> xmlwriter_start_pi </item>
+      <item> xmlwriter_text </item>
+      <item> xmlwriter_write_attribute </item>
+      <item> xmlwriter_write_attribute_ns </item>
+      <item> xmlwriter_write_cdata </item>
+      <item> xmlwriter_write_comment </item>
+      <item> xmlwriter_write_dtd </item>
+      <item> xmlwriter_write_dtd_attlist </item>
+      <item> xmlwriter_write_dtd_element </item>
+      <item> xmlwriter_write_dtd_entity </item>
+      <item> xmlwriter_write_element </item>
+      <item> xmlwriter_write_element_ns </item>
+      <item> xmlwriter_write_pi </item>
+      <item> xmlwriter_write_raw </item>
       <item> xpath_eval </item>
       <item> xpath_eval_expression </item>
       <item> xpath_new_context </item>
@@ -5187,8 +5327,30 @@ Changes:
       <!-- Functions -->
       <item> call_user_method </item>
       <item> call_user_method_array </item>
+      <item> ereg </item>
+      <item> ereg_replace </item>
+      <item> eregi </item>
+      <item> eregi_replace </item>
       <item> mcrypt_ecb </item>
       <item> mime_content_type </item>
+      <item> mysql_create_db </item>
+      <item> mysql_dbname </item>
+      <item> mysql_drop_db </item>
+      <item> mysql_fieldflags </item>
+      <item> mysql_fieldlen </item>
+      <item> mysql_fieldname </item>
+      <item> mysql_fieldtable </item>
+      <item> mysql_fieldtype </item>
+      <item> mysql_freeresult </item>
+      <item> mysql_list_fields </item>
+      <item> mysql_list_tables </item>
+      <item> mysql_listdbs </item>
+      <item> mysql_listfields </item>
+      <item> mysql_listtables </item>
+      <item> mysql_numfields </item>
+      <item> mysql_numrows </item>
+      <item> mysql_selectdb </item>
+      <item> mysql_tablename </item>
       <item> mysqli_disable_reads_from_master </item>
       <item> mysqli_disable_rpl_parse </item>
       <item> mysqli_enable_reads_from_master </item>
@@ -5223,6 +5385,10 @@ Changes:
       <item> ora_parse </item>
       <item> ora_plogon </item>
       <item> ora_rollback </item>
+      <item> php_check_syntax </item>
+      <item> split </item>
+      <item> spliti </item>
+      <item> sql_regcase </item>
 
       <!-- Keywords -->
       <item> var </item>

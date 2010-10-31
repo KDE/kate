@@ -58,11 +58,6 @@
 
 K_EXPORT_COMPONENT_FACTORY( katebuildplugin, KGenericFactory<KateBuildPlugin>( "katebuild-plugin" ) )
 
-#define COL_FILE    (0)
-#define COL_LINE    (1)
-#define COL_MSG     (2)
-#define COL_URL     (3)
-
 #define DEF_QUICK_COMP_CMD "gcc -Wall -g %f"
 
 
@@ -111,8 +106,8 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     quick->setShortcut(QKeySequence(Qt::ALT+Qt::Key_C) );
     connect( quick, SIGNAL( triggered(bool) ), this, SLOT( slotQuickCompile() ) );
 
-    KAction *stop = actionCollection()->addAction("break");
-    stop->setText(i18n("Break"));
+    KAction *stop = actionCollection()->addAction("stop");
+    stop->setText(i18n("Stop"));
     stop->setShortcut(QKeySequence(Qt::ALT+Qt::Key_X) );
     connect( stop, SIGNAL( triggered(bool) ), this, SLOT( slotStop() ) );
 
@@ -281,9 +276,14 @@ void KateBuildView::addError(const QString &filename, const QString &line,
        )
     {
         item->setForeground(1, Qt::red);
+        m_numErrors++;
     }
-    else {
+    if (message.contains("warning") ||
+        message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
+       )
+    {
         item->setForeground(1, Qt::yellow);
+        m_numWarnings++;
     }
     item->setTextAlignment(1, Qt::AlignRight);
 
@@ -399,7 +399,8 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
     buildUi.plainTextEdit->clear();
     buildUi.errTreeWidget->clear();
     m_output_lines.clear();
-    m_found_error=false;
+    m_numErrors = 0;
+    m_numWarnings = 0;
     m_make_dir_stack.clear();
     
     // activate the output tab
@@ -439,16 +440,24 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     QApplication::restoreOverrideCursor();
 
     // did we get any errors?
-    if (m_found_error || (exitCode != 0)) {
+    if (m_numErrors || m_numWarnings || (exitCode != 0)) {
         buildUi.ktabwidget->setCurrentIndex(0);
         buildUi.errTreeWidget->resizeColumnToContents(0);
         buildUi.errTreeWidget->resizeColumnToContents(1);
         //buildUi.errTreeWidget->setSortingEnabled(true);
         m_win->showToolView(m_toolView);
-
-        KPassivePopup::message(i18n("Make Results"), i18n("Found Warnings/Errors."), m_toolView);
     }
-    else {
+
+    if (m_numErrors || m_numWarnings) {
+        QStringList msgs;
+        if (m_numErrors) {
+            msgs << i18np("Found one error.", "Found %1 errors.", m_numErrors);
+        }
+        if (m_numWarnings) {
+            msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
+        }
+        KPassivePopup::message(i18n("Make Results"), msgs.join("\n"), m_toolView);
+    } else {
         KPassivePopup::message(i18n("Make Results"), i18n("Build completed without problems."), m_toolView);
     }
 
@@ -565,7 +574,6 @@ void KateBuildView::processLine(const QString &line)
     // Now we have the data we need show the error/warning
     addError(filename, line_n, QString(), msg);
 
-    m_found_error=true;
 }
 
 

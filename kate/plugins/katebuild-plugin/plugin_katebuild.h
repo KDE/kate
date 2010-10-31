@@ -95,7 +95,8 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         QStack<KUrl>      m_make_dir_stack;
         QRegExp           m_filenameDetector;
         QRegExp           m_newDirDetector;
-        bool              m_found_error;
+        unsigned int      m_numErrors;
+        unsigned int      m_numWarnings;
 };
 
 

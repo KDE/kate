@@ -26,21 +26,6 @@ set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST
 kde4_add_unit_test(katetextbuffertest katetextbuffertest.cpp katetextbuffertest.h)
 target_link_libraries (katetextbuffertest ${KATE_TEST_LINK_LIBS})
 
-########### next target ###############
-
-set(katetest_SRCS
-katetest.cpp
-arbitraryhighlighttest.cpp
-codecompletiontestmodel.cpp
-annotationmodeltest.cpp
-)
-
-
-kde4_add_executable(katetest TEST ${katetest_SRCS})
-
-target_link_libraries(katetest ${KATE_TEST_LINK_LIBS} )
-
-
 ########### range test ###############
 
 kde4_add_unit_test(range_test TESTNAME kate-range_test range_test.cpp)

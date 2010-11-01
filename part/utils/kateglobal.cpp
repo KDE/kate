@@ -173,6 +173,7 @@ KateGlobal::KateGlobal ()
   //
   m_cmds.push_back (new KateCommands::CoreCommands());
   m_cmds.push_back (new KateCommands::ViCommands());
+  m_cmds.push_back (new KateCommands::AppCommands());
   m_cmds.push_back (new KateCommands::SedReplace ());
   m_cmds.push_back (new KateCommands::Character ());
   m_cmds.push_back (new KateCommands::Date ());

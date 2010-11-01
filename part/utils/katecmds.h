@@ -140,6 +140,40 @@ class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExten
 
 
 /**
+ * This KTextEditor::Command provides vi commands for the application
+ */
+class AppCommands : public KTextEditor::Command
+{
+  public:
+    AppCommands();
+    virtual ~AppCommands() {}
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param msg message returned from running the command
+     * @return success
+     */
+    bool exec( class KTextEditor::View *view, const QString &cmd, QString &msg );
+
+    /** Help for AppCommands */
+    bool help( class KTextEditor::View *, const QString &, QString & );
+
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
+    const QStringList &cmds();
+
+  private:
+    QRegExp re_write;
+    /*QRegExp re_quit;
+    QRegExp re_exit;
+    QRegExp re_changeBuffer;
+    QRegExp re_edit;
+    QRegExp re_new;*/
+};
+/**
  * Support vim/sed style search and replace
  * @author Charles Samuels <charles@kde.org>
  **/

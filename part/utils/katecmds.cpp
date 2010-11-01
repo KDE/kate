@@ -449,6 +449,175 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 }
 //END ViCommands
 
+// BEGIN AppCommands
+KateCommands::AppCommands::AppCommands()
+    : KTextEditor::Command()
+{
+    re_write.setPattern("w?");
+    //re_write.setPattern("w(a)?");
+    //re_quit.setPattern("(w)?q?(a)?");
+    //re_exit.setPattern("x(a)?");
+    //re_changeBuffer.setPattern("b(n|p)");
+    //re_edit.setPattern("e(dit)?");
+    //re_new.setPattern("(v)?new");
+}
+
+const QStringList& KateCommands::AppCommands::cmds()
+{
+    static QStringList l;
+
+    if (l.empty()) {
+        //l << "q" << "qa" << "w" << "wq" << "wa" << "wqa" << "x" << "xa"
+          //<< "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
+        l << "w";
+    }
+
+    return l;
+}
+
+bool KateCommands::AppCommands::exec(KTextEditor::View *view,
+                                     const QString &cmd, QString &msg )
+{
+    QStringList args(cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+    QString command( args.takeFirst() );
+
+    if (re_write.exactMatch(command)) { // w, wa
+/*        if (!re_write.cap(1).isEmpty()) { // [a]ll
+            view->document()->saveAll();
+            msg = i18n("All documents written to disk");
+        } else { // w*/
+            // Save file
+            view->document()->documentSave();
+            msg = i18n("Document written to disk");
+        //}
+    }
+    /*else if (re_quit.exactMatch(command)) { // q qa wq wqa
+        if (!re_quit.cap(2).isEmpty()) { // a[ll] qa wqa
+            if (!re_quit.cap(1).isEmpty()) { // [w]rite wqa
+                view->document()->saveAll();
+            }
+            view->document()->closeAll();
+        } else { // q wq
+            if (!re_quit.cap(1).isEmpty() && view->document()->isModified()) { // [w]rite wq
+                view->document()->documentSave();
+            }
+            view->document()->closeDocument();
+         }
+    } else if (re_exit.exactMatch(command)) { // x xa
+        if (!re_exit.cap(1).isEmpty()) { // a[ll] xa
+          view->document()->saveAll();
+          view->document()->closeAll();
+        } else { // x
+            if (view->document()->isModified()) {
+                view->document()->documentSave();
+            }
+            view->document()->closeDocument();
+        }
+    }
+    else if (re_changeBuffer.exactMatch(command)) {
+        if (re_changeBuffer.cap(1) == "n") { // next document
+          view->document()->switchToNextDocument();
+        }
+        else { // previous document
+          view->document()->switchToPreviousDocument();
+        }
+    }
+    else if (re_edit.exactMatch(command)) {
+        view->document()->documentReload();
+    }
+    else if (re_new.exactMatch(command)) {
+        if (re_new.cap(1) == "v") { // vertical split
+          view->document()->splitViewSpaceVert();
+        } else {                    // horizontal split
+          view->document()->splitViewSpaceHoriz();
+        }
+        view->document()->newDocument();
+    }
+    else if (command == "enew") {
+        view->document()->newDocument();
+    }*/
+    return true;
+}
+
+bool KateCommands::AppCommands::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    Q_UNUSED(view);
+
+    if (re_write.exactMatch(cmd)) {
+        msg = "<p><b>w/wa &mdash; write document(s) to disk</b></p>"
+              "<p>Usage: <tt><b>w[a]</b></tt></p>"
+              "<p>Writes the current document(s) to disk. "
+              "It can be called in two ways:<br />"
+              " <tt>w</tt> &mdash; writes the current document to disk<br />"
+              " <tt>wa</tt> &mdash; writes all document to disk.</p>"
+              "<p>If no file name is associated with the document, "
+              "a file dialog will be shown.</p>";
+        return true;
+    }
+    /*else if (re_quit.exactMatch(cmd)) {
+        msg = "<p><b>q/qa/wq/wqa &mdash; [write and] quit</b></p>"
+              "<p>Usage: <tt><b>[w]q[a]</b></tt></p>"
+              "<p>Quits the application. If <tt>w</tt> is prepended, it also writes"
+              " the document(s) to disk. This command "
+              "can be called in several ways:<br />"
+              " <tt>q</tt> &mdash; closes the current view..<br />"
+              " <tt>qa</tt> &mdash; closes all view, effectively quitting the application.<br />"
+              " <tt>wq</tt> &mdash; writes the current document to disk and closes its view.<br />"
+              " <tt>wqa</tt> &mdash; writes all document to disk and quits.</p>"
+              "<p>In all cases, if the view being closed is the last view, the application quits. "
+              "If no file name is associated with the document and it should be written to disk, "
+              "a file dialog will be shown.</p>";
+        return true;
+    }
+    else if (re_exit.exactMatch(cmd)) {
+        msg = "<p><b>x/xa &mdash; write and quit</b></p>"
+              "<p>Usage: <tt><b>x[a]</b></tt></p>"
+              "<p>Saves document(s) and quits (e<b>x</b>its). This command "
+              "can be called in two ways:<br />"
+              " <tt>x</tt> &mdash; closes the current view..<br />"
+              " <tt>xa</tt> &mdash; closes all view, effectively quitting the application.</p>"
+              "<p>In all cases, if the view being closed is the last view, the application quits. "
+              "If no file name is associated with the document and it should be written to disk, "
+              "a file dialog will be shown.</p>"
+              "<p>Unlike the 'w' commands, this command only writes the doucment if it is modified."
+              "</p>";
+        return true;
+    }
+    else if (re_changeBuffer.exactMatch(cmd)) {
+        msg = "<p><b>bp/bn &mdash; switch no previous/next document</b></p>"
+              "<p>Usage: <tt><b>bp/bn</b></tt></p>"
+              "<p>Goes to <b>p</b>revious or <b>n</b>ext document (\"<b>b</b>uffer\"). The two"
+              " commands are:<br />"
+              " <tt>bp</tt> &mdash; goes to the document before the current one in the document"
+              " list.<br />"
+              " <tt>bn</tt> &mdash; goes to the document after the current one in the document"
+              " list.<br />"
+              "<p>Both commands wrap around, i.e., if you go past the last document you and up"
+              " at the first and vice versa.</p>";
+        return true;
+    }
+    else if (re_new.exactMatch(cmd)) {
+        msg = "<p><b>[v]new &mdash; split view and create new document</b></p>"
+              "<p>Usage: <tt><b>[v]new</b></tt></p>"
+              "<p>Splits the current view and opens a new document in the new view."
+              " This command can be called in two ways:<br />"
+              " <tt>new</tt> &mdash; splits the view horizontally and opens a new document.<br />"
+              " <tt>vnew</tt> &mdash; splits the view vertically and opens a new document.<br />"
+              "</p>";
+        return true;
+    }
+    else if (re_edit.exactMatch(cmd)) {
+        msg = "<p><b>e[dit] &mdash; reload current document</b></p>"
+              "<p>Usage: <tt><b>e[dit]</b></tt></p>"
+              "<p>Starts <b>e</b>diting the current document again. This is useful to re-edit"
+             " the current file, when it has been changed by another program.</p>";
+        return true;
+    }*/
+
+    return false;
+}
+//END AppCommands
+
 //BEGIN SedReplace
 static void replace(QString &s, const QString &needle, const QString &with)
 {

@@ -11,7 +11,7 @@ endif(NOT KDE4_FOUND)
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 kde4_add_plugin(katefiletreeplugin ${katefiletreeplugin_PART_SRCS})
 
-target_link_libraries(katefiletreeplugin ${KDE4_KFILE_LIBS} ${KDE4_KPARTS_LIBS} kateinterfaces ktexteditor )
+target_link_libraries(katefiletreeplugin ${KDE4_KFILE_LIBS} ${KDE4_KPARTS_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
 
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

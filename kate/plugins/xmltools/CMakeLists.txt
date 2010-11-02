@@ -11,7 +11,7 @@ kde4_add_plugin(katexmltoolsplugin ${katexmltoolsplugin_PART_SRCS})
 
 
 
-target_link_libraries(katexmltoolsplugin  ${KDE4_KDECORE_LIBS} kateinterfaces ktexteditor)
+target_link_libraries(katexmltoolsplugin  ${KDE4_KDECORE_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS})
 
 install(TARGETS katexmltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

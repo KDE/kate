@@ -142,6 +142,7 @@ bool View::insertText (const QString &text )
   return doc->insertText(cursorPosition(),text,blockSelection());
 }
 
+#ifndef KDE_NO_DEPRECATED
 Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
 {
   QString error;
@@ -150,6 +151,7 @@ Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
     kWarning() << error;
   return plugin;
 }
+#endif
 
 struct KTextEditorFactorySet : public QSet<KPluginFactory*>
 {

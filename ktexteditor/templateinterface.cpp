@@ -27,7 +27,7 @@
 #include <kmessagebox.h>
 #include <kcalendarsystem.h>
 #include <unistd.h>
-#include <klibloader.h>
+#include <klibrary.h>
 
 #include <kdebug.h>
 

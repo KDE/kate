@@ -75,7 +75,6 @@
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <kxmlguiclient.h>
-#include <klibloader.h>
 #include <kencodingfiledialog.h>
 #include <kstandardshortcut.h>
 #include <kmenu.h>

@@ -69,7 +69,6 @@
 #include <kxmlguifactory.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
-#include <klibloader.h>
 #include <kdirwatch.h>
 #include <kencodingfiledialog.h>
 #include <kcodecs.h>

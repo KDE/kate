@@ -222,9 +222,11 @@ public:
 
     // Width calculators
     uint spaceWidth() const;
+#ifndef KDE_NO_DEPRECATED
     KDE_DEPRECATED uint textWidth(const Kate::TextLine &, int cursorCol);
     KDE_DEPRECATED uint textWidth(const Kate::TextLine &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
     KDE_DEPRECATED uint textWidth(const KTextEditor::Cursor& cursor);
+#endif
 
     /**
      * Returns the x position of cursor \p col on the line \p range.

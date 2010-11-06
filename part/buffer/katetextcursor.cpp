@@ -61,6 +61,19 @@ TextCursor::~TextCursor ()
     m_buffer.m_invalidCursors.remove (this);
 }
 
+void TextCursor::setPosition( const TextCursor& position )
+{
+    if (m_block && m_block != position.m_block)
+        m_block->m_cursors.remove(this);
+
+    m_line = position.m_line;
+    m_column = position.m_column;
+
+    m_block = position.m_block;
+    if (m_block)
+        m_block->m_cursors.insert(this);
+}
+
 void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
 {
   // any change or init? else do nothing

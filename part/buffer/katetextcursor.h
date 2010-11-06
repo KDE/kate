@@ -90,6 +90,13 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
     KTextEditor::Document *document () const;
 
     /**
+     * Fast way to set the current cursor position to \e position.
+     *
+     * \param position new cursor position
+     */
+    void setPosition (const TextCursor& position);
+
+    /**
      * Set the current cursor position to \e position.
      *
      * \param position new cursor position

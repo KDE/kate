@@ -630,7 +630,8 @@ void KateTemplateInfoWidget::slotHlSet( QAction *action )
 {
   KTextEditor::Document *doc=kft->application()->activeMainWindow()->activeView()->document();
   if (doc)
-    btnHighlight->setText( action->text() ); // fixme
+    highlightName = doc->highlightingModes()[action->data().toInt()];  
+  btnHighlight->setText( action->text() ); // fixme
 }
 //END KateTemplateInfoWidget
 
@@ -935,8 +936,8 @@ void KateTemplateWizard::accept()
     s += " Documentname=" + kti->leDocumentName->text();
   if ( ! kti->ibIcon->icon().isEmpty() )
     s += " Icon=" + kti->ibIcon->icon();
-  if ( ! kti->btnHighlight->text().isEmpty() )
-    s += " Highlight=" + kti->btnHighlight->text();
+  if ( ! kti->highlightName.isEmpty() && kti->highlightName != "None" )
+    s += " Highlight=" + kti->highlightName;
 
   str = "katetemplate:" + s;
 

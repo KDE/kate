@@ -153,6 +153,7 @@ class KateTemplateInfoWidget : public QWidget
     class KComboBox *cmbGroup;
     class QPushButton *btnHighlight;
     class KIconButton *ibIcon;
+    class QString highlightName;
 
   private slots:
     void slotHlSet( class QAction *action );

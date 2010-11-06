@@ -231,7 +231,7 @@ class KATEPART_TESTS_EXPORT TextBlock {
     /**
      * Maps for each cached range the line into which the range was cached.
      */
-    QMap<TextRange *, int> m_cachedLineForRanges;
+    QHash<TextRange *, int> m_cachedLineForRanges;
     
     /**
      * This contains all the ranges that are not cached.

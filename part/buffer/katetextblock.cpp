@@ -600,7 +600,7 @@ void TextBlock::removeRange (TextRange* range)
     /**
      * query the range from cache, must be there
      */
-    QMap<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
+    QHash<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
     Q_ASSERT (it != m_cachedLineForRanges.end());
     Q_ASSERT (m_cachedRangesForLine[*it].contains(range));
     

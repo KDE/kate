@@ -59,7 +59,7 @@ TextLine TextBlock::line (int line) const
   Q_ASSERT (line < m_lines.size ());
 
   // get text line
-  return m_lines[line];
+  return m_lines.at(line);
 }
 
 void TextBlock::text (QString &text) const
@@ -70,7 +70,7 @@ void TextBlock::text (QString &text) const
       if (i > 0 || startLine() > 0)
         text.append ('\n');
 
-      text.append (m_lines[i]->text ());
+      text.append (m_lines.at(i)->text ());
   }
 }
 
@@ -80,7 +80,7 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
   int line = position.line () - startLine ();
 
   // get text
-  QString &text = m_lines[line]->textReadWrite ();
+  QString &text = m_lines.at(line)->textReadWrite ();
 
   // check if valid column
   Q_ASSERT (position.column() >= 0);
@@ -92,7 +92,7 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
   // perhaps remove some text from previous line and append it
   if (position.column() < text.size ()) {
     // text from old line moved first to new one
-    m_lines[line+1]->textReadWrite() = text.right (text.size() - position.column());
+    m_lines.at(line+1)->textReadWrite() = text.right (text.size() - position.column());
 
     // now remove wrapped text from old line
     text.chop (text.size() - position.column());
@@ -166,14 +166,15 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     Q_ASSERT (previousBlock->lines () > 0);
 
     // move last line of previous block to this one, might result in empty block
-    TextLine oldFirst = m_lines[0];
+    TextLine oldFirst = m_lines.at(0);
     int lastLineOfPreviousBlock = previousBlock->lines ()-1;
-    m_lines[0] = previousBlock->m_lines.last();
+    TextLine newFirst = previousBlock->m_lines.last();
+    m_lines[0] = newFirst;
     previousBlock->m_lines.erase (previousBlock->m_lines.begin() + (previousBlock->lines () - 1));
 
     // append text
-    int oldSizeOfPreviousLine = m_lines[0]->text().size();
-    m_lines[0]->textReadWrite().append (oldFirst->text());
+    int oldSizeOfPreviousLine = newFirst->text().size();
+    newFirst->textReadWrite().append (oldFirst->text());
 
     // patch startLine of this block
     --m_startLine;
@@ -243,8 +244,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
   }
 
   // easy: just move text to previous line and remove current one
-  int oldSizeOfPreviousLine = m_lines[line-1]->text().size();
-  m_lines[line-1]->textReadWrite().append (m_lines[line]->text());
+  int oldSizeOfPreviousLine = m_lines.at(line-1)->text().size();
+  m_lines.at(line-1)->textReadWrite().append (m_lines.at(line)->text());
   m_lines.erase (m_lines.begin () + line);
 
   /**
@@ -293,7 +294,7 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
   int line = position.line () - startLine ();
 
   // get text
-  QString &textOfLine = m_lines[line]->textReadWrite ();
+  QString &textOfLine = m_lines.at(line)->textReadWrite ();
   int oldLength = textOfLine.size ();
 
   // check if valid column
@@ -354,7 +355,7 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
   int line = range.start().line () - startLine ();
 
   // get text
-  QString &textOfLine = m_lines[line]->textReadWrite ();
+  QString &textOfLine = m_lines.at(line)->textReadWrite ();
   int oldLength = textOfLine.size ();
 
   // check if valid column
@@ -415,7 +416,7 @@ void TextBlock::debugPrint (int blockIndex) const
   // print all blocks
   for (int i = 0; i < m_lines.size(); ++i)
     printf ("%4d - %4d : %4d : '%s'\n", blockIndex, startLine() + i
-      , m_lines[i]->text().size(), qPrintable (m_lines[i]->text()));
+      , m_lines.at(i)->text().size(), qPrintable (m_lines.at(i)->text()));
 }
 
 TextBlock *TextBlock::splitBlock (int fromLine)
@@ -429,7 +430,7 @@ TextBlock *TextBlock::splitBlock (int fromLine)
   // move lines
   newBlock->m_lines.reserve (linesOfNewBlock);
   for (int i = fromLine; i < m_lines.size(); ++i)
-    newBlock->m_lines.append (m_lines[i]);
+    newBlock->m_lines.append (m_lines.at(i));
   m_lines.resize (fromLine);
 
   // move cursors
@@ -474,7 +475,7 @@ void TextBlock::mergeBlock (TextBlock *targetBlock)
   // move lines
   targetBlock->m_lines.reserve (targetBlock->lines() + lines ());
   for (int i = 0; i < m_lines.size(); ++i)
-    targetBlock->m_lines.append (m_lines[i]);
+    targetBlock->m_lines.append (m_lines.at(i));
   m_lines.clear ();
 
   QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys();

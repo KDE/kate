@@ -526,7 +526,7 @@ void TextBlock::updateRange (TextRange* range)
   /**
    * The range is still a single-line range, and is still cached to the correct line.
    */
-  if(isSingleLine && m_cachedLineForRanges.contains (range) && (m_cachedLineForRanges[range] == startLine - m_startLine))
+  if(isSingleLine && m_cachedLineForRanges.contains (range) && (m_cachedLineForRanges.value(range) == startLine - m_startLine))
     return;
   
   /**

@@ -651,6 +651,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)
 {
+  Q_UNUSED(clear_cache)
   kDebug(13030);
   m_cachedMaxStartPos.setLine(-1);
   KTextEditor::Cursor max = maxStartPos();
@@ -3382,6 +3383,9 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
         return m_view->selectionText();
       else
         return QString();
+    default:
+      /* values: ImMaximumTextLength and ImAnchorPosition */
+      break;
   }
 
   return QWidget::inputMethodQuery(query);

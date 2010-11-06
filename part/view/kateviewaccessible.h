@@ -310,6 +310,7 @@ class KateViewAccessible : public QAccessibleInterface
  */
 QAccessibleInterface* accessibleInterfaceFactory(const QString &key, QObject *object)
 {
+  Q_UNUSED(key)
     //if (key == QLatin1String("KateViewInternal"))
     if (KateViewInternal *view = qobject_cast<KateViewInternal*>(object))
         return new KateViewAccessible(view);

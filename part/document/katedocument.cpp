@@ -3285,16 +3285,12 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
   // comment belongs to the same language definition.
   // for lines with no text, we need the attribute for the lines context.
   bool hassel = v->selection();
-  int startAttrib, endAttrib;
+  int startAttrib;
   if ( hassel )
   {
     Kate::TextLine ln = kateTextLine( v->selectionRange().start().line() );
     int l = v->selectionRange().start().line(), c = v->selectionRange().start().column();
     startAttrib = nextNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
-
-    ln = kateTextLine( v->selectionRange().end().line() );
-    l = v->selectionRange().end().line(), c = v->selectionRange().end().column();
-    endAttrib = previousNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
   }
   else
   {
@@ -3302,21 +3298,20 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
     if ( ln->length() )
     {
       startAttrib = ln->attribute( ln->firstChar() );
-      endAttrib = ln->attribute( ln->lastChar() );
     }
     else
     {
       int l = line, c = 0;
       if ( nextNonSpaceCharPos( l, c )  || previousNonSpaceCharPos( l, c ) )
-        startAttrib = endAttrib = kateTextLine( l )->attribute( c );
+        startAttrib = kateTextLine( l )->attribute( c );
       else
-        startAttrib = endAttrib = 0;
+        startAttrib = 0;
     }
   }
 
   bool hasStartLineCommentMark = !(highlight()->getCommentSingleLineStart( startAttrib ).isEmpty());
   bool hasStartStopCommentMark = ( !(highlight()->getCommentStart( startAttrib ).isEmpty())
-      && !(highlight()->getCommentEnd( endAttrib ).isEmpty()) );
+      && !(highlight()->getCommentEnd( startAttrib ).isEmpty()) );
 
   bool removed = false;
 

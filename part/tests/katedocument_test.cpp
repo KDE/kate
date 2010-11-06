@@ -137,3 +137,38 @@ void KateDocumentTest::testMovingInterfaceSignals()
     QCOMPARE(aboutToInvalidateSpy.count(), 4);
     QCOMPARE(aboutToDeleteSpy.count(), 1);
 }
+
+void KateDocumentTest::testSetTextPerformance()
+{
+    const int lines = 150;
+    const int columns = 80;
+    const int rangeLength = 4;
+    const int rangeGap = 1;
+
+    Q_ASSERT(columns % (rangeLength + rangeGap) == 0);
+
+    KateDocument doc(false, false, false);
+    QString text;
+    QVector<Range> ranges;
+    ranges.reserve(lines * columns / (rangeLength + rangeGap));
+    const QString line = QString().fill('a', columns);
+    for(int l = 0; l < lines; ++l) {
+        text.append(line);
+        text.append('\n');
+        for(int c = 0; c < columns; c += rangeLength + rangeGap) {
+            ranges << Range(l, c, l, c + rangeLength);
+        }
+    }
+    // init
+    doc.setText(text);
+    QVector<MovingRange*> movingRanges;
+    movingRanges.reserve(ranges.size());
+    foreach(const Range& range, ranges) {
+        movingRanges << doc.newMovingRange(range);
+    }
+
+    // replace
+    QBENCHMARK {
+        doc.setText(text);
+    }
+}

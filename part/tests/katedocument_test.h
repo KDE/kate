@@ -35,6 +35,8 @@ private Q_SLOTS:
   void testReplaceQStringList();
   void testRemoveTrailingSpace();
   void testMovingInterfaceSignals();
+
+  void testSetTextPerformance();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

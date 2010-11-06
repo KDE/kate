@@ -171,7 +171,7 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine, bool notifyAbou
   /**
    * check if any cursor is invalid or the range is zero size and it should be invalidated then
    */
-  if (!m_start.toCursor().isValid() || !m_end.toCursor().isValid() || (m_invalidateIfEmpty && m_end.toCursor() <= m_start.toCursor())) {
+  if (!m_start.isValid() || !m_end.isValid() || (m_invalidateIfEmpty && m_end <= m_start)) {
     m_start.setPosition (-1, -1);
     m_end.setPosition (-1, -1);
   }
@@ -179,8 +179,8 @@ void TextRange::checkValidity (int oldStartLine, int oldEndLine, bool notifyAbou
   /**
    * for ranges which are allowed to become empty, normalize them, if the end has moved to the front of the start
    */
-  if (!m_invalidateIfEmpty && m_end.toCursor() < m_start.toCursor())
-    m_end.setPosition (m_start.toCursor());
+  if (!m_invalidateIfEmpty && m_end < m_start)
+    m_end.setPosition (m_start);
 
   // fix lookup
   fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());

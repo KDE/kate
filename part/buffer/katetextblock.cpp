@@ -587,7 +587,8 @@ void TextBlock::removeRange (TextRange* range)
   /**
    * cached range?
    */
-  if (m_cachedLineForRanges.contains(range)) {
+  QHash<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
+  if (it != m_cachedLineForRanges.end()) {
     /**
      * must be only cached!
      */
@@ -596,9 +597,7 @@ void TextBlock::removeRange (TextRange* range)
     /**
      * query the range from cache, must be there
      */
-    QHash<TextRange*, int>::iterator it = m_cachedLineForRanges.find(range);
-    Q_ASSERT (it != m_cachedLineForRanges.end());
-    Q_ASSERT (m_cachedRangesForLine[*it].contains(range));
+    Q_ASSERT (m_cachedRangesForLine.at(*it).contains(range));
     
     /**
      * remove it and be done

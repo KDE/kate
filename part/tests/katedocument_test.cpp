@@ -27,6 +27,18 @@
 #include <kateconfig.h>
 #include <ktemporaryfile.h>
 
+///TODO: is there a FindValgrind cmake command we could use to
+///      define this automatically?
+// comment this out and run the test case with:
+//   valgrind --tool=callgrind --instr-atstart=no ./katedocument_test testSetTextPerformance
+// or similar
+//
+// #define USE_VALGRIND
+
+#ifdef USE_VALGRIND
+  #include <valgrind/callgrind.h>
+#endif
+
 using namespace KTextEditor;
 
 QTEST_KDEMAIN(KateDocumentTest, GUI)
@@ -167,8 +179,16 @@ void KateDocumentTest::testSetTextPerformance()
         movingRanges << doc.newMovingRange(range);
     }
 
+    #ifdef USE_VALGRIND
+        CALLGRIND_START_INSTRUMENTATION
+    #endif
+
     // replace
     QBENCHMARK {
         doc.setText(text);
     }
+
+    #ifdef USE_VALGRIND
+        CALLGRIND_STOP_INSTRUMENTATION
+    #endif
 }

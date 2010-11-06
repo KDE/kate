@@ -641,11 +641,21 @@ function tryStatement(line)
                 }
             }
         } else if (result[2] == ',' && !currentString.match(/\(/)) {
-            // when we have cases like this:
-            // fooasdfasdf(
-            //   asdfasdf,
-            // we don't want to align the next line on the (, but on the loc before!
-            indentation = document.firstVirtualColumn(currentLine);
+            // assume a function call: check for '(' brace
+            // - if not found, use previous indentation
+            // - if found, compare the indentation depth of current line and open brace line
+            //   - if current indentation depth is smaller, use that
+            //   - otherwise, use the '(' indentation + following white spaces
+            var currentIndentation = document.firstVirtualColumn(currentLine);
+            var braceCursor = document.anchor(currentLine, result[1].length, '(');
+
+            if (!braceCursor.isValid() || currentIndentation < braceCursor.column)
+                indentation = currentIndentation;
+            else {
+                indentation = braceCursor.column + 1;
+                while (document.isSpace(braceCursor.line, indentation))
+                    ++indentation;
+            }
         } else {
             cursor = document.anchor(currentLine, result[1].length, '(');
         }

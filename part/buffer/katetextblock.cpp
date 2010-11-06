@@ -573,18 +573,14 @@ void TextBlock::updateRange (TextRange* range)
 void TextBlock::removeRange (TextRange* range)
 {
   /**
-   * uncached range?
+   * uncached range? remove it and be done
    */
-  if(m_uncachedRanges.contains(range)) {
+  if(m_uncachedRanges.remove (range)) {
     /**
      * must be only uncached!
      */
     Q_ASSERT (!m_cachedLineForRanges.contains(range));
-    
-    /**
-     * remove it and be done
-     */
-    m_uncachedRanges.remove (range);
+
     return;
   }
   

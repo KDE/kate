@@ -3280,34 +3280,23 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
 */
 void KateDocument::comment( KateView *v, uint line,uint column, int change)
 {
-  // We need to check that we can sanely comment the selectino or region.
-  // It is if the attribute of the first and last character of the range to
-  // comment belongs to the same language definition.
-  // for lines with no text, we need the attribute for the lines context.
   bool hassel = v->selection();
-  int startAttrib;
+  int l = line;
+  int c = 0;
+ 
   if ( hassel )
   {
-    Kate::TextLine ln = kateTextLine( v->selectionRange().start().line() );
-    int l = v->selectionRange().start().line(), c = v->selectionRange().start().column();
-    startAttrib = nextNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
+    l = v->selectionRange().start().line();
+    c = v->selectionRange().start().column();
   }
-  else
-  {
-    Kate::TextLine ln = kateTextLine( line );
-    if ( ln->length() )
-    {
-      startAttrib = ln->attribute( ln->firstChar() );
-    }
-    else
-    {
-      int l = line, c = 0;
-      if ( nextNonSpaceCharPos( l, c )  || previousNonSpaceCharPos( l, c ) )
-        startAttrib = kateTextLine( l )->attribute( c );
-      else
-        startAttrib = 0;
-    }
-  }
+
+  int startAttrib = 0;
+  Kate::TextLine ln = kateTextLine( line );
+
+  if ( c < ln->length() )
+    startAttrib = ln->attribute( c );
+  else if ( !ln->ctxArray().isEmpty() )
+    startAttrib = highlight()->attribute( ln->ctxArray().last() );
 
   bool hasStartLineCommentMark = !(highlight()->getCommentSingleLineStart( startAttrib ).isEmpty());
   bool hasStartStopCommentMark = ( !(highlight()->getCommentStart( startAttrib ).isEmpty())

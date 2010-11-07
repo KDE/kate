@@ -987,6 +987,11 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   return tmpItem;
 }
 
+int KateHighlighting::attribute(int ctx) const
+{
+  return m_contexts[ctx]->attr;
+}
+
 bool KateHighlighting::attributeRequiresSpellchecking( int attr )
 {
   QList<KTextEditor::Attribute::Ptr> attributeList = attributes("");

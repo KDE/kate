@@ -912,7 +912,8 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
     if (customContains(parent, range.start())) {
       if (m_templateRangesChildren[parent].isEmpty()) {
         // simple, not-mirrored range got changed
-        m_uneditedRanges.removeOne(parent);
+        if (!m_initialRemodify)
+          m_uneditedRanges.removeOne(parent);
       } else {
         // handle mirrored ranges
         if (baseRange) {

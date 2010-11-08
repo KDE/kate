@@ -645,26 +645,26 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
 
   // This didn't do what I thought it did, on an ignore
   // we'd get !modified causing the warning icons to disappear
-  //if(!modified) {
-  //  item->clearFlag(ProxyItem::ModifiedExternally);
-  //  item->clearFlag(ProxyItem::DeletedExternally);
-  //}
-  
-  if(reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
-    item->setFlag(ProxyItem::DeletedExternally);
-    kDebug(debugArea()) << "deleted!";
-  }
-  else if(reason == KTextEditor::ModificationInterface::OnDiskModified) {
-    item->setFlag(ProxyItem::ModifiedExternally);
-    kDebug(debugArea()) << "modified!";
-  }
-  else if(reason == KTextEditor::ModificationInterface::OnDiskCreated) {
-    kDebug(debugArea()) << "created!";
-    // with out this, on "reload" we don't get the icons removed :(
+  if(!modified) {
     item->clearFlag(ProxyItem::ModifiedExternally);
     item->clearFlag(ProxyItem::DeletedExternally);
+  } else {
+    if(reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
+      item->setFlag(ProxyItem::DeletedExternally);
+      kDebug(debugArea()) << "deleted!";
+    }
+    else if(reason == KTextEditor::ModificationInterface::OnDiskModified) {
+      item->setFlag(ProxyItem::ModifiedExternally);
+      kDebug(debugArea()) << "modified!";
+    }
+    else if(reason == KTextEditor::ModificationInterface::OnDiskCreated) {
+      kDebug(debugArea()) << "created!";
+      // with out this, on "reload" we don't get the icons removed :(
+      item->clearFlag(ProxyItem::ModifiedExternally);
+      item->clearFlag(ProxyItem::DeletedExternally);
+    }
   }
-
+  
   setupIcon(item);
   
   QModelIndex idx = createIndex(item->row(), 0, item);

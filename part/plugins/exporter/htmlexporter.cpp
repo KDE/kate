@@ -99,8 +99,8 @@ void HTMLExporter::exportText(const QString& text, const KTextEditor::Attribute:
 
   if ( writeForeground || writeBackground ) {
     m_output << QString("<span style='%1%2'>")
-                  .arg(writeForeground ? "color:" + attrib->foreground().color().name() + ';' : "")
-                  .arg(writeBackground ? "background:" + attrib->background().color().name() + ';' : "");
+                  .arg(writeForeground ? QString(QLatin1String("color:") + attrib->foreground().color().name() + QLatin1Char(';')) : QLatin1Char(''))
+                  .arg(writeBackground ? QString(QLatin1String("background:") + attrib->background().color().name() + QLatin1Char(';')) : QLatin1Char(''));
   }
 
   m_output << Qt::escape(text);

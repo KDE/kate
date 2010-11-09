@@ -38,7 +38,6 @@
 #include <kcmdlineargs.h>
 #include <kdeversion.h>
 #include <kdiroperator.h>
-#include <kdualaction.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
 #include <kiconloader.h>
@@ -158,7 +157,7 @@ void KWrite::setupActions()
   // setup Settings menu
   setStandardToolBarMenuEnabled(true);
 
-  m_paShowStatusBar = KStandardAction::showHideStatusbar(this, SLOT(toggleStatusBar()), this);
+  m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
   actionCollection()->addAction( "settings_show_statusbar", m_paShowStatusBar);
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
@@ -296,7 +295,7 @@ void KWrite::newView()
 
 void KWrite::toggleStatusBar()
 {
-  if( m_paShowStatusBar->isActive() )
+  if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
   else
     statusBar()->hide();
@@ -370,14 +369,14 @@ void KWrite::readConfig(KSharedConfigPtr config)
 {
   KConfigGroup cfg( config, "General Options");
 
-  m_paShowStatusBar->setActive( cfg.readEntry("ShowStatusBar", true) );
+  m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", true) );
   m_paShowPath->setChecked( cfg.readEntry("ShowPath", false) );
 
   m_recentFiles->loadEntries( config->group( "Recent Files" ));
 
   m_view->document()->editor()->readConfig(config.data());
 
-  if( m_paShowStatusBar->isActive() )
+  if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
   else
     statusBar()->hide();
@@ -387,7 +386,7 @@ void KWrite::writeConfig(KSharedConfigPtr config)
 {
   KConfigGroup generalOptions( config, "General Options");
 
-  generalOptions.writeEntry("ShowStatusBar",m_paShowStatusBar->isActive());
+  generalOptions.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
   generalOptions.writeEntry("ShowPath",m_paShowPath->isChecked());
 
   m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));

@@ -181,7 +181,8 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   // connect documents menu aboutToshow
   documentMenu = (QMenu*)factory()->container("go", this);
-  connect(documentMenu, SIGNAL(aboutToShow()), this, SLOT(documentMenuAboutToShow()));
+  if (documentMenu)
+    connect(documentMenu, SIGNAL(aboutToShow()), this, SLOT(documentMenuAboutToShow()));
 
   documentsGroup = new QActionGroup(documentMenu);
   documentsGroup->setExclusive(true);

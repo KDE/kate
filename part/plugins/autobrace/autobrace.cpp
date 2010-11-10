@@ -399,7 +399,7 @@ bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *docume
         // C++ specific
         forbiddenTokenList  << "class" << "struct";
     }
-    QString forbiddenTokens = forbiddenTokenList.isEmpty() ? "" : "(?!" + forbiddenTokenList.join("|") + ')';
+    const QString forbiddenTokens = forbiddenTokenList.isEmpty() ? QLatin1String("") : QString(QLatin1String("(?!") + forbiddenTokenList.join(QLatin1String("|")) + QLatin1Char(')'));
 
     for (int i = openingBraceLine + 1; i < document->lines(); ++i)
     {

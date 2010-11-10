@@ -25,7 +25,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "insanehtmlplugin_le.h"
 #include "insanehtmlplugin_le.moc"
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kpassivepopup.h>

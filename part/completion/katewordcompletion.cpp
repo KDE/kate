@@ -31,7 +31,7 @@
 
 #include <kconfig.h>
 #include <kdialog.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <kactioncollection.h>

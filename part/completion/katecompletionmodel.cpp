@@ -1717,20 +1717,40 @@ uint KateCompletionModel::filteredItemCount() const
 }
 
 bool KateCompletionModel::shouldMatchHideCompletionList() const {
-//   return m_haveExactMatch;
-  ///@todo Make this faster
+
+  // @todo Make this faster
+
+  bool doHide = false;
+  CodeCompletionModel* hideModel = 0;
+
   foreach(Group* group, m_rowTable)
     foreach(const Item& item, group->filtered)
       if(item.haveExactMatch()) {
         KTextEditor::CodeCompletionModelControllerInterface2* iface2 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface2*>(item.sourceRow().first);
         KTextEditor::CodeCompletionModelControllerInterface3* iface3 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(item.sourceRow().first);
-        if (! (iface2 || iface3) ) return true;
+        bool hide = false;
+        if (! (iface2 || iface3) ) hide = true;
         if(iface2 && iface2->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface2::HideListIfAutomaticInvocation)
-          return true;
+          hide = true;
         if(iface3 && iface3->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface3::HideListIfAutomaticInvocation)
-          return true;
+          hide = true;
+        if(hide)
+        {
+          doHide = true;
+          hideModel = item.sourceRow().first;
+        }
       }
-  return false;
+
+  if(doHide)
+  {
+    // Check if all other visible items are from the same model
+    foreach(Group* group, m_rowTable)
+      foreach(const Item& item, group->filtered)
+        if(item.sourceRow().first != hideModel)
+            return false;
+  }
+
+  return doHide;
 }
 
 KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()

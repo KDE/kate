@@ -72,8 +72,8 @@ TextBuffer::~TextBuffer ()
   Q_ASSERT (m_ranges.empty());
 
   // clean out all cursors and lines, only cursors belonging to range will survive
-  for (int i = 0; i < m_blocks.size(); ++i)
-    m_blocks[i]->deleteBlockContent ();
+  foreach(TextBlock* block, m_blocks)
+    block->deleteBlockContent ();
 
   // delete all blocks, now that all cursors are really deleted
   // else asserts in destructor of blocks will fail!
@@ -86,23 +86,28 @@ TextBuffer::~TextBuffer ()
   Q_ASSERT (m_invalidCursors.empty());
 }
 
+void TextBuffer::invalidateRanges()
+{
+  // invalidate all ranges, work on copy, they might delete themself...
+  QSet<TextRange *> copyRanges = m_ranges;
+  foreach (TextRange *range, copyRanges)
+    range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
+}
+
 void TextBuffer::clear ()
 {
   // not allowed during editing
   Q_ASSERT (m_editingTransactions == 0);
 
-  // invalidate all ranges, work on copy, they might delete themself...
-  QSet<TextRange *> copyRanges = m_ranges;
-  foreach (TextRange *range, copyRanges)
-    range->setRange (KTextEditor::Cursor::invalid(), KTextEditor::Cursor::invalid());
+  invalidateRanges();
 
   // new block for empty buffer
   TextBlock *newBlock = new TextBlock (this, 0);
   newBlock->appendLine (TextLine (new TextLineData()));
 
   // clean out all cursors and lines, either move them to newBlock or invalidate them, if belonging to a range
-  for (int i = 0; i < m_blocks.size(); ++i)
-    m_blocks[i]->clearBlockContent (newBlock);
+  foreach(TextBlock* block, m_blocks)
+    block->clearBlockContent (newBlock);
 
   // kill all buffer blocks
   qDeleteAll (m_blocks);
@@ -137,7 +142,7 @@ TextLine TextBuffer::line (int line) const
   int blockIndex = blockForLine (line);
 
   // get line
-  return m_blocks[blockIndex]->line (line);
+  return m_blocks.at(blockIndex)->line (line);
 }
 
 QString TextBuffer::text () const
@@ -145,8 +150,8 @@ QString TextBuffer::text () const
   QString text;
 
   // combine all blocks
-  for (int i = 0; i < m_blocks.size(); ++i)
-    m_blocks[i]->text (text);
+  foreach(TextBlock* block, m_blocks)
+    block->text (text);
 
   // return generated string
   return text;
@@ -211,7 +216,7 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
   // this can only lead to one more line in this block
   // no other blocks will change
   ++m_lines; // first alter the line counter, as functions called will need the valid one
-  m_blocks[blockIndex]->wrapLine (position);
+  m_blocks.at(blockIndex)->wrapLine (position);
 
   // remember changes
   ++m_revision;
@@ -247,12 +252,12 @@ void TextBuffer::unwrapLine (int line)
   int blockIndex = blockForLine (line);
 
   // is this the first line in the block?
-  bool firstLineInBlock = (line == m_blocks[blockIndex]->startLine());
+  bool firstLineInBlock = (line == m_blocks.at(blockIndex)->startLine());
 
   // let the block handle the unwrapLine
   // this can either lead to one line less in this block or the previous one
   // the previous one could even end up with zero lines
-  m_blocks[blockIndex]->unwrapLine (line, (blockIndex > 0) ? m_blocks[blockIndex-1] : 0);
+  m_blocks.at(blockIndex)->unwrapLine (line, (blockIndex > 0) ? m_blocks.at(blockIndex-1) : 0);
   --m_lines;
 
   // decrement index for later fixup, if we modified the block in front of the found one
@@ -294,7 +299,7 @@ void TextBuffer::insertText (const KTextEditor::Cursor &position, const QString 
   int blockIndex = blockForLine (position.line());
 
   // let the block handle the insertText
-  m_blocks[blockIndex]->insertText (position, text);
+  m_blocks.at(blockIndex)->insertText (position, text);
 
   // remember changes
   ++m_revision;
@@ -331,7 +336,7 @@ void TextBuffer::removeText (const KTextEditor::Range &range)
 
   // let the block handle the removeText, retrieve removed text
   QString text;
-  m_blocks[blockIndex]->removeText (range, text);
+  m_blocks.at(blockIndex)->removeText (range, text);
 
   // remember changes
   ++m_revision;
@@ -365,8 +370,9 @@ int TextBuffer::blockForLine (int line) const
   // search for right block
   forever {
     // facts bout this block
-    const int start = m_blocks[index]->startLine();
-    const int lines = m_blocks[index]->lines ();
+    TextBlock* block = m_blocks.at(index);
+    const int start = block->startLine();
+    const int lines = block->lines ();
 
     // right block found, remember it and return it
     if (start <= line && line < (start + lines)) {
@@ -397,15 +403,17 @@ void TextBuffer::fixStartLines (int startBlock)
   Q_ASSERT (startBlock < m_blocks.size());
 
   // new start line for next block
-  int newStartLine = m_blocks[startBlock]->startLine () + m_blocks[startBlock]->lines ();
+  TextBlock* block = m_blocks.at(startBlock);
+  int newStartLine = block->startLine () + block->lines ();
 
   // fixup block
   for (int index = startBlock + 1; index < m_blocks.size(); ++index) {
     // set new start line
-    m_blocks[index]->setStartLine (newStartLine);
+    block = m_blocks.at(index);
+    block->setStartLine (newStartLine);
 
     // calculate next start line
-    newStartLine += m_blocks[index]->lines ();
+    newStartLine += block->lines ();
   }
 }
 
@@ -414,7 +422,7 @@ void TextBuffer::balanceBlock (int index)
   /**
    * two cases, too big or too small block
    */
-  TextBlock *blockToBalance = m_blocks[index];
+  TextBlock *blockToBalance = m_blocks.at(index);
 
   // first case, too big one, split it
   if (blockToBalance->lines () >= 2 * m_blockSize) {
@@ -442,7 +450,7 @@ void TextBuffer::balanceBlock (int index)
     return;
 
   // unite small block with predecessor
-  TextBlock *targetBlock = m_blocks[index-1];
+  TextBlock *targetBlock = m_blocks.at(index-1);
 
   // merge block
   blockToBalance->mergeBlock (targetBlock);
@@ -459,7 +467,7 @@ void TextBuffer::debugPrint (const QString &title) const
 
   // print all blocks
   for (int i = 0; i < m_blocks.size(); ++i)
-    m_blocks[i]->debugPrint (i);
+    m_blocks.at(i)->debugPrint (i);
 }
 
 bool TextBuffer::load (const QString &filename, bool &encodingErrors)
@@ -499,8 +507,9 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
      * kill all blocks beside first one
      */
     for (int b = 1; b < m_blocks.size(); ++b) {
-      m_blocks[b]->m_lines.clear ();
-      delete m_blocks[b];
+      TextBlock* block = m_blocks.at(b);
+      block->m_lines.clear ();
+      delete block;
     }
     m_blocks.resize (1);
 
@@ -706,10 +715,7 @@ void TextBuffer::notifyAboutRangeChange (KTextEditor::View *view, int startLine,
    * just create 20k ranges in a go and you wait seconds on a decent machine
    */
   const QList<KTextEditor::View *> &views = m_document->views ();
-  for (int i = 0; i < views.size(); ++i) {
-    // get view
-    KTextEditor::View *curView = views[i];
-
+  foreach(KTextEditor::View* curView, views) {
     // filter wrong views
     if (view && view != curView)
      continue;
@@ -726,7 +732,7 @@ QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view,
 
   // get the ranges of the right block
   QList<TextRange *> rightRanges;
-  foreach (const QSet<TextRange *> &ranges, m_blocks[blockIndex]->rangesForLine (line)) {
+  foreach (const QSet<TextRange *> &ranges, m_blocks.at(blockIndex)->rangesForLine (line)) {
     foreach (TextRange * const range, ranges) {
         /**
         * we want only ranges with attributes, but this one has none

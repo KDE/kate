@@ -418,6 +418,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     bool rangePointerValid (TextRange *range) const { return m_ranges.contains (range); }
 
+    /**
+     * Invalidate all ranges in this buffer.
+     */
+    void invalidateRanges();
+
   private:
     /**
      * parent document

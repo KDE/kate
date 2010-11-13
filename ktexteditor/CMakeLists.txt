@@ -85,6 +85,7 @@ install( FILES
     movingcursor.h
     movingrange.h
     movingrangefeedback.h
+    recoveryinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

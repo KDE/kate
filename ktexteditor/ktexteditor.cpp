@@ -38,6 +38,7 @@
 #include "plugin.h"
 #include "plugin.moc"
 
+#include "recoveryinterface.h"
 #include "commandinterface.h"
 #include "markinterface.h"
 #include "modificationinterface.h"
@@ -304,6 +305,13 @@ ModeInterface::ModeInterface() {
 }
 
 ModeInterface::~ModeInterface() {
+}
+
+RecoveryInterface::RecoveryInterface()
+  : d(0) {
+}
+
+RecoveryInterface::~RecoveryInterface() {
 }
 
 

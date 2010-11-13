@@ -1,0 +1,18 @@
+[Desktop Entry]
+X-KDE-Library=ktexteditor_hlselection
+X-KDE-PluginInfo-Author=
+X-KDE-PluginInfo-Email=
+X-KDE-PluginInfo-Name=ktexteditorhlselection
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://kate.kde.org
+X-KDE-PluginInfo-Category=Editor
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=kate
+X-KDE-Version=4.3
+X-KDE-ServiceTypes=KTextEditor/Plugin
+Type=Service
+Icon=document-import
+Name=Highlight Selection
+Comment=Highlight all words based on the text selection

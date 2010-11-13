@@ -41,6 +41,7 @@
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/highlightinterface.h>
 #include <ktexteditor/movinginterface.h>
+#include <ktexteditor/recoveryinterface.h>
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
@@ -82,6 +83,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      public KTextEditor::AnnotationInterface,
                      public KTextEditor::HighlightInterface,
                      public KTextEditor::MovingInterface,
+                     public KTextEditor::RecoveryInterface,
                      private KTextEditor::MovingRangeFeedback
 {
   Q_OBJECT
@@ -95,6 +97,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::ConfigInterface)
   Q_INTERFACES(KTextEditor::HighlightInterface)
   Q_INTERFACES(KTextEditor::MovingInterface)
+  Q_INTERFACES(KTextEditor::RecoveryInterface)
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -1047,6 +1050,13 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      virtual QVariant configValue(const QString &key);
      virtual void setConfigValue(const QString &key, const QVariant &value);
 
+  //
+  // KTextEditor::RecoveryInterface
+  //
+     virtual bool haveRecovery() const;
+     virtual void doRecovery();
+     virtual void discardRecovery();
+     
   //
   // KTextEditor::TemplateInterface + KTextEditor::TemplateInterface2
   //

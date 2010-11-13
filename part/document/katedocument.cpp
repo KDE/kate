@@ -144,10 +144,10 @@ class KateDocument::LoadSaveFilterCheckPlugins
     KTextEditor::LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
     {
       if (!m_plugins.contains(pluginName)) return 0;
-      if (!m_plugins[pluginName]) {
-        m_plugins[pluginName]=m_plugins2Service[pluginName]->createInstance<KTextEditor::LoadSaveFilterCheckPlugin>();
+      if (!m_plugins.value(pluginName, 0)) {
+        m_plugins[pluginName]=m_plugins2Service.value(pluginName)->createInstance<KTextEditor::LoadSaveFilterCheckPlugin>();
       }
-      return m_plugins[pluginName];
+      return m_plugins.value(pluginName);
     }
     QHash <QString,KTextEditor::LoadSaveFilterCheckPlugin*> m_plugins;
     QHash <QString, KService::Ptr> m_plugins2Service;
@@ -552,7 +552,12 @@ bool KateDocument::clear()
 
   clearMarks ();
 
-  return removeText (KTextEditor::Range(KTextEditor::Cursor(), KTextEditor::Cursor(lastLine()+1, 0)));
+  emit aboutToInvalidateMovingInterfaceContent(this);
+  m_buffer->invalidateRanges();
+
+  emit aboutToRemoveText(documentRange());
+
+  return editRemoveLines(0, lastLine());
 }
 
 bool KateDocument::insertText( const KTextEditor::Cursor& position, const QString& text, bool block )
@@ -1145,12 +1150,12 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     }
 
     for( int i=0; i < list.size(); ++i )
-      m_marks.take( list[i]->line );
+      m_marks.take( list.at(i)->line );
 
     for( int i=0; i < list.size(); ++i )
     {
-      list[i]->line++;
-      m_marks.insert( list[i]->line, list[i] );
+      list.at(i)->line++;
+      m_marks.insert( list.at(i)->line, list.at(i) );
     }
 
     if( !list.isEmpty() )
@@ -1225,12 +1230,12 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   }
 
    for( int i=0; i < list.size(); ++i )
-      m_marks.take( list[i]->line );
+      m_marks.take( list.at(i)->line );
 
    for( int i=0; i < list.size(); ++i )
    {
-      list[i]->line--;
-      m_marks.insert( list[i]->line, list[i] );
+      list.at(i)->line--;
+      m_marks.insert( list.at(i)->line, list.at(i) );
     }
 
   if( !list.isEmpty() )
@@ -1284,12 +1289,12 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
   }
 
    for( int i=0; i < list.size(); ++i )
-      m_marks.take( list[i]->line );
+      m_marks.take( list.at(i)->line );
 
    for( int i=0; i < list.size(); ++i )
    {
-      list[i]->line++;
-      m_marks.insert( list[i]->line, list[i] );
+      list.at(i)->line++;
+      m_marks.insert( list.at(i)->line, list.at(i) );
     }
 
   if( !list.isEmpty() )
@@ -1507,8 +1512,8 @@ QStringList KateDocument::modes () const
   QStringList m;
 
   const QList<KateFileType *> &modeList = KateGlobal::self()->modeManager()->list();
-  for (int i = 0; i < modeList.size(); ++i)
-    m << modeList[i]->name;
+  foreach(KateFileType* type, modeList)
+    m << type->name;
 
   return m;
 }
@@ -1541,7 +1546,7 @@ QString KateDocument::highlightingModeSection( int index ) const
 
 QString KateDocument::modeSection( int index ) const
 {
-  return KateGlobal::self()->modeManager()->list()[ index ]->section;
+  return KateGlobal::self()->modeManager()->list().at( index )->section;
 }
 
 void KateDocument::bufferHlChanged ()
@@ -1616,7 +1621,7 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
   // Restore Bookmarks
   const QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
   for( int i = 0; i < marks.count(); i++ )
-    addMark( marks[i], KateDocument::markType01 );
+    addMark( marks.at(i), KateDocument::markType01 );
 }
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
@@ -1673,10 +1678,11 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
 
 uint KateDocument::mark( int line )
 {
-  if( !m_marks.value(line) )
+  KTextEditor::Mark* m = m_marks.value(line);
+  if( !m )
     return 0;
 
-  return m_marks[line]->type;
+  return m->type;
 }
 
 void KateDocument::setMark( int line, uint markType )
@@ -1709,9 +1715,7 @@ void KateDocument::addMark( int line, uint markType )
   if( markType == 0 )
     return;
 
-  if( m_marks.value(line) ) {
-    KTextEditor::Mark* mark = m_marks[line];
-
+  if( KTextEditor::Mark* mark = m_marks.value(line) ) {
     // Remove bits already set
     markType &= ~mark->type;
 
@@ -1743,10 +1747,10 @@ void KateDocument::removeMark( int line, uint markType )
   if( line > lastLine() )
     return;
 
-  if( !m_marks.value(line) )
-    return;
+  KTextEditor::Mark* mark = m_marks.value(line);
 
-  KTextEditor::Mark* mark = m_marks[line];
+  if( !mark )
+    return;
 
   // Remove bits not set
   markType &= mark->type;
@@ -1778,33 +1782,35 @@ const QHash<int, KTextEditor::Mark*> &KateDocument::marks()
 
 void KateDocument::requestMarkTooltip( int line, QPoint position )
 {
-  if(!mark(line))
+  KTextEditor::Mark* mark = m_marks.value(line);
+  if(!mark)
     return;
 
   bool handled = false;
-  emit markToolTipRequested( this, *marks()[line], position, handled );
+  emit markToolTipRequested( this, *mark, position, handled );
 }
 
 bool KateDocument::handleMarkClick( int line )
 {
-  bool handled = false;
-
-  if(!mark(line))
+  KTextEditor::Mark* mark = m_marks.value(line);
+  if(!mark)
     return false;
 
-  emit markClicked( this, *marks()[line], handled );
+  bool handled = false;
+  emit markClicked( this, *mark, handled );
 
   return handled;
 }
 
 bool KateDocument::handleMarkContextMenu( int line, QPoint position )
 {
-  bool handled = false;
-
-  if(!mark(line))
+  KTextEditor::Mark* mark = m_marks.value(line);
+  if(!mark)
     return false;
 
-  emit markContextMenuRequested( this, *marks()[line], position, handled );
+  bool handled = false;
+
+  emit markContextMenuRequested( this, *mark, position, handled );
 
   return handled;
 }
@@ -1840,8 +1846,7 @@ void KateDocument::setMarkDescription( MarkInterface::MarkTypes type, const QStr
 
 QPixmap KateDocument::markPixmap( MarkInterface::MarkTypes type ) const
 {
-  return m_markPixmaps.contains(type) ?
-         m_markPixmaps[type] : QPixmap();
+  return m_markPixmaps.value(type, QPixmap());
 }
 
 QColor KateDocument::markColor( MarkInterface::MarkTypes type ) const
@@ -1856,8 +1861,7 @@ QColor KateDocument::markColor( MarkInterface::MarkTypes type ) const
 
 QString KateDocument::markDescription( MarkInterface::MarkTypes type ) const
 {
-  return m_markDescriptions.contains(type) ?
-         m_markDescriptions[type] : QString();
+  return m_markDescriptions.value(type, QString());
 }
 
 void KateDocument::setEditableMarks( uint markMask )
@@ -2578,10 +2582,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   bool bracketInserted = false;
   QString buf;
   QChar c;
-  for( int z = 0; z < chars.length(); z++ )
+  foreach(const QChar& ch, chars)
   {
-    QChar ch = c = chars[z];
-
     if (ch.isPrint() || ch == QChar::fromAscii('\t'))
     {
       buf.append (ch);
@@ -2846,7 +2848,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
       int maxi = qMin(pos.line() + pasteLines.count(), this->lines());
 
       for (int i = pos.line(); i < maxi; ++i) {
-        int pasteLength = pasteLines[i-pos.line()].length();
+        int pasteLength = pasteLines.at(i-pos.line()).length();
         removeText(KTextEditor::Range(i, pos.column(),
                                       i, qMin(pasteLength + pos.column(), lineLength(i))));
       }
@@ -3444,8 +3446,9 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
                    ( ( range.start().line() == selection.start().line() || v->blockSelectionMode() ) &&
                    ! p && ! highlight()->isInWord( l->at( range.start().column() - 1 )) ) ||
                    ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
-             )
+             ) {
             s[p] = s.at(p).toUpper();
+          }
           p++;
         }
       }
@@ -3707,10 +3710,8 @@ void KateDocument::setDocName (QString name )
 
   int count = -1;
 
-  for (int z=0; z < KateGlobal::self()->kateDocuments().size(); ++z)
+  foreach(KateDocument* doc, KateGlobal::self()->kateDocuments())
   {
-    KateDocument *doc = (KateGlobal::self()->kateDocuments())[z];
-
     if ( (doc != this) && (doc->url().fileName() == url().fileName()) )
       if ( doc->m_docNameNumber > count )
         count = doc->m_docNameNumber;
@@ -3887,7 +3888,7 @@ bool KateDocument::documentReload()
     QLinkedList<KateView*>::iterator it = m_views.begin();
     for(int i = 0; i < m_views.size(); ++i, ++it) {
       setActiveView(*it);
-      (*it)->setCursorPositionInternal( cursorPositions[i], m_config->tabWidth(), false );
+      (*it)->setCursorPositionInternal( cursorPositions.at(i), m_config->tabWidth(), false );
       if ((*it)->isVisible()) {
         (*it)->repaintText(false);
       }
@@ -3898,8 +3899,8 @@ bool KateDocument::documentReload()
     {
       if (z < (int)lines())
       {
-        if (line(tmp[z].mark.line) == tmp[z].line)
-          setMark (tmp[z].mark.line, tmp[z].mark.type);
+        if (line(tmp.at(z).mark.line) == tmp.at(z).line)
+          setMark (tmp.at(z).mark.line, tmp.at(z).mark.type);
       }
     }
 
@@ -4087,9 +4088,9 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
     const QString nameOfFile = url().fileName();
 
     bool found = false;
-    for (int i = 0; !found && i < wildcards.size(); ++i)
+    foreach(const QString& pattern, wildcards)
     {
-      QRegExp wildcard (wildcards[i], Qt::CaseSensitive, QRegExp::Wildcard);
+      QRegExp wildcard (pattern, Qt::CaseSensitive, QRegExp::Wildcard);
 
       found = wildcard.exactMatch (nameOfFile);
     }
@@ -4356,10 +4357,7 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
 // KTextEditor::variable
 QString KateDocument::variable( const QString &name ) const
 {
-  if ( m_storedVariables.contains( name ) )
-    return m_storedVariables[ name ];
-
-  return QString();
+  return m_storedVariables.value(name, QString());
 }
 
 //END
@@ -5145,7 +5143,7 @@ QString KateDocument::decodeCharacters(const KTextEditor::Range& range, KateDocu
       QString matchingPrefix = prefixStore.findPrefix(textLine, col);
       if(!matchingPrefix.isEmpty()) {
         toReturn += text(KTextEditor::Range(previous, KTextEditor::Cursor(line, col)));
-        const QChar& c = characterEncodingsHash[matchingPrefix];
+        const QChar& c = characterEncodingsHash.value(matchingPrefix);
         const bool isNullChar = c.isNull();
         if(!c.isNull()) {
           toReturn += c;
@@ -5247,9 +5245,9 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
 
   for ( int i = 0; i < intAttrs.size(); i += 3 ) {
     attribs << KTextEditor::HighlightInterface::AttributeBlock(
-      intAttrs[i],
-      intAttrs[i+1],
-      view->renderer()->attribute(intAttrs[i+2])
+      intAttrs.at(i),
+      intAttrs.at(i+1),
+      view->renderer()->attribute(intAttrs.at(i+2))
     );
   }
 
@@ -5281,7 +5279,7 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
     if ( ctxcnt == 0 ) {
       return highlightingMode();
     }
-    int ctx = ctxs[ctxcnt-1];
+    int ctx = ctxs.at(ctxcnt-1);
     if ( ctx == 0 ) {
       return highlightingMode();
     }

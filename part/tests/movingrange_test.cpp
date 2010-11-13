@@ -139,6 +139,8 @@ void MovingRangeTest::testFeedbackEmptyRange()
                                           KTextEditor::MovingRange::AllowEmpty);
   range->setFeedback(&rf);
   rf.verifyReset();
+
+  // remove exact range
   doc.removeText(range->toRange());
   QVERIFY(rf.rangeEmptyCalled());
   QVERIFY(!rf.rangeInvalidCalled());
@@ -147,10 +149,37 @@ void MovingRangeTest::testFeedbackEmptyRange()
   QVERIFY(!rf.caretEnteredRangeCalled());
   QVERIFY(!rf.caretExitedRangeCalled());
 
-  // clear document, should call rangeEmpty again
+  // clear document: should call rangeInvalid
   rf.reset();
   rf.verifyReset();
   doc.clear();
+  QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.rangeEmptyCalled());
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
+  QVERIFY(!rf.caretEnteredRangeCalled());
+  QVERIFY(!rf.caretExitedRangeCalled());
+
+  // setText: should behave just like clear document: call rangeInvalid again
+  doc.setText(text);
+  range->setRange(Range(Cursor(0, 2), Cursor(1, 4)));
+  rf.reset();
+  rf.verifyReset();
+  doc.setText("--yyyy\nyyyy--");
+  QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.rangeEmptyCalled());
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
+  QVERIFY(!rf.caretEnteredRangeCalled());
+  QVERIFY(!rf.caretExitedRangeCalled());
+
+  // now remove entire document range. In this case, emptyRange should be called
+  // instead of rangeInvalid
+  doc.setText(text);
+  range->setRange(Range(Cursor(0, 2), Cursor(1, 4)));
+  rf.reset();
+  rf.verifyReset();
+  doc.removeText(doc.documentRange());
   QVERIFY(rf.rangeEmptyCalled());
   QVERIFY(!rf.rangeInvalidCalled());
   QVERIFY(!rf.mouseEnteredRangeCalled());
@@ -178,9 +207,50 @@ void MovingRangeTest::testFeedbackInvalidRange()
                                           KTextEditor::MovingRange::InvalidateIfEmpty);
   range->setFeedback(&rf);
   rf.verifyReset();
+  
+  // remove exact range
   doc.removeText(range->toRange());
-  QVERIFY(!rf.rangeEmptyCalled()); // FIXME: cullmann? should this also be called?
+  QVERIFY(!rf.rangeEmptyCalled());
   QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
+  QVERIFY(!rf.caretEnteredRangeCalled());
+  QVERIFY(!rf.caretExitedRangeCalled());
+
+  // clear document: should call rangeInvalid again
+  doc.setText(text);
+  range->setRange(Range(Cursor(0, 2), Cursor(1, 4)));
+  rf.reset();
+  rf.verifyReset();
+  doc.clear();
+  QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.rangeEmptyCalled());
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
+  QVERIFY(!rf.caretEnteredRangeCalled());
+  QVERIFY(!rf.caretExitedRangeCalled());
+
+  // setText: should behave just like clear document: call rangeInvalid again
+  doc.setText(text);
+  range->setRange(Range(Cursor(0, 2), Cursor(1, 4)));
+  rf.reset();
+  rf.verifyReset();
+  doc.setText("--yyyy\nyyyy--");
+  QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.rangeEmptyCalled());
+  QVERIFY(!rf.mouseEnteredRangeCalled());
+  QVERIFY(!rf.mouseExitedRangeCalled());
+  QVERIFY(!rf.caretEnteredRangeCalled());
+  QVERIFY(!rf.caretExitedRangeCalled());
+
+  // now remove entire document range. Call rangeInvalid again
+  doc.setText(text);
+  range->setRange(Range(Cursor(0, 2), Cursor(1, 4)));
+  rf.reset();
+  rf.verifyReset();
+  doc.removeText(doc.documentRange());
+  QVERIFY(rf.rangeInvalidCalled());
+  QVERIFY(!rf.rangeEmptyCalled());
   QVERIFY(!rf.mouseEnteredRangeCalled());
   QVERIFY(!rf.mouseExitedRangeCalled());
   QVERIFY(!rf.caretEnteredRangeCalled());

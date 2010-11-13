@@ -53,6 +53,34 @@ namespace QTest {
     }
 }
 
+class MovingRangeInvalidator : public QObject {
+    Q_OBJECT
+public:
+  explicit MovingRangeInvalidator( QObject* parent = 0 )
+    : QObject(parent)
+  {
+  }
+
+  void addRange(MovingRange* range)
+  {
+    m_ranges << range;
+  }
+  QList<MovingRange*> ranges() const
+  {
+    return m_ranges;
+  }
+
+public slots:
+    void aboutToInvalidateMovingInterfaceContent()
+    {
+        qDeleteAll(m_ranges);
+        m_ranges.clear();
+    }
+
+private:
+    QList<MovingRange*> m_ranges;
+};
+
 
 KateDocumentTest::KateDocumentTest()
   : QObject()
@@ -160,6 +188,10 @@ void KateDocumentTest::testSetTextPerformance()
     Q_ASSERT(columns % (rangeLength + rangeGap) == 0);
 
     KateDocument doc(false, false, false);
+    MovingRangeInvalidator invalidator;
+    connect(&doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            &invalidator, SLOT(aboutToInvalidateMovingInterfaceContent()));
+
     QString text;
     QVector<Range> ranges;
     ranges.reserve(lines * columns / (rangeLength + rangeGap));
@@ -171,24 +203,29 @@ void KateDocumentTest::testSetTextPerformance()
             ranges << Range(l, c, l, c + rangeLength);
         }
     }
-    // init
-    doc.setText(text);
-    QVector<MovingRange*> movingRanges;
-    movingRanges.reserve(ranges.size());
-    foreach(const Range& range, ranges) {
-        movingRanges << doc.newMovingRange(range);
-    }
-
-    #ifdef USE_VALGRIND
-        CALLGRIND_START_INSTRUMENTATION
-    #endif
 
     // replace
     QBENCHMARK {
+        // init
         doc.setText(text);
-    }
+        foreach(const Range& range, ranges) {
+            invalidator.addRange(doc.newMovingRange(range));
+        }
+        QCOMPARE(invalidator.ranges().size(), ranges.size());
 
-    #ifdef USE_VALGRIND
-        CALLGRIND_STOP_INSTRUMENTATION
-    #endif
+        #ifdef USE_VALGRIND
+            CALLGRIND_START_INSTRUMENTATION
+        #endif
+
+        doc.setText(text);
+
+        #ifdef USE_VALGRIND
+            CALLGRIND_STOP_INSTRUMENTATION
+        #endif
+
+        QCOMPARE(doc.text(), text);
+        QVERIFY(invalidator.ranges().isEmpty());
+    }
 }
+
+#include "katedocument_test.moc"

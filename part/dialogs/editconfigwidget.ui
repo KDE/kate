@@ -98,7 +98,7 @@
       <item>
        <widget class="QCheckBox" name="chkRemoveTrailingSpaces">
         <property name="whatsThis">
-         <string>If this is enabled, the editor will remove any trailing whitespace on lines when they are left by the insertion cursor.</string>
+         <string>If this is enabled, the editor will remove any trailing whitespace on lines that are changed through editing.</string>
         </property>
         <property name="text">
          <string>Remove &amp;trailing spaces while editing</string>

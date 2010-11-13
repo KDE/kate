@@ -1709,13 +1709,15 @@ void KateDocument::clearMark( int line )
 
 void KateDocument::addMark( int line, uint markType )
 {
+  KTextEditor::Mark *mark;
+
   if( line > lastLine())
     return;
 
   if( markType == 0 )
     return;
 
-  if( KTextEditor::Mark* mark = m_marks.value(line) ) {
+  if( mark = m_marks.value(line) ) {
     // Remove bits already set
     markType &= ~mark->type;
 
@@ -1725,7 +1727,7 @@ void KateDocument::addMark( int line, uint markType )
     // Add bits
     mark->type |= markType;
   } else {
-    KTextEditor::Mark *mark = new KTextEditor::Mark;
+    mark = new KTextEditor::Mark;
     mark->line = line;
     mark->type = markType;
     m_marks.insert( line, mark );

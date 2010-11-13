@@ -87,8 +87,6 @@ QScriptValue i18n( QScriptContext *context, QScriptEngine *engine )
   }
 
   KLocalizedString ls = ki18n(text.toUtf8());
-  kDebug() << "simple i18n      :" << ::i18n(text.toLocal8Bit());
-  kDebug() << "TRANSLATED STRING:" << substituteArguments( ls, args ).toString();
   return substituteArguments( ls, args ).toString();
 }
 
@@ -121,7 +119,7 @@ QScriptValue i18nc( QScriptContext *context, QScriptEngine *engine )
   return substituteArguments( ls, args ).toString();
 }
 
-/// i18n("singular", "plural", number, arguments [optional])
+/// i18np("singular", "plural", number, arguments [optional])
 QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
 {
   Q_UNUSED(engine)
@@ -155,7 +153,7 @@ QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
   return substituteArguments( ls, args, 98 ).toString();
 }
 
-/// i18n("context", "singular", "plural", number, arguments [optional])
+/// i18ncp("context", "singular", "plural", number, arguments [optional])
 QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
 {
   Q_UNUSED(engine)

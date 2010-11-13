@@ -53,7 +53,6 @@ KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   // use queued connections because this (all) KateRecoverBar widgets are deleted
   connect(m_ui->btnRecover, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);
   connect(m_ui->btnDiscard, SIGNAL(clicked()), m_view->doc()->swapFile(), SLOT(discard()), Qt::QueuedConnection);
-  connect(&view->doc()->buffer(), SIGNAL(editingStarted()), this, SIGNAL(hideMe()));
   connect(m_ui->btnDiff, SIGNAL(clicked()), this, SLOT(viewDiff()));
 }
 

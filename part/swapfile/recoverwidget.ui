@@ -41,7 +41,7 @@
         <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p&gt;&lt;b&gt;Data Recovery&lt;/b&gt; &lt;a href=&quot;Kate stores the things you changed in a swap file. Using the original file you started from plus the swap file you can mostly recover your work.&quot;&gt;&lt;span&gt;(Help)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The file was not closed appropriately. Do you want to recover the data?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p&gt;&lt;b&gt;Data Recovery&lt;/b&gt; &lt;a href=&quot;The application stores the things you changed in a swap file. Using the original file you started from plus the swap file you can mostly recover your work.&quot;&gt;&lt;span&gt;(Help)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The file was not closed appropriately. Do you want to recover the data?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

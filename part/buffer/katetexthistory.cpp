@@ -181,7 +181,7 @@ void TextHistory::unlockRevision (qint64 revision)
      */
     int unreferencedEdits = 0;
     for (int i = 0; i + 1 < m_historyEntries.size(); ++i) {
-      if (m_historyEntries[i].referenceCounter)
+      if (m_historyEntries.at(i).referenceCounter)
         break;
 
       // remember deleted count
@@ -470,12 +470,12 @@ void TextHistory::transformCursor (int& line, int& column, KTextEditor::MovingCu
    */
   if (toRevision > fromRevision) {
     for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
-        const Entry &entry = m_historyEntries[rev];
+        const Entry &entry = m_historyEntries.at(rev);
         entry.transformCursor (line, column, moveOnInsert);
     }
   } else {
     for (int rev = fromRevision - m_firstHistoryEntryRevision; rev >= (toRevision - m_firstHistoryEntryRevision + 1); --rev) {
-        const Entry &entry = m_historyEntries[rev];
+        const Entry &entry = m_historyEntries.at(rev);
         entry.reverseTransformCursor (line, column, moveOnInsert);
     }
   }
@@ -532,7 +532,7 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
    */
   if (toRevision > fromRevision) {
     for (int rev = fromRevision - m_firstHistoryEntryRevision + 1; rev <= (toRevision - m_firstHistoryEntryRevision); ++rev) {
-        const Entry &entry = m_historyEntries[rev];
+        const Entry &entry = m_historyEntries.at(rev);
         
         entry.transformCursor (startLine, startColumn, moveOnInsertStart);
         
@@ -554,7 +554,7 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
     }
   } else {
     for (int rev = fromRevision - m_firstHistoryEntryRevision ; rev >= (toRevision - m_firstHistoryEntryRevision + 1); --rev) {
-        const Entry &entry = m_historyEntries[rev];
+        const Entry &entry = m_historyEntries.at(rev);
         
         entry.reverseTransformCursor (startLine, startColumn, moveOnInsertStart);
         

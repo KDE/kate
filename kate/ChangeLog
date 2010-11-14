@@ -1,0 +1,286 @@
+2004-04-22 Christoph Cullmann <cullmann@kde.org>
+  * kate switched over to katemdi, even smaller replacement for kmdi2 :)
+
+2004-10-06 Christoph Cullmann <cullmann@kde.org>
+  * kate switched over to kmdi2, a slim version of old kmdi
+    which allows only IDEA mode, but should be much less buggy
+    beside this, we now allow tabbing thx to the new kmdi stuff
+    and therefor should now be really feature complete at least mdi
+    wise, having the features to allow multiple main windows,
+    tabbing, splitters, widget stacks for the views, now only missing thingy
+    would be to allow non kate view's to be embeded, like a khtml widget for
+    documentation browsing or something like that
+
+2003-08-28 Christoph Cullmann <cullmann@kde.org>
+  * jowenn switch kate over to use kmdi, seems to work well
+    for the first port, but still needs some fixes ;)
+
+2002-07-19 Christoph Cullmann <cullmann@kde.org>
+  * new interface structure implemented
+    this is BIC and source incompatible to 2.x and 3.0.x plugins
+
+2002-01-04 Christoph Cullmann <cullmann@kde.org>
+  * the search stuff in the katedocument is rewritten now, should work mostly,
+    only search for whole words is just a mess :(
+
+2002-01-03 Christoph Cullmann <cullmann@kde.org>
+  * kate app and kwrite app now use the katepart via libloader and link only
+    to the kateinterfaces (which will soon be splitted into katepartinterfaces
+    and kateinterfaces
+  * new framework for the configpages of the katepart accessible through the
+    interfaces
+  * KSpell works again ;) my god, what a buggy thingy
+
+2001-12-01 Christoph Cullmann <cullmann@kde.org>
+  * speedup for insert/removeText/Line
+  * new editStart/editEnd/editAddUndo functions to make the undo/redo + update
+     after edit function calls easier to understand an use in katedocument.*
+
+2001-11-30 Joseph Wenninger <jowenn@kde.org>
+  * I hopefully fixed the CSS highlighting finally. It used
+     deprecated syntax and there was a bug in the highlighting code,
+     for handling weakDeliminiators. Who renamed them, once they where
+     called weakDelimiters, which I think is the correct pronounciation.
+
+2001-11-29 Joseph Wenninger <jowenn@kde.org>
+  * KWrite/Kate use different font settings for printing and viewing now
+  * Fixed a small crash in my kdevelop->kate port of the codecompletion interface
+
+2001-11-26 Christoph Cullmann <cullmann@kde.org>
+  * backspace bug fixed
+  * more cleanups in doc/view
+
+2001-11-24 Christoph Cullmann <cullmann@kde.org>
+  * the docID is now called documentNumber and is in the KTextEditor lib ;)
+  * new print and mark interfaces ;)
+  * bugfixes for some stuff in kateview/document.*
+  * move more of the document stuff from the view to the document
+    (old kwritedoc/view was very mixed, no real seperation, but that should be nearly done)
+
+2001-11-17 Christoph Cullmann <cullmann@kde.org>
+  * new selection code (bit buggy at the moment, but better than the old way
+    of storing the selection in the attributes
+
+2001-10-29 Joseph Wenninger <jowenn@kde.org>
+  * Highlighting definitions support now #stay and #pop as context values
+  * Some highlighting definitions ported
+
+2001-10-27 Christoph Cullmann <cullmann@kde.org>
+  * undo/redo works now without errors
+  * fix many memleaks + some crashs in buffer + hl
+  * fix ctx managment (almost)
+
+2001-10-27 Joseph Wenninger <jowenn@kde.org
+  * Highlighting isn't updated completely yet (should be fixed now), but uses:
+  * I have to do some nasty workaround because the overloaded ==
+    operator in QMemArray crashes, if one or both of the arrays has
+    a size of 0 (I think this is a bug in QT, but it could be that
+    this is intended behaviour. Who knows ?)
+
+2001-10-26 Joseph Wenninger <jowenn@kde.org>
+  * The stacked highlighting shoul almost work now.
+    Using old description files it will use quite a lot memory, but
+    they should work.
+    Problems:
+  * It's leaking like a sieve on destruction, because the
+    memarrays aren't deleted correctly yet (They need to be pointers and not
+    references, otherwise there are out of memory errors in qgarray)
+  * Highlighting isn't updated completely yet
+  * I have to do some nasty workaround because the overloaded ==
+    operator in QMemArray crashes, if one or both of the arrays has
+    a size of 0 (I think this is a bug in QT, but it could be that
+    this is intended behaviour. Who knows ?)
+
+2001-10-20 Christoph Cullmann <cullmann@kde.org>
+  * new undo/redo stuff, should work now already fine (mostly ;)
+
+2001-10-14 Christoph Cullmann <cullmann@kde.org>
+  * new interfaces
+  * fixed some bugs (or better mistakes) in EditInterface
+  * fix bugs and even more bugs
+
+2001-10-14 Christoph Cullmann <cullmann@kde.org>
+  * implementing and enhancing the new KTextEditor interfaces
+  * rewrite the whole internal document/view stuff ;) (hope will be finished
+    soon with that old crap !
+  * reconstruction of whole katelibs + dirs
+
+2001-10-06 Christoph Cullmann <cullmann@kde.org>
+  * myself back again ;)
+  * now kate is clean (only qt3), no backports ;)
+
+2001-08-24  christian@kdevelop.org
+  * reimplement the commenting of selections on some languages
+
+2001-08-19  christian@kdevelop.org
+  * added back Sather highlighting support
+  * improved Eiffel language syntax highlighting support
+  * added Eiffel language comment directive in eiffel.xml
+  * added Ada language comment directive in ada.xml
+
+2001-08-15  christian@kdevelop.org
+  * committed Eiffel language syntax highlighting support
+
+2001-08-08  rokrau@yahoo.com
+  * committed changes to Kate's API necessary for integration of kate as
+    a kpart into kdevelop
+
+2001-05-13 Christoph Cullmann <cullmann@kde.org>
+  * after some time of learning for my "Abitur" now again some fixes ;):
+    textlines stuff rewritten, selection fixed + +/- font zoom buttons in the part
+
+2001-04-27 Christoph Cullmann <cullmann@kde.org>
+  * now the pluginconfig pages work ;)
+
+2001-04-24 Joseph Wenninger <jowenn@kde.org>
+  *  now <keywords> and <types> is replaced by <list name="XXXX">
+
+2001-04-20 Christoph Cullmann <cullmann@kde.org>
+  * new configdialog
+  * enhanced pluginIface to supports configdialogpages
+
+2001-04-14 Christoph Cullmann <cullmann@kde.org>
+  * now kateview has in iconborder too (without real function at the moment)
+
+2001-04-10 Christoph Cullmann <cullmann@kde.org>
+  * bugfixes for drawBuffer stuff, next/prev viewspace, restoreView
+
+2001-04-08 Christoph Cullmann <cullmann@kde.org>
+  * now encoding for files can be selected at settings dialog (not only UTF8, all possible encodings)
+  * dropped old code -> use Waldo's code ;)
+
+2001-04-07 Joseph Wenninger <jowenn@kde.org>
+  * Activated Waldo Bastian's NEW_CODE
+  * Ported Highlighting to it
+
+2001-04-05 Joseph Wenninger <jowenn@kde.org>
+  * Highlighting Configuration is now in kate/kwrite settings too
+  * Made a cleanup of no longer used classes
+
+2001-04-04 Christoph Cullmann <cullmann@kde.org>
+  * sidebar now again restores config
+
+2001-04-03 Joseph Wenninger <jowenn@kde.org>
+  * Cristi Dumitrescu's PHP keyword / type list added
+
+2001-04-01 Joseph Wenninger <jowenn@kde.org>
+  * Added a new widget KateStackTabWidget
+    Now you can chose between tabbed or an
+    KOffice Workspace like view for the file sidebar
+    --> You can change this behaviour in the config dialog
+  * Not implemented:
+    restore sidebar page  on startup
+    remove page not implemented yet
+    (will be fixed soon)
+  * Added a backport of QT3's QRegExp I got from Scott Manson
+    wit one addtion (see qt3back/README)
+    hopefully this will give us more flexibility for syntax
+    highlighting
+
+2001-03-27 Christoph Cullmann <cullmann@kde.org>
+  * console disabled per default
+  * console only loaded if enabled
+
+2001-03-28 Joseph Wenninger <jowenn@kde.org>
+  * -n in kate.desktop removed, now config settings are used
+
+2001-03-27 Christoph Cullmann <cullmann@kde.org>
+  * interfaces extended (mainly for projectmanager)
+  * piper moved to plugins/projectmanager/piper
+  * a piper Makefile.am created
+
+2001-03-26 Joseph Wenninger <jowenn@kde.org>
+  * 2 reimplemented highlighing configs
+  * 1 experimental highlighting config
+  * preparations for an highlighting editing dialog
+
+2001-03-25 Christoph Cullmann <cullmann@kde.org>
+  * rewrite of plugin API and manager, now loading/unloading nice
+
+2001-03-22 Joseph Wenninger <jowenn@kde.org>
+  * single / multi instance mode configurable
+    Cullmann's -n option forces a new instance
+    Otherwise it uses the configuration from
+    the settings dialog. At the moment -n is
+    default start option
+
+2001-03-21 Christoph Cullmann <cullmann@kde.org>
+  * QPopupMenu for filelist
+
+2001-03-20 Christoph Cullmann <cullmann@kde.org>
+  * kate is now a normal KApplication
+
+2001-03-18 Christoph Cullmann <cullmann@kde.org>
+  * big location changes of source files
+  * KateFactory now in use by hole Kate app
+  * KatePartView/Doc merged with KateView/Doc (make life more easy)
+
+2001-03-18 Joseph Wenninger <jowenn@kde.org>
+  * openheader plugin opens the corresponding
+    .h file for .cpp or .c, and vice versa
+  * Hopefully fixed highlighting dialog for now.
+
+2001-03-17 Joseph Wenninger <jowenn@kde.org>
+  * Syntaxhighlighting is now defined in cpp.xml, c.xml html.xml ...
+    instead of a global syntax.xml.
+    (Not ported completely yet)
+  * Some simple reg expression work (see html.xml)
+
+2001-03-17 Christoph Cullmann <cullmann@kde.org>
+  * moved textfilter stuff to a own plugin "textfilter"
+  * cleaned up katemainwindow.*
+
+2001-03-16 Christoph Cullmann <cullmann@kde.org>
+  * search dialog comes up with selected text
+  * backport of some KDevelop KWrite patches ;)
+
+2001-03-15 Christoph Cullmann <cullmann@kde.org>
+  * katepart finished
+  * new kwrite using katepart
+  * removed old kwrite and kwritepart !
+  * fixed menu and toolbar problems of the new KWrite app
+
+2001-03-11 Christoph Cullmann <cullmann@kde.org>
+  * kwrite stuff merged into kate !!!!!
+
+2001-03-04 Christoph Cullmann <cullmann@kde.org>
+  * mutiple mainwindows
+  * fileist, sync for all mainwindows, all open docs listed
+
+2001-03-03 Christoph Cullmann <cullmann@kde.org>
+  * session managment (Anders Lund)
+  * removed some debug stuff
+
+2001-02-26 Joseph Wenninger <jowenn@kde.org>
+  * First step for a plugin management dialog page
+    Soon to come
+
+2001-02-26 Christoph Cullmann <cullmann@kde.org>
+  * Kate is a part of kdebase :)
+    sourceforge.net CVS won't be used in the future
+
+2001-02-24 Phlip <phlip_cpp@my-deja.com>
+  * HTML button - select text, hit <Ctrl+Dash>, and enter the fields
+    for an SGML tag. Don't enter the < > or closing tag. We put these
+    around the selected text, and [try to] re-select that text so you can add
+    another nested tag right away. We are now the first HTML editor
+    that's actually better than Notepad! Hours of fun.
+
+  * Filter - select text, hit <Ctrl+Backslash>, and enter an OS command.
+    we pipe the selected text thru that command, such as "sort", and then
+    replace the selection with the result. Impress your friends.
+
+2001-02-21 Joseph Wenninger <jowenn@kde.org>
+  * Makefile.am's     : correction for linking
+  * katemenuitem.h    : Improved menu items added doc-list
+  * katelistboxitem.h    : Improved listboxitem files-list
+
+2001-02-19 Christoph Cullmann <cullmann@kde.org>
+  * kateconsole.* konsole/*     : add kateconsole widget
+
+2001-02-16 Anders Lund <anders@alweb.dk>
+  * katemainwindow.cpp  :fixing read/write options to use maindockwindow functions.
+
+2001-02-15 Joseph Wenninger <jowenn@kde.org>
+  * kateview.cpp    : Tab doesn't jump to next widget anymore, but inserts a tab into the text
+  * katemainwindow.*  : F8 / SHIFT-F8 jumps to next / previous widget

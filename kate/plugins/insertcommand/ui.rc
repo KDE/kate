@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<gui name="kateinsertcommand" library="libkateinsertcommandplugin" version="2">
+<MenuBar>
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="edit_insert_command" />
+ </Menu>
+</MenuBar>
+</gui>

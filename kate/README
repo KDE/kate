@@ -1,0 +1,19 @@
+                *** Kate ***
+Kate is a fast texteditor for the KDE destop with an Emacs-style document interface.
+I hope it works well and improves workspeed on many little textfiles. ;-)
+Our new buffer managment will allow it to open 50MB files ++ in less than 5 seconds
+(at least on my 400Mhz P2 ;) It is thought as a more powerful replacement for the old
+KWrite app, which will still keep alive for the existing userbase and because it is
+just a lot smaller and therefor faster on launch than kate.
+For Kate Plugins, Kate provides the Kate Interfaces, which allow deeper access
+to the Kate app and its features.
+
+                *** KWrite ***
+The KWrite app is based on the KWrite of KDE 2.0 written by Jochen Wilhelmy
+but now it uses the Kate part or any other KTextEditor compatible part.
+The most stuff has been rewritten since the old KDE 2.x days.
+
+Homepage: http://kate.kde.org
+
+Licensing:
+The Kate app/utils/interfaces and KWrite app are licensed under the LGPL VERSION 2.

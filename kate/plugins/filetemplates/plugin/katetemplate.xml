@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  This file is part of KDE's kate project.
+
+  (C) 2004 by Anders Lund <anders@alweb.dk>
+  (C) 2004 by Joseph Weninger <jowenn@kde.org>
+
+  This file is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+-->
+<!--
+  This file is highlighting kate template files.
+  TODO equal signs will disturb in the template header (property values)
+-->
+<language version="1.00" kateversion="2.3" name="Kate File Template" section="Markup" extensions="*.katetemplate" mimetype="" author="Anders Lund" licence="GPL">
+  <highlighting>
+
+    <list name="properties">
+      <item>template</item>
+      <item>group</item>
+      <item>documentname</item>
+      <item>author</item>
+      <item>description</item>
+      <item>highlight</item>
+      <item>icon</item>
+    </list>
+    <list name="macros" casesensitive="1">
+      <item>realname</item>
+      <item>username</item>
+      <item>email</item>
+      <item>organisation</item>
+      <item>date</item>
+      <item>time</item>
+      <item>datetime</item>
+      <item>month</item>
+      <item>year</item>
+    </list>
+
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text">
+        <RegExpr attribute="Header Keyword" context="header" String="^katetemplate:" />
+        <RegExpr attribute="Normal" context="escape" String="\\[$%]\{[^}\s]+\}" lookAhead="true" />
+        <RegExpr attribute="Macro" context="macros" String="[$%]\{[^}\s]+\}" lookAhead="true"/>
+        <Detect2Chars attribute="Escape" context="#stay" char="\" char1="^" />
+        <DetectChar attribute="Keyword" context="#stay" char="^" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="header">
+        <keyword attribute="Property" context="headervalue" String="properties" />
+      </context>
+      <context attribute="Property Value" lineEndContext="#pop#pop" name="headervalue">
+        <DetectChar attribute="Header Text" context="#stay" char="=" />
+        <RegExpr context="#pop" String=" \w+\s*=" lookAhead="true" />
+      </context>
+      <context attribute="Error" lineEndContext="#pop" name="macros">
+        <Detect2Chars attribute="Keyword" context="#stay" char="$" char1="{"/>
+        <Detect2Chars attribute="Keyword" context="#stay" char="%" char1="{"/>
+        <DetectChar attribute="Keyword" context="#pop" char="}" />
+        <RegExpr attribute="Macro" context="#stay" String="[^}\s]+" />
+        <keyword attribute="Keyword" context="#stay" String="macros" />
+      </context>
+      <context attribute="Escape" lineEndContext="#stay" name="escape">
+	<Detect2Chars attribute="Escape" context="#pop" char="\" char1="$"/>
+      </context>
+    </contexts>
+
+
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Keyword" defStyleNum="dsKeyword" />
+      <itemData name="Escape" defStyleNum="dsOthers" />
+      <itemData name="Macro" defStyleNum="dsDataType" />
+      <itemData name="Error" defStyleNum="dsError" />
+      <itemData name="Header Keyword" defStyleNum="dsKeyword" backgroundColor="#eee" />
+      <itemData name="Property" defStyleNum="dsDecVal" bold="true" backgroundColor="#eee"/>
+      <itemData name="Property Value" defStyleNum="dsString" backgroundColor="#eee"/>
+      <itemData name="Comment" defStyleNum="dsComment" backgroundColor="#eee" />
+      <itemData name="Header Text" defStyleNum="dsNormal" backgroundColor="#eee" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0"/>
+  </general>
+</language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

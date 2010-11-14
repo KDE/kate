@@ -1,0 +1,150 @@
+<chapter id="insertcommand">
+<chapterinfo>
+
+<title>Insert Command</title>
+
+<authorgroup>
+<author>
+<firstname>Anders</firstname>
+<surname>Lund</surname>
+<affiliation>
+<address>&Anders.Lund.mail;</address>
+</affiliation>
+</author>
+</authorgroup>
+<date>2006-05-17</date>
+<releaseinfo>3.5.2</releaseinfo>
+<abstract>
+<para>
+The <quote>Insert Command</quote> plugin allows you to insert shell
+command output into a document open in &kate;.
+</para>
+</abstract>
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kate</keyword>
+<keyword>insert</keyword>
+</keywordset>
+</chapterinfo>
+
+<title>Introduction</title>
+
+<para>The <quote>Insert Command</quote> plugin allows you to insert
+shell command output into a document open in &kate;.</para>
+
+<para>First enable the <quote>Insert Command</quote> plugin by using the 
+<menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure
+&kate;...</guimenuitem></menuchoice> dialog and checking <guilabel>&kate;
+InsertCommand</guilabel> in the <guilabel>Application</guilabel>
+<guilabel>Plugins</guilabel> section and close the dialog.</para>
+
+<sect1 id="insertcommand-fund">
+<title>Onscreen Fundamentals</title>
+
+<para>
+<!-- Basics of using this plugin --> To use the plugin, select
+<guimenu>Insert Command...</guimenu> from the <guimenu>Tools</guimenu>
+menu, which will present you with a small dialog for entering the
+command, choosing a working folder and selecting whether to include
+errors (STDERR output) in the inserted text. You can also have the
+command string printed above the output.
+</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="insertcommand.png"/></imageobject>
+<textobject>
+<phrase>The Insert Command Dialog</phrase>
+</textobject>
+</mediaobject>
+
+<para>The plugin can remember a number of commands as chosen in the
+configuration page. These are used for autocompletion, and can be
+selected from a list in the command entry. </para>
+
+<para>By default, the command will be run in the working folder of the
+kate process, which is usually your home folder. This can be changed
+in the configuration page for the plugin. </para>
+
+<para>Note that any shell command that requires user input (for
+example passwd) or uses a ncurses interface or something similar (for
+example top) will fail to produce the expected output. </para>
+
+</sect1>
+
+<sect1 id="insertcommand-config">
+<title>Configuration</title>
+
+<para>
+To configure the <quote>Insert Command</quote>
+plugin, open the &kate; configuration dialog from the
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+&kate;...</guimenuitem></menuchoice> menu and choose 
+<menuchoice><guimenuitem>Plugins</guimenuitem><guilabel>Insert Command
+</guilabel></menuchoice>. </para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG"
+fileref="configure_insertcommand.png"/></imageobject>
+<textobject>
+<phrase>The Insert Command Configuration Tab</phrase>
+</textobject>
+</mediaobject>
+
+<para>
+The following configuration options are available:
+</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Number of commands to remember</guilabel></term>
+<listitem>
+<para>This setting is presented as a spinbox which you can set to the
+number of commands to be remembered. Any number from 0 to 99 is
+legal. Default is 20.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Default Working Folder</guilabel></term>
+<listitem>
+<para>This setting, presented as a set of radio buttons, allows you to
+decide how the working folder of a command is chosen. The options are
+the working folder of the &kate; process (usually your home folder when &kate; is started from the K menu), the folder of the document (if any, otherwise the
+above option is used) or the working folder of the last command run in
+the plugin. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+</sect1>
+
+<sect1 id="insertcommand-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+
+<para>
+&kate; Plugin <quote>Insert Command</quote> copyright 2001 Anders Lund
+&Anders.Lund.mail;.
+</para>
+
+<para>
+Documentation copyright 2001 &Anders.Lund; &Anders.Lund.mail;
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+<!-- &underFDL; -->
+&underGPL;
+
+</sect1>
+</chapter>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-omittag: nil
+sgml-shorttag: t
+End:
+-->
+

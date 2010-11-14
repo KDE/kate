@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+It comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law. You may
+redistribute copies of update-mime-database under the terms of the GNU General
+Public License. For more information about these matters, see the file named
+COPYING.
+-->
+<!--
+Notes:
+- the mime types in this file are valid with the version 0.30 of the
+  shared-mime-info package.
+- the "fdo #xxxxx" are the wish in the freedesktop.org bug database to include
+  the mime type there.
+-->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-ktesnippets">
+    <sub-class-of type="application/xml"/>
+    <comment>KTE Snippets data file</comment>
+  </mime-type>
+</mime-info>

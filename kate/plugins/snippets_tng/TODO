@@ -1,0 +1,4 @@
+*) Implement the edit selected snippet in the snippet selector
+
+*) Make the actions created by the SnippetCore somehow step down, if there are other actions using the same shortcut. 
+I'm not sure yet, how to do it (jowenn)

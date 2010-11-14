@@ -1,0 +1,282 @@
+<snippets name="Testsnippets" filetypes="*" snippetlicense="public domain" authors="Joseph Wenninger" license="BSD">
+<script>
+
+function testit(src) {
+        debug("HELLO I'm a script");
+        return "HELLO I'm a script. Text is:"+src+" I'm done";
+}
+
+function getFileName(src) {
+        return document.fileName();
+}
+
+</script>
+
+
+  <item>
+    <displayprefix>prefix</displayprefix>
+    <match>test1</match>
+    <displaypostfix>postfix</displaypostfix>
+    <displayarguments>(param1, param2)</displayarguments>
+    <fillin>This is a test</fillin>
+  </item>
+  <item>
+    <match>testtemplate</match>
+    <fillin>This is a test ${WHAT} template</fillin>
+  </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroring1</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is a  simple mirroring test:
+This ${field} should be mirrored into ${field}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroring2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is a  simple mirroring test:
+This ${field} should be mirrored into
+${field/./\u\0/} with the first character being uppercase</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorunderline</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>The field should be underlined
+${field}
+${field/(.)/=/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorsensitive</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>All As are replaced by X:
+${field}
+${field/A/X/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorinsensitive</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>All As and as are replaced by X:
+${field}
+${field/A/X/gi}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplacebackslash</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>replace all \ by |
+${field}
+${field/\\/|/g}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplaceslash</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>replace all / by |
+${field}
+${field/\//|/g}</fillin>
+ </item>
+
+<item>
+  <displayprefix></displayprefix>
+  <match>mirrorreplaceend</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This adds an X to the end of the field
+${field}
+${field/$/X/}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbroken1</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is broken, the regexp is not closed
+${field}
+${field/a/b}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbroken2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This is broken, the regexp is not closed
+${field}
+${field/a}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/}
+</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/} ${blup}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorbracedollar3</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet replaces 1 by }\${blah}
+${field}
+${field/1/}${blah}/}    ${blup}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrorandindependent</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>One mirrored field and one independent:
+${field}
+${field} ${blah}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroruppercaseandindependent</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>One mirrored field  with uppercasing and one independent:
+${field}
+${field/(.*)/\U\1\E/} ${blah}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrormastersel</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet shows the operation of the @ operator, the second
+occurence of \${field} is the one the text is entered too, whereas
+the first occurence of \${field1} is the master .
+${field}
+${field@}
+
+${field1}
+${field1}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirrormastersel2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>This snippet shows the operation of the @ operator, the second
+occurence of \${field} is the one the text is entered too, whereas
+the first occurence of \${field1} is the master .
+${field}
+
+
+${field1}
+${field1}
+
+
+${field@}</fillin>
+ </item>
+
+
+<item>
+ <displayprefix></displayprefix>
+  <match>mirrorinitvalues</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>Test snippet for initial values
+
+\${no_init_value}
+${no_init_value}
+
+\${with_init_value:Hello, I'm an init value}
+${with_init_value:Hello, I'm an init value}
+
+\${with_brace:Hello, I contain a \}}
+${with_brace:Hello, I contain a \}}
+
+\${with_brace_and_slashes:Hello, I contain a \ and one before the brace \\\}}
+${with_brace_and_slashes:Hello, I contain a \ and one before the brace \\\}}
+
+\${i_m_mirrored}
+and initialized later
+\${i_m_mirrored@:Mirror mirror on the wall}
+
+
+${i_m_mirrored}
+and initialized later
+${i_m_mirrored@:Mirror mirror on the wall}
+
+Not a regexp:
+\${not_a_regexp:hallo / blah}
+${not_a_regexp:hallo / blah}
+
+This is a regexp:
+\${a_regexp}
+\${a_regexp/X/:/}
+
+This is a regexp:
+${a_regexp}
+${a_regexp/X/:/}
+
+The END !!</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>mirroringscripted</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>The mirror value is calculated by a script
+This ${field} should be mirrored
+into ${field`testit`}</fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn} The filename of the document is ${fn`getFileName`}
+  </fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename2</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn`getFileName`} is the filename
+  </fillin>
+ </item>
+
+ <item>
+  <displayprefix></displayprefix>
+  <match>insertFilename3</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>${fn`getFileName`} is the filename
+  and now it is in uppercase: ${fn/(.*)/\U\1\E/} !!!
+  </fillin>
+ </item>
+
+
+</snippets>

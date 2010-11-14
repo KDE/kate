@@ -1,0 +1,15 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="katesnippets_tng" library="katesnippets_tngplugin" version="4">
+
+<MenuBar>
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Separator group="tools_operations" />
+    <Action name="popup_katesnippets_addto" group="tools_operations2"/>
+ </Menu>
+</MenuBar>
+
+<Menu name="ktexteditor_popup">
+  <Action name="popup_katesnippets_addto" group="popup_operations2"/>
+</Menu>
+
+</gui>

@@ -1,0 +1,17 @@
+<!DOCTYPE kpartgui>
+<gui name="kate-ctags-plugin" library="libkatectagsplugin" version="1">
+    <MenuBar>
+        <Menu name="CTags Menubar"><text>CTags</text>
+            <Action name="ctags_return_step" />
+            <Action name="ctags_lookup_current" />
+            <Action name="ctags_lookup_current_as_declaration" />
+            <Action name="ctags_lookup_current_as_definition" />
+            <Action name="ctags_jump_to_next_matcht" />
+        </Menu>
+    </MenuBar>
+
+    <Menu name="ktexteditor_popup" noMerge="1">
+        <Action name="popup_ctags"/>
+    </Menu>
+</gui>
+

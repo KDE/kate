@@ -1,0 +1,13 @@
+<snippets name="Testsnippets C++" filetypes="C++;C" snippetlicense="public domain" authors="Joseph Wenninger" license="BSD">
+  <item>
+    <match>testfor</match>
+    <displayarguments>(int i=0;i!=100;++i)</displayarguments>
+    <fillin>for (int i=0;i!=100;++i) {
+    ${cursor}
+    }</fillin>
+  </item>
+  <item>
+    <match>testsnippet-C++</match>
+    <fillin>This is a C++ snippet</fillin>
+  </item>
+</snippets>

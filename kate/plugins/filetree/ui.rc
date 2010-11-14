@@ -1,0 +1,16 @@
+<!DOCTYPE kpartgui>
+<gui name="katefiletreeplugin" library="katefiletreeplugin" version="3">
+<MenuBar>
+  <Menu name="go" append="after_view">
+    <text>&amp;Go</text>
+    <Action name="filetree_prev_document"/>
+    <Action name="filetree_next_document"/>
+  </Menu>
+</MenuBar>
+<ToolBar name="katefiletreeplugin">
+  <text>Kate File Tree</text>
+  <Action name="filetree_show_active_document"/>
+</ToolBar>
+</gui>
+
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

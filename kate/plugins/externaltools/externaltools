@@ -1,0 +1,53 @@
+[Global]
+tools=externaltool_CompareCurrentDocumenttoRCS,externaltool_CompareDirectoryofCurrentDocumenttoRCS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
+version=1
+
+[externaltool_CompareCurrentDocumenttoRCS]
+acname=externaltool_CompareCurrentDocumenttoRCS
+cmdname=document-diff
+command=if [ -z %directory ] then kdialog --title Error --msgbox "The document has never been saved and thus cannot be compared to RCS."; fi\ncd %directory\nif [ -d .svn ] && grep %filename .svn/entries 2>&1 >/dev/null ; then\n  svn diff %filename|kompare -o -\nelif [ -d CVS ] && grep %filename CVS/Entries 2>&1 >/dev/null ; then\n  cvs diff -ub %filename|kompare -o -\nelif [ -d .git ] && echo $(git ls-files) | grep %filename 2>&1 >/dev/null ; then\n  git diff %filename|kompare -o -\nelse\n  kdialog --title Error --msgbox "The file \'%filename\' is not under revision control."\nfi\n
+executable=kompare
+icon=kompare
+mimetypes=
+name=Compare Current Document to Version Control System
+save=1
+
+[externaltool_CompareDirectoryofCurrentDocumenttoRCS]
+acname=externaltool_CompareDirectoryofCurrentDocumenttoRCS
+cmdname=
+command=cd %directory\nif [ -d .svn ] ; then\n  svn diff |kompare -o -\nelif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelif [ -d .git ] ; then\n  git diff |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be under revision control."\nfi
+executable=kompare
+icon=kompare
+mimetypes=
+name=Compare Directory of Current Document to Version Control System
+save=0
+
+[externaltool_EmailCVSDiffforCurrentDocument]
+acname=externaltool_EmailCVSDiffforCurrentDocument
+cmdname=
+command=cd %directory\nif [ -d CVS ] && grep %filename CVS/Entries > /dev/null ; then\n  cvs diff -ubB %filename > $(kde4-config --path tmp)%filename.diff \n  kmail --composer --attach  $(kde4-config --path tmp)%filename.diff\nelse\n  kdialog --title Error -msgbox "The file '%filename' is not in CVS"\nfi
+executable=kmail
+icon=kmail
+mimetypes=
+name=Email CVS Diff for Current Document
+save=1
+
+[externaltool_GoogleSelection]
+acname=externaltool_GoogleSelection
+cmdname=google-selection
+command=[ -n "%selection" ] && kfmclient openURL "gg:%selection"
+executable=kfmclient
+icon=globe
+mimetypes=
+name=Google Selection
+save=0
+
+[externaltool_RunScript]
+acname=externaltool_RunScript
+cmdname=runscript
+command=cd "%directory" && chmod u+x "%filename" && konsole -e "./%filename"
+executable=konsole
+icon=run
+mimetypes=
+name=Run Script
+save=1

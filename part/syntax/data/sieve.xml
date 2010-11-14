@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Highlighting for Sieve scripts (RFC 3028) written by Petter E. Stokke -->
+<language name="Sieve" version="1.05" kateversion="2.4" section="Scripts" extensions="*.siv" mimetype="application/sieve" priority="5" author="Petter E. Stokke" license="">
+  <highlighting>
+    <list name="keywords">
+      <item> require </item>
+      <item> if </item>
+      <item> elsif </item>
+      <item> else </item>
+      <item> discard </item>
+      <item> stop </item>
+      <item> fileinto </item>
+      <item> keep </item>
+      <item> reject </item>
+      <item> redirect </item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
+        <RegExpr attribute="Decimal" context="#stay" String="\d+[KMG]?" />
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <RegExpr attribute="String" context="MultilineString" String="text:$" beginRegion="String" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="Comment"/>
+        <RegExpr attribute="Comment" String="#.*$" context="#stay"/>
+        <RegExpr attribute="Tagged Argument" context="#stay" String=":\w+"/>
+        <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context attribute="String" name="MultilineString" lineEndContext="#stay">
+        <RegExpr attribute="String" context="#pop" String="\.$" column="0"/>
+        <HlCStringChar attribute="String Char" context="#stay" />
+      </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Function" context="#pop" String="\b[_a-zA-Z]\w*(?=[\s]*)" />
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="Comment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword"/>
+      <itemData name="Decimal"      defStyleNum="dsDecVal"/>
+      <itemData name="String"       defStyleNum="dsString"/>
+      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="Comment"      defStyleNum="dsComment"/>
+      <itemData name="Symbol"       defStyleNum="dsNormal"/>
+      <itemData name="Tagged Argument" defStyleNum="dsOthers"/>
+      <itemData name="Function"     defStyleNum="dsFunction" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="multiLine" start="/*" end="*/" />
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

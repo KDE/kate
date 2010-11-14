@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CursorConfigWidget</class>
+ <widget class="QWidget" name="CursorConfigWidget">
+  <layout class="QVBoxLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="gbCursorMovement">
+     <property name="title">
+      <string>Text Cursor Movement</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QCheckBox" name="chkSmartHome">
+        <property name="whatsThis">
+         <string>When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text. The same applies for the end key.</string>
+        </property>
+        <property name="text">
+         <string>Smart ho&amp;me and smart end</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkWrapCursor">
+        <property name="whatsThis">
+         <string>&lt;p&gt;When on, moving the insertion cursor using the &lt;b&gt;Left&lt;/b&gt; and &lt;b&gt;Right&lt;/b&gt; keys will go on to previous/next line at beginning/end of the line, similar to most editors.&lt;/p&gt;&lt;p&gt;When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Wrap c&amp;ursor</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkPagingMovesCursor">
+        <property name="whatsThis">
+         <string>Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view.</string>
+        </property>
+        <property name="text">
+         <string>&amp;PageUp/PageDown moves cursor</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout">
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblAutoCenterCursor">
+          <property name="text">
+           <string>&amp;Autocenter cursor (lines):</string>
+          </property>
+          <property name="buddy">
+           <cstring>sbAutoCenterCursor</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KIntSpinBox" name="sbAutoCenterCursor">
+          <property name="whatsThis">
+           <string>Sets the number of lines to maintain visible above and below the cursor when possible.</string>
+          </property>
+          <property name="specialValueText">
+           <string>Disabled</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbSelectionMode">
+     <property name="title">
+      <string>Text Selection Mode</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QRadioButton" name="rbNormal">
+        <property name="whatsThis">
+         <string>Selections will be overwritten by typed text and will be lost on cursor movement.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Normal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbPersistent">
+        <property name="whatsThis">
+         <string>Selections will stay even after cursor movement and typing.</string>
+        </property>
+        <property name="text">
+         <string>P&amp;ersistent</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>1</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

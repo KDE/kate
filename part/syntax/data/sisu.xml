@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="SiSU" version="1.01" section="Markup" kateversion="2.4" extensions="*.sst;*.ssm;*.ssi;*._sst;*.-sst;" author="Ralph Amissah (ralph.amissah@gmail.com)" license="LGPL" >
+  <highlighting>
+    <list name="somename">
+      <item> class </item>
+      <item> const </item>
+    </list>
+    <contexts>
+    <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+      <keyword attribute="Keyword" context="#stay" String="somename" />
+      <DetectChar attribute="String" context="string" char="&quot;" />
+      <RegExpr String="^(0~\S+|@\S+)\s.+$" attribute="Header" context="#pop" />
+      <RegExpr String="^:?[A-C1-6]~.+$" attribute="Heading" context="#pop" />
+      <StringDetect String="~{" attribute="Endnote" context="footnote"/>
+      <StringDetect String="^~" attribute="Endnote" context="endnote"/>
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+      <StringDetect String="&lt;br&gt;" attribute="Break" context="#pop" />
+      <RegExpr String="\{.+?\}(http:\/\/\S+|image)" attribute="Link" context="#stay"/>
+      <RegExpr String="(^|\s)http:\/\/\S+" attribute="Link" context="#stay"/>
+      <RegExpr String="^!_ .+" attribute="Bold" context="boldline"/>
+      <RegExpr String="^(_[12]|_\*|_[12]\*)\s" attribute="Indent" context="#stay"/>
+      <RegExpr String="~\^" attribute="Endnote" context="#stay"/>
+      <RegExpr String="^%+\s.+$" attribute="Comment" context="#stay" endRegion="regionMarker" firstNonSpace="true" />
+    </context>
+    <context attribute="String" lineEndContext="#stay" name="string" >
+      <DetectChar attribute="String" context="#pop" char="&quot;" />
+    </context>
+    <context attribute="Endnote" lineEndContext="#stay" name="footnote" >
+      <StringDetect attribute="Endnote" context="#pop" String="}~" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Bold" lineEndContext="#stay" name="bold" >
+      <StringDetect attribute="Bold" context="#pop" String="}*" />
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Bold" lineEndContext="#stay" name="emphasis" >
+      <StringDetect attribute="Bold" context="#pop" String="}!" />
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Italic" lineEndContext="#stay" name="italic" >
+      <StringDetect attribute="Italic" context="#pop" String="}/" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Underscore" lineEndContext="#stay" name="underscore" >
+      <StringDetect attribute="Underscore" context="#pop" String="}_" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Superscript" lineEndContext="#stay" name="superscript" >
+      <StringDetect attribute="Superscript" context="#pop" String="}^" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Subscript" lineEndContext="#stay" name="subscript" >
+      <StringDetect attribute="Subscript" context="#pop" String="}," />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Strike" lineEndContext="#stay" name="strike" >
+      <StringDetect attribute="Strike" context="#pop" String="}-" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="+{" attribute="Insert" context="insert"/>
+    </context>
+    <context attribute="Insert" lineEndContext="#stay" name="insert" >
+      <StringDetect attribute="Insert" context="#pop" String="}+" />
+      <StringDetect String="!{" attribute="Bold" context="emphasis"/>
+      <StringDetect String="*{" attribute="Bold" context="bold"/>
+      <StringDetect String="/{" attribute="Italic" context="italic"/>
+      <StringDetect String="_{" attribute="Underscore" context="underscore"/>
+      <StringDetect String="^{" attribute="Superscript" context="superscript"/>
+      <StringDetect String=",{" attribute="Subscript" context="subscript"/>
+      <StringDetect String="-{" attribute="Strike" context="strike"/>
+    </context>
+    <context attribute="Endnote" lineEndContext="#pop" name="endnote" />
+    <context attribute="Bold" lineEndContext="#pop" name="boldline" />
+    <context attribute="Indent" lineEndContext="#pop" name="indent" />
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Header" defStyleNum="dsNormal" color="#1c869b" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Heading" defStyleNum="dsNormal" color="#ff0000" selColor="#60FFFF" bold="1" italic="0"/>
+      <itemData name="Bold" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0"/>
+      <itemData name="Italic" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="1"/>
+      <itemData name="Underscore" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Superscript" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Subscript" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Strike" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Insert" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword" />
+      <itemData name="Endnote" defStyleNum="dsNormal" color="#086800" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Link" defStyleNum="dsNormal" color="#0000FF" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="String" defStyleNum="dsString" />
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Group" defStyleNum="dsRegionMarker"/>
+      <itemData name="Break" defStyleNum="dsNormal" color="#FF0000" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Indent" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+    </itemDatas>
+  </highlighting>  
+  <general>
+    <keywords weakDeliminator="\" wordWrapDeliminator=",{}[]"/>
+    <comments>
+      <comment name="singleLine" start="%" />
+    </comments>
+  </general>
+</language>

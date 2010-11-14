@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="MediaWiki" section="Markup" version="1.02" kateversion="2.4" extensions="" mimetype="" license="FDL" >
+  <highlighting>
+    <contexts>
+      <context attribute="Normal" lineEndContext="#stay" name="normal" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="([=]{2,2}[^=]+[=]{2,2}|[=]{3,3}[^=]+[=]{3,3}|[=]{4,4}[^=]+[=]{4,4}|[=]{5,5}[^=]+[=]{5,5})" attribute="Section" column="0" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|ftp:|mailto:)[\S]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="[\s]" context="Unformatted" column="0" />
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="Table" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" />
+        <RegExpr String="([=]{2,2}[^=]+[=]{2,2}|[=]{3,3}[^=]+[=]{3,3}|[=]{4,4}[^=]+[=]{4,4}|[=]{5,5}[^=]+[=]{5,5})" attribute="Section" context="#stay" column="0" />
+        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+        <RegExpr String="[[](?![[])" context="URL" attribute="Wiki-Tag" />
+        <RegExpr String="(http:|ftp:|mailto:)[\S]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
+        <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="[\s]" context="Unformatted" column="0" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[-]{4,}" attribute="Wiki-Tag" context="#stay" />
+        <DetectChar char="!" attribute="Wiki-Tag" context="#stay" column="0" />
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="comment" >
+        <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
+      </context>
+      <context attribute="Link" lineEndContext="#stay" name="URL" >
+        <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char="'" context="Error" attribute="Error" />
+      </context>
+      <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
+        <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
+        <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char="'" context="Error" attribute="Error" />
+      </context>
+      <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
+        <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+      </context>
+      <context attribute="Template" lineEndContext="#stay" name="Link" >
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
+        <AnyChar String="'[]" context="Error" attribute="Error" />
+      </context>
+      <context attribute="Error" lineEndContext="#pop" name="Error" />
+      <context attribute="Link" lineEndContext="#stay" name="Template" >
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char="'" context="Error" attribute="Error" />
+      </context>
+      <context attribute="NoWiki" lineEndContext="#stay" name="NoWiki" >
+        <RegExpr String="&lt;!--[^-]*--&gt;" attribute="NoWiki" />
+        <StringDetect String="&lt;/nowiki&gt;" context="#pop" attribute="Wiki-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+      </context>
+      <context attribute="Unformatted" lineEndContext="#pop" name="Unformatted" />
+      <context attribute="NoWiki" lineEndContext="#stay" name="Pre" >
+      <StringDetect String="&lt;/pre&gt;" context="#pop" attribute="Wiki-Tag" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal" defStyleNum="dsNormal" />
+      <itemData name="Link" defStyleNum="dsOthers" />
+      <itemData name="URL" defStyleNum="dsOthers" />
+      <itemData name="Comment" defStyleNum="dsComment" />
+      <itemData name="Section" defStyleNum="dsKeyword" />
+      <itemData name="HTML-Entity" defStyleNum="dsDecVal" />
+      <itemData name="HTML-Tag" defStyleNum="dsKeyword" />
+      <itemData name="Wiki-Tag" defStyleNum="dsDecVal" bold="true" />
+      <itemData name="Error" defStyleNum="dsError" />
+      <itemData name="NoWiki" defStyleNum="dsNormal" />
+      <itemData name="Unformatted" defStyleNum="dsNormal" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment end="//-->" start="&lt;!--" name="multiLine" />
+    </comments>
+    <keywords casesensitive="0" />
+  </general>
+</language>

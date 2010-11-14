@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Debian Changelog" version="0.64" kateversion="2.4" section="Other" extensions="" mimetype="">
+    <highlighting>
+        <list name="keywords">
+            <item>urgency</item>
+        </list>
+
+        <list name="distributions">
+            <item>stable</item>
+            <item>stable-security</item>
+            <item>testing</item>
+            <item>testing-proposed-updates</item>
+            <item>frozen</item>
+            <item>unstable</item>
+            <item>experimental</item>
+            <item>UNRELEASED</item>
+            <!-- Debian releases -->
+            <item>sarge-backports</item>
+            <item>sarge-volatile</item>
+            <item>etch-backports</item>
+            <item>etch-volatile</item>
+            <item>lenny-backports</item>
+            <item>lenny-volatile</item>
+            <item>squeeze-backports</item>
+            <item>squeeze-volatile</item>
+            <!-- Ubuntu releases -->
+            <item>dapper</item>
+            <item>dapper-security</item>
+            <item>dapper-proposed</item>
+            <item>dapper-updates</item>
+            <item>dapper-backports</item>
+            <item>dapper-commercial</item>
+            <item>edgy</item>
+            <item>edgy-security</item>
+            <item>edgy-proposed</item>
+            <item>edgy-updates</item>
+            <item>edgy-backports</item>
+            <item>edgy-commercial</item>
+            <item>feisty</item>
+            <item>feisty-security</item>
+            <item>feisty-proposed</item>
+            <item>feisty-updates</item>
+            <item>feisty-backports</item>
+            <item>feisty-commercial</item>
+            <item>gutsy</item>
+            <item>gutsy-security</item>
+            <item>gutsy-proposed</item>
+            <item>gutsy-updates</item>
+            <item>gutsy-backports</item>
+            <item>gutsy-partner</item>
+            <item>hardy</item>
+            <item>hardy-security</item>
+            <item>hardy-proposed</item>
+            <item>hardy-updates</item>
+            <item>hardy-backports</item>
+            <item>hardy-partner</item>
+            <item>intrepid</item>
+            <item>intrepid-security</item>
+            <item>intrepid-proposed</item>
+            <item>intrepid-updates</item>
+            <item>intrepid-backports</item>
+            <item>intrepid-partner</item>
+            <item>jaunty</item>
+            <item>jaunty-security</item>
+            <item>jaunty-proposed</item>
+            <item>jaunty-updates</item>
+            <item>jaunty-backports</item>
+            <item>jaunty-partner</item>
+            <item>karmic</item>
+            <item>karmic-security</item>
+            <item>karmic-proposed</item>
+            <item>karmic-updates</item>
+            <item>karmic-backports</item>
+            <item>lucid</item>
+            <item>lucid-security</item>
+            <item>lucid-proposed</item>
+            <item>lucid-updates</item>
+            <item>lucid-backports</item>
+        </list>
+
+        <list name="urgencies">
+            <item>low</item>
+            <item>medium</item>
+            <item>high</item>
+            <item>emergency</item>
+            <item>bug</item>
+            <item>critical</item>
+        </list>
+
+        <contexts>
+            <context attribute="Normal Text" lineEndContext="#stay" name="INIT">
+                <RegExpr attribute="Keyword" context="Head" String="[^ ]*" column="0"/>
+                <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
+                <RegExpr attribute="Keyword" context="#stay" String=" \-\-" column="0"/>
+                <RegExpr attribute="Keyword" context="#stay" String="  \*" column="0"/>
+                <RegExpr attribute="Bug" context="#stay" String="closes:[\s]*((bug\s*)?#\s*\d+)(\s*, *(bug\s*)?#\s*\d+)*" insensitive="true"/>
+            </context>
+
+            <context attribute="Normal Text" lineEndContext="#pop" name="Head">
+                <DetectChar attribute="Keyword" context="Version" char="("/>
+                <RegExpr attribute="Keyword" context="#stay" String="[,;=]"/>
+                <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                <keyword attribute="Data" context="#stay" String="distributions"/>
+                <keyword attribute="Data" context="#stay" String="urgencies"/>
+            </context>
+
+            <context attribute="Version" lineEndContext="#pop" name="Version">
+                <DetectChar attribute="Keyword" context="#pop" char=")"/>
+            </context>
+        </contexts>
+
+        <itemDatas>
+            <itemData name="Normal Text" defStyleNum="dsNormal"/>
+            <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+            <itemData name="Version"  defStyleNum="dsDataType"/>
+            <itemData name="Data" defStyleNum="dsDataType"/>
+            <itemData name="Bug"  defStyleNum="dsDataType"/>
+            <itemData name="Email" defStyleNum="dsOthers"/>
+        </itemDatas>
+    </highlighting>
+
+    <general>
+        <keywords casesensitive="1" weakDeliminator="-"/>
+    </general>
+</language>

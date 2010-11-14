@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Stata" version="1.01" kateversion="2.1" section="Sources" extensions="*.ado;*.do" mimetype="" author="Edwin Leuven (e.leuven@uva.nl)" license="LGPL">
+  <highlighting>
+    <list name="keywords">
+      <item> about </item>
+      <item> ado </item>
+      <item> adjust </item>
+      <item> alpha </item>
+      <item> anova </item>
+      <item> anovadef </item>
+      <item> append </item>
+      <item> assert </item>
+      <item> arch </item>
+      <item> areg </item>
+      <item> args </item>
+      <item> arima </item>
+      <item> bar </item>
+      <item> binreg </item>
+      <item> biprobit </item>
+      <item> bitest </item>
+      <item> boxcox </item>
+      <item> brier </item>
+      <item> break </item>
+      <item> browse </item>
+      <item> bstrap </item>
+      <item> by </item>
+      <item> canon </item>
+      <item> cap </item>
+      <item> capture </item>
+      <item> cat </item>
+      <item> cd </item>
+      <item> centile </item>
+      <item> cf </item>
+      <item> checksum </item>
+      <item> ci </item>
+      <item> clavg </item>
+      <item> class </item>
+      <item> clist </item>
+      <item> clcomp </item>
+      <item> clear </item>
+      <item> clgen </item>
+      <item> clkmeans </item>
+      <item> clkmed </item>
+      <item> clnote </item>
+      <item> clogit </item>
+      <item> cloglog </item>
+      <item> clsing </item>
+      <item> cltree </item>
+      <item> cluster </item>
+      <item> clutil </item>
+      <item> cmdlog </item>
+      <item> cnreg </item>
+      <item> cnsreg </item>
+      <item> creturn </item>
+      <item> codebook </item>
+      <item> collapse </item>
+      <item> compare </item>
+      <item> compress </item>
+      <item> confirm </item>
+      <item> constraint </item>
+      <item> contract </item>
+      <item> continue </item>
+      <item> copy </item>
+      <item> copyright </item>
+      <item> corr2data </item>
+      <item> corr </item>
+      <item> correlate </item>
+      <item> corrgram </item>
+      <item> count </item>
+      <item> cox </item>
+      <item> cross </item>
+      <item> ct </item>
+      <item> ctset </item>
+      <item> cttost </item>
+      <item> cumsp </item>
+      <item> cumul </item>
+      <item> cusum </item>
+      <item> datatypes </item>
+      <item> decode </item>
+      <item> define </item>
+      <item> describe </item>
+      <item> destring </item>
+      <item> dfuller </item>
+      <item> diagplots </item>
+      <item> dir </item>
+      <item> discard </item>
+      <item> di </item>
+      <item> display </item>
+      <item> do </item>
+      <item> doedit </item>
+      <item> dotplot </item>
+      <item> drawnorm </item>
+      <item> drop </item>
+      <item> dstdize </item>
+      <item> edit </item>
+      <item> egen </item>
+      <item> eivreg </item>
+      <item> else </item>
+      <item> encode </item>
+      <item> end </item>
+      <item> epitab </item>
+      <item> erase </item>
+      <item> ereturn </item>
+      <item> exit </item>
+      <item> expand </item>
+      <item> export </item>
+      <item> factor </item>
+      <item> fdadescribe </item>
+      <item> fdasave </item>
+      <item> fdause </item>
+      <item> fillin </item>
+      <item> file </item>
+      <item> filefilter </item>
+      <item> flist </item>
+      <item> for </item>
+      <item> foreach </item>
+      <item> forv </item>
+      <item> forval </item>
+      <item> forvalues </item>
+      <item> format </item>
+      <item> fracpoly </item>
+      <item> g </item>
+      <item> gen </item>
+      <item> generate </item>
+      <item> gettoken </item>
+      <item> glm </item>
+      <item> glogit </item>
+      <item> gprefs </item>
+      <item> gr7 </item>
+      <item> graph7 </item>
+      <item> gr </item>
+      <item> graph </item>
+      <item> grmeanby </item>
+      <item> gsort </item>
+      <item> hadimvo </item>
+      <item> hausman </item>
+      <item> haver </item>
+      <item> heckman </item>
+      <item> heckprob </item>
+      <item> help </item>
+      <item> hetprob </item>
+      <item> hexdump </item>
+      <item> hilite </item>
+      <item> hist </item>
+      <item> hotel </item>
+      <item> if </item>
+      <item> icd9 </item>
+      <item> impute </item>
+      <item> in </item>
+      <item> infile </item>
+      <item> infile1 </item>
+      <item> infile2 </item>
+      <item> infiling </item>
+      <item> infix </item>
+      <item> input </item>
+      <item> insheet </item>
+      <item> inspect </item>
+      <item> ipolate </item>
+      <item> ivreg </item>
+      <item> jknife </item>
+      <item> joinby </item>
+      <item> kappa </item>
+      <item> kdensity </item>
+      <item> keep </item>
+      <item> ksm </item>
+      <item> ksmirnov </item>
+      <item> kwallis </item>
+      <item> label </item>
+      <item> ladder </item>
+      <item> levels </item>
+      <item> limits </item>
+      <item> lincom </item>
+      <item> line </item>
+      <item> linktest </item>
+      <item> list </item>
+      <item> lnskew0 </item>
+      <item> log </item>
+      <item> logistic </item>
+      <item> lowess </item>
+      <item> lfit </item>
+      <item> lstat </item>
+      <item> lroc </item>
+      <item> lsens </item>
+      <item> logit </item>
+      <item> loneway </item>
+      <item> lrtest </item>
+      <item> ltable </item>
+      <item> lv </item>
+      <item> manova </item>
+      <item> manovatest </item>
+      <item> mark </item>
+      <item> markin </item>
+      <item> markout </item>
+      <item> marksample </item>
+      <item> matsize </item>
+      <item> maximize </item>
+      <item> means </item>
+      <item> median </item>
+      <item> memory </item>
+      <item> merge </item>
+      <item> mfx </item>
+      <item> mkdir </item>
+      <item> mkspline </item>
+      <item> ml </item>
+      <item> mleval </item>
+      <item> mlmatbysum </item>
+      <item> mlmatsum  </item>
+      <item> mlsum  </item>
+      <item> mlvecsum  </item>
+      <item> mlogit </item>
+      <item> more </item>
+      <item> move </item>
+      <item> mvencode </item>
+      <item> mvreg </item>
+      <item> nbreg </item>
+      <item> net </item>
+      <item> newey </item>
+      <item> news </item>
+      <item> nl </item>
+      <item> nlogit </item>
+      <item> nobreak </item>
+      <item> nois </item>
+      <item> noisily </item>
+      <item> notes </item>
+      <item> nptrend </item>
+      <item> numlist </item>
+      <item> obs </item>
+      <item> odbc </item>
+      <item> ologit </item>
+      <item> oneway </item>
+      <item> oprobit </item>
+      <item> order </item>
+      <item> orthog </item>
+      <item> outfile </item>
+      <item> outsheet </item>
+      <item> parse </item>
+      <item> pcorr </item>
+      <item> _pctile </item>
+      <item> pctile </item>
+      <item> pergram </item>
+      <item> pk </item>
+      <item> pkcollapse </item>
+      <item> pkcross </item>
+      <item> pkequiv </item>
+      <item> pkexamine </item>
+      <item> pkshape </item>
+      <item> pksumm </item>
+      <item> plot </item>
+      <item> poisson </item>
+      <item> post </item>
+      <item> postclose </item>
+      <item> postfile </item>
+      <item> postutil </item>
+      <item> pperron </item>
+      <item> prais </item>
+      <item> predict </item>
+      <item> preserve </item>
+      <item> probit </item>
+      <item> program </item>
+      <item> prtest </item>
+      <item> pwcorr </item>
+      <item> qc </item>
+      <item> qreg </item>
+      <item> quadchk </item>
+      <item> query </item>
+      <item> qui </item>
+      <item> quietly </item>
+      <item> ranksum </item>
+      <item> range </item>
+      <item> recast </item>
+      <item> recode </item>
+      <item> reg3 </item>
+      <item> regdiag </item>
+      <item> reg </item>
+      <item> regress </item>
+      <item> rename </item>
+      <item> replace </item>
+      <item> reshape </item>
+      <item> restore </item>
+      <item> return </item>
+      <item> roc </item>
+      <item> rocplot </item>
+      <item> rotate </item>
+      <item> rreg </item>
+      <item> runtest </item>
+      <item> run </item>
+      <item> sample </item>
+      <item> sampsi </item>
+      <item> save </item>
+      <item> scatter </item>
+      <item> scobit </item>
+      <item> score </item>
+      <item> sdtest </item>
+      <item> search </item>
+      <item> separate </item>
+      <item> serrbar </item>
+      <item> set </item>
+      <item> shell </item>
+      <item> signrank </item>
+      <item> signtest </item>
+      <item> simul </item>
+      <item> sktest </item>
+      <item> smooth </item>
+      <item> snapspan </item>
+      <item> sort </item>
+      <item> spearman </item>
+      <item> spikeplot </item>
+      <item> sreturn </item>
+      <item> st </item>
+      <item> stack </item>
+      <item> statsby </item>
+      <item> stb </item>
+      <item> stbase </item>
+      <item> stci </item>
+      <item> stcox </item>
+      <item> stdes </item>
+      <item> stem </item>
+      <item> stfill </item>
+      <item> stgen </item>
+      <item> stir </item>
+      <item> stphplot </item>
+      <item> stptime </item>
+      <item> strate </item>
+      <item> streg </item>
+      <item> sts </item>
+      <item> stset </item>
+      <item> stsplit </item>
+      <item> stsum </item>
+      <item> sttocc </item>
+      <item> sttoct </item>
+      <item> stvary </item>
+      <item> sum </item>
+      <item> summarize </item>
+      <item> sureg </item>
+      <item> svy </item>
+      <item> svydes </item>
+      <item> svylc </item>
+      <item> svymean </item>
+      <item> svyset </item>
+      <item> svytab </item>
+      <item> svytest </item>
+      <item> sw </item>
+      <item> swilk </item>
+      <item> symmetry </item>
+      <item> syntax </item>
+      <item> tab </item>
+      <item> table </item>
+      <item> tabdisp </item>
+      <item> tabstat </item>
+      <item> tabsum </item>
+      <item> tabulate </item>
+      <item> tempname </item>
+      <item> tempvar </item>
+      <item> tempfile </item>
+      <item> test </item>
+      <item> testnl </item>
+      <item> tobit </item>
+      <item> tokenize </item>
+      <item> translate </item>
+      <item> translator </item>
+      <item> transmap </item>
+      <item> treatreg </item>
+      <item> truncreg </item>
+      <item> tsreport </item>
+      <item> tsrevar </item>
+      <item> tsset </item>
+      <item> ttest </item>
+      <item> tutorials </item>
+      <item> twoway </item>
+      <item> type </item>
+      <item> unabcmd </item>
+      <item> unabbr </item>
+      <item> update </item>
+      <item> use </item>
+      <item> using </item>
+      <item> version </item>
+      <item> vce </item>
+      <item> view </item>
+      <item> vwls </item>
+      <item> weibull </item>
+      <item> whelp </item>
+      <item> while </item>
+      <item> which </item>
+      <item> wntestb </item>
+      <item> wntestq </item>
+      <item> xcorr </item>
+      <item> xi </item>
+      <item> xpose </item>
+      <item> xt </item>
+      <item> xtabond </item>
+      <item> xtclog </item>
+      <item> xtdata </item>
+      <item> xtdes </item>
+      <item> xtgee </item>
+      <item> xtgls </item>
+      <item> xtintreg </item>
+      <item> xtile </item>
+      <item> xtivreg </item>
+      <item> xtlogit </item>
+      <item> xtnbreg </item>
+      <item> xtpcse </item>
+      <item> xtpois </item>
+      <item> xtprobit </item>
+      <item> xtrchh </item>
+      <item> xtreg </item>
+      <item> xtregar </item>
+      <item> xtsum </item>
+      <item> xttab </item>
+      <item> xttobit </item>
+      <item> zip </item>
+    </list>
+    <list name="types">
+      <item> char </item>
+      <item> double </item>
+      <item> error </item>
+      <item> text </item>
+      <item> result </item>
+      <item> float </item>
+      <item> int </item>
+      <item> long </item>
+      <item> local </item>
+      <item> global </item>
+      <item> macro </item>
+      <item> mat </item>
+      <item> matrix </item>
+      <item> scalar </item>
+      <item> variable </item>
+      <item> var </item>
+      <item> varlist </item>
+      <item> varname </item>
+    </list>
+      
+    <contexts>
+    
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <DetectChar attribute="String" context="string" char="&quot;"/>
+        <RangeDetect char = "`" char1 = "'" attribute = "Macro" context="#stay"/>
+        <Detect2Chars attribute="Comment" context="Comment 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Comment 2" char="/" char1="*" beginRegion="Comment"/>
+        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="block"/>
+        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="block"/>
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="Comment 1"/>
+      
+      <context attribute="Comment" lineEndContext="#stay" name="Comment 2">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+      </context>
+      
+      <context attribute="String" lineEndContext="#pop" name="string">
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      
+    </contexts>
+    
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Macro" defStyleNum="dsOthers"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+    </itemDatas>
+    
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

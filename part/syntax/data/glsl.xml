@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="GLSL" section="Sources" extensions="*.glsl;*.vert;*.frag" mimetype="text/x-glslsrc" version="1.02" kateversion="2.4" author="Oliver Richers (o.richers@tu-bs.de)" license="LGPL">
+	<highlighting>
+		<list name="keywords">
+			<item>break</item>
+			<item>continue</item>
+			<item>do</item>
+			<item>for</item>
+			<item>while</item>
+			
+			<item>if</item>
+			<item>else</item>
+			
+			<item>true</item>
+			<item>false</item>
+			
+			<item>discard</item>
+			<item>return</item>
+			
+			<item>struct</item>
+		</list>
+		<list name="types">
+			<item>float</item>
+			<item>int</item>
+			<item>void</item>
+			<item>bool</item>
+
+			<item>mat2</item>
+			<item>mat3</item>
+			<item>mat4</item>
+			
+			<item>vec2</item>
+			<item>vec3</item>
+			<item>vec4</item>
+			<item>ivec2</item>
+			<item>ivec3</item>
+			<item>ivec4</item>
+			<item>bvec2</item>
+			<item>bvec3</item>
+			<item>bvec4</item>
+			
+			<item>sampler1D</item>
+			<item>sampler2D</item>
+			<item>sampler3D</item>
+			<item>samplerCube</item>
+			<item>sampler1DShadow</item>
+			<item>sampler2DShadow</item>
+		</list>
+		<list name="typequal">
+			<item>attribute</item>
+			<item>const</item>
+			<item>uniform</item>
+			<item>varying</item>
+			
+			<item>in</item>
+			<item>out</item>
+			<item>inout</item>
+		</list>
+		<list name="attention">
+			<item>FIXME</item>
+			<item>TODO</item>
+			<item>BUG</item>
+		</list>
+		<list name="stdlib">
+			<!-- Angle and Trigonometry Functions -->
+			<item>radians</item>
+			<item>degrees</item>
+			<item>sin</item>
+			<item>cos</item>
+			<item>tan</item>
+			<item>asin</item>
+			<item>acos</item>
+			<item>atan</item>
+
+			<!-- Exponential Functions -->
+			<item>pow</item>
+			<item>exp</item>
+			<item>log</item>
+			<item>exp2</item>
+			<item>log2</item>
+			<item>sqrt</item>
+			<item>inversesqrt</item>
+
+			<!-- Common Functions -->
+			<item>abs</item>
+			<item>sign</item>
+			<item>floor</item>
+			<item>ceil</item>
+			<item>fract</item>
+			<item>mod</item>
+			<item>min</item>
+			<item>max</item>
+			<item>clamp</item>
+			<item>mix</item>
+			<item>step</item>
+			<item>smoothstep</item>
+
+			<!-- Geometric Functions -->
+			<item>length</item>
+			<item>distance</item>
+			<item>dot</item>
+			<item>cross</item>
+			<item>normalize</item>
+			<item>ftransform</item>
+			<item>faceforward</item>
+			<item>reflect</item>
+			<item>refract</item>
+
+			<!-- Matrix Functions -->
+			<item>matrixCompMult</item>
+
+			<!-- Vector Relational Functions -->
+			<item>lessThan</item>
+			<item>lessThenEqual</item>
+			<item>greaterThan</item>
+			<item>greaterThanEqual</item>
+			<item>equal</item>
+			<item>notEqual</item>
+			<item>any</item>
+			<item>all</item>
+			<item>not</item>
+
+			<!-- Texture Lookup Functions -->
+			<item>texture1D</item>
+			<item>texture1DProj</item>
+			<item>texture1DLod</item>
+			<item>texture1DProjLod</item>
+			<item>texture2D</item>
+			<item>texture2DProj</item>
+			<item>texture2DLod</item>
+			<item>texture2DProjLod</item>
+			<item>texture3D</item>
+			<item>texture3DProj</item>
+			<item>texture3DLod</item>
+			<item>texture3DProjLod</item>
+			<item>textureCube</item>
+			<item>textureCubeLod</item>
+			<item>shadow1D</item>
+			<item>shadow2D</item>
+			<item>shadow1DProj</item>
+			<item>shadow2DProj</item>
+			<item>shadow1DLod</item>
+			<item>shadow2DLod</item>
+			<item>shadow1DProjLod</item>
+			<item>shadow2DProjLod</item>
+
+			<!-- Fragment Processing Functions -->
+			<item>dFdx</item>
+			<item>dFdy</item>
+			<item>fwidth</item>
+
+			<!-- Noise Functions -->
+			<item>noise1</item>
+			<item>noise2</item>
+			<item>noise3</item>
+			<item>noise4</item>
+		</list>
+		<list name="stdvar">
+			<!-- Vertex Shader Special Variables -->
+			<item>gl_Position</item>
+			<item>gl_PointSize</item>
+			<item>gl_ClipVertex</item>
+
+			<!-- Fragment Shader Special Variables -->
+			<item>gl_FragCoord</item>
+			<item>gl_FragFacing</item>
+			<item>gl_FragColor</item>
+			<item>gl_FragData</item>
+			<item>gl_FragDepth</item>
+
+			<!-- Vertex Shader Built-in Attributes -->
+			<item>gl_Color</item>
+			<item>gl_SecondaryColor</item>
+			<item>gl_Normal</item>
+			<item>gl_Vertex</item>
+			<item>gl_MultiTexCoord0</item>
+			<item>gl_MultiTexCoord1</item>
+			<item>gl_MultiTexCoord2</item>
+			<item>gl_MultiTexCoord2</item>
+			<item>gl_MultiTexCoord3</item>
+			<item>gl_MultiTexCoord4</item>
+			<item>gl_MultiTexCoord5</item>
+			<item>gl_MultiTexCoord6</item>
+			<item>gl_MultiTexCoord7</item>
+			<item>gl_FogColor</item>
+
+			<!-- Built-in Constants -->
+			<item>gl_MaxLights</item>
+			<item>gl_MaxClipPlanes</item>
+			<item>gl_MaxTextureUnits</item>
+			<item>gl_MaxTextureCoords</item>
+			<item>gl_MaxVertexAttributes</item>
+			<item>gl_MaxVertexUniformComponents</item>
+			<item>gl_MaxVaryingFloats</item>
+			<item>gl_MaxVertexTextureImageUnits</item>
+			<item>gl_MaxCombinedTextureImageUnits</item>
+			<item>gl_MaxTextureImageUnits</item>
+			<item>gl_MaxFragmentUniformComponents</item>
+			<item>gl_MaxDrawBuffers</item>
+
+			<!-- Built-in Uniform State -->
+			<item>gl_ModelViewMatrix</item>
+			<item>gl_ProjectionMatrix</item>
+			<item>gl_ModelViewProjectionMatrix</item>
+			<item>gl_TextureMatrix</item>
+			<item>gl_NormalMatrix</item>
+			<item>gl_ModelViewMatrixInverse</item>
+			<item>gl_ProjectionMatrixInverse</item>
+			<item>gl_ModelViewProjectionMatrixInverse</item>
+			<item>gl_TextureMatrixInverse</item>
+			<item>gl_ModelViewMatrixTranspose</item>
+			<item>gl_ProjectionMatrixTranspose</item>
+			<item>gl_ModelViewProjectionMatrixTranspose</item>
+			<item>gl_TextureMatrixTranspose</item>
+			<item>gl_ModelViewMatrixInverseTranspose</item>
+			<item>gl_ProjectionMatrixInverseTranspose</item>
+			<item>gl_ModelViewProjectionMatrixInverseTranspose</item>
+			<item>gl_TextureMatrixInverseTranspose</item>
+			<item>gl_NormScale</item>
+			<item>gl_DepthRangeParameters</item>
+			<item>gl_DepthRange</item>
+			<item>gl_ClipPlane</item>
+			<item>gl_PointParameters</item>
+			<item>gl_Point</item>
+			<item>gl_MaterialParameters</item>
+			<item>gl_FrontMaterial</item>
+			<item>gl_BackMaterial</item>
+			<item>gl_LightSourceParameters</item>
+			<item>gl_LightSource</item>
+			<item>gl_LightModelParameters</item>
+			<item>gl_LightModel</item>
+			<item>gl_LightModelProducts</item>
+			<item>gl_FrontLightModelProduct</item>
+			<item>gl_BackLightModelProduct</item>
+			<item>gl_LightProducts</item>
+			<item>gl_FrontLightProduct</item>
+			<item>gl_BackLightProduct</item>
+			<item>gl_TextureEnvColor</item>
+			<item>gl_EyePlaneS</item>
+			<item>gl_EyePlaneT</item>
+			<item>gl_EyePlaneR</item>
+			<item>gl_EyePlaneQ</item>
+			<item>gl_ObjectPlaneS</item>
+			<item>gl_ObjectPlaneT</item>
+			<item>gl_ObjectPlaneR</item>
+			<item>gl_ObjectPlaneQ</item>
+			<item>gl_FogParameters</item>
+			<item>gl_Fog</item>
+
+			<!-- Varying Variables -->
+			<item>gl_FrontColor</item>
+			<item>gl_BackColor</item>
+			<item>gl_FrontSecondaryColor</item>
+			<item>gl_BackSecondaryColor</item>
+			<item>gl_TexCoord</item>
+			<item>gl_FogFragCoord</item>
+			<item>gl_Color</item>
+			<item>gl_SecondaryColor</item>
+		</list>
+		<contexts>
+			<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+				<keyword attribute="Keyword" String="keywords" context="#stay" />
+				<keyword attribute="Data Type" String="types" context="#stay" />
+				<keyword attribute="Type Qualifier" String="typequal" context="#stay" />
+				<keyword attribute="StdFunction" String="stdlib" context="#stay" />
+				<keyword attribute="StdVariable" String="stdvar" context="#stay" />
+				
+				<Float attribute="Float" context="#stay" />
+				<HlCOct attribute="Octal" context="#stay"/>
+				<HlCHex attribute="Hex" context="#stay"/>
+				<Int attribute="Decimal" context="#stay" />
+				
+				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
+				<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+				<DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
+				
+				<DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true"/>
+				<RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
+				
+				<RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
+				<AnyChar attribute="Symbol" context="#stay" String=".+-/*%&lt;&gt;[]()^|&amp;~=!:;,?&#59;" />
+			</context>
+			<context name="Member" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+				<RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
+			</context>
+			<context name="Commentar 1" attribute="Comment" lineEndContext="#pop">
+				<keyword attribute="Alert" context="#stay" String="attention" />
+			</context>
+			<context name="Commentar 2" attribute="Comment" lineEndContext="#stay">
+				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+				<keyword attribute="Alert" context="#stay" String="attention" />
+			</context>
+			<context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop">
+			</context>
+	        </contexts>
+		<itemDatas>
+			<itemData name="Normal Text"    defStyleNum="dsNormal"/>
+			<itemData name="Keyword"        defStyleNum="dsKeyword"/>
+			<itemData name="Function"       defStyleNum="dsFunction" bold="0"/>
+			<itemData name="StdFunction"    defStyleNum="dsFunction" bold="1"/>
+			<itemData name="StdVariable"    defStyleNum="dsFunction" bold="0"/>
+			<itemData name="Data Type"      defStyleNum="dsDataType"/>
+			<itemData name="Type Qualifier" defStyleNum="dsDataType"/>
+			<itemData name="Decimal"        defStyleNum="dsDecVal"/>
+			<itemData name="Octal"          defStyleNum="dsBaseN"/>
+			<itemData name="Hex"            defStyleNum="dsBaseN"/>
+			<itemData name="Float"          defStyleNum="dsFloat"/>
+			<itemData name="Symbol"         defStyleNum="dsNormal"/>
+			<itemData name="Preprocessor"   defStyleNum="dsOthers"/>
+			<itemData name="Comment"        defStyleNum="dsComment"/>
+			<itemData name="Alert"          defStyleNum="dsAlert" />
+		</itemDatas>
+	</highlighting>
+	<general>
+		<comments>
+			<comment name="singleLine" start="//" />
+			<comment name="multiLine" start="/*" end="*/" />
+		</comments>
+		<keywords casesensitive="1" />
+	</general>
+</language>

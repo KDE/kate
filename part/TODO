@@ -1,0 +1,172 @@
+TODO:
+
+**** Bugs ****
+* access of deleted cursors by the dynamic hl stuff
+
+* arbitrary highlighting
+  * failure to redraw when the cursor is off the screen and the highlighting changes
+
+* highlighting issues
+  * external context references don't pick up default attribute (bug 145052)
+
+* color issues
+  * use color roles when they become available to initialize attributes - DONE
+    -> check if this does indeed fix bug 143606
+  * port to KStatefulBrush (how do we use this? need to repaint on losing focus or will Qt do it?)
+
+* HL configuration issues
+  * current highlighter not selected (regression)
+  * controls seem to need to be clicked twice?
+
+* memory usage
+  * we currently use x16 the size of a file when in memory, if the file does not contain newline characters.
+
+* RTL issues
+  * dynamic wrapping of indented lines - x offset is incorrect (calculated as for LTR lines)
+
+**** Refactoring/Cleanups ****
+* code cleanups wherever needed ;)
+
+* Memory usage and leak auditing
+  * KateHlContext::items needs to be implicitly shared + autodelete
+
+**** new features ****
+
+* Fix EOL whitespace cleaning finally by removing whitespace at load-time and
+  keeping the document consistent all the time
+
+  -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
+    -> is bug 115175 fixed?
+  Ah, but there are bugs:
+
+* BiDi finally, using Scribe
+  * just needs porting of deprecated calls, and testing
+
+* Finally implement arbitrary highlighting and arbitrary input filtering
+  * Smart Cursors and Ranges todo list:
+    * change edit notification to come as KTextEditor::EditInfo or similar
+      * types: Insert, Remove, Change, Batch -> more EditInfos
+      * Implement batching
+        * multiple edits for one logical edit
+        * multiple logical edits for one undo step
+    * fix passive changes to cursors/ranges
+      * extra regression testing needed to check that notifications work across SmartGroup boundaries
+      * implement feedback requirement tree
+    * consider a custom pointer type for Smart* objects
+      * consider removing it now that the multiple watchers plan is probably better
+    * dynamic highlighting
+      * catch highlighting being created where the mouse or caret already occupies
+        * probably already implemented, guess it just needs testing
+    * add a QVariant as data store for 3rd party apps ?
+    * D-pointer consideration
+      * shouldn't get dptr imho
+    * move back any excessively exposed parts of the smart ranges and cursors
+    * testcases
+    * performances testing suite
+      * need to implement edit merging to reduce changes to cursors with large single edits
+    * cachegrinding
+    * make a translation snapshot feature where you can translate any cursor from a certain point in time - would be very cool :)
+    * code cleanup
+      * add advance{Pos|Line|Column} functions and replace the set*(*+x) calls
+
+* Switch internal highlighting to use arbitrary highlighting api and thus be
+  exposed (read-only)
+  * only if the above cursors and ranges can be made to perform well enough
+
+* Buffer reentrancy for multithreaded access
+  * needed for potential:
+    * separate threads for processing of bracket marks,
+    * third party processing
+
+* More featureful code completion including syntax highlighted entries
+  * done:
+    * model based completion
+    * non-focused completion box (view passes on any interactions required)
+    * native highlighting of completion entries
+    * column resizing on scroll
+    * highlighting
+    * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
+    * column merging
+    * filtering of items based on metadata
+    * multiple model merging
+    * extend metadata to include inheritance depth of an item
+    * implement configurability
+      * show/hide/reorder/merge columns
+      * sorting list
+      * filtering list
+    * automatic invocation of code completion
+    * multiple code completion providers
+    * api improvement: generic way to detect when a completion could be offered, and possibly replaceable with a plugin, so that multiple model completion can be offered
+  * in progress:
+    * implement sorting of items based on metadata, and sorted group headers
+      * needs to react to model changes
+    * connect signals from source model to katecompletionmodel and vice-versa
+  * todo
+    * provide a way to have a small/tiny box? e.g. the word-completion plugin does not need much...
+    * implement click-execution of completion entries based on KDE click policy
+    * implement configurability
+      * positioning retaining horizontal sync with text when it would mean the completion box going outside the screen or not (alternative: reorganise columns, hide column(s))
+      * highlighting mode (native / custom / user / combination)
+      * consider embedding 3rd party cc config with the above
+    * make sure enough info is exported that the current completion's documentation can be retreived in a documentation browser;
+      * place basic documentation in an extended popup... positioning / design still to be worked out
+    * configurability of keyboard commands for cc
+    * refine keyboard control
+  * performance testing and optimisation
+    * test user-defined highlighting
+    * test for thread safety
+
+* Custom widgets in between lines interface (eg. so kcachegrind could use
+  katepart to display its cpu usage information etc)
+  * Add an extraHeight() field to KateLineLayout
+  * Change linesDisplayed() over to use these extra heights
+  * Remove assumptions about the fixed height of lines (the difficult part? maybe not so hard seeing it supports dynamic wrapping)
+  * Expose via an interface
+
+* KateFoldingTree* to use smart*
+
+* Fix folding for HL's where region end is defined by a new region starting (bug 112888)
+
+* Splitting a view over multiple columns
+
+* Modular input subsystem, to support emulation of other editors in a clean way
+  -> see also scripting and idea with extending the command line
+  -> in progress to some degree (vi mode)
+
+* Improved input modes especially in block selection
+
+* Multiple selection support
+
+* Better support for information overlay (eg. documentation of a function -
+  switch between short / detailed descriptions)
+
+* Whatever else is needed for multiuser editing (and perhaps put most of it
+  inside the part, so eg. kate, kdevelop, quanta etc. could all use it)
+
+* Scripting using QtScript (in progress)
+  * design stable API for KDE >= 4.1
+  * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
+
+* Good interface for JavaScript indentation scripts
+  * add unindent() function. Call if available, otherwise use current fallback
+  It is a good idea to look how other editors deal with indentation, I think vim & emacs are good
+  references...
+  The INDENTATION file in this directory describes the general concepts.
+
+* Cursor position restriction extension
+  * export enough api to allow 3rd party apps to provide a cursor that
+    * handles advancing/retreating
+    * allows to query if a position is a valid cursor position, and to find the closest valid position
+  * create a test version which does some basic restriction
+
+* Input restriction extension
+  * needed? probably not
+
+* improved block selection with tabs
+  * block selection on tabs selects too much of the line that contains the tab, because the tab
+    counts as one character but is rendered as multiple visible spaces. There are several possible
+    solutions:
+    * expand the whole blockselection to include the whole width of the tab
+    * cut the tab into multiple spaces
+    * implement both and make it configurable :)
+

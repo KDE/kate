@@ -1,0 +1,15 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="ktexteditor_kdatatoolui" library="ktexteditor_kdatatool" version="4">
+
+<MenuBar>
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Separator group="tools_operations" />
+    <Action name="popup_dataTool" group="tools_operations"/>
+ </Menu>
+</MenuBar>
+
+<Menu name="ktexteditor_popup">
+  <Action name="popup_dataTool" group="popup_operations"/>
+</Menu>
+
+</gui>

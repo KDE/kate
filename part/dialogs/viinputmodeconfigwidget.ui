@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ViInputModeConfigWidget</class>
+ <widget class="QWidget" name="ViInputModeConfigWidget">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="gbViInputMode">
+     <property name="title">
+      <string>General</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QCheckBox" name="chkViInputModeDefault">
+        <property name="whatsThis">
+         <string>When selected, the vi input mode will be enabled when opening a new view. You can still toggle the vi input mode on/off for a particular view in the Edit menu.</string>
+        </property>
+        <property name="text">
+         <string>Use Vi input mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkViCommandsOverride">
+        <property name="whatsThis">
+         <string>When selected, vi commands will override Kate's built-in commands. For example: Ctrl+R will redo, and override the standard action (showing the search and replace dialog).</string>
+        </property>
+        <property name="text">
+         <string>Let Vi commands override Kate shortcuts</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkViStatusBarHide">
+        <property name="whatsThis">
+         <string>By default, an extra status bar will be used when the Vi input mode is enabled. This status bar shows commands while they are being typed and messages/errors produced by Vi commands.
+
+Checking this options will hide this extra status line.</string>
+        </property>
+        <property name="text">
+         <string>Hide the Vi mode status bar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="whatsThis">
+      <string>Key mapping is used to change the meaning of typed keys. This allows you to move commands to other keys or make special keypresses for doing a series of commands.
+
+Example:
+&quot;&lt;F2&gt;&quot; → &quot;I-- &lt;esc&gt;&quot;
+
+This will prepend &quot;-- &quot; to a line when pressing F2.</string>
+     </property>
+     <property name="title">
+      <string>Key Mapping</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QTabWidget" name="tabMappingModes">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Normal mode</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QTableWidget" name="tblNormalModeMappings">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::ContiguousSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="columnCount">
+             <number>2</number>
+            </property>
+            <column>
+             <property name="text">
+              <string>Command</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Replacement</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="btnRemoveSelectedNormal">
+              <property name="text">
+               <string>Remove selected</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAddNewNormal">
+              <property name="text">
+               <string>Add new mapping</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>1</width>
+                <height>0</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>1</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>chkViInputModeDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chkViCommandsOverride</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkViInputModeDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chkViStatusBarHide</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

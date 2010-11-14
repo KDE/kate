@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  Copyright (C) 2005 Carl A Joslin <carl.joslin@joslin.dyndns.org>
+-->
+<language name="Email" version="1.00" kateversion="2.4" extensions="*.eml" section="Other" mimetype="message/rfc822" casesensitive="0" author="Carl A Joslin (carl.joslin@joslin.dyndns.org)" license="GPL">
+  <highlighting>
+    <contexts>      
+      <context name="headder" attribute="Normal Text" lineEndContext="#stay" casesensitive="0">
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Tt]o:.*$"/>
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Ff]rom:.*$"/>
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Cc][Cc]:.*$"/>
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Bb][Cc][Cc]:.*$"/>
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Ss]ubject:.*$"/>
+        <RegExpr attribute="rfc-main" context="#stay" String="^[Dd]ate:.*$"/>
+        
+        <RegExpr attribute="rfc" context="#stay" String="^[Ss]ender:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]eply-[Tt]o:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Mm]essage-[Ii][Dd]:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Ii]n-[Rr]eply-[Tt]o:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]eferences:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Cc]omments:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Kk]eywors:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Dd]ate:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Ff]rom:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Ss]ender:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Tt]o:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Cc][Cc]:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Bb][Cc][Cc]:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Mm]essage-[Ii][Dd]:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]esent-[Rr]eply-[Tt]o:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]eturn-[Pp]ath:"/>
+        <RegExpr attribute="rfc" context="#stay" String="^[Rr]eceived:"/>
+        
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Mm]ozilla-[Ss]tatus:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Mm]ozilla-[Ss]tatus2:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Ee]nverlope-[Tt]o:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Dd]elivery-[Dd]ate:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Oo]riginating-[Ii][Pp]:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Oo]riginating-[Ee]mail:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Ss]ender:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Mm]ime-[Vv]ersion:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Cc]ontent-[Tt]ype:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Mm]ailing-[Ll]ist:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Ll]oop:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Ll]ist-[Pp]ost:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Ll]ist-[Hh]elp:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Ll]ist-[Uu]nsubscribe:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Pp]recedence:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Cc]ontent-[Tt]ransfer-[Ee]ncoding:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Cc]ontent-[Tt]ype:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Xx]-[Bb]ulkmail:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Pp]recedence:"/>
+        <RegExpr attribute="common" context="#stay" String="^[Cc]ontent-[Dd]isposition:"/>
+        
+        <RegExpr attribute="other" context="#stay" String="^[0-9a-zA-Z-.]+:"/>
+        
+        <RegExpr attribute="email" context="#stay" String='[a-zA-Z0-9.\-]+\@[a-zA-Z0-9.\-]+'/>
+        <RegExpr attribute="email" context="#stay" String='[a-zA-Z0-9.\-]*\s*&lt;[a-zA-Z0-9.\-]+\@[a-zA-Z0-9.\-]+&gt;'/>
+        <RegExpr attribute="email" context="#stay" String='"[a-zA-Z0-9. \-]+"\s*&lt;[a-zA-Z0-9.\-]+\@[a-zA-Z0-9.\-]+&gt;'/>
+        
+        <RegExpr attribute="string" context="#stay" String='".*"'/>
+        <RegExpr attribute="string" context="#stay" String="'.*'"/>
+        
+        <!--<RegExpr attribute="sign" context="sign" String="^[|&gt;]*[\s_-]*[_-][_-][\s_-]*$"/>-->
+        
+        <RegExpr attribute="indent6" context="#stay" String="^[|>]\s*[|>]\s*[|>]\s*[|>]\s*[|>]\s*[|>].*"/>
+        <RegExpr attribute="indent5" context="#stay" String="^[|>]\s*[|>]\s*[|>]\s*[|>]\s*[|>].*"/>
+        <RegExpr attribute="indent4" context="#stay" String="^[|>]\s*[|>]\s*[|>]\s*[|>].*"/>
+        <RegExpr attribute="indent3" context="#stay" String="^[|>]\s*[|>]\s*[|>].*"/>
+        <RegExpr attribute="indent2" context="#stay" String="^[|>]\s*[|>].*"/>
+        <RegExpr attribute="indent1" context="#stay" String="^[|>].*"/>
+        
+        <RegExpr attribute="base64" context="#stay" String="^([A-Za-z0-9+/][A-Za-z0-9+/][A-Za-z0-9+/][A-Za-z0-9+/]){10,20}$"/>
+        <RegExpr attribute="base64" context="#stay" String="^[A-Za-z0-9+=/]+=$"/>
+        
+        <RegExpr attribute="marker" context="#stay" String="^(- )?--(--.*)?"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="rfc" color="darkgreen"/>
+      <itemData name="rfc-main" bold="1" color="darkgreen" defStyleNum="dsAlert"/>
+      <itemData name="common" color="gold"/>
+      <itemData name="other" color="red"/>
+      <itemData name="email" color="blue"/>
+      <itemData name="string" defStyleNum="dsString"/>
+      
+      <itemData name="base64" defStyleNum="dsRegionMarker"/>
+      <itemData name="marker" defStyleNum="dsAlert"/>
+      
+      <itemData name="indent1" bold="1" color="red"/>
+      <itemData name="indent2" bold="1" color="green"/>
+      <itemData name="indent3" bold="1" color="blue"/>
+      <itemData name="indent4" bold="1" color="cyan"/>
+      <itemData name="indent5" bold="1" color="magenta"/>
+      <itemData name="indent6" bold="1" color="yellow"/>
+      
+      
+      <itemData name="sign" defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" />
+  </general>
+</language>

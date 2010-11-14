@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate-editor.org/article/writing_a_kate_highlighting_xml_file
+	
+        This is a template for the XML format used for syntax highlight descriptions
+        for the Kate text editor (http://kate.kde.org), which is part of the KDE
+        desktop environment (http://www.kde.org).
+
+        Use it as the base for your own syntax files.
+
+        Look at language.dtd for some documentation of the allowed elements and their attributes.
+        There is also a description of how to validate your syntax file.
+-->
+<language name="" section="" version="1.00" kateversion="2.3" extensions="" mimetype="" author="" license="">
+  <highlighting>
+    <contexts>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+    </itemDatas>
+  </highlighting>
+</language>
+<!--
+// kate: space-indent on; indent-width 2; replace-tabs on;
+-->

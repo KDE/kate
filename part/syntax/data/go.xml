@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+
+<!--
+This file is part of KDE's Kate project
+
+GO.XML supports syntax highlighting for the Go programming language
+under Kate. Go is a compiled, garbage-collected, concurrent programming
+language developed by Google Inc.
+
+Copyright (C) 2010, Miquel Sabaté <mikisabate@gmail.com>
+
+This program, including associated files, is free software.  You may
+distribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either Version 2 of
+the license, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+
+
+<language name="Go" version="1.00" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+    <highlighting>
+    <list name="keywords">
+<!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
+      <item>break</item>
+      <item>case</item>
+      <item>chan</item>
+      <item>const</item>
+      <item>continue</item>
+      <item>default</item>
+      <item>defer</item>
+      <item>else</item>
+      <item>fallthrough</item>
+      <item>for</item>
+      <item>func</item>
+      <item>go</item>
+      <item>goto</item>
+      <item>if</item>
+      <item>import</item>
+      <item>interface</item>
+      <item>map</item>
+<!--       <item>package</item> -->
+      <item>range</item>
+      <item>return</item>
+      <item>select</item>
+      <item>struct</item>
+      <item>switch</item>
+      <item>type</item>
+      <item>var</item>
+    </list>
+    <list name="types">
+      <item>bool</item>
+      <item>byte</item>
+      <item>complex64</item>
+      <item>complex128</item>
+      <item>float</item>
+      <item>float32</item>
+      <item>float64</item>
+      <item>int</item>
+      <item>int8</item>
+      <item>int16</item>
+      <item>int32</item>
+      <item>int64</item>
+      <item>string</item>
+      <item>uint</item>
+      <item>uint8</item>
+      <item>uint16</item>
+      <item>uint32</item>
+      <item>uint64</item>
+    </list>
+    <list name="builtin">
+      <item>cap</item>
+      <item>len</item>
+      <item>make</item>
+      <item>new</item>
+      <item>panic</item>
+      <item>recover</item>
+    </list>
+    <list name="special">
+      <item>false</item>
+      <item>nil</item>
+      <item>true</item>
+    </list>
+    <contexts>
+      <context name="normal" attribute="Normal Text" lineEndContext="#stay">
+      <keyword attribute="Keyword" context="#stay" String="keywords" />
+      <keyword attribute="Special" context="#stay" String="special"  />
+      <keyword attribute="Type" context="#stay" String="types"       />
+      <keyword attribute="Builtin" context="#stay" String="builtin"  />
+      <StringDetect attribute="Package" context="Package" String="package" />
+      <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+      <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"   />
+      <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"   />
+      <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"   />
+      <HlCChar attribute="Char" context="#stay" />
+      <DetectChar attribute="String" context="String" char="&quot;" />
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+        <LineContinue attribute="Comment" context="#stay"/>
+        <DetectSpaces />
+        <IncludeRules context="##Alerts" />
+        <DetectIdentifier />
+      </context>
+
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+        <DetectSpaces />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+        <IncludeRules context="##Alerts" />
+        <DetectIdentifier />
+      </context>
+
+      <context attribute="Package" lineEndContext="#pop" name="Package" />
+
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue  attribute="String" context="#stay" />
+        <HlCStringChar attribute="String Char" context="#stay" />
+        <DetectChar    attribute="String" context="#pop" char="&quot;" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"   spellChecking="false"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword"  spellChecking="false"/>
+      <itemData name="Special"      defStyleNum="dsOthers"   spellChecking="false"/>
+      <itemData name="Type"         defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Builtin"      defStyleNum="dsOthers"   color="#000e52" selColor="#ffffff" spellChecking="false" />
+      <itemData name="String Char"  defStyleNum="dsChar"    />
+      <itemData name="String"       defStyleNum="dsString"  />
+      <itemData name="Comment"      defStyleNum="dsComment" />
+      <itemData name="Char"         defStyleNum="dsChar"   spellChecking="false"/>
+      <itemData name="Package"      defStyleNum="dsNormal" color="#000080" selColor="#ffffff" spellChecking="false" />
+      <itemData name="Symbol"       defStyleNum="dsNormal" spellChecking="false"/>
+    </itemDatas>
+    </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="/*" end="*/" region="Comment"/>
+    </comments>
+    <keywords casesensitive="1"/>
+  </general>
+</language>

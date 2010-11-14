@@ -1,0 +1,55 @@
+  *** Kate Team ***
+- Christoph Cullmann <cullmann@kde.org>
+  (Maintainer)
+
+- Joseph Wenninger <jowenn@kde.org>
+  (highlight guy + big bug hunter)
+
+- Anders Lund <anders@alweb.dk>
+  (bookmarks, iconborder, ...)
+
+- Hamish Rodda <rodda@kde.org>
+  (dynamic wrap, view, optimise, etc)
+
+- Waldo Bastian <bastian@kde.org>
+  (buffer handling)
+
+- Charles Samuels <charles@kde.org>
+  (regular expressions)
+
+- Michael Bartl <michael.bartl1@chello.at>
+  (first one who really helped out :)
+
+- Matt Newell <newellm@proaxis.com>
+
+- Michael McCallum <gholam@xtra.co.nz>
+
+- John Firebaugh <jfirebaugh@kde.org>
+
+- Nadeem Hasan <nhasan@nadmm.com>
+
+- Erlend Hamberg <ehamberg@gmail.com>
+  (vi input mode)
+
+  *** KWrite Team ***
+- Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+  (original author of kwrite in kde 1.x until kde 2.1)
+
+- Glen Parker <glenebob@nwlink.com>
+  (undo history, kspell-integration)
+
+- Michael Koch <koch@kde.org>
+  (port to KParts)
+
+- Dominik Haumann <dhdev@gmx.de>
+  (developer, highlight wizard)
+
+- Mirko Stocker <me@misto.ch>
+  (various bugfixes)
+
+- Matthew Woehlke <mw_triad@users.sourceforge.net>
+  (selection, KColorScheme integration)
+
+- Sebastian Pipping <webmaster@hartwork.org>
+  (search bar back- and front-end)
+

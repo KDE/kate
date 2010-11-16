@@ -1,0 +1,5 @@
+# comment4.txt
+if foo
+  # Comment
+  bar # Another comment
+end

@@ -1,0 +1,4 @@
+# no-do3.txt
+if foo
+  puts "nothing" # nothing to do
+end

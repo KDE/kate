@@ -1,0 +1,4 @@
+# do2.txt
+File.open("file") do |f|
+  f << foo
+end

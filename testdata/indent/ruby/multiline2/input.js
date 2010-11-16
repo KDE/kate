@@ -1,0 +1,5 @@
+v.setCursorPosition(2,17);
+v.enter();
+v.type("puts");
+v.enter();
+v.type("end");

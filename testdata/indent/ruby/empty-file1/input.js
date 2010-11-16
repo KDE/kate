@@ -1,0 +1,10 @@
+v.setCursorPosition(0,0);
+v.enter();
+v.enter();
+v.type("# Comment");
+v.enter();
+v.type("def foo");
+v.enter();
+v.type("bar");
+v.enter();
+v.type("end");

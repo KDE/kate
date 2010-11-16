@@ -1,0 +1,2 @@
+int fla() {
+  double x,

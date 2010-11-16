@@ -1,0 +1,2 @@
+  for elem in %w[ foo, bar,
+                  foobar

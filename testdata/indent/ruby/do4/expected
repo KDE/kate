@@ -1,0 +1,4 @@
+# do4.txt
+File.open("#{base}.txt") do |f|
+  f
+end

@@ -1,0 +1,4 @@
+  foobar(foo,
+         # comment
+         bar) # comment
+  blah

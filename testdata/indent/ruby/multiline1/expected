@@ -1,0 +1,4 @@
+# multiline1.txt
+if (foo == "bar" and
+    bar == "foo")
+end

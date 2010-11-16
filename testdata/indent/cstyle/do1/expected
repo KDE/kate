@@ -1,0 +1,3 @@
+int fla() {
+  do
+    ok

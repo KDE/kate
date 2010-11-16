@@ -1,0 +1,4 @@
+def foo(f)
+  f.each do # loop with do
+    bar
+  end

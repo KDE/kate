@@ -1,0 +1,15 @@
+v.setCursorPosition(0,12);
+v.enter();
+v.type("def foo");
+v.enter();
+v.type("if gets");
+v.enter();
+v.type("puts");
+v.enter();
+v.type("else");
+v.enter();
+v.type("exit");
+v.enter();
+v.type("end");
+v.enter();
+v.type("end");

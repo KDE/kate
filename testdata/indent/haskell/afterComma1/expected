@@ -1,0 +1,2 @@
+primitives = [("+", numericBinop (+)),
+    ("-", numericBinop (-)),

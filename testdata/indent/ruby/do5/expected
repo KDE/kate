@@ -1,0 +1,3 @@
+def foo(f)
+  f.each do # loop
+  end

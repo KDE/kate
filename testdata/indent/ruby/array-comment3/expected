@@ -1,0 +1,3 @@
+  array = [ # comment
+    :a,     # comment
+    :b

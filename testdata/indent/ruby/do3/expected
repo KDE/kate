@@ -1,0 +1,4 @@
+# do3.txt
+[1,2,3].each_with_index do |obj, i|
+  puts "#{i}: #{obj.inspect}"
+end

@@ -1,0 +1,3 @@
+t = foo() +
+    bar() # Comment
+foobar

@@ -1,0 +1,4 @@
+# multiline3.txt
+s = "hello" +
+    "world"
+bar

@@ -1,0 +1,5 @@
+def foo(array)
+  array.each_with_index \
+      do
+    bar
+  end

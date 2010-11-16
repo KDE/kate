@@ -1,0 +1,2 @@
+parseExpr = parseString
+        <|> parseNumber

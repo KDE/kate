@@ -230,6 +230,29 @@ position in that document regardless of changes to the text.  They also provide:
 The following is a list of all classes that are available when the document
 supports the KTextEditor::SmartInterface:
 
+\warning All Smart interfaces were deprecated and not implemented anymore in
+KDE >= 4.6. They were replaced by the \ref kte_group_moving_classes
+
+<!-- The classes are defined by the \ingroup doxygen command -->
+*/
+
+
+
+
+
+/** \defgroup kte_group_moving_classes MovingCursors and MovingRanges
+\ingroup kte_group_doc_extensions
+
+If the KTextEditor implementation supports the KTextEditor::MovingInterface,
+there are several \e moving classes available.
+
+Instances of the \e moving classes are bound to a specific Document, and
+maintain their position in that document regardless of changes to the text.
+Changes to MovingRange%s can be caught by using the class MovingRangeFeedback.
+
+The following is a list of all classes that are available when the document
+supports the KTextEditor::MovingInterface:
+
 <!-- The classes are defined by the \ingroup doxygen command -->
 */
 

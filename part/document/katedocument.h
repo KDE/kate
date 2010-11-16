@@ -1053,9 +1053,10 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::RecoveryInterface
   //
-     virtual bool haveRecovery() const;
-     virtual void doRecovery();
-     virtual void discardRecovery();
+  public:
+    virtual bool isDataRecoveryAvailable() const;
+    virtual void recoverData();
+    virtual void discardDataRecovery();
      
   //
   // KTextEditor::TemplateInterface + KTextEditor::TemplateInterface2

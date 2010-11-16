@@ -25,17 +25,22 @@
 namespace KTextEditor
 {
 /**
-  * An interface that allows controlling the crash recovery functionality of the
-  * underlying editor component.
-  * 
-  * When the editor crashed previously with some modifications, and the same document
-  * is opened again, a recovery will be available:
-  *   RecoveryInterface::haveRecovery() will return true
-  * 
-  * When executing RecoveryInterface::doRecovery(), the recovery will be applied.
-  * 
-  * When executing RecoveryInterface::discardRecovery(), the recovery will be discarded.
-  * */
+ * \brief Document extension interface to control crash recovery.
+ *
+ * \ingroup kte_group_document_extensions
+ *
+ * When the system or the application using the editor component crashed
+ * with unsaved changes in the Document, the View notifies the user about
+ * the lost data and asks, whether the data should be recovered.
+ *
+ * This interface gives you control over the data recovery process. Use
+ * isDataRecoveryAvailable() to check for lost data. If you do not want the
+ * editor component to handle the data recovery process automatically, you can
+ * either trigger the data recovery by calling recoverData() or discard it
+ * by discardDataRecovery().
+ *
+ * \since 4.6
+ */
 class KTEXTEDITOR_EXPORT RecoveryInterface
 {
   public:
@@ -50,13 +55,32 @@ class KTEXTEDITOR_EXPORT RecoveryInterface
     virtual ~RecoveryInterface();
 
   public:
-    
+
     /**
      * Returns whether a recovery is available for the current document.
-     * */
-    virtual bool haveRecovery() const = 0;
-    virtual void doRecovery() = 0;
-    virtual void discardRecovery() = 0;
+     *
+     * \see recoverData(), discardDataRecovery()
+     */
+    virtual bool isDataRecoveryAvailable() const = 0;
+
+    /**
+     * If recover data is available, calling recoverData() will trigger the
+     * recovery of the data. If isDataRecoveryAvailable() returns \e false,
+     * calling this function does nothing.
+     *
+     * \see isDataRecoveryAvailable(), discardDataRecovery()
+     */
+    virtual void recoverData() = 0;
+
+    /**
+     * If recover data is available, calling discardDataRecovery() will discard
+     * the recover data and the recover data is lost.
+     * If isDataRecoveryAvailable() returns \e false, calling this function
+     * does nothing.
+     *
+     * \see isDataRecoveryAvailable(), recoverData()
+     */
+    virtual void discardDataRecovery() = 0;
 
   private:
     class RecoveryInterfacePrivate* const d;

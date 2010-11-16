@@ -2454,19 +2454,21 @@ bool KateDocument::closeUrl()
   return true;
 }
 
-bool KateDocument::haveRecovery() const
+bool KateDocument::isDataRecoveryAvailable() const
 {
   return m_swapfile->shouldRecover();
 }
 
-void KateDocument::doRecovery()
+void KateDocument::recoverData()
 {
-  m_swapfile->recover();
+  if (isDataRecoveryAvailable())
+    m_swapfile->recover();
 }
 
-void KateDocument::discardRecovery()
+void KateDocument::discardDataRecovery()
 {
-  m_swapfile->discard();
+  if (isDataRecoveryAvailable())
+    m_swapfile->discard();
 }
 
 void KateDocument::setReadWrite( bool rw )

@@ -56,6 +56,7 @@
 #include "katebuffer.h"
 #include "script/katescriptmanager.h"
 #include "script/katescriptaction.h"
+#include "script/katescriptconsole.h"
 #include "kateswapfile.h"
 #include "katerecoverbar.h"
 #include "katebrokenswapfilebar.h"
@@ -124,6 +125,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_recoverBar(0)
     , m_brokenSwapFileBar(0)
     , m_cmdLine (0)
+    , m_console (0)
     , m_searchBar (0)
     , m_viModeBar (0)
     , m_gotoBar (0)
@@ -550,6 +552,11 @@ void KateView::setupActions()
   a->setShortcut(QKeySequence(Qt::Key_F7));
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToCmdLine()));
+
+  a = m_switchConsole = ac->addAction("switch_to_console");
+  a->setText(i18n("Show the JavaScript Console"));
+  a->setWhatsThis(i18n("Show/hide the JavaScript Console on the bottom of the view."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(switchToConsole()));
 
   a = m_viInputModeAction = new KToggleAction(i18n("&VI Input Mode"), this);
   ac->addAction("view_vi_input_mode", a);
@@ -1424,6 +1431,20 @@ void KateView::switchToCmdLine ()
   }
   bottomViewBar()->showBarWidget(cmdLineBar());
   cmdLineBar()->setFocus ();
+  hideViModeBar();
+}
+
+void KateView::switchToConsole ()
+{
+  if (!m_console) {
+    m_console = new KateScriptConsole (this, bottomViewBar());
+    bottomViewBar()->addBarWidget(m_console);
+    bottomViewBar()->showBarWidget(m_console);
+  } else {
+    bottomViewBar()->showBarWidget(m_console);
+    m_console->setupLayout();
+  }
+  m_console->setFocus ();
   hideViModeBar();
 }
 
@@ -2593,6 +2614,16 @@ KateCommandLineBar *KateView::cmdLineBar ()
   }
 
   return m_cmdLine;
+}
+
+KateScriptConsole *KateView::consoleBar ()
+{
+  if (!m_console) {
+    m_console = new KateScriptConsole (this, bottomViewBar());
+    bottomViewBar()->addBarWidget(m_console);
+  }
+
+  return m_console;
 }
 
 KateSearchBar *KateView::searchBar (bool initHintAsPower)

@@ -204,7 +204,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // swap file
   m_swapfile = new Kate::SwapFile(this);
-    
+
   new KateBrowserExtension( this ); // deleted by QObject memory management
 
   // important, fill in the config into the indenter we use...
@@ -1071,7 +1071,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
   editStart ();
 
   QString oldText = l->string().mid(col, len);
-  
+
   m_undoManager->slotTextRemoved(line, col, oldText);
 
   // remove text from line
@@ -1717,7 +1717,7 @@ void KateDocument::addMark( int line, uint markType )
   if( markType == 0 )
     return;
 
-  if( mark = m_marks.value(line) ) {
+  if( (mark = m_marks.value(line)) ) {
     // Remove bits already set
     markType &= ~mark->type;
 
@@ -2446,10 +2446,10 @@ bool KateDocument::closeUrl()
     // update doc name
     setDocName (QString());
   }
-  
+
   // purge swap file
   m_swapfile->fileClosed ();
-  
+
   // success
   return true;
 }
@@ -2872,8 +2872,9 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   // move cursor right for block select, as the user is moved right internal
   // even in that case, but user expects other behavior in block selection
   // mode !
+  // just let cursor stay, that was it before I changed to moving ranges!
   if (view->blockSelectionMode())
-    view->setCursorPositionInternal(view->cursorPosition() + KTextEditor::Cursor(lines, 0));
+    view->setCursorPositionInternal(pos);
 
   if (config()->indentPastedText())
   {
@@ -3304,7 +3305,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
   bool hassel = v->selection();
   int l = line;
   int c = 0;
- 
+
   if ( hassel )
   {
     l = v->selectionRange().start().line();

@@ -120,7 +120,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     // stack page
     m_stackTree = new QTreeWidget;
     QStringList headers;
-    headers << "  " << i18n( "Nr" ) << i18n( "Frame" );
+    headers << "  " << i18nc( "Column label (frame number)", "Nr" ) << i18nc( "Column label", "Frame" );
     m_stackTree->setHeaderLabels(headers);
     m_stackTree->setRootIsDecorated(false);
     m_stackTree->resizeColumnToContents(0);
@@ -135,9 +135,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_configView, SIGNAL( showIO( bool ) ),
              this,       SLOT( showIO( bool ) ) );
 
-    m_tabWidget->addTab( m_gdbPage, i18n( "GDB Output" ) );
-    m_tabWidget->addTab( m_stackTree, i18n( "Call Stack" ) );
-    m_tabWidget->addTab( m_configView, i18n( "Settings" ) );
+    m_tabWidget->addTab( m_gdbPage, i18nc( "Tab label", "GDB Output" ) );
+    m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
+    m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
     //tabWidget->addTab( m_ioView, i18n( "IO" ) );
 
     m_debugView  = new DebugView( this );
@@ -217,7 +217,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                 m_debugView, SLOT( slotStepOut() ) );
 
     a = actionCollection()->addAction( "move_pc" );
-    a->setText( i18n( "Move PC" ) );
+    a->setText( i18nc( "Move Program Counter (next execution)", "Move PC" ) );
     connect(    a,      SIGNAL( triggered( bool ) ),
                 this,   SLOT( slotMovePC() ) );
 
@@ -252,7 +252,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     popupAction->setText( i18n( "Run To Cursor" ) );
     popupAction = m_menu->menu()->addAction( "move_pc", 
                                           this, SLOT( slotMovePC() ) );
-    popupAction->setText( i18n( "Move PC" ) );
+    popupAction->setText( i18nc( "Move Program Counter (next execution)", "Move PC" ) );
     
     enableDebugActions( false );
     

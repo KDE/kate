@@ -45,7 +45,7 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
     completer1->setModel( new QDirModel( completer1 ) );
     targets->setCompleter( completer1 );
 
-    targetLabel = new QLabel( "&Target:" );
+    targetLabel = new QLabel( i18n( "&Target:" ) );
     targetLabel->setBuddy( targets );
 
     chooseTarget = new QToolButton();
@@ -64,7 +64,7 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
     completer2->setModel( new QDirModel( completer2 ) );
     workingDirectories->setCompleter( completer2 );
 
-    workDirLabel = new QLabel( "&Working Directory:" );
+    workDirLabel = new QLabel( i18n( "&Working Directory:" ) );
     workDirLabel->setBuddy( workingDirectories );
     
     chooseWorkingDirectory = new QToolButton();
@@ -79,7 +79,7 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
     argumentLists->setEditable( true );
     argumentLists->setInsertPolicy( QComboBox::InsertAtTop );
     
-    argumentsLabel = new QLabel( "&Arg List:" );
+    argumentsLabel = new QLabel( i18nc( "Program argument list", "&Arg List:" ) );
     argumentsLabel->setBuddy( argumentLists );
 
     takeFocus = new QCheckBox( i18n("Keep the focus on the command line") );

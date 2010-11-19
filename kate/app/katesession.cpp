@@ -971,7 +971,9 @@ void KateSessionsAction::slotAboutToShow()
   const KateSessionList &slist (KateSessionManager::self()->sessionList());
   for (int i = 0; i < slist.count(); ++i)
   {
-    QAction *action = new QAction( slist[i]->sessionName(), sessionsGroup );
+    QString sessionName = slist[i]->sessionName();
+    sessionName.replace("&", "&&");
+    QAction *action = new QAction( sessionName, sessionsGroup ); 
     action->setData(QVariant(i));
     menu()->addAction (action);
   }

@@ -339,8 +339,6 @@ OutputObject::~OutputObject()
 
 void OutputObject::output(bool cp, bool ln)
 {
-  QFile out(filename);
-
   QString str;
   for (int i = 0; i < context()->argumentCount(); ++i) {
     QScriptValue arg = context()->argument(i);
@@ -356,11 +354,8 @@ void OutputObject::output(bool cp, bool ln)
     str += '\n';
   }
 
-  QFile::OpenMode mode = QFile::WriteOnly | (cflag ? QFile::Append : QFile::Truncate);
-  if (!out.open(mode)) {
-    fprintf(stderr, "ERROR: Could not append to %s\n", filename.toLatin1().constData());
-  }
-  out.write(str.toUtf8());
+  view->insertText(str);
+
   cflag = true;
 }
 
@@ -432,34 +427,6 @@ void OutputObject::posln()
 void OutputObject::posLn()
 {
   output(true, true);
-}
-
-void OutputObject::createMissingDirs(const QString& filename)
-{
-  QFileInfo dif(filename);
-  QFileInfo dirInfo( dif.dir().path() );
-  if (dirInfo.exists())
-    return;
-
-  QStringList pathComponents;
-  QFileInfo parentDir = dirInfo;
-  pathComponents.prepend(parentDir.absoluteFilePath());
-  while (!parentDir.exists()) {
-    QString parentPath = parentDir.absoluteFilePath();
-    int slashPos = parentPath.lastIndexOf('/');
-    if (slashPos < 0)
-      break;
-    parentPath = parentPath.left(slashPos);
-    pathComponents.prepend(parentPath);
-    parentDir = QFileInfo(parentPath);
-  }
-  for (int pathno = 1; pathno < pathComponents.count(); pathno++) {
-    if (!QFileInfo(pathComponents[pathno]).exists() &&
-        !QDir(pathComponents[pathno-1]).mkdir(pathComponents[pathno])) {
-      fprintf(stderr,"Error creating directory %s\n",pathComponents[pathno].toLatin1().constData());
-      exit(1);
-    }
-  }
 }
 
 //END OutputObject

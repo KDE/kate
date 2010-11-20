@@ -55,7 +55,7 @@ private:
   TestScriptEnv* m_env;
   KateDocument* m_document;
   KMainWindow* m_toplevel;
-  bool m_outputCustomised;
+  bool m_outputWasCustomised;
   QStringList m_commands;
   KateView* m_view;
 };

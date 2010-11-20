@@ -165,9 +165,6 @@ class OutputObject : public QObject, protected QScriptable
     OutputObject(KateView *v, bool &cflag);
     virtual ~OutputObject();
 
-    void setOutputFile(const QString &filename) { this->filename = filename; }
-    static void createMissingDirs(const QString & filename);
-
     void output(bool cp, bool ln);
 
     Q_INVOKABLE void write();
@@ -192,7 +189,6 @@ class OutputObject : public QObject, protected QScriptable
   private:
     KateView *view;
     bool &cflag;
-    QString filename;
 };
 
 #endif // TESTUTILS_H

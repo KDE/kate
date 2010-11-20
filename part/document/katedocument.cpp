@@ -2585,7 +2585,6 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   bool bracketInserted = false;
   QString buf;
-  QChar c;
   foreach(const QChar& ch, chars)
   {
     if (ch.isPrint() || ch == QChar::fromAscii('\t'))
@@ -2646,7 +2645,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
 
   KTextEditor::Cursor b(view->cursorPosition());
-  m_indenter->userTypedChar (view, b, c);
+  m_indenter->userTypedChar (view, b, chars.isEmpty() ? QChar() :  chars.at(chars.length() - 1));
 
   editEnd ();
 

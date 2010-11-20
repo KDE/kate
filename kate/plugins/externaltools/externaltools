@@ -45,7 +45,7 @@ save=0
 [externaltool_RunScript]
 acname=externaltool_RunScript
 cmdname=runscript
-command=cd "%directory" && chmod u+x "%filename" && konsole -e "./%filename"
+command=konsole -e sh -c "cd %directory && pwd && chmod -vc a+x %filename && ./%filename ; echo Press any key to continue. && read -n 1"
 executable=konsole
 icon=run
 mimetypes=

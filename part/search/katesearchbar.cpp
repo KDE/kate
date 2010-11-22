@@ -1489,13 +1489,6 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 }
 
 
-
-void KateSearchBar::closed() {
-    // empty, can probably be removed
-}
-
-
-
 void KateSearchBar::updateSelectionOnly() {
     if (m_powerUi == NULL) {
         return;

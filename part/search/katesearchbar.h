@@ -112,7 +112,6 @@ public Q_SLOTS:
 protected:
     // Overridden
     virtual void showEvent(QShowEvent * event);
-    virtual void closed();
 
 private Q_SLOTS:
     void onIncPatternChanged(const QString & pattern);

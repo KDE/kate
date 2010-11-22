@@ -82,7 +82,6 @@ class KateScriptConsole : public KateViewBarWidget
   protected:
     // overriden
     virtual void closed();
-    virtual void switched();
 
   private:
     QVBoxLayout * layout;

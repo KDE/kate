@@ -143,18 +143,14 @@ KateScriptConsole::~KateScriptConsole()
 
 void KateScriptConsole::closed()
 {
-  endSize = this->size();
-  layout->removeWidget(m_edit);
-  hLayout->removeWidget(m_result);
-  hLayout->removeWidget(m_execute);
-  delete hLayout;
-  resize(initialSize);
-}
-
-void KateScriptConsole::switched()
-{
-  if (this->size() != initialSize)
-    closed();
+  if (this->size() != initialSize) {
+    endSize = this->size();
+    layout->removeWidget(m_edit);
+    hLayout->removeWidget(m_result);
+    hLayout->removeWidget(m_execute);
+    delete hLayout;
+    resize(initialSize);
+  }
 }
 
 void KateScriptConsole::executePressed()

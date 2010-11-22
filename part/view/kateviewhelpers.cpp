@@ -1935,8 +1935,8 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   Q_ASSERT(barWidget != 0);
 
-  KateViewBarWidget *current=qobject_cast<KateViewBarWidget*>(m_stack->currentWidget());
-  current->switched();
+  hideCurrentBarWidget();
+
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
   barWidget->show();

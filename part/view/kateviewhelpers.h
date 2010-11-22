@@ -251,7 +251,6 @@ class KateViewBarWidget : public QWidget
     explicit KateViewBarWidget (bool addCloseButton, QWidget* parent = 0);
 
     virtual void closed(){};
-    virtual void switched(){};
   protected:
     /**
      * @return widget that should be used to add controls to bar widget

@@ -540,10 +540,8 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   // the following commands change the focus themselves
-  // FIXME: ugly :-(
-  if (cmd != "bn" && cmd != "bp" && cmd != "new" && cmd != "vnew" && cmd != "enew") {
+  if (!QRegExp("b(n|p)").exactMatch(cmd) && !QRegExp("(v)?new").exactMatch(cmd))
     m_view->setFocus ();
-  }
 
   if (isVisible()) {
     m_hideTimer->start(4000);

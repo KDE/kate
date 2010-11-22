@@ -453,7 +453,7 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 KateCommands::AppCommands::AppCommands()
     : KTextEditor::Command()
 {
-    re_write.setPattern("w?");
+    re_write.setPattern("w"); // temporarily add :w
     //re_write.setPattern("w(a)?");
     //re_quit.setPattern("(w)?q?(a)?");
     //re_exit.setPattern("x(a)?");

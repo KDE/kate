@@ -58,7 +58,7 @@ const QStringList& KateAppCommands::cmds()
     static QStringList l;
 
     if (l.empty()) {
-        l << "q" << "qa" << "w" << "wq" << "wa" << "wqa" << "x" << "xa"
+        l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
           << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
     }
 

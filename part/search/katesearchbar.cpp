@@ -363,6 +363,8 @@ void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
 
 
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
+    if (!m_incUi)
+        return;
     clearHighlights();
 
     m_incUi->next->setDisabled(pattern.isEmpty());

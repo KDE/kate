@@ -19,7 +19,7 @@
  */
 
 #ifndef _KATE_BROKEN_SWAP_H__
-#define _KATE_BROEKN_SWAP_H__
+#define _KATE_BROKEN_SWAP_H__
 
 #include "kateviewhelpers.h"
 

@@ -143,7 +143,7 @@ void KTinyTabBarConfigPage::setupConnections()
     connect(chkPrevious, SIGNAL(toggled(bool)), this, SLOT(highlightPreviousTabChanged(bool)));
     connect(colActive, SIGNAL(changed(const QColor&)), this, SLOT(activeTabColorChanged(const QColor&)));
     connect(colPrevious, SIGNAL(changed(const QColor&)), this, SLOT(previousTabColorChanged(const QColor&)));
-    connect(slOpacity, SIGNAL(sliderMoved(int)), this, SLOT(highlightOpacityChanged(int)));
+    connect(slOpacity, SIGNAL(valueChanged(int)), this, SLOT(highlightOpacityChanged(int)));
 
     // preview
     connect(m_previewMinimum, SIGNAL(activated(KTinyTabButton*)), this, SLOT(buttonActivated(KTinyTabButton*)));

@@ -1938,6 +1938,7 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
   barWidget->show();
+  barWidget->setFocus(Qt::ShortcutFocusReason);
   m_stack->show();
 
   // if we have any permanent widget, bar is always visible,

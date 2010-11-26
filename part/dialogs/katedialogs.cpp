@@ -1322,6 +1322,8 @@ KateGotoBar::KateGotoBar(KTextEditor::View *view, QWidget *parent)
   topLayout->setStretchFactor( gotoRange, 0 );
   topLayout->addWidget(btnOK);
   topLayout->addStretch();
+
+  setFocusProxy(gotoRange);
 }
 
 void KateGotoBar::updateData()

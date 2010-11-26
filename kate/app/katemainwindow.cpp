@@ -69,6 +69,10 @@
 #include <QList>
 #include <QDesktopWidget>
 
+#include <kio/job.h>
+#include <KIO/ListJob>
+#include <KFileItem>
+
 #include <assert.h>
 #include <unistd.h>
 //END
@@ -659,7 +663,30 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
 
   for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
   {
-    m_viewManager->openUrl (*i);
+    // if url has no file component, try and recursively scan dir
+    KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
+    if( kitem.isDir() ) {
+      KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
+      connect(list_job, SIGNAL(entries(KIO::Job *, const KIO::UDSEntryList &)),
+              this, SLOT(slotListRecursiveEntries(KIO::Job *, const KIO::UDSEntryList &)));
+    }
+    else {
+      m_viewManager->openUrl (*i);
+    }
+  }
+}
+
+void KateMainWindow::slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list)
+{
+  const KUrl dir = static_cast<KIO::SimpleJob*>( job )->url();
+  foreach( const KIO::UDSEntry &entry, list )
+  {
+      KUrl currentUrl = dir;
+      currentUrl.addPath( entry.stringValue( KIO::UDSEntry::UDS_NAME ) );
+      if( !entry.isDir() )
+      {
+          m_viewManager->openUrl(currentUrl);
+      }
   }
 }
 

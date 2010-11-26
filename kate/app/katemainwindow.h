@@ -40,6 +40,11 @@
 
 class QMenu;
 
+namespace KIO
+{
+  class UDSEntry;
+  typedef class QList<UDSEntry> UDSEntryList;
+}
 
 namespace Kate
 {
@@ -213,6 +218,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void pluginHelp ();
     void aboutEditor();
     void slotFullScreen(bool);
+
+    void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);
 
   private Q_SLOTS:
     void toggleShowStatusBar ();

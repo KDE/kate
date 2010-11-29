@@ -149,11 +149,12 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
         if (decoded.length() > 1 ) {
           key = KateViKeyParser::getInstance()->vi2qt(decoded);
-        } else {
+        } else if (decoded.length() == 1) {
           key = int(decoded.at(0).toUpper().toAscii());
           text = decoded.at(0);
           kDebug( 13070 ) << "###########" << key;
-          kDebug( 13070 ) << "###########" << Qt::Key_W;
+        } else {
+          kWarning( 13070 ) << "decoded is empty. skipping key press.";
         }
       } else { // no modifiers
         key = KateViKeyParser::getInstance()->vi2qt(decoded);

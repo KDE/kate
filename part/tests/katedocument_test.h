@@ -37,6 +37,8 @@ private Q_SLOTS:
   void testMovingInterfaceSignals();
 
   void testSetTextPerformance();
+
+  void testForgivingApiUsage();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

@@ -228,4 +228,26 @@ void KateDocumentTest::testSetTextPerformance()
     }
 }
 
+void KateDocumentTest::testForgivingApiUsage()
+{
+    KateDocument doc(false, false, false);
+
+    QVERIFY(doc.isEmpty());
+    QVERIFY(doc.replaceText(Range(0, 0, 100, 100), "asdf"));
+    QCOMPARE(doc.text(), QString("asdf"));
+    QCOMPARE(doc.lines(), 1);
+    QVERIFY(doc.replaceText(Range(2, 99, 2, 100), "asdf"));
+    QEXPECT_FAIL("", "replacing text behind the document end will add 5 lines out of nowhere", Continue);
+    QCOMPARE(doc.lines(), 3);
+
+    QVERIFY(doc.removeText(Range(0, 0, 1000, 1000)));
+    QVERIFY(doc.removeText(Range(0, 0, 0, 100)));
+    QVERIFY(doc.isEmpty());
+    doc.insertText(Cursor(100, 0), "foobar");
+    QCOMPARE(doc.line(100), QString("foobar"));
+
+    doc.setText("nY\nnYY\n");
+    QVERIFY(doc.removeText(Range(0, 0, 0, 1000)));
+}
+
 #include "katedocument_test.moc"

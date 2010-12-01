@@ -1068,6 +1068,9 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
   if (col >= l->text().size())
     return false;
 
+  // be forgiving with the length
+  len = qMin(len, l->text().size() - col);
+
   editStart ();
 
   QString oldText = l->string().mid(col, len);

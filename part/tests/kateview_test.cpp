@@ -91,3 +91,56 @@ void KateViewTest::testLowerCaseBlockSelection()
 
     QCOMPARE(doc.text(), QString("ny\nnyy\n"));
 }
+
+void KateViewTest::testFolding_data()
+{
+    QTest::addColumn<bool>("dynWordWrap");
+    QTest::addColumn<bool>("scrollPastEnd");
+    QTest::addColumn<int>("autoCenterLines");
+
+    QTest::newRow("dynWordWrap") << true << false << 0;
+    QTest::newRow("dynWordWrap+scrollPastEnd") << true << true << 0;
+    QTest::newRow("dynWordWrap+autoCenterLines") << true << false << 10;
+    QTest::newRow("dynWordWrap+scrollPastEnd+autoCenterLines") << true << true << 10;
+    QTest::newRow("scrollPastEnd") << false << true << 0;
+    QTest::newRow("scrollPastEnd+autoCenterLines") << false << true << 10;
+}
+
+void KateViewTest::testFolding()
+{
+    KTemporaryFile file;
+    file.setSuffix(".cpp");
+    file.open();
+    QTextStream stream(&file);
+    stream << "int main() {\n"
+           << "  asdf;\n"
+           << "}\n";
+    stream << flush;
+    file.close();
+
+    KateDocument doc(false, false, false);
+    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QCOMPARE(doc.highlightingMode(), QString("C++"));
+
+    KateView* view = new KateView(&doc, 0);
+    QAction* collapseAction = view->action("folding_toplevel");
+    QVERIFY(collapseAction);
+    QAction* expandAction = view->action("folding_expandtoplevel");
+    QVERIFY(expandAction);
+
+    QFETCH(bool, dynWordWrap);
+    QFETCH(bool, scrollPastEnd);
+    QFETCH(int, autoCenterLines);
+
+    view->config()->setDynWordWrap(dynWordWrap);
+    view->config()->setScrollPastEnd(scrollPastEnd);
+    view->config()->setAutoCenterLines(autoCenterLines);
+
+    QCOMPARE(doc.visibleLines(), 4u);
+
+    collapseAction->trigger();
+    QCOMPARE(doc.visibleLines(), 2u);
+
+    expandAction->trigger();
+    QCOMPARE(doc.visibleLines(), 4u);
+}

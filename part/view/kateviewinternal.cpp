@@ -409,7 +409,7 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
   {
     KTextEditor::Cursor end(doc()->numVisLines() - 1, doc()->lineLength(doc()->getRealLine(doc()->numVisLines() - 1)));
 
-    if (m_view->config()->scrollPastEnd())
+    if (m_minLinesVisible)
       m_cachedMaxStartPos = viewLineOffset(end, -m_minLinesVisible);
     else
       m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
@@ -1290,6 +1290,9 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   if (forwards) {
     currentOffset = cache()->lastViewLine(realCursor.line()) - cursorViewLine;
     if (offset <= currentOffset) {
+      // NOTE: if offset is zero the assert below won't hold, see also:
+      // https://bugs.kde.org/show_bug.cgi?id=157754
+      Q_ASSERT(offset);
       // the answer is on the same line
       KateTextLayout thisLine = cache()->textLayout(realCursor.line(), cursorViewLine + offset);
       Q_ASSERT(thisLine.virtualLine() == virtualCursor.line());

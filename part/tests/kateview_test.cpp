@@ -77,3 +77,17 @@ void KateViewTest::testReloadMultipleViews()
 
     QVERIFY(doc.documentReload());
 }
+
+void KateViewTest::testLowerCaseBlockSelection()
+{
+    // testcase for https://bugs.kde.org/show_bug.cgi?id=258480
+    KateDocument doc(false, false, false);
+    doc.setText("nY\nnYY\n");
+
+    KateView* view1 = new KateView(&doc, 0);
+    view1->setBlockSelectionMode(true);
+    view1->setSelection(Range(0, 1, 1, 3));
+    view1->lowercase();
+
+    QCOMPARE(doc.text(), QString("ny\nnyy\n"));
+}

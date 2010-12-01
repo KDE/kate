@@ -32,6 +32,8 @@ public:
 
 private Q_SLOTS:
   void testReloadMultipleViews();
+
+  void testLowerCaseBlockSelection();
 };
 
 #endif // KATE_VIEW_TEST_H

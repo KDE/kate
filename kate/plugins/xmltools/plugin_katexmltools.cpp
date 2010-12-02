@@ -548,8 +548,13 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     
     if( ! marked.isEmpty() )
       kv->removeSelectionText();
+    
+    KTextEditor::Cursor curPos = kv->cursorPosition(); // with the old selection now removed, curPos points to the start of pre
+    curPos.setColumn( curPos.column() + pre.length() - adjust );
 
     kv->insertText( pre + marked + post );
+
+    kv->setCursorPosition( curPos );
     
     doc->endEditing();
   }

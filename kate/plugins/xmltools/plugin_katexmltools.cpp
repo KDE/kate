@@ -502,7 +502,8 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     return;
   }
 
-  PseudoDTD *dtd = m_docDtds[kv->document()];
+  KTextEditor::Document *doc = kv->document();
+  PseudoDTD *dtd = m_docDtds[doc];
   QString parentElement = getParentElement( *kv, 0 );
   QStringList allowed;
 
@@ -543,10 +544,14 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     if ( ! post.isEmpty() )
       marked = kv->selectionText();
 
-    if( marked.length() > 0 )
+    doc->startEditing();
+    
+    if( ! marked.isEmpty() )
       kv->removeSelectionText();
 
     kv->insertText( pre + marked + post );
+    
+    doc->endEditing();
   }
 }
 

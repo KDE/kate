@@ -998,7 +998,7 @@ InsertElement::InsertElement( QWidget *parent, const char *name )
 
   setCaption(i18n("Insert XML Element" ));
   setButtons(KDialog::Ok|KDialog::Cancel);
-  setDefaultButton(KDialog::Cancel);
+  setDefaultButton(KDialog::Ok);
   setModal(true);
 }
 

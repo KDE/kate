@@ -554,8 +554,10 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       while(s.count()<10) s<<"";
       QString name = p->name();
+      bool spellCheck = p->performSpellchecking();
       p->clear();
       p->setName(name);
+      p->setPerformSpellchecking(spellCheck);
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
 

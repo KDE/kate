@@ -1068,7 +1068,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
   if (col >= l->text().size())
     return false;
 
-  // be forgiving with the length
+  // don't try to remove what's not there
   len = qMin(len, l->text().size() - col);
 
   editStart ();

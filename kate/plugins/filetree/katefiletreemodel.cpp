@@ -63,6 +63,7 @@ class ProxyItem {
 
     void setDoc(KTextEditor::Document *doc);
     KTextEditor::Document *doc();
+    QList<KTextEditor::Document*> docTree() const;
 
     void setFlags(Flags flags);
     void setFlag(Flag flag);
@@ -250,6 +251,18 @@ KTextEditor::Document *ProxyItem::doc()
   return m_doc;
 }
 
+QList<KTextEditor::Document*> ProxyItem::docTree() const
+{
+  QList<KTextEditor::Document*> result;
+  if (m_doc) {
+    result.append(m_doc);
+  }
+  for (QList<ProxyItem*>::const_iterator iter = m_children.constBegin(); iter != m_children.constEnd(); ++iter) {
+    result.append((*iter)->docTree());
+  }
+  return result;
+}
+
 bool ProxyItem::flag(Flag f)
 {
   return m_flags & f;
@@ -399,6 +412,8 @@ Qt::ItemFlags KateFileTreeModel::flags( const QModelIndex &index ) const
   return flags;
 }
 
+Q_DECLARE_METATYPE(QList<KTextEditor::Document*>);
+
 QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
 {
   //kDebug(debugArea()) << "BEGIN!";
@@ -422,7 +437,10 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
 
     case KateFileTreeModel::OpeningOrderRole:
       return item->row();
-      
+
+    case KateFileTreeModel::DocumentTreeRole:
+      return QVariant::fromValue(item->docTree());
+
     case Qt::DisplayRole:
       // in list mode we want to use kate's fancy names.
       if(m_listMode)

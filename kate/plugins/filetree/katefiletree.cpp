@@ -208,11 +208,17 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   event->accept();
 }
 
+Q_DECLARE_METATYPE(QList<KTextEditor::Document*>);
+
 void KateFileTree::slotDocumentClose() {
   m_previouslySelected = QModelIndex();
-  QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentRole);
+  QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
   if (!v.isValid()) return;
-  Kate::application()->documentManager()->closeDocument(v.value<KTextEditor::Document*>());
+  QList<KTextEditor::Document*> documents = v.value<QList<KTextEditor::Document*> >();
+  kWarning() << documents.size();
+  foreach(KTextEditor::Document* document, documents) {
+    Kate::application()->documentManager()->closeDocument(document);
+  }
 }
 
 void KateFileTree::slotDocumentPrev()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.43" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.44" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -212,6 +212,7 @@
       <context name="BeginEnvironment" attribute="Environment" lineEndContext="#stay">
         <RegExpr String="(lstlisting|(B|L)?Verbatim)" attribute="Environment" context="VerbatimEnvParam"/>
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
+        <RegExpr String="comment" attribute="Environment" context="CommentEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>
         <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign)" attribute="Environment" context="MathEnv"/>
         <RegExpr String="(tabularx|tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)" attribute="Environment" context="TabEnv"/>
@@ -253,6 +254,26 @@
       <context name="VerbFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <RegExpr String="\s*\{" attribute="Normal Text" context="#stay"/>
         <RegExpr String="(verbatim|lstlisting|boxedverbatim|(B|L)?Verbatim)\*?" attribute="Environment" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
+      </context>
+
+      <!-- begin comment environment  -->
+      <context name="CommentEnv" attribute="Environment" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop#pop#pop">
+        <DetectChar char="}" attribute="Normal Text" context="BlockComment"/>
+        <RegExpr String="[a-zA-Z]" attribute="Environment" lookAhead="true" context="#pop"/>
+        <IncludeRules context="EnvCommon" />
+       </context>
+
+      <!-- parse comment text -->
+      <context name="BlockComment" attribute="Comment" lineEndContext="#stay">
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="\\end(?=\s*\{comment\*?\})" attribute="Structure" context="CommFindEnd"/>
+      </context>
+
+      <!-- end of comment environment -->
+      <context name="CommFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr String="\s*\{" attribute="Normal Text" context="#stay"/>
+        <RegExpr String="comment\*?" attribute="Environment" context="#stay"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
       </context>
 

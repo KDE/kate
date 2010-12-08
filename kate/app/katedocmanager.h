@@ -21,6 +21,7 @@
 #define __KATE_DOCMANAGER_H__
 
 #include "katemain.h"
+#include <kate_export.h>
 #include <kate/documentmanager.h>
 
 #include <KTextEditor/Document>
@@ -59,7 +60,7 @@ class KateDocumentInfo
     bool openedByUser;
 };
 
-class KateDocManager : public QStandardItemModel
+class KATEINTERFACES_EXPORT KateDocManager : public QStandardItemModel
 {
     Q_OBJECT
 

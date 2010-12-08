@@ -19,6 +19,7 @@
 #ifndef _KATE_SAVE_MODIFIED_DIALOG_
 #define _KATE_SAVE_MODIFIED_DIALOG_
 
+#include <kate_export.h>
 #include <KTextEditor/Document>
 
 #include <KDialog>
@@ -27,7 +28,7 @@
 class QTreeWidget;
 class QTreeWidgetItem;
 
-class KateSaveModifiedDialog: public KDialog
+class KATEINTERFACES_EXPORT KateSaveModifiedDialog: public KDialog
 {
     Q_OBJECT
   public:

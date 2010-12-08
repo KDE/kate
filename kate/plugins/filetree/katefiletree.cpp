@@ -25,6 +25,8 @@
 
 #include <ktexteditor/document.h>
 #include <kate/application.h>
+#include <kate/app/katesavemodifieddialog.h>
+#include <kate/app/katedocmanager.h>
 #include <kate/documentmanager.h>
 #include <KLocale>
 
@@ -214,10 +216,21 @@ void KateFileTree::slotDocumentClose() {
   m_previouslySelected = QModelIndex();
   QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
   if (!v.isValid()) return;
-  QList<KTextEditor::Document*> documents = v.value<QList<KTextEditor::Document*> >();
-  kWarning() << documents.size();
-  foreach(KTextEditor::Document* document, documents) {
-    Kate::application()->documentManager()->closeDocument(document);
+  QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
+  QList<KTextEditor::Document*> modifiedDocuments = KateDocManager::self()->modifiedDocumentList();
+  QList<KTextEditor::Document*> closingModifiedDocuments;
+  // This shouldn't be a bottleneck, so use simple intersection algorithm
+  foreach(KTextEditor::Document* document, modifiedDocuments) {
+    if (closingDocuments.contains(document)) {
+      closingModifiedDocuments.append(document);
+    }
+  }
+  bool doClose = KateSaveModifiedDialog::queryClose(this, closingModifiedDocuments);
+  if (doClose) {
+    Kate::DocumentManager* documentManager = Kate::application()->documentManager();
+    foreach(KTextEditor::Document* document, closingDocuments) {
+      documentManager->closeDocument(document, false);
+    }
   }
 }
 

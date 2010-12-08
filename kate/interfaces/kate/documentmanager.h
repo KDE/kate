@@ -106,7 +106,7 @@ namespace Kate
        * \param document the document to be closed
        * \return \e true on success, otherwise \e false
        */
-      bool closeDocument (KTextEditor::Document *document);
+      bool closeDocument (KTextEditor::Document* document, bool closeUrl = true);
 
       //
       // SIGNALS !!!

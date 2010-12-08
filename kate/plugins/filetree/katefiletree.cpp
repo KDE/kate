@@ -149,11 +149,7 @@ void KateFileTree::mousePressed ( const QModelIndex &index )
 {
   kDebug(debugArea()) << "got index" << index;
   
-  KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-  if(doc) {
-    kDebug(debugArea()) << "got doc, setting prev:" << index;
-    m_previouslySelected = index;
-  }
+  m_previouslySelected = index;
 }
 
 void KateFileTree::mouseClicked ( const QModelIndex &index )
@@ -225,7 +221,10 @@ void KateFileTree::slotDocumentClose() {
       closingModifiedDocuments.append(document);
     }
   }
-  bool doClose = KateSaveModifiedDialog::queryClose(this, closingModifiedDocuments);
+  bool doClose = true;
+  if (closingModifiedDocuments.size()) {
+    doClose = KateSaveModifiedDialog::queryClose(this, closingModifiedDocuments);
+  }
   if (doClose) {
     Kate::DocumentManager* documentManager = Kate::application()->documentManager();
     foreach(KTextEditor::Document* document, closingDocuments) {

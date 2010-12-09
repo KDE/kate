@@ -106,7 +106,14 @@ namespace Kate
        * \param document the document to be closed
        * \return \e true on success, otherwise \e false
        */
-      bool closeDocument (KTextEditor::Document* document, bool closeUrl = true);
+      bool closeDocument (KTextEditor::Document* document);
+
+      /**
+       * Close a list of documents. If any of them are modified, show a "save modified" dialog.
+       * \param documents list of documents to be closed
+       * \return \e true on success, otherwise \e false
+       */
+      bool closeDocumentList (QList<KTextEditor::Document*> documents);
 
       //
       // SIGNALS !!!

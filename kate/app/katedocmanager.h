@@ -21,7 +21,6 @@
 #define __KATE_DOCMANAGER_H__
 
 #include "katemain.h"
-#include <kate_export.h>
 #include <kate/documentmanager.h>
 
 #include <KTextEditor/Document>
@@ -60,7 +59,7 @@ class KateDocumentInfo
     bool openedByUser;
 };
 
-class KATEINTERFACES_EXPORT KateDocManager : public QStandardItemModel
+class KateDocManager : public QStandardItemModel
 {
     Q_OBJECT
 
@@ -121,6 +120,7 @@ class KATEINTERFACES_EXPORT KateDocManager : public QStandardItemModel
 
     bool closeDocument(class KTextEditor::Document *, bool closeUrl = true);
     bool closeDocument(uint);
+    bool closeDocumentList(QList<KTextEditor::Document*> documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document*);
     bool closeOtherDocuments(uint);

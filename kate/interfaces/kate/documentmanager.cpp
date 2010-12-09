@@ -67,9 +67,14 @@ namespace Kate
     return d->docMan->openUrl (url, encoding);
   }
 
-  bool DocumentManager::closeDocument(KTextEditor::Document *document, bool closeUrl)
+  bool DocumentManager::closeDocument(KTextEditor::Document *document)
   {
-    return d->docMan->closeDocument (document, closeUrl);
+    return d->docMan->closeDocument (document);
+  }
+
+  bool DocumentManager::closeDocumentList(QList<KTextEditor::Document*> documents)
+  {
+    return d->docMan->closeDocumentList(documents);
   }
 
   DocumentManager *documentManager ()

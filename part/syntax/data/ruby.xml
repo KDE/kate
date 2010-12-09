@@ -161,6 +161,7 @@
 			<item> readline </item>
 			<item> readlines </item>
 			<item> require </item>
+			<item> require_relative </item>
 			<item> scan </item>
 			<item> select </item>
 			<item> set_trace_func </item>

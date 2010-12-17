@@ -1066,7 +1066,8 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
       m_root->addChild(new_root);
     endInsertRows();
     
-    QModelIndex new_root_index = createIndex(new_root->row(), 0, new_root);
+    // same fix as in findRootNode, try to match a full dir, instead of a partial path
+    base += "/";
     
     // try and merge existing roots with the new root node.
     kDebug(debugArea()) << "attempting to merge some existing roots";
@@ -1082,16 +1083,19 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
 
         kDebug(debugArea()) << "adding" << root << "to" << new_root;
         //beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
-          new_root->addChild(root);
+          // this can't use new_root->addChild directly, or it'll potentially miss a bunch of subdirs
+          insertItemInto(new_root, root);
         //endInsertRows();
       }
     }
 
     // add item to new root
     kDebug(debugArea()) << "adding" << item << "to" << new_root;
-    //beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
+    // have to call begin/endInsertRows here, or the new item won't show up.
+    QModelIndex new_root_index = createIndex(new_root->row(), 0, new_root);
+    beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
       new_root->addChild(item);
-    //endInsertRows();
+    endInsertRows();
 
   }
 

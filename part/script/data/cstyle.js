@@ -663,14 +663,21 @@ function tryStatement(line)
             if (alignOnAnchor) {
                 currentLine = cursor.line;
                 var column = cursor.column;
+                var inc = 0;
                 if (result[2] != '"' && result[2] != "'") {
                     // place one column after the opening parens
                     column++;
+                    inc = 1;
                 }
                 var lastColumn = document.lastColumn(currentLine);
-                while (column < lastColumn && document.isSpace(currentLine, column))
+                while (column < lastColumn && document.isSpace(currentLine, column)) {
                     ++column;
-                indentation = document.toVirtualColumn(currentLine, column);
+                    inc = 1;
+                }
+                if (inc > 0)
+                    indentation = document.toVirtualColumn(currentLine, column);
+                else
+                    indentation = document.firstVirtualColumn(currentLine);
             } else {
                 currentLine = cursor.line;
                 indentation = document.firstVirtualColumn(currentLine);

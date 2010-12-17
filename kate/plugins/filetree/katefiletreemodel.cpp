@@ -941,8 +941,16 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
       continue;
     }
 
-    if(name.startsWith(path) && item->flag(ProxyItem::Dir))
+    // make sure we're actually matching against the right dir,
+    // previously the check below would match /foo/xy against /foo/x
+    // and return /foo/x rather than /foo/xy
+    // this seems a bit hackish, but is the simplest way to solve the
+    // current issue.
+    path += "/";
+
+    if(name.startsWith(path) && item->flag(ProxyItem::Dir)) {
       return (ProxyItemDir*)item;
+    }
   }
 
   return 0;

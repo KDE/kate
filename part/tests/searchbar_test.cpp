@@ -564,6 +564,12 @@ void SearchBarTest::testSearchHistoryIncremental()
 
   QCOMPARE(bar2.m_incUi->pattern->findText("bar"), 0);
   QCOMPARE(bar2.m_incUi->pattern->findText("foo"), 1);
+
+  //testcase for https://bugs.kde.org/show_bug.cgi?id=248305
+  bar2.m_incUi->pattern->setCurrentIndex(1);
+  QCOMPARE(bar2.searchPattern(), QLatin1String("foo"));
+  bar2.findNext();
+  QCOMPARE(bar2.searchPattern(), QLatin1String("foo"));
 }
 
 void SearchBarTest::testSearchHistoryPower()

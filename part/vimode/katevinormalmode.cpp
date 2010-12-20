@@ -64,6 +64,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 
   initializeCommands();
+  m_ignoreMapping = false;
   resetParser(); // initialise with start configuration
 }
 
@@ -108,7 +109,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
-  if ( !m_mappingKeyPress && m_matchingCommands.size() == 0 ) {
+  if ( !m_mappingKeyPress && !m_ignoreMapping && m_matchingCommands.size() == 0 ) {
     m_mappingKeys.append( key );
 
     foreach ( const QString &str, getMappings() ) {
@@ -128,6 +129,14 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   } else {
     // FIXME:
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
+  }
+
+  if ( m_ignoreMapping ) m_ignoreMapping = false;
+
+  if ( key == 'f' || key == 'F' || key == 't' || key == 'T' ) {
+      // don't translate next character, we need the actual character so that
+      // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
+      m_ignoreMapping = true;
   }
 
   m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );

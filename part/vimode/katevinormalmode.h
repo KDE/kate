@@ -251,6 +251,8 @@ class KateViNormalMode : public KateViModeBase
 
     // mappings
     bool m_mappingKeyPress;
+    // set after f/F/t/T so the following character isn't translated
+    bool m_ignoreMapping;
     QString m_mappingKeys;
 
     KateViKeyParser *m_keyParser;

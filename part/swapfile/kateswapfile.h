@@ -52,7 +52,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     
     void fileClosed ();
     QString fileName();
-    
+
   private:
     void setTrackingEnabled(bool trackingEnabled);
     void removeSwapFile();
@@ -83,6 +83,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     void discard();
     void recover();
     bool recover(QDataStream&);
+    void configChanged();
 
   private:
     QDataStream m_stream;

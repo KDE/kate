@@ -62,13 +62,19 @@ SwapFile::SwapFile(KateDocument *document)
   // connecting the signals
   connect(&m_document->buffer(), SIGNAL(saved(const QString &)), this, SLOT(fileSaved(const QString&)));
   connect(&m_document->buffer(), SIGNAL(loaded(const QString &, bool)), this, SLOT(fileLoaded(const QString&)));
+  connect(m_document, SIGNAL(configChanged()), this, SLOT(configChanged()));
 
-  setTrackingEnabled(true);
+  configChanged();
 }
 
 SwapFile::~SwapFile()
 {
   removeSwapFile();
+}
+
+void SwapFile::configChanged()
+{
+  setTrackingEnabled(!m_document->config()->swapFileNoSync());
 }
 
 void SwapFile::setTrackingEnabled(bool enable)
@@ -323,7 +329,7 @@ void SwapFile::finishEditing ()
     return;
 
   // write the file to the disk every 15 seconds
-  if (!syncTimer()->isActive() && !m_document->config()->swapFileNoSync())
+  if (!syncTimer()->isActive())
     syncTimer()->start(15000);
   
   // format: qint8

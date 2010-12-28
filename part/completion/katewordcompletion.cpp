@@ -170,7 +170,7 @@ bool KateWordCompletionModel::shouldAbortCompletion(KTextEditor::View* view, con
       if (currentCompletion.length()<v->config()->wordCompletionMinimalWordLength()) return true;
     }
 
-    return CodeCompletionModelControllerInterface3::shouldAbortCompletion(view,range,currentCompletion);
+    return CodeCompletionModelControllerInterface4::shouldAbortCompletion(view,range,currentCompletion);
 }
 
 
@@ -241,6 +241,13 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateWordCompletionModel::matchingItem(const QModelIndex& /*matched*/)
 {
   return HideListIfAutomaticInvocation;
+}
+
+bool KateWordCompletionModel::shouldHideItemsWithEqualNames() const
+{
+  // We don't want word-completion items if the same items
+  // are available through more sophisticated completion models
+  return true;
 }
 
 //END KateWordCompletionModel

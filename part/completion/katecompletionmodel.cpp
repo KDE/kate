@@ -36,7 +36,7 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
+#include "codecompletionmodelcontrollerinterfacev4.h"
 
 using namespace KTextEditor;
 
@@ -596,6 +596,8 @@ void KateCompletionModel::createGroups()
   foreach (Group* g, m_emptyGroups)
     hideOrShowGroup(g);
 
+  makeGroupItemsUnique();
+  
   updateBestMatches();
   
   reset();
@@ -948,9 +950,8 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
       if(g != m_argumentHints)
         needsReset |= changeCompletions(g, changeType);
     }
-
-    updateBestMatches();
   }
+  updateBestMatches();
 
   kDebug()<<"needsReset"<<needsReset;
   if(needsReset)
@@ -1946,6 +1947,72 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
     reset();
   }
 }
+
+void KateCompletionModel::makeGroupItemsUnique(bool onlyFiltered)
+{
+  struct FilterItems {
+    FilterItems(KateCompletionModel& model, const QVector<KTextEditor::CodeCompletionModel*>& needShadowing) : m_model(model), m_needShadowing(needShadowing) {
+    }
+     
+    QHash<QString, CodeCompletionModel*> had;
+    KateCompletionModel& m_model;
+    const QVector< KTextEditor::CodeCompletionModel* > m_needShadowing;
+    
+    void filter(QList<Item>& items)
+    {
+      QList<Item> temp;   
+      foreach(const Item& item, items)
+      {
+        QHash<QString, CodeCompletionModel*>::const_iterator it = had.constFind(item.name());
+        if(it != had.constEnd() && *it != item.sourceRow().first && m_needShadowing.contains(item.sourceRow().first))
+          continue;
+        had.insert(item.name(), item.sourceRow().first);
+        temp.push_back(item);
+      }
+      items = temp;
+    }
+     
+    void filter(Group* group, bool onlyFiltered)
+    {
+      if(group->prefilter.size() == group->filtered.size())
+      {
+        // Filter only once
+        filter(group->filtered);
+        if(!onlyFiltered) 
+          group->prefilter = group->filtered;
+      }else{
+        // Must filter twice
+        filter(group->filtered);
+        if(!onlyFiltered) 
+          filter(group->prefilter);
+      }
+       
+      if(group->filtered.isEmpty())
+        m_model.hideOrShowGroup(group);
+      
+    }
+  };
+
+  QVector<KTextEditor::CodeCompletionModel*> needShadowing;
+  
+  foreach(KTextEditor::CodeCompletionModel* model, m_completionModels)
+  {
+    KTextEditor::CodeCompletionModelControllerInterface4* v4 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface4*>(model);
+    if(v4 && v4->shouldHideItemsWithEqualNames())
+      needShadowing.push_back(model);
+  }
+  
+  if(needShadowing.isEmpty())
+    return;
+  
+  FilterItems filter(*this, needShadowing);
+  
+  filter.filter(m_ungrouped, onlyFiltered);
+  
+  foreach(Group* group, m_rowTable)
+    filter.filter(group, onlyFiltered);
+}
+
 
 //Updates the best-matches group
 void KateCompletionModel::updateBestMatches() {

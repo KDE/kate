@@ -199,6 +199,9 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
     
     //Updates the best-matches group
     void updateBestMatches();
+    //Makes sure that the ungrouped group contains each item only once
+    //Must only be called right after the group was created
+    void makeGroupItemsUnique(bool onlyFiltered = false);
 
   private:
     

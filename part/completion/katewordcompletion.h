@@ -27,7 +27,7 @@
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/configpage.h>
-#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
+#include "codecompletionmodelcontrollerinterfacev4.h"
 #include <kxmlguiclient.h>
 
 #include <QtCore/QEvent>
@@ -37,10 +37,10 @@
 #include <kdebug.h>
 
 
-class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
+class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface4
 {
   Q_OBJECT
-  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface4)
   public:
     KateWordCompletionModel( QObject *parent );
     ~KateWordCompletionModel();
@@ -72,6 +72,8 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public 
     virtual QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
     virtual QModelIndex parent(const QModelIndex& index) const;
     virtual MatchReaction matchingItem(const QModelIndex& matched);
+
+    virtual bool shouldHideItemsWithEqualNames() const;
 
     const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;
 

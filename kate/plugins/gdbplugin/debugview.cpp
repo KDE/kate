@@ -228,7 +228,7 @@ void DebugView::movePC( KUrl const& url, int line )
 {
     if( m_state == ready )
     {
-        QString cmd = QString("tbreak %1%2").arg(url.path()).arg(line);
+        QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
         m_nextCommands <<  QString("jump %1:%2").arg(url.path()).arg(line);
         issueCommand( cmd );
     }

@@ -538,7 +538,7 @@ void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
     }
     
     if (exitCode != 0) {
-        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %d", exitCode));
+        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1", exitCode));
         return;
     }
 

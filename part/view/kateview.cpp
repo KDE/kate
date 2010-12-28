@@ -143,7 +143,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   // selection if for this view only and will invalidate if becoming empty
   m_selection.setView (this);
-  
+
   // use z depth defined in moving ranges interface
   m_selection.setZDepth (-100000.0);
 
@@ -258,14 +258,14 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
-  
+
   // swap file handling
   connect (doc->swapFile(), SIGNAL(swapFileBroken()), this, SLOT(showBrokenSwapFileBar()));
   connect (doc->swapFile(), SIGNAL(swapFileFound()), this, SLOT(showRecoverBar()));
   connect (doc->swapFile(), SIGNAL(swapFileHandled()), this, SLOT(hideRecoverBar()));
   if (doc->swapFile()->shouldRecover())
     showRecoverBar();
-    
+
 }
 
 KateView::~KateView()
@@ -341,11 +341,11 @@ void KateView::setupActions()
 
     a = m_editRedo = ac->addAction(KStandardAction::Redo, m_doc, SLOT(redo()));
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
-    
+
     // Tools > Scripts
     KateScriptActionMenu* scriptActionMenu = new KateScriptActionMenu(this, i18n("&Scripts"));
     ac->addAction("tools_scripts", scriptActionMenu);
-    
+
 
     a = ac->addAction("tools_apply_wordwrap");
     a->setText(i18n("Apply &Word Wrap"));
@@ -1804,10 +1804,13 @@ bool KateView::removeSelectedText()
 
   m_doc->editStart ();
 
-  m_doc->removeText (m_selection, blockSelect);
+  // Optimization: clear selection before removing text
+  KTextEditor::Range selection = m_selection;
 
   // don't redraw the cleared selection - that's done in editEnd().
   clearSelection(false);
+
+  m_doc->removeText(selection, blockSelect);
 
   m_doc->editEnd ();
 
@@ -2860,7 +2863,7 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 void KateView::showRecoverBar()
 {
   hideBrokenSwapFileBar();
-  
+
   topViewBar()->showBarWidget(recoverBar());
 }
 
@@ -2886,7 +2889,7 @@ void KateView::hideRecoverBar()
 void KateView::showBrokenSwapFileBar()
 {
   hideRecoverBar();
-  
+
   topViewBar()->showBarWidget(brokenSwapFileBar());
 }
 

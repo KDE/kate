@@ -270,10 +270,7 @@ function help(cmd)
     } else if (cmd == "uniq") {
         return i18n("Remove duplicate lines from the selected text or whole document.");
     } else if (cmd == "natsort") {
-        return i18n("Sort the selected text or whole document in natural order.<br>"
-              +"Here's an example to show the difference to the normal sort method:<br>"
-              +"sort(a10, a1, a2) => a1, a10, a2<br>"
-              +"natsort(a10, a1, a2) => a1, a2, a10");
+        return i18n("Sort the selected text or whole document in natural order.<br>Here is an example to show the difference to the normal sort method:<br>sort(a10, a1, a2) => a1, a10, a2<br>natsort(a10, a1, a2) => a1, a2, a10");
     } else if (cmd == "rtrim") {
         return i18n("Trims trailing whitespace from selection or whole document.");
     } else if (cmd == "ltrim") {
@@ -281,33 +278,17 @@ function help(cmd)
     } else if (cmd == "trim") {
         return i18n("Trims leading and trailing whitespace from selection or whole document.");
     } else if (cmd == "join") {
-        return i18n("Joins selected lines or whole document. Optionally pass a separator to put between each line:<br>" +
-                    "<code>join ', '</code> will e.g. join lines and separate them by a comma.");
+        return i18n("Joins selected lines or whole document. Optionally pass a separator to put between each line:<br><code>join ', '</code> will e.g. join lines and separate them by a comma.");
     } else if (cmd == "rmblank") {
         return i18n("Removes empty lines from selection or whole document.");
     } else if (cmd == "unwrap") {
         return "Unwraps all paragraphs in the text selection, or the paragraph under the text cursor if there is no selected text.";
     } else if (cmd == "each") {
-        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and" +
-                    "replace them with the return value of that callback.<br>" +
-                    "Example (join selected lines):<br>" +
-                    "<code>each 'function(lines){return lines.join(\", \"}'</code><br>" +
-                    "To save you some typing, you can also do this to achieve the same:<br>" +
-                    "<code>each 'lines.join(\", \")'</code>");
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the return value of that callback.<br>Example (join selected lines):<br><code>each 'function(lines){return lines.join(\", \"}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>each 'lines.join(\", \")'</code>");
     } else if (cmd == "filter") {
-        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines " +
-                    "and remove those where the callback returns false.<br>" +
-                    "Example (see also <code>rmblank</code>):<br>" +
-                    "<code>filter 'function(l){return l.length > 0;}'</code><br>" +
-                    "To save you some typing, you can also do this to achieve the same:<br>" +
-                    "<code>filter 'line.length > 0'</code>");
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and remove those where the callback returns false.<br>Example (see also <code>rmblank</code>):<br><code>filter 'function(l){return l.length > 0;}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>filter 'line.length > 0'</code>");
     } else if (cmd == "map") {
-        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines " +
-                    "and replace the line with the return value of the callback.<br>" +
-                    "Example (see also <code>ltrim</code>):<br>" +
-                    "<code>map 'function(line){return line.replace(/^\s+/, \"\");}'</code><br>" +
-                    "To save you some typing, you can also do this to achieve the same:<br>" +
-                    "<code>map 'line.replace(/^\s+/, \"\")'</code>");
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and replace the line with the return value of the callback.<br>Example (see also <code>ltrim</code>):<br><code>map 'function(line){return line.replace(/^\s+/, \"\");}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>map 'line.replace(/^\s+/, \"\")'</code>");
     } else if (cmd == "duplicateLinesUp") {
         return i18n("Duplicates the selected lines up.");
     } else if (cmd == "duplicateLinesDown") {

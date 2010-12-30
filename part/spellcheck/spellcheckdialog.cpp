@@ -142,8 +142,13 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
 
     connect(m_sonnetDialog,SIGNAL(destroyed(QObject*)),
             this,SLOT(objectDestroyed(QObject*)));
+
+    connect(m_sonnetDialog,SIGNAL(languageChanged(const QString&)),
+            this,SLOT(languageChanged(const QString&)));
   }
 
+  m_userSpellCheckLanguage.clear();
+  m_previousGivenSpellCheckLanguage.clear();
   delete m_globalSpellCheckRange;
   // we expand to handle the situation when the last word in the range is replace by a new one
   m_globalSpellCheckRange = m_view->doc()->newMovingRange (KTextEditor::Range( start, end ),
@@ -258,7 +263,20 @@ void KateSpellCheckDialog::installNextSpellCheckRange()
     }
     else {
       m_currentSpellCheckRange = rangeDictionaryPairList.first().first;
-      const QString& dictionary = rangeDictionaryPairList.first().second;
+      QString dictionary = rangeDictionaryPairList.first().second;
+      const bool languageChanged = (dictionary != m_previousGivenSpellCheckLanguage);
+      m_previousGivenSpellCheckLanguage = dictionary;
+
+      // if there was no change of dictionary stemming from the document language ranges and
+      // the user has set a dictionary in the dialog, we use that one
+      if(!languageChanged && !m_userSpellCheckLanguage.isEmpty()) {
+        dictionary = m_userSpellCheckLanguage;
+      }
+      // we only allow the user to override the preset dictionary within a language range
+      // given by the document
+      else if(languageChanged) {
+        m_userSpellCheckLanguage.clear();
+      }
 
       m_spellPosCursor = m_currentSpellCheckRange.start();
       m_spellLastPos = 0;
@@ -307,6 +325,11 @@ void KateSpellCheckDialog::objectDestroyed(QObject *object)
 {
   Q_UNUSED(object);
   m_sonnetDialog = NULL;
+}
+
+void KateSpellCheckDialog::languageChanged(const QString &language)
+{
+  m_userSpellCheckLanguage = language;
 }
 
 //END

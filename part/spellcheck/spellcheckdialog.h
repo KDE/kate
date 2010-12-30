@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2009 by Michel Ludwig <michel.ludwig@kdemail.net>
+ *  Copyright (C) 2009-2010 by Michel Ludwig <michel.ludwig@kdemail.net>
  *  Copyright (C) 2008 Mirko Stocker <me@misto.ch>
  *  Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
  *  Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
@@ -85,6 +85,8 @@ class KateSpellCheckDialog : public QObject
 
     void objectDestroyed(QObject *object);
 
+    void languageChanged(const QString &language);
+
   private:
     KTextEditor::Cursor locatePosition( int pos );
 
@@ -95,7 +97,7 @@ class KateSpellCheckDialog : public QObject
     Sonnet::BackgroundChecker *m_backgroundChecker;
     Sonnet::Dialog *m_sonnetDialog;
 
-    // define the part of the text to check
+    // define the part of the text that is to be checked
     KTextEditor::Range m_currentSpellCheckRange;
     KTextEditor::MovingRange *m_globalSpellCheckRange;
 
@@ -109,6 +111,8 @@ class KateSpellCheckDialog : public QObject
     uint m_spellLastPos;
 
     bool m_spellCheckCancelledByUser;
+
+    QString m_userSpellCheckLanguage, m_previousGivenSpellCheckLanguage;
 
     void spellCheckDone();
 };

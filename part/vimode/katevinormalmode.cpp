@@ -613,37 +613,38 @@ bool KateViNormalMode::commandDelete()
 bool KateViNormalMode::commandDeleteToEOL()
 {
   Cursor c( m_view->cursorPosition() );
-
-  m_commandRange.endLine = c.line()+getCount()-1;
-  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
+  OperationMode m = CharWise;
 
   if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
     m_commandRange.startLine = c.line();
     m_commandRange.startColumn = c.column();
+    m_commandRange.endLine = c.line()+getCount()-1;
+    m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
   }
 
-  OperationMode m = CharWise;
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode
       || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
     m = LineWise;
   } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    error(i18n( "Not implented yet." ));
-    return false;
+    m_commandRange.normalize();
+    m_commandRange.endColumn = 99999;
+    m = Block;
   }
 
   bool r = deleteRange( m_commandRange, m );
 
   switch (m) {
-  case LineWise:
+  case CharWise:
     c.setColumn( doc()->lineLength( c.line() )-1 );
     break;
-  case CharWise:
-    c.setLine( m_commandRange.startLine-1 );
-    c.setColumn( m_commandRange.startColumn );
+  case LineWise:
+    c.setLine( m_commandRange.startLine );
+    c.setColumn( 0 ); // FIXME: should be first non-blank
     break;
   case Block:
-    error(i18n( "Not implented yet." ));
-    return false;
+    c.setLine( m_commandRange.startLine );
+    c.setColumn( m_commandRange.startColumn-1 );
+    break;
   }
 
   // make sure cursor position is valid after deletion

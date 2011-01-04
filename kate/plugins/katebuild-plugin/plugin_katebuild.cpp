@@ -445,6 +445,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         buildUi.ktabwidget->setCurrentIndex(0);
         buildUi.errTreeWidget->resizeColumnToContents(0);
         buildUi.errTreeWidget->resizeColumnToContents(1);
+        buildUi.errTreeWidget->resizeColumnToContents(2);
         //buildUi.errTreeWidget->setSortingEnabled(true);
         m_win->showToolView(m_toolView);
     }

@@ -574,7 +574,7 @@ bool KateViNormalMode::commandDeleteLine()
 
   int column = c.column();
 
-  bool ret = deleteRange( r, true );
+  bool ret = deleteRange( r, LineWise );
 
   c = m_view->cursorPosition();
   if ( column > doc()->lineLength( c.line() )-1 ) {
@@ -597,11 +597,17 @@ bool KateViNormalMode::commandDeleteLine()
 
 bool KateViNormalMode::commandDelete()
 {
-  bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode
-    || ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode );
+  OperationMode m = CharWise;
 
-  return deleteRange( m_commandRange, linewise );
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
+    || ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode )) {
+    m = LineWise;
+  }
+
+  return deleteRange( m_commandRange, m );
 }
 
 bool KateViNormalMode::commandDeleteToEOL()
@@ -616,16 +622,28 @@ bool KateViNormalMode::commandDeleteToEOL()
     m_commandRange.startColumn = c.column();
   }
 
-  bool linewise = ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode );
+  OperationMode m = CharWise;
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+    m = LineWise;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    error(i18n( "Not implented yet." ));
+    return false;
+  }
 
-  bool r = deleteRange( m_commandRange, linewise );
+  bool r = deleteRange( m_commandRange, m );
 
-  if ( !linewise ) {
+  switch (m) {
+  case LineWise:
     c.setColumn( doc()->lineLength( c.line() )-1 );
-  } else {
+    break;
+  case CharWise:
     c.setLine( m_commandRange.startLine-1 );
     c.setColumn( m_commandRange.startColumn );
+    break;
+  case Block:
+    error(i18n( "Not implented yet." ));
+    return false;
   }
 
   // make sure cursor position is valid after deletion
@@ -646,10 +664,16 @@ bool KateViNormalMode::commandDeleteToEOL()
 
 bool KateViNormalMode::commandMakeLowercase()
 {
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode );
+  OperationMode m = CharWise;
 
-  QString text = getRange( m_commandRange, linewise );
+  if ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
+    m = LineWise;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  }
+
+  QString text = getRange( m_commandRange, m );
   QString lowerCase = text.toLower();
 
   Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
@@ -675,10 +699,16 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 
 bool KateViNormalMode::commandMakeUppercase()
 {
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode );
+  OperationMode m = CharWise;
 
-  QString text = getRange( m_commandRange, linewise );
+  if ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
+    m = LineWise;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  }
+
+  QString text = getRange( m_commandRange, m );
   QString upperCase = text.toUpper();
 
   Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
@@ -911,7 +941,7 @@ bool KateViNormalMode::commandChangeLine()
   // ... then delete the _contents_ of the last line, but keep the line
   KateViRange r( c.line(), c.column(), c.line(), doc()->lineLength( c.line() )-1,
       ViMotion::InclusiveMotion );
-  deleteRange( r, false, true );
+  deleteRange( r, CharWise, true );
   doc()->editEnd();
 
   // ... then enter insert mode
@@ -944,11 +974,17 @@ bool KateViNormalMode::commandYank()
   bool r = false;
   QString yankedText;
 
-  bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode
-    || ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode );
+  OperationMode m = CharWise;
 
-  yankedText = getRange( m_commandRange, linewise );
+  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
+    || ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode ) ) {
+    m = LineWise;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  }
+
+  yankedText = getRange( m_commandRange, m );
 
   fillRegister( getChosenRegister( '0' ), yankedText );
 
@@ -979,15 +1015,21 @@ bool KateViNormalMode::commandYankToEOL()
   m_commandRange.endLine = c.line()+getCount()-1;
   m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
 
-  bool linewise = ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode );
+  OperationMode m = CharWise;
+
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+    m = LineWise;
+  } else if (m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;;
+  }
 
   if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
     m_commandRange.startLine = c.line();
     m_commandRange.startColumn = c.column();
   }
 
-  yankedText = getRange( m_commandRange, linewise );
+  yankedText = getRange( m_commandRange, m );
 
   fillRegister( getChosenRegister( '0' ), yankedText );
 
@@ -1074,10 +1116,15 @@ bool KateViNormalMode::commandDeleteChar()
       }
     }
 
-    // should only delete entire lines if in visual line mode
-    bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode;
+    // should delete entire lines if in visual line mode and selection in visual block mode
+    OperationMode m = CharWise;
+    if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+      m = LineWise;
+    } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+      m = Block;
+    }
 
-    return deleteRange( r, linewise );
+    return deleteRange( r, m );
 }
 
 bool KateViNormalMode::commandDeleteCharBackward()
@@ -1094,10 +1141,15 @@ bool KateViNormalMode::commandDeleteCharBackward()
       }
     }
 
-    // should only delete entire lines if in visual line mode
-    bool linewise = m_viInputModeManager->getCurrentViMode() == VisualLineMode;
+    // should delete entire lines if in visual line mode and selection in visual block mode
+    OperationMode m = CharWise;
+    if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+      m = LineWise;
+    } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+      m = Block;
+    }
 
-    return deleteRange( r, linewise );
+    return deleteRange( r, m );
 }
 
 bool KateViNormalMode::commandReplaceCharacter()

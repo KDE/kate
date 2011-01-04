@@ -96,7 +96,7 @@ bool KateViInsertMode::commandDeleteWord()
 
     KateViRange r( c2.line(), c2.column(), c1.line(), c1.column(), ViMotion::ExclusiveMotion );
 
-    return deleteRange( r, false, false );
+    return deleteRange( r, CharWise, false );
 }
 
 bool KateViInsertMode::commandIndent()

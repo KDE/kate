@@ -18,6 +18,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include <QtGlobal>
 #include "katevirange.h"
 
     KateViRange::KateViRange( int slin, int scol, int elin, int ecol, ViMotion::MotionType inc )
@@ -51,14 +52,9 @@ KateViRange::KateViRange()
 
 void KateViRange::normalize()
 {
-    if ( startLine > endLine || ( startLine == endLine && startColumn > endColumn ) ) {
-        int tempC, tempL;
-        tempL = startLine;
-        tempC = startColumn;
-
-        startLine = endLine;
-        startColumn = endColumn;
-        endLine = tempL;
-        endColumn = tempC;
-    }
+  int sl = startLine, el = endLine, sc = startColumn, ec = endColumn;
+  startLine = qMin(sl, el);
+  endLine = qMax(sl, el);
+  startColumn = qMin(sc, ec);
+  endColumn = qMax(sc, ec);
 }

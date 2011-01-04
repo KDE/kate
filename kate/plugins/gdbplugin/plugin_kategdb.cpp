@@ -81,10 +81,16 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_focusOnInput = true;
 
 
-    m_toolView = mainWindow()->createToolView(  i18n("Debug View"),
-                                                Kate::MainWindow::Bottom,
+    m_toolView = mainWindow()->createToolView(i18n("Debug View"),
+                                              Kate::MainWindow::Bottom,
+                                              SmallIcon("debug"),
+                                              i18n("Debug View"));
+
+    m_localsViewW = mainWindow()->createToolView(i18n("Locals"),
+                                                Kate::MainWindow::Right,
                                                 SmallIcon("debug"),
-                                                i18n("Debug View") );
+                                                i18n("Locals"));
+
     m_tabWidget = new QTabWidget( m_toolView );
     // Output
     m_outputArea = new QTextEdit();
@@ -118,7 +124,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     layout->setSpacing(0);
 
     // stack page
-    m_stackTree = new QTreeWidget;
+    m_stackTree = new QTreeWidget(m_tabWidget);
     QStringList headers;
     headers << "  " << i18nc( "Column label (frame number)", "Nr" ) << i18nc( "Column label", "Frame" );
     m_stackTree->setHeaderLabels(headers);
@@ -139,6 +145,8 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
     m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
     //tabWidget->addTab( m_ioView, i18n( "IO" ) );
+
+    m_localsView = new LocalsView(m_localsViewW);
 
     m_debugView  = new DebugView( this );
     connect( m_debugView,  SIGNAL( readyForInput( bool ) ), 
@@ -174,6 +182,10 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_debugView,  SIGNAL( stackFrameChanged( int ) ),
              this,       SLOT( stackFrameChanged( int ) ) );
 
+    connect( m_debugView,  SIGNAL( infoLocal( QString ) ),
+             m_localsView, SLOT( addLocal( QString ) ) );
+
+    // Actions
     KAction* a = actionCollection()->addAction( "debug" );
     a->setText( i18n( "Start Debugging" ) );
     a->setIcon( KIcon( "debug" ) );
@@ -287,15 +299,15 @@ void KatePluginGDBView::slotDebug()
         .arg( m_ioView->stdoutFifo() )
         .arg( m_ioView->stderrFifo() );
     }
+    enableDebugActions( true );
     m_debugView->runDebugger( m_configView->currentWorkingDirectory(),
                             m_configView->currentExecutable(),
                             args );
-    enableDebugActions( true );
     mainWindow()->showToolView( m_toolView );
     m_tabWidget->setCurrentWidget( m_gdbPage );
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-
+    m_localsView->clear();
 }
 
 void KatePluginGDBView::slotRestart()
@@ -305,6 +317,7 @@ void KatePluginGDBView::slotRestart()
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
     m_debugView->slotReRun();
+    m_localsView->clear();
 }
 
 void KatePluginGDBView::aboutToShowMenu()
@@ -432,6 +445,8 @@ void KatePluginGDBView::enableDebugActions( bool enable )
     actionCollection()->action( "rerun"             )->setEnabled( m_debugView->debuggerRunning() );
 
     m_inputArea->setEnabled( enable );
+    m_stackTree->setEnabled( enable );
+    m_localsView->setEnabled( enable );
     if ( enable )
     {
         m_inputArea->setFocusPolicy( Qt::WheelFocus );
@@ -479,6 +494,7 @@ void KatePluginGDBView::programEnded()
     // don't set the execution mark on exit
     m_lastExecLine = -1;
     m_stackTree->clear();
+    m_localsView->clear();
 
     // Indicate the state change by showing the debug outputArea
     mainWindow()->showToolView( m_toolView );
@@ -488,6 +504,7 @@ void KatePluginGDBView::programEnded()
 void KatePluginGDBView::gdbEnded()
 {
     m_outputArea->clear();
+    m_localsView->clear();
     m_ioView->clearOutput();
 }
 
@@ -505,7 +522,6 @@ void KatePluginGDBView::slotSendCommand()
 
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-
 }
 
 void KatePluginGDBView::insertStackFrame( QString const& level, QString const& info )
@@ -602,7 +618,7 @@ void KatePluginGDBView::showIO( bool show )
     }
     else 
     {
-        m_tabWidget->removeTab( 3 );
+        m_tabWidget->removeTab( m_tabWidget->indexOf(m_ioView) );
     }
 }
 

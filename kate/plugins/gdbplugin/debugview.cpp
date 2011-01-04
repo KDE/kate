@@ -231,6 +231,10 @@ void DebugView::movePC( KUrl const& url, int line )
         QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
         m_nextCommands <<  QString("jump %1:%2").arg(url.path()).arg(line);
         issueCommand( cmd );
+        m_nextCommands << "(Q)info stack";
+        m_nextCommands << "(Q)frame";
+        m_nextCommands << "(Q)info args";
+        m_nextCommands << "(Q)info locals";
     }
 }
 
@@ -240,6 +244,10 @@ void DebugView::runToCursor( KUrl const& url, int line )
     {
         QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
         m_nextCommands << "continue";
+        m_nextCommands << "(Q)info stack";
+        m_nextCommands << "(Q)frame";
+        m_nextCommands << "(Q)info args";
+        m_nextCommands << "(Q)info locals";
         issueCommand( cmd );
     }
 }
@@ -294,10 +302,18 @@ void DebugView::slotReRun()
         m_nextCommands << QString("run");
         m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
         m_nextCommands << QString("continue");
+        m_nextCommands << "(Q)info stack";
+        m_nextCommands << "(Q)frame";
+        m_nextCommands << "(Q)info args";
+        m_nextCommands << "(Q)info locals";
     }
     else
     {
         m_nextCommands << "run";
+        m_nextCommands << "(Q)info stack";
+        m_nextCommands << "(Q)frame";
+        m_nextCommands << "(Q)info args";
+        m_nextCommands << "(Q)info locals";
     }
 }
 
@@ -305,6 +321,8 @@ void DebugView::slotStepInto()
 {
     m_nextCommands << "(Q)info stack";
     m_nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info args";
+    m_nextCommands << "(Q)info locals";
     issueCommand( "step" );
 }
 
@@ -312,6 +330,8 @@ void DebugView::slotStepOver()
 {
     m_nextCommands << "(Q)info stack";
     m_nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info args";
+    m_nextCommands << "(Q)info locals";
     issueCommand( "next" );
 }
 
@@ -319,6 +339,8 @@ void DebugView::slotStepOut()
 {
     m_nextCommands << "(Q)info stack";
     m_nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info args";
+    m_nextCommands << "(Q)info locals";
     issueCommand( "finish" );
 }
 
@@ -326,6 +348,8 @@ void DebugView::slotContinue()
 {
     m_nextCommands << "(Q)info stack";
     m_nextCommands << "(Q)frame";
+    m_nextCommands << "(Q)info args";
+    m_nextCommands << "(Q)info locals";
     issueCommand( "continue" );
 }
 
@@ -441,6 +465,7 @@ void DebugView::processLine( QString line )
             {
                 m_nextCommands << "(Q)info stack";
                 m_nextCommands << "(Q)frame";
+                m_nextCommands << "(Q)info locals";
             }
             else if( prompt.exactMatch( line ) )
             {
@@ -460,6 +485,27 @@ void DebugView::processLine( QString line )
             {
                 m_state = ready;
                 emit readyForInput( true );
+            }
+            break;
+        case infoArgs:
+            if( prompt.exactMatch( line ) )
+            {
+                m_state = ready;
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+            }
+            else {
+                emit infoLocal( line );
+            }
+            break;
+        case infoLocals:
+            if( prompt.exactMatch( line ) )
+            {
+                m_state = ready;
+                emit infoLocal( QString() );
+                emit readyForInput( true );
+            }
+            else {
+                emit infoLocal( line );
             }
             break;
     }
@@ -541,8 +587,15 @@ void DebugView::issueCommand( QString const& cmd )
     {
         emit readyForInput( false );
         m_state = executingCmd;
+        if (cmd == "(Q)info locals") {
+            m_state = infoLocals;
+        }
+        else if (cmd == "(Q)info args") {
+            m_state = infoArgs;
+        }
         m_subState = normal;
         m_lastCommand = cmd;
+
         if ( cmd.startsWith("(Q)") ) 
         {
             m_debugProcess->write( cmd.mid(3).toLocal8Bit() + "\n" );

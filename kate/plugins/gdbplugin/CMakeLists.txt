@@ -6,12 +6,19 @@ if(NOT KDE4_FOUND)
     ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=13040)
 endif(NOT KDE4_FOUND)
 
-include_directories (${KDE4_INCLUDES})
-include_directories( ${KDE4_KIO_INCLUDES} )
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+include_directories(${KDE4_INCLUDES})
+include_directories(${KDE4_KIO_INCLUDES})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 
-set( kategdbplugin_PART_SRCS plugin_kategdb.cpp debugview.cpp configview.cpp ioview.cpp )
+set(kategdbplugin_PART_SRCS 
+    plugin_kategdb.cpp 
+    debugview.cpp 
+    configview.cpp 
+    ioview.cpp
+    localsview.cpp
+)
+
 kde4_add_plugin( kategdbplugin ${kategdbplugin_PART_SRCS} )
 target_link_libraries( kategdbplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 

@@ -74,7 +74,9 @@ Q_SIGNALS:
     void breakPointCleared( KUrl const& filename, int lineNum );
     void stackFrameInfo( QString const& level, QString const& info );
     void stackFrameChanged( int level );
-    
+
+    void infoLocal( QString const& line );
+
     void outputText( const QString &text );
     void outputError( const QString &text );
     void readyForInput( bool ready );
@@ -87,7 +89,9 @@ private:
         none,
         ready,
         executingCmd,
-        listingBreakpoints
+        listingBreakpoints,
+        infoArgs,
+        infoLocals
     };
 
     enum SubState

@@ -34,6 +34,7 @@
 #include "debugview.h"
 #include "configview.h"
 #include "ioview.h"
+#include "localsview.h"
 
 class KHistoryComboBox;
 class QTextEdit;
@@ -106,6 +107,7 @@ private:
     
     Kate::Application*    m_kateApplication;
     QWidget*              m_toolView;
+    QWidget*              m_localsViewW;
     QTabWidget*           m_tabWidget;
     QTextEdit*            m_outputArea;
     KHistoryComboBox*     m_inputArea;
@@ -115,6 +117,7 @@ private:
     DebugView*            m_debugView;
     ConfigView*           m_configView;
     IOView*               m_ioView;
+    LocalsView*           m_localsView;
     QPointer<KActionMenu> m_menu;
     QAction*              m_breakpoint;
     KUrl                  m_lastExecUrl;

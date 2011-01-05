@@ -667,21 +667,23 @@ bool KateViNormalMode::commandMakeLowercase()
 {
   OperationMode m = CharWise;
 
-  if ( m_commandRange.startLine != m_commandRange.endLine
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  } else if ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
     m = LineWise;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
   }
 
   QString text = getRange( m_commandRange, m );
   QString lowerCase = text.toLower();
 
+  m_commandRange.normalize();
   Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
   Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
   Range range( start, end );
 
-  doc()->replaceText( range, lowerCase );
+  doc()->replaceText( range, lowerCase, m == Block );
+  updateCursor( start );
 
   return true;
 }
@@ -702,21 +704,22 @@ bool KateViNormalMode::commandMakeUppercase()
 {
   OperationMode m = CharWise;
 
-  if ( m_commandRange.startLine != m_commandRange.endLine
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  } else if ( m_commandRange.startLine != m_commandRange.endLine
       && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
     m = LineWise;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
   }
-
   QString text = getRange( m_commandRange, m );
   QString upperCase = text.toUpper();
 
+  m_commandRange.normalize();
   Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
   Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
   Range range( start, end );
 
-  doc()->replaceText( range, upperCase );
+  doc()->replaceText( range, upperCase, m == Block );
+  updateCursor( start );
 
   return true;
 }

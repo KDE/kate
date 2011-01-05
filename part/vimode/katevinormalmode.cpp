@@ -22,6 +22,7 @@
 
 #include "katevinormalmode.h"
 #include "katevivisualmode.h"
+#include "kateviinsertmode.h"
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
 #include "kateglobal.h"
@@ -1371,6 +1372,21 @@ bool KateViNormalMode::commandSubtractFromNumber()
     addToNumberUnderCursor( -getCount() );
 
     return true;
+}
+
+bool KateViNormalMode::commandPrependToBlock()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  // move cursor to top left corner of selection
+  m_commandRange.normalize();
+  c.setColumn( m_commandRange.startColumn );
+  c.setLine( m_commandRange.startLine );
+  updateCursor( c );
+
+  m_stickyColumn = -1;
+  m_viInputModeManager->getViInsertMode()->setBlockPrependMode( m_commandRange );
+  return startInsertMode();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

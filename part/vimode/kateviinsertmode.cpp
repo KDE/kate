@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ *  Copyright (C) 2008-2011 Erlend Hamberg <ehamberg@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -33,6 +33,8 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
   m_view = view;
   m_viewInternal = viewInternal;
   m_viInputModeManager = viInputModeManager;
+
+  m_blockPrependActive = false;
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -190,7 +192,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:
-      startNormalMode();
+      leaveInsertMode();
       return true;
       break;
     case Qt::Key_Left:
@@ -229,7 +231,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_BracketLeft:
     case Qt::Key_3:
     case Qt::Key_C:
-      startNormalMode();
+      leaveInsertMode();
       return true;
       break;
     case Qt::Key_D:
@@ -282,4 +284,33 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
   }
 
   return false;
+}
+
+void KateViInsertMode::leaveInsertMode()
+{
+    if ( m_blockPrependActive ) {
+        m_blockPrependActive = false;
+
+        if ( m_blockRange.startLine == m_view->cursorPosition().line() ) {
+            int start = m_blockRange.startColumn;
+            int len = m_view->cursorPosition().column()-m_blockRange.startColumn;
+            QString added = getLine().mid( start, len );
+
+            Cursor c( m_blockRange.startLine, m_blockRange.startColumn );
+            for ( int i = m_blockRange.startLine+1; i <= m_blockRange.endLine; i++ ) {
+                c.setLine( i );
+                doc()->insertText( c, added );
+            }
+        }
+    }
+    startNormalMode();
+}
+
+void KateViInsertMode::setBlockPrependMode( KateViRange blockRange )
+{
+    // ignore if not more than one line is selected
+    if ( blockRange.startLine != blockRange.endLine ) {
+        m_blockPrependActive = true;
+        m_blockRange = blockRange;
+    }
 }

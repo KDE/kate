@@ -627,7 +627,7 @@ bool KateViNormalMode::commandDeleteToEOL()
     m = LineWise;
   } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     m_commandRange.normalize();
-    m_commandRange.endColumn = 99999;
+    m_commandRange.endColumn = KateVi::EOL;
     m = Block;
   }
 

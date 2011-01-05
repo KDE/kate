@@ -38,6 +38,7 @@
 #include <QApplication>
 #include <QCompleter>
 #include <QDirModel>
+#include <QScrollBar>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -446,6 +447,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         buildUi.errTreeWidget->resizeColumnToContents(0);
         buildUi.errTreeWidget->resizeColumnToContents(1);
         buildUi.errTreeWidget->resizeColumnToContents(2);
+        buildUi.errTreeWidget->horizontalScrollBar()->setValue(0);
         //buildUi.errTreeWidget->setSortingEnabled(true);
         m_win->showToolView(m_toolView);
     }

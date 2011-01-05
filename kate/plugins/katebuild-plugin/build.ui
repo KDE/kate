@@ -29,6 +29,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QTreeWidget" name="errTreeWidget">
+         <property name="autoScroll">
+          <bool>false</bool>
+         </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>

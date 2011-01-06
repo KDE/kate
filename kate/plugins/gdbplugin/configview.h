@@ -65,21 +65,21 @@ protected:
     void resizeEvent ( QResizeEvent * event );
 
 private:
-    Kate::MainWindow*   mainWindow;
-    QComboBox*          targets;
-    QComboBox*          workingDirectories;
-    QComboBox*          argumentLists;
-    QCheckBox*          takeFocus;
-    QCheckBox*          redirectTerminal;
-    bool                useBottomLayout;
-    int                 widgetHeights;
-    QLabel*             targetLabel;
-    QLabel*             workDirLabel;
-    QLabel*             argumentsLabel;
-    QToolButton*        chooseTarget;
-    QToolButton*        deleteTarget;
-    QToolButton*        chooseWorkingDirectory;
-    QToolButton*        deleteWorkingDirectory;
+    Kate::MainWindow*   m_mainWindow;
+    QComboBox*          m_targets;
+    QComboBox*          m_workingDirectories;
+    QComboBox*          m_argumentLists;
+    QCheckBox*          m_takeFocus;
+    QCheckBox*          m_redirectTerminal;
+    bool                m_useBottomLayout;
+    int                 m_widgetHeights;
+    QLabel*             m_targetLabel;
+    QLabel*             m_workDirLabel;
+    QLabel*             m_argumentsLabel;
+    QToolButton*        m_chooseTarget;
+    QToolButton*        m_deleteTarget;
+    QToolButton*        m_chooseWorkingDirectory;
+    QToolButton*        m_deleteWorkingDirectory;
 };
 
 #endif

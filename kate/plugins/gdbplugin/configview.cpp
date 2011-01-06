@@ -35,90 +35,96 @@
 
 ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
 :   QWidget( parent ),
-    mainWindow( mainWin )
+    m_mainWindow( mainWin )
 {
-    targets = new QComboBox();
-    targets->setEditable( true );
-    targets->setInsertPolicy( QComboBox::InsertAtTop );
+    m_targets = new QComboBox();
+    m_targets->setEditable( true );
+    m_targets->setInsertPolicy( QComboBox::InsertAtTop );
 
     QCompleter* completer1 = new QCompleter( this );
     completer1->setModel( new QDirModel( completer1 ) );
-    targets->setCompleter( completer1 );
+    m_targets->setCompleter( completer1 );
 
-    targetLabel = new QLabel( i18n( "&Target:" ) );
-    targetLabel->setBuddy( targets );
+    m_targetLabel = new QLabel( i18n( "&Target:" ) );
+    m_targetLabel->setBuddy( m_targets );
 
-    chooseTarget = new QToolButton();
-    chooseTarget->setIcon( SmallIcon("application-x-ms-dos-executable") );
-    chooseTarget->setToolTip( i18n("Add executable target") );
+    m_chooseTarget = new QToolButton();
+    m_chooseTarget->setIcon( SmallIcon("application-x-ms-dos-executable") );
+    m_chooseTarget->setToolTip( i18n("Add executable target") );
     
-    deleteTarget = new QToolButton();
-    deleteTarget->setIcon( SmallIcon("edit-delete") );
-    deleteTarget->setToolTip( i18n("Remove target") );
+    m_deleteTarget = new QToolButton();
+    m_deleteTarget->setIcon( SmallIcon("edit-delete") );
+    m_deleteTarget->setToolTip( i18n("Remove target") );
     
-    workingDirectories = new QComboBox();
-    workingDirectories->setEditable( true );
-    workingDirectories->setInsertPolicy( QComboBox::InsertAtTop );
+    m_workingDirectories = new QComboBox();
+    m_workingDirectories->setEditable( true );
+    m_workingDirectories->setInsertPolicy( QComboBox::InsertAtTop );
 
     QCompleter* completer2 = new QCompleter( this );
     completer2->setModel( new QDirModel( completer2 ) );
-    workingDirectories->setCompleter( completer2 );
+    m_workingDirectories->setCompleter( completer2 );
 
-    workDirLabel = new QLabel( i18n( "&Working Directory:" ) );
-    workDirLabel->setBuddy( workingDirectories );
+    m_workDirLabel = new QLabel( i18n( "&Working Directory:" ) );
+    m_workDirLabel->setBuddy( m_workingDirectories );
     
-    chooseWorkingDirectory = new QToolButton();
-    chooseWorkingDirectory->setIcon( SmallIcon("inode-directory") );
-    chooseWorkingDirectory->setToolTip( i18n("Add Working Directory") );
+    m_chooseWorkingDirectory = new QToolButton();
+    m_chooseWorkingDirectory->setIcon( SmallIcon("inode-directory") );
+    m_chooseWorkingDirectory->setToolTip( i18n("Add Working Directory") );
     
-    deleteWorkingDirectory = new QToolButton();
-    deleteWorkingDirectory->setIcon( SmallIcon("edit-delete") );
-    deleteWorkingDirectory->setToolTip( i18n("Remove Working Directory") );
+    m_deleteWorkingDirectory = new QToolButton();
+    m_deleteWorkingDirectory->setIcon( SmallIcon("edit-delete") );
+    m_deleteWorkingDirectory->setToolTip( i18n("Remove Working Directory") );
 
-    argumentLists = new QComboBox();
-    argumentLists->setEditable( true );
-    argumentLists->setInsertPolicy( QComboBox::InsertAtTop );
+    m_argumentLists = new QComboBox();
+    m_argumentLists->setEditable( true );
+    m_argumentLists->setInsertPolicy( QComboBox::InsertAtTop );
     
-    argumentsLabel = new QLabel( i18nc( "Program argument list", "&Arg List:" ) );
-    argumentsLabel->setBuddy( argumentLists );
+    m_argumentsLabel = new QLabel( i18nc( "Program argument list", "&Arg List:" ) );
+    m_argumentsLabel->setBuddy( m_argumentLists );
 
-    takeFocus = new QCheckBox( i18n("Keep the focus on the command line") );
-    redirectTerminal = new QCheckBox( i18n("Redirect output") );
+    m_takeFocus = new QCheckBox( i18nc( "Checkbox to for keeping focus on the command line",
+                                        "Keep focus") );
+    m_takeFocus->setToolTip( i18n("Keep the focus on the command line") );
+
+    m_redirectTerminal = new QCheckBox( i18n("Redirect IO") );
+    m_redirectTerminal->setToolTip( i18n("Redirect the debugged programs IO to a separate tab") );
+    
+    
 
     QGridLayout* layout = new QGridLayout( this );
-    layout->addWidget( targetLabel, 0, 0, Qt::AlignRight );
-    layout->addWidget( targets, 0, 1, 1, 2 );
-    layout->addWidget( chooseTarget, 0, 3 );
-    layout->addWidget( deleteTarget, 0, 4 );
-    layout->addWidget( workDirLabel, 1, 0, Qt::AlignRight );
-    layout->addWidget( workingDirectories, 1, 1, 1, 2 );
-    layout->addWidget( chooseWorkingDirectory, 1, 3 );
-    layout->addWidget( deleteWorkingDirectory, 1, 4 );
-    layout->addWidget( argumentsLabel, 2, 0, Qt::AlignRight );
-    layout->addWidget( argumentLists, 2, 1, 1, 2 );
-    layout->addWidget( takeFocus, 3, 1 );
-    layout->addWidget( redirectTerminal, 3, 2 );
+    layout->addWidget( m_targetLabel, 0, 0, Qt::AlignRight );
+    layout->addWidget( m_targets, 0, 1, 1, 2 );
+    layout->addWidget( m_chooseTarget, 0, 3 );
+    layout->addWidget( m_deleteTarget, 0, 4 );
+    layout->addWidget( m_workDirLabel, 1, 0, Qt::AlignRight );
+    layout->addWidget( m_workingDirectories, 1, 1, 1, 2 );
+    layout->addWidget( m_chooseWorkingDirectory, 1, 3 );
+    layout->addWidget( m_deleteWorkingDirectory, 1, 4 );
+    layout->addWidget( m_argumentsLabel, 2, 0, Qt::AlignRight );
+    layout->addWidget( m_argumentLists, 2, 1, 1, 2 );
+    layout->addWidget( m_takeFocus, 3, 1 );
+    layout->addWidget( m_redirectTerminal, 3, 2 );
     layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
     layout->setColumnStretch( 1, 1 );
     layout->setColumnStretch( 2, 1 );
     layout->setRowStretch( 4, 1 );
-    useBottomLayout = true;
+    m_useBottomLayout = true;
 
     // calculate the approximate height to exceed before going to "Side Layout"
-    widgetHeights = (targetLabel->sizeHint().height() + /*layout spacing */6) * 9 ;
+    m_widgetHeights = ( m_targetLabel->sizeHint().height() + /*layout spacing */6 ) * 9 ;
 
 
-    connect(    targets, SIGNAL( currentIndexChanged( int ) ),
+    connect(    m_targets, SIGNAL( currentIndexChanged( int ) ),
                 this, SLOT( slotTargetChanged( int ) ) );
-    connect(    chooseTarget, SIGNAL( clicked() ),
+    connect(    m_chooseTarget, SIGNAL( clicked() ),
                 this, SLOT( slotChooseTarget() ) );
-    connect(    deleteTarget, SIGNAL( clicked() ),
+    connect(    m_deleteTarget, SIGNAL( clicked() ),
                 this, SLOT( slotDeleteTarget() ) );
-    connect(    chooseWorkingDirectory, SIGNAL( clicked() ),
+    connect(    m_chooseWorkingDirectory, SIGNAL( clicked() ),
                 this, SLOT( slotChooseWorkingDirectory() ) );
-    connect(    deleteWorkingDirectory, SIGNAL( clicked() ),
+    connect(    m_deleteWorkingDirectory, SIGNAL( clicked() ),
                 this, SLOT( slotDeleteWorkingDirectory() ) );
-    connect(    redirectTerminal, SIGNAL( toggled( bool ) ),
+    connect(    m_redirectTerminal, SIGNAL( toggled( bool ) ),
                 this, SIGNAL(showIO( bool ) ) );
 }
 
@@ -149,11 +155,11 @@ void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
                     QStringList linkData;
                     linkData << targetDescription[2];
                     linkData << targetDescription[1];
-                    targets->addItem( targetDescription[2], linkData );
+                    m_targets->addItem( targetDescription[2], linkData );
 
-                    if( workingDirectories->findText( targetDescription[1] ) == -1 )
+                    if( m_workingDirectories->findText( targetDescription[1] ) == -1 )
                     {
-                        workingDirectories->addItem( targetDescription[1] );
+                        m_workingDirectories->addItem( targetDescription[1] );
                     }
                 }
             }
@@ -163,7 +169,7 @@ void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
                 {
                     // valid new style config
                     QVariant    linkData( targetDescription );
-                    targets->addItem( targetDescription[0], linkData );
+                    m_targets->addItem( targetDescription[0], linkData );
                 }
             }
         }
@@ -175,8 +181,8 @@ void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
 
             for( int i = 0; i < wdCount; i++ )
             {
-                workingDirectories->addItem(    group.readEntry( wdKey.arg( i ),
-                                                                 QString() ) );
+                m_workingDirectories->addItem( group.readEntry( wdKey.arg( i ),
+                                                                QString() ) );
             }
         }
 
@@ -185,17 +191,17 @@ void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
 
         for( int i = 0; i < argsCount; i++ )
         {
-            argumentLists->addItem( group.readEntry(    argsKey.arg( i ),
-                                                        QString() ) );
+            m_argumentLists->addItem( group.readEntry( argsKey.arg( i ),
+                                                       QString() ) );
         }
 
-        targets->setCurrentIndex( group.readEntry( "lastTarget", 0 ) );
-        workingDirectories->setCurrentIndex( group.readEntry( "lastWorkDir", 0 ) );
-        argumentLists->setCurrentIndex( group.readEntry( "lastArgs", 0 ) );
+        m_targets->setCurrentIndex( group.readEntry( "lastTarget", 0 ) );
+        m_workingDirectories->setCurrentIndex( group.readEntry( "lastWorkDir", 0 ) );
+        m_argumentLists->setCurrentIndex( group.readEntry( "lastArgs", 0 ) );
 
-        takeFocus->setChecked( group.readEntry( "alwaysFocusOnInput",false ) );
+        m_takeFocus->setChecked( group.readEntry( "alwaysFocusOnInput",false ) );
 
-        redirectTerminal->setChecked( group.readEntry( "redirectTerminal",false ) );
+        m_redirectTerminal->setChecked( group.readEntry( "redirectTerminal",false ) );
     }
 }
 
@@ -205,51 +211,51 @@ void ConfigView::writeConfig( KConfigBase* config, QString const& groupPrefix )
 
     group.writeEntry( "version", 2 );
     
-    int     targetCount = targets->count();
+    int     targetCount = m_targets->count();
     QString targetKey( "target_%1" );
 
     group.writeEntry( "targetCount", targetCount );
     for( int i = 0; i < targetCount; i++ )
     {
-        QStringList targetDescription = targets->itemData( i ).toStringList();
+        QStringList targetDescription = m_targets->itemData( i ).toStringList();
         group.writeEntry( targetKey.arg( i ), targetDescription );
     }
 
-    group.writeEntry( "lastTarget", targets->currentIndex() );
+    group.writeEntry( "lastTarget", m_targets->currentIndex() );
 
-    int     wdCount = workingDirectories->count();
+    int     wdCount = m_workingDirectories->count();
     QString wdKey( "wd_%1" );
 
     group.writeEntry( "wdCount", wdCount );
     for( int i = 0; i < wdCount; i++ )
     {
         group.writeEntry(   wdKey.arg( i ),
-                            workingDirectories->itemText( i ) );
+                            m_workingDirectories->itemText( i ) );
     }
 
-    group.writeEntry( "lastWorkDir", workingDirectories->currentIndex() );
+    group.writeEntry( "lastWorkDir", m_workingDirectories->currentIndex() );
 
-    int     argsCount = argumentLists->count();
+    int     argsCount = m_argumentLists->count();
     QString argsKey( "args_%1" );
 
     group.writeEntry( "argsCount", argsCount );
     for( int i = 0; i < argsCount; i++ )
     {
         group.writeEntry(   argsKey.arg( i ),
-                            argumentLists->itemText( i ) );
+                            m_argumentLists->itemText( i ) );
     }
 
-    group.writeEntry( "lastArgs", argumentLists->currentIndex() );
+    group.writeEntry( "lastArgs", m_argumentLists->currentIndex() );
 
-    group.writeEntry( "alwaysFocusOnInput", takeFocus->isChecked() );
+    group.writeEntry( "alwaysFocusOnInput", m_takeFocus->isChecked() );
 
-    group.writeEntry( "redirectTerminal", redirectTerminal->isChecked() );
+    group.writeEntry( "redirectTerminal", m_redirectTerminal->isChecked() );
 
 }
 
 void ConfigView::snapshotSettings()
 {
-    int         targetIndex = targets->findText( currentExecutable() );
+    int         targetIndex = m_targets->findText( currentExecutable() );
     QStringList targetDescription;
 
     targetDescription << currentExecutable();
@@ -259,40 +265,40 @@ void ConfigView::snapshotSettings()
     if( targetIndex == -1 )
     {
         // The user has edited the target, so store a new one
-        targets->insertItem( 0, targetDescription[0], targetDescription );
+        m_targets->insertItem( 0, targetDescription[0], targetDescription );
     }
     else
     {
         // Existing target, just update links
-        targets->setItemData( targetIndex, targetDescription );
+        m_targets->setItemData( targetIndex, targetDescription );
     }
 
-    if( workingDirectories->findText( currentWorkingDirectory() ) == -1 )
+    if( m_workingDirectories->findText( currentWorkingDirectory() ) == -1 )
     {
         // The user has edited the working directory, so store a new one
-        workingDirectories->insertItem( 0, currentWorkingDirectory() );
+        m_workingDirectories->insertItem( 0, currentWorkingDirectory() );
     }
 
-    if( argumentLists->findText( currentArgs() ) == -1 )
+    if( m_argumentLists->findText( currentArgs() ) == -1 )
     {
         // The user has edited the argument list, so store a new one
-        argumentLists->insertItem( 0, currentArgs() );
+        m_argumentLists->insertItem( 0, currentArgs() );
     }
 }
 
 QString ConfigView::currentExecutable() const
 {
-    return targets->currentText();
+    return m_targets->currentText();
 }
 
 QString ConfigView::currentWorkingDirectory() const
 {
-    return workingDirectories->currentText();
+    return m_workingDirectories->currentText();
 }
 
 QString ConfigView::currentArgs() const
 {
-    return argumentLists->currentText();
+    return m_argumentLists->currentText();
 }
 
 void ConfigView::slotTargetChanged( int index )
@@ -300,25 +306,25 @@ void ConfigView::slotTargetChanged( int index )
     // Select the last working directory and argument list used with this target
     if( index >= 0 )
     {
-        QStringList targetDescription = targets->itemData( index ).toStringList();
+        QStringList targetDescription = m_targets->itemData( index ).toStringList();
         int         wdIndex = -1;
         int         argIndex = -1;
 
         if( targetDescription.length() > 1 )
         {
-            wdIndex = workingDirectories->findText( targetDescription[1] );
+            wdIndex = m_workingDirectories->findText( targetDescription[1] );
             if( wdIndex >= 0 )
             {
-                workingDirectories->setCurrentIndex( wdIndex );
+                m_workingDirectories->setCurrentIndex( wdIndex );
             }
         }
 
         if( targetDescription.length() > 2 )
         {
-            argIndex = argumentLists->findText( targetDescription[2] );
+            argIndex = m_argumentLists->findText( targetDescription[2] );
             if( argIndex >= 0 )
             {
-                argumentLists->setCurrentIndex( argIndex );
+                m_argumentLists->setCurrentIndex( argIndex );
             }
         }
     }
@@ -326,12 +332,12 @@ void ConfigView::slotTargetChanged( int index )
 
 void ConfigView::slotChooseTarget()
 {
-    KUrl    defDir( targets->currentText() );
+    KUrl    defDir( m_targets->currentText() );
 
-    if( targets->currentText().isEmpty() )
+    if( m_targets->currentText().isEmpty() )
     {
         // try current document dir
-        KTextEditor::View*  view = mainWindow->activeView();
+        KTextEditor::View*  view = m_mainWindow->activeView();
 
         if( view != NULL )
         {
@@ -345,19 +351,19 @@ void ConfigView::slotChooseTarget()
         QStringList targetDescription;
         
         targetDescription << target;
-        targets->insertItem( 0, target, targetDescription );
-        targets->setCurrentIndex( 0 );
+        m_targets->insertItem( 0, target, targetDescription );
+        m_targets->setCurrentIndex( 0 );
     }
 }
 
 void ConfigView::slotChooseWorkingDirectory()
 {
-    KUrl    defDir( workingDirectories->currentText() );
+    KUrl    defDir( m_workingDirectories->currentText() );
 
-    if( workingDirectories->currentText().isEmpty() )
+    if( m_workingDirectories->currentText().isEmpty() )
     {
         // try current document dir
-        KTextEditor::View*  view = mainWindow->activeView();
+        KTextEditor::View*  view = m_mainWindow->activeView();
 
         if( view != NULL )
         {
@@ -368,86 +374,86 @@ void ConfigView::slotChooseWorkingDirectory()
     QString wd = KFileDialog::getExistingDirectory( defDir, NULL, QString() );
     if( !wd.isEmpty() )
     {
-        workingDirectories->insertItem( 0, wd );
-        workingDirectories->setCurrentIndex( 0 );
+        m_workingDirectories->insertItem( 0, wd );
+        m_workingDirectories->setCurrentIndex( 0 );
     }
 }
 
 void ConfigView::slotDeleteTarget()
 {
-    int currentIndex = targets->currentIndex();
+    int currentIndex = m_targets->currentIndex();
     if( currentIndex >= 0 )
     {
-        targets->removeItem( currentIndex );
+        m_targets->removeItem( currentIndex );
     }
 }
 
 void ConfigView::slotDeleteWorkingDirectory()
 {
-    int currentIndex = workingDirectories->currentIndex();
+    int currentIndex = m_workingDirectories->currentIndex();
     if( currentIndex >= 0 )
     {
-        workingDirectories->removeItem( currentIndex );
+        m_workingDirectories->removeItem( currentIndex );
     }
 }
 
 bool ConfigView::takeFocusAlways() const
 {
-    return takeFocus->isChecked();
+    return m_takeFocus->isChecked();
 }
 
 
 void ConfigView::resizeEvent( QResizeEvent * )
 {
     // check if the widgets fit in a VBox layout
-    if ( useBottomLayout && ( size().height() > widgetHeights ) )
+    if ( m_useBottomLayout && ( size().height() > m_widgetHeights ) )
     {
         delete layout();
         QGridLayout* layout = new QGridLayout( this );
-        layout->addWidget( targetLabel, 0, 0, Qt::AlignLeft );
-        layout->addWidget( targets, 1, 0 );
-        layout->addWidget( chooseTarget, 1, 1 );
-        layout->addWidget( deleteTarget, 1, 2 );
-        layout->addWidget( workDirLabel, 2, 0, Qt::AlignLeft );
-        layout->addWidget( workingDirectories, 3, 0 );
-        layout->addWidget( chooseWorkingDirectory, 3, 1 );
-        layout->addWidget( deleteWorkingDirectory, 3, 2 );
-        layout->addWidget( argumentsLabel, 4, 0, Qt::AlignLeft );
-        layout->addWidget( argumentLists, 5, 0 );
-        layout->addWidget( takeFocus, 6, 0 );
-        layout->addWidget( redirectTerminal, 7, 0 );
+        layout->addWidget( m_targetLabel, 0, 0, Qt::AlignLeft );
+        layout->addWidget( m_targets, 1, 0 );
+        layout->addWidget( m_chooseTarget, 1, 1 );
+        layout->addWidget( m_deleteTarget, 1, 2 );
+        layout->addWidget( m_workDirLabel, 2, 0, Qt::AlignLeft );
+        layout->addWidget( m_workingDirectories, 3, 0 );
+        layout->addWidget( m_chooseWorkingDirectory, 3, 1 );
+        layout->addWidget( m_deleteWorkingDirectory, 3, 2 );
+        layout->addWidget( m_argumentsLabel, 4, 0, Qt::AlignLeft );
+        layout->addWidget( m_argumentLists, 5, 0 );
+        layout->addWidget( m_takeFocus, 6, 0 );
+        layout->addWidget( m_redirectTerminal, 7, 0 );
         layout->addItem( new QSpacerItem( 1, 1 ), 8, 0 );
         layout->setColumnStretch( 0, 1 );
         layout->setRowStretch( 8, 1 );
-        useBottomLayout = false;
+        m_useBottomLayout = false;
     }
-    else if ( !useBottomLayout && ( size().height() < widgetHeights ) )
+    else if ( !m_useBottomLayout && ( size().height() < m_widgetHeights ) )
     {
         delete layout();
         QGridLayout* layout = new QGridLayout( this );
-        layout->addWidget( targetLabel, 0, 0, Qt::AlignRight );
-        layout->addWidget( targets, 0, 1, 1, 2 );
-        layout->addWidget( chooseTarget, 0, 3 );
-        layout->addWidget( deleteTarget, 0, 4 );
-        layout->addWidget( workDirLabel, 1, 0, Qt::AlignRight );
-        layout->addWidget( workingDirectories, 1, 1, 1, 2 );
-        layout->addWidget( chooseWorkingDirectory, 1, 3 );
-        layout->addWidget( deleteWorkingDirectory, 1, 4 );
-        layout->addWidget( argumentsLabel, 2, 0, Qt::AlignRight );
-        layout->addWidget( argumentLists, 2, 1, 1, 2 );
-        layout->addWidget( takeFocus, 3, 1 );
-        layout->addWidget( redirectTerminal, 3, 2 );
+        layout->addWidget( m_targetLabel, 0, 0, Qt::AlignRight );
+        layout->addWidget( m_targets, 0, 1, 1, 2 );
+        layout->addWidget( m_chooseTarget, 0, 3 );
+        layout->addWidget( m_deleteTarget, 0, 4 );
+        layout->addWidget( m_workDirLabel, 1, 0, Qt::AlignRight );
+        layout->addWidget( m_workingDirectories, 1, 1, 1, 2 );
+        layout->addWidget( m_chooseWorkingDirectory, 1, 3 );
+        layout->addWidget( m_deleteWorkingDirectory, 1, 4 );
+        layout->addWidget( m_argumentsLabel, 2, 0, Qt::AlignRight );
+        layout->addWidget( m_argumentLists, 2, 1, 1, 2 );
+        layout->addWidget( m_takeFocus, 3, 1 );
+        layout->addWidget( m_redirectTerminal, 3, 2 );
         layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
         layout->setColumnStretch( 1, 1 );
         layout->setColumnStretch( 2, 1 );
         layout->setRowStretch( 4, 1 );
-        useBottomLayout = true;
+        m_useBottomLayout = true;
     }
 }
 
 bool ConfigView::showIOTab() const
 {
-    return redirectTerminal->isChecked();
+    return m_redirectTerminal->isChecked();
 }
 
 

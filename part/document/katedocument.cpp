@@ -1178,7 +1178,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
       (*newLineAdded) = false;
   }
 
-  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, pos));
+  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, 0));
 
   editEnd ();
 

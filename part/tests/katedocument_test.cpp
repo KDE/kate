@@ -250,6 +250,9 @@ void KateDocumentTest::testForgivingApiUsage()
     QVERIFY(doc.removeText(Range(0, 0, 0, 1000)));
 }
 
+/**
+ * Provides slots to check data sent in specific signals. Slot names are derived from corresponding test names.
+ */
 class SignalHandler : public QObject
 {
     Q_OBJECT
@@ -258,11 +261,16 @@ public slots:
     {
         QCOMPARE(oldText, QString("line2\nline3\n"));
     }
+
+    void slotNewlineInserted(KTextEditor::Document*, const KTextEditor::Range& range)
+    {
+        QCOMPARE(range, Range(Cursor(1, 4), Cursor(2, 0)));
+    }
 };
 
 void KateDocumentTest::testRemoveMultipleLines()
 {
-    KateDocument doc(false, false, false);
+   KateDocument doc(false, false, false);
 
     doc.setText("line1\n"
         "line2\n"
@@ -272,6 +280,18 @@ void KateDocumentTest::testRemoveMultipleLines()
     SignalHandler handler;
     connect(&doc, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range,QString)), &handler, SLOT(slotMultipleLinesRemoved(KTextEditor::Document*,KTextEditor::Range,QString)));
     doc.removeText(Range(1, 0, 3, 0));
+}
+
+void KateDocumentTest::testInsertNewline()
+{
+    KateDocument doc(false, false, false);
+
+    doc.setText("this is line\n"
+        "this is line2\n");
+
+    SignalHandler handler;
+    connect(&doc, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)), &handler, SLOT(slotNewlineInserted(KTextEditor::Document*,KTextEditor::Range)));
+    doc.editWrapLine(1, 4);
 }
 
 #include "katedocument_test.moc"

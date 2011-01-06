@@ -39,6 +39,8 @@ private Q_SLOTS:
   void testSetTextPerformance();
 
   void testForgivingApiUsage();
+
+  void testRemoveMultipleLines();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

@@ -1347,7 +1347,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
 
   for (int line = to; line >= from; line--) {
     Kate::TextLine tl = m_buffer->line (line);
-    oldText << this->line(line);
+    oldText.prepend(this->line(line));
     m_undoManager->slotLineRemoved(line, this->line(line));
 
     m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, 0), KTextEditor::Cursor (line, tl->text().size())));
@@ -1384,7 +1384,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
   KTextEditor::Range rangeRemoved(from, 0, to + 1, 0);
 
   if (to == lastLine() + to - from + 1) {
-    rangeRemoved.end().setPosition(to, oldText.first().length());
+    rangeRemoved.end().setPosition(to, oldText.last().length());
     if (from > 0) {
       Kate::TextLine prevLine = plainKateTextLine(from - 1);
       rangeRemoved.start().setPosition(from - 1, prevLine->length());
@@ -1392,7 +1392,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
   }
 
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
-  emit KTextEditor::Document::textRemoved(this, rangeRemoved, oldText.join("\n"));
+  emit KTextEditor::Document::textRemoved(this, rangeRemoved, oldText.join("\n") + '\n');
 
   editEnd();
 

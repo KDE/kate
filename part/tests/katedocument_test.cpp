@@ -250,4 +250,28 @@ void KateDocumentTest::testForgivingApiUsage()
     QVERIFY(doc.removeText(Range(0, 0, 0, 1000)));
 }
 
+class SignalHandler : public QObject
+{
+    Q_OBJECT
+public slots:
+    void slotMultipleLinesRemoved(KTextEditor::Document*, const KTextEditor::Range&, const QString& oldText)
+    {
+        QCOMPARE(oldText, QString("line2\nline3\n"));
+    }
+};
+
+void KateDocumentTest::testRemoveMultipleLines()
+{
+    KateDocument doc(false, false, false);
+
+    doc.setText("line1\n"
+        "line2\n"
+        "line3\n"
+        "line4\n");
+
+    SignalHandler handler;
+    connect(&doc, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range,QString)), &handler, SLOT(slotMultipleLinesRemoved(KTextEditor::Document*,KTextEditor::Range,QString)));
+    doc.removeText(Range(1, 0, 3, 0));
+}
+
 #include "katedocument_test.moc"

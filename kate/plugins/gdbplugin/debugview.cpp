@@ -508,6 +508,18 @@ void DebugView::processLine( QString line )
                 emit infoLocal( line );
             }
             break;
+        case infoStack:
+            if( prompt.exactMatch( line ) )
+            {
+                m_state = ready;
+                emit stackFrameInfo( QString(), QString() );
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+            }
+            else if ( stackFrameAny.exactMatch( line ) )
+            {
+                emit stackFrameInfo( stackFrameAny.cap(1), stackFrameAny.cap(2));
+            }
+            break;
     }
     outputTextMaybe( line );
 }
@@ -592,6 +604,9 @@ void DebugView::issueCommand( QString const& cmd )
         }
         else if (cmd == "(Q)info args") {
             m_state = infoArgs;
+        }
+        else if (cmd == "(Q)info stack") {
+            m_state = infoStack;
         }
         m_subState = normal;
         m_lastCommand = cmd;

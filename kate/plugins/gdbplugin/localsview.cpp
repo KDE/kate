@@ -29,6 +29,7 @@ LocalsView::LocalsView(QWidget *parent)
     headers << i18n("Symbol");
     headers << i18n("Value");
     setHeaderLabels(headers);
+    setAutoScroll(false);
 }
 
 LocalsView::~LocalsView()
@@ -48,6 +49,7 @@ void LocalsView::addLocal(const QString &vString)
     
     if (vString.isEmpty()) {
         m_allAdded = true;
+        resizeColumnToContents(1);
         return;
     }
     
@@ -108,7 +110,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
         symbolVal.clear();
         end = vString.indexOf(" = ", start);
         symbolVal << vString.mid(start, end-start);
-        kDebug() << symbolVal;
+        //kDebug() << symbolVal;
         
         // Value
         start = end + 3;

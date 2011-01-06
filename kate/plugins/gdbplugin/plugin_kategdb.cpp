@@ -131,6 +131,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_stackTree->setRootIsDecorated(false);
     m_stackTree->resizeColumnToContents(0);
     m_stackTree->resizeColumnToContents(1);
+    m_stackTree->setAutoScroll(false);
     connect( m_stackTree, SIGNAL( itemActivated ( QTreeWidgetItem *, int ) ),
              this, SLOT( stackFrameSelected() ) );
 
@@ -526,6 +527,11 @@ void KatePluginGDBView::slotSendCommand()
 
 void KatePluginGDBView::insertStackFrame( QString const& level, QString const& info )
 {
+    if ( level.isEmpty() && info.isEmpty() ) {
+        m_stackTree->resizeColumnToContents(2);
+        return;
+    }
+    
     if ( level == "0") 
     {
         m_stackTree->clear();

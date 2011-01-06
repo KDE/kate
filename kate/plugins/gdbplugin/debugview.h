@@ -90,6 +90,7 @@ private:
         ready,
         executingCmd,
         listingBreakpoints,
+        infoStack,
         infoArgs,
         infoLocals
     };

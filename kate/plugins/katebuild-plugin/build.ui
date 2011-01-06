@@ -216,6 +216,12 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>buildDir</tabstop>
+  <tabstop>buildCmd</tabstop>
+  <tabstop>cleanCmd</tabstop>
+  <tabstop>quickComp</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

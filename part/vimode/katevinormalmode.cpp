@@ -2390,7 +2390,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("I", commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE );
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
-//ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
+  ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
   ADDCMD("o", commandOpenNewLineUnder, IS_CHANGE );
   ADDCMD("O", commandOpenNewLineOver, IS_CHANGE );
   ADDCMD("J", commandJoinLines, IS_CHANGE );

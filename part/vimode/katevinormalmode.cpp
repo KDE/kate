@@ -1589,7 +1589,7 @@ KateViRange KateViNormalMode::motionToEOL()
 {
   Cursor c( m_view->cursorPosition() );
 
-  // set sticky column to a rediculously high value so that the cursor will stick to EOL,
+  // set sticky column to a ridiculously high value so that the cursor will stick to EOL,
   // but only if it's a regular motion
   if ( m_keys.size() == 1 ) {
     m_stickyColumn = 100000;

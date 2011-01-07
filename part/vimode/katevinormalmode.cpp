@@ -1389,6 +1389,31 @@ bool KateViNormalMode::commandPrependToBlock()
   return startInsertMode();
 }
 
+bool KateViNormalMode::commandAppendToBlock()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  m_commandRange.normalize();
+  if ( m_stickyColumn == (unsigned int)KateVi::EOL ) { // append to EOL
+    // move cursor to end of first line
+    c.setLine( m_commandRange.startLine );
+    c.setColumn( doc()->lineLength( c.line() ) );
+    updateCursor( c );
+    m_viInputModeManager->getViInsertMode()->setBlockAppendMode( m_commandRange, AppendEOL );
+  } else {
+    m_viInputModeManager->getViInsertMode()->setBlockAppendMode( m_commandRange, Append );
+    // move cursor to top right corner of selection
+    c.setColumn( m_commandRange.endColumn+1 );
+    c.setLine( m_commandRange.startLine );
+    updateCursor( c );
+  }
+
+  m_stickyColumn = -1;
+
+  return startInsertMode();
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -1664,7 +1689,7 @@ KateViRange KateViNormalMode::motionToEOL()
   // set sticky column to a rediculously high value so that the cursor will stick to EOL,
   // but only if it's a regular motion
   if ( m_keys.size() == 1 ) {
-    m_stickyColumn = 100000;
+    m_stickyColumn = KateVi::EOL;
   }
 
   unsigned int line = c.line() + ( getCount() - 1 );

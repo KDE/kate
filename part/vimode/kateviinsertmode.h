@@ -32,6 +32,13 @@ class KateViewInternal;
  * Commands for the vi insert mode
  */
 
+enum BlockInsert {
+    None,
+    Prepend,
+    Append,
+    AppendEOL
+};
+
 class KateViInsertMode : public KateViModeBase
 {
   public:
@@ -63,9 +70,11 @@ class KateViInsertMode : public KateViModeBase
     const QStringList getMappings() const { return QStringList(); }
 
     void setBlockPrependMode( KateViRange blockRange );
+    void setBlockAppendMode( KateViRange blockRange, BlockInsert b );
 
   protected:
-    bool m_blockPrependActive;
+    BlockInsert m_blockInsert;
+    unsigned int m_eolPos; // length of first line in eol mode before text is appended
     KateViRange m_blockRange;
 
     void leaveInsertMode();

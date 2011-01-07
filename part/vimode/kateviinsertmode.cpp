@@ -34,7 +34,8 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
   m_viewInternal = viewInternal;
   m_viInputModeManager = viInputModeManager;
 
-  m_blockPrependActive = false;
+  m_blockInsert = None;
+  m_eolPos = 0;
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -288,20 +289,50 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 
 void KateViInsertMode::leaveInsertMode()
 {
-    if ( m_blockPrependActive ) {
-        m_blockPrependActive = false;
+    if ( m_blockInsert != None ) { // block append/prepend
 
+        // make sure cursor haven't been moved
         if ( m_blockRange.startLine == m_view->cursorPosition().line() ) {
-            int start = m_blockRange.startColumn;
-            int len = m_view->cursorPosition().column()-m_blockRange.startColumn;
-            QString added = getLine().mid( start, len );
+            int start, len;
+            QString added;
+            Cursor c;
 
-            Cursor c( m_blockRange.startLine, m_blockRange.startColumn );
-            for ( int i = m_blockRange.startLine+1; i <= m_blockRange.endLine; i++ ) {
-                c.setLine( i );
-                doc()->insertText( c, added );
+            switch ( m_blockInsert ) {
+            case Append:
+            case Prepend:
+                if ( m_blockInsert == Append ) {
+                    start = m_blockRange.endColumn+1;
+                } else {
+                    start = m_blockRange.startColumn;
+                }
+
+                len = m_view->cursorPosition().column()-start;
+                added = getLine().mid( start, len );
+
+                c = Cursor( m_blockRange.startLine, start );
+                for ( int i = m_blockRange.startLine+1; i <= m_blockRange.endLine; i++ ) {
+                    c.setLine( i );
+                    doc()->insertText( c, added );
+                }
+                break;
+            case AppendEOL:
+                start = m_eolPos;
+                len = m_view->cursorPosition().column()-start;
+                added = getLine().mid( start, len );
+
+                c = Cursor( m_blockRange.startLine, start );
+                for ( int i = m_blockRange.startLine+1; i <= m_blockRange.endLine; i++ ) {
+                    c.setLine( i );
+                    c.setColumn( doc()->lineLength( i ) );
+                    doc()->insertText( c, added );
+                }
+                break;
+            default:
+                error("not supported");
             }
         }
+
+        m_blockInsert = None;
     }
     startNormalMode();
 }
@@ -310,7 +341,23 @@ void KateViInsertMode::setBlockPrependMode( KateViRange blockRange )
 {
     // ignore if not more than one line is selected
     if ( blockRange.startLine != blockRange.endLine ) {
-        m_blockPrependActive = true;
+        m_blockInsert = Prepend;
         m_blockRange = blockRange;
+    }
+}
+
+void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b )
+{
+    Q_ASSERT( b == Append or b == AppendEOL );
+
+    if ( b == AppendEOL ) {
+        m_eolPos = doc()->lineLength( m_blockRange.startLine );
+    }
+    // ignore if not more than one line is selected
+    if ( blockRange.startLine != blockRange.endLine ) {
+        m_blockRange = blockRange;
+        m_blockInsert = b;
+    } else {
+        kDebug( 13070 ) << "cursor moved. ignoring block append/prepend";
     }
 }

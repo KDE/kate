@@ -430,7 +430,12 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
         backgroundAttribute->setBackground(config()->selectionColor());
 
         if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualBlockMode ) {
-          selectionHighlight->addRange(new KTextEditor::Range(line, r.start().column(), line, r.end().column()+1), backgroundAttribute);
+          int start = r.start().column();
+          int end = r.end().column()+1;
+          if (end > m_view->doc()->lineLength( line )) {
+            end = m_view->doc()->lineLength( line );
+          }
+          selectionHighlight->addRange(new KTextEditor::Range(line, start, line, end), backgroundAttribute);
         } else if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualLineMode ) {
           selectionHighlight->addRange(new KTextEditor::Range(line, 0, line, m_view->doc()->lineLength( line )), backgroundAttribute);
         } else {

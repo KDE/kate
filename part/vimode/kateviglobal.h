@@ -30,6 +30,10 @@
 
 class KConfigGroup;
 
+namespace KateVi {
+  const unsigned int EOL = 99999;
+};
+
 class KateViGlobal
 {
 public:

@@ -41,6 +41,12 @@ class KateViVisualMode;
 class KateViNormalMode;
 class KateViInputModeManager;
 
+enum OperationMode {
+    CharWise,
+    LineWise,
+    Block
+};
+
 class KateViModeBase : public QObject
 {
   Q_OBJECT
@@ -60,8 +66,8 @@ class KateViModeBase : public QObject
 
   protected:
     // helper methods
-    bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
-    const QString getRange( KateViRange &r, bool linewise = true ) const;
+    bool deleteRange( KateViRange &r, OperationMode mode = LineWise, bool addToRegister = true );
+    const QString getRange( KateViRange &r, OperationMode mode = LineWise ) const;
     const QString getLine( int lineNumber = -1 ) const;
     const QChar getCharUnderCursor() const;
     const QString getWordUnderCursor() const;

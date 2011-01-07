@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ *  Copyright (C) 2008-2011 Erlend Hamberg <ehamberg@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -32,6 +32,13 @@ class KateViewInternal;
  * Commands for the vi insert mode
  */
 
+enum BlockInsert {
+    None,
+    Prepend,
+    Append,
+    AppendEOL
+};
+
 class KateViInsertMode : public KateViModeBase
 {
   public:
@@ -61,6 +68,16 @@ class KateViInsertMode : public KateViModeBase
     void addMapping( const QString &from, const QString &to ) { Q_UNUSED(from) Q_UNUSED(to) }
     const QString getMapping( const QString &from ) const { Q_UNUSED(from) return QString(); }
     const QStringList getMappings() const { return QStringList(); }
+
+    void setBlockPrependMode( KateViRange blockRange );
+    void setBlockAppendMode( KateViRange blockRange, BlockInsert b );
+
+  protected:
+    BlockInsert m_blockInsert;
+    unsigned int m_eolPos; // length of first line in eol mode before text is appended
+    KateViRange m_blockRange;
+
+    void leaveInsertMode();
 };
 
 #endif

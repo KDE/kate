@@ -242,6 +242,8 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("o", commandToOtherEnd, SHOULD_NOT_RESET );
   ADDCMD("=", commandAlignLines, SHOULD_NOT_RESET );
   ADDCMD("~", commandChangeCase, IS_CHANGE );
+  ADDCMD("I", commandPrependToBlock, IS_CHANGE );
+  ADDCMD("A", commandAppendToBlock, IS_CHANGE );
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

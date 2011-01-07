@@ -133,6 +133,9 @@ class KateViNormalMode : public KateViModeBase
     bool commandAddToNumber();
     bool commandSubtractFromNumber();
 
+    bool commandPrependToBlock();
+    bool commandAppendToBlock();
+
     // MOTIONS
 
     KateViRange motionLeft();

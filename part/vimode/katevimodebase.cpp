@@ -48,19 +48,21 @@ using KTextEditor::Range;
 // HELPER METHODS
 ////////////////////////////////////////////////////////////////////////////////
 
-bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegister)
+bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addToRegister)
 {
   r.normalize();
   bool res = false;
-  QString removedText = getRange( r, linewise );
+  QString removedText = getRange( r, mode );
 
-  if ( linewise ) {
+  if ( mode == LineWise ) {
     doc()->editStart();
     for ( int i = 0; i < r.endLine-r.startLine+1; i++ ) {
       res = doc()->removeLine( r.startLine );
     }
     doc()->editEnd();
-  } else {
+  } else if ( mode == Block ) {
+      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), true );
+  } else { // character-wise
       res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
@@ -75,12 +77,12 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
   return res;
 }
 
-const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
+const QString KateViModeBase::getRange( KateViRange &r, OperationMode mode) const
 {
   r.normalize();
   QString s;
 
-  if ( linewise ) {
+  if ( mode == LineWise ) {
     r.startColumn = 0;
     r.endColumn = getLine( r.endLine ).length();
   }
@@ -91,9 +93,11 @@ const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
 
   Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
-  if ( linewise ) {
+  if ( mode == LineWise ) {
     s = doc()->textLines( range ).join( QChar( '\n' ) );
     s.append( QChar( '\n' ) );
+  } else if ( mode == Block ) {
+      s = doc()->text( range, true );
   } else {
       s = doc()->text( range );
   }

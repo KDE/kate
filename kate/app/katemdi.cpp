@@ -337,11 +337,12 @@ namespace KateMDI
     m_toolviews.removeAt (m_toolviews.indexOf (widget));
 
     bool anyVis = false;
-    Q3IntDictIterator<ToolView> it( m_idToWidget );
-    for ( ; it.current(); ++it )
+    QMapIterator<int, ToolView*> it( m_idToWidget );
+    while ( it.hasNext() )
     {
+      it.next();    
       if (!anyVis)
-        anyVis =  it.current()->isVisible();
+        anyVis =  it.value()->isVisible();
     }
 
     if (m_idToWidget.isEmpty())
@@ -361,14 +362,17 @@ namespace KateMDI
       return false;
 
     // hide other non-persistent views
-    Q3IntDictIterator<ToolView> it( m_idToWidget );
-    for ( ; it.current(); ++it )
-      if ((it.current() != widget) && !it.current()->persistent)
+    QMapIterator<int, ToolView*> it( m_idToWidget );
+    while ( it.hasNext() )
+    {
+      it.next();
+      if ((it.value() != widget) && !it.value()->persistent)
       {
-        it.current()->hide();
-        setTab (it.currentKey(), false);
-        it.current()->setToolVisible(false);
+        it.value()->hide();
+        setTab (it.key(), false);
+        it.value()->setToolVisible(false);
       }
+    }
 
     setTab (m_widgetToId[widget], true);
 
@@ -389,16 +393,18 @@ namespace KateMDI
 
     updateLastSize ();
 
-    for ( Q3IntDictIterator<ToolView> it( m_idToWidget ); it.current(); ++it )
+    QMapIterator<int, ToolView*> it( m_idToWidget );
+    while ( it.hasNext() )
     {
-      if (it.current() == widget)
+      it.next();
+      if (it.value() == widget)
       {
-        it.current()->hide();
+        it.value()->hide();
         continue;
       }
 
       if (!anyVis)
-        anyVis =  it.current()->isVisible();
+        anyVis =  it.value()->isVisible();
     }
 
     // lower tab

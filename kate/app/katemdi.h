@@ -28,8 +28,6 @@
 #include <KToggleAction>
 #include <KVBox>
 
-#include <q3dict.h>
-#include <q3intdict.h>
 #include <QMap>
 #include <QSplitter>
 #include <QPixmap>
@@ -234,7 +232,7 @@ namespace KateMDI
       KMultiTabBar *m_tabBar;
       QSplitter *m_ownSplit;
 
-      Q3IntDict<ToolView> m_idToWidget;
+      QMap<int, ToolView*> m_idToWidget;
       QMap<ToolView*, int> m_widgetToId;
 
       /**
@@ -387,7 +385,7 @@ namespace KateMDI
       /**
        * map identifiers to widgets
        */
-      Q3Dict<ToolView> m_idToWidget;
+      QMap<QString, ToolView*> m_idToWidget;
 
       /**
        * list of all toolviews around

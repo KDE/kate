@@ -744,7 +744,8 @@ bool KateViNormalMode::commandChangeCase()
   Cursor c( m_view->cursorPosition() );
 
   // in visual mode, the range is from start position to end position...
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+    || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
 
     if ( c2 > c ) {
@@ -781,8 +782,10 @@ bool KateViNormalMode::commandChangeCase()
     range.setRange( c, c2 );
   }
 
+  bool block = m_viInputModeManager->getCurrentViMode() == VisualBlockMode;
+
   // get the text the command should operate on
-  text = doc()->text ( range );
+  text = doc()->text ( range, block );
 
   // for every character, switch its case
   for ( int i = 0; i < text.length(); i++ ) {
@@ -794,7 +797,7 @@ bool KateViNormalMode::commandChangeCase()
   }
 
   // replace the old text with the modified text
-  doc()->replaceText( range, text );
+  doc()->replaceText( range, text, block );
 
   // in normal mode, move the cursor to the right, in visual mode move the
   // cursor to the start of the selection

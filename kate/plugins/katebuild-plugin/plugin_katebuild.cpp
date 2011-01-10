@@ -85,7 +85,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
                )
     , m_proc(0)
     // NOTE this will not allow spaces in file names.
-    , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[chpxCHPX]+:[0-9]+"),
+    , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+:[0-9]+"),
     m_newDirDetector("make\\[.+\\]: .+ `.*'")
 {
     setComponentData(KComponentData("kate"));

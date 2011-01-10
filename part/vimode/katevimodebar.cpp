@@ -92,7 +92,7 @@ void KateViModeBar::showErrorMessage(const QString &msg)
     m_timer->stop();
   }
   setForegroundColor(KColorScheme::NegativeText);
-  m_labelMessage->setText(Qt::escape(msg));
+  m_labelMessage->setText( msg );
 }
 
 void KateViModeBar::clearMessage()

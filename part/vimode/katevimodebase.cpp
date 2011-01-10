@@ -661,15 +661,20 @@ QString KateViModeBase::getRegisterContent( const QChar &reg ) const
   QString r = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 
   if ( r.isNull() ) {
-    error( i18n( "Nothing in register %1" ,reg ));
+    error( i18n( "Nothing in register %1", reg ));
   }
 
   return r;
 }
 
-void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
+OperationMode KateViModeBase::getRegisterFlag( const QChar &reg ) const
 {
-  KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+  return KateGlobal::self()->viInputModeGlobal()->getRegisterFlag( reg );
+}
+
+void KateViModeBase::fillRegister( const QChar &reg, const QString &text, OperationMode flag )
+{
+  KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text, flag );
 }
 
 KateViRange KateViModeBase::goLineDown()

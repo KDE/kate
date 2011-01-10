@@ -981,17 +981,17 @@ bool KateViNormalMode::commandYank()
 
   OperationMode m = CharWise;
 
-  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
-    || ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode ) ) {
-    m = LineWise;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     m = Block;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || ( m_commandRange.startLine != m_commandRange.endLine
+        && m_viInputModeManager->getCurrentViMode() != VisualMode ) ) {
+    m = LineWise;
   }
 
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText );
+  fillRegister( getChosenRegister( '0' ), yankedText, m );
 
   return r;
 }
@@ -1005,7 +1005,7 @@ bool KateViNormalMode::commandYankLine()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
       lines.append( getLine( linenum + i ) + '\n' );
   }
-  fillRegister( getChosenRegister( '0' ), lines );
+  fillRegister( getChosenRegister( '0' ), lines, LineWise );
 
   return true;
 }
@@ -1036,7 +1036,7 @@ bool KateViNormalMode::commandYankToEOL()
 
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText );
+  fillRegister( getChosenRegister( '0' ), yankedText, m );
 
   return r;
 }
@@ -1049,6 +1049,7 @@ bool KateViNormalMode::commandPaste()
   Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
+  OperationMode m = getRegisterFlag( reg );
   QString textToInsert = getRegisterContent( reg );
 
   if ( textToInsert.isNull() ) {
@@ -1057,10 +1058,10 @@ bool KateViNormalMode::commandPaste()
   }
 
   if ( getCount() > 1 ) {
-    textToInsert = textToInsert.repeated( getCount() );
+    textToInsert = textToInsert.repeated( getCount() ); // FIXME: does this make sense for blocks?
   }
 
-  if ( textToInsert.endsWith('\n') ) { // line(s)
+  if ( m == LineWise ) {
     textToInsert.chop( 1 ); // remove the last \n
     c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
     textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
@@ -1075,7 +1076,7 @@ bool KateViNormalMode::commandPaste()
     cAfter = c;
   }
 
-  doc()->insertText( c, textToInsert );
+  doc()->insertText( c, textToInsert, m == Block );
 
   updateCursor( cAfter );
 
@@ -1091,6 +1092,7 @@ bool KateViNormalMode::commandPasteBefore()
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
+  OperationMode m = getRegisterFlag( reg );
 
   if ( getCount() > 1 ) {
     textToInsert = textToInsert.repeated( getCount() );
@@ -1101,7 +1103,7 @@ bool KateViNormalMode::commandPasteBefore()
     cAfter.setColumn( 0 );
   }
 
-  doc()->insertText( c, textToInsert );
+  doc()->insertText( c, textToInsert, m == Block );
 
   updateCursor( cAfter );
 

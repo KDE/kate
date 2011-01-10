@@ -24,15 +24,20 @@
 #include <QMap>
 #include <QHash>
 #include <QList>
-#include <QString>
-#include <QChar>
+#include <QPair>
+
+#include "katevimodebase.h"
 #include "kateviinputmodemanager.h"
 
+class QString;
+class QChar;
 class KConfigGroup;
 
 namespace KateVi {
   const unsigned int EOL = 99999;
 };
+
+typedef QPair<QString, OperationMode> KateViRegister;
 
 class KateViGlobal
 {
@@ -43,9 +48,10 @@ public:
     void writeConfig( KConfigGroup &config ) const;
     void readConfig( const KConfigGroup &config );
     QString getRegisterContent( const QChar &reg ) const;
-    void addToNumberedRegister( const QString &text );
-    void fillRegister( const QChar &reg, const QString &text);
-    const QMap<QChar, QString>* getRegisters() { return m_registers; }
+    OperationMode getRegisterFlag( const QChar &reg ) const;
+    void addToNumberedRegister( const QString &text, OperationMode flag = CharWise );
+    void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
+    const QMap<QChar, KateViRegister>* getRegisters() const { return m_registers; }
 
     void clearMappings( ViMode mode );
     void addMapping( ViMode mode, const QString &from, const QString &to );
@@ -54,10 +60,11 @@ public:
 
 private:
     // registers
-    QList<QString> *m_numberedRegisters;
-    QMap<QChar, QString> *m_registers;
+    QList<KateViRegister> *m_numberedRegisters;
+    QMap<QChar, KateViRegister> *m_registers;
     QChar m_defaultRegister;
     QString m_registerTemp;
+    KateViRegister getRegister( const QChar &reg ) const;
 
     // mappings
     QHash <QString, QString> m_normalModeMappings;

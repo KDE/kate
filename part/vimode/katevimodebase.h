@@ -42,7 +42,7 @@ class KateViNormalMode;
 class KateViInputModeManager;
 
 enum OperationMode {
-    CharWise,
+    CharWise = 0,
     LineWise,
     Block
 };
@@ -109,7 +109,8 @@ class KateViModeBase : public QObject
 
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
-    void fillRegister( const QChar &reg, const QString &text);
+    OperationMode getRegisterFlag( const QChar &reg ) const;
+    void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
 
     QChar m_register;
 

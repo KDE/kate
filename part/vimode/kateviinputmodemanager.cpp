@@ -309,30 +309,34 @@ void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
 {
   QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
   QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
+  QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
 
   // sanity check
   if ( names.size() == contents.size() ) {
     for ( int i = 0; i < names.size(); i++ ) {
-      KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ) );
+      KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
     }
   }
 }
 
 void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
 {
-  const QMap<QChar, QString>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
+  const QMap<QChar, KateViRegister>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
   QStringList names, contents;
-  QMap<QChar, QString>::const_iterator i;
+  QList<int> flags;
+  QMap<QChar, KateViRegister>::const_iterator i;
   for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
-    if ( i.value().length() <= 1000 ) {
+    if ( i.value().first.length() <= 1000 ) {
       names << i.key();
-      contents << i.value();
+      contents << i.value().first;
+      flags << int(i.value().second);
     } else {
       kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
-        << i.value().length() << " characters)";
+        << i.value().first.length() << " characters)";
     }
   }
 
   config.writeEntry( "ViRegisterNames", names );
   config.writeEntry( "ViRegisterContents", contents );
+  config.writeEntry( "ViRegisterFlags", flags );
 }

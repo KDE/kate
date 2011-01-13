@@ -77,7 +77,7 @@ class KateViInsertMode : public KateViModeBase
     unsigned int m_eolPos; // length of first line in eol mode before text is appended
     KateViRange m_blockRange;
 
-    void leaveInsertMode();
+    void leaveInsertMode( bool force = false);
 };
 
 #endif

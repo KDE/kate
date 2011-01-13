@@ -60,10 +60,8 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
       res = doc()->removeLine( r.startLine );
     }
     doc()->editEnd();
-  } else if ( mode == Block ) {
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), true );
-  } else { // character-wise
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+  } else {
+      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), mode == Block );
   }
 
   if ( addToRegister ) {

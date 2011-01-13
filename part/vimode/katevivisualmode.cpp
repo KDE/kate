@@ -216,6 +216,7 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("c", commandChange, IS_CHANGE );
   ADDCMD("s", commandChange, IS_CHANGE );
   ADDCMD("C", commandChangeToEOL, IS_CHANGE );
+  ADDCMD("S", commandChangeToEOL, IS_CHANGE );
   ADDCMD("d", commandDelete, IS_CHANGE );
   ADDCMD("D", commandDeleteToEOL, IS_CHANGE );
   ADDCMD("x", commandDeleteChar, IS_CHANGE );

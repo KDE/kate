@@ -66,9 +66,9 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
 
   if ( addToRegister ) {
     if ( r.startLine == r.endLine ) {
-      fillRegister( getChosenRegister( '-' ), removedText );
+      fillRegister( getChosenRegister( '-' ), removedText, mode );
     } else {
-      fillRegister( getChosenRegister( '0' ), removedText );
+      fillRegister( getChosenRegister( '0' ), removedText, mode );
     }
   }
 

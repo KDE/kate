@@ -255,9 +255,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
+        <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" />
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" >
+        <IncludeRules context="##Alerts" />
+      </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue  attribute="String" context="Some Context" />
         <HlCStringChar attribute="String Char" context="#stay" />

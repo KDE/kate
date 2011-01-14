@@ -34,7 +34,7 @@ inline bool isNumeric(const QVariant::Type type)
 
 
 DataOutputModel::DataOutputModel(QObject *parent)
-: QSqlQueryModel(parent)
+: CachedSqlQueryModel(parent, 1000)
 {
   m_useSystemLocale = false;
 
@@ -59,7 +59,7 @@ void DataOutputModel::clear()
 {
   beginResetModel();
 
-  QSqlQueryModel::clear();
+  CachedSqlQueryModel::clear();
 
   endResetModel();
 }
@@ -113,7 +113,10 @@ void DataOutputModel::setUseSystemLocale( bool useSystemLocale )
 
 QVariant DataOutputModel::data(const QModelIndex &index, int role) const
 {
-  const QVariant value(QSqlQueryModel::data(index, Qt::DisplayRole));
+  if (role == Qt::EditRole)
+    return CachedSqlQueryModel::data(index, role);
+
+  const QVariant value(CachedSqlQueryModel::data(index, Qt::DisplayRole));
   const QVariant::Type type = value.type();
 
   if (value.isNull())
@@ -208,5 +211,5 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   if (role == Qt::UserRole)
     return value;
 
-  return QSqlQueryModel::data(index, role);
+  return CachedSqlQueryModel::data(index, role);
 }

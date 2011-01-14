@@ -10,6 +10,7 @@ set(katesql_SRCS
   katesqlview.cpp
   connectionmodel.cpp
   sqlmanager.cpp
+  cachedsqlquerymodel.cpp
   dataoutputmodel.cpp
   dataoutputview.cpp
   dataoutputwidget.cpp

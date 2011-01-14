@@ -21,13 +21,14 @@
 
 struct OutputStyle;
 
-#include <qsqlquerymodel.h>
+#include "cachedsqlquerymodel.h"
+
 #include <qcolor.h>
 #include <qfont.h>
 
 
 /// provide colors and styles
-class DataOutputModel : public QSqlQueryModel
+class DataOutputModel : public CachedSqlQueryModel
 {
   Q_OBJECT
 
@@ -41,7 +42,6 @@ class DataOutputModel : public QSqlQueryModel
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     void clear();
-
     void readConfig();
 
   private:

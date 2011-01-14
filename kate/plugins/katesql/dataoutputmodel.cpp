@@ -92,6 +92,8 @@ void DataOutputModel::readConfig()
     s->foreground.setColor(g.readEntry("foregroundColor", s->foreground.color()));
     s->background.setColor(g.readEntry("backgroundColor", s->background.color()));
   }
+
+  emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() -1));
 }
 
 

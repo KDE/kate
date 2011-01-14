@@ -43,7 +43,8 @@
 DataOutputWidget::DataOutputWidget(QWidget *parent)
 : QWidget(parent),
 m_model(new DataOutputModel(this)),
-m_view(new DataOutputView(this))
+m_view(new DataOutputView(this)),
+m_isEmpty(true)
 {
   m_view->setModel(m_model);
 
@@ -113,6 +114,8 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 
   m_model->setQuery(query);
 
+  m_isEmpty = false;
+
   resizeColumnsToContents();
 
   raise();
@@ -121,7 +124,13 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 
 void DataOutputWidget::clearResults()
 {
+  // avoid crash when calling QSqlQueryModel::clear() after removing connection from the QSqlDatabase list
+  if (m_isEmpty)
+    return;
+
   m_model->clear();
+
+  m_isEmpty = true;
 
   /// HACK needed to refresh headers. please correct if there's a better way
   m_view->horizontalHeader()->hide();

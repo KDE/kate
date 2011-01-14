@@ -68,6 +68,8 @@ class DataOutputWidget : public QWidget
     /// TODO: manage multiple views for query with multiple resultsets
     DataOutputModel *m_model;
     DataOutputView *m_view;
+
+    bool m_isEmpty;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

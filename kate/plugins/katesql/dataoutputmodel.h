@@ -19,7 +19,7 @@
 #ifndef DATAOUTPUTMODEL_H
 #define DATAOUTPUTMODEL_H
 
-class OutputStyle;
+struct OutputStyle;
 
 #include <qsqlquerymodel.h>
 #include <qcolor.h>

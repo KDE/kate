@@ -159,6 +159,7 @@ void HighlightSelectionPluginView::createHighlights()
       KTextEditor::MovingRange* mr = miface->newMovingRange(matches.first());
       mr->setAttribute(attr);
       mr->setView(m_view);
+      mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
       mr->setAttributeOnlyForViews(true);
       m_ranges.append(mr);
       start = matches.first().end();

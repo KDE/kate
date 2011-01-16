@@ -86,7 +86,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                                               SmallIcon("debug"),
                                               i18n("Debug View"));
 
-    m_localsViewW = mainWindow()->createToolView(i18n("Locals"),
+    m_localsToolView = mainWindow()->createToolView(i18n("Locals"),
                                                 Kate::MainWindow::Right,
                                                 SmallIcon("debug"),
                                                 i18n("Locals"));
@@ -147,7 +147,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
     //tabWidget->addTab( m_ioView, i18n( "IO" ) );
 
-    m_localsView = new LocalsView(m_localsViewW);
+    m_localsView = new LocalsView(m_localsToolView);
 
     m_debugView  = new DebugView( this );
     connect( m_debugView,  SIGNAL( readyForInput( bool ) ), 
@@ -275,6 +275,8 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 KatePluginGDBView::~KatePluginGDBView()
 {
     mainWindow()->guiFactory()->removeClient( this );
+    delete m_toolView;
+    delete m_localsToolView;
 }
 
 void KatePluginGDBView::readSessionConfig(  KConfigBase*    config,

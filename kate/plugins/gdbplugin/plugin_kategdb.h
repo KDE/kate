@@ -107,7 +107,7 @@ private:
     
     Kate::Application*    m_kateApplication;
     QWidget*              m_toolView;
-    QWidget*              m_localsViewW;
+    QWidget*              m_localsToolView;
     QTabWidget*           m_tabWidget;
     QTextEdit*            m_outputArea;
     KHistoryComboBox*     m_inputArea;

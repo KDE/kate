@@ -191,7 +191,7 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
   optionsLineEdit  = new KLineEdit();
 
   pathUrlRequester->setMode( KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-  pathUrlRequester->setFilter("*.db");
+  pathUrlRequester->setFilter("*.db *.sqlite|" + i18n("Database files") + "\n*|" + i18n("All files"));
 
   layout->addRow(i18nc("@label:textbox", "Path:"), pathUrlRequester);
   layout->addRow(i18nc("@label:textbox", "Connection options:"), optionsLineEdit);

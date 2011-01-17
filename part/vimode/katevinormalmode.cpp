@@ -29,7 +29,6 @@
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
 
-#include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QList>
 
@@ -71,9 +70,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
 KateViNormalMode::~KateViNormalMode()
 {
-  // delete the text cursors
-  qDeleteAll( m_marks );
-
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
 }
@@ -438,15 +434,7 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {
-    Cursor c( m_view->cursorPosition() );
-
-    // delete old cursor if any
-    if (KTextEditor::MovingCursor *oldCursor = m_marks.value('\''))
-      delete oldCursor;
-
-    // create and remember new one
-    KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
-    m_marks.insert( '\'', cursor );
+    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -535,6 +523,39 @@ bool KateViNormalMode::commandEnterVisualBlockMode()
   }
 
   return startVisualBlockMode();
+}
+
+bool KateViNormalMode::commandReselectVisual()
+{
+  // start last visual mode and set start = `< and cursor = `>
+  Cursor c1 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '<' );
+  Cursor c2 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '>' );
+
+  // we should either get two valid cursors or two invalid cursors
+  Q_ASSERT( c1.isValid() == c2.isValid() );
+
+  if ( c1.isValid() && c2.isValid() ) {
+    m_viInputModeManager->getViVisualMode()->setStart( c1 );
+    updateCursor( c2 );
+
+    switch ( m_viInputModeManager->getViVisualMode()->getLastVisualMode() ) {
+    case VisualMode:
+      return commandEnterVisualMode();
+      break;
+    case VisualLineMode:
+      return commandEnterVisualLineMode();
+      break;
+    case VisualBlockMode:
+      return commandEnterVisualBlockMode();
+      break;
+    default:
+      Q_ASSERT( "invalid visual mode" );
+    }
+  } else {
+    error("No previous visual selection");
+  }
+
+  return false;
 }
 
 bool KateViNormalMode::commandEnterVisualMode()
@@ -1159,9 +1180,16 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
     m_view->switchToCmdLine();
 
-    // if a count is given, the range [current line] to [current line] + count should be prepended
-    // to the command line
-    if ( getCount() != 1 ) {
+    /*if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+      // if in visual mode, make command range == visual selection
+      m_viInputModeManager->getViVisualMode()->saveRangeMarks();
+      m_view->cmdLineBar()->setText( "'<,'>" );
+    }
+    else*/ if ( getCount() != 1 ) {
+      // if a count is given, the range [current line] to [current line] +
+      // count should be prepended to the command line
       m_view->cmdLineBar()->setText( ".,.+" +QString::number( getCount()-1 ), false);
     }
 
@@ -1190,14 +1218,7 @@ bool KateViNormalMode::commandSetMark()
 {
   Cursor c( m_view->cursorPosition() );
 
-  // delete old cursor if any
-  if (KTextEditor::MovingCursor *oldCursor = m_marks.value(m_keys.at( m_keys.size()-1 )))
-    delete oldCursor;
-
-  // create and remember new one
-  KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
-  m_marks.insert( m_keys.at( m_keys.size()-1 ), cursor );
-
+  KateGlobal::self()->viInputModeGlobal()->addMark( doc(), m_keys.at( m_keys.size()-1 ), c );
   kDebug( 13070 ) << "set mark at (" << c.line() << "," << c.column() << ")";
 
   return true;
@@ -1943,10 +1964,10 @@ KateViRange KateViNormalMode::motionToMark()
       reg = '\'';
   }
 
-  if ( m_marks.contains( reg ) ) {
-    KTextEditor::MovingCursor *cursor = m_marks.value( reg );
-    r.endLine = cursor->line();
-    r.endColumn = cursor->column();
+  Cursor c = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( reg );
+  if ( c.isValid() ) {
+    r.endLine = c.line();
+    r.endColumn = c.column();
   } else {
     error(i18n("Mark not set: %1",m_keys.right( 1 ) ));
     r.valid = false;
@@ -2373,6 +2394,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
   ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
+  ADDCMD("gv", commandReselectVisual, 0 );
   ADDCMD("o", commandOpenNewLineUnder, IS_CHANGE );
   ADDCMD("O", commandOpenNewLineOver, IS_CHANGE );
   ADDCMD("J", commandJoinLines, IS_CHANGE );
@@ -2458,8 +2480,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
   ADDMOTION("%", motionToMatchingItem, 0 );
-  ADDMOTION("`[a-zA-Z]", motionToMark, REGEX_PATTERN );
-  ADDMOTION("'[a-zA-Z]", motionToMarkLine, REGEX_PATTERN );
+  ADDMOTION("`[a-zA-Z><]", motionToMark, REGEX_PATTERN );
+  ADDMOTION("'[a-zA-Z><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );

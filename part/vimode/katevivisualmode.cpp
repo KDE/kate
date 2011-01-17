@@ -18,6 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "kateglobal.h"
+#include "kateviglobal.h"
 #include "katevivisualmode.h"
 #include "katevirange.h"
 
@@ -113,10 +115,12 @@ void KateViVisualMode::reset()
     if ( m_viInputModeManager->getCurrentViMode() == VisualMode
         || m_viInputModeManager->getCurrentViMode() == VisualLineMode
         || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+
+      saveRangeMarks();
+      m_lastVisualMode = m_viInputModeManager->getCurrentViMode();
+
       startNormalMode();
     }
-
-    // TODO: set register < and > (see :help '< in vim)
 
     m_start.setPosition( -1, -1 );
     m_previous.setPosition( -1, -1 );
@@ -125,9 +129,18 @@ void KateViVisualMode::reset()
     updateDirty( true );
 }
 
+void KateViVisualMode::saveRangeMarks()
+{
+      KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
+      KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
+}
+
 void KateViVisualMode::init()
 {
-    m_start = m_view->cursorPosition();
+    // when using "gv" we already have a start position
+    if ( !m_start.isValid() ) {
+      m_start = m_view->cursorPosition();
+    }
     updateDirty();
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0

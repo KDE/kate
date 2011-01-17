@@ -23,6 +23,7 @@
 
 #include "kconfiggroup.h"
 #include "kdebug.h"
+#include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QClipboard>
 
@@ -36,6 +37,7 @@ KateViGlobal::~KateViGlobal()
 {
   delete m_numberedRegisters;
   delete m_registers;
+  qDeleteAll( m_marks );
 }
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
@@ -199,5 +201,26 @@ void KateViGlobal::clearMappings( ViMode mode )
     break;
   default:
     kDebug( 13070 ) << "Mapping not supported for given mode";
+  }
+}
+
+void KateViGlobal::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+{
+  // delete old cursor if any
+  if (KTextEditor::MovingCursor *oldCursor = m_marks.value( mark )) {
+    delete oldCursor;
+  }
+
+  // create and remember new one
+  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+}
+
+KTextEditor::Cursor KateViGlobal::getMarkPosition( const QChar& mark ) const
+{
+  if ( m_marks.contains( mark ) ) {
+    KTextEditor::MovingCursor* c = m_marks.value( mark );
+    return KTextEditor::Cursor( c->line(), c->column() );
+  } else {
+    return KTextEditor::Cursor::invalid();
   }
 }

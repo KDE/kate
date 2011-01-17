@@ -5,12 +5,9 @@ add_definitions(-DQT3_SUPPORT)
 
 set(katefiletemplates_PART_SRCS filetemplates.cpp )
 
-
 kde4_add_plugin(katefiletemplates ${katefiletemplates_PART_SRCS})
 
-
-
-target_link_libraries(katefiletemplates  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KNEWSTUFF2_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(katefiletemplates ${KDE4_KNEWSTUFF2_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
 
 install(TARGETS katefiletemplates  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

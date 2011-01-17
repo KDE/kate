@@ -231,8 +231,11 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     switch( e->key() ) {
     case Qt::Key_BracketLeft:
     case Qt::Key_3:
-    case Qt::Key_C:
       leaveInsertMode();
+      return true;
+      break;
+    case Qt::Key_C:
+      leaveInsertMode( true );
       return true;
       break;
     case Qt::Key_D:
@@ -287,9 +290,12 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
   return false;
 }
 
-void KateViInsertMode::leaveInsertMode()
+// leave insert mode when esc, etc, is pressed. if leaving block
+// prepend/append, the inserted text will be added to all block lines. if
+// ctrl-c is used to exit insert mode this is not done.
+void KateViInsertMode::leaveInsertMode( bool force )
 {
-    if ( m_blockInsert != None ) { // block append/prepend
+    if ( !force && m_blockInsert != None ) { // block append/prepend
 
         // make sure cursor haven't been moved
         if ( m_blockRange.startLine == m_view->cursorPosition().line() ) {

@@ -60,17 +60,15 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
       res = doc()->removeLine( r.startLine );
     }
     doc()->editEnd();
-  } else if ( mode == Block ) {
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), true );
-  } else { // character-wise
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+  } else {
+      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), mode == Block );
   }
 
   if ( addToRegister ) {
     if ( r.startLine == r.endLine ) {
-      fillRegister( getChosenRegister( '-' ), removedText );
+      fillRegister( getChosenRegister( '-' ), removedText, mode );
     } else {
-      fillRegister( getChosenRegister( '0' ), removedText );
+      fillRegister( getChosenRegister( '0' ), removedText, mode );
     }
   }
 

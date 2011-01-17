@@ -226,6 +226,7 @@ class KateViNormalMode : public KateViModeBase
     QRegExp generateMatchingItemRegex();
     virtual void goToPos( const KateViRange &r );
     void executeCommand( const KateViCommand* cmd );
+    OperationMode getOperationMode() const;
 
     QString m_keys;
     unsigned int m_countTemp;

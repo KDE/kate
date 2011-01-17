@@ -20,7 +20,6 @@
 #define SCHEMABROWSERWIDGET_H
 
 class SchemaWidget;
-class KateSQLView;
 
 #include <kvbox.h>
 
@@ -29,7 +28,7 @@ class SchemaBrowserWidget : public KVBox
   Q_OBJECT
 
   public:
-    SchemaBrowserWidget(QWidget *parent, KateSQLView *view);
+    SchemaBrowserWidget(QWidget *parent);
     ~SchemaBrowserWidget();
 
     SchemaWidget *schemaWidget() const;

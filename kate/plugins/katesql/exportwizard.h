@@ -45,6 +45,7 @@ class ExportOutputPage : public QWizardPage
     virtual bool validatePage();
 
   private:
+    QRadioButton *documentRadioButton;
     QRadioButton *clipboardRadioButton;
     QRadioButton *fileRadioButton;
     KUrlRequester *fileUrl;

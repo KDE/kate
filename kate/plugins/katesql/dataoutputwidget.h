@@ -40,7 +40,7 @@ class DataOutputWidget : public QWidget
 
     Q_DECLARE_FLAGS(Options, Option)
 
-    DataOutputWidget(QWidget *parent = 0);
+    DataOutputWidget(QWidget *parent);
     ~DataOutputWidget();
 
     void exportData(QTextStream &stream,

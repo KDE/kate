@@ -16,27 +16,20 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "katesqlview.h"
 #include "schemabrowserwidget.h"
 #include "schemawidget.h"
-// #include "schemamodel.h"
 
 #include <qtreeview.h>
 
-SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, KateSQLView *view)
+SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent)
 : KVBox(parent)
-// , m_model(new SchemaModel(this))
 {
-//   m_schemaView = new QTreeView(this);
-//   m_schemaView->setModel(m_model);
-
-  m_schemaWidget = new SchemaWidget(this, view);
+  m_schemaWidget = new SchemaWidget(this);
 }
 
 
 SchemaBrowserWidget::~SchemaBrowserWidget()
 {
-//   delete m_model;
 }
 
 SchemaWidget* SchemaBrowserWidget::schemaWidget() const

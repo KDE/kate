@@ -57,6 +57,7 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
   QVBoxLayout *layout = new QVBoxLayout();
 
+  documentRadioButton = new QRadioButton(i18nc("@option:radio Output target", "Current document"), this);
   clipboardRadioButton = new QRadioButton(i18nc("@option:radio Output target", "Clipboard"), this);
   fileRadioButton = new QRadioButton(i18nc("@option:radio Output target", "File"), this);
 
@@ -69,12 +70,14 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
   fileLayout->addWidget(fileUrl);
 
+  layout->addWidget(documentRadioButton);
   layout->addWidget(clipboardRadioButton);
   layout->addWidget(fileRadioButton);
   layout->addLayout(fileLayout);
 
   setLayout(layout);
 
+  registerField("outDocument", documentRadioButton);
   registerField("outClipboard", clipboardRadioButton);
   registerField("outFile", fileRadioButton);
   registerField("outFileUrl", fileUrl, "text");
@@ -85,7 +88,7 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
 void ExportOutputPage::initializePage()
 {
-  clipboardRadioButton->setChecked(true);
+  documentRadioButton->setChecked(true);
   fileUrl->setEnabled(false);
 }
 

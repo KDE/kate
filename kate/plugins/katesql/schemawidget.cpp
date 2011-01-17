@@ -17,14 +17,14 @@
 */
 
 #include "schemawidget.h"
-#include "katesqlview.h"
 
+#include <kate/application.h>
+#include <kate/mainwindow.h>
+#include <ktexteditor/view.h>
 #include <kdebug.h>
 #include <kicon.h>
 #include <klocale.h>
 #include <kapplication.h>
-#include <kate/mainwindow.h>
-#include <ktexteditor/view.h>
 
 #include <qvariant.h>
 #include <qstringlist.h>
@@ -35,9 +35,8 @@
 #include <qsqlfield.h>
 #include <qmenu.h>
 
-SchemaWidget::SchemaWidget(QWidget *parent, KateSQLView *view)
+SchemaWidget::SchemaWidget(QWidget *parent)
 : QTreeWidget(parent)
-, m_view(view)
 {
   m_tablesLoaded = false;
   m_viewsLoaded = false;
@@ -376,7 +375,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     break;
   }
 
-  Kate::MainWindow *mw = m_view->mainWindow();
+  Kate::MainWindow *mw = Kate::application()->activeMainWindow();
   KTextEditor::View *kv = mw->activeView();
 
   // replace NULL with a more generic '?'

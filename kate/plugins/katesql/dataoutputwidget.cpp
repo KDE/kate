@@ -21,6 +21,11 @@
 #include "dataoutputview.h"
 #include "exportwizard.h"
 
+#include <kate/application.h>
+#include <kate/mainwindow.h>
+#include <kate/documentmanager.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 #include <kfiledialog.h>
 #include <kapplication.h>
 #include <ktoolbar.h>
@@ -41,10 +46,10 @@
 #include <qfile.h>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
-: QWidget(parent),
-m_model(new DataOutputModel(this)),
-m_view(new DataOutputView(this)),
-m_isEmpty(true)
+: QWidget(parent)
+, m_model(new DataOutputModel(this))
+, m_view(new DataOutputView(this))
+, m_isEmpty(true)
 {
   m_view->setModel(m_model);
 
@@ -207,6 +212,7 @@ void DataOutputWidget::slotExport()
   if (wizard.exec() != QDialog::Accepted)
     return;
 
+  bool outputInDocument = wizard.field("outDocument").toBool();
   bool outputInClipboard = wizard.field("outClipboard").toBool();
   bool outputInFile = wizard.field("outFile").toBool();
 
@@ -228,7 +234,41 @@ void DataOutputWidget::slotExport()
 
   QString fieldDelimiter = wizard.field("fieldDelimiter").toString();
 
-  if (outputInClipboard)
+  if (outputInDocument)
+  {
+    /* New document
+    Kate::MainWindow *mw = Kate::application()->activeMainWindow();
+    Kate::DocumentManager *dm = Kate::application()->documentManager();
+
+    QString text;
+    QTextStream stream(&text);
+
+    exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
+
+    KTextEditor::Document *doc = dm->openUrl(KUrl());
+
+    doc->setText(text);
+
+    KTextEditor::View *kv = mw->activateView(doc);
+
+    kv->setFocus();
+    */
+
+    Kate::MainWindow *mw = Kate::application()->activeMainWindow();
+    KTextEditor::View *kv = mw->activeView();
+
+    if (!kv)
+      return;
+
+    QString text;
+    QTextStream stream(&text);
+
+    exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
+
+    kv->insertText(text);
+    kv->setFocus();
+  }
+  else if (outputInClipboard)
   {
     QString text;
     QTextStream stream(&text);
@@ -236,17 +276,6 @@ void DataOutputWidget::slotExport()
     exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
 
     kapp->clipboard()->setText(text);
-
-    /// TODO: export in current document
-    /*
-    if (!mainWindow())
-      return;
-
-    KTextEditor::View *activeView = mainWindow()->activeView();
-
-    if (activeView)
-      activeView->insertText( text );
-    */
   }
   else if (outputInFile)
   {

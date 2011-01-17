@@ -17,11 +17,14 @@
 */
 
 #include "schemawidget.h"
+#include "katesqlview.h"
 
 #include <kdebug.h>
 #include <kicon.h>
 #include <klocale.h>
 #include <kapplication.h>
+#include <kate/mainwindow.h>
+#include <ktexteditor/view.h>
 
 #include <qvariant.h>
 #include <qstringlist.h>
@@ -32,8 +35,9 @@
 #include <qsqlfield.h>
 #include <qmenu.h>
 
-SchemaWidget::SchemaWidget(QWidget *parent)
+SchemaWidget::SchemaWidget(QWidget *parent, KateSQLView *view)
 : QTreeWidget(parent)
+, m_view(view)
 {
   m_tablesLoaded = false;
   m_viewsLoaded = false;
@@ -283,32 +287,131 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
 
 void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
-  Q_UNUSED(pos);
-
   QMenu menu;
 
   menu.addAction(KIcon("view-refresh"), i18nc("@action:inmenu Context menu", "Refresh"), this, SLOT(refresh()));
 
-  menu.exec(QCursor::pos());
-
-  /// TODO: context menu?
-/*
   QTreeWidgetItem *item = itemAt(pos);
+
+  if (item)
+  {
+    if (item->type() == SchemaWidget::SystemTableType
+    ||  item->type() == SchemaWidget::TableType
+    ||  item->type() == SchemaWidget::ViewType
+    ||  item->type() == SchemaWidget::FieldType)
+    {
+      menu.addSeparator();
+      QMenu *submenu = menu.addMenu(KIcon("tools-wizard"), i18nc("@action:inmenu Submenu title", "Generate"));
+
+      submenu->addAction("SELECT", this, SLOT(generateSelect()));
+      submenu->addAction("UPDATE", this, SLOT(generateUpdate()));
+      submenu->addAction("INSERT", this, SLOT(generateInsert()));
+      submenu->addAction("DELETE", this, SLOT(generateDelete()));
+    }
+  }
+
+  menu.exec(QCursor::pos());
+}
+
+
+void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
+{
+  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+
+  if (!db.isValid() || !db.isOpen() )
+    return;
+
+  QSqlDriver *drv = db.driver();
+
+  if (!drv)
+    return;
+
+  QTreeWidgetItem *item = currentItem();
 
   if (!item)
     return;
 
-  if (item->type() != SchemaWidget::SystemTableType &&
-    item->type() != SchemaWidget::TableType &&
-    item->type() != SchemaWidget::ViewType)
-    return;
+  QString statement;
 
-  QMenu menu;
+  switch (item->type())
+  {
+    case TableType:
+    case SystemTableType:
+    case ViewType:
+    {
+      QString tableName = item->text(0);
 
-  menu.addAction(item->text(0));
-  menu.addAction("Pippo");
-  menu.addAction("Pluto");
+      QSqlRecord rec = db.record(tableName);
 
-  menu.exec(QCursor::pos());
-*/
+      // set all fields to a value (NULL)
+      // values are needed to generate update and insert statements
+      if (statementType == QSqlDriver::UpdateStatement || QSqlDriver::InsertStatement)
+        for (int i = 0, n = rec.count(); i < n; ++i)
+          rec.setNull(i);
+
+      statement = drv->sqlStatement(statementType, tableName, rec, false);
+    }
+    break;
+
+    case FieldType:
+    {
+      QString tableName = item->parent()->text(0);
+      QSqlRecord rec = db.record(tableName);
+
+      // get the selected column...
+      QSqlField field = rec.field(item->text(0));
+
+      // ...and set it's value to NULL
+      field.clear();
+
+      // clear all columns and re-append the selected one
+      rec.clear();
+      rec.append(field);
+
+      statement = drv->sqlStatement(statementType, tableName, rec, false);
+
+      if (statementType == QSqlDriver::DeleteStatement)
+        statement += " " + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(" IS NULL", "=?");
+    }
+    break;
+  }
+
+  Kate::MainWindow *mw = m_view->mainWindow();
+  KTextEditor::View *kv = mw->activeView();
+
+  // replace NULL with a more generic '?'
+  statement = statement.replace("NULL", "?");
+
+  if (kv)
+  {
+    // paste statement in the active view
+    kv->insertText(statement);
+    kv->setFocus();
+  }
+
+  kDebug() << "Generated statement:" << statement;
+}
+
+
+void SchemaWidget::generateSelect()
+{
+  generateStatement(QSqlDriver::SelectStatement);
+}
+
+
+void SchemaWidget::generateUpdate()
+{
+  generateStatement(QSqlDriver::UpdateStatement);
+}
+
+
+void SchemaWidget::generateInsert()
+{
+  generateStatement(QSqlDriver::InsertStatement);
+}
+
+
+void SchemaWidget::generateDelete()
+{
+  generateStatement(QSqlDriver::DeleteStatement);
 }

@@ -74,7 +74,7 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
 
   m_textOutputWidget = new TextOutputWidget(m_textOutputToolView);
   m_dataOutputWidget = new DataOutputWidget(m_dataOutputToolView);
-  m_schemaBrowserWidget = new SchemaBrowserWidget(m_schemaBrowserToolView);
+  m_schemaBrowserWidget = new SchemaBrowserWidget(m_schemaBrowserToolView, this);
 
   m_connectionsComboBox = new KComboBox(this);
   m_connectionsComboBox->setEditable(false);

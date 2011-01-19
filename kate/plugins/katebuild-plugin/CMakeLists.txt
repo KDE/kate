@@ -7,7 +7,7 @@ endif(NOT KDE4_FOUND)
 include_directories (${KDE4_INCLUDES})
 include_directories( ${KDE4_KIO_INCLUDES} )
 
-set(katebuild_SRCS plugin_katebuild.cpp)
+set(katebuild_SRCS plugin_katebuild.cpp targets.cpp)
 
 kde4_add_ui_files(katebuild_SRCS build.ui)
 

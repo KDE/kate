@@ -20,7 +20,7 @@
    <item>
     <widget class="KTabWidget" name="ktabwidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="errs">
       <attribute name="title">
@@ -86,203 +86,11 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="settings">
-      <attribute name="title">
-       <string>Target settings</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QComboBox" name="targetCombo">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="editable">
-          <bool>true</bool>
-         </property>
-         <property name="insertPolicy">
-          <enum>QComboBox::InsertAtCurrent</enum>
-         </property>
-         <item>
-          <property name="text">
-           <string>Target</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="1" rowspan="5">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Working directory</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>buildDir</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="KLineEdit" name="buildDir">
-         <property name="toolTip">
-          <string>Leave empty to use the directory of the current document. </string>
-         </property>
-         <property name="showClearButton" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QToolButton" name="browse">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="KPushButton" name="newTarget">
-         <property name="text">
-          <string>New</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Configure</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>configCmd</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3" colspan="2">
-        <widget class="KLineEdit" name="configCmd">
-         <property name="showClearButton" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="KPushButton" name="copyTarget">
-         <property name="text">
-          <string>Copy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Build</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>buildCmd</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3" colspan="2">
-        <widget class="KLineEdit" name="buildCmd">
-         <property name="showClearButton" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="KPushButton" name="deleteTarget">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Clean</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>cleanCmd</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3" colspan="2">
-        <widget class="KLineEdit" name="cleanCmd">
-         <property name="showClearButton" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Quick compile</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>quickCmd</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3" colspan="2">
-        <widget class="KLineEdit" name="quickCmd">
-         <property name="toolTip">
-          <string>Use &quot;%f&quot; for current file and &quot;%d&quot; for directory of current file.</string>
-         </property>
-         <property name="showClearButton" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="3">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>178</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
@@ -293,16 +101,6 @@
  <tabstops>
   <tabstop>errTreeWidget</tabstop>
   <tabstop>plainTextEdit</tabstop>
-  <tabstop>buildDir</tabstop>
-  <tabstop>browse</tabstop>
-  <tabstop>configCmd</tabstop>
-  <tabstop>buildCmd</tabstop>
-  <tabstop>cleanCmd</tabstop>
-  <tabstop>quickCmd</tabstop>
-  <tabstop>targetCombo</tabstop>
-  <tabstop>newTarget</tabstop>
-  <tabstop>copyTarget</tabstop>
-  <tabstop>deleteTarget</tabstop>
   <tabstop>ktabwidget</tabstop>
  </tabstops>
  <resources/>

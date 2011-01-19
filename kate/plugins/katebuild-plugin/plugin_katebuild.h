@@ -42,6 +42,7 @@ class QRegExp;
 #include <kprocess.h>
 
 #include "ui_build.h"
+#include "targets.h"
 
 /******************************************************************/
 class KateBuildView : public Kate::PluginView, public KXMLGUIClient
@@ -101,7 +102,8 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
-        Ui::build         buildUi;
+        Ui::build         m_buildUi;
+        TargetsUi        *m_targetsUi;
         KProcess         *m_proc;
         QString           m_output_lines;
         KUrl              m_make_dir;
@@ -115,13 +117,15 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
 };
 
 
+typedef QList<QVariant> VariantList;
+
 /******************************************************************/
 class KateBuildPlugin : public Kate::Plugin
 {
     Q_OBJECT
 
     public:
-        explicit KateBuildPlugin(QObject* parent = 0, const QStringList& = QStringList());
+        explicit KateBuildPlugin(QObject* parent = 0, const VariantList& = VariantList());
         virtual ~KateBuildPlugin() {}
 
         Kate::PluginView *createView(Kate::MainWindow *mainWindow);

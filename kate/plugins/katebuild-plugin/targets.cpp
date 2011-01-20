@@ -27,10 +27,18 @@ QWidget(parent)
     targetCombo->setEditable(true);
     targetCombo->setInsertPolicy(QComboBox::InsertAtCurrent);
     
-    newTarget = new KPushButton(i18n("New"), this);
-    copyTarget = new KPushButton(i18n("Copy"), this);
-    deleteTarget = new KPushButton(i18n("Delete"), this);
+    newTarget = new QToolButton(this);
+    newTarget->setToolTip(i18n("New"));
+    newTarget->setIcon(KIcon("document-new"));
+    
+    copyTarget = new QToolButton(this);
+    copyTarget->setToolTip(i18n("Copy"));
+    copyTarget->setIcon(KIcon("edit-copy"));
 
+    deleteTarget = new QToolButton(this);
+    deleteTarget->setToolTip(i18n("Delete"));
+    deleteTarget->setIcon(KIcon("edit-delete"));
+    
     line = new QFrame(this);
     line->setFrameShadow(QFrame::Sunken);
     
@@ -38,6 +46,7 @@ QWidget(parent)
     buildDir = new KLineEdit(this);
     buildDir->setToolTip(i18n("Leave empty to use the directory of the current document. "));
     browse = new QToolButton(this);
+    browse->setIcon(KIcon("inode-directory"));
     configLabel = new QLabel(i18n("Configure"), this);
     configCmd = new KLineEdit(this);
     buildLabel = new QLabel(i18n("Build"), this);
@@ -120,9 +129,14 @@ void TargetsUi::setBottomLayout()
 {
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(targetCombo, 0, 0);
-    layout->addWidget(newTarget, 1, 0);
-    layout->addWidget(copyTarget, 2, 0);
-    layout->addWidget(deleteTarget, 3, 0);
+    
+    QHBoxLayout* tLayout = new QHBoxLayout();
+    tLayout->addWidget(newTarget, 0);
+    tLayout->addWidget(copyTarget, 0);
+    tLayout->addWidget(deleteTarget, 0);
+    tLayout->setContentsMargins(0,0,0,0);
+    
+    layout->addLayout(tLayout, 1, 0);
     
     line->setFrameShape(QFrame::VLine);
     layout->addWidget(line, 0, 1, 5, 1);

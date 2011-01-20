@@ -142,7 +142,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     m_buildUi.plainTextEdit->setReadOnly(true);
 
-    m_targetsUi->browse->setIcon(KIcon("inode-directory"));
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
     // set the default values of the build settings. (I think loading a plugin should also trigger
@@ -191,17 +190,17 @@ QWidget *KateBuildView::toolView() const
 /******************************************************************/
 void KateBuildView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-   m_targetsUi->targetCombo->blockSignals(true);
-    
+    m_targetsUi->targetCombo->blockSignals(true);
+
     KConfigGroup cg(config, groupPrefix + ":build-plugin");
     int numTargets = cg.readEntry("NumTargets", 0);
-   m_targetsUi->targetCombo->clear();
+    m_targetsUi->targetCombo->clear();
     m_targetList.clear();
     m_targetIndex = 0;
     if (numTargets == 0 ) {
         m_targetList.append(Target());
         m_targetList[0].name = cg.readEntry(QString("0 Target"), QString("Target 1"));
-       m_targetsUi->targetCombo->addItem(m_targetList[0].name);
+        m_targetsUi->targetCombo->addItem(m_targetList[0].name);
         m_targetList[0].buildDir = cg.readEntry(QString("Make Path"), QString());
         m_targetList[0].configCmd  = cg.readEntry(QString("0 ConfigCmd"), DefConfigCmd);
         m_targetList[0].buildCmd = cg.readEntry(QString("Make Command"), DefBuildCmd);
@@ -212,7 +211,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
         for (int i=0; i<numTargets; i++) {
             m_targetList.append(Target());
             m_targetList[i].name = cg.readEntry(QString("%1 Target").arg(i), QString("Target %1").arg(i+1));
-           m_targetsUi->targetCombo->addItem(m_targetList[i].name);
+            m_targetsUi->targetCombo->addItem(m_targetList[i].name);
             m_targetList[i].buildDir = cg.readEntry(QString("%1 BuildPath").arg(i), QString());
             m_targetList[i].configCmd  = cg.readEntry(QString("%1 ConfigCmd").arg(i), DefConfigCmd);
             m_targetList[i].buildCmd = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
@@ -232,6 +231,10 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     else {
        m_targetsUi->deleteTarget->setDisabled(true);
     }
+
+    // select the last active target if possible
+    m_targetsUi->targetCombo->setCurrentIndex(cg.readEntry(QString("Active Target Index"), 0));
+
 }
 
 /******************************************************************/
@@ -250,6 +253,7 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
         cg.writeEntry(QString("%1 CleanCmd").arg(i), m_targetList[i].cleanCmd);
         cg.writeEntry(QString("%1 QuickCmd").arg(i), m_targetList[i].quickCmd);
     }
+    cg.writeEntry(QString("Active Target Index"), m_targetIndex);
 }
 
 

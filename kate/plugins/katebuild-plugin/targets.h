@@ -17,9 +17,9 @@ public:
     TargetsUi(QWidget *parent = 0);
 
     QComboBox *targetCombo;
-    KPushButton *newTarget;
-    KPushButton *copyTarget;
-    KPushButton *deleteTarget;
+    QToolButton *newTarget;
+    QToolButton *copyTarget;
+    QToolButton *deleteTarget;
     QFrame *line;
     
     QLabel *dirLabel;

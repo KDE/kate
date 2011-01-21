@@ -24,6 +24,7 @@ class QMouseEvent;
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <qstring.h>
+#include <qsqldriver.h>
 
 class SchemaWidget : public QTreeWidget
 {
@@ -38,7 +39,7 @@ class SchemaWidget : public QTreeWidget
     static const int SystemTablesFolderType = QTreeWidgetItem::UserType + 102;
     static const int ViewsFolderType  = QTreeWidgetItem::UserType + 103;
 
-    SchemaWidget(QWidget *parent = 0);
+    SchemaWidget(QWidget *parent);
     virtual ~SchemaWidget();
 
     void buildDatabase(QTreeWidgetItem * databaseItem);
@@ -49,6 +50,12 @@ class SchemaWidget : public QTreeWidget
   public slots:
     void buildTree(const QString &connection);
     void refresh();
+
+    void generateSelect();
+    void generateUpdate();
+    void generateInsert();
+    void generateDelete();
+    void generateStatement(QSqlDriver::StatementType type);
 
   private slots:
     void slotCustomContextMenuRequested(const QPoint &pos);
@@ -64,7 +71,6 @@ class SchemaWidget : public QTreeWidget
 
     bool m_tablesLoaded;
     bool m_viewsLoaded;
-
 };
 
 #endif // SCHEMAWIDGET_H

@@ -40,7 +40,7 @@ class DataOutputWidget : public QWidget
 
     Q_DECLARE_FLAGS(Options, Option)
 
-    DataOutputWidget(QWidget *parent = 0);
+    DataOutputWidget(QWidget *parent);
     ~DataOutputWidget();
 
     void exportData(QTextStream &stream,
@@ -68,6 +68,8 @@ class DataOutputWidget : public QWidget
     /// TODO: manage multiple views for query with multiple resultsets
     DataOutputModel *m_model;
     DataOutputView *m_view;
+
+    bool m_isEmpty;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

@@ -300,6 +300,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
   if (!db.isValid())
   {
+    m_model->setEnabled(connection, false);
     emit error(db.lastError().text());
     return;
   }

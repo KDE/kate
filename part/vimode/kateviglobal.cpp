@@ -23,19 +23,21 @@
 
 #include "kconfiggroup.h"
 #include "kdebug.h"
+#include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QClipboard>
 
 KateViGlobal::KateViGlobal()
 {
-  m_numberedRegisters = new QList<QString>;
-  m_registers = new QMap<QChar, QString>;
+  m_numberedRegisters = new QList<KateViRegister>;
+  m_registers = new QMap<QChar, KateViRegister>;
 }
 
 KateViGlobal::~KateViGlobal()
 {
   delete m_numberedRegisters;
   delete m_registers;
+  qDeleteAll( m_marks );
 }
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
@@ -64,37 +66,49 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
     }
 }
 
-QString KateViGlobal::getRegisterContent( const QChar &reg ) const
+KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
 {
-  QString regContent;
+  KateViRegister regPair;
   QChar _reg = ( reg != '"' ? reg : m_defaultRegister );
 
   if ( _reg >= '1' && _reg <= '9' ) { // numbered register
     int index = QString( _reg ).toInt()-1;
     if ( m_numberedRegisters->size() > index) {
-      regContent = m_numberedRegisters->at( index );
+      regPair = m_numberedRegisters->at( index );
     }
   } else if ( _reg == '+' ) { // system clipboard register
-      regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
+      QString regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
+      regPair = KateViRegister( regContent, CharWise );
   } else if ( _reg == '*' ) { // system selection register
-      regContent = QApplication::clipboard()->text( QClipboard::Selection );
+      QString regContent = QApplication::clipboard()->text( QClipboard::Selection );
+      regPair = KateViRegister( regContent, CharWise );
   } else { // regular, named register
     if ( m_registers->contains( _reg ) ) {
-      regContent = m_registers->value( _reg );
+      regPair = m_registers->value( _reg );
     }
   }
 
-  return regContent;
+  return regPair;
 }
 
-void KateViGlobal::addToNumberedRegister( const QString &text )
+QString KateViGlobal::getRegisterContent( const QChar &reg ) const
+{
+  return getRegister( reg ).first;
+}
+
+OperationMode KateViGlobal::getRegisterFlag( const QChar &reg ) const
+{
+  return getRegister( reg ).second;
+}
+
+void KateViGlobal::addToNumberedRegister( const QString &text, OperationMode flag )
 {
   if ( m_numberedRegisters->size() == 9 ) {
     m_numberedRegisters->removeLast();
   }
 
   // register 0 is used for the last yank command, so insert at position 1
-  m_numberedRegisters->prepend( text );
+  m_numberedRegisters->prepend( KateViRegister(text, flag ) );
 
   kDebug( 13070 ) << "Register 1-9:";
   for ( int i = 0; i < m_numberedRegisters->size(); i++ ) {
@@ -102,7 +116,7 @@ void KateViGlobal::addToNumberedRegister( const QString &text )
   }
 }
 
-void KateViGlobal::fillRegister( const QChar &reg, const QString &text )
+void KateViGlobal::fillRegister( const QChar &reg, const QString &text, OperationMode flag )
 {
   // the specified register is the "black hole register", don't do anything
   if ( reg == '_' ) {
@@ -116,7 +130,7 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text )
   } else if ( reg == '*' ) { // system selection register
       QApplication::clipboard()->setText( text, QClipboard::Selection );
   } else {
-    m_registers->insert( reg, text );
+    m_registers->insert( reg, KateViRegister(text, flag) );
   }
 
   kDebug( 13070 ) << "Register " << reg << " set to " << getRegisterContent( reg );
@@ -187,5 +201,26 @@ void KateViGlobal::clearMappings( ViMode mode )
     break;
   default:
     kDebug( 13070 ) << "Mapping not supported for given mode";
+  }
+}
+
+void KateViGlobal::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+{
+  // delete old cursor if any
+  if (KTextEditor::MovingCursor *oldCursor = m_marks.value( mark )) {
+    delete oldCursor;
+  }
+
+  // create and remember new one
+  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+}
+
+KTextEditor::Cursor KateViGlobal::getMarkPosition( const QChar& mark ) const
+{
+  if ( m_marks.contains( mark ) ) {
+    KTextEditor::MovingCursor* c = m_marks.value( mark );
+    return KTextEditor::Cursor( c->line(), c->column() );
+  } else {
+    return KTextEditor::Cursor::invalid();
   }
 }

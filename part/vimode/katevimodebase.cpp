@@ -60,17 +60,15 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
       res = doc()->removeLine( r.startLine );
     }
     doc()->editEnd();
-  } else if ( mode == Block ) {
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), true );
-  } else { // character-wise
-      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+  } else {
+      res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), mode == Block );
   }
 
   if ( addToRegister ) {
     if ( r.startLine == r.endLine ) {
-      fillRegister( getChosenRegister( '-' ), removedText );
+      fillRegister( getChosenRegister( '-' ), removedText, mode );
     } else {
-      fillRegister( getChosenRegister( '0' ), removedText );
+      fillRegister( getChosenRegister( '0' ), removedText, mode );
     }
   }
 
@@ -661,15 +659,20 @@ QString KateViModeBase::getRegisterContent( const QChar &reg ) const
   QString r = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 
   if ( r.isNull() ) {
-    error( i18n( "Nothing in register %1" ,reg ));
+    error( i18n( "Nothing in register %1", reg ));
   }
 
   return r;
 }
 
-void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
+OperationMode KateViModeBase::getRegisterFlag( const QChar &reg ) const
 {
-  KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+  return KateGlobal::self()->viInputModeGlobal()->getRegisterFlag( reg );
+}
+
+void KateViModeBase::fillRegister( const QChar &reg, const QString &text, OperationMode flag )
+{
+  KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text, flag );
 }
 
 KateViRange KateViModeBase::goLineDown()

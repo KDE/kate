@@ -43,7 +43,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="GNU Assembler" version="1.05" kateversion="2.4" section="Assembler" extensions="*.s;*.S" mimetype="text/x-asm" author="John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name), Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="GNU Assembler" version="1.10" kateversion="2.4" section="Assembler" extensions="*.s;*.S" mimetype="text/x-asm" author="John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name), Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
   <highlighting>
     <list name="keywords">
       <item>.abort</item>
@@ -249,15 +249,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*if(?:def|ndef)?(?=\s+\S)" insensitive="true" beginRegion="PP" firstNonSpace="true" />
         <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*endif" insensitive="true" endRegion="PP" firstNonSpace="true" />
         <RegExpr      attribute="Preprocessor" context="Define" String="#\s*define.*((?=\\))" insensitive="true" firstNonSpace="true" />
-        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
+        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" firstNonSpace="true" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
         <AnyChar      attribute="Comment" context="Commentar 2" String="@;#" />
         <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
+        <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" />
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" >
+        <IncludeRules context="##Alerts" />
+      </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue  attribute="String" context="Some Context" />
         <HlCStringChar attribute="String Char" context="#stay" />

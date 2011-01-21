@@ -41,6 +41,9 @@ class KateViVisualMode : public KateViNormalMode {
     bool isVisualBlock() const { return m_mode == VisualBlockMode; }
     void switchStartEnd();
     void setVisualModeType( ViMode mode );
+    void saveRangeMarks();
+    void setStart( const KTextEditor::Cursor& c ) { m_start = c; }
+    ViMode getLastVisualMode() const { return m_lastVisualMode; }
     KTextEditor::Cursor getStart() const { return m_start; }
     KTextEditor::Range getVisualRange() const;
 
@@ -52,6 +55,7 @@ class KateViVisualMode : public KateViNormalMode {
     ViMode m_mode;
     KTextEditor::Cursor m_start;
     KTextEditor::Cursor m_previous; // previous position, used when deciding which lines to redraw
+    ViMode m_lastVisualMode; // used when reselecting a visual selection
 };
 
 #endif

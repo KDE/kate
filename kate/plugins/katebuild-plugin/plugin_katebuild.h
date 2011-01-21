@@ -42,12 +42,23 @@ class QRegExp;
 #include <kprocess.h>
 
 #include "ui_build.h"
+#include "targets.h"
 
 /******************************************************************/
 class KateBuildView : public Kate::PluginView, public KXMLGUIClient
 {
     Q_OBJECT
 
+    private:
+        typedef struct {
+            QString name;
+            QString buildDir;
+            QString configCmd;
+            QString buildCmd;
+            QString cleanCmd;
+            QString quickCmd;
+        } Target;
+        
     public:
         KateBuildView(Kate::MainWindow *mw);
         ~KateBuildView();
@@ -58,12 +69,13 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
 
         QWidget *toolView() const;
 
-    public slots:
+    private Q_SLOTS:
         // selecting warnings
         void slotItemSelected(QTreeWidgetItem *item);
         void slotNext();
         void slotPrev();
 
+        bool slotConfig();
         bool slotMake();
         bool slotMakeClean();
         bool slotQuickCompile();
@@ -75,20 +87,23 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
 
         // settings
         void slotBrowseClicked();
+        void targetSelected(int index);
+        void targetNew();
+        void targetCopy();
+        void targetDelete();
 
-    protected:
+    private:
         void processLine(const QString &);
         void addError(const QString &filename, const QString &line,
                       const QString &column, const QString &message);
         bool startProcess(const KUrl &dir, const QString &command);
-
-    private:
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
         
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
-        Ui::build         buildUi;
+        Ui::build         m_buildUi;
+        TargetsUi        *m_targetsUi;
         KProcess         *m_proc;
         QString           m_output_lines;
         KUrl              m_make_dir;
@@ -97,8 +112,12 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         QRegExp           m_newDirDetector;
         unsigned int      m_numErrors;
         unsigned int      m_numWarnings;
+        QList<Target>     m_targetList;
+        int               m_targetIndex;
 };
 
+
+typedef QList<QVariant> VariantList;
 
 /******************************************************************/
 class KateBuildPlugin : public Kate::Plugin
@@ -106,7 +125,7 @@ class KateBuildPlugin : public Kate::Plugin
     Q_OBJECT
 
     public:
-        explicit KateBuildPlugin(QObject* parent = 0, const QStringList& = QStringList());
+        explicit KateBuildPlugin(QObject* parent = 0, const VariantList& = VariantList());
         virtual ~KateBuildPlugin() {}
 
         Kate::PluginView *createView(Kate::MainWindow *mainWindow);

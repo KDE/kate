@@ -29,7 +29,6 @@
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
 
-#include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QList>
 
@@ -71,9 +70,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
 KateViNormalMode::~KateViNormalMode()
 {
-  // delete the text cursors
-  qDeleteAll( m_marks );
-
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
 }
@@ -438,15 +434,7 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {
-    Cursor c( m_view->cursorPosition() );
-
-    // delete old cursor if any
-    if (KTextEditor::MovingCursor *oldCursor = m_marks.value('\''))
-      delete oldCursor;
-
-    // create and remember new one
-    KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
-    m_marks.insert( '\'', cursor );
+    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -537,6 +525,39 @@ bool KateViNormalMode::commandEnterVisualBlockMode()
   return startVisualBlockMode();
 }
 
+bool KateViNormalMode::commandReselectVisual()
+{
+  // start last visual mode and set start = `< and cursor = `>
+  Cursor c1 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '<' );
+  Cursor c2 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '>' );
+
+  // we should either get two valid cursors or two invalid cursors
+  Q_ASSERT( c1.isValid() == c2.isValid() );
+
+  if ( c1.isValid() && c2.isValid() ) {
+    m_viInputModeManager->getViVisualMode()->setStart( c1 );
+    updateCursor( c2 );
+
+    switch ( m_viInputModeManager->getViVisualMode()->getLastVisualMode() ) {
+    case VisualMode:
+      return commandEnterVisualMode();
+      break;
+    case VisualLineMode:
+      return commandEnterVisualLineMode();
+      break;
+    case VisualBlockMode:
+      return commandEnterVisualBlockMode();
+      break;
+    default:
+      Q_ASSERT( "invalid visual mode" );
+    }
+  } else {
+    error("No previous visual selection");
+  }
+
+  return false;
+}
+
 bool KateViNormalMode::commandEnterVisualMode()
 {
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
@@ -598,17 +619,7 @@ bool KateViNormalMode::commandDeleteLine()
 
 bool KateViNormalMode::commandDelete()
 {
-  OperationMode m = CharWise;
-
-  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
-    || ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode )) {
-    m = LineWise;
-  }
-
-  return deleteRange( m_commandRange, m );
+  return deleteRange( m_commandRange, getOperationMode() );
 }
 
 bool KateViNormalMode::commandDeleteToEOL()
@@ -666,15 +677,7 @@ bool KateViNormalMode::commandDeleteToEOL()
 
 bool KateViNormalMode::commandMakeLowercase()
 {
-  OperationMode m = CharWise;
-
-  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
-  } else if ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
-    m = LineWise;
-  }
-
+  OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
   QString lowerCase = text.toLower();
 
@@ -703,14 +706,7 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 
 bool KateViNormalMode::commandMakeUppercase()
 {
-  OperationMode m = CharWise;
-
-  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
-  } else if ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode ) {
-    m = LineWise;
-  }
+  OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
   QString upperCase = text.toUpper();
 
@@ -744,7 +740,8 @@ bool KateViNormalMode::commandChangeCase()
   Cursor c( m_view->cursorPosition() );
 
   // in visual mode, the range is from start position to end position...
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+    || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     Cursor c2 = m_viInputModeManager->getViVisualMode()->getStart();
 
     if ( c2 > c ) {
@@ -781,8 +778,10 @@ bool KateViNormalMode::commandChangeCase()
     range.setRange( c, c2 );
   }
 
+  bool block = m_viInputModeManager->getCurrentViMode() == VisualBlockMode;
+
   // get the text the command should operate on
-  text = doc()->text ( range );
+  text = doc()->text ( range, block );
 
   // for every character, switch its case
   for ( int i = 0; i < text.length(); i++ ) {
@@ -794,7 +793,7 @@ bool KateViNormalMode::commandChangeCase()
   }
 
   // replace the old text with the modified text
-  doc()->replaceText( range, text );
+  doc()->replaceText( range, text, block );
 
   // in normal mode, move the cursor to the right, in visual mode move the
   // cursor to the start of the selection
@@ -893,28 +892,33 @@ bool KateViNormalMode::commandChange()
 {
   Cursor c( m_view->cursorPosition() );
 
-  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode );
+  OperationMode m = getOperationMode();
 
   doc()->editStart();
   commandDelete();
 
   // if we deleted several lines, insert an empty line and put the cursor there
-  if ( linewise ) {
+  if ( m == LineWise ) {
     doc()->insertLine( m_commandRange.startLine, QString() );
     c.setLine( m_commandRange.startLine );
     c.setColumn(0);
   }
   doc()->editEnd();
 
-  if ( linewise ) {
+  if ( m == LineWise ) {
     updateCursor( c );
+  }
+
+  // block substitute can be simulated by first deleting the text (done above) and then starting
+  // block prepend
+  if ( m == Block ) {
+    return commandPrependToBlock();
   }
 
   commandEnterInsertMode();
 
   // correct indentation level
-  if ( linewise ) {
+  if ( m == LineWise ) {
     m_view->align();
   }
 
@@ -924,9 +928,12 @@ bool KateViNormalMode::commandChange()
 bool KateViNormalMode::commandChangeToEOL()
 {
   commandDeleteToEOL();
-  commandEnterInsertModeAppend();
 
-  return true;
+  if ( getOperationMode() == Block ) {
+    return commandPrependToBlock();
+  }
+
+  return commandEnterInsertModeAppend();
 }
 
 bool KateViNormalMode::commandChangeLine()
@@ -950,6 +957,9 @@ bool KateViNormalMode::commandChangeLine()
   doc()->editEnd();
 
   // ... then enter insert mode
+  if ( getOperationMode() == Block ) {
+    return commandPrependToBlock();
+  }
   commandEnterInsertModeAppend();
 
   // correct indentation level
@@ -979,19 +989,10 @@ bool KateViNormalMode::commandYank()
   bool r = false;
   QString yankedText;
 
-  OperationMode m = CharWise;
-
-  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
-    || ( m_commandRange.startLine != m_commandRange.endLine
-      && m_viInputModeManager->getCurrentViMode() != VisualMode ) ) {
-    m = LineWise;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;
-  }
-
+  OperationMode m = getOperationMode();
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText );
+  fillRegister( getChosenRegister( '0' ), yankedText, m );
 
   return r;
 }
@@ -1005,7 +1006,7 @@ bool KateViNormalMode::commandYankLine()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
       lines.append( getLine( linenum + i ) + '\n' );
   }
-  fillRegister( getChosenRegister( '0' ), lines );
+  fillRegister( getChosenRegister( '0' ), lines, LineWise );
 
   return true;
 }
@@ -1036,7 +1037,7 @@ bool KateViNormalMode::commandYankToEOL()
 
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText );
+  fillRegister( getChosenRegister( '0' ), yankedText, m );
 
   return r;
 }
@@ -1049,6 +1050,7 @@ bool KateViNormalMode::commandPaste()
   Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
+  OperationMode m = getRegisterFlag( reg );
   QString textToInsert = getRegisterContent( reg );
 
   if ( textToInsert.isNull() ) {
@@ -1057,10 +1059,10 @@ bool KateViNormalMode::commandPaste()
   }
 
   if ( getCount() > 1 ) {
-    textToInsert = textToInsert.repeated( getCount() );
+    textToInsert = textToInsert.repeated( getCount() ); // FIXME: does this make sense for blocks?
   }
 
-  if ( textToInsert.endsWith('\n') ) { // line(s)
+  if ( m == LineWise ) {
     textToInsert.chop( 1 ); // remove the last \n
     c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
     textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
@@ -1075,7 +1077,7 @@ bool KateViNormalMode::commandPaste()
     cAfter = c;
   }
 
-  doc()->insertText( c, textToInsert );
+  doc()->insertText( c, textToInsert, m == Block );
 
   updateCursor( cAfter );
 
@@ -1091,6 +1093,7 @@ bool KateViNormalMode::commandPasteBefore()
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
+  OperationMode m = getRegisterFlag( reg );
 
   if ( getCount() > 1 ) {
     textToInsert = textToInsert.repeated( getCount() );
@@ -1101,7 +1104,7 @@ bool KateViNormalMode::commandPasteBefore()
     cAfter.setColumn( 0 );
   }
 
-  doc()->insertText( c, textToInsert );
+  doc()->insertText( c, textToInsert, m == Block );
 
   updateCursor( cAfter );
 
@@ -1177,9 +1180,16 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
     m_view->switchToCmdLine();
 
-    // if a count is given, the range [current line] to [current line] + count should be prepended
-    // to the command line
-    if ( getCount() != 1 ) {
+    /*if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+      // if in visual mode, make command range == visual selection
+      m_viInputModeManager->getViVisualMode()->saveRangeMarks();
+      m_view->cmdLineBar()->setText( "'<,'>" );
+    }
+    else*/ if ( getCount() != 1 ) {
+      // if a count is given, the range [current line] to [current line] +
+      // count should be prepended to the command line
       m_view->cmdLineBar()->setText( ".,.+" +QString::number( getCount()-1 ), false);
     }
 
@@ -1208,14 +1218,7 @@ bool KateViNormalMode::commandSetMark()
 {
   Cursor c( m_view->cursorPosition() );
 
-  // delete old cursor if any
-  if (KTextEditor::MovingCursor *oldCursor = m_marks.value(m_keys.at( m_keys.size()-1 )))
-    delete oldCursor;
-
-  // create and remember new one
-  KTextEditor::MovingCursor *cursor = doc()->newMovingCursor( c );
-  m_marks.insert( m_keys.at( m_keys.size()-1 ), cursor );
-
+  KateGlobal::self()->viInputModeGlobal()->addMark( doc(), m_keys.at( m_keys.size()-1 ), c );
   kDebug( 13070 ) << "set mark at (" << c.line() << "," << c.column() << ")";
 
   return true;
@@ -1961,10 +1964,10 @@ KateViRange KateViNormalMode::motionToMark()
       reg = '\'';
   }
 
-  if ( m_marks.contains( reg ) ) {
-    KTextEditor::MovingCursor *cursor = m_marks.value( reg );
-    r.endLine = cursor->line();
-    r.endColumn = cursor->column();
+  Cursor c = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( reg );
+  if ( c.isValid() ) {
+    r.endLine = c.line();
+    r.endColumn = c.column();
   } else {
     error(i18n("Mark not set: %1",m_keys.right( 1 ) ));
     r.valid = false;
@@ -2391,6 +2394,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
   ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
+  ADDCMD("gv", commandReselectVisual, 0 );
   ADDCMD("o", commandOpenNewLineUnder, IS_CHANGE );
   ADDCMD("O", commandOpenNewLineOver, IS_CHANGE );
   ADDCMD("J", commandJoinLines, IS_CHANGE );
@@ -2476,8 +2480,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
   ADDMOTION("%", motionToMatchingItem, 0 );
-  ADDMOTION("`[a-zA-Z]", motionToMark, REGEX_PATTERN );
-  ADDMOTION("'[a-zA-Z]", motionToMarkLine, REGEX_PATTERN );
+  ADDMOTION("`[a-zA-Z><]", motionToMark, REGEX_PATTERN );
+  ADDMOTION("'[a-zA-Z><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );
@@ -2542,3 +2546,21 @@ const QStringList KateViNormalMode::getMappings() const
     return KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
 }
 
+// returns the operation mode that should be used. this is decided by using the following heuristic:
+// 1. if we're in visual block mode, it should be Block
+// 2. if we're in visual line mode OR the range spans several lines, it should be LineWise
+// 3. if neither of these is true, CharWise is returned
+OperationMode KateViNormalMode::getOperationMode() const
+{
+  OperationMode m = CharWise;
+
+  if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    m = Block;
+  } else if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
+    || ( m_commandRange.startLine != m_commandRange.endLine
+      && m_viInputModeManager->getCurrentViMode() != VisualMode )) {
+    m = LineWise;
+  }
+
+  return m;
+}

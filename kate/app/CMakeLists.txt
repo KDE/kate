@@ -29,7 +29,7 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
 
 kde4_add_library(kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 
-target_link_libraries(kateinterfaces  ${KDE4_KUTILS_LIBS} ${KDE4_KDE3SUPPORT_LIBS}  ${QT_QTXML_LIBRARY} ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KPARTS_LIBS})
+target_link_libraries(kateinterfaces  ${KDE4_KUTILS_LIBS} ${QT_QTXML_LIBRARY} ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KPARTS_LIBS})
 target_link_libraries(kateinterfaces  LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
 
 

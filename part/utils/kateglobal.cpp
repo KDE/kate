@@ -198,6 +198,8 @@ KateGlobal::~KateGlobal()
   delete m_modeManager;
   delete m_schemaManager;
 
+  delete m_viInputModeGlobal;
+
   delete m_dirWatch;
 
   // you too
@@ -208,7 +210,6 @@ KateGlobal::~KateGlobal()
   delete m_hlManager;
   delete m_cmdManager;
 
-  delete m_viInputModeGlobal;
   delete m_spellCheckManager;
 
   // cu model

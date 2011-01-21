@@ -3767,13 +3767,6 @@
 				<HlCOct attribute="Octal" context="#stay"/>
 				<HlCHex attribute="Hex" context="#stay"/>
 				<Int attribute="Decimal" context="#stay">
-					<StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
 					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
 				</Int>
 				<HlCChar attribute="Char" context="#stay"/>

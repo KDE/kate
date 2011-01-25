@@ -354,8 +354,9 @@ function tryCComment(line)
     var lastPos = document.lastColumn(currentLine);
     var char1 = document.charAt(currentLine, firstPos);
     var char2 = document.charAt(currentLine, firstPos + 1);
+    var currentString = document.line(currentLine);
 
-    if (char1 == '/' && char2 == '*') {
+    if (char1 == '/' && char2 == '*' && !currentString.contains("*/")) {
         indentation = document.firstVirtualColumn(currentLine);
         if (cfgAutoInsertStar) {
             // only add '*', if there is none yet.
@@ -366,7 +367,6 @@ function tryCComment(line)
                 document.insertText(line, document.firstColumn(line) + 1, ' ');
         }
     } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {
-        var currentString = document.line(currentLine);
         currentString.search(/^\s*\*(\s*)/);
         // in theory, we could search for opening /*, and use its indentation
         // and then one alignment character. Let's not do this for now, though.

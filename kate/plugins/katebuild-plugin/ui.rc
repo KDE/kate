@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="katebuild-plugin" library="katebuildplugin" version="4">
+<gui name="katebuild-plugin" library="katebuildplugin" version="5">
     <MenuBar>
         <Menu name="Build"><text>&amp;Build</text>
             <Action name="run_make"/>
@@ -9,6 +9,8 @@
             <Separator/>
             <Action name="goto_prev" />
             <Action name="goto_next" />
-       </Menu>
+            <Separator/>
+            <Action name="target_next" />
+        </Menu>
     </MenuBar>
 </gui>

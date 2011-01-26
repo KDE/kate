@@ -92,6 +92,7 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         void targetNew();
         void targetCopy();
         void targetDelete();
+        void targetNext();
 
     private:
         void processLine(const QString &);

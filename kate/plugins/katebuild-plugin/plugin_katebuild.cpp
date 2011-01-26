@@ -100,32 +100,36 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     m_win=mw;
 
-    KAction *make = actionCollection()->addAction("run_make");
-    make->setText(i18n("Run make"));
-    connect(make, SIGNAL(triggered(bool)), this, SLOT(slotMake()));
+    KAction *a = actionCollection()->addAction("run_make");
+    a->setText(i18n("Build"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMake()));
 
-    KAction *clean = actionCollection()->addAction("make_clean");
-    clean->setText(i18n("Make Clean"));
-    connect(clean, SIGNAL(triggered(bool)), this, SLOT(slotMakeClean()));
+    a = actionCollection()->addAction("make_clean");
+    a->setText(i18n("Clean"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMakeClean()));
 
-    KAction *quick = actionCollection()->addAction("quick_compile");
-    quick->setText(i18n("Quick Compile"));
-    connect(quick, SIGNAL(triggered(bool)), this, SLOT(slotQuickCompile()));
+    a = actionCollection()->addAction("quick_compile");
+    a->setText(i18n("Quick Compile"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotQuickCompile()));
 
-    KAction *stop = actionCollection()->addAction("stop");
-    stop->setText(i18n("Stop"));
-    connect(stop, SIGNAL(triggered(bool)), this, SLOT(slotStop()));
+    a = actionCollection()->addAction("stop");
+    a->setText(i18n("Stop"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotStop()));
 
-    KAction *next = actionCollection()->addAction("goto_next");
-    next->setText(i18n("Next Error"));
-    next->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Right));
-    connect(next, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
+    a = actionCollection()->addAction("goto_next");
+    a->setText(i18n("Next Error"));
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Right));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
 
-    KAction *prev = actionCollection()->addAction("goto_prev");
-    prev->setText(i18n("Previous Error"));
-    prev->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Left));
-    connect(prev, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
-
+    a = actionCollection()->addAction("goto_prev");
+    a->setText(i18n("Previous Error"));
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Left));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
+    
+    a = actionCollection()->addAction("target_next");
+    a->setText(i18n("Next Target"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
+    
     QWidget *buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(buildWidget);
     m_targetsUi = new TargetsUi(m_buildUi.ktabwidget);
@@ -804,5 +808,19 @@ void KateBuildView::targetDelete()
         m_targetsUi->deleteTarget->setDisabled(true);
     }
     m_targetsUi->targetCombo->blockSignals(false);
+}
+
+/******************************************************************/
+void KateBuildView::targetNext()
+{
+    int index = m_targetsUi->targetCombo->currentIndex();
+    index++;
+    if (index == m_targetsUi->targetCombo->count()) index = 0;
+
+    m_targetsUi->targetCombo->setCurrentIndex(index);
+    
+    m_win->showToolView(m_toolView);
+    m_buildUi.ktabwidget->setCurrentIndex(2);
+    
 }
 

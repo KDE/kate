@@ -18,6 +18,7 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "targets.h"
+#include "targets.moc"
 #include <klocale.h>
 
 TargetsUi::TargetsUi(QWidget *parent):
@@ -26,6 +27,7 @@ QWidget(parent)
     targetCombo = new QComboBox(this);
     targetCombo->setEditable(true);
     targetCombo->setInsertPolicy(QComboBox::InsertAtCurrent);
+    connect(targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(editTarget(QString)));
     
     newTarget = new QToolButton(this);
     newTarget->setToolTip(i18n("New"));
@@ -45,24 +47,55 @@ QWidget(parent)
     dirLabel = new QLabel(i18n("Working directory"), this);
     buildDir = new KLineEdit(this);
     buildDir->setToolTip(i18n("Leave empty to use the directory of the current document. "));
+    buildDir->setClearButtonShown(true);
     browse = new QToolButton(this);
     browse->setIcon(KIcon("inode-directory"));
-    configLabel = new QLabel(i18n("Configure"), this);
-    configCmd = new KLineEdit(this);
+    
     buildLabel = new QLabel(i18n("Build"), this);
-    buildCmd = new KLineEdit(this);
+    buildCmds = new QComboBox(this);
+    m_addBuildCmd = new QToolButton(this);
+    m_addBuildCmd->setIcon(KIcon("document-new"));
+    m_delBuildCmd = new QToolButton(this);
+    m_delBuildCmd->setIcon(KIcon("edit-delete"));
+    connect(m_addBuildCmd, SIGNAL(clicked()), this, SLOT(addBuildCmd()));
+    connect(m_delBuildCmd, SIGNAL(clicked()), this, SLOT(delBuildCmd()));
+    connect(buildCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editBuildCmd(QString)));
+    
     cleanLabel = new QLabel(i18n("Clean"), this);
-    cleanCmd = new KLineEdit(this);
+    cleanCmds = new QComboBox(this);
+    m_addCleanCmd = new QToolButton(this);
+    m_addCleanCmd->setIcon(KIcon("document-new"));
+    m_delCleanCmd = new QToolButton(this);
+    m_delCleanCmd->setIcon(KIcon("edit-delete"));
+    connect(m_addCleanCmd, SIGNAL(clicked()), this, SLOT(addCleanCmd()));
+    connect(m_delCleanCmd, SIGNAL(clicked()), this, SLOT(delCleanCmd()));
+    connect(cleanCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editCleanCmd(QString)));
+    
     quickLabel = new QLabel(i18n("Quick compile"), this);
-    quickCmd = new KLineEdit(this);
-    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
+    quickCmds = new QComboBox(this);
+    quickCmds->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
+    m_addQuickCmd = new QToolButton(this);
+    m_addQuickCmd->setIcon(KIcon("document-new"));
+    m_delQuickCmd = new QToolButton(this);
+    m_delQuickCmd->setIcon(KIcon("edit-delete"));
+    connect(m_addQuickCmd, SIGNAL(clicked()), this, SLOT(addQuickCmd()));
+    connect(m_delQuickCmd, SIGNAL(clicked()), this, SLOT(delQuickCmd()));
+    connect(quickCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editQuickCmd(QString)));
+    
 
     dirLabel->setBuddy(buildDir);
-    configLabel->setBuddy(configCmd);
-    buildLabel->setBuddy(buildCmd);
-    cleanLabel->setBuddy(cleanCmd);
-    quickLabel->setBuddy(quickCmd);
+    buildLabel->setBuddy(buildCmds);
+    cleanLabel->setBuddy(cleanCmds);
+    quickLabel->setBuddy(quickCmds);
 
+    buildCmds->setEditable(true);
+    cleanCmds->setEditable(true);
+    quickCmds->setEditable(true);
+
+    buildCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
+    cleanCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
+    quickCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
+    
     // calculate the approximate height to exceed before going to "Side Layout"
     setSideLayout();
     m_widgetsHeight = sizeHint().height();
@@ -108,19 +141,22 @@ void TargetsUi::setSideLayout()
     layout->addWidget(buildDir, 3, 0, 1, 3);
     layout->addWidget(browse, 3, 3);
     
-    layout->addWidget(configLabel, 4, 0, Qt::AlignLeft);
-    layout->addWidget(configCmd, 5, 0, 1, 4);
+    layout->addWidget(buildLabel, 4, 0, Qt::AlignLeft);
+    layout->addWidget(buildCmds, 5, 0, 1, 2);
+    layout->addWidget(m_addBuildCmd, 5, 2);
+    layout->addWidget(m_delBuildCmd, 5, 3);
     
-    layout->addWidget(buildLabel, 6, 0, Qt::AlignLeft);
-    layout->addWidget(buildCmd, 7, 0, 1, 4);
+    layout->addWidget(cleanLabel, 6, 0, Qt::AlignLeft);
+    layout->addWidget(cleanCmds, 7, 0, 1, 2);
+    layout->addWidget(m_addCleanCmd, 7, 2);
+    layout->addWidget(m_delCleanCmd, 7, 3);
     
-    layout->addWidget(cleanLabel, 8, 0, Qt::AlignLeft);
-    layout->addWidget(cleanCmd, 9, 0, 1, 4);
+    layout->addWidget(quickLabel, 8, 0, Qt::AlignLeft);
+    layout->addWidget(quickCmds, 9, 0, 1, 2);
+    layout->addWidget(m_addQuickCmd, 9, 2);
+    layout->addWidget(m_delQuickCmd, 9, 3);
     
-    layout->addWidget(quickLabel, 10, 0, Qt::AlignLeft);
-    layout->addWidget(quickCmd, 11, 0, 1, 4);
-    
-    layout->addItem(new QSpacerItem(1, 1), 12, 0);
+    layout->addItem(new QSpacerItem(1, 1), 10, 0);
     layout->setColumnStretch(0, 1);
     layout->setRowStretch(12, 1);
 }
@@ -145,20 +181,77 @@ void TargetsUi::setBottomLayout()
     layout->addWidget(buildDir, 0, 3, 1, 2);
     layout->addWidget(browse, 0, 5);
     
-    layout->addWidget(configLabel, 1, 2, Qt::AlignRight);
-    layout->addWidget(configCmd, 1, 3, 1, 3);
+    layout->addWidget(buildLabel, 1, 2, Qt::AlignRight);
+    layout->addWidget(buildCmds, 1, 3, 1, 1);
+    layout->addWidget(m_addBuildCmd, 1, 4);
+    layout->addWidget(m_delBuildCmd, 1, 5);
     
-    layout->addWidget(buildLabel, 2, 2, Qt::AlignRight);
-    layout->addWidget(buildCmd, 2, 3, 1, 3);
+    layout->addWidget(cleanLabel, 2, 2, Qt::AlignRight);
+    layout->addWidget(cleanCmds, 2, 3, 1, 1);
+    layout->addWidget(m_addCleanCmd, 2, 4);
+    layout->addWidget(m_delCleanCmd, 2, 5);
     
-    layout->addWidget(cleanLabel, 3, 2, Qt::AlignRight);
-    layout->addWidget(cleanCmd, 3, 3, 1, 3);
+    layout->addWidget(quickLabel, 3, 2, Qt::AlignRight);
+    layout->addWidget(quickCmds, 3, 3, 1, 1);
+    layout->addWidget(m_addQuickCmd, 3, 4);
+    layout->addWidget(m_delQuickCmd, 3, 5);
     
-    layout->addWidget(quickLabel, 4, 2, Qt::AlignRight);
-    layout->addWidget(quickCmd, 4, 3, 1, 3);
-    
-    layout->addItem(new QSpacerItem(1, 1), 5, 0 );
+    layout->addItem(new QSpacerItem(1, 1), 4, 0 );
     layout->setColumnStretch(3, 1);
     layout->setRowStretch(5, 1);
+}
+
+void TargetsUi::addBuildCmd()
+{
+    buildCmds->addItem(QString());
+    buildCmds->setCurrentIndex(buildCmds->count()-1);
+}
+
+void TargetsUi::addCleanCmd()
+{
+    cleanCmds->addItem(QString());
+    cleanCmds->setCurrentIndex(cleanCmds->count()-1);
+}
+
+void TargetsUi::addQuickCmd()
+{
+    quickCmds->addItem(QString());
+    quickCmds->setCurrentIndex(quickCmds->count()-1);
+}
+
+
+void TargetsUi::delBuildCmd()
+{
+    buildCmds->removeItem(buildCmds->currentIndex());
+}
+
+void TargetsUi::delCleanCmd()
+{
+    cleanCmds->removeItem(cleanCmds->currentIndex());
+}
+
+void TargetsUi::delQuickCmd()
+{
+    quickCmds->removeItem(quickCmds->currentIndex());
+}
+
+void TargetsUi::editTarget(const QString &text)
+{
+    targetCombo->setItemText(targetCombo->currentIndex(), text);
+}
+
+void TargetsUi::editBuildCmd(const QString &text)
+{
+    buildCmds->setItemText(buildCmds->currentIndex(), text);
+}
+
+void TargetsUi::editCleanCmd(const QString &text)
+{
+    cleanCmds->setItemText(cleanCmds->currentIndex(), text);
+}
+
+void TargetsUi::editQuickCmd(const QString &text)
+{
+    quickCmds->setItemText(quickCmds->currentIndex(), text);
 }
 

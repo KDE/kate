@@ -51,21 +51,23 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
 
     private:
         typedef struct {
-            QString name;
-            QString buildDir;
-            QString configCmd;
-            QString buildCmd;
-            QString cleanCmd;
-            QString quickCmd;
+            QString     name;
+            QString     buildDir;
+            QStringList buildCmds;
+            int         buildCmdIndex;
+            QStringList cleanCmds;
+            int         cleanCmdIndex;
+            QStringList quickCmds;
+            int         quickCmdIndex;
         } Target;
-        
+
     public:
         KateBuildView(Kate::MainWindow *mw);
         ~KateBuildView();
 
         // overwritten: read and write session config
-        void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-        void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+        void readSessionConfig(KConfigBase* config, const QString& groupPrefix);
+        void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
 
         QWidget *toolView() const;
 
@@ -75,7 +77,6 @@ class KateBuildView : public Kate::PluginView, public KXMLGUIClient
         void slotNext();
         void slotPrev();
 
-        bool slotConfig();
         bool slotMake();
         bool slotMakeClean();
         bool slotQuickCompile();

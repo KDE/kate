@@ -13,35 +13,59 @@
 
 class TargetsUi: public QWidget
 {
+    Q_OBJECT
+
 public:
     TargetsUi(QWidget *parent = 0);
 
-    QComboBox *targetCombo;
+    QComboBox   *targetCombo;
     QToolButton *newTarget;
     QToolButton *copyTarget;
     QToolButton *deleteTarget;
-    QFrame *line;
+    QFrame      *line;
     
-    QLabel *dirLabel;
-    KLineEdit *buildDir;
+    QLabel      *dirLabel;
+    KLineEdit   *buildDir;
     QToolButton *browse;
-    QLabel *configLabel;
-    KLineEdit *configCmd;
-    QLabel *buildLabel;
-    KLineEdit *buildCmd;
-    QLabel *cleanLabel;
-    KLineEdit *cleanCmd;
-    QLabel *quickLabel;
-    KLineEdit *quickCmd;
+    QLabel      *buildLabel;
+    QComboBox   *buildCmds;
+    QLabel      *cleanLabel;
+    QComboBox   *cleanCmds;
+    QLabel      *quickLabel;
+    QComboBox   *quickCmds;
 
 protected:
     void resizeEvent(QResizeEvent *event);
 
+private Q_SLOTS:
+    void addBuildCmd();
+    void addCleanCmd();
+    void addQuickCmd();
+
+    void delBuildCmd();
+    void delCleanCmd();
+    void delQuickCmd();
+    
+    void editTarget(const QString &text);
+    void editBuildCmd(const QString &text);
+    void editCleanCmd(const QString &text);
+    void editQuickCmd(const QString &text);
+    
 private:
     void setBottomLayout();
     void setSideLayout();
+
     int  m_widgetsHeight;
     bool m_useBottomLayout;
+
+    QToolButton  *m_addBuildCmd;
+    QToolButton  *m_delBuildCmd;
+
+    QToolButton  *m_addCleanCmd;
+    QToolButton  *m_delCleanCmd;
+
+    QToolButton  *m_addQuickCmd;
+    QToolButton  *m_delQuickCmd;
 };
 
 #endif

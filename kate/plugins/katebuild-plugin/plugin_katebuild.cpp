@@ -1,6 +1,7 @@
 /* plugin_katebuild.c                    Kate Plugin
 **
-** Copyright (C) 2006 by Kåre Särs <kare.sars@iki.fi>
+** Copyright (C) 2006-2011 by Kåre Särs <kare.sars@iki.fi>
+** Copyright (C) 2011 by Ian Wakeling <ian.wakeling@ntlworld.com>
 **
 ** This code is mostly a modification of the GPL'ed Make plugin
 ** by Adriaan de Groot.
@@ -62,7 +63,7 @@ K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuildplugin", "katebuildp
                                                   ki18n("Build Blugin"), "0.1",
                                                   ki18n( "Build Plugin"))))
 
-static const QString DefConfigCmd = "cmake ../";
+static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../";
 static const QString DefBuildCmd = "make";
 static const QString DefCleanCmd = "make clean";
 static const QString DefQuickCmd = "gcc -Wall -g %f";
@@ -72,7 +73,6 @@ static const QString DefQuickCmd = "gcc -Wall -g %f";
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList&):
         Kate::Plugin ((Kate::Application*)parent)
 {
-    kDebug() << " ";
 }
 
 /******************************************************************/
@@ -99,10 +99,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_targetList.append(Target());
 
     m_win=mw;
-
-    KAction *config = actionCollection()->addAction("run_config");
-    config->setText(i18n("Configure"));
-    connect(config, SIGNAL(triggered(bool)), this, SLOT(slotConfig()));
 
     KAction *make = actionCollection()->addAction("run_make");
     make->setText(i18n("Run make"));
@@ -146,9 +142,9 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     // set the default values of the build settings. (I think loading a plugin should also trigger
     // a read of the session config data, but it does not)
-   m_targetsUi->buildCmd->setText("make");
-   m_targetsUi->cleanCmd->setText("make clean");
-   m_targetsUi->quickCmd->setText(DefQuickCmd);
+   //m_targetsUi->buildCmds->setText("make");
+   //m_targetsUi->cleanCmds->setText("make clean");
+   //m_targetsUi->quickCmds->setText(DefQuickCmd);
 
     QCompleter* dirCompleter = new QCompleter(this);
     QStringList filter;
@@ -174,7 +170,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 /******************************************************************/
 KateBuildView::~KateBuildView()
 {
-    kDebug() << "";
     mainWindow()->guiFactory()->removeClient( this );
     delete m_proc;
     delete m_toolView;
@@ -183,7 +178,6 @@ KateBuildView::~KateBuildView()
 /******************************************************************/
 QWidget *KateBuildView::toolView() const
 {
-    kDebug() << "";
     return m_toolView;
 }
 
@@ -198,33 +192,68 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     m_targetList.clear();
     m_targetIndex = 0;
     if (numTargets == 0 ) {
+        // either the config is empty or uses the older format
         m_targetList.append(Target());
-        m_targetList[0].name = cg.readEntry(QString("0 Target"), QString("Target 1"));
+        m_targetList[0].name = cg.readEntry(QString(""), QString("Target 1"));
         m_targetsUi->targetCombo->addItem(m_targetList[0].name);
         m_targetList[0].buildDir = cg.readEntry(QString("Make Path"), QString());
-        m_targetList[0].configCmd  = cg.readEntry(QString("0 ConfigCmd"), DefConfigCmd);
-        m_targetList[0].buildCmd = cg.readEntry(QString("Make Command"), DefBuildCmd);
-        m_targetList[0].cleanCmd = cg.readEntry(QString("Clean Command"), DefCleanCmd);
-        m_targetList[0].quickCmd = cg.readEntry(QString("Quick Compile Command"), DefQuickCmd);
+        m_targetList[0].buildCmds << cg.readEntry(QString("Make Command"), DefBuildCmd);
+        m_targetList[0].buildCmdIndex = 0;
+        m_targetList[0].cleanCmds << cg.readEntry(QString("Clean Command"), DefCleanCmd);
+        m_targetList[0].cleanCmdIndex = 0;
+        m_targetList[0].quickCmds << cg.readEntry(QString("Quick Compile Command"), DefQuickCmd);
+        m_targetList[0].quickCmdIndex = 0;
     }
     else {
+        int size;
+        QString tmp;
         for (int i=0; i<numTargets; i++) {
             m_targetList.append(Target());
             m_targetList[i].name = cg.readEntry(QString("%1 Target").arg(i), QString("Target %1").arg(i+1));
             m_targetsUi->targetCombo->addItem(m_targetList[i].name);
-            m_targetList[i].buildDir = cg.readEntry(QString("%1 BuildPath").arg(i), QString());
-            m_targetList[i].configCmd  = cg.readEntry(QString("%1 ConfigCmd").arg(i), DefConfigCmd);
-            m_targetList[i].buildCmd = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
-            m_targetList[i].cleanCmd = cg.readEntry(QString("%1 CleanCmd").arg(i), DefCleanCmd);
-            m_targetList[i].quickCmd = cg.readEntry(QString("%1 QuickCmd").arg(i), DefQuickCmd);
+            m_targetList[i].buildDir =      cg.readEntry(QString("%1 BuildPath").arg(i), QString());
+
+            // Build CMD
+            size = cg.readEntry(QString("%1 BuildCmdCount").arg(i), 0);
+            for (int j=0; j<size; j++) {
+                if (j==0) tmp = DefConfigCmd;
+                else if (j==1) tmp = DefBuildCmd;
+                else tmp.clear();
+                m_targetList[i].buildCmds << cg.readEntry(QString("%1 %2 BuildCmd").arg(i).arg(j), tmp);
+            }
+            m_targetList[i].buildCmdIndex = cg.readEntry(QString("%1 BuildCmdIndex").arg(i), 0);
+
+            // Clean CMD
+            size = cg.readEntry(QString("%1 CleanCmdCount").arg(i), 0);
+            for (int j=0; j<size; j++) {
+                tmp = (j==0) ? DefCleanCmd : "";
+                m_targetList[i].cleanCmds << cg.readEntry(QString("%1 %2 CleanCmd").arg(i).arg(j), tmp);
+            }
+            m_targetList[i].cleanCmdIndex = cg.readEntry(QString("%1 CleanCmdIndex").arg(i), 0);
+
+            // Quick CMD
+            size = cg.readEntry(QString("%1 QuickCmdCount").arg(i), 0);
+            for (int j=0; j<size; j++) {
+                tmp = (j==0) ? DefQuickCmd : "";
+                m_targetList[i].quickCmds << cg.readEntry(QString("%1 %2 QuickCmd").arg(i).arg(j), tmp);
+            }
+            m_targetList[i].quickCmdIndex = cg.readEntry(QString("%1 QuickCmdIndex").arg(i), 0);
         }
     }
-   m_targetsUi->buildDir->setText(m_targetList[0].buildDir);
-   m_targetsUi->configCmd->setText(m_targetList[0].configCmd);
-   m_targetsUi->buildCmd->setText(m_targetList[0].buildCmd);
-   m_targetsUi->cleanCmd->setText(m_targetList[0].cleanCmd);
-   m_targetsUi->quickCmd->setText(m_targetList[0].quickCmd);
-   m_targetsUi->targetCombo->blockSignals(false);
+    m_targetsUi->buildDir->setText(m_targetList[0].buildDir);
+    m_targetsUi->buildCmds->clear();
+    m_targetsUi->buildCmds->addItems(m_targetList[0].buildCmds);
+    m_targetsUi->buildCmds->setCurrentIndex(m_targetList[0].buildCmdIndex);
+    
+    m_targetsUi->cleanCmds->clear();
+    m_targetsUi->cleanCmds->addItems(m_targetList[0].cleanCmds);
+    m_targetsUi->cleanCmds->setCurrentIndex(m_targetList[0].cleanCmdIndex);
+
+    m_targetsUi->quickCmds->clear();
+    m_targetsUi->quickCmds->addItems(m_targetList[0].quickCmds);
+    m_targetsUi->quickCmds->setCurrentIndex(m_targetList[0].quickCmdIndex);
+    
+    m_targetsUi->targetCombo->blockSignals(false);
     if (numTargets > 1)  {
        m_targetsUi->deleteTarget->setDisabled(false);
     }
@@ -248,10 +277,21 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
     for (int i=0; i<m_targetList.size(); i++) {
         cg.writeEntry(QString("%1 Target").arg(i), m_targetList[i].name);
         cg.writeEntry(QString("%1 BuildPath").arg(i), m_targetList[i].buildDir);
-        cg.writeEntry(QString("%1 ConfigCmd").arg(i), m_targetList[i].configCmd);
-        cg.writeEntry(QString("%1 BuildCmd").arg(i), m_targetList[i].buildCmd);
-        cg.writeEntry(QString("%1 CleanCmd").arg(i), m_targetList[i].cleanCmd);
-        cg.writeEntry(QString("%1 QuickCmd").arg(i), m_targetList[i].quickCmd);
+        for (int j=0; j<m_targetList[i].buildCmds.size(); j++) {
+            cg.writeEntry(QString("%1 %2 BuildCmd").arg(i).arg(j), m_targetList[i].buildCmds[j]);
+        }
+        cg.writeEntry(QString("%1 BuildCmdCount").arg(i), m_targetList[i].buildCmds.size());
+        cg.writeEntry(QString("%1 BuildCmdIndex").arg(i), m_targetList[i].buildCmdIndex);
+        for (int j=0; j<m_targetList[i].cleanCmds.size(); j++) {
+            cg.writeEntry(QString("%1 %2 CleanCmd").arg(i).arg(j), m_targetList[i].cleanCmds[j]);
+        }
+        cg.writeEntry(QString("%1 CleanCmdCount").arg(i), m_targetList[i].cleanCmds.size());
+        cg.writeEntry(QString("%1 CleanCmdIndex").arg(i), m_targetList[i].cleanCmdIndex);
+        for (int j=0; j<m_targetList[i].quickCmds.size(); j++) {
+            cg.writeEntry(QString("%1 %2 QuickCmd").arg(i).arg(j), m_targetList[i].quickCmds[j]);
+        }
+        cg.writeEntry(QString("%1 QuickCmdCount").arg(i), m_targetList[i].quickCmds.size());
+        cg.writeEntry(QString("%1 QuickCmdIndex").arg(i), m_targetList[i].quickCmdIndex);
     }
     cg.writeEntry(QString("Active Target Index"), m_targetIndex);
 }
@@ -397,22 +437,6 @@ bool KateBuildView::checkLocal(const KUrl &dir)
 }
 
 /******************************************************************/
-bool KateBuildView::slotConfig(void)
-{
-    KUrl dir(docUrl()); // docUrl() saves the current document
-    
-    if (m_targetsUi->configCmd->text().isEmpty()) {
-        if (!checkLocal(dir)) return false;
-        // dir is a file -> remove the file with upUrl().
-        dir = dir.upUrl();
-    }
-    else {
-        dir = KUrl(m_targetsUi->buildDir->text());
-    }
-    return startProcess(dir, m_targetsUi->configCmd->text());
-}
-
-/******************************************************************/
 bool KateBuildView::slotMake(void)
 {
     KUrl dir(docUrl()); // docUrl() saves the current document
@@ -425,7 +449,7 @@ bool KateBuildView::slotMake(void)
     else {
         dir = KUrl(m_targetsUi->buildDir->text());
     }
-    return startProcess(dir, m_targetsUi->buildCmd->text());
+    return startProcess(dir, m_targetsUi->buildCmds->currentText());
 }
 
 /******************************************************************/
@@ -442,13 +466,13 @@ bool KateBuildView::slotMakeClean(void)
         dir = KUrl(m_targetsUi->buildDir->text());
     }
 
-    return startProcess(dir, m_targetsUi->cleanCmd->text());
+    return startProcess(dir, m_targetsUi->cleanCmds->currentText());
 }
 
 /******************************************************************/
 bool KateBuildView::slotQuickCompile()
 {
-    QString cmd =m_targetsUi->quickCmd->text();
+    QString cmd =m_targetsUi->quickCmds->currentText();
     if (cmd.isEmpty()) {
         KMessageBox::sorry(0, i18n("The custom command is empty."));
         return false;
@@ -626,7 +650,7 @@ void KateBuildView::slotReadReadyStdErr()
 void KateBuildView::processLine(const QString &line)
 {
     QString l = line;
-    kDebug() << l ;
+    //kDebug() << l ;
 
     //look for a filename
     if (l.indexOf(m_filenameDetector)<0)
@@ -688,19 +712,42 @@ void KateBuildView::targetSelected(int index)
     }
 
     // save the previous settings
-    m_targetList[m_targetIndex].name =m_targetsUi->targetCombo->itemText(m_targetIndex);
-    m_targetList[m_targetIndex].buildDir =m_targetsUi->buildDir->text();
-    m_targetList[m_targetIndex].configCmd  =m_targetsUi->configCmd->text();
-    m_targetList[m_targetIndex].buildCmd =m_targetsUi->buildCmd->text();
-    m_targetList[m_targetIndex].cleanCmd =m_targetsUi->cleanCmd->text();
-    m_targetList[m_targetIndex].quickCmd =m_targetsUi->quickCmd->text();
+    m_targetList[m_targetIndex].name = m_targetsUi->targetCombo->itemText(m_targetIndex);
+
+    m_targetList[m_targetIndex].buildDir = m_targetsUi->buildDir->text();
+
+    m_targetList[m_targetIndex].buildCmds.clear();
+    m_targetList[m_targetIndex].buildCmdIndex = m_targetsUi->buildCmds->currentIndex();
+    for (int i=0; i<m_targetsUi->buildCmds->count(); i++) {
+        m_targetList[m_targetIndex].buildCmds << m_targetsUi->buildCmds->itemText(i);
+    }
+    
+    m_targetList[m_targetIndex].cleanCmds.clear();
+    m_targetList[m_targetIndex].cleanCmdIndex = m_targetsUi->cleanCmds->currentIndex();
+    for (int i=0; i<m_targetsUi->cleanCmds->count(); i++) {
+        m_targetList[m_targetIndex].cleanCmds << m_targetsUi->cleanCmds->itemText(i);
+    }
+    m_targetList[m_targetIndex].quickCmds.clear();
+    m_targetList[m_targetIndex].quickCmdIndex = m_targetsUi->quickCmds->currentIndex();
+    for (int i=0; i<m_targetsUi->quickCmds->count(); i++) {
+        m_targetList[m_targetIndex].quickCmds << m_targetsUi->quickCmds->itemText(i);
+    }
 
     // Set the new values
-   m_targetsUi->buildDir->setText(m_targetList[index].buildDir);
-   m_targetsUi->configCmd->setText(m_targetList[index].configCmd);
-   m_targetsUi->buildCmd->setText(m_targetList[index].buildCmd);
-   m_targetsUi->cleanCmd->setText(m_targetList[index].cleanCmd);
-   m_targetsUi->quickCmd->setText(m_targetList[index].quickCmd);
+    m_targetsUi->buildDir->setText(m_targetList[index].buildDir);
+
+    m_targetsUi->buildCmds->clear();
+    m_targetsUi->buildCmds->addItems(m_targetList[index].buildCmds);
+    m_targetsUi->buildCmds->setCurrentIndex(m_targetList[index].buildCmdIndex);
+    
+    m_targetsUi->cleanCmds->clear();
+    m_targetsUi->cleanCmds->addItems(m_targetList[index].cleanCmds);
+    m_targetsUi->cleanCmds->setCurrentIndex(m_targetList[index].cleanCmdIndex);
+    
+    m_targetsUi->quickCmds->clear();
+    m_targetsUi->quickCmds->addItems(m_targetList[index].quickCmds);
+    m_targetsUi->quickCmds->setCurrentIndex(m_targetList[index].quickCmdIndex);
+
     m_targetIndex = index;
 
 }
@@ -708,48 +755,54 @@ void KateBuildView::targetSelected(int index)
 /******************************************************************/
 void KateBuildView::targetNew()
 {
+    QStringList build; build << DefConfigCmd << DefBuildCmd;;
+
     m_targetList.append(Target());
-   m_targetsUi->targetCombo->addItem(i18n("Target %1", m_targetList.size()));
+    m_targetsUi->targetCombo->addItem(i18n("Target %1", m_targetList.size()));
     // Set the new defult values
-   m_targetsUi->buildDir->setText(QString());
-   m_targetsUi->configCmd->setText(DefConfigCmd);
-   m_targetsUi->buildCmd->setText(DefBuildCmd);
-   m_targetsUi->cleanCmd->setText(DefCleanCmd);
-   m_targetsUi->quickCmd->setText(DefQuickCmd);
-    m_targetIndex = m_targetList.size() -1;
-   m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
-   m_targetsUi->deleteTarget->setDisabled(false);
+    m_targetsUi->buildDir->setText(QString());
+    m_targetsUi->buildCmds->clear();
+    m_targetsUi->buildCmds->addItems(build);
+    m_targetsUi->cleanCmds->clear();
+    m_targetsUi->cleanCmds->addItem(DefCleanCmd);
+    m_targetsUi->quickCmds->clear();
+    m_targetsUi->quickCmds->addItem(DefQuickCmd);
+    m_targetIndex = m_targetList.size()-1;
+    m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
+    m_targetsUi->deleteTarget->setDisabled(false);
 }
 
 /******************************************************************/
 void KateBuildView::targetCopy()
 {
     m_targetList.append(Target());
-   m_targetsUi->targetCombo->addItem(i18n("Target %1", m_targetList.size()));
+    m_targetsUi->targetCombo->addItem(i18n("Target %1", m_targetList.size()));
     m_targetIndex = m_targetList.size() -1;
-   m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
-   m_targetsUi->deleteTarget->setDisabled(false);
+    m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
+    m_targetsUi->deleteTarget->setDisabled(false);
 }
 
 /******************************************************************/
 void KateBuildView::targetDelete()
 {
-   m_targetsUi->targetCombo->blockSignals(true);
-    
-   m_targetsUi->targetCombo->removeItem(m_targetIndex);
+    m_targetsUi->targetCombo->blockSignals(true);
+
+    m_targetsUi->targetCombo->removeItem(m_targetIndex);
     m_targetList.removeAt(m_targetIndex);
 
     m_targetIndex =m_targetsUi->targetCombo->currentIndex();
     // Set the new values
-   m_targetsUi->buildDir->setText(m_targetList[m_targetIndex].buildDir);
-   m_targetsUi->configCmd->setText(m_targetList[m_targetIndex].configCmd);
-   m_targetsUi->buildCmd->setText(m_targetList[m_targetIndex].buildCmd);
-   m_targetsUi->cleanCmd->setText(m_targetList[m_targetIndex].cleanCmd);
-   m_targetsUi->quickCmd->setText(m_targetList[m_targetIndex].quickCmd);
-    
+    m_targetsUi->buildDir->setText(m_targetList[m_targetIndex].buildDir);
+    m_targetsUi->buildCmds->clear();
+    m_targetsUi->buildCmds->addItems(m_targetList[m_targetIndex].buildCmds);
+    m_targetsUi->cleanCmds->clear();
+    m_targetsUi->cleanCmds->addItems(m_targetList[m_targetIndex].cleanCmds);
+    m_targetsUi->quickCmds->clear();
+    m_targetsUi->quickCmds->addItems(m_targetList[m_targetIndex].quickCmds);
+
     if (m_targetList.size() == 1) {
-       m_targetsUi->deleteTarget->setDisabled(true);
+        m_targetsUi->deleteTarget->setDisabled(true);
     }
-   m_targetsUi->targetCombo->blockSignals(false);
+    m_targetsUi->targetCombo->blockSignals(false);
 }
 

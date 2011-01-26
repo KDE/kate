@@ -10,6 +10,7 @@
 #include <QtGui/QWidget>
 #include "klineedit.h"
 #include "kpushbutton.h"
+#include <kcombobox.h>
 
 class TargetsUi: public QWidget
 {
@@ -28,11 +29,11 @@ public:
     KLineEdit   *buildDir;
     QToolButton *browse;
     QLabel      *buildLabel;
-    QComboBox   *buildCmds;
+    KComboBox   *buildCmds;
     QLabel      *cleanLabel;
-    QComboBox   *cleanCmds;
+    KComboBox   *cleanCmds;
     QLabel      *quickLabel;
-    QComboBox   *quickCmds;
+    KComboBox   *quickCmds;
 
 protected:
     void resizeEvent(QResizeEvent *event);

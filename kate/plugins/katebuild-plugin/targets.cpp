@@ -20,11 +20,13 @@
 #include "targets.h"
 #include "targets.moc"
 #include <klocale.h>
+#include <kdebug.h>
+#include <QApplication>
 
 TargetsUi::TargetsUi(QWidget *parent):
 QWidget(parent)
 {
-    targetCombo = new QComboBox(this);
+    targetCombo = new KComboBox(this);
     targetCombo->setEditable(true);
     targetCombo->setInsertPolicy(QComboBox::InsertAtCurrent);
     connect(targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(editTarget(QString)));
@@ -52,7 +54,7 @@ QWidget(parent)
     browse->setIcon(KIcon("inode-directory"));
     
     buildLabel = new QLabel(i18n("Build"), this);
-    buildCmds = new QComboBox(this);
+    buildCmds = new KComboBox(this);
     m_addBuildCmd = new QToolButton(this);
     m_addBuildCmd->setIcon(KIcon("document-new"));
     m_delBuildCmd = new QToolButton(this);
@@ -62,7 +64,7 @@ QWidget(parent)
     connect(buildCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editBuildCmd(QString)));
     
     cleanLabel = new QLabel(i18n("Clean"), this);
-    cleanCmds = new QComboBox(this);
+    cleanCmds = new KComboBox(this);
     m_addCleanCmd = new QToolButton(this);
     m_addCleanCmd->setIcon(KIcon("document-new"));
     m_delCleanCmd = new QToolButton(this);
@@ -72,7 +74,7 @@ QWidget(parent)
     connect(cleanCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editCleanCmd(QString)));
     
     quickLabel = new QLabel(i18n("Quick compile"), this);
-    quickCmds = new QComboBox(this);
+    quickCmds = new KComboBox(this);
     quickCmds->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
     m_addQuickCmd = new QToolButton(this);
     m_addQuickCmd->setIcon(KIcon("document-new"));
@@ -242,16 +244,23 @@ void TargetsUi::editTarget(const QString &text)
 
 void TargetsUi::editBuildCmd(const QString &text)
 {
+    // save cursor position
+    int curPos = buildCmds->lineEdit()->cursorPosition();
     buildCmds->setItemText(buildCmds->currentIndex(), text);
+    buildCmds->lineEdit()->setCursorPosition(curPos);
 }
 
 void TargetsUi::editCleanCmd(const QString &text)
 {
+    int curPos = cleanCmds->lineEdit()->cursorPosition();
     cleanCmds->setItemText(cleanCmds->currentIndex(), text);
+    cleanCmds->lineEdit()->setCursorPosition(curPos);
 }
 
 void TargetsUi::editQuickCmd(const QString &text)
 {
+    int curPos = quickCmds->lineEdit()->cursorPosition();
     quickCmds->setItemText(quickCmds->currentIndex(), text);
+    quickCmds->lineEdit()->setCursorPosition(curPos);
 }
 

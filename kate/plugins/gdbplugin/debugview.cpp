@@ -5,7 +5,7 @@
 //
 //
 // Copyright (c) 2008-2010 Ian Wakeling <ian.wakeling@ntlworld.com>
-// Copyright (c) 2010 Kåre Särs <kare.sars@iki.fi>
+// Copyright (c) 2011 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -231,10 +231,6 @@ void DebugView::movePC( KUrl const& url, int line )
         QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
         m_nextCommands <<  QString("jump %1:%2").arg(url.path()).arg(line);
         issueCommand( cmd );
-        m_nextCommands << "(Q)info stack";
-        m_nextCommands << "(Q)frame";
-        m_nextCommands << "(Q)info args";
-        m_nextCommands << "(Q)info locals";
     }
 }
 
@@ -244,10 +240,6 @@ void DebugView::runToCursor( KUrl const& url, int line )
     {
         QString cmd = QString("tbreak %1:%2").arg(url.path()).arg(line);
         m_nextCommands << "continue";
-        m_nextCommands << "(Q)info stack";
-        m_nextCommands << "(Q)frame";
-        m_nextCommands << "(Q)info args";
-        m_nextCommands << "(Q)info locals";
         issueCommand( cmd );
     }
 }
@@ -302,54 +294,30 @@ void DebugView::slotReRun()
         m_nextCommands << QString("run");
         m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
         m_nextCommands << QString("continue");
-        m_nextCommands << "(Q)info stack";
-        m_nextCommands << "(Q)frame";
-        m_nextCommands << "(Q)info args";
-        m_nextCommands << "(Q)info locals";
     }
     else
     {
         m_nextCommands << "run";
-        m_nextCommands << "(Q)info stack";
-        m_nextCommands << "(Q)frame";
-        m_nextCommands << "(Q)info args";
-        m_nextCommands << "(Q)info locals";
     }
 }
 
 void DebugView::slotStepInto()
 {
-    m_nextCommands << "(Q)info stack";
-    m_nextCommands << "(Q)frame";
-    m_nextCommands << "(Q)info args";
-    m_nextCommands << "(Q)info locals";
     issueCommand( "step" );
 }
 
 void DebugView::slotStepOver()
 {
-    m_nextCommands << "(Q)info stack";
-    m_nextCommands << "(Q)frame";
-    m_nextCommands << "(Q)info args";
-    m_nextCommands << "(Q)info locals";
     issueCommand( "next" );
 }
 
 void DebugView::slotStepOut()
 {
-    m_nextCommands << "(Q)info stack";
-    m_nextCommands << "(Q)frame";
-    m_nextCommands << "(Q)info args";
-    m_nextCommands << "(Q)info locals";
     issueCommand( "finish" );
 }
 
 void DebugView::slotContinue()
 {
-    m_nextCommands << "(Q)info stack";
-    m_nextCommands << "(Q)frame";
-    m_nextCommands << "(Q)info args";
-    m_nextCommands << "(Q)info locals";
     issueCommand( "continue" );
 }
 
@@ -461,12 +429,6 @@ void DebugView::processLine( QString line )
                 }
                 emit programEnded();
             }
-            else if ( line.contains( "Program received signal" ) )
-            {
-                m_nextCommands << "(Q)info stack";
-                m_nextCommands << "(Q)frame";
-                m_nextCommands << "(Q)info locals";
-            }
             else if( prompt.exactMatch( line ) )
             {
                 if( m_subState == stackFrameSeen )
@@ -484,7 +446,7 @@ void DebugView::processLine( QString line )
             if( prompt.exactMatch( line ) )
             {
                 m_state = ready;
-                emit readyForInput( true );
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             break;
         case infoArgs:
@@ -502,7 +464,7 @@ void DebugView::processLine( QString line )
             {
                 m_state = ready;
                 emit infoLocal( QString() );
-                emit readyForInput( true );
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             else {
                 emit infoLocal( line );
@@ -634,7 +596,16 @@ void DebugView::issueNextCommand()
         }
         else 
         {
-            emit readyForInput( true );
+            if (!m_lastCommand.startsWith("(Q)")) {
+                m_nextCommands << "(Q)info stack";
+                m_nextCommands << "(Q)frame";
+                m_nextCommands << "(Q)info args";
+                m_nextCommands << "(Q)info locals";
+                issueNextCommand();
+            }
+            else {
+                emit readyForInput( true );
+            }
         }
     }
 }

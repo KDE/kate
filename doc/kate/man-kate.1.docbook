@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!ENTITY % English "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title>KDE User's Manual</title>
+<author>&Lauri.Watts; &Lauri.Watts.mail;</author>
+<date>2010-10-06</date>
+<productname>K Desktop Environment</productname>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle><command>kate</command></refentrytitle>
+<manvolnum>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname><command>kate</command></refname>
+<refpurpose>Advanced text editor for &kde;</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis>
+<command>kate</command>
+<group choice="opt"><option>-s, --start</option> <replaceable>
+name</replaceable> </group>
+<group choice="opt"><option>--startanon</option></group>
+<group choice="opt"><option>-n, --new</option></group>
+<group choice="opt"><option>-b, --block</option></group>
+<group choice="opt"><option>-p, --pid</option><replaceable>
+pid</replaceable></group>
+<group choice="opt"><option>-e, --encoding</option> <replaceable>
+name</replaceable></group>
+<group choice="opt"><option>-l, --line</option> <replaceable>
+line</replaceable></group>
+<group choice="opt"><option>-c, --column</option>
+<replaceable> column</replaceable></group>
+<group choice="opt"><option>-i, --stdin</option></group>
+<group choice="opt"><option>-u, --use</option></group>
+<arg choice="opt">KDE Generic Options</arg>
+<arg choice="opt">Qt Generic Options</arg>
+</cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Description</title>
+<para>&kate; is the &kde; Advanced Text Editor. </para> 
+<para>&kate; also provides the editor part for various applications, under
+the name &kwrite;.</para>
+<para>Some of &kate;'s many features include configurable syntax
+highlighting for languages ranging from C and C++ to
+<acronym>HTML</acronym> to bash scripts, the ability to create and
+maintain projects, a multiple document interface
+(<acronym>MDI</acronym>), and a self-contained terminal emulator.
+</para>
+
+<para>
+But &kate; is more than a programmer's editor. Its ability to open
+several files at once makes it ideal for editing &UNIX;'s many
+configuration files.  This document was written in &kate;.
+</para>
+
+
+</refsect1>
+
+<refsect1>
+<title>Options</title>
+
+<variablelist>
+<varlistentry>
+<term><option>-s</option>, <option>--start</option> <replaceable>name</replaceable></term>
+<listitem><para>Start &kate; with a given session.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--startanon</option></term>
+<listitem><para>Start &kate; with a new anonymous session, implies <option>-n</option>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-n</option>, <option>--new</option></term>
+<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is used and another 
+&kate; instance already has the given session opened), forced if no parameters and no URLs 
+are given at all.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-b</option>, <option>--block</option></term>
+<listitem><para>If using an already running &kate; instance, block until it exits, 
+if URLs given to open.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-p, --pid</option> <replaceable>
+pid</replaceable></term>
+<listitem><para>Only try to reuse kate instance with this
+<replaceable>pid</replaceable> (is ignored if <option>start</option> is used and another 
+&kate; instance already has the given session opened).</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-e, --encoding</option> <replaceable>
+name</replaceable></term>
+<listitem><para>Set encoding for the file to open</para><para>You can use
+this to force a file opened in utf-8 format, for instance.  (The command
+<command>iconv -l</command> provides a list of encodings, which may be
+helpful to you.)</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-l, --line</option> <replaceable> line</replaceable></term>
+<listitem><para>Navigate to this line</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-c, --column</option> <replaceable>
+column</replaceable></term>
+<listitem><para>Navigate to this column</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-i, --stdin</option></term>
+<listitem><para>Read the contents of
+<filename>stdin</filename></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-u, --use</option></term>
+<listitem><para>Use an already running &kate; instance; default, only for compatibility</para></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title>See Also</title>
+
+<para>More detailed user documentation is available from <ulink
+url="help:/kate">help:/kate</ulink>
+(either enter this <acronym>URL</acronym> into &konqueror;, or run
+<userinput><command>khelpcenter</command>
+<parameter>help:/kate</parameter></userinput>).</para>
+
+<para>There is also further information available at <ulink
+url="http://kate-editor.org/">the &kate; website</ulink>.</para>
+</refsect1>
+
+<refsect1>
+<title>Examples</title>
+
+<para>To open a file named <filename>source.cpp</filename> at column 15,
+line 25, in an existing &kate; window, you could use:</para>
+<screen><userinput><command>kate</command> <option>-c 15</option> <option>-l
+25</option> <option>-u</option> <filename>source.cpp</filename></userinput> </screen>
+
+<para>If you have an active internet connection, you can take advantage of
+&kde;'s network transparency to open a file from an ftp site. If you do not
+have write permission on the remote server, the file will be opened read
+only and you will be prompted for a local filename to save to if you make
+changes.  If you do have write permission, changes will be saved
+transparently over the network.</para>
+<screen><userinput><command>kate</command> <option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable></option></userinput></screen>
+
+<!-- FIXME: Some more useful examples would be cool, how about this snagged -->
+<!-- from a mail of anders (slightly edited /line/l to remove the double -->
+<!-- dashes:
+
+> /some/file/path/file.name:lineno
+> it would rock if Kate could understand that and not only open up file.name,
+> but jump to lineno after the file is opened.
+
+How bad is it to have to convert that into
+-l lineno /some/file/path/file.name 
+
+sed s,([^:]*):(\d+),-l \2 \1,
+
+will do that, for example.-->
+
+</refsect1>
+
+<refsect1>
+<title>Authors</title>
+<para>The maintainer of &kate; is &Christoph.Cullmann;
+&Christoph.Cullmann.mail;.  A comprehensive list of authors and contributors
+is available in the complete user manual mentioned above.</para>
+</refsect1>
+
+</refentry>

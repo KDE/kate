@@ -1,0 +1,738 @@
+<chapter id="plugins">
+
+<chapterinfo>
+<authorgroup>
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+</chapterinfo>
+
+<title>Working with Plugins</title>
+
+<para>Kate is using two different forms of plugins, namely plugins for the
+&kate; application and plugins for the &kate; editor component. The latter are
+available to any application using the editor component, such as KDevelop,
+Quanta, Kile, Kwrite and many others, while application plugins are specific
+to the &kate; application.</para>
+
+<para>You can enable both types of plugins in the <link
+linkend="configuring-kate-configdialog">configuration dialog</link>, which also
+provides access to additional configuration options for plugins that requires
+that.</para>
+
+<para>There are many plugins for various purposes available
+and you can search the web for more. A few plugins are shipped with the
+editor component, for inserting automatic braces, insert files,
+data tools and exporting text as &HTML;.</para>
+
+<sect1 id="kate-editor-plugins">
+<title>Editor Component Plugins</title>
+
+<para>The <guilabel>Plugins</guilabel> tab on the <guilabel>Extensions</guilabel> page
+lists all available plugins and you can check those you
+want to use. Click on the <guibutton>Information</guibutton> button to open the
+<guilabel>About</guilabel> dialog of this plugin.</para>
+<para>Once a configurable plugin is checked, the
+<guibutton>Configure</guibutton> button is enabled and you can click it
+in order to configure the highlighted plugin.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>AutoBrace</guilabel></term>
+<listitem><para>The autobrace plugin supersedes the &kate; internal 
+<quote>Auto Brackets</quote> feature. 
+It automatically inserts a closing brace <keycap>}</keycap> at the beginning 
+of the next line after ending a line with an opening one <keycap>{</keycap>
+and pressing the &Enter; key.</para></listitem>
+</varlistentry>
+<!--http://jakob.petsovits.at/topic/kate-->
+<!--Right, it's the automatic insertion of a closing brace ("}") after you ended a line with an opening one ("{"). Kate's standard insertion of parentheses, brackets and braces is simply too obtrusive for me, so even if I tried it several times I always had to disable it again because I can't stand it. So here's how AutoBrace works.
+You, the developer, are writing a line of code, and want to open a new block delimited by braces. Looks like this:
+If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
+-->
+<varlistentry>
+<term><guilabel>Data Tools</guilabel></term>
+<listitem><para>Enables data tools like thesaurus and spell check (if installed). 
+Data tools are only available when text is selected, or when the right mouse 
+button is clicked over a word. If no data tools are offered even when text 
+is selected, you need to install them. Some data tools are part of the 
+&koffice; package.
+If this plugin is enabled and data tools are installed, additional items 
+appear at the end of the context menu.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Exporter</guilabel></term>
+<listitem><para>This command allows you to export the current document with all highlighting 
+information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export 
+as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text 
+as HTML to the system clipboard.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>IconInserter</guilabel></term>
+<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item 
+<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor. 
+If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..). 
+If you click on it, the file name without file extension will be inserted as 
+text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Insane (not ZEN) HTML coding (light edition)</guilabel></term>
+<listitem><para>A plugin, which does zen-coding like selector completion.
+For more information see <ulink url="http://en.wikipedia.org/wiki/Zen_Coding">
+Zen Coding</ulink>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Insert File</guilabel></term>
+<listitem><para>This plugin allows you to insert any readable file at the cursor position. 
+If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item 
+<guimenuitem>Insert File</guimenuitem>.</para></listitem>
+</varlistentry>
+<!-- not build any longer in kde 4.5
+<varlistentry>
+<term>Python Encoding check</term>
+<listitem><para>This plugin is always enabled.  
+If you are trying to save a python file as non ASCII, without specifying a 
+correct source encoding line like &eg; <quote># -*- coding: utf-8 -*-</quote>, 
+a warning dialog pops up and allows you to add a proper source encoding line for the
+current encoding to the file.
+</para></listitem>
+</varlistentry>
+-->
+</variablelist>
+<!--
+kdelibs/kate/plugins/ has additional plugins
+autobookmark not build, its broken!
+timedate not build? plugin is for howto-write-a-plugin purposes!
+-->
+
+<!-- Scripts tab ??? empty-->
+</sect1>
+
+<sect1 id="kate-application-plugins">
+<title>&kate; Application Plugins</title>
+
+<!-- from doc/kate-addons/index.docbook -->
+<para>
+&kate; plugins are additional functions for the &kate; editor.  They can
+add extra menus and shortcuts, and extend &kate;'s features.  You can
+install as many or as few as you like, from within &kate;. 
+Open &kate;'s configuration dialog with 
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;...</guimenuitem></menuchoice>
+Select <menuchoice><guimenu>Application</guimenu><guimenuitem>Plugins</guimenuitem></menuchoice> to
+choose the wanted plugins.
+</para>
+
+<para>
+The available application plugins are:
+</para>
+<itemizedlist>
+<listitem>
+<para>Find in files tool view - Toolview allowing to search in all open files or files in the filesystem</para>
+</listitem>
+<listitem>
+<para>Backtrace Browser - Backtrace navigation tool view</para>
+</listitem>
+<listitem>
+<para>Quick Document switcher - Quickly switch to another already opened document</para>
+</listitem>
+<listitem>
+<para>Tab Bar - Adds a tab bar to &kate;'s main window</para>
+</listitem>
+<!--listitem>
+<para>Text Snippets - Configurable Text Snippets</para>
+</listitem-->
+<listitem>
+<para>Text Filter - Easy text filtering</para>
+</listitem>
+<listitem>
+<para>Symbol Viewer - Extract and show reference symbols from source</para>
+</listitem>
+<listitem>
+<para>File system browser - File system browser tool view</para>
+</listitem>
+<listitem>
+<para>Terminal tool view - Toolview embedding a terminal widget</para>
+</listitem>
+<!--listitem>
+<para>Kate Python Browser Plugin - A Python browser plugin for Kate</para>
+</listitem-->
+<listitem>
+<para>CTags Plugin - Look up definitions/declarations with CTags</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> - Create new files from templates</para>
+</listitem>
+<listitem>
+<para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
+</listitem>
+<listitem>
+<para>External Tools</para>
+</listitem>
+<listitem>
+<para>Build Plugin - Compile or Make and parse error messages</para>
+</listitem>
+<listitem>
+<para>Mail files - Send files via email</para>
+</listitem>
+<listitem>
+<para>Kate Snippets - Snippets plugin with code completion support</para>
+</listitem>
+<listitem>
+<para>KTextEditor Jovie Plugin - Adds a menu entry for speaking the text</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements, 
+attributes, attribute values and entities allowed by DTD</para>
+</listitem>
+<listitem>
+<para>Tabify - Adds a tab bar to Kate's main window</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<!-- from doc/kate-addons/filetemplates.docbook -->
+<sect1 id="kate-application-plugin-filetemplate">
+<sect1info>
+<authorgroup>
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+</authorgroup>
+</sect1info>
+<title>File Templates</title>
+
+  <para>The File Templates plugin allows you to create files based on other
+    files.</para>
+  <para>When you first install Kate, you need to enable the plugin:</para>
+  <orderedlist>
+        <listitem>
+          <para>
+            Click <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kate</guimenuitem></menuchoice>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            In the tree on the left of the screen, click <guilabel>Plugins</guilabel>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            In the <guilabel>Plugin Manager</guilabel> panel on the right, select <guilabel>File Templates</guilabel>, and then click <guibutton>OK</guibutton>.
+          </para>
+        </listitem>
+   </orderedlist>
+  <para>You can now use any file as a template (this creates a copy of the
+    file with an empty &URL;.) Special template files can contain
+    macros to fill in information such as your name, email address, the
+    current date, and position the cursor at a
+    convenient position in the new file.</para>
+  <para>You can easily create a new template from an open document.</para>
+  <para>Templates that you save to the template folder are
+    listed under  the menu item <menuchoice><guimenu>File</guimenu><guimenuitem>New from
+    Template</guimenuitem></menuchoice>.</para>
+  <para>The template folder is part of the &kde; file system, and
+    consists of at least</para>
+    <itemizedlist>
+      <listitem>
+	<para>
+	 <filename role="directory">$<envar>KDEDIR</envar>/share/applications/kate/plugins/katefiletemplates/templates</filename>
+	</para>
+      </listitem>
+      <listitem>
+       <para>
+        <filename role="directory">$<envar>KDEHOME</envar>/share/applications/kate/plugins/katefiletemplates/templates.</filename>
+	</para>
+      </listitem>
+    </itemizedlist>
+    <para>If your <envar>KDEDIRS</envar> environment variable contains additional directories, those are
+    searched for a similar subdirectory as well. If equally named templates are
+    found, the one in the local (KDEHOME) folder is chosen.</para>
+  <sect2 id="katefiletemplates-menu">
+    <title>Menu Structure</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>
+          <menuchoice>
+            <guimenu>File</guimenu>
+            <guisubmenu>New From Template</guisubmenu>
+            <guimenuitem>Any File...</guimenuitem>
+          </menuchoice>
+        </term>
+        <listitem><para>Presents you with Open File dialog that allows
+            you to use any file as a template. If the chosen file has the
+            extension <filename>katetemplate</filename> it will be parsed
+            for template information and macros.</para></listitem>
+      </varlistentry>
+      <!-- not in 4.4
+      <varlistentry>
+        <term>
+          <menuchoice>
+            <guimenu>File</guimenu>
+            <guisubmenu>New From Template</guisubmenu>
+            <guimenuitem>Use Recent</guimenuitem>
+          </menuchoice>
+        </term>
+        <listitem><para>Presents a list of files recently used as
+            templates, represented by their &URL;.</para></listitem>
+      </varlistentry>
+      -->
+      <varlistentry>
+        <term>
+          <menuchoice>
+            <guimenu>File</guimenu>
+            <guimenuitem>New From Template</guimenuitem>
+          </menuchoice>
+        </term>
+        <listitem><para>The remainder of submenus contains links to
+            templates. Click a menuitem to create a file as described by
+            the menu item text.</para></listitem>
+      </varlistentry>
+
+      <!-- Settings menu -->
+
+      <varlistentry>
+        <term>
+          <menuchoice><guimenu>Settings</guimenu><guimenuitem>Manage
+              Templates...</guimenuitem></menuchoice></term>
+        <listitem><para>This will launch a dialog with a list of all templates
+            found within the template directories, along with options to add,
+            edit or remove templates.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
+
+  <sect2 id="katefiletemplates-use">
+    <title>Using a &kate; Template</title>
+    <para>When creating a file from a template that contain template
+      macros, some macros appears as editable variables in the text. Such
+      variables appears as underlined words in the text.</para>
+    <para>The first variable will be selected, so you just have to type to edit
+      it. If the document text contains more instances of the same variable,
+      they are changed as you edit. To move to the next editable variable,
+      press the TAB key. When the last variable is edited, the list is
+      dropped, and your TAB key works as normal.</para>
+  </sect2>
+
+  <sect2 id="katefiletemplates-create">
+    <title>Creating your own templates</title>
+    <para>To create a new template, use the
+      <menuchoice><guimenu>Settings</guimenu>
+        <guimenuitem>Manage Templates</guimenuitem></menuchoice> Item to launch
+      the template management dialog. In that, click
+      <guibutton>New...</guibutton> to launch the File Template Wizard. You
+      will be asked for an optional file to turn into a template and prompted
+      for template information settings, and a template file will be created for
+      you.</para> <para>Alternatively, you can create a template manually by
+      adding template information to the top of any file, add text and macros,
+      and save it with the <filename>katetemplate</filename> extension.</para>
+    <para>The template menu gets automatically updated if you chose to store
+      your template in the template directory.</para>
+  </sect2>
+
+  <sect2 id="katefiletemplates-edit">
+    <title>Editing templates</title>
+    <para>To edit a template, use the
+      <menuchoice><guimenu>Settings</guimenu>
+        <guimenuitem>Manage Templates...</guimenuitem></menuchoice>. Select the
+      template you want to work on and click <guibutton>Edit...</guibutton>,
+      and the template file will be opened. Close the dialog, edit the template
+      file as desired, save it and close it. Changes to templates takes
+      immediate effect, you can activate the template to test your changes after
+      saving it.</para>
+  </sect2>
+
+  <sect2 id="katefiletemplates-format">
+    <title>The &kate; Template Format</title>
+    <para>If you use files with the extension
+      <filename>katetemplate</filename>, they will be parsed for template
+      information, macros and a cursor position.</para>
+
+    <sect3 id="katefiletemplates-template-info">
+      <title>Template information</title>
+      <para>While reading in the file, the parser keeps
+        lines beginning with the phrase
+        <constant>katetemplate:</constant> and searches them for
+        template information in the form VARIABLENAME=VALUE. The first line not
+        starting with <constant>katetemplate:</constant> will be taken as the
+        start of the template contents. VALUE may contain any character but
+        equal sign (=). Legal variable names are:
+        <variablelist>
+          <varlistentry>
+            <term><varname>Template</varname></term>
+            <listitem><para>This is the template name, displayed in the
+                <menuchoice><guimenu>File</guimenu><guimenuitem>New from
+                Template</guimenuitem></menuchoice> menu.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><varname>Group</varname></term>
+            <listitem><para>The group places the template in a submenu of
+                the <menuchoice><guimenu>File</guimenu><guimenuitem>New from
+                    Template</guimenuitem></menuchoice> menu.</para></listitem>
+          </varlistentry>
+          <varlistentry><term><varname>Name</varname></term>
+            <listitem><para>This is the name that will be set for the
+                document, and displayed in the file list and title bar. If the
+                name contains <userinput>%N</userinput> that will be replaced
+                with a number, increasing if more documents has the same
+                name.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><varname>Highlight</varname></term>
+            <listitem><para>The plug-in will try to set the Highlight for
+                the new document to the value of this variable. The value
+                should be the name, as found in the
+                <menuchoice><guimenu>Tools</guimenu>
+                  <guimenuitem>Highlighting</guimenuitem>
+                </menuchoice>.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><varname>Description</varname></term>
+            <listitem><para>A short informative description of the
+                template. This is currently used to set a Whatsthis string for
+                the menu item, but may be used for more purposes in the
+                future.</para></listitem>
+          </varlistentry>
+          <varlistentry><term>Author</term>
+            <listitem><para>A string identifying the author, for example
+                in the form <userinput>Name &lt;email address&gt;</userinput>.
+                This is currently used to set a Whatsthis string for the menu
+                item, but may be used for more purposes in the
+                future.</para></listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+
+    </sect3>
+
+    <sect3 id="katetemplates-macros">
+      <title>Template Macros</title>
+
+      <para>While parsing the template contents, macros in the form
+        <userinput>%{NAME}</userinput> or <userinput>${NAME}</userinput> are
+        expanded. If you use the <userinput>$</userinput> prefix, the
+        expanded macro will be treated as a editable variable when a document
+        is created from the template, whereas if you use
+        <userinput>%</userinput> it is not, unless expanding failed.</para>
+      <para>The following macros are expanded:
+        <variablelist>
+          <varlistentry><term>time</term>
+            <listitem><para>Expands to the current time in your locale
+                format.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>date</term>
+            <listitem><para>Expands to the current date in short
+                format.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>datetime</term>
+            <listitem><para>Expands to the current date and time,
+                formatted as a string according to your
+                locale.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>year</term>
+            <listitem><para>The current year as a four digit
+                number.</para></listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>month</term>
+            <listitem><para>The full name of the current month, according
+                to your locale.</para></listitem>
+          </varlistentry>
+          <varlistentry><term>day</term>
+            <listitem><para>Expands to the current day of the month.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>hostname</term>
+            <listitem><para>Expands to the 'hostname' of your computer.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>index</term>
+            <listitem><para>Expands to 'i'.</para></listitem>
+          </varlistentry>
+          <varlistentry><term>fullname</term>
+            <listitem><para>Expands to your full name, as defined by the
+                owner addressee in your standard &kde;
+                addressbook.</para></listitem>
+          </varlistentry>
+          <varlistentry><term>firstname</term>
+            <listitem><para>Expands to your first name, as defined in the owner
+                addressee in your standard &kde; addressbook.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>lastname</term>
+            <listitem><para>Expands to your last name, as defined in the owner
+                addressee in your standard &kde; addressbook.</para>
+            </listitem>
+          </varlistentry>
+          <!-- <varlistentry>
+            <term>username</term>
+            <listitem><para>Expands to your username.</para></listitem>
+          </varlistentry> -->
+          <varlistentry>
+            <term>email</term>
+            <listitem><para>Expands to your email address, as defined by
+                the owner address in your standard &kde;
+                addressbook.</para></listitem>
+          </varlistentry>
+          <!--<varlistentry>
+            <term>organisation</term>
+            <listitem><para>This is your organisation, as defined by
+                the owner address in your standard KDE
+                addressbook.</para></listitem>
+          </varlistentry>-->
+        </variablelist>
+      </para>
+      <para>Any macro not in the above list is treated as a editable variable
+        no matter the prefix.
+        If the same variable occurs multiple times in the template, they can be
+        edited at once after creating a document from the template.</para>
+    </sect3>
+
+    <sect3 id="katefiletemplates-cursor">
+      <title>Setting the cursor position</title>
+      <para>The special macro <userinput>${cursor}</userinput> will be replaced
+        with a vertical bar and added to the end of the list of editable variables,
+        independent on its location in the text.</para>
+    </sect3>
+
+  </sect2>
+  <sect2>
+    <title>Thanks and Acknowledgments</title>
+    <para>
+      &kate; Plugin <quote>File Templates</quote> copyright 2004 &Anders.Lund;
+      &Anders.Lund.mail;.
+    </para>
+    <para>Documentation copyright 2004 &Anders.Lund;</para>
+  </sect2>
+</sect1>
+
+<!-- from doc/kate-addons/xmlcheck.docbook -->
+<sect1 id="kate-application-plugin-xmlcheck">
+<sect1info>
+<authorgroup><author>
+<firstname>Daniel</firstname>
+<surname>Naber</surname>
+<affiliation><address>&Daniel.Naber.mail;</address></affiliation>
+</author></authorgroup>
+</sect1info>
+
+<title>&XML; Validation</title>
+
+<para>This plugin checks &XML; files for well-formedness and validity.</para>
+<para>This plugin checks the current file. A list of warnings and errors
+will appears at the bottom of &kate;'s main window. You can click on an error message
+to jump to the corresponding place in the file. If the file has a <quote>DOCTYPE</quote>
+the DTD given with this doctype will be used to check the file for validity. The
+DTD is expected at a position relative to the current file, &eg; if the doctype
+refers to <quote>DTD/xhtml1-transitional.dtd</quote> and the file is <filename>/home/peter/test.xml</filename>
+the DTD is expected to be located at <filename>/home/peter/DTD/xhtml1-transitional.dtd</filename>.
+However, remote DTDs specified via http are supported.</para>
+
+<para>If the file has no doctype it will be checked for well-formedness.</para>
+
+<para>To learn more about &XML; check out the <ulink url="http://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
+
+<para>Internally this plugin calls the external command <command>xmllint</command>, which 
+is part of libxml2. If this command is not correctly installed on your system, the plugin
+will not work.</para>
+
+<note><para>A temporary file needs to be written to the same folder as the file
+that should be checked, so you need to have write access to that folder.</para></note>
+
+<para>To load this plugin open &kate;s configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>XML Validation</guilabel> which will appear
+in the <guilabel>Application</guilabel> / <guilabel>Plugins</guilabel> section and close the dialog.
+</para>
+
+<sect2 id="xmlcheck-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>XML</guimenu>
+<guimenuitem>Validate XML</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will start the check, as described above.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmlcheck-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+<para>
+&kate; Plugin <quote>XML Validation</quote> copyright 2002 &Daniel.Naber;
+&Daniel.Naber.mail;.
+</para>
+<para>Documentation copyright 2002 &Daniel.Naber;</para>
+
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-xmltools">
+<sect1info>
+<authorgroup><author>
+<firstname>Daniel</firstname>
+<surname>Naber</surname>
+<affiliation><address>&Daniel.Naber.mail;</address></affiliation>
+</author></authorgroup>
+</sect1info>
+<title>&XML; Completion</title>
+
+<para>This plugin gives hints about what is allowed at a certain position in
+an &XML; file, according to the file's DTD. It will list possible
+elements, attributes, attribute values or entities, depending on the
+cursor position (&eg; all entities are listed if the character on the left
+of the cursor is <quote>&amp;</quote>). It's also possible to close the nearest
+open tag on the left.</para>
+
+<para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
+<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>. 
+Some meta DTDs are supplied. They are installed in
+<filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
+which is also the default folder when you choose
+<guimenuitem>Assign Meta DTD...</guimenuitem>.
+To produce your own meta DTDs, get <command>dtdparse</command> from
+<ulink url="http://dtdparse.sourceforge.net">http://dtdparse.sourceforge.net</ulink>.</para>
+
+<sect2 id="xmltools-how-to-use">
+<title>How to Use</title>
+
+<para>Start &kate; and open the configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>XML Completion</guilabel> which will appear
+in the <guilabel>Application</guilabel>/<guilabel>Plugins</guilabel> section and close the dialog. After
+that, select <menuchoice><guimenu>XML</guimenu><guimenuitem>Assign Meta DTD...</guimenuitem></menuchoice>.
+If your document contains no <quote>DOCTYPE</quote> or the doctype is unknown, you'll have to
+select a meta DTD from the file system. Otherwise the meta DTD that
+matches the current document's DOCTYPE will be loaded automatically.</para>
+
+<para>You can now use the plugin while typing your text:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><keycap>&lt;</keycap> (less than key)</term>
+<listitem><para>This will trigger a list of possible elements unless the
+cursor is inside a tag already. Note that you currently cannot use
+this to insert the top level element (&eg; <quote>&lt;html&gt;</quote>).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&lt;</keycap><keycap>/</keycap>(less than key + slash)</term>
+<listitem><para>Entering these characters will offer closing the current element
+(nearest open one to the left of the cursor). Press &Enter; to accept the suggestion.
+Unlike the <guimenuitem>Close Element</guimenuitem> menu item, this works only with
+a DTD assigned.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>"</keycap> (quote key)</term>
+<listitem><para>The quote key will trigger a list of possible attribute
+values (if there are some) if you are inside a tag.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&nbsp;</keycap> (space key)</term>
+<listitem><para>This key will trigger a list of possible attributes for the
+current element if you are inside a tag.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&amp;</keycap> (ampersand key)</term>
+<listitem><para>This key will trigger a list of named entities.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-features-and-limitations">
+<title>Features and Limitations</title>
+
+<para>You can test all functions and limitations by loading
+<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename>
+into &kate; and following the instructions.</para>
+
+</sect2>
+
+
+<sect2 id="xmltools-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+</shortcut>
+<guimenu>XML</guimenu>
+<guimenuitem>Insert Element...</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will open a dialog that lets you insert an &XML; element.
+The &lt;, &gt; characters and the closing tag will be inserted automatically.
+If you have selected text when this menu item is selected, the selected
+text will be surrounded by the opening and the closing tag.
+The dialog also offers completion of all elements that may be inserted
+at the current cursor position if you have assigned a meta DTD by
+using <guimenuitem>Assign Meta DTD...</guimenuitem>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>&lt;</keycap></keycombo>
+</shortcut>
+<guimenu>XML</guimenu>
+<guimenuitem>Close Element</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will search your text for a tag that is not yet closed
+and will close it by inserting the corresponding closing tag.
+The search starts at the cursor position and goes left. If
+it cannot find an open tag nothing will happen.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>XML</guimenu>
+<guimenuitem>Assign Meta DTD...</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will tell the plugin which meta DTD to use for the
+current document. Note that this assignment will not be saved.
+You will have to repeat it when you start &kate; the next time.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+<para>
+&kate; Plugin <quote>&XML; Completion</quote> copyright 2001,2002 &Daniel.Naber;
+&Daniel.Naber.mail;.
+</para>
+<para>KDE SC 4 version copyright 2010 Tomáš Trnka</para>
+<para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
+</sect2>
+
+</sect1>
+
+</chapter>

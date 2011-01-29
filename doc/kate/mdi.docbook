@@ -1,0 +1,289 @@
+<chapter id="kate-mdi">
+<chapterinfo>
+<authorgroup>
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+</chapterinfo>
+<title>Working With the &kate; <acronym>MDI</acronym></title>
+
+<sect1 id="kate-mdi-overview">
+<title>Overview</title>
+
+<para>Window, View, Document, Frame, Editor... What are they all in
+the terminology of &kate;, and how do you get the most out of it? This
+chapter will explain all of that, and even more.</para>
+
+<sect2 id="kate-mdi-overview-mainwindow">
+
+<title>The Main Window</title>
+
+<para><indexterm><primary>Main window</primary></indexterm>
+The &kate; Main Window is a standard &kde; application window,
+with the addition of side bars containing tool views. It has a
+menubar with all the common menus, and some more, and a toolbar
+providing access to commonly used commands.</para>
+
+<para>The most important part of the window is the editing area, by
+default displaying a single text editor component, in which you can
+work with your documents.</para>
+
+<para>The docking capabilities of the window is used for the tool
+windows:</para>
+
+<itemizedlist>
+<listitem><para><link linkend="kate-mdi-tools-file-list">The Documents List</link></para></listitem>
+<listitem><para><link linkend="kate-mdi-tools-file-selector">The Filesystem
+Browser</link></para></listitem>
+<listitem><para><link linkend="kate-mdi-tools-konsole">The Built in Terminal Emulator</link></para></listitem>
+</itemizedlist>
+
+<para>And possibly other tool views, for example provided by
+plugins.</para>
+
+<para>Tool views can be positioned in any sidebar, to move a tool right click
+its sidebar button and select from the &RMB; menu</para>
+
+<para>A tool view can be marked as <emphasis>persistent</emphasis> in the &RMB;
+menu for its sidebar button. The sidebar can contain
+more tools at one time so that when a tool is persistant other tools can be
+shown simultaneously.</para>
+
+</sect2>
+
+
+</sect1>
+
+<sect1 id="kate-mdi-editor">
+
+<title>The Editor area</title>
+
+<para><indexterm><primary>Editing Area</primary></indexterm>
+&kate; is capable of having more than one document open at the
+same time, and also of splitting the editing area into any number of
+frames, similar to how for example &konqueror; or the popular
+<application>emacs</application> text editor works. This way you can
+view several documents at the same time, or more instances of the same
+document, handy for example if your document contains definitions in
+the top that you want to see often for reference. Or you could view a
+program source header in one frame, while editing the implementation
+file in another.</para>
+
+<para>When a document is available in more than one editor, changes
+made in one editor will immediately be reflected in the others as
+well. This includes changing the text as well as selecting
+text. Search operations or cursor movement is only reflected in the
+current editor.</para>
+
+<para>It is currently not possible to have more instances of the same
+document open in the sense that one instance will be edited while the
+other will not.</para>
+
+<para>When splitting an editor into two frames, it is divided into two
+equally sized frames, both displaying the current document of that
+editor. The new frame will be at the bottom (in the case of a
+horizontal split) or at the right (for a vertical split). The new
+frame gets the focus, which is visualized by the blinking cursor bar in the
+focused frame.</para>
+
+</sect1>
+
+<sect1 id="kate-mdi-tools-file-list">
+<title>The Documents List</title>
+
+<para><indexterm><primary>Documents list</primary></indexterm>
+The documents list displays a list of all documents currently open in
+&kate;. Modified files will have a small <guiicon>floppy
+disk</guiicon> icon on their left to indicate that state.</para>
+
+<para>If two or more files with the same name (located in different
+folders) are open, the names of the second will be prepended
+<quote>&lt;2&gt;</quote> and so on. The tool-tip for the file will
+display its full name including the path, allowing you to choose the
+desired one.</para> <para>To display a document in the currently
+active frame, click the document name in the list.</para>
+
+<para>You can sort the list in a few different ways by rightclicking the
+list and selecting from the <guisubmenu>Sort By</guisubmenu> menu.
+
+The options are
+<variablelist>
+
+<varlistentry>
+<term><guimenuitem>Opening Order</guimenuitem></term>
+<listitem><para>Lists the documents in the order of opening</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Document Name</guimenuitem></term>
+<listitem><para>Lists the documents alphabetically by their name.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>URL</guimenuitem></term>
+<listitem><para>Lists the documents alphabetically by URL.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Custom</guimenuitem></term>
+<listitem><para>Custom means you can drag and drop the items in the document 
+list to manually sort them.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para>The document list will per default visualize your history by shading the
+entries for the most recent documents with a background color. If the document
+was edited, an extra color is blended in. The most recent document has the
+strongest color, so that you can easily find the documents you are working on.
+This feature can be disabled in
+<link linkend="config-dialog-documentlist">The Document List Page</link>
+of the configuration dialog.</para>
+
+<para>The default location of the document list in the &kate; window is to the left of the
+editing area.</para>
+</sect1>
+
+<sect1 id="kate-mdi-tools-file-selector">
+<title>The Filesystem Browser</title>
+
+<para><indexterm><primary>Filesystem Browser</primary></indexterm>
+The Filesystem Browser is a folder viewer, allowing you to open
+files from a displayed folder in the current frame.</para>
+
+<para>From top down, the Filesystem Browser consist of the following
+elements:</para>
+
+<variablelist>
+<varlistentry>
+<term>A Toolbar</term>
+<listitem>
+<para>This contains standard navigations tool buttons:</para>
+<variablelist>
+<varlistentry>
+<term><guibutton>Parent Folder</guibutton></term>
+<listitem><para>This will cause the folder view to <command>cd</command> to the immediate parent of the currently displayed
+folder if possible.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Back</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the previously displayed folder in the history.
+This button is disabled, if there is no previous item.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Forward</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the next folder in the history.
+This button is disabled, if there is no next folder.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Home</guibutton></term>
+<listitem><para>Pressing it will cause the folder view to <command>cd</command> to your home folder.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Short View</guibutton></term>
+<listitem><para>Displays only the filenames.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Detailed View</guibutton></term>
+<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>, <guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Tree View</guibutton></term>
+<listitem><para>???</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Bookmarks</guibutton></term>
+<listitem><para>Opens a submenu to edit or add bookmarks and to add a new bookmark folder.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Current Document Folder</guibutton></term>
+<listitem><para>This button will cause the folder view to
+<command>cd</command> to the folder of the currently active
+document if possible. This button is disabled, if the active document
+is a new, unsaved file, or the folder in which it resides can not
+be decided.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A &URL; entry</term>
+<listitem>
+<para>Here you can type the path of a folder to browse. The &URL;
+entry maintains a list of previously typed paths. To choose one use
+the arrow button to the right of the entry.</para>
+<tip><para>The &URL; entry has folder auto-completion. The completion
+method can be set using the &RMB; menu of the text
+entry.</para></tip>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Folder View</term>
+<listitem><para>This is a standard &kde; folder view.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Filter Entry</term>
+<listitem>
+<para>The Filter entry allows you to enter a filter for the files
+displayed in the folder view. The filter uses standard globs; patterns
+must be separated by white space. Example: <userinput>*.cpp *.h
+*.moc</userinput></para>
+<para>To display all files, enter a single asterisk
+<userinput>*</userinput>.</para>
+<para>The filter entry saves the last 10 filters entered between
+sessions, to use one, press the arrow button on the right of the entry
+and select the desired filter string.</para>
+<!-- button left of filter entry line Clear filter missing-->
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<!-- command line + Terminal-->
+
+<sect1 id="kate-mdi-tools-konsole">
+<title>The Built in Terminal Emulator</title>
+
+<para><indexterm><primary>Terminal emulator</primary></indexterm>
+The built in Terminal Emulator is a copy of the &kde; &konsole;
+terminal application, for your convenience. It is available from the
+<menuchoice><guimenu>View</guimenu><guisubmenu>Tools Views</guisubmenu>
+<guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
+whenever displayed. Additionally, if the <link
+linkend="config-dialog-general-sync-konsole">Automatically synchronize 
+the terminal with the current document when possible</link> option is enabled, it will
+change into the directory of the current document if
+possible when it is displayed, or when the current document
+changes.</para>
+
+<para>The default location in the &kate; window is at the bottom,
+below the editing area.</para>
+
+<para>You can configure the &konsole; using its &RMB; menu, for more
+information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
+
+</sect1>
+
+<sect1 id="kate-mdi-tools-externaltools">
+<title>External Tools</title>
+
+<para>In the <guimenu>Tools</guimenu> menu you will find a submenu labeled
+<guisubmenu>External Tools</guisubmenu>, if you have enabled them in &kate; settings. These tools invokes external
+applications with data related to the current document, for example its URL,
+directory, text or selection.</para>
+
+<para>External tools are user defined, you can add, edit or remove tools using
+the <link linkend="config-dialog-externaltools">External Tools</link> configuration panel.
+</para>
+
+</sect1>
+
+</chapter>

@@ -1,0 +1,676 @@
+<chapter id="fundamentals">
+<chapterinfo>
+<authorgroup>
+<author><personname><firstname></firstname></personname></author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+</chapterinfo>
+<title>The Fundamentals</title>
+
+<para>
+If you have ever used a text editor, you will have no problem using
+&kate;. In the next two sections, <link linkend="starting-kate">Starting
+&kate; </link> and in <link linkend="working-with-kate">Working with
+&kate;</link>, we'll show you everything you need to get up and running
+quickly.
+</para>
+
+<sect1 id="starting-kate">
+<title>Starting &kate;</title>
+
+<para>
+You can start &kate; from the &kmenu; or from the
+command line.
+</para>
+
+<sect2 id="starting-from-the-menu">
+<title>From the Menu</title>
+<para>
+Open the &kde; program menu by clicking on the
+big <guiicon>K</guiicon> icon on the toolbar at the bottom left of your
+screen. This will raise a menu. Move your
+cursor up the menu to the <menuchoice><guimenu>Applications</guimenu><guisubmenu>Utilities</guisubmenu>
+<guimenuitem>Advanced Text Editor &kate;</guimenuitem></menuchoice> menu item.
+</para>
+
+<para>
+Unless you configure &kate; not to, it will load the last files you
+edited. See <link linkend="configure">Configuring &kate;</link> to learn
+how to toggle this feature on and off.
+</para>
+
+</sect2>
+
+<sect2 id="starting-from-the-command-line">
+<title>From the Command Line</title>
+
+<para>
+You can start &kate; by typing its name on the command line. If you give
+it a file name, as in the example below, it will open or create that
+file.
+</para>
+
+<informalexample>
+<screen>
+<prompt>%</prompt><userinput><command>kate</command> <option><replaceable>myfile.txt</replaceable></option></userinput>
+</screen>
+</informalexample>
+
+<para>
+If you have an active connection, and permission, you can take advantage
+of &kde;'s network transparency to open files on the internet.
+</para>
+
+<informalexample>
+<screen>
+<prompt>%</prompt><userinput><command>kate</command> <option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable></option></userinput>
+</screen>
+</informalexample>
+
+<sect3 id="command-line-options">
+<title>Command Line Options</title>
+<para>&kate; accepts following command line options:</para>
+
+<variablelist>
+<varlistentry>
+<term><userinput><command>kate</command> <option>--help</option></userinput></term>
+<listitem>
+<para>
+This lists the most basic options available at the command line.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--help-qt</option></userinput></term>
+<listitem>
+<para>
+This lists the options available for changing the way &kate; interacts
+with &Qt;.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command> <option>--help-kde</option></userinput></term>
+<listitem>
+<para>
+This lists the options available for changing the way &kate; interacts
+with &kde;.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-s</option> <option>--start</option> <parameter>name</parameter></userinput></term>
+<listitem>
+<para>
+Starts kate with the session <parameter>name</parameter>. The session is created
+if it does not exist already. If a &kate; instance running the specified session
+exists, the specified files are loaded in that instance. When used with the
+<option>--use</option> option, an instance running this session will be used as
+well.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-u</option> <option>--use</option> <parameter>URL</parameter></userinput></term>
+<listitem>
+<para>
+Causes &kate; to use and existing instance if there is one. If you want all
+documents to open in one kate instance, you can add this option to the default
+command in your kde application configuration, as well as create a shell alias
+in your command intepreter if it supports that.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-p</option> <option>--pid</option> <parameter>PID</parameter></userinput></term>
+<listitem>
+<para>
+Only reuses an instance with the specified PID (Process ID). Used with the
+<option>--use</option> option.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-e</option> <option>--encoding</option> <parameter>encoding</parameter>
+<parameter>URL</parameter></userinput></term>
+<listitem><para>Uses the specified encoding for the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-l</option> <option>--line</option> <parameter>line</parameter>
+<parameter>URL</parameter></userinput></term>
+<listitem><para>Navigates to the specified line after opening the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-c</option> <option>--column</option> <parameter>column</parameter>
+<parameter>URL</parameter></userinput></term>
+<listitem><para>Navigates to the specified column after opening the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-i</option> <option>--stdin</option></userinput></term>
+<listitem><para>Reads the document content from STDIN. This
+is similar to the common option <option>-</option> used in many command line
+programs, and allows you to pipe command output into &kate;.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--startanon</option></userinput></term>
+<listitem><para>Start &kate; with a new anonymous session, implies 
+<option>-n</option>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-n</option> <option>--new</option></userinput></term>
+<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is 
+used and another &kate; instance already has the given session opened), forced 
+if no parameters and no URLs are given at all.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-b</option> <option>--block</option></userinput></term>
+<listitem><para>If using an already running &kate; instance, block until it exits, if URLs 
+given to open.</para>
+<para>
+You can use &kate; with this option as editor for typing in commit messages for version 
+control systems like <application>Git</application> or <application>Subversion</application>. 
+These systems expect to block the editor till you have entered your
+message, because they then open the temporary file, which would be empty 
+if kate immediately returned to the caller.
+</para>
+<para>This option is also needed with KIO (&kde; Input/Output), if you open a remote file (which has been
+downloaded to a temporary) and should be reuploaded, after you saved it.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--tempfile</option></userinput></term>
+<listitem><para>Since &kate; 2.5.1 this standard &kde; option is supported.
+When used, the specified files are treated as temporary files and
+deleted (if they are local files and you have sufficient permissions) when
+closed, unless they are modified since they were opened.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--help-all</option></userinput></term>
+<listitem>
+<para>
+This lists all of the command line options.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--author</option></userinput></term>
+<listitem>
+<para>
+Lists &kate;'s authors in the terminal window.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>-v</option> <option>--version</option></userinput></term>
+<listitem>
+<para>
+Lists version information for &Qt;, &kde;, and &kate;.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--license</option></userinput></term>
+<listitem>
+<para>
+Shows license information.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect3>
+</sect2>
+
+<sect2 id="drag-and-drop">
+<title>Drag and Drop</title>
+<para>
+&kate; uses the &kde; Drag and Drop protocol. Files may be dragged and
+dropped onto &kate; from the Desktop, the filemanager &dolphin; or some remote ftp
+site opened in one of &dolphin;'s windows.
+</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-kate">
+<title>Working with &kate;</title>
+<para>
+<link linkend="quick-start">Quick Start</link> will show you how to
+toggle four simple options that will let you configure some of &kate;'s
+more powerful features right away. <link linkend="keystroke-commands">
+Shortcuts</link> lays out some of the default keystroke
+shortcuts for those who can't or don't want to use a mouse.
+</para>
+
+<sect2 id="quick-start">
+<title>Quick Start</title>
+
+<para>
+This section will describe some of the items on the
+<guimenu>View</guimenu> menu so that you can quickly configure
+&kate; to work the way you want it.
+</para>
+
+<para> When you start &kate; for the first time you'll see two windows
+with white backgrounds. Above the two windows is a toolbar with the
+usual labeled icons. And above that, a menubar.
+</para>
+
+<para>
+The left-hand window is a side bar. It combines the <guilabel>Documents</guilabel>
+and <guilabel>Filesystem Browser</guilabel> windows. Switch between the two by clicking on the tabs
+to the left of the window. </para>
+
+<para>
+If you've started &kate; with a file, the right-hand window will show
+the file you are editing and the <guilabel>Documents</guilabel> on the side bar will show the
+name of the file. Use the <guilabel>Filesystem Browser</guilabel> window to open files.
+</para>
+
+<para> <!-- Show Sidebars Ctrl+Alt+Shift+F-->
+You can toggle the Documents and Filesystem Browser window on and off in
+<menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu></menuchoice>
+menu. This menu offers you your first glimpse into &kate;'s power and
+flexibility.  In this section we'll look at three items:
+</para>
+
+<variablelist>
+
+<!--changed in 4.2 ???
+contextmenu Behaviour with Make Persistent, + Move To with Right / Top / Left Sidebar
+this is in mdi.docbook
+-->
+<varlistentry>
+<term>
+<menuchoice>
+<guimenuitem>Show Documents</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Toggles the Documents on and off. If the Documents/Filesystem Browser window is
+not open, &kate; launches the side bar as a separate, undocked,
+window. To dock the window grab the two thin parallel lines above the
+tabs by clicking on them with your &LMB; and holding the button
+down. Drag the window into &kate;'s editing window and release the
+&LMB; when you have positioned the Documents/Filesystem Browser window as you
+prefer.
+</para>
+
+<tip>
+<para>
+If you have grabbed the two parallel lines successfully your mouse
+pointer will turn into two crossed arrows as you drag.
+</para>
+</tip>
+
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice><guimenuitem>Show
+Filesystem Browser</guimenuitem></menuchoice></term>
+<listitem>
+<para>
+Toggles the Filesystem Browser on and off. This menu item is the same as
+<guimenuitem>Show Documents</guimenuitem> with one difference.  Toggling
+it on launches the window with the Filesystem Browser on top.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenuitem>Show
+Terminal</guimenuitem></menuchoice></term>
+<listitem>
+<para>
+Toggles a terminal emulator on and off at the bottom of &kate;'s
+window. In other words, it gives you a command line within the
+application.
+</para>
+</listitem>
+</varlistentry>
+
+<!--Show Find in Files missing-->
+</variablelist>
+</sect2>
+
+<sect2 id="keystroke-commands">
+<title>Shortcuts</title>
+
+<para>
+Many of &kate;'s keystroke commands (shortcuts) are configurable by
+way of the <link linkend="settings">Settings</link> menu.  By default
+&kate; honors the following key bindings.
+</para>
+
+<!-- Ctrl+T Transpose Characters 
+Meta+Ctrl+V ii input mode
+-->
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+
+<row><entry><para><keycap>Insert</keycap></para></entry>
+<entry><para>
+Toggle between Insert and Overwrite mode. When in insert mode the editor
+will add any typed characters to the text and push any previously typed
+data to the right of the text cursor. Overwrite mode causes the entry of
+each character to eliminate the current character.</para></entry>
+</row>
+<row>
+<entry><para><keycombo><keycap>Left Arrow</keycap></keycombo></para></entry>
+<entry><para>Move the cursor one character to the left </para></entry>
+</row>
+<row>
+<entry><para><keycombo><keycap>Right Arrow</keycap></keycombo></para></entry>
+<entry><para> Move the cursor one character to the right </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Up Arrow</keycap></keycombo></para></entry>
+<entry><para> Move the cursor up one line  </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Down Arrow</keycap></keycombo></para></entry>
+<entry><para> Move the cursor down one line </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Page Up</keycap></keycombo></para></entry>
+<entry><para> Move the cursor up one page  </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Page Down</keycap></keycombo></para></entry>
+<entry><para>Move the cursor down one page  </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Backspace;</keycombo></para></entry>
+<entry><para> Delete the character to the left of the cursor </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Home</keycap></keycombo></para></entry>
+<entry><para> Move the cursor to the beginning of the line </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>End</keycap></keycombo></para></entry>
+<entry><para> Move the cursor to the end of the line </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>Delete</keycap></keycombo></para></entry>
+<entry><para>Delete the character to the right of the cursor (or any selected
+text)</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;&Enter;</keycombo></para></entry>
+<entry><para>Insert newline including leading characters of the current line which are not letters or numbers.
+It is useful &eg; to write comments in the code: At the end of the line <quote>// some text</quote> press 
+this shortcut and the next line starts already with <quote>// </quote>. So you do not have to enter the comment 
+characters at the beginning of each new line with comments.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;<keycap>Left Arrow</keycap></keycombo></para></entry>
+<entry><para> Mark text one character to the left </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;<keycap>Right Arrow</keycap></keycombo></para></entry>
+<entry><para> Mark text one character to the right </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>F1</keycap></keycombo></para></entry>
+<entry><para> Help</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;<keycap>F1</keycap></keycombo></para></entry>
+<entry><para><link linkend="whats-this">What's this?</link></para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
+<entry><para><link linkend="find"> Find</link></para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul"><keycap>F3</keycap></keycombo></para></entry>
+<entry><para><link linkend="find-again"> Find again</link></para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></para></entry>
+<entry><para>Set a Bookmark</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></para></entry>
+<entry><para> Copy the marked text to the clipboard. </para></entry>
+</row>
+
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></para></entry>
+<entry><para> <link linkend="new">New</link> document</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
+<entry><para><link linkend="print">Print</link> </para></entry>
+</row>
+<row>
+
+<entry><para><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></para></entry>
+<entry><para>Quit - close active copy of editor </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
+<entry><para><link linkend="replace"> Replace</link></para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
+<entry><para>Save your file.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></para></entry>
+<entry><para> Paste.</para></entry>
+</row>
+
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></para></entry>
+<entry><para>Delete the marked text and copy it to the clipboard. </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
+<entry><para><link linkend="undo">Undo</link></para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></para></entry>
+<entry><para><link linkend="redo">Redo</link></para></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-using-sessions">
+<title>Using Sessions</title>
+
+<para>Sessions is how &kate; lets you keep more than one list of files and
+GUI configuration around. You can have as many named sessions as you want,
+and you can use unnamed or anonymous sessions for files you want to use only
+once. Currently &kate; can save the list of open files, and the general window
+configuration in the session, future versions of &kate; may add more features
+that can be saved in sessions. With the introduction of sessions, &kate; also
+allows you to open any number of instances of the application instead of just
+one as it used to do as the default behavior.</para>
+
+<para>Sessions are supported in three areas:
+
+<itemizedlist>
+<listitem><para><link linkend="command-line-options"><emphasis>Command line
+options</emphasis></link> that lets you select and start sessions when launching
+kate from the command line.</para>
+</listitem>
+<listitem><para><link linkend="sessions-menu"><emphasis>The Sessions
+menu</emphasis></link> that lets you switch, save, start and manage your
+sessions</para></listitem>
+<listitem><para><link linkend="config-dialog-sessions"><emphasis>Configuration
+options</emphasis></link> that lets you decide how sessions generally should
+behave.</para></listitem>
+</itemizedlist>
+
+</para>
+
+<para>When starting a new session, the GUI configuration of <guilabel>Default
+Session</guilabel> is loaded. To save window configuration in the default
+session, you need to enable saving window configuration in the sessions
+configuration page of the configuration dialog and then load the default
+session, set up the window as desired and save the session again.</para>
+
+<para>When a named session is loaded, &kate; will display the session name at
+the start of the window title, which then have the form
+&quot;<replaceable>Session Name</replaceable>: <replaceable>Document name or
+&URL;</replaceable> - &kate;&quot;</para>
+
+<para>When opening files on the command line with <option>--start
+<replaceable>name</replaceable></option> or if a session is selected using the
+session chooser, the specified session is loaded prior to the files specified
+on the command line. To open files from the commandline in a new, unnamed
+session, configure kate to start a new session as default in the session page of
+the configuration dialog or use <option>--start</option> with an empty string:
+<replaceable>''</replaceable>.</para>
+
+<para>Since &kate; 2.5.1 the <acronym>PID</acronym> of the current instance is
+exported to the environment variable <envar>KATE_PID</envar>. When opening files
+from the built in terminal Kate will automatically select the current instance
+if nothing else is indicated on the command line.</para>
+
+<sect2 id="old-behavior">
+<title>Restoring old style &kate; behavior</title>
+
+<para>When you get used to using sessions you will hopefully see that they
+provide a very simple and efficient tool for working in different areas.
+However, if you prefer the old &kate; behavior (one instance opens all files),
+you can easily achieve that by following this simple strategy:
+
+<itemizedlist>
+<listitem><para>Make kate always start with the <option>--use</option>
+parameter by adding that to the command in the application preferences,
+and additionally using a shell alias.</para></listitem>
+<listitem><para>Configure &kate; to load the last used session at startup.</para>
+</listitem>
+<listitem><para>Configure &kate; to save the file list when closing a session.
+</para></listitem>
+<listitem><para>Load the default session once</para></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="fundamentals-getting-help">
+
+<title>Getting Help</title>
+
+<sect2>
+
+<title>With &kate;</title>
+<variablelist>
+
+<varlistentry>
+<term>This manual</term>
+
+<listitem>
+<para>Offers detailed documentation on all menu commands,
+configuration options, tools, dialogs, plugins &etc; as well as
+descriptions of of the &kate; window, the editor and various concepts
+used in the application.</para>
+
+<para>Press <keycap>F1</keycap> or use the
+<menuchoice><guimenu>Help</guimenu>
+<guimenuitem>&kate; Handbook</guimenuitem></menuchoice> menu topic to view this
+manual.</para></listitem>
+
+</varlistentry>
+
+<varlistentry id="whats-this">
+<term>What's This Help</term>
+<listitem>
+<para>What's This help offers immediate help with single elements of
+graphical windows, such as buttons or other window areas.</para>
+
+<para>We strive to provide What's This help for any elements for which
+it makes sense. It is available throughout the configuration dialog,
+and in many other dialogs as well.</para>
+
+<para>To employ What's This help, press
+<keycombo action="simul">&Shift;<keycap>F1</keycap></keycombo> or use the
+<menuchoice><guimenu>Help</guimenu><guimenuitem>What's
+This</guimenuitem></menuchoice> menu item to enable What's This
+mode. The cursor will turn into an arrow with a question mark, and you
+can now click any element in the window to read the What's This help
+for that element, if it is available.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Help Buttons in Dialogs</term>
+<listitem>
+<para>Some dialogs have a <guibutton>Help</guibutton> Button. Pressing
+it will start the &khelpcenter; and open the relevant
+documentation.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>With Your Text Files</title>
+
+<para>&kate; does not (yet!) provide any means for reading document
+related documentation. Depending on the file you are editing, you may
+find the <link linkend="kate-mdi-tools-konsole">Built in
+Terminal Emulator</link> helpful for viewing related &UNIX; manual pages or
+info documentation, or you can use &konqueror;.</para>
+
+</sect2>
+
+<sect2>
+<title>Articles on &kate;</title>
+
+<para>&kate;'s homepage provides some <ulink url="http://kate-editor.org/featured-articles">
+Articles and Howtos</ulink> with further information beyond the scope of this handbook.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

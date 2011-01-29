@@ -48,3 +48,6 @@ macro_optional_add_subdirectory (kwrite)
 
 # testing area, just for experimenting with new stuff
 macro_optional_add_subdirectory (playground)
+
+# docs
+macro_optional_add_subdirectory (doc)

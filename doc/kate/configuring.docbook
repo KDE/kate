@@ -1,0 +1,1774 @@
+<chapter id="configuring-kate">
+<chapterinfo>
+<authorgroup>
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+</chapterinfo>
+<title>Configuring &kate;</title>
+
+<sect1 id="configuring-overview">
+<title>Overview</title>
+<para>
+<indexterm>
+<primary>configure</primary>
+<secondary>settings</secondary>
+<tertiary>preferences</tertiary></indexterm>
+<anchor id="find"/>
+<anchor id="find-again"/>
+<!-- <anchor id="print"/> -->
+<anchor id="replace"/>
+<!-- <anchor id="save"/> -->
+<anchor id="undo"/>
+<anchor id="redo"/>
+&kate; offers several means of tweaking the application to behave as desired.
+The most important ones are:
+</para>
+
+<variablelist>
+<varlistentry>
+<term id="configure">The Configuration Dialog</term>
+<listitem><para>The main configuration tool, allowing you to configure the &kate; application,
+the editor component and the usage of plugins.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term id="settings">The <guimenu>Settings</guimenu> Menu</term>
+<listitem><para>Allows you to change often used settings, and to
+launch the configuration dialogs.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>The <guimenu>View</guimenu> Menu</term>
+<listitem><para>Allows you to split the current frame, as well as to
+display the icons and line numbers pane for the currently edited
+document.</para></listitem>
+</varlistentry>
+</variablelist>
+
+<para>The embedded terminal is using the configuration defined in the
+&systemsettings;, and may be configured by clicking the
+<mousebutton>right</mousebutton> mouse button to display a context menu.</para>
+
+</sect1>
+
+<sect1 id="configuring-kate-configdialog">
+<title>The Main Configuration Dialog</title>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="configdialog01.png"/>
+</imageobject>
+</mediaobject>
+
+<para>The &kate; configuration dialog displays a tree of topics on the
+left, and a configuration page corresponding to the selected topic on
+the right.</para>
+
+<para>The configuration is divided into two groups, namely
+<itemizedlist>
+<listitem><para><link linkend="config-dialog">Application configuration</link>
+</para></listitem>
+<listitem><para><link linkend="config-dialog-editor">Editor component configuration</link></para></listitem>
+
+</itemizedlist>
+
+</para>
+
+</sect1>
+
+<sect1 id="config-dialog">
+<title>The &kate; Application Configuration</title>
+<para>This group contains pages to configure the main &kate; application</para>
+
+<sect2 id="config-dialog-general">
+<title>The General Page</title>
+<para>This section contains a few global options for &kate;</para>
+
+<variablelist>
+
+<varlistentry>
+<term><anchor id="config-general-behavior"/>
+<guilabel>Behavior</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><anchor id="config-dialog-general-warn-mod"/>
+<guilabel>Warn about files modified by foreign processes</guilabel></term>
+<listitem><para>When enabled, &kate; will notify you about files modified
+from outside the application whenever the main window receives input focus.
+You will be able to deal with several modified files at once, you
+can reload, save or discard changed files in groups.</para>
+<para>If not enabled, &kate; will prompt you for action when a externally
+modified file receives focus within the application.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry><!-- /behavior group -->
+
+<varlistentry>
+<term><anchor id="config-general-meta-data"/>
+<guilabel>Meta Information</guilabel></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term><anchor id="config-general-keep-meta-information"/>
+<guilabel>Keep meta-information past sessions</guilabel></term>
+<listitem><para>When enabled, &kate; will store meta data such as bookmarks
+and session configuration even when you close your documents. The data
+will be used if the document is unchanged when reopened.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-delete-meta-information-after"/>
+<guilabel>Delete unused meta information after</guilabel></term>
+<listitem><para>Set the maximum number of days to keep meta information
+for unopen files. This helps keeping the database of meta information
+reasonably sized.</para></listitem>
+</varlistentry>
+
+<!--Choose default text editing component-->
+</variablelist>
+
+</listitem>
+</varlistentry><!-- /meta data group -->
+
+</variablelist>
+</sect2>
+
+<sect2 id="config-dialog-sessions">
+<title>The Sessions Page</title>
+
+<para>This section contains options related to <link
+linkend="fundamentals-using-sessions">using sessions</link>.</para>
+
+<variablelist>
+
+<varlistentry>
+<term><anchor id="config-dialog-sessions-elements"/>
+<guilabel>Elements of Sessions</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Include window configuration</guilabel></term>
+<listitem><para>If enabled, &kate; will save the window configuration
+with each session.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry><!-- /elements of sessions -->
+
+<varlistentry>
+<term><anchor id="config-dialog-sessions-startup-behavior"/>
+<guilabel>Behavior on Application Startup</guilabel></term>
+<listitem>
+<para>Select how you want &kate; to behave at startup. This setting can be
+overridden by specifying what to do on the <link
+linkend="command-line-options">command line</link>.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Start new session</guilabel></term>
+<listitem><para>With this option, &kate; will start a new, unnamed session
+when you start it.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Load last-used session</guilabel></term>
+<listitem><para>&kate; will use the most recently opened session at
+startup. This is good if you want to use the same session always or switch
+rarely.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Manually choose a session</guilabel></term>
+<listitem><para>&kate; will display a small dialog that lets you choose
+your preferred session. This is the default behavior. Nice if you use a lot of
+different sessions frequently.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry><!-- /startup behavior -->
+<!-- not in 4.4
+<varlistentry>
+<term><anchor id="config-dialog-sessions-exit-behavior"/>
+<guilabel>Behavior on Application Exit or Session Switch</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Do not save session</guilabel></term>
+<listitem><para>The changes to the session data (open files and if enabled,
+window configuration) will not be saved. You will of course be prompted if you
+have unsaved files. With this option, your can configure your sessions once, and
+not worry about closing extra files that you opened and do not want to see
+next time you use the session.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Save Session</guilabel></term>
+<listitem><para>&kate; will save session data, except if the session is unnamed.
+With this option, your sessions are always restored just like you left them.
+This is the default behavior.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Ask user</guilabel></term>
+<listitem><para>You will be asked if you want to save the session every time a
+named session is closed.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry> --> <!-- /exit/switch behavior -->
+
+</variablelist>
+<para>The changes to the session data (opened files and if enabled,
+window configuration) will always be saved.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-documentlist">
+<title>The <guilabel>Document List</guilabel> Page</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Background Shading</guilabel></term>
+<listitem><para>This section allows you to enable or disable the background
+shading visualization of your recent activity, and chose which colors to use if
+enabled. See the section about <link
+linkend="kate-mdi-tools-file-list">The Document List</link> for more about
+this feature.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Sort By</guilabel></term>
+<listitem><para>Set how you want the document list sorted. This can be set
+from the &RMB; menu in the document list as well.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="config-dialog-plugins">
+<title>The <guilabel>Plugins</guilabel> Page</title>
+
+<para>This page provides a list of installed plugins for the &kate;
+application. Each plug-in is represented with its name and a short description.
+You can check the checkbox with an item to enable the plug-in it represents.
+</para>
+
+<para>If a plug-in provides configuration options, a section to access those
+will appear as a child of this page.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-fileselector">
+<title>The <guilabel>Filesystem Browser</guilabel> Page</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Toolbar</guilabel></term>
+<listitem><para>Configure the buttons on the file system browser toolbar
+by moving the ones you want enabled to the <guilabel>Selected Actions</guilabel>
+list, and order them using the arrow buttons at the side of the list.</para>
+ </listitem>
+</varlistentry>
+<!-- not in 4.4
+<varlistentry>
+<term><guilabel>Auto Synchronization</guilabel></term>
+<listitem><para>You can have the filesystem browser automatically navigate to
+the directory containing the current document on certain events:
+<itemizedlist>
+<listitem><para>When a document becomes active.</para></listitem>
+<listitem><para>When the file selector becomes visible.</para></listitem>
+</itemizedlist>
+Even if you select not to use this feature, you can manually synchronize the
+browser with the current document by pressing the
+<guilabel>Current Document Folder</guilabel> toolbar button.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Remember locations</guilabel></term>
+<listitem><para>Select how long a browsing history you want. The browser does
+only remember individual locations, duplicates are removed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Remember filters</guilabel></term>
+<listitem><para>Select how many filters you want remembered. Only individually
+distinct filters are remembered, duplicates are removed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Session</guilabel></term>
+<listitem>
+<para>Configure whether the file system browser should remember its location and
+the last filter over sessions.</para>
+</listitem>
+</varlistentry>
+-->
+</variablelist>
+
+</sect2>
+
+
+<sect2 id="config-dialog-general-sync-konsole">
+<title>The <guilabel>Terminal</guilabel> Page</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<guilabel>Automatically synchronize the terminal with the current document when possible</guilabel></term>
+<listitem><para>This will cause the built-in terminal to
+<command>cd</command> into the directory of the active document when
+launched and when a new document gets the focus. If not enabled, you
+have to do all your navigation in the terminal on your own.
+</para></listitem>
+</varlistentry>
+<!--
+Set EDITOR environment variable to 'kate -b' ???
+-->
+</variablelist>
+</sect2>
+
+
+<sect2 id="config-dialog-externaltools">
+<title>External Tools</title>
+
+<para>This page will be displayed, if the <guilabel>External Tools</guilabel> 
+are selected on the <guilabel>Plugins</guilabel> page.
+In this case in the <guimenu>Tools</guimenu> menu you will find a submenu labeled
+<guisubmenu>External Tools</guisubmenu>. These tools invokes external
+applications with data related to the current document, for example its URL,
+directory, text or selection. This page allows you to manage the menu and edit,
+remove or add new tools.</para>
+
+<para>Each external tool is a shell command which contains macros representing
+the document data. When activated, the macros are substituted with data from the
+active document.</para>
+
+<variablelist>
+<title>External Tools Properties</title>
+<varlistentry>
+<term>Label</term>
+<listitem><para>A friendly label for the External Tools menu.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Script</term>
+<listitem><para>The script to execute when the tool is activated. Before passing
+the script to the shell, the following macros are substituted:
+
+<variablelist>
+<varlistentry>
+<term>%URL</term>
+<listitem><para>The full URL of the current document, or an empty string if the
+document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%URLs</term>
+<listitem><para>A space separated list of the URLs of all open documents
+(except unsaved ones).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%directory</term>
+<listitem><para>The directory part of the current documents URL or an empty
+string if the current document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%filename</term>
+<listitem><para>The filename of the current document without the path, or an
+empty string if the current document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%line</term>
+<listitem><para>The line number of the insertion cursor is in the current
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%column</term>
+<listitem><para>The column number of the insertion cursor in the current
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%selection</term>
+<listitem><para>The selected text in the current document, or an empty string
+if no text is selected</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>%text</term>
+<listitem><para>The full text of the current document. Beware that this will
+potentially exceed the maximum command length allowed on your system.
+Use with care.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Executable</term>
+<listitem><para>The main executable is the script. This is mandatory, and is used
+to test if the command can be run at all. A fully qualified path is allowed
+in case the executable is not in your <envar>PATH</envar> variable.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Mime types</term>
+<listitem><para>A semicolon separated list of mimetypes for which this command
+should be enabled. This is currently unused.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Save</term>
+<listitem><para>You can optionally select to have the current or all documents
+saved prior to executing the script. This is handy if your script reads the file
+from disk.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Command line name</term>
+<listitem><para>If you fill this, the tool will be available in the
+<link linkend="advanced-editing-tools-commandline">editors command line</link> as
+<command>exttool-<replaceable>Command Line Name</replaceable></command>
+(the string you enter here prepended <quote>exttool-</quote>).</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<!--
+Missing
+Additional pages for enabled plugins: 
+Kate Snippets
+Backtrace Browser
+Symbol Viewer
+-->
+</sect1>
+
+<sect1 id="config-dialog-editor">
+<title>The Editor Component Configuration</title>
+<para>This group contains all pages related to the editor component of
+&kate;. Most of the settings here are defaults, they can be overridden by
+<link linkend="pref-open-save-modes-filetypes">defining a filetype</link>,
+by <link linkend="config-variables">Document Variables</link> or by changing
+them per document during an editing session.</para>
+
+<!--from kwrite-->
+<sect2 id="appearance">
+<title>Appearance</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Word Wrap</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry id="appearance-settings">
+<term><guilabel>Dynamic Word Wrap</guilabel></term>
+<listitem><para>If this option is checked, the text lines
+will be wrapped at the view border on the screen.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Dynamic word wrap indicators (if applicable)</guilabel></term>
+<listitem><para>Choose when the Dynamic word wrap indicators
+should be displayed.
+</para></listitem></varlistentry>
+<varlistentry>
+<term><guilabel>Align dynamically wrapped lines
+to indentation depth:
+</guilabel></term>
+<listitem><para>Enables the start of dynamically wrapped
+lines to be aligned  vertically to the indentation level of the first
+line.  This can help to make code and markup more
+readable.</para><para>Additionally, this allows you to
+set a maximum width of the screen, as a percentage,
+after which dynamically wrapped lines will no longer be vertically aligned.
+For example, at 50%, lines whose indentation levels are deeper than 50% of the
+width of the screen will not have vertical alignment applied to subsequent
+wrapped lines.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Borders</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show folding markers (if available)
+</guilabel></term>
+<listitem><para>If this option is checked, the current view will display marks
+for code folding, if code folding is available.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show icon border
+</guilabel></term>
+<listitem><para>If this is checked, you will see an icon border on the left
+hand side. The icon border shows bookmark signs for instance.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show line numbers
+</guilabel></term>
+<listitem><para>If this is checked, you will see line numbers on the left
+hand side.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show scrollbar marks
+</guilabel></term>
+<listitem><para>If this option is checked the current view
+will show marks on the vertical scrollbar. These marks will
+for instance show bookmarks.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Sort Bookmarks Menu
+</guilabel></term>
+<listitem>
+<para>
+<variablelist>
+<varlistentry>
+<term><guilabel>By position
+</guilabel></term>
+<listitem><para>The bookmarks will be ordered by the line
+numbers they are placed at.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>By creation
+</guilabel></term>
+<listitem><para>Each new bookmark will be added to the bottom,
+independently from where it is placed in the document.</para></listitem>
+</varlistentry>
+</variablelist>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Advanced
+</guilabel></term>
+<listitem><para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show indentation lines
+</guilabel></term>
+<listitem><para>If this is checked, the editor will display
+vertical lines to help identifying indent lines.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlight range between selected brackets
+</guilabel></term>
+<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
+</varlistentry>
+</variablelist>
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="prefcolors">
+<title>Fonts &amp; Colors</title>
+
+<para>This section of the dialog lets you configure all fonts and colors in
+any color scheme you have, as well creating new schemes or deleting existing
+ones. Each scheme has settings for colors, fonts and normal and highlight text
+styles.
+</para>
+
+<para>&kappname; will preselect the currently active scheme for you, if you want to
+work on a different scheme start by selecting that from the
+<guilabel>Schema</guilabel> combobox. With the <guibutton>New</guibutton> and <guibutton>Delete</guibutton>
+ button you can create a new scheme or delete existing ones.</para>
+<para>At the bottom of the page you can select the <guilabel>Default schema for &kappname;</guilabel>.</para>
+
+<sect3 id="prefcolors-colors">
+<title>Colors</title>
+
+<variablelist>
+<varlistentry id="prefcolors-colors-text-background">
+<term><guilabel>Text Area Background</guilabel></term>
+<listitem>
+
+<variablelist>
+
+<varlistentry id="pref-colors-normal-text">
+<term><guilabel>Normal text</guilabel></term>
+<listitem><para>This is the default background for the editor area, it will be
+the dominant color on the editor area.</para></listitem>
+</varlistentry>
+
+<varlistentry id="pref-colors-selected-text">
+<term><guilabel>Selected text</guilabel></term>
+<listitem><para>This is the background for selected text. The default is
+the global selection color, as set in your &kde; color preferences.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pref-colors-current-line">
+<term><guilabel>Current line</guilabel></term>
+<listitem><para>Set the color for the current line. Setting this a bit different
+from the Normal text background helps to keep focus on the current line.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pref-colors-marks">
+<term><guilabel>Bookmark</guilabel></term>
+<listitem><para>This combobox lets you set overlay colors for various mark types.
+The color is mixed into the background color of a marked line, so that a line
+with more marks or a marked line that is current has a background that is a mix
+of more colors. The mark colors are also used if you enable display of scrollbar
+marks.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="prefcolors-colors-other-elements">
+<term><guilabel>Additional Elements</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Left border background</guilabel></term>
+<listitem><para>This color is used for the marks, line numbers and folding
+marker borders in the left side of the editor view when they are displayed.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Line numbers</guilabel></term>
+<listitem><para>This color is used to draw the line numbers on the left side of
+the view when displayed.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Bracket highlight</guilabel></term>
+<listitem><para>This color is used to draw the background of matching brackets.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Word wrap markers</guilabel></term>
+<listitem><para>This color is used to draw a pattern to the left of dynamically
+wrapped lines when those are aligned vertically, as well as for the static word
+wrap marker.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Tab and space markers</guilabel></term>
+<listitem><para>This color is used to draw white space indicators when enabled.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Spelling mistake line</guilabel></term>
+<listitem><para>sets the color of the line that is used to indicate spelling mistakes.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="prefcolors-fonts">
+<title>Fonts</title>
+<para>
+Here you can choose the font for the schema.  You can choose from
+any font available on your system, and set a default size. A sample text
+displays at the bottom of the dialog, so you can see the effect of your choices.
+</para>
+</sect3>
+
+<sect3 id="prefcolors-normal-text-styles">
+<title>Normal Text Styles</title>
+<para>The normal text styles are inherited by the highlight text styles,
+allowing the editor to present text in a very consistent way, for example comment
+text is using the same style in almost all of the text formats that &kappname; can
+highlight.</para>
+<para>The name in the list of styles is using the style configured for
+the item, providing you with an immediate preview when configuring a style.
+</para>
+<para>Each style lets you select common attributes as well as foreground
+and background colors. To unset a background color, rightclick to use the
+context menu.</para>
+</sect3>
+
+<sect3 id="prefcolors-highlighting-text-styles">
+<title>Highlighting Text Styles</title>
+<para>Here you can edit the text styles used by a specific highlight definition.
+The editor preselects the highlight used by your current document. To work on a
+different highlight, select one in the <guilabel>Highlight</guilabel> combobox
+above the style list.
+</para>
+<para>The name in the list of styles is using the style configured for
+the item, providing you with an immediate preview when configuring a style.
+</para>
+<para>Each style lets you select common attributes as well as foreground
+and background colors. To unset a background color, rightclick to use the
+context menu. In addition you can see if a style is equal to the default style
+used for the item, and set it to that if not.</para>
+<para>You will notice that many highlights contain other highlights represented
+by groups in the style list. For example most highlights import the Alert
+highlight, and many source code formats imports the Doxygen highlight. Editing
+colors in those groups only affects the styles when used in the edited highlight
+format.
+</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-edit">
+<title>Editing</title>
+
+<sect3 id="pref-edit-general">
+<title>General</title>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Tabulators</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Insert spaces instead of tabulators</guilabel></term>
+<listitem>
+<para>When this is enabled the editor will insert a calculated number of spaces
+according to the position in the text and the <option>tab-width</option> setting
+when you press the &Tab; key.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlight tabulators</guilabel></term>
+<listitem>
+<para>When this is enabled &kappname; will display a small dot as a visual
+representation of tabulator characters.</para>
+<note><para>This also causes dots to be drawn to indicate trailing white space.
+This will be fixed in a future version of &kappname;</para></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term id="pref-tab-width"><guilabel>Tab width</guilabel></term> <listitem><para>If the
+<link  linkend="pref-word-wrap">Insert spaces instead of tabulators</link>
+option is selected this entry determines the number of
+spaces with which the editor will automatically replace
+tabs.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="pref-word-wrap"><guilabel>Static Word Wrap</guilabel></term>
+<listitem><para>
+Word wrap is a feature that causes the editor to automatically start a new line
+of text and move (wrap) the cursor to the beginning of that new line.  &kappname;
+will automatically start a new line of text when  the current line reaches the
+length specified by the <link linkend="pref-wrap-words-at">Wrap Words
+At:</link> option.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Enable static word wrap</guilabel></term>
+<listitem>
+<para>Turns static word wrap on or off.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show static word wrap markers
+(if applicable)</guilabel></term>
+<listitem>
+<para>If this option is checked, a vertical line will be drawn at the word wrap
+column as defined in the <menuchoice> <guimenu>Settings</guimenu>
+<guimenuitem>Configure Editor...</guimenuitem></menuchoice> in the Editing tab.
+Please note that the word wrap marker is only drawn if you use a fixed pitch
+font.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term id="pref-wrap-words-at"><guilabel>Wrap words at:</guilabel></term>
+<listitem>
+<para>If the <link linkend="pref-word-wrap">Enable static word wrap</link> option is selected
+this entry  determines the length (in characters) at which the editor will
+automatically start a new line.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term ><guilabel>Misc</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Remove trailing spaces</guilabel></term>
+<listitem><para>&kappname; will automatically eliminate extra spaces
+at the ends of lines of text.</para></listitem> </varlistentry>
+
+<varlistentry>
+<term><guilabel>Highlight trailing spaces</guilabel></term>
+<listitem><para>&kappname; will highlight extra spaces
+at the ends of lines of text.</para></listitem> </varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto brackets</guilabel></term> <listitem><para>When
+the user types a left bracket ([, (, or {) &kappname; automatically enters the
+right bracket (}, ), or ]) to the right of the cursor.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Copy/Cut the current line if no selection</guilabel></term> <listitem>
+<para>If this option is enabled and the text selection is empty, copy and cut 
+action are performed for the line of text at the actual cursor position.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
+<para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-cursor-selection">
+<title>Cursor &amp; Selection</title>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Text Cursor Movement</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Smart home and smart end</guilabel></term>
+<listitem>
+<para>When selected, pressing the home key will cause the cursor to
+skip white space and go to the start of a line's text.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Wrap cursor</guilabel></term>
+<listitem>
+<para>When on, moving the insertion cursor using the <emphasis
+role="bold">Left</emphasis> and <emphasis role="bold">Right</emphasis> keys will
+go on to previous/next line at beginning/end of the line, similar to most
+editors.</para><para>When off, the insertion cursor cannot be moved left of the
+line start, but it can be moved off the line end, which can be very handy for
+programmers. When this option is chosen, moving the cursor with the arrow keys
+off the end of a line (to the right) causes it to jump down to the beginning of
+the next line. Likewise when the cursor is moved past the beginning of a line
+(to the left) it jumps up to the end of the preceding line. When this option is
+not selected, moving the cursor right past the end of a line merely causes it to
+continue horizontally in the same line and trying to move it left past the
+beginning does nothing.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>PageUp/PageDown moves cursor</guilabel></term>
+<listitem>
+<para>This option changes the behavior of the cursor when the user presses
+the <keycap>Page Up</keycap> or <keycap>Page Down</keycap> key. If unselected
+the text cursor will maintain its relative position within the visible text in
+&kappname; as new text becomes visible as a result of the operation.  So if the
+cursor is in the middle of the visible text when the operation occurs it will
+remain there (except when one reaches the beginning or end.)  With this option
+selected, the first key press will cause the cursor to move to either the top or
+bottom of the visible text as a new page of text is displayed.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Autocenter cursor (lines):</guilabel></term>
+<listitem>
+<para>Sets the number of lines to maintain visible above and below the cursor
+when possible.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Text Selection Mode</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Normal</guilabel></term>
+<listitem>
+<para>Selections will be overwritten by typed text and will be lost on
+cursor movement.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Persistent</guilabel></term>
+<listitem>
+<para>Selections will stay even after cursor movement and typing.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-indent">
+<title>Indentation</title>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Default Indentation mode:</guilabel></term>
+<listitem>
+<para>Select the automatic indentation mode you want to use as default. It is
+strongly recommended to use <userinput>None</userinput> or
+<userinput>Normal</userinput> here, and use filetype configurations to set other
+indentation modes for text formats like C/C++ code or &XML;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Indentation Properties</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Indentation width:</guilabel></term>
+<listitem>
+<para>The indentation width is the number of spaces which is used to indent a line.
+If the option <guilabel>Insert spaces instead of tabulators</guilabel>
+on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
+page is disabled, a &Tab; character is inserted
+if the indentation is divisible by the tab width.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Keep Extra Spaces</guilabel></term>
+<listitem><para>If this option is disabled, changing the indentation
+level aligns a line to a multiple of the width specified in
+<guilabel>Indentation width</guilabel>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Adjust indentation of code pasted from the clipboard</guilabel></term>
+<listitem>
+<para>If this option is selected, pasted code from the clipboard is indented.
+Triggering the <guimenuitem>Undo</guimenuitem> action removes the indentation.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Indentation Actions</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Backspace key in leading blank space unindents</guilabel></term>
+<listitem>
+<para>If this option is selected, the &Backspace; key decreases the indentation level 
+if the cursor is located in the leading blank space of a line.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Tab key action (if no selection exists)</guilabel></term>
+<listitem>
+<para>
+If you want &Tab; to align the current line in the current code block
+like in emacs, make &Tab; a shortcut to the action <guimenuitem>Align</guimenuitem>.
+</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Always advance to the next tab position</guilabel></term>
+<listitem>
+<para>If this option is selected, the &Tab; key always inserts white space
+so that the next tab position is reached. If the option <guilabel>Insert spaces instead of tabulators</guilabel>
+on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
+page is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Always increase indentation level</guilabel></term>
+<listitem>
+<para>If this option is selected, the &Tab; key always indents the current
+line by the number of character positions specified in <guilabel>Indentation width</guilabel>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Increase indentation level if in leading blank space</guilabel></term>
+<listitem>
+<para>If this option is selected, the &Tab; key either indents the current line
+or advances to the next tab position. If the insertion point is at or before the
+first non-space character in the line, or if there is a selection, the current line
+is indented by the number of character positions specified in <guilabel>Indentation width</guilabel>.
+If the insertion point is located after the first non-space character in the line
+and there is no selection, white space is inserted so that the next tab position is
+reached: if the option <guilabel>Insert spaces instead of tabulators</guilabel>
+on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
+page is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-autocompletion">
+<title>Auto Completion</title>
+<variablelist>
+<varlistentry>
+<term><guilabel>General</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Auto Completion enabled</guilabel></term>
+<listitem>
+<para>If enabled, a word completion box automatically pops up during typing
+showing a list of text entries to complete the current text under the
+cursor.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Minimal word length to complete</guilabel></term>
+<listitem><para>While typing text, the word completion searches for words in the
+document starting with the already typed text. This option configures the minimal
+amount of characters that are needed to make the word completion active and pop
+up a completion box.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="pref-edit-vi-input-mode">
+<title>Vi Input Mode</title>
+<variablelist>
+<varlistentry>
+<term><guilabel>General</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Use the VI Input mode</guilabel></term>
+<listitem>
+<para>When selected, the vi input mode will be enabled when opening a new view.
+You can still toggle the vi input mode on/off for a particular view in the
+<guilabel>Edit</guilabel> menu.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Let VI commands override Kate shortcuts</guilabel></term>
+<listitem>
+<para>When selected, vi commands will override &kate;'s built-in commands. For
+example: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> will redo,
+and override the standard action (showing the search and replace dialog).</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Hide the VI mode status bar</guilabel></term>
+<listitem>
+<para>By default, an extra status bar will be used when the Vi input mode is
+enabled. This status bar shows commands while they are being typed and
+messages/errors produced by Vi commands.</para>
+<para>Checking this option will hide this extra status line.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Key Mapping</guilabel></term>
+<listitem><para>
+Key mapping is used to change the meaning of typed keys. This allows you to
+move commands to other keys or make special keypresses for doing a series of
+commands.</para>
+<para>Example:</para>
+<para><keycap>F2</keycap> -> <keycap>I--</keycap> &Esc;</para>
+<para>This will prepend <keycap>I--</keycap> to a line when pressing <keycap>F2</keycap>.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+<sect3 id="pref-edit-spellcheck">
+<title>Spellcheck</title>
+<para>These configuration options are described in the documentation for the
+&systemsettings; module <ulink url="help:kcontrol/spellchecking">Spell Checker</ulink>.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-open-save">
+<title>Open/Save</title>
+
+<sect3 id="pref-open-save-general">
+<title>General</title>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>File Format</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Encoding:</guilabel></term>
+<listitem>
+<para>This defines the standard encoding to use to open/save files, if not changed 
+in the open/save dialog or by using a command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Encoding Detection</guilabel></term>
+<listitem>
+<para>Select an item from the drop down box, either to disable autodetection or
+use <guilabel>Universal</guilabel> to enable autodetection for all encodings. But as
+this may probably only detect utf-8/utf-16, selecting a region will use custom heuristics
+for better results.
+If neither the encoding chosen as standard above, nor the encoding specified 
+in the open/save dialog, nor the encoding specified on command line match 
+the content of the file, this detection will be run.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Fallback Encoding</guilabel></term>
+<listitem>
+<para>This defines the fallback encoding to try for opening files if neither the 
+encoding chosen as standard above, nor the encoding specified in the open/
+save dialog, nor the encoding specified on command line match the content of 
+the file.  Before this is used, an attempt will be made to determine the 
+encoding to use by looking for a byte order marker at start of file: if one 
+is found, the right unicode encoding will be chosen; otherwise encoding 
+detection will run, if both fail fallback encoding will be tried.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>End of line:</guilabel></term>
+<listitem>
+<para>Choose your preferred end of line mode for your active
+document. You have the choice between &UNIX;, DOS/&Windows; or Macintosh.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Automatic end of line detection</guilabel></term>
+<listitem>
+<para>Check this if you want the editor to autodetect the end of line
+type. The first found end of line type will be used for the whole file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Enable byte order marker</guilabel></term>
+<listitem>
+<para>The byte order mark is a special sequence at the beginning of unicode
+encoded documents. It helps editors to open text documents with the correct
+unicode encoding. For more information see <ulink 
+url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Automatic Cleanups on Load/Save</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Remove trailing spaces</guilabel></term>
+<listitem>
+<para>The editor will automatically eliminate extra spaces at the ends of lines
+of text while loading/saving the file.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-advanced">
+<title>Advanced</title>
+<variablelist>
+<varlistentry>
+<term><guilabel>Folder Config File</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Search depth for config file:</guilabel></term>
+<listitem>
+<para>The editor will search the given number of folder levels upwards
+for &kappname; config file and load the settings line from it.
+Further information about these hidden folder config files you find in the article
+<ulink url="http://kate-editor.org/article/.kateconfig">The File .kateconfig</ulink>.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Backup on Save</guilabel></term>
+<listitem><para>Backing up on save will cause &kappname; to copy the disk file to
+&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt; before saving changes.
+The suffix defaults to <emphasis role="bold">~</emphasis> and prefix is empty by
+default. </para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Local files</guilabel></term>
+<listitem>
+<para>Check this if you want backups of local files when
+saving.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Remote files</guilabel></term>
+<listitem>
+<para>Check this if you want backups of remote files when saving.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Prefix</guilabel></term>
+<listitem>
+<para>Enter the prefix to prepend to the backup file names.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Suffix</guilabel></term>
+<listitem>
+<para>Enter the suffix to add to the backup file names.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Disable swap file syncing</guilabel></term>
+<listitem>
+<para>Kate is able to recover (most of) what was written after last save in case
+of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
+after the first editing action on a document. If the user doesn’t save the
+changes and Kate crashes, the swap file remains on the disk. When opening a
+file, Kate checks if there is a swap file for the document and if it is, it asks
+the user whether he wants to recover the lost data or not. The user has the
+possibility to view the differences between the original file and the recovered
+one, too. The swap file is deleted after every save and on normal exit.</para>
+<para>Kate syncs the swap files on the disk every 15 seconds, but only if they
+have changed since the last sync. The user can disable the swap files syncing if
+he wants, by checking the <guilabel>Disable swap file syncing</guilabel> box,
+but this can lead to more data loss.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-modes-filetypes">
+<title>Modes &amp; Filetypes</title>
+<para>This page allows you to override the default configuration for documents
+of specified mimetypes. When the editor loads a document, it will try if it
+matches the file masks or mimetypes for one of the defined filetypes, and if so
+apply the variables defined. If more filetypes match, the one with the highest
+priority will be used.
+</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Filetype:</guilabel></term>
+<listitem><para>The filetype with the highest priority is the one displayed in
+the first drop down box. If more filetypes were found, they are
+also listed.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>New</guilabel></term>
+<listitem><para>This is used to create a new filetype. After
+you click on this button, the fields below get empty and you
+can fill the properties you want for the new filetype.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Delete</guilabel></term>
+<listitem><para>To remove an existing filetype, select it from the drop down
+box and press the Delete button.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem> </varlistentry>
+
+<varlistentry>
+<term><guilabel>Properties of <replaceable>current filetype</replaceable></guilabel></term>
+<listitem><para>The filetype with the highest priority is the one displayed in
+the first drop down box. If more filetypes were found, they are also
+listed.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Name:</guilabel></term>
+<listitem><para>The name of the filetype will be the text of the corresponding
+menu item. This name is displayed in the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Filetypes</guimenuitem>
+</menuchoice ></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Section:</guilabel></term>
+<listitem><para>The section name is used to organize the file types in
+menus. This is also used in the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Filetypes</guimenuitem>
+</menuchoice> menu.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Variables:</guilabel></term>
+<listitem><para>This string allows you to configure &kappname;'s settings for the
+files selected by this mimetype using &kappname; variables. You can set almost any
+configuration option, such as highlight, indent-mode, encoding,
+etc.</para><para>For a full list of known variables, see the
+manual.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlighting:</guilabel></term>
+<listitem><para>If you create a new file type, this drop down box allows you to
+select a filetype for highlighting.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Indentation Mode:</guilabel></term>
+<listitem><para>The drop down box specifies the indentation mode for new
+documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>File extensions:</guilabel></term>
+<listitem><para>The wildcards mask allows you to select files by filename. A
+typical mask uses an asterisk and the file extension, for example
+<filename>*.txt; *.text</filename>. The string is a semicolon-separated list of
+masks.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>MIME types:</guilabel></term>
+<listitem><para>Displays a wizard that helps you easily select
+mimetypes.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Priority:</guilabel></term>
+<listitem><para>Sets a priority for this file type. If more than one file type
+selects the same file, the one with the highest priority will be
+used.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem> </varlistentry>
+<varlistentry>
+<term><guibutton>Download Highlighting Files...</guibutton></term>
+<listitem>
+<para>
+Click this button to download new or updated syntax highlight descriptions
+from the &kate; website.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-plugins">
+<title>Extensions</title>
+<para>The <guilabel>Plugins</guilabel> tab lists all available plugins and you can check those you
+want to use. Click on the <guibutton>Information</guibutton> button to open the
+<guilabel>About</guilabel> dialog of this plugin.</para>
+<para>Once a configurable plugin is checked, the
+<guibutton>Configure</guibutton> button is enabled and you can click it
+in order to configure the highlighted plugin.</para>
+<variablelist>
+<title>Editor Component Plugins</title>
+<varlistentry>
+<term><guilabel>AutoBrace</guilabel></term>
+<listitem><para>The autobrace plugin supersedes the &kate; internal
+<quote>Auto Brackets</quote> feature.
+It automatically inserts a closing brace <keycap>}</keycap> at the beginning
+of the next line after ending a line with an opening one <keycap>{</keycap>
+and pressing the &Enter; key.</para></listitem>
+</varlistentry>
+<!--http://jakob.petsovits.at/topic/kate-->
+<!--Right, it's the automatic insertion of a closing brace ("}") after you ended a line with an opening one ("{"). Kate's standard insertion of parentheses, brackets and braces is simply too obtrusive for me, so even if I tried it several times I always had to disable it again because I can't stand it. So here's how AutoBrace works.
+You, the developer, are writing a line of code, and want to open a new block delimited by braces. Looks like this:
+If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
+-->
+<varlistentry>
+<term><guilabel>Data Tools</guilabel></term>
+<listitem><para>Enables data tools like thesaurus and spell check (if installed).
+Data tools are only available when text is selected, or when the right mouse
+button is clicked over a word. If no data tools are offered even when text
+is selected, you need to install them. Some data tools are part of the
+&koffice; package.
+If this plugin is enabled and data tools are installed, additional items
+appear at the end of the context menu.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Exporter</guilabel></term>
+<listitem><para>This command allows you to export the current document with all highlighting
+information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
+as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
+as HTML to the system clipboard.</para></listitem>
+</varlistentry>
+<!--IconInserter
+
+Insane (not Zen) HTML coding (light edition)
+
+-->
+<varlistentry>
+<term><guilabel>Insert File</guilabel></term>
+<listitem><para>This plugin allows you to insert any readable file at the cursor position.
+If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item
+<guimenuitem>Insert File</guimenuitem>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>Python Encoding check</term>
+<listitem><para>This plugin is always enabled.
+If you are trying to save a python file as non ASCII, without specifying a
+correct source encoding line like &eg; <quote># -*- coding: utf-8 -*-</quote>,
+a warning dialog pops up and allows you to add a proper source encoding line for the
+current encoding to the file.
+</para></listitem>
+</varlistentry>
+</variablelist>
+<!--
+kdelibs/kate/plugins/ has additional plugins
+autobookmark not build, its broken!
+timedate not build? plugin is for howto-write-a-plugin purposes!
+-->
+
+<!-- Scripts tab ??? empty: Not implemented yet, hidden in 4.4 branch -->
+</sect2>
+<!--from kwrite-->
+
+</sect1>
+
+<sect1 id="config-variables">
+
+<title>Configuring With Document Variables</title>
+
+<para>Kate variables is kateparts implementation of document variables, similar
+to emacs and vi modelines. In katepart, the lines have the format
+
+<userinput>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput>
+
+the lines can of course be in a comment, if the file is in a format with comments.
+Variable names are single words (no whitespace), and anything up to the next
+semicolon is the value. The semicolon is required.</para>
+
+<para>Here is an example variable line, forcing indentation settings for a C++,
+java or javascript file:
+
+<programlisting>// kate: space-indent on; indent-width 4; mixedindent off; indent-mode cstyle;</programlisting>
+</para>
+
+<note><para>Only the first and last 10 lines are searched for variable lines.</para></note>
+
+<para>There are variables to support almost all configurations in katepart, and
+additionally plugins can use variables, in which case it should be documented in
+the plugin's documentation.</para>
+
+<sect2 id="config-variables-howto">
+<title>How &kate; uses Variables</title>
+
+<para>When reading configuration, katepart looks in the following places
+(in that order):
+
+<itemizedlist>
+<listitem><para>The global configuration.</para></listitem>
+<listitem><para>Optional session data.</para></listitem>
+<listitem><para>The "Filetype" configuration.</para></listitem>
+<listitem><para>Document variables in the document itself.</para></listitem>
+<listitem><para>Settings made during editing from menu or command line.</para></listitem>
+</itemizedlist>
+
+As you can understand document variables has the next highest precedence.
+Whenever a document is saved, the document variables are reread, and will
+overwrite changes made using menu items or the command line.</para>
+
+<para>Any variable not listed below is stored in the document and can be queried
+by other objects such as plugins, which can use them for their own purpose.
+For example the variable indent mode uses document variables for its
+configuration.</para>
+
+<para>The variables listed here documents &kate; version 2.4. More variables
+may be added in the future. There are 3 possible types of values for variables,
+with the following valid expressions:
+<itemizedlist>
+<listitem><para>BOOL - on|off|true|false|1|0</para></listitem>
+<listitem><para>INTEGER - any integer number</para></listitem>
+<listitem><para>STRING - anything else</para></listitem>
+</itemizedlist>
+</para>
+
+<variablelist>
+<title>Available Variables</title>
+
+<varlistentry>
+<term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set auto insertion of brackets on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>auto-center-lines</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the number of autocenter lines.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>auto-insert-doxygen</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turn insertion of the leading asterisk in doxygen comments on or
+off. This has no effect unless you use the cstyle auto-indenter. </para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>background-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the document background color. The value must be something
+that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>backspace-indents</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turn backspace indenting on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>block-selection</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turn block selection on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>bom | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable/disable the byte order marker when saving files in unicode format (utf8, utf16, utf32).</para>
+<para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
+</varlistentry>
+<varlistentry>
+
+<term><cmdsynopsis><command>bracket-highlight-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color for the bracket highlight. The value must be
+something that can be evaluated to a valid color, for example "#ff0000" </para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>current-line-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color for the current line. The  value must be
+something that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>default-dictionary</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Sets the default dictionary used for spell checking.</para>
+<para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>dynamic-word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turns dynamic word wrap on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the end of line mode. Valid settings are
+<quote>unix</quote>, <quote>mac</quote> and <quote>dos</quote></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>encoding</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the document encoding. The value must be a valid encoding
+name, like <quote>utf-8</quote>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>folding-markers</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of folding markers on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>font-size</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the point size of the document font.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>font</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the font of the document. The value should be a valid font
+name, for example <quote>courier</quote>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>hl | syntax</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the syntax highlighting. Valid strings are all the names available in the menus. For instance, for C++ simply write <literal>C++</literal>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>icon-bar-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the icon bar color. The  value must be something that can
+be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>icon-border</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of the icon border on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>indent-mode</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the auto-indentation mode. The options <quote>none</quote>,
+<quote>normal</quote>, <quote>cstyle</quote>, <quote>haskell</quote>,
+<quote>lilypond</quote>, <quote>lisp</quote>, <quote>python</quote>,
+<quote>ruby</quote> and <quote>xml</quote> are recognized. See the section
+<xref linkend="kate-part-autoindent"/> for details.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>indent-width</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the indentation width.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>keep-extra-spaces</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set whether to keep extra spaces when calculating indentation width.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>keep-indent-profile</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>If enabled, prevents unindenting a block if at least one line
+has no indentation.</para>
+<para>Note: Removed in Kate 3 (KDE 4)</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>line-numbers</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of line numbers on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>mixed-indent</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set mixed indentation ala Emacs on or off.</para>
+<para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>overwrite-mode</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set overwrite mode on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>persistent-selection</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set persistent selection on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>remove-trailing-space</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set dynamic end of line cleanup on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set tab-&gt;space conversion on save on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set dynamic tab-&gt;space conversion on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>replace-trailing-space-save</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set end of line cleanup on save on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>scheme</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color scheme. The string must be the name of a color
+scheme that exists in your configuration to have any effect.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>selection-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the selection color. The  value must be something that can
+be evaluated to a valid color, for example "#ff0000".</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>show-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the visual TAB character on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>smart-home</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set smart home navigation on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>space-indent</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set indentation with spaces on or off.</para>
+<para>Note: Deprecated since Kate 3 in KDE4. Mixed indentation is the default behavior. Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>tab-indents</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the TAB key indentation on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>tab-width</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the tab display width.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>undo-steps</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the number of undo steps to remember.</para>
+<para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored. The maximal count of undo steps is unlimited.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>word-wrap-column</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the hard word wrap width.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>word-wrap-marker-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the word wrap marker color. The  value must be something
+that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set hard word wrapping on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wrap-cursor</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set cursor wrapping on or off.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+</chapter>

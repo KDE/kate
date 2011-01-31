@@ -131,8 +131,10 @@ void KateViVisualMode::reset()
 
 void KateViVisualMode::saveRangeMarks()
 {
-      KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
-      KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
+    // FIXME: this needs to be re-enabled, but DO NOT save these marks if the
+    // action that exited visual mode deleted the selection
+    //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
+    //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
 }
 
 void KateViVisualMode::init()

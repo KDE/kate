@@ -188,7 +188,7 @@ void KatePluginManager::loadPlugin (KatePluginInfo *item)
 void KatePluginManager::unloadPlugin (KatePluginInfo *item)
 {
   disablePluginGUI (item);
-  if (item->plugin) delete item->plugin;
+  delete item->plugin;
   item->plugin = 0L;
   item->load=false;
 }

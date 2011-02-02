@@ -60,7 +60,7 @@
 
 K_PLUGIN_FACTORY(KateBuildPluginFactory, registerPlugin<KateBuildPlugin>();)
 K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuildplugin", "katebuildplugin",
-                                                  ki18n("Build Blugin"), "0.1",
+                                                  ki18n("Build Plugin"), "0.1",
                                                   ki18n( "Build Plugin"))))
 
 static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../";

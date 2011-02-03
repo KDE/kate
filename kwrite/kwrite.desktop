@@ -1,6 +1,12 @@
 [Desktop Entry]
 GenericName=Text Editor
+GenericName[pt]=Editor de Texto
+GenericName[uk]=Текстовий редактор
+GenericName[x-test]=xxText Editorxx
 Name=KWrite
+Name[pt]=KWrite
+Name[uk]=KWrite
+Name[x-test]=xxKWritexx
 MimeType=text/plain;
 Exec=kwrite %U
 X-KDE-StartupNotify=true

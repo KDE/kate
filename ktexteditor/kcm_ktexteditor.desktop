@@ -1,6 +1,12 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
+Name[pt]=Editor de Texto Incorporado
+Name[uk]=Вмонтований текстовий редактор
+Name[x-test]=xxEmbedded Text Editorxx
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
+Comment[pt]=O serviço de edição de texto oferece às aplicações um visualizador e editor de texto. As aplicações do KDE que oferecem funcionalidade de edição de texto devem usar este serviço.
+Comment[uk]=Служба «Текстовий редактор» забезпечує роботу програм з переглядачем та редактором тексту. Програми KDE, які надають можливість редагування тексту, повинні користуватись цією службою.
+Comment[x-test]=xxThe text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.xx
 ServiceTypeToConfigure=KTextEditor/Document
 defaultImplementation=katepart
 storeInFile=default_components

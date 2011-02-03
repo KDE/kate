@@ -5,3 +5,6 @@ X-KDE-Library=ktexteditor_timedate
 X-KDE-PluginKeyword=ktexteditor_timedate_config
 X-KDE-ParentComponents=ktexteditortimedate
 Name=Format of Time & Date insertion
+Name[pt]=Formato da introdução de Datas & Horas
+Name[uk]=Формат часу і дати для вставлення
+Name[x-test]=xxFormat of Time & Date insertionxx

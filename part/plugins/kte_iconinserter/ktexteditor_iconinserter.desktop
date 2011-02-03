@@ -1,8 +1,17 @@
 [Desktop Entry]
 Type=Service
 Comment=Select an icon and use it as a KIcon in your source-code
+Comment[pt]=Seleccionar um ícone e usá-lo como KIcon no seu código-fonte
+Comment[uk]=Виберіть піктограму і використайте її як KIcon у коді вашої програми
+Comment[x-test]=xxSelect an icon and use it as a KIcon in your source-codexx
 Name=IconInserter
+Name[pt]=Inserção de Ícone
+Name[uk]=Вставка піктограм
+Name[x-test]=xxIconInserterxx
 GenericName=Insert Code for KIcon-Creation
+GenericName[pt]=Inserir o Código de Criação do KIcon
+GenericName[uk]=Додавання коду для створення KIcon
+GenericName[x-test]=xxInsert Code for KIcon-Creationxx
 Icon=kcoloredit
 ServiceTypes=KTextEditor/Plugin
 X-KDE-ServiceTypes=KTextEditor/Plugin

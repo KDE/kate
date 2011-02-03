@@ -191,7 +191,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
-  setComponentData( KComponentData("kate") );
+  setComponentData( KateFileTreeFactory::componentData() );
   setXMLFile(QString::fromLatin1("plugins/filetree/ui.rc"));
   
   KAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);

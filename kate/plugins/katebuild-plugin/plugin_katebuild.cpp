@@ -59,8 +59,10 @@
 #include <kaboutdata.h>
 
 K_PLUGIN_FACTORY(KateBuildPluginFactory, registerPlugin<KateBuildPlugin>();)
-K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuildplugin", "katebuildplugin",
-                                                  ki18n("Build Plugin"), "0.1",
+K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuild",
+                                                  "katebuild-plugin",
+                                                  ki18n("Build Plugin"),
+                                                  "0.1",
                                                   ki18n( "Build Plugin"))))
 
 static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../";
@@ -71,8 +73,9 @@ static const QString DefQuickCmd = "gcc -Wall -g %f";
 
 /******************************************************************/
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList&):
-        Kate::Plugin ((Kate::Application*)parent)
+Kate::Plugin ((Kate::Application*)parent, "kate-build-plugin")
 {
+    KGlobal::locale()->insertCatalog("katebuild-plugin");
 }
 
 /******************************************************************/
@@ -84,7 +87,7 @@ Kate::PluginView *KateBuildPlugin::createView (Kate::MainWindow *mainWindow)
 /******************************************************************/
 KateBuildView::KateBuildView(Kate::MainWindow *mw)
     : Kate::PluginView (mw)
-     , KXMLGUIClient()
+    , Kate::XMLGUIClient(KateBuildPluginFactory::componentData())
      , m_toolView (mw->createToolView ("kate_private_plugin_katebuildplugin",
                 Kate::MainWindow::Bottom,
                 SmallIcon("application-x-ms-dos-executable"),
@@ -95,7 +98,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+:[0-9]+"),
     m_newDirDetector("make\\[.+\\]: .+ `.*'")
 {
-    setComponentData(KComponentData("kate"));
     m_targetList.append(Target());
 
     m_win=mw;
@@ -166,7 +168,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
 
-    setXMLFile(QString::fromLatin1("plugins/katebuild/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
 }
 

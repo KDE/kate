@@ -45,7 +45,7 @@ class QRegExp;
 #include "targets.h"
 
 /******************************************************************/
-class KateBuildView : public Kate::PluginView, public KXMLGUIClient
+class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

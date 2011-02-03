@@ -239,7 +239,9 @@ void TargetsUi::delQuickCmd()
 
 void TargetsUi::editTarget(const QString &text)
 {
+    int curPos = targetCombo->lineEdit()->cursorPosition();
     targetCombo->setItemText(targetCombo->currentIndex(), text);
+    targetCombo->lineEdit()->setCursorPosition(curPos);
 }
 
 void TargetsUi::editBuildCmd(const QString &text)

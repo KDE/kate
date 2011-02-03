@@ -2,7 +2,7 @@
 #define KATE_CTAGS_PLUGIN_H
 /* Description : Kate CTags plugin
  *
- * Copyright (C) 2008 by Kare Sars <kare dot sars at iki dot fi>
+ * Copyright (C) 2008-2011 by Kare Sars <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -41,7 +41,7 @@ class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterf
     Q_INTERFACES(Kate::PluginConfigPageInterface)
 
     public:
-        explicit KateCTagsPlugin(QObject* parent = 0, const QStringList& = QStringList());
+        explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
         virtual ~KateCTagsPlugin() {}
 
         Kate::PluginView *createView(Kate::MainWindow *mainWindow);

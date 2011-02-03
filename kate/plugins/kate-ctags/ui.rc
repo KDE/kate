@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="kate-ctags-plugin" library="libkatectagsplugin" version="1">
+<gui name="katectags-plugin" library="katectagsplugin" version="2">
     <MenuBar>
         <Menu name="CTags Menubar"><text>CTags</text>
             <Action name="ctags_return_step" />

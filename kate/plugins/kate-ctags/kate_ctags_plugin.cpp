@@ -1,6 +1,6 @@
 /* Description : Kate CTags plugin
  * 
- * Copyright (C) 2008 by Kare Sars <kare dot sars at iki dot fi>
+ * Copyright (C) 2008-2011 by Kare Sars <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -25,25 +25,32 @@
 #include <KFileDialog>
 #include <QCheckBox>
 
-#include <kgenericfactory.h>
 #include <kmenu.h>
 #include <kactioncollection.h>
 #include <kstringhandler.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
-K_EXPORT_COMPONENT_FACTORY(katectagsplugin, KGenericFactory<KateCTagsPlugin>("kate-ctags-plugin"))
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kaboutdata.h>
+
+K_PLUGIN_FACTORY(KateCTagsPluginFactory, registerPlugin<KateCTagsPlugin>();)
+K_EXPORT_PLUGIN(KateCTagsPluginFactory(KAboutData("katectags", "kate-ctags-plugin",
+                                                  ki18n("CTags Plugin"), "0.2",
+                                                  ki18n( "CTags Plugin"))))
 
 /******************************************************************/
-KateCTagsPlugin::KateCTagsPlugin(QObject* parent, const QStringList&):
+KateCTagsPlugin::KateCTagsPlugin(QObject* parent, const QList<QVariant>&):
 Kate::Plugin ((Kate::Application*)parent), m_view(0)
 {
+    KGlobal::locale()->insertCatalog("kate-ctags-plugin");
 }
 
 /******************************************************************/
 Kate::PluginView *KateCTagsPlugin::createView(Kate::MainWindow *mainWindow)
 {
-    m_view = new KateCTagsView(mainWindow);
+    m_view = new KateCTagsView(mainWindow, KateCTagsPluginFactory::componentData());
     return m_view;
 }
 

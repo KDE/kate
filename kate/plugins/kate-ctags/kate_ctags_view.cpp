@@ -1,6 +1,6 @@
 /* Description : Kate CTags plugin
  *
- * Copyright (C) 2008 by Kare Sars <kare dot sars at iki dot fi>
+ * Copyright (C) 2008-2011 by Kare Sars <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -32,9 +32,9 @@
 
 
 /******************************************************************/
-KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
+KateCTagsView::KateCTagsView(Kate::MainWindow *mw, const KComponentData& componentData)
     : Kate::PluginView (mw)
-        , KXMLGUIClient()
+        , Kate::XMLGUIClient(componentData)
         , m_toolView (mw->createToolView ("kate_private_plugin_katectagsplugin",
                       Kate::MainWindow::Bottom,
                       SmallIcon("application-x-ms-dos-executable"),
@@ -42,8 +42,6 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
                      )
         , m_proc(0)
 {
-    setComponentData(KComponentData("kate"));
-
     m_mWin = mw;
 
     KAction *back = actionCollection()->addAction("ctags_return_step");
@@ -109,7 +107,6 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw)
     connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
             SLOT(tagHitClicked(QTreeWidgetItem *)));
 
-    setXMLFile(QString::fromLatin1("plugins/katectags/ui.rc"));
     mainWindow()->guiFactory()->addClient(this);
 
     m_commonDB = KStandardDirs::locateLocal("appdata", "plugins/katectags/common_db", true);

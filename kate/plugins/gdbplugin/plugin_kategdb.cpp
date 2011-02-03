@@ -52,7 +52,7 @@
 K_PLUGIN_FACTORY(KatePluginGDBFactory, registerPlugin<KatePluginGDB>();)
 K_EXPORT_PLUGIN(KatePluginGDBFactory(
                     KAboutData( "kategdb",
-                                "kategdb",
+                                "kategdbplugin",
                                 ki18n( "GDB Integration" ),
                                 "0.1",
                                 ki18n( "Kate GDB Integration" ) ) ) )
@@ -60,6 +60,7 @@ K_EXPORT_PLUGIN(KatePluginGDBFactory(
 KatePluginGDB::KatePluginGDB( QObject* parent, const VariantList& )
 :   Kate::Plugin( (Kate::Application*)parent, "kate-gdb-plugin" )
 {
+    KGlobal::locale()->insertCatalog("kategdbplugin");
 }
 
 KatePluginGDB::~KatePluginGDB()

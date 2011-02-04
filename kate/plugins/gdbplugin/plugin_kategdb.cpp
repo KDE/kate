@@ -542,9 +542,13 @@ void KatePluginGDBView::insertStackFrame( QString const& level, QString const& i
     QStringList columns;
     columns << "  "; // icon place holder
     columns << level;
-    columns << info;
+    int lastSpace = info.lastIndexOf(" ");
+    QString shortInfo = info.mid(lastSpace);
+    columns << shortInfo;
 
-    m_stackTree->insertTopLevelItem(level.toInt(), new QTreeWidgetItem(m_stackTree, columns));
+    QTreeWidgetItem *item = new QTreeWidgetItem(columns);
+    item->setToolTip(2, QString("<qt>%1<qt>").arg(info));
+    m_stackTree->insertTopLevelItem(level.toInt(), item);
 }
 
 void KatePluginGDBView::stackFrameSelected()

@@ -88,9 +88,14 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                                               i18n("Debug View"));
 
     m_localsToolView = mainWindow()->createToolView(i18n("Locals"),
-                                                Kate::MainWindow::Right,
-                                                SmallIcon("debug"),
-                                                i18n("Locals"));
+                                                    Kate::MainWindow::Right,
+                                                    SmallIcon("debug"),
+                                                    i18n("Locals"));
+
+    m_stackToolView = mainWindow()->createToolView(i18n("Call Stack"),
+                                                   Kate::MainWindow::Right,
+                                                   SmallIcon("debug"),
+                                                   i18n("Call Stack"));
 
     m_tabWidget = new QTabWidget( m_toolView );
     // Output
@@ -125,7 +130,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     layout->setSpacing(0);
 
     // stack page
-    m_stackTree = new QTreeWidget(m_tabWidget);
+    m_stackTree = new QTreeWidget(m_stackToolView);
     QStringList headers;
     headers << "  " << i18nc( "Column label (frame number)", "Nr" ) << i18nc( "Column label", "Frame" );
     m_stackTree->setHeaderLabels(headers);
@@ -144,7 +149,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
              this,       SLOT( showIO( bool ) ) );
 
     m_tabWidget->addTab( m_gdbPage, i18nc( "Tab label", "GDB Output" ) );
-    m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
+    //m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
     m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
     //tabWidget->addTab( m_ioView, i18n( "IO" ) );
 

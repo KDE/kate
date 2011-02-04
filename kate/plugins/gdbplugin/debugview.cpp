@@ -124,6 +124,9 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         m_nextCommands << QString("run");
         m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
     }
+    else {
+        m_nextCommands << QString("(Q)");
+    }
 }
 
 bool DebugView::debuggerRunning() const
@@ -427,6 +430,7 @@ void DebugView::processLine( QString line )
                 {
                     m_nextCommands.clear();
                 }
+                m_nextCommands << QString("(Q)"); //This will prevent the "(Q)" commands
                 emit programEnded();
             }
             else if( prompt.exactMatch( line ) )

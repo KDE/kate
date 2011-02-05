@@ -6,6 +6,7 @@ X-KDE-PluginKeyword=ktexteditor_autobrace_config
 X-KDE-ParentComponents=ktexteditorautobrace
 Name=AutoBrace Configuration
 Name[cs]=Nastavení automatických závorek
+Name[nl]=Configuratie voor automatische haakjes
 Name[pt]=Configuração dos Parêntesis Automáticos
 Name[pt_BR]=Configuração automática dos parênteses
 Name[sv]=Automatisk parentesinställning

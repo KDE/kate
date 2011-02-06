@@ -56,7 +56,7 @@ int KateGlobal::s_ref = 0;
 
 QString KateGlobal::katePartVersion()
 {
-  return QString("3.6");
+  return QString("3.7");
 }
 
 KateGlobal::KateGlobal ()

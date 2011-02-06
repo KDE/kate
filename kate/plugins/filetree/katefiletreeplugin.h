@@ -49,7 +49,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     virtual uint configPages() const;
-    
+
     virtual QString configPageName (uint number = 0) const;
     virtual QString configPageFullName (uint number = 0) const;
     virtual KIcon configPageIcon (uint number = 0) const;
@@ -58,14 +58,14 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
     const KateFileTreePluginSettings &settings();
 
     void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFulPath);
-    
+
   private:
     QHash<Kate::MainWindow *, KateFileTreePluginView *> m_view;
     KateFileTreeConfigPage *m_confPage;
     KateFileTreePluginSettings m_settings;
 };
 
-class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
+class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
@@ -90,14 +90,14 @@ class KateFileTreePluginView : public Kate::PluginView, public KXMLGUIClient
 
     bool hasLocalPrefs();
     void setHasLocalPrefs(bool);
-    
+
   private:
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
     bool m_hasLocalPrefs;
     KateFileTreePlugin *m_plug;
-    
+
   private Q_SLOTS:
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);

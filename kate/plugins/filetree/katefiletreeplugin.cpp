@@ -45,7 +45,7 @@
 //END Includes
 
 K_PLUGIN_FACTORY(KateFileTreeFactory, registerPlugin<KateFileTreePlugin>();)
-K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("katefiletreeplugin","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
@@ -80,7 +80,7 @@ QString KateFileTreePlugin::configPageName (uint number) const
 {
   if(number != 0)
     return QString();
-  
+
   return QString(i18n("Tree View"));
 }
 
@@ -88,7 +88,7 @@ QString KateFileTreePlugin::configPageFullName (uint number) const
 {
   if(number != 0)
     return QString();
-    
+
   return QString(i18n("Configure Tree View"));
 }
 
@@ -96,7 +96,7 @@ KIcon KateFileTreePlugin::configPageIcon (uint number) const
 {
   if(number != 0)
     return KIcon();
-    
+
   return KIcon("view-list-tree");
 }
 
@@ -147,28 +147,28 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
 
 //BEGIN KateFileTreePluginView
 KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug)
-: Kate::PluginView (mainWindow), KXMLGUIClient(), m_plug(plug)
+: Kate::PluginView (mainWindow), Kate::XMLGUIClient(KateFileTreeFactory::componentData()), m_plug(plug)
 {
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
-  
+
   QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(toolview);
   m_fileTree->setSortingEnabled(true);
-  
+
   connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document*)),
           this, SLOT(activateDocument(KTextEditor::Document*)));
 
   connect(m_fileTree, SIGNAL(viewModeChanged(bool)), this, SLOT(viewModeChanged(bool)));
   connect(m_fileTree, SIGNAL(sortRoleChanged(int)), this, SLOT(sortRoleChanged(int)));
-  
+
   m_documentModel = new KateFileTreeModel(this);
   m_proxyModel = new KateFileTreeProxyModel(this);
   m_proxyModel->setSourceModel(m_documentModel);
   m_proxyModel->setDynamicSortFilter(true);
-  
+
   Kate::DocumentManager *dm = Kate::application()->documentManager();
-  
+
   connect(dm, SIGNAL(documentCreated(KTextEditor::Document *)),
           m_documentModel, SLOT(documentOpened(KTextEditor::Document *)));
   connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
@@ -178,9 +178,9 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
           this, SLOT(documentOpened(KTextEditor::Document *)));
   connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
           this, SLOT(documentClosed(KTextEditor::Document *)));
-          
+
   m_fileTree->setModel(m_proxyModel);
-  
+
   m_fileTree->setDragEnabled(false);
   m_fileTree->setDragDropMode(QAbstractItemView::InternalMove);
   m_fileTree->setDropIndicatorShown(false);
@@ -188,12 +188,9 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
   connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SLOT(slotCurrentChanged(const QModelIndex&, const QModelIndex&)));
-  
+
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
-  setComponentData( KateFileTreeFactory::componentData() );
-  setXMLFile(QString::fromLatin1("plugins/filetree/ui.rc"));
-  
   KAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
   show_active->setIcon(KIcon("folder-sync"));
@@ -205,17 +202,17 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   prev_document->setIcon(KIcon("go-previous"));
   prev_document->setShortcut( QKeySequence(Qt::ALT+Qt::Key_Left), KAction::DefaultShortcut );
   connect( prev_document, SIGNAL( triggered(bool) ), m_fileTree, SLOT( slotDocumentPrev() ) );
-  
+
   KAction *next_document = actionCollection()->addAction("filetree_next_document", mainWindow);
   next_document->setText(i18n("&Next Document"));
   next_document->setIcon(KIcon("go-next"));
   next_document->setShortcut( QKeySequence(Qt::ALT+Qt::Key_Right), KAction::DefaultShortcut );
   connect( next_document, SIGNAL( triggered(bool) ), m_fileTree, SLOT( slotDocumentNext() ) );
-  
+
   mainWindow->guiFactory()->addClient(this);
-  
+
   m_proxyModel->setSortRole(Qt::DisplayRole);
-  
+
   m_proxyModel->sort(0, Qt::AscendingOrder);
   m_proxyModel->invalidate();
 }
@@ -243,7 +240,7 @@ void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
   kDebug(debugArea()) << "open" << doc;
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
           m_documentModel, SLOT(documentEdited(KTextEditor::Document*)));
-  
+
   m_proxyModel->invalidate();
 }
 
@@ -252,15 +249,15 @@ void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
   kDebug(debugArea()) << "close" << doc;
   m_proxyModel->invalidate();
 }
-    
+
 void KateFileTreePluginView::viewChanged()
 {
   kDebug(debugArea()) << "BEGIN!";
-  
+
   KTextEditor::View *view = mainWindow()->activeView();
   if(!view)
     return;
-  
+
   KTextEditor::Document *doc = view->document();
   QModelIndex index = m_proxyModel->docIndex(doc);
   kDebug(debugArea()) << "selected doc=" << doc << index;
@@ -270,11 +267,11 @@ void KateFileTreePluginView::viewChanged()
 
   // update the model on which doc is active
   m_documentModel->documentActivated(doc);
-  
+
   m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
-  
+
   m_fileTree->scrollTo(index);
-  
+
   while(index != QModelIndex()) {
     m_fileTree->expand(index);
     index = index.parent();
@@ -286,7 +283,7 @@ void KateFileTreePluginView::viewChanged()
 void KateFileTreePluginView::setListMode(bool listMode)
 {
   kDebug(debugArea()) << "BEGIN";
-  
+
   if(listMode) {
     kDebug(debugArea()) << "listMode";
     m_documentModel->setListMode(true);
@@ -351,13 +348,13 @@ void KateFileTreePluginView::readSessionConfig(KConfigBase* config, const QStrin
     m_hasLocalPrefs = true;
   else
     m_hasLocalPrefs = false;
-  
+
   // we chain to the global settings by using them as the defaults
   //  here in the session view config loading.
   const KateFileTreePluginSettings &defaults = m_plug->settings();
-  
+
   bool listMode = g.readEntry("listMode", defaults.listMode());
-  
+
   setListMode(listMode);
 
   int sortRole = g.readEntry("sortRole", defaults.sortRole());
@@ -377,7 +374,7 @@ void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QStri
     g.deleteEntry("listMode");
     g.deleteEntry("sortRole");
   }
-  
+
   g.sync();
 }
 //ENDKateFileTreePluginView

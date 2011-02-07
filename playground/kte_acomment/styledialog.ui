@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>StyleDialog</class>
  <widget class="QWidget" name="StyleDialog">
-  <property name="modal" stdset="0">
-   <bool>false</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>

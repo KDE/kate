@@ -10,7 +10,7 @@
             <Action name="goto_prev" />
             <Action name="goto_next" />
             <Separator/>
-            <Action name="target_next" />
+            <Action name="targets" />
         </Menu>
     </MenuBar>
 </gui>

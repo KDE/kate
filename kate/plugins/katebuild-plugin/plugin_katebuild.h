@@ -40,6 +40,7 @@ class QRegExp;
 #include <kate/mainwindow.h>
 
 #include <kprocess.h>
+#include <kselectaction.h>
 
 #include "ui_build.h"
 #include "targets.h"
@@ -89,6 +90,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         // settings
         void slotBrowseClicked();
         void targetSelected(int index);
+        void targetsChanged(QString);
         void targetNew();
         void targetCopy();
         void targetDelete();
@@ -101,7 +103,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         bool startProcess(const KUrl &dir, const QString &command);
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
-        
+
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         m_buildUi;
@@ -116,6 +118,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         unsigned int      m_numWarnings;
         QList<Target>     m_targetList;
         int               m_targetIndex;
+        KSelectAction*    m_targetSelectAction;
 };
 
 

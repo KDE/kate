@@ -127,11 +127,11 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     a->setText(i18n("Previous Error"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Left));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
-    
-    a = actionCollection()->addAction("target_next");
-    a->setText(i18n("Next Target"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
-    
+
+    m_targetSelectAction = actionCollection()->add<KSelectAction>( "targets" );
+    m_targetSelectAction->setText( i18n( "Targets" ) );
+    connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
+
     QWidget *buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(buildWidget);
     m_targetsUi = new TargetsUi(m_buildUi.ktabwidget);
@@ -164,6 +164,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
 
     connect(m_targetsUi->targetCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(targetSelected(int)));
+    connect(m_targetsUi->targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(targetsChanged(QString)));
     connect(m_targetsUi->newTarget, SIGNAL(clicked()), this, SLOT(targetNew()));
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
@@ -249,7 +250,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     m_targetsUi->buildCmds->clear();
     m_targetsUi->buildCmds->addItems(m_targetList[0].buildCmds);
     m_targetsUi->buildCmds->setCurrentIndex(m_targetList[0].buildCmdIndex);
-    
+
     m_targetsUi->cleanCmds->clear();
     m_targetsUi->cleanCmds->addItems(m_targetList[0].cleanCmds);
     m_targetsUi->cleanCmds->setCurrentIndex(m_targetList[0].cleanCmdIndex);
@@ -257,7 +258,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     m_targetsUi->quickCmds->clear();
     m_targetsUi->quickCmds->addItems(m_targetList[0].quickCmds);
     m_targetsUi->quickCmds->setCurrentIndex(m_targetList[0].quickCmdIndex);
-    
+
     m_targetsUi->targetCombo->blockSignals(false);
     if (numTargets > 1)  {
        m_targetsUi->deleteTarget->setDisabled(false);
@@ -421,7 +422,7 @@ KUrl KateBuildView::docUrl()
         kDebug() << "no KTextEditor::View" << endl;
         return KUrl();
     }
-    
+
     if (kv->document()->isModified()) kv->document()->save();
     return kv->document()->url();
 }
@@ -445,7 +446,7 @@ bool KateBuildView::checkLocal(const KUrl &dir)
 bool KateBuildView::slotMake(void)
 {
     KUrl dir(docUrl()); // docUrl() saves the current document
-    
+
     if (m_targetsUi->buildDir->text().isEmpty()) {
         if (!checkLocal(dir)) return false;
         // dir is a file -> remove the file with upUrl().
@@ -461,7 +462,7 @@ bool KateBuildView::slotMake(void)
 bool KateBuildView::slotMakeClean(void)
 {
     KUrl dir(docUrl()); // docUrl() saves the current document
-    
+
     if (m_targetsUi->buildDir->text().isEmpty()) {
         if (!checkLocal(dir)) return false;
         // dir is a file -> remove the file with upUrl().
@@ -482,17 +483,17 @@ bool KateBuildView::slotQuickCompile()
         KMessageBox::sorry(0, i18n("The custom command is empty."));
         return false;
     }
-    
+
     KUrl url(docUrl());
     KUrl dir = url.upUrl();// url is a file -> remove the file with upUrl()
     // Check if the command contains the file name or directory
     if (cmd.contains("%f") || cmd.contains("%d")) {
         if (!checkLocal(url)) return false;
-             
+
         cmd.replace("%f", url.toLocalFile());
         cmd.replace("%d", dir.toLocalFile());
     }
-    
+
     return startProcess(dir, cmd);
 }
 
@@ -510,7 +511,7 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
     m_numErrors = 0;
     m_numWarnings = 0;
     m_make_dir_stack.clear();
-    
+
     // activate the output tab
    m_buildUi.ktabwidget->setCurrentIndex(1);
 
@@ -726,7 +727,7 @@ void KateBuildView::targetSelected(int index)
     for (int i=0; i<m_targetsUi->buildCmds->count(); i++) {
         m_targetList[m_targetIndex].buildCmds << m_targetsUi->buildCmds->itemText(i);
     }
-    
+
     m_targetList[m_targetIndex].cleanCmds.clear();
     m_targetList[m_targetIndex].cleanCmdIndex = m_targetsUi->cleanCmds->currentIndex();
     for (int i=0; i<m_targetsUi->cleanCmds->count(); i++) {
@@ -744,17 +745,32 @@ void KateBuildView::targetSelected(int index)
     m_targetsUi->buildCmds->clear();
     m_targetsUi->buildCmds->addItems(m_targetList[index].buildCmds);
     m_targetsUi->buildCmds->setCurrentIndex(m_targetList[index].buildCmdIndex);
-    
+
     m_targetsUi->cleanCmds->clear();
     m_targetsUi->cleanCmds->addItems(m_targetList[index].cleanCmds);
     m_targetsUi->cleanCmds->setCurrentIndex(m_targetList[index].cleanCmdIndex);
-    
+
     m_targetsUi->quickCmds->clear();
     m_targetsUi->quickCmds->addItems(m_targetList[index].quickCmds);
     m_targetsUi->quickCmds->setCurrentIndex(m_targetList[index].quickCmdIndex);
 
     m_targetIndex = index;
 
+    // make sure that both the combo box and the menu are updated
+    m_targetsUi->targetCombo->setCurrentIndex( index );
+    m_targetSelectAction->setCurrentItem( index );
+}
+
+void KateBuildView::targetsChanged(QString)
+{
+    QStringList items;
+
+    for( int i = 0; i < m_targetList.size(); ++i )
+    {
+        items.append( m_targetList[i].name );
+    }
+    m_targetSelectAction->setItems( items );
+    m_targetSelectAction->setCurrentItem( m_targetIndex );
 }
 
 /******************************************************************/
@@ -819,9 +835,9 @@ void KateBuildView::targetNext()
     if (index == m_targetsUi->targetCombo->count()) index = 0;
 
     m_targetsUi->targetCombo->setCurrentIndex(index);
-    
+
     m_win->showToolView(m_toolView);
     m_buildUi.ktabwidget->setCurrentIndex(2);
-    
+
 }
 

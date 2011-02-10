@@ -11,6 +11,7 @@
             <Action name="goto_next" />
             <Separator/>
             <Action name="targets" />
+            <Action name="target_next" />
         </Menu>
     </MenuBar>
 </gui>

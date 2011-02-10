@@ -132,6 +132,10 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_targetSelectAction->setText( i18n( "Targets" ) );
     connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
 
+    a = actionCollection()->addAction("target_next");
+    a->setText(i18n("Next Target"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
+
     QWidget *buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(buildWidget);
     m_targetsUi = new TargetsUi(m_buildUi.ktabwidget);
@@ -266,6 +270,9 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
     else {
        m_targetsUi->deleteTarget->setDisabled(true);
     }
+
+    // update the targets menu
+    targetsChanged( QString() );
 
     // select the last active target if possible
     m_targetsUi->targetCombo->setCurrentIndex(cg.readEntry(QString("Active Target Index"), 0));

@@ -7,6 +7,7 @@ Comment[cs]=Modul textového editoru
 Comment[en_GB]=KTextEditor Plugin
 Comment[es]=Complemento KTextEditor
 Comment[et]=KTextEditori plugin
+Comment[gl]=Engadido de KTextEditor
 Comment[ia]=KTextEditor Plugin
 Comment[nl]=KTextEditor-plugin
 Comment[pt]='Plugin' do KTextEditor
@@ -14,6 +15,7 @@ Comment[pt_BR]=Plug-in do KTextEditor
 Comment[sv]=Insticksprogram för texteditor
 Comment[uk]=Додаток KTextEditor
 Comment[x-test]=xxKTextEditor Pluginxx
+Comment[zh_TW]=KTextEditor 外掛程式
 
 [PropertyDef::X-KDE-Version]
 Type=double

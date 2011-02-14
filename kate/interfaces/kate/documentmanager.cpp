@@ -72,6 +72,11 @@ namespace Kate
     return d->docMan->closeDocument (document);
   }
 
+  bool DocumentManager::closeDocumentList(QList<KTextEditor::Document*> documents)
+  {
+    return d->docMan->closeDocumentList(documents);
+  }
+
   DocumentManager *documentManager ()
   {
     return application()->documentManager ();

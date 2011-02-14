@@ -120,6 +120,7 @@ class KateDocManager : public QStandardItemModel
 
     bool closeDocument(class KTextEditor::Document *, bool closeUrl = true);
     bool closeDocument(uint);
+    bool closeDocumentList(QList<KTextEditor::Document*> documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document*);
     bool closeOtherDocuments(uint);

@@ -45,7 +45,6 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 
   setTextElideMode(Qt::ElideLeft);
   
-  connect( this, SIGNAL(pressed(const QModelIndex &)), this, SLOT(mousePressed(const QModelIndex &)));
   connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));
 
   m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
@@ -143,17 +142,6 @@ void KateFileTree::slotCurrentChanged ( const QModelIndex &current, const QModel
   }
 }
 
-void KateFileTree::mousePressed ( const QModelIndex &index )
-{
-  kDebug(debugArea()) << "got index" << index;
-  
-  KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-  if(doc) {
-    kDebug(debugArea()) << "got doc, setting prev:" << index;
-    m_previouslySelected = index;
-  }
-}
-
 void KateFileTree::mouseClicked ( const QModelIndex &index )
 {
   kDebug(debugArea()) << "got index" << index;
@@ -175,9 +163,7 @@ void KateFileTree::mouseClicked ( const QModelIndex &index )
 void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   m_indexContextMenu=selectionModel()->currentIndex();
 
-  if (m_previouslySelected.isValid()) {
-    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::ClearAndSelect);
-  }
+  selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect);
 
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
   KateFileTreeModel *ftm = static_cast<KateFileTreeModel*>(ftpm->sourceModel());
@@ -204,15 +190,22 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   sort_menu->addAction(m_sortByOpeningOrder);
   
   menu.exec(viewport()->mapToGlobal(event->pos()));
-  
+
+  if (m_previouslySelected.isValid()) {
+    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::ClearAndSelect);
+  }
+
   event->accept();
 }
 
+Q_DECLARE_METATYPE(QList<KTextEditor::Document*>);
+
 void KateFileTree::slotDocumentClose() {
   m_previouslySelected = QModelIndex();
-  QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentRole);
+  QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
   if (!v.isValid()) return;
-  Kate::application()->documentManager()->closeDocument(v.value<KTextEditor::Document*>());
+  QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
+  Kate::application()->documentManager()->closeDocumentList(closingDocuments);
 }
 
 void KateFileTree::slotDocumentPrev()

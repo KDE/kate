@@ -38,7 +38,7 @@ class KateFileTreeModel : public QAbstractItemModel
   Q_OBJECT
 
   public:
-    enum { DocumentRole = Qt::UserRole+1, PathRole, OpeningOrderRole };
+    enum { DocumentRole = Qt::UserRole+1, PathRole, OpeningOrderRole, DocumentTreeRole };
     
     KateFileTreeModel(QObject *p);
     virtual ~KateFileTreeModel();

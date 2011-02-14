@@ -25,6 +25,7 @@
 #include "kateviewmanager.h"
 #include "katedocmanageradaptor.h"
 #include "katecontainer.h"
+#include "katesavemodifieddialog.h"
 
 #include <KTextEditor/View>
 #include <KTextEditor/SessionConfigInterface>
@@ -387,6 +388,39 @@ bool KateDocManager::closeDocument(uint n)
 bool KateDocManager::closeOtherDocuments(uint n)
 {
   return closeOtherDocuments (document(n));
+}
+
+bool KateDocManager::closeDocumentList(QList<KTextEditor::Document*> documents)
+{
+  bool res = true;
+
+  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+    KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
+
+  QList<KTextEditor::Document*> modifiedDocuments;
+  foreach(KTextEditor::Document* document, documents) {
+    if (document->isModified()) {
+      modifiedDocuments.append(document);
+    }
+  }
+
+  if(modifiedDocuments.size() > 0 && !KateSaveModifiedDialog::queryClose(0, modifiedDocuments)) {
+    return false;
+  }
+
+  while (!documents.isEmpty() && res)
+    if (! closeDocument(documents.at(0), false) )  // Do not show save/discard dialog
+      res = false;
+    else
+      documents.removeFirst();
+
+  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  {
+    KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
+    KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
+  }
+
+  return res;
 }
 
 bool KateDocManager::closeAllDocuments(bool closeUrl)

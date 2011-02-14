@@ -71,7 +71,6 @@ class KateFileTree: public QTreeView
     
   private Q_SLOTS:
     void mouseClicked(const QModelIndex &index);
-    void mousePressed(const QModelIndex &index);
 
     void slotTreeMode();
     void slotListMode();

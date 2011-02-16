@@ -54,49 +54,19 @@ QWidget(parent)
     browse->setIcon(KIcon("inode-directory"));
     
     buildLabel = new QLabel(i18n("Build"), this);
-    buildCmds = new KComboBox(this);
-    m_addBuildCmd = new QToolButton(this);
-    m_addBuildCmd->setIcon(KIcon("document-new"));
-    m_delBuildCmd = new QToolButton(this);
-    m_delBuildCmd->setIcon(KIcon("edit-delete"));
-    connect(m_addBuildCmd, SIGNAL(clicked()), this, SLOT(addBuildCmd()));
-    connect(m_delBuildCmd, SIGNAL(clicked()), this, SLOT(delBuildCmd()));
-    connect(buildCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editBuildCmd(QString)));
+    buildCmd = new KLineEdit(this);
     
     cleanLabel = new QLabel(i18n("Clean"), this);
-    cleanCmds = new KComboBox(this);
-    m_addCleanCmd = new QToolButton(this);
-    m_addCleanCmd->setIcon(KIcon("document-new"));
-    m_delCleanCmd = new QToolButton(this);
-    m_delCleanCmd->setIcon(KIcon("edit-delete"));
-    connect(m_addCleanCmd, SIGNAL(clicked()), this, SLOT(addCleanCmd()));
-    connect(m_delCleanCmd, SIGNAL(clicked()), this, SLOT(delCleanCmd()));
-    connect(cleanCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editCleanCmd(QString)));
+    cleanCmd = new KLineEdit(this);
     
     quickLabel = new QLabel(i18n("Quick compile"), this);
-    quickCmds = new KComboBox(this);
-    quickCmds->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
-    m_addQuickCmd = new QToolButton(this);
-    m_addQuickCmd->setIcon(KIcon("document-new"));
-    m_delQuickCmd = new QToolButton(this);
-    m_delQuickCmd->setIcon(KIcon("edit-delete"));
-    connect(m_addQuickCmd, SIGNAL(clicked()), this, SLOT(addQuickCmd()));
-    connect(m_delQuickCmd, SIGNAL(clicked()), this, SLOT(delQuickCmd()));
-    connect(quickCmds, SIGNAL(editTextChanged(QString)), this, SLOT(editQuickCmd(QString)));
-    
+    quickCmd = new KLineEdit(this);
+    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
 
     dirLabel->setBuddy(buildDir);
-    buildLabel->setBuddy(buildCmds);
-    cleanLabel->setBuddy(cleanCmds);
-    quickLabel->setBuddy(quickCmds);
-
-    buildCmds->setEditable(true);
-    cleanCmds->setEditable(true);
-    quickCmds->setEditable(true);
-
-    buildCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
-    cleanCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
-    quickCmds->setInsertPolicy(QComboBox::InsertAtCurrent);
+    buildLabel->setBuddy(buildCmd);
+    cleanLabel->setBuddy(cleanCmd);
+    quickLabel->setBuddy(quickCmd);
     
     // calculate the approximate height to exceed before going to "Side Layout"
     setSideLayout();
@@ -144,19 +114,13 @@ void TargetsUi::setSideLayout()
     layout->addWidget(browse, 3, 3);
     
     layout->addWidget(buildLabel, 4, 0, Qt::AlignLeft);
-    layout->addWidget(buildCmds, 5, 0, 1, 2);
-    layout->addWidget(m_addBuildCmd, 5, 2);
-    layout->addWidget(m_delBuildCmd, 5, 3);
+    layout->addWidget(buildCmd, 5, 0, 1, 4);
     
     layout->addWidget(cleanLabel, 6, 0, Qt::AlignLeft);
-    layout->addWidget(cleanCmds, 7, 0, 1, 2);
-    layout->addWidget(m_addCleanCmd, 7, 2);
-    layout->addWidget(m_delCleanCmd, 7, 3);
+    layout->addWidget(cleanCmd, 7, 0, 1, 4);
     
     layout->addWidget(quickLabel, 8, 0, Qt::AlignLeft);
-    layout->addWidget(quickCmds, 9, 0, 1, 2);
-    layout->addWidget(m_addQuickCmd, 9, 2);
-    layout->addWidget(m_delQuickCmd, 9, 3);
+    layout->addWidget(quickCmd, 9, 0, 1, 4);
     
     layout->addItem(new QSpacerItem(1, 1), 10, 0);
     layout->setColumnStretch(0, 1);
@@ -184,57 +148,17 @@ void TargetsUi::setBottomLayout()
     layout->addWidget(browse, 0, 5);
     
     layout->addWidget(buildLabel, 1, 2, Qt::AlignRight);
-    layout->addWidget(buildCmds, 1, 3, 1, 1);
-    layout->addWidget(m_addBuildCmd, 1, 4);
-    layout->addWidget(m_delBuildCmd, 1, 5);
+    layout->addWidget(buildCmd, 1, 3, 1, 3);
     
     layout->addWidget(cleanLabel, 2, 2, Qt::AlignRight);
-    layout->addWidget(cleanCmds, 2, 3, 1, 1);
-    layout->addWidget(m_addCleanCmd, 2, 4);
-    layout->addWidget(m_delCleanCmd, 2, 5);
+    layout->addWidget(cleanCmd, 2, 3, 1, 3);
     
     layout->addWidget(quickLabel, 3, 2, Qt::AlignRight);
-    layout->addWidget(quickCmds, 3, 3, 1, 1);
-    layout->addWidget(m_addQuickCmd, 3, 4);
-    layout->addWidget(m_delQuickCmd, 3, 5);
+    layout->addWidget(quickCmd, 3, 3, 1, 3);
     
     layout->addItem(new QSpacerItem(1, 1), 4, 0 );
     layout->setColumnStretch(3, 1);
     layout->setRowStretch(5, 1);
-}
-
-void TargetsUi::addBuildCmd()
-{
-    buildCmds->addItem(QString());
-    buildCmds->setCurrentIndex(buildCmds->count()-1);
-}
-
-void TargetsUi::addCleanCmd()
-{
-    cleanCmds->addItem(QString());
-    cleanCmds->setCurrentIndex(cleanCmds->count()-1);
-}
-
-void TargetsUi::addQuickCmd()
-{
-    quickCmds->addItem(QString());
-    quickCmds->setCurrentIndex(quickCmds->count()-1);
-}
-
-
-void TargetsUi::delBuildCmd()
-{
-    buildCmds->removeItem(buildCmds->currentIndex());
-}
-
-void TargetsUi::delCleanCmd()
-{
-    cleanCmds->removeItem(cleanCmds->currentIndex());
-}
-
-void TargetsUi::delQuickCmd()
-{
-    quickCmds->removeItem(quickCmds->currentIndex());
 }
 
 void TargetsUi::editTarget(const QString &text)
@@ -242,27 +166,5 @@ void TargetsUi::editTarget(const QString &text)
     int curPos = targetCombo->lineEdit()->cursorPosition();
     targetCombo->setItemText(targetCombo->currentIndex(), text);
     targetCombo->lineEdit()->setCursorPosition(curPos);
-}
-
-void TargetsUi::editBuildCmd(const QString &text)
-{
-    // save cursor position
-    int curPos = buildCmds->lineEdit()->cursorPosition();
-    buildCmds->setItemText(buildCmds->currentIndex(), text);
-    buildCmds->lineEdit()->setCursorPosition(curPos);
-}
-
-void TargetsUi::editCleanCmd(const QString &text)
-{
-    int curPos = cleanCmds->lineEdit()->cursorPosition();
-    cleanCmds->setItemText(cleanCmds->currentIndex(), text);
-    cleanCmds->lineEdit()->setCursorPosition(curPos);
-}
-
-void TargetsUi::editQuickCmd(const QString &text)
-{
-    int curPos = quickCmds->lineEdit()->cursorPosition();
-    quickCmds->setItemText(quickCmds->currentIndex(), text);
-    quickCmds->lineEdit()->setCursorPosition(curPos);
 }
 

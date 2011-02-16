@@ -52,15 +52,12 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 
     private:
         typedef struct {
-            QString     name;
-            QString     buildDir;
-            QStringList buildCmds;
-            int         buildCmdIndex;
-            QStringList cleanCmds;
-            int         cleanCmdIndex;
-            QStringList quickCmds;
-            int         quickCmdIndex;
-        } Target;
+            QString name;
+            QString buildDir;
+            QString buildCmd;
+            QString cleanCmd;
+            QString quickCmd;
+       } Target;
 
     public:
         KateBuildView(Kate::MainWindow *mw);
@@ -90,7 +87,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         // settings
         void slotBrowseClicked();
         void targetSelected(int index);
-        void targetsChanged(QString);
+        void targetsChanged();
         void targetNew();
         void targetCopy();
         void targetDelete();

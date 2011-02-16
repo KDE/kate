@@ -29,28 +29,17 @@ public:
     KLineEdit   *buildDir;
     QToolButton *browse;
     QLabel      *buildLabel;
-    KComboBox   *buildCmds;
+    KLineEdit   *buildCmd;
     QLabel      *cleanLabel;
-    KComboBox   *cleanCmds;
+    KLineEdit   *cleanCmd;
     QLabel      *quickLabel;
-    KComboBox   *quickCmds;
+    KLineEdit   *quickCmd;
 
 protected:
     void resizeEvent(QResizeEvent *event);
 
 private Q_SLOTS:
-    void addBuildCmd();
-    void addCleanCmd();
-    void addQuickCmd();
-
-    void delBuildCmd();
-    void delCleanCmd();
-    void delQuickCmd();
-    
     void editTarget(const QString &text);
-    void editBuildCmd(const QString &text);
-    void editCleanCmd(const QString &text);
-    void editQuickCmd(const QString &text);
     
 private:
     void setBottomLayout();
@@ -58,15 +47,6 @@ private:
 
     int  m_widgetsHeight;
     bool m_useBottomLayout;
-
-    QToolButton  *m_addBuildCmd;
-    QToolButton  *m_delBuildCmd;
-
-    QToolButton  *m_addCleanCmd;
-    QToolButton  *m_delCleanCmd;
-
-    QToolButton  *m_addQuickCmd;
-    QToolButton  *m_delQuickCmd;
 };
 
 #endif

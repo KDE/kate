@@ -28,7 +28,6 @@
 #include <kate/plugin.h>
 
 #include <kdeversion.h>
-#include <kxmlguiclient.h>
 #include <kactionmenu.h>
 
 #include "debugview.h"
@@ -52,21 +51,6 @@ public:
 
     Kate::PluginView* createView( Kate::MainWindow* mainWindow );
 };
-
-#if KDE_VERSION_MAJOR == 4 && KDE_VERSION_MINOR < 4
-namespace Kate
-{
-class XMLGUIClient : public KXMLGUIClient
-{
-public:
-    XMLGUIClient( const KComponentData& componentData )
-    {
-        setComponentData( componentData );
-        setXMLFile( "plugins/kategdb/ui.rc" );
-    }
-};
-}
-#endif
 
 class KatePluginGDBView : public Kate::PluginView, public Kate::XMLGUIClient
 {

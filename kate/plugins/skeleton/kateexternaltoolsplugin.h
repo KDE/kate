@@ -24,13 +24,7 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 
-#include <kxmlguiclient.h>
 #include <QVariantList>
-
-
-namespace KParts
-{
-  }
 
 class KateExternalToolsPlugin: public Kate::Plugin
 {
@@ -44,7 +38,7 @@ class KateExternalToolsPlugin: public Kate::Plugin
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 };
 
-class KateExternalToolsPluginView : public Kate::PluginView, public KXMLGUIClient
+class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

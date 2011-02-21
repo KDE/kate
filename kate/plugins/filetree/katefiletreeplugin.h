@@ -20,7 +20,6 @@
 #define KATE_FILETREE_PLUGIN_H
 
 #include <KIcon>
-#include <KXMLGUIClient>
 
 #include <ktexteditor/document.h>
 #include <kate/plugin.h>

@@ -107,7 +107,7 @@ void VariableListView::resizeEvent(QResizeEvent* event)
 void VariableListView::hideEvent(QHideEvent* event)
 {
   if (!event->spontaneous()) {
-    emit editingDone(variableLine());
+    emit aboutToHide();
   }
   QScrollArea::hideEvent(event);
 }
@@ -133,7 +133,9 @@ QString VariableListView::variableLine()
     line += it.key() + ' ' + it.value() + ';';
     
     ++it;
- }
+  }
+
+  line.prepend("kate: ");
 
   return line;
 }

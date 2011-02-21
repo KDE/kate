@@ -42,7 +42,10 @@ K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheade
 
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, Kate::MainWindow *mainwindow)
-: Kate::PluginView(mainwindow), KXMLGUIClient(), KTextEditor::Command(), m_plugin(plugin)
+  : Kate::PluginView(mainwindow)
+  , Kate::XMLGUIClient(KateOpenHeaderFactory::componentData())
+  , KTextEditor::Command()
+  , m_plugin(plugin)
 {
     KAction *a = actionCollection()->addAction("file_openheader");
     a->setText(i18n("Open .h/.cpp/.c"));

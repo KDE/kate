@@ -24,7 +24,6 @@
 #include <kate/documentmanager.h>
 #include <kate/mainwindow.h>
 
-#include <kxmlguiclient.h>
 #include <kdialog.h>
 
 #include <qsortfilterproxymodel.h>

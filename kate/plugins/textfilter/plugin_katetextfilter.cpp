@@ -48,17 +48,14 @@ K_EXPORT_PLUGIN(PluginKateTextFilterFactory("katetextfilter"))
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
                                                    Kate::MainWindow *mainwindow)
   : Kate::PluginView(mainwindow)
-  , KXMLGUIClient()
+  , Kate::XMLGUIClient(PluginKateTextFilterFactory::componentData())
   , m_plugin(plugin)
 {
-  setComponentData (KComponentData("kate"));
-
   KAction *a = actionCollection()->addAction("edit_filter");
   a->setText(i18n("Filter Te&xt..."));
   a->setShortcut(Qt::CTRL + Qt::Key_Backslash);
   connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
 
-  setXMLFile("plugins/katetextfilter/ui.rc");
   mainwindow->guiFactory()->addClient (this);
 }
 

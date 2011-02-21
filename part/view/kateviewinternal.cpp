@@ -1780,6 +1780,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
     m_view->clearSelection();
 
     m_selectionCached = KTextEditor::Range::invalid();
+    m_selectAnchor = KTextEditor::Cursor::invalid();
   }
 }
 

@@ -91,8 +91,11 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw, const KComponentData& compone
     m_ctagsUi.updateButton2->setToolTip(i18n("(Re-)generate the session specific CTags database."));
     m_ctagsUi.updateButton2->setIcon(KIcon("view-refresh"));
 
+    m_ctagsUi.resetCMD->setIcon(KIcon("view-refresh"));
+
     m_ctagsUi.tagsFile->setToolTip(i18n("Select new or existing database file."));
 
+    connect(m_ctagsUi.resetCMD, SIGNAL(clicked()), this, SLOT(resetCMD()));
     connect(m_ctagsUi.addButton, SIGNAL(clicked()), this, SLOT(addTagTarget()));
     connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
     connect(m_ctagsUi.updateButton,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
@@ -146,10 +149,6 @@ void KateCTagsView::aboutToShow()
 void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
     KConfigGroup cg(config, groupPrefix + ":ctags-plugin");
-
-    m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
-
-    //kDebug() << config->groupList() << groupPrefix;
 
     m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 
@@ -218,7 +217,7 @@ void KateCTagsView::lookupTag( )
         return;
     }
 
-    clearInput();
+    setNewLookupText(currWord);
     Tags::TagList list = Tags::getExactMatches(m_ctagsUi.tagsFile->text(), currWord);
     if (list.size() == 0) list = Tags::getExactMatches(m_commonDB, currWord);
     displayHits(list);
@@ -269,7 +268,8 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
  
     //kDebug() << "found" << list.count() << word << types;
-
+    setNewLookupText(word);
+    
     if ( list.count() < 1) {
         m_ctagsUi.tagTreeWidget->clear();
         new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
@@ -277,8 +277,6 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
         m_mWin->showToolView(m_toolView);
         return;
     }
-
-    clearInput();
 
     displayHits(list);
 
@@ -295,10 +293,10 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
 }
 
 /******************************************************************/
-void KateCTagsView::clearInput()
+void KateCTagsView::setNewLookupText(const QString &newString)
 {
     m_ctagsUi.inputEdit->blockSignals( true );
-    m_ctagsUi.inputEdit->clear();
+    m_ctagsUi.inputEdit->setText(newString);
     m_ctagsUi.inputEdit->blockSignals( false );
 }
 
@@ -308,6 +306,10 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
     KUrl url;
 
     m_ctagsUi.tagTreeWidget->clear();
+    if (list.isEmpty()) {
+        new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
+        return;
+    }
     m_ctagsUi.tagTreeWidget->setSortingEnabled(false);
 
     Tags::TagList::ConstIterator it = list.begin();
@@ -368,6 +370,10 @@ QString KateCTagsView::currentWord( )
         return QString();
     }
 
+    if (kv->selection()) {
+        return kv->selectionText();
+    }
+
     if (!kv->cursorPosition().isValid()) {
         kDebug() << "cursor not valid!" << endl;
         return QString();
@@ -375,15 +381,22 @@ QString KateCTagsView::currentWord( )
 
     int line = kv->cursorPosition().line();
     int col = kv->cursorPosition().column();
+    bool includeColon = m_ctagsUi.cmdEdit->text().contains("--extra=+q");
 
     QString linestr = kv->document()->line(line);
 
     int startPos = qMax(qMin(col, linestr.length()-1), 0);
     int endPos = startPos;
-    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() || linestr[startPos] == '_' || linestr[startPos] == '~')) {
+    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() ||
+        (linestr[startPos] == ':' && includeColon) ||
+        linestr[startPos] == '_' ||
+        linestr[startPos] == '~'))
+    {
         startPos--;
     }
-    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() || linestr[endPos] == '_')) {
+    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() ||
+        (linestr[startPos] == ':' && includeColon) ||
+        linestr[endPos] == '_')) {
         endPos++;
     }
     if  (startPos == endPos) {
@@ -597,5 +610,11 @@ bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QObject::eventFilter(obj, event);
+}
+
+/******************************************************************/
+void KateCTagsView::resetCMD()
+{
+    m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
 }
 

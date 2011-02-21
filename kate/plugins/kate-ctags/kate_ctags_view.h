@@ -41,7 +41,7 @@
 
 #include "ui_kate_ctags.h"
 
-#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --excmd=pattern --exclude=Makefile --exclude=."
+#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=."
 
 typedef struct
 {
@@ -62,7 +62,7 @@ public:
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-public slots:
+public Q_SLOTS:
     void gotoDefinition();
     void gotoDeclaration();
     void lookupTag();
@@ -81,12 +81,15 @@ public slots:
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
+private Q_SLOTS:
+    void resetCMD();
+
 private:
     bool listContains(const QString &target);
 
     QString currentWord();
     
-    void clearInput();
+    void setNewLookupText(const QString &newText);
     void displayHits(const Tags::TagList &list);
     
     void gotoTagForTypes(const QString &tag, QStringList const &types);

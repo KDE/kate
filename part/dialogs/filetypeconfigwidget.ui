@@ -111,7 +111,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="edtVariables">
+       <widget class="VariableLineEdit" name="edtVariables" native="true">
         <property name="whatsThis">
          <string>&lt;p&gt;This string allows to configure Kate's settings for the files selected by this mimetype using Kate variables. Almost any configuration option can be set, such as highlight, indent-mode, encoding, etc.&lt;/p&gt;&lt;p&gt;For a full list of known variables, see the manual.&lt;/p&gt;</string>
         </property>
@@ -265,6 +265,11 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VariableLineEdit</class>
+   <extends></extends>
+   <header>variablelineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

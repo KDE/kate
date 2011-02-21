@@ -25,7 +25,6 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/document.h>
-#include <kxmlguiclient.h>
 #include <qpointer.h>
 #include <qsharedpointer.h>
 

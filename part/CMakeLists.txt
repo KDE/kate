@@ -32,6 +32,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
+  ${CMAKE_CURRENT_SOURCE_DIR}/variableeditor
   ${KDE4_KIO_INCLUDES}
 )
 
@@ -93,6 +94,13 @@ mode/katemodemanager.cpp
 mode/katemodeconfigpage.cpp
 mode/katemodemenu.cpp
 mode/katewildcardmatcher.cpp
+
+# modeline variable editor
+variableeditor/variablelineedit.cpp
+variableeditor/variablelistview.cpp
+variableeditor/variableeditor.cpp
+variableeditor/variableitem.cpp
+
 
 # rendering stuff (katerenderer  and helpers)
 render/katerenderer.cpp

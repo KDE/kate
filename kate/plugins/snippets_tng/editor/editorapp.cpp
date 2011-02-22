@@ -47,7 +47,7 @@ int EditorApp::newInstance() {
       if ( (!u.isLocalFile()) && (u.protocol()!="new-file")) {
         KMessageBox::error(0,
                           i18n("The specified URL (%1) is not a local file",args->url(i).prettyUrl()),
-                          "URL not supported");
+                          i18n("URL not supported"));
         continue;
       }
       if (openWindow(u))

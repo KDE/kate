@@ -228,8 +228,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     void hlChanged(int z);
   public Q_SLOTS:
     void exportHl(int schema=-1,int hl=-1,KConfig* cfg=0);
-  public:
-    void importHl(const QString& fromSchemaName, int schema, int hl, KConfig *cfg);
+    void importHl(const QString& fromSchemaName=QString(), int schema=-1, int hl=-1, KConfig *cfg=0);
         
   private:
     KateSchemaConfigFontColorTab *m_defaults;

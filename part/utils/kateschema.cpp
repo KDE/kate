@@ -573,6 +573,8 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
   QPushButton *btnexport = new QPushButton( i18n("Export HlColors..."), hbHl );
   connect( btnexport,SIGNAL(clicked()),this,SLOT(exportHl()));
   
+  QPushButton *btnimport = new QPushButton( i18n("Import HlColors..."), hbHl );
+  connect( btnimport,SIGNAL(clicked()),this,SLOT(importHl()));
   
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
@@ -749,10 +751,69 @@ QList<int> KateSchemaConfigHighlightTab::hlsForSchema(int schema) {
 
 
 void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, int schema, int hl, KConfig *cfg) {
-        QList<KateExtendedAttribute::Ptr> list;
-        KateHlManager::self()->getHl( hl )->getKateExtendedAttributeListCopy(fromSchemaName, list, cfg);
-        KateHlManager::self()->getHl( hl )->setKateExtendedAttributeList(schema, list);
-        m_hlDict[schema].insert (hl, list);
+        QString schemaNameForLoading(fromSchemaName);
+        QString hlName;
+        bool doManage=(cfg==0);
+        if (schema==-1) schema=m_schema;
+        
+        if (doManage) {
+          QString srcName=KFileDialog::getOpenFileName( KateHlManager::self()->getHl(hl)->name()+".katehlcolor",
+                                  "*.katehlcolor|Kate color schema",
+                                  this,
+                                  i18n("Importing colors for single highlighting"));
+          kDebug(13030)<<"hl file to open "<<srcName;
+          if (srcName.isEmpty()) return;
+          cfg=new KConfig(srcName,KConfig::SimpleConfig);
+          KConfigGroup grp(cfg,"KateHLColors");
+          hlName=grp.readEntry("highlight",QString());
+          schemaNameForLoading=grp.readEntry("schema",QString());
+          if ( (grp.readEntry("full schema","true").toUpper()!="FALSE") || hlName.isEmpty() || schemaNameForLoading.isEmpty()) {
+            //ERROR - file format
+            KMessageBox::information(
+                    this,
+                    i18n("File is not a single highlighting color file"),
+                    i18n("Fileformat error"));
+            hl=-1;
+            schemaNameForLoading=QString();
+          } else {
+            hl = KateHlManager::self()->nameFind(hlName);
+            if ( (hl==0) && (KateHlManager::self()->getHl(0)->name().toLower()!=hlName.toLower()))
+              hl=-1;
+            kDebug(13030)<<hlName<<"--->"<<hl;
+            if (hl==-1) {
+              //hl not found
+              KMessageBox::information(
+                      this,
+                      i18n("The selected file contains colors for a non existing highlighting:%1",hlName),
+                      i18n("Import failure"));
+              hl=-1;
+              schemaNameForLoading=QString();
+            }
+          }
+        }
+        
+        if ( (hl!=-1) && (!schemaNameForLoading.isEmpty())) {
+          
+          QList<KateExtendedAttribute::Ptr> list;
+          KateHlManager::self()->getHl( hl )->getKateExtendedAttributeListCopy(schemaNameForLoading, list, cfg);
+          KateHlManager::self()->getHl( hl )->setKateExtendedAttributeList(schema, list);
+          m_hlDict[schema].insert (hl, list);
+        }
+        
+        if (cfg && doManage) {
+          apply();
+          delete cfg;
+          cfg=0;
+          if ( (hl!=-1) && (!schemaNameForLoading.isEmpty())) {
+            hlChanged(m_hl);
+            KMessageBox::information(
+                      this,
+                      i18n("Colors have been imported for highlighting: %1",hlName),
+                      i18n("Import has finished"));
+          }
+        }
+        
+        
 }
 
 
@@ -775,7 +836,7 @@ void KateSchemaConfigHighlightTab::exportHl(int schema, int hl, KConfig *cfg) {
     KConfigGroup grp(cfg,"KateHLColors");
     grp.writeEntry("highlight",KateHlManager::self()->getHl(hl)->name());
     grp.writeEntry("schema",KateGlobal::self()->schemaManager()->name(schema));
-    grp.writeEntry("full schema",false);
+    grp.writeEntry("full schema","false");
   }
   KateHlManager::self()->getHl(hl)->setKateExtendedAttributeList(schema,items,cfg,doManage);
 
@@ -977,6 +1038,7 @@ void KateSchemaConfigPage::importFullSchema() {
       if (progress.wasCanceled()) break;
     }
     progress.setValue(highlightings.count());
+    m_highlightTab->apply();
     schemaChanged(schemaId);
   }
 }

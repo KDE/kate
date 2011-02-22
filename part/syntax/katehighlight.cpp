@@ -632,8 +632,8 @@ void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExten
     settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):(writeDefaultsToo?(a->fontItalic()?"1":"0"):""));
     settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):(writeDefaultsToo?(a->fontStrikeOut()?"1":"0"):""));
     settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):(writeDefaultsToo?(a->fontUnderline()?"1":"0"):""));
-    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):(writeDefaultsToo?QString::number(a->background().color().rgb(),16):""));
-    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):(writeDefaultsToo?QString::number(a->selectedBackground().color().rgb(),16):""));
+    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):((writeDefaultsToo && a->hasProperty(QTextFormat::BackgroundBrush))?QString::number(a->background().color().rgb(),16):""));
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):((writeDefaultsToo&& a->hasProperty(KTextEditor::Attribute::SelectedBackground))?QString::number(a->selectedBackground().color().rgb(),16):""));
     settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):(writeDefaultsToo?a->fontFamily():QString()));
     settings<<"---";
     config.writeEntry(p->name(),settings);

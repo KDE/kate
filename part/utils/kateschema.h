@@ -202,10 +202,11 @@ class KateSchemaConfigFontColorTab : public QWidget
     void apply ();
 
     KateAttributeList *attributeList (uint schema);
-
+    void exportDefaults(int schema, KConfig *cfg);
+    void importDefaults(const QString& schemaName, int schema, KConfig *cfg);
   private:
     KateStyleTreeWidget* m_defaultStyles;
-    QHash<int,KateAttributeList*> m_defaultStyleLists;
+    QHash<int,KateAttributeList*> m_defaultStyleLists;    
 };
 
 class KateSchemaConfigHighlightTab : public QWidget
@@ -222,10 +223,14 @@ class KateSchemaConfigHighlightTab : public QWidget
 
   Q_SIGNALS:
     void changed();
-
+    
   protected Q_SLOTS:
     void hlChanged(int z);
-
+  public Q_SLOTS:
+    void exportHl(int schema=-1,int hl=-1,KConfig* cfg=0);
+  public:
+    void importHl(const QString& fromSchemaName, int schema, int hl, KConfig *cfg);
+        
   private:
     KateSchemaConfigFontColorTab *m_defaults;
 
@@ -236,6 +241,9 @@ class KateSchemaConfigHighlightTab : public QWidget
     int m_hl;
 
     QHash<int, QHash<int, QList<KateExtendedAttribute::Ptr> > > m_hlDict;
+  public:
+    QList<int> hlsForSchema(int schema);
+    bool loadAllHlsForSchema(int schema);
 };
 
 class KateSchemaConfigPage : public KateConfigPage
@@ -251,11 +259,12 @@ class KateSchemaConfigPage : public KateConfigPage
     void reload();
     void reset();
     void defaults();
-
+    void exportFullSchema();
+    void importFullSchema();
   private Q_SLOTS:
     void update ();
     void deleteSchema ();
-    void newSchema ();
+    void newSchema (const QString& newName=QString());
     void schemaChanged (int schema);
 
     void newCurrentPage(int);

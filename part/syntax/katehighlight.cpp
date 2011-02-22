@@ -534,9 +534,9 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
   cachingItems.clear();
 }
 
-void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QList<KateExtendedAttribute::Ptr> &list)
+void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QList<KateExtendedAttribute::Ptr> &list, KConfig* cfg)
 {
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
+  KConfigGroup config(cfg?cfg:KateHlManager::self()->getKConfig(),
                       "Highlighting " + iName + " - Schema " + schema);
 
   list.clear();
@@ -589,10 +589,10 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
   }
 }
 
-void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, QList< KateExtendedAttribute::Ptr >& list )
+void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, QList< KateExtendedAttribute::Ptr >& list, KConfig* cfg )
 {
   QList<KateExtendedAttribute::Ptr> attributes;
-  getKateExtendedAttributeList(schema, attributes);
+  getKateExtendedAttributeList(schema, attributes,cfg);
 
   list.clear();
 
@@ -607,29 +607,34 @@ void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, 
  * @param schema The id of the schema group to save
  * @param list QList<KateExtendedAttribute::Ptr> containing the data to be used
  */
-void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &list)
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
+void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &list, KConfig *cfg, bool writeDefaultsToo)
+{ 
+  KConfigGroup config(cfg?cfg:KateHlManager::self()->getKConfig(),
                       "Highlighting " + iName + " - Schema "
                       + KateGlobal::self()->schemaManager()->name(schema));
 
   QStringList settings;
 
+  KateAttributeList defList;
+  KateHlManager::self()->getDefaults(KateGlobal::self()->schemaManager()->name (schema), defList);
+  
   foreach (const KateExtendedAttribute::Ptr& p, list)
   {
     Q_ASSERT(p);
 
     settings.clear();
+    uint defStyle=p->defaultStyleIndex();
+    KTextEditor::Attribute::Ptr a(defList[defStyle]);
     settings<<QString::number(p->defaultStyleIndex(),10);
-    settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
-    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):"");
-    settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
-    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
-    settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):QString());
+    settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):(writeDefaultsToo?QString::number(a->foreground().color().rgb(),16):""));
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):(writeDefaultsToo?QString::number(a->selectedForeground().color().rgb(),16):""));
+    settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):(writeDefaultsToo?(a->fontBold()?"1":"0"):""));
+    settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):(writeDefaultsToo?(a->fontItalic()?"1":"0"):""));
+    settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):(writeDefaultsToo?(a->fontStrikeOut()?"1":"0"):""));
+    settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):(writeDefaultsToo?(a->fontUnderline()?"1":"0"):""));
+    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):(writeDefaultsToo?QString::number(a->background().color().rgb(),16):""));
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):(writeDefaultsToo?QString::number(a->selectedBackground().color().rgb(),16):""));
+    settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):(writeDefaultsToo?a->fontFamily():QString()));
     settings<<"---";
     config.writeEntry(p->name(),settings);
   }
@@ -736,6 +741,8 @@ void KateHighlighting::createKateExtendedAttribute(QList<KateExtendedAttribute::
 
   list=internalIDList;
 }
+
+
 
 /**
  * Adds the styles of the currently parsed highlight to the itemdata list

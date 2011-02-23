@@ -46,7 +46,7 @@
 class KTemporaryFile;
 class KProcess;
 
-class PluginKateXMLCheckView : public Kate::PluginView, public KXMLGUIClient
+class PluginKateXMLCheckView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

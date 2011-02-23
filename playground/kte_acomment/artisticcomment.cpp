@@ -31,8 +31,10 @@ static QList<QString> explode(QString str, size_t max)
     QList<QString> ret;
     QString curr;
     QString currWord;
-    if(str[str.size() - 1] != '\n')
+    if (!str.isEmpty() && !str.endsWith('\n')) {
         str += '\n';
+    }
+
     for(int i = 0; i != str.size(); ++i)
     {
         if(str[i] == '\n')

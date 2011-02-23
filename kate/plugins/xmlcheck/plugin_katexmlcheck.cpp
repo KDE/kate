@@ -79,7 +79,7 @@ Kate::PluginView *PluginKateXMLCheck::createView(Kate::MainWindow *mainWindow)
 
 //---------------------------------
 PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
-    : Kate::PluginView (mainwin),KXMLGUIClient(),win(mainwin)
+    : Kate::PluginView (mainwin), Kate::XMLGUIClient(PluginKateXMLCheckFactory::componentData()),win(mainwin)
 {
     dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
     listview = new Q3ListView( dock );
@@ -91,10 +91,6 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     // TODO?:
     //(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
     //	SLOT( slotIndent() ), actionCollection(), "xml_indent" );
-
-    setComponentData(KComponentData("kate"));
-    setXMLFile("plugins/katexmlcheck/ui.rc");
-
 
     listview->setFocusPolicy(Qt::NoFocus);
     listview->addColumn(i18n("#"), -1);

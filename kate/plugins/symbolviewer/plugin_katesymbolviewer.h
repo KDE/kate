@@ -90,7 +90,7 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
     QCheckBox* expandTree;
 };
 
-class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
+class KatePluginSymbolViewerView : public QObject, public Kate::XMLGUIClient
 {
   Q_OBJECT
 

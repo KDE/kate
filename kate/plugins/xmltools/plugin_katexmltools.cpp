@@ -119,7 +119,7 @@ Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 
 
 PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
-  : Kate::PluginView ( win ), Kate::XMLGUIClient ( componentData() ),
+  : Kate::PluginView ( win ), Kate::XMLGUIClient ( PluginKateXMLToolsFactory::componentData() ),
     m_model ( this )
 {
   //kDebug() << "PluginKateXMLTools constructor called";
@@ -139,7 +139,6 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
   connect( actionAssignDTD, SIGNAL(triggered()), &m_model, SLOT(getDTD()) );
   actionCollection()->addAction( "xml_tool_assign", actionAssignDTD );
 
-  setXMLFile( "plugins/katexmltools/ui.rc" );
   win->guiFactory()->addClient( this );
 
   connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
@@ -149,6 +148,8 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
+  mainWindow()->guiFactory()->removeClient (this);
+  
   //kDebug() << "xml tools descructor 1...";
   //TODO: unregister the model
 }

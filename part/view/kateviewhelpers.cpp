@@ -322,8 +322,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))?,?((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))?");
-  m_cmdExpr.setPattern("^(\\d+)([+-])(\\d+)$");
+  m_cmdRange.setPattern("^(((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$|\\%)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)(,((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)?");
   m_gotoLine.setPattern("[+-]?\\d+");
 
   m_hideTimer = new QTimer(this);
@@ -398,6 +397,47 @@ bool KateCmdLineEdit::event(QEvent *e) {
   return KLineEdit::event(e);
 }
 
+int KateCmdLineEdit::calculatePosition( QString string) {
+
+  int pos=0;
+  QList<bool> operators_list;
+  QStringList split = string.split(QRegExp("[-+](?!([+-]|$))"));
+  QList<int> values;
+
+  foreach ( QString line, split ) {
+
+    pos+=line.size();
+    if ( pos < string.size() ) {
+      if ( string.at(pos) == '+' )
+        operators_list.push_back(true);
+      else if (string.at(pos) == '-')
+        operators_list.push_back(false);
+      else
+        Q_ASSERT(false);
+    }
+    pos++;
+
+    if ( line.contains(QRegExp("^\\d+$")))
+        values.push_back( line.toInt() );
+    else if ( line.contains(QRegExp("^\\$$")))
+        values.push_back(m_view->doc()->lines());
+    else if ( line.contains(QRegExp("^\\.$")))
+        values.push_back(m_view->cursorPosition().line()+1);
+    else if (line.contains(QRegExp("^\\'[0-9a-z><\\+\\*\\_]$")))
+        values.push_back( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(line.at(1)).line() + 1);
+
+  }
+
+  int result = values.at(0);
+  for (int i = 0; i < operators_list.size(); i++) {
+    if (operators_list.at(i) == true)
+      result += values.at(i+1);
+    else
+      result -= values.at(i+1);
+  }
+
+  return result;
+}
 
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
@@ -419,58 +459,22 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   KTextEditor::Range range(-1, 0, -1, 0);
 
-  QRegExp m_cmdRange2;
-  m_cmdRange2.setPattern("^((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))");
-
-  // check if a range was given
   if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
 
-    cmd.remove( m_cmdRange );
+      cmd.remove(m_cmdRange);
 
-    QString s = m_cmdRange.capturedTexts().at(1);
-    QString e = m_cmdRange.capturedTexts().at(5);
+      QString position_string1 = m_cmdRange.capturedTexts().at(1);
+      QString position_string2 = m_cmdRange.capturedTexts().at(9);
+      int position1 = calculatePosition(position_string1);
 
-    if ( s.isEmpty() )
-      s = '.';
-    if ( e.isEmpty() )
-      e = s;
+      int position2;
+      if (position_string2 != "")
+        position2 = calculatePosition(position_string2.remove(0,1));
+      else
+        position2 = position1;
 
-    if (s.at(0) == '\'' )
-        s= QString::number( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(s.at(1)).line() + 1);
-
-    if (e.at(0) == '\'' )
-        e= QString::number( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(e.at(1)).line() + 1);
-
-
-    // replace '$' with the number of the last line and '.' with the current line
-    s.replace('$', QString::number( m_view->doc()->lines() ) );
-    e.replace('$', QString::number( m_view->doc()->lines() ) );
-    s.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
-    e.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
-
-
-    // evaluate expressions (a+b or a-b) if we have any
-    if ( m_cmdExpr.indexIn(s) != -1) {
-      if (m_cmdExpr.capturedTexts().at(2) == "+") {
-        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(3).toInt());
-      } else {
-        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(3).toInt());
-      }
+      range.setRange(KTextEditor::Range(position1-1, 0, position2-1, 0));
     }
-    if ( m_cmdExpr.indexIn(e) != -1) {
-      if (m_cmdExpr.capturedTexts().at(2) == "+") {
-        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(3).toInt());
-      } else {
-        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(3).toInt());
-      }
-    }
-
-    range.setRange(KTextEditor::Range(s.toInt()-1, 0, e.toInt()-1, 0));
-  }
 
   // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
   if (m_gotoLine.exactMatch(cmd)) {

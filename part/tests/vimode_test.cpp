@@ -97,17 +97,19 @@ void ViModeTest::TestPressKey(QString str) {
 void ViModeTest::DoTest(QString original_text,
     QString command,
     QString expected_text) {
+  qDebug() << "\nrunning command " << command << " on text \"" << original_text
+    << "\"\n";
 
   vi_input_mode_manager->viEnterNormalMode();
   vi_input_mode_manager = kate_view->resetViInputModeManager();
   kate_document->setText(original_text);
   kate_view->setCursorPosition(Cursor(0,0));
   TestPressKey(command);
-  qDebug() << "\nrunning command " << command << " on text \"" << original_text
-    << "\"\n";
+
   QCOMPARE(kate_document->text(), expected_text);
 
 }
+
 
 
 void ViModeTest::VisualModeTests() {
@@ -502,6 +504,13 @@ void ViModeTest::CommandModeTests() {
 
     // Testing ":j"
     DoTest("1\n2\n3\n4\n5","\\:2,4j\\","1\n2 3 4\n5");
+
+
+    DoTest("1\n2\n3\n4","jvj\\ctrl-c\\:'<,'>d\\","1\n4");
+    DoTest("1\n2\n3\n4","\\:1+1+1+1d\\","1\n2\n3");
+    DoTest("1\n2\n3\n4","2j\\:.,.-1d\\","1\n4");
+    DoTest("1\n2\n3\n4","\\:.+200-100-100+20-5-5-5-5+.-.,$-1+1-2+2-3+3-4+4-5+5-6+6-7+7-1000+1000+0-0-$+$-.+.-1d\\","4");
+    DoTest("1\n2\n3\n4","majmbjmcjmdgg\\:'a+'b+'d-'c,.d\\","");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

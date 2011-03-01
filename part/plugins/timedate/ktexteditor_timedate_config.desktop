@@ -6,6 +6,7 @@ X-KDE-PluginKeyword=ktexteditor_timedate_config
 X-KDE-ParentComponents=ktexteditortimedate
 Name=Format of Time & Date insertion
 Name[cs]=Formát vložení data a času
+Name[de]=Format für das Einfügen von Uhrzeit & Datum
 Name[en_GB]=Format of Time & Date insertion
 Name[et]=Kellaaja ja kuupäeva lisamise vorming
 Name[gl]=Formato da data e hora inseridas

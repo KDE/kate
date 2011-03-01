@@ -184,8 +184,9 @@ function indent(line, indentWidth, character) {
 
         // find the last non-empty line with an indentation level different
         // from the current line ...
-        while (document.firstVirtualColumn(l) == document.firstVirtualColumn(line-1)
-                || document.line(l).search(/^\s*$/) != -1) {
+        while (l > 0 && (document.firstVirtualColumn(l) ==
+                    document.firstVirtualColumn(line-1)
+                || document.line(l).search(/^\s*$/) != -1)) {
             l = l - 1;
         }
 

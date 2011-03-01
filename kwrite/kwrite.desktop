@@ -1,6 +1,7 @@
 [Desktop Entry]
 GenericName=Text Editor
 GenericName[cs]=Textový editor
+GenericName[de]=Texteditor
 GenericName[en_GB]=Text Editor
 GenericName[es]=Editor de texto
 GenericName[et]=Tekstiredaktor
@@ -19,6 +20,7 @@ GenericName[x-test]=xxText Editorxx
 GenericName[zh_TW]=文字編輯器
 Name=KWrite
 Name[cs]=KWrite
+Name[de]=KWrite
 Name[en_GB]=KWrite
 Name[es]=KWrite
 Name[et]=KWrite

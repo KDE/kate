@@ -4,6 +4,7 @@ X-KDE-ServiceType=KTextEditor/Plugin
 X-KDE-Derived=
 Comment=KTextEditor Plugin
 Comment[cs]=Modul textového editoru
+Comment[de]=KTextEditor-Modul
 Comment[en_GB]=KTextEditor Plugin
 Comment[es]=Complemento KTextEditor
 Comment[et]=KTextEditori plugin

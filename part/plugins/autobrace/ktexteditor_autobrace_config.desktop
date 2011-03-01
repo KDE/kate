@@ -6,6 +6,7 @@ X-KDE-PluginKeyword=ktexteditor_autobrace_config
 X-KDE-ParentComponents=ktexteditorautobrace
 Name=AutoBrace Configuration
 Name[cs]=Nastavení automatických závorek
+Name[de]=Einstellungen zu automatischer Klammersetzung
 Name[en_GB]=AutoBrace Configuration
 Name[et]=Automaatsete sulgude seadistamine
 Name[gl]=Configuración dos parénteses automáticos

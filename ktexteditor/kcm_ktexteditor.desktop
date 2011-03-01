@@ -1,6 +1,7 @@
 # ctxt: standard desktop component
 Name=Embedded Text Editor
 Name[cs]=Zabudovaný textový editor
+Name[de]=Eingebetteter Texteditor
 Name[en_GB]=Embedded Text Editor
 Name[es]=Editor de texto empotrado
 Name[et]=Põimitud tekstiredaktor
@@ -18,6 +19,7 @@ Name[x-test]=xxEmbedded Text Editorxx
 Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[cs]=Služba textového editoru poskytuje aplikacím prohlížeč a editor textu. Aplikace KDE, které umožňují upravovat text, by měly používat tuto službu.
+Comment[de]=Diese Komponente stellt Programmen einen Textbetrachter und -editor zur Verfügung. KDE-Anwendungen, die eine Möglichkeit zur Textbearbeitung bieten, sollten dieses Angebot nutzen.
 Comment[en_GB]=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[et]=Tekstiredaktori teenus annab rakendustele komponendi teksti vaatamiseks ja redigeerimiseks. Seda kasutavad kõik KDE rakendused, mis tegelevad teksti redigeerimisega.
 Comment[gl]=O servizo de edición de texto fornece aos programas un visor e editor de textos. Todos os programas de KDE que permitan editar textos deberan empregar este servizo.

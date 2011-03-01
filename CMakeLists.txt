@@ -8,6 +8,7 @@ set (LIBRARY_TYPE SHARED)
 find_package(KDE4 REQUIRED)
 include (KDE4Defaults)
 include (MacroLibrary)
+include (CheckFunctionExists)
 
 # config.h
 if(NOT APPLE)

@@ -189,6 +189,12 @@ void KateViVisualMode::switchStartEnd()
   updateDirty();
 }
 
+void KateViVisualMode::updateRange()
+{
+  Cursor c = m_view->cursorPosition();
+  goToPos( KateViRange( c.line(), c.column(), ViMotion::InclusiveMotion ) );
+}
+
 Range KateViVisualMode::getVisualRange() const
 {
   Cursor c = m_view->cursorPosition();

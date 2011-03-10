@@ -106,7 +106,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
-  if ( !m_mappingKeyPress && !m_ignoreMapping && m_matchingCommands.size() == 0 ) {
+  if ( !m_mappingKeyPress && !m_ignoreMapping) {
     m_mappingKeys.append( key );
 
     foreach ( const QString &str, getMappings() ) {

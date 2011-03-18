@@ -39,11 +39,14 @@
 
 static Q_PID getDebuggeePid( Q_PID gdbPid );
 
+static const QString PromptStr = "(prompt)";
+
 DebugView::DebugView( QObject* parent )
 :   QObject( parent ),
     m_debugProcess(0),
     m_state( none ),
-    m_subState( normal )
+    m_subState( normal ),
+    m_debugLocationChanged( false )
 {
 }
 
@@ -182,10 +185,10 @@ void DebugView::slotReadDebugStdOut()
         m_outBuffer.remove(0,end+1);
     } while (1);
 
-    if (m_outBuffer == "(gdb) ") 
+    if (m_outBuffer == "(gdb) " || m_outBuffer == ">") 
     {
         m_outBuffer.clear();
-        processLine( "(gdb) " );
+        processLine( PromptStr );
     }
 }
 
@@ -330,7 +333,6 @@ void DebugView::processLine( QString line )
 {
     if (line.isEmpty()) return;
 
-    static QRegExp prompt( "\\(gdb\\).*" );
     static QRegExp breakpointList( "Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*" );
     static QRegExp stackFrameAny( "#(\\d+)\\s(.*)" );
     static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\([^)]*\\))\\sat\\s([^:]+):(\\d+).*" );
@@ -344,7 +346,7 @@ void DebugView::processLine( QString line )
     {
         case none:
         case ready:
-            if( prompt.exactMatch( line ) ) 
+            if( PromptStr == line )
             {
                 // we get here after initialization
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
@@ -381,6 +383,7 @@ void DebugView::processLine( QString line )
 
                 // GDB uses 1 based line numbers, kate uses 0 based...
                 emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
+                m_debugLocationChanged = true;
             }
             else if( changeLine.exactMatch( line ) )
             {
@@ -392,6 +395,7 @@ void DebugView::processLine( QString line )
                 }
                 // GDB uses 1 based line numbers, kate uses 0 based...
                 emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
+                m_debugLocationChanged = true;
             }
             else if (breakPointReg.exactMatch(line)) 
             {
@@ -433,7 +437,7 @@ void DebugView::processLine( QString line )
                 m_nextCommands << QString("(Q)"); //This will prevent the "(Q)" commands
                 emit programEnded();
             }
-            else if( prompt.exactMatch( line ) )
+            else if( PromptStr == line )
             {
                 if( m_subState == stackFrameSeen )
                 {
@@ -447,14 +451,14 @@ void DebugView::processLine( QString line )
             break;
 
         case listingBreakpoints:
-            if( prompt.exactMatch( line ) )
+            if( PromptStr == line )
             {
                 m_state = ready;
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             break;
         case infoArgs:
-            if( prompt.exactMatch( line ) )
+            if( PromptStr == line )
             {
                 m_state = ready;
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
@@ -464,7 +468,7 @@ void DebugView::processLine( QString line )
             }
             break;
         case infoLocals:
-            if( prompt.exactMatch( line ) )
+            if( PromptStr == line )
             {
                 m_state = ready;
                 emit infoLocal( QString() );
@@ -475,7 +479,7 @@ void DebugView::processLine( QString line )
             }
             break;
         case infoStack:
-            if( prompt.exactMatch( line ) )
+            if( PromptStr == line )
             {
                 m_state = ready;
                 emit stackFrameInfo( QString(), QString() );
@@ -600,16 +604,18 @@ void DebugView::issueNextCommand()
         }
         else 
         {
-            if (!m_lastCommand.startsWith("(Q)")) {
-                m_nextCommands << "(Q)info stack";
-                m_nextCommands << "(Q)frame";
-                m_nextCommands << "(Q)info args";
-                m_nextCommands << "(Q)info locals";
-                issueNextCommand();
+            if (m_debugLocationChanged) {
+                m_debugLocationChanged = false;
+                if (!m_lastCommand.startsWith("(Q)")) {
+                    m_nextCommands << "(Q)info stack";
+                    m_nextCommands << "(Q)frame";
+                    m_nextCommands << "(Q)info args";
+                    m_nextCommands << "(Q)info locals";
+                    issueNextCommand();
+                    return;
+                }
             }
-            else {
-                emit readyForInput( true );
-            }
+            emit readyForInput( true );
         }
     }
 }
@@ -635,7 +641,7 @@ KUrl DebugView::resolveFileName( char const* fileName )
 
 void DebugView::outputTextMaybe( const QString &text )
 {
-    if ( !m_lastCommand.startsWith( "(Q)" )  && !text.contains( "(gdb)" ) )
+    if ( !m_lastCommand.startsWith( "(Q)" )  && !text.contains( PromptStr ) )
     {
         emit outputText( text );
     }

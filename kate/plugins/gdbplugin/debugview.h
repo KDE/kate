@@ -126,6 +126,7 @@ private:
     int                 m_newFrameLevel;
     QStringList         m_nextCommands;
     QString             m_lastCommand;
+    bool                m_debugLocationChanged;
     QList<BreakPoint>   m_breakPointList;
     QString             m_outBuffer;
     QString             m_errBuffer;

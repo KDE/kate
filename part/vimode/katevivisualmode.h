@@ -43,6 +43,13 @@ class KateViVisualMode : public KateViNormalMode {
     void setVisualModeType( ViMode mode );
     void saveRangeMarks();
     void setStart( const KTextEditor::Cursor& c ) { m_start = c; }
+
+    /**
+     * Updates the visual mode's range to reflect a new cursor position. This
+     * needs to be called if modifying the range from outside the vi mode, e.g.
+     * via mouse selection.
+     */
+    void updateRange();
     ViMode getLastVisualMode() const { return m_lastVisualMode; }
     KTextEditor::Cursor getStart() const { return m_start; }
     KTextEditor::Range getVisualRange() const;
@@ -50,6 +57,13 @@ class KateViVisualMode : public KateViNormalMode {
   private:
     void initializeCommands();
     void updateDirty( bool entireView = false ) const;
+
+    /**
+     * Called when a motion/text object is used. Updates the cursor position
+     * and modifies the range. A motion will only modify the end of the range
+     * (i.e. move the cursor) while a text object may modify both the start and
+     * the end.
+     */
     void goToPos( const KateViRange &r );
     void reset();
     ViMode m_mode;

@@ -106,7 +106,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
-  if ( !m_mappingKeyPress && !m_ignoreMapping && m_matchingCommands.size() == 0 ) {
+  if ( !m_mappingKeyPress && !m_ignoreMapping) {
     m_mappingKeys.append( key );
 
     foreach ( const QString &str, getMappings() ) {
@@ -130,7 +130,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   if ( m_ignoreMapping ) m_ignoreMapping = false;
 
-  if ( key == 'f' || key == 'F' || key == 't' || key == 'T' ) {
+  if ( key == 'f' || key == 'F' || key == 't' || key == 'T' || key == 'r' ) {
       // don't translate next character, we need the actual character so that
       // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
       m_ignoreMapping = true;
@@ -1170,6 +1170,8 @@ bool KateViNormalMode::commandReplaceCharacter()
   bool r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ) );
 
   updateCursor( c1 );
+
+  m_ignoreMapping = false;
 
   return r;
 }

@@ -190,6 +190,7 @@ dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
 swapfile/recoverwidget.ui
 swapfile/brokenswapfilewidget.ui
+utils/howtoimportschema.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )

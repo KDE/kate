@@ -137,7 +137,8 @@ class KateHighlighting
                        QVector<int> &foldingList,
                        bool &ctxChanged );
 
-    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
+    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &,
+      KConfig* cfg=0 /*if 0  standard kate config*/, bool writeDefaultsToo=false);
 
     const QString &name() const {return iName;}
     const QString &nameTranslated() const {return iNameTranslated;}
@@ -238,8 +239,8 @@ class KateHighlighting
 
     QString indentation () { return m_indentation; }
 
-    void getKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
-    void getKateExtendedAttributeListCopy(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
+    void getKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &, KConfig* cfg=0);
+    void getKateExtendedAttributeListCopy(const QString &schema, QList<KateExtendedAttribute::Ptr> &,KConfig* cfg=0);
 
     const QHash<QString, QChar>& getCharacterEncodings( int attrib ) const;
     const KatePrefixStore& getCharacterEncodingsPrefixStore( int attrib ) const;
@@ -251,6 +252,7 @@ class KateHighlighting
      */
     QStringList getEmbeddedHighlightingModes() const;
 
+    
   private:
     /**
       * 'encoding' must not contain new line characters, i.e. '\n' or '\r'!

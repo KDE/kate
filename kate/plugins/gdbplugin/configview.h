@@ -27,11 +27,14 @@
 #include <QtGui/QLabel>
 #include <QtGui/QToolButton>
 #include <QtGui/QComboBox>
+#include <QtGui/QLineEdit>
 #include <QtGui/QCheckBox>
 #include <QtGui/QResizeEvent>
 
 #include <kate/mainwindow.h>
 #include <kconfiggroup.h>
+#include <kactioncollection.h>
+#include <kselectaction.h>
 
 class ConfigView : public QWidget
 {
@@ -41,10 +44,11 @@ public:
     ~ConfigView();
 
 public:
+    void registerActions( KActionCollection* actionCollection );
+
     void readConfig( KConfigBase* config, QString const& groupPrefix );
     void writeConfig( KConfigBase* config, QString const& groupPrefix );
 
-    void    snapshotSettings();
     QString currentExecutable() const;
     QString currentWorkingDirectory() const;
     QString currentArgs() const;
@@ -55,19 +59,38 @@ Q_SIGNALS:
     void showIO(bool show);
 
 private Q_SLOTS:
-    void slotTargetChanged( int index );
-    void slotChooseTarget();
+    void slotTargetEdited( QString updatedTarget );
+    void slotTargetSelected( int index );
+    void slotAddTarget();
     void slotDeleteTarget();
-    void slotChooseWorkingDirectory();
-    void slotDeleteWorkingDirectory();
+    void slotWorkingDirectoryEdited( QString updatedWorkingDirectory );
+    void slotArgListEdited( QString updatedArgList );
+    void slotArgListSelected( int index );
+    void slotAddArgList();
+    void slotDeleteArgList();
 
 protected:
     void resizeEvent ( QResizeEvent * event );
 
 private:
+    void updateCurrentTargetDescription( int field, QString const& value );
+
+    /* helper class to ensure state change is exception safe */
+    class ChangingTarget
+    {
+    public:
+        ChangingTarget( ConfigView* view );
+        ~ChangingTarget();
+
+    private:
+        ConfigView* m_view;
+    };
+    friend class ChangingTarget;
+
+private:
     Kate::MainWindow*   m_mainWindow;
     QComboBox*          m_targets;
-    QComboBox*          m_workingDirectories;
+    QLineEdit*          m_workingDirectory;
     QComboBox*          m_argumentLists;
     QCheckBox*          m_takeFocus;
     QCheckBox*          m_redirectTerminal;
@@ -76,10 +99,13 @@ private:
     QLabel*             m_targetLabel;
     QLabel*             m_workDirLabel;
     QLabel*             m_argumentsLabel;
-    QToolButton*        m_chooseTarget;
+    QToolButton*        m_addTarget;
     QToolButton*        m_deleteTarget;
-    QToolButton*        m_chooseWorkingDirectory;
-    QToolButton*        m_deleteWorkingDirectory;
+    QToolButton*        m_addArgList;
+    QToolButton*        m_deleteArgList;
+    KSelectAction*      m_targetSelectAction;
+    KSelectAction*      m_argListSelectAction;
+    int                 m_changingTarget;
 };
 
 #endif

@@ -15,7 +15,7 @@
       <item>
        <widget class="QCheckBox" name="chkAutoCompletionEnabled">
         <property name="text">
-         <string>&amp;Auto completion enabled</string>
+         <string>Enable &amp;auto completion</string>
         </property>
        </widget>
       </item>

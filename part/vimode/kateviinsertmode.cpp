@@ -354,7 +354,7 @@ void KateViInsertMode::setBlockPrependMode( KateViRange blockRange )
 
 void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b )
 {
-    Q_ASSERT( b == Append or b == AppendEOL );
+    Q_ASSERT( b == Append || b == AppendEOL );
 
     if ( b == AppendEOL ) {
         m_eolPos = doc()->lineLength( m_blockRange.startLine );

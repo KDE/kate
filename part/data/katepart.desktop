@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Embedded Advanced Text Editor
 Name[cs]=Zabudovaný rozšířený editor
+Name[de]=Einbettungsfähige erweiterte Editorkomponente
 Name[en_GB]=Embedded Advanced Text Editor
 Name[es]=Editor de texto avanzado empotrado
 Name[et]=Põimitud võimas tekstiredaktor
@@ -10,8 +11,11 @@ Name[nds]=Inbett verwiedert Texteditor
 Name[nl]=Ingebed geavanceerd tekstinvoercomponent
 Name[pt]=Editor de Texto Avançado Incorporado
 Name[pt_BR]=Editor de textos avançado integrado
+Name[ru]=Встроенный расширенный текстовый редактор
 Name[sv]=Inbäddningsbar avancerad texteditor
+Name[tg]=Таҳриргари матнии беҳтаршудаи дарунсохт
 Name[uk]=Вмонтований потужний текстовий редактор
+Name[wa]=Ravalé aspougneu di tecse avancî
 Name[x-test]=xxEmbedded Advanced Text Editorxx
 Name[zh_TW]=嵌入式進階文字編輯器
 X-KDE-Library=katepart

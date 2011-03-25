@@ -104,7 +104,7 @@ private Q_SLOTS:
 private:
     QString currentWord();
 
-    
+
     Kate::Application*    m_kateApplication;
     QWidget*              m_toolView;
     QWidget*              m_localsToolView;

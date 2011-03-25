@@ -121,7 +121,7 @@ well.
 <option>-u</option> <option>--use</option> <parameter>URL</parameter></userinput></term>
 <listitem>
 <para>
-Causes &kate; to use and existing instance if there is one. If you want all
+Causes &kate; to use an existing instance if there is one. If you want all
 documents to open in one kate instance, you can add this option to the default
 command in your kde application configuration, as well as create a shell alias
 in your command intepreter if it supports that.

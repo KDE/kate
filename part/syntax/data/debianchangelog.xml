@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.64" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.65" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
         </list>
 
         <list name="distributions">
+            <item>oldstable</item>
+            <item>oldstable-security</item>
+            <item>oldstable-proposed-updates</item>
             <item>stable</item>
             <item>stable-security</item>
             <item>testing</item>
+            <item>testing-security</item>
             <item>testing-proposed-updates</item>
             <item>frozen</item>
             <item>unstable</item>
@@ -21,6 +25,7 @@
             <item>etch-backports</item>
             <item>etch-volatile</item>
             <item>lenny-backports</item>
+            <item>lenny-backports-sloppy</item>
             <item>lenny-volatile</item>
             <item>squeeze-backports</item>
             <item>squeeze-volatile</item>
@@ -77,6 +82,16 @@
             <item>lucid-proposed</item>
             <item>lucid-updates</item>
             <item>lucid-backports</item>
+            <item>maverick</item>
+            <item>maverick-security</item>
+            <item>maverick-proposed</item>
+            <item>maverick-updates</item>
+            <item>maverick-backports</item>
+            <item>natty</item>
+            <item>natty-security</item>
+            <item>natty-proposed</item>
+            <item>natty-updates</item>
+            <item>natty-backports</item>
         </list>
 
         <list name="urgencies">

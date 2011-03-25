@@ -178,7 +178,7 @@ namespace KTextEditor {
           //kDebug(13040)<<index.model()->data(index, KateSnippetRepositoryModel::NameRole).toString();
           QStringList fileType=index.model()->data(index, SnippetRepositoryModel::FiletypeRole).toStringList();
           QString displayFileType=fileType.join(";");
-          if (fileType.contains("*")) displayFileType="all file types";
+          if (fileType.contains("*")) displayFileType=i18n("all file types");
           QString snippetLicense=index.model()->data(index, SnippetRepositoryModel::SnippetLicenseRole).toString();
           bool tainted=false;
           if (snippetLicense!="public domain") {

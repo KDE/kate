@@ -534,7 +534,11 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
             msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
         }
         KPassivePopup::message(i18n("Make Results"), msgs.join("\n"), m_toolView);
-    } else {
+    }
+    else if (exitCode != 0) {
+        KPassivePopup::message(i18n("Make Results"), i18n("Build failed."), m_toolView);
+    }
+    else {
         KPassivePopup::message(i18n("Make Results"), i18n("Build completed without problems."), m_toolView);
     }
 

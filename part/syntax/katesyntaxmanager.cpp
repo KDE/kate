@@ -173,7 +173,7 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
   return translateNames ? translatedNames[n] : names[n];
 }
 
-void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
+void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, KConfig *cfg)
 {
   KColorScheme scheme(QPalette::Active, KColorScheme::View);
   KColorScheme schemeSelected(QPalette::Active, KColorScheme::Selection);
@@ -272,7 +272,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
     list.append(attrib);
   }
 
-  KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
+  KConfigGroup config(cfg?cfg:KateHlManager::self()->self()->getKConfig(),
                       "Default Item Styles - Schema " + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)
@@ -324,9 +324,10 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
   }
 }
 
-void KateHlManager::setDefaults(const QString &schema, KateAttributeList &list)
-{
-  KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
+void KateHlManager::setDefaults(const QString &schema, KateAttributeList &list,KConfig *cfg)
+{  
+  cfg=cfg?cfg:KateHlManager::self()->self()->getKConfig();
+  KConfigGroup config(cfg,
                       "Default Item Styles - Schema " + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)

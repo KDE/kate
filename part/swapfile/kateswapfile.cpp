@@ -434,7 +434,8 @@ QString SwapFile::fileName()
 
   QString path = url.toLocalFile();
   int poz = path.lastIndexOf(QDir::separator());
-  path.insert(poz+1, ".swp.");
+  path.insert(poz+1, ".");
+  path.append(".kate-swp");
 
   return path;
 }

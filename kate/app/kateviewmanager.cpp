@@ -30,6 +30,8 @@
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
+#include <KTextEditor/Attribute>
+#include <KTextEditor/HighlightInterface>
 
 #include <KAction>
 #include <KActionCollection>
@@ -147,6 +149,30 @@ void KateViewManager::setupActions ()
   connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));
 
   goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
+
+  a = m_mainWindow->actionCollection()->addAction("view_split_move_right");
+  a->setText( i18n("Move Splitter Right") );
+  connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterRight()));
+
+  a->setWhatsThis(i18n("Move the splitter of the current view to the right"));
+
+  a = m_mainWindow->actionCollection()->addAction("view_split_move_left");
+  a->setText( i18n("Move Splitter Left") );
+  connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterLeft()));
+
+  a->setWhatsThis(i18n("Move the splitter of the current view to the left"));
+
+  a = m_mainWindow->actionCollection()->addAction("view_split_move_up");
+  a->setText( i18n("Move Splitter Up") );
+  connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterUp()));
+
+  a->setWhatsThis(i18n("Move the splitter of the current view up"));
+
+  a = m_mainWindow->actionCollection()->addAction("view_split_move_down");
+  a->setText( i18n("Move Splitter Down") );
+  connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterDown()));
+
+  a->setWhatsThis(i18n("Move the splitter of the current view down"));
 }
 
 void KateViewManager::updateViewSpaceActions ()
@@ -815,6 +841,76 @@ void KateViewManager::restoreSplitter( const KConfigBase* configBase, const QStr
   // set sizes
   parent->setSizes( config.readEntry("Sizes", QList<int>()) );
   parent->show();
+}
+
+void KateViewManager::moveSplitter(Qt::Key key, int repeats)
+{
+  if (repeats < 1) return;
+
+  KateViewSpace *vs = activeViewSpace();
+  if (!vs) return;
+
+  QSplitter *currentSplitter = qobject_cast<QSplitter*>(vs->parentWidget());
+
+  if (!currentSplitter) return;
+  if (currentSplitter->count() == 1) return;
+
+  int move = 4 * repeats;
+  // try to use font height in pixel to move splitter
+  KTextEditor::HighlightInterface *hi = qobject_cast<KTextEditor::HighlightInterface*>(vs->currentView()->document());
+  if (hi) {
+    KTextEditor::Attribute::Ptr attrib(hi->defaultStyle(KTextEditor::HighlightInterface::dsNormal));
+    QFontMetrics fm(attrib->font());
+    move = fm.height() * repeats;
+  }
+  
+  QWidget* currentWidget = (QWidget*)vs;
+  bool foundSplitter = false;
+
+  // find correct splitter to be moved
+  while ( currentSplitter && currentSplitter->count() != 1 ) {
+
+    if ( currentSplitter->orientation() == Qt::Horizontal
+      && ( key == Qt::Key_Right || key == Qt::Key_Left ))
+      foundSplitter = true;
+
+    if ( currentSplitter->orientation() == Qt::Vertical
+      && ( key == Qt::Key_Up || key == Qt::Key_Down ))
+      foundSplitter = true;
+
+    // if the views within the current splitter can be resized, resize them
+    if (foundSplitter) {
+      QList<int> currentSizes = currentSplitter->sizes();
+      int index = currentSplitter->indexOf(currentWidget);
+
+      if (( index == 0 && ( key == Qt::Key_Left || key == Qt::Key_Up ))
+         ||( index == 1  && ( key == Qt::Key_Right || key == Qt::Key_Down )))
+        currentSizes[index] -= move;
+
+      if (( index == 0  && ( key == Qt::Key_Right || key == Qt::Key_Down ))
+         ||( index == 1 && ( key == Qt::Key_Left || key == Qt::Key_Up )))
+        currentSizes[index] += move;
+
+      if ( index == 0 && ( key == Qt::Key_Right || key == Qt::Key_Down ))
+        currentSizes[index+1] -= move;
+
+      if ( index == 0 && ( key == Qt::Key_Left || key == Qt::Key_Up ))
+        currentSizes[index+1] += move;
+
+      if( index == 1 && ( key == Qt::Key_Right || key == Qt::Key_Down ))
+        currentSizes[index-1] += move;
+
+      if( index == 1 && ( key == Qt::Key_Left || key == Qt::Key_Up ))
+        currentSizes[index-1] -= move;
+
+      currentSplitter->setSizes(currentSizes);
+      break;
+    }
+
+    currentWidget = (QWidget*)currentSplitter;
+    // the parent of the current splitter will become the current splitter
+    currentSplitter = qobject_cast<QSplitter*>(currentSplitter->parentWidget());
+  }
 }
 
 

@@ -190,10 +190,38 @@ class KateViewManager : public QSplitter
     {
       splitViewSpace(0L, Qt::Vertical);
     }
+
     /** Splits the active viewspace vertically */
     void slotSplitViewSpaceVert ()
     {
       splitViewSpace();
+    }
+
+    /**  moves the splitter according to the key that has been pressed */
+    void moveSplitter(Qt::Key key, int repeats = 1);
+
+    /** moves the splitter to the right  */
+    void moveSplitterRight()
+    {
+        moveSplitter(Qt::Key_Right);
+    }
+
+    /** moves the splitter to the left  */
+    void moveSplitterLeft()
+    {
+        moveSplitter(Qt::Key_Left);
+    }
+
+    /** moves the splitter up  */
+    void moveSplitterUp()
+    {
+        moveSplitter(Qt::Key_Up);
+    }
+
+    /** moves the splitter down  */
+    void moveSplitterDown()
+    {
+        moveSplitter(Qt::Key_Down);
     }
 
     void slotCloseCurrentViewSpace();

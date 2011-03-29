@@ -28,6 +28,7 @@
 
 #include "katevimodebase.h"
 #include "kateviinputmodemanager.h"
+#include "katepartprivate_export.h"
 
 class QString;
 class QChar;
@@ -43,7 +44,7 @@ namespace KateVi {
 
 typedef QPair<QString, OperationMode> KateViRegister;
 
-class KateViGlobal
+class KATEPART_TESTS_EXPORT KateViGlobal
 {
 public:
     KateViGlobal();

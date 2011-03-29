@@ -26,6 +26,7 @@
 #include "kateview.h"
 #include "katevirange.h"
 #include "kateviewinternal.h"
+#include "katepartprivate_export.h"
 
 #include <QList>
 
@@ -47,7 +48,7 @@ enum OperationMode {
     Block
 };
 
-class KateViModeBase : public QObject
+class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 {
   Q_OBJECT
 

@@ -25,13 +25,14 @@
 #include <QChar>
 #include <QString>
 #include <QHash>
+#include "katepartprivate_export.h"
 
 /**
  * for encoding keypresses w/ modifiers into an internal QChar representation and back again to a
  * descriptive text string
  */
 
-class KateViKeyParser
+class KATEPART_TESTS_EXPORT KateViKeyParser
 {
 private:
   KateViKeyParser();

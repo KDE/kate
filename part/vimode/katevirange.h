@@ -21,13 +21,15 @@
 #ifndef KATE_VI_RANGE_INCLUDED
 #define KATE_VI_RANGE_INCLUDED
 
+#include "katepartprivate_export.h"
+
 namespace ViMotion {
     enum MotionType {
         ExclusiveMotion, InclusiveMotion
     };
 }
 
-class KateViRange
+class KATEPART_TESTS_EXPORT  KateViRange
 {
   public:
     KateViRange( int slin, int scol, int elin, int ecol, ViMotion::MotionType mt );

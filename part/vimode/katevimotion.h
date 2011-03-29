@@ -24,8 +24,9 @@
 #include "katevicommand.h"
 #include "katevinormalmode.h"
 #include "katevirange.h"
+#include "katepartprivate_export.h"
 
-class KateViNormalMode;
+class KATEPART_TESTS_EXPORT KateViNormalMode;
 
 /**
  * combined class for motions and text objects. execute() returns a KateViRange.
@@ -34,7 +35,7 @@ class KateViNormalMode;
  * returned
  */
 
-class KateViMotion : public KateViCommand
+class KATEPART_TESTS_EXPORT KateViMotion : public KateViCommand
 {
   public:
     KateViMotion( KateViNormalMode *parent, const QString &pattern,

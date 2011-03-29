@@ -23,6 +23,7 @@
 
 #include <QKeyEvent>
 #include <QList>
+#include "katepartprivate_export.h"
 
 class KConfigGroup;
 class KateView;
@@ -46,7 +47,7 @@ enum ViMode {
   ReplaceMode
 };
 
-class KateViInputModeManager
+class KATEPART_TESTS_EXPORT KateViInputModeManager
 {
 public:
   KateViInputModeManager(KateView* view, KateViewInternal* viewInternal);

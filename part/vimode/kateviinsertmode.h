@@ -23,6 +23,7 @@
 
 #include <QKeyEvent>
 #include "katevimodebase.h"
+#include "katepartprivate_export.h"
 
 class KateViMotion;
 class KateView;
@@ -39,7 +40,7 @@ enum BlockInsert {
     AppendEOL
 };
 
-class KateViInsertMode : public KateViModeBase
+class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
 {
   public:
     KateViInsertMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );

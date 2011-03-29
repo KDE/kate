@@ -20,11 +20,12 @@
 
 #include "katevinormalmode.h"
 #include "katevikeyparser.h"
+#include "katepartprivate_export.h"
 
 #ifndef KATE_VI_COMMAND_H
 #define KATE_VI_COMMAND_H
 
-class KateViNormalMode;
+class KATEPART_TESTS_EXPORT KateViNormalMode;
 
 enum KateViCommandFlags {
     REGEX_PATTERN = 0x1,    // the pattern is a regex
@@ -33,7 +34,7 @@ enum KateViCommandFlags {
     IS_CHANGE = 0x8         // the command changes the buffer
 };
 
-class KateViCommand {
+class KATEPART_TESTS_EXPORT KateViCommand {
   public:
     KateViCommand( KateViNormalMode *parent, QString pattern,
         bool ( KateViNormalMode::*pt2Func)(), unsigned int flags = 0 );

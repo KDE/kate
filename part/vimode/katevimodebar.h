@@ -25,6 +25,7 @@
 #include "kateviewhelpers.h"
 #include "kateview.h"
 #include "kcolorscheme.h"
+#include "katepartprivate_export.h"
 
 class QLabel;
 class QTimer;
@@ -32,7 +33,7 @@ class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
 
-class KateViModeBar : public KateViewBarWidget
+class KATEPART_TESTS_EXPORT KateViModeBar : public KateViewBarWidget
 {
   Q_OBJECT
 public:

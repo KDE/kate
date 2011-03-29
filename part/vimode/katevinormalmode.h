@@ -36,6 +36,7 @@
 #include <QRegExp>
 #include <ktexteditor/cursor.h>
 #include "katevikeyparser.h"
+#include "katepartprivate_export.h"
 
 class KateViMotion;
 class KateViInputModeManager;
@@ -43,7 +44,7 @@ class KateViInputModeManager;
 /**
  * Commands for the vi normal mode
  */
-class KateViNormalMode : public KateViModeBase
+class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 {
   Q_OBJECT
 

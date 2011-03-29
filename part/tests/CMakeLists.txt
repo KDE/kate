@@ -92,6 +92,19 @@ target_link_libraries( searchbar_test
   katepartinterfaces
 )
 
+########### vimode test ###############
+
+kde4_add_unit_test(vimode_test TESTNAME kate-vimode_test vimode_test.cpp)
+
+
+
+target_link_libraries( vimode_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### cursor test ###############
 
 kde4_add_unit_test(movingcursor_test TESTNAME kate-movingcursor_test movingcursor_test.cpp)

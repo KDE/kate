@@ -61,6 +61,8 @@ void NormalModeTest(QString original_text,
   Cursor c(0,0);
   view.setCursorPosition(c);
   TestPressKey(command,viinputmodemanager);
+  qDebug() << "running command " << command << " on text \"" << original_text
+    << "\"\n";
   QCOMPARE(doc.text(), expected_text);
 }
 

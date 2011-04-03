@@ -133,6 +133,21 @@ const QChar KateViModeBase::getCharUnderCursor() const
 const QString KateViModeBase::getWordUnderCursor() const
 {
   Cursor c( m_view->cursorPosition() );
+
+  QChar ch = doc()->character( c );
+  while ( !ch.isLetterOrNumber() && ! ch.isMark() && ch != '_'
+      && m_extraWordCharacters.indexOf( ch) == -1 ) {
+
+    // advance cursor one position
+    c.setColumn( c.column()+1 );
+    if ( c.column() > doc()->lineLength( c.line() ) ) {
+      c.setColumn(0);
+      c.setLine( c.line()+1 );
+    }
+
+    ch = doc()->character( c );
+  }
+
   Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
   Cursor c2 = findWordEnd( c1.line(), c1.column()-1, true );
   c2.setColumn( c2.column()+1 );

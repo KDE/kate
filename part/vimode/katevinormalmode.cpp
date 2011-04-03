@@ -1441,6 +1441,10 @@ KateViRange KateViNormalMode::motionLeft()
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
   r.endColumn -= getCount();
 
+  if ( r.endColumn < 0 ) {
+    r.endColumn = 0;
+  }
+
   return r;
 }
 
@@ -1450,6 +1454,11 @@ KateViRange KateViNormalMode::motionRight()
   m_stickyColumn = -1;
   KateViRange r( cursor.line(), cursor.column(), ViMotion::ExclusiveMotion );
   r.endColumn += getCount();
+
+  // make sure end position isn't > line length
+  if ( r.endColumn >= doc()->lineLength( r.endLine ) ) {
+    r.endColumn = doc()->lineLength( r.endLine )-1;
+  }
 
   return r;
 }

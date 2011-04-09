@@ -134,7 +134,9 @@ const QString KateViModeBase::getWordUnderCursor() const
 {
   Cursor c( m_view->cursorPosition() );
 
+  // find first character that is a “word letter” and start the search there
   QChar ch = doc()->character( c );
+  int i = 0;
   while ( !ch.isLetterOrNumber() && ! ch.isMark() && ch != '_'
       && m_extraWordCharacters.indexOf( ch) == -1 ) {
 
@@ -146,10 +148,15 @@ const QString KateViModeBase::getWordUnderCursor() const
     }
 
     ch = doc()->character( c );
+    i++; // count characters that were advanced so we know where to start the search
   }
 
-  Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
-  Cursor c2 = findWordEnd( c1.line(), c1.column()-1, true );
+  // move cursor the word (if cursor was placed on e.g. a paren, this will move
+  // it to the right
+  updateCursor( c );
+
+  Cursor c1 = findPrevWordStart( c.line(), c.column()+1+i, true );
+  Cursor c2 = findWordEnd( c1.line(), c1.column()+i-1, true );
   c2.setColumn( c2.column()+1 );
 
   return doc()->text( Range( c1, c2 ) );

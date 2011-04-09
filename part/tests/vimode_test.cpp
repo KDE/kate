@@ -72,6 +72,7 @@ void ViModeTest::NormalModeFallingTests()
   NormalModeTest("bar", "10lx", "ba");
   NormalModeTest("bar", "ll5hx", "ar");
   NormalModeTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
+  NormalModeTest("(foo (bar (foo( bar))))", "*x","(foo (bar (oo( bar))))");
   NormalModeTest("foo{\n}\n", "$d%", "foo\n");
   NormalModeTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
   NormalModeTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");

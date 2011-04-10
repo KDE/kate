@@ -114,6 +114,16 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="btnImportNormal">
+              <property name="toolTip">
+               <string>Read a vimrc file and attemt to import mappings specified with the &quot;[n]noremap&quot; command.</string>
+              </property>
+              <property name="text">
+               <string>Import from vimrc file</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>

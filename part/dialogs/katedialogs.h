@@ -36,6 +36,7 @@
 #include <ktexteditor/configpage.h>
 
 #include <kdialog.h>
+#include <kfiledialog.h>
 #include <kmimetype.h>
 
 #include <sonnet/configwidget.h>
@@ -249,6 +250,7 @@ class KateViInputModeConfigTab : public KateConfigPage
     void showWhatsThis(const QString& text);
     void addNewNormalModeMappingRow();
     void removeSelectedNormalMappingRow();
+    void importNormalMappingRow();
 };
 
 class KateSpellCheckConfigTab : public KateConfigPage

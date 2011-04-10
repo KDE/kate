@@ -351,6 +351,7 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int, int)), this, SLOT(slotChanged()));
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
   connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
+  connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(importNormalMappingRow()));
 
   layout->addWidget(newWidget);
   setLayout(layout);
@@ -424,6 +425,29 @@ void KateViInputModeConfigTab::addNewNormalModeMappingRow()
   ui->tblNormalModeMappings->insertRow( rows );
   ui->tblNormalModeMappings->setCurrentCell( rows, 0 );
   ui->tblNormalModeMappings->editItem( ui->tblNormalModeMappings->currentItem() );
+}
+
+void KateViInputModeConfigTab::importNormalMappingRow()
+{
+  QString fileName = KFileDialog::getOpenFileName();
+  if(fileName.isEmpty()) return;
+  QFile configFile(fileName);
+  if(! configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    KMessageBox::error(this, i18n("Unable to open the config file for reading !"), i18n("Unable to open file"));
+    return;
+  }
+  QTextStream stream(&configFile);
+  while(! stream.atEnd()) {
+    QStringList line = stream.readLine().split(" ");
+
+    if(line.size() > 2 && (line[0] == "noremap" || line[0] == "no"
+          || line[0] == "nnoremap" || line [0] == "nn")) {
+      int rows = ui->tblNormalModeMappings->rowCount();
+      ui->tblNormalModeMappings->insertRow( rows );
+      ui->tblNormalModeMappings->setItem(rows, 0, new QTableWidgetItem(line[1]));
+      ui->tblNormalModeMappings->setItem(rows, 1, new QTableWidgetItem(line[2]));
+    }
+  }
 }
 
 void KateViInputModeConfigTab::removeSelectedNormalMappingRow()

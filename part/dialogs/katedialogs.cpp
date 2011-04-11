@@ -433,7 +433,7 @@ void KateViInputModeConfigTab::importNormalMappingRow()
   if(fileName.isEmpty()) return;
   QFile configFile(fileName);
   if(! configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    KMessageBox::error(this, i18n("Unable to open the config file for reading !"), i18n("Unable to open file"));
+    KMessageBox::error(this, i18n("Unable to open the config file for reading."), i18n("Unable to open file"));
     return;
   }
   QTextStream stream(&configFile);

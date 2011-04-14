@@ -56,12 +56,15 @@ public slots:
                           KTextEditor::ModificationInterface::ModifiedOnDiskReason);
   void slotNameChanged(KTextEditor::Document*);
   void slotWheelDelta(int);
+  void slotTabMoved(int, int);
 
 private:
   KTabBar* m_tabBar;
   QMap<int, KTextEditor::Document*> m_tabDocMap;
   QMap<KTextEditor::Document*, int> m_docTabMap;
+  QList<KTextEditor::Document*> m_docList;
   bool m_tabIsDeleting;
+  void rebuildMaps();
 };
 
 class TabBarPlugin

@@ -50,6 +50,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
 
   m_tabBar->setTabsClosable(true);
   m_tabBar->setDocumentMode(true);
+  m_tabBar->setMovable(true);
 
   QBoxLayout* layout = qobject_cast<QBoxLayout*>(mainWindow()->centralWidget()->layout());
   layout->insertWidget(0, m_tabBar);
@@ -65,6 +66,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
   connect(m_tabBar, SIGNAL(closeRequest(int)), this, SLOT(slotTabCloseRequest(int)));
   connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotTabCloseRequest(int)));
   connect(m_tabBar, SIGNAL(wheelDelta(int)), this, SLOT(slotWheelDelta(int)));
+  connect(m_tabBar, SIGNAL(tabMoved(int, int)), this, SLOT(slotTabMoved(int, int)));
 
   foreach(KTextEditor::Document* document, Kate::application()->documentManager()->documents()) {
     slotDocumentCreated(document);
@@ -93,6 +95,7 @@ void TabBarPluginView::slotDocumentCreated(KTextEditor::Document* document)
   m_tabBar->setTabToolTip(index, document->url().prettyUrl());
   m_tabDocMap[index] = document;
   m_docTabMap[document] = index;
+  m_docList.append(document);
 }
 
 void TabBarPluginView::slotTabChanged(int index)
@@ -109,17 +112,11 @@ void TabBarPluginView::slotDocumentDeleted(KTextEditor::Document* document)
   m_tabIsDeleting = true;
   int index = m_docTabMap[document];
   m_tabBar->removeTab(index);
-  m_tabDocMap.clear();
-  m_docTabMap.clear();
+  m_docList.removeAll(document);
   m_tabIsDeleting = false;
 
-  //Rebuild the Map with current tab index...
-  QList<KTextEditor::Document*>documentList =  Kate::application()->documentManager()->documents();
-  for (int i = 0; i <  documentList.count(); i++) {
-    m_tabBar->setTabToolTip(i, documentList.at(i)->url().prettyUrl());
-    m_tabDocMap[i] = documentList.at(i);
-    m_docTabMap[documentList.at(i)] = i;
-  }
+  // Rebuild the maps using the new state of the list.
+  rebuildMaps();
 }
 
 void TabBarPluginView::slotViewChanged()
@@ -212,6 +209,26 @@ void TabBarPluginView::slotWheelDelta(int delta)
 
   m_tabBar->setCurrentIndex(page);
 }
+
+void TabBarPluginView::slotTabMoved(int from, int to)
+{
+  KTextEditor::Document* document = m_docList.takeAt(from);
+  m_docList.insert(to, document);
+  rebuildMaps();
+}
+
+void TabBarPluginView::rebuildMaps() {
+  m_tabDocMap.clear();
+  m_docTabMap.clear();
+
+  for (int i = 0; i < m_docList.count(); i++) {
+    KTextEditor::Document* document = m_docList.at(i);
+    //m_tabBar->setTabToolTip(i, document->url().prettyUrl());
+    m_tabDocMap[i] = document;
+    m_docTabMap[document] = i;
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // TabBarPlugin
 ///////////////////////////////////////////////////////////////////////////////

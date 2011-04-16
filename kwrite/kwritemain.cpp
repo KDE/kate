@@ -119,6 +119,8 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
 KWrite::~KWrite()
 {
+  guiFactory()->removeClient(m_view);
+
   winList.removeAll(this);
 
   if (m_view->document()->views().count() == 1)

@@ -215,6 +215,8 @@ void KTinyTabBar::load( KConfigBase* config, const QString& group )
     m_highlightedTabs.clear();
     for( int i = 0; i < documents.size() && i < colors.size(); ++i )
         m_highlightedTabs[documents[i]] = colors[i];
+
+    setHighlightMarks( highlightMarks() );
 }
 
 /**

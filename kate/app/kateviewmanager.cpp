@@ -96,6 +96,9 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
 
 KateViewManager::~KateViewManager ()
 {
+  // make sure all xml gui clients are removed to avoid warnings on exit
+  foreach (KTextEditor::View* view, m_viewList)
+    mainWindow()->guiFactory()->removeClient(view);
 }
 
 void KateViewManager::activateDocument(const QModelIndex &index)

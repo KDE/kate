@@ -7,7 +7,7 @@
   <!ENTITY os_conditionals_names "(ifos|ifnos)">
   <!ENTITY lookahead_whitespace_eol "(?=($| |\t))">
 ]>
-<language name="RPM Spec" version="1.7" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
+<language name="RPM Spec" version="1.8" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
 
   <highlighting>
 
@@ -92,13 +92,22 @@
         <RegExpr attribute="Tag" context="tag_line_string" String="((Copyright|License|Summary|Summary\(.*\)|Distribution|Vendor|Packager|Group|Source\d*|Patch\d*|BuildRoot|Prefix)[ \t]*:[ \t]*)" column="0" />
         <RegExpr attribute="Tag" context="tag_line_string_only_one_word" String="((Name|Version|Release|Url|URL)[ \t]*:[ \t]*)" column="0" />
         <!-- Handle % -->
-        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
+        <AnyChar context="macro entry in package section" String="%$" lookAhead="true" />
         <!-- Handle comments. "# norootforbuild" is displayed like a tag. -->
         <RegExpr context="Comment" String="[ \t]*#" column="0" lookAhead="true" />
                 <!-- Spaces are okay -->
         <DetectSpaces attribute="Fallback for separator spaces" />
         <!-- Fallback value for every non-space -->
         <!--RegExpr attribute="Error" context="#stay" String="[^\s]" /-->
+      </context>
+
+      <!-- "macro entry in package section" is used for lines in the package section that start
+      with a macro. It recognizes macros. Everything else is treated as normal text. This context
+      is used to prevent to highlight syntax errors after macros. With the next line break, this
+      context will switch back ("#pop"). -->
+      <context attribute="Shell commands" lineEndContext="#pop" name="macro entry in package section">
+        <!-- Handle % -->
+        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
       </context>
 
       <!-- "package section start line" simply is used for the parameters after the
@@ -166,9 +175,7 @@
         <!-- Warning on single percent ("%"), but not on double percent ("%%"): -->
         <Detect2Chars attribute="Comment" char="%" char1="%"/>
         <DetectChar attribute="Warning" char="%"/>
-        <!-- Alert -->
-        <StringDetect attribute="Alert" String="TODO" insensitive="true" />
-        <StringDetect attribute="Alert" String="FIXME" insensitive="true" />
+        <IncludeRules context="##Alerts"/> <!-- Alert -->
       </context>
 
       <!-- "every_non_whitespace_is_error" is a simple helper context. It switchs back to the
@@ -374,36 +381,12 @@
       </context>
 
       <!-- Context for the content of a macro defination. -->
-      <context attribute="Fallback for separator spaces" lineEndContext="#pop" name="macro defination content">
+      <context attribute="String" lineEndContext="#pop" name="macro defination content">
         <DetectSpaces />
-        <!-- If the line has any content -->
-        <RegExpr context="macro defination content switch" String=".*" lookAhead="true" />
-      </context>
-
-      <!-- Internal context for the content of a macro defination.
-      WARNING: Only switch to this context if there is at least 1 character (may be space or whatever...) -->
-      <context attribute="Integer" lineEndContext="#stay" name="macro defination content switch">
-        <!-- If the line terminates with \ -->
-        <RegExpr context="macro defination content with line break" String="(.*)(\\)(?=($))" lookAhead="true" />
-        <!-- If the line does not terminate with \ -->
-        <RegExpr context="macro defination content without line break" String=".*" lookAhead="true" />
-      </context>
-
-      <!-- Internal context for the content of a macro defination-->
-      <context attribute="String" lineEndContext="#pop#pop" name="macro defination content without line break">
-        <!-- Handle \ -->
+        <!-- Handle % -->
+        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
+        <LineContinue attribute="Line break" context="#stay"/>
         <DetectChar attribute="Warning" char="\" />
-        <!-- Handle % -->
-        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
-      </context>
-
-      <!-- Internal context for the content of a macro defination-->
-      <context attribute="String" lineEndContext="#pop" name="macro defination content with line break">
-        <!-- Handle \ -->
-        <RegExpr attribute="Warning" String="\\(?=(.))" />
-        <DetectChar attribute="Line break" char="\" />
-        <!-- Handle % -->
-        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
       </context>
 
       <!-- Context for %undefine -->
@@ -488,7 +471,6 @@
       <itemData name="Hint" defStyleNum="dsError"/>
       <itemData name="Macro call" defStyleNum="dsFunction"/>
       <itemData name="Section" defStyleNum="dsRegionMarker"/>
-      <itemData name="Alert" defStyleNum="dsAlert"/>
       <itemData name="Escaped character" defStyleNum="dsChar"/>
       <itemData name="Line break" defStyleNum="dsKeyword"/>
     </itemDatas>

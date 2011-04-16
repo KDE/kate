@@ -811,7 +811,7 @@ will not find strings spanning over a line break.</para>
 <varlistentry>
 <term>LineContinue</term>
 <listitem>
-<para>Matches at end of line.</para>
+<para>Matches a backslash (<userinput>'\'</userinput>) at the end of a line.</para>
 <programlisting>&lt;LineContinue (common attributes) /&gt;</programlisting>
 <para>This rule has no specific attributes.</para>
 <para>This rule is useful for switching context at end of line, if the last

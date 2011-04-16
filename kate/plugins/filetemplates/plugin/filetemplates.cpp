@@ -109,6 +109,7 @@ void PluginViewKateFileTemplates::refreshMenu()
 
 PluginViewKateFileTemplates::~PluginViewKateFileTemplates()
 {
+  mainWindow()->guiFactory()->removeClient (this);
 }
 //END PluginViewKateFileTemplates
 

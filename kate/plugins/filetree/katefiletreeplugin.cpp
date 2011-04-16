@@ -213,6 +213,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
 KateFileTreePluginView::~KateFileTreePluginView ()
 {
+  mainWindow()->guiFactory()->removeClient(this);
+
   // clean up tree and toolview
   delete m_fileTree->parentWidget();
   // and TreeModel

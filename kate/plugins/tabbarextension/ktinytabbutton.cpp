@@ -254,7 +254,9 @@ void KTinyTabButton::setTabButtonStyle( KTinyTabBar::ButtonStyle tabStyle )
     if( m_tabButtonStyle == tabStyle )
         return;
 
-    setFlat( tabStyle == KTinyTabBar::Flat );
+    const bool flat = tabStyle == KTinyTabBar::Flat;
+    setFlat( flat );
+    setAutoFillBackground( flat );
     m_tabButtonStyle = tabStyle;
     update();
 }

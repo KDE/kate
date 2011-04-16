@@ -142,7 +142,8 @@ void HighlightSelectionPluginView::createHighlights()
     qobject_cast<KTextEditor::MovingInterface*>(m_view->document());
 
   KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-  attr->setFontBold(true);
+// disable bold for now: If you use non-fixed font, making it bold leads to wobbly text
+//  attr->setFontBold(true);
   attr->setBackground(Qt::yellow);
 
   KTextEditor::Cursor start(0, 0);

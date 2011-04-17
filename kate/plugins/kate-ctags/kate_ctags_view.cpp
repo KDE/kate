@@ -173,7 +173,6 @@ void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& group
 /******************************************************************/
 void KateCTagsView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-    kDebug() << groupPrefix;
     KConfigGroup cg(config, groupPrefix + ":ctags-plugin");
 
     cg.writeEntry("TagsGenCMD", m_ctagsUi.cmdEdit->text());

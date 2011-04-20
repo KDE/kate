@@ -47,6 +47,7 @@ Name[x-test]=xxTab Barxx
 Name[zh_CN]=标签栏
 Name[zh_TW]=分頁列
 Comment=Adds a standard tab bar to Kate's main window
+Comment[et]=Lisab Kate peaaknasse standardse kaardiriba
 Comment[nl]=Voegt een standaard tabbladbalk toe aan Kate's hoofdvenster
 Comment[pt]=Adiciona uma barra de páginas normal à janela principal do Kate
 Comment[sv]=Lägger till en vanlig flikrad i Kates huvudfönster

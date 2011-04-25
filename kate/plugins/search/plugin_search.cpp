@@ -125,7 +125,7 @@ void KatePluginSearchView::toggleSearchView()
 void KatePluginSearchView::startSearch()
 {
     m_ui.searchButton->setDisabled(true);
-    m_ui.stopButton->setDisabled(false);
+    m_ui.locationStop->setCurrentIndex(1);
     m_ui.optionsButton->setDisabled(true);
     m_ui.displayOptions->setChecked (false);
     m_ui.displayOptions->setDisabled(true);
@@ -151,12 +151,14 @@ void KatePluginSearchView::startSearch()
 void KatePluginSearchView::toggleOptions(bool show)
 {
     m_ui.stackedWidget->setCurrentIndex((show) ? 1:0);
-    searchPlaceChanged();
 }
 
 void KatePluginSearchView::searchPlaceChanged()
 {
     bool disable = (m_ui.searchPlaceCombo->currentIndex() == 0);
+    if (!disable) {
+        m_ui.displayOptions->setChecked(true);
+    }
     m_ui.recursiveCheckBox->setDisabled(disable);
     m_ui.hiddenCheckBox->setDisabled(disable);
     m_ui.symLinkCheckBox->setDisabled(disable);
@@ -181,7 +183,7 @@ void KatePluginSearchView::matchFound(const QString &fileName, int line, const Q
 void KatePluginSearchView::searchDone()
 {
     m_ui.searchButton->setDisabled(false);
-    m_ui.stopButton->setDisabled(true);
+    m_ui.locationStop->setCurrentIndex(0);
     m_ui.optionsButton->setDisabled(false);
     m_ui.displayOptions->setDisabled(false);
     

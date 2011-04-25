@@ -41,6 +41,11 @@
 #include <QStyleOptionButton>
 #include <qdrawutil.h>
 
+QColor KTinyTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Qt::cyan, Qt::blue, Qt::magenta };
+const int KTinyTabButton::s_colorCount = 6;
+int KTinyTabButton::s_currentColor = 0;
+
+
 KTinyTabButton::KTinyTabButton( const QString& docurl, const QString& caption,
                                 int button_id, bool blockContextMenu, QWidget *parent )
     : QPushButton( parent )
@@ -220,6 +225,18 @@ void KTinyTabButton::contextMenuEvent( QContextMenuEvent* ev )
 
 }
 
+void KTinyTabButton::mousePressEvent( QMouseEvent* ev )
+{
+    if (ev->button() == Qt::MidButton) {
+        setHighlightColor(s_predefinedColors[s_currentColor]);
+        if (++s_currentColor >= s_colorCount)
+            s_currentColor = 0;
+        ev->accept();
+    } else {
+        QPushButton::mousePressEvent(ev);
+    }
+}
+
 void KTinyTabButton::setButtonID( int button_id )
 {
     m_buttonId = button_id;
@@ -371,4 +388,4 @@ bool KTinyTabButton::isModified() const
     return m_modified;
 }
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs off; eol unix;
+// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

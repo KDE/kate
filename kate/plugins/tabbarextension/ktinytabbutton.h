@@ -211,6 +211,9 @@ protected:
     virtual void paintEvent( QPaintEvent* ev );
     /** support for context menu */
     virtual void contextMenuEvent( QContextMenuEvent* ev );
+    /** middle mouse button changes color */
+    virtual void mousePressEvent( QMouseEvent* ev );
+
 
 private:
     QString m_url;
@@ -228,8 +231,12 @@ private:
     QColor m_highlightColor;
     KTinyTabBar::ButtonStyle m_tabButtonStyle;
     int m_highlightOpacity;
+
+    static QColor s_predefinedColors[6];
+    static const int s_colorCount;
+    static int s_currentColor;
 };
 
 #endif
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs off; eol unix;
+// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

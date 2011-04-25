@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Comment=Format long source-code comments like license-headers or descriptions using different styles
+Comment[de]=Umfangreiche Quelltextkommentare wie Lizenztexte und Beschreibungen in diversen Stilen formatieren
 Comment[en_GB]=Format long source-code comments like licence-headers or descriptions using different styles
 Comment[et]=Pikkade lähtekoodi kommentaaride, näiteks litsentsipäiste või kirjelduste, vormindamine eri stiilide abil
 Comment[gl]=Formata os comentarios longos do código fonte como cabeceiras de lincenza ou descricións empregando diferentes estilos
@@ -15,6 +16,7 @@ Comment[uk]=Форматувати довгі коментарі у коді, з
 Comment[x-test]=xxFormat long source-code comments like license-headers or descriptions using different stylesxx
 Comment[zh_TW]=用不同的樣式來編排較長的源碼註解，如授權或描述等
 Name=Artistic Comment
+Name[de]=Kommentargestalter
 Name[en_GB]=Artistic Comment
 Name[es]=Comentario artístico
 Name[et]=Kunstilised kommentaarid
@@ -32,6 +34,7 @@ Name[uk]=Художній коментар
 Name[x-test]=xxArtistic Commentxx
 Name[zh_TW]=美化註解
 GenericName=Format comments in an "artistic" way
+GenericName[de]=Kommentare „gestalterisch“ formatieren
 GenericName[en_GB]=Format comments in an "artistic" way
 GenericName[es]=Formatear comentarios de manera "artística"
 GenericName[et]=Kommentaaride vormindamine "kunstiliselt"

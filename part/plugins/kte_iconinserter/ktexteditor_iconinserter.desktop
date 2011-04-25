@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Comment=Select an icon and use it as a KIcon in your source-code
+Comment[de]=Wählen Sie ein Symbol und verwenden Sie dieses als KIcon in Ihrem Quelltext
 Comment[en_GB]=Select an icon and use it as a KIcon in your source-code
 Comment[et]=Ikooni valimine ja selle kasutamine KIconina oma lähtekoodis
 Comment[gl]=Escoller unha icona e empregala como KIcon no código fonte

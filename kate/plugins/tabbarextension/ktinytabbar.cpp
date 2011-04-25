@@ -997,9 +997,9 @@ void KTinyTabBar::wheelEvent( QWheelEvent* event )
     event->accept();
     
     if (event->delta() < 0) {
-        increaseCurrentRow();
+        scrollDown();
     } else {
-        decreaseCurrentRow();
+        scrollUp();
     }
 }
 
@@ -1133,7 +1133,7 @@ void KTinyTabBar::updateSort()
  */
 void KTinyTabBar::upClicked()
 {
-    decreaseCurrentRow();
+    scrollUp();
     m_upButton->setActivated( false );
 }
 
@@ -1142,7 +1142,7 @@ void KTinyTabBar::upClicked()
  */
 void KTinyTabBar::downClicked()
 {
-    increaseCurrentRow();
+    scrollDown();
     m_downButton->setActivated( false );
 }
 
@@ -1207,7 +1207,7 @@ int KTinyTabBar::currentRow() const
 /**
  * Increase the current row.
  */
-void KTinyTabBar::increaseCurrentRow()
+void KTinyTabBar::scrollDown()
 {
     ++m_currentRow;
     triggerResizeEvent();
@@ -1216,7 +1216,7 @@ void KTinyTabBar::increaseCurrentRow()
 /**
  * Decrease the current row.
  */
-void KTinyTabBar::decreaseCurrentRow()
+void KTinyTabBar::scrollUp()
 {
     if( m_currentRow == 0 )
         return;
@@ -1231,7 +1231,7 @@ void KTinyTabBar::decreaseCurrentRow()
  * combined into only one call.
  *
  * \see addTab(), removeTab(), setMinimumWidth(), setMaximumWidth(),
- *      setFixedHeight(), increaseCurrentRow(), decreaseCurrentRow()
+ *      setFixedHeight(), scrollDown(), scrollUp()
  */
 void KTinyTabBar::triggerResizeEvent()
 {

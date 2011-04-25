@@ -203,8 +203,8 @@ protected:
     int currentRow() const;
     void setCurrentRow( int row );
     void updateHelperButtons( QSize new_size, int needed_rows );
-    void increaseCurrentRow();
-    void decreaseCurrentRow();
+    void scrollDown();
+    void scrollUp();
 
 private:
     bool m_locationTop;

@@ -71,6 +71,9 @@ m_kateApp(application)
     m_ui.displayOptions->setIcon(KIcon("list-add"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));
     m_ui.stopButton->setIcon(KIcon("process-stop"));
+    m_ui.optionsButton->setIcon(KIcon("configure"));
+    m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
+    m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
     
     m_matchCase = new KAction(i18n("Match case"), this);
     m_matchCase->setCheckable(true);
@@ -116,6 +119,13 @@ void KatePluginSearchView::toggleSearchView()
     if (!m_toolView->isVisible()) {
         mainWindow()->showToolView(m_toolView);
         m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
+        if (m_ui.searchFolder->text().isEmpty()) {
+            KTextEditor::View* editView = mainWindow()->activeView();
+            if (editView && editView->document()) {
+                // upUrl as we want the folder not the file
+                m_ui.searchFolder->setUrl(editView->document()->url().upUrl());
+            }
+        }
     }
     else {
         mainWindow()->hideToolView(m_toolView);

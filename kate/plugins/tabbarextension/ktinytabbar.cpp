@@ -992,6 +992,17 @@ void KTinyTabBar::resizeEvent( QResizeEvent* event )
     }
 }
 
+void KTinyTabBar::wheelEvent( QWheelEvent* event )
+{
+    event->accept();
+    
+    if (event->delta() < 0) {
+        increaseCurrentRow();
+    } else {
+        decreaseCurrentRow();
+    }
+}
+
 /**
  * Make sure the current tab visible. If it is not visible the tabbar scrolls
  * so that it is visible.
@@ -1230,4 +1241,4 @@ void KTinyTabBar::triggerResizeEvent()
 
 //END protected / private member functions
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs off; eol unix;
+// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

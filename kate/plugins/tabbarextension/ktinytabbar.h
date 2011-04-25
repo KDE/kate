@@ -193,6 +193,8 @@ protected slots:
 
 protected:
     virtual void resizeEvent( QResizeEvent* event );
+    virtual void wheelEvent( QWheelEvent* event );
+
 
 protected:
     void updateFixedHeight();
@@ -245,4 +247,4 @@ private:
 
 #endif // KTINYTABBAR_H
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs off; eol unix;
+// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

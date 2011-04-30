@@ -412,7 +412,7 @@ Qt::ItemFlags KateFileTreeModel::flags( const QModelIndex &index ) const
   return flags;
 }
 
-Q_DECLARE_METATYPE(QList<KTextEditor::Document*>);
+Q_DECLARE_METATYPE(QList<KTextEditor::Document*>)
 
 QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
 {

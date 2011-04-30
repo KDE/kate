@@ -198,7 +198,7 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   event->accept();
 }
 
-Q_DECLARE_METATYPE(QList<KTextEditor::Document*>);
+Q_DECLARE_METATYPE(QList<KTextEditor::Document*>)
 
 void KateFileTree::slotDocumentClose() {
   m_previouslySelected = QModelIndex();

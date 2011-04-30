@@ -930,7 +930,7 @@ void KatePrintHeaderFooter::setHFFont()
 {
   QFont fnt( lFontPreview->font() );
   // display a font dialog
-  if ( KFontDialog::getFont( fnt, false, this ) == KFontDialog::Accepted )
+  if ( KFontDialog::getFont( fnt, KFontChooser::NoDisplayFlags, this ) == KFontDialog::Accepted )
   {
     // set preview
     lFontPreview->setFont( fnt );

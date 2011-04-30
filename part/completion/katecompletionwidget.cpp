@@ -62,7 +62,7 @@ const bool shellLikeTabCompletion = false;
 {\
   static KTextEditor::CodeCompletionModelControllerInterface3 defaultIf;\
   KTextEditor::CodeCompletionModelControllerInterface3* ret =\
-    qobject_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(model);\
+    dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(model);\
   if (!ret) {\
     WHAT2 defaultIf.FUNC;\
   }else \

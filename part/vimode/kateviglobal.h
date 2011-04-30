@@ -40,7 +40,7 @@ namespace KTextEditor {
 
 namespace KateVi {
   const unsigned int EOL = 99999;
-};
+}
 
 typedef QPair<QString, OperationMode> KateViRegister;
 

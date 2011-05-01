@@ -46,8 +46,8 @@ namespace KTextEditor {
 #endif
     class SnippetCompletionEntry {
       public:
-        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin, int _script=-1, QString _shortcut=QString()):
-          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin),script(_script),shortcut(_shortcut){
+        SnippetCompletionEntry(const QString& _match,const QString& _prefix, const QString& _postfix, const QString& _arguments, const QString& _fillin, int _script=-1, const QString& _shortcut=QString()):
+          match(_match),prefix(_prefix),postfix(_postfix),arguments(_arguments),fillin(_fillin),shortcut(_shortcut),script(_script){
             kDebug()<<"SnippetCompletionEntry: shortcut"<<shortcut;
           }
         ~SnippetCompletionEntry(){};

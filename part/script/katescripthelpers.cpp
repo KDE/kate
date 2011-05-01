@@ -125,7 +125,7 @@ QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
   Q_UNUSED(engine)
   QString trSingular;
   QString trPlural;
-  int number;
+  int number = 0;
   QVariantList args;
   const int argCount = context->argumentCount();
 
@@ -160,7 +160,7 @@ QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
   QString trContext;
   QString trSingular;
   QString trPlural;
-  int number;
+  int number = 0;
   QVariantList args;
   const int argCount = context->argumentCount();
 

@@ -19,6 +19,7 @@
 
 #ifndef _KATE_VIEW_ACCESSIBLE_
 #define _KATE_VIEW_ACCESSIBLE_
+#ifndef QT_NO_ACCESSIBILITY
 
 #include "kateviewinternal.h"
 #include "katetextcursor.h"
@@ -317,4 +318,5 @@ QAccessibleInterface* accessibleInterfaceFactory(const QString &key, QObject *ob
     return 0;
 }
 
+#endif
 #endif

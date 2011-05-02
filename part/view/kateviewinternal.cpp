@@ -216,7 +216,9 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
 
+#ifndef QT_NO_ACCESSIBILITY
   QAccessible::installFactory(accessibleInterfaceFactory);
+#endif
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
@@ -224,7 +226,9 @@ KateViewInternal::KateViewInternal(KateView *view)
 
 KateViewInternal::~KateViewInternal ()
 {
+#ifndef QT_NO_ACCESSIBILITY
   QAccessible::removeFactory(accessibleInterfaceFactory);
+#endif
 
   // kill preedit ranges
   delete m_imPreeditRange;
@@ -646,7 +650,9 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
   m_madeVisible = !force;
 
+#ifndef QT_NO_ACCESSIBILITY
   QAccessible::updateAccessibility( this, KateCursorAccessible::ChildId, QAccessible::Focus );
+#endif
 }
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)

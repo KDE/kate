@@ -34,6 +34,7 @@
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include <kstringhandler.h>
 
 #include <QApplication> // QApplication::sendEvent
 #include <QtAlgorithms> // qSort
@@ -54,7 +55,7 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
             if( a->text().toLower() == b->text().toLower() )
                 return a->buttonID() < b->buttonID();
 
-            return a->text().toLower() < b->text().toLower();
+            return KStringHandler::naturalCompare(a->text(), b->text(), Qt::CaseInsensitive) < 0;
         }
 
         case KTinyTabBar::URL: {
@@ -64,10 +65,10 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
                 if( a->text().toLower() == b->text().toLower() )
                     return a->buttonID() < b->buttonID();
 
-                return a->text().toLower() < b->text().toLower();
+                return KStringHandler::naturalCompare(a->text(), b->text(), Qt::CaseInsensitive) < 0;
             }
 
-            return a->url().toLower() < b->url().toLower();
+            return KStringHandler::naturalCompare(a->url(), b->url(), Qt::CaseInsensitive) < 0;
         }
 
         case KTinyTabBar::Extension:

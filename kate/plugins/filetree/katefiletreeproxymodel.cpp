@@ -20,6 +20,7 @@
 #include "katefiletreemodel.h"
 #include "katefiletreedebug.h"
 
+#include <kstringhandler.h>
 #include <ktexteditor/document.h>
 
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
@@ -45,13 +46,13 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
     case Qt::DisplayRole: {
       QString left_name = model->data(left).toString();
       QString right_name = model->data(right).toString();
-      return QString::localeAwareCompare(left_name, right_name) < 0;
+      return KStringHandler::naturalCompare(left_name, right_name, Qt::CaseInsensitive) < 0;
     }
 
     case KateFileTreeModel::PathRole: {
       QString left_name = model->data(left, KateFileTreeModel::PathRole).toString();
       QString right_name = model->data(right, KateFileTreeModel::PathRole).toString();
-      return QString::localeAwareCompare(left_name, right_name) < 0;
+      return KStringHandler::naturalCompare(left_name, right_name, Qt::CaseInsensitive) < 0;
     }
 
     case KateFileTreeModel::OpeningOrderRole:

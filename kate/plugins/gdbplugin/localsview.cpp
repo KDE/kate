@@ -40,8 +40,10 @@ void LocalsView::addLocal(const QString &vString)
 {
     static QRegExp isValue("(\\S*)\\s=\\s(.*)");
     static QRegExp isStruct("\\{\\S*\\s=\\s.*");
-    static QRegExp isStartPartial("\\S*\\s=\\s\\{");
-
+    static QRegExp isStartPartial("\\S*\\s=\\s\\S*\\s=\\s\\{");
+    static QRegExp isPrettyQList("\\s*\\[\\S*\\]\\s=\\s\\S*");
+    static QRegExp isPrettyValue("(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)");
+    
     if (m_allAdded) {
         clear();
         m_allAdded = false;
@@ -52,44 +54,60 @@ void LocalsView::addLocal(const QString &vString)
         resizeColumnToContents(1);
         return;
     }
-    
     if (isStartPartial.exactMatch(vString)) {
         m_local = vString;
         return;
     }
-    
-    if (!isValue.exactMatch(vString)) {
-        if (!m_local.isEmpty()) {
-            m_local += vString;
-        }
-        if (vString != "}") {
-            return;
-        }
+    if (isPrettyQList.exactMatch(vString)) {
+        m_local += vString.trimmed();
+        if (m_local.endsWith(',')) m_local += ' ';
+        return;
+    }
+    if (vString == "}") {
+        m_local += vString;
     }
 
-    QStringList symbolVal;
-    symbolVal << isValue.cap(1);
-    QString val = isValue.cap(2);
+    QStringList symbolAndValue;
+    QString value;
+    
+    if (m_local.isEmpty()) {
+        if (!isValue.exactMatch(vString)) {
+            qDebug() << "Could not parse:" << vString;
+            return;
+        }
+        symbolAndValue << isValue.cap(1);
+        value = isValue.cap(2);
+    }
+    else {
+        if (!isPrettyValue.exactMatch(m_local)) {
+            qDebug() << "Could not parse:" << m_local;
+            m_local.clear();
+            return;
+        }
+        symbolAndValue << isPrettyValue.cap(1) << isPrettyValue.cap(2);
+        value = isPrettyValue.cap(3);
+    }
+
     QTreeWidgetItem *item;
-    if (val[0] == '{') {
-        if (val[1] == '{') {
-            item = new QTreeWidgetItem(this, symbolVal);
-            addArray(item, val.mid(1, val.size()-2));
+    if (value[0] == '{') {
+        if (value[1] == '{') {
+            item = new QTreeWidgetItem(this, symbolAndValue);
+            addArray(item, value.mid(1, value.size()-2));
         }
         else {
-            if (isStruct.exactMatch(val)) {
-                item = new QTreeWidgetItem(this, symbolVal);
-                addStruct(item, val.mid(1, val.size()-2));
+            if (isStruct.exactMatch(value)) {
+                item = new QTreeWidgetItem(this, symbolAndValue);
+                addStruct(item, value.mid(1, value.size()-2));
             }
             else {
-                symbolVal << val;
-                new QTreeWidgetItem(this, symbolVal);
+                symbolAndValue << value;
+                new QTreeWidgetItem(this, symbolAndValue);
             }
         }
     }
     else {
-        symbolVal << val;
-        new QTreeWidgetItem(this, symbolVal);
+        symbolAndValue << value;
+        new QTreeWidgetItem(this, symbolAndValue);
     }
     
     m_local.clear();
@@ -101,22 +119,23 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
     static QRegExp isArray("\\{\\S*\\s=\\s.*");
     static QRegExp isStruct("\\S*\\s=\\s.*");
     QTreeWidgetItem *item;
-    QStringList symbolVal;
+    QStringList symbolAndValue;
     QString subValue;
     int start = 0;
     int end;
     while (start < vString.size()) {
         // Symbol
-        symbolVal.clear();
+        symbolAndValue.clear();
         end = vString.indexOf(" = ", start);
-        symbolVal << vString.mid(start, end-start);
-        //kDebug() << symbolVal;
+        symbolAndValue << vString.mid(start, end-start);
+        //kDebug() << symbolAndValue;
         
         // Value
         start = end + 3;
-        end = start+1;
+        end = start;
         if (vString[start] == '{') {
             start++;
+            end++;
             int count = 1;
             bool inComment = false;
             // search for the matching }
@@ -136,21 +155,21 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             }
             subValue = vString.mid(start, end-start);
             if (isArray.exactMatch(subValue)) {
-                item = new QTreeWidgetItem(parent, symbolVal);
+                item = new QTreeWidgetItem(parent, symbolAndValue);
                 addArray(item, subValue);
             }
             else if (isStruct.exactMatch(subValue)) {
-                item = new QTreeWidgetItem(parent, symbolVal);
+                item = new QTreeWidgetItem(parent, symbolAndValue);
                 addStruct(item, subValue);
             }
             else {
-                symbolVal << vString.mid(start, end-start);
-                new QTreeWidgetItem(parent, symbolVal);
+                symbolAndValue << vString.mid(start, end-start);
+                new QTreeWidgetItem(parent, symbolAndValue);
             }
             start = end + 3; // },_
         }
         else {
-            // look for the end of the vString
+            // look for the end of the value in the vString
             bool inComment = false;
             while(end < vString.size()) {
                 if (!inComment) {
@@ -164,8 +183,8 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
                 }
                 end++;
             }
-            symbolVal << vString.mid(start, end-start);
-            new QTreeWidgetItem(parent, symbolVal);
+            symbolAndValue << vString.mid(start, end-start);
+            new QTreeWidgetItem(parent, symbolAndValue);
             start = end + 2; // ,_
         }
     }

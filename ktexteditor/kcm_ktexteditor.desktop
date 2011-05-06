@@ -30,6 +30,7 @@ Comment[en_GB]=The text editor service provides applications with a text viewer 
 Comment[et]=Tekstiredaktori teenus annab rakendustele komponendi teksti vaatamiseks ja redigeerimiseks. Seda kasutavad kõik KDE rakendused, mis tegelevad teksti redigeerimisega.
 Comment[gl]=O servizo de edición de texto fornece aos programas un visor e editor de textos. Todos os programas de KDE que permitan editar textos deberan empregar este servizo.
 Comment[ia]=Le servicio de editor de texto forni le applicationes de un visor e un editor. Le applicationes KDE que usa iste facilitates deberea usar iste servicio.
+Comment[km]=សេវា​​កម្មវិធី​​និពន្ធ​អត្ថបទ​ផ្ដល់​កម្មវិធី​​​ជាមួយ​​កម្ម​វិធី​និពន្ធ​ និង​កម្មវិធី​មើល​អត្ថបទ ។ កម្មវិធី KDE ដែល​ផ្ដល់​ភាព​ងាយស្រួល​អំពី​​ការ​កែសម្រួល​អត្ថបទ​គួរ​តែ​ប្រើ​សេវា​នេះ ។
 Comment[nb]=Tjenesten innebygd skriveprogram gir programmer mulighet til å vise og redigere tekst. KDE-programmer som kan redigere tekst bør bruke denne tjenesten.
 Comment[nds]=De Texteditor-Deenst föögt Programmen en Textwieser un -editor to. KDE-Programmen, mit de Texten bewerkt warrt, schöölt em bruken.
 Comment[nl]=Dit component stelt programma's een tekstinvoercomponent tot hun beschikking. KDE-toepassingen die te maken hebben met het bewerken van tekst kunnen gebruik maken van deze aangeboden dienst.

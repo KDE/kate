@@ -73,6 +73,8 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public 
     virtual QModelIndex parent(const QModelIndex& index) const;
     virtual MatchReaction matchingItem(const QModelIndex& matched);
 
+    virtual KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position);
+
     virtual bool shouldHideItemsWithEqualNames() const;
 
     const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;

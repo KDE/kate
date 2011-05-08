@@ -250,6 +250,27 @@ bool KateWordCompletionModel::shouldHideItemsWithEqualNames() const
   return true;
 }
 
+// Return the range containing the word left of the cursor
+KTextEditor::Range KateWordCompletionModel::completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position)
+{
+  int line = position.line();
+  int col = position.column();
+
+  KTextEditor::Document *doc = view->document();
+  while ( col > 0 )
+  {
+    QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
+    if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
+    {
+      col--;
+      continue;
+    }
+
+    break;
+  }
+
+  return KTextEditor::Range( KTextEditor::Cursor( line, col ), position );
+}
 //END KateWordCompletionModel
 
 
@@ -546,25 +567,7 @@ const QString KateWordCompletionView::word() const
 // Return the range containing the word behind the cursor
 const KTextEditor::Range KateWordCompletionView::range() const
 {
-  KTextEditor::Cursor end = m_view->cursorPosition();
-
-  int line = end.line();
-  int col = end.column();
-
-  KTextEditor::Document *doc = m_view->document();
-  while ( col > 0 )
-  {
-    QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
-    if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
-    {
-      col--;
-      continue;
-    }
-
-    break;
-  }
-
-  return KTextEditor::Range( KTextEditor::Cursor( line, col ), end );
+  return m_dWCompletionModel->completionRange(m_view, m_view->cursorPosition());
 }
 //END
 

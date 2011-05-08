@@ -161,6 +161,16 @@ class TextLoader
       static const QLatin1Char cr(QLatin1Char('\r'));
       static const QLatin1Char lf(QLatin1Char('\n'));
 
+      /**
+       * did we read two time but got no stuff? encoding error
+       * fixes problem with one character latin-1 files, which lead to crash otherwise!
+       * bug 272579
+       */
+      bool failedToConvertOnce = false;
+      
+      /**
+       * reading loop
+       */
       while (m_position <= m_text.length())
       {
         if (m_position == m_text.length())
@@ -169,7 +179,7 @@ class TextLoader
           if (!m_eof)
           {
             int c = m_file->read (m_buffer.data(), m_buffer.size());
-
+	    
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
 
@@ -259,8 +269,14 @@ class TextLoader
 
             m_lastLineStart = m_position;
 
-            return !encodingError;
+            return !encodingError && !failedToConvertOnce;
           }
+          
+          // empty? try again
+          if (m_position == m_text.length()) {
+	    failedToConvertOnce = true;
+	    continue;
+	  }
         }
 
         if (m_text.at(m_position) == lf)

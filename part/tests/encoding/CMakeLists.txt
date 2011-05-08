@@ -38,3 +38,6 @@ KATE_ENCODING_TEST ("utf-8" "cp1251.txt")
 # cyrillic koi8-r
 KATE_ENCODING_TEST ("utf-8" "koi8-r.txt")
 
+# one character latin-15 test, segfaulted
+KATE_ENCODING_TEST ("utf-8" "one-char-latin-15.txt")
+

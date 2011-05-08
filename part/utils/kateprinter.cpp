@@ -470,7 +470,6 @@ bool KatePrinter::print (KateDocument *doc)
 
           QColor _defaultPen = _defaultAttributes.at(0)->foreground().color();
           paint.setPen(_defaultPen);
-          paint.setBrush(_defaultPen);
 
           int _marg = 0;
           if ( useBox )
@@ -553,7 +552,6 @@ bool KatePrinter::print (KateDocument *doc)
           else
           {
             _marg -=1;
-            paint.setBrush(QBrush());
             paint.drawRect( _marg, _ystart, pdmWidth-(2*_marg), y-_ystart+innerMargin );
           }
 

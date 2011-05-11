@@ -45,6 +45,7 @@ Name[zh_CN]=SQL 插件
 Name[zh_TW]=SQL 外掛程式
 Comment=Execute query on SQL databases
 Comment[bg]=Изпълняване на заявки към бази от данни на SQL
+Comment[bs]=Izvršava upit nad SKuL bazom
 Comment[ca]=Executa consultes a bases de dades SQL
 Comment[ca@valencia]=Executa consultes a bases de dades SQL
 Comment[da]=Kør forespørgsler på SQL-databaser

@@ -43,6 +43,7 @@ Name[x-test]=xxKate Snippetsxx
 Name[zh_CN]=Kate 片段
 Name[zh_TW]=Kate 片段
 Comment=Snippets plugin with code completion support
+Comment[bs]=Priključak isječaka sa podrškom za dopunu kôda
 Comment[ca]=Connector de retalls amb implementació de compleció del codi
 Comment[ca@valencia]=Connector de retalls amb implementació de compleció del codi
 Comment[da]=Tekststumper-plugin med understøttelse af kodefuldførelse

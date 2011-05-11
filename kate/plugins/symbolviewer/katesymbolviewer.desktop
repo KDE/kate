@@ -48,6 +48,7 @@ Name[zh_CN]=符号查看器
 Name[zh_TW]=符號檢視器
 Comment=Extract and show reference symbols from source
 Comment[ast]=Estrayer y amosar símbolos de referencia del códigu fonte
+Comment[bs]=Izvlači i prikazuje simbole iz izvora
 Comment[ca]=Extreu i visualitza símbols de referència des del codi font
 Comment[ca@valencia]=Extreu i visualitza símbols de referència des del codi font
 Comment[da]=Udtræk og vis referencesymboler fra kildekode

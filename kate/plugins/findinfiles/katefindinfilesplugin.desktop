@@ -50,6 +50,7 @@ Name[zh_CN]=在文件工具视图中查找
 Name[zh_TW]=「在檔案中尋找」工具檢視
 Comment=Toolview allowing to search in all open files or files in the filesystem
 Comment[ast]=Vista de ferramientes que permite guetar en tolos ficheros abiertos o nel sistema de ficheros
+Comment[bs]=Alatka kojom možete tražiti u svim otvorenim datotekema ili po datotečnom sistemu
 Comment[ca]=Eina de vista que permet cercar a tots els fitxers oberts o fitxers al sistema de fitxers
 Comment[ca@valencia]=Eina de vista que permet cercar a tots els fitxers oberts o fitxers al sistema de fitxers
 Comment[da]=Værktøjsvisning som tillader at søge i alle åbne filer eller filer på filsystemet

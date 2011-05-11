@@ -49,6 +49,7 @@ Name[zh_CN]=XML 补全
 Name[zh_TW]=XML 補完
 Comment=Lists XML elements, attributes, attribute values and entities allowed by DTD
 Comment[ast]=Llista elementos XML, atributos, valores d'atributos y entidaes permitíes pola DTD
+Comment[bs]=Nabraja IksML elemente, atribute, vrijednosti atributa i entitete koje DTD dozvoljava
 Comment[ca]=Llista els elements XML, atributs, valors dels atributs i entitats permeses pel DTD
 Comment[ca@valencia]=Llista els elements XML, atributs, valors dels atributs i entitats permeses pel DTD
 Comment[da]=Lister XML-elementer, attributter, attributværdier og elementer tilladt af DTD

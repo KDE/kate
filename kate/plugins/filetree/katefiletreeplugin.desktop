@@ -43,6 +43,7 @@ Name[zh_TW]=檔案樹狀圖
 X-Kate-MajorProfiles=Kate
 X-Kate-MinorProfiles=*
 Comment=Displays the open documents in a tree
+Comment[bs]=Prikazuje otvorene dokumente kao stablo
 Comment[ca]=Mostra els documents oberts en un arbre
 Comment[ca@valencia]=Mostra els documents oberts en un arbre
 Comment[da]=Viser de åbne dokumenter som et træ

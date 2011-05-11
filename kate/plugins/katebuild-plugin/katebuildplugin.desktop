@@ -50,6 +50,7 @@ Name[zh_CN]=构建插件
 Name[zh_TW]=編譯外掛程式
 Comment=Compile or Make and parse error messages
 Comment[ast]=Compilar o usar make y analizar mensaxes d'error
+Comment[bs]=Kompilovanje ili spravljanje i raščlanjivanje grešaka
 Comment[ca]=Compila o construeix amb Make i analitza els missatges d'error
 Comment[ca@valencia]=Compila o construeix amb Make i analitza els missatges d'error
 Comment[da]=Oversættelse eller Make og fortolkning af fejlmeddelelser

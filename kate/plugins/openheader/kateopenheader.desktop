@@ -48,6 +48,7 @@ Name[zh_CN]=打开头文件
 Name[zh_TW]=開啟標頭
 Comment=Opens the corresponding .h/[.cpp|.c] file
 Comment[ast]=Abre'l correspondiente ficheru .h/[.cpp|.c]
+Comment[bs]=Otvara pridruženu .h/[.cpp|.c] datoteku
 Comment[ca]=Obre el fitxer .h/[.cpp|.c] corresponent
 Comment[ca@valencia]=Obri el fitxer .h/[.cpp|.c] corresponent
 Comment[da]=Åbner den tilhørende .h/[.cpp|.c]-fil

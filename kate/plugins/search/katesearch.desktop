@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katesearchplugin
+X-Kate-Version=2.9
+Name=Search Plugin
+Comment=Find a pattern in files

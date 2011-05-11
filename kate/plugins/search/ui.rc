@@ -1,0 +1,9 @@
+<!DOCTYPE kpartgui>
+<gui name="katesearch" library="libkatesearchplugin" version="1">
+    <MenuBar>
+        <Menu name="edit">
+            <text>&amp;Edit</text>
+            <Action name="search_in_files" />
+        </Menu>
+    </MenuBar>
+</gui>

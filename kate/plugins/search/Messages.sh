@@ -1,3 +1,3 @@
 #! /bin/sh
-$EXTRACTRC *.rc >> rc.cpp
-$XGETTEXT *.cpp -o $podir/katehelloworld.pot
+$EXTRACTRC *.rc *.ui >> rc.cpp
+$XGETTEXT *.cpp -o $podir/katesearch.pot

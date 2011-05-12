@@ -498,7 +498,6 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
     return true;
 }
 
-
 /******************************************************************/
 bool KateBuildView::slotStop()
 {
@@ -657,7 +656,6 @@ void KateBuildView::processLine(const QString &line)
 
 }
 
-
 /******************************************************************/
 void KateBuildView::slotBrowseClicked()
 {
@@ -707,6 +705,7 @@ void KateBuildView::targetSelected(int index)
     m_targetSelectAction->setCurrentItem(index);
 }
 
+/******************************************************************/
 void KateBuildView::targetsChanged()
 {
     QStringList items;
@@ -722,6 +721,8 @@ void KateBuildView::targetsChanged()
 /******************************************************************/
 void KateBuildView::targetNew()
 {
+    targetSelected(m_targetIndex); // this saves the current values to the list
+
     QStringList build; build << DefConfigCmd << DefBuildCmd;;
 
     m_targetList.append(Target());
@@ -741,6 +742,8 @@ void KateBuildView::targetNew()
 /******************************************************************/
 void KateBuildView::targetCopy()
 {
+    targetSelected(m_targetIndex); // this saves the current values to the list
+
     m_targetList.append(Target());
     m_targetsUi->targetCombo->addItem(i18n("Target %1", m_targetList.size()));
     m_targetIndex = m_targetList.size() -1;
@@ -765,7 +768,7 @@ void KateBuildView::targetDelete()
             m_targetIndex = 0;
             m_targetsUi->targetCombo->setCurrentIndex(0);
         }
-        
+
         // Set the new values
         m_targetsUi->buildDir->setText(m_targetList[m_targetIndex].buildDir);
         m_targetsUi->buildCmd->setText(m_targetList[m_targetIndex].buildCmd);
@@ -803,7 +806,7 @@ void KateBuildView::targetDelete()
     m_targetsUi->targetCombo->blockSignals(false);
 
     m_targetsUi->targetCombo->setCurrentIndex(1);
-    
+
     // update the targets menu
     targetsChanged();
 }

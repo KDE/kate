@@ -297,7 +297,7 @@
 				
 				<!-- recognize the beginning of a general delimited input format -->
 				<!-- this moves to the next context to separate out the exact nature of the GDL input -->
-				<RegExpr attribute="GDL input" context="find_gdl_input" String="\s*[%](?=[Qqxw]?[^\s])" beginRegion="GdlInput" />
+				<RegExpr attribute="GDL input" context="find_gdl_input" String="\s*[%](?=[QqxwW]?[^\s])" beginRegion="GdlInput" />
 				
 				<DetectChar attribute="Normal Text" char=")" context="check_div_1"/>
 				<DetectIdentifier attribute="Normal Text" context="check_div_2"/>
@@ -481,7 +481,15 @@
 				<RegExpr attribute="GDL input" context="gdl_token_array_4" String="w&lt;" />
 				<!-- then we handle the 'any char' format -->
 				<RegExpr attribute="GDL input" context="gdl_token_array_5" String="w([^\s\w])" />
-				
+
+				<!-- handle token arrays -->
+				<RegExpr attribute="GDL input" context="gdl_token_array_1" String="W\(" />
+				<RegExpr attribute="GDL input" context="gdl_token_array_2" String="W\{" />
+				<RegExpr attribute="GDL input" context="gdl_token_array_3" String="W\[" />
+				<RegExpr attribute="GDL input" context="gdl_token_array_4" String="W&lt;" />
+				<!-- then we handle the 'any char' format -->
+				<RegExpr attribute="GDL input" context="gdl_token_array_5" String="W([^\s\w])" />
+
 				<!-- handle apostrophed strings -->
 				<RegExpr attribute="GDL input" context="gdl_apostrophed_1" String="q\(" />
 				<RegExpr attribute="GDL input" context="gdl_apostrophed_2" String="q\{" />

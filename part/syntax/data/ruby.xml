@@ -7,6 +7,7 @@
   Copyright (C) 2004  by Sebastian Vuorinen (sebastian dot vuorinen at helsinki dot fi)
   Copyright (C) 2004  by Stefan Lang (langstefan@gmx.at)
   Copyright (C) 2008  by Robin Pedersen (robinpeder@gmail.com)
+  Copyright (C) 2011  by Miquel Sabaté (mikisabate@gmail.com)
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Library General Public
@@ -25,17 +26,16 @@
 -->
 
 <!--
-	TODO:	* "Nested" HERE documents aren't recognized.
-			* Division after gdl contexts is interpreted as regexp
+	TODO: Division after gdl contexts is interpreted as regexp
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
 <language name="Ruby" section="Scripts"
-          version="1.21" kateversion="2.4"
+          version="1.22" kateversion="2.4"
 	  extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb;*.rake;Rakefile;Gemfile;*.gemspec"
 	  mimetype="application/x-ruby"
 	  style="ruby" indenter="ruby"
-	  author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi), Robin Pedersen (robinpeder@gmail.com)" license="LGPL">
+	  author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi), Robin Pedersen (robinpeder@gmail.com), Miquel Sabaté (mikisabate@gmail.com)" license="LGPL">
 	
 	<highlighting>
 	
@@ -445,22 +445,22 @@
 			<!-- these are the real heredoc contexts -->
 			<context name="indented_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
-				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
+				<RegExpr attribute="Keyword" context="#pop#pop" String="^\w*%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
 			<context name="apostrophed_indented_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
-				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
+				<RegExpr attribute="Keyword" context="#pop#pop" String="^\w*%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 			</context>
 			
 			<context name="normal_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
-				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
+				<RegExpr attribute="Keyword" context="#pop#pop" String="^\w*%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
 			<context name="apostrophed_normal_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
-				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
+				<RegExpr attribute="Keyword" context="#pop#pop" String="^\w*%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 			</context>
 			
 			<!-- rules for heredoc types -->

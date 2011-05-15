@@ -112,6 +112,7 @@ m_kateApp(application)
 KatePluginSearchView::~KatePluginSearchView()
 {
     mainWindow()->guiFactory()->removeClient(this);
+    delete m_toolView;
 }
 
 void KatePluginSearchView::toggleSearchView()

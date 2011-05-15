@@ -102,6 +102,9 @@ m_kateApp(application)
     connect(&m_searchFolder, SIGNAL(matchFound(QString, int, QString)),
             this, SLOT(matchFound(QString, int, QString)));
     connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+
+    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),
+            &m_searchOpenFiles, SLOT(cancelSearch()));
     
     mainWindow()->guiFactory()->addClient(this);
 }

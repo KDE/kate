@@ -45,14 +45,15 @@ void SearchOpenFiles::cancelSearch()
 void SearchOpenFiles::doSearchNextFile()
 {
     if (m_cancelSearch) {
+        m_nextIndex = -1;
         emit searchDone();
         return;
     }
 
     int column;
 
-    // WARNING FIXME There is nothing preventing a file from being closed during the search.
-    // A closed file might lead to a crash if it is not handled.
+    // NOTE The document managers signal documentWillBeDeleted() must be connected to
+    // cancelSearch(). A closed file could lead to a crash if it is not handled.
 
     for (int line =0; line < m_docList[m_nextIndex]->lines(); line++) {
         column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line));

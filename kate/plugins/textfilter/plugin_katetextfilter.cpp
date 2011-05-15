@@ -70,6 +70,7 @@ PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QStringList&)
   : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
   , KTextEditor::Command()
   , m_pFilterShellProcess(NULL)
+  , pasteResult(true)
 {
   KTextEditor::CommandInterface* cmdIface =
     qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
@@ -181,8 +182,6 @@ void PluginKateTextFilter::slotEditFilter()
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;
 
-  bool ok = false;
-
   KDialog dialog(application()->activeMainWindow()->window());
   dialog.setCaption("Text Filter");
   dialog.setButtons(KDialog::Cancel | KDialog::Ok);
@@ -259,6 +258,7 @@ bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QStrin
     return false;
   }
 
+  pasteResult = true;
   runFilter(v, filter);
   return true;
 }

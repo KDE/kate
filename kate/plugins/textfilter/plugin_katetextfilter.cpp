@@ -126,8 +126,9 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 
   kv->document()->startEditing();
 
-  KTextEditor::Cursor start = kv->selectionRange().start();
+  KTextEditor::Cursor start = kv->cursorPosition();
   if (kv->selection()) {
+    start = kv->selectionRange().start();
     kv->removeSelectionText();
   }
 
@@ -141,15 +142,17 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 
 static void slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QString command)
 {
-  if(!view.selection()) return;
-  QString marked = view.selectionText ();
-  if(marked.isEmpty()) return;
+  QString inputText;
+
+  if (view.selection()) {
+    inputText = view.selectionText ();
+  }
 
   shell.clearArguments ();
   shell << command;
 
   shell.start(K3Process::NotifyOnExit, K3Process::All);
-  QByteArray encoded = marked.toLocal8Bit ();
+  QByteArray encoded = inputText.toLocal8Bit ();
   shell.writeStdin (encoded, encoded.length ());
   //  TODO: Put up a modal dialog to defend the text from further
   //  keystrokes while the command is out. With a cancel button...
@@ -249,11 +252,6 @@ bool PluginKateTextFilter::help(KTextEditor::View *, const QString&, QString &ms
 
 bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QString &msg)
 {
-  if (!v->selection()) {
-    msg = i18n("You need to have a selection to use textfilter");
-    return false;
-  }
-
   QString filter = cmd.section(" ", 1).trimmed();
 
   if (filter.isEmpty()) {

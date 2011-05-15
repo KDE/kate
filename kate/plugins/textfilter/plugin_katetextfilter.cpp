@@ -180,25 +180,25 @@ void PluginKateTextFilter::slotEditFilter()
 
   bool ok = false;
 
-  KDialog *dialog = new KDialog(application()->activeMainWindow()->window());
-  dialog->setCaption("Text Filter");
-  dialog->setButtons(KDialog::Cancel | KDialog::Ok);
-  dialog->setDefaultButton(KDialog::Ok);
+  KDialog dialog(application()->activeMainWindow()->window());
+  dialog.setCaption("Text Filter");
+  dialog.setButtons(KDialog::Cancel | KDialog::Ok);
+  dialog.setDefaultButton(KDialog::Ok);
 
-  QWidget* widget = new QWidget(dialog);
+  QWidget* widget = new QWidget(&dialog);
   Ui::TextFilterWidget ui;
   ui.setupUi(widget);
   ui.filterBox->setFocus();
-  dialog->setMainWidget(widget);
+  dialog.setMainWidget(widget);
 
   KConfigGroup config(KGlobal::config(), "PluginTextFilter");
   QStringList items = config.readEntry("Completion list", QStringList());
   ui.filterBox->setMaxCount(10);
   ui.filterBox->setHistoryItems(items, true);
 
-  connect(ui.filterBox, SIGNAL(activated(const QString&)), dialog, SIGNAL(okClicked()));
+  connect(ui.filterBox, SIGNAL(activated(const QString&)), &dialog, SIGNAL(okClicked()));
 
-  if (dialog->exec() == QDialog::Accepted) {
+  if (dialog.exec() == QDialog::Accepted) {
     pasteResult = !ui.checkBox->isChecked();
     const QString filter = ui.filterBox->currentText();
     if (!filter.isEmpty()) {

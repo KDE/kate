@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>413</width>
-    <height>126</height>
+    <width>373</width>
+    <height>110</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,0">
@@ -296,11 +296,16 @@
  <tabstops>
   <tabstop>searchCombo</tabstop>
   <tabstop>searchButton</tabstop>
+  <tabstop>searchPlaceCombo</tabstop>
   <tabstop>optionsButton</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>searchFolder</tabstop>
   <tabstop>filterCombo</tabstop>
+  <tabstop>recursiveCheckBox</tabstop>
+  <tabstop>hiddenCheckBox</tabstop>
+  <tabstop>symLinkCheckBox</tabstop>
   <tabstop>searchResults</tabstop>
+  <tabstop>stopButton</tabstop>
  </tabstops>
  <resources/>
  <connections>

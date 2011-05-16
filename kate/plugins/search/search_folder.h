@@ -45,7 +45,7 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchFound(const QString &url, int line, const QString &lineContent);
+    void matchFound(const QString &url, int line, int column, const QString &lineContent);
     void searchDone();
 
 private:

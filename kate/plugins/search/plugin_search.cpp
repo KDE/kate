@@ -95,12 +95,12 @@ m_kateApp(application)
     connect(m_ui.searchResults, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
             SLOT(itemSelected(QTreeWidgetItem *)));
 
-    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString, int, QString)),
-            this, SLOT(matchFound(QString, int, QString)));
+    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString, int, int, QString)),
+            this, SLOT(matchFound(QString, int, int, QString)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
-    connect(&m_searchFolder, SIGNAL(matchFound(QString, int, QString)),
-            this, SLOT(matchFound(QString, int, QString)));
+    connect(&m_searchFolder, SIGNAL(matchFound(QString, int, int, QString)),
+            this, SLOT(matchFound(QString, int, int, QString)));
     connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),
@@ -187,11 +187,12 @@ void KatePluginSearchView::searchPatternChanged()
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 }
 
-void KatePluginSearchView::matchFound(const QString &fileName, int line, const QString &lineContent)
+void KatePluginSearchView::matchFound(const QString &fileName, int line, int column, const QString &lineContent)
 {
     QStringList row;
-    row << fileName << QString::number(line) << lineContent;
-    new QTreeWidgetItem(m_ui.searchResults, row);
+    row << fileName << QString::number(line +1) << lineContent;
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_ui.searchResults, row);
+    item->setData(1, Qt::UserRole, column);
 }
 
 void KatePluginSearchView::searchDone()
@@ -211,7 +212,8 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     // get stuff
     const QString url = item->data(0, Qt::DisplayRole).toString();
     if (url.isEmpty()) return;
-    int line = item->data(1, Qt::DisplayRole).toInt();
+    int line = item->data(1, Qt::DisplayRole).toInt() - 1;
+    int column = item->data(1, Qt::UserRole).toInt();
     
     // open file (if needed, otherwise, this will activate only the right view...)
     mainWindow()->openUrl(KUrl(url));
@@ -222,7 +224,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     }
     
     // do it ;)
-    mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, 0));
+    mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
     mainWindow()->activeView()->setFocus();
 }
 

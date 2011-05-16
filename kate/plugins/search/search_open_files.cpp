@@ -59,10 +59,10 @@ void SearchOpenFiles::doSearchNextFile()
         column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line));
         if (column != -1) {
             if (m_docList[m_nextIndex]->url().isLocalFile() ) {
-                emit matchFound(m_docList[m_nextIndex]->url().path(), line, m_docList[m_nextIndex]->line(line));
+                emit matchFound(m_docList[m_nextIndex]->url().path(), line, column, m_docList[m_nextIndex]->line(line));
             }
             else  {
-                emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, m_docList[m_nextIndex]->line(line));
+                emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, column, m_docList[m_nextIndex]->line(line));
             }
         }
     }

@@ -64,7 +64,7 @@ private Q_SLOTS:
     void searchPlaceChanged();
     void searchPatternChanged();
     
-    void matchFound(const QString &fileName, int line, const QString &lineContent);
+    void matchFound(const QString &fileName, int line, int column, const QString &lineContent);
     void searchDone();
 
     void itemSelected(QTreeWidgetItem *item);

@@ -1532,8 +1532,8 @@ spellcheck dialog.  They are:</para>
 <variablelist>
 <varlistentry>
 <term><guibutton>Help</guibutton></term>
-<listitem><para> This invokes the &kde; help system starting at the &kappname; help
-pages (this document).</para></listitem>
+<listitem><para> This invokes the &kde; help system with the help page 
+for this dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>

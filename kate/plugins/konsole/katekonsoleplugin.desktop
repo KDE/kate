@@ -5,6 +5,7 @@ X-KDE-Library=katekonsoleplugin
 X-Kate-Version=2.8
 Name=Terminal tool view
 Name[ast]=Vista de la ferramienta de terminal
+Name[bs]=Prikaz terminala
 Name[ca]=Eina de vista del terminal
 Name[ca@valencia]=Eina de vista del terminal
 Name[da]=Terminalværktøjsvisning

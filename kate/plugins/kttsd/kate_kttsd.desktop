@@ -6,6 +6,7 @@ X-KDE-Library=kate_kttsd
 X-Kate-Version=3.0
 Icon=kttsd
 Name=Jovie Text-to-Speech
+Name[bs]=Jovie (tekst‑u‑govor)
 Name[ca]=Text a veu Jovie
 Name[ca@valencia]=Text a veu Jovie
 Name[cs]=Hlasová syntéza Jovie

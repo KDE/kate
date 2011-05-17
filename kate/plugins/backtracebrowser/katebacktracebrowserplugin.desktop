@@ -6,6 +6,7 @@ X-KDE-Library=katebacktracebrowserplugin
 X-Kate-Version=3.0
 Name=Backtrace Browser
 Name[ast]=Desaminador de trazaos inversos
+Name[bs]=Pregledač kontratraga
 Name[ca]=Navegador de traça inversa
 Name[ca@valencia]=Navegador de traça inversa
 Name[cs]=Prohlížeč backtrace

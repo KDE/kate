@@ -32,6 +32,7 @@ GenericName[x-test]=xxSnippets datafile editorxx
 GenericName[zh_CN]=代码片段数据文件编辑器
 GenericName[zh_TW]=片段資料檔編輯器
 Name=Snippets datafile editor
+Name[bs]=Uređivač datoteke isječaka
 Name[ca]=Editor de fitxer de base de dades de retalls
 Name[ca@valencia]=Editor de fitxer de base de dades de retalls
 Name[da]=Editor til tekststump-datafiler

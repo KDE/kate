@@ -63,7 +63,8 @@ private Q_SLOTS:
 
     void searchPlaceChanged();
     void searchPatternChanged();
-    
+    void setCurrentFolder();
+
     void matchFound(const QString &fileName, int line, int column, const QString &lineContent);
     void searchDone();
 

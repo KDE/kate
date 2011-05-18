@@ -105,6 +105,8 @@ void SearchFolder::searchFile(const QFileInfo &item)
         if (m_cancelSearch) return;
         column = m_regExp.indexIn(line);
         if (column != -1) {
+            // limit line length
+            if (line.length() > 512) line = line.left(512);
             emit matchFound(item.canonicalFilePath(), i, column, line);
         }
         i++;

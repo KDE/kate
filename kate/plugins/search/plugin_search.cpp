@@ -32,6 +32,7 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
+#include <kurlcompletion.h>
 
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
 K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
@@ -60,7 +61,7 @@ m_kateApp(application)
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(toggleSearchView()));
-    
+
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
                                           Kate::MainWindow::Bottom,
                                           SmallIcon("edit-find"),
@@ -68,28 +69,44 @@ m_kateApp(application)
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
 
-    m_ui.displayOptions->setIcon(KIcon("list-add"));
+    m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));
     m_ui.stopButton->setIcon(KIcon("process-stop"));
     m_ui.optionsButton->setIcon(KIcon("configure"));
     m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
     m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
-    
+    m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
+
+    // get url-requester's combo box and sanely initialize
+    KComboBox* cmbUrl = m_ui.folderRequester->comboBox();
+    cmbUrl->setDuplicatesEnabled(false);
+    cmbUrl->setEditable(true);
+    m_ui.folderRequester->setMode(KFile::Directory | KFile::LocalOnly);
+    KUrlCompletion* cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
+    cmbUrl->setCompletionObject(cmpl);
+    cmbUrl->setAutoDeleteCompletionObject(true);
+
     m_matchCase = new KAction(i18n("Match case"), this);
     m_matchCase->setCheckable(true);
     m_ui.optionsButton->addAction(m_matchCase);
-    
+
     m_useRegExp = new KAction(i18n("Regular Expression"), this);
     m_useRegExp->setCheckable(true);
     m_ui.optionsButton->addAction(m_useRegExp);
 
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
+    connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
+
+    connect(m_ui.filterCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+
     connect(m_ui.displayOptions, SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
     connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(searchPlaceChanged()));
     connect(m_ui.searchCombo, SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
     connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
-    
+
     m_ui.displayOptions->setChecked(true);
 
     connect(m_ui.searchResults, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
@@ -105,7 +122,9 @@ m_kateApp(application)
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
-    
+
+    searchPlaceChanged();
+
     mainWindow()->guiFactory()->addClient(this);
 }
 
@@ -113,6 +132,18 @@ KatePluginSearchView::~KatePluginSearchView()
 {
     mainWindow()->guiFactory()->removeClient(this);
     delete m_toolView;
+}
+
+void KatePluginSearchView::setCurrentFolder()
+{
+    if (!mainWindow()) {
+        return;
+    }
+    KTextEditor::View* editView = mainWindow()->activeView();
+    if (editView && editView->document()) {
+        // upUrl as we want the folder not the file
+        m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
+    }
 }
 
 void KatePluginSearchView::toggleSearchView()
@@ -123,11 +154,11 @@ void KatePluginSearchView::toggleSearchView()
     if (!m_toolView->isVisible()) {
         mainWindow()->showToolView(m_toolView);
         m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
-        if (m_ui.searchFolder->text().isEmpty()) {
+        if (m_ui.folderRequester->text().isEmpty()) {
             KTextEditor::View* editView = mainWindow()->activeView();
             if (editView && editView->document()) {
                 // upUrl as we want the folder not the file
-                m_ui.searchFolder->setUrl(editView->document()->url().upUrl());
+                m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
             }
         }
     }
@@ -138,12 +169,17 @@ void KatePluginSearchView::toggleSearchView()
 
 void KatePluginSearchView::startSearch()
 {
+    if (m_ui.searchCombo->currentText().isEmpty()) {
+        // return pressed in the folder combo or filter combo
+        return;
+    }
+    m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
     m_ui.searchButton->setDisabled(true);
-    m_ui.locationStop->setCurrentIndex(1);
+    m_ui.locationAndStop->setCurrentIndex(1);
     m_ui.optionsButton->setDisabled(true);
     m_ui.displayOptions->setChecked (false);
     m_ui.displayOptions->setDisabled(true);
-    
+
     QRegExp reg(m_ui.searchCombo->currentText(),
                 m_matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
                 m_useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
@@ -153,7 +189,7 @@ void KatePluginSearchView::startSearch()
         m_searchOpenFiles.startSearch(m_kateApp->documentManager()->documents(), reg);
     }
     else {
-        m_searchFolder.startSearch(m_ui.searchFolder->text(),
+        m_searchFolder.startSearch(m_ui.folderRequester->text(),
                                    m_ui.recursiveCheckBox->isChecked(),
                                    m_ui.hiddenCheckBox->isChecked(),
                                    m_ui.symLinkCheckBox->isChecked(),
@@ -177,7 +213,7 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.hiddenCheckBox->setDisabled(disable);
     m_ui.symLinkCheckBox->setDisabled(disable);
     m_ui.folderLabel->setDisabled(disable);
-    m_ui.searchFolder->setDisabled(disable);
+    m_ui.folderRequester->setDisabled(disable);
     m_ui.filterLabel->setDisabled(disable);
     m_ui.filterCombo->setDisabled(disable);
 }
@@ -198,10 +234,10 @@ void KatePluginSearchView::matchFound(const QString &fileName, int line, int col
 void KatePluginSearchView::searchDone()
 {
     m_ui.searchButton->setDisabled(false);
-    m_ui.locationStop->setCurrentIndex(0);
+    m_ui.locationAndStop->setCurrentIndex(0);
     m_ui.optionsButton->setDisabled(false);
     m_ui.displayOptions->setDisabled(false);
-    
+
     m_ui.searchResults->resizeColumnToContents(0);
     m_ui.searchResults->resizeColumnToContents(1);
     m_ui.searchResults->resizeColumnToContents(2);
@@ -214,15 +250,15 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     if (url.isEmpty()) return;
     int line = item->data(1, Qt::DisplayRole).toInt() - 1;
     int column = item->data(1, Qt::UserRole).toInt();
-    
+
     // open file (if needed, otherwise, this will activate only the right view...)
     mainWindow()->openUrl(KUrl(url));
-    
+
     // any view active?
     if (!mainWindow()->activeView()) {
         return;
     }
-    
+
     // do it ;)
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
     mainWindow()->activeView()->setFocus();
@@ -231,8 +267,8 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString& groupPrefix)
 {
     KConfigGroup cg(config, groupPrefix + ":search-plugin");
-    m_ui.searchCombo->clear();
-    m_ui.searchCombo->addItem(cg.readEntry("Search", QString()));
+    m_ui.searchCombo->clearHistory();
+    m_ui.searchCombo->setHistoryItems(cg.readEntry("Search", QStringList()), true);
     m_matchCase->setChecked(cg.readEntry("MatchCase", false));
     m_useRegExp->setChecked(cg.readEntry("UseRegExp", false));
 
@@ -240,29 +276,36 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", true));
     m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", false));
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
-    m_ui.searchFolder->setText(cg.readEntry("SearchFolder", QString()));
+    m_ui.folderRequester->comboBox()->clear();
+    m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchFolders", QStringList()));
+    m_ui.folderRequester->setText(cg.readEntry("SearchFolder", QString()));
     m_ui.filterCombo->clear();
-    m_ui.filterCombo->addItems(cg.readEntry("Filters", QString()).split(";"));
+    m_ui.filterCombo->addItems(cg.readEntry("Filters", QStringList()));
     m_ui.filterCombo->setCurrentIndex(cg.readEntry("CurrentFilter", 0));
 }
 
 void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString& groupPrefix)
 {
     KConfigGroup cg(config, groupPrefix + ":search-plugin");
-    cg.writeEntry("Search", m_ui.searchCombo->currentText()); // FIXME
+    cg.writeEntry("Search", m_ui.searchCombo->historyItems());
     cg.writeEntry("MatchCase", m_matchCase->isChecked());
     cg.writeEntry("UseRegExp", m_useRegExp->isChecked());
-    
+
     cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
     cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
     cg.writeEntry("HiddenFiles", m_ui.hiddenCheckBox->isChecked());
     cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
-    cg.writeEntry("SearchFolder", m_ui.searchFolder->text());
+    QStringList folders;
+    for (int i=0; i<qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
+        folders << m_ui.folderRequester->comboBox()->itemText(i);
+    }
+    cg.writeEntry("SearchFolders", folders);
+    cg.writeEntry("SearchFolder", m_ui.folderRequester->text());
     QStringList filterItems;
     for (int i=0; i<qMin(m_ui.filterCombo->count(), 10); i++) {
         filterItems << m_ui.filterCombo->itemText(i);
     }
-    cg.writeEntry("Filters", filterItems.join(";"));
+    cg.writeEntry("Filters", filterItems);
     cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
 }
 

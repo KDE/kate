@@ -114,8 +114,8 @@ void IndentTest::getTestData(const QString& indenter)
   }
   QVERIFY(indenterFile.open(QFile::ReadOnly));
   QScriptValue result = m_env->engine()->evaluate(indenterFile.readAll(), indenterFile.fileName());
-  QVERIFY2( !result.isError(), qPrintable(result.toString() + "\nat "
-                                          + m_env->engine()->uncaughtExceptionBacktrace().join("\n")) );
+  QVERIFY2( !result.isError(), qPrintable(QString(result.toString() + "\nat "
+                                          + m_env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
 
   const QString testDir( testDataPath + indenter + '/' );
   if ( !QFile::exists(testDir) ) {

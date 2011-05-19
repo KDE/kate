@@ -757,8 +757,8 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, int s
         if (schema==-1) schema=m_schema;
         
         if (doManage) {
-          QString srcName=KFileDialog::getOpenFileName( KateHlManager::self()->getHl(hl)->name()+".katehlcolor",
-                                  "*.katehlcolor|Kate color schema",
+          QString srcName=KFileDialog::getOpenFileName( QString(KateHlManager::self()->getHl(hl)->name()+QString(".katehlcolor")),
+                                  QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
                                   this,
                                   i18n("Importing colors for single highlighting"));
           kDebug(13030)<<"hl file to open "<<srcName;
@@ -824,8 +824,8 @@ void KateSchemaConfigHighlightTab::exportHl(int schema, int hl, KConfig *cfg) {
   
   QList<KateExtendedAttribute::Ptr> items=m_hlDict[schema][hl];
   if (doManage)  {
-    QString destName=KFileDialog::getSaveFileName( KateHlManager::self()->getHl(hl)->name()+".katehlcolor",
-                                    "*.katehlcolor|Kate color schema",
+    QString destName=KFileDialog::getSaveFileName( QString(KateHlManager::self()->getHl(hl)->name()+".katehlcolor"),
+                                    QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
                                     this,
                                     i18n("Exporting colors for single highlighting: %1", KateHlManager::self()->getHl(hl)->name()),
                                     KFileDialog::ConfirmOverwrite );
@@ -918,8 +918,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
 }
 
 void KateSchemaConfigPage::exportFullSchema() {
-  QString destName=KFileDialog::getSaveFileName( KateGlobal::self()->schemaManager()->name(m_lastSchema)+".kateschema",
-                                    "*.kateschema|Kate color schema",
+  QString destName=KFileDialog::getSaveFileName( QString(KateGlobal::self()->schemaManager()->name(m_lastSchema)+".kateschema"),
+                                    QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
                                     this,
                                     i18n("Exporting color schema:%1", KateGlobal::self()->schemaManager()->name(m_lastSchema)),
                                     KFileDialog::ConfirmOverwrite );

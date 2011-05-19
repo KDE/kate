@@ -376,8 +376,8 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     // add tooltips in all columns
     // The enclosing <qt>...</qt> enables word-wrap for long error messages
     item->setData(0, Qt::ToolTipRole, filename);
-    item->setData(1, Qt::ToolTipRole, "<qt>" + message + "</qt>");
-    item->setData(2, Qt::ToolTipRole, "<qt>" + message + "</qt>");
+    item->setData(1, Qt::ToolTipRole, QString("<qt>" + message + "</qt>"));
+    item->setData(2, Qt::ToolTipRole, QString("<qt>" + message + "</qt>"));
 }
 
 /******************************************************************/

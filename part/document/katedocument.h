@@ -106,21 +106,178 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
-    using ReadWritePart::closeUrl;
-    virtual bool closeUrl();
-
-    virtual KTextEditor::Editor *editor ();
-
-    KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
-
-  /*
-   * Overload this to have on-demand view creation
-   */
+//BEGIN KParts::Part
   public:
     /**
      * @return The widget defined by this part, set by setWidget().
      */
     virtual QWidget *widget();
+//END KParts::Part
+
+//BEGIN KParts::ReadWritePart
+  public:
+    virtual void setReadWrite ( bool rw = true );
+
+    virtual bool queryClose();
+
+    using ReadWritePart::closeUrl;
+    virtual bool closeUrl();
+
+    virtual bool saveAs( const KUrl &url );
+
+    virtual void setModified( bool m );
+
+    /**
+     * open the file obtained by the kparts framework
+     * the framework abstracts the loading of remote files
+     * @return success
+     */
+    virtual bool openFile ();
+
+  public Q_SLOTS:
+    virtual bool save();
+
+  protected:
+    /**
+     * save the file obtained by the kparts framework
+     * the framework abstracts the uploading of remote files
+     * @return success
+     */
+    virtual bool saveFile ();
+//END KParts::ReadWritePart
+
+//BEGIN KTextEditor::Document stuff
+  public:
+    virtual KTextEditor::Editor *editor ();
+
+    virtual KTextEditor::View *createView( QWidget *parent );
+
+    virtual KTextEditor::View* activeView() const { return m_activeView; }
+
+    virtual const QList<KTextEditor::View*> &views () const;
+
+  public:
+    virtual const QString &documentName () const { return m_docName; }
+
+    /**
+     * @return the name of the mimetype for the document.
+     *
+     * This method is using KMimeType::findByUrl, and if the pointer
+     * is then still the default MimeType for a nonlocal or unsaved file,
+     * uses mimeTypeForContent().
+     */
+    virtual QString mimeType();
+
+  public:
+    virtual bool setEncoding (const QString &e);
+    virtual const QString &encoding() const;
+
+  public:
+    /**
+     * Reloads the current document from disk if possible
+     */
+    virtual bool documentReload ();
+
+    virtual bool documentSave ();
+
+    virtual bool documentSaveAs ();
+
+  public:
+    virtual bool startEditing () { editStart (); return true; }
+    virtual bool endEditing () { editEnd (); return true; }
+
+  public:
+    virtual QString text() const;
+    virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
+    virtual QChar character(const KTextEditor::Cursor& position) const;
+    virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
+    virtual QString line(int line) const;
+    virtual int lines() const;
+    virtual KTextEditor::Cursor documentEnd() const;
+    virtual int totalCharacters() const;
+    virtual int lineLength(int line) const;
+
+    virtual bool setText(const QString &);
+    virtual bool setText(const QStringList& text);
+    virtual bool clear ();
+
+    virtual bool insertText ( const KTextEditor::Cursor &position, const QString &s, bool block = false );
+    virtual bool insertText ( const KTextEditor::Cursor &position, const QStringList &text, bool block = false );
+
+    virtual bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
+    // unhide method...
+    virtual bool replaceText (const KTextEditor::Range &r, const QStringList &l, bool b)
+    { return KTextEditor::Document::replaceText (r, l, b); }
+
+    virtual bool removeText ( const KTextEditor::Range &range, bool block = false );
+
+    virtual bool insertLine ( int line, const QString &s );
+    virtual bool insertLines ( int line, const QStringList &s );
+
+    virtual bool removeLine ( int line );
+
+  /*
+   * Access to the mode/highlighting subsystem
+   */
+  public:
+    /**
+     * Return the name of the currently used mode
+     * \return name of the used mode
+     *
+     */
+    virtual QString mode() const;
+
+    /**
+     * Return the name of the currently used mode
+     * \return name of the used mode
+     *
+     */
+    virtual QString highlightingMode() const;
+
+    /**
+     * Return a list of the names of all possible modes
+     * \return list of mode names
+     */
+    virtual QStringList modes() const;
+
+    /**
+     * Return a list of the names of all possible modes
+     * \return list of mode names
+     */
+    virtual QStringList highlightingModes() const;
+
+    /**
+     * Set the current mode of the document by giving its name
+     * \param name name of the mode to use for this document
+     * \return \e true on success, otherwise \e false
+     */
+    virtual bool setMode(const QString &name);
+
+    /**
+     * Set the current mode of the document by giving its name
+     * \param name name of the mode to use for this document
+     * \return \e true on success, otherwise \e false
+     */
+    virtual bool setHighlightingMode(const QString &name);
+    /**
+     * Returns the name of the section for a highlight given its index in the highlight
+     * list (as returned by highlightModes()).
+     * You can use this function to build a tree of the highlight names, organized in sections.
+     * \param name the name of the highlight for which to find the section name.
+     */
+    virtual QString highlightingModeSection( int index ) const;
+
+    /**
+     * Returns the name of the section for a mode given its index in the highlight
+     * list (as returned by modes()).
+     * You can use this function to build a tree of the mode names, organized in sections.
+     * \param name the name of the highlight for which to find the section name.
+     */
+    virtual QString modeSection( int index ) const;
+//END KTextEditor::Document stuff
+
+  public:
+    KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
 
   public:
     bool readOnly () const { return m_bReadOnly; }
@@ -134,14 +291,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     const bool m_bBrowserView;
     const bool m_bReadOnly;
 
-  //
-  // KTextEditor::Document stuff
-  //
   public:
-    virtual KTextEditor::View *createView( QWidget *parent );
-    virtual const QList<KTextEditor::View*> &views () const;
-
-    virtual KTextEditor::View* activeView() const { return m_activeView; }
     // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
     KateView* activeKateView() const;
 
@@ -150,40 +300,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     QList<KTextEditor::View*> m_textEditViews;
     KTextEditor::View *m_activeView;
 
-  //
-  // KTextEditor::EditInterface stuff
-  //
-  public Q_SLOTS:
-    virtual bool setText(const QString &);
-    virtual bool setText(const QStringList& text);
-    virtual bool clear ();
-
-    virtual bool insertText ( const KTextEditor::Cursor &position, const QString &s, bool block = false );
-    virtual bool insertText ( const KTextEditor::Cursor &position, const QStringList &text, bool block = false );
-
-    virtual bool insertLine ( int line, const QString &s );
-    virtual bool insertLines ( int line, const QStringList &s );
-
-    virtual bool removeText ( const KTextEditor::Range &range, bool block = false );
-    virtual bool removeLine ( int line );
-
-    virtual bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
-
-    // unhide method...
-    virtual bool replaceText (const KTextEditor::Range &r, const QStringList &l, bool b)
-    { return KTextEditor::Document::replaceText (r, l, b); }
-
   public:
-    virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
-    virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
-    virtual QString text() const;
-    virtual QString line(int line) const;
-    virtual QChar character(const KTextEditor::Cursor& position) const;
-    virtual int lines() const;
-    virtual KTextEditor::Cursor documentEnd() const;
     int numVisLines() const;
-    virtual int totalCharacters() const;
-    virtual int lineLength(int line) const;
 
   Q_SIGNALS:
     void charactersSemiInteractivelyInserted(const KTextEditor::Cursor& position, const QString& text);
@@ -209,9 +327,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     void pushEditState();
     void popEditState();
-
-    virtual bool startEditing () { editStart (); return true; }
-    virtual bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd
 
@@ -349,65 +464,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     QWidget * dialogParent();
 
   /*
-   * Access to the mode/highlighting subsystem
-   */
-  public:
-    /**
-     * Return the name of the currently used mode
-     * \return name of the used mode
-     *
-     */
-    virtual QString mode() const;
-
-    /**
-     * Return the name of the currently used mode
-     * \return name of the used mode
-     *
-     */
-    virtual QString highlightingMode() const;
-
-    /**
-     * Return a list of the names of all possible modes
-     * \return list of mode names
-     */
-    virtual QStringList modes() const;
-
-    /**
-     * Return a list of the names of all possible modes
-     * \return list of mode names
-     */
-    virtual QStringList highlightingModes() const;
-
-    /**
-     * Set the current mode of the document by giving its name
-     * \param name name of the mode to use for this document
-     * \return \e true on success, otherwise \e false
-     */
-    virtual bool setMode(const QString &name);
-
-    /**
-     * Set the current mode of the document by giving its name
-     * \param name name of the mode to use for this document
-     * \return \e true on success, otherwise \e false
-     */
-    virtual bool setHighlightingMode(const QString &name);
-    /**
-     * Returns the name of the section for a highlight given its index in the highlight
-     * list (as returned by highlightModes()).
-     * You can use this function to build a tree of the highlight names, organized in sections.
-     * \param name the name of the highlight for which to find the section name.
-     */
-    virtual QString highlightingModeSection( int index ) const;
-
-    /**
-     * Returns the name of the section for a mode given its index in the highlight
-     * list (as returned by modes()).
-     * You can use this function to build a tree of the mode names, organized in sections.
-     * \param name the name of the highlight for which to find the section name.
-     */
-    virtual QString modeSection( int index ) const;
-
-  /*
    * Helpers....
    */
   public:
@@ -497,15 +553,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::DocumentInfoInterface ( ### unfinished )
   //
   public:
-    /**
-     * @return the name of the mimetype for the document.
-     *
-     * This method is using KMimeType::findByUrl, and if the pointer
-     * is then still the default MimeType for a nonlocal or unsaved file,
-     * uses mimeTypeForContent().
-     */
-    virtual QString mimeType();
-
     /**
      * @return a pointer to the KMimeType for this document, found by analyzing the
      * actual content.
@@ -632,28 +679,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   private:
     KTextEditor::AnnotationModel* m_annotationModel;
-
-  //
-  // KParts::ReadWrite stuff
-  //
-  public:
-    /**
-     * open the file obtained by the kparts framework
-     * the framework abstracts the loading of remote files
-     * @return success
-     */
-    virtual bool openFile ();
-
-    /**
-     * save the file obtained by the kparts framework
-     * the framework abstracts the uploading of remote files
-     * @return success
-     */
-    virtual bool saveFile ();
-
-    virtual void setReadWrite ( bool rw = true );
-
-    virtual void setModified( bool m );
 
   private:
     void activateDirWatch (const QString &useFileName = QString());
@@ -811,8 +836,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 
   public:
-    virtual const QString &documentName () const { return m_docName; }
-
     void setDocName (QString docName);
 
     void lineInfo (KateLineInfo *info, unsigned int line);
@@ -836,17 +859,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     virtual void slotModifiedOnDisk( KTextEditor::View *v = 0 );
 
-    /**
-     * Reloads the current document from disk if possible
-     */
-    virtual bool documentReload ();
-
-    virtual bool documentSave ();
-    virtual bool documentSaveAs ();
-
-    virtual bool save();
-  public:
-    virtual bool saveAs( const KUrl &url );
   private:
     bool m_saveAs;
   Q_SIGNALS:
@@ -864,10 +876,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   private:
     int m_isasking; // don't reenter slotModifiedOnDisk when this is true
                     // -1: ignore once, 0: false, 1: true
-
-  public:
-    virtual bool setEncoding (const QString &e);
-    virtual const QString &encoding() const;
 
 
   public Q_SLOTS:
@@ -975,8 +983,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   public:
-    virtual bool queryClose();
-
     void makeAttribs (bool needInvalidate = true);
 
     static bool checkOverwrite( KUrl u, QWidget *parent );

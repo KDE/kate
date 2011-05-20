@@ -23,6 +23,7 @@
 
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
+#include <ktexteditor/commandinterface.h>
 #include <kxmlguiclient.h>
 #include <kaction.h>
 
@@ -31,6 +32,7 @@
 #include "search_open_files.h"
 #include "search_folder.h"
 
+class KateSearchCommand;
 
 class KatePluginSearch : public Kate::Plugin
 {
@@ -41,6 +43,9 @@ public:
     virtual ~KatePluginSearch();
 
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+
+private:
+    KateSearchCommand* m_searchCommand;
 };
 
 
@@ -56,20 +61,24 @@ public:
     virtual void readSessionConfig(KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
 
+public Q_SLOTS:
+    void startSearch();
+    void setSearchString(const QString &pattern);
+    void setCurrentFolder();
+    void setSearchPlace(int place);
+    
 private Q_SLOTS:
     void toggleSearchView();
-    void startSearch();
     void toggleOptions(bool show);
 
     void searchPlaceChanged();
     void searchPatternChanged();
-    void setCurrentFolder();
 
     void matchFound(const QString &fileName, int line, int column, const QString &lineContent);
     void searchDone();
 
     void itemSelected(QTreeWidgetItem *item);
-    
+
 private:
     Ui::SearchDialog   m_ui;
     QWidget           *m_toolView;
@@ -79,6 +88,28 @@ private:
     KAction           *m_matchCase;
     KAction           *m_useRegExp;
 };
+
+class KateSearchCommand : public QObject, public KTextEditor::Command
+{
+    Q_OBJECT
+public:
+    KateSearchCommand(QObject *parent);
+
+Q_SIGNALS:
+    void setSearchPlace(int place);
+    void setCurrentFolder();
+    void setSearchString(const QString &pattern);
+    void startSearch();
+
+    //
+    // KTextEditor::Command
+    //
+public:
+    const QStringList &cmds ();
+    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+};
+
 
 #endif
 

@@ -22,6 +22,8 @@
 #include "plugin_search.moc"
 
 #include <kate/application.h>
+#include <ktexteditor/editor.h>
+
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <kate/documentmanager.h>
@@ -33,23 +35,43 @@
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 #include <kurlcompletion.h>
+#include <QLineEdit>
 
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
 K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
-    : Kate::Plugin((Kate::Application*)parent, "kate-search-plugin")
+    : Kate::Plugin((Kate::Application*)parent, "kate-search-plugin"),
+    m_searchCommand(0)
 {
     KGlobal::locale()->insertCatalog("katesearch");
+
+    KTextEditor::CommandInterface* iface =
+    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+    if (iface) {
+        m_searchCommand = new KateSearchCommand(this);
+        iface->registerCommand(m_searchCommand);
+    }
 }
 
 KatePluginSearch::~KatePluginSearch()
 {
+    KTextEditor::CommandInterface* iface =
+    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+    if (iface && m_searchCommand) {
+        iface->unregisterCommand(m_searchCommand);
+    }
 }
 
 Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
 {
-    return new KatePluginSearchView(mainWindow, application());
+    KatePluginSearchView *view = new KatePluginSearchView(mainWindow, application());
+    connect(m_searchCommand, SIGNAL(setSearchPlace(int)), view, SLOT(setSearchPlace(int)));
+    connect(m_searchCommand, SIGNAL(setCurrentFolder()), view, SLOT(setCurrentFolder()));
+    connect(m_searchCommand, SIGNAL(setSearchString(QString)), view, SLOT(setSearchString(QString)));
+    connect(m_searchCommand, SIGNAL(startSearch()), view, SLOT(startSearch()));
+    
+    return view;
 }
 
 
@@ -167,8 +189,15 @@ void KatePluginSearchView::toggleSearchView()
     }
 }
 
+void KatePluginSearchView::setSearchString(const QString &pattern)
+{
+    m_ui.searchCombo->lineEdit()->setText(pattern);
+}
+
 void KatePluginSearchView::startSearch()
 {
+    mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
+    
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
         return;
@@ -201,6 +230,11 @@ void KatePluginSearchView::startSearch()
 void KatePluginSearchView::toggleOptions(bool show)
 {
     m_ui.stackedWidget->setCurrentIndex((show) ? 1:0);
+}
+
+void KatePluginSearchView::setSearchPlace(int place)
+{
+    m_ui.searchPlaceCombo->setCurrentIndex(place);
 }
 
 void KatePluginSearchView::searchPlaceChanged()
@@ -309,5 +343,48 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
 }
 
-// kate: space-indent on; indent-width 4; replace-tabs on;
 
+
+KateSearchCommand::KateSearchCommand(QObject *parent)
+: QObject(parent), KTextEditor::Command()
+{
+}
+
+const QStringList& KateSearchCommand::cmds()
+{
+    static QStringList sl = QStringList() << "grep" << "search";
+    return sl;
+}
+
+bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QString& /*msg*/)
+{
+    //create a list of args
+    QStringList args(cmd.split(' ', QString::KeepEmptyParts));
+    QString command = args.takeFirst();
+    QString searchText = args.join(QString(' '));
+
+    if (command == "grep") {
+        emit setSearchPlace(1);
+        emit setCurrentFolder();
+    }
+    else if (command == "search") {
+        emit setSearchPlace(0);
+    }
+    emit setSearchString(searchText);
+    emit startSearch();
+    
+    return true;
+}
+
+bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, QString & msg)
+{
+    if (cmd.startsWith("grep")) {
+        msg = i18n("Usage: grep [pattern to search for in folder]");
+    }
+    else if (cmd.startsWith("search")) {
+        msg = i18n("Usage: search [pattern to search for in open files]");
+    }
+    return true;
+}
+
+// kate: space-indent on; indent-width 4; replace-tabs on;

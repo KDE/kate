@@ -36,6 +36,8 @@
 #include <kaboutdata.h>
 #include <kurlcompletion.h>
 #include <QLineEdit>
+#include <QKeyEvent>
+#include <QClipboard>
 
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
 K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
@@ -98,6 +100,12 @@ m_kateApp(application)
     m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
     m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
     m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
+    m_ui.hideButton->setIcon(KIcon("dialog-close"));
+
+    int padWidth = m_ui.folderLabel->width();
+    padWidth = qMax(padWidth, m_ui.filterLabel->width());
+    m_ui.gridLayout->setColumnMinimumWidth(0, padWidth);
+    m_ui.gridLayout->setAlignment(m_ui.hideButton, Qt::AlignHCenter);
 
     // get url-requester's combo box and sanely initialize
     KComboBox* cmbUrl = m_ui.folderRequester->comboBox();
@@ -116,6 +124,7 @@ m_kateApp(application)
     m_useRegExp->setCheckable(true);
     m_ui.optionsButton->addAction(m_useRegExp);
 
+    connect(m_ui.hideButton, SIGNAL(clicked()), this, SLOT(toggleSearchView()));
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -131,7 +140,7 @@ m_kateApp(application)
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(m_ui.searchResults, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
+    connect(m_ui.searchResults, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
             SLOT(itemSelected(QTreeWidgetItem *)));
 
     connect(&m_searchOpenFiles, SIGNAL(matchFound(QString, int, int, QString)),
@@ -146,6 +155,9 @@ m_kateApp(application)
             &m_searchOpenFiles, SLOT(cancelSearch()));
 
     searchPlaceChanged();
+
+    m_ui.searchResults->installEventFilter(this);
+    m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
 }
@@ -257,11 +269,13 @@ void KatePluginSearchView::searchPatternChanged()
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 }
 
-void KatePluginSearchView::matchFound(const QString &fileName, int line, int column, const QString &lineContent)
+void KatePluginSearchView::matchFound(const QString &url, int line, int column, const QString &lineContent)
 {
     QStringList row;
-    row << fileName << QString::number(line +1) << lineContent;
+    row << QFileInfo(url).fileName() << QString::number(line +1) << lineContent;
     QTreeWidgetItem *item = new QTreeWidgetItem(m_ui.searchResults, row);
+    item->setData(0, Qt::UserRole, url);
+    item->setData(0, Qt::ToolTipRole, url);
     item->setData(1, Qt::UserRole, column);
 }
 
@@ -275,12 +289,16 @@ void KatePluginSearchView::searchDone()
     m_ui.searchResults->resizeColumnToContents(0);
     m_ui.searchResults->resizeColumnToContents(1);
     m_ui.searchResults->resizeColumnToContents(2);
+    if (m_ui.searchResults->topLevelItemCount() > 0) {
+        m_ui.searchResults->setCurrentItem(m_ui.searchResults-> topLevelItem(0));
+        m_ui.searchResults->setFocus(Qt::OtherFocusReason);
+    }
 }
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 {
     // get stuff
-    const QString url = item->data(0, Qt::DisplayRole).toString();
+    const QString url = item->data(0, Qt::UserRole).toString();
     if (url.isEmpty()) return;
     int line = item->data(1, Qt::DisplayRole).toInt() - 1;
     int column = item->data(1, Qt::UserRole).toInt();
@@ -295,7 +313,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
     // do it ;)
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
-    mainWindow()->activeView()->setFocus();
+    //mainWindow()->activeView()->setFocus();
 }
 
 void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString& groupPrefix)
@@ -343,7 +361,34 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
 }
 
-
+bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        if (obj == m_ui.searchResults) {
+            if (ke->matches(QKeySequence::Copy)) {
+                // user pressed ctrl+c -> copy full URL to the clipboard
+                QVariant variant = m_ui.searchResults->currentItem()->data(0, Qt::UserRole);
+                QApplication::clipboard()->setText(variant.toString());
+                event->accept();
+                return true;
+            }
+            if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
+                if (m_ui.searchResults->currentItem()) {
+                    itemSelected(m_ui.searchResults->currentItem());
+                    event->accept();
+                    return true;
+                }
+            }
+        }
+        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
+            mainWindow()->hideToolView(m_toolView);
+            event->accept();
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
 : QObject(parent), KTextEditor::Command()
@@ -386,5 +431,6 @@ bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, Q
     }
     return true;
 }
+
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

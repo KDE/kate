@@ -27,6 +27,8 @@
 #include <kxmlguiclient.h>
 #include <kaction.h>
 
+#include <QTreeWidget>
+
 #include "ui_search.h"
 
 #include "search_open_files.h"
@@ -79,6 +81,9 @@ private Q_SLOTS:
 
     void itemSelected(QTreeWidgetItem *item);
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev);
+
 private:
     Ui::SearchDialog   m_ui;
     QWidget           *m_toolView;
@@ -109,7 +114,6 @@ public:
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
     bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 };
-
 
 #endif
 

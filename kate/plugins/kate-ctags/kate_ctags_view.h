@@ -77,7 +77,10 @@ public slots:
     
     void updateSessionDB();
     void updateDone(int exitCode, QProcess::ExitStatus status);
-    
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev);
+
 private:
     bool listContains(const QString &target);
 

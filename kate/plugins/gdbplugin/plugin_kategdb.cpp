@@ -30,6 +30,7 @@
 #include <QtGui/QTextEdit>
 #include <QtGui/QScrollBar>
 #include <QtGui/QTreeWidget>
+#include <QtGui/QKeyEvent>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -276,6 +277,8 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     popupAction->setText( i18nc( "Move Program Counter (next execution)", "Move PC" ) );
 
     enableDebugActions( false );
+
+    m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient( this );
 }
@@ -646,6 +649,19 @@ void KatePluginGDBView::addErrorText( QString const& text )
     m_outputArea->setFontItalic( true );
     m_outputArea->append( text );
     m_outputArea->setFontItalic( false );
+}
+
+bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
+            mainWindow()->hideToolView(m_toolView);
+            event->accept();
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }
 
 

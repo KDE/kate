@@ -23,6 +23,7 @@
 
 #include <QFileInfo>
 #include <KFileDialog>
+#include <QKeyEvent>
 
 #include <kmenu.h>
 #include <kactioncollection.h>
@@ -106,6 +107,8 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw, const KComponentData& compone
 
     connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
             SLOT(tagHitClicked(QTreeWidgetItem *)));
+
+    m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
 
@@ -580,5 +583,19 @@ bool KateCTagsView::listContains(const QString &target)
         }
     }
     return false;
+}
+
+/******************************************************************/
+bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
+            mainWindow()->hideToolView(m_toolView);
+            event->accept();
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }
 

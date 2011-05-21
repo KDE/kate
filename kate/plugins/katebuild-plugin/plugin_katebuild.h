@@ -93,6 +93,9 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void targetDelete();
         void targetNext();
 
+    protected:
+        bool eventFilter(QObject *obj, QEvent *ev);
+
     private:
         void processLine(const QString &);
         void addError(const QString &filename, const QString &line,

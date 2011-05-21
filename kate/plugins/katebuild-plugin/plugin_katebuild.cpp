@@ -40,6 +40,8 @@
 #include <QCompleter>
 #include <QDirModel>
 #include <QScrollBar>
+#include <QKeyEvent>
+
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -173,6 +175,8 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->newTarget, SIGNAL(clicked()), this, SLOT(targetNew()));
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
+
+    m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
 }
@@ -814,14 +818,30 @@ void KateBuildView::targetDelete()
 /******************************************************************/
 void KateBuildView::targetNext()
 {
-    int index = m_targetsUi->targetCombo->currentIndex();
-    index++;
-    if (index == m_targetsUi->targetCombo->count()) index = 0;
+    if (m_toolView->isVisible() && m_buildUi.ktabwidget->currentIndex() == 2) {
+        int index = m_targetsUi->targetCombo->currentIndex();
+        index++;
+        if (index == m_targetsUi->targetCombo->count()) index = 0;
 
-    m_targetsUi->targetCombo->setCurrentIndex(index);
+        m_targetsUi->targetCombo->setCurrentIndex(index);
+    }
+    else {
+        m_win->showToolView(m_toolView);
+        m_buildUi.ktabwidget->setCurrentIndex(2);
+    }
+}
 
-    m_win->showToolView(m_toolView);
-    m_buildUi.ktabwidget->setCurrentIndex(2);
-
+/******************************************************************/
+bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
+            mainWindow()->hideToolView(m_toolView);
+            event->accept();
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
 }
 

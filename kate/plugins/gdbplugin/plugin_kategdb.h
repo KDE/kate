@@ -101,6 +101,9 @@ private Q_SLOTS:
     void showIO( bool show );
     void addErrorText( QString const& text );
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev);
+
 private:
     QString currentWord();
 

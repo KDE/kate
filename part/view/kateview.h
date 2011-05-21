@@ -664,6 +664,12 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateViInputModeManager* getViInputModeManager();
 
     /**
+     * Replace ViInputModeManager by new one.
+     * @return a pointer to the new KateViInputModeManager.
+     */
+    KateViInputModeManager* resetViInputModeManager();
+
+    /**
      * @return boolean indicating whether vi mode will override actions or not
      */
     bool viInputModeStealKeys() const;

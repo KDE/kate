@@ -1370,6 +1370,11 @@ KateViInputModeManager* KateView::getViInputModeManager()
   return m_viewInternal->getViInputModeManager();
 }
 
+KateViInputModeManager* KateView::resetViInputModeManager()
+{
+  return m_viewInternal->resetViInputModeManager();
+}
+
 void KateView::find()
 {
   const bool INIT_HINT_AS_INCREMENTAL = false;

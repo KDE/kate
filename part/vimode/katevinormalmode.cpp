@@ -272,8 +272,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             if ( r.valid
                 && r.endLine >= 0
                 && ( r.endLine == 0 || r.endLine <= doc()->lines()-1 )
-                && r.endColumn >= 0
-                && ( r.endColumn == 0 || r.endColumn < doc()->lineLength( r.endLine ) ) ) {
+                && r.endColumn >= 0 ){
+               if ( r.endColumn >= doc()->lineLength( r.endLine ))
+                   r.endColumn = doc()->lineLength( r.endLine ) - 1;
+
               kDebug( 13070 ) << "No command given, going to position ("
                 << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
@@ -1456,8 +1458,8 @@ KateViRange KateViNormalMode::motionRight()
   r.endColumn += getCount();
 
   // make sure end position isn't > line length
-  if ( r.endColumn >= doc()->lineLength( r.endLine ) ) {
-    r.endColumn = doc()->lineLength( r.endLine )-1;
+  if ( r.endColumn > doc()->lineLength( r.endLine ) ) {
+    r.endColumn = doc()->lineLength( r.endLine );
   }
 
   return r;

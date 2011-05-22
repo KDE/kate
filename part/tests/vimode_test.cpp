@@ -201,7 +201,7 @@ void ViModeTest::NormalModeCommandsTest()
 {
   
   vi_input_mode_manager->viEnterNormalMode();
-  
+
   // Testing "J"
   NormalModeTest("foo\nbar", "J", "foo bar");
 
@@ -216,6 +216,9 @@ void ViModeTest::NormalModeCommandsTest()
   // Testing "d"
   NormalModeTest("foobar", "ld2l", "fbar");
   NormalModeTest("1 2 3\n4 5 6", "ld100l", "1\n4 5 6");
+
+  NormalModeTest("123\n", "d10l", "\n");
+  NormalModeTest("123\n", "10lx", "12\n");
 
   // Testing "X"
   NormalModeTest("ABCD", "$XX", "AD");
@@ -233,6 +236,7 @@ void ViModeTest::NormalModeCommandsTest()
 
   // Testing "gUU"
   NormalModeTest("foo", "gUU", "FOO");
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

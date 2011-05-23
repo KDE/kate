@@ -3521,4 +3521,14 @@ KateViInputModeManager* KateViewInternal::getViInputModeManager()
   return m_viInputModeManager;
 }
 
+KateViInputModeManager* KateViewInternal::resetViInputModeManager()
+{
+    if (m_viInputModeManager) {
+       delete m_viInputModeManager;
+    }
+    m_viInputModeManager = new KateViInputModeManager(m_view, this);
+
+  return m_viInputModeManager;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

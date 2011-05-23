@@ -432,6 +432,11 @@ class KateViewInternal : public QWidget
      * @return a pointer to a KateViInputModeManager
      */
     KateViInputModeManager* getViInputModeManager();
+
+    /**
+     * @return a pointer to a new KateViInputModeManager
+     */
+    KateViInputModeManager* resetViInputModeManager();
 };
 
 #endif

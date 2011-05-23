@@ -31,48 +31,48 @@ QTEST_KDEMAIN(ViModeTest, GUI)
 
 using namespace KTextEditor;
 
-void TestPressKey(QString str,KateViInputModeManager *viinputmodeman)
-{
-  QKeyEvent *KeyEvent;
-  for (int i = 0; i< str.length(); i++)
-  {
+ViModeTest::ViModeTest() {
+  kate_document = new KateDocument(false, false, false, 0, NULL);
+  kate_view = new KateView(kate_document, 0);
+  vi_input_mode_manager = kate_view->getViInputModeManager();
+}
+
+
+ViModeTest::~ViModeTest() {
+  delete kate_document;
+  delete kate_view;
+}
+
+void ViModeTest::TestPressKey(QString str) {
+  QKeyEvent *key_event;
+  for (int i = 0; i< str.length(); i++) {
+
     QString key(str[i]);
-    int code = key[0].unicode();
-
-    if (key[0].unicode() >= '0' && key[0].unicode() <= '9')
-      code = key[0].unicode() - '0' + Qt::Key_0;
-    else
-      code = Qt::Key_Any;
-
-    KeyEvent = new QKeyEvent(QEvent::KeyRelease, code, Qt::NoModifier, key);
-    viinputmodeman->handleKeypress(KeyEvent);
+    int code = key[0].unicode() - '0' + Qt::Key_0;
+    key_event = new QKeyEvent(QEvent::KeyRelease, code, Qt::NoModifier, key);
+    vi_input_mode_manager->handleKeypress(key_event);
   }
 }
 
-void NormalModeTest(QString original_text,
+void ViModeTest::NormalModeTest(QString original_text,
     QString command,
-    QString expected_text)
-{
-  KateDocument doc(false, false, false, 0, NULL);
-  KateView view(&doc, 0);
-  KateViInputModeManager *viinputmodemanager = view.getViInputModeManager();
-  viinputmodemanager->viEnterNormalMode();
-  doc.setText(original_text);
-  Cursor c(0,0);
-  view.setCursorPosition(c);
-  TestPressKey(command,viinputmodemanager);
-  qDebug() << "running command " << command << " on text \"" << original_text
+    QString expected_text) {
+
+  vi_input_mode_manager = kate_view->resetViInputModeManager();
+  kate_document->setText(original_text);
+  kate_view->setCursorPosition(Cursor(0,0));
+  TestPressKey(command);
+  qDebug() << "\nrunning command " << command << " on text \"" << original_text
     << "\"\n";
-  QCOMPARE(doc.text(), expected_text);
+  QCOMPARE(kate_document->text(), expected_text);
+
 }
 
 
 void ViModeTest::NormalModeFallingTests()
-{
-  NormalModeTest("bar", "10lx", "ba");
-  NormalModeTest("bar", "ll5hx", "ar");
-  NormalModeTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
-  NormalModeTest("(foo (bar (foo( bar))))", "*x","(foo (bar (oo( bar))))");
+{  
+  vi_input_mode_manager->viEnterNormalMode();
+
   NormalModeTest("foo{\n}\n", "$d%", "foo\n");
   NormalModeTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
   NormalModeTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
@@ -85,31 +85,36 @@ void ViModeTest::NormalModeFallingTests()
   NormalModeTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
   NormalModeTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
   NormalModeTest("1 2\n2 1", "lld#", "1 \n2 1");
+
 }
 
 void ViModeTest::NormalModeMotionsTest()
 {
 
+  vi_input_mode_manager->viEnterNormalMode();
+
   //Testing "l"
   NormalModeTest("bar", "lx", "br");
   NormalModeTest("bar", "2lx", "ba");
   NormalModeTest("0123456789012345", "13lx", "012345678901245");
+  NormalModeTest("bar", "10lx", "ba");
 
   // Testing "h"
   NormalModeTest("bar", "llhx", "br");
-  NormalModeTest("bar", "10lx", "ar");
+  NormalModeTest("bar", "10l10hx", "ar");
   NormalModeTest("0123456789012345", "13l10hx", "012456789012345");
+  NormalModeTest("bar", "ll5hx", "ar");
 
   // Testing "j"
   NormalModeTest("bar\nbar", "jx", "bar\nar");
   NormalModeTest("bar\nbar", "10jx", "bar\nar");
-  NormalModeTest("bar\nbar\nbar", "l2jx", "bar\nbar\nbr");
+  NormalModeTest("bar\nbara", "lljx", "bar\nbaa");
   NormalModeTest("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n",
       "13jx",
       "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n\n4\n5\n");
 
   // Testing "k"
-  NormalModeTest("bar\nbar\nbar", "jjkx", "bar\nar\nbar");
+  NormalModeTest("bar\nbar", "jx", "bar\nar");
   NormalModeTest("bar\nbar\nbar", "jj100kx", "ar\nbar\nbar");
   NormalModeTest("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n",
       "13j10kx",
@@ -158,6 +163,10 @@ void ViModeTest::NormalModeMotionsTest()
   // Testing "#"
   NormalModeTest("1 1 1", "2#x","1 1 ");
   NormalModeTest("foo bar foo bar", "#xlll#x","foo ar oo bar");
+  NormalModeTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
+
+  // Testing "*"
+  NormalModeTest("(foo (bar (foo( bar))))", "*x","(foo (bar (oo( bar))))");
 
   // Testing "-"
   NormalModeTest("0\n1\n2\n3\n4\n5", "5j-x2-x", "0\n1\n\n3\n\n5");
@@ -185,10 +194,14 @@ void ViModeTest::NormalModeMotionsTest()
 
   // Testing "'"
   NormalModeTest("foo\nbar\nbaz", "lmaj'arx", "xoo\nbar\nbaz");
+
 }
 
 void ViModeTest::NormalModeCommandsTest()
 {
+  
+  vi_input_mode_manager->viEnterNormalMode();
+
   // Testing "J"
   NormalModeTest("foo\nbar", "J", "foo bar");
 
@@ -204,20 +217,26 @@ void ViModeTest::NormalModeCommandsTest()
   NormalModeTest("foobar", "ld2l", "fbar");
   NormalModeTest("1 2 3\n4 5 6", "ld100l", "1\n4 5 6");
 
+  NormalModeTest("123\n", "d10l", "\n");
+  NormalModeTest("123\n", "10lx", "12\n");
+
   // Testing "X"
   NormalModeTest("ABCD", "$XX", "AD");
 
   // Testing "gu"
-  NormalModeTest("AbCDF", "gu2l", "abCDF");
+
+  NormalModeTest("AbCDF", "gu3l", "abcDF");
 
   // Testing "guu"
   NormalModeTest("FOO", "guu", "foo");
+
 
   // Testing "gU"
   NormalModeTest("aBcdf", "gU2l", "ABcdf");
 
   // Testing "gUU"
   NormalModeTest("foo", "gUU", "FOO");
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

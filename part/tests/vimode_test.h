@@ -22,14 +22,33 @@
 
 #include <QtCore/QObject>
 
+#include <katedocument.h>
+#include <kateviinputmodemanager.h>
+#include <kateview.h>
+
+
 class ViModeTest : public QObject
 {
   Q_OBJECT
+
+public:
+  ViModeTest();
+  ~ViModeTest();
 
 private Q_SLOTS:
   void NormalModeFallingTests();
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
+
+private:
+  void TestPressKey(QString str);
+  void NormalModeTest(QString original_text,
+                                  QString command,
+                                  QString expected_text);
+
+  KateDocument *kate_document;
+  KateView *kate_view;
+  KateViInputModeManager *vi_input_mode_manager;
 };
 
 #endif

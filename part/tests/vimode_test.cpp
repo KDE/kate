@@ -297,5 +297,50 @@ void ViModeTest::NormalModeControlTests()
 
 }
 
+void ViModeTest::NormalModeNotYetImplementedFeaturesTest(){
+  vi_input_mode_manager->viEnterNormalMode();
+  /*
+  // Testing "Ctrl-O"
+    NormalModeTest("{\n}","%\\ctrl-ox","\n}");
+    NormalModeTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
+    NormalModeTest("Foo foo.\nBar bar.\nBaz baz.",
+                   ")))\\ctrl-ox\\ctrl-ox",
+                   "Foo foo.\nar bar.\nBaz baz.");
+    NormalModeTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`b\\ctrl-ox",
+                   "Fo foo.\nBar bar.\nBaz baz.");
+
+  // Testing "Ctrl-I"
+    NormalModeTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "))\\ctrl-ox\\ctrl-ix",
+                   "Foo foo.\nBar bar.\naz baz.");
+
+    NormalModeTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "))\\ctrl-ox\\ctrl-ix",
+                   "Foo foo.\nBar bar.\naz baz.");
+
+    NormalModeTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
+                   "Foo foo.\nBa bar.\nBaz baz.");
+
+  // Testing percentage "<N>%"
+    NormalModeTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+                   "20%dd",
+                   "10%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
+    NormalModeTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+                   "50%dd",
+                   "10%\n20%\n30%\n40%\n60%\n70%\n80%\n90%\n100%");
+
+    NormalModeTest("10%\n20%\n30%\n40%\n50%\n60%\n70\n80%\n90%\n100%",
+                   "65%dd",
+                   "10%\n20%\n30%\n40%\n50%\n60%\n80%\n90%\n100%");
+
+    NormalModeTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+                   "5j10%dd",
+                   "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+    */
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

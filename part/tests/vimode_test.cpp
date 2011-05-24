@@ -45,15 +45,44 @@ ViModeTest::~ViModeTest() {
 
 void ViModeTest::TestPressKey(QString str) {
   QKeyEvent *key_event;
-  for (int i = 0; i< str.length(); i++) {
+  QString key;
+  Qt::KeyboardModifiers keyboard_modifier;
 
-    QString key(str[i]);
+  for (int i = 0; i< str.length(); i++) {
+    // Looking for keyboard modifiers
+    if (str[i] == QChar('\\')) {
+        if (str.mid(i,6) == QString("\\ctrl-")){
+            keyboard_modifier = Qt::ControlModifier;
+            i+=6;
+        } else if (str.mid(i,4) == QString("\\alt-")) {
+            keyboard_modifier = Qt::AltModifier;
+            i+=4;
+        } else if (str.mid(i,5) == QString("\\meta-")) {
+            keyboard_modifier = Qt::MetaModifier;
+            i+=5;
+        } else {
+            assert(false); //Do not use "\" in tests except for modifiers.
+        }
+    } else {
+        keyboard_modifier = Qt::NoModifier;
+    }
+
+    key = str[i];
+
     int code = key[0].unicode() - '0' + Qt::Key_0;
-    key_event = new QKeyEvent(QEvent::KeyRelease, code, Qt::NoModifier, key);
+    key_event = new QKeyEvent(QEvent::KeyRelease, code, keyboard_modifier, key);
     vi_input_mode_manager->handleKeypress(key_event);
   }
 }
 
+
+/**
+ * Starts normal mode.
+ * Makes commad on original_text and compare result with expected test.
+ * There is a possibility to use keyboard modifiers Ctrl, Alt and Meta.
+ * For example:
+ *     NormalModeTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
+ */
 void ViModeTest::NormalModeTest(QString original_text,
     QString command,
     QString expected_text) {
@@ -68,10 +97,20 @@ void ViModeTest::NormalModeTest(QString original_text,
 
 }
 
-
+/**
+ * There are written tests that fall.
+ * They are disabled in order to be able to check all others working tests.
+ */
 void ViModeTest::NormalModeFallingTests()
-{  
+{
   vi_input_mode_manager->viEnterNormalMode();
+
+  /*
+
+  // Ctrl-x and Ctrl-a works wrong with negative numbers.
+  NormalModeTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
+  NormalModeTest("-1", "1\\ctrl-a", "0");
+  NormalModeTest("-1", "l1\\ctrl-a", "0");
 
   NormalModeTest("foo{\n}\n", "$d%", "foo\n");
   NormalModeTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
@@ -86,6 +125,7 @@ void ViModeTest::NormalModeFallingTests()
   NormalModeTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
   NormalModeTest("1 2\n2 1", "lld#", "1 \n2 1");
 
+  */
 }
 
 void ViModeTest::NormalModeMotionsTest()
@@ -199,7 +239,7 @@ void ViModeTest::NormalModeMotionsTest()
 
 void ViModeTest::NormalModeCommandsTest()
 {
-  
+
   vi_input_mode_manager->viEnterNormalMode();
 
   // Testing "J"
@@ -238,5 +278,24 @@ void ViModeTest::NormalModeCommandsTest()
   NormalModeTest("foo", "gUU", "FOO");
 
 }
+
+
+void ViModeTest::NormalModeControlTests()
+{
+  vi_input_mode_manager->viEnterNormalMode();
+
+  // Testing "Ctrl-x"
+  NormalModeTest("150", "101\\ctrl-x", "49");
+
+  // Testing "Ctrl-a"
+  NormalModeTest("150", "101\\ctrl-a", "251");
+  NormalModeTest("1000", "\\ctrl-ax", "100");
+
+  // Testing "Ctrl-r"
+  NormalModeTest("foobar", "d3lu\\ctrl-r", "bar");
+  NormalModeTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
+
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

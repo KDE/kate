@@ -39,6 +39,7 @@ private Q_SLOTS:
   void NormalModeFallingTests();
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
+  void NormalModeControlTests();
 
 private:
   void TestPressKey(QString str);

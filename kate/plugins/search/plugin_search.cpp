@@ -84,7 +84,7 @@ m_kateApp(application)
 {
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(toggleSearchView()));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
                                           Kate::MainWindow::Bottom,
@@ -180,7 +180,7 @@ void KatePluginSearchView::setCurrentFolder()
     }
 }
 
-void KatePluginSearchView::toggleSearchView()
+void KatePluginSearchView::openSearchView()
 {
     if (!mainWindow()) {
         return;
@@ -188,16 +188,26 @@ void KatePluginSearchView::toggleSearchView()
     if (!m_toolView->isVisible()) {
         mainWindow()->showToolView(m_toolView);
         m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
-        if (m_ui.folderRequester->text().isEmpty()) {
-            KTextEditor::View* editView = mainWindow()->activeView();
-            if (editView && editView->document()) {
-                // upUrl as we want the folder not the file
-                m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
-            }
-        }
     }
-    else {
-        mainWindow()->hideToolView(m_toolView);
+
+    KTextEditor::View* editView = mainWindow()->activeView();
+    if (editView && editView->document()) {
+        if (m_ui.folderRequester->text().isEmpty()) {
+            // upUrl as we want the folder not the file
+            m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
+        }
+        QString selection = editView->selectionText();
+        // remove trailing \n
+        if (selection.endsWith('\n')) {
+            selection = selection.left(selection.size() -1);
+        }
+        // remove trailing \r
+        if (selection.endsWith('\r')) {
+            selection = selection.left(selection.size() -1);
+        }
+        if (!selection.isEmpty() && !selection.contains('\n')) {
+            m_ui.searchCombo->lineEdit()->setText(selection);
+        }
     }
 }
 

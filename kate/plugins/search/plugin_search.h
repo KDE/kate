@@ -70,7 +70,7 @@ public Q_SLOTS:
     void setSearchPlace(int place);
     
 private Q_SLOTS:
-    void toggleSearchView();
+    void openSearchView();
     void toggleOptions(bool show);
 
     void searchPlaceChanged();

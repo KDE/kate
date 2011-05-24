@@ -42,10 +42,13 @@ private Q_SLOTS:
   void NormalModeControlTests();
   void NormalModeNotYetImplementedFeaturesTest();
 
+  void InsertModeTests();
+  void VisualModeTests();
+
 
 private:
   void TestPressKey(QString str);
-  void NormalModeTest(QString original_text,
+  void DoTest(QString original_text,
                                   QString command,
                                   QString expected_text);
 

@@ -80,7 +80,8 @@ Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
 KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Application* application)
 : Kate::PluginView(mainWin),
 Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
-m_kateApp(application)
+m_kateApp(application),
+m_curResultTree(0)
 {
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
@@ -100,12 +101,16 @@ m_kateApp(application)
     m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
     m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
     m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
-    m_ui.hideButton->setIcon(KIcon("dialog-close"));
+    m_ui.newTabButton->setIcon(KIcon("tab-new"));
 
     int padWidth = m_ui.folderLabel->width();
     padWidth = qMax(padWidth, m_ui.filterLabel->width());
     m_ui.gridLayout->setColumnMinimumWidth(0, padWidth);
-    m_ui.gridLayout->setAlignment(m_ui.hideButton, Qt::AlignHCenter);
+    m_ui.gridLayout->setAlignment(m_ui.newTabButton, Qt::AlignHCenter);
+
+    // the order here is important to get the tabBar hidden for only one tab
+    addTab();
+    m_ui.resultTabWidget->tabBar()->hide();
 
     // get url-requester's combo box and sanely initialize
     KComboBox* cmbUrl = m_ui.folderRequester->comboBox();
@@ -124,7 +129,8 @@ m_kateApp(application)
     m_useRegExp->setCheckable(true);
     m_ui.optionsButton->addAction(m_useRegExp);
 
-    connect(m_ui.hideButton, SIGNAL(clicked()), this, SLOT(toggleSearchView()));
+    connect(m_ui.newTabButton, SIGNAL(clicked()), this, SLOT(addTab()));
+    connect(m_ui.resultTabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget *)));
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -140,9 +146,6 @@ m_kateApp(application)
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(m_ui.searchResults, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-            SLOT(itemSelected(QTreeWidgetItem *)));
-
     connect(&m_searchOpenFiles, SIGNAL(matchFound(QString, int, int, QString)),
             this, SLOT(matchFound(QString, int, int, QString)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
@@ -156,7 +159,6 @@ m_kateApp(application)
 
     searchPlaceChanged();
 
-    m_ui.searchResults->installEventFilter(this);
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
@@ -187,8 +189,8 @@ void KatePluginSearchView::openSearchView()
     }
     if (!m_toolView->isVisible()) {
         mainWindow()->showToolView(m_toolView);
-        m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
     }
+    m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
 
     KTextEditor::View* editView = mainWindow()->activeView();
     if (editView && editView->document()) {
@@ -196,17 +198,15 @@ void KatePluginSearchView::openSearchView()
             // upUrl as we want the folder not the file
             m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
         }
-        QString selection = editView->selectionText();
-        // remove trailing \n
-        if (selection.endsWith('\n')) {
-            selection = selection.left(selection.size() -1);
-        }
-        // remove trailing \r
-        if (selection.endsWith('\r')) {
-            selection = selection.left(selection.size() -1);
-        }
-        if (!selection.isEmpty() && !selection.contains('\n')) {
-            m_ui.searchCombo->lineEdit()->setText(selection);
+        if (editView->selection()) {
+            QString selection = editView->selectionText();
+            // remove possible trailing '\n'
+            if (selection.endsWith('\n')) {
+                selection = selection.left(selection.size() -1);
+            }
+            if (!selection.isEmpty() && !selection.contains('\n')) {
+                m_ui.searchCombo->lineEdit()->setText(selection);
+            }
         }
     }
 }
@@ -224,6 +224,11 @@ void KatePluginSearchView::startSearch()
         // return pressed in the folder combo or filter combo
         return;
     }
+    m_curResultTree = qobject_cast<QTreeWidget *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResultTree) {
+        kWarning() << "This is a bug";
+        return;
+    }
     m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
     m_ui.searchButton->setDisabled(true);
     m_ui.locationAndStop->setCurrentIndex(1);
@@ -235,7 +240,10 @@ void KatePluginSearchView::startSearch()
                 m_matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
                 m_useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
 
-    m_ui.searchResults->clear();
+    m_curResultTree->clear();
+    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
+                                     m_ui.searchCombo->currentText());
+
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
         m_searchOpenFiles.startSearch(m_kateApp->documentManager()->documents(), reg);
     }
@@ -281,9 +289,12 @@ void KatePluginSearchView::searchPatternChanged()
 
 void KatePluginSearchView::matchFound(const QString &url, int line, int column, const QString &lineContent)
 {
+    if (!m_curResultTree) {
+        return;
+    }
     QStringList row;
     row << QFileInfo(url).fileName() << QString::number(line +1) << lineContent;
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_ui.searchResults, row);
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResultTree, row);
     item->setData(0, Qt::UserRole, url);
     item->setData(0, Qt::ToolTipRole, url);
     item->setData(1, Qt::UserRole, column);
@@ -296,13 +307,17 @@ void KatePluginSearchView::searchDone()
     m_ui.optionsButton->setDisabled(false);
     m_ui.displayOptions->setDisabled(false);
 
-    m_ui.searchResults->resizeColumnToContents(0);
-    m_ui.searchResults->resizeColumnToContents(1);
-    m_ui.searchResults->resizeColumnToContents(2);
-    if (m_ui.searchResults->topLevelItemCount() > 0) {
-        m_ui.searchResults->setCurrentItem(m_ui.searchResults-> topLevelItem(0));
-        m_ui.searchResults->setFocus(Qt::OtherFocusReason);
+    if (!m_curResultTree) {
+        return;
     }
+    m_curResultTree->resizeColumnToContents(0);
+    m_curResultTree->resizeColumnToContents(1);
+    m_curResultTree->resizeColumnToContents(2);
+    if (m_curResultTree->topLevelItemCount() > 0) {
+        m_curResultTree->setCurrentItem(m_curResultTree-> topLevelItem(0));
+        m_curResultTree->setFocus(Qt::OtherFocusReason);
+    }
+    m_curResultTree = 0;
 }
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
@@ -371,21 +386,64 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
 }
 
+void KatePluginSearchView::addTab()
+{
+    QTreeWidget *tmp = new QTreeWidget();
+    QStringList labels;
+    labels << i18n("File") << i18n("Line") << i18n("Text");
+    tmp->setHeaderLabels(labels);
+
+    tmp->setAllColumnsShowFocus(false);
+    tmp->setAlternatingRowColors(true);
+    tmp->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tmp->setRootIsDecorated(false);
+    tmp->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tmp->setUniformRowHeights(true);
+
+    connect(tmp,  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+            this, SLOT  (itemSelected(QTreeWidgetItem *)));
+
+    m_ui.resultTabWidget->addTab(tmp, "");
+    m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);
+    m_ui.stackedWidget->setCurrentIndex(0);
+    m_ui.resultTabWidget->tabBar()->show();
+
+    tmp->installEventFilter(this);
+}
+
+void KatePluginSearchView::closeTab(QWidget *widget)
+{
+    QTreeWidget *tmp = qobject_cast<QTreeWidget *>(widget);
+    if (m_curResultTree == tmp) {
+        m_searchOpenFiles.cancelSearch();
+        m_searchFolder.cancelSearch();
+    }
+    if (m_ui.resultTabWidget->count() > 1) {
+        delete widget; // remove the tab
+        m_curResultTree = 0;
+    }
+    if (m_ui.resultTabWidget->count() == 1) {
+        m_ui.resultTabWidget->tabBar()->hide();
+    }
+}
+
+
 bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent*>(event);
-        if (obj == m_ui.searchResults) {
+        QTreeWidget *tree = qobject_cast<QTreeWidget *>(obj);
+        if (tree) {
             if (ke->matches(QKeySequence::Copy)) {
                 // user pressed ctrl+c -> copy full URL to the clipboard
-                QVariant variant = m_ui.searchResults->currentItem()->data(0, Qt::UserRole);
+                QVariant variant = tree->currentItem()->data(0, Qt::UserRole);
                 QApplication::clipboard()->setText(variant.toString());
                 event->accept();
                 return true;
             }
             if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-                if (m_ui.searchResults->currentItem()) {
-                    itemSelected(m_ui.searchResults->currentItem());
+                if (tree->currentItem()) {
+                    itemSelected(tree->currentItem());
                     event->accept();
                     return true;
                 }

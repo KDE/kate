@@ -71,6 +71,8 @@ public Q_SLOTS:
     
 private Q_SLOTS:
     void openSearchView();
+    void addTab();
+    void closeTab(QWidget *widget);
     void toggleOptions(bool show);
 
     void searchPlaceChanged();
@@ -92,6 +94,7 @@ private:
     SearchFolder       m_searchFolder;
     KAction           *m_matchCase;
     KAction           *m_useRegExp;
+    QTreeWidget       *m_curResultTree;
 };
 
 class KateSearchCommand : public QObject, public KTextEditor::Command

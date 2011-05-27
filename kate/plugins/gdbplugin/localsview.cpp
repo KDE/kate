@@ -116,8 +116,8 @@ void LocalsView::addLocal(const QString &vString)
 
 void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
 {
-    static QRegExp isArray("\\{\\S*\\s=\\s.*");
-    static QRegExp isStruct("\\S*\\s=\\s.*");
+    static QRegExp isArray("\\{\\.*\\s=\\s.*");
+    static QRegExp isStruct("\\.*\\s=\\s.*");
     QTreeWidgetItem *item;
     QStringList symbolAndValue;
     QString subValue;
@@ -127,9 +127,14 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
         // Symbol
         symbolAndValue.clear();
         end = vString.indexOf(" = ", start);
+        if (end < 0) {
+            // error situation -> bail out
+            symbolAndValue << vString.right(start);
+            new QTreeWidgetItem(parent, symbolAndValue);
+            break;
+        }
         symbolAndValue << vString.mid(start, end-start);
         //kDebug() << symbolAndValue;
-        
         // Value
         start = end + 3;
         end = start;

@@ -173,6 +173,9 @@ void ViModeTest::NormalModeFallingTests()
 
 void ViModeTest::NormalModeMotionsTest()
 {
+  // Test moving around an empty document (nothing should happen)
+  DoTest("", "jkhl", "");
+  DoTest("", "ggG$0", "");
 
   //Testing "l"
   DoTest("bar", "lx", "br");

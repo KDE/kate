@@ -273,13 +273,7 @@ void KatePluginSearchView::searchPlaceChanged()
     if (!disable) {
         m_ui.displayOptions->setChecked(true);
     }
-    m_ui.recursiveCheckBox->setDisabled(disable);
-    m_ui.hiddenCheckBox->setDisabled(disable);
-    m_ui.symLinkCheckBox->setDisabled(disable);
-    m_ui.folderLabel->setDisabled(disable);
-    m_ui.folderRequester->setDisabled(disable);
-    m_ui.filterLabel->setDisabled(disable);
-    m_ui.filterCombo->setDisabled(disable);
+    m_ui.folderOptions->setDisabled(disable);
 }
 
 void KatePluginSearchView::searchPatternChanged()

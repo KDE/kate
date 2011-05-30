@@ -43,8 +43,6 @@ public:
     bool debuggerBusy() const;
     bool hasBreakpoint( KUrl const& url, int line );
 
-    KUrl resolveFileName( char const* fileName );
-
     void toggleBreakpoint( KUrl const& url, int line );
     void movePC( KUrl const& url, int line );
     void runToCursor( KUrl const& url, int line );
@@ -69,9 +67,9 @@ private Q_SLOTS:
     void issueNextCommand();
 
 Q_SIGNALS:
-    void debugLocationChanged( const char* filename, int lineNum );
-    void breakPointSet( KUrl const& filename, int lineNum );
-    void breakPointCleared( KUrl const& filename, int lineNum );
+    void debugLocationChanged( const KUrl &file, int lineNum );
+    void breakPointSet( const KUrl &file, int lineNum );
+    void breakPointCleared( const KUrl &file, int lineNum );
     void stackFrameInfo( QString const& level, QString const& info );
     void stackFrameChanged( int level );
 
@@ -113,6 +111,7 @@ private:
     void processLine( QString output );
     void processErrors();
     void outputTextMaybe( const QString &text );
+    KUrl resolveFileName( const QString &fileName );
 
 private:
     QProcess*           m_debugProcess;

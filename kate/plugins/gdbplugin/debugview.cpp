@@ -382,7 +382,7 @@ void DebugView::processLine( QString line )
                 int lineNum = changeFile.cap( 2 ).toInt();
 
                 // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
+                emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
                 m_debugLocationChanged = true;
             }
             else if( changeLine.exactMatch( line ) )
@@ -394,14 +394,14 @@ void DebugView::processLine( QString line )
                     m_currentFile = m_newFrameFile;
                 }
                 // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( m_currentFile.toLocal8Bit(), lineNum - 1 );
+                emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
                 m_debugLocationChanged = true;
             }
             else if (breakPointReg.exactMatch(line)) 
             {
                 BreakPoint breakPoint;
                 breakPoint.number = breakPointReg.cap( 1 ).toInt();
-                breakPoint.file = breakPointReg.cap( 2 );
+                breakPoint.file = resolveFileName( breakPointReg.cap( 2 ) );
                 breakPoint.line = breakPointReg.cap( 3 ).toInt();
                 m_breakPointList << breakPoint;
                 emit breakPointSet( breakPoint.file, breakPoint.line -1 );
@@ -620,20 +620,27 @@ void DebugView::issueNextCommand()
     }
 }
 
-KUrl DebugView::resolveFileName( char const* fileName )
+KUrl DebugView::resolveFileName( const QString &fileName )
 {
     KUrl url;
 
     //did we end up with an absolute path or a relative one?
-    if(  fileName[0] == '/' )
-    {
+    if ( QFileInfo(fileName).isAbsolute() ) {
         url.setPath( fileName );
+        url.cleanPath();
     }
-    else
-    {
+    else {
         url.setPath( m_workingDirectory );
         url.addPath( fileName );
         url.cleanPath();
+        
+        if ( !QFileInfo(url.path()).exists() ) {
+            url.setPath( m_target );
+            url.upUrl(); // get path
+            url.addPath( fileName );
+            url.cleanPath();
+        }
+        // Now, if not found just give up ;)
     }
 
     return url;

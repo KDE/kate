@@ -85,12 +85,12 @@ private Q_SLOTS:
     void slotToggleBreakpoint();
     void slotMovePC();
     void slotRunToCursor();
-    void slotGoTo( const char* fileName, int lineNum );
+    void slotGoTo( const KUrl &fileName, int lineNum );
     void slotValue();
 
     void aboutToShowMenu();
-    void slotBreakpointSet( KUrl const& file, int line );
-    void slotBreakpointCleared( KUrl const& file, int line );
+    void slotBreakpointSet( const KUrl &file, int line );
+    void slotBreakpointCleared( const KUrl &file, int line );
     void slotSendCommand();
     void enableDebugActions( bool enable );
     void programEnded();

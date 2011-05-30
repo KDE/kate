@@ -166,14 +166,14 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_debugView,  SIGNAL( outputError( const QString ) ),
              this,       SLOT( addErrorText( const QString ) ) );
 
-    connect( m_debugView,  SIGNAL( debugLocationChanged( const char*, int ) ),
-             this,       SLOT( slotGoTo( const char*, int ) ) );
+    connect( m_debugView,  SIGNAL( debugLocationChanged( const KUrl, int ) ),
+             this,       SLOT( slotGoTo( const KUrl, int ) ) );
 
-    connect( m_debugView,  SIGNAL( breakPointSet( KUrl const&, int ) ),
-             this,       SLOT( slotBreakpointSet( KUrl const&, int ) ) );
+    connect( m_debugView,  SIGNAL( breakPointSet( const KUrl, int ) ),
+             this,       SLOT( slotBreakpointSet( const KUrl, int ) ) );
 
-    connect( m_debugView,  SIGNAL( breakPointCleared( KUrl const&, int ) ),
-             this,       SLOT( slotBreakpointCleared( KUrl const&, int ) ) );
+    connect( m_debugView,  SIGNAL( breakPointCleared( const KUrl, int ) ),
+             this,       SLOT( slotBreakpointCleared( const KUrl, int ) ) );
 
     connect( m_debugView,  SIGNAL( programEnded() ),
              this,       SLOT( programEnded() ) );
@@ -376,7 +376,7 @@ void KatePluginGDBView::slotToggleBreakpoint()
     }
 }
 
-void KatePluginGDBView::slotBreakpointSet( KUrl const& file, int line)
+void KatePluginGDBView::slotBreakpointSet( const KUrl &file, int line)
 {
     KTextEditor::MarkInterface* iface =
     qobject_cast<KTextEditor::MarkInterface*>( m_kateApplication->documentManager()->findUrl( file ) );
@@ -390,7 +390,7 @@ void KatePluginGDBView::slotBreakpointSet( KUrl const& file, int line)
     }
 }
 
-void KatePluginGDBView::slotBreakpointCleared( KUrl const& file, int line)
+void KatePluginGDBView::slotBreakpointCleared( const KUrl &file, int line)
 {
     KTextEditor::MarkInterface* iface =
     qobject_cast<KTextEditor::MarkInterface*>( m_kateApplication->documentManager()->findUrl( file ) );
@@ -420,11 +420,8 @@ void KatePluginGDBView::slotRunToCursor()
     m_debugView->runToCursor( currURL, cursor.line() + 1 );
 }
 
-void KatePluginGDBView::slotGoTo( const char* fileName, int lineNum )
+void KatePluginGDBView::slotGoTo( const KUrl &url, int lineNum )
 {
-
-    KUrl url = m_debugView->resolveFileName( fileName );
-
     // skip not existing files
     if (!QFile::exists (url.toLocalFile ()))
     {

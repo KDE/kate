@@ -252,13 +252,23 @@ void DebugView::runToCursor( KUrl const& url, int line )
 
 void DebugView::slotInterrupt()
 {
-    if( m_state == executingCmd )
+    switch (m_state)
     {
-        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
-        if( pid != 0 )
+        case executingCmd:
         {
-            ::kill( pid, SIGINT );
+            Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
+            if (pid != 0) {
+                ::kill( pid, SIGINT );
+            }
         }
+        break;
+        case infoArgs:
+        case infoLocals:
+        case infoStack:
+            ::kill(m_debugProcess->pid(), SIGINT);
+            break;
+        default:
+            break;
     }
 }
 

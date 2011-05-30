@@ -269,12 +269,15 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             if ( r.endLine >= doc()->lines() ) r.endLine = doc()->lines()-1;
 
             // make sure the position is valid before moving the cursor there
+            // TODO: can this be simplified? :/
             if ( r.valid
                 && r.endLine >= 0
                 && ( r.endLine == 0 || r.endLine <= doc()->lines()-1 )
-                && r.endColumn >= 0 ){
-               if ( r.endColumn >= doc()->lineLength( r.endLine ))
+                && r.endColumn >= 0 ) {
+               if ( r.endColumn >= doc()->lineLength( r.endLine )
+                   && doc()->lineLength( r.endLine ) > 0 ) {
                    r.endColumn = doc()->lineLength( r.endLine ) - 1;
+               }
 
               kDebug( 13070 ) << "No command given, going to position ("
                 << r.endLine << "," << r.endColumn << ")";

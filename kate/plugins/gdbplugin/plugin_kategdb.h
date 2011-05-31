@@ -100,6 +100,7 @@ private Q_SLOTS:
     void stackFrameSelected();
     void showIO( bool show );
     void addErrorText( QString const& text );
+    void clearMarks();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);

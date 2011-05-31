@@ -516,6 +516,26 @@ void KatePluginGDBView::gdbEnded()
     m_outputArea->clear();
     m_localsView->clear();
     m_ioView->clearOutput();
+    clearMarks();
+}
+
+void KatePluginGDBView::clearMarks()
+{
+    KTextEditor::MarkInterface* iface;
+    foreach (KTextEditor::Document* doc, m_kateApplication->documentManager()->documents()) {
+        iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        if (iface) {
+            const QHash<int, KTextEditor::Mark*> marks = iface->marks();
+            QHashIterator<int, KTextEditor::Mark*> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                if ((i.value()->type == KTextEditor::MarkInterface::Execution) ||
+                    (i.value()->type == KTextEditor::MarkInterface::BreakpointActive)) {
+                    iface->removeMark(i.value()->line, i.value()->type);
+                    }
+            }
+        }
+    }
 }
 
 void KatePluginGDBView::slotSendCommand()

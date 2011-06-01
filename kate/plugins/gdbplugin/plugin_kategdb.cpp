@@ -157,38 +157,41 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_localsView = new LocalsView(m_localsToolView);
 
     m_debugView  = new DebugView( this );
-    connect( m_debugView,  SIGNAL( readyForInput( bool ) ),
-             this,       SLOT( enableDebugActions( bool ) ) );
+    connect( m_debugView, SIGNAL( readyForInput( bool ) ),
+             this,        SLOT( enableDebugActions( bool ) ) );
 
     connect( m_debugView,  SIGNAL( outputText( const QString ) ),
              m_outputArea, SLOT( append( const QString ) ) );
 
-    connect( m_debugView,  SIGNAL( outputError( const QString ) ),
-             this,       SLOT( addErrorText( const QString ) ) );
+    connect( m_debugView, SIGNAL( outputError( const QString ) ),
+             this,        SLOT( addErrorText( const QString ) ) );
 
-    connect( m_debugView,  SIGNAL( debugLocationChanged( const KUrl, int ) ),
-             this,       SLOT( slotGoTo( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL( debugLocationChanged( const KUrl, int ) ),
+             this,        SLOT( slotGoTo( const KUrl, int ) ) );
 
-    connect( m_debugView,  SIGNAL( breakPointSet( const KUrl, int ) ),
-             this,       SLOT( slotBreakpointSet( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL( breakPointSet( const KUrl, int ) ),
+             this,        SLOT( slotBreakpointSet( const KUrl, int ) ) );
 
-    connect( m_debugView,  SIGNAL( breakPointCleared( const KUrl, int ) ),
-             this,       SLOT( slotBreakpointCleared( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL( breakPointCleared( const KUrl, int ) ),
+             this,        SLOT( slotBreakpointCleared( const KUrl, int ) ) );
 
-    connect( m_debugView,  SIGNAL( programEnded() ),
-             this,       SLOT( programEnded() ) );
+    connect( m_debugView, SIGNAL( clearBreakpointMarks() ),
+             this,        SLOT( clearMarks() ) );
 
-    connect( m_debugView,  SIGNAL( gdbEnded() ),
-             this,       SLOT( programEnded() ) );
+    connect( m_debugView, SIGNAL( programEnded() ),
+             this,        SLOT( programEnded() ) );
 
-    connect( m_debugView,  SIGNAL( gdbEnded() ),
-             this,       SLOT( gdbEnded() ) );
+    connect( m_debugView, SIGNAL( gdbEnded() ),
+             this,        SLOT( programEnded() ) );
 
-    connect( m_debugView,  SIGNAL( stackFrameInfo( QString, QString ) ),
-             this,       SLOT( insertStackFrame( QString, QString ) ) );
+    connect( m_debugView, SIGNAL( gdbEnded() ),
+             this,        SLOT( gdbEnded() ) );
 
-    connect( m_debugView,  SIGNAL( stackFrameChanged( int ) ),
-             this,       SLOT( stackFrameChanged( int ) ) );
+    connect( m_debugView, SIGNAL( stackFrameInfo( QString, QString ) ),
+             this,        SLOT( insertStackFrame( QString, QString ) ) );
+
+    connect( m_debugView, SIGNAL( stackFrameChanged( int ) ),
+             this,        SLOT( stackFrameChanged( int ) ) );
 
     connect( m_debugView,  SIGNAL( infoLocal( QString ) ),
              m_localsView, SLOT( addLocal( QString ) ) );

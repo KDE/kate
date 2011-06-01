@@ -121,6 +121,7 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
     }
     m_nextCommands << QString("file %1").arg(m_target);
     m_nextCommands << QString("set args %1").arg(m_arguments);
+    m_nextCommands << QString("(Q) info breakpoints");
     if (m_arguments.contains(">"))
     {
         m_nextCommands << QString("tbreak main");
@@ -128,7 +129,7 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
     }
     else {
-        m_nextCommands << QString("(Q)");
+        m_nextCommands << QString("(Q)"); // prevent the (Q) commands
     }
 }
 
@@ -344,6 +345,7 @@ void DebugView::processLine( QString line )
     if (line.isEmpty()) return;
 
     static QRegExp breakpointList( "Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*" );
+    static QRegExp breakpointListed( "(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*" );
     static QRegExp stackFrameAny( "#(\\d+)\\s(.*)" );
     static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\([^)]*\\))\\sat\\s([^:]+):(\\d+).*" );
     static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*" );
@@ -367,6 +369,13 @@ void DebugView::processLine( QString line )
             if( breakpointList.exactMatch( line ) )
             {
                 m_state = listingBreakpoints;
+                emit clearBreakpointMarks();
+                m_breakPointList.clear();
+            }
+            else if ( line.contains( "No breakpoints or watchpoints.") )
+            {
+                emit clearBreakpointMarks();
+                m_breakPointList.clear();
             }
             else if ( stackFrameAny.exactMatch( line ) )
             {
@@ -461,7 +470,16 @@ void DebugView::processLine( QString line )
             break;
 
         case listingBreakpoints:
-            if( PromptStr == line )
+            if (breakpointListed.exactMatch( line ) )
+            {
+                BreakPoint breakPoint;
+                breakPoint.number = breakpointListed.cap( 1 ).toInt();
+                breakPoint.file = resolveFileName( breakpointListed.cap( 2 ) );
+                breakPoint.line = breakpointListed.cap( 3 ).toInt();
+                m_breakPointList << breakPoint;
+                emit breakPointSet( breakPoint.file, breakPoint.line -1 );
+            }
+            else if( PromptStr == line )
             {
                 m_state = ready;
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));

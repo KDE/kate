@@ -70,6 +70,7 @@ Q_SIGNALS:
     void debugLocationChanged( const KUrl &file, int lineNum );
     void breakPointSet( const KUrl &file, int lineNum );
     void breakPointCleared( const KUrl &file, int lineNum );
+    void clearBreakpointMarks();
     void stackFrameInfo( QString const& level, QString const& info );
     void stackFrameChanged( int level );
 

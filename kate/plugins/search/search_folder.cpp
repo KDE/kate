@@ -66,7 +66,7 @@ void SearchFolder::handleNextItem(const QFileInfo &item)
         return searchFile(item);
     }
     else {
-        QDir currentDir(item.canonicalFilePath());
+        QDir currentDir(item.absoluteFilePath());
         
         if (!currentDir.isReadable()) {
             kDebug() << currentDir.absolutePath() << "Not readable";
@@ -107,7 +107,7 @@ void SearchFolder::searchFile(const QFileInfo &item)
         if (column != -1) {
             // limit line length
             if (line.length() > 512) line = line.left(512);
-            emit matchFound(item.canonicalFilePath(), i, column, line);
+            emit matchFound(item.absoluteFilePath(), i, column, line);
         }
         i++;
     }

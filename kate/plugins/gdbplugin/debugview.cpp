@@ -260,6 +260,8 @@ void DebugView::slotInterrupt()
             Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
             if (pid != 0) {
                 ::kill( pid, SIGINT );
+                // update stack and locals
+                m_debugLocationChanged = true;
             }
         }
         break;
@@ -305,6 +307,7 @@ void DebugView::slotReRun()
     }
     m_nextCommands << QString("file %1").arg(m_target);
     m_nextCommands << QString("set args %1").arg(m_arguments);
+    m_nextCommands << QString("(Q) info breakpoints");
     if (m_arguments.contains(">"))
     {
         m_nextCommands << QString("tbreak main");

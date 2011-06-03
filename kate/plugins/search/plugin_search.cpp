@@ -100,6 +100,7 @@ m_curResultTree(0)
     m_ui.optionsButton->setIcon(KIcon("configure"));
     m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
     m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
+    m_ui.folderUpButton->setIcon(KIcon("go-up"));
     m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
     m_ui.newTabButton->setIcon(KIcon("tab-new"));
 
@@ -134,6 +135,7 @@ m_curResultTree(0)
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.folderUpButton, SIGNAL(clicked()), this, SLOT(navigageFolderUp()));
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
     connect(m_ui.filterCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -168,6 +170,12 @@ KatePluginSearchView::~KatePluginSearchView()
 {
     mainWindow()->guiFactory()->removeClient(this);
     delete m_toolView;
+}
+
+void KatePluginSearchView::navigageFolderUp()
+{
+    // navigate one folder up
+    m_ui.folderRequester->setUrl(m_ui.folderRequester->url().upUrl());
 }
 
 void KatePluginSearchView::setCurrentFolder()

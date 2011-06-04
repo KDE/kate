@@ -66,7 +66,7 @@ public:
 public Q_SLOTS:
     void startSearch();
     void setSearchString(const QString &pattern);
-    void navigageFolderUp();
+    void navigateFolderUp();
     void setCurrentFolder();
     void setSearchPlace(int place);
     

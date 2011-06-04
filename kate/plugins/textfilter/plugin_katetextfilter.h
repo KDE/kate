@@ -29,8 +29,9 @@
 
 #include <kxmlguiclient.h>
 
-class K3Process;
-class K3ShellProcess;
+#include <QProcess>
+
+class KProcess;
 
 class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
 {
@@ -51,15 +52,14 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
 
   private:
     QString  m_strFilterOutput;
-    K3ShellProcess * m_pFilterShellProcess;
+    KProcess * m_pFilterProcess;
     QStringList completionList;
     bool pasteResult;
   public slots:
     void slotEditFilter ();
-    void slotFilterReceivedStdout (K3Process * pProcess, char * got, int len);
-    void slotFilterReceivedStderr (K3Process * pProcess, char * got, int len);
-    void slotFilterProcessExited (K3Process * pProcess);
-    void slotFilterCloseStdin (K3Process *);
+    void slotFilterReceivedStdout ();
+    void slotFilterReceivedStderr ();
+    void slotFilterProcessExited (int exitCode, QProcess::ExitStatus exitStatus);
 };
 
 class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient

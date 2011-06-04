@@ -33,7 +33,7 @@
 #include <qstring.h>
 #include <klineedit.h>
 #include <kinputdialog.h>
-#include <k3process.h>
+#include <kprocess.h>
 
 #include <kgenericfactory.h>
 #include <kauthorized.h>
@@ -69,7 +69,7 @@ PluginViewKateTextFilter::~PluginViewKateTextFilter()
 PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QStringList&)
   : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
   , KTextEditor::Command()
-  , m_pFilterShellProcess(NULL)
+  , m_pFilterProcess(NULL)
   , pasteResult(true)
 {
   KTextEditor::CommandInterface* cmdIface =
@@ -82,7 +82,7 @@ PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QStringList&)
 
 PluginKateTextFilter::~PluginKateTextFilter()
 {
-  delete m_pFilterShellProcess;
+  delete m_pFilterProcess;
   KTextEditor::CommandInterface* cmdIface =
     qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
 
@@ -97,26 +97,19 @@ Kate::PluginView *PluginKateTextFilter::createView (Kate::MainWindow *mainWindow
   return new PluginViewKateTextFilter(this, mainWindow);
 }
 
-void PluginKateTextFilter::slotFilterReceivedStdout(K3Process * pProcess, char * got, int len)
+void PluginKateTextFilter::slotFilterReceivedStdout()
 {
-  Q_ASSERT(pProcess == m_pFilterShellProcess);
-
-  if (got && len) {
-    m_strFilterOutput += QString::fromLocal8Bit(got, len);
-  }
+  m_strFilterOutput += QString::fromLocal8Bit(m_pFilterProcess->readAllStandardOutput());
 }
 
 
-void PluginKateTextFilter::slotFilterReceivedStderr (K3Process * pProcess, char * got, int len)
+void PluginKateTextFilter::slotFilterReceivedStderr ()
 {
-  slotFilterReceivedStdout (pProcess, got, len);
+  m_strFilterOutput += QString::fromLocal8Bit(m_pFilterProcess->readAllStandardError());
 }
 
-
-void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
+void PluginKateTextFilter::slotFilterProcessExited (int exitCode, QProcess::ExitStatus exitStatus)
 {
-  Q_ASSERT(pProcess == m_pFilterShellProcess);
-
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;
 
@@ -141,7 +134,7 @@ void PluginKateTextFilter::slotFilterProcessExited (K3Process * pProcess)
 }
 
 
-static void slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QString command)
+static void slipInFilter (KProcess & proc, KTextEditor::View & view, QString command)
 {
   QString inputText;
 
@@ -149,23 +142,16 @@ static void slipInFilter (K3ShellProcess & shell, KTextEditor::View & view, QStr
     inputText = view.selectionText ();
   }
 
-  shell.clearArguments ();
-  shell << command;
+  proc.clearProgram ();
+  proc.setShellCommand(command);
 
-  shell.start(K3Process::NotifyOnExit, K3Process::All);
+  proc.start();
   QByteArray encoded = inputText.toLocal8Bit ();
-  shell.writeStdin (encoded, encoded.length ());
+  proc.write(encoded);
+  proc.closeWriteChannel();
   //  TODO: Put up a modal dialog to defend the text from further
   //  keystrokes while the command is out. With a cancel button...
 }
-
-
-void PluginKateTextFilter::slotFilterCloseStdin (K3Process * pProcess)
-{
-  Q_ASSERT(pProcess == m_pFilterShellProcess);
-  pProcess -> closeStdin ();
-}
-
 
 void PluginKateTextFilter::slotEditFilter()
 {
@@ -215,24 +201,22 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 {
   m_strFilterOutput = "";
 
-  if (!m_pFilterShellProcess)
+  if (!m_pFilterProcess)
   {
-    m_pFilterShellProcess = new K3ShellProcess;
+    m_pFilterProcess = new KProcess;
+    m_pFilterProcess->setOutputChannelMode(KProcess::MergedChannels);
 
-    connect (m_pFilterShellProcess, SIGNAL(wroteStdin(K3Process *)),
-             this, SLOT(slotFilterCloseStdin (K3Process *)));
+    connect (m_pFilterProcess, SIGNAL(readyReadStandardOutput()),
+             this, SLOT(slotFilterReceivedStdout()));
 
-    connect (m_pFilterShellProcess, SIGNAL(receivedStdout(K3Process*,char*,int)),
-             this, SLOT(slotFilterReceivedStdout(K3Process*,char*,int)));
+    connect (m_pFilterProcess, SIGNAL(readyReadStandardError()),
+             this, SLOT(slotFilterReceivedStderr()));
 
-    connect (m_pFilterShellProcess, SIGNAL(receivedStderr(K3Process*,char*,int)),
-             this, SLOT(slotFilterReceivedStderr(K3Process*,char*,int)));
-
-    connect (m_pFilterShellProcess, SIGNAL(processExited(K3Process*)),
-             this, SLOT(slotFilterProcessExited(K3Process*))) ;
+    connect (m_pFilterProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(slotFilterProcessExited(int, QProcess::ExitStatus))) ;
   }
 
-  slipInFilter (*m_pFilterShellProcess, *kv, filter);
+  slipInFilter (*m_pFilterProcess, *kv, filter);
 }
 
 //BEGIN Kate::Command methods

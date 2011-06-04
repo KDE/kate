@@ -44,6 +44,7 @@ Comment=Provides a simple GDB frontend
 Comment[bs]=Jednostavno pročelje za GDB
 Comment[ca]=Proporciona un frontal GDB senzill
 Comment[ca@valencia]=Proporciona un frontal GDB senzill
+Comment[cs]=Poskytuje jednoduché rozhraní pro GDB
 Comment[da]=Giver en enkel GDB-brugerflade
 Comment[de]=Stellt eine einfache GDB-Oberfläche zur Verfügung
 Comment[en_GB]=Provides a simple GDB frontend

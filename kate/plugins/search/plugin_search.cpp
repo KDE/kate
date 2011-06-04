@@ -135,7 +135,7 @@ m_curResultTree(0)
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.folderUpButton, SIGNAL(clicked()), this, SLOT(navigageFolderUp()));
+    connect(m_ui.folderUpButton, SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
     connect(m_ui.filterCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -172,7 +172,7 @@ KatePluginSearchView::~KatePluginSearchView()
     delete m_toolView;
 }
 
-void KatePluginSearchView::navigageFolderUp()
+void KatePluginSearchView::navigateFolderUp()
 {
     // navigate one folder up
     m_ui.folderRequester->setUrl(m_ui.folderRequester->url().upUrl());
@@ -238,6 +238,9 @@ void KatePluginSearchView::startSearch()
         return;
     }
     m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
+
+    m_ui.newTabButton->setDisabled(true);
+    m_ui.searchCombo->setDisabled(true);
     m_ui.searchButton->setDisabled(true);
     m_ui.locationAndStop->setCurrentIndex(1);
     m_ui.optionsButton->setDisabled(true);
@@ -263,6 +266,7 @@ void KatePluginSearchView::startSearch()
                                    m_ui.filterCombo->currentText(),
                                    reg);
     }
+    m_toolView->setCursor(Qt::WaitCursor);
 }
 
 void KatePluginSearchView::toggleOptions(bool show)
@@ -304,6 +308,8 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column, 
 
 void KatePluginSearchView::searchDone()
 {
+    m_ui.newTabButton->setDisabled(false);
+    m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
     m_ui.locationAndStop->setCurrentIndex(0);
     m_ui.optionsButton->setDisabled(false);
@@ -320,6 +326,7 @@ void KatePluginSearchView::searchDone()
         m_curResultTree->setFocus(Qt::OtherFocusReason);
     }
     m_curResultTree = 0;
+    m_toolView->unsetCursor();
 }
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)

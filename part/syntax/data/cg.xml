@@ -20,7 +20,7 @@
 	* Added FACE sementic for the new fp40 profile
 -->
 
-<language name="Cg" section="Sources" extensions="*.cg" mimetype="text/x-cgsrc" version="1.11" kateversion="2.4" author="Florian Schanda (florian.schanda@schanda.de)" license="LGPL">
+<language name="Cg" section="Sources" extensions="*.cg;*.cgfx" mimetype="text/x-cgsrc" version="1.11" kateversion="2.4" author="Florian Schanda (florian.schanda@schanda.de)" license="LGPL">
 	<highlighting>
 		<list name="binding">
 			<item>POSITION</item>

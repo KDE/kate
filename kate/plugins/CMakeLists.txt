@@ -6,10 +6,10 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
 remove_definitions(-DQT3_SUPPORT)
 
 if(NOT WIN32)
-   add_subdirectory( textfilter )   # k3process
    add_subdirectory( gdbplugin )   # reading /proc/...
 endif(NOT WIN32)
 
+add_subdirectory( textfilter )
 add_subdirectory( konsole )
 add_subdirectory( externaltools )
 add_subdirectory( filebrowser )

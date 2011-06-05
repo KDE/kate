@@ -19,7 +19,6 @@
 #include "katesavemodifieddialog.h"
 #include "katesavemodifieddialog.moc"
 
-#include <QList>
 #include <QTreeWidget>
 #include <QLabel>
 #include <QPushButton>
@@ -36,7 +35,7 @@
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 {
   public:
-    AbstractKateSaveModifiedDialogCheckListItem(QTreeWidgetItem *parent, const QString& title, const QString& url): QTreeWidgetItem(parent)
+    AbstractKateSaveModifiedDialogCheckListItem(const QString& title, const QString& url): QTreeWidgetItem()
     {
       setFlags(flags() | Qt::ItemIsUserCheckable);
       setText(0, title);
@@ -77,8 +76,8 @@ class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDialogCheckListItem
 {
   public:
-    KateSaveModifiedDocumentCheckListItem(QTreeWidgetItem *parent, KTextEditor::Document *document)
-        : AbstractKateSaveModifiedDialogCheckListItem(parent, document->documentName(), document->url().prettyUrl())
+    KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
+        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().prettyUrl())
     {
       m_document = document;
     }
@@ -184,33 +183,17 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   setMainWidget(box);
   new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), box);
   m_list = new QTreeWidget(box);
-  /*m_list->addColumn(i18n("Title"));
-  m_list->addColumn(i18n("Location"));*/
   m_list->setColumnCount(2);
-  m_list->setHeaderLabels(QStringList() << i18n("Title") << i18n("Location"));
+  m_list->setHeaderLabels(QStringList() << i18n("Documents") << i18n("Location"));
   m_list->setRootIsDecorated(true);
 
-  if (documents.count() > 0)
-  {
-    m_documentRoot = new QTreeWidgetItem(m_list);
-    m_documentRoot->setText(0, i18n("Documents"));
-    const uint docCnt = documents.count();
-    for (uint i = 0;i < docCnt;i++)
-    {
-      new KateSaveModifiedDocumentCheckListItem(m_documentRoot, documents.at(i));
-    }
-    m_list->expandItem(m_documentRoot);
-    m_list->resizeColumnToContents(0);
+  foreach (KTextEditor::Document* doc, documents) {
+    m_list->addTopLevelItem(new KateSaveModifiedDocumentCheckListItem(doc));
   }
-  else m_documentRoot = 0;
-  //FIXME - Is this the best way?
-  connect(m_list, SIGNAL(itemActivated(QTreeWidgetItem *, int)), SLOT(slotItemActivated(QTreeWidgetItem *, int)));
-  connect(m_list, SIGNAL(itemClicked(QTreeWidgetItem *, int)), SLOT(slotItemActivated(QTreeWidgetItem *, int)));
-  connect(m_list, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), SLOT(slotItemActivated(QTreeWidgetItem *, int)));
-  if(documents.count() > 3)
-  { //For 3 or less, it would be quicker just to tick or untick them yourself, so don't clutter the gui.
-    connect(new QPushButton(i18n("Se&lect All"), box), SIGNAL(clicked()), this, SLOT(slotSelectAll()));
-  }
+  m_list->resizeColumnToContents(0);
+
+  connect(m_list, SIGNAL(itemChanged(QTreeWidgetItem *, int)), SLOT(slotItemActivated(QTreeWidgetItem *, int)));
+  connect(new QPushButton(i18n("Se&lect All"), box), SIGNAL(clicked()), this, SLOT(slotSelectAll()));
 }
 
 KateSaveModifiedDialog::~KateSaveModifiedDialog()
@@ -218,37 +201,33 @@ KateSaveModifiedDialog::~KateSaveModifiedDialog()
 
 void KateSaveModifiedDialog::slotItemActivated(QTreeWidgetItem*, int)
 {
-  kDebug(13001) << "slotItemSelected()";
-  for(int cc = 0;cc < m_documentRoot->childCount();cc++)
-  {
-    if (m_documentRoot->child(cc)->checkState(0) == Qt::Checked)
-    {
-      enableButton(KDialog::Yes, true);
-      return;
+  bool enableSaveButton = false;
+
+  for (int i = 0; i < m_list->topLevelItemCount(); ++i) {
+    if (m_list->topLevelItem(i)->checkState(0) == Qt::Checked) {
+      enableSaveButton = true;
+      break;
     }
   }
-  enableButton(KDialog::Yes, false);
-}
-
-static void selectItems(QTreeWidgetItem *root)
-{
-  if (!root) return;
-  for(int cc = 0;cc < root->childCount();cc++)
-  {
-    root->child(cc)->setCheckState(0, Qt::Checked);
-  }
+  
+  // enable or disable the Save button
+  enableButton(KDialog::User1, enableSaveButton);
 }
 
 void KateSaveModifiedDialog::slotSelectAll()
 {
-  selectItems(m_documentRoot);
-  slotItemActivated(0, 0);
+  for (int i = 0; i < m_list->topLevelItemCount(); ++i) {
+    m_list->topLevelItem(i)->setCheckState(0, Qt::Checked);
+  }
+
+  // enable Save button
+  enableButton(KDialog::User1, true);
 }
 
 
 void KateSaveModifiedDialog::slotSaveSelected()
 {
-  if (doSave(m_documentRoot)) done(QDialog::Accepted);
+  if (doSave()) done(QDialog::Accepted);
 }
 
 void KateSaveModifiedDialog::slotDoNotSave()
@@ -256,31 +235,25 @@ void KateSaveModifiedDialog::slotDoNotSave()
   done(QDialog::Accepted);
 }
 
-bool KateSaveModifiedDialog::doSave(QTreeWidgetItem *root)
+bool KateSaveModifiedDialog::doSave()
 {
-kDebug() << root;
-  if (root)
-  {
-kDebug() << root->childCount();
-    for (int i = 0; i < root->childCount(); ++i)
-    {
-      AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)root->child(i);
-      kDebug() << cit->checkState(0)<<  Qt::Checked<<  cit->state()<<  AbstractKateSaveModifiedDialogCheckListItem::SaveOKState;
-      if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
-      {
-        if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/))
-        {
-          KMessageBox::sorry( this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
-          return false;
-        }
-      }
-      else if ((cit->checkState(0) != Qt::Checked) && (cit->state() == AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState))
-      {
-        cit->setState(AbstractKateSaveModifiedDialogCheckListItem::InitialState);
-      }
+  for (int i = 0; i < m_list->topLevelItemCount(); ++i) {
+    AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)m_list->topLevelItem(i);
 
+    if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
+    {
+      if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/))
+      {
+        KMessageBox::sorry( this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
+        return false;
+      }
+    }
+    else if ((cit->checkState(0) != Qt::Checked) && (cit->state() == AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState))
+    {
+      cit->setState(AbstractKateSaveModifiedDialogCheckListItem::InitialState);
     }
   }
+
   return true;
 }
 

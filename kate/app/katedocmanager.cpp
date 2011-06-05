@@ -63,6 +63,13 @@ KateDocManager::KateDocManager (QObject *parent)
 {
   // Constructed the beloved editor ;)
   m_editor = KTextEditor::EditorChooser::editor();
+  
+  if ( !m_editor )
+  {
+    KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
+                                  "Please check your KDE installation."));
+    exit(1);
+  }
 
   KTextEditor::ContainerInterface * iface = qobject_cast<KTextEditor::ContainerInterface *>( m_editor );
   if (iface != NULL) {

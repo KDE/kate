@@ -43,7 +43,6 @@ class KateSaveModifiedDialog: public KDialog
     void slotDoNotSave();
 
   private:
-    QTreeWidgetItem *m_projectRoot;
     QTreeWidgetItem *m_documentRoot;
     QTreeWidget *m_list;
 };

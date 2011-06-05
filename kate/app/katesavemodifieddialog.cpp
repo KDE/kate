@@ -189,13 +189,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   m_list->setColumnCount(2);
   m_list->setHeaderLabels(QStringList() << i18n("Title") << i18n("Location"));
   m_list->setRootIsDecorated(true);
-  //m_list->setResizeMode(Q3ListView::LastColumn);
-  if (0)
-  {
-    m_projectRoot = new QTreeWidgetItem(m_list);
-    m_projectRoot->setText(0, i18n("Projects"));
-  }
-  else m_projectRoot = 0;
+
   if (documents.count() > 0)
   {
     m_documentRoot = new QTreeWidgetItem(m_list);

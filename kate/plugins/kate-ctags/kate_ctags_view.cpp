@@ -149,7 +149,7 @@ void KateCTagsView::readSessionConfig (KConfigBase* config, const QString& group
 
     m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 
-    kDebug() << config->groupList() << groupPrefix;
+    //kDebug() << config->groupList() << groupPrefix;
 
     m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 

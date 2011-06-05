@@ -134,11 +134,14 @@ void SwapFile::fileLoaded(const QString&)
   }
 
   // emit signal in case the document has more views
+  m_document->setReadWrite(false);
   emit swapFileFound();
 }
 
 void SwapFile::recover()
 {
+  m_document->setReadWrite(true);
+
   // if isOpen() returns true, the swap file likely changed already (appended data)
   // Example: The document was falsely marked as writable and the user changed
   // text even though the recover bar was visible. In this case, a replay of
@@ -399,6 +402,7 @@ bool SwapFile::shouldRecover() const
 
 void SwapFile::discard()
 {
+  m_document->setReadWrite(true);
   removeSwapFile();
   emit swapFileHandled();
 }

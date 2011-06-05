@@ -1614,9 +1614,11 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
     m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
   }
 
-  // read only mode
-  // todo: what does m_bReadOnly mean?
-  setReadWrite(kconfig.readEntry("ReadWrite", true));
+  if (!swapFile()->shouldRecover()) {
+    // restore "read only mode" property, but don't force ReadWrite if a swap file exists to recover data
+    // todo: what does m_bReadOnly mean?
+    setReadWrite(kconfig.readEntry("ReadWrite", true));
+  }
 
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );

@@ -29,7 +29,6 @@
 #include <kate/documentmanager.h>
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
-#include <kate/pluginconfigpageinterface.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -40,16 +39,10 @@
 #include <ktoolbar.h>
 
 #include <qpushbutton.h>
-//Added by qt3to4:
-#include <QBoxLayout>
 #include <QMap>
 #include <QList>
 
-class QBoxLayout;
-class QCheckBox;
-
 class KateTabBarExtension;
-class KateTabBarExtensionConfigPage;
 class KTinyTabBar;
 
 class PluginView : public Kate::PluginView
@@ -83,10 +76,10 @@ private:
     QMap<KTextEditor::Document*, int> doc2id;
 };
 
-class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KatePluginTabBarExtension : public Kate::Plugin
 {
   Q_OBJECT
-  Q_INTERFACES(Kate::PluginConfigPageInterface)
+
   public:
     explicit KatePluginTabBarExtension( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginTabBarExtension();
@@ -96,64 +89,12 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-    // Kate::PluginConfigPageInterface
-    uint configPages () const { return 0; } // if changed to 1, the config pages appears
-    Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
-    QString configPageName(uint) const { return i18n("Tab Bar Extension"); }
-    QString configPageFullName(uint) const { return i18n("Configure Tab Bar Extension"); }
-    KIcon configPageIcon(uint) const { return KIcon(); }
-
-  public slots:
-    void applyConfig( KateTabBarExtensionConfigPage* );
-
   protected slots:
     void tabbarSettingsChanged( KTinyTabBar* tabbar );
     void tabbarHighlightMarksChanged( KTinyTabBar* tabbar );
 
   private:
-    void initConfigPage( KateTabBarExtensionConfigPage* );
-
-  private:
     QList<PluginView*> m_views;
-    KConfig* pConfig;
-};
-
-
-/**
- * The tabbar's config page
- */
-class KateTabBarExtensionConfigPage : public Kate::PluginConfigPage
-{
-  Q_OBJECT
-
-  friend class KatePluginTabBarExtension;
-
-  public:
-    explicit KateTabBarExtensionConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
-    ~KateTabBarExtensionConfigPage ();
-
-    /**
-     * Reimplemented from Kate::PluginConfigPage
-     * just emits configPageApplyRequest( this ).
-     */
-    virtual void apply();
-
-    virtual void reset () { ; }
-    virtual void defaults () { ; }
-
-  signals:
-    /**
-     * Ask the plugin to set initial values
-     */
-    void configPageApplyRequest( KateTabBarExtensionConfigPage* );
-
-    /**
-     * Ask the plugin to apply changes
-     */
-    void configPageInitRequest( KateTabBarExtensionConfigPage* );
-
-  private:
-    QCheckBox* pSortAlpha;
 };
 
 #endif // PLUGIN_KATETABBAREXTENSION_H

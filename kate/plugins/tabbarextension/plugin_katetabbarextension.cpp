@@ -30,35 +30,19 @@
 #include <kate/documentmanager.h>
 #include <kate/application.h>
 
-#include <kaction.h>
 #include <klocale.h>
-#include <kstandarddirs.h>
-#include <kglobalsettings.h>
-#include <kglobal.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 
 #include <kdebug.h>
-#include <ktoolbar.h>
-#include <kconfig.h>
-#include <kiconloader.h>
-#include <kfiledialog.h>
 
-#include <QPushButton>
-
-#include <q3groupbox.h>
-#include <QCheckBox>
-#include <q3vbox.h>
-//Added by qt3to4:
-#include <QVBoxLayout>
 #include <QBoxLayout>
 //END
 
 
 K_PLUGIN_FACTORY(KateTabBarExtensionFactory, registerPlugin<KatePluginTabBarExtension>();)
 K_EXPORT_PLUGIN(KateTabBarExtensionFactory(KAboutData("katetabbarextension","katetabbarextension",ki18n("TabBarExtension"), "0.1", ki18n("TabBar extension"), KAboutData::License_LGPL_V2)) )
-
 
 
 //BEGIN PluginView
@@ -81,6 +65,7 @@ PluginView::PluginView( Kate::MainWindow* mainwindow )
            this, SLOT( currentTabChanged( int ) ) );
   connect( tabbar, SIGNAL( closeRequest( int ) ),
            this, SLOT( closeTabRequest( int ) ) );
+
   // add already existing documents
   foreach( KTextEditor::Document* doc, Kate::application()->documentManager()->documents() )
     slotDocumentCreated( doc );
@@ -233,17 +218,12 @@ void PluginView::slotModifiedOnDisc( KTextEditor::Document* document, bool modif
 //BEGIN KatePluginTabBarExtension
 KatePluginTabBarExtension::KatePluginTabBarExtension(
     QObject* parent, const QList<QVariant>& )
-  : Kate::Plugin ( (Kate::Application*)parent),
-    pConfig(new KConfig("katetabbarextensionpluginrc"))
+  : Kate::Plugin ( (Kate::Application*)parent)
 {
-  // ### seems pConfig is never used!
-//   pConfig->setGroup("global");
 }
 
 KatePluginTabBarExtension::~KatePluginTabBarExtension()
 {
-//  pConfig->sync();
-//  delete pConfig;
 }
 
 Kate::PluginView *KatePluginTabBarExtension::createView (Kate::MainWindow *mainWindow)
@@ -306,58 +286,7 @@ void KatePluginTabBarExtension::tabbarSettingsChanged( KTinyTabBar* tabbar )
     }
   }
 }
-
-Kate::PluginConfigPage* KatePluginTabBarExtension::configPage(
-    uint, QWidget *w, const char* /*name*/)
-{
-  KateTabBarExtensionConfigPage* p = new KateTabBarExtensionConfigPage(this, w);
-  initConfigPage( p );
-  connect( p, SIGNAL(configPageApplyRequest(KateTabBarExtensionConfigPage*)),
-      SLOT(applyConfig(KateTabBarExtensionConfigPage*)) );
-  return (Kate::PluginConfigPage*)p;
-}
-
-void KatePluginTabBarExtension::initConfigPage( KateTabBarExtensionConfigPage* p )
-{
-  p->pSortAlpha->setChecked( true );
-}
-
-void KatePluginTabBarExtension::applyConfig( KateTabBarExtensionConfigPage* p )
-{
-//  m_tabbar->setSortByName(p->pSortAlpha->isChecked());
-  // sync m_config in destructor
-}
 //END KatePluginTabBarExtension
-
-
-//BEGIN KateTabBarExtensionConfigPage
-KateTabBarExtensionConfigPage::KateTabBarExtensionConfigPage(
-    QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
-  : Kate::PluginConfigPage( parentWidget )
-{
-    QVBoxLayout* top = new QVBoxLayout(this);
-    top->setMargin(0);
-    top->setSpacing(KDialog::spacingHint());
-
-  Q3GroupBox* gb = new Q3GroupBox( i18n("Sorting Behavior"),
-      this, "tab_bar_extension_config_page_layout" );
-  gb->setColumnLayout(1, Qt::Vertical);
-  gb->setInsideSpacing(KDialog::spacingHint());
-  pSortAlpha = new QCheckBox(i18n("Sort files alphabetically"), gb);
-
-  top->addWidget(gb);
-  top->addStretch(1);
-//  throw signal changed
-  connect(pSortAlpha, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
-}
-
-KateTabBarExtensionConfigPage::~KateTabBarExtensionConfigPage() {}
-
-void KateTabBarExtensionConfigPage::apply()
-{
-    emit configPageApplyRequest( this );
-}
-//END KateTabBarExtensionConfigPage
 
 #include "plugin_katetabbarextension.moc"
 

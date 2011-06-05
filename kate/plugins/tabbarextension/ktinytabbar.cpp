@@ -124,7 +124,7 @@ KTinyTabBar::KTinyTabBar( QWidget *parent )
 
     m_tabHeight = 22;
 
-    m_locationTop = false;
+    m_locationTop = true;
     m_numRows = 1;
     m_currentRow = 0;
     m_followCurrentTab = true;

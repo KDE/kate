@@ -15,7 +15,7 @@ kde4_add_ui_files(katetabbarextensionplugin_PART_SRCS ${katetabbarextensionplugi
 
 kde4_add_plugin(katetabbarextensionplugin ${katetabbarextensionplugin_PART_SRCS})
 
-target_link_libraries(katetabbarextensionplugin  ${KDE4_KDEUI_LIBS} ${QT_QT3SUPPORT_LIBRARY} ${KDE4_KPARTS_LIBS} kateinterfaces )
+target_link_libraries(katetabbarextensionplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} kateinterfaces )
 
 install(TARGETS katetabbarextensionplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

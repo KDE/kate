@@ -133,6 +133,7 @@ function moveLinesDown()
     if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
         toLine = selectionRange.start.line;
         fromLine = selectionRange.end.line + 1;
+        if (selectionRange.end.column == 0) fromLine--;
     } else if (view.cursorPosition().line < document.lines() - 1) {
         toLine = view.cursorPosition().line;
         fromLine = toLine + 1;
@@ -153,14 +154,15 @@ function moveLinesUp()
     var toLine = -1;
 
     var selectionRange = view.selection();
+    var cursorPosition = view.cursorPosition();
     if (selectionRange.isValid() && selectionRange.start.line > 0) {
         fromLine = selectionRange.start.line - 1;
         toLine = selectionRange.end.line;
+        if (selectionRange.end.column == 0) toLine--;
     } else if (view.cursorPosition().line > 0) {
         toLine = view.cursorPosition().line;
         fromLine = toLine - 1;
     }
-
     if (fromLine != -1 && toLine != -1) {
         var text = document.line(fromLine);
 
@@ -168,6 +170,10 @@ function moveLinesUp()
         document.removeLine(fromLine);
         document.insertLine(toLine, text);
         document.editEnd();
+
+        view.setCursorPosition(new Cursor(cursorPosition.line-1, cursorPosition.column));
+        view.setSelection(new Range(selectionRange.start.line-1, selectionRange.start.column,
+                                    selectionRange.end.line-1, selectionRange.end.column));
     }
 }
 

@@ -289,6 +289,7 @@ namespace JoWenn {
 
   KateSnippetsPluginView::~KateSnippetsPluginView ()
   {
+    mainWindow()->guiFactory()->removeClient(this);
      delete m_snippetSelector->parentWidget();
   }
 

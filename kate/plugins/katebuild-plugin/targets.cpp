@@ -80,13 +80,13 @@ QWidget(parent)
 void TargetsUi::resizeEvent(QResizeEvent *)
 {
     // check if the widgets fit in a VBox layout
-    if (m_useBottomLayout && (size().height() > m_widgetsHeight))
+    if (m_useBottomLayout && (size().height() > m_widgetsHeight) && (size().width() < m_widgetsHeight * 2.5))
     {
         delete layout();
         setSideLayout();
         m_useBottomLayout = false;
     }
-    else if (!m_useBottomLayout && (size().height() < m_widgetsHeight))
+    else if (!m_useBottomLayout && ((size().height() < m_widgetsHeight) || (size().width() > m_widgetsHeight * 2.5)))
     {
         delete layout();
         setBottomLayout();

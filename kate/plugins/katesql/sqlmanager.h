@@ -40,7 +40,7 @@ class SQLManager : public QObject
 
     KWallet::Wallet * openWallet();
     int storeCredentials(const Connection &conn);
-    int readCredentials(Connection &conn);
+    int readCredentials(const QString &name, QString &password);
 
   public slots:
     void removeConnection(const QString &name);

@@ -31,8 +31,10 @@
 ConnectionModel::ConnectionModel(QObject *parent)
 : QAbstractListModel(parent)
 {
-  enabledIcon  = KIcon("user-online");
-  disabledIcon = KIcon("user-offline");
+  m_icons[Connection::UNKNOWN]          = KIcon("user-offline");
+  m_icons[Connection::ONLINE]           = KIcon("user-online");
+  m_icons[Connection::OFFLINE]          = KIcon("user-offline");
+  m_icons[Connection::REQUIRE_PASSWORD] = KIcon("user-invisible");
 }
 
 ConnectionModel::~ConnectionModel()
@@ -64,7 +66,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     break;
 
     case Qt::DecorationRole:
-      return (m_connections.value(key).enabled) ? enabledIcon : disabledIcon;
+      return m_icons[m_connections.value(key).status];
     break;
 
     case Qt::SizeHintRole:
@@ -118,13 +120,32 @@ int ConnectionModel::indexOf(const QString &name)
   return m_connections.keys().indexOf(name);
 }
 
+Connection::Status ConnectionModel::status(const QString &name) const
+{
+  if (!m_connections.contains(name))
+    return Connection::UNKNOWN;
 
-void ConnectionModel::setEnabled(const QString &name, bool enabled)
+  return m_connections[name].status;
+}
+
+void ConnectionModel::setStatus(const QString &name, const Connection::Status status)
 {
   if (!m_connections.contains(name))
     return;
 
-  m_connections[name].enabled = enabled;
+  m_connections[name].status = status;
+
+  const int i = indexOf(name);
+
+  emit dataChanged(index(i), index(i));
+}
+
+void ConnectionModel::setPassword(const QString &name, const QString &password)
+{
+  if (!m_connections.contains(name))
+    return;
+
+  m_connections[name].password = password;
 
   const int i = indexOf(name);
 

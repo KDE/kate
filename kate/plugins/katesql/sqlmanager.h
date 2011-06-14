@@ -37,6 +37,7 @@ class SQLManager : public QObject
     ConnectionModel *connectionModel();
     void createConnection(const Connection &conn);
     bool testConnection(const Connection &conn, QSqlError &error);
+    bool isValidAndOpen(const QString &connection);
 
     KWallet::Wallet * openWallet();
     int storeCredentials(const Connection &conn);

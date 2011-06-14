@@ -130,6 +130,48 @@ bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
   return true;
 }
 
+bool SQLManager::isValidAndOpen(const QString &connection)
+{
+  QSqlDatabase db = QSqlDatabase::database(connection);
+
+  if (!db.isValid())
+  {
+    m_model->setStatus(connection, Connection::OFFLINE);
+    emit error(db.lastError().text());
+    return false;
+  }
+
+  if (!db.isOpen())
+  {
+    kDebug() << "database connection is not open. trying to open it...";
+
+    if (m_model->status(connection) == Connection::REQUIRE_PASSWORD)
+    {
+      QString password;
+      int ret = readCredentials(connection, password);
+
+      if (ret != 0)
+        kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
+      else
+      {
+        db.setPassword(password);
+        m_model->setPassword(connection, password);
+      }
+    }
+
+    if (!db.open())
+    {
+      m_model->setStatus(connection, Connection::OFFLINE);
+      emit error(db.lastError().text());
+      return false;
+    }
+  }
+
+  m_model->setStatus(connection, Connection::ONLINE);
+
+  return true;
+}
+
 
 Wallet *SQLManager::openWallet()
 {
@@ -280,43 +322,10 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
   if (text.isEmpty())
     return;
 
-  QSqlDatabase db = QSqlDatabase::database(connection);
-
-  if (!db.isValid())
-  {
-    m_model->setStatus(connection, Connection::OFFLINE);
-    emit error(db.lastError().text());
+  if (!isValidAndOpen(connection))
     return;
-  }
 
-  if (!db.isOpen())
-  {
-    kDebug() << "database connection is not open. trying to open it...";
-
-    if (m_model->status(connection) == Connection::REQUIRE_PASSWORD)
-    {
-      QString password;
-      int ret = readCredentials(connection, password);
-
-      if (ret != 0)
-        kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
-      else
-      {
-        db.setPassword(password);
-        m_model->setPassword(connection, password);
-      }
-    }
-
-    if (!db.open())
-    {
-      m_model->setStatus(connection, Connection::OFFLINE);
-      emit error(db.lastError().text());
-      return;
-    }
-  }
-
-  m_model->setStatus(connection, Connection::ONLINE);
-
+  QSqlDatabase db = QSqlDatabase::database(connection);
   QSqlQuery query(db);
 
   if (!query.prepare(text))

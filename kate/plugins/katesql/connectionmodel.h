@@ -41,10 +41,7 @@ class ConnectionModel : public QAbstractListModel
     virtual int addConnection(Connection conn);
     virtual void removeConnection(const QString &name);
 
-    Connection::Status status(const QString &name) const;
-    void setStatus(const QString &name, const Connection::Status status);
-
-    void setPassword(const QString &name, const QString &password);
+    void setEnabled(const QString &name, bool enabled);
 
     int indexOf(const QString &name);
 
@@ -53,7 +50,9 @@ class ConnectionModel : public QAbstractListModel
 
   private:
     QHash<QString, Connection> m_connections;
-    QHash<Connection::Status, KIcon> m_icons;
+
+    KIcon enabledIcon;
+    KIcon disabledIcon;
 };
 
 #endif // CONNECTIONMODEL_H

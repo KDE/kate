@@ -81,17 +81,17 @@ void SQLManager::createConnection(const Connection &conn)
 
   m_model->addConnection(conn);
 
-  // try to open connection, with or without password
-  if (db.open())
-    m_model->setStatus(conn.name, Connection::ONLINE);
-  else
+  if (!db.open())
   {
-    if (conn.status != Connection::REQUIRE_PASSWORD)
-    {
-      m_model->setStatus(conn.name, Connection::OFFLINE);
-      emit error(db.lastError().text());
-    }
+    emit error(db.lastError().text());
+
+    m_model->setEnabled(conn.name, false);
+//     conn.enabled = false;
+//    QSqlDatabase::removeDatabase(conn.name);
+//    return;
   }
+  else
+    m_model->setEnabled(conn.name, true);
 
   emit connectionCreated(conn.name);
 }
@@ -127,48 +127,6 @@ bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
   }
 
   QSqlDatabase::removeDatabase(connectionName);
-  return true;
-}
-
-bool SQLManager::isValidAndOpen(const QString &connection)
-{
-  QSqlDatabase db = QSqlDatabase::database(connection);
-
-  if (!db.isValid())
-  {
-    m_model->setStatus(connection, Connection::OFFLINE);
-    emit error(db.lastError().text());
-    return false;
-  }
-
-  if (!db.isOpen())
-  {
-    kDebug() << "database connection is not open. trying to open it...";
-
-    if (m_model->status(connection) == Connection::REQUIRE_PASSWORD)
-    {
-      QString password;
-      int ret = readCredentials(connection, password);
-
-      if (ret != 0)
-        kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
-      else
-      {
-        db.setPassword(password);
-        m_model->setPassword(connection, password);
-      }
-    }
-
-    if (!db.open())
-    {
-      m_model->setStatus(connection, Connection::OFFLINE);
-      emit error(db.lastError().text());
-      return false;
-    }
-  }
-
-  m_model->setStatus(connection, Connection::ONLINE);
-
   return true;
 }
 
@@ -215,8 +173,8 @@ int SQLManager::storeCredentials(const Connection &conn)
 
 
 // return 0 on success, -1 on error or not found, -2 on user reject
-// if success, password contain the password
-int SQLManager::readCredentials(const QString &name, QString &password)
+// if success, conn.password contain the password
+int SQLManager::readCredentials(Connection &conn)
 {
   Wallet *wallet = openWallet();
 
@@ -225,11 +183,11 @@ int SQLManager::readCredentials(const QString &name, QString &password)
 
   QMap<QString, QString> map;
 
-  if (wallet->readMap(name, map) == 0)
+  if (wallet->readMap(conn.name, map) == 0)
   {
     if (!map.isEmpty())
     {
-      password = map.value("password");
+      conn.password = map.value("password");
       return 0;
     }
   }
@@ -258,6 +216,9 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 {
   Connection c;
 
+  Wallet *wallet = 0;
+  bool walletErrorOrUserReject = false;
+
   foreach ( const QString& groupName, connectionsGroup->groupList() )
   {
     kDebug() << "reading group:" << groupName;
@@ -280,9 +241,22 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
       c.password = group.readEntry("password");
 
       if (!c.password.isEmpty())
-        c.status = Connection::ONLINE;
-      else
-        c.status = Connection::REQUIRE_PASSWORD;
+        continue;
+
+      if (!walletErrorOrUserReject)
+      {
+        wallet = openWallet();
+
+        if (!wallet)
+          walletErrorOrUserReject = true;
+        else
+        {
+          int ret = readCredentials(c);
+
+          if (ret != 0)
+            kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
+        }
+      }
     }
     createConnection(c);
   }
@@ -322,10 +296,29 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
   if (text.isEmpty())
     return;
 
-  if (!isValidAndOpen(connection))
-    return;
-
   QSqlDatabase db = QSqlDatabase::database(connection);
+
+  if (!db.isValid())
+  {
+    m_model->setEnabled(connection, false);
+    emit error(db.lastError().text());
+    return;
+  }
+
+  if (!db.isOpen())
+  {
+    kDebug() << "database connection is not open. trying to open it...";
+
+    if (!db.open())
+    {
+      m_model->setEnabled(connection, false);
+      emit error(db.lastError().text());
+      return;
+    }
+  }
+
+  m_model->setEnabled(connection, true);
+
   QSqlQuery query(db);
 
   if (!query.prepare(text))

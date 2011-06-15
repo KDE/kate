@@ -21,11 +21,12 @@
 
 #include <qtreeview.h>
 
-SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
+SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent)
 : KVBox(parent)
-, m_schemaWidget(new SchemaWidget(this, manager))
 {
+  m_schemaWidget = new SchemaWidget(this);
 }
+
 
 SchemaBrowserWidget::~SchemaBrowserWidget()
 {

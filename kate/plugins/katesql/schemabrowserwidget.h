@@ -19,7 +19,6 @@
 #ifndef SCHEMABROWSERWIDGET_H
 #define SCHEMABROWSERWIDGET_H
 
-class SQLManager;
 class SchemaWidget;
 
 #include <kvbox.h>
@@ -29,7 +28,7 @@ class SchemaBrowserWidget : public KVBox
   Q_OBJECT
 
   public:
-    SchemaBrowserWidget(QWidget *parent, SQLManager *manager);
+    SchemaBrowserWidget(QWidget *parent);
     ~SchemaBrowserWidget();
 
     SchemaWidget *schemaWidget() const;

@@ -17,6 +17,7 @@
 */
 
 #include "schemawidget.h"
+#include "sqlmanager.h"
 
 #include <kate/application.h>
 #include <kate/mainwindow.h>
@@ -35,8 +36,9 @@
 #include <qsqlfield.h>
 #include <qmenu.h>
 
-SchemaWidget::SchemaWidget(QWidget *parent)
+SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
 : QTreeWidget(parent)
+, m_manager(manager)
 {
   m_tablesLoaded = false;
   m_viewsLoaded = false;
@@ -59,6 +61,12 @@ SchemaWidget::~SchemaWidget()
 }
 
 
+bool SchemaWidget::isConnectionValidAndOpen()
+{
+  return m_manager->isValidAndOpen(m_connectionName);
+}
+
+
 void SchemaWidget::deleteChildren(QTreeWidgetItem *item)
 {
   QList<QTreeWidgetItem *> items = item->takeChildren();
@@ -77,27 +85,23 @@ void SchemaWidget::buildTree(const QString &connection)
   m_tablesLoaded = false;
   m_viewsLoaded = false;
 
-  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-
-  if (!db.isValid())
-    return;
-
-  buildDatabase(new QTreeWidgetItem(this));
+  if (!m_connectionName.isEmpty())
+    buildDatabase(new QTreeWidgetItem(this));
 }
 
 
 void SchemaWidget::refresh()
 {
-  if (!m_connectionName.isEmpty())
-    buildTree(m_connectionName);
+  buildTree(m_connectionName);
 }
 
 
 void SchemaWidget::buildDatabase(QTreeWidgetItem * databaseItem)
 {
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+  QString dbname = (db.isValid() ? db.databaseName() : m_connectionName);
 
-  databaseItem->setText(0, db.connectionName());
+  databaseItem->setText(0, dbname);
   databaseItem->setIcon(0, KIcon("server-database"));
 
   QTreeWidgetItem *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
@@ -122,16 +126,15 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem * databaseItem)
 
 void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 {
-  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-
   QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
   systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
   systemTablesItem->setIcon(0, KIcon("folder"));
   systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-  if (!db.isValid() || !db.isOpen() )
+  if (!isConnectionValidAndOpen())
     return;
 
+  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
   QStringList tables = db.tables(QSql::SystemTables);
 
   foreach(const QString& table, tables)
@@ -158,10 +161,10 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 
 void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
 {
-  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-
-  if (!db.isValid() || !db.isOpen() )
+  if (!isConnectionValidAndOpen())
     return;
+
+  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
   const QStringList views = db.tables(QSql::Views);
 
@@ -179,10 +182,10 @@ void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
 
 void SchemaWidget::buildFields(QTreeWidgetItem * tableItem)
 {
-  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-
-  if (!db.isValid() || !db.isOpen() )
+  if (!isConnectionValidAndOpen())
     return;
+
+  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
   QString tableName = tableItem->text(0);
 
@@ -315,10 +318,10 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 
 void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 {
-  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-
-  if (!db.isValid() || !db.isOpen() )
+  if (!isConnectionValidAndOpen())
     return;
+
+  QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
   QSqlDriver *drv = db.driver();
 

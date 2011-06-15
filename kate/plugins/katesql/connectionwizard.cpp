@@ -314,14 +314,7 @@ bool ConnectionSavePage::validatePage()
     c->options  = field("stdOptions").toString();
     c->port     = field("port").toInt();
   }
-/*
-  ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
 
-  wiz->manager()->createConnection(c);
-
-  if (wiz->manager()->storeCredentials(c) != 0)
-    kWarning() << "Connection credentials not saved";
-*/
   return true;
 }
 

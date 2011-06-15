@@ -32,11 +32,11 @@
 
 K_PLUGIN_FACTORY_DEFINITION(KateSQLFactory, registerPlugin<KateSQLPlugin>();)
 K_EXPORT_PLUGIN(KateSQLFactory(KAboutData("katesql", "katesqlplugin",
-                                          ki18n("KateSQLPlugin"), "0.2", ki18n("SQL Plugin"), KAboutData::License_LGPL_V2)))
+                                          ki18n("SQL Plugin"), "0.3", ki18n("Execute query on SQL databases"), KAboutData::License_LGPL_V2)))
 
 //BEGIN KateSQLPLugin
 KateSQLPlugin::KateSQLPlugin(QObject *parent, const QList<QVariant>&)
-: Kate::Plugin ((Kate::Application*)parent)
+: Kate::Plugin ((Kate::Application*)parent, "katesql")
 {
 }
 

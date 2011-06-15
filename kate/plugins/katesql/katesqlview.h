@@ -33,7 +33,7 @@ class QActionGroup;
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 
-class KateSQLView : public Kate::PluginView, public KXMLGUIClient
+class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
 

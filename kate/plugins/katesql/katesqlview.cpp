@@ -17,6 +17,7 @@
 */
 
 #include "katesqlview.h"
+#include "katesqlplugin.h"
 #include "sqlmanager.h"
 #include "connectionmodel.h"
 #include "textoutputwidget.h"
@@ -36,7 +37,6 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kdebug.h>
-#include <kcomponentdata.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -51,7 +51,7 @@
 
 KateSQLView::KateSQLView(Kate::MainWindow *mw)
 : Kate::PluginView (mw)
-, KXMLGUIClient()
+, Kate::XMLGUIClient(KateSQLFactory::componentData())
 , m_manager (new SQLManager(this))
 {
   m_textOutputToolView    = mw->createToolView("kate_private_plugin_katesql_textoutput",
@@ -82,12 +82,8 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
   m_connectionsComboBox->setModel(m_manager->connectionModel());
 //   m_connectionsComboBox->setItemDelegate( new ConnectionDelegate(this) );
 
-//   setComponentData( KateSQLFactory::componentData() );
-  setComponentData( KComponentData("kate") );
-
   setupActions();
 
-  setXMLFile(QString::fromLatin1("plugins/katesql/ui.rc"));
   mainWindow()->guiFactory()->addClient(this);
 
   QMenu *sqlMenu = (QMenu*)factory()->container("SQL", this);

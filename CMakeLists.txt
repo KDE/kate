@@ -26,7 +26,9 @@ add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES})
 
 # some stuff to have it compile for KDE 4.4
-set (KDE_4_4_LIBS_NEEDED ${KDE4_KUTILS_LIBS})
+if (not KDE_NO_DEPRECATED)
+  set (KDE_4_4_LIBS_NEEDED ${KDE4_KUTILS_LIBS})
+endif()
 
 if (BUILD_KTEXTEDITOR)
   # use our own copies of some stuff

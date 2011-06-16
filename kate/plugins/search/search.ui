@@ -136,13 +136,10 @@
        </property>
        <item>
         <widget class="KTabWidget" name="resultTabWidget">
-         <property name="tabReorderingEnabled">
+         <property name="movable">
           <bool>true</bool>
          </property>
-         <property name="closeButtonEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="tabCloseActivatePrevious">
+         <property name="tabsClosable">
           <bool>true</bool>
          </property>
          <property name="automaticResizeTabs">

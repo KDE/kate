@@ -25,6 +25,7 @@
 #include <kate/mainwindow.h>
 
 #include <kxmlguiclient.h>
+#include <QVariantList>
 
 
 namespace KParts
@@ -36,7 +37,7 @@ class KateExternalToolsPlugin: public Kate::Plugin
     Q_OBJECT
 
   public:
-    explicit KateExternalToolsPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateExternalToolsPlugin( QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~KateExternalToolsPlugin()
     {}
 

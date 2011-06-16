@@ -27,7 +27,7 @@
 #include <kjs/interpreter.h>
 #include <kjs/value.h>
 #include <kjs/object.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kdebug.h>
 #include <qlayout.h>
 #include <kstandarddirs.h>
@@ -37,7 +37,8 @@
 #include <qvbox.h>
 //END includes
 
-K_EXPORT_COMPONENT_FACTORY( katekjswrapperplugin, KGenericFactory<PluginKateKJSWrapper>( "katekjswrapper" ) )
+K_PLUGIN_FACTORY(PluginKateKJSWrapperFactory, registerPlugin<PluginKateKJSWrapper>();)
+K_EXPORT_PLUGIN(PluginKateKJSWrapperFactory("katekjswrapper"))
 
 PluginKateKJSWrapperView::~PluginKateKJSWrapperView() {
 }
@@ -53,7 +54,7 @@ void PluginKateKJSWrapperView::removeFromWindow() {
       win->guiFactory()->removeClient (this);
     }
 
-PluginKateKJSWrapper::PluginKateKJSWrapper( QObject* parent, const char* name, const QStringList& list)
+PluginKateKJSWrapper::PluginKateKJSWrapper( QObject* parent, const char* name, const QVariantList& list)
     : Kate::Plugin ( (Kate::Application *)parent, name ) {
     m_views.setAutoDelete(true);
     m_scriptname=list[0];

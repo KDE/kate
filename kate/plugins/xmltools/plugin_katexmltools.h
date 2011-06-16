@@ -40,6 +40,7 @@
 
 #include <kcombobox.h>
 #include <kdialog.h>
+#include <QVariantList>
 
 
 class PluginKateXMLTools : public Kate::Plugin
@@ -47,7 +48,7 @@ class PluginKateXMLTools : public Kate::Plugin
   Q_OBJECT
 
   public:
-    explicit PluginKateXMLTools( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit PluginKateXMLTools( QObject* parent = 0, const QVariantList& = QVariantList() );
     ~PluginKateXMLTools();
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };

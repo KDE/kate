@@ -41,6 +41,7 @@
 #include <qptrdict.h>
 #include <kxmlguiclient.h>
 #include <qguardedptr.h>
+#include <QVariantList>
 
 namespace Kate {
   class PluginConfigPage;
@@ -72,7 +73,7 @@ class PluginKateKJSWrapper : public Kate::Plugin,
   Q_OBJECT
 
   public:
-    explicit PluginKateKJSWrapper( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
+    explicit PluginKateKJSWrapper( QObject* parent = 0, const char* name = 0, const QVariantList& = QVariantList() );
     virtual ~PluginKateKJSWrapper();
 
     void addView (Kate::MainWindow *win);

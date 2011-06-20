@@ -30,7 +30,7 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
 kde4_add_library(kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 
 # some stuff to have it compile for KDE 4.4
-if (not KDE_NO_DEPRECATED)
+if (NOT KDE_NO_DEPRECATED)
    set (KDE_4_4_LIBS_NEEDED ${KDE4_KUTILS_LIBS})
 endif()
 

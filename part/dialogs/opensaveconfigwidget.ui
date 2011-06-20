@@ -62,7 +62,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="lblEncodingDetection">
           <property name="text">
-           <string>&amp;Fallback Encoding</string>
+           <string>&amp;Fallback Encoding:</string>
           </property>
           <property name="buddy">
            <cstring>cmbEncodingFallback</cstring>

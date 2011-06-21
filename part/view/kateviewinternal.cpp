@@ -25,6 +25,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include<stdio.h>
+
 
 #include "kateviewinternal.h"
 #include "kateviewinternal.moc"
@@ -1264,6 +1266,7 @@ KateTextLayout KateViewInternal::nextLayout() const
  *
  * The cursors involved are virtual cursors (ie. equivalent to m_displayCursor)
  */
+
 KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& virtualCursor, int offset, bool keepX)
 {
   if (!m_view->dynWordWrap()) {

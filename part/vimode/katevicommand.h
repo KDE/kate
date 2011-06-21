@@ -31,7 +31,7 @@ enum KateViCommandFlags {
     REGEX_PATTERN = 0x1,    // the pattern is a regex
     NEEDS_MOTION = 0x2,     // the command needs a motion before it can be executed
     SHOULD_NOT_RESET = 0x4, // the command should not cause the current mode to be left
-    IS_CHANGE = 0x8         // the command changes the buffer
+    IS_CHANGE = 0x8,        // the command changes the buffer
 };
 
 class KATEPART_TESTS_EXPORT KateViCommand {

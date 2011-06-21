@@ -168,11 +168,16 @@ void ViModeTest::NormalModeFallingTests()
   DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
   DoTest("1 2\n2 1", "lld#", "1 \n2 1");
 
+  DoTest("12345678", "lv3lyx", "1345678");
+
   */
 }
 
 void ViModeTest::NormalModeMotionsTest()
 {
+
+
+
   // Test moving around an empty document (nothing should happen)
   DoTest("", "jkhl", "");
   DoTest("", "ggG$0", "");
@@ -319,6 +324,17 @@ void ViModeTest::NormalModeCommandsTest()
   // Testing "gUU"
   DoTest("foo", "gUU", "FOO");
 
+  // Testing "Ctrl-o" and "Ctrl-i"
+  DoTest("abc\ndef\nghi","Gx\\ctrl-ox","bc\ndef\nhi");
+  DoTest("{\n}","%\\ctrl-ox","\n}");
+  DoTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`b\\ctrl-ox",
+                   "Fo foo.\nBar bar.\nBaz baz.");
+  DoTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
+                   "Foo foo.\nBa bar.\nBaz baz.");
+
+
 }
 
 
@@ -339,17 +355,12 @@ void ViModeTest::NormalModeControlTests() {
 
 void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
   /*
-  // Testing "Ctrl-O"
-    DoTest("{\n}","%\\ctrl-ox","\n}");
+  // Testing "))"
     DoTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
     DoTest("Foo foo.\nBar bar.\nBaz baz.",
                    ")))\\ctrl-ox\\ctrl-ox",
                    "Foo foo.\nar bar.\nBaz baz.");
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "lmajlmb`a`b\\ctrl-ox",
-                   "Fo foo.\nBar bar.\nBaz baz.");
 
-  // Testing "Ctrl-I"
     DoTest("Foo foo.\nBar bar.\nBaz baz.",
                    "))\\ctrl-ox\\ctrl-ix",
                    "Foo foo.\nBar bar.\naz baz.");
@@ -358,9 +369,6 @@ void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
                    "))\\ctrl-ox\\ctrl-ix",
                    "Foo foo.\nBar bar.\naz baz.");
 
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
-                   "Foo foo.\nBa bar.\nBaz baz.");
 
   // Testing percentage "<N>%"
     DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",

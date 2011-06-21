@@ -18,6 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include <stdio.h>
+
 #include "kateviglobal.h"
 #include "katevikeyparser.h"
 
@@ -31,12 +33,15 @@ KateViGlobal::KateViGlobal()
 {
   m_numberedRegisters = new QList<KateViRegister>;
   m_registers = new QMap<QChar, KateViRegister>;
+  jump_list = new QList<KateViJump>;
+  current_jump = jump_list->begin();
 }
 
 KateViGlobal::~KateViGlobal()
 {
   delete m_numberedRegisters;
   delete m_registers;
+  delete jump_list;
   qDeleteAll( m_marks );
 }
 
@@ -224,3 +229,50 @@ KTextEditor::Cursor KateViGlobal::getMarkPosition( const QChar& mark ) const
     return KTextEditor::Cursor::invalid();
   }
 }
+
+
+ void KateViGlobal::addJump(KTextEditor::Cursor cursor) {
+    for (QList<KateViJump>::iterator iterator = jump_list->begin();
+         iterator != jump_list->end();
+         iterator ++){
+        if ((*iterator).first == cursor.line()){
+            if (iterator == current_jump)
+                current_jump = jump_list->erase(iterator);
+            else
+                jump_list->erase(iterator);
+            break;
+        }
+    }
+    current_jump = jump_list->insert(current_jump++,
+                                    KateViJump(cursor.line(),cursor.column()));
+}
+
+KTextEditor::Cursor KateViGlobal::getNextJump(KTextEditor::Cursor cursor) {
+
+    if (current_jump != jump_list->end()) {
+        KateViJump jump;
+        if (current_jump + 1 != jump_list->end())
+            jump = *(current_jump++);
+        else
+            jump = *(current_jump);
+
+        cursor = KTextEditor::Cursor(jump.first, jump.second);
+    } else {
+        qDebug() << "Jump list is empty";
+    }
+    return cursor;
+}
+
+KTextEditor::Cursor KateViGlobal::getPrevJump(KTextEditor::Cursor cursor) {
+    if (current_jump != jump_list->begin()) {
+        KateViJump jump;
+        if (current_jump - 1 != jump_list->begin())
+            jump = *(current_jump--);
+        else
+            jump = *(current_jump);
+
+        cursor = KTextEditor::Cursor(jump.first, jump.second);
+    }
+    return cursor;
+}
+

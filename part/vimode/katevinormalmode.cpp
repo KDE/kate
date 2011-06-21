@@ -369,7 +369,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
  */
 void KateViNormalMode::resetParser()
 {
-  kDebug( 13070 ) << "***RESET***";
+//  kDebug( 13070 ) << "***RESET***";
   m_keys.clear();
   m_keysVerbatim.clear();
   m_count = 0;
@@ -439,7 +439,8 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {
-    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
+    KateGlobal::self()->viInputModeGlobal()->addJump(m_view->cursorPosition());
+  //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1423,6 +1424,20 @@ bool KateViNormalMode::commandAppendToBlock()
   return startInsertMode();
 }
 
+bool KateViNormalMode::commandGoToNextJump(){
+    Cursor c = getNextJump(m_view->cursorPosition());
+    updateCursor(c);
+
+    return true;
+}
+
+bool KateViNormalMode::commandGoToPrevJump(){
+    Cursor c = getPrevJump(m_view->cursorPosition());
+    updateCursor(c);
+
+    return true;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
@@ -1432,7 +1447,6 @@ KateViRange KateViNormalMode::motionDown()
 {
   return goLineDown();
 }
-
 
 KateViRange KateViNormalMode::motionUp()
 {
@@ -2457,6 +2471,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("~", commandChangeCase, IS_CHANGE );
   ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
+  ADDCMD("<c-i>", commandGoToPrevJump, 0);
+  ADDCMD("<c-o>", commandGoToNextJump, 0);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

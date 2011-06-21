@@ -134,6 +134,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandPrependToBlock();
     bool commandAppendToBlock();
 
+    bool commandGoToNextJump();
+    bool commandGoToPrevJump();
+
     // MOTIONS
 
     KateViRange motionLeft();

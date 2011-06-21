@@ -93,6 +93,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);
 
+
     unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }
     void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }
 
@@ -114,6 +115,10 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
 
     QChar m_register;
+
+    void addJump(KTextEditor::Cursor cursor);
+    KTextEditor::Cursor getNextJump(KTextEditor::Cursor);
+    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor);
 
     KateViRange m_commandRange;
     unsigned int m_count;

@@ -202,6 +202,8 @@ bool KateCodeFoldingTree::isTopLevel(unsigned int line)
   return true;  // the root node is the only node containing the given line, return toplevel=true
 }
 
+
+
 void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
 {
   // Initialze the returned structure, this will also be returned if the root node has no child nodes
@@ -1726,5 +1728,28 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 //     removeParentReferencesFromChilds(n);
 //   }
 // }
+
+void KateCodeFoldingTree::printTree()
+{
+  kDebug()<<"\n\n\n<----------->New TREE_PRINT(new TEST!!!!!!!)<----------->\n";
+  m_root.printNode(0);
+  kDebug()<<"\n<----------->END OF TREE_PRINT<----------->\n\n\n";
+}
+
+void KateCodeFoldingNode::printNode(int level)
+{
+  kDebug()<<QString("Now node level : %1; startLineRel : %2 ; endLineRel : %3 ; startCol : %4 ; endCol : %5 ; ").arg(level).
+              arg(startLineRel).arg(endLineRel).arg(startCol).arg(endCol);
+  kDebug()<<QString("***startLineValid : %1; endLineValid : %2 ; **TYPE** : %3 ; visible : %4 ;").arg(startLineValid).
+              arg(endLineValid).arg(type).arg(visible);
+  kDebug()<<QString("***deleteOpening : %1 ; deleteEnding : %2 ; allowDestruction: %3").arg(deleteOpening).
+              arg(deleteEnding).arg(allowDestruction);
+
+  int index;
+  for (index = 0 ; index < m_children.size() ; index++) {
+    KateCodeFoldingNode* tempNode = m_children[index];
+    tempNode->printNode(level + 1);
+  }
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

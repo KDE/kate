@@ -562,6 +562,8 @@ bool KateDocument::clear()
 
 bool KateDocument::insertText( const KTextEditor::Cursor& position, const QString& text, bool block )
 {
+  m_buffer->foldingTree()->printTree();
+
   if (!isReadWrite())
     return false;
 

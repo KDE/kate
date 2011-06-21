@@ -45,12 +45,12 @@ class KateHiddenLineBlock
 class KateLineInfo
 {
   public:
-    bool topLevel;
-    bool startsVisibleBlock;
-    bool startsInVisibleBlock;
-    bool endsBlock;
-    bool invalidBlockEnd;
-    int depth;
+  bool topLevel;
+  bool startsVisibleBlock;
+  bool startsInVisibleBlock;
+  bool endsBlock;
+  bool invalidBlockEnd;
+  int depth;
 };
 
 class KateCodeFoldingNode
@@ -63,14 +63,14 @@ class KateCodeFoldingNode
 
     ~KateCodeFoldingNode ();
 
-    inline int nodeType () { return type;}
+    inline int nodeType () { return type;}        // encoding of type is not so clear
 
     inline bool isVisible () {return visible;}
 
     inline KateCodeFoldingNode *getParentNode () {return parentNode;}
 
-    bool getBegin (KateCodeFoldingTree *tree, KTextEditor::Cursor* begin);
-    bool getEnd (KateCodeFoldingTree *tree, KTextEditor::Cursor *end);
+    bool getBegin (KateCodeFoldingTree *tree, KTextEditor::Cursor* begin);  // ??
+    bool getEnd (KateCodeFoldingTree *tree, KTextEditor::Cursor *end);      // ??
 
   /**
    * accessors for the child nodes
@@ -102,26 +102,28 @@ class KateCodeFoldingNode
     int cmpPos(KateCodeFoldingTree *tree, uint line, uint col);
 
     void setAllowDestruction(bool allowDestruction) { this->allowDestruction = allowDestruction; }
+
+    void printNode (int level);
     
   /**
    * data members
    */
   private:
-    KateCodeFoldingNode                *parentNode;
-    unsigned int startLineRel;
-    unsigned int endLineRel;
+    KateCodeFoldingNode *parentNode;  // parent
+    unsigned int        startLineRel; // start line (more like absolute, and not relative) - line for "{"
+    unsigned int        endLineRel;   // end line (relative to "start line") - line for "}"
 
-    unsigned int startCol;
-    unsigned int endCol;
+    unsigned int startCol;            // start column - column for {
+    unsigned int endCol;              // end column - column for }
 
-    bool startLineValid;
-    bool endLineValid;
+    bool startLineValid;              // if "{" exists (not used by other classes)
+    bool endLineValid;                // if "}" exists (not used by other classes)
 
-    signed char type;                // 0 -> toplevel / invalid
-    bool visible;
-    bool deleteOpening;
-    bool deleteEnding;
-    bool allowDestruction;
+    signed char type;                 // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}"
+    bool visible;                     // folded / not folded
+    bool deleteOpening;               // smth from the prev alg. will not be used
+    bool deleteEnding;                // smth from the prev alg. will not be used
+    bool allowDestruction;            // smth from the prev alg. will not be used
     
     QVector<KateCodeFoldingNode*> m_children;
 };
@@ -142,19 +144,22 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     unsigned int getRealLine         (unsigned int virtualLine);
     unsigned int getVirtualLine      (unsigned int realLine);
-    unsigned int getHiddenLinesCount (unsigned int docLine);
+    unsigned int getHiddenLinesCount (unsigned int docLine);  // get the number of hidden lines
 
-    bool isTopLevel (unsigned int line);
+    void printTree ();                                        // my debug method
 
-    void lineHasBeenInserted (unsigned int line);
-    void lineHasBeenRemoved  (unsigned int line);
-    void debugDump ();
-    void getLineInfo (KateLineInfo *info,unsigned int line);
+    bool isTopLevel (unsigned int line);                      // if any node (not root node) contains "line"
+
+    // if more lines were inserted/deleted, methods will be called for every line
+    void lineHasBeenInserted (unsigned int line);             // order : 1,2,3
+    void lineHasBeenRemoved  (unsigned int line);             // order : 3,2,1
+    void debugDump ();                                        // Just named (wrapper) in KateDocument::dumpRegionTree()
+    void getLineInfo (KateLineInfo *info,unsigned int line);  // Make clear what KateLineInfo contains
 
     unsigned int getStartLine (KateCodeFoldingNode *node);
 
-    void fixRoot (int endLRel);
-    void clear ();
+    void fixRoot (int endLRel);                               // set end line for root node
+    void clear ();                                            // Clear the whole FoldingTree (and aux structures)
 
     KateCodeFoldingNode *findNodeForPosition(unsigned int line, unsigned int column);
   private:
@@ -168,7 +173,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     QList<KateCodeFoldingNode*> markedForDeleting;
     QList<KateCodeFoldingNode*> nodesForLine;
-    QList<KateHiddenLineBlock>   hiddenLines;
+    QList<KateHiddenLineBlock>  hiddenLines;
 
     unsigned int hiddenLinesCountCache;
     bool         something_changed;
@@ -214,6 +219,9 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     void updateHiddenSubNodes (KateCodeFoldingNode *node);
     void moveSubNodesUp (KateCodeFoldingNode *node);
+
+    // my debug methods
+    void getLineInfo_private(KateLineInfo *info, unsigned int line);
 
 //     void removeParentReferencesFromChilds(KateCodeFoldingNode* node);
 

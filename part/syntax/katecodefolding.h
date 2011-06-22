@@ -27,6 +27,7 @@
 #include <QtCore/QVector>
 
 #include "katepartprivate_export.h"
+#include "katecodefoldingabstract.h"
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
@@ -110,7 +111,7 @@ class KateCodeFoldingNode
    */
   private:
     KateCodeFoldingNode *parentNode;  // parent
-    unsigned int        startLineRel; // start line (more like absolute, and not relative) - line for "{"
+    unsigned int        startLineRel; // start line (relative to parent its "start line") - line for "{"
     unsigned int        endLineRel;   // end line (relative to "start line") - line for "}"
 
     unsigned int startCol;            // start column - column for {
@@ -119,7 +120,7 @@ class KateCodeFoldingNode
     bool startLineValid;              // if "{" exists (not used by other classes)
     bool endLineValid;                // if "}" exists (not used by other classes)
 
-    signed char type;                 // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}"
+    signed char type;                 // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1 = indent node
     bool visible;                     // folded / not folded
     bool deleteOpening;               // smth from the prev alg. will not be used
     bool deleteEnding;                // smth from the prev alg. will not be used

@@ -120,7 +120,7 @@ class KateCodeFoldingNode
     bool startLineValid;              // if "{" exists (not used by other classes)
     bool endLineValid;                // if "}" exists (not used by other classes)
 
-    signed char type;                 // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1 = indent node
+    signed char type;                 // 0 -> toplevel / invalid ; 4/-4 = {} ; 4 = comment ; -5 = only "}" ; 1 = indent node
     bool visible;                     // folded / not folded
     bool deleteOpening;               // smth from the prev alg. will not be used
     bool deleteEnding;                // smth from the prev alg. will not be used

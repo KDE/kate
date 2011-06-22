@@ -102,22 +102,57 @@ AbstractKateCodeFoldingTree::AbstractKateCodeFoldingTree(KateBuffer* buffer) :
 AbstractKateCodeFoldingTree::~AbstractKateCodeFoldingTree()
 {}
 
+// changed = true, if there is there is a new node on the line / a node was deleted from the line
+// colschanged = true only if node's column changes (nodes de not appear/disappear)
 void AbstractKateCodeFoldingTree::updateLine(unsigned int line, QVector<int> *regionChanges, bool *updated, bool changed, bool colschanged)
 {
   if (!changed && !colschanged)
     return;
 
-  if (colschanged)
+  if (colschanged) {
     setColumns(line, *regionChanges);
+    return;
+  }
+
+  // changed == true
+  updateMapping(line, *regionChanges);
+
 }
 
 void AbstractKateCodeFoldingTree::setColumns(int line, QVector<int> newColumns)
 {
-  QVector<KateCodeFoldingNodeTemp*> tempNodeVector = lineMapping[line];
+  QVector<KateCodeFoldingNodeTemp*> oldMapping = lineMapping[line];
   int index = 0;
 
-  foreach (KateCodeFoldingNodeTemp* tempNode, tempNodeVector) {
+  foreach (KateCodeFoldingNodeTemp* tempNode, oldMapping) {
     tempNode->setColumn(newColumns[index]);
     index += 2;
   }
+}
+
+void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumns)
+{
+  QVector<KateCodeFoldingNodeTemp*> oldMapping = lineMapping[line];
+  QVector<KateCodeFoldingNodeTemp*> newMapping;
+  int index_old = 0;
+  int index_new = 0;
+
+  for ( ; index_new < newMapping.size() ; ++index_new, index_old += 2 ) {
+    if (index_old >= oldMapping.size()) {                       // New node(s) was / were inserted
+      ;// newMapping->insert(new Node(newColumns[index_new])    // insert new node ...
+    }
+    else if (oldMapping[index_old] == newMapping[index_new]) {  // Same nodes (columns were modified)
+      ;// newMapping->coppy(oldMapping[index_old],newColumns[index_new]->columns)
+    }
+    else {                                                      // Nodes are different. Assume a new node was inserted
+      ;// newMapping->insert(new Node(newColumns[index_new])    // insert new node ...
+    }
+  }
+
+  for ( ; index_old < oldMapping.size() ; index_old += 2) {     // No of iteretations here = no of nodes deleted
+    ; // deleteNode()
+  }
+
+  oldMapping.clear();
+  lineMapping.insert(line,newMapping);
 }

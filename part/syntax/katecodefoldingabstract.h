@@ -80,10 +80,14 @@ class KateCodeFoldingNodeTemp: public QObject
       { column = newColumn; }
     inline void setLine(int newLine)
       { line = newLine; }
+    inline void setColumn(KateCodeFoldingNodeTemp *node)
+      { setColumn(node->getColumn()); }
+    inline void setLine(KateCodeFoldingNodeTemp *node)
+      { setLine(node->getLine()); }
 
     inline int getColumn() const
       { return column; }
-    inline int setLine() const
+    inline int getLine() const
       { return line; }
     // End of setters and getters
 
@@ -195,6 +199,7 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
   protected:
     void setColumns (int line, QVector<int> newColumns);
+    void updateMapping (int line, QVector<int> newColumns);
 
   public Q_SLOTS:
     void updateLine (unsigned int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);

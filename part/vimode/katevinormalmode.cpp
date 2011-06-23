@@ -154,6 +154,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   } else if ( m_countTemp != 0 ) {
     m_count = getCount() * m_countTemp;
     m_countTemp = 0;
+    m_iscounted = true;
 
     kDebug( 13070 ) << "count = " << getCount();
   }
@@ -373,6 +374,7 @@ void KateViNormalMode::resetParser()
   m_keys.clear();
   m_keysVerbatim.clear();
   m_count = 0;
+  m_iscounted = false;
   m_countTemp = 0;
   m_register = QChar::Null;
   m_findWaitingForChar = false;
@@ -2023,8 +2025,19 @@ KateViRange KateViNormalMode::motionToMarkLine()
 KateViRange KateViNormalMode::motionToMatchingItem()
 {
   KateViRange r;
-  Cursor c( m_view->cursorPosition() );
   int lines = doc()->lines();
+
+  if(isCounted()) {
+    if (getCount() > 100)
+        return r;
+
+    r.endLine = qRound(lines * getCount() / 100.) -1 ;
+    r.endColumn = 0;
+    return r;
+  }
+
+  Cursor c( m_view->cursorPosition() );
+
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
   int n2;

@@ -98,6 +98,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }
 
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
+    bool isCounted() { return m_iscounted; }
 
     bool startNormalMode();
     bool startInsertMode();
@@ -122,6 +123,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
     KateViRange m_commandRange;
     unsigned int m_count;
+    bool m_iscounted;
 
     QString m_extraWordCharacters;
     QString m_keysVerbatim;

@@ -284,6 +284,22 @@ void ViModeTest::NormalModeMotionsTest()
   // Testing "'"
   DoTest("foo\nbar\nbaz", "lmaj'arx", "xoo\nbar\nbaz");
 
+  // Testing percentage "<N>%"
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "20%dd",
+         "10%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "50%dd",
+         "10%\n20%\n30%\n40%\n60%\n70%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70\n80%\n90%\n100%",
+         "65%dd",
+         "10%\n20%\n30%\n40%\n50%\n60%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "5j10%dd",
+         "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
 }
 
 void ViModeTest::NormalModeCommandsTest()
@@ -368,25 +384,9 @@ void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
     DoTest("Foo foo.\nBar bar.\nBaz baz.",
                    "))\\ctrl-ox\\ctrl-ix",
                    "Foo foo.\nBar bar.\naz baz.");
+*/
 
 
-  // Testing percentage "<N>%"
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "20%dd",
-                   "10%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "50%dd",
-                   "10%\n20%\n30%\n40%\n60%\n70%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70\n80%\n90%\n100%",
-                   "65%dd",
-                   "10%\n20%\n30%\n40%\n50%\n60%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "5j10%dd",
-                   "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
-    */
 }
 
 

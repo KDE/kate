@@ -201,9 +201,9 @@ class TextLoader
                   int mib = codecForByteOrderMark->mibEnum ();
                   if (mib == 106) // utf8
                     bomBytes = 3;
-                  if (mib == 1013 || mib == 1014) // utf16
+                  if (mib == 1013 || mib == 1014 || mib == 1015) // utf16
                     bomBytes = 2;
-                  if (mib == 1018 || mib == 1019) // utf32
+                  if (mib == 1017 || mib == 1018 || mib == 1019) // utf32
                     bomBytes = 4;
                 }
 

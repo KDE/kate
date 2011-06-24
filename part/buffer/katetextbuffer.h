@@ -109,9 +109,10 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     /**
      * Set codec for this buffer to use for load/save.
      * Loading might overwrite this, if it encounters problems and finds a better codec.
+     * Might change BOM setting.
      * @param codec QTextCodec to use for encoding
      */
-    void setTextCodec (QTextCodec *codec) { m_textCodec = codec; }
+    void setTextCodec (QTextCodec *codec);
 
     /**
      * Get codec for this buffer

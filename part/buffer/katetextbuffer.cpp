@@ -570,8 +570,8 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
     // if no encoding error, break out of reading loop
     if (!encodingErrors) {
-      // remember used codec
-      m_textCodec = file.textCodec ();
+      // remember used codec, might change bom setting
+      setTextCodec (file.textCodec ());
       break;
     }
   }
@@ -605,6 +605,18 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
   // file loading worked, modulo encoding problems
   return true;
+}
+
+void TextBuffer::setTextCodec (QTextCodec *codec) 
+{
+  m_textCodec = codec;
+      
+  // enforce bom for some encodings
+  int mib = m_textCodec->mibEnum ();
+  if (mib == 1013 || mib == 1014 || mib == 1015) // utf16
+    setGenerateByteOrderMark (true);
+  if (mib == 1017 || mib == 1018 || mib == 1019) // utf32
+    setGenerateByteOrderMark (true);
 }
 
 bool TextBuffer::save (const QString &filename)

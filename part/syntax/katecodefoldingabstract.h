@@ -5,6 +5,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QVector>
 #include <QtCore/QMap>
+#include <QtCore/QMapIterator>
 
 #include "katepartprivate_export.h"
 
@@ -196,6 +197,9 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
   public:
     AbstractKateCodeFoldingTree (KateBuffer *buffer);
     ~AbstractKateCodeFoldingTree ();
+
+    void lineHasBeenInserted (int line);                          // call order for 3 lines : 1,2,3
+    void lineHasBeenRemoved  (int line);                          // call order for 3 lines : 3,2,1
 
   protected:
     void setColumns (int line, QVector<int> newColumns);

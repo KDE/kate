@@ -155,7 +155,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void lineHasBeenInserted (unsigned int line);             // order : 1,2,3
     void lineHasBeenRemoved  (unsigned int line);             // order : 3,2,1
     void debugDump ();                                        // Just named (wrapper) in KateDocument::dumpRegionTree()
-    void getLineInfo (KateLineInfo *info,unsigned int line);  // Make clear what KateLineInfo contains
+    void getLineInfo (KateLineInfo *info,unsigned int line);  // Makes clear what KateLineInfo contains
 
     unsigned int getStartLine (KateCodeFoldingNode *node);
 

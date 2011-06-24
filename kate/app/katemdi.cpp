@@ -51,12 +51,11 @@ namespace KateMDI
 
 //BEGIN TOGGLETOOLVIEWACTION
 
-  ToggleToolViewAction::ToggleToolViewAction ( const QString& text, const KShortcut& cut, ToolView *tv,
+  ToggleToolViewAction::ToggleToolViewAction ( const QString& text, ToolView *tv,
       QObject* parent )
       : KToggleAction(text, parent)
       , m_tv(tv)
   {
-    setShortcut(cut);
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
     connect(m_tv, SIGNAL(toolVisibleChanged(bool)), this, SLOT(toolVisibleChanged(bool)));
 
@@ -139,11 +138,7 @@ namespace KateMDI
 
     actionCollection()->addAssociatedWidget(m_mw);
     foreach (QAction* action, actionCollection()->actions())
-#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
-      action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
-#else
       action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-#endif
   }
 
   GUIClient::~GUIClient()
@@ -163,8 +158,8 @@ namespace KateMDI
     KSharedConfig::Ptr cfg = KGlobal::config();
     sc = KShortcut( cfg->group("Shortcuts").readEntry( aname, QString() ) );
 
-    KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text),
-                       sc, tv, this );
+    KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this );
+    a->setShortcut(sc, KAction::ActiveShortcut); // no DefaultShortcut! see bug #144945
     actionCollection()->addAction( aname.toLatin1(), a );
 
     m_toolViewActions.append(a);

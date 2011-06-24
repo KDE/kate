@@ -707,9 +707,6 @@ void KateMainWindow::editKeys()
 //     kDebug(13001)<<client->componentData().aboutData()->programName();
     dlg.addCollection ( client->actionCollection(), client->componentData().aboutData()->programName() );
   }
-  /*
-    dlg.insert( externalTools->actionCollection(), i18n("External Tools") );
-  */
   dlg.configure();
 
   QList<KTextEditor::Document*>  l = KateDocManager::self()->documentList();
@@ -724,8 +721,6 @@ void KateMainWindow::editKeys()
 //       kDebug(13001)<<"reloading Keysettings for view "<<i<<"/"<<i1;
     }
   }
-
-  //externalTools->actionCollection()->writeSettings( new KConfig("externaltools", false, false, "appdata") );
 }
 
 void KateMainWindow::openUrl (const QString &name)

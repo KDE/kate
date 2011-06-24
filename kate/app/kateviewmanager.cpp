@@ -91,9 +91,11 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document *)), this, SLOT(documentDeleted(KTextEditor::Document *)));
 
   // register all already existing documents
+  m_blockViewCreationAndActivation = true;
   const QList<KTextEditor::Document*> &docs = KateDocManager::self()->documentList ();
   foreach (KTextEditor::Document *doc, docs)
     documentCreated (doc);
+  m_blockViewCreationAndActivation = false;
   
   // init done
   m_init = false;

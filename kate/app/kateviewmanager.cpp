@@ -317,7 +317,7 @@ void KateViewManager::documentDeleted (KTextEditor::Document *)
     createView (KateDocManager::self()->document(KateDocManager::self()->documents() - 1));
 }
 
-void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool saveAs)
+void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
 {
   if (!doc->url().isEmpty())
     m_mainWindow->fileOpenRecent->addUrl( doc->url() );

@@ -23,7 +23,7 @@
       <item>
        <widget class="QCheckBox" name="chkStaticWordWrap">
         <property name="whatsThis">
-         <string>&lt;p&gt;Automatically start a new line of text when the current line exceeds the length specified by the &lt;b&gt;Wrap words at:&lt;/b&gt; option.&lt;/p&gt;&lt;p&gt;This option does not wrap existing lines of text - use the &lt;b&gt;Apply Static Word Wrap&lt;/b&gt; option in the &lt;b&gt;Tools&lt;/b&gt; menu for that purpose.&lt;/p&gt;&lt;p&gt;If you want lines to be &lt;i&gt;visually wrapped&lt;/i&gt; instead, according to the width of the view, enable &lt;b&gt;Dynamic Word Wrap&lt;/b&gt; in the &lt;b&gt;View Defaults&lt;/b&gt; config page.&lt;/p&gt;</string>
+         <string>&lt;p&gt;Automatically start a new line of text when the current line exceeds the length specified by the &lt;b&gt;Wrap words at:&lt;/b&gt; option.&lt;/p&gt;&lt;p&gt;This option does not wrap existing lines of text - use the &lt;b&gt;Apply Static Word Wrap&lt;/b&gt; option in the &lt;b&gt;Tools&lt;/b&gt; menu for that purpose.&lt;/p&gt;&lt;p&gt;If you want lines to be &lt;i&gt;visually wrapped&lt;/i&gt; instead, according to the width of the view, enable &lt;b&gt;Dynamic Word Wrap&lt;/b&gt; in the &lt;b&gt;Appearance&lt;/b&gt; config page.&lt;/p&gt;</string>
         </property>
         <property name="text">
          <string>Enable static &amp;word wrap</string>

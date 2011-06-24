@@ -4874,8 +4874,8 @@ void KateDocument::slotCompleted() {
           break;
       }
     }
-    emit documentSavedOrUploaded(this,m_saveAs);
   }
+  emit documentSavedOrUploaded(this,m_saveAs);
   m_savingToUrl=false;
   m_saveAs=false;
 }

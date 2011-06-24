@@ -431,7 +431,7 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
   switch(role) {
     case KateFileTreeModel::PathRole:
       // allow to sort with hostname + path, bug 271488
-      return item->toString();
+      return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().prettyUrl() : item->path();
       
     case KateFileTreeModel::DocumentRole:
       return QVariant::fromValue(item->doc());

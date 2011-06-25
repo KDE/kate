@@ -1130,6 +1130,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   if(m_listMode) {
     item->setPath(new_name);
     QModelIndex idx = createIndex(item->row(), 0, item);
+    setupIcon(item);
     emit dataChanged(idx, idx);
     kDebug(debugArea()) << "list mode, short circuit";
     return;

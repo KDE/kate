@@ -23,6 +23,7 @@
 #include <KMimeType>
 #include <KColorScheme>
 #include <KColorUtils>
+#include <klocale.h>
 
 #include <ktexteditor/document.h>
 
@@ -452,8 +453,14 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
     case Qt::DecorationRole:
       return item->icon();
 
-    case Qt::ToolTipRole:
-      return item->path();
+    case Qt::ToolTipRole: {
+      QString tooltip = item->path();
+      if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
+        tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>").arg(item->path());
+      }
+
+      return tooltip;
+    }
 
     case Qt::ForegroundRole: {
       KColorScheme colors(QPalette::Active);

@@ -39,15 +39,22 @@ K_EXPORT_PLUGIN(KateFileBrowserFactory(KAboutData("katefilebrowserplugin","katef
 //BEGIN KateFileBrowserPlugin
 KateFileBrowserPlugin::KateFileBrowserPlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
-  , m_fileBrowser(0)
 {
 }
 
 Kate::PluginView *KateFileBrowserPlugin::createView (Kate::MainWindow *mainWindow)
 {
-  KateFileBrowserPluginView* kateFileSelectorPluginView = new KateFileBrowserPluginView (mainWindow);
-  m_fileBrowser = kateFileSelectorPluginView->m_fileBrowser;
-  return kateFileSelectorPluginView;
+  KateFileBrowserPluginView* view = new KateFileBrowserPluginView (mainWindow);
+  connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
+  m_views.append(view);
+
+  return view;
+}
+
+void KateFileBrowserPlugin::viewDestroyed(QObject* view)
+{
+  // do not access the view pointer, since it is partially destroyed already
+  m_views.removeAll((KateFileBrowserPluginView *) view);
 }
 
 uint KateFileBrowserPlugin::configPages() const
@@ -59,7 +66,7 @@ Kate::PluginConfigPage *KateFileBrowserPlugin::configPage (uint number, QWidget 
 {
   if (number != 0)
     return 0;
-  return new KateFileBrowserConfigPage(parent, name, m_fileBrowser);
+  return new KateFileBrowserConfigPage(parent, name, m_views[0]->m_fileBrowser);
 }
 
 QString KateFileBrowserPlugin::configPageName (uint number) const

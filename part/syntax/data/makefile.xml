@@ -4,7 +4,7 @@
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
 <!-- Modified by Rui Santana <santana.rui@gmail.com> -->
 <!-- small priority to allow for example Makefile.cpp to be detected as cpp file -->
-<language name="Makefile" version="1.10" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<language name="Makefile" version="1.11" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>
@@ -58,7 +58,7 @@
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Keyword"  context="#stay" String="keywords"/>
-        <RegExpr attribute="Variable" context="Value" String="[_\w\d]*\s*(?=:=|=)"/>
+        <RegExpr attribute="Variable" context="Value" String="[_\w\d]*\s*(?=:=|=|\+=|\?=)"/>
         <RegExpr attribute="Target"   context="#stay" String="[_\w\d-]*\s*:" firstNonSpace="true"/>
         <RegExpr attribute="Section"  context="#stay" String="^[.].*:"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>

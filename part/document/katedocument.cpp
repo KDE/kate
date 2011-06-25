@@ -4224,8 +4224,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
             m_config->setBom(state);
           }
       }
-      else if ( var == "encoding" )
-        m_config->setEncoding( val );
       else if (var == "presave-postdialog")
         setPreSavePostDialogFilterChecks(val.split(','));
       else if (var == "postsave")

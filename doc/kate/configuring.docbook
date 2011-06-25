@@ -1342,7 +1342,7 @@ menus. This is also used in the
 <term><guilabel>Variables:</guilabel></term>
 <listitem><para>This string allows you to configure &kappname;'s settings for the
 files selected by this mimetype using &kappname; variables. You can set almost any
-configuration option, such as highlight, indent-mode, encoding,
+configuration option, such as highlight, indent-mode,
 etc.</para><para>For a full list of known variables, see the
 manual.</para></listitem>
 </varlistentry>
@@ -1593,12 +1593,6 @@ something that can be evaluated to a valid color, for example "#ff0000".</para><
 <term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the end of line mode. Valid settings are
 <quote>unix</quote>, <quote>mac</quote> and <quote>dos</quote></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>encoding</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Set the document encoding. The value must be a valid encoding
-name, like <quote>utf-8</quote>.</para></listitem>
 </varlistentry>
 
 <varlistentry>

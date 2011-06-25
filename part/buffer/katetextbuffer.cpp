@@ -568,10 +568,24 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
         int lineLength = length;
         if ((m_lineLengthLimit > 0) && (lineLength > m_lineLengthLimit)) {
             /**
+             * search for place to wrap
+             */
+            int spacePosition = m_lineLengthLimit-1;
+            for (int testPosition = m_lineLengthLimit-1; (testPosition >= 0) && (testPosition >= (m_lineLengthLimit - (m_lineLengthLimit/10))); --testPosition) {
+                /**
+                 * wrap place found?
+                 */
+                if (unicodeData[testPosition].isSpace() || unicodeData[testPosition].isPunct()) {
+                    spacePosition = testPosition;
+                    break;
+                }
+            }
+            
+            /**
              * wrap the line
              */
-            lineLength = m_lineLengthLimit;
-            length -= m_lineLengthLimit;
+            lineLength = spacePosition+1;
+            length -= lineLength;
             tooLongLinesWrapped = true;
         } else {
             /**

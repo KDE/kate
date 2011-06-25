@@ -898,6 +898,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkEnableBOM, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->lineLengthLimit, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( uiadv->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( uiadv->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -973,6 +974,8 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
   KateDocumentConfig::global()->setBom(ui->chkEnableBOM->isChecked());
+  
+  KateDocumentConfig::global()->setLineLengthLimit(ui->lineLengthLimit->value());
 
   KateDocumentConfig::global()->configEnd ();
   KateGlobalConfig::global()->configEnd ();
@@ -1032,6 +1035,7 @@ void KateSaveConfigTab::reload()
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
   ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
+  ui->lineLengthLimit->setValue(KateDocumentConfig::global()->lineLengthLimit());
 
   ui->chkRemoveTrailingSpaces->setChecked(KateDocumentConfig::global()->removeSpaces());
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());

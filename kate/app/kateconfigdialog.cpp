@@ -368,6 +368,12 @@ void KateConfigDialog::slotApply()
 
     cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
     m_mainWindow->modNotification = m_modNotifications->isChecked();
+    
+    // patch document modified warn state
+    const QList<KTextEditor::Document*> &docs = KateDocManager::self()->documentList ();
+    foreach (KTextEditor::Document *doc, docs)
+      if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
+        qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (!m_modNotifications->isChecked());
 
     m_mainWindow->saveOptions ();
 

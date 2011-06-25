@@ -94,7 +94,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
                                        "If enabled, when Kate receives focus you will be asked what to do with "
                                        "files that have been modified on the hard disk. If not enabled, you will "
                                        "be asked what to do with a file that has been modified on the hard disk only "
-                                       "when that file gains focus inside Kate.") );
+                                       "when that file is tried to be saved.") );
   connect( m_modNotifications, SIGNAL( toggled( bool ) ),
            this, SLOT( slotChanged() ) );
 

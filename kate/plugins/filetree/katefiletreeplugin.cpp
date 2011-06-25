@@ -166,6 +166,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   m_proxyModel = new KateFileTreeProxyModel(this);
   m_proxyModel->setSourceModel(m_documentModel);
   m_proxyModel->setDynamicSortFilter(true);
+  
+  m_documentModel->setShowFullPathOnRoots(m_plug->settings().showFullPathOnRoots());
 
   Kate::DocumentManager *dm = Kate::application()->documentManager();
 

@@ -168,6 +168,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   m_proxyModel->setDynamicSortFilter(true);
   
   m_documentModel->setShowFullPathOnRoots(m_plug->settings().showFullPathOnRoots());
+  m_documentModel->setShadingEnabled(m_plug->settings().shadingEnabled());
 
   Kate::DocumentManager *dm = Kate::application()->documentManager();
 

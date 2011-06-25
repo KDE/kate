@@ -35,8 +35,6 @@ class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 
-#include <QHash>
-
 class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
   Q_OBJECT
@@ -59,8 +57,11 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
 
     void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFulPath);
 
+  public Q_SLOTS:
+    void viewDestroyed(QObject* view);
+
   private:
-    QHash<Kate::MainWindow *, KateFileTreePluginView *> m_view;
+    QList<KateFileTreePluginView *> m_views;
     KateFileTreeConfigPage *m_confPage;
     KateFileTreePluginSettings m_settings;
 };

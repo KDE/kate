@@ -467,8 +467,8 @@ bool KateSessionManager::chooseSession ()
             break;
           }
 
-          if (!activateSession (s, false, false)) return false;
-          retry = false;
+          if (!activateSession (s, false, false)) retry = true;
+          else retry = false;
           break;
         }
 

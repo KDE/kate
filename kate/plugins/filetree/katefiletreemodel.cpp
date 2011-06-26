@@ -23,6 +23,7 @@
 #include <KMimeType>
 #include <KColorScheme>
 #include <KColorUtils>
+#include <klocale.h>
 
 #include <ktexteditor/document.h>
 
@@ -430,7 +431,8 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
   
   switch(role) {
     case KateFileTreeModel::PathRole:
-      return item->path();
+      // allow to sort with hostname + path, bug 271488
+      return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().prettyUrl() : item->path();
       
     case KateFileTreeModel::DocumentRole:
       return QVariant::fromValue(item->doc());
@@ -451,8 +453,14 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
     case Qt::DecorationRole:
       return item->icon();
 
-    case Qt::ToolTipRole:
-      return item->path();
+    case Qt::ToolTipRole: {
+      QString tooltip = item->path();
+      if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
+        tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>").arg(item->path());
+      }
+
+      return tooltip;
+    }
 
     case Qt::ForegroundRole: {
       KColorScheme colors(QPalette::Active);
@@ -1129,6 +1137,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   if(m_listMode) {
     item->setPath(new_name);
     QModelIndex idx = createIndex(item->row(), 0, item);
+    setupIcon(item);
     emit dataChanged(idx, idx);
     kDebug(debugArea()) << "list mode, short circuit";
     return;

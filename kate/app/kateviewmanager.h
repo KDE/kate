@@ -165,6 +165,8 @@ class KateViewManager : public QSplitter
     void documentCreated (KTextEditor::Document *doc);
     void documentDeleted (KTextEditor::Document *doc);
 
+    void documentSavedOrUploaded(KTextEditor::Document* document,bool saveAs);
+    
   public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:

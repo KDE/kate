@@ -109,6 +109,12 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     bool brokenEncoding () const { return m_brokenEncoding; }
 
     /**
+     * Too long lines wrapped on load?
+     * @return too long lines wrapped on load?
+     */
+    bool tooLongLinesWrapped () const { return m_tooLongLinesWrapped; }
+
+    /**
      * Can the current codec handle all chars
      * @return chars can be encoded
      */
@@ -232,6 +238,11 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * file loaded with encoding problems?
      */
     bool m_brokenEncoding;
+    
+    /**
+     * too long lines wrapped on load?
+     */
+    bool m_tooLongLinesWrapped;
 
   /**
    * highlighting & folding relevant stuff

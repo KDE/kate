@@ -68,6 +68,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
  : Kate::TextBuffer (doc),
    m_doc (doc),
    m_brokenEncoding (false),
+   m_tooLongLinesWrapped (false),
    m_highlight (0),
    m_regionTree (this),
    m_tabWidth (8),
@@ -135,6 +136,7 @@ void KateBuffer::clear()
 
   // reset the state
   m_brokenEncoding = false;
+  m_tooLongLinesWrapped = false;
 
   m_lineHighlighted = 0;
   m_ctxChanged = true;
@@ -154,10 +156,14 @@ bool KateBuffer::openFile (const QString &m_file)
   // NOTE: The buffer won't actually remove trailing space on load. This is because
   // we need to do it later, after the config and variables have been parsed.
   setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
+  
+  // line length limit
+  setLineLengthLimit (m_doc->config()->lineLengthLimit());
 
   // then, try to load the file
   m_brokenEncoding = false;
-  if (!load (m_file, m_brokenEncoding))
+  m_tooLongLinesWrapped = false;
+  if (!load (m_file, m_brokenEncoding, m_tooLongLinesWrapped))
     return false;
 
   // save back encoding
@@ -224,7 +230,8 @@ bool KateBuffer::saveFile (const QString &m_file)
 
   // no longer broken encoding, or we don't care
   m_brokenEncoding = false;
-
+  m_tooLongLinesWrapped = false;
+  
   // okay
   return true;
 }

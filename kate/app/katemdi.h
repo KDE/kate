@@ -49,8 +49,7 @@ namespace KateMDI
       Q_OBJECT
 
     public:
-      ToggleToolViewAction ( const QString& text, const KShortcut& cut,
-                             class ToolView *tv, QObject *parent );
+      ToggleToolViewAction ( const QString& text, ToolView *tv, QObject *parent );
 
       virtual ~ToggleToolViewAction();
 

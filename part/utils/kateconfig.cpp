@@ -191,6 +191,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_backupSuffixSet (true),
    m_swapFileNoSyncSet (true),
    m_onTheFlySpellCheckSet (true),
+   m_lineLengthLimitSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -236,6 +237,7 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_backupSuffixSet (true),
    m_swapFileNoSyncSet (true),
    m_onTheFlySpellCheckSet (true),
+   m_lineLengthLimitSet (true),
    m_doc (0)
 {
   // init with defaults from config or really hardcoded ones
@@ -275,6 +277,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_backupSuffixSet (false),
    m_swapFileNoSyncSet (false),
    m_onTheFlySpellCheckSet (false),
+   m_lineLengthLimitSet (false),
    m_doc (doc)
 {
 }
@@ -333,6 +336,8 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setSwapFileNoSync (config.readEntry("No sync", false));
 
   setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
+  
+  setLineLengthLimit(config.readEntry("Line Length Limit", 1024));
 
   configEnd ();
 }
@@ -385,6 +390,8 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("No sync", swapFileNoSync());
 
   config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
+
+  config.writeEntry("Line Length Limit", lineLengthLimit());
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -1026,6 +1033,24 @@ void KateDocumentConfig::setOnTheFlySpellCheck(bool on)
   configEnd ();
 }
 
+
+int KateDocumentConfig::lineLengthLimit() const
+{
+  if (m_lineLengthLimitSet || isGlobal())
+    return m_lineLengthLimit;
+
+  return s_global->lineLengthLimit();
+}
+
+void KateDocumentConfig::setLineLengthLimit(int lineLengthLimit)
+{
+  configStart();
+
+  m_lineLengthLimitSet = true;
+  m_lineLengthLimit = lineLengthLimit;
+
+  configEnd();
+}
 
 
 

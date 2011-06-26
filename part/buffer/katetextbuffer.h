@@ -109,9 +109,10 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     /**
      * Set codec for this buffer to use for load/save.
      * Loading might overwrite this, if it encounters problems and finds a better codec.
+     * Might change BOM setting.
      * @param codec QTextCodec to use for encoding
      */
-    void setTextCodec (QTextCodec *codec) { m_textCodec = codec; }
+    void setTextCodec (QTextCodec *codec);
 
     /**
      * Get codec for this buffer
@@ -156,6 +157,12 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @return should trailing spaces be removed on load/save?
      */
     bool removeTrailingSpaces () const { return m_removeTrailingSpaces; }
+    
+    /**
+     * Set line length limit
+     * @param lineLengthLimit new line length limit
+     */
+    void setLineLengthLimit (int lineLengthLimit) { m_lineLengthLimit = lineLengthLimit; }
 
     /**
      * Load the given file. This will first clear the buffer and then load the file.
@@ -163,10 +170,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * Before calling this, setTextCodec must have been used to set codec!
      * @param filename file to open
      * @param encodingErrors were there problems occured while decoding the file?
+     * @param tooLongLinesWrapped were too long lines found and wrapped?
      * @return success, the file got loaded, perhaps with encoding errors
      * Virtual, can be overwritten.
      */
-    virtual bool load (const QString &filename, bool &encodingErrors);
+    virtual bool load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped);
 
     /**
      * Save the current buffer content to the given file.
@@ -531,6 +539,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * Should trailing spaces be removed on load/save.
      */
     bool m_removeTrailingSpaces;
+    
+    /**
+     * Limit for line length, longer lines will be wrapped on load
+     */
+    int m_lineLengthLimit;
 };
 
 }

@@ -303,6 +303,9 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
 
     bool onTheFlySpellCheck() const;
     void setOnTheFlySpellCheck(bool on);
+    
+    int lineLengthLimit() const;
+    void setLineLengthLimit(int limit);
 
 
   private:
@@ -325,6 +328,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     QString m_backupSuffix;
     bool m_swapFileNoSync;
     bool m_onTheFlySpellCheck;
+    int m_lineLengthLimit;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -371,6 +375,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_backupSuffixSet : 1;
     bool m_swapFileNoSyncSet : 1;
     bool m_onTheFlySpellCheckSet : 1;
+    bool m_lineLengthLimitSet : 1;
 
   private:
     static KateDocumentConfig *s_global;

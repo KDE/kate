@@ -46,6 +46,7 @@ class QCheckBox;
 class QSpinBox;
 
 class KateFileBrowser;
+class KateFileBrowserPluginView;
 
 class KateFileBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
@@ -64,9 +65,12 @@ class KateFileBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageI
     virtual QString configPageName (uint number = 0) const;
     virtual QString configPageFullName (uint number = 0) const;
     virtual KIcon configPageIcon (uint number = 0) const;
+    
+  public Q_SLOTS:
+    void viewDestroyed(QObject* view);
 
   private:
-    KateFileBrowser *m_fileBrowser;
+    QList<KateFileBrowserPluginView *> m_views;
 };
 
 class KateFileBrowserPluginView : public Kate::PluginView

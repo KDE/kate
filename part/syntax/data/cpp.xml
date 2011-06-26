@@ -20,6 +20,7 @@
       <item> case </item>
       <item> catch </item>
       <item> class </item>
+      <item> constexpr </item>
       <item> const_cast </item>
       <item> continue </item>
       <item> default </item>
@@ -151,6 +152,8 @@
       <item> auto </item>
       <item> bool </item>
       <item> char </item>
+      <item> char16_t </item>
+      <item> char32_t </item>
       <item> const </item>
       <item> double </item>
       <item> float </item>

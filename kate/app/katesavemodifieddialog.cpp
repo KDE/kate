@@ -90,11 +90,29 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
         KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding(
                                           m_document->encoding(), QString(), QString(), dialogParent, i18n("Save As (%1)", m_document->documentName()));
 
-        m_document->setEncoding( r.encoding );
-
         if (!r.URLs.isEmpty())
         {
           KUrl tmp = r.URLs.first();
+
+          // check for overwriting a file
+          if( tmp.isLocalFile() )
+          {
+            QFileInfo info( tmp.path() );
+            if( info.exists() ) {
+             if (KMessageBox::Cancel == KMessageBox::warningContinueCancel( dialogParent,
+              i18n( "A file named \"%1\" already exists. "
+                    "Are you sure you want to overwrite it?" ,  info.fileName() ),
+              i18n( "Overwrite File?" ), KStandardGuiItem::overwrite(),
+              KStandardGuiItem::cancel(), QString(), KMessageBox::Notify | KMessageBox::Dangerous ))
+             {
+                setState(SaveFailedState);
+                return false;
+             }
+            }
+          }
+          
+          m_document->setEncoding( r.encoding );
+
           if ( !m_document->saveAs( tmp ) )
           {
             setState(SaveFailedState);

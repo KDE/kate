@@ -2082,6 +2082,23 @@ bool KateDocument::openFile()
               " It is set to read-only mode, as saving might destroy its content."
               " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(), QString (m_buffer->textCodec()->name ())));
   }
+  
+  // warn: too long lines
+  if (m_buffer->tooLongLinesWrapped())
+  {
+    // this file can't be saved again without modifications
+    setReadWrite( false );
+
+    if (!suppressOpeningErrorDialogs())
+      KMessageBox::information (parentWidget
+        , i18n ("The file %1 was opened and contained too long lines (more than %2 characters)."
+                " Too long lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit())
+        , i18n ("Too Long Lines Wrapped")
+        , "Too Long Lines Wrapped Warning");
+    setOpeningError(true);
+    setOpeningErrorMessage(i18n ("The file %1 was opened and contained too long lines (more than %2 characters)."
+                " Too long lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
+  }
 
   //
   // return the success

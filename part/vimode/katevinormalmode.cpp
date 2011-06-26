@@ -2245,6 +2245,61 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
   return findPattern( word, true );
 }
 
+KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
+    int lines_to_go;
+    if (linesDisplayed() <= m_viewInternal->endLine())
+       lines_to_go = m_viewInternal->endLine() - linesDisplayed()- m_view->cursorPosition().line() + 1;
+    else
+        lines_to_go = - m_view->cursorPosition().line();
+
+    KateViRange r = goLineUpDown(lines_to_go);
+
+    // Finding first non-blank character
+    QRegExp nonSpace( "\\S" );
+    int c = getLine(r.endLine).indexOf( nonSpace );
+    if ( c == -1 )
+      c = 0;
+
+    r.endColumn = c;
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToMiddleLineOfWindow() {
+    int lines_to_go;
+    if (linesDisplayed() <= m_viewInternal->endLine())
+       lines_to_go = m_viewInternal->endLine() - linesDisplayed()/2 - m_view->cursorPosition().line();
+    else
+        lines_to_go = m_viewInternal->endLine()/2 - m_view->cursorPosition().line();
+    KateViRange r = goLineUpDown(lines_to_go);
+
+    // Finding first non-blank character
+    QRegExp nonSpace( "\\S" );
+    int c = getLine(r.endLine).indexOf( nonSpace );
+    if ( c == -1 )
+      c = 0;
+
+    r.endColumn = c;
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToLastLineOfWindow() {
+    int lines_to_go;
+    if (linesDisplayed() <= m_viewInternal->endLine())
+       lines_to_go = m_viewInternal->endLine() - m_view->cursorPosition().line();
+    else
+        lines_to_go = m_viewInternal->endLine() - m_view->cursorPosition().line();
+
+    KateViRange r = goLineUpDown(lines_to_go);
+
+    // Finding first non-blank character
+    QRegExp nonSpace( "\\S" );
+    int c = getLine(r.endLine).indexOf( nonSpace );
+    if ( c == -1 )
+      c = 0;
+
+    r.endColumn = c;
+    return r;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // TEXT OBJECTS
@@ -2533,6 +2588,9 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("][", motionToNextBraceBlockEnd, 0 );
   ADDMOTION("*", motionToNextOccurrence, 0 );
   ADDMOTION("#", motionToPrevOccurrence, 0 );
+  ADDMOTION("H", motionToFirstLineOfWindow, 0 );
+  ADDMOTION("M", motionToMiddleLineOfWindow, 0 );
+  ADDMOTION("L", motionToLastLineOfWindow, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );

@@ -192,6 +192,10 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange motionToNextOccurrence();
     KateViRange motionToPrevOccurrence();
 
+    KateViRange motionToFirstLineOfWindow();
+    KateViRange motionToMiddleLineOfWindow();
+    KateViRange motionToLastLineOfWindow();
+
     // TEXT OBJECTS
 
     KateViRange textObjectAWord();

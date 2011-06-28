@@ -1106,7 +1106,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
 
   // add all tabs
   tabWidget->insertTab(0, tmpWidget, i18n("Plugins"));
-  tabWidget->insertTab(1, scriptConfigPage, i18n("Scripts"));
+//  tabWidget->insertTab(1, scriptConfigPage, i18n("Scripts"));
 
   generalLayout->addWidget(tabWidget);
   setLayout(generalLayout);

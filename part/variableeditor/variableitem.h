@@ -23,12 +23,6 @@
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QMetaType>
-
-class QPainter;
-class QWidget;
-class QModelIndex;
-class QSize;
 
 class VariableEditor;
 
@@ -57,9 +51,6 @@ private:
   QString m_helpText;
   bool m_active;
 };
-
-Q_DECLARE_METATYPE(VariableItem*)
-
 //END class VariableItem
 
 

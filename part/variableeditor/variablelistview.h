@@ -35,7 +35,10 @@ public:
   virtual ~VariableListView();
 
   QVector<VariableItem *> items();
-  
+
+private:
+  void addKateItems();
+
 public Q_SLOTS:
   void somethingChanged();
 

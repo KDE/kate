@@ -53,6 +53,18 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
     l << KateViKeyParser::getInstance()->decodeKeySequence( getMapping( NormalMode, s ) );
   }
   config.writeEntry( "Normal Mode Mappings", l );
+
+/*
+  qDebug() << "\n!!!!!\n!!!!!\n!!!!!\n!!!!!\n!!!!!" << "WRITE CONFIG\n\n\n\!!!\n\n";
+
+  for (int i = 0; i <= jump_list->size(); i++) {
+      qDebug() << "\n Write " << i << "\n";
+      QStringList l;
+      l << QString::number(jump_list->at(i).line) << QString::number(jump_list->at(i).column) <<
+           jump_list->at(i).file;
+      qDebug() << "L: \n"<< l << "\n";
+      config.writeEntry("ViModeJump" + QString::number(i+1),l );
+  }*/
 }
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
@@ -69,6 +81,28 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
     } else {
       kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
     }
+
+   /* jump_list->clear();
+    QString key = "ViModeJump";
+    for (int i = 1;config.hasKey(key + QString::number(i)); i++) {
+       QStringList jump_line = config.readEntry( key + QString::number(i), QStringList() );
+
+       Q_ASSERT(jump_line.size() == 3);
+
+       int line = jump_line.at(0).toInt();
+       int column = jump_line.at(1).toInt();
+       QString file = jump_line.at(2);
+
+
+       KateViJump jump = {line, column, file};
+
+       jump_list->push_back( jump );
+       qDebug() << "Line, column, file:" << line << column << file << "\n";
+
+    }
+    current_jump = jump_list->begin();
+
+*/
 }
 
 KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
@@ -231,48 +265,70 @@ KTextEditor::Cursor KateViGlobal::getMarkPosition( const QChar& mark ) const
 }
 
 
- void KateViGlobal::addJump(KTextEditor::Cursor cursor) {
+ void KateViGlobal::addJump(KTextEditor::Cursor cursor, KateDocument* document) {
+
+    QString thisfile = document->url().path(); // "Thisfile";
     for (QList<KateViJump>::iterator iterator = jump_list->begin();
          iterator != jump_list->end();
          iterator ++){
-        if ((*iterator).first == cursor.line()){
-            if (iterator == current_jump)
-                current_jump = jump_list->erase(iterator);
-            else
-                jump_list->erase(iterator);
+        if ((*iterator).line == cursor.line() && (*iterator).document == document ){
+            jump_list->erase(iterator);
             break;
         }
     }
-    current_jump = jump_list->insert(current_jump++,
-                                    KateViJump(cursor.line(),cursor.column()));
-}
 
-KTextEditor::Cursor KateViGlobal::getNextJump(KTextEditor::Cursor cursor) {
+    KateViJump jump = { cursor.line(), cursor.column(), document };
+    jump_list->push_back(jump);
+    current_jump = jump_list->end();
 
+    // DEBUG
+    PrintJumpList();
+
+ }
+
+KTextEditor::Cursor KateViGlobal::getNextJump(KTextEditor::Cursor cursor, KateDocument* document) {
+
+    QString thisfile = "Thisfile";
     if (current_jump != jump_list->end()) {
         KateViJump jump;
         if (current_jump + 1 != jump_list->end())
-            jump = *(current_jump++);
+            jump = *(++current_jump);
         else
             jump = *(current_jump);
 
-        cursor = KTextEditor::Cursor(jump.first, jump.second);
-    } else {
-        qDebug() << "Jump list is empty";
+        cursor = KTextEditor::Cursor(jump.line, jump.column);
     }
+    // DEBUG
+    PrintJumpList();
+
     return cursor;
 }
 
-KTextEditor::Cursor KateViGlobal::getPrevJump(KTextEditor::Cursor cursor) {
+KTextEditor::Cursor KateViGlobal::getPrevJump(KTextEditor::Cursor cursor, KateDocument* document ) {
+    QString thisfile = "Thisfile";
     if (current_jump != jump_list->begin()) {
         KateViJump jump;
-        if (current_jump - 1 != jump_list->begin())
-            jump = *(current_jump--);
-        else
-            jump = *(current_jump);
-
-        cursor = KTextEditor::Cursor(jump.first, jump.second);
+            jump = *(--current_jump);
+        cursor = KTextEditor::Cursor(jump.line, jump.column);
     }
+
+    // DEBUG
+    PrintJumpList();
+
     return cursor;
 }
 
+void KateViGlobal::PrintJumpList(){
+    qDebug() << "Jump List\n";
+    for (  QList<KateViJump>::iterator iter = jump_list->begin();
+         iter != jump_list->end();
+         iter++){
+            if (iter == current_jump)
+                qDebug() << (*iter).line << (*iter).column << (*iter).document->url().path() << "<< Current Jump";
+            else
+                qDebug() << (*iter).line << (*iter).column << (*iter).document->url().path();
+    }
+    if (current_jump == jump_list->end())
+        qDebug() << "    << Current Jump";
+
+}

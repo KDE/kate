@@ -52,6 +52,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_runningMacro = false;
 
   m_lastSearchBackwards = false;
+
+  KateGlobal::self()->viInputModeGlobal()->addJump(KTextEditor::Cursor(0,1), m_view->doc());
 }
 
 KateViInputModeManager::~KateViInputModeManager()

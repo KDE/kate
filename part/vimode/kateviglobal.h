@@ -43,7 +43,12 @@ namespace KateVi {
 }
 
 typedef QPair<QString, OperationMode> KateViRegister;
-typedef QPair<int,int> KateViJump;
+
+struct KateViJump {
+    int line;
+    int column;
+    KateDocument *document;
+};
 
 class KATEPART_TESTS_EXPORT KateViGlobal
 {
@@ -67,9 +72,10 @@ public:
     void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
     KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
 
-    void addJump(KTextEditor::Cursor cursor);
-    KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
-    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor);
+    void addJump(KTextEditor::Cursor cursor,KateDocument* document);
+    KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor, KateDocument* document);
+    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor, KateDocument* document);
+    void PrintJumpList();
 
 private:
     // registers

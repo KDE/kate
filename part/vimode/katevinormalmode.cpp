@@ -441,7 +441,8 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {
-    KateGlobal::self()->viInputModeGlobal()->addJump(m_view->cursorPosition());
+    qDebug() << "\n Document Name" << m_view->doc()->documentName() << "\n";
+    KateGlobal::self()->viInputModeGlobal()->addJump(m_view->cursorPosition(),m_view->doc());
   //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
 }
 
@@ -1427,14 +1428,15 @@ bool KateViNormalMode::commandAppendToBlock()
 }
 
 bool KateViNormalMode::commandGoToNextJump(){
-    Cursor c = getNextJump(m_view->cursorPosition());
+
+    Cursor c = getNextJump(m_view->cursorPosition(),m_view->doc());
     updateCursor(c);
 
     return true;
 }
 
 bool KateViNormalMode::commandGoToPrevJump(){
-    Cursor c = getPrevJump(m_view->cursorPosition());
+    Cursor c = getPrevJump(m_view->cursorPosition(),m_view->doc());
     updateCursor(c);
 
     return true;

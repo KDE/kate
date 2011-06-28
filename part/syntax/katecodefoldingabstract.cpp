@@ -156,7 +156,7 @@ void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumn
   oldMapping.clear();
   lineMapping.insert(line,newMapping);
 }
-
+/*
 void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
 {
 
@@ -168,12 +168,12 @@ void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
   lineMapping.remove(line);
   lineMapping.
 }
-
+*/
 void AbstractKateCodeFoldingTree::lineHasBeenRemoved(int line)
 {
   int index;
   for (index = line ; index < lineMapping.size() - 1 ; ++ index) {
     lineMapping[index] = lineMapping[index + 1];
   }
-  lineMapping.remove()
+  //lineMapping.remove();
 }

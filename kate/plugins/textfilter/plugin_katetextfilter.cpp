@@ -35,14 +35,15 @@
 #include <kinputdialog.h>
 #include <kprocess.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kauthorized.h>
 #include <kactioncollection.h>
 
 #include <qapplication.h>
 #include <qclipboard.h>
 
-K_EXPORT_COMPONENT_FACTORY(katetextfilterplugin, KGenericFactory<PluginKateTextFilter>("katetextfilter"))
+K_PLUGIN_FACTORY(PluginKateTextFilterFactory, registerPlugin<PluginKateTextFilter>();)
+K_EXPORT_PLUGIN(PluginKateTextFilterFactory("katetextfilter"))
 
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
                                                    Kate::MainWindow *mainwindow)
@@ -66,7 +67,7 @@ PluginViewKateTextFilter::~PluginViewKateTextFilter()
   mainWindow()->guiFactory()->removeClient (this);
 }
 
-PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QStringList&)
+PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QVariantList&)
   : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
   , KTextEditor::Command()
   , m_pFilterProcess(NULL)

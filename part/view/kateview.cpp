@@ -1197,7 +1197,10 @@ void KateView::setEol(int eol)
   if (m_updatingDocumentConfig)
     return;
 
-  m_doc->config()->setEol (eol);
+  if (eol != m_doc->config()->eol()) {
+    m_doc->setModified(true); // mark modified (bug #143120)
+    m_doc->config()->setEol (eol);
+  }
 }
 
 void KateView::setAddBom(bool enabled)

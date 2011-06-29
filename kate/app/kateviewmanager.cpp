@@ -90,6 +90,13 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document *)), this, SLOT(documentCreated(KTextEditor::Document *)));
   connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document *)), this, SLOT(documentDeleted(KTextEditor::Document *)));
 
+  // register all already existing documents
+  m_blockViewCreationAndActivation = true;
+  const QList<KTextEditor::Document*> &docs = KateDocManager::self()->documentList ();
+  foreach (KTextEditor::Document *doc, docs)
+    documentCreated (doc);
+  m_blockViewCreationAndActivation = false;
+  
   // init done
   m_init = false;
 }
@@ -290,9 +297,12 @@ KateMainWindow *KateViewManager::mainWindow()
 // VIEWSPACE
 
 void KateViewManager::documentCreated (KTextEditor::Document *doc)
-{
-  if (m_blockViewCreationAndActivation) return;
+{ 
+  // to update open recent files on saving
+  connect (doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document *, bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document *, bool)));
 
+  if (m_blockViewCreationAndActivation) return;
+  
   if (!activeView())
     activateView (doc);
 }
@@ -305,6 +315,12 @@ void KateViewManager::documentDeleted (KTextEditor::Document *)
   // if all docs are closed, this will be handled by the documentCreated
   if (!activeView() && (KateDocManager::self()->documents() > 0))
     createView (KateDocManager::self()->document(KateDocManager::self()->documents() - 1));
+}
+
+void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
+{
+  if (!doc->url().isEmpty())
+    m_mainWindow->fileOpenRecent->addUrl( doc->url() );
 }
 
 bool KateViewManager::createView ( KTextEditor::Document *doc )

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C++" section="Sources"
-          version="1.47" kateversion="2.4"
+          version="1.48" kateversion="2.4"
           indenter="cstyle"
           mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
           extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
@@ -20,6 +20,7 @@
       <item> case </item>
       <item> catch </item>
       <item> class </item>
+      <item> constexpr </item>
       <item> const_cast </item>
       <item> continue </item>
       <item> default </item>
@@ -47,6 +48,7 @@
       <item> reinterpret_cast </item>
       <item> return </item>
       <item> sizeof </item>
+      <item> static_assert </item>
       <item> static_cast </item>
       <item> struct </item>
       <item> switch </item>
@@ -150,6 +152,8 @@
       <item> auto </item>
       <item> bool </item>
       <item> char </item>
+      <item> char16_t </item>
+      <item> char32_t </item>
       <item> const </item>
       <item> double </item>
       <item> float </item>

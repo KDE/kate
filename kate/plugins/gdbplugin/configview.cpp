@@ -26,13 +26,14 @@
 #include <QtGui/QCompleter>
 #include <QtGui/QDirModel>
 #include <QtGui/QLayout>
+#include <QtCore/QTimer>
 
 #include <klocale.h>
 #include <kicon.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <kfiledialog.h>
-
+#include <kmessagebox.h>
 
 ConfigView::ChangingTarget::ChangingTarget( ConfigView* view )
 :   m_view( view )
@@ -53,8 +54,8 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
 {
     m_targets = new QComboBox();
     m_targets->setEditable( true );
-    // don't let Qt insert items when the user edits; we handle it in the
-    // editTextChanged signal instead
+    // don't let Qt insert items when the user edits; new targets are only
+    // added when the user explicitly says so
     m_targets->setInsertPolicy( QComboBox::NoInsert );
 
     QCompleter* completer1 = new QCompleter( this );
@@ -83,8 +84,8 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
 
     m_argumentLists = new QComboBox();
     m_argumentLists->setEditable( true );
-    // don't let Qt insert items when the user edits; we handle it in the
-    // editTextChanged signal instead
+    // don't let Qt insert items when the user edits; new argument lists are
+    // only added when the user explictly says so
     m_argumentLists->setInsertPolicy( QComboBox::NoInsert );
 
     m_argumentsLabel = new QLabel( i18nc( "Program argument list", "&Arg List:" ) );
@@ -309,8 +310,11 @@ void ConfigView::slotTargetEdited( QString updatedTarget )
         {
             if( i == m_targets->currentIndex() )
             {
+                QLineEdit* lineEdit = m_targets->lineEdit();
+                int cursorPosition = lineEdit->cursorPosition();
                 updateCurrentTargetDescription( 0, updatedTarget );
                 m_targets->setItemText( i, updatedTarget );
+                lineEdit->setCursorPosition( cursorPosition );
                 items.append( updatedTarget );
             }
             else
@@ -402,29 +406,38 @@ void ConfigView::slotWorkingDirectoryEdited( QString updatedWorkingDirectory )
     }
 }
 
-void ConfigView::slotArgListEdited( QString updatedArgList )
+void ConfigView::slotUpdateArgLists()
+{
+    QStringList items;
+    QString     updatedArgList = m_argumentLists->currentText();
+
+    // rebuild the target description for the current target and update the
+    // arg lists menu
+    for( int i = 0; i < m_argumentLists->count(); ++i )
+    {
+        if( i == m_argumentLists->currentIndex() )
+        {
+            QLineEdit* lineEdit = m_argumentLists->lineEdit();
+            int cursorPosition = lineEdit->cursorPosition();
+            updateCurrentTargetDescription( 2, updatedArgList );
+            m_argumentLists->setItemText( i, updatedArgList );
+            lineEdit->setCursorPosition( cursorPosition );
+            items.append( updatedArgList );
+        }
+        else
+        {
+            items.append( m_argumentLists->itemText( i ) );
+        }
+    }
+    m_argListSelectAction->setItems( items );
+    m_argListSelectAction->setCurrentItem( m_argumentLists->currentIndex() );
+}
+
+void ConfigView::slotArgListEdited( QString /*updatedArgList*/ )
 {
     if( m_changingTarget == 0 )
     {
-        QStringList items;
-
-        // rebuild the target description for the current target and update the
-        // arg lists menu
-        for( int i = 0; i < m_argumentLists->count(); ++i )
-        {
-            if( i == m_argumentLists->currentIndex() )
-            {
-                updateCurrentTargetDescription( 2, updatedArgList );
-                m_argumentLists->setItemText( i, updatedArgList );
-                items.append( updatedArgList );
-            }
-            else
-            {
-                items.append( m_argumentLists->itemText( i ) );
-            }
-        }
-        m_argListSelectAction->setItems( items );
-        m_argListSelectAction->setCurrentItem( m_argumentLists->currentIndex() );
+        QTimer::singleShot( 0, this, SLOT( slotUpdateArgLists() ) );
     }
 }
 

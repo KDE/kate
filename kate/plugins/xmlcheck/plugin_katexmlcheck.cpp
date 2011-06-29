@@ -54,12 +54,13 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kprocess.h>
 
-K_EXPORT_COMPONENT_FACTORY( katexmlcheckplugin, KGenericFactory<PluginKateXMLCheck>( "katexmlcheck" ) )
+K_PLUGIN_FACTORY(PluginKateXMLCheckFactory, registerPlugin<PluginKateXMLCheck>();)
+K_EXPORT_PLUGIN(PluginKateXMLCheckFactory("katexmlcheck"))
 
-PluginKateXMLCheck::PluginKateXMLCheck( QObject* parent, const QStringList& )
+PluginKateXMLCheck::PluginKateXMLCheck( QObject* parent, const QVariantList& )
 	: Kate::Plugin ( (Kate::Application *)parent )
 {
 }

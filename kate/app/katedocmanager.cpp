@@ -151,8 +151,11 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
 
   // turn of the editorpart's own modification dialog, we have our own one, too!
+  KSharedConfig::Ptr config = KGlobal::config();
+  const KConfigGroup generalGroup(config, "General");
+  bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
   if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
-    qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (false);
+    qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (!ownModNotification);
 
   m_docList.append(doc);
   m_docInfos.insert (doc, new KateDocumentInfo (docInfo));

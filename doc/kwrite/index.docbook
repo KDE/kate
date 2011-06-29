@@ -2740,7 +2740,7 @@ menus. This is also used in the
 <term><guilabel>Variables:</guilabel></term>
 <listitem><para>This string allows you to configure &kappname;'s settings for the
 files selected by this mimetype using &kappname; variables. You can set almost any
-configuration option, such as highlight, indent-mode, encoding,
+configuration option, such as highlight, indent-mode,
 etc.</para><para>For a full list of known variables, see the
 manual.</para></listitem>
 </varlistentry>

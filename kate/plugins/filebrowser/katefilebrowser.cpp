@@ -157,7 +157,7 @@ void KateFileBrowser::readSessionConfig(KConfigBase *config, const QString & nam
   m_dirOperator->setView(KFile::Default);
 
   KConfigGroup cg(config, name);
-  m_urlNavigator->setUrl(cg.readPathEntry("location", QDir::homePath()));
+  m_urlNavigator->setLocationUrl(cg.readPathEntry("location", QDir::homePath()));
   setDir(cg.readPathEntry("location", QDir::homePath()));
   m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", false));
   m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
@@ -169,7 +169,7 @@ void KateFileBrowser::writeSessionConfig(KConfigBase *config, const QString & na
   m_dirOperator->writeConfig(cgDir);
 
   KConfigGroup cg = KConfigGroup(config, name);
-  cg.writePathEntry("location", m_urlNavigator->url().url());
+  cg.writePathEntry("location", m_urlNavigator->locationUrl().url());
   cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
   cg.writeEntry("filter history", m_filter->historyItems());
 }
@@ -253,7 +253,7 @@ void KateFileBrowser::updateDirOperator(const KUrl& u)
 
 void KateFileBrowser::updateUrlNavigator(const KUrl& u)
 {
-  m_urlNavigator->setUrl(u);
+  m_urlNavigator->setLocationUrl(u);
 }
 
 void KateFileBrowser::setActiveDocumentDir()

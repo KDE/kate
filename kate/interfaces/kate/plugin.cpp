@@ -23,8 +23,8 @@
 
 #include "plugin.moc"
 
-#include <kparts/componentfactory.h>
-#include <klibloader.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 
@@ -64,9 +64,18 @@ namespace Kate
   {}
 
   Plugin *createPlugin ( const char* libname, Application *application,
-                         const QStringList &args )
+                         const QStringList &args ) // KDE5: s/QStringList/QVariantList/
   {
-    return KLibLoader::createInstance<Plugin>( libname, application, args );
+    KPluginLoader loader( libname );
+    KPluginFactory* factory = loader.factory();
+    if (!factory) {
+      return NULL;
+    } else {
+      QVariantList variantlist;
+      Q_FOREACH(const QString& str, args)
+        variantlist << QVariant(str);
+      return factory->create<Plugin>( application, variantlist );
+    }
   }
 
   Application *Plugin::application () const

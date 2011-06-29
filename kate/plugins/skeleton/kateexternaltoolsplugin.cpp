@@ -36,12 +36,13 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kauthorized.h>
 
-K_EXPORT_COMPONENT_FACTORY( kateexternaltoolsplugin, KGenericFactory<KateExternalToolsPlugin>( "kateexternaltoolsplugin" ) )
+K_PLUGIN_FACTORY(KateExternalToolsPluginFactory, registerPlugin<KateExternalToolsPlugin>();)
+K_EXPORT_PLUGIN(KateExternalToolsPluginFactory("kateexternaltoolsplugin"))
 
-KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QStringList& ):
+KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QVariantList& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {}
 

@@ -94,6 +94,8 @@ m_curResultTree(0)
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
 
+    m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
+
     m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));
     m_ui.stopButton->setIcon(KIcon("process-stop"));

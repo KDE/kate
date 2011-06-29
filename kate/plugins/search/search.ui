@@ -136,13 +136,10 @@
        </property>
        <item>
         <widget class="KTabWidget" name="resultTabWidget">
-         <property name="tabReorderingEnabled">
+         <property name="tabsClosable">
           <bool>true</bool>
          </property>
-         <property name="closeButtonEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="tabCloseActivatePrevious">
+         <property name="movable">
           <bool>true</bool>
          </property>
          <property name="automaticResizeTabs">
@@ -244,6 +241,9 @@
        </item>
        <item row="8" column="7">
         <widget class="QToolButton" name="currentFolderButton">
+         <property name="toolTip">
+          <string>Use the current document's path.</string>
+         </property>
          <property name="autoRaise">
           <bool>true</bool>
          </property>
@@ -271,6 +271,9 @@
        </item>
        <item row="8" column="6">
         <widget class="QToolButton" name="folderUpButton">
+         <property name="toolTip">
+          <string>Go one folder up.</string>
+         </property>
          <property name="autoRaise">
           <bool>true</bool>
          </property>

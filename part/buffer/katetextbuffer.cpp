@@ -50,6 +50,7 @@ TextBuffer::TextBuffer (KTextEditor::Document *parent, int blockSize)
   , m_generateByteOrderMark (false)
   , m_endOfLineMode (eolUnix)
   , m_removeTrailingSpaces (false)
+  , m_lineLengthLimit (1024)
 {
   // minimal block size must be > 0
   Q_ASSERT (m_blockSize > 0);
@@ -470,7 +471,7 @@ void TextBuffer::debugPrint (const QString &title) const
     m_blocks.at(i)->debugPrint (i);
 }
 
-bool TextBuffer::load (const QString &filename, bool &encodingErrors)
+bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped)
 {
   // fallback codec must exist
   Q_ASSERT (m_fallbackTextCodec);
@@ -556,22 +557,68 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
       // get unicode data for this line
       const QChar *unicodeData = file.unicode () + offset;
+      
+      /**
+       * split lines, if too large
+       */
+      do {
+        /**
+         * calculate line length
+         */
+        int lineLength = length;
+        if ((m_lineLengthLimit > 0) && (lineLength > m_lineLengthLimit)) {
+            /**
+             * search for place to wrap
+             */
+            int spacePosition = m_lineLengthLimit-1;
+            for (int testPosition = m_lineLengthLimit-1; (testPosition >= 0) && (testPosition >= (m_lineLengthLimit - (m_lineLengthLimit/10))); --testPosition) {
+                /**
+                 * wrap place found?
+                 */
+                if (unicodeData[testPosition].isSpace() || unicodeData[testPosition].isPunct()) {
+                    spacePosition = testPosition;
+                    break;
+                }
+            }
+            
+            /**
+             * wrap the line
+             */
+            lineLength = spacePosition+1;
+            length -= lineLength;
+            tooLongLinesWrapped = true;
+        } else {
+            /**
+             * be done after this round
+             */
+            length = 0;
+        }
 
-      // construct new text line with content from file
-      TextLine textLine = TextLine (new TextLineData(QString (unicodeData, length)));
+        /**
+         * construct new text line with content from file
+         * move data pointer
+         */
+        TextLine textLine = TextLine (new TextLineData(QString (unicodeData, lineLength)));
+        unicodeData += lineLength;
 
-      // ensure blocks aren't too large
-      if (m_blocks.last()->lines() >= m_blockSize)
-        m_blocks.append (new TextBlock (this, m_blocks.last()->startLine() + m_blocks.last()->lines()));
+        /**
+         * ensure blocks aren't too large
+         */
+        if (m_blocks.last()->lines() >= m_blockSize)
+            m_blocks.append (new TextBlock (this, m_blocks.last()->startLine() + m_blocks.last()->lines()));
 
-      m_blocks.last()->appendLine (textLine);
-      m_lines++;
+        /**
+         * append line to last block
+         */
+        m_blocks.last()->appendLine (textLine);
+        ++m_lines;
+      } while (length > 0);
     }
 
     // if no encoding error, break out of reading loop
     if (!encodingErrors) {
-      // remember used codec
-      m_textCodec = file.textCodec ();
+      // remember used codec, might change bom setting
+      setTextCodec (file.textCodec ());
       break;
     }
   }
@@ -605,6 +652,18 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors)
 
   // file loading worked, modulo encoding problems
   return true;
+}
+
+void TextBuffer::setTextCodec (QTextCodec *codec) 
+{
+  m_textCodec = codec;
+      
+  // enforce bom for some encodings
+  int mib = m_textCodec->mibEnum ();
+  if (mib == 1013 || mib == 1014 || mib == 1015) // utf16
+    setGenerateByteOrderMark (true);
+  if (mib == 1017 || mib == 1018 || mib == 1019) // utf32
+    setGenerateByteOrderMark (true);
 }
 
 bool TextBuffer::save (const QString &filename)

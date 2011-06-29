@@ -64,6 +64,7 @@ private Q_SLOTS:
     void slotAddTarget();
     void slotDeleteTarget();
     void slotWorkingDirectoryEdited( QString updatedWorkingDirectory );
+    void slotUpdateArgLists();
     void slotArgListEdited( QString updatedArgList );
     void slotArgListSelected( int index );
     void slotAddArgList();

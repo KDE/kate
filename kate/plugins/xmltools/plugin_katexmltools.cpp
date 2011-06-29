@@ -95,14 +95,15 @@ TODO:
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 
-K_EXPORT_COMPONENT_FACTORY( katexmltoolsplugin, KGenericFactory<PluginKateXMLTools>( "katexmltools" ) )
+K_PLUGIN_FACTORY(PluginKateXMLToolsFactory, registerPlugin<PluginKateXMLTools>();)
+K_EXPORT_PLUGIN(PluginKateXMLToolsFactory("katexmltools"))
 
 using Kate::application;
 
 
-PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QStringList& )
+PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QVariantList& )
     : Kate::Plugin ( (Kate::Application *)parent )
 {
 }
@@ -118,7 +119,7 @@ Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 
 
 PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
-  : Kate::PluginView ( win ), Kate::XMLGUIClient ( KGenericFactory<PluginKateXMLTools>::componentData() ),
+  : Kate::PluginView ( win ), Kate::XMLGUIClient ( componentData() ),
     m_model ( this )
 {
   //kDebug() << "PluginKateXMLTools constructor called";

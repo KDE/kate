@@ -30,6 +30,7 @@
 #include <kxmlguiclient.h>
 
 #include <QProcess>
+#include <QVariantList>
 
 class KProcess;
 
@@ -38,7 +39,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
   Q_OBJECT
 
   public:
-    explicit PluginKateTextFilter( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit PluginKateTextFilter( QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~PluginKateTextFilter();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

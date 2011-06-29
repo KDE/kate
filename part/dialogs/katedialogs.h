@@ -49,7 +49,6 @@
 
 struct syntaxContextData;
 
-class KateScriptConfigPage;
 class ModeConfigPage;
 class KateDocument;
 class KateView;
@@ -363,26 +362,8 @@ class KatePartPluginConfigPage : public KateConfigPage
   private:
     KPluginSelector *selector;
     QList<KPluginInfo> plugins;
-    KateScriptConfigPage *scriptConfigPage;
 };
 
-class KateScriptNewStuff;
-
-class KateScriptConfigPage : public KateConfigPage
-{
-  Q_OBJECT
-
-  public:
-    KateScriptConfigPage(QWidget *parent);
-    virtual ~KateScriptConfigPage();
-  public Q_SLOTS:
-    void apply ();
-    void reload ();
-    void reset () {}
-    void defaults () {}
-  private:
-    KateScriptNewStuff *m_newStuff;
-};
 
 class KateHlDownloadDialog: public KDialog
 {

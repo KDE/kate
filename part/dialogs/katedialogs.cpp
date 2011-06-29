@@ -898,6 +898,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkEnableBOM, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->lineLengthLimit, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( uiadv->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( uiadv->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -973,6 +974,8 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
   KateDocumentConfig::global()->setBom(ui->chkEnableBOM->isChecked());
+  
+  KateDocumentConfig::global()->setLineLengthLimit(ui->lineLengthLimit->value());
 
   KateDocumentConfig::global()->configEnd ();
   KateGlobalConfig::global()->configEnd ();
@@ -1032,6 +1035,7 @@ void KateSaveConfigTab::reload()
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
   ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
+  ui->lineLengthLimit->setValue(KateDocumentConfig::global()->lineLengthLimit());
 
   ui->chkRemoveTrailingSpaces->setChecked(KateDocumentConfig::global()->removeSpaces());
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
@@ -1066,11 +1070,7 @@ void KateSaveConfigTab::defaults()
 //BEGIN KatePartPluginConfigPage
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   : KateConfigPage (parent, "")
-  , scriptConfigPage (new KateScriptConfigPage(this))
 {
-  // FIXME: Is really needed to move all this code below to another class,
-  // since it is another tab itself on the config dialog. This means we should
-  // initialize, add and work with as we do with scriptConfigPage (ereslibre)
   QVBoxLayout *generalLayout = new QVBoxLayout;
   generalLayout->setMargin(0);
   KTabWidget *tabWidget = new KTabWidget(this);
@@ -1106,7 +1106,6 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
 
   // add all tabs
   tabWidget->insertTab(0, tmpWidget, i18n("Plugins"));
-  tabWidget->insertTab(1, scriptConfigPage, i18n("Scripts"));
 
   generalLayout->addWidget(tabWidget);
   setLayout(generalLayout);
@@ -1118,8 +1117,6 @@ KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 
 void KatePartPluginConfigPage::apply ()
 {
-  scriptConfigPage->apply();
-
   selector->updatePluginsState();
 
   KatePartPluginList &katePluginList = KatePartPluginManager::self()->pluginList();
@@ -1140,59 +1137,20 @@ void KatePartPluginConfigPage::apply ()
 
 void KatePartPluginConfigPage::reload ()
 {
-  scriptConfigPage->reload();
-
   selector->load();
 }
 
 void KatePartPluginConfigPage::reset ()
 {
-  scriptConfigPage->reset();
-
   selector->load();
 }
 
 void KatePartPluginConfigPage::defaults ()
 {
-  scriptConfigPage->defaults();
-
   selector->defaults();
 }
 //END KatePartPluginConfigPage
 
-class KateScriptNewStuff {};
-
-/*
-class KateScriptNewStuff: public KNewStuff {
-  public:
-    KateScriptNewStuff(QWidget *parent):KNewStuff("kate/scripts",parent) {}
-    virtual ~KateScriptNewStuff() {}
-    virtual bool install( const QString &fileName ) {return false;}
-    virtual bool createUploadFile( const QString &fileName ) {return false;}
-};
-*/
-//BEGIN KateScriptConfigPage
-KateScriptConfigPage::KateScriptConfigPage(QWidget *parent): KateConfigPage(parent,""), m_newStuff(new KateScriptNewStuff())
-{
-  // TODO: Please look at KateSelectConfigTab or ModeConfigPage to add
-  // a layout like we do there, to be consistent and have on all config
-  // pages the same distance to the KTabWidget edge (ereslibre)
-
-  //m_newStuff->download();
-}
-
-KateScriptConfigPage::~KateScriptConfigPage()
-{
-  delete m_newStuff;
-  m_newStuff=0;
-}
-
-void KateScriptConfigPage::apply () {
-}
-void KateScriptConfigPage::reload () {
-}
-
-//END KateScriptConfigPage
 
 //BEGIN KateHlDownloadDialog
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)

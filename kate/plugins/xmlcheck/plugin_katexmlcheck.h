@@ -41,6 +41,7 @@
 
 #include <k3dockwidget.h>
 #include <kiconloader.h>
+#include <QVariantList>
 
 class KTemporaryFile;
 class KProcess;
@@ -78,7 +79,7 @@ class PluginKateXMLCheck : public Kate::Plugin
   Q_OBJECT
 
 public:
-  explicit PluginKateXMLCheck( QObject* parent = 0, const QStringList& = QStringList() );
+  explicit PluginKateXMLCheck( QObject* parent = 0, const QVariantList& = QVariantList() );
 
     virtual ~PluginKateXMLCheck();
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);

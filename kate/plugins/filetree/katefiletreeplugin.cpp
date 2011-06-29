@@ -61,13 +61,17 @@ KateFileTreePlugin::~KateFileTreePlugin()
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  if(m_view.contains(mainWindow)) {
-    kDebug(debugArea()) << "ERROR: view hash already contains this mainWindow";
-    Q_ASSERT(m_view.contains(mainWindow) == true);
-  }
+  KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
+  connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
+  m_views.append(view);
 
-  m_view[mainWindow] = new KateFileTreePluginView (mainWindow, this);
-  return m_view[mainWindow];
+  return view;
+}
+
+void KateFileTreePlugin::viewDestroyed(QObject* view)
+{
+  // do not access the view pointer, since it is partially destroyed already
+  m_views.removeAll((KateFileTreePluginView *) view);
 }
 
 uint KateFileTreePlugin::configPages() const
@@ -128,7 +132,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
   m_settings.save();
 
   // update views
-  foreach(KateFileTreePluginView *view, m_view.values()) {
+  foreach(KateFileTreePluginView *view, m_views) {
     view->setHasLocalPrefs(false);
     view->model()->setShadingEnabled( shadingEnabled );
     view->model()->setViewShade( viewShade );
@@ -166,6 +170,9 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   m_proxyModel = new KateFileTreeProxyModel(this);
   m_proxyModel->setSourceModel(m_documentModel);
   m_proxyModel->setDynamicSortFilter(true);
+  
+  m_documentModel->setShowFullPathOnRoots(m_plug->settings().showFullPathOnRoots());
+  m_documentModel->setShadingEnabled(m_plug->settings().shadingEnabled());
 
   Kate::DocumentManager *dm = Kate::application()->documentManager();
 

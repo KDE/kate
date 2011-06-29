@@ -19,6 +19,7 @@
 #ifndef SCHEMAWIDGET_H
 #define SCHEMAWIDGET_H
 
+class SQLManager;
 class QMouseEvent;
 
 #include <QTreeWidget>
@@ -39,7 +40,7 @@ class SchemaWidget : public QTreeWidget
     static const int SystemTablesFolderType = QTreeWidgetItem::UserType + 102;
     static const int ViewsFolderType  = QTreeWidgetItem::UserType + 103;
 
-    SchemaWidget(QWidget *parent);
+    SchemaWidget(QWidget *parent, SQLManager *manager);
     virtual ~SchemaWidget();
 
     void buildDatabase(QTreeWidgetItem * databaseItem);
@@ -65,12 +66,15 @@ class SchemaWidget : public QTreeWidget
     void deleteChildren(QTreeWidgetItem *item);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+    bool isConnectionValidAndOpen();
 
     QString m_connectionName;
     QPoint m_dragStartPosition;
 
     bool m_tablesLoaded;
     bool m_viewsLoaded;
+
+    SQLManager *m_manager;
 };
 
 #endif // SCHEMAWIDGET_H

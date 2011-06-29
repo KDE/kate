@@ -18,7 +18,8 @@ class FoldingNode
     QVector<FoldingNode*> m_startChildren;  // Node's startChildren list
     QVector<FoldingNode*> m_endChildren;    // Node's endChildren list
 
-    FoldingNode* matchingNode();
+    FoldingNode *matchingNode();
+    inline bool hasMatch() { return (m_endChildren.size() > 0); }
 
     void addChild(FoldingNode *node);
     void removeChild(FoldingNode *node);
@@ -42,6 +43,7 @@ public:
 
     FoldingNode *root;
     QVector <FoldingNode *> nodeMap;
+    static int newNodePos;
 
     void insertStartNode (int pos);
     void insertEndNode (int pos);

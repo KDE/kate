@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue Jun 28 12:50:03 2011
+** Created: Wed Jun 29 19:53:15 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -49,46 +49,46 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(845, 434);
+        MainWindow->resize(1018, 431);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         textEdit = new QTextEdit(centralWidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
-        textEdit->setGeometry(QRect(20, 10, 491, 371));
+        textEdit->setGeometry(QRect(20, 10, 691, 371));
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(550, 270, 131, 41));
+        pushButton_2->setGeometry(QRect(750, 270, 131, 41));
         textEdit_2 = new QTextEdit(centralWidget);
         textEdit_2->setObjectName(QString::fromUtf8("textEdit_2"));
-        textEdit_2->setGeometry(QRect(690, 280, 71, 30));
+        textEdit_2->setGeometry(QRect(890, 280, 71, 30));
         textEdit_3 = new QTextEdit(centralWidget);
         textEdit_3->setObjectName(QString::fromUtf8("textEdit_3"));
-        textEdit_3->setGeometry(QRect(690, 210, 71, 30));
+        textEdit_3->setGeometry(QRect(890, 210, 71, 30));
         pushButton_3 = new QPushButton(centralWidget);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(550, 200, 121, 50));
+        pushButton_3->setGeometry(QRect(750, 200, 121, 50));
         pushButton_4 = new QPushButton(centralWidget);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(550, 330, 131, 41));
+        pushButton_4->setGeometry(QRect(750, 330, 131, 41));
         textEdit_4 = new QTextEdit(centralWidget);
         textEdit_4->setObjectName(QString::fromUtf8("textEdit_4"));
-        textEdit_4->setGeometry(QRect(690, 340, 71, 30));
+        textEdit_4->setGeometry(QRect(890, 340, 71, 30));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(700, 30, 91, 24));
+        pushButton->setGeometry(QRect(900, 30, 91, 24));
         pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setGeometry(QRect(700, 130, 91, 24));
+        pushButton_5->setGeometry(QRect(900, 130, 91, 24));
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(530, 10, 151, 71));
+        label->setGeometry(QRect(730, 10, 151, 71));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(530, 110, 171, 61));
+        label_2->setGeometry(QRect(730, 110, 171, 61));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 845, 21));
+        menuBar->setGeometry(QRect(0, 0, 1018, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

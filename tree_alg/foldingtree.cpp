@@ -3,10 +3,13 @@
 
 int INF = 1000;
 
+int FoldingTree::newNodePos = -1;
+
 FoldingNode::FoldingNode(int pos, int typ, FoldingNode *par) :
     position(pos),
     parent(par),
-    type(typ)
+    type(typ),
+    shortage(1)
 {
 }
 
@@ -72,8 +75,13 @@ void FoldingNode::mergeChildren(QVector <FoldingNode*> &list1, QVector <FoldingN
       mergedList.append(list1[index1]);
       ++index1;
     }
-    else {
+    else if (list1[index1]->position > list2[index2]->position){
       mergedList.append(list2[index2]);
+      ++index2;
+    }
+    else {
+      mergedList.append(list1[index1]);
+      ++index1;
       ++index2;
     }
   }
@@ -99,7 +107,7 @@ void FoldingNode::updateSelf()
       }
     }
   }
-  else {                                                // this node has a shortage
+  else {                                                // this node has a shortage (all his brothers becomes his children)
     for (int i = 0 ; i < parent->m_startChildren.size() ; ++i) {
       FoldingNode* child = parent->m_startChildren[i];  // it's brother is selected
       if (child->position > position) {                 // and if this brother is above the current node, then
@@ -110,7 +118,7 @@ void FoldingNode::updateSelf()
     }
   }
 
-  m_endChildren.clear();                                // we rebuild end_children list
+  //m_endChildren.clear();                                // we rebuild end_children list
   foreach (FoldingNode *child, m_startChildren) {
     if (child->shortage > 0) {                          // the only child this node has
       shortage = child->shortage + 1;
@@ -122,6 +130,12 @@ void FoldingNode::updateSelf()
     }
   }
   setParent();
+
+  // call updateParent();
+  QVector<FoldingNode*> tempList (m_endChildren);
+  if (!tempList.empty())
+      tempList.pop_front();
+  parent->updateParent(tempList,shortage);
 }
 
 // This method helps recalibrating the tree
@@ -154,14 +168,37 @@ QString FoldingNode::toString(int level)
   //qDebug()<<QString("list size = %1").arg(m_startChildren.size());
   if (type > 0)
   {
-    string.append(QString("{ (position=%1, parentNo=%2)").arg(position).arg(parent->position));
+    string.append(QString("{ (POS=%1, pPos=%2, shortage=%3)").arg(position).arg(parent->position).arg(shortage));
     //qDebug()<<QString("!!!!!!!!!parent = %1").arg(parent->position);
   }
   else if (type < 0)
   {
-    string.append(QString("} (position=%1, parentNo=%2)").arg(position).arg(parent->position));
+    string.append(QString("} (POS=%1, pPos=%2)").arg(position).arg(parent->position));
   }
-  //qDebug()<<QString("\n------\nnew string = %1\n--------\n").arg(string);
+
+  string.append(" startChPos:[");
+  int i;
+  for (i = 0 ; i < m_startChildren.size() ; ++ i) {
+    string.append(QString("%1,").arg(m_startChildren[i]->position));
+  }
+  string.append("] endChPos:[");
+  for (i = 0 ; i < m_endChildren.size() ; ++ i) {
+    string.append(QString("%1,").arg(m_endChildren[i]->position));
+  }
+  string.append("]");
+
+  if (FoldingTree::newNodePos == position) {
+    string.append(" - NEW");
+  }
+
+  /*for (i = 0 ; i < m_startChildren.size() ; ++ i) {
+    string.append(m_startChildren[i]->toString(level + 1));
+  }
+
+  if (hasMatch()) {
+    string.append(matchingNode()->toString(level));
+  }*/
+
   int i1,i2;
   for (i1 = 0, i2 = 0 ; i1 < m_startChildren.size() && i2 < m_endChildren.size() ;) {
     if (m_startChildren[i1]->position < m_endChildren[i2]->position) {
@@ -180,6 +217,7 @@ QString FoldingNode::toString(int level)
   for (; i2 < m_endChildren.size() && i2 < m_endChildren.size() ; ++ i2) {
     string.append(m_endChildren[i2]->toString(level + 1));
   }
+
   return string;
 }
 
@@ -188,6 +226,7 @@ FoldingTree::FoldingTree()
   root = new FoldingNode(0,0,NULL);
   nodeMap.clear();
   nodeMap.insert(0,root);
+  newNodePos = -1;
 }
 
 FoldingTree::~FoldingTree()
@@ -198,22 +237,24 @@ FoldingTree::~FoldingTree()
 FoldingNode* FoldingTree::findParent(int startingPos) // Node placed at position startingPos is the first candidate
 {
   int i;
-  for (i = startingPos ; i > 0 ; -- i) {
-    if (nodeMap[i]->type > 0)                         // The parent node has to be a "start node"
+  for (i = (startingPos < nodeMap.size() - 1) ? startingPos : nodeMap.size() - 1 ; i > 0 ; -- i) {
+    if (nodeMap[i]->type > 0)                                             // The parent node has to be a "start node"
       return nodeMap[i];
   }
-  return root;                                        // The root node is the default parent
+  return root;                                                            // The root node is the default parent
 }
 
 void FoldingTree::insertStartNode(int pos)
 {
   // step 0 - set newNode's parameters
-  FoldingNode *parentNode = findParent(pos);                                  // find the parent of the new node
+  FoldingNode *parentNode = findParent(pos);                              // find the parent of the new node
   FoldingNode *newNode = new
-                FoldingNode(parentNode->position + 1,1,parentNode);       // create the new node
-  nodeMap.insert(newNode->position,newNode);                              // insert it in the map
-  increasePosition(newNode->position + 1);                                // update the others nodes position (+ 1)
-  parentNode->addChild(newNode);                                              // add the node to it's parent
+                //FoldingNode(parentNode->position + 1,1,parentNode);       // create the new node
+                FoldingNode(pos + 1,1,parentNode);       // create the new node
+
+  // debug
+  newNodePos = newNode->position;
+  // end of debug
 
   // step 1 - devide parent's startChildrenList
   QVector <FoldingNode*> tempList(parentNode->m_startChildren);
@@ -221,7 +262,7 @@ void FoldingTree::insertStartNode(int pos)
   sublist(newNode->m_startChildren,tempList,newNode->position,INF);
 
   // step 2 - devide parent's endChildrenList (or inherit shortage)
-  if (parentNode->shortage > 0) {
+  if (parentNode->shortage > 0 && parentNode->type) {                     // parent is not root node
     newNode->shortage = parentNode->shortage;
   }
   else {
@@ -230,29 +271,43 @@ void FoldingTree::insertStartNode(int pos)
     sublist(newNode->m_endChildren,tempList,newNode->position,INF);
   }
 
-  // step 3 - set the new parent for all the children
+  // step 3 - insert new node into position
+  nodeMap.insert(newNode->position,newNode);                              // insert it in the map
+  increasePosition(newNode->position + 1);                                // update the others nodes position (+ 1)
+  parentNode->addChild(newNode);                                          // add the node to it's parent
+
+
+  // step 4 - set the new parent for all the children
   newNode->setParent();
   parentNode->setParent();
 
-  // step 4 - call updateParent te recalibrate tree
-  tempList = newNode->m_startChildren;
-  tempList.pop_front();
-  newNode->updateParent(tempList,newNode->shortage);
+  // step 5 - call updateParent te recalibrate tree
+  /*tempList = newNode->m_endChildren;
+  if (!tempList.empty())
+    tempList.pop_front();
+  newNode->parent->updateParent(tempList,newNode->shortage);*/
+  newNode->updateSelf();
 
 }
 
 void FoldingTree::insertEndNode(int pos)
 {
   // step 0 - set newNode's parameters
-  FoldingNode *parentNode = findParent(pos);                                  // find the parent of the new node
+  FoldingNode *parentNode = findParent(pos);                              // find the parent of the new node
   FoldingNode *newNode = new
-               FoldingNode(parentNode->position + 1,-1,parentNode);       // create the new node
+               //FoldingNode(parentNode->position + 1,-1,parentNode);       // create the new node
+               FoldingNode(pos + 1,-1,parentNode);       // create the new node
   nodeMap.insert(newNode->position,newNode);                              // insert it in the map
   increasePosition(newNode->position + 1);                                // update the others nodes position (+ 1)
-  parentNode->addChild(newNode);                                              // add the node to it's parent
+  parentNode->addChild(newNode);                                          // add the node to it's parent
+
+  // debug
+  newNodePos = newNode->position;
+  // end of debug
 
   // step 1 - call updateSelf() for parent node to recalibrate tree
-  parentNode->updateSelf();
+  if (parentNode->type)                                                   // if its parent is the root node, then it stops
+    parentNode->updateSelf();
 }
 
 void FoldingTree::deleteStartNode(int pos)
@@ -341,12 +396,13 @@ FoldingNode* FoldingTree::findNodeAt(int position) {
 // puts in dest Vector a sublist of source Vector
 void FoldingTree::sublist(QVector<FoldingNode *> &dest, QVector<FoldingNode *> source, int begin, int end)
 {
+  dest.clear();
   foreach (FoldingNode *node, source) {
+    if (node->position >= end)
+      break;
     if (node->position >= begin) {
       dest.append(node);
     }
-    if (node->position >= end)
-      break;
   }
 }
 

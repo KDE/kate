@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
-    <height>434</height>
+    <width>1018</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>491</width>
+      <width>691</width>
       <height>371</height>
      </rect>
     </property>
@@ -27,7 +27,7 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>750</x>
       <y>270</y>
       <width>131</width>
       <height>41</height>
@@ -41,7 +41,7 @@ after Node no:</string>
    <widget class="QTextEdit" name="textEdit_2">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>890</x>
       <y>280</y>
       <width>71</width>
       <height>30</height>
@@ -51,7 +51,7 @@ after Node no:</string>
    <widget class="QTextEdit" name="textEdit_3">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>890</x>
       <y>210</y>
       <width>71</width>
       <height>30</height>
@@ -61,7 +61,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>750</x>
       <y>200</y>
       <width>121</width>
       <height>50</height>
@@ -74,7 +74,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>750</x>
       <y>330</y>
       <width>131</width>
       <height>41</height>
@@ -88,7 +88,7 @@ after Node no:</string>
    <widget class="QTextEdit" name="textEdit_4">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>890</x>
       <y>340</y>
       <width>71</width>
       <height>30</height>
@@ -98,7 +98,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>900</x>
       <y>30</y>
       <width>91</width>
       <height>24</height>
@@ -111,7 +111,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>900</x>
       <y>130</y>
       <width>91</width>
       <height>24</height>
@@ -124,7 +124,7 @@ after Node no:</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>730</x>
       <y>10</y>
       <width>151</width>
       <height>71</height>
@@ -141,7 +141,7 @@ is correct
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>730</x>
       <y>110</y>
       <width>171</width>
       <height>61</height>
@@ -160,7 +160,7 @@ small parts of this project </string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>845</width>
+     <width>1018</width>
      <height>21</height>
     </rect>
    </property>

@@ -31,6 +31,9 @@ class FoldingNode
     void updateParent(QVector <FoldingNode *> newExcess, int newShortage);
     void updateSelf();
 
+    // debug methods
+    bool contains(FoldingNode *node);
+    bool isDuplicated(FoldingNode *node);
     QString toString(int level = 0);
 
 };
@@ -44,6 +47,10 @@ public:
     FoldingNode *root;
     QVector <FoldingNode *> nodeMap;
     static int newNodePos;
+
+    static bool displayDetails;
+    static bool displayChildrenDetails;
+    static bool displayDuplicates;
 
     void insertStartNode (int pos);
     void insertEndNode (int pos);

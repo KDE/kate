@@ -27,6 +27,10 @@ private:
     void testMergeDriver();
 
 private slots:
+    void on_checkBox_3_stateChanged(int );
+    void on_checkBox_2_stateChanged(int );
+    void on_pushButton_6_released();
+    void on_checkBox_stateChanged(int newState);
     void on_pushButton_5_released();
     void on_pushButton_4_released();
     void on_pushButton_3_released();

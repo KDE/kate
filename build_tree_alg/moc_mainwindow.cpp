@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed Jun 29 18:37:03 2011
+** Created: Wed Jun 29 23:35:13 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,15 +32,23 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      39,   11,   11,   11, 0x08,
-      66,   11,   11,   11, 0x08,
-      93,   11,   11,   11, 0x08,
+      44,   11,   11,   11, 0x08,
+      76,   11,   11,   11, 0x08,
+     112,  103,   11,   11, 0x08,
+     142,   11,   11,   11, 0x08,
+     169,   11,   11,   11, 0x08,
+     196,   11,   11,   11, 0x08,
+     223,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0on_pushButton_5_released()\0"
+    "MainWindow\0\0on_checkBox_3_stateChanged(int)\0"
+    "on_checkBox_2_stateChanged(int)\0"
+    "on_pushButton_6_released()\0newState\0"
+    "on_checkBox_stateChanged(int)\0"
+    "on_pushButton_5_released()\0"
     "on_pushButton_4_released()\0"
     "on_pushButton_3_released()\0"
     "on_pushButton_2_released()\0"
@@ -75,13 +83,17 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: on_pushButton_5_released(); break;
-        case 1: on_pushButton_4_released(); break;
-        case 2: on_pushButton_3_released(); break;
-        case 3: on_pushButton_2_released(); break;
+        case 0: on_checkBox_3_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: on_checkBox_2_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: on_pushButton_6_released(); break;
+        case 3: on_checkBox_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: on_pushButton_5_released(); break;
+        case 5: on_pushButton_4_released(); break;
+        case 6: on_pushButton_3_released(); break;
+        case 7: on_pushButton_2_released(); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 8;
     }
     return _id;
 }

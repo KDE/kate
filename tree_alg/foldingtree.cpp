@@ -4,6 +4,9 @@
 int INF = 1000;
 
 int FoldingTree::newNodePos = -1;
+bool FoldingTree::displayDetails = true;
+bool FoldingTree::displayChildrenDetails = true;
+bool FoldingTree::displayDuplicates = true;
 
 FoldingNode::FoldingNode(int pos, int typ, FoldingNode *par) :
     position(pos),
@@ -159,6 +162,34 @@ void FoldingNode::setParent()
   }
 }
 
+bool FoldingNode::contains(FoldingNode *node) {
+  if (node->type > 0) {
+    foreach (FoldingNode *child, m_startChildren)
+      if (child->position == node->position)
+        return true;
+    return false;
+  }
+  else if (node->type < 0) {
+    foreach (FoldingNode *child, m_endChildren)
+      if (child->position == node->position)
+        return true;
+    return false;
+  }
+  return false;
+}
+
+bool FoldingNode::isDuplicated(FoldingNode *node)
+{
+  /*foreach (FoldingNode *child, m_startChildren)
+    if (child->contains(node))
+      return true;
+  return false;
+  */
+  if (type == 0)
+    return false;
+  return parent->contains(node);
+}
+
 QString FoldingNode::toString(int level)
 {
   QString string = "\n";
@@ -166,38 +197,38 @@ QString FoldingNode::toString(int level)
     string.append(QString("   "));
 
   //qDebug()<<QString("list size = %1").arg(m_startChildren.size());
-  if (type > 0)
-  {
-    string.append(QString("{ (POS=%1, pPos=%2, shortage=%3)").arg(position).arg(parent->position).arg(shortage));
-    //qDebug()<<QString("!!!!!!!!!parent = %1").arg(parent->position);
+  if (FoldingTree::displayDetails) {
+    if (type > 0)
+    {
+      string.append(QString("{ (POS=%1, pPos=%2, shortage=%3)").arg(position).arg(parent->position).arg(shortage));
+      //qDebug()<<QString("!!!!!!!!!parent = %1").arg(parent->position);
+    }
+    else if (type < 0)
+    {
+      string.append(QString("} (POS=%1, pPos=%2)").arg(position).arg(parent->position));
+    }
   }
-  else if (type < 0)
-  {
-    string.append(QString("} (POS=%1, pPos=%2)").arg(position).arg(parent->position));
+  else {
+    if (type > 0) string.append("{");
+    else if (type < 0) string.append("}");
   }
 
-  string.append(" startChPos:[");
-  int i;
-  for (i = 0 ; i < m_startChildren.size() ; ++ i) {
-    string.append(QString("%1,").arg(m_startChildren[i]->position));
+  if (FoldingTree::displayChildrenDetails && type > 0) {
+    string.append(" startChPos:[");
+    int i;
+    for (i = 0 ; i < m_startChildren.size() ; ++ i) {
+      string.append(QString("%1,").arg(m_startChildren[i]->position));
+    }
+    string.append("] endChPos:[");
+    for (i = 0 ; i < m_endChildren.size() ; ++ i) {
+      string.append(QString("%1,").arg(m_endChildren[i]->position));
+    }
+    string.append("]");
   }
-  string.append("] endChPos:[");
-  for (i = 0 ; i < m_endChildren.size() ; ++ i) {
-    string.append(QString("%1,").arg(m_endChildren[i]->position));
-  }
-  string.append("]");
 
   if (FoldingTree::newNodePos == position) {
     string.append(" - NEW");
   }
-
-  /*for (i = 0 ; i < m_startChildren.size() ; ++ i) {
-    string.append(m_startChildren[i]->toString(level + 1));
-  }
-
-  if (hasMatch()) {
-    string.append(matchingNode()->toString(level));
-  }*/
 
   int i1,i2;
   for (i1 = 0, i2 = 0 ; i1 < m_startChildren.size() && i2 < m_endChildren.size() ;) {
@@ -206,7 +237,8 @@ QString FoldingNode::toString(int level)
       ++i1;
     }
     else {
-      string.append(m_endChildren[i2]->toString(level));
+      if (FoldingTree::displayDuplicates == true || isDuplicated(m_endChildren[i2]) == false)
+        string.append(m_endChildren[i2]->toString(level));
       ++i2;
     }
   }
@@ -215,7 +247,8 @@ QString FoldingNode::toString(int level)
     string.append(m_startChildren[i1]->toString(level + 1));
   }
   for (; i2 < m_endChildren.size() && i2 < m_endChildren.size() ; ++ i2) {
-    string.append(m_endChildren[i2]->toString(level + 1));
+    if (FoldingTree::displayDuplicates == true || isDuplicated(m_endChildren[i2]) == false)
+      string.append(m_endChildren[i2]->toString(level));
   }
 
   return string;

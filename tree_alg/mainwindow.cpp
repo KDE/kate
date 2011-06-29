@@ -62,6 +62,14 @@ void MainWindow::on_pushButton_5_released()
   //testMergeDriver();
 }
 
+void MainWindow::on_pushButton_6_released()
+{
+  ui->textEdit->selectAll();
+  ui->textEdit->clear();
+  QString string = folding_tree->toString();
+  ui->textEdit->setPlainText(string);
+}
+
 // Start of Testing Methods
 /*
 void MainWindow::testMergeDriver()
@@ -85,3 +93,27 @@ void MainWindow::testMergeDriver()
   }
   qDebug()<<QString("*****");
 }*/
+
+void MainWindow::on_checkBox_stateChanged(int newState)
+{
+    if (newState)
+      FoldingTree::displayDetails = true;
+    else
+      FoldingTree::displayDetails = false;
+}
+
+void MainWindow::on_checkBox_2_stateChanged(int newState)
+{
+  if (newState)
+    FoldingTree::displayChildrenDetails = true;
+  else
+    FoldingTree::displayChildrenDetails = false;
+}
+
+void MainWindow::on_checkBox_3_stateChanged(int newState)
+{
+  if (newState)
+    FoldingTree::displayDuplicates = true;
+  else
+    FoldingTree::displayDuplicates = false;
+}

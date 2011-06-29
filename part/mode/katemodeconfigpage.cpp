@@ -160,9 +160,25 @@ void ModeConfigPage::update ()
       ui->cmbFiletypes->addItem(typeName);
   }
 
-  ui->cmbFiletypes->setCurrentIndex (0);
+  // get current filetype from active view via the host application
+  int currentIndex = 0;
+  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
+  if (iface) {
+    KateView *kv = qobject_cast<KateView*>(iface->activeView());
+    if (kv) {
+      const QString filetypeName = kv->doc()->fileType();
 
-  typeChanged (0);
+      for (int i = 0; i < m_types.size(); ++i) {
+        const QString typeName = i18nc("Language", m_types[i]->name.toUtf8());
+        if (filetypeName == typeName) {
+          currentIndex = i;
+          break;
+        }
+      }
+    }
+  }
+  ui->cmbFiletypes->setCurrentIndex (currentIndex);
+  typeChanged (currentIndex);
 
   ui->cmbFiletypes->setEnabled (ui->cmbFiletypes->count() > 0);
 }

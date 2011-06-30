@@ -30,10 +30,11 @@ class FoldingNode
     void mergeChildren(QVector <FoldingNode*> &list1, QVector <FoldingNode*> &list2);
     void updateParent(QVector <FoldingNode *> newExcess, int newShortage);
     void updateSelf();
+    bool isDuplicated(FoldingNode *node);
 
     // debug methods
     bool contains(FoldingNode *node);
-    bool isDuplicated(FoldingNode *node);
+    bool isDuplicatedPrint(FoldingNode *node);
     QString toString(int level = 0);
 
 };
@@ -65,7 +66,7 @@ public:
 
     void increasePosition (int startingPos);
     void decreasePosition (int startingPos);
-    FoldingNode* findParent (int startingPos);
+    FoldingNode* findParent (int startingPos, int childType);
 
     void sublist(QVector<FoldingNode*> &dest, QVector<FoldingNode*> source, int begin, int end);
     FoldingNode* findNodeAt(int position);

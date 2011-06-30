@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTextCursor>
 #include "foldingtree.h"
+#include <QFileDialog>
 
 namespace Ui {
     class MainWindow;
@@ -26,7 +27,15 @@ private:
     // Start of Test Methods
     void testMergeDriver();
 
+    int histLimit;
+    void saveHistoryToFile(QString fileName = defaultHistoryFile);
+    static QString defaultHistoryFile;
+
 private slots:
+    void on_checkBox_4_stateChanged(int );
+    void on_pushButton_8_released();
+    void on_spinBox_valueChanged(int );
+    void on_pushButton_7_released();
     void on_checkBox_3_stateChanged(int );
     void on_checkBox_2_stateChanged(int );
     void on_pushButton_6_released();

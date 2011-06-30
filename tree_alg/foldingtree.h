@@ -46,7 +46,12 @@ public:
 
     FoldingNode *root;
     QVector <FoldingNode *> nodeMap;
+
+    // debug info
     static int newNodePos;
+    static QVector<QString> history;
+    static int nOps;
+    // debug info
 
     static bool displayDetails;
     static bool displayChildrenDetails;

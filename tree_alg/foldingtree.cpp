@@ -7,6 +7,8 @@ int FoldingTree::newNodePos = -1;
 bool FoldingTree::displayDetails = true;
 bool FoldingTree::displayChildrenDetails = true;
 bool FoldingTree::displayDuplicates = true;
+QVector<QString> FoldingTree::history;
+int FoldingTree::nOps;
 
 FoldingNode::FoldingNode(int pos, int typ, FoldingNode *par) :
     position(pos),
@@ -121,10 +123,11 @@ void FoldingNode::updateSelf()
     }
   }
 
-  //m_endChildren.clear();                                // we rebuild end_children list
+  //m_endChildren.clear();                              // we rebuild end_children list
   foreach (FoldingNode *child, m_startChildren) {
     if (child->shortage > 0) {                          // the only child this node has
       shortage = child->shortage + 1;
+      break;
     }
     else {
       QVector <FoldingNode*> tempList (child->m_endChildren);
@@ -133,6 +136,8 @@ void FoldingNode::updateSelf()
     }
   }
   setParent();
+  if (hasMatch())
+    shortage = 0;
 
   // call updateParent();
   QVector<FoldingNode*> tempList (m_endChildren);
@@ -147,6 +152,10 @@ void FoldingNode::updateParent(QVector <FoldingNode *> newExcess, int newShortag
   mergeChildren(m_endChildren,newExcess);               // parent's endChildren list is updated
   if (newShortage > 0)
     shortage = newShortage + 1;                         // parent's shortage is updated
+  else if (hasMatch())
+    shortage = 0;
+  else
+    shortage = 1;
   if (type)                                             // if this node is not the root node
     updateSelf();                                       // then recalibration continues
 }
@@ -213,7 +222,7 @@ QString FoldingNode::toString(int level)
     else if (type < 0) string.append("}");
   }
 
-  if (FoldingTree::displayChildrenDetails && type > 0) {
+  if (FoldingTree::displayChildrenDetails && type >= 0) {
     string.append(" startChPos:[");
     int i;
     for (i = 0 ; i < m_startChildren.size() ; ++ i) {
@@ -351,6 +360,7 @@ void FoldingTree::deleteStartNode(int pos)
   if (pos <= 0)
     return;
   FoldingNode *deletedNode = findNodeAt(pos);
+  nodeMap.remove(pos);
 
   // step 1 - all its startChildren are inherited by its parent
   deletedNode->parent->mergeChildren(deletedNode->parent->m_startChildren,deletedNode->m_startChildren);
@@ -363,6 +373,7 @@ void FoldingTree::deleteStartNode(int pos)
   deletedNode->parent->updateParent(deletedNode->m_endChildren,deletedNode->shortage - 1);
 
   // step 4 - node is deleted
+
   delete deletedNode;
 }
 
@@ -374,6 +385,7 @@ void FoldingTree::deleteEndNode(int pos)
   if (pos <= 0)
     return;
   FoldingNode *deletedNode = findNodeAt(pos);
+  nodeMap.remove(pos);
 
   // step 1 - this node is removed from the tree
   deletedNode->parent->removeChild(deletedNode);

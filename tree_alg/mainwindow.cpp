@@ -3,14 +3,21 @@
 #include <QMessageBox>
 #include <QtCore/qdebug.h>
 
+QString MainWindow::defaultHistoryFile = NULL;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    histLimit(0)
 {
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
     folding_tree = new FoldingTree();
     ui->textEdit->setText(folding_tree->toString());
+    ui->spinBox_3->setMinimum(1);
+    ui->spinBox_2->setMaximum(0);
+    ui->spinBox_3->setMaximum(0);
+    ui->spinBox_4->setMaximum(0);
 }
 
 MainWindow::~MainWindow()
@@ -21,11 +28,25 @@ MainWindow::~MainWindow()
 // insert Start Node
 void MainWindow::on_pushButton_2_released()
 {
-  int position = ui->textEdit_2->toPlainText().toInt();
+  int position = ui->spinBox_2->value();
+  QString histString(QString("***********\n(%1)insert start node at position %2 :\n").arg(FoldingTree::nOps++).arg(position));
   folding_tree->insertStartNode(position);
   ui->textEdit->selectAll();
   ui->textEdit->clear();
   QString string = folding_tree->toString();
+  histString.append(string);
+  histString.append("\n***********\n\n");
+  FoldingTree::history.append(histString);
+  if (histLimit) {
+    while (FoldingTree::history.size() > histLimit)
+      FoldingTree::history.pop_front();
+  }
+  if (ui->checkBox_4->isChecked()) {
+    saveHistoryToFile();
+  }
+  ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
   //QMessageBox msgBox;
   //msgBox.setText(QString("x = %1").arg(position));
@@ -36,11 +57,25 @@ void MainWindow::on_pushButton_2_released()
 // Delete node
 void MainWindow::on_pushButton_3_released()
 {
-  int position = ui->textEdit_3->toPlainText().toInt();
+  int position = ui->spinBox_3->value();
+  QString histString(QString("***********\n(%1)delete node from position %2 :\n").arg(FoldingTree::nOps++).arg(position));
   folding_tree->deleteNode(position);
   ui->textEdit->selectAll();
   ui->textEdit->clear();
   QString string = folding_tree->toString();
+  histString.append(string);
+  histString.append("\n***********\n\n");
+  FoldingTree::history.append(histString);
+  if (histLimit) {
+    while (FoldingTree::history.size() > histLimit)
+      FoldingTree::history.pop_front();
+  }
+  if (ui->checkBox_4->isChecked()) {
+    saveHistoryToFile();
+  }
+  ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
 }
 
@@ -48,11 +83,25 @@ void MainWindow::on_pushButton_3_released()
 // insert End node
 void MainWindow::on_pushButton_4_released()
 {
-  int position = ui->textEdit_4->toPlainText().toInt();
+  int position = ui->spinBox_4->value();
+  QString histString(QString("***********\n(%1)insert end node at position %2 :\n").arg(FoldingTree::nOps++).arg(position));
   folding_tree->insertEndNode(position);
   ui->textEdit->selectAll();
   ui->textEdit->clear();
   QString string = folding_tree->toString();
+  histString.append(string);
+  histString.append("\n***********\n\n");
+  FoldingTree::history.append(histString);
+  if (histLimit) {
+    while (FoldingTree::history.size() > histLimit)
+      FoldingTree::history.pop_front();
+  }
+  if (ui->checkBox_4->isChecked()) {
+    saveHistoryToFile();
+  }
+  ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
+  ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
 }
 
@@ -62,6 +111,7 @@ void MainWindow::on_pushButton_5_released()
   //testMergeDriver();
 }
 
+// print method
 void MainWindow::on_pushButton_6_released()
 {
   ui->textEdit->selectAll();
@@ -116,4 +166,42 @@ void MainWindow::on_checkBox_3_stateChanged(int newState)
     FoldingTree::displayDuplicates = true;
   else
     FoldingTree::displayDuplicates = false;
+}
+
+void MainWindow::on_pushButton_7_released()
+{
+  QString fileName = QFileDialog::getSaveFileName();
+  saveHistoryToFile(fileName);
+}
+
+void MainWindow::on_spinBox_valueChanged(int newValue)
+{
+  histLimit = newValue;
+}
+
+void MainWindow::on_pushButton_8_released()
+{
+  FoldingTree::history.clear();
+}
+
+void MainWindow::saveHistoryToFile(QString fileName)
+{
+  QFile file(fileName);
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+  foreach (QString hist, FoldingTree::history) {
+    out<<hist;
+  }
+  file.close();
+}
+
+void MainWindow::on_checkBox_4_stateChanged(int newState)
+{
+  if (newState > 0) {
+    defaultHistoryFile = QFileDialog::getSaveFileName(0,"Select file for history");
+    if (defaultHistoryFile.isNull()) {
+      ui->checkBox_4->setChecked(false);
+      ui->checkBox_4->setCheckState(Qt::Unchecked);
+    }
+  }
 }

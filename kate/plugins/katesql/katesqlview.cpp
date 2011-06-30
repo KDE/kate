@@ -98,7 +98,9 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
   connect(m_manager, SIGNAL(success(const QString&)), this, SLOT(slotSuccess(const QString&)));
   connect(m_manager, SIGNAL(queryActivated(QSqlQuery&, const QString&)), this, SLOT(slotQueryActivated(QSqlQuery&, const QString&)));
   connect(m_manager, SIGNAL(connectionCreated(const QString&)), this, SLOT(slotConnectionCreated(const QString&)));
-  connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(const QString&)), m_schemaBrowserWidget->schemaWidget(), SLOT(buildTree(const QString&)));
+  connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(slotConnectionChanged(const QString&)));
+
+  stateChanged("has_connection_selected", KXMLGUIClient::StateReverse);
 }
 
 
@@ -187,6 +189,14 @@ void KateSQLView::slotSQLMenuAboutToShow()
 void KateSQLView::slotConnectionSelectedFromMenu(QAction *action)
 {
   m_connectionsComboBox->setCurrentItem(action->text());
+}
+
+
+void KateSQLView::slotConnectionChanged(const QString &connection)
+{
+  stateChanged("has_connection_selected", (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
+
+  m_schemaBrowserWidget->schemaWidget()->buildTree(connection);
 }
 
 

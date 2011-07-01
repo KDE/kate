@@ -28,10 +28,18 @@ private:
     void testMergeDriver();
 
     int histLimit;
-    void saveHistoryToFile(QString fileName = defaultHistoryFile);
     static QString defaultHistoryFile;
 
+    void saveHistoryToFile(QString fileName = defaultHistoryFile);
+    void displayTree();
+    void displayStack();
+    void check();
+
+
+
 private slots:
+    void on_pushButton_9_released();
+    void on_pushButton_released();
     void on_checkBox_4_stateChanged(int );
     void on_pushButton_8_released();
     void on_spinBox_valueChanged(int );

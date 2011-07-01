@@ -3,6 +3,7 @@
 
 #include "QVector"
 #include "QString"
+#include "QStack"
 
 class FoldingNode
 {
@@ -23,6 +24,7 @@ class FoldingNode
 
     void addChild(FoldingNode *node);
     void removeChild(FoldingNode *node);
+    void removeChilrenInheritedFrom(FoldingNode *node);
     void add(FoldingNode *node, QVector<FoldingNode*> &m_childred);
     void remove(FoldingNode *node, QVector<FoldingNode*> &m_childred);
     void setParent();
@@ -31,11 +33,12 @@ class FoldingNode
     void updateParent(QVector <FoldingNode *> newExcess, int newShortage);
     void updateSelf();
     bool isDuplicated(FoldingNode *node);
+    bool hasBrothers();
 
     // debug methods
     bool contains(FoldingNode *node);
     bool isDuplicatedPrint(FoldingNode *node);
-    QString toString(int level = 0);
+    QString toString(int level = 1);
 
 };
 
@@ -67,11 +70,19 @@ public:
     void increasePosition (int startingPos);
     void decreasePosition (int startingPos);
     FoldingNode* findParent (int startingPos, int childType);
+    FoldingNode* fineNodeAbove (int startingPos);
 
     void sublist(QVector<FoldingNode*> &dest, QVector<FoldingNode*> source, int begin, int end);
     FoldingNode* findNodeAt(int position);
 
     QString toString();
+
+    // Automatic Testing
+    QString treeString;
+    QString stackString;
+    void buildStackString();                                // Will build the output using the stack alg
+    void buildTreeString(FoldingNode *node, int level);     // Will build the output using the tree alg
+    bool isCorrect();                                       // will compare the stackString with the treeString
 
 };
 

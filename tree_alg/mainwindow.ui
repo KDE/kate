@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1017</width>
+    <width>1312</width>
     <height>510</height>
    </rect>
   </property>
@@ -17,17 +17,23 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>490</x>
       <y>10</y>
-      <width>691</width>
+      <width>531</width>
       <height>371</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1060</x>
       <y>190</y>
       <width>131</width>
       <height>41</height>
@@ -41,7 +47,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1060</x>
       <y>150</y>
       <width>131</width>
       <height>41</height>
@@ -54,7 +60,7 @@ after Node no:</string>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1060</x>
       <y>230</y>
       <width>131</width>
       <height>41</height>
@@ -65,24 +71,11 @@ after Node no:</string>
 after Node no:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>20</y>
-      <width>91</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Check</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>100</y>
+      <x>750</x>
+      <y>440</y>
       <width>91</width>
       <height>24</height>
      </rect>
@@ -91,43 +84,10 @@ after Node no:</string>
      <string>Execute</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>0</y>
-      <width>151</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>When pressed, this button 
-will call a method that 
-will test if the output 
-is correct 
-(not implemented yet)</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>80</y>
-      <width>171</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>This button's slot will be used 
-as a driver function. 
-It will help me testing 
-small parts of this project </string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>360</x>
       <y>410</y>
       <width>111</width>
       <height>21</height>
@@ -143,7 +103,7 @@ small parts of this project </string>
    <widget class="QCheckBox" name="checkBox_2">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>540</x>
       <y>410</y>
       <width>161</width>
       <height>21</height>
@@ -159,7 +119,7 @@ small parts of this project </string>
    <widget class="QCheckBox" name="checkBox_3">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>740</x>
       <y>410</y>
       <width>131</width>
       <height>21</height>
@@ -175,7 +135,7 @@ small parts of this project </string>
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>920</x>
       <y>410</y>
       <width>91</width>
       <height>24</height>
@@ -188,7 +148,7 @@ small parts of this project </string>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>1020</x>
       <y>290</y>
       <width>291</width>
       <height>171</height>
@@ -322,7 +282,7 @@ save</string>
    <widget class="QSpinBox" name="spinBox_2">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>1200</x>
       <y>200</y>
       <width>71</width>
       <height>23</height>
@@ -332,7 +292,7 @@ save</string>
    <widget class="QSpinBox" name="spinBox_3">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>1200</x>
       <y>160</y>
       <width>71</width>
       <height>23</height>
@@ -342,11 +302,125 @@ save</string>
    <widget class="QSpinBox" name="spinBox_4">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>1200</x>
       <y>240</y>
       <width>71</width>
       <height>23</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>491</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>390</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Test Screen</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>10</y>
+      <width>261</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Check</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_5">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>80</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Automatic 
+check</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>10</y>
+       <width>161</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Automatic Testing</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_9">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>440</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Print for test</string>
     </property>
    </widget>
   </widget>
@@ -355,7 +429,7 @@ save</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1017</width>
+     <width>1312</width>
      <height>21</height>
     </rect>
    </property>
@@ -368,7 +442,6 @@ save</string>
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

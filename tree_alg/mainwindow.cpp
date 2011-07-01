@@ -48,9 +48,7 @@ void MainWindow::on_pushButton_2_released()
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
-  //QMessageBox msgBox;
-  //msgBox.setText(QString("x = %1").arg(position));
-  //msgBox.exec();
+  check();
 }
 
 
@@ -77,6 +75,7 @@ void MainWindow::on_pushButton_3_released()
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
+  check();
 }
 
 
@@ -103,6 +102,7 @@ void MainWindow::on_pushButton_4_released()
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->textEdit->setPlainText(string);
+  check();
 }
 
 // driver method
@@ -168,22 +168,26 @@ void MainWindow::on_checkBox_3_stateChanged(int newState)
     FoldingTree::displayDuplicates = false;
 }
 
+// Open FileDialog to "Save As" the history
 void MainWindow::on_pushButton_7_released()
 {
   QString fileName = QFileDialog::getSaveFileName();
   saveHistoryToFile(fileName);
 }
 
+// Sets history size (limit)
 void MainWindow::on_spinBox_valueChanged(int newValue)
 {
   histLimit = newValue;
 }
 
+// Clears History
 void MainWindow::on_pushButton_8_released()
 {
   FoldingTree::history.clear();
 }
 
+// Prints the history to fileName
 void MainWindow::saveHistoryToFile(QString fileName)
 {
   QFile file(fileName);
@@ -195,6 +199,7 @@ void MainWindow::saveHistoryToFile(QString fileName)
   file.close();
 }
 
+// Choose file to save automatic history
 void MainWindow::on_checkBox_4_stateChanged(int newState)
 {
   if (newState > 0) {
@@ -204,4 +209,57 @@ void MainWindow::on_checkBox_4_stateChanged(int newState)
       ui->checkBox_4->setCheckState(Qt::Unchecked);
     }
   }
+}
+
+void MainWindow::displayTree()
+{
+  ui->textEdit->selectAll();
+  ui->textEdit->clear();
+  folding_tree->buildTreeString(folding_tree->root,1);
+  ui->textEdit->setPlainText(folding_tree->treeString);
+}
+
+void MainWindow::displayStack()
+{
+  ui->textEdit_2->selectAll();
+  ui->textEdit_2->clear();
+  folding_tree->buildStackString();
+  ui->textEdit_2->setPlainText(folding_tree->stackString);
+}
+
+// Check button
+// Prints the output of the stack alg
+void MainWindow::on_pushButton_released()
+{
+  displayTree();
+  displayStack();
+  QMessageBox msgBox;
+  if (folding_tree->isCorrect())
+    msgBox.setText("OK!!!");
+  else
+    msgBox.setText("ERROR!!!");
+  msgBox.exec();
+}
+
+// Prints the output of the tree alg
+// with the same format as the stack alg
+void MainWindow::on_pushButton_9_released()
+{
+  displayTree();
+}
+
+void MainWindow::check()
+{
+  if (ui->checkBox_5->isChecked() == false)
+    return;
+  folding_tree->buildStackString();
+  folding_tree->buildTreeString(folding_tree->root,1);
+  if (folding_tree->isCorrect())
+    return;
+
+  displayTree();
+  displayStack();
+  QMessageBox msgBox;
+  msgBox.setText("ERROR!!!");
+  msgBox.exec();
 }

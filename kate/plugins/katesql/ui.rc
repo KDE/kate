@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="katesql" library="katesqlplugin" version="6">
+<gui name="katesql" library="katesqlplugin" version="7">
   <MenuBar>
     <Menu name="SQL"><text>&amp;SQL</text>
       <Action name="connection_create" />
@@ -22,4 +22,13 @@
     <Action name="query_run"/>
     <Action name="query_stop"/>
   </ToolBar>
+
+  <State name="has_connection_selected" >
+    <enable>
+      <Action name="connection_remove" />
+      <Action name="connection_edit" />
+      <Action name="query_run"/>
+      <Action name="query_stop"/>
+    </enable>
+  </State>
 </gui>

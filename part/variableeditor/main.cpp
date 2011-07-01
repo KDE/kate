@@ -1,9 +1,11 @@
-/*
-   Copyright (C) 2010  Marco Mentasti  <marcomentasti@gmail.com>
+/* This file is part of the KDE project
+
+   Copyright (C) 2011 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
-   License version 2 as published by the Free Software Foundation.
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,24 +18,23 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "schemabrowserwidget.h"
-#include "schemawidget.h"
+#include <QtGui/QApplication>
+#include <QtGui/QMainWindow>
 
-#include <qtreeview.h>
+#include "variablelistview.h"
 
-SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
-: KVBox(parent)
-, m_schemaWidget(new SchemaWidget(this, manager))
+int main(int argc, char* argv[])
 {
+  QApplication app(argc, argv);
+
+  QMainWindow * mw = new QMainWindow();
+
+  VariableListView* variableView = new VariableListView(mw);
+
+  mw->setCentralWidget(variableView);
+
+  mw->resize(640, 480);
+  mw->show();
+
+  return app.exec();
 }
-
-SchemaBrowserWidget::~SchemaBrowserWidget()
-{
-}
-
-SchemaWidget* SchemaBrowserWidget::schemaWidget() const
-{
-  return m_schemaWidget;
-}
-
-

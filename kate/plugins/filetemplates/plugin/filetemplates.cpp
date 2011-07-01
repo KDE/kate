@@ -644,10 +644,10 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 {
   // 1) Optionally chose a file or existing template to start from
   QWizardPage *page = new QWizardPage;
-  page->setTitle("Template Origin");
-  page->setSubTitle("If you want to base this "
+  page->setTitle( i18n("Template Origin") );
+  page->setSubTitle( i18n("If you want to base this "
     "template on an existing file or template, select the appropriate option "
-    "below.");
+    "below.") );
 
   addPage( page );
 

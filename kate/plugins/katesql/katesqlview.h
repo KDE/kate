@@ -33,7 +33,7 @@ class QActionGroup;
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 
-class KateSQLView : public Kate::PluginView, public KXMLGUIClient
+class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
 
@@ -52,6 +52,7 @@ class KateSQLView : public Kate::PluginView, public KXMLGUIClient
     void slotConnectionCreate();
     void slotConnectionEdit();
     void slotConnectionRemove();
+    void slotConnectionChanged(const QString &connection);
     void slotRunQuery();
     void slotError(const QString &message);
     void slotSuccess(const QString &message);

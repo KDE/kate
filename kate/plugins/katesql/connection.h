@@ -24,6 +24,14 @@
 
 struct Connection
 {
+  enum Status
+  {
+    UNKNOWN           = 0
+  , ONLINE            = 1
+  , OFFLINE           = 2
+  , REQUIRE_PASSWORD  = 3
+  };
+
   QString name;
   QString driver;
   QString hostname;
@@ -32,7 +40,7 @@ struct Connection
   QString database;
   QString options;
   int     port;
-  bool    enabled;
+  Status  status;
 };
 
 Q_DECLARE_METATYPE(Connection)

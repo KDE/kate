@@ -117,9 +117,9 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
     QChar m_register;
 
-    void addJump(KTextEditor::Cursor cursor, KateDocument* document);
-    KTextEditor::Cursor getNextJump(KTextEditor::Cursor, KateDocument* document);
-    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor, KateDocument* document);
+    void addJump(KTextEditor::Cursor cursor);
+    KTextEditor::Cursor getNextJump(KTextEditor::Cursor);
+    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor);
 
     KateViRange m_commandRange;
     unsigned int m_count;

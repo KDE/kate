@@ -24,6 +24,7 @@
 #include <QKeyEvent>
 #include <QList>
 #include "katepartprivate_export.h"
+#include <ktexteditor/cursor.h>
 
 class KConfigGroup;
 class KateView;
@@ -45,6 +46,11 @@ enum ViMode {
   VisualLineMode,
   VisualBlockMode,
   ReplaceMode
+};
+
+struct KateViJump {
+    int line;
+    int column;
 };
 
 class KATEPART_TESTS_EXPORT KateViInputModeManager
@@ -161,6 +167,12 @@ public:
    */
   void setLastSearchBackwards( bool b ) { m_lastSearchBackwards = b; }
 
+  // Jup Lists
+  void addJump(KTextEditor::Cursor cursor);
+  KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
+  KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor);
+  void PrintJumpList();
+
   // session stuff
   void readSessionConfig( const KConfigGroup& config );
   void writeSessionConfig( KConfigGroup& config );
@@ -202,6 +214,11 @@ private:
    * keeps track of whether the last search was done backwards or not.
    */
   bool m_lastSearchBackwards;
+
+  // jump list
+  QList<KateViJump> *jump_list;
+  QList<KateViJump>::iterator current_jump;
+
 };
 
 #endif

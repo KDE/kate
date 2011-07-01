@@ -1167,10 +1167,8 @@ void KateView::readSessionConfig(const KConfigGroup& config)
 {
   setCursorPositionInternal(KTextEditor::Cursor(config.readEntry("CursorLine",0), config.readEntry("CursorColumn",0)));
 
-  // save vi registers if there are registers with contents
-  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
-    getViInputModeManager()->readSessionConfig( config );
-  }
+  // save vi registers and jump list
+  getViInputModeManager()->readSessionConfig( config );
 }
 
 void KateView::writeSessionConfig(KConfigGroup& config)
@@ -1178,10 +1176,8 @@ void KateView::writeSessionConfig(KConfigGroup& config)
   config.writeEntry("CursorLine",m_viewInternal->m_cursor.line());
   config.writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
 
-  // save vi registers if there are registers with contents
-  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
-    getViInputModeManager()->writeSessionConfig( config );
-  }
+  // save vi registers and jump list
+  getViInputModeManager()->writeSessionConfig( config );
 }
 
 int KateView::getEol() const

@@ -348,7 +348,7 @@ void ViModeTest::NormalModeCommandsTest()
                    "Fo foo.\nBar bar.\nBaz baz.");
   DoTest("Foo foo.\nBar bar.\nBaz baz.",
                    "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
-                   "Foo foo.\nBa bar.\nBaz baz.");
+                   "Foo foo.\nBar bar.\nBa baz.");
 
 
 }

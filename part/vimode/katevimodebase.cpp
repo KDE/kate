@@ -698,19 +698,19 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text, Operat
 }
 
 
-void KateViModeBase::addJump(KTextEditor::Cursor cursor,KateDocument* document)
+void KateViModeBase::addJump(KTextEditor::Cursor cursor)
 {
-  KateGlobal::self()->viInputModeGlobal()->addJump(cursor, document);
+  m_viInputModeManager->addJump(cursor);
 }
 
-KTextEditor::Cursor KateViModeBase::getNextJump(KTextEditor::Cursor cursor, KateDocument* document)
+KTextEditor::Cursor KateViModeBase::getNextJump(KTextEditor::Cursor cursor)
 {
-  return KateGlobal::self()->viInputModeGlobal()->getNextJump(cursor, document);
+  return m_viInputModeManager->getNextJump(cursor);
 }
 
-KTextEditor::Cursor KateViModeBase::getPrevJump(KTextEditor::Cursor cursor, KateDocument* document)
+KTextEditor::Cursor KateViModeBase::getPrevJump(KTextEditor::Cursor cursor)
 {
-  return KateGlobal::self()->viInputModeGlobal()->getPrevJump(cursor, document);
+  return m_viInputModeManager->getPrevJump(cursor);
 }
 
 KateViRange KateViModeBase::goLineDown()

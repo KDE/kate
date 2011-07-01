@@ -53,7 +53,9 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_lastSearchBackwards = false;
 
-  KateGlobal::self()->viInputModeGlobal()->addJump(KTextEditor::Cursor(0,1), m_view->doc());
+  jump_list = new QList<KateViJump>;
+  current_jump = jump_list->begin();
+
 }
 
 KateViInputModeManager::~KateViInputModeManager()
@@ -62,6 +64,7 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viInsertMode;
   delete m_viVisualMode;
   delete m_viReplaceMode;
+  delete jump_list;
 }
 
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
@@ -309,36 +312,129 @@ const QString KateViInputModeManager::getVerbatimKeys() const
 
 void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
 {
-  QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
-  QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
-  QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
 
-  // sanity check
-  if ( names.size() == contents.size() ) {
-    for ( int i = 0; i < names.size(); i++ ) {
-      KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+    if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+        QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
+        QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
+        QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
+
+        // sanity check
+        if ( names.size() == contents.size() ) {
+            for ( int i = 0; i < names.size(); i++ ) {
+                KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+            }
+        }
     }
+
+  // Reading jump list
+  // Format: jump1.line, jump1.column, jump2.line, jump2.column, jump3.line, ...
+  jump_list->clear();
+  QStringList jumps = config.readEntry( "JumpList", QStringList() );
+  for (int i = 0; i < jumps.size(); i+=2) {
+      KateViJump jump = {jumps.at(i).toInt(), jumps.at(i+1).toInt() } ;
+      jump_list->push_back(jump);
   }
+  current_jump = jump_list->end();
+  PrintJumpList();
 }
 
 void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
 {
-  const QMap<QChar, KateViRegister>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
-  QStringList names, contents;
-  QList<int> flags;
-  QMap<QChar, KateViRegister>::const_iterator i;
-  for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
-    if ( i.value().first.length() <= 1000 ) {
-      names << i.key();
-      contents << i.value().first;
-      flags << int(i.value().second);
-    } else {
-      kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
-        << i.value().first.length() << " characters)";
+  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+    const QMap<QChar, KateViRegister>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
+    QStringList names, contents;
+    QList<int> flags;
+    QMap<QChar, KateViRegister>::const_iterator i;
+    for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
+      if ( i.value().first.length() <= 1000 ) {
+        names << i.key();
+        contents << i.value().first;
+        flags << int(i.value().second);
+      } else {
+        kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
+          << i.value().first.length() << " characters)";
+      }
     }
+
+    config.writeEntry( "ViRegisterNames", names );
+    config.writeEntry( "ViRegisterContents", contents );
+    config.writeEntry( "ViRegisterFlags", flags );
   }
 
-  config.writeEntry( "ViRegisterNames", names );
-  config.writeEntry( "ViRegisterContents", contents );
-  config.writeEntry( "ViRegisterFlags", flags );
+  // Writing Jump List
+  // Format: jump1.line, jump1.column, jump2.line, jump2.column, jump3.line, ...
+  QStringList l;
+  for (int i = 0; i < jump_list->size(); i++)
+      l << QString::number(jump_list->at(i).line) << QString::number(jump_list->at(i).column);
+  config.writeEntry("JumpList",l );
+
+}
+
+void KateViInputModeManager::addJump(KTextEditor::Cursor cursor) {
+   for (QList<KateViJump>::iterator iterator = jump_list->begin();
+        iterator != jump_list->end();
+        iterator ++){
+       if ((*iterator).line == cursor.line()){
+           jump_list->erase(iterator);
+           break;
+       }
+   }
+
+   KateViJump jump = { cursor.line(), cursor.column()};
+   jump_list->push_back(jump);
+   current_jump = jump_list->end();
+
+   // DEBUG
+   PrintJumpList();
+
+}
+
+KTextEditor::Cursor KateViInputModeManager::getNextJump(KTextEditor::Cursor cursor ) {
+   if (current_jump != jump_list->end()) {
+       KateViJump jump;
+       if (current_jump + 1 != jump_list->end())
+           jump = *(++current_jump);
+       else
+           jump = *(current_jump);
+
+       cursor = KTextEditor::Cursor(jump.line, jump.column);
+   }
+
+   // DEBUG
+   PrintJumpList();
+
+   return cursor;
+}
+
+KTextEditor::Cursor KateViInputModeManager::getPrevJump(KTextEditor::Cursor cursor ) {
+   if (current_jump == jump_list->end()) {
+       addJump(cursor);
+       current_jump--;
+   }
+
+   if (current_jump != jump_list->begin()) {
+       KateViJump jump;
+           jump = *(--current_jump);
+       cursor = KTextEditor::Cursor(jump.line, jump.column);
+   }
+
+   // DEBUG
+   PrintJumpList();
+
+   return cursor;
+}
+
+void KateViInputModeManager::PrintJumpList(){
+   qDebug() << "Jump List";
+   for (  QList<KateViJump>::iterator iter = jump_list->begin();
+        iter != jump_list->end();
+        iter++){
+           if (iter == current_jump)
+               qDebug() << (*iter).line << (*iter).column << "<< Current Jump";
+           else
+               qDebug() << (*iter).line << (*iter).column;
+   }
+   if (current_jump == jump_list->end())
+       qDebug() << "    << Current Jump";
+
 }

@@ -439,11 +439,8 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
   }
 }
 
-void KateViNormalMode::addCurrentPositionToJumpList()
-{
-    qDebug() << "\n Document Name" << m_view->doc()->documentName() << "\n";
-    KateGlobal::self()->viInputModeGlobal()->addJump(m_view->cursorPosition(),m_view->doc());
-  //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '\'', m_view->cursorPosition() );
+void KateViNormalMode::addCurrentPositionToJumpList() {
+    m_viInputModeManager->addJump(m_view->cursorPosition());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1428,15 +1425,14 @@ bool KateViNormalMode::commandAppendToBlock()
 }
 
 bool KateViNormalMode::commandGoToNextJump(){
-
-    Cursor c = getNextJump(m_view->cursorPosition(),m_view->doc());
+    Cursor c = getNextJump(m_view->cursorPosition());
     updateCursor(c);
 
     return true;
 }
 
 bool KateViNormalMode::commandGoToPrevJump(){
-    Cursor c = getPrevJump(m_view->cursorPosition(),m_view->doc());
+    Cursor c = getPrevJump(m_view->cursorPosition());
     updateCursor(c);
 
     return true;
@@ -2541,8 +2537,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("~", commandChangeCase, IS_CHANGE );
   ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
-  ADDCMD("<c-i>", commandGoToPrevJump, 0);
-  ADDCMD("<c-o>", commandGoToNextJump, 0);
+  ADDCMD("<c-o>", commandGoToPrevJump, 0);
+  ADDCMD("<c-i>", commandGoToNextJump, 0);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

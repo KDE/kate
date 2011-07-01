@@ -167,6 +167,10 @@ public:
    */
   void setLastSearchBackwards( bool b ) { m_lastSearchBackwards = b; }
 
+  bool getTemporaryNormalMode() { return m_temporaryNormalMode; }
+
+  void setTemporaryNormalMode(bool b) {  m_temporaryNormalMode = b; }
+
   // Jup Lists
   void addJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
@@ -214,6 +218,11 @@ private:
    * keeps track of whether the last search was done backwards or not.
    */
   bool m_lastSearchBackwards;
+
+  /**
+   * true when normal mode was started by Ctrl-O command in insert mode.
+   */
+  bool m_temporaryNormalMode;
 
   // jump list
   QList<KateViJump> *jump_list;

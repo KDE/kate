@@ -209,6 +209,15 @@ bool KateViInsertMode::commandInsertContentOfRegister(){
     return true;
 }
 
+// Start Normal mode just for one command and return to Insert mode
+bool KateViInsertMode::commandSwitchToNormalModeForJustOneCommand(){
+    m_viInputModeManager->setTemporaryNormalMode(true);
+    m_viInputModeManager->changeViMode(NormalMode);
+    m_view->updateViModeBarMode();
+    m_viewInternal->repaint();
+    return true;
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -296,6 +305,10 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       break;
     case Qt::Key_Y:
       commandInsertFromAbove();
+      return true;
+      break;
+    case Qt::Key_O:
+      commandSwitchToNormalModeForJustOneCommand();
       return true;
       break;
     case Qt::Key_Home:

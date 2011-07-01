@@ -289,6 +289,15 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             }
 
             resetParser();
+
+            // if normal mode was started by using Ctrl-O in insert mode,
+            // it's time to go back to insert mode.
+            if (m_viInputModeManager->getTemporaryNormalMode()) {
+                m_viInputModeManager->setTemporaryNormalMode(false);
+                startInsertMode();
+                m_viewInternal->repaint();
+            }
+
             return true;
           } else {
             // execute the specified command and supply the position returned from
@@ -412,6 +421,14 @@ void KateViNormalMode::goToPos( const KateViRange &r )
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
   cmd->execute();
+
+  // if normal mode was started by using Ctrl-O in insert mode,
+  // it's time to go back to insert mode.
+  if (m_viInputModeManager->getTemporaryNormalMode()) {
+      m_viInputModeManager->setTemporaryNormalMode(false);
+      startInsertMode();
+      m_viewInternal->repaint();
+  }
 
   // if the command was a change, and it didn't enter insert mode, store the key presses so that
   // they can be repeated with '.'

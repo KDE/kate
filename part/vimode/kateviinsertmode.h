@@ -66,6 +66,7 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     bool commandCompletePrevious();
 
     bool commandInsertContentOfRegister();
+    bool commandSwitchToNormalModeForJustOneCommand();
 
     // mappings not supported in insert mode yet
     void addMapping( const QString &from, const QString &to ) { Q_UNUSED(from) Q_UNUSED(to) }

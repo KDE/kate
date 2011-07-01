@@ -49,7 +49,6 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
   setDragDropMode(QAbstractItemView::DragOnly);
   setDragEnabled(true);
   setAcceptDrops(false);
-//   setDropIndicatorShown(true);
 
   connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(slotCustomContextMenuRequested(const QPoint&)));
   connect(this, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(slotItemExpanded(QTreeWidgetItem*)));
@@ -109,30 +108,24 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem * databaseItem)
   tablesItem->setIcon(0, KIcon("folder"));
   tablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-//   buildTables(tablesItem, db);
-
   QTreeWidgetItem *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
   viewsItem->setText(0, i18nc("@title Folder name", "Views"));
   viewsItem->setIcon(0, KIcon("folder"));
   viewsItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-//   buildViews(viewsItem, db);
-
   databaseItem->setExpanded(true);
-//   tablesItem->setExpanded(true);
-//   viewsItem->setExpanded(true);
 }
 
 
 void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 {
+  if (!isConnectionValidAndOpen())
+    return;
+
   QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
   systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
   systemTablesItem->setIcon(0, KIcon("folder"));
   systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
-
-  if (!isConnectionValidAndOpen())
-    return;
 
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
   QStringList tables = db.tables(QSql::SystemTables);

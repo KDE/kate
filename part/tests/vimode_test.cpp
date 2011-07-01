@@ -149,6 +149,11 @@ void ViModeTest::InsertModeTests(){
   DoTest("foo bar baz","3li\\ctrl-od2w\\ctrl-w","baz");
   DoTest("foo bar baz","i\\ctrl-o3l\\ctrl-w"," bar baz");
   DoTest("foo\nbar\nbaz","li\\ctrl-oj\\ctrl-w\\ctrl-oj\\ctrl-w","foo\nar\naz");
+
+  // Testing "Ctrl-D" "Ctrl-T"
+  DoTest("foo", "i\\ctrl-t" , "  foo");
+  DoTest(" foo", "i\\ctrl-d", "foo");
+  DoTest("foo\nbar", "i\\ctrl-t\\ctrl-d","foo\nbar" );
 }
 
 /**

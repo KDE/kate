@@ -106,14 +106,16 @@ bool KateViInsertMode::commandDeleteWord()
 
 bool KateViInsertMode::commandIndent()
 {
-  //return getViNormalMode()->commandIndentLine();
-  return false;
+    Cursor c( m_view->cursorPosition() );
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line(), 0), 1 );
+    return true;
 }
 
 bool KateViInsertMode::commandUnindent()
 {
-  //return getViNormalMode()->commandUnindentLine();
-  return false;
+    Cursor c( m_view->cursorPosition() );
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line(), 0), -1 );
+    return true;
 }
 
 bool KateViInsertMode::commandToFirstCharacterInFile()

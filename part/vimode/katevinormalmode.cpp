@@ -2245,7 +2245,7 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
 
 KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
     int lines_to_go;
-    if (linesDisplayed() <= m_viewInternal->endLine())
+    if (linesDisplayed() <= (unsigned int) m_viewInternal->endLine())
        lines_to_go = m_viewInternal->endLine() - linesDisplayed()- m_view->cursorPosition().line() + 1;
     else
         lines_to_go = - m_view->cursorPosition().line();
@@ -2264,7 +2264,7 @@ KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
 
 KateViRange KateViNormalMode::motionToMiddleLineOfWindow() {
     int lines_to_go;
-    if (linesDisplayed() <= m_viewInternal->endLine())
+    if (linesDisplayed() <= (unsigned int) m_viewInternal->endLine())
        lines_to_go = m_viewInternal->endLine() - linesDisplayed()/2 - m_view->cursorPosition().line();
     else
         lines_to_go = m_viewInternal->endLine()/2 - m_view->cursorPosition().line();
@@ -2282,7 +2282,7 @@ KateViRange KateViNormalMode::motionToMiddleLineOfWindow() {
 
 KateViRange KateViNormalMode::motionToLastLineOfWindow() {
     int lines_to_go;
-    if (linesDisplayed() <= m_viewInternal->endLine())
+    if (linesDisplayed() <= (unsigned int) m_viewInternal->endLine())
        lines_to_go = m_viewInternal->endLine() - m_view->cursorPosition().line();
     else
         lines_to_go = m_viewInternal->endLine() - m_view->cursorPosition().line();

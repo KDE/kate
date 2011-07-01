@@ -50,18 +50,6 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
     l << KateViKeyParser::getInstance()->decodeKeySequence( getMapping( NormalMode, s ) );
   }
   config.writeEntry( "Normal Mode Mappings", l );
-
-/*
-  qDebug() << "\n!!!!!\n!!!!!\n!!!!!\n!!!!!\n!!!!!" << "WRITE CONFIG\n\n\n\!!!\n\n";
-
-  for (int i = 0; i <= jump_list->size(); i++) {
-      qDebug() << "\n Write " << i << "\n";
-      QStringList l;
-      l << QString::number(jump_list->at(i).line) << QString::number(jump_list->at(i).column) <<
-           jump_list->at(i).file;
-      qDebug() << "L: \n"<< l << "\n";
-      config.writeEntry("ViModeJump" + QString::number(i+1),l );
-  }*/
 }
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
@@ -78,28 +66,6 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
     } else {
       kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
     }
-
-   /* jump_list->clear();
-    QString key = "ViModeJump";
-    for (int i = 1;config.hasKey(key + QString::number(i)); i++) {
-       QStringList jump_line = config.readEntry( key + QString::number(i), QStringList() );
-
-       Q_ASSERT(jump_line.size() == 3);
-
-       int line = jump_line.at(0).toInt();
-       int column = jump_line.at(1).toInt();
-       QString file = jump_line.at(2);
-
-
-       KateViJump jump = {line, column, file};
-
-       jump_list->push_back( jump );
-       qDebug() << "Line, column, file:" << line << column << file << "\n";
-
-    }
-    current_jump = jump_list->begin();
-
-*/
 }
 
 KateViRegister KateViGlobal::getRegister( const QChar &reg ) const

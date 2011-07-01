@@ -24,6 +24,8 @@
 #include "kateviewinternal.h"
 #include "kateconfig.h"
 #include "katecompletionwidget.h"
+#include "kateglobal.h"
+#include "katevikeyparser.h"
 
 using KTextEditor::Cursor;
 
@@ -178,6 +180,35 @@ bool KateViInsertMode::commandCompletePrevious()
   return true;
 }
 
+bool KateViInsertMode::commandInsertContentOfRegister(){
+    Cursor c( m_view->cursorPosition() );
+    Cursor cAfter = c;
+    QChar reg = getChosenRegister( m_register );
+
+    OperationMode m = getRegisterFlag( reg );
+    QString textToInsert = getRegisterContent( reg );
+
+    if ( textToInsert.isNull() ) {
+      error(i18n("Nothing in register %1", reg ));
+      return false;
+    }
+
+    if ( m == LineWise ) {
+      textToInsert.chop( 1 ); // remove the last \n
+      c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
+      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+
+      cAfter.setLine( cAfter.line()+1 );
+      cAfter.setColumn( 0 );
+    }
+
+    doc()->insertText( c, textToInsert, m == Block );
+
+    updateCursor( cAfter );
+
+    return true;
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -190,6 +221,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
+  if(m_keys.isEmpty()){
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:
@@ -270,6 +302,11 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       commandToFirstCharacterInFile();
       return true;
       break;
+    case Qt::Key_R:
+      m_keys = "cR";
+      // Waiting for register
+      return true;
+      break;
     case Qt::Key_End:
       commandToLastCharacterInFile();
       return true;
@@ -287,6 +324,31 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     }
   }
 
+  return false;
+} else {
+
+    // Was waiting for register for Ctrl-R
+    if (m_keys == "cR"){
+        QChar key = KateViKeyParser::getInstance()->KeyEventToQChar(
+                    e->key(),
+                    e->text(),
+                    e->modifiers(),
+                    e->nativeScanCode() );
+        key = key.toLower();
+
+        // is it register ?
+        if ( ( key >= '0' && key <= '9' ) || ( key >= 'a' && key <= 'z' ) ||
+                key == '_' || key == '+' || key == '*' ) {
+          m_register = key;
+        } else {
+          m_keys = "";
+          return false;
+        }
+        commandInsertContentOfRegister();
+        m_keys = "";
+        return true;
+    }
+  }
   return false;
 }
 

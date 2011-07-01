@@ -65,6 +65,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     bool commandCompleteNext();
     bool commandCompletePrevious();
 
+    bool commandInsertContentOfRegister();
+
     // mappings not supported in insert mode yet
     void addMapping( const QString &from, const QString &to ) { Q_UNUSED(from) Q_UNUSED(to) }
     const QString getMapping( const QString &from ) const { Q_UNUSED(from) return QString(); }
@@ -77,6 +79,9 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     BlockInsert m_blockInsert;
     unsigned int m_eolPos; // length of first line in eol mode before text is appended
     KateViRange m_blockRange;
+
+    QString m_registerTemp;
+    QString m_keys;
 
     void leaveInsertMode( bool force = false);
 };

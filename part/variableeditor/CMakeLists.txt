@@ -16,12 +16,14 @@ set(editor
   variablelistview.cpp
   variableitem.cpp
   variableeditor.cpp
+  testwidget.cpp
 )
 
 # another list, this time it includes all header files that should be treated with moc
 set(editor_MOC_HDRS
   variablelistview.h
   variableeditor.h
+  testwidget.h
 )
 
 # and finally this will run moc:

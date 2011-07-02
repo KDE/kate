@@ -226,4 +226,40 @@ VariableEditor* VariableColorItem::createEditor(QWidget* parent)
   return new VariableColorEditor(this, parent);
 }
 //END class VariableColorItem
+
+
+
+//BEGIN class VariableFontItem
+VariableFontItem::VariableFontItem(const QString& variable, const QFont& value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+QFont VariableFontItem::value() const
+{
+  return m_value;
+}
+
+void VariableFontItem::setValue(const QFont& value)
+{
+  m_value = value;
+}
+
+void VariableFontItem::setValueByString(const QString& value)
+{
+  setValue(QFont(value));
+    qDebug() << value << m_value;
+}
+
+QString VariableFontItem::valueAsString() const
+{
+  return value().family();
+}
+
+VariableEditor* VariableFontItem::createEditor(QWidget* parent)
+{
+  return new VariableFontEditor(this, parent);
+}
+//END class VariableFontItem
 // kate: indent-width 2; replace-tabs on;

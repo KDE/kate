@@ -22,6 +22,7 @@
 #define VARIABLE_ITEM_H
 
 #include <QtGui/QColor>
+#include <QtGui/QFont>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -146,6 +147,26 @@ private:
 };
 //END class VariableColorItem
 
+
+
+//BEGIN class VariableColorItem
+class VariableFontItem : public VariableItem
+{
+public:
+  VariableFontItem(const QString& variable, const QFont& value);
+  
+  QFont value() const;
+  void setValue(const QFont& value);
+
+public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
+  virtual VariableEditor* createEditor(QWidget* parent);
+  
+private:
+  QFont m_value;
+};
+//END class VariableColorItem
 #endif
 
 // kate: indent-width 2; replace-tabs on;

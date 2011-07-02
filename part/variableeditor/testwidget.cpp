@@ -155,7 +155,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the point size of the document font.");
   listview->addItem(item);
   
-  item = new VariableUintItem("font TODO", 12);
+  item = new VariableFontItem("font", QFont());
   item->setHelpText("Set the font of the document.");
   listview->addItem(item);
   

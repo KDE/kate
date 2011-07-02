@@ -23,17 +23,19 @@
 
 #include <QtGui/QWidget>
 
-class VariableItem;
-class VariableUintItem;
 class VariableBoolItem;
-class VariableStringListItem;
 class VariableColorItem;
+class VariableFontItem;
+class VariableItem;
+class VariableStringListItem;
+class VariableUintItem;
 
-class QLabel;
-class QSpinBox;
+class KColorButton;
 class QCheckBox;
 class QComboBox;
-class KColorButton;
+class QFontComboBox;
+class QLabel;
+class QSpinBox;
 
 class VariableEditor : public QWidget
 {
@@ -129,6 +131,20 @@ private:
   KColorButton* m_colorButton;
 };
 
+class VariableFontEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableFontEditor(VariableFontItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
+protected Q_SLOTS:
+  void setItemValue(const QFont& newValue);
+
+private:
+  QFontComboBox* m_comboBox;
+};
 #endif
 
 // kate: indent-width 2; replace-tabs on;

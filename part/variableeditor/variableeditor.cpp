@@ -21,13 +21,14 @@
 #include "variableeditor.h"
 #include "variableitem.h"
 
-#include <QtGui/QPainter>
 #include <QtCore/QVariant>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QSpinBox>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
+#include <QtGui/QFontComboBox>
+#include <QtGui/QGridLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QPainter>
+#include <QtGui/QSpinBox>
 
 #include <kiconloader.h>
 #include <klocale.h>
@@ -281,5 +282,35 @@ void VariableColorEditor::itemDataChanged()
   activateItem();
 }
 //END VariableColorEditor
+
+
+
+//BEGIN VariableFontEditor
+VariableFontEditor::VariableFontEditor(VariableFontItem* item, QWidget* parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout* l = (QGridLayout *) layout();
+  
+  m_comboBox = new QFontComboBox(this);
+  m_comboBox->setCurrentFont(item->value());
+  l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
+
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(setItemValue(const QFont&)));
+}
+
+void VariableFontEditor::setItemValue(const QFont& newValue)
+{
+  static_cast<VariableFontItem*>(item())->setValue(newValue);
+}
+
+void VariableFontEditor::itemDataChanged()
+{
+  VariableFontItem* it = static_cast<VariableFontItem*>(item());
+  m_comboBox->setCurrentFont(it->value());
+  activateItem();
+}
+//END VariableFontEditor
 
 // kate: indent-width 2; replace-tabs on;

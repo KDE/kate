@@ -26,12 +26,24 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QSizeGrip>
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QLineEdit>
 
 TestWidget::TestWidget(QWidget* parent)
   : QWidget(parent)
 {
-  QPushButton* button = new QPushButton("Edit...", this);
-  button->move(200, 100);
+  QHBoxLayout* hl = new QHBoxLayout();
+  hl->setMargin(0);
+  hl->setSpacing(0);
+
+  QVBoxLayout* vl = new QVBoxLayout(this);
+  vl->setMargin(30);
+  vl->setSpacing(6);
+  setLayout(vl);
+
+
+  m_lineedit = new QLineEdit(this);
+  m_button= new QPushButton("Edit...", this);
 
   QComboBox* test = new QComboBox(this);
   test->addItem("Eintrag 1");
@@ -39,7 +51,14 @@ TestWidget::TestWidget(QWidget* parent)
   test->addItem("Eintrag 3");
   test->addItem("Eintrag 4");
   test->addItem("Eintrag 5");
-  test->move(300, 100);
+
+  hl->addWidget(m_lineedit);
+  hl->addWidget(m_button);
+
+  vl->addLayout(hl);
+  vl->addWidget(test);
+  vl->addStretch();
+
 
   m_popup = new QFrame(0, Qt::Popup);
   m_popup->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -52,7 +71,7 @@ TestWidget::TestWidget(QWidget* parent)
   addKateItems();
   l->addWidget(m_listview);
 
-  connect(button, SIGNAL(clicked()), this, SLOT(editVariables()));
+  connect(m_button, SIGNAL(clicked()), this, SLOT(editVariables()));
 }
 
 TestWidget::~TestWidget()
@@ -61,7 +80,10 @@ TestWidget::~TestWidget()
 
 void TestWidget::editVariables()
 {
-  m_popup->setGeometry(QRect(QCursor::pos(), QSize(300, 400)));
+  QPoint topLeft = mapToGlobal(m_lineedit->geometry().bottomLeft());
+  const int w = m_button->geometry().right() - m_lineedit->geometry().left();
+  const int h = 300; //(w * 2) / 4;
+  m_popup->setGeometry(QRect(topLeft, QSize(w, h)));
   m_popup->show();
 }
 

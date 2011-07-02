@@ -48,6 +48,12 @@ Q_SIGNALS:
 protected Q_SLOTS:
   void itemEnabled(bool enabled);
   void activateItem();
+  
+protected:
+  virtual void paintEvent(QPaintEvent* event);
+  virtual void enterEvent(QEvent* event);
+  virtual void leaveEvent(QEvent* event);
+
 
 private:
   VariableItem* m_item;

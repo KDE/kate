@@ -39,6 +39,8 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   : QWidget(parent)
   , m_item(item)
 {
+  setAttribute(Qt::WA_Hover);
+
   setAutoFillBackground(true);
   QGridLayout* l = new QGridLayout(this);
   l->setMargin(10);
@@ -67,10 +69,58 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   m_checkBox->setChecked(item->isActive());
 
   connect(m_checkBox, SIGNAL(toggled(bool)), this, SIGNAL(valueChanged()));
+  setMouseTracking(true);
 }
 
 VariableEditor::~VariableEditor()
 {
+}
+
+void VariableEditor::enterEvent(QEvent* event)
+{
+  QWidget::enterEvent(event);
+  
+  update();
+}
+
+void VariableEditor::leaveEvent(QEvent* event)
+{
+  QWidget::leaveEvent(event);
+  
+  update();
+}
+
+void VariableEditor::paintEvent(QPaintEvent* event)
+{
+  QWidget::paintEvent(event);
+  
+  // draw highlighting rect like in plasma
+  if (underMouse()) {
+    QPainter painter(this);
+
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QColor cornerColor = palette().color(QPalette::Highlight);
+    cornerColor.setAlphaF(0.2);
+
+    QColor midColor = palette().color(QPalette::Highlight);
+    midColor.setAlphaF(0.5);
+
+    QRect highlightRect = rect().adjusted(2, 2, -2, -2);
+
+    QPen outlinePen;
+    outlinePen.setWidth(2);
+
+    QLinearGradient gradient(highlightRect.topLeft(), highlightRect.topRight());
+    gradient.setColorAt(0, cornerColor);
+    gradient.setColorAt(0.3, midColor);
+    gradient.setColorAt(1, cornerColor);
+    outlinePen.setBrush(gradient);
+    painter.setPen(outlinePen);
+
+    const int radius = 5;
+    painter.drawRoundedRect(highlightRect, radius, radius);
+  }
 }
 
 void VariableEditor::itemEnabled(bool enabled)

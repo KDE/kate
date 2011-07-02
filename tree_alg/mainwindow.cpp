@@ -2,13 +2,16 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QtCore/qdebug.h>
+#include "QTime"
+#include <time.h>
 
 QString MainWindow::defaultHistoryFile = NULL;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    histLimit(0)
+    histLimit(0),
+    isTesting(false)
 {
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
@@ -37,6 +40,7 @@ void MainWindow::on_pushButton_2_released()
   histString.append(string);
   histString.append("\n***********\n\n");
   FoldingTree::history.append(histString);
+  FoldingTree::movesHistory.append(QString("insertStart %1\n").arg(position));
   if (histLimit) {
     while (FoldingTree::history.size() > histLimit)
       FoldingTree::history.pop_front();
@@ -47,7 +51,7 @@ void MainWindow::on_pushButton_2_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  ui->textEdit->setPlainText(string);
+  //ui->textEdit->setPlainText(string);
   check();
 }
 
@@ -64,6 +68,7 @@ void MainWindow::on_pushButton_3_released()
   histString.append(string);
   histString.append("\n***********\n\n");
   FoldingTree::history.append(histString);
+  FoldingTree::movesHistory.append(QString("delete %1\n").arg(position));
   if (histLimit) {
     while (FoldingTree::history.size() > histLimit)
       FoldingTree::history.pop_front();
@@ -74,7 +79,7 @@ void MainWindow::on_pushButton_3_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  ui->textEdit->setPlainText(string);
+  //ui->textEdit->setPlainText(string);
   check();
 }
 
@@ -91,6 +96,7 @@ void MainWindow::on_pushButton_4_released()
   histString.append(string);
   histString.append("\n***********\n\n");
   FoldingTree::history.append(histString);
+  FoldingTree::movesHistory.append(QString("insertEnd %1\n").arg(position));
   if (histLimit) {
     while (FoldingTree::history.size() > histLimit)
       FoldingTree::history.pop_front();
@@ -101,7 +107,7 @@ void MainWindow::on_pushButton_4_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  ui->textEdit->setPlainText(string);
+  //ui->textEdit->setPlainText(string);
   check();
 }
 
@@ -197,6 +203,14 @@ void MainWindow::saveHistoryToFile(QString fileName)
     out<<hist;
   }
   file.close();
+
+  QFile file2(fileName+"_moves");
+  file2.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out2(&file2);
+  foreach (QString hist, FoldingTree::movesHistory) {
+    out2<<hist;
+  }
+  file2.close();
 }
 
 // Choose file to save automatic history
@@ -262,4 +276,86 @@ void MainWindow::check()
   QMessageBox msgBox;
   msgBox.setText("ERROR!!!");
   msgBox.exec();
+}
+
+void MainWindow::on_pushButton_10_released()
+{
+  QString inputFileName = QFileDialog::getSaveFileName(0,"Select file for Automatic Input");
+  if (inputFileName.isNull() == false) {
+    automaticTestingFromFile(inputFileName);
+  }
+}
+
+void MainWindow::automaticTestingFromFile(QString fileName)
+{
+  QFile file(fileName);
+  if (!file.open (QIODevice::ReadOnly))
+    return;
+  QTextStream stream (&file);
+  QString line;
+  while( !stream.atEnd() ) {
+    line = stream.readLine();
+    QStringList instrList = line.split(" ");
+    if (instrList[0] == "delete") {
+      QString test = instrList[1];
+      deleteNode(test.toInt());
+    }
+    else if (instrList[0] == "insertStart") {
+      QString test = instrList[1];
+      insertStart(test.toInt());
+    }
+    else if (instrList[0] == "insertEnd") {
+      QString test = instrList[1];
+      insertEnd(test.toInt());
+    }
+  }
+  file.close();
+}
+
+void MainWindow::automaticTesting()
+{
+  qsrand(time(NULL));
+  while (isTesting && folding_tree->isCorrect()) {
+    int move = qrand() % 3;
+    int pos = qrand() % folding_tree->nodeMap.size();
+    qDebug()<<QString("new move: %1, %2").arg(move).arg(pos);
+    switch (move) {
+    case 0 : insertStart(pos);
+      break;
+    case 1 : insertEnd(pos);
+      break;
+    default : deleteNode(pos);
+          }
+  }
+}
+
+void MainWindow::insertStart(int position)
+{
+  ui->spinBox_2->setValue(position);
+  on_pushButton_2_released();
+}
+
+void MainWindow::insertEnd(int position)
+{
+  ui->spinBox_4->setValue(position);
+  on_pushButton_4_released();
+}
+
+void MainWindow::deleteNode(int position)
+{
+  ui->spinBox_3->setValue(position);
+  on_pushButton_3_released();
+}
+
+void MainWindow::on_pushButton_11_released()
+{
+  if (isTesting) {
+    ui->pushButton_11->setText("Start Test");
+    isTesting = false;
+  }
+  else {
+    ui->pushButton_11->setText("Stop Test");
+    isTesting = true;
+    automaticTesting();
+  }
 }

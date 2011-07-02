@@ -8,6 +8,7 @@ bool FoldingTree::displayDetails = true;
 bool FoldingTree::displayChildrenDetails = true;
 bool FoldingTree::displayDuplicates = true;
 QVector<QString> FoldingTree::history;
+QVector<QString> FoldingTree::movesHistory;
 int FoldingTree::nOps;
 
 FoldingNode::FoldingNode(int pos, int typ, FoldingNode *par) :
@@ -39,23 +40,32 @@ void FoldingNode::addChild(FoldingNode *node)
     add(node,m_endChildren);
 }
 
-void FoldingNode::removeChild(FoldingNode *node)
+FoldingNode* FoldingNode::removeChild(FoldingNode *node)
 {
-  if (node->type > 0)
-    remove(node,m_startChildren);
-  else
-    remove(node,m_endChildren);
+  if (node->type > 0) {
+    if (remove(node,m_startChildren))
+      return node;
+  }
+  else {
+    if (remove(node,m_endChildren))
+      return node;
+  }
+  return NULL;
 }
 
-void FoldingNode::removeChilrenInheritedFrom(FoldingNode *node)
+QVector<FoldingNode *> FoldingNode::removeChilrenInheritedFrom(FoldingNode *node)
 {
   int index;
+  QVector<FoldingNode *> tempList;
   for (index = 0 ; index < m_endChildren.size() ; ++index) {
     if (node->contains(m_endChildren[index])) {
-      removeChild(m_endChildren[index]);
+      FoldingNode* tempNode = removeChild(m_endChildren[index]);
+      if (tempNode != NULL)
+        tempList.append(tempNode);
       index --;
     }
   }
+  return tempList;
 }
 
 // All the children must be kept sorted (using their position)
@@ -70,7 +80,7 @@ void FoldingNode::add(FoldingNode *node, QVector<FoldingNode*> &m_childred)
   m_childred.insert(i,node);
 }
 
-void FoldingNode::remove(FoldingNode *node, QVector<FoldingNode *> &m_childred)
+bool FoldingNode::remove(FoldingNode *node, QVector<FoldingNode *> &m_childred)
 {
   bool found = false;
   int i;
@@ -88,7 +98,9 @@ void FoldingNode::remove(FoldingNode *node, QVector<FoldingNode *> &m_childred)
     if (type > 0 && node->type < 0) {
       parent->remove(node,parent->m_endChildren);
     }
+    return true;
   }
+  return false;
 }
 
 // Merges two QVectors of children.
@@ -124,24 +136,33 @@ void FoldingNode::mergeChildren(QVector <FoldingNode*> &list1, QVector <FoldingN
 // This method recalirates the folding tree after a modification occurs.
 void FoldingNode::updateSelf()
 {
+  QVector <FoldingNode *> excessList;
   if (m_endChildren.size() > 0) {                       // this node doesn't have shortage (some children may become its brothers)
     for (int i = 0 ; i < m_startChildren.size() ; ++i) {
       FoldingNode* child = m_startChildren[i];
       if (child->position > matchingNode()->position) { // if child is lower than parent's pair
         remove(child, m_startChildren);                 // this node is not it's child anymore.
-        removeChilrenInheritedFrom(child);              // and all the children inhereted from him will be removed
+        QVector <FoldingNode *> temptExcessList;
+        temptExcessList = removeChilrenInheritedFrom(child);              // and all the children inhereted from him will be removed
+        mergeChildren(excessList,temptExcessList);
         i --;                                           // then, go one step behind (because we removed 1 element)
         parent->addChild(child);                        // and the node selected becomes it's broter (same parent)
       }
     }
   }
   else {                                                // this node has a shortage (all his brothers becomes his children)
-    for (int i = 0 ; i < parent->m_startChildren.size() ; ++i) {
+    for (int i = 0 ; i < parent->m_startChildren.size() && hasMatch() == 0 ; ++i) { // ?
       FoldingNode* child = parent->m_startChildren[i];  // it's brother is selected
       if (child->position > position) {                 // and if this brother is above the current node, then
         remove(child, parent->m_startChildren);         // this node is not it's brother anymore, but it's child
         i --;                                           // go one step behind (because we removed 1 element)
         addChild(child);                                // the node selected becomes it's child
+        //
+        QVector <FoldingNode*> tempList (child->m_endChildren);
+        if (tempList.isEmpty() == false) {
+          tempList.pop_front();                             // we take the excess of it's children
+          mergeChildren(m_endChildren,tempList);            // and merge to it's endChildren list
+        }
       }
     }
   }
@@ -169,6 +190,7 @@ void FoldingNode::updateSelf()
   QVector<FoldingNode*> tempList (m_endChildren);
   if (!tempList.empty())
       tempList.pop_front();
+  mergeChildren(tempList,excessList);
   parent->updateParent(tempList,shortage);
 }
 
@@ -445,8 +467,11 @@ void FoldingTree::deleteStartNode(int pos)
   // step 3 - parent inherits shortage and endChildren too
   heir->updateParent(deletedNode->m_endChildren,deletedNode->shortage - 1);
 
-  // step 4 - node is deleted
+  // debug
+  newNodePos = -1;
+  // end of debug
 
+  // step 4 - node is deleted
   delete deletedNode;
 }
 
@@ -467,6 +492,10 @@ void FoldingTree::deleteEndNode(int pos)
   // step 2 - recalibrate folding tree starting from parent
   if (deletedNode->parent->type)
     deletedNode->parent->updateSelf();
+
+  // debug
+  newNodePos = -1;
+  // end of debug
 
   // step 3 - node is deleted
   delete deletedNode;
@@ -539,7 +568,7 @@ void FoldingTree::buildStackString()
   QStack<FoldingNode *> testStack;
   stackString.clear();
   testStack.clear();
-  int level = 1;
+  int level = 0;
   int index = -1;
   int nPops = 0;
 
@@ -556,19 +585,19 @@ void FoldingTree::buildStackString()
         }
         level -= nPops;
         if (level < 1)
-          level = 1;
+          level = 0;
         nPops = 0;
       }
+      level ++;
       stackString.append("\n");
       for (int i = 0 ; i < level ; ++ i)
         stackString.append(QString("   "));
       stackString.append(QString("{ (POS=%1, pPos=%2)").arg(node->position).arg(testStack.top()->position));
       testStack.push(node);
-      level ++;
     }
     else if (node->type < 0) {
       stackString.append("\n");
-      for (int i = 0 ; i < level - 1 ; ++ i)
+      for (int i = 0 ; i < level ; ++ i)
         stackString.append(QString("   "));
       stackString.append(QString("} (POS=%1, pPos=%2)").arg(node->position).arg(testStack.top()->position));
       nPops ++;

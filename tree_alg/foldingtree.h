@@ -23,10 +23,10 @@ class FoldingNode
     inline bool hasMatch() { return (m_endChildren.size() > 0); }
 
     void addChild(FoldingNode *node);
-    void removeChild(FoldingNode *node);
-    void removeChilrenInheritedFrom(FoldingNode *node);
+    FoldingNode* removeChild(FoldingNode *node);
+    QVector<FoldingNode *> removeChilrenInheritedFrom(FoldingNode *node);
     void add(FoldingNode *node, QVector<FoldingNode*> &m_childred);
-    void remove(FoldingNode *node, QVector<FoldingNode*> &m_childred);
+    bool remove(FoldingNode *node, QVector<FoldingNode*> &m_childred);
     void setParent();
 
     void mergeChildren(QVector <FoldingNode*> &list1, QVector <FoldingNode*> &list2);
@@ -54,6 +54,7 @@ public:
     // debug info
     static int newNodePos;
     static QVector<QString> history;
+    static QVector<QString> movesHistory;
     static int nOps;
     // debug info
 

@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>190</y>
+      <y>210</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -48,7 +48,7 @@ after Node no:</string>
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>150</y>
+      <y>170</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -61,7 +61,7 @@ after Node no:</string>
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>230</y>
+      <y>250</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -148,10 +148,10 @@ after Node no:</string>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>1020</x>
-      <y>290</y>
+      <x>1030</x>
+      <y>300</y>
       <width>291</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -283,7 +283,7 @@ save</string>
     <property name="geometry">
      <rect>
       <x>1200</x>
-      <y>200</y>
+      <y>220</y>
       <width>71</width>
       <height>23</height>
      </rect>
@@ -293,7 +293,7 @@ save</string>
     <property name="geometry">
      <rect>
       <x>1200</x>
-      <y>160</y>
+      <y>180</y>
       <width>71</width>
       <height>23</height>
      </rect>
@@ -303,7 +303,7 @@ save</string>
     <property name="geometry">
      <rect>
       <x>1200</x>
-      <y>240</y>
+      <y>260</y>
       <width>71</width>
       <height>23</height>
      </rect>
@@ -343,8 +343,8 @@ save</string>
      <rect>
       <x>1030</x>
       <y>10</y>
-      <width>261</width>
-      <height>131</height>
+      <width>271</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -356,7 +356,7 @@ save</string>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>30</x>
        <y>80</y>
        <width>91</width>
        <height>31</height>
@@ -369,8 +369,8 @@ save</string>
     <widget class="QCheckBox" name="checkBox_5">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>80</y>
+       <x>40</x>
+       <y>110</y>
        <width>81</width>
        <height>31</height>
       </rect>
@@ -407,6 +407,32 @@ check</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Read Input From File</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_11">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>40</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Test</string>
      </property>
     </widget>
    </widget>

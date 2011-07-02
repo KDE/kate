@@ -161,11 +161,24 @@ VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(activateItem()));
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setItemValue(int)));
 }
+
 void VariableUintEditor::setItemValue(int newValue)
 {
   static_cast<VariableUintItem*>(item())->setValue(newValue);
 }
 
+void VariableUintEditor::itemDataChanged()
+{
+  qDebug() << item()->variable();
+  VariableUintItem* it = static_cast<VariableUintItem*>(item());
+  m_spinBox->setValue(it->value());
+  activateItem();
+}
+//END VariableUintEditor
+
+
+
+//BEGIN VariableBoolEditor
 VariableBoolEditor::VariableBoolEditor(VariableBoolItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
@@ -186,7 +199,15 @@ void VariableBoolEditor::setItemValue(int enabled)
 {
   static_cast<VariableBoolItem*>(item())->setValue(enabled == 0);
 }
-//END VariableUintEditor
+
+void VariableBoolEditor::itemDataChanged()
+{
+  qDebug() << item()->variable();
+  VariableBoolItem* it = static_cast<VariableBoolItem*>(item());
+  m_comboBox->setCurrentIndex(it->value() ? 0 : 1);
+  activateItem();
+}
+//END VariableBoolEditor
 
 
 
@@ -217,6 +238,20 @@ VariableStringListEditor::VariableStringListEditor(VariableStringListItem* item,
 void VariableStringListEditor::setItemValue(const QString& newValue)
 {
   static_cast<VariableStringListItem*>(item())->setValue(newValue);
+}
+
+void VariableStringListEditor::itemDataChanged()
+{
+  qDebug() << item()->variable();
+  VariableStringListItem* it = static_cast<VariableStringListItem*>(item());
+  int index = 0;
+  for (int i = 0; i < it->stringList().size(); ++i) {
+    if (it->stringList().at(i) == it->value()) {
+      index = i;
+      break;
+    }
+  }
+  activateItem();
 }
 //END VariableStringListEditor
 

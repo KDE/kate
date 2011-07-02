@@ -26,21 +26,49 @@
 #include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
 
-VariableListView::VariableListView(QWidget* parent)
+VariableListView::VariableListView(const QString& variableLine, QWidget* parent)
   : QScrollArea(parent)
 {
   setBackgroundRole(QPalette::Base);
 
   setWidget(new QWidget(this));
+  
+  parseVariables(variableLine);
 }
 
 VariableListView::~VariableListView()
 {
 }
 
+void VariableListView::parseVariables(const QString& line)
+{
+  QString tmp = line.trimmed();
+  if (tmp.startsWith("kate:")) {
+    tmp.remove(0, 5);
+  }
+
+  QStringList variables = tmp.split(';', QString::SkipEmptyParts);
+
+  QRegExp sep("\\s+");
+  for (int i = 0; i < variables.size(); ++i) {
+    QStringList pair = variables[i].split(sep, QString::SkipEmptyParts);
+    if (pair.size() != 2) {
+      continue;
+    }
+    
+    m_variables[pair[0]] = pair[1];
+  }
+}
+
 void VariableListView::addItem(VariableItem* item)
 {
-  QWidget* editor = item->createEditor(widget());
+  // overwrite default value when variable exists in modeline
+  if (m_variables.contains(item->variable())) {
+    item->setValueByString(m_variables[item->variable()]);
+    item->setActive(true);
+  }
+
+  VariableEditor* editor = item->createEditor(widget());
   editor->setBackgroundRole((m_editors.size() % 2) ? QPalette::AlternateBase : QPalette::Base);
 
   m_editors << editor;
@@ -57,7 +85,7 @@ QVector<VariableItem *> VariableListView::items()
 void VariableListView::resizeEvent(QResizeEvent* event)
 {
   QScrollArea::resizeEvent(event);
-  
+
   // calculate sum of all editor heights
   int listHeight = 0;
   foreach (QWidget* w, m_editors) {
@@ -76,9 +104,42 @@ void VariableListView::resizeEvent(QResizeEvent* event)
   }
 }
 
+void VariableListView::hideEvent(QHideEvent* event)
+{
+  if (!event->spontaneous()) {
+    emit editingDone(variableLine());
+  }
+  QScrollArea::hideEvent(event);
+}
+
 void VariableListView::somethingChanged()
 {
   qDebug() << "CHANGED";
 }
 
+QString VariableListView::variableLine()
+{
+  for (int i = 0; i < m_items.size(); ++i) {
+    VariableItem* item = m_items[i];
+
+    if (item->isActive()) {
+      m_variables[item->variable()] = item->valueAsString();
+    } else if (m_variables.contains(item->variable())) {
+      m_variables.remove(item->variable());
+    }
+  }
+
+  QString line;
+  QMap<QString, QString>::const_iterator it = m_variables.constBegin();
+  while (it != m_variables.constEnd()) {
+    if (!line.isEmpty()) {
+      line += " ";
+    }
+    line += it.key() + ' ' + it.value() + ';';
+    
+    ++it;
+ }
+
+  return line;
+}
 // kate: indent-width 2; replace-tabs on;

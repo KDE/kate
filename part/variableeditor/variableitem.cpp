@@ -93,6 +93,16 @@ void VariableUintItem::setValue(int newValue)
   m_value = newValue;
 }
 
+void VariableUintItem::setValueByString(const QString& value)
+{
+  setValue(value.toInt());
+}
+
+QString VariableUintItem::valueAsString() const
+{
+  return QString::number(value());
+}
+
 VariableEditor* VariableUintItem::createEditor(QWidget* parent)
 {
   return new VariableUintEditor(this, parent);
@@ -129,6 +139,16 @@ void VariableStringListItem::setValue(const QString& newValue)
   m_value = newValue;
 }
 
+void VariableStringListItem::setValueByString(const QString& value)
+{
+  setValue(value);
+}
+
+QString VariableStringListItem::valueAsString() const
+{
+  return value();
+}
+
 VariableEditor* VariableStringListItem::createEditor(QWidget* parent)
 {
   return new VariableStringListEditor(this, parent);
@@ -152,6 +172,18 @@ bool VariableBoolItem::value() const
 void VariableBoolItem::setValue(bool enabled)
 {
   m_value = enabled;
+}
+
+void VariableBoolItem::setValueByString(const QString& value)
+{
+  QString tmp = value.trimmed().toLower();
+  bool enabled = (tmp == "on") || (tmp == "1") || (tmp == "true");
+  setValue(enabled);
+}
+
+QString VariableBoolItem::valueAsString() const
+{
+  return value() ? QString("true") : QString("false");
 }
 
 VariableEditor* VariableBoolItem::createEditor(QWidget* parent)

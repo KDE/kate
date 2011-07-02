@@ -39,7 +39,10 @@ public:
   
   bool isActive() const;
   void setActive(bool active);
-  
+
+  virtual void setValueByString(const QString& value) = 0;
+  virtual QString valueAsString() const = 0;
+
   virtual VariableEditor* createEditor(QWidget* parent) = 0;
 
 private:
@@ -63,14 +66,13 @@ class VariableUintItem : public VariableItem
 {
 public:
   VariableUintItem(const QString& variable, int value);
-  
+
   int value() const;
   void setValue(int newValue);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
 
 private:
@@ -90,10 +92,9 @@ public:
   QString value() const;
   void setValue(const QString& newValue);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
   
 private:
@@ -113,10 +114,9 @@ public:
   bool value() const;
   void setValue(bool enabled);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
   
 private:

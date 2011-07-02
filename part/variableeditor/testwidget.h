@@ -24,9 +24,9 @@
 #include <QWidget>
 #include <QFrame>
 
-#include "variablelistview.h"
 class QLineEdit;
 class QPushButton;
+class VariableListView;
 
 class TestWidget : public QWidget
 {
@@ -36,14 +36,13 @@ public:
   TestWidget(QWidget* parent = 0);
   virtual ~TestWidget();
 
-  void addKateItems();
+  void addKateItems(VariableListView* listview);
 
 public Q_SLOTS:
   void editVariables();
 
 private:
   QFrame* m_popup;
-  VariableListView* m_listview;
   QLineEdit* m_lineedit;
   QPushButton* m_button;
 };

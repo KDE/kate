@@ -42,6 +42,8 @@ public:
 
   VariableItem* item() const;
   
+  virtual void itemDataChanged() = 0;
+
 Q_SIGNALS:
   void valueChanged();
 
@@ -68,8 +70,10 @@ class VariableUintEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableUintEditor(VariableUintItem* item, QWidget* parent);  
-  
+  VariableUintEditor(VariableUintItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
 protected Q_SLOTS:
   void setItemValue(int newValue);
 
@@ -81,7 +85,9 @@ class VariableBoolEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableBoolEditor(VariableBoolItem* item, QWidget* parent);  
+  VariableBoolEditor(VariableBoolItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
 
 protected Q_SLOTS:
   void setItemValue(int enabled);
@@ -94,7 +100,9 @@ class VariableStringListEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableStringListEditor(VariableStringListItem* item, QWidget* parent);  
+  VariableStringListEditor(VariableStringListItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
 
 protected Q_SLOTS:
   void setItemValue(const QString& newValue);

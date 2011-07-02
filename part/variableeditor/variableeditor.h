@@ -31,9 +31,9 @@ class VariableStringListItem;
 class VariableUintItem;
 
 class KColorCombo;
+class KFontComboBox;
 class QCheckBox;
 class QComboBox;
-class QFontComboBox;
 class QLabel;
 class QSpinBox;
 
@@ -143,7 +143,7 @@ protected Q_SLOTS:
   void setItemValue(const QFont& newValue);
 
 private:
-  QFontComboBox* m_comboBox;
+  KFontComboBox* m_comboBox;
 };
 #endif
 

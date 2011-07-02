@@ -21,21 +21,6 @@
 #include "variableitem.h"
 #include "variableeditor.h"
 
-#include <QtGui/QPainter>
-#include <QtCore/QDebug>
-
-#include <QtCore/QModelIndex>
-#include <QtCore/QSize>
-
-#include <QLabel>
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpinBox>
-#include <QtGui/QComboBox>
-
-#include <kcolorscheme.h>
-
 
 //BEGIN class VariableItem
 VariableItem::VariableItem(const QString& variable)
@@ -93,6 +78,16 @@ void VariableUintItem::setValue(int newValue)
   m_value = newValue;
 }
 
+void VariableUintItem::setValueByString(const QString& value)
+{
+  setValue(value.toInt());
+}
+
+QString VariableUintItem::valueAsString() const
+{
+  return QString::number(value());
+}
+
 VariableEditor* VariableUintItem::createEditor(QWidget* parent)
 {
   return new VariableUintEditor(this, parent);
@@ -129,6 +124,16 @@ void VariableStringListItem::setValue(const QString& newValue)
   m_value = newValue;
 }
 
+void VariableStringListItem::setValueByString(const QString& value)
+{
+  setValue(value);
+}
+
+QString VariableStringListItem::valueAsString() const
+{
+  return value();
+}
+
 VariableEditor* VariableStringListItem::createEditor(QWidget* parent)
 {
   return new VariableStringListEditor(this, parent);
@@ -154,10 +159,91 @@ void VariableBoolItem::setValue(bool enabled)
   m_value = enabled;
 }
 
+void VariableBoolItem::setValueByString(const QString& value)
+{
+  QString tmp = value.trimmed().toLower();
+  bool enabled = (tmp == "on") || (tmp == "1") || (tmp == "true");
+  setValue(enabled);
+}
+
+QString VariableBoolItem::valueAsString() const
+{
+  return value() ? QString("true") : QString("false");
+}
+
 VariableEditor* VariableBoolItem::createEditor(QWidget* parent)
 {
   return new VariableBoolEditor(this, parent);
 }
 //END class VariableBoolItem
 
+
+
+//BEGIN class VariableColorItem
+VariableColorItem::VariableColorItem(const QString& variable, const QColor& value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+QColor VariableColorItem::value() const
+{
+  return m_value;
+}
+
+void VariableColorItem::setValue(const QColor& value)
+{
+  m_value = value;
+}
+
+void VariableColorItem::setValueByString(const QString& value)
+{
+  setValue(QColor(value));
+}
+
+QString VariableColorItem::valueAsString() const
+{
+  return value().name();
+}
+
+VariableEditor* VariableColorItem::createEditor(QWidget* parent)
+{
+  return new VariableColorEditor(this, parent);
+}
+//END class VariableColorItem
+
+
+
+//BEGIN class VariableFontItem
+VariableFontItem::VariableFontItem(const QString& variable, const QFont& value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+QFont VariableFontItem::value() const
+{
+  return m_value;
+}
+
+void VariableFontItem::setValue(const QFont& value)
+{
+  m_value = value;
+}
+
+void VariableFontItem::setValueByString(const QString& value)
+{
+  setValue(QFont(value));
+}
+
+QString VariableFontItem::valueAsString() const
+{
+  return value().family();
+}
+
+VariableEditor* VariableFontItem::createEditor(QWidget* parent)
+{
+  return new VariableFontEditor(this, parent);
+}
+//END class VariableFontItem
 // kate: indent-width 2; replace-tabs on;

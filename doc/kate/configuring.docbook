@@ -1647,13 +1647,6 @@ be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></l
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>keep-indent-profile</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>If enabled, prevents unindenting a block if at least one line
-has no indentation.</para>
-<para>Note: Removed in Kate 3 (KDE 4)</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><cmdsynopsis><command>line-numbers</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the display of line numbers on or off.</para></listitem>
 </varlistentry>

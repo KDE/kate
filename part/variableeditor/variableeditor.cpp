@@ -21,24 +21,26 @@
 #include "variableeditor.h"
 #include "variableitem.h"
 
-#include <QtGui/QPainter>
 #include <QtCore/QVariant>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QSpinBox>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
+#include <QtGui/QGridLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QPainter>
+#include <QtGui/QSpinBox>
 
+#include <kfontcombobox.h>
 #include <kiconloader.h>
 #include <klocale.h>
-
-#include <QtCore/QDebug>
+#include <kcolorcombo.h>
 
 //BEGIN VariableEditor
 VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   : QWidget(parent)
   , m_item(item)
 {
+  setAttribute(Qt::WA_Hover);
+
   setAutoFillBackground(true);
   QGridLayout* l = new QGridLayout(this);
   l->setMargin(10);
@@ -67,10 +69,58 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   m_checkBox->setChecked(item->isActive());
 
   connect(m_checkBox, SIGNAL(toggled(bool)), this, SIGNAL(valueChanged()));
+  setMouseTracking(true);
 }
 
 VariableEditor::~VariableEditor()
 {
+}
+
+void VariableEditor::enterEvent(QEvent* event)
+{
+  QWidget::enterEvent(event);
+  
+  update();
+}
+
+void VariableEditor::leaveEvent(QEvent* event)
+{
+  QWidget::leaveEvent(event);
+  
+  update();
+}
+
+void VariableEditor::paintEvent(QPaintEvent* event)
+{
+  QWidget::paintEvent(event);
+  
+  // draw highlighting rect like in plasma
+  if (underMouse()) {
+    QPainter painter(this);
+
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QColor cornerColor = palette().color(QPalette::Highlight);
+    cornerColor.setAlphaF(0.2);
+
+    QColor midColor = palette().color(QPalette::Highlight);
+    midColor.setAlphaF(0.5);
+
+    QRect highlightRect = rect().adjusted(2, 2, -2, -2);
+
+    QPen outlinePen;
+    outlinePen.setWidth(2);
+
+    QLinearGradient gradient(highlightRect.topLeft(), highlightRect.topRight());
+    gradient.setColorAt(0, cornerColor);
+    gradient.setColorAt(0.3, midColor);
+    gradient.setColorAt(1, cornerColor);
+    outlinePen.setBrush(gradient);
+    painter.setPen(outlinePen);
+
+    const int radius = 5;
+    painter.drawRoundedRect(highlightRect, radius, radius);
+  }
 }
 
 void VariableEditor::itemEnabled(bool enabled)
@@ -111,11 +161,23 @@ VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(activateItem()));
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setItemValue(int)));
 }
+
 void VariableUintEditor::setItemValue(int newValue)
 {
   static_cast<VariableUintItem*>(item())->setValue(newValue);
 }
 
+void VariableUintEditor::itemDataChanged()
+{
+  VariableUintItem* it = static_cast<VariableUintItem*>(item());
+  m_spinBox->setValue(it->value());
+  activateItem();
+}
+//END VariableUintEditor
+
+
+
+//BEGIN VariableBoolEditor
 VariableBoolEditor::VariableBoolEditor(VariableBoolItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
@@ -136,7 +198,14 @@ void VariableBoolEditor::setItemValue(int enabled)
 {
   static_cast<VariableBoolItem*>(item())->setValue(enabled == 0);
 }
-//END VariableUintEditor
+
+void VariableBoolEditor::itemDataChanged()
+{
+  VariableBoolItem* it = static_cast<VariableBoolItem*>(item());
+  m_comboBox->setCurrentIndex(it->value() ? 0 : 1);
+  activateItem();
+}
+//END VariableBoolEditor
 
 
 
@@ -168,6 +237,79 @@ void VariableStringListEditor::setItemValue(const QString& newValue)
 {
   static_cast<VariableStringListItem*>(item())->setValue(newValue);
 }
+
+void VariableStringListEditor::itemDataChanged()
+{
+  VariableStringListItem* it = static_cast<VariableStringListItem*>(item());
+  int index = 0;
+  for (int i = 0; i < it->stringList().size(); ++i) {
+    if (it->stringList().at(i) == it->value()) {
+      index = i;
+      break;
+    }
+  }
+  activateItem();
+}
 //END VariableStringListEditor
+
+
+
+//BEGIN VariableColorEditor
+VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout* l = (QGridLayout *) layout();
+  
+  m_comboBox = new KColorCombo(this);
+  m_comboBox->setColor(item->value());
+  l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
+
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(setItemValue(const QColor&)));
+}
+
+void VariableColorEditor::setItemValue(const QColor& newValue)
+{
+  static_cast<VariableColorItem*>(item())->setValue(newValue);
+}
+
+void VariableColorEditor::itemDataChanged()
+{
+  VariableColorItem* it = static_cast<VariableColorItem*>(item());
+  m_comboBox->setColor(it->value());
+  activateItem();
+}
+//END VariableColorEditor
+
+
+
+//BEGIN VariableFontEditor
+VariableFontEditor::VariableFontEditor(VariableFontItem* item, QWidget* parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout* l = (QGridLayout *) layout();
+  
+  m_comboBox = new KFontComboBox(this);
+  m_comboBox->setCurrentFont(item->value());
+  l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
+
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(setItemValue(const QFont&)));
+}
+
+void VariableFontEditor::setItemValue(const QFont& newValue)
+{
+  static_cast<VariableFontItem*>(item())->setValue(newValue);
+}
+
+void VariableFontEditor::itemDataChanged()
+{
+  VariableFontItem* it = static_cast<VariableFontItem*>(item());
+  m_comboBox->setCurrentFont(it->value());
+  activateItem();
+}
+//END VariableFontEditor
 
 // kate: indent-width 2; replace-tabs on;

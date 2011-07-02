@@ -21,6 +21,8 @@
 #ifndef VARIABLE_ITEM_H
 #define VARIABLE_ITEM_H
 
+#include <QtGui/QColor>
+#include <QtGui/QFont>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -39,7 +41,10 @@ public:
   
   bool isActive() const;
   void setActive(bool active);
-  
+
+  virtual void setValueByString(const QString& value) = 0;
+  virtual QString valueAsString() const = 0;
+
   virtual VariableEditor* createEditor(QWidget* parent) = 0;
 
 private:
@@ -63,14 +68,13 @@ class VariableUintItem : public VariableItem
 {
 public:
   VariableUintItem(const QString& variable, int value);
-  
+
   int value() const;
   void setValue(int newValue);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
 
 private:
@@ -90,10 +94,9 @@ public:
   QString value() const;
   void setValue(const QString& newValue);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
   
 private:
@@ -113,10 +116,9 @@ public:
   bool value() const;
   void setValue(bool enabled);
 
-//
-// Reimplementation
-//
 public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
   
 private:
@@ -125,6 +127,46 @@ private:
 //END class VariableBoolItem
 
 
+
+//BEGIN class VariableColorItem
+class VariableColorItem : public VariableItem
+{
+public:
+  VariableColorItem(const QString& variable, const QColor& value);
+  
+  QColor value() const;
+  void setValue(const QColor& color);
+
+public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
+  virtual VariableEditor* createEditor(QWidget* parent);
+  
+private:
+  QColor m_value;
+};
+//END class VariableColorItem
+
+
+
+//BEGIN class VariableColorItem
+class VariableFontItem : public VariableItem
+{
+public:
+  VariableFontItem(const QString& variable, const QFont& value);
+  
+  QFont value() const;
+  void setValue(const QFont& value);
+
+public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
+  virtual VariableEditor* createEditor(QWidget* parent);
+  
+private:
+  QFont m_value;
+};
+//END class VariableColorItem
 #endif
 
 // kate: indent-width 2; replace-tabs on;

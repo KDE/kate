@@ -23,14 +23,19 @@
 
 #include <QtGui/QWidget>
 
-class VariableItem;
-class VariableUintItem;
 class VariableBoolItem;
+class VariableColorItem;
+class VariableFontItem;
+class VariableItem;
 class VariableStringListItem;
-class QLabel;
-class QSpinBox;
+class VariableUintItem;
+
+class KColorCombo;
+class KFontComboBox;
 class QCheckBox;
 class QComboBox;
+class QLabel;
+class QSpinBox;
 
 class VariableEditor : public QWidget
 {
@@ -42,12 +47,20 @@ public:
 
   VariableItem* item() const;
   
+  virtual void itemDataChanged() = 0;
+
 Q_SIGNALS:
   void valueChanged();
 
 protected Q_SLOTS:
   void itemEnabled(bool enabled);
   void activateItem();
+  
+protected:
+  virtual void paintEvent(QPaintEvent* event);
+  virtual void enterEvent(QEvent* event);
+  virtual void leaveEvent(QEvent* event);
+
 
 private:
   VariableItem* m_item;
@@ -62,8 +75,10 @@ class VariableUintEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableUintEditor(VariableUintItem* item, QWidget* parent);  
-  
+  VariableUintEditor(VariableUintItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
 protected Q_SLOTS:
   void setItemValue(int newValue);
 
@@ -75,7 +90,9 @@ class VariableBoolEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableBoolEditor(VariableBoolItem* item, QWidget* parent);  
+  VariableBoolEditor(VariableBoolItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
 
 protected Q_SLOTS:
   void setItemValue(int enabled);
@@ -88,7 +105,9 @@ class VariableStringListEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableStringListEditor(VariableStringListItem* item, QWidget* parent);  
+  VariableStringListEditor(VariableStringListItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
 
 protected Q_SLOTS:
   void setItemValue(const QString& newValue);
@@ -97,6 +116,35 @@ private:
   QComboBox* m_comboBox;
 };
 
+class VariableColorEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableColorEditor(VariableColorItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
+protected Q_SLOTS:
+  void setItemValue(const QColor& newValue);
+
+private:
+  KColorCombo* m_comboBox;
+};
+
+class VariableFontEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableFontEditor(VariableFontItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
+protected Q_SLOTS:
+  void setItemValue(const QFont& newValue);
+
+private:
+  KFontComboBox* m_comboBox;
+};
 #endif
 
 // kate: indent-width 2; replace-tabs on;

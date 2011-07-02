@@ -40,6 +40,7 @@ public:
 
 public Q_SLOTS:
   void editVariables();
+  void somethingChanged();
 
 private:
   QFrame* m_popup;

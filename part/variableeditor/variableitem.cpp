@@ -21,21 +21,6 @@
 #include "variableitem.h"
 #include "variableeditor.h"
 
-#include <QtGui/QPainter>
-#include <QtCore/QDebug>
-
-#include <QtCore/QModelIndex>
-#include <QtCore/QSize>
-
-#include <QLabel>
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpinBox>
-#include <QtGui/QComboBox>
-
-#include <kcolorscheme.h>
-
 
 //BEGIN class VariableItem
 VariableItem::VariableItem(const QString& variable)
@@ -249,7 +234,6 @@ void VariableFontItem::setValue(const QFont& value)
 void VariableFontItem::setValueByString(const QString& value)
 {
   setValue(QFont(value));
-    qDebug() << value << m_value;
 }
 
 QString VariableFontItem::valueAsString() const

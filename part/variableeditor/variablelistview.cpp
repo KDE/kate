@@ -22,8 +22,6 @@
 #include "variablelistview.h"
 #include "variableitem.h"
 
-#include <QtCore/QDebug>
-#include <QtGui/QPainter>
 #include <QtGui/QResizeEvent>
 
 VariableListView::VariableListView(const QString& variableLine, QWidget* parent)
@@ -81,12 +79,7 @@ void VariableListView::addItem(VariableItem* item)
   m_editors << editor;
   m_items << item;
 
-  connect(editor, SIGNAL(valueChanged()), this, SLOT(somethingChanged()));
-}
-
-QVector<VariableItem *> VariableListView::items()
-{
-  return m_items;
+  connect(editor, SIGNAL(valueChanged()), this, SIGNAL(changed()));
 }
 
 void VariableListView::resizeEvent(QResizeEvent* event)
@@ -117,11 +110,6 @@ void VariableListView::hideEvent(QHideEvent* event)
     emit editingDone(variableLine());
   }
   QScrollArea::hideEvent(event);
-}
-
-void VariableListView::somethingChanged()
-{
-  qDebug() << "CHANGED";
 }
 
 QString VariableListView::variableLine()

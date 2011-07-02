@@ -85,6 +85,7 @@ void TestWidget::editVariables()
   listview = new VariableListView(m_lineedit->text(), m_popup);
   addKateItems(listview);
   connect(listview, SIGNAL(editingDone(const QString&)), m_lineedit, SLOT(setText(const QString&)));
+  connect(listview, SIGNAL(changed()), this, SLOT(somethingChanged()));
 
   m_popup->layout()->addWidget(listview);
 
@@ -256,4 +257,8 @@ void TestWidget::addKateItems(VariableListView* listview)
   listview->addItem(item);
 }
 
+void TestWidget::somethingChanged()
+{
+  qDebug() << "list view changed";
+}
 // kate: indent-width 2; replace-tabs on;

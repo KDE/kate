@@ -21,8 +21,8 @@
 #ifndef VARIABLE_LIST_VIEW_H
 #define VARIABLE_LIST_VIEW_H
 
-#include <QtGui/QScrollArea>
 #include <QtCore/QMap>
+#include <QtGui/QScrollArea>
 
 class VariableItem;
 class VariableEditor;
@@ -37,19 +37,15 @@ public:
 
   void addItem(VariableItem* item);
 
-  QVector<VariableItem *> items();
-
   /// always returns the up-to-date variables line
   QString variableLine();
 
 Q_SIGNALS:
   void editingDone(const QString& variableLine);
-  
-public Q_SLOTS:
-  void somethingChanged();
+  void changed();
 
 protected:
-  virtual void resizeEvent(QResizeEvent* event); 
+  virtual void resizeEvent(QResizeEvent* event);
   virtual void hideEvent(QHideEvent* event);
 
   void parseVariables(const QString& line);

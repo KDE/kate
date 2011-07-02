@@ -34,8 +34,6 @@
 #include <klocale.h>
 #include <kcolorcombo.h>
 
-#include <QtCore/QDebug>
-
 //BEGIN VariableEditor
 VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   : QWidget(parent)

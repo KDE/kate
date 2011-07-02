@@ -32,7 +32,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kcolorbutton.h>
+#include <kcolorcombo.h>
 
 #include <QtCore/QDebug>
 
@@ -262,12 +262,13 @@ VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* paren
 {
   QGridLayout* l = (QGridLayout *) layout();
   
-  m_colorButton = new KColorButton(item->value(), this);
-  l->addWidget(m_colorButton, 0, 2, Qt::AlignLeft);
+  m_comboBox = new KColorCombo(this);
+  m_comboBox->setColor(item->value());
+  l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
 
-  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SIGNAL(valueChanged()));
-  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SLOT(activateItem()));
-  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SLOT(setItemValue(const QColor&)));
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(setItemValue(const QColor&)));
 }
 
 void VariableColorEditor::setItemValue(const QColor& newValue)
@@ -278,7 +279,7 @@ void VariableColorEditor::setItemValue(const QColor& newValue)
 void VariableColorEditor::itemDataChanged()
 {
   VariableColorItem* it = static_cast<VariableColorItem*>(item());
-  m_colorButton->setColor(it->value());
+  m_comboBox->setColor(it->value());
   activateItem();
 }
 //END VariableColorEditor

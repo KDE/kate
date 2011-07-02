@@ -163,12 +163,6 @@ void ViModeTest::InsertModeTests(){
 void ViModeTest::NormalModeFallingTests()
 {
   /*
-
-  // Ctrl-x and Ctrl-a works wrong with negative numbers.
-  DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
-  DoTest("-1", "1\\ctrl-a", "0");
-  DoTest("-1", "l1\\ctrl-a", "0");
-
   DoTest("foo{\n}\n", "$d%", "foo\n");
   DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
   DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
@@ -183,7 +177,6 @@ void ViModeTest::NormalModeFallingTests()
   DoTest("1 2\n2 1", "lld#", "1 \n2 1");
 
   DoTest("12345678", "lv3lyx", "1345678");
-
   */
 }
 
@@ -372,10 +365,14 @@ void ViModeTest::NormalModeControlTests() {
 
   // Testing "Ctrl-x"
   DoTest("150", "101\\ctrl-x", "49");
+  DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
+  DoTest("0xabcdef", "1000000\\ctrl-x","0x9c8baf" );
 
   // Testing "Ctrl-a"
   DoTest("150", "101\\ctrl-a", "251");
   DoTest("1000", "\\ctrl-ax", "100");
+  DoTest("-1", "1\\ctrl-a", "0");
+  DoTest("-1", "l1\\ctrl-a", "0");
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

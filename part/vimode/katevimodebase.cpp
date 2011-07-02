@@ -916,7 +916,9 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
     int wordEnd = findWordEnd( c.line(), c.column()-1, true ).column();
 
-    QRegExp number( "(0x)([0-9a-fA-F]+)|\\d+" );
+    if (wordStart > 0 && line.at(wordStart - 1) == '-') wordStart--;
+
+    QRegExp number( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
 
     int start = number.indexIn( line, wordStart );
     if ( start <= wordEnd ) {

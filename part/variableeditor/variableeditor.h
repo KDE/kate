@@ -27,10 +27,13 @@ class VariableItem;
 class VariableUintItem;
 class VariableBoolItem;
 class VariableStringListItem;
+class VariableColorItem;
+
 class QLabel;
 class QSpinBox;
 class QCheckBox;
 class QComboBox;
+class KColorButton;
 
 class VariableEditor : public QWidget
 {
@@ -109,6 +112,21 @@ protected Q_SLOTS:
 
 private:
   QComboBox* m_comboBox;
+};
+
+class VariableColorEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableColorEditor(VariableColorItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
+protected Q_SLOTS:
+  void setItemValue(const QColor& newValue);
+
+private:
+  KColorButton* m_colorButton;
 };
 
 #endif

@@ -192,4 +192,38 @@ VariableEditor* VariableBoolItem::createEditor(QWidget* parent)
 }
 //END class VariableBoolItem
 
+
+
+//BEGIN class VariableColorItem
+VariableColorItem::VariableColorItem(const QString& variable, const QColor& value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+QColor VariableColorItem::value() const
+{
+  return m_value;
+}
+
+void VariableColorItem::setValue(const QColor& value)
+{
+  m_value = value;
+}
+
+void VariableColorItem::setValueByString(const QString& value)
+{
+  setValue(QColor(value));
+}
+
+QString VariableColorItem::valueAsString() const
+{
+  return value().name();
+}
+
+VariableEditor* VariableColorItem::createEditor(QWidget* parent)
+{
+  return new VariableColorEditor(this, parent);
+}
+//END class VariableColorItem
 // kate: indent-width 2; replace-tabs on;

@@ -21,6 +21,7 @@
 #ifndef VARIABLE_ITEM_H
 #define VARIABLE_ITEM_H
 
+#include <QtGui/QColor>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -124,6 +125,26 @@ private:
 };
 //END class VariableBoolItem
 
+
+
+//BEGIN class VariableColorItem
+class VariableColorItem : public VariableItem
+{
+public:
+  VariableColorItem(const QString& variable, const QColor& value);
+  
+  QColor value() const;
+  void setValue(const QColor& color);
+
+public:
+  virtual void setValueByString(const QString& value);
+  virtual QString valueAsString() const;
+  virtual VariableEditor* createEditor(QWidget* parent);
+  
+private:
+  QColor m_value;
+};
+//END class VariableColorItem
 
 #endif
 

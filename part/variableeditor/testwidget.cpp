@@ -111,7 +111,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Auto insert asterisk in doxygen comments.");
   listview->addItem(item);
 
-  item = new VariableBoolItem("background-color TODO", false);
+  item = new VariableColorItem("background-color", Qt::white);
   item->setHelpText("Set the document background color.");
   listview->addItem(item);
 
@@ -127,11 +127,11 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Enable the byte order marker when saving unicode files.");
   listview->addItem(item);
   
-  item = new VariableBoolItem("bracket-highlight-color TODO", false);
+  item = new VariableColorItem("bracket-highlight-color", Qt::yellow);
   item->setHelpText("Set the color for the bracket highlight.");
   listview->addItem(item);
 
-  item = new VariableBoolItem("current-line-color TODO", false);
+  item = new VariableColorItem("current-line-color", Qt::magenta);
   item->setHelpText("Set the background color for the current line.");
   listview->addItem(item);
 
@@ -163,7 +163,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the syntax highlighting.");
   listview->addItem(item);
   
-  item = new VariableBoolItem("icon-bar-color TODO", false);
+  item = new VariableColorItem("icon-bar-color", Qt::gray);
   item->setHelpText("Set the icon bar color.");
   listview->addItem(item);
 
@@ -219,7 +219,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the color scheme.");
   listview->addItem(item);
   
-  item = new VariableBoolItem("selection-color TODO", false);
+  item = new VariableColorItem("selection-color", Qt::blue);
   item->setHelpText("Set the text selection color.");
   listview->addItem(item);
   
@@ -247,7 +247,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the word wrap column.");
   listview->addItem(item);
   
-  item = new VariableUintItem("word-wrap-marker-color TODO", 78);
+  item = new VariableColorItem("word-wrap-marker-color", Qt::black);
   item->setHelpText("Set the work wrap marker color.");
   listview->addItem(item);
   

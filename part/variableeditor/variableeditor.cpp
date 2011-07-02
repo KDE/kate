@@ -31,6 +31,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
+#include <kcolorbutton.h>
 
 #include <QtCore/QDebug>
 
@@ -169,7 +170,6 @@ void VariableUintEditor::setItemValue(int newValue)
 
 void VariableUintEditor::itemDataChanged()
 {
-  qDebug() << item()->variable();
   VariableUintItem* it = static_cast<VariableUintItem*>(item());
   m_spinBox->setValue(it->value());
   activateItem();
@@ -202,7 +202,6 @@ void VariableBoolEditor::setItemValue(int enabled)
 
 void VariableBoolEditor::itemDataChanged()
 {
-  qDebug() << item()->variable();
   VariableBoolItem* it = static_cast<VariableBoolItem*>(item());
   m_comboBox->setCurrentIndex(it->value() ? 0 : 1);
   activateItem();
@@ -242,7 +241,6 @@ void VariableStringListEditor::setItemValue(const QString& newValue)
 
 void VariableStringListEditor::itemDataChanged()
 {
-  qDebug() << item()->variable();
   VariableStringListItem* it = static_cast<VariableStringListItem*>(item());
   int index = 0;
   for (int i = 0; i < it->stringList().size(); ++i) {
@@ -254,5 +252,34 @@ void VariableStringListEditor::itemDataChanged()
   activateItem();
 }
 //END VariableStringListEditor
+
+
+
+//BEGIN VariableColorEditor
+VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout* l = (QGridLayout *) layout();
+  
+  m_colorButton = new KColorButton(item->value(), this);
+  l->addWidget(m_colorButton, 0, 2, Qt::AlignLeft);
+
+  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SIGNAL(valueChanged()));
+  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SLOT(activateItem()));
+  connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SLOT(setItemValue(const QColor&)));
+}
+
+void VariableColorEditor::setItemValue(const QColor& newValue)
+{
+  static_cast<VariableColorItem*>(item())->setValue(newValue);
+}
+
+void VariableColorEditor::itemDataChanged()
+{
+  VariableColorItem* it = static_cast<VariableColorItem*>(item());
+  m_colorButton->setColor(it->value());
+  activateItem();
+}
+//END VariableColorEditor
 
 // kate: indent-width 2; replace-tabs on;

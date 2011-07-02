@@ -163,10 +163,6 @@ void ViModeTest::InsertModeTests(){
 void ViModeTest::NormalModeFallingTests()
 {
 /*
-  DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
-  DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
-  DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
-  DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
   DoTest("1 2\n2 1", "lld#", "1 \n2 1");
   DoTest("12345678", "lv3lyx", "1345678");
 */
@@ -334,18 +330,21 @@ void ViModeTest::NormalModeCommandsTest()
   DoTest("ABCD", "$XX", "AD");
 
   // Testing "gu"
-
+  DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
   DoTest("AbCDF", "gu3l", "abcDF");
 
   // Testing "guu"
   DoTest("FOO", "guu", "foo");
+  DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
 
 
   // Testing "gU"
   DoTest("aBcdf", "gU2l", "ABcdf");
+  DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
 
   // Testing "gUU"
   DoTest("foo", "gUU", "FOO");
+  DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
 
   // Testing "Ctrl-o" and "Ctrl-i"
   DoTest("abc\ndef\nghi","Gx\\ctrl-ox","bc\ndef\nhi");

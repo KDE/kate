@@ -319,7 +319,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             if ( m_keys.right(1) == "w" || m_keys.right(1) == "W" ) {
                if(m_commandRange.endLine != m_commandRange.startLine &&
                    m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp("\\S") )){
-                     qDebug() << "Special Case!!!!!!!!!!!!!!1";
                      m_commandRange.endLine--;
                      m_commandRange.endColumn = doc()->lineLength(m_commandRange.endLine );
                    }
@@ -711,6 +710,8 @@ bool KateViNormalMode::commandMakeLowercase()
 {
   OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
+  if (m == LineWise)
+    text = text.left(text.size() - 1); // don't need '\n' at the end;
   QString lowerCase = text.toLower();
 
   m_commandRange.normalize();
@@ -729,7 +730,7 @@ bool KateViNormalMode::commandMakeLowercaseLine()
   Cursor c( m_view->cursorPosition() );
 
   m_commandRange.startLine = c.line();
-  m_commandRange.endLine = c.line();
+  m_commandRange.endLine = c.line() + getCount() - 1;
   m_commandRange.startColumn = 0;
   m_commandRange.endColumn = doc()->lineLength( c.line() )-1;
 
@@ -740,6 +741,8 @@ bool KateViNormalMode::commandMakeUppercase()
 {
   OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
+  if (m == LineWise)
+    text = text.left(text.size() - 1); // don't need '\n' at the end;
   QString upperCase = text.toUpper();
 
   m_commandRange.normalize();
@@ -758,7 +761,7 @@ bool KateViNormalMode::commandMakeUppercaseLine()
   Cursor c( m_view->cursorPosition() );
 
   m_commandRange.startLine = c.line();
-  m_commandRange.endLine = c.line();
+  m_commandRange.endLine = c.line() + getCount() - 1;
   m_commandRange.startColumn = 0;
   m_commandRange.endColumn = doc()->lineLength( c.line() )-1;
 

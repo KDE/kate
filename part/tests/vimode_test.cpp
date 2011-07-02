@@ -162,25 +162,18 @@ void ViModeTest::InsertModeTests(){
  */
 void ViModeTest::NormalModeFallingTests()
 {
-
 /*
-  DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
   DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
   DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
-  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
-  DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
   DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
   DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
   DoTest("1 2\n2 1", "lld#", "1 \n2 1");
   DoTest("12345678", "lv3lyx", "1345678");
 */
-
 }
 
 void ViModeTest::NormalModeMotionsTest()
 {
-
-
 
   // Test moving around an empty document (nothing should happen)
   DoTest("", "jkhl", "");
@@ -219,6 +212,10 @@ void ViModeTest::NormalModeMotionsTest()
   DoTest("foo bar", "lwx","foo ar");
   DoTest("quux(foo, bar, baz);", "wxwxwxwx2wx","quuxfoo ar baz;");
   DoTest("foo\nbar\nbaz", "wxwx","foo\nar\naz");
+  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
+  DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
+  DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
+
 
   // Testing "W"
   DoTest("bar", "Wx", "ba");

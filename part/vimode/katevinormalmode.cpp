@@ -313,15 +313,16 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               m_commandRange.startColumn = c.column();
             }
 
-            // Special case: "word motions" should never cross a line boundary when they are the
-            // input to a command
-            if ( ( m_keys.right(1) == "w" || m_keys.right(1) == "W" )
-                && m_commandRange.endLine > m_commandRange.startLine ) {
-              m_commandRange = motionToEOL();
-
-              Cursor c( m_view->cursorPosition() );
-              m_commandRange.startLine = c.line();
-              m_commandRange.startColumn = c.column();
+            // special case: When using the "w" motion in combination with an operator and
+            // the last word moved over is at the end of a line, the end of that word
+            // becomes the end of the operated text, not the first word in the next line.
+            if ( m_keys.right(1) == "w" || m_keys.right(1) == "W" ) {
+               if(m_commandRange.endLine != m_commandRange.startLine &&
+                   m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp("\\S") )){
+                     qDebug() << "Special Case!!!!!!!!!!!!!!1";
+                     m_commandRange.endLine--;
+                     m_commandRange.endColumn = doc()->lineLength(m_commandRange.endLine );
+                   }
             }
 
             m_commandWithMotion = true;
@@ -2596,8 +2597,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("N", motionFindPrev, 0 );
   ADDMOTION("gg", motionToLineFirst, 0 );
   ADDMOTION("G", motionToLineLast, 0 );
-  ADDMOTION("w", motionWordForward, 0 );
-  ADDMOTION("W", motionWORDForward, 0 );
+  ADDMOTION("w", motionWordForward, IS_NOT_LINEWISE );
+  ADDMOTION("W", motionWORDForward, IS_NOT_LINEWISE );
   ADDMOTION("b", motionWordBackward, 0 );
   ADDMOTION("B", motionWORDBackward, 0 );
   ADDMOTION("e", motionToEndOfWord, 0 );

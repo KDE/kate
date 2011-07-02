@@ -304,6 +304,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // the motion
 
             m_commandRange = m_motions.at( i )->execute();
+            m_linewiseCommand = m_motions.at( i )->isLineWise();
 
             // if we didn't get an explicit start position, use the current cursor position
             if ( m_commandRange.startLine == -1 ) {
@@ -323,6 +324,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               m_commandRange.startColumn = c.column();
             }
 
+            m_commandWithMotion = true;
+
             if ( m_commandRange.valid ) {
               kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern()
                 << "from (" << m_commandRange.startLine << "," << m_commandRange.endLine << ")"
@@ -334,6 +337,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
             }
 
+            m_commandWithMotion = false;
             reset();
             return true;
           }
@@ -391,6 +395,10 @@ void KateViNormalMode::resetParser()
   m_matchingMotions.clear();
   m_awaitingMotionOrTextObject.clear();
   m_motionOperatorIndex = 0;
+
+  m_commandWithMotion = false;
+  m_linewiseCommand = true;
+
 }
 
 // reset the command parser
@@ -2053,6 +2061,9 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   Cursor c( m_view->cursorPosition() );
 
+  r.startColumn = c.column();
+  r.startLine   = c.line();
+
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
   int n2;
@@ -2594,7 +2605,7 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("ge", motionToEndOfPrevWord, 0 );
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
-  ADDMOTION("%", motionToMatchingItem, 0 );
+  ADDMOTION("%", motionToMatchingItem, IS_NOT_LINEWISE );
   ADDMOTION("`[a-zA-Z><]", motionToMark, REGEX_PATTERN );
   ADDMOTION("'[a-zA-Z><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
@@ -2668,6 +2679,7 @@ const QStringList KateViNormalMode::getMappings() const
 // 1. if we're in visual block mode, it should be Block
 // 2. if we're in visual line mode OR the range spans several lines, it should be LineWise
 // 3. if neither of these is true, CharWise is returned
+// 4. there are some motion that makes all operator charwise, if we have one of them mode will be CharWise
 OperationMode KateViNormalMode::getOperationMode() const
 {
   OperationMode m = CharWise;
@@ -2679,6 +2691,9 @@ OperationMode KateViNormalMode::getOperationMode() const
       && m_viInputModeManager->getCurrentViMode() != VisualMode )) {
     m = LineWise;
   }
+
+  if ( m_commandWithMotion && !m_linewiseCommand )
+        m = CharWise;
 
   return m;
 }

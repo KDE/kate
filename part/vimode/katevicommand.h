@@ -32,6 +32,7 @@ enum KateViCommandFlags {
     NEEDS_MOTION = 0x2,     // the command needs a motion before it can be executed
     SHOULD_NOT_RESET = 0x4, // the command should not cause the current mode to be left
     IS_CHANGE = 0x8,        // the command changes the buffer
+    IS_NOT_LINEWISE = 0xa   // the motion is not line wise
 };
 
 class KATEPART_TESTS_EXPORT KateViCommand {
@@ -48,6 +49,7 @@ class KATEPART_TESTS_EXPORT KateViCommand {
     bool needsMotion() const { return m_flags & NEEDS_MOTION; }
     bool shouldReset() const { return !( m_flags & SHOULD_NOT_RESET ); }
     bool isChange() const { return m_flags & IS_CHANGE; }
+    bool isLineWise() const { return !(m_flags & IS_NOT_LINEWISE); }
 
   protected:
     KateViNormalMode *m_parent;

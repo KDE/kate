@@ -162,22 +162,19 @@ void ViModeTest::InsertModeTests(){
  */
 void ViModeTest::NormalModeFallingTests()
 {
-  /*
-  DoTest("foo{\n}\n", "$d%", "foo\n");
-  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
-  DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
+
+/*
   DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
   DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
   DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
-  DoTest("foo{\nbar}baz", "lllgU%", "foo{\nBAR}baz");
+  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
   DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
   DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
   DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
-  DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
   DoTest("1 2\n2 1", "lld#", "1 \n2 1");
-
   DoTest("12345678", "lv3lyx", "1345678");
-  */
+*/
+
 }
 
 void ViModeTest::NormalModeMotionsTest()
@@ -290,6 +287,12 @@ void ViModeTest::NormalModeMotionsTest()
 
   // Testing "'"
   DoTest("foo\nbar\nbaz", "lmaj'arx", "xoo\nbar\nbaz");
+
+  // Testing "%"
+  DoTest("foo{\n}\n", "$d%", "foo\n");
+  DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
+  DoTest("foo{\nbar}baz", "lllgU%", "foo{\nBAR}baz");
+  DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
 
   // Testing percentage "<N>%"
   DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",

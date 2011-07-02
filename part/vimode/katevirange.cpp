@@ -20,7 +20,6 @@
 
 #include <QtGlobal>
 #include "katevirange.h"
-
     KateViRange::KateViRange( int slin, int scol, int elin, int ecol, ViMotion::MotionType inc )
   : startLine( slin ), startColumn( scol ), endLine( elin ), endColumn( ecol ), motionType( inc )
 {
@@ -53,8 +52,20 @@ KateViRange::KateViRange()
 void KateViRange::normalize()
 {
   int sl = startLine, el = endLine, sc = startColumn, ec = endColumn;
-  startLine = qMin(sl, el);
-  endLine = qMax(sl, el);
-  startColumn = qMin(sc, ec);
-  endColumn = qMax(sc, ec);
+  if (sl < el){
+      startLine = sl;
+      startColumn = sc;
+      endLine = el;
+      endColumn = ec;
+  } else {
+      startLine = el;
+      endLine = sl;
+      if (sl != el) {
+      startColumn = ec;
+      endColumn = sc;
+      } else {
+          startColumn = qMin(sc, ec);
+          endColumn = qMax(sc, ec);
+      }
+  }
 }

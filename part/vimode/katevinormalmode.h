@@ -247,6 +247,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     QString m_lastTFcommand; // holds the last t/T/f/F command so that it can be repeated with ;/,
 
+    bool m_linewiseCommand;
+    bool m_commandWithMotion;
+
     // registers
     QChar m_defaultRegister;
     QString m_registerTemp;

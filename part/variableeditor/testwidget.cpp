@@ -183,10 +183,6 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Allow odd indentation level (no multiple of indent width).");
   listview->addItem(item);
   
-  item = new VariableBoolItem("keep-indent-profile: gibts das noch?", false);
-  item->setHelpText("Prevents unindenting a block if at least one line has no indentation.");
-  listview->addItem(item);
-  
   item = new VariableBoolItem("line-numbers", false);
   item->setHelpText("Show line numbers.");
   listview->addItem(item);

@@ -27,17 +27,15 @@ class VariableItem;
 
 class VariableListView : public QScrollArea
 {
-  friend class ContainerProxyWidget;
   Q_OBJECT
 
 public:
   VariableListView(QWidget* parent = 0);
   virtual ~VariableListView();
+  
+  void addItem(VariableItem* item);
 
   QVector<VariableItem *> items();
-
-private:
-  void addKateItems();
 
 public Q_SLOTS:
   void somethingChanged();

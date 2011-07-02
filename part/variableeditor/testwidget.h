@@ -18,22 +18,32 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QtGui/QApplication>
-#include <QtGui/QMainWindow>
+#ifndef TEST_WIDGET_H
+#define TEST_WIDGET_H
 
-#include "testwidget.h"
+#include <QWidget>
+#include <QFrame>
 
-int main(int argc, char* argv[])
+#include "variablelistview.h"
+
+class TestWidget : public QWidget
 {
-  QApplication app(argc, argv);
+  Q_OBJECT
 
-  QMainWindow * mw = new QMainWindow();
+public:
+  TestWidget(QWidget* parent = 0);
+  virtual ~TestWidget();
 
-  TestWidget* testWidget = new TestWidget(mw);
-  mw->setCentralWidget(testWidget);
+  void addKateItems();
 
-  mw->resize(640, 480);
-  mw->show();
+public Q_SLOTS:
+  void editVariables();
 
-  return app.exec();
-}
+private:
+  QFrame* m_popup;
+  VariableListView* m_listview;
+};
+
+#endif
+
+// kate: indent-width 2; replace-tabs on;

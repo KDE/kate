@@ -71,19 +71,6 @@ after Node no:</string>
 after Node no:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>440</y>
-      <width>91</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Execute</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
@@ -328,14 +315,14 @@ save</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>390</y>
-      <width>71</width>
+      <x>160</x>
+      <y>380</y>
+      <width>181</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Test Screen</string>
+     <string>Stack Algorithm Output Screen</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame_2">
@@ -435,6 +422,19 @@ check</string>
       <string>Start Test</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>120</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>No of moves</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
@@ -447,6 +447,48 @@ check</string>
     </property>
     <property name="text">
      <string>Print for test</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_5">
+    <property name="geometry">
+     <rect>
+      <x>1190</x>
+      <y>92</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>1000</number>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>1021</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>380</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tree Algorithm Output Screen</string>
     </property>
    </widget>
   </widget>

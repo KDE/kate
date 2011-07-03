@@ -15,8 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
+    ui->textEdit_2->setReadOnly(true);
+    ui->textEdit_3->setReadOnly(true);
+    ui->textEdit->setVisible(false);
+    ui->textEdit_2->setVisible(false);
+    ui->textEdit_3->setVisible(true);
+    ui->label_6->setVisible(false);
     folding_tree = new FoldingTree();
-    ui->textEdit->setText(folding_tree->toString());
+    ui->textEdit_3->setText(folding_tree->toString());
     ui->spinBox_3->setMinimum(1);
     ui->spinBox_2->setMaximum(0);
     ui->spinBox_3->setMaximum(0);
@@ -51,7 +57,11 @@ void MainWindow::on_pushButton_2_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  //ui->textEdit->setPlainText(string);
+  ui->label_6->setVisible(false);
+  ui->textEdit->setVisible(false);
+  ui->textEdit_2->setVisible(false);
+  ui->textEdit_3->setVisible(true);
+  ui->textEdit_3->setPlainText(string);
   check();
 }
 
@@ -79,7 +89,11 @@ void MainWindow::on_pushButton_3_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  //ui->textEdit->setPlainText(string);
+  ui->label_6->setVisible(false);
+  ui->textEdit->setVisible(false);
+  ui->textEdit_2->setVisible(false);
+  ui->textEdit_3->setVisible(true);
+  ui->textEdit_3->setPlainText(string);
   check();
 }
 
@@ -107,7 +121,11 @@ void MainWindow::on_pushButton_4_released()
   ui->spinBox_2->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_3->setMaximum(folding_tree->nodeMap.size() - 1);
   ui->spinBox_4->setMaximum(folding_tree->nodeMap.size() - 1);
-  //ui->textEdit->setPlainText(string);
+  ui->label_6->setVisible(false);
+  ui->textEdit->setVisible(false);
+  ui->textEdit_2->setVisible(false);
+  ui->textEdit_3->setVisible(true);
+  ui->textEdit_3->setPlainText(string);
   check();
 }
 
@@ -123,7 +141,11 @@ void MainWindow::on_pushButton_6_released()
   ui->textEdit->selectAll();
   ui->textEdit->clear();
   QString string = folding_tree->toString();
-  ui->textEdit->setPlainText(string);
+  ui->label_6->setVisible(false);
+  ui->textEdit->setVisible(false);
+  ui->textEdit_2->setVisible(false);
+  ui->textEdit_3->setVisible(true);
+  ui->textEdit_3->setPlainText(string);
 }
 
 // Start of Testing Methods
@@ -230,6 +252,8 @@ void MainWindow::displayTree()
   ui->textEdit->selectAll();
   ui->textEdit->clear();
   folding_tree->buildTreeString(folding_tree->root,1);
+  ui->textEdit->setVisible(true);
+  ui->textEdit_3->setVisible(false);
   ui->textEdit->setPlainText(folding_tree->treeString);
 }
 
@@ -238,6 +262,9 @@ void MainWindow::displayStack()
   ui->textEdit_2->selectAll();
   ui->textEdit_2->clear();
   folding_tree->buildStackString();
+  ui->label_6->setVisible(true);
+  ui->textEdit_2->setVisible(true);
+  ui->textEdit_3->setVisible(false);
   ui->textEdit_2->setPlainText(folding_tree->stackString);
 }
 
@@ -315,7 +342,7 @@ void MainWindow::automaticTestingFromFile(QString fileName)
 void MainWindow::automaticTesting()
 {
   qsrand(time(NULL));
-  while (isTesting && folding_tree->isCorrect()) {
+  for (int i = 0 ; i < ui->spinBox_5->value() && isTesting && folding_tree->isCorrect() ; ++i) {
     int move = qrand() % 3;
     int pos = qrand() % folding_tree->nodeMap.size();
     qDebug()<<QString("new move: %1, %2").arg(move).arg(pos);
@@ -327,6 +354,8 @@ void MainWindow::automaticTesting()
     default : deleteNode(pos);
           }
   }
+  ui->pushButton_11->setText("Start Test");
+  isTesting = false;
 }
 
 void MainWindow::insertStart(int position)

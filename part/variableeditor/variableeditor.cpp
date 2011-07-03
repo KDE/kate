@@ -170,13 +170,6 @@ void VariableIntEditor::setItemValue(int newValue)
 {
   static_cast<VariableIntItem*>(item())->setValue(newValue);
 }
-
-void VariableIntEditor::itemDataChanged()
-{
-  VariableIntItem* it = static_cast<VariableIntItem*>(item());
-  m_spinBox->setValue(it->value());
-  activateItem();
-}
 //END VariableUintEditor
 
 
@@ -201,13 +194,6 @@ VariableBoolEditor::VariableBoolEditor(VariableBoolItem* item, QWidget* parent)
 void VariableBoolEditor::setItemValue(int enabled)
 {
   static_cast<VariableBoolItem*>(item())->setValue(enabled == 0);
-}
-
-void VariableBoolEditor::itemDataChanged()
-{
-  VariableBoolItem* it = static_cast<VariableBoolItem*>(item());
-  m_comboBox->setCurrentIndex(it->value() ? 0 : 1);
-  activateItem();
 }
 //END VariableBoolEditor
 
@@ -241,19 +227,6 @@ void VariableStringListEditor::setItemValue(const QString& newValue)
 {
   static_cast<VariableStringListItem*>(item())->setValue(newValue);
 }
-
-void VariableStringListEditor::itemDataChanged()
-{
-  VariableStringListItem* it = static_cast<VariableStringListItem*>(item());
-  int index = 0;
-  for (int i = 0; i < it->stringList().size(); ++i) {
-    if (it->stringList().at(i) == it->value()) {
-      index = i;
-      break;
-    }
-  }
-  activateItem();
-}
 //END VariableStringListEditor
 
 
@@ -276,13 +249,6 @@ VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* paren
 void VariableColorEditor::setItemValue(const QColor& newValue)
 {
   static_cast<VariableColorItem*>(item())->setValue(newValue);
-}
-
-void VariableColorEditor::itemDataChanged()
-{
-  VariableColorItem* it = static_cast<VariableColorItem*>(item());
-  m_comboBox->setColor(it->value());
-  activateItem();
 }
 //END VariableColorEditor
 
@@ -307,13 +273,6 @@ void VariableFontEditor::setItemValue(const QFont& newValue)
 {
   static_cast<VariableFontItem*>(item())->setValue(newValue);
 }
-
-void VariableFontEditor::itemDataChanged()
-{
-  VariableFontItem* it = static_cast<VariableFontItem*>(item());
-  m_comboBox->setCurrentFont(it->value());
-  activateItem();
-}
 //END VariableFontEditor
 
 
@@ -337,14 +296,6 @@ void VariableStringEditor::setItemValue(const QString &newValue)
 {
   static_cast <VariableStringItem*>(item())->setValue(newValue);
 }
-
-void VariableStringEditor::itemDataChanged()
-{
-  VariableStringItem* it = static_cast<VariableStringItem*>(item());
-  m_lineEdit->setText(it->value());
-  activateItem();
-}
-
 //END VariableStringEditor
 
 // kate: indent-width 2; replace-tabs on;

@@ -26,6 +26,7 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
 #include <QtGui/QPainter>
 #include <QtGui/QSpinBox>
 
@@ -148,13 +149,16 @@ VariableItem* VariableEditor::item() const
 
 
 //BEGIN VariableUintEditor
-VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
+VariableIntEditor::VariableIntEditor(VariableIntItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
 
   m_spinBox = new QSpinBox(this);
   m_spinBox->setValue(item->value());
+  m_spinBox->setMinimum(item->minValue());
+  m_spinBox->setMaximum(item->maxValue());
+
   l->addWidget(m_spinBox, 0, 2, Qt::AlignLeft);
 
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged()));
@@ -162,14 +166,14 @@ VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setItemValue(int)));
 }
 
-void VariableUintEditor::setItemValue(int newValue)
+void VariableIntEditor::setItemValue(int newValue)
 {
-  static_cast<VariableUintItem*>(item())->setValue(newValue);
+  static_cast<VariableIntItem*>(item())->setValue(newValue);
 }
 
-void VariableUintEditor::itemDataChanged()
+void VariableIntEditor::itemDataChanged()
 {
-  VariableUintItem* it = static_cast<VariableUintItem*>(item());
+  VariableIntItem* it = static_cast<VariableIntItem*>(item());
   m_spinBox->setValue(it->value());
   activateItem();
 }
@@ -311,5 +315,36 @@ void VariableFontEditor::itemDataChanged()
   activateItem();
 }
 //END VariableFontEditor
+
+
+
+//BEGIN VariableStringEditor
+VariableStringEditor::VariableStringEditor(VariableStringItem *item, QWidget *parent)
+  :VariableEditor(item, parent)
+{
+  QGridLayout *l = (QGridLayout*) layout();
+
+  m_lineEdit = new QLineEdit(this);
+  m_lineEdit->setText(item->value());
+  l->addWidget(m_lineEdit, 0, 2, Qt::AlignLeft);
+
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SIGNAL(valueChanged()));
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(activateItem()));
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setItemValue(const QString&)));
+}
+
+void VariableStringEditor::setItemValue(const QString &newValue)
+{
+  static_cast <VariableStringItem*>(item())->setValue(newValue);
+}
+
+void VariableStringEditor::itemDataChanged()
+{
+  VariableStringItem* it = static_cast<VariableStringItem*>(item());
+  m_lineEdit->setText(it->value());
+  activateItem();
+}
+
+//END VariableStringEditor
 
 // kate: indent-width 2; replace-tabs on;

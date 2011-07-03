@@ -104,7 +104,8 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set auto insertion of brackets on or off.");
   listview->addItem(item);
   
-  item = new VariableUintItem("auto-center-lines", 0);
+  item = new VariableIntItem("auto-center-lines", 0);
+  ((VariableIntItem*)item)->setRange(1, 100);
   item->setHelpText("Set the number of autocenter lines.");
   listview->addItem(item);
 
@@ -136,7 +137,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the background color for the current line.");
   listview->addItem(item);
 
-  item = new VariableBoolItem("default-dictionary TODO", false);
+  item = new VariableStringItem("default-dictionary", "English(US)");
   item->setHelpText("Set the default dictionary used for spell checking.");
   listview->addItem(item);
 
@@ -152,7 +153,8 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Enable folding markers in the editor border.");
   listview->addItem(item);
   
-  item = new VariableUintItem("font-size", 12);
+  item = new VariableIntItem("font-size", 12);
+  ((VariableIntItem*)item)->setRange(4, 128);
   item->setHelpText("Set the point size of the document font.");
   listview->addItem(item);
   
@@ -172,11 +174,12 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Enable the icon border in the editor view.");
   listview->addItem(item);
 
-  item = new VariableStringListItem("indent-mode TODO", QStringList() << "cstyle" << "lisp" << "python" << "none", "none");
+  item = new VariableStringListItem("indent-mode TODO", QStringList() << "none" <<"normal" << "cstyle" << "lisp" << "python" <<"lilypond" <<"lua" <<"haskell" <<"ruby"<<"xml style", "none");
   item->setHelpText("Set the auto indentation style.");
   listview->addItem(item);
   
-  item = new VariableUintItem("indent-width", 4);
+  item = new VariableIntItem("indent-width", 4);
+  ((VariableIntItem*)item)->setRange(1, 16);
   item->setHelpText("Set the indentation depth for each indent level.");
   listview->addItem(item);
 
@@ -232,15 +235,18 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Pressing TAB key indents.");
   listview->addItem(item);
 
-  item = new VariableUintItem("tab-width", 8);
+  item = new VariableIntItem("tab-width", 8);
+  ((VariableIntItem*)item)->setRange(1, 16);
   item->setHelpText("Set the tab display width.");
   listview->addItem(item);
   
-  item = new VariableUintItem("undo-steps", 0);
+  item = new VariableIntItem("undo-steps", 0);
+  ((VariableIntItem*)item)->setRange(0, 100);
   item->setHelpText("Set the number of undo steps to remember (0 equals infinity).");
   listview->addItem(item);
   
-  item = new VariableUintItem("word-wrap-column", 78);
+  item = new VariableIntItem("word-wrap-column", 78);
+  ((VariableIntItem*)item)->setRange(20, 200);
   item->setHelpText("Set the word wrap column.");
   listview->addItem(item);
   

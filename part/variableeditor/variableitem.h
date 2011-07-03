@@ -63,14 +63,17 @@ private:
 // DERIVE A CLASS FOR EACH TYPE
 //
 
-//BEGIN class VariableUintItem
-class VariableUintItem : public VariableItem
+//BEGIN class VariableIntItem
+class VariableIntItem : public VariableItem
 {
 public:
-  VariableUintItem(const QString& variable, int value);
+  VariableIntItem(const QString& variable, int value);
 
   int value() const;
   void setValue(int newValue);
+  void setRange(int minValue, int maxValue);
+  int minValue() const;
+  int maxValue() const;
 
 public:
   virtual void setValueByString(const QString& value);
@@ -79,8 +82,11 @@ public:
 
 private:
   int m_value;
+  int m_minValue;
+  int m_maxValue;
+
 };
-//END class VariableUintItem
+//END class VariableIntItem
 
 
 //BEGIN class VariableStringListItem
@@ -149,7 +155,7 @@ private:
 
 
 
-//BEGIN class VariableColorItem
+//BEGIN class VariableFontItem
 class VariableFontItem : public VariableItem
 {
 public:
@@ -166,7 +172,29 @@ public:
 private:
   QFont m_value;
 };
-//END class VariableColorItem
+//END class VariableFontItem
+
+
+
+//BEGIN class VariableStringItem
+class VariableStringItem : public VariableItem
+{
+public:
+  VariableStringItem(const QString &variable, const QString &value);
+
+  QString value() const;
+  void setValue(const QString& value);
+
+public:
+  virtual void setValueByString(const QString& value); // Same as setValue() in this case, implemented for uniformity
+  virtual QString valueAsString() const;               // Same as value() in this case, implemented for uniformity
+  virtual VariableEditor* createEditor(QWidget* parent);
+
+private:
+  QString m_value;
+};
+
+//END class VariableStringItem
 #endif
 
 // kate: indent-width 2; replace-tabs on;

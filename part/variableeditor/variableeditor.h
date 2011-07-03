@@ -23,18 +23,21 @@
 
 #include <QtGui/QWidget>
 
+
 class VariableBoolItem;
 class VariableColorItem;
 class VariableFontItem;
 class VariableItem;
 class VariableStringListItem;
-class VariableUintItem;
+class VariableIntItem;
+class VariableStringItem;
 
 class KColorCombo;
 class KFontComboBox;
 class QCheckBox;
 class QComboBox;
 class QLabel;
+class QLineEdit;
 class QSpinBox;
 
 class VariableEditor : public QWidget
@@ -71,11 +74,11 @@ private:
   QLabel* m_pixmap;
 };
 
-class VariableUintEditor : public VariableEditor
+class VariableIntEditor : public VariableEditor
 {
   Q_OBJECT
 public:
-  VariableUintEditor(VariableUintItem* item, QWidget* parent);
+  VariableIntEditor(VariableIntItem* item, QWidget* parent);
 
   virtual void itemDataChanged();
 
@@ -146,5 +149,21 @@ private:
   KFontComboBox* m_comboBox;
 };
 #endif
+
+
+class VariableStringEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableStringEditor(VariableStringItem* item, QWidget* parent);
+
+  virtual void itemDataChanged();
+
+protected Q_SLOTS:
+  void setItemValue(const QString& newValue);
+
+private:
+  QLineEdit* m_lineEdit;
+};
 
 // kate: indent-width 2; replace-tabs on;

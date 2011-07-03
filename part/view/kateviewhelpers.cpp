@@ -36,6 +36,7 @@
 #include "katelayoutcache.h"
 #include "katetextlayout.h"
 #include "kateglobal.h"
+#include "kateviglobal.h"
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -321,7 +322,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^([0-9$]+|\\.([+-]\\d+)?)?,([0-9$]+|\\.([+-]\\d+)?)?");
+  m_cmdRange.setPattern("^((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))?,?((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))?");
   m_cmdExpr.setPattern("^(\\d+)([+-])(\\d+)$");
   m_gotoLine.setPattern("[+-]?\\d+");
 
@@ -397,6 +398,7 @@ bool KateCmdLineEdit::event(QEvent *e) {
   return KLineEdit::event(e);
 }
 
+
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
   if (text.isEmpty()) return;
@@ -417,18 +419,28 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   KTextEditor::Range range(-1, 0, -1, 0);
 
+  QRegExp m_cmdRange2;
+  m_cmdRange2.setPattern("^((\\'[a-z])|([0-9$]+|\\.([+-]\\d+)?))");
+
   // check if a range was given
   if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
 
     cmd.remove( m_cmdRange );
 
     QString s = m_cmdRange.capturedTexts().at(1);
-    QString e = m_cmdRange.capturedTexts().at(3);
+    QString e = m_cmdRange.capturedTexts().at(5);
 
     if ( s.isEmpty() )
       s = '.';
     if ( e.isEmpty() )
       e = s;
+
+    if (s.at(0) == '\'' )
+        s= QString::number( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(s.at(1)).line() + 1);
+
+    if (e.at(0) == '\'' )
+        e= QString::number( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(e.at(1)).line() + 1);
+
 
     // replace '$' with the number of the last line and '.' with the current line
     s.replace('$', QString::number( m_view->doc()->lines() ) );
@@ -436,8 +448,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     s.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
     e.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
 
+
     // evaluate expressions (a+b or a-b) if we have any
-    if (m_cmdExpr.indexIn(s) != -1) {
+    if ( m_cmdExpr.indexIn(s) != -1) {
       if (m_cmdExpr.capturedTexts().at(2) == "+") {
         s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
             + m_cmdExpr.capturedTexts().at(3).toInt());
@@ -446,7 +459,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
             - m_cmdExpr.capturedTexts().at(3).toInt());
       }
     }
-    if (m_cmdExpr.indexIn(e) != -1) {
+    if ( m_cmdExpr.indexIn(e) != -1) {
       if (m_cmdExpr.capturedTexts().at(2) == "+") {
         e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
             + m_cmdExpr.capturedTexts().at(3).toInt());

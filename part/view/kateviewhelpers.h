@@ -34,6 +34,7 @@
 #include <QtCore/QTimer>
 
 #include <ktexteditor/containerinterface.h>
+#include "katepartprivate_export.h"
 
 class KateDocument;
 class KateView;
@@ -353,7 +354,7 @@ class KateViewBar : public QWidget
     QVBoxLayout *m_layout;
 };
 
-class KateCommandLineBar : public KateViewBarWidget
+class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
 {
   public:
     explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);

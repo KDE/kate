@@ -26,6 +26,7 @@
 #include <katedocument.h>
 #include <kateview.h>
 #include "katevikeyparser.h"
+#include "kateviewhelpers.h"
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -60,6 +61,10 @@ void ViModeTest::TestPressKey(QString str) {
         } else if (str.mid(i,5) == QString("\\meta-")) {
             keyboard_modifier = Qt::MetaModifier;
             i+=5;
+        } else if (str.mid(i,2) == QString("\\:")) {
+           int start_cmd = i+2;
+           for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
+           kate_view->cmdLineBar()->execute(str.mid(start_cmd,i-start_cmd));
         } else {
             assert(false); //Do not use "\" in tests except for modifiers.
         }
@@ -103,6 +108,7 @@ void ViModeTest::DoTest(QString original_text,
   QCOMPARE(kate_document->text(), expected_text);
 
 }
+
 
 void ViModeTest::VisualModeTests(){
     DoTest("foobar", "vlllx", "ar");
@@ -156,20 +162,16 @@ void ViModeTest::InsertModeTests(){
   DoTest("foo\nbar", "i\\ctrl-t\\ctrl-d","foo\nbar" );
 }
 
-/**
- * There are written tests that fall.
- * They are disabled in order to be able to check all others working tests.
- */
+
+ // There are written tests that fall.
+ // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFallingTests()
 {
-/*
-  DoTest("1 2\n2 1", "lld#", "1 \n2 1");
-  DoTest("12345678", "lv3lyx", "1345678");
-*/
+//  DoTest("1 2\n2 1", "lld#", "1 \n2 1");
+//  DoTest("12345678", "lv3lyx", "1345678");
 }
 
-void ViModeTest::NormalModeMotionsTest()
-{
+void ViModeTest::NormalModeMotionsTest() {
 
   // Test moving around an empty document (nothing should happen)
   DoTest("", "jkhl", "");
@@ -303,10 +305,10 @@ void ViModeTest::NormalModeMotionsTest()
   DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
          "5j10%dd",
          "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
 }
 
-void ViModeTest::NormalModeCommandsTest()
-{
+void ViModeTest::NormalModeCommandsTest() {
 
   // Testing "J"
   DoTest("foo\nbar", "J", "foo bar");
@@ -356,12 +358,10 @@ void ViModeTest::NormalModeCommandsTest()
                    "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
                    "Foo foo.\nBar bar.\nBa baz.");
 
-
 }
 
 
 void ViModeTest::NormalModeControlTests() {
-
   // Testing "Ctrl-x"
   DoTest("150", "101\\ctrl-x", "49");
   DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
@@ -376,28 +376,35 @@ void ViModeTest::NormalModeControlTests() {
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");
   DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
-
 }
 
 void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
-  /*
   // Testing "))"
-    DoTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   ")))\\ctrl-ox\\ctrl-ox",
-                   "Foo foo.\nar bar.\nBaz baz.");
-
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "))\\ctrl-ox\\ctrl-ix",
-                   "Foo foo.\nBar bar.\naz baz.");
-
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "))\\ctrl-ox\\ctrl-ix",
-                   "Foo foo.\nBar bar.\naz baz.");
-*/
-
+//    DoTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.",")))\\ctrl-ox\\ctrl-ox", "Foo foo.\nar bar.\nBaz baz.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
 
 }
 
+void ViModeTest::CommandModeTests() {
+
+    // Testing ":s" (sed)
+    DoTest("foo","\\:s/foo/bar\\","bar");
+    DoTest("foobarbaz","\\:s/bar/***\\","foo***baz");
+    DoTest("foo","\\:s/bar/baz\\","foo");
+    DoTest("foo\nfoo\nfoo","j\\:s/foo/bar\\", "foo\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo","2jma2k\\:'a,'as/foo/bar\\", "foo\nfoo\nbar");
+    DoTest("foo\nfoo\nfoo","\\:%s/foo/bar\\","bar\nbar\nbar");
+    DoTest("foo\nfoo\nfoo","\\:2,3s/foo/bar\\","foo\nbar\nbar");
+    DoTest("foo\nfoo\nfoo\nfoo", "j2lmajhmbgg\\:'a,'bs/foo/bar\\","foo\nbar\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo\nfoo", "jlma2jmbgg\\:'b,'as/foo/bar\\","foo\nbar\nbar\nbar");
+
+
+    DoTest("foo\nfoo\nfoo","\\:2s/foo/bar\\", "foo\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo","2jmagg\\:'as/foo/bar\\","foo\nfoo\nbar");
+    DoTest("foo\nfoo\nfoo", "\\:$s/foo/bar","foo\nfoo\nbar");
+
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -26,7 +26,6 @@
 #include <kateviinputmodemanager.h>
 #include <kateview.h>
 
-
 class ViModeTest : public QObject
 {
   Q_OBJECT
@@ -44,6 +43,7 @@ private Q_SLOTS:
 
   void InsertModeTests();
   void VisualModeTests();
+  void CommandModeTests();
 
 
 private:

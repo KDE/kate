@@ -1,4 +1,11 @@
 # TODO: port away from QT3_SUPPORT!
+# TODO: port to KNEWSTUFF3
+
+
+if( KDE_PLATFORM_FEATURE_DISABLE_DEPRECATED)
+    message(STATUS "Disabling katefiletemplates, which depends on deprecated knewstuff2. TODO: port to knewstuff3.")
+else()
+
 add_definitions(-DQT3_SUPPORT)
 
 ########### next target ###############
@@ -18,3 +25,5 @@ install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katefiletemp
 install( FILES katetemplate.xml  DESTINATION  ${DATA_INSTALL_DIR}/katepart/syntax )
 install( FILES katefiletemplates.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 install( FILES katefiletemplates.knsrc DESTINATION ${CONFIG_INSTALL_DIR} )
+
+endif()

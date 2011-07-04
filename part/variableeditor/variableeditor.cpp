@@ -26,6 +26,7 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
 #include <QtGui/QPainter>
 #include <QtGui/QSpinBox>
 
@@ -148,13 +149,16 @@ VariableItem* VariableEditor::item() const
 
 
 //BEGIN VariableUintEditor
-VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
+VariableIntEditor::VariableIntEditor(VariableIntItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
 
   m_spinBox = new QSpinBox(this);
   m_spinBox->setValue(item->value());
+  m_spinBox->setMinimum(item->minValue());
+  m_spinBox->setMaximum(item->maxValue());
+
   l->addWidget(m_spinBox, 0, 2, Qt::AlignLeft);
 
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged()));
@@ -162,16 +166,9 @@ VariableUintEditor::VariableUintEditor(VariableUintItem* item, QWidget* parent)
   connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setItemValue(int)));
 }
 
-void VariableUintEditor::setItemValue(int newValue)
+void VariableIntEditor::setItemValue(int newValue)
 {
-  static_cast<VariableUintItem*>(item())->setValue(newValue);
-}
-
-void VariableUintEditor::itemDataChanged()
-{
-  VariableUintItem* it = static_cast<VariableUintItem*>(item());
-  m_spinBox->setValue(it->value());
-  activateItem();
+  static_cast<VariableIntItem*>(item())->setValue(newValue);
 }
 //END VariableUintEditor
 
@@ -197,13 +194,6 @@ VariableBoolEditor::VariableBoolEditor(VariableBoolItem* item, QWidget* parent)
 void VariableBoolEditor::setItemValue(int enabled)
 {
   static_cast<VariableBoolItem*>(item())->setValue(enabled == 0);
-}
-
-void VariableBoolEditor::itemDataChanged()
-{
-  VariableBoolItem* it = static_cast<VariableBoolItem*>(item());
-  m_comboBox->setCurrentIndex(it->value() ? 0 : 1);
-  activateItem();
 }
 //END VariableBoolEditor
 
@@ -237,19 +227,6 @@ void VariableStringListEditor::setItemValue(const QString& newValue)
 {
   static_cast<VariableStringListItem*>(item())->setValue(newValue);
 }
-
-void VariableStringListEditor::itemDataChanged()
-{
-  VariableStringListItem* it = static_cast<VariableStringListItem*>(item());
-  int index = 0;
-  for (int i = 0; i < it->stringList().size(); ++i) {
-    if (it->stringList().at(i) == it->value()) {
-      index = i;
-      break;
-    }
-  }
-  activateItem();
-}
 //END VariableStringListEditor
 
 
@@ -272,13 +249,6 @@ VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* paren
 void VariableColorEditor::setItemValue(const QColor& newValue)
 {
   static_cast<VariableColorItem*>(item())->setValue(newValue);
-}
-
-void VariableColorEditor::itemDataChanged()
-{
-  VariableColorItem* it = static_cast<VariableColorItem*>(item());
-  m_comboBox->setColor(it->value());
-  activateItem();
 }
 //END VariableColorEditor
 
@@ -303,13 +273,29 @@ void VariableFontEditor::setItemValue(const QFont& newValue)
 {
   static_cast<VariableFontItem*>(item())->setValue(newValue);
 }
-
-void VariableFontEditor::itemDataChanged()
-{
-  VariableFontItem* it = static_cast<VariableFontItem*>(item());
-  m_comboBox->setCurrentFont(it->value());
-  activateItem();
-}
 //END VariableFontEditor
+
+
+
+//BEGIN VariableStringEditor
+VariableStringEditor::VariableStringEditor(VariableStringItem *item, QWidget *parent)
+  :VariableEditor(item, parent)
+{
+  QGridLayout *l = (QGridLayout*) layout();
+
+  m_lineEdit = new QLineEdit(this);
+  m_lineEdit->setText(item->value());
+  l->addWidget(m_lineEdit, 0, 2, Qt::AlignLeft);
+
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SIGNAL(valueChanged()));
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(activateItem()));
+  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setItemValue(const QString&)));
+}
+
+void VariableStringEditor::setItemValue(const QString &newValue)
+{
+  static_cast <VariableStringItem*>(item())->setValue(newValue);
+}
+//END VariableStringEditor
 
 // kate: indent-width 2; replace-tabs on;

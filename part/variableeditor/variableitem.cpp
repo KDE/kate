@@ -61,43 +61,56 @@ void VariableItem::setActive(bool active)
 
 
 
-//BEGIN class VariableUintItem
-VariableUintItem::VariableUintItem(const QString& variable, int value)
+//BEGIN class VariableIntItem
+VariableIntItem::VariableIntItem(const QString& variable, int value)
   : VariableItem(variable)
   , m_value(value)
+  , m_minValue(-20000)
+  , m_maxValue(20000)
 {
 }
 
-int VariableUintItem::value() const
+int VariableIntItem::value() const
 {
   return m_value;
 }
 
-void VariableUintItem::setValue(int newValue)
+void VariableIntItem::setValue(int newValue)
 {
   m_value = newValue;
 }
 
-void VariableUintItem::setValueByString(const QString& value)
+void VariableIntItem::setValueByString(const QString& value)
 {
   setValue(value.toInt());
 }
 
-QString VariableUintItem::valueAsString() const
+QString VariableIntItem::valueAsString() const
 {
   return QString::number(value());
 }
 
-VariableEditor* VariableUintItem::createEditor(QWidget* parent)
+VariableEditor* VariableIntItem::createEditor(QWidget* parent)
 {
-  return new VariableUintEditor(this, parent);
+  return new VariableIntEditor(this, parent);
 }
-//END class VariableUintItem
 
+void VariableIntItem::setRange(int minValue, int maxValue)
+{
+  m_minValue = minValue;
+  m_maxValue = maxValue;
+}
 
+int VariableIntItem::minValue() const
+{
+  return m_minValue;
+}
 
-
-
+int VariableIntItem::maxValue() const
+{
+  return m_maxValue;
+}
+//END class VariableIntItem
 
 
 
@@ -246,4 +259,40 @@ VariableEditor* VariableFontItem::createEditor(QWidget* parent)
   return new VariableFontEditor(this, parent);
 }
 //END class VariableFontItem
+
+
+
+//BEGIN class VariableStringItem
+VariableStringItem::VariableStringItem(const QString& variable, const QString& value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+void VariableStringItem::setValue(const QString& value)
+{
+  m_value = value;
+}
+
+void VariableStringItem::setValueByString(const QString& value)
+{
+  m_value = value;
+}
+
+QString VariableStringItem::value() const
+{
+  return m_value;
+}
+
+QString VariableStringItem::valueAsString() const
+{
+  return m_value;
+}
+
+VariableEditor* VariableStringItem::createEditor(QWidget* parent)
+{
+  return new VariableStringEditor(this, parent);
+}
+//END class VariableStringItem
+
 // kate: indent-width 2; replace-tabs on;

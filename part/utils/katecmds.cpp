@@ -30,6 +30,7 @@
 #include "katesyntaxmanager.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katevinormalmode.h"
 #include "katerenderer.h"
 #include "katecmd.h"
 
@@ -368,7 +369,7 @@ const QStringList &KateCommands::ViCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << "nnoremap" << "nn";
+  l << "nnoremap" << "nn" << "d" << "delete" << "j" << "c" << "change" << "<" << ">" << "y" << "yank";
 
   return l;
 }
@@ -419,6 +420,52 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
     return true;
   }
 
+  if (cmd == "d" || cmd == "delete" || cmd == "j" ||
+      cmd == "c" || cmd == "change" ||  cmd == "<" || cmd == ">" ||
+      cmd == "y" || cmd == "yank" ) {
+
+    KateViNormalMode* nm = v->getViInputModeManager()->getViNormalMode();
+    KTextEditor::Cursor start_cursor_position = v->cursorPosition();
+
+    int count = 1;
+    if (range.isValid()){
+        qDebug() << "Valid!";
+        count = qAbs(range.end().line() - range.start().line())+1;
+        if (cmd == "j") count-=1;
+        v->setCursorPosition(KTextEditor::Cursor(qMin(range.start().line(),
+                                                      range.end().line()),0));
+    }
+
+    QRegExp number("^(\\d+)$");
+    for (int i = 0; i < args.count(); i++) {
+        if (number.indexIn(args.at(i)) != -1)
+            count += number.cap().toInt() - 1;
+
+        QChar r = args.at(i).at(0);
+        if (args.at(i).size() == 1 && ( (r >= 'a' && r <= 'z') || r == '_' || r == '+' || r == '*' ))
+                nm->setRegister(r);
+    }
+
+    nm->setCount(count);
+
+    if (cmd == "d" || cmd == "delete" )
+        nm->commandDeleteLine();
+    if (cmd == "j")
+        nm->commandJoinLines();
+    if (cmd == "c" || cmd == "change" )
+        nm->commandChangeLine();
+    if (cmd == "<")
+        nm->commandUnindentLine();
+    if (cmd == ">")
+        nm->commandIndentLine();
+    if (cmd == "y" || cmd == "yank" ){
+        nm->commandYankLine();
+        v->setCursorPosition(start_cursor_position);
+    }
+
+    return true;
+  }
+
   // should not happen :)
   msg = i18n("Unknown command '%1'", cmd);
   return false;
@@ -426,8 +473,13 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
 
 bool KateCommands::ViCommands::supportsRange(const QString &range)
 {
-  Q_UNUSED(range)
-  return false; // no commands support a range yet
+  static QStringList l;
+
+  if (l.isEmpty())
+  l << "d" << "delete" << "j" << "c" << "change" << "<" <<
+       ">" << "y" << "yank";
+
+  return l.contains(range.split(" ").at(0));
 }
 
 KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view, const QString &cmd )

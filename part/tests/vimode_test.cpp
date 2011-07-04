@@ -403,8 +403,38 @@ void ViModeTest::CommandModeTests() {
 
     DoTest("foo\nfoo\nfoo","\\:2s/foo/bar\\", "foo\nbar\nfoo");
     DoTest("foo\nfoo\nfoo","2jmagg\\:'as/foo/bar\\","foo\nfoo\nbar");
-    DoTest("foo\nfoo\nfoo", "\\:$s/foo/bar","foo\nfoo\nbar");
+    DoTest("foo\nfoo\nfoo", "\\:$s/foo/bar\\","foo\nfoo\nbar");
 
+    // Testing ":d", ":delete"
+    DoTest("foo\nbar\nbaz","\\:2d\\","foo\nbaz");
+    DoTest("foo\nbar\nbaz","\\:%d\\","");
+    DoTest("foo\nbar\nbaz","\\:$d\\\\:$d\\","foo");
+    DoTest("foo\nbar\nbaz","ma\\:2,'ad\\","baz");
+    DoTest("foo\nbar\nbaz","\\:2,3delete\\","foo");
+
+    DoTest("foo\nbar\nbaz","\\:d\\","bar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:d 33\\","");
+    DoTest("foo\nbar\nbaz","\\:3d a\\k\"ap","foo\nbaz\nbar");
+
+    // Testing ":y", ":yank"
+    DoTest("foo\nbar\nbaz","\\:3y\\p","foo\nbaz\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:2y a 2\\\"ap","foo\nbar\nbaz\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:y\\p","foo\nfoo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:3,1y\\p","foo\nfoo\nbar\nbaz\nbar\nbaz");
+
+    // Testing ">"
+    DoTest("foo","\\:>\\","  foo");
+    DoTest("   foo","\\:<\\","  foo");
+
+    // Testing ":c", ":change"
+    DoTest("foo\nbar\nbaz","\\:2change\\","foo\n\nbaz");
+    DoTest("foo\nbar\nbaz","\\:%c\\","");
+    DoTest("foo\nbar\nbaz","\\:$c\\\\:$change\\","foo\nbar\n");
+    DoTest("foo\nbar\nbaz","ma\\:2,'achange\\","\nbaz");
+    DoTest("foo\nbar\nbaz","\\:2,3c\\","foo\n");
+
+    // Testing ":j"
+    DoTest("1\n2\n3\n4\n5","\\:2,4j\\","1\n2 3 4\n5");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

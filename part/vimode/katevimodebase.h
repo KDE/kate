@@ -64,6 +64,8 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     virtual void addMapping( const QString &from, const QString &to ) = 0;
     virtual const QString getMapping( const QString &from ) const = 0;
     virtual const QStringList getMappings() const = 0;
+    void setCount(unsigned int count) { m_count = count; }
+    void setRegister(QChar reg) {m_register =  reg;}
 
   protected:
     // helper methods

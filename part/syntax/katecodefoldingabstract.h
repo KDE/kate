@@ -26,12 +26,58 @@ class KateHiddenLineBlockTemp
 class KateLineInfoTemp
 {
   public:
-  bool topLevel;
-  bool startsVisibleBlock;
-  bool startsInVisibleBlock;
-  bool endsBlock;
-  bool invalidBlockEnd;
-  int depth;
+    bool topLevel;
+    bool startsVisibleBlock;
+    bool startsInVisibleBlock;
+    bool endsBlock;
+    bool invalidBlockEnd;
+    int depth;
+};
+
+class KateDocumentPosition
+{
+  public:
+    int line;
+    int column;
+
+    KateDocumentPosition (int l, int c) :
+        line(l),
+        column(c)
+    {
+    }
+    KateDocumentPosition (const KateDocumentPosition &pos) :
+        line(pos.line),
+        column(pos.column)
+    {
+    }
+    KateDocumentPosition () :
+        line(0),
+        column(0)
+    {
+    }
+
+    inline bool operator< (const KateDocumentPosition &pos) const
+    {
+      return (line < pos.line) ? true :
+          (line == pos.line) ?
+          ((column < pos.column) ? true : false)
+            : false;
+    }
+    inline bool operator> (const KateDocumentPosition &pos) const
+    {
+      return (line > pos.line) ? true :
+          (line == pos.line) ?
+          ((column > pos.column) ? true : false)
+            : false;
+    }
+    inline bool operator== (const KateDocumentPosition &pos) const
+    {
+      return (line == pos.line && column == pos.column) ? true : false;
+    }
+    inline bool operator!= (const KateDocumentPosition &pos) const
+    {
+      return (line != pos.line || column != pos.column) ? true : false;
+    }
 };
 
 class KateCodeFoldingNodeTemp: public QObject
@@ -42,14 +88,13 @@ class KateCodeFoldingNodeTemp: public QObject
   private:
     KateCodeFoldingNodeTemp *parentNode;      // parent
 
-    unsigned int        line;             // node line (absolute position)
-    unsigned int        column;           // node column
+    KateDocumentPosition    position;
 
-    bool                startLineValid;   // if "{" exists (not used by other classes)
+    bool                    startLineValid;   // if "{" exists (not used by other classes)
 
-    signed char         type;             // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
-                                          // if type > 0 : start node ; if type < 0 : end node
-    bool                visible;          // folded / not folded
+    signed char             type;             // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
+                                              // if type > 0 : start node ; if type < 0 : end node
+    bool                    visible;          // folded / not folded
 
     QVector<KateCodeFoldingNodeTemp*> m_startChildren;  // Node's start children
     QVector<KateCodeFoldingNodeTemp*> m_endChildren;    // Node's end children
@@ -78,18 +123,25 @@ class KateCodeFoldingNodeTemp: public QObject
 
     // Setters and getters
     inline void setColumn(int newColumn)
-      { column = newColumn; }
+      { position.column = newColumn; }
     inline void setLine(int newLine)
-      { line = newLine; }
+      { position.line = newLine; }
+    inline void setPosition (KateDocumentPosition newPosition)
+      { position = newPosition; }
+
     inline void setColumn(KateCodeFoldingNodeTemp *node)
       { setColumn(node->getColumn()); }
     inline void setLine(KateCodeFoldingNodeTemp *node)
       { setLine(node->getLine()); }
+    inline void setPosition(KateCodeFoldingNodeTemp *node)
+      { setPosition(node->getPosition()); }
 
     inline int getColumn() const
-      { return column; }
+      { return position.column; }
     inline int getLine() const
-      { return line; }
+      { return position.line; }
+    inline KateDocumentPosition getPosition() const
+      { return position; }
     // End of setters and getters
 
     // Children modifiers
@@ -100,12 +152,12 @@ class KateCodeFoldingNodeTemp: public QObject
     inline bool noChildren () const
       { return noStartChildren() && noEndChildren(); }
 
-    inline int startChildCount () const
+    inline int startChildrenCount () const
       { return m_startChildren.size(); }
-    inline int endChildCount () const
+    inline int endChildrenCount () const
       { return m_endChildren.size(); }
-    inline int startCount () const
-      { return startChildCount() + endChildCount(); }
+    inline int childrenCount () const
+      { return startChildrenCount() + endChildrenCount(); }
 
     inline KateCodeFoldingNodeTemp* startChildAt (uint index) const
       { return m_startChildren[index]; }
@@ -164,12 +216,10 @@ class KateCodeFoldingNodeTemp: public QObject
     inline KateCodeFoldingNodeTemp* matchingNode() const
       { return haveMatch() ? endChildAt(0) : NULL; }
 
-    inline int comparePos(KateCodeFoldingNodeTemp *otherNode) const
+    inline int comparePos(KateCodeFoldingNodeTemp &otherNode) const
     {
-      return (line > otherNode->line) ? 1 :
-          (line < otherNode->line) ? -1 :
-          (column > otherNode->column) ? 1 :
-          (column < otherNode->column) ? -1 : 0;
+      return (position == otherNode.position) ? 0 :
+          (position < otherNode.position) ? -1 : 1;
     }
 
     // Debug Methods
@@ -188,18 +238,23 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
   private:
 
-    KateCodeFoldingNodeTemp                          m_root;       // Tree's root node
+    KateCodeFoldingNodeTemp                          m_root;          // Tree's root node
 
     KateBuffer* const                                m_buffer;
 
-    QMap < int, QVector <KateCodeFoldingNodeTemp*> > lineMapping;  // a map (line, <Vector of Nodes> from that line)
+    QMap < int, QVector <KateCodeFoldingNodeTemp*> > m_lineMapping;   // a map (line, <Vector of Nodes> from that line)
 
   public:
     AbstractKateCodeFoldingTree (KateBuffer *buffer);
     ~AbstractKateCodeFoldingTree ();
 
-    void lineHasBeenInserted (int line);                          // call order for 3 lines : 1,2,3
-    void lineHasBeenRemoved  (int line);                          // call order for 3 lines : 3,2,1
+    void incrementBy1 (QVector <KateCodeFoldingNodeTemp*> &nodesLine);
+    void decrementBy1 (QVector <KateCodeFoldingNodeTemp*> &nodesLine);
+
+    void lineHasBeenInserted (int line);                              // call order for 3 lines : 1,2,3
+    void lineHasBeenRemoved  (int line);                              // call order for 3 lines : 3,2,1
+
+    void printMapping();
 
   protected:
     void setColumns (int line, QVector<int> newColumns);

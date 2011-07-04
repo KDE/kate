@@ -28,7 +28,7 @@
 
 #include <KConfig>
 
-//Added by qt3to4:
+#include <kactioncollection.h>
 #include <KServiceTypeTrader>
 #include <KConfigGroup>
 #include <kdebug.h>
@@ -202,8 +202,12 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
   // lookup if there is already a view for it..
   if (!win->pluginViews().contains(item->plugin))
   {
-    // create the view
+    // create the view + try to correctly load shortcuts, if it's a GUI Client
     Kate::PluginView *view = item->plugin->createView(win->mainWindow());
+    if (KXMLGUIClient* c = dynamic_cast<KXMLGUIClient*>(view)) {
+      c->actionCollection()->setConfigGroup( "Shortcuts" );
+      c->actionCollection()->readSettings();
+    }
     win->pluginViews().insert (item->plugin, view);
   }
 

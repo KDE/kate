@@ -162,6 +162,7 @@ KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer)
   , hiddenLinesCountCacheValid(false)
   , m_clearCache(false)
 {
+  m_abstractTree = new AbstractKateCodeFoldingTree(buffer);
 }
 
 void KateCodeFoldingTree::fixRoot(int endLRel)
@@ -395,6 +396,10 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &pre
 void KateCodeFoldingTree::updateLine(unsigned int line,
   QVector<int> *regionChanges, bool *updated,bool changed,bool colsChanged)
 {
+  //
+  m_abstractTree->updateLine(line, regionChanges, updated, changed, colsChanged);
+  //
+
   if ( (!changed) || colsChanged)
   {
     if (dontIgnoreUnchangedLines.isEmpty())
@@ -1056,6 +1061,9 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
+  //
+  m_abstractTree->lineHasBeenRemoved(line);
+  //
 
   lineMapping.clear();
   dontIgnoreUnchangedLines.insert(line);
@@ -1121,6 +1129,10 @@ void KateCodeFoldingTree::decrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 
 void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 {
+  //
+  m_abstractTree->lineHasBeenInserted(line);
+  //
+
   lineMapping.clear();
   dontIgnoreUnchangedLines.insert(line);
   dontIgnoreUnchangedLines.insert(line-1l);
@@ -1731,9 +1743,12 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 
 void KateCodeFoldingTree::printTree()
 {
+  m_abstractTree->printMapping();
+/*
   kDebug()<<"\n\n\n<----------->New TREE_PRINT(new TEST!!!!!!!)<----------->\n";
   m_root.printNode(0);
   kDebug()<<"\n<----------->END OF TREE_PRINT<----------->\n\n\n";
+*/
 }
 
 void KateCodeFoldingNode::printNode(int level)

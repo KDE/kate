@@ -102,7 +102,7 @@ class KateCodeFoldingNodeTemp: public QObject
   // public methods - Node's interface
   public:
     KateCodeFoldingNodeTemp ();
-    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, signed char typ, unsigned int l);
+    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, signed char typ, KateDocumentPosition &pos);
 
     ~KateCodeFoldingNodeTemp ();
 
@@ -257,6 +257,10 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
     void printMapping();
 
   protected:
+    void insertNode(int nodeType, KateDocumentPosition pos);
+    void deleteNode(KateCodeFoldingNodeTemp *node);
+    //void coppyNode(KateCodeFoldingNodeTemp *node);
+    void changeColumn(KateCodeFoldingNodeTemp *node, int newColumn);
     void setColumns (int line, QVector<int> newColumns);
     void updateMapping (int line, QVector<int> newColumns);
 

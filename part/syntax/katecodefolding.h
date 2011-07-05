@@ -221,8 +221,13 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void updateHiddenSubNodes (KateCodeFoldingNode *node);
     void moveSubNodesUp (KateCodeFoldingNode *node);
 
-    // my debug methods
+    // my debug methods and members
+    // members
+    AbstractKateCodeFoldingTree *m_abstractTree;
+
+    // methods
     void getLineInfo_private(KateLineInfo *info, unsigned int line);
+
 
 //     void removeParentReferencesFromChilds(KateCodeFoldingNode* node);
 

@@ -40,6 +40,7 @@
       <item> inline </item>
       <item> namespace </item>
       <item> new </item>
+      <item> nullptr </item>
       <item> operator </item>
       <item> private </item>
       <item> protected </item>

@@ -32,7 +32,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
-  ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES}
 )
 

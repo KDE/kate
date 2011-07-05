@@ -201,7 +201,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     }
   }
 
-
   // if we have any matching commands so far, check which ones still match
   if ( m_matchingCommands.size() > 0 ) {
     int n = m_matchingCommands.size()-1;
@@ -1454,19 +1453,45 @@ bool KateViNormalMode::commandAppendToBlock()
   return startInsertMode();
 }
 
-bool KateViNormalMode::commandGoToNextJump(){
+bool KateViNormalMode::commandGoToNextJump() {
     Cursor c = getNextJump(m_view->cursorPosition());
     updateCursor(c);
 
     return true;
 }
 
-bool KateViNormalMode::commandGoToPrevJump(){
+bool KateViNormalMode::commandGoToPrevJump() {
     Cursor c = getPrevJump(m_view->cursorPosition());
     updateCursor(c);
 
     return true;
 }
+
+bool KateViNormalMode::commandSwitchToLeftView() {
+    switchView(Left);
+    return true;
+}
+
+bool KateViNormalMode::commandSwitchToDownView() {
+    switchView(Down);
+    return true;
+}
+
+bool KateViNormalMode::commandSwitchToUpView() {
+    switchView(Up);
+    return true;
+}
+
+bool KateViNormalMode::commandSwitchToRightView() {
+    switchView(Right);
+    return true;
+}
+
+bool KateViNormalMode::commandSwitchToNextView() {
+    switchView(Next);
+    return true;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2572,6 +2597,23 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
   ADDCMD("<c-o>", commandGoToPrevJump, 0);
   ADDCMD("<c-i>", commandGoToNextJump, 0);
+
+  ADDCMD("<c-w>h",commandSwitchToLeftView,0);
+  ADDCMD("<c-w><c-h>",commandSwitchToLeftView,0);
+  ADDCMD("<c-w><left>",commandSwitchToLeftView,0);
+  ADDCMD("<c-w>j",commandSwitchToDownView,0);
+  ADDCMD("<c-w><c-j>",commandSwitchToDownView,0);
+  ADDCMD("<c-w><down>",commandSwitchToDownView,0);
+  ADDCMD("<c-w>k",commandSwitchToUpView,0);
+  ADDCMD("<c-w><c-k>",commandSwitchToUpView,0);
+  ADDCMD("<c-w><up>",commandSwitchToUpView,0);
+  ADDCMD("<c-w>l",commandSwitchToRightView,0);
+  ADDCMD("<c-w><c-l>",commandSwitchToRightView,0);
+  ADDCMD("<c-w><right>",commandSwitchToRightView,0);
+  ADDCMD("<c-w>w",commandSwitchToNextView,0);
+  ADDCMD("<c-w><c-w>",commandSwitchToNextView,0);
+
+
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

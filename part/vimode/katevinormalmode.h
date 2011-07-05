@@ -137,6 +137,12 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandGoToNextJump();
     bool commandGoToPrevJump();
 
+    bool commandSwitchToLeftView();
+    bool commandSwitchToUpView();
+    bool commandSwitchToDownView();
+    bool commandSwitchToRightView();
+    bool commandSwitchToNextView();
+
     // MOTIONS
 
     KateViRange motionLeft();

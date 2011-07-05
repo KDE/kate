@@ -31,7 +31,7 @@
 #include <klocale.h>
 
 K_PLUGIN_FACTORY_DEFINITION(KateSQLFactory, registerPlugin<KateSQLPlugin>();)
-K_EXPORT_PLUGIN(KateSQLFactory(KAboutData("katesql", "katesqlplugin",
+K_EXPORT_PLUGIN(KateSQLFactory(KAboutData("katesql", "katesql",
                                           ki18n("KateSQLPlugin"), "0.2", ki18n("SQL Plugin"), KAboutData::License_LGPL_V2)))
 
 //BEGIN KateSQLPLugin

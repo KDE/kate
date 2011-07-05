@@ -42,7 +42,8 @@ bool KateCodeFoldingNodeTemp::getEnd(AbstractKateCodeFoldingTree *tree, KTextEdi
   if ( ! haveMatch() ) return false;
 
   end->setLine(matchingNode()->position.line);
-  end->setColumn(matchingNode()->position.column);
+  end->setColumn(matchingNode()->position.column + 1);
+  // We want to fold "}" too (+ 1)
 
   return true;
 }
@@ -122,6 +123,7 @@ void AbstractKateCodeFoldingTree::insertNode(int nodeType, KateDocumentPosition 
   }
 }
 
+// !!!
 void AbstractKateCodeFoldingTree::deleteNode(KateCodeFoldingNodeTemp *node)
 {
   QVector<KateCodeFoldingNodeTemp *> mapping = m_lineMapping[node->getLine()];
@@ -185,13 +187,23 @@ void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumn
     if (index_old >= oldLineMapping.size()) {
       int nodeType = newColumns[index_new - 1];
       int nodeColumn = newColumns[index_new];
-      insertNode(nodeType, KateDocumentPosition(line,nodeColumn));
+      if (nodeType < 0) {
+        insertNode(nodeType, KateDocumentPosition(line,nodeColumn - 1));
+      }
+      else {
+        insertNode(nodeType, KateDocumentPosition(line,nodeColumn));
+      }
     }
 
     // If the nodes compared have the same type,
     // then we update the column (maybe the column has changed).
     else if (oldLineMapping[index_old]->type == newColumns[index_new - 1]) {
-      oldLineMapping[index_old]->setColumn(newColumns[index_new]);
+      if (newColumns[index_new - 1] < 0) {
+        oldLineMapping[index_old]->setColumn(newColumns[index_new] - 1);
+      }
+      else  {
+        oldLineMapping[index_old]->setColumn(newColumns[index_new]);
+      }
       index_old ++;
     }
 
@@ -200,12 +212,18 @@ void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumn
     else {
       deleteNode(oldLineMapping[index_old]);
       index_new -= 2;
+      index_old ++;
     }
   }
 
   // This are the nodes remaining. They do not exist in the new mapping and will be deleted
   for ( ; index_old < oldLineMapping.size() ; index_old ++) {
     deleteNode(oldLineMapping[index_old]);
+  }
+
+  // We check if the line is empty. If it is empty, we remove its entry
+  if (m_lineMapping[line].isEmpty()) {
+    m_lineMapping.remove(line);
   }
 
   oldLineMapping.clear();
@@ -219,7 +237,7 @@ void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
   m_lineMapping.clear();
 
   // Coppy the lines before "line"
-  while (iterator.hasNext() && iterator.key() < line) {
+  while (iterator.hasNext() && iterator.peekNext().key() < line) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     m_lineMapping.insert(key,tempVector);
@@ -231,7 +249,7 @@ void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     incrementBy1(tempVector);
-    m_lineMapping.insert(key,tempVector);
+    m_lineMapping.insert(key + 1,tempVector);
     iterator.next();
   }
 }
@@ -244,14 +262,14 @@ void AbstractKateCodeFoldingTree::lineHasBeenRemoved(int line)
   m_lineMapping.clear();
 
   // Coppy the lines before "line"
-  while (iterator.hasNext() && iterator.key() < line) {
+  while (iterator.hasNext() && iterator.peekNext().key() < line) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     m_lineMapping.insert(key,tempVector);
     iterator.next();
   }
 
-  // Do something with line deleted
+  // Step over deleted line
   while (iterator.hasNext() && iterator.peekNext().key() == line) {
     //int key = iterator.key();
     //tempVector = iterator.value();
@@ -263,8 +281,13 @@ void AbstractKateCodeFoldingTree::lineHasBeenRemoved(int line)
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     decrementBy1(tempVector);
-    m_lineMapping.insert(key,tempVector);
+    m_lineMapping.insert(key - 1,tempVector);
     iterator.next();
+  }
+
+  // If the deleted line was replaced with an empty line, the map entry will be deleted
+  if (m_lineMapping[line].empty()) {
+    m_lineMapping.remove(line);
   }
 }
 

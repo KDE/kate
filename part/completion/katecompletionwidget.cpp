@@ -183,20 +183,20 @@ void KateCompletionWidget::viewFocusOut() {
 }
 
 void KateCompletionWidget::modelContentChanged() {
-  kDebug()<<">>>>>>>>>>>>>>>>";
+  ////kDebug()<<">>>>>>>>>>>>>>>>";
   if(m_completionRanges.isEmpty()) {
-    kDebug( 13035 ) << "content changed, but no completion active";
+    //kDebug( 13035 ) << "content changed, but no completion active";
     abortCompletion();
     return;
   }
 
   if(!view()->hasFocus()) {
-    kDebug( 13035 ) << "view does not have focus";
+    //kDebug( 13035 ) << "view does not have focus";
     return;
   }
 
   if(!m_waitingForReset.isEmpty()) {
-    kDebug( 13035 ) << "waiting for" << m_waitingForReset.size() << "completion-models to reset";
+    //kDebug( 13035 ) << "waiting for" << m_waitingForReset.size() << "completion-models to reset";
     return;
   }
 
@@ -291,7 +291,7 @@ void KateCompletionWidget::startCompletion(KTextEditor::CodeCompletionModel::Inv
 
 void KateCompletionWidget::deleteCompletionRanges()
 {
-  //kDebug();
+  ////kDebug();
   foreach(const CompletionRange &r, m_completionRanges)
     delete r.range;
   m_completionRanges.clear();
@@ -311,7 +311,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, KText
 void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const QList<KTextEditor::CodeCompletionModel*>& modelsToStart, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
 
-  kDebug()<<"============";
+  ////kDebug()<<"============";
 
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
@@ -352,16 +352,16 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     KTextEditor::Range range;
     if (word.isValid()) {
       range = word;
-      kDebug()<<"word is used";
+      //kDebug()<<"word is used";
     } else {
       range=_completionRange(model,view(), view()->cursorPosition());
-      kDebug()<<"completionRange has been called, cursor pos is"<<view()->cursorPosition();
+      //kDebug()<<"completionRange has been called, cursor pos is"<<view()->cursorPosition();
     }
-    kDebug()<<"range is"<<range;
+    //kDebug()<<"range is"<<range;
     if(!range.isValid()) {
       if(m_completionRanges.contains(model)) {
         KTextEditor::MovingRange *oldRange = m_completionRanges[model].range;
-        kDebug()<<"removing completion range 1";
+        //kDebug()<<"removing completion range 1";
         m_completionRanges.remove(model);
         delete oldRange;
       }
@@ -374,7 +374,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
       }
       else { // delete the range that was used previously
         KTextEditor::MovingRange *oldRange = m_completionRanges[model].range;
-        kDebug()<<"removing completion range 2";
+        //kDebug()<<"removing completion range 2";
         m_completionRanges.remove(model);
         delete oldRange;
       }
@@ -382,7 +382,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
 
     connect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
 
-    kDebug()<<"Before completin invoke: range:"<<range;
+    //kDebug()<<"Before completin invoke: range:"<<range;
     model->completionInvoked(view(), range, invocationType);
 
     disconnect(model, SIGNAL(waitForReset()), this, SLOT(waitForModelReset()));
@@ -430,7 +430,7 @@ void KateCompletionWidget::waitForModelReset()
 
 void KateCompletionWidget::updateAndShow()
 {
-  kDebug()<<"*******************************************";
+  //kDebug()<<"*******************************************";
   if(!view()->hasFocus()) {
     kDebug( 13035 ) << "view does not have focus";
     return;
@@ -513,7 +513,7 @@ bool KateCompletionWidget::updatePosition(bool force)
 
   updateArgumentHintGeometry();
 
-//   kDebug() << "updated to" << geometry() << m_entryList->geometry() << borderHit;
+//   //kDebug() << "updated to" << geometry() << m_entryList->geometry() << borderHit;
 
   return borderHit;
 }
@@ -657,7 +657,7 @@ void KateCompletionWidget::updateHeight()
 
 void KateCompletionWidget::cursorPositionChanged( )
 {
-  //kDebug();
+  ////kDebug();
   if (m_completionRanges.isEmpty())
     return;
 
@@ -678,16 +678,16 @@ void KateCompletionWidget::cursorPositionChanged( )
       KTextEditor::CodeCompletionModel *model = *it;
       KTextEditor::MovingRange *range = m_completionRanges[*it].range;
 
-      kDebug()<<"range before _updateRange:"<< *range;
+      //kDebug()<<"range before _updateRange:"<< *range;
       KTextEditor::Range rangeTE = range->toRange();
       range->setRange (_updateRange(model, view(),rangeTE));
-      kDebug()<<"range after _updateRange:"<< *range;
+      //kDebug()<<"range after _updateRange:"<< *range;
       QString currentCompletion = _filterString(model,view(), *range, view()->cursorPosition());
-      kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
+      //kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
       bool abort = _shouldAbortCompletion(model,view(), *range, currentCompletion);
-      kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
+      //kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
       if(view()->cursorPosition() < m_completionRanges[*it].leftBoundary) {
-        kDebug() << "aborting because of boundary: cursor:"<<view()->cursorPosition()<<"completion_Range_left_boundary:"<<m_completionRanges[*it].leftBoundary;
+        //kDebug() << "aborting because of boundary: cursor:"<<view()->cursorPosition()<<"completion_Range_left_boundary:"<<m_completionRanges[*it].leftBoundary;
         abort = true;
       }
 
@@ -702,7 +702,7 @@ void KateCompletionWidget::cursorPositionChanged( )
         } else {
           {
             delete m_completionRanges[*it].range;
-            kDebug()<<"removing completion range 3";
+            //kDebug()<<"removing completion range 3";
             m_completionRanges.remove(*it);
           }
 
@@ -717,12 +717,12 @@ void KateCompletionWidget::cursorPositionChanged( )
   if(oldCurrentSourceIndex.isValid()) {
     QModelIndex idx = m_presentationModel->mapFromSource(oldCurrentSourceIndex);
     if(idx.isValid()) {
-      kDebug() << "setting" << idx;
+      //kDebug() << "setting" << idx;
       m_entryList->setCurrentIndex(idx.sibling(idx.row(), 0));
 //       m_entryList->nextCompletion();
 //       m_entryList->previousCompletion();
     }else{
-      kDebug() << "failed to map from source";
+      //kDebug() << "failed to map from source";
     }
   }
 
@@ -837,7 +837,7 @@ void KateCompletionWidget::execute()
   if(newPos > *oldPos) {
     m_automaticInvocationAt = newPos;
     m_automaticInvocationLine = view()->doc()->text(KTextEditor::Range(*oldPos, newPos));
-    kDebug() << "executed, starting automatic invocation with line" << m_automaticInvocationLine;
+    //kDebug() << "executed, starting automatic invocation with line" << m_automaticInvocationLine;
     m_lastInsertionByUser = false;
     m_automaticInvocationTimer->start();
   }
@@ -1171,7 +1171,7 @@ void KateCompletionWidget::completionModelReset()
 
   if(m_waitingForReset.isEmpty()) {
     if(!isCompletionActive()) {
-      kDebug() << "all completion-models we waited for are ready. Last one: " << model->objectName();
+      //kDebug() << "all completion-models we waited for are ready. Last one: " << model->objectName();
       //Eventually show the completion-list if this was the last model we were waiting for
       //Use a queued connection once again to make sure that KateCompletionModel is notified before we are
       QMetaObject::invokeMethod(this, "modelContentChanged", Qt::QueuedConnection);
@@ -1310,28 +1310,28 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
 
 void KateCompletionWidget::automaticInvocation()
 {
-  kDebug()<<"m_automaticInvocationAt:"<<m_automaticInvocationAt;
-  kDebug()<<view()->cursorPosition();
+  //kDebug()<<"m_automaticInvocationAt:"<<m_automaticInvocationAt;
+  //kDebug()<<view()->cursorPosition();
   if(m_automaticInvocationAt != view()->cursorPosition())
     return;
 
   bool start = false;
   QList<KTextEditor::CodeCompletionModel*> models;
 
-  kDebug()<<"checking models";
+  //kDebug()<<"checking models";
   foreach (KTextEditor::CodeCompletionModel *model, m_sourceModels) {
-      kDebug()<<"m_completionRanges contains model?:"<<m_completionRanges.contains(model);
+      //kDebug()<<"m_completionRanges contains model?:"<<m_completionRanges.contains(model);
       if(m_completionRanges.contains(model))
         continue;
 
       start=_shouldStartCompletion(model,view(), m_automaticInvocationLine, m_lastInsertionByUser, view()->cursorPosition());
-      kDebug()<<"start="<<start;
+      //kDebug()<<"start="<<start;
       if (start)
       {
         models << model;
       }
   }
-  kDebug()<<"models found:"<<!models.isEmpty();
+  //kDebug()<<"models found:"<<!models.isEmpty();
   if (!models.isEmpty()) {
     // Start automatic code completion
     startCompletion(KTextEditor::CodeCompletionModel::AutomaticInvocation, models);

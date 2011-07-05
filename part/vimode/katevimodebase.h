@@ -48,6 +48,15 @@ enum OperationMode {
     Block
 };
 
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+    Next,
+    Prev
+};
+
 class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 {
   Q_OBJECT
@@ -116,6 +125,8 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     QString getRegisterContent( const QChar &reg ) const;
     OperationMode getRegisterFlag( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
+
+    void switchView(Direction direction = Next);
 
     QChar m_register;
 

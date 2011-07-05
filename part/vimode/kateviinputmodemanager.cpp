@@ -55,6 +55,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   jump_list = new QList<KateViJump>;
   current_jump = jump_list->begin();
+  m_temporaryNormalMode = false;
 
 }
 

@@ -770,6 +770,7 @@ bool KateViNormalMode::commandMakeUppercaseLine()
 
 bool KateViNormalMode::commandChangeCase()
 {
+  switchView();
   QString text;
   Range range;
   Cursor c( m_view->cursorPosition() );

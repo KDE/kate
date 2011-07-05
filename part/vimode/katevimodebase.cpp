@@ -34,6 +34,7 @@
 #include "katedocument.h"
 #include "kateviewinternal.h"
 #include "katevimodebar.h"
+#include <ktexteditor/view.h>
 
 using KTextEditor::Cursor;
 using KTextEditor::Range;
@@ -950,3 +951,42 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 }
 
+void KateViModeBase::switchView(Direction direction) {
+    qDebug() << "Switch View:";
+
+    QPoint current_point = m_view->mapToGlobal(m_view->pos());
+    int curr_x1 = current_point.x();
+    int curr_x2 = current_point.x() + m_view->width();
+    int curr_y1 = current_point.y();
+    int curr_y2 = current_point.y() + m_view->height();
+    int curr_cursor = m_view->mapToGlobal(m_view->cursorToCoordinate(m_view->cursorPosition())).y();
+
+    KateView *bestview = NULL;
+    int  best_x1, best_x2, best_y1, best_y2, best_center_y;
+
+    foreach (KateView* view, KateGlobal::self()->views() ) {
+        QPoint point = view->mapToGlobal(view->pos());
+        int x1 = point.x();
+        int x2 = point.x() + view->width();
+        int y1 = point.y();
+        int y2 = point.y() + m_view->height();
+        int  center_y = (y1 + y2) / 2;
+
+        if (view != m_view && x2 <= curr_x1 &&
+           ( x2 > best_x2 ||
+            (x2 == best_x2 && qAbs(curr_cursor - center_y) < qAbs(curr_cursor - best_center_y)) ||
+            bestview == NULL)){
+            bestview = view;
+            best_x2 = x2;
+            best_center_y = center_y;
+        }
+        qDebug() << "View#"<<  "x2"<< x2 << "center_y" << center_y;
+
+    }
+    qDebug() << "REally Best" <<"x2"<< best_x2 << "center_y" << best_center_y;
+    if (bestview != NULL ) {
+        bestview->setFocus();
+         KateViewConfig::global()->setViInputMode(true);
+    }
+qDebug() << "\n";
+}

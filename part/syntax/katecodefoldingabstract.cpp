@@ -27,8 +27,8 @@ KateCodeFoldingNodeTemp::KateCodeFoldingNodeTemp(KateCodeFoldingNodeTemp *parent
 
 KateCodeFoldingNodeTemp::~KateCodeFoldingNodeTemp()
 {
-  m_startChildren.clear();
-  m_endChildren.clear();
+//  m_startChildren.clear();
+//  m_endChildren.clear();
 }
 
 // All the children must be kept sorted (using their position)
@@ -365,7 +365,7 @@ void AbstractKateCodeFoldingTree::deleteNodeFromMap(KateCodeFoldingNodeTemp *nod
     }
   }
   m_lineMapping[node->getLine()] = mapping;
-  delete node; // !!!
+  //delete node; // !!!
 }
 
 void AbstractKateCodeFoldingTree::deleteEndNode(KateCodeFoldingNodeTemp* deletedNode)
@@ -588,10 +588,17 @@ void AbstractKateCodeFoldingTree::lineHasBeenRemoved(int line)
     iterator.next();
   }
 
-  // Step over deleted line
+  //
   while (iterator.hasNext() && iterator.peekNext().key() == line) {
-    //int key = iterator.key();
-    //tempVector = iterator.value();
+    // Coppy the old line
+    tempVector = iterator.peekNext().value();
+    m_lineMapping.insert(line,tempVector);
+
+    // And remove all the nodes from it
+    while (tempVector.isEmpty() == false) {
+      deleteNode(tempVector.last());
+      tempVector = m_lineMapping[line];
+    }
     iterator.next();
   }
 
@@ -629,7 +636,7 @@ void AbstractKateCodeFoldingTree::sublist(QVector<KateCodeFoldingNodeTemp *> &de
 {
   dest.clear();
   foreach (KateCodeFoldingNodeTemp *node, source) {
-    if (node->position >= end && node->position != INFposition)
+    if (node->position >= end && end != INFposition)
       break;
     if (node->position >= begin) {
       dest.append(node);
@@ -655,6 +662,9 @@ void AbstractKateCodeFoldingTree::updateLine(unsigned int line, QVector<int> *re
   // changed == true
   updateMapping(line, *regionChanges);
   *updated = true;
+
+  buildTreeString(m_root,1);
+  qDebug()<<treeString;
 }
 
 // Update mapping when "changhed" flag from updateLine() is "true" - nodes inserted or deleted
@@ -677,12 +687,7 @@ void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumn
         insertNode(nodeType, KateDocumentPosition(line,nodeColumn - 1));
       }
       else {
-        if (nodeType > 0) {
-          insertStartNode(nodeType, KateDocumentPosition(line,nodeColumn));
-        }
-        else {
-          insertEndNode(nodeType, KateDocumentPosition(line,nodeColumn));
-        }
+        insertNode(nodeType, KateDocumentPosition(line,nodeColumn));
       }
     }
 

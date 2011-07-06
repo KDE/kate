@@ -125,7 +125,8 @@ class KateCodeFoldingNodeTemp: public QObject
     bool getEnd (AbstractKateCodeFoldingTree *tree, KTextEditor::Cursor *end);      // ??
 
   // protected methods - used by FoldingTree
-  protected:
+  //protected:
+  public:
 
     // Setters and getters
     inline void setColumn(int newColumn)
@@ -290,7 +291,8 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
 
 
-  protected:
+  //protected:
+  public:
   // Insert Node methods
     inline void insertNode(int nodeType, KateDocumentPosition pos)
     {

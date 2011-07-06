@@ -29,6 +29,9 @@ class KateViRange;
 class KateViInputModeManager;
 
 class KateViVisualMode : public KateViNormalMode {
+
+    Q_OBJECT
+
   public:
     KateViVisualMode( KateViInputModeManager *viInputModeManager, KateView *view, KateViewInternal *viewInternal );
     ~KateViVisualMode();
@@ -52,11 +55,12 @@ class KateViVisualMode : public KateViNormalMode {
     void updateRange();
     ViMode getLastVisualMode() const { return m_lastVisualMode; }
     KTextEditor::Cursor getStart() const { return m_start; }
-    KTextEditor::Range getVisualRange() const;
+    void SelectLines(KTextEditor::Range range);
+  public Q_SLOTS:
+    void updateSelection(KTextEditor::View * view);
 
   private:
     void initializeCommands();
-    void updateDirty( bool entireView = false ) const;
 
     /**
      * Called when a motion/text object is used. Updates the cursor position
@@ -68,8 +72,8 @@ class KateViVisualMode : public KateViNormalMode {
     void reset();
     ViMode m_mode;
     KTextEditor::Cursor m_start;
-    KTextEditor::Cursor m_previous; // previous position, used when deciding which lines to redraw
     ViMode m_lastVisualMode; // used when reselecting a visual selection
+    bool m_selection_is_changed_by_goToPos;
 };
 
 #endif

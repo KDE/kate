@@ -30,8 +30,6 @@
 #include "katetextlayout.h"
 #include "katebuffer.h"
 
-#include "katevivisualmode.h"
-
 #include <limits.h>
 
 #include <kdebug.h>
@@ -415,34 +413,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
 
       renderRanges.append(selectionHighlight);
     // hihglighting for the vi visual modes
-    } else if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualMode
-             || m_view->getViInputModeManager()->getCurrentViMode() == VisualLineMode
-             || m_view->getViInputModeManager()->getCurrentViMode() == VisualBlockMode ) {
-
-      KTextEditor::Range r = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange();
-
-      if ( r.isValid() && (r.end().line() == line || r.start().line() == line || r.containsLine( line ) )) {
-        NormalRenderRange* selectionHighlight = new NormalRenderRange();
-        static KTextEditor::Attribute::Ptr backgroundAttribute;
-        if (!backgroundAttribute)
-          backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-
-        backgroundAttribute->setBackground(config()->selectionColor());
-
-        if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualBlockMode ) {
-          int start = r.start().column();
-          int end = r.end().column()+1;
-          if (end > m_view->doc()->lineLength( line )) {
-            end = m_view->doc()->lineLength( line );
-          }
-          selectionHighlight->addRange(new KTextEditor::Range(line, start, line, end), backgroundAttribute);
-        } else if ( m_view->getViInputModeManager()->getCurrentViMode() == VisualLineMode ) {
-          selectionHighlight->addRange(new KTextEditor::Range(line, 0, line, m_view->doc()->lineLength( line )), backgroundAttribute);
-        } else {
-          selectionHighlight->addRange(new KTextEditor::Range(r), backgroundAttribute);
-        }
-        renderRanges.append(selectionHighlight);
-      }
     }
 
     KTextEditor::Cursor currentPosition, endPosition;
@@ -495,21 +465,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
 
         if(selectionsOnly) {
               assignSelectionBrushesFromAttribute(fr, *a);
-        } else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
-          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)) {
-            assignSelectionBrushesFromAttribute(fr, *a);
-          }
-        } else if ( m_view->getCurrentViMode() == VisualBlockMode ) {
-          if (m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().contains(currentPosition)
-              || m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().start().line() == currentPosition.line()
-              || m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().end().line() == currentPosition.line()) {
-            int c1 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().start().column();
-            int c2 = m_view->getViInputModeManager()->getViVisualMode()->getVisualRange().end().column();
-
-            if(currentPosition.column() >= c1 && currentPosition.column() <= c2) {
-              assignSelectionBrushesFromAttribute(fr, *a);
-            }
-          }
         }
       }
 

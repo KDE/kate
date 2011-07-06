@@ -56,27 +56,31 @@ class KateDocumentPosition
     {
     }
 
-    inline bool operator< (const KateDocumentPosition &pos) const
+    inline bool operator < (const KateDocumentPosition &pos) const
     {
       return (line < pos.line) ? true :
           (line == pos.line) ?
           ((column < pos.column) ? true : false)
             : false;
     }
-    inline bool operator> (const KateDocumentPosition &pos) const
+    inline bool operator > (const KateDocumentPosition &pos) const
     {
       return (line > pos.line) ? true :
           (line == pos.line) ?
           ((column > pos.column) ? true : false)
             : false;
     }
-    inline bool operator== (const KateDocumentPosition &pos) const
+    inline bool operator == (const KateDocumentPosition &pos) const
     {
       return (line == pos.line && column == pos.column) ? true : false;
     }
-    inline bool operator!= (const KateDocumentPosition &pos) const
+    inline bool operator != (const KateDocumentPosition &pos) const
     {
       return (line != pos.line || column != pos.column) ? true : false;
+    }
+    inline bool operator >=(const KateDocumentPosition &pos) const
+    {
+      return ((*this) > pos || (*this) == pos);
     }
 };
 
@@ -96,13 +100,15 @@ class KateCodeFoldingNodeTemp: public QObject
                                               // if type > 0 : start node ; if type < 0 : end node
     bool                    visible;          // folded / not folded
 
+    int                     shortage;
+
     QVector<KateCodeFoldingNodeTemp*> m_startChildren;  // Node's start children
     QVector<KateCodeFoldingNodeTemp*> m_endChildren;    // Node's end children
 
   // public methods - Node's interface
   public:
     KateCodeFoldingNodeTemp ();
-    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, signed char typ, KateDocumentPosition &pos);
+    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, signed char typ, KateDocumentPosition pos);
 
     ~KateCodeFoldingNodeTemp ();
 
@@ -210,17 +216,30 @@ class KateCodeFoldingNodeTemp: public QObject
     }
 
     // equivalent with endLineValid property from the previous implementation
-    inline bool haveMatch() const
+    inline bool hasMatch() const
       { return noEndChildren() ? false : true ; }
 
     inline KateCodeFoldingNodeTemp* matchingNode() const
-      { return haveMatch() ? endChildAt(0) : NULL; }
+      { return hasMatch() ? endChildAt(0) : NULL; }
 
     inline int comparePos(KateCodeFoldingNodeTemp &otherNode) const
     {
       return (position == otherNode.position) ? 0 :
           (position < otherNode.position) ? -1 : 1;
     }
+
+    void add(KateCodeFoldingNodeTemp *node, QVector<KateCodeFoldingNodeTemp*> &m_childred);
+    void addChild(KateCodeFoldingNodeTemp *node);
+    bool contains(KateCodeFoldingNodeTemp *node);
+    bool hasBrothers();
+    bool isDuplicated(KateCodeFoldingNodeTemp *node);
+    void mergeChildren(QVector <KateCodeFoldingNodeTemp*> &list1, QVector <KateCodeFoldingNodeTemp*> &list2);
+    bool remove(KateCodeFoldingNodeTemp *node, QVector<KateCodeFoldingNodeTemp*> &m_childred);
+    KateCodeFoldingNodeTemp* removeChild(KateCodeFoldingNodeTemp *node);
+    QVector<KateCodeFoldingNodeTemp *> removeChildrenInheritedFrom(KateCodeFoldingNodeTemp *node);
+    void setParent();
+    void updateParent(QVector <KateCodeFoldingNodeTemp*> newExcess, int newShortage);
+    void updateSelf();
 
     // Debug Methods
     void printNode (int level);
@@ -238,11 +257,15 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
   private:
 
-    KateCodeFoldingNodeTemp                          m_root;          // Tree's root node
+  // Tree's root node
+    KateCodeFoldingNodeTemp*                         m_root;
 
     KateBuffer* const                                m_buffer;
 
-    QMap < int, QVector <KateCodeFoldingNodeTemp*> > m_lineMapping;   // a map (line, <Vector of Nodes> from that line)
+  // a map (line, <Vector of Nodes> from that line)
+    QMap < int, QVector <KateCodeFoldingNodeTemp*> > m_lineMapping;
+
+    KateDocumentPosition                             INFposition;
 
   public:
     AbstractKateCodeFoldingTree (KateBuffer *buffer);
@@ -254,15 +277,49 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
     void lineHasBeenInserted (int line);                              // call order for 3 lines : 1,2,3
     void lineHasBeenRemoved  (int line);                              // call order for 3 lines : 3,2,1
 
+    // Debug methods and members
     void printMapping();
+    QString treeString;
+    QString stackString;
+    void buildStackString();                                // Will build the output using the stack alg
+
+    // call : buildTreeString(root,1);
+    void buildTreeString(KateCodeFoldingNodeTemp *node, int level);     // Will build the output using the tree alg
+    bool isCorrect();                                       // will compare the stackString with the treeString
+    // end of debug...
+
+
 
   protected:
-    void insertNode(int nodeType, KateDocumentPosition pos);
-    void deleteNode(KateCodeFoldingNodeTemp *node);
-    //void coppyNode(KateCodeFoldingNodeTemp *node);
+  // Insert Node methods
+    inline void insertNode(int nodeType, KateDocumentPosition pos)
+    {
+      nodeType > 0 ? insertStartNode(nodeType,pos) : insertEndNode(nodeType,pos);
+    }
+    void insertStartNode(int type, KateDocumentPosition pos);
+    void insertEndNode(int type, KateDocumentPosition pos);
+    void insertNodeIntoMap(KateCodeFoldingNodeTemp* newNode);
+
+  // Delete Node methods
+    inline void deleteNode (KateCodeFoldingNodeTemp* deletedNode)
+    {
+      deletedNode->type > 0 ? deleteStartNode(deletedNode) : deleteEndNode(deletedNode);
+    }
+    void deleteEndNode (KateCodeFoldingNodeTemp* deletedNode);
+    void deleteStartNode (KateCodeFoldingNodeTemp* deletedNode);
+    void deleteNodeFromMap(KateCodeFoldingNodeTemp *node);
+
+  // Update position methods
     void changeColumn(KateCodeFoldingNodeTemp *node, int newColumn);
     void setColumns (int line, QVector<int> newColumns);
     void updateMapping (int line, QVector<int> newColumns);
+
+  // Tree algorithm metods
+    KateCodeFoldingNodeTemp* findParent (KateDocumentPosition startingPos,int childType);
+    KateCodeFoldingNodeTemp* fineNodeAbove (KateDocumentPosition startingPos);
+    void sublist(QVector<KateCodeFoldingNodeTemp *> &dest, QVector<KateCodeFoldingNodeTemp *> source,
+                                              KateDocumentPosition begin, KateDocumentPosition end);
+    KateCodeFoldingNodeTemp* findNodeAt(KateDocumentPosition position);
 
   public Q_SLOTS:
     void updateLine (unsigned int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);

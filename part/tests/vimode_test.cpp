@@ -66,7 +66,7 @@ void ViModeTest::TestPressKey(QString str) {
            for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
            kate_view->cmdLineBar()->execute(str.mid(start_cmd,i-start_cmd));
         } else {
-            assert(false); //Do not use "\" in tests except for modifiers.
+            assert(false); //Do not use "\" in tests except for modifiers and command mode.
         }
     } else {
         keyboard_modifier = Qt::NoModifier;
@@ -110,13 +110,75 @@ void ViModeTest::DoTest(QString original_text,
 }
 
 
-void ViModeTest::VisualModeTests(){
+void ViModeTest::VisualModeTests() {
     DoTest("foobar", "vlllx", "ar");
     DoTest("foo\nbar", "Vd", "bar");
     DoTest("1234\n1234\n1234", "l\\ctrl-vljjd", "14\n14\n14");
+
+    DoTest("12345678", "lv3lyx", "1345678");
+    DoTest("12345678", "$hv3hyx", "1235678");
+    DoTest("aaa\nbbb", "lvj~x", "aA\nBBb");
+    DoTest("123\n456", "jlvkyx", "13\n456");
+    DoTest("12\n34","lVjyx", "2\n34");
+    DoTest("ab\ncd","jVlkgux", "a\ncd");
+    DoTest("ABCD\nABCD\nABCD\nABCD","lj\\ctrl-vjlgux","ABCD\nAcD\nAbcD\nABCD");
+    DoTest("abcd\nabcd\nabcd\nabcd","jjjlll\\ctrl-vkkhgUx","abcd\nabD\nabCD\nabCD");
+
+    // Testing "d"
+    DoTest("foobarbaz","lvlkkjl2ld","fbaz");
+    DoTest("foobar","v$d","");
+    DoTest("foo\nbar\nbaz","jVlld","foo\nbaz");
+
+    // Testing "D"
+    DoTest("foo\nbar\nbaz","lvjlD","baz");
+    DoTest("foo\nbar", "l\\ctrl-vjD","f\nb");
+    DoTest("foo\nbar","VjkD","bar");
+
+    // Testing "gU", "U"
+    DoTest("foo bar", "vwgU", "FOO Bar");
+    DoTest("foo\nbar\nbaz", "VjjU", "FOO\nBAR\nBAZ");
+    DoTest("foo\nbar\nbaz", "\\ctrl-vljjU","FOo\nBAr\nBAz");
+
+    // Testing "gu", "u"
+    DoTest("TEST", "Vgu", "test");
+    DoTest("TeSt", "vlgu","teSt");
+    DoTest("FOO\nBAR\nBAZ", "\\ctrl-vljju","foO\nbaR\nbaZ");
+
+    // Testing "y"
+    DoTest("foobar","Vypp","foobar\nfoobar\nfoobar");
+    DoTest("foo\nbar","lvjlyp", "fooo\nbaro\nbar");
+    DoTest("foo\nbar","Vjlllypddxxxdd","foo\nbar");
+    DoTest("12\n12", "\\ctrl-vjyp", "112\n112");
+    DoTest("1234\n1234\n1234\n1234","lj\\ctrl-vljyp","1234\n122334\n122334\n1234");
+
+    // Testing "Y"
+    DoTest("foo\nbar","llvjypx","foo\nbar\nbar");
+    DoTest("foo\nbar","VYp","foo\nfoo\nbar");
+
+    // Testing "m."
+    DoTest("foo\nbar","vljmavgg`ax","foo\nbr");
+    DoTest("1\n2\n3\n4","Vjmajjmb\\:'a,'bd\\","1");
+
+    // Testing ">"
+    DoTest("foo\nbar","vj>","  foo\n  bar");
+    DoTest("foo\nbar\nbaz", "jVj>", "foo\n  bar\n  baz");
+
+    // Testing "<"
+    DoTest(" foo","vl<", "foo");
+
+    // Testing "o"
+    DoTest("foobar","lv2lo2ld","fooar");
+    DoTest("foo\nbar","jvllokld","f");
+    DoTest("12\n12","\\ctrl-vjlold","1\n1");
+
+    // Testing "~"
+    DoTest("foobar","lv2l~","fOOBar");
+    DoTest("FooBar","V~","fOObAR");
+    DoTest("foo\nbar","\\ctrl-vjl~","FOo\nBAr");
+
 }
 
-void ViModeTest::InsertModeTests(){
+void ViModeTest::InsertModeTests() {
 
   DoTest("bar", "s\\ctrl-c", "ar");
   DoTest("bar", "ls\\ctrl-cx", "r");
@@ -167,8 +229,13 @@ void ViModeTest::InsertModeTests(){
  // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFallingTests()
 {
-//  DoTest("1 2\n2 1", "lld#", "1 \n2 1");
-//  DoTest("12345678", "lv3lyx", "1345678");
+//  DoTest("1 2\n2 1", "lld#", "1 \n2 1"); // Is this bug or feature? :)
+
+//  DoTest("foobar","Vra","aaaaaa");
+//  DoTest("foo\bar","jlvklrx","fox\nxxr");
+//  DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
+//  DoTest("foo", "vl3>","      foo");
+
 }
 
 void ViModeTest::NormalModeMotionsTest() {

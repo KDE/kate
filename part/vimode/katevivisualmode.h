@@ -56,6 +56,9 @@ class KateViVisualMode : public KateViNormalMode {
     ViMode getLastVisualMode() const { return m_lastVisualMode; }
     KTextEditor::Cursor getStart() const { return m_start; }
     void SelectLines(KTextEditor::Range range);
+
+    // Selects range between cursor1 to cursor2, but includes the end cursor position.
+    void SelectInclusive(KTextEditor::Cursor cursor1, KTextEditor::Cursor cursor2);
   public Q_SLOTS:
     void updateSelection(KTextEditor::View * view);
 

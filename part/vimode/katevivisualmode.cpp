@@ -46,11 +46,19 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(updateSelection(KTextEditor::View *)));
 }
 
+// Selects range between cursor1 to cursor2, includes the end cursor position.
+void KateViVisualMode::SelectInclusive(KTextEditor::Cursor cursor1, KTextEditor::Cursor cursor2) {
+  if (cursor1 >= cursor2)
+    m_view->setSelection(KTextEditor::Range(cursor1.line(),cursor1.column()+1, cursor2.line(),cursor2.column()));
+  else
+    m_view->setSelection(KTextEditor::Range(cursor1.line(),cursor1.column(), cursor2.line(),cursor2.column()+1));
+}
+
 KateViVisualMode::~KateViVisualMode()
 {
 }
 
-void KateViVisualMode::SelectLines(KTextEditor::Range range){
+void KateViVisualMode::SelectLines(KTextEditor::Range range) {
     int startline = qMin(range.start().line(),range.end().line());
     int endline   = qMax(range.start().line(),range.end().line());
     m_view->setSelection(KTextEditor::Range(
@@ -91,7 +99,7 @@ void KateViVisualMode::goToPos( const KateViRange &r )
 
   if (isVisualBlock()){
     m_view->setBlockSelection(true);
-    m_view->setSelection(KTextEditor::Range(m_start.line(),m_start.column(),c.line(),c.column()+1));
+    SelectInclusive(m_start,c);
     m_selection_is_changed_by_goToPos = false;
     return;
   } else {
@@ -104,7 +112,7 @@ void KateViVisualMode::goToPos( const KateViRange &r )
     return;
   }
 
-  m_view->setSelection(KTextEditor::Range(m_start,c));
+  SelectInclusive(m_start,c);
   m_selection_is_changed_by_goToPos = false;
 
 }

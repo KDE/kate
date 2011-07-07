@@ -707,6 +707,8 @@ bool KateViNormalMode::commandDeleteToEOL()
 
 bool KateViNormalMode::commandMakeLowercase()
 {
+  Cursor c = m_view->cursorPosition();
+
   OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
   if (m == LineWise)
@@ -719,7 +721,11 @@ bool KateViNormalMode::commandMakeLowercase()
   Range range( start, end );
 
   doc()->replaceText( range, lowerCase, m == Block );
-  updateCursor( start );
+
+  if (m_viInputModeManager->getCurrentViMode() == NormalMode)
+    updateCursor( start );
+  else
+    updateCursor(c);
 
   return true;
 }
@@ -738,6 +744,7 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 
 bool KateViNormalMode::commandMakeUppercase()
 {
+  Cursor c = m_view->cursorPosition();
   OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
   if (m == LineWise)
@@ -750,7 +757,10 @@ bool KateViNormalMode::commandMakeUppercase()
   Range range( start, end );
 
   doc()->replaceText( range, upperCase, m == Block );
-  updateCursor( start );
+  if (m_viInputModeManager->getCurrentViMode() == NormalMode)
+    updateCursor( start );
+  else
+    updateCursor(c);
 
   return true;
 }
@@ -1061,6 +1071,8 @@ bool KateViNormalMode::commandYankToEOL()
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode
       || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
     m = LineWise;
+    KateViVisualMode* visualmode = ((KateViVisualMode*) this);
+    visualmode->setStart( Cursor(visualmode->getStart().line(),0) );
   } else if (m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     m = Block;;
   }

@@ -29,6 +29,8 @@
 #include "katepartprivate_export.h"
 #include "katecodefoldingabstract.h"
 
+#include "katecodefoldinghelpers.h"
+
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
 class KateBuffer;
@@ -41,17 +43,6 @@ class KateHiddenLineBlock
   public:
     unsigned int start;
     unsigned int length;
-};
-
-class KateLineInfo
-{
-  public:
-  bool topLevel;
-  bool startsVisibleBlock;
-  bool startsInVisibleBlock;
-  bool endsBlock;
-  bool invalidBlockEnd;
-  int depth;
 };
 
 class KateCodeFoldingNode
@@ -233,23 +224,29 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   public Q_SLOTS:
     void updateLine (unsigned int line,QVector<int>* regionChanges, bool *updated, bool changed,bool colschanged);
-    void toggleRegionVisibility (unsigned int);
-    void collapseToplevelNodes ();
-    void expandToplevelNodes (int numLines);
-    int collapseOne (int realLine);
+
+    // Next methods do not work so well
+    void toggleRegionVisibility (unsigned int);     // called when mouse release the folding sign; kateviewhelpers; 1450
+    void collapseToplevelNodes ();                  // kateview 947 (works pretty bad)
+    void expandToplevelNodes (int numLines);        // kateview 947
+    int collapseOne (int realLine);                 // kateview.h 529... / .cpp 972...
     void expandOne  (int realLine, int numLines);
     /**
       Ensures that all nodes surrounding @p line are open
     */
-    void ensureVisible( uint line );
+    void ensureVisible( uint line );                // unfold line
 
   private:
     bool m_clearCache;
   Q_SIGNALS:
-    void regionVisibilityChangedAt  (unsigned int,bool clearCache);
-    void regionBeginEndAddedRemoved (unsigned int);
+    void regionVisibilityChangedAt  (unsigned int,bool clearCache); // kateinternalview 658
+    void regionBeginEndAddedRemoved (unsigned int);                 // kateinternalview 686 - not working
 };
 
 #endif
+
+/*
+ katebuffer.h : 248
+ */
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -47,6 +47,7 @@
 #include "katetextline.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
+#include "part/syntax/katecodefoldingabstract.h"
 
 namespace KTextEditor {
   class Plugin;
@@ -58,7 +59,7 @@ namespace KIO { class TransferJob; }
 
 namespace Kate { class SwapFile; }
 
-class KateCodeFoldingTree;
+class AbstractKateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateLineInfo;
@@ -68,6 +69,7 @@ class KateUndoManager;
 class KateOnTheFlyChecker;
 
 class KateAutoIndent;
+
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -813,7 +815,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     void lineInfo (KateLineInfo *info, unsigned int line);
 
-    KateCodeFoldingTree *foldingTree ();
+     AbstractKateCodeFoldingTree *foldingTree ();
 
   public:
     /**

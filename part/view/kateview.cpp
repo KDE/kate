@@ -956,7 +956,7 @@ void KateView::setupCodeFolding()
   a = ac->addAction("folding_expandtoplevel");
   a->setText(i18n("Expand Toplevel"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
-  connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandToplevel()));
+  connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandToplevel())); // expandToplevelNodes(int what?) maybe?
 
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Collapse One Local Level"));

@@ -6,8 +6,11 @@
 #include <QtCore/QVector>
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
+#include <QtCore/QDebug>
 
 #include "katepartprivate_export.h"
+
+#include "katecodefoldinghelpers.h"
 
 class AbstractKateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
@@ -23,7 +26,8 @@ class KateHiddenLineBlockTemp
     unsigned int length;
 };
 
-class KateLineInfoTemp
+/*
+class KateLineInfo
 {
   public:
     bool topLevel;
@@ -33,6 +37,7 @@ class KateLineInfoTemp
     bool invalidBlockEnd;
     int depth;
 };
+*/
 
 class KateDocumentPosition
 {
@@ -94,7 +99,7 @@ class KateCodeFoldingNodeTemp: public QObject
 
     KateDocumentPosition    position;
 
-    bool                    startLineValid;   // if "{" exists (not used by other classes)
+    //bool                    startLineValid;   // if "{" exists (not used by other classes)
 
     signed char             type;             // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
                                               // if type > 0 : start node ; if type < 0 : end node
@@ -121,8 +126,8 @@ class KateCodeFoldingNodeTemp: public QObject
     inline KateCodeFoldingNodeTemp *getParentNode ()
       { return parentNode; }
 
-    bool getBegin (AbstractKateCodeFoldingTree *tree, KTextEditor::Cursor* begin);  // ??
-    bool getEnd (AbstractKateCodeFoldingTree *tree, KTextEditor::Cursor *end);      // ??
+    bool getBegin (AbstractKateCodeFoldingTree *tree, KTextEditor::Cursor* begin);
+    bool getEnd (AbstractKateCodeFoldingTree *tree, KTextEditor::Cursor *end);
 
   // protected methods - used by FoldingTree
   //protected:
@@ -149,6 +154,8 @@ class KateCodeFoldingNodeTemp: public QObject
       { return position.line; }
     inline KateDocumentPosition getPosition() const
       { return position; }
+    int getDepth();
+    KateCodeFoldingNodeTemp* getStartMatching(KateCodeFoldingNodeTemp* endNode);
     // End of setters and getters
 
     // Children modifiers
@@ -261,6 +268,8 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
   // Tree's root node
     KateCodeFoldingNodeTemp*                         m_root;
 
+    KateCodeFoldingNodeTemp*                         m_rootMatch;
+
     KateBuffer* const                                m_buffer;
 
   // a map (line, <Vector of Nodes> from that line)
@@ -277,19 +286,45 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
     void lineHasBeenInserted (int line);                              // call order for 3 lines : 1,2,3
     void lineHasBeenRemoved  (int line);                              // call order for 3 lines : 3,2,1
+    void getLineInfo (KateLineInfo *info,unsigned int line);  // Makes clear what KateLineInfo contains
+
+    inline KateCodeFoldingNodeTemp *rootNode () { return m_root; }
+
+    // unimplemented
+    // What's the difference between them????
+    KateCodeFoldingNodeTemp *findNodeForLine (unsigned int line);
+    KateCodeFoldingNodeTemp *findNodeStartingAt(unsigned int line);
+
+    unsigned int getRealLine         (unsigned int virtualLine);
+    unsigned int getVirtualLine      (unsigned int realLine);
+    unsigned int getHiddenLinesCount (unsigned int docLine);  // get the number of hidden lines
+    // methods
+
+    KateCodeFoldingNodeTemp *findNodeForPosition(unsigned int line, unsigned int column);
+
+    inline void debugDump ()
+    {
+      printMapping();
+      buildTreeString(m_root,1);
+      qDebug()<<treeString;
+    }
+    inline unsigned int getStartLine (KateCodeFoldingNodeTemp *node)
+    {
+      return node->getLine();
+    }
+    void fixRoot (int endLRel);                               // set end line for root node
+    void clear ();                                            // Clear the whole FoldingTree (and aux structures)
+
 
     // Debug methods and members
     void printMapping();
     QString treeString;
     QString stackString;
     void buildStackString();                                // Will build the output using the stack alg
-
     // call : buildTreeString(root,1);
     void buildTreeString(KateCodeFoldingNodeTemp *node, int level);     // Will build the output using the tree alg
     bool isCorrect();                                       // will compare the stackString with the treeString
     // end of debug...
-
-
 
   //protected:
   public:
@@ -315,6 +350,8 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
     void changeColumn(KateCodeFoldingNodeTemp *node, int newColumn);
     void setColumns (int line, QVector<int> newColumns);
     void updateMapping (int line, QVector<int> newColumns);
+    int getLineDepth(int line);
+    int getLineDepth(int line, bool &validEndings);
 
   // Tree algorithm metods
     KateCodeFoldingNodeTemp* findParent (KateDocumentPosition startingPos,int childType);
@@ -326,6 +363,22 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
   public Q_SLOTS:
     void updateLine (unsigned int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
 
+    // unimplemented methods
+    void toggleRegionVisibility (int);
+    void collapseToplevelNodes ();
+    void expandToplevelNodes (int numLines);
+    int collapseOne (int realLine);
+    void expandOne  (int realLine, int numLines);
+    /**
+      Ensures that all nodes surrounding @p line are open
+    */
+    void ensureVisible (int l);
+
+//  private:
+//    bool m_clearCache;
+//  Q_SIGNALS:
+//    void regionVisibilityChangedAt  (unsigned int,bool clearCache);
+//    void regionBeginEndAddedRemoved (unsigned int);
 };
 
 #endif // KATECODEFOLDINGABSTRACT_H

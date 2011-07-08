@@ -207,6 +207,8 @@ bool KateCodeFoldingTree::isTopLevel(unsigned int line)
 
 void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
 {
+  m_abstractTree->getLineInfo(info,line);
+  return;
   // Initialze the returned structure, this will also be returned if the root node has no child nodes
   // or the line is not within a childnode's range.
   info->topLevel = true;

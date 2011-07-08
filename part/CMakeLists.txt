@@ -115,8 +115,9 @@ syntax/katehighlight.cpp
 syntax/katehighlighthelpers.cpp
 syntax/katehighlightmenu.cpp
 syntax/katesyntaxdocument.cpp
-syntax/katecodefolding.cpp
+#syntax/katecodefolding.cpp
 syntax/katecodefoldingabstract.cpp
+syntax/katecodefoldinghelpers.h
 syntax/kateextendedattribute.cpp
 
 # view stuff (THE view and its helpers)

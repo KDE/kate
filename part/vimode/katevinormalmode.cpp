@@ -397,6 +397,7 @@ void KateViNormalMode::resetParser()
 
   m_commandWithMotion = false;
   m_linewiseCommand = true;
+  m_deleteCommand = false;
 
 }
 
@@ -644,11 +645,13 @@ bool KateViNormalMode::commandDeleteLine()
   m_stickyColumn = -1;
   updateCursor( c );
 
+  m_deleteCommand = true;
   return ret;
 }
 
 bool KateViNormalMode::commandDelete()
 {
+  m_deleteCommand = true;
   return deleteRange( m_commandRange, getOperationMode() );
 }
 
@@ -702,6 +705,7 @@ bool KateViNormalMode::commandDeleteToEOL()
 
   updateCursor( c );
 
+  m_deleteCommand = true;
   return r;
 }
 
@@ -930,6 +934,7 @@ bool KateViNormalMode::commandJoinLines()
   c.setColumn( l );
   updateCursor( c );
 
+  m_deleteCommand = true;
   return true;
 }
 
@@ -967,6 +972,7 @@ bool KateViNormalMode::commandChange()
     m_view->align();
   }
 
+  m_deleteCommand = true;
   return true;
 }
 
@@ -978,11 +984,13 @@ bool KateViNormalMode::commandChangeToEOL()
     return commandPrependToBlock();
   }
 
+  m_deleteCommand = true;
   return commandEnterInsertModeAppend();
 }
 
 bool KateViNormalMode::commandChangeLine()
 {
+  m_deleteCommand = true;
   Cursor c( m_view->cursorPosition() );
   c.setColumn( 0 );
   updateCursor( c );
@@ -1019,11 +1027,13 @@ bool KateViNormalMode::commandSubstituteChar()
     return commandEnterInsertMode();
   }
 
+  m_deleteCommand = true;
   return false;
 }
 
 bool KateViNormalMode::commandSubstituteLine()
 {
+  m_deleteCommand = true;
   return commandChangeLine();
 }
 
@@ -1179,6 +1189,7 @@ bool KateViNormalMode::commandDeleteChar()
       m = Block;
     }
 
+    m_deleteCommand = true;
     return deleteRange( r, m );
 }
 
@@ -1204,6 +1215,7 @@ bool KateViNormalMode::commandDeleteCharBackward()
       m = Block;
     }
 
+    m_deleteCommand = true;
     return deleteRange( r, m );
 }
 
@@ -1229,14 +1241,14 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
     m_view->switchToCmdLine();
 
-    /*if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+    if ( m_viInputModeManager->getCurrentViMode() == VisualMode
       || m_viInputModeManager->getCurrentViMode() == VisualLineMode
       || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
       // if in visual mode, make command range == visual selection
       m_viInputModeManager->getViVisualMode()->saveRangeMarks();
       m_view->cmdLineBar()->setText( "'<,'>" );
     }
-    else*/ if ( getCount() != 1 ) {
+    else if ( getCount() != 1 ) {
       // if a count is given, the range [current line] to [current line] +
       // count should be prepended to the command line
       m_view->cmdLineBar()->setText( ".,.+" +QString::number( getCount()-1 ), false);

@@ -160,7 +160,9 @@ void KateViVisualMode::reset()
         || m_viInputModeManager->getCurrentViMode() == VisualLineMode
         || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
 
+      m_selection_is_changed_inside_ViMode = true;
       m_view->removeSelection();
+      m_selection_is_changed_inside_ViMode = false;
 
       saveRangeMarks();
       m_lastVisualMode = m_viInputModeManager->getCurrentViMode();
@@ -188,10 +190,12 @@ void KateViVisualMode::reset()
 
 void KateViVisualMode::saveRangeMarks()
 {
-    // FIXME: this needs to be re-enabled, but DO NOT save these marks if the
+    // DO NOT save these marks if the
     // action that exited visual mode deleted the selection
-    //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
-    //KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
+  if (m_deleteCommand == false) {
+    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
+    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
+  }
 }
 
 void KateViVisualMode::init()

@@ -256,6 +256,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_linewiseCommand;
     bool m_commandWithMotion;
 
+    bool m_deleteCommand;
+
     // registers
     QChar m_defaultRegister;
     QString m_registerTemp;

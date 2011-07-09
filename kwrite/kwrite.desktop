@@ -2,6 +2,7 @@
 GenericName=Text Editor
 GenericName[bs]=Uređivač teksta
 GenericName[ca]=Editor de text
+GenericName[ca@valencia]=Editor de text
 GenericName[cs]=Textový editor
 GenericName[da]= Teksteditor
 GenericName[de]=Texteditor
@@ -42,6 +43,7 @@ GenericName[zh_TW]=文字編輯器
 Name=KWrite
 Name[bs]=Kwrite
 Name[ca]=KWrite
+Name[ca@valencia]=KWrite
 Name[cs]=KWrite
 Name[da]=KWrite
 Name[de]=KWrite

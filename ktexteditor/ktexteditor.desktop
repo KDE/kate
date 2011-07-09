@@ -5,6 +5,7 @@ X-KDE-Derived=KParts/ReadWritePart
 Comment=Embeddable Text Editor Component (with Doc/View Separation)
 Comment[bs]=Ugradiva komponenta uređivača teksta (s razdvajanjem dokumenta i pogleda)
 Comment[ca]=Component incrustable de l'editor de text (amb separació Doc/Vista)
+Comment[ca@valencia]=Component incrustable de l'editor de text (amb separació Doc/Vista)
 Comment[cs]=Pohltitelná komponenta textového editoru (s oddělením Doc/View)
 Comment[da]=Teksteditorkomponent som kan indlejres (med dok./visning-adskillelse)
 Comment[de]=Einbettungsfähige Editorkomponente (mit Text/Ansicht-Aufteilung)

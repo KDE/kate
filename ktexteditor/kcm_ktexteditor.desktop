@@ -2,6 +2,7 @@
 Name=Embedded Text Editor
 Name[bs]=Napredni uređivač teksta
 Name[ca]=Editor de text incrustat
+Name[ca@valencia]=Editor de text incrustat
 Name[cs]=Zabudovaný textový editor
 Name[da]=Indlejret tekstredigering
 Name[de]=Eingebetteter Texteditor
@@ -42,6 +43,7 @@ Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[bs]=Usluga uređivača teksta daje aplikacijama preglednik i uređivač teksta. KDE aplikaciej koje imaju uređivanje teksta trebaju koristiti ovu uslugu.
 Comment[ca]=El servei de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar aquest servei.
+Comment[ca@valencia]=El servei de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar este servei.
 Comment[cs]=Služba textového editoru poskytuje aplikacím prohlížeč a editor textu. Aplikace KDE, které umožňují upravovat text, by měly používat tuto službu.
 Comment[da]=Teksteditor-tjenesten udstyrer programmer med en tekstfremviser og -editor. KDE-programmer der bruger tekstredigeringsfaciliteter bør benytte denne tjeneste.
 Comment[de]=Diese Komponente stellt Programmen einen Textbetrachter und -editor zur Verfügung. KDE-Anwendungen, die eine Möglichkeit zur Textbearbeitung bieten, sollten dieses Angebot nutzen.

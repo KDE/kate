@@ -37,6 +37,8 @@ private Q_SLOTS:
 
   void testFolding_data();
   void testFolding();
+
+  void testSelection();
 };
 
 #endif // KATE_VIEW_TEST_H

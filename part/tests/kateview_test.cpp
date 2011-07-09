@@ -144,3 +144,87 @@ void KateViewTest::testFolding()
     expandAction->trigger();
     QCOMPARE(doc.visibleLines(), 4u);
 }
+
+void KateViewTest::testSelection()
+{
+    // see also: https://bugs.kde.org/show_bug.cgi?id=277422
+    // wrong behavior before:
+    // Open file with text
+    // click at end of some line (A) and drag to right, i.e. without selecting anything
+    // click somewhere else (B)
+    // shift click to another place (C)
+    // => expected: selection from B to C
+    // => actual: selection from A to C
+
+    KTemporaryFile file;
+    file.setSuffix(".txt");
+    file.open();
+    QTextStream stream(&file);
+    stream << "A\n"
+           << "B\n"
+           << "C";
+    stream << flush;
+    file.close();
+
+    KateDocument doc(false, false, false);
+    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+
+    KateView* view = new KateView(&doc, 0);
+    view->resize(100, 100);
+    view->show();
+
+    // hackish but works: access to KateViewInternal
+    QObject* internalView = view->childAt(50, 50);
+    QCOMPARE(internalView->metaObject()->className(), "KateViewInternal");
+
+    const QPoint afterA = view->cursorToCoordinate(Cursor(0, 1));
+    const QPoint afterB = view->cursorToCoordinate(Cursor(1, 1));
+    const QPoint afterC = view->cursorToCoordinate(Cursor(2, 1));
+
+    // click after A
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonPress, afterA,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonRelease, afterA,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+    QCOMPARE(view->cursorPosition(), Cursor(0, 1));
+    // drag to right
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonPress, afterA,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseMove, afterA + QPoint(50, 0),
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonRelease, afterA + QPoint(50, 0),
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCOMPARE(view->cursorPosition(), Cursor(0, 1));
+    QVERIFY(!view->selection());
+
+    // click after C
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonPress, afterC,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonRelease, afterC,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::NoModifier));
+
+    QCOMPARE(view->cursorPosition(), Cursor(2, 1));
+    // shift+click after B
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonPress, afterB,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::ShiftModifier));
+
+    QCoreApplication::sendEvent(internalView, new QMouseEvent(QEvent::MouseButtonRelease, afterB,
+                                                      Qt::LeftButton, Qt::LeftButton,
+                                                      Qt::ShiftModifier));
+
+    QCOMPARE(view->cursorPosition(), Cursor(1, 1));
+    QCOMPARE(view->selectionRange(), Range(1, 1, 2, 1));
+}

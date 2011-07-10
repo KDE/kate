@@ -18,14 +18,13 @@ class KateBuffer;
 
 class QString;
 //END
-
-class KateHiddenLineBlockTemp
+/*
+typedef struct kateHiddenLineBlockTemp
 {
-  public:
-    unsigned int start;
-    unsigned int length;
-};
-
+  int start;
+  int length;
+} KateHiddenLineBlockTemp;
+*/
 /*
 class KateLineInfo
 {
@@ -95,17 +94,17 @@ class KateCodeFoldingNodeTemp: public QObject
 
   //data members
   private:
-    KateCodeFoldingNodeTemp *parentNode;      // parent
+    KateCodeFoldingNodeTemp   *parentNode;      // parent
 
-    KateDocumentPosition    position;
+    KateDocumentPosition      position;
 
     //bool                    startLineValid;   // if "{" exists (not used by other classes)
 
-    signed char             type;             // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
-                                              // if type > 0 : start node ; if type < 0 : end node
-    bool                    visible;          // folded / not folded
+    int                       type;             // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
+                                                // if type > 0 : start node ; if type < 0 : end node
+    bool                      visible;          // folded / not folded
 
-    int                     shortage;
+    int                       shortage;
 
     QVector<KateCodeFoldingNodeTemp*> m_startChildren;  // Node's start children
     QVector<KateCodeFoldingNodeTemp*> m_endChildren;    // Node's end children
@@ -113,7 +112,7 @@ class KateCodeFoldingNodeTemp: public QObject
   // public methods - Node's interface
   public:
     KateCodeFoldingNodeTemp ();
-    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, signed char typ, KateDocumentPosition pos);
+    KateCodeFoldingNodeTemp (KateCodeFoldingNodeTemp *par, int typ, KateDocumentPosition pos);
 
     ~KateCodeFoldingNodeTemp ();
 
@@ -277,6 +276,8 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
     KateDocumentPosition                             INFposition;
 
+    QList <KateCodeFoldingNodeTemp*>                 hiddenNodes;     // sorted (key = nodeLine)
+
   public:
     AbstractKateCodeFoldingTree (KateBuffer *buffer);
     ~AbstractKateCodeFoldingTree ();
@@ -286,21 +287,18 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
     void lineHasBeenInserted (int line);                              // call order for 3 lines : 1,2,3
     void lineHasBeenRemoved  (int line);                              // call order for 3 lines : 3,2,1
-    void getLineInfo (KateLineInfo *info,unsigned int line);  // Makes clear what KateLineInfo contains
+    void getLineInfo (KateLineInfo *info, int line);  // Makes clear what KateLineInfo contains
 
     inline KateCodeFoldingNodeTemp *rootNode () { return m_root; }
 
-    // unimplemented
-    // What's the difference between them????
-    KateCodeFoldingNodeTemp *findNodeForLine (unsigned int line);
-    KateCodeFoldingNodeTemp *findNodeStartingAt(unsigned int line);
+    KateCodeFoldingNodeTemp *findNodeForLine (int line);     // find the node that contains this line, root else
+    KateCodeFoldingNodeTemp *findNodeStartingAt(int line);   // find the first start node from the line, 0 else
 
-    unsigned int getRealLine         (unsigned int virtualLine);
-    unsigned int getVirtualLine      (unsigned int realLine);
-    unsigned int getHiddenLinesCount (unsigned int docLine);  // get the number of hidden lines
-    // methods
+    int getRealLine         (int virtualLine);
+    int getVirtualLine      (int realLine);
+    int getHiddenLinesCount (int docLine);  // get the number of hidden lines
 
-    KateCodeFoldingNodeTemp *findNodeForPosition(unsigned int line, unsigned int column);
+    KateCodeFoldingNodeTemp *findNodeForPosition(int line, int column);
 
     inline void debugDump ()
     {
@@ -308,7 +306,7 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
       buildTreeString(m_root,1);
       qDebug()<<treeString;
     }
-    inline unsigned int getStartLine (KateCodeFoldingNodeTemp *node)
+    inline int getStartLine (KateCodeFoldingNodeTemp *node)
     {
       return node->getLine();
     }
@@ -360,8 +358,11 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
                                               KateDocumentPosition begin, KateDocumentPosition end);
     KateCodeFoldingNodeTemp* findNodeAt(KateDocumentPosition position);
 
+    void foldNode (KateCodeFoldingNodeTemp* node);
+    void unfoldNode (KateCodeFoldingNodeTemp* node);
+
   public Q_SLOTS:
-    void updateLine (unsigned int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
+    void updateLine (int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
 
     // unimplemented methods
     void toggleRegionVisibility (int);
@@ -376,9 +377,9 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
 
 //  private:
 //    bool m_clearCache;
-//  Q_SIGNALS:
-//    void regionVisibilityChangedAt  (unsigned int,bool clearCache);
-//    void regionBeginEndAddedRemoved (unsigned int);
+  Q_SIGNALS:
+      void regionVisibilityChangedAt  (int l,bool clearCache);
+//    void regionBeginEndAddedRemoved (int);
 };
 
 #endif // KATECODEFOLDINGABSTRACT_H

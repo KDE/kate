@@ -16,7 +16,7 @@ KateCodeFoldingNodeTemp::KateCodeFoldingNodeTemp() :
 {
 }
 
-KateCodeFoldingNodeTemp::KateCodeFoldingNodeTemp(KateCodeFoldingNodeTemp *parent, signed char typ, KateDocumentPosition pos):
+KateCodeFoldingNodeTemp::KateCodeFoldingNodeTemp(KateCodeFoldingNodeTemp *parent, int typ, KateDocumentPosition pos):
     parentNode(parent),
     position(pos),
     //startLineValid(true),
@@ -359,20 +359,28 @@ AbstractKateCodeFoldingTree::~AbstractKateCodeFoldingTree()
 void AbstractKateCodeFoldingTree::clear()
 {
   QList<int>keys = m_lineMapping.uniqueKeys();
+  keys.pop_front();
   foreach (int key, keys) {
     QVector<KateCodeFoldingNodeTemp*> tempLineMap = m_lineMapping[key];
     while (tempLineMap.empty() == false) {
-      delete tempLineMap.last();
+      KateCodeFoldingNodeTemp *tempNode = tempLineMap.last();
+      tempLineMap.pop_back();
+      delete tempNode;
     }
   }
   m_lineMapping.clear();
   m_root->m_startChildren.clear();
   m_root->m_endChildren.clear();
+
+  QVector<KateCodeFoldingNodeTemp *> tempVector;
+  tempVector.append(m_root);
+  m_lineMapping.insert(-1,tempVector);
 }
 
 int AbstractKateCodeFoldingTree::collapseOne(int realLine)
 {
   qDebug()<<QString("colapse one ... at %1").arg(realLine);
+  return 0;
 }
 
 void AbstractKateCodeFoldingTree::collapseToplevelNodes()
@@ -497,7 +505,44 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeAt(KateDocumentPos
   return NULL;
 }
 
-KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForPosition(unsigned int l, unsigned int c)
+KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
+{
+  KateCodeFoldingNodeTemp *tempParentNode = m_root;
+  forever {
+    if (tempParentNode->noStartChildren())
+      return tempParentNode;
+    foreach (KateCodeFoldingNodeTemp* child, tempParentNode->m_startChildren) {
+      // I found a start node on my line
+      if (child->getLine() == line)
+        return child;
+
+      // The remaining children are below "line"
+      if (child->getLine() > line)
+        return tempParentNode;
+
+      // We can go to a higher depth
+      if (child->getLine() < line) {
+
+       // if the child has a match
+        if (child->hasMatch()) {
+          // and the matching node is below "line", this is a good node
+          if (child->matchingNode()->getLine() >= line) {
+            tempParentNode = child;
+            break;
+          }
+        }
+
+        // or if there is no matching node
+        else {
+          tempParentNode = child;
+          break;
+        }
+      }
+    }
+  }
+}
+
+KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForPosition(int l, int c)
 {
   return findNodeAt(KateDocumentPosition(l,c));
 }
@@ -535,6 +580,19 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findParent(KateDocumentPos
 
   // The root node is the default parent
   return m_root;
+}
+
+// Return the first start node from "line"
+KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeStartingAt(int line)
+{
+  if (m_lineMapping.contains(line) == false || m_lineMapping[line].empty())
+    return 0;
+  QVector <KateCodeFoldingNodeTemp*> tempLineMap = m_lineMapping[line];
+  foreach (KateCodeFoldingNodeTemp* child, tempLineMap) {
+    if (child->type > 0)
+      return child;
+  }
+  return 0;
 }
 
 void AbstractKateCodeFoldingTree::fixRoot(int endLine)
@@ -600,9 +658,10 @@ int AbstractKateCodeFoldingTree::getLineDepth(int line, bool &validEndings)
     // If there are only invalid end nodes, then the depts is "0"
     return 0;
   }
+  return 0;
 }
 
-void AbstractKateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
+void AbstractKateCodeFoldingTree::getLineInfo(KateLineInfo *info, int line)
 {
   info->depth = 0;
   info->endsBlock = false;
@@ -643,6 +702,49 @@ void AbstractKateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int l
      }
    }
   }
+}
+
+int AbstractKateCodeFoldingTree::getRealLine(int virtualLine)
+{
+  foreach (KateCodeFoldingNodeTemp* node, hiddenNodes) {
+    KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+    if (matchNode == NULL)
+      matchNode = m_rootMatch;
+    if (node->getLine() < virtualLine) {
+      virtualLine += (matchNode->getLine() - node->getLine());
+    }
+  }
+  return virtualLine;
+}
+
+int AbstractKateCodeFoldingTree::getVirtualLine(int realLine)
+{
+  int offset = 0;
+  foreach (KateCodeFoldingNodeTemp* node, hiddenNodes) {
+    KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+    if (matchNode == NULL)
+      matchNode = m_rootMatch;
+
+    if (matchNode->getLine() <= realLine) {
+      offset += matchNode->getLine() - node->getLine();
+    }
+  }
+  return realLine - offset;
+}
+
+int AbstractKateCodeFoldingTree::getHiddenLinesCount(int docLine)
+{
+  if (m_root->visible == false)
+    return docLine;
+  int n = 0;
+  foreach (KateCodeFoldingNodeTemp* node, hiddenNodes) {
+    KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+    if (matchNode == NULL)
+      matchNode = m_rootMatch;
+
+    n += (matchNode->getLine() - node->getLine());
+  }
+  return n;
 }
 
 void AbstractKateCodeFoldingTree::incrementBy1(QVector<KateCodeFoldingNodeTemp *> &nodesLine)
@@ -823,13 +925,58 @@ void AbstractKateCodeFoldingTree::sublist(QVector<KateCodeFoldingNodeTemp *> &de
   }
 }
 
-void AbstractKateCodeFoldingTree::toggleRegionVisibility(int l) {
-  qDebug()<<QString("toogle ... at %1").arg(l);
+void AbstractKateCodeFoldingTree::foldNode(KateCodeFoldingNodeTemp *node)
+{
+  // find out if there is anoter folded area contained by this new folded area
+  QList <KateCodeFoldingNodeTemp*> oldHiddenNodes(hiddenNodes);
+  hiddenNodes.clear();
+
+  KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+  if (matchNode == NULL)
+    matchNode = m_rootMatch;
+  bool inserted = false;
+  node->visible = false;
+
+  foreach(KateCodeFoldingNodeTemp* tempNode, oldHiddenNodes) {
+    KateCodeFoldingNodeTemp *tempMatch = tempNode->matchingNode();
+    if (tempMatch == NULL)
+      tempMatch = m_rootMatch;
+
+    // This folded area is above the new folded area
+    // and it remains
+    if (tempMatch->getLine() < node->getLine()) {
+      hiddenNodes.append(tempNode);
+    }
+
+    // This folded area is a subarea of the new folded area
+    // This area will not be copied
+    if (tempNode->getLine() <= node->getLine() && matchNode->getLine() >= matchNode->getLine()) {
+      if (inserted == false) {
+        hiddenNodes.append(node);
+      }
+    }
+
+    // This folded area is below the new folded area
+    // and it remains
+    if (tempNode->getLine() > matchNode->getLine()) {
+      hiddenNodes.append(tempNode);
+    }
+  }
+
+  oldHiddenNodes.clear();
+}
+
+void AbstractKateCodeFoldingTree::toggleRegionVisibility(int l)
+{
+  qDebug()<<QString("toggle ... at %1").arg(l);
+  foldNode(findNodeForLine(l));
+
+  emit regionVisibilityChangedAt(l,false);
 }
 
 // changed = true, if there is there is a new node on the line / a node was deleted from the line
 // colschanged = true only if node's column changes (nodes de not appear/disappear)
-void AbstractKateCodeFoldingTree::updateLine(unsigned int line, QVector<int> *regionChanges, bool *updated, bool changed, bool colsChanged)
+void AbstractKateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool *updated, bool changed, bool colsChanged)
 {
   if (!changed && !colsChanged) {
     *updated = false;

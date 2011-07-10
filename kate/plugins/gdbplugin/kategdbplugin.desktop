@@ -5,6 +5,7 @@ X-KDE-Library=kategdbplugin
 X-Kate-Version=2.9
 Name=GDB
 Name[ast]=GDB
+Name[bg]=GDB
 Name[bs]=GDB
 Name[ca]=GDB
 Name[ca@valencia]=GDB

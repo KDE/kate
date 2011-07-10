@@ -79,10 +79,8 @@ KatePluginSymbolViewerView* KatePluginSymbolViewerView2::view()
     return m_view;
 }
 
-KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
+KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w) : Kate::XMLGUIClient(KateSymbolViewerFactory::componentData())
 {
-  setComponentData (KateSymbolViewerFactory::componentData());
-  setXMLFile("plugins/katesymbolviewer/ui.rc");
   KGlobal::locale()->insertCatalog("katesymbolviewer");
   KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
   act->setText(i18n("Hide Symbols"));

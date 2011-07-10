@@ -24,13 +24,6 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 
-#include <kxmlguiclient.h>
-
-
-namespace KParts
-{
-  }
-
 class KateMailFilesPlugin: public Kate::Plugin
 {
     Q_OBJECT
@@ -43,7 +36,7 @@ class KateMailFilesPlugin: public Kate::Plugin
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 };
 
-class KateMailFilesPluginView : public Kate::PluginView, public KXMLGUIClient
+class KateMailFilesPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

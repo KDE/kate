@@ -65,7 +65,9 @@ KateMailFilesPluginView::KateMailFilesPluginView (Kate::MainWindow *mainWindow)
 }
 
 KateMailFilesPluginView::~KateMailFilesPluginView ()
-{}
+{
+  mainWindow()->guiFactory()->removeClient (this);
+}
 
 void KateMailFilesPluginView::slotMail()
 {

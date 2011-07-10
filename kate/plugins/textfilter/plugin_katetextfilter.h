@@ -27,8 +27,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/commandinterface.h>
 
-#include <kxmlguiclient.h>
-
 #include <QProcess>
 #include <QVariantList>
 
@@ -63,7 +61,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     void slotFilterProcessExited (int exitCode, QProcess::ExitStatus exitStatus);
 };
 
-class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient
+class PluginViewKateTextFilter: public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
 

@@ -52,12 +52,10 @@ Kate::PluginView *KateExternalToolsPlugin::createView (Kate::MainWindow *mainWin
 }
 
 KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *mainWindow)
-    : Kate::PluginView (mainWindow)
+    : Kate::PluginView (mainWindow), Kate::XMLGUIClient(KateExternalToolsPluginFactory::componentData())
 {
   /*    actionCollection()->addAction( KStandardAction::Mail, this, SLOT(slotMail()) )
         ->setWhatsThis(i18n("Send one or more of the open documents as email attachments."));
-      setInstance (new KInstance("kate"));
-      setXMLFile("plugins/kateexternaltools/ui.rc");
       mainWindow->guiFactory()->addClient (this);*/
 }
 

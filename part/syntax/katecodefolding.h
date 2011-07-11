@@ -227,10 +227,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     // Next methods do not work so well
     void toggleRegionVisibility (unsigned int);     // called when mouse release the folding sign; kateviewhelpers; 1450
-    void collapseToplevelNodes ();                  // kateview 947 (works pretty bad)
-    void expandToplevelNodes (int numLines);        // kateview 947
-    int collapseOne (int realLine);                 // kateview.h 529... / .cpp 972...
-    void expandOne  (int realLine, int numLines);
+    void collapseToplevelNodes ();                  // kateview 947 (works pretty bad)  // collapse top level
+    void expandToplevelNodes (int numLines);        // kateview 947                     // expand top level (arg = docNLines)
+    int collapseOne (int realLine);                 // kateview.h 529... / .cpp 972...  // colapse local
+    void expandOne  (int realLine, int numLines);   // kateview.cpp 995                 // expand local (numLines = docNlines)
     /**
       Ensures that all nodes surrounding @p line are open
     */
@@ -240,7 +240,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     bool m_clearCache;
   Q_SIGNALS:
     void regionVisibilityChangedAt  (unsigned int,bool clearCache); // kateinternalview 658
-    void regionBeginEndAddedRemoved (unsigned int);                 // kateinternalview 686 - not working
+    void regionBeginEndAddedRemoved (unsigned int);                 // kateinternalview 686 - not working (not used)
 };
 
 #endif

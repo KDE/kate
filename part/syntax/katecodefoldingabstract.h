@@ -82,7 +82,7 @@ class KateDocumentPosition
     {
       return (line != pos.line || column != pos.column) ? true : false;
     }
-    inline bool operator >=(const KateDocumentPosition &pos) const
+    inline bool operator >= (const KateDocumentPosition &pos) const
     {
       return ((*this) > pos || (*this) == pos);
     }
@@ -358,6 +358,7 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
                                               KateDocumentPosition begin, KateDocumentPosition end);
     KateCodeFoldingNodeTemp* findNodeAt(KateDocumentPosition position);
 
+    void replaceFoldedNodeWithList(KateCodeFoldingNodeTemp* node, QList<KateCodeFoldingNodeTemp*> newFoldedNodes);
     void foldNode (KateCodeFoldingNodeTemp* node);
     void unfoldNode (KateCodeFoldingNodeTemp* node);
 

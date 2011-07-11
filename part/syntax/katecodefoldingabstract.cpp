@@ -463,7 +463,12 @@ void AbstractKateCodeFoldingTree::deleteStartNode(KateCodeFoldingNodeTemp* delet
 
 void AbstractKateCodeFoldingTree::ensureVisible(int l)
 {
-  qDebug()<<QString("ensure visible : %1").arg(l);
+  KateLineInfo info;
+  getLineInfo(&info,l);
+ /* if (info.startsInVisibleBlock) {
+    unfoldNode(findNodeForLine(l));
+    emit regionVisibilityChangedAt(l,false);
+  }*/
 }
 
 void AbstractKateCodeFoldingTree::expandOne(int realLine, int numLines)
@@ -521,7 +526,7 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
         return tempParentNode;
 
       // We can go to a higher depth
-      if (child->getLine() < line) {
+      if (child->getLine() <= line) {
 
        // if the child has a match
         if (child->hasMatch()) {
@@ -726,14 +731,17 @@ int AbstractKateCodeFoldingTree::getVirtualLine(int realLine)
       matchNode = m_rootMatch;
 
     if (matchNode->getLine() <= realLine) {
-      offset += matchNode->getLine() - node->getLine();
+      offset += (matchNode->getLine() - node->getLine());
     }
+    else if (node->getLine() <= realLine && realLine <= matchNode->getLine())
+      offset += (realLine - node->getLine());
   }
   return realLine - offset;
 }
 
 int AbstractKateCodeFoldingTree::getHiddenLinesCount(int docLine)
 {
+  m_rootMatch->setLine(docLine);
   if (m_root->visible == false)
     return docLine;
   int n = 0;
@@ -917,7 +925,7 @@ void AbstractKateCodeFoldingTree::sublist(QVector<KateCodeFoldingNodeTemp *> &de
 {
   dest.clear();
   foreach (KateCodeFoldingNodeTemp *node, source) {
-    if (node->position >= end && end != INFposition)
+    if ((node->position >= end) && end != INFposition)
       break;
     if (node->position >= begin) {
       dest.append(node);
@@ -963,13 +971,97 @@ void AbstractKateCodeFoldingTree::foldNode(KateCodeFoldingNodeTemp *node)
     }
   }
 
+  if (inserted == false) {
+    hiddenNodes.append(node);
+  }
+
   oldHiddenNodes.clear();
+}
+
+void AbstractKateCodeFoldingTree::unfoldNode(KateCodeFoldingNodeTemp *node)
+{
+  QList <KateCodeFoldingNodeTemp*> newFoldedNodes;
+
+  KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+  if (matchNode == NULL)
+    matchNode = m_rootMatch;
+  node->visible = true;
+
+  KateDocumentPosition startPos = node->getPosition();
+  KateDocumentPosition endPos = matchNode->getPosition();
+
+  QMapIterator <int, QVector <KateCodeFoldingNodeTemp*> > iterator(m_lineMapping);
+  while (iterator.hasNext()) {
+    int key = iterator.peekNext().key();
+
+    // We might have some candidate nodes on this line
+    if (key >= startPos.line && key <= endPos.line) {
+      QVector <KateCodeFoldingNodeTemp*> tempLineMap = iterator.peekNext().value();
+
+      foreach (KateCodeFoldingNodeTemp* tempNode, tempLineMap) {
+
+        // End nodes and visible nodes are not interesting
+        if (tempNode->type < 0 || tempNode->isVisible())
+          continue;
+
+        KateCodeFoldingNodeTemp* tempMatchNode = tempNode->matchingNode();
+        if (tempMatchNode == NULL)
+          tempMatchNode = m_rootMatch;
+        // this is a new folded area
+        if (startPos < tempNode->position && endPos >= tempMatchNode->position) {
+          newFoldedNodes.append(tempNode);
+
+          // We update the start position (we don't want to search through its children
+          startPos = tempMatchNode->position;
+
+          // The matching node cannot be on the same line; we skip the rest of the line
+          break;
+        }
+      }
+    }
+
+    iterator.next();
+  }
+
+  replaceFoldedNodeWithList(node, newFoldedNodes);
+}
+
+void AbstractKateCodeFoldingTree::replaceFoldedNodeWithList(KateCodeFoldingNodeTemp *node, QList<KateCodeFoldingNodeTemp *> newFoldedNodes)
+{
+  QList <KateCodeFoldingNodeTemp*> oldHiddenNodes(hiddenNodes);
+  hiddenNodes.clear();
+  bool inserted = false;
+
+  foreach(KateCodeFoldingNodeTemp* tempNode, oldHiddenNodes) {
+    // We copy this node
+    if (tempNode->position < node->position || inserted) {
+      hiddenNodes.append(tempNode);
+    }
+
+    // We skip this node (it is the node we'll replace)
+    else if (tempNode->position == node->position)
+      continue;
+
+    // We copy the new list (it was not yet copied)
+    else {
+      hiddenNodes.append(newFoldedNodes);
+      inserted = true;
+    }
+  }
+
+  if (inserted == false) {
+    hiddenNodes.append(newFoldedNodes);
+  }
 }
 
 void AbstractKateCodeFoldingTree::toggleRegionVisibility(int l)
 {
   qDebug()<<QString("toggle ... at %1").arg(l);
-  foldNode(findNodeForLine(l));
+  KateCodeFoldingNodeTemp *tempNode = findNodeForLine(l);
+  if (tempNode->visible)
+    foldNode(tempNode);
+  else
+    unfoldNode(tempNode);
 
   emit regionVisibilityChangedAt(l,false);
 }

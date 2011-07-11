@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="katekjsselect" library="libkatekjsselect" version="1">
-<MenuBar>
- <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="kjsselect_select_action"/>
- </Menu>
-</MenuBar>
-</gui>

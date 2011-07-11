@@ -15,6 +15,7 @@ X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=document-import
 Name=Highlight Selection
+Name[bg]=Осветяване на избраното
 Name[bs]=Označi izbor
 Name[ca]=Selecció de ressaltat
 Name[ca@valencia]=Selecció de ressaltat

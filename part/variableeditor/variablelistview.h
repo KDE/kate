@@ -41,8 +41,8 @@ public:
   QString variableLine();
 
 Q_SIGNALS:
-  void editingDone(const QString& variableLine);
-  void changed();
+  void aboutToHide();
+  void changed(); // unused right now
 
 protected:
   virtual void resizeEvent(QResizeEvent* event);

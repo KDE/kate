@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef TEST_WIDGET_H
-#define TEST_WIDGET_H
+#ifndef VARIABLE_LINE_EDIT_H
+#define VARIABLE_LINE_EDIT_H
 
 #include <QWidget>
 #include <QFrame>
@@ -28,24 +28,31 @@ class QLineEdit;
 class QPushButton;
 class VariableListView;
 
-class TestWidget : public QWidget
+class VariableLineEdit : public QWidget
 {
   Q_OBJECT
 
 public:
-  TestWidget(QWidget* parent = 0);
-  virtual ~TestWidget();
+  VariableLineEdit(QWidget* parent = 0);
+  virtual ~VariableLineEdit();
 
   void addKateItems(VariableListView* listview);
+  QString text();
 
 public Q_SLOTS:
   void editVariables();
-  void somethingChanged();
+  void setText(const QString &text);
+  void clear();
+  void updateVariableLine();
+
+Q_SIGNALS:
+  void textChanged(const QString&);
 
 private:
   QFrame* m_popup;
   QLineEdit* m_lineedit;
   QPushButton* m_button;
+  VariableListView* m_listview;
 };
 
 #endif

@@ -18,9 +18,13 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "testwidget.h"
+#include "variablelineedit.h"
+
 #include "variableitem.h"
 #include "variablelistview.h"
+#include "kateautoindent.h"
+#include "katesyntaxmanager.h"
+#include "kateschema.h"
 
 #include <QtCore/QDebug>
 #include <QtGui/QPushButton>
@@ -30,36 +34,21 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLineEdit>
 
-TestWidget::TestWidget(QWidget* parent)
+VariableLineEdit::VariableLineEdit(QWidget* parent)
   : QWidget(parent)
 {
+  m_listview = 0;
+
   QHBoxLayout* hl = new QHBoxLayout();
   hl->setMargin(0);
-  hl->setSpacing(0);
-
-  QVBoxLayout* vl = new QVBoxLayout(this);
-  vl->setMargin(30);
-  vl->setSpacing(6);
-  setLayout(vl);
-
+  hl->setSpacing(10);
+  setLayout(hl);	
 
   m_lineedit = new QLineEdit(this);
-  m_button= new QPushButton("Edit...", this);
-
-  QComboBox* test = new QComboBox(this);
-  test->addItem("Eintrag 1");
-  test->addItem("Eintrag 2");
-  test->addItem("Eintrag 3");
-  test->addItem("Eintrag 4");
-  test->addItem("Eintrag 5");
+  m_button= new QPushButton("Edit", this);
 
   hl->addWidget(m_lineedit);
   hl->addWidget(m_button);
-
-  vl->addLayout(hl);
-  vl->addWidget(test);
-  vl->addStretch();
-
 
   m_popup = new QFrame(0, Qt::Popup);
   m_popup->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -68,26 +57,24 @@ TestWidget::TestWidget(QWidget* parent)
   l->setMargin(0);
   m_popup->setLayout(l);
 
+  // forward text changed signal
+  connect(m_lineedit, SIGNAL(textChanged(const QString&)), this, SIGNAL(textChanged(const QString&)));
+  
+  // open popup on button click
   connect(m_button, SIGNAL(clicked()), this, SLOT(editVariables()));
 }
 
-TestWidget::~TestWidget()
+VariableLineEdit::~VariableLineEdit()
 {
 }
 
-void TestWidget::editVariables()
+void VariableLineEdit::editVariables()
 {
-  static VariableListView* listview = 0;
-  if (listview != 0) {
-    m_popup->layout()->removeWidget(listview);
-    delete listview;
-  }
-  listview = new VariableListView(m_lineedit->text(), m_popup);
-  addKateItems(listview);
-  connect(listview, SIGNAL(editingDone(const QString&)), m_lineedit, SLOT(setText(const QString&)));
-  connect(listview, SIGNAL(changed()), this, SLOT(somethingChanged()));
+  m_listview = new VariableListView(m_lineedit->text(), m_popup);
+  addKateItems(m_listview);
+  connect(m_listview, SIGNAL(aboutToHide()), this, SLOT(updateVariableLine()));
 
-  m_popup->layout()->addWidget(listview);
+  m_popup->layout()->addWidget(m_listview);
 
   QPoint topLeft = mapToGlobal(m_lineedit->geometry().bottomLeft());
   const int w = m_button->geometry().right() - m_lineedit->geometry().left();
@@ -96,7 +83,17 @@ void TestWidget::editVariables()
   m_popup->show();
 }
 
-void TestWidget::addKateItems(VariableListView* listview)
+void VariableLineEdit::updateVariableLine()
+{
+  QString variables = m_listview->variableLine();
+  m_lineedit->setText(variables);
+
+  m_popup->layout()->removeWidget(m_listview);
+  m_listview->deleteLater();
+  m_listview = 0;
+}
+
+void VariableLineEdit::addKateItems(VariableListView* listview)
 {
   VariableItem* item = 0;
 
@@ -162,7 +159,13 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Set the font of the document.");
   listview->addItem(item);
   
-  item = new VariableStringListItem("syntax TODO", QStringList() << "C++", "C++");
+  /* Prepare list of highlighting modes */
+  int count = KateHlManager::self()->highlights();
+  QStringList hl;
+  for (int z=0;z<count;z++)
+    hl<<KateHlManager::self()->hlNameTranslated (z);
+  
+  item = new VariableStringListItem("syntax", hl, hl.at(0));
   item->setHelpText("Set the syntax highlighting.");
   listview->addItem(item);
   
@@ -174,7 +177,7 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Enable the icon border in the editor view.");
   listview->addItem(item);
 
-  item = new VariableStringListItem("indent-mode TODO", QStringList() << "none" <<"normal" << "cstyle" << "lisp" << "python" <<"lilypond" <<"lua" <<"haskell" <<"ruby"<<"xml style", "none");
+  item = new VariableStringListItem("indent-mode", KateAutoIndent::listModes(),"none");
   item->setHelpText("Set the auto indentation style.");
   listview->addItem(item);
   
@@ -215,7 +218,9 @@ void TestWidget::addKateItems(VariableListView* listview)
   item->setHelpText("Remove trailing spaces when saving the document.");
   listview->addItem(item);
   
-  item = new VariableBoolItem("scheme TODO", false);
+  KateSchemaManager *schemaManager = new KateSchemaManager();
+  QStringList schemas = schemaManager->list();
+  item = new VariableStringListItem("scheme", schemas, schemas.at(0));
   item->setHelpText("Set the color scheme.");
   listview->addItem(item);
   
@@ -263,8 +268,19 @@ void TestWidget::addKateItems(VariableListView* listview)
   listview->addItem(item);
 }
 
-void TestWidget::somethingChanged()
+void VariableLineEdit::setText(const QString &text)
 {
-  qDebug() << "list view changed";
+  m_lineedit->setText(text);
 }
+
+void VariableLineEdit::clear()
+{
+  m_lineedit->clear();
+}
+
+QString VariableLineEdit::text()
+{
+  return m_lineedit->text();
+}
+
 // kate: indent-width 2; replace-tabs on;

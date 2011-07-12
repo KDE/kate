@@ -143,6 +143,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandSwitchToRightView();
     bool commandSwitchToNextView();
 
+    bool commandSplitHoriz();
+    bool commandSplitVert();
+
     // MOTIONS
 
     KateViRange motionLeft();

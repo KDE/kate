@@ -41,6 +41,9 @@ KateAppCommands::KateAppCommands()
     re_changeBuffer.setPattern("b(n|p)");
     re_edit.setPattern("e(dit)?");
     re_new.setPattern("(v)?new");
+    re_split.setPattern("sp(lit)?");
+    re_vsplit.setPattern("vs(plit)?");
+
 }
 
 KateAppCommands::~KateAppCommands()
@@ -59,7 +62,8 @@ const QStringList& KateAppCommands::cmds()
 
     if (l.empty()) {
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
-          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
+          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
+          << "sp" << "split" << "vs" << "vsplit";
     }
 
     return l;
@@ -139,6 +143,14 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     else if (command == "enew") {
         mainWin->viewManager()->slotDocumentNew();
     }
+    else if (re_split.exactMatch(command)) {
+        mainWin->viewManager()->slotSplitViewSpaceHoriz();
+    }
+    else if (re_vsplit.exactMatch(command)) {
+        mainWin->viewManager()->slotSplitViewSpaceVert();
+    }
+
+
     return true;
 }
 

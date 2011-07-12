@@ -22,7 +22,6 @@
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
-#include <kxmlguiclient.h>
 #include <kate/plugin.h>
 
 #include <QtCore/QObject>

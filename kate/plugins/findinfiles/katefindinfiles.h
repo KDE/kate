@@ -25,7 +25,6 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 #include <ktexteditor/commandinterface.h>
-#include <kxmlguiclient.h>
 
 #include "katefinddialog.h"
 

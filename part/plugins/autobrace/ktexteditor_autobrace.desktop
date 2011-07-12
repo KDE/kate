@@ -55,6 +55,7 @@ Name[x-test]=xxAutoBracexx
 Name[zh_CN]=自动括号
 Name[zh_TW]=自動產生括號
 Comment=Insert closing braces on pressing Enter
+Comment[bg]=Затваряне на скобите при натискане на "Enter"
 Comment[bs]=Ubacuje zatvarajuće zagrade pritiskom na Enter
 Comment[ca]=Insereix els parèntesis de tancament en prémer Retorn
 Comment[ca@valencia]=Insereix els parèntesis de tancament en prémer Retorn

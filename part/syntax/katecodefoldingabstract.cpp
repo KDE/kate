@@ -518,7 +518,9 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeAt(KateDocumentPos
 KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
 {
   KateCodeFoldingNodeTemp *tempParentNode = m_root;
-  forever {
+  bool cont = true;
+  while (cont) {
+    cont = false;
     if (tempParentNode->noStartChildren())
       return tempParentNode;
     foreach (KateCodeFoldingNodeTemp* child, tempParentNode->m_startChildren) {
@@ -538,6 +540,7 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
           // and the matching node is below "line", this is a good node
           if (child->matchingNode()->getLine() >= line) {
             tempParentNode = child;
+            cont = true;
             break;
           }
         }
@@ -550,6 +553,7 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
       }
     }
   }
+  return tempParentNode;
 }
 
 KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForPosition(int l, int c)
@@ -755,9 +759,11 @@ int AbstractKateCodeFoldingTree::getHiddenLinesCount(int docLine)
   int n = 0;
   foreach (KateCodeFoldingNodeTemp* node, hiddenNodes) {
     KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
-    if (matchNode == NULL)
+    if (matchNode == NULL) {
       matchNode = m_rootMatch;
-
+      // if the match is end of the doc, then (-1)
+      n --;
+    }
     n += (matchNode->getLine() - node->getLine());
   }
   return n;

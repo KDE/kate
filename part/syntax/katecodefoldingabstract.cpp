@@ -423,8 +423,13 @@ void AbstractKateCodeFoldingTree::deleteNodeFromMap(KateCodeFoldingNodeTemp *nod
       break;
     }
   }
-  m_lineMapping[node->getLine()] = mapping;
-  //delete node; // !!!
+  if (mapping.empty())
+    m_lineMapping.remove(node->getLine());
+  else
+    m_lineMapping[node->getLine()] = mapping;
+
+  if (hiddenNodes.contains(node))
+    unfoldNode(node);
 }
 
 void AbstractKateCodeFoldingTree::deleteEndNode(KateCodeFoldingNodeTemp* deletedNode)
@@ -557,6 +562,9 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForPosition(int l,
 KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findParent(KateDocumentPosition startingPos,int childType)
 {
   for (int line = startingPos.line ; line >= 0 ; line --) {
+    if (m_lineMapping.contains(line) == false)
+      continue;
+
     QVector <KateCodeFoldingNodeTemp*> tempLineMap = m_lineMapping[line];
     for (int i = tempLineMap.size() - 1 ; i >= 0 ; i --) {
 
@@ -837,11 +845,13 @@ void AbstractKateCodeFoldingTree::insertStartNode(int type, KateDocumentPosition
   newNode->updateSelf();
 }
 
-void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
+void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line, int column)
 {
+  qDebug()<<QString("line has been inserted at : (%1,%2)").arg(line).arg(column);
   QMap <int, QVector <KateCodeFoldingNodeTemp*> > tempMap = m_lineMapping;
   QMapIterator <int, QVector <KateCodeFoldingNodeTemp*> > iterator(tempMap);
   QVector <KateCodeFoldingNodeTemp*> tempVector;
+  QVector <KateCodeFoldingNodeTemp*> tempVector2;
   m_lineMapping.clear();
 
   // Coppy the lines before "line"
@@ -849,6 +859,21 @@ void AbstractKateCodeFoldingTree::lineHasBeenInserted(int line)
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     m_lineMapping.insert(key,tempVector);
+    iterator.next();
+  }
+
+  // The nodes placed on "line" will be splitted usig the argument "column"
+  while (iterator.hasNext() && iterator.peekNext().key() == line) {
+    int key = iterator.peekNext().key();
+    tempVector = iterator.peekNext().value();
+    // The nodes are splitted
+    while (tempVector.empty() == false && tempVector[0]->getColumn() < column) {
+      tempVector2.append(tempVector[0]);
+      tempVector.pop_front();
+    }
+    incrementBy1(tempVector);
+    m_lineMapping.insert(key, tempVector2);
+    m_lineMapping.insert(key + 1,tempVector);
     iterator.next();
   }
 
@@ -1123,11 +1148,20 @@ void AbstractKateCodeFoldingTree::updateMapping(int line, QVector<int> newColumn
     // If the nodes compared have the same type,
     // then we update the column (maybe the column has changed).
     else if (oldLineMapping[index_old]->type == newColumns[index_new - 1]) {
-      if (newColumns[index_new - 1] < 0) {
-        oldLineMapping[index_old]->setColumn(newColumns[index_new] - 1);
+      // I can simply change the column only if this change will not mess the order of the line
+      if ((index_old == (oldLineMapping.size() - 1)) || oldLineMapping[index_old + 1]->getColumn() > newColumns[index_new])
+      {
+        if (newColumns[index_new - 1] < 0) {
+          oldLineMapping[index_old]->setColumn(newColumns[index_new] - 1);
+        }
+        else  {
+          oldLineMapping[index_old]->setColumn(newColumns[index_new]);
+        }
       }
-      else  {
-        oldLineMapping[index_old]->setColumn(newColumns[index_new]);
+      // If the change of the column will change the nodes hierarchy, then we delete it
+      else {
+        deleteNode(oldLineMapping[index_old]);
+        index_new -= 2;
       }
       index_old ++;
     }

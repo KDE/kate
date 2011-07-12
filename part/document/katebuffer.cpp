@@ -255,7 +255,7 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
   if (m_lineHighlighted > position.line()+1)
     m_lineHighlighted++;
 
-  m_regionTree.lineHasBeenInserted (position.line()+1);
+  m_regionTree.lineHasBeenInserted (position.line(), position.column());
 
 }
 

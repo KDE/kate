@@ -285,7 +285,7 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
     void incrementBy1 (QVector <KateCodeFoldingNodeTemp*> &nodesLine);
     void decrementBy1 (QVector <KateCodeFoldingNodeTemp*> &nodesLine);
 
-    void lineHasBeenInserted (int line);                              // call order for 3 lines : 1,2,3
+    void lineHasBeenInserted (int line, int column);                  // call order for 3 lines : 1,2,3
     void lineHasBeenRemoved  (int line);                              // call order for 3 lines : 3,2,1
     void getLineInfo (KateLineInfo *info, int line);  // Makes clear what KateLineInfo contains
 

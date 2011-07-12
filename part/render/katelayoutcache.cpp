@@ -380,7 +380,7 @@ int KateLayoutCache::viewWidth( ) const
  */
 int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor)
 {
-  if (realCursor.column() == 0) return 0;
+  if (realCursor.column() <= 0) return 0;
 
   KateLineLayoutPtr thisLine = line(realCursor.line());
 

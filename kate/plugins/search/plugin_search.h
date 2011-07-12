@@ -24,7 +24,6 @@
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <ktexteditor/commandinterface.h>
-#include <kxmlguiclient.h>
 #include <kaction.h>
 
 #include <QTreeWidget>

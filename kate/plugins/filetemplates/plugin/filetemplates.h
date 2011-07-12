@@ -35,8 +35,6 @@
 #include <qlist.h>
 #include <qwizard.h>
 
-#include <kxmlguiclient.h>
-
 /**
  * This template system has the following features:
  * It allows to create new documents that already has some contents and a meaningfull

@@ -953,6 +953,12 @@ void KateViModeBase::addToNumberUnderCursor( int count )
 
 void KateViModeBase::switchView(Direction direction) {
 
+  QList<KateView*> visible_views;
+  foreach (KateView* view,  KateGlobal::self()->views() ) {
+      if (view->isVisible())
+        visible_views.push_back(view);
+  }
+
   QPoint current_point = m_view->mapToGlobal(m_view->pos());
   int curr_x1 = current_point.x();
   int curr_x2 = current_point.x() + m_view->width();
@@ -964,17 +970,17 @@ void KateViModeBase::switchView(Direction direction) {
   KateView *bestview = NULL;
   int  best_x1, best_x2, best_y1, best_y2, best_center_y, best_center_x;
 
-  if (direction == Next && KateGlobal::self()->views().count() != 1) {
-    for (int i=0; i< KateGlobal::self()->views().count(); i++ ){
-      if (KateGlobal::self()->views().at(i) == m_view) {
-        if (i != KateGlobal::self()->views().count() - 1)
-          bestview = KateGlobal::self()->views().at(i + 1);
-        else
-          bestview = KateGlobal::self()->views().at(0);
+  if (direction == Next && visible_views.count() != 1) {
+    for (int i=0; i< visible_views.count(); i++) {
+        if (visible_views.at(i) == m_view) {
+          if (i != visible_views.count() - 1 )
+            bestview = visible_views.at(i + 1);
+          else
+            bestview = visible_views.at(0);
+        }
       }
-    }
   } else {
-    foreach (KateView* view, KateGlobal::self()->views() ) {
+    foreach (KateView* view, visible_views ) {
       QPoint point = view->mapToGlobal(view->pos());
       int x1 = point.x();
       int x2 = point.x() + view->width();

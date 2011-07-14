@@ -500,6 +500,11 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
     m_msgMode = true;
 
+    // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))){
+      emit hideRequested();
+    }
+
     // we got a range and a valid command, but the command does not inherit the RangeCommand
     // extension. bail out.
     if ( ( !ce && range.isValid() && p ) || ( range.isValid() && ce && !ce->supportsRange(cmd) ) ) {
@@ -520,7 +525,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
           if (msg.length() > 0)
             setText (i18n ("Success: ") + msg);
-          else
+          else if (isVisible())
             // always hide on success without message
             emit hideRequested();
         }
@@ -557,8 +562,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   // the following commands change the focus themselves
-  if (!QRegExp("b(n|p)").exactMatch(cmd) && !QRegExp("(v)?new").exactMatch(cmd))
-    m_view->setFocus ();
+  if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))) {
+    m_view->setFocus ();   
+  }
 
   if (isVisible()) {
     m_hideTimer->start(4000);

@@ -468,12 +468,16 @@ void AbstractKateCodeFoldingTree::deleteStartNode(KateCodeFoldingNodeTemp* delet
 
 void AbstractKateCodeFoldingTree::ensureVisible(int l)
 {
-  KateLineInfo info;
-  getLineInfo(&info,l);
- /* if (info.startsInVisibleBlock) {
-    unfoldNode(findNodeForLine(l));
-    emit regionVisibilityChangedAt(l,false);
-  }*/
+  //qDebug()<<QString("ensure visible at %1").arg(l);
+  foreach (KateCodeFoldingNodeTemp* node, hiddenNodes) {
+    KateCodeFoldingNodeTemp* matchNode = node->matchingNode();
+    if (matchNode == NULL)
+      matchNode = m_rootMatch;
+    if (node->getLine() < l && l <= matchNode->getLine()) {
+      unfoldNode(node);
+      break;
+    }
+  }
 }
 
 void AbstractKateCodeFoldingTree::expandOne(int realLine, int numLines)

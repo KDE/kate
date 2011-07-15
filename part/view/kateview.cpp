@@ -955,8 +955,8 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_expandtoplevel");
   a->setText(i18n("Expand Toplevel"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
-  connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandToplevel())); // expandToplevelNodes(int what?) maybe?
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Equal));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
 
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Collapse One Local Level"));
@@ -965,19 +965,15 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_expandlocal");
   a->setText(i18n("Expand One Local Level"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Equal));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
-}
-
-void KateView::slotExpandToplevel()
-{
-  m_doc->foldingTree()->expandToplevelNodes(m_doc->lines());
 }
 
 void KateView::slotCollapseLocal()
 {
-  int realLine = m_doc->foldingTree()->collapseOne(cursorPosition().line());
-  if (realLine != -1) {
+  //int realLine = m_doc->foldingTree()->collapseOne(cursorPosition().line());
+  m_doc->foldingTree()->collapseOne(cursorPosition().line());
+  /*if (realLine != -1) {
     // TODO rodda: fix this to only set line and allow internal view to chose column
     // Explicitly call internal because we want this to be registered as an internal call
 
@@ -987,12 +983,12 @@ void KateView::slotCollapseLocal()
     if (!textLine) return;
     KTextEditor::Cursor cc = KTextEditor::Cursor(realLine, textLine->fromVirtualColumn(virtualCursorColumn(), m_doc->config()->tabWidth()));
     setCursorPositionInternal(cc, 1);
-  }
+  }*/
 }
 
 void KateView::slotExpandLocal()
 {
-  m_doc->foldingTree()->expandOne(cursorPosition().line(), m_doc->lines());
+  m_doc->foldingTree()->expandOne(cursorPosition().line(), cursorPosition().column());
 }
 
 QString KateView::viewMode () const

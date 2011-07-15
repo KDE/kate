@@ -526,7 +526,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
     void slotSaveCanceled( const QString& error );
-    void slotExpandToplevel();                          // !!!
+    //void slotExpandToplevel();                          // !!!
     void slotCollapseLocal();                           // !!!
     void slotExpandLocal();                             // !!!
     void slotConfigDialog ();

@@ -368,7 +368,7 @@ class KATEPART_TESTS_EXPORT AbstractKateCodeFoldingTree : public QObject
     // unimplemented methods
     void toggleRegionVisibility (int);
     void collapseToplevelNodes ();
-    void expandToplevelNodes (int numLines);
+    void expandToplevelNodes ();
     int collapseOne (int realLine);
     void expandOne  (int realLine, int numLines);
     /**

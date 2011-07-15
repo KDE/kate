@@ -541,7 +541,7 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
 
        // if the child has a match
         if (child->hasMatch()) {
-          // and the matching node is below "line", this is a good node
+          // and the matching node is below "line", then we go to a higher depth
           if (child->matchingNode()->getLine() >= line) {
             tempParentNode = child;
             cont = true;
@@ -549,9 +549,10 @@ KateCodeFoldingNodeTemp* AbstractKateCodeFoldingTree::findNodeForLine(int line)
           }
         }
 
-        // or if there is no matching node
+        // or if there is no matching node, then we go to a higher depth
         else {
           tempParentNode = child;
+          cont = true;
           break;
         }
       }
@@ -1011,6 +1012,8 @@ void AbstractKateCodeFoldingTree::foldNode(KateCodeFoldingNodeTemp *node)
   }
 
   oldHiddenNodes.clear();
+
+  emit regionVisibilityChangedAt(node->getLine(),false);
 }
 
 void AbstractKateCodeFoldingTree::unfoldNode(KateCodeFoldingNodeTemp *node)
@@ -1059,6 +1062,8 @@ void AbstractKateCodeFoldingTree::unfoldNode(KateCodeFoldingNodeTemp *node)
   }
 
   replaceFoldedNodeWithList(node, newFoldedNodes);
+
+  emit regionVisibilityChangedAt(node->getLine(),false);
 }
 
 void AbstractKateCodeFoldingTree::replaceFoldedNodeWithList(KateCodeFoldingNodeTemp *node, QList<KateCodeFoldingNodeTemp *> newFoldedNodes)
@@ -1097,8 +1102,6 @@ void AbstractKateCodeFoldingTree::toggleRegionVisibility(int l)
     foldNode(tempNode);
   else
     unfoldNode(tempNode);
-
-  emit regionVisibilityChangedAt(l,false);
 }
 
 // changed = true, if there is there is a new node on the line / a node was deleted from the line

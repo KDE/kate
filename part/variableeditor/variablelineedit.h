@@ -22,10 +22,10 @@
 #define VARIABLE_LINE_EDIT_H
 
 #include <QWidget>
-#include <QFrame>
 
+class QFrame;
 class QLineEdit;
-class QPushButton;
+class QToolButton;
 class VariableListView;
 
 class VariableLineEdit : public QWidget
@@ -51,7 +51,7 @@ Q_SIGNALS:
 private:
   QFrame* m_popup;
   QLineEdit* m_lineedit;
-  QPushButton* m_button;
+  QToolButton* m_button;
   VariableListView* m_listview;
 };
 

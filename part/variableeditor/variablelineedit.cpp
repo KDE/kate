@@ -27,12 +27,13 @@
 #include "kateschema.h"
 
 #include <QtCore/QDebug>
-#include <QtGui/QPushButton>
 #include <QtGui/QComboBox>
-#include <QtGui/QSizeGrip>
-#include <QtGui/QVBoxLayout>
+#include <QtGui/QFrame>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLineEdit>
+#include <QtGui/QSizeGrip>
+#include <QtGui/QToolButton>
+#include <QtGui/QVBoxLayout>
 
 #include <kdialog.h>
 #include <klocale.h>
@@ -48,7 +49,9 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
   setLayout(hl);
 
   m_lineedit = new QLineEdit(this);
-  m_button= new QPushButton(i18n("Edit"), this);
+  m_button= new QToolButton(this);
+  m_button->setIcon(KIcon("tools-wizard"));
+  m_button->setToolTip(i18n("Show list of valid variables."));
 
   hl->addWidget(m_lineedit);
   hl->addWidget(m_button);

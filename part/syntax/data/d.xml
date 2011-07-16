@@ -101,7 +101,7 @@
    ========================================================================
 -->
 
-<language name="D" version="1.61" kateversion="2.5" section="Sources" extensions="*.d;*.D;*.di;*.DI;" mimetype="text/x-dsrc" casesensitive="true" author="Diggory Hardy (diggory.hardy@gmail.com), Aziz Köksal (aziz.koeksal@gmail.com), Jari-Matti Mäkelä (jmjm@iki.fi), Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
+<language name="D" version="1.62" kateversion="2.5" section="Sources" extensions="*.d;*.D;*.di;*.DI;" mimetype="text/x-dsrc" casesensitive="true" author="Diggory Hardy (diggory.hardy@gmail.com), Aziz Köksal (aziz.koeksal@gmail.com), Jari-Matti Mäkelä (jmjm@iki.fi), Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
   <highlighting>
     <!-- User-defined keywords (add identifiers you'd like highlighted here) -->
     <list name="userkeywords">
@@ -143,6 +143,7 @@
       <item> const </item>
       <item> export </item>
       <item> final </item>
+      <item> immutable </item>
       <item> inout </item>
       <item> invariant </item>
       <item> lazy </item>

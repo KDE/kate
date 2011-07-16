@@ -34,6 +34,9 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLineEdit>
 
+#include <kdialog.h>
+#include <klocale.h>
+
 VariableLineEdit::VariableLineEdit(QWidget* parent)
   : QWidget(parent)
 {
@@ -41,11 +44,11 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
 
   QHBoxLayout* hl = new QHBoxLayout();
   hl->setMargin(0);
-  hl->setSpacing(10);
-  setLayout(hl);	
+  hl->setSpacing(KDialog::spacingHint());
+  setLayout(hl);
 
   m_lineedit = new QLineEdit(this);
-  m_button= new QPushButton("Edit", this);
+  m_button= new QPushButton(i18n("Edit"), this);
 
   hl->addWidget(m_lineedit);
   hl->addWidget(m_button);
@@ -98,65 +101,65 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   VariableItem* item = 0;
 
   item = new VariableBoolItem("auto-brackets", false);
-  item->setHelpText("Set auto insertion of brackets on or off.");
+  item->setHelpText(i18nc("short translation please", "Set auto insertion of brackets on or off."));
   listview->addItem(item);
   
   item = new VariableIntItem("auto-center-lines", 0);
   ((VariableIntItem*)item)->setRange(1, 100);
-  item->setHelpText("Set the number of autocenter lines.");
+  item->setHelpText(i18nc("short translation please", "Set the number of autocenter lines."));
   listview->addItem(item);
 
   item = new VariableBoolItem("auto-insert-doxygen", false);
-  item->setHelpText("Auto insert asterisk in doxygen comments.");
+  item->setHelpText(i18nc("short translation please", "Auto insert asterisk in doxygen comments."));
   listview->addItem(item);
 
   item = new VariableColorItem("background-color", Qt::white);
-  item->setHelpText("Set the document background color.");
+  item->setHelpText(i18nc("short translation please", "Set the document background color."));
   listview->addItem(item);
 
   item = new VariableBoolItem("backspace-indents", false);
-  item->setHelpText("Pressing backspace in leading whitespace unindents.");
+  item->setHelpText(i18nc("short translation please", "Pressing backspace in leading whitespace unindents."));
   listview->addItem(item);
 
   item = new VariableBoolItem("block-selection", false);
-  item->setHelpText("Enable block selection mode.");
+  item->setHelpText(i18nc("short translation please", "Enable block selection mode."));
   listview->addItem(item);
 
   item = new VariableBoolItem("byte-order-marker", false);
-  item->setHelpText("Enable the byte order marker when saving unicode files.");
+  item->setHelpText(i18nc("short translation please", "Enable the byte order marker when saving unicode files."));
   listview->addItem(item);
   
   item = new VariableColorItem("bracket-highlight-color", Qt::yellow);
-  item->setHelpText("Set the color for the bracket highlight.");
+  item->setHelpText(i18nc("short translation please", "Set the color for the bracket highlight."));
   listview->addItem(item);
 
   item = new VariableColorItem("current-line-color", Qt::magenta);
-  item->setHelpText("Set the background color for the current line.");
+  item->setHelpText(i18nc("short translation please", "Set the background color for the current line."));
   listview->addItem(item);
 
   item = new VariableStringItem("default-dictionary", "English(US)");
-  item->setHelpText("Set the default dictionary used for spell checking.");
+  item->setHelpText(i18nc("short translation please", "Set the default dictionary used for spell checking."));
   listview->addItem(item);
 
   item = new VariableBoolItem("dynamic-word-wrap", false);
-  item->setHelpText("Enable dynamic word wrap of long lines.");
+  item->setHelpText(i18nc("short translation please", "Enable dynamic word wrap of long lines."));
   listview->addItem(item);
  
   item = new VariableStringListItem("end-of-line", QStringList() << "unix" << "mac" << "dos", "unix");
-  item->setHelpText("Sets the end of line mode.");
+  item->setHelpText(i18nc("short translation please", "Sets the end of line mode."));
   listview->addItem(item);
   
   item = new VariableBoolItem("folding-markers", false);
-  item->setHelpText("Enable folding markers in the editor border.");
+  item->setHelpText(i18nc("short translation please", "Enable folding markers in the editor border."));
   listview->addItem(item);
   
   item = new VariableIntItem("font-size", 12);
   ((VariableIntItem*)item)->setRange(4, 128);
-  item->setHelpText("Set the point size of the document font.");
+  item->setHelpText(i18nc("short translation please", "Set the point size of the document font."));
   listview->addItem(item);
   
   item = new VariableFontItem("font", QFont());
-  item->setHelpText("Set the font of the document.");
+  item->setHelpText(i18nc("short translation please", "Set the font of the document."));
   listview->addItem(item);
   
   /* Prepare list of highlighting modes */
@@ -166,105 +169,105 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
     hl<<KateHlManager::self()->hlNameTranslated (z);
   
   item = new VariableStringListItem("syntax", hl, hl.at(0));
-  item->setHelpText("Set the syntax highlighting.");
+  item->setHelpText(i18nc("short translation please", "Set the syntax highlighting."));
   listview->addItem(item);
   
   item = new VariableColorItem("icon-bar-color", Qt::gray);
-  item->setHelpText("Set the icon bar color.");
+  item->setHelpText(i18nc("short translation please", "Set the icon bar color."));
   listview->addItem(item);
 
   item = new VariableBoolItem("icon-border", true);
-  item->setHelpText("Enable the icon border in the editor view.");
+  item->setHelpText(i18nc("short translation please", "Enable the icon border in the editor view."));
   listview->addItem(item);
 
   item = new VariableStringListItem("indent-mode", KateAutoIndent::listModes(),"none");
-  item->setHelpText("Set the auto indentation style.");
+  item->setHelpText(i18nc("short translation please", "Set the auto indentation style."));
   listview->addItem(item);
   
   item = new VariableIntItem("indent-width", 4);
   ((VariableIntItem*)item)->setRange(1, 16);
-  item->setHelpText("Set the indentation depth for each indent level.");
+  item->setHelpText(i18nc("short translation please", "Set the indentation depth for each indent level."));
   listview->addItem(item);
 
   item = new VariableBoolItem("keep-extra-spaces", false);
-  item->setHelpText("Allow odd indentation level (no multiple of indent width).");
+  item->setHelpText(i18nc("short translation please", "Allow odd indentation level (no multiple of indent width)."));
   listview->addItem(item);
   
   item = new VariableBoolItem("line-numbers", false);
-  item->setHelpText("Show line numbers.");
+  item->setHelpText(i18nc("short translation please", "Show line numbers."));
   listview->addItem(item);
 
   item = new VariableBoolItem("overwrite-mode", false);
-  item->setHelpText("Enable overwrite mode in the document.");
+  item->setHelpText(i18nc("short translation please", "Enable overwrite mode in the document."));
   listview->addItem(item);
 
   item = new VariableBoolItem("persistent-selection", false);
-  item->setHelpText("Enable persistent text selection.");
+  item->setHelpText(i18nc("short translation please", "Enable persistent text selection."));
   listview->addItem(item);
   
   item = new VariableBoolItem("remove-trailing-space", false);
-  item->setHelpText("Remove trailing spaces when editing a line.");
+  item->setHelpText(i18nc("short translation please", "Remove trailing spaces when editing a line."));
   listview->addItem(item);
   
   item = new VariableBoolItem("replace-tabs-save", false);
-  item->setHelpText("Replace tabs with spaces when saving the document.");
+  item->setHelpText(i18nc("short translation please", "Replace tabs with spaces when saving the document."));
   listview->addItem(item);
   
   item = new VariableBoolItem("replace-tabs", true);
-  item->setHelpText("Replace tabs with spaces.");
+  item->setHelpText(i18nc("short translation please", "Replace tabs with spaces."));
   listview->addItem(item);
 
   item = new VariableBoolItem("replace-trailing-space-save", true);
-  item->setHelpText("Remove trailing spaces when saving the document.");
+  item->setHelpText(i18nc("short translation please", "Remove trailing spaces when saving the document."));
   listview->addItem(item);
   
   KateSchemaManager *schemaManager = new KateSchemaManager();
   QStringList schemas = schemaManager->list();
   item = new VariableStringListItem("scheme", schemas, schemas.at(0));
-  item->setHelpText("Set the color scheme.");
+  item->setHelpText(i18nc("short translation please", "Set the color scheme."));
   listview->addItem(item);
   
   item = new VariableColorItem("selection-color", Qt::blue);
-  item->setHelpText("Set the text selection color.");
+  item->setHelpText(i18nc("short translation please", "Set the text selection color."));
   listview->addItem(item);
   
   item = new VariableBoolItem("show-tabs", false);
-  item->setHelpText("Visualize tabs and trailing spaces.");
+  item->setHelpText(i18nc("short translation please", "Visualize tabs and trailing spaces."));
   listview->addItem(item);
   
   item = new VariableBoolItem("smart-home", false);
-  item->setHelpText("Enable smart home navigation.");
+  item->setHelpText(i18nc("short translation please", "Enable smart home navigation."));
   listview->addItem(item);
   
   item = new VariableBoolItem("tab-indents", false);
-  item->setHelpText("Pressing TAB key indents.");
+  item->setHelpText(i18nc("short translation please", "Pressing TAB key indents."));
   listview->addItem(item);
 
   item = new VariableIntItem("tab-width", 8);
   ((VariableIntItem*)item)->setRange(1, 16);
-  item->setHelpText("Set the tab display width.");
+  item->setHelpText(i18nc("short translation please", "Set the tab display width."));
   listview->addItem(item);
   
   item = new VariableIntItem("undo-steps", 0);
   ((VariableIntItem*)item)->setRange(0, 100);
-  item->setHelpText("Set the number of undo steps to remember (0 equals infinity).");
+  item->setHelpText(i18nc("short translation please", "Set the number of undo steps to remember (0 equals infinity)."));
   listview->addItem(item);
   
   item = new VariableIntItem("word-wrap-column", 78);
   ((VariableIntItem*)item)->setRange(20, 200);
-  item->setHelpText("Set the word wrap column.");
+  item->setHelpText(i18nc("short translation please", "Set the word wrap column."));
   listview->addItem(item);
   
   item = new VariableColorItem("word-wrap-marker-color", Qt::black);
-  item->setHelpText("Set the work wrap marker color.");
+  item->setHelpText(i18nc("short translation please", "Set the work wrap marker color."));
   listview->addItem(item);
   
   item = new VariableBoolItem("word-wrap", false);
-  item->setHelpText("Enable word wrap while typing text.");
+  item->setHelpText(i18nc("short translation please", "Enable word wrap while typing text."));
   listview->addItem(item);
   
   item = new VariableBoolItem("wrap-cursor", true);
-  item->setHelpText("Wrap the text cursor at the end of a line.");
+  item->setHelpText(i18nc("short translation please", "Wrap the text cursor at the end of a line."));
   listview->addItem(item);
 }
 

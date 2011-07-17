@@ -3306,6 +3306,10 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
 */
 void KateDocument::comment( KateView *v, uint line,uint column, int change)
 {
+  // skip word wrap bug #105373
+  const bool skipWordWrap = wordWrap();
+  if (skipWordWrap) setWordWrap(false);
+
   bool hassel = v->selection();
   int l = line;
   int c = 0;
@@ -3398,6 +3402,8 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
     if (!removed && change == 0)
       comment(v, line, column, 1);
   }
+
+  if (skipWordWrap) setWordWrap(true); // see begin of function ::comment (bug #105373)
 }
 
 void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,

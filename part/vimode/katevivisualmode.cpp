@@ -155,10 +155,6 @@ void KateViVisualMode::reset()
         || m_viInputModeManager->getCurrentViMode() == VisualLineMode
         || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
 
-      m_selection_is_changed_inside_ViMode = true;
-      m_view->removeSelection();
-      m_selection_is_changed_inside_ViMode = false;
-
       saveRangeMarks();
       m_lastVisualMode = m_viInputModeManager->getCurrentViMode();
 
@@ -178,6 +174,10 @@ void KateViVisualMode::reset()
 
       startNormalMode();
     }
+
+    m_selection_is_changed_inside_ViMode = true;
+    m_view->removeSelection();
+    m_selection_is_changed_inside_ViMode = false;
 
     m_start.setPosition( -1, -1 );
 

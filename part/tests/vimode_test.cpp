@@ -162,6 +162,7 @@ void ViModeTest::VisualModeTests() {
     // Testing ">"
     DoTest("foo\nbar","vj>","  foo\n  bar");
     DoTest("foo\nbar\nbaz", "jVj>", "foo\n  bar\n  baz");
+    DoTest("foo", "vl3>","      foo");
 
     // Testing "<"
     DoTest(" foo","vl<", "foo");
@@ -176,6 +177,10 @@ void ViModeTest::VisualModeTests() {
     DoTest("FooBar","V~","fOObAR");
     DoTest("foo\nbar","\\ctrl-vjl~","FOo\nBAr");
 
+    // Testing "r"
+    DoTest("foobar","Vra","aaaaaa");
+    DoTest("foo\nbar","jlvklrx","fox\nxxr");
+    DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -229,12 +234,6 @@ void ViModeTest::InsertModeTests() {
  // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFallingTests()
 {
-//  DoTest("1 2\n2 1", "lld#", "1 \n2 1"); // Is this bug or feature? :)
-
-//  DoTest("foobar","Vra","aaaaaa");
-//  DoTest("foo\bar","jlvklrx","fox\nxxr");
-//  DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
-//  DoTest("foo", "vl3>","      foo");
 
 }
 

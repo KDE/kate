@@ -53,11 +53,12 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   m_pixmap = new QLabel(this);
   m_pixmap->setPixmap(SmallIcon("flag"));
   m_helpText = new QLabel(item->helpText(), this);
+  m_helpText->setWordWrap(true);
 
   l->addWidget(m_checkBox, 0, 0, Qt::AlignLeft);
   l->addWidget(m_variable, 0, 1, Qt::AlignLeft);
   l->addWidget(m_pixmap, 0, 3, Qt::AlignRight);
-  l->addWidget(m_helpText, 1, 1, 1, 3, Qt::AlignLeft);
+  l->addWidget(m_helpText, 1, 1, 1, 3);
   
   l->setColumnStretch(0, 0);
   l->setColumnStretch(1, 1);

@@ -25,6 +25,10 @@
 #include "kateautoindent.h"
 #include "katesyntaxmanager.h"
 #include "kateschema.h"
+#include "kateview.h"
+#include "katedocument.h"
+#include "kateglobal.h"
+#include "katerenderer.h"
 
 #include <QtCore/QDebug>
 #include <QtGui/QComboBox>
@@ -65,7 +69,7 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
 
   // forward text changed signal
   connect(m_lineedit, SIGNAL(textChanged(const QString&)), this, SIGNAL(textChanged(const QString&)));
-  
+
   // open popup on button click
   connect(m_button, SIGNAL(clicked()), this, SLOT(editVariables()));
 }
@@ -82,10 +86,17 @@ void VariableLineEdit::editVariables()
 
   m_popup->layout()->addWidget(m_listview);
 
-  QPoint topLeft = mapToGlobal(m_lineedit->geometry().bottomLeft());
-  const int w = m_button->geometry().right() - m_lineedit->geometry().left();
-  const int h = 300; //(w * 2) / 4;
-  m_popup->setGeometry(QRect(topLeft, QSize(w, h)));
+  if (layoutDirection() == Qt::LeftToRight) {
+    QPoint topLeft = mapToGlobal(m_lineedit->geometry().bottomLeft());
+    const int w = m_button->geometry().right() - m_lineedit->geometry().left();
+    const int h = 300; //(w * 2) / 4;
+    m_popup->setGeometry(QRect(topLeft, QSize(w, h)));
+  } else {
+    QPoint topLeft = mapToGlobal(m_button->geometry().bottomLeft());
+    const int w = m_lineedit->geometry().right() - m_button->geometry().left();
+    const int h = 300; //(w * 2) / 4;
+    m_popup->setGeometry(QRect(topLeft, QSize(w, h)));
+  }
   m_popup->show();
 }
 
@@ -103,173 +114,233 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 {
   VariableItem* item = 0;
 
-  item = new VariableBoolItem("auto-brackets", false);
+  // If a current active doc is available
+  KateView* activeView = 0;
+  KateDocument* activeDoc = 0;
+
+  KateDocumentConfig* docConfig = KateDocumentConfig::global();
+  KateViewConfig* viewConfig = KateViewConfig::global();
+  KateRendererConfig *rendererConfig = KateRendererConfig::global();
+
+  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
+  if (iface) {
+    activeView = qobject_cast<KateView*>(iface->activeView());
+    activeDoc = activeView->doc();
+
+    if (activeView) {
+      viewConfig = activeView->config();
+      docConfig = activeDoc->config();
+      rendererConfig = activeView->renderer()->config();
+    }
+  }
+
+  // Add 'auto-brackets' to list
+  item = new VariableBoolItem("auto-brackets", docConfig->autoBrackets());
   item->setHelpText(i18nc("short translation please", "Set auto insertion of brackets on or off."));
   listview->addItem(item);
-  
-  item = new VariableIntItem("auto-center-lines", 0);
+
+  // Add 'auto-center-lines' to list
+  item = new VariableIntItem("auto-center-lines", viewConfig->autoCenterLines());
   ((VariableIntItem*)item)->setRange(1, 100);
   item->setHelpText(i18nc("short translation please", "Set the number of autocenter lines."));
   listview->addItem(item);
 
+  // Add 'auto-insert-doxygen' to list
   item = new VariableBoolItem("auto-insert-doxygen", false);
   item->setHelpText(i18nc("short translation please", "Auto insert asterisk in doxygen comments."));
   listview->addItem(item);
 
-  item = new VariableColorItem("background-color", Qt::white);
+  // Add 'background-color' to list
+  item = new VariableColorItem("background-color", rendererConfig->backgroundColor());
   item->setHelpText(i18nc("short translation please", "Set the document background color."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("backspace-indents", false);
+  // Add 'backspace-indents' to list
+  item = new VariableBoolItem("backspace-indents", docConfig->backspaceIndents());
   item->setHelpText(i18nc("short translation please", "Pressing backspace in leading whitespace unindents."));
   listview->addItem(item);
 
+  // Add 'block-selection' to list
   item = new VariableBoolItem("block-selection", false);
+  if (activeView) static_cast<VariableBoolItem*>(item)->setValue(activeView->blockSelectionMode());
   item->setHelpText(i18nc("short translation please", "Enable block selection mode."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("byte-order-marker", false);
+  // Add 'byte-order-marker' (bom) to list
+  item = new VariableBoolItem("byte-order-marker", docConfig->bom());
   item->setHelpText(i18nc("short translation please", "Enable the byte order marker when saving unicode files."));
   listview->addItem(item);
-  
-  item = new VariableColorItem("bracket-highlight-color", Qt::yellow);
+
+  // Add 'bracket-highlight-color' to list
+  item = new VariableColorItem("bracket-highlight-color", rendererConfig->highlightedBracketColor());
   item->setHelpText(i18nc("short translation please", "Set the color for the bracket highlight."));
   listview->addItem(item);
 
-  item = new VariableColorItem("current-line-color", Qt::magenta);
+  // Add 'current-line-color' to list
+  item = new VariableColorItem("current-line-color", rendererConfig->highlightedLineColor());
   item->setHelpText(i18nc("short translation please", "Set the background color for the current line."));
   listview->addItem(item);
 
+  // Add 'default-dictionary' to list
   item = new VariableStringItem("default-dictionary", "English(US)");
   item->setHelpText(i18nc("short translation please", "Set the default dictionary used for spell checking."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("dynamic-word-wrap", false);
+  // Add 'dynamic-word-wrap' to list
+  item = new VariableBoolItem("dynamic-word-wrap", viewConfig->dynWordWrap());
   item->setHelpText(i18nc("short translation please", "Enable dynamic word wrap of long lines."));
   listview->addItem(item);
- 
-  item = new VariableStringListItem("end-of-line", QStringList() << "unix" << "mac" << "dos", "unix");
+
+  // Add 'end-of-line' (eol) to list
+  item = new VariableStringListItem("end-of-line", QStringList() << "unix" << "mac" << "dos", docConfig->eolString());
   item->setHelpText(i18nc("short translation please", "Sets the end of line mode."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("folding-markers", false);
+
+  // Add 'folding-markers' to list
+  item = new VariableBoolItem("folding-markers", viewConfig->foldingBar());
   item->setHelpText(i18nc("short translation please", "Enable folding markers in the editor border."));
   listview->addItem(item);
-  
-  item = new VariableIntItem("font-size", 12);
+
+  // Add 'font-size' to list
+  item = new VariableIntItem("font-size", rendererConfig->font().pointSize());
   ((VariableIntItem*)item)->setRange(4, 128);
   item->setHelpText(i18nc("short translation please", "Set the point size of the document font."));
   listview->addItem(item);
-  
-  item = new VariableFontItem("font", QFont());
+
+  // Add 'font' to list
+  item = new VariableFontItem("font", rendererConfig->font());
   item->setHelpText(i18nc("short translation please", "Set the font of the document."));
   listview->addItem(item);
-  
+
+  // Add 'syntax' (hl) to list
   /* Prepare list of highlighting modes */
-  int count = KateHlManager::self()->highlights();
+  const int count = KateHlManager::self()->highlights();
   QStringList hl;
-  for (int z=0;z<count;z++)
-    hl<<KateHlManager::self()->hlNameTranslated (z);
-  
+  for (int z = 0; z < count; ++z)
+    hl << KateHlManager::self()->hlName(z);
+
   item = new VariableStringListItem("syntax", hl, hl.at(0));
+  if (activeDoc) static_cast<VariableStringListItem*>(item)->setValue(activeDoc->highlightingMode());
   item->setHelpText(i18nc("short translation please", "Set the syntax highlighting."));
   listview->addItem(item);
-  
-  item = new VariableColorItem("icon-bar-color", Qt::gray);
+
+  // Add 'icon-bar-color' to list
+  item = new VariableColorItem("icon-bar-color", rendererConfig->iconBarColor());
   item->setHelpText(i18nc("short translation please", "Set the icon bar color."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("icon-border", true);
+  // Add 'icon-border' to list
+  item = new VariableBoolItem("icon-border", viewConfig->iconBar());
   item->setHelpText(i18nc("short translation please", "Enable the icon border in the editor view."));
   listview->addItem(item);
 
-  item = new VariableStringListItem("indent-mode", KateAutoIndent::listModes(),"none");
+  // Add 'indent-mode' to list
+  item = new VariableStringListItem("indent-mode", KateAutoIndent::listModes(),docConfig->indentationMode());
   item->setHelpText(i18nc("short translation please", "Set the auto indentation style."));
   listview->addItem(item);
-  
-  item = new VariableIntItem("indent-width", 4);
+
+  // Add 'indent-width' to list
+  item = new VariableIntItem("indent-width", docConfig->indentationWidth());
   ((VariableIntItem*)item)->setRange(1, 16);
   item->setHelpText(i18nc("short translation please", "Set the indentation depth for each indent level."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("keep-extra-spaces", false);
+  // Add 'keep-extra-spaces' to list
+  item = new VariableBoolItem("keep-extra-spaces", docConfig->keepExtraSpaces());
   item->setHelpText(i18nc("short translation please", "Allow odd indentation level (no multiple of indent width)."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("line-numbers", false);
+
+  // Add 'line-numbers' to list
+  item = new VariableBoolItem("line-numbers", viewConfig->lineNumbers());
   item->setHelpText(i18nc("short translation please", "Show line numbers."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("overwrite-mode", false);
+  // Add 'overwrite-mode' to list
+  item = new VariableBoolItem("overwrite-mode", docConfig->ovr());
   item->setHelpText(i18nc("short translation please", "Enable overwrite mode in the document."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("persistent-selection", false);
+  // Add 'persistent-selection' to list
+  item = new VariableBoolItem("persistent-selection", viewConfig->persistentSelection());
   item->setHelpText(i18nc("short translation please", "Enable persistent text selection."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("remove-trailing-space", false);
+
+  // Add 'remove-trailing-space' to list
+  item = new VariableBoolItem("remove-trailing-space", docConfig->removeTrailingDyn());
   item->setHelpText(i18nc("short translation please", "Remove trailing spaces when editing a line."));
   listview->addItem(item);
-  
+
+  // Add 'replace-tabs-save' to list
   item = new VariableBoolItem("replace-tabs-save", false);
   item->setHelpText(i18nc("short translation please", "Replace tabs with spaces when saving the document."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("replace-tabs", true);
+
+  // Add 'replace-tabs' to list
+  item = new VariableBoolItem("replace-tabs", docConfig->replaceTabsDyn());
   item->setHelpText(i18nc("short translation please", "Replace tabs with spaces."));
   listview->addItem(item);
 
-  item = new VariableBoolItem("replace-trailing-space-save", true);
+  // Add 'replace-trailing-space-save' to list
+  item = new VariableBoolItem("replace-trailing-space-save", docConfig->removeSpaces());
   item->setHelpText(i18nc("short translation please", "Remove trailing spaces when saving the document."));
   listview->addItem(item);
-  
-  KateSchemaManager *schemaManager = new KateSchemaManager();
-  QStringList schemas = schemaManager->list();
-  item = new VariableStringListItem("scheme", schemas, schemas.at(0));
+
+  // Add 'scheme' to list
+  QStringList schemas = KateGlobal::self()->schemaManager()->list();
+  item = new VariableStringListItem("scheme", schemas, rendererConfig->schema());
   item->setHelpText(i18nc("short translation please", "Set the color scheme."));
   listview->addItem(item);
-  
-  item = new VariableColorItem("selection-color", Qt::blue);
+
+  // Add 'selection-color' to list
+  item = new VariableColorItem("selection-color", rendererConfig->selectionColor());
   item->setHelpText(i18nc("short translation please", "Set the text selection color."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("show-tabs", false);
+
+  // Add 'show-tabs' to list
+  item = new VariableBoolItem("show-tabs", docConfig->showTabs());
   item->setHelpText(i18nc("short translation please", "Visualize tabs and trailing spaces."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("smart-home", false);
+
+  // Add 'smart-home' to list
+  item = new VariableBoolItem("smart-home", docConfig->smartHome());
   item->setHelpText(i18nc("short translation please", "Enable smart home navigation."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("tab-indents", false);
+
+  // Add 'tab-indents' to list
+  item = new VariableBoolItem("tab-indents", docConfig->tabIndentsEnabled());
   item->setHelpText(i18nc("short translation please", "Pressing TAB key indents."));
   listview->addItem(item);
 
-  item = new VariableIntItem("tab-width", 8);
+  // Add 'tab-width' to list
+  item = new VariableIntItem("tab-width", docConfig->tabWidth());
   ((VariableIntItem*)item)->setRange(1, 16);
   item->setHelpText(i18nc("short translation please", "Set the tab display width."));
   listview->addItem(item);
-  
+
+  // Add 'undo-steps' to list
   item = new VariableIntItem("undo-steps", 0);
   ((VariableIntItem*)item)->setRange(0, 100);
   item->setHelpText(i18nc("short translation please", "Set the number of undo steps to remember (0 equals infinity)."));
   listview->addItem(item);
-  
-  item = new VariableIntItem("word-wrap-column", 78);
+
+  // Add 'word-wrap-column' to list
+  item = new VariableIntItem("word-wrap-column", docConfig->wordWrapAt());
   ((VariableIntItem*)item)->setRange(20, 200);
   item->setHelpText(i18nc("short translation please", "Set the word wrap column."));
   listview->addItem(item);
-  
-  item = new VariableColorItem("word-wrap-marker-color", Qt::black);
+
+  // Add 'word-wrap-marker-color' to list
+  item = new VariableColorItem("word-wrap-marker-color", rendererConfig->wordWrapMarkerColor());
   item->setHelpText(i18nc("short translation please", "Set the work wrap marker color."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("word-wrap", false);
+
+  // Add 'word-wrap' to list
+  item = new VariableBoolItem("word-wrap", docConfig->wordWrap());
   item->setHelpText(i18nc("short translation please", "Enable word wrap while typing text."));
   listview->addItem(item);
-  
-  item = new VariableBoolItem("wrap-cursor", true);
+
+  // Add 'wrap-cursor' to list
+  item = new VariableBoolItem("wrap-cursor", docConfig->wrapCursor());
   item->setHelpText(i18nc("short translation please", "Wrap the text cursor at the end of a line."));
   listview->addItem(item);
 }

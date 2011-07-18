@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2008-2009 Erlend Hamberg <ehamberg@gmail.com>
+ *  Copyright (C) 2008-2011 Erlend Hamberg <ehamberg@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -37,7 +37,6 @@ KateViGlobal::~KateViGlobal()
 {
   delete m_numberedRegisters;
   delete m_registers;
-  qDeleteAll( m_marks );
 }
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const

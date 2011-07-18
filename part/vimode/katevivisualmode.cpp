@@ -124,15 +124,10 @@ void KateViVisualMode::goToPos( const KateViRange &r )
     SelectBlockInclusive(m_start,c);
 
     // Need to correct command range to make it inclusive.
-    if (c.line() < m_start.line() && c.column() > m_start.column()) {
-      m_commandRange.startColumn--;
-      m_commandRange.endColumn++;
-    }
+    if (  (c.line() < m_start.line() && c.column() > m_start.column()) ||
+          (c.line() > m_start.line() && c.column() < m_start.column()) )
+      qSwap(m_commandRange.endColumn, m_commandRange.startColumn);
 
-    if (c.line() > m_start.line() && c.column() < m_start.column()) {
-      m_commandRange.startColumn++;
-      m_commandRange.endColumn--;
-    }
     return;
   } else {
     m_view->setBlockSelection(false);

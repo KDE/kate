@@ -18,22 +18,43 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QtGui/QApplication>
-#include <QtGui/QMainWindow>
+#ifndef VARIABLE_LINE_EDIT_H
+#define VARIABLE_LINE_EDIT_H
 
-#include "testwidget.h"
+#include <QWidget>
 
-int main(int argc, char* argv[])
+class QFrame;
+class QLineEdit;
+class QToolButton;
+class VariableListView;
+
+class VariableLineEdit : public QWidget
 {
-  QApplication app(argc, argv);
+  Q_OBJECT
 
-  QMainWindow * mw = new QMainWindow();
+public:
+  VariableLineEdit(QWidget* parent = 0);
+  virtual ~VariableLineEdit();
 
-  TestWidget* testWidget = new TestWidget(mw);
-  mw->setCentralWidget(testWidget);
+  void addKateItems(VariableListView* listview);
+  QString text();
 
-  mw->resize(640, 480);
-  mw->show();
+public Q_SLOTS:
+  void editVariables();
+  void setText(const QString &text);
+  void clear();
+  void updateVariableLine();
 
-  return app.exec();
-}
+Q_SIGNALS:
+  void textChanged(const QString&);
+
+private:
+  QFrame* m_popup;
+  QLineEdit* m_lineedit;
+  QToolButton* m_button;
+  VariableListView* m_listview;
+};
+
+#endif
+
+// kate: indent-width 2; replace-tabs on;

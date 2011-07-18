@@ -1221,15 +1221,37 @@ bool KateViNormalMode::commandDeleteCharBackward()
 
 bool KateViNormalMode::commandReplaceCharacter()
 {
-  Cursor c1( m_view->cursorPosition() );
-  Cursor c2( m_view->cursorPosition() );
 
-  c2.setColumn( c2.column()+1 );
+bool r;
+if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
 
-  bool r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ) );
+    OperationMode m = getOperationMode();
+    QString text = getRange( m_commandRange, m );
 
-  updateCursor( c1 );
+    if (m == LineWise)
+      text = text.left(text.size() - 1); // don't need '\n' at the end;
 
+    text.replace( QRegExp( "[^\n]" ), m_keys.right( 1 ) );
+
+    m_commandRange.normalize();
+    Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+    Cursor end( m_commandRange.endLine, m_commandRange.endColumn );
+    Range range( start, end );
+
+    r = doc()->replaceText( range, text, m == Block );
+
+} else {
+    Cursor c1( m_view->cursorPosition() );
+    Cursor c2( m_view->cursorPosition() );
+
+    c2.setColumn( c2.column()+1 );
+
+    r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ) );
+    updateCursor( c1 );
+
+}
   m_ignoreMapping = false;
 
   return r;
@@ -1318,7 +1340,9 @@ bool KateViNormalMode::commandIndentLines()
   int col = getLine( line2 ).length();
 
   doc()->editStart();
-  doc()->indent( KTextEditor::Range( line1, 0, line2, col ), 1 );
+  for ( unsigned int i = 0; i < getCount(); i++ ) {
+       doc()->indent( KTextEditor::Range( line1, 0, line2, col ), 1 );
+  }
   doc()->editEnd();
 
   return true;

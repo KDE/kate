@@ -28,7 +28,6 @@
 #include <kate/plugin.h>
 
 #include <kdeversion.h>
-#include <kxmlguiclient.h>
 #include <kactionmenu.h>
 
 #include "debugview.h"

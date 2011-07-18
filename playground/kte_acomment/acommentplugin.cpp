@@ -40,7 +40,7 @@
 #include "artisticcomment.h"
 
 K_PLUGIN_FACTORY(ACommentPluginFactory, registerPlugin<ACommentPlugin>("ktexteditor_acomment");)
-K_EXPORT_PLUGIN(ACommentPluginFactory("ktexteditor_acomment", "ktexteditor_plugins"))
+K_EXPORT_PLUGIN(ACommentPluginFactory("ktexteditor_acomment", "kte_acomment"))
 
 ACommentPlugin::ACommentPlugin(QObject *parent, const QVariantList &args)
         : KTextEditor::Plugin(parent)

@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Comment=Format long source-code comments like license-headers or descriptions using different styles
+Comment[bg]=Форматиране с различни стилове на дълги коментари в кода, като например заглавки с лицензи или описания
 Comment[bs]=Formatiraj duge komentari izvornog koda kao licencna zaglavlja ili opise s  različitim stilovima
 Comment[ca]=Formata els comentaris llargs del codi font, com capçaleres de llicència o descripcions, utilitzant diferents estils
 Comment[ca@valencia]=Formata els comentaris llargs del codi font, com capçaleres de llicència o descripcions, utilitzant diferents estils

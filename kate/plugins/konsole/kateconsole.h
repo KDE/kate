@@ -25,7 +25,6 @@
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
 #include <kurl.h>
-#include <kxmlguiclient.h>
 
 #include <kvbox.h>
 #include <QList>

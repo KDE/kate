@@ -23,7 +23,6 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kxmlguiclient.h>
 #include <ktexteditor/commandinterface.h>
 
 class PluginKateOpenHeader : public Kate::Plugin
@@ -43,7 +42,7 @@ class PluginKateOpenHeader : public Kate::Plugin
 
 class PluginViewKateOpenHeader
   : public Kate::PluginView
-  , public KXMLGUIClient
+  , public Kate::XMLGUIClient
   , public KTextEditor::Command
 {
     Q_OBJECT

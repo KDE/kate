@@ -391,6 +391,8 @@ class KateCmdLineEdit : public KLineEdit
     void keyPressEvent( QKeyEvent *ev );
 
   private:
+
+    int calculatePosition( QString string );
     void fromHistory( bool up );
     QString helptext( const QPoint & ) const;
 
@@ -403,7 +405,6 @@ class KateCmdLineEdit : public KLineEdit
     KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KateCmdLnWhatsThis *m_help;
     QRegExp m_cmdRange;
-    QRegExp m_cmdExpr;
     QRegExp m_gotoLine;
     QTimer *m_hideTimer;
 };

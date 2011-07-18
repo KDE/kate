@@ -1540,6 +1540,16 @@ bool KateViNormalMode::commandSwitchToNextView() {
     return true;
 }
 
+bool KateViNormalMode::commandSplitHoriz() {
+  m_view->cmdLineBar()->execute("split");
+  return true;
+}
+
+bool KateViNormalMode::commandSplitVert() {
+  m_view->cmdLineBar()->execute("vsplit");
+  return true;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2661,6 +2671,11 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<c-w>w",commandSwitchToNextView,0);
   ADDCMD("<c-w><c-w>",commandSwitchToNextView,0);
 
+  ADDCMD("<c-w>s",commandSplitHoriz,0);
+  ADDCMD("<c-w>S",commandSplitHoriz,0);
+  ADDCMD("<c-w><c-s>",commandSplitHoriz,0);
+  ADDCMD("<c-w>v",commandSplitVert,0);
+  ADDCMD("<c-w><c-v>",commandSplitVert,0);
 
 
   // regular motions

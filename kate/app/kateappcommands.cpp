@@ -38,9 +38,16 @@ KateAppCommands::KateAppCommands()
     re_write.setPattern("w(a)?");
     re_quit.setPattern("(w)?q?(a)?");
     re_exit.setPattern("x(a)?");
-    re_changeBuffer.setPattern("b(n|p)");
     re_edit.setPattern("e(dit)?");
     re_new.setPattern("(v)?new");
+    re_split.setPattern("sp(lit)?");
+    re_vsplit.setPattern("vs(plit)?");
+    re_bufferNext.setPattern("bn(ext)?");
+    re_bufferPrev.setPattern("bp(revious)?");
+    re_bufferFirst.setPattern("bf(irst)?");
+    re_bufferLast.setPattern("bl(ast)?");
+    re_editBuffer.setPattern("b(uffer)?");
+
 }
 
 KateAppCommands::~KateAppCommands()
@@ -59,7 +66,9 @@ const QStringList& KateAppCommands::cmds()
 
     if (l.empty()) {
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
-          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
+          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
+          << "sp" << "split" << "vs" << "vsplit" << "bn" << "bnext" << "bp"
+          << "bprevious" <<  "bf" << "bfirst" << "bl" << "blast" << "b" << "buffer";
     }
 
     return l;
@@ -113,18 +122,6 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         }
         QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
     }
-    else if (re_changeBuffer.exactMatch(command)) {
-      
-#if 0 // FIXME FILELIST
-        if (re_changeBuffer.cap(1) == "n") { // next document
-            KateApp::self()->activeMainWindow()->switchToNextDocument();
-        }
-        else { // previous document
-            KateApp::self()->activeMainWindow()->switchToPreviousDocument();
-        }  
-#endif
-
-    }
     else if (re_edit.exactMatch(command)) {
         view->document()->documentReload();
     }
@@ -139,6 +136,54 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     else if (command == "enew") {
         mainWin->viewManager()->slotDocumentNew();
     }
+    else if (re_split.exactMatch(command)) {
+        mainWin->viewManager()->slotSplitViewSpaceHoriz();
+    }
+    else if (re_vsplit.exactMatch(command)) {
+        mainWin->viewManager()->slotSplitViewSpaceVert();
+    }
+    else if (re_bufferFirst.exactMatch(command)) {
+        qDebug() << "bufferFirst";
+        mainWin->viewManager()->activateView( KateDocManager::self()->documentList().first());
+    }
+    else if (re_bufferLast.exactMatch(command)) {
+      mainWin->viewManager()->activateView( KateDocManager::self()->documentList().last());
+    }
+    else if (re_bufferNext.exactMatch(command) || re_bufferPrev.exactMatch(command)) {
+      // skipping 1 document by default
+      int count = 1;
+
+      if (args.size() == 1) {
+        count = args.at(0).toInt();
+      }
+      int current_document_position = KateDocManager::self()->findDocument(
+                                 mainWin->viewManager()->activeView()->document());
+
+      uint wanted_document_position;
+
+      if (re_bufferPrev.exactMatch(command)) {
+          count = -count;
+          int mult = qAbs( current_document_position + count  ) / KateDocManager::self()->documents();
+          wanted_document_position = (mult + (current_document_position + count < 0))
+                                   * KateDocManager::self()->documents() + (current_document_position + count);
+      } else {
+          int mult =  ( current_document_position + count ) / KateDocManager::self()->documents();
+          wanted_document_position = (current_document_position + count) - mult
+                                   * KateDocManager::self()->documents();
+      }
+
+      Q_ASSERT( wanted_document_position < KateDocManager::self()->documents());
+      mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
+    }
+    else if (re_editBuffer.exactMatch(command)) {
+        if (args.size() == 1 &&
+            args.at(0).toInt() > 0 &&
+            args.at(0).toUInt() <= KateDocManager::self()->documents()) {
+          mainWin->viewManager()->activateView(
+                KateDocManager::self()->document(args.at(0).toInt() - 1));
+        }
+    }
+
     return true;
 }
 
@@ -186,18 +231,50 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "</p>");
         return true;
     }
-    else if (re_changeBuffer.exactMatch(cmd)) {
-        msg = i18n("<p><b>bp/bn &mdash; switch to previous/next document</b></p>"
-              "<p>Usage: <tt><b>bp/bn</b></tt></p>"
-              "<p>Goes to <b>p</b>revious or <b>n</b>ext document (\"<b>b</b>uffer\"). The two"
-              " commands are:<br />"
-              " <tt>bp</tt> &mdash; goes to the document before the current one in the document"
-              " list.<br />"
-              " <tt>bn</tt> &mdash; goes to the document after the current one in the document"
-              " list.<br />"
-              "<p>Both commands wrap around, i.e., if you go past the last document you end up"
-              " at the first and vice versa.</p>");
+    else if (re_bufferNext.exactMatch(cmd)) {
+        msg = i18n("<p><b>bn,bnext &mdash; switch to next document</b></p>"
+              "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
+              "<p>Goes to <b>[N]<\b>th next document (\"<b>b</b>uffer\") in document list."
+              "<b>[N]<\b> defaults to one. </p>"
+              "<p>Warps around the end of the document last.</p>");
         return true;
+    }
+    else if (re_bufferPrev.exactMatch(cmd)) {
+      msg = i18n("<p><b>bp,bprev &mdash; previous buffer</b></p>"
+            "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
+            "<p>Goes to <b>[N]<\b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
+            "<p> <b>[N]<\b> defaults to one. </p>"
+            "<p>Warps around the start of the document last.</p>");
+      return true;
+    }
+    else if (re_bufferFirst.exactMatch(cmd)) {
+      msg = i18n("<p><b>bf,bfirst &mdash; first document</b></p>"
+            "<p>Usage: <tt><b>bf[irst]</b></tt></p>"
+            "<p>Goes to the <b>f<\b>irst document (\"<b>b</b>uffer\") in document list.</p>");
+      return true;
+    }
+    else if (re_bufferLast.exactMatch(cmd)) {
+      msg = i18n("<p><b>bl,blast &mdash; last document</b></p>"
+            "<p>Usage: <tt><b>bl[ast]</b></tt></p>"
+            "<p>Goes to the <b>l<\b>ast document (\"<b>b</b>uffer\") in document list.</p>");
+      return true;
+    }
+    else if (re_editBuffer.exactMatch(cmd)) {
+      msg = i18n("<p><b>b,buffer &mdash; Edit document N from the document list</b></p>"
+            "<p>Usage: <tt><b>b[uffer] [N]</b></tt></p>");
+      return true;
+    }
+    else if (re_split.exactMatch(cmd)) {
+      msg = i18n("<p><b>sp,split&mdash; Split horizontally the current view into two</b></p>"
+            "<p>Usage: <tt><b>vs[plit]</b></tt></p>"
+            "<p>The result is two views on the same document</p>.");
+      return true;
+    }
+    else if (re_vsplit.exactMatch(cmd)) {
+      msg = i18n("<p><b>vs,vsplit&mdash; Split vertically the current view into two</b></p>"
+            "<p>Usage: <tt><b>sp[lit]</b></tt></p>"
+            "<p>The result is two views on the same document.</p>");
+      return true;
     }
     else if (re_new.exactMatch(cmd)) {
         msg = i18n("<p><b>[v]new &mdash; split view and create new document</b></p>"

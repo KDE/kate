@@ -30,13 +30,21 @@ public:
     virtual const QStringList &cmds ();
     virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+
 private:
     QRegExp re_write;
     QRegExp re_quit;
     QRegExp re_exit;
-    QRegExp re_changeBuffer;
     QRegExp re_edit;
     QRegExp re_new;
+    QRegExp re_split;
+    QRegExp re_vsplit;
+    QRegExp re_bufferNext;
+    QRegExp re_bufferPrev;
+    QRegExp re_bufferFirst;
+    QRegExp re_bufferLast;
+    QRegExp re_editBuffer;
+
 };
 
 #endif

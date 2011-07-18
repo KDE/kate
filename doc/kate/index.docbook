@@ -11,6 +11,7 @@
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
   <!ENTITY part-chapter SYSTEM "part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
+  <!ENTITY vi-chapter SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
@@ -43,13 +44,13 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-09-16</date>
-<releaseinfo>3.4.81 &kde; 4.5</releaseinfo>
+<date>2011-07-10</date>
+<releaseinfo>3.6.90 &kde; 4.7</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
 
-<para>This handbook documents &kate; Version 3.4.81</para>
+<para>This handbook documents &kate; Version 3.6.90</para>
 </abstract>
 
 <keywordset>
@@ -107,6 +108,8 @@ configuration files.  This document was written in &kate;.
 &plugins-chapter;
 
 &advanced-chapter;
+
+&vi-chapter;
 
 &menu-chapter;
 

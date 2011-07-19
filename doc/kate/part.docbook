@@ -590,7 +590,7 @@ Lisp dialects.
 <listitem><para>An indenter specifically for XML like languages.
 </para></listitem>
 </varlistentry>
-
+<!--Ruby + Lua missing -->
 </variablelist>
 
 </sect1>

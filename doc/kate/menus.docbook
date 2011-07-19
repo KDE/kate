@@ -91,54 +91,6 @@ to open the active file</action>. Your file will still be open in &kate;.
 
 <varlistentry>
 <term>
-<anchor id="save-all"/>
-<menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Save All</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-This command <action>saves all modified open files</action>.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="reload-all"/>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Reload All</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-<action>Reloads all opened files.</action>. 
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="close-orphaned"/>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Close Orphaned</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para><action>Close</action> all documents in the file list, which could 
-not be reopened during startup, because they are not accessible anymore.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
 <anchor id="save"/>
 <menuchoice>
 <shortcut>
@@ -185,15 +137,18 @@ Location combo box and press the
 
 <varlistentry>
 <term>
-<anchor id="close-other"/>
+<anchor id="save-all"/>
 <menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo>
+</shortcut>
 <guimenu>File</guimenu>
-<guimenuitem>Close Other</guimenuitem>
+<guimenuitem>Save All</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
 <para>
-Close other open documents.
+This command <action>saves all modified open files</action>.
 </para>
 </listitem>
 </varlistentry>
@@ -220,6 +175,36 @@ it open in &kate;
 
 <varlistentry>
 <term>
+<anchor id="reload-all"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Reload All</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+<action>Reloads all opened files.</action>. 
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-orphaned"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Close Orphaned</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list, which could 
+not be reopened during startup, because they are not accessible anymore.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
 <anchor id="print"/>
 <menuchoice>
 <shortcut>
@@ -232,36 +217,6 @@ it open in &kate;
 <listitem>
 <para>
 <action>Print the active file</action>.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="export-as-html">
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Export as HTML...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Export your file in &HTML; format so your document can be viewed as a web page.
-This item is only displayed when the plugin <guilabel>Exporter</guilabel> is loaded.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="mail">
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Mail...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Open your mail client and attach the file in the mail. This item is only displayed,
-when the plugin <guilabel>Mail files</guilabel> in &kate;'s settings is loaded.
 </para>
 </listitem>
 </varlistentry>
@@ -280,6 +235,21 @@ when the plugin <guilabel>Mail files</guilabel> in &kate;'s settings is loaded.
 <para>
 Close the active file with this command. If you have made unsaved changes, you
 will be prompted to save the file before &kate; closes it.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-other"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Close Other</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Close other open documents.
 </para>
 </listitem>
 </varlistentry>
@@ -403,20 +373,6 @@ all to work with the currently active document.</para>
 
 <varlistentry>
 <term>
-<anchor id="edit-copy-as-html"/>
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Copies selected text with the syntax highlight as HTML text.
-This item is only displayed when the plugin <guilabel>Exporter</guilabel> is loaded.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
 <anchor id="edit-select-all"/>
 <menuchoice>
 <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
@@ -490,20 +446,6 @@ insert characters where the cursor is. When the mode is <guilabel>OVR</guilabel>
 characters will replace the current characters if your cursor is positioned
 before any character. The status bar shows the current state of the Overwrite
 Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="edit-find-in-files"/>
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Find in Files...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Launch the <guilabel>Find in Files</guilabel> dialog to allow you to search for text in the files of a folder.
-This item is only displayed when the plugin <guilabel>Find in Files</guilabel> is loaded.</para>
 </listitem>
 </varlistentry>
 
@@ -605,7 +547,7 @@ the document</para>
 </sect1>
 
 <sect1 id="view-menu">
-<title>The View menu</title>
+<title>The View Menu</title>
 
 <para>The <guimenu>View</guimenu> menu allows you to manage settings
 specific to the active editor, and to manage frames.</para>
@@ -626,6 +568,78 @@ specific to the active editor, and to manage frames.</para>
 <action>Opens another instance of &kate;</action>.
 The new instance will be identical to your previous instance.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-back"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Alt;<keysym>Left</keysym></keycombo></shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Back</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Opens the document displayed above the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-forward"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Alt;<keysym>Right</keysym></keycombo></shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Forward</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Opens the document displayed below the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-active"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Alt;<keycap>A</keycap></keycombo></shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Show Active</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-split-previous"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Shift;<keycap>F8</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Previous Split View</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Focus the previous document view, if you have split the editor
+area in more views.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-split-next"/>
+<menuchoice>
+<shortcut><keycap>F8</keycap></shortcut>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Next Split View</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Focus the next document view, if you have split the editor
+area in more views.</para>
 </listitem>
 </varlistentry>
 
@@ -676,12 +690,15 @@ the old one.</para>
 <para>Closes the active frame. This is disabled, if there is only one frame
 (the main editing area).</para> <para>No documents get closed by closing a
 frame &ndash; they will still be available in the <link
-linkend="go-menu"><guimenu>Go</guimenu> Menu</link> as well as in
+linkend="view-menu"><guimenu>View</guimenu> Menu</link> as well as in
 the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 &kate; MDI</link></para>
 </listitem>
 </varlistentry>
-
+<!-- missing
+Split View -> Move Splitter Left/Right/Up/Down
+    not in 4.6
+  -->
 <varlistentry>
 <term><menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 </menuchoice></term>
@@ -729,34 +746,8 @@ with the current document when possible</link> option is enabled in the
 <guilabel>Terminal</guilabel> page of the <link
 linkend="config-dialog">Main configuration dialog</link> the shell session will
 change to the directory of the active document, if it is a local file.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="view-toolviews-show-fileselector"/>
-<menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Filesystem Browser</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Toggle the display of &kate;'s Filesystem Browser</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="view-toolviews-greptool"/>
-<menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Find in Files</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Toggle the display of &kate;'s <guilabel>Find in Files</guilabel> tool.
-This item is only displayed when the plugin <guilabel>Find in Files</guilabel> is loaded.
-</para>
+<para>This menu item is displayed by the Terminal Tool View plugin, which is
+enabled by default.</para>
 </listitem>
 </varlistentry>
 
@@ -770,6 +761,16 @@ This item is only displayed when the plugin <guilabel>Find in Files</guilabel> i
 </menuchoice></term>
 <listitem><para>This command will toggle the display of the
 <link linkend="advanced-editing-tools-commandline">built in command line</link>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu><guimenuitem>Show the Javascript Console</guimenuitem>
+</menuchoice></term>
+<listitem><para>This opens a tool view that allows you to run Javascript code
+interactively. For more information, see
+<link linkend="advanced-editing-tools-scripting">Extending &kate; with Scripts</link>.
 </para></listitem>
 </varlistentry>
 
@@ -924,90 +925,6 @@ Code Folding</link>.</para></listitem>
 
 </sect1>
 
-<sect1 id="go-menu">
-<title>The Go Menu</title>
-<para>The <guimenu>Go</guimenu> menu provides a menu entry for each open document.
-Clicking one of these will bring the requested document to focus. If you have
-multiple frames, an editor for that document will be displayed in the currently
-active frame.</para>
-<para>In addition, commands to browse your open documents are provided:
-<variablelist>
-<title>Menu items</title>
-
-<varlistentry>
-<term>
-<anchor id="go-back"/>
-<menuchoice>
-<shortcut><keycombo action="simul">&Alt;<keycap>Left</keycap></keycombo></shortcut>
-<guimenu>Go</guimenu>
-<guimenuitem>Back</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>This will bring the previous document in the stack in focus. If you have
-multiple frames, an editor for the document will be displayed in the currently
-active frame.</para> <para>The order is the order in which documents were
-opened, rather than a logical history.  This behavior may change in future
-versions of &kate;.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="go-forward"/>
-<menuchoice>
-<shortcut><keycombo action="simul">&Alt;<keycap>Right</keycap></keycombo></shortcut>
-<guimenu>Go</guimenu>
-<guimenuitem>Forward</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>This will bring the next document in the stack in focus. If you have
-multiple frames, an editor for the document will be displayed in the currently
-active frame.</para>
-<para>The order is the order in which the documents were opened,
-rather than a logical history.  This behavior may change in future versions of
-&kate;.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="go-previous-view">
-<term><menuchoice><shortcut><keycombo action="simul">&Shift;<keycap>F8</keycap>
-</keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Previous Split 
-View</guimenuitem></menuchoice></term>
-<listitem><para>Focus the previous document view, if you have split the editor
-area in more views.</para></listitem>
-</varlistentry>
-
-<varlistentry id="go-next-view">
-<term><menuchoice><shortcut><keycombo action="simul"><keycap>F8</keycap>
-</keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Next Split 
-View</guimenuitem></menuchoice></term>
-<listitem><para>Focus the next document view, if you have split the editor area
-in more views.</para></listitem>
-</varlistentry>
-
-<varlistentry id="go-quickswitch">
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>1</keycap>
-</keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Quickswitch
-</guimenuitem></menuchoice></term>
-<listitem><para>Opens the <guilabel>Document Quick Switch</guilabel> dialog 
-with a search field and a list of opened files. While entering text in the search 
-field the document names and document urls are searched for matching text. 
-While entering text in the search field you can use
-the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the 
-list view. If the dialog is left with <guilabel>OK</guilabel> the plugin switches 
-the view to the document selected in the list view. This makes switching between 
-documents easier, if there are a lot of them open. This menu item is only 
-displayed if the plugin <guilabel>Quick Document switcher</guilabel> is loaded.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-</para>
-</sect1>
-
-
 <sect1 id="bookmarks-menu">
 <title>The Bookmarks Menu</title>
 
@@ -1139,12 +1056,15 @@ and delete sessions.</para></listitem>
 <title>The Tools Menu</title>
 
 <variablelist>
-
+  <!-- the  first 4 items are only in the menu if the plugin is enabled
+  add this info (different variablelists one for terminal + one for main items?
+  -->
 <varlistentry>
 <term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
 Terminal</guimenuitem></menuchoice></term>
 <listitem><para>Feed the currently selected text into the built in terminal
-emulator. No newline is added after the text.</para></listitem>
+emulator. No newline is added after the text.  This menu item is displayed by the
+Terminal Tool View plugin, which is enabled by default.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1154,7 +1074,8 @@ emulator. No newline is added after the text.</para></listitem>
 <listitem>
 <para>This will cause the built-in Terminal to
 <command>cd</command> into the directory of the active document when
-launched and when a new document gets the focus.</para>
+launched and when a new document gets the focus.  This menu item is also displayed
+by the Terminal Tool View plugin.</para>
 </listitem>
 </varlistentry>
 
@@ -1163,7 +1084,8 @@ launched and when a new document gets the focus.</para>
 <guimenu>Tools</guimenu>
 <guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
 <listitem>
-<para>Switch the focus from the current document to the terminal and vice versa.</para>
+<para>Switch the focus from the current document to the terminal and vice versa.
+This menu item is also displayed by the Terminal Tool View plugin.</para>
 </listitem>
 </varlistentry>
 
@@ -1314,6 +1236,11 @@ is underlined in the document on-the-fly.</para>
 <guimenu>Tools</guimenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
 </term>
 
+<!--para>These options are described in the documentation for the
+<ulink url="help:/sonnet/index.html">Check Spelling Dialog</ulink>.</para
+Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it with the para above
+-->
+
 <listitem><para><action>This initiates the spellchecking program - a program
 designed to help the user catch and correct any spelling errors.</action>
 Clicking on this entry will start the checker and bring up the speller dialog
@@ -1445,7 +1372,7 @@ at the bottom of the editor window. This allows easy switching of the spellcheck
 dictionary &eg; for automatic spellcheck of text in different languages.</para>
  </listitem>
 </varlistentry>
-<!-- Indent/Inindent no longer in the menu ???, but shortcuts work-->
+<!-- Indent/Unindent no longer in the menu in 4.7???, but shortcuts work
 <varlistentry>
 <term><anchor id="indent"/><menuchoice>
 <shortcut>
@@ -1459,7 +1386,7 @@ settings</link>.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+ <varlistentry>
 <term><anchor id="tools-unindent"/><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo>
@@ -1470,7 +1397,7 @@ settings</link>.</para>
 depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</para>
 </listitem>
 </varlistentry>
-<!-- -->
+-->
 <varlistentry>
 <term><anchor id="tools-cleanindent"/><menuchoice>
 <guimenu>Tools</guimenu><guimenuitem>Clean
@@ -1581,14 +1508,6 @@ in the Editing tab in <menuchoice>
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><menuchoice><guimenu>Tools</guimenu><guisubmenu>External
-Tools</guisubmenu></menuchoice></term>
-<listitem><para>This submenu contains all the <link
-linkend="kate-mdi-tools-externaltools">external tools</link> you have
-configured.</para></listitem>
-</varlistentry>
-
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link> 
 are displayed at the end of this menu
@@ -1609,12 +1528,12 @@ access to the configuration dialogs.</para>
 <varlistentry>
 <term><anchor id="show-toolbar"/><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Show Toolbar</guimenuitem>
+<guimenuitem>Shown Toolbar</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
 <para>
-When checked, this displays a movable toolbar containing buttons used to
+When this is checked, this displays a movable toolbar containing buttons used to
 initiate frequently used commands. When unchecked the toolbar is hidden.
 </para>
 </listitem>

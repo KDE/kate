@@ -61,7 +61,7 @@ If this plugin is enabled and data tools are installed, additional items
 appear at the end of the context menu.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Exporter</guilabel></term>
+<term><link linkend="kate-editor-plugin-exporter"><guilabel>Exporter</guilabel></link></term>
 <listitem><para>This command allows you to export the current document with all highlighting 
 information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export 
 as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
@@ -107,7 +107,7 @@ autobookmark not build, its broken!
 timedate not build? plugin is for howto-write-a-plugin purposes!
 -->
 
-<!-- Scripts tab ??? empty-->
+<!-- Scripts tab ??? empty: Not implemented yet, hidden in 4.4 + 4.7  branch, removed in master bye bye-->
 </sect1>
 
 <sect1 id="kate-application-plugins">
@@ -129,16 +129,29 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para>Find in files tool view - Toolview allowing to search in all open files or files in the filesystem</para>
+<para><link linkend="kate-application-plugin-findinfiles">Find in files tool view</link> - 
+  Toolview allowing to search in all open files or files in the filesystem</para>
+</listitem>
+<listitem>
+<para>GDB - Provides a simple GDB frontend</para>
+<!-- GDB Plugin http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 </listitem>
 <listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>
 </listitem>
 <listitem>
-<para>Quick Document switcher - Quickly switch to another already opened document</para>
+<para><link linkend="kate-application-plugin-quickswitcher">Quick Document switcher</link> - 
+  Quickly switch to another already opened document</para>
 </listitem>
 <listitem>
-<para>Tab Bar - Adds a tab bar to &kate;'s main window</para>
+<para>SQL Plugin - Execute query on SQL databases</para>
+</listitem>
+<listitem>
+<para>Search Plugin - Find a pattern in files</para>
+</listitem>
+<listitem>
+<para>Tab Bar - Adds a standard tab bar to &kate;'s main window</para>
+<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
 </listitem>
 <!--listitem>
 <para>Text Snippets - Configurable Text Snippets</para>
@@ -150,7 +163,8 @@ The available application plugins are:
 <para>Symbol Viewer - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para>File system browser - File system browser tool view</para>
+<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> - 
+  File system browser tool view</para>
 </listitem>
 <listitem>
 <para>Terminal tool view - Toolview embedding a terminal widget</para>
@@ -162,25 +176,31 @@ The available application plugins are:
 <para>CTags Plugin - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> - Create new files from templates</para>
+<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> - 
+  Create new files from templates</para>
 </listitem>
 <listitem>
 <para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
-<para>External Tools</para>
+<para><link linkend="kate-application-plugin-exttools">External Tools</link></para>
 </listitem>
 <listitem>
 <para>Build Plugin - Compile or Make and parse error messages</para>
+<!-- http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
 </listitem>
 <listitem>
-<para>Mail files - Send files via email</para>
+<para><link linkend="kate-application-plugin-mail">Mail files</link> - Send files
+  via email</para>
+</listitem>
+<listitem>
+<para>Multiline Tab Bar - Add a tab bar with multiple rows to &kate;'s main window</para>
 </listitem>
 <listitem>
 <para>Kate Snippets - Snippets plugin with code completion support</para>
 </listitem>
 <listitem>
-<para>KTextEditor Jovie Plugin - Adds a menu entry for speaking the text</para>
+<para>Jovie Text-to-Speech Plugin - Adds a menu entry for speaking the text</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
@@ -191,6 +211,7 @@ attributes, attribute values and entities allowed by DTD</para>
 </listitem>
 <listitem>
 <para>Tabify - Adds a tab bar to Kate's main window</para>
+<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
 </listitem>
 </itemizedlist>
 </sect1>
@@ -420,53 +441,53 @@ attributes, attribute values and entities allowed by DTD</para>
         <userinput>%</userinput> it is not, unless expanding failed.</para>
       <para>The following macros are expanded:
         <variablelist>
-          <varlistentry><term>time</term>
+          <varlistentry><term><literal>time</literal></term>
             <listitem><para>Expands to the current time in your locale
                 format.</para></listitem>
           </varlistentry>
           <varlistentry>
-            <term>date</term>
+            <term><literal>date</literal></term>
             <listitem><para>Expands to the current date in short
                 format.</para></listitem>
           </varlistentry>
           <varlistentry>
-            <term>datetime</term>
+            <term><literal>datetime</literal></term>
             <listitem><para>Expands to the current date and time,
                 formatted as a string according to your
                 locale.</para></listitem>
           </varlistentry>
           <varlistentry>
-            <term>year</term>
+            <term><literal>year</literal></term>
             <listitem><para>The current year as a four digit
                 number.</para></listitem>
           </varlistentry>
           <varlistentry>
-            <term>month</term>
+            <term><literal>month</literal></term>
             <listitem><para>The full name of the current month, according
                 to your locale.</para></listitem>
           </varlistentry>
-          <varlistentry><term>day</term>
+          <varlistentry><term><literal>day</literal></term>
             <listitem><para>Expands to the current day of the month.</para>
             </listitem>
           </varlistentry>
-          <varlistentry><term>hostname</term>
+          <varlistentry><term><literal>hostname</literal></term>
             <listitem><para>Expands to the 'hostname' of your computer.</para>
             </listitem>
           </varlistentry>
-          <varlistentry><term>index</term>
+          <varlistentry><term><literal>index</literal></term>
             <listitem><para>Expands to 'i'.</para></listitem>
           </varlistentry>
-          <varlistentry><term>fullname</term>
+          <varlistentry><term><literal>fullname</literal></term>
             <listitem><para>Expands to your full name, as defined by the
                 owner addressee in your standard &kde;
                 addressbook.</para></listitem>
           </varlistentry>
-          <varlistentry><term>firstname</term>
+          <varlistentry><term><literal>firstname</literal></term>
             <listitem><para>Expands to your first name, as defined in the owner
                 addressee in your standard &kde; addressbook.</para>
             </listitem>
           </varlistentry>
-          <varlistentry><term>lastname</term>
+          <varlistentry><term><literal>lastname</literal></term>
             <listitem><para>Expands to your last name, as defined in the owner
                 addressee in your standard &kde; addressbook.</para>
             </listitem>
@@ -735,4 +756,523 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 
 </sect1>
 
+<sect1 id="kate-application-plugin-quickswitcher">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>Quick Document Switcher</title>
+
+<sect2 id="quickswitcher-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry> 
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>1</keycap>
+</keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Quickswitch
+</guimenuitem></menuchoice></term>
+<listitem><para>Opens the <guilabel>Document Quick Switch</guilabel> dialog 
+with a search field and a list of opened files. While entering text in the search 
+field the document names and document urls are searched for matching text. 
+While entering text in the search field you can use
+the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the 
+list view. If the dialog is left with <guilabel>OK</guilabel> the plugin switches 
+the view to the document selected in the list view. This makes switching between 
+documents easier, if there are a lot of them open.
+</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+</sect1>
+
+<sect1 id="kate-editor-plugin-exporter">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>Exporter</title>
+
+<sect2 id="exporter-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export as HTML...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Export your file in &HTML; format so your document can be viewed as a web page.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Copy as HTML...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Copies selected text with the syntax highlight as HTML text.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-findinfiles">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>Find in Files</title>
+
+<sect2 id="findinfiles-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Find in Files...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launch the <guilabel>Find in Files</guilabel> dialog to allow you to
+search for text in the files of a folder.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Find in Files</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Toggle the display of &kate;'s <guilabel>Find in Files</guilabel> tool.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-mail">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>Mail Files</title>
+
+<sect2 id="mail-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Mail...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Open your mail client and attach the file in the mail.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-fsbrowser">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>Filesystem Browser</title>
+
+<para>The Filesystem Browser is a folder viewer, allowing you to open
+files from a displayed folder in the current frame.</para>
+
+<sect2 id="fsbrowser-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-fileselector"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Filesystem Browser</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Toggle the display of &kate;'s Filesystem Browser</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="fsbrowser-interface">
+<title>Interface</title>
+
+<para>From top down, the Filesystem Browser consist of the following
+elements:</para>
+
+<variablelist>
+<varlistentry>
+<term>A Toolbar</term>
+<listitem>
+<para>This contains standard navigations tool buttons:</para>
+<variablelist>
+<varlistentry>
+<term><guibutton>Back</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the previously displayed folder in the history.
+This button is disabled, if there is no previous item.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Forward</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the next folder in the history.
+This button is disabled, if there is no next folder.</para></listitem>
+</varlistentry>
+<!--varlistentry>
+<term><guibutton>Parent Folder</guibutton></term>
+<listitem><para>This will cause the folder view to <command>cd</command> to the immediate parent of the currently displayed
+folder if possible.</para></listitem>
+</varlistentry-->
+<varlistentry>
+<term><guibutton>Bookmarks</guibutton></term>
+<listitem><para>Opens a submenu to edit or add bookmarks and to add a new bookmark folder.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Current Document Folder</guibutton></term>
+<listitem><para>This button will cause the folder view to
+<command>cd</command> to the folder of the currently active
+document if possible. This button is disabled, if the active document
+is a new, unsaved file, or the folder in which it resides can not
+be decided.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Options</guibutton></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guimenuitem>Short View</guimenuitem></term>
+<listitem><para>Displays only the filenames.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Detailed View</guimenuitem></term>
+<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>, 
+<guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Tree View</guimenuitem></term>
+<listitem><para>Like Short View, but folders can be expanded to view their contents.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Detailed Tree View</guimenuitem></term>
+<listitem><para>This also allows folders to be expanded, but displays the additional columns
+available in Detailed View.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Show Hidden Files</guimenuitem></term>
+<listitem><para>Displays files normally hidden by your operating system.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Automatically synchronize with current document</guimenuitem></term>
+<listitem><para>When this option is enabled the filesystem browser will automatically <command>cd</command>
+to the folder of the document currently open in the editing area every time it changes.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Location Entry</term>
+<listitem>
+<para>This displays a breadcrumb navigation to the currently open folder, like
+&dolphin;.  You can click on a any folder to browse to it, or click on one of the
+arrows to select any folder beneath it.  Select the first arrow to choose from your
+Places list.</para>
+<para>You can also click to the right of the breadcrumbs to change them to a text box
+where you can type the path of a folder to browse. The &URL;
+entry maintains a list of previously typed paths. To choose one, use
+the arrow button to the right of the entry.</para>
+<tip><para>The &URL; entry has folder auto-completion. The completion
+method can be set using the &RMB; menu of the text
+entry.</para></tip>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Folder View</term>
+<listitem><para>This is a standard &kde; folder view.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Filter Entry</term>
+<listitem>
+<para>The Filter entry allows you to enter a filter for the files
+displayed in the folder view. The filter uses standard globs; patterns
+must be separated by white space. Example: <userinput>*.cpp *.h
+*.moc</userinput></para>
+<para>To display all files, enter a single asterisk
+<userinput>*</userinput>.</para>
+<para>The filter entry saves the last 10 filters entered between
+sessions.  To use one, press the arrow button on the right of the entry
+and select the desired filter string.  You can disable the filter by pressing
+the <guibutton>Clear text</guibutton> button to the left of the autocompletion
+arrow button.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+
+<sect2 id="fsbrowser-config">
+<title>Configuration</title>
+
+<para>This plugin can be configured on the <guilabel>Filesystem Browser</guilabel> page
+of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Toolbar</guilabel></term>
+<listitem><para>Configure the buttons on the file system browser toolbar
+by moving the ones you want enabled to the <guilabel>Selected Actions</guilabel>
+list, and order them using the arrow buttons at the side of the list.</para>
+ </listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<!--some material from mdi.docbook needs to be migrated here too-->
+<sect1 id="kate-application-plugin-exttools">
+<!--<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+</author></authorgroup>
+</sect1info>-->
+<title>External Tools</title>
+
+<para>In the <guimenu>Tools</guimenu> menu you will find a submenu labeled
+<guisubmenu>External Tools</guisubmenu>, if you have enabled them in &kate; settings.
+These tools invokes external applications with data related to the current document,
+for example its URL, directory, text or selection.</para>
+
+<para>External tools are user defined, you can add, edit or remove tools using
+the <link linkend="exttools-config">External Tools</link> configuration panel.
+</para>
+
+<sect2 id="exttools-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice><guimenu>Tools</guimenu><guisubmenu>External
+Tools</guisubmenu></menuchoice></term>
+<listitem><para>This submenu contains all the external tools you have
+configured.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="exttools-config">
+<title>Configuration</title>
+
+<para>External tools are configured on the <guilabel>External Tools</guilabel> page
+of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>. These tools invokes external
+applications with data related to the current document, for example its URL,
+directory, text or selection. This page allows you to manage the menu and edit,
+remove or add new tools.</para>
+
+<para>Each external tool is a shell command which contains macros representing
+the document data. When activated, the macros are substituted with data from the
+active document.</para>
+
+<variablelist>
+<title>Available Commands</title>
+
+<varlistentry>
+<term><guibutton>New</guibutton></term>
+<listitem><para>Add a new external tool to the list.  This will launch the property
+sheet described below where you can configure an external tool.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Edit</guibutton></term>
+<listitem><para>Edit the currently selected external tool, using the property
+sheet described below.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Insert Seperator</guibutton></term>
+<listitem><para>Adds a seperator line that appears in the menu below the currently
+selected item.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Up Arrow</guibutton></term>
+<listitem><para>Moves the currently selected item above the the previous
+one.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Down Arrow</guibutton></term>
+<listitem><para>Moves the currently selected item below the the subsequent
+one.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<variablelist>
+<title>External Tools Properties</title>
+<varlistentry>
+<term><guilabel>Label</guilabel></term>
+<listitem><para>A friendly label that will appear in the External Tools menu.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Icon</guibutton></term>
+<listitem><para>Allows you to select an icon that appears next to the label in the
+External Tools menu.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Script</guilabel></term>
+<listitem><para>The script to execute when the tool is activated. Before passing
+the script to the shell, the following macros are substituted:
+
+<variablelist>
+<varlistentry>
+<term><userinput>%URL</userinput></term>
+<listitem><para>The full URL of the current document, or an empty string if the
+document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%URLs</userinput></term>
+<listitem><para>A space separated list of the URLs of all open documents
+(except unsaved ones).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%directory</userinput></term>
+<listitem><para>The directory part of the current documents URL or an empty
+string if the current document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%filename</userinput></term>
+<listitem><para>The filename of the current document without the path, or an
+empty string if the current document is unsaved.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%line</userinput></term>
+<listitem><para>The line number of the insertion cursor is in the current
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%column</userinput></term>
+<listitem><para>The column number of the insertion cursor in the current
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%selection</userinput></term>
+<listitem><para>The selected text in the current document, or an empty string
+if no text is selected</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>%text</userinput></term>
+<listitem><para>The full text of the current document. Beware that this may
+potentially exceed the maximum command length allowed on your system.
+Use with care.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Executable</guilabel></term>
+<listitem><para>The main executable in the script. This is mandatory, and is used
+to test if the command can be run at all. A fully qualified path is allowed
+in case the executable is not in your <envar>PATH</envar> variable.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Mime types</guilabel></term>
+<listitem><para>A semicolon separated list of mimetypes for which this command
+should be enabled.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Save</guilabel></term>
+<listitem><para>You can optionally select to have the current or all documents
+saved prior to executing the script. This is handy if your script reads the file
+from disk.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Command line name</guilabel></term>
+<listitem><para>If you fill this, the tool will be available in the
+<link linkend="advanced-editing-tools-commandline">editors command line</link> as
+<command>exttool-<replaceable>Command Line Name</replaceable></command>
+(the string you enter here prepended <quote>exttool-</quote>).</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<!--
+Missing (according to config docs)
+Additional pages for enabled plugins: 
+Kate Snippets
+Backtrace Browser
+Symbol Viewer
+-->
 </chapter>

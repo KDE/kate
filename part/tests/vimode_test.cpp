@@ -41,7 +41,7 @@ ViModeTest::ViModeTest() {
 
 ViModeTest::~ViModeTest() {
   delete kate_document;
-  delete kate_view;
+//  delete kate_view;
 }
 
 void ViModeTest::TestPressKey(QString str) {

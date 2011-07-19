@@ -25,6 +25,7 @@
 #include <QList>
 #include "katepartprivate_export.h"
 #include <ktexteditor/cursor.h>
+#include "katedocument.h"
 
 class KConfigGroup;
 class KateView;
@@ -56,10 +57,14 @@ struct KateViJump {
 
 namespace KTextEditor {
   class MovingCursor;
+  class Mark;
+  class MarkInterface;
 }
 
-class KATEPART_TESTS_EXPORT KateViInputModeManager
+class KATEPART_TESTS_EXPORT KateViInputModeManager : public QObject
 {
+    Q_OBJECT
+
 public:
   KateViInputModeManager(KateView* view, KateViewInternal* viewInternal);
   ~KateViInputModeManager();
@@ -189,6 +194,14 @@ public:
   // marks
   void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
   KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
+  void syncViMarksAndBookmarks();
+  QString getMarksOnTheLine(int line);
+
+
+private Q_SLOTS:
+  void markChanged (KTextEditor::Document* doc,
+                    KTextEditor::Mark mark,
+                    KTextEditor::MarkInterface::MarkChangeAction action);
 
 private:
   KateViNormalMode* m_viNormalMode;
@@ -232,6 +245,11 @@ private:
    * true when normal mode was started by Ctrl-O command in insert mode.
    */
   bool m_temporaryNormalMode;
+
+  /**
+   * true when mark set inside viinputmodemanager to do not serve it as bookmark set;
+   */
+  bool m_mark_set_inside_viinputmodemanager;
 
   // jump list
   QList<KateViJump> *jump_list;

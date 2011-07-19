@@ -472,6 +472,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void toggleScrollBarMarks();
     void toggleDynWordWrap ();
     void toggleViInputMode ();
+
     void showViModeBar ();
     void hideViModeBar ();
     void setDynWrapIndicators(int mode);

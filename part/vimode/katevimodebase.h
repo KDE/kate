@@ -27,6 +27,7 @@
 #include "katevirange.h"
 #include "kateviewinternal.h"
 #include "katepartprivate_export.h"
+#include "katedocument.h"
 
 #include <QList>
 

@@ -191,14 +191,19 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
       }
 
       if (before) {
-        QAction *a=new QAction(QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ),&menu);
+        QAction *a=new QAction(QString("%1  %3  - \"%2\"")
+                                 .arg( it.value()->line+1 ).arg( bText )
+                                 .arg(m_view->getViInputModeManager()->getMarksOnTheLine(it.value()->line)),&menu);
         menu.insertAction(before,a);
         connect(a,SIGNAL(activated()),this,SLOT(gotoLine()));
         a->setData(it.value()->line);
         if (!firstNewAction) firstNewAction = a;
 
       } else {
-        QAction* a = menu.addAction(QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ), this, SLOT(gotoLine()));
+        QAction* a = menu.addAction(QString("%1  %3  - \"%2\"")
+                                      .arg( it.value()->line+1 ).arg( bText )
+                                      .arg(m_view->getViInputModeManager()->getMarksOnTheLine(it.value()->line)),
+                                    this, SLOT(gotoLine()));
         a->setData(it.value()->line);
       }
 

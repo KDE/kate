@@ -559,8 +559,8 @@ bool KateViNormalMode::commandEnterVisualBlockMode()
 bool KateViNormalMode::commandReselectVisual()
 {
   // start last visual mode and set start = `< and cursor = `>
-  Cursor c1 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '<' );
-  Cursor c2 = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( '>' );
+  Cursor c1 = m_view->getViInputModeManager()->getMarkPosition( '<' );
+  Cursor c2 = m_view->getViInputModeManager()->getMarkPosition( '>' );
 
   // we should either get two valid cursors or two invalid cursors
   Q_ASSERT( c1.isValid() == c2.isValid() );
@@ -1301,7 +1301,7 @@ bool KateViNormalMode::commandSetMark()
 {
   Cursor c( m_view->cursorPosition() );
 
-  KateGlobal::self()->viInputModeGlobal()->addMark( doc(), m_keys.at( m_keys.size()-1 ), c );
+  m_view->getViInputModeManager()->addMark( doc(), m_keys.at( m_keys.size()-1 ), c );
   kDebug( 13070 ) << "set mark at (" << c.line() << "," << c.column() << ")";
 
   return true;
@@ -2107,7 +2107,7 @@ KateViRange KateViNormalMode::motionToMark()
       reg = '\'';
   }
 
-  Cursor c = KateGlobal::self()->viInputModeGlobal()->getMarkPosition( reg );
+  Cursor c = m_view->getViInputModeManager()->getMarkPosition( reg );
   if ( c.isValid() ) {
     r.endLine = c.line();
     r.endColumn = c.column();

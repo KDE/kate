@@ -28,6 +28,7 @@
 
 class KConfigGroup;
 class KateView;
+class KateDocument;
 class KateViewInternal;
 class KateViNormalMode;
 class KateViInsertMode;
@@ -52,6 +53,10 @@ struct KateViJump {
     int line;
     int column;
 };
+
+namespace KTextEditor {
+  class MovingCursor;
+}
 
 class KATEPART_TESTS_EXPORT KateViInputModeManager
 {
@@ -181,6 +186,10 @@ public:
   void readSessionConfig( const KConfigGroup& config );
   void writeSessionConfig( KConfigGroup& config );
 
+  // marks
+  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
+  KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
+
 private:
   KateViNormalMode* m_viNormalMode;
   KateViInsertMode* m_viInsertMode;
@@ -227,6 +236,9 @@ private:
   // jump list
   QList<KateViJump> *jump_list;
   QList<KateViJump>::iterator current_jump;
+
+  // marks
+  QMap<QChar, KTextEditor::MovingCursor*> m_marks;
 
 };
 

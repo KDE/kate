@@ -424,7 +424,7 @@ int KateCmdLineEdit::calculatePosition( QString string) {
     else if ( line.contains(QRegExp("^\\.$")))
         values.push_back(m_view->cursorPosition().line()+1);
     else if (line.contains(QRegExp("^\\'[0-9a-z><\\+\\*\\_]$")))
-        values.push_back( KateGlobal::self()->viInputModeGlobal()->getMarkPosition(line.at(1)).line() + 1);
+        values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1);
 
   }
 

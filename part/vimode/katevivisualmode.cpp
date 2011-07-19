@@ -188,8 +188,8 @@ void KateViVisualMode::saveRangeMarks()
     // DO NOT save these marks if the
     // action that exited visual mode deleted the selection
   if (m_deleteCommand == false) {
-    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '<', m_start );
-    KateGlobal::self()->viInputModeGlobal()->addMark( doc(), '>', m_view->cursorPosition() );
+    m_view->getViInputModeManager()->addMark( doc(), '<', m_start );
+    m_view->getViInputModeManager()->addMark( doc(), '>', m_view->cursorPosition() );
   }
 }
 

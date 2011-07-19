@@ -439,3 +439,26 @@ void KateViInputModeManager::PrintJumpList(){
        qDebug() << "    << Current Jump";
 
 }
+
+void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+{
+  // delete old cursor if any
+  if (KTextEditor::MovingCursor *oldCursor = m_marks.value( mark )) {
+    delete oldCursor;
+  }
+
+  // create and remember new one
+  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+}
+
+KTextEditor::Cursor KateViInputModeManager::getMarkPosition( const QChar& mark ) const
+{
+  if ( m_marks.contains( mark ) ) {
+    KTextEditor::MovingCursor* c = m_marks.value( mark );
+    return KTextEditor::Cursor( c->line(), c->column() );
+  } else {
+    return KTextEditor::Cursor::invalid();
+  }
+}
+
+

@@ -485,7 +485,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
             else
                 line = v->cursorPosition().line();
 
-            KateGlobal::self()->viInputModeGlobal()->addMark(v->doc(),r,KTextEditor::Cursor(line, 0));
+            v->getViInputModeManager()->addMark(v->doc(),r,KTextEditor::Cursor(line, 0));
         }
       } else {
           msg = i18n("Wrong arguments");

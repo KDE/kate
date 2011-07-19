@@ -264,7 +264,7 @@ have to do all your navigation in the terminal on your own.
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Set EDITOR enivornment variable to 'kate -b'</guilabel></term>
+<term><guilabel>Set EDITOR environment variable to 'kate -b'</guilabel></term>
 <listitem><para>This sets the <envar>EDITOR</envar> environment variable so programs
 run in the built-in terminal that automatically open a file in an editor will open
 them in &kate; instead of the default editor configured in your shell.  You will

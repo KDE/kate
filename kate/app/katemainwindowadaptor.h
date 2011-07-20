@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003 Ian Reinhart Geiser <geiseri@kde.org>
+   Copyright (C) 2011 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,6 +18,7 @@
 
 #ifndef _katemainwindow_adaptor_h_
 #define _katemainwindow_adaptor_h_
+
 #include <QtDBus/QtDBus>
 
 class KateMainWindow;
@@ -29,6 +30,10 @@ class KateMainWindowAdaptor : public QDBusAbstractAdaptor
 
   public:
     KateMainWindowAdaptor (KateMainWindow *w);
+
+  public Q_SLOTS:
+    QString activeDocumentUrl() const;
+    uint mainWindowNumber() const;
 
   private:
     KateMainWindow *m_w;

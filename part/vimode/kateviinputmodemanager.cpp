@@ -493,6 +493,10 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
                            KTextEditor::MarkInterface::markType01 );
   }
 
+  // Showing what mark we set:
+  if (mark != '>' && mark != '<')
+    m_viNormalMode->message("Mark set: " + mark);
+
   m_mark_set_inside_viinputmodemanager = false;
 }
 
@@ -517,18 +521,24 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
                 m_marks.remove(c);
         }
     } else if (action == 0) {
+      bool char_exist = false;
       for( char c= 'a'; c <= 'z'; c++) {
         if (!m_marks.value(c)) {
           addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
+          char_exist = true;
           break;
         }
       }
+      if (!char_exist)
+        m_viNormalMode->error("There no more chars for the next bookmark");
     }
   }
 }
 
 void KateViInputModeManager::syncViMarksAndBookmarks() {
   const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
+
+  //  Each bookmark should have a vi mark on the same line.
   for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it)
   {
     if (it.value()->type & KTextEditor::MarkInterface::markType01 ) {
@@ -550,6 +560,7 @@ void KateViInputModeManager::syncViMarksAndBookmarks() {
     }
   }
 
+  // For each vi mark line should be bookmarked.
   foreach( QChar key, m_marks.keys() ) {
     bool there_is_kate_mark_for_this_line = false;
     for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it) {
@@ -566,6 +577,8 @@ void KateViInputModeManager::syncViMarksAndBookmarks() {
   }
 }
 
+
+// Returns a string of marks and columns.
 QString KateViInputModeManager::getMarksOnTheLine(int line) {
   QString res = "";
 

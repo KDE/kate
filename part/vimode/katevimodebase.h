@@ -77,6 +77,9 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void setCount(unsigned int count) { m_count = count; }
     void setRegister(QChar reg) {m_register =  reg;}
 
+    void error( const QString &errorMsg ) const;
+    void message( const QString &msg ) const;
+
   protected:
     // helper methods
     bool deleteRange( KateViRange &r, OperationMode mode = LineWise, bool addToRegister = true );
@@ -118,9 +121,6 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     bool startVisualLineMode();
     bool startVisualBlockMode();
     bool startReplaceMode();
-
-    void error( const QString &errorMsg ) const;
-    void message( const QString &msg ) const;
 
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;

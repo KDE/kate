@@ -2415,6 +2415,14 @@ KateViRange KateViNormalMode::motionToLastLineOfWindow() {
     return r;
 }
 
+KateViRange KateViNormalMode::motionToNextVisualLine() {
+  return goVisualLineUpDown( getCount() );
+}
+
+KateViRange KateViNormalMode::motionToPrevVisualLine() {
+  return goVisualLineUpDown( -getCount() );
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TEXT OBJECTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -2727,6 +2735,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("H", motionToFirstLineOfWindow, 0 );
   ADDMOTION("M", motionToMiddleLineOfWindow, 0 );
   ADDMOTION("L", motionToLastLineOfWindow, 0 );
+  ADDMOTION("gj", motionToNextVisualLine, 0 );
+  ADDMOTION("gk", motionToPrevVisualLine, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );

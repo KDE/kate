@@ -35,6 +35,7 @@
 #include "kateviewinternal.h"
 #include "katevimodebar.h"
 #include <ktexteditor/view.h>
+#include "katerenderer.h"
 
 using KTextEditor::Cursor;
 using KTextEditor::Range;
@@ -781,6 +782,20 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
 
   return r;
 }
+
+KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
+  int line_height = m_view->renderer()->lineHeight();
+
+  Cursor c = m_view->cursorPosition();
+  QPoint point = m_view->cursorToCoordinate(c);
+  Cursor res = m_view->coordinatesToCursor(QPoint(point.x(), point.y() + lines * line_height));
+
+  KateViRange r;
+  r.endColumn = res.column();
+  r.endLine = res.line();
+  return r;
+}
+
 
 bool KateViModeBase::startNormalMode()
 {

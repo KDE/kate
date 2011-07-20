@@ -107,6 +107,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateViRange goLineUp();
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);
+    KateViRange goVisualLineUpDown(int lines);
 
 
     unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }

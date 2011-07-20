@@ -34,6 +34,7 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kcolorcombo.h>
+#include <sonnet/dictionarycombobox.h>
 
 //BEGIN VariableEditor
 VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
@@ -298,5 +299,27 @@ void VariableStringEditor::setItemValue(const QString &newValue)
   static_cast <VariableStringItem*>(item())->setValue(newValue);
 }
 //END VariableStringEditor
+
+//BEGIN VariableSpellCheckEditor
+VariableSpellCheckEditor::VariableSpellCheckEditor(VariableSpellCheckItem *item, QWidget *parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout *l = (QGridLayout*) layout();
+
+  m_dictionaryCombo = new Sonnet::DictionaryComboBox(this);
+  m_dictionaryCombo->setCurrentByDictionary(item->value());
+  l->addWidget(m_dictionaryCombo, 0, 2, Qt::AlignLeft);
+
+  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged (const QString&)), this, SIGNAL(valueChanged()));
+  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged (const QString&)), this, SLOT(activateItem()));
+  connect(m_dictionaryCombo, SIGNAL(dictionaryChanged (const QString&)), this, SLOT(setItemValue(const QString&)));
+}
+
+void VariableSpellCheckEditor::setItemValue(const QString &newValue)
+{
+  static_cast <VariableSpellCheckItem*>(item())->setValue(newValue);
+}
+
+//END VariableSpellCheckEditor
 
 // kate: indent-width 2; replace-tabs on;

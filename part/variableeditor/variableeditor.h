@@ -23,7 +23,6 @@
 
 #include <QtGui/QWidget>
 
-
 class VariableBoolItem;
 class VariableColorItem;
 class VariableFontItem;
@@ -31,6 +30,7 @@ class VariableItem;
 class VariableStringListItem;
 class VariableIntItem;
 class VariableStringItem;
+class VariableSpellCheckItem;
 
 class KColorCombo;
 class KFontComboBox;
@@ -39,6 +39,10 @@ class QComboBox;
 class QLabel;
 class QLineEdit;
 class QSpinBox;
+
+namespace Sonnet {
+  class DictionaryComboBox;
+}
 
 class VariableEditor : public QWidget
 {
@@ -136,7 +140,6 @@ protected Q_SLOTS:
 private:
   KFontComboBox* m_comboBox;
 };
-#endif
 
 
 class VariableStringEditor : public VariableEditor
@@ -151,5 +154,21 @@ protected Q_SLOTS:
 private:
   QLineEdit* m_lineEdit;
 };
+
+
+class VariableSpellCheckEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableSpellCheckEditor(VariableSpellCheckItem* item, QWidget* parent);
+
+protected Q_SLOTS:
+  void setItemValue(const QString& newValue);
+
+private:
+  Sonnet::DictionaryComboBox *m_dictionaryCombo;
+};
+
+#endif
 
 // kate: indent-width 2; replace-tabs on;

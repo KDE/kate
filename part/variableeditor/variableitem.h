@@ -195,6 +195,26 @@ private:
 };
 
 //END class VariableStringItem
+
+//BEGIN class VariableSpellCheckItem
+class VariableSpellCheckItem : public VariableItem
+{
+public:
+  VariableSpellCheckItem(const QString &variable, const QString &value);
+
+  QString value() const;
+  void setValue(const QString& value);
+
+public:
+  virtual void setValueByString(const QString &value);  // Same as setValue() in this case, implemented for uniformity
+  virtual QString valueAsString() const;                // Same as value() in this case, implemented for uniformity
+  virtual VariableEditor* createEditor(QWidget *parent);
+
+private:
+  QString m_value;
+};
+//END class VariableSpellCheckItem
+
 #endif
 
 // kate: indent-width 2; replace-tabs on;

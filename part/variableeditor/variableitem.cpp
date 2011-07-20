@@ -295,4 +295,38 @@ VariableEditor* VariableStringItem::createEditor(QWidget* parent)
 }
 //END class VariableStringItem
 
+
+//BEGIN class VariableSpellCheckItem
+VariableSpellCheckItem::VariableSpellCheckItem(const QString &variable, const QString &value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+QString VariableSpellCheckItem::value() const
+{
+  return m_value;
+}
+
+void VariableSpellCheckItem::setValue(const QString &value)
+{
+  m_value = value;
+}
+
+QString VariableSpellCheckItem::valueAsString() const
+{
+  return m_value;
+}
+
+void VariableSpellCheckItem::setValueByString(const QString &value)
+{
+  m_value = value;
+}
+
+VariableEditor* VariableSpellCheckItem::createEditor(QWidget *parent)
+{
+  return new VariableSpellCheckEditor(this, parent);
+}
+//END class VariableSpellCheckItem
+
 // kate: indent-width 2; replace-tabs on;

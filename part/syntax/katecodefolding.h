@@ -294,11 +294,9 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     // Debug methods and members
     void printMapping();
     QString treeString;
-    QString stackString;
-    void buildStackString();                                // Will build the output using the stack alg
-    // call : buildTreeString(root,1);
-    void buildTreeString(KateCodeFoldingNode *node, int level);     // Will build the output using the tree alg
-    bool isCorrect();                                       // will compare the stackString with the treeString
+
+    // Will build the output using the tree alg ; Call : buildTreeString(root,1);
+    void buildTreeString(KateCodeFoldingNode *node, int level);
     // end of debug...
 
   protected:

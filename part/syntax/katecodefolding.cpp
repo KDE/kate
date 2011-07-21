@@ -1173,16 +1173,6 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
   // changed == true
   updateMapping(line, *regionChanges);
   *updated = true;
-
-  buildTreeString(m_root,1);
-  qDebug()<<treeString;
-  buildStackString();
-  //qDebug()<<stackString;
-  QMessageBox alert;
-  alert.setText("ERROR");
-  if (!isCorrect()) {
-    alert.exec();
-  }
 }
 
 // Update mapping when "changhed" flag from updateLine() is "true" - nodes inserted or deleted
@@ -1270,58 +1260,6 @@ void KateCodeFoldingTree::printMapping() {
   qDebug()<<"\n**********************************************************\n";
 }
 
-void KateCodeFoldingTree::buildStackString()
-{
-  QStack<KateCodeFoldingNode *> testStack;
-  stackString.clear();
-  testStack.clear();
-  int level = 0;
-  int index = -1;
-  int nPops = 0;
-
-  QVector <KateCodeFoldingNode*> tempVector;
-  QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
-  iterator.next();
-  testStack.push(m_root);
-  while (iterator.hasNext()) {
-    //int key = iterator.peekNext().key();
-    tempVector = iterator.peekNext().value();
-    iterator.next();
-    foreach (KateCodeFoldingNode *node, tempVector) {
-      index ++;
-      int tempPops = 0;
-      if (node->m_type > 0) {
-        if (nPops) {
-          tempPops = nPops;
-          while (tempPops && testStack.top()->m_type) {
-            testStack.pop();
-            tempPops --;
-          }
-          level -= nPops;
-          if (level < 1)
-            level = 0;
-          nPops = 0;
-        }
-        level ++;
-        stackString.append("\n");
-        for (int i = 0 ; i < level ; ++ i)
-          stackString.append(QString("   "));
-        stackString.append(QString("{ (l=%1, c=%2, pL=%3, pC=%4)").arg(node->getLine()).
-                           arg(node->getColumn()).arg(testStack.top()->getLine()).arg(testStack.top()->getColumn()));
-        testStack.push(node);
-      }
-      else if (node->m_type < 0) {
-        stackString.append("\n");
-        for (int i = 0 ; i < level ; ++ i)
-          stackString.append(QString("   "));
-        stackString.append(QString("} (l=%1, c=%2, pL=%3, pC=%4)").arg(node->getLine()).
-                           arg(node->getColumn()).arg(testStack.top()->getLine()).arg(testStack.top()->getColumn()));
-        nPops ++;
-      }
-    }
-  }
-}
-
 void KateCodeFoldingTree::buildTreeString(KateCodeFoldingNode *node, int level)
 {
   if (node->m_type == 0)
@@ -1364,9 +1302,4 @@ void KateCodeFoldingTree::buildTreeString(KateCodeFoldingNode *node, int level)
     if (node->isDuplicated(node->endChildAt(i2)) == false)
       buildTreeString(node->endChildAt(i2),level);
   }
-}
-
-bool KateCodeFoldingTree::isCorrect()
-{
-  return  (stackString.compare(treeString) == 0 ? true : false);
 }

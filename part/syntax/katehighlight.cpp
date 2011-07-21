@@ -1741,6 +1741,11 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
     //let's see, if the included context includes other contexts
     for (int index2 = 0; index2 < list->count(); ++index2)
     {
+      if (index2 == index1) {
+        // prevent accidental infinite recursion
+        kWarning() << "infinite recursion in IncludeRules in language file for " << iName << "in context" << list->at(index1)->incCtxN;
+        continue;
+      }
       if (list->at(index2)->ctx == ctx1.newContext)
       {
         //yes it does, so first handle that include rules, since we want to

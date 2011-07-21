@@ -193,7 +193,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     void invalidateHighlighting();
 
     //KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
-    AbstractKateCodeFoldingTree *foldingTree () { return &m_regionTree; }
+    KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
 
     void codeFoldingColumnUpdate(int lineNr);
 
@@ -247,7 +247,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * folding tree
      */
     //KateCodeFoldingTree m_regionTree;
-    AbstractKateCodeFoldingTree m_regionTree;
+    KateCodeFoldingTree m_regionTree;
 
     // for the scrapty indent sensitive langs
     int m_tabWidth;

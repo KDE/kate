@@ -219,7 +219,7 @@ class KateViewInternal : public QWidget
     void dropEventPass(QDropEvent*);
 
   private Q_SLOTS:
-    void slotRegionVisibilityChangedAt(int,bool clear_cache);
+    void slotRegionVisibilityChanged();
     void slotRegionBeginEndAddedRemoved(unsigned int);
     void slotCodeFoldingChanged();
 

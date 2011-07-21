@@ -3372,7 +3372,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
         kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)";
         int commentRegion=(highlight()->commentRegion(startAttrib));
         if (commentRegion){
-           KateCodeFoldingNodeTemp *n=foldingTree()->findNodeForPosition(line,column);
+           KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
             KTextEditor::Cursor start,end;
             if ((n->nodeType()==(int)commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
@@ -3991,7 +3991,7 @@ void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
   m_buffer->lineInfo(info,line);
 }
 
-AbstractKateCodeFoldingTree *KateDocument::foldingTree ()
+KateCodeFoldingTree *KateDocument::foldingTree ()
 {
   return m_buffer->foldingTree();
 }

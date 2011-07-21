@@ -209,7 +209,7 @@ void KateScrollBar::recomputeMarksPositions()
   int realHeight = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddPage, this).bottom() - topMargin - 1;
 
   const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
-  AbstractKateCodeFoldingTree *tree = m_doc->foldingTree();
+  KateCodeFoldingTree *tree = m_doc->foldingTree();
 
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = marks.constBegin(); i != marks.constEnd(); ++i)
   {
@@ -219,7 +219,7 @@ void KateScrollBar::recomputeMarksPositions()
 
     if (tree)
     {
-      KateCodeFoldingNodeTemp *node = tree->findNodeForLine(line);
+      KateCodeFoldingNode *node = tree->findNodeForLine(line);
 
       while (node)
       {
@@ -1309,9 +1309,9 @@ void KateIconBorder::showBlock()
 
   // get the new range, that should be highlighted
   KTextEditor::Range newRange = KTextEditor::Range::invalid();
-  AbstractKateCodeFoldingTree *tree = m_doc->foldingTree();
+  KateCodeFoldingTree *tree = m_doc->foldingTree();
   if (tree) {
-    KateCodeFoldingNodeTemp *node = tree->findNodeForLine(m_currentBlockLine);
+    KateCodeFoldingNode *node = tree->findNodeForLine(m_currentBlockLine);
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
     if (node != tree->rootNode () && node->getBegin(tree, &beg)) {

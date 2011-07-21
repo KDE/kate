@@ -1,35 +1,14 @@
-/* This file is part of the KDE libraries
-   Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License version 2 as published by the Free Software Foundation.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-*/
-
-#ifndef _KATE_CODEFOLDING_H_
-#define _KATE_CODEFOLDING_H_
+#ifndef KATECODEFOLDINGABSTRACT_H
+#define KATECODEFOLDINGABSTRACT_H
 
 //BEGIN INCLUDES + FORWARDS
 #include <QtCore/QObject>
-#include <QtCore/QHash>
-#include <QtCore/QSet>
-#include <QtCore/QList>
 #include <QtCore/QVector>
+#include <QtCore/QMap>
+#include <QtCore/QMapIterator>
+#include <QtCore/QDebug>
 
 #include "katepartprivate_export.h"
-#include "katecodefoldingabstract.h"
-
-#include "katecodefoldinghelpers.h"
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
@@ -38,215 +17,343 @@ class KateBuffer;
 class QString;
 //END
 
-class KateHiddenLineBlock
+class KateLineInfo
 {
   public:
-    unsigned int start;
-    unsigned int length;
+
+// if depth == 0
+  bool topLevel;
+
+// true if line contains an unfolded start node
+  bool startsVisibleBlock;
+
+// true if line contains a folded start node
+  bool startsInVisibleBlock;
+
+// true if line contains a valid end node
+  bool endsBlock;
+
+// true if line contains an invalid end node
+  bool invalidBlockEnd;
+
+// maximum level of a line's node
+  int depth;
 };
 
-class KateCodeFoldingNode
+// Class is used to define and compare node's positions
+class KateDocumentPosition
+{
+  public:
+    int line;
+    int column;
+
+    KateDocumentPosition (int l, int c) :
+        line(l),
+        column(c)
+    {
+    }
+    KateDocumentPosition (const KateDocumentPosition &pos) :
+        line(pos.line),
+        column(pos.column)
+    {
+    }
+    KateDocumentPosition () :
+        line(0),
+        column(0)
+    {
+    }
+
+    // Operators
+    inline bool operator < (const KateDocumentPosition &pos) const
+    {
+      return (line < pos.line) ? true :
+          (line == pos.line) ?
+          ((column < pos.column) ? true : false)
+            : false;
+    }
+    inline bool operator > (const KateDocumentPosition &pos) const
+    {
+      return (line > pos.line) ? true :
+          (line == pos.line) ?
+          ((column > pos.column) ? true : false)
+            : false;
+    }
+    inline bool operator == (const KateDocumentPosition &pos) const
+    {
+      return (line == pos.line && column == pos.column) ? true : false;
+    }
+    inline bool operator != (const KateDocumentPosition &pos) const
+    {
+      return (line != pos.line || column != pos.column) ? true : false;
+    }
+    inline bool operator >= (const KateDocumentPosition &pos) const
+    {
+      return ((*this) > pos || (*this) == pos);
+    }
+};
+
+class KateCodeFoldingNode: public QObject
 {
   friend class KateCodeFoldingTree;
 
+  //data members
+  private:
+  // node's parent
+    KateCodeFoldingNode           *m_parentNode;
+
+  // node's position in document
+    KateDocumentPosition          m_position;
+
+  // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
+  // if type > 0 : start node ; if type < 0 : end node
+    int                           m_type;
+
+  // node is folded / unfolded
+    bool                          m_visible;
+
+  // a property used to calibrate the folding tree
+    int                           m_shortage;
+
+  // Node's start children
+    QVector<KateCodeFoldingNode*> m_startChildren;
+
+  // Node's end children
+    QVector<KateCodeFoldingNode*> m_endChildren;
+
+// public methods - Node's interface :
   public:
     KateCodeFoldingNode ();
-    KateCodeFoldingNode (KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
+    KateCodeFoldingNode (KateCodeFoldingNode *par, int typ, KateDocumentPosition pos);
 
     ~KateCodeFoldingNode ();
 
-    inline int nodeType () { return type;}        // encoding of type is not so clear
+    inline int nodeType ()
+      { return m_type; }
 
-    inline bool isVisible () {return visible;}
+    inline bool isVisible ()
+      { return m_visible; }
 
-    inline KateCodeFoldingNode *getParentNode () {return parentNode;}
+    inline KateCodeFoldingNode *getParentNode ()
+      { return m_parentNode; }
 
-    bool getBegin (KateCodeFoldingTree *tree, KTextEditor::Cursor* begin);  // ??
-    bool getEnd (KateCodeFoldingTree *tree, KTextEditor::Cursor *end);      // ??
+    bool getBegin (KateCodeFoldingTree *tree, KTextEditor::Cursor* begin);
+    bool getEnd (KateCodeFoldingTree *tree, KTextEditor::Cursor *end);
 
-  /**
-   * accessors for the child nodes
-   */
+// protected methods - used by FoldingTree
   protected:
-    inline bool noChildren () const { return m_children.isEmpty(); }
 
-    inline int childCount () const { return m_children.size(); }
+// Setters and getters
+    inline void setColumn(int newColumn)
+      { m_position.column = newColumn; }
+    inline void setLine(int newLine)
+      { m_position.line = newLine; }
 
-    inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
+    inline void setColumn(KateCodeFoldingNode *node)
+      { setColumn(node->getColumn()); }
+    inline void setLine(KateCodeFoldingNode *node)
+      { setLine(node->getLine()); }
 
-    inline int findChild (KateCodeFoldingNode *node, uint start = 0) const
+    inline int getColumn() const
+      { return m_position.column; }
+    inline int getLine() const
+      { return m_position.line; }
+    inline KateDocumentPosition getPosition() const
+      { return m_position; }
+    int getDepth();
+    KateCodeFoldingNode* getStartMatching(KateCodeFoldingNode* endNode);
+// End of setters and getters
+
+// Children modifiers
+    inline bool noStartChildren () const
+      { return m_startChildren.isEmpty(); }
+    inline bool noEndChildren () const
+      { return m_endChildren.isEmpty(); }
+    inline bool noChildren () const
+      { return noStartChildren() && noEndChildren(); }
+
+    inline int startChildrenCount () const
+      { return m_startChildren.size(); }
+    inline int endChildrenCount () const
+      { return m_endChildren.size(); }
+
+    inline KateCodeFoldingNode* startChildAt (uint index) const
+      { return m_startChildren[index]; }
+    inline KateCodeFoldingNode* endChildAt (uint index) const
+      { return m_endChildren[index]; }
+
+    KateCodeFoldingNode* removeStartChild (int index);
+    KateCodeFoldingNode* removeEndChild (int index);
+
+    inline void clearStartChildren ()
+      { m_startChildren.clear(); }
+    inline void clearEndChildren ()
+      { m_endChildren.clear(); }
+    inline void clearAllChildren ()
     {
-      for (int i=start; i < m_children.size(); ++i)
-        if (m_children[i] == node)
-          return i;
-
-      return -1;
+      clearStartChildren();
+      clearEndChildren();
     }
 
-    inline void appendChild (KateCodeFoldingNode *node) { m_children.append (node); }
+    inline bool hasMatch() const
+      { return noEndChildren() ? false : true ; }
 
-    void insertChild (uint index, KateCodeFoldingNode *node);
+    inline KateCodeFoldingNode* matchingNode() const
+      { return hasMatch() ? endChildAt(0) : 0 ; }
 
-    KateCodeFoldingNode *takeChild (uint index);
+// Methods used to calibrate the Folding Tree :
+    void add(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_childred);
+    void addChild(KateCodeFoldingNode *node);
+    bool contains(KateCodeFoldingNode *node);
+    bool hasBrothers();
+    bool isDuplicated(KateCodeFoldingNode *node);
+    void mergeChildren(QVector <KateCodeFoldingNode*> &list1, QVector <KateCodeFoldingNode*> &list2);
+    bool remove(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_childred);
+    KateCodeFoldingNode* removeChild(KateCodeFoldingNode *node);
+    QVector<KateCodeFoldingNode *> removeChildrenInheritedFrom(KateCodeFoldingNode *node);
+    void setParent();
+    void updateParent(QVector <KateCodeFoldingNode*> newExcess, int newShortage);
+    void updateSelf();
 
-    void clearChildren ();
-
-    int cmpPos(KateCodeFoldingTree *tree, uint line, uint col);
-
-    void setAllowDestruction(bool allowDestruction) { this->allowDestruction = allowDestruction; }
-
+// Debug Methods
     void printNode (int level);
-    
-  /**
-   * data members
-   */
-  private:
-    KateCodeFoldingNode *parentNode;  // parent
-    unsigned int        startLineRel; // start line (relative to parent its "start line") - line for "{"
-    unsigned int        endLineRel;   // end line (relative to "start line") - line for "}"
-
-    unsigned int startCol;            // start column - column for {
-    unsigned int endCol;              // end column - column for }
-
-    bool startLineValid;              // if "{" exists (not used by other classes)
-    bool endLineValid;                // if "}" exists (not used by other classes)
-
-    signed char type;                 // 0 -> toplevel / invalid ; 4/-4 = {} ; 4 = comment ; -5 = only "}" ; 1 = indent node
-    bool visible;                     // folded / not folded
-    bool deleteOpening;               // smth from the prev alg. will not be used
-    bool deleteEnding;                // smth from the prev alg. will not be used
-    bool allowDestruction;            // smth from the prev alg. will not be used
-    
-    QVector<KateCodeFoldingNode*> m_children;
 };
+// End of KateCodeFoldingNode Class
 
+//-------------------------------------------------------//
+
+// Start of KateCodeFoldingTree
 class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 {
   friend class KateCodeFoldingNode;
 
   Q_OBJECT
 
+  private:
+
+  // Tree's root node
+    KateCodeFoldingNode*                          m_root;
+
+  // Root's match (a virtual node at the end of the document)
+    KateCodeFoldingNode*                          m_rootMatch;
+
+    KateBuffer* const                             m_buffer;
+
+  // A map (line, <Vector of Nodes> from that line) used for easier access to the folding nodes
+    QMap < int, QVector <KateCodeFoldingNode*> >  m_lineMapping;
+
+  // A "special" position (invalid position)
+    KateDocumentPosition                          INFposition;
+
+  // A list of the hidden nodes (only those nodes that are not found in an already folded area) - sorted (key = nodeLine)
+    QList <KateCodeFoldingNode*>                  m_hiddenNodes;
+
   public:
     KateCodeFoldingTree (KateBuffer *buffer);
     ~KateCodeFoldingTree ();
 
-    KateCodeFoldingNode *findNodeForLine (unsigned int line);
-    KateCodeFoldingNode *findNodeStartingAt(unsigned int line);
-    KateCodeFoldingNode *rootNode () { return &m_root; }
+    void incrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
+    void decrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
 
-    unsigned int getRealLine         (unsigned int virtualLine);
-    unsigned int getVirtualLine      (unsigned int realLine);
-    unsigned int getHiddenLinesCount (unsigned int docLine);  // get the number of hidden lines
+    void lineHasBeenInserted (int line, int column);
+    void lineHasBeenRemoved  (int line);
+      // Makes clear what KateLineInfo contains
+    void getLineInfo (KateLineInfo *info, int line);
 
-    void printTree ();                                        // my debug method
+    inline KateCodeFoldingNode *rootNode () { return m_root; }
 
-    bool isTopLevel (unsigned int line);                      // if any node (not root node) contains "line"
+         // find the node that contains this line, root else
+    KateCodeFoldingNode *findNodeForLine (int line);
 
-    // if more lines were inserted/deleted, methods will be called for every line
-    void lineHasBeenInserted (unsigned int line);             // order : 1,2,3
-    void lineHasBeenRemoved  (unsigned int line);             // order : 3,2,1
-    void debugDump ();                                        // Just named (wrapper) in KateDocument::dumpRegionTree()
-    void getLineInfo (KateLineInfo *info,unsigned int line);  // Makes clear what KateLineInfo contains
+       // find the first start node from the line, 0 else
+    KateCodeFoldingNode *findNodeStartingAt(int line);
 
-    unsigned int getStartLine (KateCodeFoldingNode *node);
+    int getRealLine         (int virtualLine);
+    int getVirtualLine      (int realLine);
+    int getHiddenLinesCount (int docLine);  // get the number of hidden lines
 
-    void fixRoot (int endLRel);                               // set end line for root node
-    void clear ();                                            // Clear the whole FoldingTree (and aux structures)
+    KateCodeFoldingNode *findNodeForPosition(int line, int column);
 
-    KateCodeFoldingNode *findNodeForPosition(unsigned int line, unsigned int column);
-  private:
+    inline void debugDump ()
+    {
+      printMapping();
+      buildTreeString(m_root,1);
+      qDebug()<<treeString;
+    }
+    inline int getStartLine (KateCodeFoldingNode *node)
+    {
+      return node->getLine();
+    }
 
-    KateCodeFoldingNode m_root;
+  // set end line for root node
+    void fixRoot (int endLRel);
 
-    KateBuffer *const m_buffer;
-
-    QHash<int,unsigned int> lineMapping;
-    QSet<int>         dontIgnoreUnchangedLines;
-
-    QList<KateCodeFoldingNode*> markedForDeleting;
-    QList<KateCodeFoldingNode*> nodesForLine;
-    QList<KateHiddenLineBlock>  hiddenLines;
-
-    unsigned int hiddenLinesCountCache;
-    bool         something_changed;
-    bool         hiddenLinesCountCacheValid;
-
-    static bool trueVal;
-
-    KateCodeFoldingNode *findNodeForLineDescending (KateCodeFoldingNode *, unsigned int, unsigned int, bool oneStepOnly=false);
-
-    bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, unsigned int endCol, int insertPos);
-
-    void dumpNode    (KateCodeFoldingNode *node, const QString &prefix);
-    void addOpening  (KateCodeFoldingNode *node, signed char nType,QVector<int>* list, unsigned int line,unsigned int charPos);
-    void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QVector<int>*
-                                        list,unsigned int line,int current,unsigned int startLine,unsigned int charPos);
-
-    void incrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
-    void decrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
-
-    void cleanupUnneededNodes (unsigned int line);
-
-    /**
-     * if returns true, this node has been deleted !!
-     */
-    bool removeEnding (KateCodeFoldingNode *node,unsigned int line);
-
-    /**
-     * if returns true, this node has been deleted !!
-     */
-    bool removeOpening (KateCodeFoldingNode *node,unsigned int line);
-
-    void findAndMarkAllNodesforRemovalOpenedOrClosedAt (unsigned int line);
-    void findAllNodesOpenedOrClosedAt (unsigned int line);
-
-    void addNodeToFoundList  (KateCodeFoldingNode *node,unsigned int line,int childpos);
-    void addNodeToRemoveList (KateCodeFoldingNode *node,unsigned int line);
-    void addHiddenLineBlock  (KateCodeFoldingNode *node,unsigned int line);
-
-    bool existsOpeningAtLineAfter(unsigned int line, KateCodeFoldingNode *node);
-
-    void dontDeleteEnding  (KateCodeFoldingNode*);
-    void dontDeleteOpening (KateCodeFoldingNode*);
-
-    void updateHiddenSubNodes (KateCodeFoldingNode *node);
-    void moveSubNodesUp (KateCodeFoldingNode *node);
-
-    // my debug methods and members
-    // members
-    AbstractKateCodeFoldingTree *m_abstractTree;
-
-    // methods
-    void getLineInfo_private(KateLineInfo *info, unsigned int line);
+  // Clear the whole FoldingTree (and aux structures)
+    void clear ();
 
 
-//     void removeParentReferencesFromChilds(KateCodeFoldingNode* node);
+    // Debug methods and members
+    void printMapping();
+    QString treeString;
+    QString stackString;
+    void buildStackString();                                // Will build the output using the stack alg
+    // call : buildTreeString(root,1);
+    void buildTreeString(KateCodeFoldingNode *node, int level);     // Will build the output using the tree alg
+    bool isCorrect();                                       // will compare the stackString with the treeString
+    // end of debug...
+
+  protected:
+  // Insert Node methods
+    inline void insertNode(int nodeType, KateDocumentPosition pos)
+    {
+      nodeType > 0 ? insertStartNode(nodeType,pos) : insertEndNode(nodeType,pos);
+    }
+    void insertStartNode(int type, KateDocumentPosition pos);
+    void insertEndNode(int type, KateDocumentPosition pos);
+    void insertNodeIntoMap(KateCodeFoldingNode* newNode);
+
+  // Delete Node methods
+    inline void deleteNode (KateCodeFoldingNode* deletedNode)
+    {
+      deletedNode->m_type > 0 ? deleteStartNode(deletedNode) : deleteEndNode(deletedNode);
+    }
+    void deleteEndNode (KateCodeFoldingNode* deletedNode);
+    void deleteStartNode (KateCodeFoldingNode* deletedNode);
+    void deleteNodeFromMap(KateCodeFoldingNode *node);
+
+  // Update position methods
+    void changeColumn(KateCodeFoldingNode *node, int newColumn);
+    void setColumns (int line, QVector<int> &newColumns);
+    void updateMapping (int line, QVector<int> &newColumns);
+
+  // Line depth methods
+    int getLineDepth(int line);
+    int getLineDepth(int line, bool &validEndings);
+
+  // Tree algorithm metods
+    KateCodeFoldingNode* findParent (KateDocumentPosition startingPos,int childType);
+    KateCodeFoldingNode* fineNodeAbove (KateDocumentPosition startingPos);
+    void sublist(QVector<KateCodeFoldingNode *> &dest, QVector<KateCodeFoldingNode *> &source,
+                                              KateDocumentPosition begin, KateDocumentPosition end);
+    KateCodeFoldingNode* findNodeAt(KateDocumentPosition position);
+
+  // Folding / Unfolding methods
+    void replaceFoldedNodeWithList(KateCodeFoldingNode* node, QList<KateCodeFoldingNode*> &newFoldedNodes);
+    void foldNode (KateCodeFoldingNode* node);
+    void unfoldNode (KateCodeFoldingNode* node);
 
   public Q_SLOTS:
-    void updateLine (unsigned int line,QVector<int>* regionChanges, bool *updated, bool changed,bool colschanged);
+    void updateLine (int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
+    void toggleRegionVisibility (int);
+    void collapseToplevelNodes ();
+    void expandToplevelNodes ();
+    int collapseOne (int realLine);
+    void expandOne  (int realLine, int numLines);
+    void ensureVisible (int l);
 
-    // Next methods do not work so well
-    void toggleRegionVisibility (unsigned int);     // called when mouse release the folding sign; kateviewhelpers; 1450
-    void collapseToplevelNodes ();                  // kateview 947 (works pretty bad)  // collapse top level
-    void expandToplevelNodes (int numLines);        // kateview 947                     // expand top level (arg = docNLines)
-    int collapseOne (int realLine);                 // kateview.h 529... / .cpp 972...  // colapse local
-    void expandOne  (int realLine, int numLines);   // kateview.cpp 995                 // expand local (numLines = docNlines)
-    /**
-      Ensures that all nodes surrounding @p line are open
-    */
-    void ensureVisible( uint line );                // unfold line
-
-  private:
-    bool m_clearCache;
   Q_SIGNALS:
-    void regionVisibilityChangedAt  (unsigned int,bool clearCache); // kateinternalview 658
-    void regionBeginEndAddedRemoved (unsigned int);                 // kateinternalview 686 - not working (not used)
+      void regionVisibilityChanged ();
 };
 
-#endif
-
-/*
- katebuffer.h : 248
- */
+#endif // KATECODEFOLDINGABSTRACT_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1094,7 +1094,7 @@ list, and order them using the arrow buttons at the side of the list.</para>
 
 <para>In the <guimenu>Tools</guimenu> menu you will find a submenu labeled
 <guisubmenu>External Tools</guisubmenu>, if you have enabled them in &kate; settings.
-These tools invokes external applications with data related to the current document,
+These tools invoke external applications with data related to the current document,
 for example its URL, directory, text or selection.</para>
 
 <para>External tools are user defined, you can add, edit or remove tools using
@@ -1119,7 +1119,7 @@ configured.</para></listitem>
 <title>Configuration</title>
 
 <para>External tools are configured on the <guilabel>External Tools</guilabel> page
-of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>. These tools invokes external
+of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>. These tools invoke external
 applications with data related to the current document, for example its URL,
 directory, text or selection. This page allows you to manage the menu and edit,
 remove or add new tools.</para>
@@ -1144,20 +1144,20 @@ sheet described below.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guibutton>Insert Seperator</guibutton></term>
-<listitem><para>Adds a seperator line that appears in the menu below the currently
+<term><guibutton>Insert Separator</guibutton></term>
+<listitem><para>Adds a separator line that appears in the menu below the currently
 selected item.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guibutton>Up Arrow</guibutton></term>
-<listitem><para>Moves the currently selected item above the the previous
+<listitem><para>Moves the currently selected item above the previous
 one.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guibutton>Down Arrow</guibutton></term>
-<listitem><para>Moves the currently selected item below the the subsequent
+<listitem><para>Moves the currently selected item below the subsequent
 one.</para></listitem>
 </varlistentry>
 
@@ -1167,13 +1167,13 @@ one.</para></listitem>
 <title>External Tools Properties</title>
 <varlistentry>
 <term><guilabel>Label</guilabel></term>
-<listitem><para>A friendly label that will appear in the External Tools menu.</para></listitem>
+<listitem><para>A friendly label that will appear in the <guisubmenu>External Tools</guisubmenu> menu.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guibutton>Icon</guibutton></term>
 <listitem><para>Allows you to select an icon that appears next to the label in the
-External Tools menu.</para></listitem>
+<guisubmenu>External Tools</guisubmenu> menu.</para></listitem>
 </varlistentry>
 
 <varlistentry>

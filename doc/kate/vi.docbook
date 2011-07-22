@@ -66,7 +66,7 @@ mimicking Vim’s behavior.</para>
 <para>&kate;: <keycap>Y</keycap> yanks to end of line.</para>
 <para>Vim: <keycap>Y</keycap> yanks whole line, just like
 <keycap>y</keycap><keycap>y</keycap>.</para>
-<para>VI’s behavior for the <keycap>Y</keycap> command is in practice a bug;
+<para>VI’s behavior for the <keycap>Y</keycap> command is in practice a bug.
 For both change and delete commands,
 <keycap>c</keycap><keycap>c</keycap>/
 <keycap>d</keycap><keycap>d</keycap> will do its action on
@@ -340,7 +340,7 @@ which indicates how many of the appropriate movements to make.</para>
 <entry><para>Follow by character to move to right of cursor</para></entry>
 </row>
 <row><entry><para><keycap>F</keycap></para></entry>
-<entry><para>Follow by character to move left of cursor</para></entry>
+<entry><para>Follow by character to move to left of cursor</para></entry>
 </row>
 <row><entry><para><keycap>t</keycap></para></entry>
 <entry><para>Follow by character to move to right of cursor, placing the cursor on character before it</para></entry>

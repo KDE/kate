@@ -184,7 +184,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'default-dictionary' to list
   Sonnet::Speller speller;
-  item = new VariableStringListItem("default-dictionary", speller.availableLanguageNames(), speller.defaultLanguage());
+  item = new VariableSpellCheckItem("default-dictionary", speller.defaultLanguage());
   item->setHelpText(i18nc("short translation please", "Set the default dictionary used for spell checking."));
   listview->addItem(item);
 

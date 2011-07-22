@@ -264,7 +264,7 @@ have to do all your navigation in the terminal on your own.
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Set EDITOR enivornment variable to 'kate -b'</guilabel></term>
+<term><guilabel>Set EDITOR environment variable to 'kate -b'</guilabel></term>
 <listitem><para>This sets the <envar>EDITOR</envar> environment variable so programs
 run in the built-in terminal that automatically open a file in an editor will open
 them in &kate; instead of the default editor configured in your shell.  You will
@@ -777,7 +777,7 @@ the &Tab; key is pressed in the middle or end of a line.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Tab wdith:</guilabel></term>
+<term><guilabel>Tab width:</guilabel></term>
 <listitem>
 <para>This configures the number of spaces that are displayed in place of a tabulator
 character.</para>
@@ -1123,12 +1123,12 @@ saving.</para>
 <para>&kappname; is able to recover (most of) what was written after last save in case
 of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
 after the first editing action on a document. If the user doesn’t save the
-changes and Kate crashes, the swap file remains on the disk. When opening a
-file, Kate checks if there is a swap file for the document and if it is, it asks
+changes and &kappname; crashes, the swap file remains on the disk. When opening a
+file, &kappname; checks if there is a swap file for the document and if it is, it asks
 the user whether he wants to recover the lost data or not. The user has the
 possibility to view the differences between the original file and the recovered
 one, too. The swap file is deleted after every save and on normal exit.</para>
-<para>Kate syncs the swap files on the disk every 15 seconds, but only if they
+<para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
 have changed since the last sync. The user can disable the swap files syncing if
 he wants, by checking the <guilabel>Disable swap file syncing</guilabel> box,
 but this can lead to more data loss.</para>

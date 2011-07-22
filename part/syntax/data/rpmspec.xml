@@ -7,7 +7,7 @@
   <!ENTITY os_conditionals_names "(ifos|ifnos)">
   <!ENTITY lookahead_whitespace_eol "(?=($| |\t))">
 ]>
-<language name="RPM Spec" version="1.9" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
+<language name="RPM Spec" version="2.00" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
 
   <highlighting>
 
@@ -383,8 +383,6 @@
       <!-- Context for the content of a macro defination. -->
       <context attribute="String" lineEndContext="#pop" name="macro defination content">
         <DetectSpaces />
-        <!-- Handle % -->
-        <AnyChar context="handle_percent" String="%$" lookAhead="true" />
         <LineContinue attribute="Line break" context="#stay"/>
         <DetectChar attribute="Warning" char="\" />
       </context>

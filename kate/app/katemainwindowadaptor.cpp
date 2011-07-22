@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003 Ian Reinhart Geiser <geiseri@kde.org>
+   Copyright (C) 2011 Dominik Haumann <dhaumann kde org>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -25,5 +25,15 @@ KateMainWindowAdaptor::KateMainWindowAdaptor (KateMainWindow *w)
 //((QString("KateMainWindow#%1").arg(w->mainWindowNumber())).toLatin1()), m_w (w)
 {
 }
-// kate: space-indent on; indent-width 2; replace-tabs on;
 
+QString KateMainWindowAdaptor::activeDocumentUrl() const
+{
+  return m_w->activeDocumentUrl().url();
+}
+
+uint KateMainWindowAdaptor::mainWindowNumber() const
+{
+  return m_w->mainWindowNumber();
+}
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

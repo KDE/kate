@@ -57,7 +57,6 @@ namespace Kate
 class KFileItem;
 class KRecentFilesAction;
 
-class KateExternalToolsMenuAction;
 class KateViewDocumentProxyModel;
 class KateViewManager;
 class KateMwModOnHdDialog;
@@ -282,7 +281,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     KToggleAction* settingsShowFileselector;
 
-    KateExternalToolsMenuAction *externalTools;
     bool m_modignore, m_grrr;
 
     QString m_dbusObjectPath;

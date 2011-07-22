@@ -221,11 +221,20 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange textObjectAQuoteSingle();
     KateViRange textObjectInnerQuoteSingle();
 
+    KateViRange textObjectABackQuote();
+    KateViRange textObjectInnerBackQuote();
+
     KateViRange textObjectAParen();
     KateViRange textObjectInnerParen();
 
     KateViRange textObjectABracket();
     KateViRange textObjectInnerBracket();
+
+    KateViRange textObjectACurlyBracket();
+    KateViRange textObjectInnerCurlyBracket();
+
+    KateViRange textObjectAInequalitySign();
+    KateViRange textObjectInnerInequalitySign();
 
     KateViRange textObjectAComma();
     KateViRange textObjectInnerComma();

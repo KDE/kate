@@ -96,8 +96,12 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     Cursor findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false ) const;
+
+    KateViRange findSurroundingBrackets( const QChar &c1, const QChar &c2, bool inner,
+                                        const QChar &nested1 , const QChar &nested2  ) const;
     KateViRange findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner = false ) const;
+    KateViRange findSurroundingQuotes( const QChar &c, bool inner = false ) const;
+
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     void updateCursor( const Cursor &c ) const;
     const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;

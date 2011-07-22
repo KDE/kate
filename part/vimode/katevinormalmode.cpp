@@ -2138,6 +2138,8 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   KateViRange r;
   int lines = doc()->lines();
 
+  // If counted then it is not a motion to matching item anymore
+  // it's a motions to the N'th % of the document
   if(isCounted()) {
     if (getCount() > 100)
         return r;
@@ -2535,70 +2537,130 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
 
 KateViRange KateViNormalMode::textObjectAQuoteDouble()
 {
-    return findSurrounding( '"', '"', false );
+    return findSurroundingQuotes( '"', false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteDouble()
 {
-    return findSurrounding( '"', '"', true );
+    return findSurroundingQuotes( '"', true );
 }
 
 KateViRange KateViNormalMode::textObjectAQuoteSingle()
 {
-    return findSurrounding( '\'', '\'', false );
+    return findSurroundingQuotes( '\'', false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteSingle()
 {
-    return findSurrounding( '\'', '\'', true );
+    return findSurroundingQuotes( '\'', true );
 }
+
+KateViRange KateViNormalMode::textObjectABackQuote()
+{
+    return findSurroundingQuotes( '`', false );
+}
+
+KateViRange KateViNormalMode::textObjectInnerBackQuote()
+{
+    return findSurroundingQuotes( '`', true );
+}
+
 
 KateViRange KateViNormalMode::textObjectAParen()
 {
-    return findSurrounding( '(', ')', false );
+
+    return findSurroundingBrackets( '(', ')', false,  '(', ')' );
 }
 
 KateViRange KateViNormalMode::textObjectInnerParen()
 {
-    return findSurrounding( '(', ')', true );
+
+    return findSurroundingBrackets( '(', ')', true, '(', ')');
 }
 
 KateViRange KateViNormalMode::textObjectABracket()
 {
-    return findSurrounding( '[', ']', false );
+
+    return findSurroundingBrackets( '[', ']', false,  '[', ']' );
 }
 
 KateViRange KateViNormalMode::textObjectInnerBracket()
 {
-    return findSurrounding( '[', ']', true );
+
+    return findSurroundingBrackets( '[', ']', true, '[', ']' );
+}
+
+KateViRange KateViNormalMode::textObjectACurlyBracket()
+{
+
+    return findSurroundingBrackets( '{', '}', false,  '{', '}' );
+}
+
+KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
+{
+
+    return findSurroundingBrackets( '{', '}', true, '{', '}' );
+}
+
+KateViRange KateViNormalMode::textObjectAInequalitySign()
+{
+
+    return findSurroundingBrackets( '<', '>', false,  '<', '>' );
+}
+
+KateViRange KateViNormalMode::textObjectInnerInequalitySign()
+{
+
+    return findSurroundingBrackets( '<', '>', true, '<', '>' );
 }
 
 KateViRange KateViNormalMode::textObjectAComma()
 {
-    KateViRange r = findSurrounding( ',', ',', false );
+  KateViRange r = findSurroundingQuotes( ',', false );
 
-    if ( !r.valid ) {
-      r = findSurrounding( QRegExp(","), QRegExp("[\\])}]"), false );
-    }
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', ')', false, '(', ')' );
 
-    if ( !r.valid ) {
-      r = findSurrounding( QRegExp("[\\[({]"), QRegExp(","), false );
-    }
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', ']', false, '[', ']' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', '}', false, '{', '}' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '(', ',', false, '(', ')'  );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '[', ',', false, '[', ']' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '{', ',', false, '{', '}' );
 
     return r;
 }
 
 KateViRange KateViNormalMode::textObjectInnerComma()
 {
-    KateViRange r = findSurrounding( ',', ',', true );
 
-    if ( !r.valid ) {
-      r = findSurrounding( QRegExp(","), QRegExp("[\\])}]"), true );
-    }
+  KateViRange r = findSurroundingQuotes( ',',true );
 
-    if ( !r.valid ) {
-      r = findSurrounding( QRegExp("[\\[({]"), QRegExp(","), true );
-    }
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', ')', true, '(', ')' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', ']', true, '[', ']' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( ',', '}', true, '{', '}' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '(', ',', true, '(', ')'  );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '[', ',', true, '[', ']' );
+
+  if ( !r.valid )
+    r = findSurroundingBrackets( '{', ',', true, '{', '}' );
 
     return r;
 }
@@ -2741,16 +2803,22 @@ void KateViNormalMode::initializeCommands()
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );
   ADDMOTION("aw", textObjectAWord, 0 );
-  ADDMOTION("i\"", textObjectInnerQuoteDouble, 0 );
-  ADDMOTION("a\"", textObjectAQuoteDouble, 0 );
-  ADDMOTION("i'", textObjectInnerQuoteSingle, 0 );
-  ADDMOTION("a'", textObjectAQuoteSingle, 0 );
-  ADDMOTION("i[()]", textObjectInnerParen, REGEX_PATTERN );
-  ADDMOTION("a[()]", textObjectAParen, REGEX_PATTERN );
-  ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN );
-  ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN );
-  ADDMOTION("i,", textObjectInnerComma, 0 );
-  ADDMOTION("a,", textObjectAComma, 0 );
+  ADDMOTION("i\"", textObjectInnerQuoteDouble, IS_NOT_LINEWISE );
+  ADDMOTION("a\"", textObjectAQuoteDouble, IS_NOT_LINEWISE );
+  ADDMOTION("i'", textObjectInnerQuoteSingle, IS_NOT_LINEWISE );
+  ADDMOTION("a'", textObjectAQuoteSingle, IS_NOT_LINEWISE );
+  ADDMOTION("i`", textObjectInnerBackQuote, IS_NOT_LINEWISE );
+  ADDMOTION("a`", textObjectABackQuote, IS_NOT_LINEWISE );
+  ADDMOTION("i[()b]", textObjectInnerParen, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("a[()b]", textObjectAParen, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("i[{}B]", textObjectInnerCurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("a[{}B]", textObjectACurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("i[><]", textObjectInnerInequalitySign, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("a[><]", textObjectAInequalitySign, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN  | IS_NOT_LINEWISE);
+  ADDMOTION("i,", textObjectInnerComma, IS_NOT_LINEWISE );
+  ADDMOTION("a,", textObjectAComma, IS_NOT_LINEWISE);
 }
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()

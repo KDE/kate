@@ -374,6 +374,96 @@ void ViModeTest::NormalModeMotionsTest() {
          "5j10%dd",
          "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
 
+   // TEXT OBJECTS
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci'",
+          "foo \"bar baz ('first', '' or 'third')\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lca'",
+          "foo \"bar baz ('first',  or 'third')\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci(",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci(",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lcib",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lca)",
+          "foo \"bar baz \"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci\"",
+          "foo \"\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lda\"",
+          "foo ");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci[",
+          "foo \"bar []\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci]",
+          "foo \"bar []\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lca[",
+          "foo \"bar \"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci{",
+          "foo \"bar [baz ({} or 'third')]\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "7w2lca}",
+          "foo \"bar [baz ( or 'third')]\"");
+
+  DoTest( "{foo { bar { (baz) \"asd\" }} {1} {2} {3} {4} {5} }",
+          "ldiB",
+          "{}");
+
+  DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
+          "jda}xr;",
+          "int main();");
+
+  DoTest("QList<QString>","wwldi>","QList<>");
+  DoTest("QList<QString>","wwlda<","QList");
+  DoTest("<head>\n<title>Title</title>\n</head>",
+         "di<jci>",
+         "<>\n<>Title</title>\n</head>");
+
+  DoTest( "foo bar baz", "wldiw", "foo  baz");
+
+  DoTest( "foo bar baz", "wldawx", "foo az");
+
+  DoTest( "foo ( \n bar\n)baz","jdi(", "foo ()baz");
+  DoTest( "foo ( \n bar\n)baz","jda(", "foo baz");
+  DoTest( "(foo(bar)baz)", "ldi)", "()");
+  DoTest( "(foo(bar)baz)", "lca(", "");
+  DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
+  DoTest( "( foo ( bar ) )baz", "da(", "baz" );
+  DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
+
+  DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
+
+  DoTest("foo \"bar\" baz", "4ldi\"", "foo \"\" baz");
+  DoTest("foo \"bar\" baz", "8lca\"", "foo  baz");
+
+  DoTest("foo 'bar' baz", "4lca'", "foo  baz");
+  DoTest("foo 'bar' baz", "8ldi'", "foo '' baz");
+
+  DoTest("foo `bar` baz", "4lca`", "foo  baz");
+  DoTest("foo `bar` baz", "8ldi`", "foo `` baz");
+
 }
 
 void ViModeTest::NormalModeCommandsTest() {
@@ -459,7 +549,7 @@ void ViModeTest::CommandModeTests() {
 
     // Testing ":s" (sed)
     DoTest("foo","\\:s/foo/bar\\","bar");
-    DoTest("foobarbaz","\\:s/bar/***\\","foo***baz");
+    DoTest("foobarbaz","\\:s/bar/xxx\\","fooxxxbaz");
     DoTest("foo","\\:s/bar/baz\\","foo");
     DoTest("foo\nfoo\nfoo","j\\:s/foo/bar\\", "foo\nbar\nfoo");
     DoTest("foo\nfoo\nfoo","2jma2k\\:'a,'as/foo/bar\\", "foo\nfoo\nbar");

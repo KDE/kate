@@ -464,6 +464,9 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foo `bar` baz", "4lca`", "foo  baz");
   DoTest("foo `bar` baz", "8ldi`", "foo `` baz");
 
+  DoTest("()","di(","()");
+  DoTest("\"\"","di\"","\"\"");
+
 }
 
 void ViModeTest::NormalModeCommandsTest() {

@@ -47,7 +47,7 @@
 #include "katetextline.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
-#include "part/syntax/katecodefolding.h"
+#include "katecodefolding.h"
 
 namespace KTextEditor {
   class Plugin;

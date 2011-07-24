@@ -84,6 +84,7 @@ Comment[sr@ijekavianlatin]=Pri upisivanju Python fajlova provjerava i dodaje red
 Comment[sr@latin]=Pri upisivanju Python fajlova proverava i dodaje red o kodiranju
 Comment[sv]=När Python-filer sparas, kontrollera kodning och lägg till en kodningsrad
 Comment[tr]=Python dosyalarını kaydederken karakter kodlamalarını denetle ve bir kodlama satırı ekle
+Comment[ug]=ساقلاۋاتقاندا python ھۆججىتىنىڭ كودلىنىشىنى تەكشۈرىدۇ ۋە بىر كودلاش قۇرىنى قوشىدۇ
 Comment[uk]=Під час збереження перевіряє кодування файлів на python і додає рядок кодування
 Comment[wa]=Verifeye l' ecôdaedje des fitchîs python cwand dji schape eyet radjoute ene roye d' ecôdaedje
 Comment[x-test]=xxWhile saving check encoding of python files and add an encoding linexx

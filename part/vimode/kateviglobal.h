@@ -34,9 +34,6 @@ class QString;
 class QChar;
 class KConfigGroup;
 
-namespace KTextEditor {
-  class MovingCursor;
-}
 
 namespace KateVi {
   const unsigned int EOL = 99999;
@@ -63,9 +60,6 @@ public:
     const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( ViMode mode, bool decode = false ) const;
 
-    void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
-    KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
-
 private:
     // registers
     QList<KateViRegister> *m_numberedRegisters;
@@ -74,11 +68,9 @@ private:
     QString m_registerTemp;
     KateViRegister getRegister( const QChar &reg ) const;
 
-    // marks
-    QMap<QChar, KTextEditor::MovingCursor*> m_marks;
-
     // mappings
     QHash <QString, QString> m_normalModeMappings;
+
 };
 
 #endif

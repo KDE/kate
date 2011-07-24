@@ -23,12 +23,16 @@
 #define KATE_VI_VISUAL_MODE_INCLUDED
 
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 #include "katevinormalmode.h"
 
 class KateViRange;
 class KateViInputModeManager;
 
 class KateViVisualMode : public KateViNormalMode {
+
+    Q_OBJECT
+
   public:
     KateViVisualMode( KateViInputModeManager *viInputModeManager, KateView *view, KateViewInternal *viewInternal );
     ~KateViVisualMode();
@@ -42,21 +46,31 @@ class KateViVisualMode : public KateViNormalMode {
     void switchStartEnd();
     void setVisualModeType( ViMode mode );
     void saveRangeMarks();
-    void setStart( const KTextEditor::Cursor& c ) { m_start = c; }
+    void setStart( const Cursor& c ) { m_start = c; }
+    Cursor getStart() { return m_start; }
 
+    ViMode getLastVisualMode() const { return m_lastVisualMode; }
+    Cursor getStart() const { return m_start; }
+
+    // Selects all lines in range;
+    void SelectLines(Range range);
+
+    // Selects range between c1 and c2, but includes the end cursor position.
+    void SelectInclusive(Cursor c1, Cursor c2);
+
+    // Select block between c1 and c2.
+    void SelectBlockInclusive(Cursor c1, Cursor c2);
+
+public Q_SLOTS:
     /**
      * Updates the visual mode's range to reflect a new cursor position. This
      * needs to be called if modifying the range from outside the vi mode, e.g.
      * via mouse selection.
      */
-    void updateRange();
-    ViMode getLastVisualMode() const { return m_lastVisualMode; }
-    KTextEditor::Cursor getStart() const { return m_start; }
-    KTextEditor::Range getVisualRange() const;
+    void updateSelection();
 
   private:
     void initializeCommands();
-    void updateDirty( bool entireView = false ) const;
 
     /**
      * Called when a motion/text object is used. Updates the cursor position
@@ -67,9 +81,9 @@ class KateViVisualMode : public KateViNormalMode {
     void goToPos( const KateViRange &r );
     void reset();
     ViMode m_mode;
-    KTextEditor::Cursor m_start;
-    KTextEditor::Cursor m_previous; // previous position, used when deciding which lines to redraw
+    Cursor m_start;
     ViMode m_lastVisualMode; // used when reselecting a visual selection
+    bool m_selection_is_changed_inside_ViMode;
 };
 
 #endif

@@ -34,6 +34,7 @@
 #include <QtCore/QTimer>
 
 #include <ktexteditor/containerinterface.h>
+#include "katepartprivate_export.h"
 
 class KateDocument;
 class KateView;
@@ -353,7 +354,7 @@ class KateViewBar : public QWidget
     QVBoxLayout *m_layout;
 };
 
-class KateCommandLineBar : public KateViewBarWidget
+class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
 {
   public:
     explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);
@@ -390,6 +391,8 @@ class KateCmdLineEdit : public KLineEdit
     void keyPressEvent( QKeyEvent *ev );
 
   private:
+
+    int calculatePosition( QString string );
     void fromHistory( bool up );
     QString helptext( const QPoint & ) const;
 
@@ -402,7 +405,6 @@ class KateCmdLineEdit : public KLineEdit
     KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KateCmdLnWhatsThis *m_help;
     QRegExp m_cmdRange;
-    QRegExp m_cmdExpr;
     QRegExp m_gotoLine;
     QTimer *m_hideTimer;
 };

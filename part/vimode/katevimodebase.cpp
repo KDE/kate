@@ -34,6 +34,8 @@
 #include "katedocument.h"
 #include "kateviewinternal.h"
 #include "katevimodebar.h"
+#include <ktexteditor/view.h>
+#include "katerenderer.h"
 
 using KTextEditor::Cursor;
 using KTextEditor::Range;
@@ -583,27 +585,198 @@ Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, bool onlyCurre
   return Cursor( l, c );
 }
 
-// FIXME: i" won't work if the cursor is on one of the chars
-KateViRange KateViModeBase::findSurrounding( const QChar &c1, const QChar &c2, bool inner ) const
-{
-  Cursor cursor( m_view->cursorPosition() );
-  QString line = getLine();
+KateViRange innerRange(KateViRange range, bool inner) {
+  KateViRange r = range;
 
-  int col1 = line.lastIndexOf( c1, cursor.column() );
-  int col2 = line.indexOf( c2, cursor.column() );
-
-  KateViRange r( cursor.line(), col1, cursor.line(), col2, ViMotion::InclusiveMotion );
-
-  if ( col1 == -1 || col2 == -1 || col1 > col2 ) {
-      r.valid = false;
-  }
-
-  if ( inner ) {
-      r.startColumn++;
-      r.endColumn--;
+  if (inner) {
+    r.startColumn++;
+    r.endColumn--;
   }
 
   return r;
+}
+
+KateViRange KateViModeBase::findSurroundingQuotes( const QChar &c, bool inner ) const {
+  Cursor cursor(m_view->cursorPosition());
+  KateViRange r;
+  r.startLine = cursor.line();
+  r.endLine = cursor.line();
+
+  QString line = doc()->line(cursor.line());
+
+
+  // If cursor on the quote we should shoose the best direction.
+  if (line.at(cursor.column()) == c) {
+
+    int attribute = m_view->doc()->kateTextLine(cursor.line())->attribute(cursor.column());
+
+    //  If at the beginning of the line - then we might search the end.
+    if ( doc()->kateTextLine(cursor.line())->attribute(cursor.column() + 1) == attribute &&
+         doc()->kateTextLine(cursor.line())->attribute(cursor.column() - 1) != attribute ) {
+      r.startColumn = cursor.column();
+      r.endColumn = line.indexOf( c, cursor.column() + 1 );
+
+      return innerRange(r, inner);
+    }
+
+    //  If at the end of the line - then we might search the beginning.
+    if ( doc()->kateTextLine(cursor.line())->attribute(cursor.column() + 1) != attribute &&
+        doc()->kateTextLine(cursor.line())->attribute(cursor.column() - 1) == attribute ) {
+
+      r.startColumn =line.lastIndexOf( c, cursor.column() - 1 ) ;
+      r.endColumn = cursor.column();
+
+      return innerRange(r, inner);
+
+    }
+    // Try to search the quote to right
+    int c1 = line.indexOf(c, cursor.column() + 1);
+    if ( c1 != -1 ) {
+      r.startColumn = cursor.column();
+      r.endColumn = c1;
+
+      return innerRange(r, inner);
+    }
+
+    // Try to search the quote to left
+    int c2 = line.lastIndexOf(c, cursor.column() - 1);
+    if ( c2 != -1 ) {
+      r.startColumn = c2;
+      r.endColumn =  cursor.column();
+
+      return innerRange(r, inner);
+    }
+
+    // Nothing found - give up :)
+     r.valid = false;
+     return r;
+  }
+
+
+  r.startColumn = line.lastIndexOf( c, cursor.column() );
+  r.endColumn = line.indexOf( c, cursor.column() );
+
+  if ( r.startColumn == -1 || r.endColumn == -1 || r.startColumn > r.endColumn ) {
+    r.valid = false;
+  }
+
+  return innerRange(r, inner);
+}
+
+
+KateViRange KateViModeBase::findSurroundingBrackets( const QChar &c1,
+                                                     const QChar &c2,
+                                                     bool inner,
+                                                     const QChar &nested1,
+                                                     const QChar &nested2) const
+{
+
+  Cursor cursor( m_view->cursorPosition() );
+
+  KateViRange r( cursor.line(), cursor.column(), ViMotion::InclusiveMotion );
+
+  // Chars should not differs. For equal chars use findSurroundingQuotes.
+  Q_ASSERT( c1 != c2 );
+
+  QStack<QChar> stack;
+  int column = cursor.column();
+  int line = cursor.line();
+  bool should_break = false;
+
+  // Going through the text and pushing respectively brackets to the stack.
+  // Then pop it out if the stack head is the bracket under cursor.
+
+  if (column < m_view->doc()->line(line).size() && m_view->doc()->line(line).at(column) == c2) {
+    r.endLine = line;
+    r.endColumn = column;
+  } else {
+
+    if ( column < m_view->doc()->line(line).size() && m_view->doc()->line(line).at(column) == c1 )
+      column++;
+
+    stack.push(c2);
+    for (; line < m_view->doc()->lines() && !should_break; line++ ) {
+      for (;column < m_view->doc()->line( line ).size(); column++ ) {
+        QChar next_char = stack.pop();
+
+        if (next_char != m_view->doc()->line(line).at(column))
+          stack.push(next_char);
+
+        if ( stack.isEmpty() ) {
+          should_break = true;
+          break;
+        }
+
+        if ( m_view->doc()->line(line).at(column) == nested1 )
+          stack.push(nested2);
+      }
+      if (should_break)
+        break;
+
+      column = 0;
+    }
+
+    if (!should_break) {
+      r.valid = false;
+      return r;
+    }
+
+    r.endColumn = column;
+    r.endLine = line;
+
+  }
+
+  // The same algorythm but going from the left to right.
+
+  line = cursor.line();
+  column = cursor.column();
+
+  if (column < m_view->doc()->line(line).size() && m_view->doc()->line(line).at(column) == c1) {
+    r.startLine = line;
+    r.startColumn = column;
+  } else {
+    if (column < m_view->doc()->line(line).size() && m_view->doc()->line(line).at(column) == c2) {
+      column--;
+    }
+
+    stack.clear();
+    stack.push(c1);
+
+    should_break = false;
+    for (; line >= 0 && !should_break; line-- ) {
+      for (;column >= 0 &&  column < m_view->doc()->line(line).size(); column-- ) {
+        QChar next_char = stack.pop();
+
+        if (next_char != m_view->doc()->line(line).at(column)) {
+          stack.push(next_char);
+        }
+
+        if ( stack.isEmpty() ) {
+          should_break = true;
+          break;
+        }
+
+        if ( m_view->doc()->line(line).at(column) == nested2 )
+          stack.push(nested1);
+      }
+
+      if (should_break)
+        break;
+
+      column = m_view->doc()->line(line - 1).size() - 1;
+    }
+
+    if (!should_break) {
+      r.valid = false;
+      return r;
+    }
+
+    r.startColumn = column;
+    r.startLine = line;
+
+  }
+
+  return innerRange(r, inner);
 }
 
 KateViRange KateViModeBase::findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner ) const
@@ -697,6 +870,22 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text, Operat
   KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text, flag );
 }
 
+
+void KateViModeBase::addJump(KTextEditor::Cursor cursor)
+{
+  m_viInputModeManager->addJump(cursor);
+}
+
+KTextEditor::Cursor KateViModeBase::getNextJump(KTextEditor::Cursor cursor)
+{
+  return m_viInputModeManager->getNextJump(cursor);
+}
+
+KTextEditor::Cursor KateViModeBase::getPrevJump(KTextEditor::Cursor cursor)
+{
+  return m_viInputModeManager->getPrevJump(cursor);
+}
+
 KateViRange KateViModeBase::goLineDown()
 {
   return goLineUpDown( getCount() );
@@ -764,6 +953,20 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
 
   return r;
 }
+
+KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
+  int line_height = m_view->renderer()->lineHeight();
+
+  Cursor c = m_view->cursorPosition();
+  QPoint point = m_view->cursorToCoordinate(c);
+  Cursor res = m_view->coordinatesToCursor(QPoint(point.x(), point.y() + lines * line_height));
+
+  KateViRange r;
+  r.endColumn = res.column();
+  r.endLine = res.line();
+  return r;
+}
+
 
 bool KateViModeBase::startNormalMode()
 {
@@ -900,7 +1103,9 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
     int wordEnd = findWordEnd( c.line(), c.column()-1, true ).column();
 
-    QRegExp number( "(0x)([0-9a-fA-F]+)|\\d+" );
+    if (wordStart > 0 && line.at(wordStart - 1) == '-') wordStart--;
+
+    QRegExp number( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
 
     int start = number.indexIn( line, wordStart );
     if ( start <= wordEnd ) {
@@ -932,3 +1137,92 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 }
 
+void KateViModeBase::switchView(Direction direction) {
+
+  QList<KateView*> visible_views;
+  foreach (KateView* view,  KateGlobal::self()->views() ) {
+      if (view->isVisible())
+        visible_views.push_back(view);
+  }
+
+  QPoint current_point = m_view->mapToGlobal(m_view->pos());
+  int curr_x1 = current_point.x();
+  int curr_x2 = current_point.x() + m_view->width();
+  int curr_y1 = current_point.y();
+  int curr_y2 = current_point.y() + m_view->height();
+  int curr_cursor_y = m_view->mapToGlobal(m_view->cursorToCoordinate(m_view->cursorPosition())).y();
+  int curr_cursor_x = m_view->mapToGlobal(m_view->cursorToCoordinate(m_view->cursorPosition())).x();
+
+  KateView *bestview = NULL;
+  int  best_x1, best_x2, best_y1, best_y2, best_center_y, best_center_x;
+
+  if (direction == Next && visible_views.count() != 1) {
+    for (int i=0; i< visible_views.count(); i++) {
+        if (visible_views.at(i) == m_view) {
+          if (i != visible_views.count() - 1 )
+            bestview = visible_views.at(i + 1);
+          else
+            bestview = visible_views.at(0);
+        }
+      }
+  } else {
+    foreach (KateView* view, visible_views ) {
+      QPoint point = view->mapToGlobal(view->pos());
+      int x1 = point.x();
+      int x2 = point.x() + view->width();
+      int y1 = point.y();
+      int y2 = point.y() + m_view->height();
+      int  center_y = (y1 + y2) / 2;
+      int  center_x = (x1 + x2) / 2;
+
+      switch (direction) {
+        case Left:
+          if (view != m_view && x2 <= curr_x1 &&
+              ( x2 > best_x2 ||
+                (x2 == best_x2 && qAbs(curr_cursor_y - center_y) < qAbs(curr_cursor_y - best_center_y)) ||
+                bestview == NULL)){
+            bestview = view;
+            best_x2 = x2;
+            best_center_y = center_y;
+          }
+          break;
+        case Right:
+          if (view != m_view && x1 >= curr_x2 &&
+              ( x1 < best_x1 ||
+                (x1 == best_x1 && qAbs(curr_cursor_y - center_y) < qAbs(curr_cursor_y - best_center_y)) ||
+                bestview == NULL)){
+            bestview = view;
+            best_x1 = x1;
+            best_center_y = center_y;
+          }
+          break;
+        case Down:
+          if (view != m_view && y1 >= curr_y2 &&
+              ( y1 < best_y1 ||
+                (y1 == best_y1 && qAbs(curr_cursor_x - center_x) < qAbs(curr_cursor_x - best_center_x)) ||
+                bestview == NULL)){
+            bestview = view;
+            best_y1 = y1;
+            best_center_x = center_x;
+          }
+        case Up:
+          if (view != m_view && y2 <= curr_y1 &&
+              ( y2 > best_y2 ||
+                (y2 == best_y2 && qAbs(curr_cursor_x - center_x) < qAbs(curr_cursor_x - best_center_x)) ||
+                bestview == NULL)){
+            bestview = view;
+            best_y2 = y2;
+            best_center_x = center_x;
+          }
+          break;
+        default:
+          return;
+      }
+
+    }
+  }
+  if (bestview != NULL ) {
+    bestview->setFocus();
+    KateViewConfig::global()->setViInputMode(true);
+  }
+}

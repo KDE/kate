@@ -134,6 +134,18 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandPrependToBlock();
     bool commandAppendToBlock();
 
+    bool commandGoToNextJump();
+    bool commandGoToPrevJump();
+
+    bool commandSwitchToLeftView();
+    bool commandSwitchToUpView();
+    bool commandSwitchToDownView();
+    bool commandSwitchToRightView();
+    bool commandSwitchToNextView();
+
+    bool commandSplitHoriz();
+    bool commandSplitVert();
+
     // MOTIONS
 
     KateViRange motionLeft();
@@ -189,6 +201,13 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange motionToNextOccurrence();
     KateViRange motionToPrevOccurrence();
 
+    KateViRange motionToFirstLineOfWindow();
+    KateViRange motionToMiddleLineOfWindow();
+    KateViRange motionToLastLineOfWindow();
+
+    KateViRange motionToNextVisualLine();
+    KateViRange motionToPrevVisualLine();
+
     // TEXT OBJECTS
 
     KateViRange textObjectAWord();
@@ -202,11 +221,20 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange textObjectAQuoteSingle();
     KateViRange textObjectInnerQuoteSingle();
 
+    KateViRange textObjectABackQuote();
+    KateViRange textObjectInnerBackQuote();
+
     KateViRange textObjectAParen();
     KateViRange textObjectInnerParen();
 
     KateViRange textObjectABracket();
     KateViRange textObjectInnerBracket();
+
+    KateViRange textObjectACurlyBracket();
+    KateViRange textObjectInnerCurlyBracket();
+
+    KateViRange textObjectAInequalitySign();
+    KateViRange textObjectInnerInequalitySign();
 
     KateViRange textObjectAComma();
     KateViRange textObjectInnerComma();
@@ -239,6 +267,11 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     int m_motionOperatorIndex;
 
     QString m_lastTFcommand; // holds the last t/T/f/F command so that it can be repeated with ;/,
+
+    bool m_linewiseCommand;
+    bool m_commandWithMotion;
+
+    bool m_deleteCommand;
 
     // registers
     QChar m_defaultRegister;

@@ -26,6 +26,7 @@
 #include <katedocument.h>
 #include <kateview.h>
 #include "katevikeyparser.h"
+#include "kateviewhelpers.h"
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -40,7 +41,7 @@ ViModeTest::ViModeTest() {
 
 ViModeTest::~ViModeTest() {
   delete kate_document;
-  delete kate_view;
+//  delete kate_view;
 }
 
 void ViModeTest::TestPressKey(QString str) {
@@ -60,8 +61,12 @@ void ViModeTest::TestPressKey(QString str) {
         } else if (str.mid(i,5) == QString("\\meta-")) {
             keyboard_modifier = Qt::MetaModifier;
             i+=5;
+        } else if (str.mid(i,2) == QString("\\:")) {
+           int start_cmd = i+2;
+           for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
+           kate_view->cmdLineBar()->execute(str.mid(start_cmd,i-start_cmd));
         } else {
-            assert(false); //Do not use "\" in tests except for modifiers.
+            assert(false); //Do not use "\" in tests except for modifiers and command mode.
         }
     } else {
         keyboard_modifier = Qt::NoModifier;
@@ -92,25 +97,95 @@ void ViModeTest::TestPressKey(QString str) {
 void ViModeTest::DoTest(QString original_text,
     QString command,
     QString expected_text) {
+  qDebug() << "\nrunning command " << command << " on text \"" << original_text
+    << "\"\n";
 
   vi_input_mode_manager->viEnterNormalMode();
   vi_input_mode_manager = kate_view->resetViInputModeManager();
   kate_document->setText(original_text);
   kate_view->setCursorPosition(Cursor(0,0));
   TestPressKey(command);
-  qDebug() << "\nrunning command " << command << " on text \"" << original_text
-    << "\"\n";
+
   QCOMPARE(kate_document->text(), expected_text);
 
 }
 
-void ViModeTest::VisualModeTests(){
+
+
+void ViModeTest::VisualModeTests() {
     DoTest("foobar", "vlllx", "ar");
     DoTest("foo\nbar", "Vd", "bar");
     DoTest("1234\n1234\n1234", "l\\ctrl-vljjd", "14\n14\n14");
+
+    DoTest("12345678", "lv3lyx", "1345678");
+    DoTest("12345678", "$hv3hyx", "1235678");
+    DoTest("aaa\nbbb", "lvj~x", "aA\nBBb");
+    DoTest("123\n456", "jlvkyx", "13\n456");
+    DoTest("12\n34","lVjyx", "2\n34");
+    DoTest("ab\ncd","jVlkgux", "a\ncd");
+    DoTest("ABCD\nABCD\nABCD\nABCD","lj\\ctrl-vjlgux","ABCD\nAcD\nAbcD\nABCD");
+    DoTest("abcd\nabcd\nabcd\nabcd","jjjlll\\ctrl-vkkhgUx","abcd\nabD\nabCD\nabCD");
+
+    // Testing "d"
+    DoTest("foobarbaz","lvlkkjl2ld","fbaz");
+    DoTest("foobar","v$d","");
+    DoTest("foo\nbar\nbaz","jVlld","foo\nbaz");
+
+    // Testing "D"
+    DoTest("foo\nbar\nbaz","lvjlD","baz");
+    DoTest("foo\nbar", "l\\ctrl-vjD","f\nb");
+    DoTest("foo\nbar","VjkD","bar");
+
+    // Testing "gU", "U"
+    DoTest("foo bar", "vwgU", "FOO Bar");
+    DoTest("foo\nbar\nbaz", "VjjU", "FOO\nBAR\nBAZ");
+    DoTest("foo\nbar\nbaz", "\\ctrl-vljjU","FOo\nBAr\nBAz");
+
+    // Testing "gu", "u"
+    DoTest("TEST", "Vgu", "test");
+    DoTest("TeSt", "vlgu","teSt");
+    DoTest("FOO\nBAR\nBAZ", "\\ctrl-vljju","foO\nbaR\nbaZ");
+
+    // Testing "y"
+    DoTest("foobar","Vypp","foobar\nfoobar\nfoobar");
+    DoTest("foo\nbar","lvjlyp", "fooo\nbaro\nbar");
+    DoTest("foo\nbar","Vjlllypddxxxdd","foo\nbar");
+    DoTest("12\n12", "\\ctrl-vjyp", "112\n112");
+    DoTest("1234\n1234\n1234\n1234","lj\\ctrl-vljyp","1234\n122334\n122334\n1234");
+
+    // Testing "Y"
+    DoTest("foo\nbar","llvjypx","foo\nbar\nbar");
+    DoTest("foo\nbar","VYp","foo\nfoo\nbar");
+
+    // Testing "m."
+    DoTest("foo\nbar","vljmavgg`ax","foo\nbr");
+    DoTest("1\n2\n3\n4","Vjmajjmb\\:'a,'bd\\","1");
+
+    // Testing ">"
+    DoTest("foo\nbar","vj>","  foo\n  bar");
+    DoTest("foo\nbar\nbaz", "jVj>", "foo\n  bar\n  baz");
+    DoTest("foo", "vl3>","      foo");
+
+    // Testing "<"
+    DoTest(" foo","vl<", "foo");
+
+    // Testing "o"
+    DoTest("foobar","lv2lo2ld","fooar");
+    DoTest("foo\nbar","jvllokld","f");
+    DoTest("12\n12","\\ctrl-vjlold","1\n1");
+
+    // Testing "~"
+    DoTest("foobar","lv2l~","fOOBar");
+    DoTest("FooBar","V~","fOObAR");
+    DoTest("foo\nbar","\\ctrl-vjl~","FOo\nBAr");
+
+    // Testing "r"
+    DoTest("foobar","Vra","aaaaaa");
+    DoTest("foo\nbar","jlvklrx","fox\nxxr");
+    DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
 }
 
-void ViModeTest::InsertModeTests(){
+void ViModeTest::InsertModeTests() {
 
   DoTest("bar", "s\\ctrl-c", "ar");
   DoTest("bar", "ls\\ctrl-cx", "r");
@@ -140,39 +215,32 @@ void ViModeTest::InsertModeTests(){
   DoTest("foo\nbar", "ji\\ctrl-y\\ctrl-y\\ctrl-y", "foo\nfoobar");
   DoTest("f\nbar", "ji\\ctrl-y\\ctrl-y", "f\nfbar");
 
+  // Testing "Ctrl-R"
+  DoTest("barbaz", "\"ay3li\\ctrl-ra", "barbarbaz");
+  DoTest("bar\nbaz", "\"byylli\\ctrl-rb", "bar\nbar\nbaz" );
+
+  // Testing "Ctrl-O"
+  DoTest("foo bar baz","3li\\ctrl-od2w","foobaz");
+  DoTest("foo bar baz","3li\\ctrl-od2w\\ctrl-w","baz");
+  DoTest("foo bar baz","i\\ctrl-o3l\\ctrl-w"," bar baz");
+  DoTest("foo\nbar\nbaz","li\\ctrl-oj\\ctrl-w\\ctrl-oj\\ctrl-w","foo\nar\naz");
+
+  // Testing "Ctrl-D" "Ctrl-T"
+  DoTest("foo", "i\\ctrl-t" , "  foo");
+  DoTest(" foo", "i\\ctrl-d", "foo");
+  DoTest("foo\nbar", "i\\ctrl-t\\ctrl-d","foo\nbar" );
 }
 
-/**
- * There are written tests that fall.
- * They are disabled in order to be able to check all others working tests.
- */
+
+ // There are written tests that fall.
+ // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFallingTests()
 {
-  /*
 
-  // Ctrl-x and Ctrl-a works wrong with negative numbers.
-  DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
-  DoTest("-1", "1\\ctrl-a", "0");
-  DoTest("-1", "l1\\ctrl-a", "0");
-
-  DoTest("foo{\n}\n", "$d%", "foo\n");
-  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
-  DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
-  DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
-  DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
-  DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
-  DoTest("foo{\nbar}baz", "lllgU%", "foo{\nBAR}baz");
-  DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
-  DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
-  DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
-  DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
-  DoTest("1 2\n2 1", "lld#", "1 \n2 1");
-
-  */
 }
 
-void ViModeTest::NormalModeMotionsTest()
-{
+void ViModeTest::NormalModeMotionsTest() {
+
   // Test moving around an empty document (nothing should happen)
   DoTest("", "jkhl", "");
   DoTest("", "ggG$0", "");
@@ -210,6 +278,10 @@ void ViModeTest::NormalModeMotionsTest()
   DoTest("foo bar", "lwx","foo ar");
   DoTest("quux(foo, bar, baz);", "wxwxwxwx2wx","quuxfoo ar baz;");
   DoTest("foo\nbar\nbaz", "wxwx","foo\nar\naz");
+  DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
+  DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
+  DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
+
 
   // Testing "W"
   DoTest("bar", "Wx", "ba");
@@ -279,10 +351,122 @@ void ViModeTest::NormalModeMotionsTest()
   // Testing "'"
   DoTest("foo\nbar\nbaz", "lmaj'arx", "xoo\nbar\nbaz");
 
+  // Testing "%"
+  DoTest("foo{\n}\n", "$d%", "foo\n");
+  DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
+  DoTest("foo{\nbar}baz", "lllgU%", "foo{\nBAR}baz");
+  DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
+
+  // Testing percentage "<N>%"
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "20%dd",
+         "10%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "50%dd",
+         "10%\n20%\n30%\n40%\n60%\n70%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70\n80%\n90%\n100%",
+         "65%dd",
+         "10%\n20%\n30%\n40%\n50%\n60%\n80%\n90%\n100%");
+
+  DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
+         "5j10%dd",
+         "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
+   // TEXT OBJECTS
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci'",
+          "foo \"bar baz ('first', '' or 'third')\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lca'",
+          "foo \"bar baz ('first',  or 'third')\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci(",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci(",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lcib",
+          "foo \"bar baz ()\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lca)",
+          "foo \"bar baz \"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lci\"",
+          "foo \"\"");
+
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lda\"",
+          "foo ");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci[",
+          "foo \"bar []\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci]",
+          "foo \"bar []\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lca[",
+          "foo \"bar \"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "9w2lci{",
+          "foo \"bar [baz ({} or 'third')]\"");
+
+  DoTest( "foo \"bar [baz ({'first', 'second'} or 'third')]\"",
+          "7w2lca}",
+          "foo \"bar [baz ( or 'third')]\"");
+
+  DoTest( "{foo { bar { (baz) \"asd\" }} {1} {2} {3} {4} {5} }",
+          "ldiB",
+          "{}");
+
+  DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
+          "jda}xr;",
+          "int main();");
+
+  DoTest("QList<QString>","wwldi>","QList<>");
+  DoTest("QList<QString>","wwlda<","QList");
+  DoTest("<head>\n<title>Title</title>\n</head>",
+         "di<jci>",
+         "<>\n<>Title</title>\n</head>");
+
+  DoTest( "foo bar baz", "wldiw", "foo  baz");
+
+  DoTest( "foo bar baz", "wldawx", "foo az");
+
+  DoTest( "foo ( \n bar\n)baz","jdi(", "foo ()baz");
+  DoTest( "foo ( \n bar\n)baz","jda(", "foo baz");
+  DoTest( "(foo(bar)baz)", "ldi)", "()");
+  DoTest( "(foo(bar)baz)", "lca(", "");
+  DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
+  DoTest( "( foo ( bar ) )baz", "da(", "baz" );
+  DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
+
+  DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
+
+  DoTest("foo \"bar\" baz", "4ldi\"", "foo \"\" baz");
+  DoTest("foo \"bar\" baz", "8lca\"", "foo  baz");
+
+  DoTest("foo 'bar' baz", "4lca'", "foo  baz");
+  DoTest("foo 'bar' baz", "8ldi'", "foo '' baz");
+
+  DoTest("foo `bar` baz", "4lca`", "foo  baz");
+  DoTest("foo `bar` baz", "8ldi`", "foo `` baz");
+
 }
 
-void ViModeTest::NormalModeCommandsTest()
-{
+void ViModeTest::NormalModeCommandsTest() {
 
   // Testing "J"
   DoTest("foo\nbar", "J", "foo bar");
@@ -306,80 +490,116 @@ void ViModeTest::NormalModeCommandsTest()
   DoTest("ABCD", "$XX", "AD");
 
   // Testing "gu"
-
+  DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
   DoTest("AbCDF", "gu3l", "abcDF");
 
   // Testing "guu"
   DoTest("FOO", "guu", "foo");
+  DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
 
 
   // Testing "gU"
   DoTest("aBcdf", "gU2l", "ABcdf");
+  DoTest("foo\nbar baz", "gUj", "FOO\nBAR BAZ");
 
   // Testing "gUU"
   DoTest("foo", "gUU", "FOO");
+  DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
+
+  // Testing "Ctrl-o" and "Ctrl-i"
+  DoTest("abc\ndef\nghi","Gx\\ctrl-ox","bc\ndef\nhi");
+  DoTest("{\n}","%\\ctrl-ox","\n}");
+  DoTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`b\\ctrl-ox",
+                   "Fo foo.\nBar bar.\nBaz baz.");
+  DoTest("Foo foo.\nBar bar.\nBaz baz.",
+                   "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
+                   "Foo foo.\nBar bar.\nBa baz.");
 
 }
 
 
 void ViModeTest::NormalModeControlTests() {
-
   // Testing "Ctrl-x"
   DoTest("150", "101\\ctrl-x", "49");
+  DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
+  DoTest("0xabcdef", "1000000\\ctrl-x","0x9c8baf" );
 
   // Testing "Ctrl-a"
   DoTest("150", "101\\ctrl-a", "251");
   DoTest("1000", "\\ctrl-ax", "100");
+  DoTest("-1", "1\\ctrl-a", "0");
+  DoTest("-1", "l1\\ctrl-a", "0");
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");
   DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
-
 }
 
 void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
-  /*
-  // Testing "Ctrl-O"
-    DoTest("{\n}","%\\ctrl-ox","\n}");
-    DoTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   ")))\\ctrl-ox\\ctrl-ox",
-                   "Foo foo.\nar bar.\nBaz baz.");
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "lmajlmb`a`b\\ctrl-ox",
-                   "Fo foo.\nBar bar.\nBaz baz.");
+  // Testing "))"
+//    DoTest("Foo foo. Bar bar.","))\\ctrl-ox","Foo foo. ar bar.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.",")))\\ctrl-ox\\ctrl-ox", "Foo foo.\nar bar.\nBaz baz.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
+//    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
 
-  // Testing "Ctrl-I"
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "))\\ctrl-ox\\ctrl-ix",
-                   "Foo foo.\nBar bar.\naz baz.");
-
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "))\\ctrl-ox\\ctrl-ix",
-                   "Foo foo.\nBar bar.\naz baz.");
-
-    DoTest("Foo foo.\nBar bar.\nBaz baz.",
-                   "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
-                   "Foo foo.\nBa bar.\nBaz baz.");
-
-  // Testing percentage "<N>%"
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "20%dd",
-                   "10%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "50%dd",
-                   "10%\n20%\n30%\n40%\n60%\n70%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70\n80%\n90%\n100%",
-                   "65%dd",
-                   "10%\n20%\n30%\n40%\n50%\n60%\n80%\n90%\n100%");
-
-    DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
-                   "5j10%dd",
-                   "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
-    */
 }
 
+void ViModeTest::CommandModeTests() {
+
+    // Testing ":s" (sed)
+    DoTest("foo","\\:s/foo/bar\\","bar");
+    DoTest("foobarbaz","\\:s/bar/xxx\\","fooxxxbaz");
+    DoTest("foo","\\:s/bar/baz\\","foo");
+    DoTest("foo\nfoo\nfoo","j\\:s/foo/bar\\", "foo\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo","2jma2k\\:'a,'as/foo/bar\\", "foo\nfoo\nbar");
+    DoTest("foo\nfoo\nfoo","\\:%s/foo/bar\\","bar\nbar\nbar");
+    DoTest("foo\nfoo\nfoo","\\:2,3s/foo/bar\\","foo\nbar\nbar");
+    DoTest("foo\nfoo\nfoo\nfoo", "j2lmajhmbgg\\:'a,'bs/foo/bar\\","foo\nbar\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo\nfoo", "jlma2jmbgg\\:'b,'as/foo/bar\\","foo\nbar\nbar\nbar");
+
+
+    DoTest("foo\nfoo\nfoo","\\:2s/foo/bar\\", "foo\nbar\nfoo");
+    DoTest("foo\nfoo\nfoo","2jmagg\\:'as/foo/bar\\","foo\nfoo\nbar");
+    DoTest("foo\nfoo\nfoo", "\\:$s/foo/bar\\","foo\nfoo\nbar");
+
+    // Testing ":d", ":delete"
+    DoTest("foo\nbar\nbaz","\\:2d\\","foo\nbaz");
+    DoTest("foo\nbar\nbaz","\\:%d\\","");
+    DoTest("foo\nbar\nbaz","\\:$d\\\\:$d\\","foo");
+    DoTest("foo\nbar\nbaz","ma\\:2,'ad\\","baz");
+    DoTest("foo\nbar\nbaz","\\:2,3delete\\","foo");
+
+    DoTest("foo\nbar\nbaz","\\:d\\","bar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:d 33\\","");
+    DoTest("foo\nbar\nbaz","\\:3d a\\k\"ap","foo\nbaz\nbar");
+
+    // Testing ":y", ":yank"
+    DoTest("foo\nbar\nbaz","\\:3y\\p","foo\nbaz\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:2y a 2\\\"ap","foo\nbar\nbaz\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:y\\p","foo\nfoo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:3,1y\\p","foo\nfoo\nbar\nbaz\nbar\nbaz");
+
+    // Testing ">"
+    DoTest("foo","\\:>\\","  foo");
+    DoTest("   foo","\\:<\\","  foo");
+
+    // Testing ":c", ":change"
+    DoTest("foo\nbar\nbaz","\\:2change\\","foo\n\nbaz");
+    DoTest("foo\nbar\nbaz","\\:%c\\","");
+    DoTest("foo\nbar\nbaz","\\:$c\\\\:$change\\","foo\nbar\n");
+    DoTest("foo\nbar\nbaz","ma\\:2,'achange\\","\nbaz");
+    DoTest("foo\nbar\nbaz","\\:2,3c\\","foo\n");
+
+    // Testing ":j"
+    DoTest("1\n2\n3\n4\n5","\\:2,4j\\","1\n2 3 4\n5");
+
+
+    DoTest("1\n2\n3\n4","jvj\\ctrl-c\\:'<,'>d\\","1\n4");
+    DoTest("1\n2\n3\n4","\\:1+1+1+1d\\","1\n2\n3");
+    DoTest("1\n2\n3\n4","2j\\:.,.-1d\\","1\n4");
+    DoTest("1\n2\n3\n4","\\:.+200-100-100+20-5-5-5-5+.-.,$-1+1-2+2-3+3-4+4-5+5-6+6-7+7-1000+1000+0-0-$+$-.+.-1d\\","4");
+    DoTest("1\n2\n3\n4","majmbjmcjmdgg\\:'a+'b+'d-'c,.d\\","");
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

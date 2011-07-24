@@ -52,6 +52,19 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_runningMacro = false;
 
   m_lastSearchBackwards = false;
+
+  jump_list = new QList<KateViJump>;
+  current_jump = jump_list->begin();
+  m_temporaryNormalMode = false;
+
+  m_mark_set_inside_viinputmodemanager = false;
+
+  connect(m_view->doc(),
+           SIGNAL(markChanged(KTextEditor::Document*, KTextEditor::Mark,
+                              KTextEditor::MarkInterface::MarkChangeAction)),
+           this,
+           SLOT(markChanged(KTextEditor::Document*, KTextEditor::Mark,
+                            KTextEditor::MarkInterface::MarkChangeAction)));
 }
 
 KateViInputModeManager::~KateViInputModeManager()
@@ -60,6 +73,7 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viInsertMode;
   delete m_viVisualMode;
   delete m_viReplaceMode;
+  delete jump_list;
 }
 
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
@@ -307,36 +321,273 @@ const QString KateViInputModeManager::getVerbatimKeys() const
 
 void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
 {
-  QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
-  QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
-  QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
 
-  // sanity check
-  if ( names.size() == contents.size() ) {
-    for ( int i = 0; i < names.size(); i++ ) {
-      KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+    if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+        QStringList names = config.readEntry( "ViRegisterNames", QStringList() );
+        QStringList contents = config.readEntry( "ViRegisterContents", QStringList() );
+        QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
+
+        // sanity check
+        if ( names.size() == contents.size() ) {
+            for ( int i = 0; i < names.size(); i++ ) {
+                KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+            }
+        }
     }
+
+  // Reading jump list
+  // Format: jump1.line, jump1.column, jump2.line, jump2.column, jump3.line, ...
+  jump_list->clear();
+  QStringList jumps = config.readEntry( "JumpList", QStringList() );
+  for (int i = 0; i + 1 < jumps.size(); i+=2) {
+      KateViJump jump = {jumps.at(i).toInt(), jumps.at(i+1).toInt() } ;
+      jump_list->push_back(jump);
   }
+  current_jump = jump_list->end();
+  PrintJumpList();
+
+  // Reading marks
+  QStringList marks = config.readEntry("ViMarks", QStringList() );
+  for (int i = 0; i + 2 < marks.size(); i+=3) {
+      addMark(m_view->doc(),marks.at(i).at(0), KTextEditor::Cursor(marks.at(i+1).toInt(),marks.at(i+2).toInt()));
+  }
+  syncViMarksAndBookmarks();
 }
 
 void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
 {
-  const QMap<QChar, KateViRegister>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
-  QStringList names, contents;
-  QList<int> flags;
-  QMap<QChar, KateViRegister>::const_iterator i;
-  for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
-    if ( i.value().first.length() <= 1000 ) {
-      names << i.key();
-      contents << i.value().first;
-      flags << int(i.value().second);
-    } else {
-      kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
-        << i.value().first.length() << " characters)";
+  if ( KateGlobal::self()->viInputModeGlobal()->getRegisters()->size() > 0 ) {
+    const QMap<QChar, KateViRegister>* regs = KateGlobal::self()->viInputModeGlobal()->getRegisters();
+    QStringList names, contents;
+    QList<int> flags;
+    QMap<QChar, KateViRegister>::const_iterator i;
+    for (i = regs->constBegin(); i != regs->constEnd(); ++i) {
+      if ( i.value().first.length() <= 1000 ) {
+        names << i.key();
+        contents << i.value().first;
+        flags << int(i.value().second);
+      } else {
+        kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
+          << i.value().first.length() << " characters)";
+      }
+    }
+
+    config.writeEntry( "ViRegisterNames", names );
+    config.writeEntry( "ViRegisterContents", contents );
+    config.writeEntry( "ViRegisterFlags", flags );
+  }
+
+  // Writing Jump List
+  // Format: jump1.line, jump1.column, jump2.line, jump2.column, jump3.line, ...
+  QStringList l;
+  for (int i = 0; i < jump_list->size(); i++)
+      l << QString::number(jump_list->at(i).line) << QString::number(jump_list->at(i).column);
+  config.writeEntry("JumpList",l );
+
+  // Writing marks;
+  l.clear();
+  foreach (QChar key, m_marks.keys()) {
+      l << key << QString::number(m_marks.value( key )->line())
+        << QString::number(m_marks.value( key )->column());
+  }
+  config.writeEntry("ViMarks",l);
+}
+
+
+void KateViInputModeManager::addJump(KTextEditor::Cursor cursor) {
+   for (QList<KateViJump>::iterator iterator = jump_list->begin();
+        iterator != jump_list->end();
+        iterator ++){
+       if ((*iterator).line == cursor.line()){
+           jump_list->erase(iterator);
+           break;
+       }
+   }
+
+   KateViJump jump = { cursor.line(), cursor.column()};
+   jump_list->push_back(jump);
+   current_jump = jump_list->end();
+
+   // DEBUG
+   PrintJumpList();
+
+}
+
+KTextEditor::Cursor KateViInputModeManager::getNextJump(KTextEditor::Cursor cursor ) {
+   if (current_jump != jump_list->end()) {
+       KateViJump jump;
+       if (current_jump + 1 != jump_list->end())
+           jump = *(++current_jump);
+       else
+           jump = *(current_jump);
+
+       cursor = KTextEditor::Cursor(jump.line, jump.column);
+   }
+
+   // DEBUG
+   PrintJumpList();
+
+   return cursor;
+}
+
+KTextEditor::Cursor KateViInputModeManager::getPrevJump(KTextEditor::Cursor cursor ) {
+   if (current_jump == jump_list->end()) {
+       addJump(cursor);
+       current_jump--;
+   }
+
+   if (current_jump != jump_list->begin()) {
+       KateViJump jump;
+           jump = *(--current_jump);
+       cursor = KTextEditor::Cursor(jump.line, jump.column);
+   }
+
+   // DEBUG
+   PrintJumpList();
+
+   return cursor;
+}
+
+void KateViInputModeManager::PrintJumpList(){
+   qDebug() << "Jump List";
+   for (  QList<KateViJump>::iterator iter = jump_list->begin();
+        iter != jump_list->end();
+        iter++){
+           if (iter == current_jump)
+               qDebug() << (*iter).line << (*iter).column << "<< Current Jump";
+           else
+               qDebug() << (*iter).line << (*iter).column;
+   }
+   if (current_jump == jump_list->end())
+       qDebug() << "    << Current Jump";
+
+}
+
+void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+{
+  m_mark_set_inside_viinputmodemanager = true;
+  uint marktype = m_view->doc()->mark(pos.line());
+
+  // delete old cursor if any
+  if (KTextEditor::MovingCursor *oldCursor = m_marks.value( mark )) {
+
+    int  number_of_marks = 0;
+
+    foreach (QChar c, m_marks.keys()) {
+      if  ( m_marks.value(c)->line() ==  oldCursor->line() )
+        number_of_marks++;
+    }
+
+    if (number_of_marks == 1 && pos.line() != oldCursor->line()) {
+      m_view->doc()->removeMark( oldCursor->line(), KTextEditor::MarkInterface::markType01 );
+    }
+
+    delete oldCursor;
+  }
+
+  // create and remember new one
+  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+
+  if( !marktype & KTextEditor::MarkInterface::markType01 ) {
+    m_view->doc()->addMark( pos.line(),
+                           KTextEditor::MarkInterface::markType01 );
+  }
+
+  // Showing what mark we set:
+  if (mark != '>' && mark != '<')
+    m_viNormalMode->message("Mark set: " + mark);
+
+  m_mark_set_inside_viinputmodemanager = false;
+}
+
+KTextEditor::Cursor KateViInputModeManager::getMarkPosition( const QChar& mark ) const
+{
+  if ( m_marks.contains(mark) ) {
+    KTextEditor::MovingCursor* c = m_marks.value( mark );
+    return KTextEditor::Cursor( c->line(), c->column() );
+  } else {
+    return KTextEditor::Cursor::invalid();
+  }
+}
+
+
+void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
+                                          KTextEditor::Mark mark,
+                                          KTextEditor::MarkInterface::MarkChangeAction action) {
+  if (!m_mark_set_inside_viinputmodemanager) {
+    if (action == 1) {
+        foreach (QChar c, m_marks.keys()) {
+            if  ( m_marks.value(c)->line() == mark.line )
+                m_marks.remove(c);
+        }
+    } else if (action == 0) {
+      bool char_exist = false;
+      for( char c= 'a'; c <= 'z'; c++) {
+        if (!m_marks.value(c)) {
+          addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
+          char_exist = true;
+          break;
+        }
+      }
+      if (!char_exist)
+        m_viNormalMode->error("There no more chars for the next bookmark");
+    }
+  }
+}
+
+void KateViInputModeManager::syncViMarksAndBookmarks() {
+  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
+
+  //  Each bookmark should have a vi mark on the same line.
+  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it)
+  {
+    if (it.value()->type & KTextEditor::MarkInterface::markType01 ) {
+      bool there_is_vi_mark_for_this_line = false;
+      foreach( QChar key, m_marks.keys() ) {
+        if ( m_marks.value(key)->line() == it.value()->line ){
+          there_is_vi_mark_for_this_line = true;
+          break;
+        }
+      }
+      if ( ! there_is_vi_mark_for_this_line ) {
+        for( char c= 'a'; c <= 'z'; c++ ) {
+          if ( ! m_marks.value(c) ) {
+            addMark( m_view->doc(), c, KTextEditor::Cursor( it.value()->line, 0 ) );
+            break;
+          }
+        }
+      }
     }
   }
 
-  config.writeEntry( "ViRegisterNames", names );
-  config.writeEntry( "ViRegisterContents", contents );
-  config.writeEntry( "ViRegisterFlags", flags );
+  // For each vi mark line should be bookmarked.
+  foreach( QChar key, m_marks.keys() ) {
+    bool there_is_kate_mark_for_this_line = false;
+    for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it) {
+      if (it.value()->type & KTextEditor::MarkInterface::markType01 ) {
+        if ( m_marks.value(key)->line() == it.value()->line ) {
+          there_is_kate_mark_for_this_line = true;
+          break;
+        }
+        if ( ! there_is_kate_mark_for_this_line) {
+          m_view->doc()->addMark( m_marks.value(key)->line(), KTextEditor::MarkInterface::markType01 );
+        }
+      }
+    }
+  }
+}
+
+
+// Returns a string of marks and columns.
+QString KateViInputModeManager::getMarksOnTheLine(int line) {
+  QString res = "";
+
+  if ( m_view->viInputMode() ) {
+    foreach (QChar c, m_marks.keys()) {
+      if  ( m_marks.value(c)->line() == line )
+        res += c + ":" + QString::number(m_marks.value(c)->column()) + " ";
+    }
+  }
+
+  return res;
 }

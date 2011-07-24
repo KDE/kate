@@ -36,6 +36,7 @@
 #include "katelayoutcache.h"
 #include "katetextlayout.h"
 #include "kateglobal.h"
+#include "kateviglobal.h"
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -321,8 +322,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^([0-9$]+|\\.([+-]\\d+)?)?,([0-9$]+|\\.([+-]\\d+)?)?");
-  m_cmdExpr.setPattern("^(\\d+)([+-])(\\d+)$");
+  m_cmdRange.setPattern("^(((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$|\\%)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)(,((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)?");
   m_gotoLine.setPattern("[+-]?\\d+");
 
   m_hideTimer = new QTimer(this);
@@ -397,6 +397,48 @@ bool KateCmdLineEdit::event(QEvent *e) {
   return KLineEdit::event(e);
 }
 
+int KateCmdLineEdit::calculatePosition( QString string) {
+
+  int pos=0;
+  QList<bool> operators_list;
+  QStringList split = string.split(QRegExp("[-+](?!([+-]|$))"));
+  QList<int> values;
+
+  foreach ( QString line, split ) {
+
+    pos+=line.size();
+    if ( pos < string.size() ) {
+      if ( string.at(pos) == '+' )
+        operators_list.push_back(true);
+      else if (string.at(pos) == '-')
+        operators_list.push_back(false);
+      else
+        Q_ASSERT(false);
+    }
+    pos++;
+
+    if ( line.contains(QRegExp("^\\d+$")))
+        values.push_back( line.toInt() );
+    else if ( line.contains(QRegExp("^\\$$")))
+        values.push_back(m_view->doc()->lines());
+    else if ( line.contains(QRegExp("^\\.$")))
+        values.push_back(m_view->cursorPosition().line()+1);
+    else if (line.contains(QRegExp("^\\'[0-9a-z><\\+\\*\\_]$")))
+        values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1);
+
+  }
+
+  int result = values.at(0);
+  for (int i = 0; i < operators_list.size(); i++) {
+    if (operators_list.at(i) == true)
+      result += values.at(i+1);
+    else
+      result -= values.at(i+1);
+  }
+
+  return result;
+}
+
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
   if (text.isEmpty()) return;
@@ -417,47 +459,22 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   KTextEditor::Range range(-1, 0, -1, 0);
 
-  // check if a range was given
   if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
 
-    cmd.remove( m_cmdRange );
+      cmd.remove(m_cmdRange);
 
-    QString s = m_cmdRange.capturedTexts().at(1);
-    QString e = m_cmdRange.capturedTexts().at(3);
+      QString position_string1 = m_cmdRange.capturedTexts().at(1);
+      QString position_string2 = m_cmdRange.capturedTexts().at(9);
+      int position1 = calculatePosition(position_string1);
 
-    if ( s.isEmpty() )
-      s = '.';
-    if ( e.isEmpty() )
-      e = s;
+      int position2;
+      if (position_string2 != "")
+        position2 = calculatePosition(position_string2.remove(0,1));
+      else
+        position2 = position1;
 
-    // replace '$' with the number of the last line and '.' with the current line
-    s.replace('$', QString::number( m_view->doc()->lines() ) );
-    e.replace('$', QString::number( m_view->doc()->lines() ) );
-    s.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
-    e.replace('.', QString::number( m_view->cursorPosition().line()+1 ) );
-
-    // evaluate expressions (a+b or a-b) if we have any
-    if (m_cmdExpr.indexIn(s) != -1) {
-      if (m_cmdExpr.capturedTexts().at(2) == "+") {
-        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(3).toInt());
-      } else {
-        s = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(3).toInt());
-      }
+      range.setRange(KTextEditor::Range(position1-1, 0, position2-1, 0));
     }
-    if (m_cmdExpr.indexIn(e) != -1) {
-      if (m_cmdExpr.capturedTexts().at(2) == "+") {
-        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            + m_cmdExpr.capturedTexts().at(3).toInt());
-      } else {
-        e = QString::number(m_cmdExpr.capturedTexts().at(1).toInt()
-            - m_cmdExpr.capturedTexts().at(3).toInt());
-      }
-    }
-
-    range.setRange(KTextEditor::Range(s.toInt()-1, 0, e.toInt()-1, 0));
-  }
 
   // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
   if (m_gotoLine.exactMatch(cmd)) {
@@ -483,6 +500,11 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
     m_msgMode = true;
 
+    // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))){
+      emit hideRequested();
+    }
+
     // we got a range and a valid command, but the command does not inherit the RangeCommand
     // extension. bail out.
     if ( ( !ce && range.isValid() && p ) || ( range.isValid() && ce && !ce->supportsRange(cmd) ) ) {
@@ -503,7 +525,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
           if (msg.length() > 0)
             setText (i18n ("Success: ") + msg);
-          else
+          else if (isVisible())
             // always hide on success without message
             emit hideRequested();
         }
@@ -540,8 +562,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   // the following commands change the focus themselves
-  if (!QRegExp("b(n|p)").exactMatch(cmd) && !QRegExp("(v)?new").exactMatch(cmd))
-    m_view->setFocus ();
+  if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))) {
+    m_view->setFocus ();   
+  }
 
   if (isVisible()) {
     m_hideTimer->start(4000);

@@ -24,9 +24,12 @@
 #include <QKeyEvent>
 #include <QList>
 #include "katepartprivate_export.h"
+#include <ktexteditor/cursor.h>
+#include "katedocument.h"
 
 class KConfigGroup;
 class KateView;
+class KateDocument;
 class KateViewInternal;
 class KateViNormalMode;
 class KateViInsertMode;
@@ -47,8 +50,21 @@ enum ViMode {
   ReplaceMode
 };
 
-class KATEPART_TESTS_EXPORT KateViInputModeManager
+struct KateViJump {
+    int line;
+    int column;
+};
+
+namespace KTextEditor {
+  class MovingCursor;
+  class Mark;
+  class MarkInterface;
+}
+
+class KATEPART_TESTS_EXPORT KateViInputModeManager : public QObject
 {
+    Q_OBJECT
+
 public:
   KateViInputModeManager(KateView* view, KateViewInternal* viewInternal);
   ~KateViInputModeManager();
@@ -161,9 +177,31 @@ public:
    */
   void setLastSearchBackwards( bool b ) { m_lastSearchBackwards = b; }
 
+  bool getTemporaryNormalMode() { return m_temporaryNormalMode; }
+
+  void setTemporaryNormalMode(bool b) {  m_temporaryNormalMode = b; }
+
+  // Jup Lists
+  void addJump(KTextEditor::Cursor cursor);
+  KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
+  KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor);
+  void PrintJumpList();
+
   // session stuff
   void readSessionConfig( const KConfigGroup& config );
   void writeSessionConfig( KConfigGroup& config );
+
+  // marks
+  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
+  KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
+  void syncViMarksAndBookmarks();
+  QString getMarksOnTheLine(int line);
+
+
+private Q_SLOTS:
+  void markChanged (KTextEditor::Document* doc,
+                    KTextEditor::Mark mark,
+                    KTextEditor::MarkInterface::MarkChangeAction action);
 
 private:
   KateViNormalMode* m_viNormalMode;
@@ -202,6 +240,24 @@ private:
    * keeps track of whether the last search was done backwards or not.
    */
   bool m_lastSearchBackwards;
+
+  /**
+   * true when normal mode was started by Ctrl-O command in insert mode.
+   */
+  bool m_temporaryNormalMode;
+
+  /**
+   * true when mark set inside viinputmodemanager to do not serve it as bookmark set;
+   */
+  bool m_mark_set_inside_viinputmodemanager;
+
+  // jump list
+  QList<KateViJump> *jump_list;
+  QList<KateViJump>::iterator current_jump;
+
+  // marks
+  QMap<QChar, KTextEditor::MovingCursor*> m_marks;
+
 };
 
 #endif

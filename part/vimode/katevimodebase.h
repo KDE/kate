@@ -27,6 +27,7 @@
 #include "katevirange.h"
 #include "kateviewinternal.h"
 #include "katepartprivate_export.h"
+#include "katedocument.h"
 
 #include <QList>
 
@@ -48,6 +49,15 @@ enum OperationMode {
     Block
 };
 
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+    Next,
+    Prev
+};
+
 class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 {
   Q_OBJECT
@@ -64,6 +74,11 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     virtual void addMapping( const QString &from, const QString &to ) = 0;
     virtual const QString getMapping( const QString &from ) const = 0;
     virtual const QStringList getMappings() const = 0;
+    void setCount(unsigned int count) { m_count = count; }
+    void setRegister(QChar reg) {m_register =  reg;}
+
+    void error( const QString &errorMsg ) const;
+    void message( const QString &msg ) const;
 
   protected:
     // helper methods
@@ -81,8 +96,12 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     Cursor findPrevWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false ) const;
+
+    KateViRange findSurroundingBrackets( const QChar &c1, const QChar &c2, bool inner,
+                                        const QChar &nested1 , const QChar &nested2  ) const;
     KateViRange findSurrounding( const QRegExp &c1, const QRegExp &c2, bool inner = false ) const;
+    KateViRange findSurroundingQuotes( const QChar &c, bool inner = false ) const;
+
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     void updateCursor( const Cursor &c ) const;
     const QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
@@ -92,11 +111,14 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateViRange goLineUp();
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);
+    KateViRange goVisualLineUpDown(int lines);
+
 
     unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }
     void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }
 
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
+    bool isCounted() { return m_iscounted; }
 
     bool startNormalMode();
     bool startInsertMode();
@@ -105,18 +127,22 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     bool startVisualBlockMode();
     bool startReplaceMode();
 
-    void error( const QString &errorMsg ) const;
-    void message( const QString &msg ) const;
-
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
     OperationMode getRegisterFlag( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
 
+    void switchView(Direction direction = Next);
+
     QChar m_register;
+
+    void addJump(KTextEditor::Cursor cursor);
+    KTextEditor::Cursor getNextJump(KTextEditor::Cursor);
+    KTextEditor::Cursor getPrevJump(KTextEditor::Cursor);
 
     KateViRange m_commandRange;
     unsigned int m_count;
+    bool m_iscounted;
 
     QString m_extraWordCharacters;
     QString m_keysVerbatim;

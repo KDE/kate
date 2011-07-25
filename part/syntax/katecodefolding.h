@@ -6,7 +6,6 @@
 #include <QtCore/QVector>
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
-#include <QtCore/QDebug>
 
 #include "katepartprivate_export.h"
 
@@ -274,12 +273,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     KateCodeFoldingNode *findNodeForPosition(int line, int column);
 
-    inline void debugDump ()
-    {
-      printMapping();
-      buildTreeString(m_root,1);
-      qDebug()<<treeString;
-    }
+    void debugDump ();
     inline int getStartLine (KateCodeFoldingNode *node)
     {
       return node->getLine();

@@ -6,6 +6,11 @@
 #include "QMessageBox"
 //
 
+#include "KDebug"
+
+int debugArea() { static int s_area = KDebug::registerArea("Kate (Folding)"); return s_area; }
+#define debug() kDebug(debugArea())
+
 KateCodeFoldingNode::KateCodeFoldingNode() :
     m_parentNode(0),
     m_position(0,0),
@@ -418,14 +423,15 @@ void KateCodeFoldingTree::clear()
 
 int KateCodeFoldingTree::collapseOne(int realLine)
 {
-  qDebug()<<QString("colapse one ... at %1").arg(realLine);
+  debug() << realLine;
   return 0;
 }
 
 // This method fold all the top level (depth(node) = 1) nodes
 void KateCodeFoldingTree::collapseToplevelNodes()
 {
-  qDebug()<<QString("collapse top level nodes");
+  debug();
+
   if (m_root->noStartChildren())
     return;
 
@@ -520,13 +526,16 @@ void KateCodeFoldingTree::ensureVisible(int l)
 
 void KateCodeFoldingTree::expandOne(int realLine, int numLines)
 {
-  qDebug()<<QString("expand one : %1 ; %2").arg(realLine).arg(numLines);
+  debug() << "real line:" << realLine << "num lines:" << numLines;
+
+  ///FIXME: does this not need some kind of implementation?
 }
 
 // This method unfold the top level (depth(node = 1)) nodes
 void KateCodeFoldingTree::expandToplevelNodes()
 {
-  qDebug()<<QString("expand top level nodes");
+  debug();
+
   if (m_root->noStartChildren())
     return;
 
@@ -664,6 +673,13 @@ KateCodeFoldingNode* KateCodeFoldingTree::findNodeStartingAt(int line)
       return child;
   }
   return 0;
+}
+
+void KateCodeFoldingTree::debugDump()
+{
+    printMapping();
+    buildTreeString(m_root,1);
+    debug()<<treeString;
 }
 
 // Sets the root's match line at the end of the document
@@ -918,7 +934,7 @@ void KateCodeFoldingTree::insertStartNode(int type, KateDocumentPosition pos)
 // called when a line has been inserted (key "Enter/Return" was pressed)
 void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
 {
-  //qDebug()<<QString("line has been inserted at : (%1,%2)").arg(line).arg(column);
+  //debug() << line << column;
   QMap <int, QVector <KateCodeFoldingNode*> > tempMap = m_lineMapping;
   QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(tempMap);
   QVector <KateCodeFoldingNode*> tempVector;
@@ -1171,7 +1187,7 @@ void KateCodeFoldingTree::replaceFoldedNodeWithList(KateCodeFoldingNode *node, Q
 // This method is called when the fold/unfold icon is pressed
 void KateCodeFoldingTree::toggleRegionVisibility(int l)
 {
-  qDebug()<<QString("toggle ... at %1").arg(l);
+  debug() << l;
   KateCodeFoldingNode *tempNode = findNodeForLine(l);
   if (tempNode->m_visible)
     foldNode(tempNode);
@@ -1203,8 +1219,9 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
 // newColumns[2 * k + 1] = position of node k
 void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns)
 {
-    qDebug()<<"old mapping:";
-    printMapping();
+  debug() << "old mapping:";
+  printMapping();
+
   QVector<KateCodeFoldingNode*> oldLineMapping = m_lineMapping[line];
   int index_old = 0;
   int index_new = 1;
@@ -1272,18 +1289,18 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns)
 // Debug methods
 
 void KateCodeFoldingTree::printMapping() {
-  qDebug()<<"\n***************** New Line mapping print ******************\n";
+  debug() << "***************** New Line mapping print ******************";
   QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
   while (iterator.hasNext()) {
     QVector <KateCodeFoldingNode*> tempVector = iterator.peekNext().value();
     int key = iterator.next().key();
-    qDebug()<<(QString("\nLine %1").arg(key));
+    debug() << "Line" << key;
     foreach (KateCodeFoldingNode *node, tempVector) {
-      qDebug()<<(QString("(%1,%2)").arg(node->m_type).arg(node->getColumn()));
+      debug() << "node type:" << node->m_type << ", col:" << node->getColumn();
     }
-    qDebug()<<(QString("\nEnd of Line %1....").arg(key));
+    debug() << "End of line:" << key;
   }
-  qDebug()<<"\n**********************************************************\n";
+  debug() << "**********************************************************";
 }
 
 void KateCodeFoldingTree::buildTreeString(KateCodeFoldingNode *node, int level)

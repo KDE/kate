@@ -20,6 +20,7 @@
 
 #include "variableeditor.h"
 #include "variableitem.h"
+#include "katehelpbutton.h"
 
 #include <QtCore/QVariant>
 #include <QtGui/QCheckBox>
@@ -51,14 +52,17 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   m_variable = new QLabel(item->variable(), this);
   m_variable->setFocusPolicy(Qt::ClickFocus);
   m_variable->setFocusProxy(m_checkBox);
-  m_pixmap = new QLabel(this);
-  m_pixmap->setPixmap(SmallIcon("flag"));
+  m_btnHelp = new KateHelpButton(this);
+  m_btnHelp->setIconState(KateHelpButton::IconHidden);
+  m_btnHelp->setEnabled(false);
+  m_btnHelp->setSection(QLatin1String("variable-") + item->variable());
+
   m_helpText = new QLabel(item->helpText(), this);
   m_helpText->setWordWrap(true);
 
   l->addWidget(m_checkBox, 0, 0, Qt::AlignLeft);
   l->addWidget(m_variable, 0, 1, Qt::AlignLeft);
-  l->addWidget(m_pixmap, 0, 3, Qt::AlignRight);
+  l->addWidget(m_btnHelp, 0, 3, Qt::AlignRight);
   l->addWidget(m_helpText, 1, 1, 1, 3);
   
   l->setColumnStretch(0, 0);
@@ -82,14 +86,18 @@ VariableEditor::~VariableEditor()
 void VariableEditor::enterEvent(QEvent* event)
 {
   QWidget::enterEvent(event);
-  
+  m_btnHelp->setIconState(KateHelpButton::IconColored);
+  m_btnHelp->setEnabled(true);
+
   update();
 }
 
 void VariableEditor::leaveEvent(QEvent* event)
 {
   QWidget::leaveEvent(event);
-  
+  m_btnHelp->setIconState(KateHelpButton::IconHidden);
+  m_btnHelp->setEnabled(false);
+
   update();
 }
 

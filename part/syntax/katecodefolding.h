@@ -201,13 +201,14 @@ class KateCodeFoldingNode: public QObject
       { return hasMatch() ? endChildAt(0) : 0 ; }
 
 // Methods used to calibrate the Folding Tree :
-    void add(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_childred);
+    void add(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_children);
     void addChild(KateCodeFoldingNode *node);
     bool contains(KateCodeFoldingNode *node);
     bool hasBrothers();
     bool isDuplicated(KateCodeFoldingNode *node);
     void mergeChildren(QVector <KateCodeFoldingNode*> &list1, QVector <KateCodeFoldingNode*> &list2);
-    bool remove(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_childred);
+    bool removeEnd(KateCodeFoldingNode *node);
+    bool removeStart(KateCodeFoldingNode *node);
     KateCodeFoldingNode* removeChild(KateCodeFoldingNode *node);
     QVector<KateCodeFoldingNode *> removeChildrenInheritedFrom(KateCodeFoldingNode *node);
     void setParent();

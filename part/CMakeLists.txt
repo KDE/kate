@@ -100,6 +100,7 @@ variableeditor/variablelineedit.cpp
 variableeditor/variablelistview.cpp
 variableeditor/variableeditor.cpp
 variableeditor/variableitem.cpp
+variableeditor/katehelpbutton.cpp
 
 
 # rendering stuff (katerenderer  and helpers)

@@ -451,8 +451,6 @@ int KateCodeFoldingTree::collapseOne(int realLine)
 // This method fold all the top level (depth(node) = 1) nodes
 void KateCodeFoldingTree::collapseToplevelNodes()
 {
-  debug();
-
   if (m_root->noStartChildren())
     return;
 
@@ -555,8 +553,6 @@ void KateCodeFoldingTree::expandOne(int realLine, int numLines)
 // This method unfold the top level (depth(node = 1)) nodes
 void KateCodeFoldingTree::expandToplevelNodes()
 {
-  debug();
-
   if (m_root->noStartChildren())
     return;
 
@@ -955,7 +951,6 @@ void KateCodeFoldingTree::insertStartNode(int type, KateDocumentPosition pos)
 // called when a line has been inserted (key "Enter/Return" was pressed)
 void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
 {
-  //debug() << line << column;
   QMap <int, QVector <KateCodeFoldingNode*> > tempMap = m_lineMapping;
   QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(tempMap);
   QVector <KateCodeFoldingNode*> tempVector;
@@ -1208,7 +1203,6 @@ void KateCodeFoldingTree::replaceFoldedNodeWithList(KateCodeFoldingNode *node, Q
 // This method is called when the fold/unfold icon is pressed
 void KateCodeFoldingTree::toggleRegionVisibility(int l)
 {
-  debug() << l;
   KateCodeFoldingNode *tempNode = findNodeForLine(l);
   if (tempNode->m_visible)
     foldNode(tempNode);
@@ -1240,9 +1234,6 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
 // newColumns[2 * k + 1] = position of node k
 void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns)
 {
-  debug() << "old mapping:";
-  printMapping();
-
   QVector<KateCodeFoldingNode*> oldLineMapping = m_lineMapping[line];
   int index_old = 0;
   int index_new = 1;

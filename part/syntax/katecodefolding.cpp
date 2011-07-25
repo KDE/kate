@@ -20,6 +20,7 @@
  */
 
 #include "katecodefolding.h"
+#include "katebuffer.h"
 #include "ktexteditor/cursor.h"
 
 // Debug
@@ -1064,6 +1065,24 @@ void KateCodeFoldingTree::sublist(QVector<KateCodeFoldingNode *> &dest, QVector<
 
 void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 {
+  // We have to make sure that the lines below our folded node were parsed
+  // We don't have to parse the entire file. We can stop when we find the match for our folded node
+  for (int index = node->getLine() ; index < m_rootMatch->getLine() ; ++index) {
+    m_buffer->ensureHighlighted(index);
+    if (m_lineMapping.contains(index)) {
+      QVector <KateCodeFoldingNode *> tempLineMap(m_lineMapping[index]);
+      bool found = false;
+      foreach (KateCodeFoldingNode* endNode, tempLineMap) {
+        if (node->getStartMatching(endNode) == node) {
+          found = true;
+          break;
+        }
+      }
+      if (found)
+        break;
+    }
+  }
+
   // Find out if there is another folded area contained by this new folded area
   // Ignore the included area (will not be inserted in hiddenNodes)
   QList <KateCodeFoldingNode*> oldHiddenNodes(m_hiddenNodes);

@@ -6,6 +6,8 @@
   Created: Nicola Gigante <nicola.gigante@gmail.com>
     Changes: Bogdan Drozdowski (bogdandr@op.pl)
   Version: 1.3
+             Lyle Putnam (lcputnam@gmail.com)
+  Version: 1.4
 
 Changes from 1.0:
   15/01/2006: version 1.1
@@ -18,6 +20,9 @@ Changes from 1.0:
     Corrections in register list and a few new ones (not 64-bit).
     Changed regexes for hex, octal and bin numbers. Now words like
       "change" and "blah" will NOT have the "ch" and "ah" coloured.
+  24/07/2011: Version 1.4 from Lyle Putnam (lcputnam@gmail.com):
+    The above change to fix the regex for hex numbers was incorrect on Kate
+    3.6.2. Fixed.
 
   GNU GENERAL PUBLIC LICENCE
 
@@ -35,7 +40,7 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<language name="Intel x86 (NASM)" section="Assembler" version="1.30" kateversion="2.3" extensions="*.asm" mimetype="" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPL">
+<language name="Intel x86 (NASM)" section="Assembler" version="1.40" kateversion="2.3" extensions="*.asm" mimetype="" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPL">
   <highlighting>
     <list name="registers">
       <!-- General purpose registers -->
@@ -845,7 +850,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <!-- The NASM's CPU directive -->
         <RegExpr attribute="NASM Keywords" context="#stay" String="cpu (pentium|ppro|p2|p3|katmai|p4|willamette|prescott|ia64)*"/>
         <!-- hexadecimal numbers -->
-        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="(^|[ \t,]+)((\$|0x){1}[0-9]+[a-f0-9]*|[a-f0-9]+h)([ \t,]+|$)"/>
+        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="(^|[ \t,]+)((\$|0x){1}[0-9]+[a-f0-9]*|[0-9]+[a-f0-9]*h)([ \t,]+|$)"/>
         <!-- octal and binary numbers -->
         <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="(^|[ \t,]+)([0-7]+(q|o)|[01]+b)([ \t,]+|$)"/>
         <DetectChar attribute="Number" context="#stay" char="$"/>

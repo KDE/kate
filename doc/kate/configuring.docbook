@@ -1406,7 +1406,7 @@ with the following valid expressions:
 <title>Available Variables</title>
 
 <varlistentry id="variable-auto-brackets">
-<term><cmdsynopsis><command>aaaaaaaaaaaauto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set auto insertion of brackets on or off.</para></listitem>
 </varlistentry>
 

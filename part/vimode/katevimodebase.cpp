@@ -957,15 +957,43 @@ KateViRange KateViModeBase::goLineUpDown( int lines )
 }
 
 KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
+
+  Cursor c( m_view->cursorPosition() );
+  KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+  int tabstop = doc()->config()->tabWidth();
+
+  // if in an empty document, just return
+  if ( lines == 0 ) {
+    return r;
+  }
+
   int line_height = m_view->renderer()->lineHeight();
 
-  Cursor c = m_view->cursorPosition();
   QPoint point = m_view->cursorToCoordinate(c);
   Cursor res = m_view->coordinatesToCursor(QPoint(point.x(), point.y() + lines * line_height));
 
-  KateViRange r;
   r.endColumn = res.column();
   r.endLine = res.line();
+
+  if (r.endColumn == -1 || r.endLine == -1 || r.valid == false)
+    return r;
+
+  Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
+  Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
+
+  int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
+
+  int view_line = m_viewInternal->cache()->viewLine(c);
+  int visualColumnStart = virtColumnStart - m_viewInternal->cache()->viewLine(view_line).startCol();
+
+  if ( m_stickyColumn == -1 ) {
+     m_stickyColumn = visualColumnStart;
+  } else {
+    int end_view_line = m_viewInternal->cache()->viewLine(res);
+    int s_c = m_viewInternal->cache()->textLayout(res.line(), end_view_line).startCol();
+    r.endColumn = endLine->fromVirtualColumn( m_stickyColumn + s_c, tabstop );
+  }
+
   return r;
 }
 

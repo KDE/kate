@@ -360,8 +360,8 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void toggleRegionVisibility (int);
     void collapseToplevelNodes ();
     void expandToplevelNodes ();
-    int collapseOne (int realLine);
-    void expandOne  (int realLine, int numLines);
+    int collapseOne (int realLine, int column);
+    void expandOne  (int realLine, int column);
     void ensureVisible (int l);
 
   Q_SIGNALS:

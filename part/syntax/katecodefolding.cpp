@@ -443,9 +443,19 @@ void KateCodeFoldingTree::clear()
   m_lineMapping.insert(-1,tempVector);
 }
 
-int KateCodeFoldingTree::collapseOne(int realLine)
+int KateCodeFoldingTree::collapseOne(int realLine, int column)
 {
-  debug() << realLine;
+  KateCodeFoldingNode* nodeToFold = findParent(KateDocumentPosition(realLine,column - 1),1);
+  //debug() << "***collapse (" << nodeToFold->getLine() <<"," << nodeToFold->getColumn() << ")\n";
+
+  if (nodeToFold == m_root)
+    return 0;
+
+  if (m_hiddenNodes.contains(nodeToFold))
+    return 0;
+
+  foldNode(nodeToFold);
+
   return 0;
 }
 
@@ -544,11 +554,15 @@ void KateCodeFoldingTree::ensureVisible(int l)
   }
 }
 
-void KateCodeFoldingTree::expandOne(int realLine, int numLines)
+void KateCodeFoldingTree::expandOne(int realLine, int column)
 {
-  debug() << "real line:" << realLine << "num lines:" << numLines;
+  KateCodeFoldingNode* nodeToUnfold = findParent(KateDocumentPosition(realLine,column - 1),1);
+  //debug() << "***collapse (" << nodeToUnfold->getLine() <<"," << nodeToUnfold->getColumn() << ")\n";
 
-  ///FIXME: does this not need some kind of implementation?
+  if (nodeToUnfold == m_root || nodeToUnfold->isVisible())
+    return;
+
+  unfoldNode(nodeToUnfold);
 }
 
 // This method unfold the top level (depth(node = 1)) nodes
@@ -573,7 +587,7 @@ KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(KateDocumentPosition sta
 
     QVector <KateCodeFoldingNode*> tempMap = m_lineMapping[line];
     for (int column = tempMap.size() - 1 ; column >= 0 ; column --) {
-      // The search for a "start node"
+      // We search for a "start node"
       // We still have to check positions becose the parent might be on the same line
       if (tempMap[column]->m_type > 0 && tempMap[column]->m_position < startingPos)
         return tempMap[column];
@@ -644,7 +658,7 @@ KateCodeFoldingNode* KateCodeFoldingTree::findNodeForPosition(int l, int c)
 }
 
 // Search for the parent of the new node that will be created at position startingPos
-KateCodeFoldingNode* KateCodeFoldingTree::findParent(KateDocumentPosition startingPos,int childType)
+KateCodeFoldingNode* KateCodeFoldingTree::findParent(KateDocumentPosition startingPos, int childType)
 {
   for (int line = startingPos.line ; line >= 0 ; line --) {
     if (!m_lineMapping.contains(line))
@@ -671,7 +685,8 @@ KateCodeFoldingNode* KateCodeFoldingTree::findParent(KateDocumentPosition starti
 
       // If this node has a match and its matching node's
       // position is lower then current node, we found the parent
-      if (tempLineMap[i]->m_endChildren.last()->m_position > startingPos)
+      // The previous version was with m_endChildren.last()
+      if (tempLineMap[i]->matchingNode()->m_position > startingPos)
         return tempLineMap[i];
     }
   }
@@ -1222,11 +1237,41 @@ void KateCodeFoldingTree::replaceFoldedNodeWithList(KateCodeFoldingNode *node, Q
 // This method is called when the fold/unfold icon is pressed
 void KateCodeFoldingTree::toggleRegionVisibility(int l)
 {
-  KateCodeFoldingNode *tempNode = findNodeForLine(l);
-  if (tempNode->m_visible)
-    foldNode(tempNode);
-  else
-    unfoldNode(tempNode);
+  //KateCodeFoldingNode *tempNode = findNodeForLine(l);
+  // If the line don't have any nodes, that we can't fold/unfold anything
+  if (!m_lineMapping.contains(l))
+    return;
+
+  bool foldedFound = false;
+
+  foreach (KateCodeFoldingNode* node, m_lineMapping[l]) {
+
+    // We can fold/unfold only start nodes
+    if (node->m_type < 0)
+      continue;
+
+    // If there are any folded nodes, they have priority
+    if (!node->isVisible()) {
+      unfoldNode(node);
+      foldedFound = true;
+    }
+  }
+
+  // If there were no folded nodes, we'll folde the first node
+  if (!foldedFound) {
+    foreach (KateCodeFoldingNode* node, m_lineMapping[l]) {
+
+      // We can fold/unfold only start nodes
+      if (node->m_type < 0)
+        continue;
+
+      // We fold the first unfolded node and exit
+      if (node->isVisible()) {
+        foldNode(node);
+        break;
+      }
+    }
+  }
 }
 
 // changed = true, if there is there is a new node on the line / a node was deleted from the line

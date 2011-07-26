@@ -23,6 +23,8 @@
 
 #include <QtGui/QWidget>
 
+class KateHelpButton;
+
 class VariableBoolItem;
 class VariableColorItem;
 class VariableFontItem;
@@ -73,7 +75,7 @@ private:
   QCheckBox* m_checkBox;
   QLabel* m_variable;
   QLabel* m_helpText;
-  QLabel* m_pixmap;
+  KateHelpButton* m_btnHelp;
 };
 
 class VariableIntEditor : public VariableEditor

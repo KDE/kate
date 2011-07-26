@@ -177,11 +177,11 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_leftBorder = new KateIconBorder( this, m_view );
   m_leftBorder->show ();
 
-  connect( m_leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
-           doc()->foldingTree(), SLOT(toggleRegionVisibility(unsigned int)));
+  connect( m_leftBorder, SIGNAL(toggleRegionVisibility(int)),
+           doc()->foldingTree(), SLOT(toggleRegionVisibility(int)));
 
-  connect( doc()->foldingTree(), SIGNAL(regionVisibilityChangedAt(unsigned int,bool)),
-           this, SLOT(slotRegionVisibilityChangedAt(unsigned int,bool)));
+  connect( doc()->foldingTree(), SIGNAL(regionVisibilityChanged()),
+           this, SLOT(slotRegionVisibilityChanged()));
   connect( doc(), SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );
 
@@ -657,9 +657,8 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 #endif
 }
 
-void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int,bool clear_cache)
+void KateViewInternal::slotRegionVisibilityChanged()
 {
-  Q_UNUSED(clear_cache)
   kDebug(13030);
   cache()->clear();
 

@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Comment=Select an icon and use it as a KIcon in your source-code
+Comment[bg]=Избор на икона и използване като KIcon в изходния код
 Comment[bs]=Odabira ikonu i koristi je kao KIcon u izvornom kodu
 Comment[ca]=Seleccioneu una icona i utilitzeu-la com a «KIcon» en el codi font
 Comment[ca@valencia]=Seleccioneu una icona i utilitzeu-la com a «KIcon» en el codi font

@@ -1242,13 +1242,13 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
         if (!info.topLevel)
         {
-          if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
-          {
-            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, true);
-          }
-          else if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
+          if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
           {
             paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, false);
+          }
+          else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
+          {
+            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, true);
           }
           else
           {

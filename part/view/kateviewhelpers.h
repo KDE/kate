@@ -135,7 +135,7 @@ class KateIconBorder : public QWidget
     BorderArea positionToArea( const QPoint& ) const;
 
   Q_SIGNALS:
-    void toggleRegionVisibility( unsigned int );
+    void toggleRegionVisibility( int );
   public Q_SLOTS:
     void updateAnnotationBorderWidth();
     void updateAnnotationLine( int line );

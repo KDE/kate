@@ -444,33 +444,33 @@ work on a different scheme start by selecting that from the
 <title>Colors</title>
 
 <variablelist>
-<varlistentry id="prefcolors-colors-text-background">
+<varlistentry id="variable-prefcolors-colors-text-background">
 <term><guilabel>Text Area Background</guilabel></term>
 <listitem>
 
 <variablelist>
 
-<varlistentry id="pref-colors-normal-text">
+<varlistentry id="variable-pref-colors-normal-text">
 <term><guilabel>Normal text</guilabel></term>
 <listitem><para>This is the default background for the editor area, it will be
 the dominant color on the editor area.</para></listitem>
 </varlistentry>
 
-<varlistentry id="pref-colors-selected-text">
+<varlistentry id="variable-pref-colors-selected-text">
 <term><guilabel>Selected text</guilabel></term>
 <listitem><para>This is the background for selected text. The default is
 the global selection color, as set in your &kde; color preferences.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="pref-colors-current-line">
+<varlistentry id="variable-pref-colors-current-line">
 <term><guilabel>Current line</guilabel></term>
 <listitem><para>Set the color for the current line. Setting this a bit different
 from the Normal text background helps to keep focus on the current line.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="pref-colors-marks">
+<varlistentry id="variable-pref-colors-marks">
 <term><guilabel>Bookmark</guilabel></term>
 <listitem><para>This combobox lets you set overlay colors for various mark types.
 The color is mixed into the background color of a marked line, so that a line
@@ -483,7 +483,7 @@ marks.</para></listitem>
 </listitem>
 </varlistentry>
 
-<varlistentry id="prefcolors-colors-other-elements">
+<varlistentry id="variable-prefcolors-colors-other-elements">
 <term><guilabel>Additional Elements</guilabel></term>
 <listitem>
 <variablelist>
@@ -1405,106 +1405,106 @@ with the following valid expressions:
 <variablelist>
 <title>Available Variables</title>
 
-<varlistentry>
+<varlistentry id="variable-auto-brackets">
 <term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set auto insertion of brackets on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-auto-center-lines">
 <term><cmdsynopsis><command>auto-center-lines</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the number of autocenter lines.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-auto-insert-doxygen">
 <term><cmdsynopsis><command>auto-insert-doxygen</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turn insertion of the leading asterisk in doxygen comments on or
 off. This has no effect unless you use the cstyle auto-indenter. </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-background-color">
 <term><cmdsynopsis><command>background-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the document background color. The value must be something
 that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-backspace-indents">
 <term><cmdsynopsis><command>backspace-indents</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turn backspace indenting on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-block-selection">
 <term><cmdsynopsis><command>block-selection</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turn block selection on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-byte-order-marker">
 <term><cmdsynopsis><command>bom | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Enable/disable the byte order marker when saving files in unicode format (utf8, utf16, utf32).</para>
 <para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
 </varlistentry>
-<varlistentry>
 
+<varlistentry id="variable-bracket-highlight-color">
 <term><cmdsynopsis><command>bracket-highlight-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the bracket highlight. The value must be
 something that can be evaluated to a valid color, for example "#ff0000" </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-current-line-color">
 <term><cmdsynopsis><command>current-line-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the current line. The  value must be
 something that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-default-dictionary">
 <term><cmdsynopsis><command>default-dictionary</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Sets the default dictionary used for spell checking.</para>
 <para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-dynamic-word-wrap">
 <term><cmdsynopsis><command>dynamic-word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turns dynamic word wrap on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-end-of-line">
 <term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the end of line mode. Valid settings are
 <quote>unix</quote>, <quote>mac</quote> and <quote>dos</quote></para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-folding-markers">
 <term><cmdsynopsis><command>folding-markers</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the display of folding markers on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-font-size">
 <term><cmdsynopsis><command>font-size</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the point size of the document font.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-font">
 <term><cmdsynopsis><command>font</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the font of the document. The value should be a valid font
 name, for example <quote>courier</quote>.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-syntax">
 <term><cmdsynopsis><command>hl | syntax</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the syntax highlighting. Valid strings are all the names available in the menus. For instance, for C++ simply write <literal>C++</literal>.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-icon-bar-color">
 <term><cmdsynopsis><command>icon-bar-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the icon bar color. The  value must be something that can
 be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-icon-border">
 <term><cmdsynopsis><command>icon-border</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the display of the icon border on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-indent-mode">
 <term><cmdsynopsis><command>indent-mode</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the auto-indentation mode. The options <quote>none</quote>,
 <quote>normal</quote>, <quote>cstyle</quote>, <quote>haskell</quote>,
@@ -1513,118 +1513,118 @@ be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></l
 <xref linkend="kate-part-autoindent"/> for details.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-indent-width">
 <term><cmdsynopsis><command>indent-width</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the indentation width.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-keep-extra-spaces">
 <term><cmdsynopsis><command>keep-extra-spaces</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set whether to keep extra spaces when calculating indentation width.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-line-numbers">
 <term><cmdsynopsis><command>line-numbers</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the display of line numbers on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-mixed-indent">
 <term><cmdsynopsis><command>mixed-indent</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set mixed indentation ala Emacs on or off.</para>
 <para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-overwrite-mode">
 <term><cmdsynopsis><command>overwrite-mode</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set overwrite mode on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-persistent-selection">
 <term><cmdsynopsis><command>persistent-selection</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set persistent selection on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-remove-trailing-space">
 <term><cmdsynopsis><command>remove-trailing-space</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set dynamic end of line cleanup on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-replace-tabs-save">
 <term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set tab-&gt;space conversion on save on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-replace-tabs">
 <term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set dynamic tab-&gt;space conversion on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-replace-trailing-space-save">
 <term><cmdsynopsis><command>replace-trailing-space-save</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set end of line cleanup on save on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-scheme">
 <term><cmdsynopsis><command>scheme</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color scheme. The string must be the name of a color
 scheme that exists in your configuration to have any effect.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-selection-color">
 <term><cmdsynopsis><command>selection-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the selection color. The  value must be something that can
 be evaluated to a valid color, for example "#ff0000".</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-show-tabs">
 <term><cmdsynopsis><command>show-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the visual TAB character on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-smart-home">
 <term><cmdsynopsis><command>smart-home</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set smart home navigation on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-space-indent">
 <term><cmdsynopsis><command>space-indent</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set indentation with spaces on or off.</para>
 <para>Note: Deprecated since Kate 3 in KDE4. Mixed indentation is the default behavior. Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-tab-indents">
 <term><cmdsynopsis><command>tab-indents</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the TAB key indentation on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-tab-width">
 <term><cmdsynopsis><command>tab-width</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the tab display width.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-undo-steps">
 <term><cmdsynopsis><command>undo-steps</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the number of undo steps to remember.</para>
 <para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored. The maximal count of undo steps is unlimited.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-word-wrap-column">
 <term><cmdsynopsis><command>word-wrap-column</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the hard word wrap width.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-word-wrap-marker-color">
 <term><cmdsynopsis><command>word-wrap-marker-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the word wrap marker color. The  value must be something
 that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-word-wrap">
 <term><cmdsynopsis><command>word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set hard word wrapping on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="variable-wrap-cursor">
 <term><cmdsynopsis><command>wrap-cursor</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set cursor wrapping on or off.</para></listitem>
 </varlistentry>

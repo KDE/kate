@@ -234,29 +234,29 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
     else if (re_bufferNext.exactMatch(cmd)) {
         msg = i18n("<p><b>bn,bnext &mdash; switch to next document</b></p>"
               "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
-              "<p>Goes to <b>[N]<\b>th next document (\"<b>b</b>uffer\") in document list."
-              "<b>[N]<\b> defaults to one. </p>"
+              "<p>Goes to <b>[N]</b>th next document (\"<b>b</b>uffer\") in document list."
+              "<b>[N]</b> defaults to one. </p>"
               "<p>Warps around the end of the document last.</p>");
         return true;
     }
     else if (re_bufferPrev.exactMatch(cmd)) {
       msg = i18n("<p><b>bp,bprev &mdash; previous buffer</b></p>"
             "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
-            "<p>Goes to <b>[N]<\b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
-            "<p> <b>[N]<\b> defaults to one. </p>"
+            "<p>Goes to <b>[N]</b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
+            "<p> <b>[N]</b> defaults to one. </p>"
             "<p>Warps around the start of the document last.</p>");
       return true;
     }
     else if (re_bufferFirst.exactMatch(cmd)) {
       msg = i18n("<p><b>bf,bfirst &mdash; first document</b></p>"
             "<p>Usage: <tt><b>bf[irst]</b></tt></p>"
-            "<p>Goes to the <b>f<\b>irst document (\"<b>b</b>uffer\") in document list.</p>");
+            "<p>Goes to the <b>f</b>irst document (\"<b>b</b>uffer\") in document list.</p>");
       return true;
     }
     else if (re_bufferLast.exactMatch(cmd)) {
       msg = i18n("<p><b>bl,blast &mdash; last document</b></p>"
             "<p>Usage: <tt><b>bl[ast]</b></tt></p>"
-            "<p>Goes to the <b>l<\b>ast document (\"<b>b</b>uffer\") in document list.</p>");
+            "<p>Goes to the <b>l</b>ast document (\"<b>b</b>uffer\") in document list.</p>");
       return true;
     }
     else if (re_editBuffer.exactMatch(cmd)) {

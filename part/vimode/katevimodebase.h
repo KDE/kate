@@ -28,6 +28,7 @@
 #include "kateviewinternal.h"
 #include "katepartprivate_export.h"
 #include "katedocument.h"
+#include "katelayoutcache.h"
 
 #include <QList>
 

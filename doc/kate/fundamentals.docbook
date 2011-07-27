@@ -33,12 +33,6 @@ cursor up the menu to the <menuchoice><guimenu>Applications</guimenu><guisubmenu
 <guimenuitem>Advanced Text Editor &kate;</guimenuitem></menuchoice> menu item.
 </para>
 
-<para>
-Unless you configure &kate; not to, it will load the last files you
-edited. See <link linkend="configure">Configuring &kate;</link> to learn
-how to toggle this feature on and off.
-</para>
-
 </sect2>
 
 <sect2 id="starting-from-the-command-line">
@@ -121,10 +115,8 @@ well.
 <option>-u</option> <option>--use</option> <parameter>URL</parameter></userinput></term>
 <listitem>
 <para>
-Causes &kate; to use an existing instance if there is one. If you want all
-documents to open in one kate instance, you can add this option to the default
-command in your kde application configuration, as well as create a shell alias
-in your command intepreter if it supports that.
+Causes &kate; to use an existing instance if there is one.  This is now the
+default behavior, but this option remains for compatibility.
 </para>
 </listitem>
 </varlistentry>

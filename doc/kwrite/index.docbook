@@ -40,8 +40,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-09-16</date>
-<releaseinfo>4.5</releaseinfo>
+<date>2011-07-10</date>
+<releaseinfo>4.7</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>
@@ -1026,7 +1026,7 @@ arrow decrease it. Close the bar with a click on the icon on the left side of th
 </sect1>
 <sect1 id="view-menu">
 <!-- This is also valid for kates menu view, but kate does not have the New Window item -->
-<title>The View menu</title>
+<title>The View Menu</title>
 
 <para>The <guimenu>View</guimenu> menu allows you to manage settings
 specific to the active editor, and to manage frames.</para>
@@ -1062,6 +1062,16 @@ action="simul"><keycap>F7</keycap></keycombo></shortcut>
 In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
 to get a list of commands.</para>
 </listitem>
+</varlistentry>
+
+<varlistentry><!-- only in power user mode -->
+<term><menuchoice>
+<guimenu>View</guimenu><guimenuitem>Show the Javascript Console</guimenuitem>
+</menuchoice> (Power user mode)</term>
+<listitem><para>This opens a tool view that allows you to run Javascript code
+interactively. For more information, see
+<ulink url="help:/kate/index.html#advanced-editing-tools-scripting">Extending &kate; with Scripts</ulink>
+</para></listitem>
 </varlistentry>
 
 <varlistentry><!-- only in power user mode -->
@@ -1451,6 +1461,11 @@ is underlined in the document on-the-fly.</para>
 <guimenu>Tools</guimenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
 </term>
 
+<!--para>These options are described in the documentation for the
+<ulink url="help:/sonnet/index.html">Check Spelling Dialog</ulink>.</para
+Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it with the para above
+-->
+
 <listitem><para><action>This initiates the spellchecking program - a program
 designed to help the user catch and correct any spelling errors.</action>
 Clicking on this entry will start the checker and bring up the speller dialog
@@ -1583,7 +1598,8 @@ dictionary &eg; for automatic spellcheck of text in different languages.</para>
  </listitem>
 </varlistentry>
 
-<!-- Indent/Inindent no longer in the menu ???, but shortcuts work-->
+<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
+<!--
 <varlistentry>
 <term><anchor id="indent"/><menuchoice>
 <shortcut>
@@ -1608,7 +1624,7 @@ settings</link>.</para>
 depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</para>
 </listitem>
 </varlistentry>
-<!-- -->
+-->
 <varlistentry>
 <term><anchor id="cleanindent"/><menuchoice>
 <guimenu>Tools</guimenu><guimenuitem>Clean
@@ -1868,23 +1884,24 @@ process. The categories <guilabel>Appearance</guilabel>,
 <guilabel>Extensions</guilabel> are detailed below.
 </para>
 
-<sect1 id="appearance">
+<sect1 id="appearance"> <!-- updated to 4.7 + synced with kate -->
 <title>Appearance</title>
+
+<sect2 id="appearance-general">
+<title>General</title>
 
 <variablelist>
 <varlistentry>
-<term><guilabel>Word Wrap</guilabel></term>
-<listitem>
-<variablelist>
-<varlistentry id="appearance-settings">
 <term><guilabel>Dynamic Word Wrap</guilabel></term>
-<listitem><para>If this option is checked, the text lines
-will be wrapped at the view border on the screen.</para></listitem>
-</varlistentry>
+<listitem>
+<para>If this option is checked, the text lines
+will be wrapped at the view border on the screen.</para>
+<variablelist>
 <varlistentry>
 <term><guilabel>Dynamic word wrap indicators (if applicable)</guilabel></term>
 <listitem><para>Choose when the Dynamic word wrap indicators
-should be displayed.
+should be displayed, either <guilabel>Off</guilabel>, <guilabel>Follow Line 
+Numbers</guilabel> or <guilabel>Always on</guilabel>.
 </para></listitem></varlistentry>
 <varlistentry>
 <term><guilabel>Align dynamically wrapped lines
@@ -1904,6 +1921,51 @@ wrapped lines.</para></listitem>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Whitespace Highlighting</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Highlight tabulators</guilabel></term>
+<listitem><para>The editor will display a &raquo; symbol to indicate the presence
+  of a tab in the text.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlight trailing spaces</guilabel></term>
+<listitem><para>The editor will display dots to indicate the presence of extra
+whitespace at the end of lines.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Advanced
+</guilabel></term>
+<listitem><para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show indentation lines
+</guilabel></term>
+<listitem><para>If this is checked, the editor will display
+vertical lines to help identifying indent lines.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlight range between selected brackets
+</guilabel></term>
+<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
+</varlistentry>
+</variablelist>
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="appearance-borders">
+<title>Borders</title>
+
+<variablelist>
 <varlistentry>
 <term><guilabel>Borders</guilabel></term>
 <listitem>
@@ -1945,52 +2007,26 @@ for instance show bookmarks.</para></listitem>
 <para>
 <variablelist>
 <varlistentry>
-<term><guilabel>By position
-</guilabel></term>
-<listitem><para>The bookmarks will be ordered by the line
-numbers they are placed at.</para></listitem>
-</varlistentry>
-<varlistentry>
 <term><guilabel>By creation
 </guilabel></term>
 <listitem><para>Each new bookmark will be added to the bottom,
 independently from where it is placed in the document.</para></listitem>
 </varlistentry>
-</variablelist>
-</para></listitem>
-</varlistentry>
-
 <varlistentry>
-<term><guilabel>Advanced
+<term><guilabel>By position
 </guilabel></term>
-<listitem><para>
-<variablelist>
-<varlistentry>
-<term><guilabel>Enable power user mode (&kde; 3 mode)
-</guilabel></term>
-<listitem><para>Switch between simple and advanced mode.
-Changing this mode affects only newly opened / created documents.
-In &kappname; a restart is recommended.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Show indentation lines
-</guilabel></term>
-<listitem><para>If this is checked, the editor will display
-vertical lines to help identifying indent lines.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Highlight range between selected brackets
-</guilabel></term>
-<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
+<listitem><para>The bookmarks will be ordered by the line
+numbers they are placed at.</para></listitem>
 </varlistentry>
 </variablelist>
 </para></listitem>
 </varlistentry>
-
 </variablelist>
+
+</sect2>
 </sect1>
 
-<sect1 id="prefcolors">
+<sect1 id="prefcolors"><!-- checked for 4.7 + synced with kate -->
 <title>Fonts &amp; Colors</title>
 
 <para>This section of the dialog lets you configure all fonts and colors in
@@ -2143,39 +2179,8 @@ format.
 
 <sect2 id="pref-edit-general">
 <title>General</title>
-<variablelist>
 
-<varlistentry>
-<term><guilabel>Tabulators</guilabel></term>
-<listitem>
 <variablelist>
-<varlistentry>
-<term><guilabel>Insert spaces instead of tabulators</guilabel></term>
-<listitem>
-<para>When this is enabled the editor will insert a calculated number of spaces
-according to the position in the text and the <option>tab-width</option> setting
-when you press the &Tab; key.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Highlight tabulators</guilabel></term>
-<listitem>
-<para>When this is enabled &kappname; will display a small dot as a visual
-representation of tabulator characters.</para>
-<note><para>This also causes dots to be drawn to indicate trailing white space.
-This will be fixed in a future version of &kappname;</para></note>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term id="pref-tab-width"><guilabel>Tab width</guilabel></term> <listitem><para>If the
-<link  linkend="pref-word-wrap">Insert spaces instead of tabulators</link>
-option is selected this entry determines the number of
-spaces with which the editor will automatically replace
-tabs.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term id="pref-word-wrap"><guilabel>Static Word Wrap</guilabel></term>
@@ -2220,13 +2225,8 @@ automatically start a new line.</para>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Remove trailing spaces</guilabel></term>
+<term><guilabel>Remove trailing spaces while editing</guilabel></term>
 <listitem><para>&kappname; will automatically eliminate extra spaces
-at the ends of lines of text.</para></listitem> </varlistentry>
-
-<varlistentry>
-<term><guilabel>Highlight trailing spaces</guilabel></term>
-<listitem><para>&kappname; will highlight extra spaces
 at the ends of lines of text.</para></listitem> </varlistentry>
 
 <varlistentry>
@@ -2243,8 +2243,9 @@ action are performed for the line of text at the actual cursor position.</para><
 
 <varlistentry>
 <term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
-<para>This option lets you scroll past the end of the document. This can be used to vertically center the bottom of the document, or put it on top of the current view.</para></listitem>
+<para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
 </varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry>
@@ -2349,19 +2350,55 @@ indentation modes for text formats like C/C++ code or &XML;.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Indentation Properties</guilabel></term>
+<term><guilabel>Indent using</guilabel></term>
 <listitem>
 <variablelist>
+<varlistentry>
+<term><guilabel>Tabulators</guilabel></term>
+<listitem>
+<para>When this is enabled the editor will insert tabulator characters when you
+press the &Tab; key or use automatic indentation.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Spaces</guilabel></term>
+<listitem>
+<para>When this is enabled the editor will insert a calculated number of spaces
+according to the position in the text and the <option>tab-width</option> setting
+when you press the &Tab; key or use automatic indentation.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Tabulators and Spaces</guilabel></term>
+<listitem>
+<para>When this is enabled, the editor will insert spaces as describe above when
+indenting or pressing &Tab; at the beginning of a line, but insert tabulators when
+the &Tab; key is pressed in the middle or end of a line.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Tab width:</guilabel></term>
+<listitem>
+<para>This configures the number of spaces that are displayed in place of a tabulator
+character.</para>
+</listitem>
+</varlistentry>
 <varlistentry>
 <term><guilabel>Indentation width:</guilabel></term>
 <listitem>
 <para>The indentation width is the number of spaces which is used to indent a line.
-If the option <guilabel>Insert spaces instead of tabulators</guilabel>
-on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
-page is disabled, a &Tab; character is inserted
+If configured to indent using tabulators, a tabulator character is inserted
 if the indentation is divisible by the tab width.</para>
 </listitem>
 </varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Indentation Properties</guilabel></term>
+<listitem>
+<variablelist>
 <varlistentry>
 <term><guilabel>Keep Extra Spaces</guilabel></term>
 <listitem><para>If this option is disabled, changing the indentation
@@ -2386,7 +2423,7 @@ Triggering the <guimenuitem>Undo</guimenuitem> action removes the indentation.</
 <varlistentry>
 <term><guilabel>Backspace key in leading blank space unindents</guilabel></term>
 <listitem>
-<para>If this option is selected, the &Backspace; key decreases the indentation level
+<para>If this option is selected, the &Backspace; key decreases the indentation level 
 if the cursor is located in the leading blank space of a line.</para>
 </listitem>
 </varlistentry>
@@ -2679,6 +2716,23 @@ saving.</para>
 <para>Enter the suffix to add to the backup file names.</para>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Disable swap file syncing</guilabel></term>
+<listitem>
+<para>&kappname; is able to recover (most of) what was written after last save in case
+of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
+after the first editing action on a document. If the user doesn’t save the
+changes and &kappname; crashes, the swap file remains on the disk. When opening a
+file, &kappname; checks if there is a swap file for the document and if it is, it asks
+the user whether he wants to recover the lost data or not. The user has the
+possibility to view the differences between the original file and the recovered
+one, too. The swap file is deleted after every save and on normal exit.</para>
+<para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
+have changed since the last sync. The user can disable the swap files syncing if
+he wants, by checking the <guilabel>Disable swap file syncing</guilabel> box,
+but this can lead to more data loss.</para>
+</listitem>
+</varlistentry>
 
 </variablelist>
 </listitem>
@@ -2740,7 +2794,7 @@ menus. This is also used in the
 <term><guilabel>Variables:</guilabel></term>
 <listitem><para>This string allows you to configure &kappname;'s settings for the
 files selected by this mimetype using &kappname; variables. You can set almost any
-configuration option, such as highlight, indent-mode, encoding,
+configuration option, such as highlight, indent-mode,
 etc.</para><para>For a full list of known variables, see the
 manual.</para></listitem>
 </varlistentry>
@@ -2791,7 +2845,7 @@ from the &kate; website.
 
 </sect1>
 
-<sect1 id="pref-plugins">
+<sect1 id="pref-plugins"> <!-- updated to 4.7 + synced with kate -->
 <title>Extensions</title>
 <para>The <guilabel>Plugins</guilabel> tab lists all available plugins and you can check those you
 want to use. Click on the <guibutton>Information</guibutton> button to open the
@@ -2801,9 +2855,16 @@ want to use. Click on the <guibutton>Information</guibutton> button to open the
 in order to configure the highlighted plugin.</para>
 <variablelist>
 <title>Editor Component Plugins</title>
+<!-- not released with 4.7
+<varlistentry>
+<term><guilabel>Artistic Comment</guilabel></term>
+<listitem><para>Format long source-code comments like license-headers
+or descriptions using different style.</para></listitem>
+</varlistentry>
+-->
 <varlistentry>
 <term><guilabel>AutoBrace</guilabel></term>
-<listitem><para>The autobrace plugin supersedes the &kate; internal
+<listitem><para>The autobrace plugin supersedes the &kappname; internal
 <quote>Auto Brackets</quote> feature.
 It automatically inserts a closing brace <keycap>}</keycap> at the beginning
 of the next line after ending a line with an opening one <keycap>{</keycap>
@@ -2872,7 +2933,7 @@ autobookmark not build, its broken!
 timedate not build? plugin is for howto-write-a-plugin purposes!
 -->
 
-<!-- Scripts tab ??? empty: Not implemented yet, hidden in 4.4 branch -->
+<!-- Scripts tab ??? empty: Not implemented yet, hidden in 4.4 + 4.7  branch, removed in master bye bye-->
 </sect1>
 </chapter>
 

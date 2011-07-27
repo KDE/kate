@@ -172,8 +172,12 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
                                    * KateDocManager::self()->documents();
       }
 
-      Q_ASSERT( wanted_document_position < KateDocManager::self()->documents());
-      mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
+      if ( wanted_document_position > KateDocManager::self()->documents()) {
+        msg = i18n("Can't go to the document");
+      } else {
+        mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
+      }
+
     }
     else if (re_editBuffer.exactMatch(command)) {
         if (args.size() == 1 &&

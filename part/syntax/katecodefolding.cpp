@@ -183,8 +183,13 @@ void KateCodeFoldingNode::mergeChildren(QVector <KateCodeFoldingNode*> &list1, Q
       mergedList.append(list2[index2]);
       ++index2;
     }
+    // There might be two different nodes with the same possition
+    // This must be checked when the merge is done.
+    // There might be some duplicates!
+    // We assume they are different nodes, so we'll insert them both
     else {
       mergedList.append(list1[index1]);
+      mergedList.append(list2[index2]);
       ++index1;
       ++index2;
     }
@@ -194,6 +199,16 @@ void KateCodeFoldingNode::mergeChildren(QVector <KateCodeFoldingNode*> &list1, Q
     mergedList.append(list1[index1]);
   for (; index2 < list2.size() ; ++index2)
     mergedList.append(list2[index2]);
+
+  // We remove the duplicates
+  for (index1 = 0 ; index1 < mergedList.size() ; ++ index1) {
+    for (index2 = index1 + 1 ; index2 < mergedList.size() ; ++ index2) {
+      if (mergedList[index1] == mergedList[index2]) {
+        mergedList.remove(index2);
+        index2 --;
+      }
+    }
+  }
 
   list1 = mergedList;
 }
@@ -1322,7 +1337,7 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns)
     // then we update the column (maybe the column has changed).
     else if (oldLineMapping[index_old]->m_type == newColumns[index_new - 1]) {
       // I can simply change the column only if this change will not mess the order of the line
-      if ((index_old == (oldLineMapping.size() - 1)) || oldLineMapping[index_old + 1]->getColumn() > newColumns[index_new])
+      if ((index_old == (oldLineMapping.size() - 1)) || oldLineMapping[index_old + 1]->getColumn() >= newColumns[index_new])
       {
         if (newColumns[index_new - 1] < 0) {
           oldLineMapping[index_old]->setColumn(newColumns[index_new] - 1);
@@ -1372,7 +1387,12 @@ void KateCodeFoldingTree::printMapping() {
     int key = iterator.next().key();
     debug() << "Line" << key;
     foreach (KateCodeFoldingNode *node, tempVector) {
-      debug() << "node type:" << node->m_type << ", col:" << node->getColumn();
+      debug() << "node type:" << node->m_type << ", col:" << node->getColumn() << ", address: " << node;
+      if (node->m_type > 0) {
+        foreach (KateCodeFoldingNode *child, node->m_endChildren) {
+          debug() << "new end child address: " << child;
+        }
+      }
     }
     debug() << "End of line:" << key;
   }

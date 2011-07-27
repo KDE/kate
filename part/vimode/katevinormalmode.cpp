@@ -1550,6 +1550,26 @@ bool KateViNormalMode::commandSplitVert() {
   return true;
 }
 
+bool KateViNormalMode::commandSwitchToNextTab() {
+  QString command = "bn";
+
+  if ( m_iscounted )
+    command = command + " " + QString::number(getCount());
+
+  m_view->cmdLineBar()->execute(command);
+  return true;
+}
+
+bool KateViNormalMode::commandSwitchToPrevTab() {
+  QString command = "bp";
+
+  if ( m_iscounted )
+    command = command + " " + QString::number(getCount());
+
+  m_view->cmdLineBar()->execute(command);
+  return true;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2741,11 +2761,15 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<c-w>w",commandSwitchToNextView,0);
   ADDCMD("<c-w><c-w>",commandSwitchToNextView,0);
 
-  ADDCMD("<c-w>s",commandSplitHoriz,0);
-  ADDCMD("<c-w>S",commandSplitHoriz,0);
-  ADDCMD("<c-w><c-s>",commandSplitHoriz,0);
-  ADDCMD("<c-w>v",commandSplitVert,0);
-  ADDCMD("<c-w><c-v>",commandSplitVert,0);
+  ADDCMD("<c-w>s", commandSplitHoriz, 0);
+  ADDCMD("<c-w>S", commandSplitHoriz, 0);
+  ADDCMD("<c-w><c-s>", commandSplitHoriz, 0);
+  ADDCMD("<c-w>v", commandSplitVert, 0);
+  ADDCMD("<c-w><c-v>", commandSplitVert, 0);
+
+  ADDCMD("gt", commandSwitchToNextTab,0);
+  ADDCMD("gT", commandSwitchToPrevTab,0);
+
 
 
   // regular motions

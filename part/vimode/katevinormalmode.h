@@ -146,6 +146,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandSplitHoriz();
     bool commandSplitVert();
 
+    bool commandSwitchToNextTab();
+    bool commandSwitchToPrevTab();
+
     // MOTIONS
 
     KateViRange motionLeft();

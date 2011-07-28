@@ -117,6 +117,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     bool commandScrollPageDown();
     bool commandScrollPageUp();
+    bool commandScrollHalfPageUp();
+    bool commandScrollHalfPageDown();
+
     bool commandCentreViewOnCursor();
 
     bool commandAbort();
@@ -275,6 +278,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_commandWithMotion;
 
     bool m_deleteCommand;
+
+    uint m_scroll_count_limit;
 
     // registers
     QChar m_defaultRegister;

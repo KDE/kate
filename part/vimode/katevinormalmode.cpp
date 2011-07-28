@@ -58,6 +58,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
   m_defaultRegister = '"';
 
+  m_scroll_count_limit = 1000; // Limit of count for scroll commands.
   m_timeoutlen = 1000; // FIXME: make configurable
   m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
   m_mappingTimer = new QTimer( this );
@@ -1366,15 +1367,40 @@ bool KateViNormalMode::commandUnindentLines()
 
 bool KateViNormalMode::commandScrollPageDown()
 {
-  m_view->pageDown();
+  if ( getCount() < m_scroll_count_limit ) {
 
+    for(uint i = 0; i < getCount(); i++)
+      m_view->pageDown();
+  }
   return true;
 }
 
 bool KateViNormalMode::commandScrollPageUp()
 {
-  m_view->pageUp();
+  if ( getCount() < m_scroll_count_limit ) {
+    for(uint i=0; i < getCount(); i++)
+      m_view->pageUp();
+  }
+  return true;
 
+}
+
+bool KateViNormalMode::commandScrollHalfPageUp()
+{
+  if ( getCount() < m_scroll_count_limit ) {
+
+    for(uint i=0; i < getCount(); i++)
+      m_viewInternal->pageUp(false, true);
+  }
+  return true;
+}
+
+bool KateViNormalMode::commandScrollHalfPageDown()
+{
+  if ( getCount() < m_scroll_count_limit ) {
+    for(uint i=0; i < getCount(); i++)
+      m_viewInternal->pageDown(false, true);
+  }
   return true;
 }
 
@@ -2735,6 +2761,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<pagedown>", commandScrollPageDown, 0 );
   ADDCMD("<c-b>", commandScrollPageUp, 0 );
   ADDCMD("<pageup>", commandScrollPageUp, 0 );
+  ADDCMD("<c-u>", commandScrollHalfPageUp, 0 );
+  ADDCMD("<c-d>", commandScrollHalfPageDown, 0 );
   ADDCMD("zz", commandCentreViewOnCursor, 0 );
   ADDCMD("ga", commandPrintCharacterCode, SHOULD_NOT_RESET );
   ADDCMD(".", commandRepeatLastChange, 0 );

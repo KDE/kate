@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Literate Haskell" version="2.0.1" kateversion="2.3" section="Sources" extensions="*.lhs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
+<language name="Literate Haskell" version="2.0.2" kateversion="2.3" section="Sources" extensions="*.lhs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL">
   <highlighting>
   <contexts>
     <context attribute="Text" lineEndContext="#stay" name="text">

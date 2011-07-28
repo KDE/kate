@@ -227,9 +227,10 @@ class KateCodeFoldingNode: public QObject
     bool hasBrothers();
     bool isDuplicated(KateCodeFoldingNode *node);
     void mergeChildren(QVector <KateCodeFoldingNode*> &list1, QVector <KateCodeFoldingNode*> &list2);
-    bool removeEnd(KateCodeFoldingNode *node);
-    bool removeStart(KateCodeFoldingNode *node);
-    KateCodeFoldingNode* removeChild(KateCodeFoldingNode *node);
+    bool removeEndDescending(KateCodeFoldingNode *deletedNode);
+    bool removeEndAscending(KateCodeFoldingNode *deletedNode);
+    bool removeStart(KateCodeFoldingNode *deletedNode);
+    KateCodeFoldingNode* removeChild(KateCodeFoldingNode *deletedNode);
     QVector<KateCodeFoldingNode *> removeChildrenInheritedFrom(KateCodeFoldingNode *node);
     void setParent();
     void updateParent(QVector <KateCodeFoldingNode*> newExcess, int newShortage);
@@ -310,6 +311,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     // Debug methods and members
     void printMapping();
     QString treeString;
+    void searchThisNode (KateCodeFoldingNode* deletedNode);
 
     // Will build the output using the tree alg ; Call : buildTreeString(root,1);
     void buildTreeString(KateCodeFoldingNode *node, int level);

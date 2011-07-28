@@ -173,7 +173,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
       }
 
       if ( wanted_document_position > KateDocManager::self()->documents()) {
-        msg = i18n("Can't go to the document");
+        msg = i18n("Cannot go to the document");
       } else {
         mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
       }

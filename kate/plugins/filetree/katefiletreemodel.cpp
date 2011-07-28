@@ -749,7 +749,6 @@ class EditViewCount
     int view;
 };
 
-// shamelessly "borrowed" from KateViewDocumentProxyModel
 void KateFileTreeModel::updateBackgrounds(bool force)
 {
   if (!m_shadingEnabled && !force) return;

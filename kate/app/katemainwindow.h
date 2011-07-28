@@ -57,7 +57,6 @@ namespace Kate
 class KFileItem;
 class KRecentFilesAction;
 
-class KateViewDocumentProxyModel;
 class KateViewManager;
 class KateMwModOnHdDialog;
 

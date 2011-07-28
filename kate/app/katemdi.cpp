@@ -777,7 +777,7 @@ namespace KateMDI
                                      "hidden sidebars it is not possible to directly "
                                      "access the tool views with the mouse anymore, "
                                      "so if you need to access the sidebars again "
-                                     "invoke <b>Window &gt; Tool Views &gt; Show Sidebars</b> "
+                                     "invoke <b>View &gt; Tool Views &gt; Show Sidebars</b> "
                                      "in the menu. It is still possible to show/hide "
                                      "the tool views with the assigned shortcuts.</qt>"),
                                 QString(), "Kate hide sidebars notification message" );

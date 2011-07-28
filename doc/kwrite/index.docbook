@@ -2527,7 +2527,7 @@ You can still toggle the vi input mode on/off for a particular view in the
 <varlistentry>
 <term><guilabel>Let VI commands override Kate shortcuts</guilabel></term>
 <listitem>
-<para>When selected, vi commands will override &kate;'s built-in commands. For
+<para>When selected, vi commands will override &kappname;'s built-in commands. For
 example: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> will redo,
 and override the standard action (showing the search and replace dialog).</para>
 </listitem>

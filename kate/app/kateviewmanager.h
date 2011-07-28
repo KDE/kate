@@ -30,7 +30,6 @@
 
 #include <QPointer>
 #include <QList>
-#include <QModelIndex>
 #include <QSplitter>
 #include <QStackedWidget>
 
@@ -95,8 +94,6 @@ class KateViewManager : public QSplitter
     void activateSpace ( KTextEditor::View* v );
 
   public Q_SLOTS:
-    void activateDocument(const QModelIndex &index);
-
     void slotDocumentNew ();
     void slotDocumentOpen ();
     void slotDocumentClose ();

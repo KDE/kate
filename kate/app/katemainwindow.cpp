@@ -422,7 +422,8 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document* doc)
   if ( ! showModOnDiskPrompt() )
     return false;
 
-  QList<KTextEditor::Document*> modifiedDocuments = KateDocManager::self()->modifiedDocumentList(doc);
+  QList<KTextEditor::Document*> modifiedDocuments = KateDocManager::self()->modifiedDocumentList();
+  modifiedDocuments.removeAll(doc);
   bool shutdown = (modifiedDocuments.count() == 0);
 
   if (!shutdown)

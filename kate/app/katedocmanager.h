@@ -125,7 +125,7 @@ class KateDocManager : public QObject
     bool closeOtherDocuments(KTextEditor::Document*);
     bool closeOtherDocuments(uint);
 
-    QList<KTextEditor::Document*> modifiedDocumentList(KTextEditor::Document* excludedDoc = NULL);
+    QList<KTextEditor::Document*> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);
 
     void saveDocumentList (class KConfig *config);

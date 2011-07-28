@@ -423,17 +423,15 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
 }
 
 /**
- * Find all modified documents, excluding @p excludedDoc.
- * @param excludedDoc a document that will never be included into the returned
- * list (also if it has been modified).
+ * Find all modified documents.
  * @return Return the list of all modified documents.
  */
-QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList(KTextEditor::Document* excludedDoc)
+QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList()
 {
   QList<KTextEditor::Document*> modified;
   foreach (KTextEditor::Document* doc, m_docList)
   {
-    if ((excludedDoc != doc) && (doc->isModified()))
+    if (doc->isModified())
     {
       modified.append(doc);
     }

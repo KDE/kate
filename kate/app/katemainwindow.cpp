@@ -1031,26 +1031,16 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 
   if (s_modOnHdDialog==0) {
     DocVector list;
-    list.reserve( KateDocManager::self()->documents() );
     list.append(doc);
 
     s_modOnHdDialog= new KateMwModOnHdDialog( list, this );
     m_modignore = true;
     KWindowSystem::setOnAllDesktops( s_modOnHdDialog->winId(), true);
     bool res = s_modOnHdDialog->exec();
-    delete s_modOnHdDialog;
+    delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
     m_modignore = false;
-    return;
   } else {
     s_modOnHdDialog->addDocument(doc);
-    //if (qApp->activeWindow()) {
-//     s_modOnHdDialog->raise();
-//   #ifdef Q_WS_X11
-//   KWindowSystem::activateWindow (s_modOnHdDialog->winId ());
-//   KWindowSystem::raiseWindow (s_modOnHdDialog->winId ());
-//   KWindowSystem::setCurrentDesktop(
-//   #endif
-    return;
   }
 }
 

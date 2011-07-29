@@ -285,8 +285,6 @@ void KateBuffer::unwrapLine (int line)
 
   if (m_lineHighlighted > line)
     m_lineHighlighted--;
-
-  m_regionTree.lineHasBeenRemoved (line);
 }
 
 void KateBuffer::setTabWidth (int w)

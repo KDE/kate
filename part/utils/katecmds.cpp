@@ -761,7 +761,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
     // sanity check -- avoid infinite loops eg with %s,.*,,g ;)
     int ll = ln->length();
-    if ( ! ll || startcol > ll )
+    if ( ! ll || startcol > (ll-1) )
       break;
   }
 

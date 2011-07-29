@@ -275,9 +275,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     void incrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
     void decrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
+    void addDeltaToLine (QVector <KateCodeFoldingNode*> &nodesLine, int delta);
 
     void lineHasBeenInserted (int line, int column);
-    void lineHasBeenRemoved  (int line);
+    void linesHaveBeenRemoved  (int from, int to);
       // Makes clear what KateLineInfo contains
     void getLineInfo (KateLineInfo *info, int line);
 

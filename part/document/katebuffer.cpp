@@ -263,7 +263,7 @@ void KateBuffer::unwrapLines (int from, int to, int lastLine)
       unwrapLine (line);
   }
 
-  m_regionTree.linesHasBeenRemoved (from, to);
+  m_regionTree.linesHaveBeenRemoved (from, to);
 }
 
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)

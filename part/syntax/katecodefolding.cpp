@@ -465,6 +465,13 @@ KateCodeFoldingTree::~KateCodeFoldingTree()
 {
 }
 
+void KateCodeFoldingTree::addDeltaToLine(QVector<KateCodeFoldingNode *> &nodesLine, int delta)
+{
+  foreach (KateCodeFoldingNode *node, nodesLine) {
+    node->setLine(node->getLine() + delta);
+  }
+}
+
 void KateCodeFoldingTree::clear()
 {
   QList<int>keys = m_lineMapping.uniqueKeys();
@@ -558,7 +565,7 @@ void KateCodeFoldingTree::deleteEndNode(KateCodeFoldingNode* deletedNode)
     deletedNode->m_parentNode->updateSelf();
 
   // step 3 - deleted node
-  searchThisNode(deletedNode);
+  //searchThisNode(deletedNode);
   delete deletedNode;
 }
 
@@ -579,7 +586,7 @@ void KateCodeFoldingTree::deleteStartNode(KateCodeFoldingNode* deletedNode)
   heir->updateParent(deletedNode->m_endChildren,deletedNode->m_shortage - 1);
 
   // step 4 - node is deleted
-  searchThisNode(deletedNode);
+  // searchThisNode(deletedNode);
   delete deletedNode;
 }
 
@@ -1052,7 +1059,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
 }
 
 // Called when a line was removed from the document
-void KateCodeFoldingTree::lineHasBeenRemoved(int line)
+void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
 {
   QMap <int, QVector <KateCodeFoldingNode*> > tempMap = m_lineMapping;
   QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(tempMap);
@@ -1060,7 +1067,7 @@ void KateCodeFoldingTree::lineHasBeenRemoved(int line)
   m_lineMapping.clear();
 
   // Coppy the lines before "line"
-  while (iterator.hasNext() && iterator.peekNext().key() < line) {
+  while (iterator.hasNext() && iterator.peekNext().key() < from) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     m_lineMapping.insert(key,tempVector);
@@ -1068,9 +1075,10 @@ void KateCodeFoldingTree::lineHasBeenRemoved(int line)
   }
 
   //
-  while (iterator.hasNext() && iterator.peekNext().key() == line) {
+  while (iterator.hasNext() && iterator.peekNext().key() <= to) {
     // Coppy the old line
     tempVector = iterator.peekNext().value();
+    int line = iterator.peekNext().key();
     m_lineMapping.insert(line,tempVector);
 
     // And remove all the nodes from it
@@ -1078,6 +1086,12 @@ void KateCodeFoldingTree::lineHasBeenRemoved(int line)
       deleteNode(tempVector.last());
       tempVector = m_lineMapping[line];
     }
+
+    // If the deleted line was replaced with an empty line, the map entry will be deleted
+    if (m_lineMapping[line].empty()) {
+      m_lineMapping.remove(line);
+    }
+
     iterator.next();
   }
 
@@ -1085,14 +1099,10 @@ void KateCodeFoldingTree::lineHasBeenRemoved(int line)
   while (iterator.hasNext()) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
-    decrementBy1(tempVector);
-    m_lineMapping.insert(key - 1,tempVector);
+    //decrementBy1(tempVector);
+    addDeltaToLine(tempVector, (from - to - 1));
+    m_lineMapping.insert(key + (from - to - 1),tempVector);
     iterator.next();
-  }
-
-  // If the deleted line was replaced with an empty line, the map entry will be deleted
-  if (m_lineMapping[line].empty()) {
-    m_lineMapping.remove(line);
   }
 }
 

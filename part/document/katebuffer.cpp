@@ -254,6 +254,18 @@ void KateBuffer::ensureHighlighted (int line)
   m_lineHighlighted = end;
 }
 
+void KateBuffer::unwrapLines (int from, int to, int lastLine)
+{
+  for (int line = to; line >= from; line--) {
+    if (line + 1 <= lastLine)
+      unwrapLine (line+1);
+    else if (line != 0)
+      unwrapLine (line);
+  }
+
+  m_regionTree.linesHasBeenRemoved (from, to);
+}
+
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 {
   // call original

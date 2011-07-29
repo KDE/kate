@@ -166,7 +166,11 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
   enableLayoutCache = true;
 
-  int realLine = m_renderer->doc()->getRealLine(startPos.line());
+  int realLine;
+  if (newViewLineCount == -1)
+    realLine = m_renderer->doc()->getRealLine(m_renderer->doc()->getVirtualLine(startPos.line()));
+  else
+    realLine = m_renderer->doc()->getRealLine(startPos.line());
   int _viewLine = 0;
 
   if (wrap()) {

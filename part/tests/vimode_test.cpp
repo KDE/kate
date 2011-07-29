@@ -97,8 +97,7 @@ void ViModeTest::TestPressKey(QString str) {
 void ViModeTest::DoTest(QString original_text,
     QString command,
     QString expected_text) {
-  qDebug() << "\nrunning command " << command << " on text \"" << original_text
-    << "\"\n";
+  qDebug() << "\n\n>>> running command " << command << " on text " << original_text;
 
   vi_input_mode_manager->viEnterNormalMode();
   vi_input_mode_manager = kate_view->resetViInputModeManager();

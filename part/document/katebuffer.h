@@ -161,6 +161,10 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     void unwrapLines (int from, int to);
 
+    /**
+     * Unwrap given line.
+     * @param line line to unwrap
+     */
     void unwrapLine (int line);
 
     /**
@@ -168,13 +172,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * @param position line/column as cursor where to wrap
      */
     void wrapLine (const KTextEditor::Cursor &position);
-
-  protected:
-    /**
-     * Unwrap given line.
-     * @param line line to unwrap
-     */
-    void unwrapLineProtected (int line);
 
   private:
      inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);

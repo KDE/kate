@@ -254,19 +254,6 @@ void KateBuffer::ensureHighlighted (int line)
   m_lineHighlighted = end;
 }
 
-void KateBuffer::unwrapLines (int from, int to)
-{
- // catch out of range access, should never happen
- Q_ASSERT(to + 1 <= lines() - 1);
- Q_ASSERT(from >= 0);
-
- for (int line = to; line >= from; --line) {
-   unwrapLine (line + 1);
- }
-
- m_regionTree.linesHaveBeenRemoved (from, to);
-}
-
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 {
   // call original
@@ -279,22 +266,29 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 
 }
 
-void KateBuffer::unwrapLineProtected (int line)
+void KateBuffer::unwrapLines (int from, int to)
 {
-  // call original
-  Kate::TextBuffer::unwrapLine (line);
+  // catch out of range access, should never happen
+  Q_ASSERT(to + 1 <= lines() - 1);
+  Q_ASSERT(from >= 0);
 
-  if (m_lineHighlighted > line)
-    m_lineHighlighted--;
+  for (int line = to; line >= from; --line) {
+    Kate::TextBuffer::unwrapLine (line + 1);
+  }
+
+  if (m_lineHighlighted > from)
+    m_lineHighlighted = from;
+
+  m_regionTree.linesHaveBeenRemoved (from, to);
 }
 
 void KateBuffer::unwrapLine (int line)
 {
-  // call original
+  // reimplemented, so first call original
   Kate::TextBuffer::unwrapLine (line);
 
   if (m_lineHighlighted > line)
-    m_lineHighlighted--;
+    --m_lineHighlighted;
 
   m_regionTree.linesHaveBeenRemoved (line, line);
 }

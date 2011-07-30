@@ -42,7 +42,6 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
 #include <QtGui/QShortcut>
-#include <QCompleter>
 
 // Turn debug messages on/off here
 // #define FAST_DEBUG_ENABLE
@@ -1282,13 +1281,8 @@ void KateSearchBar::enterPowerMode() {
         centralWidget()->setFocusProxy(m_powerUi->pattern);
 
         // Make completers case-sensitive
-        QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(patternLineEdit != NULL);
-        patternLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
-
-        QLineEdit * const replacementLineEdit = m_powerUi->replacement->lineEdit();
-        Q_ASSERT(replacementLineEdit != NULL);
-        replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
+        m_powerUi->pattern->completionObject()->setIgnoreCase(false);
+        m_powerUi->replacement->completionObject()->setIgnoreCase(false);
     }
 
     m_powerUi->selectionOnly->setChecked(selectionOnly);

@@ -595,45 +595,32 @@ Q_DECLARE_METATYPE(KateRowColumn)
 
 void KateMainWindow::documentMenuAboutToShow()
 {
-#if 0
   qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
   qDeleteAll( documentsGroup->actions() );
-  int rows = m_fileList->model()->rowCount(QModelIndex());
-  QAbstractItemModel *model = m_fileList->model();
-  for (int row = 0;row < rows;row++)
+
+  KTextEditor::Document* activeDoc = m_viewManager->activeView() ? m_viewManager->activeView()->document() : 0;
+  const QList<KTextEditor::Document*> & docs = KateDocManager::self()->documentList();
+  for (int i = 0; i < docs.size(); ++i)
   {
-    QModelIndex index = model->index(row, 0, QModelIndex());
-    Q_ASSERT(index.isValid());
-    KTextEditor::Document *doc = index.data(KateDocManager::DocumentRole).value<KTextEditor::Document*>();
+    KTextEditor::Document *doc = docs[i];
     const QString name = KStringHandler::rsqueeze(doc->documentName(), 150);
     QAction *action = new QAction(doc->isModified() ?
                                   i18nc("'document name [*]', [*] means modified", "%1 [*]", name) : name,
                                   documentsGroup );
     action->setCheckable(true);
-    if(m_viewManager->activeView() && doc == m_viewManager->activeView()->document())
+    if (activeDoc == doc)
       action->setChecked(true);
-    action->setData(QVariant::fromValue(KateRowColumn(index.row(), index.column())));
+    action->setData(QVariant::fromValue(doc));
     documentMenu->addAction(action);
   }
-#endif
 }
 
 void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
 {
-#if 0
-  KateRowColumn rowCol = action->data().value<KateRowColumn>();
-  if (!rowCol.isValid()) return;
-  QModelIndex index = m_documentModel->index(rowCol.row(), rowCol.column());
-  if (index.isValid())
-  {
-    KTextEditor::Document *doc = index.data(KateDocManager::DocumentRole).value<KTextEditor::Document*>();
-    if (doc)
-      m_viewManager->activateView (doc);
-    m_documentModel->opened(index);
-  }
-#endif
+  KTextEditor::Document* doc = action->data().value<KTextEditor::Document*>();
+  if (doc)
+    m_viewManager->activateView (doc);
 }
-
 
 void KateMainWindow::dragEnterEvent( QDragEnterEvent *event )
 {

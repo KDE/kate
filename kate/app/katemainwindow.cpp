@@ -564,35 +564,6 @@ void KateMainWindow::slotUpdateOpenWith()
     documentOpenWith->setEnabled(false);
 }
 
-class KateRowColumn
-{
-  public:
-    KateRowColumn(): m_row(-1), m_column(-1)
-    {}
-    KateRowColumn(int row, int column): m_row(row), m_column(column)
-    {}
-    ~KateRowColumn()
-    {}
-    int column()
-    {
-      return m_column;
-    }
-    int row()
-    {
-      return m_row;
-    }
-    bool isValid()
-    {
-      return ( (m_row >= 0) && (m_column >= 0));
-    }
-  private:
-    int m_row;
-    int m_column;
-};
-
-Q_DECLARE_METATYPE(KateRowColumn)
-
-
 void KateMainWindow::documentMenuAboutToShow()
 {
   qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");

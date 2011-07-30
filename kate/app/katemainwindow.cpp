@@ -762,19 +762,6 @@ KUrl KateMainWindow::activeDocumentUrl()
   return KUrl();
 }
 
-#if 0
-void KateMainWindow::fileSelected(const KFileItem & /*file*/)
-{
-  const KFileItemList list = fileselector->dirOperator()->selectedItems();
-
-  foreach (const KFileItem tmp, list )
-  {
-    m_viewManager->openUrl(tmp.url());
-    fileselector->dirOperator()->view()->setSelected(tmp, false);
-  }
-}
-#endif
-
 void KateMainWindow::mSlotFixOpenWithMenu()
 {
   KMenu *menu = documentOpenWith->menu();
@@ -843,16 +830,6 @@ void KateMainWindow::tipOfTheDay()
 void KateMainWindow::slotFullScreen(bool t)
 {
   KToggleFullScreenAction::setFullScreen(this, t);
-}
-
-bool KateMainWindow::event( QEvent *e )
-{
-/*  uint type = e->type();
-  if ( type == QEvent::WindowActivate && modNotification )
-  {
-    showModOnDiskPrompt();
-  }*/
-  return KateMDI::MainWindow::event( e );
 }
 
 bool KateMainWindow::showModOnDiskPrompt()

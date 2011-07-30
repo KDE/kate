@@ -203,8 +203,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void editKeys();
     void mSlotFixOpenWithMenu();
 
-    //void fileSelected(const KFileItem &file);
-
     void tipOfTheDay();
 
     /* to update the caption */
@@ -252,9 +250,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotUpdateBottomViewBar();
     void slotUpdateTopViewBar();
     
-  protected:
-    bool event( QEvent * );
-
   private Q_SLOTS:
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();

@@ -254,16 +254,17 @@ void KateBuffer::ensureHighlighted (int line)
   m_lineHighlighted = end;
 }
 
-void KateBuffer::unwrapLines (int from, int to, int lastLine)
+void KateBuffer::unwrapLines (int from, int to)
 {
-  for (int line = to; line >= from; line--) {
-    if (line + 1 <= lastLine)
-      unwrapLine (line+1);
-    else if (line != 0)
-      unwrapLine (line);
-  }
+ // catch out of range access, should never happen
+ Q_ASSERT(to + 1 <= lines() - 1);
+ Q_ASSERT(from >= 0);
 
-  m_regionTree.linesHaveBeenRemoved (from, to);
+ for (int line = to; line >= from; --line) {
+   unwrapLine (line + 1);
+ }
+
+ m_regionTree.linesHaveBeenRemoved (from, to);
 }
 
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
@@ -278,6 +279,15 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 
 }
 
+void KateBuffer::unwrapLineProtected (int line)
+{
+  // call original
+  Kate::TextBuffer::unwrapLine (line);
+
+  if (m_lineHighlighted > line)
+    m_lineHighlighted--;
+}
+
 void KateBuffer::unwrapLine (int line)
 {
   // call original
@@ -285,6 +295,8 @@ void KateBuffer::unwrapLine (int line)
 
   if (m_lineHighlighted > line)
     m_lineHighlighted--;
+
+  m_regionTree.linesHaveBeenRemoved (line, line);
 }
 
 void KateBuffer::setTabWidth (int w)

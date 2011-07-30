@@ -1355,7 +1355,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
     m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, 0), KTextEditor::Cursor (line, tl->text().size())));
   }
 
-  m_buffer->unwrapLines(from, to, lastLine());
+  m_buffer->unwrapLines(from, to);
 
   QList<int> rmark;
   QList<int> list;

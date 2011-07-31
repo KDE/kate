@@ -58,7 +58,7 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
 
   QFile file(m_utilsUrl);
   if (!file.open(QFile::ReadOnly)) {
-    msg = "Error: can't open utils.js";
+    msg = i18n("Error: can't open utils.js");
     return msg;
   }
   QString utilsCode = file.readAll();
@@ -73,7 +73,7 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
   KateTemplateScript script(funcCode);
   msg = script.invoke(m_view, name, "");
   if (msg.isEmpty())
-    msg = "SyntaxError: Parse error";
+    msg = i18n("Syntax Error: Parse error");
   return msg;
 }
 
@@ -89,7 +89,7 @@ const QString KateScriptConsoleEngine::getFirstFunctionName(const QString & text
     if (text[i] == ' ') // avoid blank spaces
       continue;
     if (text[i] == '{' || text[i] == '}' || text[i] == ')') { // bad ...
-      msg = "Error: There are bad defined functions";
+      msg = i18n("Error: There are bad defined functions");
       return "";
     }
     name.append(text[i]);
@@ -162,7 +162,7 @@ void KateScriptConsole::executePressed()
     msg = m_engine->execute(text);
     m_result->setText("<b>" + msg + "</b>");
   } else
-    m_result->setText("<b>There's no code to execute</b>");
+    m_result->setText("<b>" + i18n("There's no code to execute") + "</b>");
 }
 //END KateScriptConsole
 

@@ -54,15 +54,15 @@ namespace JoWenn {
   {
     KGlobal::locale()->insertCatalog("ktexteditor_codesnippets_core");
     m_repositoryData=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this,this);
-    connect(m_repositoryData,SIGNAL(typeChanged(const QStringList&)),this,SLOT(slotTypeChanged(const QStringList&)));
+    connect(m_repositoryData,SIGNAL(typeChanged(QStringList)),this,SLOT(slotTypeChanged(QStringList)));
 
     Kate::DocumentManager* documentManager=application()->documentManager();
     const QList<KTextEditor::Document*>& documents=documentManager->documents ();
     foreach(KTextEditor::Document* document,documents) {
       addDocument(document);
     }
-    connect(documentManager,SIGNAL(documentCreated (KTextEditor::Document *)),this,SLOT(addDocument(KTextEditor::Document*)));
-    connect(documentManager,SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),this,SLOT(removeDocument(KTextEditor::Document*)));
+    connect(documentManager,SIGNAL(documentCreated(KTextEditor::Document*)),this,SLOT(addDocument(KTextEditor::Document*)));
+    connect(documentManager,SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),this,SLOT(removeDocument(KTextEditor::Document*)));
 
     m_templateScriptRegistrar=qobject_cast<KTextEditor::TemplateScriptRegistrar*>(qobject_cast<Kate::Application*>(parent)->editor());
   }
@@ -119,7 +119,7 @@ namespace JoWenn {
     }
     KTextEditor::CodesnippetsCore::CategorizedSnippetModel *mod;
     m_document_categorized_hash.insert(document,mod=new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
-    connect(mod,SIGNAL(needView(KTextEditor::View **)),this,SLOT(provideView(KTextEditor::View**)));
+    connect(mod,SIGNAL(needView(KTextEditor::View**)),this,SLOT(provideView(KTextEditor::View**)));
 
 
     //Q_ASSERT(modelForDocument(document));
@@ -128,11 +128,11 @@ namespace JoWenn {
       addView(document,view);
     }
 
-    disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    disconnect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+    disconnect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    disconnect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
 
-    connect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    connect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+    connect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    connect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
   }
 
   void KateSnippetsPlugin::provideView(KTextEditor::View** pView) {
@@ -156,8 +156,8 @@ namespace JoWenn {
       }
     }
     m_document_model_multihash.remove(document);
-    disconnect(document,SIGNAL(modeChanged (KTextEditor::Document *)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    disconnect(document,SIGNAL(viewCreated (KTextEditor::Document *, KTextEditor::View *)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+    disconnect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
+    disconnect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
     Q_ASSERT(m_document_model_multihash.find(document)==m_document_model_multihash.end());
   }
 

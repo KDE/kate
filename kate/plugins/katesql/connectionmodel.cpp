@@ -151,3 +151,4 @@ void ConnectionModel::setPassword(const QString &name, const QString &password)
 
   emit dataChanged(index(i), index(i));
 }
+

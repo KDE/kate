@@ -44,8 +44,8 @@ KateSpellingMenu::KateSpellingMenu(KateView *view)
     m_useMouseForMisspelledRange(false),
     m_suggestionsSignalMapper(new QSignalMapper(this))
 {
-  connect(m_suggestionsSignalMapper, SIGNAL(mapped(const QString&)),
-          this, SLOT(replaceWordBySuggestion(const QString&)));
+  connect(m_suggestionsSignalMapper, SIGNAL(mapped(QString)),
+          this, SLOT(replaceWordBySuggestion(QString)));
 }
 
 KateSpellingMenu::~KateSpellingMenu()

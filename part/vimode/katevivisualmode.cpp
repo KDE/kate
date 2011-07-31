@@ -43,7 +43,7 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
   m_selection_is_changed_inside_ViMode = false;
 
   initializeCommands();
-  connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(updateSelection()));
+  connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelection()));
 }
 
 KateViVisualMode::~KateViVisualMode()

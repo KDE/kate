@@ -92,7 +92,7 @@ PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plug
 {
   QAction *a = actionCollection()->addAction("settings_manage_templates");
   a->setText(i18n("&Manage Templates..."));
-  connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotEditTemplate() ) );
+  connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditTemplate()) );
 
   a=new KActionMenu( i18n("New From &Template"), actionCollection());
   actionCollection()->addAction("file_new_fromtemplate",a);
@@ -153,12 +153,12 @@ KateFileTemplates::KateFileTemplates( QObject* parent, const QList<QVariant> &du
     m_dw->addDir( *it, KDirWatch::WatchFiles );
   }
 
-  connect( m_dw, SIGNAL(dirty(const QString&)),
-           this, SLOT(updateTemplateDirs(const QString&)) );
-  connect( m_dw, SIGNAL(created(const QString&)),
-           this, SLOT(updateTemplateDirs(const QString&)) );
-  connect( m_dw, SIGNAL(deleted(const QString&)),
-           this, SLOT(updateTemplateDirs(const QString&)) );
+  connect( m_dw, SIGNAL(dirty(QString)),
+           this, SLOT(updateTemplateDirs(QString)) );
+  connect( m_dw, SIGNAL(created(QString)),
+           this, SLOT(updateTemplateDirs(QString)) );
+  connect( m_dw, SIGNAL(deleted(QString)),
+           this, SLOT(updateTemplateDirs(QString)) );
 
 //   m_templates.setAutoDelete( true );
   updateTemplateDirs();
@@ -600,7 +600,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   {
     QStringList highlightModes = doc->highlightingModes();
       QMenu *m = new QMenu( btnHighlight );
-      connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
+      connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotHlSet(QAction*)) );
       QMap<QString, QMenu*> submenus;
       for ( int n = 0; n < highlightModes.count(); n++ )
       {
@@ -611,7 +611,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
           if ( ! submenus[ text ] )
           {
             QMenu *sm = m->addMenu( text );
-            connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
+            connect( sm, SIGNAL(triggered(QAction*)), this, SLOT(slotHlSet(QAction*)) );
             submenus.insert( text, sm );
           }
           // create the item
@@ -681,7 +681,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   btnTmpl = new QPushButton( page );
   glo->addWidget( btnTmpl, 5, 2 );
   QMenu *m = new QMenu( btnTmpl );
-  connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotTmplateSet( QAction* ) ) );
+  connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotTmplateSet(QAction*)) );
 
   QMap<QString, QMenu*> submenus;
   for ( int i = 0; i < kft->templates().count(); i++ )
@@ -689,7 +689,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
     if ( ! submenus[ kft->templates()[ i ]->group ] )
     {
       QMenu *sm = m->addMenu( kft->templates()[ i ]->group );
-      connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotTmplateSet( QAction* ) ) );
+      connect( sm, SIGNAL(triggered(QAction*)), this, SLOT(slotTmplateSet(QAction*)) );
       submenus.insert( kft->templates()[ i ]->group, sm );
     }
 
@@ -700,7 +700,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   btnTmpl->setPopup( m );
 
   connect( bgOrigin, SIGNAL(buttonClicked(int)), this, SLOT(slotStateChanged()) );
-  connect( urOrigin, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged()) );
+  connect( urOrigin, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );
 
   glo->addItem( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
@@ -761,8 +761,8 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addWidget( urLocation, 6, 2 );
 
   connect( bgLocation, SIGNAL(buttonClicked(int)), this, SLOT(slotStateChanged()) );
-  connect( urLocation, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged()) );
-  connect( leTemplateFileName, SIGNAL(textChanged(const QString &)), this, SLOT(slotStateChanged()) );
+  connect( urLocation, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );
+  connect( leTemplateFileName, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );
 
   glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
@@ -1077,7 +1077,7 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   lo->addWidget( btnNew, 2, 2 );
 
   btnEdit = new QPushButton( i18nc("@action:button Template", "Edit..."), this );
-  connect( btnEdit, SIGNAL(clicked()), this, SLOT( slotEditTemplate()) );
+  connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEditTemplate()) );
   lo->addWidget( btnEdit, 2, 3 );
 
   btnRemove = new QPushButton( i18nc("@action:button Template", "Remove"), this );

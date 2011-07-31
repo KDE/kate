@@ -230,3 +230,4 @@ void LocalsView::addArray(QTreeWidgetItem *parent, const QString &vString)
         end++;
     }
 }
+

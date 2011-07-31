@@ -149,7 +149,7 @@ void KDataToolPluginView::aboutToShow()
 		} else {
                         m_notAvailable = new KAction(i18n("(not available)"), this );
                         actionCollection()->addAction("dt_n_av", m_notAvailable);
-                        connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
+                        connect( m_notAvailable, SIGNAL(triggered(bool)), this, SLOT(slotNotAvailable()) );
 			m_menu->addAction(m_notAvailable);
 			return;
 		}
@@ -163,7 +163,7 @@ void KDataToolPluginView::aboutToShow()
 		tools += KDataToolInfo::query( "QString", "application/x-singleword", inst );
 
 	m_actionList = KDataToolAction::dataToolActionList( tools, this,
-		SLOT( slotToolActivated( const KDataToolInfo &, const QString & ) ),
+		SLOT(slotToolActivated(KDataToolInfo,QString)),
                                                             actionCollection());
 
 	foreach (QAction* ac, m_actionList)
@@ -172,7 +172,7 @@ void KDataToolPluginView::aboutToShow()
 	if( m_actionList.isEmpty() ) {
                 m_notAvailable = new KAction(i18n("(not available)"), this);
                 actionCollection()->addAction("dt_n_av", m_notAvailable);
-                connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
+                connect( m_notAvailable, SIGNAL(triggered(bool)), this, SLOT(slotNotAvailable()) );
 		m_menu->addAction(m_notAvailable);
 	}
 }

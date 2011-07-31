@@ -50,8 +50,8 @@ class KateWaiter : public QObject {
   public:
     KateWaiter (QCoreApplication *app, const QString &service,const QStringList &tokens)
       : QObject (app), m_app (app), m_service (service),m_tokens(tokens) {
-      connect ( QDBusConnection::sessionBus().interface(), SIGNAL( serviceOwnerChanged( QString, QString, QString ) )
-          , this, SLOT(serviceOwnerChanged( QString, QString, QString )) ); 
+      connect ( QDBusConnection::sessionBus().interface(), SIGNAL(serviceOwnerChanged(QString,QString,QString))
+          , this, SLOT(serviceOwnerChanged(QString,QString,QString)) ); 
     }
 
   public Q_SLOTS:
@@ -357,7 +357,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     if (needToBlock) {
       KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);
       QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
-      QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "documentClosed", waiter, SLOT(documentClosed(const QString&)));
+      QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "documentClosed", waiter, SLOT(documentClosed(QString)));
     }
     
 #ifdef Q_WS_X11

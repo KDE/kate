@@ -133,7 +133,7 @@ m_curResultTree(0)
     m_ui.optionsButton->addAction(m_useRegExp);
 
     connect(m_ui.newTabButton, SIGNAL(clicked()), this, SLOT(addTab()));
-    connect(m_ui.resultTabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget *)));
+    connect(m_ui.resultTabWidget, SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
     connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -143,22 +143,22 @@ m_curResultTree(0)
     connect(m_ui.filterCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
 
     connect(m_ui.displayOptions, SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
-    connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(searchPlaceChanged()));
+    connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
     connect(m_ui.searchCombo, SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
     connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString, int, int, QString)),
-            this, SLOT(matchFound(QString, int, int, QString)));
+    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,int,int,QString)),
+            this, SLOT(matchFound(QString,int,int,QString)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
-    connect(&m_searchFolder, SIGNAL(matchFound(QString, int, int, QString)),
-            this, SLOT(matchFound(QString, int, int, QString)));
+    connect(&m_searchFolder, SIGNAL(matchFound(QString,int,int,QString)),
+            this, SLOT(matchFound(QString,int,int,QString)));
     connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
-    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted (KTextEditor::Document *)),
+    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
 
     searchPlaceChanged();
@@ -411,8 +411,8 @@ void KatePluginSearchView::addTab()
     tmp->setSelectionBehavior(QAbstractItemView::SelectRows);
     tmp->setUniformRowHeights(true);
 
-    connect(tmp,  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-            this, SLOT  (itemSelected(QTreeWidgetItem *)));
+    connect(tmp,  SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+            this, SLOT  (itemSelected(QTreeWidgetItem*)));
 
     m_ui.resultTabWidget->addTab(tmp, "");
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);

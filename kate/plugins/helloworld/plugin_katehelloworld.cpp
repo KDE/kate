@@ -36,7 +36,7 @@ KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *mainWin )
 {
   KAction *a = actionCollection()->addAction( "edit_insert_helloworld" );
   a->setText( i18n("Insert Hello World") );
-  connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotInsertHello() ) );
+  connect( a, SIGNAL(triggered(bool)), this, SLOT(slotInsertHello()) );
 
   mainWindow()->guiFactory()->addClient( this );
 }

@@ -92,13 +92,13 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
   m_connectionsGroup->setExclusive(true);
 
   connect(sqlMenu, SIGNAL(aboutToShow()), this, SLOT(slotSQLMenuAboutToShow()));
-  connect(m_connectionsGroup, SIGNAL(triggered(QAction *)), this, SLOT(slotConnectionSelectedFromMenu(QAction *)));
+  connect(m_connectionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotConnectionSelectedFromMenu(QAction*)));
 
-  connect(m_manager, SIGNAL(error(const QString&)), this, SLOT(slotError(const QString&)));
-  connect(m_manager, SIGNAL(success(const QString&)), this, SLOT(slotSuccess(const QString&)));
-  connect(m_manager, SIGNAL(queryActivated(QSqlQuery&, const QString&)), this, SLOT(slotQueryActivated(QSqlQuery&, const QString&)));
-  connect(m_manager, SIGNAL(connectionCreated(const QString&)), this, SLOT(slotConnectionCreated(const QString&)));
-  connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(slotConnectionChanged(const QString&)));
+  connect(m_manager, SIGNAL(error(QString)), this, SLOT(slotError(QString)));
+  connect(m_manager, SIGNAL(success(QString)), this, SLOT(slotSuccess(QString)));
+  connect(m_manager, SIGNAL(queryActivated(QSqlQuery&,QString)), this, SLOT(slotQueryActivated(QSqlQuery&,QString)));
+  connect(m_manager, SIGNAL(connectionCreated(QString)), this, SLOT(slotConnectionCreated(QString)));
+  connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotConnectionChanged(QString)));
 
   stateChanged("has_connection_selected", KXMLGUIClient::StateReverse);
 }

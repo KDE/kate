@@ -100,16 +100,16 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw, const KComponentData& compone
     connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
     connect(m_ctagsUi.updateButton,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
     connect(m_ctagsUi.updateButton2,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
-    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), 
-            this, SLOT(updateDone(int, QProcess::ExitStatus)));
+    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), 
+            this, SLOT(updateDone(int,QProcess::ExitStatus)));
 
     connect(m_ctagsUi.inputEdit, SIGNAL(textChanged(QString)), this, SLOT(startEditTmr()));
 
     m_editTimer.setSingleShot(true);
     connect(&m_editTimer, SIGNAL(timeout()), this, SLOT(editLookUp()));
 
-    connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
-            SLOT(tagHitClicked(QTreeWidgetItem *)));
+    connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
+            SLOT(tagHitClicked(QTreeWidgetItem*)));
 
     m_toolView->installEventFilter(this);
 

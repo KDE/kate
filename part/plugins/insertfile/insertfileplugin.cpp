@@ -87,7 +87,7 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
 
   KAction *action = new KAction( i18n("Insert File..."), this );
   actionCollection()->addAction( "tools_insert_file", action );
-  connect( action, SIGNAL( triggered( bool ) ), this, SLOT(slotInsertFile()) );
+  connect( action, SIGNAL(triggered(bool)), this, SLOT(slotInsertFile()) );
 
   setXMLFile( "ktexteditor_insertfileui.rc" );
 }
@@ -118,7 +118,7 @@ void InsertFilePluginView::slotInsertFile()
     KUrl destURL;
     destURL.setPath( _tmpfile );
     _job = KIO::file_copy( _file, destURL, 0600, KIO::Overwrite );
-    connect( _job, SIGNAL( result( KJob * ) ), this, SLOT( slotFinished ( KJob * ) ) );
+    connect( _job, SIGNAL(result(KJob*)), this, SLOT(slotFinished(KJob*)) );
   }
 }
 

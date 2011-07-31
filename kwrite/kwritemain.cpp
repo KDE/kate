@@ -82,18 +82,18 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setupStatusBar();
 
   // signals for the statusbar
-  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)), this, SLOT(cursorPositionChanged(KTextEditor::View *)));
-  connect(m_view, SIGNAL(viewModeChanged(KTextEditor::View *)), this, SLOT(viewModeChanged(KTextEditor::View *)));
-  connect(m_view, SIGNAL(selectionChanged (KTextEditor::View *)), this, SLOT(selectionChanged (KTextEditor::View *)));
-  connect(m_view, SIGNAL(informationMessage (KTextEditor::View *, const QString &)), this, SLOT(informationMessage (KTextEditor::View *, const QString &)));
-  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(modifiedChanged()));
-  connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
-  connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged()));
-  connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(urlChanged()));
-  connect(m_view->document(), SIGNAL(modeChanged(KTextEditor::Document *)), this, SLOT(modeChanged(KTextEditor::Document *)));
+  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(cursorPositionChanged(KTextEditor::View*)));
+  connect(m_view, SIGNAL(viewModeChanged(KTextEditor::View*)), this, SLOT(viewModeChanged(KTextEditor::View*)));
+  connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(selectionChanged(KTextEditor::View*)));
+  connect(m_view, SIGNAL(informationMessage(KTextEditor::View*,QString)), this, SLOT(informationMessage(KTextEditor::View*,QString)));
+  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
+  connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
+  connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+  connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
+  connect(m_view->document(), SIGNAL(modeChanged(KTextEditor::Document*)), this, SLOT(modeChanged(KTextEditor::Document*)));
 
   setAcceptDrops(true);
-  connect(m_view,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(slotDropEvent(QDropEvent *)));
+  connect(m_view,SIGNAL(dropEventPass(QDropEvent*)),this,SLOT(slotDropEvent(QDropEvent*)));
 
   setXMLFile( "kwriteui.rc" );
   createShellGUI( true );
@@ -143,7 +143,7 @@ void KWrite::setupActions()
   actionCollection()->addAction( KStandardAction::Open, "file_open", this, SLOT(slotOpen()) )
     ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(const KUrl&)), this);
+  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(KUrl)), this);
   actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -692,7 +692,7 @@ KWriteEditorChooser::KWriteEditorChooser(QWidget *parent):
     setMainWidget(m_chooser);
     m_chooser->readAppSetting();
 
-    connect( this, SIGNAL( okClicked() ), SLOT( slotOk() ) );
+    connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
 }
 
 KWriteEditorChooser::~KWriteEditorChooser()

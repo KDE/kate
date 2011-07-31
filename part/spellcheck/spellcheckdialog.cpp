@@ -67,13 +67,13 @@ void KateSpellCheckDialog::createActions( KActionCollection* ac )
     ac->addAction("tools_spelling_from_cursor", a );
     a->setIcon( KIcon( "tools-check-spelling" ) );
     a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));
-    connect( a, SIGNAL( triggered() ), this, SLOT(spellcheckFromCursor()) );
+    connect( a, SIGNAL(triggered()), this, SLOT(spellcheckFromCursor()) );
 
     m_spellcheckSelection = new KAction( i18n("Spellcheck Selection..."), this );
     ac->addAction("tools_spelling_selection", m_spellcheckSelection);
     m_spellcheckSelection->setIcon( KIcon( "tools-check-spelling" ) );
     m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));
-    connect( m_spellcheckSelection, SIGNAL( triggered() ), this, SLOT(spellcheckSelection()) );
+    connect( m_spellcheckSelection, SIGNAL(triggered()), this, SLOT(spellcheckSelection()) );
 }
 
 void KateSpellCheckDialog::updateActions ()
@@ -129,13 +129,13 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     m_sonnetDialog->showSpellCheckCompletionMessage();
     m_sonnetDialog->setSpellCheckContinuedAfterReplacement(false);
 
-    connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(installNextSpellCheckRange()));
+    connect(m_sonnetDialog,SIGNAL(done(QString)),this,SLOT(installNextSpellCheckRange()));
 
-    connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
-        this,SLOT(corrected(const QString&,int,const QString&)));
+    connect(m_sonnetDialog,SIGNAL(replace(QString,int,QString)),
+        this,SLOT(corrected(QString,int,QString)));
 
-    connect(m_sonnetDialog,SIGNAL(misspelling(const QString&,int)),
-        this,SLOT(misspelling(const QString&,int)));
+    connect(m_sonnetDialog,SIGNAL(misspelling(QString,int)),
+        this,SLOT(misspelling(QString,int)));
 
     connect(m_sonnetDialog,SIGNAL(cancel()),
         this,SLOT(cancelClicked()));
@@ -143,8 +143,8 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     connect(m_sonnetDialog,SIGNAL(destroyed(QObject*)),
             this,SLOT(objectDestroyed(QObject*)));
 
-    connect(m_sonnetDialog,SIGNAL(languageChanged(const QString&)),
-            this,SLOT(languageChanged(const QString&)));
+    connect(m_sonnetDialog,SIGNAL(languageChanged(QString)),
+            this,SLOT(languageChanged(QString)));
   }
 
   m_userSpellCheckLanguage.clear();

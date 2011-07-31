@@ -149,9 +149,9 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   m_docInfos.insert (doc, new KateDocumentInfo (docInfo));
 
   // connect internal signals...
-  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModChanged1(KTextEditor::Document *)));
-  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-          this, SLOT(slotModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged1(KTextEditor::Document*)));
+  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+          this, SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
   // we have a new document, show it the world
   
@@ -257,7 +257,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
       }
     }
 
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModChanged(KTextEditor::Document *)));
+    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged(KTextEditor::Document*)));
 
     emit initialDocumentReplaced();
 
@@ -575,7 +575,7 @@ void KateDocManager::restoreDocumentList (KConfig* config)
       doc = createDoc ();
     doc->setSuppressOpeningErrorDialogs(true);
     connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-    connect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
+    connect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
     if (KTextEditor::ParameterizedSessionConfigInterface *iface =
       qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
     {
@@ -714,7 +714,7 @@ void KateDocManager::documentOpened()
   if (!doc) return; // should never happen, but who knows
   doc->setSuppressOpeningErrorDialogs(false);
   disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-  disconnect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
+  disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
   if (doc->openingError())
   {
     m_openingErrors += '\n' + doc->openingErrorMessage()+"\n\n";

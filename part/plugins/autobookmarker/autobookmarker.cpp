@@ -68,7 +68,7 @@ AutoBookmarker::AutoBookmarker( QObject *parent,
           KTextEditor::ConfigInterfaceExtension()
 {
   if ( parent )
-    connect( parent, SIGNAL( completed() ), this, SLOT( slotCompleted() ) );
+    connect( parent, SIGNAL(completed()), this, SLOT(slotCompleted()) );
 }
 
 void AutoBookmarker::addView(KTextEditor::View */*view*/)
@@ -293,7 +293,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   lePattern->setWhatsThis(i18n(
       "<p>A regular expression. Matching lines will be bookmarked.</p>" ) );
 
-  connect( lePattern, SIGNAL(textChanged ( const QString & ) ),this, SLOT( slotPatternChanged( const QString& ) ) );
+  connect( lePattern, SIGNAL(textChanged(QString)),this, SLOT(slotPatternChanged(QString)) );
 
   cbCS = new QCheckBox( i18n("Case &sensitive"), w );
   lo->addMultiCellWidget( cbCS, 1, 1, 0, 2 );
@@ -421,7 +421,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
   connect( btnDel, SIGNAL(clicked()), this, SLOT(slotDel()) );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );
-  connect( lvPatterns, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(slotEdit()) );
+  connect( lvPatterns, SIGNAL(doubleClicked(Q3ListViewItem*)), this, SLOT(slotEdit()) );
 
   m_ents = new ABEntityList();
   m_ents->setAutoDelete( true );

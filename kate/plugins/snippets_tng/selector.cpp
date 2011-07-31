@@ -49,8 +49,8 @@ namespace JoWenn {
     showRepoManagerButton->setToolTip(i18n("Manage the snippet repository"));
     connect(mainWindow,SIGNAL(viewChanged()),this,SLOT(viewChanged()));
     connect(plugin,SIGNAL(typeHasChanged(KTextEditor::Document*)),this,SLOT(typeChanged(KTextEditor::Document*)));
-    connect(treeView,SIGNAL(clicked(const QModelIndex&)),this,SLOT(clicked(const QModelIndex&)));
-    connect(treeView,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(doubleClicked(const QModelIndex&)));
+    connect(treeView,SIGNAL(clicked(QModelIndex)),this,SLOT(clicked(QModelIndex)));
+    connect(treeView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleClicked(QModelIndex)));
     connect(hideShowBtn,SIGNAL(clicked()),this,SLOT(showHideSnippetText()));
     connect(showRepoManagerButton,SIGNAL(clicked()),this,SLOT(showRepoManager()));
     m_addSnippetToPopup = new QMenu(this);
@@ -86,7 +86,7 @@ namespace JoWenn {
     kDebug(13040)<<view;
     QAbstractItemModel *m=treeView->model();
     if (!m_associatedView.isNull()) {
-      disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));      
+      disconnect(m_associatedView.data(),SIGNAL(selectionChanged(KTextEditor::View*)),this,SLOT(selectionChanged(KTextEditor::View*)));      
       if (!m_currentCollection.isNull()) {
         m_currentCollection->removeAssociatedWidget(m_associatedView.data());
       }
@@ -95,7 +95,7 @@ namespace JoWenn {
     if (view)
     {
       m_associatedView=view;
-      connect(view,SIGNAL(selectionChanged(KTextEditor::View *)),this,SLOT(selectionChanged(KTextEditor::View *)));
+      connect(view,SIGNAL(selectionChanged(KTextEditor::View*)),this,SLOT(selectionChanged(KTextEditor::View*)));
       selectionChanged(view);
       QString mode=view->document()->mode();
       if ((mode!=m_mode) || (treeView->model()==0))
@@ -308,3 +308,4 @@ namespace JoWenn {
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

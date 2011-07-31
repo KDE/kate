@@ -58,7 +58,7 @@ void KateModeMenu::init()
 {
   m_doc = 0;
 
-  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+  connect( menu(), SIGNAL(triggered(QAction*)), this, SLOT(setType(QAction*)) );
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 
@@ -91,7 +91,7 @@ void KateModeMenu::slotAboutToShow()
       {
         subMenusName << hlSection;
         QMenu *qmenu = new QMenu (hlSection);
-        connect( qmenu, SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+        connect( qmenu, SIGNAL(triggered(QAction*)), this, SLOT(setType(QAction*)) );
         subMenus.append(qmenu);
         menu()->addMenu (qmenu);
       }
@@ -107,8 +107,8 @@ void KateModeMenu::slotAboutToShow()
     {
       names << hlName;
 
-      disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
-      connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+      disconnect( menu(), SIGNAL(triggered(QAction*)), this, SLOT(setType(QAction*)) );
+      connect( menu(), SIGNAL(triggered(QAction*)), this, SLOT(setType(QAction*)) );
 
       QAction *action = menu()->addAction ( hlName );
       m_actionGroup->addAction(action);

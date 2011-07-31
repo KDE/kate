@@ -124,10 +124,10 @@ AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document* document
     m_brackets["("] = ")";
     m_brackets["["] = "]";
 
-    connect(document, SIGNAL(exclusiveEditStart(KTextEditor::Document *)),
-            this, SLOT(disconnectSlots(KTextEditor::Document *)));
-    connect(document, SIGNAL(exclusiveEditEnd(KTextEditor::Document *)),
-            this, SLOT(connectSlots(KTextEditor::Document *)));
+    connect(document, SIGNAL(exclusiveEditStart(KTextEditor::Document*)),
+            this, SLOT(disconnectSlots(KTextEditor::Document*)));
+    connect(document, SIGNAL(exclusiveEditEnd(KTextEditor::Document*)),
+            this, SLOT(connectSlots(KTextEditor::Document*)));
 
     connectSlots(document);
 }
@@ -143,18 +143,18 @@ AutoBracePluginDocument::~AutoBracePluginDocument()
  */
 void AutoBracePluginDocument::connectSlots(KTextEditor::Document *document)
 {
-    connect(document, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-            this, SLOT(slotTextInserted(KTextEditor::Document*, KTextEditor::Range)));
-    connect(document, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
-            this, SLOT(slotTextRemoved(KTextEditor::Document*, KTextEditor::Range)));
+    connect(document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+            this, SLOT(slotTextInserted(KTextEditor::Document*,KTextEditor::Range)));
+    connect(document, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+            this, SLOT(slotTextRemoved(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 void AutoBracePluginDocument::disconnectSlots(KTextEditor::Document* document)
 {
-    disconnect(document, SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-               this, SLOT(slotTextInserted(KTextEditor::Document*, KTextEditor::Range)));
-    disconnect(document, SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
-               this, SLOT(slotTextRemoved(KTextEditor::Document*, KTextEditor::Range)));
+    disconnect(document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+               this, SLOT(slotTextInserted(KTextEditor::Document*,KTextEditor::Range)));
+    disconnect(document, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+               this, SLOT(slotTextRemoved(KTextEditor::Document*,KTextEditor::Range)));
     disconnect(document, SIGNAL(textChanged(KTextEditor::Document*)),
                this, SLOT(slotTextChanged(KTextEditor::Document*)));
 }

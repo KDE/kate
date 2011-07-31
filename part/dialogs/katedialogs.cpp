@@ -125,7 +125,7 @@ KateConfigPage::KateConfigPage ( QWidget *parent, const char * )
   : KTextEditor::ConfigPage (parent)
   , m_changed (false)
 {
-  connect (this, SIGNAL(changed()), this, SLOT(somethingHasChanged ()));
+  connect (this, SIGNAL(changed()), this, SLOT(somethingHasChanged()));
 }
 
 KateConfigPage::~KateConfigPage ()
@@ -159,7 +159,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   ui->cmbMode->addItems (KateAutoIndent::listModes());
 
   ui->label->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::LinksAccessibleByKeyboard);
-  connect(ui->label, SIGNAL(linkActivated(const QString&)), this, SLOT(showWhatsThis(const QString&)));
+  connect(ui->label, SIGNAL(linkActivated(QString)), this, SLOT(showWhatsThis(QString)));
 
   // What's This? help can be found in the ui file
 
@@ -348,7 +348,7 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViStatusBarHide, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int, int)), this, SLOT(slotChanged()));
+  connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int,int)), this, SLOT(slotChanged()));
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
   connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
   connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(importNormalMappingRow()));
@@ -896,16 +896,16 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEncodingDetection, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEncodingFallback, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( ui->chkEnableBOM, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->chkDetectEOL, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  connect( ui->chkEnableBOM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( ui->lineLengthLimit, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect( uiadv->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( uiadv->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->chkBackupLocalFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  connect( uiadv->chkBackupRemoteFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( uiadv->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect( uiadv->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( uiadv->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( uiadv->chkNoSync, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->edtBackupPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( uiadv->edtBackupSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( uiadv->chkNoSync, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   internalLayout->addWidget(newWidget);
   tmpWidget->setLayout(internalLayout);
@@ -1183,8 +1183,8 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
        + QString("update-")
        + KateGlobal::katePartVersion()
        + QString(".xml")), KIO::Reload );
-  connect(transferJob, SIGNAL(data(KIO::Job *, const QByteArray &)),
-    this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
+  connect(transferJob, SIGNAL(data(KIO::Job*,QByteArray)),
+    this, SLOT(listDataReceived(KIO::Job*,QByteArray)));
 //        void data( KIO::Job *, const QByteArray &data);
   resize(450, 400);
   connect(this,SIGNAL(user1Clicked()),this,SLOT(slotUser1()));
@@ -1349,8 +1349,8 @@ KateDictionaryBar::KateDictionaryBar(KateView* view, QWidget *parent)
   topLayout->setMargin(0);
   //topLayout->setSpacing(spacingHint());
   m_dictionaryComboBox = new Sonnet::DictionaryComboBox(centralWidget());
-  connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(const QString&)),
-          this, SLOT(dictionaryChanged(const QString&)));
+  connect(m_dictionaryComboBox, SIGNAL(dictionaryChanged(QString)),
+          this, SLOT(dictionaryChanged(QString)));
   connect(view->doc(), SIGNAL(defaultDictionaryChanged(KateDocument*)),
           this, SLOT(updateData()));
   QLabel *label = new QLabel(i18n("Dictionary:"), centralWidget());
@@ -1475,7 +1475,7 @@ void KateModOnHdPrompt::slotDiff()
   *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
-  connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
+  connect( m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
   // disable the button and checkbox, to hinder the user to run it twice.

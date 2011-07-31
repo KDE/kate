@@ -83,8 +83,8 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
                                "on the item to show the respective line in the editor."));
   setFocusProxy(twResults);
 
-  connect(twResults, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-          this, SLOT(itemSelected(QTreeWidgetItem *, int)));
+  connect(twResults, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+          this, SLOT(itemSelected(QTreeWidgetItem*,int)));
 
   connect(btnCancel, SIGNAL(clicked()), this, SLOT(killThread()));
   connect(btnRemove, SIGNAL(clicked()), this, SLOT(deleteToolview()));

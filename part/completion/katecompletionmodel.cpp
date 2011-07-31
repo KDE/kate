@@ -1888,8 +1888,8 @@ void KateCompletionModel::addCompletionModel(KTextEditor::CodeCompletionModel * 
 
   m_completionModels.append(model);
 
-  connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
-  connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+  connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(slotRowsInserted(QModelIndex,int,int)));
+  connect(model, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotRowsRemoved(QModelIndex,int,int)));
   connect(model, SIGNAL(modelReset()), SLOT(slotModelReset()));
 
   // This performs the reset
@@ -1912,8 +1912,8 @@ void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompl
   m_completionModels = models;
 
   foreach (KTextEditor::CodeCompletionModel* model, models) {
-    connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
-    connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+    connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(slotRowsInserted(QModelIndex,int,int)));
+    connect(model, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(slotRowsRemoved(QModelIndex,int,int)));
     connect(model, SIGNAL(modelReset()), SLOT(slotModelReset()));
   }
 

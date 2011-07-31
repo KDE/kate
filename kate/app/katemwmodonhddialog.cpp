@@ -115,7 +115,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   twDocuments->header()->setResizeMode(0, QHeaderView::Stretch);
   twDocuments->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
-  connect( twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(slotSelectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)) );
+  connect( twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(slotSelectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)) );
 
   // diff button
   KHBox *lo2 = new KHBox ( w );
@@ -250,7 +250,7 @@ void KateMwModOnHdDialog::slotDiff()
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
   *m_proc << "diff" << "-ub" << "-" << doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
-  connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
+  connect( m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
   btnDiff->setEnabled(false);

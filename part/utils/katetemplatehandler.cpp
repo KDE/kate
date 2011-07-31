@@ -95,8 +95,8 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   connect(doc(), SIGNAL(aboutToReload(KTextEditor::Document*)),
           this, SLOT(cleanupAndExit()));
 
-  connect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-          this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
+  connect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
   doc()->editStart();
@@ -129,12 +129,12 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
         setupEventHandler(view);
       }
 
-      connect(doc(), SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
-              this, SLOT(slotViewCreated(KTextEditor::Document*, KTextEditor::View*)));
-      connect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-              this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
-      connect(doc(), SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
-              this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
+      connect(doc(), SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
+              this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
+      connect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
+      connect(doc(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+              this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
 
       setEditWithUndo(undoManager->isActive());
 
@@ -164,19 +164,19 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
 
   m_wholeTemplateRange = doc()->newMovingRange(range, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
 
-  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-             this, SLOT(slotTemplateInserted(KTextEditor::Document*, KTextEditor::Range)));
+  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+             this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 void KateTemplateHandler::cleanupAndExit()
 {
   ifDebug(kDebug() << "cleaning up and exiting";)
-  disconnect(doc(), SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
-             this, SLOT(slotViewCreated(KTextEditor::Document*, KTextEditor::View*)));
-  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*, KTextEditor::Range)),
-             this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
-  disconnect(doc(), SIGNAL(textRemoved(KTextEditor::Document*, KTextEditor::Range)),
-             this, SLOT(slotTextChanged(KTextEditor::Document*, KTextEditor::Range)));
+  disconnect(doc(), SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
+             this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
+  disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+             this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
+  disconnect(doc(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+             this, SLOT(slotTextChanged(KTextEditor::Document*,KTextEditor::Range)));
 
   if (!m_templateRanges.isEmpty()) {
     foreach(MovingRange* range, m_templateRanges) {

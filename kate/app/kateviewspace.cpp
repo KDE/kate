@@ -62,7 +62,7 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   m_group.clear();
 
   // connect signal to hide/show statusbar
-  connect (m_viewManager->mainWindow(), SIGNAL(statusBarToggled ()), this, SLOT(statusBarToggled ()));
+  connect (m_viewManager->mainWindow(), SIGNAL(statusBarToggled()), this, SLOT(statusBarToggled()));
 
   // init the statusbar...
   statusBarToggled ();
@@ -115,13 +115,13 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
   }
 
   // signals for the statusbar
-  connect(v, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor&)), mStatusBar, SLOT(cursorPositionChanged(KTextEditor::View *)));
-  connect(v, SIGNAL(viewModeChanged(KTextEditor::View *)), mStatusBar, SLOT(viewModeChanged(KTextEditor::View *)));
-  connect(v, SIGNAL(selectionChanged (KTextEditor::View *)), mStatusBar, SLOT(selectionChanged (KTextEditor::View *)));
-  connect(v, SIGNAL(informationMessage (KTextEditor::View *, const QString &)), mStatusBar, SLOT(informationMessage (KTextEditor::View *, const QString &)));
-  connect(v->document(), SIGNAL(modifiedChanged(KTextEditor::Document *)), mStatusBar, SLOT(modifiedChanged()));
-  connect(v->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), mStatusBar, SLOT(modifiedChanged()) );
-  connect(v->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), mStatusBar, SLOT(documentNameChanged()));
+  connect(v, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), mStatusBar, SLOT(cursorPositionChanged(KTextEditor::View*)));
+  connect(v, SIGNAL(viewModeChanged(KTextEditor::View*)), mStatusBar, SLOT(viewModeChanged(KTextEditor::View*)));
+  connect(v, SIGNAL(selectionChanged(KTextEditor::View*)), mStatusBar, SLOT(selectionChanged(KTextEditor::View*)));
+  connect(v, SIGNAL(informationMessage(KTextEditor::View*,QString)), mStatusBar, SLOT(informationMessage(KTextEditor::View*,QString)));
+  connect(v->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), mStatusBar, SLOT(modifiedChanged()));
+  connect(v->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), mStatusBar, SLOT(modifiedChanged()) );
+  connect(v->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), mStatusBar, SLOT(documentNameChanged()));
   connect(v->document(), SIGNAL(configChanged()), mStatusBar, SLOT(documentConfigChanged()));
 }
 

@@ -449,8 +449,8 @@ void KateViewIndentationAction::slotAboutToShow()
       action->setChecked( true );
   }
 
-  disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
-  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  disconnect( menu(), SIGNAL(triggered(QAction*)), this, SLOT(setMode(QAction*)) );
+  connect( menu(), SIGNAL(triggered(QAction*)), this, SLOT(setMode(QAction*)) );
 }
 
 void KateViewIndentationAction::setMode (QAction *action)

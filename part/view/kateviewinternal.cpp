@@ -202,21 +202,21 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_dragInfo.state = diNone;
 
   // timers
-  connect( &m_dragScrollTimer, SIGNAL( timeout() ),
-             this, SLOT( doDragScroll() ) );
+  connect( &m_dragScrollTimer, SIGNAL(timeout()),
+             this, SLOT(doDragScroll()) );
 
-  connect( &m_scrollTimer, SIGNAL( timeout() ),
-             this, SLOT( scrollTimeout() ) );
+  connect( &m_scrollTimer, SIGNAL(timeout()),
+             this, SLOT(scrollTimeout()) );
 
-  connect( &m_cursorTimer, SIGNAL( timeout() ),
-             this, SLOT( cursorTimeout() ) );
+  connect( &m_cursorTimer, SIGNAL(timeout()),
+             this, SLOT(cursorTimeout()) );
 
-  connect( &m_textHintTimer, SIGNAL( timeout() ),
-             this, SLOT( textHintTimeout() ) );
+  connect( &m_textHintTimer, SIGNAL(timeout()),
+             this, SLOT(textHintTimeout()) );
 
   // selection changed to set anchor
-  connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
-             this, SLOT( viewSelectionChanged() ) );
+  connect( m_view, SIGNAL(selectionChanged(KTextEditor::View*)),
+             this, SLOT(viewSelectionChanged()) );
 
 #ifndef QT_NO_ACCESSIBILITY
   QAccessible::installFactory(accessibleInterfaceFactory);

@@ -54,17 +54,17 @@ PluginView::PluginView( Kate::MainWindow* mainwindow )
   QBoxLayout* layout = qobject_cast<QBoxLayout*>(mainWindow()->centralWidget()->layout());
   layout->insertWidget( 0, tabbar );
 
-  connect( Kate::application()->documentManager(), SIGNAL( documentCreated( KTextEditor::Document* ) ),
-           this, SLOT( slotDocumentCreated( KTextEditor::Document* ) ) );
-  connect( Kate::application()->documentManager(), SIGNAL( documentDeleted( KTextEditor::Document* ) ),
-           this, SLOT( slotDocumentDeleted( KTextEditor::Document* ) ) );
-  connect( mainWindow(), SIGNAL( viewChanged() ),
-           this, SLOT( slotViewChanged() ) );
+  connect( Kate::application()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)),
+           this, SLOT(slotDocumentCreated(KTextEditor::Document*)) );
+  connect( Kate::application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)),
+           this, SLOT(slotDocumentDeleted(KTextEditor::Document*)) );
+  connect( mainWindow(), SIGNAL(viewChanged()),
+           this, SLOT(slotViewChanged()) );
 
-  connect( tabbar, SIGNAL( currentChanged( int ) ),
-           this, SLOT( currentTabChanged( int ) ) );
-  connect( tabbar, SIGNAL( closeRequest( int ) ),
-           this, SLOT( closeTabRequest( int ) ) );
+  connect( tabbar, SIGNAL(currentChanged(int)),
+           this, SLOT(currentTabChanged(int)) );
+  connect( tabbar, SIGNAL(closeRequest(int)),
+           this, SLOT(closeTabRequest(int)) );
 
   // add already existing documents
   foreach( KTextEditor::Document* doc, Kate::application()->documentManager()->documents() )
@@ -112,14 +112,14 @@ void PluginView::slotDocumentCreated( KTextEditor::Document* document )
   if( !document )
     return;
 
-  connect( document, SIGNAL( modifiedChanged( KTextEditor::Document*) ),
-           this, SLOT( slotDocumentChanged( KTextEditor::Document* ) ) );
+  connect( document, SIGNAL(modifiedChanged(KTextEditor::Document*)),
+           this, SLOT(slotDocumentChanged(KTextEditor::Document*)) );
   connect( document, SIGNAL( modifiedOnDisk( KTextEditor::Document*, bool,
                              KTextEditor::ModificationInterface::ModifiedOnDiskReason ) ),
            this, SLOT( slotModifiedOnDisc( KTextEditor::Document*, bool,
                        KTextEditor::ModificationInterface::ModifiedOnDiskReason ) ) );
-  connect( document, SIGNAL( documentNameChanged( KTextEditor::Document* ) ),
-           this, SLOT( slotNameChanged( KTextEditor::Document* ) ) );
+  connect( document, SIGNAL(documentNameChanged(KTextEditor::Document*)),
+           this, SLOT(slotNameChanged(KTextEditor::Document*)) );
 
 
   int tabID = tabbar->addTab( document->url().prettyUrl(), document->documentName() );
@@ -229,10 +229,10 @@ KatePluginTabBarExtension::~KatePluginTabBarExtension()
 Kate::PluginView *KatePluginTabBarExtension::createView (Kate::MainWindow *mainWindow)
 {
   PluginView *view = new PluginView( mainWindow );
-  connect( view->tabbar, SIGNAL( settingsChanged( KTinyTabBar* ) ),
-           this, SLOT( tabbarSettingsChanged( KTinyTabBar* ) ) );
-  connect( view->tabbar, SIGNAL( highlightMarksChanged( KTinyTabBar* ) ),
-           this, SLOT( tabbarHighlightMarksChanged( KTinyTabBar* ) ) );
+  connect( view->tabbar, SIGNAL(settingsChanged(KTinyTabBar*)),
+           this, SLOT(tabbarSettingsChanged(KTinyTabBar*)) );
+  connect( view->tabbar, SIGNAL(highlightMarksChanged(KTinyTabBar*)),
+           this, SLOT(tabbarHighlightMarksChanged(KTinyTabBar*)) );
   m_views.append( view );
   return view;
 }

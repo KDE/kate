@@ -205,3 +205,4 @@ bool KWriteApp::closeView(KTextEditor::View *view)
 //END KTextEditor::MdiContainer
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

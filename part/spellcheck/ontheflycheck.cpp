@@ -49,16 +49,16 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
   m_viewRefreshTimer->setSingleShot(true);
   connect(m_viewRefreshTimer, SIGNAL(timeout()), this, SLOT(viewRefreshTimeout()));
 
-  connect(document, SIGNAL(textInserted(KTextEditor::Document*, const KTextEditor::Range&)),
-          this, SLOT(textInserted(KTextEditor::Document*, const KTextEditor::Range&)));
-  connect(document, SIGNAL(textRemoved(KTextEditor::Document*, const KTextEditor::Range&)),
-          this, SLOT(textRemoved(KTextEditor::Document*, const KTextEditor::Range&)));
-  connect(document, SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)),
-          this, SLOT(addView(KTextEditor::Document*, KTextEditor::View*)));
-  connect(document, SIGNAL(highlightingModeChanged (KTextEditor::Document*)),
+  connect(document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
+  connect(document, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textRemoved(KTextEditor::Document*,KTextEditor::Range)));
+  connect(document, SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
+          this, SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
+  connect(document, SIGNAL(highlightingModeChanged(KTextEditor::Document*)),
           this, SLOT(updateConfig()));
-  connect(document, SIGNAL(respellCheckBlock(KateDocument*, int, int)),
-          this, SLOT(handleRespellCheckBlock(KateDocument*, int, int)));
+  connect(document, SIGNAL(respellCheckBlock(KateDocument*,int,int)),
+          this, SLOT(handleRespellCheckBlock(KateDocument*,int,int)));
 
   // load the settings for the speller
   updateConfig();
@@ -406,9 +406,9 @@ void KateOnTheFlyChecker::performSpellCheck()
   if(!m_backgroundChecker) {
     m_backgroundChecker = new Sonnet::BackgroundChecker(m_speller, this);
     connect(m_backgroundChecker,
-            SIGNAL(misspelling(const QString&,int)),
+            SIGNAL(misspelling(QString,int)),
             this,
-            SLOT(misspelling(const QString&,int)));
+            SLOT(misspelling(QString,int)));
     connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
 
 #if KDE_IS_VERSION(4,5,2)

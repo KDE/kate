@@ -317,8 +317,8 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   , m_cmdend( 0 )
   , m_command( 0L )
 {
-  connect (this, SIGNAL(returnPressed(const QString &)),
-           this, SLOT(slotReturnPressed(const QString &)));
+  connect (this, SIGNAL(returnPressed(QString)),
+           this, SLOT(slotReturnPressed(QString)));
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
@@ -333,7 +333,7 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   // wrong view when KateViewBar::hideCurrentBarWidget() is called after 4 seconds. (the timer is
   // used for showing things like "Success" for four seconds after the user has used the kate
   // command line)
-  connect(m_view, SIGNAL(focusOut (KTextEditor::View*)), m_hideTimer, SLOT(stop()));
+  connect(m_view, SIGNAL(focusOut(KTextEditor::View*)), m_hideTimer, SLOT(stop()));
 }
 
 void KateCmdLineEdit::hideEvent(QHideEvent *e)
@@ -1658,7 +1658,7 @@ void KateIconBorder::annotationModelChanged( KTextEditor::AnnotationModel * oldm
   if( newmodel )
   {
     connect( newmodel, SIGNAL(reset()), this, SLOT(updateAnnotationBorderWidth()) );
-    connect( newmodel, SIGNAL(lineChanged( int )), this, SLOT(updateAnnotationLine( int )) );
+    connect( newmodel, SIGNAL(lineChanged(int)), this, SLOT(updateAnnotationLine(int)) );
   }
   updateAnnotationBorderWidth();
 }
@@ -1736,7 +1736,7 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
   d->init();
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
-  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
+  connect(this,SIGNAL(triggered(QString)),this,SLOT(setEncoding(QString)));
 }
 
 KateViewEncodingAction::~KateViewEncodingAction()
@@ -1802,7 +1802,7 @@ QTextCodec *KateViewEncodingAction::currentCodec() const
 
 bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
 {
-  disconnect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
+  disconnect(this,SIGNAL(triggered(QString)),this,SLOT(setEncoding(QString)));
 
   int i,j;
   for (i=0;i<actions().size();++i)
@@ -1827,7 +1827,7 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
     }
   }
 
-  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
+  connect(this,SIGNAL(triggered(QString)),this,SLOT(setEncoding(QString)));
   return true;
 }
 

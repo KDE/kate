@@ -36,7 +36,7 @@ KateUndoManager::KateUndoManager (KateDocument *doc)
   connect(this, SIGNAL(undoEnd(KTextEditor::Document*)), this, SIGNAL(undoChanged()));
   connect(this, SIGNAL(redoEnd(KTextEditor::Document*)), this, SIGNAL(undoChanged()));
 
-  connect(doc, SIGNAL(viewCreated(KTextEditor::Document*, KTextEditor::View*)), SLOT(viewCreated(KTextEditor::Document*, KTextEditor::View*)));
+  connect(doc, SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)), SLOT(viewCreated(KTextEditor::Document*,KTextEditor::View*)));
 }
 
 KateUndoManager::~KateUndoManager()
@@ -57,7 +57,7 @@ KTextEditor::Document *KateUndoManager::document()
 
 void KateUndoManager::viewCreated (KTextEditor::Document *, KTextEditor::View *newView)
 {
-  connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
+  connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), SLOT(undoCancel()));
 }
 
 void KateUndoManager::editStart()

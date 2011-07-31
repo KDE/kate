@@ -145,7 +145,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         m_powerMode(0)
 {
 
-    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View *, KTextEditor::Cursor const &)),
+    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
             this, SLOT(updateIncInitCursor()));
 
     // init match attribute
@@ -195,7 +195,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     }
 
     updateSelectionOnly();
-    connect(view, SIGNAL(selectionChanged(KTextEditor::View *)),
+    connect(view, SIGNAL(selectionChanged(KTextEditor::View*)),
             this, SLOT(updateSelectionOnly()));
 }
 
@@ -354,9 +354,9 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
 
 
 void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
-    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(updateSelectionOnly()));
+    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
     selectRange(m_view, range);
-    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(updateSelectionOnly()));
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
 }
 
 
@@ -394,10 +394,10 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
                                                      Range::invalid();
 
     // don't update m_incInitCursor when we move the cursor
-    disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+    disconnect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
                this, SLOT(updateIncInitCursor()));
     selectRange2(selectionRange);
-    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor const&)),
+    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
             this, SLOT(updateIncInitCursor()));
 
     indicateMatch(matchResult);
@@ -1315,7 +1315,7 @@ void KateSearchBar::enterPowerMode() {
     if (create) {
         // Slots
         connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(enterIncrementalMode()));
-        connect(patternLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
+        connect(patternLineEdit, SIGNAL(textChanged(QString)), this, SLOT(onPowerPatternChanged(QString)));
         connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(findNext()));
         connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(findPrevious()));
         connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(replaceNext()));
@@ -1330,11 +1330,11 @@ void KateSearchBar::enterPowerMode() {
 
         // Hook into line edit context menus
         m_powerUi->pattern->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(m_powerUi->pattern, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-                SLOT(onPowerPatternContextMenuRequest(const QPoint&)));
+        connect(m_powerUi->pattern, SIGNAL(customContextMenuRequested(QPoint)), this,
+                SLOT(onPowerPatternContextMenuRequest(QPoint)));
         m_powerUi->replacement->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(m_powerUi->replacement, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-                SLOT(onPowerReplacmentContextMenuRequest(const QPoint&)));
+        connect(m_powerUi->replacement, SIGNAL(customContextMenuRequested(QPoint)), this,
+                SLOT(onPowerReplacmentContextMenuRequest(QPoint)));
     }
 
     // Focus
@@ -1439,9 +1439,9 @@ void KateSearchBar::enterIncrementalMode() {
 
     // Set initial search pattern
     if (!create)
-        disconnect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
+        disconnect(m_incUi->pattern, SIGNAL(textChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
     m_incUi->pattern->setEditText(initialPattern);
-    connect(m_incUi->pattern, SIGNAL(textChanged(const QString&)), this, SLOT(onIncPatternChanged(const QString&)));
+    connect(m_incUi->pattern, SIGNAL(textChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
     m_incUi->pattern->lineEdit()->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)

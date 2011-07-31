@@ -68,7 +68,7 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
 
   KFilePlacesModel* model = new KFilePlacesModel(this);
   m_urlNavigator = new KUrlNavigator(model, KUrl(QDir::homePath()), this);
-  connect(m_urlNavigator, SIGNAL(urlChanged(const KUrl&)), SLOT(updateDirOperator(const KUrl&)));
+  connect(m_urlNavigator, SIGNAL(urlChanged(KUrl)), SLOT(updateDirOperator(KUrl)));
 
   m_dirOperator = new KDirOperator(KUrl(), this);
   m_dirOperator->setView(KFile::/* Simple */Detail);
@@ -83,8 +83,8 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
 #endif
 
   setFocusProxy(m_dirOperator);
-  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView *)),
-          this, SLOT(selectorViewChanged(QAbstractItemView *)));
+  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView*)),
+          this, SLOT(selectorViewChanged(QAbstractItemView*)));
   connect(m_urlNavigator, SIGNAL(returnPressed()),
           m_dirOperator, SLOT(setFocus()));
   // now all actions exist in dir operator and we can use them in the toolbar
@@ -99,23 +99,23 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_filter->setMaxCount(10);
   m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-  connect(m_filter, SIGNAL(editTextChanged(const QString&)),
-          SLOT(slotFilterChange(const QString&)));
-  connect(m_filter, SIGNAL(returnPressed(const QString&)),
-          m_filter, SLOT(addToHistory(const QString&)));
-  connect(m_filter, SIGNAL(returnPressed(const QString&)),
+  connect(m_filter, SIGNAL(editTextChanged(QString)),
+          SLOT(slotFilterChange(QString)));
+  connect(m_filter, SIGNAL(returnPressed(QString)),
+          m_filter, SLOT(addToHistory(QString)));
+  connect(m_filter, SIGNAL(returnPressed(QString)),
           m_dirOperator, SLOT(setFocus()));
 
-  connect(m_dirOperator, SIGNAL(urlEntered(const KUrl&)),
-          this, SLOT(updateUrlNavigator(const KUrl&)));
+  connect(m_dirOperator, SIGNAL(urlEntered(KUrl)),
+          this, SLOT(updateUrlNavigator(KUrl)));
 
   // Connect the bookmark handler
-  connect(m_bookmarkHandler, SIGNAL(openUrl(const QString&)),
-          this, SLOT(setDir(const QString&)));
+  connect(m_bookmarkHandler, SIGNAL(openUrl(QString)),
+          this, SLOT(setDir(QString)));
 
   m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 
-  connect(m_dirOperator, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
+  connect(m_dirOperator, SIGNAL(fileSelected(KFileItem)), this, SLOT(fileSelected(KFileItem)));
   connect(m_mainWindow, SIGNAL(viewChanged()), this, SLOT(autoSyncFolder()));
 }
 

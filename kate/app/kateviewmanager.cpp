@@ -87,8 +87,8 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   connect( this, SIGNAL(viewChanged()), this, SLOT(slotViewChanged()) );
   connect(KateDocManager::self(), SIGNAL(initialDocumentReplaced()), this, SIGNAL(viewChanged()));
 
-  connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document *)), this, SLOT(documentCreated(KTextEditor::Document *)));
-  connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document *)), this, SLOT(documentDeleted(KTextEditor::Document *)));
+  connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
+  connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
 
   // register all already existing documents
   m_blockViewCreationAndActivation = true;
@@ -292,7 +292,7 @@ KateMainWindow *KateViewManager::mainWindow()
 void KateViewManager::documentCreated (KTextEditor::Document *doc)
 { 
   // to update open recent files on saving
-  connect (doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document *, bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document *, bool)));
+  connect (doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document*,bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document*,bool)));
 
   if (m_blockViewCreationAndActivation) return;
   
@@ -336,8 +336,8 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
 
   //view->setContextMenu(view->defaultContextMenu());
 
-  connect(view, SIGNAL(dropEventPass(QDropEvent *)), mainWindow(), SLOT(slotDropEvent(QDropEvent *)));
-  connect(view, SIGNAL(focusIn(KTextEditor::View *)), this, SLOT(activateSpace(KTextEditor::View *)));
+  connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));
+  connect(view, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(activateSpace(KTextEditor::View*)));
 
   activeViewSpace()->addView( view );
 

@@ -131,26 +131,26 @@ ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
     m_widgetHeights = ( m_targetLabel->sizeHint().height() + /*layout spacing */6 ) * 9 ;
 
 
-    connect(    m_targets, SIGNAL( editTextChanged( QString ) ),
-                this, SLOT( slotTargetEdited( QString ) ) );
-    connect(    m_targets, SIGNAL( currentIndexChanged( int ) ),
-                this, SLOT( slotTargetSelected( int ) ) );
-    connect(    m_addTarget, SIGNAL( clicked() ),
-                this, SLOT( slotAddTarget() ) );
-    connect(    m_deleteTarget, SIGNAL( clicked() ),
-                this, SLOT( slotDeleteTarget() ) );
-    connect(    m_workingDirectory, SIGNAL( textEdited( QString ) ),
-                this, SLOT( slotWorkingDirectoryEdited( QString ) ) );
-    connect(    m_argumentLists, SIGNAL( editTextChanged( QString ) ),
-                this, SLOT( slotArgListEdited( QString ) ) );
-    connect(    m_argumentLists, SIGNAL( currentIndexChanged( int ) ),
-                this, SLOT( slotArgListSelected( int ) ) );
-    connect(    m_addArgList, SIGNAL( clicked() ),
-                this, SLOT( slotAddArgList() ) );
-    connect(    m_deleteArgList, SIGNAL( clicked() ),
-                this, SLOT( slotDeleteArgList() ) );
-    connect(    m_redirectTerminal, SIGNAL( toggled( bool ) ),
-                this, SIGNAL(showIO( bool ) ) );
+    connect(    m_targets, SIGNAL(editTextChanged(QString)),
+                this, SLOT(slotTargetEdited(QString)) );
+    connect(    m_targets, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(slotTargetSelected(int)) );
+    connect(    m_addTarget, SIGNAL(clicked()),
+                this, SLOT(slotAddTarget()) );
+    connect(    m_deleteTarget, SIGNAL(clicked()),
+                this, SLOT(slotDeleteTarget()) );
+    connect(    m_workingDirectory, SIGNAL(textEdited(QString)),
+                this, SLOT(slotWorkingDirectoryEdited(QString)) );
+    connect(    m_argumentLists, SIGNAL(editTextChanged(QString)),
+                this, SLOT(slotArgListEdited(QString)) );
+    connect(    m_argumentLists, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(slotArgListSelected(int)) );
+    connect(    m_addArgList, SIGNAL(clicked()),
+                this, SLOT(slotAddArgList()) );
+    connect(    m_deleteArgList, SIGNAL(clicked()),
+                this, SLOT(slotDeleteArgList()) );
+    connect(    m_redirectTerminal, SIGNAL(toggled(bool)),
+                this, SIGNAL(showIO(bool)) );
 }
 
 ConfigView::~ConfigView()
@@ -161,13 +161,13 @@ void ConfigView::registerActions( KActionCollection* actionCollection )
 {
     m_targetSelectAction = actionCollection->add<KSelectAction>( "targets" );
     m_targetSelectAction->setText( i18n( "Targets" ) );
-    connect(    m_targetSelectAction, SIGNAL( triggered( int ) ),
-                this, SLOT( slotTargetSelected( int ) ) );
+    connect(    m_targetSelectAction, SIGNAL(triggered(int)),
+                this, SLOT(slotTargetSelected(int)) );
 
     m_argListSelectAction = actionCollection->add<KSelectAction>( "argLists" );
     m_argListSelectAction->setText( i18n( "Arg Lists" ) );
-    connect(    m_argListSelectAction, SIGNAL( triggered( int ) ),
-                this, SLOT( slotArgListSelected( int ) ) );
+    connect(    m_argListSelectAction, SIGNAL(triggered(int)),
+                this, SLOT(slotArgListSelected(int)) );
 }
 
 void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
@@ -437,7 +437,7 @@ void ConfigView::slotArgListEdited( QString /*updatedArgList*/ )
 {
     if( m_changingTarget == 0 )
     {
-        QTimer::singleShot( 0, this, SLOT( slotUpdateArgLists() ) );
+        QTimer::singleShot( 0, this, SLOT(slotUpdateArgLists()) );
     }
 }
 

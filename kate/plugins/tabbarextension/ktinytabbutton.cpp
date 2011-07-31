@@ -71,7 +71,7 @@ KTinyTabButton::KTinyTabButton( const QString& docurl, const QString& caption,
     setText( caption );
     setURL( docurl );
 
-    connect( this, SIGNAL( clicked() ), this, SLOT( buttonClicked() ) );
+    connect( this, SIGNAL(clicked()), this, SLOT(buttonClicked()) );
 }
 
 KTinyTabButton::~KTinyTabButton()

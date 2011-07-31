@@ -45,36 +45,36 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 
   setTextElideMode(Qt::ElideLeft);
   
-  connect( this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(mouseClicked(const QModelIndex &)));
+  connect( this, SIGNAL(clicked(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
   m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
-  connect( m_filelistCloseDocument, SIGNAL( triggered() ), this, SLOT( slotDocumentClose() ) );
+  connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
   QActionGroup *modeGroup = new QActionGroup(this);
 
   m_treeModeAction = setupOption(modeGroup, KIcon("view-list-tree"), i18n("Tree Mode"),
                                  i18n("Set view style to Tree Mode"),
-                                 SLOT( slotTreeMode() ), true);
+                                 SLOT(slotTreeMode()), true);
 
   m_listModeAction = setupOption(modeGroup, KIcon("view-list-text"), i18n("List Mode"),
                                  i18n("Set view style to List Mode"),
-                                 SLOT( slotListMode() ), false);
+                                 SLOT(slotListMode()), false);
 
   QActionGroup *sortGroup = new QActionGroup(this);
 
   m_sortByFile = setupOption(sortGroup, KIcon(), i18n("Document Name"),
                              i18n("Sort by Document Name"),
-                             SLOT( slotSortName() ), true);
+                             SLOT(slotSortName()), true);
 
   
   m_sortByPath = setupOption(sortGroup, KIcon(), i18n("Document Path"),
                              i18n("Sort by Document Path"),
-                             SLOT( slotSortPath() ), false);
+                             SLOT(slotSortPath()), false);
   
   m_sortByOpeningOrder =  setupOption(sortGroup, KIcon(), i18n("Opening Order"),
                              i18n("Sort by Opening Order"),
-                             SLOT( slotSortOpeningOrder() ), false);
+                             SLOT(slotSortOpeningOrder()), false);
   
   QPalette p = palette();
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
@@ -99,7 +99,7 @@ QAction *KateFileTree::setupOption(
   new_action->setActionGroup(group);
   new_action->setCheckable(true);
   new_action->setChecked(checked);
-  connect( new_action, SIGNAL( triggered() ), this, slot );
+  connect( new_action, SIGNAL(triggered()), this, slot );
   return new_action;
 }
 

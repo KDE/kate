@@ -109,8 +109,8 @@ KateFindDialog::KateFindDialog(Kate::MainWindow *mw, KateFindInFilesView *view)
 
   connect( this, SIGNAL(user1Clicked()),
            SLOT(slotSearch()) );
-  connect( cmbPattern->lineEdit(), SIGNAL(textChanged ( const QString & )),
-           SLOT( patternTextChanged( const QString & )));
+  connect( cmbPattern->lineEdit(), SIGNAL(textChanged(QString)),
+           SLOT(patternTextChanged(QString)));
   connect( btnSync, SIGNAL(clicked()), this, SLOT(syncDir()));
 
   patternTextChanged( cmbPattern->lineEdit()->text());

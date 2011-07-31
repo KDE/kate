@@ -59,9 +59,9 @@ KTinyTabBarConfigDialog::KTinyTabBarConfigDialog( const KTinyTabBar* tabbar,
     resize( 400, 300 );
 
     enableButton( KDialog::Ok, false );
-    connect( m_configPage, SIGNAL( changed() ), this, SLOT( configChanged() ) );
-    connect( m_configPage, SIGNAL( removeHighlightMarks() ),
-             tabbar, SLOT( removeHighlightMarks() ) );
+    connect( m_configPage, SIGNAL(changed()), this, SLOT(configChanged()) );
+    connect( m_configPage, SIGNAL(removeHighlightMarks()),
+             tabbar, SLOT(removeHighlightMarks()) );
 }
 
 KTinyTabBarConfigDialog::~KTinyTabBarConfigDialog()

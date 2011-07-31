@@ -155,9 +155,9 @@ KTinyTabBar::KTinyTabBar( QWidget *parent )
     m_downButton->setIcon( KIconLoader::global()->loadIcon( "arrow-down", KIconLoader::Small, 16 ) );
     m_configureButton->setIcon( KIconLoader::global()->loadIcon( "configure", KIconLoader::Small, 16 ) );
 
-    connect( m_upButton, SIGNAL( activated( KTinyTabButton* ) ), this, SLOT( upClicked() ) );
-    connect( m_downButton, SIGNAL( activated( KTinyTabButton* ) ), this, SLOT( downClicked() ) );
-    connect( m_configureButton, SIGNAL( activated( KTinyTabButton* ) ), this, SLOT( configureClicked() ) );
+    connect( m_upButton, SIGNAL(activated(KTinyTabButton*)), this, SLOT(upClicked()) );
+    connect( m_downButton, SIGNAL(activated(KTinyTabButton*)), this, SLOT(downClicked()) );
+    connect( m_configureButton, SIGNAL(activated(KTinyTabButton*)), this, SLOT(configureClicked()) );
 
     setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
     updateFixedHeight();
@@ -388,16 +388,16 @@ int KTinyTabBar::addTab( const QString& docurl, const QIcon& icon, const QString
 
     m_tabButtons.append( tabButton );
     m_IDToTabButton[m_nextID] = tabButton;
-    connect( tabButton, SIGNAL( activated( KTinyTabButton* ) ),
-             this, SLOT( tabButtonActivated( KTinyTabButton* ) ) );
-    connect( tabButton, SIGNAL( highlightChanged( KTinyTabButton* ) ),
-             this, SLOT( tabButtonHighlightChanged( KTinyTabButton* ) ) );
-    connect( tabButton, SIGNAL( closeRequest( KTinyTabButton* ) ),
-             this, SLOT( tabButtonCloseRequest( KTinyTabButton* ) ) );
-    connect( tabButton, SIGNAL( closeOtherTabsRequest( KTinyTabButton* ) ),
-             this, SLOT( tabButtonCloseOtherRequest( KTinyTabButton* ) ) );
-    connect( tabButton, SIGNAL( closeAllTabsRequest() ),
-             this, SLOT( tabButtonCloseAllRequest() ) );
+    connect( tabButton, SIGNAL(activated(KTinyTabButton*)),
+             this, SLOT(tabButtonActivated(KTinyTabButton*)) );
+    connect( tabButton, SIGNAL(highlightChanged(KTinyTabButton*)),
+             this, SLOT(tabButtonHighlightChanged(KTinyTabButton*)) );
+    connect( tabButton, SIGNAL(closeRequest(KTinyTabButton*)),
+             this, SLOT(tabButtonCloseRequest(KTinyTabButton*)) );
+    connect( tabButton, SIGNAL(closeOtherTabsRequest(KTinyTabButton*)),
+             this, SLOT(tabButtonCloseOtherRequest(KTinyTabButton*)) );
+    connect( tabButton, SIGNAL(closeAllTabsRequest()),
+             this, SLOT(tabButtonCloseAllRequest()) );
 
     if( !isVisible() )
         show();

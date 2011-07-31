@@ -217,17 +217,17 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   ui->combobox->addItem(i18n("Template Not Editable Placeholder"));
   ui->combobox->setCurrentIndex(0);
 
-  connect( ui->combobox  , SIGNAL( activated( int ) )        , SLOT( slotComboBoxChanged( int ) ) );
-  connect( ui->back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->current   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->bracket   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( ui->markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( ui->spellingmistakeline, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->combobox  , SIGNAL(activated(int))        , SLOT(slotComboBoxChanged(int)) );
+  connect( ui->back      , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->selected  , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->current   , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->bracket   , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->wwmarker  , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->iconborder, SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->tmarker   , SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->linenumber, SIGNAL(changed(QColor)), SIGNAL(changed()) );
+  connect( ui->markers   , SIGNAL(changed(QColor)), SLOT(slotMarkerColorChanged(QColor)) );
+  connect( ui->spellingmistakeline, SIGNAL(changed(QColor)), SIGNAL(changed()) );
 }
 
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
@@ -453,7 +453,7 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
   m_fontchooser->disconnect ( this );
   m_fontchooser->setFont ( KateGlobal::self()->schemaManager()->schema( newSchema ).readEntry("Font", f) );
   m_fonts[ newSchema ] = m_fontchooser->font();
-  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
+  connect (m_fontchooser, SIGNAL (fontSelected(QFont)), this, SLOT (slotFontSelected(QFont)));
 }
 //END FontConfig
 

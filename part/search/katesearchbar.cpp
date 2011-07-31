@@ -212,6 +212,8 @@ KateSearchBar::~KateSearchBar() {
 
 void KateSearchBar::closed()
 {
+    // remove search from the view bar, because it vertically bloats up the
+    // stacked layout in KateViewBar.
     if (viewBar()) {
         viewBar()->removeBarWidget(this);
     }

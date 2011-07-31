@@ -1856,6 +1856,7 @@ bool KateViewEncodingAction::setCurrentCodec( int mib )
 
 KateViewBarWidget::KateViewBarWidget (bool addCloseButton, QWidget *parent)
  : QWidget (parent)
+ , m_viewBar(0)
 {
   QHBoxLayout *layout = new QHBoxLayout (this);
 
@@ -1903,6 +1904,7 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
   // add new widget, invisible...
   newBarWidget->hide();
   m_stack->addWidget (newBarWidget);
+  newBarWidget->setAssociatedViewBar(this);
   connect(newBarWidget, SIGNAL(hideMe()), SLOT(hideCurrentBarWidget()));
 
   kDebug(13025)<<"add barwidget " << newBarWidget;
@@ -1910,7 +1912,10 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 
 void KateViewBar::removeBarWidget (KateViewBarWidget *barWidget)
 {
-  m_stack->removeWidget(barWidget);
+  if (hasBarWidget(barWidget)) {
+    m_stack->removeWidget(barWidget);
+    barWidget->setAssociatedViewBar(0);
+  }
 }
 
 void KateViewBar::addPermanentBarWidget (KateViewBarWidget *barWidget)

@@ -210,7 +210,12 @@ KateSearchBar::~KateSearchBar() {
     delete m_powerUi;
 }
 
-
+void KateSearchBar::closed()
+{
+    if (viewBar()) {
+        viewBar()->removeBarWidget(this);
+    }
+}
 
 
 void KateSearchBar::setReplacePattern(const QString &replacementPattern) {

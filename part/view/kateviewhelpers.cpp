@@ -1915,6 +1915,8 @@ void KateViewBar::removeBarWidget (KateViewBarWidget *barWidget)
   if (hasBarWidget(barWidget)) {
     m_stack->removeWidget(barWidget);
     barWidget->setAssociatedViewBar(0);
+    barWidget->hide();
+    disconnect(barWidget, 0, this, 0);
   }
 }
 
@@ -1961,7 +1963,9 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   Q_ASSERT(barWidget != 0);
 
-  hideCurrentBarWidget();
+  if (barWidget != qobject_cast<KateViewBarWidget*>(m_stack->currentWidget())) {
+    hideCurrentBarWidget();
+  }
 
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);

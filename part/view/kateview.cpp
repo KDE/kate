@@ -1363,6 +1363,7 @@ void KateView::find()
   const bool INIT_HINT_AS_INCREMENTAL = false;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
   bar->enterIncrementalMode();
+  bottomViewBar()->addBarWidget(bar);
   bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
@@ -1382,6 +1383,7 @@ void KateView::replace()
   const bool INIT_HINT_AS_POWER = true;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
   bar->enterPowerMode();
+  bottomViewBar()->addBarWidget(bar);
   bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
@@ -2620,7 +2622,6 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
-    bottomViewBar()->addBarWidget(m_searchBar);
   }
   return m_searchBar;
 }

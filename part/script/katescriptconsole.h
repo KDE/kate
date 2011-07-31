@@ -77,8 +77,6 @@ class KateScriptConsole : public KateViewBarWidget
     KateScriptConsole(KateView * view, QWidget * parent = NULL);
     virtual ~KateScriptConsole();
 
-    void setupLayout();
-
   protected:
     // overriden
     virtual void closed();
@@ -89,7 +87,6 @@ class KateScriptConsole : public KateViewBarWidget
     QTextEdit * m_edit;
     QPushButton * m_execute;
     QLabel * m_result;
-    QSize initialSize, endSize;
     KateView * m_view;
     KateScriptConsoleEngine * m_engine;
 

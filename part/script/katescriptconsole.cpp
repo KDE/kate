@@ -106,7 +106,6 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
 {
   Q_ASSERT(m_view != NULL);
 
-  initialSize = parent->size();
   layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
   layout->setMargin(0);
@@ -125,17 +124,6 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
   m_engine = new KateScriptConsoleEngine(m_view);
 }
 
-void KateScriptConsole::setupLayout()
-{
-  resize(endSize);
-  layout->setMargin(0);
-  hLayout = new QHBoxLayout;
-  layout->addWidget(m_edit);
-  hLayout->addWidget(m_result);
-  hLayout->addWidget(m_execute, 1, Qt::AlignRight);
-  layout->addLayout(hLayout);
-}
-
 KateScriptConsole::~KateScriptConsole()
 {
   delete m_engine;
@@ -143,14 +131,8 @@ KateScriptConsole::~KateScriptConsole()
 
 void KateScriptConsole::closed()
 {
-  if (this->size() != initialSize) {
-    endSize = this->size();
-    layout->removeWidget(m_edit);
-    hLayout->removeWidget(m_result);
-    hLayout->removeWidget(m_execute);
-    delete hLayout;
-    resize(initialSize);
-  }
+  if (viewBar())
+    viewBar()->removeBarWidget(this);
   m_view->showViModeBar();
 }
 

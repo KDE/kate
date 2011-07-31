@@ -1428,10 +1428,9 @@ void KateView::switchToConsole ()
     m_console = new KateScriptConsole (this, bottomViewBar());
     bottomViewBar()->addBarWidget(m_console);
     bottomViewBar()->showBarWidget(m_console);
-  } else {
+  } else
     bottomViewBar()->showBarWidget(m_console);
-    m_console->setupLayout();
-  }
+  m_console->setupLayout();
   m_console->setFocus ();
   hideViModeBar();
 }

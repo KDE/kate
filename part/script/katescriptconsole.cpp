@@ -151,6 +151,7 @@ void KateScriptConsole::closed()
     delete hLayout;
     resize(initialSize);
   }
+  m_view->showViModeBar();
 }
 
 void KateScriptConsole::executePressed()

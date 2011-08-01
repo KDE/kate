@@ -32,7 +32,7 @@
            separate handle rules...
  -->
 
-<language name="Doxygen" version="1.31" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="9">
+<language name="Doxygen" version="1.32" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="9">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -603,10 +603,7 @@
       </context>
 
       <context name="SL_DetectComment" lineEndContext="#pop">
-        <!-- ALERT: Why Detect2Chars doesn't work?? :(( -->
-        <!-- <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" /> -->
-        <RegExpr attribute="Comment" context="#pop#pop" String="^\s*(\*/)" endRegion="BlockComment" />
-        <RegExpr attribute="Comment" context="#stay" String="^\s*(\*|//(!|(/(?=[^/]|$)))&lt;?)" />
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" />
       </context>
 
       <context attribute="Code" lineEndContext="#stay" name="Code">

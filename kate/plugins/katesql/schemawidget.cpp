@@ -50,7 +50,7 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
   setDragEnabled(true);
   setAcceptDrops(false);
 
-  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(slotCustomContextMenuRequested(const QPoint&)));
+  connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotCustomContextMenuRequested(QPoint)));
   connect(this, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(slotItemExpanded(QTreeWidgetItem*)));
 }
 

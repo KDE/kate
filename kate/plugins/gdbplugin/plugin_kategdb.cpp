@@ -116,7 +116,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     // input
     m_inputArea = new KHistoryComboBox( true );
-    connect( m_inputArea,  SIGNAL( returnPressed() ), this, SLOT( slotSendCommand() ) );
+    connect( m_inputArea,  SIGNAL(returnPressed()), this, SLOT(slotSendCommand()) );
     QHBoxLayout *inputLayout = new QHBoxLayout();
     inputLayout->addWidget( m_inputArea, 10 );
     inputLayout->setContentsMargins( 0,0,0,0 );
@@ -139,15 +139,15 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_stackTree->resizeColumnToContents(0);
     m_stackTree->resizeColumnToContents(1);
     m_stackTree->setAutoScroll(false);
-    connect( m_stackTree, SIGNAL( itemActivated ( QTreeWidgetItem *, int ) ),
-             this, SLOT( stackFrameSelected() ) );
+    connect( m_stackTree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
+             this, SLOT(stackFrameSelected()) );
 
     // config page
     m_configView = new ConfigView( NULL, mainWin );
 
     m_ioView = new IOView();
-    connect( m_configView, SIGNAL( showIO( bool ) ),
-             this,       SLOT( showIO( bool ) ) );
+    connect( m_configView, SIGNAL(showIO(bool)),
+             this,       SLOT(showIO(bool)) );
 
     m_tabWidget->addTab( m_gdbPage, i18nc( "Tab label", "GDB Output" ) );
     //m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
@@ -157,44 +157,44 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_localsView = new LocalsView(m_localsToolView);
 
     m_debugView  = new DebugView( this );
-    connect( m_debugView, SIGNAL( readyForInput( bool ) ),
-             this,        SLOT( enableDebugActions( bool ) ) );
+    connect( m_debugView, SIGNAL(readyForInput(bool)),
+             this,        SLOT(enableDebugActions(bool)) );
 
-    connect( m_debugView,  SIGNAL( outputText( const QString ) ),
-             m_outputArea, SLOT( append( const QString ) ) );
+    connect( m_debugView,  SIGNAL(outputText(QString)),
+             m_outputArea, SLOT(append(QString)) );
 
-    connect( m_debugView, SIGNAL( outputError( const QString ) ),
-             this,        SLOT( addErrorText( const QString ) ) );
+    connect( m_debugView, SIGNAL(outputError(QString)),
+             this,        SLOT(addErrorText(QString)) );
 
-    connect( m_debugView, SIGNAL( debugLocationChanged( const KUrl, int ) ),
-             this,        SLOT( slotGoTo( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL(debugLocationChanged(KUrl,int)),
+             this,        SLOT(slotGoTo(KUrl,int)) );
 
-    connect( m_debugView, SIGNAL( breakPointSet( const KUrl, int ) ),
-             this,        SLOT( slotBreakpointSet( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL(breakPointSet(KUrl,int)),
+             this,        SLOT(slotBreakpointSet(KUrl,int)) );
 
-    connect( m_debugView, SIGNAL( breakPointCleared( const KUrl, int ) ),
-             this,        SLOT( slotBreakpointCleared( const KUrl, int ) ) );
+    connect( m_debugView, SIGNAL(breakPointCleared(KUrl,int)),
+             this,        SLOT(slotBreakpointCleared(KUrl,int)) );
 
-    connect( m_debugView, SIGNAL( clearBreakpointMarks() ),
-             this,        SLOT( clearMarks() ) );
+    connect( m_debugView, SIGNAL(clearBreakpointMarks()),
+             this,        SLOT(clearMarks()) );
 
-    connect( m_debugView, SIGNAL( programEnded() ),
-             this,        SLOT( programEnded() ) );
+    connect( m_debugView, SIGNAL(programEnded()),
+             this,        SLOT(programEnded()) );
 
-    connect( m_debugView, SIGNAL( gdbEnded() ),
-             this,        SLOT( programEnded() ) );
+    connect( m_debugView, SIGNAL(gdbEnded()),
+             this,        SLOT(programEnded()) );
 
-    connect( m_debugView, SIGNAL( gdbEnded() ),
-             this,        SLOT( gdbEnded() ) );
+    connect( m_debugView, SIGNAL(gdbEnded()),
+             this,        SLOT(gdbEnded()) );
 
-    connect( m_debugView, SIGNAL( stackFrameInfo( QString, QString ) ),
-             this,        SLOT( insertStackFrame( QString, QString ) ) );
+    connect( m_debugView, SIGNAL(stackFrameInfo(QString,QString)),
+             this,        SLOT(insertStackFrame(QString,QString)) );
 
-    connect( m_debugView, SIGNAL( stackFrameChanged( int ) ),
-             this,        SLOT( stackFrameChanged( int ) ) );
+    connect( m_debugView, SIGNAL(stackFrameChanged(int)),
+             this,        SLOT(stackFrameChanged(int)) );
 
-    connect( m_debugView,  SIGNAL( infoLocal( QString ) ),
-             m_localsView, SLOT( addLocal( QString ) ) );
+    connect( m_debugView,  SIGNAL(infoLocal(QString)),
+             m_localsView, SLOT(addLocal(QString)) );
 
     // Actions
     m_configView->registerActions( actionCollection() );
@@ -202,81 +202,81 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     KAction* a = actionCollection()->addAction( "debug" );
     a->setText( i18n( "Start Debugging" ) );
     a->setIcon( KIcon( "debug" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                this,   SLOT( slotDebug() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                this,   SLOT(slotDebug()) );
 
     a = actionCollection()->addAction( "kill" );
     a->setText( i18n( "Kill / Stop Debugging" ) );
     a->setIcon( KIcon( "media-playback-stop" ) );
-    connect(    a,         SIGNAL( triggered( bool ) ),
-                m_debugView, SLOT( slotKill() ) );
+    connect(    a,         SIGNAL(triggered(bool)),
+                m_debugView, SLOT(slotKill()) );
 
     a = actionCollection()->addAction( "rerun" );
     a->setText( i18n( "Restart Debugging" ) );
     a->setIcon( KIcon( "view-refresh" ) );
-    connect(    a,         SIGNAL( triggered( bool ) ),
-                this, SLOT( slotRestart() ) );
+    connect(    a,         SIGNAL(triggered(bool)),
+                this, SLOT(slotRestart()) );
 
     a = actionCollection()->addAction( "toggle_breakpoint" );
     a->setText( i18n( "Toggle Breakpoint / Break" ) );
     a->setIcon( KIcon( "media-playback-pause" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                this,   SLOT( slotToggleBreakpoint() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                this,   SLOT(slotToggleBreakpoint()) );
 
     a = actionCollection()->addAction( "step_in" );
     a->setText( i18n( "Step In" ) );
     a->setIcon( KIcon( "debug-step-into" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                m_debugView,   SLOT( slotStepInto() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                m_debugView,   SLOT(slotStepInto()) );
 
     a = actionCollection()->addAction( "step_over" );
     a->setText( i18n( "Step Over" ) );
     a->setIcon( KIcon( "debug-step-over" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                m_debugView,   SLOT( slotStepOver() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                m_debugView,   SLOT(slotStepOver()) );
 
     a = actionCollection()->addAction( "step_out" );
     a->setText( i18n( "Step Out" ) );
     a->setIcon( KIcon( "debug-step-out" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                m_debugView, SLOT( slotStepOut() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                m_debugView, SLOT(slotStepOut()) );
 
     a = actionCollection()->addAction( "move_pc" );
     a->setText( i18nc( "Move Program Counter (next execution)", "Move PC" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                this,   SLOT( slotMovePC() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                this,   SLOT(slotMovePC()) );
 
     a = actionCollection()->addAction( "run_to_cursor" );
     a->setText( i18n( "Run To Cursor" ) );
     a->setIcon( KIcon( "debug-run-cursor" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                this,   SLOT( slotRunToCursor() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                this,   SLOT(slotRunToCursor()) );
 
     a = actionCollection()->addAction( "continue" );
     a->setText( i18n( "Continue" ) );
     a->setIcon( KIcon( "media-playback-start" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                m_debugView, SLOT( slotContinue() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                m_debugView, SLOT(slotContinue()) );
 
     a = actionCollection()->addAction( "print_value" );
     a->setText( i18n( "Print Value" ) );
     a->setIcon( KIcon( "document-preview" ) );
-    connect(    a,      SIGNAL( triggered( bool ) ),
-                this, SLOT( slotValue() ) );
+    connect(    a,      SIGNAL(triggered(bool)),
+                this, SLOT(slotValue()) );
 
     // popup context m_menu
     m_menu = new KActionMenu( i18n("Debug"), this );
     actionCollection()->addAction( "popup_gdb", m_menu );
-    connect( m_menu->menu(), SIGNAL( aboutToShow() ), this, SLOT( aboutToShowMenu() ) );
+    connect( m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShowMenu()) );
 
     m_breakpoint = m_menu->menu()->addAction(i18n("popup_breakpoint"),
-                                         this, SLOT( slotToggleBreakpoint() ) );
+                                         this, SLOT(slotToggleBreakpoint()) );
 
     QAction* popupAction = m_menu->menu()->addAction(i18n( "popup_run_to_cursor" ),
-                                                   this, SLOT( slotRunToCursor() ) );
+                                                   this, SLOT(slotRunToCursor()) );
     popupAction->setText( i18n( "Run To Cursor" ) );
     popupAction = m_menu->menu()->addAction( "move_pc",
-                                          this, SLOT( slotMovePC() ) );
+                                          this, SLOT(slotMovePC()) );
     popupAction->setText( i18nc( "Move Program Counter (next execution)", "Move PC" ) );
 
     enableDebugActions( false );

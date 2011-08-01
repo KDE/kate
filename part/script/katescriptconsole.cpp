@@ -58,7 +58,7 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
 
   QFile file(m_utilsUrl);
   if (!file.open(QFile::ReadOnly)) {
-    msg = "Error: can't open utils.js";
+    msg = i18n("Error: can't open utils.js");
     return msg;
   }
   QString utilsCode = file.readAll();
@@ -73,7 +73,7 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
   KateTemplateScript script(funcCode);
   msg = script.invoke(m_view, name, "");
   if (msg.isEmpty())
-    msg = "SyntaxError: Parse error";
+    msg = i18n("Syntax Error: Parse error");
   return msg;
 }
 
@@ -89,7 +89,7 @@ const QString KateScriptConsoleEngine::getFirstFunctionName(const QString & text
     if (text[i] == ' ') // avoid blank spaces
       continue;
     if (text[i] == '{' || text[i] == '}' || text[i] == ')') { // bad ...
-      msg = "Error: There are bad defined functions";
+      msg = i18n("Error: There are bad defined functions");
       return "";
     }
     name.append(text[i]);
@@ -106,7 +106,6 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
 {
   Q_ASSERT(m_view != NULL);
 
-  initialSize = parent->size();
   layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
   layout->setMargin(0);
@@ -125,17 +124,6 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
   m_engine = new KateScriptConsoleEngine(m_view);
 }
 
-void KateScriptConsole::setupLayout()
-{
-  resize(endSize);
-  layout->setMargin(0);
-  hLayout = new QHBoxLayout;
-  layout->addWidget(m_edit);
-  hLayout->addWidget(m_result);
-  hLayout->addWidget(m_execute, 1, Qt::AlignRight);
-  layout->addLayout(hLayout);
-}
-
 KateScriptConsole::~KateScriptConsole()
 {
   delete m_engine;
@@ -143,14 +131,9 @@ KateScriptConsole::~KateScriptConsole()
 
 void KateScriptConsole::closed()
 {
-  if (this->size() != initialSize) {
-    endSize = this->size();
-    layout->removeWidget(m_edit);
-    hLayout->removeWidget(m_result);
-    hLayout->removeWidget(m_execute);
-    delete hLayout;
-    resize(initialSize);
-  }
+  if (viewBar())
+    viewBar()->removeBarWidget(this);
+  m_view->showViModeBar();
 }
 
 void KateScriptConsole::executePressed()
@@ -161,7 +144,7 @@ void KateScriptConsole::executePressed()
     msg = m_engine->execute(text);
     m_result->setText("<b>" + msg + "</b>");
   } else
-    m_result->setText("<b>There's no code to execute</b>");
+    m_result->setText("<b>" + i18n("There's no code to execute") + "</b>");
 }
 //END KateScriptConsole
 

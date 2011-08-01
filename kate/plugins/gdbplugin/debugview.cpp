@@ -96,17 +96,17 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         args.append( "-c" );
         args.append( "gdb" );
 
-        connect( m_debugProcess, SIGNAL( error(QProcess::ProcessError) ),
-                            this, SLOT( slotError() ) );
+        connect( m_debugProcess, SIGNAL(error(QProcess::ProcessError)),
+                            this, SLOT(slotError()) );
 
-        connect( m_debugProcess, SIGNAL( readyReadStandardError() ),
-                            this, SLOT( slotReadDebugStdErr() ) );
+        connect( m_debugProcess, SIGNAL(readyReadStandardError()),
+                            this, SLOT(slotReadDebugStdErr()) );
 
-        connect( m_debugProcess, SIGNAL( readyReadStandardOutput() ),
-                            this, SLOT( slotReadDebugStdOut() ) );
+        connect( m_debugProcess, SIGNAL(readyReadStandardOutput()),
+                            this, SLOT(slotReadDebugStdOut()) );
 
-        connect( m_debugProcess, SIGNAL( finished(int,QProcess::ExitStatus) ),
-                            this, SLOT( slotDebugFinished(int,QProcess::ExitStatus) ) );
+        connect( m_debugProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
+                            this, SLOT(slotDebugFinished(int,QProcess::ExitStatus)) );
 
         m_debugProcess->start( shell, args );
 

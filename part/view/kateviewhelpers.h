@@ -247,11 +247,16 @@ class KateViewBar;
 class KateViewBarWidget : public QWidget
 {
   Q_OBJECT
+  friend class KateViewBar;
 
   public:
     explicit KateViewBarWidget (bool addCloseButton, QWidget* parent = 0);
 
-    virtual void closed(){};
+    virtual void closed() {}
+
+    /// returns the currently associated KateViewBar and 0, if it is not associated
+    KateViewBar* viewBar() { return m_viewBar; }
+
   protected:
     /**
      * @return widget that should be used to add controls to bar widget
@@ -261,8 +266,13 @@ class KateViewBarWidget : public QWidget
   signals:
     void hideMe();
 
+  // for friend class KateViewBar
+  private:
+    void setAssociatedViewBar(KateViewBar* bar) { m_viewBar = bar;}
+
   private:
     QWidget *m_centralWidget;
+    KateViewBar* m_viewBar; // 0-pointer, if not added to a view bar
 };
 
 class KateViewBar : public QWidget

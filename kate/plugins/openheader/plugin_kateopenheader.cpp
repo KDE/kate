@@ -50,7 +50,7 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
     KAction *a = actionCollection()->addAction("file_openheader");
     a->setText(i18n("Open .h/.cpp/.c"));
     a->setShortcut( Qt::Key_F12 );
-    connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotOpenHeader() ) );
+    connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotOpenHeader()) );
 
     mainwindow->guiFactory()->addClient (this);
 

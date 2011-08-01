@@ -645,7 +645,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
-  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
+  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
   QMenu* popup = new QMenu(this);
   button(KDialog::User3)->setDelayedMenu(popup);
@@ -674,7 +674,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   selectionChanged (NULL, NULL);
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
-  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotUser2()));
+  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotUser2()));
   connect(this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()));
   enableButton (KDialog::User2, m_sessions->currentIndex().isValid());
 
@@ -774,8 +774,8 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   setResult (resultCancel);
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
-  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
-  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotUser2()));
+  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotUser2()));
 
 }
 
@@ -841,7 +841,7 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
-  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
+  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
   updateSessionList ();
   m_sessions->resizeColumnToContents(0);
@@ -961,7 +961,7 @@ KateSessionsAction::KateSessionsAction(const QString& text, QObject* parent)
   // to e.g. 1 mainwindow, the last N - 1 mainwindows are deleted. Invoking
   // a session switch without queued connection deletes a mainwindow in which
   // the current code path is executed ---> crash. See bug #227008.
-  connect(sessionsGroup, SIGNAL( triggered(QAction *) ), this, SLOT( openSession(QAction *)), Qt::QueuedConnection);
+  connect(sessionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(openSession(QAction*)), Qt::QueuedConnection);
 }
 
 void KateSessionsAction::slotAboutToShow()

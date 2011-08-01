@@ -51,11 +51,10 @@
 #include <QByteArray>
 #include <QHash>
 #include <QListView>
-#include <QStandardItem>
 #include <QTimer>
 
 KateDocManager::KateDocManager (QObject *parent)
-    : QStandardItemModel (parent)
+    : QObject(parent)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore (0)
@@ -133,19 +132,8 @@ void KateDocManager::setSuppressOpeningErrorDialogs (bool suppress)
   m_suppressOpeningErrorDialogs = suppress;
 }
 
-QVariant KateDocManager::data( const QModelIndex & index, int role ) const
-{
-  if ( role == OpeningOrderRole)
-    return m_docList.indexOf( data(index, DocumentRole).value<KTextEditor::Document*>() );
-  else if ( role == UrlRole )
-   return data(index, DocumentRole).value<KTextEditor::Document*>()->url().url();
-
-  return QStandardItemModel::data( index, role );
-}
-
 KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInfo)
 {
-
   kDebug()<<"createDoc"<<endl;
 
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
@@ -160,22 +148,10 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   m_docList.append(doc);
   m_docInfos.insert (doc, new KateDocumentInfo (docInfo));
 
-  QStandardItem *modelitem = new QStandardItem(doc->documentName());
-  modelitem->setData(QVariant::fromValue(doc), DocumentRole);
-//   modelitem->setData(m_docList.count()-1, OpeningOrderRole);
-  modelitem->setEditable(false);
-  modelitem->setIcon(KIcon ("null"));
-  modelitem->setToolTip(doc->url().prettyUrl());
-  modelitem->setData(false,RestoreOpeningFailedRole);
-  appendRow(modelitem);
-  m_documentItemMapping.insert(doc, modelitem);
-
   // connect internal signals...
-  connect(doc, SIGNAL(documentUrlChanged ( KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged(KTextEditor::Document *)));
-  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModChanged1(KTextEditor::Document *)));
-  connect(doc, SIGNAL(documentNameChanged ( KTextEditor::Document * )), SLOT(slotDocumentNameChanged(KTextEditor::Document *)));
-  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-          this, SLOT(slotModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged1(KTextEditor::Document*)));
+  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+          this, SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
   // we have a new document, show it the world
   
@@ -189,49 +165,14 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   return doc;
 }
 
-void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
-{
-  int rows = rowCount();
-  for (int i = 0;i < rows;i++)
-  {
-    QStandardItem *it = item(i);
-    if (it->data(KateDocManager::DocumentRole).value<KTextEditor::Document*>() == doc)
-    {
-      kDebug()<<"docname changed: "<<it->text()<<"----->"<<doc->documentName();
-      it->setText(doc->documentName());
-      break;
-    }
-  }
-}
-
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
   KateApp::self()->emitDocumentClosed(QString("%1").arg((qptrdiff)doc));
   kDebug()<<"deleting document with name:"<<doc->documentName();
-  int remove_row=-1;
-  int rows = rowCount();
-  m_documentItemMapping.remove(doc);
-  for (int i = 0;i < rows;i++)
-  {
-    QStandardItem *it = item(i);
-    if (it->data(KateDocManager::DocumentRole).value<KTextEditor::Document*>() == doc)
-    {
-      remove_row=i;
-      break;
-    }
-  }
 
   // document will be deleted, soon
-  emit documentWillBeDeleted (doc);
   emit m_documentManager->documentWillBeDeleted (doc);
 
-
-  for (int i=0;i<rowCount();i++) {
-        kDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
-  }
-  if (remove_row>-1)
-      removeRow(remove_row);
-  
   // really delete the document and it's infos
   delete m_docInfos.take (doc);
   delete m_docList.takeAt (m_docList.indexOf(doc));
@@ -240,8 +181,6 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   // document is gone, emit our signals
   emit documentDeleted (doc);
   emit m_documentManager->documentDeleted (doc);
-
-
 }
 
 KTextEditor::Document *KateDocManager::document (uint n)
@@ -318,7 +257,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
       }
     }
 
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModChanged(KTextEditor::Document *)));
+    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged(KTextEditor::Document*)));
 
     emit initialDocumentReplaced();
 
@@ -483,17 +422,15 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
 }
 
 /**
- * Find all modified documents, excluding @p excludedDoc.
- * @param excludedDoc a document that will never be included into the returned
- * list (also if it has been modified).
+ * Find all modified documents.
  * @return Return the list of all modified documents.
  */
-QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList(KTextEditor::Document* excludedDoc)
+QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList()
 {
   QList<KTextEditor::Document*> modified;
   foreach (KTextEditor::Document* doc, m_docList)
   {
-    if ((excludedDoc != doc) && (doc->isModified()))
+    if (doc->isModified())
     {
       modified.append(doc);
     }
@@ -580,13 +517,12 @@ void KateDocManager::closeOrphaned()
 {
   foreach ( KTextEditor::Document *doc, m_docList )
   {
-    QStandardItem *item = m_documentItemMapping[doc];
-    if (item->data(RestoreOpeningFailedRole).toBool()) {
+    KateDocumentInfo* info = documentInfo(doc);
+    if (info && !info->openSuccess) {
       closeDocument(doc);
     }
   }
 }
-
 
 void KateDocManager::saveDocumentList (KConfig* config)
 {
@@ -625,25 +561,21 @@ void KateDocManager::restoreDocumentList (KConfig* config)
   pd->setAllowCancel(false);
   pd->progressBar()->setRange(0, count);
 
-  bool first = true;
   m_documentStillToRestore = count;
-  m_restoringDocumentList = true;
   m_openingErrors.clear();
   for (unsigned int i = 0; i < count; i++)
   {
     KConfigGroup cg( config, QString("Document %1").arg(i));
     KTextEditor::Document *doc = 0;
 
-    if (first)
-    {
-      first = false;
+    if (i == 0) {
       doc = document (0);
     }
     else
       doc = createDoc ();
     doc->setSuppressOpeningErrorDialogs(true);
     connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-    connect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
+    connect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
     if (KTextEditor::ParameterizedSessionConfigInterface *iface =
       qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
     {
@@ -652,7 +584,6 @@ void KateDocManager::restoreDocumentList (KConfig* config)
 
     pd->progressBar()->setValue(pd->progressBar()->value() + 1);
   }
-  m_restoringDocumentList = false;
   delete pd;
 }
 
@@ -764,38 +695,15 @@ void KateDocManager::slotModChanged(KTextEditor::Document * doc)
   saveMetaInfos(doc);
 }
 
-
-void KateDocManager::slotDocumentUrlChanged(KTextEditor::Document *doc)
-{
-  if (!m_documentItemMapping.contains(doc)) return;
-  m_documentItemMapping[doc]->setToolTip(doc->url().prettyUrl());
-}
-
 void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
 {
-  kDebug() << "KateDocManager::slotModChanged (1)";
-  if (!m_documentItemMapping.contains(doc)) return;
-  kDebug() << "KateDocManager::slotModChanged (2)";
-  QStandardItem *item = m_documentItemMapping[doc];
-  const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
-  item->setIcon(KIcon("null"));
+  const KateDocumentInfo *info = documentInfo(doc);
+
   if (info && info->modifiedOnDisc)
   {
-    if (doc->isModified()) item->setIcon(KIcon("document-save", 0, QStringList () << "emblem-important"));
-    else item->setIcon(KIcon("dialog-warning"));
-
     QMetaObject::invokeMethod(KateApp::self()->activeMainWindow(), "queueModifiedOnDisc",
             Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
-  } else
-    if (doc->isModified()) item->setIcon(KIcon("document-save"));
-    else item->setIcon(KIcon("null"));
-}
-
-QModelIndex KateDocManager::indexForDocument(KTextEditor::Document *document)
-{
-  int row = m_docList.indexOf(document);
-  if (row == -1) return index(-1, -1);
-  else return index(row, 0);
+  }
 }
 
 void KateDocManager::documentOpened()
@@ -806,13 +714,14 @@ void KateDocManager::documentOpened()
   if (!doc) return; // should never happen, but who knows
   doc->setSuppressOpeningErrorDialogs(false);
   disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-  disconnect(doc, SIGNAL(canceled(const QString&)), this, SLOT(documentOpened()));
+  disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
   if (doc->openingError())
   {
     m_openingErrors += '\n' + doc->openingErrorMessage()+"\n\n";
-    QStandardItem *item = m_documentItemMapping[doc];
-    item->setData(true,RestoreOpeningFailedRole);
-    item->setData(colors.foreground(KColorScheme::InactiveText).color(),Qt::ForegroundRole);
+    KateDocumentInfo* info = documentInfo(doc);
+    if (info) {
+      info->openSuccess = false;
+    }
   }
   --m_documentStillToRestore;
 

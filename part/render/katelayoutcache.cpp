@@ -150,10 +150,10 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   /**
    * connect to all possible editing primitives
    */
-  connect(&m_renderer->doc()->buffer(), SIGNAL(lineWrapped(const KTextEditor::Cursor&)), this, SLOT(wrapLine(const KTextEditor::Cursor&)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
   connect(&m_renderer->doc()->buffer(), SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
-  connect(&m_renderer->doc()->buffer(), SIGNAL(textInserted(const KTextEditor::Cursor &, const QString &)), this, SLOT(insertText(const KTextEditor::Cursor &, const QString &)));
-  connect(&m_renderer->doc()->buffer(), SIGNAL(textRemoved(const KTextEditor::Range &, const QString &)), this, SLOT(removeText(const KTextEditor::Range &)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(textInserted(KTextEditor::Cursor,QString)), this, SLOT(insertText(KTextEditor::Cursor,QString)));
+  connect(&m_renderer->doc()->buffer(), SIGNAL(textRemoved(KTextEditor::Range,QString)), this, SLOT(removeText(KTextEditor::Range)));
 }
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
@@ -166,7 +166,11 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
   enableLayoutCache = true;
 
-  int realLine = m_renderer->doc()->getRealLine(startPos.line());
+  int realLine;
+  if (newViewLineCount == -1)
+    realLine = m_renderer->doc()->getRealLine(m_renderer->doc()->getVirtualLine(startPos.line()));
+  else
+    realLine = m_renderer->doc()->getRealLine(startPos.line());
   int _viewLine = 0;
 
   if (wrap()) {

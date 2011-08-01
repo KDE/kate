@@ -55,7 +55,7 @@ KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
     {
         dirwatch->addDir( lst[i] );
     }
-    connect( dirwatch, SIGNAL(dirty (const QString &) ), this, SLOT( slotUpdateSessionMenu() ) );
+    connect( dirwatch, SIGNAL(dirty(QString)), this, SLOT(slotUpdateSessionMenu()) );
     setPopupIcon( "kate" );
     setHasConfigurationInterface(true);
 }
@@ -81,8 +81,8 @@ QWidget *KateSessionApplet::widget()
 
         initSessionFiles();
 
-        connect(m_listView, SIGNAL(activated(const QModelIndex &)),
-            this, SLOT(slotOnItemClicked(const QModelIndex &)));
+        connect(m_listView, SIGNAL(activated(QModelIndex)),
+            this, SLOT(slotOnItemClicked(QModelIndex)));
     }
     return m_listView;
 }

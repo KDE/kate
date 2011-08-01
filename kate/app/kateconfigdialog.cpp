@@ -95,8 +95,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
                                        "files that have been modified on the hard disk. If not enabled, you will "
                                        "be asked what to do with a file that has been modified on the hard disk only "
                                        "when that file is tried to be saved.") );
-  connect( m_modNotifications, SIGNAL( toggled( bool ) ),
-           this, SLOT( slotChanged() ) );
+  connect( m_modNotifications, SIGNAL(toggled(bool)),
+           this, SLOT(slotChanged()) );
 
   vbox->addWidget(m_modNotifications);
   buttonGroup->setLayout(vbox);
@@ -114,7 +114,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
                                     "Check this if you want document configuration like for example "
                                     "bookmarks to be saved past editor sessions. The configuration will be "
                                     "restored if the document has not changed when reopened."));
-  connect( m_saveMetaInfos, SIGNAL( toggled( bool ) ), this, SLOT( slotChanged() ) );
+  connect( m_saveMetaInfos, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   vbox->addWidget(m_saveMetaInfos);
 
@@ -127,8 +127,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
   m_daysMetaInfos->setValue( KateDocManager::self()->getDaysMetaInfos() );
   label->setBuddy( m_daysMetaInfos );
-  connect( m_saveMetaInfos, SIGNAL( toggled( bool ) ), metaInfos, SLOT( setEnabled( bool ) ) );
-  connect( m_daysMetaInfos, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  connect( m_saveMetaInfos, SIGNAL(toggled(bool)), metaInfos, SLOT(setEnabled(bool)) );
+  connect( m_daysMetaInfos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()) );
 
   vbox->addWidget(metaInfos);
   buttonGroup->setLayout(vbox);
@@ -162,7 +162,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_restoreVC->setText(i18n("Include &window configuration"));
   m_restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
   m_restoreVC->setWhatsThis( i18n("Check this if you want all your views and frames restored each time you open Kate"));
-  connect( m_restoreVC, SIGNAL( toggled( bool ) ), this, SLOT( slotChanged() ) );
+  connect( m_restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   
   vbox->addWidget(m_restoreVC);
   buttonGroup->setLayout(vbox);
@@ -199,7 +199,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   KVBox *page = new KVBox();
   page->setSpacing( -1 );
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
-  connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+  connect( configPluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
 
   item = addSubPage( applicationItem, page, i18n("Plugins") );
   item->setHeader( i18n("Plugin Manager") );
@@ -223,8 +223,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
   connect(this, SIGNAL(applyClicked()), this, SLOT(slotApply()));
-  connect(this, SIGNAL(currentPageChanged( KPageWidgetItem *, KPageWidgetItem*)),
-          this, SLOT(slotCurrentPageChanged( KPageWidgetItem*, KPageWidgetItem* )));
+  connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
+          this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
   m_dataChanged = false;
 
   resize(minimumSizeHint());
@@ -254,7 +254,7 @@ void KateConfigDialog::addEditorPages() {
     info->editorPage = 0; //info->configPageInterface->configPage (i, page);
     info->idInPlugin=i;
     info->pageWidgetItem = item;
-    //connect( info->page, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+    //connect( info->page, SIGNAL(changed()), this, SLOT(slotChanged()) );
     m_pluginPages.insert(item,info);
     
     
@@ -286,7 +286,7 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
     info->editorPage = 0;
     info->idInPlugin=i;
     info->pageWidgetItem = item;
-    //connect( info->page, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+    //connect( info->page, SIGNAL(changed()), this, SLOT(slotChanged()) );
     m_pluginPages.insert(item,info);
   }
 }
@@ -300,11 +300,11 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
   if (info->type==PluginPageListItem::Plugin) {
     info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
     info->pluginPage->show();
-    connect( info->pluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+    connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
   } else if (info->type==PluginPageListItem::Editor) {
     info->editorPage = KateDocManager::self()->editor()->configPage(info->idInPlugin, info->pageParent);
     info->editorPage->show();
-    connect( info->editorPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+    connect( info->editorPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
   }
 
   

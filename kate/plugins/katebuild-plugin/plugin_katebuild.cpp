@@ -146,8 +146,8 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_buildUi.ktabwidget->setCurrentWidget(m_targetsUi);
 
 
-    connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
-            SLOT(slotItemSelected(QTreeWidgetItem *)));
+    connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+            SLOT(slotItemSelected(QTreeWidgetItem*)));
 
     m_buildUi.plainTextEdit->setReadOnly(true);
 
@@ -166,7 +166,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     m_proc = new KProcess();
 
-    connect(m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcExited(int, QProcess::ExitStatus)));
+    connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
     connect(m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
 

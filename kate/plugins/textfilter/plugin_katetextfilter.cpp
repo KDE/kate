@@ -182,7 +182,7 @@ void PluginKateTextFilter::slotEditFilter()
   ui.filterBox->setMaxCount(10);
   ui.filterBox->setHistoryItems(items, true);
 
-  connect(ui.filterBox, SIGNAL(activated(const QString&)), &dialog, SIGNAL(okClicked()));
+  connect(ui.filterBox, SIGNAL(activated(QString)), &dialog, SIGNAL(okClicked()));
 
   if (dialog.exec() == QDialog::Accepted) {
     pasteResult = !ui.checkBox->isChecked();
@@ -210,8 +210,8 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
     connect (m_pFilterProcess, SIGNAL(readyReadStandardError()),
              this, SLOT(slotFilterReceivedStderr()));
 
-    connect (m_pFilterProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
-             this, SLOT(slotFilterProcessExited(int, QProcess::ExitStatus))) ;
+    connect (m_pFilterProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
+             this, SLOT(slotFilterProcessExited(int,QProcess::ExitStatus))) ;
   }
 
   slipInFilter (*m_pFilterProcess, *kv, filter);

@@ -72,7 +72,7 @@ PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::M
     KAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1) );
-    connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotQuickSwitch() ) );
+    connect( a, SIGNAL(triggered(bool)), this, SLOT(slotQuickSwitch()) );
 
     mainwindow->guiFactory()->addClient (this);
 
@@ -180,11 +180,11 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
 
-    connect(m_inputLine,SIGNAL(textChanged(const QString&)),m_model,SLOT(setFilterFixedString(const QString&)));
-    connect(m_model,SIGNAL(rowsInserted(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));
-    connect(m_model,SIGNAL(rowsRemoved(const QModelIndex &,int,int)),this,SLOT(reselectFirst()));
+    connect(m_inputLine,SIGNAL(textChanged(QString)),m_model,SLOT(setFilterFixedString(QString)));
+    connect(m_model,SIGNAL(rowsInserted(QModelIndex,int,int)),this,SLOT(reselectFirst()));
+    connect(m_model,SIGNAL(rowsRemoved(QModelIndex,int,int)),this,SLOT(reselectFirst()));
 
-    connect(m_listView,SIGNAL(activated(const QModelIndex &)),this,SLOT(accept()));
+    connect(m_listView,SIGNAL(activated(QModelIndex)),this,SLOT(accept()));
 
     m_listView->setModel(m_model);
     m_model->setSourceModel(base_model);

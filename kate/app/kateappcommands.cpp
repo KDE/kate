@@ -173,7 +173,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
       }
 
       if ( wanted_document_position > KateDocManager::self()->documents()) {
-        msg = i18n("Can't go to the document");
+        msg = i18n("Cannot go to the document");
       } else {
         mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
       }
@@ -240,7 +240,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
               "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
               "<p>Goes to <b>[N]</b>th next document (\"<b>b</b>uffer\") in document list."
               "<b>[N]</b> defaults to one. </p>"
-              "<p>Warps around the end of the document last.</p>");
+              "<p>Wraps around the end of the document list.</p>");
         return true;
     }
     else if (re_bufferPrev.exactMatch(cmd)) {
@@ -248,7 +248,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
             "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
             "<p>Goes to <b>[N]</b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
             "<p> <b>[N]</b> defaults to one. </p>"
-            "<p>Warps around the start of the document last.</p>");
+            "<p>Wraps around the start of the document list.</p>");
       return true;
     }
     else if (re_bufferFirst.exactMatch(cmd)) {

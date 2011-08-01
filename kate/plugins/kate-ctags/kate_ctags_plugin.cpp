@@ -112,8 +112,8 @@ KateCTagsConfigPage::KateCTagsConfigPage( QWidget* parent, KateCTagsPlugin *plug
     connect(m_confUi.addButton, SIGNAL(clicked()), this, SLOT(addGlobalTagTarget()));
     connect(m_confUi.delButton, SIGNAL(clicked()), this, SLOT(delGlobalTagTarget()));
 
-    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), 
-            this,    SLOT(updateDone(int, QProcess::ExitStatus)));
+    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), 
+            this,    SLOT(updateDone(int,QProcess::ExitStatus)));
     
     reset();
 }

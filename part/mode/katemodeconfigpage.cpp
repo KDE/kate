@@ -91,12 +91,12 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
 
   reload();
 
-  connect( ui->edtName, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtSection, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtVariables, SIGNAL( textChanged( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtFileExtensions, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtName, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( ui->edtSection, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( ui->edtVariables, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( ui->edtFileExtensions, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( ui->edtMimeTypes, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( ui->sbPriority, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
   connect( ui->cmbIndenter, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
 

@@ -227,9 +227,10 @@ class KateCodeFoldingNode: public QObject
     bool hasBrothers();
     bool isDuplicated(KateCodeFoldingNode *node);
     void mergeChildren(QVector <KateCodeFoldingNode*> &list1, QVector <KateCodeFoldingNode*> &list2);
-    bool removeEnd(KateCodeFoldingNode *node);
-    bool removeStart(KateCodeFoldingNode *node);
-    KateCodeFoldingNode* removeChild(KateCodeFoldingNode *node);
+    bool removeEndDescending(KateCodeFoldingNode *deletedNode);
+    bool removeEndAscending(KateCodeFoldingNode *deletedNode);
+    bool removeStart(KateCodeFoldingNode *deletedNode);
+    KateCodeFoldingNode* removeChild(KateCodeFoldingNode *deletedNode);
     QVector<KateCodeFoldingNode *> removeChildrenInheritedFrom(KateCodeFoldingNode *node);
     void setParent();
     void updateParent(QVector <KateCodeFoldingNode*> newExcess, int newShortage);
@@ -274,9 +275,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
     void incrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
     void decrementBy1 (QVector <KateCodeFoldingNode*> &nodesLine);
+    void addDeltaToLine (QVector <KateCodeFoldingNode*> &nodesLine, int delta);
 
     void lineHasBeenInserted (int line, int column);
-    void lineHasBeenRemoved  (int line);
+    void linesHaveBeenRemoved  (int from, int to);
       // Makes clear what KateLineInfo contains
     void getLineInfo (KateLineInfo *info, int line);
 
@@ -310,6 +312,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     // Debug methods and members
     void printMapping();
     QString treeString;
+    void searchThisNode (KateCodeFoldingNode* deletedNode);
 
     // Will build the output using the tree alg ; Call : buildTreeString(root,1);
     void buildTreeString(KateCodeFoldingNode *node, int level);
@@ -360,8 +363,8 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void toggleRegionVisibility (int);
     void collapseToplevelNodes ();
     void expandToplevelNodes ();
-    int collapseOne (int realLine);
-    void expandOne  (int realLine, int numLines);
+    int collapseOne (int realLine, int column);
+    void expandOne  (int realLine, int column);
     void ensureVisible (int l);
 
   Q_SIGNALS:

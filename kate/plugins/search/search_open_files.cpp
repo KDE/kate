@@ -76,5 +76,4 @@ void SearchOpenFiles::doSearchNextFile()
         emit searchNextFile();
     }
 }
-
-    
+ 

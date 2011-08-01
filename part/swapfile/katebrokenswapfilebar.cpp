@@ -38,8 +38,8 @@ KateBrokenSwapFileBar::KateBrokenSwapFileBar(KateView *view, QWidget *parent)
   m_ui->btnOk->setGuiItem(KGuiItem(m_ui->btnOk->text(), KIcon("dialog-ok")));
 
   // clicking on the "Help" link pops up the content as what's this
-  connect(m_ui->lblSwap, SIGNAL(linkActivated(const QString&)),
-          this, SLOT(showWhatsThis(const QString&)));
+  connect(m_ui->lblSwap, SIGNAL(linkActivated(QString)),
+          this, SLOT(showWhatsThis(QString)));
   connect(m_ui->btnOk, SIGNAL(clicked()), this, SIGNAL(hideMe()));
 }
 

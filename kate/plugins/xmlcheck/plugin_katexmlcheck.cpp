@@ -90,7 +90,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     connect(a, SIGNAL(triggered()), this, SLOT(slotValidate()));
     // TODO?:
     //(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
-    //	SLOT( slotIndent() ), actionCollection(), "xml_indent" );
+    //	SLOT(slotIndent()), actionCollection(), "xml_indent" );
 
     listview->setFocusPolicy(Qt::NoFocus);
     listview->addColumn(i18n("#"), -1);
@@ -101,7 +101,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     listview->addColumn(i18n("Message"), -1);
     listview->setAllColumnsShowFocus(true);
     listview->setResizeMode(Q3ListView::LastColumn);
-    connect(listview, SIGNAL(clicked(Q3ListViewItem *)), SLOT(slotClicked(Q3ListViewItem *)));
+    connect(listview, SIGNAL(clicked(Q3ListViewItem*)), SLOT(slotClicked(Q3ListViewItem*)));
 
 /* TODO?: invalidate the listview when document has changed
    Kate::View *kv = application()->activeMainWindow()->activeView();
@@ -113,7 +113,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
 */
 
     m_proc = new KProcess();
-    connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(slotProcExited (int, QProcess::ExitStatus)));
+    connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
     // we currently only want errors:
     m_proc->setOutputChannelMode(KProcess::OnlyStderrChannel);
 

@@ -34,7 +34,6 @@
 #include <QMap>
 #include <QPair>
 #include <QDateTime>
-#include <QStandardItemModel>
 
 namespace KParts
 {
@@ -47,19 +46,24 @@ class KateMainWindow;
 class KateDocumentInfo
 {
   public:
+    enum CustomRoles {RestoreOpeningFailedRole };
+
+  public:
     KateDocumentInfo ()
         : modifiedOnDisc (false)
         , modifiedOnDiscReason (KTextEditor::ModificationInterface::OnDiskUnmodified)
         , openedByUser(false)
+        , openSuccess(true)
     {}
 
     bool modifiedOnDisc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason modifiedOnDiscReason;
 
     bool openedByUser;
+    bool openSuccess;
 };
 
-class KateDocManager : public QStandardItemModel
+class KateDocManager : public QObject
 {
     Q_OBJECT
 
@@ -67,15 +71,11 @@ class KateDocManager : public QStandardItemModel
     KateDocManager (QObject *parent);
     ~KateDocManager ();
 
-    enum CustomRoles {DocumentRole = Qt::UserRole + 1, OpeningOrderRole, UrlRole, RestoreOpeningFailedRole };
-
     /**
      * should the document manager suppress all opening error dialogs on openUrl?
      + @param suppress suppress dialogs?
      */
     void setSuppressOpeningErrorDialogs (bool suppress);
-
-    virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     static KateDocManager *self ();
 
@@ -125,7 +125,7 @@ class KateDocManager : public QStandardItemModel
     bool closeOtherDocuments(KTextEditor::Document*);
     bool closeOtherDocuments(uint);
 
-    QList<KTextEditor::Document*> modifiedDocumentList(KTextEditor::Document* excludedDoc = NULL);
+    QList<KTextEditor::Document*> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);
 
     void saveDocumentList (class KConfig *config);
@@ -148,8 +148,6 @@ class KateDocManager : public QStandardItemModel
     {
       m_daysMetaInfos = i;
     }
-
-    QModelIndex indexForDocument(KTextEditor::Document *document);
 
   public Q_SLOTS:
     /**
@@ -182,13 +180,6 @@ class KateDocManager : public QStandardItemModel
     void documentCreated (KTextEditor::Document *document);
 
     /**
-     * This signal is emitted before a \p document which should be closed is deleted
-     * The document is still accessible and usable, but it will be deleted
-     * after this signal was send.
-     */
-    void documentWillBeDeleted (KTextEditor::Document *document);
-
-    /**
      * This signal is emitted when the \p document has been deleted.
      *    
      *  Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
@@ -202,8 +193,6 @@ class KateDocManager : public QStandardItemModel
     void slotModifiedOnDisc (KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);
     void slotModChanged1(KTextEditor::Document *doc);
-    void slotDocumentNameChanged(KTextEditor::Document *document);
-    void slotDocumentUrlChanged(KTextEditor::Document *doc);
 
     void showRestoreErrors ();
   private:
@@ -226,8 +215,6 @@ class KateDocManager : public QStandardItemModel
     typedef QPair<KUrl, QDateTime> TPair;
     QMap<KTextEditor::Document *, TPair> m_tempFiles;
     QString m_dbusObjectPath;
-    QMap<KTextEditor::Document*, QStandardItem*> m_documentItemMapping;
-    bool m_restoringDocumentList;
     QString m_openingErrors;
     int m_documentStillToRestore;
 

@@ -210,7 +210,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   }
   m_list->resizeColumnToContents(0);
 
-  connect(m_list, SIGNAL(itemChanged(QTreeWidgetItem *, int)), SLOT(slotItemActivated(QTreeWidgetItem *, int)));
+  connect(m_list, SIGNAL(itemChanged(QTreeWidgetItem*,int)), SLOT(slotItemActivated(QTreeWidgetItem*,int)));
   connect(new QPushButton(i18n("Se&lect All"), box), SIGNAL(clicked()), this, SLOT(slotSelectAll()));
 }
 

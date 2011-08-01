@@ -82,8 +82,8 @@ KateBtBrowserPlugin& KateBtBrowserPlugin::self()
 Kate::PluginView *KateBtBrowserPlugin::createView (Kate::MainWindow *mainWindow)
 {
   KateBtBrowserPluginView* pv = new KateBtBrowserPluginView (mainWindow);
-  connect(this, SIGNAL(newStatus(const QString&)),
-          pv, SLOT(setStatus(const QString&)));
+  connect(this, SIGNAL(newStatus(QString)),
+          pv, SLOT(setStatus(QString)));
   pv->setStatus(i18n("Indexed files: %1", db.size()));
   return pv;
 }
@@ -165,7 +165,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(Kate::MainWindow *mainWindow)
   connect(btnBacktrace, SIGNAL(clicked()), this, SLOT(loadFile()));
   connect(btnClipboard, SIGNAL(clicked()), this, SLOT(loadClipboard()));
   connect(btnConfigure, SIGNAL(clicked()), this, SLOT(configure()));
-  connect(lstBacktrace, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(itemActivated(QTreeWidgetItem*, int)));
+  connect(lstBacktrace, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(itemActivated(QTreeWidgetItem*,int)));
 }
 
 KateBtBrowserPluginView::~KateBtBrowserPluginView ()
@@ -307,7 +307,7 @@ KateBtConfigWidget::KateBtConfigWidget(QWidget* parent, const char* name)
 
   connect(btnAdd, SIGNAL(clicked()), this, SLOT(add()));
   connect(btnRemove, SIGNAL(clicked()), this, SLOT(remove()));
-  connect(edtExtensions, SIGNAL(textChanged(const QString&)), this, SLOT(textChanged()));
+  connect(edtExtensions, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
 
   m_changed = false;
 }

@@ -147,20 +147,20 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()));
-  connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
+  connect(m_presentationModel, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(rowsInserted(QModelIndex,int,int)));
   connect(m_argumentHintModel, SIGNAL(contentStateChanged(bool)), this, SLOT(argumentHintsChanged(bool)));
 
   // No smart lock, no queued connects
-  connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(cursorPositionChanged()));
-  connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()));
+  connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(cursorPositionChanged()));
+  connect(view(), SIGNAL(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(updatePositionSlot()));
   
   /**
    * connect to all possible editing primitives
    */
-  connect(&view()->doc()->buffer(), SIGNAL(lineWrapped(const KTextEditor::Cursor&)), this, SLOT(wrapLine(const KTextEditor::Cursor&)));
+  connect(&view()->doc()->buffer(), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
   connect(&view()->doc()->buffer(), SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
-  connect(&view()->doc()->buffer(), SIGNAL(textInserted(const KTextEditor::Cursor &, const QString &)), this, SLOT(insertText(const KTextEditor::Cursor &, const QString &)));
-  connect(&view()->doc()->buffer(), SIGNAL(textRemoved(const KTextEditor::Range &, const QString &)), this, SLOT(removeText(const KTextEditor::Range &)));
+  connect(&view()->doc()->buffer(), SIGNAL(textInserted(KTextEditor::Cursor,QString)), this, SLOT(insertText(KTextEditor::Cursor,QString)));
+  connect(&view()->doc()->buffer(), SIGNAL(textRemoved(KTextEditor::Range,QString)), this, SLOT(removeText(KTextEditor::Range)));
 
   // This is a non-focus widget, it is passed keyboard input from the view
 

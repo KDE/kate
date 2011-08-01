@@ -202,21 +202,21 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_dragInfo.state = diNone;
 
   // timers
-  connect( &m_dragScrollTimer, SIGNAL( timeout() ),
-             this, SLOT( doDragScroll() ) );
+  connect( &m_dragScrollTimer, SIGNAL(timeout()),
+             this, SLOT(doDragScroll()) );
 
-  connect( &m_scrollTimer, SIGNAL( timeout() ),
-             this, SLOT( scrollTimeout() ) );
+  connect( &m_scrollTimer, SIGNAL(timeout()),
+             this, SLOT(scrollTimeout()) );
 
-  connect( &m_cursorTimer, SIGNAL( timeout() ),
-             this, SLOT( cursorTimeout() ) );
+  connect( &m_cursorTimer, SIGNAL(timeout()),
+             this, SLOT(cursorTimeout()) );
 
-  connect( &m_textHintTimer, SIGNAL( timeout() ),
-             this, SLOT( textHintTimeout() ) );
+  connect( &m_textHintTimer, SIGNAL(timeout()),
+             this, SLOT(textHintTimeout()) );
 
   // selection changed to set anchor
-  connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
-             this, SLOT( viewSelectionChanged() ) );
+  connect( m_view, SIGNAL(selectionChanged(KTextEditor::View*)),
+             this, SLOT(viewSelectionChanged()) );
 
 #ifndef QT_NO_ACCESSIBILITY
   QAccessible::installFactory(accessibleInterfaceFactory);
@@ -1286,7 +1286,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   }
 
   KTextEditor::Cursor realCursor = virtualCursor;
-  realCursor.setLine(doc()->getRealLine(virtualCursor.line()));
+  realCursor.setLine(doc()->getRealLine(doc()->getVirtualLine(virtualCursor.line())));
 
   int cursorViewLine = cache()->viewLine(realCursor);
 
@@ -1312,7 +1312,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
     if (offset <= currentOffset) {
       // the answer is on the same line
       KateTextLayout thisLine = cache()->textLayout(realCursor.line(), cursorViewLine - offset);
-      Q_ASSERT(thisLine.virtualLine() == virtualCursor.line());
+      Q_ASSERT(thisLine.virtualLine() == doc()->getVirtualLine(virtualCursor.line()));
       return KTextEditor::Cursor(virtualCursor.line(), thisLine.startCol());
     }
 

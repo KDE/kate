@@ -154,16 +154,24 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     inline int count() const { return lines(); }
 
     /**
-     * Wrap line at given cursor position.
-     * @param position line/column as cursor where to wrap
+     * Unwrap given lines.
+     * @param from - first line of the block
+     * @param to - last line of the block
+     * @param lastLine - last line of the document
      */
-    void wrapLine (const KTextEditor::Cursor &position);
+    void unwrapLines (int from, int to);
 
     /**
      * Unwrap given line.
      * @param line line to unwrap
      */
     void unwrapLine (int line);
+
+    /**
+     * Wrap line at given cursor position.
+     * @param position line/column as cursor where to wrap
+     */
+    void wrapLine (const KTextEditor::Cursor &position);
 
   private:
      inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);

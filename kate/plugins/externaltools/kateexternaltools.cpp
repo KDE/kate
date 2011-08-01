@@ -637,7 +637,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, K
   btnMoveDown->setIcon(KIcon("go-down"));
 
   connect( lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()) );
-  connect( lbTools, SIGNAL( itemDoubleClicked ( QListWidgetItem * ) ), this, SLOT( slotEdit() ) );
+  connect( lbTools, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(slotEdit()) );
   connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
   connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemove()) );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );

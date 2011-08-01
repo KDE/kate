@@ -90,3 +90,4 @@ const QStringList& EditorApp::modes() {
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

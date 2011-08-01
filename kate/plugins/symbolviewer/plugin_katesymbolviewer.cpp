@@ -84,7 +84,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w) : Ka
   KGlobal::locale()->insertCatalog("katesymbolviewer");
   KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
   act->setText(i18n("Hide Symbols"));
-  connect(act,SIGNAL(toggled( bool )),this,SLOT(slotInsertSymbol()));
+  connect(act,SIGNAL(toggled(bool)),this,SLOT(slotInsertSymbol()));
   act->setCheckedState(KGuiItem(i18n("Show Symbols")));
 
   w->guiFactory()->addClient (this);
@@ -160,12 +160,12 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       symbols->setLayoutDirection( Qt::LeftToRight );
       treeMode = 0;
 
-      connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(goToSymbol(QTreeWidgetItem *)));
-      connect(symbols, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(slotShowContextMenu(const QPoint&)));
+      connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
+      connect(symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
 
       // FIXME - lately this is broken and doesn't work anymore :(
       connect(win, SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
-      //connect(symbols, SIGNAL(resizeEvent(QResizeEvent *)), this, SLOT(slotViewChanged(QResizeEvent *)));
+      //connect(symbols, SIGNAL(resizeEvent(QResizeEvent*)), this, SLOT(slotViewChanged(QResizeEvent*)));
 
       m_Active = true;
       //symbols->addColumn(i18n("Symbols"), symbols->parentWidget()->width());
@@ -319,7 +319,7 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
   p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
   p->expandTree->setChecked(config.readEntry("ExpandTree", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
-      SLOT(applyConfig(KatePluginSymbolViewerConfigPage *)) );
+      SLOT(applyConfig(KatePluginSymbolViewerConfigPage*)) );
   return (Kate::PluginConfigPage*)p;
 }
 

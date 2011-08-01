@@ -66,7 +66,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
   connect(m_tabBar, SIGNAL(closeRequest(int)), this, SLOT(slotTabCloseRequest(int)));
   connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotTabCloseRequest(int)));
   connect(m_tabBar, SIGNAL(wheelDelta(int)), this, SLOT(slotWheelDelta(int)));
-  connect(m_tabBar, SIGNAL(tabMoved(int, int)), this, SLOT(slotTabMoved(int, int)));
+  connect(m_tabBar, SIGNAL(tabMoved(int,int)), this, SLOT(slotTabMoved(int,int)));
 
   foreach(KTextEditor::Document* document, Kate::application()->documentManager()->documents()) {
     slotDocumentCreated(document);

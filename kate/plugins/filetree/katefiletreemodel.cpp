@@ -628,8 +628,8 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
   connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentModifiedChanged(KTextEditor::Document*)));
-  connect(doc, SIGNAL(modifiedOnDisk( KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason ) ),
-          this,  SLOT(documentModifiedOnDisc( KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason ) ) );
+  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+          this,  SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)) );
 
   kDebug(debugArea()) << "after add:" << item;
   
@@ -749,7 +749,6 @@ class EditViewCount
     int view;
 };
 
-// shamelessly "borrowed" from KateViewDocumentProxyModel
 void KateFileTreeModel::updateBackgrounds(bool force)
 {
   if (!m_shadingEnabled && !force) return;

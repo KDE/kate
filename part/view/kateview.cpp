@@ -137,7 +137,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_lineToUpdateMax (-1)
 {
   // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
-  connect(this, SIGNAL(delayedUpdateOfView ()), this, SLOT(slotDelayedUpdateOfView ()), Qt::QueuedConnection);
+  connect(this, SIGNAL(delayedUpdateOfView()), this, SLOT(slotDelayedUpdateOfView()), Qt::QueuedConnection);
 
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -298,15 +298,15 @@ void KateView::setupConnections()
 {
   connect( m_doc, SIGNAL(undoChanged()),
            this, SLOT(slotUpdateUndo()) );
-  connect( m_doc, SIGNAL(highlightingModeChanged(KTextEditor::Document *)),
+  connect( m_doc, SIGNAL(highlightingModeChanged(KTextEditor::Document*)),
            this, SLOT(slotHlChanged()) );
-  connect( m_doc, SIGNAL(canceled(const QString&)),
-           this, SLOT(slotSaveCanceled(const QString&)) );
+  connect( m_doc, SIGNAL(canceled(QString)),
+           this, SLOT(slotSaveCanceled(QString)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
 
-  connect( m_doc, SIGNAL(annotationModelChanged( KTextEditor::AnnotationModel*, KTextEditor::AnnotationModel* )),
-           m_viewInternal->m_leftBorder, SLOT(annotationModelChanged( KTextEditor::AnnotationModel*, KTextEditor::AnnotationModel* )) );
+  connect( m_doc, SIGNAL(annotationModelChanged(KTextEditor::AnnotationModel*,KTextEditor::AnnotationModel*)),
+           m_viewInternal->m_leftBorder, SLOT(annotationModelChanged(KTextEditor::AnnotationModel*,KTextEditor::AnnotationModel*)) );
 
   if ( m_doc->browserView() )
   {
@@ -386,7 +386,7 @@ void KateView::setupActions()
     a = m_toggleWriteLock = new KToggleAction(i18n("&Read Only Mode"), this);
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
     a->setChecked( !m_doc->isReadWrite() );
-    connect(a, SIGNAL(triggered(bool)), SLOT( toggleWriteLock() ));
+    connect(a, SIGNAL(triggered(bool)), SLOT(toggleWriteLock()));
     ac->addAction("tools_toggle_write_lock", a);
 
     a = ac->addAction("tools_uppercase");
@@ -413,7 +413,7 @@ void KateView::setupActions()
     a = ac->addAction( "tools_join_lines" );
     a->setText( i18n("Join Lines") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
-    connect(a, SIGNAL(triggered(bool)), SLOT( joinLines() ));
+    connect(a, SIGNAL(triggered(bool)), SLOT(joinLines()));
 
     a = ac->addAction( "tools_invoke_code_completion" );
     a->setText( i18n("Invoke Code Completion") );
@@ -545,7 +545,7 @@ void KateView::setupActions()
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
-  connect(a, SIGNAL(triggered(bool)), SLOT( toggleWWMarker() ));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toggleWWMarker()));
 
   a = m_switchCmdLine = ac->addAction("switch_to_cmd_line");
   a->setText(i18n("Switch to Command Line"));
@@ -562,7 +562,7 @@ void KateView::setupActions()
   ac->addAction("view_vi_input_mode", a);
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::META + Qt::Key_V));
   a->setWhatsThis( i18n("Activate/deactivate VI input mode" ));
-  connect(a, SIGNAL(triggered(bool)), SLOT( toggleViInputMode() ));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toggleViInputMode()));
 
   a = m_setEndOfLine = new KSelectAction(i18n("&End of Line"), this);
   ac->addAction("set_eol", a);
@@ -971,19 +971,7 @@ void KateView::setupCodeFolding()
 
 void KateView::slotCollapseLocal()
 {
-  //int realLine = m_doc->foldingTree()->collapseOne(cursorPosition().line());
-  m_doc->foldingTree()->collapseOne(cursorPosition().line());
-  /*if (realLine != -1) {
-    // TODO rodda: fix this to only set line and allow internal view to chose column
-    // Explicitly call internal because we want this to be registered as an internal call
-
-    // (dh) current solution: use current virtual cursor column and map it to
-    //      the real column of the new cursor line
-    Kate::TextLine textLine = m_doc->plainKateTextLine(realLine);
-    if (!textLine) return;
-    KTextEditor::Cursor cc = KTextEditor::Cursor(realLine, textLine->fromVirtualColumn(virtualCursorColumn(), m_doc->config()->tabWidth()));
-    setCursorPositionInternal(cc, 1);
-  }*/
+  m_doc->foldingTree()->collapseOne(cursorPosition().line(), cursorPosition().column());
 }
 
 void KateView::slotExpandLocal()
@@ -1375,6 +1363,7 @@ void KateView::find()
   const bool INIT_HINT_AS_INCREMENTAL = false;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
   bar->enterIncrementalMode();
+  bottomViewBar()->addBarWidget(bar);
   bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
@@ -1394,6 +1383,7 @@ void KateView::replace()
   const bool INIT_HINT_AS_POWER = true;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
   bar->enterPowerMode();
+  bottomViewBar()->addBarWidget(bar);
   bottomViewBar()->showBarWidget(bar);
   bar->setFocus();
 }
@@ -1436,14 +1426,10 @@ void KateView::switchToCmdLine ()
 
 void KateView::switchToConsole ()
 {
-  if (!m_console) {
+  if (!m_console)
     m_console = new KateScriptConsole (this, bottomViewBar());
-    bottomViewBar()->addBarWidget(m_console);
-    bottomViewBar()->showBarWidget(m_console);
-  } else {
-    bottomViewBar()->showBarWidget(m_console);
-    m_console->setupLayout();
-  }
+  bottomViewBar()->addBarWidget(m_console);
+  bottomViewBar()->showBarWidget(m_console);
   m_console->setFocus ();
   hideViModeBar();
 }
@@ -2633,7 +2619,6 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (!m_searchBar) {
     m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
-    bottomViewBar()->addBarWidget(m_searchBar);
   }
   return m_searchBar;
 }

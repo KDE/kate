@@ -128,8 +128,8 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   reset();
 
   connect( gbEnableShading, SIGNAL(toggled(bool)), this, SLOT(slotMyChanged()) );
-  connect( kcbViewShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
-  connect( kcbEditShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
+  connect( kcbViewShade, SIGNAL(changed(QColor)), this, SLOT(slotMyChanged()) );
+  connect( kcbEditShade, SIGNAL(changed(QColor)), this, SLOT(slotMyChanged()) );
   connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cmbMode, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()) );

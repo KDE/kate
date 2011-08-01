@@ -151,8 +151,8 @@ void KateDocumentTest::testRemoveTrailingSpace()
 void KateDocumentTest::testMovingInterfaceSignals()
 {
     KateDocument* doc = new KateDocument(false, false, false);
-    QSignalSpy aboutToDeleteSpy(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)));
-    QSignalSpy aboutToInvalidateSpy(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)));
+    QSignalSpy aboutToDeleteSpy(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)));
+    QSignalSpy aboutToInvalidateSpy(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)));
 
     QCOMPARE(doc->revision(), qint64(0));
 

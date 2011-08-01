@@ -141,8 +141,8 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
 
   win->guiFactory()->addClient( this );
 
-  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document *)),
-            &m_model, SLOT(slotDocumentDeleted(KTextEditor::Document *)) );
+  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)),
+            &m_model, SLOT(slotDocumentDeleted(KTextEditor::Document*)) );
 
 }
 
@@ -430,9 +430,9 @@ void PluginKateXMLToolsCompletionModel::getDTD()
 
     KApplication::setOverrideCursor( Qt::WaitCursor );
     KIO::Job *job = KIO::get( url );
-    connect( job, SIGNAL(result(KJob *)), this, SLOT(slotFinished(KJob *)) );
-    connect( job, SIGNAL(data(KIO::Job *, const QByteArray &)),
-             this, SLOT(slotData(KIO::Job *, const QByteArray &)) );
+    connect( job, SIGNAL(result(KJob*)), this, SLOT(slotFinished(KJob*)) );
+    connect( job, SIGNAL(data(KIO::Job*,QByteArray)),
+             this, SLOT(slotData(KIO::Job*,QByteArray)) );
   }
   kDebug()<<"XMLTools::getDTD: Documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
 }
@@ -1031,8 +1031,8 @@ QString InsertElement::showDialog( QStringList &completions )
 
   KHistoryComboBox *combo = new KHistoryComboBox( page );
   combo->setHistoryItems( completions, true );
-  connect( combo->lineEdit(), SIGNAL(textChanged ( const QString & )),
-           this, SLOT(slotHistoryTextChanged(const QString &)) );
+  connect( combo->lineEdit(), SIGNAL(textChanged(QString)),
+           this, SLOT(slotHistoryTextChanged(QString)) );
   QString text = i18n( "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):" );
   QLabel *label = new QLabel( text, page );
 

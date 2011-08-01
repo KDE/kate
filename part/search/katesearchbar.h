@@ -76,6 +76,8 @@ public:
     explicit KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *config);
     ~KateSearchBar();
 
+    virtual void closed();
+
     bool isPower() const;
 
     QString searchPattern() const;

@@ -212,24 +212,24 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
-  connect(m_buffer, SIGNAL(respellCheckBlock(int, int)), this , SLOT(respellCheckBlock(int, int)));
+  connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
 
   // signals for mod on hd
-  connect( KateGlobal::self()->dirWatch(), SIGNAL(dirty (const QString &)),
-           this, SLOT(slotModOnHdDirty (const QString &)) );
+  connect( KateGlobal::self()->dirWatch(), SIGNAL(dirty(QString)),
+           this, SLOT(slotModOnHdDirty(QString)) );
 
-  connect( KateGlobal::self()->dirWatch(), SIGNAL(created (const QString &)),
-           this, SLOT(slotModOnHdCreated (const QString &)) );
+  connect( KateGlobal::self()->dirWatch(), SIGNAL(created(QString)),
+           this, SLOT(slotModOnHdCreated(QString)) );
 
-  connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted (const QString &)),
-           this, SLOT(slotModOnHdDeleted (const QString &)) );
+  connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted(QString)),
+           this, SLOT(slotModOnHdDeleted(QString)) );
 
   connect (this,SIGNAL(completed()),this,SLOT(slotCompleted()));
-  connect (this,SIGNAL(canceled(const QString&)),this,SLOT(slotCanceled()));
+  connect (this,SIGNAL(canceled(QString)),this,SLOT(slotCanceled()));
   // update doc name
   setDocName (QString());
 
@@ -250,7 +250,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_undoManager, SIGNAL(redoStart(KTextEditor::Document*)),   this, SIGNAL(exclusiveEditStart(KTextEditor::Document*)));
   connect(m_undoManager, SIGNAL(redoEnd(KTextEditor::Document*)),     this, SIGNAL(exclusiveEditEnd(KTextEditor::Document*)));
 
-  connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
+  connect(this,SIGNAL(sigQueryClose(bool*,bool*)),this,SLOT(slotQueryClose_save(bool*,bool*)));
 
   onTheFlySpellCheckingEnabled(config()->onTheFlySpellCheck());
 
@@ -328,7 +328,7 @@ KTextEditor::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
   if ( m_fileChangedDialogsActivated )
-    connect( newView, SIGNAL(focusIn( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
+    connect( newView, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
 
@@ -1353,11 +1353,9 @@ bool KateDocument::editRemoveLines ( int from, int to )
     m_undoManager->slotLineRemoved(line, this->line(line));
 
     m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, 0), KTextEditor::Cursor (line, tl->text().size())));
-    if (line + 1 <= lastLine())
-      m_buffer->unwrapLine (line+1);
-    else if (line != 0)
-      m_buffer->unwrapLine (line);
   }
+
+  m_buffer->unwrapLines(from, to);
 
   QList<int> rmark;
   QList<int> list;

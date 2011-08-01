@@ -80,10 +80,10 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, const cha
   gbToolbar->setLayout(vbox);
 
   lo->addWidget( gbToolbar );
-  connect( acSel, SIGNAL( added( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
-  connect( acSel, SIGNAL( removed( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
-  connect( acSel, SIGNAL( movedUp( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
-  connect( acSel, SIGNAL( movedDown( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
+  connect( acSel, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotMyChanged()) );
+  connect( acSel, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotMyChanged()) );
+  connect( acSel, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotMyChanged()) );
+  connect( acSel, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotMyChanged()) );
 
   // make it look nice
   lo->addStretch( 1 );

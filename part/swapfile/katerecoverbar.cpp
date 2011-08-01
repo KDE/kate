@@ -42,8 +42,8 @@ KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   m_ui->setupUi( centralWidget() );
   
   // clicking on the "Help" link pops up the content as what's this
-  connect(m_ui->lblSwap, SIGNAL(linkActivated(const QString&)),
-          this, SLOT(showWhatsThis(const QString&)));
+  connect(m_ui->lblSwap, SIGNAL(linkActivated(QString)),
+          this, SLOT(showWhatsThis(QString)));
 
   // set icons, but keep text from ui file
   m_ui->btnRecover->setGuiItem(KGuiItem(m_ui->btnRecover->text(), KIcon("edit-redo")));
@@ -93,7 +93,7 @@ void KateRecoverBar::viewDiff()
   *m_proc << "diff" << "-u" << "-" <<  m_view->doc()->url().toLocalFile();
 
   connect(m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()));
-  connect(m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotDiffFinished()));
+  connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotDiffFinished()));
 
   setCursor(Qt::WaitCursor);
 

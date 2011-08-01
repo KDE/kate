@@ -69,7 +69,7 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
   m_popup->setLayout(l);
 
   // forward text changed signal
-  connect(m_lineedit, SIGNAL(textChanged(const QString&)), this, SIGNAL(textChanged(const QString&)));
+  connect(m_lineedit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)));
 
   // open popup on button click
   connect(m_button, SIGNAL(clicked()), this, SLOT(editVariables()));

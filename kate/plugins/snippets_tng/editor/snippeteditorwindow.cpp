@@ -190,24 +190,24 @@ SnippetEditorWindow::SnippetEditorWindow(const QStringList &modes, const KUrl& u
   m_snippetData=new KTextEditor::CodesnippetsCore::Editor::SnippetCompletionModel("",files,0);
   m_selectorModel=m_snippetData->selectorModel();
   snippetListView->setModel(m_selectorModel);
-  connect(snippetListView->selectionModel(),SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),this,SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
+  connect(snippetListView->selectionModel(),SIGNAL(currentChanged(QModelIndex,QModelIndex)),this,SLOT(currentChanged(QModelIndex,QModelIndex)));
   currentChanged(QModelIndex(),QModelIndex());
   scriptEditor->setPlainText(m_snippetData->script());  
   snippetShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
   
 
-  connect(snippetCollectionAuthors,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetCollectionNamespace,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPrefix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetMatch,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetPostfix,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetArguments,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
-  connect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
+  connect(snippetCollectionAuthors,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetCollectionNamespace,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetPrefix,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetPrefix,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetMatch,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetPostfix,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetArguments,SIGNAL(textEdited(QString)),this,SLOT(modified()));
+  connect(snippetShortcut,SIGNAL(keySequenceChanged(QKeySequence)),this,SLOT(modified()));
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   connect(delSnippet,SIGNAL(clicked()),this,SLOT(deleteSnippet()));
   connect(addSnippet,SIGNAL(clicked()),this,SLOT(newSnippet()));
-  connect(snippetCollectionFiletype,SIGNAL(textEdited(const QString&)),this,SLOT(modified()));
+  connect(snippetCollectionFiletype,SIGNAL(textEdited(QString)),this,SLOT(modified()));
   connect(m_filetypeDropDown,SIGNAL(modified()),this,SLOT(modified()));
   connect(scriptEditor,SIGNAL(textChanged()),this,SLOT(modified()));
 
@@ -278,9 +278,9 @@ void SnippetEditorWindow::currentChanged(const QModelIndex& current, const QMode
   snippetMatch->setText(m_selectorModel->data(current,SnippetSelectorModel::MatchRole).toString());
   snippetPostfix->setText(m_selectorModel->data(current,SnippetSelectorModel::PostfixRole).toString());
   snippetArguments->setText(m_selectorModel->data(current,SnippetSelectorModel::ArgumentsRole).toString());
-  disconnect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
+  disconnect(snippetShortcut,SIGNAL(keySequenceChanged(QKeySequence)),this,SLOT(modified()));
   snippetShortcut->setKeySequence(QKeySequence(m_selectorModel->data(current,SnippetSelectorModel::ShortcutRole).toString()));
-  connect(snippetShortcut,SIGNAL(keySequenceChanged(const QKeySequence &)),this,SLOT(modified()));
+  connect(snippetShortcut,SIGNAL(keySequenceChanged(QKeySequence)),this,SLOT(modified()));
   disconnect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));
   snippetContent->setPlainText(m_selectorModel->data(current,SnippetSelectorModel::FillInRole).toString());
   connect(snippetContent,SIGNAL(textChanged()),this,SLOT(modified()));

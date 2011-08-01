@@ -230,7 +230,7 @@ VariableStringListEditor::VariableStringListEditor(VariableStringListItem* item,
   
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(valueChanged()));
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(activateItem()));
-  connect(m_comboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(setItemValue(const QString&)));
+  connect(m_comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(setItemValue(QString)));
 }
 
 void VariableStringListEditor::setItemValue(const QString& newValue)
@@ -251,9 +251,9 @@ VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* paren
   m_comboBox->setColor(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
 
-  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SIGNAL(valueChanged()));
-  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(activateItem()));
-  connect(m_comboBox, SIGNAL(activated(const QColor&)), this, SLOT(setItemValue(const QColor&)));
+  connect(m_comboBox, SIGNAL(activated(QColor)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(activated(QColor)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(activated(QColor)), this, SLOT(setItemValue(QColor)));
 }
 
 void VariableColorEditor::setItemValue(const QColor& newValue)
@@ -274,9 +274,9 @@ VariableFontEditor::VariableFontEditor(VariableFontItem* item, QWidget* parent)
   m_comboBox->setCurrentFont(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
 
-  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SIGNAL(valueChanged()));
-  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(activateItem()));
-  connect(m_comboBox, SIGNAL(currentFontChanged(const QFont&)), this, SLOT(setItemValue(const QFont&)));
+  connect(m_comboBox, SIGNAL(currentFontChanged(QFont)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(QFont)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(currentFontChanged(QFont)), this, SLOT(setItemValue(QFont)));
 }
 
 void VariableFontEditor::setItemValue(const QFont& newValue)
@@ -297,9 +297,9 @@ VariableStringEditor::VariableStringEditor(VariableStringItem *item, QWidget *pa
   m_lineEdit->setText(item->value());
   l->addWidget(m_lineEdit, 0, 2, Qt::AlignLeft);
 
-  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SIGNAL(valueChanged()));
-  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(activateItem()));
-  connect(m_lineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setItemValue(const QString&)));
+  connect(m_lineEdit, SIGNAL(textChanged(QString)), this, SIGNAL(valueChanged()));
+  connect(m_lineEdit, SIGNAL(textChanged(QString)), this, SLOT(activateItem()));
+  connect(m_lineEdit, SIGNAL(textChanged(QString)), this, SLOT(setItemValue(QString)));
 }
 
 void VariableStringEditor::setItemValue(const QString &newValue)
@@ -318,9 +318,9 @@ VariableSpellCheckEditor::VariableSpellCheckEditor(VariableSpellCheckItem *item,
   m_dictionaryCombo->setCurrentByDictionary(item->value());
   l->addWidget(m_dictionaryCombo, 0, 2, Qt::AlignLeft);
 
-  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged (const QString&)), this, SIGNAL(valueChanged()));
-  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged (const QString&)), this, SLOT(activateItem()));
-  connect(m_dictionaryCombo, SIGNAL(dictionaryChanged (const QString&)), this, SLOT(setItemValue(const QString&)));
+  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged(QString)), this, SIGNAL(valueChanged()));
+  connect(m_dictionaryCombo, SIGNAL(dictionaryNameChanged(QString)), this, SLOT(activateItem()));
+  connect(m_dictionaryCombo, SIGNAL(dictionaryChanged(QString)), this, SLOT(setItemValue(QString)));
 }
 
 void VariableSpellCheckEditor::setItemValue(const QString &newValue)

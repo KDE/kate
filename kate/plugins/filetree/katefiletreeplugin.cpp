@@ -176,15 +176,15 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
   Kate::DocumentManager *dm = Kate::application()->documentManager();
 
-  connect(dm, SIGNAL(documentCreated(KTextEditor::Document *)),
-          m_documentModel, SLOT(documentOpened(KTextEditor::Document *)));
-  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
-          m_documentModel, SLOT(documentClosed(KTextEditor::Document *)));
+  connect(dm, SIGNAL(documentCreated(KTextEditor::Document*)),
+          m_documentModel, SLOT(documentOpened(KTextEditor::Document*)));
+  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+          m_documentModel, SLOT(documentClosed(KTextEditor::Document*)));
 
-  connect(dm, SIGNAL(documentCreated(KTextEditor::Document *)),
-          this, SLOT(documentOpened(KTextEditor::Document *)));
-  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
-          this, SLOT(documentClosed(KTextEditor::Document *)));
+  connect(dm, SIGNAL(documentCreated(KTextEditor::Document*)),
+          this, SLOT(documentOpened(KTextEditor::Document*)));
+  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+          this, SLOT(documentClosed(KTextEditor::Document*)));
 
   m_fileTree->setModel(m_proxyModel);
 
@@ -194,7 +194,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
   m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), m_fileTree, SLOT(slotCurrentChanged(const QModelIndex&, const QModelIndex&)));
+  connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), m_fileTree, SLOT(slotCurrentChanged(QModelIndex,QModelIndex)));
 
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
@@ -202,13 +202,13 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   show_active->setText(i18n("&Show Active"));
   show_active->setIcon(KIcon("folder-sync"));
   show_active->setShortcut( QKeySequence(Qt::ALT+Qt::Key_A), KAction::DefaultShortcut );
-  connect( show_active, SIGNAL( triggered(bool) ), this, SLOT( showActiveDocument() ) );
+  connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 
   /**
    * back + forward
    */
-  actionCollection()->addAction( KStandardAction::Back, "filetree_prev_document", m_fileTree, SLOT( slotDocumentPrev() ) );
-  actionCollection()->addAction( KStandardAction::Forward, "filetree_next_document", m_fileTree, SLOT( slotDocumentNext() ) );
+  actionCollection()->addAction( KStandardAction::Back, "filetree_prev_document", m_fileTree, SLOT(slotDocumentPrev()) );
+  actionCollection()->addAction( KStandardAction::Forward, "filetree_next_document", m_fileTree, SLOT(slotDocumentNext()) );
 
   mainWindow->guiFactory()->addClient(this);
 

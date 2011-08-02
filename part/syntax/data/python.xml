@@ -343,7 +343,7 @@
 				<AnyChar attribute="Operator" String="+*/%\|=;\!&lt;&gt;!^&amp;~-" context="#stay"/>
 				<RegExpr attribute="Decorator" String="@[_a-zA-Z][\._a-zA-Z0-9]*" firstNonSpace="true"/>
 			</context>
-			<!-- The context CheckForString only exists to catch LineContinue with \ at end of previous line. So that we don't interpret is as comment.  -->
+			<!-- The context CheckForString only exists to catch LineContinue with \ at end of previous line. So that we don't interpret it as comment.  -->
 			<context name="CheckForString" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
 				<DetectSpaces/>
 				<StringDetect attribute="String" String="'''" context="Tripple A-string" beginRegion="Tripple A-region"/>

@@ -137,7 +137,7 @@ void KateViewManager::setupActions ()
   m_closeView->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_R );
   connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()));
 
-  m_closeView->setWhatsThis(i18n("Close the currently active splitted view"));
+  m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
   goNext = m_mainWindow->actionCollection()->addAction( "go_next_split_view" );
   goNext->setText( i18n("Next Split View") );

@@ -1528,7 +1528,7 @@ access to the configuration dialogs.</para>
 <varlistentry>
 <term><anchor id="show-toolbar"/><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Shown Toolbar</guimenuitem>
+<guimenuitem>Show Toolbar</guimenuitem>
 </menuchoice>
 </term>
 <listitem>

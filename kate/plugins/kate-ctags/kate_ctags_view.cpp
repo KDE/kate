@@ -395,7 +395,7 @@ QString KateCTagsView::currentWord( )
         startPos--;
     }
     while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() ||
-        (linestr[startPos] == ':' && includeColon) ||
+        (linestr[endPos] == ':' && includeColon) ||
         linestr[endPos] == '_')) {
         endPos++;
     }

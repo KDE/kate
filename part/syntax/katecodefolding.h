@@ -140,6 +140,8 @@ class KateCodeFoldingNode: public QObject
   // Node's end children
     QVector<KateCodeFoldingNode*> m_endChildren;
 
+    int                           m_virtualColumn;
+
 // public methods - Node's interface :
   public:
     KateCodeFoldingNode ();
@@ -320,11 +322,11 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   protected:
   // Insert Node methods
-    inline void insertNode(int nodeType, KateDocumentPosition pos)
+    inline void insertNode(int nodeType, KateDocumentPosition pos, int virtualColumn)
     {
-      nodeType > 0 ? insertStartNode(nodeType,pos) : insertEndNode(nodeType,pos);
+      nodeType > 0 ? insertStartNode(nodeType,pos, virtualColumn) : insertEndNode(nodeType,pos);
     }
-    void insertStartNode(int type, KateDocumentPosition pos);
+    void insertStartNode(int type, KateDocumentPosition pos, int virtualColumn);
     void insertEndNode(int type, KateDocumentPosition pos);
     void insertNodeIntoMap(KateCodeFoldingNode* newNode);
 
@@ -340,7 +342,8 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
   // Update position methods
     void changeColumn(KateCodeFoldingNode *node, int newColumn);
     void setColumns (int line, QVector<int> &newColumns);
-    void updateMapping (int line, QVector<int> &newColumns);
+    void updateMapping(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
+    int hasVirtualColumns(QVector<int> &newColumns);
 
   // Line depth methods
     int getLineDepth(int line);
@@ -352,6 +355,9 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void sublist(QVector<KateCodeFoldingNode *> &dest, QVector<KateCodeFoldingNode *> &source,
                                               KateDocumentPosition begin, KateDocumentPosition end);
     KateCodeFoldingNode* findNodeAt(KateDocumentPosition position);
+
+    KateCodeFoldingNode* firstNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap);
+    KateCodeFoldingNode* lastNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap);
 
   // Folding / Unfolding methods
     void replaceFoldedNodeWithList(KateCodeFoldingNode* node, QList<KateCodeFoldingNode*> &newFoldedNodes);

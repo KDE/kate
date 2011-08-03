@@ -27,12 +27,15 @@
 #include <QtCore/QVector>
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
+#include <QtCore/QListIterator>
 
 #include "katepartprivate_export.h"
+#include <ktexteditor/sessionconfiginterface.h>
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
 class KateBuffer;
+class KConfigGroup;
 
 class QString;
 //END
@@ -246,11 +249,13 @@ class KateCodeFoldingNode: public QObject
 //-------------------------------------------------------//
 
 // Start of KateCodeFoldingTree
-class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
+class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
+    //public KTextEditor::SessionConfigInterface
 {
   friend class KateCodeFoldingNode;
 
   Q_OBJECT
+  //Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
   private:
 
@@ -309,6 +314,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   // Clear the whole FoldingTree (and aux structures)
     void clear ();
+
+    // session stuff
+    void readSessionConfig( const KConfigGroup& config );
+    void writeSessionConfig( KConfigGroup& config );
 
 
     // Debug methods and members

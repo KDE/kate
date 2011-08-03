@@ -23,6 +23,9 @@
 #include "katebuffer.h"
 #include "ktexteditor/cursor.h"
 
+#include <kconfig.h>
+#include <kconfiggroup.h>
+
 // Debug
 #include "QtCore/QStack"
 #include "QMessageBox"
@@ -1165,7 +1168,7 @@ void KateCodeFoldingTree::sublist(QVector<KateCodeFoldingNode *> &dest, QVector<
 
 void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 {
-    debug() << "Node folded!!!!!!!";
+    //debug() << "Node folded!!!!!!!";
   // We have to make sure that the lines below our folded node were parsed
   // We don't have to parse the entire file. We can stop when we find the match for our folded node
   for (int index = node->getLine() ; index < m_rootMatch->getLine() ; ++index) {
@@ -1206,9 +1209,17 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
       m_hiddenNodes.append(tempNode);
     }
 
+    // The new folded area is a subarea of this folded area,
+    // We won't insert the new area anymore
+    if (tempNode->m_position < node->m_position &&
+        tempMatch->m_position > node->m_position) {
+        m_hiddenNodes.append(tempNode);
+        inserted = true;
+    }
+
     // This folded area is a subarea of the new folded area
     // This area will not be copied
-    if (tempNode->getLine() >= node->getLine() &&
+    else if (tempNode->getLine() >= node->getLine() &&
         tempMatch->getLine() <= matchNode->getLine() && node != tempNode) {
       if (inserted == false) {
         m_hiddenNodes.append(node);
@@ -1218,7 +1229,7 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 
     // This folded area is below the new folded area
     // and it remains
-    if (tempNode->getLine() >= matchNode->getLine()) {
+    else if (tempNode->getLine() >= matchNode->getLine()) {
 
       // If the current node was not inserted, now it's the time
       if (!inserted) {
@@ -1229,13 +1240,15 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
     }
   }
 
-  if (inserted == false) {
+  if (!inserted) {
     m_hiddenNodes.append(node);
   }
 
   oldHiddenNodes.clear();
 
   emit regionVisibilityChanged ();
+
+  printMapping();
 }
 
 void KateCodeFoldingTree::unfoldNode(KateCodeFoldingNode *node)
@@ -1468,6 +1481,62 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int 
   }
 
   oldLineMapping.clear();
+}
+
+
+void KateCodeFoldingTree::writeSessionConfig(KConfigGroup &config)
+{
+    debug() << "write session";
+    QList <int> hiddenNodesLine;
+    QList <int> hiddenNodesColum;
+    QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
+    while (iterator.hasNext()) {
+        QVector <KateCodeFoldingNode*> tempVector = iterator.peekNext().value();
+        foreach (KateCodeFoldingNode *node, tempVector) {
+            if (!node->isVisible()) {
+                hiddenNodesLine.append(node->getLine());
+                hiddenNodesColum.append(node->getColumn());
+            }
+        }
+        iterator.next();
+    }
+
+    config.writeEntry("FoldeNodesLines",hiddenNodesLine);
+    config.writeEntry("FoldeNodesColumn",hiddenNodesColum);
+}
+
+void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
+{
+
+    debug() << "session read";
+
+    const QList<int> hiddenNodesLine = config.readEntry("FoldeNodesLines", QList<int>());
+    const QList<int> hiddenNodesColum = config.readEntry("FoldeNodesColumn", QList<int>());
+
+    if (hiddenNodesLine.isEmpty())
+        return;
+
+    // We have to make sure that the document was hl
+
+    for (int index = 0 ; index < m_rootMatch->getLine() ; ++index) {
+      m_buffer->ensureHighlighted(index);
+    }
+
+    QListIterator<int> itLines (hiddenNodesLine);
+    QListIterator<int> itColumns (hiddenNodesColum);
+    while (itLines.hasNext()) {
+        //debug() << itLines.peekNext() << itColumns.peekNext();
+        int line = itLines.next();
+        int column = itColumns.next();
+
+        QVector <KateCodeFoldingNode*> lineMap = m_lineMapping[line];
+        foreach (KateCodeFoldingNode* node, lineMap) {
+            if (node->getColumn() == column) {
+                foldNode(node);
+                break;
+            }
+        }
+    }
 }
 
 

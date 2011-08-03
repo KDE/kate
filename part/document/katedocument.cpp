@@ -1627,6 +1627,11 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
   const QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
   for( int i = 0; i < marks.count(); i++ )
     addMark( marks.at(i), KateDocument::markType01 );
+
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
+      // restore folding nodes
+      foldingTree()->readSessionConfig(kconfig);
+  }
 }
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
@@ -1677,6 +1682,12 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
       marks << i.value()->line;
 
   kconfig.writeEntry( "Bookmarks", marks );
+
+  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
+    // save folding
+    foldingTree()->writeSessionConfig(kconfig);
+  }
+
 }
 
 //END KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff

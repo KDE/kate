@@ -76,7 +76,7 @@
       </context>
 
       <context name="Value" attribute="String" lineEndContext="#stay">
-        <RegExpr attribute="Operator" String="\\$"     context="#stay"/>
+        <LineContinue attribute="Operator"/>
         <RegExpr attribute="String"   String="[^\\]?$" context="#pop"/>
         <RegExpr attribute="Operator" String="[$][\({]" context="VarFromValue"/>
         <RegExpr attribute="Special" context="#pop" String="@[-_\d\w]*@" />

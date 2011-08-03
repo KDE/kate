@@ -4,7 +4,7 @@
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
 <!-- Modified by Rui Santana <santana.rui@gmail.com> -->
 <!-- small priority to allow for example Makefile.cpp to be detected as cpp file -->
-<language name="Makefile" version="1.11" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<language name="Makefile" version="1.12" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>
@@ -62,7 +62,8 @@
         <RegExpr attribute="Target"   context="#stay" String="[_\w\d-]*\s*:" firstNonSpace="true"/>
         <RegExpr attribute="Section"  context="#stay" String="^[.].*:"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <RegExpr attribute="Operator"  context="VarFromNormal" String="[$][\({]"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
         <AnyChar attribute="Operator" context="#stay" String="+*=%$():\&#059;"/>
@@ -75,32 +76,47 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
 
-      <context name="Value" attribute="String" lineEndContext="#stay">
+      <context name="Value" attribute="String" lineEndContext="#pop">
         <LineContinue attribute="Operator"/>
-        <RegExpr attribute="String"   String="[^\\]?$" context="#pop"/>
-        <RegExpr attribute="Operator" String="[$][\({]" context="VarFromValue"/>
+        <Detect2Chars attribute="Operator" context="VarFromValue{" char="$" char1="{"/>
+        <Detect2Chars attribute="Operator" context="VarFromValue(" char="$" char1="("/>
         <RegExpr attribute="Special" context="#pop" String="@[-_\d\w]*@" />
         <DetectChar attribute="Operator" char="&#059;" context="#pop"/>
       </context>
 
-      <context name="VarFromValue" attribute="Variable" lineEndContext="#stay">
-        <RegExpr attribute="Operator" String="[\)}](?=/)" context="#pop"/>
-        <RegExpr attribute="Operator" String="[\)}][^$]" context="#pop"/>
-        <RegExpr attribute="Operator" String="[\)}]$" context="#pop#pop"/>
+      <context name="VarFromValue(" attribute="Variable" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char=")" context="#pop"/>
       </context>
 
-      <context name="VarFromNormal" attribute="Variable" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="FunctionCall" String="functions"/>
-        <AnyChar attribute="Operator" String=")}" context="#pop"/>
+      <context name="VarFromValue{" attribute="Variable" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char="}" context="#pop"/>
       </context>
 
-      <context name="FunctionCall" attribute="String" lineEndContext="#stay">
-        <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
-        <AnyChar attribute="Operator" String=")}" context="#pop#pop"/>
+      <context name="VarFromNormal(" attribute="Variable" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="FunctionCall(" String="functions"/>
+        <DetectChar attribute="Operator" char=")" context="#pop"/>
+      </context>
+
+      <context name="VarFromNormal{" attribute="Variable" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="FunctionCall{" String="functions"/>
+        <DetectChar attribute="Comment" char="}" context="#pop"/>
+      </context>
+
+      <context name="FunctionCall(" attribute="String" lineEndContext="#stay">
+        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
+        <DetectChar attribute="Operator" char=")" context="#pop#pop"/>
+      </context>
+
+      <context name="FunctionCall{" attribute="String" lineEndContext="#stay">
+        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
+        <DetectChar attribute="Operator" char="}" context="#pop#pop"/>
       </context>
 
       <context name="Commands" attribute="Normal Text" lineEndContext="#pop">
-        <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
+        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
         <RegExpr attribute="Commands" context="#pop" String="[_\w-]*\b"/>
       </context>
 

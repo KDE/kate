@@ -187,6 +187,7 @@ class KTEXTEDITOR_EXPORT ParameterizedSessionConfigInterface
 
     /**
      * Flags for session restore.
+     * These flags allow to skip some parts of the configuration from restoration.
      */
     enum SessionConfigParameter {
       SkipNone          = 0,

@@ -86,3 +86,4 @@ embedding application. Thus, please think twice before adding new shortcuts, or 
 === ktexteditor ===
 
 '''This directory is actually part of kdelibs'''. It is synced with kdelibs, regularly, but technically it belongs to kdelibs (at least for KDE 4.x.y). Thus, any changes you do, here, ''must'' follow the kdelibs library code policy: http://techbase.kde.org/Policies/Library_Code_Policy . Before you touch anything, in this directory, please be sure to read and understand that in full. In particular you should have a firm undersanding of API and ABI compatibility issues. '''If in any doubt: Ask'''.
+In any case, notify kwrite-devel about changes in that directory.

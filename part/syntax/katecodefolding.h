@@ -30,7 +30,7 @@
 #include <QtCore/QListIterator>
 
 #include "katepartprivate_export.h"
-#include <ktexteditor/sessionconfiginterface.h>
+//#include <ktexteditor/sessionconfiginterface.h>
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
@@ -249,13 +249,11 @@ class KateCodeFoldingNode: public QObject
 //-------------------------------------------------------//
 
 // Start of KateCodeFoldingTree
-class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
-    //public KTextEditor::SessionConfigInterface
+class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 {
   friend class KateCodeFoldingNode;
 
   Q_OBJECT
-  //Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
   private:
 
@@ -286,20 +284,23 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
 
     void lineHasBeenInserted (int line, int column);
     void linesHaveBeenRemoved  (int from, int to);
-      // Makes clear what KateLineInfo contains
+
+  // Makes clear what KateLineInfo contains
     void getLineInfo (KateLineInfo *info, int line);
 
     inline KateCodeFoldingNode *rootNode () { return m_root; }
 
-         // find the node that contains this line, root else
+  // find the node that contains this line, root else
     KateCodeFoldingNode *findNodeForLine (int line);
 
-       // find the first start node from the line, 0 else
+  // find the first start node from the line, 0 else
     KateCodeFoldingNode *findNodeStartingAt(int line);
 
     int getRealLine         (int virtualLine);
     int getVirtualLine      (int realLine);
-    int getHiddenLinesCount (int docLine);  // get the number of hidden lines
+
+  // get the number of hidden lines
+    int getHiddenLinesCount (int docLine);
 
     KateCodeFoldingNode *findNodeForPosition(int line, int column);
 
@@ -315,19 +316,19 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
   // Clear the whole FoldingTree (and aux structures)
     void clear ();
 
-    // session stuff
+  // session stuff
     void readSessionConfig( const KConfigGroup& config );
     void writeSessionConfig( KConfigGroup& config );
 
 
-    // Debug methods and members
+  // Debug methods and members
     void printMapping();
     QString treeString;
     void searchThisNode (KateCodeFoldingNode* deletedNode);
 
-    // Will build the output using the tree alg ; Call : buildTreeString(root,1);
+  // Will build the output using the tree alg ; Call : buildTreeString(root,1);
     void buildTreeString(KateCodeFoldingNode *node, int level);
-    // end of debug...
+  // end of debug...
 
   protected:
   // Insert Node methods

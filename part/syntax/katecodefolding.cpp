@@ -479,6 +479,7 @@ void KateCodeFoldingTree::addDeltaToLine(QVector<KateCodeFoldingNode *> &nodesLi
 
 void KateCodeFoldingTree::clear()
 {
+  // We delete all nodes
   QList<int>keys = m_lineMapping.uniqueKeys();
   keys.pop_front();
   foreach (int key, keys) {
@@ -489,9 +490,14 @@ void KateCodeFoldingTree::clear()
       delete tempNode;
     }
   }
+  // Empty the line mapping
   m_lineMapping.clear();
   m_root->clearAllChildren();
 
+  // Empty the hidden lines list
+  m_hiddenNodes.clear();
+
+  // We reattach the root to the line mapping
   QVector<KateCodeFoldingNode *> tempVector;
   tempVector.append(m_root);
   m_lineMapping.insert(-1,tempVector);
@@ -500,7 +506,6 @@ void KateCodeFoldingTree::clear()
 int KateCodeFoldingTree::collapseOne(int realLine, int column)
 {
   KateCodeFoldingNode* nodeToFold = findParent(KateDocumentPosition(realLine,column - 1),1);
-  //debug() << "***collapse (" << nodeToFold->getLine() <<"," << nodeToFold->getColumn() << ")\n";
 
   if (nodeToFold == m_root)
     return 0;
@@ -614,7 +619,6 @@ void KateCodeFoldingTree::ensureVisible(int l)
 void KateCodeFoldingTree::expandOne(int realLine, int column)
 {
   KateCodeFoldingNode* nodeToUnfold = findParent(KateDocumentPosition(realLine,column - 1),1);
-  //debug() << "***collapse (" << nodeToUnfold->getLine() <<"," << nodeToUnfold->getColumn() << ")\n";
 
   if (nodeToUnfold == m_root || nodeToUnfold->isVisible())
     return;
@@ -1168,7 +1172,6 @@ void KateCodeFoldingTree::sublist(QVector<KateCodeFoldingNode *> &dest, QVector<
 
 void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 {
-    //debug() << "Node folded!!!!!!!";
   // We have to make sure that the lines below our folded node were parsed
   // We don't have to parse the entire file. We can stop when we find the match for our folded node
   for (int index = node->getLine() ; index < m_rootMatch->getLine() ; ++index) {
@@ -1386,7 +1389,6 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
     setColumns(line, *regionChanges);
     *updated = true;
     buildTreeString(m_root,1);
-    debug() << treeString;
     return;
   }
 
@@ -1395,11 +1397,10 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
   int virtualColumn = 0;
   if (virtualIndex > -1)
       virtualColumn = (*regionChanges)[virtualIndex - 1];
-  debug() << virtualColumn;
+
   updateMapping(line, *regionChanges, virtualIndex, virtualColumn);
   *updated = true;
   buildTreeString(m_root,1);
-  debug() << treeString;
 }
 
 int KateCodeFoldingTree::hasVirtualColumns(QVector<int> &newColumns)
@@ -1486,7 +1487,6 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int 
 
 void KateCodeFoldingTree::writeSessionConfig(KConfigGroup &config)
 {
-    debug() << "write session";
     QList <int> hiddenNodesLine;
     QList <int> hiddenNodesColum;
     QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
@@ -1507,9 +1507,6 @@ void KateCodeFoldingTree::writeSessionConfig(KConfigGroup &config)
 
 void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
 {
-
-    debug() << "session read";
-
     const QList<int> hiddenNodesLine = config.readEntry("FoldeNodesLines", QList<int>());
     const QList<int> hiddenNodesColum = config.readEntry("FoldeNodesColumn", QList<int>());
 
@@ -1525,7 +1522,6 @@ void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
     QListIterator<int> itLines (hiddenNodesLine);
     QListIterator<int> itColumns (hiddenNodesColum);
     while (itLines.hasNext()) {
-        //debug() << itLines.peekNext() << itColumns.peekNext();
         int line = itLines.next();
         int column = itColumns.next();
 

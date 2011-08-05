@@ -269,11 +269,14 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 void KateBuffer::unwrapLines (int from, int to)
 {
   // catch out of range access, should never happen
-  Q_ASSERT(to + 1 <= lines() - 1);
   Q_ASSERT(from >= 0);
+  Q_ASSERT(to + 1 <= lines());
 
   for (int line = to; line >= from; --line) {
-    Kate::TextBuffer::unwrapLine (line + 1);
+      if (line + 1 < lines())
+          unwrapLine (line + 1);
+      else
+          unwrapLine (line);
   }
 
   if (m_lineHighlighted > from)

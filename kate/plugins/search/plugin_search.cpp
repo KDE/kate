@@ -94,7 +94,7 @@ m_curResultTree(0)
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
 
-    //***m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
+    m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
 
     m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));
@@ -113,7 +113,7 @@ m_curResultTree(0)
 
     // the order here is important to get the tabBar hidden for only one tab
     addTab();
-    //***m_ui.resultTabWidget->tabBar()->hide();
+    m_ui.resultTabWidget->tabBar()->hide();
 
     // get url-requester's combo box and sanely initialize
     KComboBox* cmbUrl = m_ui.folderRequester->comboBox();
@@ -417,7 +417,7 @@ void KatePluginSearchView::addTab()
     m_ui.resultTabWidget->addTab(tmp, "");
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);
     m_ui.stackedWidget->setCurrentIndex(0);
-    //***m_ui.resultTabWidget->tabBar()->show();
+    m_ui.resultTabWidget->tabBar()->show();
 
     tmp->installEventFilter(this);
 }
@@ -434,7 +434,7 @@ void KatePluginSearchView::closeTab(QWidget *widget)
         m_curResultTree = 0;
     }
     if (m_ui.resultTabWidget->count() == 1) {
-        //***m_ui.resultTabWidget->tabBar()->hide();
+        m_ui.resultTabWidget->tabBar()->hide();
     }
 }
 

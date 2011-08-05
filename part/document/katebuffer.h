@@ -265,7 +265,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     /**
      * folding tree
      */
-    //KateCodeFoldingTree m_regionTree;
     KateCodeFoldingTree m_regionTree;
 
     // for the scrapty indent sensitive langs

@@ -214,6 +214,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
+  connect(this,SIGNAL(aboutToReload(KTextEditor::Document*)),foldingTree(),SLOT(saveFoldingState()));
+  connect(this,SIGNAL(reloaded(KTextEditor::Document*)),foldingTree(),SLOT(applyFoldingState()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));

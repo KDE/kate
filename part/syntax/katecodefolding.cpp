@@ -1487,40 +1487,55 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int 
 
 void KateCodeFoldingTree::writeSessionConfig(KConfigGroup &config)
 {
-    QList <int> hiddenNodesLine;
-    QList <int> hiddenNodesColum;
+    saveFoldingState();
+    config.writeEntry("FoldeNodesLines",m_hiddenLines);
+    config.writeEntry("FoldeNodesColumn",m_hiddenColumns);
+}
+
+void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
+{
+    const QList <int> tempLines = config.readEntry("FoldeNodesLines", QList<int>());
+    const QList <int> tempColumns = config.readEntry("FoldeNodesColumn", QList<int>());
+
+    m_hiddenLines.clear();
+    m_hiddenColumns.clear();
+
+    m_hiddenLines = tempLines;
+    m_hiddenColumns = tempColumns;
+
+    applyFoldingState();
+}
+
+void KateCodeFoldingTree::saveFoldingState()
+{
+    m_hiddenLines.clear();
+    m_hiddenColumns.clear();
+
     QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
     while (iterator.hasNext()) {
         QVector <KateCodeFoldingNode*> tempVector = iterator.peekNext().value();
         foreach (KateCodeFoldingNode *node, tempVector) {
             if (!node->isVisible()) {
-                hiddenNodesLine.append(node->getLine());
-                hiddenNodesColum.append(node->getColumn());
+                m_hiddenLines.append(node->getLine());
+                m_hiddenColumns.append(node->getColumn());
             }
         }
         iterator.next();
     }
-
-    config.writeEntry("FoldeNodesLines",hiddenNodesLine);
-    config.writeEntry("FoldeNodesColumn",hiddenNodesColum);
 }
 
-void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
+void KateCodeFoldingTree::applyFoldingState()
 {
-    const QList<int> hiddenNodesLine = config.readEntry("FoldeNodesLines", QList<int>());
-    const QList<int> hiddenNodesColum = config.readEntry("FoldeNodesColumn", QList<int>());
-
-    if (hiddenNodesLine.isEmpty())
+    if (m_hiddenLines.isEmpty())
         return;
 
     // We have to make sure that the document was hl
-
     for (int index = 0 ; index < m_rootMatch->getLine() ; ++index) {
       m_buffer->ensureHighlighted(index);
     }
 
-    QListIterator<int> itLines (hiddenNodesLine);
-    QListIterator<int> itColumns (hiddenNodesColum);
+    QListIterator<int> itLines (m_hiddenLines);
+    QListIterator<int> itColumns (m_hiddenColumns);
     while (itLines.hasNext()) {
         int line = itLines.next();
         int column = itColumns.next();
@@ -1534,6 +1549,7 @@ void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
         }
     }
 }
+
 
 
 // Debug methods

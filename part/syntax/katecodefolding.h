@@ -36,6 +36,7 @@ class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
 class KateBuffer;
 class KConfigGroup;
+class KateDocument;
 
 class QString;
 //END
@@ -274,6 +275,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
   // A list of the hidden nodes (only those nodes that are not found in an already folded area) - sorted (key = nodeLine)
     QList <KateCodeFoldingNode*>                  m_hiddenNodes;
 
+  // Used to save state (close / open ; reload)
+    QList <int>                                   m_hiddenLines;
+    QList <int>                                   m_hiddenColumns;
+
   public:
     KateCodeFoldingTree (KateBuffer *buffer);
     ~KateCodeFoldingTree ();
@@ -382,6 +387,9 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     int collapseOne (int realLine, int column);
     void expandOne  (int realLine, int column);
     void ensureVisible (int l);
+  // Save / Load folding state
+    void saveFoldingState();
+    void applyFoldingState();
 
   Q_SIGNALS:
       void regionVisibilityChanged ();

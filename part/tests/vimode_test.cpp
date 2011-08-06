@@ -476,6 +476,7 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "dd"
   DoTest("foo\nbar", "dd", "bar");
   DoTest("foo\nbar", "2dd", "");
+  DoTest("foo\nbar\n", "Gdd", "foo\nbar");
 
   // Testing "D"
   DoTest("foo bar", "lllD", "foo");

@@ -275,7 +275,7 @@ void KateBuffer::unwrapLines (int from, int to)
   for (int line = to; line >= from; --line) {
       if (line + 1 < lines())
           unwrapLine (line + 1);
-      else
+      else if (line)
           unwrapLine (line);
   }
 

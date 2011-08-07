@@ -276,7 +276,7 @@ void KateBuffer::unwrapLines (int from, int to)
       if (line + 1 < lines())
           unwrapLine (line + 1);
       else if (line)
-          unwrapLine (line);
+          unwrapLine (line > 0);
   }
 
   if (m_lineHighlighted > from)

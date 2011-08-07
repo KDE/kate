@@ -55,6 +55,28 @@
       <Action name="folding_collapselocal" group="view_operations" />
       <Action name="folding_expandlocal" group="view_operations" />
     </Menu>
+    <Menu name="collapse_level" group="view_operations"><text>&amp;Collapse</text>
+      <Action name="collapse_level_1" group="view_operations" />
+      <Action name="collapse_level_2" group="view_operations" />
+      <Action name="collapse_level_3" group="view_operations" />
+      <Action name="collapse_level_4" group="view_operations" />
+      <Action name="collapse_level_5" group="view_operations" />
+      <Action name="collapse_level_6" group="view_operations" />
+      <Action name="collapse_level_7" group="view_operations" />
+      <Action name="collapse_level_8" group="view_operations" />
+      <Action name="collapse_level_9" group="view_operations" />
+    </Menu>
+    <Menu name="expand_level" group="view_operations"><text>&amp;Expand</text>
+      <Action name="expand_level_1" group="view_operations" />
+      <Action name="expand_level_2" group="view_operations" />
+      <Action name="expand_level_3" group="view_operations" />
+      <Action name="expand_level_4" group="view_operations" />
+      <Action name="expand_level_5" group="view_operations" />
+      <Action name="expand_level_6" group="view_operations" />
+      <Action name="expand_level_7" group="view_operations" />
+      <Action name="expand_level_8" group="view_operations" />
+      <Action name="expand_level_9" group="view_operations" />
+    </Menu>
     <Separator group="view_operations" />
     <Action name="view_inc_font_sizes" group="view_operations" />
     <Action name="view_dec_font_sizes" group="view_operations" />

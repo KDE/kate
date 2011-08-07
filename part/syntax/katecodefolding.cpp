@@ -503,6 +503,25 @@ void KateCodeFoldingTree::clear()
   m_lineMapping.insert(-1,tempVector);
 }
 
+void KateCodeFoldingTree::collapseLevel(int level, KateCodeFoldingNode *node, int nodeLevel)
+{
+    //debug() << "Collapse level " << level;
+    if (!node)
+        node = m_root;
+
+    // if "level" was reached, we fold the node
+    if (level == nodeLevel) {
+        foldNode(node);
+        return;
+    }
+
+    // if "level" was not reached, then we continue the search
+    foreach (KateCodeFoldingNode *child, node->m_startChildren) {
+        collapseLevel(level, child, nodeLevel + 1);
+    }
+
+}
+
 int KateCodeFoldingTree::collapseOne(int realLine, int column)
 {
   KateCodeFoldingNode* nodeToFold = findParent(KateDocumentPosition(realLine,column - 1),1);
@@ -614,6 +633,26 @@ void KateCodeFoldingTree::ensureVisible(int l)
       break;
     }
   }
+}
+
+void KateCodeFoldingTree::expandLevel(int level, KateCodeFoldingNode *node, int nodeLevel)
+{
+    if (!node)
+        node = m_root;
+    //debug() << "Expand level " << level;
+
+    // if "level" was reached, we unfold the node (if it's a hidden node)
+    if (level == nodeLevel) {
+        if (!node->isVisible()) {
+            unfoldNode(node);
+        }
+        return;
+    }
+
+    // if "level" was not reached, then we continue the search
+    foreach (KateCodeFoldingNode *child, node->m_startChildren) {
+        expandLevel(level, child, nodeLevel + 1);
+    }
 }
 
 void KateCodeFoldingTree::expandOne(int realLine, int column)
@@ -1251,7 +1290,7 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 
   emit regionVisibilityChanged ();
 
-  printMapping();
+  //printMapping();
 }
 
 void KateCodeFoldingTree::unfoldNode(KateCodeFoldingNode *node)
@@ -1388,7 +1427,10 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
   if (colsChanged) {
     setColumns(line, *regionChanges);
     *updated = true;
-    buildTreeString(m_root,1);
+    //buildTreeString(m_root,1);
+    //debug() << treeString;
+    //debug() << "******";
+    //printMapping();
     return;
   }
 
@@ -1400,7 +1442,7 @@ void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool
 
   updateMapping(line, *regionChanges, virtualIndex, virtualColumn);
   *updated = true;
-  buildTreeString(m_root,1);
+  //buildTreeString(m_root,1);
 }
 
 int KateCodeFoldingTree::hasVirtualColumns(QVector<int> &newColumns)
@@ -1562,8 +1604,9 @@ void KateCodeFoldingTree::printMapping() {
     int key = iterator.next().key();
     debug() << "Line" << key;
     foreach (KateCodeFoldingNode *node, tempVector) {
-      debug() << "node type:" << node->m_type << ", col:" << node->getColumn() << ", address: " << node;
-      if (node->m_type > 0) {
+      debug() << "node type:" << node->m_type << ", col:" << node->getColumn()
+              << ", line:" << node->getLine() << ", address: " << node;
+      /*if (node->m_type > 0) {
         debug () << "start children...";
         foreach (KateCodeFoldingNode *child, node->m_startChildren) {
           debug() << "new start child address: " << child << "(line = " << child->getLine() <<")";
@@ -1572,7 +1615,7 @@ void KateCodeFoldingTree::printMapping() {
         foreach (KateCodeFoldingNode *child, node->m_endChildren) {
           debug() << "new end child address: " << child << "(line = " << child->getLine() <<")";
         }
-      }
+      }*/
     }
     debug() << "End of line:" << key;
   }

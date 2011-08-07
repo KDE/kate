@@ -57,10 +57,50 @@
 #include <kvbox.h>
 
 //BEGIN KatePrinter
+void KatePrinter::readSettings(QPrinter& printer)
+{
+  // NOTE: Saving & loading the margins works around QPrinter/QPrintDialog bugs:
+  // - https://bugreports.qt.nokia.com/browse/QTBUG-15351
+  // - https://bugs.kde.org/show_bug.cgi?id=205802
+  // - https://bugs.kde.org/show_bug.cgi?id=180051
+  // Changing the margins now works. However, when you reopen the print dialog
+  // later, the WRONG margins are displayed. The correct ones are still used.
+  // This is a critical bug in Qt.
+
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup group(config, "Kate Print Settings");
+  KConfigGroup margins(&group, "Margins");
+
+  qreal left, right, top, bottom;
+  printer.getPageMargins(&left, &top, &right, &bottom, QPrinter::Millimeter);
+
+  left = margins.readEntry("left", left);
+  top = margins.readEntry("top", top);
+  right = margins.readEntry("right", right);
+  bottom = margins.readEntry("bottom", bottom);
+
+  printer.setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
+}
+
+void KatePrinter::writeSettings(QPrinter& printer)
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup group(config, "Kate Print Settings");
+  KConfigGroup margins(&group, "Margins");
+
+  qreal left, right, top, bottom;
+  printer.getPageMargins(&left, &top, &right, &bottom, QPrinter::Millimeter);
+
+  margins.writeEntry( "left", left);
+  margins.writeEntry( "top", top);
+  margins.writeEntry( "right", right);
+  margins.writeEntry( "bottom", bottom);
+}
+
 bool KatePrinter::print (KateDocument *doc)
 {
-
   QPrinter printer;
+  readSettings(printer);
 
   // docname is now always there, including the right Untitled name
   printer.setDocName(doc->documentName());
@@ -86,6 +126,8 @@ bool KatePrinter::print (KateDocument *doc)
 
   if ( printDialog->exec() )
   {
+    writeSettings(printer);
+
     KateRenderer renderer(doc, doc->activeKateView());
     renderer.config()->setSchema (kpl->colorScheme());
     renderer.setPrinterFriendly(true);

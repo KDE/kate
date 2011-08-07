@@ -40,6 +40,8 @@ class KatePrinter
 {
   public:
     static bool print (KateDocument *doc);
+    static void readSettings(QPrinter& printer);
+    static void writeSettings(QPrinter& printer);
 };
 
 //BEGIN Text settings

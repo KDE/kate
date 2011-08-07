@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Control" version="0.83" kateversion="2.4" section="Other" extensions="control" mimetype="">
+<language name="Debian Control" version="0.84" kateversion="2.4" section="Other" extensions="control" mimetype="">
     <highlighting>
         <contexts>
             <context attribute="Normal Text" lineEndContext="#stay" name="INIT">
@@ -16,6 +16,7 @@
                 <StringDetect attribute="Keyword" context="DependencyField" String="Build-Depends-Indep:"/>
                 <StringDetect attribute="Keyword" context="DependencyField" String="Build-Conflicts:"/>
                 <StringDetect attribute="Keyword" context="DependencyField" String="Build-Conflicts-Indep:"/>
+                <StringDetect attribute="Keyword" context="DependencyField" String="Breaks:"/>
                 <RegExpr attribute="Keyword" context="Field" minimal="true" String="[^ ]*:" column="0"/>
                 <DetectChar attribute="Value" context="Field" char=" " column="0"/>
             </context>
@@ -56,6 +57,9 @@
     </highlighting>
 
     <general>
+        <comments>
+            <comment name="singleLine" start="#"/>
+        </comments>
         <keywords casesensitive="1" />
     </general>
 </language>

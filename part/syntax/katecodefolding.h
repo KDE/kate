@@ -356,7 +356,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   // Update position methods
     void changeColumn(KateCodeFoldingNode *node, int newColumn);
-    void setColumns (int line, QVector<int> &newColumns);
+    void setColumns (int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
     void updateMapping(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
     int hasVirtualColumns(QVector<int> &newColumns);
 

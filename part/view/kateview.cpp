@@ -955,7 +955,7 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_expandtoplevel");
   a->setText(i18n("Expand Toplevel"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Equal));
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
 
   a = ac->addAction("folding_collapselocal");
@@ -965,7 +965,7 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_expandlocal");
   a->setText(i18n("Expand One Local Level"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Equal));
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 
   // Collapse level connections

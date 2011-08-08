@@ -24,13 +24,14 @@
 #include "ui_snippet_selector.h"
 #include <qwidget.h>
 #include <qpointer.h>
+#include <QSortFilterProxyModel>
 
 class QMenu;
 
 namespace JoWenn {
   
   class KateSnippetsPlugin;
-  
+
   class KateSnippetSelector: public QWidget, private Ui::KateSnippetSelector {
       Q_OBJECT
     public:
@@ -55,6 +56,7 @@ namespace JoWenn {
       JoWenn::KateSnippetsPlugin *m_plugin;
       Kate::MainWindow *m_mainWindow;
       QString m_mode;
+      bool m_modelDrop;
       QMenu *m_addSnippetToPopup;
       QPointer<KTextEditor::View> m_associatedView;
       QPointer<KActionCollection> m_currentCollection;
@@ -69,8 +71,35 @@ namespace JoWenn {
       };
     
       QMenu *addSnippetToPopup(){return m_addSnippetToPopup;}
+      
+      void doPopupAddSnippetToPopup(const QString& fileType, const QString& data);
+  
+  private:
+    QString m_modelDropData;
+    QString m_modelDropFileType;
+      
   };
 
+  
+  class KateSnippetSelectorProxyModel: public QSortFilterProxyModel {
+    Q_OBJECT
+  public:
+    KateSnippetSelectorProxyModel(KateSnippetSelector *parent):QSortFilterProxyModel(parent),m_selector(parent) {
+      setDynamicSortFilter(true);
+    }
+   virtual ~KateSnippetSelectorProxyModel(){}
+    
+    //DROPPING OF NEW SNIPPETS
+        virtual Qt::DropActions supportedDropActions() const;        
+        virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+        virtual QStringList mimeTypes() const;
+        virtual bool dropMimeData(const QMimeData *data,
+            Qt::DropAction action, int row, int column, const QModelIndex &parent);    
+  private:
+    KateSnippetSelector* m_selector;
+  };
+  
+  
 }
 
 Q_DECLARE_METATYPE(JoWenn::KateSnippetSelector::ActionData)

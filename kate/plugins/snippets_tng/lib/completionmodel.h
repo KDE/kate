@@ -27,6 +27,7 @@
 #include <ktexteditor_codesnippets_core_export.h>
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
+#include <QMimeData>
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -101,6 +102,7 @@ namespace KTextEditor {
         virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
                 
         KActionCollection *actionCollection();
+        
       public Q_SLOTS:
         void subDestroyed(QObject*);
         void actionTriggered();
@@ -125,7 +127,7 @@ namespace KTextEditor {
         virtual QVariant data(const QModelIndex &index, int role) const;
         virtual QModelIndex parent ( const QModelIndex & index) const {return QModelIndex();}
         virtual QVariant headerData ( int section, Qt::Orientation orientation, int role) const;
-
+                
         QString fileType();
 
   #ifdef SNIPPET_EDITOR
@@ -133,10 +135,10 @@ namespace KTextEditor {
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
         virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
         QModelIndex newItem();
-        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ShortcutRole,ForExtension=Qt::UserRole+100};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,FileTypeRole,PrefixRole,MatchRole,PostfixRole,ArgumentsRole,ShortcutRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS SET
   #else
-        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,ForExtension=Qt::UserRole+100};
+        enum {FillInRole=Qt::UserRole+1,ScriptTokenRole,MergedFilesRole,FileTypeRole,ForExtension=Qt::UserRole+100};
         //#warning SNIPPET_EDITOR IS NOT SET
   #endif
       private:

@@ -2836,6 +2836,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   m_undoManager->undoSafePoint();
 
   editStart ();
+  blockRemoveTrailingSpaces(true); // bug #242723, see unit test bug242723_test
 
   KTextEditor::Cursor pos = view->cursorPosition();
   if (!view->config()->persistentSelection() && view->selection()) {
@@ -2864,7 +2865,6 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   }
 
 
-  blockRemoveTrailingSpaces(true);
   insertText(pos, s, view->blockSelectionMode());
   blockRemoveTrailingSpaces(false);
 

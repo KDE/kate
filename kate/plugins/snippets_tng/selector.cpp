@@ -53,6 +53,7 @@ namespace JoWenn {
     connect(treeView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleClicked(QModelIndex)));
     connect(hideShowBtn,SIGNAL(clicked()),this,SLOT(showHideSnippetText()));
     connect(showRepoManagerButton,SIGNAL(clicked()),this,SLOT(showRepoManager()));
+    hideShowBtn->setArrowType(Qt::DownArrow);
     m_addSnippetToPopup = new QMenu(this);
     addSnippetToButton->setDelayedMenu(m_addSnippetToPopup);
     connect(addSnippetToButton,SIGNAL(clicked()),this,SLOT(addSnippetToClicked()));

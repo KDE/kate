@@ -26,6 +26,7 @@
 #include "katematch.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "kateundomanager.h"
 #include "kateconfig.h"
 
 #include <ktexteditor/movingcursor.h>
@@ -737,6 +738,9 @@ void KateSearchBar::replaceNext() {
     const QString replacement = m_powerUi->replacement->currentText();
 
     if (find(SearchForward, &replacement)) {
+        // Never merge replace actions with other replace actions/user actions
+        m_view->doc()->undoManager()->undoSafePoint();
+
         // Add to search history
         addCurrentTextToHistory(m_powerUi->pattern);
 
@@ -859,6 +863,9 @@ void KateSearchBar::replaceAll() {
     // Pass on the hard work
     int replacementsDone=findAll(inputRange, &replacement);
     KPassivePopup::message(i18np("1 replacement has been made","%1 replacements have been made",replacementsDone),this);
+
+    // Never merge replace actions with other replace actions/user actions
+    m_view->doc()->undoManager()->undoSafePoint();
 
     // Add to search history
     addCurrentTextToHistory(m_powerUi->pattern);

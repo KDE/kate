@@ -1402,8 +1402,12 @@ bool KateDocument::editRemoveLines ( int from, int to )
 }
 //END
 
-//BEGIN KTextEditor::UndoInterface stuff
+KateUndoManager* KateDocument::undoManager()
+{
+  return m_undoManager;
+}
 
+//BEGIN KTextEditor::UndoInterface stuff
 uint KateDocument::undoCount () const
 {
   return m_undoManager->undoCount ();

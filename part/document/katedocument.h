@@ -323,6 +323,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     uint undoCount () const;
     uint redoCount () const;
 
+    KateUndoManager* undoManager();
+
   protected:
     KateUndoManager* const m_undoManager;
 

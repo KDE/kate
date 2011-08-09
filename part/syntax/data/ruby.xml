@@ -31,7 +31,7 @@
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
 <language name="Ruby" section="Scripts"
-          version="1.22" kateversion="2.4"
+          version="1.23" kateversion="2.4"
 	  extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb;*.rake;Rakefile;Gemfile;*.gemspec"
 	  mimetype="application/x-ruby"
 	  style="ruby" indenter="ruby"
@@ -67,7 +67,6 @@
 			<item> unless </item>
 			<item> until </item>
 			<item> when </item>
-			<item> while </item>
 			<item> yield </item>
 		</list>
 		
@@ -196,7 +195,7 @@
 				<!-- check for statement modifiers with regexes -->
 				<DetectChar attribute="Operator" char="{" context="Find closing block brace" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(\=|\(|\[|\{)\s*(if|unless|while|until)\b" context="#stay" beginRegion="def block"/>
-				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block" firstNonSpace="true"/>
+				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block" />
 				<RegExpr attribute="Keyword" String="\;\s*(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" beginRegion="def block" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="\;\s*(if|unless)\b" context="#stay" beginRegion="def block"/>

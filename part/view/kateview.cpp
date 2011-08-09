@@ -2702,6 +2702,7 @@ KateViModeBar *KateView::viModeBar()
 {
   if (!m_viModeBar) {
     m_viModeBar = new KateViModeBar(this);
+    m_viModeBar->hide ();
   }
 
   return m_viModeBar;

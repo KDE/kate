@@ -183,15 +183,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   // enable plugin guis
   KatePluginManager::self()->enableAllPluginsGUI (this, sconfig);
 
-  // connect documents menu aboutToshow
-  documentMenu = (QMenu*)factory()->container("go", this);
-  if (documentMenu)
-    connect(documentMenu, SIGNAL(aboutToShow()), this, SLOT(documentMenuAboutToShow()));
-
-  documentsGroup = new QActionGroup(documentMenu);
-  documentsGroup->setExclusive(true);
-  connect(documentsGroup, SIGNAL(triggered(QAction*)), this, SLOT(activateDocumentFromDocMenu(QAction*)));
-
   // caption update
   for (uint i = 0; i < KateDocManager::self()->documents(); i++)
     slotDocumentCreated (KateDocManager::self()->document(i));
@@ -562,35 +553,6 @@ void KateMainWindow::slotUpdateOpenWith()
     documentOpenWith->setEnabled(!m_viewManager->activeView()->document()->url().isEmpty());
   else
     documentOpenWith->setEnabled(false);
-}
-
-void KateMainWindow::documentMenuAboutToShow()
-{
-  qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
-  qDeleteAll( documentsGroup->actions() );
-
-  KTextEditor::Document* activeDoc = m_viewManager->activeView() ? m_viewManager->activeView()->document() : 0;
-  const QList<KTextEditor::Document*> & docs = KateDocManager::self()->documentList();
-  for (int i = 0; i < docs.size(); ++i)
-  {
-    KTextEditor::Document *doc = docs[i];
-    const QString name = KStringHandler::rsqueeze(doc->documentName(), 150);
-    QAction *action = new QAction(doc->isModified() ?
-                                  i18nc("'document name [*]', [*] means modified", "%1 [*]", name) : name,
-                                  documentsGroup );
-    action->setCheckable(true);
-    if (activeDoc == doc)
-      action->setChecked(true);
-    action->setData(QVariant::fromValue(doc));
-    documentMenu->addAction(action);
-  }
-}
-
-void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
-{
-  KTextEditor::Document* doc = action->data().value<KTextEditor::Document*>();
-  if (doc)
-    m_viewManager->activateView (doc);
 }
 
 void KateMainWindow::dragEnterEvent( QDragEnterEvent *event )

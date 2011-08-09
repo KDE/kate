@@ -196,9 +196,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotUpdateOpenWith();
     void slotOpenDocument(KUrl);
 
-    void documentMenuAboutToShow();
-    void activateDocumentFromDocMenu (QAction *action);
-
     void slotDropEvent(QDropEvent *);
     void editKeys();
     void mSlotFixOpenWithMenu();
@@ -269,9 +266,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KRecentFilesAction *fileOpenRecent;
 
     KActionMenu* documentOpenWith;
-
-    QMenu *documentMenu;
-    QActionGroup *documentsGroup;
 
     KToggleAction* settingsShowFileselector;
 

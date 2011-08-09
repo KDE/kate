@@ -75,6 +75,8 @@ private Q_SLOTS:
     void closeTab(QWidget *widget);
     void toggleOptions(bool show);
 
+    void searchContextMenu(const QPoint& pos);
+
     void searchPlaceChanged();
     void searchPatternChanged();
 
@@ -108,7 +110,8 @@ Q_SIGNALS:
     void setCurrentFolder();
     void setSearchString(const QString &pattern);
     void startSearch();
-
+    void newTab();
+    
     //
     // KTextEditor::Command
     //

@@ -529,6 +529,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void slotSaveCanceled( const QString& error );
     //void slotExpandToplevel();                          // !!!
     void slotCollapseLocal();                           // !!!
+    void slotCollapseLevel();
+    void slotExpandLevel();
     void slotExpandLocal();                             // !!!
     void slotConfigDialog ();
 

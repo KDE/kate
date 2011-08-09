@@ -379,8 +379,8 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void foldNode (KateCodeFoldingNode* node);
     void unfoldNode (KateCodeFoldingNode* node);
 
-    void collapseLevel (int level, KateCodeFoldingNode* node = 0, int nodeLevel = 0);
-    void expandLevel (int level, KateCodeFoldingNode* node = 0, int nodeLevel = 0);
+    void collapseLevel (int level, KateCodeFoldingNode* node, int nodeLevel);
+    void expandLevel (int level, KateCodeFoldingNode* node, int nodeLevel);
 
   public Q_SLOTS:
     void updateLine (int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
@@ -396,25 +396,8 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void applyFoldingState();
 
   // Collapse / Expand different levels
-    void collapseLevel1() { collapseLevel( 1 ); }
-    void collapseLevel2() { collapseLevel( 2 ); }
-    void collapseLevel3() { collapseLevel( 3 ); }
-    void collapseLevel4() { collapseLevel( 4 ); }
-    void collapseLevel5() { collapseLevel( 5 ); }
-    void collapseLevel6() { collapseLevel( 6 ); }
-    void collapseLevel7() { collapseLevel( 7 ); }
-    void collapseLevel8() { collapseLevel( 8 ); }
-    void collapseLevel9() { collapseLevel( 9 ); }
-
-    void expandLevel1() { expandLevel( 1 ); }
-    void expandLevel2() { expandLevel( 2 ); }
-    void expandLevel3() { expandLevel( 3 ); }
-    void expandLevel4() { expandLevel( 4 ); }
-    void expandLevel5() { expandLevel( 5 ); }
-    void expandLevel6() { expandLevel( 6 ); }
-    void expandLevel7() { expandLevel( 7 ); }
-    void expandLevel8() { expandLevel( 8 ); }
-    void expandLevel9() { expandLevel( 9 ); }
+    void collapseLevel (int level) { collapseLevel(level, 0, 0); }
+    void expandLevel (int level) { expandLevel(level, 0, 0); }
 
   Q_SIGNALS:
       void regionVisibilityChanged ();

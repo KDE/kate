@@ -968,80 +968,19 @@ void KateView::setupCodeFolding()
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 
-  // Collapse level connections
-  a = ac->addAction("collapse_level_1");
-  a->setText(i18n("Collapse Level 1"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel1()));
-
-  a = ac->addAction("collapse_level_2");
-  a->setText(i18n("Collapse Level 2"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel2()));
-
-  a = ac->addAction("collapse_level_3");
-  a->setText(i18n("Collapse Level 3"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel3()));
-
-  a = ac->addAction("collapse_level_4");
-  a->setText(i18n("Collapse Level 4"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel4()));
-
-  a = ac->addAction("collapse_level_5");
-  a->setText(i18n("Collapse Level 5"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel5()));
-
-  a = ac->addAction("collapse_level_6");
-  a->setText(i18n("Collapse Level 6"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel6()));
-
-  a = ac->addAction("collapse_level_7");
-  a->setText(i18n("Collapse Level 7"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel7()));
-
-  a = ac->addAction("collapse_level_8");
-  a->setText(i18n("Collapse Level 8"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel8()));
-
-  a = ac->addAction("collapse_level_9");
-  a->setText(i18n("Collapse Level 9"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(collapseLevel9()));
-
-  // Expand level connections
-  a = ac->addAction("expand_level_1");
-  a->setText(i18n("Expand Level 1"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel1()));
-
-  a = ac->addAction("expand_level_2");
-  a->setText(i18n("Expand Level 2"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel2()));
-
-  a = ac->addAction("expand_level_3");
-  a->setText(i18n("Expand Level 3"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel3()));
-
-  a = ac->addAction("expand_level_4");
-  a->setText(i18n("Expand Level 4"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel4()));
-
-  a = ac->addAction("expand_level_5");
-  a->setText(i18n("Expand Level 5"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel5()));
-
-  a = ac->addAction("expand_level_6");
-  a->setText(i18n("Expand Level 6"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel6()));
-
-  a = ac->addAction("expand_level_7");
-  a->setText(i18n("Expand Level 7"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel7()));
-
-  a = ac->addAction("expand_level_8");
-  a->setText(i18n("Expand Level 8"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel8()));
-
-  a = ac->addAction("expand_level_9");
-  a->setText(i18n("Expand Level 9"));
-  connect(a, SIGNAL(triggered()), m_doc->foldingTree(), SLOT(expandLevel9()));
-
+  for (int i = 1; i < 10; ++i) {
+    // Collapse level connections
+    a = ac->addAction(QString("collapse_level_%1").arg(i));
+    a->setText(i18n("Collapse Folding Level %1", i));
+    a->setData(i);
+    connect(a, SIGNAL(triggered()), this, SLOT(slotCollapseLevel()));
+    
+    // Expand level connections
+    a = ac->addAction(QString("expand_level_%1").arg(i));
+    a->setText(i18n("Expand Folding Level %1", i));
+    a->setData(i);
+    connect(a, SIGNAL(triggered()), this, SLOT(slotExpandLevel()));
+  }
 }
 
 void KateView::slotCollapseLocal()
@@ -1052,6 +991,28 @@ void KateView::slotCollapseLocal()
 void KateView::slotExpandLocal()
 {
   m_doc->foldingTree()->expandOne(cursorPosition().line(), cursorPosition().column());
+}
+
+void KateView::slotCollapseLevel()
+{
+  if (!sender()) return;
+  QAction *action = qobject_cast<QAction*>(sender());
+  if (!action) return;
+
+  const int level = action->data().toInt();
+  Q_ASSERT(level > 0);
+  m_doc->foldingTree()->collapseLevel(level);
+}
+
+void KateView::slotExpandLevel()
+{
+  if (!sender()) return;
+  QAction *action = qobject_cast<QAction*>(sender());
+  if (!action) return;
+  
+  const int level = action->data().toInt();
+  Q_ASSERT(level > 0);
+  m_doc->foldingTree()->expandLevel(level);
 }
 
 QString KateView::viewMode () const

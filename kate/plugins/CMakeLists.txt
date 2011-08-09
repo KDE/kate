@@ -11,7 +11,10 @@ endif(NOT WIN32)
 
 add_subdirectory( textfilter )
 add_subdirectory( konsole )
-add_subdirectory( externaltools )
+
+# needs maintainer!
+#add_subdirectory( externaltools )
+
 add_subdirectory( filebrowser )
 add_subdirectory( findinfiles )
 add_subdirectory( mailfiles )

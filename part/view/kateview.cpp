@@ -949,35 +949,40 @@ void KateView::setupCodeFolding()
   KActionCollection *ac=this->actionCollection();
 
   KAction* a = ac->addAction("folding_toplevel");
-  a->setText(i18n("Collapse Toplevel"));
+  a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
 
   a = ac->addAction("folding_expandtoplevel");
-  a->setText(i18n("Expand Toplevel"));
+  a->setText(i18n("Unfold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
 
+  a = ac->addAction("folding_expandall");
+  a->setText(i18n("Unfold All Nodes"));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(expandAll()));
+
   a = ac->addAction("folding_collapselocal");
-  a->setText(i18n("Collapse One Local Level"));
+  a->setText(i18n("Fold Current Node"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
   a = ac->addAction("folding_expandlocal");
-  a->setText(i18n("Expand One Local Level"));
+  a->setText(i18n("Unfold Current Node"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 
-  for (int i = 1; i < 10; ++i) {
+  // Explicit folding is allowed for level 2 to 4
+  for (int i = 2 ; i < 5 ; ++i) {
     // Collapse level connections
     a = ac->addAction(QString("collapse_level_%1").arg(i));
-    a->setText(i18n("Collapse Folding Level %1", i));
+    a->setText(i18n("Fold Nodes in Level %1", i));
     a->setData(i);
     connect(a, SIGNAL(triggered()), this, SLOT(slotCollapseLevel()));
     
     // Expand level connections
     a = ac->addAction(QString("expand_level_%1").arg(i));
-    a->setText(i18n("Expand Folding Level %1", i));
+    a->setText(i18n("Unfold Nodes in Level %1", i));
     a->setData(i);
     connect(a, SIGNAL(triggered()), this, SLOT(slotExpandLevel()));
   }

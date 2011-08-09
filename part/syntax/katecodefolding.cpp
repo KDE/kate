@@ -633,6 +633,28 @@ void KateCodeFoldingTree::ensureVisible(int l)
   }
 }
 
+void KateCodeFoldingTree::expandAll()
+{
+  QMapIterator <int, QVector <KateCodeFoldingNode*> > iterator(m_lineMapping);
+  QVector <KateCodeFoldingNode*> tempVector;
+
+  // Coppy the lines before "line"
+  while (iterator.hasNext()) {
+    tempVector = iterator.peekNext().value();
+    foreach (KateCodeFoldingNode* node, tempVector) {
+      if (node->m_type > 0 && !node->isVisible()) {
+        node->m_visible = true;
+      }
+    }
+
+    iterator.next();
+  }
+
+  m_hiddenNodes.clear();
+
+  emit regionVisibilityChanged();
+}
+
 void KateCodeFoldingTree::expandLevel(int level, KateCodeFoldingNode *node, int nodeLevel)
 {
   if (!node)

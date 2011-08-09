@@ -31,14 +31,10 @@
 
 KateViGlobal::KateViGlobal()
 {
-  m_numberedRegisters = new QList<KateViRegister>;
-  m_registers = new QMap<QChar, KateViRegister>;
 }
 
 KateViGlobal::~KateViGlobal()
 {
-  delete m_numberedRegisters;
-  delete m_registers;
 }
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
@@ -74,8 +70,8 @@ KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
 
   if ( _reg >= '1' && _reg <= '9' ) { // numbered register
     int index = QString( _reg ).toInt()-1;
-    if ( m_numberedRegisters->size() > index) {
-      regPair = m_numberedRegisters->at( index );
+    if ( m_numberedRegisters.size() > index) {
+      regPair = m_numberedRegisters.at( index );
     }
   } else if ( _reg == '+' ) { // system clipboard register
       QString regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
@@ -84,8 +80,8 @@ KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
       QString regContent = QApplication::clipboard()->text( QClipboard::Selection );
       regPair = KateViRegister( regContent, CharWise );
   } else { // regular, named register
-    if ( m_registers->contains( _reg ) ) {
-      regPair = m_registers->value( _reg );
+    if ( m_registers.contains( _reg ) ) {
+      regPair = m_registers.value( _reg );
     }
   }
 
@@ -104,16 +100,16 @@ OperationMode KateViGlobal::getRegisterFlag( const QChar &reg ) const
 
 void KateViGlobal::addToNumberedRegister( const QString &text, OperationMode flag )
 {
-  if ( m_numberedRegisters->size() == 9 ) {
-    m_numberedRegisters->removeLast();
+  if ( m_numberedRegisters.size() == 9 ) {
+    m_numberedRegisters.removeLast();
   }
 
   // register 0 is used for the last yank command, so insert at position 1
-  m_numberedRegisters->prepend( KateViRegister(text, flag ) );
+  m_numberedRegisters.prepend( KateViRegister(text, flag ) );
 
   kDebug( 13070 ) << "Register 1-9:";
-  for ( int i = 0; i < m_numberedRegisters->size(); i++ ) {
-      kDebug( 13070 ) << "\t Register " << i+1 << ": " << m_numberedRegisters->at( i );
+  for ( int i = 0; i < m_numberedRegisters.size(); i++ ) {
+      kDebug( 13070 ) << "\t Register " << i+1 << ": " << m_numberedRegisters.at( i );
   }
 }
 
@@ -131,7 +127,7 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
   } else if ( reg == '*' ) { // system selection register
       QApplication::clipboard()->setText( text, QClipboard::Selection );
   } else {
-    m_registers->insert( reg, KateViRegister(text, flag) );
+    m_registers.insert( reg, KateViRegister(text, flag) );
   }
 
   kDebug( 13070 ) << "Register " << reg << " set to " << getRegisterContent( reg );

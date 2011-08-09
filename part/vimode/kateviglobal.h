@@ -53,7 +53,7 @@ public:
     OperationMode getRegisterFlag( const QChar &reg ) const;
     void addToNumberedRegister( const QString &text, OperationMode flag = CharWise );
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
-    const QMap<QChar, KateViRegister>* getRegisters() const { return m_registers; }
+    const QMap<QChar, KateViRegister>* getRegisters() const { return &m_registers; }
 
     void clearMappings( ViMode mode );
     void addMapping( ViMode mode, const QString &from, const QString &to );
@@ -62,8 +62,8 @@ public:
 
 private:
     // registers
-    QList<KateViRegister> *m_numberedRegisters;
-    QMap<QChar, KateViRegister> *m_registers;
+    QList<KateViRegister> m_numberedRegisters;
+    QMap<QChar, KateViRegister> m_registers;
     QChar m_defaultRegister;
     QString m_registerTemp;
     KateViRegister getRegister( const QChar &reg ) const;

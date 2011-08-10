@@ -535,7 +535,6 @@ int KateCodeFoldingTree::collapseOne(int realLine, int column)
   return 0;
 }
 
-// Need some work here!!!
 // This method fold all the top level (depth(node) = 1) nodes
 void KateCodeFoldingTree::collapseToplevelNodes()
 {

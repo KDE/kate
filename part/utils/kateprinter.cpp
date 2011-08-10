@@ -188,7 +188,7 @@ bool KatePrinter::print (KateDocument *doc)
     uint currentPage( 1 );
     uint lastline = doc->lastLine(); // necessary to print selection only
     uint firstline( 0 );
-    int fontHeight = renderer.fontHeight();
+    const int fontHeight = renderer.fontHeight();
     KTextEditor::Range selectionRange;
 
     /*
@@ -340,51 +340,43 @@ bool KatePrinter::print (KateDocument *doc)
       // now that we know the vertical amount of space needed,
       // it is possible to calculate the total number of pages
       // if needed, that is if any header/footer tag contains "%P".
-#if 0
       if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
       {
         kDebug(13020)<<"'%P' found! calculating number of pages...";
-        uint _pages = 0;
-        uint _ph = maxHeight;
+        int pageHeight = maxHeight;
         if ( useHeader )
-          _ph -= ( headerHeight + innerMargin );
+          pageHeight -= ( headerHeight + innerMargin );
         if ( useFooter )
-          _ph -= innerMargin;
-        int _lpp = _ph / fontHeight;
-        uint _lt = 0, _c=0;
+          pageHeight -= innerMargin;
+        const int linesPerPage = pageHeight / fontHeight;
+//         kDebug() << "Lines per page:" << linesPerPage;
+        
+        // calculate total layouted lines in the document
+        int totalLines = 0;
+        // TODO: right now ignores selection printing
+        for (int i = firstline; i <= lastline; ++i) {
+          KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+          rangeptr->setLine(i);
+          renderer.layoutLine(rangeptr, (int)maxWidth, false);
+          totalLines += rangeptr->viewLineCount();
+        }
+        int totalPages = (totalLines / linesPerPage)
+                      + ((totalLines % linesPerPage) > 0 ? 1 : 0);
+//         kDebug() << "_______ pages:" << (totalLines / linesPerPage);
+//         kDebug() << "________ rest:" << (totalLines % linesPerPage);
 
-        // add space for guide if required
+        // TODO: add space for guide if required
 //         if ( useGuide )
 //           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
-        long _lw;
-        for ( uint i = firstline; i < lastline; i++ )
-        {
-          //FIXME: _lw = renderer.textWidth( doc->kateTextLine( i ), -1 );
-          _lw = 80 * renderer.spaceWidth(); //FIXME: just a stand-in
-          while ( _lw >= 0 )
-          {
-            _c++;
-            _lt++;
-            if ( (int)_lt  == _lpp )
-            {
-              _pages++;
-              _lt = 0;
-            }
-            _lw -= maxWidth;
-            if ( ! _lw ) _lw--; // skip lines matching exactly!
-          }
-        }
-        if ( _lt ) _pages++; // last page
 
         // substitute both tag lists
         QString re("%P");
         QStringList::Iterator it;
         for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
-          (*it).replace( re, QString( "%1" ).arg( _pages ) );
+          (*it).replace( re, QString( "%1" ).arg( totalPages ) );
         for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
-          (*it).replace( re, QString( "%1" ).arg( _pages ) );
+          (*it).replace( re, QString( "%1" ).arg( totalPages ) );
       }
-#endif
     } // end prepare block
 
      /*
@@ -395,7 +387,7 @@ bool KatePrinter::print (KateDocument *doc)
       startCol = 0;
       endCol = 0;
 
-      if ( y + fontHeight >= maxHeight )
+      if ( y + fontHeight > maxHeight )
       {
         kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
         printer.newPage();
@@ -651,15 +643,15 @@ bool KatePrinter::print (KateDocument *doc)
       // clip and adjust the painter position as necessary
       int _lines = (*rangeptr)->viewLineCount(); // number of "sublines" to paint.
 
+      int proceedLines = _lines;
       if (remainder) {
-        int _height = (maxHeight-y)/fontHeight;
-        _height = qMin(_height, remainder);        
+        proceedLines = qMin((maxHeight - y) / fontHeight, remainder);
 
         paint.translate(0, -(_lines-remainder)*fontHeight+1);
-        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, _height*fontHeight); //### drop the crosspatch in printerfriendly mode???
-        remainder -= _height;
+        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, proceedLines*fontHeight); //### drop the crosspatch in printerfriendly mode???
+        remainder -= proceedLines;
       }
-      else if (fontHeight*_lines > maxHeight-y) {
+      else if (y + fontHeight * _lines > maxHeight) {
         remainder = _lines - ((maxHeight-y)/fontHeight);
         paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
       }
@@ -667,9 +659,9 @@ bool KatePrinter::print (KateDocument *doc)
       renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
 
       paint.setClipping(false);
-      paint.translate(_xadjust, (fontHeight * _lines));
+      paint.translate(_xadjust, (fontHeight * (_lines-remainder)));
 
-      y += fontHeight*_lines;
+      y += fontHeight * proceedLines;
 
       if ( ! remainder )
       lineCount++;

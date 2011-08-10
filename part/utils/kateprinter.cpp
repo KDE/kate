@@ -607,31 +607,30 @@ bool KatePrinter::print (KateDocument *doc)
 
       // HA! this is where we print [part of] a line ;]]
       // FIXME Convert this function + related functionality to a separate KatePrintView
-      KateLineLayout range(doc);
-      range.setLine(lineCount);
-      KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
-      renderer.layoutLine(*rangeptr, (int)maxWidth, false);
+      KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+      rangeptr->setLine(lineCount);
+      renderer.layoutLine(rangeptr, (int)maxWidth, false);
 
       // selectionOnly: clip non-selection parts and adjust painter position if needed
       int _xadjust = 0;
       if (selectionOnly) {
         if (doc->activeView()->blockSelection()) {
-          int _x = renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start());
-          int _x1 = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+          int _x = renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start());
+          int _x1 = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
            _xadjust = _x;
            paint.translate(-_xadjust, 0);
-          paint.setClipRegion(QRegion( _x, 0, _x1 - _x, (*rangeptr)->viewLineCount()*fontHeight));
+          paint.setClipRegion(QRegion( _x, 0, _x1 - _x, rangeptr->viewLineCount()*fontHeight));
         }
 
         else if (lineCount == firstline || lineCount == lastline) {
-          QRegion region(0, 0, maxWidth, (*rangeptr)->viewLineCount()*fontHeight);
+          QRegion region(0, 0, maxWidth, rangeptr->viewLineCount()*fontHeight);
 
           if ( lineCount == firstline) {
-            region = region.subtracted(QRegion(0, 0, renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start()), fontHeight));
+            region = region.subtracted(QRegion(0, 0, renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start()), fontHeight));
           }
 
           if (lineCount == lastline) {
-            int _x = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+            int _x = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
             region = region.subtracted(QRegion(_x, 0, maxWidth-_x, fontHeight));
           }
 
@@ -641,7 +640,7 @@ bool KatePrinter::print (KateDocument *doc)
 
       // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
       // clip and adjust the painter position as necessary
-      int _lines = (*rangeptr)->viewLineCount(); // number of "sublines" to paint.
+      int _lines = rangeptr->viewLineCount(); // number of "sublines" to paint.
 
       int proceedLines = _lines;
       if (remainder) {
@@ -656,7 +655,7 @@ bool KatePrinter::print (KateDocument *doc)
         paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
       }
 
-      renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
+      renderer.paintTextLine(paint, rangeptr, 0, (int)maxWidth);
 
       paint.setClipping(false);
       paint.translate(_xadjust, (fontHeight * (_lines-remainder)));

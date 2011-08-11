@@ -46,10 +46,11 @@ class KatePluginSymbolViewerView2 : public Kate::PluginView
   Q_OBJECT
 
   public:
-    KatePluginSymbolViewerView2 (Kate::MainWindow *w);
+    KatePluginSymbolViewerView2 (QList<KatePluginSymbolViewerView *> &views, Kate::MainWindow *w);
     virtual ~KatePluginSymbolViewerView2 ();
     KatePluginSymbolViewerView* view();
   private:
+    QList<KatePluginSymbolViewerView *> &m_views;
     KatePluginSymbolViewerView *m_view;
 };
 

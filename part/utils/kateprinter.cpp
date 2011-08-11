@@ -681,9 +681,6 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
 
-//   cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
-//   lo->addWidget( cbSelection );
-
   cbLineNumbers = new QCheckBox( i18n("Print line &numbers"), this );
   lo->addWidget( cbLineNumbers );
 
@@ -695,9 +692,6 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   // set defaults - nothing to do :-)
 
   // whatsthis
-//   cbSelection->setWhatsThis(i18n(
-//         "<p>This option is only available if some text is selected in the document.</p>"
-//         "<p>If available and enabled, only the selected text is printed.</p>") );
   cbLineNumbers->setWhatsThis(i18n(
         "<p>If enabled, line numbers will be printed on the left side of the page(s).</p>") );
   cbGuide->setWhatsThis(i18n(
@@ -712,11 +706,6 @@ KatePrintTextSettings::~KatePrintTextSettings()
   writeSettings();
 }
 
-// bool KatePrintTextSettings::printSelection()
-// {
-//     return cbSelection->isChecked();
-// }
-
 bool KatePrintTextSettings::printLineNumbers()
 {
   return cbLineNumbers->isChecked();
@@ -726,11 +715,6 @@ bool KatePrintTextSettings::printGuide()
 {
   return cbGuide->isChecked();
 }
-
-// void KatePrintTextSettings::enableSelection( bool enable )
-// {
-//   cbSelection->setEnabled( enable );
-// }
 
 void KatePrintTextSettings::readSettings()
 {

@@ -47,7 +47,6 @@ class KatePrinter
 //BEGIN Text settings
 /*
   Text settings page:
-  - [ ] Print Selection (enabled if there is a selection in the view)
   - Print Line Numbers
     () Smart () Yes () No
 */
@@ -58,18 +57,15 @@ class KatePrintTextSettings : public QWidget
     explicit KatePrintTextSettings( QWidget *parent=0 );
     ~KatePrintTextSettings();
 
-//     bool printSelection();
     bool printLineNumbers();
     bool printGuide();
-
-    /* call if view has a selection, enables the seelction checkbox according to the arg */
-//     void enableSelection( bool );
 
   private:
     void readSettings();
     void writeSettings();
     
-    QCheckBox /* *cbSelection,*/ *cbLineNumbers, *cbGuide;
+    QCheckBox *cbLineNumbers;
+    QCheckBox *cbGuide;
 };
 //END Text Settings
 

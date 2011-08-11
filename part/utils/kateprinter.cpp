@@ -881,6 +881,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
       "<li><tt>%f</tt>: file name</li>"
       "<li><tt>%U</tt>: full URL of the document</li>"
       "<li><tt>%p</tt>: page number</li>"
+      "<li><tt>%P</tt>: total amount of pages</li>"
       "</ul><br />");
   leHeaderRight->setWhatsThis(s + s1 );
   leHeaderCenter->setWhatsThis(s + s1 );

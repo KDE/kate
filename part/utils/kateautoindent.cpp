@@ -205,7 +205,15 @@ void KateAutoIndent::keepIndent ( int line )
   if (line <= 0)
     return;
 
-  Kate::TextLine prevTextLine = doc->plainKateTextLine(line-1);
+  // keep indentation: find line with content
+  int nonEmptyLine = line - 1;
+  while (nonEmptyLine >= 0) {
+    if (doc->lineLength(nonEmptyLine) > 0) {
+      break;
+    }
+    --nonEmptyLine;
+  }
+  Kate::TextLine prevTextLine = doc->plainKateTextLine(nonEmptyLine);
   Kate::TextLine textLine     = doc->plainKateTextLine(line);
 
   // textline not found, cu

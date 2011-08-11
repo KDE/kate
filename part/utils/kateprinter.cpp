@@ -81,8 +81,10 @@ bool KatePrinter::print (KateDocument *doc)
 
   QScopedPointer<QPrintDialog> printDialog(KdePrint::createPrintDialog(&printer, KdePrint::SystemSelectsPages, tabs, parentWidget));
 
-  if ( doc->activeView()->selection() )
-    printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+  if ( doc->activeView()->selection() ) {
+    printer.setPrintRange(QPrinter::Selection);
+    printDialog->setOption(QAbstractPrintDialog::PrintSelection, true);
+  }
 
   if ( printDialog->exec() )
   {

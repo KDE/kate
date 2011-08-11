@@ -1550,21 +1550,14 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int 
 void KateCodeFoldingTree::writeSessionConfig(KConfigGroup &config)
 {
   saveFoldingState();
-  config.writeEntry("FoldeNodesLines",m_hiddenLines);
-  config.writeEntry("FoldeNodesColumn",m_hiddenColumns);
+  config.writeEntry("FoldedLines", m_hiddenLines);
+  config.writeEntry("FoldedColumns", m_hiddenColumns);
 }
 
 void KateCodeFoldingTree::readSessionConfig(const KConfigGroup &config)
 {
-  const QList <int> tempLines = config.readEntry("FoldeNodesLines", QList<int>());
-  const QList <int> tempColumns = config.readEntry("FoldeNodesColumn", QList<int>());
-
-  m_hiddenLines.clear();
-  m_hiddenColumns.clear();
-
-  m_hiddenLines = tempLines;
-  m_hiddenColumns = tempColumns;
-
+  m_hiddenLines = config.readEntry("FoldedLines", QList<int>());
+  m_hiddenColumns = config.readEntry("FoldedColumns", QList<int>());
   applyFoldingState();
 }
 

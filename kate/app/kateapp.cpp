@@ -38,7 +38,7 @@
 #include <KLocale>
 #include <KStartupInfo>
 
-#include <QDir>
+#include <QFileInfo>
 #include <QTextCodec>
 
 #include <stdlib.h>
@@ -211,7 +211,7 @@ bool KateApp::startupKate ()
   for (int z = 0; z < m_args->count(); z++)
   {
     // this file is no local dir, open it, else warn
-    bool noDir = !m_args->url(z).isLocalFile() || !QDir (m_args->url(z).toLocalFile()).exists();
+    bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
 
     if (noDir)
     {
@@ -329,7 +329,7 @@ KTextEditor::Document* KateApp::openDocUrl (const KUrl &url, const QString &enco
   QTextCodec *codec = encoding.isEmpty() ? 0 : QTextCodec::codecForName(encoding.toLatin1());
 
   // this file is no local dir, open it, else warn
-  bool noDir = !url.isLocalFile() || !QDir (url.toLocalFile()).exists();
+  bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
 
   KTextEditor::Document *doc=0;
   

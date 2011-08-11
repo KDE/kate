@@ -23,7 +23,7 @@ Boston, MA 02110-1301, USA.
 #include <kcmdlineargs.h>
 #include <kmessagebox.h>
 
-#include <QDir>
+#include <QFileInfo>
 #include <QTextCodec>
 
 KWriteApp::KWriteApp(KCmdLineArgs *m_args)
@@ -121,7 +121,7 @@ void KWriteApp::init()
       for ( int z = 0; z < m_args->count(); z++ )
       {
         // this file is no local dir, open it, else warn
-        bool noDir = !m_args->url(z).isLocalFile() || !QDir (m_args->url(z).toLocalFile()).exists();
+        bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
 
         if (noDir)
         {

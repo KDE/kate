@@ -39,8 +39,9 @@ class KDataToolPlugin : public KTextEditor::Plugin
 public:
 	explicit KDataToolPlugin( QObject *parent = 0, const QVariantList &args = QVariantList() );
 	virtual ~KDataToolPlugin();
-	void addView (KTextEditor::View *view);
-	void removeView (KTextEditor::View *view);
+
+	virtual void addView (KTextEditor::View *view);
+	virtual void removeView (KTextEditor::View *view);
 
   private:
 	QList<class KDataToolPluginView*> m_views;
@@ -54,7 +55,7 @@ class KDataToolPluginView : public QObject, public KXMLGUIClient
 public:
 	KDataToolPluginView( KTextEditor::View *view );
 	virtual ~KDataToolPluginView();
-	void setView( KTextEditor::View* ){;}
+	View* view() const;
 private:
 	View *m_view;
 	bool m_singleWord;

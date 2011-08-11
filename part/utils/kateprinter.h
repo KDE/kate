@@ -105,6 +105,7 @@ class KatePrintHeaderFooter : public QWidget
 
   public Q_SLOTS:
     void setHFFont();
+    void showContextMenu(const QPoint& pos);
 
   private:
     void readSettings();

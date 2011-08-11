@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="AWK" version="0.90" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
+<language name="AWK" version="0.91" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
   <highlighting>
     <list name="keywords">
       <item>if</item>
@@ -67,7 +67,6 @@
 
       <context name="Base" attribute="Normal" lineEndContext="#stay">
 	<RegExpr String="\b(BEGIN|END)\b" attribute="Pattern" context="#stay" />
-	<RegExpr String="/([^\/[]|\\.|\[\]?(\[[^]]+\]|.)+\])+/" attribute="Pattern" context="#stay" />
 	<DetectChar char="{" attribute="Keyword" context="#stay" beginRegion="block" />
 	<DetectChar char="}" attribute="Keyword" context="#stay" endRegion="block" />
 	<DetectChar char="#" attribute="Comment" context="Comment" />

@@ -804,6 +804,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leHeaderRight = new KLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
 
+  leHeaderLeft->setContextMenuPolicy(Qt::CustomContextMenu);
+  leHeaderCenter->setContextMenuPolicy(Qt::CustomContextMenu);
+  leHeaderRight->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(leHeaderLeft, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leHeaderCenter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leHeaderRight, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
   grid->addWidget(new QLabel( i18n("Colors:"), gbHeader ), 1, 0);
 
   KHBox *hbHeaderColors = new KHBox( gbHeader );
@@ -833,6 +840,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leFooterCenter = new KLineEdit( hbFooterFormat );
   leFooterRight = new KLineEdit( hbFooterFormat );
   lFooterFormat->setBuddy( leFooterLeft );
+  
+  leFooterLeft->setContextMenuPolicy(Qt::CustomContextMenu);
+  leFooterCenter->setContextMenuPolicy(Qt::CustomContextMenu);
+  leFooterRight->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(leFooterLeft, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leFooterCenter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leFooterRight, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbFooter ), 1, 0);
 
@@ -967,6 +981,52 @@ void KatePrintHeaderFooter::setHFFont()
     // set preview
     lFontPreview->setFont( fnt );
     lFontPreview->setText( QString(fnt.family() + ", %1pt").arg( fnt.pointSize() ) );
+  }
+}
+
+void KatePrintHeaderFooter::showContextMenu(const QPoint& pos)
+{
+  QLineEdit* lineEdit = qobject_cast<QLineEdit*>(sender());
+  if (!lineEdit) {
+    return;
+  }
+
+  QMenu* const contextMenu = lineEdit->createStandardContextMenu();
+  if (contextMenu == NULL) {
+    return;
+  }
+  contextMenu->addSeparator();
+
+  // create original context menu
+  QMenu* menu = contextMenu->addMenu(i18n("Add Placeholder..."));
+  menu->setIcon(KIcon("list-add"));
+  QAction* a = menu->addAction(i18n("Current User Name") + "\t%u");
+  a->setData("%u");
+  a = menu->addAction(i18n("Complete Date/Time (short format)") + "\t%d");
+  a->setData("%d");
+  a = menu->addAction(i18n("Complete Date/Time (long format)") + "\t%D");
+  a->setData("%D");
+  a = menu->addAction(i18n("Current Time") + "\t%h");
+  a->setData("%h");
+  a = menu->addAction(i18n("Current Date (short format)") + "\t%y");
+  a->setData("%y");
+  a = menu->addAction(i18n("Current Date (long format)") + "\t%Y");
+  a->setData("%Y");
+  a = menu->addAction(i18n("File Name") + "\t%f");
+  a->setData("%f");
+  a = menu->addAction(i18n("Full document URL") + "\t%U");
+  a->setData("%U");
+  a = menu->addAction(i18n("Page Number") + "\t%p");
+  a->setData("%p");
+  a = menu->addAction(i18n("Total Amount of Pages") + "\t%P");
+  a->setData("%P");
+
+  QAction* const result = contextMenu->exec(lineEdit->mapToGlobal(pos));
+  if (result) {
+    QString placeHolder = result->data().toString();
+    if (!placeHolder.isEmpty()) {
+      lineEdit->insert(placeHolder);
+    }
   }
 }
 

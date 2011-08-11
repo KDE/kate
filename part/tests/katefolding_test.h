@@ -17,23 +17,28 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_VIEW_TEST_H
-#define KATE_VIEW_TEST_H
+#ifndef KATE_FOLDING_TEST_H
+#define KATE_FOLDING_TEST_H
 
 #include <QtCore/QObject>
+#include <part/syntax/katecodefolding.h>
 
 class KateFoldingTest : public QObject
 {
+  //friend class KateCodeFoldingTree;
+
   Q_OBJECT
 
-public:
-  KateFoldingTest();
-  ~KateFoldingTest();
+//public:
 
 private Q_SLOTS:
 
   void testFolding_data();
   void testFolding();
+  void testFoldingReload();
+  void testFolding_py_lang();
+  void testFolding_rb_lang();
+  void testFolding_expand_collapse_level();
 };
 
-#endif // KATE_VIEW_TEST_H
+#endif // KATE_FOLDING_TEST_H

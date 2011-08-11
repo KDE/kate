@@ -37,6 +37,7 @@ namespace KTextEditor { class Cursor; }
 class KateBuffer;
 class KConfigGroup;
 class KateDocument;
+class KateFoldingTest;
 
 class QString;
 //END
@@ -253,6 +254,7 @@ class KateCodeFoldingNode: public QObject
 class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 {
   friend class KateCodeFoldingNode;
+  friend class KateFoldingTest;
 
   Q_OBJECT
 

@@ -201,8 +201,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   KAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
   show_active->setIcon(KIcon("folder-sync"));
-  show_active->setShortcut( QKeySequence(Qt::ALT+Qt::Key_A), KAction::DefaultShortcut );
-  connect( show_active, SIGNAL( triggered(bool) ), this, SLOT( showActiveDocument() ) );
+  connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 
   /**
    * back + forward

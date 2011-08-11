@@ -137,15 +137,23 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
   opt.pageStep = pageStep();
 
   QRect rect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+  int sideMargin = width() - rect.width();
+  if (sideMargin < 4) sideMargin = 4;
+  sideMargin /= 2;
 
   QHashIterator<int, QColor> it = m_lines;
   while (it.hasNext())
   {
     it.next();
+    painter.setPen(it.value());
     if (it.key() < rect.top() || it.key() > rect.bottom())
     {
-      painter.setPen(it.value());
       painter.drawLine(0, it.key(), width(), it.key());
+    }
+    else
+    {
+      painter.drawLine(0, it.key(), sideMargin, it.key());
+      painter.drawLine(width()-sideMargin, it.key(), width(), it.key());
     }
   }
 }

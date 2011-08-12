@@ -637,7 +637,9 @@ void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
 void KateMainWindow::dragEnterEvent( QDragEnterEvent *event )
 {
   if (!event->mimeData()) return;
-  event->setAccepted(KUrl::List::canDecode(event->mimeData()));
+  const bool accept = KUrl::List::canDecode(event->mimeData()) // files
+                   || event->mimeData()->hasText();            // text
+  event->setAccepted(accept);
 }
 
 void KateMainWindow::dropEvent( QDropEvent *event )
@@ -648,31 +650,46 @@ void KateMainWindow::dropEvent( QDropEvent *event )
 void KateMainWindow::slotDropEvent( QDropEvent * event )
 {
   if (event->mimeData() == 0) return;
-  KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
+  
+  //
+  // are we dropping files?
+  //
+  if (KUrl::List::canDecode(event->mimeData())) {
+    KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
 
-  // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
-  // view where it was dropped
-  KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
-  if (kVsender != 0) {
-    QWidget *parent = kVsender->parentWidget();
-    if (parent != 0) {
-      KateViewSpace* vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
-      if (vs != 0) m_viewManager->setActiveSpace(vs);
+    // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
+    // view where it was dropped
+    KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
+    if (kVsender != 0) {
+      QWidget *parent = kVsender->parentWidget();
+      if (parent != 0) {
+        KateViewSpace* vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
+        if (vs != 0) m_viewManager->setActiveSpace(vs);
+      }
     }
-  }
 
-  for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
-  {
-    // if url has no file component, try and recursively scan dir
-    KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
-    if( kitem.isDir() ) {
-      KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
-      connect(list_job, SIGNAL(entries(KIO::Job *, const KIO::UDSEntryList &)),
-              this, SLOT(slotListRecursiveEntries(KIO::Job *, const KIO::UDSEntryList &)));
+    for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
+    {
+      // if url has no file component, try and recursively scan dir
+      KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
+      if( kitem.isDir() ) {
+        KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
+        connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
+                this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+      }
+      else {
+        m_viewManager->openUrl (*i);
+      }
     }
-    else {
-      m_viewManager->openUrl (*i);
-    }
+  } 
+  //
+  // or are we dropping text?
+  //
+  else if (event->mimeData()->hasText()) {
+    KTextEditor::Document * doc =
+      KateDocManager::self()->createDoc();
+    doc->setText(event->mimeData()->text());
+    m_viewManager->activateView(doc);
   }
 }
 

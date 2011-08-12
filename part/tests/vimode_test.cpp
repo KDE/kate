@@ -334,7 +334,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest(" foo", "$0x","foo");
 
   // Testing "#"
-  DoTest("1 1 1", "2#x","1 1 ");
+  DoTest("1 1 1", "2#x","1  1");
   DoTest("foo bar foo bar", "#xlll#x","foo ar oo bar");
   DoTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
 

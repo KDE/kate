@@ -915,21 +915,17 @@ bool KateViNormalMode::commandJoinLines()
   // remember line length so the cursor can be put between the joined lines
   int l = doc()->lineLength( c.line() );
 
-  int n = getCount();
+  unsigned int from = c.line();
+  unsigned int to = c.line()+getCount();
 
   // if we were given a range of lines, this information overrides the previous
   if ( m_commandRange.startLine != -1 && m_commandRange.endLine != -1 ) {
     m_commandRange.normalize();
     c.setLine ( m_commandRange.startLine );
-    n = m_commandRange.endLine-m_commandRange.startLine;
+    to = m_commandRange.endLine;
   }
 
-  // make sure we don't try to join lines past the document end
-  if ( n > doc()->lines()-1-c.line() ) {
-      n = doc()->lines()-1-c.line();
-  }
-
-  doc()->joinLines( c.line(), c.line()+n );
+  joinLines( from, to );
 
   // position cursor between the joined lines
   c.setColumn( l );
@@ -1596,6 +1592,20 @@ bool KateViNormalMode::commandSwitchToPrevTab() {
   return true;
 }
 
+bool KateViNormalMode::commandFormatLine()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  reformatLines( c.line(), c.line()+getCount()-1 );
+
+  return true;
+}
+
+bool KateViNormalMode::commandFormatLines()
+{
+  reformatLines( m_commandRange.startLine, m_commandRange.endLine );
+  return true;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2798,6 +2808,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("gt", commandSwitchToNextTab,0);
   ADDCMD("gT", commandSwitchToPrevTab,0);
 
+  ADDCMD("gqq", commandFormatLine, IS_CHANGE);
+  ADDCMD("gq", commandFormatLines, IS_CHANGE | NEEDS_MOTION);
 
 
   // regular motions
@@ -2936,4 +2948,23 @@ OperationMode KateViNormalMode::getOperationMode() const
         m = CharWise;
 
   return m;
+}
+
+void KateViNormalMode::joinLines(unsigned int from, unsigned int to) const
+{
+  // make sure we don't try to join lines past the document end
+  if ( to >= (unsigned int)(doc()->lines()) ) {
+    to = doc()->lines()-1;
+  }
+
+  // joining one line is a no-op
+  if ( from == to ) return;
+
+  doc()->joinLines( from, to );
+}
+
+void KateViNormalMode::reformatLines(unsigned int from, unsigned int to) const
+{
+  joinLines( from, to );
+  doc()->wrapText( from, to );
 }

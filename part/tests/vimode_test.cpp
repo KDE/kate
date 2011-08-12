@@ -182,6 +182,10 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar","Vra","aaaaaa");
     DoTest("foo\nbar","jlvklrx","fox\nxxr");
     DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
+
+    // Testing "gq"
+    DoTest("foo\nbar\nbaz","Vgq","foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","Vjgq","foo bar\nbaz");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -519,6 +523,20 @@ void ViModeTest::NormalModeCommandsTest() {
                    "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
                    "Foo foo.\nBar bar.\nBa baz.");
 
+
+  // Testing "gq" (reformat) text
+  DoTest("foo\nbar", "gqq", "foo\nbar");
+  DoTest("foo\nbar", "2gqq", "foo bar");
+  DoTest("foo\nbar\nbaz", "jgqj", "foo\nbar baz");
+
+  // when setting the text to wrap at column 10, this should be re-formatted to
+  // span several lines ...
+  kate_document->setWordWrapAt( 10 );
+  DoTest("foo bar foo bar foo bar", "gqq", "foo bar\nfoo bar\nfoo bar");
+
+  // ... and when re-setting it to column 80 again, they should be joined again
+  kate_document->setWordWrapAt( 80 );
+  DoTest("foo bar\nfoo bar\nfoo bar", "gqG", "foo bar foo bar foo bar");
 }
 
 

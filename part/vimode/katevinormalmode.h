@@ -152,6 +152,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandSwitchToNextTab();
     bool commandSwitchToPrevTab();
 
+    bool commandFormatLine();
+    bool commandFormatLines();
+
     // MOTIONS
 
     KateViRange motionLeft();
@@ -259,6 +262,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     virtual void goToPos( const KateViRange &r );
     void executeCommand( const KateViCommand* cmd );
     OperationMode getOperationMode() const;
+
+    void joinLines(unsigned int from, unsigned int to) const;
+    void reformatLines(unsigned int from, unsigned int to) const;
 
     QString m_keys;
     unsigned int m_countTemp;

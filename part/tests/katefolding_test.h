@@ -21,7 +21,7 @@
 #define KATE_FOLDING_TEST_H
 
 #include <QtCore/QObject>
-#include <part/syntax/katecodefolding.h>
+#include "katecodefolding.h"
 
 class KateFoldingTest : public QObject
 {

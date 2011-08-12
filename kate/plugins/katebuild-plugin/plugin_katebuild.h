@@ -93,6 +93,9 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void targetDelete();
         void targetNext();
 
+	void slotShowErrors(bool);
+	void slotShowWarnings(bool);
+	void slotShowOthers(bool);
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);
 

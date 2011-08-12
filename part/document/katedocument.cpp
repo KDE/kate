@@ -3738,8 +3738,18 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   return false;
 }
 
-void KateDocument::setDocName (QString name )
+// helper: remove \r and \n from visible document name (bug #170876)
+inline static QString removeNewLines(const QString& str)
 {
+  QString tmp(str);
+  return tmp.replace(QLatin1String("\r\n"), QLatin1String(" "))
+            .replace(QChar('\r'), QLatin1Char(' '))
+            .replace(QChar('\n'), QLatin1Char(' '));
+}
+
+void KateDocument::setDocName (const QString &_name )
+{
+  const QString name = removeNewLines(_name);
   /**
    * avoid senseless name changes
    */
@@ -3757,7 +3767,10 @@ void KateDocument::setDocName (QString name )
 
   // if the name is set, and starts with FILENAME, it should not be changed!
   if ( ! url().isEmpty()
-       && (m_docName == url().fileName() || m_docName.startsWith (url().fileName() + " (") ) ) return;
+       && (m_docName == removeNewLines(url().fileName()) ||
+           m_docName.startsWith (removeNewLines(url().fileName()) + " (") ) ) {
+    return;
+  }
 
   int count = -1;
 
@@ -3771,7 +3784,7 @@ void KateDocument::setDocName (QString name )
   m_docNameNumber = count + 1;
 
   QString oldName = m_docName;
-  m_docName = url().fileName();
+  m_docName = removeNewLines(url().fileName());
 
   if (m_docName.isEmpty())
     m_docName = i18n ("Untitled");

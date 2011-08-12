@@ -25,6 +25,8 @@
 #include <kateviinputmodemanager.h>
 #include <katedocument.h>
 #include <kateview.h>
+#include "kateconfig.h"
+#include "katebuffer.h"
 #include "katevikeyparser.h"
 #include "kateviewhelpers.h"
 
@@ -186,6 +188,18 @@ void ViModeTest::VisualModeTests() {
     // Testing "gq"
     DoTest("foo\nbar\nbaz","Vgq","foo\nbar\nbaz");
     DoTest("foo\nbar\nbaz","Vjgq","foo bar\nbaz");
+
+    // Testing "<<"/">>"
+    kate_document->config()->setReplaceTabsDyn(true);
+    DoTest("foo\nbar\nbaz","V>>","  foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","Vj>>","  foo\n  bar\nbaz");
+    DoTest("foo\nbar\nbaz","V2j>>","  foo\n  bar\n  baz");
+    DoTest("foo\nbar\nbaz","V10>>","                    foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","V2j3>>","      foo\n      bar\n      baz");
+
+    DoTest("  foo\nbar\nbaz","V<<","foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","V>>V<<","foo\nbar\nbaz");
+    DoTest("    foo\n    bar\n    baz","V2j<<","  foo\n  bar\n  baz");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -537,6 +551,13 @@ void ViModeTest::NormalModeCommandsTest() {
   // ... and when re-setting it to column 80 again, they should be joined again
   kate_document->setWordWrapAt( 80 );
   DoTest("foo bar\nfoo bar\nfoo bar", "gqG", "foo bar foo bar foo bar");
+
+  // test >> and << (indent and de-indent)
+  kate_document->config()->setReplaceTabsDyn(true);
+
+  DoTest("foo\nbar", ">>", "  foo\nbar");
+  DoTest("foo\nbar", "2>>", "  foo\n  bar");
+  DoTest("foo\nbar", "100>>", "  foo\n  bar");
 }
 
 

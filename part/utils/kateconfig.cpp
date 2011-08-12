@@ -294,7 +294,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setIndentationWidth (config.readEntry("Indentation Width", 2));
 
-  setIndentationMode (config.readEntry("Indentation Mode", QLatin1String("normal")));
+  setIndentationMode (config.readEntry("Indentation Mode", "normal"));
 
   setTabHandling (config.readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
 

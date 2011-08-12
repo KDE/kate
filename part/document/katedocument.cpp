@@ -3356,10 +3356,12 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
       // TODO We should try to detect nesting.
       //    - if selection ends at col 0, most likely she wanted that
       // line ignored
+      const KTextEditor::Range sel = v->selectionRange();
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
-           ( v->selectionRange().start().column() > m_buffer->plainLine( v->selectionRange().start().line() )->firstChar() ) ||
-           ( v->selectionRange().end().column() < ((int)m_buffer->plainLine( v->selectionRange().end().line() )->length()) )
+           ( sel.start().column() > m_buffer->plainLine( sel.start().line() )->firstChar() ) ||
+           ( sel.end().column() > 0 &&
+             sel.end().column() < (m_buffer->plainLine( sel.end().line() )->length()) )
          ) ) )
         addStartStopCommentToSelection( v, startAttrib );
       else if ( hasStartLineCommentMark )

@@ -213,7 +213,7 @@ void KateFoldingTest::testFolding_py_lang()
   QCOMPARE(doc.visibleLines(), 6u);
 }
 
-void KateFoldingTest::testFolding_expand_collapse_level()
+void KateFoldingTest::testFolding_expand_collapse_level234()
 {
   KTemporaryFile file;
   file.setSuffix(".c");
@@ -221,10 +221,15 @@ void KateFoldingTest::testFolding_expand_collapse_level()
   QTextStream stream(&file);
   stream << "if () {\n"
          << "  if () {\n"
-         << "  }\n"
+         << "     if () {\n"
+         << "        if () {\n"
+         << "              }\n"
+         << "           }\n"
+         << "        }\n"
          << "  if () {\n"
          << "     foo()\n"
-         << "  }}\n";
+         << "        }\n"
+         << " }\n";
   stream << flush;
   file.close();
 
@@ -236,16 +241,80 @@ void KateFoldingTest::testFolding_expand_collapse_level()
   // is set to allow kate's hl to be called
   view->config()->setDynWordWrap(true);
 
-  QCOMPARE(doc.visibleLines(), 7u);
+  QCOMPARE(doc.visibleLines(), 12u);
 
-  QAction* action = view->action("collapse_level_2");
+  QAction* action = view->action("collapse_level_4");
   QVERIFY(action);
   action->trigger();
-  QCOMPARE(doc.visibleLines(), 4u);
+  QCOMPARE(doc.visibleLines(), 11u);
+
+  action = view->action("collapse_level_3");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 9u);
+
+  action = view->action("collapse_level_2");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 5u);
 
   action = view->action("folding_expandall");
   QVERIFY(action);
   action->trigger();
-  QCOMPARE(doc.visibleLines(), 7u);
+  QCOMPARE(doc.visibleLines(), 12u);
 }
+
+void KateFoldingTest::testFolding_collapse_expand_local()
+{
+  KTemporaryFile file;
+  file.setSuffix(".c");
+  file.open();
+  QTextStream stream(&file);
+  stream << "if () {\n"
+         << "  if () {\n"
+         << "     if () {\n"
+         << "        if () {\n"
+         << "              }\n"
+         << "           }\n"
+         << "        }\n"
+         << "  if () {\n"
+         << "     foo()\n"
+         << "        }\n"
+         << " }\n";
+  stream << flush;
+  file.close();
+
+  KateDocument doc(false, false, false);
+  QVERIFY(doc.openUrl(KUrl(file.fileName())));
+
+  KateView* view = new KateView(&doc, 0);
+
+  // is set to allow kate's hl to be called
+  view->config()->setDynWordWrap(true);
+
+  QCOMPARE(doc.visibleLines(), 12u);
+
+  view->setCursorPosition(KTextEditor::Cursor(2,12));
+
+  QAction* action = view->action("folding_collapselocal");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 9u);
+
+  view->setCursorPosition(KTextEditor::Cursor(2,11));
+
+  action = view->action("folding_collapselocal");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 7u);
+
+  view->setCursorPosition(KTextEditor::Cursor(1,9));
+
+  action = view->action("folding_expandlocal");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 9u);
+
+}
+
 

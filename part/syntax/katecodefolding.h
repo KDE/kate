@@ -401,8 +401,11 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void collapseLevel (int level) { collapseLevel(level, 0, 0); }
     void expandLevel (int level) { expandLevel(level, 0, 0); }
 
-  // Collapse All Nodes
+  // Expand All Nodes
     void expandAll ();
+
+  // Collapse all multi-line comments
+    void collapseAll_dsComments ();
 
   Q_SIGNALS:
       void regionVisibilityChanged ();

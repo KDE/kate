@@ -22,6 +22,7 @@
 #include "katecodefolding.h"
 #include "katebuffer.h"
 #include "ktexteditor/cursor.h"
+#include <ktexteditor/highlightinterface.h>
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -501,6 +502,20 @@ void KateCodeFoldingTree::clear()
   QVector<KateCodeFoldingNode *> tempVector;
   tempVector.append(m_root);
   m_lineMapping.insert(-1,tempVector);
+}
+
+void KateCodeFoldingTree::collapseAll_dsComments()
+{
+  if (m_root->noStartChildren())
+    return;
+
+  const int smth = (int)KTextEditor::HighlightInterface::dsComment;
+
+  foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
+    if (!m_hiddenNodes.contains(child) && child->m_type == (int)KTextEditor::HighlightInterface::dsComment) {
+      foldNode(child);
+    }
+  }
 }
 
 void KateCodeFoldingTree::collapseLevel(int level, KateCodeFoldingNode *node, int nodeLevel)

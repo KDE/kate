@@ -38,7 +38,8 @@ private Q_SLOTS:
   void testFoldingReload();
   void testFolding_py_lang();
   void testFolding_rb_lang();
-  void testFolding_expand_collapse_level();
+  void testFolding_expand_collapse_level234();
+  void testFolding_collapse_expand_local();
 };
 
 #endif // KATE_FOLDING_TEST_H

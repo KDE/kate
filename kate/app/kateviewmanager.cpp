@@ -761,7 +761,9 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   if( lastViewSpace >= 0 && lastViewSpace < m_viewSpaceList.size())
   {
     setActiveSpace( m_viewSpaceList.at( lastViewSpace ) );
-    setActiveView( m_viewSpaceList.at( lastViewSpace )->currentView() );
+    // activate correct view (wish #195435, #188764)
+    activateView( m_viewSpaceList.at( lastViewSpace )->currentView() );
+    // give view the focus to avoid focus stealing by toolviews / plugins
     m_viewSpaceList.at( lastViewSpace )->currentView()->setFocus();
   }
 
@@ -779,8 +781,6 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   }
 
   updateViewSpaceActions();
-  // the view has (maybe) changed - promote it to the world
-  emit viewChanged();
 }
 
 void KateViewManager::saveSplitterConfig( QSplitter* s, KConfigBase* configBase, const QString& viewConfGrp )

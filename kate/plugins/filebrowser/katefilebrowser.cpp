@@ -328,8 +328,18 @@ void KateFileBrowser::setupActions()
   optionsMenu->addAction(m_autoSyncFolder);
 
   m_actionCollection->addAction("configure", optionsMenu);
+  
+  //
+  // Remove all shortcuts due to shortcut clashes (e.g. F5: reload, Ctrl+B: bookmark)
+  // BUGS: #188954, #236368
+  //
+  foreach (QAction* a, m_actionCollection->actions()) {
+    a->setShortcut(QKeySequence());
+  }
+  foreach (QAction* a, m_dirOperator->actionCollection()->actions()) {
+    a->setShortcut(QKeySequence());
+  }
 }
 //END Protected
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

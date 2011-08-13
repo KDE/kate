@@ -273,6 +273,10 @@ KateView::~KateView()
   // invalidate update signal
   m_delayedUpdateTriggered = false;
 
+  // remove from xmlgui factory, to be safe
+  if (factory())
+    factory()->removeClient (this);
+  
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
     if (viewBarContainer) {
      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);

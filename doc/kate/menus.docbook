@@ -872,41 +872,81 @@ Code Folding</link>.</para></listitem>
 <term>
 <anchor id="view-code-folding"/>
 <menuchoice>
-<guisubmenu>Code Folding</guisubmenu>
-</menuchoice>
-</term>
-<listitem>
+<guimenu>View</guimenu><guimenuitem>Code Folding</guimenuitem>
+</menuchoice></term>
+<listitem><para>The Code Folding submenu has the next entries:</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>-</keycap></keycombo></shortcut>
-<guimenuitem>Collapse Toplevel</guimenuitem></menuchoice>
-</term>
-<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Expand Toplevel</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all toplevel regions in the document.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>-</keycap></keycombo></shortcut>
-<guimenuitem>Collapse One Local Level</guimenuitem></menuchoice>
+<guimenuitem>Fold Current Node</guimenuitem></menuchoice>
 </term>
-<listitem><para>Collapse the region closest to the cursor.</para></listitem>
+<listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Expand One Local Level</guimenuitem></menuchoice>
+<guimenuitem>Unfold current node</guimenuitem></menuchoice>
 </term>
-<listitem><para>Expand the region closest to the cursor.</para></listitem>
+<listitem><para>Expand the region that contains the cursor.</para></listitem>
 </varlistentry>
-</variablelist>
-</listitem>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Unfold All Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand the region that contains the cursor.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+&Shift;<keycap>-</keycap></keycombo></shortcut>
+<guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Fold Nodes in Level 2</guimenuitem></menuchoice>
+</term>
+<listitem><para>Collapse all level 2 nodes in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Fold Nodes in Level 3</guimenuitem></menuchoice>
+</term>
+<listitem><para>Collapse all level 3 nodes in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Fold Nodes in Level 4</guimenuitem></menuchoice>
+</term>
+<listitem><para>Collapse all level 4 nodes in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+&Shift;<keycap>+</keycap></keycombo></shortcut>
+<guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all toplevel regions in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Unfold Nodes in Level 2</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all level 2 nodes in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Unfold Nodes in Level 3</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all level 3 nodes in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Unfold Nodes in Level 4</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all level 4 nodes in the document.</para></listitem>
+</varlistentry>
+</variablelist></listitem>
 </varlistentry>
 
 <varlistentry>

@@ -117,6 +117,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     bool commandScrollPageDown();
     bool commandScrollPageUp();
+    bool commandScrollHalfPageUp();
+    bool commandScrollHalfPageDown();
+
     bool commandCentreViewOnCursor();
 
     bool commandAbort();
@@ -148,6 +151,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     bool commandSwitchToNextTab();
     bool commandSwitchToPrevTab();
+
+    bool commandFormatLine();
+    bool commandFormatLines();
 
     // MOTIONS
 
@@ -257,6 +263,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void executeCommand( const KateViCommand* cmd );
     OperationMode getOperationMode() const;
 
+    void joinLines(unsigned int from, unsigned int to) const;
+    void reformatLines(unsigned int from, unsigned int to) const;
+
     QString m_keys;
     unsigned int m_countTemp;
     bool m_findWaitingForChar;
@@ -275,6 +284,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_commandWithMotion;
 
     bool m_deleteCommand;
+
+    uint m_scroll_count_limit;
 
     // registers
     QChar m_defaultRegister;

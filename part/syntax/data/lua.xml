@@ -35,7 +35,7 @@
     - improved highlighting
 
     -->
-<language name="Lua" version="1.03" indenter="lua" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="1.04" indenter="lua" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -213,6 +213,10 @@
     </list>
 
     <contexts>
+      <context name="Base" attribute="Comment" lineEndContext="Normal">
+        <RegExpr attribute="Comment" context="Normal" String="#!.*$" column="0" />
+        <RegExpr attribute="Comment" context="Normal" String="^.*$" lookAhead="true" />
+      </context>
       <context name="Normal"        attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="##DoxygenLua" />
         <keyword      attribute="Error"  context="#stay" String="deprecated" />

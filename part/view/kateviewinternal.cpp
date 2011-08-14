@@ -1508,7 +1508,7 @@ void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
     KateViewInternal::updateView();
 }
 
-void KateViewInternal::pageUp( bool sel )
+void KateViewInternal::pageUp( bool sel, bool half )
 {
   if (m_view->isCompletionActive()) {
     m_view->completionWidget()->pageUp();
@@ -1522,7 +1522,12 @@ void KateViewInternal::pageUp( bool sel )
   // Adjust for an auto-centering cursor
   int lineadj = m_minLinesVisible;
 
-  int linesToScroll = -qMax( (linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll;
+  if ( ! half )
+    linesToScroll = -qMax( (linesDisplayed() - 1) - lineadj, 0 );
+  else
+    linesToScroll = -qMax( (linesDisplayed()/2 - 1) - lineadj, 0 );
+
   m_preserveX = true;
 
   if (!doc()->pageUpDownMovesCursor () && !atTop) {
@@ -1545,7 +1550,7 @@ void KateViewInternal::pageUp( bool sel )
   }
 }
 
-void KateViewInternal::pageDown( bool sel )
+void KateViewInternal::pageDown( bool sel ,bool half)
 {
   if (m_view->isCompletionActive()) {
     m_view->completionWidget()->pageDown();
@@ -1559,7 +1564,12 @@ void KateViewInternal::pageDown( bool sel )
   // Adjust for an auto-centering cursor
   int lineadj = m_minLinesVisible;
 
-  int linesToScroll = qMax( (linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll;
+  if ( ! half )
+    linesToScroll = qMax( (linesDisplayed() - 1) - lineadj, 0 );
+  else
+    linesToScroll = qMax( (linesDisplayed()/2 - 1) - lineadj, 0 );
+
   m_preserveX = true;
 
   if (!doc()->pageUpDownMovesCursor () && !atEnd) {
@@ -3308,14 +3318,17 @@ void KateViewInternal::editSetCursor (const KTextEditor::Cursor &_cursor)
 
 void KateViewInternal::viewSelectionChanged ()
 {
+  if (!m_view->selection()) {
     m_selectAnchor = KTextEditor::Cursor::invalid();
-    // Do NOT nuke the entire range! The reason is that a shift+DC selection
-    // might (correctly) set the range to be empty (i.e. start() == end()), and
-    // subsequent dragging might shrink the selection into non-existence. When
-    // this happens, we use the cached end to restore the cached start so that
-    // updateSelection is not confused. See also comments in updateSelection.
-    m_selectionCached.start() = KTextEditor::Cursor::invalid();
-//     updateView(true);
+  } else {
+    m_selectAnchor = m_view->selectionRange().start();
+  }
+  // Do NOT nuke the entire range! The reason is that a shift+DC selection
+  // might (correctly) set the range to be empty (i.e. start() == end()), and
+  // subsequent dragging might shrink the selection into non-existence. When
+  // this happens, we use the cached end to restore the cached start so that
+  // updateSelection is not confused. See also comments in updateSelection.
+  m_selectionCached.start() = KTextEditor::Cursor::invalid();
 }
 
 KateLayoutCache* KateViewInternal::cache( ) const

@@ -30,12 +30,14 @@
 #include <QtCore/QListIterator>
 
 #include "katepartprivate_export.h"
-#include <ktexteditor/sessionconfiginterface.h>
+//#include <ktexteditor/sessionconfiginterface.h>
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }
 class KateBuffer;
 class KConfigGroup;
+class KateDocument;
+class KateFoldingTest;
 
 class QString;
 //END
@@ -249,13 +251,12 @@ class KateCodeFoldingNode: public QObject
 //-------------------------------------------------------//
 
 // Start of KateCodeFoldingTree
-class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
-    //public KTextEditor::SessionConfigInterface
+class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 {
   friend class KateCodeFoldingNode;
+  friend class KateFoldingTest;
 
   Q_OBJECT
-  //Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
   private:
 
@@ -276,6 +277,10 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
   // A list of the hidden nodes (only those nodes that are not found in an already folded area) - sorted (key = nodeLine)
     QList <KateCodeFoldingNode*>                  m_hiddenNodes;
 
+  // Used to save state (close / open ; reload)
+    QList <int>                                   m_hiddenLines;
+    QList <int>                                   m_hiddenColumns;
+
   public:
     KateCodeFoldingTree (KateBuffer *buffer);
     ~KateCodeFoldingTree ();
@@ -286,20 +291,23 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
 
     void lineHasBeenInserted (int line, int column);
     void linesHaveBeenRemoved  (int from, int to);
-      // Makes clear what KateLineInfo contains
+
+  // Makes clear what KateLineInfo contains
     void getLineInfo (KateLineInfo *info, int line);
 
     inline KateCodeFoldingNode *rootNode () { return m_root; }
 
-         // find the node that contains this line, root else
+  // find the node that contains this line, root else
     KateCodeFoldingNode *findNodeForLine (int line);
 
-       // find the first start node from the line, 0 else
+  // find the first start node from the line, 0 else
     KateCodeFoldingNode *findNodeStartingAt(int line);
 
     int getRealLine         (int virtualLine);
     int getVirtualLine      (int realLine);
-    int getHiddenLinesCount (int docLine);  // get the number of hidden lines
+
+  // get the number of hidden lines
+    int getHiddenLinesCount (int docLine);
 
     KateCodeFoldingNode *findNodeForPosition(int line, int column);
 
@@ -315,19 +323,19 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
   // Clear the whole FoldingTree (and aux structures)
     void clear ();
 
-    // session stuff
+  // session stuff
     void readSessionConfig( const KConfigGroup& config );
     void writeSessionConfig( KConfigGroup& config );
 
 
-    // Debug methods and members
+  // Debug methods and members
     void printMapping();
     QString treeString;
     void searchThisNode (KateCodeFoldingNode* deletedNode);
 
-    // Will build the output using the tree alg ; Call : buildTreeString(root,1);
+  // Will build the output using the tree alg ; Call : buildTreeString(root,1);
     void buildTreeString(KateCodeFoldingNode *node, int level);
-    // end of debug...
+  // end of debug...
 
   protected:
   // Insert Node methods
@@ -350,7 +358,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
 
   // Update position methods
     void changeColumn(KateCodeFoldingNode *node, int newColumn);
-    void setColumns (int line, QVector<int> &newColumns);
+    void setColumns (int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
     void updateMapping(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
     int hasVirtualColumns(QVector<int> &newColumns);
 
@@ -373,6 +381,9 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
     void foldNode (KateCodeFoldingNode* node);
     void unfoldNode (KateCodeFoldingNode* node);
 
+    void collapseLevel (int level, KateCodeFoldingNode* node, int nodeLevel);
+    void expandLevel (int level, KateCodeFoldingNode* node, int nodeLevel);
+
   public Q_SLOTS:
     void updateLine (int line,QVector<int>* regionChanges, bool* updated, bool changed, bool colschanged);
     void toggleRegionVisibility (int);
@@ -381,6 +392,20 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject//,
     int collapseOne (int realLine, int column);
     void expandOne  (int realLine, int column);
     void ensureVisible (int l);
+
+  // Save / Load folding state
+    void saveFoldingState();
+    void applyFoldingState();
+
+  // Collapse / Expand different levels
+    void collapseLevel (int level) { collapseLevel(level, 0, 0); }
+    void expandLevel (int level) { expandLevel(level, 0, 0); }
+
+  // Expand All Nodes
+    void expandAll ();
+
+  // Collapse all multi-line comments
+    void collapseAll_dsComments ();
 
   Q_SIGNALS:
       void regionVisibilityChanged ();

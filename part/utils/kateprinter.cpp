@@ -57,10 +57,50 @@
 #include <kvbox.h>
 
 //BEGIN KatePrinter
+void KatePrinter::readSettings(QPrinter& printer)
+{
+  // NOTE: Saving & loading the margins works around QPrinter/QPrintDialog bugs:
+  // - https://bugreports.qt.nokia.com/browse/QTBUG-15351
+  // - https://bugs.kde.org/show_bug.cgi?id=205802
+  // - https://bugs.kde.org/show_bug.cgi?id=180051
+  // Changing the margins now works. However, when you reopen the print dialog
+  // later, the WRONG margins are displayed. The correct ones are still used.
+  // This is a critical bug in Qt.
+
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup group(config, "Kate Print Settings");
+  KConfigGroup margins(&group, "Margins");
+
+  qreal left, right, top, bottom;
+  printer.getPageMargins(&left, &top, &right, &bottom, QPrinter::Millimeter);
+
+  left = margins.readEntry("left", left);
+  top = margins.readEntry("top", top);
+  right = margins.readEntry("right", right);
+  bottom = margins.readEntry("bottom", bottom);
+
+  printer.setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
+}
+
+void KatePrinter::writeSettings(QPrinter& printer)
+{
+  KSharedConfigPtr config = KGlobal::config();
+  KConfigGroup group(config, "Kate Print Settings");
+  KConfigGroup margins(&group, "Margins");
+
+  qreal left, right, top, bottom;
+  printer.getPageMargins(&left, &top, &right, &bottom, QPrinter::Millimeter);
+
+  margins.writeEntry( "left", left);
+  margins.writeEntry( "top", top);
+  margins.writeEntry( "right", right);
+  margins.writeEntry( "bottom", bottom);
+}
+
 bool KatePrinter::print (KateDocument *doc)
 {
-
   QPrinter printer;
+  readSettings(printer);
 
   // docname is now always there, including the right Untitled name
   printer.setDocName(doc->documentName());
@@ -81,11 +121,15 @@ bool KatePrinter::print (KateDocument *doc)
 
   QScopedPointer<QPrintDialog> printDialog(KdePrint::createPrintDialog(&printer, KdePrint::SystemSelectsPages, tabs, parentWidget));
 
-  if ( doc->activeView()->selection() )
-    printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+  if ( doc->activeView()->selection() ) {
+    printer.setPrintRange(QPrinter::Selection);
+    printDialog->setOption(QAbstractPrintDialog::PrintSelection, true);
+  }
 
   if ( printDialog->exec() )
   {
+    writeSettings(printer);
+
     KateRenderer renderer(doc, doc->activeKateView());
     renderer.config()->setSchema (kpl->colorScheme());
     renderer.setPrinterFriendly(true);
@@ -146,7 +190,7 @@ bool KatePrinter::print (KateDocument *doc)
     uint currentPage( 1 );
     uint lastline = doc->lastLine(); // necessary to print selection only
     uint firstline( 0 );
-    int fontHeight = renderer.fontHeight();
+    const int fontHeight = renderer.fontHeight();
     KTextEditor::Range selectionRange;
 
     /*
@@ -298,51 +342,43 @@ bool KatePrinter::print (KateDocument *doc)
       // now that we know the vertical amount of space needed,
       // it is possible to calculate the total number of pages
       // if needed, that is if any header/footer tag contains "%P".
-#if 0
       if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
       {
         kDebug(13020)<<"'%P' found! calculating number of pages...";
-        uint _pages = 0;
-        uint _ph = maxHeight;
+        int pageHeight = maxHeight;
         if ( useHeader )
-          _ph -= ( headerHeight + innerMargin );
+          pageHeight -= ( headerHeight + innerMargin );
         if ( useFooter )
-          _ph -= innerMargin;
-        int _lpp = _ph / fontHeight;
-        uint _lt = 0, _c=0;
+          pageHeight -= innerMargin;
+        const int linesPerPage = pageHeight / fontHeight;
+//         kDebug() << "Lines per page:" << linesPerPage;
+        
+        // calculate total layouted lines in the document
+        int totalLines = 0;
+        // TODO: right now ignores selection printing
+        for (int i = firstline; i <= lastline; ++i) {
+          KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+          rangeptr->setLine(i);
+          renderer.layoutLine(rangeptr, (int)maxWidth, false);
+          totalLines += rangeptr->viewLineCount();
+        }
+        int totalPages = (totalLines / linesPerPage)
+                      + ((totalLines % linesPerPage) > 0 ? 1 : 0);
+//         kDebug() << "_______ pages:" << (totalLines / linesPerPage);
+//         kDebug() << "________ rest:" << (totalLines % linesPerPage);
 
-        // add space for guide if required
+        // TODO: add space for guide if required
 //         if ( useGuide )
 //           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
-        long _lw;
-        for ( uint i = firstline; i < lastline; i++ )
-        {
-          //FIXME: _lw = renderer.textWidth( doc->kateTextLine( i ), -1 );
-          _lw = 80 * renderer.spaceWidth(); //FIXME: just a stand-in
-          while ( _lw >= 0 )
-          {
-            _c++;
-            _lt++;
-            if ( (int)_lt  == _lpp )
-            {
-              _pages++;
-              _lt = 0;
-            }
-            _lw -= maxWidth;
-            if ( ! _lw ) _lw--; // skip lines matching exactly!
-          }
-        }
-        if ( _lt ) _pages++; // last page
 
         // substitute both tag lists
         QString re("%P");
         QStringList::Iterator it;
         for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
-          (*it).replace( re, QString( "%1" ).arg( _pages ) );
+          (*it).replace( re, QString( "%1" ).arg( totalPages ) );
         for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
-          (*it).replace( re, QString( "%1" ).arg( _pages ) );
+          (*it).replace( re, QString( "%1" ).arg( totalPages ) );
       }
-#endif
     } // end prepare block
 
      /*
@@ -353,7 +389,7 @@ bool KatePrinter::print (KateDocument *doc)
       startCol = 0;
       endCol = 0;
 
-      if ( y + fontHeight >= maxHeight )
+      if ( y + fontHeight > maxHeight )
       {
         kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
         printer.newPage();
@@ -573,31 +609,30 @@ bool KatePrinter::print (KateDocument *doc)
 
       // HA! this is where we print [part of] a line ;]]
       // FIXME Convert this function + related functionality to a separate KatePrintView
-      KateLineLayout range(doc);
-      range.setLine(lineCount);
-      KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
-      renderer.layoutLine(*rangeptr, (int)maxWidth, false);
+      KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+      rangeptr->setLine(lineCount);
+      renderer.layoutLine(rangeptr, (int)maxWidth, false);
 
       // selectionOnly: clip non-selection parts and adjust painter position if needed
       int _xadjust = 0;
       if (selectionOnly) {
         if (doc->activeView()->blockSelection()) {
-          int _x = renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start());
-          int _x1 = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+          int _x = renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start());
+          int _x1 = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
            _xadjust = _x;
            paint.translate(-_xadjust, 0);
-          paint.setClipRegion(QRegion( _x, 0, _x1 - _x, (*rangeptr)->viewLineCount()*fontHeight));
+          paint.setClipRegion(QRegion( _x, 0, _x1 - _x, rangeptr->viewLineCount()*fontHeight));
         }
 
         else if (lineCount == firstline || lineCount == lastline) {
-          QRegion region(0, 0, maxWidth, (*rangeptr)->viewLineCount()*fontHeight);
+          QRegion region(0, 0, maxWidth, rangeptr->viewLineCount()*fontHeight);
 
           if ( lineCount == firstline) {
-            region = region.subtracted(QRegion(0, 0, renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start()), fontHeight));
+            region = region.subtracted(QRegion(0, 0, renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start()), fontHeight));
           }
 
           if (lineCount == lastline) {
-            int _x = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+            int _x = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
             region = region.subtracted(QRegion(_x, 0, maxWidth-_x, fontHeight));
           }
 
@@ -607,27 +642,27 @@ bool KatePrinter::print (KateDocument *doc)
 
       // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
       // clip and adjust the painter position as necessary
-      int _lines = (*rangeptr)->viewLineCount(); // number of "sublines" to paint.
+      int _lines = rangeptr->viewLineCount(); // number of "sublines" to paint.
 
+      int proceedLines = _lines;
       if (remainder) {
-        int _height = (maxHeight-y)/fontHeight;
-        _height = qMin(_height, remainder);        
+        proceedLines = qMin((maxHeight - y) / fontHeight, remainder);
 
         paint.translate(0, -(_lines-remainder)*fontHeight+1);
-        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, _height*fontHeight); //### drop the crosspatch in printerfriendly mode???
-        remainder -= _height;
+        paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, proceedLines*fontHeight); //### drop the crosspatch in printerfriendly mode???
+        remainder -= proceedLines;
       }
-      else if (fontHeight*_lines > maxHeight-y) {
+      else if (y + fontHeight * _lines > maxHeight) {
         remainder = _lines - ((maxHeight-y)/fontHeight);
         paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
       }
 
-      renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
+      renderer.paintTextLine(paint, rangeptr, 0, (int)maxWidth);
 
       paint.setClipping(false);
-      paint.translate(_xadjust, (fontHeight * _lines));
+      paint.translate(_xadjust, (fontHeight * (_lines-remainder)));
 
-      y += fontHeight*_lines;
+      y += fontHeight * proceedLines;
 
       if ( ! remainder )
       lineCount++;
@@ -648,9 +683,6 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
 
-//   cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
-//   lo->addWidget( cbSelection );
-
   cbLineNumbers = new QCheckBox( i18n("Print line &numbers"), this );
   lo->addWidget( cbLineNumbers );
 
@@ -662,9 +694,6 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   // set defaults - nothing to do :-)
 
   // whatsthis
-//   cbSelection->setWhatsThis(i18n(
-//         "<p>This option is only available if some text is selected in the document.</p>"
-//         "<p>If available and enabled, only the selected text is printed.</p>") );
   cbLineNumbers->setWhatsThis(i18n(
         "<p>If enabled, line numbers will be printed on the left side of the page(s).</p>") );
   cbGuide->setWhatsThis(i18n(
@@ -679,11 +708,6 @@ KatePrintTextSettings::~KatePrintTextSettings()
   writeSettings();
 }
 
-// bool KatePrintTextSettings::printSelection()
-// {
-//     return cbSelection->isChecked();
-// }
-
 bool KatePrintTextSettings::printLineNumbers()
 {
   return cbLineNumbers->isChecked();
@@ -693,11 +717,6 @@ bool KatePrintTextSettings::printGuide()
 {
   return cbGuide->isChecked();
 }
-
-// void KatePrintTextSettings::enableSelection( bool enable )
-// {
-//   cbSelection->setEnabled( enable );
-// }
 
 void KatePrintTextSettings::readSettings()
 {
@@ -771,6 +790,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leHeaderRight = new KLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
 
+  leHeaderLeft->setContextMenuPolicy(Qt::CustomContextMenu);
+  leHeaderCenter->setContextMenuPolicy(Qt::CustomContextMenu);
+  leHeaderRight->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(leHeaderLeft, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leHeaderCenter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leHeaderRight, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
   grid->addWidget(new QLabel( i18n("Colors:"), gbHeader ), 1, 0);
 
   KHBox *hbHeaderColors = new KHBox( gbHeader );
@@ -800,6 +826,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leFooterCenter = new KLineEdit( hbFooterFormat );
   leFooterRight = new KLineEdit( hbFooterFormat );
   lFooterFormat->setBuddy( leFooterLeft );
+  
+  leFooterLeft->setContextMenuPolicy(Qt::CustomContextMenu);
+  leFooterCenter->setContextMenuPolicy(Qt::CustomContextMenu);
+  leFooterRight->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(leFooterLeft, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leFooterCenter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+  connect(leFooterRight, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbFooter ), 1, 0);
 
@@ -848,6 +881,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
       "<li><tt>%f</tt>: file name</li>"
       "<li><tt>%U</tt>: full URL of the document</li>"
       "<li><tt>%p</tt>: page number</li>"
+      "<li><tt>%P</tt>: total amount of pages</li>"
       "</ul><br />");
   leHeaderRight->setWhatsThis(s + s1 );
   leHeaderCenter->setWhatsThis(s + s1 );
@@ -933,6 +967,52 @@ void KatePrintHeaderFooter::setHFFont()
     // set preview
     lFontPreview->setFont( fnt );
     lFontPreview->setText( QString(fnt.family() + ", %1pt").arg( fnt.pointSize() ) );
+  }
+}
+
+void KatePrintHeaderFooter::showContextMenu(const QPoint& pos)
+{
+  QLineEdit* lineEdit = qobject_cast<QLineEdit*>(sender());
+  if (!lineEdit) {
+    return;
+  }
+
+  QMenu* const contextMenu = lineEdit->createStandardContextMenu();
+  if (contextMenu == NULL) {
+    return;
+  }
+  contextMenu->addSeparator();
+
+  // create original context menu
+  QMenu* menu = contextMenu->addMenu(i18n("Add Placeholder..."));
+  menu->setIcon(KIcon("list-add"));
+  QAction* a = menu->addAction(i18n("Current User Name") + "\t%u");
+  a->setData("%u");
+  a = menu->addAction(i18n("Complete Date/Time (short format)") + "\t%d");
+  a->setData("%d");
+  a = menu->addAction(i18n("Complete Date/Time (long format)") + "\t%D");
+  a->setData("%D");
+  a = menu->addAction(i18n("Current Time") + "\t%h");
+  a->setData("%h");
+  a = menu->addAction(i18n("Current Date (short format)") + "\t%y");
+  a->setData("%y");
+  a = menu->addAction(i18n("Current Date (long format)") + "\t%Y");
+  a->setData("%Y");
+  a = menu->addAction(i18n("File Name") + "\t%f");
+  a->setData("%f");
+  a = menu->addAction(i18n("Full document URL") + "\t%U");
+  a->setData("%U");
+  a = menu->addAction(i18n("Page Number") + "\t%p");
+  a->setData("%p");
+  a = menu->addAction(i18n("Total Amount of Pages") + "\t%P");
+  a->setData("%P");
+
+  QAction* const result = contextMenu->exec(lineEdit->mapToGlobal(pos));
+  if (result) {
+    QString placeHolder = result->data().toString();
+    if (!placeHolder.isEmpty()) {
+      lineEdit->insert(placeHolder);
+    }
   }
 }
 

@@ -214,6 +214,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
+  connect(this,SIGNAL(aboutToReload(KTextEditor::Document*)),foldingTree(),SLOT(saveFoldingState()));
+  connect(this,SIGNAL(reloaded(KTextEditor::Document*)),foldingTree(),SLOT(applyFoldingState()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -1400,8 +1402,12 @@ bool KateDocument::editRemoveLines ( int from, int to )
 }
 //END
 
-//BEGIN KTextEditor::UndoInterface stuff
+KateUndoManager* KateDocument::undoManager()
+{
+  return m_undoManager;
+}
 
+//BEGIN KTextEditor::UndoInterface stuff
 uint KateDocument::undoCount () const
 {
   return m_undoManager->undoCount ();
@@ -2864,6 +2870,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   m_undoManager->undoSafePoint();
 
   editStart ();
+  blockRemoveTrailingSpaces(true); // bug #242723, see unit test bug242723_test
 
   KTextEditor::Cursor pos = view->cursorPosition();
   if (!view->config()->persistentSelection() && view->selection()) {
@@ -2892,7 +2899,6 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   }
 
 
-  blockRemoveTrailingSpaces(true);
   insertText(pos, s, view->blockSelectionMode());
   blockRemoveTrailingSpaces(false);
 
@@ -3380,10 +3386,12 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
       // TODO We should try to detect nesting.
       //    - if selection ends at col 0, most likely she wanted that
       // line ignored
+      const KTextEditor::Range sel = v->selectionRange();
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
-           ( v->selectionRange().start().column() > m_buffer->plainLine( v->selectionRange().start().line() )->firstChar() ) ||
-           ( v->selectionRange().end().column() < ((int)m_buffer->plainLine( v->selectionRange().end().line() )->length()) )
+           ( sel.start().column() > m_buffer->plainLine( sel.start().line() )->firstChar() ) ||
+           ( sel.end().column() > 0 &&
+             sel.end().column() < (m_buffer->plainLine( sel.end().line() )->length()) )
          ) ) )
         addStartStopCommentToSelection( v, startAttrib );
       else if ( hasStartLineCommentMark )
@@ -3730,8 +3738,18 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   return false;
 }
 
-void KateDocument::setDocName (QString name )
+// helper: remove \r and \n from visible document name (bug #170876)
+inline static QString removeNewLines(const QString& str)
 {
+  QString tmp(str);
+  return tmp.replace(QLatin1String("\r\n"), QLatin1String(" "))
+            .replace(QChar('\r'), QLatin1Char(' '))
+            .replace(QChar('\n'), QLatin1Char(' '));
+}
+
+void KateDocument::setDocName (const QString &_name )
+{
+  const QString name = removeNewLines(_name);
   /**
    * avoid senseless name changes
    */
@@ -3749,7 +3767,10 @@ void KateDocument::setDocName (QString name )
 
   // if the name is set, and starts with FILENAME, it should not be changed!
   if ( ! url().isEmpty()
-       && (m_docName == url().fileName() || m_docName.startsWith (url().fileName() + " (") ) ) return;
+       && (m_docName == removeNewLines(url().fileName()) ||
+           m_docName.startsWith (removeNewLines(url().fileName()) + " (") ) ) {
+    return;
+  }
 
   int count = -1;
 
@@ -3763,7 +3784,7 @@ void KateDocument::setDocName (QString name )
   m_docNameNumber = count + 1;
 
   QString oldName = m_docName;
-  m_docName = url().fileName();
+  m_docName = removeNewLines(url().fileName());
 
   if (m_docName.isEmpty())
     m_docName = i18n ("Untitled");

@@ -35,7 +35,7 @@
 
 namespace JoWenn {
 
-  KateSnippetSelector::KateSnippetSelector(Kate::MainWindow *mainWindow,JoWenn::KateSnippetsPlugin *plugin, QWidget *parent):QWidget(parent),m_plugin(plugin),m_mainWindow(mainWindow),m_mode("_____")
+  KateSnippetSelector::KateSnippetSelector(Kate::MainWindow *mainWindow,JoWenn::KateSnippetsPlugin *plugin, QWidget *parent):QWidget(parent),m_plugin(plugin),m_mainWindow(mainWindow),m_mode("_____"),m_modelDrop(false)
   {
     setupUi(this);
     plainTextEdit->setReadOnly(true);
@@ -53,11 +53,17 @@ namespace JoWenn {
     connect(treeView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleClicked(QModelIndex)));
     connect(hideShowBtn,SIGNAL(clicked()),this,SLOT(showHideSnippetText()));
     connect(showRepoManagerButton,SIGNAL(clicked()),this,SLOT(showRepoManager()));
+    hideShowBtn->setArrowType(Qt::DownArrow);
     m_addSnippetToPopup = new QMenu(this);
     addSnippetToButton->setDelayedMenu(m_addSnippetToPopup);
     connect(addSnippetToButton,SIGNAL(clicked()),this,SLOT(addSnippetToClicked()));
     connect(m_addSnippetToPopup,SIGNAL(aboutToShow()),this,SLOT(addSnippetToPopupAboutToShow()));
     connect(newRepoButton,SIGNAL(clicked()),this,SLOT(newRepo()));
+    treeView->setDragEnabled(true);
+    treeView->setAcceptDrops(true);
+    //treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    //treeView->viewport()->setAcceptDrops(true);
+    treeView->setDropIndicatorShown(true);
     viewChanged();
   }
 
@@ -98,9 +104,17 @@ namespace JoWenn {
       connect(view,SIGNAL(selectionChanged(KTextEditor::View*)),this,SLOT(selectionChanged(KTextEditor::View*)));
       selectionChanged(view);
       QString mode=view->document()->mode();
-      if ((mode!=m_mode) || (treeView->model()==0))
+      if ((mode!=m_mode) || (treeView->model()==0) || (((KateSnippetSelectorProxyModel*)treeView->model())->sourceModel()==0 ) )
       {
-          treeView->setModel(m_plugin->modelForDocument(view->document()));
+          QAbstractItemModel *oldModel=treeView->model();
+          KateSnippetSelectorProxyModel *m=0;
+          QAbstractItemModel *subMod=m_plugin->modelForDocument(view->document());
+          if (subMod) {
+            m=new KateSnippetSelectorProxyModel(this);
+            m->setSourceModel(subMod);
+          }        
+          treeView->setModel(m);
+          delete oldModel;
           m_mode=mode;
       }
       if (treeView->model()) {
@@ -166,7 +180,10 @@ namespace JoWenn {
       QString quickActionTitle;
       if (fi)
       { // highlighting interface found, adding quick action
-        currentHlMode=fi->highlightingModeAt(view->cursorPosition());
+        if (m_modelDrop)
+          currentHlMode=m_modelDropFileType;
+        else
+          currentHlMode=fi->highlightingModeAt(view->cursorPosition());
         //edit-selection is not the best choice, but the current version of the icon, an arrow is a good symbol for the default action now
         QString on_the_go_title=i18n(ON_THE_GO_TEMPLATESTR,currentHlMode);
         quickActionTitle=i18n(ON_THE_GO_TEMPLATESTR,currentHlMode);
@@ -279,12 +296,12 @@ namespace JoWenn {
       }
       if (filePath.isEmpty()) {
         QString hlMode=action->data().value<JoWenn::KateSnippetSelector::ActionData>().hlMode;
-        m_plugin->repositoryData()->addSnippetToNewEntry(this,m_mainWindow->activeView()->selectionText(),
+        m_plugin->repositoryData()->addSnippetToNewEntry(this,m_modelDrop?m_modelDropData:m_mainWindow->activeView()->selectionText(),
         i18n(ON_THE_GO_TEMPLATESTR,hlMode),hlMode,true);
         return;
       }
       //we found the file
-      repo->addSnippetToFile(this,m_mainWindow->activeView()->selectionText(),filePath);
+      repo->addSnippetToFile(this,m_modelDrop?m_modelDropData:m_mainWindow->activeView()->selectionText(),filePath);
   }
 
   void KateSnippetSelector::newRepo() {
@@ -305,7 +322,64 @@ namespace JoWenn {
     }
   }
 
+
+  void KateSnippetSelector::doPopupAddSnippetToPopup(const QString& fileType, const QString& data) {
+    //kDebug(13040)<<"fileType=="<<fileType;
+ 
+    m_modelDropData=data;
+    m_modelDropFileType=fileType;
+    m_modelDrop=true;
+    m_addSnippetToPopup->exec(QCursor::pos());
+    m_modelDrop=false;
+    m_modelDropData.clear();
+  }
+
+//=============================
+  Qt::DropActions KateSnippetSelectorProxyModel::supportedDropActions() const {
+    return ((Qt::DropActions)Qt::CopyAction); // | ((Qt::DropActions)Qt::MoveAction);
+    
+  }
+
+  Qt::ItemFlags KateSnippetSelectorProxyModel::flags(const QModelIndex &index) const
+  {
+     Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
+
+     if (index.isValid()) {
+      //kDebug(13040)<<"valid";
+      return /*Qt::ItemIsDragEnabled |*/ Qt::ItemIsDropEnabled | defaultFlags;
+     } else
+         return defaultFlags;
+  }
+
+  QStringList KateSnippetSelectorProxyModel::mimeTypes() const
+  {
+      QStringList types;
+      types << "text/plain";
+      return types;
+  }
+
+
+ bool KateSnippetSelectorProxyModel::dropMimeData(const QMimeData *data,
+     Qt::DropAction action, int row, int column, const QModelIndex &parent)
+ {
+     if (action == Qt::IgnoreAction)
+         return true;
+
+     if (!data->hasFormat("text/plain"))
+         return false;
+ 
+      m_selector->doPopupAddSnippetToPopup(this->data(parent, /*index(row,column,parent),*/KTextEditor::CodesnippetsCore::SnippetSelectorModel::FileTypeRole).toString(), data->text());
+     
+      return true;
+     
 }
+
+
+
+}
+
+
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

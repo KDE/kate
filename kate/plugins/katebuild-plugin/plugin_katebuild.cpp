@@ -151,8 +151,13 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     m_buildUi.plainTextEdit->setReadOnly(true);
 
+    connect(m_buildUi.showErrorsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowErrors(bool)));
+    connect(m_buildUi.showWarningsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowWarnings(bool)));
+    connect(m_buildUi.showOthersButton, SIGNAL(toggled(bool)), this, SLOT(slotShowOthers(bool)));
+    
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
+    
     // set the default values of the build settings. (I think loading a plugin should also trigger
     // a read of the session config data, but it does not)
    //m_targetsUi->buildCmds->setText("make");
@@ -344,6 +349,8 @@ void KateBuildView::slotItemSelected(QTreeWidgetItem *item)
 void KateBuildView::addError(const QString &filename, const QString &line,
                              const QString &column, const QString &message)
 {
+    bool isError=false;
+    bool isWarning=false;
     QTreeWidgetItem* item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
     // The strings are twice in case kate is translated but not make.
@@ -353,15 +360,19 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         message.contains(i18nc("The same word as 'ld' uses to mark an ...","undefined reference"))
        )
     {
+	isError=true;
         item->setForeground(1, Qt::red);
         m_numErrors++;
+	item->setHidden(!m_buildUi.showErrorsButton->isChecked());
     }
     if (message.contains("warning") ||
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
        )
     {
+	isWarning=true;
         item->setForeground(1, Qt::yellow);
         m_numWarnings++;
+	item->setHidden(!m_buildUi.showWarningsButton->isChecked());
     }
     item->setTextAlignment(1, Qt::AlignRight);
 
@@ -377,6 +388,13 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     item->setData(1, Qt::UserRole, line);
     item->setData(2, Qt::UserRole, column);
 
+    if ((isError==false) && (isWarning==false)) {
+      item->setHidden(!m_buildUi.showOthersButton->isChecked());
+    }
+    
+    item->setData(0,Qt::UserRole+1,isError);
+    item->setData(0,Qt::UserRole+2,isWarning);
+    
     // add tooltips in all columns
     // The enclosing <qt>...</qt> enables word-wrap for long error messages
     item->setData(0, Qt::ToolTipRole, filename);
@@ -845,3 +863,41 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void KateBuildView::slotShowErrors(bool showItems) {
+  QTreeWidget *tree=m_buildUi.errTreeWidget;
+  const int itemCount = tree->topLevelItemCount();
+
+  for (int i=0;i<itemCount;i++) {
+    QTreeWidgetItem* item=tree->topLevelItem(i);
+    if (item->data(0,Qt::UserRole+1).toBool()==true) {
+      item->setHidden(!showItems);      
+    }    
+  }
+  
+}
+
+void KateBuildView::slotShowWarnings(bool showItems) {
+QTreeWidget *tree=m_buildUi.errTreeWidget;
+  const int itemCount = tree->topLevelItemCount();
+
+  for (int i=0;i<itemCount;i++) {
+    QTreeWidgetItem* item=tree->topLevelItem(i);
+    if (item->data(0,Qt::UserRole+2).toBool()==true) {
+      item->setHidden(!showItems);      
+    }    
+  }
+
+}
+
+void KateBuildView::slotShowOthers(bool showItems) {
+QTreeWidget *tree=m_buildUi.errTreeWidget;
+  const int itemCount = tree->topLevelItemCount();
+
+  for (int i=0;i<itemCount;i++) {
+    QTreeWidgetItem* item=tree->topLevelItem(i);
+    if ( (item->data(0,Qt::UserRole+1).toBool()==false) && (item->data(0,Qt::UserRole+2).toBool()==false) ) {
+      item->setHidden(!showItems);      
+    }    
+  }
+
+}

@@ -35,9 +35,28 @@
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 #include <kurlcompletion.h>
-#include <QLineEdit>
+#include <klineedit.h>
 #include <QKeyEvent>
 #include <QClipboard>
+#include <QMenu>
+
+static QAction *menuEntry(QMenu *menu,
+                          const QString &before, const QString &after, const QString &desc,
+                          QString menuBefore = QString(), QString menuAfter = QString());
+
+static QAction *menuEntry(QMenu *menu,
+                          const QString &before, const QString &after, const QString &desc,
+                          QString menuBefore, QString menuAfter)
+{
+    if (menuBefore.isEmpty()) menuBefore = before;
+    if (menuAfter.isEmpty())  menuAfter = after;
+
+    QAction *const action = menu->addAction(menuBefore + menuAfter + '\t' + desc);
+    if (!action) return 0;
+
+    action->setData(QString(before + ' ' + after));
+    return action;
+}
 
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
 K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
@@ -72,6 +91,7 @@ Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
     connect(m_searchCommand, SIGNAL(setCurrentFolder()), view, SLOT(setCurrentFolder()));
     connect(m_searchCommand, SIGNAL(setSearchString(QString)), view, SLOT(setSearchString(QString)));
     connect(m_searchCommand, SIGNAL(startSearch()), view, SLOT(startSearch()));
+    connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
     
     return view;
 }
@@ -160,6 +180,11 @@ m_curResultTree(0)
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
+
+    // Hook into line edit context menus
+    m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
+            SLOT(searchContextMenu(QPoint)));
 
     searchPlaceChanged();
 
@@ -469,6 +494,65 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void KatePluginSearchView::searchContextMenu(const QPoint& pos)
+{
+    QSet<QAction *> actionPointers;
+
+    QMenu* const contextMenu = m_ui.searchCombo->lineEdit()->createStandardContextMenu();
+    if (!contextMenu) return;
+
+    if (m_useRegExp->isChecked()) {
+        QMenu* menu = contextMenu->addMenu(i18n("Add..."));
+        if (!menu) return;
+
+        menu->setIcon(KIcon("list-add"));
+
+        actionPointers << menuEntry(menu, "^", "", i18n("Beginning of line"));
+        actionPointers << menuEntry(menu, "$", "", i18n("End of line"));
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, ".", "", i18n("Any single character (excluding line breaks)"));
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, "+", "", i18n("One or more occurrences"));
+        actionPointers << menuEntry(menu, "*", "", i18n("Zero or more occurrences"));
+        actionPointers << menuEntry(menu, "?", "", i18n("Zero or one occurrences"));
+        actionPointers << menuEntry(menu, "{", ",}", i18n("<a> through <b> occurrences"), "{a", ",b}");
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, "(", ")", i18n("Group, capturing"));
+        actionPointers << menuEntry(menu, "|", "", i18n("Or"));
+        actionPointers << menuEntry(menu, "[", "]", i18n("Set of characters"));
+        actionPointers << menuEntry(menu, "[^", "]", i18n("Negative set of characters"));
+        actionPointers << menuEntry(menu, "(?:", ")", i18n("Group, non-capturing"), "(?:E");
+        actionPointers << menuEntry(menu, "(?=", ")", i18n("Lookahead"), "(?=E");
+        actionPointers << menuEntry(menu, "(?!", ")", i18n("Negative lookahead"), "(?!E");
+        
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, "\\n", "", i18n("Line break"));
+        actionPointers << menuEntry(menu, "\\t", "", i18n("Tab"));
+        actionPointers << menuEntry(menu, "\\b", "", i18n("Word boundary"));
+        actionPointers << menuEntry(menu, "\\B", "", i18n("Not word boundary"));
+        actionPointers << menuEntry(menu, "\\d", "", i18n("Digit"));
+        actionPointers << menuEntry(menu, "\\D", "", i18n("Non-digit"));
+        actionPointers << menuEntry(menu, "\\s", "", i18n("Whitespace (excluding line breaks)"));
+        actionPointers << menuEntry(menu, "\\S", "", i18n("Non-whitespace (excluding line breaks)"));
+        actionPointers << menuEntry(menu, "\\w", "", i18n("Word character (alphanumerics plus '_')"));
+        actionPointers << menuEntry(menu, "\\W", "", i18n("Non-word character"));
+    }
+    // Show menu
+    QAction * const result = contextMenu->exec(m_ui.searchCombo->mapToGlobal(pos));
+
+    // Act on action
+    if (result && actionPointers.contains(result)) {
+        QLineEdit * lineEdit = m_ui.searchCombo->lineEdit();
+        const int cursorPos = lineEdit->cursorPosition();
+        QStringList beforeAfter = result->data().toString().split(' ');
+        if (beforeAfter.size() != 2) return;
+        lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
+        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
+        lineEdit->setFocus();
+    }
+}
+
+
 KateSearchCommand::KateSearchCommand(QObject *parent)
 : QObject(parent), KTextEditor::Command()
 {
@@ -476,7 +560,7 @@ KateSearchCommand::KateSearchCommand(QObject *parent)
 
 const QStringList& KateSearchCommand::cmds()
 {
-    static QStringList sl = QStringList() << "grep" << "search";
+    static QStringList sl = QStringList() << "grep" << "search" << "newGrep" << "newSearch";
     return sl;
 }
 
@@ -494,6 +578,15 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
     else if (command == "search") {
         emit setSearchPlace(0);
     }
+    else if (command == "newGrep") {
+        emit setSearchPlace(1);
+        emit setCurrentFolder();
+        emit newTab();
+    }
+    else if (command == "newSearch") {
+        emit setSearchPlace(0);
+        emit newTab();
+    }
     emit setSearchString(searchText);
     emit startSearch();
     
@@ -506,6 +599,12 @@ bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, Q
         msg = i18n("Usage: grep [pattern to search for in folder]");
     }
     else if (cmd.startsWith("search")) {
+        msg = i18n("Usage: search [pattern to search for in open files]");
+    }
+    else if (cmd.startsWith("newGrep")) {
+        msg = i18n("Usage: newGrep [pattern to search for in folder]");
+    }
+    else if (cmd.startsWith("newSearch")) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
     return true;

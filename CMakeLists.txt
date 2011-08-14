@@ -10,6 +10,9 @@ include (KDE4Defaults)
 include (MacroLibrary)
 include (CheckFunctionExists)
 
+# no in source builds
+macro_ensure_out_of_source_build("kate requires an out of source build. Please create a separate build directory and run 'cmake path_to_kate [options]' there.")
+
 # config.h
 if(NOT APPLE)
   check_function_exists (fdatasync HAVE_FDATASYNC)

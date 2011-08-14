@@ -626,8 +626,11 @@ view of the foldable regions, with triangle symbols to indicate the possible ope
 on a given region: a top down triangle means that the region is expanded, clicking it will
 collapse the region and a right pointing triangle will be displayed instead.</para>
 
-<para>Four commands are provided to manipulate the state of folding regions,
+<para>Eleven commands are provided to manipulate the state of folding regions,
 see the <link linkend="view-code-folding">menu documentation</link>.
+</para>
+
+<para>A great feature of the code folding is that the folded lines are remembered when a file is closed, so when you reopen the file the folded nodes will still be folded. This applies to reload operations as well.
 </para>
 
 <para>If you do not want to use the code folding feature, you can disable

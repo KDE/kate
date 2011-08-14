@@ -48,7 +48,6 @@ QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::Vi
       return 0;
     }
     //Toplevel is a KateMainWindow
-    kDebug()<<"window is a KateMainWindow";
     return mainWindow->bottomViewBarContainer();
   } else if (position==KTextEditor::ViewBarContainer::TopBar) {
     KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
@@ -57,7 +56,6 @@ QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::Vi
       return 0;
     }
     //Toplevel is a KateMainWindow
-    kDebug()<<"window is a KateMainWindow";
     return mainWindow->topViewBarContainer();
   }
   return 0;

@@ -63,14 +63,17 @@ K_PLUGIN_FACTORY(KateSymbolViewerFactory, registerPlugin<KatePluginSymbolViewer>
 K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View symbols"), KAboutData::License_LGPL_V2)) )
 
 
-KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (Kate::MainWindow *w)
+KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (QList<KatePluginSymbolViewerView *> &views, Kate::MainWindow *w)
     : Kate::PluginView(w)
+    , m_views (views)
 {
     m_view = new KatePluginSymbolViewerView(w);
+    m_views.append (m_view);
 }
 
 KatePluginSymbolViewerView2::~KatePluginSymbolViewerView2 ()
 {
+    m_views.remove (m_view);
     delete m_view;
 }
 
@@ -304,8 +307,7 @@ KatePluginSymbolViewer::~KatePluginSymbolViewer()
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)
 {
-  KatePluginSymbolViewerView2 *view = new KatePluginSymbolViewerView2 (mainWindow);
-  mViews.append (view->view());
+  KatePluginSymbolViewerView2 *view = new KatePluginSymbolViewerView2 (mViews, mainWindow);
   return view;
   //return new KatePluginSymbolViewerView2 (mainWindow);
 }

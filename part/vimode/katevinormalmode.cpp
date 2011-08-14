@@ -58,6 +58,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
   m_defaultRegister = '"';
 
+  m_scroll_count_limit = 1000; // Limit of count for scroll commands.
   m_timeoutlen = 1000; // FIXME: make configurable
   m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
   m_mappingTimer = new QTimer( this );
@@ -914,21 +915,17 @@ bool KateViNormalMode::commandJoinLines()
   // remember line length so the cursor can be put between the joined lines
   int l = doc()->lineLength( c.line() );
 
-  int n = getCount();
+  unsigned int from = c.line();
+  unsigned int to = c.line()+getCount();
 
   // if we were given a range of lines, this information overrides the previous
   if ( m_commandRange.startLine != -1 && m_commandRange.endLine != -1 ) {
     m_commandRange.normalize();
     c.setLine ( m_commandRange.startLine );
-    n = m_commandRange.endLine-m_commandRange.startLine;
+    to = m_commandRange.endLine;
   }
 
-  // make sure we don't try to join lines past the document end
-  if ( n > doc()->lines()-1-c.line() ) {
-      n = doc()->lines()-1-c.line();
-  }
-
-  doc()->joinLines( c.line(), c.line()+n );
+  joinLines( from, to );
 
   // position cursor between the joined lines
   c.setColumn( l );
@@ -1339,11 +1336,7 @@ bool KateViNormalMode::commandIndentLines()
   int line2 = m_commandRange.endLine;
   int col = getLine( line2 ).length();
 
-  doc()->editStart();
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-       doc()->indent( KTextEditor::Range( line1, 0, line2, col ), 1 );
-  }
-  doc()->editEnd();
+  doc()->indent( KTextEditor::Range( line1, 0, line2, col ), getCount() );
 
   return true;
 }
@@ -1357,24 +1350,47 @@ bool KateViNormalMode::commandUnindentLines()
   int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
 
-  doc()->editStart();
-  doc()->indent( KTextEditor::Range( line1, 0, line2, 0), -1 );
-  doc()->editEnd();
+  doc()->indent( KTextEditor::Range( line1, 0, line2, doc()->lineLength( line2 ) ), -getCount() );
 
   return true;
 }
 
 bool KateViNormalMode::commandScrollPageDown()
 {
-  m_view->pageDown();
+  if ( getCount() < m_scroll_count_limit ) {
 
+    for(uint i = 0; i < getCount(); i++)
+      m_view->pageDown();
+  }
   return true;
 }
 
 bool KateViNormalMode::commandScrollPageUp()
 {
-  m_view->pageUp();
+  if ( getCount() < m_scroll_count_limit ) {
+    for(uint i=0; i < getCount(); i++)
+      m_view->pageUp();
+  }
+  return true;
 
+}
+
+bool KateViNormalMode::commandScrollHalfPageUp()
+{
+  if ( getCount() < m_scroll_count_limit ) {
+
+    for(uint i=0; i < getCount(); i++)
+      m_viewInternal->pageUp(false, true);
+  }
+  return true;
+}
+
+bool KateViNormalMode::commandScrollHalfPageDown()
+{
+  if ( getCount() < m_scroll_count_limit ) {
+    for(uint i=0; i < getCount(); i++)
+      m_viewInternal->pageDown(false, true);
+  }
   return true;
 }
 
@@ -1570,6 +1586,20 @@ bool KateViNormalMode::commandSwitchToPrevTab() {
   return true;
 }
 
+bool KateViNormalMode::commandFormatLine()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  reformatLines( c.line(), c.line()+getCount()-1 );
+
+  return true;
+}
+
+bool KateViNormalMode::commandFormatLines()
+{
+  reformatLines( m_commandRange.startLine, m_commandRange.endLine );
+  return true;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2367,7 +2397,7 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( false );
 
-  return findPattern( word );
+  return findPattern( word, false, getCount() );
 }
 
 KateViRange KateViNormalMode::motionToPrevOccurrence()
@@ -2378,7 +2408,7 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( true );
 
-  return findPattern( word, true );
+  return findPattern( word, true, getCount() );
 }
 
 KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
@@ -2735,6 +2765,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<pagedown>", commandScrollPageDown, 0 );
   ADDCMD("<c-b>", commandScrollPageUp, 0 );
   ADDCMD("<pageup>", commandScrollPageUp, 0 );
+  ADDCMD("<c-u>", commandScrollHalfPageUp, 0 );
+  ADDCMD("<c-d>", commandScrollHalfPageDown, 0 );
   ADDCMD("zz", commandCentreViewOnCursor, 0 );
   ADDCMD("ga", commandPrintCharacterCode, SHOULD_NOT_RESET );
   ADDCMD(".", commandRepeatLastChange, 0 );
@@ -2770,6 +2802,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("gt", commandSwitchToNextTab,0);
   ADDCMD("gT", commandSwitchToPrevTab,0);
 
+  ADDCMD("gqq", commandFormatLine, IS_CHANGE);
+  ADDCMD("gq", commandFormatLines, IS_CHANGE | NEEDS_MOTION);
 
 
   // regular motions
@@ -2908,4 +2942,23 @@ OperationMode KateViNormalMode::getOperationMode() const
         m = CharWise;
 
   return m;
+}
+
+void KateViNormalMode::joinLines(unsigned int from, unsigned int to) const
+{
+  // make sure we don't try to join lines past the document end
+  if ( to >= (unsigned int)(doc()->lines()) ) {
+    to = doc()->lines()-1;
+  }
+
+  // joining one line is a no-op
+  if ( from == to ) return;
+
+  doc()->joinLines( from, to );
+}
+
+void KateViNormalMode::reformatLines(unsigned int from, unsigned int to) const
+{
+  joinLines( from, to );
+  doc()->wrapText( from, to );
 }

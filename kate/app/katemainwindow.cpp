@@ -183,15 +183,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   // enable plugin guis
   KatePluginManager::self()->enableAllPluginsGUI (this, sconfig);
 
-  // connect documents menu aboutToshow
-  documentMenu = (QMenu*)factory()->container("go", this);
-  if (documentMenu)
-    connect(documentMenu, SIGNAL(aboutToShow()), this, SLOT(documentMenuAboutToShow()));
-
-  documentsGroup = new QActionGroup(documentMenu);
-  documentsGroup->setExclusive(true);
-  connect(documentsGroup, SIGNAL(triggered(QAction*)), this, SLOT(activateDocumentFromDocMenu(QAction*)));
-
   // caption update
   for (uint i = 0; i < KateDocManager::self()->documents(); i++)
     slotDocumentCreated (KateDocManager::self()->document(i));
@@ -564,39 +555,12 @@ void KateMainWindow::slotUpdateOpenWith()
     documentOpenWith->setEnabled(false);
 }
 
-void KateMainWindow::documentMenuAboutToShow()
-{
-  qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
-  qDeleteAll( documentsGroup->actions() );
-
-  KTextEditor::Document* activeDoc = m_viewManager->activeView() ? m_viewManager->activeView()->document() : 0;
-  const QList<KTextEditor::Document*> & docs = KateDocManager::self()->documentList();
-  for (int i = 0; i < docs.size(); ++i)
-  {
-    KTextEditor::Document *doc = docs[i];
-    const QString name = KStringHandler::rsqueeze(doc->documentName(), 150);
-    QAction *action = new QAction(doc->isModified() ?
-                                  i18nc("'document name [*]', [*] means modified", "%1 [*]", name) : name,
-                                  documentsGroup );
-    action->setCheckable(true);
-    if (activeDoc == doc)
-      action->setChecked(true);
-    action->setData(QVariant::fromValue(doc));
-    documentMenu->addAction(action);
-  }
-}
-
-void KateMainWindow::activateDocumentFromDocMenu (QAction *action)
-{
-  KTextEditor::Document* doc = action->data().value<KTextEditor::Document*>();
-  if (doc)
-    m_viewManager->activateView (doc);
-}
-
 void KateMainWindow::dragEnterEvent( QDragEnterEvent *event )
 {
   if (!event->mimeData()) return;
-  event->setAccepted(KUrl::List::canDecode(event->mimeData()));
+  const bool accept = KUrl::List::canDecode(event->mimeData()) // files
+                   || event->mimeData()->hasText();            // text
+  event->setAccepted(accept);
 }
 
 void KateMainWindow::dropEvent( QDropEvent *event )
@@ -607,31 +571,46 @@ void KateMainWindow::dropEvent( QDropEvent *event )
 void KateMainWindow::slotDropEvent( QDropEvent * event )
 {
   if (event->mimeData() == 0) return;
-  KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
+  
+  //
+  // are we dropping files?
+  //
+  if (KUrl::List::canDecode(event->mimeData())) {
+    KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
 
-  // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
-  // view where it was dropped
-  KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
-  if (kVsender != 0) {
-    QWidget *parent = kVsender->parentWidget();
-    if (parent != 0) {
-      KateViewSpace* vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
-      if (vs != 0) m_viewManager->setActiveSpace(vs);
+    // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
+    // view where it was dropped
+    KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
+    if (kVsender != 0) {
+      QWidget *parent = kVsender->parentWidget();
+      if (parent != 0) {
+        KateViewSpace* vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
+        if (vs != 0) m_viewManager->setActiveSpace(vs);
+      }
     }
-  }
 
-  for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
-  {
-    // if url has no file component, try and recursively scan dir
-    KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
-    if( kitem.isDir() ) {
-      KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
-      connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
-              this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+    for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
+    {
+      // if url has no file component, try and recursively scan dir
+      KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
+      if( kitem.isDir() ) {
+        KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
+        connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
+                this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+      }
+      else {
+        m_viewManager->openUrl (*i);
+      }
     }
-    else {
-      m_viewManager->openUrl (*i);
-    }
+  } 
+  //
+  // or are we dropping text?
+  //
+  else if (event->mimeData()->hasText()) {
+    KTextEditor::Document * doc =
+      KateDocManager::self()->createDoc();
+    doc->setText(event->mimeData()->text());
+    m_viewManager->activateView(doc);
   }
 }
 

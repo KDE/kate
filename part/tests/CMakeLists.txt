@@ -151,14 +151,14 @@ target_link_libraries( kateview_test
 
 ########### folding test ###############
 
-# kde4_add_unit_test(katefolding_test TESTNAME kate-katefolding_test katefolding_test.cpp)
-# 
-# target_link_libraries( katefolding_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
+kde4_add_unit_test(katefolding_test TESTNAME kate-katefolding_test katefolding_test.cpp)
+
+target_link_libraries( katefolding_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
 
 ########### revision test ###############
 
@@ -192,6 +192,17 @@ set(indenttest_SRCS
 kde4_add_unit_test(indenttest TESTNAME kate-indenttest ${indenttest_SRCS})
 
 target_link_libraries(indenttest ${KATE_TEST_LINK_LIBS})
+
+########### remove trailing spaces for copy&pate, bug #242723 ################
+
+kde4_add_unit_test(bug242723_test TESTNAME kate-bug242723_test bug242723_test.cpp)
+
+target_link_libraries( bug242723_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
 
 ########### bug 213964 test ###############
 

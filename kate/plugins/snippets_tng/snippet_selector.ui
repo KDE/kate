@@ -76,15 +76,12 @@
       </widget>
      </item>
      <item>
-      <widget class="KArrowButton" name="hideShowBtn">
+      <widget class="QToolButton" name="hideShowBtn">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-       <property name="arrowType" stdset="0">
-        <number>2</number>
        </property>
       </widget>
      </item>

@@ -169,8 +169,8 @@ class KateViewInternal : public QWidget
     void scrollDown();
     void topOfView(bool sel=false);
     void bottomOfView(bool sel=false);
-    void pageUp(bool sel=false);
-    void pageDown(bool sel=false);
+    void pageUp(bool sel=false, bool half=false);
+    void pageDown(bool sel=false, bool half=false);
     void top(bool sel=false);
     void bottom(bool sel=false);
     void top_home(bool sel=false);

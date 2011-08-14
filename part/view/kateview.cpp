@@ -273,6 +273,10 @@ KateView::~KateView()
   // invalidate update signal
   m_delayedUpdateTriggered = false;
 
+  // remove from xmlgui factory, to be safe
+  if (factory())
+    factory()->removeClient (this);
+  
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
     if (viewBarContainer) {
      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
@@ -949,24 +953,43 @@ void KateView::setupCodeFolding()
   KActionCollection *ac=this->actionCollection();
 
   KAction* a = ac->addAction("folding_toplevel");
-  a->setText(i18n("Collapse Toplevel"));
+  a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
 
   a = ac->addAction("folding_expandtoplevel");
-  a->setText(i18n("Expand Toplevel"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Equal));
+  a->setText(i18n("Unfold Toplevel Nodes"));
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
 
+  a = ac->addAction("folding_expandall");
+  a->setText(i18n("Unfold All Nodes"));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(expandAll()));
+
   a = ac->addAction("folding_collapselocal");
-  a->setText(i18n("Collapse One Local Level"));
+  a->setText(i18n("Fold Current Node"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
   a = ac->addAction("folding_expandlocal");
-  a->setText(i18n("Expand One Local Level"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Equal));
+  a->setText(i18n("Unfold Current Node"));
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
+
+  // Explicit folding is allowed for level 2 to 4
+  for (int i = 2 ; i < 5 ; ++i) {
+    // Collapse level connections
+    a = ac->addAction(QString("collapse_level_%1").arg(i));
+    a->setText(i18n("Fold Nodes in Level %1", i));
+    a->setData(i);
+    connect(a, SIGNAL(triggered()), this, SLOT(slotCollapseLevel()));
+    
+    // Expand level connections
+    a = ac->addAction(QString("expand_level_%1").arg(i));
+    a->setText(i18n("Unfold Nodes in Level %1", i));
+    a->setData(i);
+    connect(a, SIGNAL(triggered()), this, SLOT(slotExpandLevel()));
+  }
 }
 
 void KateView::slotCollapseLocal()
@@ -977,6 +1000,28 @@ void KateView::slotCollapseLocal()
 void KateView::slotExpandLocal()
 {
   m_doc->foldingTree()->expandOne(cursorPosition().line(), cursorPosition().column());
+}
+
+void KateView::slotCollapseLevel()
+{
+  if (!sender()) return;
+  QAction *action = qobject_cast<QAction*>(sender());
+  if (!action) return;
+
+  const int level = action->data().toInt();
+  Q_ASSERT(level > 0);
+  m_doc->foldingTree()->collapseLevel(level);
+}
+
+void KateView::slotExpandLevel()
+{
+  if (!sender()) return;
+  QAction *action = qobject_cast<QAction*>(sender());
+  if (!action) return;
+  
+  const int level = action->data().toInt();
+  Q_ASSERT(level > 0);
+  m_doc->foldingTree()->expandLevel(level);
 }
 
 QString KateView::viewMode () const
@@ -2627,6 +2672,7 @@ KateViModeBar *KateView::viModeBar()
 {
   if (!m_viModeBar) {
     m_viModeBar = new KateViModeBar(this);
+    m_viModeBar->hide ();
   }
 
   return m_viModeBar;

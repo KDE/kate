@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+Copyright (C) 2006 Mildred <silkensedai@online.fr>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to
+deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+-->
+<language name="Jam" version="0.3" kateversion="2.3" section="Other" extensions="Jam*;*.jam" mimetype="text/x-jam;text/x-Jamfile;text/x-Jamrules;text/x-Jambase">
+  <!--
+  Changelog
+    0.2
+      * now tokens like [ ] { } ( ) : ; are not detected if there is no whitespace before and after
+      * Jam* files are handled (example Jamrules or Jambase)
+      * different colors
+      * Subvariables are handled (example : $(varname[$(v)])
+      * Include bash highlighting inside actions blocks
+      * rules names are found in rules definitions
+      * highlight the variable reference in rule definitions after 'bind'
+    0.3
+      * because weakDelimiter isn't supported, it is not possible to just have some locals delimiters for the tokens and globals delimiters as default. So it's not possible to have our usual double click to select.
+      * 'actions action_name bind var' instead of 'actions bind var action_name'
+      * bun in syntax 'rule Rulename : param param ...' ':' is not recognized. fixed
+      * fixed some bugs found when looking at Jambase (peacemeal -> piecemeal, ...)
+      * variables recognized in strings
+      * named parameters for rules ... the syntax has changed : 'rule rulename param : param : param {'
+      * changed section from Scripts to Other
+  Feature request to Kate dev.
+    * returnContext attribute
+    * ability to enter a new context after a #pop
+    * when you include rules from foreign contexts (here Bash), having the ability to prepend some rules to all foreign contexts for example to terminate the included context before it naturally ends.
+  -->
+  <highlighting>
+    <list name="keywords">
+      <item> actions </item>
+      <item> break </item>
+      <item> continue </item>
+      <item> for </item>
+      <item> in </item>
+      <item> if </item>
+      <item> else </item>
+      <item> include </item>
+      <item> local </item>
+      <item> on </item>
+      <item> return </item>
+      <item> rule </item>
+      <item> switch </item>
+      <item> case </item>
+      <item> while </item>
+    </list>
+    <list name="keywordLocal">
+      <item> local </item>
+    </list>
+    <list name="actionAttribute">
+      <item> existing </item>
+      <item> ignore </item>
+      <item> piecemeal </item>
+      <item> quietly </item>
+      <item> together </item>
+      <item> updated </item>
+    </list>
+    <list name="actionAttributeBind">
+      <item> bind </item>
+    </list>
+    <list name="tokenColon"><item> : </item></list>
+    <list name="tokenSemicolon"><item> ; </item></list>
+    <list name="tokenSquareOpen"><item> [ </item></list>
+    <list name="tokenSquareClose"><item> ] </item></list>
+    <list name="tokenBraceOpen"><item> ( </item></list>
+    <list name="tokenBraceClose"><item> ) </item></list>
+    <list name="tokenBlockOpen"><item> { </item></list>
+    <list name="tokenBlockClose"><item> } </item></list>
+    <contexts>
+
+      <context attribute="Normal" lineEndContext="#stay" name="Normal">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Error" context="#stay" String="tokenBlockClose" endRegion="block" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <IncludeRules context="Statement"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="Block">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#pop" String="tokenBlockClose" endRegion="block" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <IncludeRules context="Statement"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="Statement">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Keyword" context="ActionDefinition" String="actions"/>
+        <StringDetect attribute="Keyword" context="RuleDefinition" String="rule"/>
+        <StringDetect attribute="Keyword" context="ForStatement" String="for"/>
+        <StringDetect attribute="Keyword" context="IfStatement" String="if"/>
+        <StringDetect attribute="Keyword" context="IfStatement" String="while"/>
+        <StringDetect attribute="Keyword" context="Rule" String="include"/>
+        <StringDetect attribute="Keyword" context="OnPreStment" String="on"/>
+        <StringDetect attribute="Keyword" context="Rule" String="return"/>
+        <StringDetect attribute="Keyword" context="CaseCond" String="case"/>
+        <keyword attribute="Keyword" context="VarAssign" String="keywordLocal"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Operator" context="Block" String="tokenBlockOpen" beginRegion="block" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <RegExpr attribute="VarAssign" context="VarAssign" String="[^\t ]+[\t ]*[\+\?]?=" lookAhead="true"/>
+        <RegExpr attribute="VarAssign" context="VarAssign" String="[^\t ]+[\t ]+on" lookAhead="true"/>
+        <keyword attribute="Operator" context="#stay" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#stay" String="tokenSemicolon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#stay" String="tokenBraceOpen" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#stay" String="tokenBraceClose" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <RegExpr attribute="Rule" context="Rule" String="([^\t ][^\t ]+|[^\{\}\t ])"/>
+      </context>
+
+      <!-- General instructions -->
+
+      <context attribute="Normal" lineEndContext="#stay" name="Rule">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#stay" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenSemicolon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="CaseCond">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#pop" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="OnPreStment">
+        <IncludeRules context="Preprocess"/>
+        <RegExpr attribute="Normal" context="#pop" String="[^\t ]+"/>
+        <RegExpr attribute="Normal" context="#pop" String="." lookAhead="true"/>
+      </context>
+
+      <!-- Assigment -->
+
+      <context attribute="Variable" lineEndContext="#stay" name="VarAssign">
+        <IncludeRules context="Preprocess"/>
+        <RegExpr attribute="VarAssign" context="Assigment" String="[^\t ]+[\t ]*[\+\?]?=" lookAhead="true"/>
+        <RegExpr attribute="VarAssign" context="Assigment" String="[^\t ]+[\t ]+on" lookAhead="true"/>
+        <RegExpr attribute="VarAssign" context="Assigment" String="[\+\?]?=" lookAhead="true"/>
+        <keyword attribute="Operator" context="#stay" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenSemicolon" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="Assigment">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Operator" context="#stay" String="on"/>
+        <StringDetect attribute="Operator" context="Assigment2" String="="/>
+        <StringDetect attribute="Operator" context="Assigment2" String="+="/>
+        <StringDetect attribute="Operator" context="Assigment2" String="?="/>
+        <keyword attribute="Operator" context="#pop#pop" String="tokenSemicolon" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <RegExpr attribute="VarAssign" context="#stay" String="[^\t ]+"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="Assigment2">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#pop#pop#pop" String="tokenSemicolon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <!-- Sub statements -->
+
+      <context attribute="Normal" lineEndContext="#stay" name="SubStatement">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Keyword" context="OnPreStment" String="on"/>
+        <RegExpr attribute="Rule" context="SubRule" String="[^\t ]+"/>
+        <keyword attribute="Operator" context="#pop" String="tokenSquareClose" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="SubRule">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#stay" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop#pop" String="tokenSquareClose" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <!-- Actions, Rules definitions -->
+
+      <context attribute="Normal" lineEndContext="#stay" name="ActionDefinition">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Error" context="#stay" String="actionAttributeBind"/>
+        <keyword attribute="actionAttribute" context="#stay" String="actionAttribute"/>
+        <StringDetect attribute="Operator" context="ActionBody" String="{"/>
+        <RegExpr attribute="Action" context="ActionDefinitionFull" String="[^\t ]+"/>
+        <DetectSpaces attribute="Normal"/>
+      </context>
+
+      <context attribute="Error" lineEndContext="#stay" name="ActionDefinitionFull">
+        <IncludeRules context="Preprocess"/>
+        <DetectSpaces attribute="Normal"/>
+        <StringDetect attribute="Operator" context="#pop" String="{" lookAhead="true"/>
+        <keyword attribute="actionAttribute" context="ActionDefinitionBind" String="actionAttributeBind"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="ActionDefinitionBind">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Operator" context="#pop" String="{" lookAhead="true"/>
+        <RegExpr attribute="Varname" context="#stay" String="[^\t ]+"/>
+      </context>
+
+      <context attribute="ActionText" lineEndContext="#stay" name="ActionBody">
+        <StringDetect attribute="Comment" context="Comment" String="#"/>
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="Operator" context="#pop#pop" String="}"/>
+        <IncludeRules context="##Bash"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="RuleDefinition">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Error" context="#stay" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenBlockOpen" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <RegExpr attribute="Rule" context="VarnameList" String="[^\t ]+"/>
+      </context>
+
+      <context attribute="Error" lineEndContext="#stay" name="RuleDefinitionFull">
+        <IncludeRules context="Preprocess"/>
+        <DetectSpaces attribute="Normal"/>
+        <keyword attribute="Operator" context="VarnameList" String="tokenColon" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenBlockOpen" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="VarnameList">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="VarnameList" String="tokenColon" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenBlockOpen" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <RegExpr attribute="Varname" context="#stay" String="[^\t ]+"/>
+      </context>
+
+      <!-- For, While, If -->
+
+      <context attribute="Normal" lineEndContext="#stay" name="ForStatement">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Operator" context="ForList" String="in"/>
+        <RegExpr attribute="Varname" context="#stay" String="[^\t ]+"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="ForList">
+        <IncludeRules context="Preprocess"/>
+        <keyword attribute="Operator" context="#pop#pop" String="tokenBlockOpen" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="IfStatement">
+        <IncludeRules context="Preprocess"/>
+        <StringDetect attribute="Operator" context="#stay" String="="/>
+        <StringDetect attribute="Operator" context="#stay" String="!="/>
+        <StringDetect attribute="Operator" context="#stay" String="&lt;"/>
+        <StringDetect attribute="Operator" context="#stay" String="&lt;="/>
+        <StringDetect attribute="Operator" context="#stay" String="&gt;"/>
+        <StringDetect attribute="Operator" context="#stay" String="&gt;="/>
+        <StringDetect attribute="Operator" context="#stay" String="in"/>
+        <StringDetect attribute="Operator" context="#stay" String="!"/>
+        <StringDetect attribute="Operator" context="#stay" String="&amp;&amp;"/>
+        <StringDetect attribute="Operator" context="#stay" String="||"/>
+        <keyword attribute="Operator" context="#stay" String="tokenBraceOpen" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#stay" String="tokenBraceClose" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+        <keyword attribute="Operator" context="#pop" String="tokenBlockOpen" lookAhead="true" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <!-- Variables, Strings, Comments -->
+
+      <context attribute="Normal" lineEndContext="#stay" name="Preprocess">
+        <RegExpr attribute="Normal" context="#stay" String="\\(&quot;|\w)"/>
+        <StringDetect attribute="CommentTitle" context="CommentTitle" String="##"/>
+        <StringDetect attribute="Comment" context="Comment" String="#"/>
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="String" context="String" String="&quot;"/>
+        <keyword attribute="Operator" context="SubStatement" String="tokenSquareOpen" weakDelimiter=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*,"/>
+      </context>
+
+      <context attribute="Variable" lineEndContext="Error" name="Variable">
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="VariableDelimiter" context="#pop" String=")"/>
+        <StringDetect attribute="VariableAttribute" context="VariableRange" String="["/>
+        <StringDetect attribute="VariableAttribute" context="VariableAttribute" String=":"/>
+      </context>
+
+      <context attribute="VariableAttribute" lineEndContext="Error" name="VariableRange">
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="VariableAttribute" context="#pop" String="]"/>
+      </context>
+
+      <context attribute="VariableAttribute" lineEndContext="Error" name="VariableAttribute">
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="Variable" context="#pop" String=")" lookAhead="true"/>
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="Comment">
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)"/>
+      </context>
+
+      <context attribute="CommentTitle" lineEndContext="#pop" name="CommentTitle">
+        <IncludeRules context="Comment"/>
+      </context>
+
+      <context attribute="String" lineEndContext="Error" name="String">
+        <StringDetect attribute="VariableDelimiter" context="Variable" String="$("/>
+        <StringDetect attribute="EscapeSeq" context="#stay" String="\&quot;"/>
+        <StringDetect attribute="EscapeSeq" context="#stay" String="\"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+
+      <!-- Error -->
+
+      <context attribute="Error" lineEndContext="#stay" name="Error"/>
+
+    </contexts>
+    <itemDatas>
+      <!-- action definition (shell script) -->
+      <itemData name="actionAttribute" defStyleNum="dsNormal" italic="1"/>
+      <itemData name="ActionText" defStyleNum="dsNormal"/>
+      <!-- rule / action call -->
+      <itemData name="Rule" defStyleNum="dsFunction" color="black" underline="1"/>
+      <itemData name="Action" defStyleNum="dsNormal"/>
+      <!-- variables with attributes -->
+      <itemData name="Variable" defStyleNum="dsNormal" color="darkgreen"/>
+      <itemData name="VariableDelimiter" defStyleNum="dsNormal" color="blue"/>
+      <itemData name="VariableAttribute" defStyleNum="dsNormal" color="blue"/>
+      <itemData name="VarAssign" defStyleNum="dsNormal" color="darkgreen"/>
+      <itemData name="Varname" defStyleNum="dsNormal" color="darkgreen" italic="1"/>
+      <!-- common -->
+      <itemData name="Normal" defStyleNum="dsNormal"/>
+      <itemData name="Operator" defStyleNum="dsNormal" bold="1"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword" bold="1"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="CommentTitle" defStyleNum="dsComment" color="darkorange" bold="1"/>
+      <itemData name="String" defStyleNum="dsString" color="red"/>
+      <itemData name="EscapeSeq" defStyleNum="dsString" color="purple" bold="1"/>
+      <itemData name="Alert" defStyleNum="dsAlert"/>
+      <itemData name="Error" defStyleNum="dsError"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#"/>
+    </comments>
+    <keywords weakDeliminator=":;{}()[].!+,-&lt;=&gt;%&amp;/?^|~\*," additionalDeliminator=" 	"/>
+  </general>
+</language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

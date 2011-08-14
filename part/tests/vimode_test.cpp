@@ -25,6 +25,8 @@
 #include <kateviinputmodemanager.h>
 #include <katedocument.h>
 #include <kateview.h>
+#include "kateconfig.h"
+#include "katebuffer.h"
 #include "katevikeyparser.h"
 #include "kateviewhelpers.h"
 
@@ -182,6 +184,22 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar","Vra","aaaaaa");
     DoTest("foo\nbar","jlvklrx","fox\nxxr");
     DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
+
+    // Testing "gq"
+    DoTest("foo\nbar\nbaz","Vgq","foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","Vjgq","foo bar\nbaz");
+
+    // Testing "<<"/">>"
+    kate_document->config()->setReplaceTabsDyn(true);
+    DoTest("foo\nbar\nbaz","V>>","  foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","Vj>>","  foo\n  bar\nbaz");
+    DoTest("foo\nbar\nbaz","V2j>>","  foo\n  bar\n  baz");
+    DoTest("foo\nbar\nbaz","V10>>","                    foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","V2j3>>","      foo\n      bar\n      baz");
+
+    DoTest("  foo\nbar\nbaz","V<<","foo\nbar\nbaz");
+    DoTest("foo\nbar\nbaz","V>>V<<","foo\nbar\nbaz");
+    DoTest("    foo\n    bar\n    baz","V2j<<","  foo\n  bar\n  baz");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -316,7 +334,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest(" foo", "$0x","foo");
 
   // Testing "#"
-  DoTest("1 1 1", "2#x","1 1 ");
+  DoTest("1 1 1", "2#x","1  1");
   DoTest("foo bar foo bar", "#xlll#x","foo ar oo bar");
   DoTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
 
@@ -476,6 +494,7 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "dd"
   DoTest("foo\nbar", "dd", "bar");
   DoTest("foo\nbar", "2dd", "");
+  DoTest("foo\nbar\n", "Gdd", "foo\nbar");
 
   // Testing "D"
   DoTest("foo bar", "lllD", "foo");
@@ -518,6 +537,27 @@ void ViModeTest::NormalModeCommandsTest() {
                    "lmajlmb`a`bj\\ctrl-o\\ctrl-ix",
                    "Foo foo.\nBar bar.\nBa baz.");
 
+
+  // Testing "gq" (reformat) text
+  DoTest("foo\nbar", "gqq", "foo\nbar");
+  DoTest("foo\nbar", "2gqq", "foo bar");
+  DoTest("foo\nbar\nbaz", "jgqj", "foo\nbar baz");
+
+  // when setting the text to wrap at column 10, this should be re-formatted to
+  // span several lines ...
+  kate_document->setWordWrapAt( 10 );
+  DoTest("foo bar foo bar foo bar", "gqq", "foo bar\nfoo bar\nfoo bar");
+
+  // ... and when re-setting it to column 80 again, they should be joined again
+  kate_document->setWordWrapAt( 80 );
+  DoTest("foo bar\nfoo bar\nfoo bar", "gqG", "foo bar foo bar foo bar");
+
+  // test >> and << (indent and de-indent)
+  kate_document->config()->setReplaceTabsDyn(true);
+
+  DoTest("foo\nbar", ">>", "  foo\nbar");
+  DoTest("foo\nbar", "2>>", "  foo\n  bar");
+  DoTest("foo\nbar", "100>>", "  foo\n  bar");
 }
 
 

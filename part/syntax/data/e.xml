@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="E Language" version="0.21" kateversion="2.3" section="Sources" extensions="*.e" mimetype="text/x-e-src">
+<language name="E Language" version="0.22" kateversion="2.3" section="Sources" extensions="*.e" mimetype="text/x-e-src">
     <highlighting>
         <list name="Type">
             <item> FALSE </item>
@@ -200,9 +200,9 @@
          </list>
         <contexts>
 
-	    <context name="out_comment" attribute="OutSide E code"  lineEndContext="#stay">
+	          <context name="out_comment" attribute="OutSide E code"  lineEndContext="#stay">
                 <Detect2Chars attribute="code_begin" context="normal" char="&lt;" char1="'" />
-	    </context>
+	          </context>
 
             <context name="normal" attribute="Normal Text" lineEndContext="#stay">
               	<DetectChar attribute="Operators" context="#stay" char="{" beginRegion="Region1"/>
@@ -215,13 +215,13 @@
                 <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />
                 <DetectChar attribute="Vector" context="string" char="&quot;" />
                 <AnyChar attribute="Operators" context="#stay" String="'[&amp;&gt;&lt;=:+\-*\|].,;" />
-                <keyword attribute="Data Type" context="#stay" String="Type"/>
+                <keyword attribute="Data Type" context="#stay"  String="Type"/>
                 <keyword attribute="Function" context="#stay"  String="Function"/>
-            	<keyword attribute="Statement" context="#stay" String="Statement"/>
+            		<keyword attribute="Statement" context="#stay"  String="Statement"/>
                 <keyword attribute="Action" context="#stay"  String="Action"/>
-                <keyword attribute="Keyword" context="#stay" String="Generation"/>
-                <keyword attribute="Keyword" context="#stay" String="Cover"/>
-                <keyword attribute="Keyword" context="#stay" String="Simulator"/>
+                <keyword attribute="Keyword" context="#stay"  String="Generation"/>
+                <keyword attribute="Keyword" context="#stay"  String="Cover"/>
+                <keyword attribute="Keyword" context="#stay"  String="Simulator"/>
 
             </context>
 
@@ -251,6 +251,9 @@
 
     </highlighting>
   <general>
+    <comments>
+      <comment name="singleLine" start="//" />
+    </comments>
     <keywords casesensitive="1" />
   </general>
 </language>

@@ -52,41 +52,40 @@ KDataToolPlugin::~KDataToolPlugin ()
 void KDataToolPlugin::addView(KTextEditor::View *view)
 {
 	KDataToolPluginView *nview = new KDataToolPluginView (view);
-	nview->setView (view);
 	m_views.append (nview);
 }
 
 void KDataToolPlugin::removeView(KTextEditor::View *view)
 {
-	for (int z=0; z < m_views.count(); z++)
-        {
-		if (m_views.at(z)->parentClient() == view)
-		{
-			KDataToolPluginView *nview = m_views.at(z);
-			m_views.removeAll (nview);
-			delete nview;
+	foreach (KDataToolPluginView *pluginView, m_views) {
+		if (pluginView->view() == view) {
+			m_views.removeAll(pluginView);
+			delete pluginView;
+			break;
 		}
 	}
 }
 
-
 KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
-	:QObject(view),KXMLGUIClient(view),m_menu(0),m_notAvailable(0)
+	: QObject(view),KXMLGUIClient(view), m_view(view), m_menu(0),m_notAvailable(0)
 {
 	setComponentData( KDataToolPluginFactory::componentData() );
 	setXMLFile("ktexteditor_kdatatoolui.rc");
-	
+
 	m_menu = new KActionMenu(i18n("Data Tools"), this);
         actionCollection()->addAction("popup_dataTool", m_menu);
 	connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
-	
-	m_view = view;
 }
 
 KDataToolPluginView::~KDataToolPluginView()
 {
         m_view->removeChildClient (this);
 	delete m_menu;
+}
+
+View* KDataToolPluginView::view() const
+{
+	return m_view;
 }
 
 void KDataToolPluginView::aboutToShow()

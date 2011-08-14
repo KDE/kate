@@ -323,6 +323,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     uint undoCount () const;
     uint redoCount () const;
 
+    KateUndoManager* undoManager();
+
   protected:
     KateUndoManager* const m_undoManager;
 
@@ -811,7 +813,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   public:
     virtual const QString &documentName () const { return m_docName; }
 
-    void setDocName (QString docName);
+    void setDocName (const QString &docName);
 
     void lineInfo (KateLineInfo *info, unsigned int line);
 

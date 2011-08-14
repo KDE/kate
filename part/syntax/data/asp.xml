@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE  language SYSTEM "language.dtd">
-<language name="ASP" version="1.03" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
+<language name="ASP" version="1.04" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
     <highlighting>
         <list name="control structures">
             <item>select</item>
@@ -271,7 +271,7 @@
                 <RegExpr attribute="Keyword" context="#stay" String="\bend class\b" insensitive="TRUE" endRegion="classendclass1"/>
 
                 <RegExpr attribute="Control Structures" context="#stay" String="\bexit do\b" insensitive="TRUE" />
-                <RegExpr attribute="Control Structures" context="#stay" String="\bdo\b" insensitive="TRUE" beginRegion="doloop1"/>
+                <RegExpr attribute="Control Structures" context="#stay" String="\bdo(\s+(while))?\b" insensitive="TRUE" beginRegion="doloop1"/>
                 <RegExpr attribute="Control Structures" context="#stay" String="\bloop\b" insensitive="TRUE" endRegion="doloop1"/>
 
                 <RegExpr attribute="Control Structures" context="#stay" String="\bexit while\b" insensitive="TRUE" />

@@ -966,6 +966,10 @@ void KateView::setupCodeFolding()
   a->setText(i18n("Unfold All Nodes"));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(expandAll()));
 
+  a = ac->addAction("folding_collapse_dsComment");
+  a->setText(i18n("Fold Multiline Comments"));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(collapseAll_dsComments()));
+
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Fold Current Node"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));

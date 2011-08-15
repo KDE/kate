@@ -206,10 +206,11 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     void invalidateHighlighting();
 
-    //KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
     KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
 
     void codeFoldingColumnUpdate(int lineNr);
+
+    const KateDocument* getDocument () { return m_doc; }
 
   private:
     /**

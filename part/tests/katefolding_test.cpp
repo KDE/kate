@@ -317,4 +317,68 @@ void KateFoldingTest::testFolding_collapse_expand_local()
 
 }
 
+void KateFoldingTest::testFolding_collapse_dsComments_C()
+{
+  KTemporaryFile file;
+  file.setSuffix(".c");
+  file.open();
+  QTextStream stream(&file);
+  stream << "{\n"
+         << "}\n"
+         << "/*\n"
+         << "{\n"
+         << "}\n"
+         << "*/\n"
+         << "/*\n"
+         << "*/\n";
+  stream << flush;
+  file.close();
 
+  KateDocument doc(false, false, false);
+  QVERIFY(doc.openUrl(KUrl(file.fileName())));
+
+  KateView* view = new KateView(&doc, 0);
+
+  // is set to allow kate's hl to be called
+  view->config()->setDynWordWrap(true);
+
+  QCOMPARE(doc.visibleLines(), 9u);
+
+  QAction* action = view->action("folding_collapse_dsComment");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 5u);
+}
+
+void KateFoldingTest::testFolding_collapse_dsComments_XML()
+{
+  KTemporaryFile file;
+  file.setSuffix(".xml");
+  file.open();
+  QTextStream stream(&file);
+  stream << "<test1>\n"
+         << "</test1>\n"
+         << "<!--\n"
+         << "<test2>\n"
+         << "</test2>\n"
+         << "-->\n"
+         << "<!--\n"
+         << "-->\n";
+  stream << flush;
+  file.close();
+
+  KateDocument doc(false, false, false);
+  QVERIFY(doc.openUrl(KUrl(file.fileName())));
+
+  KateView* view = new KateView(&doc, 0);
+
+  // is set to allow kate's hl to be called
+  view->config()->setDynWordWrap(true);
+
+  QCOMPARE(doc.visibleLines(), 9u);
+
+  QAction* action = view->action("folding_collapse_dsComment");
+  QVERIFY(action);
+  action->trigger();
+  QCOMPARE(doc.visibleLines(), 5u);
+}

@@ -40,6 +40,8 @@ private Q_SLOTS:
   void testFolding_rb_lang();
   void testFolding_expand_collapse_level234();
   void testFolding_collapse_expand_local();
+  void testFolding_collapse_dsComments_C();
+  void testFolding_collapse_dsComments_XML();
 };
 
 #endif // KATE_FOLDING_TEST_H

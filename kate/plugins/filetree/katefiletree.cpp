@@ -32,6 +32,8 @@
 #include <QtGui/QContextMenuEvent>
 #include <kicon.h>
 #include <kdebug.h>
+#include <qapplication.h>
+#include <QClipboard>
 //END Includes
 
 
@@ -50,6 +52,10 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
+
+  m_filelistCopyFilename = new QAction( KIcon("copy"), i18n( "Copy Filename" ), this );
+  connect( m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()) );
+  m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
 
   QActionGroup *modeGroup = new QActionGroup(this);
 
@@ -160,8 +166,9 @@ void KateFileTree::mouseClicked ( const QModelIndex &index )
   
 }
 
-void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
-  m_indexContextMenu=selectionModel()->currentIndex();
+void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
+{
+  m_indexContextMenu = selectionModel()->currentIndex();
 
   selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect);
 
@@ -176,9 +183,14 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
   m_sortByFile->setChecked(sortRole == Qt::DisplayRole);
   m_sortByPath->setChecked(sortRole == KateFileTreeModel::PathRole);
   m_sortByOpeningOrder->setChecked(sortRole == KateFileTreeModel::OpeningOrderRole);
-  
+
+  const bool isFile = (0 != m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>());
+
   QMenu menu;
   menu.addAction(m_filelistCloseDocument);
+  if (isFile) {
+    menu.addAction(m_filelistCopyFilename);
+  }
   menu.addSeparator();
   QMenu *view_menu = menu.addMenu(i18n("View Mode"));
   view_menu->addAction(m_treeModeAction);
@@ -200,12 +212,21 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event ) {
 
 Q_DECLARE_METATYPE(QList<KTextEditor::Document*>)
 
-void KateFileTree::slotDocumentClose() {
+void KateFileTree::slotDocumentClose()
+{
   m_previouslySelected = QModelIndex();
   QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
   if (!v.isValid()) return;
   QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
   Kate::application()->documentManager()->closeDocumentList(closingDocuments);
+}
+
+void KateFileTree::slotCopyFilename()
+{
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+  if (doc) {
+    QApplication::clipboard()->setText(doc->url().url());
+  }
 }
 
 void KateFileTree::slotDocumentPrev()

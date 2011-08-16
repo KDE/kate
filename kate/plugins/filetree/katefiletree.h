@@ -40,6 +40,8 @@ class KateFileTree: public QTreeView
 
   private:
     QAction *m_filelistCloseDocument;
+    QAction *m_filelistCopyFilename;
+
 
     QAction *m_treeModeAction;
     QAction *m_listModeAction;
@@ -53,6 +55,7 @@ class KateFileTree: public QTreeView
 
   public Q_SLOTS:
     void slotDocumentClose();
+    void slotCopyFilename();
     void slotCurrentChanged( const QModelIndex &current, const QModelIndex &previous );
     void slotDocumentNext();
     void slotDocumentPrev();

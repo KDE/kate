@@ -63,6 +63,7 @@ namespace KTextEditor {
 			QString text() const;
 			int lines() const;
 			int totalCharacters() const;
+            bool print();
 		private:
 			Document *m_document;
 	};

@@ -81,6 +81,10 @@ int DocumentAdaptor::totalCharacters() const {
   return m_document->totalCharacters();
 }
 
+bool DocumentAdaptor::print() {
+  return m_document->print();
+}
+
 int DocumentAdaptor::lineLength(int line) const {
   return m_document->lineLength(line);
 }

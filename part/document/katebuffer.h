@@ -103,8 +103,8 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     bool openFile (const QString &m_file);
 
     /**
-     * Did encoding errors occured on load?
-     * @return encoding errors occured on load?
+     * Did encoding errors occur on load?
+     * @return encoding errors occurred on load?
      */
     bool brokenEncoding () const { return m_brokenEncoding; }
 

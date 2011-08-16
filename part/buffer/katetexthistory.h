@@ -120,7 +120,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
         };
 
         /**
-         * Defaul Constructor, invalidates all fields
+         * Default Constructor, invalidates all fields
          */
         Entry ()
          : referenceCounter (0), type (NoChange), line (-1), column (-1), length (-1), oldLineLength (-1)
@@ -138,12 +138,12 @@ class KATEPART_TESTS_EXPORT TextHistory {
         Type type;
 
         /**
-         * line the change occured
+         * line the change occurred
          */
         int line;
 
         /**
-         * column the change occured
+         * column the change occurred
          */
         int column;
 

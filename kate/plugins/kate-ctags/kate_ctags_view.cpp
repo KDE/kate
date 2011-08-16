@@ -483,7 +483,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
     // activate the line
     if (line != m_mWin->activeView()->document()->lines()) {
-        // line found now look for the collumn
+        // line found now look for the column
         int column = linestr.indexOf(word) + (word.length()/2);
         m_mWin->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
     }

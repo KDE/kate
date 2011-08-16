@@ -685,7 +685,7 @@ void KateViewManager::removeViewSpace (KateViewSpace *viewspace)
       // save current splitter size, as the removal of currentSplitter looses the info
       QList<int> parentSizes = parentSplitter->sizes();
       parentSplitter->insertWidget (index, currentSplitter->widget (0));
-      if (qVersion() == QLatin1String("4.6.2")) currentSplitter->hide(); // bug in Qt v4.6.2, prevents crash (bug:232140), line can be removed once we are sure that noone uses Qt 4.6.2 anymore.
+      if (qVersion() == QLatin1String("4.6.2")) currentSplitter->hide(); // bug in Qt v4.6.2, prevents crash (bug:232140), line can be removed once we are sure that no one uses Qt 4.6.2 anymore.
       delete currentSplitter;
       // now restore the sizes again
       parentSplitter->setSizes(parentSizes);

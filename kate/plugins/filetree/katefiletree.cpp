@@ -266,7 +266,7 @@ void KateFileTree::slotDocumentPrev()
       current_index = ftpm->parent(current_index);
       //kDebug(debugArea()) << "got parent" << ftpm->data(current_index, Qt::DisplayRole);
       if(!current_index.isValid()) {
-        // past the root node here, try and wrap arround
+        // paste the root node here, try and wrap around
         //kDebug(debugArea()) << "parent invalid";
         
         int children = ftpm->rowCount(current_index);
@@ -361,7 +361,7 @@ void KateFileTree::slotDocumentNext()
       
       // at least if we're not past the last node
       if(!current_index.isValid()) {
-        // past the root node here, try and wrap arround
+        // paste the root node here, try and wrap around
         QModelIndex last_index = ftpm->index(0, 0, QModelIndex());
         if(!last_index.isValid()) {
           break;

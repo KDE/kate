@@ -150,8 +150,8 @@ TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
 
 TestScriptEnv::~TestScriptEnv()
 {
-  // delete explicitely, as the parent is the KTE::Document kpart, which is
-  // reused for all tests. Hence, we explicitely have to delete the bindings.
+  // delete explicitly, as the parent is the KTE::Document kpart, which is
+  // reused for all tests. Hence, we explicitly have to delete the bindings.
   delete m_output; m_output = 0;
   delete m_docObj; m_docObj = 0;
   delete m_viewObj; m_viewObj = 0;

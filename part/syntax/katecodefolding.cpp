@@ -1010,7 +1010,7 @@ int KateCodeFoldingTree::getVirtualLine(int realLine)
     if (!matchNode)
       matchNode = m_rootMatch;
 
-    // We substract the size of the hidden blocks found above the "virtualLine"
+    // We subtract the size of the hidden blocks found above the "virtualLine"
     if (matchNode->getLine() <= realLine) {
       offset += (matchNode->getLine() - node->getLine());
     }
@@ -1098,12 +1098,12 @@ void KateCodeFoldingTree::insertStartNode(int type, KateDocumentPosition pos, in
   KateCodeFoldingNode *newNode = new KateCodeFoldingNode(parentNode,type,pos);
   newNode->m_virtualColumn = virtualColumn;
 
-  // step 1 - devide parent's startChildrenList
+  // step 1 - divide parent's startChildrenList
   QVector <KateCodeFoldingNode*> tempList(parentNode->m_startChildren);
   sublist(parentNode->m_startChildren,tempList,KateDocumentPosition(0,0),newNode->m_position);
   sublist(newNode->m_startChildren,tempList,newNode->m_position,INFposition);
 
-  // step 2 - devide parent's endChildrenList (or inherit shortage)
+  // step 2 - divide parent's endChildrenList (or inherit shortage)
   if (parentNode->m_shortage > 0 && parentNode->m_type) {
     newNode->m_shortage = parentNode->m_shortage;
   }
@@ -1146,11 +1146,11 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
     iterator.next();
   }
 
-  // The nodes placed on "line" will be splitted usig the argument "column"
+  // The nodes placed on "line" will be split usig the argument "column"
   while (iterator.hasNext() && iterator.peekNext().key() == line) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
-    // The nodes are splitted
+    // The nodes are split
     while (tempVector.empty() == false && tempVector[0]->getColumn() < column) {
       tempVector2.append(tempVector[0]);
       tempVector.pop_front();

@@ -167,7 +167,7 @@ bool TextBuffer::startEditing ()
   if (m_editingTransactions > 1)
     return false;
 
-  // reset informations about edit...
+  // reset information about edit...
   m_editingLastRevision = m_revision;
   m_editingLastLines = m_lines;
   m_editingMinimalLineChanged = -1;
@@ -324,7 +324,7 @@ void TextBuffer::removeText (const KTextEditor::Range &range)
   // only ranges on one line are supported
   Q_ASSERT (range.start().line() == range.end().line());
 
-  // start colum <= end column and >= 0
+  // start column <= end column and >= 0
   Q_ASSERT (range.start().column() <= range.end().column());
   Q_ASSERT (range.start().column() >= 0);
 

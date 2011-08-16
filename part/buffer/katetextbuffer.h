@@ -169,7 +169,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * Even on error during loading the buffer will still be cleared.
      * Before calling this, setTextCodec must have been used to set codec!
      * @param filename file to open
-     * @param encodingErrors were there problems occured while decoding the file?
+     * @param encodingErrors were there problems occurred while decoding the file?
      * @param tooLongLinesWrapped were too long lines found and wrapped?
      * @return success, the file got loaded, perhaps with encoding errors
      * Virtual, can be overwritten.
@@ -308,7 +308,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
 
   Q_SIGNALS:
     /**
-     * Buffer got cleared. This is emited when constructor or load have called clear() internally,
+     * Buffer got cleared. This is emitted when constructor or load have called clear() internally,
      * or when the user of the buffer has called clear() itself.
      */
     void cleared ();
@@ -316,7 +316,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     /**
      * Buffer loaded successfully a file
      * @param filename file which was loaded
-     * @param encodingErrors were there problems occured while decoding the file?
+     * @param encodingErrors were there problems occurred while decoding the file?
      */
     void loaded (const QString &filename, bool encodingErrors);
 
@@ -344,20 +344,20 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
 
     /**
      * A line got unwrapped.
-     * @param line line where the unwrap occured
+     * @param line line where the unwrap occurred
      */
     void lineUnwrapped (int line);
 
     /**
      * Text got inserted.
-     * @param position position where the insertion occured
+     * @param position position where the insertion occurred
      * @param text inserted text
      */
     void textInserted (const KTextEditor::Cursor &position, const QString &text);
 
     /**
      * Text got removed.
-     * @param range range where the removal occured
+     * @param range range where the removal occurred
      * @param text removed text
      */
     void textRemoved (const KTextEditor::Range &range, const QString &text);

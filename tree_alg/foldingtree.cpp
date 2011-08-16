@@ -390,12 +390,12 @@ void FoldingTree::insertStartNode(int pos)
   newNodePos = newNode->position;
   // end of debug
 
-  // step 1 - devide parent's startChildrenList
+  // step 1 - divide parent's startChildrenList
   QVector <FoldingNode*> tempList(parentNode->m_startChildren);
   sublist(parentNode->m_startChildren,tempList,0,newNode->position);
   sublist(newNode->m_startChildren,tempList,newNode->position,INF);
 
-  // step 2 - devide parent's endChildrenList (or inherit shortage)
+  // step 2 - divide parent's endChildrenList (or inherit shortage)
   if (parentNode->shortage > 0 && parentNode->type) {                     // parent is not root node
     newNode->shortage = parentNode->shortage;
   }

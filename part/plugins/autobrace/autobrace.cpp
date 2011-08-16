@@ -339,7 +339,7 @@ void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
 }
 
 /**
- * Returns next charater after specified text range in document.
+ * Returns next character after specified text range in document.
  * @param document Current document.
  * @param range Inserted text range (by text-inserted slot)
  * @return Next character after text range
@@ -353,7 +353,7 @@ const QString AutoBracePluginDocument::nextToken(KTextEditor::Document* document
 }
 
 /**
- * Returns previous charater before specified text range in document.
+ * Returns previous character before specified text range in document.
  * @param document Current document.
  * @param range Inserted text range (by text-inserted slot)
  * @return Next character after text range

@@ -149,8 +149,8 @@ class TextLoader
     /**
      * read a line, return length + offset in unicode data
      * @param offset offset into internal unicode data for read line
-     * @param length lenght of read line
-     * @return true if no encoding errors occured
+     * @param length length of read line
+     * @return true if no encoding errors occurred
      */
     bool readLine (int &offset, int &length)
     {

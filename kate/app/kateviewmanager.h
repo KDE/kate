@@ -168,7 +168,7 @@ class KateViewManager : public QSplitter
     /**
      * Splits a KateViewSpace into two in the following steps:
      * 1. create a QSplitter in the parent of the KateViewSpace to be split
-     * 2. move the to-be-splitted KateViewSpace to the new splitter
+     * 2. move the to-be-split KateViewSpace to the new splitter
      * 3. create new KateViewSpace and added to the new splitter
      * 4. create KateView to populate the new viewspace.
      * 5. The new KateView is made the active one, because createView() does that.

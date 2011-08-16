@@ -365,7 +365,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     KStartupInfo::appStarted ();
 #endif
 
-    // this will wait until exiting is emited by the used instance, if wanted...
+    // this will wait until exiting is emitted by the used instance, if wanted...
     return needToBlock ? app.exec () : 0;
   }
 

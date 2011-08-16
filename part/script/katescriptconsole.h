@@ -78,7 +78,7 @@ class KateScriptConsole : public KateViewBarWidget
     virtual ~KateScriptConsole();
 
   protected:
-    // overriden
+    // overridden
     virtual void closed();
 
   private:

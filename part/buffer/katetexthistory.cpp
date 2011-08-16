@@ -57,7 +57,7 @@ void TextHistory::clear ()
 
 void TextHistory::setLastSavedRevision ()
 {
-  // current revision was succesful saved
+  // current revision was successful saved
   m_lastSavedRevision = revision ();
 }
 

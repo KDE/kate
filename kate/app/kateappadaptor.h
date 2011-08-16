@@ -106,7 +106,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
   Q_SIGNALS:
     /**
      * Notify the world that this kate instance is exiting.
-     * All apps should stop using the dbus interface of this instance after this signal got emited.
+     * All apps should stop using the dbus interface of this instance after this signal got emitted.
      */
     void exiting ();
     void documentClosed(const QString& token);

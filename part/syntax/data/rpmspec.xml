@@ -8,7 +8,7 @@
   <!ENTITY os_conditionals_names "(ifos|ifnos)">
   <!ENTITY lookahead_whitespace_eol "(?=($| |\t))">
 ]>
-<language name="RPM Spec" version="2.01" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
+<language name="RPM Spec" version="2.02" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
 
 <!-- The entities "arch" and "os" are based on /usr/lib/rpm/rpmrc (in the version coming with openSUSE 11.4). -->
 

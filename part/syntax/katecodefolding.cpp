@@ -26,7 +26,6 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <katescriptdocument.h>
 
 // Debug
 #include "QtCore/QStack"
@@ -509,20 +508,13 @@ void KateCodeFoldingTree::collapseAll_dsComments()
 {
   if (m_root->noStartChildren())
     return;
-
-  KateScriptDocument *script = new KateScriptDocument();
-  script->setDocument(m_buffer->document());
   
   foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
-    
-    bool isComment = script->isComment(child->getLine(),child->getColumn());
+    bool isComment = m_buffer->document()->isComment(child->getLine(),child->getColumn());
     if (!m_hiddenNodes.contains(child) && isComment) {
       foldNode(child);
     }
-
   }
-  
-  delete script;
 }
 
 void KateCodeFoldingTree::collapseLevel(int level, KateCodeFoldingNode *node, int nodeLevel)

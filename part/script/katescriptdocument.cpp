@@ -48,9 +48,7 @@ KateDocument *KateScriptDocument::document()
 
 int KateScriptDocument::defStyleNum(int line, int column)
 {
-  QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
-  KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(line)->attribute(column)];
-  return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+  return m_document->defStyleNum(line,column);
 }
 
 int KateScriptDocument::defStyleNum(const KTextEditor::Cursor& cursor)
@@ -72,8 +70,7 @@ bool KateScriptDocument::isCode(const KTextEditor::Cursor& cursor)
 
 bool KateScriptDocument::isComment(int line, int column)
 {
-  const int defaultStyle = defStyleNum(line, column);
-  return defaultStyle == KTextEditor::HighlightInterface::dsComment;
+  return m_document->isComment(line,column);;
 }
 
 bool KateScriptDocument::isComment(const KTextEditor::Cursor& cursor)

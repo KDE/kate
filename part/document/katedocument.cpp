@@ -5362,4 +5362,17 @@ Kate::SwapFile* KateDocument::swapFile()
     return m_swapfile;
 }
 
+int KateDocument::defStyleNum(int line, int column)
+{
+  QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(((KateView*) activeView())->renderer()->config()->schema());
+  KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
+  return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+}
+
+bool KateDocument::isComment(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KTextEditor::HighlightInterface::dsComment;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

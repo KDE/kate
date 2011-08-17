@@ -1163,6 +1163,11 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     Kate::SwapFile *m_swapfile;
   public:
     Kate::SwapFile* swapFile();
+    
+  //helpers for scripting and codefolding
+    int defStyleNum(int line, int column);
+    bool isComment(int line, int column);
+
 };
 
 #endif

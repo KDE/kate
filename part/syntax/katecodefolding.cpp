@@ -510,16 +510,19 @@ void KateCodeFoldingTree::collapseAll_dsComments()
   if (m_root->noStartChildren())
     return;
 
+  KateScriptDocument *script = new KateScriptDocument();
+  script->setDocument(m_buffer->document());
+  
   foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
-    KateScriptDocument *script = new KateScriptDocument();
-    script->setDocument((KateDocument *)m_buffer->getDocument());
+    
     bool isComment = script->isComment(child->getLine(),child->getColumn());
     if (!m_hiddenNodes.contains(child) && isComment) {
       foldNode(child);
     }
 
-    delete script;
   }
+  
+  delete script;
 }
 
 void KateCodeFoldingTree::collapseLevel(int level, KateCodeFoldingNode *node, int nodeLevel)

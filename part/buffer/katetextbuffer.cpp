@@ -31,7 +31,7 @@
 
 namespace Kate {
 
-TextBuffer::TextBuffer (KTextEditor::Document *parent, int blockSize)
+TextBuffer::TextBuffer (KateDocument *parent, int blockSize)
   : QObject (parent)
   , m_document (parent)
   , m_history (*this)

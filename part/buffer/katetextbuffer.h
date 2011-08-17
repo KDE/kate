@@ -29,6 +29,7 @@
 
 #include <ktexteditor/document.h>
 
+#include "katedocument.h"
 #include "katepartprivate_export.h"
 #include "katetextblock.h"
 #include "katetextcursor.h"
@@ -67,7 +68,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @param parent parent qobject
      * @param blockSize block size in lines the buffer should try to hold, default 64 lines
      */
-    TextBuffer (KTextEditor::Document *parent, int blockSize = 64);
+    TextBuffer (KateDocument *parent, int blockSize = 64);
 
     /**
      * Destruct the text buffer
@@ -403,7 +404,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * Gets the document to which this buffer is bound.
      * \return a pointer to the document
      */
-    KTextEditor::Document *document () const { return m_document; }
+    KateDocument *document () const { return m_document; }
 
     /**
      * Debug output, print whole buffer content with line numbers and line length
@@ -435,7 +436,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
     /**
      * parent document
      */
-    KTextEditor::Document *m_document;
+    KateDocument *m_document;
 
     /**
      * text history

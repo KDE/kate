@@ -42,7 +42,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void searchNextFile();
-    void matchFound(const QString &url, int line, int column, const QString &lineContent);
+    void matchFound(const QString &url, int line, int column, const QString &lineContent, int matchLen);
     void searchDone();
     
 private:

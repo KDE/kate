@@ -57,13 +57,16 @@ void SearchOpenFiles::doSearchNextFile()
 
     for (int line =0; line < m_docList[m_nextIndex]->lines(); line++) {
         column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line));
-        if (column != -1) {
+        while (column != -1) {
             if (m_docList[m_nextIndex]->url().isLocalFile() ) {
-                emit matchFound(m_docList[m_nextIndex]->url().path(), line, column, m_docList[m_nextIndex]->line(line));
+                emit matchFound(m_docList[m_nextIndex]->url().path(), line, column,
+                                m_docList[m_nextIndex]->line(line), m_regExp.matchedLength());
             }
             else  {
-                emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, column, m_docList[m_nextIndex]->line(line));
+                emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, column,
+                                m_docList[m_nextIndex]->line(line), m_regExp.matchedLength());
             }
+            column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line), column + 1);
         }
     }
 

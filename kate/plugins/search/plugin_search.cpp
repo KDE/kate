@@ -27,6 +27,9 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <kate/documentmanager.h>
+#include <ktexteditor/markinterface.h>
+#include <ktexteditor/movinginterface.h>
+#include <ktexteditor/movingrange.h>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -152,30 +155,30 @@ m_curResultTree(0)
     m_useRegExp->setCheckable(true);
     m_ui.optionsButton->addAction(m_useRegExp);
 
-    connect(m_ui.newTabButton, SIGNAL(clicked()), this, SLOT(addTab()));
-    connect(m_ui.resultTabWidget, SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
-    connect(m_ui.searchButton, SIGNAL(clicked()), this, SLOT(startSearch()));
-    connect(m_ui.searchCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.folderRequester, SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.folderUpButton, SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
+    connect(m_ui.newTabButton,     SIGNAL(clicked()), this, SLOT(addTab()));
+    connect(m_ui.resultTabWidget,  SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
+    connect(m_ui.searchButton,     SIGNAL(clicked()), this, SLOT(startSearch()));
+    connect(m_ui.searchCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.folderRequester,  SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.folderUpButton,   SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
-    connect(m_ui.filterCombo, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.filterCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
 
-    connect(m_ui.displayOptions, SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
+    connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
     connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
-    connect(m_ui.searchCombo, SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
-    connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
-    connect(m_ui.stopButton, SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
+    connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,int,int,QString)),
-            this, SLOT(matchFound(QString,int,int,QString)));
+    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
+            this,                 SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
-    connect(&m_searchFolder, SIGNAL(matchFound(QString,int,int,QString)),
-            this, SLOT(matchFound(QString,int,int,QString)));
+    connect(&m_searchFolder, SIGNAL(matchFound(QString,int,int,QString,int)),
+            this,              SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
@@ -195,6 +198,8 @@ m_curResultTree(0)
 
 KatePluginSearchView::~KatePluginSearchView()
 {
+    clearMarks();
+
     mainWindow()->guiFactory()->removeClient(this);
     delete m_toolView;
 }
@@ -226,6 +231,7 @@ void KatePluginSearchView::openSearchView()
         mainWindow()->showToolView(m_toolView);
     }
     m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
+    m_ui.displayOptions->setChecked(true);
 
     KTextEditor::View* editView = mainWindow()->activeView();
     if (editView && editView->document()) {
@@ -278,6 +284,7 @@ void KatePluginSearchView::startSearch()
                 m_matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
                 m_useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
 
+    clearMarks();
     m_curResultTree->clear();
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
                                      m_ui.searchCombo->currentText());
@@ -320,7 +327,8 @@ void KatePluginSearchView::searchPatternChanged()
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 }
 
-void KatePluginSearchView::matchFound(const QString &url, int line, int column, const QString &lineContent)
+void KatePluginSearchView::matchFound(const QString &url, int line, int column,
+                                      const QString &lineContent, int matchLen)
 {
     if (!m_curResultTree) {
         return;
@@ -331,7 +339,52 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column, 
     item->setData(0, Qt::UserRole, url);
     item->setData(0, Qt::ToolTipRole, url);
     item->setData(1, Qt::UserRole, column);
+
+    KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
+    if (!doc) return;
+    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+    attr->setBackground(Qt::yellow);
+
+    KTextEditor::Range range(line, column, line, column+matchLen);
+    KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+    mr->setAttribute(attr);
+    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+    mr->setAttributeOnlyForViews(true);
+    m_matchRanges.append(mr);
+
+    KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    if (!iface) return;
+    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
+    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32,
+                         KIcon().pixmap(0,0));
+    iface->addMark(line, KTextEditor::MarkInterface::markType32);
+
+    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearMarks()), Qt::UniqueConnection);
 }
+
+void KatePluginSearchView::clearMarks()
+{
+    KTextEditor::MarkInterface* iface;
+    foreach (KTextEditor::Document* doc, m_kateApp->documentManager()->documents()) {
+        iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        if (iface) {
+            const QHash<int, KTextEditor::Mark*> marks = iface->marks();
+            QHashIterator<int, KTextEditor::Mark*> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                if (i.value()->type == KTextEditor::MarkInterface::markType32) {
+                    kDebug();
+                    iface->removeMark(i.value()->line, i.value()->type);
+                }
+            }
+        }
+    }
+    qDeleteAll(m_matchRanges);
+    m_matchRanges.clear();
+}
+
 
 void KatePluginSearchView::searchDone()
 {
@@ -487,6 +540,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         }
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             mainWindow()->hideToolView(m_toolView);
+            clearMarks();
             event->accept();
             return true;
         }
@@ -524,7 +578,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
         actionPointers << menuEntry(menu, "(?:", ")", i18n("Group, non-capturing"), "(?:E");
         actionPointers << menuEntry(menu, "(?=", ")", i18n("Lookahead"), "(?=E");
         actionPointers << menuEntry(menu, "(?!", ")", i18n("Negative lookahead"), "(?!E");
-        
+
         menu->addSeparator();
         actionPointers << menuEntry(menu, "\\n", "", i18n("Line break"));
         actionPointers << menuEntry(menu, "\\t", "", i18n("Tab"));

@@ -104,10 +104,11 @@ void SearchFolder::searchFile(const QFileInfo &item)
     while (!(line=stream.readLine()).isNull()) {
         if (m_cancelSearch) return;
         column = m_regExp.indexIn(line);
-        if (column != -1) {
+        while (column != -1) {
             // limit line length
             if (line.length() > 512) line = line.left(512);
-            emit matchFound(item.absoluteFilePath(), i, column, line);
+            emit matchFound(item.absoluteFilePath(), i, column, line, m_regExp.matchedLength());
+            column = m_regExp.indexIn(line, column + 1);
         }
         i++;
     }

@@ -34,6 +34,9 @@
 #include "search_folder.h"
 
 class KateSearchCommand;
+namespace KTextEditor{
+    class MovingRange;
+}
 
 class KatePluginSearch : public Kate::Plugin
 {
@@ -80,23 +83,27 @@ private Q_SLOTS:
     void searchPlaceChanged();
     void searchPatternChanged();
 
-    void matchFound(const QString &fileName, int line, int column, const QString &lineContent);
+    void matchFound(const QString &fileName, int line, int column,
+                    const QString &lineContent, int matchLen);
     void searchDone();
 
     void itemSelected(QTreeWidgetItem *item);
+
+    void clearMarks();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
 private:
-    Ui::SearchDialog   m_ui;
-    QWidget           *m_toolView;
-    Kate::Application *m_kateApp;
-    SearchOpenFiles    m_searchOpenFiles;
-    SearchFolder       m_searchFolder;
-    KAction           *m_matchCase;
-    KAction           *m_useRegExp;
-    QTreeWidget       *m_curResultTree;
+    Ui::SearchDialog                   m_ui;
+    QWidget                           *m_toolView;
+    Kate::Application                 *m_kateApp;
+    SearchOpenFiles                    m_searchOpenFiles;
+    SearchFolder                       m_searchFolder;
+    KAction                           *m_matchCase;
+    KAction                           *m_useRegExp;
+    QTreeWidget                       *m_curResultTree;
+    QVector<KTextEditor::MovingRange*> m_matchRanges;
 };
 
 class KateSearchCommand : public QObject, public KTextEditor::Command

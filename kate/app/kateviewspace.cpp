@@ -64,6 +64,27 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   // connect signal to hide/show statusbar
   connect (m_viewManager->mainWindow(), SIGNAL(statusBarToggled()), this, SLOT(statusBarToggled()));
 
+  connect (m_viewManager, SIGNAL(cursorPositionItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(cursorPositionItemVisibilityChanged(bool)));
+  connect (m_viewManager, SIGNAL(charactersCountItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(charactersCountItemVisibilityChanged(bool)));
+  connect (m_viewManager, SIGNAL(insertModeItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(insertModeItemVisibilityChanged(bool)));
+  connect (m_viewManager, SIGNAL(selectModeItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(selectModeItemVisibilityChanged(bool)));
+  connect (m_viewManager, SIGNAL(encodingItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(encodingItemVisibilityChanged(bool)));
+  connect (m_viewManager, SIGNAL(documentNameItemVisibilityChanged(bool)),
+           mStatusBar, SLOT(documentNameItemVisibilityChanged(bool)));
+
+  // init the visibility of the statusbar items
+  mStatusBar->cursorPositionItemVisibilityChanged(m_viewManager->isCursorPositionVisible());
+  mStatusBar->charactersCountItemVisibilityChanged(m_viewManager->isCharactersCountVisible());
+  mStatusBar->insertModeItemVisibilityChanged(m_viewManager->isInsertModeVisible());
+  mStatusBar->selectModeItemVisibilityChanged(m_viewManager->isSelectModeVisible());
+  mStatusBar->encodingItemVisibilityChanged(m_viewManager->isEncodingVisible());
+  mStatusBar->documentNameItemVisibilityChanged(m_viewManager->isDocumentNameVisible());
+
   // init the statusbar...
   statusBarToggled ();
 }
@@ -261,6 +282,13 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   addWidget( m_lineColLabel, 0 );
   m_lineColLabel->installEventFilter( this );
 
+  QString charsText = i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(4444, 0));
+
+  m_charsLabel = new QLabel( this );
+  m_charsLabel->setMinimumWidth( m_charsLabel->fontMetrics().width( charsText ) );
+  addWidget( m_charsLabel, 0 );
+  m_charsLabel->installEventFilter( this );
+
   m_modifiedLabel = new QLabel( this );
   m_modifiedLabel->setFixedSize( 16, 16 );
   addWidget( m_modifiedLabel, 0 );
@@ -360,6 +388,9 @@ void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
   m_lineColLabel->setText(
     i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(position.line() + 1, 0),
          KGlobal::locale()->formatNumber(position.column() + 1, 0)) );
+  
+  m_charsLabel->setText(
+    i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(view->document()->totalCharacters(), 0)));
 }
 
 void KateVSStatusBar::selectionChanged (KTextEditor::View *view)
@@ -420,6 +451,36 @@ void KateVSStatusBar::documentConfigChanged ()
 
   if ( v )
     m_encodingLabel->setText( v->document()->encoding() );
+}
+
+void KateVSStatusBar::cursorPositionItemVisibilityChanged(bool visible)
+{
+  m_lineColLabel->setVisible(visible);
+}
+
+void KateVSStatusBar::charactersCountItemVisibilityChanged(bool visible)
+{
+  m_charsLabel->setVisible(visible);
+}
+
+void KateVSStatusBar::insertModeItemVisibilityChanged(bool visible)
+{
+  m_insertModeLabel->setVisible(visible);
+}
+
+void KateVSStatusBar::selectModeItemVisibilityChanged(bool visible)
+{
+  m_selectModeLabel->setVisible(visible);
+}
+
+void KateVSStatusBar::encodingItemVisibilityChanged(bool visible)
+{
+  m_encodingLabel->setVisible(visible);
+}
+
+void KateVSStatusBar::documentNameItemVisibilityChanged(bool visible)
+{
+  m_fileNameLabel->setVisible(visible);
 }
 
 //END KateVSStatusBar

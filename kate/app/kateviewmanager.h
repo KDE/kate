@@ -89,6 +89,13 @@ class KateViewManager : public QSplitter
     void closeViews(KTextEditor::Document *doc);
     KateMainWindow *mainWindow();
 
+    bool isCursorPositionVisible() const;
+    bool isCharactersCountVisible() const;
+    bool isInsertModeVisible() const;
+    bool isSelectModeVisible() const;
+    bool isEncodingVisible() const;
+    bool isDocumentNameVisible() const;
+
   private Q_SLOTS:
     void activateView ( KTextEditor::View *view );
     void activateSpace ( KTextEditor::View* v );
@@ -112,6 +119,13 @@ class KateViewManager : public QSplitter
     void statChanged ();
     void viewChanged ();
     void viewCreated (KTextEditor::View *);
+
+    void cursorPositionItemVisibilityChanged(bool);
+    void charactersCountItemVisibilityChanged(bool);
+    void insertModeItemVisibilityChanged(bool);
+    void selectModeItemVisibilityChanged(bool);
+    void encodingItemVisibilityChanged(bool);
+    void documentNameItemVisibilityChanged(bool);
 
   public:
     inline QList<KTextEditor::View*> &viewList ()
@@ -234,6 +248,12 @@ class KateViewManager : public QSplitter
     KAction *m_closeView;
     KAction *goNext;
     KAction *goPrev;
+    KAction *m_cursorPosToggle;
+    KAction *m_charCountToggle;
+    KAction *m_insertModeToggle;
+    KAction *m_selectModeToggle;
+    KAction *m_encodingToggle;
+    KAction *m_docNameToggle;
 
     QList<KateViewSpace*> m_viewSpaceList;
     QList<KTextEditor::View*> m_viewList;

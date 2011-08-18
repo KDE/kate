@@ -69,12 +69,20 @@ class KateVSStatusBar : public KStatusBar
 
     void informationMessage (KTextEditor::View *view, const QString &message);
 
+    void cursorPositionItemVisibilityChanged(bool visible);
+    void charactersCountItemVisibilityChanged(bool visible);
+    void insertModeItemVisibilityChanged(bool visible);
+    void selectModeItemVisibilityChanged(bool visible);
+    void encodingItemVisibilityChanged(bool visible);
+    void documentNameItemVisibilityChanged(bool visible);
+
   protected:
     virtual bool eventFilter (QObject*, QEvent *);
     virtual void showMenu ();
 
   private:
     QLabel* m_lineColLabel;
+    QLabel* m_charsLabel;
     QLabel* m_modifiedLabel;
     QLabel* m_insertModeLabel;
     QLabel* m_selectModeLabel;

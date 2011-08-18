@@ -135,6 +135,14 @@
   <Action name="go_back"/>
   <Action name="go_forward"/>
   <Action name="doc_list"/>
+  <Menu name="viewspace_popup_statusbar"><text>&amp;Status Bar Items</text>
+    <Action name="show_cursor_pos"/>
+    <Action name="show_char_count"/>
+    <Action name="show_insert_mode"/>
+    <Action name="show_select_mode"/>
+    <Action name="show_encoding"/>
+    <Action name="show_doc_name"/>
+  </Menu>
 </Menu>
 
 </kpartgui>

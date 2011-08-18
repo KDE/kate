@@ -194,7 +194,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   pathName = pathName.arg (++dummy);
 
   // my dbus object
-  QDBusConnection::sessionBus().registerObject (pathName, this);
+  QDBusConnection::sessionBus().registerObject (pathName, this, QDBusConnection::ExportAdaptors | QDBusConnection::ExportScriptableSlots);
 
   // register doc at factory
   KateGlobal::self()->registerDocument(this);

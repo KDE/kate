@@ -278,11 +278,6 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     virtual bool documentSaveAs () = 0;
 
-    /**
-     * Print the current file.
-     */
-    virtual bool print () = 0;
-    
  Q_SIGNALS:
     /**
     * This signal should be emitted after a document has been saved to disk or for remote files uploaded.

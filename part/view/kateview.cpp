@@ -481,12 +481,14 @@ void KateView::setupActions()
   a = ac->addAction("view_inc_font_sizes");
   a->setIcon(KIcon("zoom-in"));
   a->setText(i18n("Enlarge Font"));
+  a->setShortcut(KStandardShortcut::zoomIn());
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
   a = ac->addAction("view_dec_font_sizes");
   a->setIcon(KIcon("zoom-out"));
   a->setText(i18n("Shrink Font"));
+  a->setShortcut(KStandardShortcut::zoomOut());
   a->setWhatsThis(i18n("This decreases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotDecFontSizes()));
 

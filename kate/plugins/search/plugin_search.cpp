@@ -327,6 +327,28 @@ void KatePluginSearchView::searchPatternChanged()
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 }
 
+QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
+{
+    if (!m_curResultTree) {
+        return 0;
+    }
+
+    for (int i=0; i<m_curResultTree->topLevelItemCount(); i++) {
+        if (m_curResultTree->topLevelItem(i)->data(0, Qt::UserRole).toString() == url) {
+            int matches = m_curResultTree->topLevelItem(i)->data(1, Qt::UserRole).toInt() + 1;
+            QString tmpUrl = QString("%1: %2").arg(url).arg(matches);
+            m_curResultTree->topLevelItem(i)->setData(0, Qt::DisplayRole, tmpUrl);
+            m_curResultTree->topLevelItem(i)->setData(1, Qt::UserRole, matches);
+            return m_curResultTree->topLevelItem(i);
+        }
+    }
+    // file item not found create a new one
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResultTree, QStringList(url + ": 1"));
+    item->setData(0, Qt::UserRole, url);
+    item->setData(1, Qt::UserRole, 1);
+    return item;
+}
+
 void KatePluginSearchView::matchFound(const QString &url, int line, int column,
                                       const QString &lineContent, int matchLen)
 {
@@ -334,12 +356,15 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
         return;
     }
     QStringList row;
-    row << QFileInfo(url).fileName() << QString::number(line +1) << lineContent;
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResultTree, row);
+    row << i18n("Line: %1 Column: %2", line+1, column+1) << lineContent.simplified();
+    
+    QTreeWidgetItem *item = new QTreeWidgetItem(rootFileItem(url), row);
     item->setData(0, Qt::UserRole, url);
     item->setData(0, Qt::ToolTipRole, url);
-    item->setData(1, Qt::UserRole, column);
-
+    item->setData(1, Qt::UserRole, line);
+    item->setData(2, Qt::UserRole, column);
+    
+    // Add mark if the document is open
     KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
     if (!doc) return;
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
@@ -400,11 +425,14 @@ void KatePluginSearchView::searchDone()
     }
     m_curResultTree->resizeColumnToContents(0);
     m_curResultTree->resizeColumnToContents(1);
-    m_curResultTree->resizeColumnToContents(2);
+    if (m_curResultTree->columnWidth(0) > (m_curResultTree->width()/3)) {
+        m_curResultTree->setColumnWidth(0, m_curResultTree->width()/3);
+    }
     if (m_curResultTree->topLevelItemCount() > 0) {
-        m_curResultTree->setCurrentItem(m_curResultTree-> topLevelItem(0));
+        m_curResultTree->setCurrentItem(m_curResultTree->topLevelItem(0));
         m_curResultTree->setFocus(Qt::OtherFocusReason);
     }
+    m_curResultTree->expandAll();
     m_curResultTree = 0;
     m_toolView->unsetCursor();
 }
@@ -414,8 +442,8 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     // get stuff
     const QString url = item->data(0, Qt::UserRole).toString();
     if (url.isEmpty()) return;
-    int line = item->data(1, Qt::DisplayRole).toInt() - 1;
-    int column = item->data(1, Qt::UserRole).toInt();
+    int line = item->data(1, Qt::UserRole).toInt();
+    int column = item->data(2, Qt::UserRole).toInt();
 
     // open file (if needed, otherwise, this will activate only the right view...)
     mainWindow()->openUrl(KUrl(url));
@@ -479,13 +507,13 @@ void KatePluginSearchView::addTab()
 {
     QTreeWidget *tmp = new QTreeWidget();
     QStringList labels;
-    labels << i18n("File") << i18n("Line") << i18n("Text");
+    labels << i18n("File") << i18n("Text");
     tmp->setHeaderLabels(labels);
-
+    tmp->setTextElideMode(Qt::ElideLeft);
     tmp->setAllColumnsShowFocus(false);
     tmp->setAlternatingRowColors(true);
     tmp->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tmp->setRootIsDecorated(false);
+    tmp->setRootIsDecorated(true);
     tmp->setSelectionBehavior(QAbstractItemView::SelectRows);
     tmp->setUniformRowHeights(true);
 

@@ -95,6 +95,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
 private:
+    QTreeWidgetItem *rootFileItem(const QString &url);
+    
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;
     Kate::Application                 *m_kateApp;

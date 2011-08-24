@@ -523,7 +523,7 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
     } else if (action == 0) {
       bool char_exist = false;
       for( char c= 'a'; c <= 'z'; c++) {
-        if (!m_marks.value(c)) {
+        if (!m_marks.value(c) && (mark.type == KTextEditor::MarkInterface::Bookmark)) {
           addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
           char_exist = true;
           break;

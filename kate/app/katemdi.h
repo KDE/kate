@@ -21,7 +21,10 @@
 #ifndef __KATE_MDI_H__
 #define __KATE_MDI_H__
 
+#include "kate/interfaces/kate/plugin.h"
+
 #include <kparts/mainwindow.h>
+
 
 #include <KMultiTabBar>
 #include <KXMLGUIClient>
@@ -34,10 +37,15 @@
 #include <QList>
 #include <QEvent>
 #include <QChildEvent>
+#include <QPointer>
 
 class KActionMenu;
 class QAction;
 class KConfigBase;
+
+namespace Kate {
+  class PluginConfigPageInterface;
+};
 
 namespace KateMDI
 {
@@ -146,6 +154,9 @@ namespace KateMDI
       MainWindow *m_mainWin;
       Sidebar *m_sidebar;
 
+      ///plugin this view belongs to, may be 0
+      QPointer<Kate::Plugin> plugin;
+      
       /**
        * unique id
        */
@@ -242,6 +253,10 @@ namespace KateMDI
       int m_lastSize;
 
       int m_popupButton;
+      
+     Q_SIGNALS:
+       void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+  
   };
 
   class MainWindow : public KParts::MainWindow
@@ -284,7 +299,7 @@ namespace KateMDI
        * @param text text to use in addition to icon
        * @return created toolview on success or 0
        */
-      ToolView *createToolView (const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
+      ToolView *createToolView (Kate::Plugin* plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
 
       /**
        * give you handle to toolview for the given name, 0 if no toolview around
@@ -390,7 +405,8 @@ namespace KateMDI
        * list of all toolviews around
        */
       QList<ToolView*> m_toolviews;
-
+      
+      
       /**
        * widget, which is the central part of the
        * main window ;)
@@ -432,6 +448,10 @@ namespace KateMDI
        * out guiclient
        */
       GUIClient *m_guiClient;
+
+    Q_SIGNALS:
+      void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+      
   };
 
 }

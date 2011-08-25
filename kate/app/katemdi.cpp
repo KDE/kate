@@ -23,6 +23,8 @@
 #include "katemdi.h"
 #include "katemdi.moc"
 
+#include "kate/interfaces/kate/pluginconfigpageinterface.h"
+
 #include <kactioncollection.h>
 #include <kactionmenu.h>
 #include <kconfig.h>
@@ -50,7 +52,7 @@ namespace KateMDI
 {
 
 //BEGIN TOGGLETOOLVIEWACTION
-
+// 
   ToggleToolViewAction::ToggleToolViewAction ( const QString& text, ToolView *tv,
       QObject* parent )
       : KToggleAction(text, parent)
@@ -450,6 +452,14 @@ namespace KateMDI
         {
           KMenu *p = new KMenu (this);
 
+          if (!w->plugin.isNull()) {
+            Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
+            if (pcpi) {
+              if (pcpi->configPages()>0)
+                p->addAction(i18n("Configure ..."))->setData(20);
+            }            
+          }
+          
           p->addTitle(SmallIcon("view_remove"), i18n("Behavior"));
 
           p->addAction(w->persistent ? KIcon("view-restore") : KIcon("view-fullscreen"),
@@ -511,6 +521,17 @@ namespace KateMDI
     // toggle persistent
     if (id == 10)
       w->persistent = !w->persistent;
+    
+    // configure actionCollection
+    if (id==20) {
+      if (!w->plugin.isNull()) {
+          Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
+          if (pcpi) {
+            if (pcpi->configPages()>0)
+              emit sigShowPluginConfigPage(pcpi,0);  
+          }            
+        }
+    }
   }
 
   void Sidebar::updateLastSize ()
@@ -690,6 +711,11 @@ namespace KateMDI
 
     m_sidebars[KMultiTabBar::Right] = new Sidebar (KMultiTabBar::Right, this, hb);
     m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
+  
+    for (int i=0;i<4;i++) 
+      connect(m_sidebars[i],SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
+
+    
   }
 
   MainWindow::~MainWindow ()
@@ -710,7 +736,7 @@ namespace KateMDI
     return m_centralWidget;
   }
 
-  ToolView *MainWindow::createToolView (const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
+  ToolView *MainWindow::createToolView (Kate::Plugin* plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
   {
     if (m_idToWidget[identifier])
       return 0;
@@ -724,11 +750,12 @@ namespace KateMDI
 
     ToolView *v  = m_sidebars[pos]->addWidget (icon, text, 0);
     v->id = identifier;
+    v->plugin = plugin;
     v->setMinimumSize(80, 80);
 
     m_idToWidget.insert (identifier, v);
     m_toolviews.push_back (v);
-
+    
     // register for menu stuff
     m_guiClient->registerToolView (v);
 
@@ -755,6 +782,7 @@ namespace KateMDI
 
     m_idToWidget.remove (widget->id);
     m_toolviews.removeAt ( m_toolviews.indexOf(widget) );
+    
   }
 
   void MainWindow::setSidebarsVisible( bool visible )

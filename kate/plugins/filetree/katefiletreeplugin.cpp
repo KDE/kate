@@ -85,7 +85,7 @@ QString KateFileTreePlugin::configPageName (uint number) const
   if(number != 0)
     return QString();
 
-  return QString(i18n("Tree View"));
+  return QString(i18n("Documents"));
 }
 
 QString KateFileTreePlugin::configPageFullName (uint number) const
@@ -93,7 +93,7 @@ QString KateFileTreePlugin::configPageFullName (uint number) const
   if(number != 0)
     return QString();
 
-  return QString(i18n("Configure Tree View"));
+  return QString(i18n("Configure Documents"));
 }
 
 KIcon KateFileTreePlugin::configPageIcon (uint number) const
@@ -156,7 +156,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
 
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
+  QWidget *toolview = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(toolview);
   m_fileTree->setSortingEnabled(true);
 

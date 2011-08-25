@@ -306,7 +306,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
 
-  public:
+  public Q_SLOTS:
     void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);  
 
 };

@@ -201,6 +201,10 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   setAcceptDrops(true);
 
   connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
+
+  connect(this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
+
+  
 }
 
 KateMainWindow::~KateMainWindow()

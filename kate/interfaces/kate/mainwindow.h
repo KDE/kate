@@ -39,7 +39,7 @@ namespace Kate
 {
 
   class PluginConfigPageInterface;
-  
+  class Plugin;
   /**
    * \brief Interface to a mainwindow.
    *
@@ -189,9 +189,25 @@ namespace Kate
        * \param icon icon to use in the sidebar for the toolview
        * \param text translated text (i18n()) to use in addition to icon
        * \return created toolview on success, otherwise NULL
+       * @deprecated
        */
       QWidget *createToolView (const QString &identifier, MainWindow::Position pos, const QPixmap &icon, const QString &text);
 
+       /**
+       * Create a new toolview with unique \p identifier at side \p pos
+       * with \p icon and caption \p text. Use the returned widget to embedd
+       * your widgets.
+       * \param plugin which owns this tool view
+       * \param identifier unique identifier for this toolview
+       * \param pos position for the toolview, if we are in session restore,
+       *        this is only a preference
+       * \param icon icon to use in the sidebar for the toolview
+       * \param text translated text (i18n()) to use in addition to icon
+       * \return created toolview on success, otherwise NULL
+       */
+      QWidget *createToolView (Kate::Plugin* plugin, const QString &identifier, MainWindow::Position pos, const QPixmap &icon, const QString &text);
+
+      
       /**
        * Move the toolview \p widget to position \p pos.
        * \param widget the toolview to move, where the widget was constructed

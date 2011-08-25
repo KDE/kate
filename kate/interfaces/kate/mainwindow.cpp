@@ -85,9 +85,15 @@ namespace Kate
 
   QWidget *MainWindow::createToolView (const QString &identifier, MainWindow::Position pos, const QPixmap &icon, const QString &text)
   {
-    return d->win->createToolView (identifier, (KMultiTabBar::KMultiTabBarPosition)pos, icon, text);
+    return createToolView((Kate::Plugin*)0,identifier, pos, icon, text);
   }
 
+  QWidget *MainWindow::createToolView (Kate::Plugin* plugin, const QString &identifier, MainWindow::Position pos, const QPixmap &icon, const QString &text)
+  {
+    return d->win->createToolView (plugin,identifier, (KMultiTabBar::KMultiTabBarPosition)pos, icon, text);
+  }
+
+  
   bool MainWindow::moveToolView (QWidget *widget, MainWindow::Position  pos)
   {
     if (!widget || !qobject_cast<KateMDI::ToolView*>(widget))

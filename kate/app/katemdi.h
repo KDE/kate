@@ -21,7 +21,7 @@
 #ifndef __KATE_MDI_H__
 #define __KATE_MDI_H__
 
-#include "kate/interfaces/kate/plugin.h"
+#include "interfaces/kate/plugin.h"
 
 #include <kparts/mainwindow.h>
 

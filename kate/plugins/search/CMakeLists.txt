@@ -14,6 +14,7 @@ set(katesearchplugin_PART_SRCS
     plugin_search.cpp
     search_open_files.cpp
     search_folder.cpp
+    htmldelegate.cpp
 )
 
 kde4_add_ui_files(katesearchplugin_PART_SRCS search.ui)

@@ -21,6 +21,8 @@
 #include "plugin_search.h"
 #include "plugin_search.moc"
 
+#include "htmldelegate.h"
+
 #include <kate/application.h>
 #include <ktexteditor/editor.h>
 
@@ -333,17 +335,23 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
         return 0;
     }
 
+    KUrl kurl(url);
+    QString path = kurl.isLocalFile() ? kurl.path() : kurl.upUrl().url();
+    QString name = kurl.fileName();
+    
     for (int i=0; i<m_curResultTree->topLevelItemCount(); i++) {
         if (m_curResultTree->topLevelItem(i)->data(0, Qt::UserRole).toString() == url) {
             int matches = m_curResultTree->topLevelItem(i)->data(1, Qt::UserRole).toInt() + 1;
-            QString tmpUrl = QString("%1: %2").arg(url).arg(matches);
+            QString tmpUrl = QString("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(matches);
             m_curResultTree->topLevelItem(i)->setData(0, Qt::DisplayRole, tmpUrl);
             m_curResultTree->topLevelItem(i)->setData(1, Qt::UserRole, matches);
             return m_curResultTree->topLevelItem(i);
         }
     }
     // file item not found create a new one
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResultTree, QStringList(url + ": 1"));
+    QString tmpUrl = QString("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(1);
+
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResultTree, QStringList(tmpUrl));
     item->setData(0, Qt::UserRole, url);
     item->setData(1, Qt::UserRole, 1);
     return item;
@@ -355,8 +363,11 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     if (!m_curResultTree) {
         return;
     }
+    QString bold = lineContent.left(column);
+    bold += "<b>" + lineContent.mid(column, matchLen) + "</b>";
+    bold += lineContent.mid(column + matchLen);
     QStringList row;
-    row << i18n("Line: %1 Column: %2", line+1, column+1) << lineContent.simplified();
+    row << i18n("Line: <b>%1</b>: %2", line+1, bold);
     
     QTreeWidgetItem *item = new QTreeWidgetItem(rootFileItem(url), row);
     item->setData(0, Qt::UserRole, url);
@@ -400,7 +411,6 @@ void KatePluginSearchView::clearMarks()
             while (i.hasNext()) {
                 i.next();
                 if (i.value()->type == KTextEditor::MarkInterface::markType32) {
-                    kDebug();
                     iface->removeMark(i.value()->line, i.value()->type);
                 }
             }
@@ -424,10 +434,7 @@ void KatePluginSearchView::searchDone()
         return;
     }
     m_curResultTree->resizeColumnToContents(0);
-    m_curResultTree->resizeColumnToContents(1);
-    if (m_curResultTree->columnWidth(0) > (m_curResultTree->width()/3)) {
-        m_curResultTree->setColumnWidth(0, m_curResultTree->width()/3);
-    }
+    
     if (m_curResultTree->topLevelItemCount() > 0) {
         m_curResultTree->setCurrentItem(m_curResultTree->topLevelItem(0));
         m_curResultTree->setFocus(Qt::OtherFocusReason);
@@ -506,9 +513,8 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
 void KatePluginSearchView::addTab()
 {
     QTreeWidget *tmp = new QTreeWidget();
-    QStringList labels;
-    labels << i18n("File") << i18n("Text");
-    tmp->setHeaderLabels(labels);
+    tmp->header()->setStretchLastSection(false);
+    tmp->setHeaderHidden(true);
     tmp->setTextElideMode(Qt::ElideLeft);
     tmp->setAllColumnsShowFocus(false);
     tmp->setAlternatingRowColors(true);
@@ -516,7 +522,8 @@ void KatePluginSearchView::addTab()
     tmp->setRootIsDecorated(true);
     tmp->setSelectionBehavior(QAbstractItemView::SelectRows);
     tmp->setUniformRowHeights(true);
-
+    tmp->setItemDelegate(new SPHtmlDelegate(tmp));
+    
     connect(tmp,  SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT  (itemSelected(QTreeWidgetItem*)));
 

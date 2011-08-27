@@ -3,6 +3,7 @@
  *  Copyright (C) 2008-2009 Erlend Hamberg <ehamberg@gmail.com>
  *  Copyright (C) 2008 Evgeniy Ivanov <powerfox@kde.ru>
  *  Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
+ *  Copyright (C) 2011 Svyatoslav Kuzmich <svatoslav1@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public

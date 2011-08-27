@@ -2,6 +2,7 @@
  *
  *  Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
  *  Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
+ *  Copyright (C) 2011 Svyatoslav Kuzmich <svatoslav1@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -514,6 +515,8 @@ KTextEditor::Cursor KateViInputModeManager::getMarkPosition( const QChar& mark )
 void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
                                           KTextEditor::Mark mark,
                                           KTextEditor::MarkInterface::MarkChangeAction action) {
+
+    Q_UNUSED( doc )
   if (!m_mark_set_inside_viinputmodemanager) {
     if (action == 1) {
         foreach (QChar c, m_marks.keys()) {
@@ -523,7 +526,7 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
     } else if (action == 0) {
       bool char_exist = false;
       for( char c= 'a'; c <= 'z'; c++) {
-        if (!m_marks.value(c)) {
+        if (!m_marks.value(c) && (mark.type == KTextEditor::MarkInterface::Bookmark)) {
           addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
           char_exist = true;
           break;

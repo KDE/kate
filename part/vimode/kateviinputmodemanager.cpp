@@ -514,6 +514,8 @@ KTextEditor::Cursor KateViInputModeManager::getMarkPosition( const QChar& mark )
 void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
                                           KTextEditor::Mark mark,
                                           KTextEditor::MarkInterface::MarkChangeAction action) {
+
+    Q_UNUSED( doc )
   if (!m_mark_set_inside_viinputmodemanager) {
     if (action == 1) {
         foreach (QChar c, m_marks.keys()) {

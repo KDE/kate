@@ -29,14 +29,24 @@
 #include <QTreeWidget>
 
 #include "ui_search.h"
+#include "ui_results.h"
 
 #include "search_open_files.h"
 #include "search_folder.h"
+#include "replace_matches.h"
 
 class KateSearchCommand;
 namespace KTextEditor{
     class MovingRange;
 }
+
+class Results: public QWidget, public Ui::Results
+{
+    Q_OBJECT
+public:
+    Results(QWidget *parent = 0): QWidget(parent), matches(0) { setupUi(this); }
+    int matches;
+};
 
 class KatePluginSearch : public Kate::Plugin
 {
@@ -91,6 +101,10 @@ private Q_SLOTS:
 
     void clearMarks();
 
+    void replaceChecked();
+    
+    void replaceDone();
+    
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -102,9 +116,10 @@ private:
     Kate::Application                 *m_kateApp;
     SearchOpenFiles                    m_searchOpenFiles;
     SearchFolder                       m_searchFolder;
+    ReplaceMatches                     m_replacer;
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;
-    QTreeWidget                       *m_curResultTree;
+    Results                           *m_curResults;
     QVector<KTextEditor::MovingRange*> m_matchRanges;
 };
 

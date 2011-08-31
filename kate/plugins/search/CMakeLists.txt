@@ -14,10 +14,11 @@ set(katesearchplugin_PART_SRCS
     plugin_search.cpp
     search_open_files.cpp
     search_folder.cpp
+    replace_matches.cpp
     htmldelegate.cpp
 )
 
-kde4_add_ui_files(katesearchplugin_PART_SRCS search.ui)
+kde4_add_ui_files(katesearchplugin_PART_SRCS search.ui results.ui)
 
 kde4_add_plugin(katesearchplugin ${katesearchplugin_PART_SRCS})
 

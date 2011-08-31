@@ -27,6 +27,8 @@
 #include <QtGui/QTextCharFormat>
 #include <KLocalizedString>
 
+#include <KDebug>
+
 SPHtmlDelegate::SPHtmlDelegate( QObject* parent )
 : QStyledItemDelegate(parent)
 {}
@@ -39,7 +41,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     initStyleOption(&options, index);
 
     QTextDocument doc;
-    doc.setDocumentMargin(0);
+    //doc.setDocumentMargin(0);
     doc.setHtml(index.data().toString());
 
     painter->save();
@@ -60,7 +62,8 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
 QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& index) const
 {
     QTextDocument doc;
-    doc.setDocumentMargin(0);
+    //doc.setDocumentMargin(0);
     doc.setHtml(index.data().toString());
-    return doc.size().toSize();;
+    //kDebug() << doc.toPlainText() << doc.size().toSize();
+    return doc.size().toSize() + QSize(30, 0); // add margin for the check-box
 }

@@ -1256,6 +1256,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         }
       }
       list->resizeColumnToContents(1);
+      list->sortItems(1, Qt::AscendingOrder);
     }
   }
 }

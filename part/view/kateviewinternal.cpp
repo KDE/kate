@@ -2504,6 +2504,17 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           m_selectionMode = Mouse;
         }
 
+        // request the software keyboard, if any
+        if ( e->button() == Qt::LeftButton && qApp->autoSipEnabled() )
+        {
+          QStyle::RequestSoftwareInputPanel behavior = QStyle::RequestSoftwareInputPanel( style()->styleHint( QStyle::SH_RequestSoftwareInputPanel ) );
+          if ( hasFocus() || behavior == QStyle::RSIP_OnMouseClick )
+          {
+            QEvent event( QEvent::RequestSoftwareInputPanel );
+            QApplication::sendEvent( this, &event );
+          }
+        }
+
         if ( e->modifiers() & Qt::ShiftModifier )
         {
           if ( !m_selectAnchor.isValid() )

@@ -51,7 +51,9 @@ class KATEPART_TESTS_EXPORT TextLineData {
       flagAutoWrapped = 2,
       flagFoldingColumnsOutdated = 4,
       flagNoIndentationBasedFolding = 8,
-      flagNoIndentationBasedFoldingAtStart = 16
+      flagNoIndentationBasedFoldingAtStart = 16,
+      flagLineModified = 32,
+      flagLineSavedOnDisk = 64
     };
 
     /**
@@ -130,6 +132,37 @@ class KATEPART_TESTS_EXPORT TextLineData {
 
       return QChar();
     }
+
+    inline void markAsModified(bool modified)
+    {
+      if (modified) {
+        m_flags |= flagLineModified;
+        m_flags &= (~flagLineSavedOnDisk);
+      } else {
+        m_flags &= (~flagLineModified);
+      }
+    }
+
+    inline bool markedAsModified() const
+    {
+      return m_flags & flagLineModified;
+    }
+
+    inline void markAsSavedOnDisk(bool savedOnDisk)
+    {
+      if (savedOnDisk) {
+        m_flags |= flagLineSavedOnDisk;
+        m_flags &= (~flagLineModified);
+      } else {
+        m_flags &= (~flagLineSavedOnDisk);
+      }
+    }
+
+    inline bool markedAsSavedOnDisk() const
+    {
+      return m_flags & flagLineSavedOnDisk;
+    }
+
 
     /**
      * Set the flag that only positions have changed, not folding region begins/ends themselve

@@ -1135,12 +1135,8 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
 
   Kate::TextLine nextLine = kateTextLine(line+1);
 
-  int pos = l->length() - col;
-
-  if (pos < 0)
-    pos = 0;
-
-  m_undoManager->slotLineWrapped(line, col, pos, (!nextLine || newLine));
+  const int length = l->length();
+  m_undoManager->slotLineWrapped(line, col, length, (!nextLine || newLine));
 
   if (!nextLine || newLine)
   {
@@ -2315,6 +2311,7 @@ bool KateDocument::saveFile()
   // (dominik) mark last undo group as not mergeable, otherwise the next
   // edit action might be merged and undo will never stop at the saved state
   m_undoManager->undoSafePoint();
+  m_undoManager->updateLineModifications();
 
   //
   // return success

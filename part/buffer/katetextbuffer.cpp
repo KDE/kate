@@ -753,6 +753,9 @@ bool TextBuffer::save (const QString &filename)
   kDebug (13020) << "Saved file " << filename << "with codec" << m_textCodec->name()
     << (ok ? "without" : "with") << "errors";
 
+  if (ok)
+    markModifiedLinesAsSaved();
+
   // emit signal on success
   if (ok)
     emit saved (filename);
@@ -782,6 +785,12 @@ void TextBuffer::notifyAboutRangeChange (KTextEditor::View *view, int startLine,
     // notify view, it is really a kate view
     static_cast<KateView *> (curView)->notifyAboutRangeChange (startLine, endLine, rangeWithAttribute);
   }
+}
+
+void TextBuffer::markModifiedLinesAsSaved()
+{
+  foreach(TextBlock* block, m_blocks)
+    block->markModifiedLinesAsSaved ();
 }
 
 QList<TextRange *> TextBuffer::rangesForLine (int line, KTextEditor::View *view, bool rangesWithAttributeOnly) const

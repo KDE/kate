@@ -88,8 +88,9 @@ class KATEPART_TESTS_EXPORT KateUndoManager : public QObject
 
     bool isActive() const { return m_isActive; }
 
-    void setModified( bool m );
+    void setModified( bool modified );
     void updateConfig ();
+    void updateLineModifications();
 
   public Q_SLOTS:
     /**
@@ -143,7 +144,7 @@ class KATEPART_TESTS_EXPORT KateUndoManager : public QObject
     /**
      * Notify KateUndoManager that a line was wrapped.
      */
-    void slotLineWrapped(int line, int col, int pos, bool newLine);
+    void slotLineWrapped(int line, int col, int length, bool newLine);
 
     /**
      * Notify KateUndoManager that a line was un-wrapped.

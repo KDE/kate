@@ -173,6 +173,11 @@ class KATEPART_TESTS_EXPORT TextBlock {
       return m_cachedLineForRanges.contains(range) || m_uncachedRanges.contains(range);
     }
 
+    /**
+     * Flag all modified text lines as saved on disk.
+     */
+    void markModifiedLinesAsSaved ();
+
   private:
     /**
      * Update a range from this block.

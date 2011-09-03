@@ -25,6 +25,7 @@
 #include <QtCore/QList>
 
 #include <ktexteditor/range.h>
+#include <QtCore/QBitArray>
 
 class KateUndoManager;
 class KateDocument;
@@ -110,17 +111,37 @@ class KateUndo
      * the document the undo item belongs to
      */
     KateDocument *m_document;
+
+  //
+  // Line modification system
+  //
+  public:
+    enum ModificationFlag {
+      UndoLine1Modified = 1,
+      UndoLine2Modified = 2,
+      UndoLine1Saved = 4,
+      UndoLine2Saved = 8,
+      RedoLine1Modified = 16,
+      RedoLine2Modified = 32,
+      RedoLine1Saved = 64,
+      RedoLine2Saved = 128
+    };
+
+    void setFlag(ModificationFlag flag);
+    void unsetFlag(ModificationFlag flag);
+    bool isFlagSet(ModificationFlag flag) const;
+
+    virtual void updateUndoSavedOnDiskFlag(QBitArray & lines) { Q_UNUSED(lines) }
+    virtual void updateRedoSavedOnDiskFlag(QBitArray & lines) { Q_UNUSED(lines) }
+
+  private:
+    uchar m_lineModFlags;
 };
 
 class KateEditInsertTextUndo : public KateUndo
 {
   public:
-    KateEditInsertTextUndo (KateDocument *document, int line, int col, const QString &text)
-      : KateUndo (document)
-      , m_line (line)
-      , m_col (col)
-      , m_text (text)
-    {}
+    KateEditInsertTextUndo (KateDocument *document, int line, int col, const QString &text);
 
     /**
      * @copydoc KateUndo::isEmpty()
@@ -147,6 +168,9 @@ class KateEditInsertTextUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editInsertText; }
 
+    void updateUndoSavedOnDiskFlag(QBitArray & lines);
+    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+
   private:
     int len() const { return m_text.length(); }
 
@@ -159,12 +183,7 @@ class KateEditInsertTextUndo : public KateUndo
 class KateEditRemoveTextUndo : public KateUndo
 {
   public:
-    KateEditRemoveTextUndo (KateDocument *document, int line, int col, const QString &text)
-      : KateUndo (document)
-      , m_line (line)
-      , m_col (col)
-      , m_text (text)
-    {}
+    KateEditRemoveTextUndo (KateDocument *document, int line, int col, const QString &text);
 
     /**
      * @copydoc KateUndo::isEmpty()
@@ -190,6 +209,10 @@ class KateEditRemoveTextUndo : public KateUndo
      * @copydoc KateUndo::type()
      */
     KateUndo::UndoType type() const { return KateUndo::editRemoveText; }
+
+    void updateUndoSavedOnDiskFlag(QBitArray & lines);
+    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+
 
   private:
     int len() const { return m_text.length(); }
@@ -232,13 +255,7 @@ class KateEditMarkLineAutoWrappedUndo : public KateUndo
 class KateEditWrapLineUndo : public KateUndo
 {
   public:
-    KateEditWrapLineUndo (KateDocument *document, int line, int col, int len, bool newLine)
-      : KateUndo (document)
-      , m_line (line)
-      , m_col (col)
-      , m_len (len)
-      , m_newLine (newLine)
-    {}
+    KateEditWrapLineUndo (KateDocument *document, int line, int col, int len, bool newLine);
 
     /**
      * @copydoc KateUndo::undo()
@@ -255,6 +272,9 @@ class KateEditWrapLineUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editWrapLine; }
 
+    void updateUndoSavedOnDiskFlag(QBitArray & lines);
+    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+
   private:
     const int m_line;
     const int m_col;
@@ -265,13 +285,7 @@ class KateEditWrapLineUndo : public KateUndo
 class KateEditUnWrapLineUndo : public KateUndo
 {
   public:
-    KateEditUnWrapLineUndo (KateDocument *document, int line, int col, int len, bool removeLine)
-      : KateUndo (document)
-      , m_line (line)
-      , m_col (col)
-      , m_len (len)
-      , m_removeLine (removeLine)
-    {}
+    KateEditUnWrapLineUndo (KateDocument *document, int line, int col, int len, bool removeLine);
 
     /**
      * @copydoc KateUndo::undo()
@@ -288,6 +302,9 @@ class KateEditUnWrapLineUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editUnWrapLine; }
 
+    void updateUndoSavedOnDiskFlag(QBitArray & lines);
+    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+
   private:
     const int m_line;
     const int m_col;
@@ -298,11 +315,7 @@ class KateEditUnWrapLineUndo : public KateUndo
 class KateEditInsertLineUndo : public KateUndo
 {
   public:
-    KateEditInsertLineUndo (KateDocument *document, int line, const QString &text)
-      : KateUndo (document)
-      , m_line (line)
-      , m_text (text)
-    {}
+    KateEditInsertLineUndo (KateDocument *document, int line, const QString &text);
 
     /**
      * @copydoc KateUndo::undo()
@@ -327,11 +340,7 @@ class KateEditInsertLineUndo : public KateUndo
 class KateEditRemoveLineUndo : public KateUndo
 {
   public:
-    KateEditRemoveLineUndo (KateDocument *document, int line, const QString &text)
-      : KateUndo (document)
-      , m_line (line)
-      , m_text (text)
-    {}
+    KateEditRemoveLineUndo (KateDocument *document, int line, const QString &text);
 
     /**
      * @copydoc KateUndo::undo()
@@ -400,6 +409,14 @@ class KateUndoGroup
      * is this undogroup empty?
      */
     bool isEmpty() const { return m_items.isEmpty(); }
+
+    /**
+     * Change all LineSaved flags to LineModified of the line modification system.
+     */
+    void flagSavedAsModified();
+
+    void markUndoAsSaved(QBitArray & lines);
+    void markRedoAsSaved(QBitArray & lines);
 
   private:
     KTextEditor::Document *document();

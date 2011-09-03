@@ -89,6 +89,16 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
   // create new line and insert it
   m_lines.insert (m_lines.begin() + line + 1, TextLine (new TextLineData()));
 
+  // cases for modification:
+  // 1. line is wrapped in the middle
+  // 2. if empty line is wrapped, mark new line as modified
+  // 3. line-to-be-wrapped is already modified
+  if (position.column() > 0 || text.size() == 0 || m_lines.at(line)->markedAsModified()) {
+    m_lines.at(line + 1)->markAsModified(true);
+  } else if (m_lines.at(line)->markedAsSavedOnDisk()) {
+    m_lines.at(line + 1)->markAsSavedOnDisk(true);
+  }
+
   // perhaps remove some text from previous line and append it
   if (position.column() < text.size ()) {
     // text from old line moved first to new one
@@ -96,7 +106,11 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
 
     // now remove wrapped text from old line
     text.chop (text.size() - position.column());
+
+    // mark line as modified
+    m_lines.at(line)->markAsModified(true);
   }
+
 
   /**
    * notify the text history
@@ -173,8 +187,13 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     previousBlock->m_lines.erase (previousBlock->m_lines.begin() + (previousBlock->lines () - 1));
 
     // append text
-    int oldSizeOfPreviousLine = newFirst->text().size();
-    newFirst->textReadWrite().append (oldFirst->text());
+    const int oldSizeOfPreviousLine = newFirst->text().size();
+    if (oldFirst->length() > 0) {
+      newFirst->textReadWrite().append (oldFirst->text());
+
+      // mark line as modified, since text was appended
+      newFirst->markAsModified(true);
+    }
 
     // patch startLine of this block
     --m_startLine;
@@ -244,8 +263,16 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
   }
 
   // easy: just move text to previous line and remove current one
-  int oldSizeOfPreviousLine = m_lines.at(line-1)->text().size();
-  m_lines.at(line-1)->textReadWrite().append (m_lines.at(line)->text());
+  const int oldSizeOfPreviousLine = m_lines.at(line-1)->length();
+  const int sizeOfCurrentLine = m_lines.at(line)->length();
+  if (sizeOfCurrentLine > 0) {
+    m_lines.at(line-1)->textReadWrite().append (m_lines.at(line)->text());
+  }
+
+  const bool lineChanged = (oldSizeOfPreviousLine > 0 && m_lines.at(line - 1)->markedAsModified())
+    || (sizeOfCurrentLine > 0 && (oldSizeOfPreviousLine > 0 || m_lines.at(line)->markedAsModified()));
+  m_lines.at(line-1)->markAsModified(lineChanged);
+
   m_lines.erase (m_lines.begin () + line);
 
   /**
@@ -296,6 +323,7 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
   // get text
   QString &textOfLine = m_lines.at(line)->textReadWrite ();
   int oldLength = textOfLine.size ();
+  m_lines.at(line)->markAsModified(true);
 
   // check if valid column
   Q_ASSERT (position.column() >= 0);
@@ -369,6 +397,7 @@ void TextBlock::removeText (const KTextEditor::Range &range, QString &removedTex
 
   // remove text
   textOfLine.remove (range.start().column(), range.end().column() - range.start().column());
+  m_lines.at(line)->markAsModified(true);
 
   /**
    * notify the text history
@@ -513,6 +542,16 @@ void TextBlock::clearBlockContent (TextBlock *targetBlock)
 
   // kill lines
   m_lines.clear ();
+}
+
+void TextBlock::markModifiedLinesAsSaved ()
+{
+  // mark all modified lines as saved
+  for (int i = 0; i < m_lines.size(); ++i) {
+    TextLine textLine = m_lines[i];
+    if (textLine->markedAsModified())
+      textLine->markAsSavedOnDisk(true);
+  }
 }
 
 void TextBlock::updateRange (TextRange* range)

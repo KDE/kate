@@ -399,6 +399,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     void notifyAboutRangeChange (KTextEditor::View *view, int startLine, int endLine, bool rangeWithAttribute);
 
+    /**
+     * Mark all modified lines as lines saved on disk (modified line system).
+     */
+    void markModifiedLinesAsSaved();
+
   public:
     /**
      * Gets the document to which this buffer is bound.

@@ -22,6 +22,8 @@
 #include "katedocument.h"
 #include "kateundo.h"
 
+#include <QBitArray>
+
 KateUndoManager::KateUndoManager (KateDocument *doc)
   : QObject (doc)
   , m_document (doc)
@@ -152,10 +154,10 @@ void KateUndoManager::slotMarkLineAutoWrapped(int line, bool autowrapped)
     addUndoItem(new KateEditMarkLineAutoWrappedUndo(m_document, line, autowrapped));
 }
 
-void KateUndoManager::slotLineWrapped(int line, int col, int pos, bool newLine)
+void KateUndoManager::slotLineWrapped(int line, int col, int length, bool newLine)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditWrapLineUndo(m_document, line, col, pos, newLine));
+    addUndoItem(new KateEditWrapLineUndo(m_document, line, col, length, newLine));
 }
 
 void KateUndoManager::slotLineUnWrapped(int line, int col, int length, bool lineRemoved)
@@ -327,6 +329,7 @@ void KateUndoManager::updateModified()
   {
     if ( currentPattern == patterns[patternIndex] )
     {
+      // Note: m_document->setModified() calls KateUndoManager::setModified!
       m_document->setModified( false );
       // (dominik) whenever the doc is not modified, succeeding edits
       // should not be merged
@@ -359,21 +362,41 @@ void KateUndoManager::clearRedo()
   emit undoChanged ();
 }
 
-void KateUndoManager::setModified(bool m) {
-  if ( m == false )
+void KateUndoManager::setModified(bool modified)
+{
+  if ( !modified )
   {
-    if ( ! undoItems.isEmpty() )
-    {
+    if ( ! undoItems.isEmpty() ) {
       lastUndoGroupWhenSaved = undoItems.last();
     }
 
-    if ( ! redoItems.isEmpty() )
-    {
+    if ( ! redoItems.isEmpty() ) {
       lastRedoGroupWhenSaved = redoItems.last();
     }
 
     docWasSavedWhenUndoWasEmpty = undoItems.isEmpty();
     docWasSavedWhenRedoWasEmpty = redoItems.isEmpty();
+  }
+}
+
+void KateUndoManager::updateLineModifications()
+{
+  // change LineSaved flag of all undo & redo items to LineModified
+  foreach (KateUndoGroup* undoGroup, undoItems)
+    undoGroup->flagSavedAsModified();
+
+  foreach (KateUndoGroup* undoGroup, redoItems)
+    undoGroup->flagSavedAsModified();
+
+  // iterate all undo/redo items to find out, which item sets the flag LineSaved
+  QBitArray lines(document()->lines(), false);
+  for (int i = undoItems.size() - 1; i >= 0; --i) {
+    undoItems[i]->markRedoAsSaved(lines);
+  }
+
+  lines.fill(false);
+  for (int i = redoItems.size() - 1; i >= 0; --i) {
+    redoItems[i]->markUndoAsSaved(lines);
   }
 }
 

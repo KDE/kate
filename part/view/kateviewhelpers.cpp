@@ -1271,7 +1271,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         oldInfo = info;
       }
 
-      lnX += iconPaneWidth + 2;
+      lnX += iconPaneWidth;
+    }
+
+    // modified line system
+    if (realLine > -1) {
+      Kate::TextLine tl = m_doc->plainKateTextLine(realLine);
+      if (tl->markedAsModified()) {
+        p.setPen(Qt::red);
+        p.fillRect(lnX, y, 2, h, QColor(242, 155, 104));
+      }
+      if (tl->markedAsSavedOnDisk()) {
+        p.setPen(Qt::darkGreen);
+        p.fillRect(lnX, y, 2, h, QColor(119, 183, 83));
+      }
     }
   }
 }

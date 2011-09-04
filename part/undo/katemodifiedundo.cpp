@@ -389,4 +389,32 @@ void KateModifiedUnWrapLine::updateUndoSavedOnDiskFlag(QBitArray & lines)
   }
 }
 
+void KateModifiedInsertLine::updateRedoSavedOnDiskFlag(QBitArray & lines)
+{
+  if (line() >= lines.size()) {
+    lines.resize(line() + 1);
+  }
+
+  if (!lines.testBit(line())) {
+    lines.setBit(line());
+
+    unsetFlag(RedoLine1Modified);
+    setFlag(RedoLine1Saved);
+  }
+}
+
+void KateModifiedRemoveLine::updateUndoSavedOnDiskFlag(QBitArray & lines)
+{
+  if (line() >= lines.size()) {
+    lines.resize(line() + 1);
+  }
+
+  if (!lines.testBit(line())) {
+    lines.setBit(line());
+
+    unsetFlag(UndoLine1Modified);
+    setFlag(UndoLine1Saved);
+  }
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

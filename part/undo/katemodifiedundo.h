@@ -113,6 +113,8 @@ class KateModifiedInsertLine : public KateEditInsertLineUndo
      * @copydoc KateUndo::redo()
      */
     void redo();
+    
+    void updateRedoSavedOnDiskFlag(QBitArray & lines);
 };
 
 class KateModifiedRemoveLine : public KateEditRemoveLineUndo
@@ -129,6 +131,8 @@ class KateModifiedRemoveLine : public KateEditRemoveLineUndo
      * @copydoc KateUndo::redo()
      */
     void redo();
+
+    void updateUndoSavedOnDiskFlag(QBitArray & lines);
 };
 
 #endif // KATE_MODIFIED_UNDO_H

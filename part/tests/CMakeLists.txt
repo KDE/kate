@@ -171,6 +171,17 @@ target_link_libraries( revision_test
   katepartinterfaces
 )
 
+########### line modification test ###############
+
+kde4_add_unit_test(modificationsystem_test TESTNAME kate-modificationsystem_test modificationsystem_test.cpp)
+
+target_link_libraries( modificationsystem_test ${KATE_TEST_LINK_LIBS}
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### templatehandler test ###############
 
 kde4_add_unit_test(templatehandler_test TESTNAME kate-templatehandler_test templatehandler_test.cpp)

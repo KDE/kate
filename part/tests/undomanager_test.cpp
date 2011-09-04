@@ -37,8 +37,6 @@ public:
   TestDocument()
     : KateDocument(false, false, false, 0, 0)
   {}
-
-  KateUndoManager *undoManager() { return m_undoManager; }
 };
 
 void UndoManagerTest::testUndoRedoCount()

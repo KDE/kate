@@ -20,7 +20,7 @@
 #include <ktexteditor/view.h>
 
 #include "katedocument.h"
-#include "kateundo.h"
+#include "katemodifiedundo.h"
 
 #include <QBitArray>
 
@@ -139,13 +139,13 @@ void KateUndoManager::endUndo()
 void KateUndoManager::slotTextInserted(int line, int col, const QString &s)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditInsertTextUndo(m_document, line, col, s));
+    addUndoItem(new KateModifiedInsertText(m_document, line, col, s));
 }
 
 void KateUndoManager::slotTextRemoved(int line, int col, const QString &s)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditRemoveTextUndo(m_document, line, col, s));
+    addUndoItem(new KateModifiedRemoveText(m_document, line, col, s));
 }
 
 void KateUndoManager::slotMarkLineAutoWrapped(int line, bool autowrapped)
@@ -157,25 +157,25 @@ void KateUndoManager::slotMarkLineAutoWrapped(int line, bool autowrapped)
 void KateUndoManager::slotLineWrapped(int line, int col, int length, bool newLine)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditWrapLineUndo(m_document, line, col, length, newLine));
+    addUndoItem(new KateModifiedWrapLine(m_document, line, col, length, newLine));
 }
 
 void KateUndoManager::slotLineUnWrapped(int line, int col, int length, bool lineRemoved)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditUnWrapLineUndo(m_document, line, col, length, lineRemoved));
+    addUndoItem(new KateModifiedUnWrapLine(m_document, line, col, length, lineRemoved));
 }
 
 void KateUndoManager::slotLineInserted(int line, const QString &s)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditInsertLineUndo(m_document, line, s));
+    addUndoItem(new KateModifiedInsertLine(m_document, line, s));
 }
 
 void KateUndoManager::slotLineRemoved(int line, const QString &s)
 {
   if (m_editCurrentUndo != 0) // do we care about notifications?
-    addUndoItem(new KateEditRemoveLineUndo(m_document, line, s));
+    addUndoItem(new KateModifiedRemoveLine(m_document, line, s));
 }
 
 void KateUndoManager::undoCancel()

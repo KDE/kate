@@ -895,19 +895,19 @@ QSize KateIconBorder::sizeHint() const
   int w = 0;
 
   if (m_iconBorderOn)
-    w += iconPaneWidth + 1;
+    w += iconPaneWidth + 2;
 
   if (m_annotationBorderOn)
   {
-    w += m_annotationBorderWidth + 1;
+    w += m_annotationBorderWidth + 2;
   }
 
   if (m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn)) {
-    w += lineNumberWidth() + 1;
+    w += lineNumberWidth() + 2;
   }
 
   if (m_foldingMarkersOn)
-    w += iconPaneWidth + 1;
+    w += iconPaneWidth;
 
   /**
    * space for the line change system and border!

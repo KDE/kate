@@ -390,7 +390,12 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     item->setData(2, Qt::ToolTipRole, match);
     item->setData(3, Qt::ToolTipRole, post);
     item->setCheckState (0, Qt::Checked);
-    
+
+    m_curResults->matches++;
+    m_curResults->matchLabel->setText(i18np("Found %1 match.",
+                                            "Found %1 matches.",
+                                            m_curResults->matches));
+
     // Add mark if the document is open
     KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
     if (!doc) return;
@@ -415,11 +420,6 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
             this, SLOT(clearMarks()), Qt::UniqueConnection);
 
-    m_curResults->matches++;
-
-    m_curResults->matchLabel->setText(i18np("Found %1 match.",
-                                            "Found %1 matches.",
-                                            m_curResults->matches));
 }
 
 void KatePluginSearchView::clearMarks()

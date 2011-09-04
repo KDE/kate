@@ -1007,12 +1007,17 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   paintBorder(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
-static void paintTriangle (QPainter &painter, const QColor &c, int xOffset, int yOffset, int width, int height, bool open)
+static void paintTriangle (QPainter &painter, QColor c, int xOffset, int yOffset, int width, int height, bool open)
 {
   painter.setRenderHint(QPainter::Antialiasing);
 
   qreal size = qMin (width, height);
 
+  if ( KColorUtils::luma( c ) > 0.25 )
+    c = KColorUtils::darken( c );
+  else
+    c = KColorUtils::shade( c, 0.1 );
+  
   QPen pen;
   pen.setJoinStyle (Qt::RoundJoin);
   pen.setColor (c);

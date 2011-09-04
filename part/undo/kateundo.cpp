@@ -381,6 +381,10 @@ void KateEditMarkLineAutoWrappedUndo::redo ()
 
 void KateEditInsertTextUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (!lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -391,6 +395,10 @@ void KateEditInsertTextUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditInsertTextUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (!lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -401,6 +409,10 @@ void KateEditInsertTextUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditRemoveTextUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (!lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -411,6 +423,10 @@ void KateEditRemoveTextUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditRemoveTextUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (!lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -421,6 +437,10 @@ void KateEditRemoveTextUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditWrapLineUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line + 1 >= lines.size()) {
+    lines.resize(m_line + 2);
+  }
+
   if (isFlagSet(RedoLine1Modified) && !lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -438,6 +458,10 @@ void KateEditWrapLineUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditWrapLineUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (isFlagSet(UndoLine1Modified) && !lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -448,6 +472,10 @@ void KateEditWrapLineUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditUnWrapLineUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line >= lines.size()) {
+    lines.resize(m_line + 1);
+  }
+
   if (isFlagSet(RedoLine1Modified) && !lines.testBit(m_line)) {
     lines.setBit(m_line);
 
@@ -458,6 +486,10 @@ void KateEditUnWrapLineUndo::updateRedoSavedOnDiskFlag(QBitArray & lines)
 
 void KateEditUnWrapLineUndo::updateUndoSavedOnDiskFlag(QBitArray & lines)
 {
+  if (m_line + 1 >= lines.size()) {
+    lines.resize(m_line + 2);
+  }
+
   if (isFlagSet(UndoLine1Modified) && !lines.testBit(m_line)) {
     lines.setBit(m_line);
 

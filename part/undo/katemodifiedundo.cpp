@@ -33,8 +33,7 @@ KateModifiedInsertText::KateModifiedInsertText (KateDocument *document, int line
   Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  }
-  if (tl->markedAsSavedOnDisk()) {
+  } else {
     setFlag(UndoLine1Saved);
   }
 }
@@ -47,8 +46,7 @@ KateModifiedRemoveText::KateModifiedRemoveText (KateDocument *document, int line
   Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  }
-  if (tl->markedAsSavedOnDisk()) {
+  } else {
     setFlag(UndoLine1Saved);
   }
 }
@@ -72,8 +70,7 @@ KateModifiedWrapLine::KateModifiedWrapLine (KateDocument *document, int line, in
 
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  }
-  if (tl->markedAsSavedOnDisk()) {
+  } else  {
     setFlag(UndoLine1Saved);
   }
 }
@@ -87,8 +84,7 @@ KateModifiedUnWrapLine::KateModifiedUnWrapLine (KateDocument *document, int line
   Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  }
-  if (tl->markedAsSavedOnDisk()) {
+  } else {
     setFlag(UndoLine1Saved);
   }
 
@@ -96,8 +92,7 @@ KateModifiedUnWrapLine::KateModifiedUnWrapLine (KateDocument *document, int line
   Q_ASSERT(nextLine);
   if (nextLine->markedAsModified()) {
     setFlag(UndoLine2Modified);
-  }
-  if (nextLine->markedAsSavedOnDisk()) {
+  } else {
     setFlag(UndoLine2Saved);
   }
 }
@@ -115,8 +110,7 @@ KateModifiedRemoveLine::KateModifiedRemoveLine (KateDocument *document, int line
   Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  }
-  if (tl->markedAsSavedOnDisk()) {
+  } else {
     setFlag(UndoLine1Saved);
   }
 }

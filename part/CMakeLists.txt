@@ -73,6 +73,7 @@ document/katebuffer.cpp
 
 # undo
 undo/kateundo.cpp
+undo/katemodifiedundo.cpp
 undo/kateundomanager.cpp
 
 # scripting

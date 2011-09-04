@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2011 Dominik Haumann <dhaumann@kde.org>
    Copyright (C) 2009-2010 Bernhard Beschow <bbeschow@cs.tu-berlin.de>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
@@ -127,9 +128,17 @@ class KateUndo
       RedoLine2Saved = 128
     };
 
-    void setFlag(ModificationFlag flag);
-    void unsetFlag(ModificationFlag flag);
-    bool isFlagSet(ModificationFlag flag) const;
+    inline void setFlag(ModificationFlag flag) {
+      m_lineModFlags |= flag;
+    }
+
+    inline void unsetFlag(ModificationFlag flag) {
+      m_lineModFlags &= (~flag);
+    }
+
+    inline bool isFlagSet(ModificationFlag flag) const {
+      return m_lineModFlags & flag;
+    }
 
     virtual void updateUndoSavedOnDiskFlag(QBitArray & lines) { Q_UNUSED(lines) }
     virtual void updateRedoSavedOnDiskFlag(QBitArray & lines) { Q_UNUSED(lines) }
@@ -168,11 +177,9 @@ class KateEditInsertTextUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editInsertText; }
 
-    void updateUndoSavedOnDiskFlag(QBitArray & lines);
-    void updateRedoSavedOnDiskFlag(QBitArray & lines);
-
-  private:
-    int len() const { return m_text.length(); }
+  protected:
+    inline int len() const { return m_text.length(); }
+    inline int line() const { return m_line; }
 
   private:
     const int m_line;
@@ -210,12 +217,9 @@ class KateEditRemoveTextUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editRemoveText; }
 
-    void updateUndoSavedOnDiskFlag(QBitArray & lines);
-    void updateRedoSavedOnDiskFlag(QBitArray & lines);
-
-
-  private:
-    int len() const { return m_text.length(); }
+  protected:
+    inline int len() const { return m_text.length(); }
+    inline int line() const { return m_line; }
 
   private:
     const int m_line;
@@ -272,8 +276,8 @@ class KateEditWrapLineUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editWrapLine; }
 
-    void updateUndoSavedOnDiskFlag(QBitArray & lines);
-    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+  protected:
+    inline int line() const { return m_line; }
 
   private:
     const int m_line;
@@ -302,8 +306,8 @@ class KateEditUnWrapLineUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editUnWrapLine; }
 
-    void updateUndoSavedOnDiskFlag(QBitArray & lines);
-    void updateRedoSavedOnDiskFlag(QBitArray & lines);
+  protected:
+    inline int line() const { return m_line; }
 
   private:
     const int m_line;
@@ -332,6 +336,9 @@ class KateEditInsertLineUndo : public KateUndo
      */
     KateUndo::UndoType type() const { return KateUndo::editInsertLine; }
 
+  protected:
+    inline int line() const { return m_line; }
+
   private:
     const int m_line;
     const QString m_text;
@@ -356,6 +363,9 @@ class KateEditRemoveLineUndo : public KateUndo
      * @copydoc KateUndo::type()
      */
     KateUndo::UndoType type() const { return KateUndo::editRemoveLine; }
+
+  protected:
+    inline int line() const { return m_line; }
 
   private:
     const int m_line;

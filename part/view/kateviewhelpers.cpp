@@ -1249,18 +1249,15 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
 
-        QBrush brush (foldingColor(&info,realLine,true));
-        p.fillRect(lnX, y, iconPaneWidth, h, brush);
-
         if (!info.topLevel)
         {
           if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
           {
-            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, false);
+            paintTriangle (p, m_view->renderer()->config()->iconBarColor(), lnX, y, iconPaneWidth, h, false);
           }
           else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
           {
-            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, true);
+            paintTriangle (p, m_view->renderer()->config()->iconBarColor(), lnX, y, iconPaneWidth, h, true);
           }
           else
           {

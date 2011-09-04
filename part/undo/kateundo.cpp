@@ -60,6 +60,7 @@ KateEditInsertTextUndo::KateEditInsertTextUndo (KateDocument *document, int line
 {
   setFlag(RedoLine1Modified);
   Kate::TextLine tl = document->plainKateTextLine(line);
+  Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
   }
@@ -76,6 +77,7 @@ KateEditRemoveTextUndo::KateEditRemoveTextUndo (KateDocument *document, int line
 {
   setFlag(RedoLine1Modified);
   Kate::TextLine tl = document->plainKateTextLine(line);
+  Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
   }
@@ -92,6 +94,7 @@ KateEditWrapLineUndo::KateEditWrapLineUndo (KateDocument *document, int line, in
   , m_newLine (newLine)
 {
   Kate::TextLine tl = document->plainKateTextLine(line);
+  Q_ASSERT(tl);
   if (col < len || tl->markedAsModified()) {
     setFlag(RedoLine1Modified);
   } else if (tl->markedAsSavedOnDisk()) {
@@ -122,6 +125,7 @@ KateEditUnWrapLineUndo::KateEditUnWrapLineUndo (KateDocument *document, int line
   setFlag(RedoLine1Modified);
 
   Kate::TextLine tl = document->plainKateTextLine(line);
+  Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
   }
@@ -130,6 +134,7 @@ KateEditUnWrapLineUndo::KateEditUnWrapLineUndo (KateDocument *document, int line
   }
 
   Kate::TextLine nextLine = document->plainKateTextLine(line + 1);
+  Q_ASSERT(nextLine);
   if (nextLine->markedAsModified()) {
     setFlag(UndoLine2Modified);
   }
@@ -152,6 +157,7 @@ KateEditRemoveLineUndo::KateEditRemoveLineUndo (KateDocument *document, int line
   , m_text (text)
 {
   Kate::TextLine tl = document->plainKateTextLine(line);
+  Q_ASSERT(tl);
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
   }
@@ -218,6 +224,7 @@ void KateEditInsertTextUndo::undo ()
   doc->editRemoveText (m_line, m_col, len());
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(UndoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(UndoLine1Saved));
 }
@@ -229,6 +236,7 @@ void KateEditRemoveTextUndo::undo ()
   doc->editInsertText (m_line, m_col, m_text);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(UndoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(UndoLine1Saved));
 }
@@ -240,6 +248,7 @@ void KateEditWrapLineUndo::undo ()
   doc->editUnWrapLine (m_line, m_newLine, m_len);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(UndoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(UndoLine1Saved));
 }
@@ -251,10 +260,12 @@ void KateEditUnWrapLineUndo::undo ()
   doc->editWrapLine (m_line, m_col, m_removeLine);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(UndoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(UndoLine1Saved));
 
   Kate::TextLine nextLine = doc->plainKateTextLine(m_line + 1);
+  Q_ASSERT(nextLine);
   nextLine->markAsModified(isFlagSet(UndoLine2Modified));
   nextLine->markAsSavedOnDisk(isFlagSet(UndoLine2Saved));
 }
@@ -275,6 +286,7 @@ void KateEditRemoveLineUndo::undo ()
   doc->editInsertLine (m_line, m_text);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(UndoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(UndoLine1Saved));
 }
@@ -293,6 +305,7 @@ void KateEditRemoveTextUndo::redo ()
   doc->editRemoveText (m_line, m_col, len());
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(RedoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(RedoLine1Saved));
 }
@@ -304,6 +317,7 @@ void KateEditInsertTextUndo::redo ()
   doc->editInsertText (m_line, m_col, m_text);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(RedoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(RedoLine1Saved));
 }
@@ -315,6 +329,7 @@ void KateEditUnWrapLineUndo::redo ()
   doc->editUnWrapLine (m_line, m_removeLine, m_len);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(RedoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(RedoLine1Saved));
 }
@@ -326,10 +341,12 @@ void KateEditWrapLineUndo::redo ()
   doc->editWrapLine (m_line, m_col, m_newLine);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(RedoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(RedoLine1Saved));
 
   Kate::TextLine nextLine = doc->plainKateTextLine(m_line + 1);
+  Q_ASSERT(nextLine);
   nextLine->markAsModified(isFlagSet(RedoLine2Modified));
   nextLine->markAsSavedOnDisk(isFlagSet(RedoLine2Saved));
 }
@@ -350,6 +367,7 @@ void KateEditInsertLineUndo::redo ()
   doc->editInsertLine (m_line, m_text);
 
   Kate::TextLine tl = doc->plainKateTextLine(m_line);
+  Q_ASSERT(tl);
   tl->markAsModified(isFlagSet(RedoLine1Modified));
   tl->markAsSavedOnDisk(isFlagSet(RedoLine1Saved));
 }

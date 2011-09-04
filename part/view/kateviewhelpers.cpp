@@ -1007,17 +1007,11 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   paintBorder(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
-static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffset, int yOffset, int width, int height, bool open)
+static void paintTriangle (QPainter &painter, const QColor &c, int xOffset, int yOffset, int width, int height, bool open)
 {
   painter.setRenderHint(QPainter::Antialiasing);
 
   qreal size = qMin (width, height);
-
-  QColor c;
-  if ( KColorUtils::luma( baseColor ) > 0.25 )
-    c = KColorUtils::darken( baseColor );
-  else
-    c = KColorUtils::shade( baseColor, 0.2 );
 
   QPen pen;
   pen.setJoinStyle (Qt::RoundJoin);
@@ -1025,7 +1019,7 @@ static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffs
   pen.setWidthF (1.5);
   painter.setPen ( pen );
 
-  painter.setBrush ( c );
+  painter.setBrush (c);
 
   // let some border, if possible
   size *= 0.6;
@@ -1248,16 +1242,24 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       {
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
+        
+        /**
+         * background with possible additional folding highlighting
+         */
+        QBrush currentFoldingColor = m_view->renderer()->config()->iconBarColor();        
+        if (m_foldingRange && m_foldingRange->overlapsLine (realLine))
+          currentFoldingColor = foldingColor(0, m_currentBlockLine, true);
+        p.fillRect(lnX, y, iconPaneWidth, h, currentFoldingColor);
 
         if (!info.topLevel)
         {
           if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
           {
-            paintTriangle (p, m_view->renderer()->config()->iconBarColor(), lnX, y, iconPaneWidth, h, false);
+            paintTriangle (p, m_view->renderer()->config()->lineNumberColor(), lnX, y, iconPaneWidth, h, false);
           }
           else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
           {
-            paintTriangle (p, m_view->renderer()->config()->iconBarColor(), lnX, y, iconPaneWidth, h, true);
+            paintTriangle (p, m_view->renderer()->config()->lineNumberColor(), lnX, y, iconPaneWidth, h, true);
           }
           else
           {
@@ -1399,6 +1401,11 @@ void KateIconBorder::showBlock()
     m_foldingRange->setZDepth (-100.0);
     m_foldingRange->setAttribute(attr);
   }
+  
+  /**
+   * repaint
+   */
+  repaint ();
 }
 
 void KateIconBorder::hideBlock()

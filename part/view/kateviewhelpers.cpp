@@ -909,7 +909,10 @@ QSize KateIconBorder::sizeHint() const
   if (m_foldingMarkersOn)
     w += iconPaneWidth + 1;
 
-  w += 4;
+  /**
+   * space for the line change system and border!
+   */
+  w += 5;
 
   return QSize( w, 0 );
 }
@@ -1103,8 +1106,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
     int lnX = 0;
 
-    p.fillRect( 0, y, w-4, h, m_view->renderer()->config()->iconBarColor() );
-    p.fillRect( w-4, y, 4, h, m_view->renderer()->config()->backgroundColor() );
+    p.fillRect( 0, y, w-5, h, m_view->renderer()->config()->iconBarColor() );
+    p.fillRect( w-5, y, 5, h, m_view->renderer()->config()->backgroundColor() );
 
     // icon pane
     if( m_iconBorderOn )
@@ -1276,14 +1279,17 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
     // modified line system
     if (realLine > -1) {
+      // one pixel space
+      ++lnX;
+      
       Kate::TextLine tl = m_doc->plainKateTextLine(realLine);
       if (tl->markedAsModified()) {
         p.setPen(Qt::red);
-        p.fillRect(lnX, y, 2, h, QColor(242, 155, 104));
+        p.fillRect(lnX, y, 3, h, QColor(242, 155, 104));
       }
       if (tl->markedAsSavedOnDisk()) {
         p.setPen(Qt::darkGreen);
-        p.fillRect(lnX, y, 2, h, QColor(119, 183, 83));
+        p.fillRect(lnX, y, 3, h, QColor(119, 183, 83));
       }
     }
   }

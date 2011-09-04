@@ -20,22 +20,33 @@
 
 #include "replace_matches.h"
 #include "replace_matches.moc"
+#include <QTreeWidgetItem>
+#include <ktexteditor/movinginterface.h>
+#include <ktexteditor/movingrange.h>
 
-ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent), m_nextIndex(-1)
+ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent),
+m_manager(0),
+m_tree(0),
+m_rootIndex(-1)
 {
     connect(this, SIGNAL(replaceNextMatch()), this, SLOT(doReplaceNextMatch()), Qt::QueuedConnection);
 }
 
 void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegExp &regexp, const QString &replace)
 {
-    if (m_nextIndex != -1) return;
-
+    if (m_manager == 0) return;
+    if (m_rootIndex != -1) return;
+    
     m_tree = tree;
-    m_nextIndex = 0;
+    m_rootIndex = 0;
     m_regExp = regexp;
-    m_replace = replace;
+    m_replaceText = replace;
     m_cancelReplace = false;
     emit replaceNextMatch();
+}
+void ReplaceMatches::setDocumentManager(Kate::DocumentManager *manager)
+{
+    m_manager = manager;
 }
 
 void ReplaceMatches::cancelReplace()
@@ -45,39 +56,76 @@ void ReplaceMatches::cancelReplace()
 
 void ReplaceMatches::doReplaceNextMatch()
 {
-    if (m_cancelReplace) {
-        m_nextIndex = -1;
+    if ((!m_manager) || (m_cancelReplace)) {
+        m_rootIndex = -1;
         emit replaceDone();
         return;
     }
-    kDebug();
-//     int column;
 
     // NOTE The document managers signal documentWillBeDeleted() must be connected to
     // cancelReplace(). A closed file could lead to a crash if it is not handled.
 
-//     for (int line =0; line < m_docList[m_nextIndex]->lines(); line++) {
-//         column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line));
-//         while (column != -1) {
-//             if (m_docList[m_nextIndex]->url().isLocalFile() ) {
-//                 emit matchFound(m_docList[m_nextIndex]->url().path(), line, column,
-//                                 m_docList[m_nextIndex]->line(line), m_regExp.matchedLength());
-//             }
-//             else  {
-//                 emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, column,
-//                                 m_docList[m_nextIndex]->line(line), m_regExp.matchedLength());
-//             }
-//             column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line), column + 1);
-//         }
-//     }
-
-//     m_nextIndex++;
-//     if (m_nextIndex == m_docList.size()) {
-//         m_nextIndex = -1;
+    // Open the file
+    QTreeWidgetItem *rootItem = m_tree->topLevelItem(m_rootIndex);
+    if (!rootItem) {
+        m_rootIndex = -1;
         emit replaceDone();
-//     }
-//     else {
-//         emit replaceNextMatch();
-//     }
+        return;
+    }
+
+    if (rootItem->checkState(0) == Qt::Unchecked) {
+        m_rootIndex++;
+        emit replaceNextMatch();
+        return;
+    }
+
+    KTextEditor::Document *doc = m_manager->findUrl(rootItem->data(0, Qt::UserRole).toString());
+    if (!doc) {
+        doc = m_manager->openUrl(rootItem->data(0, Qt::UserRole).toString());
+    }
+
+    if (!doc) {
+        m_rootIndex++;
+        emit replaceNextMatch();
+        return;
+    }
+
+    QVector<KTextEditor::MovingRange*> rVector;
+    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    int line;
+    int column;
+    int len;
+    QTreeWidgetItem *item;
+    
+    // lines might be modified so search the document again
+    for (int i=0; i<rootItem->childCount(); i++) {
+        item = rootItem->child(i);
+        if (item->checkState(0) == Qt::Unchecked) continue;
+
+        line = item->data(1, Qt::UserRole).toInt();
+        column = item->data(2, Qt::UserRole).toInt();
+        len = item->data(3, Qt::UserRole).toInt();
+        if (m_regExp.indexIn(doc->line(line), column) != column) {
+            kDebug() << "expression does not match";
+            continue;
+        }
+        QString html = item->data(1, Qt::ToolTipRole).toString();
+        html += "<b><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s> ";
+        html += m_replaceText + "</b>";
+        html += item->data(3, Qt::ToolTipRole).toString();
+        item->setData(0, Qt::DisplayRole, QString("Line: <b>%1</b>: %2").arg(line+1).arg(html));
+        KTextEditor::Range range(line, column, line, column+len);
+        KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+        rVector.append(mr);
+    }
+
+    for (int i=0; i<rVector.size(); i++) {
+        doc->replaceText(*rVector[i], m_replaceText);
+    }
+
+    qDeleteAll(rVector);
+
+    m_rootIndex++;
+    emit replaceNextMatch();
 }
  

@@ -25,6 +25,7 @@
 #include <QRegExp>
 #include <QTreeWidget>
 #include <ktexteditor/document.h>
+#include <kate/documentmanager.h>
 
 class ReplaceMatches: public QObject
 {
@@ -32,6 +33,7 @@ class ReplaceMatches: public QObject
 
 public:
     ReplaceMatches(QObject *parent = 0);
+    void setDocumentManager(Kate::DocumentManager *manager);
 
     void replaceChecked(QTreeWidget *tree, const QRegExp &regexp, const QString &replace);
 
@@ -46,10 +48,11 @@ Q_SIGNALS:
     void replaceDone();
 
 private:
+    Kate::DocumentManager        *m_manager;
     QTreeWidget                  *m_tree;
-    int                           m_nextIndex;
+    int                           m_rootIndex;
     QRegExp                       m_regExp;
-    QString                       m_replace;
+    QString                       m_replaceText;
     bool                          m_cancelReplace;
 };
 

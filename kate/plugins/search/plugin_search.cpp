@@ -187,10 +187,15 @@ m_curResults(0)
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
 
+    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+            &m_replacer, SLOT(cancelReplace()));
+
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
             SLOT(searchContextMenu(QPoint)));
+
+    m_replacer.setDocumentManager(m_kateApp->documentManager());
 
     searchPlaceChanged();
 
@@ -286,6 +291,7 @@ void KatePluginSearchView::startSearch()
     QRegExp reg(m_ui.searchCombo->currentText(),
                 m_matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
                 m_useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+    m_curResults->regExp = reg;
 
     clearMarks();
     m_curResults->tree->clear();
@@ -368,17 +374,21 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     if (!m_curResults) {
         return;
     }
-    QString bold = Qt::escape(lineContent.left(column));
-    bold += "<b>" + Qt::escape(lineContent.mid(column, matchLen)) + "</b>";
-    bold += Qt::escape(lineContent.mid(column + matchLen));
+    QString pre = Qt::escape(lineContent.left(column));
+    QString match = Qt::escape(lineContent.mid(column, matchLen));
+    QString post = Qt::escape(lineContent.mid(column + matchLen));
     QStringList row;
-    row << i18n("Line: <b>%1</b>: %2", line+1, bold);
-    
+    row << i18n("Line: <b>%1</b>: %2", line+1, pre+"<b>"+match+"</b>"+post);
+
     QTreeWidgetItem *item = new QTreeWidgetItem(rootFileItem(url), row);
     item->setData(0, Qt::UserRole, url);
     item->setData(0, Qt::ToolTipRole, url);
     item->setData(1, Qt::UserRole, line);
     item->setData(2, Qt::UserRole, column);
+    item->setData(3, Qt::UserRole, matchLen);
+    item->setData(1, Qt::ToolTipRole, pre);
+    item->setData(2, Qt::ToolTipRole, match);
+    item->setData(3, Qt::ToolTipRole, post);
     item->setCheckState (0, Qt::Checked);
     
     // Add mark if the document is open
@@ -529,9 +539,6 @@ void KatePluginSearchView::addTab()
 
     res->tree->setItemDelegate(new SPHtmlDelegate(res->tree));
 
-    // temporarily disable until replace works.
-    res->replaceButton->setDisabled(true);
-    
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this,      SLOT  (itemSelected(QTreeWidgetItem*)));
 
@@ -662,7 +669,7 @@ void KatePluginSearchView::replaceChecked()
     }
 
     m_replacer.replaceChecked(m_curResults->tree,
-                              QRegExp()/*FIXME*/,
+                              m_curResults->regExp,
                               m_curResults->replaceCombo->currentText());
 }
 

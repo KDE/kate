@@ -45,7 +45,8 @@ class Results: public QWidget, public Ui::Results
     Q_OBJECT
 public:
     Results(QWidget *parent = 0): QWidget(parent), matches(0) { setupUi(this); }
-    int matches;
+    int     matches;
+    QRegExp regExp;
 };
 
 class KatePluginSearch : public Kate::Plugin

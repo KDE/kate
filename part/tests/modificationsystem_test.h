@@ -24,6 +24,9 @@
 
 /**
  * Test the complete Line Modification System.
+ * Covered classes:
+ * - KateModification* in part/undo/
+ * - modification flags in Kate::TextLine in part/buffer/
  */
 class ModificationSystemTest : public QObject
 {

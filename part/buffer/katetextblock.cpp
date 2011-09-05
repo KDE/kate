@@ -272,6 +272,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
   const bool lineChanged = (oldSizeOfPreviousLine > 0 && m_lines.at(line - 1)->markedAsModified())
     || (sizeOfCurrentLine > 0 && (oldSizeOfPreviousLine > 0 || m_lines.at(line)->markedAsModified()));
   m_lines.at(line-1)->markAsModified(lineChanged);
+  if (oldSizeOfPreviousLine == 0 && m_lines.at(line)->markedAsSavedOnDisk())
+    m_lines.at(line-1)->markAsSavedOnDisk(true);
 
   m_lines.erase (m_lines.begin () + line);
 

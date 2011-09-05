@@ -72,7 +72,7 @@ KateModifiedWrapLine::KateModifiedWrapLine (KateDocument *document, int line, in
 
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  } else  {
+  } else if (((col < len) && (col > 0)) || tl->markedAsSavedOnDisk()) {
     setFlag(UndoLine1Saved);
   }
 }
@@ -80,22 +80,64 @@ KateModifiedWrapLine::KateModifiedWrapLine (KateDocument *document, int line, in
 KateModifiedUnWrapLine::KateModifiedUnWrapLine (KateDocument *document, int line, int col, int len, bool removeLine)
   : KateEditUnWrapLineUndo (document, line, col, len, removeLine)
 {
-  setFlag(RedoLine1Modified);
-
   Kate::TextLine tl = document->plainKateTextLine(line);
-  Q_ASSERT(tl);
-  if (tl->markedAsModified()) {
-    setFlag(UndoLine1Modified);
-  } else {
-    setFlag(UndoLine1Saved);
-  }
-
   Kate::TextLine nextLine = document->plainKateTextLine(line + 1);
+  Q_ASSERT(tl);
   Q_ASSERT(nextLine);
-  if (nextLine->markedAsModified()) {
-    setFlag(UndoLine2Modified);
-  } else {
-    setFlag(UndoLine2Saved);
+
+  const int len1 = tl->length();
+  const int len2 = nextLine->length();
+  
+  if (len1 > 0 && len2 > 0) {
+    setFlag(RedoLine1Modified);
+
+    if (tl->markedAsModified()) {
+      setFlag(UndoLine1Modified);
+    } else {
+      setFlag(UndoLine1Saved);
+    }
+
+    if (nextLine->markedAsModified()) {
+      setFlag(UndoLine2Modified);
+    } else {
+      setFlag(UndoLine2Saved);
+    }
+  } else if (len1 == 0) {
+    if (nextLine->markedAsModified()) {
+      setFlag(RedoLine1Modified);
+    } else if (nextLine->markedAsSavedOnDisk()) {
+      setFlag(RedoLine1Saved);
+    }
+
+    if (tl->markedAsModified()) {
+      setFlag(UndoLine1Modified);
+    } else {
+      setFlag(UndoLine1Saved);
+    }
+
+    if (nextLine->markedAsModified()) {
+      setFlag(UndoLine2Modified);
+    } else if (nextLine->markedAsSavedOnDisk()) {
+      setFlag(UndoLine2Saved);
+    }
+  } else { // len2 == 0
+    if (nextLine->markedAsModified()) {
+      setFlag(RedoLine1Modified);
+    } else if (nextLine->markedAsSavedOnDisk()) {
+      setFlag(RedoLine1Saved);
+    }
+
+    if (tl->markedAsModified()) {
+      setFlag(UndoLine1Modified);
+    } else if (tl->markedAsSavedOnDisk()) {
+      setFlag(UndoLine1Saved);
+    }
+
+    if (nextLine->markedAsModified()) {
+      setFlag(UndoLine2Modified);
+    } else {
+      setFlag(UndoLine2Saved);
+    }
   }
 }
 

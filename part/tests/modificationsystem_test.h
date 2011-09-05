@@ -42,8 +42,13 @@ class ModificationSystemTest : public QObject
     void testInsertLine();
     void testRemoveLine();
 
-    void testWrapLine();
+    void testWrapLineMid();
+    void testWrapLineAtEnd();
+    void testWrapLineAtStart();
+
     void testUnWrapLine();
+    void testUnWrapLine1Empty();
+    void testUnWrapLine2Empty();
 };
 
 #endif

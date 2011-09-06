@@ -768,9 +768,8 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_foldingRange(0)
   , m_nextHighlightBlock(-2)
   , m_currentBlockLine(-1)
+  , m_foldingHighlightColor (KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color())
 {
-  initializeFoldingColors();
-
   setAttribute( Qt::WA_StaticContents );
   setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum );
   setMouseTracking(true);
@@ -783,31 +782,6 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   m_delayFoldingHlTimer.setInterval(250);
   connect(&m_delayFoldingHlTimer, SIGNAL(timeout()), this, SLOT(showBlock()));
 }
-
-void KateIconBorder::initializeFoldingColors()
-{
-  // Get the schema
-  KateRendererConfig *config = m_view->renderer()->config();
-  // FIXME next 3 lines temporary until this moves to config
-  const KColorScheme scheme( QPalette::Normal );
-  const QColor middle( KColorUtils::tint( config->iconBarColor(), scheme.foreground( KColorScheme::NeutralText ).color(), 0.7 ) );
-  const QColor final( KColorUtils::tint( config->iconBarColor(), scheme.foreground( KColorScheme::PositiveText ).color(), 0.7 ) );
-
-  const QColor start( config->iconBarColor() );
-  static const int MIDFOLDINGCOLORS = MAXFOLDINGCOLORS / 2;
-  static const qreal n = 2.0 / MAXFOLDINGCOLORS;
-
-  int i, j;
-  for( i = 0; i < MIDFOLDINGCOLORS; i++ ) {
-    const qreal a = 0.9 * pow(qreal(i) * n, 1.0);
-    m_foldingColors[i] = KColorUtils::tint( start, middle, a );
-  }
-  for( j = 0; i < MAXFOLDINGCOLORS; i++, j++ ) {
-    const qreal a = 0.9 * pow(qreal(j) * n, 1.0);
-    m_foldingColors[i] = KColorUtils::tint( middle, final, a );
-  }
-}
-
 
 KateIconBorder::~KateIconBorder()
 {
@@ -978,28 +952,6 @@ int KateIconBorder::lineNumberWidth() const
   }
 
   return width;
-}
-
-QBrush KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool solid) {
-  int depth;
-  if (info != 0) {
-    depth = info->depth;
-  } else {
-    KateLineInfo tmp;
-    m_doc->lineInfo(&tmp, realLine);
-    depth = tmp.depth;
-  }
-
-  QColor result;
-  if (depth < MAXFOLDINGCOLORS)
-    result = m_foldingColors[depth];
-  else
-    result = m_foldingColors[MAXFOLDINGCOLORS-1];
-  if (!solid)
-    result.setAlphaF(0.4);
-
-  return QBrush( result );
-
 }
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
@@ -1253,7 +1205,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
          */
         QBrush currentFoldingColor = m_view->renderer()->config()->iconBarColor();        
         if (m_foldingRange && m_foldingRange->overlapsLine (realLine))
-          currentFoldingColor = foldingColor(0, m_currentBlockLine, true);
+          currentFoldingColor = m_foldingHighlightColor;
         p.fillRect(lnX, y, iconPaneWidth, h, currentFoldingColor);
 
         if (!info.topLevel)
@@ -1400,7 +1352,14 @@ void KateIconBorder::showBlock()
     kDebug(13025) << "new folding hl-range:" << newRange;
     m_foldingRange = m_doc->newMovingRange(newRange, KTextEditor::MovingRange::ExpandRight);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    attr->setBackground(foldingColor(0, m_currentBlockLine, false));
+    
+    /**
+     * create highlighting color with alpha for the range!
+     */
+    QColor result = m_foldingHighlightColor;
+    result.setAlphaF (0.5);
+    attr->setBackground(QBrush( result ));
+    
     m_foldingRange->setView (m_view);
     // use z depth defined in moving ranges interface
     m_foldingRange->setZDepth (-100.0);

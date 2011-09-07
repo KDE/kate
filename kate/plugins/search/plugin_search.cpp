@@ -368,6 +368,32 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     return item;
 }
 
+void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, int column, int matchLen)
+{
+    if (!doc) return;
+
+    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+    attr->setBackground(Qt::yellow);
+
+    KTextEditor::Range range(line, column, line, column+matchLen);
+    KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+    mr->setAttribute(attr);
+    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+    mr->setAttributeOnlyForViews(true);
+    m_matchRanges.append(mr);
+
+    KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    if (!iface) return;
+    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
+    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32,
+                         KIcon().pixmap(0,0));
+    iface->addMark(line, KTextEditor::MarkInterface::markType32);
+
+    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearMarks()), Qt::UniqueConnection);
+}
+
 void KatePluginSearchView::matchFound(const QString &url, int line, int column,
                                       const QString &lineContent, int matchLen)
 {
@@ -398,28 +424,7 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
 
     // Add mark if the document is open
     KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
-    if (!doc) return;
-    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    attr->setBackground(Qt::yellow);
-
-    KTextEditor::Range range(line, column, line, column+matchLen);
-    KTextEditor::MovingRange* mr = miface->newMovingRange(range);
-    mr->setAttribute(attr);
-    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
-    mr->setAttributeOnlyForViews(true);
-    m_matchRanges.append(mr);
-
-    KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
-    if (!iface) return;
-    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
-    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32,
-                         KIcon().pixmap(0,0));
-    iface->addMark(line, KTextEditor::MarkInterface::markType32);
-
-    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
-            this, SLOT(clearMarks()), Qt::UniqueConnection);
-
+    addMatchMark(doc, line, column, matchLen);
 }
 
 void KatePluginSearchView::clearMarks()
@@ -462,7 +467,8 @@ void KatePluginSearchView::searchDone()
     }
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
-    
+    m_curResults->tree->collapseAll();
+
     m_curResults = 0;
     m_toolView->unsetCursor();
 }
@@ -472,19 +478,37 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     // get stuff
     const QString url = item->data(0, Qt::UserRole).toString();
     if (url.isEmpty()) return;
-    int line = item->data(1, Qt::UserRole).toInt();
-    int column = item->data(2, Qt::UserRole).toInt();
+    int toLine = item->data(1, Qt::UserRole).toInt();
+    int toColumn = item->data(2, Qt::UserRole).toInt();
 
-    // open file (if needed, otherwise, this will activate only the right view...)
-    mainWindow()->openUrl(KUrl(url));
+    // add the marks to the document if it is not already open
+    KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
+    if (!doc) {
+        doc = m_kateApp->documentManager()->openUrl(url);
+        if (doc) {
+            int line;
+            int column;
+            int len;
+            QTreeWidgetItem *rootItem = (item->parent()==0) ? item : item->parent();
+            for (int i=0; i<rootItem->childCount(); i++) {
+                item = rootItem->child(i);
+                line = item->data(1, Qt::UserRole).toInt();
+                column = item->data(2, Qt::UserRole).toInt();
+                len = item->data(3, Qt::UserRole).toInt();
+                addMatchMark(doc, line, column, len);
+            }
+        }
+    }
+    // open the right view...
+    mainWindow()->openUrl(url);
 
     // any view active?
     if (!mainWindow()->activeView()) {
         return;
     }
 
-    // do it ;)
-    mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
+    // set the cursor to the correct position
+    mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
     //mainWindow()->activeView()->setFocus();
 }
 

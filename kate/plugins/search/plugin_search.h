@@ -103,15 +103,17 @@ private Q_SLOTS:
     void clearMarks();
 
     void replaceChecked();
-    
+
     void replaceDone();
-    
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
 private:
     QTreeWidgetItem *rootFileItem(const QString &url);
-    
+
+    void addMatchMark(KTextEditor::Document* doc, int line, int column, int len);
+
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;
     Kate::Application                 *m_kateApp;

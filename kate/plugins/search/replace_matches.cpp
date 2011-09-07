@@ -110,8 +110,8 @@ void ReplaceMatches::doReplaceNextMatch()
             continue;
         }
         QString html = item->data(1, Qt::ToolTipRole).toString();
-        html += "<b><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s> ";
-        html += m_replaceText + "</b>";
+        html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
+        html += "<b>" + m_replaceText + "</b>";
         html += item->data(3, Qt::ToolTipRole).toString();
         item->setData(0, Qt::DisplayRole, QString("Line: <b>%1</b>: %2").arg(line+1).arg(html));
         KTextEditor::Range range(line, column, line, column+len);

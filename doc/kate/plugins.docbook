@@ -1024,8 +1024,10 @@ to the folder of the document currently open in the editing area every time it c
 <listitem>
 <para>This displays a breadcrumb navigation to the currently open folder, like
 &dolphin;.  You can click on a any folder to browse to it, or click on one of the
-arrows to select any folder beneath it.  Select the first arrow to choose from your
-Places list.</para>
+arrows to the left of a folder to select any folders beneath it.  You may also
+select from your list of Places by clicking the leftmost icon in the breadcrumb
+navigation, which displays an icon that represents your current Place.</para>
+
 <para>You can also click to the right of the breadcrumbs to change them to a text box
 where you can type the path of a folder to browse. The &URL;
 entry maintains a list of previously typed paths. To choose one, use

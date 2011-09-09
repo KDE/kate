@@ -33,8 +33,8 @@ if (NOT KDE_NO_DEPRECATED)
   set (KDE_4_4_LIBS_NEEDED ${KDE4_KUTILS_LIBS})
 endif()
 
-option(BUILD_ktexteditor "Build KTextEditor interfaces, instead of reusing the system version" OFF)
-if (BUILD_ktexteditor)
+option(BUILD_KTEXTEDITOR "Build KTextEditor interfaces, instead of reusing the system version" OFF)
+if (BUILD_KTEXTEDITOR)
   # use our own copies of some stuff
   set (KDE4_KTEXTEDITOR_LIBS "ktexteditor")
 
@@ -43,7 +43,7 @@ if (BUILD_ktexteditor)
 
   # ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
   macro_optional_add_subdirectory (ktexteditor)
-endif (BUILD_ktexteditor)
+endif (BUILD_KTEXTEDITOR)
 
 # kate part, copy from kdelibs/kate
 macro_optional_add_subdirectory (part)

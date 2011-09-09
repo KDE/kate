@@ -113,6 +113,14 @@ m_curResults(0)
     a->setText(i18n("Search in Files"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
+    a = actionCollection()->addAction("go_to_next_match");
+    a->setText(i18n("Go to Next Match"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(goToNextMatch()));
+
+    a = actionCollection()->addAction("go_to_prev_match");
+    a->setText(i18n("Go to Previous Match"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(goToPreviousMatch()));
+
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
                                           Kate::MainWindow::Bottom,
                                           SmallIcon("edit-find"),
@@ -475,6 +483,8 @@ void KatePluginSearchView::searchDone()
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 {
+    if (!item) return;
+
     // get stuff
     const QString url = item->data(0, Qt::UserRole).toString();
     if (url.isEmpty()) return;
@@ -510,6 +520,83 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     // set the cursor to the correct position
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
     //mainWindow()->activeView()->setFocus();
+}
+
+void KatePluginSearchView::goToNextMatch()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    QTreeWidgetItem *curr = res->tree->currentItem();
+    if (!curr) {
+        curr = res->tree->topLevelItem(0);
+    }
+    if (!curr) return;
+
+    if (curr->parent() == 0) {
+        res->tree->expandItem(curr);
+    }
+    curr = res->tree->itemBelow(curr);
+    if (!curr) {
+        curr = res->tree->topLevelItem(0);
+    }
+    if (curr->parent() == 0) {
+        res->tree->expandItem(curr);
+        curr = res->tree->itemBelow(curr);
+    }
+    if (!curr) return;
+    
+    res->tree->setCurrentItem(curr);
+    itemSelected(curr);
+}
+
+void KatePluginSearchView::goToPreviousMatch()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    if (res->tree->topLevelItemCount() == 0) {
+        return;
+    }
+    QTreeWidgetItem *curr = res->tree->currentItem();
+    if (!curr) {
+        // select the last child of the last top-level item
+        curr = res->tree->topLevelItem(res->tree->topLevelItemCount()-1);
+        curr = curr->child(curr->childCount()-1);
+        if (!curr) return;
+        res->tree->setCurrentItem(curr);
+        itemSelected(curr);
+        return;
+    }
+
+    curr = res->tree->itemAbove(curr);
+    if (!curr) {
+        // current was the first top-level item
+        res->tree->setCurrentItem(curr);
+        goToPreviousMatch();
+        return;
+    }
+
+    if (curr->parent() == 0) {
+        // this is a top-level item -> go to the item above
+        curr = res->tree->itemAbove(curr);
+        if (!curr) {
+            res->tree->setCurrentItem(curr);
+            goToPreviousMatch();
+            return;
+        }
+    }
+
+    if (curr->parent() == 0) {
+        // still a top-level item -> expand and take the last
+        res->tree->expandItem(curr);
+        curr = curr->child(curr->childCount()-1);
+        if (!curr) return;
+    }
+    res->tree->setCurrentItem(curr);
+    itemSelected(curr);
 }
 
 void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString& groupPrefix)

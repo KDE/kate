@@ -82,7 +82,9 @@ public Q_SLOTS:
     void navigateFolderUp();
     void setCurrentFolder();
     void setSearchPlace(int place);
-    
+    void goToNextMatch();
+    void goToPreviousMatch();
+
 private Q_SLOTS:
     void openSearchView();
     void addTab();

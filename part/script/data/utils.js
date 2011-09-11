@@ -1,7 +1,7 @@
 /* kate-script
  * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
  * license: LGPL
- * revision: 3
+ * revision: 4
  * kate-version: 3.4
  * type: commands
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown
@@ -126,54 +126,83 @@ function unwrap ()
 
 function moveLinesDown()
 {
-    var fromLine = -1;
-    var toLine = -1;
-
+    var cursorPosition = view.cursorPosition();
     var selectionRange = view.selection();
-    if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
-        toLine = selectionRange.start.line;
-        fromLine = selectionRange.end.line + 1;
-        if (selectionRange.end.column == 0) fromLine--;
-    } else if (view.cursorPosition().line < document.lines() - 1) {
-        toLine = view.cursorPosition().line;
-        fromLine = toLine + 1;
-    }
-    if (fromLine != -1 && toLine != -1) {
-        var text = document.line(fromLine);
 
+    if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
+        // extend selection to span complete lines
+        var extendedRange = new Range(selectionRange);
+        extendedRange.start.column = 0;
+        extendedRange.end.column = document.lineLength(extendedRange.end.line);
+
+        // save the text
+        var text = document.text(extendedRange);
+
+        // remove text, and insert at new correct position
         document.editBegin();
-        document.removeLine(fromLine);
-        document.insertLine(toLine, text);
+        document.removeText(extendedRange.start, new Cursor(extendedRange.end.line+1, 0));
+        var destination = new Cursor(extendedRange.start.line + 1, 0);
+        document.insertLine(selectionRange.start.line+1, "");
+        document.insertText(destination, text);
+
+        // restore correct cursor position
+        cursorPosition.line++;
+        view.setCursorPosition(cursorPosition);
+
+        // restore selection, moved down by one line
+        selectionRange.start.line++;
+        selectionRange.end.line++;
+        view.setSelection(selectionRange);
+        document.editEnd();
+    } else if (!selectionRange.isValid() && cursorPosition.line < document.lines() - 1) {
+        var text = document.line(cursorPosition.line);
+        document.editBegin();
+        document.removeLine(cursorPosition.line);
+        document.insertLine(cursorPosition.line + 1, text);
+        cursorPosition.line += 1;
+        view.setCursorPosition(cursorPosition);
         document.editEnd();
     }
 }
 
 function moveLinesUp()
 {
-    var fromLine = -1;
-    var toLine = -1;
-
-    var selectionRange = view.selection();
     var cursorPosition = view.cursorPosition();
+    var selectionRange = view.selection();
+
     if (selectionRange.isValid() && selectionRange.start.line > 0) {
-        fromLine = selectionRange.start.line - 1;
-        toLine = selectionRange.end.line;
-        if (selectionRange.end.column == 0) toLine--;
-    } else if (view.cursorPosition().line > 0) {
-        toLine = view.cursorPosition().line;
-        fromLine = toLine - 1;
-    }
-    if (fromLine != -1 && toLine != -1) {
-        var text = document.line(fromLine);
+        // extend selection to span complete lines
+        var extendedRange = new Range(selectionRange);
+        extendedRange.start.column = 0;
+        extendedRange.end.column = document.lineLength(extendedRange.end.line);
 
+        // save the text
+        var text = document.text(extendedRange);
+
+        // remove text, and insert at new correct position
         document.editBegin();
-        document.removeLine(fromLine);
-        document.insertLine(toLine, text);
-        document.editEnd();
+        document.removeText(extendedRange.start, new Cursor(extendedRange.end.line+1, 0));
+        var destination = new Cursor(extendedRange.start.line - 1, 0);
+        document.insertLine(selectionRange.start.line-1, "");
+        document.insertText(destination, text);
 
-        view.setCursorPosition(new Cursor(cursorPosition.line-1, cursorPosition.column));
-        view.setSelection(new Range(selectionRange.start.line-1, selectionRange.start.column,
-                                    selectionRange.end.line-1, selectionRange.end.column));
+        // restore correct cursor position
+        cursorPosition.line--;
+        view.setCursorPosition(cursorPosition);
+
+        // restore selection, moved up by one line
+        selectionRange.start.line--;
+        selectionRange.end.line--;
+        view.setSelection(selectionRange);
+        document.editEnd();
+    } else if (!selectionRange.isValid() && cursorPosition.line > 0) {
+        var text = document.line(cursorPosition.line);
+        document.editBegin();
+        document.removeLine(cursorPosition.line);
+        document.insertLine(cursorPosition.line - 1, text);
+        cursorPosition.line -= 1;
+        view.setCursorPosition(cursorPosition);
+        document.editEnd();
     }
 }
 

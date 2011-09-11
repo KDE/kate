@@ -614,11 +614,31 @@ QString KatePluginGDBView::currentWord( )
     QString linestr = kv->document()->line(line);
 
     int startPos = qMax(qMin(col, linestr.length()-1), 0);
+    int lindex = linestr.length()-1;
     int endPos = startPos;
-    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() || linestr[startPos] == '_' || linestr[startPos] == '~')) {
+    while (startPos >= 0 &&
+        (linestr[startPos].isLetterOrNumber() ||
+        linestr[startPos] == '_' ||
+        linestr[startPos] == '~' ||
+        ((startPos > 1) && (linestr[startPos] == '.') && !linestr[startPos-1].isSpace()) ||
+        ((startPos > 2) && (linestr[startPos] == '>') && (linestr[startPos-1] == '-') && !linestr[startPos-2].isSpace()) ))
+    {
+        if (linestr[startPos] == '>') {
+            startPos--;
+        }
         startPos--;
     }
-    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() || linestr[endPos] == '_')) {
+    while (endPos < (int)linestr.length() &&
+        (linestr[endPos].isLetterOrNumber() ||
+        linestr[endPos] == '_' ||
+        ((endPos < lindex-1) && (linestr[endPos] == '.') && !linestr[endPos+1].isSpace()) ||
+        ((endPos < lindex-2) && (linestr[endPos] == '-') && (linestr[endPos+1] == '>') && !linestr[endPos+2].isSpace()) ||
+        ((endPos > 1) && (linestr[endPos-1] == '-') && (linestr[endPos] == '>'))
+        ))
+    {
+        if (linestr[endPos] == '-') {
+            endPos++;
+        }
         endPos++;
     }
     if  (startPos == endPos) {

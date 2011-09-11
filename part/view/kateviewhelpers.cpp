@@ -71,6 +71,7 @@
 #include <QtGui/QToolTip>
 #include <QtGui/QAction>
 #include <QtGui/QWhatsThis>
+#include <QtGui/QLinearGradient>
 
 #include <math.h>
 
@@ -1200,13 +1201,32 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
         
-        /**
-         * background with possible additional folding highlighting
-         */
-        QBrush currentFoldingColor = m_view->renderer()->config()->iconBarColor();        
-        if (m_foldingRange && m_foldingRange->overlapsLine (realLine))
-          currentFoldingColor = m_foldingHighlightColor;
-        p.fillRect(lnX, y, iconPaneWidth, h, currentFoldingColor);
+        // first icon border background
+        p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
+        // ... with possible additional folding highlighting
+        if (m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
+          p.save();
+          p.setClipRect(lnX, y, lnX+iconPaneWidth, y+h);
+          p.setRenderHint(QPainter::Antialiasing);
+
+          // use linear gradient as brush
+          QLinearGradient g(lnX, y, lnX + iconPaneWidth, y);
+          g.setColorAt(0, m_foldingHighlightColor);
+          g.setColorAt(0.3, m_foldingHighlightColor.lighter(125));
+          g.setColorAt(1, m_foldingHighlightColor);
+          p.setBrush(g);
+          p.setPen(m_foldingHighlightColor.lighter());
+
+          const qreal r = iconPaneWidth / 4.0;
+          if (m_foldingRange->start().line() == realLine) {
+            p.drawRoundedRect(lnX, y, iconPaneWidth, h + r, r, r);
+          } else if (m_foldingRange->end().line() == realLine) {
+            p.drawRoundedRect(lnX, y-r, iconPaneWidth, h + r, r, r);
+          } else {
+            p.drawRect(lnX, y-r, iconPaneWidth, h+2*r);
+          }
+          p.restore();
+        }
 
         if (!info.topLevel)
         {

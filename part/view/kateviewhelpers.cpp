@@ -780,7 +780,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   updateFont();
 
   m_delayFoldingHlTimer.setSingleShot(true);
-  m_delayFoldingHlTimer.setInterval(250);
+  m_delayFoldingHlTimer.setInterval(150);
   connect(&m_delayFoldingHlTimer, SIGNAL(timeout()), this, SLOT(showBlock()));
 }
 
@@ -1483,10 +1483,13 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     }
 
     if ( area == FoldingMarkers) {
+      // if a folding range exists, fold this one, -> use start line of the range
+      int lineToFold = cursorOnLine;
+      if (m_foldingRange) lineToFold = m_foldingRange->start().line();
       KateLineInfo info;
-      m_doc->lineInfo(&info,cursorOnLine);
+      m_doc->lineInfo(&info, lineToFold);
       if ((info.startsVisibleBlock) || (info.startsInVisibleBlock)) {
-        emit toggleRegionVisibility(cursorOnLine);
+        emit toggleRegionVisibility(lineToFold);
       }
     }
 

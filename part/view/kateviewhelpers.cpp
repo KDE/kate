@@ -1521,6 +1521,11 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
   m_viewInternal->mouseDoubleClickEvent( &forward );
 }
 
+void KateIconBorder::wheelEvent(QWheelEvent *e)
+{
+  QCoreApplication::sendEvent(m_viewInternal, e);
+}
+
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
   if( !m_view->config()->allowMarkMenu() )

@@ -765,7 +765,7 @@ KateCodeFoldingNode* KateCodeFoldingTree::findNodeForLine(int line)
        // if the child has a match
         if (child->hasMatch()) {
           // and the matching node is below "line", then we go to a higher depth
-          if (child->matchingNode()->getLine() > line) {  // or >= ?
+          if (child->matchingNode()->getLine() >= line) {
             tempParentNode = child;
             cont = true;
             break;

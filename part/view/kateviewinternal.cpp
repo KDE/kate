@@ -3197,6 +3197,7 @@ void KateViewInternal::clear()
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
+  // zoom text, if ctrl is pressed
   if (e->modifiers() == Qt::ControlModifier) {
     if (e->delta() > 0) {
       slotIncFontSizes();
@@ -3207,9 +3208,10 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
     return;
   }
 
+  // scroll up/down or left/right, if possible
   if (m_lineScroll->minimum() != m_lineScroll->maximum() && e->orientation() != Qt::Horizontal) {
     // React to this as a vertical event
-    if ( ( e->modifiers() & Qt::ControlModifier ) || ( e->modifiers() & Qt::ShiftModifier ) ) {
+    if ( e->modifiers() & Qt::ShiftModifier ) {
       if (e->delta() > 0)
         scrollPrevPage();
       else

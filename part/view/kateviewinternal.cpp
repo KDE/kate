@@ -3197,6 +3197,16 @@ void KateViewInternal::clear()
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
+  if (e->modifiers() == Qt::ControlModifier) {
+    if (e->delta() > 0) {
+      slotIncFontSizes();
+    } else {
+      slotDecFontSizes();
+    }
+    e->accept();
+    return;
+  }
+
   if (m_lineScroll->minimum() != m_lineScroll->maximum() && e->orientation() != Qt::Horizontal) {
     // React to this as a vertical event
     if ( ( e->modifiers() & Qt::ControlModifier ) || ( e->modifiers() & Qt::ShiftModifier ) ) {

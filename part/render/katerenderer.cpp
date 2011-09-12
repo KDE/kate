@@ -295,19 +295,8 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   const int height = config()->fontMetrics().height();
   const int top = 0;
   const int bottom = height-1;
-  const int h = bottom - top + 1;
 
-  // Dot padding.
-  int pad = 0;
-  if(row & 1 && h & 1) pad = 1;
-
-  for(int i = top; i <= bottom; i++)
-  {
-    if((i + pad) & 1)
-    {
-      paint.drawPoint(x + 2, i);
-    }
-  }
+  paint.drawLine(x + 2, top, x + 2, bottom);
 
   paint.setPen( penBackup );
 }

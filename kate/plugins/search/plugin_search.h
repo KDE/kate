@@ -44,9 +44,13 @@ class Results: public QWidget, public Ui::Results
 {
     Q_OBJECT
 public:
-    Results(QWidget *parent = 0): QWidget(parent), matches(0) { setupUi(this); }
+    Results(QWidget *parent = 0);
     int     matches;
     QRegExp regExp;
+
+public Q_SLOTS:
+    void selectAll(bool checked);
+    void checkCheckedState();
 };
 
 class KatePluginSearch : public Kate::Plugin

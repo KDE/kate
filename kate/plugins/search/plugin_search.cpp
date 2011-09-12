@@ -64,6 +64,47 @@ static QAction *menuEntry(QMenu *menu,
     return action;
 }
 
+Results::Results(QWidget *parent): QWidget(parent), matches(0)
+{
+    setupUi(this);
+    
+    tree->setItemDelegate(new SPHtmlDelegate(tree));
+    selectAllCB->setText(i18n("Select all 9999 matches"));
+    selectAllCB->setFixedWidth(selectAllCB->sizeHint().width());
+    selectAllCB->setText(i18n("Select all"));
+    buttonContainer->setDisabled(true);
+
+    connect(selectAllCB, SIGNAL(clicked(bool)), this, SLOT(selectAll(bool)));
+}
+
+void Results::selectAll(bool)
+{
+    disconnect(tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(checkCheckedState()));
+    Qt::CheckState state = selectAllCB->checkState();
+    if (state == Qt::PartiallyChecked) state = Qt::Checked;
+    selectAllCB->setCheckState(state);
+    for (int i=0; i<tree->topLevelItemCount(); i++) {
+        tree->topLevelItem(i)->setCheckState(0, state);
+    }
+    connect(tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(checkCheckedState()));
+}
+
+void Results::checkCheckedState()
+{
+    Qt::CheckState state;
+    for (int i=0; i<tree->topLevelItemCount(); i++) {
+        if (i==0) {
+            state = tree->topLevelItem(i)->checkState(0);
+        }
+        else if (state != tree->topLevelItem(i)->checkState(0)) {
+            selectAllCB->setCheckState(Qt::PartiallyChecked);
+            return;
+        }
+    }
+    selectAllCB->setCheckState(state);
+}
+
+
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
 K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
 
@@ -303,6 +344,12 @@ void KatePluginSearchView::startSearch()
 
     clearMarks();
     m_curResults->tree->clear();
+    m_curResults->buttonContainer->setEnabled(false);
+    m_curResults->matches = 0;
+    m_curResults->selectAllCB->setText(i18n("Select all"));
+    m_curResults->selectAllCB->setChecked(true);
+    disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
+    
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
                                      m_ui.searchCombo->currentText());
 
@@ -426,8 +473,8 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     item->setCheckState (0, Qt::Checked);
 
     m_curResults->matches++;
-    m_curResults->matchLabel->setText(i18np("Found %1 match.",
-                                            "Found %1 matches.",
+    m_curResults->selectAllCB->setText(i18np("Select %1 match",
+                                            "Select all %1 matches",
                                             m_curResults->matches));
 
     // Add mark if the document is open
@@ -476,6 +523,9 @@ void KatePluginSearchView::searchDone()
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
     m_curResults->tree->collapseAll();
+    m_curResults->buttonContainer->setEnabled(true);
+
+    connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     m_curResults = 0;
     m_toolView->unsetCursor();
@@ -647,9 +697,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
 void KatePluginSearchView::addTab()
 {
     Results *res = new Results();
-
-    res->tree->setItemDelegate(new SPHtmlDelegate(res->tree));
-
+    
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this,      SLOT  (itemSelected(QTreeWidgetItem*)));
 

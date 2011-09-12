@@ -333,7 +333,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'word-wrap-marker-color' to list
   item = new VariableColorItem("word-wrap-marker-color", rendererConfig->wordWrapMarkerColor());
-  item->setHelpText(i18nc("short translation please", "Set the work wrap marker color."));
+  item->setHelpText(i18nc("short translation please", "Set the word wrap marker color."));
   listview->addItem(item);
 
   // Add 'word-wrap' to list

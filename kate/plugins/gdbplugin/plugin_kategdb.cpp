@@ -81,6 +81,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     m_lastExecFrame = 0;
     m_kateApplication = application;
     m_focusOnInput = true;
+    m_activeThread = -1;
 
 
     m_toolView = mainWindow()->createToolView(i18n("Debug View"),
@@ -131,7 +132,15 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     layout->setSpacing(0);
 
     // stack page
-    m_stackTree = new QTreeWidget(m_stackToolView);
+    QWidget *stackContainer = new QWidget(m_stackToolView);
+    QVBoxLayout *stackLayout = new QVBoxLayout( stackContainer );
+    m_threadCombo = new QComboBox();
+    m_stackTree = new QTreeWidget();
+    stackLayout->addWidget( m_threadCombo );
+    stackLayout->addWidget( m_stackTree );
+    stackLayout->setStretch(0, 10);
+    stackLayout->setContentsMargins(0,0,0,0);
+    stackLayout->setSpacing(0);
     QStringList headers;
     headers << "  " << i18nc( "Column label (frame number)", "Nr" ) << i18nc( "Column label", "Frame" );
     m_stackTree->setHeaderLabels(headers);
@@ -142,6 +151,10 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_stackTree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
              this, SLOT(stackFrameSelected()) );
 
+    connect( m_threadCombo, SIGNAL(currentIndexChanged(int)),
+             this, SLOT(threadSelected(int)) );
+
+
     // config page
     m_configView = new ConfigView( NULL, mainWin );
 
@@ -150,9 +163,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
              this,       SLOT(showIO(bool)) );
 
     m_tabWidget->addTab( m_gdbPage, i18nc( "Tab label", "GDB Output" ) );
-    //m_tabWidget->addTab( m_stackTree, i18nc( "Tab label", "Call Stack" ) );
     m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
-    //tabWidget->addTab( m_ioView, i18n( "IO" ) );
 
     m_localsView = new LocalsView(m_localsToolView);
 
@@ -195,6 +206,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     connect( m_debugView,  SIGNAL(infoLocal(QString)),
              m_localsView, SLOT(addLocal(QString)) );
+
+    connect( m_debugView, SIGNAL(threadInfo(int,bool)),
+             this,        SLOT(insertThread(int,bool)) );
 
     // Actions
     m_configView->registerActions( actionCollection() );
@@ -563,7 +577,7 @@ void KatePluginGDBView::insertStackFrame( QString const& level, QString const& i
         m_stackTree->resizeColumnToContents(2);
         return;
     }
-
+    
     if ( level == "0")
     {
         m_stackTree->clear();
@@ -574,7 +588,7 @@ void KatePluginGDBView::insertStackFrame( QString const& level, QString const& i
     int lastSpace = info.lastIndexOf(" ");
     QString shortInfo = info.mid(lastSpace);
     columns << shortInfo;
-
+    
     QTreeWidgetItem *item = new QTreeWidgetItem(columns);
     item->setToolTip(2, QString("<qt>%1<qt>").arg(info));
     m_stackTree->insertTopLevelItem(level.toInt(), item);
@@ -589,10 +603,36 @@ void KatePluginGDBView::stackFrameChanged( int level )
 {
     QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
     QTreeWidgetItem *next = m_stackTree->topLevelItem(level);
-
+    
     if ( current ) current->setIcon ( 0, QIcon() );
     if ( next )    next->setIcon( 0, KIcon("arrow-right") );
     m_lastExecFrame = level;
+}
+
+
+void KatePluginGDBView::insertThread( int number, bool active )
+{
+    if ( number < 0 ) {
+        m_threadCombo->clear();
+        m_activeThread = -1;
+        return;
+    }
+    if (!active) {
+        m_threadCombo->addItem(KIcon("").pixmap(10,10),
+                               i18n("Thread %1").arg(number), number);
+    }
+    else {
+        m_threadCombo->addItem(KIcon("arrow-right").pixmap(10,10),
+                               QString("Thread %1").arg(number), number);
+        m_activeThread = m_threadCombo->count()-1;
+    }
+    m_threadCombo->setCurrentIndex(m_activeThread);
+}
+
+void KatePluginGDBView::threadSelected( int thread )
+{
+    m_debugView->issueCommand( QString( "thread %1" ).
+    arg( m_threadCombo->itemData( thread ).toInt() ) );
 }
 
 QString KatePluginGDBView::currentWord( )

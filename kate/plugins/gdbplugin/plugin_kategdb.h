@@ -79,9 +79,14 @@ private Q_SLOTS:
     void enableDebugActions( bool enable );
     void programEnded();
     void gdbEnded();
+
     void insertStackFrame( QString const& level, QString const& info );
     void stackFrameChanged( int level );
     void stackFrameSelected();
+
+    void insertThread( int number, bool active );
+    void threadSelected( int thread );
+
     void showIO( bool show );
     void addErrorText( QString const& text );
     void clearMarks();
@@ -101,6 +106,8 @@ private:
     QTextEdit*            m_outputArea;
     KHistoryComboBox*     m_inputArea;
     QWidget*              m_gdbPage;
+    QComboBox*            m_threadCombo;
+    int                   m_activeThread;
     QTreeWidget*          m_stackTree;
     QString               m_lastCommand;
     DebugView*            m_debugView;

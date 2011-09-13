@@ -46,7 +46,7 @@ DebugView::DebugView( QObject* parent )
     m_debugProcess(0),
     m_state( none ),
     m_subState( normal ),
-    m_debugLocationChanged( false )
+    m_debugLocationChanged( true )
 {
 }
 
@@ -356,6 +356,7 @@ void DebugView::processLine( QString line )
     static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );
     static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
     static QRegExp exitProgram( "Program\\s+exited.*" );
+    static QRegExp thread( "\\**\\s+(\\d+)\\sThread.*" );
 
     switch( m_state )
     {
@@ -521,6 +522,17 @@ void DebugView::processLine( QString line )
                 emit stackFrameInfo( stackFrameAny.cap(1), stackFrameAny.cap(2));
             }
             break;
+        case infoThreads:
+            if( PromptStr == line )
+            {
+                m_state = ready;
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+            }
+            else if ( thread.exactMatch( line ) )
+            {
+                emit threadInfo( thread.cap(1).toInt(), (line[0] == '*'));
+            }
+            break;
     }
     outputTextMaybe( line );
 }
@@ -609,6 +621,10 @@ void DebugView::issueCommand( QString const& cmd )
         else if (cmd == "(Q)info stack") {
             m_state = infoStack;
         }
+        else if (cmd == "(Q)info thread") {
+            emit threadInfo( -1 , false );
+            m_state = infoThreads;
+        }
         m_subState = normal;
         m_lastCommand = cmd;
 
@@ -635,13 +651,15 @@ void DebugView::issueNextCommand()
         }
         else 
         {
-            if (m_debugLocationChanged) {
+            // FIXME "thread" needs a better generic solution 
+            if (m_debugLocationChanged || m_lastCommand.startsWith("thread")) {
                 m_debugLocationChanged = false;
                 if (!m_lastCommand.startsWith("(Q)")) {
                     m_nextCommands << "(Q)info stack";
                     m_nextCommands << "(Q)frame";
                     m_nextCommands << "(Q)info args";
                     m_nextCommands << "(Q)info locals";
+                    m_nextCommands << "(Q)info thread";
                     issueNextCommand();
                     return;
                 }

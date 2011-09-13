@@ -73,6 +73,7 @@ Q_SIGNALS:
     void clearBreakpointMarks();
     void stackFrameInfo( QString const& level, QString const& info );
     void stackFrameChanged( int level );
+    void threadInfo( int number, bool avtive );
 
     void infoLocal( QString const& line );
 
@@ -91,7 +92,8 @@ private:
         listingBreakpoints,
         infoStack,
         infoArgs,
-        infoLocals
+        infoLocals,
+        infoThreads
     };
 
     enum SubState

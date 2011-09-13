@@ -388,9 +388,12 @@ void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
   m_lineColLabel->setText(
     i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(position.line() + 1, 0),
          KGlobal::locale()->formatNumber(position.column() + 1, 0)) );
-  
-  m_charsLabel->setText(
-    i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(view->document()->totalCharacters(), 0)));
+
+  if (!m_charsLabel->isHidden())
+  {
+    m_charsLabel->setText(
+      i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(view->document()->totalCharacters(), 0)));
+  }
 }
 
 void KateVSStatusBar::selectionChanged (KTextEditor::View *view)
@@ -461,6 +464,11 @@ void KateVSStatusBar::cursorPositionItemVisibilityChanged(bool visible)
 void KateVSStatusBar::charactersCountItemVisibilityChanged(bool visible)
 {
   m_charsLabel->setVisible(visible);
+
+  if (visible)
+  {
+    updateStatus();
+  }
 }
 
 void KateVSStatusBar::insertModeItemVisibilityChanged(bool visible)

@@ -71,8 +71,11 @@ void LocalsView::addLocal(const QString &vString)
     QString value;
     
     if (m_local.isEmpty()) {
+        if (vString == "No symbol table info available.") {
+            return; /* this is not an error */
+        }
         if (!isValue.exactMatch(vString)) {
-            qDebug() << "Could not parse:" << vString;
+            kDebug() << "Could not parse:" << vString;
             return;
         }
         symbolAndValue << isValue.cap(1);
@@ -80,7 +83,7 @@ void LocalsView::addLocal(const QString &vString)
     }
     else {
         if (!isPrettyValue.exactMatch(m_local)) {
-            qDebug() << "Could not parse:" << m_local;
+            kDebug() << "Could not parse:" << m_local;
             m_local.clear();
             return;
         }

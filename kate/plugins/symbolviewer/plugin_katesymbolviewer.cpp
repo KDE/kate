@@ -73,7 +73,7 @@ KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (QList<KatePluginSymbol
 
 KatePluginSymbolViewerView2::~KatePluginSymbolViewerView2 ()
 {
-    m_views.remove (m_view);
+    m_views.removeAll(m_view);
     delete m_view;
 }
 

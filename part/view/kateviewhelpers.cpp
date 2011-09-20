@@ -1485,7 +1485,7 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     if ( area == FoldingMarkers) {
       // if a folding range exists, fold this one, -> use start line of the range
       int lineToFold = cursorOnLine;
-      if (m_foldingRange && m_foldingRange.start().line() >= 0) {
+      if (m_foldingRange && m_foldingRange->start().line() >= 0) {
         lineToFold = m_foldingRange->start().line();
       }
       KateLineInfo info;

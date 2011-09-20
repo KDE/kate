@@ -24,9 +24,9 @@
 #ifndef DEBUGVIEW_H
 #define DEBUGVIEW_H
 
-#include <QtCore/QProcess>
 #include <QtCore/QObject>
 
+#include <kprocess.h>
 #include <kurl.h>
 
 class DebugView : public QObject
@@ -117,7 +117,7 @@ private:
     KUrl resolveFileName( const QString &fileName );
 
 private:
-    QProcess*           m_debugProcess;
+    KProcess            m_debugProcess;
     QString             m_workingDirectory;
     QString             m_target;
     QString             m_arguments;

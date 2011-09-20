@@ -88,6 +88,7 @@ private Q_SLOTS:
     void threadSelected( int thread );
 
     void showIO( bool show );
+    void addOutputText( QString const& text );
     void addErrorText( QString const& text );
     void clearMarks();
 

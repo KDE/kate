@@ -37,8 +37,6 @@
 #include <signal.h>
 #include <stdlib.h>
 
-static Q_PID getDebuggeePid( Q_PID gdbPid );
-
 static const QString PromptStr = "(prompt)";
 
 DebugView::DebugView( QObject* parent )
@@ -53,16 +51,11 @@ DebugView::DebugView( QObject* parent )
 
 DebugView::~DebugView()
 {
-    if ( m_debugProcess && ( m_debugProcess->state() != QProcess::NotRunning ) )
+    if (  m_debugProcess.state() != QProcess::NotRunning )
     {
-        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
-        if( pid != 0 )
-        {
-            ::kill( pid, SIGKILL );
-        }
-        m_debugProcess->kill();
-        m_debugProcess->blockSignals( true );
-        m_debugProcess->waitForFinished();
+        m_debugProcess.kill();
+        m_debugProcess.blockSignals( true );
+        m_debugProcess.waitForFinished();
     }
 }
 
@@ -81,34 +74,23 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         m_errorList.clear();
 
         //create a process to control GDB
-        m_debugProcess = new QProcess( this );
-        m_debugProcess->setWorkingDirectory( m_workingDirectory );
+        m_debugProcess.setWorkingDirectory( m_workingDirectory );
 
-        //use the shell to find gdb for us, rather than launching gdb directly
-        const char* shell = getenv( "SHELL" );
-        if( shell == NULL )
-        {
-            shell = "/bin/sh";
-        }
-
-        //prepare the m_arguments to pass to shell
-        QStringList args;
-        args.append( "-c" );
-        args.append( "gdb" );
-
-        connect( m_debugProcess, SIGNAL(error(QProcess::ProcessError)),
+        connect( &m_debugProcess, SIGNAL(error(QProcess::ProcessError)),
                             this, SLOT(slotError()) );
 
-        connect( m_debugProcess, SIGNAL(readyReadStandardError()),
+        connect( &m_debugProcess, SIGNAL(readyReadStandardError()),
                             this, SLOT(slotReadDebugStdErr()) );
 
-        connect( m_debugProcess, SIGNAL(readyReadStandardOutput()),
+        connect( &m_debugProcess, SIGNAL(readyReadStandardOutput()),
                             this, SLOT(slotReadDebugStdOut()) );
 
-        connect( m_debugProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
+        connect( &m_debugProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
                             this, SLOT(slotDebugFinished(int,QProcess::ExitStatus)) );
 
-        m_debugProcess->start( shell, args );
+        m_debugProcess.setShellCommand("gdb");
+        m_debugProcess.setOutputChannelMode(KProcess::SeparateChannels);
+        m_debugProcess.start();
 
         m_nextCommands << "set pagination off";
         m_state = ready;
@@ -121,6 +103,7 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
     }
     m_nextCommands << QString("file %1").arg(m_target);
     m_nextCommands << QString("set args %1").arg(m_arguments);
+    m_nextCommands << QString("set inferior-tty /dev/null");
     m_nextCommands << QString("(Q) info breakpoints");
     if (m_arguments.contains(">"))
     {
@@ -176,7 +159,7 @@ void DebugView::slotError()
 
 void DebugView::slotReadDebugStdOut()
 {
-    m_outBuffer += QString::fromLocal8Bit( m_debugProcess->readAllStandardOutput().data() );
+    m_outBuffer += QString::fromLocal8Bit( m_debugProcess.readAllStandardOutput().data() );
     int end=0;
     // handle one line at a time
     do {
@@ -195,7 +178,7 @@ void DebugView::slotReadDebugStdOut()
 
 void DebugView::slotReadDebugStdErr()
 {
-    m_errBuffer += QString::fromLocal8Bit( m_debugProcess->readAllStandardError().data() );
+    m_errBuffer += QString::fromLocal8Bit( m_debugProcess.readAllStandardError().data() );
     int end=0;
     // add whole lines at a time to the error list
     do {
@@ -212,11 +195,9 @@ void DebugView::slotDebugFinished( int /*exitCode*/, QProcess::ExitStatus status
 {
     if( status != QProcess::NormalExit )
     {
-        emit outputText( "***gdb abended***" );
+        emit outputText( i18n("*** gdb exited normally ***") + '\n' );
     }
 
-    delete m_debugProcess;
-    m_debugProcess = NULL;
     m_state = none;
     emit readyForInput( false );
 
@@ -253,58 +234,27 @@ void DebugView::runToCursor( KUrl const& url, int line )
 
 void DebugView::slotInterrupt()
 {
-    switch (m_state)
-    {
-        case executingCmd:
-        {
-            Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
-            if (pid != 0) {
-                ::kill( pid, SIGINT );
-                // update stack and locals
-                m_debugLocationChanged = true;
-            }
-        }
-        break;
-        case infoArgs:
-        case infoLocals:
-        case infoStack:
-            ::kill(m_debugProcess->pid(), SIGINT);
-            break;
-        default:
-            break;
+    if (m_state == executingCmd) {
+        m_debugLocationChanged = true;
+    }
+    int pid = m_debugProcess.pid();
+    if (pid != 0) {
+        ::kill(pid, SIGINT);
     }
 }
 
 void DebugView::slotKill()
 {
-    if( m_state == ready )
+    if( m_state != ready )
     {
-        issueCommand( "kill" );
+        slotInterrupt();
     }
-    else if( m_state == executingCmd )
-    {
-        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
-        if( pid != 0 )
-        {
-            ::kill( pid, SIGKILL );
-        }
-    }
+    issueCommand( "kill" );
 }
 
 void DebugView::slotReRun()
 {
-    if( m_state == ready )
-    {
-        issueCommand( "kill" );
-    }
-    else if( m_state == executingCmd )
-    {
-        Q_PID pid = getDebuggeePid( m_debugProcess->pid() );
-        if( pid != 0 )
-        {
-            ::kill( pid, SIGKILL );
-        }
-    }
+    slotKill();
     m_nextCommands << QString("file %1").arg(m_target);
     m_nextCommands << QString("set args %1").arg(m_arguments);
     m_nextCommands << QString("(Q) info breakpoints");
@@ -630,11 +580,11 @@ void DebugView::issueCommand( QString const& cmd )
 
         if ( cmd.startsWith("(Q)") ) 
         {
-            m_debugProcess->write( cmd.mid(3).toLocal8Bit() + "\n" );
+            m_debugProcess.write( cmd.mid(3).toLocal8Bit() + '\n' );
         }
         else {
-            emit outputText( "(gdb) " + cmd );
-            m_debugProcess->write( cmd.toLocal8Bit() + "\n" );
+            emit outputText( "(gdb) " + cmd + '\n' );
+            m_debugProcess.write( cmd.toLocal8Bit() + '\n' );
         }
     }
 }
@@ -699,45 +649,6 @@ void DebugView::outputTextMaybe( const QString &text )
 {
     if ( !m_lastCommand.startsWith( "(Q)" )  && !text.contains( PromptStr ) )
     {
-        emit outputText( text );
+        emit outputText( text + '\n' );
     }
 }
-
-static Q_PID getDebuggeePid( Q_PID gdbPid )
-{
-    Q_PID                   pid = 0;
-    Q_PID                   parentPid = 0;
-    QDir                    dir( "/proc");
-    QStringList             entries = dir.entryList( QDir::Dirs );
-    QStringList::iterator   iter = entries.begin();
-
-    while(  parentPid != gdbPid && iter != entries.end() )
-    {
-        pid = (*iter).toInt();
-        if( pid != 0 && pid != gdbPid )
-        {
-            QFile   f( QString( "/proc/" + *iter + "/status" ) );
-            if( f.open( QIODevice::ReadOnly | QIODevice::Text ) )
-            {
-                QString line( f.readLine() );
-                parentPid = -1;
-                while( parentPid == -1 && line.length() > 0 )
-                {
-                    QStringList nameValuePair = line.split( '\t' );
-                    if( nameValuePair[0] == "PPid:" )
-                    {
-                        parentPid = nameValuePair[1].toInt();
-                    }
-                    else
-                    {
-                        line = f.readLine();
-                    }
-                }
-            }
-        }
-        iter++;
-    }
-
-    return( parentPid == gdbPid ? pid : 0 );
-}
-

@@ -171,8 +171,8 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_debugView, SIGNAL(readyForInput(bool)),
              this,        SLOT(enableDebugActions(bool)) );
 
-    connect( m_debugView,  SIGNAL(outputText(QString)),
-             m_outputArea, SLOT(append(QString)) );
+    connect( m_debugView, SIGNAL(outputText(QString)),
+             this,        SLOT(addOutputText(QString)) );
 
     connect( m_debugView, SIGNAL(outputError(QString)),
              this,        SLOT(addErrorText(QString)) );
@@ -322,13 +322,26 @@ void KatePluginGDBView::writeSessionConfig( KConfigBase*    config,
 void KatePluginGDBView::slotDebug()
 {
     QString args = m_configView->currentArgs();
+    disconnect(m_ioView, SIGNAL(stdOutText(QString)));
+    disconnect(m_ioView, SIGNAL(stdErrText(QString)));
     if ( m_configView->showIOTab() )
     {
-        args += QString( " < %1 1> %2 2> %3" )
-        .arg( m_ioView->stdinFifo() )
-        .arg( m_ioView->stdoutFifo() )
-        .arg( m_ioView->stderrFifo() );
+        connect(m_ioView, SIGNAL(stdOutText(QString)),
+                m_ioView, SLOT(addStdOutText(QString)));
+        connect(m_ioView, SIGNAL(stdErrText(QString)),
+                m_ioView, SLOT(addStdErrText(QString)));
     }
+    else {
+        connect(m_ioView, SIGNAL(stdOutText(QString)),
+                this,     SLOT(addOutputText(QString)) );
+        connect(m_ioView, SIGNAL(stdErrText(QString)),
+                this,     SLOT(addErrorText(QString)) );
+    }
+    args += QString( " < %1 1> %2 2> %3" )
+    .arg( m_ioView->stdinFifo() )
+    .arg( m_ioView->stdoutFifo() )
+    .arg( m_ioView->stderrFifo() );
+
     enableDebugActions( true );
     m_debugView->runDebugger( m_configView->currentWorkingDirectory(),
                             m_configView->currentExecutable(),
@@ -472,23 +485,22 @@ void KatePluginGDBView::enableDebugActions( bool enable )
     actionCollection()->action( "rerun"             )->setEnabled( m_debugView->debuggerRunning() );
 
     m_inputArea->setEnabled( enable );
+    m_threadCombo->setEnabled( enable );
     m_stackTree->setEnabled( enable );
     m_localsView->setEnabled( enable );
-    if ( enable )
-    {
+
+    if ( enable )  {
         m_inputArea->setFocusPolicy( Qt::WheelFocus );
-        if ( m_focusOnInput || m_configView->takeFocusAlways() )
-        {
+
+        if ( m_focusOnInput || m_configView->takeFocusAlways() ) {
             m_inputArea->setFocus();
             m_focusOnInput = false;
         }
-        else
-        {
+        else {
             mainWindow()->activeView()->setFocus();
         }
     }
-    else
-    {
+    else {
         m_inputArea->setFocusPolicy( Qt::NoFocus );
         if ( mainWindow()->activeView() ) mainWindow()->activeView()->setFocus();
     }
@@ -500,16 +512,13 @@ void KatePluginGDBView::enableDebugActions( bool enable )
         KTextEditor::MarkInterface* iface =
         qobject_cast<KTextEditor::MarkInterface*>( m_kateApplication->documentManager()->findUrl( m_lastExecUrl ) );
 
-        if (iface)
-        {
-            if ( enable )
-            {
+        if (iface) {
+            if ( enable ) {
                 iface->setMarkDescription(KTextEditor::MarkInterface::Execution, i18n("Execution point"));
                 iface->setMarkPixmap(KTextEditor::MarkInterface::Execution, KIcon("arrow-right").pixmap(10,10));
                 iface->addMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
             }
-            else
-            {
+            else {
                 iface->removeMark( m_lastExecLine, KTextEditor::MarkInterface::Execution );
             }
         }
@@ -724,10 +733,18 @@ void KatePluginGDBView::showIO( bool show )
     }
 }
 
+void KatePluginGDBView::addOutputText( QString const& text )
+{
+    QTextCursor cursor = m_outputArea->textCursor();
+    if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
+    cursor.insertText(text);
+    m_outputArea->verticalScrollBar()->setValue(m_outputArea->verticalScrollBar()->maximum());
+}
+
 void KatePluginGDBView::addErrorText( QString const& text )
 {
     m_outputArea->setFontItalic( true );
-    m_outputArea->append( text );
+    addOutputText( text );
     m_outputArea->setFontItalic( false );
 }
 

@@ -36,19 +36,27 @@ Q_OBJECT
 public:
     IOView(QWidget *parent = 0);
     ~IOView();
-    
+
     const QString stdinFifo();
     const QString stdoutFifo();
     const QString stderrFifo();
-    
+
     void enableInput(bool enable);
-    
+
     void clearOutput();
+
+public Q_SLOTS:
+    void addStdOutText(const QString &text);
+    void addStdErrText(const QString &text);
 
 private Q_SLOTS:
     void returnPressed();
     void readOutput();
     void readErrors();
+
+Q_SIGNALS:
+    void stdOutText(const QString &text);
+    void stdErrText(const QString &text);
 
 private:
     void createFifos();

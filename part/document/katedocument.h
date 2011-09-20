@@ -815,7 +815,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     void setDocName (const QString &docName);
 
-    void lineInfo (KateLineInfo *info, unsigned int line);
+    void lineInfo (KateLineInfo *info, int line);
 
      KateCodeFoldingTree *foldingTree ();
 

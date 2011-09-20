@@ -966,8 +966,8 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, int line)
        }
      }
 
-     // If our node it's a end node
-     else {
+     // If our node it's an end node
+     else if (node->m_type < 0){
        // check if it's matching node is the rood node (is invalid)
        if (node->m_parentNode->getStartMatching(node)->m_type) {
          info->endsBlock = true;

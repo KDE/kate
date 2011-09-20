@@ -535,6 +535,12 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 {
     if (!item) return;
 
+    if ((item->parent()==0) && (item->child(0))) {
+        item->treeWidget()->expandItem(item);
+        item = item->child(0);
+        item->treeWidget()->setCurrentItem(item);
+    }
+
     // get stuff
     const QString url = item->data(0, Qt::UserRole).toString();
     if (url.isEmpty()) return;

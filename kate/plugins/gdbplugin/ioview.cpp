@@ -152,10 +152,7 @@ void IOView::readOutput()
     } while (res == 255);
     
     if (data.size() > 0) {
-        QTextCursor cursor = m_output->textCursor();
-        if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
-        cursor.insertText(QString::fromLocal8Bit(data));
-        m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
+        emit stdOutText(QString::fromLocal8Bit(data));
     }
     m_stdoutNotifier->setEnabled(true);
 }
@@ -178,14 +175,24 @@ void IOView::readErrors()
     } while (res == 255);
 
     if (data.size() > 0) {
-        m_output->setFontItalic(true);
-        QTextCursor cursor = m_output->textCursor();
-        if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
-        cursor.insertText(QString::fromLocal8Bit(data));
-        m_output->setFontItalic(false);
-        m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
+        emit stdErrText(QString::fromLocal8Bit(data));
     }
     m_stderrNotifier->setEnabled(true);
+}
+
+void IOView::addStdOutText(const QString &text)
+{
+    QTextCursor cursor = m_output->textCursor();
+    if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
+    cursor.insertText(text);
+    m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
+}
+
+void IOView::addStdErrText(const QString &text)
+{
+    m_output->setFontItalic(true);
+    addStdOutText(text);
+    m_output->setFontItalic(false);
 }
 
 QString IOView::createFifo(const QString &prefix)

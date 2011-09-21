@@ -37,13 +37,16 @@ class View;
 class MovingRangeFeedback;
 
 /**
- * \short A range which is bound to a specific Document, and maintains its position.
+ * \short A range that is bound to a specific Document, and maintains its
+ *  position.
  *
  * \ingroup kte_group_moving_classes
  *
+ * \section movingrange_intro Introduction
+ *
  * A MovingRange is an extension of the basic Range class. It maintains its
- * position in the document. As a result of this, MovingRange%s may not be copied, as they need
- * to maintain a connection to the associated Document.
+ * position in the document. As a result of this, MovingRange%s may not be
+ * copied, as they need to maintain a connection to the associated Document.
  *
  * Create a new MovingRange like this:
  * \code
@@ -57,9 +60,60 @@ class MovingRangeFeedback;
  * \endcode
  *
  * When finished with a MovingRange, simply delete it.
- * If the document the cursor belong to is deleted, it will get deleted automatically.
+ * If the document the cursor belong to is deleted, it will get deleted
+ * automatically.
  *
- * \sa Cursor, MovingCursor, Range and MovingInterface.
+ * \section movingrange_behavior Editing Behavior
+ *
+ * The insert behavior controls how the range reacts to characters inserted
+ * at the range boundaries, i.e. at the start of the range or the end of the
+ * range. Either the range boundary moves with text insertion, or it stays.
+ * Use setInsertBehaviors() and insertBehaviors() to set and query the current
+ * insert behavior.
+ *
+ * When the start() and end() Cursor of a range equal, isEmpty() returns true.
+ * Further, the empty-behavior can be changed such that the start() and end()
+ * Cursor%s of MovingRange%s that get empty are automatically set to (-1, -1).
+ * Use setEmptyBehavior() and emptyBehavior() to control the empty behavior.
+ *
+ * \warning MovingRanges may be set to (-1, -1, -1, -1) at any time, if the
+ * user reloads a document (F5)! Use a MovingRangeFeedback to get  notified
+ * if you need to catch this case.
+ * 
+ * \section movingrange_feedback MovingRange Feedback
+ *
+ * With setFeedback() a feedback instance can be associated with the moving
+ * range. The MovingRangeFeedback notifies about the following events:
+ * - the text cursor (caret) entered the range,
+ * - the text cursor (caret) left the range,
+ * - the mouse cursor entered the range,
+ * - the mouse cursor left the range,
+ * - the range got empty, i.e. start() == end(),
+ * - the range got invalid, i.e. start() == end() == (-1, -1).
+ *
+ * If a feedback is not needed anymore, call setFeedback(0).
+ *
+ * \section movingrange_details Working with Ranges
+ *
+ * There are several convenience methods that make working with MovingRanges
+ * very simple. For instance, use isEmpty() to check if the start() Cursor
+ * equals the end() Cursor. Use contains(), containsLine() or containsColumn()
+ * to check whether the MovingRange contains a Range, a Cursor, a line or
+ * column. The same holds for overlaps(), overlapsLine() and overlapsColumn().
+ * Besides onSingleLine() returns whether a MovingRange spans only one line.
+ *
+ * For compatibility, a MovingRange can be explicitely converted to a simple
+ * Range by calling toRange(), or implicitely by the Range operator.
+ *
+ * \section movingrange_highlighting Arbitrary Highlighting
+ *
+ * With setAttribute() highlighting Attribute%s can be assigned to a
+ * MovingRange. By default, this highlighting is used in all views of a
+ * document. Use setView(), if the highlighting should only appear in a
+ * specific view. Further, if the additional highlighting should not be
+ * printed call setAttributeOnlyForViews() with the parameter true.
+ *
+ * \sa Cursor, MovingCursor, Range, MovingInterface, MovingRangeFeedback
  *
  * \author Christoph Cullmann \<cullmann@kde.org\>
  *

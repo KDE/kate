@@ -102,8 +102,8 @@ class MovingRangeFeedback;
  * column. The same holds for overlaps(), overlapsLine() and overlapsColumn().
  * Besides onSingleLine() returns whether a MovingRange spans only one line.
  *
- * For compatibility, a MovingRange can be explicitely converted to a simple
- * Range by calling toRange(), or implicitely by the Range operator.
+ * For compatibility, a MovingRange can be explicitly converted to a simple
+ * Range by calling toRange(), or implicitly by the Range operator.
  *
  * \section movingrange_highlighting Arbitrary Highlighting
  *
@@ -145,7 +145,7 @@ class KTEXTEDITOR_EXPORT MovingRange
     };
 
   //
-  // stuff that needs to be implemented by editor part cusors
+  // stuff that needs to be implemented by editor part cursors
   //
   public:
     /**

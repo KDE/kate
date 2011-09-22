@@ -705,7 +705,7 @@ void KatePluginSearchView::addTab()
     Results *res = new Results();
     
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this,      SLOT  (itemSelected(QTreeWidgetItem*)));
+            this,      SLOT  (itemSelected(QTreeWidgetItem*)), Qt::QueuedConnection);
 
     connect(res->replaceButton, SIGNAL(clicked(bool)), this, SLOT(replaceChecked()));
     connect(res->replaceCombo,  SIGNAL(returnPressed()), this, SLOT(replaceChecked()));

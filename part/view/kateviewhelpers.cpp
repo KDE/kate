@@ -1206,22 +1206,27 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         // ... with possible additional folding highlighting
         if (m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
           p.save();
-          p.setClipRect(lnX, y, lnX+iconPaneWidth, y+h);
-          p.setRenderHint(QPainter::Antialiasing);
 
           // use linear gradient as brush
           QLinearGradient g(lnX, y, lnX + iconPaneWidth, y);
           g.setColorAt(0, m_foldingHighlightColor);
-          g.setColorAt(0.3, m_foldingHighlightColor.lighter(125));
+          g.setColorAt(0.3, m_foldingHighlightColor.lighter(110));
           g.setColorAt(1, m_foldingHighlightColor);
           p.setBrush(g);
-          p.setPen(m_foldingHighlightColor.lighter());
+          p.setPen(m_foldingHighlightColor);
 
-          const qreal r = iconPaneWidth / 4.0;
-          if (m_foldingRange->start().line() == realLine) {
-            p.drawRoundedRect(lnX, y, iconPaneWidth, h + r, r, r);
-          } else if (m_foldingRange->end().line() == realLine) {
-            p.drawRoundedRect(lnX, y-r, iconPaneWidth, h + r, r, r);
+          p.setClipRect(lnX, y, iconPaneWidth, h);
+          p.setRenderHint(QPainter::Antialiasing);
+
+          const qreal r = 4.0;
+          if (m_foldingRange->start().line() == realLine &&
+              m_viewInternal->cache()->viewLine(z).viewLine() == 0)
+          {
+            p.drawRect(lnX, y, iconPaneWidth, h + r);
+          } else if (m_foldingRange->end().line() == realLine &&
+              m_viewInternal->cache()->viewLine(z).viewLine() == m_viewInternal->cache()->viewLineCount(realLine)-1)
+          {
+            p.drawRect(lnX, y-r, iconPaneWidth, h + r);
           } else {
             p.drawRect(lnX, y-r, iconPaneWidth, h+2*r);
           }

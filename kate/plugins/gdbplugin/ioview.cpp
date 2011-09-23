@@ -182,10 +182,17 @@ void IOView::readErrors()
 
 void IOView::addStdOutText(const QString &text)
 {
+    QScrollBar *scrollb = m_output->verticalScrollBar();
+    if (!scrollb) return;
+    bool atEnd = (scrollb->value() == scrollb->maximum());
+
     QTextCursor cursor = m_output->textCursor();
     if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
     cursor.insertText(text);
-    m_output->verticalScrollBar()->setValue(m_output->verticalScrollBar()->maximum());
+
+    if (atEnd) {
+        scrollb->setValue(scrollb->maximum());
+    }
 }
 
 void IOView::addStdErrText(const QString &text)

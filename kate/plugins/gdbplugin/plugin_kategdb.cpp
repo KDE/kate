@@ -735,10 +735,17 @@ void KatePluginGDBView::showIO( bool show )
 
 void KatePluginGDBView::addOutputText( QString const& text )
 {
+    QScrollBar *scrollb = m_outputArea->verticalScrollBar();
+    if (!scrollb) return;
+    bool atEnd = (scrollb->value() == scrollb->maximum());
+
     QTextCursor cursor = m_outputArea->textCursor();
     if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
     cursor.insertText(text);
-    m_outputArea->verticalScrollBar()->setValue(m_outputArea->verticalScrollBar()->maximum());
+
+    if (atEnd) {
+        scrollb->setValue(scrollb->maximum());
+    }
 }
 
 void KatePluginGDBView::addErrorText( QString const& text )

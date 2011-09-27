@@ -55,14 +55,17 @@ QWidget(parent)
     
     buildLabel = new QLabel(i18n("Build"), this);
     buildCmd = new KLineEdit(this);
+    buildCmd->setClearButtonShown(true);
     
     cleanLabel = new QLabel(i18n("Clean"), this);
     cleanCmd = new KLineEdit(this);
+    cleanCmd->setClearButtonShown(true);
     
     quickLabel = new QLabel(i18n("Quick compile"), this);
     quickCmd = new KLineEdit(this);
     quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
-
+    quickCmd->setClearButtonShown(true);
+    
     dirLabel->setBuddy(buildDir);
     buildLabel->setBuddy(buildCmd);
     cleanLabel->setBuddy(cleanCmd);

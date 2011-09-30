@@ -1076,8 +1076,8 @@ of text while loading/saving the file.</para>
 <listitem>
 <para>The editor will search the given number of folder levels upwards
 for &kappname; config file and load the settings line from it.
-Further information about these hidden folder config files you find in the article
-<ulink url="http://kate-editor.org/article/.kateconfig">The File .kateconfig</ulink>.
+Further information about these hidden folder config files you find in the
+<link linkend="config-variables">document variables section</link>.
 </para>
 </listitem>
 </varlistentry>
@@ -1348,12 +1348,12 @@ timedate not build? plugin is for howto-write-a-plugin purposes!
 
 <title>Configuring With Document Variables</title>
 
-<para>Kate variables is kateparts implementation of document variables, similar
-to emacs and vi modelines. In katepart, the lines have the format
+<para>&kate; variables is katepart's implementation of document variables, similar
+to emacs and vi modelines. In katepart, the lines have the following format:
 
 <userinput>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput>
 
-the lines can of course be in a comment, if the file is in a format with comments.
+The lines can of course be in a comment, if the file is in a format with comments.
 Variable names are single words (no whitespace), and anything up to the next
 semicolon is the value. The semicolon is required.</para>
 
@@ -1364,6 +1364,14 @@ java or javascript file:
 </para>
 
 <note><para>Only the first and last 10 lines are searched for variable lines.</para></note>
+
+<para>Additionally, document variables can be placed in a file called
+<filename>.kateconfig</filename> in any directory, and the configured settings will
+be applied as if the modelines were entered on every file in the directory and its
+subdirectories, as far down as the
+<link linkend="pref-open-save-advanced">configured search depth.</link>
+Document variables in <filename>.kateconfig</filename> use the same syntax as
+in modelines.</para>
 
 <para>There are variables to support almost all configurations in katepart, and
 additionally plugins can use variables, in which case it should be documented in
@@ -1379,20 +1387,21 @@ the plugin's documentation.</para>
 <listitem><para>The global configuration.</para></listitem>
 <listitem><para>Optional session data.</para></listitem>
 <listitem><para>The "Filetype" configuration.</para></listitem>
+<listitem><para>Document variables in <filename>.kateconfig</filename>.</para></listitem>
 <listitem><para>Document variables in the document itself.</para></listitem>
 <listitem><para>Settings made during editing from menu or command line.</para></listitem>
 </itemizedlist>
 
-As you can understand document variables has the next highest precedence.
+As you see, document variables are only overriden by changes made at runtime.
 Whenever a document is saved, the document variables are reread, and will
 overwrite changes made using menu items or the command line.</para>
 
 <para>Any variable not listed below is stored in the document and can be queried
 by other objects such as plugins, which can use them for their own purpose.
-For example the variable indent mode uses document variables for its
+For example, the variable indent mode uses document variables for its
 configuration.</para>
 
-<para>The variables listed here documents &kate; version 2.4. More variables
+<para>The variables listed here documents &kate; version 3.7. More variables
 may be added in the future. There are 3 possible types of values for variables,
 with the following valid expressions:
 <itemizedlist>
@@ -1418,41 +1427,46 @@ with the following valid expressions:
 <varlistentry id="variable-auto-insert-doxygen">
 <term><cmdsynopsis><command>auto-insert-doxygen</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turn insertion of the leading asterisk in doxygen comments on or
-off. This has no effect unless you use the cstyle auto-indenter. </para></listitem>
+off. This has no effect unless you use the C-sytle auto-indenter. </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-background-color">
 <term><cmdsynopsis><command>background-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the document background color. The value must be something
-that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-backspace-indents">
 <term><cmdsynopsis><command>backspace-indents</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Turn backspace indenting on or off.</para></listitem>
+<listitem><para>Enable or disable unindenting when &Backspace; is pressed.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-block-selection">
 <term><cmdsynopsis><command>block-selection</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Turn block selection on or off.</para></listitem>
+<listitem><para>Turn <link linkend="kate-part-selection-block">block selection</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-byte-order-marker">
 <term><cmdsynopsis><command>bom | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Enable/disable the byte order marker when saving files in unicode format (utf8, utf16, utf32).</para>
+<listitem><para>Enable/disable the byte order marker when saving files in unicode format
+(utf8, utf16, utf32).</para>
 <para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-bracket-highlight-color">
 <term><cmdsynopsis><command>bracket-highlight-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the bracket highlight. The value must be
-something that can be evaluated to a valid color, for example "#ff0000" </para></listitem>
+something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-current-line-color">
 <term><cmdsynopsis><command>current-line-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the current line. The  value must be
-something that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-default-dictionary">
@@ -1463,18 +1477,21 @@ something that can be evaluated to a valid color, for example "#ff0000".</para><
 
 <varlistentry id="variable-dynamic-word-wrap">
 <term><cmdsynopsis><command>dynamic-word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Turns dynamic word wrap on or off.</para></listitem>
+<listitem><para>Turns <link linkend="kate-part-auto-wrap">dynamic word wrap</link> on or
+off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-end-of-line">
 <term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the end of line mode. Valid settings are
-<quote>unix</quote>, <quote>mac</quote> and <quote>dos</quote></para></listitem>
+<userinput>unix</userinput>, <userinput>mac</userinput> and <userinput>dos</userinput></para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-folding-markers">
 <term><cmdsynopsis><command>folding-markers</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set the display of folding markers on or off.</para></listitem>
+<listitem><para>Set the display of
+<link linkend="advanced-editing-tools-code-folding">folding markers</link> on or off.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-font-size">
@@ -1485,18 +1502,19 @@ something that can be evaluated to a valid color, for example "#ff0000".</para><
 <varlistentry id="variable-font">
 <term><cmdsynopsis><command>font</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the font of the document. The value should be a valid font
-name, for example <quote>courier</quote>.</para></listitem>
+name, for example <userinput>courier</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-syntax">
 <term><cmdsynopsis><command>hl | syntax</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Set the syntax highlighting. Valid strings are all the names available in the menus. For instance, for C++ simply write <literal>C++</literal>.</para></listitem>
+<listitem><para>Set the syntax highlighting. Valid strings are all the names available
+in the menus.  For instance, for C++ simply write <userinput>C++</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-icon-bar-color">
 <term><cmdsynopsis><command>icon-bar-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the icon bar color. The  value must be something that can
-be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></listitem>
+be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-icon-border">
@@ -1506,10 +1524,10 @@ be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></l
 
 <varlistentry id="variable-indent-mode">
 <term><cmdsynopsis><command>indent-mode</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Set the auto-indentation mode. The options <quote>none</quote>,
-<quote>normal</quote>, <quote>cstyle</quote>, <quote>haskell</quote>,
-<quote>lilypond</quote>, <quote>lisp</quote>, <quote>python</quote>,
-<quote>ruby</quote> and <quote>xml</quote> are recognized. See the section
+<listitem><para>Set the auto-indentation mode. The options <userinput>none</userinput>,
+<userinput>normal</userinput>, <userinput>cstyle</userinput>, <userinput>haskell</userinput>,
+<userinput>lilypond</userinput>, <userinput>lisp</userinput>, <userinput>python</userinput>,
+<userinput>ruby</userinput> and <userinput>xml</userinput> are recognized. See the section
 <xref linkend="kate-part-autoindent"/> for details.</para></listitem>
 </varlistentry>
 
@@ -1541,7 +1559,8 @@ be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></l
 
 <varlistentry id="variable-persistent-selection">
 <term><cmdsynopsis><command>persistent-selection</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set persistent selection on or off.</para></listitem>
+<listitem><para>Set <link linkend="kate-part-selection-persistent">persistent selection</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-remove-trailing-space">
@@ -1551,12 +1570,12 @@ be evaluated to a valid color, for example <literal>#ff0000</literal>.</para></l
 
 <varlistentry id="variable-replace-tabs-save">
 <term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set tab-&gt;space conversion on save on or off.</para></listitem>
+<listitem><para>Set tab to space conversion on save on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-replace-tabs">
 <term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set dynamic tab-&gt;space conversion on or off.</para></listitem>
+<listitem><para>Set dynamic tab to space conversion on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-replace-trailing-space-save">
@@ -1573,33 +1592,35 @@ scheme that exists in your configuration to have any effect.</para></listitem>
 <varlistentry id="variable-selection-color">
 <term><cmdsynopsis><command>selection-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the selection color. The  value must be something that can
-be evaluated to a valid color, for example "#ff0000".</para></listitem>
+be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-show-tabs">
 <term><cmdsynopsis><command>show-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set the visual TAB character on or off.</para></listitem>
+<listitem><para>Set the visual &Tab; character on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-smart-home">
 <term><cmdsynopsis><command>smart-home</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set smart home navigation on or off.</para></listitem>
+<listitem><para>Set <link linkend="pref-edit-cursor-selection">smart home navigation</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-space-indent">
 <term><cmdsynopsis><command>space-indent</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set indentation with spaces on or off.</para>
-<para>Note: Deprecated since Kate 3 in KDE4. Mixed indentation is the default behavior. Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
+<para>Note: Deprecated since Kate 3 in KDE4. Mixed indentation is the default behavior.
+Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-tab-indents">
 <term><cmdsynopsis><command>tab-indents</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set the TAB key indentation on or off.</para></listitem>
+<listitem><para>Set &Tab; key indentation on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-tab-width">
 <term><cmdsynopsis><command>tab-width</command><arg>INT</arg></cmdsynopsis></term>
-<listitem><para>Set the tab display width.</para></listitem>
+<listitem><para>Set the tab character display width.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-undo-steps">
@@ -1610,18 +1631,19 @@ be evaluated to a valid color, for example "#ff0000".</para></listitem>
 
 <varlistentry id="variable-word-wrap-column">
 <term><cmdsynopsis><command>word-wrap-column</command><arg>INT</arg></cmdsynopsis></term>
-<listitem><para>Set the hard word wrap width.</para></listitem>
+<listitem><para>Set the <link linkend="kate-part-auto-wrap">static word wrap</link>
+width. </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap-marker-color">
 <term><cmdsynopsis><command>word-wrap-marker-color</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Set the word wrap marker color. The  value must be something
-that can be evaluated to a valid color, for example "#ff0000".</para></listitem>
+<listitem><para>Set the word wrap marker color. The value must be something
+that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap">
 <term><cmdsynopsis><command>word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set hard word wrapping on or off.</para></listitem>
+<listitem><para>Set static word wrapping on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-wrap-cursor">

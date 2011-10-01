@@ -1050,7 +1050,7 @@ The Search in Files plugin typically doesn't follow
 When this option is enabled, the plugin will follow them instead and search inside
 the files or folders they reference.
 </para>
-<warning><para>It's possible for symbolic links to refrence a folder that is the
+<warning><para>It's possible for symbolic links to reference a folder that is the
 parent of the folder currently being searched, or other folders that contain
 symbolic links to their parent.  If there is such a link in the folder being
 searched and this option is enabled, &kappname; will repeatedly follow the link

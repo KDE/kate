@@ -1427,7 +1427,7 @@ with the following valid expressions:
 <varlistentry id="variable-auto-insert-doxygen">
 <term><cmdsynopsis><command>auto-insert-doxygen</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Turn insertion of the leading asterisk in doxygen comments on or
-off. This has no effect unless you use the C-sytle auto-indenter. </para></listitem>
+off. This has no effect unless you use the C-style auto-indenter. </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-background-color">

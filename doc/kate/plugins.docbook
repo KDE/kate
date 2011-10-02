@@ -877,6 +877,245 @@ search for text in the files of a folder.</para>
 </sect2>
 </sect1>
 
+<sect1 id="kate-application-plugin-searchinfiles">
+<sect1info>
+<authorgroup><author>
+<firstname>T.C.</firstname>
+<surname>Hollingsworth</surname>
+<affiliation><address><email>tchollingsworth@gmail.com</email></address></affiliation>
+</author></authorgroup>
+</sect1info>
+<title>Search in Files</title>
+
+<sect2 id="searchinfiles-intro">
+<title>Introduction</title>
+<para>&kappname;'s Search in Files plugin allows you to search for text or
+<link linkend="regular-expressions">regular expressions</link> in many different
+files at once.  You can search all open files, or all the files in one directory,
+and optionally its subdirectories.  You can even filter by filename, for instance
+searching only files that end with a particular file extension.</para>
+
+<para>The Search in Files plugin is not enabled by default, as it is new in &kappname;
+3.7.  Enable it in the <link linkend="config-dialog-plugins">Plugins</link> panel
+of &kappname;'s settings.  If it works well for everyone, it will replace the
+<link linkend="kate-application-plugin-findinfiles">Find in Files plugin</link>
+in the next version of &kappname;.</para>
+
+</sect2>
+
+<sect2 id="searchinfiles-ui">
+<title>Interface</title>
+
+<sect3 id="searchinfiles-ui-query">
+<title>Search Query</title>
+
+<para>The following options are always displayed at the top of the Search in
+Files tool view:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guiicon>New Tab</guiicon></term>
+<listitem><para>
+You can have as many searches as you want open at the same time.  Simply click
+the <guibutton>New Tab</guibutton> button at the top-left corner of the Search
+tool view and a new results tab will open permitting you to perform another
+search.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Query</term>
+<listitem><para>
+The long text box at the top is where you type in what you want to find.  You may
+enter standard text, or a regular expression if enabled.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Search</guibutton></term>
+<listitem><para>
+When you've finished configuring everything, just press the
+<guibutton>Search</guibutton> button to perform your search.  You may also press
+&Enter; in the Query text box to do the same.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenu>Location</guimenu></term>
+<listitem><para>
+This has two options.  Select <guilabel>in Open Files</guilabel> to search all
+files currently open in &kappname;.  Select <guilabel>in Folder</guilabel> to
+search inside a folder and optionally its subfolders.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenu>Options</guimenu></term>
+<listitem><para>
+There are two available options.  If enabled, <guilabel>Match case</guilabel>
+will restrict search results to only those that have the exact same combination
+of upper and lower-case letters as your search query.  <guilabel>Regular
+expressions</guilabel> permits you to use
+<link linkend="regular-expressions">regular expressions</link> instead of simple
+text as your search query.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guiicon>Toggle Results</guiicon></term>
+<listitem><para>
+The down arrow in the top right-corner of the Search in Files tool view will
+toggle the bottom half of the tool view between displaying additional options
+for the Search in Folder mode and the results of your search.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="searchinfiles-ui-folder">
+<title>Search in Folder Options</title>
+
+<para>These options are displayed below the aforementioned query options. If search
+results are being displayed instead, press the <guiicon>Toggle Results</guiicon>
+button to display them.  These options apply only when Search in Folder mode is
+enabled.  If Search in Open Files is selected, they will be disabled.</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Folder</guilabel></term>
+<listitem><para>
+You may enter the path of the folder you wish to search.  For instance, you might
+enter <userinput>~/development/kde/kate/</userinput> if you wished to search the
+&kate; source code.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guiicon>Open file dialog</guiicon></term>
+<listitem><para>
+Press this button to locate for the folder in your desktop's folder browser.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guiicon>Up</guiicon></term>
+<listitem><para>
+Press this button to change <guilabel>Folder</guilabel> to the parent of the
+currently selected folder.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guiicon>Restore Current Folder</guiicon></term>
+<listitem><para>
+This button will set the <guilabel>Folder</guilabel> entry to the folder in which
+the currently open document is located.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Filter</guilabel></term>
+<listitem><para>
+This permits you to only search filenames that match a particular pattern.  For
+instance, to only search files written in C++, change it to
+<userinput>*.cpp</userinput>.  To search only files beginning with
+<literal>kate</literal>, change it to <userinput>kate*</userinput>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Recursive</guilabel></term>
+<listitem><para>
+If this option is enabled, &kappname; will also search in all subfolders of the
+selected folder.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Include hidden</guilabel></term>
+<listitem><para>
+If this option is enabled, &kappname; will also search in files or folders that
+are typically hidden by your &OS;.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Follow symbolic links</guilabel></term>
+<listitem><para>
+The Search in Files plugin typically doesn't follow
+<ulink url="http://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
+When this option is enabled, the plugin will follow them instead and search inside
+the files or folders they reference.
+</para>
+<warning><para>It's possible for symbolic links to reference a folder that is the
+parent of the folder currently being searched, or other folders that contain
+symbolic links to their parent.  If there is such a link in the folder being
+searched and this option is enabled, &kappname; will repeatedly follow the link
+and search the folder, and the search will never complete.</para></warning>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="searchinfiles-ui-results">
+<title>Search Results</title>
+
+<para>The results of your search are displayed below the query options.  If
+options for Search in Folder mode are displayed, simply press the
+<guiicon>Toggle Results</guiicon> button to display them.  They will also
+automatically be displayed as soon as a search is performed.</para>
+
+<para>The search results displays three columns providing information about each
+result of your search query.  The <guilabel>File</guilabel> column shows the name
+of the file.  The <guilabel>Line</guilabel> column displays the line number the
+contents of your query were found in.  The <guilabel>Text</guilabel> column displays
+the full text of that line.</para>
+
+<para>To open the file your result was found in, simply double-click it.  &kappname;
+will open the file if needed, and place the cursor at the beginning of the text
+entered as your query as found in the file.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="searchinfiles-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<!--<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Find in Files...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launch the <guilabel>Find in Files</guilabel> dialog to allow you to
+search for text in the files of a folder.</para>
+</listitem>
+</varlistentry>-->
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Search in Files</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Toggle the display of &kappname;'s <guilabel>Search in Files</guilabel> tool.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
 <sect1 id="kate-application-plugin-mail">
 <!--<sect1info>
 <authorgroup><author>

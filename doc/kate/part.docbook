@@ -484,7 +484,7 @@ use the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Next</guimenuitem>
 </sect1>
 
 <sect1 id="kate-part-auto-wrap">
-
+<!--dynamic word wrap needs description here-->
 <title>Automatically Wrapping text</title>
 
 <para>This feature allows you to have the text formatted in a very simple way: the text will be wrapped,

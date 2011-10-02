@@ -28,7 +28,7 @@
 
 -->
 
-<language name="CSS" version="2.04" kateversion="2.4" section="Markup" extensions="*.css" indenter="cstyle"
+<language name="CSS" version="2.05" kateversion="2.4" section="Markup" extensions="*.css" indenter="cstyle"
           mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
@@ -562,7 +562,7 @@
 
       <!-- finds arguments to properties -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindValues">
-	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+(em|ex|px|in|cm|mm|pt|pc|deg|rad|grad|ms|s|Hz|kHz)\b" />
+	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+(em|ex|ch|rem|vw|vh|vm|px|in|cm|mm|pt|pc|deg|rad|grad|turn|ms|s|Hz|kHz)\b" />
 	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+[%]?" />
 	<RegExpr attribute="Normal Text" context="#stay" String="[\w\-]+" />
       </context>

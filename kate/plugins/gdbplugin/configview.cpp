@@ -521,6 +521,14 @@ void ConfigView::updateCurrentTargetDescription( int field, QString const& value
 {
     int         targetIndex = m_targets->currentIndex();
     QStringList targetDescription = m_targets->itemData( targetIndex ).toStringList();
+    
+    /**
+     * ensure description has enough entries
+     */
+    while (field >= targetDescription.size ())
+      targetDescription.append (QString());
+    
     targetDescription[field] = value;
+    
     m_targets->setItemData( targetIndex, targetDescription );
 }

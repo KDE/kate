@@ -181,6 +181,9 @@ m_curResults(0)
     m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
     m_ui.newTabButton->setIcon(KIcon("tab-new"));
 
+    m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. example: \"*.cpp,*.h\"\n"
+    "NOTE: Put a minus sign ('-') in front of the list to make it into an exclude list. example: \"-*.o,*.obj\""));
+
     int padWidth = m_ui.folderLabel->width();
     padWidth = qMax(padWidth, m_ui.filterLabel->width());
     m_ui.gridLayout->setColumnMinimumWidth(0, padWidth);

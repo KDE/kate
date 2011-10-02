@@ -54,13 +54,15 @@ private:
     void searchFile(const QFileInfo &item);
 
 private:
-    QRegExp     m_regExp;
-    bool        m_cancelSearch;
-    bool        m_recursive;
-    bool        m_hidden;
-    bool        m_symlinks;
-    QStringList m_types;
-    QString     m_folder;
+    QRegExp          m_regExp;
+    bool             m_cancelSearch;
+    bool             m_recursive;
+    bool             m_hidden;
+    bool             m_symlinks;
+    QStringList      m_types;
+    QString          m_folder;
+    QVector<QRegExp> m_excludeList;
+
 };
 
 

@@ -38,9 +38,23 @@ void SearchFolder::startSearch(const QString &folder,
     m_recursive    = recursive;
     m_hidden       = hidden;
     m_symlinks     = symlinks;
-    m_types        = types.split(',');
     m_folder       = folder;
     m_regExp       = regexp;
+    m_excludeList.clear();
+
+    if (types.startsWith('-')) {
+        m_types = QStringList("*");
+        QString tmpStr = types;
+        QStringList tmpStrList((tmpStr.remove(0,1)).split(','));
+        for (int i=0; i<tmpStrList.size(); i++) {
+            QRegExp rx(tmpStrList[i]);
+            rx.setPatternSyntax(QRegExp::Wildcard);
+            m_excludeList << rx;
+        }
+    }
+    else {
+        m_types = types.split(',');
+    }
 
     start();
 }
@@ -78,11 +92,21 @@ void SearchFolder::handleNextItem(const QFileInfo &item)
         if (m_recursive) filter |= QDir::AllDirs;
         if (!m_symlinks) filter |= QDir::NoSymLinks;
 
-        QFileInfoList currentItems = currentDir.entryInfoList (m_types, filter);
-        
+        QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter);
+
+        bool skip;
         for (int i = 0; i<currentItems.size(); ++i) {
             if (m_cancelSearch) return;
-            handleNextItem(currentItems[i]);
+            skip = false;
+            for (int j=0; j<m_excludeList.size(); j++) {
+                if (m_excludeList[j].exactMatch(currentItems[i].fileName())) {
+                    skip = true;
+                    break;
+                }
+            }
+            if (!skip) {
+                handleNextItem(currentItems[i]);
+            }
         }
     }
 }

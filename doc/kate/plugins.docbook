@@ -897,7 +897,7 @@ searching only files that end with a particular file extension.</para>
 
 <para>The Search in Files plugin is not enabled by default, as it is new in &kappname;
 3.7.  Enable it in the <link linkend="config-dialog-plugins">Plugins</link> panel
-of &kappname;'s settings.  If it works well for everyone, it will replace the
+of &kappname;'s settings.  It will replace the old
 <link linkend="kate-application-plugin-findinfiles">Find in Files plugin</link>
 in the next version of &kappname;.</para>
 

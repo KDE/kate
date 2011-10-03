@@ -106,7 +106,7 @@ void Results::checkCheckedState()
 
 
 K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
-K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search in files"), "0.1", ki18n("Find in open files plugin"))))
+K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search & Replace"), "0.1", ki18n("Search & replace in files"))))
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
     : Kate::Plugin((Kate::Application*)parent, "kate-search-plugin"),
@@ -165,7 +165,7 @@ m_curResults(0)
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
                                           Kate::MainWindow::Bottom,
                                           SmallIcon("edit-find"),
-                                          i18n("Search in files"));
+                                          i18n("Search & Replace"));
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
 

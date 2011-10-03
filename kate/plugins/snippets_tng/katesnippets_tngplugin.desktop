@@ -95,5 +95,3 @@ Comment[x-test]=xxSnippets plugin with code completion supportxx
 Comment[zh_CN]=支持代码补全的片段插件
 Comment[zh_TW]=包含源碼補完支援的片段外掛程式
 
-X-Kate-MajorProfiles=Kate
-X-Kate-MinorProfiles=*

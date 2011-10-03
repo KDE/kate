@@ -101,5 +101,3 @@ Comment[uk]=Вбудування віджета термінала у вікно
 Comment[x-test]=xxToolview embedding a terminal widgetxx
 Comment[zh_CN]=嵌入一个终端构件的工具视图
 Comment[zh_TW]=嵌入終端機元件的工具檢視
-X-Kate-MajorProfiles=Kate
-X-Kate-MinorProfiles=*

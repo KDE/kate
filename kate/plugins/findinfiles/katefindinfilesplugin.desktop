@@ -103,5 +103,3 @@ Comment[uk]=Панель засобу, який надає змогу шукат
 Comment[x-test]=xxToolview allowing to search in all open files or files in the filesystemxx
 Comment[zh_CN]=工具视图允许用户在所有打开的文件中或在文件系统上所有文件中搜索
 Comment[zh_TW]=可以在所有已開啟的檔案，或在整個檔案系統裡的檔案中尋找的工具檢視
-X-Kate-MajorProfiles=Kate
-X-Kate-MinorProfiles=*

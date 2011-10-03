@@ -65,10 +65,3 @@ Type=QString
 
 [PropertyDef::X-Kate-LoadAlways]
 Type=bool
-
-[PropertyDef::X-Kate-MajorProfiles]
-Type=QStringList
-
-[PropertyDef::X-Kate-MinorProfiles]
-Type=QStringList
-

@@ -165,7 +165,7 @@ m_curResults(0)
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
                                           Kate::MainWindow::Bottom,
                                           SmallIcon("edit-find"),
-                                          i18n("Search & Replace"));
+                                          i18n("Search and Replace"));
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
 

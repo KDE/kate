@@ -334,8 +334,8 @@ attributes, attribute values and entities allowed by DTD</para>
     <para>The first variable will be selected, so you just have to type to edit
       it. If the document text contains more instances of the same variable,
       they are changed as you edit. To move to the next editable variable,
-      press the TAB key. When the last variable is edited, the list is
-      dropped, and your TAB key works as normal.</para>
+      press the &Tab; key. When the last variable is edited, the list is
+      dropped, and your &Tab; key works as normal.</para>
   </sect2>
 
   <sect2 id="katefiletemplates-create">

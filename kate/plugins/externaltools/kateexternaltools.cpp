@@ -36,6 +36,7 @@
 #include <KMessageBox>
 #include <KMimeTypeChooser>
 #include <KXmlGuiWindow>
+#include <KStandardDirs>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KComboBox>
@@ -92,37 +93,8 @@ bool KateExternalTool::checkExec()
   // NOTE this code is modified taken from kdesktopfile.cpp, from KDesktopFile::tryExec()
   if (!tryexec.isEmpty())
   {
-    if (tryexec[0] == '/')
-    {
-      if (KDE::access(tryexec, R_OK | X_OK))
-        return false;
-
-      m_exec = tryexec;
-    }
-    else
-    {
-      // !!! Sergey A. Sukiyazov <corwin@micom.don.ru> !!!
-      // Environment PATH may contain filenames in 8bit locale cpecified
-      // encoding (Like a filenames).
-      const QString path = QFile::decodeName(qgetenv("PATH"));
-      const QStringList dirs = path.split(KPATH_SEPARATOR, QString::SkipEmptyParts);
-      QStringList::ConstIterator it(dirs.begin());
-      bool match = false;
-      for (; it != dirs.end(); ++it)
-      {
-        QString fName = *it + '/' + tryexec;
-        if (KDE::access(fName, R_OK | X_OK) == 0)
-        {
-          match = true;
-          m_exec = fName;
-          break;
-        }
-      }
-      // didn't match at all
-      if (!match)
-        return false;
-    }
-    return true;
+    m_exec = KStandardDirs::findExe(tryexec);
+    return !m_exec.isEmpty();
   }
   return false;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Milian Wolff <mail@milianw.de> -->
-<language name="QML" version="1.4" kateversion="3.5" section="Scripts" extensions="*.qml"
+<language name="QML" version="1.5" kateversion="3.5" section="Scripts" extensions="*.qml"
           mimetype="text/x-qml;application/x-qml" indenter="cstyle"
           author="Milian Wolff (mail@milianw.de)" license="">
   <highlighting>
@@ -35,7 +35,7 @@
       <item>DateTimeFormatter</item>
       <item>NumberFormatter</item>
       <item>Script</item>
-      <item>Connection</item>
+      <item>Connections</item>
       <item>Component</item>
       <item>Timer</item>
       <item>QtObject</item>

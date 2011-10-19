@@ -319,7 +319,7 @@ function help(cmd)
     } else if (cmd == "unwrap") {
         return "Unwraps all paragraphs in the text selection, or the paragraph under the text cursor if there is no selected text.";
     } else if (cmd == "each") {
-        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the return value of that callback.<br>Example (join selected lines):<br><code>each 'function(lines){return lines.join(\", \"}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>each 'lines.join(\", \")'</code>");
+        return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and replace them with the return value of that callback.<br>Example (join selected lines):<br><code>each 'function(lines){return lines.join(\", \");}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>each 'lines.join(\", \")'</code>");
     } else if (cmd == "filter") {
         return i18n("Given a JavaScript function as argument, call that for the list of (selected) lines and remove those where the callback returns false.<br>Example (see also <code>rmblank</code>):<br><code>filter 'function(l){return l.length > 0;}'</code><br>To save you some typing, you can also do this to achieve the same:<br><code>filter 'line.length > 0'</code>");
     } else if (cmd == "map") {

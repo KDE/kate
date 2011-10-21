@@ -118,7 +118,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_bm->setAttributeOnlyForViews (true);
   m_bmStart->setAttributeOnlyForViews (true);
   m_bmEnd->setAttributeOnlyForViews (true);
-  
+
   // use z depth defined in moving ranges interface
   m_bm->setZDepth (-1000.0);
   m_bmStart->setZDepth (-1000.0);
@@ -701,7 +701,7 @@ void KateViewInternal::showEvent ( QShowEvent *e )
 int KateViewInternal::linesDisplayed() const
 {
   int h = height();
-  
+
   // catch zero heights, even if should not happen
   int fh = qMax (1, renderer()->lineHeight());
 
@@ -3160,7 +3160,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       m_view->removeSelectedText();
 
     Kate::TextCursor endCursor1(doc()->buffer(), startCursor, KTextEditor::MovingCursor::MoveOnInsert);
-    
+
     if ( !m_view->blockSelection() ) {
       endCursor1.move(text.length());
     } else {
@@ -3172,7 +3172,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     setSelection(KTextEditor::Range(startCursor,endCursor));
     editSetCursor(endCursor);
-    
+
     doc()->editEnd ();
 
     event->acceptProposedAction();
@@ -3305,8 +3305,6 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   if (editSessionNumber > 0)
     return;
-
-  doc()->buffer().ensureHighlighted(endLine());
 
   // fix start position, might have moved from column 0
   m_startPos.setPosition (m_startPos.line(), 0);

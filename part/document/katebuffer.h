@@ -219,11 +219,8 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * @param from first line in range
      * @param to last line in range
      * @param invalidat should the rehighlighted lines be tagged ?
-     *
-     * @returns true when the highlighting in the next block needs to be updated,
-     * false otherwise.
      */
-    bool doHighlight (int from, int to, bool invalidate);
+    void doHighlight (int from, int to, bool invalidate);
     bool isEmptyLine(Kate::TextLine textline);
 
   Q_SIGNALS:
@@ -248,7 +245,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * file loaded with encoding problems?
      */
     bool m_brokenEncoding;
-    
+
     /**
      * too long lines wrapped on load?
      */
@@ -271,8 +268,10 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     // for the scrapty indent sensitive langs
     int m_tabWidth;
 
+    /**
+     * last line with valid highlighting
+     */
     int m_lineHighlighted;
-    bool m_ctxChanged;
 
     /**
      * number of dynamic contexts causing a full invalidation

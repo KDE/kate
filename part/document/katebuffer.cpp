@@ -73,7 +73,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_regionTree (this),
    m_tabWidth (8),
    m_lineHighlighted (0),
-   m_ctxChanged (true),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
   // we need kate global to stay alive
@@ -88,7 +87,7 @@ KateBuffer::~KateBuffer()
   // release HL
   if (m_highlight)
     m_highlight->release();
-  
+
   // release kate global
   KateGlobal::decRef ();
 }
@@ -117,12 +116,10 @@ void KateBuffer::editEnd ()
       if (editTagLineStart > 0)
         --editTagLineStart;
 
-      m_ctxChanged = doHighlight (
+      doHighlight (
           editTagLineStart,
           editTagLineEnd,
           true);
-
-      m_lineHighlighted = editTagLineEnd;
     }
   }
 }
@@ -138,8 +135,8 @@ void KateBuffer::clear()
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
 
+  // back to line 0 with hl
   m_lineHighlighted = 0;
-  m_ctxChanged = true;
 }
 
 bool KateBuffer::openFile (const QString &m_file)
@@ -156,7 +153,7 @@ bool KateBuffer::openFile (const QString &m_file)
   // NOTE: The buffer won't actually remove trailing space on load. This is because
   // we need to do it later, after the config and variables have been parsed.
   setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
-  
+
   // line length limit
   setLineLengthLimit (m_doc->config()->lineLengthLimit());
 
@@ -231,7 +228,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   // no longer broken encoding, or we don't care
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
-  
+
   // okay
   return true;
 }
@@ -249,9 +246,8 @@ void KateBuffer::ensureHighlighted (int line)
   // update hl until this line + max KATE_HL_LOOKAHEAD
   int end = qMin(line + KATE_HL_LOOKAHEAD, lines ()-1);
 
-  m_ctxChanged = doHighlight ( m_lineHighlighted, end, m_ctxChanged );
-
-  m_lineHighlighted = end;
+  // ensure we have enough highlighted
+  doHighlight ( m_lineHighlighted, end, false );
 }
 
 void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
@@ -351,9 +347,7 @@ void KateBuffer::setHighlight(int hlMode)
 void KateBuffer::invalidateHighlighting()
 {
   m_lineHighlighted = 0;
-  m_ctxChanged = true;
 }
-
 
 void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent)
 {
@@ -420,11 +414,11 @@ bool KateBuffer::isEmptyLine(Kate::TextLine textline)
   return false;
 }
 
-bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
+void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 {
   // no hl around, no stuff to do
   if (!m_highlight)
-    return false;
+    return;
 
 #ifdef BUFFER_DEBUGGING
   QTime t;
@@ -452,12 +446,11 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
         // doHighlight *shall* do his work. After invalidation, some highlight has
         // been recalculated, but *maybe not* until endLine ! So we shall force it manually...
-        m_ctxChanged = doHighlight ( m_lineHighlighted, endLine, false );
+        doHighlight ( m_lineHighlighted, endLine, false );
         m_lineHighlighted = endLine;
 
         KateHlManager::self()->setForceNoDCReset(false);
-
-        return false;
+        return;
       }
       else
       {
@@ -504,7 +497,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
-    kDebug( 13020 ) << "current line to hl: " << current_line + buf->startLine();
+    kDebug( 13020 ) << "current line to hl: " << current_line;
     kDebug( 13020 ) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
 
     const QVector<int> &ml (textLine->attributesList());
@@ -717,7 +710,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
     // need we to continue ?
-    stillcontinue = indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
+    stillcontinue =  ctxChanged || indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
     if (stillcontinue && start_spellchecking < 0) {
       start_spellchecking=current_line;
     }
@@ -731,17 +724,24 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     current_line++;
   }
 
+  /**
+   * perhaps we need to adjust the maximal highlighed line
+   */
+  int oldHighlighted = m_lineHighlighted;
+  if (ctxChanged || current_line > m_lineHighlighted)
+    m_lineHighlighted = current_line;
+
   // tag the changed lines !
   if (invalidate) {
-    // prevent infinite recursion
-    int temp = m_lineHighlighted;
-    m_lineHighlighted = INT_MAX;
-    emit tagLines (startLine, current_line);
-    m_lineHighlighted = temp;
+#ifdef BUFFER_DEBUGGING
+    kDebug (13020) << "HIGHLIGHTED TAG LINES: " << startLine <<  current_line;
+#endif
+
+    emit tagLines (startLine, qMax (current_line, oldHighlighted));
 
     if(start_spellchecking >= 0 && lines() > 0) {
       emit respellCheckBlock(start_spellchecking,
-                             qMin(lines()-1, (last_line_spellchecking==-1)?current_line:last_line_spellchecking));
+                             qMin(lines()-1, (last_line_spellchecking==-1)?qMax (current_line, oldHighlighted):last_line_spellchecking));
     }
   }
   // emit that we have changed the folding
@@ -754,10 +754,6 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
   kDebug (13020) << "TIME TAKEN: " << t.elapsed();
 #endif
-
-  // if we are at the last line of the block + we still need to continue
-  // return the need of that !
-  return ctxChanged;
 }
 
 void KateBuffer::codeFoldingColumnUpdate(int lineNr) {

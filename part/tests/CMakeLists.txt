@@ -10,7 +10,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/../mode
   ${CMAKE_CURRENT_SOURCE_DIR}/../render
   ${CMAKE_CURRENT_SOURCE_DIR}/../search
-  ${CMAKE_CURRENT_SOURCE_DIR}/../smart
   ${CMAKE_CURRENT_SOURCE_DIR}/../syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/../undo
   ${CMAKE_CURRENT_SOURCE_DIR}/../utils

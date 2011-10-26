@@ -253,6 +253,8 @@ namespace KateMDI
 
       int m_lastSize;
 
+      QSize m_preHideSize;
+
       int m_popupButton;
 
      Q_SIGNALS:

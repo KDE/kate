@@ -378,16 +378,25 @@ namespace KateMDI
 
     setTab (m_widgetToId[widget], true);
 
-    // resize to right size again
+    /**
+     * resize to right size again and show, else artefacts
+     */
     if (m_widgetToSize[widget].isValid())
       widget->resize (m_widgetToSize[widget]);
-
-    // show widget, then splitter, to avoid jumping
     widget->show ();
+
+    /**
+     * resize to right size again and show, else artefacts
+     * same as for widget, both needed
+     */
+    if (m_preHideSize.isValid())
+      m_ownSplit->resize (m_preHideSize);
     m_ownSplit->show ();
 
+    /**
+     * we are visible again!
+     */
     widget->setToolVisible (true);
-
     return true;
   }
 
@@ -407,8 +416,8 @@ namespace KateMDI
       if (it.value() == widget)
       {
         // remember size and hide
-        m_widgetToSize[widget] = widget->size();
-        it.value()->hide();
+        if (widget->isVisible())
+          m_widgetToSize[widget] = widget->size();
         continue;
       }
 
@@ -419,8 +428,13 @@ namespace KateMDI
     // lower tab
     setTab (m_widgetToId[widget], false);
 
-    if (!anyVis)
+    if (!anyVis) {
+      if (m_ownSplit->isVisible())
+        m_preHideSize = m_ownSplit->size ();
       m_ownSplit->hide ();
+    }
+
+    widget->hide ();
 
     widget->setToolVisible (false);
 

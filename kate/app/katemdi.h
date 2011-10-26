@@ -156,7 +156,7 @@ namespace KateMDI
 
       ///plugin this view belongs to, may be 0
       QPointer<Kate::Plugin> plugin;
-      
+
       /**
        * unique id
        */
@@ -244,6 +244,7 @@ namespace KateMDI
 
       QMap<int, ToolView*> m_idToWidget;
       QMap<ToolView*, int> m_widgetToId;
+      QMap<ToolView*, QSize> m_widgetToSize;
 
       /**
        * list of all toolviews around in this sidebar
@@ -253,10 +254,10 @@ namespace KateMDI
       int m_lastSize;
 
       int m_popupButton;
-      
+
      Q_SIGNALS:
        void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
-  
+
   };
 
   class MainWindow : public KParts::MainWindow
@@ -405,8 +406,8 @@ namespace KateMDI
        * list of all toolviews around
        */
       QList<ToolView*> m_toolviews;
-      
-      
+
+
       /**
        * widget, which is the central part of the
        * main window ;)
@@ -451,7 +452,7 @@ namespace KateMDI
 
     Q_SIGNALS:
       void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
-      
+
   };
 
 }

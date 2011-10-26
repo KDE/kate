@@ -52,7 +52,7 @@ namespace KateMDI
 {
 
 //BEGIN TOGGLETOOLVIEWACTION
-// 
+//
   ToggleToolViewAction::ToggleToolViewAction ( const QString& text, ToolView *tv,
       QObject* parent )
       : KToggleAction(text, parent)
@@ -314,6 +314,10 @@ namespace KateMDI
     m_widgetToId.insert (widget, newId);
     m_toolviews.push_back (widget);
 
+    // widget => size, for correct size restoration after hide/show
+    // starts with invalid size
+    m_widgetToSize.insert (widget, QSize());
+
     show ();
 
     connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
@@ -331,13 +335,14 @@ namespace KateMDI
 
     m_idToWidget.remove (m_widgetToId[widget]);
     m_widgetToId.remove (widget);
+    m_widgetToSize.remove (widget);
     m_toolviews.removeAt (m_toolviews.indexOf (widget));
 
     bool anyVis = false;
     QMapIterator<int, ToolView*> it( m_idToWidget );
     while ( it.hasNext() )
     {
-      it.next();    
+      it.next();
       if (!anyVis)
         anyVis =  it.value()->isVisible();
     }
@@ -373,8 +378,13 @@ namespace KateMDI
 
     setTab (m_widgetToId[widget], true);
 
-    m_ownSplit->show ();
+    // resize to right size again
+    if (m_widgetToSize[widget].isValid())
+      widget->resize (m_widgetToSize[widget]);
+
+    // show widget, then splitter, to avoid jumping
     widget->show ();
+    m_ownSplit->show ();
 
     widget->setToolVisible (true);
 
@@ -396,6 +406,8 @@ namespace KateMDI
       it.next();
       if (it.value() == widget)
       {
+        // remember size and hide
+        m_widgetToSize[widget] = widget->size();
         it.value()->hide();
         continue;
       }
@@ -457,9 +469,9 @@ namespace KateMDI
             if (pcpi) {
               if (pcpi->configPages()>0)
                 p->addAction(i18n("Configure ..."))->setData(20);
-            }            
+            }
           }
-          
+
           p->addTitle(SmallIcon("view_remove"), i18n("Behavior"));
 
           p->addAction(w->persistent ? KIcon("view-restore") : KIcon("view-fullscreen"),
@@ -521,15 +533,15 @@ namespace KateMDI
     // toggle persistent
     if (id == 10)
       w->persistent = !w->persistent;
-    
+
     // configure actionCollection
     if (id==20) {
       if (!w->plugin.isNull()) {
           Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
           if (pcpi) {
             if (pcpi->configPages()>0)
-              emit sigShowPluginConfigPage(pcpi,0);  
-          }            
+              emit sigShowPluginConfigPage(pcpi,0);
+          }
         }
     }
   }
@@ -711,11 +723,11 @@ namespace KateMDI
 
     m_sidebars[KMultiTabBar::Right] = new Sidebar (KMultiTabBar::Right, this, hb);
     m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
-  
-    for (int i=0;i<4;i++) 
+
+    for (int i=0;i<4;i++)
       connect(m_sidebars[i],SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
 
-    
+
   }
 
   MainWindow::~MainWindow ()
@@ -755,7 +767,7 @@ namespace KateMDI
 
     m_idToWidget.insert (identifier, v);
     m_toolviews.push_back (v);
-    
+
     // register for menu stuff
     m_guiClient->registerToolView (v);
 
@@ -782,7 +794,7 @@ namespace KateMDI
 
     m_idToWidget.remove (widget->id);
     m_toolviews.removeAt ( m_toolviews.indexOf(widget) );
-    
+
   }
 
   void MainWindow::setSidebarsVisible( bool visible )

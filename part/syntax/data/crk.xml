@@ -84,8 +84,7 @@
         <DetectChar attribute="String" context="#pop" char="'"/>
       </context>
 
-      <context attribute="String" lineEndContext="#pop" name="Backtick String">
-        <LineContinue attribute="String" context="#pop"/>
+      <context attribute="String" lineEndContext="#stay" name="Backtick String">
         <HlCStringChar attribute="Char" context="#stay"/>
         <Detect2Chars attribute="Substitution" char="$" char1="(" context="Subst"/>
         <DetectChar attribute="Substitution" char="$" context="Short Subst"/>

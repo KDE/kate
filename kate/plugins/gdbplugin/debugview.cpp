@@ -291,22 +291,20 @@ void DebugView::slotContinue()
     issueCommand( "continue" );
 }
 
-
+static QRegExp breakpointList( "Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*" );
+static QRegExp breakpointListed( "(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*" );
+static QRegExp stackFrameAny( "#(\\d+)\\s(.*)" );
+static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\([^)]*\\))\\sat\\s([^:]+):(\\d+).*" );
+static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*" );
+static QRegExp changeLine( "(\\d+)\\s+.*" );
+static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );
+static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
+static QRegExp exitProgram( "Program\\s+exited.*" );
+static QRegExp threadLine( "\\**\\s+(\\d+)\\s+Thread.*" );
 
 void DebugView::processLine( QString line )
 {
     if (line.isEmpty()) return;
-
-    static QRegExp breakpointList( "Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*" );
-    static QRegExp breakpointListed( "(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*" );
-    static QRegExp stackFrameAny( "#(\\d+)\\s(.*)" );
-    static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\([^)]*\\))\\sat\\s([^:]+):(\\d+).*" );
-    static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*" );
-    static QRegExp changeLine( "(\\d+)\\s+.*" );
-    static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );
-    static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
-    static QRegExp exitProgram( "Program\\s+exited.*" );
-    static QRegExp thread( "\\**\\s+(\\d+)\\sThread.*" );
 
     switch( m_state )
     {
@@ -478,9 +476,9 @@ void DebugView::processLine( QString line )
                 m_state = ready;
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
-            else if ( thread.exactMatch( line ) )
+            else if ( threadLine.exactMatch( line ) )
             {
-                emit threadInfo( thread.cap(1).toInt(), (line[0] == '*'));
+                emit threadInfo( threadLine.cap(1).toInt(), (line[0] == '*'));
             }
             break;
     }

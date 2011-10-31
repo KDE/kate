@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Crack" version="1.0" kateversion="2.3" section="Sources" extensions="*.crk" mimetype="">
+<language name="Crack" version="1.1" kateversion="2.3" section="Sources" extensions="*.crk" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> break</item>

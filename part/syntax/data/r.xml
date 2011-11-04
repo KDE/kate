@@ -8,7 +8,7 @@
 	R      : http://www.r-project.org/
 	RKWard : http://rkward.sourceforge.net/
 	-->
-<language version="2.02" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
+<language version="2.04" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
 <highlighting>
 
 	<list name="controls">
@@ -143,6 +143,6 @@
 	<comments>
 		<comment name="singleLine" start="#" end=""/>
 	</comments>
-	<keywords casesensitive="1" />
+	<keywords casesensitive="true" weakDeliminator="." additionalDeliminator="$"/>
 </general>
 </language>

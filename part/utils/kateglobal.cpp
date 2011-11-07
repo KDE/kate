@@ -322,8 +322,6 @@ void KateGlobal::configDialog(QWidget *parent)
     KateDocumentConfig::global()->configEnd ();
     KateViewConfig::global()->configEnd ();
     KateRendererConfig::global()->configEnd ();
-
-    writeConfig ();
   }
 
   delete kd;

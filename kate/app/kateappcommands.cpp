@@ -273,12 +273,12 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
     else if (re_split.exactMatch(cmd)) {
       msg = i18n("<p><b>sp,split&mdash; Split horizontally the current view into two</b></p>"
             "<p>Usage: <tt><b>sp[lit]</b></tt></p>"
-            "<p>The result is two views on the same document</p>.");
+            "<p>The result is two views on the same document.</p>");
       return true;
     }
     else if (re_vsplit.exactMatch(cmd)) {
       msg = i18n("<p><b>vs,vsplit&mdash; Split vertically the current view into two</b></p>"
-            "<p>Usage: <tt><b>vs[lit]</b></tt></p>"
+            "<p>Usage: <tt><b>vs[plit]</b></tt></p>"
             "<p>The result is two views on the same document.</p>");
       return true;
     }

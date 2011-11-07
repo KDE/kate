@@ -98,4 +98,5 @@ Comment[tr]=Belgeler yüklendiğinde belirli bir kalıba uyan satırlara yer imi
 Comment[ug]=پۈتۈكلەر يۈكلەنگەندە بىر قېلىپقا ماس كەلگەن قۇردىكى خەتكۈچلەرنى تەڭشەيدۇ
 Comment[uk]=Встановлює закладки на рядках, що відповідають взірцю, під час завантаження документів
 Comment[x-test]=xxSet bookmarks on lines matching a pattern when documents are loadedxx
+Comment[zh_CN]=在装入文档时根据模式自动设置书签
 Comment[zh_TW]=文件載入時以字串比對演算法來設定書籤。

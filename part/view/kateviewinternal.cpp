@@ -154,7 +154,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect(m_lineScroll, SIGNAL(valueChanged(int)), SLOT(scrollLines(int)));
 
   // catch wheel events, completing the hijack
-  //m_lineScroll->installEventFilter(this);
+  m_lineScroll->installEventFilter(this);
 
   //
   // scrollbar for columns
@@ -3217,7 +3217,9 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
       else
         scrollNextPage();
     } else {
-      QApplication::sendEvent(m_lineScroll, e);
+      scrollViewLines(e->delta() > 0 ? -3 : 3);
+      e->accept();
+      return;
     }
 
   } else if (columnScrollingPossible()) {

@@ -187,14 +187,6 @@ void KateScrollBar::sliderChange ( SliderChange change )
   }
 }
 
-void KateScrollBar::wheelEvent(QWheelEvent *e)
-{
-  if (e->modifiers() == Qt::NoModifier)
-    return QScrollBar::wheelEvent(e);
-
-  QCoreApplication::sendEvent(m_viewInternal, e);
-}
-
 void KateScrollBar::marksChanged()
 {
   recomputeMarksPositions();

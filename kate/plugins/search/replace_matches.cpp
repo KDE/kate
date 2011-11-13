@@ -120,7 +120,10 @@ void ReplaceMatches::doReplaceNextMatch()
     }
 
     for (int i=0; i<rVector.size(); i++) {
+        line = rVector[i]->start().line();
+        column = rVector[i]->start().column();
         doc->replaceText(*rVector[i], m_replaceText);
+        emit matchReplaced(doc, line, column, m_replaceText.length());
     }
 
     qDeleteAll(rVector);

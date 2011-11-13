@@ -45,6 +45,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void replaceNextMatch();
+    void matchReplaced(KTextEditor::Document* doc, int line, int column, int matchLen);
     void replaceDone();
 
 private:

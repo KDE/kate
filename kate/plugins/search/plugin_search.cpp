@@ -242,6 +242,9 @@ m_curResults(0)
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_replacer, SLOT(cancelReplace()));
 
+    connect(&m_replacer, SIGNAL(matchReplaced(KTextEditor::Document*,int,int,int)),
+            this, SLOT(addMatchMark(KTextEditor::Document*,int,int,int)));
+
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
@@ -432,8 +435,12 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
 
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    attr->setBackground(Qt::yellow);
-
+    if (sender() == &m_replacer) {
+        attr->setBackground(Qt::green); // TODO make this part of the color scheme
+    }
+    else {
+        attr->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    }
     KTextEditor::Range range(line, column, line, column+matchLen);
     KTextEditor::MovingRange* mr = miface->newMovingRange(range);
     mr->setAttribute(attr);

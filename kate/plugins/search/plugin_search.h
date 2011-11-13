@@ -102,6 +102,9 @@ private Q_SLOTS:
 
     void matchFound(const QString &fileName, int line, int column,
                     const QString &lineContent, int matchLen);
+
+    void addMatchMark(KTextEditor::Document* doc, int line, int column, int len);
+
     void searchDone();
 
     void itemSelected(QTreeWidgetItem *item);
@@ -118,7 +121,6 @@ protected:
 private:
     QTreeWidgetItem *rootFileItem(const QString &url);
 
-    void addMatchMark(KTextEditor::Document* doc, int line, int column, int len);
 
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;

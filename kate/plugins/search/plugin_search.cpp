@@ -139,7 +139,7 @@ Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
     connect(m_searchCommand, SIGNAL(setSearchString(QString)), view, SLOT(setSearchString(QString)));
     connect(m_searchCommand, SIGNAL(startSearch()), view, SLOT(startSearch()));
     connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
-    
+
     return view;
 }
 
@@ -212,6 +212,7 @@ m_curResults(0)
 
     connect(m_ui.newTabButton,     SIGNAL(clicked()), this, SLOT(addTab()));
     connect(m_ui.resultTabWidget,  SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
+    connect(m_ui.resultTabWidget,  SIGNAL(currentChanged(int)), this, SLOT(resultTabChanged(int)));
     connect(m_ui.searchButton,     SIGNAL(clicked()), this, SLOT(startSearch()));
     connect(m_ui.searchCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.folderRequester,  SIGNAL(returnPressed()), this, SLOT(startSearch()));
@@ -355,7 +356,7 @@ void KatePluginSearchView::startSearch()
     m_curResults->selectAllCB->setText(i18n("Select all"));
     m_curResults->selectAllCB->setChecked(true);
     disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
-    
+
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
                                      m_ui.searchCombo->currentText());
 
@@ -713,14 +714,14 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
 void KatePluginSearchView::addTab()
 {
     Results *res = new Results();
-    
+
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this,      SLOT  (itemSelected(QTreeWidgetItem*)), Qt::QueuedConnection);
 
     connect(res->replaceButton, SIGNAL(clicked(bool)), this, SLOT(replaceChecked()));
     connect(res->replaceCombo,  SIGNAL(returnPressed()), this, SLOT(replaceChecked()));
     connect(&m_replacer,        SIGNAL(replaceDone()), this, SLOT(replaceDone()));
-    
+
     m_ui.resultTabWidget->addTab(res, "");
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);
     m_ui.stackedWidget->setCurrentIndex(0);
@@ -743,6 +744,39 @@ void KatePluginSearchView::closeTab(QWidget *widget)
     if (m_ui.resultTabWidget->count() == 1) {
         m_ui.resultTabWidget->tabBar()->hide();
     }
+}
+
+void KatePluginSearchView::resultTabChanged(int index)
+{
+    if (index < 0) {
+        return;
+    }
+    // empty tab -> nothing to set.
+    if (m_ui.resultTabWidget->tabText(index).isEmpty()) {
+        return;
+    }
+
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
+    if (!res) {
+        return;
+    }
+    // check if the text has been modified
+    int i;
+    for (i=0; i<m_ui.resultTabWidget->count(); i++) {
+        if ((m_ui.resultTabWidget->tabText(i) == m_ui.searchCombo->currentText()) &&
+            !m_ui.resultTabWidget->tabText(i).isEmpty())
+        {
+            break;
+        }
+    }
+    if (i == m_ui.resultTabWidget->count()) {
+        // the text does not match a tab -> do not update the search
+        return;
+    }
+
+    m_ui.searchCombo->lineEdit()->setText(m_ui.resultTabWidget->tabText(index));
+    m_matchCase->setChecked(res->regExp.caseSensitivity() == Qt::CaseSensitive);
+    m_useRegExp->setChecked(res->regExp.patternSyntax() != QRegExp::FixedString);
 }
 
 

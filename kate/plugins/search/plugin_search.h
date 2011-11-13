@@ -115,6 +115,8 @@ private Q_SLOTS:
 
     void replaceDone();
 
+    void resultTabChanged(int index);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 

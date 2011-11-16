@@ -39,9 +39,9 @@ in order to configure the highlighted plugin.</para>
 <variablelist>
 <varlistentry>
 <term><guilabel>AutoBrace</guilabel></term>
-<listitem><para>The autobrace plugin supersedes the &kate; internal 
-<quote>Auto Brackets</quote> feature. 
-It automatically inserts a closing brace <keycap>}</keycap> at the beginning 
+<listitem><para>The autobrace plugin supersedes the &kate; internal
+<quote>Auto Brackets</quote> feature.
+It automatically inserts a closing brace <keycap>}</keycap> at the beginning
 of the next line after ending a line with an opening one <keycap>{</keycap>
 and pressing the &Enter; key.</para></listitem>
 </varlistentry>
@@ -52,28 +52,28 @@ If you press Enter and AutoBrace is enabled, it will insert your favorite new br
 -->
 <varlistentry>
 <term><guilabel>Data Tools</guilabel></term>
-<listitem><para>Enables data tools like thesaurus and spell check (if installed). 
-Data tools are only available when text is selected, or when the right mouse 
-button is clicked over a word. If no data tools are offered even when text 
-is selected, you need to install them. Some data tools are part of the 
+<listitem><para>Enables data tools like thesaurus and spell check (if installed).
+Data tools are only available when text is selected, or when the right mouse
+button is clicked over a word. If no data tools are offered even when text
+is selected, you need to install them. Some data tools are part of the
 &koffice; package.
-If this plugin is enabled and data tools are installed, additional items 
+If this plugin is enabled and data tools are installed, additional items
 appear at the end of the context menu.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><link linkend="kate-editor-plugin-exporter"><guilabel>Exporter</guilabel></link></term>
-<listitem><para>This command allows you to export the current document with all highlighting 
-information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export 
+<listitem><para>This command allows you to export the current document with all highlighting
+information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
 as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text 
+<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
 as HTML to the system clipboard.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>IconInserter</guilabel></term>
-<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item 
-<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor. 
-If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..). 
-If you click on it, the file name without file extension will be inserted as 
+<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item
+<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor.
+If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..).
+If you click on it, the file name without file extension will be inserted as
 text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
 </para></listitem>
 </varlistentry>
@@ -85,16 +85,16 @@ Zen Coding</ulink>.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Insert File</guilabel></term>
-<listitem><para>This plugin allows you to insert any readable file at the cursor position. 
-If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item 
+<listitem><para>This plugin allows you to insert any readable file at the cursor position.
+If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item
 <guimenuitem>Insert File</guimenuitem>.</para></listitem>
 </varlistentry>
 <!-- not build any longer in kde 4.5
 <varlistentry>
 <term>Python Encoding check</term>
-<listitem><para>This plugin is always enabled.  
-If you are trying to save a python file as non ASCII, without specifying a 
-correct source encoding line like &eg; <quote># -*- coding: utf-8 -*-</quote>, 
+<listitem><para>This plugin is always enabled.
+If you are trying to save a python file as non ASCII, without specifying a
+correct source encoding line like &eg; <quote># -*- coding: utf-8 -*-</quote>,
 a warning dialog pops up and allows you to add a proper source encoding line for the
 current encoding to the file.
 </para></listitem>
@@ -117,8 +117,8 @@ timedate not build? plugin is for howto-write-a-plugin purposes!
 <para>
 &kate; plugins are additional functions for the &kate; editor.  They can
 add extra menus and shortcuts, and extend &kate;'s features.  You can
-install as many or as few as you like, from within &kate;. 
-Open &kate;'s configuration dialog with 
+install as many or as few as you like, from within &kate;.
+Open &kate;'s configuration dialog with
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;...</guimenuitem></menuchoice>
 Select <menuchoice><guimenu>Application</guimenu><guimenuitem>Plugins</guimenuitem></menuchoice> to
 choose the wanted plugins.
@@ -129,10 +129,6 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para><link linkend="kate-application-plugin-findinfiles">Find in files tool view</link> - 
-  Toolview allowing to search in all open files or files in the filesystem</para>
-</listitem>
-<listitem>
 <para>GDB - Provides a simple GDB frontend</para>
 <!-- GDB Plugin http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 </listitem>
@@ -140,14 +136,14 @@ The available application plugins are:
 <para>Backtrace Browser - Backtrace navigation tool view</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-quickswitcher">Quick Document switcher</link> - 
+<para><link linkend="kate-application-plugin-quickswitcher">Quick Document switcher</link> -
   Quickly switch to another already opened document</para>
 </listitem>
 <listitem>
 <para>SQL Plugin - Execute query on SQL databases</para>
 </listitem>
 <listitem>
-<para>Search Plugin - Find a pattern in files</para>
+<para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>
 </listitem>
 <listitem>
 <para>Tab Bar - Adds a standard tab bar to &kate;'s main window</para>
@@ -163,7 +159,7 @@ The available application plugins are:
 <para>Symbol Viewer - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> - 
+<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
   File system browser tool view</para>
 </listitem>
 <listitem>
@@ -176,7 +172,7 @@ The available application plugins are:
 <para>CTags Plugin - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> - 
+<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> -
   Create new files from templates</para>
 </listitem>
 <listitem>
@@ -206,7 +202,7 @@ The available application plugins are:
 <para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements, 
+<para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
 </listitem>
 <listitem>
@@ -538,9 +534,7 @@ attributes, attribute values and entities allowed by DTD</para>
 <sect1 id="kate-application-plugin-xmlcheck">
 <sect1info>
 <authorgroup><author>
-<firstname>Daniel</firstname>
-<surname>Naber</surname>
-<affiliation><address>&Daniel.Naber.mail;</address></affiliation>
+&Daniel.Naber; &Daniel.Naber.mail;
 </author></authorgroup>
 </sect1info>
 
@@ -560,7 +554,7 @@ However, remote DTDs specified via http are supported.</para>
 
 <para>To learn more about &XML; check out the <ulink url="http://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
 
-<para>Internally this plugin calls the external command <command>xmllint</command>, which 
+<para>Internally this plugin calls the external command <command>xmllint</command>, which
 is part of libxml2. If this command is not correctly installed on your system, the plugin
 will not work.</para>
 
@@ -604,9 +598,7 @@ in the <guilabel>Application</guilabel> / <guilabel>Plugins</guilabel> section a
 <sect1 id="kate-application-plugin-xmltools">
 <sect1info>
 <authorgroup><author>
-<firstname>Daniel</firstname>
-<surname>Naber</surname>
-<affiliation><address>&Daniel.Naber.mail;</address></affiliation>
+&Daniel.Naber; &Daniel.Naber.mail;
 </author></authorgroup>
 </sect1info>
 <title>&XML; Completion</title>
@@ -619,7 +611,7 @@ of the cursor is <quote>&amp;</quote>). It's also possible to close the nearest
 open tag on the left.</para>
 
 <para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
-<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>. 
+<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>.
 Some meta DTDs are supplied. They are installed in
 <filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
 which is also the default folder when you choose
@@ -759,9 +751,7 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 <sect1 id="kate-application-plugin-quickswitcher">
 <!--<sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>-->
 <title>Quick Document Switcher</title>
@@ -770,17 +760,17 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 <title>Menu Structure</title>
 
 <variablelist>
-<varlistentry> 
+<varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>1</keycap>
 </keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Quickswitch
 </guimenuitem></menuchoice></term>
-<listitem><para>Opens the <guilabel>Document Quick Switch</guilabel> dialog 
-with a search field and a list of opened files. While entering text in the search 
-field the document names and document urls are searched for matching text. 
+<listitem><para>Opens the <guilabel>Document Quick Switch</guilabel> dialog
+with a search field and a list of opened files. While entering text in the search
+field the document names and document urls are searched for matching text.
 While entering text in the search field you can use
-the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the 
-list view. If the dialog is left with <guilabel>OK</guilabel> the plugin switches 
-the view to the document selected in the list view. This makes switching between 
+the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
+list view. If the dialog is left with <guilabel>OK</guilabel> the plugin switches
+the view to the document selected in the list view. This makes switching between
 documents easier, if there are a lot of them open.
 </para></listitem>
 </varlistentry>
@@ -792,9 +782,7 @@ documents easier, if there are a lot of them open.
 <sect1 id="kate-editor-plugin-exporter">
 <!--<sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>-->
 <title>Exporter</title>
@@ -833,59 +821,13 @@ Export your file in &HTML; format so your document can be viewed as a web page.
 </sect2>
 </sect1>
 
-<sect1 id="kate-application-plugin-findinfiles">
-<!--<sect1info>
-<authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
-</author></authorgroup>
-</sect1info>-->
-<title>Find in Files</title>
-
-<sect2 id="findinfiles-menu">
-<title>Menu Structure</title>
-<variablelist>
-
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Find in Files...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Launch the <guilabel>Find in Files</guilabel> dialog to allow you to
-search for text in the files of a folder.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Find in Files</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Toggle the display of &kate;'s <guilabel>Find in Files</guilabel> tool.
-</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-</sect1>
-
 <sect1 id="kate-application-plugin-searchinfiles">
 <sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address><email>tchollingsworth@gmail.com</email></address></affiliation>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>
-<title>Search in Files</title>
+<title>Search and Replace</title>
 
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
@@ -894,12 +836,6 @@ search for text in the files of a folder.</para>
 files at once.  You can search all open files, or all the files in one directory,
 and optionally its subdirectories.  You can even filter by filename, for instance
 searching only files that end with a particular file extension.</para>
-
-<para>The Search in Files plugin is not enabled by default, as it is new in &kappname;
-3.7.  Enable it in the <link linkend="config-dialog-plugins">Plugins</link> panel
-of &kappname;'s settings.  It will replace the old
-<link linkend="kate-application-plugin-findinfiles">Find in Files plugin</link>
-in the next version of &kappname;.</para>
 
 </sect2>
 
@@ -1022,7 +958,10 @@ the currently open document is located.
 This permits you to only search filenames that match a particular pattern.  For
 instance, to only search files written in C++, change it to
 <userinput>*.cpp</userinput>.  To search only files beginning with
-<literal>kate</literal>, change it to <userinput>kate*</userinput>.
+<literal>kate</literal>, change it to <userinput>kate*</userinput>.  You can
+enter multiple filters seperated with a comma (<userinput>,</userinput>).  To
+use this to exclude files from the search, append a minus sign
+(<userinput>-</userinput>) to the list.
 </para></listitem>
 </varlistentry>
 
@@ -1050,7 +989,7 @@ The Search in Files plugin typically doesn't follow
 When this option is enabled, the plugin will follow them instead and search inside
 the files or folders they reference.
 </para>
-<warning><para>It's possible for symbolic links to reference a folder that is the
+<warning><para>It's possible for symbolic links to refrence a folder that is the
 parent of the folder currently being searched, or other folders that contain
 symbolic links to their parent.  If there is such a link in the folder being
 searched and this option is enabled, &kappname; will repeatedly follow the link
@@ -1085,20 +1024,6 @@ entered as your query as found in the file.</para>
 <sect2 id="searchinfiles-menu">
 <title>Menu Structure</title>
 <variablelist>
-
-<!--<varlistentry>
-<term>
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Find in Files...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Launch the <guilabel>Find in Files</guilabel> dialog to allow you to
-search for text in the files of a folder.</para>
-</listitem>
-</varlistentry>-->
-
 <varlistentry>
 <term>
 <menuchoice>
@@ -1111,7 +1036,6 @@ search for text in the files of a folder.</para>
 </para>
 </listitem>
 </varlistentry>
-
 </variablelist>
 </sect2>
 </sect1>
@@ -1119,10 +1043,7 @@ search for text in the files of a folder.</para>
 <sect1 id="kate-application-plugin-mail">
 <!--<sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
-</author></authorgroup>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </sect1info>-->
 <title>Mail Files</title>
 
@@ -1151,9 +1072,7 @@ Open your mail client and attach the file in the mail.
 <sect1 id="kate-application-plugin-fsbrowser">
 <!--<sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>-->
 <title>Filesystem Browser</title>
@@ -1230,7 +1149,7 @@ be decided.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guimenuitem>Detailed View</guimenuitem></term>
-<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>, 
+<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>,
 <guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
 </varlistentry>
 <varlistentry>
@@ -1326,9 +1245,7 @@ list, and order them using the arrow buttons at the side of the list.</para>
 <sect1 id="kate-application-plugin-exttools">
 <!--<sect1info>
 <authorgroup><author>
-<firstname>T.C.</firstname>
-<surname>Hollingsworth</surname>
-<affiliation><address>tchollingsworth@gmail.com</address></affiliation>
+&TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>-->
 <title>External Tools</title>
@@ -1511,7 +1428,7 @@ from disk.</para></listitem>
 
 <!--
 Missing (according to config docs)
-Additional pages for enabled plugins: 
+Additional pages for enabled plugins:
 Kate Snippets
 Backtrace Browser
 Symbol Viewer

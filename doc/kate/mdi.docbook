@@ -142,7 +142,7 @@ strongest color, so that you can easily find the documents you are working on.
 This feature can be disabled in the
 <link linkend="config-dialog-treeview">Tree View</link> page
 of the configuration dialog.</para>
-
+<!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <para>The default location of the document list in the &kate; window is to the left of the
 editing area.</para>
 </sect1>
@@ -158,7 +158,7 @@ terminal application, for your convenience. It is available from the
 <menuchoice><guimenu>View</guimenu><guisubmenu>Tools Views</guisubmenu>
 <guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
 whenever displayed. Additionally, if the <link
-linkend="config-dialog-general-sync-konsole">Automatically synchronize 
+linkend="config-dialog-general-sync-konsole">Automatically synchronize
 the terminal with the current document when possible</link> option is enabled, it will
 change into the directory of the current document if
 possible when it is displayed, or when the current document

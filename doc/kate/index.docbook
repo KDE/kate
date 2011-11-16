@@ -3,13 +3,15 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&kate;">
   <!ENTITY package "kdesdk">
+  <!ENTITY i18n-powermode "<!--please leave this blank-->">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
+  <!ENTITY configuring-part-sections SYSTEM "../kwrite/configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
   <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY mdi-chapter SYSTEM "mdi.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY part-chapter SYSTEM "../kwrite/part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
   <!ENTITY vi-chapter SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
@@ -25,6 +27,7 @@
 <author>&Anders.Lund; &Anders.Lund.mail;</author>
 <author>&Seth.Rothberg; &Seth.Rothberg.mail;</author>
 <author>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
@@ -41,16 +44,19 @@
 <year>2005</year><year>2009</year>
 <holder>&Dominik.Haumann;</holder>
 </copyright>
-
+<copyright>
+<year>2011</year>
+<holder>&TC.Hollingsworth;</holder>
+</copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2011-07-10</date>
-<releaseinfo>3.6.90 &kde; 4.7</releaseinfo>
+<date>2012-01-25</date>
+<releaseinfo>3.8.0 &kde; 4.8</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
 
-<para>This handbook documents &kate; Version 3.6.90</para>
+<para>This handbook documents &kate; Version 3.8.0</para>
 </abstract>
 
 <keywordset>

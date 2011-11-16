@@ -52,7 +52,7 @@ action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>.</para>
 <sect1 id="advanced-editing-tools-commandline">
 <title>The Editor Component Command Line</title>
 
-<para>&kate;'s editor component has an internal command line, allowing you to
+<para>&kappname;'s editor component has an internal command line, allowing you to
 perform various actions from a minimal GUI. The command line is a text entry
 in the bottom of the editor area, to show it select
 <menuchoice><guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem></menuchoice>
@@ -81,14 +81,6 @@ arguments.</para>
 <sect2 id="advanced-editing-tools-commandline-commands">
 <title>Standard Command Line Commands</title>
 
-<sect3 id="advanced-editing-tools-commandline-commands-configure">
-<title>Commands for Configuring the Editor</title>
-
-<para>These commands are provided by the editor component, and allows you to
-configure the active document and view only. This is handy if you want to use
-a setting different from the default settings, for example for indentation.
-</para>
-
 <variablelist>
 <title>Argument types</title>
 
@@ -112,71 +104,178 @@ Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
 
 </variablelist>
 
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title>Commands for Basic Editor Functions</title>
+
 <variablelist>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-tab-width</command><arg>INTEGER width</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>w</command></cmdsynopsis></term>
+<listitem><para>Save the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wa</command></cmdsynopsis></term>
+<listitem><para>Save all currently open documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>q</command></cmdsynopsis></term>
+<listitem><para>Close the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>qa</command></cmdsynopsis></term>
+<listitem><para>Close all open documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wq</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wqa</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document only if it has changed.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently open documents only if they have
+changed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>bp</command></cmdsynopsis></term>
+<listitem><para>Go to the previous document in the documents list.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>bn</command></cmdsynopsis></term>
+<listitem><para>Go to the next document in the documents list.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>new</command></cmdsynopsis></term>
+<listitem><para>Open a new document in horizontal split view.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>vnew</command></cmdsynopsis></term>
+<listitem><para>Open a new document in vertical split view.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>e</command></cmdsynopsis></term>
+<listitem><para>Reload the current document if it has changed on disk.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>enew</command></cmdsynopsis></term>
+<listitem><para>Edit a new document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>print</command></cmdsynopsis></term>
+<listitem><para>Open the Print dialog to print the current document.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-configure">
+<title>Commands for Configuring the Editor</title>
+
+<para>These commands are provided by the editor component, and allows you to
+configure the active document and view only. This is handy if you want to use
+a setting different from the default settings, for example for indentation.
+</para>
+
+<variablelist>
+
+<varlistentry>
+<term><cmdsynopsis><command>set-tab-width</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
 <listitem><para>Sets the tab width to the number <userinput>width</userinput></para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-indent-width</command><arg>INTEGER width</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-indent-width</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
 <listitem><para>Sets the indentation width to the number
 <userinput>width</userinput>. Used only if you are indenting with
 spaces.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-word-wrap-column</command><arg>INTEGER width</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-word-wrap-column</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
 <listitem><para>Sets the line width for hard wrapping to
 <userinput>width</userinput>. This is used if you are having your text wrapped
 automatically.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-icon-border</command><arg>BOOLEAN enable</arg>
+<term><cmdsynopsis><command>set-icon-border</command><arg choice="req">BOOLEAN enable</arg>
 </cmdsynopsis></term>
 <listitem><para>Sets the visibility of the icon border.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-folding-markers</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-folding-markers</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>Sets the visibility of the folding markers pane.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-line-numbers</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-line-numbers</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>Sets the visibility of the line numbers pane.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-replace-tabs</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-replace-tabs</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>If enabled, tabs are replaced with spaces as you type.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-remove-trailing-space</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-remove-trailing-space</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>If enabled, trailing whitespace are removed whenever the cursor
 leaves a line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-show-tabs</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-show-tabs</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>If enabled, TAB characters and trailing whitespace will be
 visualized by a small dot.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-indent-spaces</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-show-indent</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, identation will be visualized by a vertical dotted
+line.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>set-indent-spaces</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>If enabled, the editor will indent with
 <option>indent-width</option> spaces for each indentation level, rather than
 with one TAB character.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-mixed-indent</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
-<listitem><para>If enabled, &kate; will use a mix of TAB and spaces for
+<term><cmdsynopsis><command>set-mixed-indent</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, &kappname; will use a mix of TAB and spaces for
 indentation. Each indentation level will be <option>indent-width</option> wide,
 and more indentation levels will be optimized to use as many TAB characters as
 possible.</para>
@@ -186,27 +285,27 @@ and if the indent width is unspecified it will be set to half of the
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-word-wrap</command><arg>BOOLEAN
+<term><cmdsynopsis><command>set-word-wrap</command><arg choice="req">BOOLEAN
 enable</arg></cmdsynopsis></term>
 <listitem><para>Enables dynamic word wrap according to
 <userinput>enable</userinput></para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-replace-tabs-save</command><arg>BOOLEAN enable
+<term><cmdsynopsis><command>set-replace-tabs-save</command><arg choice="req">BOOLEAN enable
 </arg></cmdsynopsis></term>
 <listitem><para>When enabled, tabs will be replaced with whitespace whenever
  the document is saved.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-remove-trailing-space-save</command><arg>BOOLEAN enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-remove-trailing-space-save</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
 <listitem><para>When enabled, trailing space will be removed from each line
 whenever the document is saved.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-indent-mode</command><arg>name</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-indent-mode</command><arg choice="req">STRING name</arg></cmdsynopsis></term>
 <listitem><para>Sets the autoindentation mode to <userinput>name</userinput>.
 If <userinput>name</userinput> is not known, the mode is set to 'none'. Valid
 modes are 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python',
@@ -214,12 +313,44 @@ modes are 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python',
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-highlight</command><arg>highlight</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-auto-ident</command><arg choice="req">BOOLEAN name</arg></cmdsynopsis></term>
+<listitem><para>Enable or disable autoindentation.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>set-highlight</command><arg choice="req">STRING highlight</arg></cmdsynopsis></term>
 <listitem><para>Sets the syntax highlighting system for the document. The
 argument must be a valid highlight name, as seen in the
 <menuchoice><guimenu>Tools</guimenu><guisubmenu>Highlighting</guisubmenu></menuchoice>
 menu. This command provides an autocompletion list for its
 argument.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>reload-scripts</command></cmdsynopsis></term>
+<listitem><para>Reload all <link linkend="advanced-editing-tools-scripting">JavaScript
+scripts</link> used by Kate, including indenters and command line scripts.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>set-wrap-cursor</command><arg choice="req">BOOLEAN
+enable</arg></cmdsynopsis></term>
+<listitem><para>Enable or disable <link linkend="pref-edit-cursor-selection">
+Wrap cursor</link>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>set-mode</command><arg choice="req">BOOLEAN
+enable</arg></cmdsynopsis></term>
+<listitem><para>Choose the filetype scheme for the current document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>nn[oremap]</command><arg choice="req">STRING original</arg>
+<arg choice="req">STRING mapped</arg></cmdsynopsis></term>
+<listitem><para>Map the key sequence <userinput>original</userinput> to 
+<userinput>mapped</userinput>.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -269,7 +400,8 @@ definition for the document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>replace</command><arg>pattern</arg><arg>replacement</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>replace</command><arg choice="req"> STRING pattern</arg>
+<arg choice="req">STRING replacement</arg></cmdsynopsis></term>
 <listitem><para>Replaces text matching <userinput>pattern</userinput> with
 <userinput>replacement</userinput>. If you want to include whitespace in the
 <userinput>pattern</userinput>, you must quote both the <userinput>pattern</userinput>
@@ -329,7 +461,7 @@ replacement string.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>date</command><arg>format</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>date</command><arg choice="req">STRING format</arg></cmdsynopsis></term>
 <listitem><para>Inserts a date/time string as defined by the specified
 <userinput>format</userinput>, or the format <quote>yyyy-MM-dd hh:mm:ss</quote>
 if none is specified. The following translations are done when interpreting
@@ -358,7 +490,6 @@ if none is specified. The following translations are done when interpreting
 <row><entry><literal>zzz</literal></entry><entry>The milliseconds with leading zeroes (000..999).</entry></row>
 <row><entry><literal>AP</literal></entry><entry>Use AM/PM display. AP will be replaced by either "AM" or "PM".</entry></row>
 <row><entry><literal>ap</literal></entry><entry>Use am/pm display. ap will be replaced by either "am" or "pm".</entry></row>
-
 </tbody>
 </tgroup>
 </informaltable>
@@ -367,7 +498,7 @@ if none is specified. The following translations are done when interpreting
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>char</command><arg>identifier</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>char</command><arg choice="req">STRING identifier</arg></cmdsynopsis></term>
 <listitem>
 <para>This command allows you to insert literal characters by their
 numerical identifier, in decimal, octal or hexadecimal form.
@@ -499,6 +630,136 @@ quantifier proved a valuable asset.</para>
 
 </varlistentry>
 
+<varlistentry>
+<term><cmdsynopsis><command>sort</command></cmdsynopsis></term>
+<listitem><para>Sorts the selected text or entire document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>natsort</command></cmdsynopsis></term>
+<listitem><para>Sort the selected lines or entire document naturally.</para>
+
+<example>
+<title><command>sort</command> vs. <command>natsort</command></title>
+<para><userinput>sort(a10, a1, a2)</userinput> results in
+                            <computeroutput>a1, a10, a2</computeroutput></para>
+<para><command>natsort(a10, a1, a2)</command> results in
+                            <computeroutput>a1, a2, a10</computeroutput></para>
+</example></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>moveLinesDown</command></cmdsynopsis></term>
+<listitem><para>Move selected lines down.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>moveLinesUp</command></cmdsynopsis></term>
+<listitem><para>Move selected lines up.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>uniq</command></cmdsynopsis></term>
+<listitem><para>Remove duplicated lines from the selected text or the whole
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>rtrim</command></cmdsynopsis></term>
+<listitem><para>Remove trailing space from the selected text or the whole
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>ltrim</command></cmdsynopsis></term>
+<listitem><para>Remove leading space from the selected text or the whole
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>join</command><arg choice="opt">STRING seperator</arg></cmdsynopsis></term>
+<listitem><para>Join selected lines or whole document.  Optionally takes a parameter
+defining a seperator, for example:  <userinput><command>join</command> ', '</userinput>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>rmblank</command></cmdsynopsis></term>
+<listitem><para>Remove all blank spaces from the selected text or the whole
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>unwrap</command></cmdsynopsis></term>
+<listitem><para>Unwrap the selected text or the whole document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>each</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a JavaScript function as an argument, call that for the list of
+selected lines and replace them with the return value of that callback.</para>
+
+<example>
+<title>Join selected lines</title>
+<para><userinput><command>each</command> 'function(lines){return lines.join(", ")}'
+</userinput></para>
+
+<para>Or, more briefly:</para>
+<para><userinput><command>each</command> 'lines.join(", ")'</userinput></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term><cmdsynopsis><command>filter</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a JavaScript function as an argument, call that for the list of
+selected lines and remove those where the callback returns false.</para>
+
+<example>
+<title>Remove blank lines</title>
+<para><userinput><command>filter</command> 'function(1){return 1.length > 0;}'
+</userinput></para>
+
+<para>Or, more briefly:</para>
+<para><userinput><command>filter</command> 'line.length > 0'</userinput></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>map</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a JavaScript function as an argument, call that for the list of
+selected lines and replace the line with the value of the callback.</para>
+
+<example>
+<title>Remove blank lines</title>
+<para><userinput><command>map</command> 'function(line){return
+line.replace(/^s+/,"");}'
+</userinput></para>
+
+<para>Or, more briefly:</para>
+<para><userinput><command>map</command> 'line.replace(/^s+/,"")'</userinput></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>duplicateLinesUp</command></cmdsynopsis></term>
+<listitem><para>Duplicate the selected lines above the current selection.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>duplicateLinesDown</command></cmdsynopsis></term>
+<listitem><para>Duplicate the selected lines below the current selection.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect3>
@@ -509,12 +770,21 @@ quantifier proved a valuable asset.</para>
 <variablelist>
 
 <varlistentry>
-<term><cmdsynopsis><command>goto</command><arg>INT line</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>goto</command><arg choice="req">INT line</arg></cmdsynopsis></term>
 <listitem><para>This command navigates to the specified line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>find</command><arg>pattern</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>grep</command> <arg choice="req">STRING pattern</arg>
+</cmdsynopsis></term>
+<listitem><para>Search the document for the regular expression
+<userinput>pattern</userinput>. For more information, see
+<xref linkend="regular-expressions" /></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>find</command><arg choice="req">STRING pattern</arg></cmdsynopsis></term>
 <listitem><para>This command navigates to the first occurrence of
 <userinput>pattern</userinput> according to the configuration. Following
 occurrences can be found using
@@ -523,7 +793,7 @@ occurrences can be found using
 <para>The find command can be configured by appending a colon followed by one or
 more options, the form is
 <userinput>find:options pattern</userinput>. The
-following options are supported:
+    following options are supported:</para>
 
 <variablelist>
 
@@ -560,15 +830,12 @@ replacement string.</para></listitem>
 </varlistentry>
 
 </variablelist>
-
-</para>
-
 </listitem>
 
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>ifind</command><arg>pattern</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>ifind</command><arg choice="req">STRING pattern</arg></cmdsynopsis></term>
 <listitem><para>This command provides <quote>as-you-type</quote> searching. You
 can configure the behavior of the search by appending a colon
 followed by one or more options, like this:
@@ -611,7 +878,7 @@ followed by one or more options, like this:
 <title>Using Code Folding</title>
 
 <para>Code folding allows you to hide parts of a document in the editor, making
-it easier to overview large documents. In &kate; the foldable regions are
+it easier to overview large documents. In &kappname; the foldable regions are
 calculated using rules defined in the syntax highlight definitions, and
 therefore it is only available in some formats - typically program source code,
 XML markup and similar. Most highlight definitions supporting code folding
@@ -627,11 +894,12 @@ on a given region: a top down triangle means that the region is expanded, clicki
 collapse the region and a right pointing triangle will be displayed instead.</para>
 
 <para>Eleven commands are provided to manipulate the state of folding regions,
-see the <link linkend="view-code-folding">menu documentation</link>.
-</para>
+ see the <link linkend="view-code-folding">menu documentation</link>.
+ </para>
 
-<para>A great feature of the code folding is that the folded lines are remembered when a file is closed, so when you reopen the file the folded nodes will still be folded. This applies to reload operations as well.
-</para>
+<para>The folded lines are remembered when a file is closed, so when you reopen
+the file the folded nodes will still be folded. This applies to reload operations
+as well.</para>
 
 <para>If you do not want to use the code folding feature, you can disable
 the <guilabel>Show folding markers (if available)</guilabel> option in the
@@ -641,12 +909,12 @@ configuration.</para>
 </sect1>
 
 <sect1 id="advanced-editing-tools-scripting">
-<title>Extending &kate; with Scripts</title>
+<title>Extending &kappname; with Scripts</title>
 
 <para>
-Since &kate; 3.4 in KDE 4.4 the &kate; editor component is easily extensible by
+Since &kappname; 3.4 in KDE 4.4 the &kappname; editor component is easily extensible by
 writing scripts. The scripting language is ECMAScript (widely known as JavaScript).
-&kate; supports two kinds of scripts: indentation and command line scripts.
+&kappname; supports two kinds of scripts: indentation and command line scripts.
 </para>
 
 <sect2 id="advanced-editing-tools-scripting-indentation">
@@ -692,7 +960,7 @@ comment and is of the following form
 Each entry is explained in detail now:
 <itemizedlist>
 <listitem><para>
-<literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kate; skips the script.
+<literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kappname; skips the script.
 </para></listitem>
 <listitem><para>
 <literal>name</literal> [required]: This is the indenter name that appears in the menu
@@ -709,10 +977,10 @@ and in the configuration dialog.
 <literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.
 </para></listitem>
 <listitem><para>
-<literal>kate-version</literal> [required]: Minimal required &kate; version.
+<literal>kate-version</literal> [required]: Minimal required &kappname; version.
 </para></listitem>
 <listitem><para>
-<literal>type</literal> [required]: The type must be <quote><literal>indentation</literal></quote>, otherwise &kate; skips this script.
+<literal>type</literal> [required]: The type must be <quote><literal>indentation</literal></quote>, otherwise &kappname; skips this script.
 </para></listitem>
 <listitem><para>
 <literal>required-syntax-style</literal> [optional]: Comma separated list of required syntax highlighting styles. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
@@ -728,7 +996,7 @@ and in the configuration dialog.
 </para>
 
 <para>
-&kate; reads all pairs of the form
+&kappname; reads all pairs of the form
 <quote><replaceable>key</replaceable>:<replaceable>value</replaceable></quote>
 until it cannot find a colon anymore. This implies that the header can contain
 arbitrary text such as a license as shown in the example.
@@ -795,7 +1063,7 @@ with a different tab width.
 </para>
 
 <para>
-A default KDE installation ships &kate; with several indenters. The
+A default KDE installation ships &kappname; with several indenters. The
 corresponding JavaScript source code can be found in <filename>$KDEDIR/share/apps/katepart/script</filename>.
 </para>
 
@@ -806,7 +1074,7 @@ the command line and invoke the command <command>reload-scripts</command>.
 </para>
 
 <para>
-If you develop useful scripts please consider contributing to the &kate; Project
+If you develop useful scripts please consider contributing to the &kappname; Project
 by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 </para>
 
@@ -817,12 +1085,12 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 <title>Command Line Scripts</title>
 
 <para>
-As it is hard to satisfy everyone's needs, &kate; supports little helper tools
+As it is hard to satisfy everyone's needs, &kappname; supports little helper tools
 for quick text manipulation through the
 <link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 For instance, the command
 <command>sort</command> is implemented as script. This section explains how to create
-<filename>*.js</filename> files to extend &kate; with arbitrary helper scripts.
+<filename>*.js</filename> files to extend &kappname; with arbitrary helper scripts.
 </para>
 
 <para>
@@ -855,25 +1123,25 @@ following form
 
 Each entry is explained in detail now:
 <itemizedlist>
-<listitem><para><literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kate; skips the script.</para></listitem>
+<listitem><para><literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kappname; skips the script.</para></listitem>
 <listitem><para><literal>author</literal> [optional]: The author's name and contact information.</para></listitem>
 <listitem><para><literal>license</literal> [optional]: Short form of the license, such as BSD or LGPLv3.</para></listitem>
 <listitem><para><literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.</para></listitem>
-<listitem><para><literal>kate-version</literal> [required]: Minimal required &kate; version.</para></listitem>
-<listitem><para><literal>type</literal> [required]: The type must be <quote><literal>commands</literal></quote>, otherwise &kate; skips this script.</para></listitem>
+<listitem><para><literal>kate-version</literal> [required]: Minimal required &kappname; version.</para></listitem>
+<listitem><para><literal>type</literal> [required]: The type must be <quote><literal>commands</literal></quote>, otherwise &kappname; skips this script.</para></listitem>
 <listitem><para><literal>functions</literal> [required]: Comma separated list of commands in the script.</para></listitem>
 <listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party scripts.</para></listitem>
 </itemizedlist>
 </para>
 
 <para>
-&kate; reads all pairs of the form
+&kappname; reads all pairs of the form
 <quote><replaceable>key</replaceable>:<replaceable>value</replaceable></quote>
 until it cannot find a colon
 anymore. This implies that the header can contain arbitrary text such as a license
 as shown in the example. The value of the key functions is a comma separated list
 of command line commands. This means a single script contains an arbitrary amount
-of command line commands. Each function is available through &kate;'s
+of command line commands. Each function is available through &kappname;'s
 <link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 </para>
 </sect3>
@@ -914,7 +1182,7 @@ function help(cmd)
 
 Executing <command>help sort</command> in the command line then calls this help function with
 the argument <parameter>cmd</parameter> set to the given command, i.e.
-<parameter>cmd == "sort"</parameter>. &kate; then presents the returned text as
+<parameter>cmd == "sort"</parameter>. &kappname; then presents the returned text as
 documentation to the user. Make sure to
 <link linkend="advanced-editing-tools-scripting-api-i18n">translate the strings</link>.
 </para>
@@ -959,7 +1227,7 @@ switch to the command line and invoke the command <command>reload-scripts</comma
 </para>
 
 <para>
-If you develop useful scripts please consider contributing to the &kate; Project
+If you develop useful scripts please consider contributing to the &kappname; Project
 by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 </para>
 
@@ -973,7 +1241,7 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 <para>
 The scripting API presented here is available in all scripts, i.e. indentation
 scripts and command line commands. Before the contents of a script is loaded,
-&kate; first adds several prototypes and functions to the scripting context.
+&kappname; first adds several prototypes and functions to the scripting context.
 This convenience API contains prototypes like text cursors and text ranges and
 is located in the folder <filename>$KDEDIR/share/apps/katepart/api</filename>.
 There, the file names of each JavaScript file conforms with the following naming
@@ -984,7 +1252,7 @@ scheme:
 </programlisting>
 
 The number has two digits and the name is an arbitrary name such as <quote><filename>myutils</filename></quote>.
-Through the number &kate; controls the execution order of the API. I.e., the
+Through the number &kappname; controls the execution order of the API. I.e., the
 file called <filename>05_cursor.js</filename> is called before the file
 <filename>10_range.js</filename>. (This is similar to the start order of the
 runlevel/init system in Linux).
@@ -996,7 +1264,7 @@ create a new file in the KDE's local configuration folder
 <filename>$KDEHOME/share/apps/katepart/api</filename> and make sure it has a
 greater number (execution order) than the other <filename>*.js</filename> files
 in the global folder <filename>$KDEDIR/share/apps/katepart/api</filename>.
-&kate; automatically searches in both folders for <filename>*.js</filename>
+&kappname; automatically searches in both folders for <filename>*.js</filename>
 files and executes them in the correct order.
 </para>
 
@@ -1013,7 +1281,7 @@ the <classname>Cursor</classname> prototype in JavaScript.
 <title>Cursors and Ranges</title>
 
 <para>
-As &kate; is a text editor, all the scripting API is based on cursors and
+As &kappname; is a text editor, all the scripting API is based on cursors and
 ranges whenever possible. A Cursor is a simple <literal>(line, column)</literal>
 tuple representing a text position in the document. A Range spans text from a
 starting cursor position to an ending cursor position. The API is explained in
@@ -1339,8 +1607,8 @@ KDE's translation functions</ulink>.
 
 <para>The translation functions translate the wrapped strings through KDE's
 translation system to the language used in the application. Strings in scripts
-being developed in the official &kate; sources are automatically extracted and
-translatable. In other words, as a &kate; developer you do not have to bother with
+being developed in the official &kappname; sources are automatically extracted and
+translatable. In other words, as a &kappname; developer you do not have to bother with
 message extraction and translation. However, for 3rd-party scripts developed
 outside of KDE, you have to extract and translate the messages yourself. Along
 with your scripts you have to also distribute a translation catalog, that

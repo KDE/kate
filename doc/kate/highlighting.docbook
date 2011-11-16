@@ -36,13 +36,13 @@ highlighting.</phrase></textobject>
 
 <para>Of the two examples, which is easiest to read?</para>
 
-<para>&kate; comes with a flexible, configurable and capable system
+<para>&kappname; comes with a flexible, configurable and capable system
 for doing syntax highlighting, and the standard distribution provides
 definitions for a wide range of programming, scripting and markup
 languages and other text file formats. In addition you can
 provide your own definitions in simple &XML; files.</para>
 
-<para>&kate; will automatically detect the right syntax rules when you
+<para>&kappname; will automatically detect the right syntax rules when you
 open a file, based on the &MIME; Type of the file, determined by its
 extension, or, if it has none, the contents. Should you experience a
 bad choice, you can manually set the syntax to use from the
@@ -68,7 +68,7 @@ style to see the incorrect 2%.</para>
 
 <tip>
 <para>You can download updated or additional syntax highlight
-definitions from the &kate; website by clicking the
+definitions from the &kappname; website by clicking the
 <guibutton>Download Highlighting Files...</guibutton> button in the <link
 linkend="pref-open-save-modes-filetypes">Modes &amp; Filetypes</link> tab of the <link
 linkend="config-dialog">Config Dialog</link>.</para>
@@ -78,9 +78,9 @@ linkend="config-dialog">Config Dialog</link>.</para>
 
 <sect1 id="katehighlight-system">
 
-<title>The &kate; Syntax Highlight System</title>
+<title>The &kappname; Syntax Highlight System</title>
 
-<para>This section will discuss the &kate; syntax highlighting
+<para>This section will discuss the &kappname; syntax highlighting
 mechanism in more detail. It is for you if you want to know about
 it, or if you want to change or create syntax definitions.</para>
 
@@ -88,7 +88,7 @@ it, or if you want to change or create syntax definitions.</para>
 
 <title>How it Works</title>
 
-<para>Whenever you open a file, one of the first things the &kate;
+<para>Whenever you open a file, one of the first things the &kappname;
 editor does is detect which syntax definition to use for the
 file. While reading the text of the file, and while you type away in
 it, the syntax highlighting system will analyze the text using the
@@ -99,7 +99,7 @@ contexts and styles begin and end.</para>
 fly, so that if you delete a character that is marked as the beginning or end
 of a context, the style of surrounding text changes accordingly.</para>
 
-<para>The syntax definitions used by the &kate; Syntax Highlighting System are
+<para>The syntax definitions used by the &kappname; Syntax Highlighting System are
 &XML; files, containing
 <itemizedlist>
 <listitem><para>Rules for detecting the role of text, organized into context blocks</para></listitem>
@@ -160,7 +160,7 @@ cover the concepts of the format it is used for.</para>
 <para>In many formats, there are lists of words that represent a
 specific concept. For example in programming languages, the control
 statements is one concept, data type names another, and built in
-functions of the language a third. The &kate; Syntax Highlighting
+functions of the language a third. The &kappname; Syntax Highlighting
 System can use such lists to detect and mark words in the text to
 emphasize concepts of the text formats.</para>
 
@@ -170,10 +170,10 @@ emphasize concepts of the text formats.</para>
 <title>Default Styles</title>
 
 <para>If you open a C++ source file, a &Java; source file and an
-<acronym>HTML</acronym> document in &kate;, you will see that even
+<acronym>HTML</acronym> document in &kappname;, you will see that even
 though the formats are different, and thus different words are chosen
 for special treatment, the colors used are the same. This is because
-&kate; has a predefined list of Default Styles which are employed by
+&kappname; has a predefined list of Default Styles which are employed by
 the individual syntax definitions.</para>
 
 <para>This makes it easy to recognize similar concepts in different
@@ -216,7 +216,7 @@ installed on your system in the folder
 </para>
 
 <variablelist>
-<title>Main sections of &kate; Highlight Definition files</title>
+<title>Main sections of &kappname; Highlight Definition files</title>
 
 <varlistentry>
 <term>A highlighting file contains a header that sets the XML version and the doctype:</term>
@@ -241,12 +241,12 @@ Available attributes are:</term>
 <para>Optional attributes:</para>
 <para><userinput>mimetype</userinput> associates files &MIME; Type based.</para>
 <para><userinput>version</userinput> specifies the current version of the definition file.</para>
-<para><userinput>kateversion</userinput> specifies the latest supported &kate; version.</para>
+<para><userinput>kateversion</userinput> specifies the latest supported &kappname; version.</para>
 <para><userinput>casesensitive</userinput> defines, whether the keywords are case sensitive or not.</para>
 <para><userinput>priority</userinput> is necessary if another highlight definition file uses the same extensions. The higher priority will win.</para>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
 <para><userinput>license</userinput> contains the license, usually LGPL, Artistic, GPL and others.</para>
-<para><userinput>hidden</userinput> defines, whether the name should appear in &kate;'s menus.</para>
+<para><userinput>hidden</userinput> defines, whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>
 &lt;language name=&quot;C++&quot; version=&quot;1.00&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;

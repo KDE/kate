@@ -167,28 +167,28 @@ programs, and allows you to pipe command output into &kate;.</para></listitem>
 <varlistentry>
 <term><userinput><command>kate</command>
 <option>--startanon</option></userinput></term>
-<listitem><para>Start &kate; with a new anonymous session, implies 
+<listitem><para>Start &kate; with a new anonymous session, implies
 <option>-n</option>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput><command>kate</command>
 <option>-n</option> <option>--new</option></userinput></term>
-<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is 
-used and another &kate; instance already has the given session opened), forced 
+<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is
+used and another &kate; instance already has the given session opened), forced
 if no parameters and no URLs are given at all.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput><command>kate</command>
 <option>-b</option> <option>--block</option></userinput></term>
-<listitem><para>If using an already running &kate; instance, block until it exits, if URLs 
+<listitem><para>If using an already running &kate; instance, block until it exits, if URLs
 given to open.</para>
 <para>
-You can use &kate; with this option as editor for typing in commit messages for version 
-control systems like <application>Git</application> or <application>Subversion</application>. 
+You can use &kate; with this option as editor for typing in commit messages for version
+control systems like <application>Git</application> or <application>Subversion</application>.
 These systems expect to block the editor till you have entered your
-message, because they then open the temporary file, which would be empty 
+message, because they then open the temporary file, which would be empty
 if kate immediately returned to the caller.
 </para>
 <para>This option is also needed with KIO (&kde; Input/Output), if you open a remote file (which has been
@@ -356,7 +356,6 @@ application.
 </listitem>
 </varlistentry>
 
-<!--Show Find in Files missing-->
 </variablelist>
 </sect2>
 
@@ -369,7 +368,7 @@ way of the <link linkend="settings">Settings</link> menu.  By default
 &kate; honors the following key bindings.
 </para>
 
-<!-- Ctrl+T Transpose Characters 
+<!-- Ctrl+T Transpose Characters
 Meta+Ctrl+V ii input mode
 -->
 
@@ -428,8 +427,8 @@ text)</para></entry>
 <row>
 <entry><para><keycombo action="simul">&Shift;&Enter;</keycombo></para></entry>
 <entry><para>Insert newline including leading characters of the current line which are not letters or numbers.
-It is useful &eg; to write comments in the code: At the end of the line <quote>// some text</quote> press 
-this shortcut and the next line starts already with <quote>// </quote>. So you do not have to enter the comment 
+It is useful &eg; to write comments in the code: At the end of the line <quote>// some text</quote> press
+this shortcut and the next line starts already with <quote>// </quote>. So you do not have to enter the comment
 characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>

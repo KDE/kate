@@ -11,7 +11,7 @@
 <synopsis>This Appendix contains a brief but hopefully sufficient and
 covering introduction to the world of <emphasis>regular
 expressions</emphasis>. It documents regular expressions in the form
-available within &kate;, which is not compatible with the regular
+available within &kappname;, which is not compatible with the regular
 expressions of perl, nor with those of for example
 <command>grep</command>.</synopsis>
 
@@ -258,7 +258,7 @@ Equal to <literal>[^a-zA-Z0-9]</literal> or <literal>[^\w]</literal></para></lis
 
 <para>The abbreviated classes can be put inside a custom class, for
 example to match a word character, a blank or a dot, you could write
-<userinput>[\w \.]</userinput></para> 
+<userinput>[\w \.]</userinput></para>
 
 <note> <para>The POSIX notation of classes, <userinput>[:&lt;class
 name&gt;:]</userinput> is currently not supported.</para> </note>
@@ -278,7 +278,7 @@ class (may follow an unescaped caret)</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><userinput>^</userinput> (caret)</term>
-<listitem><para>Denotes a negative class, if it is the first character. Must be escaped to match literally if it is the first character in the class.</para></listitem> 
+<listitem><para>Denotes a negative class, if it is the first character. Must be escaped to match literally if it is the first character in the class.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><userinput>-</userinput> (dash)</term>
@@ -581,9 +581,9 @@ assertions:
 
 <variablelist>
 
-<varlistentry> 
+<varlistentry>
 <term><userinput>^</userinput> (caret: beginning of
-string)</term> 
+string)</term>
 <listitem><para>Matches the beginning of the searched
 string.</para> <para>The expression <userinput>^Peter</userinput> will
 match at <quote>Peter</quote> in the string <quote>Peter, hey!</quote>

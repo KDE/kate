@@ -1,3 +1,4 @@
+<!--pulled in by kwrite too-->
 <chapter id="kate-part">
 <chapterinfo>
 <authorgroup>
@@ -6,15 +7,15 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 </chapterinfo>
-<title>Working with the &kate; editor</title>
+<title>Working with the &kappname; editor</title>
 
 <sect1 id="kate-part-overview">
 
 <title>Overview</title>
 
-<para>The &kate; editor is the editing area of the &kate; window. This
-editor is also used by &kwrite;, and it can be used in &konqueror; for
-displaying text files from your local computer, or from the
+<para>The &kappname; editor is the editing area of the &kappname; window. This
+editor is shared between &kate; and &kwrite;, and it can also be used in &konqueror;
+for displaying text files from your local computer, or from the
 network.</para>
 
 <para>The editor is composed of the following components:</para>
@@ -63,7 +64,7 @@ Numbers</guimenuitem></menuchoice> menu item.</para>
 </varlistentry>
 
 <varlistentry>
-<term>The Folding Pane</term>
+<term>The Folding Pane &i18n-powermode;</term>
 <listitem>
 <para>The folding pane allows you to collapse or expand foldable blocks
 of lines. The calculation of the foldable regions are done according to
@@ -95,7 +96,7 @@ Wrapping Text</link></para></listitem>
 <sect1 id="kate-part-navigation">
 <title>Navigating in the Text</title>
 
-<para>Moving around in the text in &kate; is like in most graphical text
+<para>Moving around in the text in &kappname; is like in most graphical text
 editors. You move the cursor using the arrow keys and the
 <keycap>Page Up</keycap>, <keycap>Page Down</keycap>, <keycap>Home</keycap> and
 <keycap>End</keycap> keys in combination with the &Ctrl; and
@@ -116,7 +117,7 @@ end of the line.</para></listitem>
 </itemizedlist>
 </para>
 
-<para>&kate; also provides you with a way to quickly jump to a matching brace
+<para>&kappname; also provides you with a way to quickly jump to a matching brace
 or parenthese: Place the cursor on the inside of a parenthese or brace
 character, and press <keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
 to jump to the matching parenthese or brace.</para>
@@ -130,7 +131,7 @@ positions that you define on your own.</para>
 <sect1 id="kate-part-selection">
 <title>Working with the Selection</title>
 
-<para>There are two basic ways of selecting text in &kate;: using the
+<para>There are two basic ways of selecting text in &kappname;: using the
 mouse, and using the keyboard.</para>
 
 <para>To select using the mouse, hold down the &LMB; while dragging
@@ -183,7 +184,7 @@ action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>), or click
 with the &LMB; in the editor.</para>
 
 <sect2 id="kate-part-selection-block">
-<title>Using Block Selection</title>
+<title>Using Block Selection &i18n-powermode;</title>
 
 <para>When Block Selection is enabled, you can make <quote>vertical
 selections</quote> in the text, meaning selecting limited columns from
@@ -275,7 +276,7 @@ system tray.</para>
 <title>The Search and Replace Bars</title>
 
 
-<para>&kate; has an incremental search bar and a power search and 
+<para>&kappname; has an incremental search bar and a power search and
 replace bar, which  offers the means of entering a
 replacement string along with a few extra options.</para>
 
@@ -324,7 +325,7 @@ end.</para>
 <varlistentry>
 <term><guilabel>Escape Sequences</guilabel></term>
 <listitem>
-<para>If selected, the <guibutton>Add</guibutton> menuitem at the 
+<para>If selected, the <guibutton>Add</guibutton> menuitem at the
 bottom of the context menu of the text boxes will be enabled
 and allows you to add escape sequences to the
 search pattern from a predefined list.</para>
@@ -335,12 +336,12 @@ search pattern from a predefined list.</para>
 <term><guilabel>Regular Expression</guilabel></term>
 <listitem>
 <para>If selected, the search string is interpreted as a regular
-expression. The <guibutton>Add</guibutton> menuitem at the 
+expression. The <guibutton>Add</guibutton> menuitem at the
 bottom of the context menu of the text boxes will be enabled
 and allows you to add regular expression items to the
 search pattern from a predefined list.</para>
-<para>See <link linkend="regular-expressions">Regular
-Expressions</link> for more on these.</para>
+<para>See <ulink url="help:/kate/regular-expressions.html">Regular
+Expressions</ulink> for more on these.</para>
 </listitem>
 </varlistentry>
 
@@ -352,10 +353,10 @@ the selected text only.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry> 
+<varlistentry>
 <term><guilabel>Find all</guilabel></term>
 <listitem>
-<para>Clicking this button highlights 
+<para>Clicking this button highlights
 all matches in the document and shows the number of found matches in a small popup.
 </para></listitem>
 </varlistentry>
@@ -367,28 +368,28 @@ all matches in the document and shows the number of found matches in a small pop
 <sect2 id="finding-text">
 <title>Finding Text</title>
 
-<para>To find text, launch the incremental search bar 
+<para>To find text, launch the incremental search bar
 with <keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo> or
 from the <menuchoice><guimenu>Edit</guimenu>
 <guimenuitem>Find...</guimenuitem></menuchoice> menu item.</para>
 <para>This opens the incremental search bar at the bottom of the editor window.
-On the left side of the bar is an icon to close the bar, followed by a small text 
+On the left side of the bar is an icon to close the bar, followed by a small text
 box for entering the search pattern.</para>
-<para>When you start entering characters of your search pattern, the search starts 
+<para>When you start entering characters of your search pattern, the search starts
 immediately. If there is a match in the text this is highlighted and the background color
-of the entry field changes to light green. If the search pattern does not match any 
-string in the text, this is indicated by a light red background color of the entry field 
+of the entry field changes to light green. If the search pattern does not match any
+string in the text, this is indicated by a light red background color of the entry field
 and <guilabel>Not found</guilabel> is displayed at the right side of the bar.</para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button 
-to jump to the next or previous match in the document.</para> 
+<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button
+to jump to the next or previous match in the document.</para>
 <para>You can choose whether the search should be case sensitive.
 Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.</para>
-<para>Click on the green arrow icon at the right side of the incremental search bar to 
+<para>Click on the green arrow icon at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
 <para>
-To repeat the last find operation, if any, without calling the incremental 
+To repeat the last find operation, if any, without calling the incremental
 search bar, use <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
 <guimenu>Edit</guimenu><guimenuitem>Find Next</guimenuitem></menuchoice>
@@ -407,38 +408,38 @@ or
 using the <menuchoice><guimenu>Edit</guimenu>
 <guimenuitem>Replace</guimenuitem></menuchoice> command, or the
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> shortcut.</para>
-<para>On the upper left side of the bar is an icon to close the bar, followed by a small text 
+<para>On the upper left side of the bar is an icon to close the bar, followed by a small text
 box for entering the search pattern.</para>
 <para>You can control the search mode by selecting the options <guilabel>Plain Text</guilabel>,
-<guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or 
+<guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or
 <guilabel>Regular Expression</guilabel> described above.
 </para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button to jump 
+<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button to jump
 to the next or previous match in the document.</para>
 <para>Enter the text to replace with in the text box labelled <guilabel>Replace</guilabel>
 and click the <guibutton>Replace</guibutton> button to replace only the highlighted text or
 the <guibutton>Replace All</guibutton> button to replace the search text in the whole document.
 </para>
-<para>You can modify the search and replace behaviour by selecting the different 
-options at the bottom of the bar. Selecting <guilabel>Match Case</guilabel> will limit 
-finds to entries that match the case (upper or lower) of each of the characters in 
-the search pattern. <guilabel>Selection Only</guilabel> will search and replace 
-within the current selection only. The <guilabel>Find All</guilabel> button highlights 
+<para>You can modify the search and replace behaviour by selecting the different
+options at the bottom of the bar. Selecting <guilabel>Match Case</guilabel> will limit
+finds to entries that match the case (upper or lower) of each of the characters in
+the search pattern. <guilabel>Selection Only</guilabel> will search and replace
+within the current selection only. The <guilabel>Find All</guilabel> button highlights
 all matches in the document and shows the number of found matches in a small popup.
 </para>
-<para>Click on the green arrow icon at the right side of the power search and replace bar to 
+<para>Click on the green arrow icon at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 <tip>
 <para>If you are using a regular expression to find the text to replace, you can
 employ backreferences to reuse text captured in parenthesized subpatterns of the expression.</para>
-<para>See <xref linkend="regular-expressions"/><!-- xref to reg-exp appendix --> for more
+<para>See <ulink url="help:/kate/regular-expressions.html">Regular Expressions</ulink> for more
 on those.</para>
 </tip>
 
 <tip><para>You can do <command>find</command>, <command>replace</command> and
 <command>ifind</command> (incremental search) from the
-<link linkend="advanced-editing-tools-commandline">command line</link>.</para>
+<ulink url="help:/kate/advanced-editing-tools-commandline.html">command line</ulink>.</para>
 </tip>
 
 </sect2>
@@ -446,7 +447,7 @@ on those.</para>
 </sect1>
 
 <sect1 id="kate-part-bookmarks">
-<title>Using Bookmarks</title>
+<title>Using Bookmarks &i18n-powermode;</title>
 
 <para>The bookmarks feature allows you to mark certain lines, to be
 able to easily find them again.</para>
@@ -512,14 +513,14 @@ no lines are longer than the maximum line width, if they contain any whitespace 
 </para>
 
 <note><para>There is currently no way to set word wrap for document types, or even to enable or disable
-the feature on document level. This will be fixed in a future version of &kate;</para></note>
+the feature on document level. This will be fixed in a future version of &kappname;</para></note>
 
 </sect1>
 
 <sect1 id="kate-part-autoindent">
-<title>Using automatic indenting</title>
+<title>Using automatic indenting &i18n-powermode;</title>
 
-<para>&kate;s editor component supports a variation of autoindenting modes,
+<para>&kappname;s editor component supports a variation of autoindenting modes,
 designed for different text formats. You can pick from the available modes using
 the <menuchoice><guimenu>Tools</guimenu><guisubmenu>Indentation</guisubmenu></menuchoice>
 menu. The autoindent modules also provides a function

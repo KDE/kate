@@ -183,7 +183,7 @@ it open in &kate;
 </term>
 <listitem>
 <para>
-<action>Reloads all opened files.</action>. 
+<action>Reloads all opened files.</action>.
 </para>
 </listitem>
 </varlistentry>
@@ -197,7 +197,7 @@ it open in &kate;
 </menuchoice>
 </term>
 <listitem>
-<para><action>Close</action> all documents in the file list, which could 
+<para><action>Close</action> all documents in the file list, which could
 not be reopened during startup, because they are not accessible anymore.
 </para>
 </listitem>
@@ -742,7 +742,7 @@ commands those will of course continue to work.</para></listitem>
 <para>When the terminal emulator is displayed, it will get the focus, so that
 you can start typing in commands immediately. If the <link
 linkend="config-dialog-general-sync-konsole">Automatically synchronize the terminal
-with the current document when possible</link> option is enabled in the 
+with the current document when possible</link> option is enabled in the
 <guilabel>Terminal</guilabel> page of the <link
 linkend="config-dialog">Main configuration dialog</link> the shell session will
 change to the directory of the active document, if it is a local file.</para>
@@ -779,7 +779,7 @@ interactively. For more information, see
 </menuchoice></term>
 <listitem><para>This menu lists the available schemas. You can change the schema
 for the current view here, to change the default schema you need to
-use the <link linkend="prefcolors">Fonts &amp; Colors</link> page 
+use the <link linkend="prefcolors">Fonts &amp; Colors</link> page
 of the config dialog.</para>
 </listitem>
 </varlistentry>
@@ -874,7 +874,8 @@ Code Folding</link>.</para></listitem>
 <menuchoice>
 <guimenu>View</guimenu><guimenuitem>Code Folding</guimenuitem>
 </menuchoice></term>
-<listitem><para>The Code Folding submenu has the next entries:</para>
+<listitem><para>These options pertain to
+<link linkend="advanced-editing-tools-code-folding">code folding</link>:</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
@@ -894,7 +895,7 @@ Code Folding</link>.</para></listitem>
 <term><menuchoice>
 <guimenuitem>Unfold All Nodes</guimenuitem></menuchoice>
 </term>
-<listitem><para>Expand the region that contains the cursor.</para></listitem>
+<listitem><para>Expand all regions in the document.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
@@ -1073,7 +1074,7 @@ be prompted for a session name.</para></listitem>
 </varlistentry>
 
 <varlistentry id="sessions-save-as">
-<term><menuchoice><guimenu>Sessions</guimenu><guimenuitem>Save Session 
+<term><menuchoice><guimenu>Sessions</guimenu><guimenuitem>Save Session
 As...</guimenuitem></menuchoice></term>
 <listitem><para>Save the current session under a new name. You are prompted for
 a name to use.</para></listitem>
@@ -1211,7 +1212,7 @@ document. This overwrites the global end of line mode set in <menuchoice>
 <guisubmenu>Add Byte Mark Order (BOM)</guisubmenu></menuchoice></term>
  <listitem>
 <para>Checking this action you can explicitly add a byte order mark for unicode
-encoded documents. The byte order mark (BOM) is a Unicode character used to signal 
+encoded documents. The byte order mark (BOM) is a Unicode character used to signal
 the endianness (byte order) of a text file or stream, for more information see
 <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
 </listitem>
@@ -1249,8 +1250,8 @@ own scripts</link>. This way, &kate; can be extended with user-defined tools.
 </menuchoice></term>
 <listitem>
 <para><guimenuitem>Reuse Word Below</guimenuitem> (<keycombo action="simul">&Ctrl;
-<keycap>9</keycap></keycombo>) and <guimenuitem>Reuse Word Above</guimenuitem> 
-(<keycombo action="simul">&Ctrl; <keycap>8</keycap></keycombo>) complete 
+<keycap>9</keycap></keycombo>) and <guimenuitem>Reuse Word Above</guimenuitem>
+(<keycombo action="simul">&Ctrl; <keycap>8</keycap></keycombo>) complete
 the currently typed text by searching for similar
 words backward or forward from the current cursor position. <guimenuitem>Shell
 Completion</guimenuitem> pops up a completion box with matching entries.</para>
@@ -1362,7 +1363,7 @@ spellcheck dialog.  They are:</para>
 <variablelist>
 <varlistentry>
 <term><guibutton>Help</guibutton></term>
-<listitem><para> This invokes the &kde; help system with the help page 
+<listitem><para> This invokes the &kde; help system with the help page
 for this dialog.</para></listitem>
 </varlistentry>
 
@@ -1408,7 +1409,7 @@ is instead of at the beginning of the document.</para>
 <guimenuitem>Change Dictionary</guimenuitem></menuchoice></term>
  <listitem>
 <para>Displays a drop down box with all available dictionaries for spellchecking
-at the bottom of the editor window. This allows easy switching of the spellcheck 
+at the bottom of the editor window. This allows easy switching of the spellcheck
 dictionary &eg; for automatic spellcheck of text in different languages.</para>
  </listitem>
 </varlistentry>
@@ -1549,7 +1550,7 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
 
 </variablelist>
-<para>Menu items for the selected <link linkend="pref-plugins">plugins</link> 
+<para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
 are displayed at the end of this menu
 </para>
 
@@ -1662,7 +1663,7 @@ Dialog.</para>
 
 <para>Apart from standard &kde; <guimenu>Help</guimenu> menu items
 described below you will have menu entries to show the
-<guimenuitem>Tip of the Day</guimenuitem> and the <guimenuitem>About 
+<guimenuitem>Tip of the Day</guimenuitem> and the <guimenuitem>About
 Editor Component</guimenuitem> information.</para>
 
 &help.menu.documentation;

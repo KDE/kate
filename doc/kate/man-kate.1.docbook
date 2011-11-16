@@ -46,7 +46,7 @@ line</replaceable></group>
 
 <refsect1>
 <title>Description</title>
-<para>&kate; is the &kde; Advanced Text Editor. </para> 
+<para>&kate; is the &kde; Advanced Text Editor. </para>
 <para>&kate; also provides the editor part for various applications, under
 the name &kwrite;.</para>
 <para>Some of &kate;'s many features include configurable syntax
@@ -79,20 +79,20 @@ configuration files.  This document was written in &kate;.
 </varlistentry>
 <varlistentry>
 <term><option>-n</option>, <option>--new</option></term>
-<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is used and another 
-&kate; instance already has the given session opened), forced if no parameters and no URLs 
+<listitem><para>Force start of a new &kate; instance (is ignored if <option>start</option> is used and another
+&kate; instance already has the given session opened), forced if no parameters and no URLs
 are given at all.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>-b</option>, <option>--block</option></term>
-<listitem><para>If using an already running &kate; instance, block until it exits, 
+<listitem><para>If using an already running &kate; instance, block until it exits,
 if URLs given to open.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>-p, --pid</option> <replaceable>
 pid</replaceable></term>
 <listitem><para>Only try to reuse kate instance with this
-<replaceable>pid</replaceable> (is ignored if <option>start</option> is used and another 
+<replaceable>pid</replaceable> (is ignored if <option>start</option> is used and another
 &kate; instance already has the given session opened).</para></listitem>
 </varlistentry>
 <varlistentry>
@@ -163,7 +163,7 @@ transparently over the network.</para>
 > but jump to lineno after the file is opened.
 
 How bad is it to have to convert that into
--l lineno /some/file/path/file.name 
+-l lineno /some/file/path/file.name
 
 sed s,([^:]*):(\d+),-l \2 \1,
 

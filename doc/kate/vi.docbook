@@ -1,9 +1,10 @@
+<!--pulled in by kwrite too-->
 <chapter id="vi-input-mode-chapter">
 <chapterinfo>
-<authorgroup>
-<author><firstname>Erlend</firstname> <surname>Hamberg</surname> <email>ehamberg@gmail.com</email></author>
+<authorgroup><author>
+&Erlend.Hamberg; &Erlend.Hamberg.mail;
+</author></authorgroup>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
-</authorgroup>
 </chapterinfo>
 
 <title>The VI Input Mode</title>
@@ -11,19 +12,19 @@
 <sect1 id="vi-mode-sect1">
 <title>VI Input Mode</title>
 
-<para>The goal of the VI mode is not to be a complete replacement 
-for Vim and support all Vim’s features. Its aim is to make 
-the <quote>Vim way</quote> of text editing - and the Vim habits learned - 
-available for programs using the &kate; text editor as their internal editor.</para>
+<para>The goal of the VI mode is not to be a complete replacement
+for Vim and support all Vim’s features. Its aim is to make
+the <quote>Vim way</quote> of text editing - and the Vim habits learned -
+available for programs using the &kappname; text editor as their internal editor.</para>
 
-<para>The VI mode aims integrate nicely with the programs and deviate 
+<para>The VI mode aims integrate nicely with the programs and deviate
 from Vim’s behavior where it makes sense. For example,
-<userinput><command>:w</command></userinput> will open a save dialog in &kate;’s VI mode.</para>
+<userinput><command>:w</command></userinput> will open a save dialog in &kappname;’s VI mode.</para>
 
-<para>To enable the VI input mode for all new view, go to
-<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;...</guimenuitem>
-<guimenu>Editing</guimenu><guimenuitem>VI Input Mode</guimenuitem></menuchoice>. 
-On this tab you can set options for the VI Input Mode and define and edit 
+<para>To enable the VI input mode for all new views, go to
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem>
+<guimenu>Editing</guimenu><guimenuitem>VI Input Mode</guimenuitem></menuchoice>.
+On this tab you can set options for the VI Input Mode and define and edit
 the key mapping in this mode.
 VI Input Mode can also be toggled with the <guimenuitem>VI Input Mode</guimenuitem>
 setting in the <guimenu>Edit</guimenu> menu. (The default shortcut key is
@@ -33,37 +34,37 @@ setting in the <guimenu>Edit</guimenu> menu. (The default shortcut key is
 <sect2 id="vi-incompatibilities">
 <title>Incompatibilities with Vim</title>
 
-<para>There are only a few features of &kate;’s VI mode which are incompatible 
-with Vim (not counting things missing). They are listed below together 
+<para>There are only a few features of &kappname;’s VI mode which are incompatible
+with Vim (not counting things missing). They are listed below together
 with the respective reasons.</para>
 <itemizedlist>
 <listitem>
-<para>&kate;: <keycap>U</keycap> and
+<para>&kappname;: <keycap>U</keycap> and
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> is redo.</para>
 <para>Vim: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> is
 normal redo, <keycap>U</keycap> is used to undo all latest changes on one line.</para>
-<para>The reason for having <keycap>U</keycap> act as redo in &kate;’s VI mode is
+<para>The reason for having <keycap>U</keycap> act as redo in &kappname;’s VI mode is
 that the shortcut <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>
-by default is taken by &kate;’s replace function (search and replace). By default,
-the VI mode won’t override &kate;’s shortcuts (this can be configured in
-<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;...</guimenuitem>
+by default is taken by &kappname;’s replace function (search and replace). By default,
+the VI mode won’t override &kappname;’s shortcuts (this can be configured in
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem>
 <guimenu>Editing</guimenu><guimenuitem>Vi Input Mode</guimenuitem></menuchoice>),
 therefore a redo-action needs to be available as a <quote>regular</quote> key press, too.
 Besides, the behavior of the <keycap>U</keycap> command in Vim does not map well
-to &kate;’s internal undo system, so it would be non-trivial to support anyway.</para>
+to &kappname;’s internal undo system, so it would be non-trivial to support anyway.</para>
 </listitem>
 <listitem>
-<para>&kate;: <userinput><command>print</command></userinput> shows the <guilabel>Print</guilabel> dialog.</para>
+<para>&kappname;: <userinput><command>print</command></userinput> shows the <guilabel>Print</guilabel> dialog.</para>
 <para>Vim: <userinput><command>print</command></userinput> prints the lines of
 the given range like its grandfather ed.</para>
 <para>Commands like <userinput><command>:print</command></userinput> are available
-not only in the VI mode but for users using <quote>regular</quote> &kate;, too - therefore
+not only in the VI mode but for users using <quote>regular</quote> &kappname;, too - therefore
 the <userinput><command>:print</command></userinput> command opens
 the print dialog - following the principle of least surprise instead of
 mimicking Vim’s behavior.</para>
 </listitem>
 <listitem>
-<para>&kate;: <keycap>Y</keycap> yanks to end of line.</para>
+<para>&kappname;: <keycap>Y</keycap> yanks to end of line.</para>
 <para>Vim: <keycap>Y</keycap> yanks whole line, just like
 <keycap>y</keycap><keycap>y</keycap>.</para>
 <para>VI’s behavior for the <keycap>Y</keycap> command is in practice a bug.
@@ -73,13 +74,13 @@ For both change and delete commands,
 the current line and <keycap>C</keycap>/<keycap>D</keycap> will work from the
 cursor column to the end of the line. However, both
 <keycap>y</keycap><keycap>y</keycap> and <keycap>Y</keycap>
-yanks the current line. In &kate;’s VI Mode <keycap>Y</keycap> will yank to the end
+yanks the current line. In &kappname;’s VI Mode <keycap>Y</keycap> will yank to the end
 of the line. This is described as <quote>more logical</quote> in the Vim
 <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y">documentation</ulink>.
 </para>
 </listitem>
 <listitem>
-<para>&kate;: <keycap>O</keycap> and <keycap>o</keycap> opens [<replaceable>count</replaceable>] new lines
+<para>&kappname;: <keycap>O</keycap> and <keycap>o</keycap> opens [<replaceable>count</replaceable>] new lines
 and puts you in insert mode.</para>
 <para>Vim: <keycap>O</keycap> and <keycap>o</keycap> opens a new line and inserts
 text [<replaceable>count</replaceable>] times when leaving insert mode.</para>
@@ -87,7 +88,7 @@ text [<replaceable>count</replaceable>] times when leaving insert mode.</para>
 confused by this behavior on a vim irc channel (#vim on freenode).</para>
 </listitem>
 </itemizedlist>
- 
+
 </sect2>
 
 <sect2 id="vi-switching-modes">
@@ -110,11 +111,36 @@ can enter it by pressing <keycap>i</keycap> or one of several other commands
 listed below.
 </para></listitem>
 <listitem>
-<para><emphasis>Command Mode</emphasis> permits you to run certain commands. Press
-<keycap>:</keycap>, enter the command, and press &Enter;.</para>
+<para><emphasis>Command Mode</emphasis> invokes &kappname;'s command line,
+permitting you to run many commands available in Vi implementations as well as
+some specific to &kappname;.  For more information on these commands, see
+<xref linkend="advanced-editing-tools-commandline" />.  To use it,
+press <keycap>:</keycap>, enter the command, and press &Enter;.</para>
 </listitem>
 </itemizedlist>
 <!-- add a picture like http://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title>Integration with Kate features</title>
+<itemizedlist>
+
+<listitem>
+<para>Visual Mode is entered automatically when text is selected with the mouse.
+It is also entered when using functions of Kate that select text, such as Select
+All (either from the menu or via <keycombo action="simul">&Ctrl;<keycap>A</keycap>
+</keycombo>.</para>
+</listitem>
+
+<listitem>
+<para>Vi marks and <link linkend="kate-part-bookmarks">Kate bookmarks</link> are
+integrated.  When a mark is created in Vi Mode, a correpsonding Kate bookmark is
+created and appears in the <guimenu>Bookmarks</guimenu> menu.  Conversely, when
+a Kate bookmark is created, a corresponding Vi mark at the 0 column is also
+created.</para>
+</listitem>
+
+</itemizedlist>
 </sect2>
 
 <sect2 id="vi-normal-visual-mode-commands">
@@ -270,6 +296,40 @@ listed below.
 <row><entry><para><keycap>~</keycap></para></entry>
 <entry><para>Change case of current character</para></entry>
 </row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>s</keycap></keycombo></para></entry>
+<entry><para>Split view horizontally</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>v</keycap></keycombo></para></entry>
+<entry><para>Split view vertically</para></entry>
+</row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keycap>w</keycap></keycombo></para></entry>
+<entry><para>Cycle to next split window</para></entry>
+</row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keycap>h</keycap></keycombo></para>
+<para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keysym>Left</keysym></keycombo></para></entry>
+<entry><para>Go to left split window</para></entry>
+</row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keycap>l</keycap></keycombo></para>
+<para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keysym>Right</keysym></keycombo></para></entry>
+<entry><para>Go to right split window</para></entry>
+</row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keycap>k</keycap></keycombo></para>
+<para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keysym>Up</keysym></keycombo></para></entry>
+<entry><para>Go to above split window</para></entry>
+</row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keycap>j</keycap></keycombo></para>
+<para><keycombo action="seq"><keycombo action="simul">&Ctrl;
+<keycap>w</keycap></keycombo><keysym>Down</keysym></keycombo></para></entry>
+<entry><para>Go to below split window</para></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -402,6 +462,22 @@ which indicates how many of the appropriate movements to make.</para>
 <row><entry><para><keycap>]</keycap><keycap>[</keycap></para></entry>
 <entry><para>Next closing bracket</para></entry>
 </row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>i</keycap></keycombo></para></entry>
+<entry><para>Jump forward to next location</para></entry></row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>o</keycap></keycombo></para></entry>
+<entry><para>Jump back to previous location</para></entry></row>
+<row><entry><para><keycap>H</keycap></para></entry>
+<entry>Go to first line of screen</entry></row>
+<row><entry><para><keycap>M</keycap></para></entry>
+<entry>Go to middle line of screen</entry></row>
+<row><entry><para><keycap>L</keycap></para></entry>
+<entry>Go to last line of screen</entry></row>
+<row><entry><para><keycap>%</keycap> + <literal>percentage</literal></para></entry>
+<entry><para>Go to specified percentage of the document</para></entry></row>
+<row><entry><para><keycap>g</keycap><keycap>k</keycap></para></entry>
+<entry><para>Go one line up visually (when using dynamic word wrap)</para></entry></row>
+<row><entry><para><keycap>g</keycap><keycap>j</keycap></para></entry>
+<entry><para>Go one line down visually (when using dynamic word wrap)</para></entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -459,6 +535,30 @@ square bracket (<userinput>]</userinput>), including the brackets</para></entry>
 <entry><para>Previous opening square bracket (<userinput>[</userinput>) to next closing
 square bracket (<userinput>]</userinput>), excluding the brackets</para></entry>
 </row>
+<row><entry><para><keycap>i</keycap><keycap>{</keycap></para></entry>
+<entry><para>Previous opening curly bracket (<userinput>{</userinput>) to next closing
+curly bracket (<userinput>}</userinput>), including the brackets</para></entry>
+</row>
+<row><entry><para><keycap>a</keycap><keycap>{</keycap></para></entry>
+<entry><para>Previous opening curly bracket (<userinput>{</userinput>) to next closing
+curly bracket (<userinput>}</userinput>), excluding the brackets</para></entry>
+</row>
+<row><entry><para><keycap>i</keycap><keycap>&lt;</keycap></para></entry>
+<entry><para>Previous opening angle bracket (<userinput>&lt;</userinput>) to next closing
+angle bracket (<userinput>&gt;</userinput>), including the brackets</para></entry>
+</row>
+<row><entry><para><keycap>a</keycap><keycap>&lt;</keycap></para></entry>
+<entry><para>Previous opening angle bracket (<userinput>&lt;</userinput>) to next closing
+square bracket (<userinput>&gt;</userinput>), excluding the brackets</para></entry>
+</row>
+<row><entry><para><keycap>i</keycap><keycap>`</keycap></para></entry>
+<entry><para>Previous backtick (<userinput>`</userinput>) to next backtick,
+including the backticks</para></entry>
+</row>
+<row><entry><para><keycap>a</keycap><keycap>`</keycap></para></entry>
+<entry><para>Previous backtick (<userinput>`</userinput>) to next backtick,
+excluding the backticks</para></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -494,6 +594,15 @@ square bracket (<userinput>]</userinput>), excluding the brackets</para></entry>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>Home</keycap></keycombo></para></entry>
 <entry><para>Move to first character in the document</para></entry>
 </row>
+<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>
+<keysym>n</keysym></keycombo></para></entry>
+<entry>Insert the contents of register <literal>n</literal></entry></row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>o</keycap></keycombo></para></entry>
+<entry><para>Enter normal mode for one command only</para></entry></row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></para></entry>
+<entry><para>Increment currently selected number</para></entry></row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></para></entry>
+<entry><para>Decrement currently selected number</para></entry></row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -527,14 +636,14 @@ parameters.</para></caption>
 <sect2 id="vi-missing-features">
 <title>Missing Features</title>
 
-<para>As stated earlier, the goal of &kate;’s VI Mode is not to support 100% of 
+<para>As stated earlier, the goal of &kappname;’s VI Mode is not to support 100% of
 Vim’s features, however, there are some features which are sorely missed:</para>
 <itemizedlist>
 <listitem>
 <para>Visual block mode - especially the ability to prepend/append text to the
 visual block selection.</para></listitem>
 <listitem>
-<para>Having ex commands available in other programs than the &kate; application.</para></listitem>
+<para>Having ex commands available in other programs than the &kappname; application.</para></listitem>
 <listitem>
 <para>The search code needs improvement and the <keycap>*</keycap> and <keycap>#</keycap>
 commands should just be regular searches.</para></listitem>

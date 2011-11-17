@@ -129,12 +129,12 @@ press <keycap>:</keycap>, enter the command, and press &Enter;.</para>
 <para>Visual Mode is entered automatically when text is selected with the mouse.
 It is also entered when using functions of Kate that select text, such as Select
 All (either from the menu or via <keycombo action="simul">&Ctrl;<keycap>A</keycap>
-</keycombo>.</para>
+</keycombo>.)</para>
 </listitem>
 
 <listitem>
 <para>Vi marks and <link linkend="kate-part-bookmarks">Kate bookmarks</link> are
-integrated.  When a mark is created in Vi Mode, a correpsonding Kate bookmark is
+integrated.  When a mark is created in Vi Mode, a corresponding Kate bookmark is
 created and appears in the <guimenu>Bookmarks</guimenu> menu.  Conversely, when
 a Kate bookmark is created, a corresponding Vi mark at the 0 column is also
 created.</para>

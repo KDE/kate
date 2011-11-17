@@ -262,7 +262,7 @@ visualized by a small dot.</para></listitem>
 
 <varlistentry>
 <term><cmdsynopsis><command>set-show-indent</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
-<listitem><para>If enabled, identation will be visualized by a vertical dotted
+<listitem><para>If enabled, indentation will be visualized by a vertical dotted
 line.</para></listitem>
 </varlistentry>
 
@@ -677,9 +677,9 @@ document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>join</command><arg choice="opt">STRING seperator</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>join</command><arg choice="opt">STRING separator</arg></cmdsynopsis></term>
 <listitem><para>Join selected lines or whole document.  Optionally takes a parameter
-defining a seperator, for example:  <userinput><command>join</command> ', '</userinput>
+defining a separator, for example:  <userinput><command>join</command> ', '</userinput>
 </para></listitem>
 </varlistentry>
 

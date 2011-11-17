@@ -5,13 +5,13 @@
   <!ENTITY package "kdesdk">
   <!ENTITY i18n-powermode "<!--please leave this blank-->">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY configuring-part-sections SYSTEM "../kwrite/configuring-part.docbook">
+  <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
   <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY mdi-chapter SYSTEM "mdi.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "../kwrite/part.docbook">
+  <!ENTITY part-chapter SYSTEM "part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
   <!ENTITY vi-chapter SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">

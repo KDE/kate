@@ -3,7 +3,8 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&kate;">
   <!ENTITY package "kdesdk">
-  <!ENTITY i18n-powermode "<!--please leave this blank-->">
+  <!ENTITY copy-this-msg "&nbsp;">
+  <!ENTITY i18n-powermode "&copy-this-msg;">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">

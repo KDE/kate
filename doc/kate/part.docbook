@@ -118,9 +118,9 @@ end of the line.</para></listitem>
 </para>
 
 <para>&kappname; also provides you with a way to quickly jump to a matching brace
-or parenthese: Place the cursor on the inside of a parenthese or brace
+or parenthesis: Place the cursor on the inside of a parenthesis or brace
 character, and press <keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
-to jump to the matching parenthese or brace.</para>
+to jump to the matching parenthesis or brace.</para>
 
 <para>In addition you can use
 <link linkend="kate-part-bookmarks">bookmarks</link> to quickly jump to

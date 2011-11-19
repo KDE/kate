@@ -38,6 +38,10 @@
     <item>UI_DIR</item>
     <item>MOC_DIR</item>
     <item>OBJECTS_DIR</item>
+    <item>VPATH</item>
+    <!--TODO: add all items from the right panel on
+              http://doc.qt.nokia.com/stable/qmake-variable-reference.html
+    -->
   </list>
   <list name="functions">
     <item>contains</item>

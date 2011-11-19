@@ -533,9 +533,9 @@ that action.</para>
 document.</para>
 
 <tip><para>You can set all sorts of configuration variables, including
-those related to indentation using <link linkend="config-variables">Document
-Variables</link> and <link linkend="pref-open-save-modes-filetypes">File
-types</link>.</para></tip>
+those related to indentation using
+<ulink url="help:/kate/config-variables.html">Document Variables</ulink> and
+<link linkend="pref-open-save-modes-filetypes">File types</link>.</para></tip>
 
 <variablelist>
 

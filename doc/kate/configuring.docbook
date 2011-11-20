@@ -535,7 +535,7 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 
 <varlistentry id="variable-show-tabs">
 <term><cmdsynopsis><command>show-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set the visual &Tab; character on or off.</para></listitem>
+<listitem><para>Set the visual tab character on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-smart-home">

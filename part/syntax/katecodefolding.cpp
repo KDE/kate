@@ -882,12 +882,22 @@ void KateCodeFoldingTree::fixRoot(int endLine)
 // Gets "line" depth
 int KateCodeFoldingTree::getLineDepth(int line) const
 {
-  // If line is invalid, then it is possible to decrease the depth by 1
+  if (m_lineMapping.isEmpty()) {
+    return 0;
+  }
+
+  const QMap< int, QVector< KateCodeFoldingNode* > >::const_iterator it = m_lineMapping.lowerBound(line);
+  if (it == m_lineMapping.constEnd() || it.key() > line) {
+    // no previous items found
+    return 0;
+  }
+
   int delta = 0;
-  while (line >=0 && (!m_lineMapping.contains(line) || m_lineMapping[line].empty())) {
-    line --;
+  if (it.key() != line) {
+    // If line is invalid, then it is possible to decrease the depth by 1
     delta = 1;
   }
+  line = it.key();
 
   if (line < 0)
     return 0;

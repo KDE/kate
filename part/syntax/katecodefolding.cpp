@@ -1202,11 +1202,11 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
     // And remove all the nodes from it
     while (tempVector.isEmpty() == false) {
       deleteNode(tempVector.last());
-      tempVector = m_lineMapping[line];
+      tempVector = m_lineMapping.value(line);
     }
 
     // If the deleted line was replaced with an empty line, the map entry will be deleted
-    if (m_lineMapping[line].empty()) {
+    if (m_lineMapping.value(line).isEmpty()) {
       m_lineMapping.remove(line);
     }
 
@@ -1228,10 +1228,8 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
 // newColumns[2 * k + 1] = position of node k
 void KateCodeFoldingTree::setColumns(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn)
 {
-  QVector<KateCodeFoldingNode*> oldLineMapping = m_lineMapping[line];
-
   int index = 1;
-  foreach (KateCodeFoldingNode* tempNode, oldLineMapping) {
+  foreach (KateCodeFoldingNode* tempNode, m_lineMapping.value(line)) {
     if (tempNode->m_type > 0 && index == virtualNodeIndex) {
       tempNode->m_virtualColumn = newColumns[index];
       tempNode->setColumn(virtualColumn);
@@ -1265,9 +1263,8 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
   for (int index = node->getLine() ; index < m_rootMatch->getLine() ; ++index) {
     m_buffer->ensureHighlighted(index);
     if (m_lineMapping.contains(index)) {
-      QVector <KateCodeFoldingNode *> tempLineMap(m_lineMapping[index]);
       bool found = false;
-      foreach (KateCodeFoldingNode* endNode, tempLineMap) {
+      foreach (KateCodeFoldingNode* endNode, m_lineMapping.value(index)) {
         if (node->getStartMatching(endNode) == node) {
           found = true;
           break;
@@ -1434,7 +1431,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
 
   bool foldedFound = false;
 
-  foreach (KateCodeFoldingNode* node, m_lineMapping[l]) {
+  foreach (KateCodeFoldingNode* node, m_lineMapping.value(l)) {
 
     // We can fold/unfold only start nodes
     if (node->m_type < 0)
@@ -1449,7 +1446,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
 
   // If there were no folded nodes, we'll folde the first node
   if (!foldedFound) {
-    foreach (KateCodeFoldingNode* node, m_lineMapping[l]) {
+    foreach (KateCodeFoldingNode* node, m_lineMapping.value(l)) {
 
       // We can fold/unfold only start nodes
       if (node->m_type < 0)

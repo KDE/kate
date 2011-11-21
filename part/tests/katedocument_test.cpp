@@ -228,6 +228,40 @@ void KateDocumentTest::testSetTextPerformance()
     }
 }
 
+void KateDocumentTest::testRemoveTextPerformance()
+{
+    const int lines = 5000;
+    const int columns = 80;
+
+    KateDocument doc(false, false, false);
+
+    QString text;
+    const QString line = QString().fill('a', columns);
+    for(int l = 0; l < lines; ++l) {
+        text.append(line);
+        text.append('\n');
+    }
+
+    doc.setText(text);
+
+    // replace
+    QBENCHMARK_ONCE {
+        #ifdef USE_VALGRIND
+            CALLGRIND_START_INSTRUMENTATION
+        #endif
+
+        doc.editStart();
+
+        doc.removeText(doc.documentRange());
+
+        doc.editEnd();
+
+        #ifdef USE_VALGRIND
+            CALLGRIND_STOP_INSTRUMENTATION
+        #endif
+    }
+}
+
 void KateDocumentTest::testForgivingApiUsage()
 {
     KateDocument doc(false, false, false);

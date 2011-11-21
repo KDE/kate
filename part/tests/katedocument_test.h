@@ -37,6 +37,7 @@ private Q_SLOTS:
   void testMovingInterfaceSignals();
 
   void testSetTextPerformance();
+  void testRemoveTextPerformance();
 
   void testForgivingApiUsage();
 

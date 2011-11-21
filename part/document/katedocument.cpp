@@ -4036,7 +4036,7 @@ void KateDocument::dumpRegionTree()
 }
 //END
 
-void KateDocument::lineInfo (KateLineInfo *info, int line)
+void KateDocument::lineInfo (KateLineInfo *info, int line) const
 {
   m_buffer->lineInfo(info,line);
 }

@@ -293,26 +293,26 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void linesHaveBeenRemoved  (int from, int to);
 
   // Makes clear what KateLineInfo contains
-    void getLineInfo (KateLineInfo *info, int line);
+    void getLineInfo (KateLineInfo* info, int line) const;
 
-    inline KateCodeFoldingNode *rootNode () { return m_root; }
+    inline KateCodeFoldingNode *rootNode () const { return m_root; }
 
   // find the node that contains this line, root else
-    KateCodeFoldingNode *findNodeForLine (int line);
+    KateCodeFoldingNode *findNodeForLine (int line) const;
 
   // find the first start node from the line, 0 else
-    KateCodeFoldingNode *findNodeStartingAt(int line);
+    KateCodeFoldingNode *findNodeStartingAt(int line) const;
 
-    int getRealLine         (int virtualLine);
-    int getVirtualLine      (int realLine);
+    int getRealLine         (int virtualLine) const;
+    int getVirtualLine      (int realLine) const;
 
   // get the number of hidden lines
-    int getHiddenLinesCount (int docLine);
+    int getHiddenLinesCount (int docLine) const;
 
-    KateCodeFoldingNode *findNodeForPosition(int line, int column);
+    KateCodeFoldingNode *findNodeForPosition(int line, int column) const;
 
     void debugDump ();
-    inline int getStartLine (KateCodeFoldingNode *node)
+    inline int getStartLine (KateCodeFoldingNode *node) const
     {
       return node->getLine();
     }
@@ -360,21 +360,21 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     void changeColumn(KateCodeFoldingNode *node, int newColumn);
     void setColumns (int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
     void updateMapping(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn);
-    int hasVirtualColumns(QVector<int> &newColumns);
+    int hasVirtualColumns(QVector<int> &newColumns) const;
 
   // Line depth methods
-    int getLineDepth(int line);
-    int getLineDepth(int line, bool &validEndings);
+    int getLineDepth(int line) const;
+    int getLineDepth(int line, bool &validEndings) const;
 
   // Tree algorithm metods
-    KateCodeFoldingNode* findParent (KateDocumentPosition startingPos,int childType);
-    KateCodeFoldingNode* fineNodeAbove (KateDocumentPosition startingPos);
+    KateCodeFoldingNode* findParent (KateDocumentPosition startingPos,int childType) const;
+    KateCodeFoldingNode* fineNodeAbove (KateDocumentPosition startingPos) const;
     void sublist(QVector<KateCodeFoldingNode *> &dest, QVector<KateCodeFoldingNode *> &source,
-                                              KateDocumentPosition begin, KateDocumentPosition end);
-    KateCodeFoldingNode* findNodeAt(KateDocumentPosition position);
+                 KateDocumentPosition begin, KateDocumentPosition end) const;
+    KateCodeFoldingNode* findNodeAt(KateDocumentPosition position) const;
 
-    KateCodeFoldingNode* firstNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap);
-    KateCodeFoldingNode* lastNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap);
+    KateCodeFoldingNode* firstNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap) const;
+    KateCodeFoldingNode* lastNodeFromLine(QVector<KateCodeFoldingNode *> &lineMap) const;
 
   // Folding / Unfolding methods
     void replaceFoldedNodeWithList(KateCodeFoldingNode* node, QList<KateCodeFoldingNode*> &newFoldedNodes);

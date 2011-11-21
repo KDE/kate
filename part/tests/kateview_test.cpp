@@ -27,6 +27,7 @@
 #include <ktexteditor/movingcursor.h>
 #include <kateconfig.h>
 #include <ktemporaryfile.h>
+#include <katebuffer.h>
 
 using namespace KTextEditor;
 
@@ -136,6 +137,9 @@ void KateViewTest::testFolding()
     view->config()->setScrollPastEnd(scrollPastEnd);
     view->config()->setAutoCenterLines(autoCenterLines);
 
+    for(int i = 0; i < doc.lines(); ++i) {
+      doc.buffer().ensureHighlighted(i);
+    }
     QCOMPARE(doc.visibleLines(), 4u);
 
     collapseAction->trigger();

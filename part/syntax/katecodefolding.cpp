@@ -1160,14 +1160,18 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
   while (iterator.hasNext() && iterator.peekNext().key() == line) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
+    Q_ASSERT(!tempVector.isEmpty());
     // The nodes are split
     while (tempVector.empty() == false && tempVector[0]->getColumn() < column) {
       tempVector2.append(tempVector[0]);
       tempVector.pop_front();
     }
     incrementBy1(tempVector);
-    Q_ASSERT(!tempVector2.isEmpty());
-    m_lineMapping.insert(key, tempVector2);
+    // either one of them must be non-empty
+    Q_ASSERT(!tempVector.isEmpty() || !tempVector2.isEmpty());
+    if (!tempVector2.isEmpty()) {
+      m_lineMapping.insert(key, tempVector2);
+    }
     if (!tempVector.isEmpty()) {
       // we must not add empty lists as that messes up our assumptions!
       m_lineMapping.insert(key + 1,tempVector);

@@ -37,6 +37,8 @@
 int debugArea() { static int s_area = KDebug::registerArea("Kate (Folding)"); return s_area; }
 #define debug() kDebug(debugArea())
 
+//BEGIN KateCodeFoldingNode
+
 KateCodeFoldingNode::KateCodeFoldingNode() :
     m_parentNode(0),
     m_position(0,0),
@@ -68,6 +70,7 @@ KateCodeFoldingNode::~KateCodeFoldingNode()
 void KateCodeFoldingNode::add(KateCodeFoldingNode *node, QVector<KateCodeFoldingNode*> &m_children)
 {
   int i;
+  ///FIXME: use binary search
   for (i = 0 ; i < m_children.size() ; ++i) {
     if (m_children[i]->m_position > node->m_position)
       break;
@@ -448,11 +451,11 @@ void KateCodeFoldingNode::updateSelf()
 }
 
 
-// End of KateCodeFoldingNode Class
+//END KateCodeFoldingNode
 
 //-------------------------------------------------------//
 
-// Start of KateCodeFoldingTree
+//BEGIN KateCodeFoldingTree
 
 
 KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer) :
@@ -478,9 +481,22 @@ void KateCodeFoldingTree::addDeltaToLine(QVector<KateCodeFoldingNode *> &nodesLi
   }
 }
 
+// All the node's lines are incremented with 1
+void KateCodeFoldingTree::incrementBy1(QVector<KateCodeFoldingNode *> &nodesLine)
+{
+  addDeltaToLine(nodesLine, +1);
+}
+
+// This metods decrements line value by 1
+void KateCodeFoldingTree::decrementBy1(QVector<KateCodeFoldingNode *> &nodesLine)
+{
+  addDeltaToLine(nodesLine, -1);
+}
+
 void KateCodeFoldingTree::clear()
 {
   // We delete all nodes
+  ///TODO: rewrite using iterators or qDeleteAll
   QList<int>keys = m_lineMapping.uniqueKeys();
   keys.pop_front();
   foreach (int key, keys) {
@@ -562,34 +578,27 @@ void KateCodeFoldingTree::collapseToplevelNodes()
   }
 }
 
-// This metods decrements line value by 1
-void KateCodeFoldingTree::decrementBy1(QVector<KateCodeFoldingNode *> &nodesLine)
-{
-  foreach (KateCodeFoldingNode *node, nodesLine) {
-    node->setLine(node->getLine() - 1);
-  }
-}
-
 // This method removes a node from the line map structure
 // If the node was the last node from its line, the enitre map entry will be removed
 // If the node was folded, the node will be unfolded
 void KateCodeFoldingTree::deleteNodeFromMap(KateCodeFoldingNode *node)
 {
-  QVector<KateCodeFoldingNode *> mapping = m_lineMapping[node->getLine()];
+  Q_ASSERT(m_lineMapping.contains(node->getLine()));
+  QVector<KateCodeFoldingNode *>& nodes = m_lineMapping[node->getLine()];
   int index;
-  for (index = 0 ; index < mapping.size() ; index ++) {
-    if (mapping[index] == node) {
-      mapping.remove(index);
+  for (index = 0 ; index < nodes.size() ; index ++) {
+    if (nodes[index] == node) {
+      nodes.remove(index);
       break;
     }
   }
-  if (mapping.empty())
+  if (nodes.empty()) {
     m_lineMapping.remove(node->getLine());
-  else
-    m_lineMapping[node->getLine()] = mapping;
+  }
 
-  if (m_hiddenNodes.contains(node))
+  if (m_hiddenNodes.contains(node)) {
     unfoldNode(node);
+  }
 }
 
 // This method deletes an end node, "deletedNode"
@@ -711,18 +720,19 @@ void KateCodeFoldingTree::expandToplevelNodes()
 }
 
 // Searches for the first start node above
-KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(KateDocumentPosition startingPos) const
+KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(const KateDocumentPosition& startingPos) const
 {
   for (int line = startingPos.line ; line >= 0 ; line --) {
     if (!m_lineMapping.contains(line))
       continue;
 
-    QVector <KateCodeFoldingNode*> tempMap = m_lineMapping[line];
-    for (int column = tempMap.size() - 1 ; column >= 0 ; column --) {
+    const QVector <KateCodeFoldingNode*>& nodes = m_lineMapping.value(line);
+    for (int column = nodes.size() - 1 ; column >= 0 ; column --) {
+      KateCodeFoldingNode* node = nodes.at(column);
       // We search for a "start node"
       // We still have to check positions becose the parent might be on the same line
-      if (tempMap[column]->m_type > 0 && tempMap[column]->m_position < startingPos)
-        return tempMap[column];
+      if (node->m_type > 0 && node->m_position < startingPos)
+        return node;
     }
   }
 
@@ -731,11 +741,11 @@ KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(KateDocumentPosition sta
 }
 
 // Searches for the node placed on a specific position
-KateCodeFoldingNode* KateCodeFoldingTree::findNodeAt(KateDocumentPosition position) const
+KateCodeFoldingNode* KateCodeFoldingTree::findNodeAt(const KateDocumentPosition& position) const
 {
-  QVector <KateCodeFoldingNode*> tempVector = m_lineMapping[position.line];
+  Q_ASSERT(m_lineMapping.contains(position.line));
 
-  foreach (KateCodeFoldingNode *node,tempVector) {
+  foreach (KateCodeFoldingNode *node, m_lineMapping.value(position.line)) {
     if (node->m_position == position)
       return node;
   }
@@ -790,36 +800,36 @@ KateCodeFoldingNode* KateCodeFoldingTree::findNodeForPosition(int l, int c) cons
 }
 
 // Search for the parent of the new node that will be created at position startingPos
-KateCodeFoldingNode* KateCodeFoldingTree::findParent(KateDocumentPosition startingPos, int childType) const
+KateCodeFoldingNode* KateCodeFoldingTree::findParent(const KateDocumentPosition& startingPos, int childType) const
 {
   for (int line = startingPos.line ; line >= 0 ; line --) {
     if (!m_lineMapping.contains(line))
       continue;
 
-    QVector <KateCodeFoldingNode*> tempLineMap = m_lineMapping[line];
-    for (int i = tempLineMap.size() - 1 ; i >= 0 ; i --) {
-
+    const QVector<KateCodeFoldingNode*>& nodes = m_lineMapping.value(line);
+    for (int i = nodes.size() - 1 ; i >= 0 ; i --) {
+      KateCodeFoldingNode* node = nodes.at(i);
       // The parent must be a "start node"
-      if (tempLineMap[i]->m_type < 0)
+      if (node->m_type < 0)
         continue;
 
       // The parent must be on a lower position that its child
-      if (tempLineMap[i]->m_position > startingPos)
+      if (node->m_position > startingPos)
         continue;
 
       // If it's inserted an "end node", then there are no other conditions
       if (childType < 0)
-        return tempLineMap[i];
+        return node;
 
       // If the node has a shortage, we found the parent node
-      if (tempLineMap[i]->hasMatch() == false)
-        return tempLineMap[i];
+      if (node->hasMatch() == false)
+        return node;
 
       // If this node has a match and its matching node's
       // position is lower then current node, we found the parent
       // The previous version was with m_endChildren.last()
-      if (tempLineMap[i]->matchingNode()->m_position > startingPos)
-        return tempLineMap[i];
+      if (node->matchingNode()->m_position > startingPos)
+        return node;
     }
   }
 
@@ -830,17 +840,18 @@ KateCodeFoldingNode* KateCodeFoldingTree::findParent(KateDocumentPosition starti
 // Return the first start node from "line"
 KateCodeFoldingNode* KateCodeFoldingTree::findNodeStartingAt(int line) const
 {
-  if (!m_lineMapping.contains(line) || m_lineMapping[line].empty())
+  if (!m_lineMapping.contains(line)) {
     return 0;
-  QVector <KateCodeFoldingNode*> tempLineMap = m_lineMapping[line];
-  foreach (KateCodeFoldingNode* child, tempLineMap) {
+  }
+  Q_ASSERT(!m_lineMapping.value(line).isEmpty());
+  foreach (KateCodeFoldingNode* child, m_lineMapping.value(line)) {
     if (child->m_type > 0)
       return child;
   }
   return 0;
 }
 
-KateCodeFoldingNode* KateCodeFoldingTree::firstNodeFromLine(QVector< KateCodeFoldingNode* >& lineMap) const
+KateCodeFoldingNode* KateCodeFoldingTree::firstNodeFromLine(const QVector< KateCodeFoldingNode* >& lineMap) const
 {
   int minColumn = lineMap.first()->getColumn();
   KateCodeFoldingNode* firstNode = lineMap.first();
@@ -853,7 +864,7 @@ KateCodeFoldingNode* KateCodeFoldingTree::firstNodeFromLine(QVector< KateCodeFol
   return firstNode;
 }
 
-KateCodeFoldingNode* KateCodeFoldingTree::lastNodeFromLine(QVector< KateCodeFoldingNode* >& lineMap) const
+KateCodeFoldingNode* KateCodeFoldingTree::lastNodeFromLine(const QVector< KateCodeFoldingNode* >& lineMap) const
 {
   int maxColumn = lineMap.last()->getColumn();
   KateCodeFoldingNode* lastNode = lineMap.last();
@@ -917,26 +928,27 @@ int KateCodeFoldingTree::getLineDepth(int line, bool& validEndings) const
 {
   validEndings = false;
 
+  const QVector< KateCodeFoldingNode* >& nodes = m_lineMapping.value(line);
+  Q_ASSERT(!nodes.isEmpty());
   // If there is a start node on this line,
   // then the depth of this line is the depth of the last start node (biggest depth)
-  KateCodeFoldingNode *lastNode = m_lineMapping[line].last();
+  KateCodeFoldingNode *lastNode = nodes.last();
   if (lastNode->m_type > 0) {
     return lastNode->getDepth();
   }
 
   // If we don't have a starting node, but we have an end node on this line,
   // then the depth of this line is the depth of the last VALID end node on this line (smallest depth)
-  if (m_lineMapping[line].first()->m_type < 0) {
-    QVector<KateCodeFoldingNode *> tempLineMap = m_lineMapping[line];
+  if (nodes.first()->m_type < 0) {
     int index;
-    for (index = 0 ; index < tempLineMap.size() ; ++ index) {
-      KateCodeFoldingNode* startMatch = tempLineMap[index]->m_parentNode->getStartMatching(tempLineMap[index]);
-      if (tempLineMap[index]->m_type > 0 || startMatch->m_type == 0)
+    for (index = 0 ; index < nodes.size() ; ++ index) {
+      KateCodeFoldingNode* startMatch = nodes[index]->m_parentNode->getStartMatching(nodes[index]);
+      if (nodes[index]->m_type > 0 || startMatch->m_type == 0)
         break;
     }
     if (index > 0) {
       validEndings = true;
-      KateCodeFoldingNode* startMatch = tempLineMap[index - 1]->m_parentNode->getStartMatching(tempLineMap[index - 1]);
+      KateCodeFoldingNode* startMatch = nodes[index - 1]->m_parentNode->getStartMatching(nodes[index - 1]);
       return startMatch->getDepth();
     }
 
@@ -962,9 +974,9 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, int line) const
   }
 
   // Find out if there are any nodes on this line
-  if (m_lineMapping.contains(line) && !m_lineMapping[line].isEmpty()) {
-   QVector<KateCodeFoldingNode *> tempLineMap = m_lineMapping[line];
-   foreach(KateCodeFoldingNode *node, tempLineMap) {
+  if (m_lineMapping.contains(line)) {
+    Q_ASSERT(!m_lineMapping.value(line).isEmpty());
+   foreach(KateCodeFoldingNode *node, m_lineMapping.value(line)) {
      // If our node it's a start node
      if (node->m_type > 0) {
        // Check if it is visibile
@@ -1046,38 +1058,30 @@ int KateCodeFoldingTree::getHiddenLinesCount(int docLine) const
   return n;
 }
 
-// All the node's lines are incremented with 1
-void KateCodeFoldingTree::incrementBy1(QVector<KateCodeFoldingNode *> &nodesLine)
-{
-  foreach (KateCodeFoldingNode *node, nodesLine) {
-    node->setLine(node->getLine() + 1);
-  }
-}
-
 // This method inserts a "newNode" into the lineMapping structure
 void KateCodeFoldingTree::insertNodeIntoMap(KateCodeFoldingNode* newNode)
 {
   // If this line is not empty
   if (m_lineMapping.contains(newNode->getLine())) {
-    QVector<KateCodeFoldingNode *> tempLineMap = m_lineMapping[newNode->getLine()];
+    QVector<KateCodeFoldingNode *>& nodes = m_lineMapping[newNode->getLine()];
     int index;
-    for (index = 0 ; index < tempLineMap.size() ; index++) {
-      if (tempLineMap[index]->getColumn() > newNode->getColumn())
+    for (index = 0 ; index < nodes.size() ; index++) {
+      if (nodes[index]->getColumn() > newNode->getColumn())
         break;
     }
-    tempLineMap.insert(index,newNode);
-    m_lineMapping[newNode->getLine()] = tempLineMap;
+    nodes.insert(index,newNode);
   }
   // If line is empty
   else {
-    QVector<KateCodeFoldingNode *> tempLineMap;
-    tempLineMap.append(newNode);
-    m_lineMapping[newNode->getLine()] = tempLineMap;
+    QVector<KateCodeFoldingNode *> nodes;
+    nodes.append(newNode);
+    m_lineMapping[newNode->getLine()] = nodes;
   }
+  Q_ASSERT(!m_lineMapping.value(newNode->getLine()).isEmpty());
 }
 
 // Inserts a new end node into a specific position, pos
-void KateCodeFoldingTree::insertEndNode(int type, KateDocumentPosition pos)
+void KateCodeFoldingTree::insertEndNode(int type, const KateDocumentPosition& pos)
 {
   // step 0 - set newNode's parameters
   // find the parent of the new node
@@ -1095,7 +1099,7 @@ void KateCodeFoldingTree::insertEndNode(int type, KateDocumentPosition pos)
 }
 
 // Inserts a new start node into a specific position, pos
-void KateCodeFoldingTree::insertStartNode(int type, KateDocumentPosition pos, int virtualColumn)
+void KateCodeFoldingTree::insertStartNode(int type, const KateDocumentPosition& pos, int virtualColumn)
 {
   // step 0 - set newNode's parameters
   // find the parent of the new node
@@ -1235,7 +1239,7 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
 
 // Update columns when "colsChanged" flag from updateLine() is "true"
 // newColumns[2 * k + 1] = position of node k
-void KateCodeFoldingTree::setColumns(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn)
+void KateCodeFoldingTree::setColumns(int line, const QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn)
 {
   int index = 1;
   foreach (KateCodeFoldingNode* tempNode, m_lineMapping.value(line)) {
@@ -1252,8 +1256,8 @@ void KateCodeFoldingTree::setColumns(int line, QVector<int> &newColumns, int vir
 }
 
 // puts in dest Vector a sublist of source Vector
-void KateCodeFoldingTree::sublist(QVector<KateCodeFoldingNode *> &dest, QVector<KateCodeFoldingNode *> &source,
-                                  KateDocumentPosition begin, KateDocumentPosition end) const
+void KateCodeFoldingTree::sublist(QVector<KateCodeFoldingNode *> &dest, const QVector<KateCodeFoldingNode *> &source,
+                                  const KateDocumentPosition& begin, const KateDocumentPosition& end) const
 {
   dest.clear();
   foreach (KateCodeFoldingNode *node, source) {
@@ -1472,30 +1476,30 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
 
 // changed = true, if there is there is a new node on the line / a node was deleted from the line
 // colschanged = true only if node's column changes (nodes de not appear/disappear)
-void KateCodeFoldingTree::updateLine(int line, QVector<int> *regionChanges, bool *updated, bool changed, bool colsChanged)
+void KateCodeFoldingTree::updateLine(int line, const QVector<int>& regionChanges, bool *updated, bool changed, bool colsChanged)
 {
   if (!changed && !colsChanged) {
     *updated = false;
     return;
   }
 
-  int virtualIndex = hasVirtualColumns(*regionChanges);
+  int virtualIndex = hasVirtualColumns(regionChanges);
   int virtualColumn = 0;
   if (virtualIndex > -1)
-    virtualColumn = (*regionChanges)[virtualIndex - 1];
+    virtualColumn = regionChanges[virtualIndex - 1];
 
   if (colsChanged) {
-    setColumns(line, *regionChanges, virtualIndex, virtualColumn);
+    setColumns(line, regionChanges, virtualIndex, virtualColumn);
     *updated = true;
     return;
   }
 
   // changed == true
-  updateMapping(line, *regionChanges, virtualIndex, virtualColumn);
+  updateMapping(line, regionChanges, virtualIndex, virtualColumn);
   *updated = true;
 }
 
-int KateCodeFoldingTree::hasVirtualColumns(QVector< int >& newColumns) const
+int KateCodeFoldingTree::hasVirtualColumns(const QVector<int>& newColumns) const
 {
   for (int i = 2 ; i < newColumns.size() ; i += 2) {
     if (newColumns[i - 2] < 0 && newColumns[i] > 0 && newColumns[i - 1] > newColumns[i + 1])
@@ -1506,9 +1510,9 @@ int KateCodeFoldingTree::hasVirtualColumns(QVector< int >& newColumns) const
 
 // Update mapping when "changhed" flag from updateLine() is "true" - nodes inserted or deleted
 // newColumns[2 * k + 1] = position of node k
-void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn)
+void KateCodeFoldingTree::updateMapping(int line, const QVector<int> &newColumns, int virtualNodeIndex, int virtualColumn)
 {
-  QVector<KateCodeFoldingNode*> oldLineMapping = m_lineMapping[line];
+  const QVector<KateCodeFoldingNode*> oldLineMapping = m_lineMapping.value(line);
   int index_old = 0;
   int index_new = 1;
 
@@ -1572,8 +1576,6 @@ void KateCodeFoldingTree::updateMapping(int line, QVector<int> &newColumns, int 
   if (m_lineMapping[line].isEmpty()) {
     m_lineMapping.remove(line);
   }
-
-  oldLineMapping.clear();
 }
 
 
@@ -1625,8 +1627,8 @@ void KateCodeFoldingTree::applyFoldingState()
     int line = itLines.next();
     int column = itColumns.next();
 
-    QVector <KateCodeFoldingNode*> lineMap = m_lineMapping[line];
-    foreach (KateCodeFoldingNode* node, lineMap) {
+    Q_ASSERT(m_lineMapping.contains(line));
+    foreach (KateCodeFoldingNode* node, m_lineMapping.value(line)) {
       if (node->getColumn() == column) {
         foldNode(node);
         break;
@@ -1728,3 +1730,5 @@ void KateCodeFoldingTree::searchThisNode(KateCodeFoldingNode *deletedNode)
     }
   }
 }
+
+//END KateCodeFoldingTree

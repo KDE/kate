@@ -369,7 +369,7 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   textLine->setFoldingList(foldingList);
 
   bool retVal_folding = false;
-  m_regionTree.updateLine (current_line, &foldingList, &retVal_folding, true,false);
+  m_regionTree.updateLine(current_line, foldingList, &retVal_folding, true,false);
 
   // tagLines() is emitted from KatBuffer::doHighlight()!
 }
@@ -703,7 +703,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     }
     bool retVal_folding = false;
     //perhaps make en enums out of the change flags
-    m_regionTree.updateLine (current_line, &foldingList, &retVal_folding, foldingChanged,foldingColChanged);
+    m_regionTree.updateLine(current_line, foldingList, &retVal_folding, foldingChanged,foldingColChanged);
 
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
@@ -759,7 +759,7 @@ void KateBuffer::codeFoldingColumnUpdate(int lineNr) {
     line->setFoldingColumnsOutdated(false);
     bool tmp;
     QVector<int> folding=line->foldingListArray();
-    m_regionTree.updateLine(lineNr,&folding,&tmp,true,false);
+    m_regionTree.updateLine(lineNr,folding,&tmp,true,false);
   }
 }
 

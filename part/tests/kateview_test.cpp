@@ -149,6 +149,66 @@ void KateViewTest::testFolding()
     QCOMPARE(doc.visibleLines(), 4u);
 }
 
+void KateViewTest::testBug287291()
+{
+    // see also: https://bugs.kde.org/show_bug.cgi?id=287291
+    KTemporaryFile file;
+    file.setSuffix(".cpp");
+    file.open();
+    QTextStream stream(&file);
+    stream << "int main() {\n"
+           << "  asdf;\n"
+           << "}\n";
+    stream << flush;
+    file.close();
+
+    KateDocument doc(false, false, false);
+    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QCOMPARE(doc.highlightingMode(), QString("C++"));
+
+    KateView* view = new KateView(&doc, 0);
+    QAction* collapseAction = view->action("folding_toplevel");
+    QVERIFY(collapseAction);
+    QAction* expandAction = view->action("folding_expandtoplevel");
+    QVERIFY(expandAction);
+
+    for(int i = 0; i < doc.lines(); ++i) {
+      doc.buffer().ensureHighlighted(i);
+      // make sure this works without crash
+      KateLineInfo info;
+      doc.lineInfo(&info, i);
+    }
+
+    QCOMPARE(doc.visibleLines(), 4u);
+    collapseAction->trigger();
+    QCOMPARE(doc.visibleLines(), 2u);
+    for(int i = 0; i < doc.lines(); ++i) {
+      // make sure this works without crash
+      KateLineInfo info;
+      doc.lineInfo(&info, i);
+    }
+    doc.clear();
+    QCOMPARE(doc.visibleLines(), 1u);
+    doc.undo();
+    QCOMPARE(doc.visibleLines(), 5u);
+    for(int i = 0; i < doc.lines(); ++i) {
+      // make sure this works without crash
+      KateLineInfo info;
+      doc.lineInfo(&info, i);
+    }
+
+    // now add a newline after the last }
+    QCOMPARE(doc.text(Range(2, 0, 2, 1)), QLatin1String("}"));
+    view->setCursorPosition(Cursor(2, 1));
+    doc.newLine(view);
+    for(int i = 0; i < doc.lines(); ++i) {
+      // make sure this works without crash
+      KateLineInfo info;
+      doc.lineInfo(&info, i);
+    }
+}
+
+
 void KateViewTest::testSelection()
 {
     // see also: https://bugs.kde.org/show_bug.cgi?id=277422

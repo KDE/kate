@@ -1147,6 +1147,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
   while (iterator.hasNext() && iterator.peekNext().key() < line) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
+    Q_ASSERT(!tempVector.isEmpty());
     m_lineMapping.insert(key,tempVector);
     iterator.next();
   }
@@ -1161,8 +1162,12 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
       tempVector.pop_front();
     }
     incrementBy1(tempVector);
+    Q_ASSERT(!tempVector2.isEmpty());
     m_lineMapping.insert(key, tempVector2);
-    m_lineMapping.insert(key + 1,tempVector);
+    if (!tempVector.isEmpty()) {
+      // we must not add empty lists as that messes up our assumptions!
+      m_lineMapping.insert(key + 1,tempVector);
+    }
     iterator.next();
   }
 
@@ -1171,6 +1176,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(int line, int column)
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
     incrementBy1(tempVector);
+    Q_ASSERT(!tempVector.isEmpty());
     m_lineMapping.insert(key + 1,tempVector);
     iterator.next();
   }
@@ -1188,6 +1194,7 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
   while (iterator.hasNext() && iterator.peekNext().key() < from) {
     int key = iterator.peekNext().key();
     tempVector = iterator.peekNext().value();
+    Q_ASSERT(!tempVector.isEmpty());
     m_lineMapping.insert(key,tempVector);
     iterator.next();
   }
@@ -1197,6 +1204,7 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
     // Coppy the old line
     tempVector = iterator.peekNext().value();
     int line = iterator.peekNext().key();
+    Q_ASSERT(!tempVector.isEmpty());
     m_lineMapping.insert(line,tempVector);
 
     // And remove all the nodes from it
@@ -1219,6 +1227,7 @@ void KateCodeFoldingTree::linesHaveBeenRemoved(int from, int to)
     tempVector = iterator.peekNext().value();
     //decrementBy1(tempVector);
     addDeltaToLine(tempVector, (from - to - 1));
+    Q_ASSERT(!tempVector.isEmpty());
     m_lineMapping.insert(key + (from - to - 1),tempVector);
     iterator.next();
   }

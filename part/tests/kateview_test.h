@@ -38,6 +38,8 @@ private Q_SLOTS:
   void testFolding_data();
   void testFolding();
 
+  void testBug287291();
+
   void testSelection();
 };
 

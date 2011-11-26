@@ -1426,10 +1426,187 @@ from disk.</para></listitem>
 </sect2>
 </sect1>
 
+<sect1 id="kate-application-plugin-snippets">
+<sect1info>
+<authorgroup>
+<author>Martin Gergov</author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title>Kate Snippets</title>
+
+<sect2 id="snippets-intro">
+<title>Introduction</title>       
+<para>Kate Snippets is a plugin used to save you some time by adding support for
+so-called "snippets" (re-usable source code, machine code or text).The plugin
+also supports code completion and QtScript.</para>
+</sect2>
+
+<sect2 id="snippets-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Kate Snippets</guimenuitem></menuchoice></term>
+<listitem><para>Shows snippets panel containing all snippets in your repository
+that are for the currently opened file type.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="snippets-config">
+<title>Configuration</title>
+
+<para>The configuration for Kate Snippets can be accessed in <menuchoice>
+<guimenu>Settings</guimenu><guimenuitem>Configure Kate</guimenuitem></menuchoice>,
+in <guilabel>Kate Snippets</guilabel> under <guilabel>Application</guilabel>.</para>
+
+<screenshot id="screenshot-snippets-config">
+<screeninfo>Kate Snippets Configuration</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="snippets-config.png" format="PNG"/></imageobject>
+<textobject><phrase>The Kate snippets configuration panel.</phrase></textobject>
+<caption><para>The configuration panel for Kate Snippets.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>In the configuration panel you should see a list of snippet repositories,
+along with options to create your own, get them from the Internet or load
+them from a local file.  Each repository has a checkbox that can be used to
+activate or deactivate it.  There are also buttons to edit and delete existing
+repositories.</para>
+
+<sect3 id="snippets-repo-internet">
+<title>Loading Snippet Repository Files</title>
+<para>You can download snippet repositories from the Internet.  Just click 
+<guibutton>Get New Snippets</guibutton> and a window with a list of snippet 
+repositories will open.  After downloading the desired snippet, make sure that
+you have activated it.</para>
+
+<para>You can also load snippet repositories from a local file using the file
+browser at the bottom of the panel.  Click <guibutton>Copy to repository</guibutton>
+when finished.</para>
+</sect3>
+
+<sect3 id="snippets-repo-editor">
+<title>Creating and Editing Snippets</title>
+
+<screenshot id="screenshot-snippets-form">
+<screeninfo>Snippet Editor</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="snippets-form.png" format="PNG"/></imageobject>
+<textobject><phrase>The snippet editor.</phrase></textobject>
+<caption><para>The snippet editor interface.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>To create a new snippet repository, click <guibutton>New Snippet File</guibutton>
+You should now see dialog that asks for name of the snippet file, license and 
+author.  After choosing the desired options, click <guibutton>Create</guibutton>,
+and the snippet editor will open.</para>
+
+<para>The snippet editor contains the following options:</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>File Type</guilabel></term>
+<listitem><para>Select the file type(s) you want the snippet repository to apply
+to.  Is is set to"*" by default, so the repository applies to all files.  You 
+can change it to something like <userinput>C++</userinput> for instance, or select
+from a list by hitting the <guibutton>Edit</guibutton>.  You can specify more
+than one file type by separating them with <userinput>;</userinput>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Authors</guilabel></term>
+<listitem><para>Enter the name(s) of the author(s) of the snippet file.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Snippets List</term>
+<listitem><para>Contains all snippets defined in the snippet file.  You can
+simply click on a snippet listed there to edit it.</para></listitem>
+</varlistentry>
+    
+<varlistentry>
+<term>Add (<guibutton>+</guibutton>)</term>
+<listitem><para>Used to add a new snippet.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Delete (<guibutton>-</guibutton>)</term>
+<listitem><para>Used to delete a snippet.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Match/Name</guilabel></term>
+<listitem><para>Required for code completion.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Display Prefix</guilabel>, <guilabel>Display Postfix</guilabel>,
+and <guilabel>Arguments</guilabel></term>
+<listitem><para>Used to display helpful information while editing.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Snippet Content</guilabel></term>
+<listitem><para>Reusable text or code.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>In <guilabel>Snippet Content</guilabel> you can specify variables with 
+<userinput>${<replaceable>name</replaceable>}</userinput> or
+<userinput>%{<replaceable>name</replaceable>}</userinput>.  These can be filled
+by QtScript or when the snippet is used.  There is a special variable - 
+${cursor} or %{cursor} - which automatically sets the cursor to its first 
+occurrence.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="snippets-using">
+<title>Using Snippets</title>
+
+<screenshot id="screenshot-snippets-usage">
+<screeninfo>Kate Snippets in Action</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="snippets-usage.png" format="PNG"/></imageobject>
+<textobject><phrase>Accessing Kate Snippets from a tool view and a drop down menu.</phrase></textobject>
+<caption><para>Selecting from a list of snippets.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>You can call snippets in two ways:</para>
+
+<itemizedlist>
+<listitem><para>By choosing the snippet from the tool view.</para></listitem>
+<listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
+<keysym>Space</keysym></keycombo>, which will display all the snippets in a
+convenient window from which you can choose from.</para></listitem>
+</itemizedlist>
+
+<para>If the snippet contains variables (besides <literal>${cursor}</literal>)
+the cursor will automatically go to the first occurrence of a variable and will
+wait for you to write something. When you are done, you can press &Tab; to move
+to the next variable, and so on.</para>
+
+</sect2>
+
+<sect2 id="snippets-ack">
+<title>Thanks and Acknowledgments</title>
+<para>Special thanks to Google Code-In 2011 participant Martin Gergov for
+writing much of this section.</para>
+</sect2>
+
+</sect1>
+
 <!--
 Missing (according to config docs)
 Additional pages for enabled plugins:
-Kate Snippets
 Backtrace Browser
 Symbol Viewer
 -->

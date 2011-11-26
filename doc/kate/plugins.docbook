@@ -193,7 +193,7 @@ The available application plugins are:
 <para>Multiline Tab Bar - Add a tab bar with multiple rows to &kate;'s main window</para>
 </listitem>
 <listitem>
-<para>Kate Snippets - Snippets plugin with code completion support</para>
+<para><link linkend="kate-application-plugin-snippets">Kate Snippets</link> - Snippets plugin with code completion support</para>
 </listitem>
 <listitem>
 <para>Jovie Text-to-Speech Plugin - Adds a menu entry for speaking the text</para>
@@ -1547,7 +1547,7 @@ simply click on a snippet listed there to edit it.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Display Prefix</guilabel>, <guilabel>Display Postfix</guilabel>,
-and <guilabel>Arguments</guilabel></term>
+and <guilabel>Display Arguments</guilabel></term>
 <listitem><para>Used to display helpful information while editing.</para></listitem>
 </varlistentry>
 

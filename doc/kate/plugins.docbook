@@ -1429,7 +1429,7 @@ from disk.</para></listitem>
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>
 <authorgroup>
-<author>Martin Gergov</author>
+<author><firstname>Martin</firstname> <surname>Gergov</surname></author>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
 </authorgroup>
 </sect1info>
@@ -1438,7 +1438,7 @@ from disk.</para></listitem>
 <sect2 id="snippets-intro">
 <title>Introduction</title>       
 <para>Kate Snippets is a plugin used to save you some time by adding support for
-so-called "snippets" (re-usable source code, machine code or text).The plugin
+so-called "snippets" (re-usable source code, machine code or text). The plugin
 also supports code completion and QtScript.</para>
 </sect2>
 
@@ -1502,7 +1502,7 @@ when finished.</para>
 </mediaobject>
 </screenshot>
 
-<para>To create a new snippet repository, click <guibutton>New Snippet File</guibutton>
+<para>To create a new snippet repository, click <guibutton>New Snippet File</guibutton>.
 You should now see dialog that asks for name of the snippet file, license and 
 author.  After choosing the desired options, click <guibutton>Create</guibutton>,
 and the snippet editor will open.</para>
@@ -1513,7 +1513,7 @@ and the snippet editor will open.</para>
 <varlistentry>
 <term><guilabel>File Type</guilabel></term>
 <listitem><para>Select the file type(s) you want the snippet repository to apply
-to.  Is is set to"*" by default, so the repository applies to all files.  You 
+to.  It is set to <quote>*</quote> by default, so the repository applies to all files.  You 
 can change it to something like <userinput>C++</userinput> for instance, or select
 from a list by hitting the <guibutton>Edit</guibutton>.  You can specify more
 than one file type by separating them with <userinput>;</userinput>.</para></listitem>
@@ -1585,7 +1585,7 @@ occurrence.</para>
 <itemizedlist>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
-<keysym>Space</keysym></keycombo>, which will display all the snippets in a
+<keycap>Space</keycap></keycombo>, which will display all the snippets in a
 convenient window from which you can choose from.</para></listitem>
 </itemizedlist>
 

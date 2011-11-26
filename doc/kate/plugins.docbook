@@ -1585,7 +1585,7 @@ occurrence.</para>
 <itemizedlist>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
-<keycap>Space</keycap></keycombo>, which will display all the snippets in a
+<keysym>Space</keysym></keycombo>, which will display all the snippets in a
 convenient window from which you can choose from.</para></listitem>
 </itemizedlist>
 

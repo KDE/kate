@@ -96,7 +96,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string comment="KDE::DoNotExtract">(for repository file, not content)</string>
+              <string>(for repository file, not content)</string>
              </property>
             </widget>
            </item>

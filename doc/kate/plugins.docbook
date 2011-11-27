@@ -1542,18 +1542,22 @@ simply click on a snippet listed there to edit it.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Match/Name</guilabel></term>
-<listitem><para>Required for code completion.</para></listitem>
+<listitem><para>Appears in the list of snippets in the tool view and is also
+searched when using the code completion feature.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Display Prefix</guilabel>, <guilabel>Display Postfix</guilabel>,
 and <guilabel>Display Arguments</guilabel></term>
-<listitem><para>Used to display helpful information while editing.</para></listitem>
+<listitem><para>Used to display helpful information while using code completion.
+The prefix and postfix are displayed before and after the name, while the arguments
+are displayed in parenthesis immediately after the name.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Snippet Content</guilabel></term>
-<listitem><para>Reusable text or code.</para></listitem>
+<listitem><para>Reusable text or code.  This is what appears in your document
+when the snippet is used.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1586,7 +1590,9 @@ occurrence.</para>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
 <keysym>Space</keysym></keycombo>, which will display all the snippets in a
-convenient window from which you can choose from.</para></listitem>
+convenient window from which you can choose from.  You may enter the the beginning
+of the snippets name before or after pressing this key combination, which provides
+functionality similar to code completion.</para></listitem>
 </itemizedlist>
 
 <para>If the snippet contains variables (besides <literal>${cursor}</literal>)

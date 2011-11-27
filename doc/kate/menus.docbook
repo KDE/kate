@@ -222,21 +222,6 @@ not be reopened during startup, because they are not accessible anymore.
 </varlistentry>
 
 <varlistentry>
-<term>
-<anchor id="export-as-html"/>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Export as &HTML;...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Save the active file as an &HTML; document with syntax highlighting.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
 <term id="close">
 <menuchoice>
 <shortcut>
@@ -384,21 +369,6 @@ all to work with the currently active document.</para>
 <para>Copies the first item in the clipboard into the editor at cursor position.</para>
 <note><para>If Overwrite Selection is enabled, the pasted text will overwrite the selection, if any.</para></note>
  </listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<anchor id="edit-copy-as-html" />
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Copy as &HTML;</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Copies the selected text to the clipboard as &HTML; code with syntax highlighting.
-</para>
-</listitem>
 </varlistentry>
 
 <varlistentry>

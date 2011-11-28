@@ -1590,7 +1590,7 @@ occurrence.</para>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
 <keysym>Space</keysym></keycombo>, which will display all the snippets in a
-convenient window from which you can choose from.  You may enter the the beginning
+convenient window from which you can choose from.  You may enter the beginning
 of the snippets name before or after pressing this key combination, which provides
 functionality similar to code completion.</para></listitem>
 </itemizedlist>

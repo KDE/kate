@@ -110,6 +110,7 @@ private Q_SLOTS:
     void itemSelected(QTreeWidgetItem *item);
 
     void clearMarks();
+    void clearDocMarks(KTextEditor::Document* doc);
 
     void replaceChecked();
 
@@ -133,7 +134,7 @@ private:
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;
     Results                           *m_curResults;
-    QVector<KTextEditor::MovingRange*> m_matchRanges;
+    QList<KTextEditor::MovingRange*>   m_matchRanges;
 };
 
 class KateSearchCommand : public QObject, public KTextEditor::Command

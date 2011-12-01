@@ -243,6 +243,9 @@ m_curResults(0)
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_replacer, SLOT(cancelReplace()));
 
+    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+            this, SLOT(clearDocMarks(KTextEditor::Document*)));
+
     connect(&m_replacer, SIGNAL(matchReplaced(KTextEditor::Document*,int,int,int)),
             this, SLOT(addMatchMark(KTextEditor::Document*,int,int,int)));
 
@@ -512,6 +515,36 @@ void KatePluginSearchView::clearMarks()
     }
     qDeleteAll(m_matchRanges);
     m_matchRanges.clear();
+}
+
+void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
+{
+    //kDebug() << sender();
+    // FIXME: check for ongoing search...
+    KTextEditor::MarkInterface* iface;
+    iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    if (iface) {
+        const QHash<int, KTextEditor::Mark*> marks = iface->marks();
+        QHashIterator<int, KTextEditor::Mark*> i(marks);
+        while (i.hasNext()) {
+            i.next();
+            if (i.value()->type == KTextEditor::MarkInterface::markType32) {
+                iface->removeMark(i.value()->line, i.value()->type);
+            }
+        }
+    }
+
+    int i = 0;
+    while (i<m_matchRanges.size()) {
+        if (m_matchRanges.at(i)->document() == doc) {
+            //kDebug() << "removing mark in" << doc->url();
+            delete m_matchRanges.at(i);
+            m_matchRanges.removeAt(i);
+        }
+        else {
+            i++;
+        }
+    }
 }
 
 

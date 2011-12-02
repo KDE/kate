@@ -31,6 +31,26 @@ setting in the <guimenu>Edit</guimenu> menu. (The default shortcut key is
 <keycombo action="simul"><keysym>Meta</keysym>&Ctrl;<keycap>V</keycap></keycombo>
  - where <keysym>Meta</keysym> usually is the <keysym>Windows</keysym> key).</para>
 
+<note>
+<para>Many Vi Mode keyboard commands are case-sensitive, unlike most &kde;
+keyboard shortcuts.  That means that <userinput>y</userinput> and
+<userinput>Y</userinput> are different commands.  To enter the
+<userinput>y</userinput> (yank) command, make sure <keysym>Caps Lock</keysym> is
+disabled and press <keycap>Y</keycap>.  To enter the <userinput>Y</userinput>
+(yank to end of line) command, 
+<keycombo action="simul">&Shift;<keycap>Y</keycap></keycombo>.</para>
+
+<para>This does not apply to commands that use the &Ctrl; key, which may be
+entered regardless of <keycap>Caps Lock</keycap> mode and without pressing 
+&Shift;.  However, some commands require the use of &Ctrl;-key combination
+followed by another key which is case sensitive.  For instance, to input
+<quote><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>,
+<userinput>h</userinput></quote> (switch to split view right) make sure
+<keycap>Caps Lock</keycap> is disabled, press
+<keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>, release, and
+then press <keycap>H</keycap>.</para>
+</note>
+
 <sect2 id="vi-incompatibilities">
 <title>Incompatibilities with Vim</title>
 
@@ -39,7 +59,7 @@ with Vim (not counting things missing). They are listed below together
 with the respective reasons.</para>
 <itemizedlist>
 <listitem>
-<para>&kappname;: <keycap>U</keycap> and
+<para>&kappname;: <userinput>U</userinput> and
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> is redo.</para>
 <para>Vim: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> is
 normal redo, <keycap>U</keycap> is used to undo all latest changes on one line.</para>
@@ -50,7 +70,7 @@ the VI mode won’t override &kappname;’s shortcuts (this can be configured in
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem>
 <guimenu>Editing</guimenu><guimenuitem>Vi Input Mode</guimenuitem></menuchoice>),
 therefore a redo-action needs to be available as a <quote>regular</quote> key press, too.
-Besides, the behavior of the <keycap>U</keycap> command in Vim does not map well
+Besides, the behavior of the <userinput>U</userinput> command in Vim does not map well
 to &kappname;’s internal undo system, so it would be non-trivial to support anyway.</para>
 </listitem>
 <listitem>
@@ -64,25 +84,25 @@ the print dialog - following the principle of least surprise instead of
 mimicking Vim’s behavior.</para>
 </listitem>
 <listitem>
-<para>&kappname;: <keycap>Y</keycap> yanks to end of line.</para>
-<para>Vim: <keycap>Y</keycap> yanks whole line, just like
-<keycap>y</keycap><keycap>y</keycap>.</para>
-<para>VI’s behavior for the <keycap>Y</keycap> command is in practice a bug.
+<para>&kappname;: <userinput>Y</userinput> yanks to end of line.</para>
+<para>Vim: <userinput>Y</userinput> yanks whole line, just like
+<userinput>y</userinput><userinput>y</userinput>.</para>
+<para>VI’s behavior for the <userinput>Y</userinput> command is in practice a bug.
 For both change and delete commands,
-<keycap>c</keycap><keycap>c</keycap>/
-<keycap>d</keycap><keycap>d</keycap> will do its action on
-the current line and <keycap>C</keycap>/<keycap>D</keycap> will work from the
+<userinput>c</userinput><userinput>c</userinput>/
+<userinput>d</userinput><userinput>d</userinput> will do its action on
+the current line and <userinput>C</userinput>/<userinput>D</userinput> will work from the
 cursor column to the end of the line. However, both
-<keycap>y</keycap><keycap>y</keycap> and <keycap>Y</keycap>
-yanks the current line. In &kappname;’s VI Mode <keycap>Y</keycap> will yank to the end
+<userinput>y</userinput><userinput>y</userinput> and <userinput>Y</userinput>
+yanks the current line. In &kappname;’s VI Mode <userinput>Y</userinput> will yank to the end
 of the line. This is described as <quote>more logical</quote> in the Vim
 <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y">documentation</ulink>.
 </para>
 </listitem>
 <listitem>
-<para>&kappname;: <keycap>O</keycap> and <keycap>o</keycap> opens [<replaceable>count</replaceable>] new lines
+<para>&kappname;: <userinput>O</userinput> and <userinput>o</userinput> opens [<replaceable>count</replaceable>] new lines
 and puts you in insert mode.</para>
-<para>Vim: <keycap>O</keycap> and <keycap>o</keycap> opens a new line and inserts
+<para>Vim: <userinput>O</userinput> and <userinput>o</userinput> opens a new line and inserts
 text [<replaceable>count</replaceable>] times when leaving insert mode.</para>
 <para>This is mostly done as a consequence of witnessing many people being
 confused by this behavior on a vim irc channel (#vim on freenode).</para>
@@ -103,11 +123,11 @@ pressing &Esc;.
 <listitem>
 <para><emphasis>Visual Mode</emphasis> permits you to highlight text in a document.
 Most Normal Mode commands are also valid in this mode.  You can enter it by pressing
-<keycap>v</keycap> to select characters or <keycap>V</keycap> to select lines.
+<userinput>v</userinput> to select characters or <userinput>V</userinput> to select lines.
 </para></listitem>
 <listitem>
 <para><emphasis>Insert Mode</emphasis> permits you to edit the document directly. You
-can enter it by pressing <keycap>i</keycap> or one of several other commands
+can enter it by pressing <userinput>i</userinput> or one of several other commands
 listed below.
 </para></listitem>
 <listitem>
@@ -155,179 +175,179 @@ created.</para>
 </row>
 </thead-->
 <tbody>
-<row><entry><para><keycap>a</keycap></para></entry>
+<row><entry><para><userinput>a</userinput></para></entry>
 <entry><para>Enter Insert Mode; append after cursor</para></entry>
 </row>
-<row><entry><para><keycap>A</keycap></para></entry>
+<row><entry><para><userinput>A</userinput></para></entry>
 <entry><para>Enter Insert Mode; append after line</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap></para></entry>
+<row><entry><para><userinput>i</userinput></para></entry>
 <entry><para>Enter Insert Mode; insert before cursor</para></entry>
 </row>
-<row><entry><para><keycap>v</keycap></para></entry>
+<row><entry><para><userinput>v</userinput></para></entry>
 <entry><para>Enter Visual Mode; select characters</para></entry>
 </row>
-<row><entry><para><keycap>V</keycap></para></entry>
+<row><entry><para><userinput>V</userinput></para></entry>
 <entry><para>Enter Visual Mode; select lines</para></entry>
 </row>
-<row><entry><para><keycap>o</keycap></para></entry>
+<row><entry><para><userinput>o</userinput></para></entry>
 <entry><para>Open a new line below current line</para></entry>
 </row>
-<row><entry><para><keycap>O</keycap></para></entry>
+<row><entry><para><userinput>O</userinput></para></entry>
 <entry><para>Open a new line above current line</para></entry>
 </row>
-<row><entry><para><keycap>J</keycap></para></entry>
+<row><entry><para><userinput>J</userinput></para></entry>
 <entry><para>Join lines</para></entry>
 </row>
-<row><entry><para><keycap>c</keycap></para></entry>
+<row><entry><para><userinput>c</userinput></para></entry>
 <entry><para>Change:  follow by a motion to delete and enter Insert mode</para></entry>
 </row>
-<row><entry><para><keycap>C</keycap></para></entry>
+<row><entry><para><userinput>C</userinput></para></entry>
 <entry><para>Change to end of line:  Delete to end of line and enter Insert Mode</para></entry>
 </row>
-<row><entry><para><keycap>c</keycap><keycap>c</keycap></para></entry>
+<row><entry><para><userinput>cc</userinput></para></entry>
 <entry><para>Change line:  Delete line and enter Insert Mode</para></entry>
 </row>
-<row><entry><para><keycap>s</keycap></para></entry>
+<row><entry><para><userinput>s</userinput></para></entry>
 <entry><para>Substitute character<!--needs explanation--></para></entry>
 </row>
-<row><entry><para><keycap>S</keycap></para></entry>
+<row><entry><para><userinput>S</userinput></para></entry>
 <entry><para>Substitute line<!--needs explanation--></para></entry>
 </row>
-<row><entry><para><keycap>d</keycap><keycap>d</keycap></para></entry>
+<row><entry><para><userinput>dd</userinput></para></entry>
 <entry><para>Delete line</para></entry>
 </row>
-<row><entry><para><keycap>d</keycap></para></entry>
+<row><entry><para><userinput>d</userinput></para></entry>
 <entry><para>Follow by a motion to delete</para></entry>
 </row>
-<row><entry><para><keycap>D</keycap></para></entry>
+<row><entry><para><userinput>D</userinput></para></entry>
 <entry><para>Delete to end of line</para></entry>
 </row>
-<row><entry><para><keycap>x</keycap></para></entry>
+<row><entry><para><userinput>x</userinput></para></entry>
 <entry><para>Delete character to right of cursor</para></entry>
 </row>
-<row><entry><para><keycap>X</keycap></para></entry>
+<row><entry><para><userinput>X</userinput></para></entry>
 <entry><para>Delete character to left of cursor</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>u</keycap></para></entry>
+<row><entry><para><userinput>gu</userinput></para></entry>
 <entry><para>Follow with a motion to make lowercase</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>u</keycap><keycap>u</keycap></para></entry>
+<row><entry><para><userinput>g</userinput></para></entry>
 <entry><para>Make the current line lowercase</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>U</keycap></para></entry>
+<row><entry><para><userinput>gU</userinput></para></entry>
 <entry><para>Follow with a motion to make uppercase</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>U</keycap><keycap>U</keycap></para></entry>
+<row><entry><para><userinput>g</userinput></para></entry>
 <entry><para>Make the current line uppercase</para></entry>
 </row>
-<row><entry><para><keycap>y</keycap></para></entry>
+<row><entry><para><userinput>y</userinput></para></entry>
 <entry><para>Follow by a motion to <quote>yank</quote> (copy)</para></entry>
 </row>
-<row><entry><para><keycap>y</keycap><keycap>y</keycap></para></entry>
+<row><entry><para><userinput>yy</userinput></para></entry>
 <entry><para>Yank (copy) line</para></entry>
 </row>
-<row><entry><para><keycap>Y</keycap></para></entry>
+<row><entry><para><userinput>Y</userinput></para></entry>
 <entry><para>Yank (copy) line</para></entry>
 </row>
-<row><entry><para><keycap>p</keycap></para></entry>
+<row><entry><para><userinput>p</userinput></para></entry>
 <entry><para>Paste after cursor</para></entry>
 </row>
-<row><entry><para><keycap>P</keycap></para></entry>
+<row><entry><para><userinput>P</userinput></para></entry>
 <entry><para>Paste before cursor</para></entry>
 </row>
-<row><entry><para><keycap>r</keycap></para></entry>
+<row><entry><para><userinput>r</userinput></para></entry>
 <entry><para>Follow with a character to replace the character after the cursor</para></entry>
 </row>
-<row><entry><para><keycap>:</keycap></para></entry>
+<row><entry><para><userinput>:</userinput></para></entry>
 <entry><para>Enter Command Mode</para></entry>
 </row>
-<row><entry><para><keycap>/</keycap></para></entry>
+<row><entry><para><userinput>/</userinput></para></entry>
 <entry><para>Search</para></entry>
 </row>
-<row><entry><para><keycap>u</keycap></para></entry>
+<row><entry><para><userinput>u</userinput></para></entry>
 <entry><para>Undo</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>r</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
 <entry><para>Redo</para></entry>
 </row>
-<row><entry><para><keycap>U</keycap></para></entry>
+<row><entry><para><userinput>U</userinput></para></entry>
 <entry><para>Redo</para></entry>
 </row>
-<row><entry><para><keycap>m</keycap></para></entry>
+<row><entry><para><userinput>m</userinput></para></entry>
 <entry><para>Set mark (can be used by motions later)</para></entry>
 </row>
-<row><entry><para><keycap>n</keycap></para></entry>
+<row><entry><para><userinput>n</userinput></para></entry>
 <entry><para>Find next</para></entry>
 </row>
-<row><entry><para><keycap>N</keycap></para></entry>
+<row><entry><para><userinput>N</userinput></para></entry>
 <entry><para>Find previous</para></entry>
 </row>
-<row><entry><para><keycap>&gt;</keycap><keycap>&gt;</keycap></para></entry>
+<row><entry><para><userinput>&gt;&gt;</userinput></para></entry>
 <entry><para>Indent line</para></entry>
 </row>
-<row><entry><para><keycap>&lt;</keycap><keycap>&lt;</keycap></para></entry>
+<row><entry><para><userinput>&lt;&lt;</userinput></para></entry>
 <entry><para>Unindent line</para></entry>
 </row>
-<row><entry><para><keycap>&gt;</keycap></para></entry>
+<row><entry><para><userinput>&gt;</userinput></para></entry>
 <entry><para>Indent lines</para></entry>
 </row>
-<row><entry><para><keycap>&lt;</keycap></para></entry>
+<row><entry><para><userinput>&lt;</userinput></para></entry>
 <entry><para>Unindent lines</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>f</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
 <entry><para>Page down</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>b</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></para></entry>
 <entry><para>Page up</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>a</keycap></para></entry>
+<row><entry><para><userinput>ga</userinput></para></entry>
 <entry><para>Print the ASCII value of the character</para></entry>
 </row>
-<row><entry><para><keycap>.</keycap></para></entry>
+<row><entry><para><userinput>.</userinput></para></entry>
 <entry><para>Repeat last change</para></entry>
 </row>
-<row><entry><para><keycap>=</keycap><keycap>=</keycap></para></entry>
+<row><entry><para><userinput>==</userinput></para></entry>
 <entry><para>commandAlignLine<!--needs explanation--></para></entry>
 </row>
-<row><entry><para><keycap>=</keycap></para></entry>
+<row><entry><para><userinput>=</userinput></para></entry>
 <entry><para>commandAlignLines<!--needs explanation--></para></entry>
 </row>
-<row><entry><para><keycap>~</keycap></para></entry>
+<row><entry><para><userinput>~</userinput></para></entry>
 <entry><para>Change case of current character</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>s</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
 <entry><para>Split view horizontally</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>v</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></para></entry>
 <entry><para>Split view vertically</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keycap>w</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;
+<keycap>W</keycap></keycombo>, <userinput>w</userinput></para></entry>
 <entry><para>Cycle to next split window</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keycap>h</keycap></keycombo></para>
+<row><entry><para><keycombo action="simul">&Ctrl;
+<keycap>W</keycap></keycombo>, <userinput>h</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keysym>Left</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo><keysym>Left</keysym></keycombo></para></entry>
 <entry><para>Go to left split window</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keycap>l</keycap></keycombo></para>
+<row><entry><para><keycombo action="simul">&Ctrl;
+<keycap>W</keycap></keycombo>, <userinput>l</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keysym>Right</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo><keysym>Right</keysym></keycombo></para></entry>
 <entry><para>Go to right split window</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keycap>k</keycap></keycombo></para>
+<row><entry><para><keycombo action="simul">&Ctrl;
+<keycap>W</keycap></keycombo>, <userinput>k</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keysym>Up</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo><keysym>Up</keysym></keycombo></para></entry>
 <entry><para>Go to above split window</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keycap>j</keycap></keycombo></para>
+<row><entry><para><keycombo action="simul">&Ctrl;
+<keycap>W</keycap></keycombo>, <userinput>j</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>w</keycap></keycombo><keysym>Down</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo><keysym>Down</keysym></keycombo></para></entry>
 <entry><para>Go to below split window</para></entry>
 </row>
 </tbody>
@@ -351,7 +371,7 @@ which indicates how many of the appropriate movements to make.</para>
 </row>
 </thead-->
 <tbody>
-<row><entry><para><keycap>h</keycap></para></entry>
+<row><entry><para><userinput>h</userinput></para></entry>
 <entry><para>Left</para></entry>
 </row>
 <row><entry><para><keysym>Left</keysym></para></entry>
@@ -360,19 +380,19 @@ which indicates how many of the appropriate movements to make.</para>
 <row><entry><para>&Backspace;</para></entry>
 <entry><para>Left</para></entry>
 </row>
-<row><entry><para><keycap>j</keycap></para></entry>
+<row><entry><para><userinput>j</userinput></para></entry>
 <entry><para>Down</para></entry>
 </row>
 <row><entry><para><keysym>Down</keysym></para></entry>
 <entry><para>Down</para></entry>
 </row>
-<row><entry><para><keycap>k</keycap></para></entry>
+<row><entry><para><userinput>k</userinput></para></entry>
 <entry><para>Up</para></entry>
 </row>
 <row><entry><para><keysym>Up</keysym></para></entry>
 <entry><para>Up</para></entry>
 </row>
-<row><entry><para><keycap>l</keycap></para></entry>
+<row><entry><para><userinput>l</userinput></para></entry>
 <entry><para>Right</para></entry>
 </row>
 <row><entry><para><keysym>Right</keysym></para></entry>
@@ -381,102 +401,102 @@ which indicates how many of the appropriate movements to make.</para>
 <row><entry><para><keysym>Space</keysym></para></entry>
 <entry><para>Right</para></entry>
 </row>
-<row><entry><para><keycap>$</keycap></para></entry>
+<row><entry><para><userinput>$</userinput></para></entry>
 <entry><para>End of line</para></entry>
 </row>
 <row><entry><para><keycap>End</keycap></para></entry>
 <entry><para>End of line</para></entry>
 </row>
-<row><entry><para><keycap>0</keycap></para></entry>
+<row><entry><para><userinput>0</userinput></para></entry>
 <entry><para>First character of line (Column 0)</para></entry>
 </row>
 <row><entry><para><keycap>Home</keycap></para></entry>
 <entry><para>First character of line</para></entry>
 </row>
-<row><entry><para><keycap>^</keycap></para></entry>
+<row><entry><para><userinput>^</userinput></para></entry>
 <entry><para>First non-blank character of line</para></entry>
 </row>
-<row><entry><para><keycap>f</keycap></para></entry>
+<row><entry><para><userinput>f</userinput></para></entry>
 <entry><para>Follow by character to move to right of cursor</para></entry>
 </row>
-<row><entry><para><keycap>F</keycap></para></entry>
+<row><entry><para><userinput>F</userinput></para></entry>
 <entry><para>Follow by character to move to left of cursor</para></entry>
 </row>
-<row><entry><para><keycap>t</keycap></para></entry>
+<row><entry><para><userinput>t</userinput></para></entry>
 <entry><para>Follow by character to move to right of cursor, placing the cursor on character before it</para></entry>
 </row>
-<row><entry><para><keycap>T</keycap></para></entry>
+<row><entry><para><userinput>T</userinput></para></entry>
 <entry><para>Follow by character to move to left of cursor, placing the cursor on character before it</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>g</keycap></para></entry>
+<row><entry><para><userinput>gg</userinput></para></entry>
 <entry><para>First line</para></entry>
 </row>
-<row><entry><para><keycap>G</keycap></para></entry>
+<row><entry><para><userinput>G</userinput></para></entry>
 <entry><para>Last line</para></entry>
 </row>
-<row><entry><para><keycap>w</keycap></para></entry>
+<row><entry><para><userinput>w</userinput></para></entry>
 <entry><para>Next Word</para></entry>
 </row>
-<row><entry><para><keycap>W</keycap></para></entry>
+<row><entry><para><userinput>W</userinput></para></entry>
 <entry><para>Next word separated by whitespace</para></entry>
 </row>
-<row><entry><para><keycap>b</keycap></para></entry>
+<row><entry><para><userinput>b</userinput></para></entry>
 <entry><para>Previous word</para></entry>
 </row>
-<row><entry><para><keycap>B</keycap></para></entry>
+<row><entry><para><userinput>B</userinput></para></entry>
 <entry><para>Previous word separated by whitespace</para></entry>
 </row>
-<row><entry><para><keycap>e</keycap></para></entry>
+<row><entry><para><userinput>e</userinput></para></entry>
 <entry><para>End of word</para></entry>
 </row>
-<row><entry><para><keycap>E</keycap></para></entry>
+<row><entry><para><userinput>E</userinput></para></entry>
 <entry><para>End of word separated by whitespace</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>e</keycap></para></entry>
+<row><entry><para><userinput>ge</userinput></para></entry>
 <entry><para>End of previous word</para></entry>
 </row>
-<row><entry><para><keycap>g</keycap><keycap>E</keycap></para></entry>
+<row><entry><para><userinput>gE</userinput></para></entry>
 <entry><para>End of previous word separated by whitespace</para></entry>
 </row>
-<row><entry><para><keycap>|</keycap></para></entry>
+<row><entry><para><userinput>|</userinput></para></entry>
 <entry><para>Follow by a column number to move to that column</para></entry>
 </row>
-<row><entry><para><keycap>%</keycap></para></entry>
+<row><entry><para><userinput>%</userinput></para></entry>
 <entry><para>Follow by an item to move to that item<!--needs explanation--></para></entry>
 </row>
-<row><entry><para><keycap>`</keycap></para></entry>
+<row><entry><para><userinput>`</userinput></para></entry>
 <entry><para>Mark</para></entry>
 </row>
-<row><entry><para><keycap>‘</keycap></para></entry>
+<row><entry><para><userinput>‘</userinput></para></entry>
 <entry><para>First non-whitespace character of the line the mark is on</para></entry>
 </row>
-<row><entry><para><keycap>[</keycap><keycap>[</keycap></para></entry>
+<row><entry><para><userinput>[[</userinput></para></entry>
 <entry><para>Previous opening bracket</para></entry>
 </row>
-<row><entry><para><keycap>]</keycap><keycap>]</keycap></para></entry>
+<row><entry><para><userinput>]]</userinput></para></entry>
 <entry><para>Next opening bracket</para></entry>
 </row>
-<row><entry><para><keycap>[</keycap><keycap>]</keycap></para></entry>
+<row><entry><para><userinput>[]</userinput></para></entry>
 <entry><para>Previous closing bracket</para></entry>
 </row>
-<row><entry><para><keycap>]</keycap><keycap>[</keycap></para></entry>
+<row><entry><para><userinput>][</userinput></para></entry>
 <entry><para>Next closing bracket</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>i</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></para></entry>
 <entry><para>Jump forward to next location</para></entry></row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>o</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></para></entry>
 <entry><para>Jump back to previous location</para></entry></row>
-<row><entry><para><keycap>H</keycap></para></entry>
+<row><entry><para><userinput>H</userinput></para></entry>
 <entry>Go to first line of screen</entry></row>
-<row><entry><para><keycap>M</keycap></para></entry>
+<row><entry><para><userinput>M</userinput></para></entry>
 <entry>Go to middle line of screen</entry></row>
-<row><entry><para><keycap>L</keycap></para></entry>
+<row><entry><para><userinput>L</userinput></para></entry>
 <entry>Go to last line of screen</entry></row>
-<row><entry><para><keycap>%</keycap> + <literal>percentage</literal></para></entry>
+<row><entry><para><userinput>%<replaceable>percentage</replaceable></userinput></para></entry>
 <entry><para>Go to specified percentage of the document</para></entry></row>
-<row><entry><para><keycap>g</keycap><keycap>k</keycap></para></entry>
+<row><entry><para><userinput>gk</userinput></para></entry>
 <entry><para>Go one line up visually (when using dynamic word wrap)</para></entry></row>
-<row><entry><para><keycap>g</keycap><keycap>j</keycap></para></entry>
+<row><entry><para><userinput>gj</userinput></para></entry>
 <entry><para>Go one line down visually (when using dynamic word wrap)</para></entry></row>
 </tbody>
 </tgroup>
@@ -497,65 +517,65 @@ which indicates how many of the appropriate movements to make.</para>
 </row>
 </thead-->
 <tbody>
-<row><entry><para><keycap>i</keycap><keycap>w</keycap></para></entry>
+<row><entry><para><userinput>iw</userinput></para></entry>
 <entry><para>Inner word: word including whitespace</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>w</keycap></para></entry>
+<row><entry><para><userinput>aw</userinput></para></entry>
 <entry><para>A word: word excluding whitespace</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>"</keycap></para></entry>
+<row><entry><para><userinput>i"</userinput></para></entry>
 <entry><para>Previous double-quote (<userinput>"</userinput>) to next double-quote,
 including quotation marks</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>”</keycap></para></entry>
+<row><entry><para><userinput>a”</userinput></para></entry>
 <entry><para>Previous double-quote (<userinput>"</userinput>) to next double-quote,
 excluding quotation marks</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>'</keycap></para></entry>
+<row><entry><para><userinput>i'</userinput></para></entry>
 <entry><para>Previous single-quote (<userinput>'</userinput>) to next single-quote,
 including quotation marks</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>'</keycap></para></entry>
+<row><entry><para><userinput>a'</userinput></para></entry>
 <entry><para>Previous single-quote (<userinput>'</userinput>) to next single-quote,
 excluding quotation marks</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>(</keycap></para></entry>
+<row><entry><para><userinput>i(</userinput></para></entry>
 <entry><para>Previous opening parenthesis [<userinput>(</userinput>] to next closing
 parenthesis [<userinput>)</userinput>], including the parenthesis</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>(</keycap></para></entry>
+<row><entry><para><userinput>a(</userinput></para></entry>
 <entry><para>Previous opening parenthesis [<userinput>(</userinput>] to next closing
 parenthesis [<userinput>)</userinput>], excluding the parenthesis</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>[</keycap></para></entry>
+<row><entry><para><userinput>i[</userinput></para></entry>
 <entry><para>Previous opening square bracket (<userinput>[</userinput>) to next closing
 square bracket (<userinput>]</userinput>), including the brackets</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>[</keycap></para></entry>
+<row><entry><para><userinput>a[</userinput></para></entry>
 <entry><para>Previous opening square bracket (<userinput>[</userinput>) to next closing
 square bracket (<userinput>]</userinput>), excluding the brackets</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>{</keycap></para></entry>
+<row><entry><para><userinput>i{</userinput></para></entry>
 <entry><para>Previous opening curly bracket (<userinput>{</userinput>) to next closing
 curly bracket (<userinput>}</userinput>), including the brackets</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>{</keycap></para></entry>
+<row><entry><para><userinput>a{</userinput></para></entry>
 <entry><para>Previous opening curly bracket (<userinput>{</userinput>) to next closing
 curly bracket (<userinput>}</userinput>), excluding the brackets</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>&lt;</keycap></para></entry>
+<row><entry><para><userinput>i&lt;</userinput></para></entry>
 <entry><para>Previous opening angle bracket (<userinput>&lt;</userinput>) to next closing
 angle bracket (<userinput>&gt;</userinput>), including the brackets</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>&lt;</keycap></para></entry>
+<row><entry><para><userinput>a&lt;</userinput></para></entry>
 <entry><para>Previous opening angle bracket (<userinput>&lt;</userinput>) to next closing
 square bracket (<userinput>&gt;</userinput>), excluding the brackets</para></entry>
 </row>
-<row><entry><para><keycap>i</keycap><keycap>`</keycap></para></entry>
+<row><entry><para><userinput>i`</userinput></para></entry>
 <entry><para>Previous backtick (<userinput>`</userinput>) to next backtick,
 including the backticks</para></entry>
 </row>
-<row><entry><para><keycap>a</keycap><keycap>`</keycap></para></entry>
+<row><entry><para><userinput>a`</userinput></para></entry>
 <entry><para>Previous backtick (<userinput>`</userinput>) to next backtick,
 excluding the backticks</para></entry>
 </row>
@@ -576,28 +596,29 @@ excluding the backticks</para></entry>
 </row>
 </thead-->
 <tbody>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>d</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo></para></entry>
 <entry><para>Unindent</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>t</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>T</keycap></keycombo></para></entry>
 <entry><para>Indent</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>e</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></para></entry>
 <entry><para>commandInsertFromBelow</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>y</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Y</keycap></keycombo></para></entry>
 <entry><para>Delete word</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>w</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></para></entry>
 <entry><para>Delete word</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>Home</keycap></keycombo></para></entry>
 <entry><para>Move to first character in the document</para></entry>
 </row>
-<row><entry><para><keycombo action="seq"><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>
-<keysym>n</keysym></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>
+<userinput>n</userinput></para></entry>
 <entry>Insert the contents of register <literal>n</literal></entry></row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>o</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>,
+<replaceable>command</replaceable></para></entry>
 <entry><para>Enter normal mode for one command only</para></entry></row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></para></entry>
 <entry><para>Increment currently selected number</para></entry></row>
@@ -624,7 +645,7 @@ ranges this text object can span are highlighted in red.</para>
 <textobject><phrase>An example of Comma Text Object</phrase></textobject>
 <caption><para>Comma text object ranges. If the cursor is over &eg;
 <replaceable>arg2</replaceable>, pressing
-<keycap>c</keycap><keycap>i</keycap>, (<quote>change inner comma</quote>)
+<userinput>ci</userinput>, (<quote>change inner comma</quote>)
 would delete <replaceable>double arg2</replaceable> and place the cursor between
 the two commas in insert mode. A very convenient way to change a function's
 parameters.</para></caption>
@@ -645,8 +666,8 @@ visual block selection.</para></listitem>
 <listitem>
 <para>Having ex commands available in other programs than the &kappname; application.</para></listitem>
 <listitem>
-<para>The search code needs improvement and the <keycap>*</keycap> and <keycap>#</keycap>
-commands should just be regular searches.</para></listitem>
+<para>The search code needs improvement and the <userinput>*</userinput> and
+<userinput>#</userinput>commands should just be regular searches.</para></listitem>
 </itemizedlist>
 </sect2>
 

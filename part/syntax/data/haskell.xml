@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Haskell" version="2.0.3" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
+<language name="Haskell" version="2.0.4" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
   <highlighting>
   <list name="keywords">
     <item> as </item>
@@ -298,6 +298,11 @@
     <item> LT </item>
     <item> GT </item>
   </list>
+  <list name="class">
+    <item> Applicative </item>
+    <item> Foldable </item>
+    <item> Traversable </item>
+  </list>
   <contexts>
     <context attribute="Normal" lineEndContext="#stay" name="code">
       <RegExpr attribute="Pragma"  context="#stay" String="\{-#.*#-\}"/>
@@ -309,6 +314,7 @@
       <keyword attribute="Type Prelude"     context="#stay" String="prelude type" />
       <keyword attribute="Data Prelude"     context="#stay" String="prelude data" />
       <keyword attribute="Class Prelude"    context="#stay" String="prelude class" />
+      <keyword attribute="Class Prelude"    context="#stay" String="class" />
 
       <RegExpr attribute="Special"          context="#stay" String="(::|=&gt;|\-&gt;|&lt;\-)" />
       <AnyChar attribute="Special"          context="#stay" String="∷⇒→←∀∃" />

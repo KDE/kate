@@ -531,6 +531,7 @@ void KatePluginGDBView::programEnded()
     m_lastExecLine = -1;
     m_stackTree->clear();
     m_localsView->clear();
+    m_threadCombo->clear();
 
     // Indicate the state change by showing the debug outputArea
     mainWindow()->showToolView( m_toolView );

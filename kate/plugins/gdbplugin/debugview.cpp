@@ -105,15 +105,6 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
     m_nextCommands << QString("set args %1").arg(m_arguments);
     m_nextCommands << QString("set inferior-tty /dev/null");
     m_nextCommands << QString("(Q) info breakpoints");
-    if (m_arguments.contains(">"))
-    {
-        m_nextCommands << QString("tbreak main");
-        m_nextCommands << QString("run");
-        m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-    }
-    else {
-        m_nextCommands << QString("(Q)"); // prevent the (Q) commands
-    }
 }
 
 bool DebugView::debuggerRunning() const
@@ -248,6 +239,7 @@ void DebugView::slotKill()
     if( m_state != ready )
     {
         slotInterrupt();
+        m_state = ready;
     }
     issueCommand( "kill" );
 }
@@ -299,7 +291,7 @@ static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s
 static QRegExp changeLine( "(\\d+)\\s+.*" );
 static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );
 static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
-static QRegExp exitProgram( "Program\\s+exited.*" );
+static QRegExp exitProgram( "(?:Program|.*Inferior.*)\\s+exited.*" );
 static QRegExp threadLine( "\\**\\s+(\\d+)\\s+Thread.*" );
 
 void DebugView::processLine( QString line )
@@ -352,8 +344,10 @@ void DebugView::processLine( QString line )
                 m_currentFile = changeFile.cap( 1 ).trimmed();
                 int lineNum = changeFile.cap( 2 ).toInt();
 
-                // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
+                if ( !m_nextCommands.contains("continue") ) {
+                    // GDB uses 1 based line numbers, kate uses 0 based...
+                    emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
+                }
                 m_debugLocationChanged = true;
             }
             else if( changeLine.exactMatch( line ) )
@@ -364,8 +358,10 @@ void DebugView::processLine( QString line )
                 {
                     m_currentFile = m_newFrameFile;
                 }
-                // GDB uses 1 based line numbers, kate uses 0 based...
-                emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
+                if ( !m_nextCommands.contains("continue") ) {
+                    // GDB uses 1 based line numbers, kate uses 0 based...
+                    emit debugLocationChanged( resolveFileName(m_currentFile), lineNum - 1 );
+                }
                 m_debugLocationChanged = true;
             }
             else if (breakPointReg.exactMatch(line)) 
@@ -405,7 +401,7 @@ void DebugView::processLine( QString line )
                 {
                     m_nextCommands.clear();
                 }
-                m_nextCommands << QString("(Q)"); //This will prevent the "(Q)" commands
+                m_debugLocationChanged = false; // do not insert (Q) commands
                 emit programEnded();
             }
             else if( PromptStr == line )
@@ -496,17 +492,10 @@ void DebugView::processErrors()
             if ( m_lastCommand == "continue" ) 
             {
                 m_nextCommands.clear();
-                if (m_arguments.contains(">"))
-                {
-                    m_nextCommands << QString("tbreak main");
-                    m_nextCommands << QString("run");
-                    m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-                    m_nextCommands << QString("continue");
-                }
-                else
-                {
-                    m_nextCommands << "run";
-                }
+                m_nextCommands << QString("tbreak main");
+                m_nextCommands << QString("run");
+                m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+                m_nextCommands << QString("continue");
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             else if ( ( m_lastCommand == "step" ) ||
@@ -534,6 +523,7 @@ void DebugView::processErrors()
                 {
                     m_nextCommands << "quit";
                 }
+                m_state = ready;
                 QTimer::singleShot(0, this, SLOT(issueNextCommand()));
             }
             // else do nothing
@@ -550,7 +540,7 @@ void DebugView::processErrors()
             m_nextCommands.clear();
             emit programEnded();
         }
-        emit outputError( error );
+        emit outputError( error + '\n' );
     }
  }
 

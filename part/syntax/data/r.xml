@@ -8,7 +8,7 @@
 	R      : http://www.r-project.org/
 	RKWard : http://rkward.sourceforge.net/
 	-->
-<language version="2.04" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
+<language version="2.05" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
 <highlighting>
 
 	<list name="controls">
@@ -107,8 +107,8 @@
 			<RegExpr attribute="Assign" context="#stay" String="=(?!=)"/>
 
 			<!-- These operators are fine as long as they're followed by something else or end of line. Error otherwise -->
-			<RegExpr attribute="Operator" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~)((?!(\+|\-|\*|/|&lt;=|&gt;=|=|\!=|\||&amp;|:|\^|@|\$|~))|$)"/>
-			<RegExpr attribute="Error" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~){2,}"/>	
+			<RegExpr attribute="Operator" context="#stay" String="(\+|\-|\*{1,2}|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~)((?!(\+|\-|\*|/|&lt;=|&gt;=|=|\!=|\||&amp;|:|\^|@|\$|~))|$)"/>
+			<RegExpr attribute="Error" context="#stay" String="(\+|\-|\*{1,2}|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~){2,}"/>
 			<RegExpr attribute="Operator" context="#stay" String="%[^%]*%"/>
 			
 			<DetectChar attribute="Symbol" context="ctx0" char="{" beginRegion="Brace1" />

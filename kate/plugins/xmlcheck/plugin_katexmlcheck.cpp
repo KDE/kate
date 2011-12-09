@@ -125,6 +125,7 @@ PluginKateXMLCheckView::~PluginKateXMLCheckView()
     mainWindow()->guiFactory()->removeClient( this );
     delete m_proc;
     delete m_tmp_file;
+    delete dock;
 }
 
 void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus exitStatus)

@@ -305,6 +305,7 @@ KatePluginGDBView::~KatePluginGDBView()
     mainWindow()->guiFactory()->removeClient( this );
     delete m_toolView;
     delete m_localsToolView;
+    delete m_stackToolView;
 }
 
 void KatePluginGDBView::readSessionConfig(  KConfigBase*    config,

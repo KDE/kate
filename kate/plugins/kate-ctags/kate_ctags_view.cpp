@@ -546,12 +546,8 @@ void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
 {
     if (status == QProcess::CrashExit) {
         KMessageBox::error(m_toolView, i18n("The CTags executable crashed."));
-        return;
-    }
-    
-    if (exitCode != 0) {
+    } else if (exitCode != 0) {
         KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1", exitCode));
-        return;
     }
 
     m_ctagsUi.updateButton->setDisabled(false);

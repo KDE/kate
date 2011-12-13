@@ -1640,7 +1640,7 @@ In the `Plugin Manager` panel on the right, select `Build plugin`, and then clic
 <title>Using the Build Plugin</title>
 
 <para>The Build plugin adds a <guilabel>Build Output</guilabel> tool view at the
-bottom and a `Build` menu on the menubar. The tool view can be used to configure
+bottom and a <guimenu>Build</guimenu> menu on the menubar. The tool view can be used to configure
 build target settings, while the menu can be used to perform build, clean and
 compile actions.</para>
 

@@ -1604,6 +1604,7 @@ to the next variable, and so on.</para>
 
 <sect2 id="snippets-ack">
 <title>Thanks and Acknowledgments</title>
+<para>Kate Snippets was written by Joseph Wenninger.</para>
 <para>Special thanks to Google Code-In 2011 participant Martin Gergov for
 writing much of this section.</para>
 </sect2>

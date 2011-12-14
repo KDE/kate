@@ -8,7 +8,7 @@
 	R      : http://www.r-project.org/
 	RKWard : http://rkward.sourceforge.net/
 	-->
-<language version="2.06" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
+<language version="2.07" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
 <highlighting>
 
 	<list name="controls">
@@ -82,8 +82,8 @@
 			<StringDetect attribute="Headline" context="Headline" String="##"/>
 			<DetectChar attribute="Comment" context="Comment" char="#"/>
 			<DetectChar attribute="String" context="#stay" char=" "/>
-			<!-- Operators other than + and - directly after another operator are an error. -->
-			<RegExpr attribute="Error" context="#stay" String="(\*|/|&lt;|&gt;|=|\!|\||&amp;|:|\^|@|\$|~)"/>
+			<!-- Operators other than +, -, and ! directly after another operator are an error. -->
+			<RegExpr attribute="Error" context="#stay" String="(\*|/|&lt;|&gt;|\!=|=|\||&amp;|:|\^|@|\$|~)"/>
 		</context>
 
 		<context attribute="Headline" lineEndContext="#pop" name="Headline"/>
@@ -108,7 +108,7 @@
 			<RegExpr attribute="Assign" context="operator_rhs" String="[&lt;]{1,2}\-"/>
 			<RegExpr attribute="Assign" context="operator_rhs" String="\-[&gt;]{1,2}"/>
 			<RegExpr attribute="Assign" context="operator_rhs" String="=(?!=)"/>
-			<RegExpr attribute="Operator" context="operator_rhs" String="(\+|\-|\*{1,2}|/|&lt;=?|&gt;=?|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~)"/>
+			<RegExpr attribute="Operator" context="operator_rhs" String="(\+|\-|\*{1,2}|/|&lt;=?|&gt;=?|={1,2}|\!=?|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~)"/>
 			<RegExpr attribute="Operator" context="operator_rhs" String="%[^%]*%"/>
 			
 			<DetectChar attribute="Symbol" context="ctx0" char="{" beginRegion="Brace1" />

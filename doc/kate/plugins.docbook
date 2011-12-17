@@ -140,7 +140,8 @@ The available application plugins are:
   Quickly switch to another already opened document</para>
 </listitem>
 <listitem>
-<para>SQL Plugin - Execute query on SQL databases</para>
+<para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
+query on SQL databases</para>
 </listitem>
 <listitem>
 <para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>

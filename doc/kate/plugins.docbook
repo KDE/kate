@@ -1788,7 +1788,239 @@ document.</para></listitem>
 writing much of this section.</para>
 </sect2>
 </sect1>
-       
+
+<sect1 id="kate-application-plugin-sql">
+<sect1info>
+<authorgroup>
+<author><firstname>Ömer</firstname> <othername>Faruk</othername> <surname>ORUÇ</surname></author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title>SQL Plugin</title>
+
+<sect2 id="sql-intro">
+<title>Introduction</title>
+
+<para>The Structured Query Language (SQL) is a specialized language for updating,
+deleting, and requesting information from databases.</para>
+
+<para>The Kate SQL Plugin allows you to:</para>
+
+<itemizedlist>
+<listitem><para>Create a database</para></listitem>
+<listitem><para>Connect to existing databases</para></listitem>
+<listitem><para>Insert and delete data in the database</para></listitem>
+<listitem><para>Execute queries</para></listitem>
+<listitem><para>Display results in a table</para></listitem>
+</itemizedlist>
+
+<!--If Kate is installed on your computer, at first open Kate.
+If Kate isn't installed on your computer, download and install it.
+
+Using SQL Plugin
+After opening the Kate;
+Click Settings→ Configure Kate
+and then;
+Click Application → Select Plugins in the tree widget
+
+In the Plugin Manager panel on the right, check SQL Plugin and click OK.
+-->
+
+</sect2>
+
+<sect2 id="sql-connecting">
+<title>Connecting to a Database</title>
+
+<para>Select <guibutton>Add Connection</guibutton> from the <guimenu>SQL</guimenu>
+menu or toolbar, and then select the Qt database driver you want to use (including
+QSQLITE, QMYSQL3, QMYSQL, QODBC3, QODBC, QPSQL7, and QPSQL).  If you can't see
+the desired driver, you need to install it.  Then, press <guibutton>Next</guibutton>
+</para>
+
+<para>If the database you selected uses a file, simply indicate the database's
+location and press the <guibutton>Next</guibutton> button.  If it requires connecting
+to a server, you must enter the hostname of the server, your username and password,
+and any other information that particular driver may requires. Then press
+<guibutton>Next</guibutton></para>
+
+<para>Finally, give a name to your connection, and press <guibutton>Finish</guibutton>.</para>
+
+</sect2>
+
+<sect2 id="sql-querying">
+<title>Running Queries</title>
+
+<sect3 id="sql-querying-insert-delete-update">
+<title>INSERT/DELETE/UPDATE</title>
+
+<para>You can insert, delete, and update data using the SQL plugin just like
+you would from the command line or from within a program.  Simply enter a query
+and press the <guibutton>Run query</guibutton>.</para>
+
+<example>
+<title>Some Example Queries</title>
+<variablelist>
+
+<varlistentry>
+<term><command>INSERT</command></term>
+<listitem><para><programlisting>
+INSERT INTO <replaceable>table_name</replaceable> ("<replaceable>feature1</replaceable>", "<replaceable>feature2</replaceable>", "<replaceable>feature3</replaceable>", "<replaceable>feature4</replaceable>", "<replaceable>feature5</replaceable>")
+VALUES ("<replaceable>value1</replaceable>", "<replaceable>value2</replaceable>", "<replaceable>value3</replaceable>", "<replaceable>value4</replaceable>", "<replaceable>value5</replaceable>" )
+</programlisting></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><command>DELETE</command></term>
+<listitem><para><programlisting>
+DELETE FROM <replaceable>table_name</replaceable> WHERE name = "<replaceable>text</replaceable>"
+</programlisting></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><command>UPDATE</command></term>
+<listitem><para><programlisting>
+UPDATE <replaceable>table_name</replaceable> SET "<replaceable>feature1</replaceable>" = "<replaceable>text</replaceable>", "<replaceable>feature2</replaceable>" = "<replaceable>text</replaceable>", "<replaceable>feature3</replaceable>" = "<replaceable>text</replaceable>", "<replaceable>feature4</replaceable>" = "<replaceable>text</replaceable>", "<replaceable>feature5</replaceable>" = "<replaceable>text</replaceable>"
+</programlisting></para></listitem>
+</varlistentry>
+
+</variablelist>
+</example>
+
+</sect3>
+
+<sect3 id="sql-querying-select">
+<title>SELECT</title>
+
+<para>After running a  <command>SELECT</command> query, you can view the results
+as a table will appear in the <guilabel>SQL Data Output</guilabel> tool view at
+the bottom of &kappname;, or as text in the <guilabel>SQL Text Output</guilabel>.
+If there is an error, you can see it in the text output.</para>
+
+<example>
+<title>Example <command>SELECT</command> Query</title>
+<para><programlisting>
+SELECT * FROM <replaceable>table_name</replaceable>
+</programlisting></para>
+</example>
+
+<para>In the <guilabel>SQL Data Output</guilabel> tool view, there are some buttons:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guibutton>Resize Columns to Contents</guibutton></term>
+<listitem><para>Changes the size of columns to fit their contents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Resize Rows to Contents</guibutton></term>
+<listitem><para>Changes the size of rows to fit their contents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Copy</guibutton></term>
+<listitem><para>Selects all table contents and copies them to the clipboard buffer.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Export</guibutton></term>
+<listitem><para>Exports all table contents to a file, the clipboard, or the
+current document in the Comma Seperated Values format.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Clear</guibutton></term>
+<listitem><para>Removes everything from table view</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>You can now change the colors displayed in the table in the <guilabel>SQL</guilabel>
+section of <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kate</guimenuitem>
+</menuchoice>.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="sql-browsing">
+<title>Browsing</title>
+
+<para>You can browse your database using the <guilabel>SQL Schema Browser</guilabel>
+tool view on the left.  The information displayed varies depending on which
+database driver you are using.</para>
+
+<para>To refresh this list, right-click anywhere in the tool view and select
+<guimenuitem>Refresh</guimenuitem>.  To generate a query on any entry in the list,
+right-click on an entry, select <guisubmenu>Generate</guisubmenu>, and select the
+query type (<guimenuitem>SELECT</guimenuitem>, <guimenuitem>UPDATE</guimenuitem>,
+<guimenuitem>INSERT</guimenuitem>, and <guimenuitem>DELETE</guimenuitem> from
+the submenu that appears.</para>
+
+</sect2>
+
+<sect2 id="sql-menus">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>SQL</guimenu><guimenuitem>Add connection...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Adds a new connection using any databasse driver.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>SQL</guimenu><guimenuitem>Remove connection</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Removes the selected connection.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>SQL</guimenu><guimenuitem>Edit connection...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Edits the current connection's settings.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Connections</term>
+<listitem><para>
+All database connections you have created are listed between the
+<guimenuitem>Edit connection</guimenuitem> and <guimenuitem>Run query</guimenuitem>
+menu items.  Select one to run queries or make modification to it.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></shortcut>
+<guimenu>SQL</guimenu><guimenuitem>Run query</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Runs your query.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="sql-ack">
+<title>Thanks and Acknowledgments</title>
+
+<para>The SQL Plugin was written by Marco Mentasti.</para>
+<para>Special thanks to Google Code-In 2011 participant Ömer Faruk ORUÇ for
+writing much of this section.</para>
+
+</sect2>
+
+</sect1>
 
 <!--
 Missing (according to config docs)

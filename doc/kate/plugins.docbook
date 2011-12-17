@@ -179,9 +179,9 @@ query on SQL databases</para>
 <listitem>
 <para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
-<listitem>
+<!--<listitem>
 <para><link linkend="kate-application-plugin-exttools">External Tools</link></para>
-</listitem>
+</listitem>-->
 <listitem>
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
 <!-- http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
@@ -1243,12 +1243,12 @@ list, and order them using the arrow buttons at the side of the list.</para>
 </sect1>
 
 <!--some material from mdi.docbook needs to be migrated here too-->
-<sect1 id="kate-application-plugin-exttools">
-<!--<sect1info>
+<!--<sect1 id="kate-application-plugin-exttools">
+<sect1info>
 <authorgroup><author>
 &TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
-</sect1info>-->
+</sect1info>
 <title>External Tools</title>
 
 <para>In the <guimenu>Tools</guimenu> menu you will find a submenu labeled
@@ -1425,7 +1425,7 @@ from disk.</para></listitem>
 
 </variablelist>
 </sect2>
-</sect1>
+</sect1>-->
 
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>

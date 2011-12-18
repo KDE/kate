@@ -1841,7 +1841,7 @@ the desired driver, you need to install it.  Then, press <guibutton>Next</guibut
 <para>If the database you selected uses a file, simply indicate the database's
 location and press the <guibutton>Next</guibutton> button.  If it requires connecting
 to a server, you must enter the hostname of the server, your username and password,
-and any other information that particular driver may requires. Then press
+and any other information that particular driver may require. Then press
 <guibutton>Next</guibutton></para>
 
 <para>Finally, give a name to your connection, and press <guibutton>Finish</guibutton>.</para>
@@ -1893,7 +1893,7 @@ UPDATE <replaceable>table_name</replaceable> SET "<replaceable>feature1</replace
 <title>SELECT</title>
 
 <para>After running a  <command>SELECT</command> query, you can view the results
-as a table will appear in the <guilabel>SQL Data Output</guilabel> tool view at
+as a table that will appear in the <guilabel>SQL Data Output</guilabel> tool view at
 the bottom of &kappname;, or as text in the <guilabel>SQL Text Output</guilabel>.
 If there is an error, you can see it in the text output.</para>
 

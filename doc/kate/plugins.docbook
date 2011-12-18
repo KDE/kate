@@ -1909,12 +1909,12 @@ SELECT * FROM <replaceable>table_name</replaceable>
 <variablelist>
 
 <varlistentry>
-<term><guibutton>Resize Columns to Contents</guibutton></term>
+<term><guibutton>Resize columns to contents</guibutton></term>
 <listitem><para>Changes the size of columns to fit their contents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guibutton>Resize Rows to Contents</guibutton></term>
+<term><guibutton>Resize rows to contents</guibutton></term>
 <listitem><para>Changes the size of rows to fit their contents.</para></listitem>
 </varlistentry>
 
@@ -1926,7 +1926,7 @@ SELECT * FROM <replaceable>table_name</replaceable>
 <varlistentry>
 <term><guibutton>Export</guibutton></term>
 <listitem><para>Exports all table contents to a file, the clipboard, or the
-current document in the Comma Seperated Values format.</para></listitem>
+current document in the Comma Separated Values format.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1954,7 +1954,7 @@ database driver you are using.</para>
 <guimenuitem>Refresh</guimenuitem>.  To generate a query on any entry in the list,
 right-click on an entry, select <guisubmenu>Generate</guisubmenu>, and select the
 query type (<guimenuitem>SELECT</guimenuitem>, <guimenuitem>UPDATE</guimenuitem>,
-<guimenuitem>INSERT</guimenuitem>, and <guimenuitem>DELETE</guimenuitem> from
+<guimenuitem>INSERT</guimenuitem>, and <guimenuitem>DELETE</guimenuitem>) from
 the submenu that appears.</para>
 
 </sect2>
@@ -1968,7 +1968,7 @@ the submenu that appears.</para>
 <guimenu>SQL</guimenu><guimenuitem>Add connection...</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-Adds a new connection using any databasse driver.
+Adds a new connection using any database driver.
 </para></listitem>
 </varlistentry>
 

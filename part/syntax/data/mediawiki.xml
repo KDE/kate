@@ -1,6 +1,6 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MediaWiki" section="Markup" version="1.02" kateversion="2.4" extensions="" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.03" kateversion="2.4" extensions="" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -45,12 +45,12 @@
       </context>
       <context attribute="Link" lineEndContext="#stay" name="URL" >
         <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
-        <DetectChar char="'" context="Error" attribute="Error" />
+<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
         <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
-        <DetectChar char="'" context="Error" attribute="Error" />
+<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
@@ -62,7 +62,7 @@
       <context attribute="Error" lineEndContext="#pop" name="Error" />
       <context attribute="Link" lineEndContext="#stay" name="Template" >
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
-        <DetectChar char="'" context="Error" attribute="Error" />
+<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
       </context>
       <context attribute="NoWiki" lineEndContext="#stay" name="NoWiki" >
         <RegExpr String="&lt;!--[^-]*--&gt;" attribute="NoWiki" />

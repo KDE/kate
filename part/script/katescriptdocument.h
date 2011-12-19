@@ -137,6 +137,7 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE bool isAttributeName(const KTextEditor::Cursor& cursor, const QString &name);
 
     Q_INVOKABLE QString variable(const QString &s);
+    Q_INVOKABLE QString setVariable(const QString &s, const QString &v);
     //END
 
     Q_INVOKABLE int firstVirtualColumn(int line);

@@ -671,6 +671,11 @@ QString KateScriptDocument::variable(const QString &s)
   return m_document->variable(s);
 }
 
+QString KateScriptDocument::setVariable(const QString &s, const QString &v)
+{
+  return m_document->setVariable(s, v);
+}
+
 //END
 
 bool KateScriptDocument::_isCode(int defaultStyle)

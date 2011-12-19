@@ -519,6 +519,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   //
   public:
     virtual QString variable( const QString &name ) const;
+    virtual QString setVariable( const QString &name, const QString &value);
 
   Q_SIGNALS:
     void variableChanged( KTextEditor::Document*, const QString &, const QString & );

@@ -4419,6 +4419,16 @@ QString KateDocument::variable( const QString &name ) const
   return m_storedVariables.value(name, QString());
 }
 
+QString KateDocument::setVariable( const QString &name, const QString &value)
+{
+  QString s = "kate: ";
+  s.append(name);
+  s.append(" ");
+  s.append(value);
+  readVariableLine(s);
+  return m_storedVariables.value(name, QString());
+}
+
 //END
 
 void KateDocument::slotModOnHdDirty (const QString &path)

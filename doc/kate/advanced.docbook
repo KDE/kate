@@ -1299,10 +1299,10 @@ Cursor();
 Constructor. Returns a Cursor at position <literal>(0, 0)</literal>.</para>
 <para>Example: <function>var cursor = new Cursor();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 </synopsis></term>
@@ -1311,10 +1311,10 @@ Constructor. Returns a Cursor at position (line, column).
 </para>
 <para>Example: <function>var cursor = new Cursor(3, 42);</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor(<parameter>Cursor <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1323,10 +1323,10 @@ Copy constructor. Returns a copy of the cursor <replaceable>other</replaceable>.
 </para>
 <para>Example: <function>var copy = new Cursor(other);</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor Cursor.clone();
 </synopsis></term>
@@ -1334,10 +1334,10 @@ Cursor Cursor.clone();
 Returns a clone of the cursor.</para>
 <para>Example: <function>var clone = cursor.clone();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Cursor.isValid();
 </synopsis></term>
@@ -1348,10 +1348,10 @@ column are set to <literal>-1</literal>.
 <para>
 Example: <function>var valid = cursor.isValid();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor Cursor.invalid();
 </synopsis></term>
@@ -1360,9 +1360,9 @@ Returns an new invalid cursor located at <literal>(-1, -1)</literal>.
 </para>
 <para>Example: <function>var invalidCursor = cursor.invalid();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int Cursor.compareTo(<parameter>Cursor <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1374,10 +1374,10 @@ Compares this cursor to the cursor <replaceable>other</replaceable>. Returns
 <listitem><para><literal>+1</literal>, if this cursor is located after the cursor <replaceable>other</replaceable>.</para></listitem>
 </itemizedlist>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Cursor.equals(<parameter>Cursor <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1385,10 +1385,10 @@ bool Cursor.equals(<parameter>Cursor <replaceable>other</replaceable></parameter
 Returns <literal>true</literal>, if this cursor and the cursor <replaceable>other</replaceable> are
 equal, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String Cursor.toString();
 </synopsis></term>
@@ -1410,20 +1410,20 @@ Range();
 <listitem><para>
 Constructor. Calling <literal>new Range()</literal> returns a Range at (0, 0) - (0, 0).
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Range(<parameter>Cursor <replaceable>start</replaceable></parameter>, <parameter>Cursor <replaceable>end</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
 Constructor. Calling <literal>new Range(<replaceable>start</replaceable>, <replaceable>end</replaceable>)</literal> returns the Range (<replaceable>start</replaceable>, <replaceable>end</replaceable>).
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Range(<parameter>int <replaceable>startLine</replaceable></parameter>, <parameter>int <replaceable>startColumn</replaceable></parameter>, <parameter>int <replaceable>endLine</replaceable></parameter>, <parameter>int <replaceable>endColumn</replaceable></parameter>);
 </synopsis></term>
@@ -1431,20 +1431,20 @@ Range(<parameter>int <replaceable>startLine</replaceable></parameter>, <paramete
 Constructor. Calling <literal>new Range(<replaceable>startLine</replaceable>, <replaceable>startColumn</replaceable>, <replaceable>endLine</replaceable>, <replaceable>endColumn</replaceable>)</literal>
 returns the Range from (<replaceable>startLine</replaceable>, <replaceable>startColumn</replaceable>) to (<replaceable>endLine</replaceable>, <replaceable>endColumn</replaceable>).
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Range(<parameter>Range <replaceable>other</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
 Copy constructor. Returns a copy of Range <replaceable>other</replaceable>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Range Range.clone();
 </synopsis></term>
@@ -1453,10 +1453,10 @@ Returns a clone of the range.
 </para>
 <para>Example: <function>var clone = range.clone();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.isValid();
 </synopsis></term>
@@ -1465,30 +1465,30 @@ Returns <literal>true</literal>, if both start and end cursor are valid, otherwi
 </para>
 <para>Example: <function>var valid = range.isValid();</function>
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.invalid();
 </synopsis></term>
 <listitem><para>
 Returns the Range from (-1, -1) to (-1, -1).
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.contains(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
 Returns <literal>true</literal>, if this range contains the cursor position, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.contains(<parameter>Range <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1496,10 +1496,10 @@ bool Range.contains(<parameter>Range <replaceable>other</replaceable></parameter
 Returns <literal>true</literal>, if this range contains the Range <replaceable>other</replaceable>,
 otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.containsColumn(<parameter>int <replaceable>column</replaceable></parameter>);
 </synopsis></term>
@@ -1507,10 +1507,10 @@ bool Range.containsColumn(<parameter>int <replaceable>column</replaceable></para
 Returns <literal>true</literal>, if <replaceable>column</replaceable> is in the half open interval
 <literal>[start.column, end.column)</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.containsLine(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -1518,10 +1518,10 @@ bool Range.containsLine(<parameter>int <replaceable>line</replaceable></paramete
 Returns <literal>true</literal>, if <replaceable>line</replaceable> is in the half open interval
 <literal>[start.line, end.line)</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.overlaps(<parameter>Range <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1529,10 +1529,10 @@ bool Range.overlaps(<parameter>Range <replaceable>other</replaceable></parameter
 Returns <literal>true</literal>, if this range and the range <replaceable>other</replaceable> share
 a common region, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.overlapsLine(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -1540,10 +1540,10 @@ bool Range.overlapsLine(<parameter>int <replaceable>line</replaceable></paramete
 Returns <literal>true</literal>, if <replaceable>line</replaceable> is in the interval
 <literal>[start.line, end.line]</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.overlapsColumn(<parameter>int <replaceable>column</replaceable></parameter>);
 </synopsis></term>
@@ -1551,10 +1551,10 @@ bool Range.overlapsColumn(<parameter>int <replaceable>column</replaceable></para
 Returns <literal>true</literal>, if <replaceable>column</replaceable> is in the interval
 <literal>[start.column, end.column]</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool Range.equals(<parameter>Range <replaceable>other</replaceable></parameter>);
 </synopsis></term>
@@ -1562,10 +1562,10 @@ bool Range.equals(<parameter>Range <replaceable>other</replaceable></parameter>)
 Returns <literal>true</literal>, if this range and the Range <replaceable>other</replaceable> are
 equal, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String Range.toString();
 </synopsis></term>
@@ -1625,9 +1625,9 @@ void i18n(<parameter>String <replaceable>text</replaceable></parameter>, <replac
 Translates <replaceable>text</replaceable> into the language used by the application.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
 replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void i18nc(<parameter>String <replaceable>context</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>, <replaceable>arg1</replaceable>, ...);
 </synopsis></term>
@@ -1637,9 +1637,9 @@ application. Additionally, the string <replaceable>context</replaceable> is
 visible to translators so they can provide a better translation.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
 replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void i18np(<parameter>String <replaceable>singular</replaceable></parameter>, <parameter>String <replaceable>plural</replaceable></parameter>, <parameter>int <replaceable>number</replaceable></parameter>, <replaceable>arg1</replaceable>, ...);
 </synopsis></term>
@@ -1649,9 +1649,9 @@ Translates either <replaceable>singular</replaceable> or
 depending on the given <replaceable>number</replaceable>.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
 replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void i18ncp(<parameter>String <replaceable>context</replaceable></parameter>, <parameter>String <replaceable>singular</replaceable></parameter>, <parameter>String <replaceable>plural</replaceable></parameter>, <parameter>int <replaceable>number</replaceable></parameter>, <replaceable>arg1</replaceable>, ...);
 </synopsis></term>
@@ -1679,19 +1679,19 @@ view. The following is a list of all available View functions.
 <function>Cursor view.cursorPosition()</function>
 </synopsis></term>
 <listitem><para>Returns the current cursor position in the view.</para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 <function>void view.setCursorPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>)</function>
 <function>void view.setCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>)</function>
 </synopsis></term>
 <listitem><para>Returns the current cursor position in the view.</para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.setCursorPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 void view.setCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -1699,20 +1699,20 @@ void view.setCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable><
 <listitem><para>
 Set the current cursor position to either (line, column) or to the given cursor.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor view.virtualCursorPosition();
 </synopsis></term>
 <listitem><para>
 Returns the virtual cursor position with each tab counting the corresponding amount of spaces depending on the current tab width.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.setVirtualCursorPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 void view.setVirtualCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -1720,30 +1720,30 @@ void view.setVirtualCursorPosition(<parameter>Cursor <replaceable>cursor</replac
 <listitem><para>
 Set the current virtual cursor position to (line, column) or to the given cursor.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String view.selectedText();
 </synopsis></term>
 <listitem><para>
 Returns the selected text. If no text is selected, the returned string is empty.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool view.hasSelection();
 </synopsis></term>
 <listitem><para>
 Returns <literal>true</literal>, if the view has selected text, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Range view.selection();
 </synopsis></term>
@@ -1751,20 +1751,20 @@ Range view.selection();
 Returns the selected text range. The returned range is invalid if there is no
 selected text.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.setSelection(<parameter>Range <replaceable>range</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
 Set the selected text to the given range.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.removeSelectedText();
 </synopsis></term>
@@ -1772,20 +1772,20 @@ void view.removeSelectedText();
 Remove the selected text. If the view does not have any selected text, this
 does nothing.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.selectAll();
 </synopsis></term>
 <listitem><para>
 Selects the entire text in the document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void view.clearSelection();
 </synopsis></term>
@@ -1810,20 +1810,20 @@ String document.fileName();
 <listitem><para>
 Returns the document's filename or an empty string for unsaved text buffers.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.url();
 </synopsis></term>
 <listitem><para>
 Returns the document's full url or an empty string for unsaved text buffers.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.mimeType();
 </synopsis></term>
@@ -1831,56 +1831,56 @@ String document.mimeType();
 Returns the document's mime type or the mime type <literal>application/octet-stream</literal>
 if no appropriate mime type could be found.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.encoding();
 </synopsis></term>
 <listitem><para>
 Returns the currently used encoding to save the file.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.highlightingMode();
 </synopsis></term>
 <listitem><para>
 Returns the global highlighting mode used for the whole document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.highlightingModeAt(<parameter>Cursor <replaceable>pos</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
 Returns the highlighting mode used at the given position in the document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Array document.embeddedHighlightingModes();
 </synopsis></term>
 <listitem><para>
 Returns an array of highlighting modes embedded in this document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isModified();
 </synopsis></term>
 <listitem><para>
 Returns <literal>true</literal>, if the document has unsaved changes (modified), otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.text();
 </synopsis></term>
@@ -1888,10 +1888,10 @@ String document.text();
 Returns the entire content of the document in a single text string. Newlines
 are marked with the newline character <quote><literal>\n</literal></quote>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.text(<parameter>int <replaceable>fromLine</replaceable></parameter>, <parameter>int <replaceable>fromColumn</replaceable></parameter>, <parameter>int <replaceable>toLine</replaceable></parameter>, <parameter>int <replaceable>toColumn</replaceable></parameter>);
 String document.text(<parameter>Cursor <replaceable>from</replaceable></parameter>, <parameter>Cursor <replaceable>to</replaceable></parameter>);
@@ -1901,10 +1901,10 @@ String document.text(<parameter>Range <replaceable>range</replaceable></paramete
     Returns the text in the given range. It is recommended to use the cursor
     and range based version for better readability of the source code.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.line(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -1912,10 +1912,10 @@ String document.line(<parameter>int <replaceable>line</replaceable></parameter>)
     Returns the given text line as string. The string is empty if the requested
     line is out of range.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.wordAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 String document.wordAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -1923,10 +1923,10 @@ String document.wordAt(<parameter>Cursor <replaceable>cursor</replaceable></para
 <listitem><para>
     Returns the word at the given cursor position.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.charAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 String document.charAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -1934,10 +1934,10 @@ String document.charAt(<parameter>Cursor <replaceable>cursor</replaceable></para
 <listitem><para>
     Returns the character at the given cursor position.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.firstChar(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -1947,10 +1947,10 @@ String document.firstChar(<parameter>int <replaceable>line</replaceable></parame
     is empty or only contains whitespace characters, the returned string is
     empty.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.lastChar(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -1959,10 +1959,10 @@ String document.lastChar(<parameter>int <replaceable>line</replaceable></paramet
     that is not a whitespace. If the line is empty or only contains whitespace
     characters, the returned string is empty.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isSpace(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isSpace(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -1971,10 +1971,10 @@ bool document.isSpace(<parameter>Cursor <replaceable>cursor</replaceable></param
     Returns <literal>true</literal>, if the character at the given cursor position is a whitespace,
     otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.matchesAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 bool document.matchesAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
@@ -1983,10 +1983,10 @@ bool document.matchesAt(<parameter>Cursor <replaceable>cursor</replaceable></par
     Returns <literal>true</literal>, if the given <replaceable>text</replaceable> matches at the
     corresponding cursor position, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.startsWith(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>, <parameter>bool <replaceable>skipWhiteSpaces</replaceable></parameter>);
 </synopsis></term>
@@ -1994,10 +1994,10 @@ bool document.startsWith(<parameter>int <replaceable>line</replaceable></paramet
     Returns <literal>true</literal>, if the line starts with <replaceable>text</replaceable>, otherwise <literal>false</literal>.
     The argument <replaceable>skipWhiteSpaces</replaceable> controls whether leading whitespaces are ignored.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.endsWith(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>, <parameter>bool <replaceable>skipWhiteSpaces</replaceable></parameter>);
 </synopsis></term>
@@ -2005,30 +2005,30 @@ bool document.endsWith(<parameter>int <replaceable>line</replaceable></parameter
     Returns <literal>true</literal>, if the line ends with <replaceable>text</replaceable>, otherwise <literal>false</literal>.
     The argument <replaceable>skipWhiteSpaces</replaceable> controls whether trailing whitespaces are ignored.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.setText(<parameter>String <replaceable>text</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
     Sets the entire document text.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.clear();
 </synopsis></term>
 <listitem><para>
     Removes the entire text in the document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.truncate(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.truncate(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2037,10 +2037,10 @@ bool document.truncate(<parameter>Cursor <replaceable>cursor</replaceable></para
     Truncate the given line at the given column or cursor position. Returns <literal>true</literal>
     on success, or <literal>false</literal> if the given line is not part of the document range.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.insertText(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 bool document.insertText(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
@@ -2049,10 +2049,10 @@ bool document.insertText(<parameter>Cursor <replaceable>cursor</replaceable></pa
     Inserts the <replaceable>text</replaceable> at the given cursor position.
     Returns <literal>true</literal> on success, or <literal>false</literal>, if the document is in read-only mode.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.removeText(<parameter>int <replaceable>fromLine</replaceable></parameter>, <parameter>int <replaceable>fromColumn</replaceable></parameter>, <parameter>int <replaceable>toLine</replaceable></parameter>, <parameter>int <replaceable>toColumn</replaceable></parameter>);
 bool document.removeText(<parameter>Cursor <replaceable>from</replaceable></parameter>, <parameter>Cursor <replaceable>to</replaceable></parameter>);
@@ -2062,10 +2062,10 @@ bool document.removeText(<parameter>Range <replaceable>range</replaceable></para
     Removes the text in the given range. Returns <literal>true</literal> on success, or <literal>false</literal>, if
     the document is in read-only mode.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.insertLine(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 </synopsis></term>
@@ -2073,10 +2073,10 @@ bool document.insertLine(<parameter>int <replaceable>line</replaceable></paramet
     Inserts text in the given line. Returns <literal>true</literal> on success, or <literal>false</literal>, if the
     document is in read-only mode or the line is not in the document range.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.removeLine(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2084,10 +2084,10 @@ bool document.removeLine(<parameter>int <replaceable>line</replaceable></paramet
     Removes the given text line. Returns <literal>true</literal> on success, or <literal>false</literal>, if the
     document is in read-only mode or the line is not in the document range.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void document.joinLines(<parameter>int <replaceable>startLine</replaceable></parameter>, <parameter>int <replaceable>endLine</replaceable></parameter>);
 </synopsis></term>
@@ -2095,40 +2095,40 @@ void document.joinLines(<parameter>int <replaceable>startLine</replaceable></par
     Joins the lines from <replaceable>startLine</replaceable> to <replaceable>endLine</replaceable>.
     Two succeeding text lines are always separated with a single space.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.lines();
 </synopsis></term>
 <listitem><para>
     Returns the amount of lines in the document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.length();
 </synopsis></term>
 <listitem><para>
     Returns the number of characters in the document.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.lineLength(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
     Returns the <replaceable>line</replaceable>'s length.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void document.editBegin();
 </synopsis></term>
@@ -2138,10 +2138,10 @@ void document.editBegin();
     <function>editBegin()</function>. Calling <function>editBegin()</function>
     internally uses a reference counter, i.e., this call can be nested.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 void document.editEnd();
 </synopsis></term>
@@ -2150,10 +2150,10 @@ void document.editEnd();
     the one for the first call of <function>editBegin()</function>) finishes
     the edit step.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.firstColumn(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2161,10 +2161,10 @@ int document.firstColumn(<parameter>int <replaceable>line</replaceable></paramet
     Returns the first non-whitespace column in the given <replaceable>line</replaceable>.
     If there are only whitespaces in the line, the return value is <literal>-1</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.lastColumn(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2172,10 +2172,10 @@ int document.lastColumn(<parameter>int <replaceable>line</replaceable></paramete
     Returns the last non-whitespace column in the given <replaceable>line</replaceable>.
     If there are only whitespaces in the line, the return value is <literal>-1</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.prevNonSpaceColumn(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 int document.prevNonSpaceColumn(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2184,10 +2184,10 @@ int document.prevNonSpaceColumn(<parameter>Cursor <replaceable>cursor</replaceab
     Returns the column with a non-whitespace characters starting at the given
     cursor position and searching backwards.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.nextNonSpaceColumn(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 int document.nextNonSpaceColumn(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2196,10 +2196,10 @@ int document.nextNonSpaceColumn(<parameter>Cursor <replaceable>cursor</replaceab
     Returns the column with a non-whitespace characters starting at the given
     cursor position and searching forwards.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.prevNonEmptyLine(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2207,10 +2207,10 @@ int document.prevNonEmptyLine(<parameter>int <replaceable>line</replaceable></pa
     Returns the next non-empty line containing non-whitespace characters
     searching backwards.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.nextNonEmptyLine(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2218,10 +2218,10 @@ int document.nextNonEmptyLine(<parameter>int <replaceable>line</replaceable></pa
     Returns the next non-empty line containing non-whitespace characters
     searching forwards.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isInWord(<parameter>String <replaceable>character</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable></parameter>);
 </synopsis></term>
@@ -2230,10 +2230,10 @@ bool document.isInWord(<parameter>String <replaceable>character</replaceable></p
     given <replaceable>attribute</replaceable> can be part of a word, otherwise
     <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.canBreakAt(<parameter>String <replaceable>character</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable></parameter>);
 </synopsis></term>
@@ -2242,10 +2242,10 @@ bool document.canBreakAt(<parameter>String <replaceable>character</replaceable><
     <replaceable>attribute</replaceable> is suited to wrap a line, otherwise
     <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.canComment(<parameter>int <replaceable>startAttribute</replaceable></parameter>, <parameter>int <replaceable>endAttribute</replaceable></parameter>);
 </synopsis></term>
@@ -2253,20 +2253,20 @@ bool document.canComment(<parameter>int <replaceable>startAttribute</replaceable
     Returns <literal>true</literal>, if a range starting and ending with the given attributes is
     suited to be commented out, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.commentMarker(<parameter>int <replaceable>attribute</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
     Returns the comment marker for single line comments for a given <replaceable>attribute</replaceable>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.commentStart(<parameter>int <replaceable>attribute</replaceable></parameter>);
 </synopsis></term>
@@ -2274,10 +2274,10 @@ String document.commentStart(<parameter>int <replaceable>attribute</replaceable>
     Returns the comment marker for the start of multi-line comments for a given
     <replaceable>attribute</replaceable>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.commentEnd(<parameter>int <replaceable>attribute</replaceable></parameter>);
 </synopsis></term>
@@ -2285,11 +2285,11 @@ String document.commentEnd(<parameter>int <replaceable>attribute</replaceable></
     Returns the comment marker for the end of multi-line comments for a given
     <replaceable>attribute</replaceable>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.attribute(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 int document.attribute(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2297,10 +2297,10 @@ int document.attribute(<parameter>Cursor <replaceable>cursor</replaceable></para
 <listitem><para>
     Returns the attribute at the given cursor position.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isAttribute(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable></parameter>);
 bool document.isAttribute(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable></parameter>);
@@ -2309,10 +2309,10 @@ bool document.isAttribute(<parameter>Cursor <replaceable>cursor</replaceable></p
     Returns <literal>true</literal>, if the attribute at the given cursor position equals <replaceable>attribute</replaceable>,
     otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.attributeName(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 String document.attributeName(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2321,10 +2321,10 @@ String document.attributeName(<parameter>Cursor <replaceable>cursor</replaceable
     Returns the attribute name as human readable text. This equals to the
     <literal>itemData</literal> name in the syntax highlighting files.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isAttributeName(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>String <replaceable>name</replaceable></parameter>);
 bool document.isAttributeName(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>name</replaceable></parameter>);
@@ -2333,10 +2333,10 @@ bool document.isAttributeName(<parameter>Cursor <replaceable>cursor</replaceable
     Returns <literal>true</literal>, if the attribute name at a certain cursor position matches
     the given <replaceable>name</replaceable>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.variable(<parameter>String <replaceable>key</replaceable></parameter>);
 </synopsis></term>
@@ -2344,10 +2344,10 @@ String document.variable(<parameter>String <replaceable>key</replaceable></param
     Returns the value of the requested document variable <replaceable>key</replaceable>.
     If the document variable does not exist, the return value is an empty string.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 String document.setVariable(<parameter>String <replaceable>key</replaceable></parameter>, <parameter>String <replaceable>value</replaceable></parameter>);
 </synopsis></term>
@@ -2361,10 +2361,10 @@ String document.setVariable(<parameter>String <replaceable>key</replaceable></pa
 <para>
     Since: KDE 4.8
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.firstVirtualColumn(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2372,10 +2372,10 @@ int document.firstVirtualColumn(<parameter>int <replaceable>line</replaceable></
     Returns the virtual column of the first non-whitespace character in the given
     line or <literal>-1</literal>, if the line is empty or contains only whitespace characters.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.lastVirtualColumn(<parameter>int <replaceable>line</replaceable></parameter>);
 </synopsis></term>
@@ -2383,10 +2383,10 @@ int document.lastVirtualColumn(<parameter>int <replaceable>line</replaceable></p
     Returns the virtual column of the last non-whitespace character in the given
     line or <literal>-1</literal>, if the line is empty or contains only whitespace characters.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.toVirtualColumn(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 int document.toVirtualColumn(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2396,10 +2396,10 @@ Cursor document.toVirtualCursor(<parameter>Cursor <replaceable>cursor</replaceab
     Converts the given <quote>real</quote> cursor position to a virtual cursor position,
     either returning an int or a Cursor object.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.fromVirtualColumn(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>virtualColumn</replaceable></parameter>);
 int document.fromVirtualColumn(<parameter>Cursor <replaceable>virtualCursor</replaceable></parameter>);
@@ -2409,10 +2409,10 @@ Cursor document.fromVirtualCursor(<parameter>Cursor <replaceable>virtualCursor</
     Converts the given virtual cursor position to a <quote>real</quote> cursor position,
     either returning an int or a Cursor object.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor document.anchor(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>Char <replaceable>character</replaceable></parameter>);
 Cursor document.anchor(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>Char <replaceable>character</replaceable></parameter>);
@@ -2423,10 +2423,10 @@ Cursor document.anchor(<parameter>Cursor <replaceable>cursor</replaceable></para
     position of the opening '('. This reference counting, i.e. other '(...)'
     are ignored.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 Cursor document.rfind(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable> = -1</parameter>);
 Cursor document.rfind(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>, <parameter>int <replaceable>attribute</replaceable> = -1</parameter>);
@@ -2436,10 +2436,10 @@ Cursor document.rfind(<parameter>Cursor <replaceable>cursor</replaceable></param
     The argument <replaceable>attribute</replaceable> is ignored if it is set to
     <literal>-1</literal>. The returned cursor is invalid, if the text could not be found.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 int document.defStyleNum(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 int document.defStyleNum(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2447,10 +2447,10 @@ int document.defStyleNum(<parameter>Cursor <replaceable>cursor</replaceable></pa
 <listitem><para>
     Returns the default style used at the given cursor position.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isCode(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isCode(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2461,11 +2461,11 @@ bool document.isCode(<parameter>Cursor <replaceable>cursor</replaceable></parame
     <literal>dsString</literal>, <literal>dsRegionMarker</literal>,
     <literal>dsChar</literal>, <literal>dsOthers</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isComment(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isComment(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2474,10 +2474,10 @@ bool document.isComment(<parameter>Cursor <replaceable>cursor</replaceable></par
     Returns <literal>true</literal>, if the attribute of the character at the cursor position
     is <literal>dsComment</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isString(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isString(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2486,10 +2486,10 @@ bool document.isString(<parameter>Cursor <replaceable>cursor</replaceable></para
     Returns <literal>true</literal>, if the attribute of the character at the cursor position
     is <literal>dsString</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isRegionMarker(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isRegionMarker(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2498,10 +2498,10 @@ bool document.isRegionMarker(<parameter>Cursor <replaceable>cursor</replaceable>
     Returns <literal>true</literal>, if the attribute of the character at the cursor position
     is <literal>dsRegionMarker</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isChar(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isChar(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2510,10 +2510,10 @@ bool document.isChar(<parameter>Cursor <replaceable>cursor</replaceable></parame
     Returns <literal>true</literal>, if the attribute of the character at the cursor position
     is <literal>dsChar</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
 
 
-<variablelist><varlistentry>
+<varlistentry>
 <term><synopsis>
 bool document.isOthers(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 bool document.isOthers(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);

@@ -382,6 +382,8 @@ string in the text, this is indicated by a light red background color of the ent
 and <guilabel>Not found</guilabel> is displayed at the right side of the bar.</para>
 <para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button
 to jump to the next or previous match in the document.</para>
+<para>Matches are highlighted even when you close the search bar.  To clear
+this highlighting, press the &Esc; key.</para>
 <para>You can choose whether the search should be case sensitive.
 Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.</para>

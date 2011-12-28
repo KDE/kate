@@ -1729,7 +1729,7 @@ void KateView::slotHlChanged()
 
 int KateView::virtualCursorColumn() const
 {
-  return = m_doc->toVirtualColumn(m_viewInternal->getCursor());
+  return m_doc->toVirtualColumn(m_viewInternal->getCursor());
 }
 
 void KateView::notifyMousePositionChanged(const KTextEditor::Cursor& newPosition)

@@ -2977,25 +2977,24 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
       updateView(true);
       m_leftBorder->update();
     }
-
-    if (width() < e->oldSize().width()) {
-      if (!m_view->wrapCursor()) {
-        // May have to restrain cursor to new smaller width...
-        if (m_cursor.column() > doc()->lineLength(m_cursor.line())) {
-          KateTextLayout thisLine = currentLayout();
-
-          KTextEditor::Cursor newCursor(m_cursor.line(), thisLine.endCol() + ((width() - thisLine.xOffset() - thisLine.width()) / renderer()->spaceWidth()) - 1);
-          updateCursor(newCursor);
-        }
-      }
-    }
-
   } else {
     updateView();
 
     if (expandedHorizontally && startX() > 0)
       scrollColumns(startX() - (width() - e->oldSize().width()));
   }
+  
+  if (width() < e->oldSize().width() && !m_view->wrapCursor()) {
+    // May have to restrain cursor to new smaller width...
+    if (m_cursor.column() > doc()->lineLength(m_cursor.line())) {
+      KateTextLayout thisLine = currentLayout();
+
+      KTextEditor::Cursor newCursor(m_cursor.line(), thisLine.endCol() + ((width() - thisLine.xOffset() - (thisLine.width()- m_startX)) / renderer()->spaceWidth()) - 1);
+      if (newCursor.column() < m_cursor.column())
+        updateCursor(newCursor);
+    }
+  }
+
 
   if (expandedVertically) {
     KTextEditor::Cursor max = maxStartPos();

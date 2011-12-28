@@ -260,6 +260,7 @@ void KateRenderer::paintTrailingSpace(QPainter &paint, qreal x, qreal y)
   pen.setWidthF(spaceWidth() / 3.5);
   pen.setCapStyle(Qt::RoundCap);
   paint.setPen( pen );
+  paint.setRenderHint(QPainter::Antialiasing, true);
 
   paint.drawPoint( QPointF(x, y) );
   paint.setPen( penBackup );

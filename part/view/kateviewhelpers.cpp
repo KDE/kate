@@ -1251,7 +1251,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     }
 
     // modified line system
-    if (realLine > -1) {
+    if (realLine > -1 && !m_doc->url().isEmpty()) {
       // one pixel space
       ++lnX;
       

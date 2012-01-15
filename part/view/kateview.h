@@ -780,6 +780,12 @@ public:
        * set of ranges which had the caret inside last time
        */
       QSet<Kate::TextRange *> m_rangesCaretIn;
+
+  private Q_SLOTS:
+    void updateViewDelayed();
+  private:
+    QTimer *m_updateViewTimer;
+    bool m_updateViewChanged;
 };
 
 /**

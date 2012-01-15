@@ -1530,10 +1530,10 @@ void KateIconBorder::wheelEvent(QWheelEvent *e)
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
-  if( !m_view->config()->allowMarkMenu() )
-    return;
-    
   if( m_doc->handleMarkContextMenu( line, pos ) )
+    return;
+
+  if( !m_view->config()->allowMarkMenu() )
     return;
 
   KMenu markMenu;

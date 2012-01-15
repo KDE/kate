@@ -34,6 +34,7 @@
       <item> export </item>
       <item> extern </item>
       <item> false </item>
+      <item> final </item>
       <item> friend </item>
       <item> for </item>
       <item> goto </item>
@@ -43,6 +44,7 @@
       <item> new </item>
       <item> nullptr </item>
       <item> operator </item>
+      <item> override </item>
       <item> private </item>
       <item> protected </item>
       <item> public </item>

@@ -174,7 +174,6 @@ m_curResults(0)
     m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));
     m_ui.stopButton->setIcon(KIcon("process-stop"));
-    m_ui.optionsButton->setIcon(KIcon("configure"));
     m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
     m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
     m_ui.folderUpButton->setIcon(KIcon("go-up"));
@@ -184,11 +183,12 @@ m_curResults(0)
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. example: \"*.cpp,*.h\"\n"
     "NOTE: Put a minus sign ('-') in front of the list to make it into an exclude list. example: \"-*.o,*.obj\""));
 
-    int padWidth = m_ui.folderLabel->width();
-    padWidth = qMax(padWidth, m_ui.filterLabel->width());
-    m_ui.gridLayout->setColumnMinimumWidth(0, padWidth);
-    m_ui.gridLayout->setAlignment(m_ui.newTabButton, Qt::AlignHCenter);
-
+    int padWidth = m_ui.folderLabel->sizeHint().width();
+    padWidth = qMax(padWidth, m_ui.filterLabel->sizeHint().width());
+    m_ui.topLayout->setColumnMinimumWidth(0, padWidth);
+    m_ui.topLayout->setAlignment(m_ui.newTabButton, Qt::AlignHCenter);
+    m_ui.optionsLayout->setColumnMinimumWidth(0, padWidth);
+    
     // the order here is important to get the tabBar hidden for only one tab
     addTab();
     m_ui.resultTabWidget->tabBar()->hide();
@@ -201,14 +201,6 @@ m_curResults(0)
     KUrlCompletion* cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
     cmbUrl->setCompletionObject(cmpl);
     cmbUrl->setAutoDeleteCompletionObject(true);
-
-    m_matchCase = new KAction(i18n("Match case"), this);
-    m_matchCase->setCheckable(true);
-    m_ui.optionsButton->addAction(m_matchCase);
-
-    m_useRegExp = new KAction(i18n("Regular Expression"), this);
-    m_useRegExp->setCheckable(true);
-    m_ui.optionsButton->addAction(m_useRegExp);
 
     connect(m_ui.newTabButton,     SIGNAL(clicked()), this, SLOT(addTab()));
     connect(m_ui.resultTabWidget,  SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
@@ -343,13 +335,12 @@ void KatePluginSearchView::startSearch()
     m_ui.searchCombo->setDisabled(true);
     m_ui.searchButton->setDisabled(true);
     m_ui.locationAndStop->setCurrentIndex(1);
-    m_ui.optionsButton->setDisabled(true);
     m_ui.displayOptions->setChecked (false);
     m_ui.displayOptions->setDisabled(true);
 
     QRegExp reg(m_ui.searchCombo->currentText(),
-                m_matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                m_useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
+                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
     m_curResults->regExp = reg;
 
     clearMarks();
@@ -371,6 +362,7 @@ void KatePluginSearchView::startSearch()
                                    m_ui.recursiveCheckBox->isChecked(),
                                    m_ui.hiddenCheckBox->isChecked(),
                                    m_ui.symLinkCheckBox->isChecked(),
+                                   m_ui.binaryCheckBox->isChecked(),
                                    m_ui.filterCombo->currentText(),
                                    reg);
     }
@@ -554,7 +546,6 @@ void KatePluginSearchView::searchDone()
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
     m_ui.locationAndStop->setCurrentIndex(0);
-    m_ui.optionsButton->setDisabled(false);
     m_ui.displayOptions->setDisabled(false);
 
     if (!m_curResults) {
@@ -704,13 +695,14 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     KConfigGroup cg(config, groupPrefix + ":search-plugin");
     m_ui.searchCombo->clearHistory();
     m_ui.searchCombo->setHistoryItems(cg.readEntry("Search", QStringList()), true);
-    m_matchCase->setChecked(cg.readEntry("MatchCase", false));
-    m_useRegExp->setChecked(cg.readEntry("UseRegExp", false));
+    m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
+    m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
 
     m_ui.searchPlaceCombo->setCurrentIndex(cg.readEntry("Place", 0));
     m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", true));
     m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", false));
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
+    m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", false));
     m_ui.folderRequester->comboBox()->clear();
     m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchFolders", QStringList()));
     m_ui.folderRequester->setText(cg.readEntry("SearchFolder", QString()));
@@ -723,13 +715,14 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
 {
     KConfigGroup cg(config, groupPrefix + ":search-plugin");
     cg.writeEntry("Search", m_ui.searchCombo->historyItems());
-    cg.writeEntry("MatchCase", m_matchCase->isChecked());
-    cg.writeEntry("UseRegExp", m_useRegExp->isChecked());
+    cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
+    cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
 
     cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
     cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
     cg.writeEntry("HiddenFiles", m_ui.hiddenCheckBox->isChecked());
     cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
+    cg.writeEntry("BinaryFiles", m_ui.binaryCheckBox->isChecked());
     QStringList folders;
     for (int i=0; i<qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
         folders << m_ui.folderRequester->comboBox()->itemText(i);
@@ -808,8 +801,8 @@ void KatePluginSearchView::resultTabChanged(int index)
     }
 
     m_ui.searchCombo->lineEdit()->setText(m_ui.resultTabWidget->tabText(index));
-    m_matchCase->setChecked(res->regExp.caseSensitivity() == Qt::CaseSensitive);
-    m_useRegExp->setChecked(res->regExp.patternSyntax() != QRegExp::FixedString);
+    m_ui.matchCase->setChecked(res->regExp.caseSensitivity() == Qt::CaseSensitive);
+    m_ui.useRegExp->setChecked(res->regExp.patternSyntax() != QRegExp::FixedString);
 }
 
 
@@ -851,7 +844,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
     QMenu* const contextMenu = m_ui.searchCombo->lineEdit()->createStandardContextMenu();
     if (!contextMenu) return;
 
-    if (m_useRegExp->isChecked()) {
+    if (m_ui.useRegExp->isChecked()) {
         QMenu* menu = contextMenu->addMenu(i18n("Add..."));
         if (!menu) return;
 

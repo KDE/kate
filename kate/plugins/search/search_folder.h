@@ -37,6 +37,7 @@ public:
                      bool recursive,
                      bool hidden,
                      bool symlinks,
+                     bool binary,
                      const QString &types,
                      const QRegExp &regexp);
     void run();
@@ -59,6 +60,7 @@ private:
     bool             m_recursive;
     bool             m_hidden;
     bool             m_symlinks;
+    bool             m_binary;
     QStringList      m_types;
     QString          m_folder;
     QVector<QRegExp> m_excludeList;

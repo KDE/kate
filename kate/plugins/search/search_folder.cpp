@@ -20,6 +20,7 @@
 
 #include "search_folder.h"
 #include "search_folder.moc"
+#include <kmimetype.h>
 
 #include <QDir>
 
@@ -31,6 +32,7 @@ void SearchFolder::startSearch(const QString &folder,
                                bool recursive,
                                bool hidden,
                                bool symlinks,
+                               bool binary,
                                const QString &types,
                                const QRegExp &regexp)
 {
@@ -38,6 +40,7 @@ void SearchFolder::startSearch(const QString &folder,
     m_recursive    = recursive;
     m_hidden       = hidden;
     m_symlinks     = symlinks;
+    m_binary       = binary;
     m_folder       = folder;
     m_regExp       = regexp;
     m_excludeList.clear();
@@ -114,7 +117,11 @@ void SearchFolder::handleNextItem(const QFileInfo &item)
 void SearchFolder::searchFile(const QFileInfo &item)
 {
     if (m_cancelSearch) return;
-    
+
+    if (!m_binary && KMimeType::isBinaryData(item.absoluteFilePath())) {
+        return;
+    }
+
     QFile file (item.absoluteFilePath());
 
     if (!file.open(QFile::ReadOnly)) {

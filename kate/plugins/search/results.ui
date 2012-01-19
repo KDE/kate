@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>381</width>
-    <height>102</height>
+    <height>103</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10,0">
@@ -78,7 +78,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="replaceButton">
+           <widget class="KPushButton" name="replaceButton">
             <property name="text">
              <string>Replace checked</string>
             </property>
@@ -112,6 +112,11 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KHistoryComboBox</class>

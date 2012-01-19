@@ -395,3 +395,25 @@ void KateFoldingTest::testFolding_collapse_dsComments_XML()
   action->trigger();
   QCOMPARE(doc.visibleLines(), 5u);
 }
+
+void KateFoldingTest::testFindNodeForPosition()
+{
+  // see also: https://bugs.kde.org/show_bug.cgi?id=289469
+
+  KTemporaryFile file;
+  file.setSuffix(".cpp");
+  file.open();
+  QTextStream stream(&file);
+  stream << "int f() {\n"
+         << "  int i;\n"
+         << "}\n";
+  stream << flush;
+  file.close();
+
+  KateDocument doc(false, false, false);
+  QVERIFY(doc.openUrl(KUrl(file.fileName())));
+
+  QVERIFY(!doc.foldingTree()->findNodeForPosition(1, 0));
+  QVERIFY(doc.foldingTree()->findNodeForLine(1));
+  QVERIFY(doc.foldingTree()->findNodeForLine(0));
+}

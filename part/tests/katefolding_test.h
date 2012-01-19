@@ -42,6 +42,7 @@ private Q_SLOTS:
   void testFolding_collapse_expand_local();
   void testFolding_collapse_dsComments_C();
   void testFolding_collapse_dsComments_XML();
+  void testFindNodeForPosition();
 };
 
 #endif // KATE_FOLDING_TEST_H

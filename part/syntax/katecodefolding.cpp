@@ -743,7 +743,9 @@ KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(const KateDocumentPositi
 // Searches for the node placed on a specific position
 KateCodeFoldingNode* KateCodeFoldingTree::findNodeAt(const KateDocumentPosition& position) const
 {
-  Q_ASSERT(m_lineMapping.contains(position.line));
+  if (!m_lineMapping.contains(position.line)) {
+    return 0;
+  }
 
   foreach (KateCodeFoldingNode *node, m_lineMapping.value(position.line)) {
     if (node->m_position == position)

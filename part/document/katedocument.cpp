@@ -4670,6 +4670,8 @@ QVariant KateDocument::configValue(const QString &key)
     return m_config->backupSuffix();
   } else if (key == "backup-on-save-prefix") {
     return m_config->backupPrefix();
+  } else if (key == "replace-tabs") {
+    return m_config->replaceTabsDyn();
   }
 
   // return invalid variant
@@ -4706,6 +4708,8 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       }
 
       m_config->setBackupFlags(f);
+    } else if (key == "replace-tabs") {
+      m_config->setReplaceTabsDyn(bValue);
     }
   }
 }

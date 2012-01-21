@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2010 Sebastian Sauer <mail@dipe.org>
+   Copyright (C) 2012 Frederik Gladhorn <gladhorn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -23,10 +24,22 @@
 
 #include "kateviewinternal.h"
 #include "katetextcursor.h"
+#include "katedocument.h"
 
 #include <QtGui/QAccessible>
-#include <QtGui/QAccessibleInterface>
+#include <QtGui/qaccessible2.h>
 #include <klocale.h>
+#include <qaccessiblewidget.h>
+
+
+
+QString Q_GUI_EXPORT qTextBeforeOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+        int *startOffset, int *endOffset, const QString& text);
+QString Q_GUI_EXPORT qTextAtOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+        int *startOffset, int *endOffset, const QString& text);
+QString Q_GUI_EXPORT qTextAfterOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+        int *startOffset, int *endOffset, const QString& text);
+
 
 /**
  * This class implements a QAccessible-interface for a Kate::TextCursor. An
@@ -91,6 +104,7 @@ class KateCursorAccessible : public QAccessibleInterface
                 case 4: c.setPosition(c.line() + 1, c.column()); break;
                 default: ok = false; break;
             }
+
             return ok;
         }
 
@@ -178,11 +192,13 @@ class KateCursorAccessible : public QAccessibleInterface
  * This is the root class for the kateview. The \a KateCursorAccessible class
  * represents the cursor in the kateview and is a child of this class.
  */
-class KateViewAccessible : public QAccessibleInterface
+class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInterface, public QAccessibleSimpleEditableTextInterface
 {
+        Q_ACCESSIBLE_OBJECT
+
     public:
         explicit KateViewAccessible(KateViewInternal *view)
-            : QAccessibleInterface()
+            : QAccessibleWidgetEx(view), QAccessibleSimpleEditableTextInterface(this)
             , m_view(view)
             , m_cursor(new KateCursorAccessible(view))
         {
@@ -282,7 +298,12 @@ class KateViewAccessible : public QAccessibleInterface
         {
             if (child == KateCursorAccessible::ChildId)
                 return m_cursor->state(0);
-            QAccessible::State s = QAccessible::Focusable | QAccessible::Focused;
+
+            QAccessible::State s = QAccessibleWidgetEx::state(0);
+            s |= QAccessible::Focusable;
+
+            if (m_view->hasFocus())
+                s |= QAccessible::Focused;
             return s;
         }
 
@@ -300,7 +321,132 @@ class KateViewAccessible : public QAccessibleInterface
             return s;
         }
 
+        virtual int characterCount()
+        {
+            return m_view->view()->document()->text().size();
+        }
+
+        virtual void addSelection(int startOffset, int endOffset)
+        {
+            KTextEditor::Range range;
+            range.setRange(cursorFromInt(startOffset), cursorFromInt(endOffset));
+            m_view->view()->setSelection(range);
+        }
+
+        virtual QString attributes(int offset, int* startOffset, int* endOffset)
+        {
+            Q_UNUSED(offset);
+            *startOffset = 0;
+            *endOffset = characterCount();
+            return QString();
+        }
+        virtual QRect characterRect(int offset, QAccessible2::CoordinateType /*coordType*/)
+        {
+            KTextEditor::Cursor c = cursorFromInt(offset);
+            if (!c.isValid())
+                return QRect();
+            QPoint p = m_view->view()->cursorToCoordinate(c);
+            KTextEditor::Cursor endCursor = KTextEditor::Cursor(c.line(), c.column() + 1);
+            QPoint size = m_view->view()->cursorToCoordinate(endCursor) - p;
+            return QRect(m_view->mapToGlobal(p), QSize(size.x(), size.y()));
+        }
+        virtual int cursorPosition()
+        {
+            KTextEditor::Cursor c = m_view->getCursor();
+            return positionFromCursor(c);
+        }
+        virtual int offsetAtPoint(const QPoint& /*point*/, QAccessible2::CoordinateType /*coordType*/)
+        {
+            return 0;
+        }
+        virtual void removeSelection(int selectionIndex)
+        {
+            if (selectionIndex != 0)
+                return;
+            m_view->view()->clearSelection();
+        }
+        virtual void scrollToSubstring(int /*startIndex*/, int /*endIndex*/)
+        {
+            // FIXME
+        }
+        virtual void selection(int selectionIndex, int *startOffset, int *endOffset)
+        {
+            if (selectionIndex != 0 || !m_view->view()->selection()) {
+                *startOffset = 0;
+                *endOffset = 0;
+                return;
+            }
+            KTextEditor::Range range = m_view->view()->selectionRange();
+            *startOffset = positionFromCursor(range.start());
+            *endOffset = positionFromCursor(range.end());
+        }
+
+        virtual int selectionCount()
+        {
+            return m_view->view()->selection() ? 1 : 0;
+        }
+        virtual void setCursorPosition(int /*position*/)
+        {
+            // FIXME
+        }
+        virtual void setSelection(int /*selectionIndex*/, int /*startOffset*/, int /*endOffset*/)
+        {
+            // FIXME
+        }
+        virtual QString text(int startOffset, int endOffset)
+        {
+            if (startOffset > endOffset)
+                return QString();
+            return m_view->view()->document()->text().mid(startOffset, endOffset - startOffset);
+        }
+        virtual QString textAfterOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        {
+            const QString text = m_view->view()->document()->text();
+            return qTextAfterOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
+        }
+        virtual QString textAtOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        {
+            const QString text = m_view->view()->document()->text();
+            return qTextAtOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
+        }
+        virtual QString textBeforeOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        {
+            const QString text = m_view->view()->document()->text();
+            return qTextBeforeOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
+        }
+
+        virtual QVariant invokeMethodEx(Method, int, const QVariantList&)
+        { return QVariant(); }
+
     private:
+        KTextEditor::Cursor cursorFromInt(int position)
+        {
+            int line = 0;
+            for (;;) {
+                const QString lineString = m_view->view()->document()->line(line);
+                if (position > lineString.length()) {
+                    // one is the newline
+                    position -= lineString.length() + 1;
+                    ++line;
+                } else {
+                    break;
+                }
+            }
+            return KTextEditor::Cursor(line, position);
+        }
+
+        int positionFromCursor(const KTextEditor::Cursor &cursor)
+        {
+            int pos = 0;
+            for (int line = 0; line < cursor.line(); ++line) {
+                // length of the line plus newline
+                pos += m_view->view()->document()->line(line).size() + 1;
+            }
+            pos += cursor.column();
+
+            return pos;
+        }
+        
         KateViewInternal *m_view;
         KateCursorAccessible *m_cursor;
 };

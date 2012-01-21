@@ -3382,6 +3382,9 @@ void KateViewInternal::mouseMoved( )
 void KateViewInternal::cursorMoved( )
 {
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
+#ifndef QT_NO_ACCESSIBILITY
+  QAccessible::updateAccessibility(this, 0, QAccessible::TextCaretMoved);
+#endif
 }
 
 bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const

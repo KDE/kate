@@ -508,9 +508,7 @@ action="simul"><keycap>F7</keycap></keycombo></shortcut>
 <listitem>
 <para>Displays the Katepart command line at the bottom of the window.
 In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
-to get a list of commands.  For more information on the command line, see
-<ulink url="help:/kate/advanced-editing-tools-command-line.html">The Editor
-Component Command Line</ulink>.</para>
+to get a list of commands.</para>
 </listitem>
 </varlistentry>
 

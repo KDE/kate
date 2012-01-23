@@ -1791,6 +1791,10 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
     m_selectionCached = KTextEditor::Range::invalid();
     m_selectAnchor = KTextEditor::Cursor::invalid();
   }
+
+#ifndef QT_NO_ACCESSIBILITY
+  QAccessible::updateAccessibility(this, 0, QAccessible::TextSelectionChanged);
+#endif
 }
 
 void KateViewInternal::setSelection( const KTextEditor::Range &range )

@@ -5,6 +5,10 @@
   Alternatively try the "normal" way: #kate@freenode, kwrite-devel@kde.org
   Changelog (0.35 and later):
   ***************************
+* 0.42
+  - 2011-11-15 <shadowm2006@gmail.com>:
+    * Added preprocessor directives: #error, #warning
+    * Added highlighting for the wmlxgettext annotation metadirective (po:)
 * 0.41
   - 2011-04-15 <shadowm2006@gmail.com>:
     * Added preprocessor directives: #if(n)have, #if(n)ver
@@ -50,18 +54,21 @@
     * Made the new #ifndef directive be recognized (implemented on Wesnoth 1.3.11 and later)
 -->
 
-<language name="Wesnoth Markup Language" section="Markup" extensions="*.cfg;*.pbl;*.CFG;*.PBL" version="0.41"
+<language name="Wesnoth Markup Language" section="Markup" extensions="*.cfg;*.pbl;*.CFG;*.PBL" version="0.42"
           kateversion="2.5" casesensitive="true" author="Zachary Palmer (zep01@bahj.com), modif. by Ignacio Riquelme Morelle (shadowm2006@gmail.com) and Jonathan Schmidt-Dominé (devel@the-user.org)" license="GPL">
     <highlighting>
         <list name="alerts_wml_utils">
             <item> wmllint</item>
             <item> wmlindent</item>
             <item> wmlscope</item>
+            <item> po</item>
         </list>
         <list name="preprocessor_directive_statements">
                 <item>#textdomain</item>
                 <item>#else</item>
                 <item>#undef</item>
+                <item>#error</item>
+                <item>#warning</item>
         </list>
         <list name="preprocessor_block_begin_statements">
                 <item>#define</item>

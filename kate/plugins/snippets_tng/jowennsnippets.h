@@ -57,6 +57,8 @@ namespace JoWenn {
   {
       Q_OBJECT
       Q_INTERFACES(Kate::PluginConfigPageInterface)
+      Q_INTERFACES(KTextEditor::TemplateScriptRegistrar)
+
     public:
       explicit KateSnippetsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
       virtual ~KateSnippetsPlugin();

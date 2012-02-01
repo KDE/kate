@@ -100,6 +100,11 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return false;
   }
 
+  if ( keyCode == Qt::Key_AltGr ) {
+    KateViKeyParser::getInstance()->setAltGrStatus( true );
+    return true;
+  }
+
   if ( keyCode == Qt::Key_Escape ) {
     reset();
     return true;

@@ -26,7 +26,7 @@
 #include "katevirange.h"
 #include "katepartprivate_export.h"
 
-class KATEPART_TESTS_EXPORT KateViNormalMode;
+class KateViNormalMode;
 
 /**
  * combined class for motions and text objects. execute() returns a KateViRange.

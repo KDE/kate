@@ -638,6 +638,7 @@
       <item> with-test </item>
       <item> with-test-out </item>
       <item> xml-seq </item>
+      <item> zero? </item>
     </list>
     <list name="variables">
       <item> *1 </item>
@@ -681,20 +682,22 @@
       <item> *warn-on-reflection* </item>
     </list>
     <contexts>
-      <context name="Normal" attribute="Normal" lineEndContext="#stay">
+      <context name="Level0" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
+        <Detect2Chars attribute="Brackets1" context="Level1" char="#" char1="("/>
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Default" attribute="Normal" lineEndContext="#stay">
         <RegExpr attribute="Comment" context="#stay" String=";.*$"/>
         <Detect2Chars attribute="Comment" context="#stay" char="#" char1="_"/>
-        <RegExpr attribute="Modifier" context="#stay" String=":\S+"/>
         <RegExpr attribute="Modifier" context="#stay" String="[@~]\S+"/>
-        <Detect2Chars attribute="Brackets" context="#stay" char="#" char1="("/>
-        <DetectChar attribute="Brackets" context="#stay" char="("/>
-        <DetectChar attribute="Brackets" context="#stay" char=")"/>
+        <RegExpr attribute="Modifier2" context="#stay" String="::?[a-zA-Z0-9\-]+"/>
         <Detect2Chars attribute="Brackets" context="#stay" char="#" char1="{"/>
         <Detect2Chars attribute="Brackets" context="#stay" char="^" char1="{"/>
-        <DetectChar attribute="Brackets" context="#stay" char="{"/>
-        <DetectChar attribute="Brackets" context="#stay" char="}"/>
-        <DetectChar attribute="Brackets" context="#stay" char="["/>
-        <DetectChar attribute="Brackets" context="#stay" char="]"/>
+        <DetectChar attribute="BracketsCurly" context="#stay" char="{"/>
+        <DetectChar attribute="BracketsCurly" context="#stay" char="}"/>
+        <DetectChar attribute="BracketsSquare" context="#stay" char="["/>
+        <DetectChar attribute="BracketsSquare" context="#stay" char="]"/>
         <Detect2Chars attribute="Variable" context="#stay" char="#" char1="'"/>
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Variable" context="#stay" String="variables"/>
@@ -704,6 +707,7 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
       </context>
       <context name="function_decl" attribute="Function" lineEndContext="#stay">
         <RegExpr attribute="Function" context="#pop" String="\s*[A-Za-z0-9-+\&lt;\&gt;//\*]*\s*"/>
@@ -719,12 +723,49 @@
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
+      <context name="Level1" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets2" context="Level2" char="("/>
+        <Detect2Chars attribute="Brackets2" context="Level2" char="#" char1="("/>
+        <DetectChar attribute="Brackets1" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level2" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets3" context="Level3" char="("/>
+        <Detect2Chars attribute="Brackets3" context="Level3" char="#" char1="("/>
+        <DetectChar attribute="Brackets2" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level3" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets4" context="Level4" char="("/>
+        <Detect2Chars attribute="Brackets4" context="Level4" char="#" char1="("/>
+        <DetectChar attribute="Brackets3" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level4" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets5" context="Level5" char="("/>
+        <Detect2Chars attribute="Brackets5" context="Level5" char="#" char1="("/>
+        <DetectChar attribute="Brackets4" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level5" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets6" context="Level6" char="("/>
+        <Detect2Chars attribute="Brackets6" context="Level6" char="#" char1="("/>
+        <DetectChar attribute="Brackets5" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level6" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
+        <Detect2Chars attribute="Brackets1" context="Level1" char="#" char1="("/>
+        <DetectChar attribute="Brackets6" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
       <itemData name="Operator" defStyleNum="dsKeyword" color="#d22811"/>
       <itemData name="Modifier" defStyleNum="dsKeyword" color="#800000"/>
+      <itemData name="Modifier2" defStyleNum="dsKeyword" color="#555555"/>
       <itemData name="Variable" defStyleNum="dsKeyword" color="#b07e1f"/>
       <itemData name="Definition" defStyleNum="dsKeyword" color="#d22811"/>
       <itemData name="Data" defStyleNum="dsDataType"/>
@@ -737,6 +778,14 @@
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
       <itemData name="Brackets" defStyleNum="dsNormal" color="#0000ff" selColor="#00ff00" bold="1" italic="0"/>
+      <itemData name="BracketsSquare" defStyleNum="dsNormal" color="#3333ff" selColor="#3333aa"/>
+      <itemData name="BracketsCurly" defStyleNum="dsNormal" color="#206620" selColor="#219921"/>
+      <itemData name="Brackets1"    defStyleNum="dsNormal" color="#ff0000" selColor="#ffaa00" bold="0" italic="0"/>
+      <itemData name="Brackets2"    defStyleNum="dsNormal" color="#ff8800" selColor="#ffff00" bold="0" italic="0"/>
+      <itemData name="Brackets3"    defStyleNum="dsNormal" color="#888800" selColor="#888888" bold="0" italic="0"/>
+      <itemData name="Brackets4"    defStyleNum="dsNormal" color="#008800" selColor="#000000" bold="0" italic="0"/>
+      <itemData name="Brackets5"    defStyleNum="dsNormal" color="#000088" selColor="#000000" bold="0" italic="0"/>
+      <itemData name="Brackets6"    defStyleNum="dsNormal" color="#880088" selColor="#000000" bold="0" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>

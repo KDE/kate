@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 -->
 
 
-<language name="Go" version="1.00" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="Go" version="1.01" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
     <highlighting>
     <list name="keywords">
 <!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
@@ -47,7 +47,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>import</item>
       <item>interface</item>
       <item>map</item>
-<!--       <item>package</item> -->
+      <item>package</item>
       <item>range</item>
       <item>return</item>
       <item>select</item>
@@ -61,6 +61,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>byte</item>
       <item>complex64</item>
       <item>complex128</item>
+      <item>error</item>
       <item>float</item>
       <item>float32</item>
       <item>float64</item>
@@ -69,6 +70,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>int16</item>
       <item>int32</item>
       <item>int64</item>
+      <item>rune</item>
       <item>string</item>
       <item>uint</item>
       <item>uint8</item>
@@ -77,31 +79,43 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>uint64</item>
     </list>
     <list name="builtin">
-      <item>cap</item>
-      <item>len</item>
-      <item>make</item>
-      <item>new</item>
-      <item>panic</item>
-      <item>recover</item>
+      <item> append </item>
+      <item> cap </item>
+      <item> close </item>
+      <item> complex </item>
+      <item> copy </item>
+      <item> imag </item>
+      <item> len </item>
+      <item> make </item>
+      <item> new </item>
+      <item> panic </item>
+      <item> print </item>
+      <item> println </item>
+      <item> real </item>
+      <item> recover </item>
     </list>
-    <list name="special">
+    <list name="predeclared">
       <item>false</item>
       <item>nil</item>
       <item>true</item>
+      <item>iota</item>
     </list>
     <contexts>
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
       <keyword attribute="Keyword" context="#stay" String="keywords" />
-      <keyword attribute="Special" context="#stay" String="special"  />
-      <keyword attribute="Type" context="#stay" String="types"       />
-      <keyword attribute="Builtin" context="#stay" String="builtin"  />
-      <StringDetect attribute="Package" context="Package" String="package" />
+      <keyword attribute="Predeclared Identifier" context="#stay" String="predeclared"  />
+      <keyword attribute="Data Type" context="#stay" String="types"       />
+      <keyword attribute="Builtin Function" context="#stay" String="builtin"  />
       <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
       <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"   />
       <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"   />
       <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"   />
+      <HlCOct attribute="Octal" context="#stay"/>
+      <HlCHex attribute="Hex" context="#stay"/>
       <HlCChar attribute="Char" context="#stay" />
       <DetectChar attribute="String" context="String" char="&quot;" />
+      <DetectChar attribute="Multiline String" context="Multiline String" char="`"/>
+      <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
@@ -118,26 +132,32 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <DetectIdentifier />
       </context>
 
-      <context attribute="Package" lineEndContext="#pop" name="Package" />
-
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue  attribute="String" context="#stay" />
         <HlCStringChar attribute="String Char" context="#stay" />
         <DetectChar    attribute="String" context="#pop" char="&quot;" />
       </context>
+
+      <context attribute="String" lineEndContext="#stay" name="Multiline String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="`"/>
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"   spellChecking="false"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"  spellChecking="false"/>
-      <itemData name="Special"      defStyleNum="dsOthers"   spellChecking="false"/>
-      <itemData name="Type"         defStyleNum="dsDataType" spellChecking="false"/>
-      <itemData name="Builtin"      defStyleNum="dsOthers"   color="#000e52" selColor="#ffffff" spellChecking="false" />
+      <itemData name="Predeclared Identifier" defStyleNum="dsOthers"   spellChecking="false" />
+      <itemData name="Builtin Function"       defStyleNum="dsFunction" spellChecking="false" />
+      <itemData name="Data Type"    defStyleNum="dsDataType" spellChecking="false"/>
       <itemData name="String Char"  defStyleNum="dsChar"    />
       <itemData name="String"       defStyleNum="dsString"  />
       <itemData name="Comment"      defStyleNum="dsComment" />
+      <itemData name="Octal"        defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Hex"          defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Char"         defStyleNum="dsChar"   spellChecking="false"/>
-      <itemData name="Package"      defStyleNum="dsNormal" color="#000080" selColor="#ffffff" spellChecking="false" />
       <itemData name="Symbol"       defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Error"        defStyleNum="dsError" spellChecking="false"/>
     </itemDatas>
     </highlighting>
   <general>
@@ -145,6 +165,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <comment name="singleLine" start="//" />
       <comment name="multiLine" start="/*" end="*/" region="Comment"/>
     </comments>
-    <keywords casesensitive="1"/>
+    <keywords casesensitive="1" additionalDeliminator="'&quot;" />
   </general>
 </language>

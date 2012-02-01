@@ -496,7 +496,6 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
 {
   QString encodedSequence;
   unsigned int keyCodeTemp = 0;
-  int startOfBlock = -1;
 
   bool insideTag = false;
   QChar c;
@@ -574,7 +573,6 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
           encodedSequence.append( c );
           continue;
         }
-        startOfBlock = i;
         insideTag = true;
         continue;
       } else {

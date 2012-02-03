@@ -509,7 +509,7 @@ action="simul"><keycap>F7</keycap></keycombo></shortcut>
 <para>Displays the Katepart command line at the bottom of the window.
 In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
 to get a list of commands.  For more information on the command line, see
-<ulink url="help:/kate/advanced-editing-tools-command-line.html">The Editor
+<ulink url="help:/kate/advanced-editing-tools-commandline.html">The Editor
 Component Command Line</ulink>.</para>
 </listitem>
 </varlistentry>
@@ -520,7 +520,7 @@ Component Command Line</ulink>.</para>
 </menuchoice> (Power user mode)</term>
 <listitem><para>This opens a tool view that allows you to run Javascript code
 interactively. For more information, see
-<ulink url="help:/kate/index.html#advanced-editing-tools-scripting">Extending &kate; with Scripts</ulink>
+<ulink url="help:/kate/advanced-editing-tools-scripting.html">Extending &kate; with Scripts</ulink>
 </para></listitem>
 </varlistentry>
 

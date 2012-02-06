@@ -897,7 +897,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 
     line.setPosition(QPoint(line.lineNumber() ? shiftX : 0, height));
 
-    if (needShiftX) {
+    if (needShiftX && line.width() > 0) {
       needShiftX = false;
       // Determine x offset for subsequent-lines-of-paragraph indenting
       int pos = textLine->nextNonSpaceChar(0);

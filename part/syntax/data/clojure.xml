@@ -22,7 +22,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language version="1.00" kateversion="2.3" name="Clojure" section="Sources" extensions="*.clj" mimetype="" author="Dominik Haumann [lisp] modified for clojure by Caspar Hasenclever" license="LGPL">
+<language version="2" kateversion="2.3" name="Clojure" section="Sources" extensions="*.clj" mimetype="" author="Dominik Haumann [lisp] modified for clojure by Caspar Hasenclever" license="LGPL">
   <highlighting>
     <list name="definitions">
       <item> def </item>

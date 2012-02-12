@@ -277,6 +277,9 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parseXsltSymbols();
   else if (hlModeName == "Bash")
      parseBashSymbols();
+  else if (hlModeName == "ActionScript 2.0" || 
+           hlModeName == "JavaScript")
+     parseEcmaSymbols();
   else
      node = new QTreeWidgetItem(symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 }

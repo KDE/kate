@@ -131,6 +131,7 @@ class KatePluginSymbolViewerView : public QObject, public Kate::XMLGUIClient
     void parseXsltSymbols(void);
     void parsePhpSymbols(void);
     void parseBashSymbols(void);
+    void parseEcmaSymbols(void);
   public:
     Kate::MainWindow *win;
     bool types_on;

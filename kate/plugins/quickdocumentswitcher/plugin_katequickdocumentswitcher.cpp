@@ -208,12 +208,22 @@ bool PluginViewKateQuickDocumentSwitcherDialog::eventFilter(QObject *obj, QEvent
     if (event->type()==QEvent::KeyPress) {
         QKeyEvent *keyEvent=static_cast<QKeyEvent*>(event);
         if (obj==m_inputLine) {
-            if ( (keyEvent->key()==Qt::Key_Up) || (keyEvent->key()==Qt::Key_Down) ) {
+            const bool forward2list = (keyEvent->key()==Qt::Key_Up)
+              || (keyEvent->key()==Qt::Key_Down)
+              || (keyEvent->key()==Qt::Key_PageUp)
+              || (keyEvent->key()==Qt::Key_PageDown);
+            if (forward2list) {
                 QCoreApplication::sendEvent(m_listView,event);
                 return true;
             }
         } else {
-            if ( (keyEvent->key()!=Qt::Key_Up) && (keyEvent->key()!=Qt::Key_Down) && (keyEvent->key()!=Qt::Key_Tab) && (keyEvent->key()!=Qt::Key_Backtab)) {
+            const bool forward2input = (keyEvent->key()!=Qt::Key_Up)
+              && (keyEvent->key()!=Qt::Key_Down)
+              && (keyEvent->key()!=Qt::Key_PageUp)
+              && (keyEvent->key()!=Qt::Key_PageDown)
+              && (keyEvent->key()!=Qt::Key_Tab)
+              && (keyEvent->key()!=Qt::Key_Backtab);
+            if (forward2input) {
                 QCoreApplication::sendEvent(m_inputLine,event);
                 return true;
             }

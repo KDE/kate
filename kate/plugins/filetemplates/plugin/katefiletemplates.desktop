@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-Kate-Version=2.8
 X-KDE-Library=katefiletemplates
 Name=File Templates
+Name[ar]=قوالب الملفات
 Name[ast]=Plantíes de ficheros
 Name[bg]=Файлови шаблони
 Name[bs]=Šabloni datoteka

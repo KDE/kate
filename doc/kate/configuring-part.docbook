@@ -764,7 +764,7 @@ url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</par
 <varlistentry>
 <term><guilabel>Line Length Limit</guilabel></term>
 <listitem>
-<para>Unfortunately, due to defencies in &Qt;, &kappname; experiences poor
+<para>Unfortunately, due to deficiencies in &Qt;, &kappname; experiences poor
 performance when working with extremely long lines. For that reason, &kappname;
 will automatically wrap lines when they are longer than the number of characters
 specified here. To disable this, set this to <userinput>0</userinput>.</para>

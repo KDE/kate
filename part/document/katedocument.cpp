@@ -2104,13 +2104,13 @@ bool KateDocument::openFile()
 
     if (!suppressOpeningErrorDialogs())
       KMessageBox::information (parentWidget
-        , i18n ("The file %1 was opened and contained too long lines (more than %2 characters)."
-                " Too long lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit())
+        , i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters)."
+                " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit())
         , i18n ("Too Long Lines Wrapped")
         , "Too Long Lines Wrapped Warning");
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 was opened and contained too long lines (more than %2 characters)."
-                " Too long lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
+    setOpeningErrorMessage(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters)."
+                " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
   }
 
   //

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.65" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.66" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -92,6 +92,16 @@
             <item>natty-proposed</item>
             <item>natty-updates</item>
             <item>natty-backports</item>
+            <item>oneiric</item>
+            <item>oneiric-security</item>
+            <item>oneiric-proposed</item>
+            <item>oneiric-updates</item>
+            <item>oneiric-backports</item>
+            <item>precise</item>
+            <item>precise-security</item>
+            <item>precise-proposed</item>
+            <item>precise-updates</item>
+            <item>precise-backports</item>
         </list>
 
         <list name="urgencies">

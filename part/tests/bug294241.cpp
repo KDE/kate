@@ -44,9 +44,18 @@ BugTest::~BugTest()
 {
 }
 
-void BugTest::reproduceCrash()
+void BugTest::initTestCase()
 {
   KateGlobal::self()->incRef();
+}
+
+void BugTest::cleanupTestCase()
+{
+    KateGlobal::self()->decRef();
+}
+
+void BugTest::tryXmlCrash()
+{
   KateDocument doc(false, false, false);
   QString url = KDESRCDIR + QString("bug294241.xml");
   doc.openUrl(url);
@@ -60,7 +69,7 @@ void BugTest::reproduceCrash()
   view->resize(400, 300);
   view->setCursorPosition(Cursor(502, 1));
 
-  doc.insertText(Cursor(502, 1), " ");
+  doc.typeChars(view, " ");
   doc.buffer().ensureHighlighted (doc.lines());
   qDebug() << "!!! The next line usually crashes in the code folding code";
 
@@ -69,5 +78,38 @@ void BugTest::reproduceCrash()
   doc.buffer().ensureHighlighted (doc.lines());
   
   QTest::qWait(2000);
+  qDebug() << "!!! No crash (qWait not long enough)? Nice!";
+}
+
+void BugTest::tryPhpCrash()
+{
+  KateDocument doc(false, false, false);
+  QString url = KDESRCDIR + QString("bug294241.php");
+  doc.openUrl(url);
+  doc.discardDataRecovery();
+  doc.setHighlightingMode("PHP/PHP");
+  doc.buffer().ensureHighlighted (doc.lines());
+
+  // view must be visible...
+  KateView* view = static_cast<KateView*>(doc.createView(0));
+  view->show();
+  view->resize(400, 300);
+  view->setCursorPosition(Cursor(22, 25));
+  QTest::qWait(2000);
+
+  qDebug() << "!!! The next line usually crashes in the code folding code";
+  doc.typeChars(view, "h");
+  doc.buffer().ensureHighlighted (doc.lines());
+  QTest::qWait(1000);
+  doc.typeChars(view, "o");
+  doc.buffer().ensureHighlighted (doc.lines());
+  QTest::qWait(1000);
+  doc.typeChars(view, "?");
+  doc.buffer().ensureHighlighted (doc.lines());
+  QTest::qWait(1000);
+  doc.typeChars(view, ">");
+  doc.buffer().ensureHighlighted (doc.lines());
+  QTest::qWait(2000);
+
   qDebug() << "!!! No crash (qWait not long enough)? Nice!";
 }

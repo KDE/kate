@@ -31,7 +31,11 @@ public:
   ~BugTest();
 
 private Q_SLOTS:
-  void reproduceCrash();
+  void initTestCase();
+  void cleanupTestCase();
+
+  void tryXmlCrash();
+  void tryPhpCrash();
 
 };
 

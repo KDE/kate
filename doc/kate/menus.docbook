@@ -1113,10 +1113,13 @@ Terminal Tool View plugin, which is enabled by default.</para></listitem>
 <guimenu>Tools</guimenu>
 <guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
 <listitem>
-<para>This will cause the built-in Terminal to
-<command>cd</command> into the directory of the active document when
-launched and when a new document gets the focus.  This menu item is also displayed
+<para>This will cause the built-in Terminal to <command>cd</command> into the
+directory of the active document.  This menu item is also displayed
 by the Terminal Tool View plugin.</para>
+
+<para>Alternatively, you can configure &kappname; to always keep the terminal in
+sync with the current document.  See
+<xref linkend="config-dialog-general-sync-konsole"/> for more information.</para>
 </listitem>
 </varlistentry>
 

@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_BUG_294241_TEST_H
-#define KATE_BUG_294241_TEST_H
+#ifndef KATE_BUG_294756_TEST_H
+#define KATE_BUG_294756_TEST_H
 
 #include <QtCore/QObject>
 
@@ -34,8 +34,7 @@ private Q_SLOTS:
   void initTestCase();
   void cleanupTestCase();
 
-  void tryXmlCrash();
-  void tryPhpCrash();
+  void tryCrash();
 
 };
 

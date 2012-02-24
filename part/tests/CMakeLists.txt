@@ -236,6 +236,17 @@ target_link_libraries( bug294241_test
   katepartinterfaces
 )
 
+########### bug 294756 test ###############
+
+kde4_add_unit_test(bug294756_test TESTNAME kate-bug294756_test bug294756.cpp)
+
+target_link_libraries( bug294756_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

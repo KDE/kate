@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "bug294241.h"
-#include "moc_bug294241.cpp"
+#include "bug294756.h"
+#include "moc_bug294756.cpp"
 
 #include <qtest_kde.h>
 
@@ -51,65 +51,37 @@ void BugTest::initTestCase()
 
 void BugTest::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
+  KateGlobal::self()->decRef();
 }
 
-void BugTest::tryXmlCrash()
+void BugTest::tryCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug294241.xml");
+  QString url = KDESRCDIR + QString("folding-crash.py");
   doc.openUrl(url);
   doc.discardDataRecovery();
-  doc.setHighlightingMode("XML");
+  doc.setHighlightingMode("Python");
   doc.buffer().ensureHighlighted (doc.lines());
 
   // view must be visible...
   KateView* view = static_cast<KateView*>(doc.createView(0));
   view->show();
   view->resize(400, 300);
-  view->setCursorPosition(Cursor(502, 1));
+  //view->setCursorPosition(Cursor(3, 8));
 
-  doc.typeChars(view, " ");
-  doc.buffer().ensureHighlighted (doc.lines());
-  qDebug() << "!!! The next line usually crashes in the code folding code";
+  // fold all
+  doc.foldingTree()->collapseToplevelNodes();
+  QTest::qWait(1000);
 
-  QTest::qWait(2000);
-  doc.undo();
-  doc.buffer().ensureHighlighted (doc.lines());
-  
-  QTest::qWait(2000);
-  qDebug() << "!!! No crash (qWait not long enough)? Nice!";
-}
-
-void BugTest::tryPhpCrash()
-{
-  KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug294241.php");
-  doc.openUrl(url);
-  doc.discardDataRecovery();
-  doc.setHighlightingMode("PHP/PHP");
-  doc.buffer().ensureHighlighted (doc.lines());
-
-  // view must be visible...
-  KateView* view = static_cast<KateView*>(doc.createView(0));
-  view->show();
-  view->resize(400, 300);
-  view->setCursorPosition(Cursor(22, 25));
-  QTest::qWait(2000);
+  view->down();
+  view->down();
+  view->down();
+  view->cursorLeft();
+  QTest::qWait(1000);
 
   qDebug() << "!!! The next line usually crashes in the code folding code";
-  doc.typeChars(view, "h");
-  doc.buffer().ensureHighlighted (doc.lines());
-  QTest::qWait(1000);
-  doc.typeChars(view, "o");
-  doc.buffer().ensureHighlighted (doc.lines());
-  QTest::qWait(1000);
-  doc.typeChars(view, "?");
-  doc.buffer().ensureHighlighted (doc.lines());
-  QTest::qWait(1000);
-  doc.typeChars(view, ">");
-  doc.buffer().ensureHighlighted (doc.lines());
-  QTest::qWait(2000);
+  view->backspace();
 
-  qDebug() << "!!! No crash (qWait not long enough)? Nice!";
+  doc.buffer().ensureHighlighted (doc.lines());
+  QTest::qWait(1000);
 }

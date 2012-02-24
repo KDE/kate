@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "bug294756.h"
-#include "moc_bug294756.cpp"
+#include "bug294750.h"
+#include "moc_bug294750.cpp"
 
 #include <qtest_kde.h>
 
@@ -74,8 +74,11 @@ void BugTest::tryCrash()
 
   view->down();
   view->down();
+  view->end();
+  view->cursorRight();
   view->down();
-  view->cursorLeft();
+  view->down();
+  view->end();
   QTest::qWait(1000);
 
   qDebug() << "!!! The next line usually crashes in the code folding code";

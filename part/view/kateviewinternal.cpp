@@ -219,7 +219,9 @@ KateViewInternal::KateViewInternal(KateView *view)
              this, SLOT(viewSelectionChanged()) );
 
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
   QAccessible::installFactory(accessibleInterfaceFactory);
+#endif
 #endif
 
   // update is called in KateView, after construction and layout is over
@@ -229,7 +231,9 @@ KateViewInternal::KateViewInternal(KateView *view)
 KateViewInternal::~KateViewInternal ()
 {
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
   QAccessible::removeFactory(accessibleInterfaceFactory);
+#endif
 #endif
 
   // kill preedit ranges
@@ -653,7 +657,9 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
   m_madeVisible = !force;
 
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility( this, KateCursorAccessible::ChildId, QAccessible::Focus );
+#endif
 #endif
 }
 
@@ -1793,7 +1799,9 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
   }
 
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextSelectionChanged);
+#endif
 #endif
 }
 
@@ -2987,7 +2995,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     if (expandedHorizontally && startX() > 0)
       scrollColumns(startX() - (width() - e->oldSize().width()));
   }
-  
+
   if (width() < e->oldSize().width() && !m_view->wrapCursor()) {
     // May have to restrain cursor to new smaller width...
     if (m_cursor.column() > doc()->lineLength(m_cursor.line())) {
@@ -3387,7 +3395,9 @@ void KateViewInternal::cursorMoved( )
 {
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextCaretMoved);
+#endif
 #endif
 }
 

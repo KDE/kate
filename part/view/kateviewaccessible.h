@@ -21,6 +21,7 @@
 #ifndef _KATE_VIEW_ACCESSIBLE_
 #define _KATE_VIEW_ACCESSIBLE_
 #ifndef QT_NO_ACCESSIBILITY
+#if QT_VERSION >= 0x040800
 
 #include "kateviewinternal.h"
 #include "katetextcursor.h"
@@ -45,7 +46,7 @@ QString Q_GUI_EXPORT qTextAfterOffsetFromString(int offset, QAccessible2::Bounda
  * This class implements a QAccessible-interface for a Kate::TextCursor. An
  * instance of \a KateViewAccessible will hold an instance of this class to
  * provide access to the cursor within a kateview.
- * 
+ *
  * To test the cursor positioning using kmagnifier from kdeaccessibility you
  * can do for example;
  * @code
@@ -188,7 +189,7 @@ class KateCursorAccessible : public QAccessibleInterface
 
 /**
  * This class implements a QAccessible-interface for a KateViewInternal.
- * 
+ *
  * This is the root class for the kateview. The \a KateCursorAccessible class
  * represents the cursor in the kateview and is a child of this class.
  */
@@ -399,6 +400,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
                 return QString();
             return m_view->view()->document()->text().mid(startOffset, endOffset - startOffset);
         }
+
         virtual QString textAfterOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
         {
             const QString text = m_view->view()->document()->text();
@@ -446,7 +448,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
 
             return pos;
         }
-        
+
         KateViewInternal *m_view;
         KateCursorAccessible *m_cursor;
 };
@@ -465,4 +467,6 @@ QAccessibleInterface* accessibleInterfaceFactory(const QString &key, QObject *ob
 }
 
 #endif
+#endif
+
 #endif

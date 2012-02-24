@@ -92,6 +92,7 @@ void CompletionTest::testFilterEmptyRange()
     m_view->setCursorPosition(Cursor(0, 0));
     invokeCompletionBox(m_view);
 
+    QCOMPARE(countItems(model), 40);
     m_view->insertText("aa");
     QApplication::processEvents();
     QCOMPARE(countItems(model), 14);

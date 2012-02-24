@@ -48,6 +48,14 @@ int countItems(KateCompletionModel *model)
     return ret;
 }
 
+static void invokeCompletionBox(KateView* view)
+{
+    QTest::qWait(100); // needed, otherwise, test fails
+    view->userInvokedCompletion();
+    QTest::qWait(500); // wait until code completion pops up
+    QVERIFY(view->completionWidget()->isCompletionActive());
+}
+
 
 void CompletionTest::init()
 {
@@ -82,8 +90,7 @@ void CompletionTest::testFilterEmptyRange()
 
     new CodeCompletionTestModel(m_view, "a");
     m_view->setCursorPosition(Cursor(0, 0));
-    emit m_view->userInvokedCompletion();
-    QCOMPARE(countItems(model), 40);
+    invokeCompletionBox(m_view);
 
     m_view->insertText("aa");
     QApplication::processEvents();
@@ -96,7 +103,8 @@ void CompletionTest::testFilterWithRange()
 
     CodeCompletionTestModel* testModel = new CodeCompletionTestModel(m_view, "a");
     m_view->setCursorPosition(Cursor(0, 2));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     Range complRange = *m_view->completionWidget()->completionRange(testModel);
     QCOMPARE(complRange, Range(Cursor(0, 0), Cursor(0, 2)));
     QCOMPARE(countItems(model), 14);
@@ -113,7 +121,8 @@ void CompletionTest::testAbortCursorMovedOutOfRange()
 
     new CodeCompletionTestModel(m_view, "a");
     m_view->setCursorPosition(Cursor(0, 2));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 14);
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
@@ -128,7 +137,8 @@ void CompletionTest::testAbortInvalidText()
 
     new CodeCompletionTestModel(m_view, "a");
     m_view->setCursorPosition(Cursor(0, 2));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 14);
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
@@ -144,7 +154,8 @@ void CompletionTest::testCustomRange1()
 
     CodeCompletionTestModel* testModel = new CustomRangeModel(m_view, "$a");
     m_view->setCursorPosition(Cursor(0, 3));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     Range complRange = *m_view->completionWidget()->completionRange(testModel);
     kDebug() << complRange;
     QCOMPARE(complRange, Range(Cursor(0, 0), Cursor(0, 3)));
@@ -162,7 +173,8 @@ void CompletionTest::testCustomRange2()
 
     CodeCompletionTestModel* testModel = new CustomRangeModel(m_view, "$a");
     m_view->setCursorPosition(Cursor(0, 1));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     Range complRange = *m_view->completionWidget()->completionRange(testModel);
     QCOMPARE(complRange, Range(Cursor(0, 0), Cursor(0, 1)));
     QCOMPARE(countItems(model), 40);
@@ -180,7 +192,8 @@ void CompletionTest::testCustomRangeMultipleModels()
     CodeCompletionTestModel* testModel1 = new CustomRangeModel(m_view, "$a");
     CodeCompletionTestModel* testModel2 = new CodeCompletionTestModel(m_view, "a");
     m_view->setCursorPosition(Cursor(0, 1));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel1)), Range(Cursor(0, 0), Cursor(0, 2)));
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel2)), Range(Cursor(0, 1), Cursor(0, 2)));
     QCOMPARE(model->currentCompletion(testModel1), QString("$"));
@@ -201,7 +214,8 @@ void CompletionTest::testAbortController()
 
     new CustomRangeModel(m_view, "$a");
     m_view->setCursorPosition(Cursor(0, 0));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 40);
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
@@ -221,7 +235,8 @@ void CompletionTest::testAbortControllerMultipleModels()
     CodeCompletionTestModel* testModel1 = new CodeCompletionTestModel(m_view, "aa");
     CodeCompletionTestModel* testModel2 = new CustomAbortModel(m_view, "a-");
     m_view->setCursorPosition(Cursor(0, 0));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 80);
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
@@ -249,7 +264,8 @@ void CompletionTest::testEmptyFilterString()
 
     new EmptyFilterStringModel(m_view, "aa");
     m_view->setCursorPosition(Cursor(0, 0));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 40);
 
     m_view->insertText("a");
@@ -268,7 +284,8 @@ void CompletionTest::testUpdateCompletionRange()
 
     CodeCompletionTestModel* testModel = new UpdateCompletionRangeModel(m_view, "ab ab");
     m_view->setCursorPosition(Cursor(0, 3));
-    emit m_view->userInvokedCompletion();
+    invokeCompletionBox(m_view);
+
     QCOMPARE(countItems(model), 40);
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel)), Range(Cursor(0, 3), Cursor(0, 3)));
 

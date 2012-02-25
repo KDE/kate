@@ -31,7 +31,7 @@
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
 <language name="Ruby" section="Scripts"
-	  version="1.24" kateversion="2.4"
+	  version="1.25" kateversion="2.4"
 	  extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb;*.rake;Rakefile;Gemfile;*.gemspec"
 	  mimetype="application/x-ruby"
 	  style="ruby" indenter="ruby"
@@ -233,7 +233,7 @@
 				<RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+" context="check_div_1"/>
 				<RegExpr attribute="Global Variable" String="\$\-[a-zA-z_]\b" context="check_div_1"/>
 				<!-- special-character globals -->
-				<RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;&quot;]" context="check_div_1"/>
+				<RegExpr attribute="Default globals" String="\$[\d_*`+@;,.~=\!\$:?'/\\\-\&amp;&quot;&gt;&lt;]" context="check_div_1"/>
 				<RegExpr attribute="Global Constant" String="\b[_A-Z]+[A-Z_0-9]+\b" context="check_div_2"/>
 				<!-- Generally a module or class name like "File", "MyModule_1", .. -->
 				<RegExpr attribute="Constant" String="\b[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*\b" context="check_div_2"/>

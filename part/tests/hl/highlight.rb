@@ -549,3 +549,24 @@ str = "\\\\"
 :@abc
 :@@abc
 :$abc
+
+# (global) vars starting with $
+$!
+$@
+$;
+$,
+$/
+$\
+$.
+$_
+$>
+$<
+$$
+$?
+$~
+$= # deprecated
+$*
+$&
+$`
+$'
+$+

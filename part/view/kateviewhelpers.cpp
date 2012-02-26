@@ -876,10 +876,13 @@ QSize KateIconBorder::sizeHint() const
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
 
-  /**
-   * space for the line change system and border!
-   */
-  w += 5;
+  // space for the line modification system border
+  if (m_view->config()->lineModification()) {
+    w += 3;
+  }
+
+  // two pixel space
+  w += 2;
 
   return QSize( w, 0 );
 }
@@ -1251,10 +1254,12 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     }
 
     // modified line system
-    if (realLine > -1 && !m_doc->url().isEmpty()) {
+    if (m_view->config()->lineModification() &&
+        realLine > -1 && !m_doc->url().isEmpty())
+    {
       // one pixel space
       ++lnX;
-      
+
       Kate::TextLine tl = m_doc->plainKateTextLine(realLine);
       if (tl->markedAsModified()) {
         p.setPen(Qt::red);

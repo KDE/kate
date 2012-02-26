@@ -598,4 +598,55 @@ Lisp dialects.
 
 </sect1>
 
+<sect1 id="kate-part-line-modification">
+<title>Line Modification Indicators</title>
+
+<para>&kappname;'s line modification indicators let you easily see what you have
+recently changed in a file.  Saved changes are indicated by a green bar to the
+left of a document, while unsaved changes are indicated by an orange bar.</para>
+
+<para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="&imgpath;line-modification-system.png"/></imageobject>
+<caption><para>Line Modification Indicators in action.</para></caption>
+</mediaobject>
+</para>
+
+<para>If you'd like, you currently can disable this feature from the command
+line:</para>
+
+<informalexample>
+<screen>
+<prompt>%</prompt> <userinput><command>kwriteconfig</command> <option>--file &rcfile;</option> <option>--group "Kate View Defaults"</option> <option>--key "Line Modifications"</option> <option>--type bool</option> <option><replaceable>false</replaceable></option></userinput>
+</screen>
+
+<sect1 id="kate-part-line-modification">
+<title>Line Modification Indicators</title>
+
+<para>&kappname;'s line modification indicators let you easily see what you have
+recently changed in a file.  Saved changes are indicated by a green bar to the
+left of a document, while unsaved changes are indicated by an orange bar.</para>
+
+<para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="&imgpath;line-modification-system.png"/></imageobject>
+<caption><para>Line Modification Indicators in action.</para></caption>
+</mediaobject>
+</para>
+
+<para>If you'd like, you currently can disable this feature from the command
+line:</para>
+
+<informalexample>
+<screen>
+<prompt>%</prompt> <userinput><command>kwriteconfig</command> <option>--file &rcfile;</option> <option>--group "Kate View Defaults"</option> <option>--key "Line Modifications"</option> <option>--type bool</option> <option><replaceable>false</replaceable></option></userinput>
+</screen>
+</informalexample>
+
+<para>To re-enable it, simply replace <userinput>false</userinput> with
+<userinput>true</userinput>.  A proper configuration option will be added in
+&kde; 4.9.</para>
+
+</sect1>
+
 </chapter>

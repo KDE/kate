@@ -5,6 +5,8 @@
   <!ENTITY package "kdesdk">
   <!ENTITY copy-this-msg "&nbsp;">
   <!ENTITY i18n-powermode "&copy-this-msg;">
+  <!ENTITY imgpath "./">
+  <!ENTITY rcfile "katerc">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
@@ -51,8 +53,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-01-25</date>
-<releaseinfo>3.8.0 &kde; 4.8</releaseinfo>
+<date>2012-02-26</date>
+<releaseinfo>3.8.1 &kde; 4.8.1</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>

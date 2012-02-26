@@ -1199,6 +1199,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( "Folding Bar", foldingBar() );
 
+  config.writeEntry( "Line Modification", lineModification() );
+
   config.writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
 
   config.writeEntry( "Auto Center Lines", autoCenterLines() );

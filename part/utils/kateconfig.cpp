@@ -1066,6 +1066,7 @@ KateViewConfig::KateViewConfig ()
    m_scrollBarMarksSet (true),
    m_iconBarSet (true),
    m_foldingBarSet (true),
+   m_lineModificationSet (true),
    m_bookmarkSortSet (true),
    m_autoCenterLinesSet (true),
    m_searchFlagsSet (true),
@@ -1099,6 +1100,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_scrollBarMarksSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
+   m_lineModificationSet (false),
    m_bookmarkSortSet (false),
    m_autoCenterLinesSet (false),
    m_searchFlagsSet (false),
@@ -1143,6 +1145,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setIconBar (config.readEntry( "Icon Bar", false ));
 
   setFoldingBar (config.readEntry( "Folding Bar", true));
+
+  setLineModification (config.readEntry( "Line Modification", false));
 
   setBookmarkSort (config.readEntry( "Bookmark Menu Sorting", 0 ));
 
@@ -1369,6 +1373,24 @@ void KateViewConfig::setFoldingBar (bool on)
 
   m_foldingBarSet = true;
   m_foldingBar = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::lineModification () const
+{
+  if (m_lineModificationSet || isGlobal())
+    return m_lineModification;
+
+  return s_global->lineModification();
+}
+
+void KateViewConfig::setLineModification (bool on)
+{
+  configStart ();
+
+  m_lineModificationSet = true;
+  m_lineModification = on;
 
   configEnd ();
 }

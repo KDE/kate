@@ -443,6 +443,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool foldingBar () const;
     void setFoldingBar (bool on);
 
+    bool lineModification() const;
+    void setLineModification(bool on);
+
     int bookmarkSort () const;
     void setBookmarkSort (int mode);
 
@@ -523,6 +526,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_scrollBarMarks;
     bool m_iconBar;
     bool m_foldingBar;
+    bool m_lineModification;
     int m_bookmarkSort;
     int m_autoCenterLines;
     long m_searchFlags;
@@ -547,6 +551,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_scrollBarMarksSet : 1;
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;
+    bool m_lineModificationSet : 1;
     bool m_bookmarkSortSet : 1;
     bool m_autoCenterLinesSet : 1;
     bool m_searchFlagsSet : 1;

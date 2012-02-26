@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>275</width>
+    <width>278</width>
     <height>260</height>
    </rect>
   </property>
@@ -44,6 +44,16 @@
         </property>
         <property name="text">
          <string>Show &amp;line numbers</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkShowLineModification">
+        <property name="whatsThis">
+         <string>If this option is checked, a small indicator for modified and saved lines is shown on the left hand side.</string>
+        </property>
+        <property name="text">
+         <string>Show line modification markers</string>
         </property>
        </widget>
       </item>

@@ -787,6 +787,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(bordersUi->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->chkShowLineModification, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -817,6 +818,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setIconBar (bordersUi->chkIconBorder->isChecked());
   KateViewConfig::global()->setScrollBarMarks (bordersUi->chkScrollbarMarks->isChecked());
   KateViewConfig::global()->setFoldingBar (bordersUi->chkShowFoldingMarkers->isChecked());
+  KateViewConfig::global()->setLineModification(bordersUi->chkShowLineModification->isChecked());
 
   KateViewConfig::global()->setBookmarkSort (bordersUi->rbSortBookmarksByPosition->isChecked()?0:1);
   KateRendererConfig::global()->setShowIndentationLines(textareaUi->chkShowIndentationLines->isChecked());
@@ -849,6 +851,7 @@ void KateViewDefaultsConfig::reload ()
   bordersUi->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
   bordersUi->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
   bordersUi->chkShowFoldingMarkers->setChecked(KateViewConfig::global()->foldingBar());
+  bordersUi->chkShowLineModification->setChecked(KateViewConfig::global()->lineModification());
   bordersUi->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
   bordersUi->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
   textareaUi->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());

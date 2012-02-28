@@ -293,7 +293,7 @@ semicolon is the value. The semicolon is required.</para>
 <para>Here is an example variable line, forcing indentation settings for a C++,
 java or javascript file:
 
-<programlisting>// kate: space-indent on; indent-width 4; mixedindent off; indent-mode cstyle;</programlisting>
+<programlisting>// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
 </para>
 
 <note><para>Only the first and last 10 lines are searched for variable lines.</para></note>

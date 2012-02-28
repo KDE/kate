@@ -1,3 +1,21 @@
+/* This file is part of the KDE libraries
+   Copyright (C) 2012 Dominik Haumann <dhaumann kde org>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
+*/
+
 #ifndef KATE_COLOR_TREE_WIDGET_H
 #define KATE_COLOR_TREE_WIDGET_H
 
@@ -6,69 +24,52 @@
 class KConfigGroup;
 class KateColorTreeItem;
 
+class KateColorItem
+{
+  public:
+    KateColorItem()
+      : useDefault(true)
+    {
+    }
+
+    QString name; // translated name
+    QString category; // translated category for tree view hierarchy
+    // TODO: add tooltip, and what's this
+    QString key;  // untranslated id, used as key to save/load from KConfig
+    QColor color; // user visible color
+    QColor defaultColor; // used when "Default" is clicked
+    bool useDefault; // flag whether to use the default color
+};
+
 class KateColorTreeWidget : public QTreeWidget
 {
   Q_OBJECT
+  friend class KateColorTreeItem;
+  friend class KateColorTreeDelegate;
 
   public:
     explicit KateColorTreeWidget(QWidget *parent = 0);
 
   public:
+    void addColorItem(const KateColorItem& colorItem);
+    void addColorItems(const QVector<KateColorItem>& colorItems);
+
+  public:
     void readConfig(KConfigGroup& config);
     void writeConfig(KConfigGroup& config);
 
-  public:
-    virtual void dataChanged (const QModelIndex& topLeft, const QModelIndex& bottomRight);
-
   public Q_SLOTS:
     void selectDefaults();
-    
+
     void testReadConfig();
     void testWriteConfig();
+    void testChanged();
 
   Q_SIGNALS:
     void changed();
 
   protected:
     virtual bool edit(const QModelIndex& index, EditTrigger trigger, QEvent* event);
-    
-  private:
-    void init();
-
-  private:
-    // editor background colors
-    KateColorTreeItem* m_textArea;
-    KateColorTreeItem* m_selectedText;
-    KateColorTreeItem* m_currentLine;
-    KateColorTreeItem* m_searchHighlight;
-    KateColorTreeItem* m_replaceHighlight;
-
-    // icon border
-    KateColorTreeItem* m_background;
-    KateColorTreeItem* m_lineNumbers;
-    KateColorTreeItem* m_wordWrapMarker;
-    KateColorTreeItem* m_savedLine;
-    KateColorTreeItem* m_modifiedLine;
-
-    // text decorations
-    KateColorTreeItem* m_spellingMistake;
-    KateColorTreeItem* m_spaceMarker;
-    KateColorTreeItem* m_bracketHighlight;
-
-    // marker colors
-    KateColorTreeItem* m_bookmark;
-    KateColorTreeItem* m_activeBreakpoint;
-    KateColorTreeItem* m_reachedBreakpoint;
-    KateColorTreeItem* m_disabledBreakpoint;
-    KateColorTreeItem* m_execution;
-    KateColorTreeItem* m_warning;
-    KateColorTreeItem* m_error;
-
-    // text templates
-    KateColorTreeItem* m_templateBackground;
-    KateColorTreeItem* m_templateEditablePlaceholder;
-    KateColorTreeItem* m_templateFocusedEditablePlaceholder;
-    KateColorTreeItem* m_templateNotEditablePlaceholder;
 };
 
 #endif

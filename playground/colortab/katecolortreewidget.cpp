@@ -41,7 +41,6 @@ class KateColorTreeItem : public QTreeWidgetItem
       , m_colorItem(colorItem)
     {
       setText(0, m_colorItem.name);
-      setSizeHint(0, QSize(sizeHint(0).width(), sizeHint(0).height() + 10));
     }
 
     QColor color() const {
@@ -89,21 +88,14 @@ class KateColorTreeDelegate : public QStyledItemDelegate
       Q_ASSERT(index.isValid());
       Q_ASSERT(index.column() >= 0 && index.column() <= 1);
 
+      QStyledItemDelegate::paint(painter, option, index);
+
       // if top-level node, abort
-      if (!index.parent().isValid()) {
-        QStyledItemDelegate::paint(painter, option, index);
+      if (!index.parent().isValid() || index.column() == 0) {
         return;
       }
 
       KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(m_tree->itemFromIndex(index));
-      if (index.column() == 0) {
-        QStyleOptionViewItem styleOption(option);
-        if (!item->useDefaultColor()) {
-          styleOption.font.setBold(true);
-        }
-        QStyledItemDelegate::paint(painter, styleOption, index);
-        return;
-      }
 
       if (index.column() == 1) {
 
@@ -113,14 +105,28 @@ class KateColorTreeDelegate : public QStyledItemDelegate
         opt.rect = option.rect;
         opt.palette = m_tree->palette();
 
-        // draw color button
-        QStyledItemDelegate::paint(painter, option, index);
-        if (opt.rect.width() > 100) { // FIXME: should we limit to 100 pixel width?
-          opt.rect.setWidth(100);
-        }
         m_tree->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_tree);
         painter->fillRect(m_tree->style()->subElementRect(QStyle::SE_PushButtonContents, &opt, m_tree), color);
       }
+
+      if (index.column() == 2 && !item->useDefaultColor()) {
+
+        QPixmap p = SmallIcon("edit-undo");
+        QRect rect(option.rect.left() + 10, option.rect.top() + (option.rect.height() - p.height() + 1) / 2, p.width(), p.height());
+
+        if (option.state & QStyle::State_MouseOver || option.state & QStyle::State_HasFocus) {
+          painter->drawPixmap(rect, p);
+        } else {
+          painter->drawPixmap(rect, SmallIcon("edit-undo", 0, KIconLoader::DisabledState));
+        }
+      }
+    }
+
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+    {
+      QSize s(QStyledItemDelegate::sizeHint(option, index));
+      s.rheight() += 5;
+      return s;
     }
 
   private:
@@ -133,11 +139,12 @@ KateColorTreeWidget::KateColorTreeWidget(QWidget *parent)
 {
   setItemDelegate(new KateColorTreeDelegate(this));
   setSelectionMode(QAbstractItemView::ExtendedSelection);
-//   setUniformRowHeights(true);
+  setUniformRowHeights(true);
 
   QStringList headers;
   headers << i18nc("@title:column the color name", "Color Role")
-          << i18nc("@title:column a color button", "Color");
+          << i18nc("@title:column a color button", "Color")
+          << i18nc("@title:column reset color", "Reset");
   setHeaderLabels(headers);
   setRootIsDecorated(false);
 
@@ -146,33 +153,39 @@ KateColorTreeWidget::KateColorTreeWidget(QWidget *parent)
 
 bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QEvent* event)
 {
-  // accept edit only for color buttons in column 1
-  if (!index.parent().isValid() || index.column() != 1) {
+  // accept edit only for color buttons in column 1 and reset in column 2
+  if (!index.parent().isValid() || index.column() < 1) {
     return QTreeWidget::edit(index, trigger, event);
   }
 
-  bool openColorDialog = false;
+  bool accept = false;
   if (event && event->type() == QEvent::KeyPress) {
     QKeyEvent* ke = static_cast<QKeyEvent*>(event);
-    openColorDialog = (ke->key() == Qt::Key_Space); // allow Space to edit
+    accept = (ke->key() == Qt::Key_Space); // allow Space to edit
   }
 
   switch (trigger) {
     case QAbstractItemView::DoubleClicked:
     case QAbstractItemView::SelectedClicked:
     case QAbstractItemView::EditKeyPressed: // = F2
-      openColorDialog = true;
+      accept = true;
       break;
     default: break;
   }
 
-  if (openColorDialog) {
+  if (accept) {
     KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(itemFromIndex(index));
     QColor color = item->useDefaultColor() ? item->defaultColor() : item->color();
 
-    if (KColorDialog::getColor(color, item->defaultColor(), this) == QDialog::Accepted) {
-      item->setUseDefaultColor(false);
-      item->setColor(color);
+    // FIXME: how do we force a repaint???
+    if (index.column() == 1) {
+      if (KColorDialog::getColor(color, item->defaultColor(), this) == QDialog::Accepted) {
+        item->setUseDefaultColor(false);
+        item->setColor(color);
+        emit changed();
+      }
+    } else if (index.column() == 2 && !item->useDefaultColor()) {
+      item->setUseDefaultColor(true);
       emit changed();
     }
 

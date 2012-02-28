@@ -36,6 +36,7 @@ private Q_SLOTS:
 
   void tryXmlCrash();
   void tryPhpCrash();
+  void tryRubyCrash();
 
 };
 

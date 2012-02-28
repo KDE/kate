@@ -113,3 +113,55 @@ void BugTest::tryPhpCrash()
 
   qDebug() << "!!! No crash (qWait not long enough)? Nice!";
 }
+
+void BugTest::tryRubyCrash()
+{
+  int i = 0;
+  KateDocument doc(false, false, false);
+  QString url = KDESRCDIR + QString("bug294241.rb");
+  doc.openUrl(url);
+  doc.discardDataRecovery();
+  doc.setHighlightingMode("Ruby");
+  doc.buffer().ensureHighlighted (doc.lines());
+
+  // view must be visible...
+  KateView* view = static_cast<KateView*>(doc.createView(0));
+  view->show();
+  view->resize(400, 300);
+
+  // Select ruby code and uncomment it
+  view->setSelection(Range(6, 0, 26, 0));
+  QTest::qWait(500);
+  view->toggleComment();
+  QTest::qWait(500);
+
+  // Now unindent
+  for (i = 0; i < 5; i++)
+    view->unIndent();
+  QTest::qWait(2000);
+
+  view->setCursorPosition(Cursor(5, 0));
+  view->setSelection(Range());
+  QTest::qWait(2000);
+
+  for (i = 4; i >= 0; --i) {
+    view->setCursorPosition(Cursor(i, 0));
+    view->keyDelete();
+  }
+  view->keyDelete();
+  QTest::qWait(1000);
+
+  view->keyReturn();
+  view->keyReturn();
+  QTest::qWait(2000);
+
+  qDebug() << "!!! The next line usually crashes in the code folding code";
+  doc.undo();
+  QTest::qWait(2000);
+
+  qDebug() << "!!! No crash (qWait not long enough)? Nice!";
+}
+
+
+
+

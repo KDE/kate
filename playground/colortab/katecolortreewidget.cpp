@@ -70,6 +70,10 @@ class KateColorTreeItem : public QTreeWidgetItem
       return m_colorItem.key;
     }
 
+    KateColorItem colorItem() const {
+      return m_colorItem;
+    }
+
   private:
     KateColorItem m_colorItem;
 };
@@ -89,7 +93,7 @@ class KateColorTreeDelegate : public QStyledItemDelegate
     virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
     {
       Q_ASSERT(index.isValid());
-      Q_ASSERT(index.column() >= 0 && index.column() <= 1);
+      Q_ASSERT(index.column() >= 0 && index.column() <= 2);
 
       QStyledItemDelegate::paint(painter, option, index);
 
@@ -150,8 +154,6 @@ KateColorTreeWidget::KateColorTreeWidget(QWidget *parent)
           << i18nc("@title:column reset color", "Reset");
   setHeaderLabels(headers);
   setRootIsDecorated(false);
-
-  connect(this, SIGNAL(changed()), this, SLOT(testChanged()));
 }
 
 bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QEvent* event)
@@ -204,15 +206,18 @@ void KateColorTreeWidget::selectDefaults()
   bool somethingChanged = false;
 
   // use default colors for all selected items
-  foreach (QTreeWidgetItem* item, selectedItems()) {
-    if (item->parent()) {
-      KateColorTreeItem* it = dynamic_cast<KateColorTreeItem*>(item);
+  for (int a = 0; a < topLevelItemCount(); ++a) {
+    QTreeWidgetItem* top = topLevelItem(a);
+    for (int b = 0; b < top->childCount(); ++b) {
+      KateColorTreeItem* it = dynamic_cast<KateColorTreeItem*>(top->child(b));
+      Q_ASSERT(it);
       if (!it->useDefaultColor()) {
         it->setUseDefaultColor(true);
         somethingChanged = true;
       }
     }
   }
+
   if (somethingChanged) {
     viewport()->update();
     emit changed();
@@ -247,14 +252,36 @@ void KateColorTreeWidget::addColorItems(const QVector<KateColorItem>& colorItems
     addColorItem(item);
 }
 
+QVector<KateColorItem> KateColorTreeWidget::colorItems() const
+{
+  QVector<KateColorItem> items;
+  for (int a = 0; a < topLevelItemCount(); ++a) {
+    QTreeWidgetItem* top = topLevelItem(a);
+    for (int b = 0; b < top->childCount(); ++b) {
+      KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
+      Q_ASSERT(item);
+      items.append(item->colorItem());
+    }
+  }
+  return items;
+}
+
 void KateColorTreeWidget::readConfig(KConfigGroup& config)
 {
   for (int a = 0; a < topLevelItemCount(); ++a) {
     QTreeWidgetItem* top = topLevelItem(a);
     for (int b = 0; b < top->childCount(); ++b) {
       KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
-      item->setColor(config.readEntry(item->key(), item->defaultColor()));
-      item->setUseDefaultColor(config.readEntry("Use Default " + item->key(), true));
+      item->setUseDefaultColor(!config.hasKey(item->key()));
+      if (item->useDefaultColor()) {
+        item->setColor(item->defaultColor());
+      } else {
+        QColor c = config.readEntry(item->key(), item->defaultColor());
+        if (!c.isValid()) {
+          c = item->defaultColor();
+        }
+        item->setColor(c);
+      }
     }
   }
   viewport()->update();
@@ -266,8 +293,11 @@ void KateColorTreeWidget::writeConfig(KConfigGroup& config)
     QTreeWidgetItem* top = topLevelItem(a);
     for (int b = 0; b < top->childCount(); ++b) {
       KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
-      config.writeEntry(item->key(), item->color());
-      config.writeEntry("Use Default " + item->key(), item->useDefaultColor());
+      if (item->useDefaultColor()) {
+        config.deleteEntry(item->key());
+      } else {
+        config.writeEntry(item->key(), item->color());
+      }
     }
   }
 }
@@ -284,11 +314,6 @@ void KateColorTreeWidget::testWriteConfig()
   KConfig cfg("/tmp/test.cfg");
   KConfigGroup cg(&cfg, "Colors");
   writeConfig(cg);
-}
-
-void KateColorTreeWidget::testChanged()
-{
-  qDebug() << "something changed";
 }
 
 // kate: indent-width 2; replace-tabs on;

@@ -22,6 +22,7 @@
 
 #include "katehighlight.h"
 #include "katedialogs.h"
+#include "katecolortreewidget.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QMap>
@@ -33,13 +34,10 @@
 class KateView;
 class KateStyleTreeWidget;
 
-
 class QAction;
 class QActionGroup;
 class KComboBox;
 class KTabWidget;
-
-namespace Ui { class SchemaConfigColorTab; }
 
 class KateSchemaManager
 {
@@ -128,32 +126,24 @@ class KateSchemaConfigColorTab : public QWidget
     KateSchemaConfigColorTab();
     ~KateSchemaConfigColorTab();
 
-  private:
-    // Class for storing the properties on 1 schema.
-    class SchemaColors {
-      public:
-        QColor back, selected, current, bracket, wwmarker, iconborder, tmarker, linenumber, spellingmistakeline;
-        QMap<int, QColor> markerColors;  // stores all markerColors
-        QMap<int, QColor> templateColors;
-    };
-
-    // schemaid=data, created when a schema is entered
-    QMap<int,SchemaColors> m_schemas;
-    // current schema
-    int m_schema;
-
-    Ui::SchemaConfigColorTab* ui;
-
   public Q_SLOTS:
     void apply();
     void schemaChanged( int newSchema );
 
   Q_SIGNALS:
     void changed();
+    
+  private:
+    QVector<KateColorItem> colorItemList() const;
 
-  protected Q_SLOTS:
-    void slotMarkerColorChanged(const QColor&);
-    void slotComboBoxChanged(int index);
+  private:
+    typedef QVector<KateColorItem> ColorList;
+
+    // multiple shemas may be edited. Hence, we need one ColorList for each schema
+    QMap<int, ColorList> m_schemas;
+    int m_currentSchema;
+
+    KateColorTreeWidget* ui;
 };
 
 typedef QMap<int,QFont> FontMap; // ### remove it

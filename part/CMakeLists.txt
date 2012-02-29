@@ -33,6 +33,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
   ${CMAKE_CURRENT_SOURCE_DIR}/variableeditor
+  ${CMAKE_CURRENT_SOURCE_DIR}/../playground/colortab
   ${KDE4_KIO_INCLUDES}
 )
 
@@ -171,6 +172,9 @@ utils/katecmd.cpp
 utils/katestyletreewidget.cpp
 utils/katepartpluginmanager.cpp
 
+# color config
+../playground/colortab/katecolortreewidget.cpp
+
 # swapfile
 swapfile/katerecoverbar.cpp
 swapfile/kateswapfile.cpp
@@ -191,7 +195,6 @@ dialogs/indentationconfigwidget.ui
 dialogs/opensaveconfigwidget.ui
 dialogs/opensaveconfigadvwidget.ui
 dialogs/modonhdwidget.ui
-dialogs/schemaconfigcolortab.ui
 dialogs/completionconfigwidget.ui
 search/searchbarincremental.ui
 search/searchbarpower.ui

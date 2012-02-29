@@ -54,6 +54,8 @@ class KateColorTreeWidget : public QTreeWidget
     void addColorItem(const KateColorItem& colorItem);
     void addColorItems(const QVector<KateColorItem>& colorItems);
 
+    QVector<KateColorItem> colorItems() const;
+
   public:
     void readConfig(KConfigGroup& config);
     void writeConfig(KConfigGroup& config);
@@ -63,7 +65,6 @@ class KateColorTreeWidget : public QTreeWidget
 
     void testReadConfig();
     void testWriteConfig();
-    void testChanged();
 
   Q_SIGNALS:
     void changed();

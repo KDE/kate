@@ -86,13 +86,13 @@ void fillList(KateColorTreeWidget* w)
 
   ci.name = i18n("Selected Text");
   ci.key = "Color Selection";
-  ci.whatsThis = i18n("<p>Sets the background color of the selection.&lt;/p&gt;&lt;p&gt;To set the text color for selected text, use the &quot;&lt;b&gt;Configure Highlighting&lt;/b&gt;&quot; dialog.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the background color of the selection.</p><p>To set the text color for selected text, use the &quot;<b>Configure Highlighting</b>&quot; dialog.</p>");
   ci.defaultColor = KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color();
   items.append(ci);
 
   ci.name = i18n("Current Line");
   ci.key = "Color Highlighted Line";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the background color of the currently active line, which means the line where your cursor is positioned.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the background color of the currently active line, which means the line where your cursor is positioned.</p>");
   ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::View).background(KColorScheme::AlternateBackground).color();
   items.append(ci);
 
@@ -122,13 +122,13 @@ void fillList(KateColorTreeWidget* w)
 
   ci.name = i18n("Line Numbers");
   ci.key = "Color Line Number";
-  ci.whatsThis = i18n("&lt;p&gt;This color will be used to draw the line numbers (if enabled) and the lines in the code-folding pane.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>This color will be used to draw the line numbers (if enabled) and the lines in the code-folding pane.</p>");
   ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::Window).foreground().color();
   items.append(ci);
 
   ci.name = i18n("Word Wrap Marker");
   ci.key = "Color Word Wrap Marker";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the color of Word Wrap-related markers:&lt;/p&gt;&lt;dl&gt;&lt;dt&gt;Static Word Wrap&lt;/dt&gt;&lt;dd&gt;A vertical line which shows the column where text is going to be wrapped&lt;/dd&gt;&lt;dt&gt;Dynamic Word Wrap&lt;/dt&gt;&lt;dd&gt;An arrow shown to the left of visually-wrapped lines&lt;/dd&gt;&lt;/dl&gt;");
+  ci.whatsThis = i18n("<p>Sets the color of Word Wrap-related markers:</p><dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where text is going to be wrapped</dd><dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of visually-wrapped lines</dd></dl>");
   qreal bgLuma = KColorUtils::luma(KColorScheme(QPalette::Active, KColorScheme::View).background().color());
   ci.defaultColor = KColorUtils::shade( KColorScheme(QPalette::Active, KColorScheme::View).background().color(), bgLuma > 0.3 ? -0.15 : 0.03 );
   items.append(ci);
@@ -153,19 +153,19 @@ void fillList(KateColorTreeWidget* w)
 
   ci.name = i18n("Spelling Mistake Line");
   ci.key = "Color Spelling Mistake Line";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the color of the line that is used to indicate spelling mistakes.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the color of the line that is used to indicate spelling mistakes.</p>");
   ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::View).foreground(KColorScheme::NegativeText).color();
   items.append(ci);
 
   ci.name = i18n("Tab and Space Markers");
   ci.key = "Color Tab Marker";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the color of the tabulator marks.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the color of the tabulator marks.</p>");
   ci.defaultColor = KColorUtils::shade(KColorScheme(QPalette::Active, KColorScheme::View).background().color(), bgLuma > 0.7 ? -0.35 : 0.3);
   items.append(ci);
 
   ci.name = i18n("Bracket Highlight");
   ci.key = "Color Highlighted Bracket";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the bracket matching color. This means, if you place the cursor e.g. at a &lt;b&gt;(&lt;/b&gt;, the matching &lt;b&gt;)&lt;/b&gt; will be highlighted with this color.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the bracket matching color. This means, if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will be highlighted with this color.</p>");
   ci.defaultColor = KColorUtils::tint(KColorScheme(QPalette::Active, KColorScheme::View).background().color(),
                                       KColorScheme(QPalette::Active, KColorScheme::View).decoration(KColorScheme::HoverColor).color());
   items.append(ci);
@@ -178,7 +178,7 @@ void fillList(KateColorTreeWidget* w)
 
   ci.name = i18n("Bookmark");
   ci.key = "Color MarkType 1";
-  ci.whatsThis = i18n("&lt;p&gt;Sets the background color of mark type.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt;: The marker color is displayed lightly because of transparency.&lt;/p&gt;");
+  ci.whatsThis = i18n("<p>Sets the background color of mark type.</p><p><b>Note</b>: The marker color is displayed lightly because of transparency.</p>");
   ci.defaultColor = Qt::blue; // TODO: if possible, derive from system color scheme
   items.append(ci);
 

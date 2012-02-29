@@ -350,8 +350,11 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   connect(ui->chkViStatusBarHide, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int,int)), this, SLOT(slotChanged()));
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
+  connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(slogChanged()));
   connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
+  connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
   connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(importNormalMappingRow()));
+  connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
 
   layout->addWidget(newWidget);
   setLayout(layout);

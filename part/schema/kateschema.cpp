@@ -31,6 +31,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmenu.h>
+#include <kconfiggroup.h>
 //END
 
 

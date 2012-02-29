@@ -42,10 +42,10 @@
 #include <kuser.h> // for loginName
 #include <klineedit.h>
 #include <knuminput.h>
+#include <kcombobox.h>
 
 #include <QtGui/QPainter>
 #include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
 #include <QtGui/QGroupBox>
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>

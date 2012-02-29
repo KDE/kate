@@ -28,6 +28,7 @@
 #include <math.h>
 
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kglobalsettings.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>

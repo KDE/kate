@@ -21,18 +21,15 @@
 #ifndef __KATE_SCHEMA_CONFIG_H__
 #define __KATE_SCHEMA_CONFIG_H__
 
-#include "katehighlight.h"
 #include "katedialogs.h"
 #include "katecolortreewidget.h"
+#include "kateextendedattribute.h"
 
-#include <QtCore/QStringList>
 #include <QtCore/QMap>
 #include <QtGui/QFont>
 
 #include <kconfig.h>
-#include <kaction.h>
 
-class KateView;
 class KateStyleTreeWidget;
 
 class KComboBox;
@@ -160,7 +157,7 @@ class KateSchemaConfigPage : public KateConfigPage
 
   public:
     explicit KateSchemaConfigPage ( QWidget *parent);
-    ~KateSchemaConfigPage ();
+    virtual ~KateSchemaConfigPage ();
 
   public Q_SLOTS:
     void apply();

@@ -20,23 +20,14 @@
 #ifndef __KATE_SCHEMA_H__
 #define __KATE_SCHEMA_H__
 
-#include "katehighlight.h"
-#include "katedialogs.h"
+#include <kactionmenu.h>
+#include <kconfig.h>
 
 #include <QtCore/QStringList>
-#include <QtCore/QMap>
-#include <QtGui/QFont>
-
-#include <kconfig.h>
-#include <kaction.h>
+#include <QtCore/QPointer>
 
 class KateView;
-class KateStyleTreeWidget;
-
-class QAction;
 class QActionGroup;
-class KComboBox;
-class KTabWidget;
 
 class KateSchemaManager
 {

@@ -36,6 +36,7 @@
 #include "katehighlight.h"
 
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kglobal.h>
 #include <kcomponentdata.h>
 #include <kmimetype.h>

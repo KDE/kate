@@ -659,7 +659,7 @@ class KateRendererConfig : public KateConfig
     void setLineNumberColor (const QColor &col);
 
     const QColor& spellingMistakeLineColor() const;
-    void setSpellingMistakeKineColor (const QColor &col);
+    void setSpellingMistakeLineColor (const QColor &col);
 
     bool showIndentationLines () const;
     void setShowIndentationLines (bool on);
@@ -672,6 +672,17 @@ class KateRendererConfig : public KateConfig
     const QColor &templateFocusedEditablePlaceholderColor() const;
     const QColor &templateNotEditablePlaceholderColor() const;
 
+    const QColor& modifiedLineColor() const;
+    void setModifiedLineColor(const QColor &col);
+
+    const QColor& savedLineColor() const;
+    void setSavedLineColor(const QColor &col);
+
+    const QColor& searchHighlightColor() const;
+    void setSearchHighlightColor(const QColor &col);
+
+    const QColor& replaceHighlightColor() const;
+    void setReplaceHighlightColor(const QColor &col);
 
   private:
     /**
@@ -701,6 +712,10 @@ class KateRendererConfig : public KateConfig
     QColor m_templateFocusedEditablePlaceholderColor;
     QColor m_templateNotEditablePlaceholderColor;
 
+    QColor m_modifiedLineColor;
+    QColor m_savedLineColor;
+    QColor m_searchHighlightColor;
+    QColor m_replaceHighlightColor;
 
     bool m_schemaSet : 1;
     bool m_fontSet : 1;
@@ -717,6 +732,10 @@ class KateRendererConfig : public KateConfig
     bool m_lineNumberColorSet : 1;
     bool m_spellingMistakeLineColorSet : 1;
     bool m_templateColorsSet : 1;
+    bool m_modifiedLineColorSet : 1;
+    bool m_savedLineColorSet : 1;
+    bool m_searchHighlightColorSet : 1;
+    bool m_replaceHighlightColorSet : 1;
     QBitArray m_lineMarkerColorSet;
 
   private:

@@ -28,6 +28,7 @@
 #include "katedocument.h"
 #include "kateundomanager.h"
 #include "kateconfig.h"
+#include "katerenderer.h"
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
@@ -149,21 +150,24 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
             this, SLOT(updateIncInitCursor()));
 
+    const QColor searchColor = m_view->renderer()->config()->searchHighlightColor();
+    const QColor replaceColor = m_view->renderer()->config()->replaceHighlightColor();
+
     // init match attribute
-    highlightMatchAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    highlightMatchAttribute->setBackground(searchColor);
 
     Attribute::Ptr mouseInAttribute(new Attribute());
     mouseInAttribute->setFontBold(true);
-    mouseInAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    mouseInAttribute->setBackground(searchColor);
     highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
 
     Attribute::Ptr caretInAttribute(new Attribute());
     caretInAttribute->setFontItalic(true);
-    caretInAttribute->setBackground(Qt::yellow); // TODO make this part of the color scheme
+    caretInAttribute->setBackground(searchColor);
     highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
 
     // init replacement attribute
-    highlightReplacementAttribute->setBackground(Qt::green); // TODO make this part of the color scheme
+    highlightReplacementAttribute->setBackground(replaceColor);
 
     // Modify parent
     QWidget * const widget = centralWidget();

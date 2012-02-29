@@ -284,16 +284,16 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   ci.defaultColor = KColorUtils::shade( KColorScheme(QPalette::Active, KColorScheme::View).background().color(), bgLuma > 0.3 ? -0.15 : 0.03 );
   items.append(ci);
 
-  ci.name = i18n("Saved Lines");
-  ci.key = "Color Saved Lines";
-  ci.whatsThis = i18n("<p>Sets the color of the line modification marker for saved lines.</p>");
-  ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::View).background(KColorScheme::PositiveBackground).color();
-  items.append(ci);
-
   ci.name = i18n("Modified Lines");
   ci.key = "Color Modified Lines";
   ci.whatsThis = i18n("<p>Sets the color of the line modification marker for modified lines.</p>");
   ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::View).background(KColorScheme::NegativeBackground).color();
+  items.append(ci);
+
+  ci.name = i18n("Saved Lines");
+  ci.key = "Color Saved Lines";
+  ci.whatsThis = i18n("<p>Sets the color of the line modification marker for saved lines.</p>");
+  ci.defaultColor = KColorScheme(QPalette::Active, KColorScheme::View).background(KColorScheme::PositiveBackground).color();
   items.append(ci);
 
 

@@ -1712,6 +1712,10 @@ KateRendererConfig::KateRendererConfig ()
    m_lineNumberColorSet (true),
    m_spellingMistakeLineColorSet (true),
    m_templateColorsSet(true),
+   m_modifiedLineColorSet(true),
+   m_savedLineColorSet(true),
+   m_searchHighlightColorSet(true),
+   m_replaceHighlightColorSet(true),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (0)
 {
@@ -1743,6 +1747,10 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_lineNumberColorSet (false),
    m_spellingMistakeLineColorSet (false),
    m_templateColorsSet(false),
+   m_modifiedLineColorSet(false),
+   m_savedLineColorSet(false),
+   m_searchHighlightColorSet(false),
+   m_replaceHighlightColorSet(false),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (renderer)
 {
@@ -1845,6 +1853,9 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp6( schemeWindow.background().color() );
   QColor tmp7( schemeWindow.foreground().color() );
   QColor tmp8( schemeView.foreground(KColorScheme::NegativeText).color() );
+  QColor tmp9( schemeView.background(KColorScheme::NegativeBackground).color() );
+  QColor tmp10( schemeView.background(KColorScheme::PositiveBackground).color() );
+  QColor tmp11( schemeView.background(KColorScheme::NeutralBackground).color() );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
@@ -1864,6 +1875,16 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_lineNumberColorSet = true;
   m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", tmp8);
   m_spellingMistakeLineColorSet = true;
+
+  m_modifiedLineColor = config.readEntry("Color Modified Lines", tmp9);
+  m_modifiedLineColorSet = true;
+  m_savedLineColor = config.readEntry("Color Saved Lines", tmp10);
+  m_savedLineColorSet = true;
+  m_searchHighlightColor = config.readEntry("Color Search Highlight", tmp11);
+  m_searchHighlightColorSet = true;
+  m_replaceHighlightColor = config.readEntry("Color Replace Highlight", tmp10);
+  m_replaceHighlightColorSet = true;
+
 
     // same std colors like in KateDocument::markColor
   QColor mark[7];
@@ -2105,31 +2126,37 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
 }
 
 
-const QColor &KateRendererConfig::templateBackgroundColor() const {
+const QColor &KateRendererConfig::templateBackgroundColor() const
+{
   if (m_templateColorsSet || isGlobal())
     return m_templateBackgroundColor;
 
   return s_global->templateBackgroundColor();
 }
-const QColor &KateRendererConfig::templateEditablePlaceholderColor() const {
+
+const QColor &KateRendererConfig::templateEditablePlaceholderColor() const
+{
   if (m_templateColorsSet || isGlobal())
     return m_templateEditablePlaceholderColor;
 
   return s_global->templateEditablePlaceholderColor();
 }
-const QColor &KateRendererConfig::templateFocusedEditablePlaceholderColor() const {
+
+const QColor &KateRendererConfig::templateFocusedEditablePlaceholderColor() const
+{
   if (m_templateColorsSet || isGlobal())
     return m_templateFocusedEditablePlaceholderColor;
 
   return s_global->templateFocusedEditablePlaceholderColor();
 }
-const QColor &KateRendererConfig::templateNotEditablePlaceholderColor() const {
+
+const QColor &KateRendererConfig::templateNotEditablePlaceholderColor() const
+{
   if (m_templateColorsSet || isGlobal())
     return m_templateNotEditablePlaceholderColor;
 
   return s_global->templateNotEditablePlaceholderColor();
 }
-
 
 const QColor& KateRendererConfig::lineNumberColor() const
 {
@@ -2157,7 +2184,7 @@ const QColor& KateRendererConfig::spellingMistakeLineColor() const
   return s_global->spellingMistakeLineColor();
 }
 
-void KateRendererConfig::setSpellingMistakeKineColor (const QColor &col)
+void KateRendererConfig::setSpellingMistakeLineColor (const QColor &col)
 {
   configStart ();
 
@@ -2166,6 +2193,79 @@ void KateRendererConfig::setSpellingMistakeKineColor (const QColor &col)
 
   configEnd ();
 }
+
+const QColor& KateRendererConfig::modifiedLineColor() const
+{
+  if (m_modifiedLineColorSet || isGlobal())
+    return m_modifiedLineColor;
+
+  return s_global->modifiedLineColor();
+}
+
+void KateRendererConfig::setModifiedLineColor(const QColor &col)
+{
+  configStart ();
+
+  m_modifiedLineColorSet = true;
+  m_modifiedLineColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::savedLineColor() const
+{
+  if (m_savedLineColorSet || isGlobal())
+    return m_savedLineColor;
+
+  return s_global->savedLineColor();
+}
+
+void KateRendererConfig::setSavedLineColor(const QColor &col)
+{
+  configStart ();
+
+  m_savedLineColorSet = true;
+  m_savedLineColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::searchHighlightColor() const
+{
+  if (m_searchHighlightColorSet || isGlobal())
+    return m_searchHighlightColor;
+
+  return s_global->searchHighlightColor();
+}
+
+void KateRendererConfig::setSearchHighlightColor(const QColor &col)
+{
+  configStart ();
+
+  m_searchHighlightColorSet = true;
+  m_searchHighlightColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::replaceHighlightColor() const
+{
+  if (m_replaceHighlightColorSet || isGlobal())
+    return m_replaceHighlightColor;
+
+  return s_global->replaceHighlightColor();
+}
+
+void KateRendererConfig::setReplaceHighlightColor(const QColor &col)
+{
+  configStart ();
+
+  m_replaceHighlightColorSet = true;
+  m_replaceHighlightColor = col;
+
+  configEnd ();
+}
+
 
 bool KateRendererConfig::showIndentationLines () const
 {

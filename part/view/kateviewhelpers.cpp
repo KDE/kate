@@ -1262,12 +1262,10 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
        
       Kate::TextLine tl = m_doc->plainKateTextLine(realLine);
       if (tl->markedAsModified()) {
-        p.setPen(Qt::red);
-        p.fillRect(lnX, y, 3, h, QColor(242, 155, 104));
+        p.fillRect(lnX, y, 3, h, m_view->renderer()->config()->modifiedLineColor());
       }
       if (tl->markedAsSavedOnDisk()) {
-        p.setPen(Qt::darkGreen);
-        p.fillRect(lnX, y, 3, h, QColor(119, 183, 83));
+        p.fillRect(lnX, y, 3, h, m_view->renderer()->config()->savedLineColor());
       }
     }
   }

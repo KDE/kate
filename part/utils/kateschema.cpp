@@ -463,7 +463,7 @@ void KateSchemaConfigColorTab::apply ()
     kDebug(13030) << "writing 'Color' tab: scheme =" << it.key()
                   << "and config group =" << config.name();
 
-    foreach (const KateColorItem& item, m_schemas[m_currentSchema]) {
+    foreach (const KateColorItem& item, m_schemas[it.key()]) {
       if (item.useDefault) {
         config.deleteEntry(item.key);
       } else {

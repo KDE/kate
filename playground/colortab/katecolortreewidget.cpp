@@ -41,6 +41,9 @@ class KateColorTreeItem : public QTreeWidgetItem
       , m_colorItem(colorItem)
     {
       setText(0, m_colorItem.name);
+      if (!colorItem.whatsThis.isEmpty()) {
+        setData(1, Qt::WhatsThisRole, colorItem.whatsThis);
+      }
     }
 
     QColor color() const {
@@ -182,10 +185,12 @@ bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QE
       if (KColorDialog::getColor(color, item->defaultColor(), this) == QDialog::Accepted) {
         item->setUseDefaultColor(false);
         item->setColor(color);
+        viewport()->update();
         emit changed();
       }
     } else if (index.column() == 2 && !item->useDefaultColor()) {
       item->setUseDefaultColor(true);
+      viewport()->update();
       emit changed();
     }
 
@@ -209,7 +214,7 @@ void KateColorTreeWidget::selectDefaults()
     }
   }
   if (somethingChanged) {
-    update();
+    viewport()->update();
     emit changed();
   }
 }
@@ -252,7 +257,7 @@ void KateColorTreeWidget::readConfig(KConfigGroup& config)
       item->setUseDefaultColor(config.readEntry("Use Default " + item->key(), true));
     }
   }
-  update();
+  viewport()->update();
 }
 
 void KateColorTreeWidget::writeConfig(KConfigGroup& config)

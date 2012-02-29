@@ -34,7 +34,7 @@ class KateColorItem
 
     QString name; // translated name
     QString category; // translated category for tree view hierarchy
-    // TODO: add tooltip, and what's this
+    QString whatsThis; // what's this info
     QString key;  // untranslated id, used as key to save/load from KConfig
     QColor color; // user visible color
     QColor defaultColor; // used when "Default" is clicked

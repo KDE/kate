@@ -27,13 +27,13 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/search
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
+  ${CMAKE_CURRENT_SOURCE_DIR}/schema
   ${CMAKE_CURRENT_SOURCE_DIR}/undo
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
   ${CMAKE_CURRENT_SOURCE_DIR}/variableeditor
-  ${CMAKE_CURRENT_SOURCE_DIR}/../playground/colortab
   ${KDE4_KIO_INCLUDES}
 )
 
@@ -164,16 +164,16 @@ utils/katecmds.cpp
 utils/kateconfig.cpp
 utils/katebookmarks.cpp
 utils/kateautoindent.cpp
-utils/kateschema.cpp
 utils/katetemplatehandler.cpp
 utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp
-utils/katestyletreewidget.cpp
 utils/katepartpluginmanager.cpp
 
-# color config
-../playground/colortab/katecolortreewidget.cpp
+# schema
+schema/kateschema.cpp
+schema/katestyletreewidget.cpp
+schema/katecolortreewidget.cpp
 
 # swapfile
 swapfile/katerecoverbar.cpp

@@ -1841,7 +1841,6 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   KColorScheme schemeView(QPalette::Active, KColorScheme::View);
   KColorScheme schemeWindow(QPalette::Active, KColorScheme::Window);
   KColorScheme schemeSelection(QPalette::Active, KColorScheme::Selection);
-  KColorScheme schemeTooltip(QPalette::Active, KColorScheme::Tooltip);
   QColor tmp0( schemeView.background().color() );
   QColor tmp1( schemeSelection.background().color() );
   QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
@@ -1909,17 +1908,17 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_fontMetrics = QFontMetrics(m_font);
   m_fontSet = true;
 
-  m_templateBackgroundColor=config.readEntry(QString("Color Template Background"),
-                                             schemeTooltip.background(KColorScheme::NormalBackground).color());
+  QColor c = schemeWindow.background().color();
+  m_templateBackgroundColor = config.readEntry(QString("Color Template Background"), c);
 
-  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"),
-                                                        schemeTooltip.background(KColorScheme::NeutralBackground).color());
+  c = schemeView.background(KColorScheme::PositiveBackground).color();
+  m_templateFocusedEditablePlaceholderColor = config.readEntry(QString("Color Template Focused Editable Placeholder"), c);
 
-  m_templateFocusedEditablePlaceholderColor=config.readEntry(QString("Color Template Focused Editable Placeholder"),
-                                                             schemeTooltip.background(KColorScheme::PositiveBackground).color());
+  c = schemeWindow.background(KColorScheme::PositiveBackground).color();
+  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"), c);
 
-  m_templateNotEditablePlaceholderColor=config.readEntry(QString("Color Template Not Editable Placeholder"),
-                                                         schemeTooltip.background(KColorScheme::NegativeBackground).color());
+  c = schemeView.background(KColorScheme::NegativeBackground).color();
+  m_templateNotEditablePlaceholderColor = config.readEntry(QString("Color Template Not Editable Placeholder"), c);
 
   m_templateColorsSet=true;
 }

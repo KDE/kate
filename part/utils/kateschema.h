@@ -137,10 +137,8 @@ class KateSchemaConfigColorTab : public QWidget
     QVector<KateColorItem> colorItemList() const;
 
   private:
-    typedef QVector<KateColorItem> ColorList;
-
     // multiple shemas may be edited. Hence, we need one ColorList for each schema
-    QMap<int, ColorList> m_schemas;
+    QMap<int, QVector<KateColorItem> > m_schemas;
     int m_currentSchema;
 
     KateColorTreeWidget* ui;

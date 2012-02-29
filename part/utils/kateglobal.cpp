@@ -28,6 +28,7 @@
 #include "katecmds.h"
 #include "katemodemanager.h"
 #include "kateschema.h"
+#include "kateschemaconfig.h"
 #include "kateconfig.h"
 #include "katescriptmanager.h"
 #include "katecmd.h"

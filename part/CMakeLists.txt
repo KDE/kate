@@ -172,6 +172,7 @@ utils/katepartpluginmanager.cpp
 
 # schema
 schema/kateschema.cpp
+schema/kateschemaconfig.cpp
 schema/katestyletreewidget.cpp
 schema/katecolortreewidget.cpp
 

@@ -1525,7 +1525,11 @@ QStringList KateDocument::modes () const
 
 bool KateDocument::setHighlightingMode (const QString &name)
 {
-  m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
+  int mode = KateHlManager::self()->nameFind(name);
+  if (mode == -1) {
+    return false;
+  }
+  m_buffer->setHighlight(mode);
   return true;
 }
 
@@ -1608,12 +1612,19 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipMode)) {
     // restore the filetype
-    updateFileType (kconfig.readEntry("Mode", "Normal"));
+    if (kconfig.hasKey("Mode")) {
+      updateFileType (kconfig.readEntry("Mode", fileType()));
+    }
   }
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipHighlighting)) {
     // restore the hl stuff
-    m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
+    if (kconfig.hasKey("Highlighting")) {
+      int mode = KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting"));
+      if (mode >= 0) {
+        m_buffer->setHighlight(mode);
+      }
+    }
   }
 
   if (!swapFile()->shouldRecover()) {

@@ -519,6 +519,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
     if (kv) {
       const QString hlName = kv->doc()->highlight()->name();
       hl = KateHlManager::self()->nameFind(hlName);
+      Q_ASSERT(hl >= 0);
     }
   }
   hlCombo->setCurrentIndex ( hl );
@@ -699,8 +700,6 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, int s
             schemaNameForLoading=QString();
           } else {
             hl = KateHlManager::self()->nameFind(hlName);
-            if ( (hl==0) && (KateHlManager::self()->getHl(0)->name().toLower()!=hlName.toLower()))
-              hl=-1;
             kDebug(13030)<<hlName<<"--->"<<hl;
             if (hl==-1) {
               //hl not found

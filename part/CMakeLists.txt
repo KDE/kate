@@ -175,6 +175,7 @@ schema/kateschema.cpp
 schema/kateschemaconfig.cpp
 schema/katestyletreewidget.cpp
 schema/katecolortreewidget.cpp
+schema/katecategorydrawer.cpp
 
 # swapfile
 swapfile/katerecoverbar.cpp

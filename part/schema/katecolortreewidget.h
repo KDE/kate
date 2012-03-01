@@ -56,21 +56,15 @@ class KateColorTreeWidget : public QTreeWidget
 
     QVector<KateColorItem> colorItems() const;
 
-  public:
-    void readConfig(KConfigGroup& config);
-    void writeConfig(KConfigGroup& config);
-
   public Q_SLOTS:
     void selectDefaults();
-
-    void testReadConfig();
-    void testWriteConfig();
 
   Q_SIGNALS:
     void changed();
 
   protected:
     virtual bool edit(const QModelIndex& index, EditTrigger trigger, QEvent* event);
+    void drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const;
 };
 
 #endif

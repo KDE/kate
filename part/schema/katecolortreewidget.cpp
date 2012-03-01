@@ -18,8 +18,11 @@
 
 #include "katecolortreewidget.h"
 
+#include "katecategorydrawer.h"
+
 #include <QtGui/QStyledItemDelegate>
 #include <QtGui/QPainter>
+#include <QtGui/QHeaderView>
 
 #include <klocale.h>
 #include <kconfiggroup.h>
@@ -42,6 +45,7 @@ class KateColorTreeItem : public QTreeWidgetItem
     {
       setText(0, m_colorItem.name);
       if (!colorItem.whatsThis.isEmpty()) {
+        qDebug() << "SETTING WAHTS THIS";
         setData(1, Qt::WhatsThisRole, colorItem.whatsThis);
       }
     }
@@ -90,20 +94,96 @@ class KateColorTreeDelegate : public QStyledItemDelegate
     {
     }
 
-    virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
+      QSize sh = QStyledItemDelegate::sizeHint(option, index);
+      if (!index.parent().isValid()) {
+        sh.rheight() += 2 * m_categoryDrawer.leftMargin();
+      } else {
+        sh.rheight() += m_categoryDrawer.leftMargin();
+      }
+      if (index.column() == 0) {
+        sh.rwidth() += m_categoryDrawer.leftMargin();
+      } else if (index.column() == 1) {
+        sh.rwidth() = 150;
+      } else {
+        sh.rwidth() += m_categoryDrawer.leftMargin();
+      }
+
+      return sh;
+    }
+    
+    QRect fullCategoryRect(const QStyleOptionViewItem& option, const QModelIndex& index) const {
+      QModelIndex i = index;
+      if (i.parent().isValid()) {
+        i = i.parent();
+      }
+
+      QTreeWidgetItem* item = m_tree->itemFromIndex(i);
+      QRect r = m_tree->visualItemRect(item);
+
+      // adapt width
+      r.setLeft(m_categoryDrawer.leftMargin());
+      r.setWidth(m_tree->viewport()->width() - m_categoryDrawer.leftMargin() - m_categoryDrawer.rightMargin());
+
+      // adapt height
+      if (item->isExpanded() && item->childCount() > 0) {
+        const int childCount = item->childCount();
+        const int h = sizeHint(option, index.child(0, 0)).height();
+        r.setHeight(r.height() + childCount * h);
+      }
+
+      r.setTop(r.top() + m_categoryDrawer.leftMargin());
+
+      return r;
+    }
+
+    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
     {
       Q_ASSERT(index.isValid());
       Q_ASSERT(index.column() >= 0 && index.column() <= 2);
 
-      QStyledItemDelegate::paint(painter, option, index);
+      //BEGIN: draw toplevel items
+      if (!index.parent().isValid()) {
+        QStyleOptionViewItem opt(option);
+        const QRegion cl = painter->clipRegion();
+        painter->setClipRect(opt.rect);
+        opt.rect = fullCategoryRect(option, index);
+        m_categoryDrawer.drawCategory(index, 0, opt, painter);
+        painter->setClipRegion(cl);
+        return;
+      }
+      //END: draw toplevel items
 
-      // if top-level node, abort
-      if (!index.parent().isValid() || index.column() == 0) {
+      //BEGIN: draw background of category for all other items
+      {
+        QStyleOptionViewItem opt(option);
+        opt.rect = fullCategoryRect(option, index);
+        const QRegion cl = painter->clipRegion();
+        QRect cr = option.rect;
+        if (index.column() == 0) {
+          if (m_tree->layoutDirection() == Qt::LeftToRight) {
+            cr.setLeft(5);
+          } else {
+            cr.setRight(opt.rect.right());
+          }
+        }
+        painter->setClipRect(cr);
+        m_categoryDrawer.drawCategory(index, 0, opt, painter);
+        painter->setClipRegion(cl);
+        painter->setRenderHint(QPainter::Antialiasing, false);
+      }
+      //END: draw background of category for all other items
+
+      // paint the text 
+      QStyledItemDelegate::paint(painter, option, index);
+      if (index.column() == 0) {
         return;
       }
 
+      painter->setClipRect(option.rect);
       KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(m_tree->itemFromIndex(index));
 
+      //BEGIN: draw color button
       if (index.column() == 1) {
 
         QColor color = item->useDefaultColor() ? item->defaultColor() : item->color();
@@ -113,9 +193,14 @@ class KateColorTreeDelegate : public QStyledItemDelegate
         opt.palette = m_tree->palette();
 
         m_tree->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_tree);
-        painter->fillRect(m_tree->style()->subElementRect(QStyle::SE_PushButtonContents, &opt, m_tree), color);
+        opt.rect = m_tree->style()->subElementRect(QStyle::SE_PushButtonContents, &opt, m_tree);
+        opt.rect.adjust(1, 1, -1, -1);
+        painter->fillRect(opt.rect, color);
+        qDrawShadePanel(painter, opt.rect, opt.palette, true, 1, NULL);
       }
+      //END: draw color button
 
+      //BEGIN: draw reset icon
       if (index.column() == 2 && !item->useDefaultColor()) {
 
         QPixmap p = SmallIcon("edit-undo");
@@ -127,17 +212,12 @@ class KateColorTreeDelegate : public QStyledItemDelegate
           painter->drawPixmap(rect, SmallIcon("edit-undo", 0, KIconLoader::DisabledState));
         }
       }
-    }
-
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
-    {
-      QSize s(QStyledItemDelegate::sizeHint(option, index));
-      s.rheight() += 5;
-      return s;
+      //END: draw reset icon
     }
 
   private:
     KateColorTreeWidget* m_tree;
+    KateCategoryDrawer m_categoryDrawer;
 };
 //END KateColorTreeDelegate
 
@@ -145,15 +225,15 @@ KateColorTreeWidget::KateColorTreeWidget(QWidget *parent)
   : QTreeWidget(parent)
 {
   setItemDelegate(new KateColorTreeDelegate(this));
-  setSelectionMode(QAbstractItemView::ExtendedSelection);
-  setUniformRowHeights(true);
 
   QStringList headers;
-  headers << i18nc("@title:column the color name", "Color Role")
-          << i18nc("@title:column a color button", "Color")
-          << i18nc("@title:column reset color", "Reset");
+  headers << QString() // i18nc("@title:column the color name", "Color Role")
+          << QString() // i18nc("@title:column a color button", "Color")
+          << QString();// i18nc("@title:column use default color", "Reset")
   setHeaderLabels(headers);
+  setHeaderHidden(true);
   setRootIsDecorated(false);
+  setIndentation(25);
 }
 
 bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QEvent* event)
@@ -199,6 +279,14 @@ bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QE
     return false;
   }
   return QTreeWidget::edit(index, trigger, event);
+}
+
+void KateColorTreeWidget::drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const
+{
+//   QTreeWidget::drawBranches(painter, rect, index);
+  Q_UNUSED(painter)
+  Q_UNUSED(rect)
+  Q_UNUSED(index)
 }
 
 void KateColorTreeWidget::selectDefaults()
@@ -264,56 +352,6 @@ QVector<KateColorItem> KateColorTreeWidget::colorItems() const
     }
   }
   return items;
-}
-
-void KateColorTreeWidget::readConfig(KConfigGroup& config)
-{
-  for (int a = 0; a < topLevelItemCount(); ++a) {
-    QTreeWidgetItem* top = topLevelItem(a);
-    for (int b = 0; b < top->childCount(); ++b) {
-      KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
-      item->setUseDefaultColor(!config.hasKey(item->key()));
-      if (item->useDefaultColor()) {
-        item->setColor(item->defaultColor());
-      } else {
-        QColor c = config.readEntry(item->key(), item->defaultColor());
-        if (!c.isValid()) {
-          c = item->defaultColor();
-        }
-        item->setColor(c);
-      }
-    }
-  }
-  viewport()->update();
-}
-
-void KateColorTreeWidget::writeConfig(KConfigGroup& config)
-{
-    for (int a = 0; a < topLevelItemCount(); ++a) {
-    QTreeWidgetItem* top = topLevelItem(a);
-    for (int b = 0; b < top->childCount(); ++b) {
-      KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
-      if (item->useDefaultColor()) {
-        config.deleteEntry(item->key());
-      } else {
-        config.writeEntry(item->key(), item->color());
-      }
-    }
-  }
-}
-
-void KateColorTreeWidget::testReadConfig()
-{
-  KConfig cfg("/tmp/test.cfg");
-  KConfigGroup cg(&cfg, "Colors");
-  readConfig(cg);
-}
-
-void KateColorTreeWidget::testWriteConfig()
-{
-  KConfig cfg("/tmp/test.cfg");
-  KConfigGroup cg(&cfg, "Colors");
-  writeConfig(cg);
 }
 
 // kate: indent-width 2; replace-tabs on;

@@ -492,10 +492,10 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
 
-  QPushButton *btnexport = new QPushButton( i18n("Export HlColors..."), hbHl );
+  QPushButton *btnexport = new QPushButton( i18n("Export..."), hbHl );
   connect( btnexport,SIGNAL(clicked()),this,SLOT(exportHl()));
 
-  QPushButton *btnimport = new QPushButton( i18n("Import HlColors..."), hbHl );
+  QPushButton *btnimport = new QPushButton( i18n("Import..."), hbHl );
   connect( btnimport,SIGNAL(clicked()),this,SLOT(importHl()));
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {

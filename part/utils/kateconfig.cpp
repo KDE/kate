@@ -1709,7 +1709,8 @@ KateRendererConfig::KateRendererConfig ()
    m_highlightedBracketColorSet (true),
    m_wordWrapMarkerColorSet (true),
    m_tabMarkerColorSet(true),
-   m_iconBarColorSet (true),
+   m_iconBarColorSet(true),
+   m_foldingColorSet(true),
    m_lineNumberColorSet (true),
    m_spellingMistakeLineColorSet (true),
    m_templateColorsSet(true),
@@ -1745,6 +1746,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_wordWrapMarkerColorSet (false),
    m_tabMarkerColorSet(false),
    m_iconBarColorSet (false),
+   m_foldingColorSet (false),
    m_lineNumberColorSet (false),
    m_spellingMistakeLineColorSet (false),
    m_templateColorsSet(false),
@@ -1856,6 +1858,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp9( schemeView.background(KColorScheme::NegativeBackground).color() );
   QColor tmp10( schemeView.background(KColorScheme::PositiveBackground).color() );
   QColor tmp11( schemeView.background(KColorScheme::NeutralBackground).color() );
+  QColor tmp12( KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color() );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
@@ -1871,6 +1874,8 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_tabMarkerColorSet = true;
   m_iconBarColor  = config.readEntry("Color Icon Bar", tmp6);
   m_iconBarColorSet = true;
+  m_foldingColor  = config.readEntry("Color Code Folding", tmp12);
+  m_foldingColorSet = true;
   m_lineNumberColor = config.readEntry("Color Line Number", tmp7);
   m_lineNumberColorSet = true;
   m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", tmp8);
@@ -2125,6 +2130,23 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
   configEnd ();
 }
 
+const QColor& KateRendererConfig::foldingColor() const
+{
+  if (m_foldingColorSet || isGlobal())
+    return m_foldingColor;
+
+  return s_global->foldingColor();
+}
+
+void KateRendererConfig::setFoldingColor (const QColor &col)
+{
+  configStart ();
+
+  m_foldingColorSet = true;
+  m_foldingColor = col;
+
+  configEnd ();
+}
 
 const QColor &KateRendererConfig::templateBackgroundColor() const
 {

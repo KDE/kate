@@ -139,6 +139,13 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   ci.defaultColor = KColorUtils::shade( schemeView.background().color(), bgLuma > 0.3 ? -0.15 : 0.03 );
   items.append(ci);
 
+  ci.name = i18n("Code Folding");
+  ci.key = "Color Code Folding";
+  ci.whatsThis = i18n("<p>Set the color of the code folding bar.</p>");
+  ci.defaultColor = KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color();
+  items.append(ci);
+
+
   ci.name = i18n("Modified Lines");
   ci.key = "Color Modified Lines";
   ci.whatsThis = i18n("<p>Sets the color of the line modification marker for modified lines.</p>");

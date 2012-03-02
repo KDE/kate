@@ -565,7 +565,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   // the following commands change the focus themselves
   if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))) {
-    m_view->setFocus ();   
+    m_view->setFocus ();
   }
 
   if (isVisible()) {
@@ -761,7 +761,6 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_foldingRange(0)
   , m_nextHighlightBlock(-2)
   , m_currentBlockLine(-1)
-  , m_foldingHighlightColor (KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color())
 {
   setAttribute( Qt::WA_StaticContents );
   setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum );
@@ -965,7 +964,7 @@ static void paintTriangle (QPainter &painter, QColor c, int xOffset, int yOffset
     c = KColorUtils::darken( c );
   else
     c = KColorUtils::shade( c, 0.1 );
-  
+
   QPen pen;
   pen.setJoinStyle (Qt::RoundJoin);
   pen.setColor (c);
@@ -1195,7 +1194,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       {
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
-        
+
         // first icon border background
         p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
         // ... with possible additional folding highlighting
@@ -1204,11 +1203,12 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
           // use linear gradient as brush
           QLinearGradient g(lnX, y, lnX + iconPaneWidth, y);
-          g.setColorAt(0, m_foldingHighlightColor);
-          g.setColorAt(0.3, m_foldingHighlightColor.lighter(110));
-          g.setColorAt(1, m_foldingHighlightColor);
+          const QColor foldingColor(m_view->renderer()->config()->foldingColor());
+          g.setColorAt(0, foldingColor);
+          g.setColorAt(0.3, foldingColor.lighter(110));
+          g.setColorAt(1, foldingColor);
           p.setBrush(g);
-          p.setPen(m_foldingHighlightColor);
+          p.setPen(foldingColor);
 
           p.setClipRect(lnX, y, iconPaneWidth, h);
           p.setRenderHint(QPainter::Antialiasing);
@@ -1232,11 +1232,11 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         {
           if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
           {
-            paintTriangle (p, m_view->renderer()->config()->lineNumberColor(), lnX, y, iconPaneWidth, h, false);
+            paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, false);
           }
           else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
           {
-            paintTriangle (p, m_view->renderer()->config()->lineNumberColor(), lnX, y, iconPaneWidth, h, true);
+            paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, true);
           }
           else
           {
@@ -1259,7 +1259,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     {
       // one pixel space
       ++lnX;
-       
+
       Kate::TextLine tl = m_doc->plainKateTextLine(realLine);
       if (tl->markedAsModified()) {
         p.fillRect(lnX, y, 3, h, m_view->renderer()->config()->modifiedLineColor());
@@ -1372,20 +1372,20 @@ void KateIconBorder::showBlock()
     kDebug(13025) << "new folding hl-range:" << newRange;
     m_foldingRange = m_doc->newMovingRange(newRange, KTextEditor::MovingRange::ExpandRight);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    
+
     /**
      * create highlighting color with alpha for the range!
      */
-    QColor result = m_foldingHighlightColor;
+    QColor result = m_view->renderer()->config()->foldingColor();
     result.setAlphaF (0.5);
     attr->setBackground(QBrush( result ));
-    
+
     m_foldingRange->setView (m_view);
     // use z depth defined in moving ranges interface
     m_foldingRange->setZDepth (-100.0);
     m_foldingRange->setAttribute(attr);
   }
-  
+
   /**
    * repaint
    */

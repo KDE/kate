@@ -45,8 +45,10 @@ class KateColorTreeItem : public QTreeWidgetItem
     {
       setText(0, m_colorItem.name);
       if (!colorItem.whatsThis.isEmpty()) {
-        qDebug() << "SETTING WAHTS THIS";
         setData(1, Qt::WhatsThisRole, colorItem.whatsThis);
+      }
+      if (!colorItem.useDefault) {
+        setData(2, Qt::ToolTipRole, i18n("Use default color from the KDE color scheme"));
       }
     }
 
@@ -68,6 +70,8 @@ class KateColorTreeItem : public QTreeWidgetItem
 
     void setUseDefaultColor(bool useDefault) {
       m_colorItem.useDefault = useDefault;
+      QString tooltip = useDefault ? QString() : i18n("Use default color from the KDE color scheme");
+      setData(2, Qt::ToolTipRole, tooltip);
     }
 
     QString key() {
@@ -262,7 +266,6 @@ bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QE
     KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(itemFromIndex(index));
     QColor color = item->useDefaultColor() ? item->defaultColor() : item->color();
 
-    // FIXME: how do we force a repaint???
     if (index.column() == 1) {
       if (KColorDialog::getColor(color, item->defaultColor(), this) == QDialog::Accepted) {
         item->setUseDefaultColor(false);
@@ -283,7 +286,6 @@ bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QE
 
 void KateColorTreeWidget::drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const
 {
-//   QTreeWidget::drawBranches(painter, rect, index);
   Q_UNUSED(painter)
   Q_UNUSED(rect)
   Q_UNUSED(index)

@@ -1273,26 +1273,35 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
 KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) const
 {
+  // see KateIconBorder::sizeHint() for pixel spacings
   int x = 0;
   if( m_iconBorderOn ) {
     x += iconPaneWidth;
     if( p.x() <= x )
       return IconBorder;
+    x += 2;
   }
   if( this->m_annotationBorderOn ) {
     x += m_annotationBorderWidth;
     if( p.x() <= x )
       return AnnotationBorder;
+    x += 2;
   }
   if( m_lineNumbersOn || m_dynWrapIndicators ) {
     x += lineNumberWidth();
     if( p.x() <= x )
       return LineNumbers;
+    x += 2;
   }
   if( m_foldingMarkersOn ) {
     x += iconPaneWidth;
     if( p.x() <= x )
       return FoldingMarkers;
+  }
+  if (m_view->config()->lineModification()) {
+    x += 3 + 2;
+    if( p.x() <= x )
+      return ModificationBorder;
   }
   return None;
 }

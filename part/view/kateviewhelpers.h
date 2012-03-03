@@ -130,7 +130,7 @@ class KateIconBorder : public QWidget
     inline bool foldingMarkersOn()   const { return m_foldingMarkersOn;   }
     inline bool annotationBorderOn() const { return m_annotationBorderOn; }
 
-    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers, AnnotationBorder };
+    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers, AnnotationBorder, ModificationBorder };
     BorderArea positionToArea( const QPoint& ) const;
 
   Q_SIGNALS:

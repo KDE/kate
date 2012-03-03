@@ -1602,6 +1602,10 @@ void KateView::updateRendererConfig()
   m_viewInternal->updateBracketMarkAttributes();
   m_viewInternal->updateBracketMarks();
 
+  if (m_searchBar) {
+    m_searchBar->updateHighlightColors();
+  }
+
   // now redraw...
   m_viewInternal->cache()->clear();
   tagAll ();

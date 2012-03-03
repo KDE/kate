@@ -150,24 +150,16 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
             this, SLOT(updateIncInitCursor()));
 
-    const QColor searchColor = m_view->renderer()->config()->searchHighlightColor();
-    const QColor replaceColor = m_view->renderer()->config()->replaceHighlightColor();
-
     // init match attribute
-    highlightMatchAttribute->setBackground(searchColor);
-
     Attribute::Ptr mouseInAttribute(new Attribute());
     mouseInAttribute->setFontBold(true);
-    mouseInAttribute->setBackground(searchColor);
     highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateMouseIn, mouseInAttribute);
 
     Attribute::Ptr caretInAttribute(new Attribute());
     caretInAttribute->setFontItalic(true);
-    caretInAttribute->setBackground(searchColor);
     highlightMatchAttribute->setDynamicAttribute (Attribute::ActivateCaretIn, caretInAttribute);
 
-    // init replacement attribute
-    highlightReplacementAttribute->setBackground(replaceColor);
+    updateHighlightColors();
 
     // Modify parent
     QWidget * const widget = centralWidget();
@@ -764,7 +756,8 @@ void KateSearchBar::replaceNext() {
 
 // replacement == NULL --> Highlight all matches
 // replacement != NULL --> Replace and highlight all matches
-int KateSearchBar::findAll(Range inputRange, const QString * replacement) {
+int KateSearchBar::findAll(Range inputRange, const QString * replacement)
+{
     const Search::SearchOptions enabledOptions = searchOptions(SearchForward);
 
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
@@ -1491,6 +1484,20 @@ void KateSearchBar::enterIncrementalMode() {
 void KateSearchBar::clearHighlights() {
     qDeleteAll(m_hlRanges);
     m_hlRanges.clear();
+}
+
+void KateSearchBar::updateHighlightColors()
+{
+    const QColor& searchColor = m_view->renderer()->config()->searchHighlightColor();
+    const QColor& replaceColor = m_view->renderer()->config()->replaceHighlightColor();
+
+    // init match attribute
+    highlightMatchAttribute->setBackground(searchColor);
+    highlightMatchAttribute->dynamicAttribute (Attribute::ActivateMouseIn)->setBackground(searchColor);
+    highlightMatchAttribute->dynamicAttribute (Attribute::ActivateCaretIn)->setBackground(searchColor);
+
+    // init replacement attribute
+    highlightReplacementAttribute->setBackground(replaceColor);
 }
 
 

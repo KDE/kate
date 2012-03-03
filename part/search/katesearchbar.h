@@ -110,6 +110,7 @@ public Q_SLOTS:
     void enterIncrementalMode();
 
     void clearHighlights();
+    void updateHighlightColors();
 
 protected:
     // Overridden

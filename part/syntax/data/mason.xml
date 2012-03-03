@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.04" kateversion="2.1" name="Mason" section="Scripts" extensions="*.html;" mimetype="">
+<language version="1.05" kateversion="2.1" name="Mason" section="Scripts" extensions="*.html;" mimetype="">
 <highlighting>
 	<list name="keywords">
 		<item> sub </item>
@@ -72,6 +72,8 @@
 			<StringDetect attribute="Comment" context="Documentation" String="&lt;%doc&gt;" insensitive="FALSE" />
 
 			<StringDetect attribute="Mason Tag" context="EmbeddedPerl" String="&lt;%perl&gt;" insensitive="FALSE" />
+			<StringDetect attribute="Mason Tag" context="EmbeddedPerl" String="&lt;%init&gt;" insensitive="FALSE" />
+			<StringDetect attribute="Mason Tag" context="EmbeddedPerl" String="&lt;%args&gt;" insensitive="FALSE" />
 			<Detect2Chars attribute="Mason Tag" context="EmbeddedPerl" char="&lt;" char1="%" />
 			<Detect2Chars attribute="Mason Method" context="MethodCall" char="&lt;" char1="&amp;" />
 			<RegExpr attribute="Mason Tag" context="PerlOneLiner" String="^%" />
@@ -81,6 +83,8 @@
 			<Detect2Chars attribute="Mason Tag" context="#pop" char="%" char1="&gt;" />
 			<StringDetect attribute="Mason Tag" context="#pop" String="&lt;/%perl&gt;" insensitive="FALSE" />
 			<StringDetect attribute="Mason Tag" context="#pop" String="&lt;/%method&gt;" insensitive="FALSE" />
+			<StringDetect attribute="Mason Tag" context="#pop" String="&lt;/%init&gt;" insensitive="FALSE" />
+			<StringDetect attribute="Mason Tag" context="#pop" String="&lt;/%args&gt;" insensitive="FALSE" />
 			<keyword attribute="Keyword" context="#stay" String="keywords"/>
 			<keyword attribute="Data Type" context="#stay" String="types"/>
 			<HlCOct attribute="Octal" context="#stay"/>

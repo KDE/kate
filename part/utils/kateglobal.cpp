@@ -517,8 +517,11 @@ void KateGlobal::unregisterTemplateScript(KTextEditor::TemplateScript* templateS
 
 void KateGlobal::updateColorPalette()
 {
-  qDebug() << "______UPDATE COLOR PALLETTE";
+  // reload the global schema (triggers reload for every view as well)
   m_rendererConfig->reloadSchema();
+
+  // force full update of all view caches and colors
   m_rendererConfig->updateConfig();
 }
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1825,9 +1825,11 @@ void KateRendererConfig::setSchema (const QString &schema)
 
 void KateRendererConfig::reloadSchema()
 {
-  if ( isGlobal() )
+  if ( isGlobal() ) {
+    setSchemaInternal( m_schema );
     foreach (KateView* view, KateGlobal::self()->views() )
       view->renderer()->config()->reloadSchema();
+  }
 
   else if ( m_renderer && m_schemaSet )
     setSchemaInternal( m_schema );

@@ -185,6 +185,11 @@ KateGlobal::KateGlobal ()
 
   // global word completion model
   m_wordCompletionModel = new KateWordCompletionModel (this);
+
+  //
+  // finally setup connections
+  //
+  connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateColorPalette()));
 }
 
 KateGlobal::~KateGlobal()
@@ -510,4 +515,10 @@ void KateGlobal::unregisterTemplateScript(KTextEditor::TemplateScript* templateS
   scriptManager()->unregisterTemplateScript(templateScript);
 }
 
+void KateGlobal::updateColorPalette()
+{
+  qDebug() << "______UPDATE COLOR PALLETTE";
+  m_rendererConfig->reloadSchema();
+  m_rendererConfig->updateConfig();
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

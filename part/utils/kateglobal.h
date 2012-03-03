@@ -362,6 +362,8 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     KTextEditor::TemplateScript* registerTemplateScript (QObject* owner, const QString& script);
     void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
 
+  private Q_SLOTS:
+    void updateColorPalette();
 
   private:
     /**

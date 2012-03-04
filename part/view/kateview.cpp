@@ -135,13 +135,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_delayedUpdateTriggered (false)
     , m_lineToUpdateMin (-1)
     , m_lineToUpdateMax (-1)
-    , m_updateViewTimer(new QTimer(this))
-    , m_updateViewChanged(false)
 {
-  m_updateViewTimer->setSingleShot(true);
-  m_updateViewTimer->setInterval(10);
-  connect(m_updateViewTimer, SIGNAL(timeout()), SLOT(updateViewDelayed()));
-
   // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
   connect(this, SIGNAL(delayedUpdateOfView()), this, SLOT(slotDelayedUpdateOfView()), Qt::QueuedConnection);
 
@@ -1713,17 +1707,8 @@ void KateView::updateView (bool changed)
 {
   //kDebug(13020) << "KateView::updateView";
 
-  m_updateViewChanged = changed || m_updateViewChanged;
-  if (!m_updateViewTimer->isActive()) {
-    m_updateViewTimer->start();
-  }
-}
-
-void KateView::updateViewDelayed()
-{
-  m_viewInternal->updateView(m_updateViewChanged);
+  m_viewInternal->updateView (changed);
   m_viewInternal->m_leftBorder->update();
-  m_updateViewChanged = false;
 }
 
 //END

@@ -106,6 +106,9 @@ void KateSchemaManager::removeSchema (uint number)
     return;
 
   m_config.deleteGroup (name (number));
+
+  Q_ASSERT(number < m_schemas.size());
+  m_schemas.removeAt(number);
 }
 
 bool KateSchemaManager::validSchema (uint number)

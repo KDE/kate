@@ -868,7 +868,6 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
-  kDebug() << "RELOAD in consturctor";
   reload();
 
   connect( defaultSchemaCombo, SIGNAL(currentIndexChanged(int)),
@@ -877,6 +876,9 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
 
 KateSchemaConfigPage::~KateSchemaConfigPage ()
 {
+  // discard all the schemas that were created without saving
+  discardAddedSchemas();
+
   // just reload config from disc
   KateGlobal::self()->schemaManager()->update ();
 }
@@ -1068,10 +1070,8 @@ void KateSchemaConfigPage::reload()
   m_fontColorTab->reload ();
 
   // reinitialize combo boxes
-  kDebug() << "START clear combo";
   schemaCombo->clear(); // FIXME: does that trigger currentIndexChanged ?
   defaultSchemaCombo->clear();
-  kDebug() << "END clear combo";
   const QStringList& schemaList = KateGlobal::self()->schemaManager()->list();
   foreach (const QString& s, schemaList) {
     const int schemaNumber = KateGlobal::self()->schemaManager()->number (s);
@@ -1082,10 +1082,8 @@ void KateSchemaConfigPage::reload()
   // set the correct indexes again
   const int currentSchema = KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema());
   const int defaultSchemaIndex = qMax(0, defaultSchemaCombo->findData(currentSchema));
-  kDebug() << "START set correct index";
   defaultSchemaCombo->setCurrentIndex (defaultSchemaIndex);
   schemaCombo->setCurrentIndex (defaultSchemaIndex);
-  kDebug() << "END set correct index";
 
   // finally, activate the current schema again
   schemaChanged( currentSchema );
@@ -1158,6 +1156,8 @@ void KateSchemaConfigPage::newSchema (const QString& newName)
     return;
   }
 
+  m_addedSchemas.append(schemaIndex);
+
   // append items to combo boxes
   schemaCombo->addItem(schemaName, schemaIndex);
   defaultSchemaCombo->addItem(schemaName, schemaIndex);
@@ -1168,8 +1168,6 @@ void KateSchemaConfigPage::newSchema (const QString& newName)
 
 void KateSchemaConfigPage::schemaChanged (int schemaIndex)
 {
-  kDebug() << "Schema changed to:" << schemaIndex;
-
   Q_ASSERT(schemaIndex > -1);
 
   btndel->setEnabled( schemaIndex > 1 );
@@ -1200,9 +1198,6 @@ int KateSchemaConfigPage::comboIndexToSchemaIndex(int comboBoxIndex) const
 
 int KateSchemaConfigPage::schemaIndexToComboIndex(int schemaIndex) const
 {
-  if (schemaCombo->findData(schemaIndex) == -1) {
-    kDebug() << "____________________-1 for schemaIndex:" << schemaIndex;
-  }
   return qMax(0, schemaCombo->findData(schemaIndex));
 }
 //END KateSchemaConfigPage

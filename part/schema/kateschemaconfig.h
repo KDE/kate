@@ -48,6 +48,9 @@ class KateSchemaConfigColorTab : public QWidget
     void apply();
     void schemaChanged( int newSchema );
 
+    QColor backgroundColor() const;
+    QColor selectionColor() const;
+
   Q_SIGNALS:
     void changed();
     
@@ -61,8 +64,6 @@ class KateSchemaConfigColorTab : public QWidget
 
     KateColorTreeWidget* ui;
 };
-
-typedef QMap<int,QFont> FontMap; // ### remove it
 
 class KateSchemaConfigFontTab : public QWidget
 {
@@ -84,7 +85,7 @@ class KateSchemaConfigFontTab : public QWidget
 
   private:
     class KFontChooser *m_fontchooser;
-    FontMap m_fonts;
+    QMap<int, QFont> m_fonts;
     int m_schema;
 
   private Q_SLOTS:
@@ -96,7 +97,7 @@ class KateSchemaConfigFontColorTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigFontColorTab();
+    KateSchemaConfigFontColorTab(KateSchemaConfigColorTab* colorTab);
     ~KateSchemaConfigFontColorTab();
 
   Q_SIGNALS:
@@ -110,9 +111,16 @@ class KateSchemaConfigFontColorTab : public QWidget
     KateAttributeList *attributeList (uint schema);
     void exportDefaults(int schema, KConfig *cfg);
     void importDefaults(const QString& schemaName, int schema, KConfig *cfg);
+
+  protected:
+    virtual void showEvent(QShowEvent* event);
+    void updateColorPalette(const QColor& textColor);
+
   private:
     KateStyleTreeWidget* m_defaultStyles;
     QHash<int,KateAttributeList*> m_defaultStyleLists;    
+    KateSchemaConfigColorTab* m_colorTab;
+    int m_currentSchema;
 };
 
 class KateSchemaConfigHighlightTab : public QWidget
@@ -120,7 +128,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    explicit KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page = 0);
+    explicit KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, KateSchemaConfigColorTab* colorTab);
     ~KateSchemaConfigHighlightTab();
 
     void schemaChanged (int schema);
@@ -132,12 +140,18 @@ class KateSchemaConfigHighlightTab : public QWidget
     
   protected Q_SLOTS:
     void hlChanged(int z);
+
   public Q_SLOTS:
     void exportHl(int schema=-1,int hl=-1,KConfig* cfg=0);
     void importHl(const QString& fromSchemaName=QString(), int schema=-1, int hl=-1, KConfig *cfg=0);
-        
+
+  protected:
+    virtual void showEvent(QShowEvent* event);
+    void updateColorPalette(const QColor& textColor);
+
   private:
     KateSchemaConfigFontColorTab *m_defaults;
+    KateSchemaConfigColorTab* m_colorTab;
 
     KComboBox *hlCombo;
     KateStyleTreeWidget *m_styles;
@@ -166,17 +180,25 @@ class KateSchemaConfigPage : public KateConfigPage
     void defaults();
     void exportFullSchema();
     void importFullSchema();
-  private Q_SLOTS:
-    void update ();
-    void deleteSchema ();
-    void newSchema (const QString& newName=QString());
-    void schemaChanged (int schema);
 
-    void newCurrentPage(int);
+  private Q_SLOTS:
+    void deleteSchema ();
+    void newSchema (const QString& newName = QString());
+    void schemaChanged (int schema);
+    void comboBoxIndexChanged (int currentIndex);
 
   private:
-    int m_lastSchema;
-    int m_defaultSchema;
+    int comboIndexToSchemaIndex(int comboBoxIndex) const;
+    int schemaIndexToComboIndex(int schemaIndex) const;
+ 
+    void removeDeletedSchemas();
+    void discardAddedSchemas();
+
+  private:
+    int m_currentSchema;
+
+    QVector<int> m_deletedSchemas;
+    QVector<int> m_addedSchemas;
 
     class KTabWidget *m_tabWidget;
     class QPushButton *btndel;

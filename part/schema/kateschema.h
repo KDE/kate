@@ -45,7 +45,8 @@ class KateSchemaManager
      */
     KConfigGroup schema (uint number);
 
-    void addSchema (const QString &t);
+    /// on success, return schema index. If schema already exists, return -1
+    int addSchema (const QString &t);
 
     void removeSchema (uint number);
 

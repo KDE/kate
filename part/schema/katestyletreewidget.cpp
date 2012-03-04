@@ -388,8 +388,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     opt.text = i18nc("No text or background color set", "None set");
     brush = Qt::white;
   }
-  
-  
+
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
 
   if (set)

@@ -87,11 +87,14 @@ KConfigGroup KateSchemaManager::schema (uint number)
     return m_config.group (normalSchema());
 }
 
-void KateSchemaManager::addSchema (const QString &t)
+int KateSchemaManager::addSchema (const QString &t)
 {
-  m_config.group(t).writeEntry("Color Background", KColorScheme(QPalette::Active, KColorScheme::View).background().color());
+  if (t != normalSchema() && t != printingSchema() && !m_schemas.contains(t)) {
+    m_schemas.append(t);
+    return m_schemas.indexOf(t);
+  }
 
-  update (false);
+  return -1;
 }
 
 void KateSchemaManager::removeSchema (uint number)
@@ -103,8 +106,6 @@ void KateSchemaManager::removeSchema (uint number)
     return;
 
   m_config.deleteGroup (name (number));
-
-  update (false);
 }
 
 bool KateSchemaManager::validSchema (uint number)

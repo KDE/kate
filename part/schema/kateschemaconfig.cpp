@@ -318,9 +318,6 @@ void KateSchemaConfigColorTab::apply ()
   QMap<int, QVector<KateColorItem> >::Iterator it;
   for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
-    // TODO: if a schema was deleted (Delete button), this code writes to the
-    //       config anyway. This might be a bug.
-
     KConfigGroup config = KateGlobal::self()->schemaManager()->schema( it.key() );
     kDebug(13030) << "writing 'Color' tab: scheme =" << it.key()
                   << "and config group =" << config.name();
@@ -332,14 +329,30 @@ void KateSchemaConfigColorTab::apply ()
         config.writeEntry(item.key, item.color);
       }
     }
+
+    // add dummy entry to prevent the config group from being empty.
+    // As if the group is empty, KateSchemaManager will not find it anymore.
+    config.writeEntry("dummy", "prevent-empty-group");
   }
+
+  // all colors are written, so throw away all cached schemas
+  m_schemas.clear();
+}
+
+QColor KateSchemaConfigColorTab::backgroundColor() const
+{
+  return ui->findColor("Color Background");
+}
+
+QColor KateSchemaConfigColorTab::selectionColor() const
+{
+  return ui->findColor("Color Selection");
 }
 //END KateSchemaConfigColorTab
 
 //BEGIN FontConfig -- 'Fonts' tab
 KateSchemaConfigFontTab::KateSchemaConfigFontTab()
 {
-    // sizemanagment
   QGridLayout *grid = new QGridLayout( this );
 
   m_fontchooser = new KFontChooser ( this, KFontChooser::NoDisplayFlags );
@@ -363,11 +376,14 @@ void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
 
 void KateSchemaConfigFontTab::apply()
 {
-  FontMap::Iterator it;
+  QMap<int, QFont>::Iterator it;
   for ( it = m_fonts.begin(); it != m_fonts.end(); ++it )
   {
     KateGlobal::self()->schemaManager()->schema( it.key() ).writeEntry( "Font", it.value() );
   }
+
+  // all fonts are written, so throw away all cached schemas
+  m_fonts.clear();
 }
 
 void KateSchemaConfigFontTab::schemaChanged( int newSchema )
@@ -387,8 +403,11 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
 //END FontConfig
 
 //BEGIN FontColorConfig -- 'Normal Text Styles' tab
-KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
+KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab(KateSchemaConfigColorTab* colorTab)
 {
+  m_colorTab = colorTab;
+  m_currentSchema = -1;
+
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this );
 
@@ -426,29 +445,26 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
 
 void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 {
+  m_currentSchema = schema;
+
   m_defaultStyles->clear ();
 
   KateAttributeList *l = attributeList (schema);
-
-  // set colors
-  QPalette p ( m_defaultStyles->palette() );
-  KColorScheme s ( QPalette::Active, KColorScheme::View );
-  QColor _c ( s.background().color() );
-  p.setColor( QPalette::Base,
-    KateGlobal::self()->schemaManager()->schema(schema).
-      readEntry( "Color Background", _c ) );
-  _c = KColorScheme(QPalette::Active, KColorScheme::Selection).background().color();
-  p.setColor( QPalette::Highlight,
-    KateGlobal::self()->schemaManager()->schema(schema).
-      readEntry( "Color Selection", _c ) );
-  _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
-  p.setColor( QPalette::Text, _c );
-  m_defaultStyles->viewport()->setPalette( p );
+  updateColorPalette(l->at(0)->foreground().color());
 
   for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
     m_defaultStyles->addItem( KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }
+}
+
+void KateSchemaConfigFontColorTab::updateColorPalette(const QColor& textColor)
+{
+  QPalette p ( m_defaultStyles->palette() );
+  p.setColor( QPalette::Base, m_colorTab->backgroundColor() );
+  p.setColor( QPalette::Highlight, m_colorTab->selectionColor() );
+  p.setColor( QPalette::Text, textColor );
+  m_defaultStyles->setPalette( p );
 }
 
 void KateSchemaConfigFontColorTab::reload ()
@@ -467,20 +483,33 @@ void KateSchemaConfigFontColorTab::apply ()
   }
 }
 
-void KateSchemaConfigFontColorTab::exportDefaults(int schema, KConfig *cfg) {
+void KateSchemaConfigFontColorTab::exportDefaults(int schema, KConfig *cfg)
+{
   KateHlManager::self()->setDefaults(KateGlobal::self()->schemaManager()->name (schema), *(m_defaultStyleLists[schema]),cfg);
 }
 
-void KateSchemaConfigFontColorTab::importDefaults(const QString& schemaName, int schema, KConfig *cfg) {
+void KateSchemaConfigFontColorTab::importDefaults(const QString& schemaName, int schema, KConfig *cfg)
+{
   KateHlManager::self()->getDefaults(schemaName, *(m_defaultStyleLists[schema]),cfg);
 }
 
+void KateSchemaConfigFontColorTab::showEvent(QShowEvent* event)
+{
+  if (!event->spontaneous() && m_currentSchema != -1) {
+    KateAttributeList *l = attributeList (m_currentSchema);
+    Q_ASSERT(l != 0);
+    updateColorPalette(l->at(0)->foreground().color());
+  }
+
+  QWidget::showEvent(event);
+}
 //END FontColorConfig
 
 //BEGIN KateSchemaConfigHighlightTab -- 'Highlighting Text Styles' tab
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page)
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, KateSchemaConfigColorTab* colorTab)
 {
   m_defaults = page;
+  m_colorTab = colorTab;
 
   m_schema = 0;
   m_hl = 0;
@@ -602,22 +631,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   KateAttributeList *l = m_defaults->attributeList (schema);
 
   // Set listview colors
-  // We do that now, because we can now get the "normal text" color.
-  // TODO this reads of the KConfig object, which should be changed when
-  // the color tab is fixed.
-  QPalette p ( m_styles->palette() );
-  KColorScheme s ( QPalette::Active, KColorScheme::View );
-  QColor _c ( s.background().color() );
-  p.setColor( QPalette::Base,
-    KateGlobal::self()->schemaManager()->schema(m_schema).
-      readEntry( "Color Background", _c ) );
-  _c = KColorScheme(QPalette::Active, KColorScheme::Selection).background().color();
-  p.setColor( QPalette::Highlight,
-    KateGlobal::self()->schemaManager()->schema(m_schema).
-      readEntry( "Color Selection", _c ) );
-  _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
-  p.setColor( QPalette::Text, _c );
-  m_styles->viewport()->setPalette( p );
+  updateColorPalette(l->at(0)->foreground().color());
 
   QHash<QString, QTreeWidgetItem*> prefixes;
   QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].constBegin();
@@ -650,6 +664,15 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   }
 
   m_styles->resizeColumns();
+}
+
+void KateSchemaConfigHighlightTab::updateColorPalette(const QColor& textColor)
+{
+  QPalette p ( m_styles->palette() );
+  p.setColor( QPalette::Base, m_colorTab->backgroundColor() );
+  p.setColor( QPalette::Highlight, m_colorTab->selectionColor() );
+  p.setColor( QPalette::Text, textColor );
+  m_styles->setPalette( p );
 }
 
 void KateSchemaConfigHighlightTab::reload ()
@@ -775,12 +798,22 @@ void KateSchemaConfigHighlightTab::exportHl(int schema, int hl, KConfig *cfg) {
 
 }
 
+void KateSchemaConfigHighlightTab::showEvent(QShowEvent* event)
+{
+  if (!event->spontaneous()) {
+    KateAttributeList *l = m_defaults->attributeList (m_schema);
+    Q_ASSERT(l != 0);
+    updateColorPalette(l->at(0)->foreground().color());
+  }
+
+  QWidget::showEvent(event);
+}
 //END KateSchemaConfigHighlightTab
 
 //BEGIN KateSchemaConfigPage -- Main dialog page
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   : KateConfigPage( parent ),
-    m_lastSchema (-1)
+    m_currentSchema (-1)
 {
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setMargin(0);
@@ -792,8 +825,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   schemaCombo = new KComboBox( hbHl );
   schemaCombo->setEditable( false );
   lHl->setBuddy( schemaCombo );
-  connect( schemaCombo, SIGNAL(activated(int)),
-           this, SLOT(schemaChanged(int)) );
+  connect( schemaCombo, SIGNAL(currentIndexChanged(int)),
+           this, SLOT(comboBoxIndexChanged(int)) );
 
   QPushButton *btnnew = new QPushButton( i18n("&New..."), hbHl );
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
@@ -819,15 +852,13 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   m_tabWidget->addTab (m_fontTab, i18n("Font"));
   connect(m_fontTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_fontColorTab = new KateSchemaConfigFontColorTab();
+  m_fontColorTab = new KateSchemaConfigFontColorTab(m_colorTab);
   m_tabWidget->addTab (m_fontColorTab, i18n("Default Text Styles"));
   connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab);
+  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, m_colorTab);
   m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
-
-  connect (m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (newCurrentPage(int)));
 
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
@@ -837,36 +868,43 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
-  m_defaultSchema = KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema());
-
   reload();
 
-  connect( defaultSchemaCombo, SIGNAL(activated(int)),
+  connect( defaultSchemaCombo, SIGNAL(currentIndexChanged(int)),
            this, SLOT(slotChanged()) );
 }
 
+KateSchemaConfigPage::~KateSchemaConfigPage ()
+{
+  // discard all the schemas that were created without saving
+  discardAddedSchemas();
+
+  // just reload config from disc
+  KateGlobal::self()->schemaManager()->update ();
+}
+
 void KateSchemaConfigPage::exportFullSchema() {
-  QString destName=KFileDialog::getSaveFileName( QString(KateGlobal::self()->schemaManager()->name(m_lastSchema)+".kateschema"),
+  QString destName=KFileDialog::getSaveFileName( QString(KateGlobal::self()->schemaManager()->name(m_currentSchema)+".kateschema"),
                                     QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
                                     this,
-                                    i18n("Exporting color schema:%1", KateGlobal::self()->schemaManager()->name(m_lastSchema)),
+                                    i18n("Exporting color schema:%1", KateGlobal::self()->schemaManager()->name(m_currentSchema)),
                                     KFileDialog::ConfirmOverwrite );
 
   if (destName.isEmpty()) return;
-  if (!m_highlightTab->loadAllHlsForSchema(m_lastSchema)) {
+  if (!m_highlightTab->loadAllHlsForSchema(m_currentSchema)) {
     //ABORT - MESSAGE
     return;
   }
   QStringList hlList;
-  QList<int> hls=m_highlightTab->hlsForSchema(m_lastSchema);
+  QList<int> hls=m_highlightTab->hlsForSchema(m_currentSchema);
   KConfig cfg(destName,KConfig::SimpleConfig);
-  m_fontColorTab->exportDefaults(m_lastSchema,&cfg);
+  m_fontColorTab->exportDefaults(m_currentSchema,&cfg);
   int cnt=0;
   QProgressDialog progress(i18n("Exporting schema"),i18n("Stop"),0,hls.count(),this);
   progress.setWindowModality(Qt::WindowModal);
   foreach(int hl,hls) {
     hlList<<KateHlManager::self()->getHl (hl)->name();
-    m_highlightTab->exportHl(m_lastSchema,hl,&cfg);
+    m_highlightTab->exportHl(m_currentSchema,hl,&cfg);
     cnt++;
     progress.setValue(cnt);
     if (progress.wasCanceled()) break;
@@ -875,7 +913,7 @@ void KateSchemaConfigPage::exportFullSchema() {
   KConfigGroup grp(&cfg,"KateSchema");
   grp.writeEntry("full schema","true");
   grp.writeEntry("highlightings",hlList);
-  grp.writeEntry("schema",KateGlobal::self()->schemaManager()->name(m_lastSchema));
+  grp.writeEntry("schema",KateGlobal::self()->schemaManager()->name(m_currentSchema));
   cfg.sync();
 
 }
@@ -920,7 +958,7 @@ void KateSchemaConfigPage::importFullSchema() {
       if (howToImport.radioReplaceExisting->isChecked()) {
         reask=false;
       } else if (howToImport.radioReplaceCurrent->isChecked()) {
-        schemaName=KateGlobal::self()->schemaManager()->list()[m_lastSchema];
+        schemaName=KateGlobal::self()->schemaManager()->list()[m_currentSchema];
         reask=false;
       } else if (howToImport.radioAsNew->isChecked())  {
         schemaName=howToImport.newName->text();
@@ -937,7 +975,7 @@ void KateSchemaConfigPage::importFullSchema() {
     int schemaId;
     if (asNew) {
       newSchema(schemaName);
-      schemaId=m_lastSchema;
+      schemaId=m_currentSchema;
     } else {
       schemaId=KateGlobal::self()->schemaManager()->list().indexOf(schemaName);
     }
@@ -971,22 +1009,22 @@ void KateSchemaConfigPage::importFullSchema() {
   }
 }
 
-KateSchemaConfigPage::~KateSchemaConfigPage ()
-{
-  // just reload config from disc
-  KateGlobal::self()->schemaManager()->update ();
-}
-
 void KateSchemaConfigPage::apply()
 {
+  // first apply all tabs
   m_colorTab->apply();
   m_fontTab->apply();
   m_fontColorTab->apply ();
   m_highlightTab->apply ();
 
-  // just sync the config
-  KateGlobal::self()->schemaManager()->schema (0).sync();
+  // clear added schema list
+  m_addedSchemas.clear();
 
+  // now remove the deleted schemas
+  removeDeletedSchemas();
+
+  // just sync the config and reload
+  KateGlobal::self()->schemaManager()->schema (0).sync();
   KateGlobal::self()->schemaManager()->update ();
 
   // clear all attributes
@@ -994,28 +1032,76 @@ void KateSchemaConfigPage::apply()
     KateHlManager::self()->getHl (i)->clearAttributeArrays();
 
   // than reload the whole stuff
-  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (defaultSchemaCombo->currentIndex()));
+  const int currentSchema = comboIndexToSchemaIndex(defaultSchemaCombo->currentIndex());
+  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (currentSchema));
   KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real
   KateHlManager::self()->getKConfig()->sync ();
 }
 
+void KateSchemaConfigPage::removeDeletedSchemas()
+{
+  // sort ascending, example: 3, 5, 7, 8
+  qSort(m_deletedSchemas);
+
+  // delete schemas from back to front, to maintain the correct index order
+  // in the schema manager
+  for (int i = m_deletedSchemas.size() - 1; i >= 0; --i) {
+    const int schemaIndex = m_deletedSchemas[i];
+    KateGlobal::self()->schemaManager()->removeSchema(schemaIndex);
+  }
+
+  m_deletedSchemas.clear();
+}
+
 void KateSchemaConfigPage::reload()
 {
-  // just reload the config from disc
+  // clear schemas marked to delete
+  m_deletedSchemas.clear();
+
+  // discard all the schemas that were created without saving
+  discardAddedSchemas();
+
+  // now reload the config from disc
   KateGlobal::self()->schemaManager()->update ();
 
   // special for the highlighting stuff
   m_fontColorTab->reload ();
 
-  update ();
+  // reinitialize combo boxes
+  schemaCombo->clear(); // FIXME: does that trigger currentIndexChanged ?
+  defaultSchemaCombo->clear();
+  const QStringList& schemaList = KateGlobal::self()->schemaManager()->list();
+  foreach (const QString& s, schemaList) {
+    const int schemaNumber = KateGlobal::self()->schemaManager()->number (s);
+    schemaCombo->addItem(s, schemaNumber);
+    defaultSchemaCombo->addItem(s, schemaNumber);
+  }
 
-  defaultSchemaCombo->setCurrentIndex (KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema()));
+  // set the correct indexes again
+  const int currentSchema = KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema());
+  const int defaultSchemaIndex = qMax(0, defaultSchemaCombo->findData(currentSchema));
+  defaultSchemaCombo->setCurrentIndex (defaultSchemaIndex);
+  schemaCombo->setCurrentIndex (defaultSchemaIndex);
 
-  // initialize to the schema in the current document, or default schema
-  schemaCombo->setCurrentIndex( m_defaultSchema );
-  schemaChanged( m_defaultSchema );
+  // finally, activate the current schema again
+  schemaChanged( currentSchema );
+}
+
+void KateSchemaConfigPage::discardAddedSchemas()
+{
+  // sort ascending, example: 3, 5, 7, 8
+  qSort(m_addedSchemas);
+
+  // delete schemas from back to front, to maintain the correct index order
+  // in the schema manager
+  for (int i = m_addedSchemas.size() - 1; i >= 0; --i) {
+    const int schemaIndex = m_addedSchemas[i];
+    KateGlobal::self()->schemaManager()->removeSchema(schemaIndex);
+  }
+
+  m_addedSchemas.clear();
 }
 
 void KateSchemaConfigPage::reset()
@@ -1028,70 +1114,91 @@ void KateSchemaConfigPage::defaults()
   reload ();
 }
 
-void KateSchemaConfigPage::update ()
-{
-  // soft update, no load from disk
-  KateGlobal::self()->schemaManager()->update (false);
-
-  schemaCombo->clear ();
-  schemaCombo->addItems (KateGlobal::self()->schemaManager()->list ());
-
-  defaultSchemaCombo->clear ();
-  defaultSchemaCombo->addItems (KateGlobal::self()->schemaManager()->list ());
-
-  schemaCombo->setCurrentIndex (0);
-  schemaChanged (0);
-
-  schemaCombo->setEnabled (schemaCombo->count() > 0);
-}
-
 void KateSchemaConfigPage::deleteSchema ()
 {
-  int t = schemaCombo->currentIndex ();
+  const int comboIndex = schemaCombo->currentIndex ();
+  const int schemaIndex = comboIndexToSchemaIndex(comboIndex);
+  
+  if (schemaIndex <= 1) {
+    // Default and Printing schema cannot be deleted.
+    kDebug() << "default and printing schema cannot be deleted";
+    return;
+  }
 
-  KateGlobal::self()->schemaManager()->removeSchema (t);
+  // fallback to Default schema
+  schemaCombo->setCurrentIndex(0);
+  if (comboIndexToSchemaIndex(defaultSchemaCombo->currentIndex()) == schemaIndex) {
+    defaultSchemaCombo->setCurrentIndex(0);
+  }
 
-  update ();
+  // remove schema from combo box
+  schemaCombo->removeItem(comboIndex);
+  defaultSchemaCombo->removeItem(comboIndex);
+
+  // remember schema to lazy-delete it when clicking apply
+  m_deletedSchemas.append(schemaIndex);
 }
 
 void KateSchemaConfigPage::newSchema (const QString& newName)
 {
-  QString t;
-  if (newName.isEmpty())
-    t = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
-  else
-    t=newName;
-  KateGlobal::self()->schemaManager()->addSchema (t);
-
-  // soft update, no load from disk
-  KateGlobal::self()->schemaManager()->update (false);
-  int i = KateGlobal::self()->schemaManager()->list ().indexOf (t);
-
-  update ();
-  if (i > -1)
-  {
-    schemaCombo->setCurrentIndex (i);
-    schemaChanged (i);
+  // get sane name
+  QString schemaName(newName);
+  if (newName.isEmpty()) {
+    bool ok = false;
+    schemaName = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), &ok, this);
+    if (!ok) return;
   }
+
+  // try to add the schema
+  int schemaIndex = KateGlobal::self()->schemaManager()->addSchema (schemaName);
+  if (schemaIndex == -1) {
+    KMessageBox::information(this, i18n("<p>The schema %1 already exists, or was just deleted.</p><p>Please choose a different schema name.</p>", schemaName), i18n("New Schema"));
+    return;
+  }
+
+  m_addedSchemas.append(schemaIndex);
+
+  // append items to combo boxes
+  schemaCombo->addItem(schemaName, schemaIndex);
+  defaultSchemaCombo->addItem(schemaName, schemaIndex);
+
+  // finally, activate new schema (last item in the list)
+  schemaCombo->setCurrentIndex(schemaCombo->count() - 1);
 }
 
-void KateSchemaConfigPage::schemaChanged (int schema)
+void KateSchemaConfigPage::schemaChanged (int schemaIndex)
 {
-  btndel->setEnabled( schema > 1 );
+  Q_ASSERT(schemaIndex > -1);
 
-  m_colorTab->schemaChanged( schema );
-  m_fontTab->schemaChanged( schema );
-  m_fontColorTab->schemaChanged (schema);
-  m_highlightTab->schemaChanged (schema);
+  btndel->setEnabled( schemaIndex > 1 );
 
-  m_lastSchema = schema;
+  // propagate changed schema to all tabs
+  m_colorTab->schemaChanged(schemaIndex);
+  m_fontTab->schemaChanged(schemaIndex);
+  m_fontColorTab->schemaChanged(schemaIndex);
+  m_highlightTab->schemaChanged(schemaIndex);
+
+  // save current schema index
+  m_currentSchema = schemaIndex;
 }
 
-void KateSchemaConfigPage::newCurrentPage (int index)
+void KateSchemaConfigPage::comboBoxIndexChanged (int currentIndex)
 {
-   QWidget *w = m_tabWidget->widget(index);
-   if (w == m_highlightTab)
-    m_highlightTab->schemaChanged (m_lastSchema);
+  const int schemaIndex = comboIndexToSchemaIndex(currentIndex);
+  schemaChanged(schemaIndex);
+}
+
+int KateSchemaConfigPage::comboIndexToSchemaIndex(int comboBoxIndex) const
+{
+  if (comboBoxIndex < 0 || comboBoxIndex >= schemaCombo->count())
+    return 0;
+
+  return schemaCombo->itemData(comboBoxIndex).toInt();
+}
+
+int KateSchemaConfigPage::schemaIndexToComboIndex(int schemaIndex) const
+{
+  return qMax(0, schemaCombo->findData(schemaIndex));
 }
 //END KateSchemaConfigPage
 

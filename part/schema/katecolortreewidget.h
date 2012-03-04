@@ -56,6 +56,8 @@ class KateColorTreeWidget : public QTreeWidget
 
     QVector<KateColorItem> colorItems() const;
 
+    QColor findColor(const QString& key) const;
+
   public Q_SLOTS:
     void selectDefaults();
 

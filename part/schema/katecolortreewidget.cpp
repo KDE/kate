@@ -356,4 +356,22 @@ QVector<KateColorItem> KateColorTreeWidget::colorItems() const
   return items;
 }
 
+QColor KateColorTreeWidget::findColor(const QString& key) const
+{
+  for (int a = 0; a < topLevelItemCount(); ++a) {
+    QTreeWidgetItem* top = topLevelItem(a);
+    for (int b = 0; b < top->childCount(); ++b) {
+      KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(top->child(b));
+      if (item->key() == key) {
+        if (item->useDefaultColor()) {
+          return item->defaultColor();
+        } else {
+          return item->color();
+        }
+      }
+    }
+  }
+  return QColor();
+}
+
 // kate: indent-width 2; replace-tabs on;

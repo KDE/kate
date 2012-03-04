@@ -354,27 +354,27 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     QStyleOptionViewItem styleContextItem(option);
 
     QBrush brush = getBrushForColorColumn(index, KateStyleTreeWidgetItem::SelectedBackground);
-    if(brush != QBrush()) {
+    if (brush != QBrush()) {
       styleContextItem.palette.setBrush(QPalette::Highlight, brush);
-    } else {
-      styleContextItem.palette.setBrush(QPalette::Highlight, QBrush(KateRendererConfig::global()->selectionColor()));
     }
 
     brush = getBrushForColorColumn(index, KateStyleTreeWidgetItem::SelectedForeground);
-    if(brush != QBrush()) {
+    if (brush != QBrush()) {
       styleContextItem.palette.setBrush(QPalette::HighlightedText, brush);
     }
-	
+
     return QStyledItemDelegate::paint(painter, styleContextItem, index);
   }
+
+  QStyledItemDelegate::paint(painter, option, index);
   
   if (!columns.contains(index.column())) {
-    return QStyledItemDelegate::paint(painter, option, index);
+    return;
   }
 
   QVariant displayData = index.model()->data(index);
   if (displayData.type() != QVariant::Brush)
-    return QStyledItemDelegate::paint(painter, option, index);
+    return;
 
   QBrush brush = qVariantValue<QBrush>(displayData);
 
@@ -389,9 +389,6 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     brush = Qt::white;
   }
   
-  if(index.row() == m_widget->currentIndex().row() && m_widget->currentItem()->isSelected() && m_widget->currentItem()->childCount() == 0) {
-    painter->fillRect(opt.rect, KColorScheme(QPalette::Active, KColorScheme::Selection).background());
-  }
   
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
 

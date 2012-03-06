@@ -483,7 +483,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   bool ctxChanged = false;
   // loop over the lines of the block, from startline to endline or end of block
   // if stillcontinue forces us to do so
-  for (; current_line < qMin (endLine, lines()); ++current_line)
+  for (; current_line < qMin (endLine+1, lines()); ++current_line)
   {
     // current line
     Kate::TextLine textLine = plainLine (current_line);

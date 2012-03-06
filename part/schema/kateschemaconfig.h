@@ -80,6 +80,9 @@ class KateSchemaConfigFontTab : public QWidget
   public:
     void readConfig (KConfig *config);
 
+    void importSchema(KConfigGroup& config);
+    void exportSchema(KConfigGroup& config);
+
   public Q_SLOTS:
     void apply();
     void schemaChanged( int newSchema );

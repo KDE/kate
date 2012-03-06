@@ -425,6 +425,18 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
   m_fonts[ newSchema ] = m_fontchooser->font();
   connect (m_fontchooser, SIGNAL (fontSelected(QFont)), this, SLOT (slotFontSelected(QFont)));
 }
+
+void KateSchemaConfigFontTab::importSchema(KConfigGroup& config)
+{
+  QFont f (KGlobalSettings::fixedFont());
+  m_fontchooser->setFont(config.readEntry("Font", f));
+  m_fonts[m_schema] = m_fontchooser->font();
+}
+
+void KateSchemaConfigFontTab::exportSchema(KConfigGroup& config)
+{
+  config.writeEntry("Font", m_fontchooser->font());
+}
 //END FontConfig
 
 //BEGIN FontColorConfig -- 'Normal Text Styles' tab
@@ -951,10 +963,12 @@ void KateSchemaConfigPage::exportFullSchema()
     if (progress.wasCanceled()) break;
   }
   progress.setValue(hls.count());
+
   KConfigGroup grp(&cfg, "KateSchema");
   grp.writeEntry("full schema", "true");
   grp.writeEntry("highlightings", hlList);
   grp.writeEntry("schema", currentSchemaName);
+  m_fontTab->exportSchema(grp);
   cfg.sync();
 }
 
@@ -1071,6 +1085,11 @@ void KateSchemaConfigPage::importFullSchema()
   //
   KConfigGroup colorConfigGroup(&cfg, "Editor Colors");
   m_colorTab->importSchema(colorConfigGroup);
+
+  //
+  // import font
+  //
+  m_fontTab->importSchema(schemaGroup);
 
   //
   // import Default Styles

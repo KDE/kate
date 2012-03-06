@@ -277,39 +277,64 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   // switch
   m_currentSchema = newSchema;
 
-  // first block signals otherwise setColor emits changed
-  bool blocked = blockSignals(true);
-
   // If we havent this schema, read in from config file
   if ( ! m_schemas.contains( newSchema ) )
   {
     KConfigGroup config = KateGlobal::self()->schemaManager()->schema(newSchema);
-
-    // read from config
-    QVector<KateColorItem> items = colorItemList();
-    for (int i = 0; i < items.count(); ++i ) {
-      KateColorItem& item(items[i]);
-      item.useDefault = !config.hasKey(item.key);
-      if (item.useDefault) {
-        item.color = item.defaultColor;
-      } else {
-        item.color = config.readEntry(item.key, item.defaultColor);
-        if (!item.color.isValid()) {
-          config.deleteEntry(item.key);
-          item.useDefault = true;
-          item.color = item.defaultColor;
-        }
-      }
-    }
+    QVector<KateColorItem> items = readConfig(config);
 
     m_schemas[ newSchema ] = items;
   }
 
-  QVector<KateColorItem> items;
+  // first block signals otherwise setColor emits changed
+  const bool blocked = blockSignals(true);
+
   ui->clear();
   ui->addColorItems(m_schemas[m_currentSchema]);
 
   blockSignals(blocked);
+}
+
+QVector<KateColorItem> KateSchemaConfigColorTab::readConfig(KConfigGroup& config)
+{
+  QVector<KateColorItem> items = colorItemList();
+  for (int i = 0; i < items.count(); ++i ) {
+    KateColorItem& item(items[i]);
+    item.useDefault = !config.hasKey(item.key);
+    if (item.useDefault) {
+      item.color = item.defaultColor;
+    } else {
+      item.color = config.readEntry(item.key, item.defaultColor);
+      if (!item.color.isValid()) {
+        config.deleteEntry(item.key);
+        item.useDefault = true;
+        item.color = item.defaultColor;
+      }
+    }
+  }
+  return items;
+}
+
+void KateSchemaConfigColorTab::importSchema(KConfigGroup& config)
+{
+  m_schemas[m_currentSchema] = readConfig(config);
+
+  // first block signals otherwise setColor emits changed
+  const bool blocked = blockSignals(true);
+
+  ui->clear();
+  ui->addColorItems(m_schemas[m_currentSchema]);
+
+  blockSignals(blocked);
+}
+
+void KateSchemaConfigColorTab::exportSchema(KConfigGroup& config)
+{
+  QVector<KateColorItem> items = ui->colorItems();
+  foreach (const KateColorItem& item, items) {
+    QColor c = item.useDefault ? item.defaultColor : item.color;
+    config.writeEntry(item.key, item.color);
+  }
 }
 
 void KateSchemaConfigColorTab::apply ()
@@ -483,12 +508,12 @@ void KateSchemaConfigFontColorTab::apply ()
   }
 }
 
-void KateSchemaConfigFontColorTab::exportDefaults(int schema, KConfig *cfg)
+void KateSchemaConfigFontColorTab::exportSchema(int schema, KConfig *cfg)
 {
   KateHlManager::self()->setDefaults(KateGlobal::self()->schemaManager()->name (schema), *(m_defaultStyleLists[schema]),cfg);
 }
 
-void KateSchemaConfigFontColorTab::importDefaults(const QString& schemaName, int schema, KConfig *cfg)
+void KateSchemaConfigFontColorTab::importSchema(const QString& schemaName, int schema, KConfig *cfg)
 {
   KateHlManager::self()->getDefaults(schemaName, *(m_defaultStyleLists[schema]),cfg);
 }
@@ -582,23 +607,20 @@ void KateSchemaConfigHighlightTab::hlChanged(int z)
   schemaChanged (m_schema);
 }
 
-bool KateSchemaConfigHighlightTab::loadAllHlsForSchema(int schema) {
-  QProgressDialog progress(i18n("Loading all highlightings for schema"),i18n("Cancel"),0,KateHlManager::self()->highlights(),this);
+bool KateSchemaConfigHighlightTab::loadAllHlsForSchema(int schema)
+{
+  QProgressDialog progress(i18n("Loading all highlightings for schema"), QString(), 0, KateHlManager::self()->highlights(), this);
   progress.setWindowModality(Qt::WindowModal);
-  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
+  for (int i = 0; i < KateHlManager::self()->highlights(); ++i) {
     if (!m_hlDict[schema].contains(i))
     {
       kDebug(13030) << "NEW HL, create list";
 
       QList<KateExtendedAttribute::Ptr> list;
-      KateHlManager::self()->getHl( i )->getKateExtendedAttributeListCopy(KateGlobal::self()->schemaManager()->name (schema), list);
+      KateHlManager::self()->getHl(i)->getKateExtendedAttributeListCopy(KateGlobal::self()->schemaManager()->name(schema), list);
       m_hlDict[schema].insert (i, list);
     }
-    progress.setValue(progress.value()+1);
-    if (progress.wasCanceled()) {
-      progress.setValue(KateHlManager::self()->highlights());
-      return false;
-    }
+    progress.setValue(progress.value() + 1);
   }
   progress.setValue(KateHlManager::self()->highlights());
   return true;
@@ -883,130 +905,203 @@ KateSchemaConfigPage::~KateSchemaConfigPage ()
   KateGlobal::self()->schemaManager()->update ();
 }
 
-void KateSchemaConfigPage::exportFullSchema() {
-  QString destName=KFileDialog::getSaveFileName( QString(KateGlobal::self()->schemaManager()->name(m_currentSchema)+".kateschema"),
-                                    QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
-                                    this,
-                                    i18n("Exporting color schema:%1", KateGlobal::self()->schemaManager()->name(m_currentSchema)),
-                                    KFileDialog::ConfirmOverwrite );
+void KateSchemaConfigPage::exportFullSchema()
+{
+  // get save destination
+  const QString currentSchemaName = KateGlobal::self()->schemaManager()->name(m_currentSchema);
+  QString destName = KFileDialog::getSaveFileName(
+      QString(currentSchemaName + ".kateschema"),
+      QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
+      this,
+      i18n("Exporting color schema: %1", currentSchemaName),
+      KFileDialog::ConfirmOverwrite );
 
   if (destName.isEmpty()) return;
-  if (!m_highlightTab->loadAllHlsForSchema(m_currentSchema)) {
-    //ABORT - MESSAGE
-    return;
-  }
+
+  // open config file
+  KConfig cfg(destName, KConfig::SimpleConfig);
+
+  //
+  // export editor Colors (background, ...)
+  //
+  KConfigGroup colorConfigGroup(&cfg, "Editor Colors");
+  m_colorTab->exportSchema(colorConfigGroup);
+
+  //
+  // export Default Styles
+  //
+  m_fontColorTab->exportSchema(m_currentSchema, &cfg);
+
+  //
+  // export Highlighting Text Styles
+  //
+  // force a load of all Highlighting Text Styles
   QStringList hlList;
-  QList<int> hls=m_highlightTab->hlsForSchema(m_currentSchema);
-  KConfig cfg(destName,KConfig::SimpleConfig);
-  m_fontColorTab->exportDefaults(m_currentSchema,&cfg);
-  int cnt=0;
-  QProgressDialog progress(i18n("Exporting schema"),i18n("Stop"),0,hls.count(),this);
+  m_highlightTab->loadAllHlsForSchema(m_currentSchema);
+
+  QList<int> hls = m_highlightTab->hlsForSchema(m_currentSchema);
+
+  int cnt = 0;
+  QProgressDialog progress(i18n("Exporting schema"), QString(), 0, hls.count(), this);
   progress.setWindowModality(Qt::WindowModal);
-  foreach(int hl,hls) {
-    hlList<<KateHlManager::self()->getHl (hl)->name();
-    m_highlightTab->exportHl(m_currentSchema,hl,&cfg);
-    cnt++;
-    progress.setValue(cnt);
+  foreach (int hl, hls) {
+    hlList << KateHlManager::self()->getHl (hl)->name();
+    m_highlightTab->exportHl(m_currentSchema, hl, &cfg);
+    progress.setValue(++cnt);
     if (progress.wasCanceled()) break;
   }
   progress.setValue(hls.count());
-  KConfigGroup grp(&cfg,"KateSchema");
-  grp.writeEntry("full schema","true");
-  grp.writeEntry("highlightings",hlList);
-  grp.writeEntry("schema",KateGlobal::self()->schemaManager()->name(m_currentSchema));
+  KConfigGroup grp(&cfg, "KateSchema");
+  grp.writeEntry("full schema", "true");
+  grp.writeEntry("highlightings", hlList);
+  grp.writeEntry("schema", currentSchemaName);
   cfg.sync();
-
 }
 
-void KateSchemaConfigPage::importFullSchema() {
-  QString srcName=KFileDialog::getOpenFileName( KUrl(),
-                                    "*.kateschema|Kate color schema",
-                                    this,
-                                    i18n("Importing color schema")
-                                    );
+QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
+{
+  QString schemaName = suggestedName;
 
-  if (srcName.isEmpty())  return;
-  KConfig cfg(srcName,KConfig::SimpleConfig);
-  KConfigGroup grp(&cfg,"KateSchema");
-  if (grp.readEntry("full schema","false").toUpper()!="TRUE") {
-    KMessageBox::information(
-            this,
-            i18n("File is not a full schema file"),
-            i18n("Fileformat error"));
-    return;
-  }
-  QStringList highlightings=grp.readEntry("highlightings",QStringList());
-  QString schemaName=grp.readEntry("schema",i18n("Name unspecified"));
-  QString fromSchemaName=schemaName;
-  bool reask=true;
+  bool reask = true;
   do {
     KDialog howToImportDialog(this);
     Ui_KateHowToImportSchema howToImport;
     howToImport.setupUi(howToImportDialog.mainWidget());
-    if (KateGlobal::self()->schemaManager()->list().contains(schemaName)) {
+
+    // if schema exists, prepare option to replace
+    if (KateGlobal::self()->schemaManager()->validSchema(schemaName)) {
       howToImport.radioReplaceExisting->show();
-      howToImport.radioReplaceExisting->setText(i18n("Replace existing schema %1",schemaName));
+      howToImport.radioReplaceExisting->setText(i18n("Replace existing schema %1", schemaName));
       howToImport.radioReplaceExisting->setChecked(true);
     } else {
       howToImport.radioReplaceExisting->hide();
       howToImport.newName->setText(schemaName);
     }
-    if (howToImportDialog.exec()==KDialog::Cancel) {
-      schemaName=QString();
-      reask=false;
-    } else {
+    
+    // cancel pressed?
+    if (howToImportDialog.exec() == KDialog::Cancel) {
+      schemaName.clear();
+      reask = false;
+    }
+    // check what the user wants
+    else {
+      // replace existing
       if (howToImport.radioReplaceExisting->isChecked()) {
-        reask=false;
-      } else if (howToImport.radioReplaceCurrent->isChecked()) {
-        schemaName=KateGlobal::self()->schemaManager()->list()[m_currentSchema];
-        reask=false;
-      } else if (howToImport.radioAsNew->isChecked())  {
-        schemaName=howToImport.newName->text();
-        if (KateGlobal::self()->schemaManager()->list().contains(schemaName)) {
-          reask=true;
-        } else reask=false;
-      } else reask=true;
+        reask = false;
+      }
+      // replace current
+      else if (howToImport.radioReplaceCurrent->isChecked()) {
+        schemaName = KateGlobal::self()->schemaManager()->list()[m_currentSchema];
+        reask = false;
+      }
+      // new one, check again, whether the schema already exists
+      else if (howToImport.radioAsNew->isChecked()) {
+        schemaName = howToImport.newName->text();
+        if (KateGlobal::self()->schemaManager()->validSchema(schemaName)) {
+          reask = true;
+        } else reask = false;
+      }
+      // should never happen
+      else reask = true;
     }
   } while (reask);
-  if (!schemaName.isEmpty()) {
-    kDebug(13030)<<"Importing schema:"<<schemaName;
-    bool asNew=!KateGlobal::self()->schemaManager()->list().contains(schemaName);
-    kDebug(13030)<<"schema exists?"<<(!asNew);
-    int schemaId;
-    if (asNew) {
-      newSchema(schemaName);
-      schemaId=m_currentSchema;
-    } else {
-      schemaId=KateGlobal::self()->schemaManager()->list().indexOf(schemaName);
-    }
-    schemaChanged(schemaId);
-    m_fontColorTab->importDefaults(fromSchemaName,schemaId,&cfg);
-    m_fontColorTab->apply();
-    const int hlCount=KateHlManager::self()->highlights();
-    QHash<QString,int> nameToId;
-    for(int i=0;i<hlCount;i++) {
-      nameToId.insert(KateHlManager::self()->hlName(i),i);
-    }
 
-    int cnt=0;
-    QProgressDialog progress(i18n("Importing schema"),i18n("Stop"),0,highlightings.count(),this);
-    progress.setWindowModality(Qt::WindowModal);
-    foreach(const QString& hl,highlightings) {
-      if (nameToId.contains(hl)) {
-        int i=nameToId[hl];
-        m_highlightTab->importHl(fromSchemaName,schemaId,i,&cfg);
-        kDebug(13030)<<"hl imported:"<<hl;
-      } else {
-        kDebug(13030)<<"could not import hl, hl unknown:"<<hl;
-      }
-      cnt++;
-      progress.setValue(cnt);
-      if (progress.wasCanceled()) break;
-    }
-    progress.setValue(highlightings.count());
-    m_highlightTab->apply();
-    schemaChanged(schemaId);
+  return schemaName;
+}
+
+void KateSchemaConfigPage::importFullSchema()
+{
+  const QString srcName = KFileDialog::getOpenFileName(KUrl(),
+                                    "*.kateschema|Kate color schema",
+                                    this, i18n("Importing Color Schema"));
+
+  if (srcName.isEmpty()) return;
+
+  // carete config + sanity check for full color schema
+  KConfig cfg(srcName, KConfig::SimpleConfig);
+  KConfigGroup schemaGroup(&cfg, "KateSchema");
+  if (schemaGroup.readEntry("full schema", "false").toUpper() != "TRUE") {
+    KMessageBox::sorry(this, i18n("The file does not contain a full color schema."),
+                       i18n("Fileformat error"));
+    return;
   }
+
+  // read color schema name
+  const QStringList highlightings = schemaGroup.readEntry("highlightings",QStringList());
+  const QString fromSchemaName = schemaGroup.readEntry("schema", i18n("Name unspecified"));
+
+  // request valid schema name
+  const QString schemaName = requestSchemaName(fromSchemaName);
+  if (schemaName.isEmpty()) {
+    return;
+  }
+
+  // if the requested schema name was just deleted, it is marked to-be-deleted.
+  // As we import a new schema under this name now, we have to remove it from
+  // the list again.
+  int schemaIndex = KateGlobal::self()->schemaManager()->list().indexOf(schemaName);
+  if (schemaIndex != -1 && m_deletedSchemas.contains(schemaIndex)) {
+    Q_ASSERT(m_deletedSchemas.indexOf(schemaIndex) != -1);
+    m_deletedSchemas.remove(m_deletedSchemas.indexOf(schemaIndex));
+    schemaCombo->addItem(schemaName, schemaIndex);
+    defaultSchemaCombo->addItem(schemaName, schemaIndex);
+  }
+
+  // if the schema already exists, select it in the combo box
+  if (schemaIndex != -1) {
+    Q_ASSERT(schemaCombo->findData(schemaIndex) != -1);
+    schemaCombo->setCurrentIndex(schemaCombo->findData(schemaIndex));
+  }
+  else { // it is really a new schema, easy meat :-)
+    newSchema(schemaName);
+    schemaIndex = KateGlobal::self()->schemaManager()->number(schemaName);
+    Q_ASSERT(schemaIndex != -1);
+  }
+
+  // make sure the correct schema is activated
+  schemaChanged(schemaIndex);
+
+
+  // Finally, the correct schema is activated.
+  // Next,  start importing.
+  kDebug(13030) << "Importing schema: " << schemaName;
+
+  //
+  // import editor Colors (background, ...)
+  //
+  KConfigGroup colorConfigGroup(&cfg, "Editor Colors");
+  m_colorTab->importSchema(colorConfigGroup);
+
+  //
+  // import Default Styles
+  //
+  m_fontColorTab->importSchema(fromSchemaName, schemaIndex, &cfg);
+
+  //
+  // import all Highlighting Text Styles
+  //
+  // create mapping from highlighting name to internal id
+  const int hlCount = KateHlManager::self()->highlights();
+  QHash<QString, int> nameToId;
+  for(int i = 0; i < hlCount; ++i) {
+    nameToId.insert(KateHlManager::self()->hlName(i),i);
+  }
+
+  // may take some time, as we have > 200 highlightings
+  int cnt = 0;
+  QProgressDialog progress(i18n("Importing schema"), QString(), 0, highlightings.count(), this);
+  progress.setWindowModality(Qt::WindowModal);
+  foreach(const QString& hl,highlightings) {
+    if (nameToId.contains(hl)) {
+      const int i = nameToId[hl];
+      m_highlightTab->importHl(fromSchemaName, schemaIndex, i, &cfg);
+      kDebug(13030) << "hl imported:" << hl;
+    } else {
+      kDebug(13030) << "could not import hl, hl unknown:" << hl;
+    }
+    progress.setValue(++cnt);
+  }
+  progress.setValue(highlightings.count());
 }
 
 void KateSchemaConfigPage::apply()
@@ -1139,21 +1234,21 @@ void KateSchemaConfigPage::deleteSchema ()
   m_deletedSchemas.append(schemaIndex);
 }
 
-void KateSchemaConfigPage::newSchema (const QString& newName)
+bool KateSchemaConfigPage::newSchema (const QString& newName)
 {
   // get sane name
   QString schemaName(newName);
   if (newName.isEmpty()) {
     bool ok = false;
     schemaName = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), &ok, this);
-    if (!ok) return;
+    if (!ok) return false;
   }
 
   // try to add the schema
   int schemaIndex = KateGlobal::self()->schemaManager()->addSchema (schemaName);
   if (schemaIndex == -1) {
     KMessageBox::information(this, i18n("<p>The schema %1 already exists, or was just deleted.</p><p>Please choose a different schema name.</p>", schemaName), i18n("New Schema"));
-    return;
+    return false;
   }
 
   m_addedSchemas.append(schemaIndex);
@@ -1164,6 +1259,8 @@ void KateSchemaConfigPage::newSchema (const QString& newName)
 
   // finally, activate new schema (last item in the list)
   schemaCombo->setCurrentIndex(schemaCombo->count() - 1);
+
+  return true;
 }
 
 void KateSchemaConfigPage::schemaChanged (int schemaIndex)

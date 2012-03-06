@@ -51,11 +51,15 @@ class KateSchemaConfigColorTab : public QWidget
     QColor backgroundColor() const;
     QColor selectionColor() const;
 
+    void importSchema(KConfigGroup& config);
+    void exportSchema(KConfigGroup& config);
+
   Q_SIGNALS:
     void changed();
     
   private:
     QVector<KateColorItem> colorItemList() const;
+    QVector<KateColorItem> readConfig(KConfigGroup& config);
 
   private:
     // multiple shemas may be edited. Hence, we need one ColorList for each schema
@@ -109,8 +113,8 @@ class KateSchemaConfigFontColorTab : public QWidget
     void apply ();
 
     KateAttributeList *attributeList (uint schema);
-    void exportDefaults(int schema, KConfig *cfg);
-    void importDefaults(const QString& schemaName, int schema, KConfig *cfg);
+    void exportSchema(int schema, KConfig *cfg);
+    void importSchema(const QString& schemaName, int schema, KConfig *cfg);
 
   protected:
     virtual void showEvent(QShowEvent* event);
@@ -183,7 +187,7 @@ class KateSchemaConfigPage : public KateConfigPage
 
   private Q_SLOTS:
     void deleteSchema ();
-    void newSchema (const QString& newName = QString());
+    bool newSchema (const QString& newName = QString());
     void schemaChanged (int schema);
     void comboBoxIndexChanged (int currentIndex);
 
@@ -193,6 +197,8 @@ class KateSchemaConfigPage : public KateConfigPage
  
     void removeDeletedSchemas();
     void discardAddedSchemas();
+
+    QString requestSchemaName(const QString& suggestedName);
 
   private:
     int m_currentSchema;

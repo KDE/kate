@@ -44,20 +44,22 @@ class KateSchemaConfigColorTab : public QWidget
     KateSchemaConfigColorTab();
     ~KateSchemaConfigColorTab();
 
+    void fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex);
+
+    QColor backgroundColor() const;
+    QColor selectionColor() const;
+
   public Q_SLOTS:
     void apply();
     void reload();
     void schemaChanged( int newSchema );
-
-    QColor backgroundColor() const;
-    QColor selectionColor() const;
 
     void importSchema(KConfigGroup& config);
     void exportSchema(KConfigGroup& config);
 
   Q_SIGNALS:
     void changed();
-    
+
   private:
     QVector<KateColorItem> colorItemList() const;
     QVector<KateColorItem> readConfig(KConfigGroup& config);
@@ -84,6 +86,8 @@ class KateSchemaConfigFontTab : public QWidget
     void importSchema(KConfigGroup& config);
     void exportSchema(KConfigGroup& config);
 
+    void fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex);
+
   public Q_SLOTS:
     void apply();
     void reload();
@@ -109,6 +113,8 @@ class KateSchemaConfigFontColorTab : public QWidget
     KateSchemaConfigFontColorTab(KateSchemaConfigColorTab* colorTab);
     ~KateSchemaConfigFontColorTab();
 
+    void fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex);
+
   Q_SIGNALS:
     void changed();
 
@@ -127,7 +133,7 @@ class KateSchemaConfigFontColorTab : public QWidget
 
   private:
     KateStyleTreeWidget* m_defaultStyles;
-    QHash<int,KateAttributeList*> m_defaultStyleLists;    
+    QHash<int,KateAttributeList*> m_defaultStyleLists;
     KateSchemaConfigColorTab* m_colorTab;
     int m_currentSchema;
 };
@@ -144,9 +150,11 @@ class KateSchemaConfigHighlightTab : public QWidget
     void reload ();
     void apply ();
 
+    void fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex);
+
   Q_SIGNALS:
     void changed();
-    
+
   protected Q_SLOTS:
     void hlChanged(int z);
 
@@ -199,10 +207,11 @@ class KateSchemaConfigPage : public KateConfigPage
   private:
     int comboIndexToSchemaIndex(int comboBoxIndex) const;
     int schemaIndexToComboIndex(int schemaIndex) const;
- 
+
     void removeDeletedSchemas();
     void discardAddedSchemas();
 
+    void refillCombos(const QString& schemaName, const QString& defaultSchemaName);
     QString requestSchemaName(const QString& suggestedName);
 
   private:

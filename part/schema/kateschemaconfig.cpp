@@ -260,6 +260,15 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   return items;
 }
 
+void KateSchemaConfigColorTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
+{
+  Q_UNUSED(oldSchemaIndex)
+
+  // apply() first reads the gui into m_schemas, so we can safely clear all
+  m_schemas.clear();
+  m_currentSchema = newSchemaIndex;
+}
+
 void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
 {
   // save curent schema
@@ -377,7 +386,7 @@ void KateSchemaConfigColorTab::reload()
   const bool blocked = blockSignals(true);
 
   ui->clear();
-  ui->addColorItems(m_schemas[m_currentSchema]);
+  ui->addColorItems(items);
 
   blockSignals(blocked);
 }
@@ -414,6 +423,16 @@ void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
     m_fonts[m_currentSchema] = font;
     emit changed();
   }
+}
+
+void KateSchemaConfigFontTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
+{
+  Q_UNUSED(oldSchemaIndex)
+
+  // at this point, all changes are saved. If something changes, slotFontSelected()
+  // writes it into m_fonts again. Hence, we can safely clear m_fonts
+  m_fonts.clear();
+  m_currentSchema = newSchemaIndex;
 }
 
 void KateSchemaConfigFontTab::apply()
@@ -493,6 +512,29 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab(KateSchemaConfigColor
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
 {
   qDeleteAll(m_defaultStyleLists);
+}
+
+void KateSchemaConfigFontColorTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
+{
+  Q_ASSERT(oldSchemaIndex != -1);
+  Q_ASSERT(oldSchemaIndex == m_currentSchema);
+
+  // all is saved, but the other items are not deleted. The items of the
+  // currently active schema are used by the m_defaultStyles tree widget.
+  // Hence, delete all other. This fixes the index automatically.
+  if (m_defaultStyleLists.contains(oldSchemaIndex)) {
+    // take item
+    KateAttributeList* list = m_defaultStyleLists.take(oldSchemaIndex);
+
+    // delete all others (are saved anyway)
+    qDeleteAll(m_defaultStyleLists);
+    m_defaultStyleLists.clear ();
+
+    // add again
+    m_defaultStyleLists[newSchemaIndex] = list;
+  }
+
+  m_currentSchema = newSchemaIndex;
 }
 
 KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
@@ -642,6 +684,28 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
 {
+}
+
+void KateSchemaConfigHighlightTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
+{
+  Q_ASSERT(oldSchemaIndex != -1);
+  Q_ASSERT(oldSchemaIndex == m_schema);
+
+  // all is saved, but the other items are not deleted. The items of the
+  // currently active schema are used by the m_styles tree widget.
+  // Hence, delete all other. This fixes the index automatically.
+  if (m_hlDict.contains(oldSchemaIndex)) {
+    // take item
+    QHash<int, QList<KateExtendedAttribute::Ptr> > list = m_hlDict.take(oldSchemaIndex);
+
+    // delete all others (are saved anyway)
+    m_hlDict.clear ();
+
+    // add again
+    m_hlDict[newSchemaIndex] = list;
+  }
+
+  m_schema = newSchemaIndex;
 }
 
 void KateSchemaConfigHighlightTab::hlChanged(int z)
@@ -1157,6 +1221,10 @@ void KateSchemaConfigPage::importFullSchema()
 
 void KateSchemaConfigPage::apply()
 {
+  // remember name + index
+  const QString schemaName = schemaCombo->currentText();
+  const int oldSchemaIndex = KateGlobal::self()->schemaManager()->number(schemaName);
+
   // first apply all tabs
   m_colorTab->apply();
   m_fontTab->apply();
@@ -1178,12 +1246,32 @@ void KateSchemaConfigPage::apply()
     KateHlManager::self()->getHl (i)->clearAttributeArrays();
 
   // than reload the whole stuff
-  const int currentSchema = comboIndexToSchemaIndex(defaultSchemaCombo->currentIndex());
-  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (currentSchema));
+  const int usedSchema = comboIndexToSchemaIndex(defaultSchemaCombo->currentIndex());
+  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (usedSchema));
   KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real
   KateHlManager::self()->getKConfig()->sync ();
+
+  // KateSchemaManager::update() sorts the schema alphabetically, hence the
+  // schema indexes change. Thus, repopulate the schema list...
+  refillCombos(schemaCombo->currentText(), defaultSchemaCombo->currentText());
+
+  // ...and fix schema indexes of all tabs
+  const int newSchemaIndex = KateGlobal::self()->schemaManager()->number(schemaName);
+  Q_ASSERT(schemaCombo->itemData(schemaCombo->currentIndex()).toInt() == newSchemaIndex);
+  Q_ASSERT(oldSchemaIndex > -1);
+  Q_ASSERT(newSchemaIndex > -1);
+
+  if (newSchemaIndex != oldSchemaIndex) {
+    kDebug(13030) << "adapt to changed schema indexes from" << oldSchemaIndex << "to" << newSchemaIndex;
+    m_colorTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
+    m_fontTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
+    m_fontColorTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
+    m_highlightTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
+  }
+
+  schemaChanged(newSchemaIndex);
 }
 
 void KateSchemaConfigPage::removeDeletedSchemas()
@@ -1212,8 +1300,24 @@ void KateSchemaConfigPage::reload()
   // now reload the config from disc
   KateGlobal::self()->schemaManager()->update ();
 
-  // special for the highlighting stuff
+  // reinitialize combo boxes
+  refillCombos(schemaCombo->currentText(), KateRendererConfig::global()->schema());
+
+  // finally, activate the current schema again
+  schemaChanged(schemaCombo->itemData(schemaCombo->currentIndex()).toInt());
+
+  // all tabs need to reload to discard all the cached data, as the index
+  // mapping may have changed
+  m_colorTab->reload ();
+  m_fontTab->reload ();
   m_fontColorTab->reload ();
+  m_highlightTab->reload ();
+}
+
+void KateSchemaConfigPage::refillCombos(const QString& schemaName, const QString& defaultSchemaName)
+{
+  schemaCombo->blockSignals(true);
+  defaultSchemaCombo->blockSignals(true);
 
   // reinitialize combo boxes
   schemaCombo->clear(); // FIXME: does that trigger currentIndexChanged ?
@@ -1226,13 +1330,17 @@ void KateSchemaConfigPage::reload()
   }
 
   // set the correct indexes again
-  const int currentSchema = KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema());
-  const int defaultSchemaIndex = qMax(0, defaultSchemaCombo->findData(currentSchema));
-  defaultSchemaCombo->setCurrentIndex (defaultSchemaIndex);
-  schemaCombo->setCurrentIndex (defaultSchemaIndex);
+  const int schemaIndex = KateGlobal::self()->schemaManager()->number (schemaName);
+  const int defaultSchemaIndex = KateGlobal::self()->schemaManager()->number (defaultSchemaName);
 
-  // finally, activate the current schema again
-  schemaChanged( currentSchema );
+  Q_ASSERT(schemaIndex != -1);
+  Q_ASSERT(defaultSchemaIndex != -1);
+
+  defaultSchemaCombo->setCurrentIndex (defaultSchemaIndex);
+  schemaCombo->setCurrentIndex (schemaIndex);
+
+  schemaCombo->blockSignals(false);
+  defaultSchemaCombo->blockSignals(false);
 }
 
 void KateSchemaConfigPage::discardAddedSchemas()
@@ -1267,7 +1375,7 @@ void KateSchemaConfigPage::deleteSchema ()
   
   if (schemaIndex <= 1) {
     // Default and Printing schema cannot be deleted.
-    kDebug() << "default and printing schema cannot be deleted";
+    kDebug(13030) << "default and printing schema cannot be deleted";
     return;
   }
 

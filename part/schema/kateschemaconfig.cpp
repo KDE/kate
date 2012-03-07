@@ -364,6 +364,24 @@ void KateSchemaConfigColorTab::apply ()
   m_schemas.clear();
 }
 
+void KateSchemaConfigColorTab::reload()
+{
+  // drop all cached data
+  m_schemas.clear();
+
+  // load from config
+  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(m_currentSchema);
+  QVector<KateColorItem> items = readConfig(config);
+
+  // first block signals otherwise setColor emits changed
+  const bool blocked = blockSignals(true);
+
+  ui->clear();
+  ui->addColorItems(m_schemas[m_currentSchema]);
+
+  blockSignals(blocked);
+}
+
 QColor KateSchemaConfigColorTab::backgroundColor() const
 {
   return ui->findColor("Color Background");
@@ -383,7 +401,7 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab()
   m_fontchooser = new KFontChooser ( this, KFontChooser::NoDisplayFlags );
   grid->addWidget( m_fontchooser, 0, 0);
 
-  m_schema = -1;
+  m_currentSchema = -1;
 }
 
 KateSchemaConfigFontTab::~KateSchemaConfigFontTab()

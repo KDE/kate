@@ -46,6 +46,7 @@ class KateSchemaConfigColorTab : public QWidget
 
   public Q_SLOTS:
     void apply();
+    void reload();
     void schemaChanged( int newSchema );
 
     QColor backgroundColor() const;

@@ -566,9 +566,11 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
            this, SLOT(hlChanged(int)) );
 
   QPushButton *btnexport = new QPushButton( i18n("Export..."), hbHl );
-  connect( btnexport,SIGNAL(clicked()),this,SLOT(exportHl()));
-
   QPushButton *btnimport = new QPushButton( i18n("Import..."), hbHl );
+
+  qobject_cast<QBoxLayout*>(hbHl->layout())->addStretch();
+
+  connect( btnexport,SIGNAL(clicked()),this,SLOT(exportHl()));
   connect( btnimport,SIGNAL(clicked()),this,SLOT(importHl()));
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {

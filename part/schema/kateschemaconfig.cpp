@@ -487,7 +487,7 @@ void KateSchemaConfigFontTab::exportSchema(KConfigGroup& config)
 //END FontConfig
 
 //BEGIN FontColorConfig -- 'Normal Text Styles' tab
-KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab(KateSchemaConfigColorTab* colorTab)
+KateSchemaConfigDefaultStylesTab::KateSchemaConfigDefaultStylesTab(KateSchemaConfigColorTab* colorTab)
 {
   m_colorTab = colorTab;
   m_currentSchema = -1;
@@ -509,12 +509,12 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab(KateSchemaConfigColor
       "Background colors from the popup menu when appropriate.</p>") );
 }
 
-KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
+KateSchemaConfigDefaultStylesTab::~KateSchemaConfigDefaultStylesTab()
 {
   qDeleteAll(m_defaultStyleLists);
 }
 
-void KateSchemaConfigFontColorTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
+void KateSchemaConfigDefaultStylesTab::fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex)
 {
   Q_ASSERT(oldSchemaIndex != -1);
   Q_ASSERT(oldSchemaIndex == m_currentSchema);
@@ -537,7 +537,7 @@ void KateSchemaConfigFontColorTab::fixIndexAfterApply(int oldSchemaIndex, int ne
   m_currentSchema = newSchemaIndex;
 }
 
-KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
+KateAttributeList *KateSchemaConfigDefaultStylesTab::attributeList (uint schema)
 {
   if (!m_defaultStyleLists.contains(schema))
   {
@@ -550,7 +550,7 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
   return m_defaultStyleLists[schema];
 }
 
-void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
+void KateSchemaConfigDefaultStylesTab::schemaChanged (uint schema)
 {
   m_currentSchema = schema;
 
@@ -565,7 +565,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   }
 }
 
-void KateSchemaConfigFontColorTab::updateColorPalette(const QColor& textColor)
+void KateSchemaConfigDefaultStylesTab::updateColorPalette(const QColor& textColor)
 {
   QPalette p ( m_defaultStyles->palette() );
   p.setColor( QPalette::Base, m_colorTab->backgroundColor() );
@@ -574,7 +574,7 @@ void KateSchemaConfigFontColorTab::updateColorPalette(const QColor& textColor)
   m_defaultStyles->setPalette( p );
 }
 
-void KateSchemaConfigFontColorTab::reload ()
+void KateSchemaConfigDefaultStylesTab::reload ()
 {
   m_defaultStyles->clear ();
   qDeleteAll(m_defaultStyleLists);
@@ -583,7 +583,7 @@ void KateSchemaConfigFontColorTab::reload ()
   schemaChanged(m_currentSchema);
 }
 
-void KateSchemaConfigFontColorTab::apply ()
+void KateSchemaConfigDefaultStylesTab::apply ()
 {
   QHashIterator<int,KateAttributeList*> it = m_defaultStyleLists;
   while (it.hasNext()) {
@@ -592,17 +592,17 @@ void KateSchemaConfigFontColorTab::apply ()
   }
 }
 
-void KateSchemaConfigFontColorTab::exportSchema(int schema, KConfig *cfg)
+void KateSchemaConfigDefaultStylesTab::exportSchema(int schema, KConfig *cfg)
 {
   KateHlManager::self()->setDefaults(KateGlobal::self()->schemaManager()->name (schema), *(m_defaultStyleLists[schema]),cfg);
 }
 
-void KateSchemaConfigFontColorTab::importSchema(const QString& schemaName, int schema, KConfig *cfg)
+void KateSchemaConfigDefaultStylesTab::importSchema(const QString& schemaName, int schema, KConfig *cfg)
 {
   KateHlManager::self()->getDefaults(schemaName, *(m_defaultStyleLists[schema]),cfg);
 }
 
-void KateSchemaConfigFontColorTab::showEvent(QShowEvent* event)
+void KateSchemaConfigDefaultStylesTab::showEvent(QShowEvent* event)
 {
   if (!event->spontaneous() && m_currentSchema != -1) {
     KateAttributeList *l = attributeList (m_currentSchema);
@@ -615,7 +615,7 @@ void KateSchemaConfigFontColorTab::showEvent(QShowEvent* event)
 //END FontColorConfig
 
 //BEGIN KateSchemaConfigHighlightTab -- 'Highlighting Text Styles' tab
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, KateSchemaConfigColorTab* colorTab)
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigDefaultStylesTab *page, KateSchemaConfigColorTab* colorTab)
 {
   m_defaults = page;
   m_colorTab = colorTab;
@@ -982,7 +982,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   m_tabWidget->addTab (m_fontTab, i18n("Font"));
   connect(m_fontTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_fontColorTab = new KateSchemaConfigFontColorTab(m_colorTab);
+  m_fontColorTab = new KateSchemaConfigDefaultStylesTab(m_colorTab);
   m_tabWidget->addTab (m_fontColorTab, i18n("Default Text Styles"));
   connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
 

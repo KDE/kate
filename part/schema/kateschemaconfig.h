@@ -105,13 +105,13 @@ class KateSchemaConfigFontTab : public QWidget
     void slotFontSelected( const QFont &font );
 };
 
-class KateSchemaConfigFontColorTab : public QWidget
+class KateSchemaConfigDefaultStylesTab : public QWidget
 {
   Q_OBJECT
 
   public:
-    KateSchemaConfigFontColorTab(KateSchemaConfigColorTab* colorTab);
-    ~KateSchemaConfigFontColorTab();
+    KateSchemaConfigDefaultStylesTab(KateSchemaConfigColorTab* colorTab);
+    ~KateSchemaConfigDefaultStylesTab();
 
     void fixIndexAfterApply(int oldSchemaIndex, int newSchemaIndex);
 
@@ -143,7 +143,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    explicit KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, KateSchemaConfigColorTab* colorTab);
+    explicit KateSchemaConfigHighlightTab(KateSchemaConfigDefaultStylesTab *page, KateSchemaConfigColorTab* colorTab);
     ~KateSchemaConfigHighlightTab();
 
     void schemaChanged (int schema);
@@ -167,7 +167,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     void updateColorPalette(const QColor& textColor);
 
   private:
-    KateSchemaConfigFontColorTab *m_defaults;
+    KateSchemaConfigDefaultStylesTab *m_defaults;
     KateSchemaConfigColorTab* m_colorTab;
 
     KComboBox *hlCombo;
@@ -226,7 +226,7 @@ class KateSchemaConfigPage : public KateConfigPage
     class KComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
     KateSchemaConfigFontTab *m_fontTab;
-    KateSchemaConfigFontColorTab *m_fontColorTab;
+    KateSchemaConfigDefaultStylesTab *m_fontColorTab;
     KateSchemaConfigHighlightTab *m_highlightTab;
 };
 

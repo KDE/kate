@@ -8,6 +8,8 @@
     Updated by Pawel Salawa (boogie at scripts dot one dot pl)
 
     Revision history:
+        1.11:
+            - added new commands of Tcl/tk 8.5, released in 2007
         1.10:
             - Fixed problem with single ':' character after variable name (it's no longer variable,
               because only double-colon is namespace delimiter and can be part of variable name).
@@ -26,7 +28,7 @@
 	    - Fixed detection of varaibles with names containing serval namespace delimiters (::)
 -->
 
-<language name="Tcl/Tk" version="1.10" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.11" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -36,9 +38,13 @@
       <item> argc  </item>
       <item> array  </item>
       <item> auto_execk  </item>
+      <item> auto_execok </item>
+      <item> auto_import </item>
       <item> auto_load  </item>
       <item> auto_mkindex  </item>
+      <item> auto_mkindex_old </item>
       <item> auto_path  </item>
+      <item> auto_qualify </item>
       <item> auto_reset  </item>
       <item> beep  </item>
       <item> bell  </item>
@@ -52,15 +58,18 @@
       <item> case  </item>
       <item> catch  </item>
       <item> cd  </item>
+      <item> chan </item>
       <item> checkbutton  </item>
       <item> clipboard  </item>
       <item> clock  </item>
       <item> close  </item>
+      <item> combobox </item>
       <item> concat  </item>
       <item> console  </item>
       <item> continue  </item>
       <item> dde  </item>
       <item> destroy  </item>
+      <item> dict </item>
       <item> else  </item>
       <item> elseif  </item>
       <item> encoding  </item>
@@ -100,7 +109,9 @@
       <item> interp  </item>
       <item> join  </item>
       <item> label  </item>
+      <item> labelframe </item>
       <item> lappend  </item>
+      <item> lassign </item>
       <item> lindex  </item>
       <item> linsert  </item>
       <item> list  </item>
@@ -109,23 +120,30 @@
       <item> load  </item>
       <item> lower  </item>
       <item> lrange  </item>
+      <item> lremove </item>
+      <item> lrepeat </item>
       <item> lreplace  </item>
+      <item> lreverse </item>
       <item> lsearch  </item>
+      <item> lset </item>
       <item> lsort  </item>
       <item> menu  </item>
       <item> menubutton  </item>
       <item> message  </item>
       <item> namespace  </item>
+      <item> notebook </item>
       <item> open  </item>
       <item> option  </item>
       <item> OptProc  </item>
       <item> pack  </item>
       <item> package  </item>
+      <item> panedwindow </item>
       <item> parray  </item>
       <item> pid  </item>
       <item> place  </item>
-      <item> pkg_mkindex  </item>
+      <item> pkg_mkIndex </item>
       <item> proc  </item>
+      <item> progressbar </item>
       <item> puts  </item>
       <item> pwd  </item>
       <item> radiobutton  </item>
@@ -143,11 +161,15 @@
       <item> seek  </item>
       <item> selection  </item>
       <item> send  </item>
+      <item> separator </item>
       <item> set  </item>
+      <item> sizegrip </item>
       <item> socket  </item>
       <item> source  </item>
+      <item> spinbox </item>
       <item> split  </item>
       <item> string  </item>
+      <item> style </item>
       <item> subst  </item>
       <item> switch  </item>
       <item> tclLog  </item>
@@ -180,15 +202,22 @@
       <item> tk_getOpenFile  </item>
       <item> tk_getSaveFile  </item>
       <item> tk_library  </item>
+      <item> tk_menuSetFocus </item>
       <item> tk_messageBox  </item>
       <item> tk_optionMenu  </item>
       <item> tk_patchLevel  </item>
       <item> tk_popup  </item>
       <item> tk_strictMotif  </item>
+      <item> tk_textCopy </item>
+      <item> tk_textCut </item>
+      <item> tk_textPaste </item>
       <item> tk_version  </item>
       <item> toplevel  </item>
       <item> trace  </item>
+      <item> traverseTo </item>
+      <item> treeview </item>
       <item> unknown  </item>
+      <item> unload </item>
       <item> unset  </item>
       <item> update  </item>
       <item> uplevel  </item>

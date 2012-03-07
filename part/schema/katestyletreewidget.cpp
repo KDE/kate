@@ -127,13 +127,14 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
     : QTreeWidget( parent )
 {
   setItemDelegate(new KateStyleTreeDelegate(this));
+  setRootIsDecorated(false);
 
   QStringList headers;
   headers << i18nc("@title:column Meaning of text in editor", "Context") << QString() << QString() << QString() << QString() << i18nc("@title:column Text style", "Normal") << i18nc("@title:column Text style", "Selected") << i18nc("@title:column Text style", "Background") << i18nc("@title:column Text style", "Background Selected");
   if(showUseDefaults) {
     headers << i18n("Use Default Style");
   }
-  
+
   setHeaderLabels(headers);
 
   headerItem()->setIcon(1, KIcon("format-text-bold"));

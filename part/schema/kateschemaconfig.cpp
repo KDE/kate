@@ -392,9 +392,8 @@ KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
 
 void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
 {
-  if ( m_schema > -1 )
-  {
-    m_fonts[m_schema] = font;
+  if ( m_currentSchema > -1 ) {
+    m_fonts[m_currentSchema] = font;
     emit changed();
   }
 }
@@ -411,18 +410,29 @@ void KateSchemaConfigFontTab::apply()
   m_fonts.clear();
 }
 
+void KateSchemaConfigFontTab::reload()
+{
+  // drop all cached data
+  m_fonts.clear();
+
+  // now set current schema font in the font chooser
+  schemaChanged(m_currentSchema);
+}
+
 void KateSchemaConfigFontTab::schemaChanged( int newSchema )
 {
-  if ( m_schema > -1 )
-    m_fonts[ m_schema ] = m_fontchooser->font();
+  m_currentSchema = newSchema;
 
-  m_schema = newSchema;
-
-  QFont f (KGlobalSettings::fixedFont());
+  // reuse font, if cached
+  QFont newFont (KGlobalSettings::fixedFont());
+  if (m_fonts.contains(m_currentSchema)) {
+    newFont = m_fonts[m_currentSchema];
+  } else {
+    newFont = KateGlobal::self()->schemaManager()->schema(m_currentSchema).readEntry("Font", newFont);
+  }
 
   m_fontchooser->disconnect ( this );
-  m_fontchooser->setFont ( KateGlobal::self()->schemaManager()->schema( newSchema ).readEntry("Font", f) );
-  m_fonts[ newSchema ] = m_fontchooser->font();
+  m_fontchooser->setFont ( newFont );
   connect (m_fontchooser, SIGNAL (fontSelected(QFont)), this, SLOT (slotFontSelected(QFont)));
 }
 
@@ -430,7 +440,7 @@ void KateSchemaConfigFontTab::importSchema(KConfigGroup& config)
 {
   QFont f (KGlobalSettings::fixedFont());
   m_fontchooser->setFont(config.readEntry("Font", f));
-  m_fonts[m_schema] = m_fontchooser->font();
+  m_fonts[m_currentSchema] = m_fontchooser->font();
 }
 
 void KateSchemaConfigFontTab::exportSchema(KConfigGroup& config)
@@ -509,6 +519,8 @@ void KateSchemaConfigFontColorTab::reload ()
   m_defaultStyles->clear ();
   qDeleteAll(m_defaultStyleLists);
   m_defaultStyleLists.clear ();
+
+  schemaChanged(m_currentSchema);
 }
 
 void KateSchemaConfigFontColorTab::apply ()

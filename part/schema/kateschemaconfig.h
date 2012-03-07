@@ -85,6 +85,7 @@ class KateSchemaConfigFontTab : public QWidget
 
   public Q_SLOTS:
     void apply();
+    void reload();
     void schemaChanged( int newSchema );
 
   Q_SIGNALS:
@@ -93,7 +94,7 @@ class KateSchemaConfigFontTab : public QWidget
   private:
     class KFontChooser *m_fontchooser;
     QMap<int, QFont> m_fonts;
-    int m_schema;
+    int m_currentSchema;
 
   private Q_SLOTS:
     void slotFontSelected( const QFont &font );

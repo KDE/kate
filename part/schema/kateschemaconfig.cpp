@@ -1246,8 +1246,7 @@ void KateSchemaConfigPage::apply()
     KateHlManager::self()->getHl (i)->clearAttributeArrays();
 
   // than reload the whole stuff
-  const int usedSchema = comboIndexToSchemaIndex(defaultSchemaCombo->currentIndex());
-  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (usedSchema));
+  KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentText());
   KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real

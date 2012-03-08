@@ -129,8 +129,8 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para>GDB - Provides a simple GDB frontend</para>
-<!-- GDB Plugin http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
+<para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
+simple&gdb; frontend</para>
 </listitem>
 <listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>
@@ -2017,6 +2017,327 @@ Runs your query.
 
 <para>The SQL Plugin was written by Marco Mentasti.</para>
 <para>Special thanks to Google Code-In 2011 participant Ömer Faruk ORUÇ for
+writing much of this section.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-gdb">
+<sect1info>
+<authorgroup>
+<author><firstname>Martin</firstname> <surname>Gergov</surname></author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title>&gdb; Plugin</title>
+
+<sect2 id="gdb-intro">
+<title>Introduction</title>
+
+<para>&kappname;'s &gdb; plugin provides a simple frontend to the popular &GNU;
+Project Debugger.</para>
+
+<important>
+<para>Previous experience with &gdb; is strongly recommended.  For more
+information on using &gdb;, visit <ulink url="http://www.gnu.org/s/gdb/">the
+&gdb; website</ulink></para>
+</important>
+
+<para>You can enable the &gdb; plugin in
+<link linkend="config-dialog-plugins">the Plugins section of &kappname;'s
+configuration</link>.</para>
+
+<para>For the plugin to work properly, you must have a source file (of any type
+supported by &gdb;) and an executable.</para>
+
+<tip>
+<para>If you compile using &gcc;/<command>g++</command> you might want to use
+the <command><parameter>-ggdb</parameter></command> command line argument.
+</para>
+</tip>
+
+<para>After these preparations are made, open the source file in &kappname;,
+enter the path to the executable in <guilabel>Settings</guilabel> tab of the
+<guilabel>Debug View</guilabel> tool view, and select
+<menuchoice><guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem></menuchoice>
+from the menu to get started.</para>
+
+</sect2>
+
+<sect2 id="gdb-menus">
+<title>Menu and Toolbar Structure</title>
+
+<para>All of these options are available in &kappname;'s menus, and many are
+available on the Debug toolbar as well.</para>
+
+<variablelist>
+
+<varlistentry id="gdb-menus-show-debug-view">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Debug View</guimenuitem>
+</menuchoice></term>
+<listitem><para>Shows a tool view containing &gdb; output, the &gdb; command
+line used, and other settings.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-show-locals">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Locals</guimenuitem>
+</menuchoice></term>
+<listitem><para>Shows a list of all currently loaded variables and their values.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-show-call-stack">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Call Stack</guimenuitem>
+</menuchoice></term>
+<listitem><para>Shows a &gdb; backtrace.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-targets">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guisubmenu>Targets</guisubmenu>
+</menuchoice></term>
+<listitem><para>A submenu containing a list of targets (executables).
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-arg-lists">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guisubmenu>Arg Lists</guisubmenu>
+</menuchoice></term>
+<listitem><para>A submenu containing all argument lists.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-start">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Starts &gdb; with a target.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-kill">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Kill / Stop Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Stops &gdb;.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-restart">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Restart Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Restarts &gdb;.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-break">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Toggle Breakpoint / Break</guimenuitem>
+</menuchoice></term>
+<listitem><para>Set a breakpoint at the current cursor position.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-in">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step In</guimenuitem>
+</menuchoice></term>
+<listitem><para>Execute the present statement (function call will be debugged).
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-over">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step Over</guimenuitem>
+</menuchoice></term>
+<listitem><para>Execute the present statement (function call will not be
+debugged).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-out">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step Out</guimenuitem>
+</menuchoice></term>
+<listitem><para>Resumes execution until the program that is executing
+terminates.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-move-pc">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Move PC</guimenuitem>
+</menuchoice></term>
+<listitem><para>Move program counter (next execution).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-run-to-cursor">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Run To Cursor</guimenuitem>
+</menuchoice></term>
+<listitem><para>Runs the program until it reaches current cursor position.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-continue">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Continue</guimenuitem>
+</menuchoice></term>
+<listitem><para>Ignores any breakpoints and executes program until it terminates
+(successfully or not).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-print-value">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Print Value</guimenuitem>
+</menuchoice></term>
+<listitem><para>Prints the value of the variable that the cursor is currently
+pointing to.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-toolbar">
+<term><menuchoice>
+<guimenu>Settings</guimenu><guisubmenu>Toolbars Shown</guisubmenu><guimenuitem>&gdb; Plugin</guimenuitem>
+</menuchoice></term>
+<listitem><para>Display the debugging toolbar.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="gdb-debug-view">
+<title>Debug View</title>
+
+<para>The <guilabel>Debug View</guilabel> tool view consists of several tabs:
+</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>&gdb; Output</guilabel></term>
+<listitem>
+<para>Contains output from &gdb; and a &gdb; command line.</para>
+
+<screenshot id="screenshot-gdb-output">
+<screeninfo>The Output Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-output.png" format="PNG"/></imageobject>
+<textobject><phrase>The Output tab.</phrase></textobject>
+<caption><para>The <guilabel>Output</guilabel> tab displaying the output from a
+debugging session.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Settings</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Target</guilabel></term>
+<listitem><para>Path to the target (executable) for debugging.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Working Directory</guilabel></term>
+<listitem><para>The current working directory provided to the target.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Arg List</guilabel></term>
+<listitem><para>Arguments passed to the program.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Keep focus</guilabel></term>
+<listitem><para>Keeps focus on the &gdb; command line.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Redirect IO</guilabel></term>
+<listitem><para>Opens a new <guilabel>IO</guilabel> tab in the <guilabel>Debug
+View</guilabel> where you can view output and provide input to the running
+program.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<screenshot id="screenshot-gdb-settings">
+<screeninfo>The Settings Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-settings.png" format="PNG"/></imageobject>
+<textobject><phrase>The Settings tab.</phrase></textobject>
+<caption><para>The <guilabel>Settings</guilabel> tab displaying the configuration
+of a debugging session.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>IO</guilabel></term>
+<listitem>
+<para>Contains an area that displays output from the running program and a
+command line where you may provide input to it.</para>
+
+<screenshot id="screenshot-gdb-io">
+<screeninfo>The IO Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-io.png" format="PNG"/></imageobject>
+<textobject><phrase>The IO tab.</phrase></textobject>
+<caption><para>The <guilabel>IO</guilabel> tab displaying output from a simple
+test program.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="gdb-other">
+<title>Call Stack and Locals</title>
+
+<para>The <guilabel>Call Stack</guilabel> tool view contains list of formated
+backtrace returned from &gdb;.</para>
+
+<screenshot id="screenshot-gdb-call-stack">
+<screeninfo>The &gdb; Call Stack Tool View</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-call-stack.png" format="PNG"/></imageobject>
+<textobject><phrase>The Call Stack tool view.</phrase></textobject>
+<caption><para>The &gdb; Plugin's <guilabel>Call Stack</guilabel> tool view.
+</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The <guilabel>Locals</guilabel> tool view contains a list of all currently
+loaded variables from the program and their corresponding values.</para>
+
+<screenshot id="screenshot-gdb-locals">
+<screeninfo>The &gdb; Locals Tool View</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-locals.png" format="PNG"/></imageobject>
+<textobject><phrase>The Locals tool view.</phrase></textobject>
+<caption><para>The &gdb; Plugin's <guilabel>Locals</guilabel> tool view.
+</para></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="gdb-ack">
+<title>Thanks and Acknowledgments</title>
+
+<para>Special thanks to Google Code-In 2011 participant Martin Gergov for
 writing much of this section.</para>
 
 </sect2>

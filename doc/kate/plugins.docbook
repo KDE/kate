@@ -130,7 +130,7 @@ The available application plugins are:
 <itemizedlist>
 <listitem>
 <para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
-simple&gdb; frontend</para>
+simple &gdb; frontend</para>
 </listitem>
 <listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>

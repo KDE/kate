@@ -226,7 +226,7 @@ class KateSchemaConfigPage : public KateConfigPage
     class KComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
     KateSchemaConfigFontTab *m_fontTab;
-    KateSchemaConfigDefaultStylesTab *m_fontColorTab;
+    KateSchemaConfigDefaultStylesTab *m_defaultStylesTab;
     KateSchemaConfigHighlightTab *m_highlightTab;
 };
 

@@ -982,11 +982,11 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   m_tabWidget->addTab (m_fontTab, i18n("Font"));
   connect(m_fontTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_fontColorTab = new KateSchemaConfigDefaultStylesTab(m_colorTab);
-  m_tabWidget->addTab (m_fontColorTab, i18n("Default Text Styles"));
-  connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
+  m_defaultStylesTab = new KateSchemaConfigDefaultStylesTab(m_colorTab);
+  m_tabWidget->addTab (m_defaultStylesTab, i18n("Default Text Styles"));
+  connect(m_defaultStylesTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, m_colorTab);
+  m_highlightTab = new KateSchemaConfigHighlightTab(m_defaultStylesTab, m_colorTab);
   m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 
@@ -1038,7 +1038,7 @@ void KateSchemaConfigPage::exportFullSchema()
   //
   // export Default Styles
   //
-  m_fontColorTab->exportSchema(m_currentSchema, &cfg);
+  m_defaultStylesTab->exportSchema(m_currentSchema, &cfg);
 
   //
   // export Highlighting Text Styles
@@ -1190,7 +1190,7 @@ void KateSchemaConfigPage::importFullSchema()
   //
   // import Default Styles
   //
-  m_fontColorTab->importSchema(fromSchemaName, schemaIndex, &cfg);
+  m_defaultStylesTab->importSchema(fromSchemaName, schemaIndex, &cfg);
 
   //
   // import all Highlighting Text Styles
@@ -1228,7 +1228,7 @@ void KateSchemaConfigPage::apply()
   // first apply all tabs
   m_colorTab->apply();
   m_fontTab->apply();
-  m_fontColorTab->apply ();
+  m_defaultStylesTab->apply ();
   m_highlightTab->apply ();
 
   // clear added schema list
@@ -1266,7 +1266,7 @@ void KateSchemaConfigPage::apply()
     kDebug(13030) << "adapt to changed schema indexes from" << oldSchemaIndex << "to" << newSchemaIndex;
     m_colorTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
     m_fontTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
-    m_fontColorTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
+    m_defaultStylesTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
     m_highlightTab->fixIndexAfterApply(oldSchemaIndex, newSchemaIndex);
   }
 
@@ -1309,7 +1309,7 @@ void KateSchemaConfigPage::reload()
   // mapping may have changed
   m_colorTab->reload ();
   m_fontTab->reload ();
-  m_fontColorTab->reload ();
+  m_defaultStylesTab->reload ();
   m_highlightTab->reload ();
 }
 
@@ -1319,7 +1319,7 @@ void KateSchemaConfigPage::refillCombos(const QString& schemaName, const QString
   defaultSchemaCombo->blockSignals(true);
 
   // reinitialize combo boxes
-  schemaCombo->clear(); // FIXME: does that trigger currentIndexChanged ?
+  schemaCombo->clear();
   defaultSchemaCombo->clear();
   const QStringList& schemaList = KateGlobal::self()->schemaManager()->list();
   foreach (const QString& s, schemaList) {
@@ -1430,7 +1430,7 @@ void KateSchemaConfigPage::schemaChanged (int schemaIndex)
   // propagate changed schema to all tabs
   m_colorTab->schemaChanged(schemaIndex);
   m_fontTab->schemaChanged(schemaIndex);
-  m_fontColorTab->schemaChanged(schemaIndex);
+  m_defaultStylesTab->schemaChanged(schemaIndex);
   m_highlightTab->schemaChanged(schemaIndex);
 
   // save current schema index

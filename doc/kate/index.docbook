@@ -7,6 +7,7 @@
   <!ENTITY i18n-powermode "&copy-this-msg;">
   <!ENTITY imgpath "./">
   <!ENTITY rcfile "katerc">
+  <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">

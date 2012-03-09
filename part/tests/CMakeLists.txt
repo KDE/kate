@@ -159,6 +159,17 @@ target_link_libraries( katefolding_test
   katepartinterfaces
 )
 
+########### folded selection test ###############
+
+kde4_add_unit_test(katefoldedselection_test TESTNAME kate-katefoldedselection_test foldedselection_test.cpp)
+
+target_link_libraries( katefoldedselection_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### revision test ###############
 
 kde4_add_unit_test(revision_test TESTNAME kate-revision_test revision_test.cpp)

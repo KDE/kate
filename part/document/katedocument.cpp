@@ -564,8 +564,6 @@ bool KateDocument::clear()
 
 bool KateDocument::insertText( const KTextEditor::Cursor& position, const QString& text, bool block )
 {
-  //m_buffer->foldingTree()->printTree();
-
   if (!isReadWrite())
     return false;
 
@@ -1339,13 +1337,6 @@ bool KateDocument::editRemoveLines ( int from, int to )
   QStringList oldText;
 
   for (int line = to; line >= from; line--) {
-    KateLineInfo info;
-    lineInfo(&info, line);
-    if (info.startsInVisibleBlock)
-      foldingTree()->toggleRegionVisibility(line);
-  }
-
-  for (int line = to; line >= from; line--) {
     Kate::TextLine tl = m_buffer->line (line);
     oldText.prepend(this->line(line));
     m_undoManager->slotLineRemoved(line, this->line(line));
@@ -2106,7 +2097,7 @@ bool KateDocument::openFile()
               " It is set to read-only mode, as saving might destroy its content."
               " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(), QString (m_buffer->textCodec()->name ())));
   }
-  
+
   // warn: too long lines
   if (m_buffer->tooLongLinesWrapped())
   {

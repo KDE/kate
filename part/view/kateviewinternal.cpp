@@ -673,11 +673,13 @@ void KateViewInternal::slotRegionVisibilityChanged()
   if (startPos() > max)
     scrollPos(max);
 
+#if 0 // DONT MESS WITH THE CURSORS https://bugs.kde.org/show_bug.cgi?id=295632 and foldedselection_test
   m_preserveX = true;
   KTextEditor::Cursor newPos = toRealCursor(toVirtualCursor(m_cursor));
   KateTextLayout newLine = cache()->textLayout(newPos);
   newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
   updateCursor(newPos, true);
+#endif
 
   updateView();
   update();

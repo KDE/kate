@@ -171,7 +171,10 @@ class KateCodeFoldingNode: public QObject
 
 // Setters and getters
     inline void setColumn(int newColumn)
-      { m_position.column = newColumn; }
+      {
+        m_position.column = newColumn;
+        m_virtualColumn = newColumn;
+      }
     inline void setLine(int newLine)
       { m_position.line = newLine; }
 

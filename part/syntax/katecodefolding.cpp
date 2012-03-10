@@ -372,7 +372,7 @@ void KateCodeFoldingNode::updateSelf()
       KateCodeFoldingNode* child = startChildAt(i);
 
       // If "child" is lower than parent's pair, this node is not it's child anymore.
-      if (child->m_position > matchingNode()->m_position) {
+      if (child->m_position >= matchingNode()->m_position) {
         removeStart(child);
         QVector <KateCodeFoldingNode *> temptExcessList;
 
@@ -1547,7 +1547,7 @@ void KateCodeFoldingTree::updateMapping(int line, const QVector<int> &newColumns
     // then we update the column (maybe the column has changed).
     else if (oldLineMapping[index_old]->m_type == newColumns[index_new - 1]) {
       // I can simply change the column only if this change will not mess the order of the line
-      if ((index_old == (oldLineMapping.size() - 1)) || oldLineMapping[index_old + 1]->getColumn() >= newColumns[index_new])
+      if ((index_old == (oldLineMapping.size() - 1)) || oldLineMapping[index_old + 1]->getColumn() > newColumns[index_new])
       {
         if (newColumns[index_new - 1] < -1) {
           oldLineMapping[index_old]->setColumn(newColumns[index_new] - 1);

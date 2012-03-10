@@ -811,7 +811,7 @@ void KateSchemaConfigHighlightTab::reload ()
 
   m_hlDict.clear ();
 
-  hlChanged (0);
+  hlChanged( hlCombo->currentIndex() );
 }
 
 void KateSchemaConfigHighlightTab::apply ()

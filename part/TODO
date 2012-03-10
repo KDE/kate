@@ -8,3 +8,14 @@ KDE Framework 5.0
 - KTE: Merge some interfaces
 - KTE: search for places marked with "KDE5"
 - KTE: export Kate Part Scripting
+- KTE: drop MarkInterface
+  - replace it with an interface based on KTE::MovingCursors
+  - this way, we can drop a lot of code dedicated just for mark handling
+  - example
+    - a mark could be set to MovingCursor(line, 0) with StayOnInsert
+    - drawing the bookmark works just like now
+    - if lines are joined the bookmark changes to MoveOnInsert (*)
+    - if lines are wrapped at the mark position, change back to StayOnInsert (*)
+    - (*) right now, we don't have a MovingCursorFeedback class, so if we
+      want to adapt the insert behavior manually (again special code)... discuss!
+  - still provide some default mark types

@@ -1300,7 +1300,7 @@ void KateSchemaConfigPage::reload()
   KateGlobal::self()->schemaManager()->update ();
 
   // reinitialize combo boxes
-  refillCombos(schemaCombo->currentText(), KateRendererConfig::global()->schema());
+  refillCombos(KateRendererConfig::global()->schema(), KateRendererConfig::global()->schema());
 
   // finally, activate the current schema again
   schemaChanged(schemaCombo->itemData(schemaCombo->currentIndex()).toInt());

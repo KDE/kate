@@ -50,9 +50,9 @@ int countItems(KateCompletionModel *model)
 
 static void invokeCompletionBox(KateView* view)
 {
-    QTest::qWait(100); // needed, otherwise, test fails
+    QTest::qWait(500); // needed, otherwise, test fails
     view->userInvokedCompletion();
-    QTest::qWait(500); // wait until code completion pops up
+    QTest::qWait(1000); // wait until code completion pops up
     QVERIFY(view->completionWidget()->isCompletionActive());
 }
 

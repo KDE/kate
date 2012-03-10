@@ -69,6 +69,8 @@ namespace KTextEditor
  *  - dynamic-word-wrap [bool], enable/disable dynamic word wrap
  *  - background-color [QColor], read/set the default background color
  *  - selection-color [QColor], read/set the default color for selections
+ *  - search-highlight-color [QColor], read/set the background color for search
+ *  - replace-highlight-color [QColor], read/set the background color for replaces
  *  - default-mark-type [uint], read/set the default mark type
  *  - allow-mark-menu [bool], enable/disable the menu shown when right clicking
  *    on the left gutter. When disabled, click on the gutter will always set

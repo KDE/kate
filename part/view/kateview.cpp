@@ -2580,7 +2580,8 @@ void KateView::aboutToHideContextMenu( )
 QStringList KateView::configKeys() const
 {
   return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap"
-                       << "background-color" << "selection-color";
+                       << "background-color" << "selection-color"
+                       << "search-highlight-color" << "replace-highlight-color";
 }
 
 QVariant KateView::configValue(const QString &key)
@@ -2595,6 +2596,10 @@ QVariant KateView::configValue(const QString &key)
     return renderer()->config()->backgroundColor();
   else if (key == "selection-color")
     return renderer()->config()->selectionColor();
+  else if (key == "search-highlight-color")
+    return renderer()->config()->searchHighlightColor();
+  else if (key == "replace-highlight-color")
+    return renderer()->config()->replaceHighlightColor();
   else if (key == "default-mark-type")
     return config()->defaultMarkType();
   else if (key == "allow-mark-menu")
@@ -2611,6 +2616,10 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
       renderer()->config()->setBackgroundColor(value.value<QColor>());
     else if (key == "selection-color")
       renderer()->config()->setSelectionColor(value.value<QColor>());
+    else if (key == "search-highlight-color")
+      renderer()->config()->setSearchHighlightColor(value.value<QColor>());
+    else if (key == "replace-highlight-color")
+      renderer()->config()->setReplaceHighlightColor(value.value<QColor>());
   } else if ( value.type() == QVariant::Bool ) {
     // Note explicit type check above. If we used canConvert, then
     // values of type UInt will be trapped here.

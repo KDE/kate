@@ -32,6 +32,7 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
+#include <ktexteditor/configinterface.h>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -430,12 +431,17 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     if (!doc) return;
 
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(doc->activeView());
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     if (sender() == &m_replacer) {
-        attr->setBackground(Qt::green); // TODO make this part of the color scheme
+        QColor replaceColor(Qt::green);
+        if (ciface) replaceColor = ciface->configValue("replace-highlight-color").value<QColor>();
+        attr->setBackground(replaceColor);
     }
     else {
-        attr->setBackground(Qt::yellow); // TODO make this part of the color scheme
+        QColor searchColor(Qt::yellow);
+        if (ciface) searchColor = ciface->configValue("search-highlight-color").value<QColor>();
+        attr->setBackground(searchColor);
     }
     KTextEditor::Range range(line, column, line, column+matchLen);
     KTextEditor::MovingRange* mr = miface->newMovingRange(range);

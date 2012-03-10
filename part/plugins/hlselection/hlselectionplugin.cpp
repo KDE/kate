@@ -24,6 +24,7 @@
 #include <ktexteditor/searchinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
+#include <ktexteditor/configinterface.h>
 
 #include <assert.h>
 #include <kaction.h>
@@ -145,6 +146,14 @@ void HighlightSelectionPluginView::createHighlights()
 // disable bold for now: If you use non-fixed font, making it bold leads to wobbly text
 //  attr->setFontBold(true);
   attr->setBackground(Qt::yellow);
+
+  // set correct highlight color from Kate's color schema
+  KTextEditor::ConfigInterface* ciface =
+    qobject_cast<KTextEditor::ConfigInterface*>(m_view);
+  if (ciface) {
+    QColor color = ciface->configValue("search-highlight-color").value<QColor>();
+    attr->setBackground(color);
+  }
 
   KTextEditor::Cursor start(0, 0);
   KTextEditor::Range searchRange;

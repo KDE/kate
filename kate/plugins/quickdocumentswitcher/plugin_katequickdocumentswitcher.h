@@ -51,9 +51,11 @@ class PluginViewKateQuickDocumentSwitcher: public Kate::PluginView, public Kate:
     virtual ~PluginViewKateQuickDocumentSwitcher();
   private Q_SLOTS:
     void slotQuickSwitch();
+    void slotViewChanged();
 
   private:
     KTextEditor::Document* m_prevDoc;
+    KTextEditor::Document* m_activeDoc;
 };
 
 

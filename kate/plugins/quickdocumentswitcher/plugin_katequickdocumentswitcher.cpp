@@ -67,7 +67,8 @@ Kate::PluginView *PluginKateQuickDocumentSwitcher::createView (Kate::MainWindow 
 PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::MainWindow *mainwindow):
     Kate::PluginView(mainwindow),
     Kate::XMLGUIClient(KateQuickDocumentSwitcherFactory::componentData()),
-    m_prevDoc(0) {
+    m_prevDoc(0),
+    m_activeDoc(0) {
 
     KAction *a = actionCollection()->addAction("documents_quickswitch");
     a->setText(i18n("Quickswitch"));
@@ -75,7 +76,11 @@ PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::M
     connect( a, SIGNAL(triggered(bool)), this, SLOT(slotQuickSwitch()) );
 
     mainwindow->guiFactory()->addClient (this);
+    if(mainwindow->activeView()) {
+        m_activeDoc = mainwindow->activeView()->document();
+    }
 
+    connect(mainwindow, SIGNAL(viewChanged()), SLOT(slotViewChanged()));
 }
 
 PluginViewKateQuickDocumentSwitcher::~PluginViewKateQuickDocumentSwitcher() {
@@ -92,6 +97,19 @@ void PluginViewKateQuickDocumentSwitcher::slotQuickSwitch() {
             m_prevDoc = currentDocument;
 
         mainWindow()->activateView(doc);
+    }
+}
+
+void PluginViewKateQuickDocumentSwitcher::slotViewChanged() {
+    if(!mainWindow()->activeView()) {
+        return;
+    }
+    // when view changes update active and previous documents
+    // so that right document will be pre-selected on next quick-switch
+    KTextEditor::Document *newDoc = mainWindow()->activeView()->document();
+    if(newDoc != m_activeDoc) {
+        m_prevDoc = m_activeDoc;
+        m_activeDoc = newDoc;
     }
 }
 //END: View

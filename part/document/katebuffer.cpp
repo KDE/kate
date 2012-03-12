@@ -221,6 +221,9 @@ bool KateBuffer::saveFile (const QString &m_file)
   // remove trailing spaces?
   setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
 
+  // append a newline character at the end of the file (eof) ?
+  setNewLineAtEof (m_doc->config()->newLineAtEof());
+
   // try to save
   if (!save (m_file))
     return false;

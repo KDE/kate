@@ -727,7 +727,7 @@ bool TextBuffer::save (const QString &filename)
     Q_ASSERT(m_lines > 0); // see .h file
     const Kate::TextLine lastLine = line (m_lines - 1);
     const int firstChar = lastLine->firstChar();
-    if (firstChar > -1 || (m_removeTrailingSpaces && lastLine->length() > 0)) {
+    if (firstChar > -1 || (lastLine->length() > 0 && !m_removeTrailingSpaces)) {
       stream << eol;
     }
   }

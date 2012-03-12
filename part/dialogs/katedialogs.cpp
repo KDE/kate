@@ -906,6 +906,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->chkEnableBOM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( ui->lineLengthLimit, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect( ui->chkNewLineAtEof, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( uiadv->chkBackupLocalFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( uiadv->chkBackupRemoteFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( uiadv->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -970,6 +971,8 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
   KateDocumentConfig::global()->setRemoveSpaces(ui->chkRemoveTrailingSpaces->isChecked());
+
+  KateDocumentConfig::global()->setNewLineAtEof(ui->chkNewLineAtEof->isChecked());
 
   // set both standard and fallback encoding
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
@@ -1044,6 +1047,7 @@ void KateSaveConfigTab::reload()
   ui->lineLengthLimit->setValue(KateDocumentConfig::global()->lineLengthLimit());
 
   ui->chkRemoveTrailingSpaces->setChecked(KateDocumentConfig::global()->removeSpaces());
+  ui->chkNewLineAtEof->setChecked(KateDocumentConfig::global()->newLineAtEof());
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff

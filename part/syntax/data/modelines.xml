@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+    <!ENTITY space " ">
+    <!ENTITY end "&#59;">
+]>
+<!--
+  Copyright (c) 2012 by Alex Turbov (i.zaufi@gmail.com)
+
+  Homepage: http://kde-files.org/content/show.php?content=90660
+  -->
+<language name="Modelines"
+          version="0.2"
+          kateversion="2.4"
+          section="Other"
+          extensions=""
+          mimetype=""
+          author="Alex Turbov (i.zaufi@gmail.com)"
+          license="LGPL"
+          hidden="true"
+          priority="5">
+<!--
+  The main purpose of this file is to be included into other syntax files.
+
+  NOTE Default colors are set to 'Comment', so if u don't want to highight it,
+  just leave colors as is...
+
+  TODO Support for other modelines? emacs/vim??
+-->
+<highlighting>
+  <list name="ModelineStartKeyword">
+    <item> kate: </item>
+  </list>
+
+  <list name="Booleans">
+    <item> auto-brackets </item>
+    <item> auto-insert-doxygen </item>
+    <item> backspace-indents </item>
+    <item> block-selection </item>
+    <item> bom </item>
+    <item> byte-order-marker </item>
+    <item> folding-markers </item>
+    <item> icon-border </item>
+    <item> keep-extra-spaces </item>
+    <item> line-numbers </item>
+    <item> newline-at-eof </item>                           <!-- Since KDE 4.9 -->
+    <item> overwrite-mode </item>
+    <item> persistent-selection </item>
+    <item> remove-trailing-space </item>
+    <item> replace-tabs-save </item>
+    <item> replace-tabs </item>
+    <item> replace-trailing-space-save </item>
+    <item> space-indent </item>
+    <item> show-tabs </item>
+    <item> tab-indents </item>
+    <item> word-wrap </item>
+    <item> wrap-cursor </item>
+  </list>
+
+  <list name="True">
+    <item> on </item>
+    <item> true </item>
+    <item> 1 </item>
+  </list>
+
+  <list name="False">
+    <item> off </item>
+    <item> false </item>
+    <item> 0 </item>
+  </list>
+
+  <list name="Integrals">
+    <item> auto-center-lines </item>
+    <item> font-size </item>
+    <item> indent-width </item>
+    <item> smart-home </item>
+    <item> tab-width </item>
+    <item> undo-steps </item>
+    <item> word-wrap-column </item>
+  </list>
+
+  <list name="Strings">
+    <item> background-color </item>
+    <item> bracket-highlight-color </item>
+    <item> current-line-color </item>
+    <item> default-dictionary </item>
+    <item> dynamic-word-wrap </item>
+    <item> eol </item>
+    <item> end-of-line </item> <!-- Valid settings are unix, mac and dos -->
+    <item> font </item>
+    <item> hl </item>
+    <item> icon-bar-color </item>
+    <item> indent-mode </item>
+    <item> scheme </item>
+    <item> selection-color </item>
+    <item> word-wrap-marker-color </item>
+  </list>
+
+  <contexts>
+    <context name="Normal" attribute="Comment" lineEndContext="#pop">
+      <DetectSpaces />
+      <keyword String="ModelineStartKeyword" context="Modeline" attribute="Keyword" />
+      <LineContinue attribute="Error" context="#pop" />
+    </context>
+
+    <context name="Modeline" attribute="Comment" lineEndContext="#pop#pop">
+      <DetectSpaces />
+      <keyword String="Booleans" context="Booleans" attribute="Variable Name" />
+      <keyword String="Integrals" context="Integrals" attribute="Variable Name" />
+      <keyword String="Strings" context="Strings" attribute="Variable Name" />
+      <DetectSpaces />
+      <RegExpr context="#stay" String="\S*" attribute="Error" />
+    </context>
+
+    <context name="Booleans" attribute="Comment" lineEndContext="#pop#pop#pop">
+      <DetectSpaces />
+      <keyword String="True" attribute="Boolean True" context="#stay" />
+      <keyword String="False" attribute="Boolean False" context="#stay" />
+      <DetectSpaces />
+      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <RegExpr context="#pop" String="\S*" attribute="Error" />
+    </context>
+
+    <context name="Integrals" attribute="Comment" lineEndContext="#pop#pop#pop">
+      <DetectSpaces />
+      <Int attribute="Integral Value" context="#stay" />
+      <DetectSpaces />
+      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <RegExpr context="#pop" String="\S*" attribute="Error" />
+    </context>
+
+    <context name="Strings" attribute="String Value" lineEndContext="#pop#pop#pop">
+      <DetectSpaces />
+      <RegExpr String="[^&end;&space;]" context="#stay" />
+      <DetectSpaces />
+      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <RegExpr context="#pop" String="\S*" attribute="Error" />
+    </context>
+
+  </contexts>
+
+  <itemDatas>
+    <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
+    <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
+    <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
+    <itemData name="Variable Name" defStyleNum="dsFunction" spellChecking="false" />
+    <itemData name="Boolean True" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Boolean False" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Integral Value" defStyleNum="dsDecVal" spellChecking="false" />
+    <itemData name="String Value" defStyleNum="dsString" spellChecking="false" />
+  </itemDatas>
+
+</highlighting>
+
+<general>
+  <keywords casesensitive="1" weakDeliminator=":-" />
+</general>
+
+</language>
+<!-- kate: indent-width 2; -->

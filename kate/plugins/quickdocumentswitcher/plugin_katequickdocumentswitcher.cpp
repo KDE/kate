@@ -78,6 +78,7 @@ PluginViewKateQuickDocumentSwitcher::PluginViewKateQuickDocumentSwitcher(Kate::M
     mainwindow->guiFactory()->addClient (this);
     if(mainwindow->activeView()) {
         m_activeDoc = mainwindow->activeView()->document();
+        kDebug() << "Assigned active doc: " << m_activeDoc;
     }
 
     connect(mainwindow, SIGNAL(viewChanged()), SLOT(slotViewChanged()));
@@ -110,6 +111,7 @@ void PluginViewKateQuickDocumentSwitcher::slotViewChanged() {
     if(newDoc != m_activeDoc) {
         m_prevDoc = m_activeDoc;
         m_activeDoc = newDoc;
+        kDebug() << "Reassigned active doc: " << m_activeDoc;
     }
 }
 //END: View

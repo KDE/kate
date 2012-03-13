@@ -169,6 +169,16 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="chkNewLineAtEof">
+        <property name="whatsThis">
+         <string>On save, a line break is appended to the document if not already present. The line break is visible after reloading the file.</string>
+        </property>
+        <property name="text">
+         <string>Append newline at end of file on save</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

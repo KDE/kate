@@ -242,6 +242,9 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     void setRemoveSpaces (bool on);
     bool removeSpaces () const;
 
+    void setNewLineAtEof (bool on);
+    bool newLineAtEof () const;
+
     void setOvr (bool on);
     bool ovr () const;
 
@@ -359,6 +362,8 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_removeTrailingDyn : 1;
     bool m_removeSpacesSet : 1;
     bool m_removeSpaces : 1;
+    bool m_newLineAtEofSet : 1;
+    bool m_newLineAtEof : 1;
     bool m_overwiteModeSet : 1;
     bool m_overwiteMode : 1;
     bool m_tabIndentsSet : 1;

@@ -4251,6 +4251,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setSmartHome( state );
       else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
         m_config->setRemoveSpaces( state );
+      else if ( var == "newline-at-eof" && checkBoolValue( val, &state ) )
+        m_config->setNewLineAtEof( state );
 
       // INTEGER SETTINGS
       else if ( var == "tab-width" && checkIntValue( val, &n ) )

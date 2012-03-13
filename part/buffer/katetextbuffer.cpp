@@ -50,6 +50,7 @@ TextBuffer::TextBuffer (KateDocument *parent, int blockSize)
   , m_generateByteOrderMark (false)
   , m_endOfLineMode (eolUnix)
   , m_removeTrailingSpaces (false)
+  , m_newLineAtEof (false)
   , m_lineLengthLimit (1024)
 {
   // minimal block size must be > 0
@@ -720,6 +721,15 @@ bool TextBuffer::save (const QString &filename)
     // append correct end of line string
     if ((i+1) < m_lines)
       stream << eol;
+  }
+
+  if (m_newLineAtEof) {
+    Q_ASSERT(m_lines > 0); // see .h file
+    const Kate::TextLine lastLine = line (m_lines - 1);
+    const int firstChar = lastLine->firstChar();
+    if (firstChar > -1 || (lastLine->length() > 0 && !m_removeTrailingSpaces)) {
+      stream << eol;
+    }
   }
 
   // flush stream

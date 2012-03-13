@@ -179,6 +179,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_replaceTabsDynSet (false),
    m_removeTrailingDynSet (false),
    m_removeSpacesSet (false),
+   m_newLineAtEofSet (false),
    m_overwiteModeSet (false),
    m_tabIndentsSet (false),
    m_encodingSet (true),
@@ -265,6 +266,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_replaceTabsDynSet (false),
    m_removeTrailingDynSet (false),
    m_removeSpacesSet (false),
+   m_newLineAtEofSet (false),
    m_overwiteModeSet (false),
    m_tabIndentsSet (false),
    m_encodingSet (false),
@@ -315,6 +317,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setReplaceTabsDyn (config.readEntry("ReplaceTabsDyn", false));
   setRemoveTrailingDyn (config.readEntry("RemoveTrailingDyn", false));
   setRemoveSpaces (config.readEntry("Remove Spaces", false));
+  setNewLineAtEof (config.readEntry("Newline At EOF", false));
   setOvr (config.readEntry("Overwrite Mode", false));
 
   setEncoding (config.readEntry("Encoding", ""));
@@ -369,6 +372,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("ReplaceTabsDyn", replaceTabsDyn());
   config.writeEntry("RemoveTrailingDyn", removeTrailingDyn());
   config.writeEntry("Remove Spaces", removeSpaces());
+  config.writeEntry("Newline At EOF", newLineAtEof());
   config.writeEntry("Overwrite Mode", ovr());
 
   config.writeEntry("Encoding", encoding());
@@ -742,6 +746,24 @@ bool KateDocumentConfig::removeSpaces() const
     return m_removeSpaces;
 
   return s_global->removeSpaces();
+}
+
+void KateDocumentConfig::setNewLineAtEof (bool on)
+{
+  configStart ();
+
+  m_newLineAtEofSet = true;
+  m_newLineAtEof = on;
+
+  configEnd ();
+}
+
+bool KateDocumentConfig::newLineAtEof () const
+{
+  if (m_newLineAtEofSet || isGlobal())
+    return m_newLineAtEof;
+
+  return s_global->newLineAtEof();
 }
 
 void KateDocumentConfig::setOvr(bool on)

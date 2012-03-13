@@ -663,7 +663,7 @@ comparing is used.</para>
 </varlistentry>
 
 <varlistentry>
-<term>StringDetect</term>
+<term>WordDetect</term>
 <listitem>
 <para>Detect an exact string but additionally require word boundaries
 like a dot <userinput>'.'</userinput> or a whitespace on the beginning

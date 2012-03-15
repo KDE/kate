@@ -143,11 +143,11 @@
     <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
     <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
     <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
-    <itemData name="Variable Name" defStyleNum="dsFunction" spellChecking="false" />
+    <itemData name="Variables" defStyleNum="dsFunction" spellChecking="false" />
     <itemData name="Boolean True" defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="Boolean False" defStyleNum="dsOthers" spellChecking="false" />
-    <itemData name="Integral Value" defStyleNum="dsDecVal" spellChecking="false" />
-    <itemData name="String Value" defStyleNum="dsString" spellChecking="false" />
+    <itemData name="Numbers" defStyleNum="dsDecVal" spellChecking="false" />
+    <itemData name="Strings" defStyleNum="dsString" spellChecking="false" />
   </itemDatas>
 
 </highlighting>

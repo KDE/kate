@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.2"
+          version="0.21"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -105,9 +105,9 @@
 
     <context name="Modeline" attribute="Comment" lineEndContext="#pop#pop">
       <DetectSpaces />
-      <keyword String="Booleans" context="Booleans" attribute="Variable Name" />
-      <keyword String="Integrals" context="Integrals" attribute="Variable Name" />
-      <keyword String="Strings" context="Strings" attribute="Variable Name" />
+      <keyword String="Booleans" context="Booleans" attribute="Variable" />
+      <keyword String="Integrals" context="Integrals" attribute="Variable" />
+      <keyword String="Strings" context="Strings" attribute="Variable" />
       <DetectSpaces />
       <RegExpr context="#stay" String="\S*" attribute="Error" />
     </context>
@@ -117,23 +117,23 @@
       <keyword String="True" attribute="Boolean True" context="#stay" />
       <keyword String="False" attribute="Boolean False" context="#stay" />
       <DetectSpaces />
-      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <DetectChar char="&end;" context="#pop" attribute="Variable" />
       <RegExpr context="#pop" String="\S*" attribute="Error" />
     </context>
 
     <context name="Integrals" attribute="Comment" lineEndContext="#pop#pop#pop">
       <DetectSpaces />
-      <Int attribute="Integral Value" context="#stay" />
+      <Int attribute="Number" context="#stay" />
       <DetectSpaces />
-      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <DetectChar char="&end;" context="#pop" attribute="Variable" />
       <RegExpr context="#pop" String="\S*" attribute="Error" />
     </context>
 
-    <context name="Strings" attribute="String Value" lineEndContext="#pop#pop#pop">
+    <context name="Strings" attribute="String" lineEndContext="#pop#pop#pop">
       <DetectSpaces />
       <RegExpr String="[^&end;&space;]" context="#stay" />
       <DetectSpaces />
-      <DetectChar char="&end;" context="#pop" attribute="Variable Name" />
+      <DetectChar char="&end;" context="#pop" attribute="Variable" />
       <RegExpr context="#pop" String="\S*" attribute="Error" />
     </context>
 
@@ -143,11 +143,11 @@
     <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
     <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
     <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
-    <itemData name="Variables" defStyleNum="dsFunction" spellChecking="false" />
+    <itemData name="Variable" defStyleNum="dsFunction" spellChecking="false" />
     <itemData name="Boolean True" defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="Boolean False" defStyleNum="dsOthers" spellChecking="false" />
-    <itemData name="Numbers" defStyleNum="dsDecVal" spellChecking="false" />
-    <itemData name="Strings" defStyleNum="dsString" spellChecking="false" />
+    <itemData name="Number" defStyleNum="dsDecVal" spellChecking="false" />
+    <itemData name="String" defStyleNum="dsString" spellChecking="false" />
   </itemDatas>
 
 </highlighting>

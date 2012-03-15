@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.21"
+          version="0.2"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -100,48 +100,43 @@
     <context name="Normal" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
       <keyword String="ModelineStartKeyword" context="Modeline" attribute="Keyword" />
-      <LineContinue attribute="Error" context="#pop" />
+      <LineContinue context="#pop" />
     </context>
 
-    <context name="Modeline" attribute="Comment" lineEndContext="#pop#pop">
+    <context name="Modeline" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
       <keyword String="Booleans" context="Booleans" attribute="Variable" />
       <keyword String="Integrals" context="Integrals" attribute="Variable" />
       <keyword String="Strings" context="Strings" attribute="Variable" />
-      <DetectSpaces />
-      <RegExpr context="#stay" String="\S*" attribute="Error" />
+      <LineContinue context="#pop" />
     </context>
 
-    <context name="Booleans" attribute="Comment" lineEndContext="#pop#pop#pop">
+    <context name="Booleans" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
       <keyword String="True" attribute="Boolean True" context="#stay" />
       <keyword String="False" attribute="Boolean False" context="#stay" />
-      <DetectSpaces />
       <DetectChar char="&end;" context="#pop" attribute="Variable" />
-      <RegExpr context="#pop" String="\S*" attribute="Error" />
+      <LineContinue context="#pop" />
     </context>
 
-    <context name="Integrals" attribute="Comment" lineEndContext="#pop#pop#pop">
+    <context name="Integrals" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
       <Int attribute="Number" context="#stay" />
-      <DetectSpaces />
       <DetectChar char="&end;" context="#pop" attribute="Variable" />
-      <RegExpr context="#pop" String="\S*" attribute="Error" />
+      <LineContinue context="#pop" />
     </context>
 
-    <context name="Strings" attribute="String" lineEndContext="#pop#pop#pop">
+    <context name="Strings" attribute="String" lineEndContext="#pop">
       <DetectSpaces />
       <RegExpr String="[^&end;&space;]" context="#stay" />
-      <DetectSpaces />
       <DetectChar char="&end;" context="#pop" attribute="Variable" />
-      <RegExpr context="#pop" String="\S*" attribute="Error" />
+      <LineContinue context="#pop" />
     </context>
 
   </contexts>
 
   <itemDatas>
     <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
-    <itemData name="Error" defStyleNum="dsError" spellChecking="false" />
     <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
     <itemData name="Variable" defStyleNum="dsFunction" spellChecking="false" />
     <itemData name="Boolean True" defStyleNum="dsOthers" spellChecking="false" />

@@ -524,12 +524,18 @@ void KateCodeFoldingTree::collapseAll_dsComments()
 {
   if (m_root->noStartChildren())
     return;
-  
+
+  bool foldingChanged = false;
   foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
     bool isComment = m_buffer->document()->isComment(child->getLine(),child->getColumn());
     if (!m_hiddenNodes.contains(child) && isComment) {
       foldNode(child);
+      foldingChanged = true;
     }
+  }
+
+  if (foldingChanged) {
+    emit regionVisibilityChanged();
   }
 }
 
@@ -541,6 +547,7 @@ void KateCodeFoldingTree::collapseLevel(int level, KateCodeFoldingNode *node, in
   // if "level" was reached, we fold the node
   if (level == nodeLevel) {
     foldNode(node);
+    emit regionVisibilityChanged();
     return;
   }
 
@@ -561,6 +568,7 @@ int KateCodeFoldingTree::collapseOne(int realLine, int column)
     return 0;
 
   foldNode(nodeToFold);
+  emit regionVisibilityChanged();
 
   return 0;
 }
@@ -571,10 +579,16 @@ void KateCodeFoldingTree::collapseToplevelNodes()
   if (m_root->noStartChildren())
     return;
 
+  bool changed = false;
   foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
     if (!m_hiddenNodes.contains(child)) {
       foldNode(child);
+      changed = true;
     }
+  }
+
+  if (changed) {
+    emit regionVisibilityChanged();
   }
 }
 
@@ -598,6 +612,8 @@ void KateCodeFoldingTree::deleteNodeFromMap(KateCodeFoldingNode *node)
 
   if (m_hiddenNodes.contains(node)) {
     unfoldNode(node);
+    // do not emit regionVisibilityChanged(); as it leads to double deletion
+    // of folding nodes
   }
 }
 
@@ -650,6 +666,7 @@ void KateCodeFoldingTree::ensureVisible(int l)
       matchNode = m_rootMatch;
     if (node->getLine() < l && l <= matchNode->getLine()) {
       unfoldNode(node);
+      emit regionVisibilityChanged();
       break;
     }
   }
@@ -686,6 +703,7 @@ void KateCodeFoldingTree::expandLevel(int level, KateCodeFoldingNode *node, int 
   if (level == nodeLevel) {
     if (!node->isVisible()) {
       unfoldNode(node);
+      emit regionVisibilityChanged();
     }
     return;
   }
@@ -704,6 +722,7 @@ void KateCodeFoldingTree::expandOne(int realLine, int column)
     return;
 
   unfoldNode(nodeToUnfold);
+  emit regionVisibilityChanged();
 }
 
 // This method unfold the top level (depth(node = 1)) nodes
@@ -712,10 +731,15 @@ void KateCodeFoldingTree::expandToplevelNodes()
   if (m_root->noStartChildren())
     return;
 
+  bool changed = false;
   foreach (KateCodeFoldingNode *child, m_root->m_startChildren) {
     if (m_hiddenNodes.contains(child)) {
       unfoldNode(child);
+      changed = true;
     }
+  }
+  if (changed) {
+    emit regionVisibilityChanged();
   }
 }
 
@@ -1353,8 +1377,6 @@ void KateCodeFoldingTree::foldNode(KateCodeFoldingNode *node)
 
   oldHiddenNodes.clear();
 
-  emit regionVisibilityChanged ();
-
   //printMapping();
 }
 
@@ -1404,8 +1426,6 @@ void KateCodeFoldingTree::unfoldNode(KateCodeFoldingNode *node)
   }
 
   replaceFoldedNodeWithList(node, newFoldedNodes);
-
-  emit regionVisibilityChanged();
 }
 
 // The method replace a single node with a list of nodes into the m_hiddenNodes data strucutre
@@ -1448,7 +1468,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
   if (!m_lineMapping.contains(l))
     return;
 
-  bool foldedFound = false;
+  bool foldChanged = false;
 
   foreach (KateCodeFoldingNode* node, m_lineMapping.value(l)) {
 
@@ -1459,12 +1479,12 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
     // If there are any folded nodes, they have priority
     if (!node->isVisible()) {
       unfoldNode(node);
-      foldedFound = true;
+      foldChanged = true;
     }
   }
 
   // If there were no folded nodes, we'll folde the first node
-  if (!foldedFound) {
+  if (!foldChanged) {
     foreach (KateCodeFoldingNode* node, m_lineMapping.value(l)) {
 
       // We can fold/unfold only start nodes
@@ -1474,9 +1494,14 @@ void KateCodeFoldingTree::toggleRegionVisibility(int l)
       // We fold the first unfolded node and exit
       if (node->isVisible()) {
         foldNode(node);
+        foldChanged = true;
         break;
       }
     }
+  }
+
+  if (foldChanged) {
+    emit regionVisibilityChanged();
   }
 }
 
@@ -1637,6 +1662,7 @@ void KateCodeFoldingTree::applyFoldingState()
     foreach (KateCodeFoldingNode* node, m_lineMapping.value(line)) {
       if (node->getColumn() == column) {
         foldNode(node);
+        emit regionVisibilityChanged();
         break;
       }
     }

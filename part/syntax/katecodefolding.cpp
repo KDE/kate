@@ -234,16 +234,10 @@ bool KateCodeFoldingNode::removeEndAscending(KateCodeFoldingNode *deletedNode)
     KateCodeFoldingNode* child = m_startChildren[i];
 
     // If a child contains the deleted node
-    if (child->m_endChildren.contains(deletedNode)) {
+    int j = child->m_endChildren.indexOf(deletedNode);
+    if (j != -1) {
       child->removeEndAscending(deletedNode);
-      int j;
-      for (j = 0 ; j < child->m_endChildren.size() ; ++j) {
-        if (child->m_endChildren[j] == deletedNode)
-          break;
-      }
-      // We remove the node
-      if (j < child->m_endChildren.size())
-        child->m_endChildren.remove(j);
+      child->m_endChildren.remove(j);
     }
   }
   return true;
@@ -253,16 +247,8 @@ bool KateCodeFoldingNode::removeEndAscending(KateCodeFoldingNode *deletedNode)
 // Return true if succeeded
 bool KateCodeFoldingNode::removeEndDescending(KateCodeFoldingNode *deletedNode)
 {
-  bool found = false;
-  int i;
-
-  for (i = 0 ; i < m_endChildren.size() ; ++i) {
-    if (m_endChildren[i] == deletedNode) {
-      found = true;
-      break;
-    }
-  }
-  if (found) {
+  int i = m_endChildren.indexOf(deletedNode);
+  if (i != -1) {
     m_endChildren.remove(i);
 
     if (m_endChildren.empty())
@@ -270,29 +256,21 @@ bool KateCodeFoldingNode::removeEndDescending(KateCodeFoldingNode *deletedNode)
     if (m_type > 0) {
       m_parentNode->removeEndDescending(deletedNode);
     }
-    return true;
   }
-  return false;
+  
+  return i != -1;
 }
 
 // Removes "node" from "children" list
 // Return true if succeeded
 bool KateCodeFoldingNode::removeStart(KateCodeFoldingNode *deletedNode)
 {
-  bool found = false;
-  int i;
-
-  for (i = 0 ; i < m_startChildren.size() ; ++i) {
-    if (m_startChildren[i] == deletedNode) {
-      found = true;
-      break;
-    }
-  }
-  if (found) {
+  int i = m_startChildren.indexOf(deletedNode);
+  if (i != -1) {
     m_startChildren.remove(i);
-    return true;
   }
-  return false;
+
+  return i != -1;
 }
 
 // Removes "node" from it's parent children list
@@ -599,12 +577,9 @@ void KateCodeFoldingTree::deleteNodeFromMap(KateCodeFoldingNode *node)
 {
   Q_ASSERT(m_lineMapping.contains(node->getLine()));
   QVector<KateCodeFoldingNode *>& nodes = m_lineMapping[node->getLine()];
-  int index;
-  for (index = 0 ; index < nodes.size() ; index ++) {
-    if (nodes[index] == node) {
-      nodes.remove(index);
-      break;
-    }
+  int index = nodes.indexOf(node);
+  if (index != -1) {
+    nodes.remove(index);
   }
   if (nodes.empty()) {
     m_lineMapping.remove(node->getLine());

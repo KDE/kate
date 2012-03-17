@@ -1,0 +1,12 @@
+# kate: hl cmake;
+set(UNIT_TESTS unit_tests)
+set(UNIT_TESTS_SOURCES FIRST_SOURCE_FILE)
+
+add_executable(${UNIT_TESTS} ${UNIT_TESTS_SOURCES})
+
+target_link_libraries(
+    ${UNIT_TESTS}
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+
+add_boost_tests(${UNIT_TESTS} "--catch_system_errors=no" ${UNIT_TESTS_SOURCES})

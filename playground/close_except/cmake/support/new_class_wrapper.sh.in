@@ -1,0 +1,70 @@
+#!/bin/sh
+# Copyright 2011,2012 by Alex Turbov <i.zaufi@gmail.com>
+#
+# Helper to generate class skeletons
+#
+
+. @CMAKE_SOURCE_DIR@/cmake/support/output-helpers.sh
+
+show_help()
+{
+    einfo "Use 'make new-class class=ClassName subdir=path/from/src/root [ns=namespaces::list]'"
+    einfo "Where: "
+    einfo "  class  -- class name to generate skeletons for"
+    einfo "  subdir -- dir to put generated sources to (relative to project root)"
+    einfo "  ns     -- namespaces to put generated class into"
+    einfo "Exmaple: make new-class class=some_class subdir=dzen/debug ns=dzen::debug"
+}
+
+if [ -z "$class" ]; then
+    eerror "No class name provided"
+    show_help
+    exit 1
+fi
+if [ -z "$subdir" ]; then
+    eerror "No subdir argument provided"
+    show_help
+    exit 1
+fi
+
+# Form a filename using a class name provided
+case "x@NAMING_STYLE@" in
+xCamel)
+    transformed_name=`echo $class | LC_ALL=C sed -e 's,\([A-Z]\),_\L\1,g' -e 's,^_,,'`
+    ;;
+*)
+    # No filename transform required
+    transformed_name="$class"
+    ;;
+esac
+
+# Ok. Lets work!
+ebegin "Generate class skeleton files for $class: $transformed_name.cpp and $transformed_name.h"
+rf=@CMAKE_BINARY_DIR@/$transformed_name.def
+# Generate response file for autogen
+echo "autogen definitions @CMAKE_SOURCE_DIR@/cmake/support/class.tpl;" > $rf \
+  && echo "subdir=$subdir;" >> $rf \
+  && echo "guard_base=`echo "$subdir" | sed -e 's,/,__,g' -e 's,[^0-9A-Za-z],_,g'`;" >> $rf \
+  && echo "classname=$class;" >> $rf \
+  && echo "project=@PROJECT_NAME@;" >> $rf \
+  && echo "filename=$transformed_name;" >> $rf \
+  && ( test -n "$ns" && echo "$ns" | awk -F '::' -f @CMAKE_SOURCE_DIR@/cmake/support/mknslist.awk >> $rf \
+      || ( test -f @CMAKE_SOURCE_DIR@/cmake/support/tpl-defaults.def && cat @CMAKE_SOURCE_DIR@/cmake/support/tpl-defaults.def >> $rf ) \
+      ) \
+  && @AUTOGEN_EXECUTABLE@ -L @CMAKE_SOURCE_DIR@/cmake/support $rf
+result=$?
+eend $result
+test "$result" = "0" || exit 1
+
+if [ "@CMAKE_BINARY_DIR@" != "@CMAKE_SOURCE_DIR@" ]; then
+    # Move generated files from CMAKE_BINARY_DIR to desired subdir (if exists)
+    dst=`test -d "@CMAKE_SOURCE_DIR@/$subdir" && echo "@CMAKE_SOURCE_DIR@/$subdir" || echo "@CMAKE_SOURCE_DIR@"`
+    ebegin "Move generated files to $dst"
+    mv -i @CMAKE_BINARY_DIR@/$transformed_name.h @CMAKE_BINARY_DIR@/$transformed_name.cpp $dst
+    eend $?
+fi
+
+# Cleanup
+ebegin "Cleanup"
+rm -f $rf
+eend $?

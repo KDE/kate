@@ -31,7 +31,7 @@ include(KDE4Defaults)
 # Section: Configure building process
 #---------------------------------------------------------
 # NOTE Order is important!
-include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/kate ${CMAKE_SOURCE_DIR}/kate/interfaces ${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 include_directories(${KDE4_INCLUDES} ${QT_INCLUDES})
 
 # Add Qt/KDE defines

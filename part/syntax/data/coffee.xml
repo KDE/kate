@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 
 <language name="CoffeeScript"
-          version="1.2"
+          version="1.3"
           kateversion="2.4"
           section="Scripts"
           extensions="Cakefile;*.coffee;*.coco"
@@ -154,11 +154,11 @@
         <keyword attribute="Browser Globals" context="#stay" String="browser_globals"/>
         <keyword attribute="Node.js Globals" context="#stay" String="nodejs_globals"/>
         <!-- Member accessors. -->
-        <RegExpr attribute="Accessor" context="#stay" String="(@[_$a-zA-Z][$\w]+|\bthis)\b" insensitive="false"/>
+        <RegExpr attribute="Accessor" context="#stay" String="(@[_$a-zA-Z][$\w]*|\bthis)\b" insensitive="false"/>
         <!-- Function definitions. Matches an optional argument list followed by a function arrow (normal or fat). -->
         <RegExpr attribute="Function" context="#stay" String="(\((\'[^']*'|&quot;[^&quot;]*&quot;|[^()])*\))?\s*(-|=)&gt;" insensitive="true"/>
         <!-- Generic identifiers. -->
-        <RegExpr attribute="Identifier" context="#stay" String="[_$a-z][$\w]+\b" insensitive="true"/>
+        <RegExpr attribute="Identifier" context="#stay" String="[_$a-z][$\w]*\b" insensitive="true"/>
         <!-- Strings. -->
         <StringDetect attribute="String" context="Heredoc" String="'''" beginRegion="Heredoc"/>
         <StringDetect attribute="String" context="Rich Heredoc" String="&quot;&quot;&quot;" beginRegion="Rich Heredoc"/>

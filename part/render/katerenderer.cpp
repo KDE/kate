@@ -727,6 +727,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock()) {
+    const QPainter::RenderHints backupRenderHints = paint.renderHints();
     paint.setRenderHint(QPainter::Antialiasing, false);
     QPen pen(config()->wordWrapMarkerColor());
     pen.setCosmetic(true);
@@ -734,15 +735,18 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     pen.setDashOffset(xStart);
     paint.setPen(pen);
     paint.drawLine(0, (lineHeight() * range->viewLineCount()) - 1, xEnd - xStart, (lineHeight() * range->viewLineCount()) - 1);
+    paint.setRenderHints(backupRenderHints);
   }
 
   // show word wrap marker if desirable
   if ((!isPrinterFriendly()) && config()->wordWrapMarker() && QFontInfo(config()->font()).fixedPitch())
   {
+    const QPainter::RenderHints backupRenderHints = paint.renderHints();
     paint.setRenderHint(QPainter::Antialiasing, false);
     paint.setPen( config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;
     paint.drawLine( _x,0,_x,lineHeight() );
+    paint.setRenderHints(backupRenderHints);
   }
 }
 

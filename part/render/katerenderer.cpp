@@ -291,7 +291,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
 void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
 {
   QPen penBackup( paint.pen() );
-  paint.setPen( config()->tabMarkerColor() );
+  paint.setPen( config()->indentationLineColor() );
 
   const int height = config()->fontMetrics().height();
   const int top = 0;

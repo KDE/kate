@@ -176,6 +176,12 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   ci.defaultColor = KColorUtils::shade(schemeView.background().color(), bgLuma > 0.7 ? -0.35 : 0.3);
   items.append(ci);
 
+  ci.name = i18n("Indentation Line");
+  ci.key = "Color Indentation Line";
+  ci.whatsThis = i18n("<p>Sets the color of the vertical indentation lines.</p>");
+  ci.defaultColor = KColorUtils::shade(schemeView.background().color(), bgLuma > 0.7 ? -0.35 : 0.3);
+  items.append(ci);
+
   ci.name = i18n("Bracket Highlight");
   ci.key = "Color Highlighted Bracket";
   ci.whatsThis = i18n("<p>Sets the bracket matching color. This means, if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will be highlighted with this color.</p>");

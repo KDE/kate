@@ -1731,6 +1731,7 @@ KateRendererConfig::KateRendererConfig ()
    m_highlightedBracketColorSet (true),
    m_wordWrapMarkerColorSet (true),
    m_tabMarkerColorSet(true),
+   m_indentationLineColorSet(true),
    m_iconBarColorSet(true),
    m_foldingColorSet(true),
    m_lineNumberColorSet (true),
@@ -1766,7 +1767,8 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_highlightedLineColorSet (false),
    m_highlightedBracketColorSet (false),
    m_wordWrapMarkerColorSet (false),
-   m_tabMarkerColorSet(false),
+   m_tabMarkerColorSet (false),
+   m_indentationLineColorSet (false),
    m_iconBarColorSet (false),
    m_foldingColorSet (false),
    m_lineNumberColorSet (false),
@@ -1896,6 +1898,8 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_wordWrapMarkerColorSet = true;
   m_tabMarkerColor = config.readEntry("Color Tab Marker", tmp5);
   m_tabMarkerColorSet = true;
+  m_indentationLineColor = config.readEntry("Color Indentation Line", tmp5);
+  m_indentationLineColorSet = true;
   m_iconBarColor  = config.readEntry("Color Icon Bar", tmp6);
   m_iconBarColorSet = true;
   m_foldingColor  = config.readEntry("Color Code Folding", tmp12);
@@ -2132,6 +2136,24 @@ void KateRendererConfig::setTabMarkerColor (const QColor &col)
 
   m_tabMarkerColorSet = true;
   m_tabMarkerColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::indentationLineColor() const
+{
+  if (m_indentationLineColorSet || isGlobal())
+    return m_indentationLineColor;
+
+  return s_global->indentationLineColor();
+}
+
+void KateRendererConfig::setIndentationLineColor (const QColor &col)
+{
+  configStart ();
+
+  m_indentationLineColorSet = true;
+  m_indentationLineColor = col;
 
   configEnd ();
 }

@@ -655,6 +655,9 @@ class KateRendererConfig : public KateConfig
     const QColor& tabMarkerColor() const;
     void setTabMarkerColor (const QColor &col);
 
+    const QColor& indentationLineColor() const;
+    void setIndentationLineColor (const QColor &col);
+
     const QColor& iconBarColor() const;
     void setIconBarColor (const QColor &col);
 
@@ -710,6 +713,7 @@ class KateRendererConfig : public KateConfig
     QColor m_highlightedBracketColor;
     QColor m_wordWrapMarkerColor;
     QColor m_tabMarkerColor;
+    QColor m_indentationLineColor;
     QColor m_iconBarColor;
     QColor m_foldingColor;
     QColor m_lineNumberColor;
@@ -737,6 +741,7 @@ class KateRendererConfig : public KateConfig
     bool m_highlightedBracketColorSet : 1;
     bool m_wordWrapMarkerColorSet : 1;
     bool m_tabMarkerColorSet : 1;
+    bool m_indentationLineColorSet : 1;
     bool m_iconBarColorSet : 1;
     bool m_foldingColorSet : 1;
     bool m_lineNumberColorSet : 1;

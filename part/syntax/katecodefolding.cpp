@@ -1623,9 +1623,7 @@ void KateCodeFoldingTree::applyFoldingState()
     return;
 
   // We have to make sure that the document was hl
-  for (int index = 0 ; index < m_rootMatch->getLine() ; ++index) {
-    m_buffer->ensureHighlighted(index);
-  }
+  m_buffer->ensureHighlighted(m_rootMatch->getLine());
 
   QListIterator<int> itLines (m_hiddenLines);
   QListIterator<int> itColumns (m_hiddenColumns);
@@ -1633,7 +1631,11 @@ void KateCodeFoldingTree::applyFoldingState()
     int line = itLines.next();
     int column = itColumns.next();
 
-    Q_ASSERT(m_lineMapping.contains(line));
+    if (!m_lineMapping.contains(line)) {
+      // if the node does not exist, abort restoring the folding state, as
+      // the file probably changed, hence, folds would be wrong anyways
+      return;
+    }
     foreach (KateCodeFoldingNode* node, m_lineMapping.value(line)) {
       if (node->getColumn() == column) {
         foldNode(node);

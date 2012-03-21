@@ -50,9 +50,9 @@ int countItems(KateCompletionModel *model)
 
 static void invokeCompletionBox(KateView* view)
 {
-    QTest::qWait(500); // needed, otherwise, test fails
+    QTest::qWait(1000); // needed, otherwise, test fails
     view->userInvokedCompletion();
-    QTest::qWait(500); // wait until code completion pops up
+    QTest::qWait(1000); // wait until code completion pops up
     QVERIFY(view->completionWidget()->isCompletionActive());
 }
 
@@ -94,7 +94,7 @@ void CompletionTest::testFilterEmptyRange()
 
     QCOMPARE(countItems(model), 40);
     m_view->insertText("aa");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 14);
 }
 
@@ -111,7 +111,7 @@ void CompletionTest::testFilterWithRange()
     QCOMPARE(countItems(model), 14);
 
     m_view->insertText("a");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 1);
 }
 
@@ -128,7 +128,7 @@ void CompletionTest::testAbortCursorMovedOutOfRange()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->setCursorPosition(Cursor(0, 4));
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
@@ -144,7 +144,7 @@ void CompletionTest::testAbortInvalidText()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText(".");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
@@ -163,7 +163,7 @@ void CompletionTest::testCustomRange1()
     QCOMPARE(countItems(model), 14);
 
     m_view->insertText("a");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 1);
 }
 
@@ -181,7 +181,7 @@ void CompletionTest::testCustomRange2()
     QCOMPARE(countItems(model), 40);
 
     m_view->insertText("aa");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 14);
 }
 
@@ -203,7 +203,7 @@ void CompletionTest::testCustomRangeMultipleModels()
 
 
     m_view->insertText("aa");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(model->currentCompletion(testModel1), QString("$aa"));
     QCOMPARE(model->currentCompletion(testModel2), QString("aa"));
     QCOMPARE(countItems(model), 14*2);
@@ -221,11 +221,11 @@ void CompletionTest::testAbortController()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText("$a");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText(".");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
@@ -242,12 +242,12 @@ void CompletionTest::testAbortControllerMultipleModels()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText("a");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(m_view->completionWidget()->isCompletionActive());
     QCOMPARE(countItems(model), 80);
 
     m_view->insertText("-");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(m_view->completionWidget()->isCompletionActive());
     QVERIFY(!m_view->completionWidget()->completionRanges().contains(testModel1));
     QVERIFY(m_view->completionWidget()->completionRanges().contains(testModel2));
@@ -255,7 +255,7 @@ void CompletionTest::testAbortControllerMultipleModels()
     QCOMPARE(countItems(model), 40);
 
     m_view->insertText(" ");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
 }
 
@@ -270,11 +270,11 @@ void CompletionTest::testEmptyFilterString()
     QCOMPARE(countItems(model), 40);
 
     m_view->insertText("a");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 40);
 
     m_view->insertText("bam");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(countItems(model), 40);
 }
 
@@ -291,7 +291,7 @@ void CompletionTest::testUpdateCompletionRange()
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel)), Range(Cursor(0, 3), Cursor(0, 3)));
 
     m_view->insertText("ab");
-    QTest::qWait(100); // process events
+    QTest::qWait(1000); // process events
     QCOMPARE(Range(*m_view->completionWidget()->completionRange(testModel)), Range(Cursor(0, 0), Cursor(0, 5)));
     QCOMPARE(countItems(model), 40);
 }
@@ -306,7 +306,7 @@ void CompletionTest::testCustomStartCompl()
 
     m_view->setCursorPosition(Cursor(0, 0));
     m_view->insertText("%");
-    QTest::qWait(100);
+    QTest::qWait(1000);
 
     QVERIFY(m_view->completionWidget()->isCompletionActive());
     QCOMPARE(countItems(model), 40);

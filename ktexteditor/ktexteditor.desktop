@@ -10,6 +10,7 @@ Comment[ca@valencia]=Component incrustable de l'editor de text (amb separació D
 Comment[cs]=Pohltitelná komponenta textového editoru (s oddělením Doc/View)
 Comment[da]=Teksteditorkomponent som kan indlejres (med dok./visning-adskillelse)
 Comment[de]=Einbettungsfähige Editorkomponente (mit Text/Ansicht-Aufteilung)
+Comment[el]=Ενσωματώσιμο συστατικό επεξεργαστή κειμένου (με διαχωρισμό των δεδομένων από την προβολή τους)
 Comment[en_GB]=Embeddable Text Editor Component (with Doc/View Separation)
 Comment[es]=Componente empotrable de edición de texto (con separación documentos/vista)
 Comment[et]=Põimitav tekstiredaktori komponent (dokumendi/vaate eraldamisega)

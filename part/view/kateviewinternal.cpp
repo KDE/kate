@@ -1031,7 +1031,10 @@ public:
           continue;
         }
 
-        m_column = thisLine->layout()->previousCursorPosition(m_column);
+        if (m_column > thisLine->length())
+          --m_column;
+        else
+          m_column = thisLine->layout()->previousCursorPosition(m_column);
       }
     }
 

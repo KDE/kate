@@ -272,7 +272,7 @@ target_link_libraries( bug294750_test
 ########### bug 286887 test ###############
 
 kde4_add_unit_test(bug286887_test TESTNAME kate-bug286887_test bug286887.cpp)
-set_tests_properties(kate-bug286887_test PROPERTIES TIMEOUT 2)
+set_tests_properties(kate-bug286887_test PROPERTIES TIMEOUT 4)
 
 target_link_libraries( bug286887_test
   ${KDE4_KDEUI_LIBS}

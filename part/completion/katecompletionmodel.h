@@ -25,7 +25,6 @@
 #include <QtGui/QAbstractProxyModel>
 #include <QtCore/QPair>
 #include <QtCore/QList>
-#include <QPersistentModelIndex>
 
 #include <ktexteditor/codecompletionmodel.h>
 

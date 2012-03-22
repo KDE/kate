@@ -24,7 +24,6 @@
 #include <QAbstractTableModel>
 #include <QtCore/QHash>
 #include <QIcon>
-#include <QPersistentModelIndex>
 #include <QPointer>
 
 class KWidget;

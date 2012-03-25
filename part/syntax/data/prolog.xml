@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Prolog" version="1.04" kateversion="2.1" section="Sources" extensions="*.prolog" mimetype="text/x-prolog">
+<language name="Prolog" version="1.05" kateversion="2.1" section="Sources" extensions="*.prolog" mimetype="text/x-prolog">
     <highlighting>
         <list name="keywordl">
             <item> abstract </item>
@@ -195,9 +195,11 @@
             </context>
             <context name="comment" attribute="Comment" lineEndContext="#pop" />
             <context name="string" attribute="String" lineEndContext="#stay" >
+                <HlCStringChar attribute="String" context="#stay" />
                 <DetectChar attribute="String" context="#pop" char="&quot;" />
             </context>
             <context name="string2" attribute="String" lineEndContext="#stay">
+                <HlCChar attribute="String" context="#stay" />
                 <DetectChar attribute="String" context="#pop" char="'" />
             </context>
             <context name="comment region" attribute="Comment" lineEndContext="#stay">

@@ -489,14 +489,15 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
   // create and remember new one
   m_marks.insert( mark, doc->newMovingCursor( pos ) );
 
-  if( !marktype & KTextEditor::MarkInterface::markType01 ) {
-    m_view->doc()->addMark( pos.line(),
-                           KTextEditor::MarkInterface::markType01 );
-  }
-
   // Showing what mark we set:
-  if (mark != '>' && mark != '<')
+  if (mark != '>' && mark != '<') {
+    if( !marktype & KTextEditor::MarkInterface::markType01 ) {
+      m_view->doc()->addMark( pos.line(),
+          KTextEditor::MarkInterface::markType01 );
+    }
+
     m_viNormalMode->message("Mark set: " + mark);
+  }
 
   m_mark_set_inside_viinputmodemanager = false;
 }

@@ -52,8 +52,8 @@ bad choice, you can manually set the syntax to use from the
 <para>The styles and colors used by each syntax highlight definition
 can be configured using the <link
 linkend="prefcolors-highlighting-text-styles">Highlighting Text Styles</link> tab of the
-<link linkend="config-dialog">Config Dialog</link>, while the &MIME; Types
-it should be used for, are handled by the <link
+<link linkend="config-dialog">Config Dialog</link>, while the &MIME; Types and
+file extensions it should be used for are handled by the <link
 linkend="pref-open-save-modes-filetypes">Modes &amp; Filetypes</link>
 tab.</para>
 

@@ -5,6 +5,7 @@
 //
 //
 // Copyright (c) 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
+// Copyright (c) 2012 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -35,257 +36,227 @@
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
-ConfigView::ChangingTarget::ChangingTarget( ConfigView* view )
-:   m_view( view )
+ConfigView::ConfigView(QWidget* parent, Kate::MainWindow* mainWin)
+:   QWidget(parent),
+    m_mainWindow(mainWin)
 {
-    ++m_view->m_changingTarget;
-}
-
-ConfigView::ChangingTarget::~ChangingTarget()
-{
-    --m_view->m_changingTarget;
-}
-
-
-ConfigView::ConfigView( QWidget* parent, Kate::MainWindow* mainWin )
-:   QWidget( parent ),
-    m_mainWindow( mainWin ),
-    m_changingTarget( 0 )
-{
-    m_targets = new QComboBox();
-    m_targets->setEditable( true );
+    m_targetCombo = new KComboBox();
+    m_targetCombo->setEditable(true);
     // don't let Qt insert items when the user edits; new targets are only
     // added when the user explicitly says so
-    m_targets->setInsertPolicy( QComboBox::NoInsert );
-
-    QCompleter* completer1 = new QCompleter( this );
-    completer1->setModel( new QDirModel( completer1 ) );
-    m_targets->setCompleter( completer1 );
-
-    m_targetLabel = new QLabel( i18n( "&Target:" ) );
-    m_targetLabel->setBuddy( m_targets );
+    m_targetCombo->setInsertPolicy(QComboBox::NoInsert);
+    m_targetCombo->setDuplicatesEnabled(true);
 
     m_addTarget = new QToolButton();
-    m_addTarget->setIcon( SmallIcon("document-new") );
-    m_addTarget->setToolTip( i18n("Add executable target") );
+    m_addTarget->setIcon(SmallIcon("document-new"));
+    m_addTarget->setToolTip(i18n("Add new target"));
+
+    m_copyTarget = new QToolButton();
+    m_copyTarget->setIcon(SmallIcon("document-copy"));
+    m_copyTarget->setToolTip(i18n("Copy target"));
 
     m_deleteTarget = new QToolButton();
-    m_deleteTarget->setIcon( SmallIcon("edit-delete") );
-    m_deleteTarget->setToolTip( i18n("Remove target") );
+    m_deleteTarget->setIcon(SmallIcon("edit-delete"));
+    m_deleteTarget->setToolTip(i18n("Delete target"));
 
-    m_workingDirectory = new QLineEdit();
+    m_line = new QFrame(this);
+    m_line->setFrameShadow(QFrame::Sunken);
 
-    QCompleter* completer2 = new QCompleter( this );
-    completer2->setModel( new QDirModel( completer2 ) );
-    m_workingDirectory->setCompleter( completer2 );
+    m_execLabel = new QLabel(i18n("Executable:"));
+    m_execLabel->setBuddy(m_targetCombo);
 
-    m_workDirLabel = new QLabel( i18n( "&Working Directory:" ) );
-    m_workDirLabel->setBuddy( m_workingDirectory );
+    m_executable = new KLineEdit();
+    QCompleter* completer1 = new QCompleter(this);
+    completer1->setModel(new QDirModel(QStringList(),
+                                         QDir::AllDirs|QDir::NoDotAndDotDot,
+                                         QDir::Name, this));
+    m_executable->setCompleter(completer1);
+    m_executable->setClearButtonShown(true);
+    m_browseExe = new QToolButton(this);
+    m_browseExe->setIcon(KIcon("application-x-executable"));
 
-    m_argumentLists = new QComboBox();
-    m_argumentLists->setEditable( true );
-    // don't let Qt insert items when the user edits; new argument lists are
-    // only added when the user explictly says so
-    m_argumentLists->setInsertPolicy( QComboBox::NoInsert );
+    m_workingDirectory = new KLineEdit();
+    QCompleter* completer2 = new QCompleter(this);
+    completer2->setModel(new QDirModel(completer2));
+    m_workingDirectory->setCompleter(completer2);
+    m_workingDirectory->setClearButtonShown(true);
+    m_workDirLabel = new QLabel(i18n("Working Directory:"));
+    m_workDirLabel->setBuddy(m_workingDirectory);
+    m_browseDir = new QToolButton(this);
+    m_browseDir->setIcon(KIcon("inode-directory"));
 
-    m_argumentsLabel = new QLabel( i18nc( "Program argument list", "&Arg List:" ) );
-    m_argumentsLabel->setBuddy( m_argumentLists );
+    m_arguments = new KLineEdit();
+    m_arguments->setClearButtonShown(true);
+    m_argumentsLabel = new QLabel(i18nc("Program argument list", "Arguments:"));
+    m_argumentsLabel->setBuddy(m_arguments);
 
-    m_addArgList = new QToolButton();
-    m_addArgList->setIcon( SmallIcon("document-new") );
-    m_addArgList->setToolTip( i18n("Add Argument List") );
+    m_takeFocus = new QCheckBox(i18nc("Checkbox to for keeping focus on the command line",
+                                        "Keep focus"));
+    m_takeFocus->setToolTip(i18n("Keep the focus on the command line"));
 
-    m_deleteArgList = new QToolButton();
-    m_deleteArgList->setIcon( SmallIcon("edit-delete") );
-    m_deleteArgList->setToolTip( i18n("Remove Argument List") );
+    m_redirectTerminal = new QCheckBox(i18n("Redirect IO"));
+    m_redirectTerminal->setToolTip(i18n("Redirect the debugged programs IO to a separate tab"));
 
-    m_takeFocus = new QCheckBox( i18nc( "Checkbox to for keeping focus on the command line",
-                                        "Keep focus") );
-    m_takeFocus->setToolTip( i18n("Keep the focus on the command line") );
+    m_advancedSettings = new KPushButton(i18n("Advanced Settings"));
 
-    m_redirectTerminal = new QCheckBox( i18n("Redirect IO") );
-    m_redirectTerminal->setToolTip( i18n("Redirect the debugged programs IO to a separate tab") );
+    m_checBoxLayout = 0;
 
-
-
-    QGridLayout* layout = new QGridLayout( this );
-    layout->addWidget( m_targetLabel, 0, 0, Qt::AlignRight );
-    layout->addWidget( m_targets, 0, 1, 1, 2 );
-    layout->addWidget( m_addTarget, 0, 3 );
-    layout->addWidget( m_deleteTarget, 0, 4 );
-    layout->addWidget( m_workDirLabel, 1, 0, Qt::AlignRight );
-    layout->addWidget( m_workingDirectory, 1, 1, 1, 2 );
-    layout->addWidget( m_argumentsLabel, 2, 0, Qt::AlignRight );
-    layout->addWidget( m_argumentLists, 2, 1, 1, 2 );
-    layout->addWidget( m_addArgList, 2, 3 );
-    layout->addWidget( m_deleteArgList, 2, 4 );
-    layout->addWidget( m_takeFocus, 3, 1 );
-    layout->addWidget( m_redirectTerminal, 3, 2 );
-    layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
-    layout->setColumnStretch( 1, 1 );
-    layout->setColumnStretch( 2, 1 );
-    layout->setRowStretch( 4, 1 );
+    // first false then true to make sure a layout is set
+    m_useBottomLayout = false;
+    resizeEvent(0);
     m_useBottomLayout = true;
+    resizeEvent(0);
 
     // calculate the approximate height to exceed before going to "Side Layout"
-    m_widgetHeights = ( m_targetLabel->sizeHint().height() + /*layout spacing */6 ) * 9 ;
+    m_widgetHeights = (m_execLabel->sizeHint().height() + /*layout spacing */6) * 12;
 
+    m_advanced = new AdvancedGDBSettings(this);
+    m_advanced->hide();
 
-    connect(    m_targets, SIGNAL(editTextChanged(QString)),
-                this, SLOT(slotTargetEdited(QString)) );
-    connect(    m_targets, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(slotTargetSelected(int)) );
-    connect(    m_addTarget, SIGNAL(clicked()),
-                this, SLOT(slotAddTarget()) );
-    connect(    m_deleteTarget, SIGNAL(clicked()),
-                this, SLOT(slotDeleteTarget()) );
-    connect(    m_workingDirectory, SIGNAL(textEdited(QString)),
-                this, SLOT(slotWorkingDirectoryEdited(QString)) );
-    connect(    m_argumentLists, SIGNAL(editTextChanged(QString)),
-                this, SLOT(slotArgListEdited(QString)) );
-    connect(    m_argumentLists, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(slotArgListSelected(int)) );
-    connect(    m_addArgList, SIGNAL(clicked()),
-                this, SLOT(slotAddArgList()) );
-    connect(    m_deleteArgList, SIGNAL(clicked()),
-                this, SLOT(slotDeleteArgList()) );
-    connect(    m_redirectTerminal, SIGNAL(toggled(bool)),
-                this, SIGNAL(showIO(bool)) );
+    connect(m_targetCombo,  SIGNAL(editTextChanged(QString)), this, SLOT(slotTargetEdited(QString)));
+    connect(m_targetCombo,  SIGNAL(currentIndexChanged(int)), this, SLOT(slotTargetSelected(int)));
+    connect(m_addTarget,    SIGNAL(clicked()),                this, SLOT(slotAddTarget()));
+    connect(m_copyTarget,   SIGNAL(clicked()),                this, SLOT(slotCopyTarget()));
+    connect(m_deleteTarget, SIGNAL(clicked()),                this, SLOT(slotDeleteTarget()));
+    connect(m_browseExe,    SIGNAL(clicked()),                this, SLOT(slotBrowseExec()));
+    connect(m_browseDir,    SIGNAL(clicked()),                this, SLOT(slotBrowseDir()));
+    connect(m_redirectTerminal, SIGNAL(toggled(bool)),        this, SIGNAL(showIO(bool)));
+    connect(m_advancedSettings, SIGNAL(clicked()),            this, SLOT(slotAdvancedClicked()));
 }
 
 ConfigView::~ConfigView()
 {
 }
 
-void ConfigView::registerActions( KActionCollection* actionCollection )
+void ConfigView::registerActions(KActionCollection* actionCollection)
 {
-    m_targetSelectAction = actionCollection->add<KSelectAction>( "targets" );
-    m_targetSelectAction->setText( i18n( "Targets" ) );
-    connect(    m_targetSelectAction, SIGNAL(triggered(int)),
-                this, SLOT(slotTargetSelected(int)) );
-
-    m_argListSelectAction = actionCollection->add<KSelectAction>( "argLists" );
-    m_argListSelectAction->setText( i18n( "Arg Lists" ) );
-    connect(    m_argListSelectAction, SIGNAL(triggered(int)),
-                this, SLOT(slotArgListSelected(int)) );
+    m_targetSelectAction = actionCollection->add<KSelectAction>("targets");
+    m_targetSelectAction->setText(i18n("Targets"));
+    connect(m_targetSelectAction, SIGNAL(triggered(int)),
+            this, SLOT(slotTargetSelected(int)));
 }
 
-void ConfigView::readConfig( KConfigBase* config, QString const& groupPrefix )
+void ConfigView::readConfig(KConfigBase* config, QString const& groupPrefix)
 {
-    if( config->hasGroup( groupPrefix ) )
-    {
-        ChangingTarget  t( this );
+    m_targetCombo->clear();
 
-        KConfigGroup    group = config->group( groupPrefix );
-        int             version = group.readEntry( "version", 1 );
+    KConfigGroup group = config->group(groupPrefix);
+    int          version = group.readEntry("version", 4);
+    int          targetCount = group.readEntry("targetCount", 1);
+    int          lastTarget = group.readEntry("lastTarget", 0);
+    QString      targetKey("target_%1");
 
-        int         targetCount = group.readEntry( "targetCount", 0 );
-        int         lastTarget = group.readEntry( "lastTarget", 0 );
-        QString     targetKey( "target_%1" );
-        QString     workingDirectory;
-        QStringList targetNames;
+    QStringList  targetConfStrs;
 
-        for( int i = 0; i < targetCount; i++ )
-        {
-            QStringList targetDescription = group.readEntry(targetKey.arg( i ),
-                                                            QStringList() );
+    for (int i = 0; i < targetCount; i++) {
+        targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
+        if (targetConfStrs.count() == 0) continue;
 
-            if( version == 1 )
-            {
-                if( targetDescription.length() == 3 )
-                {
-                    // valid old style config, translate it now; note the
-                    // reordering happening here!
-                    QStringList temp;
-                    temp << targetDescription[2];
-                    temp << targetDescription[1];
-                    targetDescription = temp;
+        if ((version == 1) && (targetConfStrs.count() == 3)) {
+            // valid old style config, translate it now; note the
+            // reordering happening here!
+            QStringList temp;
+            temp << targetConfStrs[2];
+            temp << targetConfStrs[1];
+            targetConfStrs = temp;
+        }
+
+        if (version < 4) {
+            targetConfStrs.prepend(targetConfStrs[0].right(15));
+        }
+
+        if (targetConfStrs.count() > NameIndex) {
+            m_targetCombo->addItem(targetConfStrs[NameIndex], targetConfStrs);
+        }
+    }
+
+    if (version < 4) {
+        // all targets now have only one argument string
+        int     argListsCount = group.readEntry("argsCount", 0);
+        QString argsKey("args_%1");
+        QString targetName("%1<%2>");
+
+        QString argStr;
+        int count = m_targetCombo->count();
+
+        for (int i = 0; i < argListsCount; i++) {
+            argStr = group.readEntry(argsKey.arg(i), QString());
+            for (int j=0; j<count; j++) {
+                targetConfStrs = m_targetCombo->itemData(j).toStringList();
+                if (i>0) {
+                    // copy the firsts and change the arguments
+                    targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i+1);
+                    if (targetConfStrs.count() > 3) targetConfStrs[3] = argStr;
+                    m_targetCombo->addItem(targetConfStrs[0], targetConfStrs);
                 }
             }
-
-            if( targetDescription.length() > 0 )
-            {
-                m_targets->addItem( targetDescription[0], targetDescription );
-
-                if( i == lastTarget && targetDescription.length() > 1 )
-                {
-                    workingDirectory = targetDescription[1];
-                }
-            }
-
-            targetNames << targetDescription[0];
         }
-        m_targetSelectAction->setItems( targetNames );
+    }
+    // make sure there is at least one item.
+    if (m_targetCombo->count() == 0) {
+        slotAddTarget();
+    }
 
-        int         argListsCount = group.readEntry( "argsCount", 0 );
-        QString     argListsKey( "args_%1" );
-        QStringList argLists;
+    QStringList targetNames;
+    for (int i=0; i<m_targetCombo->count(); i++) {
+        targetNames << m_targetCombo->itemText(i);
+    }
+    m_targetSelectAction->setItems(targetNames);
 
-        for( int i = 0; i < argListsCount; i++ )
-        {
-            QString argList = group.readEntry( argListsKey.arg( i ), QString() );
-            m_argumentLists->addItem( argList );
-            argLists << argList;
+    m_targetCombo->setCurrentIndex((lastTarget < m_targetCombo->count()) ? lastTarget: 0);
+
+    m_takeFocus->setChecked(group.readEntry("alwaysFocusOnInput",false));
+
+    m_redirectTerminal->setChecked(group.readEntry("redirectTerminal",false));
+}
+
+void ConfigView::writeConfig(KConfigBase* config, QString const& groupPrefix)
+{
+    // make sure the data is up to date before writing
+    saveCurrentToIndex(m_currentTarget);
+
+    KConfigGroup    group = config->group(groupPrefix);
+
+    group.writeEntry("version", 4);
+
+    QString targetKey("target_%1");
+    QStringList targetConfStrs;
+
+    group.writeEntry("targetCount", m_targetCombo->count());
+    group.writeEntry("lastTarget", m_targetCombo->currentIndex());
+    for (int i = 0; i < m_targetCombo->count(); i++) {
+        targetConfStrs = m_targetCombo->itemData(i).toStringList();
+        group.writeEntry(targetKey.arg(i), targetConfStrs);
+    }
+
+    group.writeEntry("alwaysFocusOnInput", m_takeFocus->isChecked());
+    group.writeEntry("redirectTerminal", m_redirectTerminal->isChecked());
+}
+
+const GDBTargetConf ConfigView::currentTarget() const
+{
+    GDBTargetConf cfg;
+    cfg.executable = m_executable->text();
+    cfg.workDir = m_workingDirectory->text();
+    cfg.arguments = m_arguments->text();
+    cfg.customInit = m_advanced->configs();
+    // Note: AdvancedGDBSettings::GDBIndex == 0
+    if ((cfg.customInit.size() >= 0) && !cfg.customInit[0].isEmpty()) {
+        cfg.gdbCmd = cfg.customInit[0];
+        cfg.customInit.removeFirst();
+    }
+    else {
+        cfg.gdbCmd = "gdb";
+    }
+    // remove empty strings in the customInit
+    int i = cfg.customInit.size()-1;
+    while (i>=0) {
+        if (cfg.customInit[i].isEmpty()) {
+            cfg.customInit.removeAt(i);
         }
-        m_argListSelectAction->setItems( argLists );
-
-        m_targets->setCurrentIndex( lastTarget );
-
-        m_takeFocus->setChecked( group.readEntry( "alwaysFocusOnInput",false ) );
-
-        m_redirectTerminal->setChecked( group.readEntry( "redirectTerminal",false ) );
+        i--;
     }
-}
-
-void ConfigView::writeConfig( KConfigBase* config, QString const& groupPrefix )
-{
-    KConfigGroup    group = config->group( groupPrefix );
-
-    group.writeEntry( "version", 3 );
-
-    int     targetCount = m_targets->count();
-    QString targetKey( "target_%1" );
-
-    group.writeEntry( "targetCount", targetCount );
-    group.writeEntry( "lastTarget", m_targets->currentIndex() );
-    for( int i = 0; i < targetCount; i++ )
-    {
-        QStringList targetDescription = m_targets->itemData( i ).toStringList();
-        group.writeEntry( targetKey.arg( i ), targetDescription );
-    }
-
-
-    int     argsCount = m_argumentLists->count();
-    QString argsKey( "args_%1" );
-
-    group.writeEntry( "argsCount", argsCount );
-    group.writeEntry( "lastArgs", m_argumentLists->currentIndex() );
-    for( int i = 0; i < argsCount; i++ )
-    {
-        group.writeEntry(   argsKey.arg( i ),
-                            m_argumentLists->itemText( i ) );
-    }
-
-
-    group.writeEntry( "alwaysFocusOnInput", m_takeFocus->isChecked() );
-
-    group.writeEntry( "redirectTerminal", m_redirectTerminal->isChecked() );
-
-}
-
-QString ConfigView::currentExecutable() const
-{
-    return m_targets->currentText();
-}
-
-QString ConfigView::currentWorkingDirectory() const
-{
-    return m_workingDirectory->text();
-}
-
-QString ConfigView::currentArgs() const
-{
-    return m_argumentLists->currentText();
+    return cfg;
 }
 
 bool ConfigView::takeFocusAlways() const
@@ -298,237 +269,233 @@ bool ConfigView::showIOTab() const
     return m_redirectTerminal->isChecked();
 }
 
-void ConfigView::slotTargetEdited( QString updatedTarget )
+void ConfigView::slotTargetEdited(const QString &newText)
 {
-    if( m_changingTarget == 0 )
-    {
-        QStringList items;
+    int cursorPosition = m_targetCombo->lineEdit()->cursorPosition();
+    m_targetCombo->setItemText(m_targetCombo->currentIndex(), newText);
+    m_targetCombo->lineEdit()->setCursorPosition(cursorPosition);
 
-        // rebuild the target description for the item being edited and the
-        // target menu
-        for( int i = 0; i < m_targets->count(); ++i )
-        {
-            if( i == m_targets->currentIndex() )
-            {
-                QLineEdit* lineEdit = m_targets->lineEdit();
-                int cursorPosition = lineEdit->cursorPosition();
-                updateCurrentTargetDescription( 0, updatedTarget );
-                m_targets->setItemText( i, updatedTarget );
-                lineEdit->setCursorPosition( cursorPosition );
-                items.append( updatedTarget );
-            }
-            else
-            {
-                items.append( m_targets->itemText( i ) );
-            }
-        }
-        m_targetSelectAction->setItems( items );
-        m_targetSelectAction->setCurrentItem( m_targets->currentIndex() );
+    // rebuild the target menu
+    QStringList targets;
+    for (int i = 0; i < m_targetCombo->count(); ++i) {
+        targets.append(m_targetCombo->itemText(i));
     }
+    m_targetSelectAction->setItems(targets);
+    m_targetSelectAction->setCurrentItem(m_targetCombo->currentIndex());
 }
 
-void ConfigView::slotTargetSelected( int index )
+void ConfigView::slotTargetSelected(int index)
 {
-    if( index >= 0 )
-    {
-        ChangingTarget  t( this );
-
-        // Select the last working directory and argument list used with this target
-        QStringList targetDescription = m_targets->itemData( index ).toStringList();
-        int         argIndex = -1;
-
-        if( targetDescription.length() > 1 )
-        {
-            m_workingDirectory->setText( targetDescription[1] );
-        }
-
-        if( targetDescription.length() > 2 )
-        {
-            argIndex = m_argumentLists->findText( targetDescription[2] );
-            if( argIndex >= 0 )
-            {
-                m_argumentLists->setCurrentIndex( argIndex );
-                m_argListSelectAction->setCurrentItem( argIndex );
-            }
-        }
-
-        // Keep combo box and menu in sync
-        m_targets->setCurrentIndex( index );
-        m_targetSelectAction->setCurrentItem( index );
+    if ((index < 0) || (index >= m_targetCombo->count())) {
+        return;
     }
+
+    if ((m_currentTarget > 0) && (m_currentTarget < m_targetCombo->count())) {
+        saveCurrentToIndex(m_currentTarget);
+    }
+
+    loadFromIndex(index);
+    m_currentTarget = index;
+
+    // Keep combo box and menu in sync
+    m_targetSelectAction->setCurrentItem(index);
 }
 
 void ConfigView::slotAddTarget()
 {
-    KUrl    defDir( m_targets->currentText() );
+    QStringList targetConfStrs;
 
-    if( m_targets->currentText().isEmpty() )
-    {
-        // try current document dir
-        KTextEditor::View*  view = m_mainWindow->activeView();
+    targetConfStrs << i18n("Target %1", m_targetCombo->count()+1);
+    targetConfStrs << QString();
+    targetConfStrs << QString();
+    targetConfStrs << QString();
 
-        if( view != NULL )
-        {
-            defDir = view->document()->url();
-        }
-    }
+    m_targetCombo->addItem(targetConfStrs[NameIndex], targetConfStrs);
+    m_targetCombo->setCurrentIndex(m_targetCombo->count()-1);
+}
 
-    QString target = KFileDialog::getOpenFileName( defDir );
-    if( !target.isEmpty() )
-    {
-        // create the new item. Inherit the current working directory and
-        // argument list by default
-        QStringList targetDescription;
+void ConfigView::slotCopyTarget()
+{
+    QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
+    tmp[NameIndex] = i18n("Target %1", m_targetCombo->count()+1);
 
-        targetDescription << target;
-        targetDescription << m_workingDirectory->text();
-        targetDescription << m_argumentLists->currentText();
-
-        m_targets->insertItem( 0, target, targetDescription );
-        m_targets->setCurrentIndex( 0 );
-    }
+    m_targetCombo->addItem(tmp[NameIndex], tmp);
+    m_targetCombo->setCurrentIndex(m_targetCombo->count()-1);
 }
 
 void ConfigView::slotDeleteTarget()
 {
-    int currentIndex = m_targets->currentIndex();
-    if( currentIndex >= 0 )
-    {
-        m_targets->removeItem( currentIndex );
+    m_targetCombo->blockSignals(true);
+    int currentIndex = m_targetCombo->currentIndex();
+    m_targetCombo->removeItem(currentIndex);
+    if (m_targetCombo->count() == 0) {
+        slotAddTarget();
     }
+
+    loadFromIndex(m_targetCombo->currentIndex());
+    m_targetCombo->blockSignals(false);
 }
 
-void ConfigView::slotWorkingDirectoryEdited( QString updatedWorkingDirectory )
+void ConfigView::resizeEvent(QResizeEvent *)
 {
-    if( m_changingTarget == 0 )
-    {
-        updateCurrentTargetDescription( 1, updatedWorkingDirectory );
-    }
-}
-
-void ConfigView::slotUpdateArgLists()
-{
-    QStringList items;
-    QString     updatedArgList = m_argumentLists->currentText();
-
-    // rebuild the target description for the current target and update the
-    // arg lists menu
-    for( int i = 0; i < m_argumentLists->count(); ++i )
-    {
-        if( i == m_argumentLists->currentIndex() )
-        {
-            QLineEdit* lineEdit = m_argumentLists->lineEdit();
-            int cursorPosition = lineEdit->cursorPosition();
-            updateCurrentTargetDescription( 2, updatedArgList );
-            m_argumentLists->setItemText( i, updatedArgList );
-            lineEdit->setCursorPosition( cursorPosition );
-            items.append( updatedArgList );
-        }
-        else
-        {
-            items.append( m_argumentLists->itemText( i ) );
-        }
-    }
-    m_argListSelectAction->setItems( items );
-    m_argListSelectAction->setCurrentItem( m_argumentLists->currentIndex() );
-}
-
-void ConfigView::slotArgListEdited( QString /*updatedArgList*/ )
-{
-    if( m_changingTarget == 0 )
-    {
-        QTimer::singleShot( 0, this, SLOT(slotUpdateArgLists()) );
-    }
-}
-
-void ConfigView::slotArgListSelected( int index )
-{
-    if( index >= 0 && m_changingTarget == 0 )
-    {
-        // Keep combo box and menu in sync
-        m_argumentLists->setCurrentIndex( index );
-        m_argListSelectAction->setCurrentItem( index );
-
-        // update the current target with the new selection
-        updateCurrentTargetDescription( 2, m_argumentLists->itemText( index ) );
-    }
-}
-
-void ConfigView::slotAddArgList()
-{
-    m_argumentLists->insertItem( 0, "new-arg-list" );
-    m_argumentLists->setCurrentIndex( 0 );
-}
-
-void ConfigView::slotDeleteArgList()
-{
-    int currentIndex = m_argumentLists->currentIndex();
-    if( currentIndex >= 0 )
-    {
-        m_argumentLists->removeItem( currentIndex );
-    }
-}
-
-void ConfigView::resizeEvent( QResizeEvent * )
-{
-    // check if the widgets fit in a VBox layout
-    if ( m_useBottomLayout && ( size().height() > m_widgetHeights ) )
-    {
+    if (m_useBottomLayout && (size().height() > m_widgetHeights)) {
+        // Set layout for the side
+        delete m_checBoxLayout;
+        m_checBoxLayout = 0;
         delete layout();
-        QGridLayout* layout = new QGridLayout( this );
-        layout->addWidget( m_targetLabel, 0, 0, Qt::AlignLeft );
-        layout->addWidget( m_targets, 1, 0 );
-        layout->addWidget( m_addTarget, 1, 1 );
-        layout->addWidget( m_deleteTarget, 1, 2 );
-        layout->addWidget( m_workDirLabel, 2, 0, Qt::AlignLeft );
-        layout->addWidget( m_workingDirectory, 3, 0 );
-        layout->addWidget( m_argumentsLabel, 4, 0, Qt::AlignLeft );
-        layout->addWidget( m_argumentLists, 5, 0 );
-        layout->addWidget( m_addArgList, 5, 1 );
-        layout->addWidget( m_deleteArgList, 5, 2 );
-        layout->addWidget( m_takeFocus, 6, 0 );
-        layout->addWidget( m_redirectTerminal, 7, 0 );
-        layout->addItem( new QSpacerItem( 1, 1 ), 8, 0 );
-        layout->setColumnStretch( 0, 1 );
-        layout->setRowStretch( 8, 1 );
+        QGridLayout* layout = new QGridLayout(this);
+
+        layout->addWidget(m_targetCombo, 0, 0);
+        layout->addWidget(m_addTarget, 0, 1);
+        layout->addWidget(m_copyTarget, 0, 2);
+        layout->addWidget(m_deleteTarget, 0, 3);
+        m_line->setFrameShape(QFrame::HLine);
+        layout->addWidget(m_line, 1, 0, 1, 4);
+
+        layout->addWidget(m_execLabel, 3, 0, Qt::AlignLeft);
+        layout->addWidget(m_executable, 4, 0, 1, 3);
+        layout->addWidget(m_browseExe, 4, 3);
+
+        layout->addWidget(m_workDirLabel, 5, 0, Qt::AlignLeft);
+        layout->addWidget(m_workingDirectory, 6, 0, 1, 3);
+        layout->addWidget(m_browseDir, 6, 3);
+
+        layout->addWidget(m_argumentsLabel, 7, 0, Qt::AlignLeft);
+        layout->addWidget(m_arguments, 8, 0, 1, 4);
+
+        layout->addWidget(m_takeFocus, 9, 0, 1, 4);
+        layout->addWidget(m_redirectTerminal, 10, 0, 1, 4);
+        layout->addWidget(m_advancedSettings, 11, 0, 1 , 4);
+
+        layout->addItem(new QSpacerItem(1, 1), 12, 0);
+        layout->setColumnStretch(0, 1);
+        layout->setRowStretch(12, 1);
         m_useBottomLayout = false;
     }
-    else if ( !m_useBottomLayout && ( size().height() < m_widgetHeights ) )
-    {
+    else if (!m_useBottomLayout && (size().height() < m_widgetHeights)) {
+        // Set layout for the bottom
+        delete m_checBoxLayout;
         delete layout();
-        QGridLayout* layout = new QGridLayout( this );
-        layout->addWidget( m_targetLabel, 0, 0, Qt::AlignRight );
-        layout->addWidget( m_targets, 0, 1, 1, 2 );
-        layout->addWidget( m_addTarget, 0, 3 );
-        layout->addWidget( m_deleteTarget, 0, 4 );
-        layout->addWidget( m_workDirLabel, 1, 0, Qt::AlignRight );
-        layout->addWidget( m_workingDirectory, 1, 1, 1, 2 );
-        layout->addWidget( m_argumentsLabel, 2, 0, Qt::AlignRight );
-        layout->addWidget( m_argumentLists, 2, 1, 1, 2 );
-        layout->addWidget( m_addArgList, 2, 3 );
-        layout->addWidget( m_deleteArgList, 2, 4 );
-        layout->addWidget( m_takeFocus, 3, 1 );
-        layout->addWidget( m_redirectTerminal, 3, 2 );
-        layout->addItem( new QSpacerItem( 1, 1 ), 4, 0 );
-        layout->setColumnStretch( 1, 1 );
-        layout->setColumnStretch( 2, 1 );
-        layout->setRowStretch( 4, 1 );
+        m_checBoxLayout = new QHBoxLayout();
+        m_checBoxLayout->addWidget(m_takeFocus, 10);
+        m_checBoxLayout->addWidget(m_redirectTerminal, 10);
+        m_checBoxLayout->addWidget(m_advancedSettings, 0);
+
+        QGridLayout* layout = new QGridLayout(this);
+
+        layout->addWidget(m_targetCombo, 0, 0, 1, 3);
+        layout->addWidget(m_addTarget, 1, 0);
+        layout->addWidget(m_copyTarget, 1, 1);
+        layout->addWidget(m_deleteTarget, 1, 2);
+        m_line->setFrameShape(QFrame::VLine);
+        layout->addWidget(m_line, 0, 3, 4, 1);
+
+        layout->addWidget(m_execLabel, 0, 5, Qt::AlignRight);
+        layout->addWidget(m_executable, 0, 6);
+        layout->addWidget(m_browseExe, 0, 7);
+
+        layout->addWidget(m_workDirLabel, 1, 5, Qt::AlignRight);
+        layout->addWidget(m_workingDirectory, 1, 6);
+        layout->addWidget(m_browseDir, 1, 7);
+
+        layout->addWidget(m_argumentsLabel, 2, 5, Qt::AlignRight);
+        layout->addWidget(m_arguments, 2, 6, 1, 2);
+
+        layout->addLayout(m_checBoxLayout, 3, 5, 1, 3);
+
+        layout->addItem(new QSpacerItem(1, 1), 4, 0);
+        layout->setColumnStretch(6, 100);
+        layout->setRowStretch(4, 100);
         m_useBottomLayout = true;
     }
 }
 
-void ConfigView::updateCurrentTargetDescription( int field, QString const& value )
+void ConfigView::slotAdvancedClicked()
 {
-    int         targetIndex = m_targets->currentIndex();
-    QStringList targetDescription = m_targets->itemData( targetIndex ).toStringList();
-    
-    /**
-     * ensure description has enough entries
-     */
-    while (field >= targetDescription.size ())
-      targetDescription.append (QString());
-    
-    targetDescription[field] = value;
-    
-    m_targets->setItemData( targetIndex, targetDescription );
+    QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
+    QStringList newList;
+
+    // make sure we have enough strings;
+    while (tmp.count() < CustomStartIndex) tmp << QString();
+
+    if (tmp[GDBIndex].isEmpty()) {
+        tmp[GDBIndex] = "gdb";
+    }
+
+    // Remove the strings that are not part of the advanced settings
+    for(int i=0; i<GDBIndex; i++) {
+        newList << tmp.takeFirst();
+    }
+
+    m_advanced->setConfigs(tmp);
+    if (m_advanced->exec()) {
+        // save the new values
+        newList << m_advanced->configs();
+        m_targetCombo->setItemData(m_targetCombo->currentIndex(), newList);
+    }
 }
+
+void ConfigView::slotBrowseExec()
+{
+    KUrl exe(m_executable->text());
+
+    if (m_executable->text().isEmpty()) {
+        // try current document dir
+        KTextEditor::View*  view = m_mainWindow->activeView();
+
+        if (view != NULL) {
+            exe = view->document()->url();
+        }
+    }
+    m_executable->setText(KFileDialog::getOpenFileName(exe, "application/x-executable"));
+}
+
+void ConfigView::slotBrowseDir()
+{
+    KUrl dir(m_workingDirectory->text());
+
+    if (m_workingDirectory->text().isEmpty()) {
+        // try current document dir
+        KTextEditor::View*  view = m_mainWindow->activeView();
+
+        if (view != NULL) {
+            dir = view->document()->url();
+        }
+    }
+    m_workingDirectory->setText(KFileDialog::getExistingDirectory (dir));
+}
+
+void ConfigView::saveCurrentToIndex(int index)
+{
+    if ((index < 0) || (index >= m_targetCombo->count())) {
+        return;
+    }
+    
+    QStringList tmp = m_targetCombo->itemData(index).toStringList();
+    // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
+    while (tmp.count() < CustomStartIndex) tmp << QString();
+    
+    tmp[NameIndex] = m_targetCombo->itemText(index);
+    tmp[ExecIndex] = m_executable->text();
+    tmp[WorkDirIndex] = m_workingDirectory->text();
+    tmp[ArgsIndex] = m_arguments->text();
+    
+    m_targetCombo->setItemData(index, tmp);
+}
+
+void ConfigView::loadFromIndex(int index)
+{
+    if ((index < 0) || (index >= m_targetCombo->count())) {
+        return;
+    }
+
+    QStringList tmp = m_targetCombo->itemData(index).toStringList();
+    // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
+    while (tmp.count() < CustomStartIndex) tmp << QString();
+
+    m_executable->setText(tmp[ExecIndex]);
+    m_workingDirectory->setText(tmp[WorkDirIndex]);
+    m_arguments->setText(tmp[ArgsIndex]);
+}
+
+

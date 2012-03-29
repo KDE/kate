@@ -59,22 +59,23 @@ DebugView::~DebugView()
     }
 }
 
-void DebugView::runDebugger(    QString const&  newWorkingDirectory,
-                                QString const&  newTarget,
-                                QString const&  newArguments )
+void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
-    m_workingDirectory = newWorkingDirectory;
-    m_target = newTarget;
-    m_arguments = newArguments;
+    m_targetConf = conf;
+    if (ioFifos.size() == 3) {
+        m_ioPipeString = QString("< %1 1> %2 2> %3")
+        .arg(ioFifos[0])
+        .arg(ioFifos[1])
+        .arg(ioFifos[2]);
+    }
 
-    if( m_state == none )
-    {
+    if (m_state == none) {
         m_outBuffer.clear();
         m_errBuffer.clear();
         m_errorList.clear();
 
         //create a process to control GDB
-        m_debugProcess.setWorkingDirectory( m_workingDirectory );
+        m_debugProcess.setWorkingDirectory(m_targetConf.workDir);
 
         connect( &m_debugProcess, SIGNAL(error(QProcess::ProcessError)),
                             this, SLOT(slotError()) );
@@ -88,7 +89,7 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         connect( &m_debugProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
                             this, SLOT(slotDebugFinished(int,QProcess::ExitStatus)) );
 
-        m_debugProcess.setShellCommand("gdb");
+        m_debugProcess.setShellCommand(m_targetConf.gdbCmd);
         m_debugProcess.setOutputChannelMode(KProcess::SeparateChannels);
         m_debugProcess.start();
 
@@ -101,9 +102,10 @@ void DebugView::runDebugger(    QString const&  newWorkingDirectory,
         // here we have to trigger it manually.
         QTimer::singleShot(0, this, SLOT(issueNextCommand()));
     }
-    m_nextCommands << QString("file %1").arg(m_target);
-    m_nextCommands << QString("set args %1").arg(m_arguments);
+    m_nextCommands << QString("file %1").arg(m_targetConf.executable);
+    m_nextCommands << QString("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
     m_nextCommands << QString("set inferior-tty /dev/null");
+    m_nextCommands << m_targetConf.customInit;
     m_nextCommands << QString("(Q) info breakpoints");
 }
 
@@ -247,20 +249,16 @@ void DebugView::slotKill()
 void DebugView::slotReRun()
 {
     slotKill();
-    m_nextCommands << QString("file %1").arg(m_target);
-    m_nextCommands << QString("set args %1").arg(m_arguments);
+    m_nextCommands << QString("file %1").arg(m_targetConf.executable);
+    m_nextCommands << QString("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
+    m_nextCommands << QString("set inferior-tty /dev/null");
+    m_nextCommands << m_targetConf.customInit;
     m_nextCommands << QString("(Q) info breakpoints");
-    if (m_arguments.contains(">"))
-    {
-        m_nextCommands << QString("tbreak main");
-        m_nextCommands << QString("run");
-        m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-        m_nextCommands << QString("continue");
-    }
-    else
-    {
-        m_nextCommands << "run";
-    }
+
+    m_nextCommands << QString("tbreak main");
+    m_nextCommands << QString("run");
+    m_nextCommands << QString("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
+    m_nextCommands << QString("continue");
 }
 
 void DebugView::slotStepInto()
@@ -617,14 +615,14 @@ KUrl DebugView::resolveFileName( const QString &fileName )
         url.cleanPath();
     }
     else {
-        url.setPath( m_workingDirectory );
-        url.addPath( fileName );
+        url.setPath(m_targetConf.workDir);
+        url.addPath(fileName);
         url.cleanPath();
-        
-        if ( !QFileInfo(url.path()).exists() ) {
-            url.setPath( m_target );
+
+        if (!QFileInfo(url.path()).exists()) {
+            url.setPath(m_targetConf.executable);
             url.upUrl(); // get path
-            url.addPath( fileName );
+            url.addPath(fileName);
             url.cleanPath();
         }
         // Now, if not found just give up ;)

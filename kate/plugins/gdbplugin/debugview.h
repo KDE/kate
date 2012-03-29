@@ -29,6 +29,8 @@
 #include <kprocess.h>
 #include <kurl.h>
 
+#include "configview.h"
+
 class DebugView : public QObject
 {
 Q_OBJECT
@@ -36,9 +38,7 @@ public:
     DebugView( QObject* parent );
     ~DebugView();
 
-    void runDebugger(   QString const&  workingDirectory,
-                        QString const&  target,
-                        QString const&  arguments );
+    void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     bool debuggerRunning() const;
     bool debuggerBusy() const;
     bool hasBreakpoint( KUrl const& url, int line );
@@ -118,11 +118,12 @@ private:
 
 private:
     KProcess            m_debugProcess;
-    QString             m_workingDirectory;
-    QString             m_target;
-    QString             m_arguments;
+    GDBTargetConf       m_targetConf;
+    QString             m_ioPipeString;
+
     State               m_state;
     SubState            m_subState;
+
     QString             m_currentFile;
     QString             m_newFrameFile;
     int                 m_newFrameLevel;

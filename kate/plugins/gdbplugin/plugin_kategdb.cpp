@@ -322,36 +322,29 @@ void KatePluginGDBView::writeSessionConfig( KConfigBase*    config,
 
 void KatePluginGDBView::slotDebug()
 {
-    QString args = m_configView->currentArgs();
     disconnect(m_ioView, SIGNAL(stdOutText(QString)));
     disconnect(m_ioView, SIGNAL(stdErrText(QString)));
-    if ( m_configView->showIOTab() )
-    {
-        connect(m_ioView, SIGNAL(stdOutText(QString)),
-                m_ioView, SLOT(addStdOutText(QString)));
-        connect(m_ioView, SIGNAL(stdErrText(QString)),
-                m_ioView, SLOT(addStdErrText(QString)));
+    if ( m_configView->showIOTab() ) {
+        connect(m_ioView, SIGNAL(stdOutText(QString)), m_ioView, SLOT(addStdOutText(QString)));
+        connect(m_ioView, SIGNAL(stdErrText(QString)), m_ioView, SLOT(addStdErrText(QString)));
     }
     else {
-        connect(m_ioView, SIGNAL(stdOutText(QString)),
-                this,     SLOT(addOutputText(QString)) );
-        connect(m_ioView, SIGNAL(stdErrText(QString)),
-                this,     SLOT(addErrorText(QString)) );
+        connect(m_ioView, SIGNAL(stdOutText(QString)), this, SLOT(addOutputText(QString)));
+        connect(m_ioView, SIGNAL(stdErrText(QString)), this, SLOT(addErrorText(QString)));
     }
-    args += QString( " < %1 1> %2 2> %3" )
-    .arg( m_ioView->stdinFifo() )
-    .arg( m_ioView->stdoutFifo() )
-    .arg( m_ioView->stderrFifo() );
+    QStringList ioFifos;
+    ioFifos << m_ioView->stdinFifo();
+    ioFifos << m_ioView->stdoutFifo();
+    ioFifos << m_ioView->stderrFifo();
 
-    enableDebugActions( true );
-    m_debugView->runDebugger( m_configView->currentWorkingDirectory(),
-                            m_configView->currentExecutable(),
-                            args );
-    mainWindow()->showToolView( m_toolView );
-    m_tabWidget->setCurrentWidget( m_gdbPage );
+    enableDebugActions(true);
+    mainWindow()->showToolView(m_toolView);
+    m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
     m_localsView->clear();
+
+    m_debugView->runDebugger(m_configView->currentTarget(), ioFifos);
 }
 
 void KatePluginGDBView::slotRestart()
@@ -360,14 +353,14 @@ void KatePluginGDBView::slotRestart()
     m_tabWidget->setCurrentWidget( m_gdbPage );
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-    m_debugView->slotReRun();
     m_localsView->clear();
+
+    m_debugView->slotReRun();
 }
 
 void KatePluginGDBView::aboutToShowMenu()
 {
-    if (!m_debugView->debuggerRunning() || m_debugView->debuggerBusy())
-    {
+    if (!m_debugView->debuggerRunning() || m_debugView->debuggerBusy()) {
         m_breakpoint->setText(i18n("Insert breakpoint"));
         m_breakpoint->setDisabled(true);
         return;
@@ -381,29 +374,25 @@ void KatePluginGDBView::aboutToShowMenu()
 
     line++; // GDB uses 1 based line numbers, kate uses 0 based...
 
-    if (m_debugView->hasBreakpoint(url, line))
-    {
+    if (m_debugView->hasBreakpoint(url, line)) {
         m_breakpoint->setText(i18n("Remove breakpoint"));
     }
-    else
-    {
+    else {
         m_breakpoint->setText(i18n("Insert breakpoint"));
     }
 }
 
 void KatePluginGDBView::slotToggleBreakpoint()
 {
-    if ( !actionCollection()->action( "continue" )->isEnabled() )
-    {
+    if (!actionCollection()->action("continue")->isEnabled()) {
         m_debugView->slotInterrupt();
     }
-    else
-    {
+    else {
         KTextEditor::View* editView = mainWindow()->activeView();
         KUrl               currURL  = editView->document()->url();
         int                line     = editView->cursorPosition().line();
 
-        m_debugView->toggleBreakpoint( currURL, line + 1 );
+        m_debugView->toggleBreakpoint(currURL, line + 1);
     }
 }
 
@@ -412,8 +401,7 @@ void KatePluginGDBView::slotBreakpointSet( const KUrl &file, int line)
     KTextEditor::MarkInterface* iface =
     qobject_cast<KTextEditor::MarkInterface*>( m_kateApplication->documentManager()->findUrl( file ) );
 
-    if (iface)
-    {
+    if (iface) {
         iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
         iface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive,
                              KIcon("media-playback-pause").pixmap(10,10));
@@ -426,26 +414,25 @@ void KatePluginGDBView::slotBreakpointCleared( const KUrl &file, int line)
     KTextEditor::MarkInterface* iface =
     qobject_cast<KTextEditor::MarkInterface*>( m_kateApplication->documentManager()->findUrl( file ) );
 
-    if (iface)
-    {
+    if (iface) {
         iface->removeMark( line, KTextEditor::MarkInterface::BreakpointActive );
     }
 }
 
 void KatePluginGDBView::slotMovePC()
 {
-    KTextEditor::View*      editView = mainWindow()->activeView();
-    KUrl                    currURL = editView->document()->url();
-    KTextEditor::Cursor     cursor = editView->cursorPosition();
+    KTextEditor::View*  editView = mainWindow()->activeView();
+    KUrl                currURL = editView->document()->url();
+    KTextEditor::Cursor cursor = editView->cursorPosition();
 
     m_debugView->movePC( currURL, cursor.line() + 1 );
 }
 
 void KatePluginGDBView::slotRunToCursor()
 {
-    KTextEditor::View*      editView = mainWindow()->activeView();
-    KUrl                    currURL = editView->document()->url();
-    KTextEditor::Cursor     cursor = editView->cursorPosition();
+    KTextEditor::View*  editView = mainWindow()->activeView();
+    KUrl                currURL = editView->document()->url();
+    KTextEditor::Cursor cursor = editView->cursorPosition();
 
     // GDB starts lines from 1, kate returns lines starting from 0 (displaying 1)
     m_debugView->runToCursor( currURL, cursor.line() + 1 );
@@ -454,8 +441,7 @@ void KatePluginGDBView::slotRunToCursor()
 void KatePluginGDBView::slotGoTo( const KUrl &url, int lineNum )
 {
     // skip not existing files
-    if (!QFile::exists (url.toLocalFile ()))
-    {
+    if (!QFile::exists (url.toLocalFile ())) {
         m_lastExecLine = -1;
         return;
     }

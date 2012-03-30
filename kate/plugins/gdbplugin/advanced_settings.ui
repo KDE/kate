@@ -70,7 +70,7 @@
    <item row="5" column="0" colspan="2">
     <widget class="QGroupBox" name="u_customInitGroup">
      <property name="title">
-      <string>Custom Startup Commads</string>
+      <string>Custom Startup Commands</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -92,12 +92,12 @@
      </item>
      <item>
       <property name="text">
-       <string>Remote  TCP</string>
+       <string>Remote TCP</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Remote Serialport</string>
+       <string>Remote Serial Port</string>
       </property>
      </item>
     </widget>

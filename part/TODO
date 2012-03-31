@@ -22,3 +22,5 @@ KDE Framework 5.0
       this way the mark would automatically always stay on the correct line,
       even when joining text and wrapping it again
   - still provide some default mark types
+  - https://bugs.kde.org/show_bug.cgi?id=243375
+    maybe move incRef(), decRef() into KTE::Factory or KTE::Editor?

@@ -92,6 +92,10 @@ static int dummy = 0;
 
 class KateTemplateScript;
 
+inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '(' || c == '"'; }
+inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')' || c == '"'; }
+inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
+
 class KateDocument::LoadSaveFilterCheckPlugins
 {
   public:
@@ -2629,24 +2633,36 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     {
       buf.append (ch);
 
-      if (!bracketInserted && (config()->autoBrackets()))
+      if (config()->autoBrackets())
       {
-        QChar end_ch;
+        if (isEndBracket(ch) &&
+            view->document()->character(view->cursorPosition()).toAscii() == ch)
+        {
+          del(view, view->cursorPosition());
+        }
+        else
+        {
+          if (!bracketInserted)
+          {
+            QChar end_ch;
 
-        if (ch == '(') { end_ch = ')'; }
-        if (ch == '[') { end_ch = ']'; }
-        if (ch == '{') { end_ch = '}'; }
-        if (ch == '"') { end_ch = '"'; }
-        if (ch == '\'') { end_ch = '\''; }
+            switch (ch.toAscii()) {
+              case '(': end_ch = ')'; break;
+              case '[': end_ch = ']'; break;
+              case '{': end_ch = '}'; break;
+              case '"': end_ch = '"'; break;
+              case '\'': end_ch = '\''; break;
+            }
+            if (!end_ch.isNull()) {
+              bracketInserted = true;
 
-        if (!end_ch.isNull()) {
-          bracketInserted = true;
+              if (view->selection()) {
+                buf.append(view->selectionText());
+              }
 
-          if (view->selection()) {
-            buf.append(view->selectionText());
+              buf.append(end_ch);
+            }
           }
-
-          buf.append(end_ch);
         }
       }
     }
@@ -3636,10 +3652,6 @@ void KateDocument::repaintViews(bool paintOnlyDirty)
     view->repaintText(paintOnlyDirty);
 }
 
-inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
-inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
-inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
-
 /*
    Bracket matching uses the following algorithm:
    If in overwrite mode, match the bracket currently underneath the cursor.
@@ -3697,6 +3709,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   case ']': opposite = '['; break;
   case '(': opposite = ')'; break;
   case ')': opposite = '('; break;
+  case '"': opposite = '"'; break;
   default: return false;
   }
 

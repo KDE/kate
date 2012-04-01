@@ -380,6 +380,29 @@ QString KateScriptDocument::wordAt(const KTextEditor::Cursor& cursor)
   return m_document->getWord(cursor);
 }
 
+KTextEditor::Range KateScriptDocument::wordRangeAt(int line, int column)
+{
+  return wordRangeAt(KTextEditor::Cursor(line, column));
+}
+
+KTextEditor::Range KateScriptDocument::wordRangeAt(const KTextEditor::Cursor& cursor)
+{
+  Kate::TextLine textLine = m_document->plainKateTextLine(cursor.line());
+
+  const int len = textLine->length();
+  int start = cursor.column();
+  int end = start;
+
+  // Probably because of non-wrapping cursor mode
+  if (start > len)
+    return KTextEditor::Range::invalid();
+
+  while (start > 0 && m_document->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_document->highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
+
+  return KTextEditor::Range(cursor.line(), start, cursor.line(), end);
+}
+
 QString KateScriptDocument::charAt(int line, int column)
 {
   return charAt(KTextEditor::Cursor(line, column));
@@ -488,6 +511,16 @@ bool KateScriptDocument::insertLine(int line, const QString &s)
 bool KateScriptDocument::removeLine(int line)
 {
   return m_document->removeLine (line);
+}
+
+bool KateScriptDocument::wrapLine(int line, int column)
+{
+  return m_document->editWrapLine(line, column);
+}
+
+bool KateScriptDocument::wrapLine(const KTextEditor::Cursor& cursor)
+{
+  return wrapLine(cursor.line(), cursor.column());
 }
 
 void KateScriptDocument::joinLines(int startLine, int endLine)

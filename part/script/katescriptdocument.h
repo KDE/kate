@@ -69,6 +69,8 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE QString line(int line);
     Q_INVOKABLE QString wordAt(int line, int column);
     Q_INVOKABLE QString wordAt(const KTextEditor::Cursor& cursor);
+    Q_INVOKABLE KTextEditor::Range wordRangeAt(int line, int column);
+    Q_INVOKABLE KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor);
     Q_INVOKABLE QString charAt(int line, int column);
     Q_INVOKABLE QString charAt(const KTextEditor::Cursor& cursor);
     Q_INVOKABLE QString firstChar(int line);
@@ -88,6 +90,8 @@ class KATEPART_TESTS_EXPORT KateScriptDocument : public QObject, protected QScri
     Q_INVOKABLE bool removeText(const KTextEditor::Range& range);
     Q_INVOKABLE bool insertLine(int line, const QString &s);
     Q_INVOKABLE bool removeLine(int line);
+    Q_INVOKABLE bool wrapLine(int line, int column);
+    Q_INVOKABLE bool wrapLine(const KTextEditor::Cursor& cursor);
     Q_INVOKABLE void joinLines(int startLine, int endLine);
     Q_INVOKABLE int lines();
     Q_INVOKABLE int length();

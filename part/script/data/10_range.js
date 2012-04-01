@@ -78,7 +78,7 @@ function Range()
   }
 
   this.onSingleLine = function() {
-    return (this.start.line == this.start.line);
+    return (this.start.line == this.end.line);
   }
 
   this.equals = function(other) {

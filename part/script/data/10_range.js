@@ -77,6 +77,10 @@ function Range()
     return column >= this.start.column && column <= this.end.column;
   }
 
+  this.onSingleLine = function() {
+    return (this.start.line == this.start.line);
+  }
+
   this.equals = function(other) {
     return (this.start.equals(other.start) && this.end.equals(other.end));
   };

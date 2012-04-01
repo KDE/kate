@@ -1,10 +1,10 @@
 /* kate-script
  * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
  * license: LGPL
- * revision: 4
+ * revision: 5
  * kate-version: 3.4
  * type: commands
- * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown
+ * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap
  */
 
 function sort()
@@ -254,6 +254,63 @@ function duplicateLinesUp()
 function duplicateLinesDown()
 {
     _duplicateLines(false);
+}
+
+function rewrap()
+{
+    // initialize line span
+    var fromLine = view.cursorPosition().line;
+    var toLine = fromLine;
+    var hasSelection = view.hasSelection();
+
+    // if a text selection is present, use it to reformat the paragraph
+    if (hasSelection) {
+        var range = view.selection();
+        fromLine = range.start.line;
+        toLine = range.end.line;
+    } else {
+        // abort, if the cursor is in an empty line
+        if (document.firstColumn(fromLine) == -1)
+            return;
+
+        // no text selection present: search for start & end of paragraph
+        while (fromLine > 0 &&
+            document.prevNonEmptyLine(fromLine-1) == fromLine - 1) --fromLine;
+        while (toLine < document.lines() - 1 &&
+            document.nextNonEmptyLine(toLine+1) == toLine + 1) ++toLine;
+    }
+
+    // initialize wrap columns
+    var wrapColumn = 80;
+    var softWrapColumn = 82;
+    var exceptionColumn = 70;
+
+    document.editBegin();
+
+    if (fromLine < toLine) {
+        document.joinLines(fromLine, toLine);
+    }
+
+    var line = fromLine;
+    // as long as the line is too long...
+    while (document.lastColumn(line) > wrapColumn) {
+        // ...search for current word boundaries...
+        var range = document.wordRangeAt(line, wrapColumn);
+        if (!range.isValid()) {
+            break;
+        }
+
+        // ...and wrap at a 'smart' position
+        var wrapCursor = range.start;
+        if (range.start.column < exceptionColumn && range.end.column <= softWrapColumn) {
+            wrapCursor = range.end;
+        }
+        if (!document.wrapLine(wrapCursor))
+            break;
+        ++line;
+    }
+
+    document.editEnd();
 }
 
 function action(cmd)

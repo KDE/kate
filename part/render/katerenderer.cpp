@@ -981,7 +981,11 @@ int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Curs
 {
   Q_ASSERT(range.isValid());
 
-  return (int)range.lineLayout().cursorToX(pos.column());
+  if (range.lineLayout().width() > 0) {
+    return (int)range.lineLayout().cursorToX(pos.column());
+  } else {
+    return 0;
+  }
 }
 
 int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos, bool returnPastLine) const

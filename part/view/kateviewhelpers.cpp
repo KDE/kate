@@ -571,6 +571,10 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   if (isVisible()) {
     m_hideTimer->start(4000);
   }
+
+  if (m_view->viInputMode()) {
+    m_view->getViInputModeManager()->reset();
+  }
 }
 
 void KateCmdLineEdit::hideLineEdit () // unless i have focus ;)
@@ -599,6 +603,9 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
   {
     m_view->setFocus ();
     hideLineEdit();
+    if (m_view->viInputMode()) {
+      m_view->getViInputModeManager()->reset();
+    }
     clear();
   }
   else if ( ev->key() == Qt::Key_Up )

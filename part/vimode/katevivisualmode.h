@@ -45,6 +45,7 @@ class KateViVisualMode : public KateViNormalMode {
     bool isVisualLine() const { return m_mode == VisualLineMode; }
     bool isVisualBlock() const { return m_mode == VisualBlockMode; }
     void switchStartEnd();
+    void reset();
     void setVisualModeType( ViMode mode );
     void saveRangeMarks();
     void setStart( const Cursor& c ) { m_start = c; }
@@ -80,7 +81,6 @@ public Q_SLOTS:
      * the end.
      */
     void goToPos( const KateViRange &r );
-    void reset();
     ViMode m_mode;
     Cursor m_start;
     ViMode m_lastVisualMode; // used when reselecting a visual selection

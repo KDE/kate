@@ -406,6 +406,8 @@ void KateViNormalMode::resetParser()
   m_linewiseCommand = true;
   m_deleteCommand = false;
 
+  m_commandShouldKeepSelection = false;
+
 }
 
 // reset the command parser
@@ -1278,6 +1280,8 @@ bool KateViNormalMode::commandSwitchToCmdLine()
       // count should be prepended to the command line
       m_view->cmdLineBar()->setText( ".,.+" +QString::number( getCount()-1 ), false);
     }
+
+    m_commandShouldKeepSelection = true;
 
     return true;
 }

@@ -394,6 +394,10 @@ void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
   config.writeEntry("ViMarks",l);
 }
 
+void KateViInputModeManager::reset() {
+    if ( m_viVisualMode)
+        m_viVisualMode->reset();
+}
 
 void KateViInputModeManager::addJump(KTextEditor::Cursor cursor) {
    for (QList<KateViJump>::iterator iterator = jump_list->begin();

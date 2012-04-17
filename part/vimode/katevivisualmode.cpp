@@ -177,7 +177,12 @@ void KateViVisualMode::reset()
     }
 
     m_selection_is_changed_inside_ViMode = true;
-    m_view->removeSelection();
+
+    if (!m_commandShouldKeepSelection)	
+        m_view->removeSelection();
+    else
+        m_commandShouldKeepSelection = false;
+
     m_selection_is_changed_inside_ViMode = false;
 
     m_start.setPosition( -1, -1 );

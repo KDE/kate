@@ -182,6 +182,8 @@ public:
 
   void setTemporaryNormalMode(bool b) {  m_temporaryNormalMode = b; }
 
+  void reset();
+
   // Jup Lists
   void addJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);

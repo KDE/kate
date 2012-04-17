@@ -254,10 +254,10 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void addMapping( const QString &from, const QString &to );
     const QString getMapping( const QString &from ) const;
     const QStringList getMappings() const;
+    virtual void reset();
 
   protected:
     void resetParser();
-    virtual void reset();
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
     virtual void goToPos( const KateViRange &r );
@@ -283,6 +283,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     bool m_linewiseCommand;
     bool m_commandWithMotion;
+
+    bool m_commandShouldKeepSelection;
 
     bool m_deleteCommand;
 

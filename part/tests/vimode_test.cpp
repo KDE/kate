@@ -246,6 +246,20 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo", "i\\ctrl-t" , "  foo");
   DoTest(" foo", "i\\ctrl-d", "foo");
   DoTest("foo\nbar", "i\\ctrl-t\\ctrl-d","foo\nbar" );
+  
+  // Testing "Ctrl-H"
+  DoTest("foo", "i\\ctrl-h" , "foo");
+  DoTest(" foo", "li\\ctrl-h", "foo");
+  DoTest("foo\nbar", "ji\\ctrl-h","foobar" );
+  DoTest("1234567890", "A\\ctrl-h\\ctrl-h\\ctrl-h\\ctrl-h\\ctrl-h","12345");
+  DoTest("1\n2\n3", "GA\\ctrl-h\\ctrl-h\\ctrl-h\\ctrl-h","1");
+
+  // Testing "Ctrl-J"
+  DoTest("foo", "i\\ctrl-j" , "\nfoo");
+  DoTest("foo", "lli\\ctrl-j", "fo\no");
+  DoTest("foo\nbar", "ji\\ctrl-j","foo\n\nbar");
+  DoTest("foobar", "A\\ctrl-j","foobar\n" );
+  DoTest("foobar", "li\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-c","f\no\no\nb\na\nr");
 }
 
 

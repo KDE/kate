@@ -105,6 +105,31 @@ bool KateViInsertMode::commandDeleteWord()
     return deleteRange( r, CharWise, false );
 }
 
+bool KateViInsertMode::commandDeleteCharBackward()
+{
+    qDebug() << "Char backward!\n";
+    Cursor c( m_view->cursorPosition() );
+
+    KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    if (c.column() == 0) {
+        if (c.line() == 0) {
+            return true;
+        } else {
+            r.startColumn = doc()->line(c.line()-1).length();
+            r.startLine--;
+      }
+    }
+
+    return deleteRange( r, CharWise );
+}
+
+bool KateViInsertMode::commandNewLine()
+{
+    doc()->newLine( m_view );
+    return true; 
+}
+
 bool KateViInsertMode::commandIndent()
 {
     Cursor c( m_view->cursorPosition() );
@@ -304,6 +329,14 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       break;
     case Qt::Key_W:
       commandDeleteWord();
+      return true;
+      break;
+    case Qt::Key_J:
+      commandNewLine();
+      return true;
+      break;
+    case Qt::Key_H:
+      commandDeleteCharBackward();
       return true;
       break;
     case Qt::Key_Y:

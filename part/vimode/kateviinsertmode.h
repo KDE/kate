@@ -53,6 +53,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     bool commandInsertFromBelow();
 
     bool commandDeleteWord();
+    bool commandNewLine();
+    bool commandDeleteCharBackward();
 
     bool commandIndent();
     bool commandUnindent();

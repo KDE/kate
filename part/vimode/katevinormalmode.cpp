@@ -1273,7 +1273,7 @@ bool KateViNormalMode::commandSwitchToCmdLine()
       || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
       // if in visual mode, make command range == visual selection
       m_viInputModeManager->getViVisualMode()->saveRangeMarks();
-      m_view->cmdLineBar()->setText( "'<,'>" );
+      m_view->cmdLineBar()->setText( "'<,'>", false );
     }
     else if ( getCount() != 1 ) {
       // if a count is given, the range [current line] to [current line] +

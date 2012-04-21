@@ -107,7 +107,7 @@ bool KateViInsertMode::commandDeleteWord()
 
 bool KateViInsertMode::commandDeleteCharBackward()
 {
-    qDebug() << "Char backward!\n";
+    kDebug( 13070 ) << "Char backward!\n";
     Cursor c( m_view->cursorPosition() );
 
     KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );

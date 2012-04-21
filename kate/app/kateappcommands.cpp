@@ -145,7 +145,6 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         mainWin->viewManager()->slotSplitViewSpaceVert();
     }
     else if (re_bufferFirst.exactMatch(command)) {
-        qDebug() << "bufferFirst";
         mainWin->viewManager()->activateView( KateDocManager::self()->documentList().first());
     }
     else if (re_bufferLast.exactMatch(command)) {

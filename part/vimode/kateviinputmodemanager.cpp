@@ -454,17 +454,17 @@ KTextEditor::Cursor KateViInputModeManager::getPrevJump(KTextEditor::Cursor curs
 }
 
 void KateViInputModeManager::PrintJumpList(){
-   qDebug() << "Jump List";
+   kDebug( 13070 ) << "Jump List";
    for (  QList<KateViJump>::iterator iter = jump_list->begin();
         iter != jump_list->end();
         iter++){
            if (iter == current_jump)
-               qDebug() << (*iter).line << (*iter).column << "<< Current Jump";
+               kDebug( 13070 ) << (*iter).line << (*iter).column << "<< Current Jump";
            else
-               qDebug() << (*iter).line << (*iter).column;
+               kDebug( 13070 ) << (*iter).line << (*iter).column;
    }
    if (current_jump == jump_list->end())
-       qDebug() << "    << Current Jump";
+       kDebug( 13070 ) << "    << Current Jump";
 
 }
 

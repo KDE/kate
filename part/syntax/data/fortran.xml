@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.12" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
+<language name="Fortran" version="1.13" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL" priority="9">
 <!-- by Franchin Matteo, fnch@libero.it -->
   <highlighting>
 

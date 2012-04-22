@@ -4,7 +4,7 @@
   *************************************************************************
 
   ANS Forth 94 syntax highlighting for Kate.
-    
+
   Copyright (C) 2011, Mark Corbin (mark@dibsco.co.uk)
 
   *************************************************************************
@@ -25,16 +25,16 @@
   Boston, MA  02110-1301  USA
 
   *************************************************************************
-  
+
   Version 1.0 (23-11-11)
     - Added additional file extensions.
-  
+
   Version 0.1 (08-11-11)
     - Initial release for comment.
 
   *************************************************************************
 -->
-<language name="ANS-Forth94" version="1.0" kateversion="3.7" section="Sources" extensions="*.4th;*.4TH;*.f;*.F;*.frt;*.FRT;*.fs;*.FS;*.fth;*.FTH;*.seq;*.SEQ" mimetype="" author="Mark Corbin (mark@dibsco.co.uk)" license="LGPL">
+<language name="ANS-Forth94" version="1.1" kateversion="3.7" section="Sources" extensions="*.4th;*.4TH;*.f;*.F;*.frt;*.FRT;*.fs;*.FS;*.fth;*.FTH;*.seq;*.SEQ" mimetype="" author="Mark Corbin (mark@dibsco.co.uk)" license="LGPL" priority="5">
   <highlighting>
     <list name="core-keywords">
       <item> ! </item>
@@ -480,7 +480,7 @@
         <RegExpr attribute="Core Ext Keyword" context="Word" insensitive="true" String="(^|\s+)(MARKER|[[]COMPILE[]])($|\s+)"/>
         <RegExpr attribute="Core Ext Keyword" context="String" insensitive="true" String="(^|\s+)(C&quot;)($|\s+)"/>
         <RegExpr attribute="Core Ext Keyword" context="Parse String" insensitive="true" String="(^|\s+)(PARSE)($|\s+)"/>
-        <RegExpr attribute="Core Ext Keyword" context="Display String" String="(^|\s+)([\.][\(])($|\s+)"/>	
+        <RegExpr attribute="Core Ext Keyword" context="Display String" String="(^|\s+)([\.][\(])($|\s+)"/>
         <RegExpr attribute="Core Ext Keyword" context="Variable" insensitive="true" String="(^|\s+)(TO)($|\s+)"/>
         <RegExpr attribute="Core Ext Keyword" context="Variable" insensitive="true" String="(^|\s+)(VALUE)($|\s+)"/>
         <RegExpr attribute="Double Keyword" context="Constant" insensitive="true" String="(^|\s+)(2CONSTANT)($|\s+)"/>

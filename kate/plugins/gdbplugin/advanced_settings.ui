@@ -133,7 +133,7 @@
        <item>
         <widget class="QLabel" name="u_tcpPortLabel">
          <property name="text">
-          <string>port</string>
+          <string>Port</string>
          </property>
         </widget>
        </item>
@@ -165,7 +165,7 @@
        <item>
         <widget class="KLineEdit" name="u_ttyPort">
          <property name="text">
-          <string>/dev/ttyUSB0</string>
+          <string comment="KDE::DoNotExtract">/dev/ttyUSB0</string>
          </property>
          <property name="showClearButton" stdset="0">
           <bool>true</bool>
@@ -186,32 +186,32 @@
          </property>
          <item>
           <property name="text">
-           <string>9600</string>
+           <string comment="KDE::DoNotExtract">9600</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>14400</string>
+           <string comment="KDE::DoNotExtract">14400</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>19200</string>
+           <string comment="KDE::DoNotExtract">19200</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>38400</string>
+           <string comment="KDE::DoNotExtract">38400</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>57600</string>
+           <string comment="KDE::DoNotExtract">57600</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>115200</string>
+           <string comment="KDE::DoNotExtract">115200</string>
           </property>
          </item>
         </widget>

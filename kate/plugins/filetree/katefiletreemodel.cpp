@@ -19,6 +19,7 @@
 #include "katefiletreemodel.h"
 #include <KIcon>
 #include <QDir>
+#include <QFileInfo>
 #include <QList>
 #include <KMimeType>
 #include <KColorScheme>
@@ -963,7 +964,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
   QString base = name.section(sep, 0, -2);
   foreach(ProxyItem *item, m_root->children()) {
     QString path = item->path().section(sep, 0, -r);
-    if(!path.startsWith(QLatin1String("/"))) {
+    if(!QFileInfo(path).isAbsolute()) {
       continue;
     }
 

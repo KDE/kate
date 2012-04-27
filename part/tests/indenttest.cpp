@@ -206,6 +206,19 @@ void IndentTest::cstyle()
   );
 }
 
+
+void IndentTest::python_data()
+{
+    getTestData( "python" );
+}
+
+void IndentTest::python()
+{
+    m_document->config()->setIndentationMode("python");
+    runTest( ExpectedFailures() );
+}
+
+
 void IndentTest::haskell_data()
 {
   getTestData( "haskell" );

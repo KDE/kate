@@ -33,6 +33,9 @@ private slots:
   void initTestCase();
   void cleanupTestCase();
 
+  void python_data();
+  void python();
+
   void cstyle_data();
   void cstyle();
 

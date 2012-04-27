@@ -62,6 +62,8 @@ function indent(line, indentWidth, character) {
     // we can't really indent line 0
     if(line == 0)
         return -2;
+    if(lastLine == "")
+        return -2;
     // make sure the last line is code
     if(!document.isCode(line - 1, document.lineLength(line - 1) - 1) && lastCharacter != "\"" && lastCharacter != "'") {
 //         dbg("attributes that we don't want! Returning");
@@ -95,7 +97,10 @@ function indent(line, indentWidth, character) {
 //     }
     // finally, a raise, pass, and continue should unindent
     lastLine = lastLine.stripWhiteSpace();
-    if(lastLine == 'continue' || lastLine == 'pass' || lastLine == 'raise' || lastLine.startsWith('raise ')) {
+    if(    lastLine == 'continue' || lastLine == 'pass' || lastLine == 'raise' || lastLine.startsWith('raise ')
+        || lastLine.startsWith('return ') || lastLine == 'return'
+    )
+    {
 //         dbg('unindenting line for keyword');
         return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
     }

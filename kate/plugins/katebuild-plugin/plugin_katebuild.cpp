@@ -181,6 +181,9 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
 
+    connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+            this, SLOT(handleEsc(QEvent*)));
+
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
@@ -863,41 +866,58 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+/******************************************************************/
+void KateBuildView::handleEsc(QEvent *e)
+{
+    if (!mainWindow()) return;
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (m_toolView->isVisible()) {
+            mainWindow()->hideToolView(m_toolView);
+        }
+    }
+}
+
+
+/******************************************************************/
 void KateBuildView::slotShowErrors(bool showItems) {
-  QTreeWidget *tree=m_buildUi.errTreeWidget;
-  const int itemCount = tree->topLevelItemCount();
+    QTreeWidget *tree=m_buildUi.errTreeWidget;
+    const int itemCount = tree->topLevelItemCount();
 
-  for (int i=0;i<itemCount;i++) {
-    QTreeWidgetItem* item=tree->topLevelItem(i);
-    if (item->data(0,Qt::UserRole+1).toBool()==true) {
-      item->setHidden(!showItems);      
-    }    
-  }
-  
+    for (int i=0;i<itemCount;i++) {
+        QTreeWidgetItem* item=tree->topLevelItem(i);
+        if (item->data(0,Qt::UserRole+1).toBool()==true) {
+            item->setHidden(!showItems);
+        }
+    }
+
 }
 
+/******************************************************************/
 void KateBuildView::slotShowWarnings(bool showItems) {
-QTreeWidget *tree=m_buildUi.errTreeWidget;
-  const int itemCount = tree->topLevelItemCount();
+    QTreeWidget *tree=m_buildUi.errTreeWidget;
+    const int itemCount = tree->topLevelItemCount();
 
-  for (int i=0;i<itemCount;i++) {
-    QTreeWidgetItem* item=tree->topLevelItem(i);
-    if (item->data(0,Qt::UserRole+2).toBool()==true) {
-      item->setHidden(!showItems);      
-    }    
-  }
+    for (int i=0;i<itemCount;i++) {
+        QTreeWidgetItem* item=tree->topLevelItem(i);
+        if (item->data(0,Qt::UserRole+2).toBool()==true) {
+            item->setHidden(!showItems);
+        }
+    }
 
 }
 
+/******************************************************************/
 void KateBuildView::slotShowOthers(bool showItems) {
-QTreeWidget *tree=m_buildUi.errTreeWidget;
-  const int itemCount = tree->topLevelItemCount();
+    QTreeWidget *tree=m_buildUi.errTreeWidget;
+    const int itemCount = tree->topLevelItemCount();
 
-  for (int i=0;i<itemCount;i++) {
-    QTreeWidgetItem* item=tree->topLevelItem(i);
-    if ( (item->data(0,Qt::UserRole+1).toBool()==false) && (item->data(0,Qt::UserRole+2).toBool()==false) ) {
-      item->setHidden(!showItems);      
-    }    
-  }
+    for (int i=0;i<itemCount;i++) {
+        QTreeWidgetItem* item=tree->topLevelItem(i);
+        if ( (item->data(0,Qt::UserRole+1).toBool()==false) && (item->data(0,Qt::UserRole+2).toBool()==false) ) {
+            item->setHidden(!showItems);
+        }
+    }
 
 }

@@ -111,6 +111,9 @@ KateCTagsView::KateCTagsView(Kate::MainWindow *mw, const KComponentData& compone
     connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             SLOT(tagHitClicked(QTreeWidgetItem*)));
 
+    connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+            this, SLOT(handleEsc(QEvent*)));
+
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
@@ -612,5 +615,18 @@ bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
 void KateCTagsView::resetCMD()
 {
     m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+}
+
+/******************************************************************/
+void KateCTagsView::handleEsc(QEvent *e)
+{
+    if (!mainWindow()) return;
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (m_toolView->isVisible()) {
+            mainWindow()->hideToolView(m_toolView);
+        }
+    }
 }
 

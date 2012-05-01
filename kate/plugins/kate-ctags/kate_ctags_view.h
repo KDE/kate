@@ -83,6 +83,7 @@ protected:
 
 private Q_SLOTS:
     void resetCMD();
+    void handleEsc(QEvent *e);
 
 private:
     bool listContains(const QString &target);

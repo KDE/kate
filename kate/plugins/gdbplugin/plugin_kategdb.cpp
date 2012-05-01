@@ -295,6 +295,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     enableDebugActions( false );
 
+    connect( mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+            this, SLOT(handleEsc(QEvent*)) );
+
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient( this );
@@ -754,6 +757,18 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return QObject::eventFilter(obj, event);
+}
+
+void KatePluginGDBView::handleEsc(QEvent *e)
+{
+    if (!mainWindow()) return;
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (m_toolView->isVisible()) {
+            mainWindow()->hideToolView(m_toolView);
+        }
+    }
 }
 
 

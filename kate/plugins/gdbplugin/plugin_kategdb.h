@@ -91,6 +91,7 @@ private Q_SLOTS:
     void addOutputText( QString const& text );
     void addErrorText( QString const& text );
     void clearMarks();
+    void handleEsc(QEvent *e);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);

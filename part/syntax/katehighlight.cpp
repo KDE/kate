@@ -237,9 +237,13 @@ int KateHighlighting::makeDynamicContext(KateHlContext *model, const QStringList
  */
 void KateHighlighting::dropDynamicContexts()
 {
-  for (int i=base_startctx; i < m_contexts.size(); ++i)
-    delete m_contexts[i];
+  if (refCount == 0)  // unused highlighting - nothing to drop
+    return;
 
+  if (noHl)  // "normal texts" highlighting - no context list
+    return;
+
+  qDeleteAll(m_contexts.begin()+base_startctx, m_contexts.end());  // delete dynamic contexts (after base_startctx)
   m_contexts.resize (base_startctx);
 
   dynamicCtxs.clear();
@@ -699,9 +703,7 @@ void KateHighlighting::init()
   if (noHl)
     return;
 
-  // cu contexts
-  for (int i=0; i < m_contexts.size(); ++i)
-    delete m_contexts[i];
+  qDeleteAll(m_contexts);
   m_contexts.clear ();
 
   makeContextList();

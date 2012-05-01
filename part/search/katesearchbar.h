@@ -109,7 +109,7 @@ public Q_SLOTS:
     void enterPowerMode();
     void enterIncrementalMode();
 
-    void clearHighlights();
+    bool clearHighlights();
     void updateHighlightColors();
 
 protected:

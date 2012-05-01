@@ -91,6 +91,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void openSearchView();
+    void handleEsc(QEvent *e);
     void addTab();
     void closeTab(QWidget *widget);
     void toggleOptions(bool show);

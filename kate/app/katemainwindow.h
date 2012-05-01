@@ -222,6 +222,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   Q_SIGNALS:
     void statusBarToggled ();
+    void unhandledShortcutOverride (QEvent *e);
 
   public:
     void openUrl (const QString &name = QString());
@@ -309,6 +310,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public Q_SLOTS:
     void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);  
 
+  protected:
+    virtual bool event( QEvent *e );
 };
 
 #endif

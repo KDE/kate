@@ -1481,9 +1481,13 @@ void KateSearchBar::enterIncrementalMode() {
 }
 
 
-void KateSearchBar::clearHighlights() {
+bool KateSearchBar::clearHighlights() {
+    if (m_hlRanges.isEmpty()) {
+        return false;
+    }
     qDeleteAll(m_hlRanges);
     m_hlRanges.clear();
+    return true;
 }
 
 void KateSearchBar::updateHighlightColors()

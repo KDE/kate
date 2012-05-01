@@ -962,5 +962,13 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
   }
 }
 
+bool KateMainWindow::event( QEvent *e )
+{
+  if (e->type() == QEvent::ShortcutOverride) {
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    emit unhandledShortcutOverride (k);
+  }
+  return KateMDI::MainWindow::event(e);
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

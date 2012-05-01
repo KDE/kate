@@ -46,6 +46,8 @@ namespace Kate
   {
     d = new PrivateMainWindow;
     d->win = (KateMainWindow*) mainWindow;
+    connect(d->win, SIGNAL(unhandledShortcutOverride(QEvent*)),
+            this, SIGNAL(unhandledShortcutOverride(QEvent*)));
   }
 
   MainWindow::~MainWindow ()

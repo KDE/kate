@@ -189,7 +189,7 @@ m_curResults(0)
     m_ui.topLayout->setColumnMinimumWidth(0, padWidth);
     m_ui.topLayout->setAlignment(m_ui.newTabButton, Qt::AlignHCenter);
     m_ui.optionsLayout->setColumnMinimumWidth(0, padWidth);
-    
+
     // the order here is important to get the tabBar hidden for only one tab
     addTab();
     m_ui.resultTabWidget->tabBar()->hide();
@@ -246,6 +246,9 @@ m_curResults(0)
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
             SLOT(searchContextMenu(QPoint)));
+
+    connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+            this, SLOT(handleEsc(QEvent*)));
 
     m_replacer.setDocumentManager(m_kateApp->documentManager());
 
@@ -308,6 +311,22 @@ void KatePluginSearchView::openSearchView()
             if (!selection.isEmpty() && !selection.contains('\n')) {
                 m_ui.searchCombo->lineEdit()->setText(selection);
             }
+        }
+    }
+}
+
+void KatePluginSearchView::handleEsc(QEvent *e)
+{
+    if (!mainWindow()) return;
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+
+        if (m_toolView->isVisible()) {
+            mainWindow()->hideToolView(m_toolView);
+        }
+        else {
+            clearMarks();
         }
     }
 }
@@ -835,7 +854,6 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         }
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             mainWindow()->hideToolView(m_toolView);
-            clearMarks();
             event->accept();
             return true;
         }

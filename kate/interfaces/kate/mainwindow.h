@@ -163,6 +163,11 @@ namespace Kate
 
       void viewCreated(KTextEditor::View * view);
 
+      /**
+       * This signal is emitted for every unhandled ShortcutOverride in a view
+       */
+      void unhandledShortcutOverride (QEvent *e);
+
       /*
        * ToolView stuff, here all stuff belong which allows to
        * add/remove and manipulate the toolview of this main windows

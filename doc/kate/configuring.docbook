@@ -490,6 +490,12 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 <para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
 </varlistentry>
 
+<varlistentry id="variable-newline-at-eof">
+<term><cmdsynopsis><command>newline-at-eof</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Add an empty line at the end of the file (EOF) when saving the document.</para>
+<para>Since: &kate; 3.9 (KDE 4.9)</para></listitem>
+</varlistentry>
+
 <varlistentry id="variable-overwrite-mode">
 <term><cmdsynopsis><command>overwrite-mode</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set overwrite mode on or off.</para></listitem>

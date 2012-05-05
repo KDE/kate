@@ -504,7 +504,8 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
     m_make_dir_stack.clear();
 
     // activate the output tab
-   m_buildUi.ktabwidget->setCurrentIndex(1);
+    m_buildUi.ktabwidget->setCurrentIndex(1);
+    mainWindow()->showToolView(m_toolView);
 
     // set working directory
     m_make_dir = dir;

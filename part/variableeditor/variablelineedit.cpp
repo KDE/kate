@@ -257,6 +257,11 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   item->setHelpText(i18nc("short translation please", "Show line numbers."));
   listview->addItem(item);
 
+  // Add 'newline-at-eof' to list
+  item = new VariableBoolItem("newline-at-eof", docConfig->ovr());
+  item->setHelpText(i18nc("short translation please", "Insert newline at end of file on save."));
+  listview->addItem(item);
+
   // Add 'overwrite-mode' to list
   item = new VariableBoolItem("overwrite-mode", docConfig->ovr());
   item->setHelpText(i18nc("short translation please", "Enable overwrite mode in the document."));

@@ -133,6 +133,7 @@
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*" beginRegion="Comment2" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
       </context>
 
       <context attribute="Preprocessor" lineEndContext="#pop" name="Define">

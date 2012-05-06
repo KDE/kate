@@ -55,12 +55,12 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2012-02-26</date>
-<releaseinfo>3.8.1 &kde; 4.8.1</releaseinfo>
+<releaseinfo>3.8.2 &kde; 4.9</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
 
-<para>This handbook documents &kate; Version 3.8.0</para>
+<para>This handbook documents &kate; Version 3.8.2</para>
 </abstract>
 
 <keywordset>

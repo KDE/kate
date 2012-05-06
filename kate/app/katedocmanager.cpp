@@ -190,6 +190,7 @@ KTextEditor::Document *KateDocManager::document (uint n)
 
 KateDocumentInfo *KateDocManager::documentInfo (KTextEditor::Document *doc)
 {
+  Q_ASSERT(m_docInfos.contains(doc));
   return m_docInfos[doc];
 }
 

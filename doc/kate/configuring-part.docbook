@@ -779,6 +779,7 @@ specified here. To disable this, set this to <userinput>0</userinput>.</para>
 <term><guilabel>Automatic Cleanups on Load/Save</guilabel></term>
 <listitem>
 <variablelist>
+
 <varlistentry>
 <term><guilabel>Remove trailing spaces</guilabel></term>
 <listitem>
@@ -786,6 +787,15 @@ specified here. To disable this, set this to <userinput>0</userinput>.</para>
 of text while loading/saving the file.</para>
 </listitem>
 </varlistentry>
+
+<varlistentry>
+<term><guilabel>Append newline at end of file on save</guilabel></term>
+<listitem>
+<para>The editor will automatically append a newline to the end of the file if
+one is not already present upon saving the file.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry>

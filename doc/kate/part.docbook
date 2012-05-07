@@ -602,8 +602,9 @@ Lisp dialects.
 <title>Line Modification Indicators</title>
 
 <para>&kappname;'s line modification indicators let you easily see what you have
-recently changed in a file.  Saved changes are indicated by a green bar to the
-left of a document, while unsaved changes are indicated by an orange bar.</para>
+recently changed in a file.  By default, saved changes are indicated by a green
+bar to the left of a document, while unsaved changes are indicated by an orange
+bar.</para>
 
 <para>
 <mediaobject>
@@ -612,18 +613,11 @@ left of a document, while unsaved changes are indicated by an orange bar.</para>
 </mediaobject>
 </para>
 
-<para>If you'd like, you currently can disable this feature from the command
-line:</para>
-
-<informalexample>
-<screen>
-<prompt>%</prompt> <userinput><command>kwriteconfig</command> <option>--file &rcfile;</option> <option>--group "Kate View Defaults"</option> <option>--key "Line Modifications"</option> <option>--type bool</option> <option><replaceable>false</replaceable></option></userinput>
-</screen>
-</informalexample>
-
-<para>To re-enable it, simply replace <userinput>false</userinput> with
-<userinput>true</userinput>.  A proper configuration option will be added in
-&kde; 4.9.</para>
+<para>You can change the colors used in the
+<link linkend="prefcolors"><guilabel>Fonts &amp; Colors</guilabel> configuration
+panel</link>, or you can disable this feature completely in the
+<link linkend="appearance-borders"><guilabel>Borders</guilabel> tab of the
+<guilabel>Appearance</guilabel> configuration panel</link>.</para>
 
 </sect1>
 

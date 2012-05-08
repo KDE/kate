@@ -383,34 +383,34 @@ documentation</ulink>.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Background</guilabel></term>
-<listitem><para>This color is used by the Kate Snippets plugin to mark the
+<listitem><para>This color is used by the &kate; Snippets plugin to mark the
 background of a snippet.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the Kate Snippets
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the Kate Snippets plugin to mark a
+<listitem><para>This color is used by the &kate; Snippets plugin to mark a
 placeholder than you can click in to edit manually.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the Kate Snippets
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Focused Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the Kate Snippets plugin to mark the
+<listitem><para>This color is used by the &kate; Snippets plugin to mark the
 placeholder that you are presently editing.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the Kate Snippets
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Not Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the Kate Snippets plugin to mark a
+<listitem><para>This color is used by the &kate; Snippets plugin to mark a
 placeholder that cannot be edited manually, such as one that is automatically
 populated.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the Kate Snippets
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para></listitem>
 </varlistentry>
 

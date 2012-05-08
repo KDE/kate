@@ -55,7 +55,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   setLayout(l);
 
   ui = new KateColorTreeWidget(this);
-  QPushButton* btnUseColorScheme = new QPushButton("Use KDE Color Scheme", this);
+  QPushButton* btnUseColorScheme = new QPushButton(i18n("Use KDE Color Scheme"), this);
 
   l->addWidget(ui, 0, 0, 1, 2);
   l->addWidget(btnUseColorScheme, 1, 1);
@@ -82,7 +82,7 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   // editor background colors
   //
   KateColorItem ci;
-  ci.category = "Editor Background Colors";
+  ci.category = i18n("Editor Background Colors");
 
   ci.name = i18n("Text Area");
   ci.key = "Color Background";

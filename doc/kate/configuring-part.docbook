@@ -169,11 +169,16 @@ work on a different scheme start by selecting that from the
 <para>At the bottom of the page you can select the <guilabel>Default schema for &kappname;</guilabel>.</para>
 
 <para>By default, &kappname; will base its color scheme on the current &kde;
-color scheme.  You can reset back to this at any time by clicking the
-<guibutton>Use &kde; Color Scheme</guibutton> at the bottom of the panel.  You
-can adjust the &kde; color scheme in the
+color scheme.  You can reset an individual color back to default by clicking the
+reset arrow to the right of the entry in the color editor, or you can reset all
+colors back to default by clicking the
+<guibutton>Use &kde; Color Scheme</guibutton> at the bottom of the panel.</para>
+
+<tip>
+<para>You can adjust the &kde; color scheme in the
 <ulink url="help:/kcontrol/colors/"><guilabel>Colors</guilabel> module in
 &systemsettings;</ulink>.</para>
+</tip>
 
 <sect3 id="prefcolors-colors">
 <title>Colors</title>

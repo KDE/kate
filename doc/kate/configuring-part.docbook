@@ -263,7 +263,7 @@ wrap marker.</para></listitem>
 <varlistentry>
 <term><guilabel>Code Folding</guilabel></term>
 <listitem><para>This color is used to highlight the section of code that would
-be folded when you mouse over the cold folding arrow to the left of a document.
+be folded when you click on the code folding arrow to the left of a document.
 For more information, see
 <ulink url="help:/kate/advanced-editing-tools-code-folding.html">the code
 folding documentation</ulink>.</para></listitem>
@@ -392,7 +392,7 @@ documentation</ulink>.</para></listitem>
 <varlistentry>
 <term><guilabel>Editable Placeholder</guilabel></term>
 <listitem><para>This color is used by the &kate; Snippets plugin to mark a
-placeholder than you can click in to edit manually.  For more information, see
+placeholder that you can click in to edit manually.  For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para></listitem>
 </varlistentry>

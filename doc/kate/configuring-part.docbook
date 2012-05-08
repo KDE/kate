@@ -168,85 +168,236 @@ work on a different scheme start by selecting that from the
  button you can create a new scheme or delete existing ones.</para>
 <para>At the bottom of the page you can select the <guilabel>Default schema for &kappname;</guilabel>.</para>
 
+<para>By default, &kappname; will base its color scheme on the current &kde;
+color scheme.  You can reset back to this at any time by clicking the
+<guibutton>Use &kde; Color Scheme</guibutton> at the bottom of the panel.  You
+can adjust the &kde; color scheme in the
+<ulink url="help:/kcontrol/colors/"><guilabel>Colors</guilabel> module in
+&systemsettings;</ulink>.</para>
+
 <sect3 id="prefcolors-colors">
 <title>Colors</title>
 
 <variablelist>
 <varlistentry id="variable-prefcolors-colors-text-background">
-<term><guilabel>Text Area Background</guilabel></term>
+<term><guilabel>Editor Background Colors</guilabel></term>
 <listitem>
 
 <variablelist>
 
 <varlistentry id="variable-pref-colors-normal-text">
-<term><guilabel>Normal text</guilabel></term>
+<term><guilabel>Text Area</guilabel></term>
 <listitem><para>This is the default background for the editor area, it will be
 the dominant color on the editor area.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-pref-colors-selected-text">
-<term><guilabel>Selected text</guilabel></term>
+<term><guilabel>Selected Text</guilabel></term>
 <listitem><para>This is the background for selected text. The default is
 the global selection color, as set in your &kde; color preferences.
 </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-pref-colors-current-line">
-<term><guilabel>Current line</guilabel></term>
+<term><guilabel>Current Line</guilabel></term>
 <listitem><para>Set the color for the current line. Setting this a bit different
 from the Normal text background helps to keep focus on the current line.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-pref-colors-marks">
+<varlistentry id="variable-pref-colors-search-highlight">
+<term><guilabel>Search Highlight</guilabel></term>
+<listitem><para>Set the color for the text that matches your last search.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-replace-highlight">
+<term><guilabel>Replace Highlight</guilabel></term>
+<listitem><para>Set the color for the text that matches your last replace
+operation.</para></listitem>
+</varlistentry>
+
+<!--<varlistentry id="variable-pref-colors-marks">
 <term><guilabel>Bookmark</guilabel></term>
 <listitem><para>This combobox lets you set overlay colors for various mark types.
 The color is mixed into the background color of a marked line, so that a line
 with more marks or a marked line that is current has a background that is a mix
 of more colors. The mark colors are also used if you enable display of scrollbar
 marks.</para></listitem>
+</varlistentry>-->
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-icon-border">
+<term><guilabel>Icon Border</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Background Area</guilabel></term>
+<listitem><para>This color is used for the marks, line numbers and folding
+marker borders in the left side of the editor view when they are displayed.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Line Numbers</guilabel></term>
+<listitem><para>This color is used to draw the line numbers on the left side of
+the view when displayed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Word Wrap Marker</guilabel></term>
+<listitem><para>This color is used to draw a pattern to the left of dynamically
+wrapped lines when those are aligned vertically, as well as for the static word
+wrap marker.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Code Folding</guilabel></term>
+<listitem><para>This color is used to highlight the section of code that would
+be folded when you mouse over the cold folding arrow to the left of a document.
+For more information, see <xref linkend="advanced-editing-tools-code-folding"/>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Modified Lines</guilabel></term>
+<listitem><para>This color is used to highlight to the left of a document lines
+that have been modified but not yet saved.  For more information, see
+<xref linkend="kate-part-line-modification"/></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Saved Lines</guilabel></term>
+<listitem><para>This color is used to highlight to the left of a document lines
+that have been modified this session and saved.  For more information, see
+<xref linkend="kate-part-line-modification"/></para></listitem>
 </varlistentry>
 
 </variablelist>
 </listitem>
 </varlistentry>
 
-<varlistentry id="variable-prefcolors-colors-other-elements">
-<term><guilabel>Additional Elements</guilabel></term>
+<varlistentry id="variable-prefcolors-colors-text-decorations">
+<term><guilabel>Text Decorations</guilabel></term>
 <listitem>
 <variablelist>
+
 <varlistentry>
-<term><guilabel>Left border background</guilabel></term>
-<listitem><para>This color is used for the marks, line numbers and folding
-marker borders in the left side of the editor view when they are displayed.
-</para></listitem>
+<term><guilabel>Spelling Mistake Line</guilabel></term>
+<listitem><para>This color is used to indicate spelling mistakes.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><guilabel>Line numbers</guilabel></term>
-<listitem><para>This color is used to draw the line numbers on the left side of
-the view when displayed.</para></listitem>
+<term><guilabel>Tab and Space Markers</guilabel></term>
+<listitem><para>This color is used to draw white space indicators, when they are
+enabled.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><guilabel>Bracket highlight</guilabel></term>
+<term><guilabel>Bracket Highlight</guilabel></term>
 <listitem><para>This color is used to draw the background of matching brackets.
 </para></listitem>
 </varlistentry>
-<varlistentry>
-<term><guilabel>Word wrap markers</guilabel></term>
-<listitem><para>This color is used to draw a pattern to the left of dynamically
-wrapped lines when those are aligned vertically, as well as for the static word
-wrap marker.</para></listitem>
+
+</variablelist>
+</listitem>
 </varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-marker-colors">
+<term><guilabel>Marker Colors</guilabel></term>
+<listitem>
+<variablelist>
+
 <varlistentry>
-<term><guilabel>Tab and space markers</guilabel></term>
-<listitem><para>This color is used to draw white space indicators when enabled.
-</para></listitem>
+<term><guilabel>Bookmark</guilabel></term>
+<listitem><para>This color is used to indicate bookmarks.  For more information,
+see <xref linkend="kate-part-bookmarks"/>.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><guilabel>Spelling mistake line</guilabel></term>
-<listitem><para>sets the color of the line that is used to indicate spelling mistakes.
-</para></listitem>
+<term><guilabel>Active Breakpoint</guilabel></term>
+<listitem><para>This color is used by the GDB plugin to indicate an active
+breakpoint.  For more information, see
+<xref linkend="kate-application-plugin-gdb"/></para></listitem>
 </varlistentry>
+
+<varlistentry>
+<term><guilabel>Reached Breakpoint</guilabel></term>
+<listitem><para>This color is used by the GDB plugin to indicate a breakpoint
+you have reached while debugging.  For more information, see
+<xref linkend="kate-application-plugin-gdb"/></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Inactive Breakpoint</guilabel></term>
+<listitem><para>This color is used by the GDB plugin to indicate an inactive
+breakpoint.  For more information, see
+<xref linkend="kate-application-plugin-gdb"/></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Execution</guilabel></term>
+<listitem><para>This color is used by the GDB plugin the line presently being
+executed.  For more information, see
+<xref linkend="kate-application-plugin-gdb"/></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Warning</guilabel></term>
+<listitem><para>This color is used by the build plugin to indicate a line that
+has caused a compiler warning.  For more information, see
+<xref linkend="kate-application-plugin-build"/></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Error</guilabel></term>
+<listitem><para>This color is used by the build plugin to indicate a line that
+has caused a compiler error.  For more information, see
+<xref linkend="kate-application-plugin-build"/></para></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
+<term><guilabel>Text Templates &amp; Snippets</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Background</guilabel></term>
+<listitem><para>This color is used by the Kate Snippets plugin to mark the
+background of a snippet.  For more information, see
+<xref linkend="kate-application-plugin-snippets"/>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Editable Placeholder</guilabel></term>
+<listitem><para>This color is used by the Kate Snippets plugin to mark a
+placeholder than you can click in to edit manually.  For more information, see
+<xref linkend="kate-application-plugin-snippets"/>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Focused Editable Placeholder</guilabel></term>
+<listitem><para>This color is used by the Kate Snippets plugin to mark the
+placeholder that you are presently editing.  For more information, see
+<xref linkend="kate-application-plugin-snippets"/>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Not Editable Placeholder</guilabel></term>
+<listitem><para>This color is used by the Kate Snippets plugin to mark a
+placeholder that cannot be edited manually, such as one that is automatically
+populated.  For more information, see
+<xref linkend="kate-application-plugin-snippets"/>.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry>

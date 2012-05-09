@@ -341,7 +341,7 @@ documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Inactive Breakpoint</guilabel></term>
+<term><guilabel>Disabled Breakpoint</guilabel></term>
 <listitem><para>This color is used by the GDB plugin to indicate an inactive
 breakpoint.  For more information, see
 <ulink url="help:/kate/kate-application-plugin-gdb.html">the GDB Plugin

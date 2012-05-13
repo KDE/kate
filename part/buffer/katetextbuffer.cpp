@@ -706,17 +706,7 @@ bool TextBuffer::save (const QString &filename)
     // get line to save
     Kate::TextLine textline = line (i);
 
-    // strip trailing spaces
-    if (m_removeTrailingSpaces)
-    {
-      int lastChar = textline->lastChar();
-      if (lastChar > -1)
-      {
-        stream << textline->text().left (lastChar+1);
-      }
-    }
-    else // simple, dump the line
-      stream << textline->text();
+    stream << textline->text();
 
     // append correct end of line string
     if ((i+1) < m_lines)

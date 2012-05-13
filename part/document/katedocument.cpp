@@ -2262,6 +2262,8 @@ bool KateDocument::saveFile()
   // remove file from dirwatch
   deactivateDirWatch ();
 
+  removeTrailingSpace ();
+
   //
   // try to save
   //
@@ -4573,6 +4575,33 @@ void KateDocument::removeTrailingSpace(int line)
     m_blockRemoveTrailingSpaces = false;
   }
 }
+
+void KateDocument::removeTrailingSpace(void)
+{
+  if (m_buffer->removeTrailingSpaces())
+  {
+    m_undoManager->editStart();
+
+    for (int i = 0; i < m_buffer->lines(); i++)
+    {
+      const Kate::TextLine textline = m_buffer->line(i);
+
+      int length = textline->length();
+      int lastChar = textline->lastChar();
+
+      if (lastChar < length - 1)
+      {
+        QString oldText = textline->string().mid(lastChar + 1, length - 1 - lastChar);
+
+        m_undoManager->slotTextRemoved(i, lastChar + 1, oldText);
+        m_buffer->removeText(Range(i, lastChar + 1, i, length));
+      }
+    }
+
+    m_undoManager->editEnd();
+  }
+}
+
 
 void KateDocument::updateFileType (const QString &newType, bool user)
 {

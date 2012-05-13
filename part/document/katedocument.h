@@ -195,12 +195,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * them.
      */
     void editStart ();
-    
+
     /**
      * Alias for @p editStart()
      */
     void editBegin () { editStart(); }
-    
+
     /**
      * End a editor operation.
      * @see editStart()
@@ -620,7 +620,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @param document the document which the interface belongs too which will invalidate its data
      */
     void aboutToInvalidateMovingInterfaceContent (KTextEditor::Document *document);
-  
+
   //
   // Annotation Interface
   //
@@ -919,12 +919,17 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     QString reasonedMOHString() const;
 
     /**
-     * Removes all trailing whitespace form @p line, if
+     * Removes all trailing whitespace from @p line, if
      * the cfRemoveTrailingDyn confg flag is set,
      * and the active view cursor is not on line and behind
      * the last nonspace character.
      */
     void removeTrailingSpace(int line);
+    /**
+     * Removes all trailing whitespace in the document.
+     */
+    void removeTrailingSpace(void);
+
     inline void blockRemoveTrailingSpaces(bool block)
     { m_blockRemoveTrailingSpaces = block; }
 
@@ -1063,7 +1068,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual bool isDataRecoveryAvailable() const;
     virtual void recoverData();
     virtual void discardDataRecovery();
-     
+
   //
   // KTextEditor::TemplateInterface + KTextEditor::TemplateInterface2
   //
@@ -1160,12 +1165,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
       void rangeEmpty(KTextEditor::MovingRange *movingRange);
 
       void deleteDictionaryRange(KTextEditor::MovingRange *movingRange);
-  
+
   private:
     Kate::SwapFile *m_swapfile;
   public:
     Kate::SwapFile* swapFile();
-    
+
   //helpers for scripting and codefolding
     int defStyleNum(int line, int column);
     bool isComment(int line, int column);

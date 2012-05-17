@@ -1343,6 +1343,11 @@ void KateGotoBar::keyPressEvent(QKeyEvent* event)
 
 void KateGotoBar::gotoLine()
 {
+  KateView *kv = qobject_cast<KateView*>(m_view);
+  if (kv && kv->selection() && !kv->config()->persistentSelection()) {
+    kv->clearSelection();
+  }
+
   m_view->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
   m_view->setFocus();
   emit hideMe();

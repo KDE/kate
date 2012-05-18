@@ -2262,7 +2262,8 @@ bool KateDocument::saveFile()
   // remove file from dirwatch
   deactivateDirWatch ();
 
-  removeTrailingSpace ();
+  // remove all trailing spaces in the document (as edit actions)
+  removeTrailingSpaces ();
 
   //
   // try to save
@@ -4576,29 +4577,23 @@ void KateDocument::removeTrailingSpace(int line)
   }
 }
 
-void KateDocument::removeTrailingSpace(void)
+void KateDocument::removeTrailingSpaces()
 {
-  if (m_buffer->removeTrailingSpaces())
-  {
-    m_undoManager->editStart();
+  if (config()->removeSpaces()) {
+    editStart();
 
-    for (int i = 0; i < m_buffer->lines(); i++)
+    for (int line = 0; line < lines(); ++line)
     {
-      const Kate::TextLine textline = m_buffer->line(i);
+      Kate::TextLine textline = plainKateTextLine(line);
 
-      int length = textline->length();
-      int lastChar = textline->lastChar();
-
-      if (lastChar < length - 1)
-      {
-        QString oldText = textline->string().mid(lastChar + 1, length - 1 - lastChar);
-
-        m_undoManager->slotTextRemoved(i, lastChar + 1, oldText);
-        m_buffer->removeText(Range(i, lastChar + 1, i, length));
+      const int p = textline->lastChar() + 1;
+      const int l = textline->length() - p;
+      if (l > 0) {
+        editRemoveText(line, p, l);
       }
     }
 
-    m_undoManager->editEnd();
+    editEnd();
   }
 }
 

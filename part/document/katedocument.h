@@ -928,7 +928,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     /**
      * Removes all trailing whitespace in the document.
      */
-    void removeTrailingSpace(void);
+    void removeTrailingSpaces();
 
     inline void blockRemoveTrailingSpaces(bool block)
     { m_blockRemoveTrailingSpaces = block; }

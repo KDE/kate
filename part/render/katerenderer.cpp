@@ -310,7 +310,7 @@ static bool rangeLessThanForRenderer (const Kate::TextRange *a, const Kate::Text
     return true;
   else if (a->zDepth() < b->zDepth())
     return false;
-  
+
   // end of a > end of b?
   if (a->end().toCursor() > b->end().toCursor())
     return true;
@@ -662,66 +662,96 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
     // Draw caret
     if (drawCaret() && cursor && range->includesCursor(*cursor)) {
-      // Make the caret the desired width
-      int caretWidth = 2;
+      int caretWidth, lineWidth = 2;
+      caretStyles style;
+      QColor color;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-      if (caretStyle() == Block || (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode)) {
-        if (line.isValid() && cursor->column() < range->length()) {
-          caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
-          if (caretWidth < 0)
-            caretWidth = -caretWidth;
 
+      // Determine the caret's style
+      //
+      // FIXME: the mapping between vi modes and caret styles doesn't belong here;
+      // instead, it should be specified by the mode itself
+      if (m_view->viInputMode()) {
+        if (m_view->getCurrentViMode() == InsertMode) {
+          style = Line;
+        } else if (m_view->getCurrentViMode() == ReplaceMode ) {
+          style = Underline;
         } else {
-          caretWidth = spaceWidth();
+          style = Block;
         }
+      } else {
+        style = caretStyle();
       }
 
-      QColor c;
-      // Could actually use the real highlighting system for this... would be slower but more accurate for corner cases
-      if (m_caretOverrideColor.isValid()) {
-        c = m_caretOverrideColor;
+      // Make the caret the desired width
+      if (style == Line) {
+        caretWidth = lineWidth;
+      } else if (line.isValid() && cursor->column() < range->length()) {
+        caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
+        if (caretWidth < 0) {
+          caretWidth = -caretWidth;
+        }
+      } else {
+        caretWidth = spaceWidth();
+      }
 
+      // Determine the color
+      if (m_caretOverrideColor.isValid()) {
+        // Could actually use the real highlighting system for this...
+        // would be slower, but more accurate for corner cases
+        color = m_caretOverrideColor;
       } else {
         // search for the FormatRange that includes the cursor
         foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats()) {
-          if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
+          if ((r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column())) {
             // check for Qt::NoBrush, as the returned color is black() and no invalid QColor
             QBrush foregroundBrush = r.format.foreground();
             if (foregroundBrush != Qt::NoBrush) {
-              c = r.format.foreground().color();
+              color = r.format.foreground().color();
             }
             break;
           }
         }
-
         // still no color found, fall back to default style
-        if (!c.isValid())
-            c = attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+        if (!color.isValid())
+          color = attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
       }
 
-      // make it possible to see the selected character in the vi input mode's normal/visual mode
-      if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
-        c.setAlpha(128);
-      }
-
-      if (cursor->column() <= range->length()) {
-        paint.save();
-        paint.setPen(QPen(c, caretWidth));
-
-        // Clip the caret - Qt's caret has a habit of intruding onto other lines
-        paint.setClipRect(0, line.lineNumber() * lineHeight(), xEnd - xStart, lineHeight());
-
+      // Clip the caret - Qt's caret has a habit of intruding onto other lines.
+      paint.save();
+      paint.setClipRect(0, line.lineNumber() * lineHeight(), xEnd - xStart, lineHeight());
+      switch(style) {
+      case Line :
+        paint.setPen(QPen(color, caretWidth));
         range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
-
-        paint.restore();
-
-      } else {
-        // Off the end of the line... must be block mode. Draw the caret ourselves.
-        const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
-        int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
-        if ( (x >= xStart) && (x <= xEnd))
-          paint.fillRect(x-xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), c);
+        break;
+      case Block :
+        // use a gray caret so it's possible to see the character
+        color.setAlpha(128);
+        if (cursor->column() > range->length()) {
+          // Off the end of the line... must be block mode. Draw the caret ourselves.
+          const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
+          int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
+          if ((x >= xStart) && (x <= xEnd)) {
+            paint.fillRect(x - xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), color);
+          }
+        } else {
+          paint.setPen(QPen(color, caretWidth));
+          range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        }
+        break;
+      case Underline :
+        paint.setClipRect(0, lineHeight() - lineWidth, xEnd - xStart, lineWidth);
+        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        break;
+      case Half :
+        color.setAlpha(128);
+        paint.setPen(QPen(color, caretWidth));
+        paint.setClipRect(0, lineHeight() / 2, xEnd - xStart, lineHeight() / 2);
+        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        break;
       }
+      paint.restore();
     }
   }
 

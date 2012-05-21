@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=pateplugin
+X-Kate-Version=2.8
+Name=Pâté
+Comment=Python plugins for Kate
+X-KDE-PluginInfo-Author=Paul Athanasios Giannaros
+X-KDE-PluginInfo-Email=paul@giannaros.org
+X-KDE-PluginInfo-Version=0.8
+X-KDE-PluginInfo-License=GPL

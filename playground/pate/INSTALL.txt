@@ -1,0 +1,74 @@
+╔════════════════════════════════╗
+║ Pâté Installation Instructions ║
+╚════════════════════════════════╝
+
+Pâté requires that you have installed:
+
+  ∙ Qt4 devel
+  ∙ KDE4 devel
+  ∙ sip
+  ∙ PyQt4
+  ∙ PyKDE4
+
+Most Linux distributions should provide packages for these. More details on
+which specific packages are required for different distros is listed below
+in the "Distribution-specific Information" section".
+
+┌───────────────────────────┐
+│ Compilation Instructions  │
+└───────────────────────────┘
+
+In the directory that you extracted Pâté, run
+
+ $ cd build
+ $ cmake .. -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix)
+ $ make
+ $ sudo make install
+
+Depending on whether you use other PyKDE4 modules or not, you may need to
+either add the installation directory to sys.path with something like:
+
+ $ export PYTHONPATH=/usr/local/lib/python2.7/dist-packages
+ $ export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+
+or make sure the kate.so is accessible from alongside other PyKDE4 packages
+with something like:
+
+ $ sudo ln -s /usr/local/lib/python2.7/dist-packages/PyKDE4/kate.so /usr/lib/python2.7/dist-packages/PyKDE4
+ $ sudo ln -s /usr/local/lib/python2.7/site-packages/PyKDE4/kate.so /usr/lib/python2.7/dist-packages/PyKDE4
+
+To test the installation:
+
+ $ python
+ >>> import PyKDE4.kate
+
+┌────────────────────┐
+│ Installing plugins │
+└────────────────────┘
+
+The sample plugins are not automatically installed for now. To install them,
+simply move them into the Kate application folder's pate subdirectory, e.g.
+
+ $ cd ..
+ $ cp -r src/plugins/* $(kde4-config --localprefix)/share/apps/kate/pate
+
+Other plugins can be found on the Web; one source is:
+
+ http://pypi.python.org/pypi/Kate-plugins
+
+┌────────────────────────────────────┐
+│ Distribution-specific Information  │
+└────────────────────────────────────┘
+
+ • Ubuntu 12.04 (Precise)
+ 
+   1. Install the necessary dependencies with apt or synaptic:
+      $ sudo apt-get install python-kde4-dev python-qt4-dev
+
+Don't see your distro here? Drop me an email with instructions at paul@giannaros.org.
+Also email me in the likely event that I have made a mistake with the instructions!
+
+Enjoy Pâté!
+
+Paul Giannaros <paul@giannaros.org>
+

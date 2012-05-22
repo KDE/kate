@@ -571,7 +571,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_msgMode = true;
 
     // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
-    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))){
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
       emit hideRequested();
     }
 
@@ -1436,7 +1436,7 @@ void KateIconBorder::showBlock()
     }
     KateLineInfo info;
     tree->getLineInfo(&info, m_currentBlockLine);
-    if ((info.startsVisibleBlock)){
+    if ((info.startsVisibleBlock)) {
       node=tree->findNodeStartingAt(m_currentBlockLine);
       if (node) {
         if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {

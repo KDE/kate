@@ -36,11 +36,11 @@
 using KTextEditor::Cursor;
 using KTextEditor::Range;
 
-#define ADDCMD(STR,FUNC, FLGS) m_commands.push_back( \
+#define ADDCMD(STR, FUNC, FLGS) m_commands.push_back( \
     new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
-#define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( new \
-    KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+#define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( \
+    new KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
 KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view,
     KateViewInternal * viewInternal ) : KateViModeBase()

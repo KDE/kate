@@ -184,7 +184,7 @@ public:
 
   void reset();
 
-  // Jup Lists
+  // Jump Lists
   void addJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor);

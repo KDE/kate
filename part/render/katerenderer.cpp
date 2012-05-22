@@ -405,7 +405,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
         }
 
       renderRanges.append(selectionHighlight);
-    // hihglighting for the vi visual modes
+    // highlighting for the vi visual modes
     }
 
     KTextEditor::Cursor currentPosition, endPosition;

@@ -34,7 +34,7 @@ namespace KTextEditor {
 
 /**
  * Object to help to search for plain text.
- * This should be NO QObject, it is created to often!
+ * This should be NO QObject, it is created too often!
  * I measured that, if you create it 20k times to replace for example " " in a document, that takes seconds on a modern machine!
  */
 class KATEPART_TESTS_EXPORT KatePlainTextSearch

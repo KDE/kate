@@ -356,7 +356,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
       // get the selected column...
       QSqlField field = rec.field(item->text(0));
 
-      // ...and set it's value to NULL
+      // ...and set its value to NULL
       field.clear();
 
       // clear all columns and re-append the selected one

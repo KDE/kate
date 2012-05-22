@@ -273,7 +273,7 @@ bool KateCodeFoldingNode::removeStart(KateCodeFoldingNode *deletedNode)
   return i != -1;
 }
 
-// Removes "node" from it's parent children list
+// Removes "node" from its parent children list
 KateCodeFoldingNode* KateCodeFoldingNode::removeChild(KateCodeFoldingNode *deletedNode)
 {
   if (deletedNode->m_type > 0) {
@@ -349,7 +349,7 @@ void KateCodeFoldingNode::updateSelf()
     for (int i = 0 ; i < startChildrenCount() ; ++i) {
       KateCodeFoldingNode* child = startChildAt(i);
 
-      // If "child" is lower than parent's pair, this node is not it's child anymore.
+      // If "child" is lower than parent's pair, this node is not its child anymore.
       if (child->m_position >= matchingNode()->m_position) {
         removeStart(child);
         QVector <KateCodeFoldingNode *> temptExcessList;
@@ -361,7 +361,7 @@ void KateCodeFoldingNode::updateSelf()
         // go one step behind (because we removed 1 element)
         i --;
 
-        // and the node selected becomes it's broter (same parent)
+        // and the node selected becomes its brother (same parent)
         m_parentNode->addChild(child);
       }
     }
@@ -371,16 +371,16 @@ void KateCodeFoldingNode::updateSelf()
   else {
     for (int i = 0 ; i < m_parentNode->startChildrenCount() && hasMatch() == 0 ; ++i) {
 
-      // It's brother is selected
+      // Its brother is selected
       KateCodeFoldingNode* child = m_parentNode->startChildAt(i);
-      // and if this brother is above the current node, then this node is not it's brother anymore, but it's child
+      // and if this brother is above the current node, then this node is not its brother anymore, but its child
       if (child->m_position > m_position) {
         m_parentNode->removeStart(child);
 
         // go one step behind (because we removed 1 element)
         i --;
 
-        // the node selected becomes it's child
+        // the node selected becomes its child
         addChild(child);
 
         // we take the excess of the new child's endChildren and merge with the current endChildren list
@@ -1132,7 +1132,7 @@ void KateCodeFoldingTree::insertStartNode(int type, const KateDocumentPosition& 
     }
   }
 
-  // step 3 - insert new node into map and add it to it's parent
+  // step 3 - insert new node into map and add it to its parent
   insertNodeIntoMap(newNode);
   parentNode->addChild(newNode);
 

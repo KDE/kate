@@ -1037,7 +1037,7 @@ QString KateView::viewMode () const
 
   if (viInputMode()) {
       // vi mode has different notion of OVR/INS.
-      // vi mode's status is showin in viModeBar() instead
+      // vi mode's status is shown in viModeBar() instead
       return QString();
   }
 

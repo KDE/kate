@@ -267,7 +267,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   // look for matching motion commands from position 'checkFrom'
   // FIXME: if checkFrom hasn't changed, only motions whose index is in
-  // m_matchingMotions shold be checked
+  // m_matchingMotions should be checked
   if ( checkFrom < m_keys.size() ) {
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();

@@ -263,7 +263,7 @@ void ViModeTest::InsertModeTests() {
 }
 
 
- // There are written tests that fall.
+ // There are written tests that fail.
  // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFallingTests()
 {

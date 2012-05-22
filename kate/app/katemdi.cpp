@@ -307,7 +307,7 @@ namespace KateMDI
       widget->m_sidebar = this;
     }
 
-    // save it's pos ;)
+    // save its pos ;)
     widget->persistent = false;
 
     m_idToWidget.insert (newId, widget);

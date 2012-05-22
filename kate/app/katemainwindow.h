@@ -81,7 +81,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   public:
     /**
-     * Construct the window and restore it's state from given config if any
+     * Construct the window and restore its state from given config if any
      * @param sconfig session config for this window, 0 if none
      * @param sgroup session config group to use
      */

@@ -293,10 +293,8 @@ KateCommandLineBar::~KateCommandLineBar()
 {
 }
 
-// inserts the given string in the command line edit and (if selcted = true) selects it so the user
-// can type over it if she wants to
-// inserts the given string in the command line edit and selects it so the user can type over it if
-// she wants to
+// inserts the given string in the command line edit and (if selected = true) selects it so the user
+// can type over it if they want to
 void KateCommandLineBar::setText(const QString &text, bool selected)
 {
   m_lineEdit->setText(text);
@@ -570,7 +568,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
     m_msgMode = true;
 
-    // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
+    // the following commands changes the focus themselves, so bar should be hidden before execution.
     if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
       emit hideRequested();
     }

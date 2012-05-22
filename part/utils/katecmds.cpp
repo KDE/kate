@@ -685,9 +685,9 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   // HANDLING "\n"s in PATTERN
   // * Create a list of patterns, splitting PATTERN on (unescaped) "\n"
   // * insert $s and ^s to match line ends/beginnings
-  // * When matching patterhs after the first one, replace \N with the captured
+  // * When matching patterns after the first one, replace \N with the captured
   //   text.
-  // * If all patterns in the list match sequentiel lines, there is a match, so
+  // * If all patterns in the list match sequential lines, there is a match, so
   // * remove line/start to line + patterns.count()-1/patterns.last.length
   // * handle captures by putting them in one list.
   // * the existing insertion is fine, including the line calculation.

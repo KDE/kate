@@ -800,7 +800,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
 /**
  * KateHighlighting - lookupAttrName
  * This function is  a helper for makeContextList and createKateHlItem. It looks the given
- * attribute name in the itemData list up and returns it's index
+ * attribute name in the itemData list up and returns its index
  *
  * @param name the attribute name to lookup
  * @param iDl the list containing all available attributes
@@ -945,7 +945,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   if (!colStr.isEmpty())
     column = colStr.toInt();
 
-  //Create the item corresponding to it's type and set it's parameters
+  // Create the item corresponding to its type and set its parameters
   KateHlItem *tmpItem;
 
   if (dataname=="keyword")

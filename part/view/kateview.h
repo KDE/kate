@@ -42,6 +42,7 @@
 
 #include "kateviinputmodemanager.h"
 #include "katetextrange.h"
+#include "katerenderer.h"
 
 namespace KTextEditor
 {
@@ -141,6 +142,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // KTextEditor::ViewCursorInterface
   //
   public:
+    void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
+
     bool setCursorPosition (KTextEditor::Cursor position);
 
     KTextEditor::Cursor cursorPosition () const;

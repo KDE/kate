@@ -2163,6 +2163,11 @@ void KateView::paste( )
   m_viewInternal->repaint();
 }
 
+void KateView::setCaretStyle( KateRenderer::caretStyles style, bool repaint )
+{
+  m_viewInternal->setCaretStyle( style, repaint );
+}
+
 bool KateView::setCursorPosition( KTextEditor::Cursor position )
 {
   return setCursorPositionInternal( position, 1, true );

@@ -253,12 +253,14 @@ void KateViInputModeManager::viEnterNormalMode()
   if ( moveCursorLeft ) {
       m_viewInternal->cursorLeft();
   }
+  m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
 }
 
 void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
+  m_view->setCaretStyle( KateRenderer::Line, true );
   m_viewInternal->repaint ();
 }
 
@@ -266,6 +268,9 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
 {
   changeViMode( mode );
 
+  // If the selection is inclusive, the caret should be a block.
+  // If the selection is exclusive, the caret should be a line.
+  m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
   getViVisualMode()->setVisualModeType( mode );
   getViVisualMode()->init();
@@ -274,6 +279,7 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
 void KateViInputModeManager::viEnterReplaceMode()
 {
   changeViMode(ReplaceMode);
+  m_view->setCaretStyle( KateRenderer::Underline, true );
   m_viewInternal->repaint ();
 }
 

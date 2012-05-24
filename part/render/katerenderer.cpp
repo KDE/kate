@@ -663,25 +663,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     // Draw caret
     if (drawCaret() && cursor && range->includesCursor(*cursor)) {
       int caretWidth, lineWidth = 2;
-      caretStyles style;
       QColor color;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
 
       // Determine the caret's style
-      //
-      // FIXME: the mapping between vi modes and caret styles doesn't belong here;
-      // instead, it should be specified by the mode itself
-      if (m_view->viInputMode()) {
-        if (m_view->getCurrentViMode() == InsertMode) {
-          style = Line;
-        } else if (m_view->getCurrentViMode() == ReplaceMode ) {
-          style = Underline;
-        } else {
-          style = Block;
-        }
-      } else {
-        style = caretStyle();
-      }
+      caretStyles style = caretStyle();
 
       // Make the caret the desired width
       if (style == Line) {

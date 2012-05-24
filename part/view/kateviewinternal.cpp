@@ -2918,7 +2918,9 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   paint.setRenderHints (QPainter::Antialiasing);
 
   // TODO put in the proper places
-  renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Block : KateRenderer::Line);
+  if ( !m_view->viInputMode() ) {
+    setCaretStyle( m_view->isOverwriteMode() ? KateRenderer::Block : KateRenderer::Line );
+  }
   renderer()->setShowTabs(doc()->config()->showTabs());
   renderer()->setShowTrailingSpaces(doc()->config()->showSpaces());
 

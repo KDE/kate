@@ -143,6 +143,11 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
       m_ignoreMapping = true;
   }
 
+  // Use replace caret when reading a character for "r"
+  if ( key == 'r' ) {
+    m_view->setCaretStyle( KateRenderer::Underline, true );
+  }
+
   m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
@@ -249,6 +254,14 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // this indicates where in the command string one should start looking for a motion command
   int checkFrom = ( m_awaitingMotionOrTextObject.isEmpty() ? 0 : m_awaitingMotionOrTextObject.top() );
 
+  // Use operator-pending caret when reading a motion for an operator
+  // in normal mode. We need to check that we are indeed in normal mode
+  // since visual mode inherits from it.
+  if( m_viInputModeManager->getCurrentViMode() == NormalMode &&
+      !m_awaitingMotionOrTextObject.isEmpty() ) {
+    m_view->setCaretStyle( KateRenderer::Half, true );
+  }
+
   //kDebug( 13070 ) << "checkFrom: " << checkFrom;
 
   // look for matching motion commands from position 'checkFrom'
@@ -343,6 +356,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
             }
 
+            if( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+              m_view->setCaretStyle( KateRenderer::Block, true );
+            }
             m_commandWithMotion = false;
             reset();
             return true;
@@ -362,6 +378,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
       //kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
+
+      if( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+        m_view->setCaretStyle( KateRenderer::Block, true );
+      }
 
       KateViCommand *cmd = m_commands.at( m_matchingCommands.at( 0 ) );
       executeCommand( cmd );

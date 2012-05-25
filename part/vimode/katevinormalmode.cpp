@@ -1631,6 +1631,38 @@ bool KateViNormalMode::commandFormatLines()
   return true;
 }
 
+bool KateViNormalMode::commandCollapseToplevelNodes()
+{
+  doc()->foldingTree()->collapseToplevelNodes();
+  return true;
+}
+
+bool KateViNormalMode::commandCollapseLocal()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->collapseOne( c.line(), c.column() );
+  return true;
+}
+
+bool KateViNormalMode::commandExpandAll() {
+  doc()->foldingTree()->expandAll();
+  return true;
+}
+
+bool KateViNormalMode::commandExpandLocal()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->expandOne( c.line(), c.column() );
+  return true;
+}
+
+bool KateViNormalMode::commandToggleRegionVisibility()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->toggleRegionVisibility( c.line() );
+  return true;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
@@ -2834,6 +2866,12 @@ void KateViNormalMode::initializeCommands()
 
   ADDCMD("gqq", commandFormatLine, IS_CHANGE);
   ADDCMD("gq", commandFormatLines, IS_CHANGE | NEEDS_MOTION);
+
+  ADDCMD("zo", commandExpandLocal, 0 );
+  ADDCMD("zc", commandCollapseLocal, 0 );
+  ADDCMD("za", commandToggleRegionVisibility, 0 );
+  ADDCMD("zr", commandExpandAll, 0 );
+  ADDCMD("zm", commandCollapseToplevelNodes, 0 );
 
 
   // regular motions

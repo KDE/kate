@@ -43,7 +43,8 @@
 #include "engine.h"
 #include "utilities.h"
 
-#define PATE_MODULE_NAME "pate" 
+const char *Pate::Engine::PATE_MODULE_NAME = "pate";
+
 #define THREADED 0
 
 // We use a QStandardItemModel to store plugin information as follows:
@@ -102,7 +103,7 @@ public:
 };
 
 static PyObject *pate_saveConfiguration(PyObject */*self*/) {
-    if(Pate::Engine::self()->isInitialised())
+    if(Pate::Engine::self())
         Pate::Engine::self()->saveConfiguration();
     Py_INCREF(Py_None);
     return Py_None;
@@ -113,11 +114,57 @@ static PyMethodDef pateMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-Pate::Engine* Pate::Engine::m_self = 0;
+Pate::Engine *Pate::Engine::m_self = 0;
 
 Pate::Engine::Engine(QObject *parent) :
-    QStandardItemModel(parent)
+    QStandardItemModel(parent),
+    m_pythonLibrary(0),
+    m_pythonThreadState(0),
+    m_configuration(0),
+    m_pluginsLoaded(false)
 {
+}
+
+Pate::Engine::~Engine()
+{
+    kDebug() << "Destroy the Python engine";
+    if (m_configuration) {
+        saveConfiguration();
+        Py_DECREF(m_configuration);
+    }
+    // Shut the interpreter down if it has been started.
+    if (Py_IsInitialized()) {
+#if THREADED
+        PyEval_AcquireThread(m_pythonThreadState);
+        Py_Finalize();
+#endif
+    }
+    if (m_pythonLibrary->isLoaded()) {
+        m_pythonLibrary->unload();
+    }
+    delete m_pythonLibrary;
+}
+
+Pate::Engine *Pate::Engine::self()
+{
+    if (!m_self) {
+        m_self = new Pate::Engine(qApp);
+        if (!m_self->init()) {
+            del();
+        }           
+    }
+    return m_self;
+}
+
+void Pate::Engine::del()
+{
+    delete m_self;
+    m_self = 0;
+}
+
+bool Pate::Engine::init()
+{
+    kDebug() << "Construct the Python engine";
     // Finish setting up the model. At the top level, we have pairs of icons
     // and directory names.
     setColumnCount(2);
@@ -125,73 +172,22 @@ Pate::Engine::Engine(QObject *parent) :
     labels << i18n("Name") << i18n("Status");
     setHorizontalHeaderLabels(labels);
 
-    m_initialised = false;
-    m_pythonLibrary = 0;
-    m_pluginsLoaded = false;
-    m_configuration = PyDict_New();
-    reloadConfiguration();
-}
-
-Pate::Engine::~Engine() {
-    // shut the interpreter down if it has been started
-    
-//     if(m_configuration) {
-//         saveConfiguration();
-//         Py_DECREF(m_configuration);
-//         m_configuration = 0;
-//     }
-    if(m_initialised) {
-        kDebug() << "Unloading m_pythonLibrary...";
-        kDebug() << m_pythonLibrary->unload();
-        delete m_pythonLibrary;
-    }
-}
-
-Pate::Engine* Pate::Engine::self() {
-    if(!m_self) {
-        m_self = new Pate::Engine(qApp);
-    }
-    return m_self;
-}
-
-void Pate::Engine::del() {
-    kDebug() << "delete called";
-    if(!m_self)
-        return;
-    if(m_self->isInitialised()) {
-        kDebug() << "initialised, acquiring state...";
-#if THREADED
-        PyEval_AcquireThread(m_self->m_pythonThreadState);
-#endif
-        kDebug() << "state acquired. Calling _pluginsUnloaded..";
-        kDebug() << "Ok";
-        kDebug() << "Finalising...";
-        Py_Finalize();
-        kDebug() << "Finalised.";
-    }
-    delete m_self;
-    kDebug() << "deleted self";
-    m_self = 0;
-}
-
-bool Pate::Engine::isInitialised() {
-    return m_initialised;
-}
-
-bool Pate::Engine::init() {
-    if(m_initialised)
-        return true;
-//     kDebug() << "Creating m_pythonLibrary";
+    //     kDebug() << "Creating m_pythonLibrary";
     m_pythonLibrary = new QLibrary(PATE_PYTHON_LIBRARY, this);
-    m_pythonLibrary->setLoadHints(QLibrary::ExportExternalSymbolsHint);
-//     kDebug() << "Caling m_pythonLibrary->load()..";
-    if(!m_pythonLibrary->load()) {
-        kError() << "Could not load " << PATE_PYTHON_LIBRARY;
+    if (!m_pythonLibrary) {
+        kError() << "Could not create" << PATE_PYTHON_LIBRARY;
         return false;
     }
-//     kDebug() << "success!";
-//     kDebug() << "Calling Py_Initialize and PyEval_InitThreads...";
+    m_pythonLibrary->setLoadHints(QLibrary::ExportExternalSymbolsHint);
+    if (!m_pythonLibrary->load()) {
+        kError() << "Could not load" << PATE_PYTHON_LIBRARY;
+        return false;
+    }
     Py_Initialize();
+    if (!Py_IsInitialized()) {
+        kError() << "Could not initialise" << PATE_PYTHON_LIBRARY;
+        return false;
+    }
 #if THREADED
     PyEval_InitThreads();
 #endif
@@ -205,39 +201,35 @@ bool Pate::Engine::init() {
         "sip.setapi('QString', 2)\n"
         "sip.setapi('QVariant', 2)\n"
     );
-//     kDebug() << "success!";
-    // initialise our built-in module and import it
-//     kDebug() << "Initting built-in module and importting...";
+
+    // Initialise our built-in module.
     Py_InitModule(PATE_MODULE_NAME, pateMethods);
-    PyObject *pate = PyImport_ImportModule(PATE_MODULE_NAME);
-//     kDebug() << "success!";
-    PyObject *pateModuleDictionary = PyModule_GetDict(pate);
-    // host the configuration dictionary
-    PyDict_SetItemString(pateModuleDictionary, "configuration", m_configuration);
-    // load the kate module, but find it first, and verify it loads
+    m_configuration = PyDict_New();
+  
+    // Host the configuration dictionary.
+    moduleSetItemString("configuration", m_configuration);
+
+    // Load the kate module, but find it first, and verify it loads.
+    PyObject *katePackage = 0;
     QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
-    PyObject *sysPath = PyDict_GetItemString(PyModule_GetDict(PyImport_ImportModule("sys")), "path");
-    Py::appendStringToList(sysPath, katePackageDirectory);
-//     kDebug() << "Importing Kate...";
-    PyObject *katePackage = PyImport_ImportModule("kate");
-    if(!katePackage) {
-        Py::traceback("Could not import the kate module. Dieing.");
-        del();
-        return false;
+    PyObject *sysPath = moduleGetItemString("path", "sys");
+    if (sysPath) {
+        Py::appendStringToList(sysPath, katePackageDirectory);
+        katePackage = moduleImport("kate");
     }
-//     kDebug() << "success!";
-    m_initialised = true;
-    reloadConfiguration();
 #if THREADED
     m_pythonThreadState = PyGILState_GetThisThreadState();
     PyEval_ReleaseThread(m_pythonThreadState);
 #endif
+    if (!katePackage) {
+        Py::traceback("Could not import the kate module. Dieing.");
+        return false;
+    }
     return true;
 }
 
-void Pate::Engine::saveConfiguration() {
-    if(!m_configuration || !m_initialised)
-        return;
+void Pate::Engine::saveConfiguration()
+{
     KConfig config("paterc", KConfig::SimpleConfig);
     Py::updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
@@ -245,8 +237,7 @@ void Pate::Engine::saveConfiguration() {
 
 void Pate::Engine::reloadConfiguration() 
 {
-    if (!m_initialised)
-        return;
+    unloadPlugins();
     PyDict_Clear(m_configuration);
     KConfig config("paterc", KConfig::SimpleConfig);
     Py::updateDictionaryFromConfiguration(m_configuration, &config);
@@ -294,99 +285,29 @@ void Pate::Engine::reloadConfiguration()
             }
         }
     }
+    loadPlugins();
 }
-
-// void Pate::Engine::die() {
-//     PyEval_AcquireThread(m_pythonThreadState);
-//     Py_Finalize();
-//     // unload the library from memory
-//     m_pythonLibrary->unload();
-//     m_pythonLibrary = 0;
-//     m_pluginsLoaded = false;
-//     m_initialised = false;
-//     kDebug() << "Pate::Engine::die() finished\n";
-// }
 
 void Pate::Engine::loadPlugins() 
 {
-    if (m_pluginsLoaded)
+    if (m_pluginsLoaded) {
         return;
-    init();
-
-#if THREADED
-    PyGILState_STATE state = PyGILState_Ensure();
-#endif
-
-    PyObject *pate = PyImport_ImportModule(PATE_MODULE_NAME);
-    PyObject *pateModuleDictionary = PyModule_GetDict(pate);
+    }
+    kDebug() << "loading";
     // find plugins and load them.
-    loadPlugins(pateModuleDictionary);
-    m_pluginsLoaded = true;
-    PyObject *func = PyDict_GetItemString(moduleDictionary(), "_pluginsLoaded");
-    if (!func) {
-        kDebug() << "No " << PATE_MODULE_NAME << "._pluginsLoaded set";
-    }
-    // everything is loaded and started. Call the module's init callback
-    else if (!Py::call(func)) {
-        kError() << "Could not call " << PATE_MODULE_NAME << "._pluginsLoaded().";
-    }
-#if THREADED
-    PyGILState_Release(state);
-#endif
-}
-
-void Pate::Engine::unloadPlugins() {
-    // We don't have the luxury of being able to unload Python easily while
-    // Kate is running. If anyone can find a way, feel free to tell me and
-    // I'll patch it in. Calling Py_Finalize crashes.
-    // So, clean up the best that we can.
-    if(!m_pluginsLoaded)
-        return;
-    kDebug() << "unloading";
 #if THREADED
     PyGILState_STATE state = PyGILState_Ensure();
 #endif
-    PyObject *dict = moduleDictionary();
-    PyObject *func = PyDict_GetItemString(dict, "_pluginsUnloaded");
-    if(!func) {
-        kDebug() << "No " << PATE_MODULE_NAME << "._pluginsUnloaded set";
-    }
-    else {
-        // Remove each plugin from sys.modules
-        PyObject *modules = PyImport_GetModuleDict();
-        PyObject *plugins = PyDict_GetItemString(dict, "plugins");
-        for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-            PyObject *pluginName = PyDict_GetItemString(PyModule_GetDict(PyList_GetItem(plugins, i)), "__name__");
-            if(pluginName && PyDict_Contains(modules, pluginName)) {
-                PyDict_DelItem(modules, pluginName);
-                kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
-            }
-        }
-        PyDict_DelItemString(dict, "plugins");
-        Py_DECREF(plugins);
-        m_pluginsLoaded = false;
-        if(!Py::call(func))
-            kError() << "Could not call " << PATE_MODULE_NAME << "._pluginsUnloaded()";
-    }
-#if THREADED
-    PyGILState_Release(state);
-#endif
-
-}
-
-void Pate::Engine::loadPlugins(PyObject *pateModuleDictionary)
-{
     // Add two lists to the module: pluginDirectories and plugins.
     PyObject *pluginDirectories = PyList_New(0);
     Py_INCREF(pluginDirectories);
-    PyDict_SetItemString(pateModuleDictionary, "pluginDirectories", pluginDirectories);
+    moduleSetItemString("pluginDirectories", pluginDirectories);
     PyObject *plugins = PyList_New(0);
     Py_INCREF(plugins);
-    PyDict_SetItemString(pateModuleDictionary, "plugins", plugins);
+    moduleSetItemString("plugins", plugins);
     
     // Get a reference to sys.path, then add the pate directory to it.
-    PyObject *sys = PyImport_ImportModule("sys");
-    PyObject *pythonPath = PyDict_GetItemString(PyModule_GetDict(sys), "path");
+    PyObject *pythonPath = moduleGetItemString("path", "sys");
     QStack<QDir> directories;
     
     // Now, walk the directories.
@@ -430,7 +351,7 @@ void Pate::Engine::loadPlugins(PyObject *pateModuleDictionary)
             }
 
             // Import and add to pate.plugins
-            PyObject *plugin = PyImport_ImportModule(PQ(pluginName));
+            PyObject *plugin = moduleImport(PQ(pluginName));
             if (plugin) {
                 PyList_Append(plugins, plugin);
                 Py_DECREF(plugin);
@@ -441,34 +362,62 @@ void Pate::Engine::loadPlugins(PyObject *pateModuleDictionary)
             }
         }
     }
+    m_pluginsLoaded = true;
+
+    // everything is loaded and started. Call the module's init callback
+    moduleCall("_pluginsLoaded");
+#if THREADED
+    PyGILState_Release(state);
+#endif
+}
+
+void Pate::Engine::unloadPlugins() 
+{
+    // We don't have the luxury of being able to unload Python easily while
+    // Kate is running. If anyone can find a way, feel free to tell me and
+    // I'll patch it in. Calling Py_Finalize crashes.
+    // So, clean up the best that we can.
+    if (!m_pluginsLoaded) {
+        return;
+    }
+    kDebug() << "unloading";
+#if THREADED
+    PyGILState_STATE state = PyGILState_Ensure();
+#endif
+    // Remove each plugin from sys.modules
+    PyObject *modules = PyImport_GetModuleDict();
+    PyObject *plugins = moduleGetItemString("plugins");
+    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+        PyObject *pluginName = moduleGetItemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
+        if(pluginName && PyDict_Contains(modules, pluginName)) {
+            PyDict_DelItem(modules, pluginName);
+            kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+        }
+    }
+    moduleDelItemString("plugins");
+    Py_DECREF(plugins);
+    m_pluginsLoaded = false;
+    moduleCall("_pluginsUnloaded");
+#if THREADED
+    PyGILState_Release(state);
+#endif
 }
 
 PyObject *Pate::Engine::configuration() {
     return m_configuration;
 }
-PyObject *Pate::Engine::moduleDictionary() {
-    PyObject *pate = PyImport_ImportModule(PATE_MODULE_NAME);
-    return PyModule_GetDict(pate);
-}
+
 PyObject *Pate::Engine::wrap(void *o, QString fullClassName) {
-    PyObject *sip = PyImport_ImportModule("sip");
-    if(!sip) {
-        Py::traceback("Could not import the sip module.");
-        return 0;
-    }
     QString classModuleName = fullClassName.section('.', 0, -2);
     QString className = fullClassName.section('.', -1);
-    PyObject *classModule = PyImport_ImportModule(classModuleName.toAscii().data());
-    if(!classModule) {
-        Py::traceback(QString("Could not import %1.").arg(classModuleName));
+    PyObject *classObject = moduleGetItemString(PQ(className), PQ(classModuleName));
+    if (!classObject) {
         return 0;
     }
-    PyObject *classObject = PyDict_GetItemString(PyModule_GetDict(classModule), className.toAscii().data());
-    if(!classObject) {
-        Py::traceback(QString("Could not get item %1 from module %2").arg(className).arg(classModuleName));
+    PyObject *wrapInstance = moduleGetItemString("wrapinstance", "sip");
+    if (!wrapInstance) {
         return 0;
     }
-    PyObject *wrapInstance = PyDict_GetItemString(PyModule_GetDict(sip), "wrapinstance");
     PyObject *arguments = Py_BuildValue("NO", PyLong_FromVoidPtr(o), classObject);
     PyObject *result = PyObject_CallObject(wrapInstance, arguments);
     if(!result) {
@@ -482,13 +431,99 @@ void Pate::Engine::callModuleFunction(const QString &name) {
 #if THREADED
     PyGILState_STATE state = PyGILState_Ensure();
 #endif
-    PyObject *dict = moduleDictionary();
-    PyObject *func = PyDict_GetItemString(dict, PQ(name));
-    if(!Py::call(func))
+    PyObject *func = moduleGetItemString(PQ(name));
+    if (!Py::call(func))
         kDebug() << "Could not call " << PATE_MODULE_NAME << "." << name << "().";    
 #if THREADED
     PyGILState_Release(state);
 #endif
+}
+
+bool Pate::Engine::moduleCall(const char *functionName) const
+{
+    PyObject *func = moduleGetItemString(functionName);
+    if (!func) {
+        return false;
+    }
+    if (!Py::call(func)) {
+        kError() << "Could not call" << functionName;
+        return false;
+    }
+    return true;
+}
+
+PyObject *Pate::Engine::moduleGetDict(const char *moduleName) const
+{
+    PyObject *module = moduleImport(moduleName);
+    if (!module) {
+        return 0;
+    }
+    PyObject *dictionary = PyModule_GetDict(module);
+    if (dictionary) {
+        return dictionary;
+    }
+    kError() << "Could not get dict" << module;
+    return 0;
+}
+
+bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName) const 
+{
+    PyObject *dict = moduleGetDict(moduleName);
+    if (!dict) {
+        return false;
+    }
+    if (!PyDict_DelItemString(dict, item)) {
+        return true;
+    }
+    kError() << "Could not delete item string" << item << moduleName;
+    return false;
+}
+
+PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName) const 
+{
+    PyObject *itemString = moduleGetItemString(item, moduleGetDict(moduleName));
+    if (itemString) {
+        return itemString;
+    }
+    kError() << "Could not get item string" << item << moduleName;
+    return 0;
+}
+
+PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) const 
+{
+    if (!dict) {
+        return 0;
+    }
+    PyObject *itemString = PyDict_GetItemString(dict, item);
+    if (itemString) {
+        return itemString;
+    }
+    kError() << "Could not get item string" << item;
+    return 0;
+}
+
+bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName) const 
+{
+    PyObject *dict = moduleGetDict(moduleName);
+    if (!dict) {
+        return false;
+    }
+    if (!PyDict_SetItemString(dict, item, value)) {
+        kError() << "Could not set item string" << item << moduleName;
+        return false;
+    }
+    return true;
+}
+
+PyObject *Pate::Engine::moduleImport(const char *moduleName) const
+{
+    PyObject *module = PyImport_ImportModule(moduleName);
+    if (module) {
+        return module;
+    }
+    Py::traceback(QString("Could not import %1.").arg(moduleName));
+    kError() << "Could not import" << moduleName;
+    return 0;
 }
 
 #include "engine.moc"

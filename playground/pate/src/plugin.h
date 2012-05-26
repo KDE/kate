@@ -28,7 +28,8 @@
 #include <kxmlguiclient.h>
 
 #include "Python.h"
-class QCheckBox;
+class QPushButton;
+//class QCheckBox;
 class QTreeView;
 
 namespace Pate
@@ -100,8 +101,9 @@ private:
     friend class Plugin;
     Plugin *m_plugin;
     QTreeView *m_tree;
-    QCheckBox *cbAutoSyncronize;
-    QCheckBox *cbSetEditor;
+    QPushButton *m_reload;
+    //QCheckBox *cbAutoSyncronize;
+    //QCheckBox *cbSetEditor;
 };
 
 } // namespace Pate

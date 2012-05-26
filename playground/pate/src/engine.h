@@ -1,6 +1,7 @@
 // This file is part of Pate, Kate' Python scripting plugin.
 //
 // Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -28,8 +29,8 @@
 
 class QLibrary;
 
-
-namespace Pate {
+namespace Pate 
+{
 
 /**
  * The Engine class hosts the Python interpreter, loading
@@ -42,15 +43,11 @@ class Engine :
 {
     Q_OBJECT
 public:
-    static Engine* self();
+    static Engine *self();
     
-    void del();
-    
-    /// Start the interpreter.
-    bool init();
-    
-    /// Whether or not init() has been called and been successful
-    bool isInitialised();
+    /// Close the interpreter and unload it from memory. Called 
+    /// automatically by the destructor, so you shouldn't need it yourself
+    static void del();
     
     /// The root configuration used by Python objects. It is a Python
     /// dictionary
@@ -62,42 +59,78 @@ public:
     /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
     /// by SIP. Nifty.
     PyObject *wrap(void *o, QString className);
-    
-    /// Close the interpreter and unload it from memory. Called 
-    /// automatically by the destructor, so you shouldn't need it yourself
-    void die();
-    
-    /// Write out the configuration dictionary to disk
-    void saveConfiguration();
-    /// (re)Load the configuration into memory from disk
-    void reloadConfiguration();
-    
-    void loadPlugins();
-    void unloadPlugins();
-    
-    
+  
     void callModuleFunction(const QString &name);
     
 // signals:
 //     void populateConfiguration(PyObject *configurationDictionary);
 
+public slots:
+    /// Write out the configuration dictionary to disk
+    void saveConfiguration();
+    /// (re)Load the configuration into memory from disk
+    void reloadConfiguration();
+
 protected:
+    static const char *PATE_MODULE_NAME;
+    
     Engine(QObject *parent);
     ~Engine();
+
+    /// Start the interpreter.
+    bool init();
     
     /**
      * Walk over the model, loading all usable plugins into a PyObject module 
      * dictionary.
      */
-    void loadPlugins(PyObject *pateModuleDictionary);
+    void loadPlugins();
+    void unloadPlugins();
+
+    /**
+     * Call the Pate module's named entry point.
+     */
+    bool moduleCall(const char *functionName) const;
+
+    /**
+     * Get the named module's dictionary.
+     */
+    PyObject *moduleGetDict(const char *moduleName) const;
+
+    /**
+     * Delete the item from the named module's dictionary.
+     */
+    bool moduleDelItemString(const char *item,
+                             const char *moduleName = PATE_MODULE_NAME) const;
+
+    /**
+     * Get the item from the named module's dictionary.
+     */
+    PyObject *moduleGetItemString(const char *item,
+                                  const char *moduleName = PATE_MODULE_NAME) const;
+
+    /**
+     * Get the item from the given dictionary.
+     */
+    PyObject *moduleGetItemString(const char *item, PyObject *dict) const;
+
+    /**
+     * Set the item in the named module's dictionary.
+     */
+    bool moduleSetItemString(const char *item, PyObject *value,
+                             const char *moduleName = PATE_MODULE_NAME) const;
+
+    /**
+     * Import the named module.
+     */
+    PyObject *moduleImport(const char *moduleName) const;
 
 private:
     static Engine *m_self;
     QLibrary *m_pythonLibrary;
-    bool m_initialised;
-    bool m_pluginsLoaded;
-    PyObject *m_configuration;
     PyThreadState *m_pythonThreadState;
+    PyObject *m_configuration;
+    bool m_pluginsLoaded;
 };
 
 

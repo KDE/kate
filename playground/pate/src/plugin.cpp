@@ -37,12 +37,11 @@
 #include <KConfigBase>
 #include <KConfigGroup>
 
-#include <QCheckBox>
+//#include <QCheckBox>
 #include <QLabel>
+#include <QPushButton>
 #include <QTreeView>
 #include <QVBoxLayout>
-
-#define PATE_UNLOAD
 
 #define CONFIG_SECTION "Pate"
 
@@ -55,19 +54,18 @@ K_EXPORT_COMPONENT_FACTORY(pateplugin, KGenericFactory<Pate::Plugin>("pate"))
 Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
     Kate::Plugin((Kate::Application *)parent)
 {
-    kDebug() << "initialise the Python engine";
-    if (!Pate::Engine::self()->init()) {
+    if (!Pate::Engine::self()) {
         kError() << "Could not initialise Pate. Ouch!";
     }
 }
 
 Pate::Plugin::~Plugin() {
-//     Pate::Engine::self()->del();
+    Pate::Engine::del();
 }
 
 Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 {
-    Pate::Engine::self()->loadPlugins();
+    Pate::Engine::self()->reloadConfiguration();
     return new Pate::PluginView(window);
 }
 
@@ -81,11 +79,9 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    page->cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
-    page->cbSetEditor->setChecked(config.readEntry("SetEditor", false));
+    //page->cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+    //page->cbSetEditor->setChecked(config.readEntry("SetEditor", false));
 
-    if(!Pate::Engine::self()->isInitialised())
-        return;
     Pate::Engine::self()->callModuleFunction("_sessionCreated");
 //     PyGILState_STATE state = PyGILState_Ensure();
 // 
@@ -125,8 +121,8 @@ void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    config.writeEntry("AutoSyncronize", page->cbAutoSyncronize->isChecked());
-    config.writeEntry("SetEditor", page->cbSetEditor->isChecked());
+    //config.writeEntry("AutoSyncronize", page->cbAutoSyncronize->isChecked());
+    //config.writeEntry("SetEditor", page->cbSetEditor->isChecked());
     config.sync();
 //     // write session config data
 //     kDebug() << "write session config\n";
@@ -206,17 +202,21 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_tree->setModel(Pate::Engine::self());
     m_tree->expandAll();
     lo->addWidget(m_tree);
-    cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
-    lo->addWidget(cbAutoSyncronize);
-    cbSetEditor = new QCheckBox(i18n("Set &EDITOR environment variable to 'kate -b'"), this);
-    lo->addWidget(cbSetEditor);
+    //cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
+    //lo->addWidget(cbAutoSyncronize);
+    //cbSetEditor = new QCheckBox(i18n("Set &EDITOR environment variable to 'kate -b'"), this);
+    //lo->addWidget(cbSetEditor);
+    m_reload = new QPushButton(KIcon("system-reboot"), i18n("Reload all"), this);
+    lo->addWidget(m_reload);
     QLabel *tmp = new QLabel(this);
     tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
     lo->addWidget(tmp);
     reset();
     lo->addStretch();
-    connect(cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()));
-    connect(cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()));
+    //connect(cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()));
+    //connect(cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()));
+    connect(m_reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
+    connect(m_reload, SIGNAL(clicked(bool)), m_tree, SLOT(expandAll()));
 }
 
 void Pate::ConfigPage::apply()

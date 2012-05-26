@@ -47,6 +47,7 @@
 #include <QVBoxLayout>
 
 #include <kpluginloader.h>
+#include <kservice.h>
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kauthorized.h>
@@ -174,7 +175,11 @@ void KateConsole::loadConsoleIfNeeded()
   if (!window() || !parentWidget()) return;
   if (!window() || !isVisibleTo(window())) return;
 
-  KPluginFactory *factory = KPluginLoader("libkonsolepart").factory();
+  KPluginFactory* factory = 0;
+  KService::Ptr service = KService::serviceByDesktopName("konsolepart");
+  if (service) {
+      factory = KPluginLoader(service->library()).factory();
+  }
 
   if (!factory) return;
 

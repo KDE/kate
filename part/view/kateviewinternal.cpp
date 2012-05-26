@@ -3235,7 +3235,8 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
       else
         scrollNextPage();
     } else {
-      scrollViewLines(e->delta() > 0 ? -3 : 3);
+      const int scrollLines = QApplication::wheelScrollLines();
+      scrollViewLines(e->delta() > 0 ? -scrollLines : scrollLines);
       e->accept();
       return;
     }

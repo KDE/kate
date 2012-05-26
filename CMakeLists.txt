@@ -55,7 +55,7 @@ macro_optional_add_subdirectory (kate)
 macro_optional_add_subdirectory (kwrite)
 
 # testing area, just for experimenting with new stuff
-macro_optional_add_subdirectory (playground)
+#macro_optional_add_subdirectory (playground)
 
 # docs
 # need current enough KDELIBS

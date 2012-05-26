@@ -46,6 +46,7 @@
 #include <QClipboard>
 #include <QMenu>
 #include <QTextDocument>
+#include <QScrollBar>
 
 static QAction *menuEntry(QMenu *menu,
                           const QString &before, const QString &after, const QString &desc,
@@ -582,7 +583,11 @@ void KatePluginSearchView::searchDone()
     }
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
-    m_curResults->tree->collapseAll();
+    if (m_curResults->tree->verticalScrollBar()->maximum() >
+        3*m_curResults->tree->verticalScrollBar()->pageStep())
+    {
+        m_curResults->tree->collapseAll();
+    }
     m_curResults->buttonContainer->setEnabled(true);
 
     connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));

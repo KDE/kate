@@ -1,6 +1,7 @@
 // This file is part of Pate, Kate' Python scripting plugin.
 //
 // Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -25,14 +26,15 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFile>
+#include <QStandardItem>
 
 #include <kglobal.h>
+#include <KIcon>
+#include <KLocale>
 #include <kconfig.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include <kate/application.h>
-
-#include <iostream>
 
 // config.h defines PATE_PYTHON_LIBRARY, the path to libpython.so
 // on the build system
@@ -44,6 +46,60 @@
 #define PATE_MODULE_NAME "pate" 
 #define THREADED 0
 
+// We use a QStandardItemModel to store plugin information as follows:
+//
+//  - invisibleRoot
+//      - directory
+//          - pluginName
+//
+// A pluginName has an associated type to describe its loadability.
+
+typedef enum
+{
+    Hidden = QStandardItem::UserType,
+    UsableFile,
+    UsableDirectory
+} Loadability;
+
+/**
+ * A usable plugin.
+ */
+class UsablePlugin :
+    public QStandardItem
+{
+public:
+    UsablePlugin(const QString &text, bool isDirectory) :
+        QStandardItem(KIcon("text-x-python"), text),
+        m_isDirectory(isDirectory)
+    {
+    }
+
+    virtual int type() const 
+    {
+        return m_isDirectory ? UsableDirectory : UsableFile;
+    }
+
+private:
+    bool m_isDirectory;
+};
+
+/**
+ * A hidden plugin.
+ */
+class HiddenPlugin :
+    public QStandardItem
+{ 
+public:
+    HiddenPlugin(const QString &text) :
+        QStandardItem(KIcon("script-error"), text)
+    {
+    }
+
+    virtual int type() const 
+    {
+        return Hidden;
+    }
+};
 
 static PyObject *pate_saveConfiguration(PyObject */*self*/) {
     if(Pate::Engine::self()->isInitialised())
@@ -59,7 +115,16 @@ static PyMethodDef pateMethods[] = {
 
 Pate::Engine* Pate::Engine::m_self = 0;
 
-Pate::Engine::Engine(QObject *parent) : QObject(parent) {
+Pate::Engine::Engine(QObject *parent) :
+    QStandardItemModel(parent)
+{
+    // Finish setting up the model. At the top level, we have pairs of icons
+    // and directory names.
+    setColumnCount(2);
+    QStringList labels;
+    labels << i18n("Name") << i18n("Status");
+    setHorizontalHeaderLabels(labels);
+
     m_initialised = false;
     m_pythonLibrary = 0;
     m_pluginsLoaded = false;
@@ -121,7 +186,7 @@ bool Pate::Engine::init() {
     m_pythonLibrary->setLoadHints(QLibrary::ExportExternalSymbolsHint);
 //     kDebug() << "Caling m_pythonLibrary->load()..";
     if(!m_pythonLibrary->load()) {
-        std::cerr << "Could not load " << PATE_PYTHON_LIBRARY << "\n";
+        kError() << "Could not load " << PATE_PYTHON_LIBRARY;
         return false;
     }
 //     kDebug() << "success!";
@@ -177,12 +242,58 @@ void Pate::Engine::saveConfiguration() {
     Py::updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
 }
-void Pate::Engine::reloadConfiguration() {
-    if(!m_initialised)
+
+void Pate::Engine::reloadConfiguration() 
+{
+    if (!m_initialised)
         return;
     PyDict_Clear(m_configuration);
     KConfig config("paterc", KConfig::SimpleConfig);
     Py::updateDictionaryFromConfiguration(m_configuration, &config);
+
+    // Clear current state.
+    QStandardItem *root = invisibleRootItem();
+    root->removeRows(0, root->rowCount());
+    QStringList usablePlugins;
+    
+    // Find all plugins.
+    foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", "pate")) {
+        QStandardItem *directoryRow = new QStandardItem(KIcon("inode-directory"), directoryPath);
+        root->appendRow(directoryRow);
+        QDir directory(directoryPath);
+
+        // Traverse the directory.
+        QFileInfoList infoList = directory.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
+        foreach(QFileInfo info, infoList) {
+            QString path = info.absoluteFilePath();
+            QString pluginName = path.section('/', -1).section('.', 0, 0);
+
+            // A directory foo must contain foo.py.
+            if (info.isDir()) {
+                QString tmp = path + '/' + pluginName + ".py";
+                QFile f(tmp);
+                if (f.exists()) {
+                    path = tmp;
+                }
+            }
+
+            if (path.endsWith(".py")) {
+                QList<QStandardItem *> pluginRow;
+                // We will only load the first plugin with a give name. The
+                // rest will be "hidden".
+                if (!usablePlugins.contains(pluginName)) {
+                    usablePlugins.append(pluginName);
+                    pluginRow.append(new UsablePlugin(pluginName, info.isDir()));
+                } else {
+                    pluginRow.append(new HiddenPlugin(pluginName));
+                    pluginRow.append(new QStandardItem(i18n("Hidden")));
+                }
+                directoryRow->appendRow(pluginRow);
+            } else {
+                kDebug() << "Not a valid plugin" << path;
+            }
+        }
+    }
 }
 
 // void Pate::Engine::die() {
@@ -196,8 +307,9 @@ void Pate::Engine::reloadConfiguration() {
 //     kDebug() << "Pate::Engine::die() finished\n";
 // }
 
-void Pate::Engine::loadPlugins() {
-    if(m_pluginsLoaded)
+void Pate::Engine::loadPlugins() 
+{
+    if (m_pluginsLoaded)
         return;
     init();
 
@@ -208,15 +320,15 @@ void Pate::Engine::loadPlugins() {
     PyObject *pate = PyImport_ImportModule(PATE_MODULE_NAME);
     PyObject *pateModuleDictionary = PyModule_GetDict(pate);
     // find plugins and load them.
-    findAndLoadPlugins(pateModuleDictionary);
+    loadPlugins(pateModuleDictionary);
     m_pluginsLoaded = true;
     PyObject *func = PyDict_GetItemString(moduleDictionary(), "_pluginsLoaded");
-    if(!func) {
+    if (!func) {
         kDebug() << "No " << PATE_MODULE_NAME << "._pluginsLoaded set";
     }
     // everything is loaded and started. Call the module's init callback
-    else if(!Py::call(func)) {
-        std::cerr << "Could not call " << PATE_MODULE_NAME << "._pluginsLoaded().";
+    else if (!Py::call(func)) {
+        kError() << "Could not call " << PATE_MODULE_NAME << "._pluginsLoaded().";
     }
 #if THREADED
     PyGILState_Release(state);
@@ -254,7 +366,7 @@ void Pate::Engine::unloadPlugins() {
         Py_DECREF(plugins);
         m_pluginsLoaded = false;
         if(!Py::call(func))
-            std::cerr << "Could not call " << PATE_MODULE_NAME << "._pluginsUnloaded().\n";
+            kError() << "Could not call " << PATE_MODULE_NAME << "._pluginsUnloaded()";
     }
 #if THREADED
     PyGILState_Release(state);
@@ -262,61 +374,72 @@ void Pate::Engine::unloadPlugins() {
 
 }
 
-void Pate::Engine::findAndLoadPlugins(PyObject *pateModuleDictionary) {
-    // add two lists to the module: pluginDirectories and plugins
+void Pate::Engine::loadPlugins(PyObject *pateModuleDictionary)
+{
+    // Add two lists to the module: pluginDirectories and plugins.
     PyObject *pluginDirectories = PyList_New(0);
     Py_INCREF(pluginDirectories);
     PyDict_SetItemString(pateModuleDictionary, "pluginDirectories", pluginDirectories);
     PyObject *plugins = PyList_New(0);
     Py_INCREF(plugins);
     PyDict_SetItemString(pateModuleDictionary, "plugins", plugins);
-    // get a reference to sys.path, then add the pate directory to it
+    
+    // Get a reference to sys.path, then add the pate directory to it.
     PyObject *sys = PyImport_ImportModule("sys");
     PyObject *pythonPath = PyDict_GetItemString(PyModule_GetDict(sys), "path");
     QStack<QDir> directories;
-    // now, find all directories that KDE knows about like ".../share/apps/kate/pate"
-    foreach(QString directory, KGlobal::dirs()->findDirs("appdata", "pate")) {
-        kDebug() << "Push path" << directory;
-        directories.push(QDir(directory));
-    }
-    while(!directories.isEmpty()) {
-        QDir directory = directories.pop();
-        // add to pate.pluginDirectories and to sys.path
-        Py::appendStringToList(pluginDirectories, directory.path());
-        PyObject *d = Py::unicode(directory.path());
+    
+    // Now, walk the directories.
+    QStandardItem *root = invisibleRootItem();
+    for (int i = 0; i < root->rowCount(); i++) {
+        QStandardItem *directoryItem = root->child(i);
+        QString directoryPath = directoryItem->text();
+
+        // Add to pate.pluginDirectories and to sys.path.
+        Py::appendStringToList(pluginDirectories, directoryPath);
+        PyObject *d = Py::unicode(directoryPath);
         PyList_Insert(pythonPath, 0, d);
         Py_DECREF(d);
-        // traverse the directory to pate.pluginDirectories and then traverse it
-        QFileInfoList infoList = directory.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
-        // directories first to add the path
-        foreach(QFileInfo info, infoList) {
-            QString path = info.absoluteFilePath();
-            if(info.isDir()) {
-                QString pluginPath = path+"/"+path.section('/', -1)+".py";
-                QFile f(pluginPath);
-                if(f.exists()) {
+
+        // Walk the plugins in this directory.
+        for (int j = 0; j < directoryItem->rowCount(); j++) {
+            UsablePlugin *pluginItem = dynamic_cast<UsablePlugin *>(directoryItem->child(j));
+            if (!pluginItem) {
+                // Don't even try.
+                continue;
+            }
+
+            // Find the path to the .py file.
+            QString pluginName = pluginItem->text();
+            QString path;
+            if (pluginItem->type() == UsableDirectory) {
+                // This is a directory plugin. The .py is in a subdirectory,
+                // add the subdirectory to the path.
+                path = directoryPath + pluginName;
+                QFile f(path);
+                if (f.exists()) {
                     PyObject *d = Py::unicode(path);
                     PyList_Insert(pythonPath, 0, d);
                     Py_DECREF(d);
-                    path = pluginPath;
+                } else {
+                    kError() << "Missing plugin directory" << path;
+                    continue;
                 }
+            } else {
+                path = directoryPath;
             }
 
-            if(path.endsWith(".py")) {
-                kDebug() << "Loading" << path;
-                // import and add to pate.plugins
-                QString pluginName = path.section('/', -1).section('.', 0, 0);
-                PyObject *plugin = PyImport_ImportModule(PQ(pluginName));
-                if(plugin) {
-                    PyList_Append(plugins, plugin);
-                    Py_DECREF(plugin);
-                }
-                else {
-                    Py::traceback(QString("Could not load plugin %1").arg(pluginName));
-                }
+            // Import and add to pate.plugins
+            PyObject *plugin = PyImport_ImportModule(PQ(pluginName));
+            if (plugin) {
+                PyList_Append(plugins, plugin);
+                Py_DECREF(plugin);
+                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
+            } else {
+                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded")));
+                Py::traceback(QString("Could not load plugin %1").arg(pluginName));
             }
         }
-//         std::cout << "found " << PQ(directory) << "\n";
     }
 }
 

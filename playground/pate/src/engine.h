@@ -20,7 +20,9 @@
 #ifndef PATE_ENGINE_H
 #define PATE_ENGINE_H
 
-#include <QObject>
+#include <QStandardItemModel>
+#include <QList>
+#include <QStringList>
 
 #include "Python.h"
 
@@ -35,7 +37,9 @@ namespace Pate {
  * loading all of the Pate plugins. It is implemented as
  * a singleton class.
 */
-class Engine : public QObject {
+class Engine : 
+    public QStandardItemModel
+{
     Q_OBJECT
 public:
     static Engine* self();
@@ -81,9 +85,11 @@ protected:
     Engine(QObject *parent);
     ~Engine();
     
-    // Finds and loads Python plugins, given a PyObject module dictionary
-    // to load them into
-    void findAndLoadPlugins(PyObject *pateModuleDictionary);
+    /**
+     * Walk over the model, loading all usable plugins into a PyObject module 
+     * dictionary.
+     */
+    void loadPlugins(PyObject *pateModuleDictionary);
 
 private:
     static Engine *m_self;

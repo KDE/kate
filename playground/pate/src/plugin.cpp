@@ -1,6 +1,7 @@
 // This file is part of Pate, Kate' Python scripting plugin.
 //
 // Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
+// Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Library General Public
@@ -29,30 +30,34 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
-#include <kaction.h>
-#include <klocale.h>
-#include <kgenericfactory.h>
-#include <kconfigbase.h>
-#include <kconfiggroup.h>
+#include <KAction>
+#include <KDialog>
+#include <KLocale>
+#include <KGenericFactory>
+#include <KConfigBase>
+#include <KConfigGroup>
 
-#include <iostream>
+#include <QCheckBox>
+#include <QLabel>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 #define PATE_UNLOAD
 
+#define CONFIG_SECTION "Pate"
+
+//
+// The Pate plugin
+//
 
 K_EXPORT_COMPONENT_FACTORY(pateplugin, KGenericFactory<Pate::Plugin>("pate"))
 
-/// Plugin view, instances of which are created once for each session
-Pate::PluginView::PluginView(Kate::MainWindow *window) : Kate::PluginView(window) {
-    kDebug() << "PluginView::PluginView\n";
-}
-
-Pate::Plugin::Plugin(QObject *parent, const QStringList &) : Kate::Plugin((Kate::Application*) parent) {
-//     std::cout << "Plugin::Plugin\n";
-    // initialise the Python engine
-    kDebug() << "Plugin::Plugin\n";
-    if(!Pate::Engine::self()->init()) {
-        std::cerr << TERMINAL_RED << "Could not initialise Pate. Ouch!\n" << TERMINAL_CLEAR;
+Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
+    Kate::Plugin((Kate::Application *)parent)
+{
+    kDebug() << "initialise the Python engine";
+    if (!Pate::Engine::self()->init()) {
+        kError() << "Could not initialise Pate. Ouch!";
     }
 }
 
@@ -60,8 +65,8 @@ Pate::Plugin::~Plugin() {
 //     Pate::Engine::self()->del();
 }
 
-
-Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window) {
+Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
+{
     Pate::Engine::self()->loadPlugins();
     return new Pate::PluginView(window);
 }
@@ -73,7 +78,12 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window) {
  * on save and evaluating them back to a Python type on load.
  * XX should probably pickle.
  */
-void Pate::Plugin::readSessionConfig(KConfigBase */*config*/, const QString &) {
+void Pate::Plugin::readConfig(Pate::ConfigPage *page)
+{
+    KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
+    page->cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+    page->cbSetEditor->setChecked(config.readEntry("SetEditor", false));
+
     if(!Pate::Engine::self()->isInitialised())
         return;
     Pate::Engine::self()->callModuleFunction("_sessionCreated");
@@ -112,7 +122,12 @@ void Pate::Plugin::readSessionConfig(KConfigBase */*config*/, const QString &) {
 
 }
 
-void Pate::Plugin::writeSessionConfig(KConfigBase */*config*/, const QString &) {
+void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
+{
+    KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
+    config.writeEntry("AutoSyncronize", page->cbAutoSyncronize->isChecked());
+    config.writeEntry("SetEditor", page->cbSetEditor->isChecked());
+    config.sync();
 //     // write session config data
 //     kDebug() << "write session config\n";
 //     KConfigGroup group(config, "Pate");
@@ -133,9 +148,85 @@ void Pate::Plugin::writeSessionConfig(KConfigBase */*config*/, const QString &) 
 //         Py_DECREF(pyRepresentation);
 //     }
 //     PyGILState_Release(state);
-
 }
 
+Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, const char *name)
+{
+    Q_UNUSED(name);
+
+    if (number != 0)
+        return 0;
+    return new Pate::ConfigPage(parent, this);
+}
+
+QString Pate::Plugin::configPageName (uint number) const
+{
+    if (number != 0)
+        return QString();
+    return i18n("Pâté");
+}
+
+QString Pate::Plugin::configPageFullName (uint number) const
+{
+    if (number != 0)
+        return QString();
+    return i18n("Python Scripting");
+}
+
+KIcon Pate::Plugin::configPageIcon (uint number) const
+{
+    if (number != 0)
+        return KIcon();
+    return KIcon("applications-development");
+}
+
+//
+// Plugin view, instances of which are created once for each session.
+//
+
+Pate::PluginView::PluginView(Kate::MainWindow *window) :
+    Kate::PluginView(window)
+{
+    kDebug() << "create PluginView";
+}
+
+//
+// Plugin configuration view.
+//
+
+Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
+    Kate::PluginConfigPage(parent),
+    m_plugin(plugin)
+{
+    kDebug() << "create ConfigPage";
+    QVBoxLayout *lo = new QVBoxLayout(this);
+    lo->setSpacing(KDialog::spacingHint());
+
+    m_tree = new QTreeView();
+    m_tree->setModel(Pate::Engine::self());
+    m_tree->expandAll();
+    lo->addWidget(m_tree);
+    cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
+    lo->addWidget(cbAutoSyncronize);
+    cbSetEditor = new QCheckBox(i18n("Set &EDITOR environment variable to 'kate -b'"), this);
+    lo->addWidget(cbSetEditor);
+    QLabel *tmp = new QLabel(this);
+    tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
+    lo->addWidget(tmp);
+    reset();
+    lo->addStretch();
+    connect(cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()));
+    connect(cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()));
+}
+
+void Pate::ConfigPage::apply()
+{
+    m_plugin->writeConfig(this);
+}
+
+void Pate::ConfigPage::reset()
+{
+    m_plugin->readConfig(this);
+}
 
 #include "plugin.moc"
-

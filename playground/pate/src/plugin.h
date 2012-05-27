@@ -28,8 +28,10 @@
 #include <kxmlguiclient.h>
 
 #include "Python.h"
+#include "ui_manager.h"
+
 class QPushButton;
-//class QCheckBox;
+class QCheckBox;
 class QTreeView;
 
 namespace Pate
@@ -62,7 +64,7 @@ public:
     void writeConfig(class ConfigPage *page);
 
     // PluginConfigPageInterface
-    uint configPages() const { return 1; };
+    uint configPages() const;
     Kate::PluginConfigPage *configPage(uint number = 0, QWidget *parent = 0, const char *name = 0);
     QString configPageName(uint number = 0) const;
     QString configPageFullName(uint number = 0) const;
@@ -93,6 +95,7 @@ public:
     explicit ConfigPage(QWidget *parent = 0, Plugin *plugin = 0);
     virtual ~ConfigPage() {}
 
+public slots:
     virtual void apply();
     virtual void reset();
     virtual void defaults() {}
@@ -100,10 +103,7 @@ public:
 private:
     friend class Plugin;
     Plugin *m_plugin;
-    QTreeView *m_tree;
-    QPushButton *m_reload;
-    //QCheckBox *cbAutoSyncronize;
-    //QCheckBox *cbSetEditor;
+    Ui::ManagerPage m_ui;
 };
 
 } // namespace Pate

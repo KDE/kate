@@ -19,6 +19,8 @@
 
 set(sources plugin.cpp engine.cpp utilities.cpp)
 
+kde4_add_ui_files(sources manager.ui)
+
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 kde4_add_plugin(pateplugin ${sources})

@@ -30,6 +30,7 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
+#include <KAboutData>
 #include <KAction>
 #include <KDialog>
 #include <KLocale>
@@ -37,7 +38,7 @@
 #include <KConfigBase>
 #include <KConfigGroup>
 
-//#include <QCheckBox>
+#include <QCheckBox>
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeView>
@@ -79,8 +80,7 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    //page->cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
-    //page->cbSetEditor->setChecked(config.readEntry("SetEditor", false));
+    page->m_ui.autoReload->setChecked(config.readEntry("AutoReload", false));
 
     Pate::Engine::self()->callModuleFunction("_sessionCreated");
 //     PyGILState_STATE state = PyGILState_Ensure();
@@ -121,8 +121,7 @@ void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    //config.writeEntry("AutoSyncronize", page->cbAutoSyncronize->isChecked());
-    //config.writeEntry("SetEditor", page->cbSetEditor->isChecked());
+    config.writeEntry("AutoReload", page->m_ui.autoReload->isChecked());
     config.sync();
 //     // write session config data
 //     kDebug() << "write session config\n";
@@ -144,6 +143,29 @@ void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
 //         Py_DECREF(pyRepresentation);
 //     }
 //     PyGILState_Release(state);
+}
+
+uint Pate::Plugin::configPages() const
+{
+    // The Manager page is always present.
+    uint pages = 1;
+
+    // Count the number of plugins which need their own custom page.
+    QStandardItem *root = Pate::Engine::self()->invisibleRootItem();
+    for (int i = 0; i < root->rowCount(); i++) {
+        QStandardItem *directoryItem = root->child(i);
+
+        // Walk the plugins in this directory.
+        for (int j = 0; j < directoryItem->rowCount(); j++) {           
+            // TODO: Query the engine for this information, and then extend
+            // our sibling functions to get the necessary information from
+            // the plugins who want to play.
+            
+            //QString pluginName = directoryItem->child(j)->text();
+            //pages++;
+        }
+    }
+    return pages;
 }
 
 Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, const char *name)
@@ -195,28 +217,17 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_plugin(plugin)
 {
     kDebug() << "create ConfigPage";
-    QVBoxLayout *lo = new QVBoxLayout(this);
-    lo->setSpacing(KDialog::spacingHint());
-
-    m_tree = new QTreeView();
-    m_tree->setModel(Pate::Engine::self());
-    m_tree->expandAll();
-    lo->addWidget(m_tree);
-    //cbAutoSyncronize = new QCheckBox(i18n("&Automatically synchronize the terminal with the current document when possible"), this);
-    //lo->addWidget(cbAutoSyncronize);
-    //cbSetEditor = new QCheckBox(i18n("Set &EDITOR environment variable to 'kate -b'"), this);
-    //lo->addWidget(cbSetEditor);
-    m_reload = new QPushButton(KIcon("system-reboot"), i18n("Reload all"), this);
-    lo->addWidget(m_reload);
-    QLabel *tmp = new QLabel(this);
-    tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
-    lo->addWidget(tmp);
+    
+    // TODO: Convert to a QStackedWidget and add information pages for each
+    // plugin.
+    m_ui.setupUi(parent);
+    m_ui.tree->setModel(Pate::Engine::self());
+    m_ui.tree->resizeColumnToContents(0);
+    m_ui.tree->expandAll();
     reset();
-    lo->addStretch();
-    //connect(cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()));
-    //connect(cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()));
-    connect(m_reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
-    connect(m_reload, SIGNAL(clicked(bool)), m_tree, SLOT(expandAll()));
+    connect(m_ui.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
+    connect(m_ui.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
+    connect(m_ui.reload, SIGNAL(clicked(bool)), m_ui.tree, SLOT(expandAll()));
 }
 
 void Pate::ConfigPage::apply()

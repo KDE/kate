@@ -216,7 +216,10 @@ function _duplicateLines(up)
     if (selectionRange.isValid() && selectionRange.start.line > 0) {
         fromLine = selectionRange.start.line;
         toLine = selectionRange.end.line;
-        if (selectionRange.end.column==0) toLine--; //if selection ends at beginning of line, skip that line
+        if (document.lineLength(toLine) > 0 && selectionRange.end.column == 0) {
+            //if selection ends at beginning of line, skip that line
+            toLine--;
+        }
     } else if (view.cursorPosition().line > 0) {
         toLine = view.cursorPosition().line;
         fromLine = toLine;
@@ -238,10 +241,12 @@ function _duplicateLines(up)
     document.editEnd();
 
     if (up) {
-        view.setSelection(new Range(new Cursor(fromLine, 0), new Cursor(toLine+1, 0)));
+        var endCursor = new Cursor(toLine, document.lineLength(toLine));
+        view.setSelection(new Range(new Cursor(fromLine, 0), endCursor));
         view.setCursorPosition(new Cursor(fromLine, 0));
     } else {
-        view.setSelection(new Range(new Cursor(toLine+1, 0), new Cursor(toLine+text.length+1, 0)));
+        var endCursor = new Cursor(toLine+text.length, document.lineLength(toLine+text.length));
+        view.setSelection(new Range(new Cursor(toLine+1, 0), endCursor));
         view.setCursorPosition(new Cursor(toLine+1, 0));
     }
 }

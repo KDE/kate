@@ -42,6 +42,9 @@ class Engine :
     public QStandardItemModel
 {
     Q_OBJECT
+    
+    static const char *PATE_ENGINE;
+
 public:
     static Engine *self();
     
@@ -52,15 +55,51 @@ public:
     /// The root configuration used by Python objects. It is a Python
     /// dictionary
     PyObject *configuration();
-    
-    /// This engine's embedded Python module's dictionary
-    PyObject *moduleDictionary();
-    
+
+    QString help(const QString &topic) const;
+
+    /**
+     * Call the Pate module's named entry point.
+     */
+    bool moduleCallFunction(const char *functionName,
+                            const char *moduleName = PATE_ENGINE) const;
+
+    /**
+     * Get the named module's dictionary.
+     */
+    PyObject *moduleGetDict(const char *moduleName = PATE_ENGINE) const;
+
+    /**
+     * Delete the item from the named module's dictionary.
+     */
+    bool moduleDelItemString(const char *item,
+                             const char *moduleName = PATE_ENGINE) const;
+
+    /**
+     * Get the item from the named module's dictionary.
+     */
+    PyObject *moduleGetItemString(const char *item,
+                                  const char *moduleName = PATE_ENGINE) const;
+
+    /**
+     * Get the item from the given dictionary.
+     */
+    PyObject *moduleGetItemString(const char *item, PyObject *dict) const;
+
+    /**
+     * Set the item in the named module's dictionary.
+     */
+    bool moduleSetItemString(const char *item, PyObject *value,
+                             const char *moduleName = PATE_ENGINE) const;
+
+    /**
+     * Import the named module.
+     */
+    PyObject *moduleImport(const char *moduleName) const;
+
     /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
     /// by SIP. Nifty.
     PyObject *wrap(void *o, QString className);
-  
-    void callModuleFunction(const QString &name);
     
 // signals:
 //     void populateConfiguration(PyObject *configurationDictionary);
@@ -72,7 +111,6 @@ public slots:
     void reloadConfiguration();
 
 protected:
-    static const char *PATE_MODULE_NAME;
     
     Engine(QObject *parent);
     ~Engine();
@@ -86,44 +124,6 @@ protected:
      */
     void loadPlugins();
     void unloadPlugins();
-
-    /**
-     * Call the Pate module's named entry point.
-     */
-    bool moduleCall(const char *functionName) const;
-
-    /**
-     * Get the named module's dictionary.
-     */
-    PyObject *moduleGetDict(const char *moduleName) const;
-
-    /**
-     * Delete the item from the named module's dictionary.
-     */
-    bool moduleDelItemString(const char *item,
-                             const char *moduleName = PATE_MODULE_NAME) const;
-
-    /**
-     * Get the item from the named module's dictionary.
-     */
-    PyObject *moduleGetItemString(const char *item,
-                                  const char *moduleName = PATE_MODULE_NAME) const;
-
-    /**
-     * Get the item from the given dictionary.
-     */
-    PyObject *moduleGetItemString(const char *item, PyObject *dict) const;
-
-    /**
-     * Set the item in the named module's dictionary.
-     */
-    bool moduleSetItemString(const char *item, PyObject *value,
-                             const char *moduleName = PATE_MODULE_NAME) const;
-
-    /**
-     * Import the named module.
-     */
-    PyObject *moduleImport(const char *moduleName) const;
 
 private:
     static Engine *m_self;

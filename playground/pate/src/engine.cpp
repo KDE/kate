@@ -43,7 +43,7 @@
 #include "engine.h"
 #include "utilities.h"
 
-const char *Pate::Engine::PATE_MODULE_NAME = "pate";
+const char *Pate::Engine::PATE_ENGINE = "pate";
 
 #define THREADED 0
 
@@ -203,7 +203,7 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-    Py_InitModule(PATE_MODULE_NAME, pateMethods);
+    Py_InitModule(PATE_ENGINE, pateMethods);
     m_configuration = PyDict_New();
   
     // Host the configuration dictionary.
@@ -365,7 +365,7 @@ void Pate::Engine::loadPlugins()
     m_pluginsLoaded = true;
 
     // everything is loaded and started. Call the module's init callback
-    moduleCall("_pluginsLoaded");
+    moduleCallFunction("_pluginsLoaded");
 #if THREADED
     PyGILState_Release(state);
 #endif
@@ -397,7 +397,7 @@ void Pate::Engine::unloadPlugins()
     moduleDelItemString("plugins");
     Py_DECREF(plugins);
     m_pluginsLoaded = false;
-    moduleCall("_pluginsUnloaded");
+    moduleCallFunction("_pluginsUnloaded");
 #if THREADED
     PyGILState_Release(state);
 #endif
@@ -427,25 +427,37 @@ PyObject *Pate::Engine::wrap(void *o, QString fullClassName) {
     return result;
 }
 
-void Pate::Engine::callModuleFunction(const QString &name) {
-#if THREADED
-    PyGILState_STATE state = PyGILState_Ensure();
-#endif
-    PyObject *func = moduleGetItemString(PQ(name));
-    if (!Py::call(func))
-        kDebug() << "Could not call " << PATE_MODULE_NAME << "." << name << "().";    
-#if THREADED
-    PyGILState_Release(state);
-#endif
+QString Pate::Engine::help(const QString &topic) const
+{
+    PyObject *func = moduleGetItemString("_help", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve help");
+        return QString();
+    }
+    PyObject *arguments = Py_BuildValue("(s)", PQ(topic));
+    PyObject *result = PyObject_CallObject(func, arguments);
+    if (!result) {
+        Py::traceback("failed to call help");
+        return QString();
+    }
+    return PyString_AsString(result);
 }
 
-bool Pate::Engine::moduleCall(const char *functionName) const
+bool Pate::Engine::moduleCallFunction(const char *functionName, const char *moduleName) const
 {
-    PyObject *func = moduleGetItemString(functionName);
+    bool result;
+    PyObject *func = moduleGetItemString(functionName, moduleName);
     if (!func) {
         return false;
     }
-    if (!Py::call(func)) {
+#if THREADED
+    PyGILState_STATE state = PyGILState_Ensure();
+#endif
+    result = Py::call(func);
+#if THREADED
+    PyGILState_Release(state);
+#endif
+    if (!result) {
         kError() << "Could not call" << functionName;
         return false;
     }
@@ -481,9 +493,9 @@ bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName)
 
 PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName) const 
 {
-    PyObject *itemString = moduleGetItemString(item, moduleGetDict(moduleName));
-    if (itemString) {
-        return itemString;
+    PyObject *value = moduleGetItemString(item, moduleGetDict(moduleName));
+    if (value) {
+        return value;
     }
     kError() << "Could not get item string" << item << moduleName;
     return 0;
@@ -494,9 +506,9 @@ PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) co
     if (!dict) {
         return 0;
     }
-    PyObject *itemString = PyDict_GetItemString(dict, item);
-    if (itemString) {
-        return itemString;
+    PyObject *value = PyDict_GetItemString(dict, item);
+    if (value) {
+        return value;
     }
     kError() << "Could not get item string" << item;
     return 0;
@@ -509,9 +521,10 @@ bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const 
         return false;
     }
     if (!PyDict_SetItemString(dict, item, value)) {
-        kError() << "Could not set item string" << item << moduleName;
+        kError() << "Could not set" << moduleName << item;
         return false;
     }
+    kError() << "Set" << moduleName << item;
     return true;
 }
 

@@ -6,66 +6,70 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>298</height>
+    <width>488</width>
+    <height>388</height>
    </rect>
   </property>
-  <widget class="QTreeView" name="tree">
+  <widget class="KTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>1</x>
-     <y>1</y>
-     <width>391</width>
-     <height>192</height>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>332</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>1</x>
-     <y>197</y>
-     <width>388</width>
-     <height>95</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Reload Plugins</string>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="KPushButton" name="reload">
-      <property name="text">
-       <string>Reload All</string>
-      </property>
-      <property name="icon">
-       <iconset theme="system-reboot">
-        <normaloff/>
-       </iconset>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="autoReload">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>Automatically reload all plugins on changes</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using these options.</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QWidget" name="manageTab">
+    <attribute name="title">
+     <string>Manage</string>
+    </attribute>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTreeView" name="tree"/>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Reload Plugins</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using these options.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="autoReload">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Automatically reload all plugins on changes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="KPushButton" name="reload">
+          <property name="text">
+           <string>Reload All</string>
+          </property>
+          <property name="icon">
+           <iconset theme="system-reboot">
+            <normaloff/>
+           </iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <customwidgets>
@@ -74,9 +78,14 @@
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
   </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>treeView</tabstop>
   <tabstop>reload</tabstop>
   <tabstop>autoReload</tabstop>
  </tabstops>

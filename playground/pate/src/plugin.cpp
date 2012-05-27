@@ -41,6 +41,7 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QPushButton>
+#include <QStackedWidget>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -82,7 +83,7 @@ void Pate::Plugin::readConfig(Pate::ConfigPage *page)
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
     page->m_ui.autoReload->setChecked(config.readEntry("AutoReload", false));
 
-    Pate::Engine::self()->callModuleFunction("_sessionCreated");
+    Pate::Engine::self()->moduleCallFunction("_sessionCreated");
 //     PyGILState_STATE state = PyGILState_Ensure();
 // 
 //     PyObject *d = Pate::Engine::self()->moduleDictionary();
@@ -211,15 +212,15 @@ Pate::PluginView::PluginView(Kate::MainWindow *window) :
 //
 // Plugin configuration view.
 //
+#include "ui_info.h"
 
 Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     Kate::PluginConfigPage(parent),
     m_plugin(plugin)
 {
     kDebug() << "create ConfigPage";
-    
-    // TODO: Convert to a QStackedWidget and add information pages for each
-    // plugin.
+
+    // Create a page with just the main manager tab.
     m_ui.setupUi(parent);
     m_ui.tree->setModel(Pate::Engine::self());
     m_ui.tree->resizeColumnToContents(0);
@@ -228,6 +229,35 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     connect(m_ui.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
     connect(m_ui.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
     connect(m_ui.reload, SIGNAL(clicked(bool)), m_ui.tree, SLOT(expandAll()));
+    
+    // Add an information page for each loaded plugin.
+    QWidget *infoWidget;
+    Ui::InfoPage ui;
+    QString moduleName;
+    PyObject *plugins = Pate::Engine::self()->moduleGetItemString("plugins");
+    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+        PyObject *module = PyList_GetItem(plugins, i);
+        
+        // Instantiate the info UI for this plugin.
+        moduleName = QLatin1String(PyModule_GetName(module));
+        infoWidget = new QWidget(m_ui.tabWidget);
+        ui.setupUi(infoWidget);
+        ui.help->setHtml(Pate::Engine::self()->help(moduleName));
+        m_ui.tabWidget->addTab(infoWidget, moduleName);
+    }
+
+    // Add a page of reference information.
+    moduleName = QLatin1String("kate");
+    infoWidget = new QWidget(m_ui.tabWidget);
+    ui.setupUi(infoWidget);
+    ui.help->setHtml(Pate::Engine::self()->help(moduleName));
+    m_ui.tabWidget->addTab(infoWidget, moduleName);
+
+    moduleName = QLatin1String("kate.gui");
+    infoWidget = new QWidget(m_ui.tabWidget);
+    ui.setupUi(infoWidget);
+    ui.help->setHtml(Pate::Engine::self()->help(moduleName));
+    m_ui.tabWidget->addTab(infoWidget, moduleName);
 }
 
 void Pate::ConfigPage::apply()

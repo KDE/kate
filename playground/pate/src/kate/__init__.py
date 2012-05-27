@@ -5,6 +5,8 @@ import sys
 import os
 import traceback
 import functools
+import exceptions
+import pydoc
 
 import pate
 import kate.gui
@@ -128,6 +130,14 @@ globalConfiguration = pate.configuration
 # a plugin-specific configuration
 configuration = Configuration(pate.configuration)
 
+def _help(thing):
+    """Fetch HTML documentation on some thing."""
+    try:
+        object, name = pydoc.resolve(thing, 1)
+        page = pydoc.html.page(pydoc.describe(object), pydoc.html.document(object, name))
+        return page
+    except (exceptions.ImportError, pydoc.ErrorDuringImport), value:
+        return value
 
 def _callAll(l, *args, **kwargs):
     for f in l:

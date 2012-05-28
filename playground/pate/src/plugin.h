@@ -109,6 +109,7 @@ private:
     PyObject *m_pluginActions;
 
 private slots:
+    void reloadConfiguration();
     void infoTopicChanged(int topicIndex);
     void infoPluginActionsChanged(int actionIndex);
 };

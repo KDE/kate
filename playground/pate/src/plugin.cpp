@@ -225,17 +225,23 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     // Create a page with just the main manager tab.
     m_manager.setupUi(parent);
     m_manager.tree->setModel(Pate::Engine::self());
-    m_manager.tree->resizeColumnToContents(0);
-    m_manager.tree->expandAll();
     reset();
     connect(m_manager.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), m_manager.tree, SLOT(expandAll()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadConfiguration()));
     
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
     m_manager.tabWidget->addTab(infoWidget, i18n("Packages"));
+    connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
+    reloadConfiguration();
+}
+
+void Pate::ConfigPage::reloadConfiguration()
+{
+    Pate::Engine::self()->reloadConfiguration();
+    m_manager.tree->resizeColumnToContents(0);
+    m_manager.tree->expandAll();
     QString topic;
 
     // Add a topic for each built-in packages, using stacked page 0.
@@ -254,7 +260,6 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
         topic = QLatin1String(PyModule_GetName(module));
         m_info.topics->addItem(KIcon("text-x-python"), topic, QVariant(PLUGIN));
     }
-    connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     infoTopicChanged(0);
 }
 

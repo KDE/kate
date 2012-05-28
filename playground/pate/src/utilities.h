@@ -51,7 +51,7 @@ void appendStringToList(PyObject *list, const QString &value);
 /// giving a high-level description of what happened
 void traceback(const QString &description);
 
-/// Create a Python dictionary from a KConfigBase instance, 
+/// Create a Python dictionary from a KConfigBase instance,
 /// writing the string representation of the values
 void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config);
 

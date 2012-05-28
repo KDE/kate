@@ -51,7 +51,7 @@ class Plugin :
 public:
     explicit Plugin(QObject *parent = 0, const QStringList& = QStringList());
     virtual ~Plugin();
-    
+
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 
     /**
@@ -69,7 +69,7 @@ public:
     Kate::PluginConfigPage *configPage(uint number = 0, QWidget *parent = 0, const char *name = 0);
     QString configPageName(uint number = 0) const;
     QString configPageFullName(uint number = 0) const;
-    KIcon configPageIcon(uint number = 0) const;    
+    KIcon configPageIcon(uint number = 0) const;
 };
 
 /**

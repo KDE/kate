@@ -75,7 +75,7 @@ public:
     {
     }
 
-    virtual int type() const 
+    virtual int type() const
     {
         return m_isDirectory ? UsableDirectory : UsableFile;
     }
@@ -89,14 +89,14 @@ private:
  */
 class HiddenPlugin :
     public QStandardItem
-{ 
+{
 public:
     HiddenPlugin(const QString &text) :
         QStandardItem(KIcon("script-error"), text)
     {
     }
 
-    virtual int type() const 
+    virtual int type() const
     {
         return Hidden;
     }
@@ -151,7 +151,7 @@ Pate::Engine *Pate::Engine::self()
         m_self = new Pate::Engine(qApp);
         if (!m_self->init()) {
             del();
-        }           
+        }
     }
     return m_self;
 }
@@ -205,7 +205,7 @@ bool Pate::Engine::init()
     // Initialise our built-in module.
     Py_InitModule(PATE_ENGINE, pateMethods);
     m_configuration = PyDict_New();
-  
+
     // Host the configuration dictionary.
     moduleSetItemString("configuration", m_configuration);
 
@@ -235,7 +235,7 @@ void Pate::Engine::saveConfiguration()
     config.sync();
 }
 
-void Pate::Engine::reloadConfiguration() 
+void Pate::Engine::reloadConfiguration()
 {
     unloadPlugins();
     PyDict_Clear(m_configuration);
@@ -246,7 +246,7 @@ void Pate::Engine::reloadConfiguration()
     QStandardItem *root = invisibleRootItem();
     root->removeRows(0, root->rowCount());
     QStringList usablePlugins;
-    
+
     // Find all plugins.
     foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", "pate")) {
         QStandardItem *directoryRow = new QStandardItem(KIcon("inode-directory"), directoryPath);
@@ -288,7 +288,7 @@ void Pate::Engine::reloadConfiguration()
     loadPlugins();
 }
 
-void Pate::Engine::loadPlugins() 
+void Pate::Engine::loadPlugins()
 {
     if (m_pluginsLoaded) {
         return;
@@ -305,11 +305,11 @@ void Pate::Engine::loadPlugins()
     PyObject *plugins = PyList_New(0);
     Py_INCREF(plugins);
     moduleSetItemString("plugins", plugins);
-    
+
     // Get a reference to sys.path, then add the pate directory to it.
     PyObject *pythonPath = moduleGetItemString("path", "sys");
     QStack<QDir> directories;
-    
+
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
     for (int i = 0; i < root->rowCount(); i++) {
@@ -371,7 +371,7 @@ void Pate::Engine::loadPlugins()
 #endif
 }
 
-void Pate::Engine::unloadPlugins() 
+void Pate::Engine::unloadPlugins()
 {
     // We don't have the luxury of being able to unload Python easily while
     // Kate is running. If anyone can find a way, feel free to tell me and
@@ -481,7 +481,7 @@ PyObject *Pate::Engine::moduleGetDict(const char *moduleName) const
     return 0;
 }
 
-bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName) const 
+bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName) const
 {
     PyObject *dict = moduleGetDict(moduleName);
     if (!dict) {
@@ -494,7 +494,7 @@ bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName)
     return false;
 }
 
-PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName) const 
+PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName) const
 {
     PyObject *value = moduleGetItemString(item, moduleGetDict(moduleName));
     if (value) {
@@ -504,7 +504,7 @@ PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *module
     return 0;
 }
 
-PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) const 
+PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) const
 {
     if (!dict) {
         return 0;
@@ -517,7 +517,7 @@ PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) co
     return 0;
 }
 
-bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName) const 
+bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName) const
 {
     PyObject *dict = moduleGetDict(moduleName);
     if (!dict) {

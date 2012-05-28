@@ -74,7 +74,7 @@ void traceback(const QString &description) {
 }
 
 
-/// Create a Python dictionary from a KConfigBase instance, 
+/// Create a Python dictionary from a KConfigBase instance,
 /// writing the string representation of the values
 void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config) {
     // relatively safe evaluation environment for Pythonizing the serialised types:

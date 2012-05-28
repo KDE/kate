@@ -73,7 +73,7 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 
 /**
  * The configuration system uses one dictionary which is wrapped in Python to
- * make it appear as though it is module-specific. 
+ * make it appear as though it is module-specific.
  * Atomic Python types are stored by writing their representation to the config file
  * on save and evaluating them back to a Python type on load.
  * XX should probably pickle.
@@ -85,13 +85,13 @@ void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 
     Pate::Engine::self()->moduleCallFunction("_sessionCreated");
 //     PyGILState_STATE state = PyGILState_Ensure();
-// 
+//
 //     PyObject *d = Pate::Engine::self()->moduleDictionary();
 //     kDebug() << "setting configuration";
 //     PyDict_SetItemString(d, "sessionConfiguration", Pate::Engine::self()->wrap((void *) config, "PyKDE4.kdecore.KConfigBase"));
 //     if(!config->hasGroup("Pate")) {
 //         PyGILState_Release(state);
-// 
+//
 //         return;
 //     }
 //     // relatively safe evaluation environment for Pythonizing the serialised types:
@@ -128,7 +128,7 @@ void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
 //     kDebug() << "write session config\n";
 //     KConfigGroup group(config, "Pate");
 //     PyGILState_STATE state = PyGILState_Ensure();
-// 
+//
 //     PyObject *key, *value;
 //     Py_ssize_t position = 0;
 //     while(PyDict_Next(Pate::Engine::self()->configuration(), &position, &key, &value)) {
@@ -157,11 +157,11 @@ uint Pate::Plugin::configPages() const
         QStandardItem *directoryItem = root->child(i);
 
         // Walk the plugins in this directory.
-        for (int j = 0; j < directoryItem->rowCount(); j++) {           
+        for (int j = 0; j < directoryItem->rowCount(); j++) {
             // TODO: Query the engine for this information, and then extend
             // our sibling functions to get the necessary information from
             // the plugins who want to play.
-            
+
             //QString pluginName = directoryItem->child(j)->text();
             //pages++;
         }
@@ -228,7 +228,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     reset();
     connect(m_manager.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadConfiguration()));
-    
+
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
@@ -255,7 +255,7 @@ void Pate::ConfigPage::reloadConfiguration()
     PyObject *plugins = Pate::Engine::self()->moduleGetItemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
         PyObject *module = PyList_GetItem(plugins, i);
-        
+
         // Add a topic for this plugin, using stacked page 1.
         topic = QLatin1String(PyModule_GetName(module));
         m_info.topics->addItem(KIcon("text-x-python"), topic, QVariant(PLUGIN));
@@ -277,7 +277,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
         break;
     case PLUGIN:
         m_info.optionalSection->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        
+
         // Populate the plugin-specific action information.
         Py_XDECREF(m_pluginActions);
         m_pluginActions = Pate::Engine::self()->pluginActions(topic);
@@ -285,7 +285,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
         for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
-            
+
             // Add an action for this plugin.
             m_info.actions->addItem(PyString_AsString(functionName));
         }
@@ -311,7 +311,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     PyObject *icon = PyTuple_GetItem(action, 1);
     PyObject *shortcut = PyTuple_GetItem(action, 2);
     PyObject *menu = PyTuple_GetItem(action, 3);
-    
+
     // Add a topic for this plugin, using stacked page 0.
     // TODO: Proper handling of Unicode
     // TODO: handling of actual QPixmaps and so on for icon.

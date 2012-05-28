@@ -29,7 +29,7 @@
 
 class QLibrary;
 
-namespace Pate 
+namespace Pate
 {
 
 /**
@@ -38,20 +38,20 @@ namespace Pate
  * loading all of the Pate plugins. It is implemented as
  * a singleton class.
 */
-class Engine : 
+class Engine :
     public QStandardItemModel
 {
     Q_OBJECT
-    
+
     static const char *PATE_ENGINE;
 
 public:
     static Engine *self();
-    
-    /// Close the interpreter and unload it from memory. Called 
+
+    /// Close the interpreter and unload it from memory. Called
     /// automatically by the destructor, so you shouldn't need it yourself
     static void del();
-    
+
     /// The root configuration used by Python objects. It is a Python
     /// dictionary
     PyObject *configuration();
@@ -98,8 +98,8 @@ public:
     PyObject *moduleImport(const char *moduleName) const;
 
     /**
-     * Get the Actions defined by a plugin. The returned object is 
-     * [ { function, ( text, icon, shortcut, menu ) }... ] for each plugin 
+     * Get the Actions defined by a plugin. The returned object is
+     * [ { function, ( text, icon, shortcut, menu ) }... ] for each plugin
      * function decorated with @action.
      */
     PyObject *pluginActions(const QString &plugin) const;
@@ -107,7 +107,7 @@ public:
     /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
     /// by SIP. Nifty.
     PyObject *wrap(void *o, QString className);
-    
+
 // signals:
 //     void populateConfiguration(PyObject *configurationDictionary);
 
@@ -118,15 +118,15 @@ public slots:
     void reloadConfiguration();
 
 protected:
-    
+
     Engine(QObject *parent);
     ~Engine();
 
     /// Start the interpreter.
     bool init();
-    
+
     /**
-     * Walk over the model, loading all usable plugins into a PyObject module 
+     * Walk over the model, loading all usable plugins into a PyObject module
      * dictionary.
      */
     void loadPlugins();

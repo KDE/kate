@@ -431,16 +431,19 @@ QString Pate::Engine::help(const QString &topic) const
 {
     PyObject *func = moduleGetItemString("_help", "kate");
     if (!func) {
-        Py::traceback("failed to resolve help");
+        Py::traceback("failed to resolve _help");
         return QString();
     }
     PyObject *arguments = Py_BuildValue("(s)", PQ(topic));
     PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
     if (!result) {
-        Py::traceback("failed to call help");
+        Py::traceback("failed to call _help");
         return QString();
     }
-    return PyString_AsString(result);
+    QString ret = PyString_AsString(result);
+    Py_DECREF(result);
+    return ret;
 }
 
 bool Pate::Engine::moduleCallFunction(const char *functionName, const char *moduleName) const
@@ -537,6 +540,23 @@ PyObject *Pate::Engine::moduleImport(const char *moduleName) const
     Py::traceback(QString("Could not import %1.").arg(moduleName));
     kError() << "Could not import" << moduleName;
     return 0;
+}
+
+PyObject *Pate::Engine::pluginActions(const QString &plugin) const
+{
+    PyObject *func = moduleGetItemString("_pluginActions", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve _pluginActions");
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("(s)", PQ(plugin));
+    PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
+    if (!result) {
+        Py::traceback("failed to call _pluginActions");
+        return 0;
+    }
+    return result;
 }
 
 #include "engine.moc"

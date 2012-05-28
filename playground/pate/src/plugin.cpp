@@ -81,7 +81,7 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    page->m_ui.autoReload->setChecked(config.readEntry("AutoReload", false));
+    page->m_manager.autoReload->setChecked(config.readEntry("AutoReload", false));
 
     Pate::Engine::self()->moduleCallFunction("_sessionCreated");
 //     PyGILState_STATE state = PyGILState_Ensure();
@@ -122,7 +122,7 @@ void Pate::Plugin::readConfig(Pate::ConfigPage *page)
 void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
 {
     KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    config.writeEntry("AutoReload", page->m_ui.autoReload->isChecked());
+    config.writeEntry("AutoReload", page->m_manager.autoReload->isChecked());
     config.sync();
 //     // write session config data
 //     kDebug() << "write session config\n";
@@ -212,52 +212,111 @@ Pate::PluginView::PluginView(Kate::MainWindow *window) :
 //
 // Plugin configuration view.
 //
-#include "ui_info.h"
 
+#define BUILT_IN 0
+#define PLUGIN 1
 Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     Kate::PluginConfigPage(parent),
-    m_plugin(plugin)
+    m_plugin(plugin),
+    m_pluginActions(0)
 {
     kDebug() << "create ConfigPage";
 
     // Create a page with just the main manager tab.
-    m_ui.setupUi(parent);
-    m_ui.tree->setModel(Pate::Engine::self());
-    m_ui.tree->resizeColumnToContents(0);
-    m_ui.tree->expandAll();
+    m_manager.setupUi(parent);
+    m_manager.tree->setModel(Pate::Engine::self());
+    m_manager.tree->resizeColumnToContents(0);
+    m_manager.tree->expandAll();
     reset();
-    connect(m_ui.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
-    connect(m_ui.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
-    connect(m_ui.reload, SIGNAL(clicked(bool)), m_ui.tree, SLOT(expandAll()));
+    connect(m_manager.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), m_manager.tree, SLOT(expandAll()));
     
-    // Add an information page for each loaded plugin.
-    QWidget *infoWidget;
-    Ui::InfoPage ui;
-    QString moduleName;
+    // Add a tab for reference information.
+    QWidget *infoWidget = new QWidget(m_manager.tabWidget);
+    m_info.setupUi(infoWidget);
+    m_manager.tabWidget->addTab(infoWidget, i18n("Packages"));
+    QString topic;
+
+    // Add a topic for each built-in packages, using stacked page 0.
+    m_info.topics->clear();
+    topic = QLatin1String("kate");
+    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+    topic = QLatin1String("kate.gui");
+    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+
+    // Add a topic for each plugin. using stacked page 1.
     PyObject *plugins = Pate::Engine::self()->moduleGetItemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
         PyObject *module = PyList_GetItem(plugins, i);
         
-        // Instantiate the info UI for this plugin.
-        moduleName = QLatin1String(PyModule_GetName(module));
-        infoWidget = new QWidget(m_ui.tabWidget);
-        ui.setupUi(infoWidget);
-        ui.help->setHtml(Pate::Engine::self()->help(moduleName));
-        m_ui.tabWidget->addTab(infoWidget, moduleName);
+        // Add a topic for this plugin, using stacked page 1.
+        topic = QLatin1String(PyModule_GetName(module));
+        m_info.topics->addItem(KIcon("text-x-python"), topic, QVariant(PLUGIN));
+    }
+    connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
+    infoTopicChanged(0);
+}
+
+void Pate::ConfigPage::infoTopicChanged(int topicIndex)
+{
+    QString topic = m_info.topics->itemText(topicIndex);
+    int optionalSection = m_info.topics->itemData(topicIndex).toInt();
+    m_info.help->setHtml(Pate::Engine::self()->help(topic));
+    m_info.optionalSection->setCurrentIndex(optionalSection);
+    switch (optionalSection) {
+    case BUILT_IN:
+        m_info.optionalSection->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        Py_XDECREF(m_pluginActions);
+        m_pluginActions = 0;
+        break;
+    case PLUGIN:
+        m_info.optionalSection->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        
+        // Populate the plugin-specific action information.
+        Py_XDECREF(m_pluginActions);
+        m_pluginActions = Pate::Engine::self()->pluginActions(topic);
+        m_info.actions->clear();
+        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
+            PyObject *tuple = PyList_GetItem(m_pluginActions, i);
+            PyObject *functionName = PyTuple_GetItem(tuple, 0);
+            
+            // Add an action for this plugin.
+            m_info.actions->addItem(PyString_AsString(functionName));
+        }
+        infoPluginActionsChanged(0);
+        break;
+    }
+}
+
+void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
+{
+    if (!m_pluginActions) {
+        // This is a bit wierd.
+        return;
+    }
+    PyObject *tuple = PyList_GetItem(m_pluginActions, actionIndex);
+    if (!tuple) {
+        // This is a bit wierd: a plugin with no executable actions?
+        return;
     }
 
-    // Add a page of reference information.
-    moduleName = QLatin1String("kate");
-    infoWidget = new QWidget(m_ui.tabWidget);
-    ui.setupUi(infoWidget);
-    ui.help->setHtml(Pate::Engine::self()->help(moduleName));
-    m_ui.tabWidget->addTab(infoWidget, moduleName);
-
-    moduleName = QLatin1String("kate.gui");
-    infoWidget = new QWidget(m_ui.tabWidget);
-    ui.setupUi(infoWidget);
-    ui.help->setHtml(Pate::Engine::self()->help(moduleName));
-    m_ui.tabWidget->addTab(infoWidget, moduleName);
+    PyObject *action = PyTuple_GetItem(tuple, 1);
+    PyObject *text = PyTuple_GetItem(action, 0);
+    PyObject *icon = PyTuple_GetItem(action, 1);
+    PyObject *shortcut = PyTuple_GetItem(action, 2);
+    PyObject *menu = PyTuple_GetItem(action, 3);
+    
+    // Add a topic for this plugin, using stacked page 0.
+    // TODO: Proper handling of Unicode
+    // TODO: handling of actual QPixmaps and so on for icon.
+    kError() << PyString_Check(text) << PyString_Check(icon) << PyString_Check(shortcut) << PyString_Check(menu);
+    kError() << PyUnicode_Check(text) << PyUnicode_Check(icon) << PyUnicode_Check(shortcut) << PyUnicode_Check(menu);
+    m_info.text->setText(PyString_AsString(text));
+    m_info.icon->setText(PyString_AsString(icon));
+    m_info.icon->setText(PyString_AsString(icon));
+    m_info.shortcut->setText(PyString_AsString(shortcut));
+    m_info.menu->setText(PyString_AsString(menu));
 }
 
 void Pate::ConfigPage::apply()

@@ -7,6 +7,7 @@ import traceback
 import functools
 import exceptions
 import pydoc
+from inspect import getmembers, isfunction
 
 import pate
 import kate.gui
@@ -138,6 +139,45 @@ def _help(thing):
         return page
     except (exceptions.ImportError, pydoc.ErrorDuringImport), value:
         return value
+
+def _pluginActionDecompile(action):
+    """Deconstruct an @action."""
+    if len(action.text()) > 0:
+        text = action.text().encode('utf8')
+    else:
+        text = None
+    
+    if len(action.icon().name()) > 0:
+        icon = action.icon().name().encode('utf8')
+    elif action.icon().isNull():
+        icon = None
+    else:
+        icon = action.icon()
+    
+    if 'menu' in action.__dict__:
+        menu = action.__dict__['menu']
+    else:
+        menu = None
+
+    if (action.shortcut().toString()) > 0:
+        shortcut = action.shortcut().toString().encode('utf8')
+    else:
+        shortcut = None
+    return (text, icon, shortcut, menu)
+
+def _pluginActions(plugin):
+    """Return a list of each plugin function decorated with @action.
+    
+    The returned object is [ { function, ( text, icon, shortcut, menu ) }... ].
+    """
+    try:
+        object, name = pydoc.resolve(plugin, 1)
+        functionsList = [o for o in getmembers(object) if isfunction(o[1])]
+        actionsList = [(n, _pluginActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
+        print actionsList
+        return actionsList
+    except (exceptions.ImportError, pydoc.ErrorDuringImport), value:
+        return []
 
 def _callAll(l, *args, **kwargs):
     for f in l:

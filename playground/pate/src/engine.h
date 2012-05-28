@@ -97,6 +97,13 @@ public:
      */
     PyObject *moduleImport(const char *moduleName) const;
 
+    /**
+     * Get the Actions defined by a plugin. The returned object is 
+     * [ { function, ( text, icon, shortcut, menu ) }... ] for each plugin 
+     * function decorated with @action.
+     */
+    PyObject *pluginActions(const QString &plugin) const;
+
     /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
     /// by SIP. Nifty.
     PyObject *wrap(void *o, QString className);

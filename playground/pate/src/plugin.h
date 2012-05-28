@@ -28,6 +28,7 @@
 #include <kxmlguiclient.h>
 
 #include "Python.h"
+#include "ui_info.h"
 #include "ui_manager.h"
 
 class QPushButton;
@@ -103,7 +104,13 @@ public slots:
 private:
     friend class Plugin;
     Plugin *m_plugin;
-    Ui::ManagerPage m_ui;
+    Ui::ManagerPage m_manager;
+    Ui::InfoPage m_info;
+    PyObject *m_pluginActions;
+
+private slots:
+    void infoTopicChanged(int topicIndex);
+    void infoPluginActionsChanged(int actionIndex);
 };
 
 } // namespace Pate

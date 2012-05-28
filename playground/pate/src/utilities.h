@@ -37,6 +37,53 @@ class KConfigBase;
 
 namespace Pate { namespace Py {
 
+/**
+ * A wrapper for PyObject which takes care of reference counting when
+ * allocated on the stack. Use this instead of PyObject * to avoid reference
+ * leaks.
+ */
+class Object
+{
+public:
+    Object() :
+        m_object(0)
+    {
+    }
+
+    Object(PyObject *object) :
+        m_object(object)
+    {
+    }
+
+    ~Object()
+    {
+        Py_XDECREF(m_object);
+    }
+
+    inline operator PyObject *()
+    {
+        return m_object;
+    }
+
+    inline PyObject **operator&()
+    {
+        Py_XDECREF(m_object);
+        return &m_object;
+    }
+
+    inline Object &operator=(PyObject *object)
+    {
+        if (object != m_object) {
+            Py_XDECREF(m_object);
+            m_object = object;
+        }
+        return *this;
+    }
+
+private:
+    PyObject *m_object;
+};
+
 /// Convert a QString to a Python unicode object
 PyObject *unicode(const QString &string);
 
@@ -47,9 +94,22 @@ bool call(PyObject *function);
 /// Append a QString to a list as a Python unicode object
 void appendStringToList(PyObject *list, const QString &value);
 
-/// Print a Python traceback to standard error when an error has occured,
-/// giving a high-level description of what happened
+/**
+ * Print and save (see @ref lastTraceback()) the current traceback in a form
+ * approximating what Python would print:
+ *
+ * Traceback (most recent call last):
+ *   File "/home/shahhaqu/.kde/share/apps/kate/pate/pluginmgr.py", line 13, in <module>
+ *     import kdeui
+ * ImportError: No module named kdeui
+ * Could not import pluginmgr.
+ */
 void traceback(const QString &description);
+
+/**
+ * Store the last traceback we handled using @ref traceback().
+ */
+const QString &lastTraceback(void);
 
 /// Create a Python dictionary from a KConfigBase instance,
 /// writing the string representation of the values

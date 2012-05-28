@@ -357,8 +357,7 @@ void Pate::Engine::loadPlugins()
                 Py_DECREF(plugin);
                 directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
             } else {
-                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded")));
-                Py::traceback(QString("Could not load plugin %1").arg(pluginName));
+                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(Py::lastTraceback())));
             }
         }
     }
@@ -538,7 +537,6 @@ PyObject *Pate::Engine::moduleImport(const char *moduleName) const
         return module;
     }
     Py::traceback(QString("Could not import %1.").arg(moduleName));
-    kError() << "Could not import" << moduleName;
     return 0;
 }
 

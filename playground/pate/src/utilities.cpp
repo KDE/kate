@@ -17,8 +17,6 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <iostream>
-
 #include "Python.h"
 
 #include <QString>
@@ -47,9 +45,7 @@ bool call(PyObject *function, PyObject *arguments) {
         Py_DECREF(result);
         return true;
     }
-    std::cerr << TERMINAL_RED << "Py::call:\n";
-    PyErr_Print();
-    std::cerr << TERMINAL_CLEAR;
+    Py::traceback("Py::call");
     return false;
 }
 
@@ -67,12 +63,67 @@ void appendStringToList(PyObject *list, const QString &value) {
     Py_DECREF(u);
 }
 
-void traceback(const QString &description) {
-    std::cerr << TERMINAL_RED;
-    PyErr_Print();
-    std::cerr << PQ(description) << TERMINAL_CLEAR << std::endl;
+static QString s_traceback;
+
+// Inspired by http://www.gossamer-threads.com/lists/python/python/150924.
+void traceback(const QString &description)
+{
+    s_traceback.clear();
+    if (!PyErr_Occurred()) {
+        // Return an empty string on no error.
+        return;
+    }
+
+    PyObject *exc_typ, *exc_val, *exc_tb;
+    PyErr_Fetch(&exc_typ, &exc_val, &exc_tb);
+    PyErr_NormalizeException(&exc_typ, &exc_val, &exc_tb);
+
+    if (exc_tb) {
+        s_traceback = "Traceback (most recent call last):\n";
+        Py::Object pName = PyString_FromString("traceback");
+        Py::Object pModule = PyImport_Import(pName);
+        PyObject *pDict = PyModule_GetDict(pModule);
+        PyObject *pFunc = PyDict_GetItemString(pDict, "format_tb");
+        if (pFunc && PyCallable_Check(pFunc)) {
+            Py::Object pArgs = PyTuple_New(1);
+            PyTuple_SetItem(pArgs, 0, exc_tb);
+            Py::Object pValue = PyObject_CallObject(pFunc, pArgs);
+            if (pValue) {
+                for (int i = 0, j = PyList_Size(pValue); i < j; i++) {
+                    PyObject *tt = PyList_GetItem(pValue, i);
+                    PyObject *t = Py_BuildValue("(O)", tt);
+                    char *buffer;
+                    if (!PyArg_ParseTuple(t, "s", &buffer)) {
+                        break;
+                    }
+                    s_traceback += buffer;
+                }
+            }
+        }
+    }
+
+    // If we have the value, don't bother with the type.
+    if (exc_val) {
+        PyObject *temp = PyObject_Str(exc_val);
+        if (temp) {
+            s_traceback += PyString_AsString(temp);
+            s_traceback += "\n";
+        }
+    } else {
+        PyObject *temp = PyObject_Str(exc_typ);
+        if (temp) {
+            s_traceback += PyString_AsString(temp);
+            s_traceback += "\n";
+        }
+    }
+    s_traceback += description;
+    kError() << s_traceback;
 }
 
+const QString &lastTraceback(void)
+{
+    return s_traceback;
+}
 
 /// Create a Python dictionary from a KConfigBase instance,
 /// writing the string representation of the values
@@ -116,7 +167,7 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
             continue;
         }
         if(!PyDict_Check(groupDictionary)) {
-            std::cerr << TERMINAL_RED << "configuration value for key '" << PyString_AsString(groupName) << "' in top level is not a dictionary; ignoring" << TERMINAL_CLEAR << '\n';
+            kError() << "configuration value for key '" << PyString_AsString(groupName) << "' in top level is not a dictionary; ignoring";
             continue;
         }
         KConfigGroup group = config->group(PyString_AsString(groupName));

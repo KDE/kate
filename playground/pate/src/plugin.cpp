@@ -227,6 +227,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
     connect(m_manager.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadConfiguration()));
 
     // Add a tab for reference information.
@@ -239,7 +240,6 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 
 void Pate::ConfigPage::reloadConfiguration()
 {
-    Pate::Engine::self()->reloadConfiguration();
     m_manager.tree->resizeColumnToContents(0);
     m_manager.tree->expandAll();
     QString topic;

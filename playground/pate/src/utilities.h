@@ -65,6 +65,15 @@ public:
         return m_object;
     }
 
+    /**
+     * Unborrow a reference.
+     */
+    inline Object &operator++()
+    {
+        Py_INCREF(m_object);
+        return *this;
+    }
+
     inline PyObject **operator&()
     {
         Py_XDECREF(m_object);

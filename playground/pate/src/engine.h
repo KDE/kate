@@ -56,10 +56,8 @@ public:
     /// dictionary
     PyObject *configuration();
 
-    QString help(const QString &topic) const;
-
     /**
-     * Call the Pate module's named entry point.
+     * Call the named module's named entry point.
      */
     bool moduleCallFunction(const char *functionName,
                             const char *moduleName = PATE_ENGINE) const;
@@ -98,11 +96,16 @@ public:
     PyObject *moduleImport(const char *moduleName) const;
 
     /**
-     * Get the Actions defined by a plugin. The returned object is
-     * [ { function, ( text, icon, shortcut, menu ) }... ] for each plugin
+     * Get the Actions defined by a module. The returned object is
+     * [ { function, ( text, icon, shortcut, menu ) }... ] for each module
      * function decorated with @action.
      */
-    PyObject *pluginActions(const QString &plugin) const;
+    PyObject *moduleGetActions(const char *moduleName) const;
+
+    /**
+     * Get the help text defined by a module.
+     */
+    QString moduleGetHelp(const char *moduleName) const;
 
     /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
     /// by SIP. Nifty.

@@ -5,7 +5,6 @@ import sys
 import os
 import traceback
 import functools
-import exceptions
 import pydoc
 from inspect import getmembers, isfunction
 
@@ -131,16 +130,11 @@ globalConfiguration = pate.configuration
 # a plugin-specific configuration
 configuration = Configuration(pate.configuration)
 
-def _help(thing):
-    """Fetch HTML documentation on some thing."""
-    try:
-        object, name = pydoc.resolve(thing, 1)
-        page = pydoc.html.page(pydoc.describe(object), pydoc.html.document(object, name))
-        return page
-    except (exceptions.ImportError, pydoc.ErrorDuringImport), value:
-        return value
+def moduleGetHelp(module):
+    """Fetch HTML documentation on some module."""
+    return pydoc.html.page(pydoc.describe(module), pydoc.html.document(module, module.__name__))
 
-def _pluginActionDecompile(action):
+def _moduleActionDecompile(action):
     """Deconstruct an @action."""
     if len(action.text()) > 0:
         text = action.text().encode('utf8')
@@ -165,19 +159,14 @@ def _pluginActionDecompile(action):
         shortcut = None
     return (text, icon, shortcut, menu)
 
-def _pluginActions(plugin):
-    """Return a list of each plugin function decorated with @action.
+def moduleGetActions(module):
+    """Return a list of each module function decorated with @action.
 
     The returned object is [ { function, ( text, icon, shortcut, menu ) }... ].
     """
-    try:
-        object, name = pydoc.resolve(plugin, 1)
-        functionsList = [o for o in getmembers(object) if isfunction(o[1])]
-        actionsList = [(n, _pluginActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
-        print actionsList
-        return actionsList
-    except (exceptions.ImportError, pydoc.ErrorDuringImport), value:
-        return []
+    functionsList = [o for o in getmembers(module) if isfunction(o[1])]
+    actionsList = [(n, _moduleActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
+    return actionsList
 
 def _callAll(l, *args, **kwargs):
     for f in l:

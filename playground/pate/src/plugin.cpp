@@ -233,7 +233,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
-    m_manager.tabWidget->addTab(infoWidget, i18n("Packages"));
+    m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     reloadConfiguration();
 }
@@ -249,6 +249,8 @@ void Pate::ConfigPage::reloadConfiguration()
     topic = QLatin1String("kate");
     m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
     topic = QLatin1String("kate.gui");
+    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+    topic = QLatin1String("pate");
     m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
 
     // Add a topic for each plugin. using stacked page 1.
@@ -267,7 +269,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 {
     QString topic = m_info.topics->itemText(topicIndex);
     int optionalSection = m_info.topics->itemData(topicIndex).toInt();
-    m_info.help->setHtml(Pate::Engine::self()->help(topic));
+    m_info.help->setHtml(Pate::Engine::self()->moduleGetHelp(PQ(topic)));
     m_info.optionalSection->setCurrentIndex(optionalSection);
     switch (optionalSection) {
     case BUILT_IN:
@@ -280,7 +282,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 
         // Populate the plugin-specific action information.
         Py_XDECREF(m_pluginActions);
-        m_pluginActions = Pate::Engine::self()->pluginActions(topic);
+        m_pluginActions = Pate::Engine::self()->moduleGetActions(PQ(topic));
         m_info.actions->clear();
         for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);

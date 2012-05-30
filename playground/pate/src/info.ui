@@ -41,11 +41,17 @@
        </item>
        <item row="6" column="1">
         <widget class="KIconButton" name="icon">
-         <property name="enabled">
-          <bool>false</bool>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>64</height>
+          </size>
          </property>
          <property name="whatsThis">
-          <string>An icon to associate with this action. It is shown alongside text in the menu bar and in toolbars as required. A string to use KDE's image loading system, or a custom QPixmap or QIcon, or None.</string>
+          <string>The icon associated with this action. It is shown alongside text in the menu bar and in toolbars as required. A string to use KDE's image loading system, or a custom QPixmap or QIcon, or None.</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

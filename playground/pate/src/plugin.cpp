@@ -316,11 +316,14 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 
     // Add a topic for this plugin, using stacked page 0.
     // TODO: Proper handling of Unicode
-    // TODO: handling of actual QPixmaps and so on for icon.
-    kError() << PyString_Check(text) << PyString_Check(icon) << PyString_Check(shortcut) << PyString_Check(menu);
-    kError() << PyUnicode_Check(text) << PyUnicode_Check(icon) << PyUnicode_Check(shortcut) << PyUnicode_Check(menu);
     m_info.text->setText(PyString_AsString(text));
-    m_info.icon->setText(PyString_AsString(icon));
+    if (Py_None == icon) {
+        m_info.icon->setIcon(QIcon());
+    } else if (PyString_Check(icon)) {
+        m_info.icon->setIcon(KIcon(PyString_AsString(icon)));
+    } else {
+        m_info.icon->setIcon(*(QPixmap *)PyCObject_AsVoidPtr(icon));
+    }
     m_info.icon->setText(PyString_AsString(icon));
     m_info.shortcut->setText(PyString_AsString(shortcut));
     m_info.menu->setText(PyString_AsString(menu));

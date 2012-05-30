@@ -50,78 +50,78 @@ class Configuration:
     ''' Configuration objects provide a configuration dictionary that is
     plugin-specific -- that is, each plugin uses kate.configuration and the
     class automatically creates a plugin-specific dictionary to it.
-    
+
     The config is saved and loaded from disk automatically for minimal user hassle.
     Just go ahead and use kate.configuration as a persistent dictionary.
     Do not instantiate your own Configuration object; use kate.configuration instead.
-    
+
     Any atomic Python type that is self evaulating can be used as keys or values --
     dictionaries, lists, numbers, strings, sets, and so on. '''
     sep = ':'
     def __init__(self, root):
         self.root = root
-    
+
     def __getitem__(self, key):
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {})[key]
-    
+
     def __setitem__(self, key, value):
         plugin = sys._getframe(1).f_globals['__name__']
         if plugin not in self.root:
             self.root[plugin] = {}
         self.root[plugin][key] = value
-    
+
     def __delitem__(self, key):
         plugin = sys._getframe(1).f_globals['__name__']
         del self.root.get(plugin, {})[key]
-    
+
     def __contains__(self, key):
         plugin = sys._getframe(1).f_globals['__name__']
         return key in self.root.get(plugin, {})
-    
+
     def __len__(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return len(self.root.get(plugin, {}))
-    
+
     def __iter__(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return iter(self.root.get(plugin, {}))
-    
+
     def __str__(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return str(self.root.get(plugin, {}))
-        
+
     def __repr__(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return repr(self.root.get(plugin, {}))
-    
+
     def keys(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).keys()
-    
+
     def values(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).values()
-    
+
     def items(self):
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).items()
-    
+
     def get(self, key, default=None):
         plugin = sys._getframe(1).f_globals['__name__']
         try:
             return self[plugin][key]
         except KeyError:
             return default
-    
+
     def pop(self, key):
         value = self[key]
         del self[key]
         return value
-    
+
     def save(self):
         pate.saveConfiguration()
-    
+
     def _name(self):
         return sys._getframe(1).f_globals['__name__']
 
@@ -146,14 +146,14 @@ def _pluginActionDecompile(action):
         text = action.text().encode('utf8')
     else:
         text = None
-    
+
     if len(action.icon().name()) > 0:
         icon = action.icon().name().encode('utf8')
     elif action.icon().isNull():
         icon = None
     else:
         icon = action.icon()
-    
+
     if 'menu' in action.__dict__:
         menu = action.__dict__['menu']
     else:
@@ -167,7 +167,7 @@ def _pluginActionDecompile(action):
 
 def _pluginActions(plugin):
     """Return a list of each plugin function decorated with @action.
-    
+
     The returned object is [ { function, ( text, icon, shortcut, menu ) }... ].
     """
     try:
@@ -246,14 +246,14 @@ def action(text, icon=None, shortcut=None, menu=None):
         * text - The text associated with the action (used as the menu item
                  label, etc).
         * shortcut - The shortcut to fire this action or None if there is no
-                     shortcut. Must be a string such as 'Ctrl+1' or a 
+                     shortcut. Must be a string such as 'Ctrl+1' or a
                      QKeySequence instance. By default no shortcut is set (by
                      passing None)
         * icon - An icon to associate with this action. It is shown alongside
-                 text in the menu bar and in toolbars as required. Pass a 
+                 text in the menu bar and in toolbars as required. Pass a
                  string to use KDE's image loading system or a QPixmap or
                  QIcon to use any custom icon. None (the default) sets no icon.
-        * menu - The menu under which to place this item. Must be a string 
+        * menu - The menu under which to place this item. Must be a string
                  such as 'tools' or 'settings', or None to not place it in any
                  menu. '''
     def decorator(func):
@@ -293,7 +293,7 @@ documentManager = application.documentManager()
 def mainWindow():
     ''' The QWidget-derived main Kate window currently showing. A
     shortcut around kate.application.activeMainWindow().window().
-    
+
     The Kate API differentiates between the interface main window and
     the actual widget main window. If you need to access the
     Kate.MainWindow for the methods it provides (e.g createToolView),
@@ -402,7 +402,7 @@ def pateDie():
             w.removeAction(a)
     # clear up
     unload.fire()
-    
+
     action.actions.clear()
     init.clear()
     unload.clear()
@@ -410,7 +410,7 @@ def pateDie():
     viewCreated.clear()
     plugins = pluginDirectories = None
 
-    
+
 pate._pluginsUnloaded = pateDie
 del pateDie
 

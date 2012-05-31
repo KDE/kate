@@ -640,7 +640,7 @@ scrollbar.</para>
 </term>
 <listitem>
 <para>If this option is checked, the marks for code folding will be
-hidden.</para>
+shown.</para>
 </listitem>
 </varlistentry>
 

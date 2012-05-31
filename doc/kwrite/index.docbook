@@ -54,7 +54,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2012-02-26</date>
-<releaseinfo>4.8.1</releaseinfo>
+<releaseinfo>4.8.4</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>

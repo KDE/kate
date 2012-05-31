@@ -373,7 +373,7 @@ with <keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo> or
 from the <menuchoice><guimenu>Edit</guimenu>
 <guimenuitem>Find...</guimenuitem></menuchoice> menu item.</para>
 <para>This opens the incremental search bar at the bottom of the editor window.
-On the left side of the bar is an icon to close the bar, followed by a small text
+On the left side of the bar is a button with an icon to close the bar, followed by a small text 
 box for entering the search pattern.</para>
 <para>When you start entering characters of your search pattern, the search starts
 immediately. If there is a match in the text this is highlighted and the background color
@@ -387,7 +387,7 @@ this highlighting, press the &Esc; key.</para>
 <para>You can choose whether the search should be case sensitive.
 Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.</para>
-<para>Click on the green arrow icon at the right side of the incremental search bar to
+<para>Click on the button with a green arrow icon at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
 <para>
@@ -410,7 +410,7 @@ or
 using the <menuchoice><guimenu>Edit</guimenu>
 <guimenuitem>Replace</guimenuitem></menuchoice> command, or the
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> shortcut.</para>
-<para>On the upper left side of the bar is an icon to close the bar, followed by a small text
+<para>On the upper left side of the bar is a button with an icon to close the bar, followed by a small text
 box for entering the search pattern.</para>
 <para>You can control the search mode by selecting the options <guilabel>Plain Text</guilabel>,
 <guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or
@@ -429,7 +429,7 @@ the search pattern. <guilabel>Selection Only</guilabel> will search and replace
 within the current selection only. The <guilabel>Find All</guilabel> button highlights
 all matches in the document and shows the number of found matches in a small popup.
 </para>
-<para>Click on the green arrow icon at the right side of the power search and replace bar to
+<para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 <tip>

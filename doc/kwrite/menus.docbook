@@ -337,7 +337,7 @@ action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
 <guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice></term>
 <listitem>
 <para>This opens the incremental search bar at the bottom of the editor window.
-On the left side of the bar is an icon to close the bar, followed by a small text
+On the left side of the bar is a button with an icon to close the bar, followed by a small text
 box for entering the search pattern.</para>
 <para>When you start entering characters of your search pattern, the search starts
 immediately. If there is a match in the text this is highlighted and the background color
@@ -350,7 +350,7 @@ to jump to the next or previous match in the document.</para>
 Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.
 </para>
-<para>Click on the green arrow icon at the right side of the incremental search bar to
+<para>Click on the button with a green arrow icon at the right side of the incremental search bar to
 switch to the power search and replace bar.
 <!--changed in 4.5 ???
 options "Highlight all" + "From cursor" removed only "Match case" left-->
@@ -395,7 +395,7 @@ action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
 <guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice></term>
 <listitem>
 <para>This command opens the power search and replace bar.
-On the upper left side of the bar is an icon to close the bar, followed by a small text
+On the upper left side of the bar is a button with an icon to close the bar, followed by a small text
 box for entering the search pattern.</para>
 <para>You can control the search mode by selecting <guilabel>Plain text</guilabel>,
 <guilabel>Whole words</guilabel>, <guilabel>Escape sequences</guilabel> or
@@ -419,8 +419,8 @@ case (upper or lower) of each of the characters in the search  pattern.
 The <guilabel>Find All</guilabel> button highlights all matches in the document and shows the
 number of found matches in a small popup.
 </para>
-<para>Click on the green arrow icon at the right side of the power search and replace bar to
-switch to the incremental search bar.
+<para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
+  itch to the incremental search bar.
 <!--changed in 4.5 ???
 options "Highlight all" + "From cursor" removed only "Match case" left
 -->
@@ -465,7 +465,7 @@ jump to a particular line (specified by number) in the document.  The
 line number may be entered directly into the text box or graphically by
 clicking on the up or down arrow spin controls at the side of the text
 box. The little up arrow will increase the line number and the down
-arrow decrease it. Close the bar with a click on the icon on the left side of the bar.
+arrow decrease it. Close the bar with a click on the button with an icon on the left side of the bar.
 </para>
 </listitem>
 </varlistentry>
@@ -596,7 +596,8 @@ use a fixed pitch font.</para>
 </term>
 <listitem>
 <para>This is a toggle item. Setting it on checked will make the Icon Border
-visible in the left side of the active editor, and vice versa.</para>
+visible in the left side of the active editor, and vice versa. The Icon Border
+indicates the positions of the marked lines in the editor.</para>
 </listitem>
 </varlistentry>
 
@@ -626,7 +627,8 @@ editor, and vice versa.</para>
 </term>
 <listitem>
 <para>If this option is checked, the view will show marks on the vertical
-scrollbar.</para>
+scrollbar. The marks are equivalent to the marks on the <link
+linkend="view-show-icon-border">Icon Border</link>.</para>
 </listitem>
 </varlistentry>
 
@@ -635,6 +637,7 @@ scrollbar.</para>
 <anchor id="view-hide-folding-markers"/>
 <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F9</keycap></keycombo></shortcut>
+<guimenu>View</guimenu>
 <guimenuitem>Show Folding Markers</guimenuitem>
 </menuchoice> (Power user mode)
 </term>
@@ -648,6 +651,7 @@ shown.</para>
 <term>
 <anchor id="view-code-folding"/>
 <menuchoice>
+<guimenu>View</guimenu>
 <guisubmenu>Code Folding</guisubmenu>
 </menuchoice> (Power user mode)
 </term>
@@ -686,13 +690,15 @@ shown.</para>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
+<term><menuchoice><guimenu>View</guimenu>
+<guimenuitem>Enlarge Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This increases the display font size.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenuitem>Shrink Font</guimenuitem></menuchoice>
+<term><menuchoice><guimenu>View</guimenu>
+<guimenuitem>Shrink Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This decreases the display font size.</para></listitem>
 </varlistentry>

@@ -829,7 +829,8 @@ feature requires that you use a true fixed-width font.</para>
 </term>
 <listitem>
 <para>This is a toggle item. Setting it on checked will make the Icon Border
-visible in the left side of the active editor, and vice versa.</para>
+visible in the left side of the active editor, and vice versa. The Icon Border
+indicates the positions of the marked lines in the editor.</para>
 </listitem>
 </varlistentry>
 
@@ -951,13 +952,13 @@ Code Folding</link>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
+<term><menuchoice><guimenu>View</guimenu><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This increases the display font size.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenuitem>Shrink Font</guimenuitem></menuchoice>
+<term><menuchoice><guimenu>View</guimenu><guimenuitem>Shrink Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This decreases the display font size.</para></listitem>
 </varlistentry>

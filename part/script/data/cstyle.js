@@ -498,7 +498,7 @@ function tryCKeywords(line, isBrace)
     // ignore trailing comments see: https://bugs.kde.org/show_bug.cgi?id=189339
     var commentPos = currentString.indexOf("//")
     if (commentPos != -1) {
-        currentString = currentString.substring(0, pos).rtrim();
+        currentString = currentString.substring(0, commentPos).rtrim();
         lastChar = currentString.charAt(currentString.length - 1);
     }
 

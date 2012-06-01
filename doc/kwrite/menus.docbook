@@ -420,7 +420,7 @@ The <guilabel>Find All</guilabel> button highlights all matches in the document 
 number of found matches in a small popup.
 </para>
 <para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
-  itch to the incremental search bar.
+sitch to the incremental search bar.
 <!--changed in 4.5 ???
 options "Highlight all" + "From cursor" removed only "Match case" left
 -->

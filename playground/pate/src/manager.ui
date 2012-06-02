@@ -30,7 +30,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>Reload Plugins</string>
+        <string>Reload Selected Plugins</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0" colspan="2">
@@ -49,14 +49,14 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>Automatically reload all plugins on changes</string>
+           <string>Automatically reload plugins on changes</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="KPushButton" name="reload">
           <property name="text">
-           <string>Reload All</string>
+           <string>Reload</string>
           </property>
           <property name="icon">
            <iconset theme="system-reboot">

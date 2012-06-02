@@ -31,7 +31,8 @@
 #include <kglobal.h>
 #include <KIcon>
 #include <KLocale>
-#include <kconfig.h>
+#include <KConfig>
+#include <KConfigGroup>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include <kate/application.h>
@@ -44,7 +45,17 @@
 #include "utilities.h"
 
 const char *Pate::Engine::PATE_ENGINE = "pate";
+
+/**
+ * Name of the file where per-plugin configuration is stored.
+ */
 #define CONFIG_FILE "katepaterc"
+
+/**
+ * Name of the section in Kate's configuration file where the user's
+ * enabled plugins are stored.
+ */
+#define LOAD_SECTION "Pate Plugins"
 
 #define THREADED 0
 
@@ -74,6 +85,7 @@ public:
         QStandardItem(KIcon("text-x-python"), text),
         m_isDirectory(isDirectory)
     {
+        setCheckable(true);
     }
 
     virtual int type() const
@@ -177,7 +189,7 @@ bool Pate::Engine::init()
     // and directory names.
     setColumnCount(2);
     QStringList labels;
-    labels << i18n("Name") << i18n("Status");
+    labels << i18n("Name") << i18n("Comment");
     setHorizontalHeaderLabels(labels);
 
     //     kDebug() << "Creating m_pythonLibrary";
@@ -238,6 +250,26 @@ bool Pate::Engine::init()
 
 void Pate::Engine::saveConfiguration()
 {
+    // Now, walk the directories.
+    QStandardItem *root = invisibleRootItem();
+    KConfigGroup group(KGlobal::config(), LOAD_SECTION);
+    for (int i = 0; i < root->rowCount(); i++) {
+        QStandardItem *directoryItem = root->child(i);
+
+        // Walk the plugins in this directory.
+        for (int j = 0; j < directoryItem->rowCount(); j++) {
+            UsablePlugin *pluginItem = dynamic_cast<UsablePlugin *>(directoryItem->child(j));
+            if (!pluginItem) {
+                // Don't even try.
+                continue;
+            }
+
+            // Were we asked to load this plugin?
+            QString pluginName = pluginItem->text();
+            group.writeEntry(pluginName, pluginItem->checkState() == Qt::Checked);
+        }
+    }
+    KGlobal::config()->sync();
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
     Py::updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
@@ -320,6 +352,7 @@ void Pate::Engine::loadPlugins()
 
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
+    KConfigGroup group(KGlobal::config(), LOAD_SECTION);
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
         QString directoryPath = directoryItem->text();
@@ -338,8 +371,11 @@ void Pate::Engine::loadPlugins()
                 continue;
             }
 
-            // Find the path to the .py file.
+            // Read the plugin config.
             QString pluginName = pluginItem->text();
+            pluginItem->setCheckState(group.readEntry(pluginName, false) ? Qt::Checked : Qt::Unchecked);
+
+            // Find the path to the .py file.
             QString path;
             if (pluginItem->type() == UsableDirectory) {
                 // This is a directory plugin. The .py is in a subdirectory,
@@ -351,21 +387,24 @@ void Pate::Engine::loadPlugins()
                     PyList_Insert(pythonPath, 0, d);
                     Py_DECREF(d);
                 } else {
-                    kError() << "Missing plugin directory" << path;
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Missing plugin file %1", path)));
                     continue;
                 }
             } else {
                 path = directoryPath;
             }
 
-            // Import and add to pate.plugins
-            PyObject *plugin = moduleImport(PQ(pluginName));
-            if (plugin) {
-                PyList_Append(plugins, plugin);
-                Py_DECREF(plugin);
-                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
-            } else {
-                directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(Py::lastTraceback())));
+            // Were we asked to load this plugin?
+            if (pluginItem->checkState() == Qt::Checked) {
+                // Import and add to pate.plugins
+                PyObject *plugin = moduleImport(PQ(pluginName));
+                if (plugin) {
+                    PyList_Append(plugins, plugin);
+                    Py_DECREF(plugin);
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
+                } else {
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(Py::lastTraceback())));
+                }
             }
         }
     }

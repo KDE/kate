@@ -154,10 +154,12 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     if (role == Qt::TextAlignmentRole)
       return QVariant(Qt::AlignRight | Qt::AlignVCenter);
     if (role == Qt::DisplayRole || role == Qt::UserRole)
+    {
       if (useSystemLocale())
         return QVariant(KGlobal::locale()->formatNumber(value.toString(), false));
       else
         return QVariant(value.toString());
+    }
   }
 
   if (type == QVariant::Bool)

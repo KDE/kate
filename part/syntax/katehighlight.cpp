@@ -1358,10 +1358,10 @@ void KateHighlighting::readSpellCheckingConfig()
         {
           continue;
         }
-        QRegExp newLineRegExp();
-        if(encoding.indexOf(QRegExp("\\r|\\n")) >= 0)
+        QRegExp newLineRegExp("\\r|\\n");
+        if(encoding.indexOf(newLineRegExp) >= 0)
         {
-          encoding.replace(QRegExp("\\r|\\n"), "<\\n|\\r>");
+          encoding.replace(newLineRegExp, "<\\n|\\r>");
 
 #ifdef HIGHLIGHTING_DEBUG
           kDebug() << "Encoding" << encoding

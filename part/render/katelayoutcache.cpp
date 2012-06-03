@@ -470,11 +470,17 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
 {
   kDebug( 13033 ) << "Printing values for " << m_textLayouts.count() << " lines:";
   if (m_textLayouts.count())
+  {
   foreach (const KateTextLayout& t, m_textLayouts)
     if (t.isValid())
+    {
       t.debugOutput();
+    }
     else
+    {
       kDebug( 13033 ) << "Line Invalid.";
+    }
+  }
 }
 
 void KateLayoutCache::wrapLine (const KTextEditor::Cursor &position)

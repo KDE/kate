@@ -73,11 +73,8 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 	ctags::tagFileInfo info;
 	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
 	ctags::tagEntry entry;
-	char tagName[80];
 
-	sprintf(tagName, "%s", tagpart.toLocal8Bit().data());
-
-	if ( ctags::tagsFind( file, &entry, tagName, TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
+	if ( ctags::tagsFind( file, &entry, tagpart.toLocal8Bit().data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
 	{
 		do
 		{

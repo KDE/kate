@@ -267,6 +267,14 @@ void Pate::ConfigPage::reloadConfiguration()
 
 void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 {
+    if (-1 == topicIndex) {
+        // We are being reset.
+        Py_XDECREF(m_pluginActions);
+        m_pluginActions = 0;
+        return;
+    }
+
+    // Display the information for the selected module/plugin.
     QString topic = m_info.topics->itemText(topicIndex);
     int optionalSection = m_info.topics->itemData(topicIndex).toInt();
     m_info.help->setHtml(Pate::Engine::self()->moduleGetHelp(PQ(topic)));

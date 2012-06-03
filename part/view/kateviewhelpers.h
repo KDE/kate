@@ -399,7 +399,6 @@ class KateCmdLineEdit : public KLineEdit
     void keyPressEvent( QKeyEvent *ev );
 
   private:
-
     int calculatePosition( QString string );
     void fromHistory( bool up );
     QString helptext( const QPoint & ) const;
@@ -412,6 +411,14 @@ class KateCmdLineEdit : public KLineEdit
     uint m_cmdend; ///< the point where a command ends in the text, if we have a valid one.
     KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KateCmdLnWhatsThis *m_help;
+
+    QRegExp m_line;
+    QRegExp m_lastLine;
+    QRegExp m_thisLine;
+    QRegExp m_mark;
+    QRegExp m_base;
+    QRegExp m_offset;
+    QRegExp m_position;
     QRegExp m_cmdRange;
     QRegExp m_gotoLine;
     QTimer *m_hideTimer;

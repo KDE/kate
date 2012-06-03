@@ -324,8 +324,19 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
-  m_cmdRange.setPattern("^(((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$|\\%)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)(,((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$)([+-]((\\'[0-9a-z><\\+\\*\\_])|(\\d+)|\\.|\\$))*)?");
-  m_gotoLine.setPattern("[+-]?\\d+");
+
+  m_line.setPattern("\\d+");
+  m_lastLine.setPattern("\\$");
+  m_thisLine.setPattern("\\.");
+  m_mark.setPattern("\\'[0-9a-z><\\+\\*\\_]");
+  m_base.setPattern("(?:" + m_mark.pattern() + ")|(?:" +
+                        m_line.pattern() + ")|(?:" +
+                        m_thisLine.pattern() + ")|(?:" +
+                        m_lastLine.pattern() + ")");
+  m_offset.setPattern("[+-](?:" + m_base.pattern() + ")?");
+  m_position.setPattern("(" + m_base.pattern() + ")((?:" + m_offset.pattern() + ")*)");
+  m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
+  m_gotoLine.setPattern("[+-]" + m_line.pattern());
 
   m_hideTimer = new QTimer(this);
   m_hideTimer->setSingleShot(true);
@@ -419,15 +430,15 @@ int KateCmdLineEdit::calculatePosition( QString string) {
     }
     pos++;
 
-    if ( line.contains(QRegExp("^\\d+$")))
+    if ( m_line.exactMatch(line) ) {
         values.push_back( line.toInt() );
-    else if ( line.contains(QRegExp("^\\$$")))
-        values.push_back(m_view->doc()->lines());
-    else if ( line.contains(QRegExp("^\\.$")))
-        values.push_back(m_view->cursorPosition().line()+1);
-    else if (line.contains(QRegExp("^\\'[0-9a-z><\\+\\*\\_]$")))
-        values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1);
-
+    } else if ( m_lastLine.exactMatch(line) ) {
+        values.push_back( m_view->doc()->lines() );
+    } else if ( m_thisLine.exactMatch(line) ) {
+        values.push_back( m_view->cursorPosition().line() + 1 );
+    } else if ( m_mark.exactMatch(line) ) {
+        values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1 );
+    }
   }
 
   int result = values.at(0);
@@ -462,18 +473,20 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   KTextEditor::Range range(-1, 0, -1, 0);
 
   if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
-
       cmd.remove(m_cmdRange);
 
       QString position_string1 = m_cmdRange.capturedTexts().at(1);
-      QString position_string2 = m_cmdRange.capturedTexts().at(9);
+      QString position_string2 = m_cmdRange.capturedTexts().at(4);
       int position1 = calculatePosition(position_string1);
 
       int position2;
-      if (position_string2 != "")
-        position2 = calculatePosition(position_string2.remove(0,1));
-      else
+      if (position_string2 != "") {
+        // remove the comma
+        position_string2 = m_cmdRange.capturedTexts().at(5);
+        position2 = calculatePosition(position_string2);
+      } else {
         position2 = position1;
+      }
 
       range.setRange(KTextEditor::Range(position1-1, 0, position2-1, 0));
     }

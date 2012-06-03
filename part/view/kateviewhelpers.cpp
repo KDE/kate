@@ -334,7 +334,17 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
                         m_thisLine.pattern() + ")|(?:" +
                         m_lastLine.pattern() + ")");
   m_offset.setPattern("[+-](?:" + m_base.pattern() + ")?");
+
+  // The position regexp contains two groups: the base and the offset.
+  // The offset may be empty.
   m_position.setPattern("(" + m_base.pattern() + ")((?:" + m_offset.pattern() + ")*)");
+
+  // The range regexp contains seven groups: the first is the start position, the second is
+  // the base of the start position, the third is the offset of the start position, the
+  // fourth is the end position including a leading comma, the fifth is end position
+  // without the comma, the sixth is the base of the end position, and the seventh is the
+  // offset of the end position. The third and fourth groups may be empty, and the
+  // fifth, sixth and seventh groups are contingent on the fourth group.
   m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
   m_gotoLine.setPattern("[+-]" + m_line.pattern());
 
@@ -451,6 +461,31 @@ int KateCmdLineEdit::calculatePosition( QString string) {
 
   return result;
 }
+
+/**
+ * Parse the text as a command.
+ *
+ * The following is a simple PEG grammar for the syntax of the command.
+ * (A PEG grammar is like a BNF grammar, except that "/" stands for
+ * ordered choice: only the first matching rule is used. In other words,
+ * the parsing is short-circuited in the manner of the "or" operator in
+ * programming languages, and so the grammar is unambiguous.)
+ *
+ * Text <- Range? Command
+ *       / Position
+ * Range <- Position ("," Position)?
+ *        / "%"
+ * Position <- Base Offset?
+ * Base <- Line
+ *       / LastLine
+ *       / ThisLine
+ *       / Mark
+ * Offset <- [+-] Base
+ * Line <- [0-9]+
+ * LastLine <- "$"
+ * ThisLine <- "."
+ * Mark <- "'" [a-z]
+ */
 
 void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {

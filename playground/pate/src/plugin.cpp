@@ -45,7 +45,7 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
-#define CONFIG_SECTION "Pate"
+#define CONFIG_SECTION "global"
 
 //
 // The Pate plugin
@@ -54,7 +54,8 @@
 K_EXPORT_COMPONENT_FACTORY(pateplugin, KGenericFactory<Pate::Plugin>("pate"))
 
 Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
-    Kate::Plugin((Kate::Application *)parent)
+    Kate::Plugin((Kate::Application *)parent),
+    m_autoReload(false)
 {
     if (!Pate::Engine::self()) {
         kError() << "Could not initialise Pate. Ouch!";
@@ -67,7 +68,6 @@ Pate::Plugin::~Plugin() {
 
 Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
 {
-    Pate::Engine::self()->reloadConfiguration();
     return new Pate::PluginView(window);
 }
 
@@ -78,72 +78,19 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
  * on save and evaluating them back to a Python type on load.
  * XX should probably pickle.
  */
-void Pate::Plugin::readConfig(Pate::ConfigPage *page)
+void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPrefix)
 {
-    KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    page->m_manager.autoReload->setChecked(config.readEntry("AutoReload", false));
-
+    KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
+    m_autoReload = group.readEntry("AutoReload", false);
+    Pate::Engine::self()->readConfiguration(groupPrefix);
     Pate::Engine::self()->moduleCallFunction("_sessionCreated");
-//     PyGILState_STATE state = PyGILState_Ensure();
-//
-//     PyObject *d = Pate::Engine::self()->moduleDictionary();
-//     kDebug() << "setting configuration";
-//     PyDict_SetItemString(d, "sessionConfiguration", Pate::Engine::self()->wrap((void *) config, "PyKDE4.kdecore.KConfigBase"));
-//     if(!config->hasGroup("Pate")) {
-//         PyGILState_Release(state);
-//
-//         return;
-//     }
-//     // relatively safe evaluation environment for Pythonizing the serialised types:
-//     PyObject *evaluationLocals = PyDict_New();
-//     PyObject *evaluationGlobals = PyDict_New();
-//     PyObject *evaluationBuiltins = PyDict_New();
-//     PyDict_SetItemString(evaluationGlobals, "__builtin__", evaluationBuiltins);
-//     // read config values for our group, shoving the Python evaluated value into a dict
-//     KConfigGroup group = config->group("Pate");
-//     foreach(QString key, group.keyList()) {
-//         QString valueString = group.readEntry(key);
-//         PyObject *value = PyRun_String(PQ(group.readEntry(key)), Py_eval_input, evaluationLocals, evaluationGlobals);
-//         if(value) {
-//             PyObject *c = Pate::Engine::self()->configuration();
-//             PyDict_SetItemString(c, PQ(key), value);
-//         }
-//         else {
-//             Py::traceback(QString("Bad config value: %1").arg(valueString));
-//         }
-//     }
-//     Py_DECREF(evaluationBuiltins);
-//     Py_DECREF(evaluationGlobals);
-//     Py_DECREF(evaluationLocals);
-//     PyGILState_Release(state);
-
 }
 
-void Pate::Plugin::writeConfig(Pate::ConfigPage *page)
+void Pate::Plugin::writeSessionConfig(KConfigBase *config, const QString &groupPrefix)
 {
-    KConfigGroup config(KGlobal::config(), CONFIG_SECTION);
-    config.writeEntry("AutoReload", page->m_manager.autoReload->isChecked());
-    config.sync();
-//     // write session config data
-//     kDebug() << "write session config\n";
-//     KConfigGroup group(config, "Pate");
-//     PyGILState_STATE state = PyGILState_Ensure();
-//
-//     PyObject *key, *value;
-//     Py_ssize_t position = 0;
-//     while(PyDict_Next(Pate::Engine::self()->configuration(), &position, &key, &value)) {
-//         // ho ho
-//         QString keyString = PyString_AsString(key);
-//         PyObject *pyRepresentation = PyObject_Repr(value);
-//         if(!pyRepresentation) {
-//             Py::traceback(QString("Could not get the representation of the value for '%1'").arg(keyString));
-//             continue;
-//         }
-//         QString valueString = PyString_AsString(pyRepresentation);
-//         group.writeEntry(keyString, valueString);
-//         Py_DECREF(pyRepresentation);
-//     }
-//     PyGILState_Release(state);
+    KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
+    group.writeEntry("AutoReload", m_autoReload);
+    group.sync();
 }
 
 uint Pate::Plugin::configPages() const
@@ -178,21 +125,21 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     return new Pate::ConfigPage(parent, this);
 }
 
-QString Pate::Plugin::configPageName (uint number) const
+QString Pate::Plugin::configPageName(uint number) const
 {
     if (number != 0)
         return QString();
     return i18n("Pâté");
 }
 
-QString Pate::Plugin::configPageFullName (uint number) const
+QString Pate::Plugin::configPageFullName(uint number) const
 {
     if (number != 0)
         return QString();
-    return i18n("Python Scripting");
+    return i18n("Pâté Python Scripting");
 }
 
-KIcon Pate::Plugin::configPageIcon (uint number) const
+KIcon Pate::Plugin::configPageIcon(uint number) const
 {
     if (number != 0)
         return KIcon();
@@ -226,7 +173,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.setupUi(parent);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
-    connect(m_manager.autoReload, SIGNAL(stateChanged(int)), SLOT(apply()));
+    connect(m_manager.autoReload, SIGNAL(clicked(bool)), this, SIGNAL(changed()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadConfiguration()));
 
@@ -339,12 +286,21 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 
 void Pate::ConfigPage::apply()
 {
-    m_plugin->writeConfig(this);
+    // Retrieve the settings from the UI and reflect them in the plugin.
+    m_plugin->m_autoReload = m_manager.autoReload->isChecked();
 }
 
 void Pate::ConfigPage::reset()
 {
-    m_plugin->readConfig(this);
+    // Retrieve the settings from the plugin and reflect them in the UI.
+    m_manager.autoReload->setChecked(m_plugin->m_autoReload);
+}
+
+void Pate::ConfigPage::defaults()
+{
+    // Set the UI to have default settings.
+    m_manager.autoReload->setChecked(false);
+    emit changed();
 }
 
 #include "plugin.moc"

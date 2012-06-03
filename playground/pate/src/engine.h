@@ -52,10 +52,6 @@ public:
     /// automatically by the destructor, so you shouldn't need it yourself
     static void del();
 
-    /// The root configuration used by Python objects. It is a Python
-    /// dictionary
-    PyObject *configuration();
-
     /**
      * Call the named module's named entry point.
      */
@@ -115,7 +111,9 @@ public:
 //     void populateConfiguration(PyObject *configurationDictionary);
 
 public slots:
-    /// Write out the configuration dictionary to disk
+    /// Load the configuration.
+    void readConfiguration(const QString &groupPrefix);
+    /// Write out the configuration.
     void saveConfiguration();
     /// (re)Load the configuration into memory from disk
     void reloadConfiguration();
@@ -139,6 +137,16 @@ private:
     static Engine *m_self;
     QLibrary *m_pythonLibrary;
     PyThreadState *m_pythonThreadState;
+
+    /**
+     * The root configuration used by Pate itself.
+     */
+    QString m_pateConfigGroup;
+
+    /**
+     * The root configuration used by Pate's Python objects. It is a Python
+     * dictionary.
+     */
     PyObject *m_configuration;
     bool m_pluginsLoaded;
 };

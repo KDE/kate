@@ -57,12 +57,12 @@ public:
     /**
      * Read the config for the plugin.
      */
-    void readConfig(class ConfigPage *page);
+    virtual void readSessionConfig(KConfigBase *config, const QString &groupPrefix);
 
     /**
-     * Read the config for the plugin.
+     * Write the config for the plugin.
      */
-    void writeConfig(class ConfigPage *page);
+    virtual void writeSessionConfig(KConfigBase *config, const QString &groupPrefix);
 
     // PluginConfigPageInterface
     uint configPages() const;
@@ -70,6 +70,10 @@ public:
     QString configPageName(uint number = 0) const;
     QString configPageFullName(uint number = 0) const;
     KIcon configPageIcon(uint number = 0) const;
+
+private:
+    friend class ConfigPage;
+    bool m_autoReload;
 };
 
 /**
@@ -99,10 +103,9 @@ public:
 public slots:
     virtual void apply();
     virtual void reset();
-    virtual void defaults() {}
+    virtual void defaults();
 
 private:
-    friend class Plugin;
     Plugin *m_plugin;
     Ui::ManagerPage m_manager;
     Ui::InfoPage m_info;

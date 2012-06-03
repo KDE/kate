@@ -51,12 +51,6 @@ const char *Pate::Engine::PATE_ENGINE = "pate";
  */
 #define CONFIG_FILE "katepaterc"
 
-/**
- * Name of the section in Kate's configuration file where the user's
- * enabled plugins are stored.
- */
-#define LOAD_SECTION "Pate Plugins"
-
 #define THREADED 0
 
 // We use a QStandardItemModel to store plugin information as follows:
@@ -248,11 +242,17 @@ bool Pate::Engine::init()
     return true;
 }
 
+void Pate::Engine::readConfiguration(const QString &groupPrefix)
+{
+    m_pateConfigGroup = groupPrefix + "load";
+    reloadConfiguration();
+}
+
 void Pate::Engine::saveConfiguration()
 {
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
-    KConfigGroup group(KGlobal::config(), LOAD_SECTION);
+    KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
 
@@ -352,7 +352,7 @@ void Pate::Engine::loadPlugins()
 
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
-    KConfigGroup group(KGlobal::config(), LOAD_SECTION);
+    KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
         QString directoryPath = directoryItem->text();
@@ -447,10 +447,6 @@ void Pate::Engine::unloadPlugins()
 #if THREADED
     PyGILState_Release(state);
 #endif
-}
-
-PyObject *Pate::Engine::configuration() {
-    return m_configuration;
 }
 
 PyObject *Pate::Engine::wrap(void *o, QString fullClassName) {

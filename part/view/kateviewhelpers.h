@@ -420,7 +420,6 @@ class KateCmdLineEdit : public KLineEdit
     QRegExp m_offset;
     QRegExp m_position;
     QRegExp m_cmdRange;
-    QRegExp m_gotoLine;
     QTimer *m_hideTimer;
 };
 

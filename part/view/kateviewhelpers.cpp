@@ -346,7 +346,6 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   // offset of the end position. The third and fourth groups may be empty, and the
   // fifth, sixth and seventh groups are contingent on the fourth group.
   m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
-  m_gotoLine.setPattern("[+-]" + m_line.pattern());
 
   m_hideTimer = new QTimer(this);
   m_hideTimer->setSingleShot(true);
@@ -523,13 +522,13 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
         position2 = position1;
       }
 
-      range.setRange(KTextEditor::Range(position1-1, 0, position2-1, 0));
+      // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
+      if (cmd == "") {
+        cmd = QString("goto %1").arg(position1);
+      } else {
+        range.setRange(KTextEditor::Range(position1 - 1, 0, position2 - 1, 0));
+      }
     }
-
-  // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
-  if (m_gotoLine.exactMatch(cmd)) {
-    cmd.prepend("goto ");
-  }
 
   // Built in help: if the command starts with "help", [try to] show some help
   if ( cmd.startsWith( QLatin1String("help") ) )

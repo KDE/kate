@@ -43,8 +43,6 @@ class Engine :
 {
     Q_OBJECT
 
-    static const char *PATE_ENGINE;
-
 public:
     static Engine *self();
 
@@ -52,76 +50,6 @@ public:
     /// automatically by the destructor, so you shouldn't need it yourself
     static void del();
 
-    /**
-     * Call the named module's named entry point.
-     */
-    static bool moduleCallFunction(const char *functionName,
-                                   const char *moduleName = PATE_ENGINE);
-
-    /**
-     * Get the named module's dictionary.
-     */
-    static PyObject *moduleGetDict(const char *moduleName = PATE_ENGINE);
-
-    /**
-     * Delete the item from the named module's dictionary.
-     */
-    static bool moduleDelItemString(const char *item,
-                                    const char *moduleName = PATE_ENGINE);
-
-    /**
-     * Get the item from the named module's dictionary.
-     */
-    static PyObject *moduleGetItemString(const char *item,
-                                         const char *moduleName = PATE_ENGINE);
-
-    /**
-     * Get the item from the given dictionary.
-     */
-    static PyObject *moduleGetItemString(const char *item, PyObject *dict);
-
-    /**
-     * Set the item in the named module's dictionary.
-     */
-    static bool moduleSetItemString(const char *item, PyObject *value,
-                                    const char *moduleName = PATE_ENGINE);
-
-    /**
-     * Import the named module.
-     */
-    static PyObject *moduleImport(const char *moduleName);
-
-    /**
-     * Get the Actions defined by a module. The returned object is
-     * [ { function, ( text, icon, shortcut, menu ) }... ] for each module
-     * function decorated with @action.
-     */
-    static PyObject *moduleGetActions(const char *moduleName);
-
-    /**
-     * Get the ConfigPages defined by a module. The returned object is
-     * [ { function, ( name, fullName, icon ) }... ] for each module function
-     * decorated with @configPage.
-     */
-    static PyObject *moduleGetConfigPages(const char *moduleName);
-
-    /**
-     * Get the help text defined by a module.
-     */
-    static QString moduleGetHelp(const char *moduleName);
-
-    /**
-     * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
-     */
-    static PyObject *wrap(void *o, QString className);
-
-    /**
-     * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
-     */
-    static void *unwrap(PyObject *o);
-
-// signals:
-//     void populateConfiguration(PyObject *configurationDictionary);
 
 public slots:
     /// Load the configuration.

@@ -27,15 +27,14 @@
 class QString;
 class KConfigBase;
 
-
-// terminal colours
-#define TERMINAL_RED "\033[31m"
-#define TERMINAL_CLEAR "\033[0m"
-
 // save us some ruddy time when printing out QStrings with UTF-8
 #define PQ(x) x.toUtf8().constData()
 
-namespace Pate { namespace Py {
+namespace Pate
+{
+
+namespace Py
+{
 
 /**
  * A wrapper for PyObject which takes care of reference counting when
@@ -128,6 +127,78 @@ void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config
 /// objects to their string representation along the way
 void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary);
 
-}} // namespace Py, namespace Pate
+    extern const char *PATE_ENGINE;
+
+    /**
+     * Call the named module's named entry point.
+     */
+    extern bool functionCall(const char *functionName,
+                             const char *moduleName = PATE_ENGINE);
+
+    /**
+     * Delete the item from the named module's dictionary.
+     */
+    extern bool itemStringDel(const char *item,
+                              const char *moduleName = PATE_ENGINE);
+
+    /**
+     * Get the item from the named module's dictionary.
+     */
+    extern PyObject *itemString(const char *item,
+                                const char *moduleName = PATE_ENGINE);
+
+    /**
+     * Get the item from the given dictionary.
+     */
+    extern PyObject *itemString(const char *item, PyObject *dict);
+
+    /**
+     * Set the item in the named module's dictionary.
+     */
+    extern bool itemStringSet(const char *item, PyObject *value,
+                              const char *moduleName = PATE_ENGINE);
+
+    /**
+     * Get the Actions defined by a module. The returned object is
+     * [ { function, ( text, icon, shortcut, menu ) }... ] for each module
+     * function decorated with @action.
+     */
+    extern PyObject *moduleActions(const char *moduleName);
+
+    /**
+     * Get the ConfigPages defined by a module. The returned object is
+     * [ { function, ( name, fullName, icon ) }... ] for each module function
+     * decorated with @configPage.
+     */
+    extern PyObject *moduleConfigPages(const char *moduleName);
+
+    /**
+     * Get the named module's dictionary.
+     */
+    extern PyObject *moduleDict(const char *moduleName = PATE_ENGINE);
+
+    /**
+     * Get the help text defined by a module.
+     */
+    extern QString moduleHelp(const char *moduleName);
+
+    /**
+     * Import the named module.
+     */
+    extern PyObject *moduleImport(const char *moduleName);
+
+    /**
+     * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
+     */
+    extern void *objectUnwrap(PyObject *o);
+
+    /**
+     * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
+     */
+    extern PyObject *objectWrap(void *o, QString className);
+
+}
+
+} // namespace Py, namespace Pate
 
 #endif

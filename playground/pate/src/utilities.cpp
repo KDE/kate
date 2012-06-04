@@ -29,7 +29,14 @@
 #include "utilities.h"
 
 
-namespace Pate { namespace Py {
+namespace Pate
+{
+
+namespace Py
+{
+
+const char *PATE_ENGINE = "pate";
+
 
 PyObject *unicode(const QString &string) {
     PyObject *s = PyString_FromString(PQ(string));
@@ -189,6 +196,181 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
     }
 }
 
+bool functionCall(const char *functionName, const char *moduleName)
+{
+    bool result;
+    PyObject *func = itemString(functionName, moduleName);
+    if (!func) {
+        return false;
+    }
+    result = Py::call(func);
+    if (!result) {
+        Py::traceback(QString("Could not call %1").arg(functionName));
+        return false;
+    }
+    return true;
+}
 
-}} // namespace Py, namespace Pate
+bool itemStringDel(const char *item, const char *moduleName)
+{
+    PyObject *dict = moduleDict(moduleName);
+    if (!dict) {
+        return false;
+    }
+    if (!PyDict_DelItemString(dict, item)) {
+        return true;
+    }
+    Py::traceback(QString("Could not delete item string %1.%2").arg(moduleName).arg(item));
+    return false;
+}
+
+PyObject *itemString(const char *item, const char *moduleName)
+{
+    PyObject *value = itemString(item, moduleDict(moduleName));
+    if (value) {
+        return value;
+    }
+    Py::traceback(QString("Could not get item string %1.%2").arg(moduleName).arg(item));
+    return 0;
+}
+
+PyObject *itemString(const char *item, PyObject *dict)
+{
+    if (!dict) {
+        return 0;
+    }
+    PyObject *value = PyDict_GetItemString(dict, item);
+    if (value) {
+        return value;
+    }
+    Py::traceback(QString("Could not get item string %1").arg(item));
+    return 0;
+}
+
+bool itemStringSet(const char *item, PyObject *value, const char *moduleName)
+{
+    PyObject *dict = moduleDict(moduleName);
+    if (!dict) {
+        return false;
+    }
+    if (PyDict_SetItemString(dict, item, value)) {
+        Py::traceback(QString("Could not set item string %1.%2").arg(moduleName).arg(item));
+        return false;
+    }
+    return true;
+}
+
+PyObject *moduleActions(const char *moduleName)
+{
+    Py::Object module = PyImport_ImportModule(moduleName);
+    Py::Object func = itemString("moduleGetActions", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve moduleActions");
+        return 0;
+    }
+    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
+    Py::Object result = PyObject_CallObject(++func, arguments);
+    if (!result) {
+        Py::traceback("failed to call moduleActions");
+        return 0;
+    }
+    return ++result;
+}
+
+PyObject *moduleConfigPages(const char *moduleName)
+{
+    Py::Object module = PyImport_ImportModule(moduleName);
+    Py::Object func = itemString("moduleGetConfigPages", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve moduleConfigPages");
+        return 0;
+    }
+    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
+    Py::Object result = PyObject_CallObject(++func, arguments);
+    if (!result) {
+        Py::traceback("failed to call moduleConfigPages");
+        return 0;
+    }
+    return ++result;
+}
+
+QString moduleHelp(const char *moduleName)
+{
+    Py::Object module = PyImport_ImportModule(moduleName);
+    Py::Object func = itemString("moduleGetHelp", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve moduleHelp");
+        return QString();
+    }
+    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
+    Py::Object result = PyObject_CallObject(++func, arguments);
+    if (!result) {
+        Py::traceback("failed to call moduleHelp");
+        return QString();
+    }
+    return QString(PyString_AsString(result));
+}
+
+PyObject *moduleDict(const char *moduleName)
+{
+    PyObject *module = moduleImport(moduleName);
+    if (!module) {
+        return 0;
+    }
+    PyObject *dictionary = PyModule_GetDict(module);
+    if (dictionary) {
+        return dictionary;
+    }
+    Py::traceback(QString("Could not get dict %1").arg(moduleName));
+    return 0;
+}
+
+PyObject *moduleImport(const char *moduleName)
+{
+    PyObject *module = PyImport_ImportModule(moduleName);
+    if (module) {
+        return module;
+    }
+    Py::traceback(QString("Could not import %1").arg(moduleName));
+    return 0;
+}
+
+void *objectUnwrap(PyObject *o)
+{
+    PyObject *unwrapInstance = itemString("unwrapinstance", "sip");
+    if (!unwrapInstance) {
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("(O)", o);
+    PyObject *result = PyObject_CallObject(unwrapInstance, arguments);
+    if(!result) {
+        Py::traceback("failed to unwrap instance");
+        return 0;
+    }
+    return (void *)(ptrdiff_t)PyLong_AsLongLong(result);
+}
+
+PyObject *objectWrap(void *o, QString fullClassName) {
+    QString classModuleName = fullClassName.section('.', 0, -2);
+    QString className = fullClassName.section('.', -1);
+    PyObject *classObject = itemString(PQ(className), PQ(classModuleName));
+    if (!classObject) {
+        return 0;
+    }
+    PyObject *wrapInstance = itemString("wrapinstance", "sip");
+    if (!wrapInstance) {
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("NO", PyLong_FromVoidPtr(o), classObject);
+    PyObject *result = PyObject_CallObject(wrapInstance, arguments);
+    if(!result) {
+        Py::traceback("failed to wrap instance");
+        return 0;
+    }
+    return result;
+}
+
+}
+
+} // namespace Py, namespace Pate
 

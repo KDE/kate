@@ -83,7 +83,7 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
     KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
     m_autoReload = group.readEntry("AutoReload", false);
     Pate::Engine::self()->readConfiguration(groupPrefix);
-    Pate::Engine::self()->moduleCallFunction("_sessionCreated");
+    Py::functionCall("_sessionCreated");
 }
 
 void Pate::Plugin::writeSessionConfig(KConfigBase *config, const QString &groupPrefix)
@@ -116,7 +116,7 @@ uint Pate::Plugin::configPages() const
             // our sibling functions to get the necessary information from
             // the plugins who want to play.
             QString pluginName = directoryItem->child(j)->text();
-            PyObject *configPages = Pate::Engine::self()->moduleGetConfigPages(PQ(pluginName));
+            PyObject *configPages = Py::moduleConfigPages(PQ(pluginName));
             for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                 // Add an action for this plugin.
                 PyObject *tuple = PyList_GetItem(configPages, k);
@@ -141,7 +141,7 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *func = PyTuple_GetItem(tuple, 0);
-    PyObject *w = Pate::Engine::self()->wrap(parent, "PyQt4.QtGui.QWidget");
+    PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
     Py_INCREF(func);
     PyObject *result = PyObject_CallObject(func, arguments);
@@ -149,7 +149,7 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
         Py::traceback("failed to call plugin page");
         return 0;
     }
-    return (Kate::PluginConfigPage *)Pate::Engine::self()->unwrap(result);
+    return (Kate::PluginConfigPage *)Py::objectUnwrap(result);
 }
 
 QString Pate::Plugin::configPageName(uint number) const
@@ -194,7 +194,7 @@ KIcon Pate::Plugin::configPageIcon(uint number) const
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 1);
     PyObject *icon = PyTuple_GetItem(configPage, 2);
-    return *(KIcon *)Pate::Engine::self()->unwrap(icon);
+    return *(KIcon *)Py::objectUnwrap(icon);
 }
 
 //
@@ -252,7 +252,7 @@ void Pate::ConfigPage::reloadPage()
     m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
 
     // Add a topic for each plugin. using stacked page 1.
-    PyObject *plugins = Pate::Engine::self()->moduleGetItemString("plugins");
+    PyObject *plugins = Py::itemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
         PyObject *module = PyList_GetItem(plugins, i);
 
@@ -275,7 +275,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     // Display the information for the selected module/plugin.
     QString topic = m_info.topics->itemText(topicIndex);
     int optionalSection = m_info.topics->itemData(topicIndex).toInt();
-    m_info.help->setHtml(Pate::Engine::self()->moduleGetHelp(PQ(topic)));
+    m_info.help->setHtml(Py::moduleHelp(PQ(topic)));
     m_info.optionalSection->setCurrentIndex(optionalSection);
     switch (optionalSection) {
     case BUILT_IN:
@@ -288,7 +288,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 
         // Populate the plugin-specific action information.
         Py_XDECREF(m_pluginActions);
-        m_pluginActions = Pate::Engine::self()->moduleGetActions(PQ(topic));
+        m_pluginActions = Py::moduleActions(PQ(topic));
         m_info.actions->clear();
         for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);

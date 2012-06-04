@@ -44,8 +44,6 @@
 #include "engine.h"
 #include "utilities.h"
 
-const char *Pate::Engine::PATE_ENGINE = "pate";
-
 /**
  * Name of the file where per-plugin configuration is stored.
  */
@@ -217,19 +215,19 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-    Py_InitModule3(PATE_ENGINE, pateMethods, "The pate module");
+    Py_InitModule3(Py::PATE_ENGINE, pateMethods, "The pate module");
     m_configuration = PyDict_New();
 
     // Host the configuration dictionary.
-    moduleSetItemString("configuration", m_configuration);
+    Py::itemStringSet("configuration", m_configuration);
 
     // Load the kate module, but find it first, and verify it loads.
     PyObject *katePackage = 0;
     QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
-    PyObject *sysPath = moduleGetItemString("path", "sys");
+    PyObject *sysPath = Py::itemString("path", "sys");
     if (sysPath) {
         Py::appendStringToList(sysPath, katePackageDirectory);
-        katePackage = moduleImport("kate");
+        katePackage = Py::moduleImport("kate");
     }
 #if THREADED
     m_pythonThreadState = PyGILState_GetThisThreadState();
@@ -257,7 +255,7 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
     QStringList usablePlugins;
 
     // Find all plugins.
-    foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", PATE_ENGINE)) {
+    foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", Py::PATE_ENGINE)) {
         QStandardItem *directoryRow = new QStandardItem(KIcon("inode-directory"), directoryPath);
         root->appendRow(directoryRow);
         QDir directory(directoryPath);
@@ -349,13 +347,13 @@ void Pate::Engine::loadModules()
     // Add two lists to the module: pluginDirectories and plugins.
     PyObject *pluginDirectories = PyList_New(0);
     Py_INCREF(pluginDirectories);
-    moduleSetItemString("pluginDirectories", pluginDirectories);
+    Py::itemStringSet("pluginDirectories", pluginDirectories);
     PyObject *plugins = PyList_New(0);
     Py_INCREF(plugins);
-    moduleSetItemString("plugins", plugins);
+    Py::itemStringSet("plugins", plugins);
 
     // Get a reference to sys.path, then add the pate directory to it.
-    PyObject *pythonPath = moduleGetItemString("path", "sys");
+    PyObject *pythonPath = Py::itemString("path", "sys");
     QStack<QDir> directories;
 
     // Now, walk the directories.
@@ -401,7 +399,7 @@ void Pate::Engine::loadModules()
             // Were we asked to load this plugin?
             if (pluginItem->checkState() == Qt::Checked) {
                 // Import and add to pate.plugins
-                PyObject *plugin = moduleImport(PQ(pluginName));
+                PyObject *plugin = Py::moduleImport(PQ(pluginName));
                 if (plugin) {
                     PyList_Append(plugins, plugin);
                     Py_DECREF(plugin);
@@ -415,7 +413,7 @@ void Pate::Engine::loadModules()
     m_pluginsLoaded = true;
 
     // everything is loaded and started. Call the module's init callback
-    moduleCallFunction("_pluginsLoaded");
+    Py::functionCall("_pluginsLoaded");
 #if THREADED
     PyGILState_Release(state);
 #endif
@@ -436,201 +434,21 @@ void Pate::Engine::unloadModules()
 #endif
     // Remove each plugin from sys.modules
     PyObject *modules = PyImport_GetModuleDict();
-    PyObject *plugins = moduleGetItemString("plugins");
+    PyObject *plugins = Py::itemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *pluginName = moduleGetItemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
+        PyObject *pluginName = Py::itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
         if(pluginName && PyDict_Contains(modules, pluginName)) {
             PyDict_DelItem(modules, pluginName);
             kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
         }
     }
-    moduleDelItemString("plugins");
+    Py::itemStringDel("plugins");
     Py_DECREF(plugins);
     m_pluginsLoaded = false;
-    moduleCallFunction("_pluginsUnloaded");
+    Py::functionCall("_pluginsUnloaded");
 #if THREADED
     PyGILState_Release(state);
 #endif
-}
-
-PyObject *Pate::Engine::wrap(void *o, QString fullClassName) {
-    QString classModuleName = fullClassName.section('.', 0, -2);
-    QString className = fullClassName.section('.', -1);
-    PyObject *classObject = moduleGetItemString(PQ(className), PQ(classModuleName));
-    if (!classObject) {
-        return 0;
-    }
-    PyObject *wrapInstance = moduleGetItemString("wrapinstance", "sip");
-    if (!wrapInstance) {
-        return 0;
-    }
-    PyObject *arguments = Py_BuildValue("NO", PyLong_FromVoidPtr(o), classObject);
-    PyObject *result = PyObject_CallObject(wrapInstance, arguments);
-    if(!result) {
-        Py::traceback("failed to wrap instance");
-        return 0;
-    }
-    return result;
-}
-
-void *Pate::Engine::unwrap(PyObject *o)
-{
-    PyObject *unwrapInstance = moduleGetItemString("unwrapinstance", "sip");
-    if (!unwrapInstance) {
-        return 0;
-    }
-    PyObject *arguments = Py_BuildValue("(O)", o);
-    PyObject *result = PyObject_CallObject(unwrapInstance, arguments);
-    if(!result) {
-        Py::traceback("failed to unwrap instance");
-        return 0;
-    }
-    return (void *)(ptrdiff_t)PyLong_AsLongLong(result);
-}
-
-QString Pate::Engine::moduleGetHelp(const char *moduleName)
-{
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = moduleGetItemString("moduleGetHelp", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleGetHelp");
-        return QString();
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
-    if (!result) {
-        Py::traceback("failed to call moduleGetHelp");
-        return QString();
-    }
-    return QString(PyString_AsString(result));
-}
-
-bool Pate::Engine::moduleCallFunction(const char *functionName, const char *moduleName)
-{
-    bool result;
-    PyObject *func = moduleGetItemString(functionName, moduleName);
-    if (!func) {
-        return false;
-    }
-#if THREADED
-    PyGILState_STATE state = PyGILState_Ensure();
-#endif
-    result = Py::call(func);
-#if THREADED
-    PyGILState_Release(state);
-#endif
-    if (!result) {
-        Py::traceback(QString("Could not call %1").arg(functionName));
-        return false;
-    }
-    return true;
-}
-
-PyObject *Pate::Engine::moduleGetDict(const char *moduleName)
-{
-    PyObject *module = moduleImport(moduleName);
-    if (!module) {
-        return 0;
-    }
-    PyObject *dictionary = PyModule_GetDict(module);
-    if (dictionary) {
-        return dictionary;
-    }
-    Py::traceback(QString("Could not get dict %1").arg(moduleName));
-    return 0;
-}
-
-bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName)
-{
-    PyObject *dict = moduleGetDict(moduleName);
-    if (!dict) {
-        return false;
-    }
-    if (!PyDict_DelItemString(dict, item)) {
-        return true;
-    }
-    Py::traceback(QString("Could not delete item string %1.%2").arg(moduleName).arg(item));
-    return false;
-}
-
-PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName)
-{
-    PyObject *value = moduleGetItemString(item, moduleGetDict(moduleName));
-    if (value) {
-        return value;
-    }
-    Py::traceback(QString("Could not get item string %1.%2").arg(moduleName).arg(item));
-    return 0;
-}
-
-PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict)
-{
-    if (!dict) {
-        return 0;
-    }
-    PyObject *value = PyDict_GetItemString(dict, item);
-    if (value) {
-        return value;
-    }
-    Py::traceback(QString("Could not get item string %1").arg(item));
-    return 0;
-}
-
-bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName)
-{
-    PyObject *dict = moduleGetDict(moduleName);
-    if (!dict) {
-        return false;
-    }
-    if (PyDict_SetItemString(dict, item, value)) {
-        Py::traceback(QString("Could not set item string %1.%2").arg(moduleName).arg(item));
-        return false;
-    }
-    return true;
-}
-
-PyObject *Pate::Engine::moduleImport(const char *moduleName)
-{
-    PyObject *module = PyImport_ImportModule(moduleName);
-    if (module) {
-        return module;
-    }
-    Py::traceback(QString("Could not import %1").arg(moduleName));
-    return 0;
-}
-
-PyObject *Pate::Engine::moduleGetActions(const char *moduleName)
-{
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = moduleGetItemString("moduleGetActions", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleGetActions");
-        return 0;
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
-    if (!result) {
-        Py::traceback("failed to call moduleGetActions");
-        return 0;
-    }
-    return ++result;
-}
-
-PyObject *Pate::Engine::moduleGetConfigPages(const char *moduleName)
-{
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = moduleGetItemString("moduleGetConfigPages", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleGetConfigPages");
-        return 0;
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
-    if (!result) {
-        Py::traceback("failed to call moduleGetConfigPages");
-        return 0;
-    }
-    return ++result;
 }
 
 #include "engine.moc"

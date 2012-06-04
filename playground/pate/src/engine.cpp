@@ -488,7 +488,7 @@ void *Pate::Engine::unwrap(PyObject *o)
     return (void *)(ptrdiff_t)PyLong_AsLongLong(result);
 }
 
-QString Pate::Engine::moduleGetHelp(const char *moduleName) const
+QString Pate::Engine::moduleGetHelp(const char *moduleName)
 {
     Py::Object module = PyImport_ImportModule(moduleName);
     Py::Object func = moduleGetItemString("moduleGetHelp", "kate");
@@ -505,7 +505,7 @@ QString Pate::Engine::moduleGetHelp(const char *moduleName) const
     return QString(PyString_AsString(result));
 }
 
-bool Pate::Engine::moduleCallFunction(const char *functionName, const char *moduleName) const
+bool Pate::Engine::moduleCallFunction(const char *functionName, const char *moduleName)
 {
     bool result;
     PyObject *func = moduleGetItemString(functionName, moduleName);
@@ -526,7 +526,7 @@ bool Pate::Engine::moduleCallFunction(const char *functionName, const char *modu
     return true;
 }
 
-PyObject *Pate::Engine::moduleGetDict(const char *moduleName) const
+PyObject *Pate::Engine::moduleGetDict(const char *moduleName)
 {
     PyObject *module = moduleImport(moduleName);
     if (!module) {
@@ -540,7 +540,7 @@ PyObject *Pate::Engine::moduleGetDict(const char *moduleName) const
     return 0;
 }
 
-bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName) const
+bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName)
 {
     PyObject *dict = moduleGetDict(moduleName);
     if (!dict) {
@@ -553,7 +553,7 @@ bool Pate::Engine::moduleDelItemString(const char *item, const char *moduleName)
     return false;
 }
 
-PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName) const
+PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *moduleName)
 {
     PyObject *value = moduleGetItemString(item, moduleGetDict(moduleName));
     if (value) {
@@ -563,7 +563,7 @@ PyObject *Pate::Engine::moduleGetItemString(const char *item, const char *module
     return 0;
 }
 
-PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) const
+PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict)
 {
     if (!dict) {
         return 0;
@@ -576,7 +576,7 @@ PyObject *Pate::Engine::moduleGetItemString(const char *item, PyObject *dict) co
     return 0;
 }
 
-bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName) const
+bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const char *moduleName)
 {
     PyObject *dict = moduleGetDict(moduleName);
     if (!dict) {
@@ -589,7 +589,7 @@ bool Pate::Engine::moduleSetItemString(const char *item, PyObject *value, const 
     return true;
 }
 
-PyObject *Pate::Engine::moduleImport(const char *moduleName) const
+PyObject *Pate::Engine::moduleImport(const char *moduleName)
 {
     PyObject *module = PyImport_ImportModule(moduleName);
     if (module) {
@@ -599,7 +599,7 @@ PyObject *Pate::Engine::moduleImport(const char *moduleName) const
     return 0;
 }
 
-PyObject *Pate::Engine::moduleGetActions(const char *moduleName) const
+PyObject *Pate::Engine::moduleGetActions(const char *moduleName)
 {
     Py::Object module = PyImport_ImportModule(moduleName);
     Py::Object func = moduleGetItemString("moduleGetActions", "kate");
@@ -616,7 +616,7 @@ PyObject *Pate::Engine::moduleGetActions(const char *moduleName) const
     return ++result;
 }
 
-PyObject *Pate::Engine::moduleGetConfigPages(const char *moduleName) const
+PyObject *Pate::Engine::moduleGetConfigPages(const char *moduleName)
 {
     Py::Object module = PyImport_ImportModule(moduleName);
     Py::Object func = moduleGetItemString("moduleGetConfigPages", "kate");

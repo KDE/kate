@@ -55,70 +55,70 @@ public:
     /**
      * Call the named module's named entry point.
      */
-    bool moduleCallFunction(const char *functionName,
-                            const char *moduleName = PATE_ENGINE) const;
+    static bool moduleCallFunction(const char *functionName,
+                                   const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the named module's dictionary.
      */
-    PyObject *moduleGetDict(const char *moduleName = PATE_ENGINE) const;
+    static PyObject *moduleGetDict(const char *moduleName = PATE_ENGINE);
 
     /**
      * Delete the item from the named module's dictionary.
      */
-    bool moduleDelItemString(const char *item,
-                             const char *moduleName = PATE_ENGINE) const;
+    static bool moduleDelItemString(const char *item,
+                                    const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the named module's dictionary.
      */
-    PyObject *moduleGetItemString(const char *item,
-                                  const char *moduleName = PATE_ENGINE) const;
+    static PyObject *moduleGetItemString(const char *item,
+                                         const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the given dictionary.
      */
-    PyObject *moduleGetItemString(const char *item, PyObject *dict) const;
+    static PyObject *moduleGetItemString(const char *item, PyObject *dict);
 
     /**
      * Set the item in the named module's dictionary.
      */
-    bool moduleSetItemString(const char *item, PyObject *value,
-                             const char *moduleName = PATE_ENGINE) const;
+    static bool moduleSetItemString(const char *item, PyObject *value,
+                                    const char *moduleName = PATE_ENGINE);
 
     /**
      * Import the named module.
      */
-    PyObject *moduleImport(const char *moduleName) const;
+    static PyObject *moduleImport(const char *moduleName);
 
     /**
      * Get the Actions defined by a module. The returned object is
      * [ { function, ( text, icon, shortcut, menu ) }... ] for each module
      * function decorated with @action.
      */
-    PyObject *moduleGetActions(const char *moduleName) const;
+    static PyObject *moduleGetActions(const char *moduleName);
 
     /**
      * Get the ConfigPages defined by a module. The returned object is
      * [ { function, ( name, fullName, icon ) }... ] for each module function
      * decorated with @configPage.
      */
-    PyObject *moduleGetConfigPages(const char *moduleName) const;
+    static PyObject *moduleGetConfigPages(const char *moduleName);
 
     /**
      * Get the help text defined by a module.
      */
-    QString moduleGetHelp(const char *moduleName) const;
+    static QString moduleGetHelp(const char *moduleName);
 
     /**
      * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
      */
-    PyObject *wrap(void *o, QString className);
+    static PyObject *wrap(void *o, QString className);
 
     /**
      * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
      */
-    void *unwrap(PyObject *o);
+    static void *unwrap(PyObject *o);
 
 // signals:
 //     void populateConfiguration(PyObject *configurationDictionary);

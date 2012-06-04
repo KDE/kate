@@ -168,6 +168,15 @@ def moduleGetActions(module):
     actionsList = [(n, _moduleActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
     return actionsList
 
+def moduleGetConfigPages(module):
+    """Return a list of each module function decorated with @configPage.
+
+    The returned object is [ { function, ( name, fullName, icon ) }... ].
+    """
+    functionsList = [o for o in getmembers(module) if isfunction(o[1])]
+    configPagesList = [(o, o.__dict__['configPage']) for (n, o) in functionsList if 'configPage' in o.__dict__]
+    return configPagesList
+
 def _callAll(l, *args, **kwargs):
     for f in l:
         try:
@@ -253,18 +262,31 @@ def action(text, icon=None, shortcut=None, menu=None):
             else:
                 a.setShortcut(shortcut)
         if icon is not None:
-            if isinstance(icon, basestring):
-                _icon = kdeui.KIcon(icon) # takes a string parameter
-            elif isinstance(icon, QtGui.QPixmap):
-                _icon = QtGui.QIcon(icon)
-            else:
-                _icon = icon
-            a.setIcon(_icon)
+            a.setIcon(kdeui.KIcon(icon))
         a.menu = menu
         a.connect(a, QtCore.SIGNAL('triggered()'), func)
         # delay till everything has been initialised
         action.actions.add(a)
         func.action = a
+        return func
+    return decorator
+
+@_attribute(actions=set())
+def configPage(name, fullName, icon):
+    ''' Decorator that adds a configPage with a name, fullName and icon into Kate's settings dialog.
+    When the item is fired, your function is called.
+    Parameters:
+        * name -        The text associated with the configPage in the list of
+                        config pages.
+        * fullName -    The title of the configPage when selected.
+        * icon -        An icon to associate with this configPage. Pass a string
+                        to use KDE's image loading system or a QPixmap or
+                        QIcon to use any custom icon.
+    '''
+    def decorator(func):
+        a = name, fullName, kdeui.KIcon(icon)
+        configPage.actions.add(a)
+        func.configPage = a
         return func
     return decorator
 

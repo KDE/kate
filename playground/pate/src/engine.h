@@ -99,13 +99,26 @@ public:
     PyObject *moduleGetActions(const char *moduleName) const;
 
     /**
+     * Get the ConfigPages defined by a module. The returned object is
+     * [ { function, ( name, fullName, icon ) }... ] for each module function
+     * decorated with @configPage.
+     */
+    PyObject *moduleGetConfigPages(const char *moduleName) const;
+
+    /**
      * Get the help text defined by a module.
      */
     QString moduleGetHelp(const char *moduleName) const;
 
-    /// A PyObject* for an arbitrary Qt/KDE object that has been wrapped
-    /// by SIP. Nifty.
+    /**
+     * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
+     */
     PyObject *wrap(void *o, QString className);
+
+    /**
+     * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
+     */
+    void *unwrap(PyObject *o);
 
 // signals:
 //     void populateConfiguration(PyObject *configurationDictionary);
@@ -115,8 +128,8 @@ public slots:
     void readConfiguration(const QString &groupPrefix);
     /// Write out the configuration.
     void saveConfiguration();
-    /// (re)Load the configuration into memory from disk
-    void reloadConfiguration();
+    /// (re)Load the configured modules.
+    void reloadModules();
 
 protected:
 
@@ -130,8 +143,8 @@ protected:
      * Walk over the model, loading all usable plugins into a PyObject module
      * dictionary.
      */
-    void loadPlugins();
-    void unloadPlugins();
+    void loadModules();
+    void unloadModules();
 
 private:
     static Engine *m_self;

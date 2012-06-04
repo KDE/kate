@@ -27,6 +27,8 @@
 
 #include <kxmlguiclient.h>
 
+#include <QList>
+
 #include "Python.h"
 #include "ui_info.h"
 #include "ui_manager.h"
@@ -39,7 +41,30 @@ namespace Pate
 {
 
 /**
- * The Pate plugin itself.
+ * The Pate plugin supports the creation of Kate scripts in Python. The script
+ * modules are either as individual .py files (e.g. bar.py), or a directory
+ * which contains a .py file named after the directory (i.e. foo/foo.py for
+ * directory foo).
+ *
+ * The modules which are found, along with three pre-defined support modules
+ * ("kate", "kate,gui" and "pate") are displayed and managed through this
+ * plugin.
+ *
+ * The modules are looked for in an ordered series of directories which are
+ * added to sys.path. A module found in one directory "hides" similarly named
+ * modules in later directories; the hidden modules cannot be used. Usable
+ * modules can be enabled by the user, and any methods decorated with
+ * "kate.action" or "kate.configPage" will be hooked into Kate as appropriate.
+ *
+ * Configuration support has these elements:
+ *
+ *  - Configuration of the Pate plugin itself. This is stored in katerc as for
+ *    other Kate plugins in appropriately named groups.
+ *
+ *  - Configuration of modules. This is provided via "kate.configuration" which
+ *    allows each module native Python object configuration storage via
+ *    katepaterc. Plugins which wish to can hook their configuration into
+ *    Kate's configuration system using "kate.configPage".
  */
 class Plugin :
     public Kate::Plugin,
@@ -74,6 +99,7 @@ public:
 private:
     friend class ConfigPage;
     bool m_autoReload;
+    mutable QList<PyObject *> m_moduleConfigPages;
 };
 
 /**
@@ -112,7 +138,7 @@ private:
     PyObject *m_pluginActions;
 
 private slots:
-    void reloadConfiguration();
+    void reloadPage();
     void infoTopicChanged(int topicIndex);
     void infoPluginActionsChanged(int actionIndex);
 };

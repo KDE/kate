@@ -245,39 +245,8 @@ bool Pate::Engine::init()
 void Pate::Engine::readConfiguration(const QString &groupPrefix)
 {
     m_pateConfigGroup = groupPrefix + "load";
-    reloadConfiguration();
-}
-
-void Pate::Engine::saveConfiguration()
-{
-    // Now, walk the directories.
-    QStandardItem *root = invisibleRootItem();
     KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
-    for (int i = 0; i < root->rowCount(); i++) {
-        QStandardItem *directoryItem = root->child(i);
 
-        // Walk the plugins in this directory.
-        for (int j = 0; j < directoryItem->rowCount(); j++) {
-            UsablePlugin *pluginItem = dynamic_cast<UsablePlugin *>(directoryItem->child(j));
-            if (!pluginItem) {
-                // Don't even try.
-                continue;
-            }
-
-            // Were we asked to load this plugin?
-            QString pluginName = pluginItem->text();
-            group.writeEntry(pluginName, pluginItem->checkState() == Qt::Checked);
-        }
-    }
-    KGlobal::config()->sync();
-    KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
-    Py::updateConfigurationFromDictionary(&config, m_configuration);
-    config.sync();
-}
-
-void Pate::Engine::reloadConfiguration()
-{
-    unloadPlugins();
     PyDict_Clear(m_configuration);
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
     Py::updateDictionaryFromConfiguration(m_configuration, &config);
@@ -312,23 +281,62 @@ void Pate::Engine::reloadConfiguration()
                 QList<QStandardItem *> pluginRow;
                 // We will only load the first plugin with a give name. The
                 // rest will be "hidden".
+                QStandardItem *pluginItem;
                 if (!usablePlugins.contains(pluginName)) {
                     usablePlugins.append(pluginName);
-                    pluginRow.append(new UsablePlugin(pluginName, info.isDir()));
+                    pluginItem = new UsablePlugin(pluginName, info.isDir());
+                    pluginRow.append(pluginItem);
                 } else {
-                    pluginRow.append(new HiddenPlugin(pluginName));
+                    pluginItem = new HiddenPlugin(pluginName);
+                    pluginRow.append(pluginItem);
                     pluginRow.append(new QStandardItem(i18n("Hidden")));
                 }
+
+                // Has the user enabled this item or not?
+                pluginItem->setCheckState(group.readEntry(pluginName, false) ? Qt::Checked : Qt::Unchecked);
                 directoryRow->appendRow(pluginRow);
             } else {
                 kDebug() << "Not a valid plugin" << path;
             }
         }
     }
-    loadPlugins();
+    reloadModules();
 }
 
-void Pate::Engine::loadPlugins()
+void Pate::Engine::saveConfiguration()
+{
+    // Now, walk the directories.
+    QStandardItem *root = invisibleRootItem();
+    KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
+    for (int i = 0; i < root->rowCount(); i++) {
+        QStandardItem *directoryItem = root->child(i);
+
+        // Walk the plugins in this directory.
+        for (int j = 0; j < directoryItem->rowCount(); j++) {
+            UsablePlugin *pluginItem = dynamic_cast<UsablePlugin *>(directoryItem->child(j));
+            if (!pluginItem) {
+                // Don't even try.
+                continue;
+            }
+
+            // Were we asked to load this plugin?
+            QString pluginName = pluginItem->text();
+            group.writeEntry(pluginName, pluginItem->checkState() == Qt::Checked);
+        }
+    }
+    KGlobal::config()->sync();
+    KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
+    Py::updateConfigurationFromDictionary(&config, m_configuration);
+    config.sync();
+}
+
+void Pate::Engine::reloadModules()
+{
+    unloadModules();
+    loadModules();
+}
+
+void Pate::Engine::loadModules()
 {
     if (m_pluginsLoaded) {
         return;
@@ -352,7 +360,6 @@ void Pate::Engine::loadPlugins()
 
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
-    KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
         QString directoryPath = directoryItem->text();
@@ -371,12 +378,9 @@ void Pate::Engine::loadPlugins()
                 continue;
             }
 
-            // Read the plugin config.
-            QString pluginName = pluginItem->text();
-            pluginItem->setCheckState(group.readEntry(pluginName, false) ? Qt::Checked : Qt::Unchecked);
-
             // Find the path to the .py file.
             QString path;
+            QString pluginName = pluginItem->text();
             if (pluginItem->type() == UsableDirectory) {
                 // This is a directory plugin. The .py is in a subdirectory,
                 // add the subdirectory to the path.
@@ -417,7 +421,7 @@ void Pate::Engine::loadPlugins()
 #endif
 }
 
-void Pate::Engine::unloadPlugins()
+void Pate::Engine::unloadModules()
 {
     // We don't have the luxury of being able to unload Python easily while
     // Kate is running. If anyone can find a way, feel free to tell me and
@@ -467,6 +471,21 @@ PyObject *Pate::Engine::wrap(void *o, QString fullClassName) {
         return 0;
     }
     return result;
+}
+
+void *Pate::Engine::unwrap(PyObject *o)
+{
+    PyObject *unwrapInstance = moduleGetItemString("unwrapinstance", "sip");
+    if (!unwrapInstance) {
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("(O)", o);
+    PyObject *result = PyObject_CallObject(unwrapInstance, arguments);
+    if(!result) {
+        Py::traceback("failed to unwrap instance");
+        return 0;
+    }
+    return (void *)(ptrdiff_t)PyLong_AsLongLong(result);
 }
 
 QString Pate::Engine::moduleGetHelp(const char *moduleName) const
@@ -592,6 +611,23 @@ PyObject *Pate::Engine::moduleGetActions(const char *moduleName) const
     Py::Object result = PyObject_CallObject(++func, arguments);
     if (!result) {
         Py::traceback("failed to call moduleGetActions");
+        return 0;
+    }
+    return ++result;
+}
+
+PyObject *Pate::Engine::moduleGetConfigPages(const char *moduleName) const
+{
+    Py::Object module = PyImport_ImportModule(moduleName);
+    Py::Object func = moduleGetItemString("moduleGetConfigPages", "kate");
+    if (!func) {
+        Py::traceback("failed to resolve moduleGetConfigPages");
+        return 0;
+    }
+    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
+    Py::Object result = PyObject_CallObject(++func, arguments);
+    if (!result) {
+        Py::traceback("failed to call moduleGetConfigPages");
         return 0;
     }
     return ++result;

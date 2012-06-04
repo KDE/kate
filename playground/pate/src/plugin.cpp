@@ -99,18 +99,30 @@ uint Pate::Plugin::configPages() const
     uint pages = 1;
 
     // Count the number of plugins which need their own custom page.
+    m_moduleConfigPages.clear();
     QStandardItem *root = Pate::Engine::self()->invisibleRootItem();
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
 
         // Walk the plugins in this directory.
         for (int j = 0; j < directoryItem->rowCount(); j++) {
+            QStandardItem *pluginItem = directoryItem->child(j);
+            if (pluginItem->checkState() != Qt::Checked) {
+                // Don't even try.
+                continue;
+            }
+
             // TODO: Query the engine for this information, and then extend
             // our sibling functions to get the necessary information from
             // the plugins who want to play.
-
-            //QString pluginName = directoryItem->child(j)->text();
-            //pages++;
+            QString pluginName = directoryItem->child(j)->text();
+            PyObject *configPages = Pate::Engine::self()->moduleGetConfigPages(PQ(pluginName));
+            for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
+                // Add an action for this plugin.
+                PyObject *tuple = PyList_GetItem(configPages, k);
+                m_moduleConfigPages.append(tuple);
+                pages++;
+            }
         }
     }
     return pages;
@@ -120,30 +132,69 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
 {
     Q_UNUSED(name);
 
-    if (number != 0)
+    if (!number) {
+        return new Pate::ConfigPage(parent, this);
+    }
+    if (number > (uint)m_moduleConfigPages.size()) {
         return 0;
-    return new Pate::ConfigPage(parent, this);
+    }
+    number--;
+    PyObject *tuple = m_moduleConfigPages.at(number);
+    PyObject *func = PyTuple_GetItem(tuple, 0);
+    PyObject *w = Pate::Engine::self()->wrap(parent, "PyQt4.QtGui.QWidget");
+    PyObject *arguments = Py_BuildValue("(Oz)", w, name);
+    Py_INCREF(func);
+    PyObject *result = PyObject_CallObject(func, arguments);
+    if (!result) {
+        Py::traceback("failed to call plugin page");
+        return 0;
+    }
+    return (Kate::PluginConfigPage *)Pate::Engine::self()->unwrap(result);
 }
 
 QString Pate::Plugin::configPageName(uint number) const
 {
-    if (number != 0)
+    if (!number) {
+        return i18n("Pâté");
+    }
+    if (number > (uint)m_moduleConfigPages.size()) {
         return QString();
-    return i18n("Pâté");
+    }
+    number--;
+    PyObject *tuple = m_moduleConfigPages.at(number);
+    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *name = PyTuple_GetItem(configPage, 0);
+    return PyString_AsString(name);
 }
 
 QString Pate::Plugin::configPageFullName(uint number) const
 {
-    if (number != 0)
+    if (!number) {
+        return i18n("Pâté Python Scripting");
+    }
+    if (number > (uint)m_moduleConfigPages.size()) {
         return QString();
-    return i18n("Pâté Python Scripting");
+    }
+    number--;
+    PyObject *tuple = m_moduleConfigPages.at(number);
+    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *fullName = PyTuple_GetItem(configPage, 1);
+    return PyString_AsString(fullName);
 }
 
 KIcon Pate::Plugin::configPageIcon(uint number) const
 {
-    if (number != 0)
+    if (!number) {
+        return KIcon("applications-development");
+    }
+    if (number > (uint)m_moduleConfigPages.size()) {
         return KIcon();
-    return KIcon("applications-development");
+    }
+    number--;
+    PyObject *tuple = m_moduleConfigPages.at(number);
+    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *icon = PyTuple_GetItem(configPage, 2);
+    return *(KIcon *)Pate::Engine::self()->unwrap(icon);
 }
 
 //
@@ -174,18 +225,18 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
     connect(m_manager.autoReload, SIGNAL(clicked(bool)), this, SIGNAL(changed()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadConfiguration()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadConfiguration()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadModules()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage()));
 
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
-    reloadConfiguration();
+    reloadPage();
 }
 
-void Pate::ConfigPage::reloadConfiguration()
+void Pate::ConfigPage::reloadPage()
 {
     m_manager.tree->resizeColumnToContents(0);
     m_manager.tree->expandAll();

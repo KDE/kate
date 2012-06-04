@@ -260,55 +260,53 @@ bool itemStringSet(const char *item, PyObject *value, const char *moduleName)
     return true;
 }
 
+static PyObject *kateQuery(const char *moduleName, const char *handler)
+{
+    PyObject *module = moduleImport(moduleName);
+    if (!module) {
+        return 0;
+    }
+    PyObject *func = itemString(handler, "kate");
+    if (!func) {
+        Py::traceback(QString("Failed to resolve %1").arg(handler));
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("(O)", (PyObject *)module);
+    if (!arguments) {
+        Py::traceback(QString("Failed to encode arg %1").arg(moduleName));
+        return 0;
+    }
+    Py_INCREF(func);
+    PyObject *result = PyObject_CallObject(func, arguments);
+    if (!result) {
+        Py::traceback(QString("Failed to call %1").arg(handler));
+        return 0;
+    }
+    Py_INCREF(result);
+    return result;
+}
+
 PyObject *moduleActions(const char *moduleName)
 {
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = itemString("moduleGetActions", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleActions");
-        return 0;
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
-    if (!result) {
-        Py::traceback("failed to call moduleActions");
-        return 0;
-    }
-    return ++result;
+    PyObject *result = kateQuery(moduleName, "moduleGetActions");
+    return result;
 }
 
 PyObject *moduleConfigPages(const char *moduleName)
 {
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = itemString("moduleGetConfigPages", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleConfigPages");
-        return 0;
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
-    if (!result) {
-        Py::traceback("failed to call moduleConfigPages");
-        return 0;
-    }
-    return ++result;
+    PyObject *result = kateQuery(moduleName, "moduleGetConfigPages");
+    return result;
 }
 
 QString moduleHelp(const char *moduleName)
 {
-    Py::Object module = PyImport_ImportModule(moduleName);
-    Py::Object func = itemString("moduleGetHelp", "kate");
-    if (!func) {
-        Py::traceback("failed to resolve moduleHelp");
-        return QString();
-    }
-    Py::Object arguments = Py_BuildValue("(O)", (PyObject *)module);
-    Py::Object result = PyObject_CallObject(++func, arguments);
+    PyObject *result = kateQuery(moduleName, "moduleGetHelp");
     if (!result) {
-        Py::traceback("failed to call moduleHelp");
         return QString();
     }
-    return QString(PyString_AsString(result));
+    QString r(PyString_AsString(result));
+    Py_DECREF(result);
+    return r;
 }
 
 PyObject *moduleDict(const char *moduleName)

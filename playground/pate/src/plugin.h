@@ -136,11 +136,13 @@ private:
     Ui::ManagerPage m_manager;
     Ui::InfoPage m_info;
     PyObject *m_pluginActions;
+    PyObject *m_pluginConfigPages;
 
 private slots:
     void reloadPage();
     void infoTopicChanged(int topicIndex);
     void infoPluginActionsChanged(int actionIndex);
+    void infoPluginConfigPagesChanged(int pageIndex);
 };
 
 } // namespace Pate

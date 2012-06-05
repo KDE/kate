@@ -171,10 +171,10 @@ def moduleGetActions(module):
 def moduleGetConfigPages(module):
     """Return a list of each module function decorated with @configPage.
 
-    The returned object is [ { function, ( name, fullName, icon ) }... ].
+    The returned object is [ { function, callable, ( name, fullName, icon ) }... ].
     """
     functionsList = [o for o in getmembers(module) if isfunction(o[1])]
-    configPagesList = [(o, o.__dict__['configPage']) for (n, o) in functionsList if 'configPage' in o.__dict__]
+    configPagesList = [(n, o, o.__dict__['configPage']) for (n, o) in functionsList if 'configPage' in o.__dict__]
     return configPagesList
 
 def _callAll(l, *args, **kwargs):

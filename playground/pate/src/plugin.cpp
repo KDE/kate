@@ -140,7 +140,7 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     }
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
-    PyObject *func = PyTuple_GetItem(tuple, 0);
+    PyObject *func = PyTuple_GetItem(tuple, 1);
     PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
     Py_INCREF(func);
@@ -162,7 +162,7 @@ QString Pate::Plugin::configPageName(uint number) const
     }
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
-    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *name = PyTuple_GetItem(configPage, 0);
     return PyString_AsString(name);
 }
@@ -177,7 +177,7 @@ QString Pate::Plugin::configPageFullName(uint number) const
     }
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
-    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *fullName = PyTuple_GetItem(configPage, 1);
     return PyString_AsString(fullName);
 }
@@ -192,7 +192,7 @@ KIcon Pate::Plugin::configPageIcon(uint number) const
     }
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
-    PyObject *configPage = PyTuple_GetItem(tuple, 1);
+    PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *icon = PyTuple_GetItem(configPage, 2);
     return *(KIcon *)Py::objectUnwrap(icon);
 }
@@ -216,7 +216,8 @@ Pate::PluginView::PluginView(Kate::MainWindow *window) :
 Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     Kate::PluginConfigPage(parent),
     m_plugin(plugin),
-    m_pluginActions(0)
+    m_pluginActions(0),
+    m_pluginConfigPages(0)
 {
     kDebug() << "create ConfigPage";
 
@@ -269,36 +270,45 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
         // We are being reset.
         Py_XDECREF(m_pluginActions);
         m_pluginActions = 0;
+        Py_XDECREF(m_pluginConfigPages);
+        m_pluginConfigPages = 0;
         return;
     }
 
     // Display the information for the selected module/plugin.
     QString topic = m_info.topics->itemText(topicIndex);
-    int optionalSection = m_info.topics->itemData(topicIndex).toInt();
+
+    // Reference tab.
     m_info.help->setHtml(Py::moduleHelp(PQ(topic)));
-    m_info.optionalSection->setCurrentIndex(optionalSection);
-    switch (optionalSection) {
-    case BUILT_IN:
-        m_info.optionalSection->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-        Py_XDECREF(m_pluginActions);
-        m_pluginActions = 0;
-        break;
-    case PLUGIN:
-        m_info.optionalSection->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
-        // Populate the plugin-specific action information.
-        Py_XDECREF(m_pluginActions);
-        m_pluginActions = Py::moduleActions(PQ(topic));
-        m_info.actions->clear();
-        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
-            PyObject *tuple = PyList_GetItem(m_pluginActions, i);
-            PyObject *functionName = PyTuple_GetItem(tuple, 0);
+    // Action tab.
+    Py_XDECREF(m_pluginActions);
+    m_pluginActions = Py::moduleActions(PQ(topic));
+    m_info.actions->clear();
+    for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
+        PyObject *tuple = PyList_GetItem(m_pluginActions, i);
+        PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
-            // Add an action for this plugin.
-            m_info.actions->addItem(PyString_AsString(functionName));
-        }
+        // Add an action for this plugin.
+        m_info.actions->addItem(PyString_AsString(functionName));
+    }
+    if (PyList_Size(m_pluginActions)) {
         infoPluginActionsChanged(0);
-        break;
+    }
+
+    // Config pages tab.
+    Py_XDECREF(m_pluginConfigPages);
+    m_pluginConfigPages = Py::moduleConfigPages(PQ(topic));
+    m_info.configPages->clear();
+    for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
+        PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
+        PyObject *functionName = PyTuple_GetItem(tuple, 0);
+
+        // Add a config page for this plugin.
+        m_info.configPages->addItem(PyString_AsString(functionName));
+    }
+    if (PyList_Size(m_pluginConfigPages)) {
+        infoPluginConfigPagesChanged(0);
     }
 }
 
@@ -324,15 +334,46 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     // TODO: Proper handling of Unicode
     m_info.text->setText(PyString_AsString(text));
     if (Py_None == icon) {
-        m_info.icon->setIcon(QIcon());
+        m_info.actionIcon->setIcon(QIcon());
     } else if (PyString_Check(icon)) {
-        m_info.icon->setIcon(KIcon(PyString_AsString(icon)));
+        m_info.actionIcon->setIcon(KIcon(PyString_AsString(icon)));
     } else {
-        m_info.icon->setIcon(*(QPixmap *)PyCObject_AsVoidPtr(icon));
+        m_info.actionIcon->setIcon(*(QPixmap *)PyCObject_AsVoidPtr(icon));
     }
-    m_info.icon->setText(PyString_AsString(icon));
+    m_info.actionIcon->setText(PyString_AsString(icon));
     m_info.shortcut->setText(PyString_AsString(shortcut));
     m_info.menu->setText(PyString_AsString(menu));
+}
+
+void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
+{
+    if (!m_pluginConfigPages) {
+        // This is a bit wierd.
+        return;
+    }
+    PyObject *tuple = PyList_GetItem(m_pluginConfigPages, pageIndex);
+    if (!tuple) {
+        // This is a bit wierd: a plugin with no executable actions?
+        return;
+    }
+
+    PyObject *configPage = PyTuple_GetItem(tuple, 2);
+    PyObject *name = PyTuple_GetItem(configPage, 0);
+    PyObject *fullName = PyTuple_GetItem(configPage, 1);
+    PyObject *icon = PyTuple_GetItem(configPage, 2);
+
+    // Add a topic for this plugin, using stacked page 0.
+    // TODO: Proper handling of Unicode
+    m_info.name->setText(PyString_AsString(name));
+    m_info.fullName->setText(PyString_AsString(fullName));
+    if (Py_None == icon) {
+        m_info.configPageIcon->setIcon(QIcon());
+    } else if (PyString_Check(icon)) {
+        m_info.configPageIcon->setIcon(KIcon(PyString_AsString(icon)));
+    } else {
+        m_info.configPageIcon->setIcon(*(KIcon *)Py::objectUnwrap(icon));
+    }
+    m_info.configPageIcon->setText(PyString_AsString(icon));
 }
 
 void Pate::ConfigPage::apply()

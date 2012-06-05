@@ -167,8 +167,8 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
 
     /**
      * Get the ConfigPages defined by a module. The returned object is
-     * [ { function, ( name, fullName, icon ) }... ] for each module function
-     * decorated with @configPage.
+     * [ { function, callable, ( name, fullName, icon ) }... ] for each module
+     * function decorated with @configPage.
      */
     extern PyObject *moduleConfigPages(const char *moduleName);
 

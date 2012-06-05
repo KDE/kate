@@ -211,8 +211,6 @@ Pate::PluginView::PluginView(Kate::MainWindow *window) :
 // Plugin configuration view.
 //
 
-#define BUILT_IN 0
-#define PLUGIN 1
 Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     Kate::PluginConfigPage(parent),
     m_plugin(plugin),
@@ -246,11 +244,11 @@ void Pate::ConfigPage::reloadPage()
     // Add a topic for each built-in packages, using stacked page 0.
     m_info.topics->clear();
     topic = QLatin1String("kate");
-    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+    m_info.topics->addItem(KIcon("applications-development"), topic);
     topic = QLatin1String("kate.gui");
-    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+    m_info.topics->addItem(KIcon("applications-development"), topic);
     topic = QLatin1String("pate");
-    m_info.topics->addItem(KIcon("applications-development"), topic, QVariant(BUILT_IN));
+    m_info.topics->addItem(KIcon("applications-development"), topic);
 
     // Add a topic for each plugin. using stacked page 1.
     PyObject *plugins = Py::itemString("plugins");
@@ -259,7 +257,7 @@ void Pate::ConfigPage::reloadPage()
 
         // Add a topic for this plugin, using stacked page 1.
         topic = QLatin1String(PyModule_GetName(module));
-        m_info.topics->addItem(KIcon("text-x-python"), topic, QVariant(PLUGIN));
+        m_info.topics->addItem(KIcon("text-x-python"), topic);
     }
     infoTopicChanged(0);
 }

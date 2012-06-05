@@ -30,7 +30,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="KTabWidget" name="tabs">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWebView" name="help">
       <attribute name="title">
@@ -282,11 +282,16 @@
  </customwidgets>
  <tabstops>
   <tabstop>topics</tabstop>
+  <tabstop>tabs</tabstop>
   <tabstop>actions</tabstop>
   <tabstop>text</tabstop>
-  <tabstop>shortcut</tabstop>
   <tabstop>actionIcon</tabstop>
+  <tabstop>shortcut</tabstop>
   <tabstop>menu</tabstop>
+  <tabstop>configPages</tabstop>
+  <tabstop>name</tabstop>
+  <tabstop>configPageIcon</tabstop>
+  <tabstop>fullName</tabstop>
  </tabstops>
  <resources/>
  <connections/>

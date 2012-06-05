@@ -241,19 +241,20 @@ def action(text, icon=None, shortcut=None, menu=None):
     your function is called. Optional shortcuts, menu to place the action in,
     and icon can be specified.
     Parameters:
-        * text - The text associated with the action (used as the menu item
-                 label, etc).
-        * shortcut - The shortcut to fire this action or None if there is no
-                     shortcut. Must be a string such as 'Ctrl+1' or a
-                     QKeySequence instance. By default no shortcut is set (by
-                     passing None)
-        * icon - An icon to associate with this action. It is shown alongside
-                 text in the menu bar and in toolbars as required. Pass a
-                 string to use KDE's image loading system or a QPixmap or
-                 QIcon to use any custom icon. None (the default) sets no icon.
-        * menu - The menu under which to place this item. Must be a string
-                 such as 'tools' or 'settings', or None to not place it in any
-                 menu. '''
+        * text -        The text associated with the action (used as the menu
+                        item label, etc).
+        * shortcut -    The shortcut to fire this action or None if there is no
+                        shortcut. Must be a string such as 'Ctrl+1' or a
+                        QKeySequence instance. By default no shortcut is set (by
+                        passing None)
+        * icon -        An icon to associate with this action. It is shown
+                        alongside text in the menu bar and in toolbars as
+                        required. Pass a string to use KDE's image loading
+                        system or a QPixmap or QIcon to use any custom icon.
+                        None (the default) sets no icon.
+        * menu -        The menu under which to place this item. Must be a
+                        string such as 'tools' or 'settings', or None to not
+                        place it in any menu. '''
     def decorator(func):
         a = kdeui.KAction(text, None)
         if shortcut is not None:
@@ -273,8 +274,9 @@ def action(text, icon=None, shortcut=None, menu=None):
 
 @_attribute(actions=set())
 def configPage(name, fullName, icon):
-    ''' Decorator that adds a configPage with a name, fullName and icon into Kate's settings dialog.
-    When the item is fired, your function is called.
+    ''' Decorator that adds a configPage into Kate's settings dialog.
+    When the item is fired, your function is called. NOTE: Kate may need to be
+    restarted for this decorator to take effect.
     Parameters:
         * name -        The text associated with the configPage in the list of
                         config pages.

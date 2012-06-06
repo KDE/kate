@@ -290,7 +290,7 @@ class SearchBar(QObject):
     def hide(self):
 	kate.mainInterfaceWindow().hideToolView(self.toolView)
 
-@kate.action("gid", shortcut = "Ctrl+/", menu = "edit", icon = "edit-find")
+@kate.action("gid", shortcut = "Ctrl+/", menu = "Gid", icon = "edit-find")
 def show():
     global searchBar
     if searchBar is None:

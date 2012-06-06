@@ -363,7 +363,7 @@ class _TokenDb():
 	    blobEnd = len(self.rawData)
 	return offset, name, self._usage(blobStart, blobEnd - 2)
 
-    def nextPrefixMatch(self, startingOffset, name):
+    def nextPrefixMatch(self, startingOffset, name, withUsage = False):
 	"""Return the next (offset, name, usage) matching a name after the startingOffset.
 
 	The startingOffset is assumed to have been returned by a previous call
@@ -404,6 +404,11 @@ class _TokenDb():
 	while self.rawData[offset + i] != 0:
 	    i += 1
 	name = str(self.rawData[offset:offset + i])
+	#
+	# Are we done?
+	#
+	if not withUsage:
+	    return offset, name
 	#
 	# Fetch the binary blob results, starting after the zero termination.
 	#
@@ -624,19 +629,6 @@ class Lookup():
 	tokenFlags, hitCount, fileIds = usage
 	return tokenFlags, hitCount, [self.fileLinkDb.file(fileId) for fileId in fileIds]
 
-    def prefixSearch(self, token):
-	"""Return the [name...] matching a prefix token."""
-	matches = list()
-	offset, name, usage = self.tokenDb.binarySearch(token, True)
-	matches.append(name)
-	try:
-	    while True:
-		offset, name, usage = self.tokenDb.nextPrefixMatch(offset, token)
-		matches.append(name)
-	except IndexError:
-	    pass
-	return matches
-
     def prefixSearchFirst(self, token):
 	"""Return the first (offset, name) matching a prefix token."""
 	offset, name, usage = self.tokenDb.binarySearch(token, True)
@@ -644,6 +636,5 @@ class Lookup():
 
     def prefixSearchNext(self, offset, token):
 	"""Return the (offset, name) matching the prefix token after the given offset."""
-	offset, name, usage = self.tokenDb.nextPrefixMatch(offset, token)
-	return offset, name
+	return self.tokenDb.nextPrefixMatch(offset, token)
 

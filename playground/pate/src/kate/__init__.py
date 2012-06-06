@@ -240,6 +240,7 @@ def action(text, icon=None, shortcut=None, menu=None):
     ''' Decorator that adds an action to the menu bar. When the item is fired,
     your function is called. Optional shortcuts, menu to place the action in,
     and icon can be specified.
+
     Parameters:
         * text -        The text associated with the action (used as the menu
                         item label, etc).
@@ -254,7 +255,11 @@ def action(text, icon=None, shortcut=None, menu=None):
                         None (the default) sets no icon.
         * menu -        The menu under which to place this item. Must be a
                         string such as 'tools' or 'settings', or None to not
-                        place it in any menu. '''
+                        place it in any menu.
+
+    NOTE: Kate may need to be restarted for this decorator to take effect, or
+    to remove all traces of the plugin on removal.
+    '''
     def decorator(func):
         a = kdeui.KAction(text, None)
         if shortcut is not None:
@@ -274,9 +279,9 @@ def action(text, icon=None, shortcut=None, menu=None):
 
 @_attribute(actions=set())
 def configPage(name, fullName, icon):
-    ''' Decorator that adds a configPage into Kate's settings dialog.
-    When the item is fired, your function is called. NOTE: Kate may need to be
-    restarted for this decorator to take effect.
+    ''' Decorator that adds a configPage into Kate's settings dialog. When the
+    item is fired, your function is called.
+
     Parameters:
         * name -        The text associated with the configPage in the list of
                         config pages.
@@ -284,6 +289,9 @@ def configPage(name, fullName, icon):
         * icon -        An icon to associate with this configPage. Pass a string
                         to use KDE's image loading system or a QPixmap or
                         QIcon to use any custom icon.
+
+    NOTE: Kate may need to be restarted for this decorator to take effect, or
+    to remove all traces of the plugin on removal.
     '''
     def decorator(func):
         a = name, fullName, kdeui.KIcon(icon)

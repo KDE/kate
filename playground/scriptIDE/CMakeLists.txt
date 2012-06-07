@@ -4,10 +4,19 @@ if(NOT KDE4_FOUND)
     cmake_minimum_required( VERSION 2.6 )
     find_package(KDE4 REQUIRED)
     ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=13040)
-    include_directories(${KDE4_INCLUDES})
-    include_directories(${KDE4_KIO_INCLUDES})
-    include_directories(${CMAKE_CURRENT_BINARY_DIR})
-    include_directories(${QT_INCLUDES})
+    include_directories(
+      ${KDE4_INCLUDES}
+      ${KDE4_KIO_INCLUDES}
+      ${CMAKE_CURRENT_BINARY_DIR}
+      ${QT_INCLUDES}
+      ../../kate/interfaces
+    )
+else(NOT KDE4_FOUND)
+    include_directories(
+      ../../kate
+      ../../kate/interfaces
+      ../../kate/app
+     )
 endif(NOT KDE4_FOUND)
 
 

@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<gui name="scriptIDE" library="libkatescriptIDEplugin" version="2">
+  <MenuBar>
+ <Menu name="script"><text>&amp;XML</text>
+    <Action name="scriptIDE" />
+ </Menu>
+</MenuBar>
+</gui>

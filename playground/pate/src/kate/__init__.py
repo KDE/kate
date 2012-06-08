@@ -401,6 +401,7 @@ def pateInit():
                     #
                     before = nameToMenu['help'].menuAction()
                     menu = kdeui.KMenu(a.menu, window.menuBar())
+                    menu.setObjectName(menuName)
                     window.menuBar().insertMenu(before, menu)
                     nameToMenu[menuName] = menu
                 nameToMenu[menuName].addAction(a)

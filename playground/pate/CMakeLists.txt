@@ -22,23 +22,20 @@ project(pate)
 
 macro_optional_find_package(SIP)
 macro_log_feature(SIP_FOUND "SIP" "Support for SIP Python bindings" "")
+if (NOT SIP_FOUND OR 0x${SIP_VERSION} LESS 0x40e01)
+    message(STATUS "Pate needs SIP 4.7.1 or later.")
+    return()
+endif (NOT SIP_FOUND OR 0x${SIP_VERSION} LESS 0x40e01)
 
 macro_optional_find_package(PyQt4)
 macro_log_feature(PYQT4_FOUND "PyQt4" "Python bindings for Qt4" "")
+if (NOT PYQT4_FOUND OR PYQT4_VERSION LESS "040301")
+    message(STATUS "Pate needs PyQT 4.3.1 or later.")
+    return()
+endif (NOT PYQT4_FOUND OR PYQT4_VERSION LESS "040301")
 
 macro_optional_find_package(PyKDE4)
 macro_log_feature(PYKDE4_FOUND "PyKDE4" "Python bindings for KDE4" "")
-
-if (NOT SIP_FOUND OR SIP_VERSION STRLESS "040701")
-    message(STATUS "Pate needs SIP 4.7.1 or later.")
-    return()
-endif (NOT SIP_FOUND OR SIP_VERSION STRLESS "040701")
-
-if (NOT PYQT4_FOUND OR PYQT4_VERSION STRLESS "040301")
-    message(STATUS "Pate needs PyQT 4.3.1 or later.")
-    return()
-endif (NOT PYQT4_FOUND OR PYQT4_VERSION STRLESS "040301")
-
 if (NOT PYKDE4_FOUND)
     message(WARNING "Pate needs PyKDE4.")
     return()

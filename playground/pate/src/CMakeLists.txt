@@ -37,4 +37,16 @@ target_link_libraries(
 
 install(TARGETS pateplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES pate.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate)
+install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_MATCHING PATTERN "*.py")
+
+#
+# Install individual Pate plugins.
+#
+install(FILES
+    plugins/close_tag.py
+    plugins/console.py
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
+install(DIRECTORY
+    plugins/expand
+    plugins/gid
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py")

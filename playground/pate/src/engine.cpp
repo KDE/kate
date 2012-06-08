@@ -85,6 +85,15 @@ public:
         return m_isDirectory ? UsableDirectory : UsableFile;
     }
 
+    void setBroken(bool broken)
+    {
+        if (broken) {
+            setIcon(KIcon("script-error"));
+        } else {
+            setIcon(KIcon("text-x-python"));
+        }
+    }
+
 private:
     bool m_isDirectory;
 };
@@ -277,11 +286,13 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
 
             if (path.endsWith(".py")) {
                 QList<QStandardItem *> pluginRow;
+                bool usable = false;
                 // We will only load the first plugin with a give name. The
                 // rest will be "hidden".
                 QStandardItem *pluginItem;
                 if (!usablePlugins.contains(pluginName)) {
                     usablePlugins.append(pluginName);
+                    usable = true;
                     pluginItem = new UsablePlugin(pluginName, info.isDir());
                     pluginRow.append(pluginItem);
                 } else {
@@ -291,7 +302,7 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
                 }
 
                 // Has the user enabled this item or not?
-                pluginItem->setCheckState(group.readEntry(pluginName, false) ? Qt::Checked : Qt::Unchecked);
+                pluginItem->setCheckState(usable && group.readEntry(pluginName, false) ? Qt::Checked : Qt::Unchecked);
                 directoryRow->appendRow(pluginRow);
             } else {
                 kDebug() << "Not a valid plugin" << path;
@@ -389,6 +400,7 @@ void Pate::Engine::loadModules()
                     PyList_Insert(pythonPath, 0, d);
                     Py_DECREF(d);
                 } else {
+                    pluginItem->setBroken(true);
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Missing plugin file %1", path)));
                     continue;
                 }
@@ -403,8 +415,10 @@ void Pate::Engine::loadModules()
                 if (plugin) {
                     PyList_Append(plugins, plugin);
                     Py_DECREF(plugin);
+                    pluginItem->setBroken(false);
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
                 } else {
+                    pluginItem->setBroken(true);
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(Py::lastTraceback())));
                 }
             }

@@ -121,13 +121,15 @@ uint Pate::Plugin::configPages() const
             // the plugins who want to play.
             QString pluginName = directoryItem->child(j)->text();
             PyObject *configPages = Py::moduleConfigPages(PQ(pluginName));
-            for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
-                // Add an action for this plugin.
-                PyObject *tuple = PyList_GetItem(configPages, k);
-                m_moduleConfigPages.append(tuple);
-                pages++;
+            if (configPages) {
+                for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
+                    // Add an action for this plugin.
+                    PyObject *tuple = PyList_GetItem(configPages, k);
+                    m_moduleConfigPages.append(tuple);
+                    pages++;
+                }
+                Py_DECREF(configPages);
             }
-            Py_DECREF(configPages);
         }
     }
     return pages;
@@ -297,33 +299,37 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     m_info.help->setHtml(Py::moduleHelp(PQ(topic)));
 
     // Action tab.
+    m_info.actions->clear();
     Py_XDECREF(m_pluginActions);
     m_pluginActions = Py::moduleActions(PQ(topic));
-    m_info.actions->clear();
-    for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
-        PyObject *tuple = PyList_GetItem(m_pluginActions, i);
-        PyObject *functionName = PyTuple_GetItem(tuple, 0);
+    if (m_pluginActions) {
+        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
+            PyObject *tuple = PyList_GetItem(m_pluginActions, i);
+            PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
-        // Add an action for this plugin.
-        m_info.actions->addItem(PyString_AsString(functionName));
-    }
-    if (PyList_Size(m_pluginActions)) {
-        infoPluginActionsChanged(0);
+            // Add an action for this plugin.
+            m_info.actions->addItem(PyString_AsString(functionName));
+        }
+        if (PyList_Size(m_pluginActions)) {
+            infoPluginActionsChanged(0);
+        }
     }
 
     // Config pages tab.
+    m_info.configPages->clear();
     Py_XDECREF(m_pluginConfigPages);
     m_pluginConfigPages = Py::moduleConfigPages(PQ(topic));
-    m_info.configPages->clear();
-    for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
-        PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
-        PyObject *functionName = PyTuple_GetItem(tuple, 0);
+    if (m_pluginConfigPages) {
+        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
+            PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
+            PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
-        // Add a config page for this plugin.
-        m_info.configPages->addItem(PyString_AsString(functionName));
-    }
-    if (PyList_Size(m_pluginConfigPages)) {
-        infoPluginConfigPagesChanged(0);
+            // Add a config page for this plugin.
+            m_info.configPages->addItem(PyString_AsString(functionName));
+        }
+        if (PyList_Size(m_pluginConfigPages)) {
+            infoPluginConfigPagesChanged(0);
+        }
     }
 }
 

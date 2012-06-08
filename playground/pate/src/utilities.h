@@ -143,12 +143,16 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
 
     /**
      * Get the item from the named module's dictionary.
+     *
+     * @return 0 or a borrowed reference to the item.
      */
     extern PyObject *itemString(const char *item,
                                 const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the given dictionary.
+     *
+     * @return 0 or a borrowed reference to the item.
      */
     extern PyObject *itemString(const char *item, PyObject *dict);
 
@@ -162,6 +166,8 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
      * Get the Actions defined by a module. The returned object is
      * [ { function, ( text, icon, shortcut, menu ) }... ] for each module
      * function decorated with @action.
+     *
+     * @return 0 or a new reference to the result.
      */
     extern PyObject *moduleActions(const char *moduleName);
 
@@ -169,11 +175,15 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
      * Get the ConfigPages defined by a module. The returned object is
      * [ { function, callable, ( name, fullName, icon ) }... ] for each module
      * function decorated with @configPage.
+     *
+     * @return 0 or a new reference to the result.
      */
     extern PyObject *moduleConfigPages(const char *moduleName);
 
     /**
      * Get the named module's dictionary.
+     *
+     * @return 0 or a borrowed reference to the dictionary.
      */
     extern PyObject *moduleDict(const char *moduleName = PATE_ENGINE);
 
@@ -184,16 +194,24 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
 
     /**
      * Import the named module.
+     *
+     * @return 0 or a borrowed reference to the module.
      */
     extern PyObject *moduleImport(const char *moduleName);
 
     /**
      * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
+     *
+     * @param o         The object to be unwrapped. The reference is borrowed.
      */
     extern void *objectUnwrap(PyObject *o);
 
     /**
      * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
+     *
+     * @param o         The object to be wrapped.
+     * @param className The full class name of o, e.g. "PyQt4.QtGui.QWidget".
+     * @return 0 or a new reference to the object.
      */
     extern PyObject *objectWrap(void *o, QString className);
 

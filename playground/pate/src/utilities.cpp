@@ -28,12 +28,12 @@
 
 #include "utilities.h"
 
-
 namespace Pate
 {
 
 namespace Py
 {
+static PyObject *runKateHandler(const char *moduleName, const char *handler);
 
 const char *PATE_ENGINE = "pate";
 
@@ -260,47 +260,21 @@ bool itemStringSet(const char *item, PyObject *value, const char *moduleName)
     return true;
 }
 
-static PyObject *kateQuery(const char *moduleName, const char *handler)
-{
-    PyObject *module = moduleImport(moduleName);
-    if (!module) {
-        return 0;
-    }
-    PyObject *func = itemString(handler, "kate");
-    if (!func) {
-        Py::traceback(QString("Failed to resolve %1").arg(handler));
-        return 0;
-    }
-    PyObject *arguments = Py_BuildValue("(O)", (PyObject *)module);
-    if (!arguments) {
-        Py::traceback(QString("Failed to encode arg %1").arg(moduleName));
-        return 0;
-    }
-    Py_INCREF(func);
-    PyObject *result = PyObject_CallObject(func, arguments);
-    if (!result) {
-        Py::traceback(QString("Failed to call %1").arg(handler));
-        return 0;
-    }
-    Py_INCREF(result);
-    return result;
-}
-
 PyObject *moduleActions(const char *moduleName)
 {
-    PyObject *result = kateQuery(moduleName, "moduleGetActions");
+    PyObject *result = runKateHandler(moduleName, "moduleGetActions");
     return result;
 }
 
 PyObject *moduleConfigPages(const char *moduleName)
 {
-    PyObject *result = kateQuery(moduleName, "moduleGetConfigPages");
+    PyObject *result = runKateHandler(moduleName, "moduleGetConfigPages");
     return result;
 }
 
 QString moduleHelp(const char *moduleName)
 {
-    PyObject *result = kateQuery(moduleName, "moduleGetHelp");
+    PyObject *result = runKateHandler(moduleName, "moduleGetHelp");
     if (!result) {
         return QString();
     }
@@ -335,17 +309,21 @@ PyObject *moduleImport(const char *moduleName)
 
 void *objectUnwrap(PyObject *o)
 {
-    PyObject *unwrapInstance = itemString("unwrapinstance", "sip");
-    if (!unwrapInstance) {
+    PyObject *func = itemString("unwrapinstance", "sip");
+    if (!func) {
         return 0;
     }
     PyObject *arguments = Py_BuildValue("(O)", o);
-    PyObject *result = PyObject_CallObject(unwrapInstance, arguments);
-    if(!result) {
+    Py_INCREF(func);
+    PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
+    if (!result) {
         Py::traceback("failed to unwrap instance");
         return 0;
     }
-    return (void *)(ptrdiff_t)PyLong_AsLongLong(result);
+    void *r = (void *)(ptrdiff_t)PyLong_AsLongLong(result);
+    Py_DECREF(result);
+    return r;
 }
 
 PyObject *objectWrap(void *o, QString fullClassName) {
@@ -355,14 +333,47 @@ PyObject *objectWrap(void *o, QString fullClassName) {
     if (!classObject) {
         return 0;
     }
-    PyObject *wrapInstance = itemString("wrapinstance", "sip");
-    if (!wrapInstance) {
+    PyObject *func = itemString("wrapinstance", "sip");
+    if (!func) {
         return 0;
     }
     PyObject *arguments = Py_BuildValue("NO", PyLong_FromVoidPtr(o), classObject);
-    PyObject *result = PyObject_CallObject(wrapInstance, arguments);
-    if(!result) {
+    Py_INCREF(func);
+    PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
+    if (!result) {
         Py::traceback("failed to wrap instance");
+        return 0;
+    }
+    return result;
+}
+
+/**
+ * Run a handler function supplied by the kate module on another module.
+ *
+ * @return 0 or a new reference to the result.
+ */
+static PyObject *runKateHandler(const char *moduleName, const char *handler)
+{
+    PyObject *module = moduleImport(moduleName);
+    if (!module) {
+        return 0;
+    }
+    PyObject *func = itemString(handler, "kate");
+    if (!func) {
+        Py::traceback(QString("Failed to resolve %1").arg(handler));
+        return 0;
+    }
+    PyObject *arguments = Py_BuildValue("(O)", (PyObject *)module);
+    if (!arguments) {
+        Py::traceback(QString("Failed to encode arg %1").arg(moduleName));
+        return 0;
+    }
+    Py_INCREF(func);
+    PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
+    if (!result) {
+        Py::traceback(QString("Failed to call %1").arg(handler));
         return 0;
     }
     return result;

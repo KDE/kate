@@ -63,6 +63,10 @@ Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
 }
 
 Pate::Plugin::~Plugin() {
+    while (m_moduleConfigPages.size()) {
+        PyObject *o = m_moduleConfigPages.takeFirst();
+        Py_DECREF(o);
+    }
     Pate::Engine::del();
 }
 
@@ -123,6 +127,7 @@ uint Pate::Plugin::configPages() const
                 m_moduleConfigPages.append(tuple);
                 pages++;
             }
+            Py_DECREF(configPages);
         }
     }
     return pages;
@@ -143,13 +148,19 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     PyObject *func = PyTuple_GetItem(tuple, 1);
     PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
+    Py_DECREF(w);
     Py_INCREF(func);
     PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
     if (!result) {
         Py::traceback("failed to call plugin page");
         return 0;
     }
-    return (Kate::PluginConfigPage *)Py::objectUnwrap(result);
+    Kate::PluginConfigPage *r = (Kate::PluginConfigPage *)Py::objectUnwrap(result);
+
+    // TODO: we leak this here reference.
+    //Py_DECREF(result);
+    return r;
 }
 
 QString Pate::Plugin::configPageName(uint number) const
@@ -233,6 +244,12 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     reloadPage();
+}
+
+Pate::ConfigPage::~ConfigPage()
+{
+    Py_XDECREF(m_pluginActions);
+    Py_XDECREF(m_pluginConfigPages);
 }
 
 void Pate::ConfigPage::reloadPage()

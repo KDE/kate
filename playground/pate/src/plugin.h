@@ -124,7 +124,7 @@ class ConfigPage :
 
 public:
     explicit ConfigPage(QWidget *parent = 0, Plugin *plugin = 0);
-    virtual ~ConfigPage() {}
+    virtual ~ConfigPage();
 
 public slots:
     virtual void apply();

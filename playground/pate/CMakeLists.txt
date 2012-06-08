@@ -20,24 +20,31 @@
 
 project(pate)
 
-find_package(KDE4 REQUIRED)
-find_package(Qt4 REQUIRED)
-find_package(PythonLibrary REQUIRED)
+macro_optional_find_package(SIP)
+macro_log_feature(SIP_FOUND "SIP" "Support for SIP Python bindings" "")
 
-find_package(SIP REQUIRED)
-if(SIP_VERSION STRLESS "040701")
-    message(FATAL_ERROR "The version of SIP found is too old. 4.7.1 or later is needed.")
-endif(SIP_VERSION STRLESS "040701")
+macro_optional_find_package(PyQt4)
+macro_log_feature(PYQT4_FOUND "PyQt4" "Python bindings for Qt4" "")
+
+macro_optional_find_package(PyKDE4)
+macro_log_feature(PYKDE4_FOUND "PyKDE4" "Python bindings for KDE4" "")
+
+if (NOT SIP_FOUND OR SIP_VERSION STRLESS "040701")
+    message(STATUS "Pate needs SIP 4.7.1 or later.")
+    return()
+endif (NOT SIP_FOUND OR SIP_VERSION STRLESS "040701")
+
+if (NOT PYQT4_FOUND OR PYQT4_VERSION STRLESS "040301")
+    message(STATUS "Pate needs PyQT 4.3.1 or later.")
+    return()
+endif (NOT PYQT4_FOUND OR PYQT4_VERSION STRLESS "040301")
+
+if (NOT PYKDE4_FOUND)
+    message(WARNING "Pate needs PyKDE4.")
+    return()
+endif (NOT PYKDE4_FOUND)
+
 include(SIPMacros)
-
-find_package(PyQt4 REQUIRED)
-if(PYQT4_VERSION STRLESS "040301")
-    message(FATAL_ERROR "The version of PyQt found is too old. 4.3.1 or later is required.")
-endif(PYQT4_VERSION STRLESS "040301")
-
-find_package(PyKDE4 REQUIRED)
-
-# set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #
 # Use the Kate header files from the current source tree.

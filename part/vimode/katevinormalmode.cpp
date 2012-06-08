@@ -2816,6 +2816,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
   ADDCMD("/", commandSearch, 0 );
+  ADDCMD("?", commandSearch, 0 );
   ADDCMD("u", commandUndo, 0);
   ADDCMD("<c-r>", commandRedo, 0 );
   ADDCMD("U", commandRedo, 0 );

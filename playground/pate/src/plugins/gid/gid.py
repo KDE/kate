@@ -28,6 +28,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
+from PyKDE4.ktexteditor import KTextEditor
 from idutils import Lookup
 
 import sip
@@ -41,12 +42,15 @@ class ConfigWidget(QWidget):
     #
     idFile = None
     #
+    # Completion string minimum size.
+    #
+    keySize = None
+    #
     # Original file prefix.
     #
     srcIn = None
     #
     # Replacement file prefix.
-    # ...with this.
     #
     srcOut = None
 
@@ -57,48 +61,60 @@ class ConfigWidget(QWidget):
 	self.setLayout(lo)
 
 	self.idFile = KLineEdit()
-	self.idFile.setWhatsThis(i18n("Location of ID file."))
-	lo.addWidget(self.idFile, 0, 1, 1, 3)
+	self.idFile.setWhatsThis(i18n("Name of ID file."))
+	lo.addWidget(self.idFile, 0, 1, 1, 1)
 	self.labelIdFile = QLabel(i18n("&ID file:"))
 	self.labelIdFile.setBuddy(self.idFile)
 	lo.addWidget(self.labelIdFile, 0, 0, 1, 1)
 
+	self.keySize = QSpinBox()
+	self.keySize.setMinimum(3)
+	self.keySize.setMaximum(16)
+	self.keySize.setWhatsThis(i18n("Minimum length of token before completions will be shown."))
+	lo.addWidget(self.keySize, 0, 3, 1, 1)
+	self.labelKeySize = QLabel(i18n("&Complete after:"))
+	self.labelKeySize.setBuddy(self.keySize)
+	lo.addWidget(self.labelKeySize, 0, 2, 1, 1)
+
 	self.srcIn = KLineEdit()
 	self.srcIn.setWhatsThis(i18n("If not empty, when looking in a file for matches, replace this prefix of the file name."))
-	lo.addWidget(self.srcIn, 2, 1, 1, 3)
+	lo.addWidget(self.srcIn, 1, 1, 1, 3)
 	self.labelSrcIn = QLabel(i18n("&Replace:"))
 	self.labelSrcIn.setBuddy(self.srcIn)
-	lo.addWidget(self.labelSrcIn, 2, 0, 1, 1)
+	lo.addWidget(self.labelSrcIn, 1, 0, 1, 1)
 
 	self.srcOut = KLineEdit()
-	self.srcOut.setWhatsThis(i18n("Replacement prefix."))
-	lo.addWidget(self.srcOut, 3, 1, 1, 3)
+	self.srcOut.setWhatsThis(i18n("Replacement prefix. Use %i to insert the prefix of the ID file."))
+	lo.addWidget(self.srcOut, 2, 1, 1, 3)
 	self.labelSrcOut = QLabel(i18n("&With this:"))
 	self.labelSrcOut.setBuddy(self.srcOut)
-	lo.addWidget(self.labelSrcOut, 3, 0, 1, 1)
+	lo.addWidget(self.labelSrcOut, 2, 0, 1, 1)
 
 	self.reset();
 
     def apply(self):
-	kate.configuration["idFile"] = self.idFile.text()
-	kate.configuration["srcIn"] = self.srcIn.text()
-	kate.configuration["srcOut"] = self.srcOut.text()
+	kate.configuration["idFile"] = self.idFile.text().encode("utf-8")
+	kate.configuration["keySize"] = self.keySize.value()
+	kate.configuration["srcIn"] = self.srcIn.text().encode("utf-8")
+	kate.configuration["srcOut"] = self.srcOut.text().encode("utf-8")
 	kate.configuration.save()
 
     def reset(self):
 	self.defaults()
 	if "idFile" in kate.configuration:
 	    self.idFile.setText(kate.configuration["idFile"])
+	if "keySize" in kate.configuration:
+	    self.keySize.setValue(kate.configuration["keySize"])
 	if "srcIn" in kate.configuration:
 	    self.srcIn.setText(kate.configuration["srcIn"])
 	if "srcOut" in kate.configuration:
-	    self.srcIn.setText(kate.configuration["srcOut"])
+	    self.srcOut.setText(kate.configuration["srcOut"])
 
     def defaults(self):
-	self.idFile.setText("/vob/ios/sys/ID")
+	self.idFile.setText("/view/myview/vob/ID")
+	self.keySize.setValue(5)
 	self.srcIn.setText("/vob")
-	self.srcOut.setText("/vob")
-	#self.changed.emit()
+	self.srcOut.setText("%i/vob")
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
     """Kate configuration page for this plugin."""
@@ -115,7 +131,7 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
 	self.widget.reset()
 
     def defaults(self):
-	self.widget.default()
+	self.widget.defaults()
 	self.changed.emit()
 
 class ConfigDialog(KDialog):
@@ -124,6 +140,22 @@ class ConfigDialog(KDialog):
 	super(ConfigDialog, self).__init__(parent)
 	self.widget = ConfigWidget(self)
 	self.setMainWidget(self.widget)
+	self.setButtons(KDialog.ButtonCode(KDialog.Default | KDialog.Reset | KDialog.Ok | KDialog.Cancel))
+	self.applyClicked.connect(self.apply)
+	self.resetClicked.connect(self.reset)
+	self.defaultClicked.connect(self.defaults)
+
+    @pyqtSlot()
+    def apply(self):
+	self.widget.apply()
+
+    @pyqtSlot()
+    def reset(self):
+	self.widget.reset()
+
+    @pyqtSlot()
+    def defaults(self):
+	self.widget.defaults()
 
 class TreeModel(QStandardItemModel):
     def __init__(self, dataSource):
@@ -142,13 +174,13 @@ class TreeModel(QStandardItemModel):
 	    for fileName, fileFlags in files:
 		fileRow = QStandardItem(fileName)
 		line = 0
-		for text in open("idfile.py.safe2"):
-		    column = text.find("dpss")
+		for text in open(fileName):
+		    column = text.find(token)
 		    if column > -1:
 			resultRow = list()
 			resultRow.append(QStandardItem(text[:-1]))
-			resultRow.append(QStandardItem(str(line)))
-			resultRow.append(QStandardItem(str(column)))
+			resultRow.append(QStandardItem(str(line + 1)))
+			resultRow.append(QStandardItem(str(column + 1)))
 			fileRow.appendRow(resultRow)
 		    line += 1
 		root.appendRow(fileRow)
@@ -181,16 +213,6 @@ class SearchBar(QObject):
 	self.labelToken.setBuddy(self.token)
 	lo.addWidget(self.labelToken, 0, 0, 1, 1)
 
-	self.keySize = QSpinBox()
-	self.keySize.setValue(5)
-	self.keySize.setMinimum(3)
-	self.keySize.setMaximum(16)
-	self.keySize.setWhatsThis(i18n("The length of a token before completions will be shown."))
-	lo.addWidget(self.keySize, 0, 3, 1, 1)
-	self.labelKeySize = QLabel(i18n("&Lookup after:"))
-	self.labelKeySize.setBuddy(self.keySize)
-	lo.addWidget(self.labelKeySize, 0, 2, 1, 1)
-
 	self.tree = QTreeView()
 	lo.addWidget(self.tree, 1, 0, 1, 4)
 	self.model = TreeModel(self.dataSource)
@@ -202,13 +224,17 @@ class SearchBar(QObject):
 	self.tree.setColumnWidth(0, width)
 	self.tree.setColumnWidth(1, 50)
 	self.tree.setColumnWidth(2, 50)
+	self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
+	self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
+	self.tree.setSelectionMode(QAbstractItemView.SingleSelection)
 
 	self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
-	self.token.returnPressed.connect(self.model.literalSearch)
-	self.token.returnPressed.connect(self.tree.expandAll)
+	self.token.returnPressed.connect(self.literalSearch)
 	self.token.completion.connect(self._findCompletion)
 	self.asyncFill.connect(self._continueCompletion)
 	self.token.completionObject().clear();
+	self.tree.doubleClicked.connect(self._treeClicked)
+	self.tree.setItemsExpandable(False)
 
     def __del__(self):
 	"""Plugins that use a toolview need to delete it for reloading to work."""
@@ -216,11 +242,19 @@ class SearchBar(QObject):
 	    self.toolView.deleteLater()
 	    self.toolView = None
 
+    @pyqtSlot("QString")
+    def literalSearch(self, token):
+	try:
+	    self.model.literalSearch(token)
+	    self.tree.expandAll()
+	except IOError as detail:
+	    KMessageBox.error(self.parent(), str(detail), i18n("Error finding {}").format(token))
+
     def _findCompletion(self, token):
 	"""Fill the completion object with potential matches."""
 	completionObj = self.token.completionObject()
-	completionObj.clear();
-	if len(token) < self.keySize.value():
+	completionObj.clear()
+	if len(token) < kate.configuration["keySize"]:
 	    #
 	    # Don't try to match if the token is too short.
 	    #
@@ -267,12 +301,40 @@ class SearchBar(QObject):
 	except IndexError:
 	    return None
 
+    @pyqtSlot("QModelIndex &")
+    def _treeClicked(self, index):
+	"""Fill the completion object with potential matches.
+
+	TODO: make this asynchronous, and able to be interrupted.
+	"""
+	parent = index.parent()
+	if parent.isValid():
+	    #
+	    # We got a specific search result.
+	    #
+	    file = parent.data()
+	    line = int(index.sibling(index.row(), 1).data()) - 1
+	    column = int(index.sibling(index.row(), 2).data()) - 1
+	else:
+	    #
+	    # We got a file.
+	    #
+	    file, line, column = index.data(), 0, 0
+	#
+	# Navigate to the point in the file.
+	#
+	document = kate.documentManager.openUrl(KUrl.fromPath(file))
+	kate.mainInterfaceWindow().activateView(document)
+	point = KTextEditor.Cursor(line, column)
+	kate.activeView().setCursorPosition(point)
+
     def show(self):
 	#
-	# Loop until we have a viable idFile, or the user cancels.
+	# Establish our configuration. Loop until we have a viable idFile, or
+	# the user cancels.
 	#
 	fileSet = False
-	while "idFile" not in kate.configuration or not fileSet:
+	while not fileSet:
 	    dialog = ConfigDialog(kate.mainWindow().centralWidget())
 	    status = dialog.exec_()
 	    if status == QDialog.Rejected:
@@ -281,16 +343,15 @@ class SearchBar(QObject):
 	    try:
 		searchBar.dataSource.setFile(kate.configuration["idFile"])
 		fileSet = True
-	    except Exception as (errno, strerror):
-		KMessageBox.information(self.parent(),
-				      "Error {} ({}): {}".format(kate.configuration["idFile"], errno, strerror))
+	    except IOError as detail:
+		KMessageBox.error(self.parent(), str(detail), i18n("ID database error"))
 	if fileSet:
 	    kate.mainInterfaceWindow().showToolView(self.toolView)
 
     def hide(self):
 	kate.mainInterfaceWindow().hideToolView(self.toolView)
 
-@kate.action("gid", shortcut = "Ctrl+/", menu = "Gid", icon = "edit-find")
+@kate.action("gid", shortcut = "Ctrl+/", menu = "&Gid", icon = "edit-find")
 def show():
     global searchBar
     if searchBar is None:

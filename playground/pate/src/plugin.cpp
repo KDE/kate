@@ -239,7 +239,6 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.setupUi(parent);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
-    connect(m_manager.autoReload, SIGNAL(clicked(bool)), this, SIGNAL(changed()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadModules()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage()));
 
@@ -261,6 +260,9 @@ void Pate::ConfigPage::reloadPage()
 {
     m_plugin->reloadModuleConfigPages();
     m_manager.tree->resizeColumnToContents(0);
+    m_manager.tree->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_manager.tree->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_manager.tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_manager.tree->expandAll();
     QString topic;
 
@@ -404,19 +406,16 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
 void Pate::ConfigPage::apply()
 {
     // Retrieve the settings from the UI and reflect them in the plugin.
-    m_plugin->m_autoReload = m_manager.autoReload->isChecked();
 }
 
 void Pate::ConfigPage::reset()
 {
     // Retrieve the settings from the plugin and reflect them in the UI.
-    m_manager.autoReload->setChecked(m_plugin->m_autoReload);
 }
 
 void Pate::ConfigPage::defaults()
 {
     // Set the UI to have default settings.
-    m_manager.autoReload->setChecked(false);
     emit changed();
 }
 

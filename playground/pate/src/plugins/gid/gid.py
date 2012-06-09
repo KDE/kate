@@ -227,6 +227,7 @@ class SearchBar(QObject):
 	self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
 	self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
 	self.tree.setSelectionMode(QAbstractItemView.SingleSelection)
+	self.tree.setItemsExpandable(False)
 
 	self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
 	self.token.returnPressed.connect(self.literalSearch)
@@ -234,7 +235,6 @@ class SearchBar(QObject):
 	self.asyncFill.connect(self._continueCompletion)
 	self.token.completionObject().clear();
 	self.tree.doubleClicked.connect(self._treeClicked)
-	self.tree.setItemsExpandable(False)
 
     def __del__(self):
 	"""Plugins that use a toolview need to delete it for reloading to work."""

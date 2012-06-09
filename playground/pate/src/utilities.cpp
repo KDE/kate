@@ -34,6 +34,7 @@ namespace Pate
 namespace Py
 {
 static PyObject *runKateHandler(const char *moduleName, const char *handler);
+static PyObject *functionCall(const char *functionName, const char *moduleName, PyObject *arguments);
 
 const char *PATE_ENGINE = "pate";
 
@@ -43,25 +44,6 @@ PyObject *unicode(const QString &string) {
     PyObject *u = PyUnicode_FromEncodedObject(s, "utf-8", "strict");
     Py_DECREF(s);
     return u;
-}
-
-bool call(PyObject *function, PyObject *arguments) {
-    PyObject *result = PyObject_CallObject(function, arguments);
-    if(result != NULL) {
-        // success
-        Py_DECREF(result);
-        return true;
-    }
-    Py::traceback("Py::call");
-    return false;
-}
-
-bool call(PyObject *function) {
-    // Overload: call a Python callable with no arguments
-    PyObject *arguments = PyTuple_New(0);
-    bool result = call(function, arguments);
-    Py_DECREF(arguments);
-    return result;
 }
 
 void appendStringToList(PyObject *list, const QString &value) {
@@ -87,26 +69,22 @@ void traceback(const QString &description)
 
     if (exc_tb) {
         s_traceback = "Traceback (most recent call last):\n";
-        Py::Object pName = PyString_FromString("traceback");
-        Py::Object pModule = PyImport_Import(pName);
-        PyObject *pDict = PyModule_GetDict(pModule);
-        PyObject *pFunc = PyDict_GetItemString(pDict, "format_tb");
-        if (pFunc && PyCallable_Check(pFunc)) {
-            Py::Object pArgs = PyTuple_New(1);
-            PyTuple_SetItem(pArgs, 0, exc_tb);
-            Py::Object pValue = PyObject_CallObject(pFunc, pArgs);
-            if (pValue) {
-                for (int i = 0, j = PyList_Size(pValue); i < j; i++) {
-                    PyObject *tt = PyList_GetItem(pValue, i);
-                    PyObject *t = Py_BuildValue("(O)", tt);
-                    char *buffer;
-                    if (!PyArg_ParseTuple(t, "s", &buffer)) {
-                        break;
-                    }
-                    s_traceback += buffer;
+        PyObject *arguments = PyTuple_New(1);
+        PyTuple_SetItem(arguments, 0, exc_tb);
+        PyObject *result = functionCall("format_tb", "traceback", arguments);
+        if (result) {
+            for (int i = 0, j = PyList_Size(result); i < j; i++) {
+                PyObject *tt = PyList_GetItem(result, i);
+                PyObject *t = Py_BuildValue("(O)", tt);
+                char *buffer;
+                if (!PyArg_ParseTuple(t, "s", &buffer)) {
+                    break;
                 }
+                s_traceback += buffer;
             }
+            Py_DECREF(result);
         }
+        Py_DECREF(exc_tb);
     }
 
     // If we have the value, don't bother with the type.
@@ -116,12 +94,16 @@ void traceback(const QString &description)
             s_traceback += PyString_AsString(temp);
             s_traceback += "\n";
         }
+        Py_DECREF(exc_val);
     } else {
         PyObject *temp = PyObject_Str(exc_typ);
         if (temp) {
             s_traceback += PyString_AsString(temp);
             s_traceback += "\n";
         }
+    }
+    if (exc_typ) {
+        Py_DECREF(exc_typ);
     }
     s_traceback += description;
     kError() << s_traceback;
@@ -198,17 +180,35 @@ void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary
 
 bool functionCall(const char *functionName, const char *moduleName)
 {
-    bool result;
+    PyObject *result = functionCall(functionName, moduleName, PyTuple_New(0));
+    if (!result) {
+        return false;
+    }
+    Py_DECREF(result);
+    return true;
+}
+
+static PyObject *functionCall(const char *functionName, const char *moduleName, PyObject *arguments)
+{
+    if (!arguments) {
+        Py::traceback(QString("Missing arguments for %1.%2").arg(moduleName).arg(functionName));
+        return 0;
+    }
     PyObject *func = itemString(functionName, moduleName);
     if (!func) {
-        return false;
+        Py::traceback(QString("Failed to resolve %1.%2").arg(moduleName).arg(functionName));
+        return 0;
     }
-    result = Py::call(func);
+    if (!PyCallable_Check(func)) {
+        Py::traceback(QString("Not callable %1.%2").arg(moduleName).arg(functionName));
+        return 0;
+    }
+    PyObject *result = PyObject_CallObject(func, arguments);
+    Py_DECREF(arguments);
     if (!result) {
-        Py::traceback(QString("Could not call %1").arg(functionName));
-        return false;
+        Py::traceback(QString("No result from %1.%2").arg(moduleName).arg(functionName));
     }
-    return true;
+    return result;
 }
 
 bool itemStringDel(const char *item, const char *moduleName)
@@ -309,16 +309,9 @@ PyObject *moduleImport(const char *moduleName)
 
 void *objectUnwrap(PyObject *o)
 {
-    PyObject *func = itemString("unwrapinstance", "sip");
-    if (!func) {
-        return 0;
-    }
     PyObject *arguments = Py_BuildValue("(O)", o);
-    Py_INCREF(func);
-    PyObject *result = PyObject_CallObject(func, arguments);
-    Py_DECREF(arguments);
+    PyObject *result = functionCall("unwrapinstance", "sip", arguments);
     if (!result) {
-        Py::traceback("failed to unwrap instance");
         return 0;
     }
     void *r = (void *)(ptrdiff_t)PyLong_AsLongLong(result);
@@ -333,16 +326,9 @@ PyObject *objectWrap(void *o, QString fullClassName) {
     if (!classObject) {
         return 0;
     }
-    PyObject *func = itemString("wrapinstance", "sip");
-    if (!func) {
-        return 0;
-    }
     PyObject *arguments = Py_BuildValue("NO", PyLong_FromVoidPtr(o), classObject);
-    Py_INCREF(func);
-    PyObject *result = PyObject_CallObject(func, arguments);
-    Py_DECREF(arguments);
+    PyObject *result = functionCall("wrapinstance", "sip", arguments);
     if (!result) {
-        Py::traceback("failed to wrap instance");
         return 0;
     }
     return result;
@@ -359,21 +345,9 @@ static PyObject *runKateHandler(const char *moduleName, const char *handler)
     if (!module) {
         return 0;
     }
-    PyObject *func = itemString(handler, "kate");
-    if (!func) {
-        Py::traceback(QString("Failed to resolve %1").arg(handler));
-        return 0;
-    }
     PyObject *arguments = Py_BuildValue("(O)", (PyObject *)module);
-    if (!arguments) {
-        Py::traceback(QString("Failed to encode arg %1").arg(moduleName));
-        return 0;
-    }
-    Py_INCREF(func);
-    PyObject *result = PyObject_CallObject(func, arguments);
-    Py_DECREF(arguments);
+    PyObject *result = functionCall(handler, "kate", arguments);
     if (!result) {
-        Py::traceback(QString("Failed to call %1").arg(handler));
         return 0;
     }
     return result;

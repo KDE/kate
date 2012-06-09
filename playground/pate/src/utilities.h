@@ -35,69 +35,8 @@ namespace Pate
 
 namespace Py
 {
-
-/**
- * A wrapper for PyObject which takes care of reference counting when
- * allocated on the stack. Use this instead of PyObject * to avoid reference
- * leaks.
- */
-class Object
-{
-public:
-    Object() :
-        m_object(0)
-    {
-    }
-
-    Object(PyObject *object) :
-        m_object(object)
-    {
-    }
-
-    ~Object()
-    {
-        Py_XDECREF(m_object);
-    }
-
-    inline operator PyObject *()
-    {
-        return m_object;
-    }
-
-    /**
-     * Unborrow a reference.
-     */
-    inline Object &operator++()
-    {
-        Py_INCREF(m_object);
-        return *this;
-    }
-
-    inline PyObject **operator&()
-    {
-        Py_XDECREF(m_object);
-        return &m_object;
-    }
-
-    inline Object &operator=(PyObject *object)
-    {
-        if (object != m_object) {
-            Py_XDECREF(m_object);
-            m_object = object;
-        }
-        return *this;
-    }
-
-private:
-    PyObject *m_object;
-};
-
 /// Convert a QString to a Python unicode object
 PyObject *unicode(const QString &string);
-
-/// Call a function, displaying a traceback in STDERR if it fails
-bool call(PyObject *function, PyObject *arguments);
-bool call(PyObject *function);
 
 /// Append a QString to a list as a Python unicode object
 void appendStringToList(PyObject *list, const QString &value);

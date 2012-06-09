@@ -148,6 +148,12 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *func = PyTuple_GetItem(tuple, 1);
+    if (!PyCallable_Check(func)) {
+        // TODO: After a reload, we seem to end up here. This is a temporary
+        // fix, since any page is better than a crash!
+        kError()<<"call"<<PyString_AsString(func)<<"iscallable"<<PyCallable_Check(func);
+        return new Pate::ConfigPage(parent, this);
+    }
     PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
     Py_DECREF(w);

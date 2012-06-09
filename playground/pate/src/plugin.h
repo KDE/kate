@@ -100,6 +100,7 @@ private:
     friend class ConfigPage;
     bool m_autoReload;
     mutable QList<PyObject *> m_moduleConfigPages;
+    void reloadModuleConfigPages() const;
 };
 
 /**

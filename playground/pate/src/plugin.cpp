@@ -64,8 +64,8 @@ Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
 
 Pate::Plugin::~Plugin() {
     while (m_moduleConfigPages.size()) {
-        PyObject *o = m_moduleConfigPages.takeFirst();
-        Py_DECREF(o);
+        PyObject *tuple = m_moduleConfigPages.takeFirst();
+        Py_DECREF(tuple);
     }
     Pate::Engine::del();
 }
@@ -102,6 +102,12 @@ uint Pate::Plugin::configPages() const
     // The Manager page is always present.
     uint pages = 1;
 
+    reloadModuleConfigPages();
+    return pages + m_moduleConfigPages.size();
+}
+
+void Pate::Plugin::reloadModuleConfigPages() const
+{
     // Count the number of plugins which need their own custom page.
     m_moduleConfigPages.clear();
     QStandardItem *root = Pate::Engine::self()->invisibleRootItem();
@@ -116,23 +122,20 @@ uint Pate::Plugin::configPages() const
                 continue;
             }
 
-            // TODO: Query the engine for this information, and then extend
-            // our sibling functions to get the necessary information from
-            // the plugins who want to play.
+            // For each plugin that want one or more config pages, add an entry.
             QString pluginName = directoryItem->child(j)->text();
             PyObject *configPages = Py::moduleConfigPages(PQ(pluginName));
             if (configPages) {
                 for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                     // Add an action for this plugin.
                     PyObject *tuple = PyList_GetItem(configPages, k);
+                    Py_INCREF(tuple);
                     m_moduleConfigPages.append(tuple);
-                    pages++;
                 }
                 Py_DECREF(configPages);
             }
         }
     }
-    return pages;
 }
 
 Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, const char *name)
@@ -148,12 +151,6 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     number--;
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *func = PyTuple_GetItem(tuple, 1);
-    if (!PyCallable_Check(func)) {
-        // TODO: After a reload, we seem to end up here. This is a temporary
-        // fix, since any page is better than a crash!
-        kError()<<"call"<<PyString_AsString(func)<<"iscallable"<<PyCallable_Check(func);
-        return new Pate::ConfigPage(parent, this);
-    }
     PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
     Py_DECREF(w);
@@ -262,6 +259,7 @@ Pate::ConfigPage::~ConfigPage()
 
 void Pate::ConfigPage::reloadPage()
 {
+    m_plugin->reloadModuleConfigPages();
     m_manager.tree->resizeColumnToContents(0);
     m_manager.tree->expandAll();
     QString topic;

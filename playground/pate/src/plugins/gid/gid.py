@@ -157,6 +157,53 @@ class ConfigDialog(KDialog):
     def defaults(self):
 	self.widget.defaults()
 
+def transform(file):
+    """Return the transformed file name."""
+    transformationKey = kate.configuration["srcIn"]
+    if len(transformationKey):
+	#
+	# A transformation of the file name is requested.
+	#
+	try:
+	    left, right = file.split(transformationKey, 1)
+	except ValueError:
+	    #
+	    # No transformation is applicable.
+	    #
+	    return file
+	percentI = kate.configuration["srcOut"].find("%i")
+	if percentI > -1:
+	    insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
+	    discard, insertRight = kate.configuration["srcOut"].split("%i", 1)
+	    insert = insertLeft + insertRight
+	else:
+	    insert = kate.configuration["srcOut"]
+    return insert + right
+
+def wordAtCursorPosition(line, cursor):
+    ''' Get the word under the active view's cursor in the given document.
+    Stolen from the expand plugin!'''
+    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
+    # better to use word boundaries than to hardcode valid letters because
+    # expansions should be able to be in any unicode character.
+    start = end = cursor.column()
+    if start == len(line) or line[start] in wordBoundary:
+	start -= 1
+    while start >= 0 and line[start] not in wordBoundary:
+	start -= 1
+    start += 1
+    while end < len(line) and line[end] not in wordBoundary:
+	end += 1
+    return start, end
+
+def wordAtCursor(document, view):
+    ''' Get the word under the active view's cursor in the given document.
+    Stolen from the expand plugin!'''
+    cursor = view.cursorPosition()
+    line = unicode(document.line(cursor.line()))
+    start, end = wordAtCursorPosition(line, cursor)
+    return line[start:end]
+
 class TreeModel(QStandardItemModel):
     def __init__(self, dataSource):
 	super(TreeModel, self).__init__()
@@ -172,7 +219,9 @@ class TreeModel(QStandardItemModel):
 	    # For each file, list the lines where a match is found.
 	    #
 	    for fileName, fileFlags in files:
+		fileName = transform(fileName)
 		fileRow = QStandardItem(fileName)
+		root.appendRow(fileRow)
 		line = 0
 		for text in open(fileName):
 		    column = text.find(token)
@@ -183,7 +232,6 @@ class TreeModel(QStandardItemModel):
 			resultRow.append(QStandardItem(str(column + 1)))
 			fileRow.appendRow(resultRow)
 		    line += 1
-		root.appendRow(fileRow)
 	except IndexError:
 	    return
 
@@ -193,6 +241,7 @@ class SearchBar(QObject):
     lastToken = None
     lastOffset = None
     lastName = None
+    gotSettings = False
 
     #
     asyncFill = pyqtSignal("QString")
@@ -208,12 +257,17 @@ class SearchBar(QObject):
 	top.setLayout(lo)
 
 	self.token = KLineEdit()
+	self.token.setWhatsThis(i18n("Lookup a symbol, filename or other token using auto-completion. Hit return to find occurances."))
 	lo.addWidget(self.token, 0, 1, 1, 1)
 	self.labelToken = QLabel(i18n("&Token:"))
 	self.labelToken.setBuddy(self.token)
 	lo.addWidget(self.labelToken, 0, 0, 1, 1)
 
+	self.settings = QPushButton(i18n("Settings..."))
+	lo.addWidget(self.settings, 0, 2, 1, 1)
+
 	self.tree = QTreeView()
+	self.tree.setWhatsThis(i18n("Double click on a match to navigate to it."))
 	lo.addWidget(self.tree, 1, 0, 1, 4)
 	self.model = TreeModel(self.dataSource)
 	self.tree.setModel(self.model)
@@ -234,6 +288,7 @@ class SearchBar(QObject):
 	self.token.completion.connect(self._findCompletion)
 	self.asyncFill.connect(self._continueCompletion)
 	self.token.completionObject().clear();
+	self.settings.clicked.connect(self.getSettings)
 	self.tree.doubleClicked.connect(self._treeClicked)
 
     def __del__(self):
@@ -328,35 +383,76 @@ class SearchBar(QObject):
 	point = KTextEditor.Cursor(line, column)
 	kate.activeView().setCursorPosition(point)
 
-    def show(self):
-	#
-	# Establish our configuration. Loop until we have a viable idFile, or
-	# the user cancels.
-	#
+    @pyqtSlot()
+    def getSettings(self):
+	"""Show the settings dialog.
+	Establish our configuration. Loop until we have a viable settings, or
+	the user cancels.
+	"""
 	fileSet = False
-	while not fileSet:
+	transformOK = False
+	while not fileSet or not transformOK:
+	    fileSet = False
+	    transformOK = False
 	    dialog = ConfigDialog(kate.mainWindow().centralWidget())
 	    status = dialog.exec_()
 	    if status == QDialog.Rejected:
 		break
 	    dialog.widget.apply()
+	    #
+	    # Check the save file name.
+	    #
 	    try:
 		searchBar.dataSource.setFile(kate.configuration["idFile"])
 		fileSet = True
 	    except IOError as detail:
 		KMessageBox.error(self.parent(), str(detail), i18n("ID database error"))
-	if fileSet:
+	    #
+	    # Check the transformation settings.
+	    #
+	    try:
+		transformationKey = kate.configuration["srcIn"]
+		percentI = kate.configuration["srcOut"].find("%i")
+		if len(transformationKey) and (percentI > -1):
+		    #
+		    # A transformation of the file name is with the output
+		    # using the %i placeholder. Ensure the idFile is usable for
+		    # that purpose.
+		    #
+		    insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
+		transformOK = True
+	    except ValueError as detail:
+		KMessageBox.error(self.parent(), i18n("'{}' does not contain '{}'").format(kate.configuration["idFile"], transformationKey), i18n("Cannot use %i"))
+	return fileSet and transformOK
+
+    def show(self):
+	if not self.gotSettings:
+	    self.gotSettings = self.getSettings()
+	if self.gotSettings:
 	    kate.mainInterfaceWindow().showToolView(self.toolView)
+	return self.gotSettings
 
     def hide(self):
 	kate.mainInterfaceWindow().hideToolView(self.toolView)
 
-@kate.action("gid", shortcut = "Ctrl+/", menu = "&Gid", icon = "edit-find")
+@kate.action("Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
     global searchBar
     if searchBar is None:
 	searchBar = SearchBar(kate.mainWindow())
-    searchBar.show()
+    return searchBar.show()
+
+@kate.action("Lookup", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
+def lookup():
+    dir(kate.activeView())
+    global searchBar
+    if show():
+	if kate.activeView().selection():
+	    selectedText = kate.activeView().selectionText()
+	else:
+	    selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
+	searchBar.token.setText(selectedText)
+	searchBar.literalSearch(searchBar.token.text())
 
 @kate.configPage("gid", "gid Lookup", icon = "edit-find")
 def configPage(parent = None, name = None):

@@ -130,7 +130,7 @@ void updateDictionaryFromConfiguration(PyObject *dictionary, const KConfigBase *
         PyDict_SetItemString(dictionary, PQ(groupName), groupDictionary);
         foreach(QString key, group.keyList()) {
             QString valueString = group.readEntry(key);
-            PyObject *value = PyRun_String(PQ(group.readEntry(key)), Py_eval_input, evaluationLocals, evaluationGlobals);
+            PyObject *value = PyRun_String(PQ(valueString), Py_eval_input, evaluationLocals, evaluationGlobals);
             if (value) {
                 PyDict_SetItemString(groupDictionary, PQ(key), value);
                 Py_DECREF(value);

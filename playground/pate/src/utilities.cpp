@@ -116,7 +116,8 @@ const QString &lastTraceback(void)
 
 /// Create a Python dictionary from a KConfigBase instance,
 /// writing the string representation of the values
-void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config) {
+void updateDictionaryFromConfiguration(PyObject *dictionary, const KConfigBase *config)
+{
     // relatively safe evaluation environment for Pythonizing the serialised types:
     PyObject *evaluationLocals = PyDict_New();
     PyObject *evaluationGlobals = PyDict_New();
@@ -130,13 +131,15 @@ void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config
         foreach(QString key, group.keyList()) {
             QString valueString = group.readEntry(key);
             PyObject *value = PyRun_String(PQ(group.readEntry(key)), Py_eval_input, evaluationLocals, evaluationGlobals);
-            if(value) {
+            if (value) {
                 PyDict_SetItemString(groupDictionary, PQ(key), value);
+                Py_DECREF(value);
             }
             else {
                 Py::traceback(QString("Bad config value: %1").arg(valueString));
             }
         }
+        Py_DECREF(groupDictionary);
     }
     Py_DECREF(evaluationBuiltins);
     Py_DECREF(evaluationGlobals);
@@ -145,29 +148,32 @@ void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config
 
 /// Write a Python dictionary to a configuration object, converting
 /// objects to their string representation along the way
-void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary) {
+void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary)
+{
     PyObject *groupName, *groupDictionary;
     Py_ssize_t position = 0;
-    while(PyDict_Next(dictionary, &position, &groupName, &groupDictionary)) {
-        Py_ssize_t x = 0;
-        PyObject *key, *value;
-        if(!PyString_AsString(groupName)) {
+    while (PyDict_Next(dictionary, &position, &groupName, &groupDictionary)) {
+        if (!PyString_AsString(groupName)) {
             Py::traceback(QString("Configuration group name not a string"));
             continue;
         }
-        if(!PyDict_Check(groupDictionary)) {
+        if (!PyDict_Check(groupDictionary)) {
             kError() << "configuration value for key '" << PyString_AsString(groupName) << "' in top level is not a dictionary; ignoring";
             continue;
         }
+
+        //  There is a group per module.
         KConfigGroup group = config->group(PyString_AsString(groupName));
-        while(PyDict_Next(groupDictionary, &x, &key, &value)) {
-            if(!PyString_AsString(key)) {
+        PyObject *key, *value;
+        Py_ssize_t x = 0;
+        while (PyDict_Next(groupDictionary, &x, &key, &value)) {
+            if (!PyString_AsString(key)) {
                 Py::traceback(QString("Configuration item key not a string"));
                 continue;
             }
             QString keyString = PyString_AsString(key);
             PyObject *pyRepresentation = PyObject_Repr(value);
-            if(!pyRepresentation) {
+            if (!pyRepresentation) {
                 Py::traceback(QString("Could not get the representation of the value for '%1'").arg(keyString));
                 continue;
             }

@@ -41,30 +41,34 @@ PyObject *unicode(const QString &string);
 /// Append a QString to a list as a Python unicode object
 void appendStringToList(PyObject *list, const QString &value);
 
-/**
- * Print and save (see @ref lastTraceback()) the current traceback in a form
- * approximating what Python would print:
- *
- * Traceback (most recent call last):
- *   File "/home/shahhaqu/.kde/share/apps/kate/pate/pluginmgr.py", line 13, in <module>
- *     import kdeui
- * ImportError: No module named kdeui
- * Could not import pluginmgr.
- */
-void traceback(const QString &description);
+    /**
+     * Print and save (see @ref lastTraceback()) the current traceback in a
+     * form approximating what Python would print:
+     *
+     * Traceback (most recent call last):
+     *   File "/home/shahhaqu/.kde/share/apps/kate/pate/pluginmgr.py", line 13, in <module>
+     *     import kdeui
+     * ImportError: No module named kdeui
+     * Could not import pluginmgr.
+     */
+    void traceback(const QString &description);
 
-/**
- * Store the last traceback we handled using @ref traceback().
- */
-const QString &lastTraceback(void);
+    /**
+     * Store the last traceback we handled using @ref traceback().
+     */
+    const QString &lastTraceback(void);
 
-/// Create a Python dictionary from a KConfigBase instance,
-/// writing the string representation of the values
-void updateDictionaryFromConfiguration(PyObject *dictionary, KConfigBase *config);
+    /**
+     * Create a Python dictionary from a KConfigBase instance, writing the
+     * string representation of the values.
+     */
+    void updateDictionaryFromConfiguration(PyObject *dictionary, const KConfigBase *config);
 
-/// Write a Python dictionary to a configuration object, converting
-/// objects to their string representation along the way
-void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary);
+    /**
+     * Write a Python dictionary to a configuration object, converting objects
+     * to their string representation along the way.
+     */
+    void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary);
 
     extern const char *PATE_ENGINE;
 

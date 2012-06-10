@@ -157,8 +157,8 @@ Pate::Engine::~Engine()
     if (Py_IsInitialized()) {
 #if THREADED
         PyEval_AcquireThread(m_pythonThreadState);
-#endif
         Py_Finalize();
+#endif
     }
     if (m_pythonLibrary->isLoaded()) {
         m_pythonLibrary->unload();

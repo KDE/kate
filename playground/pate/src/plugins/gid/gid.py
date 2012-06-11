@@ -35,6 +35,7 @@ from idutils import Lookup
 import codecs
 import sip
 import subprocess
+import time
 
 searchBar = None
 
@@ -246,14 +247,25 @@ class TreeModel(QStandardItemModel):
 	self.dataSource = dataSource
 	self.setHorizontalHeaderLabels((i18n("Match"), i18n("Line"), i18n("Col")))
 
-    def literalSearch(self, token):
+    def literalSearch(self, parent, token):
+	"""Add the entries which match the token to the tree.
+
+	Entries are grouped under the file in which the hits are searched. Each
+	entry shows the matched text, the line and column of the match. If so
+	enabled, entries which are defintions according to etags are highlighted.
+
+	If the output takes a long time to generate, the user is given options
+	to continue or abort.
+	"""
 	root = self.invisibleRootItem()
 	root.removeRows(0, root.rowCount())
+	previousBoredomQuery = time.time()
 	try:
 	    tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
 	    #
 	    # For each file, list the lines where a match is found.
 	    #
+	    filesListed = 0
 	    for fileName, fileFlags in files:
 		fileName = transform(fileName)
 		etagDefinitionLine = etagSearch(token, fileName)
@@ -279,6 +291,19 @@ class TreeModel(QStandardItemModel):
 			    fileRow.setIcon(KIcon("go-jump-definition"))
 			fileRow.appendRow(resultRow)
 		    line += 1
+		filesListed += 1
+		#
+		# Time to query the user's boredom level?
+		#
+		if time.time() - previousBoredomQuery > 20:
+		    r = KMessageBox.questionYesNoCancel(parent, i18n("Listed {} of {} files").format(filesListed, len(files)),
+				i18n("List more files?"), KGuiItem(i18n("All")), KStandardGuiItem.no(), KGuiItem(i18n("Check later")))
+		    if r == KMessageBox.Yes:
+			previousBoredomQuery = time.time() + 300
+		    elif r == KMessageBox.No:
+			break
+		    else:
+			previousBoredomQuery = time.time()
 	except IndexError:
 	    return
 
@@ -347,7 +372,7 @@ class SearchBar(QObject):
     @pyqtSlot("QString")
     def literalSearch(self, token):
 	try:
-	    self.model.literalSearch(token)
+	    self.model.literalSearch(self.parent(), token)
 	    self.tree.expandAll()
 	except IOError as detail:
 	    KMessageBox.error(self.parent(), str(detail), i18n("Error finding {}").format(token))

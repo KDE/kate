@@ -30,10 +30,11 @@ from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from PyKDE4.ktexteditor import KTextEditor
 
-import codecs
 from idutils import Lookup
 
+import codecs
 import sip
+import subprocess
 
 searchBar = None
 
@@ -64,7 +65,7 @@ class ConfigWidget(QWidget):
 
 	self.idFile = KLineEdit()
 	self.idFile.setWhatsThis(i18n("Name of ID file."))
-	lo.addWidget(self.idFile, 0, 1, 1, 1)
+	lo.addWidget(self.idFile, 0, 1, 1, 3)
 	self.labelIdFile = QLabel(i18n("&ID file:"))
 	self.labelIdFile.setBuddy(self.idFile)
 	lo.addWidget(self.labelIdFile, 0, 0, 1, 1)
@@ -73,30 +74,38 @@ class ConfigWidget(QWidget):
 	self.keySize.setMinimum(3)
 	self.keySize.setMaximum(16)
 	self.keySize.setWhatsThis(i18n("Minimum length of token before completions will be shown."))
-	lo.addWidget(self.keySize, 0, 3, 1, 1)
-	self.labelKeySize = QLabel(i18n("&Complete after:"))
+	lo.addWidget(self.keySize, 1, 1, 1, 1)
+	self.labelKeySize = QLabel(i18n("&Complete tokens after:"))
 	self.labelKeySize.setBuddy(self.keySize)
-	lo.addWidget(self.labelKeySize, 0, 2, 1, 1)
+	lo.addWidget(self.labelKeySize, 1, 0, 1, 1)
+
+	self.useEtags = QCheckBox()
+	self.useEtags.setWhatsThis(i18n("Use etags(1) to find definitions."))
+	lo.addWidget(self.useEtags, 1, 3, 1, 1)
+	self.labelUseEtags = QLabel(i18n("&Highlight definitions:"))
+	self.labelUseEtags.setBuddy(self.useEtags)
+	lo.addWidget(self.labelUseEtags, 1, 2, 1, 1)
 
 	self.srcIn = KLineEdit()
 	self.srcIn.setWhatsThis(i18n("If not empty, when looking in a file for matches, replace this prefix of the file name."))
-	lo.addWidget(self.srcIn, 1, 1, 1, 3)
+	lo.addWidget(self.srcIn, 2, 1, 1, 3)
 	self.labelSrcIn = QLabel(i18n("&Replace:"))
 	self.labelSrcIn.setBuddy(self.srcIn)
-	lo.addWidget(self.labelSrcIn, 1, 0, 1, 1)
+	lo.addWidget(self.labelSrcIn, 2, 0, 1, 1)
 
 	self.srcOut = KLineEdit()
 	self.srcOut.setWhatsThis(i18n("Replacement prefix. Use %i to insert the prefix of the ID file."))
-	lo.addWidget(self.srcOut, 2, 1, 1, 3)
+	lo.addWidget(self.srcOut, 3, 1, 1, 3)
 	self.labelSrcOut = QLabel(i18n("&With this:"))
 	self.labelSrcOut.setBuddy(self.srcOut)
-	lo.addWidget(self.labelSrcOut, 2, 0, 1, 1)
+	lo.addWidget(self.labelSrcOut, 3, 0, 1, 1)
 
 	self.reset();
 
     def apply(self):
 	kate.configuration["idFile"] = self.idFile.text().encode("utf-8")
 	kate.configuration["keySize"] = self.keySize.value()
+	kate.configuration["useEtags"] = self.useEtags.isChecked()
 	kate.configuration["srcIn"] = self.srcIn.text().encode("utf-8")
 	kate.configuration["srcOut"] = self.srcOut.text().encode("utf-8")
 	kate.configuration.save()
@@ -107,6 +116,8 @@ class ConfigWidget(QWidget):
 	    self.idFile.setText(kate.configuration["idFile"])
 	if "keySize" in kate.configuration:
 	    self.keySize.setValue(kate.configuration["keySize"])
+	if "useEtags" in kate.configuration:
+	    self.useEtags.setChecked(kate.configuration["useEtags"])
 	if "srcIn" in kate.configuration:
 	    self.srcIn.setText(kate.configuration["srcIn"])
 	if "srcOut" in kate.configuration:
@@ -115,6 +126,7 @@ class ConfigWidget(QWidget):
     def defaults(self):
 	self.idFile.setText("/view/myview/vob/ID")
 	self.keySize.setValue(5)
+	self.useEtags.setChecked(True)
 	self.srcIn.setText("/vob")
 	self.srcOut.setText("%i/vob")
 
@@ -206,6 +218,28 @@ def wordAtCursor(document, view):
     start, end = wordAtCursorPosition(line, cursor)
     return line[start:end]
 
+def etagSearch(token, fileName):
+    """Use etags to find any definition in this file.
+
+    Look for [ 0x7f, token, 0x1 ].
+    """
+    if not kate.configuration["useEtags"]:
+	return None
+    etagsCmd = ["etags", "-o", "-", fileName]
+    etagBytes = subprocess.check_output(etagsCmd)
+    tokenBytes = bytearray(token.encode("utf-8"))
+    tokenBytes.insert(0, 0x7f)
+    tokenBytes.append(0x1)
+    etagDefinition = etagBytes.find(tokenBytes)
+    if etagDefinition > -1:
+	#
+	# The line number follows.
+	#
+	lineNumberStart = etagDefinition + len(tokenBytes)
+	lineNumberEnd = etagBytes.find(",", lineNumberStart)
+	return int(etagBytes[lineNumberStart:lineNumberEnd])
+    return None
+
 class TreeModel(QStandardItemModel):
     def __init__(self, dataSource):
 	super(TreeModel, self).__init__()
@@ -222,9 +256,10 @@ class TreeModel(QStandardItemModel):
 	    #
 	    for fileName, fileFlags in files:
 		fileName = transform(fileName)
+		etagDefinitionLine = etagSearch(token, fileName)
 		fileRow = QStandardItem(fileName)
 		root.appendRow(fileRow)
-		line = 0
+		line = 1
 		#
 		# Question: what encoding is this file? TODO A better approach
 		# to this question.
@@ -234,8 +269,14 @@ class TreeModel(QStandardItemModel):
 		    if column > -1:
 			resultRow = list()
 			resultRow.append(QStandardItem(text[:-1]))
-			resultRow.append(QStandardItem(str(line + 1)))
+			resultRow.append(QStandardItem(str(line)))
 			resultRow.append(QStandardItem(str(column + 1)))
+			if line == etagDefinitionLine:
+			    #
+			    # Mark the line and the file as being a definition.
+			    #
+			    resultRow[0].setIcon(KIcon("go-jump-definition"))
+			    fileRow.setIcon(KIcon("go-jump-definition"))
 			fileRow.appendRow(resultRow)
 		    line += 1
 	except IndexError:
@@ -441,7 +482,7 @@ class SearchBar(QObject):
     def hide(self):
 	kate.mainInterfaceWindow().hideToolView(self.toolView)
 
-@kate.action("Tokens", shortcut = "Alt+1", menu = "&Gid")
+@kate.action("Show Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
     global searchBar
     if searchBar is None:

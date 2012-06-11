@@ -29,6 +29,8 @@ from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from PyKDE4.ktexteditor import KTextEditor
+
+import codecs
 from idutils import Lookup
 
 import sip
@@ -223,7 +225,11 @@ class TreeModel(QStandardItemModel):
 		fileRow = QStandardItem(fileName)
 		root.appendRow(fileRow)
 		line = 0
-		for text in open(fileName):
+		#
+		# Question: what encoding is this file? TODO A better approach
+		# to this question.
+		#
+		for text in codecs.open(fileName, encoding="latin-1"):
 		    column = text.find(token)
 		    if column > -1:
 			resultRow = list()

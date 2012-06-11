@@ -175,10 +175,10 @@ def transform(file):
 	if percentI > -1:
 	    insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
 	    discard, insertRight = kate.configuration["srcOut"].split("%i", 1)
-	    insert = insertLeft + insertRight
+	    file = insertLeft + insertRight
 	else:
-	    insert = kate.configuration["srcOut"]
-    return insert + right
+	    file = kate.configuration["srcOut"] + right
+    return file
 
 def wordAtCursorPosition(line, cursor):
     ''' Get the word under the active view's cursor in the given document.

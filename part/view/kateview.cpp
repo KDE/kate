@@ -2208,6 +2208,34 @@ QString KateView::currentTextLine( )
   return m_doc->line( cursorPosition().line() );
 }
 
+QString KateView::searchPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->searchPattern();
+    } else {
+      return QString();
+    }
+}
+
+QString KateView::replacementPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->replacementPattern();
+    } else {
+      return QString();
+    }
+}
+
+void KateView::setSearchPattern(const QString &searchPattern)
+{
+  searchBar()->setSearchPattern(searchPattern);
+}
+
+void KateView::setReplacePattern(const QString &replacePattern)
+{
+  searchBar()->setReplacePattern(replacePattern);
+}
+
 void KateView::indent( )
 {
   KTextEditor::Cursor c(cursorPosition().line(), 0);

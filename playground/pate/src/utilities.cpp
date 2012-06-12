@@ -25,6 +25,7 @@
 #include <kconfigbase.h>
 #include <kconfiggroup.h>
 #include <kdebug.h>
+#include <KLocale>
 
 #include "utilities.h"
 
@@ -114,72 +115,59 @@ const QString &lastTraceback(void)
     return s_traceback;
 }
 
-/// Create a Python dictionary from a KConfigBase instance,
-/// writing the string representation of the values
 void updateDictionaryFromConfiguration(PyObject *dictionary, const KConfigBase *config)
 {
-    // relatively safe evaluation environment for Pythonizing the serialised types:
-    PyObject *evaluationLocals = PyDict_New();
-    PyObject *evaluationGlobals = PyDict_New();
-    PyObject *evaluationBuiltins = PyDict_New();
-    PyDict_SetItemString(evaluationGlobals, "__builtin__", evaluationBuiltins);
     kDebug() << config->groupList();
     foreach(QString groupName, config->groupList()) {
         KConfigGroup group = config->group(groupName);
         PyObject *groupDictionary = PyDict_New();
         PyDict_SetItemString(dictionary, PQ(groupName), groupDictionary);
         foreach(QString key, group.keyList()) {
-            QString valueString = group.readEntry(key);
-            PyObject *value = PyRun_String(PQ(valueString), Py_eval_input, evaluationLocals, evaluationGlobals);
+            QString pickled = group.readEntry(key);
+            PyObject *arguments = Py_BuildValue("(s)", PQ(pickled));
+            PyObject *value = functionCall("loads", "pickle", arguments);
             if (value) {
                 PyDict_SetItemString(groupDictionary, PQ(key), value);
                 Py_DECREF(value);
             }
             else {
-                Py::traceback(QString("Bad config value: %1").arg(valueString));
+                Py::traceback(QString("Bad config value: %1.%2=%3").arg(groupName).arg(key).arg(pickled));
             }
         }
         Py_DECREF(groupDictionary);
     }
-    Py_DECREF(evaluationBuiltins);
-    Py_DECREF(evaluationGlobals);
-    Py_DECREF(evaluationLocals);
 }
 
-/// Write a Python dictionary to a configuration object, converting
-/// objects to their string representation along the way
 void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary)
 {
-    PyObject *groupName, *groupDictionary;
+    PyObject *groupKey;
+    PyObject *groupDictionary;
     Py_ssize_t position = 0;
-    while (PyDict_Next(dictionary, &position, &groupName, &groupDictionary)) {
-        if (!PyString_AsString(groupName)) {
-            Py::traceback(QString("Configuration group name not a string"));
+    while (PyDict_Next(dictionary, &position, &groupKey, &groupDictionary)) {
+        if (!PyString_Check(groupKey)) {
+            Py::traceback(i18n("Configuration group name not a string"));
             continue;
         }
+        QString groupName = PyString_AsString(groupKey);
         if (!PyDict_Check(groupDictionary)) {
-            kError() << "configuration value for key '" << PyString_AsString(groupName) << "' in top level is not a dictionary; ignoring";
+            Py::traceback(i18n("Configuration group %1 top level key not a dictionary").arg(groupName));
             continue;
         }
 
         //  There is a group per module.
-        KConfigGroup group = config->group(PyString_AsString(groupName));
-        PyObject *key, *value;
+        KConfigGroup group = config->group(groupName);
+        PyObject *key;
+        PyObject *value;
         Py_ssize_t x = 0;
         while (PyDict_Next(groupDictionary, &x, &key, &value)) {
-            if (!PyString_AsString(key)) {
-                Py::traceback(QString("Configuration item key not a string"));
+            if (!PyString_Check(key)) {
+                Py::traceback(i18n("Configuration group %1 itemKey not a string").arg(groupName));
                 continue;
             }
-            QString keyString = PyString_AsString(key);
-            PyObject *pyRepresentation = PyObject_Repr(value);
-            if (!pyRepresentation) {
-                Py::traceback(QString("Could not get the representation of the value for '%1'").arg(keyString));
-                continue;
-            }
-            QString valueString = PyString_AsString(pyRepresentation);
-            group.writeEntry(keyString, valueString);
-            Py_DECREF(pyRepresentation);
+            PyObject *arguments = Py_BuildValue("(O)", value);
+            PyObject *pickled = functionCall("dumps", "pickle", arguments);
+            group.writeEntry(PyString_AsString(key), QString(PyString_AsString(pickled)));
+            Py_DECREF(pickled);
         }
     }
 }

@@ -235,6 +235,16 @@ void KateViInputModeManager::repeatLastChange()
   m_runningMacro = false;
 }
 
+const QString KateViInputModeManager::getLastSearchPattern() const
+{
+  return m_view->searchPattern();
+}
+
+void KateViInputModeManager::setLastSearchPattern( const QString &p )
+{
+  m_view->setSearchPattern(p);
+}
+
 void KateViInputModeManager::changeViMode(ViMode newMode)
 {
   m_currentViMode = newMode;

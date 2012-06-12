@@ -161,12 +161,12 @@ public:
   /**
    * get the last search term used
    */
-  const QString getLastSearchPattern() const { return m_lastSearchPattern; }
+  const QString getLastSearchPattern() const;
 
   /**
    * record a search term so that it will be used with 'n' and 'N'
    */
-  void setLastSearchPattern( const QString &p ) { m_lastSearchPattern = p; }
+  void setLastSearchPattern( const QString &p );
 
   /**
    * get search direction of last search. (true if backwards, false if forwards)
@@ -233,11 +233,6 @@ private:
    * a list of the key events that was part of the last change.
    */
   QString m_lastChange;
-
-  /**
-   * the last pattern searched for
-   */
-  QString m_lastSearchPattern;
 
   /**
    * keeps track of whether the last search was done backwards or not.

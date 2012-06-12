@@ -33,6 +33,7 @@ from PyKDE4.ktexteditor import KTextEditor
 from idutils import Lookup
 
 import codecs
+import re
 import sip
 import subprocess
 import time
@@ -198,9 +199,9 @@ def transform(file):
 def wordAtCursorPosition(line, cursor):
     ''' Get the word under the active view's cursor in the given document.
     Stolen from the expand plugin!'''
-    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
-    # better to use word boundaries than to hardcode valid letters because
+    # Better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
+    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
     start = end = cursor.column()
     if start == len(line) or line[start] in wordBoundary:
 	start -= 1
@@ -259,6 +260,7 @@ class TreeModel(QStandardItemModel):
 	"""
 	root = self.invisibleRootItem()
 	root.removeRows(0, root.rowCount())
+	regexp = re.compile("\\b" + token + "\\b")
 	previousBoredomQuery = time.time()
 	try:
 	    tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
@@ -277,12 +279,20 @@ class TreeModel(QStandardItemModel):
 		# to this question.
 		#
 		for text in codecs.open(fileName, encoding="latin-1"):
-		    column = text.find(token)
-		    if column > -1:
+		    match = regexp.search(text)
+		    if match:
 			resultRow = list()
 			resultRow.append(QStandardItem(text[:-1]))
 			resultRow.append(QStandardItem(str(line)))
-			resultRow.append(QStandardItem(str(column + 1)))
+			#
+			# The column value displayed by Kate is based on a
+			# virtual position, where TABs count as 8.
+			#
+			column = match.start();
+			tabs = text[:column].count("\t")
+			virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
+			resultRow.append(virtualColumn)
+			virtualColumn.setData(column, Qt.UserRole + 1)
 			if line == etagDefinitionLine:
 			    #
 			    # Mark the line and the file as being a definition.
@@ -441,7 +451,7 @@ class SearchBar(QObject):
 	    #
 	    file = parent.data()
 	    line = int(index.sibling(index.row(), 1).data()) - 1
-	    column = int(index.sibling(index.row(), 2).data()) - 1
+	    column = index.sibling(index.row(), 2).data(Qt.UserRole + 1)
 	else:
 	    #
 	    # We got a file.

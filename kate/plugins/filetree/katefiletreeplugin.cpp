@@ -71,7 +71,7 @@ Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 void KateFileTreePlugin::viewDestroyed(QObject* view)
 {
   // do not access the view pointer, since it is partially destroyed already
-  m_views.removeAll((KateFileTreePluginView *) view);
+  m_views.removeAll(static_cast<KateFileTreePluginView *>(view));
 }
 
 uint KateFileTreePlugin::configPages() const

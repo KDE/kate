@@ -104,7 +104,7 @@ namespace JoWenn {
       connect(view,SIGNAL(selectionChanged(KTextEditor::View*)),this,SLOT(selectionChanged(KTextEditor::View*)));
       selectionChanged(view);
       QString mode=view->document()->mode();
-      if ((mode!=m_mode) || (treeView->model()==0) || (((KateSnippetSelectorProxyModel*)treeView->model())->sourceModel()==0 ) )
+      if ((mode!=m_mode) || (treeView->model()==0) || ((static_cast<KateSnippetSelectorProxyModel*>(treeView->model()))->sourceModel()==0 ) )
       {
           QAbstractItemModel *oldModel=treeView->model();
           KateSnippetSelectorProxyModel *m=0;

@@ -102,7 +102,7 @@ QList<KTextEditor::Document *> KateMailDialog::selectedDocs()
   KateMailDocItem *item = NULL;
   for(int i = 0; i < list->topLevelItemCount(); i++)
   {
-    item = (KateMailDocItem *)list->topLevelItem(i);
+    item = static_cast<KateMailDocItem *>( list->topLevelItem(i) );
     if ( item->checkState(0) == Qt::Checked )
       l.append( item->doc() );
   }

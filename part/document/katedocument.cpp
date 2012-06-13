@@ -2594,7 +2594,7 @@ void KateDocument::removeView(KTextEditor::View *view) {
   if (activeView() == view)
     setActiveView(0L);
 
-  m_views.removeAll( (KateView *) view );
+  m_views.removeAll( static_cast<KateView *>(view) );
   m_textEditViews.removeAll( view  );
 }
 
@@ -2603,7 +2603,7 @@ void KateDocument::setActiveView(KTextEditor::View* view)
   if ( m_activeView == view )
     return;
 
-  m_activeView = (KateView*)view;
+  m_activeView = static_cast<KateView*>(view);
 }
 
 bool KateDocument::ownedView(KateView *view) {
@@ -5416,7 +5416,7 @@ Kate::SwapFile* KateDocument::swapFile()
 
 int KateDocument::defStyleNum(int line, int column)
 {
-  QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(((KateView*) activeView())->renderer()->config()->schema());
+  QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(static_cast<KateView*> (activeView())->renderer()->config()->schema());
   KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
   return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
 }

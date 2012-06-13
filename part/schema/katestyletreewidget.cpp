@@ -284,12 +284,12 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
 
 void KateStyleTreeWidget::changeProperty()
 {
-  ((KateStyleTreeWidgetItem*)currentItem())->changeProperty( static_cast<QAction*>(sender())->data().toInt() );
+  static_cast<KateStyleTreeWidgetItem*>(currentItem())->changeProperty( static_cast<QAction*>(sender())->data().toInt() );
 }
 
 void KateStyleTreeWidget::unsetColor()
 {
-  ((KateStyleTreeWidgetItem*)currentItem())->unsetColor( static_cast<QAction*>(sender())->data().toInt() );
+  static_cast<KateStyleTreeWidgetItem*>(currentItem())->unsetColor( static_cast<QAction*>(sender())->data().toInt() );
 }
 
 void KateStyleTreeWidget::updateGroupHeadings()

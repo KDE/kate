@@ -868,7 +868,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
         }
 
         void CategorizedSnippetModel::subDestroyed(QObject* obj) {
-          int i=m_models.indexOf((SnippetSelectorModel*)(obj));
+          int i=m_models.indexOf(static_cast<SnippetSelectorModel*>(obj));
           if (i==-1) return;
           m_models.removeAt(i);
           reset();
@@ -929,7 +929,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
             }
           } else {
 //             kDebug()<<"invoked for valid parent";
-            SnippetSelectorModel *m=(SnippetSelectorModel*)(index.internalPointer());
+            SnippetSelectorModel *m=static_cast<SnippetSelectorModel*>(index.internalPointer());
             Q_ASSERT(m);
             if (role==SnippetSelectorModel::FileTypeRole)
               return m->fileType();
@@ -943,7 +943,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
           if (!index.isValid()) return QModelIndex();
           if (index.internalPointer())
           {
-            QModelIndex idx=createIndex(m_models.indexOf((SnippetSelectorModel*)(index.internalPointer())),0);
+            QModelIndex idx=createIndex(m_models.indexOf(static_cast<SnippetSelectorModel*>(index.internalPointer())),0);
 //             kDebug()<<"==========>"<<idx;
             return idx;
           }

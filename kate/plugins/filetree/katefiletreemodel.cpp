@@ -163,7 +163,7 @@ int ProxyItem::addChild(ProxyItem *item)
   int item_row = m_children.count();
   item->m_row = item_row;
   m_children.append(item);
-  item->m_parent = (ProxyItemDir*)this;
+  item->m_parent = static_cast<ProxyItemDir*>(this);
   
   // only update display if we've been added to the root,
   // so ShowFullPath flag can take effect.
@@ -177,7 +177,7 @@ int ProxyItem::addChild(ProxyItem *item)
 
 void ProxyItem::remChild(ProxyItem *item)
 {
-  kDebug(debugArea()) << "remove" << item << "from" << (ProxyItemDir*)this;
+  kDebug(debugArea()) << "remove" << item << "from" << static_cast<ProxyItemDir*>(this);
   m_children.removeOne(item);
   // fix up item rows
   // could be done a little better, but this'll work.
@@ -976,7 +976,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
     path += "/";
 
     if(name.startsWith(path) && item->flag(ProxyItem::Dir)) {
-      return (ProxyItemDir*)item;
+      return static_cast<ProxyItemDir*>(item);
     }
   }
 
@@ -1000,7 +1000,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(ProxyItemDir *parent, const QStri
       }
       
       kDebug(debugArea()) << "found" << item;
-      return (ProxyItemDir*)item;
+      return static_cast<ProxyItemDir*>(item);
     }
   }
 

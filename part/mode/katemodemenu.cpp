@@ -72,7 +72,7 @@ KateModeMenu::~KateModeMenu( )
 
 void KateModeMenu::updateMenu (KTextEditor::Document *doc)
 {
-  m_doc = (KateDocument *)doc;
+  m_doc = static_cast<KateDocument *>(doc);
 }
 
 void KateModeMenu::slotAboutToShow()

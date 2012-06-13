@@ -487,7 +487,7 @@ void AutoBookmarkerConfigPage::slotNew()
 // delete the selected item and remove it from the list view and internal list
 void AutoBookmarkerConfigPage::slotDel()
 {
-  AutoBookmarkEntItem *i = (AutoBookmarkEntItem*)lvPatterns->currentItem();
+  AutoBookmarkEntItem *i = static_cast<AutoBookmarkEntItem*>(lvPatterns->currentItem());
   int idx = m_ents->findRef( i->ent );
   m_ents->remove( idx );
   delete i;
@@ -496,12 +496,12 @@ void AutoBookmarkerConfigPage::slotDel()
 // open the edit dialog with the selected item
 void AutoBookmarkerConfigPage::slotEdit()
 {
-  AutoBookmarkEnt *e = ((AutoBookmarkEntItem*)lvPatterns->currentItem())->ent;
+  AutoBookmarkEnt *e = static_cast<AutoBookmarkEntItem*>(lvPatterns->currentItem())->ent;
   AutoBookmarkerEntEditor dlg( this, e );
   if ( dlg.exec() )
   {
     dlg.apply();
-    ((AutoBookmarkEntItem*)lvPatterns->currentItem())->redo();
+    static_cast<AutoBookmarkEntItem*>(lvPatterns->currentItem())->redo();
   }
 }
 //END AutoBookmarkerConfigPage

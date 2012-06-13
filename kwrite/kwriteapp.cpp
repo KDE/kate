@@ -57,7 +57,7 @@ KWriteApp::~KWriteApp()
 
 KWriteApp *KWriteApp::self ()
 {
-  return (KWriteApp *) kapp;
+  return static_cast<KWriteApp *>(kapp);
 }
 
 void KWriteApp::init()

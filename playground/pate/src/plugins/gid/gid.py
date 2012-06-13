@@ -243,6 +243,9 @@ def etagSearch(token, fileName):
     return None
 
 class TreeModel(QStandardItemModel):
+
+    definitionIndex = QModelIndex()
+
     def __init__(self, dataSource):
 	super(TreeModel, self).__init__()
 	self.dataSource = dataSource
@@ -260,62 +263,64 @@ class TreeModel(QStandardItemModel):
 	"""
 	root = self.invisibleRootItem()
 	root.removeRows(0, root.rowCount())
+	self.definitionIndex = None
 	regexp = re.compile("\\b" + token + "\\b")
 	previousBoredomQuery = time.time()
 	try:
 	    tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
-	    #
-	    # For each file, list the lines where a match is found.
-	    #
-	    filesListed = 0
-	    for fileName, fileFlags in files:
-		fileName = transform(fileName)
-		etagDefinitionLine = etagSearch(token, fileName)
-		fileRow = QStandardItem(fileName)
-		root.appendRow(fileRow)
-		line = 1
-		#
-		# Question: what encoding is this file? TODO A better approach
-		# to this question.
-		#
-		for text in codecs.open(fileName, encoding="latin-1"):
-		    match = regexp.search(text)
-		    if match:
-			resultRow = list()
-			resultRow.append(QStandardItem(text[:-1]))
-			resultRow.append(QStandardItem(str(line)))
-			#
-			# The column value displayed by Kate is based on a
-			# virtual position, where TABs count as 8.
-			#
-			column = match.start();
-			tabs = text[:column].count("\t")
-			virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
-			resultRow.append(virtualColumn)
-			virtualColumn.setData(column, Qt.UserRole + 1)
-			if line == etagDefinitionLine:
-			    #
-			    # Mark the line and the file as being a definition.
-			    #
-			    resultRow[0].setIcon(KIcon("go-jump-definition"))
-			    fileRow.setIcon(KIcon("go-jump-definition"))
-			fileRow.appendRow(resultRow)
-		    line += 1
-		filesListed += 1
-		#
-		# Time to query the user's boredom level?
-		#
-		if time.time() - previousBoredomQuery > 20:
-		    r = KMessageBox.questionYesNoCancel(parent, i18n("Listed {} of {} files").format(filesListed, len(files)),
-				i18n("List more files?"), KGuiItem(i18n("All")), KStandardGuiItem.no(), KGuiItem(i18n("Check later")))
-		    if r == KMessageBox.Yes:
-			previousBoredomQuery = time.time() + 300
-		    elif r == KMessageBox.No:
-			break
-		    else:
-			previousBoredomQuery = time.time()
 	except IndexError:
 	    return
+	#
+	# For each file, list the lines where a match is found.
+	#
+	filesListed = 0
+	for fileName, fileFlags in files:
+	    fileName = transform(fileName)
+	    etagDefinitionLine = etagSearch(token, fileName)
+	    fileRow = QStandardItem(fileName)
+	    root.appendRow(fileRow)
+	    line = 1
+	    #
+	    # Question: what encoding is this file? TODO A better approach
+	    # to this question.
+	    #
+	    for text in codecs.open(fileName, encoding="latin-1"):
+		match = regexp.search(text)
+		if match:
+		    resultRow = list()
+		    resultRow.append(QStandardItem(text[:-1]))
+		    resultRow.append(QStandardItem(str(line)))
+		    #
+		    # The column value displayed by Kate is based on a
+		    # virtual position, where TABs count as 8.
+		    #
+		    column = match.start();
+		    tabs = text[:column].count("\t")
+		    virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
+		    resultRow.append(virtualColumn)
+		    virtualColumn.setData(column, Qt.UserRole + 1)
+		    fileRow.appendRow(resultRow)
+		    if line == etagDefinitionLine:
+			#
+			# Mark the line and the file as being a definition.
+			#
+			resultRow[0].setIcon(KIcon("go-jump-definition"))
+			fileRow.setIcon(KIcon("go-jump-definition"))
+			self.definitionIndex = resultRow[0].index()
+		line += 1
+	    filesListed += 1
+	    #
+	    # Time to query the user's boredom level?
+	    #
+	    if time.time() - previousBoredomQuery > 20:
+		r = KMessageBox.questionYesNoCancel(parent, i18n("Listed {} of {} files").format(filesListed, len(files)),
+			    i18n("List more files?"), KGuiItem(i18n("All")), KStandardGuiItem.no(), KGuiItem(i18n("Check later")))
+		if r == KMessageBox.Yes:
+		    previousBoredomQuery = time.time() + 300
+		elif r == KMessageBox.No:
+		    break
+		else:
+		    previousBoredomQuery = time.time()
 
 class SearchBar(QObject):
     toolView = None
@@ -371,7 +376,7 @@ class SearchBar(QObject):
 	self.asyncFill.connect(self._continueCompletion)
 	self.token.completionObject().clear();
 	self.settings.clicked.connect(self.getSettings)
-	self.tree.doubleClicked.connect(self._treeClicked)
+	self.tree.doubleClicked.connect(self.navigateTo)
 
     def __del__(self):
 	"""Plugins that use a toolview need to delete it for reloading to work."""
@@ -439,10 +444,10 @@ class SearchBar(QObject):
 	    return None
 
     @pyqtSlot("QModelIndex &")
-    def _treeClicked(self, index):
-	"""Fill the completion object with potential matches.
-
-	TODO: make this asynchronous, and able to be interrupted.
+    def navigateTo(self, index):
+	"""Jump to the selected entry.
+	If the match entry is a filename, just jump to the file. If the entry
+	if a specfic match, open the file and jump tothe location of the match.
 	"""
 	parent = index.parent()
 	if parent.isValid():
@@ -517,16 +522,15 @@ class SearchBar(QObject):
     def hide(self):
 	kate.mainInterfaceWindow().hideToolView(self.toolView)
 
-@kate.action("Show Tokens", shortcut = "Alt+1", menu = "&Gid")
+@kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
     global searchBar
     if searchBar is None:
 	searchBar = SearchBar(kate.mainWindow())
     return searchBar.show()
 
-@kate.action("Lookup", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
-def lookup():
-    dir(kate.activeView())
+@kate.action("Lookup Current Token", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
+def lookup(gotoDefinition = False):
     global searchBar
     if show():
 	if kate.activeView().selection():
@@ -535,6 +539,16 @@ def lookup():
 	    selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
 	searchBar.token.setText(selectedText)
 	searchBar.literalSearch(searchBar.token.text())
+	#
+	# Jump to definition?
+	#
+	definitionIndex = searchBar.model.definitionIndex
+	if gotoDefinition and definitionIndex.isValid():
+	    searchBar.navigateTo(definitionIndex)
+
+@kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")
+def gotoDefinition():
+    lookup(True)
 
 @kate.configPage("gid", "gid Lookup", icon = "edit-find")
 def configPage(parent = None, name = None):

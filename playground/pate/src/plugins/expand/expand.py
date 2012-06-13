@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 import kate
 import kate.gui
@@ -25,7 +26,7 @@ def wordAtCursor(document, view=None):
     return line[start:end]
 
 def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given 
+    ''' Get the word under the active view's cursor in the given
     document '''
     # better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
@@ -82,7 +83,7 @@ def matchingParenthesisPosition(document, position, opening='('):
     delta = 1 if opening == '(' else -1
     # take a copy, Cursors are mutable
     position = position.__class__(position)
-    
+
     level = 0
     state = None
     while 1:
@@ -102,7 +103,7 @@ def matchingParenthesisPosition(document, position, opening='('):
                     break
             elif character in ('"', "'"):
                 state = character
-        
+
         position.setColumn(position.column() + delta)
         # must we move down a line?
         if document.character(position) == u'\x00':
@@ -167,7 +168,7 @@ def indentationCharacters(document):
         if flags and int(flags) & 0x2000000:
             print 'insert spaces instead of tabulators'
             indentationCharacters.configurationUseTabs = False
-        
+
         indentWidth = str(group.readEntry('Indentation Width'))
         indentationCharacters.configurationIndentWidth = int(indentWidth) if indentWidth else 4
     # indent with tabs or spaces
@@ -179,7 +180,7 @@ def indentationCharacters(document):
         useTabs = True
     else:
         useTabs = indentationCharacters.configurationUseTabs
-    
+
     if useTabs:
         return '\t'
     else:
@@ -244,7 +245,7 @@ def expandAtCursor():
         s = re.sub('File "(/[^\n]+)", line', replaceAbsolutePathWithLinkCallback, s)
         kate.gui.popup('<p style="white-space:pre">%s</p>' % s, icon='dialog-error', timeout=5, maxTextWidth=None, minTextWidth=300)
         return
-    
+
     try:
         replacement = unicode(replacement)
     except UnicodeEncodeError:
@@ -269,10 +270,10 @@ def expandAtCursor():
     replacement = replacement.replace('\n', '\n' + whitespace)
     # cursor position set?
     cursorAdvancement = None
-    if '\1' in replacement:
-        cursorAdvancement = replacement.index('\1')
+    if '%{cursor}' in replacement:
+        cursorAdvancement = replacement.index('%{cursor}')
         # strip around that byte
-        replacement = replacement[:cursorAdvancement] + replacement[cursorAdvancement + 1:]
+        replacement = replacement[:cursorAdvancement] + replacement[cursorAdvancement + 9:]
     # make the removal and insertion an atomic operation
     document.startEditing()
     if argument_range is not None:
@@ -281,12 +282,20 @@ def expandAtCursor():
     document.insertText(insertPosition, replacement)
     # end before moving the cursor to avoid a crash
     document.endEditing()
-    
+
     if cursorAdvancement is not None:
-        # print 'advancing', cursorAdvancement
-        smart = document.smartInterface().newSmartCursor(insertPosition)
-        smart.advance(cursorAdvancement)
-        view.setCursorPosition(smart)
+        # TODO The smartInterface isn't available anymore!
+        #      But it's successor (movingInterface) isn't available yet in
+        #      PyKDE4 <= 4.8.3 (at least) :( -- so, lets move a cursor manually...
+        while True:
+            currentLength = document.lineLength(insertPosition.line())
+            if cursorAdvancement <= currentLength:
+                break
+            else:
+                insertPosition.setLine(insertPosition.line() + 1)
+                cursorAdvancement -= currentLength + 1      # NOTE +1 for every \n char
+        insertPosition.setColumn(insertPosition.column() + cursorAdvancement)
+        view.setCursorPosition(insertPosition)
 
 
 # kate: space-indent on;

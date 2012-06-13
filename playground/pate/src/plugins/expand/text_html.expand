@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# ^ for Python syntax highlighting
+# -*- coding: utf-8 -*-
+# kate: space-indent on; hl python;
 
 def xhtml():
     return \
@@ -7,7 +7,7 @@ def xhtml():
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 \t<head>
-\t\t<title>\1</title>
+\t\t<title>%{cursor}</title>
 \t\t<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 \t\t<link rel="stylesheet" type="text/css" href="" />
 \t</head>
@@ -18,9 +18,7 @@ def xhtml():
 '''
 
 def script():
-    return '<script type="text/javascript">\n\1\n</script>'
+    return '<script type="text/javascript">\n%{cursor}\n</script>'
 
 def css():
-    return '<style type="text/css">\n\1\n</script>'
-
-
+    return '<style type="text/css">\n%{cursor}\n</script>'

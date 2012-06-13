@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# ^ for Python syntax highlighting
+# -*- coding: utf-8 -*-
+# kate: space-indent on; hl python;
 
 class BadFormatError(Exception):
     pass

@@ -1,27 +1,28 @@
-#!/usr/bin/python
-
+# -*- coding: utf-8 -*-
+# kate: space-indent on; hl python;
 
 def fori(s=None):
     if s is None:
-        return 'for i in xrange(\1):\n\t'
+        return 'for i in xrange(%{cursor}):\n\t'
     else:
-        return 'for i in xrange(%s):\n\t\1' % s
+        return '''for i in xrange({0}):\n\t%{{cursor}}'''.format(s)
 
 # cannot define a function 'class' as class is a keyword
 def _class(s=None):
     if s is None:
         return '''\
-class \1:
+class %{cursor}:
 \tdef __init__(self):
 \t\t
 '''
     else:
+        print("** PYTHON CLASS EXPANDER: s="+repr(s))
         base, parents = [x.strip() for x in s.split(',', 1)]
         head = '%s(%s)' % (base, parents) if parents else base
         s = '''\
-class %s:
-\tdef __init__(self\1):
-\t\t''' % head
+class {0}:
+\tdef __init__(self%{{cursor}}):
+\t\t'''.format(head)
         if parents:
             for parent in parents.split(','):
                 parent = parent.strip()
@@ -33,22 +34,17 @@ _class.__name__ = 'class'
 def property(name):
     # cater for the most common case -- a get and a set property
     return '''\
-def _get_%(name)s(self):
-\t\1
-def _set_%(name)s(self, %(name)s):
+def _get_{0}s(self):
+\t%{{cursor}}
+def _set_{0}s(self, {0}s):
 \t
-%(name)s = property(_get_%(name)s, _set_%(name)s)''' % {'name': name}
+{0}s = property(_get_{0}s, _set_{0}s)'''.format(name)
 
 
 def main():
     return '''def main():
-\t\1
+\t%{cursor}
 
 if __name__ == '__main__':
 \tmain()
 '''
-
-
-
-# kate: space-indent on;
-

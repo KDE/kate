@@ -142,7 +142,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'auto-center-lines' to list
   item = new VariableIntItem("auto-center-lines", viewConfig->autoCenterLines());
-  ((VariableIntItem*)item)->setRange(1, 100);
+  static_cast<VariableIntItem*>(item)->setRange(1, 100);
   item->setHelpText(i18nc("short translation please", "Set the number of autocenter lines."));
   listview->addItem(item);
 
@@ -205,7 +205,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'font-size' to list
   item = new VariableIntItem("font-size", rendererConfig->font().pointSize());
-  ((VariableIntItem*)item)->setRange(4, 128);
+  static_cast<VariableIntItem*>(item)->setRange(4, 128);
   item->setHelpText(i18nc("short translation please", "Set the point size of the document font."));
   listview->addItem(item);
 
@@ -243,7 +243,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'indent-width' to list
   item = new VariableIntItem("indent-width", docConfig->indentationWidth());
-  ((VariableIntItem*)item)->setRange(1, 16);
+  static_cast<VariableIntItem*>(item)->setRange(1, 16);
   item->setHelpText(i18nc("short translation please", "Set the indentation depth for each indent level."));
   listview->addItem(item);
 
@@ -320,19 +320,19 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'tab-width' to list
   item = new VariableIntItem("tab-width", docConfig->tabWidth());
-  ((VariableIntItem*)item)->setRange(1, 16);
+  static_cast<VariableIntItem*>(item)->setRange(1, 16);
   item->setHelpText(i18nc("short translation please", "Set the tab display width."));
   listview->addItem(item);
 
   // Add 'undo-steps' to list
   item = new VariableIntItem("undo-steps", 0);
-  ((VariableIntItem*)item)->setRange(0, 100);
+  static_cast<VariableIntItem*>(item)->setRange(0, 100);
   item->setHelpText(i18nc("short translation please", "Set the number of undo steps to remember (0 equals infinity)."));
   listview->addItem(item);
 
   // Add 'word-wrap-column' to list
   item = new VariableIntItem("word-wrap-column", docConfig->wordWrapAt());
-  ((VariableIntItem*)item)->setRange(20, 200);
+  static_cast<VariableIntItem*>(item)->setRange(20, 200);
   item->setHelpText(i18nc("short translation please", "Set the word wrap column."));
   listview->addItem(item);
 

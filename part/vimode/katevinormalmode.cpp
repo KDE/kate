@@ -1086,7 +1086,7 @@ bool KateViNormalMode::commandYankToEOL()
   if ( m_viInputModeManager->getCurrentViMode() == VisualMode
       || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
     m = LineWise;
-    KateViVisualMode* visualmode = ((KateViVisualMode*) this);
+    KateViVisualMode* visualmode = static_cast<KateViVisualMode*>(this);
     visualmode->setStart( Cursor(visualmode->getStart().line(),0) );
   } else if (m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
     m = Block;;

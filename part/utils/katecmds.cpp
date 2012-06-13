@@ -99,7 +99,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 {
 #define KCC_ERR(s) { errorMsg=s; return false; }
   // cast it hardcore, we know that it is really a kateview :)
-  KateView *v = (KateView*) view;
+  KateView *v = static_cast<KateView*>(view);
 
   if ( ! v )
     KCC_ERR( i18n("Could not access view") );
@@ -211,7 +211,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     {
       if ( v->doc()->setHighlightingMode( args.first()) )
       {
-        ((KateDocument*)v->doc())->setDontChangeHlOnSave ();
+        static_cast<KateDocument*>(v->doc())->setDontChangeHlOnSave ();
         return true;
       }
 
@@ -389,7 +389,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
 {
   Q_UNUSED(range)
   // cast it hardcore, we know that it is really a kateview :)
-  KateView *v = (KateView*) view;
+  KateView *v = static_cast<KateView*>(view);
 
   if ( !v ) {
     msg = i18n("Could not access view");
@@ -514,7 +514,7 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 {
   Q_UNUSED(view)
 
-  KateView *v = (KateView*) view;
+  KateView *v = static_cast<KateView*>(view);
 
   if ( v && ( cmd == "nn" || cmd == "nnoremap" ) )
   {
@@ -808,7 +808,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     return false;
   }
 
-  KateDocument *doc = ((KateView*)view)->doc();
+  KateDocument *doc = static_cast<KateView*>(view)->doc();
   if ( ! doc ) return false;
 
   doc->editStart();

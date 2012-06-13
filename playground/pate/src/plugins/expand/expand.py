@@ -20,7 +20,7 @@ wordBoundary = set(u' \t"\';[]{}()#:/\\,+=!?%^|&*~`')
 def wordAtCursor(document, view=None):
     view = view or document.activeView()
     cursor = view.cursorPosition()
-    line = unicode(document.line(cursor.line()))
+    line = document.line(cursor.line())
     start, end = wordAtCursorPosition(line, cursor)
     return line[start:end]
 
@@ -45,15 +45,15 @@ def wordAndArgumentAtCursor(document, view=None):
     if word_range.isEmpty():
         word = None
     else:
-        word = unicode(document.text(word_range))
+        word = document.text(word_range)
     if not argument_range or argument_range.isEmpty():
         argument = None
     else:
-        argument = unicode(document.text(argument_range))
+        argument = document.text(argument_range)
     return word, argument
 
 def wordAndArgumentAtCursorRanges(document, cursor):
-    line = unicode(document.line(cursor.line()))
+    line = document.line(cursor.line())
     column_position = cursor.column()
     # special case: cursor past end of argument
     argument_range = None
@@ -63,7 +63,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         argument_end.setColumn(argument_end.column() + 1)
         argument_range = kate.KTextEditor.Range(argument_start, argument_end)
         cursor = argument_start
-    line = unicode(document.line(cursor.line()))
+    line = document.line(cursor.line())
     start, end = wordAtCursorPosition(line, cursor)
     word_range = kate.KTextEditor.Range(cursor.line(), start, cursor.line(), end)
     word = line[start:end]
@@ -86,7 +86,7 @@ def matchingParenthesisPosition(document, position, opening='('):
     level = 0
     state = None
     while 1:
-        character = unichr(document.character(position).unicode())
+        character = document.character(position)
         # print 'character:', repr(character)
         if state in ('"', "'"):
             if character == state:
@@ -105,13 +105,13 @@ def matchingParenthesisPosition(document, position, opening='('):
         
         position.setColumn(position.column() + delta)
         # must we move down a line?
-        if document.character(position).isNull():
+        if document.character(position) == u'\x00':
             position.setPosition(position.line() + delta, 0)
             if delta == -1:
                 # move to the far right
                 position.setColumn(document.lineLength(position.line()) - 1)
             # failure again => EOF
-            if document.character(position).isNull():
+            if document.character(position) == u'\x00':
                 raise ParseError('end of file reached')
             else:
                 if state in ('"', "'"):
@@ -172,7 +172,7 @@ def indentationCharacters(document):
         indentationCharacters.configurationIndentWidth = int(indentWidth) if indentWidth else 4
     # indent with tabs or spaces
     useTabs = True
-    spaceIndent = unicode(v.variable('space-indent'))
+    spaceIndent = v.variable('space-indent')
     if spaceIndent == 'on':
         useTabs = False
     elif spaceIndent == 'off':
@@ -183,7 +183,7 @@ def indentationCharacters(document):
     if useTabs:
         return '\t'
     else:
-        indentWidth = unicode(v.variable('indent-width'))
+        indentWidth = v.variable('indent-width')
         if indentWidth and indentWidth.isdigit():
             return ' ' * int(indentWidth)
         else:
@@ -200,7 +200,7 @@ def expandAtCursor():
     except ParseError, e:
         kate.popup('Parse error:', e)
         return
-    word = unicode(document.text(word_range))
+    word = document.text(word_range)
     mime = str(document.mimeType())
     expansions = loadExpansions(mime)
     try:
@@ -211,7 +211,7 @@ def expandAtCursor():
     argument = ()
     if argument_range is not None:
         # strip parentheses
-        argument = (unicode(document.text(argument_range))[1:-1],)
+        argument = (document.text(argument_range)[1:-1],)
         # map foo() => foo
         if argument == ('',):
             argument = ()
@@ -257,7 +257,7 @@ def expandAtCursor():
         if '\n' + (indentCharacters * i) + '\t' in replacement:
             replacement = replacement.replace('\n' + (indentCharacters * i) + '\t', '\n' + (indentCharacters * (i + 1)))
     insertPosition = word_range.start()
-    line = unicode(document.line(insertPosition.line()))
+    line = document.line(insertPosition.line())
     # autoindent: add the line's leading whitespace for each newline
     # in the expansion
     whitespace = ''

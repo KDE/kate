@@ -688,7 +688,7 @@ void KateExternalToolsConfigWidget::apply()
       tools << "---";
       continue;
     }
-    KateExternalTool *t = ((ToolItem*)lbTools->item( i ))->tool;
+    KateExternalTool *t = static_cast<ToolItem*>(lbTools->item( i ))->tool;
 //     kDebug(13001)<<"adding tool: "<<t->name;
     tools << t->acname;
 
@@ -792,7 +792,7 @@ void KateExternalToolsConfigWidget::slotEdit()
 {
   if( !dynamic_cast<ToolItem*>(lbTools->currentItem()) ) return;
   // show the item in an editor
-  KateExternalTool *t = ((ToolItem*)lbTools->currentItem())->tool;
+  KateExternalTool *t = static_cast<ToolItem*>(lbTools->currentItem())->tool;
   KateExternalToolServiceEditor editor( t, this);
   editor.resize( config->group("Editor").readEntry( "Size", QSize() ) );
   if ( editor.exec() /*== KDialog::Ok*/ )
@@ -843,7 +843,7 @@ void KateExternalToolsConfigWidget::slotMoveUp()
 
   if ( dynamic_cast<ToolItem*>(item) )
   {
-    KateExternalTool *tool = ((ToolItem*)item)->tool;
+    KateExternalTool *tool = static_cast<ToolItem*>(item)->tool;
     delete lbTools->takeItem( idx );
     lbTools->insertItem( idx - 1 , new ToolItem( 0, tool->icon.isEmpty() ? blankIcon() : SmallIcon( tool->icon ), tool ) );
   }
@@ -871,7 +871,7 @@ void KateExternalToolsConfigWidget::slotMoveDown()
 
   if ( dynamic_cast<ToolItem*>(item) )
   {
-    KateExternalTool *tool = ((ToolItem*)item)->tool;
+    KateExternalTool *tool = static_cast<ToolItem*>(item)->tool;
     delete lbTools->takeItem( idx );
     lbTools->insertItem( idx + 1 , new ToolItem( 0, tool->icon.isEmpty() ? blankIcon() : SmallIcon( tool->icon ), tool ) );
   }

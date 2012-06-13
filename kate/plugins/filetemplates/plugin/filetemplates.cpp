@@ -104,7 +104,7 @@ PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plug
 
 void PluginViewKateFileTemplates::refreshMenu()
 {
-  m_plugin->refreshMenu( ((KActionMenu*)(actionCollection()->action("file_new_fromtemplate")))->menu());
+  m_plugin->refreshMenu( (static_cast<KActionMenu*>(actionCollection()->action("file_new_fromtemplate")))->menu());
 }
 
 PluginViewKateFileTemplates::~PluginViewKateFileTemplates()
@@ -336,7 +336,7 @@ void KateFileTemplates::slotAny()
  */
 void KateFileTemplates::slotOpenTemplate()
 {
-  int index=((QAction*)sender())->data().toInt();
+  int index=static_cast<QAction*>(sender())->data().toInt();
   kDebug()<<"slotOpenTemplate( "<<index<<" )";
   if ( index < 0 || index > m_templates.count() ) return;
   slotOpenTemplate( KUrl( m_templates.at( index )->filename ) );

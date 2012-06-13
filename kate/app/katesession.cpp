@@ -693,7 +693,7 @@ void KateSessionChooser::slotCopySession()
 
 KateSession::Ptr KateSessionChooser::selectedSession ()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
+  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
 
   if (!item)
     return KateSession::Ptr();
@@ -784,7 +784,7 @@ KateSessionOpenDialog::~KateSessionOpenDialog ()
 
 KateSession::Ptr KateSessionOpenDialog::selectedSession ()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
+  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
 
   if (!item)
     return KateSession::Ptr();
@@ -879,13 +879,13 @@ void KateSessionManageDialog::selectionChanged (QTreeWidgetItem *current, QTreeW
   const bool validItem = (current != NULL);
 
   m_rename->setEnabled (validItem);
-  m_del->setEnabled (validItem && ((KateSessionChooserItem*)current)->session!=KateSessionManager::self()->activeSession());
+  m_del->setEnabled (validItem && (static_cast<KateSessionChooserItem*>(current))->session!=KateSessionManager::self()->activeSession());
   button(User2)->setEnabled (validItem);
 }
 
 void KateSessionManageDialog::rename ()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
+  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
 
   if (!item)
     return;
@@ -914,7 +914,7 @@ void KateSessionManageDialog::rename ()
 
 void KateSessionManageDialog::del ()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
+  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
 
   if (!item)
     return;
@@ -926,7 +926,7 @@ void KateSessionManageDialog::del ()
 
 void KateSessionManageDialog::open ()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
+  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
 
   if (!item)
     return;

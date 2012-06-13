@@ -104,7 +104,7 @@ void KateFileBrowserConfigPage::apply()
   QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QString("*"), Qt::MatchWildcard);
   foreach(QListWidgetItem *item, list)
   {
-    aItem = (ActionLBItem*)item;
+    aItem = static_cast<ActionLBItem*>(item);
     l << aItem->idstring();
   }
   config.writeEntry( "toolbar actions", l );

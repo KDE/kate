@@ -99,7 +99,7 @@ KateApp::~KateApp ()
 
 KateApp *KateApp::self ()
 {
-  return (KateApp *) kapp;
+  return static_cast<KateApp *>(kapp);
 }
 
 Kate::Application *KateApp::application ()
@@ -410,7 +410,7 @@ KateMainWindow *KateApp::activeMainWindow ()
   if (m_mainWindows.isEmpty())
     return 0;
 
-  int n = m_mainWindows.indexOf ((KateMainWindow *)activeWindow());
+  int n = m_mainWindows.indexOf (static_cast<KateMainWindow *>(activeWindow()));
 
   if (n < 0)
     n = 0;

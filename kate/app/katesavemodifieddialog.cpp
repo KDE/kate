@@ -256,7 +256,7 @@ void KateSaveModifiedDialog::slotDoNotSave()
 bool KateSaveModifiedDialog::doSave()
 {
   for (int i = 0; i < m_list->topLevelItemCount(); ++i) {
-    AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)m_list->topLevelItem(i);
+    AbstractKateSaveModifiedDialogCheckListItem * cit = static_cast<AbstractKateSaveModifiedDialogCheckListItem*>(m_list->topLevelItem(i));
 
     if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
     {

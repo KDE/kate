@@ -54,7 +54,7 @@ Kate::PluginView *KateFileBrowserPlugin::createView (Kate::MainWindow *mainWindo
 void KateFileBrowserPlugin::viewDestroyed(QObject* view)
 {
   // do not access the view pointer, since it is partially destroyed already
-  m_views.removeAll((KateFileBrowserPluginView *) view);
+  m_views.removeAll(static_cast<KateFileBrowserPluginView *>(view));
 }
 
 uint KateFileBrowserPlugin::configPages() const

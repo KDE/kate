@@ -220,7 +220,7 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
 {
   // set the diff button enabled
   btnDiff->setEnabled( current &&
-                       KateDocManager::self()->documentInfo( ((KateDocItem*)current)->document )->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted );
+                       KateDocManager::self()->documentInfo( (static_cast<KateDocItem*>(current))->document )->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted );
 }
 
 // ### the code below is slightly modified from kdelibs/kate/part/katedialogs,
@@ -233,7 +233,7 @@ void KateMwModOnHdDialog::slotDiff()
   if ( ! twDocuments->currentItem() )
     return;
 
-  KTextEditor::Document *doc = ((KateDocItem*)twDocuments->currentItem())->document;
+  KTextEditor::Document *doc = (static_cast<KateDocItem*>(twDocuments->currentItem()))->document;
 
   // don't try to diff a deleted file
   if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted )

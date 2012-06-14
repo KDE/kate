@@ -591,6 +591,7 @@ class Lookup():
 	#
 	data = self._readByteArray(self.tokensOffset, self.endOffset)
 	self.tokenDb = _TokenDb(data, self.tokens, self.files, self.fileLinkDb)
+	self.file.close()
 
     def _read(self, size, type):
 	if size == 1:

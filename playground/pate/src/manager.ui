@@ -36,7 +36,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command.</string>
+           <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command. Note that other modules will not be reloaded.</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>

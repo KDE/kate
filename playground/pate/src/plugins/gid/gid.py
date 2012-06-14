@@ -89,14 +89,14 @@ class ConfigWidget(QWidget):
 	lo.addWidget(self.labelUseEtags, 1, 2, 1, 1)
 
 	self.srcIn = KLineEdit()
-	self.srcIn.setWhatsThis(i18n("If not empty, when looking in a file for matches, replace this prefix of the file name."))
+	self.srcIn.setWhatsThis(i18n("If not empty, when looking for matches, discard the first part of the file name ending with this key."))
 	lo.addWidget(self.srcIn, 2, 1, 1, 3)
-	self.labelSrcIn = QLabel(i18n("&Replace:"))
+	self.labelSrcIn = QLabel(i18n("&Discard prefix ending with key:"))
 	self.labelSrcIn.setBuddy(self.srcIn)
 	lo.addWidget(self.labelSrcIn, 2, 0, 1, 1)
 
 	self.srcOut = KLineEdit()
-	self.srcOut.setWhatsThis(i18n("Replacement prefix. Use %i to insert the prefix of the ID file."))
+	self.srcOut.setWhatsThis(i18n("Replacement prefix. Use %i to insert the prefix of the ID file ending with the key."))
 	lo.addWidget(self.srcOut, 3, 1, 1, 3)
 	self.labelSrcOut = QLabel(i18n("&With this:"))
 	self.labelSrcOut.setBuddy(self.srcOut)
@@ -191,7 +191,7 @@ def transform(file):
 	if percentI > -1:
 	    insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
 	    discard, insertRight = kate.configuration["srcOut"].split("%i", 1)
-	    file = insertLeft + insertRight
+	    file = insertLeft + insertRight + right
 	else:
 	    file = kate.configuration["srcOut"] + right
     return file
@@ -490,7 +490,11 @@ class SearchBar(QObject):
 	    # Check the save file name.
 	    #
 	    try:
-		searchBar.dataSource.setFile(kate.configuration["idFile"])
+		#
+		# Only re-read the file if it has changed.
+		#
+		if not searchBar.dataSource.file or (searchBar.dataSource.file.name() != kate.configuration["idFile"]):
+		    searchBar.dataSource.setFile(kate.configuration["idFile"])
 		fileSet = True
 	    except IOError as detail:
 		KMessageBox.error(self.parent(), str(detail), i18n("ID database error"))

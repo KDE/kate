@@ -160,6 +160,7 @@ class ConfigDialog(KDialog):
 	self.applyClicked.connect(self.apply)
 	self.resetClicked.connect(self.reset)
 	self.defaultClicked.connect(self.defaults)
+	self.resize(600, 200)
 
     @pyqtSlot()
     def apply(self):

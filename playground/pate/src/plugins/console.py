@@ -66,10 +66,13 @@ class Console(code.InteractiveConsole):
 class Exit:
     def __init__(self, window):
         self.window = window
+
     def __repr__(self):
-        return 'Type exit() or Ctrl+D to exit.'
+        return i18n('Type exit() or Ctrl+D to exit.')
+
     def __str__(self):
         return repr(self)
+
     def __call__(self):
         w = self.window
         del self.window
@@ -80,7 +83,16 @@ class Helper:
     def __init__(self, console):
         self.console = console
 
-    def __call__(self, o):
+    def __repr__(self):
+        return i18n('Type help(object) for help on  object.\nType an expression to evaluate the expression.')
+
+    def __str__(self):
+        return repr(self)
+
+    def __call__(self, o = None):
+        if not o:
+            print self.__str__()
+            return
         s = self.console.state
         self.console.state = 'help'
         help(o)

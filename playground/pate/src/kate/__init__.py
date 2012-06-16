@@ -1,24 +1,3 @@
-
-''' Kate module. '''
-
-import sys
-import os
-import traceback
-import functools
-import pydoc
-from inspect import getmembers, isfunction
-
-import pate
-import kate.gui
-
-from PyQt4 import QtCore, QtGui
-from PyKDE4 import kdecore, kdeui
-# kate namespace
-from PyKDE4.kate import Kate
-from PyKDE4.ktexteditor import KTextEditor
-
-plugins = None
-pluginDirectories = None
 # This file is part of Pate, Kate' Python scripting plugin.
 #
 # Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
@@ -38,25 +17,46 @@ pluginDirectories = None
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-initialized = False
+"""Namespace for Kate application interfaces.
 
+This namespace contains interfaces for plugin developers for the Kate application.
+"""
+
+import sys
+import os
+import traceback
+import functools
+import pydoc
+from inspect import getmembers, isfunction
+
+import pate
+import kate.gui
+
+from PyQt4 import QtCore, QtGui
+from PyKDE4 import kdecore, kdeui
+# kate namespace
+from PyKDE4.kate import Kate
+from PyKDE4.ktexteditor import KTextEditor
 
 # Plugin API
 
 # Configuration
 
 class Configuration:
-    ''' Configuration objects provide a configuration dictionary that is
-    plugin-specific -- that is, each plugin uses kate.configuration and the
-    class automatically creates a plugin-specific dictionary to it.
+    '''Configuration objects provide plugin-specific configuration dictionary.
 
-    The config is saved and loaded from disk automatically for minimal user hassle.
-    Just go ahead and use kate.configuration as a persistent dictionary.
-    Do not instantiate your own Configuration object; use kate.configuration instead.
+    In other words, each plugin uses kate.configuration and the class
+    automatically creates a plugin-specific dictionary to support it.
 
-    Any atomic Python type that is self evaulating can be used as keys or values --
-    dictionaries, lists, numbers, strings, sets, and so on. '''
-    sep = ':'
+    The config is saved and loaded from disk automatically for minimal user
+    hassle. Just go ahead and use kate.configuration as a persistent dictionary.
+    Do not instantiate your own Configuration object; use kate.configuration
+    instead.
+
+    Use a string key. Any Python type that can be pickled is can be used as a
+    value -- dictionaries, lists, numbers, strings, sets, and so on.
+    '''
+
     def __init__(self, root):
         self.root = root
 
@@ -124,11 +124,27 @@ class Configuration:
     def _name(self):
         return sys._getframe(1).f_globals['__name__']
 
-# a configuration shared by all plugins. This can also be used to
-# access plugin-specific configurations
 globalConfiguration = pate.configuration
-# a plugin-specific configuration
+"""Configuration for all plugins.
+
+This can also be used by one plugin to access another plugin's configurations.
+"""
+
 configuration = Configuration(pate.configuration)
+"""Configuration for this plugin."""
+
+def sessionConfiguration():
+    """Deprecated. Use globalConfiguration instead."""
+    if plugins is not None:
+        return pate.configuration
+
+def plugins():
+    """ The list of available plugins."""
+    return pate.plugins
+
+def pluginDirectories():
+    """ The list of plugin directories."""
+    return pate.pluginDirectories
 
 def moduleGetHelp(module):
     """Fetch HTML documentation on some module."""
@@ -305,11 +321,17 @@ def configPage(name, fullName, icon):
 
 # API functions and objects
 
-''' The global Kate::Application instance '''
 application = Kate.application()
+"""Global accessor to the application object. Equivalent to Kate::application().
 
-''' The global document manager for this Kate application '''
+Returns: application object.
+"""
+
 documentManager = application.documentManager()
+"""Global accessor to the document manager object. Equivalent to Kate::documentManager().
+
+Returns: document manager object.
+"""
 
 def mainWindow():
     ''' The QWidget-derived main Kate window currently showing. A
@@ -351,11 +373,7 @@ def focusEditor():
 
 def applicationDirectories(*path):
     path = os.path.join('pate', *path)
-    return map(unicode, kdecore.KGlobal.dirs().findDirs("appdata", path))
-
-def sessionConfiguration():
-    if plugins is not None:
-        return pate.sessionConfiguration
+    return kdecore.KGlobal.dirs().findDirs("appdata", path)
 
 def objectIsAlive(obj):
     ''' Test whether an object is alive; that is, whether the pointer
@@ -371,9 +389,6 @@ def objectIsAlive(obj):
 # Initialisation
 
 def pateInit():
-    global plugins, pluginDirectories
-    plugins = pate.plugins
-    pluginDirectories = pate.pluginDirectories
     # wait for the configuration to be read
     def _initPhase2():
         global initialized
@@ -418,7 +433,6 @@ del pateInit
 
 def pateDie():
     # Unload actions or things will crash
-    global plugins, pluginDirectories
     for a in action.actions:
         for w in a.associatedWidgets():
             w.removeAction(a)
@@ -430,8 +444,6 @@ def pateDie():
     unload.clear()
     viewChanged.clear()
     viewCreated.clear()
-    plugins = pluginDirectories = None
-
 
 pate._pluginsUnloaded = pateDie
 del pateDie

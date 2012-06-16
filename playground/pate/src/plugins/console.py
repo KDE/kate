@@ -11,6 +11,8 @@ import token # for constants
 import code
 
 from PyQt4 import QtCore, QtGui
+from PyKDE4.kdecore import *
+from PyKDE4.kdeui import *
 
 import kate
 
@@ -83,6 +85,29 @@ class Helper:
         self.console.state = 'help'
         help(o)
 
+class History(KHistoryComboBox):
+
+    def __init__(self, parent):
+        super(History, self).__init__(parent)
+        self.setMaxCount(50)
+        self.resize(300, self.height())
+        self.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
+        self.returnPressed[str].connect(self._doneCompletion)
+        self.hide()
+
+    @QtCore.pyqtSlot("QString")
+    def _doneCompletion(self, line):
+        self.parent().console.displayResult(line)
+        self.hide()
+
+    def recall(self):
+        self.result = None
+        self.move(0, self.parent().height() - self.height())
+        self.show()
+        self.setFocus(QtCore.Qt.PopupFocusReason)
+
+    def append(self, line):
+        self.addToHistory(line)
 
 class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
     ''' Pretty ruddy convulted, but still pretty awesome '''
@@ -218,8 +243,7 @@ class KateConsole(QtGui.QTextEdit):
                 if key is None:
                     continue
                 self.keyToMethod[key] = getattr(self, methodName)
-        self.history = []
-        self.historyPosition = 0
+        self.history = History(self.window())
         self.buffer = ''
         exit = Exit(self.window())
         builtins = {
@@ -321,6 +345,12 @@ class KateConsole(QtGui.QTextEdit):
     def keyReturn(self):
         line = self.line
         self.append('')
+        #
+        # Add the line to the history. Multi-line input is hard, so we ignore
+        # all but the first for now.
+        #
+        if self.state == 'normal':
+            self.history.append(line)
         self.state = 'unknown'
         self.moveCursorToEnd()
         more = self.console.push(line)
@@ -343,8 +373,7 @@ class KateConsole(QtGui.QTextEdit):
             return True
 
     def keyUp(self):
-        # XX implement history
-        pass
+        self.history.recall()
 
     def keyDown(self):
         pass

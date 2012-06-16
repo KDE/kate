@@ -56,7 +56,7 @@ class Console(code.InteractiveConsole):
         r = sys.stdout.getvalue()
         sys.stdout = stdout
         self.write(r)
-    
+
     def write(self, s):
         sys.stdout.write(repr(s) + '\n')
 
@@ -77,7 +77,7 @@ class Exit:
 class Helper:
     def __init__(self, console):
         self.console = console
-    
+
     def __call__(self, o):
         s = self.console.state
         self.console.state = 'help'
@@ -103,7 +103,7 @@ class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
             format = QtGui.QTextCharFormat()
             format.setForeground(QtGui.QBrush(color))
             setattr(self, name + 'Format', format)
-        
+
         self.tokenHandlers = {
             token.NAME: self.handleName,
             token.ERRORTOKEN: self.handleError,
@@ -113,7 +113,7 @@ class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
         self.overrideFormat = None
         self.singleMultiLineString = 1
         self.doubleMultiLineString = 2
-    
+
     def highlightBlock(self, line):
         line = str(line)
         # print 'highlight %r' % line
@@ -178,22 +178,22 @@ class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
         else:
             # print 'unknown state:', self.console.state
             pass
-        
+
     def handleName(self, token):
         name = token[1]
         if keyword.iskeyword(name):
             return self.keywordFormat
         elif name in ('True', 'False', 'None', 'self', 'cls'):
             return self.nameFormat
-    
+
     def handleString(self, token):
         return self.stringFormat
-    
+
     def handleError(self, token):
         value = token[1]
         if value in ('"', "'"):
             self.overrideFormat = self.stringFormat
-    
+
     def handleNumber(self, token):
         number = token[1]
         if '.' in number or 'e' in number:
@@ -211,7 +211,7 @@ class KateConsole(QtGui.QTextEdit):
         font = QtGui.QFont('monospace')
         self.setFont(font)
         self.keyToMethod = {}
-        # font = 
+        # font =
         for methodName in dir(self):
             if methodName.startswith('key'):
                 key = getattr(QtCore.Qt, 'Key_' + methodName[3:], None)
@@ -238,23 +238,23 @@ class KateConsole(QtGui.QTextEdit):
         self.setPlainText(self.prompt)
         KateConsoleHighlighter(self)
         QtCore.QTimer.singleShot(0, self.moveCursorToEnd)
-    
+
     def showTraceback(self):
         self.state = 'exception'
         code.InteractiveConsole.showtraceback(self.console)
-    
+
     @property
     def inputting(self):
         return self.state in ('normal', 'more')
-    
+
     @property
     def helping(self):
         return self.state == 'help'
-    
+
     @property
     def excepting(self):
         return self.state == 'exception'
-    
+
     def moveCursorToEndIfNecessary(self):
         cursor = self.textCursor()
         oldLine = cursor.blockNumber()
@@ -262,13 +262,13 @@ class KateConsole(QtGui.QTextEdit):
         newLine = cursor.blockNumber()
         if oldLine != newLine:
             self.setTextCursor(cursor)
-    
+
     def keyPressEvent(self, e):
         key = e.key()
         # allow Ctrl+C
         if not (key == QtCore.Qt.Key_Control or e.matches(QtGui.QKeySequence.Copy)):
             self.moveCursorToEndIfNecessary()
-        
+
         if key in self.keyToMethod:
             result = self.keyToMethod[key]()
             if result is True:
@@ -279,45 +279,45 @@ class KateConsole(QtGui.QTextEdit):
                 self.window().close()
             else:
                 QtGui.QTextEdit.keyPressEvent(self, e)
-    
+
     def moveCursorToEndOfLine(self):
         cursor = self.textCursor()
         cursor.movePosition(QtGui.QTextCursor.EndOfLine, QtGui.QTextCursor.MoveAnchor)
         self.setTextCursor(cursor)
-    
+
     @property
     def prompt(self):
         if self.state == 'normal':
             return self.normalPrompt
         elif self.state == 'more':
             return self.morePrompt
-    
+
     def moveCursorToStartOfLine(self):
         cursor = self.textCursor()
         cursor.movePosition(QtGui.QTextCursor.StartOfLine, QtGui.QTextCursor.MoveAnchor)
         cursor.movePosition(QtGui.QTextCursor.Right, QtGui.QTextCursor.MoveAnchor, len(self.prompt))
         self.setTextCursor(cursor)
-    
+
     def moveCursorToEnd(self):
         cursor = self.textCursor()
         cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
         self.setTextCursor(cursor)
-    
+
     @property
     def line(self):
         line = str(self.textCursor().block().text()).rstrip()
         return line[len(self.prompt):]
-    
+
     @property
     def columnNumber(self):
         return self.textCursor().columnNumber()
     @property
     def lineNumber(self):
         return self.textCursor().blockNumber()
-    
+
     def displayResult(self, r):
         self.insertPlainText(r)
-    
+
     def keyReturn(self):
         line = self.line
         self.append('')
@@ -330,10 +330,10 @@ class KateConsole(QtGui.QTextEdit):
             self.state = 'normal'
         self.insertPlainText(self.prompt)
         self.moveCursorToEnd()
-    
+
     def keyEnter(self):
         return self.keyReturn()
-    
+
     def keyLeft(self):
         c = self.columnNumber
         if c < len(self.prompt):
@@ -341,25 +341,26 @@ class KateConsole(QtGui.QTextEdit):
             self.moveCursorToStartOfLine()
         elif c > len(self.prompt):
             return True
-    
+
     def keyUp(self):
         # XX implement history
         pass
+
     def keyDown(self):
         pass
-    
+
     def keyPageUp(self):
         pass
     def keyPageDown(self):
         pass
-    
+
     def keyBackspace(self):
         c = self.columnNumber
         return c > len(self.prompt)
-    
+
     def keyHome(self):
         self.moveCursorToStartOfLine()
-    
+
     def keyEnd(self):
         self.moveCursorToEndOfLine()
 
@@ -373,7 +374,7 @@ class KateConsoleDialog(QtGui.QDialog):
         self.console = KateConsole(self)
         layout.addWidget(self.console)
         self.resize(600, 420)
-    
+
     def closeEvent(self, e):
         # XX save size and position
         QtGui.QDialog.closeEvent(self, e)

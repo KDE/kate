@@ -217,7 +217,7 @@ def wordAtCursor(document, view):
     ''' Get the word under the active view's cursor in the given document.
     Stolen from the expand plugin!'''
     cursor = view.cursorPosition()
-    line = unicode(document.line(cursor.line()))
+    line = document.line(cursor.line())
     start, end = wordAtCursorPosition(line, cursor)
     return line[start:end]
 

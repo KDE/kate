@@ -146,6 +146,23 @@ private slots:
     void infoPluginConfigPagesChanged(int pageIndex);
 };
 
+/**
+ * A page used if an error occurred trying to load a plugin's config page.
+ */
+class ErrorConfigPage :
+    public Kate::PluginConfigPage
+{
+    Q_OBJECT
+
+public:
+    explicit ErrorConfigPage(QWidget *parent = 0, const QString &traceback = QString());
+
+public slots:
+    virtual void apply() {}
+    virtual void reset() {}
+    virtual void defaults() {}
+};
+
 } // namespace Pate
 
 #endif

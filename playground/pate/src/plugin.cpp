@@ -37,6 +37,7 @@
 #include <KGenericFactory>
 #include <KConfigBase>
 #include <KConfigGroup>
+#include <KTextEdit>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -75,13 +76,6 @@ Kate::PluginView *Pate::Plugin::createView(Kate::MainWindow *window)
     return new Pate::PluginView(window);
 }
 
-/**
- * The configuration system uses one dictionary which is wrapped in Python to
- * make it appear as though it is module-specific.
- * Atomic Python types are stored by writing their representation to the config file
- * on save and evaluating them back to a Python type on load.
- * XX should probably pickle.
- */
 void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPrefix)
 {
     KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
@@ -138,6 +132,16 @@ void Pate::Plugin::reloadModuleConfigPages() const
     }
 }
 
+Pate::ErrorConfigPage::ErrorConfigPage(QWidget *parent, const QString &traceback) :
+    Kate::PluginConfigPage(parent)
+{
+    KTextEdit *widget = new KTextEdit(parent);
+    widget->setText(traceback);
+    widget->setEnabled(false);
+    QLayout *lo = parent->layout();
+    lo->addWidget(widget);
+}
+
 Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, const char *name)
 {
     Q_UNUSED(name);
@@ -158,8 +162,9 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     PyObject *result = PyObject_CallObject(func, arguments);
     Py_DECREF(arguments);
     if (!result) {
+        // Return a page descrbing the error rather than crashing.
         Py::traceback("failed to call plugin page");
-        return 0;
+        return new Pate::ErrorConfigPage(parent, Py::lastTraceback());
     }
     Kate::PluginConfigPage *r = (Kate::PluginConfigPage *)Py::objectUnwrap(result);
 
@@ -171,7 +176,7 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
 QString Pate::Plugin::configPageName(uint number) const
 {
     if (!number) {
-        return i18n("Pâté");
+        return i18n("Python Plugins");
     }
     if (number > (uint)m_moduleConfigPages.size()) {
         return QString();
@@ -186,7 +191,7 @@ QString Pate::Plugin::configPageName(uint number) const
 QString Pate::Plugin::configPageFullName(uint number) const
 {
     if (!number) {
-        return i18n("Pâté Python Scripting");
+        return i18n("Pâté host for Python Plugins");
     }
     if (number > (uint)m_moduleConfigPages.size()) {
         return QString();

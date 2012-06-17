@@ -112,9 +112,8 @@ class History(KHistoryComboBox):
         self.parent().console.displayResult(line)
         self.hide()
 
-    def recall(self):
-        self.result = None
-        self.move(0, self.parent().height() - self.height())
+    def recall(self, left, top):
+        self.move(left + 6, top - 6)
         self.show()
         self.setFocus(QtCore.Qt.PopupFocusReason)
 
@@ -358,11 +357,10 @@ class KateConsole(QtGui.QTextEdit):
         line = self.line
         self.append('')
         #
-        # Add the line to the history. Multi-line input is hard, so we ignore
-        # all but the first for now.
+        # Add the line to the history. Multi-line input is added line-by-line
+        # so each line is independently recall-able.
         #
-        if self.state == 'normal':
-            self.history.append(line)
+        self.history.append(line)
         self.state = 'unknown'
         self.moveCursorToEnd()
         more = self.console.push(line)
@@ -385,7 +383,7 @@ class KateConsole(QtGui.QTextEdit):
             return True
 
     def keyUp(self):
-        self.history.recall()
+        self.history.recall(self.cursorRect().right(), self.cursorRect().top())
 
     def keyDown(self):
         pass

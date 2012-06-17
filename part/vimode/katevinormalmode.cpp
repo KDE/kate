@@ -50,7 +50,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_viInputModeManager = viInputModeManager;
   m_stickyColumn = -1;
 
-  // FIXME: make configurable:
+  // FIXME: make configurable
   m_extraWordCharacters = "";
   m_matchingItems["/*"] = "*/";
   m_matchingItems["*/"] = "-/*";
@@ -2251,13 +2251,14 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   KateViRange r;
   int lines = doc()->lines();
 
-  // If counted then it is not a motion to matching item anymore
-  // it's a motions to the N'th % of the document
-  if(isCounted()) {
-    if (getCount() > 100)
-        return r;
-
-    r.endLine = qRound(lines * getCount() / 100.) -1 ;
+  // If counted, then it's not a motion to matching item anymore,
+  // but a motion to the N'th percentage of the document
+  if( isCounted() ) {
+    int count = getCount();
+    if ( count > 100 ) {
+      return r;
+    }
+    r.endLine = qRound(lines * count / 100.0) - 1;
     r.endColumn = 0;
     return r;
   }
@@ -2273,7 +2274,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   m_stickyColumn = -1;
 
-  if ( n1 == -1 ) {
+  if ( n1 < 0 ) {
     r.valid = false;
     return r;
   } else {
@@ -2281,30 +2282,29 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   }
 
   // text item we want to find a matching item for
-  QString item = l.mid( n1, n2-n1 );
+  QString item = l.mid( n1, n2 - n1 );
 
-  // use kate's built-in matching bracket finder for brackets
+  // use Kate's built-in matching bracket finder for brackets
   if ( QString("{}()[]").indexOf( item ) != -1 ) {
 
     // move the cursor to the first bracket
-    c.setColumn( n1+1 );
+    c.setColumn( n1 + 1 );
     updateCursor( c );
 
     // find the matching one
     c = m_viewInternal->findMatchingBracket();
 
     if ( c > m_view->cursorPosition() ) {
-      c.setColumn( c.column()-1 );
+      c.setColumn( c.column() - 1 );
     }
   } else {
     int toFind = 1;
-    //int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
-
-    //QString item = l.mid( n1, n2-n1 );
+    // int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+    // QString item = l.mid( n1, n2-n1 );
     QString matchingItem = m_matchingItems[ item ];
 
     int line = c.line();
-    int column = n2-item.length();
+    int column = n2 - item.length();
     bool reverse = false;
 
     if ( matchingItem.left( 1 ) == "-" ) {
@@ -2312,7 +2312,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
       reverse = true;
     }
 
-    // make sure we don't hit the text item we start the search from
+    // make sure we don't hit the text item we started the search from
     if ( column == 0 && reverse ) {
       column -= item.length();
     }
@@ -2321,19 +2321,19 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     int matchItemIdx;
 
     while ( toFind > 0 ) {
-      if ( !reverse ) {
+      if ( reverse ) {
+        itemIdx = l.lastIndexOf( item, column - 1 );
+        matchItemIdx = l.lastIndexOf( matchingItem, column - 1 );
+
+        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx > matchItemIdx ) ) {
+          ++toFind;
+        }
+      } else {
         itemIdx = l.indexOf( item, column );
         matchItemIdx = l.indexOf( matchingItem, column );
 
         if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx < matchItemIdx ) ) {
-            toFind++;
-        }
-      } else {
-        itemIdx = l.lastIndexOf( item, column-1 );
-        matchItemIdx = l.lastIndexOf( matchingItem, column-1 );
-
-        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx > matchItemIdx ) ) {
-            toFind++;
+          ++toFind;
         }
       }
 
@@ -2347,12 +2347,12 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
       if ( matchItemIdx != -1 ) { // match on current line
           if ( matchItemIdx == column ) {
-              toFind--;
-              c.setLine( line );
-              c.setColumn( column );
+            --toFind;
+            c.setLine( line );
+            c.setColumn( column );
           }
       } else { // no match, advance one line if possible
-        ( reverse) ? line-- : line++;
+        ( reverse ) ? --line : ++line;
         column = 0;
 
         if ( ( !reverse && line >= lines ) || ( reverse && line < 0 ) ) {

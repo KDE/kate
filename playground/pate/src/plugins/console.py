@@ -10,7 +10,8 @@ import tokenize
 import token # for constants
 import code
 
-from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 
@@ -37,6 +38,84 @@ def tok(s):
         l.append(token)
     return l
 
+class ConfigWidget(QWidget):
+    """Configuration widget for this plugin."""
+    #
+    # Font.
+    #
+    font = None
+    #
+    # Primary and continuation prompts.
+    #
+    ps1 = None
+    ps2 = None
+
+    def __init__(self, parent = None, name = None):
+        super(ConfigWidget, self).__init__(parent)
+
+        lo = QGridLayout()
+        self.setLayout(lo)
+
+        self.font = KFontChooser(None, KFontChooser.FixedFontsOnly)
+        self.font.enableColumn(KFontChooser.StyleList, False)
+        self.font.setWhatsThis(i18n("Main display font."))
+        lo.addWidget(self.font, 0, 0, 1, 4)
+
+        self.ps1 = KLineEdit()
+        self.ps1.setWhatsThis(i18n("Main prompt."))
+        lo.addWidget(self.ps1, 1, 1, 1, 1)
+        self.labelPs1 = QLabel(i18n("&Main prompt:"))
+        self.labelPs1.setBuddy(self.ps1)
+        lo.addWidget(self.labelPs1, 1, 0, 1, 1)
+
+        self.ps2 = KLineEdit()
+        self.ps2.setWhatsThis(i18n("Continuation prompt."))
+        lo.addWidget(self.ps2, 1, 3, 1, 1)
+        self.labelPs2 = QLabel(i18n("&Continuation prompt:"))
+        self.labelPs2.setBuddy(self.ps2)
+        lo.addWidget(self.labelPs2, 1, 2, 1, 1)
+
+        self.reset();
+
+    def apply(self):
+        kate.configuration["font"] = self.font.font().toString()
+        kate.configuration["ps1"] = self.ps1.text()
+        kate.configuration["ps2"] = self.ps2.text()
+        kate.configuration.save()
+
+    def reset(self):
+        self.defaults()
+        if "font" in kate.configuration:
+            font = QFont()
+            font.fromString(kate.configuration["font"])
+            self.font.setFont(font, True)
+        if "ps1" in kate.configuration:
+            self.ps1.setText(kate.configuration["ps1"])
+        if "ps2" in kate.configuration:
+            self.ps2.setText(kate.configuration["ps2"])
+
+    def defaults(self):
+        self.font.setFont(QFont('monospace'), True)
+        self.ps1.setText(">>>")
+        self.ps2.setText("...")
+
+class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
+    """Kate configuration page for this plugin."""
+    def __init__(self, parent = None, name = None):
+        super(ConfigPage, self).__init__(parent, name)
+        self.widget = ConfigWidget(parent)
+        lo = parent.layout()
+        lo.addWidget(self.widget)
+
+    def apply(self):
+        self.widget.apply()
+
+    def reset(self):
+        self.widget.reset()
+
+    def defaults(self):
+        self.widget.defaults()
+        self.changed.emit()
 
 class Console(code.InteractiveConsole):
     ''' The standard library module code doesn't provide you with
@@ -107,7 +186,7 @@ class History(KHistoryComboBox):
         self.returnPressed[str].connect(self._doneCompletion)
         self.hide()
 
-    @QtCore.pyqtSlot("QString")
+    @pyqtSlot("QString")
     def _doneCompletion(self, line):
         self.parent().console.displayResult(line)
         self.hide()
@@ -115,29 +194,29 @@ class History(KHistoryComboBox):
     def recall(self, left, top):
         self.move(left + 6, top - 6)
         self.show()
-        self.setFocus(QtCore.Qt.PopupFocusReason)
+        self.setFocus(Qt.PopupFocusReason)
 
     def append(self, line):
         self.addToHistory(line)
 
-class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
+class KateConsoleHighlighter(QSyntaxHighlighter):
     ''' Pretty ruddy convulted, but still pretty awesome '''
     def __init__(self, console):
         self.console = console
-        QtGui.QSyntaxHighlighter.__init__(self, console.document())
-        self.keywordFormat = QtGui.QTextCharFormat()
-        self.keywordFormat.setFontWeight(QtGui.QFont.Bold)
+        QSyntaxHighlighter.__init__(self, console.document())
+        self.keywordFormat = QTextCharFormat()
+        self.keywordFormat.setFontWeight(QFont.Bold)
         for name, color in (
-            ('prompt', QtGui.QColor(160, 160, 160)),
-            ('string', QtGui.QColor(190, 3, 3)),
-            ('name', QtGui.QColor('green')),
-            ('integer', QtGui.QColor(0, 20, 255)),
-            ('float', QtGui.QColor(176, 126, 0)),
-            ('help', QtGui.QColor('green')),
-            ('exception', QtGui.QColor(180, 3, 3)),
+            ('prompt', QColor(160, 160, 160)),
+            ('string', QColor(190, 3, 3)),
+            ('name', QColor('green')),
+            ('integer', QColor(0, 20, 255)),
+            ('float', QColor(176, 126, 0)),
+            ('help', QColor('green')),
+            ('exception', QColor(180, 3, 3)),
         ):
-            format = QtGui.QTextCharFormat()
-            format.setForeground(QtGui.QBrush(color))
+            format = QTextCharFormat()
+            format.setForeground(QBrush(color))
             setattr(self, name + 'Format', format)
 
         self.tokenHandlers = {
@@ -238,19 +317,18 @@ class KateConsoleHighlighter(QtGui.QSyntaxHighlighter):
 
 
 
-class KateConsole(QtGui.QTextEdit):
-    normalPrompt = '>>> '
-    morePrompt = '    '
+class KateConsole(QTextEdit):
     def __init__(self, parent=None):
-        QtGui.QTextEdit.__init__(self, parent)
-        self.setWordWrapMode(QtGui.QTextOption.WrapAnywhere)
-        font = QtGui.QFont('monospace')
+        QTextEdit.__init__(self, parent)
+        self.setWordWrapMode(QTextOption.WrapAnywhere)
+        font = QFont()
+        font.fromString(kate.configuration["font"])
         self.setFont(font)
         self.keyToMethod = {}
         # font =
         for methodName in dir(self):
             if methodName.startswith('key'):
-                key = getattr(QtCore.Qt, 'Key_' + methodName[3:], None)
+                key = getattr(Qt, 'Key_' + methodName[3:], None)
                 if key is None:
                     continue
                 self.keyToMethod[key] = getattr(self, methodName)
@@ -272,7 +350,7 @@ class KateConsole(QtGui.QTextEdit):
         self.state = 'normal'
         self.setPlainText(self.prompt)
         KateConsoleHighlighter(self)
-        QtCore.QTimer.singleShot(0, self.moveCursorToEnd)
+        QTimer.singleShot(0, self.moveCursorToEnd)
 
     def showTraceback(self):
         self.state = 'exception'
@@ -293,7 +371,7 @@ class KateConsole(QtGui.QTextEdit):
     def moveCursorToEndIfNecessary(self):
         cursor = self.textCursor()
         oldLine = cursor.blockNumber()
-        cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
+        cursor.movePosition(QTextCursor.End, QTextCursor.MoveAnchor)
         newLine = cursor.blockNumber()
         if oldLine != newLine:
             self.setTextCursor(cursor)
@@ -301,41 +379,41 @@ class KateConsole(QtGui.QTextEdit):
     def keyPressEvent(self, e):
         key = e.key()
         # allow Ctrl+C
-        if not (key == QtCore.Qt.Key_Control or e.matches(QtGui.QKeySequence.Copy)):
+        if not (key == Qt.Key_Control or e.matches(QKeySequence.Copy)):
             self.moveCursorToEndIfNecessary()
 
         if key in self.keyToMethod:
             result = self.keyToMethod[key]()
             if result is True:
-                QtGui.QTextEdit.keyPressEvent(self, e)
+                QTextEdit.keyPressEvent(self, e)
         else:
             #
-            if e.modifiers() & QtCore.Qt.ControlModifier and e.key() == QtCore.Qt.Key_D:
+            if e.modifiers() & Qt.ControlModifier and e.key() == Qt.Key_D:
                 self.window().close()
             else:
-                QtGui.QTextEdit.keyPressEvent(self, e)
+                QTextEdit.keyPressEvent(self, e)
 
     def moveCursorToEndOfLine(self):
         cursor = self.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.EndOfLine, QtGui.QTextCursor.MoveAnchor)
+        cursor.movePosition(QTextCursor.EndOfLine, QTextCursor.MoveAnchor)
         self.setTextCursor(cursor)
 
     @property
     def prompt(self):
         if self.state == 'normal':
-            return self.normalPrompt
+            return kate.configuration["ps1"]
         elif self.state == 'more':
-            return self.morePrompt
+            return kate.configuration["ps2"]
 
     def moveCursorToStartOfLine(self):
         cursor = self.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.StartOfLine, QtGui.QTextCursor.MoveAnchor)
-        cursor.movePosition(QtGui.QTextCursor.Right, QtGui.QTextCursor.MoveAnchor, len(self.prompt))
+        cursor.movePosition(QTextCursor.StartOfLine, QTextCursor.MoveAnchor)
+        cursor.movePosition(QTextCursor.Right, QTextCursor.MoveAnchor, len(self.prompt))
         self.setTextCursor(cursor)
 
     def moveCursorToEnd(self):
         cursor = self.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.MoveAnchor)
+        cursor.movePosition(QTextCursor.End, QTextCursor.MoveAnchor)
         self.setTextCursor(cursor)
 
     @property
@@ -404,10 +482,10 @@ class KateConsole(QtGui.QTextEdit):
         self.moveCursorToEndOfLine()
 
 
-class KateConsoleDialog(QtGui.QDialog):
+class KateConsoleDialog(QDialog):
     def __init__(self, parent=None):
-        QtGui.QDialog.__init__(self, parent)
-        layout = QtGui.QVBoxLayout(self)
+        QDialog.__init__(self, parent)
+        layout = QVBoxLayout(self)
         layout.setMargin(0)
         layout.setSpacing(0)
         self.console = KateConsole(self)
@@ -419,7 +497,7 @@ class KateConsoleDialog(QtGui.QDialog):
 
     def closeEvent(self, e):
         kate.configuration["dialogSize"] = self.size();
-        QtGui.QDialog.closeEvent(self, e)
+        QDialog.closeEvent(self, e)
 
 
 @kate.action('Python Console', icon='utilities-terminal', shortcut='Ctrl+Shift+P', menu='View')
@@ -428,13 +506,17 @@ def showConsole():
     dialog = KateConsoleDialog(parent)
     dialog.show()
 
+@kate.configPage("Python Console", "Python Console", icon = "utilities-terminal")
+def configPage(parent = None, name = None):
+    return ConfigPage(parent, name)
+
 
 # Testing testing 1 2 3
 
 #@init
 #def foo():
 #    while True:
-#        code, success = QtGui.QInputDialog.getText(None, 'Line', 'Code:')
+#        code, success = QInputDialog.getText(None, 'Line', 'Code:')
 #        if not success:
 #            break
 #        success = success

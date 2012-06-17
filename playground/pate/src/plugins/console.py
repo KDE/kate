@@ -412,10 +412,13 @@ class KateConsoleDialog(QtGui.QDialog):
         layout.setSpacing(0)
         self.console = KateConsole(self)
         layout.addWidget(self.console)
-        self.resize(600, 420)
+        try:
+            self.resize(kate.configuration["dialogSize"])
+        except KeyError:
+            self.resize(600, 420)
 
     def closeEvent(self, e):
-        # XX save size and position
+        kate.configuration["dialogSize"] = self.size();
         QtGui.QDialog.closeEvent(self, e)
 
 

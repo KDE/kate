@@ -229,7 +229,7 @@ def etagSearch(token, fileName):
     if not kate.configuration["useEtags"]:
 	return None
     etagsCmd = ["etags", "-o", "-", fileName]
-    etagBytes = subprocess.check_output(etagsCmd)
+    etagBytes = subprocess.check_output(etagsCmd, stderr = subprocess.STDOUT)
     tokenBytes = bytearray(token.encode("utf-8"))
     tokenBytes.insert(0, 0x7f)
     tokenBytes.append(0x1)
@@ -241,6 +241,11 @@ def etagSearch(token, fileName):
 	lineNumberStart = etagDefinition + len(tokenBytes)
 	lineNumberEnd = etagBytes.find(",", lineNumberStart)
 	return int(etagBytes[lineNumberStart:lineNumberEnd])
+    if etagBytes.startswith(bytearray(etagsCmd[0])):
+	#
+	# An error message was printed starting with "etags".
+	#
+	raise IOError(unicode(etagBytes, "latin-1"))
     return None
 
 class TreeModel(QStandardItemModel):
@@ -265,50 +270,54 @@ class TreeModel(QStandardItemModel):
 	root = self.invisibleRootItem()
 	root.removeRows(0, root.rowCount())
 	self.definitionIndex = None
-	regexp = re.compile("\\b" + token + "\\b")
-	previousBoredomQuery = time.time()
 	try:
 	    tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
 	except IndexError:
 	    return
+	regexp = re.compile("\\b" + token + "\\b")
+	previousBoredomQuery = time.time() - 10
 	#
 	# For each file, list the lines where a match is found.
 	#
 	filesListed = 0
 	for fileName, fileFlags in files:
 	    fileName = transform(fileName)
-	    etagDefinitionLine = etagSearch(token, fileName)
 	    fileRow = QStandardItem(fileName)
 	    root.appendRow(fileRow)
 	    line = 1
-	    #
-	    # Question: what encoding is this file? TODO A better approach
-	    # to this question.
-	    #
-	    for text in codecs.open(fileName, encoding="latin-1"):
-		match = regexp.search(text)
-		if match:
-		    resultRow = list()
-		    resultRow.append(QStandardItem(text[:-1]))
-		    resultRow.append(QStandardItem(str(line)))
-		    #
-		    # The column value displayed by Kate is based on a
-		    # virtual position, where TABs count as 8.
-		    #
-		    column = match.start();
-		    tabs = text[:column].count("\t")
-		    virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
-		    resultRow.append(virtualColumn)
-		    virtualColumn.setData(column, Qt.UserRole + 1)
-		    fileRow.appendRow(resultRow)
-		    if line == etagDefinitionLine:
+	    try:
+		etagDefinitionLine = etagSearch(token, fileName)
+		#
+		# Question: what encoding is this file? TODO A better approach
+		# to this question.
+		#
+		for text in codecs.open(fileName, encoding="latin-1"):
+		    match = regexp.search(text)
+		    if match:
+			resultRow = list()
+			resultRow.append(QStandardItem(text[:-1]))
+			resultRow.append(QStandardItem(str(line)))
 			#
-			# Mark the line and the file as being a definition.
+			# The column value displayed by Kate is based on a
+			# virtual position, where TABs count as 8.
 			#
-			resultRow[0].setIcon(KIcon("go-jump-definition"))
-			fileRow.setIcon(KIcon("go-jump-definition"))
-			self.definitionIndex = resultRow[0].index()
-		line += 1
+			column = match.start()
+			tabs = text[:column].count("\t")
+			virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
+			resultRow.append(virtualColumn)
+			virtualColumn.setData(column, Qt.UserRole + 1)
+			fileRow.appendRow(resultRow)
+			if line == etagDefinitionLine:
+			    #
+			    # Mark the line and the file as being a definition.
+			    #
+			    resultRow[0].setIcon(KIcon("go-jump-definition"))
+			    fileRow.setIcon(KIcon("go-jump-definition"))
+			    self.definitionIndex = resultRow[0].index()
+		    line += 1
+	    except IOError as e:
+		fileRow.setIcon(KIcon("face-sad"))
+		fileRow.appendRow(QStandardItem(str(e)))
 	    filesListed += 1
 	    #
 	    # Time to query the user's boredom level?
@@ -548,7 +557,7 @@ def lookup(gotoDefinition = False):
 	# Jump to definition?
 	#
 	definitionIndex = searchBar.model.definitionIndex
-	if gotoDefinition and definitionIndex.isValid():
+	if gotoDefinition and definitionIndex and definitionIndex.isValid():
 	    searchBar.navigateTo(definitionIndex)
 
 @kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")

@@ -10,6 +10,7 @@ import tokenize
 import token # for constants
 import code
 
+from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
@@ -38,7 +39,9 @@ def tok(s):
         l.append(token)
     return l
 
-class ConfigWidget(QWidget):
+import os.path
+import sys
+class ConfigWidget(KTabWidget):
     """Configuration widget for this plugin."""
     #
     # Font.
@@ -50,30 +53,13 @@ class ConfigWidget(QWidget):
     ps1 = None
     ps2 = None
 
-    def __init__(self, parent = None, name = None):
+    def __init__(self, parent = None):
         super(ConfigWidget, self).__init__(parent)
 
-        lo = QGridLayout()
-        self.setLayout(lo)
-
-        self.font = KFontChooser(None, KFontChooser.FixedFontsOnly)
+        # Set up the user interface from Designer.
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "consoleconfig.ui"), self)
+        self.font.setFont(self.font.font(), True)
         self.font.enableColumn(KFontChooser.StyleList, False)
-        self.font.setWhatsThis(i18n("Main display font."))
-        lo.addWidget(self.font, 0, 0, 1, 4)
-
-        self.ps1 = KLineEdit()
-        self.ps1.setWhatsThis(i18n("Main prompt."))
-        lo.addWidget(self.ps1, 1, 1, 1, 1)
-        self.labelPs1 = QLabel(i18n("&Main prompt:"))
-        self.labelPs1.setBuddy(self.ps1)
-        lo.addWidget(self.labelPs1, 1, 0, 1, 1)
-
-        self.ps2 = KLineEdit()
-        self.ps2.setWhatsThis(i18n("Continuation prompt."))
-        lo.addWidget(self.ps2, 1, 3, 1, 1)
-        self.labelPs2 = QLabel(i18n("&Continuation prompt:"))
-        self.labelPs2.setBuddy(self.ps2)
-        lo.addWidget(self.labelPs2, 1, 2, 1, 1)
 
         self.reset();
 
@@ -498,7 +484,6 @@ class KateConsoleDialog(QDialog):
     def closeEvent(self, e):
         kate.configuration["dialogSize"] = self.size();
         QDialog.closeEvent(self, e)
-
 
 @kate.action('Python Console', icon='utilities-terminal', shortcut='Ctrl+Shift+P', menu='View')
 def showConsole():

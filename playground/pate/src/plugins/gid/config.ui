@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigWidget</class>
+ <widget class="QWidget" name="ConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ConfigWidget</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="1">
+    <widget class="KIntSpinBox" name="keySize">
+     <property name="whatsThis">
+      <string>Minimum length of token before completions will be shown.</string>
+     </property>
+     <property name="minimum">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelKeySize">
+     <property name="text">
+      <string>Complete tokens after</string>
+     </property>
+     <property name="buddy">
+      <cstring>keySize</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelIdFile">
+     <property name="text">
+      <string>ID file</string>
+     </property>
+     <property name="buddy">
+      <cstring>idFile</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="KLineEdit" name="idFile">
+     <property name="whatsThis">
+      <string>Name of ID file.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Lookup</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="useEtags">
+        <property name="whatsThis">
+         <string>Use etags(1) to find definitions.</string>
+        </property>
+        <property name="text">
+         <string>Highlight definitions</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelSrcIn">
+        <property name="text">
+         <string>Discard prefix ending with key</string>
+        </property>
+        <property name="buddy">
+         <cstring>idFile</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="srcIn">
+        <property name="whatsThis">
+         <string>If not empty, when looking for matches, discard the first part of the file name ending with this key.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="KLineEdit" name="srcOut">
+        <property name="whatsThis">
+         <string>Replacement prefix. Use %{idPrefix} to insert the prefix of the ID file ending with the key.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelSrcOut">
+        <property name="text">
+         <string>With this</string>
+        </property>
+        <property name="buddy">
+         <cstring>srcOut</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>idFile</tabstop>
+  <tabstop>keySize</tabstop>
+  <tabstop>useEtags</tabstop>
+  <tabstop>srcIn</tabstop>
+  <tabstop>srcOut</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

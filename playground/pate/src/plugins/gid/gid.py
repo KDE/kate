@@ -24,6 +24,7 @@ __license__ = "LGPL"
 import kate
 import kate.gui
 
+from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
@@ -33,6 +34,7 @@ from PyKDE4.ktexteditor import KTextEditor
 from idutils import Lookup
 
 import codecs
+import os.path
 import re
 import sip
 import subprocess
@@ -60,77 +62,40 @@ class ConfigWidget(QWidget):
     srcOut = None
 
     def __init__(self, parent = None, name = None):
-	super(ConfigWidget, self).__init__(parent)
+        super(ConfigWidget, self).__init__(parent)
 
-	lo = QGridLayout()
-	self.setLayout(lo)
+        # Set up the user interface from Designer.
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "config.ui"), self)
 
-	self.idFile = KLineEdit()
-	self.idFile.setWhatsThis(i18n("Name of ID file."))
-	lo.addWidget(self.idFile, 0, 1, 1, 3)
-	self.labelIdFile = QLabel(i18n("&ID file:"))
-	self.labelIdFile.setBuddy(self.idFile)
-	lo.addWidget(self.labelIdFile, 0, 0, 1, 1)
-
-	self.keySize = QSpinBox()
-	self.keySize.setMinimum(3)
-	self.keySize.setMaximum(16)
-	self.keySize.setWhatsThis(i18n("Minimum length of token before completions will be shown."))
-	lo.addWidget(self.keySize, 1, 1, 1, 1)
-	self.labelKeySize = QLabel(i18n("&Complete tokens after:"))
-	self.labelKeySize.setBuddy(self.keySize)
-	lo.addWidget(self.labelKeySize, 1, 0, 1, 1)
-
-	self.useEtags = QCheckBox()
-	self.useEtags.setWhatsThis(i18n("Use etags(1) to find definitions."))
-	lo.addWidget(self.useEtags, 1, 3, 1, 1)
-	self.labelUseEtags = QLabel(i18n("&Highlight definitions:"))
-	self.labelUseEtags.setBuddy(self.useEtags)
-	lo.addWidget(self.labelUseEtags, 1, 2, 1, 1)
-
-	self.srcIn = KLineEdit()
-	self.srcIn.setWhatsThis(i18n("If not empty, when looking for matches, discard the first part of the file name ending with this key."))
-	lo.addWidget(self.srcIn, 2, 1, 1, 3)
-	self.labelSrcIn = QLabel(i18n("&Discard prefix ending with key:"))
-	self.labelSrcIn.setBuddy(self.srcIn)
-	lo.addWidget(self.labelSrcIn, 2, 0, 1, 1)
-
-	self.srcOut = KLineEdit()
-	self.srcOut.setWhatsThis(i18n("Replacement prefix. Use %i to insert the prefix of the ID file ending with the key."))
-	lo.addWidget(self.srcOut, 3, 1, 1, 3)
-	self.labelSrcOut = QLabel(i18n("&With this:"))
-	self.labelSrcOut.setBuddy(self.srcOut)
-	lo.addWidget(self.labelSrcOut, 3, 0, 1, 1)
-
-	self.reset();
+        self.reset();
 
     def apply(self):
-	kate.configuration["idFile"] = self.idFile.text().encode("utf-8")
-	kate.configuration["keySize"] = self.keySize.value()
-	kate.configuration["useEtags"] = self.useEtags.isChecked()
-	kate.configuration["srcIn"] = self.srcIn.text().encode("utf-8")
-	kate.configuration["srcOut"] = self.srcOut.text().encode("utf-8")
-	kate.configuration.save()
+        kate.configuration["idFile"] = self.idFile.text().encode("utf-8")
+        kate.configuration["keySize"] = self.keySize.value()
+        kate.configuration["useEtags"] = self.useEtags.isChecked()
+        kate.configuration["srcIn"] = self.srcIn.text().encode("utf-8")
+        kate.configuration["srcOut"] = self.srcOut.text().encode("utf-8")
+        kate.configuration.save()
 
     def reset(self):
-	self.defaults()
-	if "idFile" in kate.configuration:
-	    self.idFile.setText(kate.configuration["idFile"])
-	if "keySize" in kate.configuration:
-	    self.keySize.setValue(kate.configuration["keySize"])
-	if "useEtags" in kate.configuration:
-	    self.useEtags.setChecked(kate.configuration["useEtags"])
-	if "srcIn" in kate.configuration:
-	    self.srcIn.setText(kate.configuration["srcIn"])
-	if "srcOut" in kate.configuration:
-	    self.srcOut.setText(kate.configuration["srcOut"])
+        self.defaults()
+        if "idFile" in kate.configuration:
+            self.idFile.setText(kate.configuration["idFile"])
+        if "keySize" in kate.configuration:
+            self.keySize.setValue(kate.configuration["keySize"])
+        if "useEtags" in kate.configuration:
+            self.useEtags.setChecked(kate.configuration["useEtags"])
+        if "srcIn" in kate.configuration:
+            self.srcIn.setText(kate.configuration["srcIn"])
+        if "srcOut" in kate.configuration:
+            self.srcOut.setText(kate.configuration["srcOut"])
 
     def defaults(self):
-	self.idFile.setText("/view/myview/vob/ID")
-	self.keySize.setValue(5)
-	self.useEtags.setChecked(True)
-	self.srcIn.setText("/vob")
-	self.srcOut.setText("%i/vob")
+        self.idFile.setText("/view/myview/vob/ID")
+        self.keySize.setValue(5)
+        self.useEtags.setChecked(True)
+        self.srcIn.setText("/vob")
+        self.srcOut.setText("%{idPrefix}/vob")
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
     """Kate configuration page for this plugin."""
@@ -188,10 +153,10 @@ def transform(file):
 	    # No transformation is applicable.
 	    #
 	    return file
-	percentI = kate.configuration["srcOut"].find("%i")
+	percentI = kate.configuration["srcOut"].find("%{idPrefix}")
 	if percentI > -1:
 	    insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
-	    discard, insertRight = kate.configuration["srcOut"].split("%i", 1)
+	    discard, insertRight = kate.configuration["srcOut"].split("%{idPrefix}", 1)
 	    file = insertLeft + insertRight + right
 	else:
 	    file = kate.configuration["srcOut"] + right

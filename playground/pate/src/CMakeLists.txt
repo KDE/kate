@@ -44,9 +44,9 @@ install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_M
 #
 install(FILES
     plugins/close_tag.py
-    plugins/console.py
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
 install(DIRECTORY
+    plugins/console
     plugins/expand
     plugins/gid
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py")
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")

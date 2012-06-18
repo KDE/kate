@@ -3,12 +3,13 @@
 playing about. The console provides syntax highlighting by
 tokenizing the code using standard library module tokenize '''
 
-import sys
+import code
 from cStringIO import StringIO
 import keyword
+import os.path
+import sys
 import tokenize
 import token # for constants
-import code
 
 from PyQt4 import uic
 from PyQt4.QtCore import *
@@ -39,8 +40,6 @@ def tok(s):
         l.append(token)
     return l
 
-import os.path
-import sys
 class ConfigWidget(KTabWidget):
     """Configuration widget for this plugin."""
     #
@@ -52,6 +51,16 @@ class ConfigWidget(KTabWidget):
     #
     ps1 = None
     ps2 = None
+    #
+    # Highlight colours.
+    #
+    promptColour = None
+    stringColour = None
+    nameColour = None
+    integerColour = None
+    floatColour = None
+    helpColour = None
+    exceptionColour = None
 
     def __init__(self, parent = None):
         super(ConfigWidget, self).__init__(parent)
@@ -67,6 +76,13 @@ class ConfigWidget(KTabWidget):
         kate.configuration["font"] = self.font.font().toString()
         kate.configuration["ps1"] = self.ps1.text()
         kate.configuration["ps2"] = self.ps2.text()
+        kate.configuration["promptColour"] = self.promptColour.color()
+        kate.configuration["stringColour"] = self.stringColour.color()
+        kate.configuration["nameColour"] = self.nameColour.color()
+        kate.configuration["integerColour"] = self.integerColour.color()
+        kate.configuration["floatColour"] = self.floatColour.color()
+        kate.configuration["helpColour"] = self.helpColour.color()
+        kate.configuration["exceptionColour"] = self.exceptionColour.color()
         kate.configuration.save()
 
     def reset(self):
@@ -79,11 +95,32 @@ class ConfigWidget(KTabWidget):
             self.ps1.setText(kate.configuration["ps1"])
         if "ps2" in kate.configuration:
             self.ps2.setText(kate.configuration["ps2"])
+        if "promptColour" in kate.configuration:
+            self.promptColour.setColor(kate.configuration["promptColour"])
+        if "stringColour" in kate.configuration:
+            self.stringColour.setColor(kate.configuration["stringColour"])
+        if "nameColour" in kate.configuration:
+            self.nameColour.setColor(kate.configuration["nameColour"])
+        if "integerColour" in kate.configuration:
+            self.integerColour.setColor(kate.configuration["integerColour"])
+        if "floatColour" in kate.configuration:
+            self.floatColour.setColor(kate.configuration["floatColour"])
+        if "helpColour" in kate.configuration:
+            self.helpColour.setColor(kate.configuration["helpColour"])
+        if "exceptionColour" in kate.configuration:
+            self.exceptionColour.setColor(kate.configuration["exceptionColour"])
 
     def defaults(self):
         self.font.setFont(QFont('monospace'), True)
         self.ps1.setText(">>>")
         self.ps2.setText("...")
+        self.promptColour.setColor(QColor(160, 160, 160))
+        self.stringColour.setColor(QColor(190, 3, 3))
+        self.nameColour.setColor(QColor('green'))
+        self.integerColour.setColor(QColor(0, 20, 255))
+        self.floatColour.setColor(QColor(176, 126, 0))
+        self.helpColour.setColor(QColor('green'))
+        self.exceptionColour.setColor(QColor(180, 3, 3))
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
     """Kate configuration page for this plugin."""
@@ -192,17 +229,16 @@ class KateConsoleHighlighter(QSyntaxHighlighter):
         QSyntaxHighlighter.__init__(self, console.document())
         self.keywordFormat = QTextCharFormat()
         self.keywordFormat.setFontWeight(QFont.Bold)
-        for name, color in (
-            ('prompt', QColor(160, 160, 160)),
-            ('string', QColor(190, 3, 3)),
-            ('name', QColor('green')),
-            ('integer', QColor(0, 20, 255)),
-            ('float', QColor(176, 126, 0)),
-            ('help', QColor('green')),
-            ('exception', QColor(180, 3, 3)),
-        ):
+        for name in (
+            'prompt',
+            'string',
+            'name',
+            'integer',
+            'float',
+            'help',
+            'exception'):
             format = QTextCharFormat()
-            format.setForeground(QBrush(color))
+            format.setForeground(QBrush(kate.configuration[name + "Colour"]))
             setattr(self, name + 'Format', format)
 
         self.tokenHandlers = {

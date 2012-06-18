@@ -66,7 +66,7 @@ class ConfigWidget(KTabWidget):
         super(ConfigWidget, self).__init__(parent)
 
         # Set up the user interface from Designer.
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "consoleconfig.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "config.ui"), self)
         self.font.setFont(self.font.font(), True)
         self.font.enableColumn(KFontChooser.StyleList, False)
 

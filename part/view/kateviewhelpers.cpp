@@ -567,7 +567,8 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       {
         QString msg;
 
-        if ((ce && ce->exec(m_view, cmd, msg, range)) || p->exec (m_view, cmd, msg))
+        if ((ce && range.isValid() && ce->exec(m_view, cmd, msg, range)) ||
+            (p->exec(m_view, cmd, msg)))
         {
 
           // append command along with range (will be empty if none given) to history
@@ -575,11 +576,12 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
           m_histpos = KateCmd::self()->historyLength();
           m_oldText.clear();
 
-          if (msg.length() > 0)
+          if (msg.length() > 0) {
             setText (i18n ("Success: ") + msg);
-          else if (isVisible())
+          } else if (isVisible()) {
             // always hide on success without message
             emit hideRequested();
+          }
         }
         else
         {
@@ -590,8 +592,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
             } else {
               setText(msg);
             }
-          } else
+          } else {
             setText (i18n ("Command \"%1\" failed.",  cmd));
+          }
           KNotification::beep();
         }
       }

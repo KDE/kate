@@ -76,8 +76,6 @@ protected:
 
 private:
     static Engine *m_self;
-    QLibrary *m_pythonLibrary;
-    PyThreadState *m_pythonThreadState;
 
     /**
      * The root configuration used by Pate itself.

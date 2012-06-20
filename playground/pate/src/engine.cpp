@@ -49,8 +49,6 @@
  */
 #define CONFIG_FILE "katepaterc"
 
-#define THREADED 0
-
 // We use a QStandardItemModel to store plugin information as follows:
 //
 //  - invisibleRoot
@@ -139,8 +137,6 @@ Pate::Engine *Pate::Engine::m_self = 0;
 
 Pate::Engine::Engine(QObject *parent) :
     QStandardItemModel(parent),
-    m_pythonLibrary(0),
-    m_pythonThreadState(0),
     m_configuration(0),
     m_pluginsLoaded(false)
 {
@@ -153,17 +149,7 @@ Pate::Engine::~Engine()
         saveConfiguration();
         Py_DECREF(m_configuration);
     }
-    // Shut the interpreter down if it has been started.
-    if (Py_IsInitialized()) {
-#if THREADED
-        PyEval_AcquireThread(m_pythonThreadState);
-        Py_Finalize();
-#endif
-    }
-    if (m_pythonLibrary->isLoaded()) {
-        m_pythonLibrary->unload();
-    }
-    delete m_pythonLibrary;
+    Python::libraryUnload();
 }
 
 Pate::Engine *Pate::Engine::self()
@@ -186,6 +172,8 @@ void Pate::Engine::del()
 bool Pate::Engine::init()
 {
     kDebug() << "Construct the Python engine";
+    Python::libraryLoad();
+    Python py = Python();
     // Finish setting up the model. At the top level, we have pairs of icons
     // and directory names.
     setColumnCount(2);
@@ -193,25 +181,6 @@ bool Pate::Engine::init()
     labels << i18n("Name") << i18n("Comment");
     setHorizontalHeaderLabels(labels);
 
-    //     kDebug() << "Creating m_pythonLibrary";
-    m_pythonLibrary = new QLibrary(PATE_PYTHON_LIBRARY, this);
-    if (!m_pythonLibrary) {
-        kError() << "Could not create" << PATE_PYTHON_LIBRARY;
-        return false;
-    }
-    m_pythonLibrary->setLoadHints(QLibrary::ExportExternalSymbolsHint);
-    if (!m_pythonLibrary->load()) {
-        kError() << "Could not load" << PATE_PYTHON_LIBRARY;
-        return false;
-    }
-    Py_Initialize();
-    if (!Py_IsInitialized()) {
-        kError() << "Could not initialise" << PATE_PYTHON_LIBRARY;
-        return false;
-    }
-#if THREADED
-    PyEval_InitThreads();
-#endif
     PyRun_SimpleString(
         "import sip\n"
         "sip.setapi('QDate', 2)\n"
@@ -224,26 +193,23 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-    Py_InitModule3(Py::PATE_ENGINE, pateMethods, "The pate module");
+    Py_InitModule3(Python::PATE_ENGINE, pateMethods, "The pate module");
     m_configuration = PyDict_New();
 
     // Host the configuration dictionary.
-    Py::itemStringSet("configuration", m_configuration);
+    py.itemStringSet("configuration", m_configuration);
 
     // Load the kate module, but find it first, and verify it loads.
     PyObject *katePackage = 0;
     QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
-    PyObject *sysPath = Py::itemString("path", "sys");
+    PyObject *sysPath = py.itemString("path", "sys");
     if (sysPath) {
-        Py::appendStringToList(sysPath, katePackageDirectory);
-        katePackage = Py::moduleImport("kate");
+        py.appendStringToList(sysPath, katePackageDirectory);
+        katePackage = py.moduleImport("kate");
     }
-#if THREADED
-    m_pythonThreadState = PyGILState_GetThisThreadState();
-    PyEval_ReleaseThread(m_pythonThreadState);
-#endif
+
     if (!katePackage) {
-        Py::traceback("Could not import the kate module. Dieing.");
+        py.traceback("Could not import the kate module. Dieing.");
         return false;
     }
     return true;
@@ -251,12 +217,14 @@ bool Pate::Engine::init()
 
 void Pate::Engine::readConfiguration(const QString &groupPrefix)
 {
+    Python py = Python();
+
     m_pateConfigGroup = groupPrefix + "load";
     KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
 
     PyDict_Clear(m_configuration);
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
-    Py::updateDictionaryFromConfiguration(m_configuration, &config);
+    py.updateDictionaryFromConfiguration(m_configuration, &config);
 
     // Clear current state.
     QStandardItem *root = invisibleRootItem();
@@ -264,7 +232,7 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
     QStringList usablePlugins;
 
     // Find all plugins.
-    foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", Py::PATE_ENGINE)) {
+    foreach(QString directoryPath, KGlobal::dirs()->findDirs("appdata", py.PATE_ENGINE)) {
         QStandardItem *directoryRow = new QStandardItem(KIcon("inode-directory"), directoryPath);
         root->appendRow(directoryRow);
         QDir directory(directoryPath);
@@ -314,6 +282,8 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
 
 void Pate::Engine::saveConfiguration()
 {
+    Python py = Python();
+
     // Now, walk the directories.
     QStandardItem *root = invisibleRootItem();
     KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
@@ -335,7 +305,7 @@ void Pate::Engine::saveConfiguration()
     }
     KGlobal::config()->sync();
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
-    Py::updateConfigurationFromDictionary(&config, m_configuration);
+    py.updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
 }
 
@@ -352,19 +322,17 @@ void Pate::Engine::loadModules()
     }
     kDebug() << "loading";
     // find plugins and load them.
-#if THREADED
-    PyGILState_STATE state = PyGILState_Ensure();
-#endif
     // Add two lists to the module: pluginDirectories and plugins.
+    Python py = Python();
     PyObject *pluginDirectories = PyList_New(0);
     Py_INCREF(pluginDirectories);
-    Py::itemStringSet("pluginDirectories", pluginDirectories);
+    py.itemStringSet("pluginDirectories", pluginDirectories);
     PyObject *plugins = PyList_New(0);
     Py_INCREF(plugins);
-    Py::itemStringSet("plugins", plugins);
+    py.itemStringSet("plugins", plugins);
 
     // Get a reference to sys.path, then add the pate directory to it.
-    PyObject *pythonPath = Py::itemString("path", "sys");
+    PyObject *pythonPath = py.itemString("path", "sys");
     QStack<QDir> directories;
 
     // Now, walk the directories.
@@ -374,8 +342,8 @@ void Pate::Engine::loadModules()
         QString directoryPath = directoryItem->text();
 
         // Add to pate.pluginDirectories and to sys.path.
-        Py::appendStringToList(pluginDirectories, directoryPath);
-        PyObject *d = Py::unicode(directoryPath);
+        py.appendStringToList(pluginDirectories, directoryPath);
+        PyObject *d = py.unicode(directoryPath);
         PyList_Insert(pythonPath, 0, d);
         Py_DECREF(d);
 
@@ -396,7 +364,7 @@ void Pate::Engine::loadModules()
                 path = directoryPath + pluginName;
                 QFile f(path);
                 if (f.exists()) {
-                    PyObject *d = Py::unicode(path);
+                    PyObject *d = py.unicode(path);
                     PyList_Insert(pythonPath, 0, d);
                     Py_DECREF(d);
                 } else {
@@ -411,7 +379,7 @@ void Pate::Engine::loadModules()
             // Were we asked to load this plugin?
             if (pluginItem->checkState() == Qt::Checked) {
                 // Import and add to pate.plugins
-                PyObject *plugin = Py::moduleImport(PQ(pluginName));
+                PyObject *plugin = py.moduleImport(PQ(pluginName));
                 if (plugin) {
                     PyList_Append(plugins, plugin);
                     Py_DECREF(plugin);
@@ -419,7 +387,7 @@ void Pate::Engine::loadModules()
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
                 } else {
                     pluginItem->setBroken(true);
-                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(Py::lastTraceback())));
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(py.lastTraceback())));
                 }
             } else {
                 // Remove any previously set status.
@@ -430,10 +398,7 @@ void Pate::Engine::loadModules()
     m_pluginsLoaded = true;
 
     // everything is loaded and started. Call the module's init callback
-    Py::functionCall("_pluginsLoaded");
-#if THREADED
-    PyGILState_Release(state);
-#endif
+    py.functionCall("_pluginsLoaded");
 }
 
 void Pate::Engine::unloadModules()
@@ -446,26 +411,22 @@ void Pate::Engine::unloadModules()
         return;
     }
     kDebug() << "unloading";
-#if THREADED
-    PyGILState_STATE state = PyGILState_Ensure();
-#endif
+
     // Remove each plugin from sys.modules
+    Python py = Python();
     PyObject *modules = PyImport_GetModuleDict();
-    PyObject *plugins = Py::itemString("plugins");
+    PyObject *plugins = py.itemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *pluginName = Py::itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
+        PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
         if(pluginName && PyDict_Contains(modules, pluginName)) {
             PyDict_DelItem(modules, pluginName);
             kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
         }
     }
-    Py::itemStringDel("plugins");
+    py.itemStringDel("plugins");
     Py_DECREF(plugins);
     m_pluginsLoaded = false;
-    Py::functionCall("_pluginsUnloaded");
-#if THREADED
-    PyGILState_Release(state);
-#endif
+    py.functionCall("_pluginsUnloaded");
 }
 
 #include "engine.moc"

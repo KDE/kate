@@ -602,6 +602,10 @@ void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
 }
 
 void ViModeTest::CommandModeTests() {
+    // Testing ":<num>"
+    DoTest("foo\nbar\nbaz","\\:2\\x","foo\nar\nbaz");
+    DoTest("foo\nbar\nbaz","jmak\\:'a\\x","foo\nar\nbaz");
+    DoTest("foo\nbar\nbaz","\\:$\\x","foo\nbar\naz");
 
     // Testing ":s" (sed)
     DoTest("foo","\\:s/foo/bar\\","bar");
@@ -626,6 +630,7 @@ void ViModeTest::CommandModeTests() {
     DoTest("foo\nbar\nbaz","\\:%d\\","");
     DoTest("foo\nbar\nbaz","\\:$d\\\\:$d\\","foo");
     DoTest("foo\nbar\nbaz","ma\\:2,'ad\\","baz");
+    DoTest("foo\nbar\nbaz","\\:/foo/,/bar/d\\","baz");
     DoTest("foo\nbar\nbaz","\\:2,3delete\\","foo");
 
     DoTest("foo\nbar\nbaz","\\:d\\","bar\nbaz");

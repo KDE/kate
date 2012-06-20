@@ -37,6 +37,17 @@ namespace Pate
 /**
  * Instantiate this class on the stack to automatically get and release the
  * GIL.
+ *
+ * Also, making all the utility functions members of this class means that in
+ * many cases the compiler tells us where the class in needed. In the remaining
+ * cases (i.e. bare calls to the Python C API), inspection is used to needed
+ * to add the requisite Python() object. To prevent this object being optimised
+ * away in these cases due to lack of use, all instances have the form of an
+ * assignment, e.g.:
+ *
+ *      Python py = Python()
+ *
+ * This adds a little overhead, but this is a small price for consistency.
  */
 class Python
 {

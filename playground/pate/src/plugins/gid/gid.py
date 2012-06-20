@@ -305,9 +305,6 @@ class SearchBar(QObject):
     lastName = None
     gotSettings = False
 
-    #
-    asyncFill = pyqtSignal("QString")
-
     def __init__(self, parent):
 	super(SearchBar, self).__init__(parent)
 	self.dataSource = Lookup()
@@ -348,7 +345,6 @@ class SearchBar(QObject):
 	self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
 	self.token.returnPressed.connect(self.literalSearch)
 	self.token.completion.connect(self._findCompletion)
-	self.asyncFill.connect(self._continueCompletion)
 	self.token.completionObject().clear();
 	self.settings.clicked.connect(self.getSettings)
 	self.tree.doubleClicked.connect(self.navigateTo)
@@ -380,11 +376,10 @@ class SearchBar(QObject):
 	# Add the first batch of items synchronously.
 	#
 	name = self._firstMatch(token)
-	if name:
+	while name:
 	    completionObj.addItem(name)
-	    self._continueCompletion(token)
+	    name = self._continueCompletion(token)
 
-    @pyqtSlot("QString")
     def _continueCompletion(self, token):
 	"""Fill the completion object with potential matches.
 
@@ -397,11 +392,7 @@ class SearchBar(QObject):
 	    matches += 1
 	    completionObj.addItem(name)
 	    name = self._nextMatch()
-	if name:
-	    #
-	    # Go round for more.
-	    #
-	    self.asyncFill.emit(token)
+	return name
 
     def _firstMatch(self, token):
 	try:

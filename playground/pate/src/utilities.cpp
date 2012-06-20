@@ -195,7 +195,7 @@ void Python::libraryUnload()
 #if THREADED
             PyEval_AcquireThread(s_pythonThreadState);
 #endif
-            Py_Finalize();
+            //Py_Finalize();
         }
         if (s_pythonLibrary->isLoaded()) {
             s_pythonLibrary->unload();

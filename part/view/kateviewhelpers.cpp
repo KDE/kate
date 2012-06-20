@@ -329,10 +329,16 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
   m_lastLine.setPattern("\\$");
   m_thisLine.setPattern("\\.");
   m_mark.setPattern("\\'[0-9a-z><\\+\\*\\_]");
+  m_forwardSearch.setPattern("/([^/]*)/?");
+  m_forwardSearch2.setPattern("/[^/]*/?"); // no group
+  m_backwardSearch.setPattern("\\?([^?]*)\\??");
+  m_backwardSearch2.setPattern("\\?[^?]*\\??"); // no group
   m_base.setPattern("(?:" + m_mark.pattern() + ")|(?:" +
                         m_line.pattern() + ")|(?:" +
                         m_thisLine.pattern() + ")|(?:" +
-                        m_lastLine.pattern() + ")");
+                        m_lastLine.pattern() + ")|(?:" +
+                        m_forwardSearch2.pattern() + ")|(?:" +
+                        m_backwardSearch2.pattern() + ")");
   m_offset.setPattern("[+-](?:" + m_base.pattern() + ")?");
 
   // The position regexp contains two groups: the base and the offset.
@@ -449,6 +455,18 @@ int KateCmdLineEdit::calculatePosition( QString string ) {
       values.push_back( m_view->cursorPosition().line() + 1 );
     } else if ( m_mark.exactMatch(line) ) {
       values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1 );
+    } else if ( m_forwardSearch.exactMatch(line) ) {
+      m_forwardSearch.indexIn(line);
+      QString pattern = m_forwardSearch.capturedTexts().at(1);
+      int match = m_view->doc()->searchText( Range( m_view->cursorPosition(), m_view->doc()->documentEnd() ),
+                                             pattern, KTextEditor::Search::Regex ).first().start().line();
+      values.push_back( (match < 0) ? -1 : match + 1 );
+    } else if ( m_backwardSearch.exactMatch(line) ) {
+      m_backwardSearch.indexIn(line);
+      QString pattern = m_backwardSearch.capturedTexts().at(1);
+      int match = m_view->doc()->searchText( Range( Cursor( 0, 0), m_view->cursorPosition() ),
+                                             pattern, KTextEditor::Search::Regex ).first().start().line();
+      values.push_back( (match < 0) ? -1 : match + 1 );
     }
   }
 

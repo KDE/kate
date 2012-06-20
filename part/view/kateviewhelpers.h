@@ -416,6 +416,10 @@ class KateCmdLineEdit : public KLineEdit
     QRegExp m_lastLine;
     QRegExp m_thisLine;
     QRegExp m_mark;
+    QRegExp m_forwardSearch;
+    QRegExp m_forwardSearch2;
+    QRegExp m_backwardSearch;
+    QRegExp m_backwardSearch2;
     QRegExp m_base;
     QRegExp m_offset;
     QRegExp m_position;

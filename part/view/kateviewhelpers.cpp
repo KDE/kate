@@ -419,43 +419,46 @@ bool KateCmdLineEdit::event(QEvent *e) {
   return KLineEdit::event(e);
 }
 
-int KateCmdLineEdit::calculatePosition( QString string) {
+int KateCmdLineEdit::calculatePosition( QString string ) {
 
-  int pos=0;
+  int pos = 0;
   QList<bool> operators_list;
   QStringList split = string.split(QRegExp("[-+](?!([+-]|$))"));
   QList<int> values;
 
   foreach ( QString line, split ) {
+    pos += line.size();
 
-    pos+=line.size();
     if ( pos < string.size() ) {
-      if ( string.at(pos) == '+' )
-        operators_list.push_back(true);
-      else if (string.at(pos) == '-')
-        operators_list.push_back(false);
-      else
-        Q_ASSERT(false);
+      if ( string.at(pos) == '+' ) {
+        operators_list.push_back( true );
+      } else if ( string.at(pos) == '-' ) {
+        operators_list.push_back( false );
+      } else {
+        Q_ASSERT( false );
+      }
     }
-    pos++;
+
+    ++pos;
 
     if ( m_line.exactMatch(line) ) {
-        values.push_back( line.toInt() );
+      values.push_back( line.toInt() );
     } else if ( m_lastLine.exactMatch(line) ) {
-        values.push_back( m_view->doc()->lines() );
+      values.push_back( m_view->doc()->lines() );
     } else if ( m_thisLine.exactMatch(line) ) {
-        values.push_back( m_view->cursorPosition().line() + 1 );
+      values.push_back( m_view->cursorPosition().line() + 1 );
     } else if ( m_mark.exactMatch(line) ) {
-        values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1 );
+      values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1 );
     }
   }
 
   int result = values.at(0);
-  for (int i = 0; i < operators_list.size(); i++) {
-    if (operators_list.at(i) == true)
-      result += values.at(i+1);
-    else
-      result -= values.at(i+1);
+  for (int i = 0; i < operators_list.size(); ++i) {
+    if ( operators_list.at(i) == true ) {
+      result += values.at(i + 1);
+    } else {
+      result -= values.at(i + 1);
+    }
   }
 
   return result;

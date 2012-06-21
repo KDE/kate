@@ -70,11 +70,12 @@ class ConfigWidget(QWidget):
         self.reset();
 
     def apply(self):
-        kate.configuration["idFile"] = self.idFile.text().encode("utf-8")
+        kate.configuration["idFile"] = self.idFile.text()
         kate.configuration["keySize"] = self.keySize.value()
         kate.configuration["useEtags"] = self.useEtags.isChecked()
-        kate.configuration["srcIn"] = self.srcIn.text().encode("utf-8")
-        kate.configuration["srcOut"] = self.srcOut.text().encode("utf-8")
+        kate.configuration["useSuffixes"] = self.useSuffixes.text()
+        kate.configuration["srcIn"] = self.srcIn.text()
+        kate.configuration["srcOut"] = self.srcOut.text()
         kate.configuration.save()
 
     def reset(self):
@@ -85,6 +86,8 @@ class ConfigWidget(QWidget):
             self.keySize.setValue(kate.configuration["keySize"])
         if "useEtags" in kate.configuration:
             self.useEtags.setChecked(kate.configuration["useEtags"])
+        if "useSuffixes" in kate.configuration:
+            self.useSuffixes.setText(kate.configuration["useSuffixes"])
         if "srcIn" in kate.configuration:
             self.srcIn.setText(kate.configuration["srcIn"])
         if "srcOut" in kate.configuration:
@@ -94,6 +97,7 @@ class ConfigWidget(QWidget):
         self.idFile.setText("/view/myview/vob/ID")
         self.keySize.setValue(5)
         self.useEtags.setChecked(True)
+        self.useSuffixes.setText(".h;.hxx")
         self.srcIn.setText("/vob")
         self.srcOut.setText("%{idPrefix}/vob")
 
@@ -239,8 +243,17 @@ class TreeModel(QStandardItemModel):
 	    tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
 	except IndexError:
 	    return
-	regexp = re.compile("\\b" + token + "\\b")
-	previousBoredomQuery = time.time() - 10
+        #
+        # Compile the REs we need.
+        #
+        regexp = re.compile("\\b" + token + "\\b")
+        if len(kate.configuration["useSuffixes"]) == 0:
+            declarationRe = None
+        else:
+            declarationRe = kate.configuration["useSuffixes"].replace(";", "|")
+            declarationRe = "(" + declarationRe.replace(".", "\.") + ")$"
+            declarationRe = re.compile(declarationRe, re.IGNORECASE)
+        previousBoredomQuery = time.time() - 10
 	#
 	# For each file, list the lines where a match is found.
 	#
@@ -248,10 +261,12 @@ class TreeModel(QStandardItemModel):
 	for fileName, fileFlags in files:
 	    fileName = transform(fileName)
 	    fileRow = QStandardItem(fileName)
+	    if declarationRe and declarationRe.search(fileName):
+                fileRow.setIcon(KIcon("text-x-chdr"))
 	    root.appendRow(fileRow)
 	    line = 1
 	    try:
-		etagDefinitionLine = etagSearch(token, fileName)
+		definitionLine = etagSearch(token, fileName)
 		#
 		# Question: what encoding is this file? TODO A better approach
 		# to this question.
@@ -272,7 +287,7 @@ class TreeModel(QStandardItemModel):
 			resultRow.append(virtualColumn)
 			virtualColumn.setData(column, Qt.UserRole + 1)
 			fileRow.appendRow(resultRow)
-			if line == etagDefinitionLine:
+			if line == definitionLine:
 			    #
 			    # Mark the line and the file as being a definition.
 			    #
@@ -312,35 +327,22 @@ class SearchBar(QObject):
 	# By default, the toolview has box layout, which is not easy to delete.
 	# For now, just add an extra widget.
 	top = QWidget(self.toolView)
-	lo = QGridLayout(top)
-	top.setLayout(lo)
 
-	self.token = KLineEdit()
-	self.token.setWhatsThis(i18n("Lookup a symbol, filename or other token using auto-completion. Hit return to find occurances."))
-	lo.addWidget(self.token, 0, 1, 1, 1)
-	self.labelToken = QLabel(i18n("&Token:"))
-	self.labelToken.setBuddy(self.token)
-	lo.addWidget(self.labelToken, 0, 0, 1, 1)
-
-	self.settings = QPushButton(i18n("Settings..."))
-	lo.addWidget(self.settings, 0, 2, 1, 1)
-
-	self.tree = QTreeView()
-	self.tree.setWhatsThis(i18n("Double click on a match to navigate to it."))
-	lo.addWidget(self.tree, 1, 0, 1, 4)
+	# Set up the user interface from Designer.
+	uic.loadUi(os.path.join(os.path.dirname(__file__), "tool.ui"), top)
+	self.token = top.token
+	self.settings = top.settings
+	self.tree = top.tree
 	self.model = TreeModel(self.dataSource)
 	self.tree.setModel(self.model)
-	if parent.width() > 680:
-	    width = parent.width() - 180
-	else:
-	    width = 500
-	self.tree.setColumnWidth(0, width)
+	width = parent.width() - 250
+	self.tree.setColumnWidth(0, width - 100)
 	self.tree.setColumnWidth(1, 50)
 	self.tree.setColumnWidth(2, 50)
 	self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
 	self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
 	self.tree.setSelectionMode(QAbstractItemView.SingleSelection)
-	self.tree.setItemsExpandable(False)
+	self.tree.setExpandsOnDoubleClick(False)
 
 	self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
 	self.token.returnPressed.connect(self.literalSearch)
@@ -359,7 +361,7 @@ class SearchBar(QObject):
     def literalSearch(self, token):
 	try:
 	    self.model.literalSearch(self.parent(), token)
-	    self.tree.expandAll()
+	    #self.tree.expandAll()
 	except IOError as detail:
 	    KMessageBox.error(self.parent(), str(detail), i18n("Error finding {}").format(token))
 

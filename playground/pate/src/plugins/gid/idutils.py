@@ -564,7 +564,7 @@ class Lookup():
 	pass
 
     def setFile(self, name):
-	self.file = open(name, "rb")
+	self.file = open(name.encode("utf-8"), "rb")
 	self.file.seek(0, os.SEEK_SET)
 	self.headerSize = 0
 	self.magic = self._read(2, self._IO_TYPE_FIX)

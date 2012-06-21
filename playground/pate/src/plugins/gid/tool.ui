@@ -43,6 +43,12 @@
      <property name="whatsThis">
       <string>Double click on a match to navigate to it.</string>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
   </layout>

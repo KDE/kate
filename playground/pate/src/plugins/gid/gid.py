@@ -339,10 +339,6 @@ class SearchBar(QObject):
 	self.tree.setColumnWidth(0, width - 100)
 	self.tree.setColumnWidth(1, 50)
 	self.tree.setColumnWidth(2, 50)
-	self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
-	self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
-	self.tree.setSelectionMode(QAbstractItemView.SingleSelection)
-	self.tree.setExpandsOnDoubleClick(False)
 
 	self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
 	self.token.returnPressed.connect(self.literalSearch)
@@ -374,42 +370,17 @@ class SearchBar(QObject):
 	    # Don't try to match if the token is too short.
 	    #
 	    return
-	#
-	# Add the first batch of items synchronously.
-	#
-	name = self._firstMatch(token)
-	while name:
-	    completionObj.addItem(name)
-	    name = self._continueCompletion(token)
-
-    def _continueCompletion(self, token):
-	"""Fill the completion object with potential matches.
-
-	TODO: make this asynchronous, and able to be interrupted.
-	"""
-	matches = 0
-	completionObj = self.token.completionObject()
-	name = self._nextMatch()
-	while name and matches < 50:
-	    matches += 1
-	    completionObj.addItem(name)
-	    name = self._nextMatch()
-	return name
-
-    def _firstMatch(self, token):
 	try:
-	    self.lastToken = token
-	    self.lastOffset, self.lastName = self.dataSource.prefixSearchFirst(self.lastToken)
-	    return self.lastName
+	    #
+	    # Add the first item if we find one, then any other matches.
+	    #
+	    lastToken = token
+	    lastOffset, lastName = self.dataSource.prefixSearchFirst(lastToken)
+	    while True:
+		completionObj.addItem(lastName)
+		lastOffset, lastName = self.dataSource.prefixSearchNext(lastOffset, lastToken)
 	except IndexError:
-	    return None
-
-    def _nextMatch(self):
-	try:
-	    self.lastOffset, self.lastName = self.dataSource.prefixSearchNext(self.lastOffset, self.lastToken)
-	    return self.lastName
-	except IndexError:
-	    return None
+	    return
 
     @pyqtSlot("QModelIndex &")
     def navigateTo(self, index):

@@ -253,8 +253,9 @@ class TreeModel(QStandardItemModel):
             declarationRe = kate.configuration["useSuffixes"].replace(";", "|")
             declarationRe = "(" + declarationRe.replace(".", "\.") + ")$"
             declarationRe = re.compile(declarationRe, re.IGNORECASE)
-        previousBoredomQuery = time.time() - 10
-	#
+        startBoredomQuery = time.time()
+        previousBoredomQuery = startBoredomQuery - 10
+        #
 	# For each file, list the lines where a match is found.
 	#
 	filesListed = 0
@@ -303,14 +304,14 @@ class TreeModel(QStandardItemModel):
 	    # Time to query the user's boredom level?
 	    #
 	    if time.time() - previousBoredomQuery > 20:
-		r = KMessageBox.questionYesNoCancel(parent, i18n("Listed {} of {} files").format(filesListed, len(files)),
-			    i18n("List more files?"), KGuiItem(i18n("All")), KStandardGuiItem.no(), KGuiItem(i18n("Check later")))
+		r = KMessageBox.questionYesNoCancel(parent.parent(), i18n("Scanned {} of {} files in {} seconds").format(filesListed, len(files), int(time.time() - startBoredomQuery)),
+			i18n("Scan more files?"), KGuiItem(i18n("All Files")), KGuiItem(i18n("More Files")), KStandardGuiItem.cancel())
 		if r == KMessageBox.Yes:
-		    previousBoredomQuery = time.time() + 300
+		    previousBoredomQuery = time.time() + 200
 		elif r == KMessageBox.No:
-		    break
-		else:
 		    previousBoredomQuery = time.time()
+		else:
+		    break
 
 class SearchBar(QObject):
     toolView = None
@@ -335,7 +336,7 @@ class SearchBar(QObject):
 	self.tree = top.tree
 	self.model = TreeModel(self.dataSource)
 	self.tree.setModel(self.model)
-	width = parent.width() - 250
+	width = parent.width() - 300
 	self.tree.setColumnWidth(0, width - 100)
 	self.tree.setColumnWidth(1, 50)
 	self.tree.setColumnWidth(2, 50)
@@ -355,9 +356,10 @@ class SearchBar(QObject):
 
     @pyqtSlot("QString")
     def literalSearch(self, token):
+	"""Lookup the current symbol."""
 	try:
-	    self.model.literalSearch(self.parent(), token)
-	    #self.tree.expandAll()
+	    self.model.literalSearch(self.toolView, token)
+	    self.tree.resizeColumnToContents(0)
 	except IOError as detail:
 	    KMessageBox.error(self.parent(), str(detail), i18n("Error finding {}").format(token))
 

@@ -2270,23 +2270,18 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
-  int n2;
 
   m_stickyColumn = -1;
 
   if ( n1 < 0 ) {
     r.valid = false;
     return r;
-  } else {
-    n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
   }
 
-  // text item we want to find a matching item for
-  QString item = l.mid( n1, n2 - n1 );
+  QRegExp brackets( "[(){}\\[\\]]" );
 
   // use Kate's built-in matching bracket finder for brackets
-  if ( QString("{}()[]").indexOf( item ) != -1 ) {
-
+  if ( brackets.indexIn ( l, n1 ) == n1 ) {
     // move the cursor to the first bracket
     c.setColumn( n1 + 1 );
     updateCursor( c );
@@ -2298,11 +2293,12 @@ KateViRange KateViNormalMode::motionToMatchingItem()
       c.setColumn( c.column() - 1 );
     }
   } else {
-    int toFind = 1;
-    // int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
-    // QString item = l.mid( n1, n2-n1 );
+    // text item we want to find a matching item for
+    int n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
+    QString item = l.mid( n1, n2 - n1 );
     QString matchingItem = m_matchingItems[ item ];
 
+    int toFind = 1;
     int line = c.line();
     int column = n2 - item.length();
     bool reverse = false;

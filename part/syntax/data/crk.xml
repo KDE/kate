@@ -100,7 +100,9 @@
       </context>
 
       <context name="Braces" attribute="Normal Text" lineEndContext="#stay">
-          <DetectChar attribute="Normal Text" char=")" context="#pop"/>
+        <DetectChar attribute="Normal Text" char=")" context="#pop"/>
+        <!-- Highlight everything inside as code. -->
+        <IncludeRules context="Normal"/>
       </context>
 
       <context name="Subst" attribute="Normal Text" lineEndContext="#stay">

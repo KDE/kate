@@ -104,37 +104,49 @@ ScriptActionInfo KateCommandLineScript::actionInfo(const QString& cmd)
   return info;
 }
 
-const QStringList &KateCommandLineScript::cmds ()
+const QStringList& KateCommandLineScript::cmds()
 {
   return m_commandHeader.functions();
 }
 
-bool KateCommandLineScript::exec (KTextEditor::View *view, const QString &_cmd, QString &errorMsg)
+bool KateCommandLineScript::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
   KShell::Errors errorCode;
-  QStringList args(KShell::splitArgs(_cmd, KShell::NoOptions, &errorCode));
+  QStringList args(KShell::splitArgs(cmd, KShell::NoOptions, &errorCode));
 
   if (errorCode != KShell::NoError) {
-    errorMsg = i18n("Bad quoting in call: %1. Please escape single quotes with a backslash.", _cmd);
+    msg = i18n("Bad quoting in call: %1. Please escape single quotes with a backslash.", cmd);
     return false;
   }
 
-  QString cmd(args.first());
+  QString _cmd(args.first());
   args.removeFirst();
 
   if (!view) {
-    errorMsg = i18n("Could not access view");
+    msg = i18n("Could not access view");
     return false;
   }
 
   if (setView(qobject_cast<KateView*>(view))) {
-    // setView fails, if the script cannot be loaded
-    return callFunction(cmd, args, errorMsg);
+    // setView fails if the script cannot be loaded
+    return callFunction(_cmd, args, msg);
   }
 
   return false;
 }
 
+
+bool KateCommandLineScript::exec(KTextEditor::View *view, const QString &cmd, QString &msg,
+                                 const KTextEditor::Range &range)
+{
+  view->setSelection(range);
+  return exec( view, cmd, msg );
+}
+
+bool KateCommandLineScript::supportsRange(const QString &cmd)
+{
+  return true;
+}
 
 bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QString &msg)
 {

@@ -166,68 +166,81 @@ def transform(file):
             file = kate.configuration["srcOut"] + right
     return file
 
-def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given document.
-    Stolen from the expand plugin!'''
-    # Better to use word boundaries than to hardcode valid letters because
-    # expansions should be able to be in any unicode character.
-    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
-    start = end = cursor.column()
-    if start == len(line) or line[start] in wordBoundary:
-        start -= 1
-    while start >= 0 and line[start] not in wordBoundary:
-        start -= 1
-    start += 1
-    while end < len(line) and line[end] not in wordBoundary:
-        end += 1
-    return start, end
-
-def wordAtCursor(document, view):
-    ''' Get the word under the active view's cursor in the given document.
-    Stolen from the expand plugin!'''
-    cursor = view.cursorPosition()
-    line = document.line(cursor.line())
-    start, end = wordAtCursorPosition(line, cursor)
-    return line[start:end]
-
-def etagSearch(token, fileName):
-    """Use etags to find any definition in this file.
-
-    Look for [ 0x7f, token, 0x1 ].
-    """
-    if not kate.configuration["useEtags"]:
-        return None
-    etagsCmd = ["etags", "-o", "-", fileName]
-    etagBytes = subprocess.check_output(etagsCmd, stderr = subprocess.STDOUT)
-    tokenBytes = bytearray(token.encode("utf-8"))
-    tokenBytes.insert(0, 0x7f)
-    tokenBytes.append(0x1)
-    etagDefinition = etagBytes.find(tokenBytes)
-    if etagDefinition > -1:
-        #
-        # The line number follows.
-        #
-        lineNumberStart = etagDefinition + len(tokenBytes)
-        lineNumberEnd = etagBytes.find(",", lineNumberStart)
-        return int(etagBytes[lineNumberStart:lineNumberEnd])
-    if etagBytes.startswith(bytearray(etagsCmd[0])):
-        #
-        # An error message was printed starting with "etags".
-        #
-        raise IOError(unicode(etagBytes, "latin-1"))
-    return None
-
 class TreeModel(QStandardItemModel):
-
-    definitionIndex = QModelIndex()
 
     def __init__(self, dataSource):
         super(TreeModel, self).__init__()
         self.dataSource = dataSource
         self.setHorizontalHeaderLabels((i18n("Match"), i18n("Line"), i18n("Col")))
 
+    def _etagSearch(self, token, fileName):
+        """Use etags to find any definition in this file.
+
+        Look for [ 0x7f, token, 0x1 ].
+        """
+        if not kate.configuration["useEtags"]:
+            return None
+        etagsCmd = ["etags", "-o", "-", fileName]
+        etagBytes = subprocess.check_output(etagsCmd, stderr = subprocess.STDOUT)
+        tokenBytes = bytearray(token.encode("utf-8"))
+        tokenBytes.insert(0, 0x7f)
+        tokenBytes.append(0x1)
+        etagDefinition = etagBytes.find(tokenBytes)
+        if etagDefinition > -1:
+            #
+            # The line number follows.
+            #
+            lineNumberStart = etagDefinition + len(tokenBytes)
+            lineNumberEnd = etagBytes.find(",", lineNumberStart)
+            return int(etagBytes[lineNumberStart:lineNumberEnd])
+        if etagBytes.startswith(bytearray(etagsCmd[0])):
+            #
+            # An error message was printed starting with "etags".
+            #
+            raise IOError(unicode(etagBytes, "latin-1"))
+        return None
+
+    def _scanFile(self, fileRow, regexp, token, fileName):
+        """Scan a file looking for interesting hits. Return the QModelIndex of the last of any defintions we find."""
+        definitionIndex = None
+        line = 1
+        try:
+            definitionLine = self._etagSearch(token, fileName)
+            #
+            # Question: what encoding is this file? TODO A better approach
+            # to this question.
+            #
+            for text in codecs.open(fileName, encoding="latin-1"):
+                match = regexp.search(text)
+                if match:
+                    resultRow = list()
+                    resultRow.append(QStandardItem(text[:-1]))
+                    resultRow.append(QStandardItem(str(line)))
+                    #
+                    # The column value displayed by Kate is based on a
+                    # virtual position, where TABs count as 8.
+                    #
+                    column = match.start()
+                    tabs = text[:column].count("\t")
+                    virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
+                    resultRow.append(virtualColumn)
+                    virtualColumn.setData(column, Qt.UserRole + 1)
+                    fileRow.appendRow(resultRow)
+                    if line == definitionLine:
+                        #
+                        # Mark the line and the file as being a definition.
+                        #
+                        resultRow[0].setIcon(KIcon("go-jump-definition"))
+                        fileRow.setIcon(KIcon("go-jump-definition"))
+                        definitionIndex = resultRow[0].index()
+                line += 1
+        except IOError as e:
+            fileRow.setIcon(KIcon("face-sad"))
+            fileRow.appendRow(QStandardItem(str(e)))
+        return definitionIndex
+
     def literalSearch(self, parent, token):
-        """Add the entries which match the token to the tree.
+        """Add the entries which match the token to the tree, and return the QModelIndex of the last of any defintions we find.
 
         Entries are grouped under the file in which the hits are searched. Each
         entry shows the matched text, the line and column of the match. If so
@@ -242,7 +255,7 @@ class TreeModel(QStandardItemModel):
         try:
             tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
         except IndexError:
-            return
+            return None
         #
         # Compile the REs we need.
         #
@@ -258,6 +271,7 @@ class TreeModel(QStandardItemModel):
         #
         # For each file, list the lines where a match is found.
         #
+        definitionIndex = None
         filesListed = 0
         for fileName, fileFlags in files:
             fileName = transform(fileName)
@@ -265,40 +279,10 @@ class TreeModel(QStandardItemModel):
             if declarationRe and declarationRe.search(fileName):
                 fileRow.setIcon(KIcon("text-x-chdr"))
             root.appendRow(fileRow)
-            line = 1
-            try:
-                definitionLine = etagSearch(token, fileName)
-                #
-                # Question: what encoding is this file? TODO A better approach
-                # to this question.
-                #
-                for text in codecs.open(fileName, encoding="latin-1"):
-                    match = regexp.search(text)
-                    if match:
-                        resultRow = list()
-                        resultRow.append(QStandardItem(text[:-1]))
-                        resultRow.append(QStandardItem(str(line)))
-                        #
-                        # The column value displayed by Kate is based on a
-                        # virtual position, where TABs count as 8.
-                        #
-                        column = match.start()
-                        tabs = text[:column].count("\t")
-                        virtualColumn = QStandardItem(str(column + tabs * 7 + 1))
-                        resultRow.append(virtualColumn)
-                        virtualColumn.setData(column, Qt.UserRole + 1)
-                        fileRow.appendRow(resultRow)
-                        if line == definitionLine:
-                            #
-                            # Mark the line and the file as being a definition.
-                            #
-                            resultRow[0].setIcon(KIcon("go-jump-definition"))
-                            fileRow.setIcon(KIcon("go-jump-definition"))
-                            self.definitionIndex = resultRow[0].index()
-                    line += 1
-            except IOError as e:
-                fileRow.setIcon(KIcon("face-sad"))
-                fileRow.appendRow(QStandardItem(str(e)))
+            #
+            # Update the definitionIndex when we get a good one.
+            #
+            definitionIndex = self._scanFile(fileRow, regexp, token, fileName) or definitionIndex
             filesListed += 1
             #
             # Time to query the user's boredom level?
@@ -312,6 +296,10 @@ class TreeModel(QStandardItemModel):
                     previousBoredomQuery = time.time()
                 else:
                     break
+        #
+        # Return the model index of the match.
+        #
+        return definitionIndex
 
 class SearchBar(QObject):
     toolView = None
@@ -356,12 +344,11 @@ class SearchBar(QObject):
 
     @pyqtSlot("QString")
     def literalSearch(self, token):
-        """Lookup the current symbol."""
-        try:
-            self.model.literalSearch(self.toolView, token)
-            self.tree.resizeColumnToContents(0)
-        except IOError as detail:
-            KMessageBox.error(self.parent(), str(detail), i18n("Error finding {}").format(token))
+        """Lookup the current symbol, and return the modelIndex of any definition."""
+        self.token.setText(token)
+        definitionIndex = self.model.literalSearch(self.toolView, token)
+        self.tree.resizeColumnToContents(0)
+        return definitionIndex
 
     def _findCompletion(self, token):
         """Fill the completion object with potential matches."""
@@ -467,6 +454,30 @@ class SearchBar(QObject):
     def hide(self):
         kate.mainInterfaceWindow().hideToolView(self.toolView)
 
+def wordAtCursorPosition(line, cursor):
+    ''' Get the word under the active view's cursor in the given document.
+    Stolen from the expand plugin!'''
+    # Better to use word boundaries than to hardcode valid letters because
+    # expansions should be able to be in any unicode character.
+    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
+    start = end = cursor.column()
+    if start == len(line) or line[start] in wordBoundary:
+        start -= 1
+    while start >= 0 and line[start] not in wordBoundary:
+        start -= 1
+    start += 1
+    while end < len(line) and line[end] not in wordBoundary:
+        end += 1
+    return start, end
+
+def wordAtCursor(document, view):
+    ''' Get the word under the active view's cursor in the given document.
+    Stolen from the expand plugin!'''
+    cursor = view.cursorPosition()
+    line = document.line(cursor.line())
+    start, end = wordAtCursorPosition(line, cursor)
+    return line[start:end]
+
 @kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
     global searchBar
@@ -475,25 +486,22 @@ def show():
     return searchBar.show()
 
 @kate.action("Lookup Current Token", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
-def lookup(gotoDefinition = False):
+def lookup():
     global searchBar
     if show():
         if kate.activeView().selection():
             selectedText = kate.activeView().selectionText()
         else:
             selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
-        searchBar.token.setText(selectedText)
-        searchBar.literalSearch(searchBar.token.text())
-        #
-        # Jump to definition?
-        #
-        definitionIndex = searchBar.model.definitionIndex
-        if gotoDefinition and definitionIndex and definitionIndex.isValid():
-            searchBar.navigateTo(definitionIndex)
+        return searchBar.literalSearch(selectedText)
+    return None
 
 @kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")
 def gotoDefinition():
-    lookup(True)
+    global searchBar
+    definitionIndex = lookup();
+    if definitionIndex:
+        searchBar.navigateTo(definitionIndex)
 
 @kate.configPage("gid", "gid Lookup", icon = "edit-find")
 def configPage(parent = None, name = None):

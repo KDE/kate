@@ -323,8 +323,8 @@ void KatePluginGDBView::writeSessionConfig( KConfigBase*    config,
 void KatePluginGDBView::slotDebug()
 {
     QString args = m_configView->currentArgs();
-    disconnect(m_ioView, SIGNAL(stdOutText(QString)));
-    disconnect(m_ioView, SIGNAL(stdErrText(QString)));
+    disconnect(m_ioView, SIGNAL(stdOutText(QString)), 0, 0);
+    disconnect(m_ioView, SIGNAL(stdErrText(QString)), 0, 0);
     if ( m_configView->showIOTab() )
     {
         connect(m_ioView, SIGNAL(stdOutText(QString)),

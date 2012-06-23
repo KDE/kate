@@ -917,9 +917,11 @@ void KatePluginSearchView::replaceChecked()
 
 void KatePluginSearchView::replaceDone()
 {
-    m_curResults->buttonStack->setCurrentIndex(0);
-    m_curResults->replaceCombo->setDisabled(false);
-    m_curResults = 0;
+    if (m_curResults) {
+        m_curResults->buttonStack->setCurrentIndex(0);
+        m_curResults->replaceCombo->setDisabled(false);
+        m_curResults = 0;
+    }
 }
 
 KateSearchCommand::KateSearchCommand(QObject *parent)

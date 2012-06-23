@@ -1653,7 +1653,7 @@ bool KateViNormalMode::commandExpandAll() {
 bool KateViNormalMode::commandExpandLocal()
 {
   Cursor c( m_view->cursorPosition() );
-  doc()->foldingTree()->expandOne( c.line(), c.column() );
+  doc()->foldingTree()->expandOne( c.line() + 1, c.column() );
   return true;
 }
 

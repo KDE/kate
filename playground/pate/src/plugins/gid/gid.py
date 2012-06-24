@@ -168,6 +168,8 @@ def transform(file):
 
 class TreeModel(QStandardItemModel):
 
+    _boredomInterval = 20
+
     def __init__(self, dataSource):
         super(TreeModel, self).__init__()
         self.dataSource = dataSource
@@ -200,9 +202,10 @@ class TreeModel(QStandardItemModel):
             raise IOError(unicode(etagBytes, "latin-1"))
         return None
 
-    def _scanFile(self, fileRow, regexp, token, fileName):
-        """Scan a file looking for interesting hits. Return the QModelIndex of the last of any defintions we find."""
+    def _scanFile(self, fileRow, regexp, filterRe, token, fileName):
+        """Scan a file looking for interesting hits. Return the hit count and QModelIndex of the last of any definitions we find."""
         definitionIndex = None
+        hits = 0
         line = 1
         try:
             definitionLine = self._etagSearch(token, fileName)
@@ -212,7 +215,10 @@ class TreeModel(QStandardItemModel):
             #
             for text in codecs.open(fileName, encoding="latin-1"):
                 match = regexp.search(text)
+                if match and filterRe:
+                    match = filterRe.search(text)
                 if match:
+                    hits += 1
                     resultRow = list()
                     resultRow.append(QStandardItem(text[:-1]))
                     resultRow.append(QStandardItem(str(line)))
@@ -237,10 +243,10 @@ class TreeModel(QStandardItemModel):
         except IOError as e:
             fileRow.setIcon(KIcon("face-sad"))
             fileRow.appendRow(QStandardItem(str(e)))
-        return definitionIndex
+        return hits, definitionIndex
 
-    def literalSearch(self, parent, token):
-        """Add the entries which match the token to the tree, and return the QModelIndex of the last of any defintions we find.
+    def literalTokenSearch(self, parent, token, filter):
+        """Add the entries which match the token to the tree, and return the QModelIndex of the last of any definitions we find.
 
         Entries are grouped under the file in which the hits are searched. Each
         entry shows the matched text, the line and column of the match. If so
@@ -259,6 +265,15 @@ class TreeModel(QStandardItemModel):
         #
         # Compile the REs we need.
         #
+        if len(filter):
+            filter = filter.replace("%{token}", token)
+            try:
+                filterRe = re.compile(filter)
+            except re.error:
+                KMessageBox.error(parent.parent(), i18n("Filter '{}' is not a valid regular expression").format(filter), i18n("Invalid filter"))
+                return None
+        else:
+            filterRe = None
         regexp = re.compile("\\b" + token + "\\b")
         if len(kate.configuration["useSuffixes"]) == 0:
             declarationRe = None
@@ -267,7 +282,7 @@ class TreeModel(QStandardItemModel):
             declarationRe = "(" + declarationRe.replace(".", "\.") + ")$"
             declarationRe = re.compile(declarationRe, re.IGNORECASE)
         startBoredomQuery = time.time()
-        previousBoredomQuery = startBoredomQuery - 10
+        previousBoredomQuery = startBoredomQuery - self._boredomInterval / 2
         #
         # For each file, list the lines where a match is found.
         #
@@ -278,20 +293,23 @@ class TreeModel(QStandardItemModel):
             fileRow = QStandardItem(fileName)
             if declarationRe and declarationRe.search(fileName):
                 fileRow.setIcon(KIcon("text-x-chdr"))
-            root.appendRow(fileRow)
             #
             # Update the definitionIndex when we get a good one.
             #
-            definitionIndex = self._scanFile(fileRow, regexp, token, fileName) or definitionIndex
+            hits, newDefinitionIndex = self._scanFile(fileRow, regexp, filterRe, token, fileName)
+            if hits:
+                root.appendRow(fileRow)
+            if newDefinitionIndex:
+                definitionIndex = newDefinitionIndex
             filesListed += 1
             #
             # Time to query the user's boredom level?
             #
-            if time.time() - previousBoredomQuery > 20:
+            if time.time() - previousBoredomQuery > self._boredomInterval:
                 r = KMessageBox.questionYesNoCancel(parent.parent(), i18n("Scanned {} of {} files in {} seconds").format(filesListed, len(files), int(time.time() - startBoredomQuery)),
                         i18n("Scan more files?"), KGuiItem(i18n("All Files")), KGuiItem(i18n("More Files")), KStandardGuiItem.cancel())
                 if r == KMessageBox.Yes:
-                    previousBoredomQuery = time.time() + 200
+                    previousBoredomQuery = time.time() + 10 * self._boredomInterval
                 elif r == KMessageBox.No:
                     previousBoredomQuery = time.time()
                 else:
@@ -320,6 +338,7 @@ class SearchBar(QObject):
         # Set up the user interface from Designer.
         uic.loadUi(os.path.join(os.path.dirname(__file__), "tool.ui"), top)
         self.token = top.token
+        self.filter = top.filter
         self.settings = top.settings
         self.tree = top.tree
         self.model = TreeModel(self.dataSource)
@@ -330,9 +349,10 @@ class SearchBar(QObject):
         self.tree.setColumnWidth(2, 50)
 
         self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
-        self.token.returnPressed.connect(self.literalSearch)
         self.token.completion.connect(self._findCompletion)
         self.token.completionObject().clear();
+        self.token.returnPressed.connect(self.literalSearch)
+        self.filter.returnPressed.connect(self.literalSearch)
         self.settings.clicked.connect(self.getSettings)
         self.tree.doubleClicked.connect(self.navigateTo)
 
@@ -342,11 +362,10 @@ class SearchBar(QObject):
             self.toolView.deleteLater()
             self.toolView = None
 
-    @pyqtSlot("QString")
-    def literalSearch(self, token):
-        """Lookup the current symbol, and return the modelIndex of any definition."""
-        self.token.setText(token)
-        definitionIndex = self.model.literalSearch(self.toolView, token)
+    @pyqtSlot()
+    def literalSearch(self):
+        """Lookup a single token and return the modelIndex of any definition."""
+        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.text(), self.filter.text())
         self.tree.resizeColumnToContents(0)
         return definitionIndex
 
@@ -493,6 +512,7 @@ def lookup():
             selectedText = kate.activeView().selectionText()
         else:
             selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
+        searchBar.token.setText(selectedText)
         return searchBar.literalSearch(selectedText)
     return None
 

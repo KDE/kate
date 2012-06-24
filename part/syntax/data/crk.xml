@@ -24,8 +24,10 @@
     <list name="types">
       <item> bool</item>
       <item> byte</item>
+      <item> int16</item>
       <item> int32</item>
       <item> int64</item>
+      <item> uint16</item>
       <item> uint32</item>
       <item> uint64</item>
       <item> float32</item>
@@ -70,6 +72,7 @@
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
+        <RegExpr attribute="Annotation" context="#stay" String="@\w+" />
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -96,7 +99,15 @@
         <DetectChar attribute="Char" context="#pop" char="'" />
       </context>
 
+      <context name="Braces" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar attribute="Normal Text" char=")" context="#pop"/>
+        <!-- Highlight everything inside as code. -->
+        <IncludeRules context="Normal"/>
+      </context>
+
       <context name="Subst" attribute="Normal Text" lineEndContext="#stay">
+        <!-- Switch to a new context when encountering an lbrace so that we don't #pop too early. -->
+        <DetectChar attribute="Normal Text" char="(" context="Braces"/>
         <DetectChar attribute="Substitution" char=")" context="#pop"/>
         <!-- Highlight substitution as code. -->
         <IncludeRules context="Normal"/>
@@ -134,7 +145,8 @@
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
       <itemData name="Substitution" defStyleNum="dsOthers"/>
       <itemData name="Package"      defStyleNum="dsFunction"/>
-      <itemData name="Function"      defStyleNum="dsFunction"/>
+      <itemData name="Function"     defStyleNum="dsFunction"/>
+      <itemData name="Annotation"   defStyleNum="dsKeyword"/>
     </itemDatas>
   </highlighting>
   <general>

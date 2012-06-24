@@ -81,7 +81,8 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
     KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
     m_autoReload = group.readEntry("AutoReload", false);
     Pate::Engine::self()->readConfiguration(groupPrefix);
-    Py::functionCall("_sessionCreated");
+    Python py = Python();
+    py.functionCall("_sessionCreated");
 }
 
 void Pate::Plugin::writeSessionConfig(KConfigBase *config, const QString &groupPrefix)
@@ -118,7 +119,8 @@ void Pate::Plugin::reloadModuleConfigPages() const
 
             // For each plugin that want one or more config pages, add an entry.
             QString pluginName = directoryItem->child(j)->text();
-            PyObject *configPages = Py::moduleConfigPages(PQ(pluginName));
+            Python py = Python();
+            PyObject *configPages = py.moduleConfigPages(PQ(pluginName));
             if (configPages) {
                 for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                     // Add an action for this plugin.
@@ -153,9 +155,10 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
         return 0;
     }
     number--;
+    Python py = Python();
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *func = PyTuple_GetItem(tuple, 1);
-    PyObject *w = Py::objectWrap(parent, "PyQt4.QtGui.QWidget");
+    PyObject *w = py.objectWrap(parent, "PyQt4.QtGui.QWidget");
     PyObject *arguments = Py_BuildValue("(Oz)", w, name);
     Py_DECREF(w);
     Py_INCREF(func);
@@ -163,10 +166,10 @@ Kate::PluginConfigPage *Pate::Plugin::configPage(uint number, QWidget *parent, c
     Py_DECREF(arguments);
     if (!result) {
         // Return a page descrbing the error rather than crashing.
-        Py::traceback("failed to call plugin page");
-        return new Pate::ErrorConfigPage(parent, Py::lastTraceback());
+        py.traceback("failed to call plugin page");
+        return new Pate::ErrorConfigPage(parent, py.lastTraceback());
     }
-    Kate::PluginConfigPage *r = (Kate::PluginConfigPage *)Py::objectUnwrap(result);
+    Kate::PluginConfigPage *r = (Kate::PluginConfigPage *)py.objectUnwrap(result);
 
     // TODO: we leak this here reference.
     //Py_DECREF(result);
@@ -182,6 +185,7 @@ QString Pate::Plugin::configPageName(uint number) const
         return QString();
     }
     number--;
+    Python py = Python();
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *name = PyTuple_GetItem(configPage, 0);
@@ -197,6 +201,7 @@ QString Pate::Plugin::configPageFullName(uint number) const
         return QString();
     }
     number--;
+    Python py = Python();
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *fullName = PyTuple_GetItem(configPage, 1);
@@ -212,10 +217,11 @@ KIcon Pate::Plugin::configPageIcon(uint number) const
         return KIcon();
     }
     number--;
+    Python py = Python();
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *icon = PyTuple_GetItem(configPage, 2);
-    return *(KIcon *)Py::objectUnwrap(icon);
+    return *(KIcon *)py.objectUnwrap(icon);
 }
 
 //
@@ -257,6 +263,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 
 Pate::ConfigPage::~ConfigPage()
 {
+    Python py = Python();
     Py_XDECREF(m_pluginActions);
     Py_XDECREF(m_pluginConfigPages);
 }
@@ -281,7 +288,8 @@ void Pate::ConfigPage::reloadPage()
     m_info.topics->addItem(KIcon("applications-development"), topic);
 
     // Add a topic for each plugin. using stacked page 1.
-    PyObject *plugins = Py::itemString("plugins");
+    Python py = Python();
+    PyObject *plugins = py.itemString("plugins");
     for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
         PyObject *module = PyList_GetItem(plugins, i);
 
@@ -294,6 +302,7 @@ void Pate::ConfigPage::reloadPage()
 
 void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 {
+    Python py = Python();
     if (-1 == topicIndex) {
         // We are being reset.
         Py_XDECREF(m_pluginActions);
@@ -307,12 +316,12 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     QString topic = m_info.topics->itemText(topicIndex);
 
     // Reference tab.
-    m_info.help->setHtml(Py::moduleHelp(PQ(topic)));
+    m_info.help->setHtml(py.moduleHelp(PQ(topic)));
 
     // Action tab.
     m_info.actions->clear();
     Py_XDECREF(m_pluginActions);
-    m_pluginActions = Py::moduleActions(PQ(topic));
+    m_pluginActions = py.moduleActions(PQ(topic));
     if (m_pluginActions) {
         for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);
@@ -329,7 +338,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     // Config pages tab.
     m_info.configPages->clear();
     Py_XDECREF(m_pluginConfigPages);
-    m_pluginConfigPages = Py::moduleConfigPages(PQ(topic));
+    m_pluginConfigPages = py.moduleConfigPages(PQ(topic));
     if (m_pluginConfigPages) {
         for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
@@ -346,6 +355,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
 
 void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 {
+    Python py = Python();
     if (!m_pluginActions) {
         // This is a bit wierd.
         return;
@@ -379,6 +389,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 
 void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
 {
+    Python py = Python();
     if (!m_pluginConfigPages) {
         // This is a bit wierd.
         return;
@@ -403,7 +414,7 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
     } else if (PyString_Check(icon)) {
         m_info.configPageIcon->setIcon(KIcon(PyString_AsString(icon)));
     } else {
-        m_info.configPageIcon->setIcon(*(KIcon *)Py::objectUnwrap(icon));
+        m_info.configPageIcon->setIcon(*(KIcon *)py.objectUnwrap(icon));
     }
     m_info.configPageIcon->setText(PyString_AsString(icon));
 }

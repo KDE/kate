@@ -24,6 +24,7 @@
 
 #include "Python.h"
 
+class QLibrary;
 class QString;
 class KConfigBase;
 
@@ -33,13 +34,42 @@ class KConfigBase;
 namespace Pate
 {
 
-namespace Py
+/**
+ * Instantiate this class on the stack to automatically get and release the
+ * GIL.
+ *
+ * Also, making all the utility functions members of this class means that in
+ * many cases the compiler tells us where the class in needed. In the remaining
+ * cases (i.e. bare calls to the Python C API), inspection is used to needed
+ * to add the requisite Python() object. To prevent this object being optimised
+ * away in these cases due to lack of use, all instances have the form of an
+ * assignment, e.g.:
+ *
+ *      Python py = Python()
+ *
+ * This adds a little overhead, but this is a small price for consistency.
+ */
+class Python
 {
-/// Convert a QString to a Python unicode object
-PyObject *unicode(const QString &string);
+public:
+    Python();
+    ~Python();
 
-/// Append a QString to a list as a Python unicode object
-void appendStringToList(PyObject *list, const QString &value);
+    /**
+     * Load the Python interpreter.
+     */
+    static void libraryLoad();
+
+    /**
+     * Unload the Python interpreter.
+     */
+    static void libraryUnload();
+
+    /// Convert a QString to a Python unicode object
+    PyObject *unicode(const QString &string);
+
+    /// Append a QString to a list as a Python unicode object
+    void appendStringToList(PyObject *list, const QString &value);
 
     /**
      * Print and save (see @ref lastTraceback()) the current traceback in a
@@ -56,7 +86,7 @@ void appendStringToList(PyObject *list, const QString &value);
     /**
      * Store the last traceback we handled using @ref traceback().
      */
-    const QString &lastTraceback(void);
+    const QString &lastTraceback(void) const;
 
     /**
      * Create a Python dictionary from a KConfigBase instance, writing the
@@ -70,40 +100,36 @@ void appendStringToList(PyObject *list, const QString &value);
      */
     void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary);
 
-    extern const char *PATE_ENGINE;
+    static const char *PATE_ENGINE;
 
     /**
      * Call the named module's named entry point.
      */
-    extern bool functionCall(const char *functionName,
-                             const char *moduleName = PATE_ENGINE);
+    bool functionCall(const char *functionName, const char *moduleName = PATE_ENGINE);
 
     /**
      * Delete the item from the named module's dictionary.
      */
-    extern bool itemStringDel(const char *item,
-                              const char *moduleName = PATE_ENGINE);
+    bool itemStringDel(const char *item, const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the named module's dictionary.
      *
      * @return 0 or a borrowed reference to the item.
      */
-    extern PyObject *itemString(const char *item,
-                                const char *moduleName = PATE_ENGINE);
+    PyObject *itemString(const char *item, const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the given dictionary.
      *
      * @return 0 or a borrowed reference to the item.
      */
-    extern PyObject *itemString(const char *item, PyObject *dict);
+    PyObject *itemString(const char *item, PyObject *dict);
 
     /**
      * Set the item in the named module's dictionary.
      */
-    extern bool itemStringSet(const char *item, PyObject *value,
-                              const char *moduleName = PATE_ENGINE);
+    bool itemStringSet(const char *item, PyObject *value, const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the Actions defined by a module. The returned object is
@@ -112,7 +138,7 @@ void appendStringToList(PyObject *list, const QString &value);
      *
      * @return 0 or a new reference to the result.
      */
-    extern PyObject *moduleActions(const char *moduleName);
+    PyObject *moduleActions(const char *moduleName);
 
     /**
      * Get the ConfigPages defined by a module. The returned object is
@@ -121,33 +147,33 @@ void appendStringToList(PyObject *list, const QString &value);
      *
      * @return 0 or a new reference to the result.
      */
-    extern PyObject *moduleConfigPages(const char *moduleName);
+    PyObject *moduleConfigPages(const char *moduleName);
 
     /**
      * Get the named module's dictionary.
      *
      * @return 0 or a borrowed reference to the dictionary.
      */
-    extern PyObject *moduleDict(const char *moduleName = PATE_ENGINE);
+    PyObject *moduleDict(const char *moduleName = PATE_ENGINE);
 
     /**
      * Get the help text defined by a module.
      */
-    extern QString moduleHelp(const char *moduleName);
+    QString moduleHelp(const char *moduleName);
 
     /**
      * Import the named module.
      *
      * @return 0 or a borrowed reference to the module.
      */
-    extern PyObject *moduleImport(const char *moduleName);
+    PyObject *moduleImport(const char *moduleName);
 
     /**
      * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
      *
      * @param o         The object to be unwrapped. The reference is borrowed.
      */
-    extern void *objectUnwrap(PyObject *o);
+    void *objectUnwrap(PyObject *o);
 
     /**
      * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
@@ -156,10 +182,23 @@ void appendStringToList(PyObject *list, const QString &value);
      * @param className The full class name of o, e.g. "PyQt4.QtGui.QWidget".
      * @return 0 or a new reference to the object.
      */
-    extern PyObject *objectWrap(void *o, QString className);
+    PyObject *objectWrap(void *o, QString className);
 
-}
+private:
+    static QLibrary *s_pythonLibrary;
+    static PyThreadState *s_pythonThreadState;
+    PyGILState_STATE m_state;
+    QString m_traceback;
 
-} // namespace Py, namespace Pate
+    /**
+     * Run a handler function supplied by the kate module on another module.
+     *
+     * @return 0 or a new reference to the result.
+     */
+    PyObject *kateHandler(const char *moduleName, const char *handler);
+    PyObject *functionCall(const char *functionName, const char *moduleName, PyObject *arguments);
+};
+
+} // namespace Pate
 
 #endif

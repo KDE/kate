@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tool</class>
+ <widget class="QWidget" name="tool">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>tool</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" colspan="5">
+    <widget class="QTreeView" name="tree">
+     <property name="whatsThis">
+      <string>Double click on a match to navigate to it.</string>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelToken">
+     <property name="text">
+      <string>Token</string>
+     </property>
+     <property name="buddy">
+      <cstring>token</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QPushButton" name="settings">
+     <property name="text">
+      <string>Settings...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLabel" name="labelFilter">
+     <property name="text">
+      <string>Filter</string>
+     </property>
+     <property name="buddy">
+      <cstring>filter</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="KLineEdit" name="token">
+     <property name="whatsThis">
+      <string>Lookup a symbol, filename or other token using auto-completion. Hit return to find occurences.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="KLineEdit" name="filter">
+     <property name="whatsThis">
+      <string>A regular expression which must also be matched. Use %{token} to include the token.</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

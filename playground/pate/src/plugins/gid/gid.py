@@ -440,7 +440,7 @@ class SearchBar(QObject):
                 #
                 # Only re-read the file if it has changed.
                 #
-                if not searchBar.dataSource.file or (searchBar.dataSource.file.name() != kate.configuration["idFile"]):
+                if not searchBar.dataSource.file or (searchBar.dataSource.file.name != kate.configuration["idFile"]):
                     searchBar.dataSource.setFile(kate.configuration["idFile"])
                 fileSet = True
             except IOError as detail:
@@ -513,7 +513,7 @@ def lookup():
         else:
             selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
         searchBar.token.setText(selectedText)
-        return searchBar.literalSearch(selectedText)
+        return searchBar.literalSearch()
     return None
 
 @kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")

@@ -13,3 +13,5 @@ add_subdirectory( pics )
 add_subdirectory(plasma)
 
 install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+
+macro_display_feature_log()

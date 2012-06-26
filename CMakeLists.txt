@@ -54,9 +54,6 @@ macro_optional_add_subdirectory (kate)
 # kwrite, copy from kdebase/apps/kwrite
 macro_optional_add_subdirectory (kwrite)
 
-# testing area, just for experimenting with new stuff
-#macro_optional_add_subdirectory (playground)
-
 # docs
 # need current enough KDELIBS
 if (${KDE_VERSION_MINOR} GREATER 7 OR (${KDE_VERSION_MINOR} EQUAL 7 AND ${KDE_VERSION_RELEASE} GREATER 2))

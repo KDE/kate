@@ -278,13 +278,13 @@ void Pate::ConfigPage::reloadPage()
     m_manager.tree->expandAll();
     QString topic;
 
-    // Add a topic for each built-in packages, using stacked page 0.
+    // Add a topic for each built-in packages, using stacked page 0. Note that
+    // pate itself is not exposed as it is just part of the plubing required
+    // by kate.
     m_info.topics->clear();
     topic = QLatin1String("kate");
     m_info.topics->addItem(KIcon("applications-development"), topic);
     topic = QLatin1String("kate.gui");
-    m_info.topics->addItem(KIcon("applications-development"), topic);
-    topic = QLatin1String("pate");
     m_info.topics->addItem(KIcon("applications-development"), topic);
 
     // Add a topic for each plugin. using stacked page 1.

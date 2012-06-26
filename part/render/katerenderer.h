@@ -50,11 +50,26 @@ class KateRenderer
 {
 public:
     /**
-     * Style of Caret (Vertical line or block)
+     * Style of Caret
+     *
+     * The caret is displayed as a vertical bar (Line), a filled box
+     * (Block), a horizontal bar (Underline), or a half-height filled
+     * box (Half). The default is Line.
+     *
+     *     Line           Block          Underline           Half
+     *
+     * ##     _         #########              _                _
+     * ##  __| |        #####| |#           __| |            __| |
+     * ## / _' |        ##/ _' |#          / _' |           / _' |
+     * ##| (_| |        #| (#| |#         | (_| |         #| (#| |#
+     * ## \__,_|        ##\__,_|#          \__,_|         ##\__,_|#
+     * ##               #########        #########        #########
      */
     enum caretStyles {
       Line,
-      Block
+      Block,
+      Underline,
+      Half
     };
 
     /**

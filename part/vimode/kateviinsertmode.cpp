@@ -241,6 +241,7 @@ bool KateViInsertMode::commandInsertContentOfRegister(){
 bool KateViInsertMode::commandSwitchToNormalModeForJustOneCommand(){
     m_viInputModeManager->setTemporaryNormalMode(true);
     m_viInputModeManager->changeViMode(NormalMode);
+    m_view->setCaretStyle( KateRenderer::Block, true );
     m_view->updateViModeBarMode();
     m_viewInternal->repaint();
     return true;

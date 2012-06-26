@@ -33,6 +33,7 @@
 #include "katetextline.h"
 #include "katedocument.h"
 #include "kateview.h"
+#include "katerenderer.h"
 
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
@@ -156,6 +157,7 @@ class KateViewInternal : public QWidget
     void doDeleteWordLeft();
     void doDeleteWordRight();
 
+    void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
     void cursorLeft(bool sel=false);
     void cursorRight(bool sel=false);
     void wordLeft(bool sel=false);

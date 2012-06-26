@@ -156,6 +156,12 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandFormatLine();
     bool commandFormatLines();
 
+    bool commandCollapseToplevelNodes();
+    bool commandCollapseLocal();
+    bool commandExpandAll();
+    bool commandExpandLocal();
+    bool commandToggleRegionVisibility();
+
     // MOTIONS
 
     KateViRange motionLeft();

@@ -2163,6 +2163,11 @@ void KateView::paste( )
   m_viewInternal->repaint();
 }
 
+void KateView::setCaretStyle( KateRenderer::caretStyles style, bool repaint )
+{
+  m_viewInternal->setCaretStyle( style, repaint );
+}
+
 bool KateView::setCursorPosition( KTextEditor::Cursor position )
 {
   return setCursorPositionInternal( position, 1, true );
@@ -2201,6 +2206,34 @@ bool KateView::setCursorPositionVisual( const KTextEditor::Cursor & position )
 QString KateView::currentTextLine( )
 {
   return m_doc->line( cursorPosition().line() );
+}
+
+QString KateView::searchPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->searchPattern();
+    } else {
+      return QString();
+    }
+}
+
+QString KateView::replacementPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->replacementPattern();
+    } else {
+      return QString();
+    }
+}
+
+void KateView::setSearchPattern(const QString &searchPattern)
+{
+  searchBar()->setSearchPattern(searchPattern);
+}
+
+void KateView::setReplacePattern(const QString &replacePattern)
+{
+  searchBar()->setReplacePattern(replacePattern);
 }
 
 void KateView::indent( )

@@ -53,7 +53,7 @@ include(SIPMacros)
 #
 # Use the Kate header files from the current source tree.
 #
-set(KATE_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/../../kate)
+set(KATE_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/../../../kate)
 
 include(KDE4Defaults)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${SIP_INCLUDE_DIR} ${PYTHON_INCLUDE_PATH}

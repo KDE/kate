@@ -44,7 +44,4 @@ add_subdirectory( katesql )
 
 add_subdirectory( filetree )
 
-MESSAGE( STATUS "remember to find maintainers for these plugins and port them to the kate 3.0 interfaces...")
-
-# Example plugin, not meant to be built for production use.
-#add_subdirectory( helloworld )
+macro_optional_add_subdirectory(pate)

@@ -384,7 +384,11 @@ void Pate::Engine::loadModules()
                     PyList_Append(plugins, plugin);
                     Py_DECREF(plugin);
                     pluginItem->setBroken(false);
-                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
+
+                    // Get a description of the plugin if we can.
+                    PyObject *doc = py.itemString("__doc__", PQ(pluginName));
+                    QString comment = doc ? PyString_AsString(doc) : i18n("Loaded");
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
                     pluginItem->setBroken(true);
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(py.lastTraceback())));

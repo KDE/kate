@@ -1,4 +1,9 @@
-# Expose (a subset of) the reading functionality GNU idutils within Kate.
+"""Browse the tokens in a GNU idutils ID file, and use it to navigate within a codebase.
+
+The necessary parts of the ID file are held in memory to allow sufficient performance
+for token completion, and When looking up the usage of a token, or jumping to the 
+definition, etags(1) is used to locate the definition.
+"""
 #
 # Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
 #
@@ -16,10 +21,6 @@
 # along with this library; see the file COPYING.LIB.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
-
-__title__ = "gid"
-__author__ = "Shaheed Haque <srhaque@theiet.org>"
-__license__ = "LGPL"
 
 import kate
 import kate.gui

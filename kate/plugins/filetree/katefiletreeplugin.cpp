@@ -49,20 +49,32 @@ K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",k
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent)
+  : Kate::Plugin ((Kate::Application*)parent),
+    m_fileCommand(0)
 {
-
+  KTextEditor::CommandInterface* iface =
+  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface) {
+    m_fileCommand = new KateFileTreeCommand(this);
+    iface->registerCommand(m_fileCommand);
+  }
 }
 
 KateFileTreePlugin::~KateFileTreePlugin()
 {
   m_settings.save();
+  KTextEditor::CommandInterface* iface =
+  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface && m_fileCommand) {
+    iface->unregisterCommand(m_fileCommand);
+  }
 }
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
+  connect(m_fileCommand, SIGNAL(showToolView()), view, SLOT(showToolView()));
   m_views.append(view);
 
   return view;
@@ -392,6 +404,33 @@ void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QStri
 
   g.sync();
 }
-//ENDKateFileTreePluginView
+//END KateFileTreePluginView
+
+//BEGIN KateFileTreeCommand
+KateFileTreeCommand::KateFileTreeCommand(QObject *parent)
+  : QObject(parent), KTextEditor::Command()
+{
+}
+
+const QStringList& KateFileTreeCommand::cmds()
+{
+    static QStringList sl = QStringList() << "ls";
+    return sl;
+}
+
+bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    // emit showActiveDocument();
+    // emit activateDocument(view->document());
+    // mainWindow()->showToolView(m_toolView);
+    emit showToolView();
+    return true;
+}
+
+bool KateFileTreeCommand::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    return true;
+}
+//END KateFileTreeCommand
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

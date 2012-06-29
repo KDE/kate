@@ -541,6 +541,8 @@ class KateConsoleDialog(QDialog):
 
 @kate.action('Python Console', icon='utilities-terminal', shortcut='Ctrl+Shift+P', menu='View')
 def showConsole():
+    # Make all our config is initialised.
+    ConfigWidget().apply()
     parent = kate.mainWindow()
     dialog = KateConsoleDialog(parent)
     dialog.show()

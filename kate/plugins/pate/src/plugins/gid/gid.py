@@ -501,6 +501,8 @@ def wordAtCursor(document, view):
 
 @kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
+    # Make all our config is initialised.
+    ConfigWidget().apply()
     global searchBar
     if searchBar is None:
         searchBar = SearchBar(kate.mainWindow())

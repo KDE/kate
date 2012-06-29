@@ -92,6 +92,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     void setHasLocalPrefs(bool);
 
   private:
+    QWidget *m_toolView;
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
@@ -99,6 +100,8 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     KateFileTreePlugin *m_plug;
 
   private Q_SLOTS:
+    void showToolView();
+    void hideToolView();
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
     void viewChanged();

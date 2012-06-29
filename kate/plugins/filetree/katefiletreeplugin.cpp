@@ -156,8 +156,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
 
-  QWidget *toolview = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
-  m_fileTree = new KateFileTree(toolview);
+  m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
+  m_fileTree = new KateFileTree(m_toolView);
   m_fileTree->setSortingEnabled(true);
 
   connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document*)),
@@ -325,11 +325,24 @@ void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
   mainWindow()->activateView(doc);
 }
 
+void KateFileTreePluginView::showToolView()
+{
+  mainWindow()->showToolView(m_toolView);
+  m_toolView->setFocus();
+}
+
+void KateFileTreePluginView::hideToolView()
+{
+  mainWindow()->hideToolView(m_toolView);
+  mainWindow()->centralWidget()->setFocus();
+}
+
 void KateFileTreePluginView::showActiveDocument()
 {
   // hack?
   viewChanged();
-  // FIXME: make the tool view show if it was hidden
+  // make the tool view show if it was hidden
+  showToolView();
 }
 
 bool KateFileTreePluginView::hasLocalPrefs()

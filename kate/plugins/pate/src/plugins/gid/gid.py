@@ -203,9 +203,10 @@ class TreeModel(QStandardItemModel):
             raise IOError(unicode(etagBytes, "latin-1"))
         return None
 
-    def _scanFile(self, fileRow, regexp, filterRe, token, fileName):
-        """Scan a file looking for interesting hits. Return the hit count and QModelIndex of the last of any definitions we find."""
+    def _scanFile(self, root, regexp, filterRe, token, fileName, isDeclaration):
+        """Scan a file looking for interesting hits. Return the QModelIndex of the last of any definitions we find."""
         definitionIndex = None
+        fileRow = None
         hits = 0
         line = 1
         try:
@@ -219,6 +220,10 @@ class TreeModel(QStandardItemModel):
                 if match and filterRe:
                     match = filterRe.search(text)
                 if match:
+                    if hits == 0:
+                        fileRow = QStandardItem(fileName)
+                        fileRow.setIcon(KIcon("text-x-chdr"))
+                        root.appendRow(fileRow)
                     hits += 1
                     resultRow = list()
                     resultRow.append(QStandardItem(text[:-1]))
@@ -244,7 +249,7 @@ class TreeModel(QStandardItemModel):
         except IOError as e:
             fileRow.setIcon(KIcon("face-sad"))
             fileRow.appendRow(QStandardItem(str(e)))
-        return hits, definitionIndex
+        return definitionIndex
 
     def literalTokenSearch(self, parent, token, filter):
         """Add the entries which match the token to the tree, and return the QModelIndex of the last of any definitions we find.
@@ -291,15 +296,11 @@ class TreeModel(QStandardItemModel):
         filesListed = 0
         for fileName, fileFlags in files:
             fileName = transform(fileName)
-            fileRow = QStandardItem(fileName)
-            if declarationRe and declarationRe.search(fileName):
-                fileRow.setIcon(KIcon("text-x-chdr"))
+            isDeclaration = declarationRe and declarationRe.search(fileName)
             #
             # Update the definitionIndex when we get a good one.
             #
-            hits, newDefinitionIndex = self._scanFile(fileRow, regexp, filterRe, token, fileName)
-            if hits:
-                root.appendRow(fileRow)
+            newDefinitionIndex = self._scanFile(root, regexp, filterRe, token, fileName, isDeclaration)
             if newDefinitionIndex:
                 definitionIndex = newDefinitionIndex
             filesListed += 1

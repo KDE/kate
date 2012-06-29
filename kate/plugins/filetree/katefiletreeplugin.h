@@ -106,6 +106,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
   private Q_SLOTS:
     void showToolView();
     void hideToolView();
+    void switchDocument(const QString &doc);
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
     void viewChanged();
@@ -125,6 +126,7 @@ class KateFileTreeCommand : public QObject, public KTextEditor::Command
 
   Q_SIGNALS:
     void showToolView();
+    void switchDocument(const QString&);
 
   public:
     const QStringList& cmds();

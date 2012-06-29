@@ -75,6 +75,7 @@ Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
   connect(m_fileCommand, SIGNAL(showToolView()), view, SLOT(showToolView()));
+  connect(m_fileCommand, SIGNAL(switchDocument(QString)), view, SLOT(switchDocument(QString)));
   m_views.append(view);
 
   return view;
@@ -235,6 +236,7 @@ KateFileTreePluginView::~KateFileTreePluginView ()
 
   // clean up tree and toolview
   delete m_fileTree->parentWidget();
+  // delete m_toolView;
   // and TreeModel
   delete m_documentModel;
 }
@@ -349,6 +351,11 @@ void KateFileTreePluginView::hideToolView()
   mainWindow()->centralWidget()->setFocus();
 }
 
+void KateFileTreePluginView::switchDocument(const QString &doc)
+{
+  m_fileTree->switchDocument(doc);
+}
+
 void KateFileTreePluginView::showActiveDocument()
 {
   // hack?
@@ -414,16 +421,23 @@ KateFileTreeCommand::KateFileTreeCommand(QObject *parent)
 
 const QStringList& KateFileTreeCommand::cmds()
 {
-    static QStringList sl = QStringList() << "ls";
+    static QStringList sl = QStringList() << "ls"; // << "b";
     return sl;
 }
 
 bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-    // emit showActiveDocument();
-    // emit activateDocument(view->document());
-    // mainWindow()->showToolView(m_toolView);
-    emit showToolView();
+    // create list of args
+    QStringList args(cmd.split(' ', QString::KeepEmptyParts));
+    QString command = args.takeFirst(); // same as cmd if split failed
+    QString arguments = args.join(QString(' '));
+
+    if (command == "b") {
+      emit switchDocument(arguments);
+    } else if (command == "ls") {
+      emit showToolView();
+    }
+
     return true;
 }
 

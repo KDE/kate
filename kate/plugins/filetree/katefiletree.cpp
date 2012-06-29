@@ -298,10 +298,30 @@ void KateFileTree::slotCopyFilename()
   }
 }
 
+void KateFileTree::switchDocument( const QString &doc )
+{
+  if (doc == "") {
+    slotDocumentPrev();
+  } else {
+    QModelIndexList matches =
+      model()->match(model()->index(0, 0), Qt::DisplayRole, QVariant(doc), 1, Qt::MatchContains);
+    if (!matches.isEmpty()) {
+      KTextEditor::Document *document =
+        model()->data(matches.takeFirst(),
+                      KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+      if (document) {
+        emit activateDocument(document);
+      }
+    }
+  }
+}
+
 void KateFileTree::slotDocumentPrev()
 {
   kDebug(debugArea()) << "BEGIN";
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
+
+
   
   QModelIndex current_index = currentIndex();
   QModelIndex prev;

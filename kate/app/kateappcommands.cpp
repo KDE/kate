@@ -144,6 +144,9 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     else if (re_vsplit.exactMatch(command)) {
         mainWin->viewManager()->slotSplitViewSpaceVert();
     }
+    // FIXME: should the buffer-switching commands ("bfirst", "blast", "bprevious", "bnext", "buffer")
+    // be implemented by the KateFileTree plugin instead? The numbering scheme of KateDocManager
+    // does not necessarily match the sorting mode employed by KateFileTree's document list.
     else if (re_bufferFirst.exactMatch(command)) {
         mainWin->viewManager()->activateView( KateDocManager::self()->documentList().first());
     }

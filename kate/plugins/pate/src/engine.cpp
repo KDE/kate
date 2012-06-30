@@ -420,15 +420,17 @@ void Pate::Engine::unloadModules()
     Python py = Python();
     PyObject *modules = PyImport_GetModuleDict();
     PyObject *plugins = py.itemString("plugins");
-    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
-        if(pluginName && PyDict_Contains(modules, pluginName)) {
-            PyDict_DelItem(modules, pluginName);
-            kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+    if (plugins) {
+        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+            PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
+            if(pluginName && PyDict_Contains(modules, pluginName)) {
+                PyDict_DelItem(modules, pluginName);
+                kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+            }
         }
+        py.itemStringDel("plugins");
+        Py_DECREF(plugins);
     }
-    py.itemStringDel("plugins");
-    Py_DECREF(plugins);
     m_pluginsLoaded = false;
     py.functionCall("_pluginsUnloaded");
 }

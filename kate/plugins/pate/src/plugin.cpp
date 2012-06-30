@@ -122,7 +122,7 @@ void Pate::Plugin::reloadModuleConfigPages() const
             Python py = Python();
             PyObject *configPages = py.moduleConfigPages(PQ(pluginName));
             if (configPages) {
-                for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
+                for (Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                     // Add an action for this plugin.
                     PyObject *tuple = PyList_GetItem(configPages, k);
                     Py_INCREF(tuple);
@@ -290,12 +290,14 @@ void Pate::ConfigPage::reloadPage()
     // Add a topic for each plugin. using stacked page 1.
     Python py = Python();
     PyObject *plugins = py.itemString("plugins");
-    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *module = PyList_GetItem(plugins, i);
+    if (plugins) {
+        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+            PyObject *module = PyList_GetItem(plugins, i);
 
-        // Add a topic for this plugin, using stacked page 1.
-        topic = QLatin1String(PyModule_GetName(module));
-        m_info.topics->addItem(KIcon("text-x-python"), topic);
+            // Add a topic for this plugin, using stacked page 1.
+            topic = QLatin1String(PyModule_GetName(module));
+            m_info.topics->addItem(KIcon("text-x-python"), topic);
+        }
     }
     infoTopicChanged(0);
 }
@@ -323,7 +325,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     Py_XDECREF(m_pluginActions);
     m_pluginActions = py.moduleActions(PQ(topic));
     if (m_pluginActions) {
-        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
+        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
@@ -340,7 +342,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     Py_XDECREF(m_pluginConfigPages);
     m_pluginConfigPages = py.moduleConfigPages(PQ(topic));
     if (m_pluginConfigPages) {
-        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
+        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 

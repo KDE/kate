@@ -51,7 +51,7 @@ SwapFile::SwapFile(KateDocument *document)
   , m_document(document)
   , m_trackingEnabled(false)
   , m_recovered(false)
-  , m_modified(false)
+  , m_needSync(false)
 {
   // fixed version of serialisation
   m_stream.setVersion (QDataStream::Qt_4_6);
@@ -291,7 +291,7 @@ bool SwapFile::recover(QDataStream& stream)
 
 void SwapFile::fileSaved(const QString&)
 {
-  m_modified = false;
+  m_needSync = false;
   
   // remove old swap file (e.g. if a file A was "saved as" B)
   removeSwapFile();
@@ -349,7 +349,7 @@ void SwapFile::wrapLine (const KTextEditor::Cursor &position)
   // format: qint8, int, int
   m_stream << EA_WrapLine << position.line() << position.column();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::unwrapLine (int line)
@@ -361,7 +361,7 @@ void SwapFile::unwrapLine (int line)
   // format: qint8, int
   m_stream << EA_UnwrapLine << line;
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &text)
@@ -373,7 +373,7 @@ void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &t
   // format: qint8, int, int, bytearray
   m_stream << EA_InsertText << position.line() << position.column() << text.toUtf8 ();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::removeText (const KTextEditor::Range &range)
@@ -388,7 +388,7 @@ void SwapFile::removeText (const KTextEditor::Range &range)
             << range.start().line() << range.start().column()
             << range.end().column();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 bool SwapFile::shouldRecover() const
@@ -456,8 +456,8 @@ QTimer* SwapFile::syncTimer()
 
 void SwapFile::writeFileToDisk()
 {
-  if (m_modified) {
-    m_modified = false;
+  if (m_needSync) {
+    m_needSync = false;
 
     #ifndef Q_OS_WIN
     // ensure that the file is written to disk

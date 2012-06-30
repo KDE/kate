@@ -89,7 +89,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     QDataStream m_stream;
     QFile m_swapfile;
     bool m_recovered;
-    bool m_modified;
+    bool m_needSync;
     static QTimer *s_timer;
 
   protected Q_SLOTS:

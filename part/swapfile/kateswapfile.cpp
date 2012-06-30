@@ -90,6 +90,7 @@ void SwapFile::setTrackingEnabled(bool enable)
   if (m_trackingEnabled) {
     connect(&buffer, SIGNAL(editingStarted()), this, SLOT(startEditing()));
     connect(&buffer, SIGNAL(editingFinished()), this, SLOT(finishEditing()));
+    connect(m_document, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
 
     connect(&buffer, SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
     connect(&buffer, SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
@@ -98,6 +99,7 @@ void SwapFile::setTrackingEnabled(bool enable)
   } else {
     disconnect(&buffer, SIGNAL(editingStarted()), this, SLOT(startEditing()));
     disconnect(&buffer, SIGNAL(editingFinished()), this, SLOT(finishEditing()));
+    disconnect(m_document, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
 
     disconnect(&buffer, SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
     disconnect(&buffer, SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
@@ -136,6 +138,15 @@ void SwapFile::fileLoaded(const QString&)
   // emit signal in case the document has more views
   m_document->setReadWrite(false);
   emit swapFileFound();
+}
+
+void SwapFile::modifiedChanged()
+{
+  if (!m_document->isModified() && !shouldRecover()) {
+    m_needSync = false;
+    // the file is not modified and we are not in recover mode
+    removeSwapFile();
+  }
 }
 
 void SwapFile::recover()

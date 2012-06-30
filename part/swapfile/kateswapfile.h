@@ -65,6 +65,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
   protected Q_SLOTS:
     void fileSaved(const QString& filename);
     void fileLoaded(const QString &filename);
+    void modifiedChanged();
 
     void startEditing ();
     void finishEditing ();

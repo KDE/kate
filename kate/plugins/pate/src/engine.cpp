@@ -209,7 +209,6 @@ bool Pate::Engine::init()
     }
 
     if (!katePackage) {
-        py.traceback("Could not import the kate module. Dieing.");
         return false;
     }
     return true;

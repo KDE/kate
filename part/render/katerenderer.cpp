@@ -211,7 +211,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
   }
 
   // Draw line background
-  paint.fillRect(0, 0, xEnd - xStart, config()->fontMetrics().height() * layout->viewLineCount(), backgroundColor);
+  paint.fillRect(0, 0, xEnd - xStart, lineHeight() * layout->viewLineCount(), backgroundColor);
 
   // paint the current line background if we're on the current line
   if (currentViewLine != -1) {
@@ -226,7 +226,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
       );
     }
 
-    paint.fillRect(0, config()->fontMetrics().height() * currentViewLine, xEnd - xStart, config()->fontMetrics().height(), currentLineColor);
+    paint.fillRect(0, lineHeight() * currentViewLine, xEnd - xStart, lineHeight(), currentLineColor);
   }
 }
 
@@ -274,7 +274,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
   paint.setPen( pen );
   paint.setRenderHint(QPainter::Antialiasing, false);
 
-  const int height = config()->fontMetrics().height();
+  const int height = fontHeight();
   const int width = spaceWidth();
 
   QPoint points[6];
@@ -293,7 +293,7 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   QPen penBackup( paint.pen() );
   paint.setPen( config()->indentationLineColor() );
 
-  const int height = config()->fontMetrics().height();
+  const int height = fontHeight();
   const int top = 0;
   const int bottom = height-1;
 
@@ -776,19 +776,19 @@ const QFontMetrics& KateRenderer::currentFontMetrics() const
   return config()->fontMetrics();
 }
 
-uint KateRenderer::fontHeight()
+uint KateRenderer::fontHeight() const
 {
   return config()->fontMetrics().height();
 }
 
-uint KateRenderer::documentHeight()
+uint KateRenderer::documentHeight() const
 {
   return m_doc->lines() * lineHeight();
 }
 
-int KateRenderer::lineHeight()
+int KateRenderer::lineHeight() const
 {
-  return fontHeight(); // for now
+  return fontHeight();
 }
 
 bool KateRenderer::getSelectionBounds(int line, int lineLength, int &start, int &end) const
@@ -936,7 +936,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
       lineLayout->setShiftX(shiftX);
     }
 
-    height += config()->fontMetrics().height();
+    height += lineHeight();
   }
 
   l->endLayout();

@@ -260,13 +260,13 @@ public:
     KTextEditor::Cursor xToCursor(const KateTextLayout& range, int x, bool returnPastLine = false) const;
 
     // Font height
-    uint fontHeight();
+    uint fontHeight() const;
 
     // Line height
-    int lineHeight();
+    int lineHeight() const;
 
     // Document height
-    uint documentHeight();
+    uint documentHeight() const;
 
     // Selection boundaries
     bool getSelectionBounds(int line, int lineLength, int &start, int &end) const;

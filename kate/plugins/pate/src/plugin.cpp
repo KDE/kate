@@ -195,7 +195,7 @@ QString Pate::Plugin::configPageName(uint number) const
 QString Pate::Plugin::configPageFullName(uint number) const
 {
     if (!number) {
-        return i18n("Pâté host for Python Plugins");
+        return i18n("Pâté host for Python plugins");
     }
     if (number > (uint)m_moduleConfigPages.size()) {
         return QString();

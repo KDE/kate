@@ -216,9 +216,14 @@ bool Pate::Engine::init()
 
 void Pate::Engine::readConfiguration(const QString &groupPrefix)
 {
+    m_pateConfigGroup = groupPrefix + "load";
+    reloadConfiguration();
+}
+
+void Pate::Engine::reloadConfiguration()
+{
     Python py = Python();
 
-    m_pateConfigGroup = groupPrefix + "load";
     KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
 
     PyDict_Clear(m_configuration);
@@ -276,7 +281,8 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
             }
         }
     }
-    reloadModules();
+    unloadModules();
+    loadModules();
 }
 
 void Pate::Engine::saveConfiguration()
@@ -306,12 +312,6 @@ void Pate::Engine::saveConfiguration()
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
     py.updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
-}
-
-void Pate::Engine::reloadModules()
-{
-    unloadModules();
-    loadModules();
 }
 
 void Pate::Engine::loadModules()
@@ -386,7 +386,7 @@ void Pate::Engine::loadModules()
 
                     // Get a description of the plugin if we can.
                     PyObject *doc = py.itemString("__doc__", PQ(pluginName));
-                    QString comment = doc ? PyString_AsString(doc) : i18n("Loaded");
+                    QString comment = PyString_Check(doc) ? PyString_AsString(doc) : i18n("Loaded");
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
                     pluginItem->setBroken(true);

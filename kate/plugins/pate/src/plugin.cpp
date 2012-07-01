@@ -250,15 +250,14 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.setupUi(parent);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
-    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadModules()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
 
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
-    reloadPage();
+    reloadPage(true);
 }
 
 Pate::ConfigPage::~ConfigPage()
@@ -268,8 +267,12 @@ Pate::ConfigPage::~ConfigPage()
     Py_XDECREF(m_pluginConfigPages);
 }
 
-void Pate::ConfigPage::reloadPage()
+void Pate::ConfigPage::reloadPage(bool init)
 {
+    if (!init) {
+        Pate::Engine::self()->saveConfiguration();
+        Pate::Engine::self()->reloadConfiguration();
+    }
     m_plugin->reloadModuleConfigPages();
     m_manager.tree->resizeColumnToContents(0);
     m_manager.tree->setEditTriggers(QAbstractItemView::NoEditTriggers);

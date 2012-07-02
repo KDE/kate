@@ -77,7 +77,7 @@ protected:
     void unloadModules();
 
 private:
-    static Engine *m_self;
+    static Engine *s_self;
 
     /**
      * The root configuration used by Pate itself.

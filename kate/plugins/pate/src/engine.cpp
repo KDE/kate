@@ -133,7 +133,7 @@ static PyMethodDef pateMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
-Pate::Engine *Pate::Engine::m_self = 0;
+Pate::Engine *Pate::Engine::s_self = 0;
 
 Pate::Engine::Engine(QObject *parent) :
     QStandardItemModel(parent),
@@ -154,19 +154,19 @@ Pate::Engine::~Engine()
 
 Pate::Engine *Pate::Engine::self()
 {
-    if (!m_self) {
-        m_self = new Pate::Engine(qApp);
-        if (!m_self->init()) {
+    if (!s_self) {
+        s_self = new Pate::Engine(qApp);
+        if (!s_self->init()) {
             del();
         }
     }
-    return m_self;
+    return s_self;
 }
 
 void Pate::Engine::del()
 {
-    delete m_self;
-    m_self = 0;
+    delete s_self;
+    s_self = 0;
 }
 
 bool Pate::Engine::init()

@@ -38,6 +38,7 @@
 #include <KConfigBase>
 #include <KConfigGroup>
 #include <KTextEdit>
+#include <KMessageBox>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -105,7 +106,13 @@ void Pate::Plugin::reloadModuleConfigPages() const
 {
     // Count the number of plugins which need their own custom page.
     m_moduleConfigPages.clear();
-    QStandardItem *root = Pate::Engine::self()->invisibleRootItem();
+    Pate::Engine *engine=Pate::Engine::self();
+    if (!engine) {
+      KMessageBox::error(0, i18n("Pate engine could not be initialised"));
+      return;
+      
+    }
+    QStandardItem *root = engine->invisibleRootItem();
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
 

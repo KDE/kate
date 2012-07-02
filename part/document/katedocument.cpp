@@ -428,10 +428,7 @@ QChar KateDocument::character( const KTextEditor::Cursor & position ) const
   if ( !textLine )
     return QChar();
 
-  if (position.column() >= 0 && position.column() < textLine->string().length())
-    return textLine->string().at(position.column());
-
-  return QChar();
+  return textLine->at(position.column());
 }
 
 QStringList KateDocument::textLines( const KTextEditor::Range & range, bool blockwise ) const

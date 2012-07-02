@@ -480,7 +480,7 @@ def wordAtCursorPosition(line, cursor):
     ''' Get the word under the active view's cursor in the given document.'''
     # Better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
-    wordBoundary = re.compile("\W")
+    wordBoundary = re.compile("\W", re.UNICODE)
     start = end = cursor.column()
     if start == len(line) or wordBoundary.match(line[start]):
         start -= 1

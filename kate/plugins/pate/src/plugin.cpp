@@ -81,7 +81,13 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
 {
     KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
     m_autoReload = group.readEntry("AutoReload", false);
-    Pate::Engine::self()->readConfiguration(groupPrefix);
+    Pate::Engine *engine=Pate::Engine::self();
+    if (!engine) {
+      KMessageBox::error(0, i18n("Pate engine could not be initialised"));
+      return;
+      
+    }
+    engine->readConfiguration(groupPrefix);
     Python py = Python();
     py.functionCall("_sessionCreated");
 }

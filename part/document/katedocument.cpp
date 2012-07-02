@@ -50,6 +50,8 @@
 #include "katescriptmanager.h"
 #include "kateswapfile.h"
 
+#include "documentcursor.h"
+
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/loadsavefiltercheckplugin.h>
@@ -3719,25 +3721,26 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
 
   range.end() = range.start();
-  QScopedPointer<KTextEditor::MovingCursor> cursor(newMovingCursor(range.start()));
-  int validAttr = kateTextLine(cursor->line())->attribute(cursor->column());
+  KTextEditor::DocumentCursor cursor(this);
+  cursor.setPosition(range.start());
+  int validAttr = kateTextLine(cursor.line())->attribute(cursor.column());
 
-  while( cursor->line() >= minLine && cursor->line() <= maxLine ) {
+  while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
 
-    if (!cursor->move(searchDir))
+    if (!cursor.move(searchDir))
       return false;
 
-    Kate::TextLine textLine = kateTextLine(cursor->line());
-    if (textLine->attribute(cursor->column()) == validAttr )
+    Kate::TextLine textLine = kateTextLine(cursor.line());
+    if (textLine->attribute(cursor.column()) == validAttr )
     {
-      /* Check for match */
-      QChar c = textLine->at(cursor->column());
+      // Check for match
+      QChar c = textLine->at(cursor.column());
       if( c == opposite ) {
         if( nesting == 0 ) {
           if (searchDir > 0) // forward
-            range.end() = cursor->toCursor();
+            range.end() = cursor.toCursor();
           else
-            range.start() = cursor->toCursor();
+            range.start() = cursor.toCursor();
           return true;
         }
         nesting--;

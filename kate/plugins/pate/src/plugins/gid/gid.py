@@ -222,7 +222,8 @@ class TreeModel(QStandardItemModel):
                 if match:
                     if hits == 0:
                         fileRow = QStandardItem(fileName)
-                        fileRow.setIcon(KIcon("text-x-chdr"))
+                        if isDeclaration:
+                            fileRow.setIcon(KIcon("text-x-chdr"))
                         root.appendRow(fileRow)
                     hits += 1
                     resultRow = list()

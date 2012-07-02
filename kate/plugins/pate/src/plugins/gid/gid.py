@@ -477,18 +477,17 @@ class SearchBar(QObject):
         kate.mainInterfaceWindow().hideToolView(self.toolView)
 
 def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given document.
-    Stolen from the expand plugin!'''
+    ''' Get the word under the active view's cursor in the given document.'''
     # Better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
-    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
+    wordBoundary = re.compile("\W")
     start = end = cursor.column()
-    if start == len(line) or line[start] in wordBoundary:
+    if start == len(line) or wordBoundary.match(line[start]):
         start -= 1
-    while start >= 0 and line[start] not in wordBoundary:
+    while start >= 0 and not wordBoundary.match(line[start]):
         start -= 1
     start += 1
-    while end < len(line) and line[end] not in wordBoundary:
+    while end < len(line) and not wordBoundary.match(line[end]):
         end += 1
     return start, end
 

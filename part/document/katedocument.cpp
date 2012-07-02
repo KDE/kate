@@ -3733,9 +3733,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
     {
       /* Check for match */
       QChar c = textLine->at(cursor->column());
-      if( c == bracket ) {
-        nesting++;
-      } else if( c == opposite ) {
+      if( c == opposite ) {
         if( nesting == 0 ) {
           if (searchDir > 0) // forward
             range.end() = cursor->toCursor();
@@ -3744,6 +3742,8 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
           return true;
         }
         nesting--;
+      } else if( c == bracket ) {
+        nesting++;
       }
     }
   }

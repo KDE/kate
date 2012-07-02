@@ -92,8 +92,8 @@ static int dummy = 0;
 
 class KateTemplateScript;
 
-inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '(' || c == '"'; }
-inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')' || c == '"'; }
+inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
+inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
 inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
 
 class KateDocument::LoadSaveFilterCheckPlugins
@@ -3712,7 +3712,6 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   case ']': opposite = '['; break;
   case '(': opposite = ')'; break;
   case ')': opposite = '('; break;
-  case '"': opposite = '"'; break;
   default: return false;
   }
 

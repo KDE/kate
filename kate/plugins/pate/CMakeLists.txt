@@ -54,8 +54,6 @@ if (NOT PYKDE4_FOUND)
     return()
 endif (NOT PYKDE4_FOUND)
 
-include(SIPMacros)
-
 #
 # Use the Kate header files from the current source tree.
 #
@@ -70,17 +68,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${SIP_INCLUDE_DIR} ${PYTHON_INCL
     # Kate
     ${KATE_INCLUDES} ${KATE_INCLUDES}/interfaces ${KATE_INCLUDES}/interfaces/kate)
 
-# XX move this into a CMakeLists.txt for sip/. Gets boggling with things 
-# looking for print_status.cmake in wrong places etc.
-set(SIP_INCLUDES ${PYQT4_SIP_DIR} ${PYKDE4_SIP_DIR} sip/kate)
-set(SIP_CONCAT_PARTS 1)
-set(SIP_TAGS ALL WS_X11 ${PYQT4_VERSION_TAG})
-set(SIP_EXTRA_OPTIONS -g)
-add_sip_python_module(PyKate4.kate sip/kate/katemod.sip ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
-
-install(FILES
-    sip/__init__.py
-    DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR}/PyKate4/)
-
+add_subdirectory(sip)
 add_subdirectory(src)
 

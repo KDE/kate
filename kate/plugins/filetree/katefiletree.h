@@ -81,6 +81,8 @@ class KateFileTree: public QTreeView
     void slotSortName();
     void slotSortPath();
     void slotSortOpeningOrder();
+    void slotFixOpenWithMenu();
+    void slotOpenWithMenuAction(QAction* a);
     
   private:
     QAction *setupOption(QActionGroup *group, const KIcon &, const QString &, const QString &, const char *slot, bool checked=false);

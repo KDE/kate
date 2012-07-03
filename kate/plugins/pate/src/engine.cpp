@@ -181,6 +181,21 @@ bool Pate::Engine::init()
     labels << i18n("Name") << i18n("Comment");
     setHorizontalHeaderLabels(labels);
 
+    
+    //move the custom directories to the front, so they get picked up instead of stale distribution ones
+    //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
+    //py.appendStringToList(sysPath, katePackageDirectory);
+    QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
+    QString preparePathesString("import sys\n");
+    preparePathesString+="prependpathes=['";
+    preparePathesString+=PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
+    preparePathesString+="','";
+    preparePathesString+=katePackageDirectory;
+    preparePathesString+="']\n";
+    preparePathesString+="sys.path=prependpathes+sys.path\n";
+    QByteArray ba=preparePathesString.toLocal8Bit();
+    PyRun_SimpleString(ba.constData());
+    
     PyRun_SimpleString(
         "import sip\n"
         "sip.setapi('QDate', 2)\n"
@@ -201,10 +216,16 @@ bool Pate::Engine::init()
 
     // Load the kate module, but find it first, and verify it loads.
     PyObject *katePackage = 0;
-    QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
+   
+    
+    
     PyObject *sysPath = py.itemString("path", "sys");
     if (sysPath) {
-        py.appendStringToList(sysPath, katePackageDirectory);
+        //I've installed to a custom directory prefix, add this directory to the lib
+        kDebug() << PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
+        //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
+        
+        //py.appendStringToList(sysPath, katePackageDirectory);
         katePackage = py.moduleImport("kate");
     }
 

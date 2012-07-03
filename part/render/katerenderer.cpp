@@ -59,6 +59,9 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_config(new KateRendererConfig(this))
 {
   updateAttributes ();
+
+  // initialize with a sane font height
+  m_fontHeight = m_config->fontMetrics().height();
 }
 
 KateRenderer::~KateRenderer()
@@ -762,7 +765,7 @@ const QFontMetrics& KateRenderer::currentFontMetrics() const
 
 uint KateRenderer::fontHeight()
 {
-  return config()->fontMetrics().height();
+  return m_fontHeight;
 }
 
 uint KateRenderer::documentHeight()
@@ -829,6 +832,15 @@ void KateRenderer::updateConfig ()
 
   if (m_view)
     m_view->updateRendererConfig();
+
+  // Sometimes the height of italic fonts is larger than for the non-italic
+  // font. Since all our lines are of same/fixed height, use the maximum of
+  // both heights (bug #302748)
+  QFont italicFont = config()->font();
+  italicFont.setItalic(true);
+  const int italicFontHeight = QFontMetrics(italicFont).height();
+  const int fontHeight = config()->fontMetrics().height();
+  m_fontHeight = qMax(fontHeight, italicFontHeight);
 }
 
 uint KateRenderer::spaceWidth() const

@@ -31,6 +31,35 @@ DocumentCursor::DocumentCursor(KTextEditor::Document* document)
   Q_ASSERT(m_document);
 }
 
+DocumentCursor::DocumentCursor(KTextEditor::Document* document, const KTextEditor::Cursor& position)
+  : m_document(document)
+  , m_cursor(position)
+{
+  // we require a valid document
+  Q_ASSERT(m_document);
+}
+
+DocumentCursor::DocumentCursor(KTextEditor::Document* document, int line, int column)
+  : m_document(document)
+  , m_cursor(line, column)
+{
+  // we require a valid document
+  Q_ASSERT(m_document);
+}
+
+DocumentCursor::DocumentCursor (const DocumentCursor &other)
+: m_document(other.m_document)
+, m_cursor(other.m_cursor)
+{
+}
+
+DocumentCursor& DocumentCursor::operator= (const DocumentCursor &other)
+{
+  m_document = other.m_document;
+  m_cursor = other.m_cursor;
+  return *this;
+}
+
 KTextEditor::Document *DocumentCursor::document () const
 {
   return m_document;

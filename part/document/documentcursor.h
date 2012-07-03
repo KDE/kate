@@ -84,7 +84,28 @@ class KATEPART_TESTS_EXPORT DocumentCursor
   // Constructor
   //
   public:
+    /**
+     * Constructor that creates a DocumentCursor at the \e invalid position
+     * (-1, -1).
+     * \see isValid()
+     */
     DocumentCursor(KTextEditor::Document* document);
+
+    /**
+     * Constructor that creates a DocumentCursor located at \p position.
+     */
+    DocumentCursor(KTextEditor::Document* document, const KTextEditor::Cursor& position);
+
+    /**
+     * Constructor that creates a DocumentCursor located at \p line and \p column.
+     */
+    DocumentCursor(KTextEditor::Document* document, int line, int column);
+
+    /**
+     * Copy constructor. Make sure the Document of the DocumentCursor is
+     * valid.
+     */
+    DocumentCursor (const DocumentCursor &other);
 
   //
   // stuff that needs to be implemented by editor part cusors
@@ -131,16 +152,6 @@ class KATEPART_TESTS_EXPORT DocumentCursor
      * no default constructor, as we need a document.
      */
     DocumentCursor ();
-
-    /**
-     * no copy constructor, don't allow this to be copied.
-     */
-    DocumentCursor (const DocumentCursor &);
-
-    /**
-     * no assignment operator, no copying around clever cursors.
-     */
-    DocumentCursor &operator= (const DocumentCursor &);
 
   //
   // convenience API
@@ -262,6 +273,12 @@ class KATEPART_TESTS_EXPORT DocumentCursor
   //
   // operators for: DocumentCursor <-> DocumentCursor
   //
+    /**
+     * Assignment operator. Same as the copy constructor. Make sure that
+     * the assigned Document is a valid document pointer.
+     */
+    DocumentCursor &operator= (const DocumentCursor &other);
+
     /**
      * Equality operator.
      *

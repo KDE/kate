@@ -38,7 +38,7 @@
 #include <KConfigBase>
 #include <KConfigGroup>
 #include <KTextEdit>
-#include <KMessageBox>
+#include <KPassivePopup>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -83,7 +83,7 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
     m_autoReload = group.readEntry("AutoReload", false);
     Pate::Engine *engine=Pate::Engine::self();
     if (!engine) {
-      KMessageBox::error(0, i18n("Pate engine could not be initialised"));
+      KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
       return;
       
     }
@@ -114,7 +114,7 @@ void Pate::Plugin::reloadModuleConfigPages() const
     m_moduleConfigPages.clear();
     Pate::Engine *engine=Pate::Engine::self();
     if (!engine) {
-      KMessageBox::error(0, i18n("Pate engine could not be initialised"));
+      KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
       return;
       
     }
@@ -259,8 +259,9 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 {
     kDebug() << "create ConfigPage";
 
+    
     // Create a page with just the main manager tab.
-    m_manager.setupUi(parent);
+    m_manager.setupUi(this);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
@@ -271,6 +272,17 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     reloadPage(true);
+    
+    Pate::Engine *engine=Pate::Engine::self();
+    if (engine) {
+      m_manager.errorLabel->setVisible(false);
+      m_manager.tabWidget->setEnabled(true);
+      m_manager.reload->setEnabled(true);
+    } else {
+      m_manager.errorLabel->setVisible(true);
+      m_manager.tabWidget->setEnabled(false);
+      m_manager.reload->setEnabled(false);
+    }
 }
 
 Pate::ConfigPage::~ConfigPage()

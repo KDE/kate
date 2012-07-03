@@ -25,7 +25,7 @@
 
 %End
 
-%Module PyKATE4.kate
+%Module PyKate4.kate
 
 %ModuleHeaderCode
 #pragma GCC visibility push(default)

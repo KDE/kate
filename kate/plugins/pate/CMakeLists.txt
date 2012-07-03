@@ -76,11 +76,11 @@ set(SIP_INCLUDES ${PYQT4_SIP_DIR} ${PYKDE4_SIP_DIR} sip/kate)
 set(SIP_CONCAT_PARTS 1)
 set(SIP_TAGS ALL WS_X11 ${PYQT4_VERSION_TAG})
 set(SIP_EXTRA_OPTIONS -g)
-add_sip_python_module(PyKATE4.kate sip/kate/katemod.sip ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
+add_sip_python_module(PyKate4.kate sip/kate/katemod.sip ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
 
 install(FILES
     sip/__init__.py
-    DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR}/PyKATE4/)
+    DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR}/PyKate4/)
 
 add_subdirectory(src)
 

@@ -322,6 +322,7 @@ public:
     // cache of config values
     int m_tabWidth;
     int m_indentWidth;
+    int m_fontHeight;
 
     // some internal flags
     KateRenderer::caretStyles m_caretStyle;

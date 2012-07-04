@@ -329,7 +329,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setAllowSimpleMode (config.readEntry("Allow Simple Mode", true));
 
-  setBackupFlags (config.readEntry("Backup Config Flags", 1));
+  setBackupFlags (config.readEntry("Backup Flags", 0));
 
   setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 3));
 
@@ -384,7 +384,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry("Allow Simple Mode", allowSimpleMode());
 
-  config.writeEntry("Backup Config Flags", backupFlags());
+  config.writeEntry("Backup Flags", backupFlags());
 
   config.writeEntry("Search Dir Config Depth", searchDirConfigDepth());
 

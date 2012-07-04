@@ -29,6 +29,8 @@
 
 #include <kde_file.h>
 
+#include <KSaveFile>
+
 namespace Kate {
 
 TextBuffer::TextBuffer (KateDocument *parent, int blockSize)
@@ -671,14 +673,30 @@ bool TextBuffer::save (const QString &filename)
 {
   // codec must be set!
   Q_ASSERT (m_textCodec);
+  
+  /**
+   * use KSaveFile for save write + rename
+   */
+  KSaveFile saveFile (filename);
+  if (!saveFile.open())
+    return false;
 
   /**
    * construct correct filter device and try to open
    */
-  QIODevice *file = KFilterDev::deviceForFile (filename, m_mimeTypeForFilterDev, false);
-  if (!file->open (QIODevice::WriteOnly)) {
-    delete file;
-    return false;
+  QIODevice *file = KFilterDev::device (&saveFile, m_mimeTypeForFilterDev, false);
+  const bool deleteFile = file;
+  if (!file)
+    file = &saveFile;
+
+  /**
+   * try to open, if new file
+   */
+  if (deleteFile) {
+    if (!file->open (QIODevice::WriteOnly)) {
+      delete file;
+      return false;
+    }
   }
 
   /**
@@ -726,24 +744,27 @@ bool TextBuffer::save (const QString &filename)
   stream.flush ();
 
   // close and delete file
-  file->close ();
-  delete file;
+  if (deleteFile) {
+    file->close ();
+    delete file;
+  }
+  
+  // flush file
+  if (!saveFile.flush())
+    return false;
 
 #ifndef Q_OS_WIN
   // ensure that the file is written to disk
-  // we crete new qfile, as the above might be wrapper around compression
-  QFile syncFile (filename);
-  syncFile.open (QIODevice::ReadOnly);
-
 #ifdef HAVE_FDATASYNC
-  fdatasync (syncFile.handle());
+  fdatasync (saveFile.handle());
 #else
-  fsync (syncFile.handle());
+  fsync (saveFile.handle());
 #endif
 #endif
-
+  
   // did save work?
-  bool ok = stream.status() == QTextStream::Ok;
+  // only finalize if stream status == OK
+  bool ok = (stream.status() == QTextStream::Ok) && saveFile.finalize();
 
   // remember this revision as last saved if we had success!
   if (ok)

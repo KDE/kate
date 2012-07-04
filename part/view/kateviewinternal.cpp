@@ -3326,10 +3326,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   if (editSessionNumber > 0)
     return;
-
-  // fix start position, might have moved from column 0
-  m_startPos.setPosition (m_startPos.line(), 0);
-
+    
   if (tagFrom && (editTagLineStart <= int(doc()->getRealLine(startLine()))))
     tagAll();
   else

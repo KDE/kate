@@ -705,6 +705,9 @@ bool KateViNormalMode::commandDeleteToEOL()
   if ( c.line() < 0 ) {
     c.setLine( 0 );
   }
+  if ( c.line() > doc()->lastLine() ) {
+    c.setLine( doc()->lastLine() );
+  }
   if ( c.column() > doc()->lineLength( c.line() )-1 ) {
     c.setColumn( doc()->lineLength( c.line() )-1 );
   }

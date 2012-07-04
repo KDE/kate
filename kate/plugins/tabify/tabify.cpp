@@ -64,7 +64,7 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
 
   connect(m_tabBar, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
   connect(m_tabBar, SIGNAL(closeRequest(int)), this, SLOT(slotTabCloseRequest(int)));
-  connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotTabCloseRequest(int)));
+  connect(m_tabBar, SIGNAL(mouseMiddleClick(int)), this, SLOT(slotMiddleMouseButtonPressed(int)));
   connect(m_tabBar, SIGNAL(wheelDelta(int)), this, SLOT(slotWheelDelta(int)));
   connect(m_tabBar, SIGNAL(tabMoved(int,int)), this, SLOT(slotTabMoved(int,int)));
 
@@ -82,6 +82,7 @@ void TabBarPluginView::slotDocumentCreated(KTextEditor::Document* document)
 {
   if (!document)
     return;
+
   connect(document, SIGNAL(modifiedChanged(KTextEditor::Document*)),
           this, SLOT(slotDocumentChanged(KTextEditor::Document*)));
   connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document*, bool,
@@ -96,6 +97,7 @@ void TabBarPluginView::slotDocumentCreated(KTextEditor::Document* document)
   m_tabDocMap[index] = document;
   m_docTabMap[document] = index;
   m_docList.append(document);
+  m_modifiedMap[document] = false;
 }
 
 void TabBarPluginView::slotTabChanged(int index)
@@ -109,10 +111,14 @@ void TabBarPluginView::slotTabChanged(int index)
 
 void TabBarPluginView::slotDocumentDeleted(KTextEditor::Document* document)
 {
-  m_tabIsDeleting = true;
-  int index = m_docTabMap[document];
-  m_tabBar->removeTab(index);
+  const int index = m_docTabMap[document];
+  m_docTabMap.remove(document);
+  m_tabDocMap.remove(index);
+  m_modifiedMap.remove(document);
   m_docList.removeAll(document);
+
+  m_tabIsDeleting = true;
+  m_tabBar->removeTab(index);
   m_tabIsDeleting = false;
 
   // Rebuild the maps using the new state of the list.
@@ -132,6 +138,15 @@ void TabBarPluginView::slotViewChanged()
 
   int tabID = m_docTabMap[view->document()];
   m_tabBar->setCurrentIndex(tabID);
+}
+
+void TabBarPluginView::slotMiddleMouseButtonPressed(int)
+{
+  // only close by middle mouse button, if the document is not externally
+  // modified. Avoids a non-trivial crash: bug #299744
+  if (!m_modifiedMap[m_tabDocMap[tabId]]) {
+    slotTabCloseRequest(tabID);
+  }
 }
 
 void TabBarPluginView::slotTabCloseRequest(int tabId)
@@ -155,6 +170,7 @@ void TabBarPluginView::slotModifiedOnDisc(KTextEditor::Document* document, bool 
     KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
   int tabID = m_docTabMap[document];
+  m_modifiedMap[document] = modified;
 
   if (!modified) {
     m_tabBar->setTabIcon(tabID, QIcon());

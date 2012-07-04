@@ -140,12 +140,12 @@ void TabBarPluginView::slotViewChanged()
   m_tabBar->setCurrentIndex(tabID);
 }
 
-void TabBarPluginView::slotMiddleMouseButtonPressed(int)
+void TabBarPluginView::slotMiddleMouseButtonPressed(int tabId)
 {
   // only close by middle mouse button, if the document is not externally
   // modified. Avoids a non-trivial crash: bug #299744
   if (!m_modifiedMap[m_tabDocMap[tabId]]) {
-    slotTabCloseRequest(tabID);
+    slotTabCloseRequest(tabId);
   }
 }
 

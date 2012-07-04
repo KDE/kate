@@ -184,11 +184,26 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
 
     }
     else if (re_editBuffer.exactMatch(command)) {
-        if (args.size() == 1 &&
-            args.at(0).toInt() > 0 &&
-            args.at(0).toUInt() <= KateDocManager::self()->documents()) {
-          mainWin->viewManager()->activateView(
-                KateDocManager::self()->document(args.at(0).toInt() - 1));
+        QString argument = args.join(QString(' '));
+        if (argument == "") {
+            // no argument: switch to the previous document
+            return exec(view, "bprevious", msg);
+        } else if (argument.toInt() > 0 &&
+                   argument.toUInt() <= KateDocManager::self()->documents()) {
+            // numerical argument: switch to the nth document
+            int n = argument.toInt() - 1;
+            KTextEditor::Document *doc = KateDocManager::self()->document( n );
+            mainWin->viewManager()->activateView( doc );
+        } else {
+            // string argument: switch to the given file
+            foreach (KTextEditor::Document *doc, KateDocManager::self()->documentList())
+            {
+                QString name = doc->documentName();
+                if (name.contains(argument)) {
+                    mainWin->viewManager()->activateView( doc );
+                    return true;
+                }
+            }
         }
     }
 

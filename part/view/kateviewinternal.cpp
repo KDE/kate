@@ -3310,7 +3310,19 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   if (editSessionNumber > 0)
     return;
-    
+
+  // fix start position, might have moved from column 0
+  // try to clever calculate the right start column for the tricky dyn word wrap case
+  int col = 0;
+  if (m_view->dynWordWrap()) {
+    if (KateLineLayoutPtr layout = cache()->line(m_startPos.line())) {
+      int index = layout->viewLineForColumn (m_startPos.column());
+      if (index >= 0 && index < layout->viewLineCount())
+        col = layout->viewLine (index).startCol();
+    }
+  }  
+  m_startPos.setPosition (m_startPos.line(), col);
+
   if (tagFrom && (editTagLineStart <= int(doc()->getRealLine(startLine()))))
     tagAll();
   else

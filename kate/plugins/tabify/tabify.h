@@ -50,6 +50,7 @@ public slots:
   void slotTabChanged(int);
   void slotDocumentDeleted(KTextEditor::Document*);
   void slotViewChanged();
+  void slotMiddleMouseButtonPressed(int);
   void slotTabCloseRequest(int);
   void slotDocumentChanged(KTextEditor::Document*);
   void slotModifiedOnDisc(KTextEditor::Document*, bool,
@@ -63,6 +64,7 @@ private:
   QMap<int, KTextEditor::Document*> m_tabDocMap;
   QMap<KTextEditor::Document*, int> m_docTabMap;
   QList<KTextEditor::Document*> m_docList;
+  QMap<KTextEditor::Document*, bool> m_modifiedMap;
   bool m_tabIsDeleting;
   void rebuildMaps();
 };

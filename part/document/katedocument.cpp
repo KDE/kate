@@ -955,15 +955,12 @@ bool KateDocument::wrapText(int startLine, int endLine)
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
       int nw = 0; // alternative position, a non word character
-      for (z=searchStart; z > 0; z--)
-      {
-        if (t.at(z).isSpace()) break;
-        if ( ! nw && highlight()->canBreakAt( t.at(z) , l->attribute(z) ) )
-        nw = z;
-      }
+      QTextLayout curline( l->string() );
+      z = nw = curline.previousCursorPosition( searchStart, QTextLayout::SkipWords );
+
 
       bool removeTrailingSpace = false;
-      if (z > 0)
+      if (z == 0)
       {
         // So why don't we just remove the trailing space right away?
         // Well, the (view's) cursor may be directly in front of that space

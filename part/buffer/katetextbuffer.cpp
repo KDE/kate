@@ -357,8 +357,8 @@ void TextBuffer::removeText (const KTextEditor::Range &range)
 int TextBuffer::blockForLine (int line) const
 {
   // only allow valid lines
-  Q_ASSERT (line >= 0);
-  Q_ASSERT (line < lines());
+  if ((line < 0) || (line >= lines()))
+    qFatal ("out of range line requested in text buffer (%d out of [0, %d[)", line, lines());
 
   // block to start search with
   int index = m_lastUsedBlock;
@@ -394,7 +394,7 @@ int TextBuffer::blockForLine (int line) const
   }
 
   // we should always find a block
-  Q_ASSERT (false);
+  qFatal ("line requested in text buffer (%d out of [0, %d[), no block found", line, lines());
   return -1;
 }
 

@@ -450,6 +450,12 @@ KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer) :
 
 KateCodeFoldingTree::~KateCodeFoldingTree()
 {
+  /**
+   * memory cleanup
+   */
+  clear();
+  delete m_rootMatch;
+  delete m_root;
 }
 
 void KateCodeFoldingTree::addDeltaToLine(QVector<KateCodeFoldingNode *> &nodesLine, int delta)

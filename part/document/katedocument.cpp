@@ -192,7 +192,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_config(new KateDocumentConfig(this)),
   m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
-  m_onTheFlyChecker(0)
+  m_onTheFlyChecker(0),
+  m_filePerhapsStillLoading (false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -236,8 +237,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted(QString)),
            this, SLOT(slotModOnHdDeleted(QString)) );
 
-  connect (this,SIGNAL(completed()),this,SLOT(slotCompleted()));
-  connect (this,SIGNAL(canceled(QString)),this,SLOT(slotCanceled()));
+  connect (this, SIGNAL(started(KIO::Job*)), this, SLOT(slotStarted(KIO::Job*)));
+  connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
+  connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
+  
   // update doc name
   setDocName (QString());
 
@@ -4961,11 +4964,17 @@ bool KateDocument::queryClose()
 
 
 void KateDocument::slotCanceled() {
+  // remember file loading is over now
+  m_filePerhapsStillLoading = false;
+  
   m_savingToUrl=false;
   m_saveAs=false;
 }
 
 void KateDocument::slotCompleted() {
+  // remember file loading is over now
+  m_filePerhapsStillLoading = false;
+  
   if (m_savingToUrl) {
     if (!m_postSaveFilterChecks.isEmpty())
     {
@@ -4982,12 +4991,26 @@ void KateDocument::slotCompleted() {
   m_saveAs=false;
 }
 
+void KateDocument::slotStarted (KIO::Job *job)
+{
+  // perhaps file loading started
+  m_filePerhapsStillLoading = true;
+}
+
 bool KateDocument::save() {
+  // don't allow to save files that still load
+  if (m_filePerhapsStillLoading)
+    return false;
+  
   m_saveAs = false;
   return KTextEditor::Document::save();
 }
 
 bool KateDocument::saveAs( const KUrl &url ) {
+  // don't allow to save files that still load
+  if (m_filePerhapsStillLoading)
+    return false;
+  
   m_saveAs = true;
   return KTextEditor::Document::saveAs(url);
 }

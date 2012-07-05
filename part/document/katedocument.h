@@ -1168,6 +1168,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
   private:
     Kate::SwapFile *m_swapfile;
+    
   public:
     Kate::SwapFile* swapFile();
 
@@ -1175,6 +1176,18 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     int defStyleNum(int line, int column);
     bool isComment(int line, int column);
 
+  private Q_SLOTS:
+    /**
+     * watch for all started io jobs to remember if file is perhaps loading atm
+     * @param job started job
+     */
+    void slotStarted(KIO::Job *job);
+    
+  private:
+    /**
+     * guard to ensure we not allow saveFile during file is still loading
+     */
+    bool m_filePerhapsStillLoading;
 };
 
 #endif

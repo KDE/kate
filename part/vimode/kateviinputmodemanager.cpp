@@ -347,9 +347,10 @@ void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
         QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
 
         // sanity check
-        if ( names.size() == contents.size() ) {
+        if ( names.size() == contents.size() && contents.size() == flags.size() ) {
             for ( int i = 0; i < names.size(); i++ ) {
-                KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+		if (!names.at(i).isEmpty())
+		  KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
             }
         }
     }

@@ -912,7 +912,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * @return wheather the operation was attempted and succeeded.
      */
     bool createDigest ( QByteArray &result );
-
+    
     /**
      * create a string for the modonhd warnings, giving the reason.
      */
@@ -938,6 +938,15 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     bool m_blockRemoveTrailingSpaces;
 
   public:
+    /**
+     * md5 digest of this document
+     * @return md5 digest for this document
+     */
+    const QByteArray &digest () const
+    {
+      return m_digest;
+    }
+    
     void updateFileType (const QString &newType, bool user = false);
 
     QString fileType () const { return m_fileType; }

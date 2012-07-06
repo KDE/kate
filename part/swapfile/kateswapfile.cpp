@@ -32,7 +32,7 @@
 #include <QApplication>
 
 // swap file version header
-const static char * const swapFileVersionString = "Kate Swap File - Version 1.0";
+const static char * const swapFileVersionString = "Kate Swap File 2.0";
 
 // tokens for swap files
 const static qint8 EA_StartEditing  = 'S';
@@ -200,6 +200,17 @@ bool SwapFile::recover(QDataStream& stream)
     kWarning( 13020 ) << "Can't open swap file, wrong version";
     return false;
   }
+  
+  // read md5 digest
+  QByteArray digest;
+  stream >> digest;
+  if (digest != m_document->digest())
+  {
+    stream.setDevice (0);
+    m_swapfile.close ();
+    kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
+    return false;
+  }
 
   // disconnect current signals
   setTrackingEnabled(false);
@@ -327,6 +338,9 @@ void SwapFile::startEditing ()
 
     // write file header
     m_stream << QByteArray (swapFileVersionString);
+    
+    // write md5 digest
+    m_stream << m_document->digest ();
   } else if (m_stream.device() == 0) {
     m_swapfile.open(QIODevice::Append);
     m_stream.setDevice(&m_swapfile);

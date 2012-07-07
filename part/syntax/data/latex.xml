@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.47" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.48" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -68,7 +68,7 @@
       <context name="SectioningMathContrSeq" attribute="Structure Keyword Mathmode" lineEndContext="#pop">
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]+\*?" attribute="Structure Keyword Mathmode" context="#pop"/>
-        <RegExpr String="[^a-zA-Z]" attribute="Structure Keyword Mathmode" context="#pop" /> 
+        <RegExpr String="[^a-zA-Z]" attribute="Structure Keyword Mathmode" context="#pop" />
       </context>
 
       <!-- LaTeX Footnote commands -->
@@ -339,11 +339,11 @@
         <RegExpr String="\\end(?=\s*\{(tabularx|tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?\})" attribute="Structure"  context="TabFindEnd"/>
 	<IncludeRules context="Normal Text" />
       </context>
-      
+
       <context name="Column Separator" attribute="Column Separator" lineEndContext="#stay">
 	      <DetectChar char="{" attribute="Column Separator" context="Column Separator"/>
 	      <DetectChar char="}" attribute="Column Separator" context="#pop"/>
-	      <RegExpr String="." attribute="Column Separator"  context="#stay"/> 
+	      <RegExpr String="." attribute="Column Separator"  context="#stay"/>
 <!-- 	 the last regexp is very stupid. Suggestions are welcome! Fallthrough did not help-->
       </context>
 
@@ -405,7 +405,7 @@
       <context name="MathContrSeq" attribute="Keyword Mathmode" lineEndContext="#pop">
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]+\*?" attribute="Keyword Mathmode" context="#pop"/>
-        <RegExpr String="[^a-zA-Z]" attribute="Keyword Mathmode" context="#pop" /> 
+        <RegExpr String="[^a-zA-Z]" attribute="Keyword Mathmode" context="#pop" />
       </context>
 
       <!-- text in mathmode -->
@@ -414,7 +414,7 @@
       </context>
 
       <context name="MathModeTextParameterStart" attribute="Normal Text" lineEndContext="#stay" >
-        <RegExpr String="\\." attribute="Normal Text" context="#stay"/> 
+        <RegExpr String="\\." attribute="Normal Text" context="#stay"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
 	<RegExpr String="\$.*\$" minimal="true" attribute="Math" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="MathModeTextParameter"/>
@@ -423,7 +423,7 @@
       </context>
 
       <context name="MathModeTextParameter" attribute="Normal Text" lineEndContext="#stay" >
-        <RegExpr String="\\." attribute="Normal Text" context="#stay"/> 
+        <RegExpr String="\\." attribute="Normal Text" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="MathModeTextParameter"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
@@ -588,6 +588,7 @@
       <encoding char="&#255;" string="\&#34;{y}" />
       <encoding char="&#255;" string="\&#34;y" />
       <encoding string="''" ignored="true" />
+      <encoding string="\-" ignored="true" />
     </encodings>
   </spellchecking>
 </language>

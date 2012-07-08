@@ -18,6 +18,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QDir>
 #include <QTimer>
 #include <KLocale>
 
@@ -125,7 +126,22 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
     }
     else if (re_edit.exactMatch(command)) {
-        view->document()->documentReload();
+        QString argument = args.join(QString(' '));
+        if (argument == "" || argument == "!") {
+            view->document()->documentReload();
+        } else {
+            KUrl base = mainWin->activeDocumentUrl();
+            KUrl url( base.isValid() ? base : KUrl( QDir::homePath() ), argument );
+            QFileInfo file( url.toLocalFile() );
+            KTextEditor::Document *doc = KateDocManager::self()->findDocument( url );
+            if (doc) {
+                mainWin->viewManager()->activateView( doc );
+            } else if (file.exists()) {
+                mainWin->viewManager()->openUrl( url, QString(), true );
+            } else {
+                mainWin->viewManager()->openUrl( KUrl(), QString(), true )->saveAs ( url );
+            }
+        }
     }
     else if (re_new.exactMatch(command)) {
         if (re_new.cap(1) == "v") { // vertical split

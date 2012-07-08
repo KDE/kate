@@ -571,7 +571,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_msgMode = true;
 
     // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
-    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))){
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))){
       emit hideRequested();
     }
 
@@ -635,7 +635,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   // the following commands change the focus themselves
-  if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast").exactMatch(cmd.split(" ").at(0))) {
+  if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
     m_view->setFocus ();
   }
 

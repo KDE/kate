@@ -39,6 +39,7 @@
 #include <kurl.h>
 #include <kshellcompletion.h>
 
+#include <QDir>
 #include <QtCore/QRegExp>
 
 //BEGIN CoreCommands
@@ -564,16 +565,22 @@ bool KateCommands::AppCommands::exec(KTextEditor::View *view,
 {
     QStringList args(cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
     QString command( args.takeFirst() );
+    QString file = args.join(QString(' '));
 
     if (re_write.exactMatch(command)) { // w, wa
-/*        if (!re_write.cap(1).isEmpty()) { // [a]ll
+        /*        if (!re_write.cap(1).isEmpty()) { // [a]ll
             view->document()->saveAll();
             msg = i18n("All documents written to disk");
         } else { // w*/
-            // Save file
+        // Save file
+        if (file == "") {
             view->document()->documentSave();
-            msg = i18n("Document written to disk");
-        //}
+        } else {
+            KUrl base = view->document()->url();
+            KUrl url( base.isValid() ? base : KUrl( QDir::homePath() ), file );
+            view->document()->saveAs( url );
+        }
+        msg = i18n("Document written to disk");
     }
 
     return true;

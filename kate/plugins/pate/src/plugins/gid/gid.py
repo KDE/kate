@@ -174,7 +174,7 @@ class TreeModel(QStandardItemModel):
     def __init__(self, dataSource):
         super(TreeModel, self).__init__()
         self.dataSource = dataSource
-        self.setHorizontalHeaderLabels((i18n("Match"), i18n("Line"), i18n("Col")))
+        self.setHorizontalHeaderLabels((i18n("Occurrences"), i18n("Line"), i18n("Col")))
 
     def _etagSearch(self, token, fileName):
         """Use etags to find any definition in this file.
@@ -248,8 +248,10 @@ class TreeModel(QStandardItemModel):
                         definitionIndex = resultRow[0].index()
                 line += 1
         except IOError as e:
+            fileRow = QStandardItem(fileName)
             fileRow.setIcon(KIcon("face-sad"))
             fileRow.appendRow(QStandardItem(str(e)))
+            root.appendRow(fileRow)
         return definitionIndex
 
     def literalTokenSearch(self, parent, token, filter):
@@ -527,7 +529,7 @@ def gotoDefinition():
     if definitionIndex:
         searchBar.navigateTo(definitionIndex)
 
-@kate.configPage("gid", "gid Lookup", icon = "edit-find")
+@kate.configPage("gid", "gid(1) token Lookup and Navigation", icon = "edit-find")
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
 

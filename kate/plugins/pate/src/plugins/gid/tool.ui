@@ -14,19 +14,6 @@
    <string>tool</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0" colspan="5">
-    <widget class="QTreeView" name="tree">
-     <property name="whatsThis">
-      <string>Double click on an occurrence to navigate to it.</string>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="expandsOnDoubleClick">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="labelToken">
      <property name="text">
@@ -37,10 +24,19 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="4">
-    <widget class="QPushButton" name="settings">
-     <property name="text">
-      <string>Settings...</string>
+   <item row="0" column="1">
+    <widget class="KHistoryComboBox" name="token">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="whatsThis">
+      <string>Find a symbol, filename or other token using auto-completion. Hit return to lookup occurrences within files.</string>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::InsertAtTop</enum>
      </property>
     </widget>
    </item>
@@ -54,17 +50,39 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="KLineEdit" name="token">
+   <item row="0" column="3">
+    <widget class="KHistoryComboBox" name="filter">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="whatsThis">
-      <string>Find a symbol, filename or other token using auto-completion. Hit return to lookup occurrences within files.</string>
+      <string>A regular expression which must also be matched. Use %{token} to include the token.</string>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::InsertAtTop</enum>
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
-    <widget class="KLineEdit" name="filter">
+   <item row="0" column="4">
+    <widget class="QPushButton" name="settings">
+     <property name="text">
+      <string>Settings...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="5">
+    <widget class="QTreeView" name="tree">
      <property name="whatsThis">
-      <string>A regular expression which must also be matched. Use %{token} to include the token.</string>
+      <string>Double click on an occurrence to navigate to it.</string>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -72,9 +90,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KHistoryComboBox</class>
+   <extends>KComboBox</extends>
+   <header>khistorycombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

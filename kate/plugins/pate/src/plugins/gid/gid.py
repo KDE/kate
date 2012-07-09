@@ -370,7 +370,7 @@ class SearchBar(QObject):
     @pyqtSlot()
     def literalSearch(self):
         """Lookup a single token and return the modelIndex of any definition."""
-        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.text(), self.filter.text())
+        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
         self.tree.resizeColumnToContents(0)
         return definitionIndex
 
@@ -518,7 +518,9 @@ def lookup():
             selectedText = kate.activeView().selectionText()
         else:
             selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
-        searchBar.token.setText(selectedText)
+        searchBar.token.insertItem(0, selectedText)
+        searchBar.token.setCurrentIndex(1)
+        searchBar.token.setEditText(selectedText)
         return searchBar.literalSearch()
     return None
 

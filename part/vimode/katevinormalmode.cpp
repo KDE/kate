@@ -1310,9 +1310,17 @@ bool KateViNormalMode::commandSwitchToCmdLine()
     return true;
 }
 
-bool KateViNormalMode::commandSearch()
+bool KateViNormalMode::commandSearchBackward()
 {
     m_view->find();
+    m_viInputModeManager->setLastSearchBackwards( true );
+    return true;
+}
+
+bool KateViNormalMode::commandSearchForward()
+{
+    m_view->find();
+    m_viInputModeManager->setLastSearchBackwards( false );
     return true;
 }
 
@@ -2814,8 +2822,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
-  ADDCMD("/", commandSearch, 0 );
-  ADDCMD("?", commandSearch, 0 );
+  ADDCMD("/", commandSearchForward, 0 );
+  ADDCMD("?", commandSearchBackward, 0 );
   ADDCMD("u", commandUndo, 0);
   ADDCMD("<c-r>", commandRedo, 0 );
   ADDCMD("U", commandRedo, 0 );

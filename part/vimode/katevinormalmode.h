@@ -105,7 +105,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandReplaceCharacter();
 
     bool commandSwitchToCmdLine();
-    bool commandSearch();
+    bool commandSearchBackward();
+    bool commandSearchForward();
     bool commandUndo();
     bool commandRedo();
 

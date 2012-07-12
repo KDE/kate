@@ -818,6 +818,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   KateDocument *doc = static_cast<KateView*>(view)->doc();
   if ( !doc ) return false;
 
+  static_cast<KateView*>(view)->setSearchPattern(find);
   doc->editStart();
 
   int replacementsDone = 0;

@@ -44,8 +44,10 @@ class KateScriptManager : public QObject, public KTextEditor::Command
 {
   Q_OBJECT
 
+  KateScriptManager();
+  static KateScriptManager* m_instance;
+
   public:
-    KateScriptManager();
     virtual ~KateScriptManager();
 
     /** Get all scripts available in the command line */
@@ -86,6 +88,13 @@ class KateScriptManager : public QObject, public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds();
+
+    static KateScriptManager* self() {
+      if (m_instance == 0) {
+        m_instance = new KateScriptManager();
+      }
+      return m_instance;
+    }
 
   //
   // Helper methods

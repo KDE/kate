@@ -71,7 +71,7 @@ KateApp::KateApp (KCmdLineArgs *args)
   // real init
   initKate ();
 
-  m_appCommands = new KateAppCommands();
+  m_appCommands = KateAppCommands::self();
 }
 
 KateApp::~KateApp ()

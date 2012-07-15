@@ -39,6 +39,8 @@
 #include "kateglobal.h"
 #include "katecmd.h"
 
+KateScriptManager* KateScriptManager::m_instance = 0;
+
 KateScriptManager::KateScriptManager() : QObject(), KTextEditor::Command()
 {
   KateCmd::self()->registerCommand (this);
@@ -52,6 +54,7 @@ KateScriptManager::~KateScriptManager()
   KateCmd::self()->unregisterCommand (this);
   qDeleteAll(m_indentationScripts);
   qDeleteAll(m_commandLineScripts);
+  m_instance = 0;
 }
 
 KateIndentScript *KateScriptManager::indenter(const QString &language)

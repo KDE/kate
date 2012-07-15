@@ -43,6 +43,8 @@
 #include <QtCore/QRegExp>
 
 //BEGIN CoreCommands
+KateCommands::CoreCommands* KateCommands::CoreCommands::m_instance = 0;
+
 // this returns wheather the string s could be converted to
 // a bool value, one of on|off|1|0|true|false. the argument val is
 // set to the extracted value in case of success
@@ -365,6 +367,8 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
 //END CoreCommands
 
 // BEGIN ViCommands
+KateCommands::ViCommands* KateCommands::ViCommands::m_instance = 0;
+
 const QStringList &KateCommands::ViCommands::cmds()
 {
   static QStringList l;
@@ -531,6 +535,8 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 //END ViCommands
 
 // BEGIN AppCommands
+KateCommands::AppCommands* KateCommands::AppCommands::m_instance = 0;
+
 KateCommands::AppCommands::AppCommands()
     : KTextEditor::Command()
 {
@@ -606,6 +612,8 @@ bool KateCommands::AppCommands::help(KTextEditor::View *view, const QString &cmd
 //END AppCommands
 
 //BEGIN SedReplace
+KateCommands::SedReplace* KateCommands::SedReplace::m_instance = 0;
+
 static void replace(QString &s, const QString &needle, const QString &with)
 {
   int pos = 0;
@@ -861,6 +869,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 //END SedReplace
 
 //BEGIN Character
+KateCommands::Character* KateCommands::Character::m_instance = 0;
 bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
@@ -906,6 +915,8 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 //END Character
 
 //BEGIN Date
+KateCommands::Date* KateCommands::Date::m_instance = 0;
+
 bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QString &)
 {
   if (!cmd.startsWith(QLatin1String("date")))

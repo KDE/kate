@@ -28,6 +28,8 @@
 #include "katedocmanager.h"
 #include "kateviewmanager.h"
 
+KateAppCommands* KateAppCommands::m_instance = 0;
+
 KateAppCommands::KateAppCommands()
     : KTextEditor::Command()
 {
@@ -61,6 +63,8 @@ KateAppCommands::~KateAppCommands()
     if (iface) {
         iface->unregisterCommand(this);
     }
+
+    m_instance = 0;
 }
 
 const QStringList& KateAppCommands::cmds()

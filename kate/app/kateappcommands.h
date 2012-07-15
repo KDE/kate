@@ -25,14 +25,23 @@
 
 class KateAppCommands : public KTextEditor::Command
 {
-public:
-    KateAppCommands();
+  KateAppCommands();
+  static KateAppCommands* m_instance;
+
+  public:
     virtual ~KateAppCommands();
     virtual const QStringList &cmds ();
     virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 
-private:
+    static KateAppCommands* self() {
+      if (m_instance == 0) {
+        m_instance = new KateAppCommands();
+      }
+      return m_instance;
+    }
+
+  private:
     QRegExp re_write;
     QRegExp re_close;
     QRegExp re_quit;
@@ -46,7 +55,6 @@ private:
     QRegExp re_bufferFirst;
     QRegExp re_bufferLast;
     QRegExp re_editBuffer;
-
 };
 
 #endif

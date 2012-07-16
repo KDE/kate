@@ -34,6 +34,7 @@ public:
 
 private:
     QRegExp re_write;
+    QRegExp re_close;
     QRegExp re_quit;
     QRegExp re_exit;
     QRegExp re_edit;

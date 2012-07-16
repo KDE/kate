@@ -39,6 +39,7 @@ KateAppCommands::KateAppCommands()
     }
 
     re_write.setPattern("w(a)?");
+    re_close.setPattern("bd(elete)?");
     re_quit.setPattern("(w)?q?(a)?");
     re_exit.setPattern("x(a)?");
     re_edit.setPattern("e(dit)?");
@@ -71,7 +72,8 @@ const QStringList& KateAppCommands::cmds()
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
           << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
           << "sp" << "split" << "vs" << "vsplit" << "bn" << "bnext" << "bp"
-          << "bprevious" <<  "bf" << "bfirst" << "bl" << "blast" << "b" << "buffer";
+          << "bprevious" <<  "bf" << "bfirst" << "bl" << "blast" << "bd"
+          << "bdelete" << "b" << "buffer";
     }
 
     return l;
@@ -92,6 +94,9 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             view->document()->documentSave();
             msg = i18n("Document written to disk");
         }
+    }
+    else if (re_close.exactMatch(command)) {
+        QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
     }
     else if (re_quit.exactMatch(command)) {
         if (!re_quit.cap(2).isEmpty()) { // a[ll]

@@ -39,19 +39,18 @@ KateAppCommands::KateAppCommands()
     }
 
     re_write.setPattern("w(a)?");
-    re_close.setPattern("bd(elete)?");
+    re_close.setPattern("bd(elete)?|tabc(lose)?");
     re_quit.setPattern("(w)?q?(a)?");
     re_exit.setPattern("x(a)?");
-    re_edit.setPattern("e(dit)?");
+    re_edit.setPattern("e(dit)?|tabe(dit)?|tabnew");
     re_new.setPattern("(v)?new");
     re_split.setPattern("sp(lit)?");
     re_vsplit.setPattern("vs(plit)?");
-    re_bufferNext.setPattern("bn(ext)?");
-    re_bufferPrev.setPattern("bp(revious)?");
-    re_bufferFirst.setPattern("bf(irst)?");
-    re_bufferLast.setPattern("bl(ast)?");
+    re_bufferNext.setPattern("bn(ext)?|tab[nN](ext)?");
+    re_bufferPrev.setPattern("bp(revious)?|tab[pP](revious)?");
+    re_bufferFirst.setPattern("bf(irst)?|tabfir(st)?");
+    re_bufferLast.setPattern("bl(ast)?|tabl(ast)?");
     re_editBuffer.setPattern("b(uffer)?");
-
 }
 
 KateAppCommands::~KateAppCommands()
@@ -71,9 +70,12 @@ const QStringList& KateAppCommands::cmds()
     if (l.empty()) {
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
           << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
-          << "sp" << "split" << "vs" << "vsplit" << "bn" << "bnext" << "bp"
-          << "bprevious" <<  "bf" << "bfirst" << "bl" << "blast" << "bd"
-          << "bdelete" << "b" << "buffer";
+          << "sp" << "split" << "vs" << "vsplit" << "bd" << "bdelete"
+          << "bn" << "bnext" << "bp" << "bprevious" <<  "bf"
+          << "bfirst" << "bl" << "blast" << "b" << "buffer"
+          << "tabe" << "tabedit" << "tabnew" << "tabc" << "tabclose"
+          << "tabn" << "tabnext" << "tabp" << "tabprevious"
+          << "tabfir" << "tabfirst" << "tabl" << "tablast";
     }
 
     return l;

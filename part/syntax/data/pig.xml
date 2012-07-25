@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Pig syntax highlighting v1.0, Copyright © 2012 Johannes Schwenk, johannes.schwenk@adition.com -->
-<language name="Pig" version="2" kateversion="2.4" section="Scripts" extensions="*.pig" mimetype="application/x-pig;text/x-pig" casesensitive="0" author="Johannes Schwenk, johannes.schwenk@adition.com" license="GNU GPL">
+<!-- Pig syntax highlighting v3.0, Copyright © 2012 Johannes Schwenk, johannes.schwenk@adition.com -->
+<language name="Pig" version="3.0" kateversion="2.4" section="Scripts" extensions="*.pig" mimetype="application/x-pig;text/x-pig" casesensitive="0" author="Johannes Schwenk, johannes.schwenk@adition.com" license="GNU GPL">
 	<highlighting>
 		<list name="keywords">
 			<item> load </item>
@@ -34,6 +34,7 @@
 			<item> generate </item>
 			<item> eval </item>
 			<item> define </item>
+			<item> returns </item>
 			<item> input </item>
 			<item> output </item>
 			<item> ship </item>
@@ -61,6 +62,7 @@
 			<item> illustrate </item>
 			<item> describe </item>
 			<item> explain </item>
+			<item> exec </item>
 			<item> help </item>
 			<item> kill </item>
 			<item> ls </item>
@@ -69,6 +71,7 @@
 			<item> pwd </item>
 			<item> quit </item>
 			<item> register </item>
+			<item> import </item>
 			<item> rm </item>
 			<item> set </item>
 		</list>

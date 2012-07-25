@@ -20,6 +20,13 @@
 
 #include "messageinterface.h"
 
+/*
+QHash<Message *, QList<SharedPointerAction>>
+
+=> closed (message)
+
+=> remove (message)*/
+
 namespace KTextEditor {
 
 class MessagePrivate
@@ -72,7 +79,7 @@ void Message::addAction(QAction* action, bool closeOnTrigger)
 
   // call close if wanted
   if (closeOnTrigger)
-    connect(action, SIGNAL(triggered()), SLOT(close()));
+    connect(action, SIGNAL(triggered()), SLOT(deleteLater()));
 }
 
 QList<QAction*> Message::actions() const

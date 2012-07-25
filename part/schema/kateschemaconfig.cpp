@@ -105,13 +105,13 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
   ci.name = i18n("Search Highlight");
   ci.key = "Color Search Highlight";
   ci.whatsThis = i18n("<p>Sets the background color of search results.</p>");
-  ci.defaultColor = schemeView.background(KColorScheme::NeutralBackground).color();
+  ci.defaultColor = Qt::yellow; // schemeView.background(KColorScheme::NeutralBackground).color();
   items.append(ci);
 
   ci.name = i18n("Replace Highlight");
   ci.key = "Color Replace Highlight";
   ci.whatsThis = i18n("<p>Sets the background color of replaced text.</p>");
-  ci.defaultColor = schemeView.background(KColorScheme::PositiveBackground).color();
+  ci.defaultColor = Qt::green; // schemeView.background(KColorScheme::PositiveBackground).color();
   items.append(ci);
 
 

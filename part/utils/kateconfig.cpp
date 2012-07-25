@@ -1968,9 +1968,9 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_modifiedLineColorSet = true;
   m_savedLineColor = config.readEntry("Color Saved Lines", tmp10);
   m_savedLineColorSet = true;
-  m_searchHighlightColor = config.readEntry("Color Search Highlight", tmp11);
+  m_searchHighlightColor = config.readEntry("Color Search Highlight", QColor(Qt::yellow)); // tmp11);
   m_searchHighlightColorSet = true;
-  m_replaceHighlightColor = config.readEntry("Color Replace Highlight", tmp10);
+  m_replaceHighlightColor = config.readEntry("Color Replace Highlight", QColor(Qt::green)); // tmp10);
   m_replaceHighlightColorSet = true;
 
 

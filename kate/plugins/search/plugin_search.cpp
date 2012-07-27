@@ -451,7 +451,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     if (!doc) return;
 
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(doc->activeView());
+    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(mainWindow()->activeView());
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     if (sender() == &m_replacer) {
         QColor replaceColor(Qt::green);

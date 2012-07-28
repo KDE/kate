@@ -260,6 +260,10 @@ void KateViInputModeManager::viEnterNormalMode()
   bool moveCursorLeft = (m_currentViMode == InsertMode || m_currentViMode == ReplaceMode)
     && m_viewInternal->getCursor().column() > 0;
 
+  if ( !isRunningMacro() && m_currentViMode == InsertMode ) {
+    addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  }
+
   changeViMode(NormalMode);
 
   if ( moveCursorLeft ) {

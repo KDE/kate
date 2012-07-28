@@ -2921,8 +2921,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
   ADDMOTION("%", motionToMatchingItem, IS_NOT_LINEWISE );
-  ADDMOTION("`[a-zA-Z><]", motionToMark, REGEX_PATTERN );
-  ADDMOTION("'[a-zA-Z><]", motionToMarkLine, REGEX_PATTERN );
+  ADDMOTION("`[a-zA-Z^><]", motionToMark, REGEX_PATTERN );
+  ADDMOTION("'[a-zA-Z^><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );

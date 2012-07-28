@@ -487,7 +487,8 @@ void KateViInputModeManager::PrintJumpList(){
 
 }
 
-void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos,
+                                      const bool moveoninsert, const bool showmark )
 {
   m_mark_set_inside_viinputmodemanager = true;
   uint marktype = m_view->doc()->mark(pos.line());
@@ -509,11 +510,13 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
     delete oldCursor;
   }
 
+  KTextEditor::MovingCursor::InsertBehavior behavior = moveoninsert ? KTextEditor::MovingCursor::MoveOnInsert
+                                                                    : KTextEditor::MovingCursor::StayOnInsert;
   // create and remember new one
-  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+  m_marks.insert( mark, doc->newMovingCursor( pos, behavior ) );
 
   // Showing what mark we set:
-  if (mark != '>' && mark != '<') {
+  if ( showmark && mark != '>' && mark != '<' ) {
     if( !marktype & KTextEditor::MarkInterface::markType01 ) {
       m_view->doc()->addMark( pos.line(),
           KTextEditor::MarkInterface::markType01 );

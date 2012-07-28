@@ -195,7 +195,8 @@ public:
   void writeSessionConfig( KConfigGroup& config );
 
   // marks
-  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
+  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos,
+                const bool moveoninsert = true, const bool showmark = true );
   KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
   void syncViMarksAndBookmarks();
   QString getMarksOnTheLine(int line);

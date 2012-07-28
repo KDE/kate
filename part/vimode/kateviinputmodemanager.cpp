@@ -122,7 +122,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
   kDebug( 13070 ) << "Repeating change";
   foreach(const QChar &c, keyPresses) {
-    QString decoded = KateViKeyParser::getInstance()->decodeKeySequence(QString(c));
+    QString decoded = KateViKeyParser::self()->decodeKeySequence(QString(c));
     key = -1;
     mods = Qt::NoModifier;
     text.clear();
@@ -165,7 +165,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
         }
 
         if (decoded.length() > 1 ) {
-          key = KateViKeyParser::getInstance()->vi2qt(decoded);
+          key = KateViKeyParser::self()->vi2qt(decoded);
         } else if (decoded.length() == 1) {
           key = int(decoded.at(0).toUpper().toAscii());
           text = decoded.at(0);
@@ -174,7 +174,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
           kWarning( 13070 ) << "decoded is empty. skipping key press.";
         }
       } else { // no modifiers
-        key = KateViKeyParser::getInstance()->vi2qt(decoded);
+        key = KateViKeyParser::self()->vi2qt(decoded);
       }
     } else {
       key = decoded.at(0).unicode();
@@ -218,10 +218,10 @@ void KateViInputModeManager::storeChangeCommand()
       keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
       keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
       keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
-      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::getInstance()->qt2vi( keyCode ) );
+      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::self()->qt2vi( keyCode ) );
       keyPress.append( '>' );
 
-      key = KateViKeyParser::getInstance()->encodeKeySequence( keyPress ).at( 0 );
+      key = KateViKeyParser::self()->encodeKeySequence( keyPress ).at( 0 );
     }
 
     m_lastChange.append(key);

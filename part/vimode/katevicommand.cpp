@@ -24,7 +24,7 @@ KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
     bool( KateViNormalMode::*commandMethod)(), unsigned int flags )
 {
   m_parent = parent;
-  m_pattern = KateViKeyParser::getInstance()->encodeKeySequence( pattern );
+  m_pattern = KateViKeyParser::self()->encodeKeySequence( pattern );
   m_flags = flags;
   m_ptr2commandMethod = commandMethod;
 }

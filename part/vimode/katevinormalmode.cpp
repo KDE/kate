@@ -101,7 +101,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   if ( keyCode == Qt::Key_AltGr ) {
-    KateViKeyParser::getInstance()->setAltGrStatus( true );
+    KateViKeyParser::self()->setAltGrStatus( true );
     return true;
   }
 
@@ -111,7 +111,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
+  QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
   if ( !m_mappingKeyPress && !m_ignoreMapping) {
@@ -149,7 +149,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     m_view->setCaretStyle( KateRenderer::Underline, true );
   }
 
-  m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );
+  m_keysVerbatim.append( KateViKeyParser::self()->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
   if ( m_keys.size() > 0 ) {

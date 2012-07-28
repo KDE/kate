@@ -35,7 +35,7 @@ KateViKeyParser::KateViKeyParser()
   initKeyTables();
 }
 
-KateViKeyParser* KateViKeyParser::getInstance()
+KateViKeyParser* KateViKeyParser::self()
 {
   if ( m_instance == NULL ) {
     m_instance = new KateViKeyParser();

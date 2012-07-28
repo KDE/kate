@@ -38,7 +38,8 @@ private:
   KateViKeyParser();
 
 public:
-  static KateViKeyParser* getInstance();
+  static KateViKeyParser* self();
+  ~KateViKeyParser() { m_instance = NULL; }
 
   const QString encodeKeySequence( const QString &keys ) const;
   const QString decodeKeySequence( const QString &keys ) const;

@@ -201,7 +201,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     else {
       QChar r = m_keys[ 1 ].toLower();
 
-      if ( ( r >= '0' && r <= '9' ) || ( r >= 'a' && r <= 'z' ) || r == '_' || r == '+' || r == '*' ) {
+      if ( ( r >= '0' && r <= '9' ) || ( r >= 'a' && r <= 'z' ) ||
+           r == '_' || r == '+' || r == '*' || r == '#' || r == '^' ) {
         m_register = r;
         kDebug( 13070 ) << "Register set to " << r;
         m_keys.clear();

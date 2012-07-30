@@ -53,6 +53,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_view->setCaretStyle( KateRenderer::Block, true );
 
   m_runningMacro = false;
+  m_textualRepeat = false;
 
   m_lastSearchBackwards = false;
 
@@ -199,10 +200,12 @@ void KateViInputModeManager::storeChangeCommand()
 {
   m_lastChange.clear();
 
-  for (int i = 0; i < m_keyEventsLog.size(); i++) {
-    int keyCode = m_keyEventsLog.at(i).key();
-    QString text = m_keyEventsLog.at(i).text();
-    int mods = m_keyEventsLog.at(i).modifiers();
+  QList<QKeyEvent> keyLog = isTextualRepeat() ? m_keyEventsBeforeInsert : m_keyEventsLog;
+
+  for (int i = 0; i < keyLog.size(); i++) {
+    int keyCode = keyLog.at(i).key();
+    QString text = keyLog.at(i).text();
+    int mods = keyLog.at(i).modifiers();
     QChar key;
 
    if ( text.length() > 0 ) {
@@ -226,6 +229,12 @@ void KateViInputModeManager::storeChangeCommand()
 
     m_lastChange.append(key);
   }
+
+  if ( isTextualRepeat() ) {
+    // paste text from the insert register "^
+    m_lastChange.append( KateViKeyParser::self()->encodeKeySequence( "<esc>\"^p" ) );
+  }
+
 }
 
 void KateViInputModeManager::repeatLastChange()
@@ -261,13 +270,23 @@ void KateViInputModeManager::viEnterNormalMode()
     && m_viewInternal->getCursor().column() > 0;
 
   if ( !isRunningMacro() && m_currentViMode == InsertMode ) {
+    // '^ is the insert mark and "^ is the insert register,
+    // which holds the last inserted text
+    Range r( m_view->cursorPosition(), getMarkPosition( '^' ) );
+
+    if ( r.isValid() ) {
+      QString insertedText = m_view->doc()->text( r );
+      KateGlobal::self()->viInputModeGlobal()->fillRegister( '^', insertedText );
+    }
+
     addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
   }
 
+  setTextualRepeat(false);
   changeViMode(NormalMode);
 
   if ( moveCursorLeft ) {
-      m_viewInternal->cursorLeft();
+    m_viewInternal->cursorLeft();
   }
   m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
@@ -276,6 +295,8 @@ void KateViInputModeManager::viEnterNormalMode()
 void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
+  addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  m_keyEventsBeforeInsert = m_keyEventsLog;
   m_view->setCaretStyle( KateRenderer::Line, true );
   m_viewInternal->repaint ();
 }

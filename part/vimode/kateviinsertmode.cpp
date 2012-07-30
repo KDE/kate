@@ -189,6 +189,10 @@ bool KateViInsertMode::commandMoveOneWordRight()
 
 bool KateViInsertMode::commandCompleteNext()
 {
+  // Completion may yield different results when performed
+  // other places in the document. Therefore, repeat the
+  // inserted text instead of the typed keystrokes.
+  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     m_view->completionWidget()->cursorDown();
   } else {
@@ -199,6 +203,7 @@ bool KateViInsertMode::commandCompleteNext()
 
 bool KateViInsertMode::commandCompletePrevious()
 {
+  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     m_view->completionWidget()->cursorUp();
   } else {
@@ -302,6 +307,10 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_BracketLeft:
     case Qt::Key_3:
       leaveInsertMode();
+      return true;
+      break;
+    case Qt::Key_Space:
+      commandCompleteNext();
       return true;
       break;
     case Qt::Key_C:

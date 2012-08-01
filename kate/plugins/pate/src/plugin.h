@@ -140,7 +140,7 @@ private:
     PyObject *m_pluginConfigPages;
 
 private slots:
-    void reloadPage();
+    void reloadPage(bool init);
     void infoTopicChanged(int topicIndex);
     void infoPluginActionsChanged(int actionIndex);
     void infoPluginConfigPagesChanged(int pageIndex);

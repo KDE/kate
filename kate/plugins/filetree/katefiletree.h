@@ -57,6 +57,7 @@ class KateFileTree: public QTreeView
     void slotDocumentClose();
     void slotCopyFilename();
     void slotCurrentChanged( const QModelIndex &current, const QModelIndex &previous );
+    void switchDocument( const QString &doc );
     void slotDocumentNext();
     void slotDocumentPrev();
     
@@ -81,6 +82,8 @@ class KateFileTree: public QTreeView
     void slotSortName();
     void slotSortPath();
     void slotSortOpeningOrder();
+    void slotFixOpenWithMenu();
+    void slotOpenWithMenuAction(QAction* a);
     
   private:
     QAction *setupOption(QActionGroup *group, const KIcon &, const QString &, const QString &, const char *slot, bool checked=false);

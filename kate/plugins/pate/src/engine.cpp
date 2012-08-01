@@ -133,7 +133,7 @@ static PyMethodDef pateMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
-Pate::Engine *Pate::Engine::m_self = 0;
+Pate::Engine *Pate::Engine::s_self = 0;
 
 Pate::Engine::Engine(QObject *parent) :
     QStandardItemModel(parent),
@@ -154,19 +154,19 @@ Pate::Engine::~Engine()
 
 Pate::Engine *Pate::Engine::self()
 {
-    if (!m_self) {
-        m_self = new Pate::Engine(qApp);
-        if (!m_self->init()) {
+    if (!s_self) {
+        s_self = new Pate::Engine(qApp);
+        if (!s_self->init()) {
             del();
         }
     }
-    return m_self;
+    return s_self;
 }
 
 void Pate::Engine::del()
 {
-    delete m_self;
-    m_self = 0;
+    delete s_self;
+    s_self = 0;
 }
 
 bool Pate::Engine::init()
@@ -181,6 +181,21 @@ bool Pate::Engine::init()
     labels << i18n("Name") << i18n("Comment");
     setHorizontalHeaderLabels(labels);
 
+    
+    //move the custom directories to the front, so they get picked up instead of stale distribution ones
+    //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
+    //py.appendStringToList(sysPath, katePackageDirectory);
+    QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
+    QString preparePathesString("import sys\n");
+    preparePathesString+="prependpathes=['";
+    preparePathesString+=PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
+    preparePathesString+="','";
+    preparePathesString+=katePackageDirectory;
+    preparePathesString+="']\n";
+    preparePathesString+="sys.path=prependpathes+sys.path\n";
+    QByteArray ba=preparePathesString.toLocal8Bit();
+    PyRun_SimpleString(ba.constData());
+    
     PyRun_SimpleString(
         "import sip\n"
         "sip.setapi('QDate', 2)\n"
@@ -201,15 +216,20 @@ bool Pate::Engine::init()
 
     // Load the kate module, but find it first, and verify it loads.
     PyObject *katePackage = 0;
-    QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
+   
+    
+    
     PyObject *sysPath = py.itemString("path", "sys");
     if (sysPath) {
-        py.appendStringToList(sysPath, katePackageDirectory);
+        //I've installed to a custom directory prefix, add this directory to the lib
+        kDebug() << PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
+        //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
+        
+        //py.appendStringToList(sysPath, katePackageDirectory);
         katePackage = py.moduleImport("kate");
     }
 
     if (!katePackage) {
-        py.traceback("Could not import the kate module. Dieing.");
         return false;
     }
     return true;
@@ -217,9 +237,14 @@ bool Pate::Engine::init()
 
 void Pate::Engine::readConfiguration(const QString &groupPrefix)
 {
+    m_pateConfigGroup = groupPrefix + "load";
+    reloadConfiguration();
+}
+
+void Pate::Engine::reloadConfiguration()
+{
     Python py = Python();
 
-    m_pateConfigGroup = groupPrefix + "load";
     KConfigGroup group(KGlobal::config(), m_pateConfigGroup);
 
     PyDict_Clear(m_configuration);
@@ -277,7 +302,8 @@ void Pate::Engine::readConfiguration(const QString &groupPrefix)
             }
         }
     }
-    reloadModules();
+    unloadModules();
+    loadModules();
 }
 
 void Pate::Engine::saveConfiguration()
@@ -307,12 +333,6 @@ void Pate::Engine::saveConfiguration()
     KConfig config(CONFIG_FILE, KConfig::SimpleConfig);
     py.updateConfigurationFromDictionary(&config, m_configuration);
     config.sync();
-}
-
-void Pate::Engine::reloadModules()
-{
-    unloadModules();
-    loadModules();
 }
 
 void Pate::Engine::loadModules()
@@ -384,7 +404,11 @@ void Pate::Engine::loadModules()
                     PyList_Append(plugins, plugin);
                     Py_DECREF(plugin);
                     pluginItem->setBroken(false);
-                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Loaded")));
+
+                    // Get a description of the plugin if we can.
+                    PyObject *doc = py.itemString("__doc__", PQ(pluginName));
+                    QString comment = PyString_Check(doc) ? PyString_AsString(doc) : i18n("Loaded");
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
                     pluginItem->setBroken(true);
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(py.lastTraceback())));
@@ -416,15 +440,17 @@ void Pate::Engine::unloadModules()
     Python py = Python();
     PyObject *modules = PyImport_GetModuleDict();
     PyObject *plugins = py.itemString("plugins");
-    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
-        if(pluginName && PyDict_Contains(modules, pluginName)) {
-            PyDict_DelItem(modules, pluginName);
-            kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+    if (plugins) {
+        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+            PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
+            if(pluginName && PyDict_Contains(modules, pluginName)) {
+                PyDict_DelItem(modules, pluginName);
+                kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+            }
         }
+        py.itemStringDel("plugins");
+        Py_DECREF(plugins);
     }
-    py.itemStringDel("plugins");
-    Py_DECREF(plugins);
     m_pluginsLoaded = false;
     py.functionCall("_pluginsUnloaded");
 }

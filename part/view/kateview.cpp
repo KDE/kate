@@ -1934,19 +1934,30 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 
 void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
-  int start, end, len;
-
-  Kate::TextLine textLine = m_doc->plainKateTextLine(cursor.line());
-
-  if (!textLine)
+  KateLineLayoutPtr curLine = m_viewInternal->cache()->line( cursor.line() );
+  if (!curLine)
     return;
+  
+  int start = cursor.column();
+  if (start > 0 && start < curLine->layout()->text().size()) {
+    QChar ch = curLine->layout()->text()[start - 1];
+    start -= !m_doc->highlight()->isInWord (ch) ? 1 : 0;
+  }
+  if (start > 0 && start < curLine->layout()->text().size()) {
+    QChar ch = curLine->layout()->text()[start - 1];
+    start -= ch.isSpace() ? 1 : 0;
+  }
+  
+  start = curLine->layout()->previousCursorPosition( start, QTextLayout::SkipWords);
+  
+  int end = curLine->layout()->nextCursorPosition( start, QTextLayout::SkipWords );
 
-  len = textLine->length();
-  start = end = cursor.column();
-  while (start > 0 && m_doc->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_doc->highlight()->isInWord(textLine->at(end), textLine->attribute(start - 1))) end++;
-  if (end <= start) return;
-
+  if (end > 0 && end < curLine->layout()->text().size()) {
+    QChar ch = curLine->layout()->text()[end - 1];
+    if ( !m_doc->highlight()->isInWord (ch) || ch.isSpace() )
+      --end;
+  }
+  
   setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
 }
 
@@ -2163,6 +2174,11 @@ void KateView::paste( )
   m_viewInternal->repaint();
 }
 
+void KateView::setCaretStyle( KateRenderer::caretStyles style, bool repaint )
+{
+  m_viewInternal->setCaretStyle( style, repaint );
+}
+
 bool KateView::setCursorPosition( KTextEditor::Cursor position )
 {
   return setCursorPositionInternal( position, 1, true );
@@ -2201,6 +2217,34 @@ bool KateView::setCursorPositionVisual( const KTextEditor::Cursor & position )
 QString KateView::currentTextLine( )
 {
   return m_doc->line( cursorPosition().line() );
+}
+
+QString KateView::searchPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->searchPattern();
+    } else {
+      return QString();
+    }
+}
+
+QString KateView::replacementPattern() const
+{
+    if (hasSearchBar()) {
+      return m_searchBar->replacementPattern();
+    } else {
+      return QString();
+    }
+}
+
+void KateView::setSearchPattern(const QString &searchPattern)
+{
+  searchBar()->setSearchPattern(searchPattern);
+}
+
+void KateView::setReplacePattern(const QString &replacePattern)
+{
+  searchBar()->setReplacePattern(replacePattern);
 }
 
 void KateView::indent( )

@@ -28,6 +28,12 @@
 #include <kate/documentmanager.h>
 #include <KLocale>
 
+#include <KMimeTypeTrader>
+#include <KMimeType>
+#include <KOpenWithDialog>
+#include <KRun>
+#include <KMessageBox>
+
 #include <QtGui/QMenu>
 #include <QtGui/QContextMenuEvent>
 #include <kicon.h>
@@ -190,6 +196,9 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   menu.addAction(m_filelistCloseDocument);
   if (isFile) {
     menu.addAction(m_filelistCopyFilename);
+    QMenu *openWithMenu=menu.addMenu(i18n("Open With"));
+    connect(openWithMenu, SIGNAL(aboutToShow()), this, SLOT(slotFixOpenWithMenu()));
+    connect(openWithMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
   }
   menu.addSeparator();
   QMenu *view_menu = menu.addMenu(i18n("View Mode"));
@@ -210,7 +219,67 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   event->accept();
 }
 
-Q_DECLARE_METATYPE(QList<KTextEditor::Document*>)
+
+void KateFileTree::slotFixOpenWithMenu()
+{
+  QMenu *menu = (QMenu*)sender();
+  menu->clear();
+  
+   KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+  if (!doc) return;
+
+  // get a list of appropriate services.
+  KMimeType::Ptr mime = KMimeType::mimeType(doc->mimeType());
+  //kDebug(13001) << "mime type: " << mime->name();
+
+  QAction *a = 0;
+  KService::List offers = KMimeTypeTrader::self()->query(mime->name(), "Application");
+  // for each one, insert a menu item...
+  for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
+  {
+    KService::Ptr service = *it;
+    if (service->name() == "Kate") continue;
+    a = menu->addAction(KIcon(service->icon()), service->name());
+    a->setData(service->entryPath());
+  }
+  // append "Other..." to call the KDE "open with" dialog.
+  a = menu->addAction(i18n("&Other..."));
+  a->setData(QString());
+}
+
+void KateFileTree::slotOpenWithMenuAction(QAction* a)
+{
+  KUrl::List list;
+  
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+  if (!doc) return;
+
+  
+  list.append( doc->url() );
+
+  const QString openWith = a->data().toString();
+  if (openWith.isEmpty())
+  {
+    // display "open with" dialog
+    KOpenWithDialog dlg(list);
+    if (dlg.exec())
+      KRun::run(*dlg.service(), list, this);
+    return;
+  }
+
+  KService::Ptr app = KService::serviceByDesktopPath(openWith);
+  if (app)
+  {
+    KRun::run(*app, list, this);
+  }
+  else
+  {
+    KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
+  }
+}
+
+
+#include "metatype_qlist_ktexteditor_document_pointer.h"
 
 void KateFileTree::slotDocumentClose()
 {
@@ -229,10 +298,30 @@ void KateFileTree::slotCopyFilename()
   }
 }
 
+void KateFileTree::switchDocument( const QString &doc )
+{
+  if (doc == "") {
+    slotDocumentPrev();
+  } else {
+    QModelIndexList matches =
+      model()->match(model()->index(0, 0), Qt::DisplayRole, QVariant(doc), 1, Qt::MatchContains);
+    if (!matches.isEmpty()) {
+      KTextEditor::Document *document =
+        model()->data(matches.takeFirst(),
+                      KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+      if (document) {
+        emit activateDocument(document);
+      }
+    }
+  }
+}
+
 void KateFileTree::slotDocumentPrev()
 {
   kDebug(debugArea()) << "BEGIN";
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
+
+
   
   QModelIndex current_index = currentIndex();
   QModelIndex prev;

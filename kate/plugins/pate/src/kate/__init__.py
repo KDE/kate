@@ -35,7 +35,7 @@ import kate.gui
 from PyQt4 import QtCore, QtGui
 from PyKDE4 import kdecore, kdeui
 # kate namespace
-from PyKDE4.kate import Kate
+from PyKate4.kate import Kate
 from PyKDE4.ktexteditor import KTextEditor
 
 # Plugin API

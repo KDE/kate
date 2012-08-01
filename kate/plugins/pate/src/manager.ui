@@ -6,61 +6,76 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>488</width>
-    <height>388</height>
+    <width>655</width>
+    <height>450</height>
    </rect>
   </property>
-  <widget class="KTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>400</width>
-     <height>332</height>
-    </rect>
-   </property>
-   <widget class="QWidget" name="manageTab">
-    <attribute name="title">
-     <string>Manage</string>
-    </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QTreeView" name="tree"/>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Reload Selected Plugins</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command. Note that other modules will not be reloaded.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="KPushButton" name="reload">
-          <property name="text">
-           <string>Reload</string>
-          </property>
-          <property name="icon">
-           <iconset theme="system-reboot">
-            <normaloff/>
-           </iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QLabel" name="errorLabel">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>ERROR: The Python engine could not be initialised!</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KTabWidget" name="tabWidget">
+     <widget class="QWidget" name="manageTab">
+      <attribute name="title">
+       <string>Manage</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QTreeView" name="tree"/>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Reload Selected Plugins</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command. Note that other modules will not be reloaded.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KPushButton" name="reload">
+            <property name="text">
+             <string>Reload</string>
+            </property>
+            <property name="icon">
+             <iconset theme="system-reboot">
+              <normaloff/>
+             </iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

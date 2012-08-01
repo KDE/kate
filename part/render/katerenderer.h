@@ -50,11 +50,26 @@ class KateRenderer
 {
 public:
     /**
-     * Style of Caret (Vertical line or block)
+     * Style of Caret
+     *
+     * The caret is displayed as a vertical bar (Line), a filled box
+     * (Block), a horizontal bar (Underline), or a half-height filled
+     * box (Half). The default is Line.
+     *
+     *     Line           Block          Underline           Half
+     *
+     * ##     _         #########              _                _
+     * ##  __| |        #####| |#           __| |            __| |
+     * ## / _' |        ##/ _' |#          / _' |           / _' |
+     * ##| (_| |        #| (#| |#         | (_| |         #| (#| |#
+     * ## \__,_|        ##\__,_|#          \__,_|         ##\__,_|#
+     * ##               #########        #########        #########
      */
     enum caretStyles {
       Line,
-      Block
+      Block,
+      Underline,
+      Half
     };
 
     /**
@@ -245,13 +260,13 @@ public:
     KTextEditor::Cursor xToCursor(const KateTextLayout& range, int x, bool returnPastLine = false) const;
 
     // Font height
-    uint fontHeight();
+    uint fontHeight() const;
 
     // Line height
-    int lineHeight();
+    int lineHeight() const;
 
     // Document height
-    uint documentHeight();
+    uint documentHeight() const;
 
     // Selection boundaries
     bool getSelectionBounds(int line, int lineLength, int &start, int &end) const;
@@ -322,6 +337,7 @@ public:
     // cache of config values
     int m_tabWidth;
     int m_indentWidth;
+    int m_fontHeight;
 
     // some internal flags
     KateRenderer::caretStyles m_caretStyle;

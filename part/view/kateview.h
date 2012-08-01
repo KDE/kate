@@ -42,6 +42,7 @@
 
 #include "kateviinputmodemanager.h"
 #include "katetextrange.h"
+#include "katerenderer.h"
 
 namespace KTextEditor
 {
@@ -141,6 +142,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // KTextEditor::ViewCursorInterface
   //
   public:
+    void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
+
     bool setCursorPosition (KTextEditor::Cursor position);
 
     KTextEditor::Cursor cursorPosition () const;
@@ -374,6 +377,11 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool isOverwriteMode() const;
     enum KTextEditor::View::EditMode viewEditMode() const {return isOverwriteMode() ? KTextEditor::View::EditOverwrite : KTextEditor::View::EditInsert;}
     QString currentTextLine();
+    QString searchPattern() const;
+    QString replacementPattern() const;
+
+    void setSearchPattern(const QString &searchPattern);
+    void setReplacePattern(const QString &replacePattern);
 
   public Q_SLOTS:
     void indent();

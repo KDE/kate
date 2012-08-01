@@ -50,7 +50,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_viInputModeManager = viInputModeManager;
   m_stickyColumn = -1;
 
-  // FIXME: make configurable:
+  // FIXME: make configurable
   m_extraWordCharacters = "";
   m_matchingItems["/*"] = "*/";
   m_matchingItems["*/"] = "-/*";
@@ -106,6 +106,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   if ( keyCode == Qt::Key_Escape ) {
+    m_view->setCaretStyle( KateRenderer::Block, true );
     reset();
     return true;
   }
@@ -141,6 +142,11 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
       // don't translate next character, we need the actual character so that
       // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
       m_ignoreMapping = true;
+  }
+
+  // Use replace caret when reading a character for "r"
+  if ( key == 'r' ) {
+    m_view->setCaretStyle( KateRenderer::Underline, true );
   }
 
   m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );
@@ -249,6 +255,14 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // this indicates where in the command string one should start looking for a motion command
   int checkFrom = ( m_awaitingMotionOrTextObject.isEmpty() ? 0 : m_awaitingMotionOrTextObject.top() );
 
+  // Use operator-pending caret when reading a motion for an operator
+  // in normal mode. We need to check that we are indeed in normal mode
+  // since visual mode inherits from it.
+  if( m_viInputModeManager->getCurrentViMode() == NormalMode &&
+      !m_awaitingMotionOrTextObject.isEmpty() ) {
+    m_view->setCaretStyle( KateRenderer::Half, true );
+  }
+
   //kDebug( 13070 ) << "checkFrom: " << checkFrom;
 
   // look for matching motion commands from position 'checkFrom'
@@ -343,6 +357,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
             }
 
+            if( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+              m_view->setCaretStyle( KateRenderer::Block, true );
+            }
             m_commandWithMotion = false;
             reset();
             return true;
@@ -362,6 +379,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
       //kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
+
+      if( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+        m_view->setCaretStyle( KateRenderer::Block, true );
+      }
 
       KateViCommand *cmd = m_commands.at( m_matchingCommands.at( 0 ) );
       executeCommand( cmd );
@@ -704,6 +725,9 @@ bool KateViNormalMode::commandDeleteToEOL()
   // make sure cursor position is valid after deletion
   if ( c.line() < 0 ) {
     c.setLine( 0 );
+  }
+  if ( c.line() > doc()->lastLine() ) {
+    c.setLine( doc()->lastLine() );
   }
   if ( c.column() > doc()->lineLength( c.line() )-1 ) {
     c.setColumn( doc()->lineLength( c.line() )-1 );
@@ -1286,9 +1310,17 @@ bool KateViNormalMode::commandSwitchToCmdLine()
     return true;
 }
 
-bool KateViNormalMode::commandSearch()
+bool KateViNormalMode::commandSearchBackward()
 {
     m_view->find();
+    m_viInputModeManager->setLastSearchBackwards( true );
+    return true;
+}
+
+bool KateViNormalMode::commandSearchForward()
+{
+    m_view->find();
+    m_viInputModeManager->setLastSearchBackwards( false );
     return true;
 }
 
@@ -1608,6 +1640,38 @@ bool KateViNormalMode::commandFormatLine()
 bool KateViNormalMode::commandFormatLines()
 {
   reformatLines( m_commandRange.startLine, m_commandRange.endLine );
+  return true;
+}
+
+bool KateViNormalMode::commandCollapseToplevelNodes()
+{
+  doc()->foldingTree()->collapseToplevelNodes();
+  return true;
+}
+
+bool KateViNormalMode::commandCollapseLocal()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->collapseOne( c.line(), c.column() );
+  return true;
+}
+
+bool KateViNormalMode::commandExpandAll() {
+  doc()->foldingTree()->expandAll();
+  return true;
+}
+
+bool KateViNormalMode::commandExpandLocal()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->expandOne( c.line() + 1, c.column() );
+  return true;
+}
+
+bool KateViNormalMode::commandToggleRegionVisibility()
+{
+  Cursor c( m_view->cursorPosition() );
+  doc()->foldingTree()->toggleRegionVisibility( c.line() );
   return true;
 }
 
@@ -2198,13 +2262,14 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   KateViRange r;
   int lines = doc()->lines();
 
-  // If counted then it is not a motion to matching item anymore
-  // it's a motions to the N'th % of the document
-  if(isCounted()) {
-    if (getCount() > 100)
-        return r;
-
-    r.endLine = qRound(lines * getCount() / 100.) -1 ;
+  // If counted, then it's not a motion to matching item anymore,
+  // but a motion to the N'th percentage of the document
+  if( isCounted() ) {
+    int count = getCount();
+    if ( count > 100 ) {
+      return r;
+    }
+    r.endLine = qRound(lines * count / 100.0) - 1;
     r.endColumn = 0;
     return r;
   }
@@ -2216,42 +2281,37 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
-  int n2;
 
   m_stickyColumn = -1;
 
-  if ( n1 == -1 ) {
+  if ( n1 < 0 ) {
     r.valid = false;
     return r;
-  } else {
-    n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
   }
 
-  // text item we want to find a matching item for
-  QString item = l.mid( n1, n2-n1 );
+  QRegExp brackets( "[(){}\\[\\]]" );
 
-  // use kate's built-in matching bracket finder for brackets
-  if ( QString("{}()[]").indexOf( item ) != -1 ) {
-
+  // use Kate's built-in matching bracket finder for brackets
+  if ( brackets.indexIn ( l, n1 ) == n1 ) {
     // move the cursor to the first bracket
-    c.setColumn( n1+1 );
+    c.setColumn( n1 + 1 );
     updateCursor( c );
 
     // find the matching one
     c = m_viewInternal->findMatchingBracket();
 
     if ( c > m_view->cursorPosition() ) {
-      c.setColumn( c.column()-1 );
+      c.setColumn( c.column() - 1 );
     }
   } else {
-    int toFind = 1;
-    //int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
-
-    //QString item = l.mid( n1, n2-n1 );
+    // text item we want to find a matching item for
+    int n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
+    QString item = l.mid( n1, n2 - n1 );
     QString matchingItem = m_matchingItems[ item ];
 
+    int toFind = 1;
     int line = c.line();
-    int column = n2-item.length();
+    int column = n2 - item.length();
     bool reverse = false;
 
     if ( matchingItem.left( 1 ) == "-" ) {
@@ -2259,7 +2319,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
       reverse = true;
     }
 
-    // make sure we don't hit the text item we start the search from
+    // make sure we don't hit the text item we started the search from
     if ( column == 0 && reverse ) {
       column -= item.length();
     }
@@ -2268,19 +2328,19 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     int matchItemIdx;
 
     while ( toFind > 0 ) {
-      if ( !reverse ) {
+      if ( reverse ) {
+        itemIdx = l.lastIndexOf( item, column - 1 );
+        matchItemIdx = l.lastIndexOf( matchingItem, column - 1 );
+
+        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx > matchItemIdx ) ) {
+          ++toFind;
+        }
+      } else {
         itemIdx = l.indexOf( item, column );
         matchItemIdx = l.indexOf( matchingItem, column );
 
         if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx < matchItemIdx ) ) {
-            toFind++;
-        }
-      } else {
-        itemIdx = l.lastIndexOf( item, column-1 );
-        matchItemIdx = l.lastIndexOf( matchingItem, column-1 );
-
-        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx > matchItemIdx ) ) {
-            toFind++;
+          ++toFind;
         }
       }
 
@@ -2294,12 +2354,12 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
       if ( matchItemIdx != -1 ) { // match on current line
           if ( matchItemIdx == column ) {
-              toFind--;
-              c.setLine( line );
-              c.setColumn( column );
+            --toFind;
+            c.setLine( line );
+            c.setColumn( column );
           }
       } else { // no match, advance one line if possible
-        ( reverse) ? line-- : line++;
+        ( reverse ) ? --line : ++line;
         column = 0;
 
         if ( ( !reverse && line >= lines ) || ( reverse && line < 0 ) ) {
@@ -2762,7 +2822,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
-  ADDCMD("/", commandSearch, 0 );
+  ADDCMD("/", commandSearchForward, 0 );
+  ADDCMD("?", commandSearchBackward, 0 );
   ADDCMD("u", commandUndo, 0);
   ADDCMD("<c-r>", commandRedo, 0 );
   ADDCMD("U", commandRedo, 0 );
@@ -2814,6 +2875,12 @@ void KateViNormalMode::initializeCommands()
 
   ADDCMD("gqq", commandFormatLine, IS_CHANGE);
   ADDCMD("gq", commandFormatLines, IS_CHANGE | NEEDS_MOTION);
+
+  ADDCMD("zo", commandExpandLocal, 0 );
+  ADDCMD("zc", commandCollapseLocal, 0 );
+  ADDCMD("za", commandToggleRegionVisibility, 0 );
+  ADDCMD("zr", commandExpandAll, 0 );
+  ADDCMD("zm", commandCollapseToplevelNodes, 0 );
 
 
   // regular motions

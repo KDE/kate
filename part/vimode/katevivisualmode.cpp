@@ -318,7 +318,8 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("P", commandPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
-  ADDCMD("/", commandSearch, 0 );
+  ADDCMD("/", commandSearchForward, 0 );
+  ADDCMD("?", commandSearchBackward, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN | SHOULD_NOT_RESET );
   ADDCMD(">", commandIndentLines, 0 );
   ADDCMD("<", commandUnindentLines, 0 );

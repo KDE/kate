@@ -59,6 +59,9 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_config(new KateRendererConfig(this))
 {
   updateAttributes ();
+
+  // initialize with a sane font height
+  m_fontHeight = m_config->fontMetrics().height();
 }
 
 KateRenderer::~KateRenderer()
@@ -211,7 +214,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
   }
 
   // Draw line background
-  paint.fillRect(0, 0, xEnd - xStart, config()->fontMetrics().height() * layout->viewLineCount(), backgroundColor);
+  paint.fillRect(0, 0, xEnd - xStart, lineHeight() * layout->viewLineCount(), backgroundColor);
 
   // paint the current line background if we're on the current line
   if (currentViewLine != -1) {
@@ -226,7 +229,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
       );
     }
 
-    paint.fillRect(0, config()->fontMetrics().height() * currentViewLine, xEnd - xStart, config()->fontMetrics().height(), currentLineColor);
+    paint.fillRect(0, lineHeight() * currentViewLine, xEnd - xStart, lineHeight(), currentLineColor);
   }
 }
 
@@ -274,7 +277,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
   paint.setPen( pen );
   paint.setRenderHint(QPainter::Antialiasing, false);
 
-  const int height = config()->fontMetrics().height();
+  const int height = fontHeight();
   const int width = spaceWidth();
 
   QPoint points[6];
@@ -293,7 +296,7 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   QPen penBackup( paint.pen() );
   paint.setPen( config()->indentationLineColor() );
 
-  const int height = config()->fontMetrics().height();
+  const int height = fontHeight();
   const int top = 0;
   const int bottom = height-1;
 
@@ -310,7 +313,7 @@ static bool rangeLessThanForRenderer (const Kate::TextRange *a, const Kate::Text
     return true;
   else if (a->zDepth() < b->zDepth())
     return false;
-  
+
   // end of a > end of b?
   if (a->end().toCursor() > b->end().toCursor())
     return true;
@@ -662,66 +665,82 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
     // Draw caret
     if (drawCaret() && cursor && range->includesCursor(*cursor)) {
-      // Make the caret the desired width
-      int caretWidth = 2;
+      int caretWidth, lineWidth = 2;
+      QColor color;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-      if (caretStyle() == Block || (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode)) {
-        if (line.isValid() && cursor->column() < range->length()) {
-          caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
-          if (caretWidth < 0)
-            caretWidth = -caretWidth;
 
-        } else {
-          caretWidth = spaceWidth();
+      // Determine the caret's style
+      caretStyles style = caretStyle();
+
+      // Make the caret the desired width
+      if (style == Line) {
+        caretWidth = lineWidth;
+      } else if (line.isValid() && cursor->column() < range->length()) {
+        caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
+        if (caretWidth < 0) {
+          caretWidth = -caretWidth;
         }
+      } else {
+        caretWidth = spaceWidth();
       }
 
-      QColor c;
-      // Could actually use the real highlighting system for this... would be slower but more accurate for corner cases
+      // Determine the color
       if (m_caretOverrideColor.isValid()) {
-        c = m_caretOverrideColor;
-
+        // Could actually use the real highlighting system for this...
+        // would be slower, but more accurate for corner cases
+        color = m_caretOverrideColor;
       } else {
         // search for the FormatRange that includes the cursor
         foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats()) {
-          if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
+          if ((r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column())) {
             // check for Qt::NoBrush, as the returned color is black() and no invalid QColor
             QBrush foregroundBrush = r.format.foreground();
             if (foregroundBrush != Qt::NoBrush) {
-              c = r.format.foreground().color();
+              color = r.format.foreground().color();
             }
             break;
           }
         }
-
         // still no color found, fall back to default style
-        if (!c.isValid())
-            c = attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+        if (!color.isValid())
+          color = attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
       }
 
-      // make it possible to see the selected character in the vi input mode's normal/visual mode
-      if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
-        c.setAlpha(128);
-      }
-
-      if (cursor->column() <= range->length()) {
-        paint.save();
-        paint.setPen(QPen(c, caretWidth));
-
-        // Clip the caret - Qt's caret has a habit of intruding onto other lines
-        paint.setClipRect(0, line.lineNumber() * lineHeight(), xEnd - xStart, lineHeight());
-
+      // Clip the caret - Qt's caret has a habit of intruding onto other lines.
+      paint.save();
+      paint.setClipRect(0, line.lineNumber() * lineHeight(), xEnd - xStart, lineHeight());
+      switch(style) {
+      case Line :
+        paint.setPen(QPen(color, caretWidth));
         range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
-
-        paint.restore();
-
-      } else {
-        // Off the end of the line... must be block mode. Draw the caret ourselves.
-        const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
-        int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
-        if ( (x >= xStart) && (x <= xEnd))
-          paint.fillRect(x-xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), c);
+        break;
+      case Block :
+        // use a gray caret so it's possible to see the character
+        color.setAlpha(128);
+        if (cursor->column() > range->length()) {
+          // Off the end of the line... must be block mode. Draw the caret ourselves.
+          const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
+          int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
+          if ((x >= xStart) && (x <= xEnd)) {
+            paint.fillRect(x - xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), color);
+          }
+        } else {
+          paint.setPen(QPen(color, caretWidth));
+          range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        }
+        break;
+      case Underline :
+        paint.setClipRect(0, lineHeight() - lineWidth, xEnd - xStart, lineWidth);
+        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        break;
+      case Half :
+        color.setAlpha(128);
+        paint.setPen(QPen(color, caretWidth));
+        paint.setClipRect(0, lineHeight() / 2, xEnd - xStart, lineHeight() / 2);
+        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+        break;
       }
+      paint.restore();
     }
   }
 
@@ -760,19 +779,19 @@ const QFontMetrics& KateRenderer::currentFontMetrics() const
   return config()->fontMetrics();
 }
 
-uint KateRenderer::fontHeight()
+uint KateRenderer::fontHeight() const
 {
-  return config()->fontMetrics().height();
+  return m_fontHeight;
 }
 
-uint KateRenderer::documentHeight()
+uint KateRenderer::documentHeight() const
 {
   return m_doc->lines() * lineHeight();
 }
 
-int KateRenderer::lineHeight()
+int KateRenderer::lineHeight() const
 {
-  return fontHeight(); // for now
+  return fontHeight();
 }
 
 bool KateRenderer::getSelectionBounds(int line, int lineLength, int &start, int &end) const
@@ -829,6 +848,15 @@ void KateRenderer::updateConfig ()
 
   if (m_view)
     m_view->updateRendererConfig();
+
+  // Sometimes the height of italic fonts is larger than for the non-italic
+  // font. Since all our lines are of same/fixed height, use the maximum of
+  // both heights (bug #302748)
+  QFont italicFont = config()->font();
+  italicFont.setItalic(true);
+  const int italicFontHeight = QFontMetrics(italicFont).height();
+  const int fontHeight = config()->fontMetrics().height();
+  m_fontHeight = qMax(fontHeight, italicFontHeight);
 }
 
 uint KateRenderer::spaceWidth() const
@@ -920,7 +948,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
       lineLayout->setShiftX(shiftX);
     }
 
-    height += config()->fontMetrics().height();
+    height += lineHeight();
   }
 
   l->endLayout();

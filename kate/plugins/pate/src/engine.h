@@ -52,12 +52,14 @@ public:
 
 
 public slots:
-    /// Load the configuration.
+    /**
+     * Load the configuration.
+     */
     void readConfiguration(const QString &groupPrefix);
     /// Write out the configuration.
     void saveConfiguration();
     /// (re)Load the configured modules.
-    void reloadModules();
+    void reloadConfiguration();
 
 protected:
 
@@ -75,7 +77,7 @@ protected:
     void unloadModules();
 
 private:
-    static Engine *m_self;
+    static Engine *s_self;
 
     /**
      * The root configuration used by Pate itself.

@@ -50,6 +50,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_view = view;
   m_viewInternal = viewInternal;
 
+  m_view->setCaretStyle( KateRenderer::Block, true );
+
   m_runningMacro = false;
 
   m_lastSearchBackwards = false;
@@ -233,6 +235,16 @@ void KateViInputModeManager::repeatLastChange()
   m_runningMacro = false;
 }
 
+const QString KateViInputModeManager::getLastSearchPattern() const
+{
+  return m_view->searchPattern();
+}
+
+void KateViInputModeManager::setLastSearchPattern( const QString &p )
+{
+  m_view->setSearchPattern(p);
+}
+
 void KateViInputModeManager::changeViMode(ViMode newMode)
 {
   m_currentViMode = newMode;
@@ -253,12 +265,14 @@ void KateViInputModeManager::viEnterNormalMode()
   if ( moveCursorLeft ) {
       m_viewInternal->cursorLeft();
   }
+  m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
 }
 
 void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
+  m_view->setCaretStyle( KateRenderer::Line, true );
   m_viewInternal->repaint ();
 }
 
@@ -266,6 +280,9 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
 {
   changeViMode( mode );
 
+  // If the selection is inclusive, the caret should be a block.
+  // If the selection is exclusive, the caret should be a line.
+  m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
   getViVisualMode()->setVisualModeType( mode );
   getViVisualMode()->init();
@@ -274,6 +291,7 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
 void KateViInputModeManager::viEnterReplaceMode()
 {
   changeViMode(ReplaceMode);
+  m_view->setCaretStyle( KateRenderer::Underline, true );
   m_viewInternal->repaint ();
 }
 
@@ -329,9 +347,10 @@ void KateViInputModeManager::readSessionConfig( const KConfigGroup& config )
         QList<int> flags = config.readEntry( "ViRegisterFlags", QList<int>() );
 
         // sanity check
-        if ( names.size() == contents.size() ) {
+        if ( names.size() == contents.size() && contents.size() == flags.size() ) {
             for ( int i = 0; i < names.size(); i++ ) {
-                KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
+		if (!names.at(i).isEmpty())
+		  KateGlobal::self()->viInputModeGlobal()->fillRegister( names.at( i ).at( 0 ), contents.at( i ), (OperationMode)( flags.at( i ) ) );
             }
         }
     }

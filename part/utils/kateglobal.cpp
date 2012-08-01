@@ -164,7 +164,7 @@ KateGlobal::KateGlobal ()
   m_rendererConfig = new KateRendererConfig ();
 
   // create script manager (search scripts)
-  m_scriptManager = new KateScriptManager ();
+  m_scriptManager = KateScriptManager::self();
 
   //
   // plugin manager
@@ -174,12 +174,12 @@ KateGlobal::KateGlobal ()
   //
   // init the cmds
   //
-  m_cmds.push_back (new KateCommands::CoreCommands());
-  m_cmds.push_back (new KateCommands::ViCommands());
-  m_cmds.push_back (new KateCommands::AppCommands());
-  m_cmds.push_back (new KateCommands::SedReplace ());
-  m_cmds.push_back (new KateCommands::Character ());
-  m_cmds.push_back (new KateCommands::Date ());
+  m_cmds.push_back( KateCommands::CoreCommands::self() );
+  m_cmds.push_back( KateCommands::ViCommands::self() );
+  m_cmds.push_back( KateCommands::AppCommands::self() );
+  m_cmds.push_back( KateCommands::SedReplace::self() );
+  m_cmds.push_back( KateCommands::Character::self() );
+  m_cmds.push_back( KateCommands::Date::self() );
 
   for ( QList<KTextEditor::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
     m_cmdManager->registerCommand (*it);

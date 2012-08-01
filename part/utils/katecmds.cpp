@@ -39,9 +39,12 @@
 #include <kurl.h>
 #include <kshellcompletion.h>
 
+#include <QDir>
 #include <QtCore/QRegExp>
 
 //BEGIN CoreCommands
+KateCommands::CoreCommands* KateCommands::CoreCommands::m_instance = 0;
+
 // this returns wheather the string s could be converted to
 // a bool value, one of on|off|1|0|true|false. the argument val is
 // set to the extracted value in case of success
@@ -364,6 +367,8 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
 //END CoreCommands
 
 // BEGIN ViCommands
+KateCommands::ViCommands* KateCommands::ViCommands::m_instance = 0;
+
 const QStringList &KateCommands::ViCommands::cmds()
 {
   static QStringList l;
@@ -530,6 +535,8 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 //END ViCommands
 
 // BEGIN AppCommands
+KateCommands::AppCommands* KateCommands::AppCommands::m_instance = 0;
+
 KateCommands::AppCommands::AppCommands()
     : KTextEditor::Command()
 {
@@ -564,16 +571,22 @@ bool KateCommands::AppCommands::exec(KTextEditor::View *view,
 {
     QStringList args(cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
     QString command( args.takeFirst() );
+    QString file = args.join(QString(' '));
 
     if (re_write.exactMatch(command)) { // w, wa
-/*        if (!re_write.cap(1).isEmpty()) { // [a]ll
+        /*        if (!re_write.cap(1).isEmpty()) { // [a]ll
             view->document()->saveAll();
             msg = i18n("All documents written to disk");
         } else { // w*/
-            // Save file
+        // Save file
+        if (file == "") {
             view->document()->documentSave();
-            msg = i18n("Document written to disk");
-        //}
+        } else {
+            KUrl base = view->document()->url();
+            KUrl url( base.isValid() ? base : KUrl( QDir::homePath() ), file );
+            view->document()->saveAs( url );
+        }
+        msg = i18n("Document written to disk");
     }
 
     return true;
@@ -599,40 +612,42 @@ bool KateCommands::AppCommands::help(KTextEditor::View *view, const QString &cmd
 //END AppCommands
 
 //BEGIN SedReplace
+KateCommands::SedReplace* KateCommands::SedReplace::m_instance = 0;
+
 static void replace(QString &s, const QString &needle, const QString &with)
 {
-  int pos=0;
+  int pos = 0;
   while (1)
   {
-    pos=s.indexOf(needle, pos);
-    if (pos==-1) break;
+    pos = s.indexOf(needle, pos);
+    if (pos == -1) break;
     s.replace(pos, needle.length(), with);
-    pos+=with.length();
+    pos += with.length();
   }
 
 }
 
 static int backslashString(const QString &haystack, const QString &needle, int index)
 {
-  int len=haystack.length();
-  int searchlen=needle.length();
-  bool evenCount=true;
-  while (index<len)
+  int len = haystack.length();
+  int searchlen = needle.length();
+  bool evenCount = true;
+  while (index < len)
   {
-    if (haystack[index]=='\\')
+    if (haystack[index] == '\\')
     {
-      evenCount=!evenCount;
+      evenCount = !evenCount;
     }
     else
-    {  // isn't a slash
+    { // isn't a slash
       if (!evenCount)
       {
-        if (haystack.mid(index, searchlen)==needle)
-          return index-1;
+        if (haystack.mid(index, searchlen) == needle)
+          return index - 1;
       }
-      evenCount=true;
+      evenCount = true;
     }
-    index++;
+    ++index;
 
   }
 
@@ -643,19 +658,19 @@ static int backslashString(const QString &haystack, const QString &needle, int i
 static void exchangeAbbrevs(QString &str)
 {
   // the format is (findreplace)*[nullzero]
-  const char *magic="a\x07t\tn\n";
+  const char *magic = "a\x07t\tn\n";
 
   while (*magic)
   {
-    int index=0;
-    char replace=magic[1];
-    while ((index=backslashString(str, QString (QChar::fromAscii(*magic)), index))!=-1)
+    int index = 0;
+    char replace = magic[1];
+    while ((index = backslashString(str, QString (QChar::fromAscii(*magic)), index)) != -1)
     {
       str.replace(index, 2, QChar(replace));
-      index++;
+      ++index;
     }
-    magic++;
-    magic++;
+    ++magic;
+    ++magic;
   }
 }
 
@@ -665,7 +680,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
                                         int startcol, int endcol )
 {
   Kate::TextLine ln = doc->kateTextLine( line );
-  if ( ! ln || ! ln->length() ) return 0;
+  if ( !ln || !ln->length() ) return 0;
 
   // HANDLING "\n"s in PATTERN
   // * Create a list of patterns, splitting PATTERN on (unescaped) "\n"
@@ -674,20 +689,20 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   //   text.
   // * If all patterns in the list match sequentiel lines, there is a match, so
   // * remove line/start to line + patterns.count()-1/patterns.last.length
-  // * handle capatures by putting them in one list.
+  // * handle captures by putting them in one list.
   // * the existing insertion is fine, including the line calculation.
 
   QStringList patterns(find.split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), QString::KeepEmptyParts));
   if ( patterns.count() > 1 )
   {
-    for ( int i = 0; i < patterns.count(); i++ )
+    for ( int i = 0; i < patterns.count(); ++i )
     {
       if ( i < patterns.count() - 1 )
         patterns[i].append("$");
       if ( i )
         patterns[i].prepend("^");
 
-       kDebug(13025)<<"patterns["<<i<<"] ="<<patterns[i];
+       kDebug(13025) << "patterns[" << i << "] =" << patterns[i];
     }
   }
 
@@ -699,38 +714,38 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   {
     const int len = matcher.matchedLength();
 
-    if ( endcol >= 0  && startcol + len > endcol )
+    if ( endcol >= 0 && startcol + len > endcol )
       break;
 
-    matches++;
+    ++matches;
 
 
-    QString rep=repOld;
+    QString rep = repOld;
 
     // now set the backreferences in the replacement
-    const QStringList backrefs=matcher.capturedTexts();
-    int refnum=1;
+    const QStringList backrefs = matcher.capturedTexts();
+    int refnum = 1;
 
     QStringList::ConstIterator i = backrefs.begin();
     ++i;
 
-    for (; i!=backrefs.end(); ++i)
+    for (; i != backrefs.end(); ++i)
     {
       // I need to match "\\" or "", but not "\"
-      QString number=QString::number(refnum);
+      QString number = QString::number(refnum);
 
-      int index=0;
-      while (index!=-1)
+      int index = 0;
+      while (index != -1)
       {
-        index=backslashString(rep, number, index);
-        if (index>=0)
+        index = backslashString(rep, number, index);
+        if (index >= 0)
         {
           rep.replace(index, 2, *i);
-          index+=(*i).length();
+          index += (*i).length();
         }
       }
 
-      refnum++;
+      ++refnum;
     }
 
     replace(rep, "\\\\", "\\");
@@ -747,9 +762,9 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     {
       line += lns;
 
-      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || endcol  >= startcol + len ) )
+      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || endcol >= startcol + len ) )
       {
-      //  if ( endcol  >= startcol + len )
+      // if ( endcol >= startcol + len )
           endcol -= (startcol + len);
           uint sc = rep.length() - rep.lastIndexOf('\n') - 1;
         matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, sc, endcol );
@@ -757,11 +772,11 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     }
 
     if (!repeat) break;
-    startcol+=rep.length();
+    startcol += rep.length();
 
     // sanity check -- avoid infinite loops eg with %s,.*,,g ;)
     int ll = ln->length();
-    if ( ! ll || startcol > (ll-1) )
+    if ( !ll || startcol > (ll - 1) )
       break;
   }
 
@@ -776,30 +791,30 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
 bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QString &cmd,
     QString &msg, const KTextEditor::Range &r)
 {
-  kDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )";
+  kDebug(13025) << "SedReplace::execCmd( " << cmd << " )";
   if (r.isValid()) {
-    kDebug(13025)<<"Range: " << r;
+    kDebug(13025) << "Range: " << r;
   }
 
   QRegExp delim("^s\\s*([^\\w\\s])");
   if ( delim.indexIn( cmd ) < 0 ) return false;
 
-  bool noCase=cmd[cmd.length()-1]=='i' || cmd[cmd.length()-2]=='i';
-  bool repeat=cmd[cmd.length()-1]=='g' || cmd[cmd.length()-2]=='g';
+  bool noCase = cmd[cmd.length() - 1] == 'i' || cmd[cmd.length() - 2] == 'i';
+  bool repeat = cmd[cmd.length() - 1] == 'g' || cmd[cmd.length() - 2] == 'g';
 
   QString d = delim.cap(1);
-  kDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'";
+  kDebug(13025) << "SedReplace: delimiter is '" << d << "'";
 
-  QRegExp splitter( QString("^s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
-      + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[ig]{0,2})?$" );
-  if (splitter.indexIn(cmd)<0) return false;
+  QRegExp splitter( QString("^s\\s*") + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
+      + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[ig]{0,2})?$" );
+  if (splitter.indexIn(cmd) < 0) return false;
 
-  QString find=splitter.cap(1);
-  kDebug(13025)<< "SedReplace: find=" << find;
+  QString find = splitter.cap(1);
+  kDebug(13025) << "SedReplace: find =" << find;
 
-  QString replace=splitter.cap(2);
+  QString replace = splitter.cap(2);
   exchangeAbbrevs(replace);
-  kDebug(13025)<< "SedReplace: replace=" << replace;
+  kDebug(13025) << "SedReplace: replace =" << replace;
 
   if ( find.contains("\\n") )
   {
@@ -809,8 +824,9 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   }
 
   KateDocument *doc = static_cast<KateView*>(view)->doc();
-  if ( ! doc ) return false;
+  if ( !doc ) return false;
 
+  static_cast<KateView*>(view)->setSearchPattern(find);
   doc->editStart();
 
   int replacementsDone = 0;
@@ -818,22 +834,22 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   int linesAdded = 0;
 
   if (r.isValid()) { // given range
-    for (int line = r.start().line(); line <= r.end().line()+linesAdded; line++) {
+    for (int line = r.start().line(); line <= r.end().line() + linesAdded; ++line) {
       int temp = replacementsDone;
       int r = sedMagic( doc, line, find, replace, d, !noCase, repeat );
       replacementsDone += r;
 
       // if we replaced the text with n newlines, we have n new lines to look at
-      if (replace.contains('\n') ) {
+      if (replace.contains('\n')) {
         linesAdded += r * replace.count('\n');
       }
 
       if (replacementsDone > temp) {
-        linesTouched++;
+        ++linesTouched;
       }
     }
   } else { // current line
-    int line= view->cursorPosition().line();
+    int line = view->cursorPosition().line();
     replacementsDone += sedMagic(doc, line, find, replace, d, !noCase, repeat);
     if (replacementsDone > 0) {
       linesTouched = 1;
@@ -853,6 +869,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 //END SedReplace
 
 //BEGIN Character
+KateCommands::Character* KateCommands::Character::m_instance = 0;
 bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
@@ -898,6 +915,8 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 //END Character
 
 //BEGIN Date
+KateCommands::Date* KateCommands::Date::m_instance = 0;
+
 bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QString &)
 {
   if (!cmd.startsWith(QLatin1String("date")))

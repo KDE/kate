@@ -1,4 +1,9 @@
-# Expose (a subset of) the reading functionality GNU idutils within Kate.
+"""Browse the tokens in a GNU idutils ID file, and use it to navigate within a codebase.
+
+The necessary parts of the ID file are held in memory to allow sufficient performance
+for token completion, and When looking up the usage of a token, or jumping to the 
+definition, etags(1) is used to locate the definition.
+"""
 #
 # Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
 #
@@ -16,10 +21,6 @@
 # along with this library; see the file COPYING.LIB.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
-
-__title__ = "gid"
-__author__ = "Shaheed Haque <srhaque@theiet.org>"
-__license__ = "LGPL"
 
 import kate
 import kate.gui
@@ -173,7 +174,7 @@ class TreeModel(QStandardItemModel):
     def __init__(self, dataSource):
         super(TreeModel, self).__init__()
         self.dataSource = dataSource
-        self.setHorizontalHeaderLabels((i18n("Match"), i18n("Line"), i18n("Col")))
+        self.setHorizontalHeaderLabels((i18n("Occurrences"), i18n("Line"), i18n("Col")))
 
     def _etagSearch(self, token, fileName):
         """Use etags to find any definition in this file.
@@ -202,9 +203,10 @@ class TreeModel(QStandardItemModel):
             raise IOError(unicode(etagBytes, "latin-1"))
         return None
 
-    def _scanFile(self, fileRow, regexp, filterRe, token, fileName):
-        """Scan a file looking for interesting hits. Return the hit count and QModelIndex of the last of any definitions we find."""
+    def _scanFile(self, root, regexp, filterRe, token, fileName, isDeclaration):
+        """Scan a file looking for interesting hits. Return the QModelIndex of the last of any definitions we find."""
         definitionIndex = None
+        fileRow = None
         hits = 0
         line = 1
         try:
@@ -218,6 +220,11 @@ class TreeModel(QStandardItemModel):
                 if match and filterRe:
                     match = filterRe.search(text)
                 if match:
+                    if hits == 0:
+                        fileRow = QStandardItem(fileName)
+                        if isDeclaration:
+                            fileRow.setIcon(KIcon("text-x-chdr"))
+                        root.appendRow(fileRow)
                     hits += 1
                     resultRow = list()
                     resultRow.append(QStandardItem(text[:-1]))
@@ -241,9 +248,11 @@ class TreeModel(QStandardItemModel):
                         definitionIndex = resultRow[0].index()
                 line += 1
         except IOError as e:
+            fileRow = QStandardItem(fileName)
             fileRow.setIcon(KIcon("face-sad"))
             fileRow.appendRow(QStandardItem(str(e)))
-        return hits, definitionIndex
+            root.appendRow(fileRow)
+        return definitionIndex
 
     def literalTokenSearch(self, parent, token, filter):
         """Add the entries which match the token to the tree, and return the QModelIndex of the last of any definitions we find.
@@ -290,15 +299,11 @@ class TreeModel(QStandardItemModel):
         filesListed = 0
         for fileName, fileFlags in files:
             fileName = transform(fileName)
-            fileRow = QStandardItem(fileName)
-            if declarationRe and declarationRe.search(fileName):
-                fileRow.setIcon(KIcon("text-x-chdr"))
+            isDeclaration = declarationRe and declarationRe.search(fileName)
             #
             # Update the definitionIndex when we get a good one.
             #
-            hits, newDefinitionIndex = self._scanFile(fileRow, regexp, filterRe, token, fileName)
-            if hits:
-                root.appendRow(fileRow)
+            newDefinitionIndex = self._scanFile(root, regexp, filterRe, token, fileName, isDeclaration)
             if newDefinitionIndex:
                 definitionIndex = newDefinitionIndex
             filesListed += 1
@@ -365,7 +370,7 @@ class SearchBar(QObject):
     @pyqtSlot()
     def literalSearch(self):
         """Lookup a single token and return the modelIndex of any definition."""
-        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.text(), self.filter.text())
+        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
         self.tree.resizeColumnToContents(0)
         return definitionIndex
 
@@ -474,18 +479,17 @@ class SearchBar(QObject):
         kate.mainInterfaceWindow().hideToolView(self.toolView)
 
 def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given document.
-    Stolen from the expand plugin!'''
+    ''' Get the word under the active view's cursor in the given document.'''
     # Better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
-    wordBoundary = set(u'. \t"\';[]{}()#:/\\,+=!?%^|&*~`')
+    wordBoundary = re.compile("\W", re.UNICODE)
     start = end = cursor.column()
-    if start == len(line) or line[start] in wordBoundary:
+    if start == len(line) or wordBoundary.match(line[start]):
         start -= 1
-    while start >= 0 and line[start] not in wordBoundary:
+    while start >= 0 and not wordBoundary.match(line[start]):
         start -= 1
     start += 1
-    while end < len(line) and line[end] not in wordBoundary:
+    while end < len(line) and not wordBoundary.match(line[end]):
         end += 1
     return start, end
 
@@ -499,6 +503,8 @@ def wordAtCursor(document, view):
 
 @kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
+    # Make all our config is initialised.
+    ConfigWidget().apply()
     global searchBar
     if searchBar is None:
         searchBar = SearchBar(kate.mainWindow())
@@ -512,7 +518,9 @@ def lookup():
             selectedText = kate.activeView().selectionText()
         else:
             selectedText = wordAtCursor(kate.activeDocument(), kate.activeView())
-        searchBar.token.setText(selectedText)
+        searchBar.token.insertItem(0, selectedText)
+        searchBar.token.setCurrentIndex(1)
+        searchBar.token.setEditText(selectedText)
         return searchBar.literalSearch()
     return None
 
@@ -523,7 +531,7 @@ def gotoDefinition():
     if definitionIndex:
         searchBar.navigateTo(definitionIndex)
 
-@kate.configPage("gid", "gid Lookup", icon = "edit-find")
+@kate.configPage("gid", "gid(1) token Lookup and Navigation", icon = "edit-find")
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
 

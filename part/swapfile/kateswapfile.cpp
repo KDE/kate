@@ -32,7 +32,7 @@
 #include <QApplication>
 
 // swap file version header
-const static char * const swapFileVersionString = "Kate Swap File - Version 1.0";
+const static char * const swapFileVersionString = "Kate Swap File 2.0";
 
 // tokens for swap files
 const static qint8 EA_StartEditing  = 'S';
@@ -51,7 +51,7 @@ SwapFile::SwapFile(KateDocument *document)
   , m_document(document)
   , m_trackingEnabled(false)
   , m_recovered(false)
-  , m_modified(false)
+  , m_needSync(false)
 {
   // fixed version of serialisation
   m_stream.setVersion (QDataStream::Qt_4_6);
@@ -90,6 +90,7 @@ void SwapFile::setTrackingEnabled(bool enable)
   if (m_trackingEnabled) {
     connect(&buffer, SIGNAL(editingStarted()), this, SLOT(startEditing()));
     connect(&buffer, SIGNAL(editingFinished()), this, SLOT(finishEditing()));
+    connect(m_document, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
 
     connect(&buffer, SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
     connect(&buffer, SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
@@ -98,6 +99,7 @@ void SwapFile::setTrackingEnabled(bool enable)
   } else {
     disconnect(&buffer, SIGNAL(editingStarted()), this, SLOT(startEditing()));
     disconnect(&buffer, SIGNAL(editingFinished()), this, SLOT(finishEditing()));
+    disconnect(m_document, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
 
     disconnect(&buffer, SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(wrapLine(KTextEditor::Cursor)));
     disconnect(&buffer, SIGNAL(lineUnwrapped(int)), this, SLOT(unwrapLine(int)));
@@ -136,6 +138,15 @@ void SwapFile::fileLoaded(const QString&)
   // emit signal in case the document has more views
   m_document->setReadWrite(false);
   emit swapFileFound();
+}
+
+void SwapFile::modifiedChanged()
+{
+  if (!m_document->isModified() && !shouldRecover()) {
+    m_needSync = false;
+    // the file is not modified and we are not in recover mode
+    removeSwapFile();
+  }
 }
 
 void SwapFile::recover()
@@ -187,6 +198,17 @@ bool SwapFile::recover(QDataStream& stream)
     stream.setDevice (0);
     m_swapfile.close ();
     kWarning( 13020 ) << "Can't open swap file, wrong version";
+    return false;
+  }
+  
+  // read md5 digest
+  QByteArray digest;
+  stream >> digest;
+  if (digest != m_document->digest())
+  {
+    stream.setDevice (0);
+    m_swapfile.close ();
+    kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
     return false;
   }
 
@@ -291,7 +313,7 @@ bool SwapFile::recover(QDataStream& stream)
 
 void SwapFile::fileSaved(const QString&)
 {
-  m_modified = false;
+  m_needSync = false;
   
   // remove old swap file (e.g. if a file A was "saved as" B)
   removeSwapFile();
@@ -316,6 +338,9 @@ void SwapFile::startEditing ()
 
     // write file header
     m_stream << QByteArray (swapFileVersionString);
+    
+    // write md5 digest
+    m_stream << m_document->digest ();
   } else if (m_stream.device() == 0) {
     m_swapfile.open(QIODevice::Append);
     m_stream.setDevice(&m_swapfile);
@@ -349,7 +374,7 @@ void SwapFile::wrapLine (const KTextEditor::Cursor &position)
   // format: qint8, int, int
   m_stream << EA_WrapLine << position.line() << position.column();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::unwrapLine (int line)
@@ -361,7 +386,7 @@ void SwapFile::unwrapLine (int line)
   // format: qint8, int
   m_stream << EA_UnwrapLine << line;
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &text)
@@ -373,7 +398,7 @@ void SwapFile::insertText (const KTextEditor::Cursor &position, const QString &t
   // format: qint8, int, int, bytearray
   m_stream << EA_InsertText << position.line() << position.column() << text.toUtf8 ();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 void SwapFile::removeText (const KTextEditor::Range &range)
@@ -388,7 +413,7 @@ void SwapFile::removeText (const KTextEditor::Range &range)
             << range.start().line() << range.start().column()
             << range.end().column();
 
-  m_modified = true;
+  m_needSync = true;
 }
 
 bool SwapFile::shouldRecover() const
@@ -456,8 +481,8 @@ QTimer* SwapFile::syncTimer()
 
 void SwapFile::writeFileToDisk()
 {
-  if (m_modified) {
-    m_modified = false;
+  if (m_needSync) {
+    m_needSync = false;
 
     #ifndef Q_OS_WIN
     // ensure that the file is written to disk

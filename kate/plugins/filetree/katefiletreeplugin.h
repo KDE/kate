@@ -21,7 +21,9 @@
 
 #include <KIcon>
 
+#include <ktexteditor/commandinterface.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
@@ -33,6 +35,7 @@ class KateFileTreeModel;
 class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
+class KateFileTreeCommand;
 
 class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
@@ -63,6 +66,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
     QList<KateFileTreePluginView *> m_views;
     KateFileTreeConfigPage *m_confPage;
     KateFileTreePluginSettings m_settings;
+    KateFileTreeCommand* m_fileCommand;
 };
 
 class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClient
@@ -92,6 +96,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     void setHasLocalPrefs(bool);
 
   private:
+    QWidget *m_toolView;
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
@@ -99,6 +104,9 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     KateFileTreePlugin *m_plug;
 
   private Q_SLOTS:
+    void showToolView();
+    void hideToolView();
+    void switchDocument(const QString &doc);
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
     void viewChanged();
@@ -107,6 +115,23 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     void viewModeChanged(bool);
     void sortRoleChanged(int);
 
+};
+
+class KateFileTreeCommand : public QObject, public KTextEditor::Command
+{
+  Q_OBJECT
+
+  public:
+    KateFileTreeCommand(QObject *parent);
+
+  Q_SIGNALS:
+    void showToolView();
+    void switchDocument(const QString&);
+
+  public:
+    const QStringList& cmds();
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

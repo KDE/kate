@@ -50,6 +50,8 @@
 #include "katescriptmanager.h"
 #include "kateswapfile.h"
 
+#include "documentcursor.h"
+
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/loadsavefiltercheckplugin.h>
@@ -92,8 +94,8 @@ static int dummy = 0;
 
 class KateTemplateScript;
 
-inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '(' || c == '"'; }
-inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')' || c == '"'; }
+inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
+inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
 inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
 
 class KateDocument::LoadSaveFilterCheckPlugins
@@ -190,7 +192,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_config(new KateDocumentConfig(this)),
   m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
-  m_onTheFlyChecker(0)
+  m_onTheFlyChecker(0),
+  m_filePerhapsStillLoading (false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -234,8 +237,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted(QString)),
            this, SLOT(slotModOnHdDeleted(QString)) );
 
-  connect (this,SIGNAL(completed()),this,SLOT(slotCompleted()));
-  connect (this,SIGNAL(canceled(QString)),this,SLOT(slotCanceled()));
+  connect (this, SIGNAL(started(KIO::Job*)), this, SLOT(slotStarted(KIO::Job*)));
+  connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
+  connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
+  
   // update doc name
   setDocName (QString());
 
@@ -428,10 +433,7 @@ QChar KateDocument::character( const KTextEditor::Cursor & position ) const
   if ( !textLine )
     return QChar();
 
-  if (position.column() >= 0 && position.column() < textLine->string().length())
-    return textLine->string().at(position.column());
-
-  return QChar();
+  return textLine->at(position.column());
 }
 
 QStringList KateDocument::textLines( const KTextEditor::Range & range, bool blockwise ) const
@@ -956,15 +958,12 @@ bool KateDocument::wrapText(int startLine, int endLine)
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
       int nw = 0; // alternative position, a non word character
-      for (z=searchStart; z > 0; z--)
-      {
-        if (t.at(z).isSpace()) break;
-        if ( ! nw && highlight()->canBreakAt( t.at(z) , l->attribute(z) ) )
-        nw = z;
-      }
+      QTextLayout curline( l->string() );
+      z = nw = curline.previousCursorPosition( searchStart, QTextLayout::SkipWords );
+
 
       bool removeTrailingSpace = false;
-      if (z > 0)
+      if (z == 0)
       {
         // So why don't we just remove the trailing space right away?
         // Well, the (view's) cursor may be directly in front of that space
@@ -3712,7 +3711,6 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   case ']': opposite = '['; break;
   case '(': opposite = ')'; break;
   case ')': opposite = '('; break;
-  case '"': opposite = '"'; break;
   default: return false;
   }
 
@@ -3723,29 +3721,31 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
 
   range.end() = range.start();
-  QScopedPointer<KTextEditor::MovingCursor> cursor(newMovingCursor(range.start()));
-  int validAttr = kateTextLine(cursor->line())->attribute(cursor->column());
+  KTextEditor::DocumentCursor cursor(this);
+  cursor.setPosition(range.start());
+  int validAttr = kateTextLine(cursor.line())->attribute(cursor.column());
 
-  while( cursor->line() >= minLine && cursor->line() <= maxLine ) {
+  while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
 
-    if (!cursor->move(searchDir))
+    if (!cursor.move(searchDir))
       return false;
 
-    if (kateTextLine(cursor->line())->attribute(cursor->column()) == validAttr )
+    Kate::TextLine textLine = kateTextLine(cursor.line());
+    if (textLine->attribute(cursor.column()) == validAttr )
     {
-      /* Check for match */
-      QChar c = character(cursor->toCursor());
-      if( c == bracket ) {
-        nesting++;
-      } else if( c == opposite ) {
+      // Check for match
+      QChar c = textLine->at(cursor.column());
+      if( c == opposite ) {
         if( nesting == 0 ) {
           if (searchDir > 0) // forward
-            range.end() = cursor->toCursor();
+            range.end() = cursor.toCursor();
           else
-            range.start() = cursor->toCursor();
+            range.start() = cursor.toCursor();
           return true;
         }
         nesting--;
+      } else if( c == bracket ) {
+        nesting++;
       }
     }
   }
@@ -4964,11 +4964,17 @@ bool KateDocument::queryClose()
 
 
 void KateDocument::slotCanceled() {
+  // remember file loading is over now
+  m_filePerhapsStillLoading = false;
+  
   m_savingToUrl=false;
   m_saveAs=false;
 }
 
 void KateDocument::slotCompleted() {
+  // remember file loading is over now
+  m_filePerhapsStillLoading = false;
+  
   if (m_savingToUrl) {
     if (!m_postSaveFilterChecks.isEmpty())
     {
@@ -4985,12 +4991,26 @@ void KateDocument::slotCompleted() {
   m_saveAs=false;
 }
 
+void KateDocument::slotStarted (KIO::Job *job)
+{
+  // perhaps file loading started
+  m_filePerhapsStillLoading = true;
+}
+
 bool KateDocument::save() {
+  // don't allow to save files that still load
+  if (m_filePerhapsStillLoading)
+    return false;
+  
   m_saveAs = false;
   return KTextEditor::Document::save();
 }
 
 bool KateDocument::saveAs( const KUrl &url ) {
+  // don't allow to save files that still load
+  if (m_filePerhapsStillLoading)
+    return false;
+  
   m_saveAs = true;
   return KTextEditor::Document::saveAs(url);
 }

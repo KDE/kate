@@ -281,6 +281,17 @@ target_link_libraries( bug286887_test
   katepartinterfaces
 )
 
+########### KTextEditor::DocumentCursor test ###############
+
+kde4_add_unit_test(kte_documentcursor_test TESTNAME kte-documentcursor_test kte_documentcursor.cpp)
+
+target_link_libraries( kte_documentcursor_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

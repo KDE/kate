@@ -38,6 +38,7 @@
 #include <KConfigBase>
 #include <KConfigGroup>
 #include <KTextEdit>
+#include <KPassivePopup>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -80,7 +81,13 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
 {
     KConfigGroup group = config->group(groupPrefix + CONFIG_SECTION);
     m_autoReload = group.readEntry("AutoReload", false);
-    Pate::Engine::self()->readConfiguration(groupPrefix);
+    Pate::Engine *engine=Pate::Engine::self();
+    if (!engine) {
+      KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
+      return;
+      
+    }
+    engine->readConfiguration(groupPrefix);
     Python py = Python();
     py.functionCall("_sessionCreated");
 }
@@ -105,7 +112,13 @@ void Pate::Plugin::reloadModuleConfigPages() const
 {
     // Count the number of plugins which need their own custom page.
     m_moduleConfigPages.clear();
-    QStandardItem *root = Pate::Engine::self()->invisibleRootItem();
+    Pate::Engine *engine=Pate::Engine::self();
+    if (!engine) {
+      KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
+      return;
+      
+    }
+    QStandardItem *root = engine->invisibleRootItem();
     for (int i = 0; i < root->rowCount(); i++) {
         QStandardItem *directoryItem = root->child(i);
 
@@ -122,7 +135,7 @@ void Pate::Plugin::reloadModuleConfigPages() const
             Python py = Python();
             PyObject *configPages = py.moduleConfigPages(PQ(pluginName));
             if (configPages) {
-                for(Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
+                for (Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                     // Add an action for this plugin.
                     PyObject *tuple = PyList_GetItem(configPages, k);
                     Py_INCREF(tuple);
@@ -195,7 +208,7 @@ QString Pate::Plugin::configPageName(uint number) const
 QString Pate::Plugin::configPageFullName(uint number) const
 {
     if (!number) {
-        return i18n("Pâté host for Python Plugins");
+        return i18n("Pâté host for Python plugins");
     }
     if (number > (uint)m_moduleConfigPages.size()) {
         return QString();
@@ -246,19 +259,30 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 {
     kDebug() << "create ConfigPage";
 
+    
     // Create a page with just the main manager tab.
-    m_manager.setupUi(parent);
+    m_manager.setupUi(this);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
-    connect(m_manager.reload, SIGNAL(clicked(bool)), Pate::Engine::self(), SLOT(reloadModules()));
-    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage()));
+    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
 
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
-    reloadPage();
+    reloadPage(true);
+    
+    Pate::Engine *engine=Pate::Engine::self();
+    if (engine) {
+      m_manager.errorLabel->setVisible(false);
+      m_manager.tabWidget->setEnabled(true);
+      m_manager.reload->setEnabled(true);
+    } else {
+      m_manager.errorLabel->setVisible(true);
+      m_manager.tabWidget->setEnabled(false);
+      m_manager.reload->setEnabled(false);
+    }
 }
 
 Pate::ConfigPage::~ConfigPage()
@@ -268,8 +292,12 @@ Pate::ConfigPage::~ConfigPage()
     Py_XDECREF(m_pluginConfigPages);
 }
 
-void Pate::ConfigPage::reloadPage()
+void Pate::ConfigPage::reloadPage(bool init)
 {
+    if (!init) {
+        Pate::Engine::self()->saveConfiguration();
+        Pate::Engine::self()->reloadConfiguration();
+    }
     m_plugin->reloadModuleConfigPages();
     m_manager.tree->resizeColumnToContents(0);
     m_manager.tree->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -278,24 +306,26 @@ void Pate::ConfigPage::reloadPage()
     m_manager.tree->expandAll();
     QString topic;
 
-    // Add a topic for each built-in packages, using stacked page 0.
+    // Add a topic for each built-in packages, using stacked page 0. Note that
+    // pate itself is not exposed as it is just part of the plubing required
+    // by kate.
     m_info.topics->clear();
     topic = QLatin1String("kate");
     m_info.topics->addItem(KIcon("applications-development"), topic);
     topic = QLatin1String("kate.gui");
     m_info.topics->addItem(KIcon("applications-development"), topic);
-    topic = QLatin1String("pate");
-    m_info.topics->addItem(KIcon("applications-development"), topic);
 
     // Add a topic for each plugin. using stacked page 1.
     Python py = Python();
     PyObject *plugins = py.itemString("plugins");
-    for(Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
-        PyObject *module = PyList_GetItem(plugins, i);
+    if (plugins) {
+        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i) {
+            PyObject *module = PyList_GetItem(plugins, i);
 
-        // Add a topic for this plugin, using stacked page 1.
-        topic = QLatin1String(PyModule_GetName(module));
-        m_info.topics->addItem(KIcon("text-x-python"), topic);
+            // Add a topic for this plugin, using stacked page 1.
+            topic = QLatin1String(PyModule_GetName(module));
+            m_info.topics->addItem(KIcon("text-x-python"), topic);
+        }
     }
     infoTopicChanged(0);
 }
@@ -323,7 +353,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     Py_XDECREF(m_pluginActions);
     m_pluginActions = py.moduleActions(PQ(topic));
     if (m_pluginActions) {
-        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
+        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginActions, i);
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
@@ -340,7 +370,7 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
     Py_XDECREF(m_pluginConfigPages);
     m_pluginConfigPages = py.moduleConfigPages(PQ(topic));
     if (m_pluginConfigPages) {
-        for(Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
+        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i) {
             PyObject *tuple = PyList_GetItem(m_pluginConfigPages, i);
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 

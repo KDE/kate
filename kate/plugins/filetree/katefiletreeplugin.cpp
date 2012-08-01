@@ -49,20 +49,33 @@ K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",k
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent)
+  : Kate::Plugin ((Kate::Application*)parent),
+    m_fileCommand(0)
 {
-
+  KTextEditor::CommandInterface* iface =
+  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface) {
+    m_fileCommand = new KateFileTreeCommand(this);
+    iface->registerCommand(m_fileCommand);
+  }
 }
 
 KateFileTreePlugin::~KateFileTreePlugin()
 {
   m_settings.save();
+  KTextEditor::CommandInterface* iface =
+  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface && m_fileCommand) {
+    iface->unregisterCommand(m_fileCommand);
+  }
 }
 
 Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
 {
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
+  connect(m_fileCommand, SIGNAL(showToolView()), view, SLOT(showToolView()));
+  connect(m_fileCommand, SIGNAL(switchDocument(QString)), view, SLOT(switchDocument(QString)));
   m_views.append(view);
 
   return view;
@@ -156,8 +169,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
 
-  QWidget *toolview = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
-  m_fileTree = new KateFileTree(toolview);
+  m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
+  m_fileTree = new KateFileTree(m_toolView);
   m_fileTree->setSortingEnabled(true);
 
   connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document*)),
@@ -223,6 +236,7 @@ KateFileTreePluginView::~KateFileTreePluginView ()
 
   // clean up tree and toolview
   delete m_fileTree->parentWidget();
+  // delete m_toolView;
   // and TreeModel
   delete m_documentModel;
 }
@@ -325,11 +339,29 @@ void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
   mainWindow()->activateView(doc);
 }
 
+void KateFileTreePluginView::showToolView()
+{
+  mainWindow()->showToolView(m_toolView);
+  m_toolView->setFocus();
+}
+
+void KateFileTreePluginView::hideToolView()
+{
+  mainWindow()->hideToolView(m_toolView);
+  mainWindow()->centralWidget()->setFocus();
+}
+
+void KateFileTreePluginView::switchDocument(const QString &doc)
+{
+  m_fileTree->switchDocument(doc);
+}
+
 void KateFileTreePluginView::showActiveDocument()
 {
   // hack?
   viewChanged();
-  // FIXME: make the tool view show if it was hidden
+  // make the tool view show if it was hidden
+  showToolView();
 }
 
 bool KateFileTreePluginView::hasLocalPrefs()
@@ -379,6 +411,40 @@ void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QStri
 
   g.sync();
 }
-//ENDKateFileTreePluginView
+//END KateFileTreePluginView
+
+//BEGIN KateFileTreeCommand
+KateFileTreeCommand::KateFileTreeCommand(QObject *parent)
+  : QObject(parent), KTextEditor::Command()
+{
+}
+
+const QStringList& KateFileTreeCommand::cmds()
+{
+    static QStringList sl = QStringList() << "ls"; // << "b";
+    return sl;
+}
+
+bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    // create list of args
+    QStringList args(cmd.split(' ', QString::KeepEmptyParts));
+    QString command = args.takeFirst(); // same as cmd if split failed
+    QString arguments = args.join(QString(' '));
+
+    if (command == "b") {
+      emit switchDocument(arguments);
+    } else if (command == "ls") {
+      emit showToolView();
+    }
+
+    return true;
+}
+
+bool KateFileTreeCommand::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+    return true;
+}
+//END KateFileTreeCommand
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

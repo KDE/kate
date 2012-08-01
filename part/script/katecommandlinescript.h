@@ -48,7 +48,7 @@ class ScriptActionInfo
 {
   public:
     ScriptActionInfo() {}
-    
+
     inline bool isValid() const { return !(m_command.isEmpty() || m_text.isEmpty()); }
 
     inline void setCommand(const QString& command) { m_command = command; }
@@ -77,7 +77,8 @@ class ScriptActionInfo
  * A specialized class for scripts that are of type
  * KateScriptInformation::IndentationScript
  */
-class KateCommandLineScript : public KateScript, public KTextEditor::Command
+class KateCommandLineScript : public KateScript, public KTextEditor::Command,
+                              public KTextEditor::RangeCommand
 {
   public:
     KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header);
@@ -86,16 +87,18 @@ class KateCommandLineScript : public KateScript, public KTextEditor::Command
     const KateCommandLineScriptHeader& commandHeader();
 
     bool callFunction(const QString& cmd, const QStringList args, QString &errorMessage);
-    
+
     ScriptActionInfo actionInfo(const QString& cmd);
 
   //
   // KTextEditor::Command interface
   //
   public:
-    virtual const QStringList &cmds ();
-    virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
-    virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+    virtual const QStringList& cmds();
+    virtual bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
+    virtual bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
+    virtual bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range);
+    virtual bool supportsRange(const QString &cmd);
 
   private:
     KateCommandLineScriptHeader m_commandHeader;

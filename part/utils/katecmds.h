@@ -46,7 +46,12 @@ namespace KateCommands
 class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExtension,
   public KTextEditor::RangeCommand
 {
+  CoreCommands() { }
+  static CoreCommands* m_instance;
+
   public:
+    ~CoreCommands() { m_instance = 0; }
+
     /**
      * execute command
      * @param view view to use for execution
@@ -66,7 +71,7 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
      * @return success
      */
     bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg,
-        const KTextEditor::Range &range = KTextEditor::Range(-1, -0, -1, 0));
+        const KTextEditor::Range &range = KTextEditor::Range(-1, -0, -1, 0) );
 
     bool supportsRange(const QString &range);
 
@@ -87,6 +92,13 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
     virtual void flagCompletions( QStringList& ) {}
     virtual bool wantsToProcessText( const QString & ) { return false; }
     virtual void processText( KTextEditor::View *, const QString & ) {}
+
+    static CoreCommands* self() {
+      if (m_instance == 0) {
+        m_instance = new CoreCommands();
+      }
+      return m_instance;
+    }
 };
 
 /**
@@ -95,7 +107,12 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
 class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExtension,
   public KTextEditor::RangeCommand
 {
+  ViCommands() { }
+  static ViCommands* m_instance;
+
   public:
+    ~ViCommands() { m_instance = 0; }
+
     /**
      * execute command
      * @param view view to use for execution
@@ -136,17 +153,26 @@ class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExten
     virtual void flagCompletions( QStringList& ) {}
     virtual bool wantsToProcessText( const QString & ) { return false; }
     virtual void processText( KTextEditor::View *, const QString & ) {}
-};
 
+    static ViCommands* self() {
+      if (m_instance == 0) {
+        m_instance = new ViCommands();
+      }
+      return m_instance;
+    }
+};
 
 /**
  * This KTextEditor::Command provides vi commands for the application
  */
 class AppCommands : public KTextEditor::Command
 {
+  AppCommands();
+  static AppCommands* m_instance;
+
   public:
-    AppCommands();
-    virtual ~AppCommands() {}
+    ~AppCommands() { m_instance = 0; }
+
     /**
      * execute command
      * @param view view to use for execution
@@ -165,6 +191,13 @@ class AppCommands : public KTextEditor::Command
      */
     const QStringList &cmds();
 
+    static AppCommands* self() {
+      if (m_instance == 0) {
+        m_instance = new AppCommands();
+      }
+      return m_instance;
+    }
+
   private:
     QRegExp re_write;
     /*QRegExp re_quit;
@@ -179,7 +212,12 @@ class AppCommands : public KTextEditor::Command
  **/
 class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
 {
+  SedReplace() { }
+  static SedReplace* m_instance;
+
   public:
+    ~SedReplace() { m_instance = 0; }
+
     /**
      * Execute command. Valid command strings are:
      *   -  s/search/replace/  find @c search, replace it with @c replace
@@ -210,6 +248,13 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; }
+
+    static SedReplace* self() {
+      if (m_instance == 0) {
+        m_instance = new SedReplace();
+      }
+      return m_instance;
+    }
 
   private:
     /**
@@ -247,7 +292,12 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
  **/
 class Character : public KTextEditor::Command
 {
+  Character() { }
+  static Character* m_instance;
+
   public:
+    ~Character() { m_instance = 0; }
+
     /**
      * execute command
      * @param view view to use for execution
@@ -265,6 +315,13 @@ class Character : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList test("char"); return test; }
+
+    static Character* self() {
+      if (m_instance == 0) {
+        m_instance = new Character();
+      }
+      return m_instance;
+    }
 };
 
 /**
@@ -272,7 +329,12 @@ class Character : public KTextEditor::Command
  */
 class Date : public KTextEditor::Command
 {
+  Date() { }
+  static Date* m_instance;
+
   public:
+    ~Date() { m_instance = 0; }
+
     /**
      * execute command
      * @param view view to use for execution
@@ -290,6 +352,13 @@ class Date : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList test("date"); return test; }
+
+    static Date* self() {
+      if (m_instance == 0) {
+        m_instance = new Date();
+      }
+      return m_instance;
+    }
 };
 
 

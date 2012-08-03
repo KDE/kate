@@ -533,7 +533,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       int position1 = calculatePosition(position_string1);
 
       int position2;
-      if (position_string2 != "") {
+      if (!position_string2.isEmpty()) {
         // remove the comma
         position_string2 = m_cmdRange.capturedTexts().at(5);
         position2 = calculatePosition(position_string2);
@@ -542,7 +542,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       }
 
       // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
-      if (cmd == "") {
+      if (cmd.isEmpty()) {
         cmd = QString("goto %1").arg(position1);
       } else {
         range.setRange(KTextEditor::Range(position1 - 1, 0, position2 - 1, 0));

@@ -579,7 +579,7 @@ bool KateCommands::AppCommands::exec(KTextEditor::View *view,
             msg = i18n("All documents written to disk");
         } else { // w*/
         // Save file
-        if (file == "") {
+        if (file.isEmpty()) {
             view->document()->documentSave();
         } else {
             KUrl base = view->document()->url();

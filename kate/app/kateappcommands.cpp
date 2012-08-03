@@ -138,7 +138,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     }
     else if (re_edit.exactMatch(command)) {
         QString argument = args.join(QString(' '));
-        if (argument == "" || argument == "!") {
+        if (argument.isEmpty() || argument == "!") {
             view->document()->documentReload();
         } else {
             KUrl base = mainWin->activeDocumentUrl();
@@ -212,7 +212,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     }
     else if (re_editBuffer.exactMatch(command)) {
         QString argument = args.join(QString(' '));
-        if (argument == "") {
+        if (argument.isEmpty()) {
             // no argument: switch to the previous document
             return exec(view, "bprevious", msg);
         } else if (argument.toInt() > 0 &&

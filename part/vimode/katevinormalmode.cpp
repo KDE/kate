@@ -2445,7 +2445,7 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 
   m_stickyColumn = -1;
 
-  int line = findLineStartingWitchChar( '{', getCount(), false );
+  int line = findLineStartingWitchChar( '}', getCount(), false );
 
   if ( line == -1 ) {
     r.valid = false;

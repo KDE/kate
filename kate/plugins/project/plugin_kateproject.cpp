@@ -31,6 +31,10 @@
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 
+#include <KFileDialog>
+
+#include <qjson/parser.h>
+
 K_PLUGIN_FACTORY(KatePluginProjectFactory, registerPlugin<KatePluginProject>();)
 K_EXPORT_PLUGIN(KatePluginProjectFactory(KAboutData("kateproject","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
 
@@ -53,8 +57,8 @@ KatePluginProjectView::KatePluginProjectView( Kate::MainWindow *mainWin )
     : Kate::PluginView( mainWin ),
     Kate::XMLGUIClient(KatePluginProjectFactory::componentData())
 {
-  KAction *a = actionCollection()->addAction( "edit_insert_project" );
-  a->setText( i18n("Insert Hello World") );
+  KAction *a = actionCollection()->addAction( "open_project" );
+  a->setText( i18n("Open Project") );
   connect( a, SIGNAL(triggered(bool)), this, SLOT(slotInsertHello()) );
 
   mainWindow()->guiFactory()->addClient( this );
@@ -67,15 +71,14 @@ KatePluginProjectView::~KatePluginProjectView()
 
 void KatePluginProjectView::slotInsertHello()
 {
-  if (!mainWindow()) {
+  QString projectFile = KFileDialog::getOpenFileName ();
+  
+  QFile file (projectFile);
+  if (!file.open (QFile::ReadOnly))
     return;
-  }
-
-  KTextEditor::View *kv = mainWindow()->activeView();
-
-  if (kv) {
-    kv->insertText( "Hello World" );
-  }
+  
+  QJson::Parser parser;
+  QVariant project = parser.parse (&file);
 }
 
 void KatePluginProjectView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

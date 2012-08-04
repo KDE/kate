@@ -1,8 +1,7 @@
 <!DOCTYPE kpartgui>
-<gui name="kateproject" library="libkateprojectplugin" version="2">
-<MenuBar>
- <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="edit_insert_helloworld" />
- </Menu>
-</MenuBar>
+<gui name="kateproject" library="libkateprojectplugin" version="3">
+<!-- merge in main toolbar -->
+<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+    <Action name="open_project" group="switch_document"/>
+</ToolBar>
 </gui>

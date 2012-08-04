@@ -13,7 +13,7 @@ set(kateprojectplugin_PART_SRCS plugin_kateproject.cpp )
 
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
 
-target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} kateinterfaces )
+target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} kateinterfaces )
 
 ########### install files ###############
 install(TARGETS kateprojectplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )

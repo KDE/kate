@@ -35,9 +35,8 @@ class KateProject : public QObject
   public:
     /**
      * construct empty project
-     * @param parent parent object
      */
-    KateProject (QObject *parent = 0);
+    KateProject ();
     
     /**
      * deconstruct project

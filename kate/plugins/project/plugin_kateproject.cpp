@@ -22,6 +22,7 @@
 #include "plugin_kateproject.moc"
 
 #include "kateproject.h"
+#include "kateprojectpluginview.h"
 
 #include <kate/application.h>
 #include <ktexteditor/view.h>
@@ -37,74 +38,18 @@
 #include <QDialog>
 #include <QTreeView>
  
-K_PLUGIN_FACTORY(KatePluginProjectFactory, registerPlugin<KatePluginProject>();)
-K_EXPORT_PLUGIN(KatePluginProjectFactory(KAboutData("kateproject","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
-
-KatePluginProject::KatePluginProject( QObject* parent, const QList<QVariant>& )
+KateProjectPlugin::KateProjectPlugin( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin( (Kate::Application*)parent, "kate-hello-world-plugin" )
 {
 }
 
-KatePluginProject::~KatePluginProject()
+KateProjectPlugin::~KateProjectPlugin()
 {
 }
 
-Kate::PluginView *KatePluginProject::createView( Kate::MainWindow *mainWindow )
+Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
 {
-  return new KatePluginProjectView( mainWindow );
-}
-
-
-KatePluginProjectView::KatePluginProjectView( Kate::MainWindow *mainWin )
-    : Kate::PluginView( mainWin ),
-    Kate::XMLGUIClient(KatePluginProjectFactory::componentData())
-{
-  KAction *a = actionCollection()->addAction( "open_project" );
-  a->setText( i18n("Open Project") );
-  connect( a, SIGNAL(triggered(bool)), this, SLOT(slotInsertHello()) );
-
-  mainWindow()->guiFactory()->addClient( this );
-}
-
-KatePluginProjectView::~KatePluginProjectView()
-{
-  mainWindow()->guiFactory()->removeClient( this );
-}
-
-void KatePluginProjectView::slotInsertHello()
-{
-  QString projectFile = KFileDialog::getOpenFileName ();
-  
-  KateProject *project = new KateProject ();
-  project->load (projectFile);
-  
-  /**
-   * show the model
-   */
-   QDialog *test = new QDialog ();
-   QTreeView *tree = new QTreeView (test);
-   tree->setModel (project->model ());
-   test->show();
-   test->raise();
-   test->activateWindow();
-}
-
-void KatePluginProjectView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )
-{
-  // If you have session-dependant settings, load them here.
-  // If you have application wide settings, you have to read your own KConfig,
-  // see the Kate::Plugin docs for more information.
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
-}
-
-void KatePluginProjectView::writeSessionConfig( KConfigBase* config, const QString& groupPrefix )
-{
-  // If you have session-dependant settings, save them here.
-  // If you have application wide settings, you have to create your own KConfig,
-  // see the Kate::Plugin docs for more information.
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
+  return new KateProjectPluginView ( this, mainWindow );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

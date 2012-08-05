@@ -18,30 +18,36 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef _PLUGIN_KATE_PROJECT_H_
-#define _PLUGIN_KATE_PROJECT_H_
+#ifndef _PLUGIN_KATE_PROJECTVIEW_H_
+#define _PLUGIN_KATE_PROJECTVIEW_H_
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <kxmlguiclient.h>
-
+#include "plugin_kateproject.h"
 #include "kateproject.h"
 
-class KateProjectPlugin : public Kate::Plugin
+class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
   public:
-    explicit KateProjectPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
-    virtual ~KateProjectPlugin();
+    KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWindow );
+    ~KateProjectPluginView();
 
-    Kate::PluginView *createView( Kate::MainWindow *mainWindow );
+    virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
+    virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
+
+  public slots:
+    void slotInsertHello();
     
   private:
     /**
-     * open plugins, map fileName => project
+     * our plugin
      */
-    QMap<QString, KateProject *> m_fileName2Project;
+    KateProjectPlugin *m_plugin;
+    
+    /**
+     * our projects toolview
+     */
+    QWidget *m_toolView;
 };
 
 #endif

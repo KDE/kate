@@ -27,8 +27,8 @@
 
 #include <qjson/parser.h>
 
-KateProject::KateProject (QObject *parent)
-  : QObject (parent)
+KateProject::KateProject ()
+  : QObject ()
   , m_model (new QStandardItemModel (this))
 {
 }

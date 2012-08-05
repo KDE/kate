@@ -79,6 +79,10 @@ void KatePluginProjectView::slotInsertHello()
   
   QJson::Parser parser;
   QVariant project = parser.parse (&file);
+  
+  // now: get the data
+  QVariantMap globalMap = project.toMap ();
+  qDebug ("name %s", qPrintable(globalMap["name"].toString()));
 }
 
 void KatePluginProjectView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

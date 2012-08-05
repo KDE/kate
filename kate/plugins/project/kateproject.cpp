@@ -25,6 +25,9 @@
 #include <QFile>
 #include <QFileInfo>
 
+#include <KMimeType>
+#include <KIconLoader>
+
 #include <qjson/parser.h>
 
 KateProject::KateProject ()
@@ -184,7 +187,14 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QDirIterator dirIterator (dir, flags);
   while (dirIterator.hasNext()) {
      dirIterator.next();
-     QStandardItem *fileItem = new QStandardItem (dirIterator.fileName());
+     
+     /**
+      * get the right icon for the file
+      */
+     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(dirIterator.filePath()));     
+     QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
+     
+     QStandardItem *fileItem = new QStandardItem (icon, dirIterator.fileName());
      parent->appendRow (fileItem);
   }
 }

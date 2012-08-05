@@ -41,7 +41,9 @@ import sip
 import subprocess
 import time
 
+idDatabase = None
 searchBar = None
+completionModel = None
 
 class ConfigWidget(QWidget):
     """Configuration widget for this plugin."""
@@ -168,10 +170,18 @@ def transform(file):
     return file
 
 class TreeModel(QStandardItemModel):
+    """Support the display of a series of entries matching a token.
+    Each entry is an occurrence comprising { file, { line, column }... }
+    """
 
     _boredomInterval = 20
+    dataSource = None
 
     def __init__(self, dataSource):
+        """Constructor.
+        
+        @param dataSource	an instance of a Lookup().
+        """
         super(TreeModel, self).__init__()
         self.dataSource = dataSource
         self.setHorizontalHeaderLabels((i18n("Occurrences"), i18n("Line"), i18n("Col")))
@@ -324,17 +334,79 @@ class TreeModel(QStandardItemModel):
         #
         return definitionIndex
 
-class SearchBar(QObject):
-    toolView = None
+class CompletionModel(KTextEditor.CodeCompletionModel):
+    """Support Kate code completion.
+    """
+
     dataSource = None
+    completionObj = None
+
+    def __init__(self, parent, dataSource):
+        """Constructor.
+        
+        @param parent		Parent QObject.
+        @param dataSource	An instance of a Lookup().
+        """
+        super(CompletionModel, self).__init__(parent)
+        self.dataSource = dataSource
+        self.completionObj = None
+
+    def completionInvoked(self, view, range, invocationType):
+        """Find matches for the range given.
+        """
+        token = view.document().text(range)
+        if len(token) < kate.configuration["keySize"]:
+            #
+            # Don't try to match if the token is too short.
+            #
+            self.setRowCount(0)
+            return
+        self.completionObj = list()
+        try:
+            #
+            # Add the first item if we find one, then any other matches.
+            #
+            lastToken = token
+            lastOffset, lastName = self.dataSource.prefixSearchFirst(lastToken)
+            while True:
+                self.completionObj.append(lastName)
+                lastOffset, lastName = self.dataSource.prefixSearchNext(lastOffset, lastToken)
+        except IndexError:
+            pass
+        self.setRowCount(len(self.completionObj))
+
+    def columnCount(self, index):
+        return KTextEditor.CodeCompletionModel.Name
+
+    def data(self, index, role):
+        """Return the data defining the item.
+        """
+        column = index.column()
+        if column == KTextEditor.CodeCompletionModel.Name:
+            if role == Qt.DisplayRole:
+                # The match itself.
+                return self.completionObj[index.row()]
+            elif role ==  KTextEditor.CodeCompletionModel.HighlightingMethod:
+                # Default highlighting.
+                QVariant.Invalid
+            else:
+                #print "data()", index.row(), "Name", role
+                return None
+        else:
+            #print "data()", index.row(), column, role
+            return None
+
+class SearchBar(QObject):
+    dataSource = None
+    toolView = None
     lastToken = None
     lastOffset = None
     lastName = None
     gotSettings = False
 
-    def __init__(self, parent):
+    def __init__(self, parent, dataSource):
         super(SearchBar, self).__init__(parent)
-        self.dataSource = Lookup()
+        self.dataSource = dataSource
         self.toolView = kate.mainInterfaceWindow().createToolView("idutils_gid_plugin", kate.Kate.MainWindow.Bottom, SmallIcon("edit-find"), i18n("gid Search"))
         # By default, the toolview has box layout, which is not easy to delete.
         # For now, just add an extra widget.
@@ -505,9 +577,15 @@ def wordAtCursor(document, view):
 def show():
     # Make all our config is initialised.
     ConfigWidget().apply()
+    global idDatabase
+    idDatabase = Lookup()
     global searchBar
     if searchBar is None:
-        searchBar = SearchBar(kate.mainWindow())
+        searchBar = SearchBar(kate.mainWindow(), idDatabase)
+    global completionModel
+    #if completionModel is None:
+    #    completionModel = CompletionModel(kate.mainWindow(), idDatabase)
+    viewChanged()
     return searchBar.show()
 
 @kate.action("Lookup Current Token", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
@@ -542,3 +620,16 @@ def destroy():
     if searchBar:
         searchBar.__del__()
         searchBar = None
+    global completionModel
+    if completionModel:
+        completionModel.__del__()
+        completionModel = None
+
+@kate.viewChanged
+def viewChanged():
+    ''' Calls the function when the view changes. To access the new active view,
+    use kate.activeView() '''
+    global completionModel
+    if completionModel:
+        completionInterface = kate.activeView().codeCompletionInterface()
+        completionInterface.registerCompletionModel(completionModel)

@@ -59,6 +59,24 @@ class KateProject : public QObject
     bool reload ();
     
     /**
+     * Accessor to file name.
+     * @return file name
+     */
+    const QString &fileName () const
+    {
+      return m_fileName;
+    }
+    
+    /**
+     * Accessor to project name.
+     * @return project name
+     */
+    const QString &name () const
+    {
+      return m_name;
+    }
+    
+    /**
      * Accessor for the model.
      * @return model of this project
      */

@@ -34,6 +34,7 @@
 #include <KFileDialog>
 #include <QDialog>
 #include <QTreeView>
+#include <QVBoxLayout>
 
 K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
 K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("kateproject","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
@@ -56,6 +57,11 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * create toolview
    */
   m_toolView = mainWindow()->createToolView ("kateproject", Kate::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
+  
+  /**
+   * populate the toolview
+   */
+  m_toolBox = new QToolBox (m_toolView);
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -75,18 +81,16 @@ void KateProjectPluginView::slotInsertHello()
 {
   QString projectFile = KFileDialog::getOpenFileName ();
   
-  KateProject *project = new KateProject ();
-  project->load (projectFile);
+  KateProject *project = m_plugin->projectForFileName (projectFile);
+  if (!project)
+    return;
   
   /**
    * show the model
    */
-   QDialog *test = new QDialog ();
-   QTreeView *tree = new QTreeView (test);
+   QTreeView *tree = new QTreeView (m_toolBox);
+   m_toolBox->addItem (tree, project->name());
    tree->setModel (project->model ());
-   test->show();
-   test->raise();
-   test->activateWindow();
 }
 
 void KateProjectPluginView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

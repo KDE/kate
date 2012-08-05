@@ -24,6 +24,8 @@
 #include "plugin_kateproject.h"
 #include "kateproject.h"
 
+#include <QToolBox>
+
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
@@ -48,6 +50,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * our projects toolview
      */
     QWidget *m_toolView;
+    
+    /**
+     * the toolbox for the projects
+     */
+    QToolBox *m_toolBox;
 };
 
 #endif

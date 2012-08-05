@@ -37,14 +37,20 @@
 #include <KFileDialog>
 #include <QDialog>
 #include <QTreeView>
+#include <QFileInfo>
  
-KateProjectPlugin::KateProjectPlugin( QObject* parent, const QList<QVariant>& )
-    : Kate::Plugin( (Kate::Application*)parent, "kate-hello-world-plugin" )
+KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
+  : Kate::Plugin ((Kate::Application*)parent, "kateproject" )
 {
 }
 
 KateProjectPlugin::~KateProjectPlugin()
 {
+  /**
+   * cleanup open projects
+   */
+  qDeleteAll (m_fileName2Project);
+  m_fileName2Project.clear ();
 }
 
 Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
@@ -52,5 +58,33 @@ Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
   return new KateProjectPluginView ( this, mainWindow );
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
+{
+  /**
+   * canonicalize file path
+   */
+  QString canonicalFilePath = QFileInfo (fileName).canonicalFilePath ();
+  
+  /**
+   * first: lookup in existing projects
+   */
+  if (m_fileName2Project.contains (canonicalFilePath))
+    return m_fileName2Project.value (canonicalFilePath);
+  
+  /**
+   * else: try to load or fail
+   */
+  KateProject *project = new KateProject ();
+  if (!project->load (canonicalFilePath)) {
+    delete project;
+    return 0;
+  }
+  
+  /**
+   * remember project and return it
+   */
+  m_fileName2Project[canonicalFilePath] = project;
+  return project;
+}
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

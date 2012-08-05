@@ -37,6 +37,16 @@ class KateProjectPlugin : public Kate::Plugin
 
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
     
+    /**
+     * Get project for given filename.
+     * Will open a new one if not already open, else return the already open one.
+     * Null pointer if no project can be opened.
+     * File name will be canonicalized!
+     * @param fileName file name for the project
+     * @return project or null if not openable
+     */
+    KateProject *projectForFileName (const QString &fileName);
+    
   private:
     /**
      * open plugins, map fileName => project

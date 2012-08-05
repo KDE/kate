@@ -20,7 +20,10 @@
 
 #include "kateproject.h"
 
+#include <QDir>
+#include <QDirIterator>
 #include <QFile>
+#include <QFileInfo>
 
 #include <qjson/parser.h>
 
@@ -71,15 +74,119 @@ bool KateProject::reload ()
   if (!ok)
     return false;
   
-  // now: get the data
-  QVariantMap globalMap = project.toMap ();
-  qDebug ("name %s", qPrintable(globalMap["name"].toString()));
+  /**
+   * now: get global group
+   */
+  QVariantMap globalGroup = project.toMap ();
   
+  /**
+   * no name, bad => bail out
+   */
+  if (globalGroup["name"].toString().isEmpty())
+    return false;
+  
+  /**
+   * setup global attributes in this object
+   */
+  m_name = globalGroup["name"].toString();
+  
+  qDebug ("name %s", qPrintable(m_name));
+  
+  /**
+   * now, clear model once and load other stuff that is possible in all groups
+   */
+  m_model->clear ();
+  loadGroup (m_model->invisibleRootItem(), globalGroup);
   
   /**
    * done ok ;)
    */
   return true;
+}
+
+void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
+{
+  /**
+   * load all specified files
+   */
+  QVariantList files = group["files"].toList ();
+  foreach (const QVariant &fileVariant, files) {
+    /**
+     * convert to map
+     */
+    QVariantMap file = fileVariant.toMap ();
+    
+    /**
+     * now, which kind of file spec we have?
+     */
+    
+    /**
+     * directory: xxx?
+     */
+    if (!file["directory"].toString().isEmpty()) {
+      loadDirectory (parent, file);
+      continue;
+    }
+  }
+  
+  /**
+   * recurse to sub-groups
+   */
+  QVariantList subGroups = group["groups"].toList ();
+  foreach (const QVariant &subGroupVariant, subGroups) {
+    /**
+     * convert to map and get name, else skip
+     */
+    QVariantMap subGroup = subGroupVariant.toMap ();
+    if (subGroup["name"].toString().isEmpty())
+      continue;
+    
+    /**
+     * recurse
+     */
+    QStandardItem *subGroupItem = new QStandardItem (subGroup["name"].toString());
+    loadGroup (subGroupItem, subGroup);
+    parent->appendRow (subGroupItem);
+  }
+}
+
+void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &directory)
+{
+  /**
+   * get directory to open or skip
+   */
+  QDir dir (QFileInfo (m_fileName).absoluteDir());
+  if (!dir.cd (directory["directory"].toString()))
+    return;
+  
+  /**
+   * default filter: only files!
+   */
+  dir.setFilter (QDir::Files);
+  
+  /**
+   * set name filters, if any
+   */
+  QStringList filters = directory["filters"].toStringList();
+  if (!filters.isEmpty())
+    dir.setNameFilters (filters);
+  
+  /**
+   * construct flags for iterator
+   */
+  QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+  if (directory["recursive"].toBool())
+    flags = flags | QDirIterator::Subdirectories;
+  
+  /**
+   * create iterator
+   */
+  QDirIterator dirIterator (dir, flags);
+  while (dirIterator.hasNext()) {
+     dirIterator.next();
+     QStandardItem *fileItem = new QStandardItem (dirIterator.fileName());
+     parent->appendRow (fileItem);
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

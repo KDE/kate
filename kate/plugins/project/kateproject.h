@@ -35,8 +35,9 @@ class KateProject : public QObject
   public:
     /**
      * construct empty project
+     * @param parent parent object
      */
-    KateProject (QObject *parent);
+    KateProject (QObject *parent = 0);
     
     /**
      * deconstruct project
@@ -57,6 +58,31 @@ class KateProject : public QObject
      * @return success
      */
     bool reload ();
+    
+    /**
+     * Accessor for the model.
+     * @return model of this project
+     */
+    QStandardItemModel *model ()
+    {
+      return m_model;
+    }
+    
+  private:
+    /**
+     * Load one group inside the project tree.
+     * Fill data from JSON storage to model and recurse to sub-groups.
+     * @param parent parent standard item in the model
+     * @param group variant map for this group
+     */
+    void loadGroup (QStandardItem *parent, const QVariantMap &group);
+    
+    /**
+     * Load one directory entry in the current parent item.
+     * @param parent parent standard item in the model
+     * @param directory directory specification to load
+     */
+    void loadDirectory (QStandardItem *parent, const QVariantMap &directory);
     
   private:
     /**

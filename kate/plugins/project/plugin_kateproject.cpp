@@ -21,6 +21,8 @@
 #include "plugin_kateproject.h"
 #include "plugin_kateproject.moc"
 
+#include "kateproject.h"
+
 #include <kate/application.h>
 #include <ktexteditor/view.h>
 
@@ -32,9 +34,9 @@
 #include <kaboutdata.h>
 
 #include <KFileDialog>
-
-#include <qjson/parser.h>
-
+#include <QDialog>
+#include <QTreeView>
+ 
 K_PLUGIN_FACTORY(KatePluginProjectFactory, registerPlugin<KatePluginProject>();)
 K_EXPORT_PLUGIN(KatePluginProjectFactory(KAboutData("kateproject","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
 
@@ -73,16 +75,18 @@ void KatePluginProjectView::slotInsertHello()
 {
   QString projectFile = KFileDialog::getOpenFileName ();
   
-  QFile file (projectFile);
-  if (!file.open (QFile::ReadOnly))
-    return;
+  KateProject *project = new KateProject ();
+  project->load (projectFile);
   
-  QJson::Parser parser;
-  QVariant project = parser.parse (&file);
-  
-  // now: get the data
-  QVariantMap globalMap = project.toMap ();
-  qDebug ("name %s", qPrintable(globalMap["name"].toString()));
+  /**
+   * show the model
+   */
+   QDialog *test = new QDialog ();
+   QTreeView *tree = new QTreeView (test);
+   tree->setModel (project->model ());
+   test->show();
+   test->raise();
+   test->activateWindow();
 }
 
 void KatePluginProjectView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

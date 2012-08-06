@@ -87,7 +87,7 @@ void KateProjectPluginView::slotInsertHello()
   viewForProject (project);
 }
 
-QTreeView *KateProjectPluginView::viewForProject (KateProject *project)
+KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
 {
   /**
    * needs valid project
@@ -103,14 +103,7 @@ QTreeView *KateProjectPluginView::viewForProject (KateProject *project)
   /**
    * create new view
    */
-   QTreeView *view = new QTreeView ();
-   view->setHeaderHidden (true);
-   view->setEditTriggers (QAbstractItemView::NoEditTriggers);
-   
-   /**
-    * attach view => project
-    */
-   view->setModel (project->model ());
+   KateProjectView *view = new KateProjectView (project);
    
    /**
     * attach to toolbox

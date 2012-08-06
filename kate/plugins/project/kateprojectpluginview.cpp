@@ -103,7 +103,7 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
   /**
    * create new view
    */
-   KateProjectView *view = new KateProjectView (project);
+   KateProjectView *view = new KateProjectView (this, project);
    
    /**
     * attach to toolbox

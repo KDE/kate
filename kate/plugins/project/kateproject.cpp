@@ -147,10 +147,66 @@ void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
     /**
      * recurse
      */
-    QStandardItem *subGroupItem = new QStandardItem (subGroup["name"].toString());
+    QStandardItem *subGroupItem = new QStandardItem (QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small)), subGroup["name"].toString());
     loadGroup (subGroupItem, subGroup);
     parent->appendRow (subGroupItem);
   }
+}
+
+/**
+ * small helper to construct directory parent items
+ * @param dir2Item map for path => item
+ * @param dirIcon directory icon
+ * @param path current path we need item for
+ * @return correct parent item for given path, will reuse existing ones
+ */
+static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item, const QIcon &dirIcon, QString path)
+{
+  /**
+   * throw away simple /
+   */
+  if (path == "/")
+    path = "";
+  
+  /**
+   * quick check: dir already seen?
+   */
+  if (dir2Item.contains (path))
+    return dir2Item[path];
+  
+  /**
+   * else: construct recursively
+   */
+  int slashIndex = path.indexOf ('/');
+  
+  /**
+   * no slash?
+   * simple, no recursion, append new item toplevel
+   */
+  if (slashIndex < 0) {
+    dir2Item[path] = new QStandardItem (dirIcon, path);
+    dir2Item[""]->appendRow (dir2Item[path]);
+    return dir2Item[path];
+  }
+  
+  /**
+   * else, split and recurse
+   */
+  QString leftPart = path.left (slashIndex);
+  QString rightPart = path.right (path.size() - (slashIndex + 1));
+  
+  /**
+   * special handling if / with nothing on one side are found
+   */
+  if (leftPart.isEmpty() || rightPart.isEmpty ())
+    return directoryParent (dir2Item, dirIcon, leftPart.isEmpty() ? rightPart : leftPart);
+  
+  /**
+   * else: recurse on left side
+   */
+  dir2Item[path] = new QStandardItem (dirIcon, rightPart);
+  directoryParent (dir2Item, dirIcon, leftPart)->appendRow (dir2Item[path]);
+  return dir2Item[path];
 }
 
 void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &directory)
@@ -185,7 +241,14 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
    * create iterator
    */
   QDirIterator dirIterator (dir, flags);
+  QMap<QString, QStandardItem *> dir2Item;
+  dir2Item[""] = parent;
+  QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
+  QMap<QStandardItem *, QStandardItem *> item2ParentPath;
   while (dirIterator.hasNext()) {
+     /**
+      * step to next value
+      */
      dirIterator.next();
      
      /**
@@ -194,8 +257,22 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
      QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(dirIterator.filePath()));     
      QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
      
+     /**
+      * construct the item with right directory prefix
+      * already hang in directories in tree
+      */
      QStandardItem *fileItem = new QStandardItem (icon, dirIterator.fileName());
-     parent->appendRow (fileItem);
+     item2ParentPath[fileItem] = directoryParent(dir2Item, dirIcon, dir.relativeFilePath (dirIterator.fileInfo().absolutePath()));
+     fileItem->setData (dirIterator.filePath(), Qt::UserRole);
+  }
+  
+  /**
+   * hang in files to the tree
+   */
+  QMap<QStandardItem *, QStandardItem *>::const_iterator i = item2ParentPath.constBegin();
+  while (i != item2ParentPath.constEnd()) {
+    i.value()->appendRow (i.key());
+    ++i;
   }
 }
 

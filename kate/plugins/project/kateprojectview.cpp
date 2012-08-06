@@ -19,9 +19,11 @@
  */
 
 #include "kateprojectview.h"
+#include "kateprojectpluginview.h"
 
-KateProjectView::KateProjectView (KateProject *project)
+KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
   : QTreeView ()
+  , m_pluginView (pluginView)
   , m_project (project)
 {
   /**
@@ -34,10 +36,25 @@ KateProjectView::KateProjectView (KateProject *project)
     * attach view => project
     */
   setModel (m_project->model ());
+  
+  /**
+   * connect needed signals
+   */
+  connect (this, SIGNAL(activated (const QModelIndex &)), this, SLOT(slotActivated (const QModelIndex &)));
 }
 
 KateProjectView::~KateProjectView ()
 {
+}
+
+void KateProjectView::slotActivated (const QModelIndex &index)
+{
+  /**
+   * open document, if any usable user data
+   */
+  QString filePath = index.data (Qt::UserRole).toString();
+  if (!filePath.isEmpty())
+    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

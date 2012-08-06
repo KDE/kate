@@ -25,6 +25,8 @@
 
 #include <QTreeView>
 
+class KateProjectPluginView;
+
 /**
  * Class representing a view of a project.
  * A tree like view of project content.
@@ -36,16 +38,29 @@ class KateProjectView : public QTreeView
   public:
     /**
      * construct project view for given project
+     * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectView (KateProject *project);
+    KateProjectView (KateProjectPluginView *pluginView, KateProject *project);
     
     /**
      * deconstruct project
      */
     ~KateProjectView ();
     
+  private Q_SLOTS:
+    /**
+     * item got activated, do stuff, like open document
+     * @param index model index of activated item
+     */
+    void slotActivated (const QModelIndex &index);
+    
   private:
+    /**
+     * our plugin view
+     */
+    KateProjectPluginView *m_pluginView;
+    
     /**
      * our project
      */

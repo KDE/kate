@@ -40,7 +40,7 @@
 #include <QFileInfo>
  
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent, "kateproject" )
+  : Kate::Plugin ((Kate::Application*)parent)
 {
 }
 

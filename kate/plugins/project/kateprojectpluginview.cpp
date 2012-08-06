@@ -36,12 +36,12 @@
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
-K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("kateproject","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
+K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("project","kateprojectplugin",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
 
 KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWin )
-    : Kate::PluginView( mainWin ),
-      Kate::XMLGUIClient(KateProjectPluginFactory::componentData())
-      , m_plugin (plugin)
+    : Kate::PluginView( mainWin )
+    , Kate::XMLGUIClient(KateProjectPluginFactory::componentData())
+    , m_plugin (plugin)
 {
   KAction *a = actionCollection()->addAction( "open_project" );
   a->setText( i18n("Open Project") );

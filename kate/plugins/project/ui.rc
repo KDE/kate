@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="kateproject" library="libkateprojectplugin" version="3">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="4">
 <!-- merge in main toolbar -->
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
     <Action name="open_project" group="switch_document"/>

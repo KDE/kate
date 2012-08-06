@@ -25,6 +25,7 @@
 #include "kateproject.h"
 
 #include <QToolBox>
+#include <QTreeView>
 
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
@@ -42,6 +43,15 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     
   private:
     /**
+     * Create view for given project.
+     * Either gives existing one or creates new one
+     * @param project project we want view for
+     * @return view
+     */
+    QTreeView *viewForProject (KateProject *project);
+    
+  private:
+    /**
      * our plugin
      */
     KateProjectPlugin *m_plugin;
@@ -55,6 +65,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * the toolbox for the projects
      */
     QToolBox *m_toolBox;
+    
+    /**
+     * project => view
+     */
+    QMap<KateProject *, QTreeView *> m_project2View;
 };
 
 #endif

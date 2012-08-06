@@ -33,7 +33,6 @@
 
 #include <KFileDialog>
 #include <QDialog>
-#include <QTreeView>
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
@@ -85,12 +84,44 @@ void KateProjectPluginView::slotInsertHello()
   if (!project)
     return;
   
+  viewForProject (project);
+}
+
+QTreeView *KateProjectPluginView::viewForProject (KateProject *project)
+{
   /**
-   * show the model
+   * needs valid project
    */
-   QTreeView *tree = new QTreeView (m_toolBox);
-   m_toolBox->addItem (tree, project->name());
-   tree->setModel (project->model ());
+  Q_ASSERT (project);
+  
+  /**
+   * existing view?
+   */
+  if (m_project2View.contains (project))
+    return m_project2View.value (project);
+  
+  /**
+   * create new view
+   */
+   QTreeView *view = new QTreeView ();
+   view->setHeaderHidden (true);
+   view->setEditTriggers (QAbstractItemView::NoEditTriggers);
+   
+   /**
+    * attach view => project
+    */
+   view->setModel (project->model ());
+   
+   /**
+    * attach to toolbox
+    */
+   m_toolBox->addItem (view, project->name());
+   
+   /**
+    * remember and return it
+    */
+   m_project2View[project] = view;
+   return view;
 }
 
 void KateProjectPluginView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

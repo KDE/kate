@@ -566,6 +566,21 @@ bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
   return startInsertMode();
 }
 
+/**
+ * enter insert mode at the last insert position
+ */
+
+bool KateViNormalMode::commandEnterInsertModeLast()
+{
+  Cursor c = m_view->getViInputModeManager()->getMarkPosition( '^' );
+  if ( c.isValid() ) {
+    updateCursor( c );
+  }
+
+  m_stickyColumn = -1;
+  return startInsertMode();
+}
+
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
   if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
@@ -2793,6 +2808,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("A", commandEnterInsertModeAppendEOL, IS_CHANGE );
   ADDCMD("i", commandEnterInsertMode, IS_CHANGE );
   ADDCMD("I", commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE );
+  ADDCMD("gi", commandEnterInsertModeLast, IS_CHANGE );
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
   ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );

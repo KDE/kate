@@ -62,6 +62,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandEnterInsertModeAppend();
     bool commandEnterInsertModeAppendEOL();
     bool commandEnterInsertModeBeforeFirstNonBlankInLine();
+    bool commandEnterInsertModeLast();
 
     bool commandEnterVisualMode();
     bool commandEnterVisualLineMode();

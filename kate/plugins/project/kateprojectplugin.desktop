@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=kateprojectplugin
+X-Kate-Version=2.9
+Name=Project Plugin
+Comment=Project plugin for Kate

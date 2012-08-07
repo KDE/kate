@@ -47,6 +47,25 @@ class KateProjectPlugin : public Kate::Plugin
      */
     KateProject *projectForFileName (const QString &fileName);
     
+  signals:
+    /**
+     * Signal that a new project got created.
+     * @param project new created project
+     */
+    void projectCreated (KateProject *project);
+    
+  private slots:
+    /**
+     * New document got created, we need to update our connections
+     * @param document new created document
+     */
+    void slotDocumentCreated (KTextEditor::Document *document);
+    
+    /**
+     * Url changed, to auto-load projects
+     */
+    void slotDocumentUrlChanged (KTextEditor::Document *document);
+    
   private:
     /**
      * open plugins, map fileName => project

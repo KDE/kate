@@ -43,10 +43,6 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
     , Kate::XMLGUIClient(KateProjectPluginFactory::componentData())
     , m_plugin (plugin)
 {
-  KAction *a = actionCollection()->addAction( "open_project" );
-  a->setText( i18n("Open Project") );
-  connect( a, SIGNAL(triggered(bool)), this, SLOT(slotInsertHello()) );
-
   /**
    * add us to gui
    */
@@ -61,6 +57,11 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * populate the toolview
    */
   m_toolBox = new QToolBox (m_toolView);
+  
+  /**
+   * connect to important signals, e.g. for auto project view creation
+   */
+  connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -74,17 +75,6 @@ KateProjectPluginView::~KateProjectPluginView()
    * cu gui client
    */
   mainWindow()->guiFactory()->removeClient( this );
-}
-
-void KateProjectPluginView::slotInsertHello()
-{
-  QString projectFile = KFileDialog::getOpenFileName ();
-  
-  KateProject *project = m_plugin->projectForFileName (projectFile);
-  if (!project)
-    return;
-  
-  viewForProject (project);
 }
 
 KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)

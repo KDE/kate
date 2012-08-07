@@ -37,11 +37,8 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 
     virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
-
-  public slots:
-    void slotInsertHello();
     
-  private:
+  public slots:
     /**
      * Create view for given project.
      * Either gives existing one or creates new one

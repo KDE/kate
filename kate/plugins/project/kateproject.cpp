@@ -238,40 +238,50 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
     flags = flags | QDirIterator::Subdirectories;
 
   /**
-   * create iterator
+   * create iterator and collect all files
    */
   QDirIterator dirIterator (dir, flags);
+  QStringList files;
+  while (dirIterator.hasNext()) {
+     dirIterator.next();
+     files.append (dirIterator.filePath());
+  }
+
+  /**
+   * sort them
+   */
+  files.sort ();
+
+  /**
+   * construct paths first in tree and items in a map
+   */
   QMap<QString, QStandardItem *> dir2Item;
   dir2Item[""] = parent;
   QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
-  QMap<QStandardItem *, QStandardItem *> item2ParentPath;
-  while (dirIterator.hasNext()) {
-     /**
-      * step to next value
-      */
-     dirIterator.next();
-
+  QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
+  foreach (QString filePath, files) {
      /**
       * get the right icon for the file
       */
-     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(dirIterator.filePath()));
+     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(filePath));
      QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
 
      /**
       * construct the item with right directory prefix
       * already hang in directories in tree
       */
-     QStandardItem *fileItem = new QStandardItem (icon, dirIterator.fileName());
-     item2ParentPath[fileItem] = directoryParent(dir2Item, dirIcon, dir.relativeFilePath (dirIterator.fileInfo().absolutePath()));
-     fileItem->setData (dirIterator.filePath(), Qt::UserRole);
+     QFileInfo fileInfo (filePath);
+     QStandardItem *fileItem = new QStandardItem (icon, fileInfo.fileName());
+     item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirIcon, dir.relativeFilePath (fileInfo.absolutePath()))));
+     fileItem->setData (filePath, Qt::UserRole);
   }
 
   /**
-   * hang in files to the tree
+   * plug in the file items to the tree
    */
-  QMap<QStandardItem *, QStandardItem *>::const_iterator i = item2ParentPath.constBegin();
+  QList<QPair<QStandardItem *, QStandardItem *> >::const_iterator i = item2ParentPath.constBegin();
   while (i != item2ParentPath.constEnd()) {
-    i.value()->appendRow (i.key());
+    i->second->appendRow (i->first);
     ++i;
   }
 }

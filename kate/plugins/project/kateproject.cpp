@@ -177,7 +177,7 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
   /**
    * else: construct recursively
    */
-  int slashIndex = path.indexOf ('/');
+  int slashIndex = path.lastIndexOf ('/');
   
   /**
    * no slash?

@@ -96,7 +96,7 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     void unsetColor( int c );
     /* style context name */
     QString contextName() const { return text(0); }
-    /* only true for a hl mode item using it's default style */
+    /* only true for a hl mode item using its default style */
     bool defStyle() const;
     /* true for default styles */
     bool isDefault() const;
@@ -570,7 +570,7 @@ void KateStyleTreeWidgetItem::updateStyle()
   else actualStyle->clearProperty( KTextEditor::Attribute::SelectedBackground );
 }
 
-/* only true for a hl mode item using it's default style */
+/* only true for a hl mode item using its default style */
 bool KateStyleTreeWidgetItem::defStyle() const { return actualStyle && actualStyle->properties() != defaultStyle->properties(); }
 
 /* true for default styles */

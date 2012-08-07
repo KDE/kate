@@ -966,11 +966,11 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_expandall");
   a->setText(i18n("Unfold All Nodes"));
-  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(expandAll()));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandAll()));
 
   a = ac->addAction("folding_collapse_dsComment");
   a->setText(i18n("Fold Multiline Comments"));
-  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree() ,SLOT(collapseAll_dsComments()));
+  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseAll_dsComments()));
 
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Fold Current Node"));
@@ -1037,7 +1037,7 @@ QString KateView::viewMode () const
 
   if (viInputMode()) {
       // vi mode has different notion of OVR/INS.
-      // vi mode's status is showin in viModeBar() instead
+      // vi mode's status is shown in viModeBar() instead
       return QString();
   }
 

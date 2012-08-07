@@ -43,7 +43,7 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
   config.writeEntry( "Normal Mode Mapping Keys", getMappings( NormalMode, true ) );
   QStringList l;
   foreach( const QString &s, getMappings( NormalMode ) ) {
-    l << KateViKeyParser::getInstance()->decodeKeySequence( getMapping( NormalMode, s ) );
+    l << KateViKeyParser::self()->decodeKeySequence( getMapping( NormalMode, s ) );
   }
   config.writeEntry( "Normal Mode Mappings", l );
 }
@@ -144,8 +144,8 @@ void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &
   if ( !from.isEmpty() ) {
     switch ( mode ) {
     case NormalMode:
-      m_normalModeMappings[ KateViKeyParser::getInstance()->encodeKeySequence( from ) ]
-        = KateViKeyParser::getInstance()->encodeKeySequence( to );
+      m_normalModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
+        = KateViKeyParser::self()->encodeKeySequence( to );
       break;
     default:
       kDebug( 13070 ) << "Mapping not supported for given mode";
@@ -165,7 +165,7 @@ const QString KateViGlobal::getMapping( ViMode mode, const QString &from, bool d
     }
 
     if ( decode ) {
-      return KateViKeyParser::getInstance()->decodeKeySequence( ret );
+      return KateViKeyParser::self()->decodeKeySequence( ret );
     }
     return ret;
 }
@@ -178,7 +178,7 @@ const QStringList KateViGlobal::getMappings( ViMode mode, bool decode ) const
   case NormalMode:
     for (i = m_normalModeMappings.constBegin(); i != m_normalModeMappings.constEnd(); ++i) {
       if ( decode ) {
-        l << KateViKeyParser::getInstance()->decodeKeySequence( i.key() );
+        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
       } else {
         l << i.key();
       }

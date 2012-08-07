@@ -412,10 +412,10 @@ void KateViInputModeConfigTab::reload ()
   int i = 0;
   foreach( const QString &f, l ) {
     QTableWidgetItem *from
-      = new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( f ) );
+      = new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( f ) );
     QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
     QTableWidgetItem *to =
-      new QTableWidgetItem( KateViKeyParser::getInstance()->decodeKeySequence( s ) );
+      new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( s ) );
 
     ui->tblNormalModeMappings->setItem(i, 0, from);
     ui->tblNormalModeMappings->setItem(i++, 1, to);

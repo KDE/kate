@@ -53,7 +53,7 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
      * @param buffer text buffer this cursor belongs to
      * @param range text range this cursor is part of
      * @param position wanted cursor position, if not valid for given buffer, will lead to invalid cursor
-     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param insertBehavior behavior of this cursor on insert of text at its position
      */
     TextCursor (TextBuffer &buffer, TextRange *range, const KTextEditor::Cursor &position, InsertBehavior insertBehavior);
 
@@ -62,7 +62,7 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
      * Construct a text cursor.
      * @param buffer text buffer this cursor belongs to
      * @param position wanted cursor position, if not valid for given buffer, will lead to invalid cursor
-     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param insertBehavior behavior of this cursor on insert of text at its position
      */
     TextCursor (TextBuffer &buffer, const KTextEditor::Cursor &position, InsertBehavior insertBehavior);
 

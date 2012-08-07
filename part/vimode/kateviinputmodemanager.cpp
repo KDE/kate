@@ -53,6 +53,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_view->setCaretStyle( KateRenderer::Block, true );
 
   m_runningMacro = false;
+  m_textualRepeat = false;
 
   m_lastSearchBackwards = false;
 
@@ -122,7 +123,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
   kDebug( 13070 ) << "Repeating change";
   foreach(const QChar &c, keyPresses) {
-    QString decoded = KateViKeyParser::getInstance()->decodeKeySequence(QString(c));
+    QString decoded = KateViKeyParser::self()->decodeKeySequence(QString(c));
     key = -1;
     mods = Qt::NoModifier;
     text.clear();
@@ -165,7 +166,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
         }
 
         if (decoded.length() > 1 ) {
-          key = KateViKeyParser::getInstance()->vi2qt(decoded);
+          key = KateViKeyParser::self()->vi2qt(decoded);
         } else if (decoded.length() == 1) {
           key = int(decoded.at(0).toUpper().toAscii());
           text = decoded.at(0);
@@ -174,7 +175,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
           kWarning( 13070 ) << "decoded is empty. skipping key press.";
         }
       } else { // no modifiers
-        key = KateViKeyParser::getInstance()->vi2qt(decoded);
+        key = KateViKeyParser::self()->vi2qt(decoded);
       }
     } else {
       key = decoded.at(0).unicode();
@@ -199,10 +200,12 @@ void KateViInputModeManager::storeChangeCommand()
 {
   m_lastChange.clear();
 
-  for (int i = 0; i < m_keyEventsLog.size(); i++) {
-    int keyCode = m_keyEventsLog.at(i).key();
-    QString text = m_keyEventsLog.at(i).text();
-    int mods = m_keyEventsLog.at(i).modifiers();
+  QList<QKeyEvent> keyLog = isTextualRepeat() ? m_keyEventsBeforeInsert : m_keyEventsLog;
+
+  for (int i = 0; i < keyLog.size(); i++) {
+    int keyCode = keyLog.at(i).key();
+    QString text = keyLog.at(i).text();
+    int mods = keyLog.at(i).modifiers();
     QChar key;
 
    if ( text.length() > 0 ) {
@@ -218,14 +221,20 @@ void KateViInputModeManager::storeChangeCommand()
       keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
       keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
       keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
-      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::getInstance()->qt2vi( keyCode ) );
+      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::self()->qt2vi( keyCode ) );
       keyPress.append( '>' );
 
-      key = KateViKeyParser::getInstance()->encodeKeySequence( keyPress ).at( 0 );
+      key = KateViKeyParser::self()->encodeKeySequence( keyPress ).at( 0 );
     }
 
     m_lastChange.append(key);
   }
+
+  if ( isTextualRepeat() ) {
+    // paste text from the insert register "^
+    m_lastChange.append( KateViKeyParser::self()->encodeKeySequence( "<esc>\"^p" ) );
+  }
+
 }
 
 void KateViInputModeManager::repeatLastChange()
@@ -260,10 +269,24 @@ void KateViInputModeManager::viEnterNormalMode()
   bool moveCursorLeft = (m_currentViMode == InsertMode || m_currentViMode == ReplaceMode)
     && m_viewInternal->getCursor().column() > 0;
 
+  if ( !isRunningMacro() && m_currentViMode == InsertMode ) {
+    // '^ is the insert mark and "^ is the insert register,
+    // which holds the last inserted text
+    Range r( m_view->cursorPosition(), getMarkPosition( '^' ) );
+
+    if ( r.isValid() ) {
+      QString insertedText = m_view->doc()->text( r );
+      KateGlobal::self()->viInputModeGlobal()->fillRegister( '^', insertedText );
+    }
+
+    addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  }
+
+  setTextualRepeat(false);
   changeViMode(NormalMode);
 
   if ( moveCursorLeft ) {
-      m_viewInternal->cursorLeft();
+    m_viewInternal->cursorLeft();
   }
   m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();
@@ -272,6 +295,8 @@ void KateViInputModeManager::viEnterNormalMode()
 void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
+  addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  m_keyEventsBeforeInsert = m_keyEventsLog;
   m_view->setCaretStyle( KateRenderer::Line, true );
   m_viewInternal->repaint ();
 }
@@ -487,7 +512,8 @@ void KateViInputModeManager::PrintJumpList(){
 
 }
 
-void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos )
+void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos,
+                                      const bool moveoninsert, const bool showmark )
 {
   m_mark_set_inside_viinputmodemanager = true;
   uint marktype = m_view->doc()->mark(pos.line());
@@ -509,11 +535,13 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
     delete oldCursor;
   }
 
+  KTextEditor::MovingCursor::InsertBehavior behavior = moveoninsert ? KTextEditor::MovingCursor::MoveOnInsert
+                                                                    : KTextEditor::MovingCursor::StayOnInsert;
   // create and remember new one
-  m_marks.insert( mark, doc->newMovingCursor( pos ) );
+  m_marks.insert( mark, doc->newMovingCursor( pos, behavior ) );
 
   // Showing what mark we set:
-  if (mark != '>' && mark != '<') {
+  if ( showmark && mark != '>' && mark != '<' ) {
     if( !marktype & KTextEditor::MarkInterface::markType01 ) {
       m_view->doc()->addMark( pos.line(),
           KTextEditor::MarkInterface::markType01 );

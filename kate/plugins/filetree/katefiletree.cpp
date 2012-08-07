@@ -300,7 +300,7 @@ void KateFileTree::slotCopyFilename()
 
 void KateFileTree::switchDocument( const QString &doc )
 {
-  if (doc == "") {
+  if (doc.isEmpty()) {
     slotDocumentPrev();
   } else {
     QModelIndexList matches =

@@ -173,7 +173,7 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   // document will be deleted, soon
   emit m_documentManager->documentWillBeDeleted (doc);
 
-  // really delete the document and it's infos
+  // really delete the document and its infos
   delete m_docInfos.take (doc);
   delete m_docList.takeAt (m_docList.indexOf(doc));
   

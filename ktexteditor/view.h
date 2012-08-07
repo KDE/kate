@@ -282,7 +282,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      *
      * \warning Use this with care! Plugin xml gui clients are not merged
      *          into this menu!
-     * \warning !!!!!! DONT USE THIS FUNCTION, UNLESS YOU ARE SURE YOU DON'T WANT PLUGINS TO WORK !!!!!!
+     * \warning !!!!!! DON'T USE THIS FUNCTION, UNLESS YOU ARE SURE YOU DON'T WANT PLUGINS TO WORK !!!!!!
      *
      * \param menu new context menu object for this view
      * \see contextMenu()

@@ -134,7 +134,7 @@ namespace Kate
        * \param encoding the preferred encoding. If encoding is QString() the
        *        encoding will be guessed or the default encoding will be used.
        * \return a pointer to the created view for the new document, if a document
-       *         with this url is already existing, it's view will be activated
+       *         with this url is already existing, its view will be activated
        */
       KTextEditor::View *openUrl (const KUrl &url, const QString &encoding = QString());
 
@@ -242,7 +242,7 @@ namespace Kate
       
       /**
        * This function is used by a plugin to open the kate configuration dialog
-       * at one of it's own config pages.
+       * at one of its own config pages.
        * \param configpageinterface the plugin config page interface of the plugin which requests the settings dialog
        * \param id the positional id of the page within the configuration
        */

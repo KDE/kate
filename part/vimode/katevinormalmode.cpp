@@ -36,11 +36,11 @@
 using KTextEditor::Cursor;
 using KTextEditor::Range;
 
-#define ADDCMD(STR,FUNC, FLGS) m_commands.push_back( \
+#define ADDCMD(STR, FUNC, FLGS) m_commands.push_back( \
     new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
-#define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( new \
-    KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+#define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( \
+    new KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
 
 KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view,
     KateViewInternal * viewInternal ) : KateViModeBase()
@@ -101,7 +101,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   if ( keyCode == Qt::Key_AltGr ) {
-    KateViKeyParser::getInstance()->setAltGrStatus( true );
+    KateViKeyParser::self()->setAltGrStatus( true );
     return true;
   }
 
@@ -111,7 +111,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  QChar key = KateViKeyParser::getInstance()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
+  QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
   if ( !m_mappingKeyPress && !m_ignoreMapping) {
@@ -149,7 +149,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     m_view->setCaretStyle( KateRenderer::Underline, true );
   }
 
-  m_keysVerbatim.append( KateViKeyParser::getInstance()->decodeKeySequence( key ) );
+  m_keysVerbatim.append( KateViKeyParser::self()->decodeKeySequence( key ) );
 
   QChar c = QChar::Null;
   if ( m_keys.size() > 0 ) {
@@ -201,7 +201,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     else {
       QChar r = m_keys[ 1 ].toLower();
 
-      if ( ( r >= '0' && r <= '9' ) || ( r >= 'a' && r <= 'z' ) || r == '_' || r == '+' || r == '*' ) {
+      if ( ( r >= '0' && r <= '9' ) || ( r >= 'a' && r <= 'z' ) ||
+           r == '_' || r == '+' || r == '*' || r == '#' || r == '^' ) {
         m_register = r;
         kDebug( 13070 ) << "Register set to " << r;
         m_keys.clear();
@@ -267,7 +268,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   // look for matching motion commands from position 'checkFrom'
   // FIXME: if checkFrom hasn't changed, only motions whose index is in
-  // m_matchingMotions shold be checked
+  // m_matchingMotions should be checked
   if ( checkFrom < m_keys.size() ) {
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
@@ -561,6 +562,21 @@ bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
   }
   cursor.setColumn( c );
   updateCursor( cursor );
+
+  m_stickyColumn = -1;
+  return startInsertMode();
+}
+
+/**
+ * enter insert mode at the last insert position
+ */
+
+bool KateViNormalMode::commandEnterInsertModeLast()
+{
+  Cursor c = m_view->getViInputModeManager()->getMarkPosition( '^' );
+  if ( c.isValid() ) {
+    updateCursor( c );
+  }
 
   m_stickyColumn = -1;
   return startInsertMode();
@@ -2793,6 +2809,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("A", commandEnterInsertModeAppendEOL, IS_CHANGE );
   ADDCMD("i", commandEnterInsertMode, IS_CHANGE );
   ADDCMD("I", commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE );
+  ADDCMD("gi", commandEnterInsertModeLast, IS_CHANGE );
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
   ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
@@ -2921,8 +2938,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
   ADDMOTION("%", motionToMatchingItem, IS_NOT_LINEWISE );
-  ADDMOTION("`[a-zA-Z><]", motionToMark, REGEX_PATTERN );
-  ADDMOTION("'[a-zA-Z><]", motionToMarkLine, REGEX_PATTERN );
+  ADDMOTION("`[a-zA-Z^><]", motionToMark, REGEX_PATTERN );
+  ADDMOTION("'[a-zA-Z^><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );

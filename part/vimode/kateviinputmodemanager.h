@@ -139,6 +139,29 @@ public:
   bool isRunningMacro() const { return m_runningMacro; }
 
   /**
+   * set whether insert mode should be repeated as text instead of
+   * keystrokes. the default is keystrokes, which is reset between
+   * changes. for example, when invoking a completion command in
+   * insert mode, textual repeat should be enabled since repeating the
+   * completion may yield different results elsewhere in the document.
+   * therefore, it is better to repeat the text itself. however, most
+   * insertion commands do not need textual repeat; it should only be
+   * used when the repeating of keystrokes leads to unpredictable
+   * results. indeed, in most cases, repeating the keystrokes is the
+   * most predictable approach.
+   * @see isTextualRepeat()
+   * @return true if insert mode should be repeated as text
+   */
+  void setTextualRepeat( bool b = true ) { m_textualRepeat = b; }
+
+  /**
+   * whether insert mode should be repeated as text instead of keystrokes.
+   * @see setTextualRepeat()
+   * @return true if insert mode should be repeated as text
+   */
+  bool isTextualRepeat() const { return m_textualRepeat; }
+
+  /**
    * append a QKeyEvent to the key event log
    */
   void appendKeyEventToLog(const QKeyEvent &e);
@@ -146,7 +169,7 @@ public:
   /**
    * clear the key event log
    */
-  void clearLog() { m_keyEventsLog.clear(); }
+  void clearLog() { m_keyEventsLog.clear(); m_keyEventsBeforeInsert.clear(); }
 
   /**
    * copy the contents of the key events log to m_lastChange so that it can be repeated
@@ -184,7 +207,7 @@ public:
 
   void reset();
 
-  // Jup Lists
+  // Jump Lists
   void addJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getNextJump(KTextEditor::Cursor cursor);
   KTextEditor::Cursor getPrevJump(KTextEditor::Cursor cursor);
@@ -195,7 +218,8 @@ public:
   void writeSessionConfig( KConfigGroup& config );
 
   // marks
-  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos );
+  void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos,
+                const bool moveoninsert = true, const bool showmark = true );
   KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;
   void syncViMarksAndBookmarks();
   QString getMarksOnTheLine(int line);
@@ -224,10 +248,21 @@ private:
   bool m_runningMacro;
 
   /**
+   * set to true when the insertion should be repeated as text
+   */
+  bool m_textualRepeat;
+
+  /**
    * a continually updated list of the key events that was part of the last change.
-   * updated until it is copied to m_lastChange when change is completed.
+   * updated until copied to m_lastChange when the change is completed.
    */
   QList<QKeyEvent> m_keyEventsLog;
+
+  /**
+   * like m_keyEventsLog, but excludes insert mode: that is, only the key events
+   * leading up to insert mode (like "i", "cw", and "o") are logged.
+   */
+  QList<QKeyEvent> m_keyEventsBeforeInsert;
 
   /**
    * a list of the key events that was part of the last change.

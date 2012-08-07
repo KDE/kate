@@ -189,6 +189,10 @@ bool KateViInsertMode::commandMoveOneWordRight()
 
 bool KateViInsertMode::commandCompleteNext()
 {
+  // Completion may yield different results when performed
+  // other places in the document. Therefore, repeat the
+  // inserted text instead of the typed keystrokes.
+  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     m_view->completionWidget()->cursorDown();
   } else {
@@ -199,6 +203,7 @@ bool KateViInsertMode::commandCompleteNext()
 
 bool KateViInsertMode::commandCompletePrevious()
 {
+  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     m_view->completionWidget()->cursorUp();
   } else {
@@ -304,6 +309,10 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       leaveInsertMode();
       return true;
       break;
+    case Qt::Key_Space:
+      commandCompleteNext();
+      return true;
+      break;
     case Qt::Key_C:
       leaveInsertMode( true );
       return true;
@@ -379,7 +388,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 
     // Was waiting for register for Ctrl-R
     if (m_keys == "cR"){
-        QChar key = KateViKeyParser::getInstance()->KeyEventToQChar(
+        QChar key = KateViKeyParser::self()->KeyEventToQChar(
                     e->key(),
                     e->text(),
                     e->modifiers(),

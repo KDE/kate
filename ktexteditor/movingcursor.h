@@ -70,7 +70,7 @@ class KTEXTEDITOR_EXPORT MovingCursor
   //
   public:
     /**
-     * Insert behavior of this cursor, should it stay if text is insert at it's position
+     * Insert behavior of this cursor, should it stay if text is insert at its position
      * or should it move.
      */
     enum InsertBehavior {

@@ -293,10 +293,8 @@ KateCommandLineBar::~KateCommandLineBar()
 {
 }
 
-// inserts the given string in the command line edit and (if selcted = true) selects it so the user
-// can type over it if she wants to
-// inserts the given string in the command line edit and selects it so the user can type over it if
-// she wants to
+// inserts the given string in the command line edit and (if selected = true) selects it so the user
+// can type over it if they want to
 void KateCommandLineBar::setText(const QString &text, bool selected)
 {
   m_lineEdit->setText(text);
@@ -535,7 +533,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       int position1 = calculatePosition(position_string1);
 
       int position2;
-      if (position_string2 != "") {
+      if (!position_string2.isEmpty()) {
         // remove the comma
         position_string2 = m_cmdRange.capturedTexts().at(5);
         position2 = calculatePosition(position_string2);
@@ -544,7 +542,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       }
 
       // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
-      if (cmd == "") {
+      if (cmd.isEmpty()) {
         cmd = QString("goto %1").arg(position1);
       } else {
         range.setRange(KTextEditor::Range(position1 - 1, 0, position2 - 1, 0));
@@ -570,8 +568,8 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
     m_msgMode = true;
 
-    // the foollowing commands changes the focus themselves, so bar should be hiden before execution.
-    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))){
+    // the following commands changes the focus themselves, so bar should be hidden before execution.
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
       emit hideRequested();
     }
 
@@ -1436,7 +1434,7 @@ void KateIconBorder::showBlock()
     }
     KateLineInfo info;
     tree->getLineInfo(&info, m_currentBlockLine);
-    if ((info.startsVisibleBlock)){
+    if ((info.startsVisibleBlock)) {
       node=tree->findNodeStartingAt(m_currentBlockLine);
       if (node) {
         if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {

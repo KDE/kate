@@ -422,7 +422,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   bool lastWasBrace = false;
 
-  // each found variable gets it's range(s) added to the list.
+  // each found variable gets its range(s) added to the list.
   // the key is the varname, e.g. the same as in initialValues
   // to be able to iterate over them in a FIFO matter, also store
   // the keys in a queue.
@@ -704,7 +704,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         column -= 2 + keyLength - initialVal.length();
 
         // always add ${...} to the editable ranges
-        // only add %{...} to the editable ranges when it's value equals the key
+        // only add %{...} to the editable ranges when its value equals the key
         ifDebug(kDebug() << "char is:" << c << "initial value is:" << initialValues[key] << " after fixup is:" << initialVal;)
         if (c == '$' || key == initialValues[key]) {
           if (!keyQueue.contains(key)) {

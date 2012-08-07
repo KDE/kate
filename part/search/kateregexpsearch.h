@@ -64,7 +64,7 @@ class KATEPART_TESTS_EXPORT KateRegExpSearch
         const KTextEditor::Range & inputRange, bool backwards = false);
 
     /**
-     * Returns a mofified version of text where escape sequences are resolved, e.g. "\\n" to "\n".
+     * Returns a modified version of text where escape sequences are resolved, e.g. "\\n" to "\n".
      *
      * \param text text containing escape sequences
      * \return text with resolved escape sequences
@@ -72,7 +72,7 @@ class KATEPART_TESTS_EXPORT KateRegExpSearch
     static QString escapePlaintext(const QString &text);
 
     /**
-     * Returns a mofified version of text where
+     * Returns a modified version of text where
      * \li escape sequences are resolved, e.g. "\\n" to "\n",
      * \li references are resolved, e.g. "\\1" to <i>1st entry in capturedTexts</i>, and
      * \li counter sequences are resolved, e.g. "\\#...#" to <i>replacementCounter</i>.

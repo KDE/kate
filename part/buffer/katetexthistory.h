@@ -70,7 +70,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
      * Transform a cursor from one revision to an other.
      * @param line line number of the cursor to transform
      * @param column column number of the cursor to transform
-     * @param insertBehavior behavior of this cursor on insert of text at it's position
+     * @param insertBehavior behavior of this cursor on insert of text at its position
      * @param fromRevision from this revision we want to transform
      * @param toRevision to this revision we want to transform, default of -1 is current revision
      */
@@ -79,7 +79,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
     /**
      * Transform a range from one revision to an other.
      * @param range range to transform
-     * @param insertBehaviors behavior of this range on insert of text at it's position
+     * @param insertBehaviors behavior of this range on insert of text at its position
      * @param emptyBehavior behavior on becoming empty
      * @param fromRevision from this revision we want to transform
      * @param toRevision to this revision we want to transform, default of -1 is current revision
@@ -96,7 +96,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * transform cursor for this history entry
          * @param line line number of the cursor to transform
          * @param column column number of the cursor to transform
-         * @param moveOnInsert behavior of this cursor on insert of text at it's position
+         * @param moveOnInsert behavior of this cursor on insert of text at its position
          */
         void transformCursor (int &line, int &column, bool moveOnInsert) const;
         
@@ -104,7 +104,7 @@ class KATEPART_TESTS_EXPORT TextHistory {
          * reverse transform cursor for this history entry
          * @param line line number of the cursor to transform
          * @param column column number of the cursor to transform
-         * @param moveOnInsert behavior of this cursor on insert of text at it's position
+         * @param moveOnInsert behavior of this cursor on insert of text at its position
          */
         void reverseTransformCursor (int &line, int &column, bool moveOnInsert) const;
 

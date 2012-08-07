@@ -47,12 +47,12 @@ bool KateProject::load (const QString &fileName)
    */
   if (!m_fileName.isEmpty())
     return false;
-  
+
   /**
    * set new filename
    */
   m_fileName = fileName;
-  
+
   /**
    * trigger reload
    */
@@ -67,7 +67,7 @@ bool KateProject::reload ()
   QFile file (m_fileName);
   if (!file.open (QFile::ReadOnly))
     return false;
-  
+
   /**
    * parse the whole file, bail out again on error!
    */
@@ -76,31 +76,31 @@ bool KateProject::reload ()
   QVariant project = parser.parse (&file, &ok);
   if (!ok)
     return false;
-  
+
   /**
    * now: get global group
    */
   QVariantMap globalGroup = project.toMap ();
-  
+
   /**
    * no name, bad => bail out
    */
   if (globalGroup["name"].toString().isEmpty())
     return false;
-  
+
   /**
    * setup global attributes in this object
    */
   m_name = globalGroup["name"].toString();
-  
+
   qDebug ("name %s", qPrintable(m_name));
-  
+
   /**
    * now, clear model once and load other stuff that is possible in all groups
    */
   m_model->clear ();
   loadGroup (m_model->invisibleRootItem(), globalGroup);
-  
+
   /**
    * done ok ;)
    */
@@ -110,30 +110,7 @@ bool KateProject::reload ()
 void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
 {
   /**
-   * load all specified files
-   */
-  QVariantList files = group["files"].toList ();
-  foreach (const QVariant &fileVariant, files) {
-    /**
-     * convert to map
-     */
-    QVariantMap file = fileVariant.toMap ();
-    
-    /**
-     * now, which kind of file spec we have?
-     */
-    
-    /**
-     * directory: xxx?
-     */
-    if (!file["directory"].toString().isEmpty()) {
-      loadDirectory (parent, file);
-      continue;
-    }
-  }
-  
-  /**
-   * recurse to sub-groups
+   * recurse to sub-groups FIRST
    */
   QVariantList subGroups = group["groups"].toList ();
   foreach (const QVariant &subGroupVariant, subGroups) {
@@ -143,13 +120,36 @@ void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
     QVariantMap subGroup = subGroupVariant.toMap ();
     if (subGroup["name"].toString().isEmpty())
       continue;
-    
+
     /**
      * recurse
      */
     QStandardItem *subGroupItem = new QStandardItem (QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small)), subGroup["name"].toString());
     loadGroup (subGroupItem, subGroup);
     parent->appendRow (subGroupItem);
+  }
+
+  /**
+   * load all specified files
+   */
+  QVariantList files = group["files"].toList ();
+  foreach (const QVariant &fileVariant, files) {
+    /**
+     * convert to map
+     */
+    QVariantMap file = fileVariant.toMap ();
+
+    /**
+     * now, which kind of file spec we have?
+     */
+
+    /**
+     * directory: xxx?
+     */
+    if (!file["directory"].toString().isEmpty()) {
+      loadDirectory (parent, file);
+      continue;
+    }
   }
 }
 
@@ -167,18 +167,18 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
    */
   if (path == "/")
     path = "";
-  
+
   /**
    * quick check: dir already seen?
    */
   if (dir2Item.contains (path))
     return dir2Item[path];
-  
+
   /**
    * else: construct recursively
    */
   int slashIndex = path.lastIndexOf ('/');
-  
+
   /**
    * no slash?
    * simple, no recursion, append new item toplevel
@@ -188,19 +188,19 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
     dir2Item[""]->appendRow (dir2Item[path]);
     return dir2Item[path];
   }
-  
+
   /**
    * else, split and recurse
    */
   QString leftPart = path.left (slashIndex);
   QString rightPart = path.right (path.size() - (slashIndex + 1));
-  
+
   /**
    * special handling if / with nothing on one side are found
    */
   if (leftPart.isEmpty() || rightPart.isEmpty ())
     return directoryParent (dir2Item, dirIcon, leftPart.isEmpty() ? rightPart : leftPart);
-  
+
   /**
    * else: recurse on left side
    */
@@ -217,26 +217,26 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QDir dir (QFileInfo (m_fileName).absoluteDir());
   if (!dir.cd (directory["directory"].toString()))
     return;
-  
+
   /**
    * default filter: only files!
    */
   dir.setFilter (QDir::Files);
-  
+
   /**
    * set name filters, if any
    */
   QStringList filters = directory["filters"].toStringList();
   if (!filters.isEmpty())
     dir.setNameFilters (filters);
-  
+
   /**
    * construct flags for iterator
    */
   QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
   if (directory["recursive"].toBool())
     flags = flags | QDirIterator::Subdirectories;
-  
+
   /**
    * create iterator
    */
@@ -250,13 +250,13 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
       * step to next value
       */
      dirIterator.next();
-     
+
      /**
       * get the right icon for the file
       */
-     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(dirIterator.filePath()));     
+     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(dirIterator.filePath()));
      QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
-     
+
      /**
       * construct the item with right directory prefix
       * already hang in directories in tree
@@ -265,7 +265,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
      item2ParentPath[fileItem] = directoryParent(dir2Item, dirIcon, dir.relativeFilePath (dirIterator.fileInfo().absolutePath()));
      fileItem->setData (dirIterator.filePath(), Qt::UserRole);
   }
-  
+
   /**
    * hang in files to the tree
    */

@@ -107,18 +107,16 @@ void KatePluginManager::loadConfig (KConfig* config)
     KConfigGroup cg = KConfigGroup(config, "Kate Plugins");
 
     // disable all plugin if no config...
-    foreach (const KatePluginInfo &plugin, m_pluginList) {
-      plugin.load = cg.readEntry (plugin.service->library(), false);
-    }
+    for (int i = 0; i < m_pluginList.size(); ++i)
+      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), false);
   }
   
   /**
    * some plugins should be always loaded, like the holy filetree
    */
-  foreach (const KatePluginInfo &plugin, m_pluginList) {
-    if (plugin.service->property("X-Kate-LoadAlways").toBool())
-      plugin.load = true;    
-  }
+  for (int i = 0; i < m_pluginList.size(); ++i)
+    if (m_pluginList[i].service->property("X-Kate-LoadAlways").toBool())
+      m_pluginList[i].load = true;    
   
   for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
   {

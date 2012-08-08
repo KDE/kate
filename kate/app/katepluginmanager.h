@@ -37,7 +37,7 @@ class KateMainWindow;
 class KatePluginInfo
 {
   public:
-    mutable bool load;
+    bool load;
     bool alwaysLoad;
     KService::Ptr service;
     Kate::Plugin *plugin;

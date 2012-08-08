@@ -268,14 +268,45 @@ bool KatePluginManager::pluginAvailable (const QString &name)
   return m_name2Plugin.contains (name);
 }
 
-class Kate::Plugin *KatePluginManager::loadPlugin(const QString &, bool )
+class Kate::Plugin *KatePluginManager::loadPlugin (const QString &name, bool permanent)
 {
+  /**
+   * name known?
+   */
+  if (!m_name2Plugin.contains(name))
     return 0;
+  
+  /**
+   * load, bail out on error
+   */
+  loadPlugin (m_name2Plugin.value(name));
+  if (!m_name2Plugin.value(name)->plugin)
+    return 0;
+  
+  /**
+   * perhaps patch not load again back to "ok, load it once again on next loadConfig"
+   */
+  m_name2Plugin.value(name)->load = permanent;
+  return m_name2Plugin.value(name)->plugin;
 }
 
-void KatePluginManager::unloadPlugin(const QString &, bool)
+void KatePluginManager::unloadPlugin (const QString &name, bool permanent)
 {
-  ;
+  /**
+   * name known?
+   */
+  if (!m_name2Plugin.contains(name))
+    return;
+  
+  /**
+   * unload
+   */
+  unloadPlugin (m_name2Plugin.value(name));
+  
+  /**
+   * perhaps patch load again back to "ok, load it once again on next loadConfig"
+   */
+  m_name2Plugin.value(name)->load = !permanent;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -61,6 +61,7 @@ namespace Kate
        * \param pluginManager internal usage
        */
       PluginManager ( void *pluginManager  );
+      
       /**
        * Virtual destructor.
        */
@@ -92,9 +93,8 @@ namespace Kate
        *        current session.
        * \return pointer to the plugin on success, otherwise NULL
        * \see unloadPlugin()
-       * \todo This method is not used yet, i.e. returns always NULL.
        */
-      class Plugin *loadPlugin(const QString &name, bool permanent = true);
+      class Plugin *loadPlugin (const QString &name, bool permanent = true);
 
       /**
        * Unload the plugin \p name.
@@ -104,16 +104,14 @@ namespace Kate
        *        next Kate startup, \e even if it was loaded with permanent set
        *        to \e true.
        * \see loadPlugin()
-       * \todo This method is not used yet, i.e. does nothing.
        */
-      void unloadPlugin(const QString &name, bool permanent = true);
+      void unloadPlugin (const QString &name, bool permanent = true);
 
     private:
       class PrivatePluginManager *d;
   };
-
 }
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

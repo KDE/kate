@@ -180,14 +180,18 @@ void KatePluginManager::loadPlugin (KatePluginInfo *item)
 {
   QString pluginName = item->service->library();
   item->load = (item->plugin = item->service->createInstance<Kate::Plugin>(Kate::application(), QVariantList() << pluginName));
+  if (item->plugin)
+    emit m_pluginManager->pluginLoaded (pluginName, item->plugin);
 }
 
 void KatePluginManager::unloadPlugin (KatePluginInfo *item)
 {
   disablePluginGUI (item);
   delete item->plugin;
+  Kate::Plugin *plugin = item->plugin;
   item->plugin = 0L;
   item->load=false;
+  emit m_pluginManager->pluginUnloaded (item->service->library(), plugin);
 }
 
 void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)

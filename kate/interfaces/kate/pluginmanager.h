@@ -107,6 +107,37 @@ namespace Kate
        */
       void unloadPlugin (const QString &name, bool permanent = true);
 
+      //
+      // SIGNALS !!!
+      //
+#ifndef Q_MOC_RUN
+#undef signals
+#define signals public
+#endif
+    signals:
+#ifndef Q_MOC_RUN
+#undef signals
+#define signals protected
+#endif
+
+      /**
+       * New plugin loaded.
+       * @param name name of new loaded plugin
+       * @param plugin new loaded plugin
+       */
+      void pluginLoaded (const QString &name, Kate::Plugin *plugin);
+      
+      /**
+       * This signal is emitted when the plugin has been unloaded, aka deleted.
+       *
+       *  Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+       *  Use the pointer only to remove mappings in hash or maps
+       * 
+       * @param name name of unloaded plugin
+       * @param plugin unloaded plugin, already deleted
+       */
+      void pluginUnloaded (const QString &name, Kate::Plugin *plugin);
+      
     private:
       class PrivatePluginManager *d;
   };

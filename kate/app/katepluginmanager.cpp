@@ -35,11 +35,7 @@
 
 QString KatePluginInfo::saveName() const
 {
-  QString saveName = service->property("X-Kate-PluginName").toString();
-
-  if (saveName.isEmpty())
-    saveName = service->library();
-  return saveName;
+  return service->library();
 }
 
 KatePluginManager::KatePluginManager(QObject *parent) : QObject (parent)
@@ -105,8 +101,7 @@ void KatePluginManager::loadConfig (KConfig* config)
 
     // disable all plugin if no config...
     foreach (const KatePluginInfo &plugin, m_pluginList) {
-      plugin.load = cg.readEntry (plugin.service->library(), false) ||
-                  cg.readEntry (plugin.service->property("X-Kate-PluginName").toString(), false);
+      plugin.load = cg.readEntry (plugin.service->library(), false);
     }
   }
   
@@ -176,11 +171,7 @@ void KatePluginManager::disableAllPluginsGUI (KateMainWindow *win)
 
 void KatePluginManager::loadPlugin (KatePluginInfo *item)
 {
-  QString pluginName = item->service->property("X-Kate-PluginName").toString();
-
-  if (pluginName.isEmpty())
-    pluginName = item->service->library();
-
+  QString pluginName = item->service->library();
   item->load = (item->plugin = item->service->createInstance<Kate::Plugin>(Kate::application(), QVariantList() << pluginName));
 }
 
@@ -255,9 +246,7 @@ Kate::Plugin *KatePluginManager::plugin(const QString &name)
 {
   foreach(const KatePluginInfo &info, m_pluginList)
   {
-    QString pluginName = info.service->property("X-Kate-PluginName").toString();
-    if (pluginName.isEmpty())
-      pluginName = info.service->library();
+    QString pluginName = info.service->library();
     if  (pluginName == name)
     {
       if (info.plugin)

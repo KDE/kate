@@ -305,6 +305,8 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
 
             if (m_view->hasFocus())
                 s |= QAccessible::Focused;
+
+            s |= QAccessible::HasInvokeExtension;
             return s;
         }
 

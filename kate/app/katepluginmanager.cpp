@@ -57,7 +57,7 @@ KatePluginManager *KatePluginManager::self()
 
 void KatePluginManager::setupPluginList ()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query("Kate/Plugin", "(not ('Kate/ProjectPlugin' in ServiceTypes)) and (not ('Kate/InitPlugin' in ServiceTypes))");
+  KService::List traderList = KServiceTypeTrader::self()->query("Kate/Plugin");
 
   KatePluginList alwaysLoad;
   KatePluginList others;

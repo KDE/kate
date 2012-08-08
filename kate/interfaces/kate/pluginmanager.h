@@ -73,15 +73,14 @@ namespace Kate
        * \return pointer to the plugin if a plugin with \p name is loaded,
        *         otherwise NULL
        */
-      class Plugin *plugin(const QString &name);
+      class Plugin *plugin (const QString &name);
 
       /**
        * Check, whether a plugin with \p name exists.
        *
        * \return \e true if the plugin exists, otherwise \e false
-       * \todo This method is not used yet, i.e. returns always \e false.
        */
-      bool pluginAvailable(const QString &name);
+      bool pluginAvailable (const QString &name);
 
       /**
        * Load the plugin \p name.

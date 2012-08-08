@@ -86,6 +86,13 @@ void KatePluginManager::setupPluginList ()
    */
   m_pluginList = alwaysLoad;
   m_pluginList << others;
+  
+  /**
+   * construct fast lookup map
+   */
+  m_name2Plugin.clear ();
+  for (int i = 0; i < m_pluginList.size(); ++i)
+    m_name2Plugin[m_pluginList[i].service->library()] = &(m_pluginList[i]);
 }
 
 void KatePluginManager::loadConfig (KConfig* config)
@@ -242,33 +249,34 @@ void KatePluginManager::disablePluginGUI (KatePluginInfo *item)
     disablePluginGUI (item, KateApp::self()->mainWindow(i));
 }
 
-Kate::Plugin *KatePluginManager::plugin(const QString &name)
+Kate::Plugin *KatePluginManager::plugin (const QString &name)
 {
-  foreach(const KatePluginInfo &info, m_pluginList)
-  {
-    QString pluginName = info.service->library();
-    if  (pluginName == name)
-    {
-      if (info.plugin)
-        return info.plugin;
-      else
-        break;
-    }
-  }
-  return 0;
+  /**
+   * name known?
+   */
+  if (!m_name2Plugin.contains(name))
+    return 0;
+  
+  /**
+   * real plugin instance, if any ;)
+   */
+  return m_name2Plugin.value(name)->plugin;
 }
 
-bool KatePluginManager::pluginAvailable(const QString &)
+bool KatePluginManager::pluginAvailable (const QString &name)
 {
-  return false;
+  return m_name2Plugin.contains (name);
 }
+
 class Kate::Plugin *KatePluginManager::loadPlugin(const QString &, bool )
 {
     return 0;
 }
+
 void KatePluginManager::unloadPlugin(const QString &, bool)
 {
   ;
 }
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

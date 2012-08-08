@@ -44,7 +44,7 @@ class KatePluginInfo
     QString saveName() const;
 };
 
-typedef QLinkedList<KatePluginInfo> KatePluginList;
+typedef QList<KatePluginInfo> KatePluginList;
 
 class KatePluginManager : public QObject
 {
@@ -94,7 +94,16 @@ class KatePluginManager : public QObject
 
     void setupPluginList ();
 
+    /**
+     * all known plugins
+     */
     KatePluginList m_pluginList;
+    
+    /**
+     * fast access map from name => plugin info
+     * uses the info stored in the plugin list
+     */
+    QMap<QString, KatePluginInfo *> m_name2Plugin;
 };
 
 #endif

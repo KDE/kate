@@ -275,7 +275,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
         {
             if (child == KateCursorAccessible::ChildId)
                 return QAccessible::Cursor;
-            return QAccessible::Document;
+            return QAccessible::EditableText;
         }
 
         virtual void setText(QAccessible::Text t, int child, const QString & text)

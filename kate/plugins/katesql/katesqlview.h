@@ -52,6 +52,7 @@ class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
     void slotConnectionCreate();
     void slotConnectionEdit();
     void slotConnectionRemove();
+    void slotConnectionReconnect();
     void slotConnectionChanged(const QString &connection);
     void slotRunQuery();
     void slotError(const QString &message);
@@ -61,6 +62,7 @@ class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
     void slotGlobalSettingsChanged();
     void slotSQLMenuAboutToShow();
     void slotConnectionSelectedFromMenu(QAction *action);
+    void slotConnectionAboutToBeClosed(const QString &name);
 
   protected:
     void setupActions();

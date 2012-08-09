@@ -236,24 +236,6 @@ void DataOutputWidget::slotExport()
 
   if (outputInDocument)
   {
-    /* New document
-    Kate::MainWindow *mw = Kate::application()->activeMainWindow();
-    Kate::DocumentManager *dm = Kate::application()->documentManager();
-
-    QString text;
-    QTextStream stream(&text);
-
-    exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
-
-    KTextEditor::Document *doc = dm->openUrl(KUrl());
-
-    doc->setText(text);
-
-    KTextEditor::View *kv = mw->activateView(doc);
-
-    kv->setFocus();
-    */
-
     Kate::MainWindow *mw = Kate::application()->activeMainWindow();
     KTextEditor::View *kv = mw->activeView();
 

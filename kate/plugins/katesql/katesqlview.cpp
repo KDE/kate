@@ -98,6 +98,7 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
   connect(m_manager, SIGNAL(success(QString)), this, SLOT(slotSuccess(QString)));
   connect(m_manager, SIGNAL(queryActivated(QSqlQuery&,QString)), this, SLOT(slotQueryActivated(QSqlQuery&,QString)));
   connect(m_manager, SIGNAL(connectionCreated(QString)), this, SLOT(slotConnectionCreated(QString)));
+  connect(m_manager, SIGNAL(connectionAboutToBeClosed(QString)), this, SLOT(slotConnectionAboutToBeClosed(QString)));
   connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotConnectionChanged(QString)));
 
   stateChanged("has_connection_selected", KXMLGUIClient::StateReverse);
@@ -135,6 +136,11 @@ void KateSQLView::setupActions()
   action->setText( i18nc("@action:inmenu", "Edit connection...") );
   action->setIcon( KIcon("configure") );
   connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionEdit()) );
+
+  action = collection->addAction("connection_reconnect");
+  action->setText( i18nc("@action:inmenu", "Reconnect") );
+  action->setIcon(  KIcon("view-refresh") );
+  connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionReconnect()) );
 
   action = collection->addAction("connection_chooser");
   action->setText( i18nc("@action:intoolbar", "Connection") );
@@ -282,10 +288,6 @@ void KateSQLView::slotConnectionEdit()
   if (wizard.exec() != QDialog::Accepted)
     return;
 
-  /// i need to delete the QSqlQuery object inside the model before closing connection
-  if (previousName == m_currentResultsetConnection)
-    m_dataOutputWidget->clearResults();
-
   m_manager->removeConnection(previousName);
   m_manager->createConnection(c);
 
@@ -299,13 +301,25 @@ void KateSQLView::slotConnectionRemove()
   QString connection = m_connectionsComboBox->currentText();
 
   if (!connection.isEmpty())
-  {
-    /// i need to delete the QSqlQuery object inside the model before closing connection
-    if (connection == m_currentResultsetConnection)
-      m_dataOutputWidget->clearResults();
-
     m_manager->removeConnection(connection);
-  }
+}
+
+
+void KateSQLView::slotConnectionReconnect()
+{
+  QString connection = m_connectionsComboBox->currentText();
+
+  if (!connection.isEmpty())
+    m_manager->reopenConnection(connection);
+}
+
+
+void KateSQLView::slotConnectionAboutToBeClosed (const QString& name)
+{
+  /// must delete the QSqlQuery object inside the model before closing connection
+
+  if (name == m_currentResultsetConnection)
+    m_dataOutputWidget->clearResults();
 }
 
 

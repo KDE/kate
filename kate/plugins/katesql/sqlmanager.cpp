@@ -173,6 +173,17 @@ bool SQLManager::isValidAndOpen(const QString &connection)
 }
 
 
+void SQLManager::reopenConnection (const QString& name)
+{
+  emit connectionAboutToBeClosed(name);
+
+  QSqlDatabase db = QSqlDatabase::database(name);
+
+  db.close();
+  isValidAndOpen(name);
+}
+
+
 Wallet *SQLManager::openWallet()
 {
   if (!m_wallet)
@@ -246,6 +257,8 @@ ConnectionModel* SQLManager::connectionModel()
 
 void SQLManager::removeConnection(const QString &name)
 {
+  emit connectionAboutToBeClosed(name);
+
   m_model->removeConnection(name);
 
   QSqlDatabase::removeDatabase(name);
@@ -330,13 +343,23 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
   if (!query.prepare(text))
   {
-    emit error(query.lastError().text());
+    QSqlError err = query.lastError();
+
+    if (err.type() == QSqlError::ConnectionError)
+      m_model->setStatus(connection, Connection::OFFLINE);
+
+    emit error(err.text());
     return;
   }
 
   if (!query.exec())
   {
-    emit error(query.lastError().text());
+    QSqlError err = query.lastError();
+
+    if (err.type() == QSqlError::ConnectionError)
+      m_model->setStatus(connection, Connection::OFFLINE);
+
+    emit error(err.text());
     return;
   }
 

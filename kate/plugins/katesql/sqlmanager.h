@@ -45,6 +45,7 @@ class SQLManager : public QObject
 
   public slots:
     void removeConnection(const QString &name);
+    void reopenConnection(const QString &name);
     void loadConnections(KConfigGroup *connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
     void runQuery(const QString &text, const QString &connection );
@@ -55,6 +56,7 @@ class SQLManager : public QObject
   signals:
     void connectionCreated(const QString &name);
     void connectionRemoved(const QString &name);
+    void connectionAboutToBeClosed(const QString &name);
 
     void queryActivated(QSqlQuery &query, const QString &connection);
 

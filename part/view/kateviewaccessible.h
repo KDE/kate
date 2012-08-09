@@ -397,16 +397,25 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
 
         virtual QString textAfterOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
         {
+            if (boundaryType == QAccessible2::LineBoundary)
+                return textLine(1, offset + 1, startOffset, endOffset);
+
             const QString text = view()->view()->document()->text();
             return qTextAfterOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
         virtual QString textAtOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
         {
+            if (boundaryType == QAccessible2::LineBoundary)
+                return textLine(0, offset, startOffset, endOffset);
+
             const QString text = view()->view()->document()->text();
             return qTextAtOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
         virtual QString textBeforeOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
         {
+            if (boundaryType == QAccessible2::LineBoundary)
+                return textLine(-1, offset - 1, startOffset, endOffset);
+
             const QString text = view()->view()->document()->text();
             return qTextBeforeOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
@@ -420,7 +429,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             return static_cast<KateViewInternal*>(object());
         }
 
-        KTextEditor::Cursor cursorFromInt(int position)
+        KTextEditor::Cursor cursorFromInt(int position) const
         {
             int line = 0;
             for (;;) {
@@ -436,7 +445,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             return KTextEditor::Cursor(line, position);
         }
 
-        int positionFromCursor(const KTextEditor::Cursor &cursor)
+        int positionFromCursor(const KTextEditor::Cursor &cursor) const
         {
             int pos = 0;
             for (int line = 0; line < cursor.line(); ++line) {
@@ -446,6 +455,18 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             pos += cursor.column();
 
             return pos;
+        }
+
+        QString textLine(int shiftLines, int offset, int* startOffset, int* endOffset) const
+        {
+            KTextEditor::Cursor pos = cursorFromInt(offset);
+            pos.setColumn(0);
+            if (shiftLines)
+                pos.setLine(pos.line() + shiftLines);
+            *startOffset = positionFromCursor(pos);
+            QString line = view()->view()->document()->line(pos.line()) + '\n';
+            *endOffset = *startOffset + line.length();
+            return line;
         }
 
         KateCursorAccessible *m_cursor;

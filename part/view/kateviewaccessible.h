@@ -381,9 +381,12 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
         {
             // FIXME
         }
-        virtual void setSelection(int /*selectionIndex*/, int /*startOffset*/, int /*endOffset*/)
+        virtual void setSelection(int selectionIndex, int startOffset, int endOffset)
         {
-            // FIXME
+            if (selectionIndex != 0)
+                return;
+            KTextEditor::Range range = KTextEditor::Range(cursorFromInt(startOffset), cursorFromInt(endOffset));
+            view()->view()->setSelection(range);
         }
         virtual QString text(int startOffset, int endOffset)
         {

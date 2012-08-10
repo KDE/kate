@@ -196,6 +196,10 @@ Wallet *SQLManager::openWallet()
 // return 0 on success, -1 on error, -2 on user reject
 int SQLManager::storeCredentials(const Connection &conn)
 {
+  // Sqlite is without password, avoid to open wallet
+  if (conn.driver.contains("QSQLITE"))
+    return 0;
+
   Wallet *wallet = openWallet();
 
   if (!wallet) // user reject
